@@ -9,7 +9,7 @@
     noRot: true
     sprite: _NF/Objects/Specific/Mech/mecha.rsi
     layers:
-    - map: [ "enum.MechVisualLayers.Base" ]
+    - map: ["enum.MechVisualLayers.Base"]
       state: emu-empty
   - type: FootstepModifier
     footstepSoundCollection:
@@ -23,7 +23,7 @@
     mechToPilotDamageMultiplier: 0.75
     pilotWhitelist:
       components:
-        - HumanoidAppearance
+      - HumanoidAppearance
     startingEquipment:
     - MechEquipmentFork
     canRemoveEquipment: false
@@ -52,7 +52,7 @@
   id: MechEmuCargo
   parent: MechEmu
   suffix: Cargo, Med Battery
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: ContainerFill
     containers:

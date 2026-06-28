@@ -1,16 +1,21 @@
-using Content.Shared.Popups;
-using Content.Shared.Verbs;
-using Content.Shared.Examine;
-using Content.Shared.Radio.Components;
 using Content.Shared.DeviceNetwork.Systems;
+using Content.Shared.Examine;
+using Content.Shared.Popups;
+using Content.Shared.Radio.Components;
+using Content.Shared.Verbs;
 
 namespace Content.Shared.Radio.EntitySystems;
 
 public abstract class SharedJammerSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedDeviceNetworkJammerSystem _jammer = default!;
-    [Dependency] protected readonly SharedPopupSystem Popup = default!;
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SharedDeviceNetworkJammerSystem _jammer = default!;
+
+    [Dependency]
+    protected readonly SharedPopupSystem Popup = default!;
 
     public override void Initialize()
     {
@@ -90,5 +95,4 @@ public abstract class SharedJammerSystem : EntitySystem
     {
         _appearance.SetData(ent, RadioJammerVisuals.ChargeLevel, chargeLevel, ent.Comp);
     }
-
 }

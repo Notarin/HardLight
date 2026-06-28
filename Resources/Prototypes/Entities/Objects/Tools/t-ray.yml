@@ -17,8 +17,8 @@
     visuals:
       enum.TrayScannerVisual.Visual:
         base:
-          On: { state: tray-on }
-          Off: { state: tray-off }
+          On: {state: tray-on}
+          Off: {state: tray-off}
   - type: PhysicalComposition
     materialComposition:
       Steel: 400

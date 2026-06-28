@@ -1,29 +1,45 @@
+using Content.Shared._Shitmed.Targeting; // Shitmed Change
 using Content.Shared.Administration.Logs;
 using Content.Shared.Damage.Components;
 using Content.Shared.Database;
+using Content.Shared.Hands.Components; // Shitmed Change
 using Content.Shared.Interaction;
 using Content.Shared.Inventory;
 using Content.Shared.Popups;
-using Robust.Shared.Random;
 using Content.Shared.Throwing;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Network;
+using Robust.Shared.Random;
 using Robust.Shared.Timing;
-using Content.Shared._Shitmed.Targeting; // Shitmed Change
-using Content.Shared.Hands.Components; // Shitmed Change
 
 namespace Content.Shared.Damage.Systems;
 
 public sealed class DamageOnInteractSystem : EntitySystem
 {
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly DamageableSystem _damageableSystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audioSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly InventorySystem _inventorySystem = default!;
-    [Dependency] private readonly ThrowingSystem _throwingSystem = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
+    [Dependency]
+    private readonly ISharedAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    private readonly DamageableSystem _damageableSystem = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audioSystem = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly InventorySystem _inventorySystem = default!;
+
+    [Dependency]
+    private readonly ThrowingSystem _throwingSystem = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
+
     //[Dependency] private readonly SharedStunSystem _stun = default!;
 
     public override void Initialize()
@@ -58,12 +74,17 @@ public sealed class DamageOnInteractSystem : EntitySystem
         if (!entity.Comp.IgnoreResistances)
         {
             // try to get damage on interact protection from either the inventory slots of the entity
-            _inventorySystem.TryGetInventoryEntity<DamageOnInteractProtectionComponent>(args.User, out var protectiveEntity);
+            _inventorySystem.TryGetInventoryEntity<DamageOnInteractProtectionComponent>(
+                args.User,
+                out var protectiveEntity
+            );
 
             // or checking the entity for  the comp itself if the inventory didn't work
-            if (protectiveEntity.Comp == null && TryComp<DamageOnInteractProtectionComponent>(args.User, out var protectiveComp))
+            if (
+                protectiveEntity.Comp == null
+                && TryComp<DamageOnInteractProtectionComponent>(args.User, out var protectiveComp)
+            )
                 protectiveEntity = (args.User, protectiveComp);
-
 
             // if protectiveComp isn't null after all that, it means the user has protection,
             // so let's calculate how much they resist
@@ -82,11 +103,16 @@ public sealed class DamageOnInteractSystem : EntitySystem
             {
                 HandLocation.Left => TargetBodyPart.LeftHand,
                 HandLocation.Right => TargetBodyPart.RightHand,
-                _ => null
+                _ => null,
             };
         }
 
-        totalDamage = _damageableSystem.TryChangeDamage(args.User, totalDamage, origin: args.Target, targetPart: targetPart);
+        totalDamage = _damageableSystem.TryChangeDamage(
+            args.User,
+            totalDamage,
+            origin: args.Target,
+            targetPart: targetPart
+        );
         // Shitmed Change End
 
         if (totalDamage != null && totalDamage.AnyPositive())
@@ -96,7 +122,10 @@ public sealed class DamageOnInteractSystem : EntitySystem
             entity.Comp.NextInteraction = _gameTiming.CurTime + TimeSpan.FromSeconds(entity.Comp.InteractTimer);
 
             args.Handled = true;
-            _adminLogger.Add(LogType.Damaged, $"{ToPrettyString(args.User):user} injured their hand by interacting with {ToPrettyString(args.Target):target} and received {totalDamage.GetTotal():damage} damage");
+            _adminLogger.Add(
+                LogType.Damaged,
+                $"{ToPrettyString(args.User):user} injured their hand by interacting with {ToPrettyString(args.Target):target} and received {totalDamage.GetTotal():damage} damage"
+            );
             _audioSystem.PlayPredicted(entity.Comp.InteractSound, args.Target, args.User);
 
             if (entity.Comp.PopupText != null)

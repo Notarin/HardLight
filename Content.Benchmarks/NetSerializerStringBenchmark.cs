@@ -83,13 +83,13 @@ namespace Content.Benchmarks
         {
             if (value == null)
             {
-                Primitives.WritePrimitive(stream, (uint) 0);
+                Primitives.WritePrimitive(stream, (uint)0);
                 return;
             }
 
             if (value.Length == 0)
             {
-                Primitives.WritePrimitive(stream, (uint) 1);
+                Primitives.WritePrimitive(stream, (uint)1);
                 return;
             }
 
@@ -98,8 +98,8 @@ namespace Content.Benchmarks
             var totalChars = value.Length;
             var totalBytes = Encoding.UTF8.GetByteCount(value);
 
-            Primitives.WritePrimitive(stream, (uint) totalBytes + 1);
-            Primitives.WritePrimitive(stream, (uint) totalChars);
+            Primitives.WritePrimitive(stream, (uint)totalBytes + 1);
+            Primitives.WritePrimitive(stream, (uint)totalChars);
 
             var totalRead = 0;
             ReadOnlySpan<char> span = value;
@@ -139,7 +139,7 @@ namespace Content.Benchmarks
 
             Primitives.ReadPrimitive(stream, out uint totalChars);
 
-            value = string.Create((int) totalChars, ((int) totalBytes, stream), StringSpanRead);
+            value = string.Create((int)totalChars, ((int)totalBytes, stream), StringSpanRead);
         }
 
         private static void StringSpanRead(Span<char> span, (int totalBytes, Stream stream) tuple)
@@ -160,11 +160,18 @@ namespace Content.Benchmarks
                 var bytesReadLeft = Math.Min(buf.Length, bytesLeft);
                 var writeSlice = buf[writeBufStart..(bytesReadLeft - writeBufStart)];
                 var bytesInBuffer = stream.Read(writeSlice);
-                if (bytesInBuffer == 0) throw new EndOfStreamException();
+                if (bytesInBuffer == 0)
+                    throw new EndOfStreamException();
 
                 var readFromStream = bytesInBuffer + writeBufStart;
                 var final = readFromStream == bytesLeft;
-                var status = Utf8.ToUtf16(buf[..readFromStream], span[totalCharsRead..], out var bytesRead, out var charsRead, isFinalBlock: final);
+                var status = Utf8.ToUtf16(
+                    buf[..readFromStream],
+                    span[totalCharsRead..],
+                    out var bytesRead,
+                    out var charsRead,
+                    isFinalBlock: final
+                );
 
                 totalBytesRead += bytesRead;
                 totalCharsRead += charsRead;
@@ -196,12 +203,12 @@ namespace Content.Benchmarks
         {
             if (value == null)
             {
-                Primitives.WritePrimitive(stream, (uint) 0);
+                Primitives.WritePrimitive(stream, (uint)0);
                 return;
             }
             else if (value.Length == 0)
             {
-                Primitives.WritePrimitive(stream, (uint) 1);
+                Primitives.WritePrimitive(stream, (uint)1);
                 return;
             }
 
@@ -209,8 +216,8 @@ namespace Content.Benchmarks
 
             var len = encoding.GetByteCount(value);
 
-            Primitives.WritePrimitive(stream, (uint) len + 1);
-            Primitives.WritePrimitive(stream, (uint) value.Length);
+            Primitives.WritePrimitive(stream, (uint)len + 1);
+            Primitives.WritePrimitive(stream, (uint)value.Length);
 
             var buf = new byte[len];
 
@@ -246,7 +253,7 @@ namespace Content.Benchmarks
 
             while (l < len)
             {
-                var r = stream.Read(buf, l, (int) len - l);
+                var r = stream.Read(buf, l, (int)len - l);
                 if (r == 0)
                     throw new EndOfStreamException();
                 l += r;
@@ -311,12 +318,12 @@ namespace Content.Benchmarks
         {
             if (value == null)
             {
-                Primitives.WritePrimitive(stream, (uint) 0);
+                Primitives.WritePrimitive(stream, (uint)0);
                 return;
             }
             else if (value.Length == 0)
             {
-                Primitives.WritePrimitive(stream, (uint) 1);
+                Primitives.WritePrimitive(stream, (uint)1);
                 return;
             }
 
@@ -333,8 +340,8 @@ namespace Content.Benchmarks
             fixed (char* ptr = value)
                 totalBytes = encoder.GetByteCount(ptr, totalChars, true);
 
-            Primitives.WritePrimitive(stream, (uint) totalBytes + 1);
-            Primitives.WritePrimitive(stream, (uint) totalChars);
+            Primitives.WritePrimitive(stream, (uint)totalBytes + 1);
+            Primitives.WritePrimitive(stream, (uint)totalChars);
 
             var p = 0;
             var completed = false;
@@ -347,8 +354,16 @@ namespace Content.Benchmarks
                 fixed (char* src = value)
                 fixed (byte* dst = buf)
                 {
-                    encoder.Convert(src + p, totalChars - p, dst, buf.Length, true,
-                        out charsConverted, out bytesConverted, out completed);
+                    encoder.Convert(
+                        src + p,
+                        totalChars - p,
+                        dst,
+                        buf.Length,
+                        true,
+                        out charsConverted,
+                        out bytesConverted,
+                        out completed
+                    );
                 }
 
                 stream.Write(buf, 0, bytesConverted);
@@ -388,7 +403,7 @@ namespace Content.Benchmarks
             else
                 chars = new char[totalChars];
 
-            var streamBytesLeft = (int) totalBytes;
+            var streamBytesLeft = (int)totalBytes;
 
             var cp = 0;
 
@@ -413,7 +428,7 @@ namespace Content.Benchmarks
                         bytesInBuffer - p,
                         chars,
                         cp,
-                        (int) totalChars - cp,
+                        (int)totalChars - cp,
                         flush,
                         out var bytesConverted,
                         out var charsConverted,
@@ -425,7 +440,7 @@ namespace Content.Benchmarks
                 }
             }
 
-            value = new string(chars, 0, (int) totalChars);
+            value = new string(chars, 0, (int)totalChars);
         }
     }
 }

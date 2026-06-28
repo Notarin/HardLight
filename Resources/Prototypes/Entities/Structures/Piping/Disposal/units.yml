@@ -14,28 +14,27 @@
     sprite: Structures/Piping/disposal.rsi
     layers:
     - state: condisposal
-      map: [ "enum.DisposalUnitVisualLayers.Unanchored" ]
+      map: ["enum.DisposalUnitVisualLayers.Unanchored"]
     - state: disposal
-      map: [ "enum.DisposalUnitVisualLayers.Base" ]
+      map: ["enum.DisposalUnitVisualLayers.Base"]
     - state: disposal-charging
-      map: [ "enum.DisposalUnitVisualLayers.BaseCharging" ]
+      map: ["enum.DisposalUnitVisualLayers.BaseCharging"]
     - state: disposal-flush
-      map: [ "enum.DisposalUnitVisualLayers.OverlayFlush" ]
+      map: ["enum.DisposalUnitVisualLayers.OverlayFlush"]
     - state: dispover-charge
-      map: [ "enum.DisposalUnitVisualLayers.OverlayCharging" ]
+      map: ["enum.DisposalUnitVisualLayers.OverlayCharging"]
     - state: dispover-ready
-      map: [ "enum.DisposalUnitVisualLayers.OverlayReady" ]
+      map: ["enum.DisposalUnitVisualLayers.OverlayReady"]
     - state: dispover-full
-      map: [ "enum.DisposalUnitVisualLayers.OverlayFull" ]
+      map: ["enum.DisposalUnitVisualLayers.OverlayFull"]
     - state: dispover-handle
-      map: [ "enum.DisposalUnitVisualLayers.OverlayEngaged" ]
+      map: ["enum.DisposalUnitVisualLayers.OverlayEngaged"]
   - type: Physics
     bodyType: Static
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.45,-0.45,0.45,0.45"
         density: 55
         mask:
@@ -44,14 +43,12 @@
         - MachineLayer
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 200
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:DoActsBehavior
@@ -117,7 +114,7 @@
     hintText: dead-drop-hint-disposals # Frontier
   - type: DeviceLinkSink
     ports:
-      - FillbotAnyItem
+    - FillbotAnyItem
 
 - type: entity
   id: MailingUnit
@@ -129,22 +126,22 @@
     sprite: Structures/Piping/disposal.rsi
     snapCardinals: true
     layers:
-      - state: conmailing
-        map: [ "enum.DisposalUnitVisualLayers.Unanchored" ]
-      - state: mailing
-        map: [ "enum.DisposalUnitVisualLayers.Base" ]
-      - state: mailing-charging
-        map: [ "enum.DisposalUnitVisualLayers.BaseCharging" ]
-      - state: mailing-flush
-        map: [ "enum.DisposalUnitVisualLayers.OverlayFlush" ]
-      - state: dispover-charge
-        map: [ "enum.DisposalUnitVisualLayers.OverlayCharging" ]
-      - state: dispover-ready
-        map: [ "enum.DisposalUnitVisualLayers.OverlayReady" ]
-      - state: dispover-full
-        map: [ "enum.DisposalUnitVisualLayers.OverlayFull" ]
-      - state: mailover-handle
-        map: [ "enum.DisposalUnitVisualLayers.OverlayEngaged" ]
+    - state: conmailing
+      map: ["enum.DisposalUnitVisualLayers.Unanchored"]
+    - state: mailing
+      map: ["enum.DisposalUnitVisualLayers.Base"]
+    - state: mailing-charging
+      map: ["enum.DisposalUnitVisualLayers.BaseCharging"]
+    - state: mailing-flush
+      map: ["enum.DisposalUnitVisualLayers.OverlayFlush"]
+    - state: dispover-charge
+      map: ["enum.DisposalUnitVisualLayers.OverlayCharging"]
+    - state: dispover-ready
+      map: ["enum.DisposalUnitVisualLayers.OverlayReady"]
+    - state: dispover-full
+      map: ["enum.DisposalUnitVisualLayers.OverlayFull"]
+    - state: mailover-handle
+      map: ["enum.DisposalUnitVisualLayers.OverlayEngaged"]
   - type: Construction
     graph: DisposalMachine
     node: mailing_unit
@@ -174,4 +171,4 @@
         type: ConfigurationBoundUserInterface
   - type: DeviceLinkSink
     ports:
-      - FillbotAnyItem
+    - FillbotAnyItem

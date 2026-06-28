@@ -6,8 +6,11 @@ namespace Content.Shared.Whitelist;
 
 public sealed class EntityWhitelistSystem : EntitySystem
 {
-    [Dependency] private readonly IComponentFactory _factory = default!;
-    [Dependency] private readonly TagSystem _tag = default!;
+    [Dependency]
+    private readonly IComponentFactory _factory = default!;
+
+    [Dependency]
+    private readonly TagSystem _tag = default!;
 
     private EntityQuery<ItemComponent> _itemQuery;
 
@@ -29,7 +32,11 @@ public sealed class EntityWhitelistSystem : EntitySystem
     /// If a whitelist is provided and it does not match then this returns false.
     /// If either list is null it does not get checked.
     /// </summary>
-    public bool CheckBoth([NotNullWhen(true)] EntityUid? uid, EntityWhitelist? blacklist = null, EntityWhitelist? whitelist = null)
+    public bool CheckBoth(
+        [NotNullWhen(true)] EntityUid? uid,
+        EntityWhitelist? blacklist = null,
+        EntityWhitelist? whitelist = null
+    )
     {
         if (uid == null)
             return false;
@@ -77,18 +84,16 @@ public sealed class EntityWhitelistSystem : EntitySystem
 
         if (list.Tags != null)
         {
-            return list.RequireAll
-                ? _tag.HasAllTags(uid, list.Tags)
-                : _tag.HasAnyTag(uid, list.Tags);
+            return list.RequireAll ? _tag.HasAllTags(uid, list.Tags) : _tag.HasAnyTag(uid, list.Tags);
         }
 
         return list.RequireAll;
     }
+
     /// The following are a list of "helper functions" that are basically the same as each other
     /// to help make code that uses EntityWhitelist a bit more readable because at the moment
     /// it is quite clunky having to write out component.Whitelist == null ? true : _whitelist.IsValid(component.Whitelist, uid)
     /// several times in a row and makes comparisons easier to read
-
     /// <summary>
     /// Helper function to determine if Whitelist is not null and entity is on list
     /// </summary>
@@ -179,8 +184,10 @@ public sealed class EntityWhitelistSystem : EntitySystem
         foreach (var name in input)
         {
             var availability = _factory.GetComponentAvailability(name);
-            if (_factory.TryGetRegistration(name, out var registration)
-                && availability == ComponentAvailability.Available)
+            if (
+                _factory.TryGetRegistration(name, out var registration)
+                && availability == ComponentAvailability.Available
+            )
             {
                 list.Add(registration);
             }

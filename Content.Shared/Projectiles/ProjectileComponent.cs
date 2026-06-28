@@ -40,7 +40,8 @@ public sealed partial class ProjectileComponent : Component
     /// <summary>
     ///     The amount of damage the projectile will do.
     /// </summary>
-    [DataField(required: true)] [ViewVariables(VVAccess.ReadWrite)]
+    [DataField(required: true)]
+    [ViewVariables(VVAccess.ReadWrite)]
     public DamageSpecifier Damage = new();
 
     /// <summary>
@@ -113,6 +114,7 @@ public sealed partial class ProjectileComponent : Component
     // Goobstation Start
     [DataField]
     public float ArmorPenetration;
+
     // Goobstation End
 
     /// <summary>

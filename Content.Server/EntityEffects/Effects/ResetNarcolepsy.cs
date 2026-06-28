@@ -18,8 +18,8 @@ public sealed partial class ResetNarcolepsy : EntityEffect
     [DataField("TimerReset")]
     public int TimerReset = 600;
 
-    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys)
-        => Loc.GetString("reagent-effect-guidebook-reset-narcolepsy", ("chance", Probability));
+    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys) =>
+        Loc.GetString("reagent-effect-guidebook-reset-narcolepsy", ("chance", Probability));
 
     public override void Effect(EntityEffectBaseArgs args)
     {
@@ -27,6 +27,7 @@ public sealed partial class ResetNarcolepsy : EntityEffect
             if (reagentArgs.Scale != 1f)
                 return;
 
-        args.EntityManager.EntitySysManager.GetEntitySystem<NarcolepsySystem>().AdjustNarcolepsyTimer(args.TargetEntity, TimerReset);
+        args.EntityManager.EntitySysManager.GetEntitySystem<NarcolepsySystem>()
+            .AdjustNarcolepsyTimer(args.TargetEntity, TimerReset);
     }
 }

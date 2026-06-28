@@ -1,17 +1,20 @@
-using Content.Server.CartridgeLoader;
-using Content.Shared.CartridgeLoader;
-using Content.Server._NF.SectorServices;
-using Content.Shared._NF.Bank.BUI;
 using System.Diagnostics.CodeAnalysis;
 using Content.Server._NF.Bank;
+using Content.Server._NF.SectorServices;
+using Content.Server.CartridgeLoader;
+using Content.Shared._NF.Bank.BUI;
+using Content.Shared.CartridgeLoader;
 
 namespace Content.Server._NF.CartridgeLoader.Cartridges;
 
 // System for ledger cartridges - pushes updates to PDA UI when ledger is updated.
 public sealed class NFLedgerCartridgeSystem : EntitySystem
 {
-    [Dependency] private readonly CartridgeLoaderSystem _cartridgeLoader = default!;
-    [Dependency] private readonly SectorServiceSystem _sectorService = default!;
+    [Dependency]
+    private readonly CartridgeLoaderSystem _cartridgeLoader = default!;
+
+    [Dependency]
+    private readonly SectorServiceSystem _sectorService = default!;
 
     public override void Initialize()
     {
@@ -20,6 +23,7 @@ public sealed class NFLedgerCartridgeSystem : EntitySystem
         SubscribeLocalEvent<NFLedgerCartridgeComponent, CartridgeUiReadyEvent>(OnUiReady);
         SubscribeLocalEvent<SectorLedgerUpdatedEvent>(OnSectorLedgerUpdated);
     }
+
     private void OnUiReady(Entity<NFLedgerCartridgeComponent> ent, ref CartridgeUiReadyEvent args)
     {
         if (GetUIState(out var uiState))

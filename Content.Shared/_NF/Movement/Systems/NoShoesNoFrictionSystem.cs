@@ -1,9 +1,9 @@
-using Content.Shared.Movement.Systems;
-using Content.Shared.Movement.Components;
 using Content.Shared._NF.Movement.Components;
-using Content.Shared.Whitelist;
-using Content.Shared.Inventory;
 using Content.Shared.Clothing;
+using Content.Shared.Inventory;
+using Content.Shared.Movement.Components;
+using Content.Shared.Movement.Systems;
+using Content.Shared.Whitelist;
 
 namespace Content.Shared._NF.Movement;
 
@@ -12,9 +12,14 @@ namespace Content.Shared._NF.Movement;
 /// </summary>
 public sealed class NoShoesNoFrictionSystem : EntitySystem
 {
-    [Dependency] private readonly MovementSpeedModifierSystem _speedModifierSystem = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!;
+    [Dependency]
+    private readonly MovementSpeedModifierSystem _speedModifierSystem = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelistSystem = default!;
+
+    [Dependency]
+    private readonly InventorySystem _inventory = default!;
 
     public override void Initialize()
     {
@@ -33,7 +38,13 @@ public sealed class NoShoesNoFrictionSystem : EntitySystem
         bool blacklist = hasShoes && IsBlacklisted(uid, component, worn);
 
         if (blacklist)
-            UpdateFriction(uid, MovementSpeedModifierComponent.DefaultFriction, MovementSpeedModifierComponent.DefaultFrictionNoInput, MovementSpeedModifierComponent.DefaultAcceleration, speedModifier);
+            UpdateFriction(
+                uid,
+                MovementSpeedModifierComponent.DefaultFriction,
+                MovementSpeedModifierComponent.DefaultFrictionNoInput,
+                MovementSpeedModifierComponent.DefaultAcceleration,
+                speedModifier
+            );
     }
 
     public void OnGotUnequipped(EntityUid uid, NoShoesNoFrictionComponent component, ClothingDidUnequippedEvent args)
@@ -44,16 +55,34 @@ public sealed class NoShoesNoFrictionSystem : EntitySystem
         var hasShoes = _inventory.TryGetSlotEntity(uid, component.Slot, out var worn);
 
         if (!hasShoes)
-            UpdateFriction(uid, component.MobFriction, component.MobFrictionNoInput, component.MobAcceleration, speedModifier);
+            UpdateFriction(
+                uid,
+                component.MobFriction,
+                component.MobFrictionNoInput,
+                component.MobAcceleration,
+                speedModifier
+            );
     }
 
     /// <summary>
     /// Updates the friction and acceleration of an entity based on whether they are wearing shoes.
     /// </summary>
-    private void UpdateFriction(EntityUid uid, float friction, float? frictionNoInput, float acceleration, MovementSpeedModifierComponent speedModifier)
+    private void UpdateFriction(
+        EntityUid uid,
+        float friction,
+        float? frictionNoInput,
+        float acceleration,
+        MovementSpeedModifierComponent speedModifier
+    )
     {
         // Update base friction values and then refresh to apply modifiers.
-        _speedModifierSystem.ChangeBaseFriction(uid, friction, frictionNoInput ?? friction, acceleration, speedModifier);
+        _speedModifierSystem.ChangeBaseFriction(
+            uid,
+            friction,
+            frictionNoInput ?? friction,
+            acceleration,
+            speedModifier
+        );
         _speedModifierSystem.RefreshFrictionModifiers(uid, speedModifier);
     }
 

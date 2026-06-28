@@ -8,26 +8,24 @@
     damageContainer: Shield
   - type: Destructible
     thresholds:
-      - trigger:
-          !type:DamageTrigger
-          damage: 120
-        behaviors:
-          - !type:DoActsBehavior
-            acts: [ "Destruction" ]
-      - trigger:
-          !type:DamageTrigger
-          damage: 100
-        behaviors:
-          - !type:DoActsBehavior
-            acts: [ "Destruction" ]
-          - !type:PlaySoundBehavior
-            sound:
-              collection: MetalBreak
-          - !type:SpawnEntitiesBehavior
-            spawn:
-              MaterialArgocytePlateHeavy:
-                min: 1
-                max: 5
+    - trigger: !type:DamageTrigger
+        damage: 120
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
+        damage: 100
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          MaterialArgocytePlateHeavy:
+            min: 1
+            max: 5
   - type: Sprite
     sprite: _HL/Clothing/Head/argocyteheavy.rsi
   - type: ExplosionResistance
@@ -48,7 +46,7 @@
   - type: Construction
     graph: ArgoHelmetHeavyGraph
     node: finish
-   
+
 - type: entity
   parent: ClothingHeadHelmetBase
   id: HLClothingHeadHelmetArgoLight
@@ -59,26 +57,24 @@
     damageContainer: Shield
   - type: Destructible
     thresholds:
-      - trigger:
-          !type:DamageTrigger
-          damage: 60
-        behaviors:
-          - !type:DoActsBehavior
-            acts: [ "Destruction" ]
-      - trigger:
-          !type:DamageTrigger
-          damage: 50
-        behaviors:
-          - !type:DoActsBehavior
-            acts: [ "Destruction" ]
-          - !type:PlaySoundBehavior
-            sound:
-              collection: MetalBreak
-          - !type:SpawnEntitiesBehavior
-            spawn:
-              MaterialArgocytePlateLight:
-                min: 1
-                max: 5
+    - trigger: !type:DamageTrigger
+        damage: 60
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          MaterialArgocytePlateLight:
+            min: 1
+            max: 5
   - type: ExplosionResistance
     damageCoefficient: 1.25
   - type: ClothingSpeedModifier

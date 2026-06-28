@@ -60,7 +60,6 @@
         amount: 8
         doAfter: 6
 
-
   # Deconstruction is down here
   - node: wall
     entity: WallWeb

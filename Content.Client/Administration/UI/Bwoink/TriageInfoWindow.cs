@@ -22,11 +22,7 @@ namespace Content.Client.Administration.UI.Bwoink
             MinSize = new Vector2(420, 220);
             SetSize = new Vector2(560, 320);
 
-            _output = new OutputPanel
-            {
-                VerticalExpand = true,
-                HorizontalExpand = true,
-            };
+            _output = new OutputPanel { VerticalExpand = true, HorizontalExpand = true };
 
             _buttonRow = new BoxContainer
             {
@@ -65,10 +61,7 @@ namespace Content.Client.Administration.UI.Bwoink
 
         public void AddActionButton(string text, Action onPressed, bool closeOnPressed = false)
         {
-            var action = new Button
-            {
-                Text = text,
-            };
+            var action = new Button { Text = text };
 
             action.OnPressed += _ =>
             {

@@ -33,10 +33,12 @@ public sealed partial class MovespeedModifier : EntityEffect
 
     protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys)
     {
-        return Loc.GetString("reagent-effect-guidebook-movespeed-modifier",
+        return Loc.GetString(
+            "reagent-effect-guidebook-movespeed-modifier",
             ("chance", Probability),
             ("walkspeed", WalkSpeedModifier),
-            ("time", StatusLifetime));
+            ("time", StatusLifetime)
+        );
     }
 
     /// <summary>
@@ -47,8 +49,9 @@ public sealed partial class MovespeedModifier : EntityEffect
         var status = args.EntityManager.EnsureComponent<MovespeedModifierMetabolismComponent>(args.TargetEntity);
 
         // Only refresh movement if we need to.
-        var modified = !status.WalkSpeedModifier.Equals(WalkSpeedModifier) ||
-                       !status.SprintSpeedModifier.Equals(SprintSpeedModifier);
+        var modified =
+            !status.WalkSpeedModifier.Equals(WalkSpeedModifier)
+            || !status.SprintSpeedModifier.Equals(SprintSpeedModifier);
 
         status.WalkSpeedModifier = WalkSpeedModifier;
         status.SprintSpeedModifier = SprintSpeedModifier;
@@ -66,6 +69,7 @@ public sealed partial class MovespeedModifier : EntityEffect
         if (modified)
             args.EntityManager.System<MovementSpeedModifierSystem>().RefreshMovementSpeedModifiers(args.TargetEntity);
     }
+
     public void IncreaseTimer(MovespeedModifierMetabolismComponent status, float time)
     {
         var gameTiming = IoCManager.Resolve<IGameTiming>();

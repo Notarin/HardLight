@@ -10,8 +10,8 @@
     anchored: false
   - type: Sprite
     layers:
-      - sprite: Objects/Consumable/Smokeables/Cigarettes/Packs/black.rsi
-        state: closed
+    - sprite: Objects/Consumable/Smokeables/Cigarettes/Packs/black.rsi
+      state: closed
   - type: EntityTableSpawner
     table: !type:NestedSelector
       tableId: SmokablesTable
@@ -28,8 +28,8 @@
     anchored: false
   - type: Sprite
     layers:
-      - sprite: Objects/Consumable/Smokeables/Cigarettes/cigarette.rsi
-        state: unlit-icon
+    - sprite: Objects/Consumable/Smokeables/Cigarettes/cigarette.rsi
+      state: unlit-icon
   - type: EntityTableSpawner
     table: !type:NestedSelector
       tableId: SoakedSmokesTable
@@ -39,13 +39,13 @@
   id: SmokablesTable
   table: !type:GroupSelector
     children:
-    #Just a cig
     - !type:GroupSelector
+      #Just a cig
       weight: 36
       children:
       - id: Cigarette
-    #Uncommon
     - !type:GroupSelector
+      #Uncommon
       weight: 9
       children:
       - id: Cigar
@@ -54,15 +54,15 @@
       - id: CigPackBlue
       - id: CigPackBlack
       - id: PackPaperRollingFilters
-    #Butts
     - !type:GroupSelector
+      #Butts
       weight: 3
       children:
       - id: CigaretteSpent
       - id: CigarSpent
         weight: 0.2
-    #Rare
     - !type:GroupSelector
+      #Rare
       children:
       - id: RandomSoakedCigarette
       - !type:GroupSelector
@@ -85,24 +85,24 @@
   id: SoakedSmokesTable
   table: !type:GroupSelector
     children:
-      - id: CigaretteOmnizine
-      - id: CigaretteIron
-      - id: CigaretteDylovene
-      - id: CigaretteDermaline
-      - id: CigaretteIpecac
-      - id: CigaretteBicaridine
-      - id: CigaretteDexalin
-      - id: CigarettePax
-      - id: CigaretteBbqSauce
-      - id: CigaretteBlackPepper
-      - id: CigaretteOmnizine
-      - id: CigaretteCapsaicinOil
-      - id: CigaretteBread
-      - id: CigaretteMilk
-      - id: CigaretteBanana
-      - id: CigaretteSpaceDrugs
-      - id: CigaretteMuteToxin
-      - id: CigaretteMold
-      - id: CigaretteLicoxide
-      - id: CigaretteWeldingFuel
-      - id: CigaretteTHC
+    - id: CigaretteOmnizine
+    - id: CigaretteIron
+    - id: CigaretteDylovene
+    - id: CigaretteDermaline
+    - id: CigaretteIpecac
+    - id: CigaretteBicaridine
+    - id: CigaretteDexalin
+    - id: CigarettePax
+    - id: CigaretteBbqSauce
+    - id: CigaretteBlackPepper
+    - id: CigaretteOmnizine
+    - id: CigaretteCapsaicinOil
+    - id: CigaretteBread
+    - id: CigaretteMilk
+    - id: CigaretteBanana
+    - id: CigaretteSpaceDrugs
+    - id: CigaretteMuteToxin
+    - id: CigaretteMold
+    - id: CigaretteLicoxide
+    - id: CigaretteWeldingFuel
+    - id: CigaretteTHC

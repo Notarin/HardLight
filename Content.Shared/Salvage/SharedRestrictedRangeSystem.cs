@@ -1,6 +1,3 @@
 namespace Content.Shared.Salvage;
 
-public abstract class SharedRestrictedRangeSystem : EntitySystem
-{
-
-}
+public abstract class SharedRestrictedRangeSystem : EntitySystem { }

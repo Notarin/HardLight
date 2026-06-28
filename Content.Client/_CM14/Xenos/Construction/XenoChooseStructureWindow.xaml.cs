@@ -13,4 +13,3 @@ public sealed partial class XenoChooseStructureWindow : DefaultWindow
         RobustXamlLoader.Load(this);
     }
 }
-

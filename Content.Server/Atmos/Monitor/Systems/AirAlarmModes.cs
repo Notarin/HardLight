@@ -45,6 +45,7 @@ public interface IAirAlarmModeUpdate
     ///     owner of the mode's executor.
     /// </summary>
     public string NetOwner { get; set; }
+
     /// <summary>
     ///     This is executed every time the air alarm
     ///     update loop is fully executed. This should
@@ -72,7 +73,7 @@ public sealed class AirAlarmModeFactory
             AirAlarmMode.Fill => _fillMode,
             AirAlarmMode.Panic => _panicMode,
             AirAlarmMode.None => _noneMode,
-            _ => null
+            _ => null,
         };
     }
 }
@@ -80,7 +81,8 @@ public sealed class AirAlarmModeFactory
 // like a tiny little EntitySystem
 public abstract class AirAlarmModeExecutor : IAirAlarmMode
 {
-    [Dependency] public readonly IEntityManager EntityManager = default!;
+    [Dependency]
+    public readonly IEntityManager EntityManager = default!;
     public readonly DeviceNetworkSystem DeviceNetworkSystem;
     public readonly AirAlarmSystem AirAlarmSystem;
 

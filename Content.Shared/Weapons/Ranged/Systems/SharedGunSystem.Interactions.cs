@@ -19,22 +19,31 @@ public abstract partial class SharedGunSystem
             // Emberfall - Add caliber info
             if (TryGetGunCaliber(uid, component, out var caliber))
             {
-                args.PushMarkup(Loc.GetString("gun-examine-caliber",
-                    ("color", FireRateExamineColor),
-                    ("caliber", caliber)));
+                args.PushMarkup(
+                    Loc.GetString("gun-examine-caliber", ("color", FireRateExamineColor), ("caliber", caliber))
+                );
             }
             // End Emberfall
 
-            args.PushMarkup(Loc.GetString("gun-selected-mode-examine", ("color", ModeExamineColor),
-                ("mode", GetLocSelector(component.SelectedMode))));
+            args.PushMarkup(
+                Loc.GetString(
+                    "gun-selected-mode-examine",
+                    ("color", ModeExamineColor),
+                    ("mode", GetLocSelector(component.SelectedMode))
+                )
+            );
             //args.PushMarkup(Loc.GetString("gun-fire-rate-examine", ("color", FireRateExamineColor), // Emberfall
             //    ("fireRate", $"{component.FireRateModified:0.0}"))); // Emberfall
 
             // VRS (Triad #3731)
             if (component.DamageModifier != 1f)
-                args.PushMarkup(Loc.GetString("gun-damage-modifier-examine",
-                    ("color", FireRateExamineColor),
-                    ("modifier", $"{component.DamageModifier:P0}")));
+                args.PushMarkup(
+                    Loc.GetString(
+                        "gun-damage-modifier-examine",
+                        ("color", FireRateExamineColor),
+                        ("modifier", $"{component.DamageModifier:P0}")
+                    )
+                );
         }
     }
 
@@ -81,7 +90,7 @@ public abstract partial class SharedGunSystem
         if (component.SelectedMode == fire)
             return;
 
-        DebugTools.Assert((component.AvailableModes  & fire) != 0x0);
+        DebugTools.Assert((component.AvailableModes & fire) != 0x0);
         component.SelectedMode = fire;
 
         if (!Paused(uid))
@@ -128,7 +137,7 @@ public abstract partial class SharedGunSystem
     private void OnGunSelected(EntityUid uid, GunComponent component, HandSelectedEvent args)
     {
         if (Timing.ApplyingState)
-             return;
+            return;
 
         if (component.FireRateModified <= 0)
             return;

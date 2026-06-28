@@ -1,27 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
-using Content.Shared.Actions;
 using Content.Shared.Access.Components;
-using Content.Shared.CM14.Xenos.Evolution;
+using Content.Shared.Actions;
 using Content.Shared.CM14.Xenos.Construction;
+using Content.Shared.CM14.Xenos.Evolution;
 using Content.Shared.Mind;
 using Content.Shared.Mobs.Systems;
 using Robust.Shared.Network;
-using Robust.Shared.Prototypes;
 using Robust.Shared.Player;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 
 namespace Content.Shared.CM14.Xenos;
 
 public sealed class XenoSystem : EntitySystem
 {
-    [Dependency] private readonly SharedActionsSystem _action = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedMindSystem _mind = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedUserInterfaceSystem _ui = default!;
+    [Dependency]
+    private readonly SharedActionsSystem _action = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly SharedMindSystem _mind = default!;
+
+    [Dependency]
+    private readonly MobStateSystem _mobState = default!;
+
+    [Dependency]
+    private readonly INetManager _net = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly SharedUserInterfaceSystem _ui = default!;
 
     public override void Initialize()
     {
@@ -41,8 +54,7 @@ public sealed class XenoSystem : EntitySystem
             // Server-authoritative action registration (replicated to clients)
             foreach (var actionId in ent.Comp.ActionIds)
             {
-                if (!ent.Comp.Actions.ContainsKey(actionId) &&
-                    _action.AddAction(ent, actionId) is { } newAction)
+                if (!ent.Comp.Actions.ContainsKey(actionId) && _action.AddAction(ent, actionId) is { } newAction)
                 {
                     ent.Comp.Actions[actionId] = newAction;
                 }
@@ -55,7 +67,8 @@ public sealed class XenoSystem : EntitySystem
             {
                 if (TryComp<InstantActionComponent>(chooseAction, out var instant))
                 {
-                    instant.Event ??= new Content.Shared.CM14.Xenos.Construction.Events.XenoChooseStructureActionEvent();
+                    instant.Event ??=
+                        new Content.Shared.CM14.Xenos.Construction.Events.XenoChooseStructureActionEvent();
                     instant.RaiseOnUser = true;
                     instant.RaiseOnAction = false;
                     instant.CheckCanInteract = false;
@@ -96,7 +109,9 @@ public sealed class XenoSystem : EntitySystem
                     // Notify actions that a selection exists (helps icons/tooltips sync up).
                     foreach (var (_, actionUid) in ent.Comp.Actions)
                     {
-                        var chosenEv = new Content.Shared.CM14.Xenos.Construction.Events.XenoConstructionChosenEvent(defaultChoice);
+                        var chosenEv = new Content.Shared.CM14.Xenos.Construction.Events.XenoConstructionChosenEvent(
+                            defaultChoice
+                        );
                         RaiseLocalEvent(actionUid, ref chosenEv);
                     }
                 }
@@ -151,6 +166,7 @@ public sealed class XenoSystem : EntitySystem
     {
         args.Tags.UnionWith(ent.Comp.AccessLevels);
     }
+
     public override void Update(float frameTime)
     {
         var query = EntityQueryEnumerator<XenoComponent>();
@@ -161,7 +177,13 @@ public sealed class XenoSystem : EntitySystem
         while (query.MoveNext(out var uid, out var xeno))
         {
             // Schedule if needed (only once, only for AI-controlled xenos).
-            if (_net.IsServer && xeno.PendingAutoEvolveTime == null && xeno.EvolvesTo.Count > 0 && xeno.EvolveIn > TimeSpan.Zero && !TryComp<ActorComponent>(uid, out _))
+            if (
+                _net.IsServer
+                && xeno.PendingAutoEvolveTime == null
+                && xeno.EvolvesTo.Count > 0
+                && xeno.EvolveIn > TimeSpan.Zero
+                && !TryComp<ActorComponent>(uid, out _)
+            )
             {
                 xeno.PendingAutoEvolveTime = time + xeno.EvolveIn;
                 Dirty(uid, xeno);
@@ -182,7 +204,6 @@ public sealed class XenoSystem : EntitySystem
                 toEvolve.Add(uid);
                 // Log.Info($"[Xeno] Queued scheduled auto-evolution for {ToPrettyString(uid)}"); // verbose queue log disabled
             }
-
         }
 
         // Fire evolution events after enumeration.
@@ -202,7 +223,9 @@ public sealed class XenoSystem : EntitySystem
         if (_mobState.IsDead(ent))
             return;
 
-        Log.Debug($"[Xeno] Evolution handler start for {ToPrettyString(ent)} evolvesTo={ent.Comp.EvolvesTo.Count} hasActor={TryComp(ent, out ActorComponent? _)}");
+        Log.Debug(
+            $"[Xeno] Evolution handler start for {ToPrettyString(ent)} evolvesTo={ent.Comp.EvolvesTo.Count} hasActor={TryComp(ent, out ActorComponent? _)}"
+        );
         if (TryComp(ent, out ActorComponent? actor))
         {
             if (_ui.TryOpenUi(ent.Owner, XenoEvolutionUIKey.Key, actor.Owner))
@@ -238,7 +261,7 @@ public sealed class XenoSystem : EntitySystem
         }
         else
         {
-           //Log.Warning($"[Xeno] Evolution event received but no EvolvesTo entries for {ToPrettyString(ent)}");
+            //Log.Warning($"[Xeno] Evolution event received but no EvolvesTo entries for {ToPrettyString(ent)}");
         }
     }
 

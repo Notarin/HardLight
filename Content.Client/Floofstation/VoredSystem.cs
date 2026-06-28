@@ -6,8 +6,11 @@ namespace Content.Client.Floofstation;
 
 public sealed partial class VoredSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly ISharedPlayerManager _playerMan = default!;
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly ISharedPlayerManager _playerMan = default!;
 
     public override void Initialize()
     {

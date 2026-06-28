@@ -4,7 +4,8 @@ using Robust.Shared.Serialization;
 namespace Content.Shared.Shuttles.UI.MapObjects;
 
 [Serializable, NetSerializable]
-public readonly record struct ShuttleStationObject(NetEntity Entity, NetCoordinates Coordinates, string Name) : IMapObject
+public readonly record struct ShuttleStationObject(NetEntity Entity, NetCoordinates Coordinates, string Name)
+    : IMapObject
 {
     public bool HideButton => false;
 }

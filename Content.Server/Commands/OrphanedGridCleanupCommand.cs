@@ -9,7 +9,8 @@ namespace Content.Server.Commands;
 [AdminCommand(AdminFlags.Admin)]
 public sealed class OrphanedGridCleanupCommand : LocalizedCommands
 {
-    [Dependency] private readonly IEntityManager _entityManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entityManager = default!;
 
     public override string Command => "orphanedgridcleanup";
 
@@ -92,7 +93,9 @@ public sealed class OrphanedGridCleanupCommand : LocalizedCommands
 
             default:
                 shell.WriteError($"Unknown subcommand: {args[0]}");
-                shell.WriteLine("Valid subcommands: enable, disable, enableempty, disableempty, force, settiles, cleanup");
+                shell.WriteLine(
+                    "Valid subcommands: enable, disable, enableempty, disableempty, force, settiles, cleanup"
+                );
                 break;
         }
     }
@@ -103,7 +106,8 @@ public sealed class OrphanedGridCleanupCommand : LocalizedCommands
         {
             return CompletionResult.FromHintOptions(
                 new[] { "enable", "disable", "enableempty", "disableempty", "force", "settiles", "cleanup" },
-                "<subcommand>");
+                "<subcommand>"
+            );
         }
 
         return CompletionResult.Empty;

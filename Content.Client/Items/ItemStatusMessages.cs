@@ -37,17 +37,20 @@ namespace Content.Client.Items
         /// <typeparam name="TComp">The type of component for which this control should be made.</typeparam>
         public static void ItemStatus<TComp>(
             this EntitySystem.Subscriptions subs,
-            Func<Entity<TComp>, Control?> createControl)
+            Func<Entity<TComp>, Control?> createControl
+        )
             where TComp : IComponent
         {
-            subs.SubscribeLocalEvent((Entity<TComp> entity, ref ItemStatusCollectMessage args) =>
-            {
-                var control = createControl(entity);
-                if (control == null)
-                    return;
+            subs.SubscribeLocalEvent(
+                (Entity<TComp> entity, ref ItemStatusCollectMessage args) =>
+                {
+                    var control = createControl(entity);
+                    if (control == null)
+                        return;
 
-                args.Controls.Add(control);
-            });
+                    args.Controls.Add(control);
+                }
+            );
         }
     }
 }

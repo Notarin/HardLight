@@ -22,22 +22,25 @@ public sealed partial class StationAdminConsoleMenu : FancyWindow
     public int DepositAmount;
     public bool Enabled;
 
-    public static (string, string)[] WithdrawalReasonArray = {
+    public static (string, string)[] WithdrawalReasonArray =
+    {
         ("default", Loc.GetString("station-bank-required")),
         ("payroll", Loc.GetString("station-bank-payroll")),
         ("workorder", Loc.GetString("station-bank-work-order")),
         ("supplies", Loc.GetString("station-bank-supplies")),
         ("bounty", Loc.GetString("station-bank-bounty")),
-        ("other", Loc.GetString("station-bank-other"))
+        ("other", Loc.GetString("station-bank-other")),
     };
 
-    public static (string, string)[] DepositReasonArray = {
+    public static (string, string)[] DepositReasonArray =
+    {
         ("default", Loc.GetString("station-bank-required")),
         ("fines", Loc.GetString("station-bank-fines")),
         ("donation", Loc.GetString("station-bank-donation")),
         ("assetssold", Loc.GetString("station-bank-assets-sold")),
-        ("other", Loc.GetString("station-bank-other"))
+        ("other", Loc.GetString("station-bank-other")),
     };
+
     public StationAdminConsoleMenu()
     {
         RobustXamlLoader.Load(this);
@@ -62,31 +65,37 @@ public sealed partial class StationAdminConsoleMenu : FancyWindow
         WithdrawalReason = id == 0 ? null : _withdrawalReasonStrings[id];
         WithdrawalReasons.SelectId(id);
     }
+
     private void SetDepositReasonText(int id)
     {
         DepositReason = id == 0 ? null : _depositReasonStrings[id];
         DepositReasons.SelectId(id);
     }
+
     private void OnWithdrawalReasonSelected(OptionButton.ItemSelectedEventArgs args)
     {
         SetWithdrawalReasonText(args.Id);
         UpdateWithdrawalButtonStatus();
     }
+
     private void OnDepositReasonSelected(OptionButton.ItemSelectedEventArgs args)
     {
         SetDepositReasonText(args.Id);
         UpdateDepositButtonStatus();
     }
+
     private void OnWithdrawalDescChanged(LineEdit.LineEditEventArgs args)
     {
         WithdrawalDescription = args.Text;
         UpdateWithdrawalButtonStatus();
     }
+
     private void OnDepositDescChanged(LineEdit.LineEditEventArgs args)
     {
         DepositDescription = args.Text;
         UpdateDepositButtonStatus();
     }
+
     public void SetBalance(int amount)
     {
         BalanceLabel.Text = BankSystemExtensions.ToSpesoString(amount);
@@ -111,12 +120,17 @@ public sealed partial class StationAdminConsoleMenu : FancyWindow
 
     private void UpdateWithdrawalButtonStatus()
     {
-        WithdrawButton.Disabled = !Enabled || WithdrawalAmount <= 0 || WithdrawalReason == null || string.IsNullOrEmpty(WithdrawalDescription);
+        WithdrawButton.Disabled =
+            !Enabled
+            || WithdrawalAmount <= 0
+            || WithdrawalReason == null
+            || string.IsNullOrEmpty(WithdrawalDescription);
     }
 
     private void UpdateDepositButtonStatus()
     {
-        DepositButton.Disabled = !Enabled || DepositAmount <= 0 || DepositReason == null || string.IsNullOrEmpty(DepositDescription);
+        DepositButton.Disabled =
+            !Enabled || DepositAmount <= 0 || DepositReason == null || string.IsNullOrEmpty(DepositDescription);
     }
 
     private void OnWithdrawPressed(BaseButton.ButtonEventArgs obj)

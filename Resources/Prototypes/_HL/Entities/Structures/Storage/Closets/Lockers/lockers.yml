@@ -56,7 +56,7 @@
   suffix: Station
   components:
   - type: AccessReader
-    access: [[ "Engineering" ]]
+    access: [["Engineering"]]
 
 # Welding supplies
 - type: entity

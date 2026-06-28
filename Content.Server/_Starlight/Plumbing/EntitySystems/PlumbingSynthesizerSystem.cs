@@ -7,8 +7,8 @@ using Content.Shared._Starlight.Plumbing.Components;
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Chemistry.Reagent;
 using Content.Shared.FixedPoint;
-using Content.Shared.PowerCell;
 using Content.Shared.Power.EntitySystems;
+using Content.Shared.PowerCell;
 using Content.Shared.UserInterface;
 using JetBrains.Annotations;
 using Robust.Server.GameObjects;
@@ -28,13 +28,26 @@ namespace Content.Server._Starlight.Plumbing.EntitySystems;
 [UsedImplicitly]
 public sealed class PlumbingSynthesizerSystem : EntitySystem
 {
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionSystem = default!;
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
-    [Dependency] private readonly PowerCellSystem _powerCell = default!;
-    [Dependency] private readonly BatterySystem _battery = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency]
+    private readonly SharedSolutionContainerSystem _solutionSystem = default!;
+
+    [Dependency]
+    private readonly UserInterfaceSystem _ui = default!;
+
+    [Dependency]
+    private readonly PowerCellSystem _powerCell = default!;
+
+    [Dependency]
+    private readonly BatterySystem _battery = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
 
     private readonly Dictionary<EntityUid, TimeSpan> _nextUiUpdate = new();
 
@@ -129,7 +142,12 @@ public sealed class PlumbingSynthesizerSystem : EntitySystem
         if (!_powerCell.TryUseCharge(ent.Owner, powerNeeded))
             return;
 
-        _solutionSystem.TryAddReagent(bufferEnt.Value, new ReagentId(ent.Comp.SelectedReagent.Value, null), toGenerate, out _);
+        _solutionSystem.TryAddReagent(
+            bufferEnt.Value,
+            new ReagentId(ent.Comp.SelectedReagent.Value, null),
+            toGenerate,
+            out _
+        );
 
         _appearance.SetData(ent.Owner, PlumbingVisuals.Running, buffer.Volume > 0);
         UpdateUI(ent);
@@ -154,7 +172,10 @@ public sealed class PlumbingSynthesizerSystem : EntitySystem
         UpdateUI(ent);
     }
 
-    private void OnSelectReagent(Entity<PlumbingSynthesizerComponent> ent, ref PlumbingSynthesizerSelectReagentMessage args)
+    private void OnSelectReagent(
+        Entity<PlumbingSynthesizerComponent> ent,
+        ref PlumbingSynthesizerSelectReagentMessage args
+    )
     {
         if (args.ReagentId == null)
         {
@@ -203,7 +224,8 @@ public sealed class PlumbingSynthesizerSystem : EntitySystem
             ent.Comp.SelectedReagent?.Id,
             bufferContents,
             ent.Comp.Enabled,
-            batteryCharge);
+            batteryCharge
+        );
 
         _ui.SetUiState(ent.Owner, PlumbingSynthesizerUiKey.Key, state);
     }

@@ -2,22 +2,22 @@ using System.Linq;
 using System.Numerics;
 using System.Threading.Tasks;
 using Content.IntegrationTests;
-using Content.Server.StationRecords.Components;
-using Content.Server.StationRecords.Systems;
 using Content.Server._NF.Shipyard.Systems;
 using Content.Server.Maps;
+using Content.Server.StationRecords.Components;
+using Content.Server.StationRecords.Systems;
 using Content.Shared.Shuttles.Save;
 using Content.Shared.StationRecords;
 using Content.Shared.VendingMachines;
 using NUnit.Framework;
 using Robust.Server.Player;
 using Robust.Shared.EntitySerialization.Systems;
+using Robust.Shared.GameObjects;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
-using Robust.Shared.GameObjects;
 using Robust.Shared.Maths;
-using Robust.Shared.Utility;
 using Robust.Shared.Physics.Components;
+using Robust.Shared.Utility;
 
 namespace Content.IntegrationTests.Tests._NF.Shipyard
 {
@@ -33,7 +33,9 @@ namespace Content.IntegrationTests.Tests._NF.Shipyard
             var entityManager = server.ResolveDependency<IEntityManager>();
             var mapSystem = server.ResolveDependency<IEntitySystemManager>().GetEntitySystem<SharedMapSystem>();
             var mapLoader = server.ResolveDependency<IEntitySystemManager>().GetEntitySystem<MapLoaderSystem>();
-            var shipyardGridSaveSystem = server.ResolveDependency<IEntitySystemManager>().GetEntitySystem<ShipyardGridSaveSystem>();
+            var shipyardGridSaveSystem = server
+                .ResolveDependency<IEntitySystemManager>()
+                .GetEntitySystem<ShipyardGridSaveSystem>();
 
             await server.WaitPost(() =>
             {
@@ -41,7 +43,11 @@ namespace Content.IntegrationTests.Tests._NF.Shipyard
                 var mapUid = mapSystem.CreateMap(out var mapId);
 
                 // Load the ambition ship
-                var mapLoaded = mapLoader.TryLoadGrid(mapId, new ResPath("/Maps/_NF/Shuttles/Expedition/ambition.yml"), out var gridUid);
+                var mapLoaded = mapLoader.TryLoadGrid(
+                    mapId,
+                    new ResPath("/Maps/_NF/Shuttles/Expedition/ambition.yml"),
+                    out var gridUid
+                );
 
                 Assert.That(mapLoaded, Is.True, "Should successfully load the ambition ship");
                 Assert.That(gridUid, Is.Not.Null, "Should get a valid grid UID");
@@ -82,7 +88,9 @@ namespace Content.IntegrationTests.Tests._NF.Shipyard
             var entityManager = server.ResolveDependency<IEntityManager>();
             var mapSystem = server.ResolveDependency<IEntitySystemManager>().GetEntitySystem<SharedMapSystem>();
             var mapLoader = server.ResolveDependency<IEntitySystemManager>().GetEntitySystem<MapLoaderSystem>();
-            var shipyardGridSaveSystem = server.ResolveDependency<IEntitySystemManager>().GetEntitySystem<ShipyardGridSaveSystem>();
+            var shipyardGridSaveSystem = server
+                .ResolveDependency<IEntitySystemManager>()
+                .GetEntitySystem<ShipyardGridSaveSystem>();
 
             await server.WaitPost(() =>
             {
@@ -90,7 +98,11 @@ namespace Content.IntegrationTests.Tests._NF.Shipyard
                 var mapUid = mapSystem.CreateMap(out var mapId);
 
                 // Load the ambition ship
-                var mapLoaded = mapLoader.TryLoadGrid(mapId, new ResPath("/Maps/_NF/Shuttles/Expedition/ambition.yml"), out var gridUid);
+                var mapLoaded = mapLoader.TryLoadGrid(
+                    mapId,
+                    new ResPath("/Maps/_NF/Shuttles/Expedition/ambition.yml"),
+                    out var gridUid
+                );
 
                 Assert.That(mapLoaded, Is.True, "Should successfully load the ambition ship");
                 Assert.That(gridUid, Is.Not.Null, "Should get a valid grid UID");
@@ -127,12 +139,18 @@ namespace Content.IntegrationTests.Tests._NF.Shipyard
                     }
 
                     // Physics components should be preserved after cleaning
-                    Assert.That(physicsEntitiesAfterCleaning, Is.EqualTo(physicsEntitiesBeforeCleaning),
-                        $"Physics components should be preserved after cleaning. Before: {physicsEntitiesBeforeCleaning}, After: {physicsEntitiesAfterCleaning}");
+                    Assert.That(
+                        physicsEntitiesAfterCleaning,
+                        Is.EqualTo(physicsEntitiesBeforeCleaning),
+                        $"Physics components should be preserved after cleaning. Before: {physicsEntitiesBeforeCleaning}, After: {physicsEntitiesAfterCleaning}"
+                    );
 
                     // Ensure we actually had some physics entities to test with
-                    Assert.That(physicsEntitiesBeforeCleaning, Is.GreaterThan(0),
-                        "Test ship should have entities with physics components to validate the test");
+                    Assert.That(
+                        physicsEntitiesBeforeCleaning,
+                        Is.GreaterThan(0),
+                        "Test ship should have entities with physics components to validate the test"
+                    );
                 }
 
                 // Clean up
@@ -152,8 +170,12 @@ namespace Content.IntegrationTests.Tests._NF.Shipyard
             var mapManager = server.ResolveDependency<IMapManager>();
             var mapSystem = server.ResolveDependency<IEntitySystemManager>().GetEntitySystem<SharedMapSystem>();
             var playerManager = server.ResolveDependency<IPlayerManager>();
-            var recordsConsoleSystem = server.ResolveDependency<IEntitySystemManager>().GetEntitySystem<GeneralStationRecordConsoleSystem>();
-            var shipyardGridSaveSystem = server.ResolveDependency<IEntitySystemManager>().GetEntitySystem<ShipyardGridSaveSystem>();
+            var recordsConsoleSystem = server
+                .ResolveDependency<IEntitySystemManager>()
+                .GetEntitySystem<GeneralStationRecordConsoleSystem>();
+            var shipyardGridSaveSystem = server
+                .ResolveDependency<IEntitySystemManager>()
+                .GetEntitySystem<ShipyardGridSaveSystem>();
 
             await server.WaitAssertion(() =>
             {
@@ -167,10 +189,17 @@ namespace Content.IntegrationTests.Tests._NF.Shipyard
 
                 mapSystem.SetTile(gridUid, gridComp, Vector2i.Zero, new Tile(1));
 
-                var consoleUid = entityManager.SpawnEntity("ComputerStationRecords", new EntityCoordinates(gridUid, new Vector2(0.5f, 0.5f)));
+                var consoleUid = entityManager.SpawnEntity(
+                    "ComputerStationRecords",
+                    new EntityCoordinates(gridUid, new Vector2(0.5f, 0.5f))
+                );
                 var console = entityManager.GetComponent<GeneralStationRecordConsoleComponent>(consoleUid);
 
-                recordsConsoleSystem.SetTransientState((consoleUid, console), 7, new StationRecordsFilter(StationRecordFilterType.Name, "applicant"));
+                recordsConsoleSystem.SetTransientState(
+                    (consoleUid, console),
+                    7,
+                    new StationRecordsFilter(StationRecordFilterType.Name, "applicant")
+                );
 
                 Assert.Multiple(() =>
                 {
@@ -178,13 +207,30 @@ namespace Content.IntegrationTests.Tests._NF.Shipyard
                     Assert.That(console.Filter, Is.Not.Null);
                 });
 
-                var success = shipyardGridSaveSystem.TrySaveGridAsShip(gridUid, "UsedRecordsConsoleShip", session.UserId.ToString(), session);
+                var success = shipyardGridSaveSystem.TrySaveGridAsShip(
+                    gridUid,
+                    "UsedRecordsConsoleShip",
+                    session.UserId.ToString(),
+                    session
+                );
 
                 Assert.Multiple(() =>
                 {
-                    Assert.That(success, Is.True, "Ship save should succeed when station records console state has been populated.");
-                    Assert.That(console.ActiveKey, Is.Null, "Transient selected record state should be cleared before serialization.");
-                    Assert.That(console.Filter, Is.Null, "Transient filter state should be cleared before serialization.");
+                    Assert.That(
+                        success,
+                        Is.True,
+                        "Ship save should succeed when station records console state has been populated."
+                    );
+                    Assert.That(
+                        console.ActiveKey,
+                        Is.Null,
+                        "Transient selected record state should be cleared before serialization."
+                    );
+                    Assert.That(
+                        console.Filter,
+                        Is.Null,
+                        "Transient filter state should be cleared before serialization."
+                    );
                 });
 
                 mapSystem.DeleteMap(mapId);

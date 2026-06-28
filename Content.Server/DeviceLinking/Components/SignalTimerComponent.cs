@@ -34,6 +34,7 @@ public sealed partial class SignalTimerComponent : Component
     /// </summary>
     [DataField]
     public bool Repeat = false;
+
     //End Frontier
 
     /// <summary>

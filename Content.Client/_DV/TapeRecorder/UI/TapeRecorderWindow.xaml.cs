@@ -12,7 +12,8 @@ namespace Content.Client._DV.TapeRecorder.UI;
 [GenerateTypedNameReferences]
 public sealed partial class TapeRecorderWindow : FancyWindow
 {
-    [Dependency] private readonly IEntityManager _entMan = default!;
+    [Dependency]
+    private readonly IEntityManager _entMan = default!;
 
     public EntityUid Owner;
     private bool _onCooldown;
@@ -57,7 +58,7 @@ public sealed partial class TapeRecorderWindow : FancyWindow
         {
             Text = Loc.GetString("tape-recorder-menu-erase-button"),
             Margin = new Thickness(5, 0, 0, 0),
-            Disabled = true
+            Disabled = true,
         };
         _eraseButton.OnPressed += _ => OnErase?.Invoke();
         Buttons.AddChild(_eraseButton);
@@ -116,7 +117,7 @@ public sealed partial class TapeRecorderWindow : FancyWindow
 
     private void SetEnabled(TapeRecorderMode mode, bool condition)
     {
-        _options.SetItemDisabled((int) mode, !(_hasCasette && condition));
+        _options.SetItemDisabled((int)mode, !(_hasCasette && condition));
     }
 
     protected override void FrameUpdate(FrameEventArgs args)
@@ -135,9 +136,7 @@ public sealed partial class TapeRecorderWindow : FancyWindow
             _options.SelectByValue(_mode);
         }
 
-        var speed = _mode == TapeRecorderMode.Rewinding
-            ? -comp.RewindSpeed
-            : 1f;
+        var speed = _mode == TapeRecorderMode.Rewinding ? -comp.RewindSpeed : 1f;
         PlaybackSlider.Value += args.DeltaSeconds * speed;
     }
 }

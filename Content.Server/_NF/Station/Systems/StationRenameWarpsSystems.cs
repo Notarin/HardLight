@@ -8,7 +8,8 @@ namespace Content.Server._NF.Station.Systems;
 
 public sealed class StationRenameWarpsSystems : EntitySystem
 {
-    [Dependency] private readonly StationSystem _stationSystem = default!;
+    [Dependency]
+    private readonly StationSystem _stationSystem = default!;
 
     public override void Initialize()
     {
@@ -51,7 +52,10 @@ public sealed class StationRenameWarpsSystems : EntitySystem
         return ret;
     }
 
-    public List<Entity<WarpPointComponent>> SyncWarpPointsToStations(IEnumerable<EntityUid> stationUids, bool? forceAdminOnly = null)
+    public List<Entity<WarpPointComponent>> SyncWarpPointsToStations(
+        IEnumerable<EntityUid> stationUids,
+        bool? forceAdminOnly = null
+    )
     {
         List<Entity<WarpPointComponent>> ret = new();
         // update all warp points that belong to this station grid
@@ -101,7 +105,10 @@ public sealed class StationRenameWarpsSystems : EntitySystem
         return ret;
     }
 
-    public List<Entity<WarpPointComponent>> SyncWarpPointsToGrids(IEnumerable<EntityUid> gridUids, bool? forceAdminOnly = null)
+    public List<Entity<WarpPointComponent>> SyncWarpPointsToGrids(
+        IEnumerable<EntityUid> gridUids,
+        bool? forceAdminOnly = null
+    )
     {
         List<Entity<WarpPointComponent>> ret = new();
         // update all warp points that belong to this station grid

@@ -1,9 +1,9 @@
+using Content.Shared.Examine;
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Interaction;
-using Content.Shared.Verbs;
-using Content.Shared.Examine;
 using Content.Shared.Item.ItemToggle.Components;
 using Content.Shared.Storage;
+using Content.Shared.Verbs;
 using JetBrains.Annotations;
 using Robust.Shared.Containers;
 using Robust.Shared.GameStates;
@@ -14,9 +14,14 @@ namespace Content.Shared.Item;
 
 public abstract class SharedItemSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private   readonly SharedHandsSystem _handsSystem = default!;
-    [Dependency] protected readonly SharedContainerSystem Container = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototype = default!;
+
+    [Dependency]
+    private readonly SharedHandsSystem _handsSystem = default!;
+
+    [Dependency]
+    protected readonly SharedContainerSystem Container = default!;
 
     public override void Initialize()
     {
@@ -114,22 +119,33 @@ public abstract class SharedItemSystem : EntitySystem
 
     private void AddPickupVerb(EntityUid uid, ItemComponent component, GetVerbsEvent<InteractionVerb> args)
     {
-        if (args.Hands == null ||
-            args.Using != null ||
-            !args.CanAccess ||
-            !args.CanInteract ||
-            !_handsSystem.CanPickupAnyHand(args.User, args.Target, handsComp: args.Hands, item: component))
+        if (
+            args.Hands == null
+            || args.Using != null
+            || !args.CanAccess
+            || !args.CanInteract
+            || !_handsSystem.CanPickupAnyHand(args.User, args.Target, handsComp: args.Hands, item: component)
+        )
             return;
 
         InteractionVerb verb = new();
-        verb.Act = () => _handsSystem.TryPickupAnyHand(args.User, args.Target, checkActionBlocker: false,
-            handsComp: args.Hands, item: component);
+        verb.Act = () =>
+            _handsSystem.TryPickupAnyHand(
+                args.User,
+                args.Target,
+                checkActionBlocker: false,
+                handsComp: args.Hands,
+                item: component
+            );
         verb.Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/pickup.svg.192dpi.png"));
 
         // if the item already in a container (that is not the same as the user's), then change the text.
         // this occurs when the item is in their inventory or in an open backpack
         Container.TryGetContainingContainer((args.User, null, null), out var userContainer);
-        if (Container.TryGetContainingContainer((args.Target, null, null), out var container) && container != userContainer)
+        if (
+            Container.TryGetContainingContainer((args.Target, null, null), out var container)
+            && container != userContainer
+        )
             verb.Text = Loc.GetString("pick-up-verb-get-data-text-inventory");
         else
             verb.Text = Loc.GetString("pick-up-verb-get-data-text");
@@ -140,8 +156,10 @@ public abstract class SharedItemSystem : EntitySystem
     private void OnExamine(EntityUid uid, ItemComponent component, ExaminedEvent args)
     {
         // show at end of message generally
-        args.PushMarkup(Loc.GetString("item-component-on-examine-size",
-            ("size", GetItemSizeLocale(component.Size))), priority: -1);
+        args.PushMarkup(
+            Loc.GetString("item-component-on-examine-size", ("size", GetItemSizeLocale(component.Size))),
+            priority: -1
+        );
     }
 
     public ItemSizePrototype GetSizePrototype(ProtoId<ItemSizePrototype> id)
@@ -156,9 +174,7 @@ public abstract class SharedItemSystem : EntitySystem
     ///     This is used for updating both inhand sprites and clothing sprites, but it's here just cause it needs to
     ///     be in one place.
     /// </remarks>
-    public virtual void VisualsChanged(EntityUid owner)
-    {
-    }
+    public virtual void VisualsChanged(EntityUid owner) { }
 
     [PublicAPI]
     public string GetItemSizeLocale(ProtoId<ItemSizePrototype> size)
@@ -209,7 +225,7 @@ public abstract class SharedItemSystem : EntitySystem
 
         var shapes = GetItemShape(entity);
         var boundingShape = shapes.GetBoundingBox();
-        var boundingCenter = ((Box2) boundingShape).Center;
+        var boundingCenter = ((Box2)boundingShape).Center;
         var matty = Matrix3Helpers.CreateTransform(boundingCenter, rotation);
         var drift = boundingShape.BottomLeft - matty.TransformBox(boundingShape).BottomLeft;
 
@@ -249,7 +265,7 @@ public abstract class SharedItemSystem : EntitySystem
                 // Set the deactivated size to the default item's size before it gets changed.
                 itemToggleSize.DeactivatedSize ??= item.Size;
                 Dirty(uid, itemToggleSize);
-                SetSize(uid, (ProtoId<ItemSizePrototype>) itemToggleSize.ActivatedSize, item);
+                SetSize(uid, (ProtoId<ItemSizePrototype>)itemToggleSize.ActivatedSize, item);
             }
         }
         else
@@ -261,7 +277,7 @@ public abstract class SharedItemSystem : EntitySystem
 
             if (itemToggleSize.DeactivatedSize != null)
             {
-                SetSize(uid, (ProtoId<ItemSizePrototype>) itemToggleSize.DeactivatedSize, item);
+                SetSize(uid, (ProtoId<ItemSizePrototype>)itemToggleSize.DeactivatedSize, item);
             }
         }
     }

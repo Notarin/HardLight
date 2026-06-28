@@ -22,17 +22,17 @@
         amount: 0.3
       - !type:PopupMessage
         conditions:
-        - !type:ReagentThreshold # HardLight: ReagentCondition<ReagentThreshold
-          reagent: HealthViolation
+        - !type:ReagentThreshold
+          reagent: HealthViolation # HardLight: ReagentCondition<ReagentThreshold
           min: 30
         type: Local
         visualType: Medium
-        messages: [ "generic-reagent-effect-damnation" ]
+        messages: ["generic-reagent-effect-damnation"]
         probability: 0.2
       - !type:Vomit
         conditions:
-        - !type:ReagentThreshold # HardLight: ReagentCondition<ReagentThreshold
-          reagent: HealthViolation
+        - !type:ReagentThreshold
+          reagent: HealthViolation # HardLight: ReagentCondition<ReagentThreshold
           min: 30
         probability: 0.02
 
@@ -194,7 +194,7 @@
   flavor: doubleicecream
   color: "#a06f42"
   metamorphicSprite:
-    sprite:  _DV/Objects/Consumable/Drinks/doubleicecreamglass.rsi
+    sprite: _DV/Objects/Consumable/Drinks/doubleicecreamglass.rsi
     state: icon_empty
   metamorphicMaxFillLevels: 5
   metamorphicFillBaseName: fill-

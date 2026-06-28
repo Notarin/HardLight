@@ -7,7 +7,8 @@ namespace Content.Client.Radiation.Systems;
 
 public sealed class RadiationSystem : EntitySystem
 {
-    [Dependency] private readonly IOverlayManager _overlayMan = default!;
+    [Dependency]
+    private readonly IOverlayManager _overlayMan = default!;
 
     public List<DebugRadiationRay>? Rays;
     public Dictionary<NetEntity, Dictionary<Vector2i, float>>? ResistanceGrids;
@@ -38,8 +39,9 @@ public sealed class RadiationSystem : EntitySystem
         if (!_overlayMan.TryGetOverlay(out RadiationDebugOverlay? overlay))
             return;
 
-        var str = $"Radiation update: {ev.ElapsedTimeMs}ms with. Receivers: {ev.ReceiversCount}, " +
-                  $"Sources: {ev.SourcesCount}, Rays: {ev.Rays.Count}";
+        var str =
+            $"Radiation update: {ev.ElapsedTimeMs}ms with. Receivers: {ev.ReceiversCount}, "
+            + $"Sources: {ev.SourcesCount}, Rays: {ev.Rays.Count}";
         Log.Info(str);
 
         Rays = ev.Rays;

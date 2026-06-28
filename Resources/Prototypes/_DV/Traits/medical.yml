@@ -14,7 +14,7 @@
     - BorgChassis
   components:
   - type: Uncloneable
-  # HardLight end
+    # HardLight end
 
 - type: trait
   id: Unborgable

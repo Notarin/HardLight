@@ -19,9 +19,9 @@
     arc: 360 # interact despite grilles
   - type: Tag
     tags:
-      - ForceFixRotations
-      - Window
-      - WeldbotFixableStructure
+    - ForceFixRotations
+    - Window
+    - WeldbotFixableStructure
   - type: Physics
     bodyType: Static
   - type: ExaminableDamage
@@ -56,8 +56,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb {}
+        shape: !type:PhysShapeAabb {}
         mask:
         - FullTileMask
         layer:
@@ -83,14 +82,12 @@
   components:
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 6000
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 500
       behaviors:
       - !type:PlaySoundBehavior
@@ -105,7 +102,7 @@
             min: 1
             max: 2
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: DamageVisuals
     thresholds: [5, 10, 20]
     damageDivisor: 20
@@ -153,12 +150,11 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PolygonShape
-            vertices:
-            - "-0.5,-0.5"
-            - "0.5,0.5"
-            - "0.5,-0.5"
+        shape: !type:PolygonShape
+          vertices:
+          - "-0.5,-0.5"
+          - "0.5,0.5"
+          - "0.5,-0.5"
         mask:
         - FullTileMask
         layer:
@@ -190,14 +186,12 @@
   components:
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 6000
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 500
       behaviors:
       - !type:PlaySoundBehavior
@@ -212,7 +206,7 @@
             min: 1
             max: 2
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: DamageVisuals
     thresholds: [5, 10, 20]
     damageDivisor: 20

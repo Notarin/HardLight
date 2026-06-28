@@ -31,7 +31,7 @@
 - type: entity
   id: AiHeldMono
   description: Components added / removed from an entity that gets inserted into an AI core.
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   abstract: true
   components:
   - type: IntrinsicRadioReceiver
@@ -68,7 +68,7 @@
     - sprite: Mobs/Silicon/station_ai.rsi
       state: default
   - type: ShowJobIcons
-  # VRS: AdvancedPilotComponent is not present in this codebase.
+    # VRS: AdvancedPilotComponent is not present in this codebase.
 
 # Remnant AI core
 
@@ -95,7 +95,7 @@
 - type: entity
   id: StationAiBrainRedacted
   parent: StationAiBrain
-  categories: [ HideSpawnMenu, DoNotMap ]
+  categories: [HideSpawnMenu, DoNotMap]
   components:
   - type: Sprite
   # VRS: SiliconLawProvider 'Redacted' lawset not yet ported; falls back to
@@ -106,7 +106,7 @@
     rules: ghost-role-information-silicon-rules
     raffle:
       settings: default
-    # VRS: GhostRolePrototype 'RemnantAICore' not yet ported.
+      # VRS: GhostRolePrototype 'RemnantAICore' not yet ported.
   - type: Access
     groups:
     - AllAccess
@@ -123,7 +123,7 @@
 - type: entity
   id: AiHeldRedacted
   parent: AiHeldMono
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: IntrinsicRadioTransmitter
     channels:

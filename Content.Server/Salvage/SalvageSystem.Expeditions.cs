@@ -1,27 +1,27 @@
 using System.Linq;
+using System.Numerics; // Frontier
 using System.Threading;
+using Content.Server._NF.Salvage.Expeditions; // Frontier
 using Content.Server.Salvage.Expeditions;
 using Content.Server.Salvage.Expeditions.Structure;
+using Content.Server.Station.Components; // Frontier
+using Content.Shared._NF.CCVar; // Frontier
 using Content.Shared.CCVar;
 using Content.Shared.Examine;
+using Content.Shared.Ghost;
+using Content.Shared.Procedural; // Frontier
 using Content.Shared.Random.Helpers;
+using Content.Shared.Salvage; // Frontier
 using Content.Shared.Salvage.Expeditions;
+using Content.Shared.Shuttles.Components; // Frontier
 using Robust.Shared.Audio;
+using Robust.Shared.Configuration;
 using Robust.Shared.CPUJob.JobQueues;
 using Robust.Shared.CPUJob.JobQueues.Queues;
 using Robust.Shared.GameStates;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components; // For MapGridComponent
-using Content.Server._NF.Salvage.Expeditions; // Frontier
-using Content.Server.Station.Components; // Frontier
-using Content.Shared.Procedural; // Frontier
-using Content.Shared.Salvage; // Frontier
 using Robust.Shared.Prototypes; // Frontier
-using Content.Shared._NF.CCVar; // Frontier
-using Content.Shared.Shuttles.Components; // Frontier
-using Robust.Shared.Configuration;
-using Content.Shared.Ghost;
-using System.Numerics; // Frontier
 using TimedDespawnComponent = Robust.Shared.Spawners.TimedDespawnComponent;
 
 namespace Content.Server.Salvage;
@@ -37,7 +37,14 @@ public sealed partial class SalvageSystem
     private readonly JobQueue _salvageQueue = new();
     private readonly List<(SpawnSalvageMissionJob Job, CancellationTokenSource CancelToken)> _salvageJobs = new();
     private const double SalvageJobTime = 0.002;
-    private readonly List<(ProtoId<SalvageDifficultyPrototype> id, int value)> _missionDifficulties = [("NFEasy", 0),("NFModerate", 1), ("NFHazardous", 2),("NFExtreme", 3), ("NFNightmare", 4)]; // Frontier: mission difficulties with order
+    private readonly List<(ProtoId<SalvageDifficultyPrototype> id, int value)> _missionDifficulties =
+    [
+        ("NFEasy", 0),
+        ("NFModerate", 1),
+        ("NFHazardous", 2),
+        ("NFExtreme", 3),
+        ("NFNightmare", 4),
+    ]; // Frontier: mission difficulties with order
 
     // HardLight start
     private static readonly Dictionary<string, string> RewardPrototypeByDifficulty = new()
@@ -48,9 +55,11 @@ public sealed partial class SalvageSystem
         ["NFExtreme"] = "SpaceCashExpeditionT4",
         ["NFNightmare"] = "SpaceCashExpeditionT5",
     };
+
     // HardLight end
 
-    [Dependency] private readonly IConfigurationManager _cfgManager = default!; // Frontier
+    [Dependency]
+    private readonly IConfigurationManager _cfgManager = default!; // Frontier
 
     private float _cooldown;
     private float _failedCooldown; // Frontier
@@ -63,9 +72,11 @@ public sealed partial class SalvageSystem
         SubscribeLocalEvent<SalvageExpeditionConsoleComponent, EntParentChangedMessage>(OnSalvageConsoleParent);
         SubscribeLocalEvent<SalvageExpeditionConsoleComponent, ClaimSalvageMessage>(OnSalvageClaimMessage);
         SubscribeLocalEvent<SalvageExpeditionDataComponent, ExpeditionSpawnCompleteEvent>(OnExpeditionSpawnComplete); // Frontier: more gracefully handle expedition generation failures
-        SubscribeLocalEvent<SalvageExpeditionConsoleComponent, ExpeditionSpawnCompleteEvent>(OnExpeditionSpawnCompleteConsole); // HARDLIGHT: Handle event on consoles for round persistence
+        SubscribeLocalEvent<SalvageExpeditionConsoleComponent, ExpeditionSpawnCompleteEvent>(
+            OnExpeditionSpawnCompleteConsole
+        ); // HARDLIGHT: Handle event on consoles for round persistence
         SubscribeLocalEvent<SalvageExpeditionConsoleComponent, FinishSalvageMessage>(OnSalvageFinishMessage); // Frontier: For early finish
-    SubscribeLocalEvent<SalvageExpeditionConsoleComponent, RefreshSalvageConsoleMessage>(OnSalvageRefreshMessage); // HARDLIGHT: manual refresh
+        SubscribeLocalEvent<SalvageExpeditionConsoleComponent, RefreshSalvageConsoleMessage>(OnSalvageRefreshMessage); // HARDLIGHT: manual refresh
 
         SubscribeLocalEvent<SalvageExpeditionComponent, MapInitEvent>(OnExpeditionMapInit);
         SubscribeLocalEvent<SalvageExpeditionComponent, ComponentShutdown>(OnExpeditionShutdown);
@@ -89,7 +100,7 @@ public sealed partial class SalvageSystem
         args.State = new SalvageExpeditionComponentState()
         {
             Stage = component.Stage,
-            SelectedSong = component.SelectedSong // Frontier: note, not dirtied on map init (not needed)
+            SelectedSong = component.SelectedSong, // Frontier: note, not dirtied on map init (not needed)
         };
     }
 
@@ -124,6 +135,7 @@ public sealed partial class SalvageSystem
     {
         ProximityCheck = obj;
     }
+
     // End Frontier
 
     private void OnExpeditionMapInit(EntityUid uid, SalvageExpeditionComponent component, MapInitEvent args)
@@ -131,7 +143,7 @@ public sealed partial class SalvageSystem
         component.SelectedSong = _audio.ResolveSound(component.Sound);
 
         var despawn = EnsureComp<TimedDespawnComponent>(uid);
-        despawn.Lifetime = (float) TimeSpan.FromMinutes(30).TotalSeconds;
+        despawn.Lifetime = (float)TimeSpan.FromMinutes(30).TotalSeconds;
     }
 
     private void OnExpeditionShutdown(EntityUid uid, SalvageExpeditionComponent component, ComponentShutdown args)
@@ -165,7 +177,9 @@ public sealed partial class SalvageSystem
             // HardLight: Some flows (e.g. disk-launched missions on fresh ships) may not have station expedition data.
             // Still award completion rewards and announce result so payouts do not silently fail.
             HandleExpeditionOutcome(uid, component);
-            Log.Info($"Expedition shutdown: No expedition data on {component.Station}, used fallback outcome handling.");
+            Log.Info(
+                $"Expedition shutdown: No expedition data on {component.Station}, used fallback outcome handling."
+            );
         }
     }
 
@@ -225,7 +239,11 @@ public sealed partial class SalvageSystem
         }
     }
 
-    private void FinishExpedition(Entity<SalvageExpeditionDataComponent> expedition, SalvageExpeditionComponent expeditionComp, EntityUid uid)
+    private void FinishExpedition(
+        Entity<SalvageExpeditionDataComponent> expedition,
+        SalvageExpeditionComponent expeditionComp,
+        EntityUid uid
+    )
     {
         var component = expedition.Comp;
         // Frontier: separate timeout/announcement for success/failures
@@ -273,7 +291,9 @@ public sealed partial class SalvageSystem
 
         if (!TryGetExpeditionRewardSpawnCoordinates(expeditionComp, out var rewardCoords, out var source))
         {
-            Log.Warning("Expedition completed but no valid reward spawn location was found (console/station/grid). Reward not spawned.");
+            Log.Warning(
+                "Expedition completed but no valid reward spawn location was found (console/station/grid). Reward not spawned."
+            );
             return;
         }
 
@@ -295,13 +315,17 @@ public sealed partial class SalvageSystem
     private bool TryGetExpeditionRewardSpawnCoordinates(
         SalvageExpeditionComponent expeditionComp,
         out EntityCoordinates coordinates,
-        out string source)
+        out string source
+    )
     {
         coordinates = default;
         source = "unknown";
 
-        if (expeditionComp.Console != null && Exists(expeditionComp.Console.Value) &&
-            TryComp(expeditionComp.Console.Value, out TransformComponent? consoleXform))
+        if (
+            expeditionComp.Console != null
+            && Exists(expeditionComp.Console.Value)
+            && TryComp(expeditionComp.Console.Value, out TransformComponent? consoleXform)
+        )
         {
             coordinates = consoleXform.Coordinates;
             source = $"console {ToPrettyString(expeditionComp.Console.Value)}";
@@ -318,7 +342,11 @@ public sealed partial class SalvageSystem
         if (TryComp(expeditionComp.Station, out StationDataComponent? stationData))
         {
             var largestGrid = _station.GetLargestGrid(stationData);
-            if (largestGrid != null && Exists(largestGrid.Value) && TryComp(largestGrid.Value, out TransformComponent? gridXform))
+            if (
+                largestGrid != null
+                && Exists(largestGrid.Value)
+                && TryComp(largestGrid.Value, out TransformComponent? gridXform)
+            )
             {
                 coordinates = gridXform.Coordinates;
                 source = $"largest station grid {ToPrettyString(largestGrid.Value)}";
@@ -328,6 +356,7 @@ public sealed partial class SalvageSystem
 
         return false;
     }
+
     // HardLight end
 
     private void GenerateMissions(SalvageExpeditionDataComponent component)
@@ -364,7 +393,12 @@ public sealed partial class SalvageSystem
                 var difficultyIndex = _random.Next(_missionDifficulties.Count);
                 difficulties.Add(_missionDifficulties[difficultyIndex]);
             }
-            difficulties.Sort((x, y) => { return Comparer<int>.Default.Compare(x.value, y.value); });
+            difficulties.Sort(
+                (x, y) =>
+                {
+                    return Comparer<int>.Default.Compare(x.value, y.value);
+                }
+            );
 
             // HARDLIGHT: Always start mission indices from 0 for consistency
             var missionIndex = 0;
@@ -405,10 +439,23 @@ public sealed partial class SalvageSystem
     private SalvageExpeditionConsoleState GetState(SalvageExpeditionDataComponent component)
     {
         var missions = component.Missions.Values.ToList();
-        return new SalvageExpeditionConsoleState(component.NextOffer, component.Claimed, component.Cooldown, component.ActiveMission, missions, component.CanFinish, component.CooldownTime); // Frontier: add CanFinish, CooldownTime
+        return new SalvageExpeditionConsoleState(
+            component.NextOffer,
+            component.Claimed,
+            component.Cooldown,
+            component.ActiveMission,
+            missions,
+            component.CanFinish,
+            component.CooldownTime
+        ); // Frontier: add CanFinish, CooldownTime
     }
 
-    private void SpawnMission(SalvageMissionParams missionParams, EntityUid station, EntityUid? console, EntityUid? coordinatesDisk)
+    private void SpawnMission(
+        SalvageMissionParams missionParams,
+        EntityUid station,
+        EntityUid? console,
+        EntityUid? coordinatesDisk
+    )
     {
         var cancelToken = new CancellationTokenSource();
         var job = new SpawnSalvageMissionJob(
@@ -429,13 +476,19 @@ public sealed partial class SalvageSystem
             console,
             coordinatesDisk,
             missionParams,
-            cancelToken.Token);
+            cancelToken.Token
+        );
 
         _salvageJobs.Add((job, cancelToken));
         _salvageQueue.EnqueueJob(job);
     }
 
-    public void SpawnMissionFromDisk(SalvageMissionParams missionParams, EntityUid shuttleGrid, EntityUid consoleUid, EntityUid coordinatesDisk)
+    public void SpawnMissionFromDisk(
+        SalvageMissionParams missionParams,
+        EntityUid shuttleGrid,
+        EntityUid consoleUid,
+        EntityUid coordinatesDisk
+    )
     {
         SpawnMission(missionParams, shuttleGrid, consoleUid, coordinatesDisk);
     }
@@ -447,7 +500,11 @@ public sealed partial class SalvageSystem
 
     // Frontier: exped job handling, ghost reparenting
     // Handle exped spawn job failures gracefully - reset the console
-    private void OnExpeditionSpawnComplete(EntityUid uid, SalvageExpeditionDataComponent component, ExpeditionSpawnCompleteEvent ev)
+    private void OnExpeditionSpawnComplete(
+        EntityUid uid,
+        SalvageExpeditionDataComponent component,
+        ExpeditionSpawnCompleteEvent ev
+    )
     {
         // HARDLIGHT: Enhanced handling for round persistence
         if (component.ActiveMission == ev.MissionIndex && !ev.Success)
@@ -467,13 +524,15 @@ public sealed partial class SalvageSystem
     }
 
     // HARDLIGHT: Also handle the event on expedition consoles for round persistence
-    private void OnExpeditionSpawnCompleteConsole(EntityUid uid, SalvageExpeditionConsoleComponent component, ExpeditionSpawnCompleteEvent ev)
+    private void OnExpeditionSpawnCompleteConsole(
+        EntityUid uid,
+        SalvageExpeditionConsoleComponent component,
+        ExpeditionSpawnCompleteEvent ev
+    )
     {
         // Handle expedition completion events sent to consoles via station data
         var stationData = GetStationExpeditionData(uid);
-        if (stationData != null &&
-            stationData.ActiveMission == ev.MissionIndex &&
-            !ev.Success)
+        if (stationData != null && stationData.ActiveMission == ev.MissionIndex && !ev.Success)
         {
             stationData.ActiveMission = 0;
             stationData.Cooldown = false;
@@ -484,9 +543,7 @@ public sealed partial class SalvageSystem
             Log.Info($"Expedition console {uid} handled failed mission {ev.MissionIndex} via station expedition data");
         }
         // HARDLIGHT: Also handle successful missions to ensure proper state management
-        else if (stationData != null &&
-                 stationData.ActiveMission == ev.MissionIndex &&
-                 ev.Success)
+        else if (stationData != null && stationData.ActiveMission == ev.MissionIndex && ev.Success)
         {
             Log.Debug($"Expedition console {uid} handled successful mission {ev.MissionIndex}");
             // Don't change state for successful missions - let the normal completion flow handle it

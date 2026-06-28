@@ -10,9 +10,14 @@ namespace Content.Client.Sprite;
 
 public sealed class RandomSpriteSystem : SharedRandomSpriteSystem
 {
-    [Dependency] private readonly IReflectionManager _reflection = default!;
-    [Dependency] private readonly ClientClothingSystem _clothing = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly IReflectionManager _reflection = default!;
+
+    [Dependency]
+    private readonly ClientClothingSystem _clothing = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     public override void Initialize()
     {
@@ -41,7 +46,11 @@ public sealed class RandomSpriteSystem : SharedRandomSpriteSystem
         UpdateItemComponentAppearance(uid, component); // Frontier
     }
 
-    private void UpdateClothingComponentAppearance(EntityUid uid, RandomSpriteComponent component, ClothingComponent? clothing = null)
+    private void UpdateClothingComponentAppearance(
+        EntityUid uid,
+        RandomSpriteComponent component,
+        ClothingComponent? clothing = null
+    )
     {
         if (!Resolve(uid, ref clothing, false))
             return;
@@ -56,7 +65,11 @@ public sealed class RandomSpriteSystem : SharedRandomSpriteSystem
         }
     }
 
-    private void UpdateSpriteComponentAppearance(EntityUid uid, RandomSpriteComponent component, SpriteComponent? sprite = null)
+    private void UpdateSpriteComponentAppearance(
+        EntityUid uid,
+        RandomSpriteComponent component,
+        SpriteComponent? sprite = null
+    )
     {
         if (!Resolve(uid, ref sprite, false))
             return;
@@ -83,7 +96,11 @@ public sealed class RandomSpriteSystem : SharedRandomSpriteSystem
     }
 
     // Frontier: edit inhand visuals
-    private void UpdateItemComponentAppearance(EntityUid uid, RandomSpriteComponent component, ItemComponent? sprite = null)
+    private void UpdateItemComponentAppearance(
+        EntityUid uid,
+        RandomSpriteComponent component,
+        ItemComponent? sprite = null
+    )
     {
         if (!Resolve(uid, ref sprite, false))
             return;

@@ -25,11 +25,11 @@ public class DeviceNetworkingBenchmark
     private readonly List<EntityUid> _targetEntities = new();
     private readonly List<EntityUid> _targetWirelessEntities = new();
 
-
     private NetworkPayload _payload = default!;
 
     [TestPrototypes]
-    private const string Prototypes = @"
+    private const string Prototypes =
+        @"
 - type: entity
   name: DummyNetworkDevicePrivate
   id: DummyNetworkDevicePrivate
@@ -74,7 +74,7 @@ public class DeviceNetworkingBenchmark
             {
                 ["Test"] = testValue,
                 ["testnumber"] = 1,
-                ["testbool"] = true
+                ["testbool"] = true,
             };
 
             _sourceEntity = entityManager.SpawnEntity("DummyNetworkDevicePrivate", MapCoordinates.Nullspace);
@@ -83,7 +83,9 @@ public class DeviceNetworkingBenchmark
             for (var i = 0; i < EntityCount; i++)
             {
                 _targetEntities.Add(entityManager.SpawnEntity("DummyNetworkDevicePrivate", MapCoordinates.Nullspace));
-                _targetWirelessEntities.Add(entityManager.SpawnEntity("DummyWirelessNetworkDevice", MapCoordinates.Nullspace));
+                _targetWirelessEntities.Add(
+                    entityManager.SpawnEntity("DummyWirelessNetworkDevice", MapCoordinates.Nullspace)
+                );
             }
         });
     }

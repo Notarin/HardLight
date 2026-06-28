@@ -11,15 +11,15 @@
   - type: Clothing
     sprite: Goobstation/Objects/Tanks/chronojet.rsi
     slots:
-      - suitStorage
+    - suitStorage
   - type: GasTank
     outputPressure: 1
     air:
       volume: 1000
       temperature: 1
       moles:
-        - 100000 # oxygen
-        - 100000 # nitrogen
+      - 100000 # oxygen
+      - 100000 # nitrogen
   - type: Jetpack
     moleUsage: 0.00002
   - type: MovementSpeedModifier

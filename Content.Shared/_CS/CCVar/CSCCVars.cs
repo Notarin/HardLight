@@ -11,11 +11,18 @@ public sealed class CSCVars
     /// <summary>
     /// Max number of items on a belt before we destroy it/warn admins
     /// </summary>
-    public static readonly CVarDef<int> ConveyorMaxItemCount =
-    CVarDef.Create("conveyor.max_item_count", 200, CVar.SERVERONLY);
+    public static readonly CVarDef<int> ConveyorMaxItemCount = CVarDef.Create(
+        "conveyor.max_item_count",
+        200,
+        CVar.SERVERONLY
+    );
+
     /// <summary>
     /// Max number of items on a belt before we destroy it/warn admins
     /// </summary>
-    public static readonly CVarDef<float> ConveyorCleanupIntervalSeconds =
-    CVarDef.Create("conveyor.cleanup_interval_seconds", 51f, CVar.SERVERONLY);
+    public static readonly CVarDef<float> ConveyorCleanupIntervalSeconds = CVarDef.Create(
+        "conveyor.cleanup_interval_seconds",
+        51f,
+        CVar.SERVERONLY
+    );
 }

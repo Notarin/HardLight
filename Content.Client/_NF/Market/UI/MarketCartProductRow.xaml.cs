@@ -9,6 +9,7 @@ namespace Content.Client._NF.Market.UI;
 public sealed partial class MarketCartProductRow : PanelContainer
 {
     public EntityPrototype Prototype;
+
     public MarketCartProductRow(EntityPrototype prototype)
     {
         RobustXamlLoader.Load(this);

@@ -1,14 +1,15 @@
 using Content.Server._NF.Speech.Components;
 using Content.Server.Speech.Components;
-using Content.Shared.Interaction.Events;
 using Content.Shared._NF.Item;
+using Content.Shared.Interaction.Events;
 using Content.Shared.Verbs;
 
 namespace Content.Server._NF.Speech.EntitySystems;
 
 public sealed class AddAccentPickupSystem : EntitySystem
 {
-    [Dependency] private readonly IComponentFactory _componentFactory = default!;
+    [Dependency]
+    private readonly IComponentFactory _componentFactory = default!;
 
     public override void Initialize()
     {
@@ -61,7 +62,7 @@ public sealed class AddAccentPickupSystem : EntitySystem
         AlternativeVerb verb = new()
         {
             Text = Loc.GetString("accent-clothing-component-toggle"),
-            Act = () => ToggleAccent(uid, component)
+            Act = () => ToggleAccent(uid, component),
         };
         args.Verbs.Add(verb);
     }

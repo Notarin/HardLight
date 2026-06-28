@@ -9,9 +9,14 @@ namespace Content.Server.Ninja.Systems;
 
 public sealed class ItemCreatorSystem : SharedItemCreatorSystem
 {
-    [Dependency] private readonly BatterySystem _battery = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency]
+    private readonly BatterySystem _battery = default!;
+
+    [Dependency]
+    private readonly SharedHandsSystem _hands = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
 
     public override void Initialize()
     {
@@ -24,7 +29,7 @@ public sealed class ItemCreatorSystem : SharedItemCreatorSystem
     private void OnCreateItem(Entity<ItemCreatorComponent> ent, ref CreateItemEvent args)
     {
         var (uid, comp) = ent;
-        if (comp.Battery is not {} battery)
+        if (comp.Battery is not { } battery)
             return;
 
         args.Handled = true;

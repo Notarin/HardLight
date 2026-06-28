@@ -9,7 +9,12 @@ namespace Content.Server.Atmos.Reactions
     [DataDefinition]
     public sealed partial class TritiumFireReaction : IGasReactionEffect
     {
-        public ReactionResult React(GasMixture mixture, IGasMixtureHolder? holder, AtmosphereSystem atmosphereSystem, float heatScale)
+        public ReactionResult React(
+            GasMixture mixture,
+            IGasMixtureHolder? holder,
+            AtmosphereSystem atmosphereSystem,
+            float heatScale
+        )
         {
             var energyReleased = 0f;
             var oldHeatCapacity = atmosphereSystem.GetHeatCapacity(mixture, true);
@@ -19,8 +24,10 @@ namespace Content.Server.Atmos.Reactions
             var burnedFuel = 0f;
             var initialTrit = mixture.GetMoles(Gas.Tritium);
 
-            if (mixture.GetMoles(Gas.Oxygen) < initialTrit ||
-                Atmospherics.MinimumTritiumOxyburnEnergy > (temperature * oldHeatCapacity * heatScale))
+            if (
+                mixture.GetMoles(Gas.Oxygen) < initialTrit
+                || Atmospherics.MinimumTritiumOxyburnEnergy > (temperature * oldHeatCapacity * heatScale)
+            )
             {
                 burnedFuel = mixture.GetMoles(Gas.Oxygen) / Atmospherics.TritiumBurnOxyFactor;
                 if (burnedFuel > initialTrit)
@@ -31,9 +38,14 @@ namespace Content.Server.Atmos.Reactions
             else
             {
                 burnedFuel = initialTrit;
-                mixture.SetMoles(Gas.Tritium, mixture.GetMoles(Gas.Tritium ) * (1 - 1 / Atmospherics.TritiumBurnTritFactor));
+                mixture.SetMoles(
+                    Gas.Tritium,
+                    mixture.GetMoles(Gas.Tritium) * (1 - 1 / Atmospherics.TritiumBurnTritFactor)
+                );
                 mixture.AdjustMoles(Gas.Oxygen, -mixture.GetMoles(Gas.Tritium));
-                energyReleased += (Atmospherics.FireHydrogenEnergyReleased * burnedFuel * (Atmospherics.TritiumBurnTritFactor - 1));
+                energyReleased += (
+                    Atmospherics.FireHydrogenEnergyReleased * burnedFuel * (Atmospherics.TritiumBurnTritFactor - 1)
+                );
             }
 
             if (burnedFuel > 0)
@@ -65,7 +77,9 @@ namespace Content.Server.Atmos.Reactions
                 }
             }
 
-            return mixture.ReactionResults[(byte)GasReaction.Fire] != 0 ? ReactionResult.Reacting : ReactionResult.NoReaction;
+            return mixture.ReactionResults[(byte)GasReaction.Fire] != 0
+                ? ReactionResult.Reacting
+                : ReactionResult.NoReaction;
         }
     }
 }

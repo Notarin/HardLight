@@ -19,16 +19,35 @@ namespace Content.Shared.Stacks
     [UsedImplicitly]
     public abstract class SharedStackSystem : EntitySystem
     {
-        [Dependency] private readonly IGameTiming _gameTiming = default!;
-        [Dependency] private readonly IPrototypeManager _prototype = default!;
-        [Dependency] private readonly IViewVariablesManager _vvm = default!;
-        [Dependency] protected readonly SharedAppearanceSystem Appearance = default!;
-        [Dependency] protected readonly SharedHandsSystem Hands = default!;
-        [Dependency] protected readonly SharedTransformSystem Xform = default!;
-        [Dependency] private readonly EntityLookupSystem _entityLookup = default!;
-        [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-        [Dependency] protected readonly SharedPopupSystem Popup = default!;
-        [Dependency] private readonly SharedStorageSystem _storage = default!;
+        [Dependency]
+        private readonly IGameTiming _gameTiming = default!;
+
+        [Dependency]
+        private readonly IPrototypeManager _prototype = default!;
+
+        [Dependency]
+        private readonly IViewVariablesManager _vvm = default!;
+
+        [Dependency]
+        protected readonly SharedAppearanceSystem Appearance = default!;
+
+        [Dependency]
+        protected readonly SharedHandsSystem Hands = default!;
+
+        [Dependency]
+        protected readonly SharedTransformSystem Xform = default!;
+
+        [Dependency]
+        private readonly EntityLookupSystem _entityLookup = default!;
+
+        [Dependency]
+        private readonly SharedPhysicsSystem _physics = default!;
+
+        [Dependency]
+        protected readonly SharedPopupSystem Popup = default!;
+
+        [Dependency]
+        private readonly SharedStorageSystem _storage = default!;
 
         public override void Initialize()
         {
@@ -47,15 +66,18 @@ namespace Content.Shared.Stacks
 
         // Cherry-pick #32938 courtesy of Ilya246
         // client shouldn't try to split stacks so do nothing on client
-        protected virtual void OnCustomSplitMessage(Entity<StackComponent> ent, ref StackCustomSplitAmountMessage message) {}
+        protected virtual void OnCustomSplitMessage(
+            Entity<StackComponent> ent,
+            ref StackCustomSplitAmountMessage message
+        ) { }
+
         // End cherry-pick #32938 courtesy of Ilya246
 
         public override void Shutdown()
         {
             base.Shutdown();
 
-            _vvm.GetTypeHandler<StackComponent>()
-                .RemovePath(nameof(StackComponent.Count));
+            _vvm.GetTypeHandler<StackComponent>().RemovePath(nameof(StackComponent.Count));
         }
 
         private void OnStackInteractUsing(EntityUid uid, StackComponent stack, InteractUsingEvent args)
@@ -93,8 +115,12 @@ namespace Content.Shared.Stacks
 
                     if (GetAvailableSpace(recipientStack) == 0)
                     {
-                        Popup.PopupCoordinates(Loc.GetString("comp-stack-becomes-full"),
-                            popupPos.Offset(new Vector2(0, -0.5f)), Filter.Local(), false);
+                        Popup.PopupCoordinates(
+                            Loc.GetString("comp-stack-becomes-full"),
+                            popupPos.Offset(new Vector2(0, -0.5f)),
+                            Filter.Local(),
+                            false
+                        );
                     }
 
                     break;
@@ -112,7 +138,8 @@ namespace Content.Shared.Stacks
             EntityUid recipient,
             out int transferred,
             StackComponent? donorStack = null,
-            StackComponent? recipientStack = null)
+            StackComponent? recipientStack = null
+        )
         {
             transferred = 0;
             if (donor == recipient)
@@ -121,7 +148,10 @@ namespace Content.Shared.Stacks
             if (!Resolve(recipient, ref recipientStack, false) || !Resolve(donor, ref donorStack, false))
                 return false;
 
-            if (string.IsNullOrEmpty(recipientStack.StackTypeId) || !recipientStack.StackTypeId.Equals(donorStack.StackTypeId))
+            if (
+                string.IsNullOrEmpty(recipientStack.StackTypeId)
+                || !recipientStack.StackTypeId.Equals(donorStack.StackTypeId)
+            )
                 return false;
 
             if (!StackSignaturesCompatible(donor, recipient))
@@ -158,7 +188,8 @@ namespace Content.Shared.Stacks
             EntityUid item,
             EntityUid user,
             StackComponent? itemStack = null,
-            HandsComponent? hands = null)
+            HandsComponent? hands = null
+        )
         {
             if (!Resolve(user, ref hands, false))
                 return;
@@ -210,7 +241,12 @@ namespace Content.Shared.Stacks
         /// Goobstation - virtual method to allow calling from shared.
         /// Does nothing on the client.
         /// </summary>
-        public virtual EntityUid? Split(EntityUid uid, int amount, EntityCoordinates spawnPosition, StackComponent? stack = null)
+        public virtual EntityUid? Split(
+            EntityUid uid,
+            int amount,
+            EntityCoordinates spawnPosition,
+            StackComponent? stack = null
+        )
         {
             return null;
         }
@@ -251,7 +287,12 @@ namespace Content.Shared.Stacks
             var map = xform.MapID;
             var bounds = _physics.GetWorldAABB(uid);
             var intersecting = new HashSet<Entity<StackComponent>>();
-            _entityLookup.GetEntitiesIntersecting(map, bounds, intersecting, LookupFlags.Dynamic | LookupFlags.Sundries);
+            _entityLookup.GetEntitiesIntersecting(
+                map,
+                bounds,
+                intersecting,
+                LookupFlags.Dynamic | LookupFlags.Sundries
+            );
 
             var merged = false;
             foreach (var otherStack in intersecting)
@@ -349,7 +390,12 @@ namespace Content.Shared.Stacks
         /// <summary>
         /// Tries to add one stack to another. May have some leftover count in the inserted entity.
         /// </summary>
-        public bool TryAdd(EntityUid insertEnt, EntityUid targetEnt, StackComponent? insertStack = null, StackComponent? targetStack = null)
+        public bool TryAdd(
+            EntityUid insertEnt,
+            EntityUid targetEnt,
+            StackComponent? insertStack = null,
+            StackComponent? targetStack = null
+        )
         {
             if (!Resolve(insertEnt, ref insertStack) || !Resolve(targetEnt, ref targetStack))
                 return false;
@@ -364,7 +410,13 @@ namespace Content.Shared.Stacks
         /// <summary>
         /// Tries to add one stack to another. May have some leftover count in the inserted entity.
         /// </summary>
-        public bool TryAdd(EntityUid insertEnt, EntityUid targetEnt, int count, StackComponent? insertStack = null, StackComponent? targetStack = null)
+        public bool TryAdd(
+            EntityUid insertEnt,
+            EntityUid targetEnt,
+            int count,
+            StackComponent? insertStack = null,
+            StackComponent? targetStack = null
+        )
         {
             if (!Resolve(insertEnt, ref insertStack) || !Resolve(targetEnt, ref targetStack))
                 return false;
@@ -423,7 +475,8 @@ namespace Content.Shared.Stacks
                 return;
 
             args.PushMarkup(
-                Loc.GetString("comp-stack-examine-detail-count",
+                Loc.GetString(
+                    "comp-stack-examine-detail-count",
                     ("count", component.Count),
                     ("markupCountColor", "lightgray")
                 )

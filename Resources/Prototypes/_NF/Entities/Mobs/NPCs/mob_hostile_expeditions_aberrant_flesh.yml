@@ -48,8 +48,8 @@
   - type: ReplacementAccent
     accent: genericAggressive
   - type: MovementSpeedModifier
-    baseWalkSpeed : 4.5
-    baseSprintSpeed : 4.5
+    baseWalkSpeed: 4.5
+    baseSprintSpeed: 4.5
 
 # MOBS
 - type: entity
@@ -60,7 +60,7 @@
   components:
   - type: Sprite
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: jared
   - type: DamageStateVisuals
     states:
@@ -88,7 +88,7 @@
     drawdepth: Mobs
     sprite: Mobs/Aliens/flesh.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: jared
 
 - type: entity
@@ -99,7 +99,7 @@
   components:
   - type: Sprite
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: golem
   - type: DamageStateVisuals
     states:
@@ -117,7 +117,7 @@
   components:
   - type: Sprite
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: golem2
   - type: DamageStateVisuals
     states:
@@ -137,7 +137,7 @@
     drawdepth: Mobs
     sprite: Mobs/Aliens/flesh.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: golem
   - type: DamageStateVisuals
     states:
@@ -160,9 +160,9 @@
     drawdepth: Mobs
     sprite: _NF/Mobs/Aliens/flesh_assimilated_miner.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: base
-    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+    - map: ["enum.DamageStateVisualLayers.BaseUnshaded"]
       state: base_unshaded
       shader: unshaded
   - type: MobState
@@ -202,26 +202,25 @@
   #categories: [ HideSpawnMenu ]
   components:
   - type: MovementSpeedModifier
-    baseWalkSpeed : 4
-    baseSprintSpeed : 4
+    baseWalkSpeed: 4
+    baseSprintSpeed: 4
   - type: CanMoveInAir
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.30 # Lowered the value, to allow them to fit through the airlocks
         density: 100
         mask:
-          - FlyingMobMask
+        - FlyingMobMask
         layer:
-          - FlyingMobLayer
+        - FlyingMobLayer
   - type: FootstepModifier
     footstepSoundCollection:
       path: /Audio/_NF/Effects/silence.ogg
   - type: Sprite
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: clamp
   - type: DamageStateVisuals
     states:
@@ -256,7 +255,7 @@
     angleDecay: 3
     selectedMode: SemiAuto
     availableModes:
-      - SemiAuto
+    - SemiAuto
     soundGunshot:
       collection: BulletMiss
 
@@ -269,7 +268,7 @@
     drawdepth: Mobs
     sprite: Mobs/Aliens/flesh.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: clamp
   - type: RechargeBasicEntityAmmo
     rechargeCooldown: 4
@@ -288,7 +287,7 @@
     angleDecay: 3
     selectedMode: SemiAuto
     availableModes:
-      - SemiAuto
+    - SemiAuto
     soundGunshot:
       collection: BulletMiss
 
@@ -299,26 +298,25 @@
   #categories: [ HideSpawnMenu ]
   components:
   - type: MovementSpeedModifier
-    baseWalkSpeed : 5
-    baseSprintSpeed : 5
+    baseWalkSpeed: 5
+    baseSprintSpeed: 5
   - type: CanMoveInAir
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.30 # Lowered the value, to allow them to fit through the airlocks
         density: 100
         mask:
-          - FlyingMobMask
+        - FlyingMobMask
         layer:
-          - FlyingMobLayer
+        - FlyingMobLayer
   - type: FootstepModifier
     footstepSoundCollection:
       path: /Audio/_NF/Effects/silence.ogg
   - type: Sprite
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: lover
   - type: DamageStateVisuals
     states:
@@ -339,7 +337,7 @@
   - type: MeleeWeapon
     attackRate: 1.5
     soundHit:
-        path: /Audio/Weapons/Xeno/alien_claw_flesh3.ogg
+      path: /Audio/Weapons/Xeno/alien_claw_flesh3.ogg
     angle: 0
     animation: WeaponArcClaw
     damage:
@@ -348,15 +346,15 @@
 
 # EXPEDITION BOSS
 - type: entity
-  parent: [ BaseMobFleshExpeditions, MobHostileBossBase, NFMobBossRestrictions ]
+  parent: [BaseMobFleshExpeditions, MobHostileBossBase, NFMobBossRestrictions]
   id: MobHorrorExpeditions
   name: aberrant flesh horror
   description: Tougher and more resilient than most aberrant flesh monsters. Has sharp, bony protrusions and highly developed musculature.
   #categories: [ HideSpawnMenu ]
   components:
   - type: MovementSpeedModifier
-    baseWalkSpeed : 4.6
-    baseSprintSpeed : 4.6
+    baseWalkSpeed: 4.6
+    baseSprintSpeed: 4.6
   - type: Sprite
     layers:
     - map: ["enum.DamageStateVisualLayers.Base"]
@@ -383,7 +381,7 @@
     autoAttack: true
     attackRate: 1.5
     soundHit:
-        path: /Audio/Weapons/Xeno/alien_claw_flesh3.ogg
+      path: /Audio/Weapons/Xeno/alien_claw_flesh3.ogg
     angle: 0
     animation: WeaponArcClaw
     damage:
@@ -409,7 +407,7 @@
   id: BoneSpikeGun
   name: bone spike
   description: Shoots a short salvo of bone spikes.
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: RechargeBasicEntityAmmo
     rechargeCooldown: 5
@@ -425,7 +423,7 @@
     fireRate: 4
     selectedMode: FullAuto
     availableModes:
-      - FullAuto
+    - FullAuto
     soundGunshot:
       path: /Audio/Items/bow_pull.ogg
     soundEmpty: null
@@ -433,12 +431,12 @@
 
 - type: entity
   id: ActionBoneSpike
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   name: "[color=yellow]Bone Spike[/color]"
   description: "Shoot a short salvo of bone spikes laced with toxins. [color=yellow]5 second cooldown.[/color]"
   components:
   - type: WorldTargetAction
-    icon: { sprite : _NF/Mobs/Aliens/flesh.rsi, state: spike }
+    icon: {sprite: _NF/Mobs/Aliens/flesh.rsi, state: spike}
     event: !type:ActionGunShootEvent
     priority: 2
     checkCanAccess: false
@@ -448,11 +446,11 @@
 # FUNNY LITTLE GUY
 # embedable projectile that bites you until you either kill it or detach it or die (or it despawns)
 - type: entity
-  parent: [ BaseMobFleshExpeditions, NFMobTimedDespawn60 ]
+  parent: [BaseMobFleshExpeditions, NFMobTimedDespawn60]
   id: MobMawExpeditions
   name: aberrant flesh maw
   description: Immobile, flesh-boring creatures that are launched at victims. Latches on until killed or shaken off. Don't put your fingers in it.
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: MovementSpeedModifier
     baseWalkSpeed: 0
@@ -487,7 +485,7 @@
   - type: MeleeWeapon
     attackRate: 0.3
     soundHit:
-        path: /Audio/Effects/bite.ogg
+      path: /Audio/Effects/bite.ogg
     angle: 0
     animation: WeaponArcBite
     damage:
@@ -513,17 +511,17 @@
         Blunt: 6
         Structural: 20
   - type: MovementSpeedModifier
-    baseWalkSpeed : 3.8
-    baseSprintSpeed : 3.8
+    baseWalkSpeed: 3.8
+    baseSprintSpeed: 3.8
 
 - type: entity
   id: MobFleshJaredExpeditionsNewborn
-  parent: [ BaseMobFleshExpeditionsNewborn, MobFleshJaredExpeditions ]
-#  categories: [ HideSpawnMenu ]
+  parent: [BaseMobFleshExpeditionsNewborn, MobFleshJaredExpeditions]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: jared
       scale: 0.8,0.8
       color: "maroon"
@@ -533,14 +531,14 @@
 
 - type: entity
   id: MobFleshJaredOldExpeditionsNewborn
-  parent: [ BaseMobFleshExpeditionsNewborn, MobFleshJaredOldExpeditions ]
-#  categories: [ HideSpawnMenu ]
+  parent: [BaseMobFleshExpeditionsNewborn, MobFleshJaredOldExpeditions]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     drawdepth: Mobs
     sprite: Mobs/Aliens/flesh.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: jared
       scale: 0.8,0.8
       color: "maroon"
@@ -550,12 +548,12 @@
 
 - type: entity
   id: MobFleshGolemExpeditionsNewborn
-  parent: [ BaseMobFleshExpeditionsNewborn, MobFleshGolemExpeditions ]
-#  categories: [ HideSpawnMenu ]
+  parent: [BaseMobFleshExpeditionsNewborn, MobFleshGolemExpeditions]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: golem
       scale: 0.8,0.8
       color: "maroon"
@@ -565,12 +563,12 @@
 
 - type: entity
   id: MobFleshGolemAltExpeditionsNewborn
-  parent: [ BaseMobFleshExpeditionsNewborn, MobFleshGolemAltExpeditions ]
-#  categories: [ HideSpawnMenu ]
+  parent: [BaseMobFleshExpeditionsNewborn, MobFleshGolemAltExpeditions]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: golem2
       scale: 0.8,0.8
       color: "maroon"
@@ -580,14 +578,14 @@
 
 - type: entity
   id: MobFleshGolemOldExpeditionsNewborn
-  parent: [ BaseMobFleshExpeditionsNewborn, MobFleshGolemOldExpeditions ]
-#  categories: [ HideSpawnMenu ]
+  parent: [BaseMobFleshExpeditionsNewborn, MobFleshGolemOldExpeditions]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     drawdepth: Mobs
     sprite: Mobs/Aliens/flesh.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: golem
       scale: 0.8,0.8
       color: "maroon"
@@ -597,12 +595,12 @@
 
 - type: entity
   id: MobFleshClampExpeditionsNewborn
-  parent: [ BaseMobFleshExpeditionsNewborn, MobFleshClampExpeditions ]
-#  categories: [ HideSpawnMenu ]
+  parent: [BaseMobFleshExpeditionsNewborn, MobFleshClampExpeditions]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: clamp
       scale: 0.8,0.8
       color: "maroon"
@@ -612,13 +610,13 @@
 
 - type: entity
   id: MobFleshClampOldExpeditionsNewborn
-  parent: [ BaseMobFleshExpeditionsNewborn, MobFleshClampOldExpeditions ]
-#  categories: [ HideSpawnMenu ]
+  parent: [BaseMobFleshExpeditionsNewborn, MobFleshClampOldExpeditions]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     sprite: Mobs/Aliens/flesh.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: clamp
       scale: 0.8,0.8
       color: "maroon"
@@ -628,12 +626,12 @@
 
 - type: entity
   id: MobFleshLoverExpeditionsNewborn
-  parent: [ BaseMobFleshExpeditionsNewborn, MobFleshLoverExpeditions ]
-#  categories: [ HideSpawnMenu ]
+  parent: [BaseMobFleshExpeditionsNewborn, MobFleshLoverExpeditions]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: lover
       scale: 0.8,0.8
       color: "maroon"

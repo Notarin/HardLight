@@ -1,7 +1,7 @@
-using Content.Shared.Construction;
-using JetBrains.Annotations;
-using Content.Shared.Examine;
 using Content.Shared.Buckle.Components;
+using Content.Shared.Construction;
+using Content.Shared.Examine;
+using JetBrains.Annotations;
 
 namespace Content.Server.Construction.Conditions;
 
@@ -23,11 +23,17 @@ public sealed partial class NFStrapEmpty : IGraphCondition
 
         var entMan = IoCManager.Resolve<IEntityManager>();
 
-        if (!entMan.TryGetComponent(entity, out StrapComponent? strap)) return false;
+        if (!entMan.TryGetComponent(entity, out StrapComponent? strap))
+            return false;
 
         if (strap.BuckledEntities.Count > 0)
         {
-            args.PushMarkup(Loc.GetString("construction-examine-condition-nf-strap-empty", ("entityName", entMan.GetComponent<MetaDataComponent>(entity).EntityName)) + "\n");
+            args.PushMarkup(
+                Loc.GetString(
+                    "construction-examine-condition-nf-strap-empty",
+                    ("entityName", entMan.GetComponent<MetaDataComponent>(entity).EntityName)
+                ) + "\n"
+            );
             return true;
         }
 
@@ -36,9 +42,6 @@ public sealed partial class NFStrapEmpty : IGraphCondition
 
     public IEnumerable<ConstructionGuideEntry> GenerateGuideEntry()
     {
-        yield return new ConstructionGuideEntry()
-        {
-            Localization = "construction-step-condition-nf-strap-empty"
-        };
+        yield return new ConstructionGuideEntry() { Localization = "construction-step-condition-nf-strap-empty" };
     }
 }

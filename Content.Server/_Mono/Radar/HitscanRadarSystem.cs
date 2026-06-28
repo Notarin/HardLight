@@ -1,12 +1,12 @@
+using System.Numerics;
 using Content.Server._Mono.FireControl;
 using Content.Shared._Mono.Radar;
 using Content.Shared.Weapons.Hitscan.Components;
+using Content.Shared.Weapons.Ranged;
 using Content.Shared.Weapons.Ranged.Events;
 using Robust.Server.GameObjects;
 using Robust.Shared.Map;
 using Robust.Shared.Timing;
-using Content.Shared.Weapons.Ranged;
-using System.Numerics;
 
 namespace Content.Server._Mono.Radar;
 
@@ -15,8 +15,11 @@ namespace Content.Server._Mono.Radar;
 /// </summary>
 public sealed partial class HitscanRadarSystem : EntitySystem
 {
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     private readonly Dictionary<HitscanNetData, TimeSpan> _activeHitscans = new();
 
@@ -33,7 +36,15 @@ public sealed partial class HitscanRadarSystem : EntitySystem
         public EntityUid? Gun { get; }
         public EntityUid? Shooter { get; }
 
-        public HitscanFireEffectEvent(EntityCoordinates fromCoordinates, float distance, Angle angle, HitscanPrototype hitscan, EntityUid? hitEntity = null, EntityUid? gun = null, EntityUid? shooter = null)
+        public HitscanFireEffectEvent(
+            EntityCoordinates fromCoordinates,
+            float distance,
+            Angle angle,
+            HitscanPrototype hitscan,
+            EntityUid? hitEntity = null,
+            EntityUid? gun = null,
+            EntityUid? shooter = null
+        )
         {
             FromCoordinates = fromCoordinates;
             Distance = distance;
@@ -89,7 +100,11 @@ public sealed partial class HitscanRadarSystem : EntitySystem
         QueueHitscan(hitscan, TimeSpan.FromSeconds(lifeTime));
     }
 
-    private void OnSignatureHitscanFired(EntityUid uid, HitscanRadarSignatureComponent component, ref HitscanRaycastFiredEvent args)
+    private void OnSignatureHitscanFired(
+        EntityUid uid,
+        HitscanRadarSignatureComponent component,
+        ref HitscanRaycastFiredEvent args
+    )
     {
         if (args.Canceled || args.Gun == null)
             return;
@@ -187,7 +202,12 @@ public sealed partial class HitscanRadarSystem : EntitySystem
     }
 
     // Mono: check the full line segment, not just endpoints, so crossing beams stay visible.
-    private static bool IsSegmentNearAnySource(Vector2 start, Vector2 end, List<Vector2> sourcePositions, float radarRangeSq)
+    private static bool IsSegmentNearAnySource(
+        Vector2 start,
+        Vector2 end,
+        List<Vector2> sourcePositions,
+        float radarRangeSq
+    )
     {
         foreach (var sourcePosition in sourcePositions)
         {
@@ -212,7 +232,14 @@ public sealed partial class HitscanRadarSystem : EntitySystem
         return Vector2.DistanceSquared(point, closestPoint);
     }
 
-    private bool TryCreateHitscanData(Vector2 startPos, Vector2 endPos, EntityUid? originGrid, float thickness, Color color, out HitscanNetData hitscan)
+    private bool TryCreateHitscanData(
+        Vector2 startPos,
+        Vector2 endPos,
+        EntityUid? originGrid,
+        float thickness,
+        Color color,
+        out HitscanNetData hitscan
+    )
     {
         if (originGrid != null && originGrid.Value.IsValid())
         {

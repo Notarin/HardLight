@@ -2,59 +2,59 @@
 - type: soundCollection
   id: ProtoHumanMLaugh
   files:
-    - /Audio/_FarHorizons/Voice/Proto/Human/manlaugh1.ogg
-    - /Audio/_FarHorizons/Voice/Proto/Human/manlaugh2.ogg
+  - /Audio/_FarHorizons/Voice/Proto/Human/manlaugh1.ogg
+  - /Audio/_FarHorizons/Voice/Proto/Human/manlaugh2.ogg
 
 - type: soundCollection
   id: ProtoHumanFLaugh
   files:
-    - /Audio/_FarHorizons/Voice/Proto/Human/womanlaugh.ogg
+  - /Audio/_FarHorizons/Voice/Proto/Human/womanlaugh.ogg
 
 - type: soundCollection
   id: ProtoAvaliLaugh
   files:
-    - /Audio/_FarHorizons/Voice/Proto/Avali/avali_laugh.ogg
+  - /Audio/_FarHorizons/Voice/Proto/Avali/avali_laugh.ogg
 
 - type: soundCollection
   id: ProtoCycloriteLaugh
   files:
-    - /Audio/_FarHorizons/Voice/Proto/Cyclorite/laugh.ogg
+  - /Audio/_FarHorizons/Voice/Proto/Cyclorite/laugh.ogg
 
 - type: soundCollection
   id: ProtoMothLaugh
   files:
-    - /Audio/_FarHorizons/Voice/Proto/Moth/moth_laugh.ogg
+  - /Audio/_FarHorizons/Voice/Proto/Moth/moth_laugh.ogg
 
 - type: soundCollection
   id: ProtoResomiLaugh
   files:
-    - /Audio/_FarHorizons/Voice/Proto/Resomi/resomi_laugh1.ogg
-    - /Audio/_FarHorizons/Voice/Proto/Resomi/resomi_laugh2.ogg
-    - /Audio/_FarHorizons/Voice/Proto/Resomi/resomi_laugh3.ogg
+  - /Audio/_FarHorizons/Voice/Proto/Resomi/resomi_laugh1.ogg
+  - /Audio/_FarHorizons/Voice/Proto/Resomi/resomi_laugh2.ogg
+  - /Audio/_FarHorizons/Voice/Proto/Resomi/resomi_laugh3.ogg
 
 - type: soundCollection
   id: ProtoReptilianLaugh
   files:
-    - /Audio/_FarHorizons/Voice/Proto/Reptilian/lizard_happy.ogg
+  - /Audio/_FarHorizons/Voice/Proto/Reptilian/lizard_happy.ogg
 
 - type: soundCollection
   id: ProtoVoxLaugh
   files:
-    - /Audio/_FarHorizons/Voice/Proto/Vox/vox_laugh.ogg
+  - /Audio/_FarHorizons/Voice/Proto/Vox/vox_laugh.ogg
 
 - type: soundCollection
   id: ProtoArachnidLaugh
   files:
-    - /Audio/_FarHorizons/Voice/Proto/Arachnid/arachnid_laugh.ogg
+  - /Audio/_FarHorizons/Voice/Proto/Arachnid/arachnid_laugh.ogg
 
 - type: soundCollection
   id: ProtoResomiChirp
   files:
-    - /Audio/_FarHorizons/Voice/Proto/Resomi/resomi_chirp1.ogg
-    - /Audio/_FarHorizons/Voice/Proto/Resomi/resomi_chirp2.ogg
-    - /Audio/_FarHorizons/Voice/Proto/Resomi/resomi_chirp3.ogg
-    - /Audio/_FarHorizons/Voice/Proto/Resomi/resomi_chirp4.ogg
-    - /Audio/_FarHorizons/Voice/Proto/Resomi/resomi_chirp5.ogg
+  - /Audio/_FarHorizons/Voice/Proto/Resomi/resomi_chirp1.ogg
+  - /Audio/_FarHorizons/Voice/Proto/Resomi/resomi_chirp2.ogg
+  - /Audio/_FarHorizons/Voice/Proto/Resomi/resomi_chirp3.ogg
+  - /Audio/_FarHorizons/Voice/Proto/Resomi/resomi_chirp4.ogg
+  - /Audio/_FarHorizons/Voice/Proto/Resomi/resomi_chirp5.ogg
 
 - type: soundCollection
   id: ProtoResomiScrees
@@ -193,78 +193,78 @@
 - type: soundCollection
   id: ProtoHumanMSigh
   files:
-    - /Audio/_FarHorizons/Voice/Proto/Human/male_sigh.ogg
+  - /Audio/_FarHorizons/Voice/Proto/Human/male_sigh.ogg
 
 - type: soundCollection
   id: ProtoHumanFSigh
   files:
-    - /Audio/_FarHorizons/Voice/Proto/Human/female_sigh.ogg
+  - /Audio/_FarHorizons/Voice/Proto/Human/female_sigh.ogg
 
 - type: soundCollection
   id: ProtoArachnidSigh
   files:
-    - /Audio/_FarHorizons/Voice/Proto/Arachnid/arachnid_sigh.ogg
+  - /Audio/_FarHorizons/Voice/Proto/Arachnid/arachnid_sigh.ogg
 
 - type: soundCollection
   id: ProtoMothSigh
   files:
-    - /Audio/_FarHorizons/Voice/Proto/Moth/moth_sigh.ogg
+  - /Audio/_FarHorizons/Voice/Proto/Moth/moth_sigh.ogg
 
 - type: soundCollection
   id: ProtoVoxSigh
   files:
-    - /Audio/_FarHorizons/Voice/Proto/Vox/vox_sigh.ogg
+  - /Audio/_FarHorizons/Voice/Proto/Vox/vox_sigh.ogg
 
 - type: soundCollection
   id: ProtoHumanMCry
   files:
-    - /Audio/_FarHorizons/Voice/Proto/Human/cry_male_1.ogg
-    - /Audio/_FarHorizons/Voice/Proto/Human/cry_male_2.ogg
-    - /Audio/_FarHorizons/Voice/Proto/Human/cry_male_3.ogg
-    - /Audio/_FarHorizons/Voice/Proto/Human/cry_male_4.ogg
+  - /Audio/_FarHorizons/Voice/Proto/Human/cry_male_1.ogg
+  - /Audio/_FarHorizons/Voice/Proto/Human/cry_male_2.ogg
+  - /Audio/_FarHorizons/Voice/Proto/Human/cry_male_3.ogg
+  - /Audio/_FarHorizons/Voice/Proto/Human/cry_male_4.ogg
 
 - type: soundCollection
   id: ProtoHumanFCry
   files:
-    - /Audio/_FarHorizons/Voice/Proto/Human/cry_female_1.ogg
-    - /Audio/_FarHorizons/Voice/Proto/Human/cry_female_2.ogg
-    - /Audio/_FarHorizons/Voice/Proto/Human/cry_female_3.ogg
-    - /Audio/_FarHorizons/Voice/Proto/Human/cry_female_4.ogg
+  - /Audio/_FarHorizons/Voice/Proto/Human/cry_female_1.ogg
+  - /Audio/_FarHorizons/Voice/Proto/Human/cry_female_2.ogg
+  - /Audio/_FarHorizons/Voice/Proto/Human/cry_female_3.ogg
+  - /Audio/_FarHorizons/Voice/Proto/Human/cry_female_4.ogg
 
 - type: soundCollection
   id: ProtoArachnidCry
   files:
-    - /Audio/_FarHorizons/Voice/Proto/Arachnid/arachnid_cry.ogg
+  - /Audio/_FarHorizons/Voice/Proto/Arachnid/arachnid_cry.ogg
 
 - type: soundCollection
   id: ProtoAvaliCry
   files:
-    - /Audio/_FarHorizons/Voice/Proto/Avali/avali_cry.ogg
+  - /Audio/_FarHorizons/Voice/Proto/Avali/avali_cry.ogg
 
 - type: soundCollection
   id: ProtoMothCry
   files:
-    - /Audio/_FarHorizons/Voice/Proto/Moth/moth_cry.ogg
+  - /Audio/_FarHorizons/Voice/Proto/Moth/moth_cry.ogg
 
 - type: soundCollection
   id: ProtoVoxCry
   files:
-    - /Audio/_FarHorizons/Voice/Proto/Vox/vox_cry.ogg
+  - /Audio/_FarHorizons/Voice/Proto/Vox/vox_cry.ogg
 
 - type: soundCollection
   id: ProtoHumanWhistles
   files:
-    - /Audio/_FarHorizons/Voice/Proto/Human/whistle_1.ogg
-    - /Audio/_FarHorizons/Voice/Proto/Human/whistle_2.ogg
-    - /Audio/_FarHorizons/Voice/Proto/Human/whistle_3.ogg
-    - /Audio/_FarHorizons/Voice/Proto/Human/whistle_4.ogg
+  - /Audio/_FarHorizons/Voice/Proto/Human/whistle_1.ogg
+  - /Audio/_FarHorizons/Voice/Proto/Human/whistle_2.ogg
+  - /Audio/_FarHorizons/Voice/Proto/Human/whistle_3.ogg
+  - /Audio/_FarHorizons/Voice/Proto/Human/whistle_4.ogg
 
 - type: soundCollection
   id: ProtoResomiWhistles
   files:
-    - /Audio/_FarHorizons/Voice/Proto/Resomi/resomi_whistle.ogg
+  - /Audio/_FarHorizons/Voice/Proto/Resomi/resomi_whistle.ogg
 
 - type: soundCollection
   id: ProtoCycloriteWhistles
   files:
-    - /Audio/_FarHorizons/Voice/Proto/Cyclorite/whistle.ogg
+  - /Audio/_FarHorizons/Voice/Proto/Cyclorite/whistle.ogg

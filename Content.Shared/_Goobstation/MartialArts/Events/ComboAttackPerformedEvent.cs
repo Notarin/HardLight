@@ -10,8 +10,8 @@ public sealed class ComboAttackPerformedEvent(
     EntityUid performer,
     EntityUid target,
     EntityUid weapon,
-    ComboAttackType type)
-    : CancellableEntityEventArgs
+    ComboAttackType type
+) : CancellableEntityEventArgs
 {
     public EntityUid Performer { get; } = performer;
     public EntityUid Target { get; } = target;
@@ -19,7 +19,7 @@ public sealed class ComboAttackPerformedEvent(
     public ComboAttackType Type { get; } = type;
 }
 
-[Serializable,NetSerializable]
+[Serializable, NetSerializable]
 public enum ComboAttackType : byte
 {
     Harm,

@@ -8,8 +8,8 @@ namespace Content.Shared.Abilities.Psionics
     public sealed partial class PyrokinesisPowerComponent : Component
     {
         public EntityTargetActionComponent? PyrokinesisPowerAction = null;
-        [DataField("pyrokinesisActionId",
-        customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
+
+        [DataField("pyrokinesisActionId", customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
         public string? PyrokinesisActionId = "ActionPyrokinesis";
 
         [DataField("pyrokinesisActionEntity")]

@@ -40,8 +40,7 @@
     delay: 0.9
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 200
       behaviors:
       - !type:SpawnEntitiesBehavior
@@ -50,8 +49,7 @@
           SpawnSupplyEmpty:
             min: 1
             max: 1
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 1100
       behaviors:
       - !type:DoActsBehavior
@@ -59,11 +57,11 @@
   - type: TwoStageTrigger
     triggerDelay: 1
     components:
-      - type: DamageOverTime
-        damage:
-          types:
-            Slash: 50
-        interval: 0.5
-        ignoreResistances: true
-      - type: AnchorOnTrigger
+    - type: DamageOverTime
+      damage:
+        types:
+          Slash: 50
+      interval: 0.5
+      ignoreResistances: true
+    - type: AnchorOnTrigger
 

@@ -1,9 +1,9 @@
+using System.Diagnostics.CodeAnalysis;
 using Content.Shared.Holopad;
 using Content.Shared.Mobs;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Content.Shared.Silicons.StationAi;
 
@@ -12,7 +12,10 @@ public abstract partial class SharedStationAiSystem
     private ProtoId<StationAiCustomizationGroupPrototype> _stationAiCoreCustomGroupProtoId = "StationAiCoreIconography";
     private ProtoId<StationAiCustomizationGroupPrototype> _stationAiHologramCustomGroupProtoId = "StationAiHolograms";
 
-    private readonly SpriteSpecifier.Rsi _stationAiRebooting = new(new ResPath("Mobs/Silicon/station_ai.rsi"), "ai_fuzz");
+    private readonly SpriteSpecifier.Rsi _stationAiRebooting = new(
+        new ResPath("Mobs/Silicon/station_ai.rsi"),
+        "ai_fuzz"
+    );
 
     private void InitializeCustomization()
     {
@@ -25,7 +28,10 @@ public abstract partial class SharedStationAiSystem
 
     private void OnStationAiCustomization(Entity<StationAiCoreComponent> entity, ref StationAiCustomizationMessage args)
     {
-        if (!_protoManager.TryIndex(args.GroupProtoId, out var groupPrototype) || !_protoManager.TryIndex(args.CustomizationProtoId, out var customizationProto))
+        if (
+            !_protoManager.TryIndex(args.GroupProtoId, out var groupPrototype)
+            || !_protoManager.TryIndex(args.CustomizationProtoId, out var customizationProto)
+        )
             return;
 
         if (!TryGetHeld((entity, entity.Comp), out var held))
@@ -34,7 +40,10 @@ public abstract partial class SharedStationAiSystem
         if (!TryComp<StationAiCustomizationComponent>(held, out var stationAiCustomization))
             return;
 
-        if (stationAiCustomization.ProtoIds.TryGetValue(args.GroupProtoId, out var protoId) && protoId == args.CustomizationProtoId)
+        if (
+            stationAiCustomization.ProtoIds.TryGetValue(args.GroupProtoId, out var protoId)
+            && protoId == args.CustomizationProtoId
+        )
             return;
 
         stationAiCustomization.ProtoIds[args.GroupProtoId] = args.CustomizationProtoId;
@@ -46,7 +55,10 @@ public abstract partial class SharedStationAiSystem
             UpdateHolographicAvatar((held.Value, stationAiCustomization));
 
         // Update core iconography
-        if (groupPrototype.Category == StationAiCustomizationType.CoreIconography && TryComp<StationAiHolderComponent>(entity, out var stationAiHolder))
+        if (
+            groupPrototype.Category == StationAiCustomizationType.CoreIconography
+            && TryComp<StationAiHolderComponent>(entity, out var stationAiHolder)
+        )
             UpdateAppearance((entity, stationAiHolder));
     }
 
@@ -79,8 +91,10 @@ public abstract partial class SharedStationAiSystem
             RaiseLocalEvent(ent, ref ev);
         }
 
-        if (_containers.TryGetContainingContainer(ent.Owner, out var container) &&
-             TryComp<StationAiHolderComponent>(container.Owner, out var holder))
+        if (
+            _containers.TryGetContainingContainer(ent.Owner, out var container)
+            && TryComp<StationAiHolderComponent>(container.Owner, out var holder)
+        )
         {
             UpdateAppearance((container.Owner, holder));
         }
@@ -108,9 +122,11 @@ public abstract partial class SharedStationAiSystem
     {
         var stationAi = GetInsertedAI(entity);
 
-        if (!TryComp<StationAiCustomizationComponent>(stationAi, out var stationAiCustomization) ||
-            !TryGetCustomizedAppearanceData((stationAi.Value, stationAiCustomization), out var layerData) ||
-            !layerData.TryGetValue(state.ToString(), out var stateData))
+        if (
+            !TryComp<StationAiCustomizationComponent>(stationAi, out var stationAiCustomization)
+            || !TryGetCustomizedAppearanceData((stationAi.Value, stationAiCustomization), out var layerData)
+            || !layerData.TryGetValue(state.ToString(), out var stateData)
+        )
         {
             return;
         }
@@ -125,13 +141,18 @@ public abstract partial class SharedStationAiSystem
     /// <param name="entity">The station AI.</param>
     /// <param name="layerData">The apperance data, indexed by possible AI states.</param>
     /// <returns>True if the apperance data was found.</returns>
-    public bool TryGetCustomizedAppearanceData(Entity<StationAiCustomizationComponent> entity, [NotNullWhen(true)] out Dictionary<string, PrototypeLayerData>? layerData)
+    public bool TryGetCustomizedAppearanceData(
+        Entity<StationAiCustomizationComponent> entity,
+        [NotNullWhen(true)] out Dictionary<string, PrototypeLayerData>? layerData
+    )
     {
         layerData = null;
 
-        if (!entity.Comp.ProtoIds.TryGetValue(_stationAiCoreCustomGroupProtoId, out var protoId) ||
-           !_protoManager.Resolve(protoId, out var prototype) ||
-            prototype.LayerData.Count == 0)
+        if (
+            !entity.Comp.ProtoIds.TryGetValue(_stationAiCoreCustomGroupProtoId, out var protoId)
+            || !_protoManager.Resolve(protoId, out var prototype)
+            || prototype.LayerData.Count == 0
+        )
         {
             return false;
         }

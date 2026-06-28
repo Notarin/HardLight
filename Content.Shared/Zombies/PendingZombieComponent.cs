@@ -19,13 +19,8 @@ public sealed partial class PendingZombieComponent : Component
     /// <summary>
     /// Damage dealt every second to infected individuals.
     /// </summary>
-    [DataField("damage")] public DamageSpecifier Damage = new()
-    {
-        DamageDict = new ()
-        {
-            { "Poison", 0.4 },
-        }
-    };
+    [DataField("damage")]
+    public DamageSpecifier Damage = new() { DamageDict = new() { { "Poison", 0.4 } } };
 
     /// <summary>
     /// A multiplier for <see cref="Damage"/> applied when the entity is in critical condition.
@@ -33,7 +28,7 @@ public sealed partial class PendingZombieComponent : Component
     [DataField("critDamageMultiplier")]
     public float CritDamageMultiplier = 10f;
 
-    [DataField("nextTick", customTypeSerializer:typeof(TimeOffsetSerializer))]
+    [DataField("nextTick", customTypeSerializer: typeof(TimeOffsetSerializer))]
     public TimeSpan NextTick;
 
     /// <summary>
@@ -64,9 +59,5 @@ public sealed partial class PendingZombieComponent : Component
     /// Infection warnings shown as popups
     /// </summary>
     [DataField("infectionWarnings")]
-    public List<string> InfectionWarnings = new()
-    {
-        "zombie-infection-warning",
-        "zombie-infection-underway"
-    };
+    public List<string> InfectionWarnings = new() { "zombie-infection-warning", "zombie-infection-underway" };
 }

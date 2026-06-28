@@ -4,7 +4,4 @@
 /// Triggers when the artifact is examined.
 /// </summary>
 [RegisterComponent]
-public sealed partial class ArtifactExamineTriggerComponent : Component
-{
-
-}
+public sealed partial class ArtifactExamineTriggerComponent : Component { }

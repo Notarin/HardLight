@@ -26,7 +26,7 @@
     removable: false
     roller: false
     assayFeedback:
-      - glimmer-mite-feedback
+    - glimmer-mite-feedback
   - type: GlimmerSource
   - type: AmbientSound
     range: 6
@@ -63,8 +63,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35
         density: 13
         mask:
@@ -103,8 +102,7 @@
       50: Dead
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 300
       behaviors:
       - !type:PlaySoundBehavior
@@ -116,7 +114,7 @@
             min: 2
             max: 3
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: Damageable
     damageContainer: Biological
     damageModifierSet: BaseHealthyMob

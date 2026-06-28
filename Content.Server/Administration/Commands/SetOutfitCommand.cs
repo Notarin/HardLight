@@ -1,3 +1,4 @@
+using Content.Server._EinsteinEngines.Silicon.IPC; // Goobstation
 using Content.Server.Administration.UI;
 using Content.Server.EUI;
 using Content.Server.Hands.Systems;
@@ -11,24 +12,25 @@ using Content.Shared.Inventory;
 using Content.Shared.PDA;
 using Content.Shared.Preferences;
 using Content.Shared.Preferences.Loadouts;
+using Content.Shared.Radio.Components; // Goobstation
 using Content.Shared.Roles;
 using Content.Shared.Station;
 using Robust.Shared.Console;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
-using Content.Server._EinsteinEngines.Silicon.IPC; // Goobstation
-using Content.Shared.Radio.Components; // Goobstation
 
 namespace Content.Server.Administration.Commands
 {
     [AdminCommand(AdminFlags.Admin)]
     public sealed class SetOutfitCommand : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _entities = default!;
+        [Dependency]
+        private readonly IEntityManager _entities = default!;
 
         public string Command => "setoutfit";
 
-        public string Description => Loc.GetString("set-outfit-command-description", ("requiredComponent", nameof(InventoryComponent)));
+        public string Description =>
+            Loc.GetString("set-outfit-command-description", ("requiredComponent", nameof(InventoryComponent)));
 
         public string Help => Loc.GetString("set-outfit-command-help-text", ("command", Command));
 
@@ -78,7 +80,12 @@ namespace Content.Server.Administration.Commands
                 shell.WriteLine(Loc.GetString("set-outfit-command-invalid-outfit-id-error"));
         }
 
-        public static bool SetOutfit(EntityUid target, string gear, IEntityManager entityManager, Action<EntityUid, EntityUid>? onEquipped = null)
+        public static bool SetOutfit(
+            EntityUid target,
+            string gear,
+            IEntityManager entityManager,
+            Action<EntityUid, EntityUid>? onEquipped = null
+        )
         {
             if (!entityManager.TryGetComponent(target, out InventoryComponent? inventoryComponent))
                 return false;
@@ -105,21 +112,33 @@ namespace Content.Server.Administration.Commands
                 foreach (var slot in slots)
                 {
                     invSystem.TryUnequip(target, slot.Name, true, true, false, inventoryComponent);
-                    var gearStr = ((IEquipmentLoadout) startingGear).GetGear(slot.Name);
+                    var gearStr = ((IEquipmentLoadout)startingGear).GetGear(slot.Name);
                     if (gearStr == string.Empty)
                     {
                         continue;
                     }
 
-                    var equipmentEntity = entityManager.SpawnEntity(gearStr, entityManager.GetComponent<TransformComponent>(target).Coordinates);
-                    if (slot.Name == "id" &&
-                        entityManager.TryGetComponent(equipmentEntity, out PdaComponent? pdaComponent) &&
-                        entityManager.TryGetComponent<IdCardComponent>(pdaComponent.ContainedId, out var id))
+                    var equipmentEntity = entityManager.SpawnEntity(
+                        gearStr,
+                        entityManager.GetComponent<TransformComponent>(target).Coordinates
+                    );
+                    if (
+                        slot.Name == "id"
+                        && entityManager.TryGetComponent(equipmentEntity, out PdaComponent? pdaComponent)
+                        && entityManager.TryGetComponent<IdCardComponent>(pdaComponent.ContainedId, out var id)
+                    )
                     {
                         id.FullName = entityManager.GetComponent<MetaDataComponent>(target).EntityName;
                     }
 
-                    invSystem.TryEquip(target, equipmentEntity, slot.Name, silent: true, force: true, inventory: inventoryComponent);
+                    invSystem.TryEquip(
+                        target,
+                        equipmentEntity,
+                        slot.Name,
+                        silent: true,
+                        force: true,
+                        inventory: inventoryComponent
+                    );
 
                     onEquipped?.Invoke(target, equipmentEntity);
                 }
@@ -171,7 +190,7 @@ namespace Content.Server.Administration.Commands
                 var encryption = new InternalEncryptionKeySpawner();
                 encryption.TryInsertEncryptionKey(target, startingGear, entityManager);
             }
-            
+
             return true;
         }
     }

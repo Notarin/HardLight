@@ -56,9 +56,11 @@ namespace Content.Shared.Storage.Components
     [Access(typeof(SharedItemMapperSystem))]
     public sealed partial class ItemMapperComponent : Component
     {
-        [DataField("mapLayers")] public  Dictionary<string, SharedMapLayerData> MapLayers = new();
+        [DataField("mapLayers")]
+        public Dictionary<string, SharedMapLayerData> MapLayers = new();
 
-        [DataField("sprite")] public ResPath? RSIPath;
+        [DataField("sprite")]
+        public ResPath? RSIPath;
 
         /// <summary>
         ///     If this exists, shown layers will only consider entities in the given containers.

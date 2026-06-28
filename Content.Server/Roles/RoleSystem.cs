@@ -8,8 +8,11 @@ namespace Content.Server.Roles;
 
 public sealed class RoleSystem : SharedRoleSystem
 {
-    [Dependency] private readonly IChatManager _chat = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
+    [Dependency]
+    private readonly IChatManager _chat = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
 
     public string? MindGetBriefing(EntityUid? mindId)
     {
@@ -36,7 +39,7 @@ public sealed class RoleSystem : SharedRoleSystem
 
         // Briefing is no longer raised on the mind entity itself
         // because all the components that briefings subscribe to should be on Mind Role Entities
-        foreach(var role in mindComp.MindRoles)
+        foreach (var role in mindComp.MindRoles)
         {
             RaiseLocalEvent(role, ref ev);
         }
@@ -60,12 +63,7 @@ public sealed class RoleSystem : SharedRoleSystem
 
         var message = Loc.GetString("role-type-update-message", ("color", color), ("role", roleText));
         var wrappedMessage = Loc.GetString("chat-manager-server-wrap-message", ("message", message));
-        _chat.ChatMessageToOne(ChatChannel.Server,
-            message,
-            wrappedMessage,
-            default,
-            false,
-            session.Channel);
+        _chat.ChatMessageToOne(ChatChannel.Server, message, wrappedMessage, default, false, session.Channel);
     }
 }
 

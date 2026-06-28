@@ -1,6 +1,5 @@
 ﻿using Content.Shared.Administration;
 
-
 namespace Content.Server.Administration
 {
     public sealed class AdminRank

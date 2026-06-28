@@ -14,9 +14,14 @@ namespace Content.Shared.Disposal.Mailing;
 
 public abstract class SharedMailingUnitSystem : EntitySystem
 {
-    [Dependency] private readonly SharedDeviceNetworkSystem _deviceNetworkSystem = default!;
-    [Dependency] private readonly SharedPowerReceiverSystem _power = default!;
-    [Dependency] protected readonly SharedUserInterfaceSystem UserInterfaceSystem = default!;
+    [Dependency]
+    private readonly SharedDeviceNetworkSystem _deviceNetworkSystem = default!;
+
+    [Dependency]
+    private readonly SharedPowerReceiverSystem _power = default!;
+
+    [Dependency]
+    protected readonly SharedUserInterfaceSystem UserInterfaceSystem = default!;
 
     private const string MailTag = "mail";
 
@@ -37,7 +42,10 @@ public abstract class SharedMailingUnitSystem : EntitySystem
         SubscribeLocalEvent<MailingUnitComponent, DeviceNetworkPacketEvent>(OnPacketReceived);
         SubscribeLocalEvent<MailingUnitComponent, BeforeDisposalFlushEvent>(OnBeforeFlush);
         SubscribeLocalEvent<MailingUnitComponent, ConfigurationUpdatedEvent>(OnConfigurationUpdated);
-        SubscribeLocalEvent<MailingUnitComponent, ActivateInWorldEvent>(HandleActivate, before: new[] { typeof(SharedDisposalUnitSystem) });
+        SubscribeLocalEvent<MailingUnitComponent, ActivateInWorldEvent>(
+            HandleActivate,
+            before: new[] { typeof(SharedDisposalUnitSystem) }
+        );
         SubscribeLocalEvent<MailingUnitComponent, TargetSelectedMessage>(OnTargetSelected);
     }
 
@@ -72,11 +80,7 @@ public abstract class SharedMailingUnitSystem : EntitySystem
         if (tag == null)
             return;
 
-        var payload = new NetworkPayload
-        {
-            [DeviceNetworkConstants.Command] = NetCmdResponse,
-            [NetTag] = tag
-        };
+        var payload = new NetworkPayload { [DeviceNetworkConstants.Command] = NetCmdResponse, [NetTag] = tag };
 
         _deviceNetworkSystem.QueuePacket(uid, args.Address, payload, args.Frequency);
     }
@@ -102,7 +106,11 @@ public abstract class SharedMailingUnitSystem : EntitySystem
     /// <summary>
     /// Broadcast that a mail was sent including the src and target tags
     /// </summary>
-    private void BroadcastSentMessage(EntityUid uid, MailingUnitComponent component, DeviceNetworkComponent? device = null)
+    private void BroadcastSentMessage(
+        EntityUid uid,
+        MailingUnitComponent component,
+        DeviceNetworkComponent? device = null
+    )
     {
         if (string.IsNullOrEmpty(component.Tag) || string.IsNullOrEmpty(component.Target) || !Resolve(uid, ref device))
             return;
@@ -111,7 +119,7 @@ public abstract class SharedMailingUnitSystem : EntitySystem
         {
             [DeviceNetworkConstants.Command] = NetCmdSent,
             [NetSrc] = component.Tag,
-            [NetTarget] = component.Target
+            [NetTarget] = component.Target,
         };
 
         _deviceNetworkSystem.QueuePacket(uid, null, payload, null, null, device);
@@ -126,10 +134,7 @@ public abstract class SharedMailingUnitSystem : EntitySystem
         if (!Resolve(uid, ref device, false))
             return;
 
-        var payload = new NetworkPayload
-        {
-            [DeviceNetworkConstants.Command] = NetCmdRequest
-        };
+        var payload = new NetworkPayload { [DeviceNetworkConstants.Command] = NetCmdRequest };
 
         component.TargetList.Clear();
         _deviceNetworkSystem.QueuePacket(uid, null, payload, null, null, device);

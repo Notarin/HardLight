@@ -41,8 +41,8 @@
       Blunt: 7.5
       Piercing: 3
       Structural: 20
-  tileBreakChance: [ 0, 0.5, 1 ]
-  tileBreakIntensity: [ 0, 15, 30 ]
+  tileBreakChance: [0, 0.5, 1]
+  tileBreakIntensity: [0, 15, 30]
   tileBreakRerollReduction: 10
   intensityPerState: 20
   lightColor: Orange

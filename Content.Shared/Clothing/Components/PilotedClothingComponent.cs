@@ -21,7 +21,6 @@ public sealed partial class PilotedClothingComponent : Component
     [DataField]
     public bool RelayMovement = true;
 
-
     /// <summary>
     /// Reference to the entity contained in the clothing and acting as pilot.
     /// </summary>

@@ -1,52 +1,89 @@
-using Content.Shared.Humanoid;
-using Content.Shared.Alert;
 using System.Linq;
-using Robust.Server.GameObjects;
-using Content.Shared.Examine;
-using Robust.Server.Containers;
-using Content.Shared._Starlight.Shadekin;
-using Content.Shared.Damage.Components;
-using Content.Shared.FixedPoint;
-using Content.Shared.Mobs;
-using Content.Shared.Movement.Systems;
-using Content.Shared.Movement.Components;
-using Content.Shared.Eye.Blinding.Components;
-using Content.Shared.Damage;
-using Robust.Shared.Timing;
-using Content.Shared._Starlight.NullSpace;
-using Content.Shared.Actions;
-using Content.Shared.Popups;
-using Content.Shared.Inventory;
-using Robust.Shared.Random;
 using Content.Server._Starlight.NullSpace;
-using Content.Server.Stunnable;
 using Content.Server.DoAfter;
+using Content.Server.Stunnable;
+using Content.Shared._Starlight.NullSpace;
+using Content.Shared._Starlight.Shadekin;
+using Content.Shared.Actions;
+using Content.Shared.Alert;
+using Content.Shared.Damage;
+using Content.Shared.Damage.Components;
 using Content.Shared.Ensnaring;
+using Content.Shared.Examine;
+using Content.Shared.Eye.Blinding.Components;
+using Content.Shared.FixedPoint;
+using Content.Shared.Humanoid;
+using Content.Shared.Inventory;
+using Content.Shared.Mobs;
+using Content.Shared.Movement.Components;
+using Content.Shared.Movement.Systems;
+using Content.Shared.Popups;
+using Robust.Server.Containers;
+using Robust.Server.GameObjects;
 using Robust.Shared.Audio.Systems;
+using Robust.Shared.Random;
+using Robust.Shared.Timing;
 
 namespace Content.Server._Starlight.Shadekin;
 
 public sealed partial class ShadekinSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly AlertsSystem _alerts = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly ExamineSystemShared _examine = default!;
-    [Dependency] private readonly ContainerSystem _container = default!;
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly MovementSpeedModifierSystem _speed = default!;
-    [Dependency] private readonly SharedActionsSystem _actionsSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly InventorySystem _inventorySystem = default!;
-    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly NullSpacePhaseSystem _nullspace = default!;
-    [Dependency] private readonly StunSystem _stunSystem = default!;
-    [Dependency] private readonly DoAfterSystem _doAfterSystem = default!;
-    [Dependency] private readonly SharedEnsnareableSystem _ensnareable = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly EyeSystem _eye = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly AlertsSystem _alerts = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly EntityLookupSystem _lookup = default!;
+
+    [Dependency]
+    private readonly ExamineSystemShared _examine = default!;
+
+    [Dependency]
+    private readonly ContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly DamageableSystem _damageable = default!;
+
+    [Dependency]
+    private readonly MovementSpeedModifierSystem _speed = default!;
+
+    [Dependency]
+    private readonly SharedActionsSystem _actionsSystem = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly InventorySystem _inventorySystem = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _mapSystem = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly NullSpacePhaseSystem _nullspace = default!;
+
+    [Dependency]
+    private readonly StunSystem _stunSystem = default!;
+
+    [Dependency]
+    private readonly DoAfterSystem _doAfterSystem = default!;
+
+    [Dependency]
+    private readonly SharedEnsnareableSystem _ensnareable = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly EyeSystem _eye = default!;
 
     private TimeSpan _nextUpdate = TimeSpan.Zero;
     private TimeSpan _updateCooldown = TimeSpan.FromSeconds(1f);
@@ -57,21 +94,42 @@ public sealed partial class ShadekinSystem : EntitySystem
         public float InnerWidth { get; set; }
         public float OuterWidth { get; set; }
     }
+
     private readonly Dictionary<string, List<LightCone>> lightMasks = new()
     {
         ["/Textures/Effects/LightMasks/cone.png"] = new List<LightCone>
-    {
-        new LightCone { Direction = 0, InnerWidth = 30, OuterWidth = 60 }
-    },
+        {
+            new LightCone
+            {
+                Direction = 0,
+                InnerWidth = 30,
+                OuterWidth = 60,
+            },
+        },
         ["/Textures/Effects/LightMasks/double_cone.png"] = new List<LightCone>
-    {
-        new LightCone { Direction = 0, InnerWidth = 30, OuterWidth = 60 },
-        new LightCone { Direction = 180, InnerWidth = 30, OuterWidth = 60 }
-    },
+        {
+            new LightCone
+            {
+                Direction = 0,
+                InnerWidth = 30,
+                OuterWidth = 60,
+            },
+            new LightCone
+            {
+                Direction = 180,
+                InnerWidth = 30,
+                OuterWidth = 60,
+            },
+        },
         ["/Textures/_NF/Effects/LightMasks/beam.png"] = new List<LightCone>
-    {
-        new LightCone { Direction = 0, InnerWidth = 7.5f, OuterWidth = 15f }
-    }
+        {
+            new LightCone
+            {
+                Direction = 0,
+                InnerWidth = 7.5f,
+                OuterWidth = 15f,
+            },
+        },
     };
 
     public override void Initialize()
@@ -82,7 +140,9 @@ public sealed partial class ShadekinSystem : EntitySystem
         SubscribeLocalEvent<ShadekinComponent, EyeColorInitEvent>(OnEyeColorChange);
         SubscribeLocalEvent<ShadekinComponent, RefreshMovementSpeedModifiersEvent>(OnRefreshMovementSpeedModifiers);
         SubscribeLocalEvent<ShadekinComponent, NullSpaceShuntEvent>(NullSpaceShunt);
-        SubscribeLocalEvent<ShadekinComponent, BeforeDamageChangedEvent>((uid, _, args) => args.Damage.DamageDict["Asphyxiation"] = 0);
+        SubscribeLocalEvent<ShadekinComponent, BeforeDamageChangedEvent>(
+            (uid, _, args) => args.Damage.DamageDict["Asphyxiation"] = 0
+        );
 
         InitializeBrighteye();
         InitializeAbilities();
@@ -121,7 +181,10 @@ public sealed partial class ShadekinSystem : EntitySystem
         var oppositeMapDiff = (-lightRot).RotateVec(mapDiff);
         var angle = oppositeMapDiff.ToWorldAngle();
 
-        if (angle == double.NaN && _transform.ContainsEntity(targetUid, lightUid) || _transform.ContainsEntity(lightUid, targetUid))
+        if (
+            angle == double.NaN && _transform.ContainsEntity(targetUid, lightUid)
+            || _transform.ContainsEntity(lightUid, targetUid)
+        )
         {
             angle = 0f;
         }
@@ -142,27 +205,43 @@ public sealed partial class ShadekinSystem : EntitySystem
         var shadeQuery = _lookup.GetEntitiesInRange<ShadegenComponent>(Transform(uid).Coordinates, 10); // Why 10 when theres different ranges? because light check does not go above 20.
 
         foreach (var shadegen in shadeQuery)
-            if (_transform.InRange(Transform(uid).Coordinates, Transform(shadegen.Owner).Coordinates, shadegen.Comp.Range))
+            if (
+                _transform.InRange(
+                    Transform(uid).Coordinates,
+                    Transform(shadegen.Owner).Coordinates,
+                    shadegen.Comp.Range
+                )
+            )
                 return illumination;
 
-        var lightQuery = _lookup.GetEntitiesInRange<PointLightComponent>(Transform(uid).Coordinates, 10, LookupFlags.All | LookupFlags.Approximate);
+        var lightQuery = _lookup.GetEntitiesInRange<PointLightComponent>(
+            Transform(uid).Coordinates,
+            10,
+            LookupFlags.All | LookupFlags.Approximate
+        );
 
         foreach (var light in lightQuery)
         {
             if (HasComp<DarkLightComponent>(light.Owner) || HasComp<ShadegenAffectedComponent>(light.Owner))
                 continue;
 
-            if (!light.Comp.Enabled
-                || light.Comp.Radius < 1
-                || light.Comp.Energy <= 0)
+            if (!light.Comp.Enabled || light.Comp.Radius < 1 || light.Comp.Energy <= 0)
                 continue;
 
             // Check if our entity is in a container with OccludesLight, if yes, is it the same as the light?
-            if (_container.TryGetContainingContainer(uid, out var uidcontainer) && uidcontainer.OccludesLight && !_container.IsInSameOrNoContainer(uid, light.Owner))
+            if (
+                _container.TryGetContainingContainer(uid, out var uidcontainer)
+                && uidcontainer.OccludesLight
+                && !_container.IsInSameOrNoContainer(uid, light.Owner)
+            )
                 continue;
 
             // Same as above but this time we check the light entity instead of our entity.
-            if (_container.TryGetContainingContainer(light.Owner, out var lightcontainer) && lightcontainer.OccludesLight && !_container.IsInSameOrNoContainer(uid, light.Owner))
+            if (
+                _container.TryGetContainingContainer(light.Owner, out var lightcontainer)
+                && lightcontainer.OccludesLight
+                && !_container.IsInSameOrNoContainer(uid, light.Owner)
+            )
                 continue;
 
             if (!_examine.InRangeUnOccluded(light, uid, light.Comp.Radius, null))
@@ -180,12 +259,16 @@ public sealed partial class ShadekinSystem : EntitySystem
                 foreach (var cone in cones)
                 {
                     var coneLight = 0f;
-                    var angleAttenuation = (float)Math.Min((float)Math.Max(cone.OuterWidth - angleToTarget, 0f), cone.InnerWidth) / cone.OuterWidth;
+                    var angleAttenuation =
+                        (float)Math.Min((float)Math.Max(cone.OuterWidth - angleToTarget, 0f), cone.InnerWidth)
+                        / cone.OuterWidth;
 
                     if (angleToTarget.Degrees - cone.Direction > cone.OuterWidth)
                         continue;
-                    else if (angleToTarget.Degrees - cone.Direction > cone.InnerWidth
-                        && angleToTarget.Degrees - cone.Direction < cone.OuterWidth)
+                    else if (
+                        angleToTarget.Degrees - cone.Direction > cone.InnerWidth
+                        && angleToTarget.Degrees - cone.Direction < cone.OuterWidth
+                    )
                         coneLight = light.Comp.Energy * attenuation * attenuation * angleAttenuation;
                     else
                         coneLight = light.Comp.Energy * attenuation * attenuation;
@@ -207,9 +290,11 @@ public sealed partial class ShadekinSystem : EntitySystem
         if (!TryComp<PassiveDamageComponent>(uid, out var passive))
             return;
 
-        if (shadekinState == ShadekinState.Annoying ||
-            shadekinState == ShadekinState.High ||
-            shadekinState == ShadekinState.Extreme)
+        if (
+            shadekinState == ShadekinState.Annoying
+            || shadekinState == ShadekinState.High
+            || shadekinState == ShadekinState.Extreme
+        )
         {
             passive.DamageCap = 1;
         }
@@ -238,7 +323,11 @@ public sealed partial class ShadekinSystem : EntitySystem
         _damageable.TryChangeDamage(uid, damage, true, false);
     }
 
-    private void OnRefreshMovementSpeedModifiers(EntityUid uid, ShadekinComponent component, RefreshMovementSpeedModifiersEvent args)
+    private void OnRefreshMovementSpeedModifiers(
+        EntityUid uid,
+        ShadekinComponent component,
+        RefreshMovementSpeedModifiersEvent args
+    )
     {
         if (component.CurrentState == ShadekinState.High || component.CurrentState == ShadekinState.Extreme)
         {
@@ -263,7 +352,10 @@ public sealed partial class ShadekinSystem : EntitySystem
     /// thresholds (ascending exposure -> state). Any value below the lowest threshold is <see cref="ShadekinState.Dark"/>.
     /// Shared by LightSensitivitySystem so non-shadekins bucket light identically to shadekins, off the same data.
     /// </summary>
-    public static ShadekinState GetLightExposureLevel(SortedDictionary<FixedPoint2, ShadekinState> thresholds, float rawExposure)
+    public static ShadekinState GetLightExposureLevel(
+        SortedDictionary<FixedPoint2, ShadekinState> thresholds,
+        float rawExposure
+    )
     {
         var state = ShadekinState.Dark;
         foreach (var (threshold, shadekinState) in thresholds)
@@ -280,7 +372,7 @@ public sealed partial class ShadekinSystem : EntitySystem
     private void CheckThresholds(EntityUid uid, ShadekinComponent component, float lightExposure)
     {
         component.CurrentState = GetLightExposureLevel(component.Thresholds, lightExposure);
-        UpdateAlert(uid, component, (short) component.CurrentState);
+        UpdateAlert(uid, component, (short)component.CurrentState);
         Dirty(uid, component);
     }
 

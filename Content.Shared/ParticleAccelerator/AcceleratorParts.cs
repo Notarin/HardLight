@@ -10,7 +10,5 @@ public enum AcceleratorParts : byte
     PowerBox,
     PortEmitter,
     ForeEmitter,
-    StarboardEmitter
+    StarboardEmitter,
 };
-
-

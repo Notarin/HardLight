@@ -31,7 +31,7 @@
         amount: 15
       - !type:EmptyAllContainers
       - !type:DeleteEntity
-      
+
 - type: constructionGraph
   id: LockerWallBluespaceMini
   start: start
@@ -72,10 +72,10 @@
   graph:
   - node: start
     edges:
-# White wall freezer
+    # White wall freezer
     - to: ShelfWallFreezerBluespace
       completed:
-        - !type:SnapToGrid
+      - !type:SnapToGrid
       steps:
       - material: Steel
         amount: 5
@@ -96,7 +96,7 @@
         icon:
           sprite: Objects/Misc/module.rsi
           state: door_electronics
-# White wall freezer deconstructs
+          # White wall freezer deconstructs
   - node: ShelfWallFreezerBluespace
     entity: ShelfWallFreezerBluespace
     edges:
@@ -127,7 +127,7 @@
         amount: 1
       - !type:EmptyAllContainers
       - !type:DeleteEntity
-      
+
 - type: constructionGraph
   id: BluespaceSafe
   start: start
@@ -174,40 +174,40 @@
         amount: 20
       - !type:EmptyAllContainers
       - !type:DeleteEntity
-      
+
 - type: constructionGraph
   id: BookshelfBluespace
   start: start
   graph:
-    - node: start
-      actions:
-        - !type:DestroyEntity {}
-      edges:
-        - to: bookshelfBluespace
-          completed:
-            - !type:SnapToGrid { }
-          steps:
-            - material: Plasteel
-              amount: 5
-              doAfter: 10
-            - material: Bluespace
-              amount: 2
-              doAfter: 1
-    - node: bookshelfBluespace
-      entity: BookshelfBluespace
-      edges:
-        - to: start
-          completed:
-            - !type:SpawnPrototype
-              prototype: SheetPlasteel1
-              amount: 5
-            - !type:SpawnPrototype
-              prototype: MaterialBluespace
-              amount: 2
-          steps:
-            - tool: Prying
-              doAfter: 4
-              
+  - node: start
+    actions:
+    - !type:DestroyEntity {}
+    edges:
+    - to: bookshelfBluespace
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: Plasteel
+        amount: 5
+        doAfter: 10
+      - material: Bluespace
+        amount: 2
+        doAfter: 1
+  - node: bookshelfBluespace
+    entity: BookshelfBluespace
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetPlasteel1
+        amount: 5
+      - !type:SpawnPrototype
+        prototype: MaterialBluespace
+        amount: 2
+      steps:
+      - tool: Prying
+        doAfter: 4
+
 - type: constructionGraph
   id: BluespaceTabletop
   start: start

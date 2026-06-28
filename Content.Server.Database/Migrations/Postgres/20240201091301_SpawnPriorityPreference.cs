@@ -15,15 +15,14 @@ namespace Content.Server.Database.Migrations.Postgres
                 table: "profile",
                 type: "integer",
                 nullable: false,
-                defaultValue: 0);
+                defaultValue: 0
+            );
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "spawn_priority",
-                table: "profile");
+            migrationBuilder.DropColumn(name: "spawn_priority", table: "profile");
         }
     }
 }

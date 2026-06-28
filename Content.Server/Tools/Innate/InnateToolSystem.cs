@@ -19,9 +19,14 @@ namespace Content.Server.Tools.Innate;
 /// </summary>
 public sealed class InnateToolSystem : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _robustRandom = default!;
-    [Dependency] private readonly SharedHandsSystem _sharedHandsSystem = default!;
-    [Dependency] private readonly TagSystem _tagSystem = default!;
+    [Dependency]
+    private readonly IRobustRandom _robustRandom = default!;
+
+    [Dependency]
+    private readonly SharedHandsSystem _sharedHandsSystem = default!;
+
+    [Dependency]
+    private readonly TagSystem _tagSystem = default!;
 
     private static readonly ProtoId<TagPrototype> InnateDontDeleteTag = "InnateDontDelete";
 

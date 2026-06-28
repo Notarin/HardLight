@@ -90,6 +90,4 @@ public sealed partial class PullableComponent : Component
     // Goobstation end
 }
 
-public sealed partial class StopBeingPulledAlertEvent : BaseAlertEvent
-{
-};
+public sealed partial class StopBeingPulledAlertEvent : BaseAlertEvent { };

@@ -34,19 +34,44 @@ namespace Content.Client.Replay;
 
 public sealed class ContentReplayPlaybackManager
 {
-    [Dependency] private readonly IStateManager _stateMan = default!;
-    [Dependency] private readonly IClientGameTiming _timing = default!;
-    [Dependency] private readonly IReplayLoadManager _loadMan = default!;
-    [Dependency] private readonly IGameController _controller = default!;
-    [Dependency] private readonly IClientEntityManager _entMan = default!;
-    [Dependency] private readonly IUserInterfaceManager _uiMan = default!;
-    [Dependency] private readonly IReplayPlaybackManager _playback = default!;
-    [Dependency] private readonly IClientConGroupController _conGrp = default!;
-    [Dependency] private readonly IClientAdminManager _adminMan = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IBaseClient _client = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IResourceManager _resMan = default!;
+    [Dependency]
+    private readonly IStateManager _stateMan = default!;
+
+    [Dependency]
+    private readonly IClientGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IReplayLoadManager _loadMan = default!;
+
+    [Dependency]
+    private readonly IGameController _controller = default!;
+
+    [Dependency]
+    private readonly IClientEntityManager _entMan = default!;
+
+    [Dependency]
+    private readonly IUserInterfaceManager _uiMan = default!;
+
+    [Dependency]
+    private readonly IReplayPlaybackManager _playback = default!;
+
+    [Dependency]
+    private readonly IClientConGroupController _conGrp = default!;
+
+    [Dependency]
+    private readonly IClientAdminManager _adminMan = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly IBaseClient _client = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
+
+    [Dependency]
+    private readonly IResourceManager _resMan = default!;
 
     /// <summary>
     /// UI state to return to when stopping a replay or loading fails.
@@ -104,9 +129,10 @@ public sealed class ContentReplayPlaybackManager
             {
                 _cfg.SetCVar(CVars.ReplayIgnoreErrors, true);
 
-                IReplayFileReader reader = last.Zip == null
-                    ? new ReplayFileReaderResources(_resMan, last.Folder)
-                    : new ReplayFileReaderZip(new(_resMan.UserData.OpenRead(last.Zip.Value)), last.Folder);
+                IReplayFileReader reader =
+                    last.Zip == null
+                        ? new ReplayFileReaderResources(_resMan, last.Folder)
+                        : new ReplayFileReaderZip(new(_resMan.UserData.OpenRead(last.Zip.Value)), last.Folder);
 
                 _loadMan.LoadAndStartReplay(reader);
             };
@@ -208,7 +234,7 @@ public sealed class ContentReplayPlaybackManager
 
     private void OnReplayPlaybackStopped()
     {
-        _conGrp.Implementation = (IClientConGroupImplementation) _adminMan;
+        _conGrp.Implementation = (IClientConGroupImplementation)_adminMan;
         ReturnToDefaultState();
     }
 }

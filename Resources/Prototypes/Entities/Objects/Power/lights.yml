@@ -10,8 +10,8 @@
   - type: Sprite
     sprite: _NF/Objects/Power/light_bulb.rsi # Frontier: greyscale version
     layers:
-      - map: [ enum.LightBulbVisualLayers.Base ]
-        state: normal
+    - map: [enum.LightBulbVisualLayers.Base]
+      state: normal
   - type: LightBulb
   - type: Damageable
     damageContainer: Inorganic
@@ -25,14 +25,12 @@
         Blunt: 5
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors: #excess damage (nuke?). avoid computational cost of spawning entities.
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 5
       behaviors:
       - !type:PlaySoundBehavior
@@ -41,9 +39,8 @@
           params:
             volume: -8
       - !type:DoActsBehavior
-        acts: [ "Breakage" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Breakage"]
+    - trigger: !type:DamageTrigger
         damage: 10
       behaviors:
       - !type:PlaySoundBehavior
@@ -57,7 +54,7 @@
             min: 1
             max: 1
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: Appearance
   - type: Tag
     tags:
@@ -76,28 +73,25 @@
   abstract: true
   components:
   - type: Sprite
-    sprite:  Objects/Power/light_tube.rsi
+    sprite: Objects/Power/light_tube.rsi
   - type: LightBulb
     bulb: Tube
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors: #excess damage (nuke?). avoid computational cost of spawning entities.
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 5
       behaviors:
       - !type:PlaySoundBehavior
         sound:
           collection: GlassBreak
       - !type:DoActsBehavior
-        acts: [ "Breakage" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Breakage"]
+    - trigger: !type:DamageTrigger
         damage: 10
       behaviors:
       - !type:PlaySoundBehavior
@@ -109,7 +103,7 @@
             min: 1
             max: 1
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
 
 # Lighting color values gathered from
 # https://andi-siess.de/rgb-to-color-temperature/
@@ -441,7 +435,6 @@
     refineResult:
     - id: SheetGlass1
     - id: ShardCrystalGreen
-
 
 - type: entity
   parent: BaseLightbulb

@@ -29,8 +29,10 @@ namespace Content.Shared.Nutrition.Components
         // clothing prefixes
         [DataField("burntPrefix")]
         public string BurntPrefix = "unlit";
+
         [DataField("litPrefix")]
         public string LitPrefix = "lit";
+
         [DataField("unlitPrefix")]
         public string UnlitPrefix = "unlit";
 

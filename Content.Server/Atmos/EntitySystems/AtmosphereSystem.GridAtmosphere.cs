@@ -116,8 +116,11 @@ public sealed partial class AtmosphereSystem
         args.Handled = true;
     }
 
-    private void GridGetAllMixtures(EntityUid uid, GridAtmosphereComponent component,
-        ref GetAllMixturesMethodEvent args)
+    private void GridGetAllMixtures(
+        EntityUid uid,
+        GridAtmosphereComponent component,
+        ref GetAllMixturesMethodEvent args
+    )
     {
         if (args.Handled)
             return;
@@ -163,7 +166,8 @@ public sealed partial class AtmosphereSystem
     private void UpdateAdjacentTiles(
         Entity<GridAtmosphereComponent, GasTileOverlayComponent, MapGridComponent, TransformComponent> ent,
         TileAtmosphere tile,
-        bool activate = false)
+        bool activate = false
+    )
     {
         var uid = ent.Owner;
         var atmos = ent.Comp1;
@@ -213,8 +217,9 @@ public sealed partial class AtmosphereSystem
                 adjacent.AdjacentTiles[oppositeIndex] = tile;
             }
 
-            DebugTools.Assert(!(tile.AdjacentBits.IsFlagSet(direction) ^
-                                adjacent.AdjacentBits.IsFlagSet(oppositeDirection)));
+            DebugTools.Assert(
+                !(tile.AdjacentBits.IsFlagSet(direction) ^ adjacent.AdjacentBits.IsFlagSet(oppositeDirection))
+            );
 
             if (!adjacent.AdjacentBits.IsFlagSet(adjacent.MonstermosInfo.CurrentTransferDirection))
                 adjacent.MonstermosInfo.CurrentTransferDirection = AtmosDirection.Invalid;
@@ -234,8 +239,11 @@ public sealed partial class AtmosphereSystem
         return (air, map.Space);
     }
 
-    private void GridHotspotExtinguish(EntityUid uid, GridAtmosphereComponent component,
-        ref HotspotExtinguishMethodEvent args)
+    private void GridHotspotExtinguish(
+        EntityUid uid,
+        GridAtmosphereComponent component,
+        ref HotspotExtinguishMethodEvent args
+    )
     {
         if (args.Handled)
             return;
@@ -251,8 +259,11 @@ public sealed partial class AtmosphereSystem
         AddActiveTile(component, tile);
     }
 
-    private void GridIsHotspotActive(EntityUid uid, GridAtmosphereComponent component,
-        ref IsHotspotActiveMethodEvent args)
+    private void GridIsHotspotActive(
+        EntityUid uid,
+        GridAtmosphereComponent component,
+        ref IsHotspotActiveMethodEvent args
+    )
     {
         if (args.Handled)
             return;

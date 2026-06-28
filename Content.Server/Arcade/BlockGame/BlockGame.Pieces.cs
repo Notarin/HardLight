@@ -1,5 +1,5 @@
-using Content.Shared.Arcade;
 using System.Linq;
+using Content.Shared.Arcade;
 
 namespace Content.Server.Arcade.BlockGame;
 
@@ -23,7 +23,7 @@ public sealed partial class BlockGame
         S,
         SInverted,
         T,
-        O
+        O,
     }
 
     /// <summary>
@@ -34,7 +34,7 @@ public sealed partial class BlockGame
         North,
         East,
         South,
-        West
+        West,
     }
 
     /// <summary>
@@ -48,7 +48,7 @@ public sealed partial class BlockGame
             BlockGamePieceRotation.East => inverted ? BlockGamePieceRotation.North : BlockGamePieceRotation.South,
             BlockGamePieceRotation.South => inverted ? BlockGamePieceRotation.East : BlockGamePieceRotation.West,
             BlockGamePieceRotation.West => inverted ? BlockGamePieceRotation.South : BlockGamePieceRotation.North,
-            _ => throw new ArgumentOutOfRangeException(nameof(rotation), rotation, null)
+            _ => throw new ArgumentOutOfRangeException(nameof(rotation), rotation, null),
         };
     }
 
@@ -88,7 +88,7 @@ public sealed partial class BlockGame
         /// <param name="rotation">The rotation to be applied to the local position of the blocks in this piece.</param>
         private readonly Vector2i[] RotatedOffsets(BlockGamePieceRotation rotation)
         {
-            var rotatedOffsets = (Vector2i[]) Offsets.Clone();
+            var rotatedOffsets = (Vector2i[])Offsets.Clone();
             //until i find a better algo
             var amount = rotation switch
             {
@@ -96,7 +96,7 @@ public sealed partial class BlockGame
                 BlockGamePieceRotation.East => 1,
                 BlockGamePieceRotation.South => 2,
                 BlockGamePieceRotation.West => 3,
-                _ => 0
+                _ => 0,
             };
 
             for (var i = 0; i < amount; i++)
@@ -159,79 +159,77 @@ public sealed partial class BlockGame
             {
                 BlockGamePieceType.I => new BlockGamePiece
                 {
-                    Offsets = new[]
-                    {
-                        new Vector2i(0, -1), new Vector2i(0, 0), new Vector2i(0, 1), new Vector2i(0, 2),
-                    },
+                    Offsets = new[] { new Vector2i(0, -1), new Vector2i(0, 0), new Vector2i(0, 1), new Vector2i(0, 2) },
                     _gameBlockColor = BlockGameBlock.BlockGameBlockColor.LightBlue,
-                    CanSpin = true
+                    CanSpin = true,
                 },
                 BlockGamePieceType.L => new BlockGamePiece
                 {
-                    Offsets = new[]
-                    {
-                        new Vector2i(0, -1), new Vector2i(0, 0), new Vector2i(0, 1), new Vector2i(1, 1),
-                    },
+                    Offsets = new[] { new Vector2i(0, -1), new Vector2i(0, 0), new Vector2i(0, 1), new Vector2i(1, 1) },
                     _gameBlockColor = BlockGameBlock.BlockGameBlockColor.Orange,
-                    CanSpin = true
+                    CanSpin = true,
                 },
                 BlockGamePieceType.LInverted => new BlockGamePiece
                 {
                     Offsets = new[]
                     {
-                        new Vector2i(0, -1), new Vector2i(0, 0), new Vector2i(-1, 1),
+                        new Vector2i(0, -1),
+                        new Vector2i(0, 0),
+                        new Vector2i(-1, 1),
                         new Vector2i(0, 1),
                     },
                     _gameBlockColor = BlockGameBlock.BlockGameBlockColor.Blue,
-                    CanSpin = true
+                    CanSpin = true,
                 },
                 BlockGamePieceType.S => new BlockGamePiece
                 {
                     Offsets = new[]
                     {
-                        new Vector2i(0, -1), new Vector2i(1, -1), new Vector2i(-1, 0),
+                        new Vector2i(0, -1),
+                        new Vector2i(1, -1),
+                        new Vector2i(-1, 0),
                         new Vector2i(0, 0),
                     },
                     _gameBlockColor = BlockGameBlock.BlockGameBlockColor.Green,
-                    CanSpin = true
+                    CanSpin = true,
                 },
                 BlockGamePieceType.SInverted => new BlockGamePiece
                 {
                     Offsets = new[]
                     {
-                        new Vector2i(-1, -1), new Vector2i(0, -1), new Vector2i(0, 0),
+                        new Vector2i(-1, -1),
+                        new Vector2i(0, -1),
+                        new Vector2i(0, 0),
                         new Vector2i(1, 0),
                     },
                     _gameBlockColor = BlockGameBlock.BlockGameBlockColor.Red,
-                    CanSpin = true
+                    CanSpin = true,
                 },
                 BlockGamePieceType.T => new BlockGamePiece
                 {
                     Offsets = new[]
                     {
                         new Vector2i(0, -1),
-                        new Vector2i(-1, 0), new Vector2i(0, 0), new Vector2i(1, 0),
+                        new Vector2i(-1, 0),
+                        new Vector2i(0, 0),
+                        new Vector2i(1, 0),
                     },
                     _gameBlockColor = BlockGameBlock.BlockGameBlockColor.Purple,
-                    CanSpin = true
+                    CanSpin = true,
                 },
                 BlockGamePieceType.O => new BlockGamePiece
                 {
                     Offsets = new[]
                     {
-                        new Vector2i(0, -1), new Vector2i(1, -1), new Vector2i(0, 0),
+                        new Vector2i(0, -1),
+                        new Vector2i(1, -1),
+                        new Vector2i(0, 0),
                         new Vector2i(1, 0),
                     },
                     _gameBlockColor = BlockGameBlock.BlockGameBlockColor.Yellow,
-                    CanSpin = false
+                    CanSpin = false,
                 },
-                _ => new BlockGamePiece
-                {
-                    Offsets = new[]
-                    {
-                        new Vector2i(0, 0)
-                    }
-                },
+                _ => new BlockGamePiece { Offsets = new[] { new Vector2i(0, 0) } },
             };
         }
     }

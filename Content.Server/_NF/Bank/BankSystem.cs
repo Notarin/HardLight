@@ -1,22 +1,25 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
-using Content.Server.Preferences.Managers;
+using System.Threading.Tasks;
 using Content.Server.GameTicking;
+using Content.Server.Preferences.Managers;
+using Content.Shared._Mono.Traits.Physical;
 using Content.Shared._NF.Bank;
 using Content.Shared._NF.Bank.Components;
-using Content.Shared.Preferences;
-using Robust.Shared.Player;
-using System.Diagnostics.CodeAnalysis;
-using System.Threading.Tasks;
-using Content.Shared._Mono.Traits.Physical;
 using Content.Shared._NF.Bank.Events;
 using Content.Shared.GameTicking;
+using Content.Shared.Preferences;
+using Robust.Shared.Player;
 
 namespace Content.Server._NF.Bank;
 
 public sealed partial class BankSystem : SharedBankSystem
 {
-    [Dependency] private readonly IServerPreferencesManager _prefsManager = default!;
-    [Dependency] private readonly ISharedPlayerManager _playerManager = default!;
+    [Dependency]
+    private readonly IServerPreferencesManager _prefsManager = default!;
+
+    [Dependency]
+    private readonly ISharedPlayerManager _playerManager = default!;
 
     private ISawmill _log = default!;
 
@@ -164,7 +167,13 @@ public sealed partial class BankSystem : SharedBankSystem
     /// <param name="amount">The number of spesos to be withdrawn.</param>
     /// <param name="newBalance">The new value of the bank account.</param>
     /// <returns>true if the transaction was successful, false if it was not.  When successful, newBalance contains the character's new balance.</returns>
-    public bool TryBankWithdraw(ICommonSession session, PlayerPreferences prefs, HumanoidCharacterProfile profile, int amount, [NotNullWhen(true)] out int? newBalance)
+    public bool TryBankWithdraw(
+        ICommonSession session,
+        PlayerPreferences prefs,
+        HumanoidCharacterProfile profile,
+        int amount,
+        [NotNullWhen(true)] out int? newBalance
+    )
     {
         newBalance = null; // Default return
         if (amount <= 0)
@@ -177,7 +186,9 @@ public sealed partial class BankSystem : SharedBankSystem
 
         if (balance < amount)
         {
-            _log.Info($"TryBankWithdraw: {session.UserId} tried to withdraw {amount}, but has insufficient funds ({balance})");
+            _log.Info(
+                $"TryBankWithdraw: {session.UserId} tried to withdraw {amount}, but has insufficient funds ({balance})"
+            );
             return false;
         }
 
@@ -187,7 +198,9 @@ public sealed partial class BankSystem : SharedBankSystem
         var index = prefs.IndexOfCharacter(profile);
         if (index == -1)
         {
-            _log.Info($"TryBankWithdraw: {session.UserId} tried to adjust the balance of {profile.Name}, but they were not in the user's character set.");
+            _log.Info(
+                $"TryBankWithdraw: {session.UserId} tried to adjust the balance of {profile.Name}, but they were not in the user's character set."
+            );
             return false;
         }
         _prefsManager.SetProfile(session.UserId, index, newProfile);
@@ -207,7 +220,13 @@ public sealed partial class BankSystem : SharedBankSystem
     /// <param name="amount">The number of spesos to be deposited.</param>
     /// <param name="newBalance">The new value of the bank account.</param>
     /// <returns>true if the transaction was successful, false if it was not.  When successful, newBalance contains the character's new balance.</returns>
-    public bool TryBankDeposit(ICommonSession session, PlayerPreferences prefs, HumanoidCharacterProfile profile, int amount, [NotNullWhen(true)] out int? newBalance)
+    public bool TryBankDeposit(
+        ICommonSession session,
+        PlayerPreferences prefs,
+        HumanoidCharacterProfile profile,
+        int amount,
+        [NotNullWhen(true)] out int? newBalance
+    )
     {
         newBalance = null; // Default return
         if (amount <= 0)
@@ -222,7 +241,9 @@ public sealed partial class BankSystem : SharedBankSystem
         var index = prefs.IndexOfCharacter(profile);
         if (index == -1)
         {
-            _log.Info($"{session.UserId} tried to adjust the balance of {profile.Name}, but they were not in the user's character set.");
+            _log.Info(
+                $"{session.UserId} tried to adjust the balance of {profile.Name}, but they were not in the user's character set."
+            );
             return false;
         }
         _prefsManager.SetProfile(session.UserId, index, newProfile);
@@ -285,7 +306,9 @@ public sealed partial class BankSystem : SharedBankSystem
         var index = prefs.IndexOfCharacter(profile);
         if (index == -1)
         {
-            _log.Info($"TryBankWithdrawAllowDebt: {session.UserId} tried to adjust the balance of {profile.Name}, but they were not in the user's character set.");
+            _log.Info(
+                $"TryBankWithdrawAllowDebt: {session.UserId} tried to adjust the balance of {profile.Name}, but they were not in the user's character set."
+            );
             return false;
         }
         _prefsManager.SetProfile(session.UserId, index, newProfile);
@@ -311,8 +334,10 @@ public sealed partial class BankSystem : SharedBankSystem
             balance = 0;
             return true;
         }
-        if (!_playerManager.TryGetSessionByEntity(ent, out var session) ||
-            !_prefsManager.TryGetCachedPreferences(session.UserId, out var prefs))
+        if (
+            !_playerManager.TryGetSessionByEntity(ent, out var session)
+            || !_prefsManager.TryGetCachedPreferences(session.UserId, out var prefs)
+        )
         {
             _log.Info($"{ent} has no cached prefs");
             balance = 0;
@@ -416,9 +441,7 @@ public sealed partial class BankSystem : SharedBankSystem
         {
             await _prefsManager.RefreshPreferencesAsync(args.PlayerSession, CancellationToken.None);
         }
-        catch (OperationCanceledException)
-        {
-        }
+        catch (OperationCanceledException) { }
         catch (Exception e)
         {
             _log.Error($"Failed to refresh lobby preferences for {args.PlayerSession}: {e}");

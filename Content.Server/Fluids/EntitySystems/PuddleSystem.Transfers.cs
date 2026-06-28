@@ -8,7 +8,8 @@ namespace Content.Server.Fluids.EntitySystems;
 
 public sealed partial class PuddleSystem
 {
-    [Dependency] private readonly OpenableSystem _openable = default!;
+    [Dependency]
+    private readonly OpenableSystem _openable = default!;
 
     private void InitializeTransfers()
     {
@@ -17,7 +18,6 @@ public sealed partial class PuddleSystem
 
     private void OnRefillableDragged(Entity<RefillableSolutionComponent> entity, ref DragDropDraggedEvent args)
     {
-
         // Frontier: silently prevent non-transferrable solution
         if (entity.Comp.PreventTransferOut)
             return;
@@ -29,7 +29,10 @@ public sealed partial class PuddleSystem
             return;
         }
 
-        if (!_solutionContainerSystem.TryGetSolution(entity.Owner, entity.Comp.Solution, out var soln, out var solution) || solution.Volume == FixedPoint2.Zero)
+        if (
+            !_solutionContainerSystem.TryGetSolution(entity.Owner, entity.Comp.Solution, out var soln, out var solution)
+            || solution.Volume == FixedPoint2.Zero
+        )
         {
             _popups.PopupEntity(Loc.GetString("mopping-system-empty", ("used", entity.Owner)), entity, args.User);
             return;
@@ -38,7 +41,13 @@ public sealed partial class PuddleSystem
         // Dump reagents into DumpableSolution
         if (TryComp<DumpableSolutionComponent>(args.Target, out var dump))
         {
-            if (!_solutionContainerSystem.TryGetDumpableSolution((args.Target, dump, null), out var dumpableSoln, out var dumpableSolution))
+            if (
+                !_solutionContainerSystem.TryGetDumpableSolution(
+                    (args.Target, dump, null),
+                    out var dumpableSoln,
+                    out var dumpableSolution
+                )
+            )
                 return;
 
             if (!_solutionContainerSystem.TryGetDrainableSolution(entity.Owner, out _, out _))
@@ -65,7 +74,11 @@ public sealed partial class PuddleSystem
             }
             else
             {
-                _popups.PopupEntity(Loc.GetString("mopping-system-full", ("used", args.Target)), args.Target, args.User);
+                _popups.PopupEntity(
+                    Loc.GetString("mopping-system-full", ("used", args.Target)),
+                    args.Target,
+                    args.User
+                );
             }
 
             return;
@@ -74,7 +87,13 @@ public sealed partial class PuddleSystem
         // Take reagents from target
         if (!TryComp<DrainableSolutionComponent>(args.Target, out var drainable))
         {
-            if (!_solutionContainerSystem.TryGetDrainableSolution((args.Target, drainable, null), out var drainableSolution, out _))
+            if (
+                !_solutionContainerSystem.TryGetDrainableSolution(
+                    (args.Target, drainable, null),
+                    out var drainableSolution,
+                    out _
+                )
+            )
                 return;
 
             var split = _solutionContainerSystem.SplitSolution(drainableSolution.Value, solution.AvailableVolume);

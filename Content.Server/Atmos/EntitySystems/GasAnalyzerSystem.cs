@@ -17,11 +17,20 @@ namespace Content.Server.Atmos.EntitySystems;
 [UsedImplicitly]
 public sealed class GasAnalyzerSystem : EntitySystem
 {
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly AtmosphereSystem _atmo = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly UserInterfaceSystem _userInterface = default!;
-    [Dependency] private readonly SharedInteractionSystem _interactionSystem = default!;
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly AtmosphereSystem _atmo = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly UserInterfaceSystem _userInterface = default!;
+
+    [Dependency]
+    private readonly SharedInteractionSystem _interactionSystem = default!;
 
     /// <summary>
     /// Minimum moles of a gas to be sent to the client.
@@ -164,8 +173,15 @@ public sealed class GasAnalyzerSystem : EntitySystem
         var tileMixture = _atmo.GetContainingMixture(uid, true);
         if (tileMixture != null)
         {
-            gasMixList.Add(new GasMixEntry(Loc.GetString("gas-analyzer-window-environment-tab-label"), tileMixture.Volume, tileMixture.Pressure, tileMixture.Temperature,
-                GenerateGasEntryArray(tileMixture)));
+            gasMixList.Add(
+                new GasMixEntry(
+                    Loc.GetString("gas-analyzer-window-environment-tab-label"),
+                    tileMixture.Volume,
+                    tileMixture.Pressure,
+                    tileMixture.Temperature,
+                    GenerateGasEntryArray(tileMixture)
+                )
+            );
         }
         else
         {
@@ -195,7 +211,15 @@ public sealed class GasAnalyzerSystem : EntitySystem
                 {
                     if (mixes.Item2 != null)
                     {
-                        gasMixList.Add(new GasMixEntry(mixes.Item1, mixes.Item2.Volume, mixes.Item2.Pressure, mixes.Item2.Temperature, GenerateGasEntryArray(mixes.Item2)));
+                        gasMixList.Add(
+                            new GasMixEntry(
+                                mixes.Item1,
+                                mixes.Item2.Volume,
+                                mixes.Item2.Pressure,
+                                mixes.Item2.Temperature,
+                                GenerateGasEntryArray(mixes.Item2)
+                            )
+                        );
                         validTarget = true;
                     }
                 }
@@ -218,7 +242,15 @@ public sealed class GasAnalyzerSystem : EntitySystem
                             var pipeAir = pipeNode.Air.Clone();
                             pipeAir.Multiply(pipeNode.Volume / pipeNode.Air.Volume);
                             pipeAir.Volume = pipeNode.Volume;
-                            gasMixList.Add(new GasMixEntry(pair.Key, pipeAir.Volume, pipeAir.Pressure, pipeAir.Temperature, GenerateGasEntryArray(pipeAir)));
+                            gasMixList.Add(
+                                new GasMixEntry(
+                                    pair.Key,
+                                    pipeAir.Volume,
+                                    pipeAir.Pressure,
+                                    pipeAir.Temperature,
+                                    GenerateGasEntryArray(pipeAir)
+                                )
+                            );
                             validTarget = true;
                         }
                     }
@@ -237,11 +269,16 @@ public sealed class GasAnalyzerSystem : EntitySystem
         if (gasMixList.Count == 0)
             return false;
 
-        _userInterface.ServerSendUiMessage(uid, GasAnalyzerUiKey.Key,
-            new GasAnalyzerUserMessage(gasMixList.ToArray(),
+        _userInterface.ServerSendUiMessage(
+            uid,
+            GasAnalyzerUiKey.Key,
+            new GasAnalyzerUserMessage(
+                gasMixList.ToArray(),
                 component.Target != null ? Name(component.Target.Value) : string.Empty,
                 GetNetEntity(component.Target) ?? NetEntity.Invalid,
-                deviceFlipped));
+                deviceFlipped
+            )
+        );
         return true;
     }
 

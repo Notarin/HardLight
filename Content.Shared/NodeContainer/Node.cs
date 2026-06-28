@@ -20,12 +20,14 @@ public abstract partial class Node
     /// <summary>
     ///     The node group this node is a part of.
     /// </summary>
-    [ViewVariables] public INodeGroup? NodeGroup;
+    [ViewVariables]
+    public INodeGroup? NodeGroup;
 
     /// <summary>
     ///     The entity that owns this node via its <see cref="NodeContainerComponent"/>.
     /// </summary>
-    [ViewVariables] public EntityUid Owner { get; private set; } = default!;
+    [ViewVariables]
+    public EntityUid Owner { get; private set; } = default!;
 
     /// <summary>
     ///     If this node should be considered for connection by other nodes.
@@ -92,9 +94,11 @@ public abstract partial class Node
     /// of this asymmetric relation are made to manually update with <see cref="NodeGroupSystem.QueueReflood"/>.
     /// </para>
     /// </remarks>
-    public abstract IEnumerable<Node> GetReachableNodes(TransformComponent xform,
+    public abstract IEnumerable<Node> GetReachableNodes(
+        TransformComponent xform,
         EntityQuery<NodeContainerComponent> nodeQuery,
         EntityQuery<TransformComponent> xformQuery,
         MapGridComponent? grid,
-        IEntityManager entMan);
+        IEntityManager entMan
+    );
 }

@@ -83,5 +83,5 @@ namespace Content.Server.Body.Components
 public enum RespiratorStatus
 {
     Inhaling,
-    Exhaling
+    Exhaling,
 }

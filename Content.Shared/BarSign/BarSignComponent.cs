@@ -17,7 +17,7 @@ public sealed partial class BarSignComponent : Component
 [Serializable, NetSerializable]
 public enum BarSignUiKey : byte
 {
-    Key
+    Key,
 }
 
 [Serializable, NetSerializable]

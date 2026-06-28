@@ -7,4 +7,3 @@ public sealed partial class HandPlaceholderVisualsComponent : Component
     [DataField]
     public EntityUid Dummy;
 }
-

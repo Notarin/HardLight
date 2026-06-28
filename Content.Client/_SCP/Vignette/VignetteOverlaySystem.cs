@@ -6,7 +6,8 @@ namespace Content.Client._Scp.Vignette;
 // TODO: Коммон оверлей систем
 public sealed class VignetteOverlaySystem : EntitySystem
 {
-    [Dependency] private readonly IOverlayManager _overlayManager = default!;
+    [Dependency]
+    private readonly IOverlayManager _overlayManager = default!;
 
     private VignetteOverlay _overlay = default!;
 
@@ -14,7 +15,7 @@ public sealed class VignetteOverlaySystem : EntitySystem
     {
         base.Initialize();
 
-        _overlay = new ();
+        _overlay = new();
 
         SubscribeLocalEvent<LocalPlayerAttachedEvent>(OnPlayerAttached);
         SubscribeLocalEvent<LocalPlayerDetachedEvent>(OnPlayerDetached);

@@ -26,4 +26,3 @@ public sealed partial class MobStateCondition : EntityEffectCondition
         return Loc.GetString("reagent-effect-condition-guidebook-mob-state-condition", ("state", Mobstate));
     }
 }
-

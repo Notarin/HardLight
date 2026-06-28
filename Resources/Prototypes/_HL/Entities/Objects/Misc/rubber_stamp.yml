@@ -1,9 +1,9 @@
-﻿- type: entity
+- type: entity
   name: interdyne rubber stamp
   parent: RubberStampBase
   id: RubberStampInterdyne
   description: Represents the entire bureaucratic might of the Interdyne Pharmaceutical Corporation.
-  categories: [ DoNotMap ]
+  categories: [DoNotMap]
   components:
   - type: Stamp
     stampedName: Interdyne

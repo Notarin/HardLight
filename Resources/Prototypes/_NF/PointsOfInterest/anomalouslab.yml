@@ -30,8 +30,8 @@
     AnomalousLab:
       stationProto: StandardFrontierOutpost
       components:
-        - type: StationNameSetup
-          mapNameTemplate: 'Anomalous Lab'
-        - type: StationJobs
-          availableJobs: {}
-        - type: StationDeadDropHintExempt
+      - type: StationNameSetup
+        mapNameTemplate: 'Anomalous Lab'
+      - type: StationJobs
+        availableJobs: {}
+      - type: StationDeadDropHintExempt

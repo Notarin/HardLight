@@ -7,4 +7,5 @@ public record struct ValidateActionEntityWorldTargetEvent(
     EntityUid User,
     EntityUid? Target,
     EntityCoordinates? Coords,
-    bool Cancelled = false);
+    bool Cancelled = false
+);

@@ -17,10 +17,17 @@ namespace Content.Client.Screenshot
     {
         private static readonly ResPath BaseScreenshotPath = new("/Screenshots");
 
-        [Dependency] private readonly IInputManager _inputManager = default!;
-        [Dependency] private readonly IClyde _clyde = default!;
-        [Dependency] private readonly IResourceManager _resourceManager = default!;
-        [Dependency] private readonly IStateManager _stateManager = default!;
+        [Dependency]
+        private readonly IInputManager _inputManager = default!;
+
+        [Dependency]
+        private readonly IClyde _clyde = default!;
+
+        [Dependency]
+        private readonly IResourceManager _resourceManager = default!;
+
+        [Dependency]
+        private readonly IStateManager _stateManager = default!;
 
         private ISawmill _sawmill = default!;
 
@@ -29,25 +36,32 @@ namespace Content.Client.Screenshot
             _sawmill = Logger.GetSawmill("screenshot");
             _sawmill.Level = LogLevel.Info;
 
-            _inputManager.SetInputCommand(ContentKeyFunctions.TakeScreenshot, InputCmdHandler.FromDelegate(_ =>
-            {
-                _clyde.Screenshot(ScreenshotType.Final, Take);
-            }));
+            _inputManager.SetInputCommand(
+                ContentKeyFunctions.TakeScreenshot,
+                InputCmdHandler.FromDelegate(_ =>
+                {
+                    _clyde.Screenshot(ScreenshotType.Final, Take);
+                })
+            );
 
-            _inputManager.SetInputCommand(ContentKeyFunctions.TakeScreenshotNoUI, InputCmdHandler.FromDelegate(_ =>
-            {
-                if (_stateManager.CurrentState is IMainViewportState state)
+            _inputManager.SetInputCommand(
+                ContentKeyFunctions.TakeScreenshotNoUI,
+                InputCmdHandler.FromDelegate(_ =>
                 {
-                    state.Viewport.Viewport.Screenshot(Take);
-                }
-                else
-                {
-                    _sawmill.Info("Can't take no-UI screenshot: current state is not GameScreen");
-                }
-            }));
+                    if (_stateManager.CurrentState is IMainViewportState state)
+                    {
+                        state.Viewport.Viewport.Screenshot(Take);
+                    }
+                    else
+                    {
+                        _sawmill.Info("Can't take no-UI screenshot: current state is not GameScreen");
+                    }
+                })
+            );
         }
 
-        private async void Take<T>(Image<T> screenshot) where T : unmanaged, IPixel<T>
+        private async void Take<T>(Image<T> screenshot)
+            where T : unmanaged, IPixel<T>
         {
             var time = DateTime.Now.ToString("yyyy-M-dd_HH.mm.ss");
 
@@ -67,8 +81,12 @@ namespace Content.Client.Screenshot
                         filename = $"{filename}-{i}";
                     }
 
-                    await using var file =
-                        _resourceManager.UserData.Open(BaseScreenshotPath / $"{filename}.png", FileMode.CreateNew, FileAccess.Write, FileShare.None);
+                    await using var file = _resourceManager.UserData.Open(
+                        BaseScreenshotPath / $"{filename}.png",
+                        FileMode.CreateNew,
+                        FileAccess.Write,
+                        FileShare.None
+                    );
 
                     await Task.Run(() =>
                     {

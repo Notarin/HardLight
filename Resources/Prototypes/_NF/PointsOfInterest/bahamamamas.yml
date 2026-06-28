@@ -14,7 +14,7 @@
   name: "Bahama Mama's"
   minimumDistance: 3400
   maximumDistance: 5800
-  spawnGamePreset: [ NFAdventure, NFPirate ]
+  spawnGamePreset: [NFAdventure, NFPirate]
   spawnGroup: MarketStation
   gridPath: /Maps/_NF/POI/bahama.yml
   addComponents:
@@ -34,5 +34,5 @@
     Bahama:
       stationProto: DeadDropFrontierOutpost
       components:
-        - type: StationNameSetup
-          mapNameTemplate: "Bahama Mama's"
+      - type: StationNameSetup
+        mapNameTemplate: "Bahama Mama's"

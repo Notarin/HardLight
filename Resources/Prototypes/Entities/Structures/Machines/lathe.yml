@@ -169,7 +169,7 @@
 
 - type: entity
   id: BaseLathe
-  parent: [ BaseMachinePowered, ConstructibleMachine ]
+  parent: [BaseMachinePowered, ConstructibleMachine]
   abstract: true
   name: lathe
   components:
@@ -178,8 +178,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.4,-0.4,0.4,0.4"
         density: 190
         mask:
@@ -196,8 +195,7 @@
       - Ingot # Frontier
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:PlaySoundBehavior
@@ -233,7 +231,7 @@
     range: 0.30 # Frontier
   - type: DeviceLinkSink
     ports:
-      - FillbotAnyItem
+    - FillbotAnyItem
 
 # a lathe that can be sped up with space lube / slowed down with glue
 - type: entity
@@ -341,7 +339,7 @@
     id: Autolathe # Frontier
   - type: DeviceLinkSink
     ports:
-      - FillbotAnyItem
+    - FillbotAnyItem
 
 - type: entity
   id: AutolatheHyperConvection
@@ -355,7 +353,7 @@
     board: AutolatheHyperConvectionMachineCircuitboard
   - type: DeviceLinkSink
     ports:
-      - FillbotAnyItem
+    - FillbotAnyItem
 
 - type: entity
   id: Protolathe
@@ -439,7 +437,7 @@
     - CivilianAmmoRecipePack
   - type: DeviceLinkSink
     ports:
-      - FillbotAnyItem
+    - FillbotAnyItem
 
 - type: entity
   id: ProtolatheHyperConvection
@@ -453,7 +451,7 @@
     board: ProtolatheHyperConvectionMachineCircuitboard
   - type: DeviceLinkSink
     ports:
-      - FillbotAnyItem
+    - FillbotAnyItem
 
 - type: entity
   id: CircuitImprinter
@@ -519,7 +517,7 @@
   - type: RequireProjectileTarget
   - type: DeviceLinkSink
     ports:
-      - FillbotAnyItem
+    - FillbotAnyItem
 
 - type: entity
   id: CircuitImprinterHyperConvection
@@ -533,7 +531,7 @@
     board: CircuitImprinterHyperConvectionMachineCircuitboard
   - type: DeviceLinkSink
     ports:
-      - FillbotAnyItem
+    - FillbotAnyItem
 
 - type: entity
   id: ExosuitFabricator
@@ -607,14 +605,14 @@
     - Robotics
   - type: DeviceLinkSink
     ports:
-      - FillbotAnyItem
+    - FillbotAnyItem
 
 - type: entity
   id: Biofabricator
   parent: BaseLathe
   name: biocube fabricator
   description: Produces animal cubes using biomass.
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   components:
   - type: Sprite
     sprite: Structures/Machines/biofabricator.rsi
@@ -651,11 +649,11 @@
     - HostileCubesStatic
   - type: DeviceLinkSink
     ports:
-      - FillbotAnyItem
+    - FillbotAnyItem
 
 - type: entity
   id: SecurityTechFab
-  parent: [ BaseLatheLube, BaseC3ContrabandUnredeemable ]
+  parent: [BaseLatheLube, BaseC3ContrabandUnredeemable]
   name: security techfab
   description: Prints equipment for use by security crew.
   components:
@@ -664,19 +662,18 @@
     snapCardinals: true # Frontier
     layers:
     - state: icon
-      map: [ "enum.LatheVisualLayers.IsRunning" ]
+      map: ["enum.LatheVisualLayers.IsRunning"]
     - state: sec
     - state: unlit
       shader: unshaded
-      map: [ "enum.PowerDeviceVisualLayers.Powered"]
+      map: ["enum.PowerDeviceVisualLayers.Powered"]
     - state: inserting
       map: ["enum.MaterialStorageVisualLayers.Inserting"]
     - state: panel
       map: ["enum.WiresVisualLayers.MaintenancePanel"]
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 300
       behaviors:
       - !type:PlaySoundBehavior
@@ -742,7 +739,7 @@
   #   channels: [Security] # Frontier
   - type: DeviceLinkSink
     ports:
-      - FillbotAnyItem
+    - FillbotAnyItem
 
 - type: entity
   id: AmmoTechFab
@@ -785,12 +782,12 @@
     id: Techfab
   - type: DeviceLinkSink
     ports:
-      - FillbotAnyItem
+    - FillbotAnyItem
   - type: OreSiloClient
 
 - type: entity
   id: MedicalTechFab
-  parent: [ BlueprintReceiverBase, BaseLatheLube ] # Frontier: added BlueprintReceiverBase
+  parent: [BlueprintReceiverBase, BaseLatheLube] # Frontier: added BlueprintReceiverBase
   name: medical techfab
   description: Prints equipment for use by the medbay.
   components:
@@ -842,7 +839,7 @@
   #   channels: [Medical] # Frontier
   - type: DeviceLinkSink
     ports:
-      - FillbotAnyItem
+    - FillbotAnyItem
 
 - type: entity
   parent: BaseLathe
@@ -904,7 +901,7 @@
   - type: OreSiloClient
   - type: DeviceLinkSink
     ports:
-      - FillbotAnyItem
+    - FillbotAnyItem
 
 - type: entity
   id: Biogenerator
@@ -978,7 +975,7 @@
   # End Frontier: emag lathe recipes, item mapper
   - type: DeviceLinkSink
     ports:
-      - FillbotAnyItem
+    - FillbotAnyItem
 
 - type: entity
   parent: BaseLathe
@@ -1020,7 +1017,7 @@
     isPlaceable: false # but not place on it if you just click it with a random item
   - type: DeviceLinkSink
     ports:
-      - FillbotAnyItem
+    - FillbotAnyItem
 
 - type: entity
   parent: OreProcessor
@@ -1041,7 +1038,7 @@
     - AdvancedSmelting
   - type: DeviceLinkSink
     ports:
-      - FillbotAnyItem
+    - FillbotAnyItem
 
 - type: entity
   parent: BaseLathe
@@ -1075,7 +1072,7 @@
     - SheetifierStatic
   - type: DeviceLinkSink
     ports:
-      - FillbotAnyItem
+    - FillbotAnyItem
 
 - type: entity
   parent: BaseLathe
@@ -1128,7 +1125,7 @@
   - type: OreSiloClient
   - type: DeviceLinkSink
     ports:
-      - FillbotAnyItem
+    - FillbotAnyItem
 
 # Shitmed Change Start
 - type: entity
@@ -1167,7 +1164,7 @@
   - type: EmagLatheRecipes
     emagStaticPacks:
     - MedicalPizzaLimbsStatic
-# Shitmed Change End
+    # Shitmed Change End
   - type: DeviceLinkSink
     ports:
-      - FillbotAnyItem
+    - FillbotAnyItem

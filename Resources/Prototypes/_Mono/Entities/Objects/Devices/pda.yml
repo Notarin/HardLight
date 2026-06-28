@@ -37,9 +37,7 @@
     id: USSPRiflemanIDCard
   - type: Appearance
     appearanceDataInit:
-     enum.PdaVisuals.PdaType:
-       !type:String
-       pda-interncadet
+      enum.PdaVisuals.PdaType: !type:String pda-interncadet
   - type: PdaBorderColor
     borderColor: "#717059"
     accentVColor: "#A32D26"
@@ -55,9 +53,7 @@
     id: SecurityCadetIDCard
   - type: Appearance
     appearanceDataInit:
-      enum.PdaVisuals.PdaType:
-        !type:String
-        pda-brigmedic
+      enum.PdaVisuals.PdaType: !type:String pda-brigmedic
   - type: PdaBorderColor
     borderColor: "#A32D26"
     accentHColor: "#d7d7d0"
@@ -74,9 +70,7 @@
     id: SecurityCadetIDCard
   - type: Appearance
     appearanceDataInit:
-      enum.PdaVisuals.PdaType:
-        !type:String
-        pda-security
+      enum.PdaVisuals.PdaType: !type:String pda-security
   - type: PdaBorderColor
     borderColor: "#A32D26"
   - type: Icon
@@ -91,9 +85,7 @@
     id: SecurityCadetIDCard
   - type: Appearance
     appearanceDataInit:
-      enum.PdaVisuals.PdaType:
-        !type:String
-        pda-seniorofficer
+      enum.PdaVisuals.PdaType: !type:String pda-seniorofficer
   - type: PdaBorderColor
     borderColor: "#A32D26"
     accentVColor: "#DFDFDF"
@@ -109,9 +101,7 @@
     id: SecurityCadetIDCard
   - type: Appearance
     appearanceDataInit:
-      enum.PdaVisuals.PdaType:
-        !type:String
-        pda-hos
+      enum.PdaVisuals.PdaType: !type:String pda-hos
   - type: PdaBorderColor
     borderColor: "#A32D26"
     accentHColor: "#447987"

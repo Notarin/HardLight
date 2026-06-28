@@ -15,26 +15,45 @@ using Content.Shared.Standing;
 using Content.Shared.Storage;
 using Content.Shared.Storage.Components;
 using Content.Shared.Verbs;
+using Robust.Server.Player; // Frontier
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
 using Robust.Shared.Enums;
 using Robust.Shared.Player;
-using Robust.Server.Player; // Frontier
 
 namespace Content.Server.Morgue;
 
 public sealed class CrematoriumSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly GhostSystem _ghostSystem = default!;
-    [Dependency] private readonly EntityStorageSystem _entityStorage = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly StandingStateSystem _standing = default!;
-    [Dependency] private readonly SharedMindSystem _minds = default!;
-    [Dependency] private readonly SharedContainerSystem _containers = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!; // Frontier
-    [Dependency] private readonly IPlayerManager _player = default!; // Frontier
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly GhostSystem _ghostSystem = default!;
+
+    [Dependency]
+    private readonly EntityStorageSystem _entityStorage = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly StandingStateSystem _standing = default!;
+
+    [Dependency]
+    private readonly SharedMindSystem _minds = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _containers = default!;
+
+    [Dependency]
+    private readonly MobStateSystem _mobState = default!; // Frontier
+
+    [Dependency]
+    private readonly IPlayerManager _player = default!; // Frontier
 
     public override void Initialize()
     {
@@ -53,15 +72,20 @@ public sealed class CrematoriumSystem : EntitySystem
 
         using (args.PushGroup(nameof(CrematoriumComponent)))
         {
-            if (_appearance.TryGetData<bool>(uid, CrematoriumVisuals.Burning, out var isBurning, appearance) &&
-                isBurning)
+            if (
+                _appearance.TryGetData<bool>(uid, CrematoriumVisuals.Burning, out var isBurning, appearance)
+                && isBurning
+            )
             {
-                args.PushMarkup(Loc.GetString("crematorium-entity-storage-component-on-examine-details-is-burning",
-                    ("owner", uid)));
+                args.PushMarkup(
+                    Loc.GetString("crematorium-entity-storage-component-on-examine-details-is-burning", ("owner", uid))
+                );
             }
 
-            if (_appearance.TryGetData<bool>(uid, StorageVisuals.HasContents, out var hasContents, appearance) &&
-                hasContents)
+            if (
+                _appearance.TryGetData<bool>(uid, StorageVisuals.HasContents, out var hasContents, appearance)
+                && hasContents
+            )
             {
                 args.PushMarkup(Loc.GetString("crematorium-entity-storage-component-on-examine-details-has-contents"));
             }
@@ -93,7 +117,7 @@ public sealed class CrematoriumSystem : EntitySystem
             Text = Loc.GetString("cremate-verb-get-data-text"),
             // TODO VERB ICON add flame/burn symbol?
             Act = () => TryCremate(uid, component, storage),
-            Impact = LogImpact.High // could be a body? or evidence? I dunno.
+            Impact = LogImpact.High, // could be a body? or evidence? I dunno.
         };
         args.Verbs.Add(verb);
     }
@@ -115,7 +139,11 @@ public sealed class CrematoriumSystem : EntitySystem
         return true;
     }
 
-    public bool TryCremate(EntityUid uid, CrematoriumComponent? component = null, EntityStorageComponent? storage = null)
+    public bool TryCremate(
+        EntityUid uid,
+        CrematoriumComponent? component = null,
+        EntityStorageComponent? storage = null
+    )
     {
         if (!Resolve(uid, ref component, ref storage))
             return false;
@@ -176,9 +204,16 @@ public sealed class CrematoriumSystem : EntitySystem
             }
         }
 
-        _popup.PopupEntity(Loc.GetString("crematorium-entity-storage-component-suicide-message-others",
-            ("victim", Identity.Entity(victim, EntityManager))),
-            victim, Filter.PvsExcept(victim), true, PopupType.LargeCaution);
+        _popup.PopupEntity(
+            Loc.GetString(
+                "crematorium-entity-storage-component-suicide-message-others",
+                ("victim", Identity.Entity(victim, EntityManager))
+            ),
+            victim,
+            Filter.PvsExcept(victim),
+            true,
+            PopupType.LargeCaution
+        );
 
         if (_entityStorage.CanInsert(victim, uid))
         {

@@ -1,18 +1,18 @@
 using System.Linq;
-using Content.Server.NodeContainer.Nodes;
-using Content.Server.Shuttles.Events;
-using Content.Server.Shuttles.Components;
-using Content.Shared.NodeContainer;
-using Content.Shared.Atmos;
-using Robust.Shared.Map.Components;
-using Robust.Shared.GameObjects;
 using Content.Server.NodeContainer.EntitySystems;
 using Content.Server.NodeContainer.NodeGroups;
+using Content.Server.NodeContainer.Nodes;
+using Content.Server.Shuttles.Components;
+using Content.Server.Shuttles.Events;
+using Content.Shared.Atmos;
 using Content.Shared.Atmos.Components;
-using Robust.Shared.Utility;
-using Robust.Shared.Log;
+using Content.Shared.NodeContainer;
 using Content.Shared.Starlight.CCVar;
 using Robust.Shared.Configuration;
+using Robust.Shared.GameObjects;
+using Robust.Shared.Log;
+using Robust.Shared.Map.Components;
+using Robust.Shared.Utility;
 
 namespace Content.Server.Atmos.EntitySystems
 {
@@ -23,8 +23,11 @@ namespace Content.Server.Atmos.EntitySystems
     {
         #region Dependencies
 
-        [Dependency] public readonly SharedMapSystem _mapSystem = default!;
-        [Dependency] private IConfigurationManager _configurationManager = default!;
+        [Dependency]
+        public readonly SharedMapSystem _mapSystem = default!;
+
+        [Dependency]
+        private IConfigurationManager _configurationManager = default!;
         private readonly HashSet<EntityUid> _dockConnectionsChecked = new();
 
         public bool DockPipes { get; private set; } = true;
@@ -55,7 +58,6 @@ namespace Content.Server.Atmos.EntitySystems
             var dockA = ev.DockA.Owner;
             var dockB = ev.DockB.Owner;
 
-
             var dockAConnecting = GetDockConnectingPipe(dockA).Where(ShouldDockPipeType).ToList();
             var dockBConnecting = GetDockConnectingPipe(dockB).Where(ShouldDockPipeType).ToList();
 
@@ -69,7 +71,8 @@ namespace Content.Server.Atmos.EntitySystems
                 var pipeALayer = pipeA.CurrentPipeLayer;
                 var pipeAAnchored = EntityManager.GetComponent<TransformComponent>(pipeA.Owner).Anchored;
 
-                if (!anchoredA.Contains(pipeA.Owner) || !pipeAAnchored) continue;
+                if (!anchoredA.Contains(pipeA.Owner) || !pipeAAnchored)
+                    continue;
                 foreach (var pipeB in dockBConnecting)
                 {
                     var pipeBType = pipeB.GetType().Name;
@@ -77,7 +80,8 @@ namespace Content.Server.Atmos.EntitySystems
                     var pipeBLayer = pipeB.CurrentPipeLayer;
                     var pipeBAnchored = EntityManager.GetComponent<TransformComponent>(pipeB.Owner).Anchored;
 
-                    if (!anchoredB.Contains(pipeB.Owner) || !pipeBAnchored) continue;
+                    if (!anchoredB.Contains(pipeB.Owner) || !pipeBAnchored)
+                        continue;
                     var canConnect = CanConnect(pipeA, pipeB) && pipeA.CurrentPipeLayer == pipeB.CurrentPipeLayer;
                     if (canConnect)
                     {
@@ -95,7 +99,8 @@ namespace Content.Server.Atmos.EntitySystems
                     var pipeDir = pipe.CurrentPipeDirection;
                     var pipeLayer = pipe.CurrentPipeLayer;
                     var pipeAnchored = EntityManager.GetComponent<TransformComponent>(pipe.Owner).Anchored;
-                    if (!pipeAnchored) continue;
+                    if (!pipeAnchored)
+                        continue;
                     CheckForDockConnections(pipe.Owner, pipe);
                 }
             }
@@ -136,7 +141,6 @@ namespace Content.Server.Atmos.EntitySystems
                     if (!hasDir)
                         continue;
 
-
                     if (!TryComp<TransformComponent>(node.Owner, out var pipeXform))
                         continue;
                     var pipeTile = _mapSystem.TileIndicesFor(xform.GridUid.Value, grid, pipeXform.Coordinates);
@@ -165,7 +169,10 @@ namespace Content.Server.Atmos.EntitySystems
             if (facingNodes.Count > 0)
             {
                 var minDist = facingNodes.Min(x => x.dist);
-                var closestNodes = facingNodes.Where(x => Math.Abs(x.dist - minDist) < 0.01f).Select(x => x.node).ToList();
+                var closestNodes = facingNodes
+                    .Where(x => Math.Abs(x.dist - minDist) < 0.01f)
+                    .Select(x => x.node)
+                    .ToList();
                 return closestNodes;
             }
 
@@ -188,10 +195,18 @@ namespace Content.Server.Atmos.EntitySystems
 
             foreach (var pipeA in pipesA)
             {
-                if (!anchoredA.Contains(pipeA.Owner) || !EntityManager.GetComponent<TransformComponent>(pipeA.Owner).Anchored) continue;
+                if (
+                    !anchoredA.Contains(pipeA.Owner)
+                    || !EntityManager.GetComponent<TransformComponent>(pipeA.Owner).Anchored
+                )
+                    continue;
                 foreach (var pipeB in pipesB)
                 {
-                    if (!anchoredB.Contains(pipeB.Owner) || !EntityManager.GetComponent<TransformComponent>(pipeB.Owner).Anchored) continue;
+                    if (
+                        !anchoredB.Contains(pipeB.Owner)
+                        || !EntityManager.GetComponent<TransformComponent>(pipeB.Owner).Anchored
+                    )
+                        continue;
                     if (pipeA.CurrentPipeLayer == pipeB.CurrentPipeLayer)
                     {
                         pipeA.RemoveAlwaysReachable(pipeB);
@@ -302,7 +317,11 @@ namespace Content.Server.Atmos.EntitySystems
                 return;
             if (!EntityManager.TryGetComponent<NodeContainerComponent>(pipeEntity, out var nodeContainer))
                 return;
-            if (!EntityManager.TryGetComponent<TransformComponent>(pipeEntity, out var xform) || xform.GridUid == null || !xform.Anchored)
+            if (
+                !EntityManager.TryGetComponent<TransformComponent>(pipeEntity, out var xform)
+                || xform.GridUid == null
+                || !xform.Anchored
+            )
                 return;
             if (!EntityManager.TryGetComponent<MapGridComponent>(xform.GridUid.Value, out var grid))
                 return;
@@ -332,7 +351,20 @@ namespace Content.Server.Atmos.EntitySystems
 
                 if (nodeTile == edgeTile)
                 {
-                    if (nodesToConnect.Count == 0 || dist < (nodesToConnect.Count > 0 ? (dockPos - EntityManager.GetComponent<TransformComponent>(nodesToConnect[0].Owner).Coordinates.Position).Length() : float.MaxValue))
+                    if (
+                        nodesToConnect.Count == 0
+                        || dist
+                            < (
+                                nodesToConnect.Count > 0
+                                    ? (
+                                        dockPos
+                                        - EntityManager
+                                            .GetComponent<TransformComponent>(nodesToConnect[0].Owner)
+                                            .Coordinates.Position
+                                    ).Length()
+                                    : float.MaxValue
+                            )
+                    )
                     {
                         nodesToConnect.Clear();
                         nodesToConnect.Add(node);
@@ -359,17 +391,22 @@ namespace Content.Server.Atmos.EntitySystems
             }
 
             var anchoredEntities = _mapSystem.GetAnchoredEntities(xform.GridUid.Value, grid, tile).ToList();
-            var dockedEntities = anchoredEntities.Where(ent =>
-                ent != pipeEntity &&
-                EntityManager.TryGetComponent<DockingComponent>(ent, out var docking) &&
-                docking.DockedWith is not null).ToList();
+            var dockedEntities = anchoredEntities
+                .Where(ent =>
+                    ent != pipeEntity
+                    && EntityManager.TryGetComponent<DockingComponent>(ent, out var docking)
+                    && docking.DockedWith is not null
+                )
+                .ToList();
 
             foreach (var ent in dockedEntities)
             {
                 var docking = EntityManager.GetComponent<DockingComponent>(ent);
                 var otherDock = docking.DockedWith!.Value;
                 var pipesOther = GetDockConnectingPipe(otherDock)
-                    .Where(p => EntityManager.GetComponent<TransformComponent>(p.Owner).Anchored && ShouldDockPipeType(p))
+                    .Where(p =>
+                        EntityManager.GetComponent<TransformComponent>(p.Owner).Anchored && ShouldDockPipeType(p)
+                    )
                     .ToList();
                 foreach (var node in nodesToConnect)
                 foreach (var pipeB in pipesOther)
@@ -398,23 +435,31 @@ namespace Content.Server.Atmos.EntitySystems
             if (!_dockConnectionsChecked.Add(pipeEntity))
                 return;
 
-            if (!EntityManager.TryGetComponent<TransformComponent>(pipeEntity, out var xform) || xform.GridUid == null || !xform.Anchored)
+            if (
+                !EntityManager.TryGetComponent<TransformComponent>(pipeEntity, out var xform)
+                || xform.GridUid == null
+                || !xform.Anchored
+            )
                 return;
             if (!EntityManager.TryGetComponent<MapGridComponent>(xform.GridUid.Value, out var grid))
                 return;
             var tile = _mapSystem.TileIndicesFor(xform.GridUid.Value, grid, xform.Coordinates);
 
             var anchoredEntities = _mapSystem.GetAnchoredEntities(xform.GridUid.Value, grid, tile).ToList();
-            var dockedEntities = anchoredEntities.Where(ent =>
-                ent != pipeEntity &&
-                EntityManager.TryGetComponent<DockingComponent>(ent, out var docking) &&
-                docking.DockedWith is not null).ToList();
+            var dockedEntities = anchoredEntities
+                .Where(ent =>
+                    ent != pipeEntity
+                    && EntityManager.TryGetComponent<DockingComponent>(ent, out var docking)
+                    && docking.DockedWith is not null
+                )
+                .ToList();
 
             foreach (var ent in dockedEntities)
             {
                 var docking = EntityManager.GetComponent<DockingComponent>(ent);
                 var otherDock = docking.DockedWith!.Value;
-                var pipesOther = GetDockConnectingPipe(otherDock).Where(p => EntityManager.GetComponent<TransformComponent>(p.Owner).Anchored);
+                var pipesOther = GetDockConnectingPipe(otherDock)
+                    .Where(p => EntityManager.GetComponent<TransformComponent>(p.Owner).Anchored);
                 foreach (var pipeB in pipesOther)
                 {
                     var pipeBType = pipeB.GetType().Name;
@@ -502,8 +547,10 @@ namespace Content.Server.Atmos.EntitySystems
         {
             if (!DockPipes)
                 return "DockPipeSystem is disabled by CVar.";
-            if (!EntityManager.TryGetComponent<NodeContainerComponent>(pipeAUid, out var nodeA) ||
-                !EntityManager.TryGetComponent<NodeContainerComponent>(pipeBUid, out var nodeB))
+            if (
+                !EntityManager.TryGetComponent<NodeContainerComponent>(pipeAUid, out var nodeA)
+                || !EntityManager.TryGetComponent<NodeContainerComponent>(pipeBUid, out var nodeB)
+            )
                 return "One or both entities are not pipes.";
             PipeNode? pipeA = nodeA.Nodes.Values.OfType<PipeNode>().FirstOrDefault();
             PipeNode? pipeB = nodeB.Nodes.Values.OfType<PipeNode>().FirstOrDefault();
@@ -535,9 +582,13 @@ namespace Content.Server.Atmos.EntitySystems
                 foreach (var pipeA in pipesA)
                 foreach (var pipeB in pipesB)
                 {
-                    if (!anchoredA.Contains(pipeA.Owner) || !anchoredB.Contains(pipeB.Owner) ||
-                        !EntityManager.GetComponent<TransformComponent>(pipeA.Owner).Anchored ||
-                        !EntityManager.GetComponent<TransformComponent>(pipeB.Owner).Anchored) continue;
+                    if (
+                        !anchoredA.Contains(pipeA.Owner)
+                        || !anchoredB.Contains(pipeB.Owner)
+                        || !EntityManager.GetComponent<TransformComponent>(pipeA.Owner).Anchored
+                        || !EntityManager.GetComponent<TransformComponent>(pipeB.Owner).Anchored
+                    )
+                        continue;
                     var reachableA = pipeA.GetAlwaysReachable();
                     var reachableB = pipeB.GetAlwaysReachable();
                     if (reachableA != null && reachableA.Contains(pipeB))
@@ -547,10 +598,13 @@ namespace Content.Server.Atmos.EntitySystems
                 }
                 foreach (var pipeA in pipesA)
                 foreach (var pipeB in pipesB)
-                    if (anchoredA.Contains(pipeA.Owner) && anchoredB.Contains(pipeB.Owner) &&
-                        EntityManager.GetComponent<TransformComponent>(pipeA.Owner).Anchored &&
-                        EntityManager.GetComponent<TransformComponent>(pipeB.Owner).Anchored &&
-                        CanConnect(pipeA, pipeB))
+                    if (
+                        anchoredA.Contains(pipeA.Owner)
+                        && anchoredB.Contains(pipeB.Owner)
+                        && EntityManager.GetComponent<TransformComponent>(pipeA.Owner).Anchored
+                        && EntityManager.GetComponent<TransformComponent>(pipeB.Owner).Anchored
+                        && CanConnect(pipeA, pipeB)
+                    )
                     {
                         pipeA.AddAlwaysReachable(pipeB);
                         pipeB.AddAlwaysReachable(pipeA);

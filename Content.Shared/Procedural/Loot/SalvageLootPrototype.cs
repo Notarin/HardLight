@@ -8,12 +8,14 @@ namespace Content.Shared.Procedural.Loot;
 [Prototype]
 public sealed partial class SalvageLootPrototype : IPrototype
 {
-    [IdDataField] public string ID { get; private set; } = default!;
+    [IdDataField]
+    public string ID { get; private set; } = default!;
 
     /// <summary>
     /// Should this loot always spawn if possible. Used for stuff such as ore.
     /// </summary>
-    [DataField("guaranteed")] public bool Guaranteed;
+    [DataField("guaranteed")]
+    public bool Guaranteed;
 
     /// <summary>
     /// All of the loot rules

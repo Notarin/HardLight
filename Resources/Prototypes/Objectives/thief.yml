@@ -141,8 +141,6 @@
   - type: Objective
     difficulty: 0.7
 
-
-
 - type: entity
   parent: BaseThiefStealCollectionObjective
   id: LAMPStealCollectionObjective
@@ -160,7 +158,7 @@
 
 # steal item
 
-- type: entity                                      #Security subgroup
+- type: entity #Security subgroup
   parent: BaseThiefStealObjective
   id: ForensicScannerStealObjective
   components:
@@ -200,7 +198,7 @@
   - type: Objective
     difficulty: 1
 
-- type: entity                                      #Medical subgroup
+- type: entity #Medical subgroup
   parent: BaseThiefStealObjective
   id: ClothingOuterHardsuitVoidParamedStealObjective
   components:
@@ -233,7 +231,7 @@
   - type: Objective
     difficulty: 1
 
-- type: entity                                      #Engineering subgroup
+- type: entity #Engineering subgroup
   parent: BaseThiefStealObjective
   id: FireAxeStealObjective
   components:
@@ -255,7 +253,7 @@
   - type: Objective
     difficulty: 1
 
-- type: entity                                      #Cargo subgroup
+- type: entity #Cargo subgroup
   parent: BaseThiefStealObjective
   id: ExpeditionsCircuitboardStealObjective
   components:
@@ -277,7 +275,7 @@
   - type: Objective
     difficulty: 0.7
 
-- type: entity                                      #Service subgroup
+- type: entity #Service subgroup
   parent: BaseThiefStealObjective
   id: ClothingEyesHudBeerStealObjective
   components:
@@ -299,7 +297,7 @@
   - type: Objective
     difficulty: 0.4
 
-- type: entity                                      #Other subgroup
+- type: entity #Other subgroup
   parent: BaseThiefStealObjective
   id: ClothingNeckGoldmedalStealObjective
   components:
@@ -346,7 +344,7 @@
     difficulty: 2
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseThiefStealStructureObjective
   id: ChemDispenserStealObjective
   components:

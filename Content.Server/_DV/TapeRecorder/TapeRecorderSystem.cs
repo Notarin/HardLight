@@ -1,27 +1,36 @@
+using System.Text;
 using Content.Server.Chat.Systems;
 using Content.Server.Hands.Systems;
 using Content.Server.Popups;
 using Content.Server.Speech;
 using Content.Server.Speech.Components;
-using Content.Shared.Chat;
-using Content.Shared.Paper;
-using Content.Shared.Speech;
 using Content.Shared._DV.TapeRecorder;
 using Content.Shared._DV.TapeRecorder.Components;
 using Content.Shared._DV.TapeRecorder.Systems;
+using Content.Shared.Chat;
+using Content.Shared.Paper;
+using Content.Shared.Speech;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
-using System.Text;
 
 namespace Content.Server._DV.TapeRecorder;
 
 public sealed class TapeRecorderSystem : SharedTapeRecorderSystem
 {
-    [Dependency] private readonly ChatSystem _chat = default!;
-    [Dependency] private readonly HandsSystem _hands = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly PaperSystem _paper = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
+    [Dependency]
+    private readonly ChatSystem _chat = default!;
+
+    [Dependency]
+    private readonly HandsSystem _hands = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly PaperSystem _paper = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
 
     public override void Initialize()
     {
@@ -39,9 +48,10 @@ public sealed class TapeRecorderSystem : SharedTapeRecorderSystem
         {
             if (TryComp<ActorComponent>(current, out _))
             {
-                var msg = args.Reason == TapeRecordingStopReason.TapeFull
-                    ? Loc.GetString("tape-recorder-stopped-tape-full")
-                    : Loc.GetString("tape-recorder-stopped-transcript-full");
+                var msg =
+                    args.Reason == TapeRecordingStopReason.TapeFull
+                        ? Loc.GetString("tape-recorder-stopped-tape-full")
+                        : Loc.GetString("tape-recorder-stopped-transcript-full");
                 _popup.PopupEntity(msg, ent, current);
                 return;
             }
@@ -53,7 +63,12 @@ public sealed class TapeRecorderSystem : SharedTapeRecorderSystem
     /// Given a time range, play all messages on a tape within said range, [start, end).
     /// Split into this system as shared does not have ChatSystem access
     /// </summary>
-    protected override void ReplayMessagesInSegment(Entity<TapeRecorderComponent> ent, TapeCassetteComponent tape, float segmentStart, float segmentEnd)
+    protected override void ReplayMessagesInSegment(
+        Entity<TapeRecorderComponent> ent,
+        TapeCassetteComponent tape,
+        float segmentStart,
+        float segmentEnd
+    )
     {
         var voice = EnsureComp<VoiceOverrideComponent>(ent);
         var speech = EnsureComp<SpeechComponent>(ent);
@@ -98,7 +113,9 @@ public sealed class TapeRecorderSystem : SharedTapeRecorderSystem
         //Add a new entry to the tape
         var verb = _chat.GetSpeechVerb(args.Source, args.Message);
         var name = nameEv.VoiceName;
-        cassette.Comp.Buffer.Add(new TapeCassetteRecordedMessage(cassette.Comp.CurrentPosition, name, verb, args.Message));
+        cassette.Comp.Buffer.Add(
+            new TapeCassetteRecordedMessage(cassette.Comp.CurrentPosition, name, verb, args.Message)
+        );
     }
 
     private void OnPrintMessage(Entity<TapeRecorderComponent> ent, ref PrintTapeRecorderMessage args)
@@ -117,7 +134,7 @@ public sealed class TapeRecorderSystem : SharedTapeRecorderSystem
         // Sorting list by time for overwrite order
         // TODO: why is this needed? why wouldn't it be stored in order
         var data = cassette.Comp.RecordedData;
-        data.Sort((x,y) => x.Timestamp.CompareTo(y.Timestamp));
+        data.Sort((x, y) => x.Timestamp.CompareTo(y.Timestamp));
 
         // Looking if player's entity exists to give paper in its hand
         var player = args.Actor;
@@ -134,12 +151,16 @@ public sealed class TapeRecorderSystem : SharedTapeRecorderSystem
         foreach (var message in cassette.Comp.RecordedData)
         {
             var name = message.Name ?? ent.Comp.DefaultName;
-            var time = TimeSpan.FromSeconds((double) message.Timestamp);
+            var time = TimeSpan.FromSeconds((double)message.Timestamp);
 
-            text.AppendLine(Loc.GetString("tape-recorder-print-message-text",
-                ("time", time.ToString(@"hh\:mm\:ss")),
-                ("source", name),
-                ("message", message.Message)));
+            text.AppendLine(
+                Loc.GetString(
+                    "tape-recorder-print-message-text",
+                    ("time", time.ToString(@"hh\:mm\:ss")),
+                    ("source", name),
+                    ("message", message.Message)
+                )
+            );
         }
         text.AppendLine();
         text.Append(Loc.GetString("tape-recorder-print-end-text"));

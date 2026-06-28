@@ -36,8 +36,11 @@ public sealed class PrototypeTests
         await pair.CleanReturnAsync();
     }
 
-    public async Task SaveThenValidatePrototype(RobustIntegrationTest.IntegrationInstance instance, string instanceId,
-        PrototypeSaveTest.TestEntityUidContext ctx)
+    public async Task SaveThenValidatePrototype(
+        RobustIntegrationTest.IntegrationInstance instance,
+        string instanceId,
+        PrototypeSaveTest.TestEntityUidContext ctx
+    )
     {
         var protoMan = instance.ResolveDependency<IPrototypeManager>();
         Dictionary<Type, Dictionary<string, HashSet<ErrorNode>>> errors = default!;
@@ -89,7 +92,8 @@ public sealed class PrototypeTests
 
     private async Task SaveLoadSavePrototype(
         RobustIntegrationTest.IntegrationInstance instance,
-        PrototypeSaveTest.TestEntityUidContext ctx)
+        PrototypeSaveTest.TestEntityUidContext ctx
+    )
     {
         var protoMan = instance.ResolveDependency<IPrototypeManager>();
         var seriMan = instance.ResolveDependency<ISerializationManager>();
@@ -101,12 +105,7 @@ public sealed class PrototypeTests
                 {
                     foreach (var proto in protoMan.EnumeratePrototypes(kind))
                     {
-                        var noException = TrySaveLoadSavePrototype(
-                            seriMan,
-                            protoMan,
-                            kind,
-                            proto,
-                            ctx);
+                        var noException = TrySaveLoadSavePrototype(seriMan, protoMan, kind, proto, ctx);
 
                         // This will probably throw an exception for each prototype of this kind.
                         // We want to avoid having tests crash because they run out of time.
@@ -124,14 +123,15 @@ public sealed class PrototypeTests
         IPrototypeManager protoMan,
         Type kind,
         IPrototype proto,
-        PrototypeSaveTest.TestEntityUidContext ctx)
+        PrototypeSaveTest.TestEntityUidContext ctx
+    )
     {
         DataNode first;
         DataNode second;
 
         try
         {
-            first = seriMan.WriteValue(kind, proto, alwaysWrite: true, context:ctx);
+            first = seriMan.WriteValue(kind, proto, alwaysWrite: true, context: ctx);
         }
         catch (Exception e)
         {
@@ -143,32 +143,36 @@ public sealed class PrototypeTests
         object? obj;
         try
         {
-            obj = seriMan.Read(kind, first, context:ctx);
+            obj = seriMan.Read(kind, first, context: ctx);
         }
         catch (Exception e)
         {
             protoMan.TryGetMapping(kind, proto.ID, out var mapping);
-            Assert.Fail($"Caught exception while re-reading {kind.Name} prototype {proto.ID}." +
-                        $"\nException:\n{e}" +
-                        $"\n\nOriginal yaml:\n{mapping}" +
-                        $"\n\nWritten yaml:\n{first}");
+            Assert.Fail(
+                $"Caught exception while re-reading {kind.Name} prototype {proto.ID}."
+                    + $"\nException:\n{e}"
+                    + $"\n\nOriginal yaml:\n{mapping}"
+                    + $"\n\nWritten yaml:\n{first}"
+            );
             return false;
         }
 
         Assert.That(obj?.GetType(), Is.EqualTo(proto.GetType()));
-        var deserialized = (IPrototype) obj!;
+        var deserialized = (IPrototype)obj!;
 
         try
         {
-            second = seriMan.WriteValue(kind, deserialized, alwaysWrite: true, context:ctx);
+            second = seriMan.WriteValue(kind, deserialized, alwaysWrite: true, context: ctx);
         }
         catch (Exception e)
         {
             protoMan.TryGetMapping(kind, proto.ID, out var mapping);
-            Assert.Fail($"Caught exception while re-writing {kind.Name} prototype {proto.ID}." +
-                        $"\nException:\n{e}" +
-                        $"\n\nOriginal yaml:\n{mapping}" +
-                        $"\n\nWritten yaml:\n{first}");
+            Assert.Fail(
+                $"Caught exception while re-writing {kind.Name} prototype {proto.ID}."
+                    + $"\nException:\n{e}"
+                    + $"\n\nOriginal yaml:\n{mapping}"
+                    + $"\n\nWritten yaml:\n{first}"
+            );
             return false;
         }
 
@@ -177,11 +181,13 @@ public sealed class PrototypeTests
             return true;
 
         protoMan.TryGetMapping(kind, proto.ID, out var orig);
-        Assert.Fail($"Re-written {kind.Name} prototype {proto.ID} differs." +
-                    $"\nYaml diff:\n{diff}" +
-                    $"\n\nOriginal yaml:\n{orig}" +
-                    $"\n\nWritten yaml:\n{first}" +
-                    $"\n\nRe-written Yaml:\n{second}");
+        Assert.Fail(
+            $"Re-written {kind.Name} prototype {proto.ID} differs."
+                + $"\nYaml diff:\n{diff}"
+                + $"\n\nOriginal yaml:\n{orig}"
+                + $"\n\nWritten yaml:\n{first}"
+                + $"\n\nRe-written Yaml:\n{second}"
+        );
         return true;
     }
 }

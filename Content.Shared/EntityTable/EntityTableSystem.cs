@@ -6,8 +6,11 @@ namespace Content.Shared.EntityTable;
 
 public sealed class EntityTableSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
 
     public IEnumerable<EntProtoId> GetSpawns(EntityTableSelector? table, System.Random? rand = null)
     {

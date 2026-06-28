@@ -1,10 +1,10 @@
-using Robust.Shared.GameStates;
-using Robust.Shared.Audio;
-using Content.Shared.Containers.ItemSlots;
-using Robust.Shared.Prototypes;
-using Content.Shared.Radio;
-using Content.Shared.Access;
 using Content.Shared._NF.Bank.Components;
+using Content.Shared.Access;
+using Content.Shared.Containers.ItemSlots;
+using Content.Shared.Radio;
+using Robust.Shared.Audio;
+using Robust.Shared.GameStates;
+using Robust.Shared.Prototypes;
 
 namespace Content.Shared._NF.Shipyard.Components;
 
@@ -17,12 +17,10 @@ public sealed partial class ShipyardConsoleComponent : Component
     public ItemSlot TargetIdSlot = new();
 
     [DataField]
-    public SoundSpecifier ErrorSound =
-        new SoundPathSpecifier("/Audio/Effects/Cargo/buzz_sigh.ogg");
+    public SoundSpecifier ErrorSound = new SoundPathSpecifier("/Audio/Effects/Cargo/buzz_sigh.ogg");
 
     [DataField]
-    public SoundSpecifier ConfirmSound =
-        new SoundPathSpecifier("/Audio/Effects/Cargo/ping.ogg");
+    public SoundSpecifier ConfirmSound = new SoundPathSpecifier("/Audio/Effects/Cargo/ping.ogg");
 
     /// <summary>
     /// The comms channel that announces the ship purchase. The purchase is *always* announced

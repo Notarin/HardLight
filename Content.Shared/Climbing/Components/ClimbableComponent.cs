@@ -13,7 +13,8 @@ namespace Content.Shared.Climbing.Components
         /// <summary>
         ///     The range from which this entity can be climbed.
         /// </summary>
-        [DataField] public float Range = SharedInteractionSystem.InteractionRange;
+        [DataField]
+        public float Range = SharedInteractionSystem.InteractionRange;
 
         /// <summary>
         /// Can drag-drop / verb vaulting be done? Set to false if climbing is being handled manually.

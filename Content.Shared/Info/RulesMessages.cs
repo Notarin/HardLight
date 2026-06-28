@@ -37,11 +37,7 @@ public sealed class RulesAcceptedMessage : NetMessage
 {
     public override MsgGroups MsgGroup => MsgGroups.Command;
 
-    public override void ReadFromBuffer(NetIncomingMessage buffer, IRobustSerializer serializer)
-    {
-    }
+    public override void ReadFromBuffer(NetIncomingMessage buffer, IRobustSerializer serializer) { }
 
-    public override void WriteToBuffer(NetOutgoingMessage buffer, IRobustSerializer serializer)
-    {
-    }
+    public override void WriteToBuffer(NetOutgoingMessage buffer, IRobustSerializer serializer) { }
 }

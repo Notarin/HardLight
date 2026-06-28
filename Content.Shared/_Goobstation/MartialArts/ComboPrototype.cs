@@ -9,7 +9,8 @@ namespace Content.Shared._Goobstation.MartialArts;
 [Serializable, NetSerializable, DataDefinition]
 public sealed partial class ComboPrototype : IPrototype
 {
-    [IdDataField] public string ID { get; private set; } = default!;
+    [IdDataField]
+    public string ID { get; private set; } = default!;
 
     [DataField(required: true)]
     public MartialArtsForms MartialArtsForm;
@@ -57,14 +58,14 @@ public sealed partial class ComboPrototype : IPrototype
     /// </summary>
     [DataField(required: true)]
     public string Name = string.Empty;
-
 }
 
 [Prototype("comboList")]
 public sealed partial class ComboListPrototype : IPrototype
 {
-    [IdDataField] public string ID { get; private set; } = default!;
+    [IdDataField]
+    public string ID { get; private set; } = default!;
 
-    [DataField( required: true)]
+    [DataField(required: true)]
     public List<ProtoId<ComboPrototype>> Combos = new();
 }

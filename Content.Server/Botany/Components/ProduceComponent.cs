@@ -8,7 +8,8 @@ namespace Content.Server.Botany.Components;
 [Access(typeof(BotanySystem))]
 public sealed partial class ProduceComponent : SharedProduceComponent
 {
-    [DataField("targetSolution")] public string SolutionName { get; set; } = "food";
+    [DataField("targetSolution")]
+    public string SolutionName { get; set; } = "food";
 
     /// <summary>
     ///     Seed data used to create a <see cref="SeedComponent"/> when this produce has its seeds extracted.

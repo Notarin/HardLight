@@ -7,7 +7,12 @@ using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototy
 
 namespace Content.Shared.Research.Components;
 
-[RegisterComponent, NetworkedComponent, Access(typeof(SharedResearchSystem), typeof(SharedLatheSystem)), AutoGenerateComponentState]
+[
+    RegisterComponent,
+    NetworkedComponent,
+    Access(typeof(SharedResearchSystem), typeof(SharedLatheSystem)),
+    AutoGenerateComponentState
+]
 public sealed partial class TechnologyDatabaseComponent : Component
 {
     /// <summary>
@@ -25,7 +30,10 @@ public sealed partial class TechnologyDatabaseComponent : Component
     /// Which research disciplines are able to be unlocked
     /// </summary>
     [AutoNetworkedField]
-    [DataField("supportedDisciplines", customTypeSerializer: typeof(PrototypeIdListSerializer<TechDisciplinePrototype>))]
+    [DataField(
+        "supportedDisciplines",
+        customTypeSerializer: typeof(PrototypeIdListSerializer<TechDisciplinePrototype>)
+    )]
     public List<string> SupportedDisciplines = new();
 
     /// <summary>

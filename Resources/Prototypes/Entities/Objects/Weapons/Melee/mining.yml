@@ -1,6 +1,6 @@
 - type: entity
   name: pickaxe
-  parent: [ BaseItem, RecyclableItemWoodMedium ] # Frontier: added RecyclableItemWoodMedium
+  parent: [BaseItem, RecyclableItemWoodMedium] # Frontier: added RecyclableItemWoodMedium
   id: Pickaxe
   description: Notched to perfection, for jamming it into rocks.
   components:
@@ -91,10 +91,9 @@
     resistanceBypass: true
   - type: MiningGatheringHard # Frontier
 
-
 - type: entity
   abstract: true
-  parent: [ BaseItem, BaseC1Contraband ] # Frontier: BaseSecurityCargoContraband<BaseC1Contraband
+  parent: [BaseItem, BaseC1Contraband] # Frontier: BaseSecurityCargoContraband<BaseC1Contraband
   id: BaseWeaponCrusher # Crusher? But I...
   name: crusher
   description: An early design of the proto-kinetic accelerator.
@@ -166,7 +165,7 @@
   - type: Prying
 
 - type: entity
-  parent: [ BaseKnife, BaseWeaponCrusher, BaseC1Contraband] # Frontier: BaseSecurityCargoContraband<BaseC1Contraband
+  parent: [BaseKnife, BaseWeaponCrusher, BaseC1Contraband] # Frontier: BaseSecurityCargoContraband<BaseC1Contraband
   id: WeaponCrusherDagger
   name: crusher dagger
   description: A scaled down version of a proto-kinetic crusher. Uses kinetic energy to vibrate the blade at high speeds.
@@ -196,7 +195,7 @@
 
 # Like a crusher... but better
 - type: entity
-  parent: [ WeaponCrusher, BaseC1Contraband] # Frontier: BaseSecurityCargoContraband<BaseC1Contraband
+  parent: [WeaponCrusher, BaseC1Contraband] # Frontier: BaseSecurityCargoContraband<BaseC1Contraband
   id: WeaponCrusherGlaive
   name: crusher glaive
   description: An early design of the proto-kinetic accelerator, in glaive form.

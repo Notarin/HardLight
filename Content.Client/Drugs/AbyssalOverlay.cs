@@ -12,11 +12,20 @@ namespace Content.Client.Drugs;
 
 public sealed class AbyssalOverlay : Overlay
 {
-    [Dependency] private readonly IConfigurationManager _config = default!;
-    [Dependency] private readonly IEntityManager _entityManager = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IEntitySystemManager _sysMan = default!;
+    [Dependency]
+    private readonly IConfigurationManager _config = default!;
+
+    [Dependency]
+    private readonly IEntityManager _entityManager = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly IEntitySystemManager _sysMan = default!;
 
     public override OverlaySpace Space => OverlaySpace.WorldSpace;
     public override bool RequestScreenTexture => true;
@@ -44,15 +53,17 @@ public sealed class AbyssalOverlay : Overlay
         if (playerEntity == null)
             return;
 
-        if (!_entityManager.HasComponent<AbyssalWhispersComponent>(playerEntity)
-            || !_entityManager.TryGetComponent<StatusEffectsComponent>(playerEntity, out var status))
+        if (
+            !_entityManager.HasComponent<AbyssalWhispersComponent>(playerEntity)
+            || !_entityManager.TryGetComponent<StatusEffectsComponent>(playerEntity, out var status)
+        )
             return;
 
         var statusSys = _sysMan.GetEntitySystem<StatusEffectsSystem>();
         if (!statusSys.TryGetTime(playerEntity.Value, DrugOverlaySystem.AbyssalKey, out var time, status))
             return;
 
-        var timeLeft = (float) (time.Value.Item2 - time.Value.Item1).TotalSeconds;
+        var timeLeft = (float)(time.Value.Item2 - time.Value.Item1).TotalSeconds;
 
         TimeTicker += args.DeltaSeconds;
 
@@ -62,7 +73,7 @@ public sealed class AbyssalOverlay : Overlay
         }
         else
         {
-            Intoxication -= Intoxication/(timeLeft - TimeTicker) * args.DeltaSeconds;
+            Intoxication -= Intoxication / (timeLeft - TimeTicker) * args.DeltaSeconds;
         }
     }
 

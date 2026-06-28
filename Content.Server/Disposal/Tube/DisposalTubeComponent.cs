@@ -16,7 +16,10 @@ public sealed partial class DisposalTubeComponent : Component
     public bool Connected;
 
     [DataField]
-    public SoundSpecifier ClangSound = new SoundPathSpecifier("/Audio/Effects/clang.ogg", AudioParams.Default.WithVolume(-5f));
+    public SoundSpecifier ClangSound = new SoundPathSpecifier(
+        "/Audio/Effects/clang.ogg",
+        AudioParams.Default.WithVolume(-5f)
+    );
 
     /// <summary>
     ///     Container of entities that are currently inside this tube
@@ -28,11 +31,5 @@ public sealed partial class DisposalTubeComponent : Component
     /// Damage dealt to containing entities on every turn
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite)]
-    public DamageSpecifier DamageOnTurn = new()
-    {
-        DamageDict = new()
-        {
-            { "Blunt", 0.0 },
-        }
-    };
+    public DamageSpecifier DamageOnTurn = new() { DamageDict = new() { { "Blunt", 0.0 } } };
 }

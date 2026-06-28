@@ -15,10 +15,16 @@ namespace Content.Server.Silicons.Borgs;
 /// </summary>
 public sealed class BorgSwitchableTypeSystem : SharedBorgSwitchableTypeSystem
 {
-    [Dependency] private readonly BorgSystem _borgSystem = default!;
-    [Dependency] private readonly ServerInventorySystem _inventorySystem = default!;
+    [Dependency]
+    private readonly BorgSystem _borgSystem = default!;
 
-    protected override void SelectBorgModule(Entity<BorgSwitchableTypeComponent> ent, ProtoId<BorgTypePrototype> borgType)
+    [Dependency]
+    private readonly ServerInventorySystem _inventorySystem = default!;
+
+    protected override void SelectBorgModule(
+        Entity<BorgSwitchableTypeComponent> ent,
+        ProtoId<BorgTypePrototype> borgType
+    )
     {
         var prototype = Prototypes.Index(borgType);
 
@@ -51,20 +57,20 @@ public sealed class BorgSwitchableTypeSystem : SharedBorgSwitchableTypeSystem
         {
             _borgSystem.SetTransponderSprite(
                 (ent.Owner, transponder),
-                new SpriteSpecifier.Rsi(new ResPath(prototype.SpritePath), prototype.SpriteBodyState));
+                new SpriteSpecifier.Rsi(new ResPath(prototype.SpritePath), prototype.SpriteBodyState)
+            );
 
             _borgSystem.SetTransponderName(
                 (ent.Owner, transponder),
-                Loc.GetString($"borg-type-{borgType}-transponder"));
+                Loc.GetString($"borg-type-{borgType}-transponder")
+            );
         }
 
         // Configure modules
         if (TryComp(ent, out BorgChassisComponent? chassis))
         {
             var chassisEnt = (ent.Owner, chassis);
-            _borgSystem.SetMaxModules(
-                chassisEnt,
-                prototype.ExtraModuleCount + prototype.DefaultModules.Length);
+            _borgSystem.SetMaxModules(chassisEnt, prototype.ExtraModuleCount + prototype.DefaultModules.Length);
 
             _borgSystem.SetModuleWhitelist(chassisEnt, prototype.ModuleWhitelist);
 

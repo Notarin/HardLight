@@ -3,10 +3,7 @@ using Robust.Shared.Serialization;
 namespace Content.Shared._NF.Cargo.BUI;
 
 [NetSerializable, Serializable]
-public sealed class NFCargoPalletConsoleInterfaceState(
-    int appraisal,
-    int count,
-    bool enabled) : BoundUserInterfaceState
+public sealed class NFCargoPalletConsoleInterfaceState(int appraisal, int count, bool enabled) : BoundUserInterfaceState
 {
     /// <summary>
     /// The estimated apraised value of all the entities on top of pallets on the same grid as the console.

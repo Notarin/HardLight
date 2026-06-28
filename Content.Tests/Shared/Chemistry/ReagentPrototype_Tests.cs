@@ -43,7 +43,8 @@ namespace Content.Tests.Shared.Chemistry
         [Test]
         public void DeserializeReagentPrototypeWithSpoilConditions()
         {
-            const string yaml = @"- type: reagent
+            const string yaml =
+                @"- type: reagent
   id: TestSpoil
   name: Test
   desc: Testing reagent spoil conditions.
@@ -74,10 +75,15 @@ namespace Content.Tests.Shared.Chemistry
             Assert.That(newReagent.SpoilConditions!.SpoilsInto?.ToString(), Is.EqualTo("InertNanites"));
             Assert.That(newReagent.SpoilConditions.SpoilTime, Is.EqualTo(TimeSpan.FromMinutes(5)));
             Assert.That(newReagent.SpoilConditions.BloodstreamPreserve, Is.True);
-            Assert.That(newReagent.SpoilConditions.AllowedBloodTypes, Is.EquivalentTo(new[] { "Blood", "CopperBlood" }));
+            Assert.That(
+                newReagent.SpoilConditions.AllowedBloodTypes,
+                Is.EquivalentTo(new[] { "Blood", "CopperBlood" })
+            );
         }
+
         // Hardlight end
-        private const string YamlReagentPrototype = @"- type: reagent
+        private const string YamlReagentPrototype =
+            @"- type: reagent
   id: H2
   name: Hydrogen
   desc: A light, flammable gas.

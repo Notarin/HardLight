@@ -13,7 +13,11 @@ public sealed class SharedTraitMovementSpeedSystem : EntitySystem
         SubscribeLocalEvent<TraitMovementSpeedModifierComponent, RefreshMovementSpeedModifiersEvent>(OnRefreshMovement);
     }
 
-    private void OnRefreshMovement(EntityUid uid, TraitMovementSpeedModifierComponent component, RefreshMovementSpeedModifiersEvent args)
+    private void OnRefreshMovement(
+        EntityUid uid,
+        TraitMovementSpeedModifierComponent component,
+        RefreshMovementSpeedModifiersEvent args
+    )
     {
         args.ModifySpeed(component.WalkMultiplier, component.SprintMultiplier);
     }

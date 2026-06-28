@@ -10,7 +10,8 @@ namespace Content.Server.GameTicking.Commands
     [AdminCommand(AdminFlags.Round)]
     sealed class ForcePresetCommand : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _e = default!;
+        [Dependency]
+        private readonly IEntityManager _e = default!;
 
         public string Command => "forcepreset";
         public string Description => "Forces a specific game preset to start for the current lobby.";
@@ -47,7 +48,8 @@ namespace Content.Server.GameTicking.Commands
         {
             if (args.Length == 1)
             {
-                var options = IoCManager.Resolve<IPrototypeManager>()
+                var options = IoCManager
+                    .Resolve<IPrototypeManager>()
                     .EnumeratePrototypes<GamePresetPrototype>()
                     .OrderBy(p => p.ID)
                     .Select(p => p.ID);

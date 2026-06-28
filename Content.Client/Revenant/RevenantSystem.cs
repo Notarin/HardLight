@@ -7,8 +7,11 @@ namespace Content.Client.Revenant;
 
 public sealed class RevenantSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     public override void Initialize()
     {
@@ -23,7 +26,10 @@ public sealed class RevenantSystem : EntitySystem
         if (args.Sprite == null)
             return;
 
-        if (_appearance.TryGetData<bool>(uid, RevenantVisuals.Harvesting, out var harvesting, args.Component) && harvesting)
+        if (
+            _appearance.TryGetData<bool>(uid, RevenantVisuals.Harvesting, out var harvesting, args.Component)
+            && harvesting
+        )
         {
             _sprite.LayerSetRsiState((uid, args.Sprite), 0, component.HarvestingState);
         }
@@ -46,8 +52,16 @@ public sealed class RevenantSystem : EntitySystem
             return;
 
         var essence = Math.Clamp(ent.Comp.Essence.Int(), 0, 999);
-        _sprite.LayerSetRsiState(args.SpriteViewEnt.AsNullable(), RevenantVisualLayers.Digit1, $"{(essence / 100) % 10}");
-        _sprite.LayerSetRsiState(args.SpriteViewEnt.AsNullable(), RevenantVisualLayers.Digit2, $"{(essence / 10) % 10}");
+        _sprite.LayerSetRsiState(
+            args.SpriteViewEnt.AsNullable(),
+            RevenantVisualLayers.Digit1,
+            $"{(essence / 100) % 10}"
+        );
+        _sprite.LayerSetRsiState(
+            args.SpriteViewEnt.AsNullable(),
+            RevenantVisualLayers.Digit2,
+            $"{(essence / 10) % 10}"
+        );
         _sprite.LayerSetRsiState(args.SpriteViewEnt.AsNullable(), RevenantVisualLayers.Digit3, $"{essence % 10}");
     }
 }

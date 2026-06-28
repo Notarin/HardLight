@@ -14,9 +14,7 @@ public sealed partial class CameraMapVisibilityWireAction : ComponentWireAction<
 
     public override StatusLightState? GetLightState(Wire wire, SurveillanceCameraComponent component)
     {
-        return _cameraMapSystem.IsCameraVisible(wire.Owner)
-            ? StatusLightState.On
-            : StatusLightState.Off;
+        return _cameraMapSystem.IsCameraVisible(wire.Owner) ? StatusLightState.On : StatusLightState.Off;
     }
 
     public override bool Cut(EntityUid user, Wire wire, SurveillanceCameraComponent component)
@@ -31,8 +29,5 @@ public sealed partial class CameraMapVisibilityWireAction : ComponentWireAction<
         return true;
     }
 
-    public override void Pulse(EntityUid user, Wire wire, SurveillanceCameraComponent component)
-    {
-
-    }
+    public override void Pulse(EntityUid user, Wire wire, SurveillanceCameraComponent component) { }
 }

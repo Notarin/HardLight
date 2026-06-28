@@ -19,13 +19,26 @@ namespace Content.Server.Animals.Systems;
 /// </summary>
 public sealed class EggLayerSystem : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly ActionsSystem _actions = default!;
-    [Dependency] private readonly AudioSystem _audio = default!;
-    [Dependency] private readonly HungerSystem _hunger = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly ActionsSystem _actions = default!;
+
+    [Dependency]
+    private readonly AudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly HungerSystem _hunger = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly MobStateSystem _mobState = default!;
 
     public override void Initialize()
     {
@@ -49,7 +62,9 @@ public sealed class EggLayerSystem : EntitySystem
                 continue;
 
             // Randomize next growth time for more organic egglaying.
-            eggLayer.NextGrowth += TimeSpan.FromSeconds(_random.NextFloat(eggLayer.EggLayCooldownMin, eggLayer.EggLayCooldownMax));
+            eggLayer.NextGrowth += TimeSpan.FromSeconds(
+                _random.NextFloat(eggLayer.EggLayCooldownMin, eggLayer.EggLayCooldownMax)
+            );
 
             if (_mobState.IsDead(uid))
                 continue;
@@ -64,7 +79,9 @@ public sealed class EggLayerSystem : EntitySystem
     private void OnMapInit(EntityUid uid, EggLayerComponent component, MapInitEvent args)
     {
         _actions.AddAction(uid, ref component.Action, component.EggLayAction);
-        component.NextGrowth = _timing.CurTime + TimeSpan.FromSeconds(_random.NextFloat(component.EggLayCooldownMin, component.EggLayCooldownMax));
+        component.NextGrowth =
+            _timing.CurTime
+            + TimeSpan.FromSeconds(_random.NextFloat(component.EggLayCooldownMin, component.EggLayCooldownMax));
     }
 
     private void OnEggLayAction(EntityUid uid, EggLayerComponent egglayer, EggLayInstantActionEvent args)
@@ -101,7 +118,12 @@ public sealed class EggLayerSystem : EntitySystem
         // Sound + popups
         _audio.PlayPvs(egglayer.EggLaySound, uid);
         _popup.PopupEntity(Loc.GetString("action-popup-lay-egg-user"), uid, uid);
-        _popup.PopupEntity(Loc.GetString("action-popup-lay-egg-others", ("entity", uid)), uid, Filter.PvsExcept(uid), true);
+        _popup.PopupEntity(
+            Loc.GetString("action-popup-lay-egg-others", ("entity", uid)),
+            uid,
+            Filter.PvsExcept(uid),
+            true
+        );
 
         return true;
     }

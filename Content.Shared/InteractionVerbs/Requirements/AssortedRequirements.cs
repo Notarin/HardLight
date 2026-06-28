@@ -15,11 +15,18 @@ namespace Content.Shared.InteractionVerbs.Requirements;
 [Serializable, NetSerializable]
 public sealed partial class EntityWhitelistRequirement : InteractionRequirement
 {
-    [DataField] public EntityWhitelist? Whitelist = new(), Blacklist = new();
+    [DataField]
+    public EntityWhitelist? Whitelist = new(),
+        Blacklist = new();
 
-    [NonSerialized] private EntityWhitelistSystem? _wlField; // Floofstation - wizden changed whitelists so we have to retrofit this
+    [NonSerialized]
+    private EntityWhitelistSystem? _wlField; // Floofstation - wizden changed whitelists so we have to retrofit this
 
-    public override bool IsMet(InteractionArgs args, InteractionVerbPrototype proto, InteractionAction.VerbDependencies deps)
+    public override bool IsMet(
+        InteractionArgs args,
+        InteractionVerbPrototype proto,
+        InteractionAction.VerbDependencies deps
+    )
     {
         // Floofstation - changed to conform to the new style (bleugh)
         _wlField ??= IoCManager.Resolve<IEntitySystemManager>().GetEntitySystem<EntityWhitelistSystem>();
@@ -33,9 +40,14 @@ public sealed partial class EntityWhitelistRequirement : InteractionRequirement
 [Serializable, NetSerializable]
 public sealed partial class MobStateRequirement : InvertableInteractionRequirement
 {
-    [DataField] public List<MobState> AllowedStates = new();
+    [DataField]
+    public List<MobState> AllowedStates = new();
 
-    public override bool IsMet(InteractionArgs args, InteractionVerbPrototype proto, InteractionAction.VerbDependencies deps)
+    public override bool IsMet(
+        InteractionArgs args,
+        InteractionVerbPrototype proto,
+        InteractionAction.VerbDependencies deps
+    )
     {
         if (!deps.EntMan.TryGetComponent<MobStateComponent>(args.Target, out var state))
             return false;
@@ -50,9 +62,16 @@ public sealed partial class MobStateRequirement : InvertableInteractionRequireme
 [Serializable, NetSerializable]
 public sealed partial class StandingStateRequirement : InteractionRequirement
 {
-    [DataField] public bool AllowStanding, AllowLaying, AllowKnockedDown;
+    [DataField]
+    public bool AllowStanding,
+        AllowLaying,
+        AllowKnockedDown;
 
-    public override bool IsMet(InteractionArgs args, InteractionVerbPrototype proto, InteractionAction.VerbDependencies deps)
+    public override bool IsMet(
+        InteractionArgs args,
+        InteractionVerbPrototype proto,
+        InteractionAction.VerbDependencies deps
+    )
     {
         if (deps.EntMan.HasComponent<KnockedDownComponent>(args.Target))
             return AllowKnockedDown;
@@ -72,10 +91,17 @@ public sealed partial class StandingStateRequirement : InteractionRequirement
 // Hardlight - Begin
 public sealed partial class SlotObstructionRequirement : InvertableInteractionRequirement
 {
-    [DataField] public string Slot = "mask";
-    [DataField] public bool CheckUser = false;
+    [DataField]
+    public string Slot = "mask";
 
-    public override bool IsMet(InteractionArgs args, InteractionVerbPrototype proto, InteractionAction.VerbDependencies deps)
+    [DataField]
+    public bool CheckUser = false;
+
+    public override bool IsMet(
+        InteractionArgs args,
+        InteractionVerbPrototype proto,
+        InteractionAction.VerbDependencies deps
+    )
     {
         if (string.IsNullOrWhiteSpace(Slot))
         {
@@ -109,11 +135,16 @@ public sealed partial class SlotObstructionRequirement : InvertableInteractionRe
         return false ^ Inverted;
     }
 }
+
 // Hardlight - End
 
 public sealed partial class SelfTargetRequirement : InvertableInteractionRequirement
 {
-    public override bool IsMet(InteractionArgs args, InteractionVerbPrototype proto, InteractionAction.VerbDependencies deps)
+    public override bool IsMet(
+        InteractionArgs args,
+        InteractionVerbPrototype proto,
+        InteractionAction.VerbDependencies deps
+    )
     {
         return (args.Target == args.User) ^ Inverted;
     }

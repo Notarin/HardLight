@@ -45,7 +45,12 @@ public sealed partial class DoorTimingWireAction : ComponentWireAction<AirlockCo
     public override void Pulse(EntityUid user, Wire wire, AirlockComponent door)
     {
         EntityManager.System<SharedAirlockSystem>().SetAutoCloseDelayModifier(door, 0.5f);
-        WiresSystem.StartWireAction(wire.Owner, _timeout, PulseTimeoutKey.Key, new TimedWireEvent(AwaitTimingTimerFinish, wire));
+        WiresSystem.StartWireAction(
+            wire.Owner,
+            _timeout,
+            PulseTimeoutKey.Key,
+            new TimedWireEvent(AwaitTimingTimerFinish, wire)
+        );
     }
 
     public override void Update(Wire wire)
@@ -70,6 +75,6 @@ public sealed partial class DoorTimingWireAction : ComponentWireAction<AirlockCo
 
     private enum PulseTimeoutKey : byte
     {
-        Key
+        Key,
     }
 }

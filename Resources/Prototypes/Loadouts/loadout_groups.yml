@@ -269,7 +269,6 @@
   - BlackShoes
   - WinterBoots
 
-
 - type: loadoutGroup
   id: BartenderHead
   name: loadout-group-bartender-head
@@ -827,7 +826,7 @@
   minLimit: 0
   loadouts:
   - SalvageSpecialistWintercoat
-# HL start - Add departmental NF-style loadouts
+  # HL start - Add departmental NF-style loadouts
   subgroups:
   - MercenaryOuterClothing
   - PilotOuterClothing
@@ -841,7 +840,7 @@
   loadouts:
   - SalvageBoots
   - SalvageSpecialistClothingShoesWinter # HL - Add more loadout options
-# HL start - Add departmental NF-style loadouts
+  # HL start - Add departmental NF-style loadouts
   subgroups:
   - CargoShoes
   - MercenaryShoes
@@ -1647,10 +1646,10 @@
   loadouts:
   - MedicalHud
   - MedicalEyePatchHud
-# HL start - Add departmental NF-style loadouts
-#  - Glasses
-#  - GlassesJamjar
-#  - GlassesJensen
+  # HL start - Add departmental NF-style loadouts
+  #  - Glasses
+  #  - GlassesJamjar
+  #  - GlassesJensen
   subgroups:
   - ContractorGlasses
 # HL end

@@ -20,9 +20,9 @@
     arc: 360 # interact despite grilles
   - type: Tag
     tags:
-      - ForceFixRotations
-      - Window
-      - WeldbotFixableStructure
+    - ForceFixRotations
+    - Window
+    - WeldbotFixableStructure
   - type: Sprite
     drawdepth: WallTops
     sprite: _NF/Structures/Windows/window.rsi # Frontier
@@ -34,8 +34,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb {}
+        shape: !type:PhysShapeAabb {}
         mask:
         - FullTileMask
         layer:
@@ -52,17 +51,15 @@
     fx: EffectRCDDeconstruct4
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 150 #excess damage (nuke?). avoid computational cost of spawning entities.
       behaviors:
       - !type:PlaySoundBehavior
         sound:
           collection: WindowShatter
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 50
       behaviors:
       - !type:PlaySoundBehavior
@@ -74,7 +71,7 @@
             min: 1
             max: 2
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: Airtight
   - type: IconSmooth
     key: walls
@@ -95,7 +92,6 @@
   - type: InteractionVerbs # EE interaction system
     allowedVerbs:
     - KnockOn
-
 
 - type: entity
   parent: Window
@@ -138,8 +134,8 @@
     arc: 360 # interact despite grilles
   - type: Tag
     tags:
-      - Window
-      - WeldbotFixableStructure
+    - Window
+    - WeldbotFixableStructure
   - type: MeleeSound
     soundGroups:
       Brute:
@@ -155,8 +151,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.5,-0.5,0.5,-0.28125"
         density: 1500
         mask:
@@ -175,17 +170,15 @@
     fx: EffectRCDDeconstruct2
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 50 #excess damage (nuke?). avoid computational cost of spawning entities.
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:PlaySoundBehavior
         sound:
           collection: WindowShatter
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 25
       behaviors:
       - !type:PlaySoundBehavior
@@ -197,7 +190,7 @@
             min: 1
             max: 1
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: Airtight
     noAirWhenFullyAirBlocked: false
     airBlockedDirection:
@@ -241,8 +234,8 @@
   - type: Icon
     sprite: Structures/Windows/directional.rsi
     state: frosted_window
-  # - type: StaticPrice # Frontier
-  #   price: 35 # Frontier
+    # - type: StaticPrice # Frontier
+    #   price: 35 # Frontier
 
 - type: entity
   parent: Window
@@ -271,12 +264,11 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PolygonShape
-            vertices:
-            - "-0.5,-0.5"
-            - "0.5,0.5"
-            - "0.5,-0.5"
+        shape: !type:PolygonShape
+          vertices:
+          - "-0.5,-0.5"
+          - "0.5,0.5"
+          - "0.5,-0.5"
         mask:
         - FullTileMask
         layer:

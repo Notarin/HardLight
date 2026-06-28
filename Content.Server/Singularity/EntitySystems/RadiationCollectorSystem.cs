@@ -1,7 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using Content.Server.Atmos.EntitySystems;
 using Content.Server.Atmos.Components;
+using Content.Server.Atmos.EntitySystems;
 using Content.Server.Popups;
 using Content.Server.Power.Components;
 using Content.Server.Power.EntitySystems;
@@ -20,11 +20,20 @@ namespace Content.Server.Singularity.EntitySystems;
 
 public sealed class RadiationCollectorSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
-    [Dependency] private readonly UseDelaySystem _useDelay = default!;
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _containerSystem = default!;
+
+    [Dependency]
+    private readonly UseDelaySystem _useDelay = default!;
 
     private const string GasTankContainer = "gas_tank";
 
@@ -45,7 +54,10 @@ public sealed class RadiationCollectorSystem : EntitySystem
     {
         gasTankComponent = null;
 
-        if (!_containerSystem.TryGetContainer(uid, GasTankContainer, out var container) || container.ContainedEntities.Count == 0)
+        if (
+            !_containerSystem.TryGetContainer(uid, GasTankContainer, out var container)
+            || container.ContainedEntities.Count == 0
+        )
             return false;
 
         var gasTankUid = container.ContainedEntities.First();
@@ -97,7 +109,12 @@ public sealed class RadiationCollectorSystem : EntitySystem
             // it will heavily penalise the power output of low temperature reactions:
             // 300K = 100% power output, 73K = 49% power output, 1K = 1% power output
             float temperatureMod = 1.5f * gasTankComponent.Air.Temperature / (150f + gasTankComponent.Air.Temperature);
-            charge += args.TotalRads * reactantMol * component.ChargeModifier * gas.PowerGenerationEfficiency * temperatureMod;
+            charge +=
+                args.TotalRads
+                * reactantMol
+                * component.ChargeModifier
+                * gas.PowerGenerationEfficiency
+                * temperatureMod;
 
             if (delta > 0)
             {
@@ -152,8 +169,7 @@ public sealed class RadiationCollectorSystem : EntitySystem
             {
                 _appearance.TryGetData<int>(uid, RadiationCollectorVisuals.PressureState, out var state);
 
-                args.PushMarkup(Loc.GetString("power-radiation-collector-gas-tank-present",
-                    ("fullness", state)));
+                args.PushMarkup(Loc.GetString("power-radiation-collector-gas-tank-present", ("fullness", state)));
             }
         }
     }
@@ -175,7 +191,12 @@ public sealed class RadiationCollectorSystem : EntitySystem
         SetCollectorEnabled(uid, !component.Enabled, user, component);
     }
 
-    public void SetCollectorEnabled(EntityUid uid, bool enabled, EntityUid? user = null, RadiationCollectorComponent? component = null)
+    public void SetCollectorEnabled(
+        EntityUid uid,
+        bool enabled,
+        EntityUid? user = null,
+        RadiationCollectorComponent? component = null
+    )
     {
         if (!Resolve(uid, ref component, false))
             return;
@@ -185,7 +206,9 @@ public sealed class RadiationCollectorSystem : EntitySystem
         // Show message to the player
         if (user != null)
         {
-            var msg = component.Enabled ? "radiation-collector-component-use-on" : "radiation-collector-component-use-off";
+            var msg = component.Enabled
+                ? "radiation-collector-component-use-on"
+                : "radiation-collector-component-use-off";
             _popupSystem.PopupEntity(Loc.GetString(msg), uid);
         }
 
@@ -193,7 +216,11 @@ public sealed class RadiationCollectorSystem : EntitySystem
         UpdateMachineAppearance(uid, component);
     }
 
-    private void UpdateMachineAppearance(EntityUid uid, RadiationCollectorComponent component, AppearanceComponent? appearance = null)
+    private void UpdateMachineAppearance(
+        EntityUid uid,
+        RadiationCollectorComponent component,
+        AppearanceComponent? appearance = null
+    )
     {
         if (!Resolve(uid, ref appearance, false))
             return;
@@ -202,7 +229,12 @@ public sealed class RadiationCollectorSystem : EntitySystem
         _appearance.SetData(uid, RadiationCollectorVisuals.VisualState, state, appearance);
     }
 
-    private void UpdatePressureIndicatorAppearance(EntityUid uid, RadiationCollectorComponent component, GasTankComponent? gasTank = null, AppearanceComponent? appearance = null)
+    private void UpdatePressureIndicatorAppearance(
+        EntityUid uid,
+        RadiationCollectorComponent component,
+        GasTankComponent? gasTank = null,
+        AppearanceComponent? appearance = null
+    )
     {
         if (!Resolve(uid, ref appearance, false))
             return;
@@ -210,18 +242,20 @@ public sealed class RadiationCollectorSystem : EntitySystem
         // gas canisters can fill tanks up to 10 atm, so we set the warning level thresholds 1/3 and 2/3 of that
         if (gasTank == null || gasTank.Air.Pressure < 10)
             _appearance.SetData(uid, RadiationCollectorVisuals.PressureState, 0, appearance);
-
         else if (gasTank.Air.Pressure < 3.33f * Atmospherics.OneAtmosphere)
             _appearance.SetData(uid, RadiationCollectorVisuals.PressureState, 1, appearance);
-
         else if (gasTank.Air.Pressure < 6.66f * Atmospherics.OneAtmosphere)
             _appearance.SetData(uid, RadiationCollectorVisuals.PressureState, 2, appearance);
-
         else
             _appearance.SetData(uid, RadiationCollectorVisuals.PressureState, 3, appearance);
     }
 
-    private void UpdateTankAppearance(EntityUid uid, RadiationCollectorComponent component, GasTankComponent? gasTank = null, AppearanceComponent? appearance = null)
+    private void UpdateTankAppearance(
+        EntityUid uid,
+        RadiationCollectorComponent component,
+        GasTankComponent? gasTank = null,
+        AppearanceComponent? appearance = null
+    )
     {
         if (!Resolve(uid, ref appearance, false))
             return;

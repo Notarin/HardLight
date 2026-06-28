@@ -10,8 +10,10 @@ public sealed partial class ContainerCountVisualizerComponent : Component
 {
     [DataField(required: true)]
     public int MaxFillLevels;
+
     [DataField(required: true)]
     public string ContainerName;
+
     [DataField(required: true)]
     public int MaxCount;
 

@@ -5,12 +5,12 @@
   components:
   - type: StorageFill
     contents:
-      - id: Crowbar
-      - id: Wrench
-      - id: Screwdriver
-      - id: Wirecutter
-      - id: Welder
-      - id: NetworkConfigurator
+    - id: Crowbar
+    - id: Wrench
+    - id: Screwdriver
+    - id: Wirecutter
+    - id: Welder
+    - id: NetworkConfigurator
 
 - type: entity
   id: ClothingBeltUtilityEngineering
@@ -19,12 +19,12 @@
   components:
   - type: StorageFill
     contents:
-      - id: CrowbarYellow
-      - id: Wrench
-      - id: Screwdriver
-      - id: Wirecutter
-      - id: Welder
-      - id: Multitool
+    - id: CrowbarYellow
+    - id: Wrench
+    - id: Screwdriver
+    - id: Wirecutter
+    - id: Welder
+    - id: Multitool
 
 - type: entity
   id: ClothingBeltChiefEngineerFilled
@@ -33,13 +33,13 @@
   components:
   - type: StorageFill
     contents:
-      - id: PowerDrill
-      - id: JawsOfLife
-      - id: WelderExperimental
-      - id: Multitool
-      - id: HolofanProjector
-      - id: GasAnalyzer
-      - id: trayScanner
+    - id: PowerDrill
+    - id: JawsOfLife
+    - id: WelderExperimental
+    - id: Multitool
+    - id: HolofanProjector
+    - id: GasAnalyzer
+    - id: trayScanner
 
 - type: entityTable
   id: BeltSecurityEntityTable
@@ -79,14 +79,14 @@
   components:
   - type: StorageFill
     contents:
-      - id: Soap # Make a soap group and pick between when I'm not lazy
-      - id: SprayBottleSpaceCleaner
-      - id: CleanerGrenade
-        amount: 2
-      - id: FlashlightLantern
-      - id: Holoprojector # Frontier
-      - id: LightReplacer
-      - id: WireBrush
+    - id: Soap # Make a soap group and pick between when I'm not lazy
+    - id: SprayBottleSpaceCleaner
+    - id: CleanerGrenade
+      amount: 2
+    - id: FlashlightLantern
+    - id: Holoprojector # Frontier
+    - id: LightReplacer
+    - id: WireBrush
 
 - type: entity
   id: ClothingBeltMedicalFilled
@@ -95,14 +95,14 @@
   components:
   - type: StorageFill
     contents:
-      - id: Brutepack
-        amount: 2
-      - id: Ointment
-        amount: 1
-      - id: Bloodpack
-        amount: 1
-      - id: Gauze
-      - id: EmergencyMedipen # You never know what people are going to latejoin into
+    - id: Brutepack
+      amount: 2
+    - id: Ointment
+      amount: 1
+    - id: Bloodpack
+      amount: 1
+    - id: Gauze
+    - id: EmergencyMedipen # You never know what people are going to latejoin into
 
 - type: entity
   id: ClothingBeltMedicalEMTFilled
@@ -111,12 +111,12 @@
   components:
   - type: StorageFill
     contents:
-      - id: Brutepack
-      - id: Ointment
-      - id: Bloodpack
-      - id: Gauze
-      - id: EmergencyMedipen # You never know what people are going to latejoin into
-        amount: 3
+    - id: Brutepack
+    - id: Ointment
+    - id: Bloodpack
+    - id: Gauze
+    - id: EmergencyMedipen # You never know what people are going to latejoin into
+      amount: 3
 
 - type: entity
   id: ClothingBeltPlantFilled
@@ -155,12 +155,12 @@
     - 0,0,7,1
   - type: StorageFill
     contents:
-      - id: ExGrenade
-        amount: 4
-      - id: SyndieMiniBomb
-        amount: 2
-      - id: EmpGrenade
-        amount: 2
+    - id: ExGrenade
+      amount: 4
+    - id: SyndieMiniBomb
+      amount: 2
+    - id: EmpGrenade
+      amount: 2
 
 - type: entity
   id: ClothingBeltMilitaryWebbingMedFilled
@@ -169,12 +169,12 @@
   components:
   - type: StorageFill
     contents:
-      - id: ChemistryBottleEpinephrine
-        amount: 2
-      - id: ChemistryBottleEphedrine
-        amount: 2
-      - id: ChemistryBottleOmnizine
-      - id: MedkitCombatFilled
+    - id: ChemistryBottleEpinephrine
+      amount: 2
+    - id: ChemistryBottleEphedrine
+      amount: 2
+    - id: ChemistryBottleOmnizine
+    - id: MedkitCombatFilled
 
 - type: entity
   parent: ClothingBeltWand
@@ -195,8 +195,8 @@
   components:
   - type: StorageFill
     contents:
-        - id: WeaponRevolverInspector
-        - id: SpeedLoader45_magnumFMJ
+    - id: WeaponRevolverInspector
+    - id: SpeedLoader45_magnumFMJ
 
 - type: entity
   id: ClothingBeltChefFilled

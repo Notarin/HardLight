@@ -6,6 +6,4 @@ namespace Content.Shared.Temperature.Components;
 /// Makes the entity always set <c>IsHotEvent.IsHot</c> to true, no matter what.
 /// </summary>
 [RegisterComponent, Access(typeof(AlwaysHotSystem))]
-public sealed partial class AlwaysHotComponent : Component
-{
-}
+public sealed partial class AlwaysHotComponent : Component { }

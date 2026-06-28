@@ -5,7 +5,8 @@ namespace Content.Shared._NF.Cargo;
 
 public abstract class SharedNFCargoSystem : EntitySystem
 {
-    [Dependency] protected readonly IGameTiming Timing = default!;
+    [Dependency]
+    protected readonly IGameTiming Timing = default!;
 
     public override void Initialize()
     {
@@ -16,6 +17,5 @@ public abstract class SharedNFCargoSystem : EntitySystem
 [NetSerializable, Serializable]
 public enum NFCargoConsoleUiKey : byte
 {
-    Orders
+    Orders,
 }
-

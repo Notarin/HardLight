@@ -14,9 +14,14 @@ namespace Content.Server.Mech.Systems;
 /// </summary>
 public sealed class MechAssemblySystem : EntitySystem
 {
-    [Dependency] private readonly ContainerSystem _container = default!;
-    [Dependency] private readonly TagSystem _tag = default!;
-    [Dependency] private readonly SharedToolSystem _toolSystem = default!;
+    [Dependency]
+    private readonly ContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly TagSystem _tag = default!;
+
+    [Dependency]
+    private readonly SharedToolSystem _toolSystem = default!;
 
     /// <inheritdoc/>
     public override void Initialize()

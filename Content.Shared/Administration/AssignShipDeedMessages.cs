@@ -86,7 +86,8 @@ public sealed class AssignShipDeedResponseMessage : EntityEventArgs
         string targetUserId,
         bool success,
         string? error = null,
-        string? shipName = null)
+        string? shipName = null
+    )
     {
         TargetUserId = targetUserId;
         Success = success;

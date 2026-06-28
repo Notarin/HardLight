@@ -14,10 +14,17 @@ namespace Content.Server.MoMMI
 {
     internal sealed class MoMMILink : IMoMMILink, IPostInjectInit
     {
-        [Dependency] private readonly IConfigurationManager _configurationManager = default!;
-        [Dependency] private readonly IStatusHost _statusHost = default!;
-        [Dependency] private readonly IChatManager _chatManager = default!;
-        [Dependency] private readonly ITaskManager _taskManager = default!;
+        [Dependency]
+        private readonly IConfigurationManager _configurationManager = default!;
+
+        [Dependency]
+        private readonly IStatusHost _statusHost = default!;
+
+        [Dependency]
+        private readonly IChatManager _chatManager = default!;
+
+        [Dependency]
+        private readonly ITaskManager _taskManager = default!;
 
         private readonly HttpClient _httpClient = new();
 
@@ -35,11 +42,7 @@ namespace Content.Server.MoMMI
         {
             try
             {
-                var sentMessage = new MoMMIMessageOOC
-                {
-                    Sender = sender,
-                    Contents = message
-                };
+                var sentMessage = new MoMMIMessageOOC { Sender = sender, Contents = message };
 
                 await SendMessageInternal("ooc", sentMessage);
             }
@@ -68,7 +71,7 @@ namespace Content.Server.MoMMI
             {
                 Password = password,
                 Type = type,
-                Contents = messageObject
+                Contents = messageObject,
             };
 
             var request = await _httpClient.PostAsJsonAsync(url, sentMessage);
@@ -127,35 +130,43 @@ namespace Content.Server.MoMMI
 
         private sealed class MoMMIMessageBase
         {
-            [JsonInclude] [JsonPropertyName("password")]
+            [JsonInclude]
+            [JsonPropertyName("password")]
             public string Password = null!;
 
-            [JsonInclude] [JsonPropertyName("type")]
+            [JsonInclude]
+            [JsonPropertyName("type")]
             public string Type = null!;
 
-            [JsonInclude] [JsonPropertyName("contents")]
+            [JsonInclude]
+            [JsonPropertyName("contents")]
             public object Contents = null!;
         }
 
         private sealed class MoMMIMessageOOC
         {
-            [JsonInclude] [JsonPropertyName("sender")]
+            [JsonInclude]
+            [JsonPropertyName("sender")]
             public string Sender = null!;
 
-            [JsonInclude] [JsonPropertyName("contents")]
+            [JsonInclude]
+            [JsonPropertyName("contents")]
             public string Contents = null!;
         }
 
         private sealed class OOCPostMessage
         {
 #pragma warning disable CS0649
-            [JsonInclude] [JsonPropertyName("password")]
+            [JsonInclude]
+            [JsonPropertyName("password")]
             public string Password = null!;
 
-            [JsonInclude] [JsonPropertyName("sender")]
+            [JsonInclude]
+            [JsonPropertyName("sender")]
             public string Sender = null!;
 
-            [JsonInclude] [JsonPropertyName("contents")]
+            [JsonInclude]
+            [JsonPropertyName("contents")]
             public string Contents = null!;
 #pragma warning restore CS0649
         }

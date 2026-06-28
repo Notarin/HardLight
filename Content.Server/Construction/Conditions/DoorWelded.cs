@@ -26,15 +26,26 @@ namespace Content.Server.Construction.Conditions
 
             var entMan = IoCManager.Resolve<IEntityManager>();
 
-            if (!entMan.TryGetComponent(entity, out DoorComponent? door)) return false;
+            if (!entMan.TryGetComponent(entity, out DoorComponent? door))
+                return false;
 
             var isWelded = door.State == DoorState.Welded;
             if (isWelded != Welded)
             {
                 if (Welded)
-                    args.PushMarkup(Loc.GetString("construction-examine-condition-door-weld", ("entityName", entMan.GetComponent<MetaDataComponent>(entity).EntityName)) + "\n");
+                    args.PushMarkup(
+                        Loc.GetString(
+                            "construction-examine-condition-door-weld",
+                            ("entityName", entMan.GetComponent<MetaDataComponent>(entity).EntityName)
+                        ) + "\n"
+                    );
                 else
-                    args.PushMarkup(Loc.GetString("construction-examine-condition-door-unweld", ("entityName", entMan.GetComponent<MetaDataComponent>(entity).EntityName)) + "\n");
+                    args.PushMarkup(
+                        Loc.GetString(
+                            "construction-examine-condition-door-unweld",
+                            ("entityName", entMan.GetComponent<MetaDataComponent>(entity).EntityName)
+                        ) + "\n"
+                    );
                 return true;
             }
 

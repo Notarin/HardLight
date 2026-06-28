@@ -11,11 +11,20 @@ namespace Content.Server.Anomaly.Effects;
 
 public sealed class TechAnomalySystem : EntitySystem
 {
-    [Dependency] private readonly DeviceLinkSystem _signal = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly BeamSystem _beam = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly DeviceLinkSystem _signal = default!;
+
+    [Dependency]
+    private readonly EntityLookupSystem _lookup = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly BeamSystem _beam = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     public override void Initialize()
     {
@@ -74,15 +83,16 @@ public sealed class TechAnomalySystem : EntitySystem
         }
     }
 
-    private void CreateNewLink(Entity<TechAnomalyComponent> tech, Entity<DeviceLinkSourceComponent> source, Entity<DeviceLinkSinkComponent> target)
+    private void CreateNewLink(
+        Entity<TechAnomalyComponent> tech,
+        Entity<DeviceLinkSourceComponent> source,
+        Entity<DeviceLinkSinkComponent> target
+    )
     {
         var sourcePort = _random.Pick(source.Comp.Ports);
         var sinkPort = _random.Pick(target.Comp.Ports);
 
-        _signal.SaveLinks(null, source, target,new()
-        {
-            (sourcePort, sinkPort),
-        });
+        _signal.SaveLinks(null, source, target, new() { (sourcePort, sinkPort) });
         _beam.TryCreateBeam(source, target, tech.Comp.LinkBeamProto);
     }
 
@@ -91,13 +101,15 @@ public sealed class TechAnomalySystem : EntitySystem
         // We remove the component so that the anomaly does not bind itself to other devices before self destroy.
         RemComp<DeviceLinkSourceComponent>(tech);
 
-        var sources =
-            _lookup.GetEntitiesInRange<DeviceLinkSourceComponent>(Transform(tech).Coordinates,
-                tech.Comp.LinkRadius.Max);
+        var sources = _lookup.GetEntitiesInRange<DeviceLinkSourceComponent>(
+            Transform(tech).Coordinates,
+            tech.Comp.LinkRadius.Max
+        );
 
-        var sinks =
-            _lookup.GetEntitiesInRange<DeviceLinkSinkComponent>(Transform(tech).Coordinates,
-                tech.Comp.LinkRadius.Max);
+        var sinks = _lookup.GetEntitiesInRange<DeviceLinkSinkComponent>(
+            Transform(tech).Coordinates,
+            tech.Comp.LinkRadius.Max
+        );
 
         for (var i = 0; i < tech.Comp.LinkCountSupercritical; i++)
         {

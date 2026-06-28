@@ -12,8 +12,7 @@
   - type: Fixtures
     fixtures:
       projectile:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 1
         density: 1500
         layer:
@@ -38,7 +37,7 @@
   id: ShipMissileASM220HE
   name: ASM-220 torpedo (HE)
   parent: BaseTorpedo
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -92,12 +91,11 @@
         Blunt: 1
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 2500
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:ExplodeBehavior
       - !type:PlaySoundBehavior
         sound:
@@ -132,7 +130,7 @@
   id: ShipMissileASM220LOSAT
   name: ASM-220 LOSAT hyper-penetrator
   parent: BaseTorpedo
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -179,8 +177,7 @@
   - type: Fixtures
     fixtures:
       projectile:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.3
         density: 1500
         hard: true
@@ -198,12 +195,11 @@
         Blunt: 5
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 85000
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:ExplodeBehavior
       - !type:PlaySoundBehavior
         sound:
@@ -238,7 +234,7 @@
   id: ShipMissileASM220ECM
   name: ASM-220 torpedo (ECM)
   parent: BaseTorpedo
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -297,12 +293,11 @@
         Blunt: 0.5
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 2500
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:ExplodeBehavior
       - !type:PlaySoundBehavior
         sound:

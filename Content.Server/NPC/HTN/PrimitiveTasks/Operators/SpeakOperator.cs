@@ -26,7 +26,13 @@ public sealed partial class SpeakOperator : HTNOperator
     public override HTNOperatorStatus Update(NPCBlackboard blackboard, float frameTime)
     {
         var speaker = blackboard.GetValue<EntityUid>(NPCBlackboard.Owner);
-        _chat.TrySendInGameICMessage(speaker, Loc.GetString(Speech), InGameICChatType.Speak, hideChat: Hidden, hideLog: Hidden);
+        _chat.TrySendInGameICMessage(
+            speaker,
+            Loc.GetString(Speech),
+            InGameICChatType.Speak,
+            hideChat: Hidden,
+            hideLog: Hidden
+        );
 
         return base.Update(blackboard, frameTime);
     }

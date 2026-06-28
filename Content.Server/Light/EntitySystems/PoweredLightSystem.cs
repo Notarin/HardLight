@@ -1,10 +1,10 @@
+using System; // HardLight
 using Content.Server.Emp;
 using Content.Server.Ghost;
+using Content.Shared.Containers; // HardLight
 using Content.Shared.Light.Components;
 using Content.Shared.Light.EntitySystems;
 using Robust.Shared.Random; // Frontier
-using System; // HardLight
-using Content.Shared.Containers; // HardLight
 
 namespace Content.Server.Light.EntitySystems;
 
@@ -13,7 +13,8 @@ namespace Content.Server.Light.EntitySystems;
 /// </summary>
 public sealed class PoweredLightSystem : SharedPoweredLightSystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!; // Frontier
+    [Dependency]
+    private readonly IRobustRandom _random = default!; // Frontier
 
     public override void Initialize()
     {
@@ -41,10 +42,13 @@ public sealed class PoweredLightSystem : SharedPoweredLightSystem
         light.LastGhostBlink = time;
 
         ToggleBlinkingLight(uid, light, true);
-        uid.SpawnTimer(light.GhostBlinkingTime, () =>
-        {
-            ToggleBlinkingLight(uid, light, false);
-        });
+        uid.SpawnTimer(
+            light.GhostBlinkingTime,
+            () =>
+            {
+                ToggleBlinkingLight(uid, light, false);
+            }
+        );
 
         args.Handled = true;
     }
@@ -64,24 +68,28 @@ public sealed class PoweredLightSystem : SharedPoweredLightSystem
     // Schedules a light update for a later time to ensure bulbs are properly inserted before checking for them.
     private void ScheduleLateRefresh(EntityUid uid)
     {
-        uid.SpawnTimer(TimeSpan.FromSeconds(0.05), () =>
-        {
-            if (TerminatingOrDeleted(uid))
-                return;
-
-            if (!TryComp<PoweredLightComponent>(uid, out var light))
-                return;
-
-            var bulb = GetBulb(uid, light);
-            if (bulb != null)
+        uid.SpawnTimer(
+            TimeSpan.FromSeconds(0.05),
+            () =>
             {
-                if (ContainerSystem.Remove(bulb.Value, light.LightBulbContainer))
-                    ContainerSystem.Insert(bulb.Value, light.LightBulbContainer);
-            }
+                if (TerminatingOrDeleted(uid))
+                    return;
 
-            UpdateLight(uid, light);
-        });
+                if (!TryComp<PoweredLightComponent>(uid, out var light))
+                    return;
+
+                var bulb = GetBulb(uid, light);
+                if (bulb != null)
+                {
+                    if (ContainerSystem.Remove(bulb.Value, light.LightBulbContainer))
+                        ContainerSystem.Insert(bulb.Value, light.LightBulbContainer);
+                }
+
+                UpdateLight(uid, light);
+            }
+        );
     }
+
     // HardLight end
 
     private void OnEmpPulse(EntityUid uid, PoweredLightComponent component, ref EmpPulseEvent args)

@@ -8,7 +8,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: ButtonFrameCautionConstruction
@@ -20,7 +20,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: ButtonFrameCautionSecurityConstruction
@@ -32,7 +32,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: ButtonFrameExitConstruction
@@ -44,7 +44,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: ButtonFrameJanitorConstruction
@@ -56,4 +56,4 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition

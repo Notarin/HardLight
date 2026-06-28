@@ -3,9 +3,7 @@ using Robust.Shared.Serialization;
 namespace Content.Shared.Administration;
 
 [Serializable, NetSerializable]
-public sealed class RequestSharedAdminMacrosMessage : EntityEventArgs
-{
-}
+public sealed class RequestSharedAdminMacrosMessage : EntityEventArgs { }
 
 [Serializable, NetSerializable]
 public sealed class UpsertSharedAdminMacroMessage : EntityEventArgs

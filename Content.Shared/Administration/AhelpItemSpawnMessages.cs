@@ -35,7 +35,8 @@ public sealed class SpawnAhelpItemResponseMessage : EntityEventArgs
         bool success,
         string? error = null,
         string? itemName = null,
-        Vector2 spawnPosition = default)
+        Vector2 spawnPosition = default
+    )
     {
         OwnerUserId = ownerUserId;
         PrototypeId = prototypeId;

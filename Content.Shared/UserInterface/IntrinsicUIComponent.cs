@@ -9,7 +9,8 @@ public sealed partial class IntrinsicUIComponent : Component
     /// <summary>
     /// List of UIs and their actions that this entity has.
     /// </summary>
-    [DataField("uis", required: true)] public Dictionary<Enum, IntrinsicUIEntry> UIs = new();
+    [DataField("uis", required: true)]
+    public Dictionary<Enum, IntrinsicUIEntry> UIs = new();
 }
 
 [DataDefinition]

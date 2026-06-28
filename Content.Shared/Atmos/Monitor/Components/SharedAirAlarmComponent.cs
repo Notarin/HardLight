@@ -5,7 +5,7 @@ namespace Content.Shared.Atmos.Monitor.Components;
 [Serializable, NetSerializable]
 public enum SharedAirAlarmInterfaceKey
 {
-    Key
+    Key,
 }
 
 [Serializable, NetSerializable]
@@ -24,7 +24,7 @@ public enum AirAlarmWireStatus
     Power,
     Access,
     Panic,
-    DeviceSync
+    DeviceSync,
 }
 
 public interface IAtmosDeviceData
@@ -37,7 +37,16 @@ public interface IAtmosDeviceData
 [Serializable, NetSerializable]
 public sealed class AirAlarmUIState : BoundUserInterfaceState
 {
-    public AirAlarmUIState(string address, int deviceCount, float pressureAverage, float temperatureAverage, List<(string, IAtmosDeviceData)> deviceData, AirAlarmMode mode, AtmosAlarmType alarmType, bool autoMode)
+    public AirAlarmUIState(
+        string address,
+        int deviceCount,
+        float pressureAverage,
+        float temperatureAverage,
+        List<(string, IAtmosDeviceData)> deviceData,
+        AirAlarmMode mode,
+        AtmosAlarmType alarmType,
+        bool autoMode
+    )
     {
         Address = address;
         DeviceCount = deviceCount;
@@ -53,6 +62,7 @@ public sealed class AirAlarmUIState : BoundUserInterfaceState
     public int DeviceCount { get; }
     public float PressureAverage { get; }
     public float TemperatureAverage { get; }
+
     /// <summary>
     ///     Every single device data that can be seen from this
     ///     air alarm. This includes vents, scrubbers, and sensors.
@@ -67,8 +77,7 @@ public sealed class AirAlarmUIState : BoundUserInterfaceState
 }
 
 [Serializable, NetSerializable]
-public sealed class AirAlarmResyncAllDevicesMessage : BoundUserInterfaceMessage
-{}
+public sealed class AirAlarmResyncAllDevicesMessage : BoundUserInterfaceMessage { }
 
 [Serializable, NetSerializable]
 public sealed class AirAlarmUpdateAlarmModeMessage : BoundUserInterfaceMessage
@@ -124,7 +133,12 @@ public sealed class AirAlarmUpdateAlarmThresholdMessage : BoundUserInterfaceMess
     public AtmosMonitorThresholdType Type { get; }
     public Gas? Gas { get; }
 
-    public AirAlarmUpdateAlarmThresholdMessage(string address, AtmosMonitorThresholdType type, AtmosAlarmThreshold threshold, Gas? gas = null)
+    public AirAlarmUpdateAlarmThresholdMessage(
+        string address,
+        AtmosMonitorThresholdType type,
+        AtmosAlarmThreshold threshold,
+        Gas? gas = null
+    )
     {
         Address = address;
         Threshold = threshold;

@@ -9,14 +9,14 @@ namespace Content.Client.Crayon.UI
 {
     public sealed class CrayonBoundUserInterface : BoundUserInterface
     {
-        [Dependency] private readonly IPrototypeManager _protoManager = default!;
+        [Dependency]
+        private readonly IPrototypeManager _protoManager = default!;
 
         [ViewVariables]
         private CrayonWindow? _menu;
 
-        public CrayonBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-        {
-        }
+        public CrayonBoundUserInterface(EntityUid owner, Enum uiKey)
+            : base(owner, uiKey) { }
 
         protected override void Open()
         {
@@ -29,7 +29,9 @@ namespace Content.Client.Crayon.UI
 
         private void PopulateCrayons()
         {
-            var crayonDecals = _protoManager.EnumeratePrototypes<DecalPrototype>().Where(x => x.Tags.Contains("crayon"));
+            var crayonDecals = _protoManager
+                .EnumeratePrototypes<DecalPrototype>()
+                .Where(x => x.Tags.Contains("crayon"));
             _menu?.Populate(crayonDecals.ToList());
         }
 
@@ -57,7 +59,7 @@ namespace Content.Client.Crayon.UI
         {
             base.UpdateState(state);
 
-            _menu?.UpdateState((CrayonBoundUserInterfaceState) state);
+            _menu?.UpdateState((CrayonBoundUserInterfaceState)state);
         }
 
         public void Select(string state)

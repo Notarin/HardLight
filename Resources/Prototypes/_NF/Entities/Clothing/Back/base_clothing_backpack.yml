@@ -43,8 +43,8 @@
   # Alternative layouts
   ## Two 2x1 pockets, one 2x3 pocket and one 6x3 pocket
   # - type: Storage
-    # grid:
-    # - 0,0,1,2
-    # - 3,0,8,2
-    # - 10,0,11,0
-    # - 10,2,11,2
+  # grid:
+  # - 0,0,1,2
+  # - 3,0,8,2
+  # - 10,0,11,0
+  # - 10,2,11,2

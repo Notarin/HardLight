@@ -33,7 +33,7 @@
         startingItem: PowerCellAntiqueProto
         whitelist:
           tags:
-            - PowerCell
+          - PowerCell
   - type: EnergyDomeGenerator
     damageEnergyDraw: 7
     domePrototype: EnergyDomeHarming
@@ -65,22 +65,22 @@
 
 - type: entity
   name: snakebite bolt
-  parent: BaseBullet  # or whatever your base projectile is
+  parent: BaseBullet # or whatever your base projectile is
   id: BulletSnakebiteVenom
   components:
   - type: Projectile
     damage:
       types:
-        Caustic: 10  # or whatever damage you want
+        Caustic: 10 # or whatever damage you want
   - type: SolutionInjectOnProjectileHit
-    transferAmount: 10  # How much to inject (in units)
-    solution: injector  # The solution container name
+    transferAmount: 10 # How much to inject (in units)
+    solution: injector # The solution container name
   - type: SolutionContainerManager
     solutions:
       injector:
         maxVol: 10
         reagents:
-        - ReagentId: PolytrinicAcid  # or whatever reagent you want
+        - ReagentId: PolytrinicAcid # or whatever reagent you want
           Quantity: 10
   - type: Sprite
     sprite: Objects/Weapons/Guns/Projectiles/xeno_toxic.rsi
@@ -91,22 +91,22 @@
 
 - type: entity
   name: adenoshock bolt
-  parent: BaseBullet  # or whatever your base projectile is
+  parent: BaseBullet # or whatever your base projectile is
   id: BulletAdenoshockVenom
   components:
   - type: Projectile
     damage:
       types:
-        Stamina: 10  # or whatever damage you want
+        Stamina: 10 # or whatever damage you want
   - type: SolutionInjectOnProjectileHit
-    transferAmount: 10  # How much to inject (in units)
-    solution: injector  # The solution container name
+    transferAmount: 10 # How much to inject (in units)
+    solution: injector # The solution container name
   - type: SolutionContainerManager
     solutions:
       injector:
         maxVol: 10
         reagents:
-        - ReagentId: adenoshock  # or whatever reagent you want
+        - ReagentId: adenoshock # or whatever reagent you want
           Quantity: 10
   - type: Sprite
     sprite: Objects/Weapons/Guns/Projectiles/xeno_toxic.rsi
@@ -245,7 +245,6 @@
 #          types:
 #            Poison: 1
 
-
 - type: reagent
   name: reagent-name-adenoshock
   id: adenoshock
@@ -258,8 +257,8 @@
     Poison:
       metabolismRate: 3.0
       effects:
-      # adds more of itself over time
       - !type:Paralyze
+        # adds more of itself over time
         paralyzeTime: 2.5
       - !type:Jitter
       - !type:Electrocute
@@ -270,19 +269,6 @@
         damage:
           types:
             Asphyxiation: 6
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 #- type: entity
 #  name: svalinn mod.V overcharged laser pistol
@@ -357,7 +343,6 @@
     sprite: _Goobstation/Objects/Weapons/Guns/Projectiles/small_laser.rsi
     state: impact_beam_light_overcharged
 
-
 - type: hitscan
   id: MediumIonLaser
   damage:
@@ -404,8 +389,6 @@
   impactFlash:
     sprite: _Goobstation/Objects/Weapons/Guns/Projectiles/small_laser.rsi
     state: impact_beam_light_overcharged
-
-
 
 - type: entity
   parent: ClothingMaskMuzzle

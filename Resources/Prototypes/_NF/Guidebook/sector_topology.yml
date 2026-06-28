@@ -2,7 +2,7 @@
   parent: PosterBase
   id: NFSectorMap
   name: sector map
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Guidebook/large_icons/128x96.rsi

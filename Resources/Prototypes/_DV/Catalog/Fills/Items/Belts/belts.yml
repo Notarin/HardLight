@@ -6,6 +6,6 @@
   - type: ContainerFill
     containers:
       katanaslot:
-        - Katana
+      - Katana
       wakizashislot:
-        - Wakizashi
+      - Wakizashi

@@ -17,14 +17,20 @@ namespace Content.Server.Commands
         /// Gets the player session for the player with the indicated id,
         /// sending a failure to the performer if unable to.
         /// </summary>
-        public static bool TryGetSessionByUsernameOrId(IConsoleShell shell,
-            string usernameOrId, ICommonSession performer, [NotNullWhen(true)] out ICommonSession? session)
+        public static bool TryGetSessionByUsernameOrId(
+            IConsoleShell shell,
+            string usernameOrId,
+            ICommonSession performer,
+            [NotNullWhen(true)] out ICommonSession? session
+        )
         {
             var plyMgr = IoCManager.Resolve<IPlayerManager>();
-            if (plyMgr.TryGetSessionByUsername(usernameOrId, out session)) return true;
+            if (plyMgr.TryGetSessionByUsername(usernameOrId, out session))
+                return true;
             if (Guid.TryParse(usernameOrId, out var targetGuid))
             {
-                if (plyMgr.TryGetSessionById(new NetUserId(targetGuid), out session)) return true;
+                if (plyMgr.TryGetSessionById(new NetUserId(targetGuid), out session))
+                    return true;
                 shell.WriteLine("Unable to find user with that name/id.");
                 return false;
             }
@@ -37,11 +43,16 @@ namespace Content.Server.Commands
         /// Gets the attached entity for the player session with the indicated id,
         /// sending a failure to the performer if unable to.
         /// </summary>
-        public static bool TryGetAttachedEntityByUsernameOrId(IConsoleShell shell,
-            string usernameOrId, ICommonSession performer, out EntityUid attachedEntity)
+        public static bool TryGetAttachedEntityByUsernameOrId(
+            IConsoleShell shell,
+            string usernameOrId,
+            ICommonSession performer,
+            out EntityUid attachedEntity
+        )
         {
             attachedEntity = default;
-            if (!TryGetSessionByUsernameOrId(shell, usernameOrId, performer, out var session)) return false;
+            if (!TryGetSessionByUsernameOrId(shell, usernameOrId, performer, out var session))
+                return false;
             if (session.AttachedEntity == null)
             {
                 shell.WriteLine("User has no attached entity.");

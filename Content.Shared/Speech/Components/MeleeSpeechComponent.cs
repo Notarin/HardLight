@@ -8,7 +8,6 @@ namespace Content.Shared.Speech.Components;
 
 [RegisterComponent, NetworkedComponent]
 [AutoGenerateComponentState]
-
 public sealed partial class MeleeSpeechComponent : Component
 {
     /// <summary>
@@ -27,12 +26,14 @@ public sealed partial class MeleeSpeechComponent : Component
     [AutoNetworkedField]
     public int MaxBattlecryLength = 12;
 
-    [DataField] public EntProtoId  ConfigureAction = "ActionConfigureMeleeSpeech";
+    [DataField]
+    public EntProtoId ConfigureAction = "ActionConfigureMeleeSpeech";
 
     /// <summary>
     /// The action to open the battlecry UI
     /// </summary>
-    [DataField("configureActionEntity")] public EntityUid? ConfigureActionEntity;
+    [DataField("configureActionEntity")]
+    public EntityUid? ConfigureActionEntity;
 }
 
 /// <summary>
@@ -52,6 +53,7 @@ public enum MeleeSpeechUiKey : byte
 public sealed class MeleeSpeechBoundUserInterfaceState : BoundUserInterfaceState
 {
     public string CurrentBattlecry { get; }
+
     public MeleeSpeechBoundUserInterfaceState(string currentBattlecry)
     {
         CurrentBattlecry = currentBattlecry;
@@ -62,6 +64,7 @@ public sealed class MeleeSpeechBoundUserInterfaceState : BoundUserInterfaceState
 public sealed class MeleeSpeechBattlecryChangedMessage : BoundUserInterfaceMessage
 {
     public string Battlecry { get; }
+
     public MeleeSpeechBattlecryChangedMessage(string battlecry)
     {
         Battlecry = battlecry;

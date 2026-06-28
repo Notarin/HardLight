@@ -15,7 +15,8 @@ namespace Content.Client.Audio.Jukebox;
 [GenerateTypedNameReferences]
 public sealed partial class JukeboxMenu : FancyWindow
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
     private AudioSystem _audioSystem;
 
     /// <summary>
@@ -144,7 +145,8 @@ public sealed partial class JukeboxMenu : FancyWindow
 
         if (_entManager.TryGetComponent(_audio, out AudioComponent? audio))
         {
-            DurationLabel.Text = $@"{TimeSpan.FromSeconds(audio.PlaybackPosition):mm\:ss} / {_audioSystem.GetAudioLength(audio.FileName):mm\:ss}";
+            DurationLabel.Text =
+                $@"{TimeSpan.FromSeconds(audio.PlaybackPosition):mm\:ss} / {_audioSystem.GetAudioLength(audio.FileName):mm\:ss}";
         }
         else
         {

@@ -6,30 +6,30 @@
   - type: RandomSpawner
     offset: 0
     prototypes:
-      - PaintingPersistenceOfMemory
-      - PaintingTheSonOfMan
-      - PaintingTheKiss
-      - PaintingTheScream
-      - PaintingTheGreatWave
-      - PaintingCafeTerraceAtNight
-      - PaintingNightHawks
-      - PaintingSkeletonCigarette
-      - PaintingPrayerHands
-      - PaintingOldGuitarist
-      - PaintingOlympia
-      - PaintingSaturn
-      - PaintingSleepingGypsy
-      - PaintingRedBlueYellow
-      - PaintingHelloWorld
-      - PaintingNightOfThePostGoblin
-      - PaintingCaladrius
-      # Special halloween posters
-      - PaintingSpookyIan
-      - PaintingSpookyLady
+    - PaintingPersistenceOfMemory
+    - PaintingTheSonOfMan
+    - PaintingTheKiss
+    - PaintingTheScream
+    - PaintingTheGreatWave
+    - PaintingCafeTerraceAtNight
+    - PaintingNightHawks
+    - PaintingSkeletonCigarette
+    - PaintingPrayerHands
+    - PaintingOldGuitarist
+    - PaintingOlympia
+    - PaintingSaturn
+    - PaintingSleepingGypsy
+    - PaintingRedBlueYellow
+    - PaintingHelloWorld
+    - PaintingNightOfThePostGoblin
+    - PaintingCaladrius
+    # Special halloween posters
+    - PaintingSpookyIan
+    - PaintingSpookyLady
     chance: 1
     rarePrototypes:
-      - PaintingSkeletonBoof
-      - PaintingEmpty
-      - PaintingMoony
-      - PaintingAmogusTriptych
+    - PaintingSkeletonBoof
+    - PaintingEmpty
+    - PaintingMoony
+    - PaintingAmogusTriptych
     rareChance: 0.01

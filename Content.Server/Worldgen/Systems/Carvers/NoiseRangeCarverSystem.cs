@@ -8,8 +8,11 @@ namespace Content.Server.Worldgen.Systems.Carvers;
 /// </summary>
 public sealed class NoiseRangeCarverSystem : EntitySystem
 {
-    [Dependency] private readonly NoiseIndexSystem _index = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency]
+    private readonly NoiseIndexSystem _index = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
 
     /// <inheritdoc />
     public override void Initialize()
@@ -17,8 +20,11 @@ public sealed class NoiseRangeCarverSystem : EntitySystem
         SubscribeLocalEvent<NoiseRangeCarverComponent, PrePlaceDebrisFeatureEvent>(OnPrePlaceDebris);
     }
 
-    private void OnPrePlaceDebris(EntityUid uid, NoiseRangeCarverComponent component,
-        ref PrePlaceDebrisFeatureEvent args)
+    private void OnPrePlaceDebris(
+        EntityUid uid,
+        NoiseRangeCarverComponent component,
+        ref PrePlaceDebrisFeatureEvent args
+    )
     {
         // Frontier: something handled this, nothing to do
         if (args.Handled)
@@ -38,4 +44,3 @@ public sealed class NoiseRangeCarverSystem : EntitySystem
         }
     }
 }
-

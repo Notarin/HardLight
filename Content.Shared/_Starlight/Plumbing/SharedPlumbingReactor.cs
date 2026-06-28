@@ -55,7 +55,8 @@ public sealed class PlumbingReactorBoundUserInterfaceState : BoundUserInterfaceS
         Dictionary<string, FixedPoint2> outputContents,
         bool enabled,
         float targetTemperature,
-        float currentTemperature)
+        float currentTemperature
+    )
     {
         ReagentTargets = reagentTargets;
         BufferContents = bufferContents;

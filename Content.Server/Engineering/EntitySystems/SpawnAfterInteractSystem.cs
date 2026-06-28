@@ -14,10 +14,17 @@ namespace Content.Server.Engineering.EntitySystems
     [UsedImplicitly]
     public sealed class SpawnAfterInteractSystem : EntitySystem
     {
-        [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
-        [Dependency] private readonly StackSystem _stackSystem = default!;
-        [Dependency] private readonly TurfSystem _turfSystem = default!;
-        [Dependency] private readonly SharedTransformSystem _transform = default!;
+        [Dependency]
+        private readonly SharedDoAfterSystem _doAfterSystem = default!;
+
+        [Dependency]
+        private readonly StackSystem _stackSystem = default!;
+
+        [Dependency]
+        private readonly TurfSystem _turfSystem = default!;
+
+        [Dependency]
+        private readonly SharedTransformSystem _transform = default!;
 
         public override void Initialize()
         {
@@ -26,7 +33,11 @@ namespace Content.Server.Engineering.EntitySystems
             SubscribeLocalEvent<SpawnAfterInteractComponent, AfterInteractEvent>(HandleAfterInteract);
         }
 
-        private async void HandleAfterInteract(EntityUid uid, SpawnAfterInteractComponent component, AfterInteractEvent args)
+        private async void HandleAfterInteract(
+            EntityUid uid,
+            SpawnAfterInteractComponent component,
+            AfterInteractEvent args
+        )
         {
             if (!args.CanReach && !component.IgnoreDistance)
                 return;
@@ -47,7 +58,13 @@ namespace Content.Server.Engineering.EntitySystems
 
             if (component.DoAfterTime > 0)
             {
-                var doAfterArgs = new DoAfterArgs(EntityManager, args.User, component.DoAfterTime, new AwaitedDoAfterEvent(), null)
+                var doAfterArgs = new DoAfterArgs(
+                    EntityManager,
+                    args.User,
+                    component.DoAfterTime,
+                    new AwaitedDoAfterEvent(),
+                    null
+                )
                 {
                     BreakOnMove = true,
                 };
@@ -60,8 +77,11 @@ namespace Content.Server.Engineering.EntitySystems
             if (component.Deleted || !IsTileClear())
                 return;
 
-            if (EntityManager.TryGetComponent(uid, out StackComponent? stackComp)
-                && component.RemoveOnInteract && !_stackSystem.Use(uid, 1, stackComp))
+            if (
+                EntityManager.TryGetComponent(uid, out StackComponent? stackComp)
+                && component.RemoveOnInteract
+                && !_stackSystem.Use(uid, 1, stackComp)
+            )
             {
                 return;
             }

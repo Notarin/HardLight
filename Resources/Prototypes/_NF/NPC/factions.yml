@@ -1,10 +1,10 @@
 - type: npcFaction
   id: NFSyndicate
-  hostile: [ PassiveAggressive ]
+  hostile: [PassiveAggressive]
 
 - type: npcFaction
   id: NFPirate
-  hostile: [ PassiveAggressive ]
+  hostile: [PassiveAggressive]
 
 - type: npcFaction
   id: PassiveAggressive

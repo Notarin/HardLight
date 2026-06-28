@@ -6,10 +6,15 @@ namespace Content.Server.EventScheduler;
 public sealed class EventSchedulerSystem : SharedEventSchedulerSystem
 {
     //TODO: move server files to shared after System.Collection.Generic.PriorityQueue`2 is whitelisted in sandbox.yml in RobustToolbox
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
 
     private uint _id = 0;
-    private uint NextId() { return _id++; }
+
+    private uint NextId()
+    {
+        return _id++;
+    }
 
     private Dictionary<uint, DelayedEvent> _eventDict = new();
     private static PriorityQueue<uint, TimeSpan> _eventQueue = new(_comparer);
@@ -107,7 +112,9 @@ public sealed class EventSchedulerSystem : SharedEventSchedulerSystem
         if (!TryRequeue(delayedEvent, time))
             return false;
 
-        Log.Debug($"Rescheduled event: '{delayedEvent.EventArgs.GetType()}' at uid: ({delayedEvent.Uid}) for time: ({time})");
+        Log.Debug(
+            $"Rescheduled event: '{delayedEvent.EventArgs.GetType()}' at uid: ({delayedEvent.Uid}) for time: ({time})"
+        );
         return true;
     }
 
@@ -123,7 +130,9 @@ public sealed class EventSchedulerSystem : SharedEventSchedulerSystem
         if (!TryRequeue(delayedEvent, delay, true))
             return false;
 
-        Log.Debug($"Postponed event: '{delayedEvent.EventArgs.GetType()}' at uid: ({delayedEvent.Uid}) by delay: ({delay})");
+        Log.Debug(
+            $"Postponed event: '{delayedEvent.EventArgs.GetType()}' at uid: ({delayedEvent.Uid}) by delay: ({delay})"
+        );
         return true;
     }
 
@@ -145,13 +154,14 @@ public sealed class EventSchedulerSystem : SharedEventSchedulerSystem
             iterationCount++;
             if (iterationCount >= failsafe)
             {
-                Log.Warning($"Event processing hit safety limit of {failsafe} events in one frame - possible infinite loop detected!");
+                Log.Warning(
+                    $"Event processing hit safety limit of {failsafe} events in one frame - possible infinite loop detected!"
+                );
                 break;
             }
 
             // mostly a getter for values we're dealing with, if there are no queued events break
-            if (!_eventQueue.TryPeek(out var index, out var time)
-                || !_eventDict.TryGetValue(index, out var current))
+            if (!_eventQueue.TryPeek(out var index, out var time) || !_eventDict.TryGetValue(index, out var current))
                 break;
 
             // if the pointed event has been cancelled, get the next event
@@ -169,8 +179,14 @@ public sealed class EventSchedulerSystem : SharedEventSchedulerSystem
             {
                 Dequeue();
 
-                try { RaiseLocalEvent(current.Uid, current.EventArgs); }
-                catch (Exception ex) { Log.Error($"Error processing event for entity {current.Uid}: {ex}"); }
+                try
+                {
+                    RaiseLocalEvent(current.Uid, current.EventArgs);
+                }
+                catch (Exception ex)
+                {
+                    Log.Error($"Error processing event for entity {current.Uid}: {ex}");
+                }
 
                 Log.Debug($"Raised event '{current.EventArgs.GetType()}' at uid: ({current.Uid})!");
                 continue;

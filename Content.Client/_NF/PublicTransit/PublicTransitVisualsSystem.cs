@@ -9,13 +9,20 @@ namespace Content.Client._NF.PublicTransit;
 /// </summary>
 public sealed class PublicTransitSystem : VisualizerSystem<PublicTransitVisualsComponent>
 {
-    [Dependency] private readonly AppearanceSystem _appearance = default!;
+    [Dependency]
+    private readonly AppearanceSystem _appearance = default!;
 
-    protected override void OnAppearanceChange(EntityUid uid, PublicTransitVisualsComponent comp, ref AppearanceChangeEvent args)
+    protected override void OnAppearanceChange(
+        EntityUid uid,
+        PublicTransitVisualsComponent comp,
+        ref AppearanceChangeEvent args
+    )
     {
-        if (args.Sprite == null
+        if (
+            args.Sprite == null
             || !_appearance.TryGetData(uid, PublicTransitVisuals.Livery, out Color color)
-            || !args.Sprite.LayerMapTryGet(PublicTransitVisualLayers.Livery, out int layer))
+            || !args.Sprite.LayerMapTryGet(PublicTransitVisualLayers.Livery, out int layer)
+        )
         {
             return;
         }

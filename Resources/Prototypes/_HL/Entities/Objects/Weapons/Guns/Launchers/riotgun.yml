@@ -1,6 +1,6 @@
 - type: entity
   name: CC-2841 Riotgun
-  parent: [ BaseWeaponLauncher, BaseGunWieldable, BaseC2ContrabandUnredeemable ]
+  parent: [BaseWeaponLauncher, BaseGunWieldable, BaseC2ContrabandUnredeemable]
   id: WeaponLauncherRiotGun
   description: A multipurpose magazine fed riot control launcher, capable of firing a variety of less-lethal munitions.
   components:
@@ -30,7 +30,7 @@
         priority: 2
         whitelist:
           tags:
-            - MagazineRiotGun
+          - MagazineRiotGun
         whitelistFailPopup: gun-magazine-whitelist-fail
       gun_chamber:
         name: Chamber
@@ -38,7 +38,7 @@
         priority: 1
         whitelist:
           tags:
-            - GrenadeRiotGun
+          - GrenadeRiotGun
   - type: MagazineVisuals
     magState: mag
     steps: 2

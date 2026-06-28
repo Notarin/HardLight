@@ -12,8 +12,11 @@ namespace Content.Shared._DV.Abilities.Felinid;
 /// </summary>
 public abstract class SharedFelinidSystem : EntitySystem
 {
-    [Dependency] private readonly HungerSystem _hunger = default!;
-    [Dependency] private readonly ItemCougherSystem _cougher = default!;
+    [Dependency]
+    private readonly HungerSystem _hunger = default!;
+
+    [Dependency]
+    private readonly ItemCougherSystem _cougher = default!;
 
     public override void Initialize()
     {

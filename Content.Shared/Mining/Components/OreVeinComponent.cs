@@ -1,6 +1,6 @@
 using Content.Shared.Random;
-using Robust.Shared.Prototypes;
 using Content.Shared.Whitelist; // Frontier
+using Robust.Shared.Prototypes;
 
 namespace Content.Shared.Mining.Components;
 

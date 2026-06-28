@@ -8,9 +8,14 @@ namespace Content.Client._Scp.RetroMonitor;
 
 public sealed class RetroMonitorOverlay : Overlay
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!; // Mono
-    [Dependency] IEntityManager _entityManager = default!; // Mono
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!; // Mono
+
+    [Dependency]
+    IEntityManager _entityManager = default!; // Mono
 
     public override OverlaySpace Space => OverlaySpace.WorldSpace;
     public override bool RequestScreenTexture => true; // Запрашиваем ScreenTexture
@@ -26,14 +31,17 @@ public sealed class RetroMonitorOverlay : Overlay
     // Mono start
     protected override bool BeforeDraw(in OverlayDrawArgs args)
     {
-        if (_playerManager.LocalEntity is not { Valid: true } player
-            || !_entityManager.HasComponent<RetroMonitorViewComponent>(player))
+        if (
+            _playerManager.LocalEntity is not { Valid: true } player
+            || !_entityManager.HasComponent<RetroMonitorViewComponent>(player)
+        )
         {
             return false;
         }
 
         return base.BeforeDraw(in args);
     }
+
     // Mono end
 
     protected override void Draw(in OverlayDrawArgs args)

@@ -20,11 +20,20 @@ namespace Content.Server.Chemistry.EntitySystems;
 /// </summary>
 public sealed class SolutionInjectOnCollideSystem : EntitySystem
 {
-    [Dependency] private readonly BloodstreamSystem _bloodstream = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainer = default!;
-    [Dependency] private readonly TagSystem _tag = default!;
+    [Dependency]
+    private readonly BloodstreamSystem _bloodstream = default!;
+
+    [Dependency]
+    private readonly InventorySystem _inventory = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SharedSolutionContainerSystem _solutionContainer = default!;
+
+    [Dependency]
+    private readonly TagSystem _tag = default!;
 
     private static readonly ProtoId<TagPrototype> HardsuitTag = "Hardsuit";
 
@@ -60,7 +69,11 @@ public sealed class SolutionInjectOnCollideSystem : EntitySystem
         DoInjection((entity.Owner, entity.Comp), args.EmbeddedIntoUid);
     }
 
-    private void DoInjection(Entity<BaseSolutionInjectOnEventComponent> injectorEntity, EntityUid target, EntityUid? source = null)
+    private void DoInjection(
+        Entity<BaseSolutionInjectOnEventComponent> injectorEntity,
+        EntityUid target,
+        EntityUid? source = null
+    )
     {
         TryInjectTargets(injectorEntity, [target], source);
     }
@@ -78,7 +91,11 @@ public sealed class SolutionInjectOnCollideSystem : EntitySystem
     /// </list>
     /// </remarks>
     /// <returns>true if at least one target was successfully injected, otherwise false</returns>
-    private bool TryInjectTargets(Entity<BaseSolutionInjectOnEventComponent> injector, IReadOnlyList<EntityUid> targets, EntityUid? source = null)
+    private bool TryInjectTargets(
+        Entity<BaseSolutionInjectOnEventComponent> injector,
+        IReadOnlyList<EntityUid> targets,
+        EntityUid? source = null
+    )
     {
         // Make sure we have at least one target
         if (targets.Count == 0)
@@ -96,17 +113,33 @@ public sealed class SolutionInjectOnCollideSystem : EntitySystem
                 continue;
 
             // Frontier: Block injections
-            if (TryComp<BlockInjectionComponent>(target, out var blockInjection) && blockInjection.BlockInjectOnProjectile)
+            if (
+                TryComp<BlockInjectionComponent>(target, out var blockInjection)
+                && blockInjection.BlockInjectOnProjectile
+            )
                 continue;
             // End Frontier
 
             // Yuck, this is way to hardcodey for my tastes
             // TODO blocking injection with a hardsuit should probably done with a cancellable event or something
-            if (!injector.Comp.PierceArmor && _inventory.TryGetSlotEntity(target, "outerClothing", out var suit) && _tag.HasTag(suit.Value, HardsuitTag))
+            if (
+                !injector.Comp.PierceArmor
+                && _inventory.TryGetSlotEntity(target, "outerClothing", out var suit)
+                && _tag.HasTag(suit.Value, HardsuitTag)
+            )
             {
                 // Only show popup to attacker
                 if (source != null)
-                    _popup.PopupEntity(Loc.GetString(injector.Comp.BlockedByHardsuitPopupMessage, ("weapon", injector.Owner), ("target", target)), target, source.Value, PopupType.SmallCaution);
+                    _popup.PopupEntity(
+                        Loc.GetString(
+                            injector.Comp.BlockedByHardsuitPopupMessage,
+                            ("weapon", injector.Owner),
+                            ("target", target)
+                        ),
+                        target,
+                        source.Value,
+                        PopupType.SmallCaution
+                    );
 
                 continue;
             }
@@ -132,7 +165,6 @@ public sealed class SolutionInjectOnCollideSystem : EntitySystem
             if (!TryComp<BloodstreamComponent>(target, out var bloodstream))
                 continue;
 
-
             // Checks passed; add this target's bloodstream to the list
             targetBloodstreams.Add((target, bloodstream));
         }
@@ -142,7 +174,10 @@ public sealed class SolutionInjectOnCollideSystem : EntitySystem
             return false;
 
         // Extract total needed solution from the injector
-        var removedSolution = _solutionContainer.SplitSolution(injectorSolution.Value, injector.Comp.TransferAmount * targetBloodstreams.Count);
+        var removedSolution = _solutionContainer.SplitSolution(
+            injectorSolution.Value,
+            injector.Comp.TransferAmount * targetBloodstreams.Count
+        );
         // Adjust solution amount based on transfer efficiency
         var solutionToInject = removedSolution.SplitSolution(removedSolution.Volume * injector.Comp.TransferEfficiency);
         // Calculate how much of the adjusted solution each target will get

@@ -24,7 +24,11 @@ namespace Content.Server.Power.Components
         [ViewVariables(VVAccess.ReadWrite)]
         [DataField("supplyRate")]
         [GuidebookData]
-        public float MaxSupply { get => NetworkSupply.MaxSupply; set => NetworkSupply.MaxSupply = value; }
+        public float MaxSupply
+        {
+            get => NetworkSupply.MaxSupply;
+            set => NetworkSupply.MaxSupply = value;
+        }
 
         [ViewVariables(VVAccess.ReadWrite)]
         [DataField("supplyRampTolerance")]
@@ -58,7 +62,8 @@ namespace Content.Server.Power.Components
             set => NetworkSupply.Enabled = value;
         }
 
-        [ViewVariables] public float CurrentSupply => NetworkSupply.CurrentSupply;
+        [ViewVariables]
+        public float CurrentSupply => NetworkSupply.CurrentSupply;
 
         [ViewVariables]
         public PowerState.Supply NetworkSupply { get; } = new();

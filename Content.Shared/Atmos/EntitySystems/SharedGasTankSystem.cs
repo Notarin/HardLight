@@ -14,12 +14,23 @@ namespace Content.Shared.Atmos.EntitySystems;
 
 public abstract class SharedGasTankSystem : EntitySystem
 {
-    [Dependency] private   readonly SharedActionsSystem _actions = default!;
-    [Dependency] private   readonly SharedAudioSystem _audio = default!;
-    [Dependency] private   readonly SharedContainerSystem _containers = default!;
-    [Dependency] private   readonly SharedInternalsSystem _internals = default!;
-    [Dependency] protected readonly SharedUserInterfaceSystem UI = default!;
-    [Dependency] private   readonly UseDelaySystem _delay = default!;
+    [Dependency]
+    private readonly SharedActionsSystem _actions = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _containers = default!;
+
+    [Dependency]
+    private readonly SharedInternalsSystem _internals = default!;
+
+    [Dependency]
+    protected readonly SharedUserInterfaceSystem UI = default!;
+
+    [Dependency]
+    private readonly UseDelaySystem _delay = default!;
 
     public const string GasTankDelay = "gasTank";
 
@@ -54,10 +65,7 @@ public abstract class SharedGasTankSystem : EntitySystem
         Dirty(ent);
     }
 
-    public virtual void UpdateUserInterface(Entity<GasTankComponent> ent)
-    {
-
-    }
+    public virtual void UpdateUserInterface(Entity<GasTankComponent> ent) { }
 
     private void BeforeUiOpen(Entity<GasTankComponent> ent, ref BeforeActivatableUIOpenEvent args)
     {
@@ -75,12 +83,18 @@ public abstract class SharedGasTankSystem : EntitySystem
         using var _ = args.PushGroup(nameof(GasTankComponent));
 
         if (args.IsInDetailsRange)
-            args.PushMarkup(Loc.GetString("comp-gas-tank-examine", ("pressure", Math.Round(component.Air?.Pressure ?? 0))));
+            args.PushMarkup(
+                Loc.GetString("comp-gas-tank-examine", ("pressure", Math.Round(component.Air?.Pressure ?? 0)))
+            );
 
         if (component.IsConnected)
             args.PushMarkup(Loc.GetString("comp-gas-tank-connected"));
 
-        args.PushMarkup(Loc.GetString(component.IsValveOpen ? "comp-gas-tank-examine-open-valve" : "comp-gas-tank-examine-closed-valve"));
+        args.PushMarkup(
+            Loc.GetString(
+                component.IsValveOpen ? "comp-gas-tank-examine-open-valve" : "comp-gas-tank-examine-closed-valve"
+            )
+        );
     }
 
     private void OnActionToggle(Entity<GasTankComponent> gasTank, ref ToggleActionEvent args)
@@ -97,17 +111,21 @@ public abstract class SharedGasTankSystem : EntitySystem
         if (!args.CanAccess || !args.CanInteract || args.Hands == null)
             return;
 
-        args.Verbs.Add(new AlternativeVerb()
-        {
-            Text = component.IsValveOpen ? Loc.GetString("comp-gas-tank-close-valve") : Loc.GetString("comp-gas-tank-open-valve"),
-            Act = () =>
+        args.Verbs.Add(
+            new AlternativeVerb()
             {
-                component.IsValveOpen = !component.IsValveOpen;
-                _audio.PlayPredicted(component.ValveSound, uid, args.User);
-                Dirty(uid, component);
-            },
-            Disabled = component.IsConnected,
-        });
+                Text = component.IsValveOpen
+                    ? Loc.GetString("comp-gas-tank-close-valve")
+                    : Loc.GetString("comp-gas-tank-open-valve"),
+                Act = () =>
+                {
+                    component.IsValveOpen = !component.IsValveOpen;
+                    _audio.PlayPredicted(component.ValveSound, uid, args.User);
+                    Dirty(uid, component);
+                },
+                Disabled = component.IsConnected,
+            }
+        );
     }
 
     public bool CanConnectToInternals(Entity<GasTankComponent> ent)
@@ -152,7 +170,12 @@ public abstract class SharedGasTankSystem : EntitySystem
     /// </summary>
     /// <param name="user">The user of the gas tank</param>
     /// <returns>True if internals comp isn't null, false if it is null</returns>
-    private bool TryGetInternalsComp(Entity<GasTankComponent> ent, out EntityUid? internalsUid, out InternalsComponent? internalsComp, EntityUid? user = null)
+    private bool TryGetInternalsComp(
+        Entity<GasTankComponent> ent,
+        out EntityUid? internalsUid,
+        out InternalsComponent? internalsComp,
+        EntityUid? user = null
+    )
     {
         internalsUid = default;
         internalsComp = default;

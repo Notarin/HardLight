@@ -1,9 +1,9 @@
 using Content.Shared.Chemistry.Reagent;
 using Content.Shared.FixedPoint;
-using Robust.Shared.Audio;
 using Content.Shared.Whitelist;
-using Robust.Shared.Prototypes;
+using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
+using Robust.Shared.Prototypes;
 
 namespace Content.Shared.Paint;
 
@@ -46,6 +46,7 @@ public sealed partial class PaintComponent : Component
 
     [DataField, ViewVariables(VVAccess.ReadWrite)]
     public EntityWhitelist? Blacklist;
+
     /// <summary>
     /// Reagent consumption per use.
     /// </summary>

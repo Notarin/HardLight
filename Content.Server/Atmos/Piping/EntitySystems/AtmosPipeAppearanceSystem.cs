@@ -10,8 +10,11 @@ namespace Content.Server.Atmos.Piping.EntitySystems;
 
 public sealed partial class AtmosPipeAppearanceSystem : SharedAtmosPipeAppearanceSystem
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _map = default!;
 
     public override void Initialize()
     {
@@ -25,8 +28,12 @@ public sealed partial class AtmosPipeAppearanceSystem : SharedAtmosPipeAppearanc
         UpdateAppearance(args.NodeOwner);
     }
 
-    private void UpdateAppearance(EntityUid uid, AppearanceComponent? appearance = null, NodeContainerComponent? container = null,
-        TransformComponent? xform = null)
+    private void UpdateAppearance(
+        EntityUid uid,
+        AppearanceComponent? appearance = null,
+        NodeContainerComponent? container = null,
+        TransformComponent? xform = null
+    )
     {
         if (!Resolve(uid, ref appearance, ref container, ref xform, false))
             return;
@@ -79,7 +86,7 @@ public sealed partial class AtmosPipeAppearanceSystem : SharedAtmosPipeAppearanc
                 (0, -1) => PipeDirection.South,
                 (1, 0) => PipeDirection.East,
                 (-1, 0) => PipeDirection.West,
-                _ => PipeDirection.None
+                _ => PipeDirection.None,
             };
 
             connectedDirections[pipeIndex] = pipeLayerDirections;

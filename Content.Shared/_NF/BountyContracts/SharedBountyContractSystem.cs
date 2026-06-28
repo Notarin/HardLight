@@ -11,7 +11,7 @@ public enum BountyContractCategory : byte
     Vacancy,
     Construction,
     Service,
-    Other
+    Other,
 }
 
 [Serializable, NetSerializable]
@@ -69,8 +69,17 @@ public sealed class BountyContract
     public readonly string? Description;
     public readonly string? Author;
 
-    public BountyContract(uint contractId, BountyContractCategory category, string name,
-        int reward, NetEntity authorUid, string? dna, string? vessel, string? description, string? author)
+    public BountyContract(
+        uint contractId,
+        BountyContractCategory category,
+        string name,
+        int reward,
+        NetEntity authorUid,
+        string? dna,
+        string? vessel,
+        string? description,
+        string? author
+    )
     {
         ContractId = contractId;
         Category = category;
@@ -94,7 +103,8 @@ public sealed class BountyContractCreateUiState : BoundUserInterfaceState
     public BountyContractCreateUiState(
         ProtoId<BountyContractCollectionPrototype> collection,
         List<BountyContractTargetInfo> targets,
-        List<string> vessels)
+        List<string> vessels
+    )
     {
         Collection = collection;
         Targets = targets;
@@ -103,13 +113,15 @@ public sealed class BountyContractCreateUiState : BoundUserInterfaceState
 }
 
 [NetSerializable, Serializable]
-public sealed class BountyContractListUiState(ProtoId<BountyContractCollectionPrototype> collection,
-        List<ProtoId<BountyContractCollectionPrototype>> collections,
-        List<BountyContract> contracts,
-        bool isAllowedCreateBounties,
-        bool isAllowedRemoveBounties,
-        NetEntity authorUid,
-        bool notificationsEnabled) : BoundUserInterfaceState
+public sealed class BountyContractListUiState(
+    ProtoId<BountyContractCollectionPrototype> collection,
+    List<ProtoId<BountyContractCollectionPrototype>> collections,
+    List<BountyContract> contracts,
+    bool isAllowedCreateBounties,
+    bool isAllowedRemoveBounties,
+    NetEntity authorUid,
+    bool notificationsEnabled
+) : BoundUserInterfaceState
 {
     public readonly ProtoId<BountyContractCollectionPrototype> Collection = collection;
     public readonly List<ProtoId<BountyContractCollectionPrototype>> Collections = collections;
@@ -129,7 +141,10 @@ public enum BountyContractCommand : byte
 }
 
 [NetSerializable, Serializable]
-public sealed class BountyContractCommandMessageEvent(BountyContractCommand command, ProtoId<BountyContractCollectionPrototype> collection) : CartridgeMessageEvent
+public sealed class BountyContractCommandMessageEvent(
+    BountyContractCommand command,
+    ProtoId<BountyContractCollectionPrototype> collection
+) : CartridgeMessageEvent
 {
     public readonly ProtoId<BountyContractCollectionPrototype> Collection = collection;
     public readonly BountyContractCommand Command = command;
@@ -161,31 +176,31 @@ public abstract class SharedBountyContractSystem : EntitySystem
         {
             Name = "bounty-contracts-category-criminal",
             UiColor = Color.FromHex("#520c0c"),
-            Announcement = "bounty-contracts-announcement-criminal-create"
+            Announcement = "bounty-contracts-announcement-criminal-create",
         },
         [BountyContractCategory.Vacancy] = new BountyContractCategoryMeta
         {
             Name = "bounty-contracts-category-vacancy",
             UiColor = Color.FromHex("#003866"),
-            Announcement = "bounty-contracts-announcement-vacancy-create"
+            Announcement = "bounty-contracts-announcement-vacancy-create",
         },
         [BountyContractCategory.Construction] = new BountyContractCategoryMeta
         {
             Name = "bounty-contracts-category-construction",
             UiColor = Color.FromHex("#664a06"),
-            Announcement = "bounty-contracts-announcement-construction-create"
+            Announcement = "bounty-contracts-announcement-construction-create",
         },
         [BountyContractCategory.Service] = new BountyContractCategoryMeta
         {
             Name = "bounty-contracts-category-service",
             UiColor = Color.FromHex("#01551e"),
-            Announcement = "bounty-contracts-announcement-service-create"
+            Announcement = "bounty-contracts-announcement-service-create",
         },
         [BountyContractCategory.Other] = new BountyContractCategoryMeta
         {
             Name = "bounty-contracts-category-other",
             UiColor = Color.FromHex("#3c3c3c"),
-            Announcement = "bounty-contracts-announcement-generic-create"
+            Announcement = "bounty-contracts-announcement-generic-create",
         },
     };
 }

@@ -117,13 +117,15 @@ public struct AtmosDeviceNavMapData
     /// <summary>
     /// Populate the atmos monitoring console nav map with a single entity
     /// </summary>
-    public AtmosDeviceNavMapData(NetEntity netEntity,
+    public AtmosDeviceNavMapData(
+        NetEntity netEntity,
         NetCoordinates netCoordinates,
         int netId,
         ProtoId<NavMapBlipPrototype> navMapBlip,
         Direction direction,
         Color pipeColor,
-        AtmosPipeLayer pipeLayer)
+        AtmosPipeLayer pipeLayer
+    )
     {
         NetEntity = netEntity;
         NetCoordinates = netCoordinates;
@@ -213,12 +215,13 @@ public struct AtmosMonitoringConsoleEntry
     /// <summary>
     /// Used to populate the atmos monitoring console UI with data from a single air alarm
     /// </summary>
-    public AtmosMonitoringConsoleEntry
-        (NetEntity entity,
+    public AtmosMonitoringConsoleEntry(
+        NetEntity entity,
         NetCoordinates coordinates,
         int netId,
         string entityName,
-        string address)
+        string address
+    )
     {
         NetEntity = entity;
         Coordinates = coordinates;
@@ -253,5 +256,5 @@ public enum AtmosPipeChunkDataFacing : byte
 [Serializable, NetSerializable]
 public enum AtmosMonitoringConsoleUiKey
 {
-    Key
+    Key,
 }

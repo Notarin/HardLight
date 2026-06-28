@@ -1,15 +1,14 @@
+using Content.Shared.Animals.Systems;
 using Content.Shared.Storage;
 using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
-using Content.Shared.Animals.Systems;
 
 namespace Content.Shared.Animals.Components; // HL: Moved this to Shared so the client can use it for verb drawing.
 
 /// <summary>
 ///     This component handles egg laying for the Egg layer trait
 /// </summary>
-
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState(fieldDeltas: true)]
 public sealed partial class LewdEggLayingComponent : Component
 {
@@ -28,7 +27,7 @@ public sealed partial class LewdEggLayingComponent : Component
         "action-popup-lay-egg-flavor-1",
         "action-popup-lay-egg-flavor-2",
         "action-popup-lay-egg-flavor-3",
-        "action-popup-lay-egg-flavor-4"
+        "action-popup-lay-egg-flavor-4",
     };
 
     /// <summary>
@@ -94,18 +93,22 @@ public sealed partial class LewdEggLayingComponent : Component
     /// The number of eggs produced since last flavor text
     /// </summary>
     public bool Temporary = false;
+
     public bool hasEggs()
     {
         return eggs >= 1.0f;
     }
+
     public bool isHeavyOfEggs()
     {
         return eggs >= EggSlowThreshold;
     }
+
     public bool isFullOfEggs()
     {
         return eggs >= MaxEggs;
     }
+
     public bool doFlavor()
     {
         if (eggsFlavorAccum >= FlavorFreq)
@@ -115,6 +118,7 @@ public sealed partial class LewdEggLayingComponent : Component
         }
         return false;
     }
+
     public void makeTempFrom(LewdEggLayingComponent other)
     {
         FlavorMessages = other.FlavorMessages;

@@ -1,32 +1,32 @@
-using Content.Shared.Shuttles.Components;
-using Content.Shared.Procedural;
-using Content.Shared.Salvage.Expeditions;
-using Content.Shared.Dataset;
-using Robust.Shared.Prototypes;
-using Content.Shared.Popups; // Frontier
-using Content.Shared._NF.CCVar; // Frontier
-using Content.Server.Station.Components; // Frontier
-using Robust.Shared.Map.Components; // Frontier
-using Robust.Shared.Physics.Components; // Frontier
-using Content.Shared.NPC; // Frontier
+using System.Linq; // HardLight: For ToList() and Take()
+using System.Numerics; // HardLight: For Vector2
+using System.Threading; // HardLight: For CancellationTokenSource
 using Content.Server._NF.Salvage; // Frontier
-using Content.Shared.NPC.Components; // Frontier
+using Content.Server.Chat.Systems; // HardLight: For ChatSystem (server-side)
 using Content.Server.Salvage.Expeditions; // Frontier
+using Content.Server.Shuttles.Components; // HardLight: For ShuttleComponent
+using Content.Server.Station.Components; // Frontier
+using Content.Shared._NF.CCVar; // Frontier
+using Content.Shared.Dataset;
 using Content.Shared.Mind.Components; // Frontier
 using Content.Shared.Mobs.Components; // Frontier
-using Robust.Shared.Physics; // Frontier
-using Content.Server.Chat.Systems; // HardLight: For ChatSystem (server-side)
+using Content.Shared.NPC; // Frontier
+using Content.Shared.NPC.Components; // Frontier
+using Content.Shared.Popups; // Frontier
+using Content.Shared.Procedural;
 using Content.Shared.Salvage; // HardLight: For SalvageMissionType
-using System.Threading; // HardLight: For CancellationTokenSource
-using RobustTimer = Robust.Shared.Timing.Timer; // Replace obsolete SpawnTimer usage with Timer.Spawn
-using System.Numerics; // HardLight: For Vector2
-using Robust.Shared.Map; // HardLight: For EntityCoordinates
-using Content.Server.Shuttles.Components; // HardLight: For ShuttleComponent
-using System.Linq; // HardLight: For ToList() and Take()
+using Content.Shared.Salvage.Expeditions;
+using Content.Shared.Shuttles.Components;
 using Content.Shared.Shuttles.Systems; // HardLight: For FTLState
-using Robust.Shared.Player; // HardLight: For Filter
 using Content.Shared.Timing; // HardLight: For StartEndTime
 using Robust.Shared.GameObjects; // HardLight: For SpawnTimer extension method
+using Robust.Shared.Map; // HardLight: For EntityCoordinates
+using Robust.Shared.Map.Components; // Frontier
+using Robust.Shared.Physics; // Frontier
+using Robust.Shared.Physics.Components; // Frontier
+using Robust.Shared.Player; // HardLight: For Filter
+using Robust.Shared.Prototypes;
+using RobustTimer = Robust.Shared.Timing.Timer; // Replace obsolete SpawnTimer usage with Timer.Spawn
 
 namespace Content.Server.Salvage;
 
@@ -34,8 +34,11 @@ public sealed partial class SalvageSystem
 {
     public static readonly EntProtoId CoordinatesDisk = new("CoordinatesDisk");
 
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!; // Frontier
-    [Dependency] private readonly ChatSystem _chatSystem = default!; // HardLight
+    [Dependency]
+    private readonly SharedPopupSystem _popupSystem = default!; // Frontier
+
+    [Dependency]
+    private readonly ChatSystem _chatSystem = default!; // HardLight
 
     private const float ShuttleFTLMassThreshold = 50f; // Frontier
     private const float ShuttleFTLRange = 150f; // Frontier
@@ -55,7 +58,11 @@ public sealed partial class SalvageSystem
         // Ensure and return grid-local expedition data (independent of stations).
         if (TryComp(gridUid.Value, out SalvageExpeditionDataComponent? gridDataExisting))
         {
-            if (gridDataExisting.Missions.Count == 0 && !gridDataExisting.GeneratingMissions && !gridDataExisting.Cooldown)
+            if (
+                gridDataExisting.Missions.Count == 0
+                && !gridDataExisting.GeneratingMissions
+                && !gridDataExisting.Cooldown
+            )
             {
                 GenerateMissions(gridDataExisting);
                 Dirty(gridUid.Value, gridDataExisting);
@@ -75,7 +82,11 @@ public sealed partial class SalvageSystem
         return gridData;
     }
 
-    private void OnSalvageClaimMessage(EntityUid uid, SalvageExpeditionConsoleComponent component, ClaimSalvageMessage args)
+    private void OnSalvageClaimMessage(
+        EntityUid uid,
+        SalvageExpeditionConsoleComponent component,
+        ClaimSalvageMessage args
+    )
     {
         var data = GetStationExpeditionData(uid);
         if (data == null)
@@ -91,7 +102,9 @@ public sealed partial class SalvageSystem
         // Skip if already claimed
         if (data.ActiveMission != 0)
         {
-            Log.Warning($"Mission claim rejected for console {ToPrettyString(uid)}: ActiveMission={data.ActiveMission} already in progress");
+            Log.Warning(
+                $"Mission claim rejected for console {ToPrettyString(uid)}: ActiveMission={data.ActiveMission} already in progress"
+            );
             PlayDenySound((uid, component));
             UpdateConsole((uid, component));
             return;
@@ -100,7 +113,9 @@ public sealed partial class SalvageSystem
         // Check if the requested mission exists
         if (!data.Missions.TryGetValue(args.Index, out var missionparams))
         {
-            Log.Warning($"Mission claim rejected for console {ToPrettyString(uid)}: RequestedIndex={args.Index} not found, MissionCount={data.Missions.Count}, Available=[{string.Join(",", data.Missions.Keys)}]");
+            Log.Warning(
+                $"Mission claim rejected for console {ToPrettyString(uid)}: RequestedIndex={args.Index} not found, MissionCount={data.Missions.Count}, Available=[{string.Join(",", data.Missions.Keys)}]"
+            );
             PlayDenySound((uid, component));
 
             // Force update console state to ensure client is synchronized
@@ -113,7 +128,11 @@ public sealed partial class SalvageSystem
         {
             Log.Error($"Console {ToPrettyString(uid)} has no transform component");
             PlayDenySound((uid, component));
-            _popupSystem.PopupEntity(Loc.GetString("salvage-expedition-shuttle-not-found"), uid, PopupType.MediumCaution);
+            _popupSystem.PopupEntity(
+                Loc.GetString("salvage-expedition-shuttle-not-found"),
+                uid,
+                PopupType.MediumCaution
+            );
             UpdateConsole((uid, component));
             return;
         }
@@ -123,7 +142,11 @@ public sealed partial class SalvageSystem
         {
             Log.Error($"Console {ToPrettyString(uid)} grid {ourGrid} has no map grid component");
             PlayDenySound((uid, component));
-            _popupSystem.PopupEntity(Loc.GetString("salvage-expedition-shuttle-not-found"), uid, PopupType.MediumCaution);
+            _popupSystem.PopupEntity(
+                Loc.GetString("salvage-expedition-shuttle-not-found"),
+                uid,
+                PopupType.MediumCaution
+            );
             UpdateConsole((uid, component));
             return;
         }
@@ -143,7 +166,9 @@ public sealed partial class SalvageSystem
         // Directly spawn the mission - console is completely independent
         try
         {
-            Log.Info($"Spawning mission {args.Index} ({missionparams.MissionType}) for independent console {ToPrettyString(uid)} on grid {ourGrid}");
+            Log.Info(
+                $"Spawning mission {args.Index} ({missionparams.MissionType}) for independent console {ToPrettyString(uid)} on grid {ourGrid}"
+            );
             SpawnMissionForConsole(missionparams, ourGrid.Value, uid);
         }
         catch (Exception ex)
@@ -156,7 +181,11 @@ public sealed partial class SalvageSystem
         data.ActiveMission = args.Index;
         // Do not forcibly reset CanFinish here; preserve existing early-leave availability
 
-        var mission = GetMission(missionparams.MissionType, _prototypeManager.Index<SalvageDifficultyPrototype>(missionparams.Difficulty), missionparams.Seed);
+        var mission = GetMission(
+            missionparams.MissionType,
+            _prototypeManager.Index<SalvageDifficultyPrototype>(missionparams.Difficulty),
+            missionparams.Seed
+        );
         // Do not modify offer timers on claim to avoid regenerating/changing offers prematurely
 
         UpdateConsole((uid, component));
@@ -166,22 +195,35 @@ public sealed partial class SalvageSystem
         {
             var filter = Filter.Empty().AddInGrid(consoleXform.GridUid.Value);
             var announcement = Loc.GetString("salvage-expedition-announcement-claimed");
-            _chatSystem.DispatchFilteredAnnouncement(filter, announcement, uid,
-                sender: "Expedition Console", colorOverride: Color.LightBlue);
+            _chatSystem.DispatchFilteredAnnouncement(
+                filter,
+                announcement,
+                uid,
+                sender: "Expedition Console",
+                colorOverride: Color.LightBlue
+            );
         }
 
         Log.Info($"Mission {args.Index} successfully claimed on independent console {ToPrettyString(uid)}");
     }
 
     // HardLight: manual refresh handler to re-link console with station expedition data
-    private void OnSalvageRefreshMessage(EntityUid uid, SalvageExpeditionConsoleComponent component, RefreshSalvageConsoleMessage args)
+    private void OnSalvageRefreshMessage(
+        EntityUid uid,
+        SalvageExpeditionConsoleComponent component,
+        RefreshSalvageConsoleMessage args
+    )
     {
         Log.Info($"Manual salvage console refresh requested for {ToPrettyString(uid)}");
         UpdateConsole((uid, component));
     }
 
     // Frontier: early expedition end
-    private void OnSalvageFinishMessage(EntityUid entity, SalvageExpeditionConsoleComponent component, FinishSalvageMessage e)
+    private void OnSalvageFinishMessage(
+        EntityUid entity,
+        SalvageExpeditionConsoleComponent component,
+        FinishSalvageMessage e
+    )
     {
         var data = GetStationExpeditionData(entity);
         if (data == null || !data.CanFinish)
@@ -195,7 +237,11 @@ public sealed partial class SalvageSystem
         if (!TryComp(entity, out TransformComponent? xform))
         {
             PlayDenySound((entity, component));
-            _popupSystem.PopupEntity(Loc.GetString("salvage-expedition-shuttle-not-found"), entity, PopupType.MediumCaution);
+            _popupSystem.PopupEntity(
+                Loc.GetString("salvage-expedition-shuttle-not-found"),
+                entity,
+                PopupType.MediumCaution
+            );
             UpdateConsole((entity, component));
             return;
         }
@@ -216,7 +262,11 @@ public sealed partial class SalvageSystem
         {
             Log.Warning($"Could not find active expedition for console {ToPrettyString(entity)}");
             PlayDenySound((entity, component));
-            _popupSystem.PopupEntity(Loc.GetString("salvage-expedition-shuttle-not-found"), entity, PopupType.MediumCaution);
+            _popupSystem.PopupEntity(
+                Loc.GetString("salvage-expedition-shuttle-not-found"),
+                entity,
+                PopupType.MediumCaution
+            );
             return;
         }
 
@@ -231,30 +281,37 @@ public sealed partial class SalvageSystem
         Log.Info($"Early expedition finish initiated on console {ToPrettyString(entity)}, FTL in {departTime} seconds");
 
         // Schedule the actual expedition completion after 20 seconds
-            RobustTimer.Spawn(TimeSpan.FromSeconds(departTime), () =>
+        RobustTimer.Spawn(
+            TimeSpan.FromSeconds(departTime),
+            () =>
             {
-            // Verify the expedition still exists
-                if (!Exists(expeditionMapUid.Value) || !TryComp(expeditionMapUid.Value, out SalvageExpeditionComponent? expComp))
-            {
-                Log.Warning($"Expedition {expeditionMapUid} no longer exists when trying to finish early");
-                return;
+                // Verify the expedition still exists
+                if (
+                    !Exists(expeditionMapUid.Value)
+                    || !TryComp(expeditionMapUid.Value, out SalvageExpeditionComponent? expComp)
+                )
+                {
+                    Log.Warning($"Expedition {expeditionMapUid} no longer exists when trying to finish early");
+                    return;
+                }
+
+                // Do NOT mark as completed here; reward should only be granted
+                // when mission objectives are actually complete. The runner logic
+                // updates expComp.Completed based on objectives.
+
+                // Trigger the same FTL process as normal expedition timeout
+                if (!TriggerExpeditionFTLHome(expeditionMapUid.Value, expComp))
+                {
+                    data.CanFinish = true;
+                    UpdateConsole((entity, component));
+                    return;
+                }
+
+                Log.Info($"Early expedition finish completed for {ToPrettyString(expeditionMapUid.Value)}");
             }
-
-            // Do NOT mark as completed here; reward should only be granted
-            // when mission objectives are actually complete. The runner logic
-            // updates expComp.Completed based on objectives.
-
-            // Trigger the same FTL process as normal expedition timeout
-            if (!TriggerExpeditionFTLHome(expeditionMapUid.Value, expComp))
-            {
-                data.CanFinish = true;
-                UpdateConsole((entity, component));
-                return;
-            }
-
-            Log.Info($"Early expedition finish completed for {ToPrettyString(expeditionMapUid.Value)}");
-        });
+        );
     }
+
     // End Frontier: early expedition end
 
     /// <summary>
@@ -280,13 +337,16 @@ public sealed partial class SalvageSystem
         const int departTime = 20;
         AnnounceEarlyFinishCountdown(consoleUid, xform.GridUid, departTime); // HardLight
         Log.Info($"Console-triggered early expedition finish on {expeditionMapUid}; FTL in {departTime} seconds");
-        RobustTimer.Spawn(TimeSpan.FromSeconds(departTime), () =>
-        {
-            if (!Exists(expeditionMapUid) || !TryComp(expeditionMapUid, out SalvageExpeditionComponent? expComp))
-                return;
+        RobustTimer.Spawn(
+            TimeSpan.FromSeconds(departTime),
+            () =>
+            {
+                if (!Exists(expeditionMapUid) || !TryComp(expeditionMapUid, out SalvageExpeditionComponent? expComp))
+                    return;
 
-            TriggerExpeditionFTLHome(expeditionMapUid, expComp);
-        });
+                TriggerExpeditionFTLHome(expeditionMapUid, expComp);
+            }
+        );
         // HardLight end
         return true;
     }
@@ -300,19 +360,27 @@ public sealed partial class SalvageSystem
         // Prevent duplicate triggering if expedition is already ending
         if (expedition.ReturnTriggered)
         {
-            Log.Debug($"Expedition return already triggered for {expeditionMapUid}; ignoring duplicate early-finish request.");
+            Log.Debug(
+                $"Expedition return already triggered for {expeditionMapUid}; ignoring duplicate early-finish request."
+            );
             return false;
         }
 
         expedition.ReturnTriggered = true;
 
         const float ftlTime = 20f; // 20 seconds FTL time for early finish
-        var shuttleQuery = EntityQueryEnumerator<ShuttleComponent, TransformComponent, ExpeditionParticipantShuttleComponent>();
+        var shuttleQuery = EntityQueryEnumerator<
+            ShuttleComponent,
+            TransformComponent,
+            ExpeditionParticipantShuttleComponent
+        >();
 
         // HardLight start
         if (!TryGetExpeditionReturnMap(out var returnMapUid, out var targetSource))
         {
-            Log.Error($"Could not resolve expedition return map (DefaultMap or ColComm) for early finish on expedition {expeditionMapUid}.");
+            Log.Error(
+                $"Could not resolve expedition return map (DefaultMap or ColComm) for early finish on expedition {expeditionMapUid}."
+            );
             return false;
         }
 
@@ -329,8 +397,17 @@ public sealed partial class SalvageSystem
             var dropLocation = PickExpeditionReturnDropLocation(existingPositions); // HardLight
 
             // FTL the shuttle home
-            _shuttle.FTLToCoordinates(shuttleUid, shuttle, new EntityCoordinates(returnMapUid, dropLocation), 0f, startupTime: _shuttle.DefaultStartupTime, hyperspaceTime: ftlTime); // HardLight
-            Log.Info($"Early finish: FTLing shuttle {shuttleUid} home from expedition {expeditionMapUid} via {targetSource}"); // HardLight: Removed via {targetSource}
+            _shuttle.FTLToCoordinates(
+                shuttleUid,
+                shuttle,
+                new EntityCoordinates(returnMapUid, dropLocation),
+                0f,
+                startupTime: _shuttle.DefaultStartupTime,
+                hyperspaceTime: ftlTime
+            ); // HardLight
+            Log.Info(
+                $"Early finish: FTLing shuttle {shuttleUid} home from expedition {expeditionMapUid} via {targetSource}"
+            ); // HardLight: Removed via {targetSource}
         }
 
         // Clean up console state and schedule expedition deletion
@@ -347,8 +424,13 @@ public sealed partial class SalvageSystem
 
         var filter = Filter.Empty().AddInGrid(gridUid.Value);
         var announcement = Loc.GetString("salvage-expedition-announcement-early-finish", ("departTime", departTime));
-        _chatSystem.DispatchFilteredAnnouncement(filter, announcement, source,
-            sender: "Expedition Console", colorOverride: Color.Orange);
+        _chatSystem.DispatchFilteredAnnouncement(
+            filter,
+            announcement,
+            source,
+            sender: "Expedition Console",
+            colorOverride: Color.Orange
+        );
     }
 
     private void OnSalvageConsoleInit(Entity<SalvageExpeditionConsoleComponent> console, ref ComponentInit args)
@@ -356,7 +438,10 @@ public sealed partial class SalvageSystem
         UpdateConsole(console);
     }
 
-    private void OnSalvageConsoleParent(Entity<SalvageExpeditionConsoleComponent> console, ref EntParentChangedMessage args)
+    private void OnSalvageConsoleParent(
+        Entity<SalvageExpeditionConsoleComponent> console,
+        ref EntParentChangedMessage args
+    )
     {
         UpdateConsole(console);
     }
@@ -393,17 +478,17 @@ public sealed partial class SalvageSystem
         // Sanitize ActiveMission against current mission list to avoid UI/index errors
         if (data.ActiveMission != 0 && !data.Missions.ContainsKey(data.ActiveMission))
         {
-            Log.Warning($"Console {ToPrettyString(uid)} had ActiveMission={data.ActiveMission} not in mission list; resetting.");
+            Log.Warning(
+                $"Console {ToPrettyString(uid)} had ActiveMission={data.ActiveMission} not in mission list; resetting."
+            );
             data.ActiveMission = 0;
             data.CanFinish = false;
         }
 
         // HardLight: Only generate missions if truly needed and not already generating
         // This prevents the race condition that causes UI issues
-        bool shouldGenerateMissions = data.Missions.Count == 0 &&
-                                     data.ActiveMission == 0 &&
-                                     !data.GeneratingMissions &&
-                                     !data.Cooldown;
+        bool shouldGenerateMissions =
+            data.Missions.Count == 0 && data.ActiveMission == 0 && !data.GeneratingMissions && !data.Cooldown;
 
         if (shouldGenerateMissions)
         {
@@ -422,7 +507,9 @@ public sealed partial class SalvageSystem
         );
 
         _ui.SetUiState(component.Owner, SalvageConsoleUiKey.Expedition, state);
-        Log.Debug($"Updated console {ToPrettyString(uid)} with {state.Missions.Count} missions (Active: {data.ActiveMission}, Cooldown: {data.Cooldown})");
+        Log.Debug(
+            $"Updated console {ToPrettyString(uid)} with {state.Missions.Count} missions (Active: {data.ActiveMission}, Cooldown: {data.Cooldown})"
+        );
     }
 
     // HardLight: Direct mission spawning for console-specific expeditions
@@ -453,7 +540,8 @@ public sealed partial class SalvageSystem
             consoleUid, // HARDLIGHT: Pass console reference for FTL targeting
             null, // No coordinates disk for console missions
             missionParams,
-            cancelToken.Token);
+            cancelToken.Token
+        );
 
         _salvageJobs.Add((job, cancelToken));
         _salvageQueue.EnqueueJob(job);

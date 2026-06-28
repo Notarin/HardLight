@@ -3,6 +3,7 @@ using Robust.Shared.Serialization;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
 namespace Content.Shared.Stealth.Components;
+
 /// <summary>
 /// Add this component to an entity that you want to be cloaked.
 /// It overlays a shader on the entity to give them an invisibility cloaked effect.
@@ -47,12 +48,11 @@ public sealed partial class StealthComponent : Component
     [Access(typeof(SharedStealthSystem), Other = AccessPermissions.None)]
     public float LastVisibility = 1;
 
-
     /// <summary>
     /// Time at which <see cref="LastVisibility"/> was set. Null implies the entity is currently paused and not
     /// accumulating any visibility change.
     /// </summary>
-    [DataField("lastUpdate", customTypeSerializer:typeof(TimeOffsetSerializer))]
+    [DataField("lastUpdate", customTypeSerializer: typeof(TimeOffsetSerializer))]
     public TimeSpan? LastUpdated;
 
     /// <summary>

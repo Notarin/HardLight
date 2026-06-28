@@ -8,7 +8,8 @@ namespace Content.Server.Disposal.Tube;
 /// </summary>
 public sealed class DisposalSignalRouterSystem : EntitySystem
 {
-    [Dependency] private readonly DeviceLinkSystem _deviceLink = default!;
+    [Dependency]
+    private readonly DeviceLinkSystem _deviceLink = default!;
 
     public override void Initialize()
     {
@@ -16,7 +17,10 @@ public sealed class DisposalSignalRouterSystem : EntitySystem
 
         SubscribeLocalEvent<DisposalSignalRouterComponent, ComponentInit>(OnInit);
         SubscribeLocalEvent<DisposalSignalRouterComponent, SignalReceivedEvent>(OnSignalReceived);
-        SubscribeLocalEvent<DisposalSignalRouterComponent, GetDisposalsNextDirectionEvent>(OnGetNextDirection, after: new[] { typeof(DisposalTubeSystem) });
+        SubscribeLocalEvent<DisposalSignalRouterComponent, GetDisposalsNextDirectionEvent>(
+            OnGetNextDirection,
+            after: new[] { typeof(DisposalTubeSystem) }
+        );
     }
 
     private void OnInit(EntityUid uid, DisposalSignalRouterComponent comp, ComponentInit args)
@@ -29,12 +33,14 @@ public sealed class DisposalSignalRouterSystem : EntitySystem
         // TogglePort flips it
         // OnPort sets it to true
         // OffPort sets it to false
-        comp.Routing = args.Port == comp.TogglePort
-            ? !comp.Routing
-            : args.Port == comp.OnPort;
+        comp.Routing = args.Port == comp.TogglePort ? !comp.Routing : args.Port == comp.OnPort;
     }
 
-    private void OnGetNextDirection(EntityUid uid, DisposalSignalRouterComponent comp, ref GetDisposalsNextDirectionEvent args)
+    private void OnGetNextDirection(
+        EntityUid uid,
+        DisposalSignalRouterComponent comp,
+        ref GetDisposalsNextDirectionEvent args
+    )
     {
         if (!comp.Routing)
         {

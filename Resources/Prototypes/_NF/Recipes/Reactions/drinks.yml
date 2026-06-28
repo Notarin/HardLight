@@ -114,7 +114,7 @@
     Everyspice:
       amount: 1
   products:
-    WassailMulledAle : 4
+    WassailMulledAle: 4
 
 - type: reaction
   id: Eggnog

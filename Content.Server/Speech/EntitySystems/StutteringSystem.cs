@@ -9,19 +9,29 @@ namespace Content.Server.Speech.EntitySystems
 {
     public sealed class StutteringSystem : SharedStutteringSystem
     {
-        [Dependency] private readonly StatusEffectsSystem _statusEffectsSystem = default!;
-        [Dependency] private readonly IRobustRandom _random = default!;
+        [Dependency]
+        private readonly StatusEffectsSystem _statusEffectsSystem = default!;
+
+        [Dependency]
+        private readonly IRobustRandom _random = default!;
 
         // Regex of characters to stutter.
-        private static readonly Regex Stutter = new(@"[b-df-hj-np-tv-wxyz]",
-            RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        private static readonly Regex Stutter = new(
+            @"[b-df-hj-np-tv-wxyz]",
+            RegexOptions.Compiled | RegexOptions.IgnoreCase
+        );
 
         public override void Initialize()
         {
             SubscribeLocalEvent<StutteringAccentComponent, AccentGetEvent>(OnAccent);
         }
 
-        public override void DoStutter(EntityUid uid, TimeSpan time, bool refresh, StatusEffectsComponent? status = null)
+        public override void DoStutter(
+            EntityUid uid,
+            TimeSpan time,
+            bool refresh,
+            StatusEffectsComponent? status = null
+        )
         {
             if (!Resolve(uid, ref status, false))
                 return;

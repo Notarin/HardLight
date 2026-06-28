@@ -11,7 +11,13 @@ public sealed partial class RecipeControl : Control
     public Action<string>? OnButtonPressed;
     public Func<string> TooltipTextSupplier;
 
-    public RecipeControl(LatheSystem latheSystem, LatheRecipePrototype recipe, Func<string> tooltipTextSupplier, bool canProduce, Control displayControl)
+    public RecipeControl(
+        LatheSystem latheSystem,
+        LatheRecipePrototype recipe,
+        Func<string> tooltipTextSupplier,
+        bool canProduce,
+        Control displayControl
+    )
     {
         RobustXamlLoader.Load(this);
 

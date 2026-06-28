@@ -20,9 +20,7 @@ public sealed partial class SelectableBorgModuleComponent : Component
     public EntityUid? ModuleSwapActionEntity;
 }
 
-public sealed partial class BorgModuleActionSelectedEvent : InstantActionEvent
-{
-}
+public sealed partial class BorgModuleActionSelectedEvent : InstantActionEvent { }
 
 /// <summary>
 /// Event raised by-ref on a module when it is selected

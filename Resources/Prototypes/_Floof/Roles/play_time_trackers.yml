@@ -3,12 +3,12 @@
 
 - type: playTimeTracker
   id: JobInventorySpecialist
-  
+
 - type: playTimeTracker
   id: JobFreelancer
-  
-# - type: playTimeTracker
-  # id: JobServiceQuadBorg
 
 # - type: playTimeTracker
-  # id: JobMedicalQuadBorg
+# id: JobServiceQuadBorg
+
+# - type: playTimeTracker
+# id: JobMedicalQuadBorg

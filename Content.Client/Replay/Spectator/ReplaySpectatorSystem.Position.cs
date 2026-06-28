@@ -79,7 +79,7 @@ public sealed partial class ReplaySpectatorSystem
         if (_player.LocalUser != DefaultUser)
             return; // Already spectating some session.
 
-        if (_player.LocalEntity is not {} uid)
+        if (_player.LocalEntity is not { } uid)
             return;
 
         var netEnt = GetNetEntity(uid);
@@ -108,8 +108,7 @@ public sealed partial class ReplaySpectatorSystem
         {
             // the "local player" is currently set to some recorded session. As long as that session has an entity, we
             // do nothing here
-            if (_player.TryGetSessionById(data.Controller, out var session)
-                && Exists(session.AttachedEntity))
+            if (_player.TryGetSessionById(data.Controller, out var session) && Exists(session.AttachedEntity))
             {
                 _player.SetLocalSession(session);
                 return;
@@ -177,7 +176,7 @@ public sealed partial class ReplaySpectatorSystem
                 continue;
 
             if (!station && stationFound)
-               continue;
+                continue;
 
             maxUid = (uid, grid);
             maxSize = size;

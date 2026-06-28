@@ -1,17 +1,17 @@
 - type: soundCollection
   id: ProtoHumanMSneezes
   files:
-    - /Audio/_FarHorizons/Voice/Proto/Human/male_sneeze_1.ogg
+  - /Audio/_FarHorizons/Voice/Proto/Human/male_sneeze_1.ogg
 
 - type: soundCollection
   id: ProtoHumanFSneezes
   files:
-    - /Audio/_FarHorizons/Voice/Proto/Human/female_sneeze_1.ogg
+  - /Audio/_FarHorizons/Voice/Proto/Human/female_sneeze_1.ogg
 
 - type: soundCollection
   id: ProtoVoxSneezes
   files:
-    - /Audio/_FarHorizons/Voice/Proto/Vox/vox_sneeze.ogg
+  - /Audio/_FarHorizons/Voice/Proto/Vox/vox_sneeze.ogg
 
 - type: soundCollection
   id: ProtoHumanMCoughs

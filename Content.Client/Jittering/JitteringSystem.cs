@@ -8,9 +8,14 @@ namespace Content.Client.Jittering
 {
     public sealed class JitteringSystem : SharedJitteringSystem
     {
-        [Dependency] private readonly IRobustRandom _random = default!;
-        [Dependency] private readonly AnimationPlayerSystem _animationPlayer = default!;
-        [Dependency] private readonly SpriteSystem _sprite = default!;
+        [Dependency]
+        private readonly IRobustRandom _random = default!;
+
+        [Dependency]
+        private readonly AnimationPlayerSystem _animationPlayer = default!;
+
+        [Dependency]
+        private readonly SpriteSystem _sprite = default!;
 
         private readonly float[] _sign = { -1, 1 };
         private readonly string _jitterAnimationKey = "jittering";
@@ -52,22 +57,27 @@ namespace Content.Client.Jittering
             if (!args.Finished)
                 return;
 
-            if (TryComp(uid, out AnimationPlayerComponent? animationPlayer)
-                && TryComp(uid, out SpriteComponent? sprite))
+            if (
+                TryComp(uid, out AnimationPlayerComponent? animationPlayer) && TryComp(uid, out SpriteComponent? sprite)
+            )
                 _animationPlayer.Play((uid, animationPlayer), GetAnimation(jittering, sprite), _jitterAnimationKey);
         }
 
         private Animation GetAnimation(JitteringComponent jittering, SpriteComponent sprite)
         {
             var amplitude = MathF.Min(4f, jittering.Amplitude / 100f + 1f) / 10f;
-            var offset = new Vector2(_random.NextFloat(amplitude / 4f, amplitude),
-                _random.NextFloat(amplitude / 4f, amplitude / 3f));
+            var offset = new Vector2(
+                _random.NextFloat(amplitude / 4f, amplitude),
+                _random.NextFloat(amplitude / 4f, amplitude / 3f)
+            );
 
             offset.X *= _random.Pick(_sign);
             offset.Y *= _random.Pick(_sign);
 
-            if (Math.Sign(offset.X) == Math.Sign(jittering.LastJitter.X)
-                || Math.Sign(offset.Y) == Math.Sign(jittering.LastJitter.Y))
+            if (
+                Math.Sign(offset.X) == Math.Sign(jittering.LastJitter.X)
+                || Math.Sign(offset.Y) == Math.Sign(jittering.LastJitter.Y)
+            )
             {
                 // If the sign is the same as last time on both axis we flip one randomly
                 // to avoid jitter staying in one quadrant too much.
@@ -97,9 +107,9 @@ namespace Content.Client.Jittering
                         {
                             new AnimationTrackProperty.KeyFrame(sprite.Offset, 0f),
                             new AnimationTrackProperty.KeyFrame(jittering.StartOffset + offset, length),
-                        }
-                    }
-                }
+                        },
+                    },
+                },
             };
         }
     }

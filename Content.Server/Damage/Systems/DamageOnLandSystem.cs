@@ -9,7 +9,8 @@ namespace Content.Server.Damage.Systems
     /// </summary>
     public sealed class DamageOnLandSystem : EntitySystem
     {
-        [Dependency] private readonly DamageableSystem _damageableSystem = default!;
+        [Dependency]
+        private readonly DamageableSystem _damageableSystem = default!;
 
         public override void Initialize()
         {

@@ -15,9 +15,15 @@ namespace Content.Server.StationEvents.Events
     [UsedImplicitly]
     public sealed class PowerGridCheckRule : StationEventSystem<PowerGridCheckRuleComponent>
     {
-        [Dependency] private readonly ApcSystem _apcSystem = default!;
+        [Dependency]
+        private readonly ApcSystem _apcSystem = default!;
 
-        protected override void Started(EntityUid uid, PowerGridCheckRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
+        protected override void Started(
+            EntityUid uid,
+            PowerGridCheckRuleComponent component,
+            GameRuleComponent gameRule,
+            GameRuleStartedEvent args
+        )
         {
             base.Started(uid, component, gameRule, args);
 
@@ -27,9 +33,12 @@ namespace Content.Server.StationEvents.Events
             component.AffectedStation = chosenStation.Value;
 
             var query = AllEntityQuery<ApcComponent, TransformComponent>();
-            while (query.MoveNext(out var apcUid ,out var apc, out var transform))
+            while (query.MoveNext(out var apcUid, out var apc, out var transform))
             {
-                if (apc.MainBreakerEnabled && CompOrNull<StationMemberComponent>(transform.GridUid)?.Station == chosenStation)
+                if (
+                    apc.MainBreakerEnabled
+                    && CompOrNull<StationMemberComponent>(transform.GridUid)?.Station == chosenStation
+                )
                     component.Powered.Add(apcUid);
             }
 
@@ -38,7 +47,12 @@ namespace Content.Server.StationEvents.Events
             component.NumberPerSecond = Math.Max(1, (int)(component.Powered.Count / component.SecondsUntilOff)); // Number of APCs to turn off every second. At least one.
         }
 
-        protected override void Ended(EntityUid uid, PowerGridCheckRuleComponent component, GameRuleComponent gameRule, GameRuleEndedEvent args)
+        protected override void Ended(
+            EntityUid uid,
+            PowerGridCheckRuleComponent component,
+            GameRuleComponent gameRule,
+            GameRuleEndedEvent args
+        )
         {
             base.Ended(uid, component, gameRule, args);
 
@@ -49,7 +63,7 @@ namespace Content.Server.StationEvents.Events
 
                 if (TryComp(entity, out ApcComponent? apcComponent))
                 {
-                    if(!apcComponent.MainBreakerEnabled)
+                    if (!apcComponent.MainBreakerEnabled)
                         _apcSystem.ApcToggleBreaker(entity, apcComponent);
                 }
             }
@@ -57,14 +71,23 @@ namespace Content.Server.StationEvents.Events
             // Can't use the default EndAudio
             component.AnnounceCancelToken?.Cancel();
             component.AnnounceCancelToken = new CancellationTokenSource();
-            Timer.Spawn(3000, () =>
-            {
-                Audio.PlayGlobal(component.PowerOnSound, Filter.Broadcast(), true);
-            }, component.AnnounceCancelToken.Token);
+            Timer.Spawn(
+                3000,
+                () =>
+                {
+                    Audio.PlayGlobal(component.PowerOnSound, Filter.Broadcast(), true);
+                },
+                component.AnnounceCancelToken.Token
+            );
             component.Unpowered.Clear();
         }
 
-        protected override void ActiveTick(EntityUid uid, PowerGridCheckRuleComponent component, GameRuleComponent gameRule, float frameTime)
+        protected override void ActiveTick(
+            EntityUid uid,
+            PowerGridCheckRuleComponent component,
+            GameRuleComponent gameRule,
+            float frameTime
+        )
         {
             base.ActiveTick(uid, component, gameRule, frameTime);
 
@@ -72,7 +95,7 @@ namespace Content.Server.StationEvents.Events
             component.FrameTimeAccumulator += frameTime;
             if (component.FrameTimeAccumulator > component.UpdateRate)
             {
-                updates = (int) (component.FrameTimeAccumulator / component.UpdateRate);
+                updates = (int)(component.FrameTimeAccumulator / component.UpdateRate);
                 component.FrameTimeAccumulator -= component.UpdateRate * updates;
             }
 

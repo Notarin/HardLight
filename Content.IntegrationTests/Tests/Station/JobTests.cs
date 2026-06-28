@@ -1,7 +1,7 @@
+using System.Linq;
 using Content.Shared.Roles;
 using Content.Shared.Roles.Jobs;
 using Robust.Shared.Prototypes;
-using System.Linq;
 
 namespace Content.IntegrationTests.Tests.Station;
 
@@ -24,7 +24,8 @@ public sealed class JobTest
         await server.WaitAssertion(() =>
         {
             // only checking primary departments so don't bother with others
-            var departments = prototypeManager.EnumeratePrototypes<DepartmentPrototype>()
+            var departments = prototypeManager
+                .EnumeratePrototypes<DepartmentPrototype>()
                 .Where(department => department.Primary)
                 .ToList();
             var jobs = prototypeManager.EnumeratePrototypes<JobPrototype>();

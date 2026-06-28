@@ -15,7 +15,11 @@ public sealed class WelderStatusControl : PollingItemStatusControl<WelderStatusC
     private readonly SharedToolSystem _toolSystem;
     private readonly RichTextLabel _label;
 
-    public WelderStatusControl(Entity<WelderComponent> parent, IEntityManager entityManager, SharedToolSystem toolSystem)
+    public WelderStatusControl(
+        Entity<WelderComponent> parent,
+        IEntityManager entityManager,
+        SharedToolSystem toolSystem
+    )
     {
         _parent = parent;
         _entityManager = entityManager;
@@ -34,11 +38,22 @@ public sealed class WelderStatusControl : PollingItemStatusControl<WelderStatusC
 
     protected override void Update(in Data data)
     {
-        _label.SetMarkup(Loc.GetString("welder-component-on-examine-detailed-message",
-            ("colorName", data.Fuel < data.FuelCapacity / 4f ? "darkorange" : "orange"),
-            ("fuelLeft", data.Fuel),
-            ("fuelCapacity", data.FuelCapacity),
-            ("status", Loc.GetString(data.Lit ? "welder-component-on-examine-welder-lit-message" : "welder-component-on-examine-welder-not-lit-message"))));
+        _label.SetMarkup(
+            Loc.GetString(
+                "welder-component-on-examine-detailed-message",
+                ("colorName", data.Fuel < data.FuelCapacity / 4f ? "darkorange" : "orange"),
+                ("fuelLeft", data.Fuel),
+                ("fuelCapacity", data.FuelCapacity),
+                (
+                    "status",
+                    Loc.GetString(
+                        data.Lit
+                            ? "welder-component-on-examine-welder-lit-message"
+                            : "welder-component-on-examine-welder-not-lit-message"
+                    )
+                )
+            )
+        );
     }
 
     public record struct Data(FixedPoint2 Fuel, FixedPoint2 FuelCapacity, bool Lit);

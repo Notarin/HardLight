@@ -6,7 +6,8 @@ namespace Content.Shared._EinsteinEngines.Contests // Goob Edit
 {
     public sealed partial class ContestsSystem : EntitySystem
     {
-        [Dependency] private readonly IConfigurationManager _cfg = default!;
+        [Dependency]
+        private readonly IConfigurationManager _cfg = default!;
 
         /// <summary>
         ///     The presumed average mass of a player entity
@@ -21,10 +22,16 @@ namespace Content.Shared._EinsteinEngines.Contests // Goob Edit
         /// <param name="performerUid">Uid of Performer</param>
         public float MassContest(EntityUid performerUid, float otherMass = AverageMass)
         {
-            if (_cfg.GetCVar(CCVars.DoMassContests) // Goob edit
+            if (
+                _cfg.GetCVar(CCVars.DoMassContests) // Goob edit
                 && TryComp<PhysicsComponent>(performerUid, out var performerPhysics)
-                && performerPhysics.Mass != 0)
-                return Math.Clamp(performerPhysics.Mass / otherMass, 1 - _cfg.GetCVar(CCVars.MassContestsMaxPercentage), 1 + _cfg.GetCVar(CCVars.MassContestsMaxPercentage));// Goob edit
+                && performerPhysics.Mass != 0
+            )
+                return Math.Clamp(
+                    performerPhysics.Mass / otherMass,
+                    1 - _cfg.GetCVar(CCVars.MassContestsMaxPercentage),
+                    1 + _cfg.GetCVar(CCVars.MassContestsMaxPercentage)
+                ); // Goob edit
 
             return 1f;
         }
@@ -51,9 +58,15 @@ namespace Content.Shared._EinsteinEngines.Contests // Goob Edit
         /// <param name="performerPhysics"></param>
         public float MassContest(PhysicsComponent performerPhysics, float otherMass = AverageMass)
         {
-            if (_cfg.GetCVar(CCVars.DoMassContests) // Goob edit
-                && performerPhysics.Mass != 0)
-                return Math.Clamp(performerPhysics.Mass / otherMass, 1 - _cfg.GetCVar(CCVars.MassContestsMaxPercentage), 1 + _cfg.GetCVar(CCVars.MassContestsMaxPercentage));
+            if (
+                _cfg.GetCVar(CCVars.DoMassContests) // Goob edit
+                && performerPhysics.Mass != 0
+            )
+                return Math.Clamp(
+                    performerPhysics.Mass / otherMass,
+                    1 - _cfg.GetCVar(CCVars.MassContestsMaxPercentage),
+                    1 + _cfg.GetCVar(CCVars.MassContestsMaxPercentage)
+                );
 
             return 1f;
         }
@@ -66,12 +79,18 @@ namespace Content.Shared._EinsteinEngines.Contests // Goob Edit
         /// <param name="targetUid"></param>
         public float MassContest(EntityUid performerUid, EntityUid targetUid)
         {
-            if (_cfg.GetCVar(CCVars.DoMassContests) // Goob edit
+            if (
+                _cfg.GetCVar(CCVars.DoMassContests) // Goob edit
                 && TryComp<PhysicsComponent>(performerUid, out var performerPhysics)
                 && TryComp<PhysicsComponent>(targetUid, out var targetPhysics)
                 && performerPhysics.Mass != 0
-                && targetPhysics.InvMass != 0)
-                return Math.Clamp(performerPhysics.Mass * targetPhysics.InvMass, 1 - _cfg.GetCVar(CCVars.MassContestsMaxPercentage), 1 + _cfg.GetCVar(CCVars.MassContestsMaxPercentage)); // Goob edit
+                && targetPhysics.InvMass != 0
+            )
+                return Math.Clamp(
+                    performerPhysics.Mass * targetPhysics.InvMass,
+                    1 - _cfg.GetCVar(CCVars.MassContestsMaxPercentage),
+                    1 + _cfg.GetCVar(CCVars.MassContestsMaxPercentage)
+                ); // Goob edit
 
             return 1f; // Goob edit
         }
@@ -79,11 +98,17 @@ namespace Content.Shared._EinsteinEngines.Contests // Goob Edit
         /// <inheritdoc cref="MassContest(EntityUid, EntityUid)"/>
         public float MassContest(EntityUid performerUid, PhysicsComponent targetPhysics)
         {
-            if (_cfg.GetCVar(CCVars.DoMassContests) // Goob edit
+            if (
+                _cfg.GetCVar(CCVars.DoMassContests) // Goob edit
                 && TryComp<PhysicsComponent>(performerUid, out var performerPhysics)
                 && performerPhysics.Mass != 0
-                && targetPhysics.InvMass != 0)
-                return Math.Clamp(performerPhysics.Mass * targetPhysics.InvMass, 1 - _cfg.GetCVar(CCVars.MassContestsMaxPercentage), 1 + _cfg.GetCVar(CCVars.MassContestsMaxPercentage));
+                && targetPhysics.InvMass != 0
+            )
+                return Math.Clamp(
+                    performerPhysics.Mass * targetPhysics.InvMass,
+                    1 - _cfg.GetCVar(CCVars.MassContestsMaxPercentage),
+                    1 + _cfg.GetCVar(CCVars.MassContestsMaxPercentage)
+                );
 
             return 1f;
         }
@@ -91,11 +116,17 @@ namespace Content.Shared._EinsteinEngines.Contests // Goob Edit
         /// <inheritdoc cref="MassContest(EntityUid, EntityUid)"/>
         public float MassContest(PhysicsComponent performerPhysics, EntityUid targetUid)
         {
-            if (_cfg.GetCVar(CCVars.DoMassContests) // Goob edit
+            if (
+                _cfg.GetCVar(CCVars.DoMassContests) // Goob edit
                 && TryComp<PhysicsComponent>(targetUid, out var targetPhysics)
                 && performerPhysics.Mass != 0
-                && targetPhysics.InvMass != 0)
-                return Math.Clamp(performerPhysics.Mass * targetPhysics.InvMass, 1 - _cfg.GetCVar(CCVars.MassContestsMaxPercentage), 1 + _cfg.GetCVar(CCVars.MassContestsMaxPercentage)); // Goob edit
+                && targetPhysics.InvMass != 0
+            )
+                return Math.Clamp(
+                    performerPhysics.Mass * targetPhysics.InvMass,
+                    1 - _cfg.GetCVar(CCVars.MassContestsMaxPercentage),
+                    1 + _cfg.GetCVar(CCVars.MassContestsMaxPercentage)
+                ); // Goob edit
 
             return 1f;
         }
@@ -103,10 +134,16 @@ namespace Content.Shared._EinsteinEngines.Contests // Goob Edit
         /// <inheritdoc cref="MassContest(EntityUid, EntityUid)"/>
         public float MassContest(PhysicsComponent performerPhysics, PhysicsComponent targetPhysics)
         {
-            if (_cfg.GetCVar(CCVars.DoMassContests) // Goob edit
+            if (
+                _cfg.GetCVar(CCVars.DoMassContests) // Goob edit
                 && performerPhysics.Mass != 0
-                && targetPhysics.InvMass != 0)
-                return Math.Clamp(performerPhysics.Mass * targetPhysics.InvMass, 1 - _cfg.GetCVar(CCVars.MassContestsMaxPercentage), 1 + _cfg.GetCVar(CCVars.MassContestsMaxPercentage)); // Goob edit
+                && targetPhysics.InvMass != 0
+            )
+                return Math.Clamp(
+                    performerPhysics.Mass * targetPhysics.InvMass,
+                    1 - _cfg.GetCVar(CCVars.MassContestsMaxPercentage),
+                    1 + _cfg.GetCVar(CCVars.MassContestsMaxPercentage)
+                ); // Goob edit
 
             return 1f;
         }

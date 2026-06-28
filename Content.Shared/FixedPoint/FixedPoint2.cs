@@ -33,7 +33,7 @@ namespace Content.Shared.FixedPoint
 
         private readonly double ShiftDown()
         {
-            return Value / (double) ShiftConstant;
+            return Value / (double)ShiftConstant;
         }
 
         private FixedPoint2(int value)
@@ -52,7 +52,7 @@ namespace Content.Shared.FixedPoint
 
         public static FixedPoint2 New(float value)
         {
-            return new((int) ApplyFloatEpsilon(value * ShiftConstant));
+            return new((int)ApplyFloatEpsilon(value * ShiftConstant));
         }
 
         private static float ApplyFloatEpsilon(float value)
@@ -70,12 +70,12 @@ namespace Content.Shared.FixedPoint
         /// </summary>
         public static FixedPoint2 NewCeiling(float value)
         {
-            return new((int) MathF.Ceiling(value * ShiftConstant));
+            return new((int)MathF.Ceiling(value * ShiftConstant));
         }
 
         public static FixedPoint2 New(double value)
         {
-            return new((int) ApplyFloatEpsilon(value * ShiftConstant));
+            return new((int)ApplyFloatEpsilon(value * ShiftConstant));
         }
 
         public static FixedPoint2 New(string value)
@@ -87,11 +87,9 @@ namespace Content.Shared.FixedPoint
 
         public static FixedPoint2 operator -(FixedPoint2 a) => new(-a.Value);
 
-        public static FixedPoint2 operator +(FixedPoint2 a, FixedPoint2 b)
-            => new(a.Value + b.Value);
+        public static FixedPoint2 operator +(FixedPoint2 a, FixedPoint2 b) => new(a.Value + b.Value);
 
-        public static FixedPoint2 operator -(FixedPoint2 a, FixedPoint2 b)
-            => new(a.Value - b.Value);
+        public static FixedPoint2 operator -(FixedPoint2 a, FixedPoint2 b) => new(a.Value - b.Value);
 
         public static FixedPoint2 operator *(FixedPoint2 a, FixedPoint2 b)
         {
@@ -100,12 +98,12 @@ namespace Content.Shared.FixedPoint
 
         public static FixedPoint2 operator *(FixedPoint2 a, float b)
         {
-            return new((int) ApplyFloatEpsilon(a.Value * b));
+            return new((int)ApplyFloatEpsilon(a.Value * b));
         }
 
         public static FixedPoint2 operator *(FixedPoint2 a, double b)
         {
-            return new((int) ApplyFloatEpsilon(a.Value * b));
+            return new((int)ApplyFloatEpsilon(a.Value * b));
         }
 
         public static FixedPoint2 operator *(FixedPoint2 a, int b)
@@ -115,12 +113,12 @@ namespace Content.Shared.FixedPoint
 
         public static FixedPoint2 operator /(FixedPoint2 a, FixedPoint2 b)
         {
-            return new((int) (ShiftConstant * (long) a.Value / b.Value));
+            return new((int)(ShiftConstant * (long)a.Value / b.Value));
         }
 
         public static FixedPoint2 operator /(FixedPoint2 a, float b)
         {
-            return new((int) ApplyFloatEpsilon(a.Value / b));
+            return new((int)ApplyFloatEpsilon(a.Value / b));
         }
 
         public static bool operator <=(FixedPoint2 a, int b)
@@ -185,7 +183,7 @@ namespace Content.Shared.FixedPoint
 
         public readonly float Float()
         {
-            return (float) ShiftDown();
+            return (float)ShiftDown();
         }
 
         public readonly double Double()
@@ -200,11 +198,15 @@ namespace Content.Shared.FixedPoint
 
         // Implicit operators ftw
         public static implicit operator FixedPoint2(float n) => FixedPoint2.New(n);
+
         public static implicit operator FixedPoint2(double n) => FixedPoint2.New(n);
+
         public static implicit operator FixedPoint2(int n) => FixedPoint2.New(n);
 
         public static explicit operator float(FixedPoint2 n) => n.Float();
+
         public static explicit operator double(FixedPoint2 n) => n.Double();
+
         public static explicit operator int(FixedPoint2 n) => n.Int();
 
         public static FixedPoint2 Min(params FixedPoint2[] fixedPoints)
@@ -254,13 +256,14 @@ namespace Content.Shared.FixedPoint
                 throw new ArgumentException($"{nameof(min)} {min} cannot be larger than {nameof(max)} {max}");
             }
 
-            return number < min ? min : number > max ? max : number;
+            return number < min ? min
+                : number > max ? max
+                : number;
         }
 
         public override readonly bool Equals(object? obj)
         {
-            return obj is FixedPoint2 unit &&
-                   Value == unit.Value;
+            return obj is FixedPoint2 unit && Value == unit.Value;
         }
 
         public override readonly int GetHashCode()
@@ -313,7 +316,6 @@ namespace Content.Shared.FixedPoint
             }
             return 0;
         }
-
     }
 
     public static class FixedPoint2EnumerableExt

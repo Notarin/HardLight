@@ -27,15 +27,32 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
     [UsedImplicitly]
     public sealed class GasVentScrubberSystem : EntitySystem
     {
-        [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-        [Dependency] private readonly AtmosphereSystem _atmosphereSystem = default!;
-        [Dependency] private readonly DeviceNetworkSystem _deviceNetSystem = default!;
-        [Dependency] private readonly NodeContainerSystem _nodeContainer = default!;
-        [Dependency] private readonly SharedAmbientSoundSystem _ambientSoundSystem = default!;
-        [Dependency] private readonly TransformSystem _transformSystem = default!;
-        [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-        [Dependency] private readonly WeldableSystem _weldable = default!;
-        [Dependency] private readonly PowerReceiverSystem _powerReceiverSystem = default!;
+        [Dependency]
+        private readonly ISharedAdminLogManager _adminLogger = default!;
+
+        [Dependency]
+        private readonly AtmosphereSystem _atmosphereSystem = default!;
+
+        [Dependency]
+        private readonly DeviceNetworkSystem _deviceNetSystem = default!;
+
+        [Dependency]
+        private readonly NodeContainerSystem _nodeContainer = default!;
+
+        [Dependency]
+        private readonly SharedAmbientSoundSystem _ambientSoundSystem = default!;
+
+        [Dependency]
+        private readonly TransformSystem _transformSystem = default!;
+
+        [Dependency]
+        private readonly SharedAppearanceSystem _appearance = default!;
+
+        [Dependency]
+        private readonly WeldableSystem _weldable = default!;
+
+        [Dependency]
+        private readonly PowerReceiverSystem _powerReceiverSystem = default!;
 
         public override void Initialize()
         {
@@ -50,7 +67,11 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
             SubscribeLocalEvent<GasVentScrubberComponent, WeldableChangedEvent>(OnWeldChanged);
         }
 
-        private void OnVentScrubberUpdated(EntityUid uid, GasVentScrubberComponent scrubber, ref AtmosDeviceUpdateEvent args)
+        private void OnVentScrubberUpdated(
+            EntityUid uid,
+            GasVentScrubberComponent scrubber,
+            ref AtmosDeviceUpdateEvent args
+        )
         {
             if (_weldable.IsWelded(uid))
                 return;
@@ -63,7 +84,7 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
             if (!scrubber.Enabled || !_nodeContainer.TryGetNode(uid, scrubber.OutletName, out PipeNode? outlet))
                 return;
 
-            if (args.Grid is not {} grid)
+            if (args.Grid is not { } grid)
                 return;
 
             // Frontier: check running gas extraction
@@ -87,25 +108,48 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
             }
         }
 
-        private void OnVentScrubberLeaveAtmosphere(EntityUid uid, GasVentScrubberComponent component,
-            AtmosDeviceDisabledEvent args) => UpdateState(uid, component);
+        private void OnVentScrubberLeaveAtmosphere(
+            EntityUid uid,
+            GasVentScrubberComponent component,
+            AtmosDeviceDisabledEvent args
+        ) => UpdateState(uid, component);
 
-        private void OnVentScrubberEnterAtmosphere(EntityUid uid, GasVentScrubberComponent component,
-            AtmosDeviceEnabledEvent args) => UpdateState(uid, component);
+        private void OnVentScrubberEnterAtmosphere(
+            EntityUid uid,
+            GasVentScrubberComponent component,
+            AtmosDeviceEnabledEvent args
+        ) => UpdateState(uid, component);
 
         private void Scrub(float timeDelta, GasVentScrubberComponent scrubber, GasMixture? tile, PipeNode outlet)
         {
-                Scrub(timeDelta, scrubber.TransferRate*_atmosphereSystem.PumpSpeedup(), scrubber.PumpDirection, scrubber.FilterGases, tile, outlet.Air, scrubber.MaxPressure, scrubber.HighFlow);
+            Scrub(
+                timeDelta,
+                scrubber.TransferRate * _atmosphereSystem.PumpSpeedup(),
+                scrubber.PumpDirection,
+                scrubber.FilterGases,
+                tile,
+                outlet.Air,
+                scrubber.MaxPressure,
+                scrubber.HighFlow
+            );
         }
 
         /// <summary>
         /// True if we were able to scrub, false if we were not.
         /// </summary>
-        public bool Scrub(float timeDelta, float transferRate, ScrubberPumpDirection mode, HashSet<Gas> filterGases, GasMixture? tile, GasMixture destination, float maxPressure, bool highFlow)
+        public bool Scrub(
+            float timeDelta,
+            float transferRate,
+            ScrubberPumpDirection mode,
+            HashSet<Gas> filterGases,
+            GasMixture? tile,
+            GasMixture destination,
+            float maxPressure,
+            bool highFlow
+        )
         {
             // Cannot scrub if tile is null or air-blocked.
-            if (tile == null
-                || destination.Pressure >= 50 * Atmospherics.OneAtmosphere) // Cannot scrub if pressure too high.
+            if (tile == null || destination.Pressure >= 50 * Atmospherics.OneAtmosphere) // Cannot scrub if pressure too high.
             {
                 return false;
             }
@@ -125,7 +169,8 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
                 foreach (var gas in filterGases)
                 {
                     var amount = removed.GetMoles(gas);
-                    if (amount <= 0f) continue;
+                    if (amount <= 0f)
+                        continue;
                     filteredOut.SetMoles(gas, amount);
                     removed.SetMoles(gas, 0f);
                 }
@@ -195,8 +240,10 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
 
         private void OnPacketRecv(EntityUid uid, GasVentScrubberComponent component, DeviceNetworkPacketEvent args)
         {
-            if (!EntityManager.TryGetComponent(uid, out DeviceNetworkComponent? netConn)
-                || !args.Data.TryGetValue(DeviceNetworkConstants.Command, out var cmd))
+            if (
+                !EntityManager.TryGetComponent(uid, out DeviceNetworkComponent? netConn)
+                || !args.Data.TryGetValue(DeviceNetworkConstants.Command, out var cmd)
+            )
                 return;
 
             var payload = new NetworkPayload();
@@ -218,23 +265,39 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
 
                     if (previous.Enabled != setData.Enabled)
                     {
-                        string enabled = setData.Enabled ? "enabled" : "disabled" ;
-                        _adminLogger.Add(LogType.AtmosDeviceSetting, LogImpact.Medium, $"{ToPrettyString(uid)} {enabled}");
+                        string enabled = setData.Enabled ? "enabled" : "disabled";
+                        _adminLogger.Add(
+                            LogType.AtmosDeviceSetting,
+                            LogImpact.Medium,
+                            $"{ToPrettyString(uid)} {enabled}"
+                        );
                     }
 
                     // TODO: IgnoreAlarms?
 
                     if (previous.PumpDirection != setData.PumpDirection)
-                        _adminLogger.Add(LogType.AtmosDeviceSetting, LogImpact.Medium, $"{ToPrettyString(uid)} direction changed to {setData.PumpDirection}");
+                        _adminLogger.Add(
+                            LogType.AtmosDeviceSetting,
+                            LogImpact.Medium,
+                            $"{ToPrettyString(uid)} direction changed to {setData.PumpDirection}"
+                        );
 
                     // TODO: This is iterating through both sets, it could probably be faster but they're both really small sets anyways
                     foreach (Gas gas in previous.FilterGases)
                         if (!setData.FilterGases.Contains(gas))
-                            _adminLogger.Add(LogType.AtmosDeviceSetting, LogImpact.Medium, $"{ToPrettyString(uid)} {gas} filtering disabled");
+                            _adminLogger.Add(
+                                LogType.AtmosDeviceSetting,
+                                LogImpact.Medium,
+                                $"{ToPrettyString(uid)} {gas} filtering disabled"
+                            );
 
                     foreach (Gas gas in setData.FilterGases)
                         if (!previous.FilterGases.Contains(gas))
-                            _adminLogger.Add(LogType.AtmosDeviceSetting, LogImpact.Medium, $"{ToPrettyString(uid)} {gas} filtering enabled");
+                            _adminLogger.Add(
+                                LogType.AtmosDeviceSetting,
+                                LogImpact.Medium,
+                                $"{ToPrettyString(uid)} {gas} filtering enabled"
+                            );
 
                     if (previous.VolumeRate != setData.VolumeRate)
                     {
@@ -247,8 +310,12 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
 
                     if (previous.WideNet != setData.WideNet)
                     {
-                        string enabled = setData.WideNet ? "enabled" : "disabled" ;
-                        _adminLogger.Add(LogType.AtmosDeviceSetting, LogImpact.Medium, $"{ToPrettyString(uid)} WideNet {enabled}");
+                        string enabled = setData.WideNet ? "enabled" : "disabled";
+                        _adminLogger.Add(
+                            LogType.AtmosDeviceSetting,
+                            LogImpact.Medium,
+                            $"{ToPrettyString(uid)} WideNet {enabled}"
+                        );
                     }
 
                     component.FromAirAlarmData(setData);
@@ -261,8 +328,11 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
         /// <summary>
         ///     Updates a scrubber's appearance and ambience state.
         /// </summary>
-        private void UpdateState(EntityUid uid, GasVentScrubberComponent scrubber,
-            AppearanceComponent? appearance = null)
+        private void UpdateState(
+            EntityUid uid,
+            GasVentScrubberComponent scrubber,
+            AppearanceComponent? appearance = null
+        )
         {
             if (!Resolve(uid, ref appearance, false))
                 return;
@@ -280,7 +350,12 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
             }
             else if (scrubber.PumpDirection == ScrubberPumpDirection.Scrubbing)
             {
-                _appearance.SetData(uid, ScrubberVisuals.State, scrubber.WideNet ? ScrubberState.WideScrub : ScrubberState.Scrub, appearance);
+                _appearance.SetData(
+                    uid,
+                    ScrubberVisuals.State,
+                    scrubber.WideNet ? ScrubberState.WideScrub : ScrubberState.Scrub,
+                    appearance
+                );
             }
             else if (scrubber.PumpDirection == ScrubberPumpDirection.Siphoning)
             {

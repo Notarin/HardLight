@@ -1,19 +1,22 @@
-using JetBrains.Annotations;
 using Content.Client._Starlight.Language;
 using Content.Client.Gameplay;
 using Content.Client.UserInterface.Controls;
+using Content.Client.UserInterface.Systems.MenuBar.Widgets;
 using Content.Shared.Input;
+using JetBrains.Annotations;
 using Robust.Client.UserInterface.Controllers;
 using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Input.Binding;
 using Robust.Shared.Utility;
 using static Robust.Client.UserInterface.Controls.BaseButton;
-using Content.Client.UserInterface.Systems.MenuBar.Widgets;
 
 namespace Content.Client._Starlight.UserInterface.Systems.Language;
 
 [UsedImplicitly]
-public sealed class LanguageMenuUIController : UIController, IOnStateEntered<GameplayState>, IOnStateExited<GameplayState>
+public sealed class LanguageMenuUIController
+    : UIController,
+        IOnStateEntered<GameplayState>,
+        IOnStateExited<GameplayState>
 {
     public LanguageMenuWindow? LanguageWindow;
     private MenuButton? LanguageButton => UIManager.GetActiveUIWidgetOrNull<GameTopMenuBar>()?.LanguageButton;
@@ -36,8 +39,9 @@ public sealed class LanguageMenuUIController : UIController, IOnStateEntered<Gam
                 LanguageButton.Pressed = true;
         };
 
-        CommandBinds.Builder.Bind(ContentKeyFunctions.OpenLanguageMenu,
-            InputCmdHandler.FromDelegate(_ => ToggleWindow())).Register<LanguageMenuUIController>();
+        CommandBinds
+            .Builder.Bind(ContentKeyFunctions.OpenLanguageMenu, InputCmdHandler.FromDelegate(_ => ToggleWindow()))
+            .Register<LanguageMenuUIController>();
     }
 
     public void OnStateExited(GameplayState state)

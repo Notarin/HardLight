@@ -17,7 +17,9 @@ public sealed class PowerNetConnectorSystem : EntitySystem
         SubscribeLocalEvent<ApcComponent, ComponentRemove>(OnRemove<ApcComponent, IApcNet>);
         SubscribeLocalEvent<ApcPowerProviderComponent, ComponentRemove>(OnRemove<ApcPowerProviderComponent, IApcNet>);
         SubscribeLocalEvent<BatteryChargerComponent, ComponentRemove>(OnRemove<BatteryChargerComponent, IPowerNet>);
-        SubscribeLocalEvent<BatteryDischargerComponent, ComponentRemove>(OnRemove<BatteryDischargerComponent, IPowerNet>);
+        SubscribeLocalEvent<BatteryDischargerComponent, ComponentRemove>(
+            OnRemove<BatteryDischargerComponent, IPowerNet>
+        );
         SubscribeLocalEvent<PowerConsumerComponent, ComponentRemove>(OnRemove<PowerConsumerComponent, IBasePowerNet>);
         SubscribeLocalEvent<PowerSupplierComponent, ComponentRemove>(OnRemove<PowerSupplierComponent, IBasePowerNet>);
     }
@@ -54,7 +56,8 @@ public sealed class PowerNetConnectorSystem : EntitySystem
         BaseNetConnectorInit(component);
     }
 
-    public void BaseNetConnectorInit<T>(BaseNetConnectorComponent<T> component) where T : class
+    public void BaseNetConnectorInit<T>(BaseNetConnectorComponent<T> component)
+        where T : class
     {
         if (component.NeedsNet)
         {

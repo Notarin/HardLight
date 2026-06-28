@@ -15,7 +15,7 @@
   - type: ContainerContainer
     containers:
       storagebase: !type:Container
-        ents: [ ]
+        ents: []
   - type: UserInterface
     interfaces:
       enum.StorageUiKey.Key:
@@ -54,5 +54,5 @@
     - Hair
     - HeadTop
     - HeadSide
-    unfoldedHideLayers: [ ]
+    unfoldedHideLayers: []
   - type: HideLayerClothing

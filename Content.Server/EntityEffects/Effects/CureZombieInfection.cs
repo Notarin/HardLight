@@ -1,7 +1,7 @@
 using Content.Server.Zombies;
 using Content.Shared.EntityEffects;
-using Robust.Shared.Prototypes;
 using Content.Shared.Zombies;
+using Robust.Shared.Prototypes;
 
 namespace Content.Server.EntityEffects.Effects;
 
@@ -12,7 +12,7 @@ public sealed partial class CureZombieInfection : EntityEffect
 
     protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys)
     {
-        if(Innoculate)
+        if (Innoculate)
             return Loc.GetString("reagent-effect-guidebook-innoculate-zombie-infection", ("chance", Probability));
 
         return Loc.GetString("reagent-effect-guidebook-cure-zombie-infection", ("chance", Probability));
@@ -34,4 +34,3 @@ public sealed partial class CureZombieInfection : EntityEffect
         }
     }
 }
-

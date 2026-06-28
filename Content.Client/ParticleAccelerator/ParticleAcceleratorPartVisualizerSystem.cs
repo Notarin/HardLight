@@ -5,9 +5,14 @@ namespace Content.Client.ParticleAccelerator;
 
 public sealed class ParticleAcceleratorPartVisualizerSystem : VisualizerSystem<ParticleAcceleratorPartVisualsComponent>
 {
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
-    protected override void OnAppearanceChange(EntityUid uid, ParticleAcceleratorPartVisualsComponent comp, ref AppearanceChangeEvent args)
+    protected override void OnAppearanceChange(
+        EntityUid uid,
+        ParticleAcceleratorPartVisualsComponent comp,
+        ref AppearanceChangeEvent args
+    )
     {
         if (args.Sprite == null)
             return;
@@ -15,7 +20,14 @@ public sealed class ParticleAcceleratorPartVisualizerSystem : VisualizerSystem<P
         if (!_sprite.LayerMapTryGet((uid, args.Sprite), ParticleAcceleratorVisualLayers.Unlit, out var index, false))
             return;
 
-        if (!AppearanceSystem.TryGetData<ParticleAcceleratorVisualState>(uid, ParticleAcceleratorVisuals.VisualState, out var state, args.Component))
+        if (
+            !AppearanceSystem.TryGetData<ParticleAcceleratorVisualState>(
+                uid,
+                ParticleAcceleratorVisuals.VisualState,
+                out var state,
+                args.Component
+            )
+        )
         {
             state = ParticleAcceleratorVisualState.Unpowered;
         }

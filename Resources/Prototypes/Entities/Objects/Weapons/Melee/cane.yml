@@ -43,13 +43,13 @@
       types:
         Slash: 14
     soundHit:
-        path: /Audio/Weapons/bladeslice.ogg
+      path: /Audio/Weapons/bladeslice.ogg
   - type: Item
     size: Normal
     sprite: Objects/Weapons/Melee/cane_blade.rsi
   - type: Tag
     tags:
-      - CaneBlade
+    - CaneBlade
   - type: DisarmMalus
 
 - type: entity

@@ -8,8 +8,11 @@ namespace Content.Server._DV.Abilities.Kitsune;
 
 public sealed class KitsuneFoxSystem : EntitySystem
 {
-    [Dependency] private readonly PolymorphSystem _polymorph = default!;
-    [Dependency] private readonly SharedStaminaSystem _stamina = default!; // HardLight: StaminSystem<SharedStaminaSystem
+    [Dependency]
+    private readonly PolymorphSystem _polymorph = default!;
+
+    [Dependency]
+    private readonly SharedStaminaSystem _stamina = default!; // HardLight: StaminSystem<SharedStaminaSystem
 
     public override void Initialize()
     {

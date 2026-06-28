@@ -7,10 +7,8 @@ public sealed class StationAiCustomizationBoundUserInterface : BoundUserInterfac
 {
     private StationAiCustomizationMenu? _menu;
 
-    public StationAiCustomizationBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-
-    }
+    public StationAiCustomizationBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {
@@ -23,7 +21,10 @@ public sealed class StationAiCustomizationBoundUserInterface : BoundUserInterfac
         _menu.SendStationAiCustomizationMessageAction += SendStationAiCustomizationMessage;
     }
 
-    public void SendStationAiCustomizationMessage(ProtoId<StationAiCustomizationGroupPrototype> groupProtoId, ProtoId<StationAiCustomizationPrototype> customizationProtoId)
+    public void SendStationAiCustomizationMessage(
+        ProtoId<StationAiCustomizationGroupPrototype> groupProtoId,
+        ProtoId<StationAiCustomizationPrototype> customizationProtoId
+    )
     {
         SendPredictedMessage(new StationAiCustomizationMessage(groupProtoId, customizationProtoId));
     }

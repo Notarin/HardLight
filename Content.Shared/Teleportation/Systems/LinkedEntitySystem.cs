@@ -12,7 +12,8 @@ namespace Content.Shared.Teleportation.Systems;
 /// </summary>
 public sealed class LinkedEntitySystem : EntitySystem
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -59,7 +60,11 @@ public sealed class LinkedEntitySystem : EntitySystem
         // Remove any links to this entity when deleted.
         foreach (var ent in component.LinkedEntities.ToArray())
         {
-            if (!Deleted(ent) && LifeStage(ent) < EntityLifeStage.Terminating && TryComp<LinkedEntityComponent>(ent, out var link))
+            if (
+                !Deleted(ent)
+                && LifeStage(ent) < EntityLifeStage.Terminating
+                && TryComp<LinkedEntityComponent>(ent, out var link)
+            )
             {
                 TryUnlink(uid, ent, component, link);
             }
@@ -76,7 +81,7 @@ public sealed class LinkedEntitySystem : EntitySystem
     /// <param name="second">The second entity to link</param>
     /// <param name="deleteOnEmptyLinks">Whether both entities should now delete once their links are removed</param>
     /// <returns>Whether linking was successful (e.g. they weren't already linked)</returns>
-    public bool TryLink(EntityUid first, EntityUid second, bool deleteOnEmptyLinks=false)
+    public bool TryLink(EntityUid first, EntityUid second, bool deleteOnEmptyLinks = false)
     {
         var firstLink = EnsureComp<LinkedEntityComponent>(first);
         var secondLink = EnsureComp<LinkedEntityComponent>(second);
@@ -90,15 +95,14 @@ public sealed class LinkedEntitySystem : EntitySystem
         Dirty(first, firstLink);
         Dirty(second, secondLink);
 
-        return firstLink.LinkedEntities.Add(second)
-            && secondLink.LinkedEntities.Add(first);
+        return firstLink.LinkedEntities.Add(second) && secondLink.LinkedEntities.Add(first);
     }
 
     /// <summary>
     /// Does a one-way link from source to target.
     /// </summary>
     /// <param name="deleteOnEmptyLinks">Whether both entities should now delete once their links are removed</param>
-    public bool OneWayLink(EntityUid source, EntityUid target, bool deleteOnEmptyLinks=false)
+    public bool OneWayLink(EntityUid source, EntityUid target, bool deleteOnEmptyLinks = false)
     {
         var firstLink = EnsureComp<LinkedEntityComponent>(source);
         firstLink.DeleteOnEmptyLinks = deleteOnEmptyLinks;
@@ -119,8 +123,12 @@ public sealed class LinkedEntitySystem : EntitySystem
     /// <param name="firstLink">Resolve comp</param>
     /// <param name="secondLink">Resolve comp</param>
     /// <returns>Whether unlinking was successful (e.g. they both were actually linked to one another)</returns>
-    public bool TryUnlink(EntityUid first, EntityUid second,
-        LinkedEntityComponent? firstLink = null, LinkedEntityComponent? secondLink = null)
+    public bool TryUnlink(
+        EntityUid first,
+        EntityUid second,
+        LinkedEntityComponent? firstLink = null,
+        LinkedEntityComponent? secondLink = null
+    )
     {
         var resolvedFirst = Resolve(first, ref firstLink, false);
         var resolvedSecond = Resolve(second, ref secondLink, false);

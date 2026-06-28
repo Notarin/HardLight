@@ -1,25 +1,30 @@
-using Content.Shared._Crescent.ShipShields;
-using Content.Server.Power.Components;
-using Content.Shared.Projectiles;
-using Robust.Shared.Physics.Components;
 using Content.Server.Emp;
-using Content.Server.Explosion.EntitySystems;
-using Content.Server.Station.Systems;
-using Robust.Shared.Audio.Systems;
-using Content.Shared.Examine;
 using Content.Server.Explosion.Components;
+using Content.Server.Explosion.EntitySystems;
+using Content.Server.Power.Components;
+using Content.Server.Station.Systems;
+using Content.Shared._Crescent.ShipShields;
+using Content.Shared.Examine;
 using Content.Shared.Explosion.Components;
 using Content.Shared.Explosion.Components.OnTrigger;
-using Robust.Shared.Prototypes;
+using Content.Shared.Projectiles;
+using Robust.Shared.Audio.Systems;
 using Robust.Shared.Maths;
+using Robust.Shared.Physics.Components;
+using Robust.Shared.Prototypes;
 
 namespace Content.Server._Crescent.ShipShields;
 
 public partial class ShipShieldsSystem
 {
     private const float MAX_EMP_DAMAGE = 10000f;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
     public void InitializeEmitters()
     {
         SubscribeLocalEvent<ShipShieldEmitterComponent, ShieldDeflectedEvent>(OnShieldDeflected);
@@ -45,7 +50,6 @@ public partial class ShipShieldsSystem
         component.Recharging = false;
     }
 
-
     private void OnRemoved(Entity<ShipShieldEmitterComponent> owner, ref ComponentRemove remove)
     {
         var parent = Transform(owner.Owner).GridUid;
@@ -70,7 +74,10 @@ public partial class ShipShieldsSystem
             RemCompDeferred<EmpOnTriggerComponent>(args.Deflected);
         }
 
-        if (TryComp<ExplosiveComponent>(args.Deflected, out var exp) && _prototypeManager.TryIndex(exp.ExplosionType, out var type))
+        if (
+            TryComp<ExplosiveComponent>(args.Deflected, out var exp)
+            && _prototypeManager.TryIndex(exp.ExplosionType, out var type)
+        )
         {
             component.Damage += exp.TotalIntensity * (float)type.DamagePerIntensity.GetTotal();
             // We already translated this explosive payload into emitter damage above; suppress
@@ -91,7 +98,11 @@ public partial class ShipShieldsSystem
     /// <summary>
     /// Handles shield emitter taking damage from an intercepted ship-weapon hitscan beam.
     /// </summary>
-    private void OnShieldHitscanDeflected(EntityUid uid, ShipShieldEmitterComponent component, ref ShieldHitscanDeflectedEvent args)
+    private void OnShieldHitscanDeflected(
+        EntityUid uid,
+        ShipShieldEmitterComponent component,
+        ref ShieldHitscanDeflectedEvent args
+    )
     {
         component.Damage += args.Damage;
     }
@@ -120,12 +131,19 @@ public partial class ShipShieldsSystem
         if (!args.IsInDetailsRange)
             return;
 
-        args.PushMarkup(Loc.GetString("shield-emitter-examine", ("basedraw", component.BaseDraw), ("additional", CalculateLoadDamage(component))));
+        args.PushMarkup(
+            Loc.GetString(
+                "shield-emitter-examine",
+                ("basedraw", component.BaseDraw),
+                ("additional", CalculateLoadDamage(component))
+            )
+        );
     }
 
     private static float CalculateLoadDamage(ShipShieldEmitterComponent emitter)
     {
-        return (float)Math.Clamp(Math.Pow(emitter.Damage, emitter.DamageExp) * emitter.PowerModifier, 0f, emitter.MaxDraw);
+        return (float)
+            Math.Clamp(Math.Pow(emitter.Damage, emitter.DamageExp) * emitter.PowerModifier, 0f, emitter.MaxDraw);
     }
 
     private static float CalculateNormalLoad(ShipShieldEmitterComponent emitter)
@@ -143,7 +161,10 @@ public partial class ShipShieldsSystem
         return emitter.Recharging ? CalculateRechargeLoad(emitter) : CalculateNormalLoad(emitter);
     }
 
-    private static float CalculateRechargeMultiplier(ShipShieldEmitterComponent emitter, ApcPowerReceiverComponent receiver)
+    private static float CalculateRechargeMultiplier(
+        ShipShieldEmitterComponent emitter,
+        ApcPowerReceiverComponent receiver
+    )
     {
         if (!emitter.Recharging)
             return 1f;
@@ -156,7 +177,11 @@ public partial class ShipShieldsSystem
         return MathHelper.Lerp(1f, emitter.UnpoweredBonus, suppliedFraction);
     }
 
-    private void AdjustEmitterLoad(EntityUid uid, ShipShieldEmitterComponent? emitter = null, ApcPowerReceiverComponent? receiver = null)
+    private void AdjustEmitterLoad(
+        EntityUid uid,
+        ShipShieldEmitterComponent? emitter = null,
+        ApcPowerReceiverComponent? receiver = null
+    )
     {
         if (!Resolve(uid, ref emitter, ref receiver))
             return;

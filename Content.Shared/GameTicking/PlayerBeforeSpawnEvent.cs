@@ -18,11 +18,13 @@ public sealed class PlayerBeforeSpawnEvent : HandledEntityEventArgs
     public bool LateJoin { get; }
     public EntityUid Station { get; }
 
-    public PlayerBeforeSpawnEvent(ICommonSession player,
+    public PlayerBeforeSpawnEvent(
+        ICommonSession player,
         HumanoidCharacterProfile profile,
         string? jobId,
         bool lateJoin,
-        EntityUid station)
+        EntityUid station
+    )
     {
         Player = player;
         Profile = profile;

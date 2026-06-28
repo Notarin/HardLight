@@ -15,10 +15,17 @@ namespace Content.Server.Forensics
     /// </summary>
     public sealed class ForensicPadSystem : EntitySystem
     {
-        [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
-        [Dependency] private readonly PopupSystem _popupSystem = default!;
-        [Dependency] private readonly ForensicsSystem _forensics = default!;
-        [Dependency] private readonly LabelSystem _label = default!;
+        [Dependency]
+        private readonly SharedDoAfterSystem _doAfterSystem = default!;
+
+        [Dependency]
+        private readonly PopupSystem _popupSystem = default!;
+
+        [Dependency]
+        private readonly ForensicsSystem _forensics = default!;
+
+        [Dependency]
+        private readonly LabelSystem _label = default!;
 
         public override void Initialize()
         {
@@ -60,9 +67,12 @@ namespace Content.Server.Forensics
 
             if (!_forensics.CanAccessFingerprint(args.Target.Value, out var blocker))
             {
-
                 if (blocker is { } item)
-                    _popupSystem.PopupEntity(Loc.GetString("forensic-pad-no-access-due", ("entity", Identity.Entity(item, EntityManager))), args.Target.Value, args.User);
+                    _popupSystem.PopupEntity(
+                        Loc.GetString("forensic-pad-no-access-due", ("entity", Identity.Entity(item, EntityManager))),
+                        args.Target.Value,
+                        args.User
+                    );
                 else
                     _popupSystem.PopupEntity(Loc.GetString("forensic-pad-no-access"), args.Target.Value, args.User);
 
@@ -73,22 +83,62 @@ namespace Content.Server.Forensics
             {
                 if (args.User != args.Target)
                 {
-                    _popupSystem.PopupEntity(Loc.GetString("forensic-pad-start-scan-user", ("target", Identity.Entity(args.Target.Value, EntityManager))), args.Target.Value, args.User);
-                    _popupSystem.PopupEntity(Loc.GetString("forensic-pad-start-scan-target", ("user", Identity.Entity(args.User, EntityManager))), args.Target.Value, args.Target.Value);
+                    _popupSystem.PopupEntity(
+                        Loc.GetString(
+                            "forensic-pad-start-scan-user",
+                            ("target", Identity.Entity(args.Target.Value, EntityManager))
+                        ),
+                        args.Target.Value,
+                        args.User
+                    );
+                    _popupSystem.PopupEntity(
+                        Loc.GetString(
+                            "forensic-pad-start-scan-target",
+                            ("user", Identity.Entity(args.User, EntityManager))
+                        ),
+                        args.Target.Value,
+                        args.Target.Value
+                    );
                 }
                 StartScan(uid, args.User, args.Target.Value, component, fingerprint.Fingerprint);
                 return;
             }
 
             if (TryComp<FiberComponent>(args.Target, out var fiber))
-                StartScan(uid, args.User, args.Target.Value, component, string.IsNullOrEmpty(fiber.FiberColor) ? Loc.GetString("forensic-fibers", ("material", fiber.FiberMaterial)) : Loc.GetString("forensic-fibers-colored", ("color", fiber.FiberColor), ("material", fiber.FiberMaterial)));
+                StartScan(
+                    uid,
+                    args.User,
+                    args.Target.Value,
+                    component,
+                    string.IsNullOrEmpty(fiber.FiberColor)
+                        ? Loc.GetString("forensic-fibers", ("material", fiber.FiberMaterial))
+                        : Loc.GetString(
+                            "forensic-fibers-colored",
+                            ("color", fiber.FiberColor),
+                            ("material", fiber.FiberMaterial)
+                        )
+                );
         }
 
-        private void StartScan(EntityUid used, EntityUid user, EntityUid target, ForensicPadComponent pad, string sample)
+        private void StartScan(
+            EntityUid used,
+            EntityUid user,
+            EntityUid target,
+            ForensicPadComponent pad,
+            string sample
+        )
         {
             var ev = new ForensicPadDoAfterEvent(sample);
 
-            var doAfterEventArgs = new DoAfterArgs(EntityManager, user, pad.ScanDelay, ev, used, target: target, used: used)
+            var doAfterEventArgs = new DoAfterArgs(
+                EntityManager,
+                user,
+                pad.ScanDelay,
+                ev,
+                used,
+                target: target,
+                used: used
+            )
             {
                 NeedHand = true,
                 BreakOnMove = true,

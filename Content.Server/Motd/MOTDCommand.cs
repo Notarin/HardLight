@@ -10,14 +10,18 @@ namespace Content.Server.Motd;
 [AnyCommand]
 internal sealed class MOTDCommand : LocalizedCommands
 {
-    [Dependency] private readonly IAdminManager _adminManager = default!;
+    [Dependency]
+    private readonly IAdminManager _adminManager = default!;
 
     public override string Command => "motd";
 
     public override void Execute(IConsoleShell shell, string argStr, string[] args)
     {
         var player = shell.Player;
-        if (args.Length < 1 || (player != null && _adminManager is AdminManager aMan && !aMan.CanCommand(player, "set-motd")))
+        if (
+            args.Length < 1
+            || (player != null && _adminManager is AdminManager aMan && !aMan.CanCommand(player, "set-motd"))
+        )
             shell.ConsoleHost.ExecuteCommand(shell.Player, "get-motd");
         else
             shell.ConsoleHost.ExecuteCommand(shell.Player, $"set-motd {string.Join(" ", args)}");

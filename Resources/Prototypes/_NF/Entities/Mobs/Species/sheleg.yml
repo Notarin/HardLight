@@ -44,7 +44,7 @@
   - type: Speech
     speechSounds: Sheleg
     speechVerb: Sheleg
-#    allowedEmotes: [ 'Belch' ]
+    #    allowedEmotes: [ 'Belch' ]
   - type: TypingIndicator
     proto: sheleg
   - type: Butcherable
@@ -73,7 +73,7 @@
       Female: UnisexSheleg
       Unsexed: UnisexSheleg
   - type: DamageVisuals
-    thresholds: [ 10, 20, 30, 50, 70, 100 ]
+    thresholds: [10, 20, 30, 50, 70, 100]
     targetLayers:
     - "enum.HumanoidVisualLayers.Chest"
     - "enum.HumanoidVisualLayers.Head"
@@ -93,15 +93,15 @@
       80: 0.7
   - type: Reactive
     groups:
-      Flammable: [ Touch ]
-      Extinguish: [ Touch ]
+      Flammable: [Touch]
+      Extinguish: [Touch]
     reactions:
-    - reagents: [ Water, SpaceCleaner, SoapReagent ]
-      methods: [ Touch ]
+    - reagents: [Water, SpaceCleaner, SoapReagent]
+      methods: [Touch]
       effects:
       - !type:WashCreamPieReaction
-    - reagents: [ Potassium ]
-      methods: [ Touch ]
+    - reagents: [Potassium]
+      methods: [Touch]
       effects:
       - !type:Emote
         emote: Scream
@@ -109,14 +109,13 @@
       - !type:PopupMessage
         type: Local
         visualType: Large
-        messages: [ "barozine-effect-skin-burning" ]
+        messages: ["barozine-effect-skin-burning"]
         probability: 0.33
       - !type:Jitter
   - type: Fixtures
     fixtures: # TODO: This needs a second fixture just for mob collisions.
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.40
         density: 180
         restitution: 0.0
@@ -133,7 +132,7 @@
     specificHeat: 42
     heatDamage:
       types:
-        Heat : 10 #per second, scales with temperature & other constants
+        Heat: 10 #per second, scales with temperature & other constants
   - type: ThermalRegulator
     metabolismHeat: 800
     radiatedHeat: 100
@@ -169,7 +168,7 @@
   name: Urist McIce
   parent: BaseSpeciesDummy
   id: MobShelegDummy
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   description: A dummy sheleg meant to be used in character setup.
   components:
   - type: HumanoidAppearance

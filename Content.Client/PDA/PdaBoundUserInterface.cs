@@ -15,7 +15,8 @@ namespace Content.Client.PDA
         [ViewVariables]
         private PdaMenu? _menu;
 
-        public PdaBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
+        public PdaBoundUserInterface(EntityUid owner, Enum uiKey)
+            : base(owner, uiKey)
         {
             _pdaSystem = EntMan.System<PdaSystem>();
         }

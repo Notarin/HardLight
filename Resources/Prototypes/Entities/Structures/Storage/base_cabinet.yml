@@ -20,12 +20,12 @@
     visuals:
       enum.ItemCabinetVisuals.ContainsItem:
         enum.ItemCabinetVisuals.Layer:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
       enum.OpenableVisuals.Opened:
         enum.OpenableVisuals.Layer:
-          True: { state: open }
-          False: { state: closed }
+          True: {state: open}
+          False: {state: closed}
 
 - type: entity
   abstract: true
@@ -36,9 +36,9 @@
     visuals:
       enum.ItemCabinetVisuals.ContainsItem:
         enum.ItemCabinetVisuals.Layer:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
       enum.OpenableVisuals.Opened:
         enum.OpenableVisuals.Layer:
-          True: { state: glass-up }
-          False: { state: glass }
+          True: {state: glass-up}
+          False: {state: glass}

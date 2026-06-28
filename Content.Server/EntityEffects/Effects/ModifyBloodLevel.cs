@@ -14,9 +14,12 @@ public sealed partial class ModifyBloodLevel : EntityEffect
     [DataField]
     public FixedPoint2 Amount = 1.0f;
 
-    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys)
-        => Loc.GetString("reagent-effect-guidebook-modify-blood-level", ("chance", Probability),
-            ("deltasign", MathF.Sign(Amount.Float())));
+    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys) =>
+        Loc.GetString(
+            "reagent-effect-guidebook-modify-blood-level",
+            ("chance", Probability),
+            ("deltasign", MathF.Sign(Amount.Float()))
+        );
 
     public override void Effect(EntityEffectBaseArgs args)
     {

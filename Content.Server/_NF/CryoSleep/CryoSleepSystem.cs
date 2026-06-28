@@ -10,6 +10,7 @@ using Content.Server.Popups;
 using Content.Shared._NF.CCVar;
 using Content.Shared._NF.CryoSleep.Events;
 using Content.Shared.ActionBlocker;
+using Content.Shared.Bed.Cryostorage; // HardLight
 using Content.Shared.Destructible;
 using Content.Shared.DoAfter;
 using Content.Shared.DragDrop;
@@ -32,29 +33,61 @@ using Robust.Shared.Enums;
 using Robust.Shared.Map;
 using Robust.Shared.Network;
 using Robust.Shared.Timing;
-using Content.Shared.Bed.Cryostorage; // HardLight
 
 namespace Content.Server._NF.CryoSleep;
 
 public sealed partial class CryoSleepSystem : EntitySystem
 {
-    [Dependency] private readonly EntityManager _entityManager = default!;
-    [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly ContainerSystem _container = default!;
-    [Dependency] private readonly EuiManager _euiManager = null!;
-    [Dependency] private readonly MindSystem _mind = default!;
-    [Dependency] private readonly InteractionSystem _interaction = default!;
-    [Dependency] private readonly DoAfterSystem _doAfter = default!;
-    [Dependency] private readonly MobStateSystem _mobSystem = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!; // HardLight
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly ShipyardSystem _shipyard = default!; // For the FoundOrganics method
-    [Dependency] private readonly GhostSystem _ghost = default!;
-    [Dependency] private readonly CryostorageSystem _cryostorage = default!; // HardLight
-    [Dependency] private readonly TransformSystem _transform = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
+    [Dependency]
+    private readonly EntityManager _entityManager = default!;
+
+    [Dependency]
+    private readonly ActionBlockerSystem _actionBlocker = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly ContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly EuiManager _euiManager = null!;
+
+    [Dependency]
+    private readonly MindSystem _mind = default!;
+
+    [Dependency]
+    private readonly InteractionSystem _interaction = default!;
+
+    [Dependency]
+    private readonly DoAfterSystem _doAfter = default!;
+
+    [Dependency]
+    private readonly MobStateSystem _mobSystem = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!; // HardLight
+
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly ShipyardSystem _shipyard = default!; // For the FoundOrganics method
+
+    [Dependency]
+    private readonly GhostSystem _ghost = default!;
+
+    [Dependency]
+    private readonly CryostorageSystem _cryostorage = default!; // HardLight
+
+    [Dependency]
+    private readonly TransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
 
     private readonly Dictionary<NetUserId, StoredBody?> _storedBodies = new();
     private EntityUid? _storageMap;
@@ -97,11 +130,13 @@ public sealed partial class CryoSleepSystem : EntitySystem
             return;
 
         // If the user is currently holding/pulling an entity that can be cryo-sleeped, add a verb for that.
-        if (args.Using is { Valid: true } @using &&
-            !IsOccupied(ent.Comp) &&
-            _interaction.InRangeUnobstructed(@using, args.Target) &&
-            _actionBlocker.CanMove(@using) &&
-            HasComp<MindContainerComponent>(@using))
+        if (
+            args.Using is { Valid: true } @using
+            && !IsOccupied(ent.Comp)
+            && _interaction.InRangeUnobstructed(@using, args.Target)
+            && _actionBlocker.CanMove(@using)
+            && HasComp<MindContainerComponent>(@using)
+        )
         {
             string name;
             if (TryComp(args.Using.Value, out MetaDataComponent? metadata))
@@ -113,7 +148,7 @@ public sealed partial class CryoSleepSystem : EntitySystem
             {
                 Act = () => InsertBody(@using, ent, false),
                 Category = VerbCategory.Insert,
-                Text = name
+                Text = name,
             };
             args.Verbs.Add(verb);
         }
@@ -131,21 +166,20 @@ public sealed partial class CryoSleepSystem : EntitySystem
             {
                 Act = () => EjectBody(ent.Owner, ent.Comp),
                 Category = VerbCategory.Eject,
-                Text = Loc.GetString("medical-scanner-verb-noun-occupant")
+                Text = Loc.GetString("medical-scanner-verb-noun-occupant"),
             };
             args.Verbs.Add(verb);
         }
 
         // Self-insert verb
-        if (!IsOccupied(ent.Comp) &&
-            _actionBlocker.CanMove(args.User))
+        if (!IsOccupied(ent.Comp) && _actionBlocker.CanMove(args.User))
         {
             var user = args.User;
             AlternativeVerb verb = new()
             {
                 Act = () => InsertBody(user, ent, false),
                 Category = VerbCategory.Insert,
-                Text = Loc.GetString("medical-scanner-verb-enter")
+                Text = Loc.GetString("medical-scanner-verb-enter"),
             };
             args.Verbs.Add(verb);
         }
@@ -166,14 +200,17 @@ public sealed partial class CryoSleepSystem : EntitySystem
 
     private void OnExamine(EntityUid uid, CryoSleepComponent component, ExaminedEvent args)
     {
-        var message = component.BodyContainer.ContainedEntity == null
-            ? "cryopod-examine-empty"
-            : "cryopod-examine-occupied";
+        var message =
+            component.BodyContainer.ContainedEntity == null ? "cryopod-examine-empty" : "cryopod-examine-occupied";
 
         args.PushMarkup(Loc.GetString(message));
     }
 
-    private void OnRelayMovement(EntityUid uid, CryoSleepComponent component, ref ContainerRelayMovementEntityEvent args)
+    private void OnRelayMovement(
+        EntityUid uid,
+        CryoSleepComponent component,
+        ref ContainerRelayMovementEntityEvent args
+    )
     {
         if (!HasComp<HandsComponent>(args.Entity))
             return;
@@ -219,7 +256,10 @@ public sealed partial class CryoSleepSystem : EntitySystem
         args.Handled |= InsertBody(args.Dragged, ent, false);
     }
 
-    private void OnCryostorageContainedTerminating(Entity<CryostorageContainedComponent> ent, ref EntityTerminatingEvent args) // HardLight
+    private void OnCryostorageContainedTerminating(
+        Entity<CryostorageContainedComponent> ent,
+        ref EntityTerminatingEvent args
+    ) // HardLight
     {
         if (ent.Comp.UserId is { } userId)
             ResetCryosleepState(userId);
@@ -238,14 +278,22 @@ public sealed partial class CryoSleepSystem : EntitySystem
         string? name = _shipyard.FoundOrganics(toInsert.Value, mobQuery, xformQuery);
         if (name is not null)
         {
-            _popup.PopupEntity(Loc.GetString("cryopod-refuse-organic", ("cryopod", cryopod), ("name", name)), cryopod, PopupType.SmallCaution);
+            _popup.PopupEntity(
+                Loc.GetString("cryopod-refuse-organic", ("cryopod", cryopod), ("name", name)),
+                cryopod,
+                PopupType.SmallCaution
+            );
             return false;
         }
 
         // Refuse to accept dead or crit bodies, as well as non-mobs
         if (!TryComp<MobStateComponent>(toInsert, out var mob) || !_mobSystem.IsAlive(toInsert.Value, mob))
         {
-            _popup.PopupEntity(Loc.GetString("cryopod-refuse-dead", ("cryopod", cryopod)), cryopod, PopupType.SmallCaution);
+            _popup.PopupEntity(
+                Loc.GetString("cryopod-refuse-dead", ("cryopod", cryopod)),
+                cryopod,
+                PopupType.SmallCaution
+            );
             return false;
         }
 
@@ -279,7 +327,7 @@ public sealed partial class CryoSleepSystem : EntitySystem
         )
         {
             BreakOnMove = true,
-            BreakOnWeightlessMove = true
+            BreakOnWeightlessMove = true,
         };
 
         if (_doAfter.TryStartDoAfter(args, out var doAfterId)) // HardLight: Added out var doAfterId
@@ -340,15 +388,18 @@ public sealed partial class CryoSleepSystem : EntitySystem
         else
         {
             // Start a timer. When it ends, the body needs to be deleted.
-            Timer.Spawn(TimeSpan.FromSeconds(_configurationManager.GetCVar(NFCCVars.CryoExpirationTime)), () =>
-            {
-                if (id != null)
-                    ResetCryosleepState(id.Value);
+            Timer.Spawn(
+                TimeSpan.FromSeconds(_configurationManager.GetCVar(NFCCVars.CryoExpirationTime)),
+                () =>
+                {
+                    if (id != null)
+                        ResetCryosleepState(id.Value);
 
-                var pausedMap = _cryostorage.GetPausedMap(); // HardLight
-                if (!Deleted(bodyId) && pausedMap != null && Transform(bodyId).ParentUid == pausedMap) // HardLight
-                    QueueDel(bodyId);
-            });
+                    var pausedMap = _cryostorage.GetPausedMap(); // HardLight
+                    if (!Deleted(bodyId) && pausedMap != null && Transform(bodyId).ParentUid == pausedMap) // HardLight
+                        QueueDel(bodyId);
+                }
+            );
         }
     }
 

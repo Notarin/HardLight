@@ -38,20 +38,47 @@ namespace Content.Server.Parallax;
 
 public sealed partial class BiomeSystem : SharedBiomeSystem
 {
-    [Dependency] private readonly IConfigurationManager _configManager = default!;
-    [Dependency] private readonly IConsoleHost _console = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly IParallelManager _parallel = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly AtmosphereSystem _atmos = default!;
-    [Dependency] private readonly DecalSystem _decals = default!;
-    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly ShuttleSystem _shuttles = default!;
-    [Dependency] private readonly TagSystem _tags = default!;
+    [Dependency]
+    private readonly IConfigurationManager _configManager = default!;
+
+    [Dependency]
+    private readonly IConsoleHost _console = default!;
+
+    [Dependency]
+    private readonly IMapManager _mapManager = default!;
+
+    [Dependency]
+    private readonly IParallelManager _parallel = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly AtmosphereSystem _atmos = default!;
+
+    [Dependency]
+    private readonly DecalSystem _decals = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _mapSystem = default!;
+
+    [Dependency]
+    private readonly SharedPhysicsSystem _physics = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly ShuttleSystem _shuttles = default!;
+
+    [Dependency]
+    private readonly TagSystem _tags = default!;
 
     private EntityQuery<BiomeComponent> _biomeQuery;
     private EntityQuery<FixturesComponent> _fixturesQuery;
@@ -65,8 +92,10 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
 
     private List<(Vector2i, Tile)> _tiles = new();
 
-    private ObjectPool<HashSet<Vector2i>> _tilePool =
-        new DefaultObjectPool<HashSet<Vector2i>>(new SetPolicy<Vector2i>(), 256);
+    private ObjectPool<HashSet<Vector2i>> _tilePool = new DefaultObjectPool<HashSet<Vector2i>>(
+        new SetPolicy<Vector2i>(),
+        256
+    );
 
     /// <summary>
     /// Load area for chunks containing tiles, decals etc.
@@ -78,8 +107,7 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
     /// </summary>
     private readonly Dictionary<BiomeComponent, HashSet<Vector2i>> _activeChunks = new();
 
-    private readonly Dictionary<BiomeComponent,
-        Dictionary<string, HashSet<Vector2i>>> _markerChunks = new();
+    private readonly Dictionary<BiomeComponent, Dictionary<string, HashSet<Vector2i>>> _markerChunks = new();
 
     public override void Initialize()
     {
@@ -109,7 +137,7 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
             if (biome.Template == null || !reloads.Modified.TryGetValue(biome.Template, out var proto))
                 continue;
 
-            SetTemplate(uid, biome, (BiomeTemplatePrototype) proto);
+            SetTemplate(uid, biome, (BiomeTemplatePrototype)proto);
         }
     }
 
@@ -232,7 +260,13 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
     /// <summary>
     /// Adds the specified template at the specified marker if it exists, withour overriding every layer.
     /// </summary>
-    public void AddTemplate(EntityUid uid, BiomeComponent component, string id, BiomeTemplatePrototype template, int seedOffset = 0)
+    public void AddTemplate(
+        EntityUid uid,
+        BiomeComponent component,
+        string id,
+        BiomeTemplatePrototype template,
+        int seedOffset = 0
+    )
     {
         for (var i = 0; i < component.Layers.Count; i++)
         {
@@ -269,8 +303,7 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
 
     private void OnShuttleFlatten(ref ShuttleFlattenEvent ev)
     {
-        if (!TryComp<BiomeComponent>(ev.MapUid, out var biome) ||
-            !TryComp<MapGridComponent>(ev.MapUid, out var grid))
+        if (!TryComp<BiomeComponent>(ev.MapUid, out var biome) || !TryComp<MapGridComponent>(ev.MapUid, out var grid))
         {
             return;
         }
@@ -283,7 +316,7 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
             {
                 for (var y = Math.Floor(aabb.Bottom); y <= Math.Ceiling(aabb.Top); y++)
                 {
-                    var index = new Vector2i((int) x, (int) y);
+                    var index = new Vector2i((int)x, (int)y);
                     var chunk = SharedMapSystem.GetChunkIndices(index, ChunkSize);
 
                     var mod = biome.ModifiedTiles.GetOrNew(chunk * ChunkSize);
@@ -344,11 +377,13 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
         // Get chunks in range
         foreach (var pSession in Filter.GetAllPlayers(_playerManager))
         {
-            if (_xformQuery.TryGetComponent(pSession.AttachedEntity, out var xform) &&
-                _handledEntities.Add(pSession.AttachedEntity.Value) &&
-                 _biomeQuery.TryGetComponent(xform.MapUid, out var biome) &&
-                biome.Enabled &&
-                CanLoad(pSession.AttachedEntity.Value))
+            if (
+                _xformQuery.TryGetComponent(pSession.AttachedEntity, out var xform)
+                && _handledEntities.Add(pSession.AttachedEntity.Value)
+                && _biomeQuery.TryGetComponent(xform.MapUid, out var biome)
+                && biome.Enabled
+                && CanLoad(pSession.AttachedEntity.Value)
+            )
             {
                 var worldPos = _transform.GetWorldPosition(xform);
                 AddChunksInRange(biome, worldPos);
@@ -362,11 +397,13 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
 
             foreach (var viewer in pSession.ViewSubscriptions)
             {
-                if (!_handledEntities.Add(viewer) ||
-                    !_xformQuery.TryGetComponent(viewer, out xform) ||
-                    !_biomeQuery.TryGetComponent(xform.MapUid, out biome) ||
-                    !biome.Enabled ||
-                    !CanLoad(viewer))
+                if (
+                    !_handledEntities.Add(viewer)
+                    || !_xformQuery.TryGetComponent(viewer, out xform)
+                    || !_biomeQuery.TryGetComponent(xform.MapUid, out biome)
+                    || !biome.Enabled
+                    || !CanLoad(viewer)
+                )
                 {
                     continue;
                 }
@@ -440,11 +477,7 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
     /// <summary>
     /// Loads all of the chunks for a particular biome, as well as handle any marker chunks.
     /// </summary>
-    private void LoadChunks(
-        BiomeComponent component,
-        EntityUid gridUid,
-        MapGridComponent grid,
-        int seed)
+    private void LoadChunks(BiomeComponent component, EntityUid gridUid, MapGridComponent grid, int seed)
     {
         BuildMarkerChunks(component, gridUid, grid, seed);
 
@@ -478,86 +511,100 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
             idx++;
             var localIdx = idx;
 
-            Parallel.ForEach(chunks, new ParallelOptions() { MaxDegreeOfParallelism = _parallel.ParallelProcessCount }, chunk =>
-            {
-                if (loadedMarkers.TryGetValue(layer, out var mobChunks) && mobChunks.Contains(chunk))
-                    return;
-
-                var forced = component.ForcedMarkerLayers.Contains(layer);
-
-                // Make a temporary version and copy back in later.
-                var pending = new Dictionary<Vector2i, Dictionary<string, List<Vector2i>>>();
-
-                // Essentially get the seed + work out a buffer to adjacent chunks so we don't
-                // inadvertantly spawn too many near the edges.
-                var layerProto = ProtoManager.Index<BiomeMarkerLayerPrototype>(layer);
-                var markerSeed = seed + chunk.X * ChunkSize + chunk.Y + localIdx;
-                var rand = new Random(markerSeed);
-                var buffer = (int) (layerProto.Radius / 2f);
-                var bounds = new Box2i(chunk + buffer, chunk + layerProto.Size - buffer);
-                var count = (int) (bounds.Area / (layerProto.Radius * layerProto.Radius));
-                count = Math.Min(count, layerProto.MaxCount);
-
-                GetMarkerNodes(gridUid, component, grid, layerProto, forced, bounds, count, rand,
-                    out var spawnSet, out var existing);
-
-                // Forcing markers to spawn so delete any that were found to be in the way.
-                if (forced && existing.Count > 0)
+            Parallel.ForEach(
+                chunks,
+                new ParallelOptions() { MaxDegreeOfParallelism = _parallel.ParallelProcessCount },
+                chunk =>
                 {
-                    // Lock something so we can delete these safely.
-                    lock (component.PendingMarkers)
+                    if (loadedMarkers.TryGetValue(layer, out var mobChunks) && mobChunks.Contains(chunk))
+                        return;
+
+                    var forced = component.ForcedMarkerLayers.Contains(layer);
+
+                    // Make a temporary version and copy back in later.
+                    var pending = new Dictionary<Vector2i, Dictionary<string, List<Vector2i>>>();
+
+                    // Essentially get the seed + work out a buffer to adjacent chunks so we don't
+                    // inadvertantly spawn too many near the edges.
+                    var layerProto = ProtoManager.Index<BiomeMarkerLayerPrototype>(layer);
+                    var markerSeed = seed + chunk.X * ChunkSize + chunk.Y + localIdx;
+                    var rand = new Random(markerSeed);
+                    var buffer = (int)(layerProto.Radius / 2f);
+                    var bounds = new Box2i(chunk + buffer, chunk + layerProto.Size - buffer);
+                    var count = (int)(bounds.Area / (layerProto.Radius * layerProto.Radius));
+                    count = Math.Min(count, layerProto.MaxCount);
+
+                    GetMarkerNodes(
+                        gridUid,
+                        component,
+                        grid,
+                        layerProto,
+                        forced,
+                        bounds,
+                        count,
+                        rand,
+                        out var spawnSet,
+                        out var existing
+                    );
+
+                    // Forcing markers to spawn so delete any that were found to be in the way.
+                    if (forced && existing.Count > 0)
                     {
-                        foreach (var ent in existing)
+                        // Lock something so we can delete these safely.
+                        lock (component.PendingMarkers)
                         {
-                            Del(ent);
+                            foreach (var ent in existing)
+                            {
+                                Del(ent);
+                            }
+                        }
+                    }
+
+                    foreach (var node in spawnSet.Keys)
+                    {
+                        var chunkOrigin = SharedMapSystem.GetChunkIndices(node, ChunkSize) * ChunkSize;
+
+                        if (!pending.TryGetValue(chunkOrigin, out var pendingMarkers))
+                        {
+                            pendingMarkers = new Dictionary<string, List<Vector2i>>();
+                            pending[chunkOrigin] = pendingMarkers;
+                        }
+
+                        if (!pendingMarkers.TryGetValue(layer, out var layerMarkers))
+                        {
+                            layerMarkers = new List<Vector2i>();
+                            pendingMarkers[layer] = layerMarkers;
+                        }
+
+                        layerMarkers.Add(node);
+                    }
+
+                    lock (loadedMarkers)
+                    {
+                        if (!loadedMarkers.TryGetValue(layer, out var lockMobChunks))
+                        {
+                            lockMobChunks = new HashSet<Vector2i>();
+                            loadedMarkers[layer] = lockMobChunks;
+                        }
+
+                        lockMobChunks.Add(chunk);
+
+                        foreach (var (chunkOrigin, layers) in pending)
+                        {
+                            if (!component.PendingMarkers.TryGetValue(chunkOrigin, out var lockMarkers))
+                            {
+                                lockMarkers = new Dictionary<string, List<Vector2i>>();
+                                component.PendingMarkers[chunkOrigin] = lockMarkers;
+                            }
+
+                            foreach (var (lockLayer, nodes) in layers)
+                            {
+                                lockMarkers[lockLayer] = nodes;
+                            }
                         }
                     }
                 }
-
-                foreach (var node in spawnSet.Keys)
-                {
-                    var chunkOrigin = SharedMapSystem.GetChunkIndices(node, ChunkSize) * ChunkSize;
-
-                    if (!pending.TryGetValue(chunkOrigin, out var pendingMarkers))
-                    {
-                        pendingMarkers = new Dictionary<string, List<Vector2i>>();
-                        pending[chunkOrigin] = pendingMarkers;
-                    }
-
-                    if (!pendingMarkers.TryGetValue(layer, out var layerMarkers))
-                    {
-                        layerMarkers = new List<Vector2i>();
-                        pendingMarkers[layer] = layerMarkers;
-                    }
-
-                    layerMarkers.Add(node);
-                }
-
-                lock (loadedMarkers)
-                {
-                    if (!loadedMarkers.TryGetValue(layer, out var lockMobChunks))
-                    {
-                        lockMobChunks = new HashSet<Vector2i>();
-                        loadedMarkers[layer] = lockMobChunks;
-                    }
-
-                    lockMobChunks.Add(chunk);
-
-                    foreach (var (chunkOrigin, layers) in pending)
-                    {
-                        if (!component.PendingMarkers.TryGetValue(chunkOrigin, out var lockMarkers))
-                        {
-                            lockMarkers = new Dictionary<string, List<Vector2i>>();
-                            component.PendingMarkers[chunkOrigin] = lockMarkers;
-                        }
-
-                        foreach (var (lockLayer, nodes) in layers)
-                        {
-                            lockMarkers[lockLayer] = nodes;
-                        }
-                    }
-                }
-            });
+            );
         }
 
         component.ForcedMarkerLayers.Clear();
@@ -578,7 +625,8 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
         Random rand,
         out Dictionary<Vector2i, string?> spawnSet,
         out HashSet<EntityUid> existingEnts,
-        bool emptyTiles = true)
+        bool emptyTiles = true
+    )
     {
         DebugTools.Assert(count > 0);
         var remainingTiles = _tilePool.Get();
@@ -610,9 +658,7 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
                 TryGetEntity(node, biome, grid, out var proto);
 
                 // If there's an existing entity and it doesn't match the mask then skip.
-                if (layerProto.EntityMask.Count > 0 &&
-                    (proto == null ||
-                     !layerProto.EntityMask.ContainsKey(proto)))
+                if (layerProto.EntityMask.Count > 0 && (proto == null || !layerProto.EntityMask.ContainsKey(proto)))
                 {
                     continue;
                 }
@@ -706,7 +752,8 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
         EntityUid gridUid,
         MapGridComponent grid,
         Vector2i chunk,
-        int seed)
+        int seed
+    )
     {
         // Load any pending marker tiles first.
         if (!component.PendingMarkers.TryGetValue(chunk, out var layers))
@@ -734,8 +781,10 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
 
                 string? prototype;
 
-                if (TryGetEntity(node, component, grid, out var proto) &&
-                    layerProto.EntityMask.TryGetValue(proto, out var maskedProto))
+                if (
+                    TryGetEntity(node, component, grid, out var proto)
+                    && layerProto.EntityMask.TryGetValue(proto, out var maskedProto)
+                )
                 {
                     prototype = maskedProto;
                 }
@@ -747,7 +796,10 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
                 // If it is a ghost role then purge it
                 // TODO: This is *kind* of a bandaid but natural mobs spawns needs a lot more work.
                 // Ideally we'd just have ghost role and non-ghost role variants for some stuff.
-                var uid = EntityManager.CreateEntityUninitialized(prototype, _mapSystem.GridTileToLocal(gridUid, grid, node));
+                var uid = EntityManager.CreateEntityUninitialized(
+                    prototype,
+                    _mapSystem.GridTileToLocal(gridUid, grid, node)
+                );
                 RemComp<GhostTakeoverAvailableComponent>(uid);
                 RemComp<GhostRoleComponent>(uid);
                 EntityManager.InitializeAndStartEntity(uid);
@@ -767,12 +819,7 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
     /// <summary>
     /// Loads a particular queued chunk for a biome.
     /// </summary>
-    private void LoadChunk(
-        BiomeComponent component,
-        EntityUid gridUid,
-        MapGridComponent grid,
-        Vector2i chunk,
-        int seed)
+    private void LoadChunk(BiomeComponent component, EntityUid gridUid, MapGridComponent grid, Vector2i chunk, int seed)
     {
         component.ModifiedTiles.TryGetValue(chunk, out var modified);
         modified ??= _tilePool.Get();
@@ -902,7 +949,14 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
     /// <summary>
     /// Unloads a specific biome chunk.
     /// </summary>
-    private void UnloadChunk(BiomeComponent component, EntityUid gridUid, MapGridComponent grid, Vector2i chunk, int seed, List<(Vector2i, Tile)> tiles)
+    private void UnloadChunk(
+        BiomeComponent component,
+        EntityUid gridUid,
+        MapGridComponent grid,
+        Vector2i chunk,
+        int seed,
+        List<(Vector2i, Tile)> tiles
+    )
     {
         // Reverse order to loading
         component.ModifiedTiles.TryGetValue(chunk, out var modified);
@@ -975,8 +1029,11 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
                 }
 
                 // If it's default data unload the tile.
-                if (!TryGetBiomeTile(indices, component.Layers, seed, null, out var biomeTile) ||
-                    _mapSystem.TryGetTileRef(gridUid, grid, indices, out var tileRef) && tileRef.Tile != biomeTile.Value)
+                if (
+                    !TryGetBiomeTile(indices, component.Layers, seed, null, out var biomeTile)
+                    || _mapSystem.TryGetTileRef(gridUid, grid, indices, out var tileRef)
+                        && tileRef.Tile != biomeTile.Value
+                )
                 {
                     modified.Add(indices);
                     continue;
@@ -1005,13 +1062,19 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
     /// <summary>
     /// Creates a simple planet setup for a map.
     /// </summary>
-    public void EnsurePlanet(EntityUid mapUid, BiomeTemplatePrototype biomeTemplate, int? seed = null, MetaDataComponent? metadata = null, Color? mapLight = null)
+    public void EnsurePlanet(
+        EntityUid mapUid,
+        BiomeTemplatePrototype biomeTemplate,
+        int? seed = null,
+        MetaDataComponent? metadata = null,
+        Color? mapLight = null
+    )
     {
         if (!Resolve(mapUid, ref metadata))
             return;
 
         EnsureComp<MapGridComponent>(mapUid);
-        var biome = (BiomeComponent) EntityManager.ComponentFactory.GetComponent(typeof(BiomeComponent));
+        var biome = (BiomeComponent)EntityManager.ComponentFactory.GetComponent(typeof(BiomeComponent));
         seed ??= _random.Next();
         SetSeed(mapUid, biome, seed.Value, false);
         SetTemplate(mapUid, biome, biomeTemplate, false);
@@ -1040,8 +1103,8 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
         EnsureComp<SunShadowCycleComponent>(mapUid);
 
         var moles = new float[Atmospherics.AdjustedNumberOfGases];
-        moles[(int) Gas.Oxygen] = 21.824779f;
-        moles[(int) Gas.Nitrogen] = 82.10312f;
+        moles[(int)Gas.Oxygen] = 21.824779f;
+        moles[(int)Gas.Nitrogen] = 82.10312f;
 
         var mixture = new GasMixture(moles, Atmospherics.T20C);
 
@@ -1051,7 +1114,13 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
     /// <summary>
     /// Sets the specified tiles as relevant and marks them as modified.
     /// </summary>
-    public void ReserveTiles(EntityUid mapUid, Box2 bounds, List<(Vector2i Index, Tile Tile)> tiles, BiomeComponent? biome = null, MapGridComponent? mapGrid = null)
+    public void ReserveTiles(
+        EntityUid mapUid,
+        Box2 bounds,
+        List<(Vector2i Index, Tile Tile)> tiles,
+        BiomeComponent? biome = null,
+        MapGridComponent? mapGrid = null
+    )
     {
         if (!Resolve(mapUid, ref biome, ref mapGrid, false))
             return;
@@ -1062,7 +1131,10 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
             HashSet<Vector2i> modified;
 
             // Existing, ignore
-            if (_mapSystem.TryGetTileRef(mapUid, mapGrid, tileSet.GridIndices, out var existingRef) && !existingRef.Tile.IsEmpty)
+            if (
+                _mapSystem.TryGetTileRef(mapUid, mapGrid, tileSet.GridIndices, out var existingRef)
+                && !existingRef.Tile.IsEmpty
+            )
             {
                 chunkOrigin = SharedMapSystem.GetChunkIndices(tileSet.GridIndices, ChunkSize) * ChunkSize;
                 modified = biome.ModifiedTiles.GetOrNew(chunkOrigin);

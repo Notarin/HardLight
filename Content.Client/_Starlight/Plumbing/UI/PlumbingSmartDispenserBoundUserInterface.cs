@@ -9,9 +9,8 @@ public sealed class PlumbingSmartDispenserBoundUserInterface : BoundUserInterfac
 {
     private PlumbingSmartDispenserWindow? _window;
 
-    public PlumbingSmartDispenserBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-    }
+    public PlumbingSmartDispenserBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {

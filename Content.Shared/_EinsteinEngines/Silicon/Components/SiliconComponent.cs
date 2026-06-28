@@ -1,8 +1,8 @@
-using Robust.Shared.GameStates;
 using Content.Shared._EinsteinEngines.Silicon.Systems;
-using Robust.Shared.Serialization.TypeSerializers.Implementations;
-using Robust.Shared.Prototypes;
 using Content.Shared.Alert;
+using Robust.Shared.GameStates;
+using Robust.Shared.Prototypes;
+using Robust.Shared.Serialization.TypeSerializers.Implementations;
 
 namespace Content.Shared._EinsteinEngines.Silicon.Components;
 
@@ -31,7 +31,6 @@ public sealed partial class SiliconComponent : Component
     /// <summary>
     ///     The Silicon's battery slot, if it has one.
     /// </summary>
-
     /// <summary>
     ///     Is the Silicon currently dead?
     /// </summary>
@@ -42,7 +41,6 @@ public sealed partial class SiliconComponent : Component
     // ///     The entity to get the battery from.
     // /// </summary>
     // public EntityUid BatteryOverride? = EntityUid.Invalid;
-
 
     /// <summary>
     ///     The type of silicon this is.
@@ -69,7 +67,6 @@ public sealed partial class SiliconComponent : Component
     [DataField]
     public float DrainPerSecond = 50f;
 
-
     /// <summary>
     ///     The percentages at which the silicon will enter each state.
     /// </summary>
@@ -94,7 +91,6 @@ public sealed partial class SiliconComponent : Component
 
     [DataField]
     public ProtoId<AlertPrototype> NoBatteryAlert = "BorgBatteryNone";
-
 
     /// <summary>
     ///     The amount the Silicon will be slowed at each charge state.

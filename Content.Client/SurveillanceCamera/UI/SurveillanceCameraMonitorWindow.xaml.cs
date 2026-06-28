@@ -20,9 +20,14 @@ public sealed partial class SurveillanceCameraMonitorWindow : DefaultWindow
 {
     private static readonly ProtoId<ShaderPrototype> CameraStaticShaderId = "CameraStatic";
 
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IResourceCache _resourceCache = default!;
-    [Dependency] private readonly IEntityManager _entityManager = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly IResourceCache _resourceCache = default!;
+
+    [Dependency]
+    private readonly IEntityManager _entityManager = default!;
 
     /// <summary>
     /// Triggered when a camera is selected.
@@ -47,13 +52,12 @@ public sealed partial class SurveillanceCameraMonitorWindow : DefaultWindow
     {
         get
         {
-            if (SubnetSelector.ItemCount == 0
-                || SubnetSelector.SelectedMetadata == null)
+            if (SubnetSelector.ItemCount == 0 || SubnetSelector.SelectedMetadata == null)
             {
                 return null;
             }
 
-            return (string) SubnetSelector.SelectedMetadata;
+            return (string)SubnetSelector.SelectedMetadata;
         }
     }
 
@@ -78,7 +82,7 @@ public sealed partial class SurveillanceCameraMonitorWindow : DefaultWindow
         SubnetSelector.OnItemSelected += args =>
         {
             // piss
-            SubnetOpened?.Invoke((string) args.Button.GetItemMetadata(args.Id)!);
+            SubnetOpened?.Invoke((string)args.Button.GetItemMetadata(args.Id)!);
         };
         SubnetRefreshButton.OnPressed += _ => SubnetRefresh?.Invoke();
         SubnetRefreshButtonMap.OnPressed += _ => SubnetRefresh?.Invoke();
@@ -89,10 +93,15 @@ public sealed partial class SurveillanceCameraMonitorWindow : DefaultWindow
         CameraMap.CameraSelected += OnCameraMapSelected;
     }
 
-
     // The UI class should get the eye from the entity, and then
     // pass it here so that the UI can change its view.
-    public void UpdateState(IEye? eye, HashSet<string> subnets, string activeAddress, string activeSubnet, Dictionary<string, string> cameras)
+    public void UpdateState(
+        IEye? eye,
+        HashSet<string> subnets,
+        string activeAddress,
+        string activeSubnet,
+        Dictionary<string, string> cameras
+    )
     {
         CameraMap.SetActiveCameraAddress(activeAddress);
         CameraMap.SetAvailableSubnets(subnets);
@@ -144,12 +153,11 @@ public sealed partial class SurveillanceCameraMonitorWindow : DefaultWindow
 
     private void PopulateCameraList(Dictionary<string, string> cameras)
     {
-        var entries = cameras.Select(i => new ItemList.Item(SubnetList) {
-            Text = $"{i.Value}: {i.Key}",
-            Metadata = i.Key
-        }).ToList();
+        var entries = cameras
+            .Select(i => new ItemList.Item(SubnetList) { Text = $"{i.Value}: {i.Key}", Metadata = i.Key })
+            .ToList();
         entries.Sort((a, b) => string.Compare(a.Text, b.Text, StringComparison.Ordinal));
-        SubnetList.SetItems(entries, (a,b) => string.Compare(a.Text, b.Text));
+        SubnetList.SetItems(entries, (a, b) => string.Compare(a.Text, b.Text));
     }
 
     private void SetCameraView(IEye? eye)
@@ -168,9 +176,11 @@ public sealed partial class SurveillanceCameraMonitorWindow : DefaultWindow
 
             _isSwitching = true;
             CameraViewBackground.Visible = true;
-            CameraStatus.Text = Loc.GetString("surveillance-camera-monitor-ui-status",
+            CameraStatus.Text = Loc.GetString(
+                "surveillance-camera-monitor-ui-status",
                 ("status", Loc.GetString("surveillance-camera-monitor-ui-status-connecting")),
-                ("address", _currentAddress));
+                ("address", _currentAddress)
+            );
             CameraSwitchTimer!();
         }
         else
@@ -185,9 +195,11 @@ public sealed partial class SurveillanceCameraMonitorWindow : DefaultWindow
         _isSwitching = false;
         CameraView.Visible = CameraView.Eye != _defaultEye;
         CameraViewBackground.Visible = CameraView.Eye == _defaultEye;
-        CameraStatus.Text = Loc.GetString("surveillance-camera-monitor-ui-status",
-                            ("status", Loc.GetString("surveillance-camera-monitor-ui-status-connected")),
-                            ("address", _currentAddress));
+        CameraStatus.Text = Loc.GetString(
+            "surveillance-camera-monitor-ui-status",
+            ("status", Loc.GetString("surveillance-camera-monitor-ui-status-connected")),
+            ("address", _currentAddress)
+        );
     }
 
     private int AddSubnet(string subnet)
@@ -206,7 +218,7 @@ public sealed partial class SurveillanceCameraMonitorWindow : DefaultWindow
 
     private void OnSubnetListSelect(ItemList.ItemListSelectedEventArgs args)
     {
-        CameraSelected!((string) SubnetList[args.ItemIndex].Metadata!, null);
+        CameraSelected!((string)SubnetList[args.ItemIndex].Metadata!, null);
     }
 
     public void SetMap(EntityUid mapUid)
@@ -216,7 +228,10 @@ public sealed partial class SurveillanceCameraMonitorWindow : DefaultWindow
 
     private void OnCameraMapSelected(NetEntity netEntity)
     {
-        if (_mapUid is null || !_entityManager.TryGetComponent<SurveillanceCameraMapComponent>(_mapUid.Value, out var mapComp))
+        if (
+            _mapUid is null
+            || !_entityManager.TryGetComponent<SurveillanceCameraMapComponent>(_mapUid.Value, out var mapComp)
+        )
             return;
 
         if (!mapComp.Cameras.TryGetValue(netEntity, out var marker) || !marker.Active)

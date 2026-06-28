@@ -8,8 +8,11 @@ namespace Content.Server._Goobstation.ItemMiner;
 
 public sealed class PlanetMinerSystem : EntitySystem
 {
-    [Dependency] private readonly SharedMapSystem _map = default!;
-    [Dependency] private readonly ITileDefinitionManager _tileDef = default!;
+    [Dependency]
+    private readonly SharedMapSystem _map = default!;
+
+    [Dependency]
+    private readonly ITileDefinitionManager _tileDef = default!;
 
     private EntityQuery<MapComponent> _mapQuery;
     private EntityQuery<MapGridComponent> _gridQuery;
@@ -42,9 +45,14 @@ public sealed class PlanetMinerSystem : EntitySystem
             return;
         }
 
-        if (mapUid != gridUid // if we're not on the planet surface
-            && (ent.Comp.RequireGround // but have to be on the surface
-                || !_map.GetTileRef((gridUid.Value, _gridQuery.GetComponent(gridUid.Value)), xform.Coordinates).IsSpace(_tileDef))) // or aren't on lattice
+        if (
+            mapUid != gridUid // if we're not on the planet surface
+            && (
+                ent.Comp.RequireGround // but have to be on the surface
+                || !_map.GetTileRef((gridUid.Value, _gridQuery.GetComponent(gridUid.Value)), xform.Coordinates)
+                    .IsSpace(_tileDef)
+            )
+        ) // or aren't on lattice
         {
             args.Cancelled = true; // then abort
             return;

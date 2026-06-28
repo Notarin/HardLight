@@ -2,10 +2,10 @@
 
 - type: entityTable
   id: AsakimShipsTable
-  table: !type:AllSelector # we need to pass a list of rules, since rules have further restrictions to consider via StationEventComp
-    children:
-      - id: UnknownShuttleAsakimSmall
-      - id: UnknownShuttleAsakimMedium
+  table: !type:AllSelector
+    children: # we need to pass a list of rules, since rules have further restrictions to consider via StationEventComp
+    - id: UnknownShuttleAsakimSmall
+    - id: UnknownShuttleAsakimMedium
 
 - type: entity
   parent: BaseRandomShuttleRule

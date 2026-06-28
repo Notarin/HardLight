@@ -24,9 +24,8 @@ namespace Content.Client.Administration.UI.Bwoink
         /// <summary>Index into <see cref="_ships"/> for the currently selected row, or -1.</summary>
         public int SelectedIndex { get; private set; } = -1;
 
-        public ShipDeedEntry? SelectedShip => SelectedIndex >= 0 && SelectedIndex < _ships.Length
-            ? _ships[SelectedIndex]
-            : null;
+        public ShipDeedEntry? SelectedShip =>
+            SelectedIndex >= 0 && SelectedIndex < _ships.Length ? _ships[SelectedIndex] : null;
 
         public event Action? RefreshRequested;
         public event Action<ShipDeedEntry>? AssignRequested;
@@ -52,16 +51,14 @@ namespace Content.Client.Administration.UI.Bwoink
             };
 
             var headerLabel = new RichTextLabel();
-            headerLabel.SetMessage(FormattedMessage.FromMarkupOrThrow(
-                Loc.GetString("bwoink-assign-deed-header", ("name", playerName))));
+            headerLabel.SetMessage(
+                FormattedMessage.FromMarkupOrThrow(Loc.GetString("bwoink-assign-deed-header", ("name", playerName)))
+            );
             headerLabel.HorizontalExpand = true;
             headerLabel.VerticalAlignment = VAlignment.Center;
             topBar.AddChild(headerLabel);
 
-            var refreshButton = new Button
-            {
-                Text = Loc.GetString("bwoink-assign-deed-refresh"),
-            };
+            var refreshButton = new Button { Text = Loc.GetString("bwoink-assign-deed-refresh") };
             refreshButton.OnPressed += _ => RefreshRequested?.Invoke();
             topBar.AddChild(refreshButton);
 
@@ -87,7 +84,8 @@ namespace Content.Client.Administration.UI.Bwoink
             {
                 SelectedIndex = -1;
                 UpdatePreview();
-                if (_assignButton != null) _assignButton.Disabled = true;
+                if (_assignButton != null)
+                    _assignButton.Disabled = true;
             };
             body.AddChild(_shipList);
 
@@ -98,16 +96,11 @@ namespace Content.Client.Administration.UI.Bwoink
                 MinWidth = 200,
             };
 
-            previewPanel.AddChild(new Label
-            {
-                Text = Loc.GetString("bwoink-assign-deed-preview-header"),
-                StyleClasses = { "LabelSmall" },
-            });
+            previewPanel.AddChild(
+                new Label { Text = Loc.GetString("bwoink-assign-deed-preview-header"), StyleClasses = { "LabelSmall" } }
+            );
 
-            _previewLabel = new RichTextLabel
-            {
-                VerticalExpand = true,
-            };
+            _previewLabel = new RichTextLabel { VerticalExpand = true };
             UpdatePreview();
             previewPanel.AddChild(_previewLabel);
 
@@ -121,11 +114,7 @@ namespace Content.Client.Administration.UI.Bwoink
                 SeparationOverride = 4,
             };
 
-            _statusLabel = new RichTextLabel
-            {
-                HorizontalExpand = true,
-                VerticalAlignment = VAlignment.Center,
-            };
+            _statusLabel = new RichTextLabel { HorizontalExpand = true, VerticalAlignment = VAlignment.Center };
             bottomBar.AddChild(_statusLabel);
 
             _assignButton = new Button
@@ -220,9 +209,11 @@ namespace Content.Client.Administration.UI.Bwoink
                 msg.Pop();
                 msg.AddText(" ");
                 msg.PushColor(Color.White);
-                msg.AddText(string.IsNullOrWhiteSpace(ship.OwnerName)
-                    ? Loc.GetString("bwoink-assign-deed-no-owner")
-                    : ship.OwnerName);
+                msg.AddText(
+                    string.IsNullOrWhiteSpace(ship.OwnerName)
+                        ? Loc.GetString("bwoink-assign-deed-no-owner")
+                        : ship.OwnerName
+                );
                 msg.Pop();
                 msg.AddText("\n");
 

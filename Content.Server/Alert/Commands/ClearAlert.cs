@@ -9,7 +9,8 @@ namespace Content.Server.Alert.Commands
     [AdminCommand(AdminFlags.Debug)]
     public sealed class ClearAlert : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _e = default!;
+        [Dependency]
+        private readonly IEntityManager _e = default!;
 
         public string Command => "clearalert";
         public string Description => "Clears an alert for a player, defaulting to current player";
@@ -29,7 +30,8 @@ namespace Content.Server.Alert.Commands
             if (args.Length > 1)
             {
                 var target = args[1];
-                if (!CommandUtils.TryGetAttachedEntityByUsernameOrId(shell, target, player, out attachedEntity)) return;
+                if (!CommandUtils.TryGetAttachedEntityByUsernameOrId(shell, target, player, out attachedEntity))
+                    return;
             }
 
             if (!_e.TryGetComponent(attachedEntity, out AlertsComponent? alertsComponent))

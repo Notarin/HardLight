@@ -83,7 +83,10 @@ namespace Content.IntegrationTests.Tests.Commands
                 Assert.That(ban.UserIds, Is.EquivalentTo([clientId]));
                 Assert.That(ban.BanTime.UtcDateTime - DateTime.UtcNow, Is.LessThanOrEqualTo(MarginOfError));
                 Assert.That(ban.ExpirationTime, Is.Not.Null);
-                Assert.That(ban.ExpirationTime.Value.UtcDateTime - DateTime.UtcNow.AddHours(24), Is.LessThanOrEqualTo(MarginOfError));
+                Assert.That(
+                    ban.ExpirationTime.Value.UtcDateTime - DateTime.UtcNow.AddHours(24),
+                    Is.LessThanOrEqualTo(MarginOfError)
+                );
                 Assert.That(ban.Reason, Is.EqualTo(banReason));
 
                 // Done through the console
@@ -111,7 +114,10 @@ namespace Content.IntegrationTests.Tests.Commands
                 Assert.That(pardonedBan.UserIds, Is.EquivalentTo([clientId]));
                 Assert.That(pardonedBan.BanTime.UtcDateTime - DateTime.UtcNow, Is.LessThanOrEqualTo(MarginOfError));
                 Assert.That(pardonedBan.ExpirationTime, Is.Not.Null);
-                Assert.That(pardonedBan.ExpirationTime.Value.UtcDateTime - DateTime.UtcNow.AddHours(24), Is.LessThanOrEqualTo(MarginOfError));
+                Assert.That(
+                    pardonedBan.ExpirationTime.Value.UtcDateTime - DateTime.UtcNow.AddHours(24),
+                    Is.LessThanOrEqualTo(MarginOfError)
+                );
                 Assert.That(pardonedBan.Reason, Is.EqualTo(banReason));
 
                 // Done through the console
@@ -123,7 +129,10 @@ namespace Content.IntegrationTests.Tests.Commands
                 // Done through the console
                 Assert.That(pardonedBan.Unban.UnbanningAdmin, Is.Null);
 
-                Assert.That(pardonedBan.Unban.UnbanTime.UtcDateTime - DateTime.UtcNow, Is.LessThanOrEqualTo(MarginOfError));
+                Assert.That(
+                    pardonedBan.Unban.UnbanTime.UtcDateTime - DateTime.UtcNow,
+                    Is.LessThanOrEqualTo(MarginOfError)
+                );
             });
 
             // Try to pardon it again

@@ -1,3 +1,4 @@
+using System.Linq; //Hardlight
 using Content.Server.Construction.Components;
 using Content.Server.Construction.Conditions; //Hardlight
 using Content.Shared.Construction;
@@ -9,13 +10,13 @@ using Content.Shared.Tag; //Hardlight
 using Content.Shared.Verbs;
 using Robust.Shared.Player;
 using Robust.Shared.Utility;
-using System.Linq; //Hardlight
 
 namespace Content.Server.Construction
 {
     public sealed partial class ConstructionSystem
     {
-        [Dependency] private readonly SharedPopupSystem _popup = default!;
+        [Dependency]
+        private readonly SharedPopupSystem _popup = default!;
 
         private readonly Dictionary<ConstructionPrototype, ConstructionGuide> _guideCache = new();
 
@@ -31,7 +32,7 @@ namespace Content.Server.Construction
             if (!PrototypeManager.TryIndex(msg.ConstructionId, out ConstructionPrototype? prototype))
                 return;
 
-            if(GetGuide(prototype) is {} guide)
+            if (GetGuide(prototype) is { } guide)
                 RaiseNetworkEvent(new ResponseConstructionGuide(msg.ConstructionId, guide), args.SenderSession.Channel);
         }
 
@@ -40,8 +41,7 @@ namespace Content.Server.Construction
             if (!args.CanAccess || !args.CanInteract || args.Hands == null)
                 return;
 
-            if (component.TargetNode == component.DeconstructionNode ||
-                component.Node == component.DeconstructionNode)
+            if (component.TargetNode == component.DeconstructionNode || component.Node == component.DeconstructionNode)
                 return;
 
             if (!PrototypeManager.TryIndex(component.Graph, out ConstructionGraphPrototype? graph))
@@ -50,7 +50,7 @@ namespace Content.Server.Construction
             if (component.DeconstructionNode == null)
                 return;
 
-            if (GetCurrentNode(uid, component) is not {} currentNode)
+            if (GetCurrentNode(uid, component) is not { } currentNode)
                 return;
 
             //Hardlight: Retrieving entity tags to approve/deny deconstruction path edges
@@ -65,16 +65,18 @@ namespace Content.Server.Construction
                 validEdges = ListOnlyEdgesWithValidTags(entityTags, graph);
             }
 
-            if (graph.Path(currentNode.Name, component.DeconstructionNode, validEdges) is not {} path || path.Length == 0)
-            //End Hardlight
+            if (
+                graph.Path(currentNode.Name, component.DeconstructionNode, validEdges) is not { } path
+                || path.Length == 0
+            )
+                //End Hardlight
                 return;
 
             Verb verb = new();
             //verb.Category = VerbCategories.Construction;
             //TODO VERBS add more construction verbs? Until then, removing construction category
             verb.Text = Loc.GetString("deconstructible-verb-begin-deconstruct");
-            verb.Icon = new SpriteSpecifier.Texture(
-                new ("/Textures/Interface/hammer_scaled.svg.192dpi.png"));
+            verb.Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/hammer_scaled.svg.192dpi.png"));
 
             verb.Act = () =>
             {
@@ -94,7 +96,10 @@ namespace Content.Server.Construction
         }
 
         //Hardlight: The node/edge iteration to select which edges need to be negated for the deconstruction path
-        private List<ConstructionGraphEdge> ListOnlyEdgesWithValidTags(string[] entityTags, ConstructionGraphPrototype graph)
+        private List<ConstructionGraphEdge> ListOnlyEdgesWithValidTags(
+            string[] entityTags,
+            ConstructionGraphPrototype graph
+        )
         {
             var validEdges = new List<ConstructionGraphEdge>();
 
@@ -120,13 +125,14 @@ namespace Content.Server.Construction
 
             return validEdges;
         }
+
         //End Hardlight
 
         private void HandleConstructionExamined(EntityUid uid, ConstructionComponent component, ExaminedEvent args)
         {
             using (args.PushGroup(nameof(ConstructionComponent)))
             {
-                if (GetTargetNode(uid, component) is {} target)
+                if (GetTargetNode(uid, component) is { } target)
                 {
                     if (target.Name == component.DeconstructionNode)
                     {
@@ -134,13 +140,13 @@ namespace Content.Server.Construction
                     }
                     else
                     {
-                        args.PushMarkup(Loc.GetString(
-                            "construction-component-to-create-header",
-                            ("targetName", target.Name)) + "\n");
+                        args.PushMarkup(
+                            Loc.GetString("construction-component-to-create-header", ("targetName", target.Name)) + "\n"
+                        );
                     }
                 }
 
-                if (component.EdgeIndex == null && GetTargetEdge(uid, component) is {} targetEdge)
+                if (component.EdgeIndex == null && GetTargetEdge(uid, component) is { } targetEdge)
                 {
                     var preventStepExamine = false;
 
@@ -154,7 +160,7 @@ namespace Content.Server.Construction
                     return;
                 }
 
-                if (GetCurrentEdge(uid, component) is {} edge)
+                if (GetCurrentEdge(uid, component) is { } edge)
                 {
                     var preventStepExamine = false;
 
@@ -167,9 +173,7 @@ namespace Content.Server.Construction
                         edge.Steps[component.StepIndex].DoExamine(args);
                 }
             }
-
         }
-
 
         /// <summary>
         ///     Returns a <see cref="ConstructionGuide"/> for a given <see cref="ConstructionPrototype"/>,
@@ -194,13 +198,14 @@ namespace Content.Server.Construction
                 return null;
 
             // If either the start node or the target node are missing, do nothing.
-            if (GetNodeFromGraph(graph, construction.StartNode) is not {} startNode
-                || GetNodeFromGraph(graph, construction.TargetNode) is not {} targetNode)
+            if (
+                GetNodeFromGraph(graph, construction.StartNode) is not { } startNode
+                || GetNodeFromGraph(graph, construction.TargetNode) is not { } targetNode
+            )
                 return null;
 
             // If there's no path from start to target, do nothing.
-            if (graph.Path(construction.StartNode, construction.TargetNode) is not {} path
-                || path.Length == 0)
+            if (graph.Path(construction.StartNode, construction.TargetNode) is not { } path || path.Length == 0)
                 return null;
 
             var step = 1;
@@ -210,10 +215,12 @@ namespace Content.Server.Construction
                 // Initial construction header.
                 new()
                 {
-                    Localization = construction.Type == ConstructionType.Structure
-                        ? "construction-presenter-to-build" : "construction-presenter-to-craft",
+                    Localization =
+                        construction.Type == ConstructionType.Structure
+                            ? "construction-presenter-to-build"
+                            : "construction-presenter-to-craft",
                     EntryNumber = step,
-                }
+                },
             };
 
             var conditions = new HashSet<string>();
@@ -221,7 +228,7 @@ namespace Content.Server.Construction
             // Iterate until the penultimate node.
             var node = startNode;
             var index = 0;
-            while(node != targetNode)
+            while (node != targetNode)
             {
                 // Can't find path, therefore can't generate guide...
                 if (!node.TryGetEdge(path[index].Name, out var edge))
@@ -242,7 +249,7 @@ namespace Content.Server.Construction
                     // Now actually list the construction conditions.
                     foreach (var condition in construction.Conditions)
                     {
-                        if (condition.GenerateGuideEntry() is not {} conditionEntry)
+                        if (condition.GenerateGuideEntry() is not { } conditionEntry)
                             continue;
 
                         conditionEntry.Padding += 4;
@@ -253,7 +260,7 @@ namespace Content.Server.Construction
                     node = path[index++];
 
                     // Add a bit of padding if there will be more steps after this.
-                    if(node != targetNode)
+                    if (node != targetNode)
                         entries.Add(new ConstructionGuideEntry());
 
                     continue;
@@ -273,7 +280,6 @@ namespace Content.Server.Construction
                         // So that the step of inserting a machine board and inserting all of its parts is numbered.
                         if (conditionEntry.EntryNumber != null)
                             conditionEntry.EntryNumber = step++;
-
                         // To prevent spamming the same stuff over and over again. This is a bit naive, but..ye.
                         // Also we will only hide this condition *if* it isn't numbered.
                         else

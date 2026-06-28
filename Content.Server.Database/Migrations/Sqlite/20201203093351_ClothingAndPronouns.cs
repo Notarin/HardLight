@@ -11,25 +11,23 @@ namespace Content.Server.Database.Migrations.Sqlite
                 table: "profile",
                 type: "TEXT",
                 nullable: false,
-                defaultValue: "");
+                defaultValue: ""
+            );
 
             migrationBuilder.AddColumn<string>(
                 name: "gender",
                 table: "profile",
                 type: "TEXT",
                 nullable: false,
-                defaultValue: "");
+                defaultValue: ""
+            );
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "clothing",
-                table: "profile");
+            migrationBuilder.DropColumn(name: "clothing", table: "profile");
 
-            migrationBuilder.DropColumn(
-                name: "gender",
-                table: "profile");
+            migrationBuilder.DropColumn(name: "gender", table: "profile");
         }
     }
 }

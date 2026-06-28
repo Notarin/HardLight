@@ -1,16 +1,16 @@
+using System.Linq;
 using Content.Client._NF.Shipyard.UI;
-using Content.Shared.Containers.ItemSlots;
+using Content.Client.Shuttles.Save;
 using Content.Shared._NF.Shipyard.BUI;
 using Content.Shared._NF.Shipyard.Events;
-// Docked deed creation removed from Shipyard; no ShipyardConsoleCreateDeedMessage
-using static Robust.Client.UserInterface.Controls.BaseButton;
+using Content.Shared.Containers.ItemSlots;
 using Robust.Client.UserInterface;
-using Content.Client.Shuttles.Save;
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.XAML;
 using Robust.Shared.IoC;
 using Robust.Shared.Log;
-using System.Linq;
+// Docked deed creation removed from Shipyard; no ShipyardConsoleCreateDeedMessage
+using static Robust.Client.UserInterface.Controls.BaseButton;
 
 // Suppress naming style rule for the _NF namespace prefix (project convention)
 #pragma warning disable IDE1006
@@ -18,9 +18,11 @@ namespace Content.Client._NF.Shipyard.BUI;
 
 public sealed class ShipyardConsoleBoundUserInterface : BoundUserInterface
 {
-    [Dependency] private readonly ShipFileManagementSystem _shipFileManagementSystem = default!;
+    [Dependency]
+    private readonly ShipFileManagementSystem _shipFileManagementSystem = default!;
 
     private ShipyardConsoleMenu? _menu;
+
     // private ShipyardRulesPopup? _rulesWindow; // Frontier
     public int Balance { get; private set; }
 
@@ -33,9 +35,8 @@ public sealed class ShipyardConsoleBoundUserInterface : BoundUserInterface
 
     // Docked grids deed creation disabled for shipyard console
 
-    public ShipyardConsoleBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-    }
+    public ShipyardConsoleBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {
@@ -47,7 +48,8 @@ public sealed class ShipyardConsoleBoundUserInterface : BoundUserInterface
             _menu.OnSellShip += SellShip;
             _menu.OnSaveShip += SaveShip;
             _menu.OnReloadShips += ReloadShips;
-            _menu.TargetIdButton.OnPressed += _ => SendMessage(new ItemSlotButtonPressedEvent("ShipyardConsole-targetId"));
+            _menu.TargetIdButton.OnPressed += _ =>
+                SendMessage(new ItemSlotButtonPressedEvent("ShipyardConsole-targetId"));
 
             // Disable the NFSD popup for now.
             // var rules = new FormattedMessage();
@@ -187,8 +189,12 @@ public sealed class ShipyardConsoleBoundUserInterface : BoundUserInterface
         return fileName;
     }
 
-
-    private void Populate(List<string> availablePrototypes, List<string> unavailablePrototypes, bool freeListings, bool validId)
+    private void Populate(
+        List<string> availablePrototypes,
+        List<string> unavailablePrototypes,
+        bool freeListings,
+        bool validId
+    )
     {
         if (_menu == null)
             return;
@@ -208,7 +214,12 @@ public sealed class ShipyardConsoleBoundUserInterface : BoundUserInterface
 
         Balance = cState.Balance;
         ShipSellValue = cState.ShipSellValue;
-        Populate(cState.ShipyardPrototypes.available, cState.ShipyardPrototypes.unavailable, cState.FreeListings, cState.IsTargetIdPresent);
+        Populate(
+            cState.ShipyardPrototypes.available,
+            cState.ShipyardPrototypes.unavailable,
+            cState.FreeListings,
+            cState.IsTargetIdPresent
+        );
         _menu?.UpdateState(cState);
 
         // Docked grids UI removed on shipyard console
@@ -226,6 +237,7 @@ public sealed class ShipyardConsoleBoundUserInterface : BoundUserInterface
         var vesselId = row.Vessel.ID;
         SendMessage(new ShipyardConsolePurchaseMessage(vesselId));
     }
+
     private void SellShip(ButtonEventArgs args)
     {
         //reserved for a sanity check, but im not sure what since we check all the important stuffs on server already

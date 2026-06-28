@@ -7,7 +7,6 @@ namespace Content.Shared._Shitmed.Medical.Surgery.Tools;
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class SurgeryToolComponent : Component
 {
-
     [DataField, AutoNetworkedField]
     public SoundSpecifier? StartSound;
 

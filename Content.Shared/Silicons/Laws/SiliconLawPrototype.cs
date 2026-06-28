@@ -50,8 +50,8 @@ public partial class SiliconLaw : IComparable<SiliconLaw>, IEquatable<SiliconLaw
         if (other == null)
             return false;
         return LawString == other.LawString
-               && Order == other.Order
-               && LawIdentifierOverride == other.LawIdentifierOverride;
+            && Order == other.Order
+            && LawIdentifierOverride == other.LawIdentifierOverride;
     }
 
     public override bool Equals(object? obj)

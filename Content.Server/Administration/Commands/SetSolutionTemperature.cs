@@ -1,15 +1,16 @@
-using Content.Shared.Chemistry.EntitySystems;
+using System.Linq;
 using Content.Shared.Administration;
 using Content.Shared.Chemistry.Components.SolutionManager;
+using Content.Shared.Chemistry.EntitySystems;
 using Robust.Shared.Console;
-using System.Linq;
 
 namespace Content.Server.Administration.Commands
 {
     [AdminCommand(AdminFlags.Fun)]
     public sealed class SetSolutionTemperature : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _entManager = default!;
+        [Dependency]
+        private readonly IEntityManager _entManager = default!;
 
         public string Command => "setsolutiontemperature";
         public string Description => "Set the temperature of some solution.";
@@ -38,8 +39,13 @@ namespace Content.Server.Administration.Commands
             var solutionContainerSystem = _entManager.System<SharedSolutionContainerSystem>();
             if (!solutionContainerSystem.TryGetSolution((uid.Value, man), args[1], out var solution))
             {
-                var validSolutions = string.Join(", ", solutionContainerSystem.EnumerateSolutions((uid.Value, man)).Select(s => s.Name));
-                shell.WriteLine($"Entity does not have a \"{args[1]}\" solution. Valid solutions are:\n{validSolutions}");
+                var validSolutions = string.Join(
+                    ", ",
+                    solutionContainerSystem.EnumerateSolutions((uid.Value, man)).Select(s => s.Name)
+                );
+                shell.WriteLine(
+                    $"Entity does not have a \"{args[1]}\" solution. Valid solutions are:\n{validSolutions}"
+                );
                 return;
             }
 

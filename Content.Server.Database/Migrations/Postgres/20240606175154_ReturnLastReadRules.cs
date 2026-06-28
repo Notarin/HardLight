@@ -15,15 +15,14 @@ namespace Content.Server.Database.Migrations.Postgres
                 name: "last_read_rules",
                 table: "player",
                 type: "timestamp with time zone",
-                nullable: true);
+                nullable: true
+            );
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "last_read_rules",
-                table: "player");
+            migrationBuilder.DropColumn(name: "last_read_rules", table: "player");
         }
     }
 }

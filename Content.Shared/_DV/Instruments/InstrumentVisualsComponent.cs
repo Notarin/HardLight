@@ -14,5 +14,5 @@ public sealed partial class InstrumentVisualsComponent : Component;
 public enum InstrumentVisuals : byte
 {
     Playing,
-    Layer
+    Layer,
 }

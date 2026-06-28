@@ -14,10 +14,17 @@ namespace Content.Server.Objectives.Systems;
 
 public sealed class HijackShuttleConditionSystem : EntitySystem
 {
-    [Dependency] private readonly EmergencyShuttleSystem _emergencyShuttle = default!;
-    [Dependency] private readonly SharedMindSystem _mind = default!;
-    [Dependency] private readonly SharedRoleSystem _role = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
+    [Dependency]
+    private readonly EmergencyShuttleSystem _emergencyShuttle = default!;
+
+    [Dependency]
+    private readonly SharedMindSystem _mind = default!;
+
+    [Dependency]
+    private readonly SharedRoleSystem _role = default!;
+
+    [Dependency]
+    private readonly MobStateSystem _mobState = default!;
 
     public override void Initialize()
     {
@@ -68,8 +75,10 @@ public sealed class HijackShuttleConditionSystem : EntitySystem
         var agentOnShuttle = false;
         foreach (var player in gridPlayers)
         {
-            if (player.AttachedEntity == null ||
-                !_mind.TryGetMind(player.AttachedEntity.Value, out var crewMindId, out _))
+            if (
+                player.AttachedEntity == null
+                || !_mind.TryGetMind(player.AttachedEntity.Value, out var crewMindId, out _)
+            )
                 continue;
 
             if (mindId == crewMindId)
@@ -91,8 +100,7 @@ public sealed class HijackShuttleConditionSystem : EntitySystem
                 continue;
 
             var isPersonCuffed =
-                cuffable.TryGetComponent(player.AttachedEntity.Value, out var cuffed)
-                && cuffed.CuffedHandCount > 0;
+                cuffable.TryGetComponent(player.AttachedEntity.Value, out var cuffed) && cuffed.CuffedHandCount > 0;
             if (isPersonCuffed) // Allow handcuffed
                 continue;
 

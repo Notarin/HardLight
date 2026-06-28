@@ -34,14 +34,21 @@ public sealed class AmbientSoundOverlay : Overlay
 
         foreach (var ent in _lookup.GetEntitiesIntersecting(args.MapId, args.WorldBounds))
         {
-            if (!ambientQuery.TryGetComponent(ent, out var ambientSound) ||
-                !xformQuery.TryGetComponent(ent, out var xform)) continue;
+            if (
+                !ambientQuery.TryGetComponent(ent, out var ambientSound)
+                || !xformQuery.TryGetComponent(ent, out var xform)
+            )
+                continue;
 
             if (ambientSound.Enabled)
             {
                 if (_ambient.IsActive((ent, ambientSound)))
                 {
-                    worldHandle.DrawCircle(xformSystem.GetWorldPosition(xform), Size, Color.LightGreen.WithAlpha(Alpha * 2f));
+                    worldHandle.DrawCircle(
+                        xformSystem.GetWorldPosition(xform),
+                        Size,
+                        Color.LightGreen.WithAlpha(Alpha * 2f)
+                    );
                 }
                 else
                 {

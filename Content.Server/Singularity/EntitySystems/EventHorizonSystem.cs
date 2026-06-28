@@ -2,6 +2,7 @@ using System.Numerics;
 using Content.Server.Administration.Logs;
 using Content.Server.Singularity.Events;
 using Content.Server.Station.Components;
+using Content.Shared.Abilities.Psionics; //Nyano - Summary: for the telegnostic projection.
 using Content.Shared.Database;
 using Content.Shared.Ghost;
 using Content.Shared.Mind.Components;
@@ -17,7 +18,6 @@ using Robust.Shared.Physics.Events;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
-using Content.Shared.Abilities.Psionics; //Nyano - Summary: for the telegnostic projection.
 
 namespace Content.Server.Singularity.EntitySystems;
 
@@ -28,17 +28,33 @@ namespace Content.Server.Singularity.EntitySystems;
 public sealed class EventHorizonSystem : SharedEventHorizonSystem
 {
     private const float CoMovingRelativeSpeedSq = 0.01f; // HardLight
-
     #region Dependencies
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IMapManager _mapMan = default!;
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly SharedTransformSystem _xformSystem = default!;
-    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
-    [Dependency] private readonly TagSystem _tagSystem = default!;
+    [Dependency]
+    private readonly EntityLookupSystem _lookup = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IMapManager _mapMan = default!;
+
+    [Dependency]
+    private readonly IAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _containerSystem = default!;
+
+    [Dependency]
+    private readonly SharedPhysicsSystem _physics = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _xformSystem = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _mapSystem = default!;
+
+    [Dependency]
+    private readonly TagSystem _tagSystem = default!;
     #endregion Dependencies
 
     private static readonly ProtoId<TagPrototype> HighRiskItemTag = "HighRiskItem";
@@ -53,18 +69,27 @@ public sealed class EventHorizonSystem : SharedEventHorizonSystem
 
         SubscribeLocalEvent<MapGridComponent, EventHorizonAttemptConsumeEntityEvent>(PreventConsume);
         SubscribeLocalEvent<GhostComponent, EventHorizonAttemptConsumeEntityEvent>(PreventConsume);
-        SubscribeLocalEvent<TelegnosticProjectionComponent, EventHorizonAttemptConsumeEntityEvent>(PreventConsume); ///Nyano - Summary: the telegnositic projection has the same trait as ghosts.
+        SubscribeLocalEvent<TelegnosticProjectionComponent, EventHorizonAttemptConsumeEntityEvent>(PreventConsume);
+        ///Nyano - Summary: the telegnositic projection has the same trait as ghosts.
         SubscribeLocalEvent<StationDataComponent, EventHorizonAttemptConsumeEntityEvent>(PreventConsume);
         SubscribeLocalEvent<EventHorizonComponent, MapInitEvent>(OnHorizonMapInit);
         SubscribeLocalEvent<EventHorizonComponent, StartCollideEvent>(OnStartCollide);
         SubscribeLocalEvent<EventHorizonComponent, EntGotInsertedIntoContainerMessage>(OnEventHorizonContained);
         SubscribeLocalEvent<EventHorizonContainedEvent>(OnEventHorizonContained);
-        SubscribeLocalEvent<EventHorizonComponent, EventHorizonAttemptConsumeEntityEvent>(OnAnotherEventHorizonAttemptConsumeThisEventHorizon);
-        SubscribeLocalEvent<EventHorizonComponent, EventHorizonConsumedEntityEvent>(OnAnotherEventHorizonConsumedThisEventHorizon);
+        SubscribeLocalEvent<EventHorizonComponent, EventHorizonAttemptConsumeEntityEvent>(
+            OnAnotherEventHorizonAttemptConsumeThisEventHorizon
+        );
+        SubscribeLocalEvent<EventHorizonComponent, EventHorizonConsumedEntityEvent>(
+            OnAnotherEventHorizonConsumedThisEventHorizon
+        );
         SubscribeLocalEvent<ContainerManagerComponent, EventHorizonConsumedEntityEvent>(OnContainerConsumed);
 
         var vvHandle = Vvm.GetTypeHandler<EventHorizonComponent>();
-        vvHandle.AddPath(nameof(EventHorizonComponent.TargetConsumePeriod), (_, comp) => comp.TargetConsumePeriod, SetConsumePeriod);
+        vvHandle.AddPath(
+            nameof(EventHorizonComponent.TargetConsumePeriod),
+            (_, comp) => comp.TargetConsumePeriod,
+            SetConsumePeriod
+        );
     }
 
     private void OnHorizonMapInit(EntityUid uid, EventHorizonComponent component, MapInitEvent args)
@@ -111,8 +136,10 @@ public sealed class EventHorizonSystem : SharedEventHorizonSystem
             return;
 
         // Handle singularities some admin smited into a locker.
-        if (_containerSystem.TryGetContainingContainer((uid, xform, null), out var container)
-        && !AttemptConsumeEntity(uid, container.Owner, eventHorizon))
+        if (
+            _containerSystem.TryGetContainingContainer((uid, xform, null), out var container)
+            && !AttemptConsumeEntity(uid, container.Owner, eventHorizon)
+        )
         {
             // Locker is indestructible. Consume everything else in the locker instead of magically teleporting out.
             ConsumeEntitiesInContainer(uid, container, eventHorizon, container);
@@ -130,16 +157,27 @@ public sealed class EventHorizonSystem : SharedEventHorizonSystem
     /// <summary>
     /// Makes an event horizon consume a given entity.
     /// </summary>
-    public void ConsumeEntity(EntityUid hungry, EntityUid morsel, EventHorizonComponent eventHorizon, BaseContainer? outerContainer = null)
+    public void ConsumeEntity(
+        EntityUid hungry,
+        EntityUid morsel,
+        EventHorizonComponent eventHorizon,
+        BaseContainer? outerContainer = null
+    )
     {
         if (EntityManager.IsQueuedForDeletion(morsel)) // already handled, and we're substepping
             return;
 
-        if (HasComp<MindContainerComponent>(morsel)
+        if (
+            HasComp<MindContainerComponent>(morsel)
             || _tagSystem.HasTag(morsel, HighRiskItemTag)
-            || HasComp<ContainmentFieldGeneratorComponent>(morsel))
+            || HasComp<ContainmentFieldGeneratorComponent>(morsel)
+        )
         {
-            _adminLogger.Add(LogType.EntityDelete, LogImpact.High, $"{ToPrettyString(morsel):player} entered the event horizon of {ToPrettyString(hungry)} and was deleted");
+            _adminLogger.Add(
+                LogType.EntityDelete,
+                LogImpact.High,
+                $"{ToPrettyString(morsel):player} entered the event horizon of {ToPrettyString(hungry)} and was deleted"
+            );
         }
 
         EntityManager.QueueDeleteEntity(morsel);
@@ -152,7 +190,12 @@ public sealed class EventHorizonSystem : SharedEventHorizonSystem
     /// <summary>
     /// Makes an event horizon attempt to consume a given entity.
     /// </summary>
-    public bool AttemptConsumeEntity(EntityUid hungry, EntityUid morsel, EventHorizonComponent eventHorizon, BaseContainer? outerContainer = null)
+    public bool AttemptConsumeEntity(
+        EntityUid hungry,
+        EntityUid morsel,
+        EventHorizonComponent eventHorizon,
+        BaseContainer? outerContainer = null
+    )
     {
         if (!CanConsumeEntity(hungry, morsel, eventHorizon))
             return false;
@@ -175,7 +218,12 @@ public sealed class EventHorizonSystem : SharedEventHorizonSystem
     /// Attempts to consume all entities within a given distance of an entity;
     /// Excludes the center entity.
     /// </summary>
-    public void ConsumeEntitiesInRange(EntityUid uid, float range, PhysicsComponent? body = null, EventHorizonComponent? eventHorizon = null)
+    public void ConsumeEntitiesInRange(
+        EntityUid uid,
+        float range,
+        PhysicsComponent? body = null,
+        EventHorizonComponent? eventHorizon = null
+    )
     {
         if (!Resolve(uid, ref body, ref eventHorizon))
             return;
@@ -187,7 +235,10 @@ public sealed class EventHorizonSystem : SharedEventHorizonSystem
                 continue;
 
             // See TODO above
-            if (_physicsQuery.TryComp(entity, out var otherBody) && !_physics.IsHardCollidable((uid, null, body), (entity, null, otherBody)))
+            if (
+                _physicsQuery.TryComp(entity, out var otherBody)
+                && !_physics.IsHardCollidable((uid, null, body), (entity, null, otherBody))
+            )
                 continue;
 
             AttemptConsumeEntity(uid, entity, eventHorizon);
@@ -199,7 +250,12 @@ public sealed class EventHorizonSystem : SharedEventHorizonSystem
     /// Excludes the event horizon itself.
     /// All immune entities within the container will be dumped to a given container or the map/grid if that is impossible.
     /// </summary>
-    public void ConsumeEntitiesInContainer(EntityUid hungry, BaseContainer container, EventHorizonComponent eventHorizon, BaseContainer? outerContainer = null)
+    public void ConsumeEntitiesInContainer(
+        EntityUid hungry,
+        BaseContainer container,
+        EventHorizonComponent eventHorizon,
+        BaseContainer? outerContainer = null
+    )
     {
         // Removing the immune entities from the container needs to be deferred until after iteration or the iterator raises an error.
         List<EntityUid> immune = new();
@@ -208,12 +264,12 @@ public sealed class EventHorizonSystem : SharedEventHorizonSystem
         {
             if (entity == hungry || !AttemptConsumeEntity(hungry, entity, eventHorizon, outerContainer))
                 immune.Add(entity); // The first check keeps singularities an admin smited into a locker from consuming themselves.
-                                    // The second check keeps things that have been rendered immune to singularities from being deleted by a singularity eating their container.
+            // The second check keeps things that have been rendered immune to singularities from being deleted by a singularity eating their container.
         }
 
         if (outerContainer == container || immune.Count <= 0)
             return; // The container we are intended to drop immune things to is the same container we are consuming everything in
-                    //  it's a safe bet that we aren't consuming the container entity so there's no reason to eject anything from this container.
+        //  it's a safe bet that we aren't consuming the container entity so there's no reason to eject anything from this container.
 
         // We need to get the immune things out of the container because the chances are we are about to eat the container and we don't want them to get deleted despite their immunity.
         foreach (var entity in immune)
@@ -243,7 +299,13 @@ public sealed class EventHorizonSystem : SharedEventHorizonSystem
     /// </summary>
     public void ConsumeTile(EntityUid hungry, TileRef tile, EventHorizonComponent eventHorizon)
     {
-        ConsumeTiles(hungry, new List<(Vector2i, Tile)>(new[] { (tile.GridIndices, Tile.Empty) }), tile.GridUid, Comp<MapGridComponent>(tile.GridUid), eventHorizon);
+        ConsumeTiles(
+            hungry,
+            new List<(Vector2i, Tile)>(new[] { (tile.GridIndices, Tile.Empty) }),
+            tile.GridUid,
+            Comp<MapGridComponent>(tile.GridUid),
+            eventHorizon
+        );
     }
 
     /// <summary>
@@ -251,13 +313,25 @@ public sealed class EventHorizonSystem : SharedEventHorizonSystem
     /// </summary>
     public void AttemptConsumeTile(EntityUid hungry, TileRef tile, EventHorizonComponent eventHorizon)
     {
-        AttemptConsumeTiles(hungry, new TileRef[1] { tile }, tile.GridUid, Comp<MapGridComponent>(tile.GridUid), eventHorizon);
+        AttemptConsumeTiles(
+            hungry,
+            new TileRef[1] { tile },
+            tile.GridUid,
+            Comp<MapGridComponent>(tile.GridUid),
+            eventHorizon
+        );
     }
 
     /// <summary>
     /// Makes an event horizon consume a set of tiles on a grid.
     /// </summary>
-    public void ConsumeTiles(EntityUid hungry, List<(Vector2i, Tile)> tiles, EntityUid gridId, MapGridComponent grid, EventHorizonComponent eventHorizon)
+    public void ConsumeTiles(
+        EntityUid hungry,
+        List<(Vector2i, Tile)> tiles,
+        EntityUid gridId,
+        MapGridComponent grid,
+        EventHorizonComponent eventHorizon
+    )
     {
         if (tiles.Count <= 0)
             return;
@@ -270,7 +344,13 @@ public sealed class EventHorizonSystem : SharedEventHorizonSystem
     /// <summary>
     /// Makes an event horizon attempt to consume a set of tiles on a grid.
     /// </summary>
-    public int AttemptConsumeTiles(EntityUid hungry, IEnumerable<TileRef> tiles, EntityUid gridId, MapGridComponent grid, EventHorizonComponent eventHorizon)
+    public int AttemptConsumeTiles(
+        EntityUid hungry,
+        IEnumerable<TileRef> tiles,
+        EntityUid gridId,
+        MapGridComponent grid,
+        EventHorizonComponent eventHorizon
+    )
     {
         var toConsume = new List<(Vector2i, Tile)>();
         foreach (var tile in tiles)
@@ -289,7 +369,12 @@ public sealed class EventHorizonSystem : SharedEventHorizonSystem
     /// Checks whether an event horizon can consume a given tile.
     /// This is only possible if it can also consume all entities anchored to the tile.
     /// </summary>
-    public bool CanConsumeTile(EntityUid hungry, TileRef tile, MapGridComponent grid, EventHorizonComponent eventHorizon)
+    public bool CanConsumeTile(
+        EntityUid hungry,
+        TileRef tile,
+        MapGridComponent grid,
+        EventHorizonComponent eventHorizon
+    )
     {
         foreach (var blockingEntity in grid.GetAnchoredEntities(tile.GridIndices))
         {
@@ -303,7 +388,12 @@ public sealed class EventHorizonSystem : SharedEventHorizonSystem
     /// Consumes all tiles within a given distance of an entity.
     /// Some entities are immune to consumption.
     /// </summary>
-    public void ConsumeTilesInRange(EntityUid uid, float range, TransformComponent? xform, EventHorizonComponent? eventHorizon)
+    public void ConsumeTilesInRange(
+        EntityUid uid,
+        float range,
+        TransformComponent? xform,
+        EventHorizonComponent? eventHorizon
+    )
     {
         if (!Resolve(uid, ref xform) || !Resolve(uid, ref eventHorizon))
             return;
@@ -317,7 +407,13 @@ public sealed class EventHorizonSystem : SharedEventHorizonSystem
         foreach (var grid in grids)
         {
             // TODO: Remover grid.Owner when this iterator returns entityuids as well.
-            AttemptConsumeTiles(uid, _mapSystem.GetTilesIntersecting(grid.Owner, grid.Comp, circle), grid, grid, eventHorizon);
+            AttemptConsumeTiles(
+                uid,
+                _mapSystem.GetTilesIntersecting(grid.Owner, grid.Comp, circle),
+                grid,
+                grid,
+                eventHorizon
+            );
         }
     }
 
@@ -327,7 +423,12 @@ public sealed class EventHorizonSystem : SharedEventHorizonSystem
     /// Consumes most entities and tiles within a given distance of an entity.
     /// Some entities are immune to consumption.
     /// </summary>
-    public void ConsumeEverythingInRange(EntityUid uid, float range, TransformComponent? xform = null, EventHorizonComponent? eventHorizon = null)
+    public void ConsumeEverythingInRange(
+        EntityUid uid,
+        float range,
+        TransformComponent? xform = null,
+        EventHorizonComponent? eventHorizon = null
+    )
     {
         if (!Resolve(uid, ref eventHorizon))
             return;
@@ -415,14 +516,18 @@ public sealed class EventHorizonSystem : SharedEventHorizonSystem
 
         // HardLight: Some horizons, such as the tesla, intentionally disable wave-based entity consumption but still consume on touch.
         // Ignore co-moving edge contacts from moving grids, but still allow direct overlap consumes at near-zero relative velocity
-        if (!comp.ConsumeEntities
+        if (
+            !comp.ConsumeEntities
             && _physicsQuery.TryComp(uid, out var ourBody)
-            && _physicsQuery.TryComp(args.OtherEntity, out var otherBody))
+            && _physicsQuery.TryComp(args.OtherEntity, out var otherBody)
+        )
         {
             var relativeVelocity = ourBody.LinearVelocity - otherBody.LinearVelocity;
             if (relativeVelocity.LengthSquared() <= CoMovingRelativeSpeedSq)
             {
-                var distanceSq = (_xformSystem.GetWorldPosition(uid) - _xformSystem.GetWorldPosition(args.OtherEntity)).LengthSquared();
+                var distanceSq = (
+                    _xformSystem.GetWorldPosition(uid) - _xformSystem.GetWorldPosition(args.OtherEntity)
+                ).LengthSquared();
                 if (distanceSq > comp.Radius * comp.Radius)
                     return;
             }
@@ -436,7 +541,11 @@ public sealed class EventHorizonSystem : SharedEventHorizonSystem
     /// Specifically prevents event horizons from consuming themselves.
     /// Also ensures that if this event horizon has already been consumed by another event horizon it cannot be consumed again.
     /// </summary>
-    private void OnAnotherEventHorizonAttemptConsumeThisEventHorizon(EntityUid uid, EventHorizonComponent comp, ref EventHorizonAttemptConsumeEntityEvent args)
+    private void OnAnotherEventHorizonAttemptConsumeThisEventHorizon(
+        EntityUid uid,
+        EventHorizonComponent comp,
+        ref EventHorizonAttemptConsumeEntityEvent args
+    )
     {
         if (!args.Cancelled && (args.EventHorizon == comp || comp.BeingConsumedByAnotherEventHorizon))
             args.Cancelled = true;
@@ -446,7 +555,11 @@ public sealed class EventHorizonSystem : SharedEventHorizonSystem
     /// Prevents two singularities from annihilating one another.
     /// Specifically ensures if this event horizon is consumed by another event horizon it knows that it has been consumed.
     /// </summary>
-    private void OnAnotherEventHorizonConsumedThisEventHorizon(EntityUid uid, EventHorizonComponent comp, ref EventHorizonConsumedEntityEvent args)
+    private void OnAnotherEventHorizonConsumedThisEventHorizon(
+        EntityUid uid,
+        EventHorizonComponent comp,
+        ref EventHorizonConsumedEntityEvent args
+    )
     {
         comp.BeingConsumedByAnotherEventHorizon = true;
     }
@@ -458,7 +571,11 @@ public sealed class EventHorizonSystem : SharedEventHorizonSystem
     ///     the inserted entity SHALL be inside of the specified container after all handles to the entity event
     ///     <see cref="EntGotInsertedIntoContainerMessage" /> are processed.
     /// </summary>
-    private void OnEventHorizonContained(EntityUid uid, EventHorizonComponent comp, EntGotInsertedIntoContainerMessage args)
+    private void OnEventHorizonContained(
+        EntityUid uid,
+        EventHorizonComponent comp,
+        EntGotInsertedIntoContainerMessage args
+    )
     {
         // Delegates processing an event until all queued events have been processed.
         QueueLocalEvent(new EventHorizonContainedEvent(uid, comp, args));
@@ -492,7 +609,11 @@ public sealed class EventHorizonSystem : SharedEventHorizonSystem
     /// Recursively consumes all entities within a container that is consumed by the singularity.
     /// If an entity within a consumed container cannot be consumed itself it is removed from the container.
     /// </summary>
-    private void OnContainerConsumed(EntityUid uid, ContainerManagerComponent comp, ref EventHorizonConsumedEntityEvent args)
+    private void OnContainerConsumed(
+        EntityUid uid,
+        ContainerManagerComponent comp,
+        ref EventHorizonConsumedEntityEvent args
+    )
     {
         var drop_container = args.Container;
         if (drop_container is null)

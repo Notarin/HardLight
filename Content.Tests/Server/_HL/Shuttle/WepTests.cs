@@ -13,15 +13,14 @@ public sealed class WepTests : ContentUnitTest
     // either the constants or the formula break these tests and force a review.
     private static float ComputeWepVelocity(float tileCount)
     {
-        var raw = ShuttleComponent.WepBaseVelocity
-                  - 25f * MathF.Log2(tileCount / ShuttleComponent.WepBaseGridSize);
+        var raw = ShuttleComponent.WepBaseVelocity - 25f * MathF.Log2(tileCount / ShuttleComponent.WepBaseGridSize);
         return Math.Clamp(raw, ShuttleComponent.WepLowerVelocity, ShuttleComponent.WepUpperVelocity);
     }
 
-    [TestCase(250f,  100f, Description = "Base grid size → base velocity")]
-    [TestCase(1f,    125f, Description = "Tiny grid → clamped to upper bound")]
-    [TestCase(1000f,  50f, Description = "4× base tiles → minimum velocity")]
-    [TestCase(5000f,  50f, Description = "Oversized grid → clamped to lower bound")]
+    [TestCase(250f, 100f, Description = "Base grid size → base velocity")]
+    [TestCase(1f, 125f, Description = "Tiny grid → clamped to upper bound")]
+    [TestCase(1000f, 50f, Description = "4× base tiles → minimum velocity")]
+    [TestCase(5000f, 50f, Description = "Oversized grid → clamped to lower bound")]
     public void WepMaxVelocity_ScalesWithTileCount(float tileCount, float expected)
     {
         Assert.That(ComputeWepVelocity(tileCount), Is.EqualTo(expected).Within(0.001f));

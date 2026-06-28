@@ -18,9 +18,9 @@ namespace Content.IntegrationTests.Tests;
 [TestFixture]
 public sealed class StoreTests
 {
-
     [TestPrototypes]
-    private const string Prototypes = @"
+    private const string Prototypes =
+        @"
 - type: entity
   name: InventoryPdaDummy
   id: InventoryPdaDummy
@@ -32,6 +32,7 @@ public sealed class StoreTests
     - idcard
   - type: Pda
 ";
+
     [Test]
     [Ignore("Preventing CI tests from failing")] // Frontier: FIXME - no idea why this fails at the moment.
     public async Task StoreDiscountAndRefund()
@@ -52,15 +53,13 @@ public sealed class StoreTests
 
         Assert.That(mapSystem.IsInitialized(testMap.MapId));
 
-
         EntityUid human = default;
         EntityUid uniform = default;
         EntityUid pda = default;
 
         var uplinkSystem = entManager.System<UplinkSystem>();
 
-        var listingPrototypes = prototypeManager.EnumeratePrototypes<ListingPrototype>()
-                                                .ToArray();
+        var listingPrototypes = prototypeManager.EnumeratePrototypes<ListingPrototype>().ToArray();
 
         var coordinates = testMap.GridCoords;
         await server.WaitAssertion(() =>
@@ -87,20 +86,20 @@ public sealed class StoreTests
                 discountComponent.Discounts,
                 Has.Exactly(6).Items,
                 $"After applying discount total discounted items count was expected to be '6' "
-                + $"but was actually {discountComponent.Discounts.Count}- this can be due to discount "
-                + $"categories settings (maxItems, weight) not being realistically set, or default "
-                + $"discounted count being changed from '6' in StoreDiscountSystem.InitializeDiscounts."
+                    + $"but was actually {discountComponent.Discounts.Count}- this can be due to discount "
+                    + $"categories settings (maxItems, weight) not being realistically set, or default "
+                    + $"discounted count being changed from '6' in StoreDiscountSystem.InitializeDiscounts."
             );
-            var discountedListingItems = storeComponent.FullListingsCatalog
-                                                       .Where(x => x.IsCostModified)
-                                                       .OrderBy(x => x.ID)
-                                                       .ToArray();
-            Assert.That(discountComponent.Discounts
-                                         .Select(x => x.ListingId.Id),
+            var discountedListingItems = storeComponent
+                .FullListingsCatalog.Where(x => x.IsCostModified)
+                .OrderBy(x => x.ID)
+                .ToArray();
+            Assert.That(
+                discountComponent.Discounts.Select(x => x.ListingId.Id),
                 Is.EquivalentTo(discountedListingItems.Select(x => x.ID)),
                 $"{nameof(StoreComponent)}.{nameof(StoreComponent.FullListingsCatalog)} does not contain all "
-                + $"items that are marked as discounted, or they don't have flag '{nameof(ListingDataWithCostModifiers.IsCostModified)}'"
-                + $"flag as 'true'. This marks the fact that cost modifier of discount is not applied properly!"
+                    + $"items that are marked as discounted, or they don't have flag '{nameof(ListingDataWithCostModifiers.IsCostModified)}'"
+                    + $"flag as 'true'. This marks the fact that cost modifier of discount is not applied properly!"
             );
 
             // The storeComponent returns discounted items with conditions randomly, so we remove these to sanitize the data.
@@ -124,22 +123,37 @@ public sealed class StoreTests
 
                     var prototypeCost = prototype.Cost[UplinkSystem.TelecrystalCurrencyPrototype];
                     var discountDownTo = prototype.DiscountDownTo[UplinkSystem.TelecrystalCurrencyPrototype];
-                    Assert.That(plainDiscountedCost.Value, Is.GreaterThanOrEqualTo(discountDownTo.Value), "Expected discounted cost to be greater then DiscountDownTo value.");
-                    Assert.That(plainDiscountedCost.Value, Is.LessThan(prototypeCost.Value), "Expected discounted cost to be lower then prototype cost.");
+                    Assert.That(
+                        plainDiscountedCost.Value,
+                        Is.GreaterThanOrEqualTo(discountDownTo.Value),
+                        "Expected discounted cost to be greater then DiscountDownTo value."
+                    );
+                    Assert.That(
+                        plainDiscountedCost.Value,
+                        Is.LessThan(prototypeCost.Value),
+                        "Expected discounted cost to be lower then prototype cost."
+                    );
 
-
-                    var buyMsg = new StoreBuyListingMessage(discountedListingItem.ID){Actor = human};
+                    var buyMsg = new StoreBuyListingMessage(discountedListingItem.ID) { Actor = human };
                     server.EntMan.EventBus.RaiseComponentEvent(pda, storeComponent, buyMsg);
 
                     var newBalance = storeComponent.Balance[UplinkSystem.TelecrystalCurrencyPrototype];
-                    Assert.That(newBalance.Value, Is.EqualTo((originalBalance - plainDiscountedCost).Value), "Expected to have balance reduced by discounted cost");
+                    Assert.That(
+                        newBalance.Value,
+                        Is.EqualTo((originalBalance - plainDiscountedCost).Value),
+                        "Expected to have balance reduced by discounted cost"
+                    );
                     Assert.That(
                         discountedListingItem.IsCostModified,
                         Is.False,
                         $"Expected item cost to not be modified after Buying discounted item."
                     );
                     var costAfterBuy = discountedListingItem.Cost[UplinkSystem.TelecrystalCurrencyPrototype];
-                    Assert.That(costAfterBuy.Value, Is.EqualTo(prototypeCost.Value), "Expected cost after discount refund to be equal to prototype cost.");
+                    Assert.That(
+                        costAfterBuy.Value,
+                        Is.EqualTo(prototypeCost.Value),
+                        "Expected cost after discount refund to be equal to prototype cost."
+                    );
 
                     var refundMsg = new StoreRequestRefundMessage { Actor = human };
                     server.EntMan.EventBus.RaiseComponentEvent(pda, storeComponent, refundMsg);
@@ -151,7 +165,11 @@ public sealed class StoreTests
                     discountedListingItem.Conditions = null;
 
                     var afterRefundBalance = storeComponent.Balance[UplinkSystem.TelecrystalCurrencyPrototype];
-                    Assert.That(afterRefundBalance.Value, Is.EqualTo(originalBalance.Value), "Expected refund to return all discounted cost value.");
+                    Assert.That(
+                        afterRefundBalance.Value,
+                        Is.EqualTo(originalBalance.Value),
+                        "Expected refund to return all discounted cost value."
+                    );
                     Assert.That(
                         discountComponent.Discounts.First(x => x.ListingId == discountedListingItem.ID).Count,
                         Is.EqualTo(0),
@@ -164,10 +182,13 @@ public sealed class StoreTests
                         $"Expected item cost to not be modified after Buying discounted item (even after refund was done)."
                     );
                     var costAfterRefund = discountedListingItem.Cost[UplinkSystem.TelecrystalCurrencyPrototype];
-                    Assert.That(costAfterRefund.Value, Is.EqualTo(prototypeCost.Value), "Expected cost after discount refund to be equal to prototype cost.");
+                    Assert.That(
+                        costAfterRefund.Value,
+                        Is.EqualTo(prototypeCost.Value),
+                        "Expected cost after discount refund to be equal to prototype cost."
+                    );
                 });
             }
-
         });
 
         await pair.CleanReturnAsync();

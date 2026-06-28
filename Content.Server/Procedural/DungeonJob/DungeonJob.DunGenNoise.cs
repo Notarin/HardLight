@@ -19,7 +19,8 @@ public sealed partial class DungeonJob
         NoiseDunGen dungen,
         HashSet<Vector2i> reservedTiles,
         int seed,
-        Random random)
+        Random random
+    )
     {
         var tiles = new List<(Vector2i, Tile)>();
         var matrix = Matrix3Helpers.CreateTranslation(position);
@@ -95,7 +96,7 @@ public sealed partial class DungeonJob
 
                     roomArea = roomArea.UnionTile(node);
                     var tileDef = _tileDefManager[layer.Tile];
-                    var variant = _tile.PickVariant((ContentTileDefinition) tileDef, random);
+                    var variant = _tile.PickVariant((ContentTileDefinition)tileDef, random);
                     var adjusted = Vector2.Transform(node + _grid.TileSizeHalfVector, matrix).Floored();
 
                     tiles.Add((adjusted, new Tile(tileDef.TileId, variant: variant)));

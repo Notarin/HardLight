@@ -11,9 +11,9 @@
     drawdepth: Mobs
     sprite: Mobs/Aliens/elemental.rsi
     layers:
-      - map: [ "enum.DamageStateVisualLayers.Base" ]
-        state: alive
-        color: "#f4692e"
+    - map: ["enum.DamageStateVisualLayers.Base"]
+      state: alive
+      color: "#f4692e"
 
 - type: entity
   id: ReagentSlimeBleach
@@ -28,9 +28,9 @@
     drawdepth: Mobs
     sprite: Mobs/Aliens/elemental.rsi
     layers:
-      - map: [ "enum.DamageStateVisualLayers.Base" ]
-        state: alive
-        color: "#a1000b"
+    - map: ["enum.DamageStateVisualLayers.Base"]
+      state: alive
+      color: "#a1000b"
 
 - type: entity
   id: ReagentSlimeSoap
@@ -45,9 +45,9 @@
     drawdepth: Mobs
     sprite: Mobs/Aliens/elemental.rsi
     layers:
-      - map: [ "enum.DamageStateVisualLayers.Base" ]
-        state: alive
-        color: "#c8dfc9"
+    - map: ["enum.DamageStateVisualLayers.Base"]
+      state: alive
+      color: "#c8dfc9"
 
 - type: entity
   id: ReagentSlimeSpacelube
@@ -62,9 +62,9 @@
     drawdepth: Mobs
     sprite: Mobs/Aliens/elemental.rsi
     layers:
-      - map: [ "enum.DamageStateVisualLayers.Base" ]
-        state: alive
-        color: "#77b58e"
+    - map: ["enum.DamageStateVisualLayers.Base"]
+      state: alive
+      color: "#77b58e"
 
 - type: entity
   id: ReagentSlimeBuzzachloricbees
@@ -79,9 +79,9 @@
     drawdepth: Mobs
     sprite: Mobs/Aliens/elemental.rsi
     layers:
-      - map: [ "enum.DamageStateVisualLayers.Base" ]
-        state: alive
-        color: "#FFD35D"
+    - map: ["enum.DamageStateVisualLayers.Base"]
+      state: alive
+      color: "#FFD35D"
 
 - type: entity
   id: ReagentSlimeWehjuice
@@ -96,9 +96,9 @@
     drawdepth: Mobs
     sprite: Mobs/Aliens/elemental.rsi
     layers:
-      - map: [ "enum.DamageStateVisualLayers.Base" ]
-        state: alive
-        color: "#59b23a"
+    - map: ["enum.DamageStateVisualLayers.Base"]
+      state: alive
+      color: "#59b23a"
 
 - type: entity
   id: ReagentSlimeIceCream
@@ -113,7 +113,7 @@
     drawdepth: Mobs
     sprite: Mobs/Aliens/elemental.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: alive
       color: "#fffbd6"
 
@@ -130,9 +130,9 @@
     drawdepth: Mobs
     sprite: Mobs/Aliens/elemental.rsi
     layers:
-      - map: [ "enum.DamageStateVisualLayers.Base" ]
-        state: alive
-        color: "#b50ee8"
+    - map: ["enum.DamageStateVisualLayers.Base"]
+      state: alive
+      color: "#b50ee8"
 
 - type: entity
   id: ReagentSlimeNecrosol
@@ -147,9 +147,9 @@
     drawdepth: Mobs
     sprite: Mobs/Aliens/elemental.rsi
     layers:
-      - map: [ "enum.DamageStateVisualLayers.Base" ]
-        state: alive
-        color: "#86a5bd"
+    - map: ["enum.DamageStateVisualLayers.Base"]
+      state: alive
+      color: "#86a5bd"
 
 - type: entity
   id: ReagentSlimeSpaceDrugs
@@ -164,9 +164,9 @@
     drawdepth: Mobs
     sprite: Mobs/Aliens/elemental.rsi
     layers:
-      - map: [ "enum.DamageStateVisualLayers.Base" ]
-        state: alive
-        color: "#63806e"
+    - map: ["enum.DamageStateVisualLayers.Base"]
+      state: alive
+      color: "#63806e"
 
 - type: entity
   id: ReagentSlimeUnstableMutagen
@@ -181,9 +181,9 @@
     drawdepth: Mobs
     sprite: Mobs/Aliens/elemental.rsi
     layers:
-      - map: [ "enum.DamageStateVisualLayers.Base" ]
-        state: alive
-        color: "#00ff5f"
+    - map: ["enum.DamageStateVisualLayers.Base"]
+      state: alive
+      color: "#00ff5f"
 
 - type: entity
   id: ReagentSlimeLead
@@ -198,9 +198,9 @@
     drawdepth: Mobs
     sprite: Mobs/Aliens/elemental.rsi
     layers:
-      - map: [ "enum.DamageStateVisualLayers.Base" ]
-        state: alive
-        color: "#5C6274"
+    - map: ["enum.DamageStateVisualLayers.Base"]
+      state: alive
+      color: "#5C6274"
 
 - type: entity
   id: ReagentSlimechlorinetriflouride
@@ -215,9 +215,9 @@
     drawdepth: Mobs
     sprite: Mobs/Aliens/elemental.rsi
     layers:
-      - map: [ "enum.DamageStateVisualLayers.Base" ]
-        state: alive
-        color: "#FFC8C8"
+    - map: ["enum.DamageStateVisualLayers.Base"]
+      state: alive
+      color: "#FFC8C8"
 
 - type: entity
   id: ReagentSlimePotassium
@@ -232,6 +232,6 @@
     drawdepth: Mobs
     sprite: Mobs/Aliens/elemental.rsi
     layers:
-      - map: [ "enum.DamageStateVisualLayers.Base" ]
-        state: alive
-        color: "#c6c8cc"
+    - map: ["enum.DamageStateVisualLayers.Base"]
+      state: alive
+      color: "#c6c8cc"

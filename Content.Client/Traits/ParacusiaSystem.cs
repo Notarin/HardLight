@@ -1,20 +1,27 @@
 using System.Numerics;
 using Content.Shared.Traits.Assorted;
-using Robust.Shared.Random;
 using Robust.Client.Player;
-using Robust.Shared.Player;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
+using Robust.Shared.Player;
+using Robust.Shared.Random;
 using Robust.Shared.Timing;
 
 namespace Content.Client.Traits;
 
 public sealed class ParacusiaSystem : SharedParacusiaSystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
 
     public override void Initialize()
     {
@@ -38,7 +45,11 @@ public sealed class ParacusiaSystem : SharedParacusiaSystem
 
     private void OnComponentStartup(EntityUid uid, ParacusiaComponent component, ComponentStartup args)
     {
-        component.NextIncidentTime = _timing.CurTime + TimeSpan.FromSeconds(_random.NextFloat(component.MinTimeBetweenIncidents, component.MaxTimeBetweenIncidents));
+        component.NextIncidentTime =
+            _timing.CurTime
+            + TimeSpan.FromSeconds(
+                _random.NextFloat(component.MinTimeBetweenIncidents, component.MaxTimeBetweenIncidents)
+            );
     }
 
     private void OnPlayerDetach(EntityUid uid, ParacusiaComponent component, LocalPlayerDetachedEvent args)
@@ -62,17 +73,14 @@ public sealed class ParacusiaSystem : SharedParacusiaSystem
             return;
 
         // Offset position where the sound is played
-        var randomOffset =
-            new Vector2
-            (
-                _random.NextFloat(-paracusia.MaxSoundDistance, paracusia.MaxSoundDistance),
-                _random.NextFloat(-paracusia.MaxSoundDistance, paracusia.MaxSoundDistance)
-            );
+        var randomOffset = new Vector2(
+            _random.NextFloat(-paracusia.MaxSoundDistance, paracusia.MaxSoundDistance),
+            _random.NextFloat(-paracusia.MaxSoundDistance, paracusia.MaxSoundDistance)
+        );
 
         var newCoords = Transform(uid).Coordinates.Offset(randomOffset);
 
         // Play the sound
         paracusia.Stream = _audio.PlayStatic(paracusia.Sounds, uid, newCoords)?.Entity;
     }
-
 }

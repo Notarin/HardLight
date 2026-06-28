@@ -1,6 +1,6 @@
-using Content.Shared.Nyanotrasen.Abilities.Psionics.Components;
-using Content.Shared.Abilities.Psionics;
 using Content.Server.Abilities.Psionics;
+using Content.Shared.Abilities.Psionics;
+using Content.Shared.Nyanotrasen.Abilities.Psionics.Components;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Prototypes;
 
@@ -8,10 +8,12 @@ namespace Content.Server.Nyanotrasen.Psionics
 {
     public sealed class InnatePsionicPowersSystem : EntitySystem
     {
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+        [Dependency]
+        private readonly IPrototypeManager _prototypeManager = default!;
 
         // Use the existing psionic abilities system to add powers properly (avoids deprecated component name heuristic).
-        [Dependency] private readonly PsionicAbilitiesSystem _psionic = default!;
+        [Dependency]
+        private readonly PsionicAbilitiesSystem _psionic = default!;
 
         public override void Initialize()
         {

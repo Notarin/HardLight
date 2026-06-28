@@ -13,7 +13,8 @@ namespace Content.Server.StationEvents.Events;
 /// </summary>
 public sealed class SpaceSpawnRule : StationEventSystem<SpaceSpawnRuleComponent>
 {
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
 
     public override void Initialize()
     {
@@ -22,7 +23,12 @@ public sealed class SpaceSpawnRule : StationEventSystem<SpaceSpawnRuleComponent>
         SubscribeLocalEvent<SpaceSpawnRuleComponent, AntagSelectLocationEvent>(OnSelectLocation);
     }
 
-    protected override void Added(EntityUid uid, SpaceSpawnRuleComponent comp, GameRuleComponent gameRule, GameRuleAddedEvent args)
+    protected override void Added(
+        EntityUid uid,
+        SpaceSpawnRuleComponent comp,
+        GameRuleComponent gameRule,
+        GameRuleAddedEvent args
+    )
     {
         base.Added(uid, comp, gameRule, args);
 
@@ -59,7 +65,7 @@ public sealed class SpaceSpawnRule : StationEventSystem<SpaceSpawnRuleComponent>
 
     private void OnSelectLocation(Entity<SpaceSpawnRuleComponent> ent, ref AntagSelectLocationEvent args)
     {
-        if (ent.Comp.Coords is {} coords)
+        if (ent.Comp.Coords is { } coords)
             args.Coordinates.Add(coords);
     }
 }

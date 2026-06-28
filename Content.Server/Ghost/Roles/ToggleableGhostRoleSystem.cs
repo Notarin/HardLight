@@ -13,9 +13,14 @@ namespace Content.Server.Ghost.Roles;
 /// </summary>
 public sealed class ToggleableGhostRoleSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedMindSystem _mind = default!;
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SharedMindSystem _mind = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -116,7 +121,7 @@ public sealed class ToggleableGhostRoleSystem : EntitySystem
                     // The shutdown of the Mind should cause automatic reset of the pAI during OnMindRemoved
                     _mind.TransferTo(mindId, null, mind: mind);
                     _popup.PopupEntity(Loc.GetString(component.WipeVerbPopup), uid, args.User, PopupType.Large);
-                }
+                },
             };
             args.Verbs.Add(verb);
         }
@@ -134,7 +139,7 @@ public sealed class ToggleableGhostRoleSystem : EntitySystem
                     RemCompDeferred<GhostRoleComponent>(uid);
                     _popup.PopupEntity(Loc.GetString(component.StopSearchVerbPopup), uid, args.User);
                     UpdateAppearance(uid, ToggleableGhostRoleStatus.Off);
-                }
+                },
             };
             args.Verbs.Add(verb);
         }
@@ -147,9 +152,11 @@ public sealed class ToggleableGhostRoleSystem : EntitySystem
     /// </summary>
     public void Wipe(EntityUid uid)
     {
-        if (TryComp<MindContainerComponent>(uid, out var mindContainer) &&
-            mindContainer.HasMind &&
-            _mind.TryGetMind(uid, out var mindId, out var mind))
+        if (
+            TryComp<MindContainerComponent>(uid, out var mindContainer)
+            && mindContainer.HasMind
+            && _mind.TryGetMind(uid, out var mindId, out var mind)
+        )
         {
             _mind.TransferTo(mindId, null, mind: mind);
         }

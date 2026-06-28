@@ -7,7 +7,6 @@ namespace Content.Shared._Shitmed.Medical.Surgery.Conditions;
 [RegisterComponent, NetworkedComponent]
 public sealed partial class SurgeryMarkingConditionComponent : Component
 {
-
     [DataField]
     public bool Inverse;
 

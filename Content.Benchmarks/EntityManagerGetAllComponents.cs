@@ -15,14 +15,12 @@ namespace Content.Benchmarks
     {
         private IEntityManager _entityManager;
 
-        [Params(5000)] public int N { get; set; }
+        [Params(5000)]
+        public int N { get; set; }
 
         public static void TestRun()
         {
-            var x = new EntityManagerGetAllComponents
-            {
-                N = 500
-            };
+            var x = new EntityManagerGetAllComponents { N = 500 };
             x.Setup();
             x.Run();
         }
@@ -40,10 +38,7 @@ namespace Content.Benchmarks
             IoCManager.Register<IEntitySystemManager, EntitySystemManager>();
             IoCManager.RegisterInstance<IReflectionManager>(new Mock<IReflectionManager>().Object);
 
-            var dummyReg = new ComponentRegistration(
-                "Dummy",
-                typeof(DummyComponent),
-                CompIdx.Index<DummyComponent>());
+            var dummyReg = new ComponentRegistration("Dummy", typeof(DummyComponent), CompIdx.Index<DummyComponent>());
 
             var componentFactory = new Mock<IComponentFactory>();
             componentFactory.Setup(p => p.GetComponent<DummyComponent>()).Returns(new DummyComponent());
@@ -89,8 +84,6 @@ namespace Content.Benchmarks
             return count;
         }
 
-        private sealed partial class DummyComponent : Component
-        {
-        }
+        private sealed partial class DummyComponent : Component { }
     }
 }

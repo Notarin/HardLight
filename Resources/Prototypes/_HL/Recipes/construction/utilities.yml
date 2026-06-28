@@ -147,7 +147,7 @@
   canBuildInImpassable: false
   mirror: GasFilterFlippedHighFlow
   conditions:
-    - !type:NoUnstackableInTile
+  - !type:NoUnstackableInTile
 
 - type: construction
   id: GasFilterFlippedHighFlow
@@ -160,7 +160,7 @@
   canBuildInImpassable: false
   mirror: GasFilterHighFlow
   conditions:
-    - !type:NoUnstackableInTile
+  - !type:NoUnstackableInTile
 
 - type: construction
   id: GasMixerHighFlow
@@ -172,7 +172,7 @@
   canBuildInImpassable: false
   mirror: GasMixerFlippedHighFlow
   conditions:
-    - !type:NoUnstackableInTile
+  - !type:NoUnstackableInTile
 
 - type: construction
   id: GasMixerFlippedHighFlow
@@ -185,7 +185,7 @@
   canBuildInImpassable: false
   mirror: GasMixerHighFlow
   conditions:
-    - !type:NoUnstackableInTile
+  - !type:NoUnstackableInTile
 
 - type: construction
   id: PressureControlledValveHighFlow
@@ -196,7 +196,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
-    - !type:NoUnstackableInTile
+  - !type:NoUnstackableInTile
 
 - type: construction
   id: BoneMug
@@ -205,7 +205,7 @@
   targetNode: BoneMug
   category: construction-category-weapons
   objectType: Item
-  
+
 - type: construction
   id: BoneD20
   graph: BoneD20
@@ -213,7 +213,7 @@
   targetNode: BoneD20
   category: construction-category-weapons
   objectType: Item
- 
+
 - type: construction
   id: BoneD12
   graph: BoneD12
@@ -221,7 +221,7 @@
   targetNode: BoneD12
   category: construction-category-weapons
   objectType: Item
- 
+
 - type: construction
   id: BoneD10
   graph: BoneD10
@@ -229,7 +229,7 @@
   targetNode: BoneD10
   category: construction-category-weapons
   objectType: Item
- 
+
 - type: construction
   id: BoneD8
   graph: BoneD8
@@ -237,7 +237,7 @@
   targetNode: BoneD8
   category: construction-category-weapons
   objectType: Item
- 
+
 - type: construction
   id: BoneD6
   graph: BoneD6
@@ -245,7 +245,7 @@
   targetNode: BoneD6
   category: construction-category-weapons
   objectType: Item
- 
+
 - type: construction
   id: BoneD4
   graph: BoneD4
@@ -253,6 +253,4 @@
   targetNode: BoneD4
   category: construction-category-weapons
   objectType: Item
- 
 
-  

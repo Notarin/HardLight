@@ -1,15 +1,15 @@
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using Content.Client.IoC;
+using Content.Shared.CCVar;
 using JetBrains.Annotations;
 using Nett;
-using Content.Shared.CCVar;
-using Content.Client.IoC;
 using Robust.Client.Graphics;
-using Robust.Shared.Utility;
 using Robust.Shared.Configuration;
 using Robust.Shared.ContentPack;
 using Robust.Shared.Graphics;
+using Robust.Shared.Utility;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 
@@ -59,9 +59,11 @@ public sealed partial class GeneratedParallaxTextureSource : IParallaxTextureSou
         var debugParallax = IoCManager.Resolve<IConfigurationManager>().GetCVar(CCVars.ParallaxDebug);
         var resManager = IoCManager.Resolve<IResourceManager>();
 
-        if (debugParallax
+        if (
+            debugParallax
             || !resManager.UserData.TryReadAllText(PreviousParallaxConfigPath, out var previousParallaxConfig)
-            || previousParallaxConfig != parallaxConfig)
+            || previousParallaxConfig != parallaxConfig
+        )
         {
             var table = Toml.ReadString(parallaxConfig);
             await UpdateCachedTexture(table, debugParallax, cancel);
@@ -99,8 +101,10 @@ public sealed partial class GeneratedParallaxTextureSource : IParallaxTextureSou
         var sawmill = IoCManager.Resolve<ILogManager>().GetSawmill("parallax");
 
         // Generate the parallax in the thread pool.
-        using var newParallexImage = await Task.Run(() =>
-            ParallaxGenerator.GenerateParallax(config, new Size(1920, 1080), sawmill, debugImages, cancel), cancel);
+        using var newParallexImage = await Task.Run(
+            () => ParallaxGenerator.GenerateParallax(config, new Size(1920, 1080), sawmill, debugImages, cancel),
+            cancel
+        );
 
         // And load it in the main thread for safety reasons.
         // But before spending time saving it, make sure to exit out early if it's not wanted.
@@ -116,7 +120,9 @@ public sealed partial class GeneratedParallaxTextureSource : IParallaxTextureSou
             for (var i = 0; i < debugImages!.Count; i++)
             {
                 var debugImage = debugImages[i];
-                await using var debugImageStream = resManager.UserData.OpenWrite(new ResPath($"/parallax_{Identifier}debug_{i}.png"));
+                await using var debugImageStream = resManager.UserData.OpenWrite(
+                    new ResPath($"/parallax_{Identifier}debug_{i}.png")
+                );
                 await debugImage.SaveAsPngAsync(debugImageStream, cancel);
             }
         }
@@ -141,4 +147,3 @@ public sealed partial class GeneratedParallaxTextureSource : IParallaxTextureSou
         return configReader.ReadToEnd().Replace(Environment.NewLine, "\n");
     }
 }
-

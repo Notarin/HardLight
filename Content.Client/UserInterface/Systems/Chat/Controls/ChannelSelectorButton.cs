@@ -29,7 +29,8 @@ public sealed class ChannelSelectorButton : ChatPopupButton<ChannelSelectorPopup
         var globalBot = GlobalPosition.Y + Height;
         return UIBox2.FromDimensions(
             new Vector2(globalLeft, globalBot),
-            new Vector2(SizeBox.Width, SelectorDropdownOffset));
+            new Vector2(SizeBox.Width, SelectorDropdownOffset)
+        );
     }
 
     private void OnChannelSelected(ChatSelectChannel channel)
@@ -64,8 +65,8 @@ public sealed class ChannelSelectorButton : ChatPopupButton<ChannelSelectorPopup
             ChatSelectChannel.OOC => Color.LightSkyBlue,
             ChatSelectChannel.Dead => Color.MediumPurple,
             ChatSelectChannel.Admin => Color.HotPink,
-            ChatSelectChannel.Telepathic => Color.PaleVioletRed, //Nyano - Summary: determines the color for the chat. 
-            _ => Color.DarkGray
+            ChatSelectChannel.Telepathic => Color.PaleVioletRed, //Nyano - Summary: determines the color for the chat.
+            _ => Color.DarkGray,
         };
     }
 

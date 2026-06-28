@@ -24,20 +24,24 @@ public sealed class StrippableTest : InteractionTest
         var screenX = CEntMan.System<DragDropSystem>().Deadzone + 1f;
 
         // Start drag
-        await SetKey(EngineKeyFunctions.Use,
+        await SetKey(
+            EngineKeyFunctions.Use,
             BoundKeyState.Down,
             TargetCoords,
             Target,
-            screenCoordinates: new ScreenCoordinates(screenX, 0f, WindowId.Main));
+            screenCoordinates: new ScreenCoordinates(screenX, 0f, WindowId.Main)
+        );
 
         await RunTicks(5);
 
         // End drag
-        await SetKey(EngineKeyFunctions.Use,
+        await SetKey(
+            EngineKeyFunctions.Use,
             BoundKeyState.Up,
             PlayerCoords,
             Player,
-            screenCoordinates: new ScreenCoordinates(0f, 0f, WindowId.Main));
+            screenCoordinates: new ScreenCoordinates(0f, 0f, WindowId.Main)
+        );
 
         await RunTicks(5);
 

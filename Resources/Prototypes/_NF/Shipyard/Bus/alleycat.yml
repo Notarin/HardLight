@@ -22,8 +22,7 @@
     Alleycat:
       stationProto: StandardFrontierBusVessel
       components:
-        - type: StationNameSetup
-          mapNameTemplate: 'Bus {1}' # Will be overwritten
-          nameGenerator:
-            !type:NanotrasenNameGenerator
-            prefixCreator: '14'
+      - type: StationNameSetup
+        mapNameTemplate: 'Bus {1}' # Will be overwritten
+        nameGenerator: !type:NanotrasenNameGenerator
+          prefixCreator: '14'

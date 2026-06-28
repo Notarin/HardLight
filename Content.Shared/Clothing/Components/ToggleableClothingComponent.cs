@@ -122,7 +122,8 @@ public sealed class ToggleableClothingComponentState : ComponentState
         string containerId,
         NetEntity? clothingUid,
         TimeSpan? stripDelay,
-        string? verbText)
+        string? verbText
+    )
     {
         Action = action;
         ActionEntity = actionEntity;

@@ -14,7 +14,7 @@
       state: dna
     - map: ["computerLayerKeys"]
       state: med_key
-    - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+    - map: ["enum.WiresVisualLayers.MaintenancePanel"]
       state: generic_panel_open
   - type: Computer
     board: DnaScannerConsoleComputerCircuitboard
@@ -30,7 +30,7 @@
   - type: DeviceLinkSource
     range: 4
     ports:
-      - DnaConsole
+    - DnaConsole
   - type: ResearchPointSource
     pointspersecond: 0
     active: true
@@ -50,7 +50,7 @@
   id: DnaConsole
   name: signal-port-name-dna-scanner
   description: signal-port-description-dna-scanner
-  defaultLinks: [ MedicalScannerReceiver ]
+  defaultLinks: [MedicalScannerReceiver]
 
 - type: entity
   parent: BaseComputerCircuitboard
@@ -58,16 +58,15 @@
   name: dna scanner console board
   description: A computer printed circuit board for the dna scanner console.
   components:
-    - type: Sprite
-      state: cpu_medical
-    - type: ComputerBoard
-      prototype: ComputerDnaScanner
+  - type: Sprite
+    state: cpu_medical
+  - type: ComputerBoard
+    prototype: ComputerDnaScanner
 
 - type: latheRecipe
   parent: BaseCircuitboardRecipe
   id: DnaScannerConsoleComputerCircuitboard
   result: DnaScannerConsoleComputerCircuitboard
-
 
 - type: entity
   id: DnaDiscoveredIcon

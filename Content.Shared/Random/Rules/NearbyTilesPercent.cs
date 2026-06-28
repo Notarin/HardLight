@@ -25,8 +25,10 @@ public sealed partial class NearbyTilesPercentRule : RulesRule
 
     public override bool Check(EntityManager entManager, EntityUid uid)
     {
-        if (!entManager.TryGetComponent(uid, out TransformComponent? xform) ||
-            !entManager.TryGetComponent<MapGridComponent>(xform.GridUid, out var grid))
+        if (
+            !entManager.TryGetComponent(uid, out TransformComponent? xform)
+            || !entManager.TryGetComponent<MapGridComponent>(xform.GridUid, out var grid)
+        )
         {
             return false;
         }
@@ -39,8 +41,13 @@ public sealed partial class NearbyTilesPercentRule : RulesRule
         var tileCount = 0;
         var matchingTileCount = 0;
 
-        foreach (var tile in mapSys.GetTilesIntersecting(xform.GridUid.Value, grid, new Circle(transform.GetWorldPosition(xform),
-                     Range)))
+        foreach (
+            var tile in mapSys.GetTilesIntersecting(
+                xform.GridUid.Value,
+                grid,
+                new Circle(transform.GetWorldPosition(xform), Range)
+            )
+        )
         {
             // Only consider collidable anchored (for reasons some subfloor stuff has physics but non-collidable)
             if (IgnoreAnchored)
@@ -50,8 +57,7 @@ public sealed partial class NearbyTilesPercentRule : RulesRule
 
                 while (gridEnum.MoveNext(out var ancUid))
                 {
-                    if (!physicsQuery.TryGetComponent(ancUid, out var physics) ||
-                        !physics.CanCollide)
+                    if (!physicsQuery.TryGetComponent(ancUid, out var physics) || !physics.CanCollide)
                     {
                         continue;
                     }
@@ -72,7 +78,7 @@ public sealed partial class NearbyTilesPercentRule : RulesRule
             matchingTileCount++;
         }
 
-        if (tileCount == 0 || matchingTileCount / (float) tileCount < Percent)
+        if (tileCount == 0 || matchingTileCount / (float)tileCount < Percent)
             return Inverted;
 
         return !Inverted;

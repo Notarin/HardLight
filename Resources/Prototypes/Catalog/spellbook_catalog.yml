@@ -336,9 +336,9 @@
   conditions:
   - !type:BuyBeforeCondition
     whitelist:
-      - SpellbookFireball
-  # manual for now
+    - SpellbookFireball
   - !type:ListingLimitedStockCondition
+    # manual for now
     stock: 2
 
 - type: listing

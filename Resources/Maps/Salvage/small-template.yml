@@ -51,4 +51,3 @@ entities:
         version: 2
         nodes: []
     - type: SpreaderGrid
-...

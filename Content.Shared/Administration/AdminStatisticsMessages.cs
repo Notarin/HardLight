@@ -3,9 +3,7 @@ using Robust.Shared.Serialization;
 namespace Content.Shared.Administration;
 
 [Serializable, NetSerializable]
-public sealed class RequestAdminStatisticsMessage : EntityEventArgs
-{
-}
+public sealed class RequestAdminStatisticsMessage : EntityEventArgs { }
 
 [Serializable, NetSerializable]
 public sealed class AdminStatisticsRoleInfo
@@ -46,7 +44,8 @@ public sealed class AdminStatisticsSnapshot
         TimeSpan roundDuration,
         TimeSpan serverUptime,
         AdminStatisticsRoleInfo[] roleSlots,
-        string[] antags)
+        string[] antags
+    )
     {
         OnlinePlayers = onlinePlayers;
         AveragePingMs = averagePingMs;

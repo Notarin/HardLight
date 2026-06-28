@@ -9,7 +9,7 @@
     capacity: 500
     whitelist:
       tags:
-        - Cigarette
+      - Cigarette
   - type: StorageFill
     contents:
     - id: CigaretteSpaceDrugs
@@ -57,13 +57,9 @@
     - id: CigaretteBicaridine
       amount: 22
 
-
-
-
-
 - type: entity
   id: CigPack500Cigarettes
-  parent: BaseAmmoProvider 
+  parent: BaseAmmoProvider
   name: 500 Cigarettes
   description: A pack of 500 Cigarettes.
   suffix: Admeme, FoxS
@@ -113,8 +109,6 @@
     shape:
     - 0,0,0,1
 
-
-
 - type: entity
   id: RandomSoakedCigaretteFoxS
   name: random soaked cigarette spawner
@@ -126,8 +120,8 @@
     anchored: false
   - type: Sprite
     layers:
-      - sprite: Objects/Consumable/Smokeables/Cigarettes/cigarette.rsi
-        state: unlit-icon
+    - sprite: Objects/Consumable/Smokeables/Cigarettes/cigarette.rsi
+      state: unlit-icon
   - type: EntityTableSpawner
     table: !type:NestedSelector
       tableId: SoakedSmokesTableFoxS
@@ -136,25 +130,25 @@
   id: SoakedSmokesTableFoxS
   table: !type:GroupSelector
     children:
-      - id: CigaretteSpaceDrugs
-      - id: CigaretteDermaline
-      - id: CigaretteMold
-      - id: CigaretteMilk
-      - id: CigaretteCapsaicinOil
-      - id: CigaretteBanana
-      - id: CigaretteBread
-      - id: CigaretteBlackPepper
-      - id: CigaretteIpecac
-      - id: CigaretteTHC
-      - id: CigaretteOmnizine
-      - id: CigaretteTricordrazine
-      - id: CigaretteMuteToxin
-      - id: CigaretteWeldingFuel
-      - id: CigaretteDexalin
-      - id: CigaretteArithrazine
-      - id: CigaretteIron
-      - id: CigaretteBbqSauce
-      - id: CigarettePax
-      - id: CigaretteDylovene
-      - id: CigaretteLicoxide
-      - id: CigaretteBicaridine
+    - id: CigaretteSpaceDrugs
+    - id: CigaretteDermaline
+    - id: CigaretteMold
+    - id: CigaretteMilk
+    - id: CigaretteCapsaicinOil
+    - id: CigaretteBanana
+    - id: CigaretteBread
+    - id: CigaretteBlackPepper
+    - id: CigaretteIpecac
+    - id: CigaretteTHC
+    - id: CigaretteOmnizine
+    - id: CigaretteTricordrazine
+    - id: CigaretteMuteToxin
+    - id: CigaretteWeldingFuel
+    - id: CigaretteDexalin
+    - id: CigaretteArithrazine
+    - id: CigaretteIron
+    - id: CigaretteBbqSauce
+    - id: CigarettePax
+    - id: CigaretteDylovene
+    - id: CigaretteLicoxide
+    - id: CigaretteBicaridine

@@ -16,10 +16,17 @@ namespace Content.Server.Xenoborgs;
 
 public sealed partial class XenoborgSystem : EntitySystem
 {
-    [Dependency] private readonly AntagSelectionSystem _antag = default!;
-    [Dependency] private readonly BorgSystem _borg = default!;
-    [Dependency] private readonly SharedRoleSystem _roles = default!;
-    [Dependency] private readonly XenoborgsRuleSystem _xenoborgsRule = default!;
+    [Dependency]
+    private readonly AntagSelectionSystem _antag = default!;
+
+    [Dependency]
+    private readonly BorgSystem _borg = default!;
+
+    [Dependency]
+    private readonly SharedRoleSystem _roles = default!;
+
+    [Dependency]
+    private readonly XenoborgsRuleSystem _xenoborgsRule = default!;
 
     private static readonly Color XenoborgBriefingColor = Color.BlueViolet;
 
@@ -87,7 +94,8 @@ public sealed partial class XenoborgSystem : EntitySystem
         if (!TryComp<ActorComponent>(ent, out var actorComp))
             return;
 
-        _antag.SendBriefing(actorComp.PlayerSession,
+        _antag.SendBriefing(
+            actorComp.PlayerSession,
             Loc.GetString(comp.BriefingText),
             XenoborgBriefingColor,
             comp.BriefingSound

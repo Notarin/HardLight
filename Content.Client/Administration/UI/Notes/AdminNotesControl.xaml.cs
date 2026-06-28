@@ -15,8 +15,11 @@ namespace Content.Client.Administration.UI.Notes;
 [GenerateTypedNameReferences]
 public sealed partial class AdminNotesControl : Control
 {
-    [Dependency] private readonly IEntitySystemManager _entitySystem = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency]
+    private readonly IEntitySystemManager _entitySystem = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
 
     public event Action<int, NoteType, string, NoteSeverity?, bool, DateTime?>? NoteChanged;
     public event Action<NoteType, string, NoteSeverity?, bool, DateTime?>? NewNoteEntered;
@@ -60,7 +63,14 @@ public sealed partial class AdminNotesControl : Control
         noteEdit.OpenCentered();
     }
 
-    private void OnNoteSubmitted(int id, NoteType type, string message, NoteSeverity? severity, bool secret, DateTime? expiryTime)
+    private void OnNoteSubmitted(
+        int id,
+        NoteType type,
+        string message,
+        NoteSeverity? severity,
+        bool secret,
+        DateTime? expiryTime
+    )
     {
         if (id == 0)
         {
@@ -97,8 +107,7 @@ public sealed partial class AdminNotesControl : Control
 
     private void OnPopupHide()
     {
-        if (_popup == null ||
-            !Inputs.TryGetValue((_popup.NoteId, _popup.NoteType), out var input))
+        if (_popup == null || !Inputs.TryGetValue((_popup.NoteId, _popup.NoteType), out var input))
         {
             return;
         }
@@ -139,7 +148,9 @@ public sealed partial class AdminNotesControl : Control
         }
         else
         {
-            alpha = (float) (1 - Math.Clamp((timeDiff.TotalDays - _noteFreshDays) / (_noteStaleDays - _noteFreshDays), 0, 1));
+            alpha = (float)(
+                1 - Math.Clamp((timeDiff.TotalDays - _noteFreshDays) / (_noteStaleDays - _noteFreshDays), 0, 1)
+            );
         }
 
         input.Modulate = input.Modulate.WithAlpha(alpha);

@@ -27,22 +27,20 @@
     damageModifierSet: Metallic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 40
       behaviors:
-        - !type:DoActsBehavior
-          acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 20
       behaviors:
       - !type:PlaySoundBehavior
         sound:
           collection: MetalBreak
-#      - !type:DumpRestockInventory # Frontier
+          #      - !type:DumpRestockInventory # Frontier
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: StaticPrice # Frontier
     price: 400 # Frontier
 
@@ -140,7 +138,7 @@
     - MailDrobeInventory
     - RepDrobeInventory
     - BoxingDrobeInventory
-#    - PietyVendInventory # Dont enable, infinite demon dogs issue
+    #    - PietyVendInventory # Dont enable, infinite demon dogs issue
     - NfsdDrobeInventory # Frontier
     - YarrrDrobeInventory
   - type: Sprite
@@ -344,7 +342,7 @@
     - SpaceUpInventory
     - SodaInventory
     - DrGibbInventory
-    - SmiteInventory 
+    - SmiteInventory
   - type: Sprite
     layers:
     - state: base

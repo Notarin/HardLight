@@ -27,7 +27,12 @@ public sealed partial class RaiseEventAction : InteractionAction
     [DataField]
     public bool Broadcast = false;
 
-    public override bool CanPerform(InteractionArgs args, InteractionVerbPrototype proto, bool beforeDelay, VerbDependencies deps)
+    public override bool CanPerform(
+        InteractionArgs args,
+        InteractionVerbPrototype proto,
+        bool beforeDelay,
+        VerbDependencies deps
+    )
     {
         return true;
     }

@@ -5,7 +5,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsUSSP ]
+      board: [DoorElectronicsUSSP]
   - type: Wires
     layoutId: AirlockCommand
 
@@ -16,6 +16,6 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsUSSP ]
+      board: [DoorElectronicsUSSP]
   - type: Wires
     layoutId: AirlockCommand

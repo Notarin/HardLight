@@ -14,12 +14,23 @@ public sealed class BiomeDebugOverlay : Overlay
 {
     public override OverlaySpace Space => OverlaySpace.ScreenSpace;
 
-    [Dependency] private readonly IEntityManager _entManager = default!;
-    [Dependency] private readonly IEyeManager _eyeManager = default!;
-    [Dependency] private readonly IInputManager _inputManager = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly IResourceCache _cache = default!;
-    [Dependency] private readonly ITileDefinitionManager _tileDefManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
+
+    [Dependency]
+    private readonly IEyeManager _eyeManager = default!;
+
+    [Dependency]
+    private readonly IInputManager _inputManager = default!;
+
+    [Dependency]
+    private readonly IMapManager _mapManager = default!;
+
+    [Dependency]
+    private readonly IResourceCache _cache = default!;
+
+    [Dependency]
+    private readonly ITileDefinitionManager _tileDefManager = default!;
 
     private BiomeSystem _biomes;
     private SharedMapSystem _maps;
@@ -53,7 +64,10 @@ public sealed class BiomeDebugOverlay : Overlay
 
         var mapUid = _mapManager.GetMapEntityId(args.MapId);
 
-        if (!_entManager.TryGetComponent(mapUid, out BiomeComponent? biomeComp) || !_entManager.TryGetComponent(mapUid, out MapGridComponent? grid))
+        if (
+            !_entManager.TryGetComponent(mapUid, out BiomeComponent? biomeComp)
+            || !_entManager.TryGetComponent(mapUid, out MapGridComponent? grid)
+        )
             return;
 
         var sb = new StringBuilder();

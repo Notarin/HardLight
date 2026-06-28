@@ -43,7 +43,12 @@ public partial class AtmosphereSystem
         RefreshAllGridMapAtmospheres(uid);
     }
 
-    public void SetMapGasMixture(EntityUid uid, GasMixture mixture, MapAtmosphereComponent? component = null, bool updateTiles = true)
+    public void SetMapGasMixture(
+        EntityUid uid,
+        GasMixture mixture,
+        MapAtmosphereComponent? component = null,
+        bool updateTiles = true
+    )
     {
         if (!Resolve(uid, ref component))
             return;
@@ -61,7 +66,12 @@ public partial class AtmosphereSystem
             RefreshAllGridMapAtmospheres(uid);
     }
 
-    public void SetMapSpace(EntityUid uid, bool space, MapAtmosphereComponent? component = null, bool updateTiles = true)
+    public void SetMapSpace(
+        EntityUid uid,
+        bool space,
+        MapAtmosphereComponent? component = null,
+        bool updateTiles = true
+    )
     {
         if (!Resolve(uid, ref component))
             return;
@@ -116,9 +126,11 @@ public partial class AtmosphereSystem
             return;
 
         // Avoid doing work if moving from a space-map to another space-map.
-        if (args.OldParent == null
+        if (
+            args.OldParent == null
             || HasComp<MapAtmosphereComponent>(args.OldParent)
-            || HasComp<MapAtmosphereComponent>(args.Transform.ParentUid))
+            || HasComp<MapAtmosphereComponent>(args.Transform.ParentUid)
+        )
         {
             RefreshMapAtmosphereTiles((grid, grid));
         }

@@ -1,10 +1,8 @@
-using Robust.Shared.Serialization;
 using Content.Shared.DoAfter;
+using Robust.Shared.Serialization;
 
 namespace Content.Shared.Vampiric
 {
     [Serializable, NetSerializable]
-    public sealed partial class BloodSuckDoAfterEvent : SimpleDoAfterEvent
-    {
-    }
+    public sealed partial class BloodSuckDoAfterEvent : SimpleDoAfterEvent { }
 }

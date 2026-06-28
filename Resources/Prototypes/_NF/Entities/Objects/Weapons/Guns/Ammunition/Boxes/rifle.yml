@@ -9,7 +9,7 @@
   - type: BallisticAmmoProvider
     whitelist:
       tags:
-        - NFCartridgeRifle10
+      - NFCartridgeRifle10
     capacity: 60
   - type: Sprite
     sprite: _NF/Objects/Weapons/Guns/Ammunition/Boxes/rifle.rsi
@@ -41,7 +41,7 @@
   - type: BallisticAmmoProvider
     whitelist:
       tags:
-        - NFCartridgeRifle20
+      - NFCartridgeRifle20
     capacity: 60
   - type: Sprite
     sprite: _NF/Objects/Weapons/Guns/Ammunition/Boxes/rifle.rsi
@@ -73,7 +73,7 @@
   - type: BallisticAmmoProvider
     whitelist:
       tags:
-        - NFCartridgeRifle25
+      - NFCartridgeRifle25
     capacity: 60
   - type: Sprite
     sprite: _NF/Objects/Weapons/Guns/Ammunition/Boxes/rifle.rsi
@@ -105,7 +105,7 @@
   - type: BallisticAmmoProvider
     whitelist:
       tags:
-        - NFCartridgeRifle30
+      - NFCartridgeRifle30
     capacity: 60
   - type: Sprite
     sprite: _NF/Objects/Weapons/Guns/Ammunition/Boxes/rifle.rsi
@@ -137,7 +137,7 @@
   - type: BallisticAmmoProvider
     whitelist:
       tags:
-        - NFCartridgeRifle60
+      - NFCartridgeRifle60
     capacity: 30
   - type: Sprite
     sprite: _NF/Objects/Weapons/Guns/Ammunition/Boxes/rifle.rsi

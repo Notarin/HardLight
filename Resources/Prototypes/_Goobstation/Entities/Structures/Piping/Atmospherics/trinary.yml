@@ -11,12 +11,10 @@
     outlet: pipe
   - type: NodeContainer
     nodes:
-      pipe:
-        !type:PipeNode
+      pipe: !type:PipeNode
         nodeGroupID: Pipe
         pipeDirection: Longitudinal
-      filter:
-        !type:PipeNode
+      filter: !type:PipeNode
         nodeGroupID: Pipe
         pipeDirection: West
   - type: Construction

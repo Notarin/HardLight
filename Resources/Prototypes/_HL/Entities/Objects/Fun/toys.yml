@@ -67,9 +67,9 @@
     - ClothMade
     - Payload
     - PlushieStoneRengault
-  # - type: FoodSequenceElement
+    # - type: FoodSequenceElement
     # entries:
-      # CottonBurger: LizardPlushie
+    # CottonBurger: LizardPlushie
 
 - type: entity
   id: PlushieNirouJol
@@ -168,13 +168,13 @@
   - type: RevolverAmmoProvider
     whitelist:
       tags:
-        - BulletFoam
-        - SpeedLoaderBulletFoam
+      - BulletFoam
+      - SpeedLoaderBulletFoam
     mayTransfer: true # Frontier
     proto: BulletFoam
     capacity: 6
-    chambers: [ True, True, True, True, True, True ]
-    ammoSlots: [ null, null, null, null, null, null ]
+    chambers: [True, True, True, True, True, True]
+    ammoSlots: [null, null, null, null, null, null]
     soundEject:
       path: /Audio/Weapons/Guns/MagOut/revolver_magout.ogg
     soundInsert:
@@ -1093,7 +1093,7 @@
   - type: MeleeWeapon
     wideAnimationRotation: 180
     soundHit:
-     path: /Audio/_Starlight/Voice/Resomi/resomi_cry_1.ogg
+      path: /Audio/_Starlight/Voice/Resomi/resomi_cry_1.ogg
 
 # Naked varient of plushes-in-maints
 

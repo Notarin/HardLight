@@ -1,16 +1,15 @@
-using Content.Shared.SegmentedEntity;
+using System.Linq;
+using System.Numerics;
+using Content.Client.Resources;
 using Content.Shared.Humanoid;
 using Content.Shared.Humanoid.Markings;
-using Content.Client.Resources;
+using Content.Shared.SegmentedEntity;
 using Robust.Client.GameObjects;
-using Robust.Client.ResourceManagement;
 using Robust.Client.Graphics;
-using Robust.Shared.Prototypes;
-using Robust.Shared.IoC;
+using Robust.Client.ResourceManagement;
 using Robust.Shared.Enums;
-using System.Numerics;
-using System.Linq;
-
+using Robust.Shared.IoC;
+using Robust.Shared.Prototypes;
 
 namespace Content.Client.Lamiae;
 
@@ -56,7 +55,11 @@ public sealed class SnakeOverlay : Overlay
         var handle = args.WorldHandle;
 
         // Get all lamiae the client knows of and their transform in a way we can enumerate over
-        var enumerator = _entManager.AllEntityQueryEnumerator<SegmentedEntityComponent, TransformComponent, MetaDataComponent>();
+        var enumerator = _entManager.AllEntityQueryEnumerator<
+            SegmentedEntityComponent,
+            TransformComponent,
+            MetaDataComponent
+        >();
 
         // I go over the collection above, pulling out an EntityUid and the two components I need for each.
         while (enumerator.MoveNext(out var uid, out var lamia, out var xform, out var meta))
@@ -170,7 +173,7 @@ public sealed class SnakeOverlay : Overlay
             }
             else
             {
-                verts.Add(new DrawVertexUV2D((Vector2) lastPtCW, Vector2.Zero));
+                verts.Add(new DrawVertexUV2D((Vector2)lastPtCW, Vector2.Zero));
             }
 
             if (lastPtCCW == null)
@@ -179,7 +182,7 @@ public sealed class SnakeOverlay : Overlay
             }
             else
             {
-                verts.Add(new DrawVertexUV2D((Vector2) lastPtCCW, new Vector2(1, 0)));
+                verts.Add(new DrawVertexUV2D((Vector2)lastPtCCW, new Vector2(1, 0)));
             }
 
             verts.Add(new DrawVertexUV2D(destination + offsetVecCW * radius, new Vector2(0, 1)));
@@ -191,13 +194,13 @@ public sealed class SnakeOverlay : Overlay
             }
             else
             {
-                verts.Add(new DrawVertexUV2D((Vector2) lastPtCCW, new Vector2(1, 0)));
+                verts.Add(new DrawVertexUV2D((Vector2)lastPtCCW, new Vector2(1, 0)));
             }
 
             lastPtCW = destination + offsetVecCW * radius;
-            verts.Add(new DrawVertexUV2D((Vector2) lastPtCW, new Vector2(0, 1)));
+            verts.Add(new DrawVertexUV2D((Vector2)lastPtCW, new Vector2(0, 1)));
             lastPtCCW = destination + offsetVecCCW * radius;
-            verts.Add(new DrawVertexUV2D((Vector2) lastPtCCW, new Vector2(1, 1)));
+            verts.Add(new DrawVertexUV2D((Vector2)lastPtCCW, new Vector2(1, 1)));
 
             // slim down a bit for next segment
             radius *= lamia.SlimFactor;
@@ -209,20 +212,20 @@ public sealed class SnakeOverlay : Overlay
         if (lastPtCW != null && lastPtCCW != null && lamia.Segments.Count > 0)
         {
             var tailEnt = _entManager.GetEntity(lamia.Segments.Last());
-            
+
             // Only draw tail if the entity exists
             if (_entManager.EntityExists(tailEnt))
             {
                 var destination = _transform.GetWorldPosition(tailEnt);
-                
+
                 // Check that the tail position is reasonable (not stretched due to PVS)
                 var lastPos = ((Vector2)lastPtCW + (Vector2)lastPtCCW) / 2f;
                 var tailDistance = (destination - lastPos).Length();
-                
+
                 if (tailDistance <= maxSegmentDistance && tailDistance >= 0.001f)
                 {
-                    verts.Add(new DrawVertexUV2D((Vector2) lastPtCW, new Vector2(0, 0)));
-                    verts.Add(new DrawVertexUV2D((Vector2) lastPtCCW, new Vector2(1, 0)));
+                    verts.Add(new DrawVertexUV2D((Vector2)lastPtCW, new Vector2(0, 0)));
+                    verts.Add(new DrawVertexUV2D((Vector2)lastPtCCW, new Vector2(1, 0)));
                     verts.Add(new DrawVertexUV2D(destination, new Vector2(0.5f, 1f)));
                 }
             }

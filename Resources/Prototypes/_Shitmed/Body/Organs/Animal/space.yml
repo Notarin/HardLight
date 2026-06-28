@@ -26,7 +26,7 @@
     - type: ActionGun
       action: ActionDragonsBreath
       gunProto: DragonsBreathGun
-      
+
 - type: entity
   parent: OrganHumanEyes
   id: OrganLaserEyes
@@ -48,7 +48,7 @@
       useKey: false
       selectedMode: SemiAuto
       availableModes:
-        - SemiAuto
+      - SemiAuto
       soundGunshot: /Audio/Weapons/Guns/Gunshots/laser_cannon.ogg
 
 - type: entity

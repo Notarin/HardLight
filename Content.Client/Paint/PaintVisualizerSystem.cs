@@ -1,12 +1,12 @@
 using System.Linq;
-using Robust.Client.GameObjects;
-using static Robust.Client.GameObjects.SpriteComponent;
 using Content.Shared.Clothing;
 using Content.Shared.Hands;
 using Content.Shared.Paint;
+using Robust.Client.GameObjects;
 using Robust.Client.Graphics;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
+using static Robust.Client.GameObjects.SpriteComponent;
 
 namespace Content.Client.Paint
 {
@@ -19,10 +19,14 @@ namespace Content.Client.Paint
         /// <summary>
         /// Visualizer for Paint which applies a shader and colors the entity.
         /// </summary>
+        [Dependency]
+        private readonly SharedAppearanceSystem _appearance = default!;
 
-        [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-        [Dependency] private readonly IPrototypeManager _protoMan = default!;
-        [Dependency] private readonly SpriteSystem _sprite = default!;
+        [Dependency]
+        private readonly IPrototypeManager _protoMan = default!;
+
+        [Dependency]
+        private readonly SpriteSystem _sprite = default!;
 
         public ShaderInstance? Shader; // in Robust.Client.Graphics so cannot move to shared component.
 
@@ -36,17 +40,27 @@ namespace Content.Client.Paint
             SubscribeLocalEvent<PaintedComponent, EquipmentVisualsUpdatedEvent>(OnEquipmentVisualsUpdated);
         }
 
-        protected override void OnAppearanceChange(EntityUid uid, PaintedComponent component, ref AppearanceChangeEvent args)
+        protected override void OnAppearanceChange(
+            EntityUid uid,
+            PaintedComponent component,
+            ref AppearanceChangeEvent args
+        )
         {
             ApplyPaintToSprite(uid, component, args.Sprite);
         }
-        private void OnAfterAutoHandleState(EntityUid uid, PaintedComponent component, ref AfterAutoHandleStateEvent args)
+
+        private void OnAfterAutoHandleState(
+            EntityUid uid,
+            PaintedComponent component,
+            ref AfterAutoHandleStateEvent args
+        )
         {
             if (!TryComp(uid, out SpriteComponent? sprite))
                 return;
 
             ApplyPaintToSprite(uid, component, sprite);
         }
+
         private void ApplyPaintToSprite(EntityUid uid, PaintedComponent component, SpriteComponent? sprite)
         {
             if (sprite == null)
@@ -61,7 +75,8 @@ namespace Content.Client.Paint
                     continue;
 
                 var paintShaderPrototype = GetPaintShaderPrototype(component.ShaderName, layer);
-                var canApplyPaint = layer.Shader == null
+                var canApplyPaint =
+                    layer.Shader == null
                     || layer.ShaderPrototype == component.ShaderName
                     || layer.ShaderPrototype == paintShaderPrototype
                     || layer.ShaderPrototype == DisplacedStencilDrawShader
@@ -87,9 +102,13 @@ namespace Content.Client.Paint
 
             foreach (var revealed in args.RevealedLayers)
             {
-                if (!_sprite.LayerMapTryGet((args.User, sprite), revealed, out var layer, false) || // HardLight
-                    sprite[layer] is not Layer spriteLayer || // Added spriteLayer
-                    spriteLayer.CopyToShaderParameters != null)
+                if (
+                    !_sprite.LayerMapTryGet((args.User, sprite), revealed, out var layer, false)
+                    || // HardLight
+                    sprite[layer] is not Layer spriteLayer
+                    || // Added spriteLayer
+                    spriteLayer.CopyToShaderParameters != null
+                )
                     continue;
 
                 sprite.LayerSetShader(layer, GetPaintShaderPrototype(component.ShaderName, spriteLayer)); // HardLight: Added GetPaintShaderPrototype & spriteLayer
@@ -97,7 +116,11 @@ namespace Content.Client.Paint
             }
         }
 
-        private void OnEquipmentVisualsUpdated(EntityUid uid, PaintedComponent component, EquipmentVisualsUpdatedEvent args)
+        private void OnEquipmentVisualsUpdated(
+            EntityUid uid,
+            PaintedComponent component,
+            EquipmentVisualsUpdatedEvent args
+        )
         {
             if (args.RevealedLayers.Count == 0)
                 return;
@@ -107,9 +130,13 @@ namespace Content.Client.Paint
 
             foreach (var revealed in args.RevealedLayers)
             {
-                if (!_sprite.LayerMapTryGet((args.Equipee, sprite), revealed, out var layer, false) || // HardLight
-                    sprite[layer] is not Layer spriteLayer || // Added spriteLayer
-                    spriteLayer.CopyToShaderParameters != null)
+                if (
+                    !_sprite.LayerMapTryGet((args.Equipee, sprite), revealed, out var layer, false)
+                    || // HardLight
+                    sprite[layer] is not Layer spriteLayer
+                    || // Added spriteLayer
+                    spriteLayer.CopyToShaderParameters != null
+                )
                     continue;
 
                 sprite.LayerSetShader(layer, GetPaintShaderPrototype(component.ShaderName, spriteLayer)); // HardLight: Added GetPaintShaderPrototype & spriteLayer

@@ -17,7 +17,7 @@
   id: ShipMiniRailgunProjectile
   name: M194 CHARONETTE 280mm 10.25 kg slug
   parent: BaseBulletTrigger
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -60,7 +60,7 @@
 - type: entity
   id: 30mmBullet
   parent: BaseBullet
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -86,7 +86,7 @@
   id: ShipDravonProjectile
   name: DRAVON 57mm projectile
   parent: BaseBulletTrigger
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -131,7 +131,7 @@
   id: ShipLongbowProjectile
   name: longbow 140mm HEAT projectile
   parent: BaseBulletTrigger
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -172,7 +172,7 @@
   id: ShipCyrexaProjectile
   name: CYREXA 220mm projectile
   parent: BaseBulletTrigger
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -214,7 +214,7 @@
   id: ShipBoforsProjectile
   name: Bofors 255mm projectile
   parent: BaseBulletTrigger
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -256,7 +256,7 @@
   id: ShipKargilProjectile
   name: Kargil 203mm projectile
   parent: BaseBulletTrigger
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -299,7 +299,7 @@
   name: HADES 305mm projectile
   description: I feel a primal fear. The omen comes for me.
   parent: BaseBulletTrigger
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -343,7 +343,7 @@
   id: AdderBullet
   name: AdderBullet
   parent: 20mmBulletBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -360,7 +360,7 @@
 
 - type: entity
   id: AdderSpread
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: AdderBullet
   components:
   - type: ProjectileSpread
@@ -373,7 +373,7 @@
 - type: entity
   id: 100mmBullet
   parent: 90mmBulletExplosiveBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -398,7 +398,7 @@
 - type: entity
   id: ShipShardProjectile
   parent: BaseBulletTrigger
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -434,7 +434,7 @@
   id: ShipHydraProjectile
   name: Hydra 200mm projectile
   parent: BaseBulletTrigger
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -472,7 +472,7 @@
 - type: entity
   id: ShipPinholeProjectile
   parent: BaseBulletTrigger
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:

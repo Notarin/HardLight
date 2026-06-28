@@ -25,22 +25,11 @@ namespace Content.Shared.Cybernetics
 
         [DataField, AutoNetworkedField]
         public float MaxRange = 12f;
-
     }
 }
-public sealed partial class BluespaceShuntEvent : WorldTargetActionEvent
-{
 
-}
+public sealed partial class BluespaceShuntEvent : WorldTargetActionEvent { }
 
-public record struct BluespaceShuntUsedEvent(BluespaceShuntComponent Component)
-{
+public record struct BluespaceShuntUsedEvent(BluespaceShuntComponent Component) { };
 
-};
-
-public record struct BluespaceShuntCooldownEndEvent(BluespaceShuntComponent Component)
-{
-
-};
-
-
+public record struct BluespaceShuntCooldownEndEvent(BluespaceShuntComponent Component) { };

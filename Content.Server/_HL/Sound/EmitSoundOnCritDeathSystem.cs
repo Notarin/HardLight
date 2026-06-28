@@ -9,7 +9,8 @@ namespace Content.Server._HL.Sound;
 /// </summary>
 public sealed class EmitSoundOnCritDeathSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
 
     public override void Initialize()
     {

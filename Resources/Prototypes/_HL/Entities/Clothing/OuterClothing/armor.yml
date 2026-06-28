@@ -53,7 +53,7 @@
   - type: GroupExamine
 
 - type: entity
-  parent: [ BaseC1Contraband, ClothingOuterVestWebMercenary ]
+  parent: [BaseC1Contraband, ClothingOuterVestWebMercenary]
   id: ClothingOuterArmoredJacketPMCBlue
   name: PMC armored jacket
   description: A high-quality armored jacket made from a tough but flexible synthetic fiber. Gives the user a decent degree of stylish protection.
@@ -64,7 +64,7 @@
     sprite: _HL/Clothing/OuterClothing/pmc_armored_jacket_blue.rsi
 
 - type: entity
-  parent: [ BaseC1Contraband, ClothingOuterVestWebMercenary ]
+  parent: [BaseC1Contraband, ClothingOuterVestWebMercenary]
   id: ClothingOuterArmoredJacketPMCGreen
   name: PMC armored jacket
   description: A high-quality armored jacket made from a tough but flexible synthetic fiber. Gives the user a decent degree of stylish protection.
@@ -75,7 +75,7 @@
     sprite: _HL/Clothing/OuterClothing/pmc_armored_jacket_green.rsi
 
 - type: entity
-  parent: [ BaseC1Contraband, ClothingOuterVestWebMercenary ]
+  parent: [BaseC1Contraband, ClothingOuterVestWebMercenary]
   id: ClothingOuterArmoredJacketPMCOlive
   name: PMC armored jacket
   description: A high-quality armored jacket made from a tough but flexible synthetic fiber. Gives the user a decent degree of stylish protection.
@@ -86,7 +86,7 @@
     sprite: _HL/Clothing/OuterClothing/pmc_armored_jacket_olive.rsi
 
 - type: entity
-  parent: [ BaseC2Contraband, ClothingOuterVestWebMercenary ]
+  parent: [BaseC2Contraband, ClothingOuterVestWebMercenary]
   id: ClothingOuterArmoredVestInterdyne
   name: Interdyne armored vest
   description: A high-quality armored vest with ceramic plates and chemically resistant fabric.
@@ -103,9 +103,9 @@
         Piercing: 0.75
         Heat: 0.8
         Caustic: 0.7
-        
+
 - type: entity
-  parent: [ ClothingOuterBaseLarge, BaseC3ExpeditionContraband, AllowSuitStorageClothing ] # Frontier: BaseMajorContraband<BaseC3Contraband
+  parent: [ClothingOuterBaseLarge, BaseC3ExpeditionContraband, AllowSuitStorageClothing] # Frontier: BaseMajorContraband<BaseC3Contraband
   id: ClothingOuterArmorAberrant
   name: aberrant armor
   description: Looks horrible. Smells even worse. But i guess armor is worth it?
@@ -120,7 +120,7 @@
         Blunt: 0.5
         Slash: 0.5
         Piercing: 0.5
-        Heat: 1.4  # living flesh is hard to pierce, but easy to burn or something idk
+        Heat: 1.4 # living flesh is hard to pierce, but easy to burn or something idk
         Caustic: 0.6
   - type: ClothingSpeedModifier
     walkModifier: 0.9

@@ -33,7 +33,8 @@ public sealed partial class ParrotAccentComponent : Component
     /// <summary>
     /// Strings to use as squawking noises.
     /// </summary>
-    public readonly string[] Squawks = [
+    public readonly string[] Squawks =
+    [
         "accent-parrot-squawk-1",
         "accent-parrot-squawk-2",
         "accent-parrot-squawk-3",
@@ -41,7 +42,6 @@ public sealed partial class ParrotAccentComponent : Component
         "accent-parrot-squawk-5",
         "accent-parrot-squawk-6",
         "accent-parrot-squawk-7",
-        "accent-parrot-squawk-8"
+        "accent-parrot-squawk-8",
     ];
-
 }

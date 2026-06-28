@@ -3,31 +3,31 @@
   price: 0
   equipment:
     id: ClearNFPDA
-    
+
 - type: loadout
   id: ContractorSalvagePDA
   price: 250
   equipment:
     id: ContractorSalvagePDA
-    
+
 - type: loadout
   id: ContractorResearchAssistantPDA
   price: 250
   equipment:
     id: ContractorResearchAssistantPDA
-    
+
 - type: loadout
   id: ContractorCargoPDA
   price: 250
   equipment:
     id: ContractorCargoPDA
-    
+
 - type: loadout
   id: ContractorMedicalInternPDA
   price: 250
   equipment:
     id: ContractorMedicalInternPDA
-        
+
 - type: loadout
   id: ContractorTechnicalAssistantPDA
   price: 250

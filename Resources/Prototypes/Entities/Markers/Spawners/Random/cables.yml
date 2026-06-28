@@ -57,5 +57,5 @@
       color: Green
   - type: RandomSpawner
     prototypes:
-      - CableApcExtension
+    - CableApcExtension
     chance: 0.5

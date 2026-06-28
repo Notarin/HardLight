@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using ImGuiNET;
 using Robust.Shared.Maths;
+using static Content.Server.Power.Pow3r.PowerState;
 using static ImGuiNET.ImGui;
 using Color = System.Drawing.Color;
-using Vector2 = System.Numerics.Vector2;
 using RobustVec2 = System.Numerics.Vector2;
-using static Content.Server.Power.Pow3r.PowerState;
+using Vector2 = System.Numerics.Vector2;
 
 namespace Pow3r
 {
@@ -29,10 +29,10 @@ namespace Pow3r
 
             SetNextWindowSize(new Vector2(150, 200));
 
-            Begin("CreateButtons",
-                ImGuiWindowFlags.NoTitleBar |
-                ImGuiWindowFlags.NoCollapse |
-                ImGuiWindowFlags.NoResize);
+            Begin(
+                "CreateButtons",
+                ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoResize
+            );
 
             if (Button("Generator"))
             {
@@ -76,19 +76,31 @@ namespace Pow3r
 
             Begin("Simulating timing");
 
-            PlotLines("Tick time (ms)", ref _simTickTimes[0], MaxTickData, _tickDataIdx + 1,
+            PlotLines(
+                "Tick time (ms)",
+                ref _simTickTimes[0],
+                MaxTickData,
+                _tickDataIdx + 1,
                 $"{_simTickTimes[_tickDataIdx]:N2}",
                 0,
-                0.1f, new Vector2(250, 150));
+                0.1f,
+                new Vector2(250, 150)
+            );
 
             End();
 
             Begin("Frame timings");
 
-            PlotLines("Frame (ms)", ref _frameTimings[0], _frameTimings.Length, _frameTimeIdx + 1,
+            PlotLines(
+                "Frame (ms)",
+                ref _frameTimings[0],
+                _frameTimings.Length,
+                _frameTimeIdx + 1,
                 $"{_frameTimings[_frameTimeIdx]:N2}",
                 0,
-                33.333f, new Vector2(250, 150));
+                33.333f,
+                new Vector2(250, 150)
+            );
 
             End();
 
@@ -96,7 +108,7 @@ namespace Pow3r
                 Begin("Memory");
 
                 var heap = GC.GetTotalMemory(false);
-                Text($"Managed heap: {heap>>20} MiB");
+                Text($"Managed heap: {heap >> 20} MiB");
 
                 End();
             }
@@ -151,10 +163,16 @@ namespace Pow3r
 
                 displayLoad.CurrentWindowPos = CalcWindowCenter();
 
-                PlotLines("", ref displayLoad.ReceivedPowerData[0], MaxTickData, _tickDataIdx + 1,
+                PlotLines(
+                    "",
+                    ref displayLoad.ReceivedPowerData[0],
+                    MaxTickData,
+                    _tickDataIdx + 1,
                     $"Receiving: {load.ReceivingPower:N1} W",
                     0,
-                    load.DesiredPower, new Vector2(250, 150));
+                    load.DesiredPower,
+                    new Vector2(250, 150)
+                );
 
                 if (Button("Delete"))
                 {
@@ -198,9 +216,16 @@ namespace Pow3r
 
                 Text($"Ramp Position: {supply.SupplyRampPosition:N1}");
 
-                PlotLines("", ref displaySupply.SuppliedPowerData[0], MaxTickData, _tickDataIdx + 1,
+                PlotLines(
+                    "",
+                    ref displaySupply.SuppliedPowerData[0],
+                    MaxTickData,
+                    _tickDataIdx + 1,
                     $"Supply: {supply.CurrentSupply:N1} W",
-                    0, supply.MaxSupply, new Vector2(250, 150));
+                    0,
+                    supply.MaxSupply,
+                    new Vector2(250, 150)
+                );
 
                 if (Button("Delete"))
                 {
@@ -252,17 +277,38 @@ namespace Pow3r
 
                 SliderFloat("Ramp position", ref battery.SupplyRampPosition, 0, battery.MaxSupply, "%.0f W");
 
-                PlotLines("", ref displayBattery.SuppliedPowerData[0], MaxTickData, _tickDataIdx + 1,
+                PlotLines(
+                    "",
+                    ref displayBattery.SuppliedPowerData[0],
+                    MaxTickData,
+                    _tickDataIdx + 1,
                     $"OUT: {battery.CurrentSupply:N1} W",
-                    0, battery.MaxSupply + 1000, new Vector2(250, 75));
+                    0,
+                    battery.MaxSupply + 1000,
+                    new Vector2(250, 75)
+                );
 
-                PlotLines("", ref displayBattery.ReceivingPowerData[0], MaxTickData, _tickDataIdx + 1,
+                PlotLines(
+                    "",
+                    ref displayBattery.ReceivingPowerData[0],
+                    MaxTickData,
+                    _tickDataIdx + 1,
                     $"IN: {battery.CurrentReceiving:N1} W",
-                    0, battery.MaxChargeRate + 1000, new Vector2(250, 75));
+                    0,
+                    battery.MaxChargeRate + 1000,
+                    new Vector2(250, 75)
+                );
 
-                PlotLines("", ref displayBattery.StoredPowerData[0], MaxTickData, _tickDataIdx + 1,
+                PlotLines(
+                    "",
+                    ref displayBattery.StoredPowerData[0],
+                    MaxTickData,
+                    _tickDataIdx + 1,
                     $"Charge: {battery.CurrentStorage:N1} J",
-                    0, battery.Capacity, new Vector2(250, 75));
+                    0,
+                    battery.Capacity,
+                    new Vector2(250, 75)
+                );
 
                 if (Button("Delete"))
                 {
@@ -395,7 +441,6 @@ namespace Pow3r
                 RefreshLinks();
         }
 
-
         private void DrawArrowLine(ImDrawListPtr ptr, Vector2 a, Vector2 b, Color color)
         {
             // A: to
@@ -428,7 +473,7 @@ namespace Pow3r
 
         private static uint CvtColor(Color color)
         {
-            return color.R | ((uint) color.G << 8) | ((uint) color.B << 16) | ((uint) color.A << 24);
+            return color.R | ((uint)color.G << 8) | ((uint)color.B << 16) | ((uint)color.A << 24);
         }
 
         private static Vector2 CalcWindowCenter()

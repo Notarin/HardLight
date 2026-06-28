@@ -13,10 +13,17 @@ namespace Content.Shared._HL.Weapons.Systems;
 
 public sealed class SharedGunUserThrowbackSystem : EntitySystem
 {
-    [Dependency] private readonly IComponentFactory _componentFactory = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency]
+    private readonly IComponentFactory _componentFactory = default!;
+
+    [Dependency]
+    private readonly SharedPhysicsSystem _physics = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
 
     public override void Initialize()
     {
@@ -93,8 +100,9 @@ public sealed class SharedGunUserThrowbackSystem : EntitySystem
         {
             case ProjectileComponent projectile:
                 return projectile.Damage.GetTotal().Float();
-            case CartridgeAmmoComponent cartridge when _prototypeManager.TryIndex<EntityPrototype>(cartridge.Prototype, out var prototype)
-                                                    && prototype.TryGetComponent<ProjectileComponent>(out var projectile, _componentFactory):
+            case CartridgeAmmoComponent cartridge
+                when _prototypeManager.TryIndex<EntityPrototype>(cartridge.Prototype, out var prototype)
+                    && prototype.TryGetComponent<ProjectileComponent>(out var projectile, _componentFactory):
                 return projectile.Damage.GetTotal().Float();
             default:
                 return 0f;

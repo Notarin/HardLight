@@ -6,7 +6,13 @@ namespace Content.Server._NF.Radio;
 /// Use this event to transform radio messages before they're sent.
 /// </summary>
 [ByRefEvent]
-public record struct RadioTransformMessageEvent(RadioChannelPrototype Channel, EntityUid RadioSource, string Name, string Message, EntityUid MessageSource)
+public record struct RadioTransformMessageEvent(
+    RadioChannelPrototype Channel,
+    EntityUid RadioSource,
+    string Name,
+    string Message,
+    EntityUid MessageSource
+)
 {
     public readonly RadioChannelPrototype Channel = Channel;
     public readonly EntityUid RadioSource = RadioSource;

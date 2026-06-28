@@ -8,8 +8,8 @@
   components:
   - type: Tag
     tags:
-      - Egg
-      - Meat
+    - Egg
+    - Meat
   - type: Food
     trash:
     - Eggshells
@@ -41,8 +41,7 @@
     damageContainer: Biological
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 1
       behaviors:
       - !type:PlaySoundBehavior
@@ -55,9 +54,9 @@
           Eggshells:
             min: 1
             max: 1
-          # Wow double-yolk you're so lucky!
+            # Wow double-yolk you're so lucky!
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   # all below are for egg cooking/exploding
   - type: AtmosExposed
   - type: Temperature
@@ -97,13 +96,13 @@
   components:
   - type: Sprite
     layers:
-      - state: icon
-        map: [ "enum.DamageStateVisualLayers.Base" ]
+    - state: icon
+      map: ["enum.DamageStateVisualLayers.Base"]
   - type: RandomSprite
     available:
-      - enum.DamageStateVisualLayers.Base:
-          icon: ""
-          white: ""
+    - enum.DamageStateVisualLayers.Base:
+        icon: ""
+        white: ""
   - type: Construction
     graph: Egg
     node: start
@@ -117,7 +116,7 @@
   - type: Sprite
     layers:
     - state: icon
-      map: [ "enum.DamageStateVisualLayers.Base" ]
+      map: ["enum.DamageStateVisualLayers.Base"]
   - type: SolutionContainerManager
     solutions:
       food:

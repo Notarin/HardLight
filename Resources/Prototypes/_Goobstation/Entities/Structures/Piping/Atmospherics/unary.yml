@@ -9,16 +9,15 @@
     layers:
     - sprite: Structures/Piping/Atmospherics/pipe.rsi
       state: pipeStraight
-      map: [ "enum.PipeVisualLayers.Pipe" ]
+      map: ["enum.PipeVisualLayers.Pipe"]
     - state: heInlineStraight
-      map: [ "enum.SubfloorLayers.FirstLayer" ]
+      map: ["enum.SubfloorLayers.FirstLayer"]
   - type: HeatExchanger
     inlet: pipe
     outlet: pipe
   - type: NodeContainer
     nodes:
-      pipe:
-        !type:PipeNode
+      pipe: !type:PipeNode
         nodeGroupID: Pipe
         pipeDirection: Longitudinal
   - type: Construction
@@ -29,22 +28,21 @@
   parent: HeatExchangerInline
   id: HeatExchangerInlineBend
   components:
-    - type: Sprite
-      layers:
-      - sprite: Structures/Piping/Atmospherics/pipe.rsi
-        state: pipeBend
-        map: [ "enum.PipeVisualLayers.Pipe" ]
-      - state: heInlineBend
-        map: [ "enum.SubfloorLayers.FirstLayer" ]
-    - type: HeatExchanger
-      inlet: pipe
-      outlet: pipe
-    - type: NodeContainer
-      nodes:
-        pipe:
-          !type:PipeNode
-          nodeGroupID: Pipe
-          pipeDirection: SWBend
-    - type: Construction
-      graph: GasBinary
-      node: bendinlineradiator
+  - type: Sprite
+    layers:
+    - sprite: Structures/Piping/Atmospherics/pipe.rsi
+      state: pipeBend
+      map: ["enum.PipeVisualLayers.Pipe"]
+    - state: heInlineBend
+      map: ["enum.SubfloorLayers.FirstLayer"]
+  - type: HeatExchanger
+    inlet: pipe
+    outlet: pipe
+  - type: NodeContainer
+    nodes:
+      pipe: !type:PipeNode
+        nodeGroupID: Pipe
+        pipeDirection: SWBend
+  - type: Construction
+    graph: GasBinary
+    node: bendinlineradiator

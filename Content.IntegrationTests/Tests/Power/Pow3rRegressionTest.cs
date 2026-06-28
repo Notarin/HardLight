@@ -33,7 +33,8 @@ namespace Content.IntegrationTests.Tests.Power;
 public sealed class Pow3rRegressionTest
 {
     [TestPrototypes]
-    private const string Prototypes = @"
+    private const string Prototypes =
+        @"
 - type: entity
   id: Pow3rRegressionGenerator
   components:
@@ -111,7 +112,9 @@ public sealed class Pow3rRegressionTest
             }
 
             var generatorEnt = entityManager.SpawnEntity(
-                "Pow3rRegressionGenerator", new EntityCoordinates(grid.Owner, 0, 0));
+                "Pow3rRegressionGenerator",
+                new EntityCoordinates(grid.Owner, 0, 0)
+            );
             supplier = entityManager.GetComponent<PowerSupplierComponent>(generatorEnt);
             // Comfortable surplus — supplyRatio should be exactly 1 every tick.
             supplier.MaxSupply = drawRate * consumerCount * 4;
@@ -120,7 +123,9 @@ public sealed class Pow3rRegressionTest
             for (var i = 0; i < consumerCount; i++)
             {
                 var consumerEnt = entityManager.SpawnEntity(
-                    "Pow3rRegressionConsumer", new EntityCoordinates(grid.Owner, 0, i + 1));
+                    "Pow3rRegressionConsumer",
+                    new EntityCoordinates(grid.Owner, 0, i + 1)
+                );
                 var consumer = entityManager.GetComponent<PowerConsumerComponent>(consumerEnt);
                 consumer.DrawRate = drawRate;
                 consumers.Add(consumer);
@@ -139,24 +144,39 @@ public sealed class Pow3rRegressionTest
                 // Property 1: equilibrium matches analytic value.
                 for (var i = 0; i < consumerCount; i++)
                 {
-                    Assert.That(snap60.ConsumerReceived[i], Is.EqualTo(drawRate).Within(0.1),
-                        $"Consumer {i} received power at tick 60 should equal draw rate.");
+                    Assert.That(
+                        snap60.ConsumerReceived[i],
+                        Is.EqualTo(drawRate).Within(0.1),
+                        $"Consumer {i} received power at tick 60 should equal draw rate."
+                    );
                 }
-                Assert.That(snap60.SupplierCurrent, Is.EqualTo(drawRate * consumerCount).Within(0.1),
-                    "Supplier output at tick 60 should equal total draw.");
+                Assert.That(
+                    snap60.SupplierCurrent,
+                    Is.EqualTo(drawRate * consumerCount).Within(0.1),
+                    "Supplier output at tick 60 should equal total draw."
+                );
 
                 // Property 2: stability — no drift between tick 60 and tick 600.
                 for (var i = 0; i < consumerCount; i++)
                 {
-                    Assert.That(snap600.ConsumerReceived[i], Is.EqualTo(snap60.ConsumerReceived[i]).Within(1e-4),
-                        $"Consumer {i} drifted between tick 60 and tick 600.");
+                    Assert.That(
+                        snap600.ConsumerReceived[i],
+                        Is.EqualTo(snap60.ConsumerReceived[i]).Within(1e-4),
+                        $"Consumer {i} drifted between tick 60 and tick 600."
+                    );
                 }
-                Assert.That(snap600.SupplierCurrent, Is.EqualTo(snap60.SupplierCurrent).Within(1e-4),
-                    "Supplier drifted between tick 60 and tick 600.");
+                Assert.That(
+                    snap600.SupplierCurrent,
+                    Is.EqualTo(snap60.SupplierCurrent).Within(1e-4),
+                    "Supplier drifted between tick 60 and tick 600."
+                );
 
                 // Sanity: tick 1 may not have ramped fully, but should not exceed equilibrium.
-                Assert.That(snap1.SupplierCurrent, Is.LessThanOrEqualTo(snap60.SupplierCurrent + 0.1),
-                    "Supplier overshoots equilibrium on first tick.");
+                Assert.That(
+                    snap1.SupplierCurrent,
+                    Is.LessThanOrEqualTo(snap60.SupplierCurrent + 0.1),
+                    "Supplier overshoots equilibrium on first tick."
+                );
             });
         });
 
@@ -196,7 +216,9 @@ public sealed class Pow3rRegressionTest
             }
 
             var generatorEnt = entityManager.SpawnEntity(
-                "Pow3rRegressionGenerator", new EntityCoordinates(grid.Owner, 0, 0));
+                "Pow3rRegressionGenerator",
+                new EntityCoordinates(grid.Owner, 0, 0)
+            );
             supplier = entityManager.GetComponent<PowerSupplierComponent>(generatorEnt);
             supplier.MaxSupply = supplyCap;
             supplier.SupplyRampTolerance = supplyCap;
@@ -204,7 +226,9 @@ public sealed class Pow3rRegressionTest
             for (var i = 0; i < consumerCount; i++)
             {
                 var consumerEnt = entityManager.SpawnEntity(
-                    "Pow3rRegressionConsumer", new EntityCoordinates(grid.Owner, 0, i + 1));
+                    "Pow3rRegressionConsumer",
+                    new EntityCoordinates(grid.Owner, 0, i + 1)
+                );
                 var consumer = entityManager.GetComponent<PowerConsumerComponent>(consumerEnt);
                 consumer.DrawRate = drawRate;
                 consumers.Add(consumer);
@@ -224,15 +248,27 @@ public sealed class Pow3rRegressionTest
             {
                 for (var i = 0; i < consumerCount; i++)
                 {
-                    Assert.That(snap60.ConsumerReceived[i], Is.EqualTo(expectedReceived).Within(0.1),
-                        $"Consumer {i} should receive proportional share at tick 60.");
-                    Assert.That(snap600.ConsumerReceived[i], Is.EqualTo(snap60.ConsumerReceived[i]).Within(1e-4),
-                        $"Consumer {i} drifted between tick 60 and tick 600.");
+                    Assert.That(
+                        snap60.ConsumerReceived[i],
+                        Is.EqualTo(expectedReceived).Within(0.1),
+                        $"Consumer {i} should receive proportional share at tick 60."
+                    );
+                    Assert.That(
+                        snap600.ConsumerReceived[i],
+                        Is.EqualTo(snap60.ConsumerReceived[i]).Within(1e-4),
+                        $"Consumer {i} drifted between tick 60 and tick 600."
+                    );
                 }
-                Assert.That(snap60.SupplierCurrent, Is.EqualTo(supplyCap).Within(0.1),
-                    "Supplier should run at maximum during deficit.");
-                Assert.That(snap600.SupplierCurrent, Is.EqualTo(snap60.SupplierCurrent).Within(1e-4),
-                    "Supplier output drifted across long run.");
+                Assert.That(
+                    snap60.SupplierCurrent,
+                    Is.EqualTo(supplyCap).Within(0.1),
+                    "Supplier should run at maximum during deficit."
+                );
+                Assert.That(
+                    snap600.SupplierCurrent,
+                    Is.EqualTo(snap60.SupplierCurrent).Within(1e-4),
+                    "Supplier output drifted across long run."
+                );
             });
         });
 
@@ -272,11 +308,15 @@ public sealed class Pow3rRegressionTest
             }
 
             var batteryEnt = entityManager.SpawnEntity(
-                "Pow3rRegressionDischargeBattery", new EntityCoordinates(grid.Owner, 0, 0));
+                "Pow3rRegressionDischargeBattery",
+                new EntityCoordinates(grid.Owner, 0, 0)
+            );
             battery = entityManager.GetComponent<BatteryComponent>(batteryEnt);
 
             var consumerEnt = entityManager.SpawnEntity(
-                "Pow3rRegressionConsumer", new EntityCoordinates(grid.Owner, 0, 1));
+                "Pow3rRegressionConsumer",
+                new EntityCoordinates(grid.Owner, 0, 1)
+            );
             consumer = entityManager.GetComponent<PowerConsumerComponent>(consumerEnt);
             consumer.DrawRate = drawRate;
         });
@@ -302,30 +342,38 @@ public sealed class Pow3rRegressionTest
 
             Assert.Multiple(() =>
             {
-                Assert.That(battery.CurrentCharge, Is.LessThan(chargeAfterWarmup),
-                    "Battery charge should decrease over time when discharging.");
+                Assert.That(
+                    battery.CurrentCharge,
+                    Is.LessThan(chargeAfterWarmup),
+                    "Battery charge should decrease over time when discharging."
+                );
                 // Allow 5% tolerance on drain rate to account for ramp behavior and
                 // floating-point accumulation across many ticks.
-                Assert.That(actualDelta, Is.EqualTo(expectedDelta).Within(expectedDelta * 0.05),
+                Assert.That(
+                    actualDelta,
+                    Is.EqualTo(expectedDelta).Within(expectedDelta * 0.05),
                     $"Battery drained {actualDelta:F2} J over {testTicks} ticks, "
-                    + $"expected ~{expectedDelta:F2} J at {drawRate} W draw.");
-                Assert.That(consumer.ReceivedPower, Is.EqualTo(drawRate).Within(0.1),
-                    "Consumer should receive its full draw rate while battery has charge.");
+                        + $"expected ~{expectedDelta:F2} J at {drawRate} W draw."
+                );
+                Assert.That(
+                    consumer.ReceivedPower,
+                    Is.EqualTo(drawRate).Within(0.1),
+                    "Consumer should receive its full draw rate while battery has charge."
+                );
             });
         });
 
         await pair.CleanReturnAsync();
     }
 
-    private readonly record struct PowerSnapshot(
-        float SupplierCurrent,
-        IReadOnlyList<float> ConsumerReceived);
+    private readonly record struct PowerSnapshot(float SupplierCurrent, IReadOnlyList<float> ConsumerReceived);
 
     private static async Task<PowerSnapshot> SnapshotAfterTicks(
         RobustIntegrationTest.ServerIntegrationInstance server,
         PowerSupplierComponent supplier,
         IReadOnlyList<PowerConsumerComponent> consumers,
-        int ticks)
+        int ticks
+    )
     {
         server.RunTicks(ticks);
         var supplierCurrent = 0f;

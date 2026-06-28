@@ -1,14 +1,23 @@
 using System.Linq;
+using Content.Server._NF.Mech.Equipment.Components;
+using Content.Server.Actions;
+using Content.Server.Ghost.Roles.Components;
 using Content.Server.Interaction;
 using Content.Server.Mech.Equipment.Components;
 using Content.Server.Mech.Systems;
+using Content.Shared._NF.Cargo.Components;
+using Content.Shared._NF.Mech.Equipment.Events;
+using Content.Shared.Buckle;
+using Content.Shared.Buckle.Components;
 using Content.Shared.DoAfter;
 using Content.Shared.Interaction;
 using Content.Shared.Mech;
 using Content.Shared.Mech.Components;
 using Content.Shared.Mech.Equipment.Components;
+using Content.Shared.Mind.Components;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Wall;
+using Content.Shared.Whitelist;
 using Robust.Server.GameObjects;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
@@ -16,15 +25,6 @@ using Robust.Shared.Containers;
 using Robust.Shared.Map;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
-using Content.Shared.Whitelist;
-using Content.Shared.Buckle.Components;
-using Content.Shared.Buckle;
-using Content.Server._NF.Mech.Equipment.Components;
-using Content.Shared._NF.Cargo.Components;
-using Content.Server.Actions;
-using Content.Shared._NF.Mech.Equipment.Events;
-using Content.Shared.Mind.Components;
-using Content.Server.Ghost.Roles.Components;
 
 namespace Content.Server._NF.Mech.Equipment.EntitySystems;
 
@@ -33,15 +33,32 @@ namespace Content.Server._NF.Mech.Equipment.EntitySystems;
 /// </summary>
 public sealed class MechForkSystem : EntitySystem
 {
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly MechSystem _mech = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly InteractionSystem _interaction = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
-    [Dependency] private readonly SharedBuckleSystem _buckle = default!;
-    [Dependency] private readonly ActionsSystem _action = default!;
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly MechSystem _mech = default!;
+
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfter = default!;
+
+    [Dependency]
+    private readonly InteractionSystem _interaction = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly TransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelist = default!;
+
+    [Dependency]
+    private readonly SharedBuckleSystem _buckle = default!;
+
+    [Dependency]
+    private readonly ActionsSystem _action = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -65,8 +82,10 @@ public sealed class MechForkSystem : EntitySystem
         if (args.Message is not MechGrabberEjectMessage msg)
             return;
 
-        if (!TryComp<MechEquipmentComponent>(uid, out var equipmentComponent) ||
-            equipmentComponent.EquipmentOwner == null)
+        if (
+            !TryComp<MechEquipmentComponent>(uid, out var equipmentComponent)
+            || equipmentComponent.EquipmentOwner == null
+        )
             return;
         var mech = equipmentComponent.EquipmentOwner.Value;
 
@@ -107,8 +126,10 @@ public sealed class MechForkSystem : EntitySystem
 
     private void OnEquipmentRemoved(EntityUid uid, MechForkComponent component, ref MechEquipmentRemovedEvent args)
     {
-        if (!TryComp<MechEquipmentComponent>(uid, out var equipmentComponent) ||
-            equipmentComponent.EquipmentOwner == null)
+        if (
+            !TryComp<MechEquipmentComponent>(uid, out var equipmentComponent)
+            || equipmentComponent.EquipmentOwner == null
+        )
             return;
         var mech = equipmentComponent.EquipmentOwner.Value;
 
@@ -134,7 +155,7 @@ public sealed class MechForkSystem : EntitySystem
         var state = new MechGrabberUiState
         {
             Contents = GetNetEntityList(component.ItemContainer.ContainedEntities.ToList()),
-            MaxContents = component.MaxContents
+            MaxContents = component.MaxContents,
         };
         args.States.Add(GetNetEntity(uid), state);
     }
@@ -190,9 +211,17 @@ public sealed class MechForkSystem : EntitySystem
 
                 args.Handled = true;
                 component.AudioStream = _audio.PlayPvs(component.GrabSound, uid)?.Entity;
-                var insertDoAfterArgs = new DoAfterArgs(EntityManager, args.User, component.GrabDelay, new ForkInsertDoAfterEvent(), uid, target: target, used: uid)
+                var insertDoAfterArgs = new DoAfterArgs(
+                    EntityManager,
+                    args.User,
+                    component.GrabDelay,
+                    new ForkInsertDoAfterEvent(),
+                    uid,
+                    target: target,
+                    used: uid
+                )
                 {
-                    BreakOnMove = true
+                    BreakOnMove = true,
                 };
 
                 _doAfter.TryStartDoAfter(insertDoAfterArgs, out component.DoAfter);
@@ -206,9 +235,17 @@ public sealed class MechForkSystem : EntitySystem
 
                 args.Handled = true;
                 component.AudioStream = _audio.PlayPvs(component.GrabSound, uid)?.Entity;
-                var insertDoAfterArgs = new DoAfterArgs(EntityManager, args.User, component.GrabDelay, new ForkRemoveDoAfterEvent(), uid, target: target, used: uid)
+                var insertDoAfterArgs = new DoAfterArgs(
+                    EntityManager,
+                    args.User,
+                    component.GrabDelay,
+                    new ForkRemoveDoAfterEvent(),
+                    uid,
+                    target: target,
+                    used: uid
+                )
                 {
-                    BreakOnMove = true
+                    BreakOnMove = true,
                 };
 
                 _doAfter.TryStartDoAfter(insertDoAfterArgs, out component.DoAfter);
@@ -219,9 +256,11 @@ public sealed class MechForkSystem : EntitySystem
         if (Transform(target).Anchored)
             return;
 
-        if (TryComp<PhysicsComponent>(target, out var physics) && physics.BodyType == BodyType.Static ||
-            HasComp<WallMountComponent>(target) ||
-            HasComp<MobStateComponent>(target))
+        if (
+            TryComp<PhysicsComponent>(target, out var physics) && physics.BodyType == BodyType.Static
+            || HasComp<WallMountComponent>(target)
+            || HasComp<MobStateComponent>(target)
+        )
         {
             return;
         }
@@ -234,9 +273,17 @@ public sealed class MechForkSystem : EntitySystem
 
         args.Handled = true;
         component.AudioStream = _audio.PlayPvs(component.GrabSound, uid)?.Entity;
-        var doAfterArgs = new DoAfterArgs(EntityManager, args.User, component.GrabDelay, new GrabberDoAfterEvent(), uid, target: target, used: uid)
+        var doAfterArgs = new DoAfterArgs(
+            EntityManager,
+            args.User,
+            component.GrabDelay,
+            new GrabberDoAfterEvent(),
+            uid,
+            target: target,
+            used: uid
+        )
         {
-            BreakOnMove = true
+            BreakOnMove = true,
         };
 
         _doAfter.TryStartDoAfter(doAfterArgs, out component.DoAfter);
@@ -255,7 +302,10 @@ public sealed class MechForkSystem : EntitySystem
         if (args.Handled || args.Args.Target == null)
             return;
 
-        if (!TryComp<MechEquipmentComponent>(uid, out var equipmentComponent) || equipmentComponent.EquipmentOwner == null)
+        if (
+            !TryComp<MechEquipmentComponent>(uid, out var equipmentComponent)
+            || equipmentComponent.EquipmentOwner == null
+        )
             return;
         if (!_mech.TryChangeEnergy(equipmentComponent.EquipmentOwner.Value, component.GrabEnergyDelta))
             return;
@@ -274,7 +324,7 @@ public sealed class MechForkSystem : EntitySystem
         if (TryComp<ContainerManagerComponent>(args.Args.Target, out var containerManager))
         {
             EntityCoordinates? coords = null;
-            if (TryComp(equipmentComponent.EquipmentOwner, out TransformComponent? xform)) 
+            if (TryComp(equipmentComponent.EquipmentOwner, out TransformComponent? xform))
                 coords = xform.Coordinates;
 
             List<EntityUid> toRemove = new();
@@ -283,9 +333,10 @@ public sealed class MechForkSystem : EntitySystem
                 toRemove.Clear();
                 foreach (var contained in container.Value.ContainedEntities)
                 {
-                    if (HasComp<GhostRoleComponent>(contained)
-                        || TryComp<MindContainerComponent>(contained, out var mindContainer)
-                        && mindContainer.HasMind)
+                    if (
+                        HasComp<GhostRoleComponent>(contained)
+                        || TryComp<MindContainerComponent>(contained, out var mindContainer) && mindContainer.HasMind
+                    )
                     {
                         toRemove.Add(contained);
                     }
@@ -323,7 +374,10 @@ public sealed class MechForkSystem : EntitySystem
         int itemsToInsert = Math.Min(component.ItemContainer.Count, rack.MaxObjectsStored - rackContainer.Count);
         if (itemsToInsert < 0)
             return;
-        if (!TryComp<MechEquipmentComponent>(uid, out var equipmentComponent) || equipmentComponent.EquipmentOwner == null)
+        if (
+            !TryComp<MechEquipmentComponent>(uid, out var equipmentComponent)
+            || equipmentComponent.EquipmentOwner == null
+        )
             return;
         if (!_mech.TryChangeEnergy(equipmentComponent.EquipmentOwner.Value, component.GrabEnergyDelta))
             return;
@@ -361,7 +415,10 @@ public sealed class MechForkSystem : EntitySystem
         int itemsToInsert = Math.Min(rackContainer.Count, component.MaxContents - component.ItemContainer.Count);
         if (itemsToInsert < 0)
             return;
-        if (!TryComp<MechEquipmentComponent>(uid, out var equipmentComponent) || equipmentComponent.EquipmentOwner == null)
+        if (
+            !TryComp<MechEquipmentComponent>(uid, out var equipmentComponent)
+            || equipmentComponent.EquipmentOwner == null
+        )
             return;
         if (!_mech.TryChangeEnergy(equipmentComponent.EquipmentOwner.Value, component.GrabEnergyDelta))
             return;

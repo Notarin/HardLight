@@ -6,12 +6,20 @@ using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 
 namespace Content.Server.Station.Systems;
+
 public sealed partial class StationBiomeSystem : EntitySystem
 {
-    [Dependency] private readonly BiomeSystem _biome = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly StationSystem _station = default!;
+    [Dependency]
+    private readonly BiomeSystem _biome = default!;
+
+    [Dependency]
+    private readonly IMapManager _mapManager = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly StationSystem _station = default!;
 
     public override void Initialize()
     {
@@ -25,7 +33,8 @@ public sealed partial class StationBiomeSystem : EntitySystem
             return;
 
         var station = _station.GetLargestGrid(dataComp);
-        if (station == null) return;
+        if (station == null)
+            return;
 
         var mapId = Transform(station.Value).MapID;
         var mapUid = _mapManager.GetMapEntityId(mapId);

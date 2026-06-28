@@ -2,15 +2,15 @@
   id: Improvised9x19mmBulletGraph
   start: start
   graph:
-    - node: start
-      edges:
-        - to: shell
-          steps:
-            - material: Steel
-              amount: 1
-              doAfter: 0.5
-            - material: CrushedPhosphorus
-              amount: 2
-              doAfter: 0.5
-    - node: shell
-      entity: Cartridge9x19mmImprovised
+  - node: start
+    edges:
+    - to: shell
+      steps:
+      - material: Steel
+        amount: 1
+        doAfter: 0.5
+      - material: CrushedPhosphorus
+        amount: 2
+        doAfter: 0.5
+  - node: shell
+    entity: Cartridge9x19mmImprovised

@@ -17,10 +17,17 @@ namespace Content.Server.Wagging;
 /// </summary>
 public sealed class WaggingSystem : EntitySystem
 {
-    [Dependency] private readonly ActionsSystem _actions = default!;
-    [Dependency] private readonly HumanoidAppearanceSystem _humanoidAppearance = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly CoyoteMarkingSystem _coyoteMarking = default!; // Coyote, obviously
+    [Dependency]
+    private readonly ActionsSystem _actions = default!;
+
+    [Dependency]
+    private readonly HumanoidAppearanceSystem _humanoidAppearance = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototype = default!;
+
+    [Dependency]
+    private readonly CoyoteMarkingSystem _coyoteMarking = default!; // Coyote, obviously
 
     public override void Initialize()
     {
@@ -56,9 +63,11 @@ public sealed class WaggingSystem : EntitySystem
         if (!humanoid.MarkingSet.Markings.TryGetValue(MarkingCategories.Tail, out var markings))
             return;
 
-        if (markings.Any(m =>
-                _coyoteMarking.TryGetWaggingId(m.MarkingId, out _) ||
-                _coyoteMarking.TryGetStaticId(m.MarkingId, out _)))
+        if (
+            markings.Any(m =>
+                _coyoteMarking.TryGetWaggingId(m.MarkingId, out _) || _coyoteMarking.TryGetStaticId(m.MarkingId, out _)
+            )
+        )
         {
             _actions.AddAction(uid, ref component.ActionEntity, component.Action, uid);
         }
@@ -95,7 +104,11 @@ public sealed class WaggingSystem : EntitySystem
             TryToggleWagging(uid, wagging: component);
     }
 
-    public bool TryToggleWagging(EntityUid uid, WaggingComponent? wagging = null, HumanoidAppearanceComponent? humanoid = null)
+    public bool TryToggleWagging(
+        EntityUid uid,
+        WaggingComponent? wagging = null,
+        HumanoidAppearanceComponent? humanoid = null
+    )
     {
         if (!Resolve(uid, ref wagging, ref humanoid))
             return false;
@@ -107,8 +120,8 @@ public sealed class WaggingSystem : EntitySystem
             return false;
 
         var hasSupportedMarking = markings.Any(m =>
-            _coyoteMarking.TryGetWaggingId(m.MarkingId, out _) ||
-            _coyoteMarking.TryGetStaticId(m.MarkingId, out _));
+            _coyoteMarking.TryGetWaggingId(m.MarkingId, out _) || _coyoteMarking.TryGetStaticId(m.MarkingId, out _)
+        );
 
         if (!hasSupportedMarking)
             return false;

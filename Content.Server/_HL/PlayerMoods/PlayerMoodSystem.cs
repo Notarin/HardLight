@@ -1,9 +1,9 @@
 using System.Linq;
 using System.Text;
+using Content.Server._Common.Consent;
 using Content.Server.Chat.Managers;
 using Content.Server.GameTicking;
 using Content.Server.Roles.Jobs;
-using Content.Server._Common.Consent;
 using Content.Shared._Common.Consent;
 using Content.Shared._HL.PlayerMoods;
 using Content.Shared.Chat;
@@ -33,13 +33,26 @@ namespace Content.Server._HL.PlayerMoods;
 /// </summary>
 public sealed class PlayerMoodSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IChatManager _chatManager = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedMindSystem _mind = default!;
-    [Dependency] private readonly JobSystem _jobs = default!;
-    [Dependency] private readonly ConsentSystem _consent = default!;
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly IChatManager _chatManager = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly SharedMindSystem _mind = default!;
+
+    [Dependency]
+    private readonly JobSystem _jobs = default!;
+
+    [Dependency]
+    private readonly ConsentSystem _consent = default!;
 
     private static readonly Color MoodColor = Color.FromHex("#AAAAAA");
     private static readonly TimeSpan CheckInterval = TimeSpan.FromSeconds(60);
@@ -83,7 +96,8 @@ public sealed class PlayerMoodSystem : EntitySystem
 
     // --- Periodic update (runs at most 1×/min) ---
 
-    private void HandleMoodPools<T>(TimeSpan curTime) where T : EroticMoodPoolComponentBase
+    private void HandleMoodPools<T>(TimeSpan curTime)
+        where T : EroticMoodPoolComponentBase
     {
         var query = EntityQueryEnumerator<T>();
         while (query.MoveNext(out var uid, out var comp))
@@ -219,14 +233,14 @@ public sealed class PlayerMoodSystem : EntitySystem
             default,
             false,
             actor.PlayerSession.Channel,
-            colorOverride: MoodColor);
+            colorOverride: MoodColor
+        );
     }
 
     // --- Helpers ---
 
     /// <summary>Returns a random offset in [-range/2, +range/2].</summary>
-    private TimeSpan Jitter(TimeSpan range) =>
-        TimeSpan.FromSeconds((_random.NextDouble() - 0.5) * range.TotalSeconds);
+    private TimeSpan Jitter(TimeSpan range) => TimeSpan.FromSeconds((_random.NextDouble() - 0.5) * range.TotalSeconds);
 
     private string? GetDepartment(EntityUid uid)
     {

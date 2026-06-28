@@ -1,6 +1,6 @@
+using Content.Shared.Alert;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
-using Content.Shared.Alert;
 
 namespace Content.Shared.OfferItem;
 
@@ -22,7 +22,7 @@ public sealed partial class OfferItemComponent : Component
 
     [DataField, AutoNetworkedField]
     public EntityUid? Target;
-    
+
     [DataField]
     public ProtoId<AlertPrototype> OfferAlert = "Offer";
 

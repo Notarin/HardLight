@@ -8,5 +8,5 @@
     collection: FootstepFloor
   heatCapacity: 10000
   indestructible: false
-  deconstructTools: [ Prying ]
+  deconstructTools: [Prying]
   itemDrop: FloorTileItemAbductor

@@ -9,12 +9,12 @@
     state: unlit-icon
   - type: Tag
     tags:
-      - Cigarette
-      - Trash
+    - Cigarette
+    - Trash
   - type: SpaceGarbage
   - type: Clothing
     sprite: Objects/Consumable/Smokeables/Cannabis/joint.rsi
-    slots: [ mask ]
+    slots: [mask]
     equippedPrefix: unlit
   - type: Item
     size: Tiny
@@ -26,8 +26,8 @@
       smokable:
         maxVol: 30
         reagents:
-          - ReagentId: THC
-            Quantity: 20
+        - ReagentId: THC
+          Quantity: 20
   - type: RandomMetadata
     nameSegments: [NamesRollie]
 
@@ -54,8 +54,8 @@
           Quantity: 2.66
         - ReagentId: Happiness
           Quantity: 2.66
-#       - ReagentId: ColorfulReagent
-#         Quantity: 1.33
+          #       - ReagentId: ColorfulReagent
+          #         Quantity: 1.33
         - ReagentId: Psicodine
           Quantity: 0.8
 
@@ -70,12 +70,12 @@
     state: unlit-icon
   - type: Tag
     tags:
-      - Cigarette
-      - Trash
+    - Cigarette
+    - Trash
   - type: SpaceGarbage
   - type: Clothing
     sprite: Objects/Consumable/Smokeables/Cannabis/blunt.rsi
-    slots: [ mask ]
+    slots: [mask]
     equippedPrefix: unlit
   - type: Item
     size: Tiny
@@ -87,8 +87,8 @@
       smokable:
         maxVol: 30
         reagents:
-          - ReagentId: THC
-            Quantity: 20
+        - ReagentId: THC
+          Quantity: 20
   - type: RandomMetadata
     nameSegments: [NamesRollie]
 
@@ -115,7 +115,7 @@
           Quantity: 2.66
         - ReagentId: Happiness
           Quantity: 2.66
-#       - ReagentId: ColorfulReagent
-#         Quantity: 1.33
+          #       - ReagentId: ColorfulReagent
+          #         Quantity: 1.33
         - ReagentId: Psicodine
           Quantity: 0.8

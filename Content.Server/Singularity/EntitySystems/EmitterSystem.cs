@@ -1,6 +1,7 @@
 using System.Numerics;
 using System.Threading;
 using Content.Server.Administration.Logs;
+using Content.Server.Construction; // Frontier
 using Content.Server.Power.Components;
 using Content.Server.Power.EntitySystems;
 using Content.Server.Projectiles;
@@ -25,7 +26,6 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
 using Timer = Robust.Shared.Timing.Timer;
-using Content.Server.Construction; // Frontier
 
 namespace Content.Server.Singularity.EntitySystems
 {
@@ -34,13 +34,26 @@ namespace Content.Server.Singularity.EntitySystems
     {
         private static readonly TimeSpan MinimumEmitterDelay = TimeSpan.FromMilliseconds(50);
 
-        [Dependency] private readonly IRobustRandom _random = default!;
-        [Dependency] private readonly IPrototypeManager _prototype = default!;
-        [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-        [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-        [Dependency] private readonly SharedPopupSystem _popup = default!;
-        [Dependency] private readonly ProjectileSystem _projectile = default!;
-        [Dependency] private readonly GunSystem _gun = default!;
+        [Dependency]
+        private readonly IRobustRandom _random = default!;
+
+        [Dependency]
+        private readonly IPrototypeManager _prototype = default!;
+
+        [Dependency]
+        private readonly IAdminLogManager _adminLogger = default!;
+
+        [Dependency]
+        private readonly SharedAppearanceSystem _appearance = default!;
+
+        [Dependency]
+        private readonly SharedPopupSystem _popup = default!;
+
+        [Dependency]
+        private readonly ProjectileSystem _projectile = default!;
+
+        [Dependency]
+        private readonly GunSystem _gun = default!;
 
         public override void Initialize()
         {
@@ -93,8 +106,7 @@ namespace Content.Server.Singularity.EntitySystems
 
             if (TryComp(uid, out LockComponent? lockComp) && lockComp.Locked)
             {
-                _popup.PopupEntity(Loc.GetString("comp-emitter-access-locked",
-                    ("target", uid)), uid, args.User);
+                _popup.PopupEntity(Loc.GetString("comp-emitter-access-locked", ("target", uid)), uid, args.User);
                 return;
             }
 
@@ -103,25 +115,24 @@ namespace Content.Server.Singularity.EntitySystems
                 if (!component.IsOn)
                 {
                     SwitchOn(uid, component);
-                    _popup.PopupEntity(Loc.GetString("comp-emitter-turned-on",
-                        ("target", uid)), uid, args.User);
+                    _popup.PopupEntity(Loc.GetString("comp-emitter-turned-on", ("target", uid)), uid, args.User);
                 }
                 else
                 {
                     SwitchOff(uid, component);
-                    _popup.PopupEntity(Loc.GetString("comp-emitter-turned-off",
-                        ("target", uid)), uid, args.User);
+                    _popup.PopupEntity(Loc.GetString("comp-emitter-turned-off", ("target", uid)), uid, args.User);
                 }
 
-                _adminLogger.Add(LogType.FieldGeneration,
+                _adminLogger.Add(
+                    LogType.FieldGeneration,
                     component.IsOn ? LogImpact.Medium : LogImpact.High,
-                    $"{ToPrettyString(args.User):player} toggled {ToPrettyString(uid):emitter}");
+                    $"{ToPrettyString(args.User):player} toggled {ToPrettyString(uid):emitter}"
+                );
                 args.Handled = true;
             }
             else
             {
-                _popup.PopupEntity(Loc.GetString("comp-emitter-not-anchored",
-                    ("target", uid)), uid, args.User);
+                _popup.PopupEntity(Loc.GetString("comp-emitter-not-anchored", ("target", uid)), uid, args.User);
             }
         }
 
@@ -152,7 +163,7 @@ namespace Content.Server.Singularity.EntitySystems
                     {
                         component.BoltType = type;
                         _popup.PopupEntity(Loc.GetString("emitter-component-type-set", ("type", proto.Name)), uid);
-                    }
+                    },
                 };
                 args.Verbs.Add(v);
             }
@@ -166,10 +177,7 @@ namespace Content.Server.Singularity.EntitySystems
             args.PushMarkup(Loc.GetString("emitter-component-current-type", ("type", proto.Name)));
         }
 
-        private void ReceivedChanged(
-            EntityUid uid,
-            EmitterComponent component,
-            ref PowerConsumerReceivedChanged args)
+        private void ReceivedChanged(EntityUid uid, EmitterComponent component, ref PowerConsumerReceivedChanged args)
         {
             if (!component.IsOn)
             {
@@ -207,16 +215,22 @@ namespace Content.Server.Singularity.EntitySystems
         {
             var fireRateRating = args.PartRatings[component.MachinePartFireRate];
 
-            component.FireInterval = component.BaseFireInterval * MathF.Pow(component.FireRateMultiplier, fireRateRating - 1);
-            component.FireBurstDelayMin = component.BaseFireBurstDelayMin * MathF.Pow(component.FireRateMultiplier, fireRateRating - 1);
-            component.FireBurstDelayMax = component.BaseFireBurstDelayMax * MathF.Pow(component.FireRateMultiplier, fireRateRating - 1);
+            component.FireInterval =
+                component.BaseFireInterval * MathF.Pow(component.FireRateMultiplier, fireRateRating - 1);
+            component.FireBurstDelayMin =
+                component.BaseFireBurstDelayMin * MathF.Pow(component.FireRateMultiplier, fireRateRating - 1);
+            component.FireBurstDelayMax =
+                component.BaseFireBurstDelayMax * MathF.Pow(component.FireRateMultiplier, fireRateRating - 1);
 
             SanitizeTimings(component);
         }
 
         private void OnUpgradeExamine(EntityUid uid, EmitterComponent component, UpgradeExamineEvent args)
         {
-            args.AddPercentageUpgrade("emitter-component-upgrade-fire-rate", (float) (component.BaseFireInterval.TotalSeconds / component.FireInterval.TotalSeconds));
+            args.AddPercentageUpgrade(
+                "emitter-component-upgrade-fire-rate",
+                (float)(component.BaseFireInterval.TotalSeconds / component.FireInterval.TotalSeconds)
+            );
         }
 
         public void SwitchOff(EntityUid uid, EmitterComponent component)
@@ -275,7 +289,11 @@ namespace Content.Server.Singularity.EntitySystems
             component.FireShotCounter = 0;
             component.TimerCancel = new CancellationTokenSource();
 
-            Timer.Spawn(component.FireBurstDelayMax, () => ShotTimerCallback(uid, component), component.TimerCancel.Token);
+            Timer.Spawn(
+                component.FireBurstDelayMax,
+                () => ShotTimerCallback(uid, component),
+                component.TimerCancel.Token
+            );
 
             UpdateAppearance(uid, component);
         }

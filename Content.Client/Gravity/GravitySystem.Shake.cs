@@ -11,10 +11,17 @@ namespace Content.Client.Gravity;
 
 public sealed partial class GravitySystem
 {
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedCameraRecoilSystem _sharedCameraRecoil = default!;
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedCameraRecoilSystem _sharedCameraRecoil = default!;
 
     private void InitializeShake()
     {
@@ -25,8 +32,7 @@ public sealed partial class GravitySystem
     {
         var localPlayer = _playerManager.LocalEntity;
 
-        if (!TryComp(localPlayer, out TransformComponent? xform) ||
-            xform.GridUid != uid && xform.MapUid != uid)
+        if (!TryComp(localPlayer, out TransformComponent? xform) || xform.GridUid != uid && xform.MapUid != uid)
         {
             return;
         }
@@ -49,8 +55,7 @@ public sealed partial class GravitySystem
         if (!TryComp(localPlayer, out TransformComponent? xform))
             return;
 
-        if (xform.GridUid != uid ||
-            xform.GridUid == null && xform.MapUid != uid)
+        if (xform.GridUid != uid || xform.GridUid == null && xform.MapUid != uid)
         {
             return;
         }

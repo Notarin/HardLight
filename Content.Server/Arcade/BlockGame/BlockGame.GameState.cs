@@ -1,6 +1,6 @@
+using System.Linq;
 using Content.Shared.Arcade;
 using Robust.Shared.Random;
-using System.Linq;
 
 namespace Content.Server.Arcade.BlockGame;
 
@@ -98,7 +98,6 @@ public sealed partial class BlockGame
     }
     private BlockGamePiece _internalCurrentPiece = default!;
 
-
     /// <summary>
     /// The position of the falling piece.
     /// </summary>
@@ -121,7 +120,6 @@ public sealed partial class BlockGame
     /// </summary>
     private const float SoftDropModifier = 0.1f;
 
-
     /// <summary>
     /// Attempts to rotate the falling piece to a new rotation.
     /// </summary>
@@ -133,14 +131,12 @@ public sealed partial class BlockGame
         if (!CurrentPiece.CanSpin)
             return;
 
-        if (!CurrentPiece.Positions(_currentPiecePosition, rotation)
-            .All(RotateCheck))
+        if (!CurrentPiece.Positions(_currentPiecePosition, rotation).All(RotateCheck))
             return;
 
         _currentRotation = rotation;
         UpdateFieldUI();
     }
-
 
     /// <summary>
     /// The next piece that will be dispensed.
@@ -155,7 +151,6 @@ public sealed partial class BlockGame
         }
     }
     private BlockGamePiece _internalNextPiece = default!;
-
 
     /// <summary>
     /// The piece the player has chosen to hold in reserve.
@@ -203,7 +198,6 @@ public sealed partial class BlockGame
     /// </summary>
     private int LevelRequirement => Math.Min(100, Math.Max(Level * 10 - 50, 10));
 
-
     /// <summary>
     /// The current level of the game.
     /// Effects the movement speed of the active piece.
@@ -220,7 +214,6 @@ public sealed partial class BlockGame
         }
     }
     private int _internalLevel = 0;
-
 
     /// <summary>
     /// The total number of points accumulated in the current game.

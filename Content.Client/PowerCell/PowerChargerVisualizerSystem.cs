@@ -5,9 +5,14 @@ namespace Content.Client.PowerCell;
 
 public sealed class PowerChargerVisualizerSystem : VisualizerSystem<PowerChargerVisualsComponent>
 {
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
-    protected override void OnAppearanceChange(EntityUid uid, PowerChargerVisualsComponent comp, ref AppearanceChangeEvent args)
+    protected override void OnAppearanceChange(
+        EntityUid uid,
+        PowerChargerVisualsComponent comp,
+        ref AppearanceChangeEvent args
+    )
     {
         if (args.Sprite == null)
             return;
@@ -24,8 +29,10 @@ public sealed class PowerChargerVisualizerSystem : VisualizerSystem<PowerCharger
         }
 
         // Update lighting
-        if (AppearanceSystem.TryGetData<CellChargerStatus>(uid, CellVisual.Light, out var status, args.Component)
-            && comp.LightStates.TryGetValue(status, out var lightState))
+        if (
+            AppearanceSystem.TryGetData<CellChargerStatus>(uid, CellVisual.Light, out var status, args.Component)
+            && comp.LightStates.TryGetValue(status, out var lightState)
+        )
         {
             _sprite.LayerSetRsiState((uid, args.Sprite), PowerChargerVisualLayers.Light, lightState);
             _sprite.LayerSetVisible((uid, args.Sprite), PowerChargerVisualLayers.Light, true);

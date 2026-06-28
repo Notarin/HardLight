@@ -57,8 +57,11 @@ public sealed class SlowOOCCommand : IConsoleCommand
         cfg.SetCVar(CCVars.OocSlowModeEnabled, enabled);
 
         var currentInterval = (int)cfg.GetCVar(CCVars.OocSlowModeInterval);
-        shell.WriteLine(Loc.GetString(
-            enabled ? "slow-ooc-command-enabled" : "slow-ooc-command-disabled",
-            ("seconds", currentInterval)));
+        shell.WriteLine(
+            Loc.GetString(
+                enabled ? "slow-ooc-command-enabled" : "slow-ooc-command-disabled",
+                ("seconds", currentInterval)
+            )
+        );
     }
 }

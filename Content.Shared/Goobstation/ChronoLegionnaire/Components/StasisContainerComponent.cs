@@ -6,7 +6,5 @@ namespace Content.Shared.Goobstation.ChronoLegionnaire.Components
     /// Marks an EntityContainer that can apply stasis on entity inside it
     /// </summary>
     [RegisterComponent, NetworkedComponent]
-    public sealed partial class StasisContainerComponent : Component
-    {
-    }
+    public sealed partial class StasisContainerComponent : Component { }
 }

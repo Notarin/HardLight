@@ -3,7 +3,7 @@
   parent: FoodBakedBase
   id: FoodBakedCookieDivine
   description: This cookie looks incredibly delicious. Whoever made it must really appreciate you.
-  categories: [ DoNotMap ]
+  categories: [DoNotMap]
   components:
   - type: Sprite
     state: cookie-sugar
@@ -37,9 +37,9 @@
   components:
   - type: FlavorProfile
     flavors:
-      - chocolate
-      - muffin
-      - pear
+    - chocolate
+    - muffin
+    - pear
   - type: Sprite
     sprite: _NF/Objects/Consumable/Food/Baked/misc.rsi
     state: pearmuffin
@@ -69,20 +69,20 @@
   components:
   - type: FlavorProfile
     flavors:
-      - honey
-      - butter
-      - bread
+    - honey
+    - butter
+    - bread
   - type: Sprite
     sprite: _NF/Objects/Consumable/Food/Baked/misc.rsi
     layers:
-      - state: apple_strudel_1
-        map: [ "Variant" ]
+    - state: apple_strudel_1
+      map: ["Variant"]
   - type: RandomSprite
     available:
-      - Variant:
-          apple_strudel_1: ""
-          apple_strudel_2: ""
-          apple_strudel_3: ""
+    - Variant:
+        apple_strudel_1: ""
+        apple_strudel_2: ""
+        apple_strudel_3: ""
   - type: SolutionContainerManager
     solutions:
       food:
@@ -106,13 +106,13 @@
   components:
   - type: FlavorProfile
     flavors:
-      - sweet
-      - cinnamon
-      - bun
+    - sweet
+    - cinnamon
+    - bun
   - type: Sprite
     sprite: _NF/Objects/Consumable/Food/Baked/misc.rsi
     layers:
-      - state: cinnamonroll
+    - state: cinnamonroll
   - type: SolutionContainerManager
     solutions:
       food:

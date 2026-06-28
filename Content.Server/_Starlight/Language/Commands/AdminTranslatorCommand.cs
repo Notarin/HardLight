@@ -1,15 +1,15 @@
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using Content.Server.Administration;
-using Content.Shared.Administration;
 using Content.Shared._Starlight.Language;
 using Content.Shared._Starlight.Language.Components;
 using Content.Shared._Starlight.Language.Systems;
+using Content.Shared.Administration;
 using Robust.Server.Containers;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Toolshed;
 using Robust.Shared.Toolshed.Syntax;
 using Robust.Shared.Toolshed.TypeParsers;
-using System.Linq;
 using HandheldTranslatorComponent = Content.Shared._Starlight.Language.Components.HandheldTranslatorComponent;
 
 namespace Content.Server._Starlight.Language.Commands;
@@ -85,7 +85,8 @@ public sealed class AdminTranslatorCommand : ToolshedCommand
     [CommandImplementation("addrequired")]
     public EntityUid AddRequiredLanguage(
         [PipedArgument] EntityUid input,
-        [CommandArgument] ProtoId<LanguagePrototype> language)
+        [CommandArgument] ProtoId<LanguagePrototype> language
+    )
     {
         if (!TryGetTranslatorComp(input, out var translator))
             throw new ArgumentException(Loc.GetString("command-language-error-not-a-translator", ("entity", input)));
@@ -108,7 +109,8 @@ public sealed class AdminTranslatorCommand : ToolshedCommand
     [CommandImplementation("rmrequired")]
     public EntityUid RemoveRequiredLanguage(
         [PipedArgument] EntityUid input,
-        [CommandArgument] ProtoId<LanguagePrototype> language)
+        [CommandArgument] ProtoId<LanguagePrototype> language
+    )
     {
         if (!TryGetTranslatorComp(input, out var translator))
             throw new ArgumentException(Loc.GetString("command-language-error-not-a-translator", ("entity", input)));
@@ -170,8 +172,10 @@ public sealed class AdminTranslatorCommand : ToolshedCommand
 
         _language ??= GetSys<LanguageSystem>();
         _containers ??= GetSys<ContainerSystem>();
-        if (!_containers.TryGetContainingContainer(translator.Owner, out var cont)
-            || cont.Owner is not { Valid: true } holder)
+        if (
+            !_containers.TryGetContainingContainer(translator.Owner, out var cont)
+            || cont.Owner is not { Valid: true } holder
+        )
             return;
 
         _language.UpdateEntityLanguages(holder);

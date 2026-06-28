@@ -39,6 +39,5 @@ namespace Content.Client.Cloning.UI
         {
             _window.Close();
         }
-
     }
 }

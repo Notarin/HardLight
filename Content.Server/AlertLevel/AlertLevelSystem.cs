@@ -1,26 +1,37 @@
 using System.Linq;
+using Content.Server._NF.SectorServices; // Frontier
 using Content.Server.Chat.Systems;
+using Content.Server.GameTicking; // Frontier
 using Content.Server.Station.Systems;
 using Content.Shared.CCVar;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Configuration;
-using Robust.Shared.Prototypes;
-using Content.Server.GameTicking; // Frontier
 using Robust.Shared.Player; // Frontier
-using Content.Server._NF.SectorServices; // Frontier
+using Robust.Shared.Prototypes;
 
 namespace Content.Server.AlertLevel;
 
 public sealed class AlertLevelSystem : EntitySystem
 {
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly ChatSystem _chatSystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly ChatSystem _chatSystem = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
     // [Dependency] private readonly StationSystem _stationSystem = default!; // Frontier: sector-wide alerts
-    [Dependency] private readonly GameTicker _ticker = default!; // Frontier
-    [Dependency] private readonly SectorServiceSystem _sectorService = default!;
+    [Dependency]
+    private readonly GameTicker _ticker = default!; // Frontier
+
+    [Dependency]
+    private readonly SectorServiceSystem _sectorService = default!;
 
     // Until stations are a prototype, this is how it's going to have to be.
     public const string DefaultAlertLevelSet = "stationAlerts";
@@ -93,13 +104,16 @@ public sealed class AlertLevelSystem : EntitySystem
 
         SetLevel(uid, defaultLevel, false, false, true);
     }
+
     // End Frontier
 
     private void OnPrototypeReload(PrototypesReloadedEventArgs args)
     {
-        if (!args.ByType.TryGetValue(typeof(AlertLevelPrototype), out var alertPrototypes)
+        if (
+            !args.ByType.TryGetValue(typeof(AlertLevelPrototype), out var alertPrototypes)
             || !alertPrototypes.Modified.TryGetValue(DefaultAlertLevelSet, out var alertObject)
-            || alertObject is not AlertLevelPrototype alerts)
+            || alertObject is not AlertLevelPrototype alerts
+        )
         {
             return;
         }
@@ -177,8 +191,16 @@ public sealed class AlertLevelSystem : EntitySystem
     /// <param name="announce">Say the alert level's announcement.</param>
     /// <param name="force">Force the alert change. This applies if the alert level is not selectable or not.</param>
     /// <param name="locked">Will it be possible to change level by crew.</param>
-    public void SetLevel(EntityUid station, string level, bool playSound, bool announce, bool force = false,
-        bool locked = false, MetaDataComponent? dataComponent = null, AlertLevelComponent? component = null)
+    public void SetLevel(
+        EntityUid station,
+        string level,
+        bool playSound,
+        bool announce,
+        bool force = false,
+        bool locked = false,
+        MetaDataComponent? dataComponent = null,
+        AlertLevelComponent? component = null
+    )
     {
         // Frontier: sector-wide alerts
         EntityUid sectorEnt = _sectorService.GetServiceEntity();
@@ -186,18 +208,18 @@ public sealed class AlertLevelSystem : EntitySystem
             return;
         // End Frontier
 
-        if (component.AlertLevels == null // Frontier: remove component, resolve station to data component later
+        if (
+            component.AlertLevels == null // Frontier: remove component, resolve station to data component later
             || !component.AlertLevels.Levels.TryGetValue(level, out var detail)
-            || component.CurrentLevel == level)
+            || component.CurrentLevel == level
+        )
         {
             return;
         }
 
         if (!force)
         {
-            if (!detail.Selectable
-                || component.CurrentDelay > 0
-                || component.IsLevelLocked)
+            if (!detail.Selectable || component.CurrentDelay > 0 || component.IsLevelLocked)
             {
                 return;
             }
@@ -227,7 +249,11 @@ public sealed class AlertLevelSystem : EntitySystem
         }
 
         // The full announcement to be spat out into chat.
-        var announcementFull = Loc.GetString("alert-level-announcement", ("name", name), ("announcement", announcement));
+        var announcementFull = Loc.GetString(
+            "alert-level-announcement",
+            ("name", name),
+            ("announcement", announcement)
+        );
 
         var playDefault = false;
         if (playSound)
@@ -248,19 +274,22 @@ public sealed class AlertLevelSystem : EntitySystem
         if (announce && Resolve(station, ref dataComponent)) // Frontier: add Resolve for dataComponent
         {
             var stationName = dataComponent.EntityName; // Frontier: moved down
-            _chatSystem.DispatchStationAnnouncement(station, announcementFull, playDefaultSound: playDefault,
-                colorOverride: detail.Color, sender: stationName);
+            _chatSystem.DispatchStationAnnouncement(
+                station,
+                announcementFull,
+                playDefaultSound: playDefault,
+                colorOverride: detail.Color,
+                sender: stationName
+            );
         }
 
         RaiseLocalEvent(new AlertLevelChangedEvent(EntityUid.Invalid, level)); // Frontier: pass invalid, we have no station
     }
 }
 
-public sealed class AlertLevelDelayFinishedEvent : EntityEventArgs
-{}
+public sealed class AlertLevelDelayFinishedEvent : EntityEventArgs { }
 
-public sealed class AlertLevelPrototypeReloadedEvent : EntityEventArgs
-{}
+public sealed class AlertLevelPrototypeReloadedEvent : EntityEventArgs { }
 
 public sealed class AlertLevelChangedEvent : EntityEventArgs
 {

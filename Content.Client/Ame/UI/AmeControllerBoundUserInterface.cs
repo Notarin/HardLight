@@ -9,9 +9,8 @@ namespace Content.Client.Ame.UI
     {
         private AmeWindow? _window;
 
-        public AmeControllerBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-        {
-        }
+        public AmeControllerBoundUserInterface(EntityUid owner, Enum uiKey)
+            : base(owner, uiKey) { }
 
         protected override void Open()
         {
@@ -32,7 +31,7 @@ namespace Content.Client.Ame.UI
         {
             base.UpdateState(state);
 
-            var castState = (AmeControllerBoundUserInterfaceState) state;
+            var castState = (AmeControllerBoundUserInterfaceState)state;
             _window?.UpdateState(castState); //Update window state
         }
 

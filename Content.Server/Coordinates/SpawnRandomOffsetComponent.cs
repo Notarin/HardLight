@@ -4,5 +4,6 @@ namespace Content.Server.Coordinates;
 public sealed partial class SpawnRandomOffsetComponent : Component
 {
     [ViewVariables(VVAccess.ReadWrite)]
-    [DataField("offset")] public float Offset = 0.5f;
+    [DataField("offset")]
+    public float Offset = 0.5f;
 }

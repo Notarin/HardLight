@@ -207,7 +207,6 @@
     node: start
     defaultTarget: halberd
 
-
 - type: entity
   parent: BaseBroadswordPart
   id: SabreHarness
@@ -291,7 +290,6 @@
   components:
   - type: Item
     size: Ginormous
-
 
 - type: entity
   parent: BaseFlailPart
@@ -487,9 +485,6 @@
   - type: Sprite
     state: flail_harness+o
     noRot: true
-
-
-
 
 - type: entity
   id: FlailChassis

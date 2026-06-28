@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
+using Content.Shared._HL.Buckle;
 using Content.Shared.Alert;
 using Content.Shared.Buckle.Components;
 using Content.Shared.Cuffs.Components;
@@ -24,7 +25,6 @@ using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Events;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
-using Content.Shared._HL.Buckle;
 
 namespace Content.Shared.Buckle;
 
@@ -32,7 +32,8 @@ public abstract partial class SharedBuckleSystem
 {
     public static ProtoId<AlertCategoryPrototype> BuckledAlertCategory = "Buckled";
 
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelistSystem = default!;
 
     private void InitializeBuckle()
     {
@@ -46,7 +47,9 @@ public abstract partial class SharedBuckleSystem
         SubscribeLocalEvent<BuckleComponent, PullStartedMessage>(OnPullStarted);
         SubscribeLocalEvent<BuckleComponent, UnbuckleAlertEvent>(OnUnbuckleAlert);
 
-        SubscribeLocalEvent<BuckleComponent, InsertIntoEntityStorageAttemptEvent>(OnBuckleInsertIntoEntityStorageAttempt);
+        SubscribeLocalEvent<BuckleComponent, InsertIntoEntityStorageAttemptEvent>(
+            OnBuckleInsertIntoEntityStorageAttempt
+        );
 
         SubscribeLocalEvent<BuckleComponent, PreventCollideEvent>(OnBucklePreventCollide);
         SubscribeLocalEvent<BuckleComponent, DownAttemptEvent>(OnBuckleDownAttempt);
@@ -55,14 +58,16 @@ public abstract partial class SharedBuckleSystem
         SubscribeLocalEvent<BuckleComponent, UpdateCanMoveEvent>(OnBuckleUpdateCanMove);
 
         SubscribeLocalEvent<BuckleComponent, BuckleDoAfterEvent>(OnBuckleDoafter);
-        SubscribeLocalEvent<BuckleComponent, DoAfterAttemptEvent<BuckleDoAfterEvent>>((uid, comp, ev) =>
-        {
-            BuckleDoafterEarly((uid, comp), ev.Event, ev);
-        });
+        SubscribeLocalEvent<BuckleComponent, DoAfterAttemptEvent<BuckleDoAfterEvent>>(
+            (uid, comp, ev) =>
+            {
+                BuckleDoafterEarly((uid, comp), ev.Event, ev);
+            }
+        );
     }
 
-    private void OnBuckleComponentShutdown(Entity<BuckleComponent> ent, ref ComponentShutdown args)
-        => Unbuckle(ent!, null);
+    private void OnBuckleComponentShutdown(Entity<BuckleComponent> ent, ref ComponentShutdown args) =>
+        Unbuckle(ent!, null);
 
     #region Pulling
 
@@ -126,7 +131,9 @@ public abstract partial class SharedBuckleSystem
 
         if (!TryComp<StrapComponent>(strapUid, out var strapComp))
         {
-            Log.Error($"Encountered buckle entity {ToPrettyString(buckle)} without a valid strap entity {ToPrettyString(strapUid)}");
+            Log.Error(
+                $"Encountered buckle entity {ToPrettyString(buckle)} without a valid strap entity {ToPrettyString(strapUid)}"
+            );
             SetBuckledTo(buckle, null);
             return;
         }
@@ -144,7 +151,11 @@ public abstract partial class SharedBuckleSystem
 
     #endregion
 
-    private void OnBuckleInsertIntoEntityStorageAttempt(EntityUid uid, BuckleComponent component, ref InsertIntoEntityStorageAttemptEvent args)
+    private void OnBuckleInsertIntoEntityStorageAttempt(
+        EntityUid uid,
+        BuckleComponent component,
+        ref InsertIntoEntityStorageAttemptEvent args
+    )
     {
         if (component.Buckled)
             args.Cancelled = true;
@@ -159,9 +170,11 @@ public abstract partial class SharedBuckleSystem
     private void OnBuckleDownAttempt(EntityUid uid, BuckleComponent component, DownAttemptEvent args)
     {
         // Floof - check if the strap requires the entity to be downed. If so, permit it.
-        if (component.BuckledTo is { } strap
+        if (
+            component.BuckledTo is { } strap
             && TryComp<StrapComponent>(strap, out var strapComp)
-            && strapComp.Position == StrapPosition.Down)
+            && strapComp.Position == StrapPosition.Down
+        )
             return;
 
         if (component.Buckled)
@@ -171,9 +184,11 @@ public abstract partial class SharedBuckleSystem
     private void OnBuckleStandAttempt(EntityUid uid, BuckleComponent component, StandAttemptEvent args)
     {
         // Floof - check if the strap requires the entity to be standing. If so, permit it.
-        if (component.BuckledTo is { } strap
+        if (
+            component.BuckledTo is { } strap
             && TryComp<StrapComponent>(strap, out var strapComp)
-            && strapComp.Position == StrapPosition.Stand)
+            && strapComp.Position == StrapPosition.Stand
+        )
             return;
 
         if (component.Buckled)
@@ -209,7 +224,7 @@ public abstract partial class SharedBuckleSystem
             Dirty(buckle.Comp.BuckledTo.Value, old);
         }
 
-        if (strap is {} strapEnt && Resolve(strapEnt.Owner, ref strapEnt.Comp))
+        if (strap is { } strapEnt && Resolve(strapEnt.Owner, ref strapEnt.Comp))
         {
             strapEnt.Comp.BuckledEntities.Add(buckle);
             Dirty(strapEnt);
@@ -239,20 +254,24 @@ public abstract partial class SharedBuckleSystem
     /// <param name="strapUid"> Uid of the owner of strap component </param>
     /// <param name="strapComp"></param>
     /// <param name="buckleComp"></param>
-    private bool CanBuckle(EntityUid buckleUid,
+    private bool CanBuckle(
+        EntityUid buckleUid,
         EntityUid? user,
         EntityUid strapUid,
         bool popup,
         [NotNullWhen(true)] out StrapComponent? strapComp,
-        BuckleComponent buckleComp)
+        BuckleComponent buckleComp
+    )
     {
         strapComp = null;
         if (!Resolve(strapUid, ref strapComp, false))
             return false;
 
         // Does it pass the Whitelist
-        if (_whitelistSystem.IsWhitelistFail(strapComp.Whitelist, buckleUid) ||
-            _whitelistSystem.IsBlacklistPass(strapComp.Blacklist, buckleUid))
+        if (
+            _whitelistSystem.IsWhitelistFail(strapComp.Whitelist, buckleUid)
+            || _whitelistSystem.IsBlacklistPass(strapComp.Blacklist, buckleUid)
+        )
         {
             if (popup)
                 _popup.PopupClient(Loc.GetString("buckle-component-cannot-fit-message"), user, PopupType.Medium);
@@ -260,11 +279,15 @@ public abstract partial class SharedBuckleSystem
             return false;
         }
 
-        if (!_interaction.InRangeUnobstructed(buckleUid,
+        if (
+            !_interaction.InRangeUnobstructed(
+                buckleUid,
                 strapUid,
                 buckleComp.Range,
                 predicate: entity => entity == buckleUid || entity == user || entity == strapUid,
-                popup: true))
+                popup: true
+            )
+        )
         {
             return false;
         }
@@ -284,10 +307,12 @@ public abstract partial class SharedBuckleSystem
         {
             if (popup)
             {
-                var message = Loc.GetString(buckleUid == user
-                    ? "buckle-component-already-buckled-message"
-                    : "buckle-component-other-already-buckled-message",
-                ("owner", Identity.Entity(buckleUid, EntityManager)));
+                var message = Loc.GetString(
+                    buckleUid == user
+                        ? "buckle-component-already-buckled-message"
+                        : "buckle-component-other-already-buckled-message",
+                    ("owner", Identity.Entity(buckleUid, EntityManager))
+                );
 
                 _popup.PopupClient(message, user);
             }
@@ -307,10 +332,12 @@ public abstract partial class SharedBuckleSystem
 
             if (popup)
             {
-                var message = Loc.GetString(buckleUid == user
-                    ? "buckle-component-cannot-buckle-message"
-                    : "buckle-component-other-cannot-buckle-message",
-                ("owner", Identity.Entity(buckleUid, EntityManager)));
+                var message = Loc.GetString(
+                    buckleUid == user
+                        ? "buckle-component-cannot-buckle-message"
+                        : "buckle-component-other-cannot-buckle-message",
+                    ("owner", Identity.Entity(buckleUid, EntityManager))
+                );
 
                 _popup.PopupClient(message, user);
             }
@@ -322,10 +349,12 @@ public abstract partial class SharedBuckleSystem
         {
             if (popup)
             {
-                var message = Loc.GetString(buckleUid == user
-                    ? "buckle-component-cannot-buckle-message"
-                    : "buckle-component-other-cannot-buckle-message",
-                ("owner", Identity.Entity(buckleUid, EntityManager)));
+                var message = Loc.GetString(
+                    buckleUid == user
+                        ? "buckle-component-cannot-buckle-message"
+                        : "buckle-component-other-cannot-buckle-message",
+                    ("owner", Identity.Entity(buckleUid, EntityManager))
+                );
 
                 _popup.PopupClient(message, user);
             }
@@ -356,7 +385,13 @@ public abstract partial class SharedBuckleSystem
     /// Can equal buckleUid sometimes
     /// </param>
     /// <param name="strap"> Uid of the owner of strap component </param>
-    public bool TryBuckle(EntityUid buckle, EntityUid? user, EntityUid strap, BuckleComponent? buckleComp = null, bool popup = true)
+    public bool TryBuckle(
+        EntityUid buckle,
+        EntityUid? user,
+        EntityUid strap,
+        BuckleComponent? buckleComp = null,
+        bool popup = true
+    )
     {
         if (!Resolve(buckle, ref buckleComp, false))
             return false;
@@ -371,9 +406,17 @@ public abstract partial class SharedBuckleSystem
     private void Buckle(Entity<BuckleComponent> buckle, Entity<StrapComponent> strap, EntityUid? user)
     {
         if (user == buckle.Owner)
-            _adminLogger.Add(LogType.Action, LogImpact.Low, $"{ToPrettyString(user):player} buckled themselves to {ToPrettyString(strap)}");
+            _adminLogger.Add(
+                LogType.Action,
+                LogImpact.Low,
+                $"{ToPrettyString(user):player} buckled themselves to {ToPrettyString(strap)}"
+            );
         else if (user != null)
-            _adminLogger.Add(LogType.Action, LogImpact.Low, $"{ToPrettyString(user):player} buckled {ToPrettyString(buckle)} to {ToPrettyString(strap)}");
+            _adminLogger.Add(
+                LogType.Action,
+                LogImpact.Low,
+                $"{ToPrettyString(user):player} buckled {ToPrettyString(buckle)} to {ToPrettyString(strap)}"
+            );
 
         _audio.PlayPredicted(strap.Comp.BuckleSound, strap, user);
 
@@ -420,10 +463,7 @@ public abstract partial class SharedBuckleSystem
     ///     true if the owner was unbuckled, otherwise false even if the owner
     ///     was previously already unbuckled.
     /// </returns>
-    public bool TryUnbuckle(EntityUid buckleUid,
-        EntityUid? user,
-        BuckleComponent? buckleComp = null,
-        bool popup = true)
+    public bool TryUnbuckle(EntityUid buckleUid, EntityUid? user, BuckleComponent? buckleComp = null, bool popup = true)
     {
         return TryUnbuckle((buckleUid, buckleComp), user, popup);
     }
@@ -450,7 +490,9 @@ public abstract partial class SharedBuckleSystem
 
         if (!TryComp(strap, out StrapComponent? strapComp))
         {
-            Log.Error($"Encountered buckle {ToPrettyString(buckle.Owner)} with invalid strap entity {ToPrettyString(strap)}");
+            Log.Error(
+                $"Encountered buckle {ToPrettyString(buckle.Owner)} with invalid strap entity {ToPrettyString(strap)}"
+            );
             SetBuckledTo(buckle!, null);
             return;
         }
@@ -510,7 +552,12 @@ public abstract partial class SharedBuckleSystem
         return CanUnbuckle(buckle, user, popup, out _);
     }
 
-    private bool CanUnbuckle(Entity<BuckleComponent?> buckle, EntityUid? user, bool popup, out Entity<StrapComponent> strap)
+    private bool CanUnbuckle(
+        Entity<BuckleComponent?> buckle,
+        EntityUid? user,
+        bool popup,
+        out Entity<StrapComponent> strap
+    )
     {
         strap = default;
         if (!Resolve(buckle.Owner, ref buckle.Comp))
@@ -521,7 +568,9 @@ public abstract partial class SharedBuckleSystem
 
         if (!TryComp(strapUid, out StrapComponent? strapComp))
         {
-            Log.Error($"Encountered buckle {ToPrettyString(buckle.Owner)} with invalid strap entity {ToPrettyString(strap)}");
+            Log.Error(
+                $"Encountered buckle {ToPrettyString(buckle.Owner)} with invalid strap entity {ToPrettyString(strap)}"
+            );
             SetBuckledTo(buckle!, null);
             return false;
         }
@@ -549,7 +598,6 @@ public abstract partial class SharedBuckleSystem
     /// <param name="args.Target"> The person being put in the chair/bed</param>
     /// <param name="args.User"> The person putting a person in a chair/bed</param>
     /// <param name="args.Used"> The chair/bed </param>
-
     private void OnBuckleDoafter(Entity<BuckleComponent> entity, ref BuckleDoAfterEvent args)
     {
         if (args.Cancelled || args.Handled || args.Target == null || args.Used == null)
@@ -565,13 +613,20 @@ public abstract partial class SharedBuckleSystem
     /// <param name="args.Target"> The person being put in the chair/bed</param>
     /// <param name="args.User"> The person putting a person in a chair/bed</param>
     /// <param name="args.Used"> The chair/bed </param>
-    private void BuckleDoafterEarly(Entity<BuckleComponent> entity, BuckleDoAfterEvent args, CancellableEntityEventArgs ev)
+    private void BuckleDoafterEarly(
+        Entity<BuckleComponent> entity,
+        BuckleDoAfterEvent args,
+        CancellableEntityEventArgs ev
+    )
     {
         if (args.Target == null || args.Used == null)
             return;
 
-        if (TryComp<CuffableComponent>(args.Target, out var targetCuffableComp) && targetCuffableComp.CuffedHandCount > 0
-            || _mobState.IsIncapacitated(args.Target.Value))
+        if (
+            TryComp<CuffableComponent>(args.Target, out var targetCuffableComp)
+                && targetCuffableComp.CuffedHandCount > 0
+            || _mobState.IsIncapacitated(args.Target.Value)
+        )
         {
             ev.Cancel();
             TryBuckle(args.Target.Value, args.User, args.Used.Value, popup: false);

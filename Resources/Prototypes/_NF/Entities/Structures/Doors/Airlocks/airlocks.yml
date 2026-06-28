@@ -51,7 +51,7 @@
     layoutId: AirlockSecurity
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsSecurity ]
+      board: [DoorElectronicsSecurity]
 
 - type: entity
   parent: AirlockMedicalGlassLockedSecurity
@@ -60,7 +60,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsBrigmedic ]
+      board: [DoorElectronicsBrigmedic]
 # endregion
 
 # region External
@@ -100,7 +100,7 @@
   parent: AirlockGlassShuttle
   id: AirlockExternalGlassShuttleMcCargo
   suffix: Ext, McCargo, Glass, Docking
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Docking
     name: dock-label-drive-thru

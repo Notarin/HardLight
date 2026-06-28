@@ -1,17 +1,20 @@
-using Content.Shared.Interaction;
-using Content.Shared.Pinpointer;
 using System.Linq;
 using System.Numerics;
-using Robust.Shared.Utility;
 using Content.Server.Shuttles.Events;
 using Content.Shared.IdentityManagement;
+using Content.Shared.Interaction;
+using Content.Shared.Pinpointer;
+using Robust.Shared.Utility;
 
 namespace Content.Server.Pinpointer;
 
 public sealed class PinpointerSystem : SharedPinpointerSystem
 {
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
 
     private EntityQuery<TransformComponent> _xformQuery;
 
@@ -159,7 +162,11 @@ public sealed class PinpointerSystem : SharedPinpointerSystem
         // var oldDist = pinpointer.DistanceToTarget; // Frontier: moved up
 
         // Frontier: if the pinpointer has a max range and the distance to target is greater than the max range, set the distance to unknown
-        if (pinpointer.MaxRange > 0 && dirVec != null && dirVec.Value.LengthSquared() > pinpointer.MaxRange * pinpointer.MaxRange)
+        if (
+            pinpointer.MaxRange > 0
+            && dirVec != null
+            && dirVec.Value.LengthSquared() > pinpointer.MaxRange * pinpointer.MaxRange
+        )
         {
             SetDistance(uid, Distance.Unknown, pinpointer);
             TrySetArrowAngle(uid, Angle.Zero, pinpointer);

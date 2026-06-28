@@ -4,38 +4,38 @@
   # If item is not in list it will go at the bottom (ties broken by alert type enum value)
   id: BaseAlertOrder
   order:
-    - category: Health
-    - category: Stamina
-    - alertType: Shadekin # Starlight
-    - category: Mana
-    - alertType: SuitPower
-    - category: Internals
-    - alertType: Fire
-    - alertType: Handcuffed
-    - alertType: Ensnared
-    - category: Buckled
-    - alertType: Pulling
-    - alertType: Walking
-    - category: Piloting
-    - alertType: Corporeal
-    - alertType: Stun
-    - category: Breathing # Vox gang not calling this oxygen
-    - category: Pressure
-    - alertType: Bleed
-    - category: Temperature
-    - category: Hunger
-    - category: Thirst
-    - alertType: Magboots
-    - alertType: Pacified
-    - alertType: Offer
+  - category: Health
+  - category: Stamina
+  - alertType: Shadekin # Starlight
+  - category: Mana
+  - alertType: SuitPower
+  - category: Internals
+  - alertType: Fire
+  - alertType: Handcuffed
+  - alertType: Ensnared
+  - category: Buckled
+  - alertType: Pulling
+  - alertType: Walking
+  - category: Piloting
+  - alertType: Corporeal
+  - alertType: Stun
+  - category: Breathing # Vox gang not calling this oxygen
+  - category: Pressure
+  - alertType: Bleed
+  - category: Temperature
+  - category: Hunger
+  - category: Thirst
+  - alertType: Magboots
+  - alertType: Pacified
+  - alertType: Offer
 
 - type: entity
   id: AlertSpriteView
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     layers:
-    - map: [ "enum.AlertVisualLayers.Base" ]
+    - map: ["enum.AlertVisualLayers.Base"]
 
 - type: alert
   id: LowOxygen
@@ -50,8 +50,8 @@
   id: LowNitrogen
   category: Breathing
   icons:
-    - sprite: /Textures/Interface/Alerts/breathing.rsi
-      state: not_enough_nitro
+  - sprite: /Textures/Interface/Alerts/breathing.rsi
+    state: not_enough_nitro
   name: alerts-low-nitrogen-name
   description: alerts-low-nitrogen-desc
 
@@ -90,11 +90,10 @@
 
 - type: alert
   id: Fire
-  icons: [ /Textures/Interface/Alerts/Fire/fire.png ]
+  icons: [/Textures/Interface/Alerts/Fire/fire.png]
   clickEvent: !type:ResistFireAlertEvent
   name: alerts-on-fire-name
   description: alerts-on-fire-desc
-
 
 - type: alert
   id: Cold
@@ -126,7 +125,7 @@
 
 - type: alert
   id: Weightless
-  icons: [ /Textures/Interface/Alerts/Weightless/weightless.png ]
+  icons: [/Textures/Interface/Alerts/Weightless/weightless.png]
   name: alerts-weightless-name
   description: alerts-weightless-desc
 
@@ -149,7 +148,7 @@
 - type: alert
   id: Handcuffed
   clickEvent: !type:RemoveCuffsAlertEvent
-  icons: [ /Textures/Interface/Alerts/Handcuffed/Handcuffed.png ]
+  icons: [/Textures/Interface/Alerts/Handcuffed/Handcuffed.png]
   name: alerts-handcuffed-name
   description: alerts-handcuffed-desc
 
@@ -166,7 +165,7 @@
   id: Buckled
   category: Buckled
   clickEvent: !type:UnbuckleAlertEvent
-  icons: [ /Textures/Interface/Alerts/Buckle/buckled.png ]
+  icons: [/Textures/Interface/Alerts/Buckle/buckled.png]
   name: alerts-buckled-name
   description: alerts-buckled-desc
 
@@ -380,20 +379,20 @@
 
 - type: alert
   id: Muted
-  icons: [ /Textures/Interface/Alerts/Abilities/silenced.png ]
+  icons: [/Textures/Interface/Alerts/Abilities/silenced.png]
   name: alerts-muted-name
   description: alerts-muted-desc
 
 - type: alert
   id: VowOfSilence
-  icons: [ /Textures/Interface/Alerts/Abilities/silenced.png ]
+  icons: [/Textures/Interface/Alerts/Abilities/silenced.png]
   name: alerts-vow-silence-name
   clickEvent: !type:BreakVowAlertEvent
   description: alerts-vow-silence-desc
 
 - type: alert
   id: VowBroken
-  icons: [ /Textures/Interface/Actions/scream.png ]
+  icons: [/Textures/Interface/Actions/scream.png]
   name: alerts-vow-broken-name
   clickEvent: !type:RetakeVowAlertEvent
   description: alerts-vow-broken-desc
@@ -411,7 +410,7 @@
     state: grabbed-hard
   - sprite: /Textures/_White/Interface/Alerts/pull.rsi
     state: grabbed-choke
-  clickEvent: !type:StopBeingPulledAlertEvent  { }
+  clickEvent: !type:StopBeingPulledAlertEvent {}
   name: alerts-pulled-name
   description: alerts-pulled-desc
   minSeverity: 0
@@ -428,7 +427,7 @@
     state: grab-hard
   - sprite: /Textures/_White/Interface/Alerts/pull.rsi
     state: grab-choke
-  clickEvent: !type:StopPullingAlertEvent  { }
+  clickEvent: !type:StopPullingAlertEvent {}
   name: alerts-pulling-name
   description: alerts-pulling-desc
   minSeverity: 0

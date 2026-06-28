@@ -24,20 +24,22 @@ namespace Content.Client.UserInterface.Controls
 
         public void AddEntry(float amount, Color color, string? tooltip = null)
         {
-            AddChild(new PanelContainer
-            {
-                ToolTip = tooltip,
-                HorizontalExpand = true,
-                SizeFlagsStretchRatio = amount,
-                MouseFilter = MouseFilterMode.Stop,
-                PanelOverride = new StyleBoxFlat
+            AddChild(
+                new PanelContainer
                 {
-                    BackgroundColor = color,
-                    PaddingLeft = 2f,
-                    PaddingRight = 2f,
-                },
-                MinSize = MinBarSize
-            });
+                    ToolTip = tooltip,
+                    HorizontalExpand = true,
+                    SizeFlagsStretchRatio = amount,
+                    MouseFilter = MouseFilterMode.Stop,
+                    PanelOverride = new StyleBoxFlat
+                    {
+                        BackgroundColor = color,
+                        PaddingLeft = 2f,
+                        PaddingRight = 2f,
+                    },
+                    MinSize = MinBarSize,
+                }
+            );
         }
     }
 }

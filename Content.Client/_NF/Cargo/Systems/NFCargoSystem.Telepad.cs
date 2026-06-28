@@ -9,9 +9,14 @@ namespace Content.Client._NF.Cargo.Systems;
 
 public sealed partial class NFCargoSystem
 {
-    [Dependency] private readonly AnimationPlayerSystem _player = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly AnimationPlayerSystem _player = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     private static readonly Animation CargoTelepadBeamAnimation = new()
     {
@@ -21,12 +26,9 @@ public sealed partial class NFCargoSystem
             new AnimationTrackSpriteFlick
             {
                 LayerKey = NFCargoTelepadLayers.Beam,
-                KeyFrames =
-                {
-                    new AnimationTrackSpriteFlick.KeyFrame(new RSI.StateId("beam"), 0f)
-                }
-            }
-        }
+                KeyFrames = { new AnimationTrackSpriteFlick.KeyFrame(new RSI.StateId("beam"), 0f) },
+            },
+        },
     };
 
     private static readonly Animation CargoTelepadIdleAnimation = new()
@@ -37,12 +39,9 @@ public sealed partial class NFCargoSystem
             new AnimationTrackSpriteFlick
             {
                 LayerKey = NFCargoTelepadLayers.Beam,
-                KeyFrames =
-                {
-                    new AnimationTrackSpriteFlick.KeyFrame(new RSI.StateId("idle"), 0f)
-                }
-            }
-        }
+                KeyFrames = { new AnimationTrackSpriteFlick.KeyFrame(new RSI.StateId("idle"), 0f) },
+            },
+        },
     };
 
     private const string TelepadBeamKey = "cargo-telepad-beam";
@@ -89,8 +88,10 @@ public sealed partial class NFCargoSystem
             default:
                 _sprite.LayerSetVisible((uid, sprite), NFCargoTelepadLayers.Beam, true);
 
-                if (_player.HasRunningAnimation(uid, player, TelepadIdleKey) ||
-                    _player.HasRunningAnimation(uid, player, TelepadBeamKey))
+                if (
+                    _player.HasRunningAnimation(uid, player, TelepadIdleKey)
+                    || _player.HasRunningAnimation(uid, player, TelepadBeamKey)
+                )
                     return;
 
                 _player.Play((uid, player), CargoTelepadIdleAnimation, TelepadIdleKey);

@@ -2,10 +2,10 @@
   id: ActionToggleDome
   name: Toggle energy dome
   description: Turn the energy barrier on or off.
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: InstantAction
-    icon: { sprite: Objects/Weapons/Melee/e_shield.rsi, state: eshield-on }
+    icon: {sprite: Objects/Weapons/Melee/e_shield.rsi, state: eshield-on}
     event: !type:ToggleActionEvent
 
 # Generic toggle for sprite-state swapping via SpriteStateToggleComponent
@@ -13,7 +13,7 @@
   id: ActionToggleSpriteState
   name: Toggle Balls
   description: Deploy if boy
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: InstantAction
     # Keep a short delay to avoid rapid spam while still feeling responsive
@@ -27,10 +27,10 @@
   id: ActionLewdLayEgg
   name: Lay your eggs
   description: Kneel and push with all your might.
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: InstantAction
-    icon: { sprite: Objects/Consumable/Food/egg.rsi, state: icon }
+    icon: {sprite: Objects/Consumable/Food/egg.rsi, state: icon}
     useDelay: 5
     checkCanInteract: false
     event: !type:LewdEggLayingActionEvent
@@ -39,14 +39,13 @@
   id: ActionLayPrizeball
   name: Lay your prizeball
   description: Kneel and push with all your might.
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: InstantAction
-    icon: { sprite: _NF/Objects/Fun/prizeticket.rsi, state: prizeball }
+    icon: {sprite: _NF/Objects/Fun/prizeticket.rsi, state: prizeball}
     useDelay: 5
     checkCanInteract: false
     event: !type:PrizeballLayingActionEvent
-
 
 - type: entity
   id: ActionResomiGravityJump
@@ -64,11 +63,10 @@
   id: ActionFabricatePaper
   name: action-name-fabricate-paper
   description: action-description-fabricate-paper
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: InstantAction
-    icon: { sprite: Objects/Misc/bureaucracy.rsi, state: paper }
+    icon: {sprite: Objects/Misc/bureaucracy.rsi, state: paper}
     useDelay: 20
-    event:
-      !type:FabricateActionEvent
+    event: !type:FabricateActionEvent
       fabrication: Paper

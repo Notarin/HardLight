@@ -1,9 +1,9 @@
+using System.Diagnostics;
+using System.Numerics;
 using Content.Server.Station;
 using JetBrains.Annotations;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
-using System.Diagnostics;
-using System.Numerics;
 
 namespace Content.Server.Maps;
 
@@ -28,7 +28,8 @@ public sealed partial class GameMapPrototype : IPrototype
     /// <summary>
     /// Turns out some of the map files are actually secretly grids. Excellent. I love map loading code.
     /// </summary>
-    [DataField] public bool IsGrid;
+    [DataField]
+    public bool IsGrid;
 
     [DataField]
     public bool RandomRotation = true;
@@ -63,7 +64,7 @@ public sealed partial class GameMapPrototype : IPrototype
             ID = ID,
             MapName = MapName,
             MapPath = mapPath,
-            _stations = _stations
+            _stations = _stations,
         };
     }
 }

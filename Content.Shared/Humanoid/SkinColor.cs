@@ -1,5 +1,5 @@
-using System.Security.Cryptography;
 using System.Numerics;
+using System.Security.Cryptography;
 using Microsoft.VisualBasic.CompilerServices;
 
 namespace Content.Shared.Humanoid;
@@ -92,8 +92,7 @@ public static class SkinColor
         // check for hue/value first, if hue is lower than this percentage
         // and value is 1.0
         // then it'll be hue
-        if (Math.Clamp(hsv.X, 25f / 360f, 1) > 25f / 360f
-            && hsv.Z == 1.0)
+        if (Math.Clamp(hsv.X, 25f / 360f, 1) > 25f / 360f && hsv.Z == 1.0)
         {
             return Math.Abs(45 - (hsv.X * 360));
         }
@@ -315,7 +314,7 @@ public static class SkinColor
             HumanoidSkinColor.ShelegToned => ValidShelegSkinTone, // Frontier: Sheleg
             HumanoidSkinColor.AnimalFur => ClosestAnimalFurColor(color), // Einsetin Engines - Tajaran
             HumanoidSkinColor.AnyColour => color, // Hardlight
-            _ => color
+            _ => color,
         };
     }
 
@@ -362,8 +361,7 @@ public static class SkinColor
         // check for hue/value first, if hue is lower than this percentage
         // and value is 1.0
         // then it'll be hue
-        if (Math.Clamp(hsv.X, 210f / 360f, 220f / 360f) > 210f / 360f
-            && hsv.Z == 1.0)
+        if (Math.Clamp(hsv.X, 210f / 360f, 220f / 360f) > 210f / 360f && hsv.Z == 1.0)
         {
             return Math.Abs(220 - (hsv.X * 360));
         }

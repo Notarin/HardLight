@@ -8,9 +8,14 @@ namespace Content.Shared._Funkystation.Genetics.Systems;
 
 public sealed class MutationUnlockTriggerSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly GeneticShuffleSystem _shuffle = default!;
-    [Dependency] private readonly SharedMutationDiscoverySystem _discovery = default!;
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly GeneticShuffleSystem _shuffle = default!;
+
+    [Dependency]
+    private readonly SharedMutationDiscoverySystem _discovery = default!;
 
     private readonly List<MutationUnlockTriggerPrototype> _triggers = new();
 

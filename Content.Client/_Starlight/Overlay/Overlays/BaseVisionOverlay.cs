@@ -1,10 +1,10 @@
+using Content.Shared.CCVar;
+using Content.Shared.Eye.Blinding.Components;
 using Robust.Client.Graphics;
 using Robust.Client.Player;
-using Content.Shared.CCVar;
+using Robust.Shared.Configuration;
 using Robust.Shared.Enums;
 using Robust.Shared.Prototypes;
-using Content.Shared.Eye.Blinding.Components;
-using Robust.Shared.Configuration;
 
 namespace Content.Client._Starlight.Overlay;
 
@@ -18,12 +18,16 @@ type by inheriting from this and implementing nothing. Thanks Robust Toolbox tea
 */
 public abstract class BaseVisionOverlay : Robust.Client.Graphics.Overlay
 {
-    [Dependency] private readonly IEntityManager _entityManager = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entityManager = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
 
     public override bool RequestScreenTexture => true;
     public override OverlaySpace Space => OverlaySpace.WorldSpace;
     private protected readonly ShaderInstance _shader;
+
     public BaseVisionOverlay(ShaderPrototype shader)
     {
         IoCManager.InjectDependencies(this);

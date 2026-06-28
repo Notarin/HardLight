@@ -1,36 +1,48 @@
 using Content.Client.Eye.Blinding;
 using Content.Client.GameTicking.Managers;
+using Content.Shared._Starlight.Overlay;
 using Content.Shared.Eye.Blinding.Components;
+using Content.Shared.Flash.Components;
+using Content.Shared.Inventory.Events;
+using Content.Shared.Mech;
+using Content.Shared.Mech.Components;
 using Robust.Client.GameObjects;
 using Robust.Client.Graphics;
 using Robust.Client.Player;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
-using Content.Shared.Inventory.Events;
-using Content.Shared.Flash.Components;
-using Content.Shared._Starlight.Overlay;
-using Content.Shared.Mech.Components;
-using Content.Shared.Mech;
 
 namespace Content.Client._Starlight.Overlay;
 
 public sealed class ThermalVisionSystem : SharedThermalVisionSystem
 {
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IOverlayManager _overlayMan = default!;
-    [Dependency] private readonly TransformSystem _xformSys = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly FlashImmunitySystem _flashImmunity = default!;
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
 
+    [Dependency]
+    private readonly IOverlayManager _overlayMan = default!;
+
+    [Dependency]
+    private readonly TransformSystem _xformSys = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly FlashImmunitySystem _flashImmunity = default!;
 
     private ThermalVisionEntityHighlightOverlay _throughWallsOverlay = default!;
     private ThermalVisionOverlay _overlay = default!;
 
     [ViewVariables]
     private EntityUid? _effect = null;
+
     protected override bool IsPredict() => !_timing.IsFirstTimePredicted;
+
     public override void Initialize()
     {
         base.Initialize();
@@ -82,15 +94,19 @@ public sealed class ThermalVisionSystem : SharedThermalVisionSystem
 
     private void AttemptAddVision(EntityUid uid)
     {
-        if (_player.LocalSession?.AttachedEntity != uid) return;
+        if (_player.LocalSession?.AttachedEntity != uid)
+            return;
 
         //if they currently have flash immunity, dont add
-        if (_flashImmunity.HasFlashImmunityVisionBlockers(uid)) return;
+        if (_flashImmunity.HasFlashImmunityVisionBlockers(uid))
+            return;
 
         //only add if its active
-        if (!TryComp<ThermalVisionComponent>(uid, out var thermalVision) || !thermalVision.Active) return;
+        if (!TryComp<ThermalVisionComponent>(uid, out var thermalVision) || !thermalVision.Active)
+            return;
 
-        if (_effect != null) return;
+        if (_effect != null)
+            return;
 
         _overlayMan.AddOverlay(_throughWallsOverlay);
         _overlayMan.AddOverlay(_overlay);
@@ -106,7 +122,8 @@ public sealed class ThermalVisionSystem : SharedThermalVisionSystem
     private void AttemptRemoveVision(EntityUid uid, bool force = false)
     {
         //ENSURE this is the local player
-        if (_player.LocalSession?.AttachedEntity != uid && !force) return;
+        if (_player.LocalSession?.AttachedEntity != uid && !force)
+            return;
 
         _overlayMan.RemoveOverlay(_throughWallsOverlay);
         _overlayMan.RemoveOverlay(_overlay);

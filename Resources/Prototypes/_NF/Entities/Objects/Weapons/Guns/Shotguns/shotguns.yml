@@ -6,9 +6,9 @@
   description: |-
     An automatic magazine-fed shotgun for close-quarters combat. Kicks like a mule on steroids.
   components:
- # - type: BallisticAmmoProvider  # this is causing it to have 2 shells and then an 8 shell cap Hardlight change
- #   capacity: 2
- #   proto: ShellShotgun12_gaugeBeanbag
+  # - type: BallisticAmmoProvider  # this is causing it to have 2 shells and then an 8 shell cap Hardlight change
+  #   capacity: 2
+  #   proto: ShellShotgun12_gaugeBeanbag
   - type: Sprite
     sprite: Objects/Weapons/Guns/Shotguns/bulldog.rsi
   - type: Clothing
@@ -20,10 +20,9 @@
   - type: NFWeaponDetails
     manufacturer: weapon-details-manufacturer-gorlex-steel-works
 
-
 - type: entity
   id: NFWeaponShotgunDoubleBarreled
-  parent: [ NFBaseWeaponShotgunChamber50, NFBaseWeaponFrameShotgunWieldable ]
+  parent: [NFBaseWeaponShotgunChamber50, NFBaseWeaponFrameShotgunWieldable]
   name: double-barreled shotgun
   description: |-
     An immortal classic. A civilian grade shotgun.
@@ -44,7 +43,7 @@
 
 - type: entity
   id: NFWeaponShotgunEnforcer
-  parent: [ NFBaseWeaponShotgunChamber50, NFBaseWeaponFrameShotgunNanotrasen ]
+  parent: [NFBaseWeaponShotgunChamber50, NFBaseWeaponFrameShotgunNanotrasen]
   name: Enforcer
   description: |-
     A premium semi-automatic shotgun, featuring an upgraded tube capacity.
@@ -60,7 +59,7 @@
 
 - type: entity
   id: NFWeaponShotgunKammerer
-  parent: [ NFBaseWeaponShotgunChamber50, NFBaseWeaponFrameShotgunWieldable ]
+  parent: [NFBaseWeaponShotgunChamber50, NFBaseWeaponFrameShotgunWieldable]
   name: Kammerer
   description: |-
     An old yet faithful design, and a favorite among irregular forces on many worlds.
@@ -78,7 +77,7 @@
 
 - type: entity
   id: NFWeaponShotgunSawn
-  parent: [ NFBaseWeaponShotgunChamber50, NFBaseWeaponFrameShotgun ]
+  parent: [NFBaseWeaponShotgunChamber50, NFBaseWeaponFrameShotgun]
   name: sawn-off shotgun
   description: |-
     Groovy!
@@ -104,7 +103,7 @@
 
 - type: entity
   id: NFWeaponShotgunHandmade
-  parent: [ NFBaseWeaponShotgunChamber50, NFBaseWeaponFrameShotgun ]
+  parent: [NFBaseWeaponShotgunChamber50, NFBaseWeaponFrameShotgun]
   name: handmade pistol
   description: |-
     Looks unreliable, but legal.
@@ -134,7 +133,7 @@
 
 - type: entity
   id: NFWeaponShotgunBlunderbuss
-  parent: [ BaseC3PirateContraband, NFBaseWeaponShotgunChamber50, NFBaseWeaponFrameShotgunWieldable ]
+  parent: [BaseC3PirateContraband, NFBaseWeaponShotgunChamber50, NFBaseWeaponFrameShotgunWieldable]
   name: blunderbuss
   description: |-
     Deadly at close range, an illegal shotgun often found at the side of a pirate.
@@ -152,7 +151,7 @@
 
 - type: entity
   id: NFWeaponShotgunImprovised
-  parent: [ NFBaseWeaponShotgunChamber50, NFBaseWeaponFrameShotgunWieldable ]
+  parent: [NFBaseWeaponShotgunChamber50, NFBaseWeaponFrameShotgunWieldable]
   name: improvised shotgun
   description: |-
     A shitty, but legal, hand-made shotgun. It can only hold one round in the chamber.
@@ -200,7 +199,7 @@
 
 # Suplus
 - type: entity
-  parent: [ BaseC1Contraband, WeaponShotgunKammerer]
+  parent: [BaseC1Contraband, WeaponShotgunKammerer]
   id: WeaponShotgunSurpKammerer
   suffix: Surplus
   components:

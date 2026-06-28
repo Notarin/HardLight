@@ -9,7 +9,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: GunRackWallmountedConstruction
@@ -22,7 +22,7 @@
   canBuildInImpassable: true
   canRotate: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: MeleeRackConstruction
@@ -34,7 +34,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: MeleeRackWallmountedConstruction
@@ -47,7 +47,7 @@
   canBuildInImpassable: true
   canRotate: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: PistolRackConstruction
@@ -70,4 +70,4 @@
   canBuildInImpassable: true
   canRotate: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition

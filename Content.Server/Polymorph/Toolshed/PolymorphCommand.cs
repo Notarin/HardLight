@@ -15,13 +15,12 @@ namespace Content.Server.Polymorph.Toolshed;
 public sealed class PolymorphCommand : ToolshedCommand
 {
     private PolymorphSystem? _system;
-    [Dependency] private IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private IPrototypeManager _proto = default!;
 
     [CommandImplementation]
-    public EntityUid? Polymorph(
-            [PipedArgument] EntityUid input,
-            ProtoId<PolymorphPrototype> protoId
-        )
+    public EntityUid? Polymorph([PipedArgument] EntityUid input, ProtoId<PolymorphPrototype> protoId)
     {
         _system ??= GetSys<PolymorphSystem>();
 
@@ -33,8 +32,7 @@ public sealed class PolymorphCommand : ToolshedCommand
 
     [CommandImplementation]
     public IEnumerable<EntityUid> Polymorph(
-            [PipedArgument] IEnumerable<EntityUid> input,
-            ProtoId<PolymorphPrototype> protoId
-        )
-        => input.Select(x => Polymorph(x, protoId)).Where(x => x is not null).Select(x => (EntityUid)x!);
+        [PipedArgument] IEnumerable<EntityUid> input,
+        ProtoId<PolymorphPrototype> protoId
+    ) => input.Select(x => Polymorph(x, protoId)).Where(x => x is not null).Select(x => (EntityUid)x!);
 }

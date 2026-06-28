@@ -39,12 +39,12 @@
     sprite: Clothing/Ears/Headsets/security.rsi
   - type: Clothing
     sprite: Clothing/Ears/Headsets/security.rsi
-  # HardLight: Redundancy
-  #- type: ContainerFill
-  #  containers:
-  #    key_slots:
-  #    - EncryptionKeyCommon
-  #    - EncryptionKeyNfsd
+    # HardLight: Redundancy
+    #- type: ContainerFill
+    #  containers:
+    #    key_slots:
+    #    - EncryptionKeyCommon
+    #    - EncryptionKeyNfsd
 
 - type: entity
   parent: [ClothingHeadsetUSSP] # HardLight: Parented to base headset.
@@ -67,7 +67,7 @@
     intrinsicChannels:
     - USSPCommand
     - USSP
-  # HardLight end
+    # HardLight end
 
 - type: entity
   parent: [ClothingHeadsetAlt, BaseC3Contraband, ContrabandClothing] # HardLight: Added BaseC3Contraband and ContrabandClothing.

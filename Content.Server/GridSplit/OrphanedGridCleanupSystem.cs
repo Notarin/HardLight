@@ -5,12 +5,12 @@ using Content.Server.Station.Components;
 using Content.Shared.CCVar;
 using Content.Shared.Doors.Components;
 using Content.Shared.Mobs.Components;
+using Content.Shared.Parallax.Biomes;
 using Content.Shared.Station.Components;
 using Robust.Server.GameObjects;
 using Robust.Shared.Configuration;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Player;
-using Content.Shared.Parallax.Biomes;
 using Robust.Shared.Timing;
 
 namespace Content.Server.GridSplit;
@@ -22,9 +22,14 @@ namespace Content.Server.GridSplit;
 /// </summary>
 public sealed class OrphanedGridCleanupSystem : EntitySystem
 {
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _mapSystem = default!;
 
     /// <summary>
     /// Minimum tile count for a grid to be considered worth keeping.
@@ -218,7 +223,9 @@ public sealed class OrphanedGridCleanupSystem : EntitySystem
             if (!ShouldDeleteGrid(newGridUid))
                 continue;
 
-            Log.Info($"Deleting orphaned grid {ToPrettyString(newGridUid)} created from split of {ToPrettyString(ev.Grid)}");
+            Log.Info(
+                $"Deleting orphaned grid {ToPrettyString(newGridUid)} created from split of {ToPrettyString(ev.Grid)}"
+            );
             QueueDel(newGridUid);
         }
     }
@@ -295,7 +302,6 @@ public sealed class OrphanedGridCleanupSystem : EntitySystem
 
         return false;
     }
-
 
     /// <summary>
     /// Sets the minimum tile count threshold for grid cleanup.

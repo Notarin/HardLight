@@ -27,7 +27,7 @@
         Structural: 25
   - type: Tool
     qualities:
-      - Prying
+    - Prying
     useSound: /Audio/Items/jaws_pry.ogg
   - type: ToolTileCompatible
   - type: Prying

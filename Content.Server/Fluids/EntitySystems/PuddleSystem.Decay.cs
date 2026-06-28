@@ -34,7 +34,14 @@ public sealed partial class PuddleSystem
             if (decay.Decayed || decay.DecayAt > curTime)
                 continue;
 
-            if (!_solutionContainerSystem.ResolveSolution(uid, puddle.SolutionName, ref puddle.Solution, out var solution))
+            if (
+                !_solutionContainerSystem.ResolveSolution(
+                    uid,
+                    puddle.SolutionName,
+                    ref puddle.Solution,
+                    out var solution
+                )
+            )
                 continue;
 
             var volume = solution.Volume;

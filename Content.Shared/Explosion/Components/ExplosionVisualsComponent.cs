@@ -38,7 +38,8 @@ public sealed class ExplosionVisualsState : ComponentState
         Dictionary<int, List<Vector2i>>? spaceTiles,
         Dictionary<NetEntity, Dictionary<int, List<Vector2i>>> tiles,
         Matrix3x2 spaceMatrix,
-        ushort spaceTileSize)
+        ushort spaceTileSize
+    )
     {
         Epicenter = epicenter;
         SpaceTiles = spaceTiles;

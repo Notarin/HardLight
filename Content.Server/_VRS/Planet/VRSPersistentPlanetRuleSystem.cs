@@ -26,16 +26,35 @@ namespace Content.Server._VRS.Planet;
 /// </summary>
 public sealed class VRSPersistentPlanetRuleSystem : GameRuleSystem<VRSPersistentPlanetRuleComponent>
 {
-    [Dependency] private readonly BiomeSystem _biome = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly MapSystem _map = default!;
-    [Dependency] private readonly MetaDataSystem _meta = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedShuttleSystem _shuttle = default!;
-    [Dependency] private readonly ShuttleSystem _serverShuttle = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly PvsOverrideSystem _pvs = default!;
+    [Dependency]
+    private readonly BiomeSystem _biome = default!;
+
+    [Dependency]
+    private readonly IMapManager _mapManager = default!;
+
+    [Dependency]
+    private readonly MapSystem _map = default!;
+
+    [Dependency]
+    private readonly MetaDataSystem _meta = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly SharedShuttleSystem _shuttle = default!;
+
+    [Dependency]
+    private readonly ShuttleSystem _serverShuttle = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly PvsOverrideSystem _pvs = default!;
 
     /// <summary>
     /// Beacon prototype used to make the planet appear in the shuttle console
@@ -43,7 +62,12 @@ public sealed class VRSPersistentPlanetRuleSystem : GameRuleSystem<VRSPersistent
     /// </summary>
     private const string FtlBeaconProto = "FTLPoint";
 
-    protected override void Started(EntityUid uid, VRSPersistentPlanetRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
+    protected override void Started(
+        EntityUid uid,
+        VRSPersistentPlanetRuleComponent component,
+        GameRuleComponent gameRule,
+        GameRuleStartedEvent args
+    )
     {
         base.Started(uid, component, gameRule, args);
 
@@ -68,9 +92,7 @@ public sealed class VRSPersistentPlanetRuleSystem : GameRuleSystem<VRSPersistent
         _biome.EnsurePlanet(mapUid, template, seed);
 
         // Pick a name and stamp it everywhere players will see it.
-        var name = component.NamePool.Count > 0
-            ? _random.Pick(component.NamePool)
-            : "Frontier";
+        var name = component.NamePool.Count > 0 ? _random.Pick(component.NamePool) : "Frontier";
         _meta.SetEntityName(mapUid, name);
 
         // Plot registry — enables the Landgrab cartridge to operate here.
@@ -89,13 +111,23 @@ public sealed class VRSPersistentPlanetRuleSystem : GameRuleSystem<VRSPersistent
 
         // Register this map as a valid FTL destination via the server ShuttleSystem helper,
         // which also refreshes any open shuttle consoles.
-        if (!_serverShuttle.TryAddFTLDestination(mapId, true, requireDisk: false, beaconsOnly: false, out var destination))
+        if (
+            !_serverShuttle.TryAddFTLDestination(
+                mapId,
+                true,
+                requireDisk: false,
+                beaconsOnly: false,
+                out var destination
+            )
+        )
         {
             Log.Error($"VRSPersistentPlanet: failed to add FTL destination for map {mapId}.");
         }
         else
         {
-            Log.Info($"VRSPersistentPlanet: FTL destination registered (Enabled={destination!.Enabled}, BeaconsOnly={destination.BeaconsOnly}).");
+            Log.Info(
+                $"VRSPersistentPlanet: FTL destination registered (Enabled={destination!.Enabled}, BeaconsOnly={destination.BeaconsOnly})."
+            );
         }
 
         // Add a beacon directly on the map entity so it can be selected even before

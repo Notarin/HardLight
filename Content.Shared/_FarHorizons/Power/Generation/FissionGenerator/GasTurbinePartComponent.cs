@@ -7,7 +7,8 @@ namespace Content.Shared._FarHorizons.Power.Generation.FissionGenerator;
 
 public abstract partial class GasTurbinePartComponent : Component
 {
-    [Dependency] private IPrototypeManager _proto = default!;
+    [Dependency]
+    private IPrototypeManager _proto = default!;
 
     [DataField("material")]
     public ProtoId<MaterialPrototype> Material = "Steel";
@@ -23,6 +24,7 @@ public abstract partial class GasTurbinePartComponent : Component
         }
         set => _properties = value;
     }
+
     [DataField("properties")]
     private MaterialProperties? _properties;
 }

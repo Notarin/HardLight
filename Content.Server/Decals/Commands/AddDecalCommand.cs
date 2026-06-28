@@ -14,17 +14,24 @@ namespace Content.Server.Decals.Commands
     [AdminCommand(AdminFlags.Mapping)]
     public sealed class AddDecalCommand : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _entManager = default!;
-        [Dependency] private readonly IPrototypeManager _protoManager = default!;
+        [Dependency]
+        private readonly IEntityManager _entManager = default!;
+
+        [Dependency]
+        private readonly IPrototypeManager _protoManager = default!;
 
         public string Command => "adddecal";
         public string Description => "Creates a decal on the map";
-        public string Help => $"{Command} <id> <x position> <y position> <gridId> [angle=<angle> zIndex=<zIndex> color=<color>]";
+        public string Help =>
+            $"{Command} <id> <x position> <y position> <gridId> [angle=<angle> zIndex=<zIndex> color=<color>]";
+
         public void Execute(IConsoleShell shell, string argStr, string[] args)
         {
             if (args.Length < 4 || args.Length > 7)
             {
-                shell.WriteError($"Received invalid amount of arguments arguments. Expected 4 to 7, got {args.Length}.\nUsage: {Help}");
+                shell.WriteError(
+                    $"Received invalid amount of arguments arguments. Expected 4 to 7, got {args.Length}.\nUsage: {Help}"
+                );
                 return;
             }
 
@@ -45,9 +52,11 @@ namespace Content.Server.Decals.Commands
                 return;
             }
 
-            if (!NetEntity.TryParse(args[3], out var gridIdNet) ||
-                !_entManager.TryGetEntity(gridIdNet, out var gridIdRaw) ||
-                !_entManager.TryGetComponent(gridIdRaw, out MapGridComponent? grid))
+            if (
+                !NetEntity.TryParse(args[3], out var gridIdNet)
+                || !_entManager.TryGetEntity(gridIdNet, out var gridIdRaw)
+                || !_entManager.TryGetComponent(gridIdRaw, out MapGridComponent? grid)
+            )
             {
                 shell.WriteError($"Failed parsing gridId '{args[3]}'.");
                 return;
@@ -108,7 +117,11 @@ namespace Content.Server.Decals.Commands
                 }
             }
 
-            if (_entManager.System<DecalSystem>().TryAddDecal(args[0], coordinates, out var uid, color, rotation, zIndex))
+            if (
+                _entManager
+                    .System<DecalSystem>()
+                    .TryAddDecal(args[0], coordinates, out var uid, color, rotation, zIndex)
+            )
             {
                 shell.WriteLine($"Successfully created decal {uid}.");
             }

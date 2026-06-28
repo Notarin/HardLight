@@ -78,29 +78,27 @@
     range: 200
   - type: DeviceLinkSource
     ports:
-      - Pressed
+    - Pressed
   - type: Damageable
     damageContainer: Inorganic
     damageModifierSet: Metallic
   - type: Destructible
     thresholds:
-      - trigger:
-          !type:DamageTrigger
-          damage: 80
-        behaviors:
-          - !type:DoActsBehavior
-            acts: [ "Destruction" ]
-      - trigger:
-          !type:DamageTrigger
-          damage: 40
-        behaviors:
-          - !type:DoActsBehavior
-            acts: [ "Destruction" ]
-          - !type:PlaySoundBehavior
-            sound:
-              collection: MetalBreak
-              params:
-                volume: -8
+    - trigger: !type:DamageTrigger
+        damage: 80
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
+        damage: 40
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+          params:
+            volume: -8
   - type: Tag
     tags:
     - Structure
@@ -112,34 +110,34 @@
   placement:
     mode: SnapgridCenter
     snap:
-      - Wallmount
+    - Wallmount
   components:
-    - type: WallMount
-      arc: 360
-    - type: Clickable
-    - type: InteractionOutline
-    - type: Physics
-      canCollide: false
-    - type: Transform
-      anchored: true
-    - type: Sprite
-      drawdepth: WallMountedItems # Frontier: SmallObjects<WallMountedItems
-      sprite: Structures/Wallmounts/switch.rsi
-      state: on
-    - type: Rotatable
-    - type: ExtensionCableReceiver
-    - type: DeviceNetwork
-      deviceNetId: Apc
-      transmitFrequencyId: SmartLight # assuming people want to use it for light switches.
-    - type: ApcNetworkConnection
-    - type: ApcNetSwitch
-    - type: Construction
-      graph: LightSwitchGraph
-      node: LightSwitchNode
-    - type: Fixtures
-    - type: Tag
-      tags:
-      - Structure
+  - type: WallMount
+    arc: 360
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    canCollide: false
+  - type: Transform
+    anchored: true
+  - type: Sprite
+    drawdepth: WallMountedItems # Frontier: SmallObjects<WallMountedItems
+    sprite: Structures/Wallmounts/switch.rsi
+    state: on
+  - type: Rotatable
+  - type: ExtensionCableReceiver
+  - type: DeviceNetwork
+    deviceNetId: Apc
+    transmitFrequencyId: SmartLight # assuming people want to use it for light switches.
+  - type: ApcNetworkConnection
+  - type: ApcNetSwitch
+  - type: Construction
+    graph: LightSwitchGraph
+    node: LightSwitchNode
+  - type: Fixtures
+  - type: Tag
+    tags:
+    - Structure
 
 - type: entity
   id: TwoWayLever
@@ -148,52 +146,51 @@
   placement:
     mode: SnapgridCenter
   components:
-    - type: StationAiWhitelist
-    - type: Clickable
-    - type: InteractionOutline
-    - type: Sprite
-      drawdepth: HighFloorObjects
-      sprite: Structures/conveyor.rsi
-      layers:
-        - state: switch-off
-          map: ["enabled", "enum.TwoWayLeverState.Middle"]
-    - type: TwoWayLever
-    - type: UseDelay
-      delay: 0.2 # prevent light-toggling auto-clickers.
-    - type: Appearance
-    - type: GenericVisualizer
-      visuals:
-        enum.TwoWayLeverVisuals.State:
-          enabled:
-            Right: { state: switch-fwd }
-            Middle: { state: switch-off }
-            Left: { state: switch-rev }
-    - type: Damageable
-      damageContainer: Inorganic
-      damageModifierSet: Metallic
-    - type: Destructible
-      thresholds:
-      - trigger:
-          !type:DamageTrigger
-          damage: 100
-        behaviors:
-        - !type:DoActsBehavior
-          acts: [ "Destruction" ]
-    - type: Construction
-      graph: LeverGraph
-      node: LeverNode
-    - type: DeviceNetwork
-      deviceNetId: Wireless
-    - type: WirelessNetworkConnection
-      range: 200
-    - type: DeviceLinkSource
-      ports:
-        - Left
-        - Right
-        - Middle
-    - type: Tag
-      tags:
-      - Structure
+  - type: StationAiWhitelist
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    drawdepth: HighFloorObjects
+    sprite: Structures/conveyor.rsi
+    layers:
+    - state: switch-off
+      map: ["enabled", "enum.TwoWayLeverState.Middle"]
+  - type: TwoWayLever
+  - type: UseDelay
+    delay: 0.2 # prevent light-toggling auto-clickers.
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.TwoWayLeverVisuals.State:
+        enabled:
+          Right: {state: switch-fwd}
+          Middle: {state: switch-off}
+          Left: {state: switch-rev}
+  - type: Damageable
+    damageContainer: Inorganic
+    damageModifierSet: Metallic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 100
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+  - type: Construction
+    graph: LeverGraph
+    node: LeverNode
+  - type: DeviceNetwork
+    deviceNetId: Wireless
+  - type: WirelessNetworkConnection
+    range: 200
+  - type: DeviceLinkSource
+    ports:
+    - Left
+    - Right
+    - Middle
+  - type: Tag
+    tags:
+    - Structure
 
 #directional
 
@@ -239,7 +236,7 @@
   id: LockableButton
   name: lockable button
   parent: SignalButtonDirectional
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Appearance
   - type: Lock
@@ -515,7 +512,7 @@
 - type: entity
   id: ButtonFrame
   name: button frame
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   description: It's a frame to help distinguish switches visually.
   placement:
     mode: SnapgridCenter
@@ -547,7 +544,7 @@
   - type: Construction
     graph: ButtonFrameGraph
     node: ButtonFrameGreyNode
-  # End Frontier
+    # End Frontier
 
 - type: entity
   id: ButtonFrameCaution
@@ -562,7 +559,7 @@
   - type: Construction
     graph: ButtonFrameGraph
     node: ButtonFrameCautionNode
-  # End Frontier
+    # End Frontier
 
 - type: entity
   id: ButtonFrameCautionSecurity
@@ -577,7 +574,7 @@
   - type: Construction
     graph: ButtonFrameGraph
     node: ButtonFrameCautionSecurityNode
-  # End Frontier
+    # End Frontier
 
 - type: entity
   id: ButtonFrameExit
@@ -592,7 +589,7 @@
   - type: Construction
     graph: ButtonFrameGraph
     node: ButtonFrameExitNode
-  # End Frontier
+    # End Frontier
 
 - type: entity
   id: ButtonFrameJanitor

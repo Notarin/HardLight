@@ -36,16 +36,18 @@ public sealed class LeashVisualsOverlay : Overlay
         var query = _entMan.EntityQueryEnumerator<LeashedVisualsComponent>();
         while (query.MoveNext(out var visualsComp))
         {
-            if (visualsComp.Source is not {Valid: true} source
-                || visualsComp.Target is not {Valid: true} target
+            if (
+                visualsComp.Source is not { Valid: true } source
+                || visualsComp.Target is not { Valid: true } target
                 || !_xformQuery.TryGetComponent(source, out var xformComp)
                 || !_xformQuery.TryGetComponent(target, out var otherXformComp)
                 || xformComp.MapID != args.MapId
-                || otherXformComp.MapID != xformComp.MapID)
+                || otherXformComp.MapID != xformComp.MapID
+            )
                 continue;
 
             var texture = _sprites.Frame0(visualsComp.Sprite);
-            var width = texture.Width / (float) EyeManager.PixelsPerMeter;
+            var width = texture.Width / (float)EyeManager.PixelsPerMeter;
 
             var coordsA = xformComp.Coordinates;
             var coordsB = otherXformComp.Coordinates;

@@ -15,7 +15,8 @@ namespace Content.Server.Diagnostics.Commands;
 public sealed class EntitySpawnProfilerCommand : IConsoleCommand
 {
     public string Command => "spawnprof";
-    public string Description => "Toggle or configure the entity spawn profiler (diagnoses unexpected background spawns).";
+    public string Description =>
+        "Toggle or configure the entity spawn profiler (diagnoses unexpected background spawns).";
     public string Help => "spawnprof on|off | interval <seconds> | top <count>";
 
     public void Execute(IConsoleShell shell, string argStr, string[] args)

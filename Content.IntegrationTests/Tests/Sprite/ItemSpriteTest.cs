@@ -29,7 +29,7 @@ public sealed class PrototypeSaveTest
         // The only prototypes that should get ignored are those that REQUIRE setup to get a sprite. At that point it is
         // the responsibility of the spawner to ensure that a valid sprite is set.
         "VirtualItem",
-        "HandPlaceholder" // Frontier
+        "HandPlaceholder", // Frontier
     };
 
     [Test]
@@ -56,7 +56,9 @@ public sealed class PrototypeSaveTest
         {
             foreach (var proto in badPrototypes)
             {
-                Assert.Fail($"Item prototype has no sprite: {proto.ID}. It should probably either be marked as abstract, not be an item, or have a valid sprite");
+                Assert.Fail(
+                    $"Item prototype has no sprite: {proto.ID}. It should probably either be marked as abstract, not be an item, or have a valid sprite"
+                );
             }
         });
 

@@ -21,9 +21,14 @@ namespace Content.Server.StationEvents.Events;
 [UsedImplicitly]
 public sealed class DynamicJobAllocationRule : StationEventSystem<DynamicJobAllocationRuleComponent>
 {
-    [Dependency] private readonly StationJobsSystem _stationJobs = default!;
-    [Dependency] private readonly ColcommJobSystem _colcommJobs = default!; // HardLight
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
+    [Dependency]
+    private readonly StationJobsSystem _stationJobs = default!;
+
+    [Dependency]
+    private readonly ColcommJobSystem _colcommJobs = default!; // HardLight
+
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
 
     // HardLight: Legacy job id used before Mercenary/Freelancer naming cleanup.
     private const string LegacyFreelancerJobId = "Freelancer";
@@ -55,7 +60,12 @@ public sealed class DynamicJobAllocationRule : StationEventSystem<DynamicJobAllo
         _playerManager.PlayerStatusChanged -= OnPlayerStatusChanged;
     }
 
-    protected override void Started(EntityUid uid, DynamicJobAllocationRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
+    protected override void Started(
+        EntityUid uid,
+        DynamicJobAllocationRuleComponent component,
+        GameRuleComponent gameRule,
+        GameRuleStartedEvent args
+    )
     {
         base.Started(uid, component, gameRule, args);
         AdjustJobSlots(uid, component);
@@ -73,7 +83,12 @@ public sealed class DynamicJobAllocationRule : StationEventSystem<DynamicJobAllo
         UpdateActiveRules();
     }
 
-    protected override void ActiveTick(EntityUid uid, DynamicJobAllocationRuleComponent component, GameRuleComponent gameRule, float frameTime)
+    protected override void ActiveTick(
+        EntityUid uid,
+        DynamicJobAllocationRuleComponent component,
+        GameRuleComponent gameRule,
+        float frameTime
+    )
     {
         base.ActiveTick(uid, component, gameRule, frameTime);
 
@@ -87,20 +102,39 @@ public sealed class DynamicJobAllocationRule : StationEventSystem<DynamicJobAllo
     }
 
     // HardLight start
-    private void OnColcommRegistryStartup(EntityUid uid, ColcommJobRegistryComponent component, ref ComponentStartup args) => QueueRecalculation();
+    private void OnColcommRegistryStartup(
+        EntityUid uid,
+        ColcommJobRegistryComponent component,
+        ref ComponentStartup args
+    ) => QueueRecalculation();
+
     private void OnColcommRegistryRoundStart(ColcommRegistryRoundStartEvent ev) => QueueRecalculation();
+
     private void OnPlayerSpawnComplete(PlayerSpawnCompleteEvent ev) => QueueRecalculation();
+
     private void OnJobTrackingStateChanged(JobTrackingStateChangedEvent ev) => QueueRecalculation();
-    private void OnTrackedJobShutdown(EntityUid uid, JobTrackingComponent component, ref ComponentShutdown args) => QueueRecalculation();
-    private void OnVisitingMindAdded(EntityUid uid, VisitingMindComponent component, ref ComponentInit args) => QueueRecalculation();
-    private void OnVisitingMindRemoved(EntityUid uid, VisitingMindComponent component, ref ComponentShutdown args) => QueueRecalculation();
+
+    private void OnTrackedJobShutdown(EntityUid uid, JobTrackingComponent component, ref ComponentShutdown args) =>
+        QueueRecalculation();
+
+    private void OnVisitingMindAdded(EntityUid uid, VisitingMindComponent component, ref ComponentInit args) =>
+        QueueRecalculation();
+
+    private void OnVisitingMindRemoved(EntityUid uid, VisitingMindComponent component, ref ComponentShutdown args) =>
+        QueueRecalculation();
+
     private void OnPlayerJoinedLobby(PlayerJoinedLobbyEvent ev) => QueueRecalculation();
+
     private void OnMindAddedGlobal(MindAddedMessage ev) => QueueRecalculation();
+
     private void OnMindRemovedGlobal(MindRemovedMessage ev) => QueueRecalculation();
+
     private void OnPlayerStatusChanged(object? sender, SessionStatusEventArgs e) => QueueRecalculation();
+
     private void OnStationInitialized(StationInitializedEvent ev) => QueueRecalculation();
 
     private void QueueRecalculation() => _recalculationQueued = true;
+
     // HardLight end
 
     private void UpdateActiveRules()
@@ -132,15 +166,16 @@ public sealed class DynamicJobAllocationRule : StationEventSystem<DynamicJobAllo
         var jobsQuery = EntityQueryEnumerator<JobTrackingComponent, MindContainerComponent>();
         while (jobsQuery.MoveNext(out _, out var jobTracking, out var mindContainer))
         {
-            if (!jobTracking.Active
-                || jobTracking.Job is not { } job)
+            if (!jobTracking.Active || jobTracking.Job is not { } job)
                 continue;
 
-            if (!mindContainer.HasMind
+            if (
+                !mindContainer.HasMind
                 || !TryComp<MindComponent>(mindContainer.Mind, out var mind)
                 || mind.UserId is not { } userId
                 || !_playerManager.TryGetSessionById(userId, out var session)
-                || session.Status != SessionStatus.InGame)
+                || session.Status != SessionStatus.InGame
+            )
                 continue;
 
             if (IsMercenaryJob(job, component))
@@ -171,7 +206,7 @@ public sealed class DynamicJobAllocationRule : StationEventSystem<DynamicJobAllo
     private static bool IsMercenaryJob(ProtoId<JobPrototype> jobId, DynamicJobAllocationRuleComponent component)
     {
         return string.Equals(jobId, component.MercenaryJob, StringComparison.Ordinal)
-               || string.Equals(jobId, LegacyFreelancerJobId, StringComparison.Ordinal)
-               || string.Equals(jobId, StationJobsSystem.ShipFreelancerInterviewJobId, StringComparison.Ordinal);
+            || string.Equals(jobId, LegacyFreelancerJobId, StringComparison.Ordinal)
+            || string.Equals(jobId, StationJobsSystem.ShipFreelancerInterviewJobId, StringComparison.Ordinal);
     }
 }

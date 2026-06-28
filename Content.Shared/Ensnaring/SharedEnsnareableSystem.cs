@@ -18,21 +18,36 @@ using Robust.Shared.Serialization;
 namespace Content.Shared.Ensnaring;
 
 [Serializable, NetSerializable]
-public sealed partial class EnsnareableDoAfterEvent : SimpleDoAfterEvent
-{
-}
+public sealed partial class EnsnareableDoAfterEvent : SimpleDoAfterEvent { }
 
 public abstract class SharedEnsnareableSystem : EntitySystem
 {
-    [Dependency] private   readonly AlertsSystem _alerts = default!;
-    [Dependency] private   readonly MovementSpeedModifierSystem _speedModifier = default!;
-    [Dependency] protected readonly SharedAppearanceSystem Appearance = default!;
-    [Dependency] private   readonly SharedAudioSystem _audio = default!;
-    [Dependency] protected readonly SharedContainerSystem Container = default!;
-    [Dependency] private   readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private   readonly SharedHandsSystem _hands = default!;
-    [Dependency] protected readonly SharedPopupSystem Popup = default!;
-    [Dependency] private   readonly SharedStaminaSystem _stamina = default!;
+    [Dependency]
+    private readonly AlertsSystem _alerts = default!;
+
+    [Dependency]
+    private readonly MovementSpeedModifierSystem _speedModifier = default!;
+
+    [Dependency]
+    protected readonly SharedAppearanceSystem Appearance = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    protected readonly SharedContainerSystem Container = default!;
+
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfter = default!;
+
+    [Dependency]
+    private readonly SharedHandsSystem _hands = default!;
+
+    [Dependency]
+    protected readonly SharedPopupSystem Popup = default!;
+
+    [Dependency]
+    private readonly SharedStaminaSystem _stamina = default!;
 
     public override void Initialize()
     {
@@ -76,9 +91,23 @@ public abstract class SharedEnsnareableSystem : EntitySystem
         if (args.Cancelled || !Container.Remove(args.Args.Used.Value, component.Container))
         {
             if (args.User == args.Target)
-                Popup.PopupPredicted(Loc.GetString("ensnare-component-try-free-fail", ("ensnare", args.Args.Used)), uid, args.User, PopupType.MediumCaution);
+                Popup.PopupPredicted(
+                    Loc.GetString("ensnare-component-try-free-fail", ("ensnare", args.Args.Used)),
+                    uid,
+                    args.User,
+                    PopupType.MediumCaution
+                );
             else if (args.Target != null)
-                Popup.PopupPredicted(Loc.GetString("ensnare-component-try-free-fail-other", ("ensnare", args.Args.Used), ("user", args.Target)), uid, args.User, PopupType.MediumCaution);
+                Popup.PopupPredicted(
+                    Loc.GetString(
+                        "ensnare-component-try-free-fail-other",
+                        ("ensnare", args.Args.Used),
+                        ("user", args.Target)
+                    ),
+                    uid,
+                    args.User,
+                    PopupType.MediumCaution
+                );
 
             return;
         }
@@ -90,9 +119,23 @@ public abstract class SharedEnsnareableSystem : EntitySystem
         _hands.PickupOrDrop(args.Args.User, args.Args.Used.Value);
 
         if (args.User == args.Target)
-            Popup.PopupPredicted(Loc.GetString("ensnare-component-try-free-complete", ("ensnare", args.Args.Used)), uid, args.User, PopupType.Medium);
+            Popup.PopupPredicted(
+                Loc.GetString("ensnare-component-try-free-complete", ("ensnare", args.Args.Used)),
+                uid,
+                args.User,
+                PopupType.Medium
+            );
         else if (args.Target != null)
-            Popup.PopupPredicted(Loc.GetString("ensnare-component-try-free-complete-other", ("ensnare", args.Args.Used), ("user", args.Target)), uid, args.User, PopupType.Medium);
+            Popup.PopupPredicted(
+                Loc.GetString(
+                    "ensnare-component-try-free-complete-other",
+                    ("ensnare", args.Args.Used),
+                    ("user", args.Target)
+                ),
+                uid,
+                args.User,
+                PopupType.Medium
+            );
 
         UpdateAlert(args.Args.Target.Value, component);
         var ev = new EnsnareRemoveEvent(ensnaring.WalkSpeed, ensnaring.SprintSpeed);
@@ -133,8 +176,11 @@ public abstract class SharedEnsnareableSystem : EntitySystem
         Appearance.SetData(uid, EnsnareableVisuals.IsEnsnared, component.IsEnsnared, appearance);
     }
 
-    private void MovementSpeedModify(EntityUid uid, EnsnareableComponent component,
-        RefreshMovementSpeedModifiersEvent args)
+    private void MovementSpeedModify(
+        EntityUid uid,
+        EnsnareableComponent component,
+        RefreshMovementSpeedModifiersEvent args
+    )
     {
         if (!component.IsEnsnared)
             return;
@@ -158,7 +204,15 @@ public abstract class SharedEnsnareableSystem : EntitySystem
         var freeTime = user == target ? component.BreakoutTime : component.FreeTime;
         var breakOnMove = !component.CanMoveBreakout;
 
-        var doAfterEventArgs = new DoAfterArgs(EntityManager, user, freeTime, new EnsnareableDoAfterEvent(), target, target: target, used: ensnare)
+        var doAfterEventArgs = new DoAfterArgs(
+            EntityManager,
+            user,
+            freeTime,
+            new EnsnareableDoAfterEvent(),
+            target,
+            target: target,
+            used: ensnare
+        )
         {
             BreakOnMove = breakOnMove,
             BreakOnDamage = false,
@@ -172,10 +226,22 @@ public abstract class SharedEnsnareableSystem : EntitySystem
         if (user == target)
             Popup.PopupPredicted(Loc.GetString("ensnare-component-try-free", ("ensnare", ensnare)), target, target);
         else
-            Popup.PopupPredicted(Loc.GetString("ensnare-component-try-free-other", ("ensnare", ensnare), ("user", Identity.Entity(target, EntityManager))), user, user);
+            Popup.PopupPredicted(
+                Loc.GetString(
+                    "ensnare-component-try-free-other",
+                    ("ensnare", ensnare),
+                    ("user", Identity.Entity(target, EntityManager))
+                ),
+                user,
+                user
+            );
     }
 
-    private void OnStripEnsnareMessage(EntityUid uid, EnsnareableComponent component, StrippingEnsnareButtonPressed args)
+    private void OnStripEnsnareMessage(
+        EntityUid uid,
+        EnsnareableComponent component,
+        StrippingEnsnareButtonPressed args
+    )
     {
         foreach (var entity in component.Container.ContainedEntities)
         {

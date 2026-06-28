@@ -7,31 +7,31 @@
     NFDev:
       stationProto: DebugFrontierStation
       components:
-        - type: StationNameSetup
-          mapNameTemplate: "NFDev"
-        - type: StationJobs
-          availableJobs:
-            Contractor: [ 0, -1 ]
-            Pilot: [ 0, -1 ]
-            Mercenary: [ 0, -1 ]
-            Borg: [ -1, -1]
-            StationRepresentative: [ 0, -1 ]
-            StationTrafficController: [ -1, -1 ]
-            SecurityGuard: [ 0, -1 ]
-            Valet: [ 0, -1 ]
-            NFJanitor: [ 0, -1 ]
-            MailCarrier: [ -1, -1 ]
-            Sheriff: [ 0, -1]
-            Bailiff: [ 0, -1]
-            SeniorOfficer: [ 0, -1]
-            Brigmedic: [ -1, -1]
-            NFDetective: [ 0, -1]
-            Deputy: [ 0, -1]
-            Cadet: [ 0, -1]
-            PublicAffairsLiaison: [ 0, -1]
-            NFPirateCaptain: [ -1, -1]
-            NFPirateFirstMate: [ -1, -1]
-            NFPirate: [ -1, -1]
-            Prisoner: [ -1, -1] # HL: Removed USSPCommissar, USSPSergeant, USSPCorporal, USSPMedic, USSPRifleman as they don't have spawn points
-        - type: StationDeadDrop
-          maxDeadDrops: 20 # Testing
+      - type: StationNameSetup
+        mapNameTemplate: "NFDev"
+      - type: StationJobs
+        availableJobs:
+          Contractor: [0, -1]
+          Pilot: [0, -1]
+          Mercenary: [0, -1]
+          Borg: [-1, -1]
+          StationRepresentative: [0, -1]
+          StationTrafficController: [-1, -1]
+          SecurityGuard: [0, -1]
+          Valet: [0, -1]
+          NFJanitor: [0, -1]
+          MailCarrier: [-1, -1]
+          Sheriff: [0, -1]
+          Bailiff: [0, -1]
+          SeniorOfficer: [0, -1]
+          Brigmedic: [-1, -1]
+          NFDetective: [0, -1]
+          Deputy: [0, -1]
+          Cadet: [0, -1]
+          PublicAffairsLiaison: [0, -1]
+          NFPirateCaptain: [-1, -1]
+          NFPirateFirstMate: [-1, -1]
+          NFPirate: [-1, -1]
+          Prisoner: [-1, -1] # HL: Removed USSPCommissar, USSPSergeant, USSPCorporal, USSPMedic, USSPRifleman as they don't have spawn points
+      - type: StationDeadDrop
+        maxDeadDrops: 20 # Testing

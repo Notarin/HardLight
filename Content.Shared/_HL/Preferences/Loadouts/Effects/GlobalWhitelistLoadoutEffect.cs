@@ -15,7 +15,8 @@ public sealed partial class GlobalWhitelistLoadoutEffect : LoadoutEffect
         RoleLoadout loadout,
         ICommonSession? session,
         IDependencyCollection collection,
-        [NotNullWhen(false)] out FormattedMessage? reason)
+        [NotNullWhen(false)] out FormattedMessage? reason
+    )
     {
         // Allow server-side spawns (no session = admin/map spawn)
         if (session == null)

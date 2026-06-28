@@ -10,8 +10,11 @@ namespace Content.Shared.Movement.Systems
 {
     public sealed class MovementSpeedModifierSystem : EntitySystem
     {
-        [Dependency] private readonly IGameTiming _timing = default!;
-        [Dependency] private   readonly IConfigurationManager _configManager = default!;
+        [Dependency]
+        private readonly IGameTiming _timing = default!;
+
+        [Dependency]
+        private readonly IConfigurationManager _configManager = default!;
 
         private float _frictionModifier;
         private float _airDamping;
@@ -62,10 +65,12 @@ namespace Content.Shared.Movement.Systems
 
             RaiseLocalEvent(uid, ref ev);
 
-            if (MathHelper.CloseTo(ev.WeightlessAcceleration, move.WeightlessAcceleration) &&
-                MathHelper.CloseTo(ev.WeightlessModifier, move.WeightlessModifier) &&
-                MathHelper.CloseTo(ev.WeightlessFriction, move.WeightlessFriction) &&
-                MathHelper.CloseTo(ev.WeightlessFrictionNoInput, move.WeightlessFrictionNoInput))
+            if (
+                MathHelper.CloseTo(ev.WeightlessAcceleration, move.WeightlessAcceleration)
+                && MathHelper.CloseTo(ev.WeightlessModifier, move.WeightlessModifier)
+                && MathHelper.CloseTo(ev.WeightlessFriction, move.WeightlessFriction)
+                && MathHelper.CloseTo(ev.WeightlessFrictionNoInput, move.WeightlessFrictionNoInput)
+            )
             {
                 return;
             }
@@ -73,7 +78,8 @@ namespace Content.Shared.Movement.Systems
             move.WeightlessAcceleration = ev.WeightlessAcceleration * ev.WeightlessAccelerationMod;
             move.WeightlessModifier = ev.WeightlessModifier;
             move.WeightlessFriction = _airDamping * ev.WeightlessFriction * ev.WeightlessFrictionMod;
-            move.WeightlessFrictionNoInput = _airDamping * ev.WeightlessFrictionNoInput * ev.WeightlessFrictionNoInputMod;
+            move.WeightlessFrictionNoInput =
+                _airDamping * ev.WeightlessFrictionNoInput * ev.WeightlessFrictionNoInputMod;
             Dirty(uid, move);
         }
 
@@ -88,8 +94,10 @@ namespace Content.Shared.Movement.Systems
             var ev = new RefreshMovementSpeedModifiersEvent();
             RaiseLocalEvent(uid, ev);
 
-            if (MathHelper.CloseTo(ev.WalkSpeedModifier, move.WalkSpeedModifier) &&
-                MathHelper.CloseTo(ev.SprintSpeedModifier, move.SprintSpeedModifier))
+            if (
+                MathHelper.CloseTo(ev.WalkSpeedModifier, move.WalkSpeedModifier)
+                && MathHelper.CloseTo(ev.SprintSpeedModifier, move.SprintSpeedModifier)
+            )
                 return;
 
             move.WalkSpeedModifier = ev.WalkSpeedModifier;
@@ -97,7 +105,13 @@ namespace Content.Shared.Movement.Systems
             Dirty(uid, move);
         }
 
-        public void ChangeBaseSpeed(EntityUid uid, float baseWalkSpeed, float baseSprintSpeed, float acceleration, MovementSpeedModifierComponent? move = null)
+        public void ChangeBaseSpeed(
+            EntityUid uid,
+            float baseWalkSpeed,
+            float baseSprintSpeed,
+            float acceleration,
+            MovementSpeedModifierComponent? move = null
+        )
         {
             if (!Resolve(uid, ref move, false))
                 return;
@@ -124,9 +138,11 @@ namespace Content.Shared.Movement.Systems
             };
             RaiseLocalEvent(uid, ref ev);
 
-            if (MathHelper.CloseTo(ev.Friction, move.Friction)
+            if (
+                MathHelper.CloseTo(ev.Friction, move.Friction)
                 && MathHelper.CloseTo(ev.FrictionNoInput, move.FrictionNoInput)
-                && MathHelper.CloseTo(ev.Acceleration, move.Acceleration))
+                && MathHelper.CloseTo(ev.Acceleration, move.Acceleration)
+            )
                 return;
 
             move.Friction = _frictionModifier * ev.Friction;
@@ -136,7 +152,13 @@ namespace Content.Shared.Movement.Systems
             Dirty(uid, move);
         }
 
-        public void ChangeBaseFriction(EntityUid uid, float friction, float frictionNoInput, float acceleration, MovementSpeedModifierComponent? move = null)
+        public void ChangeBaseFriction(
+            EntityUid uid,
+            float friction,
+            float frictionNoInput,
+            float acceleration,
+            MovementSpeedModifierComponent? move = null
+        )
         {
             if (!Resolve(uid, ref move, false))
                 return;
@@ -208,6 +230,7 @@ namespace Content.Shared.Movement.Systems
             ModifyAcceleration(modifier, modifier);
         }
     }
+
     [ByRefEvent]
     public record struct RefreshFrictionModifiersEvent : IInventoryRelayEvent
     {
@@ -230,6 +253,7 @@ namespace Content.Shared.Movement.Systems
         {
             Acceleration *= acceleration;
         }
-        SlotFlags IInventoryRelayEvent.TargetSlots =>  ~SlotFlags.POCKET;
+
+        SlotFlags IInventoryRelayEvent.TargetSlots => ~SlotFlags.POCKET;
     }
 }

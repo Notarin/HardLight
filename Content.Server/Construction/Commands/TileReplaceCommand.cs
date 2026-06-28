@@ -9,8 +9,11 @@ namespace Content.Server.Construction.Commands;
 [AdminCommand(AdminFlags.Mapping)]
 public sealed class TileReplaceCommand : IConsoleCommand
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
-    [Dependency] private readonly ITileDefinitionManager _tileDef = default!;
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
+
+    [Dependency]
+    private readonly ITileDefinitionManager _tileDef = default!;
 
     // ReSharper disable once StringLiteralTypo
     public string Command => "tilereplace";
@@ -38,8 +41,7 @@ public sealed class TileReplaceCommand : IConsoleCommand
                 tileIdB = args[1];
                 break;
             case 3:
-                if (!NetEntity.TryParse(args[0], out var idNet) ||
-                    !_entManager.TryGetEntity(idNet, out var id))
+                if (!NetEntity.TryParse(args[0], out var idNet) || !_entManager.TryGetEntity(idNet, out var id))
                 {
                     shell.WriteError($"{args[0]} is not a valid entity.");
                     return;
@@ -85,4 +87,3 @@ public sealed class TileReplaceCommand : IConsoleCommand
         shell.WriteLine($"Changed {changed} tiles.");
     }
 }
-

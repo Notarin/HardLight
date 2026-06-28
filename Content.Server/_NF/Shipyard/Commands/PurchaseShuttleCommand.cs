@@ -1,5 +1,5 @@
-using Content.Server.Administration;
 using Content.Server._NF.Shipyard.Systems;
+using Content.Server.Administration;
 using Content.Shared.Administration;
 using Robust.Shared.Console;
 using Robust.Shared.Utility;
@@ -12,10 +12,12 @@ namespace Content.Server._NF.Shipyard.Commands;
 [AdminCommand(AdminFlags.Fun)]
 public sealed class PurchaseShuttleCommand : IConsoleCommand
 {
-    [Dependency] private readonly IEntitySystemManager _entityManager = default!;
+    [Dependency]
+    private readonly IEntitySystemManager _entityManager = default!;
     public string Command => "purchaseshuttle";
     public string Description => Loc.GetString("shipyard-commands-purchase-desc");
     public string Help => $"{Command} <station ID> <gridfile path>";
+
     public void Execute(IConsoleShell shell, string argStr, string[] args)
     {
         if (!int.TryParse(args[0], out var stationId))

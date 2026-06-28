@@ -1,6 +1,7 @@
 using Content.Server.Popups;
 using Content.Server.Storage.Components;
 using Content.Server.Storage.EntitySystems;
+using Content.Shared.ActionBlocker;
 using Content.Shared.DoAfter;
 using Content.Shared.Lock;
 using Content.Shared.Movement.Events;
@@ -8,18 +9,28 @@ using Content.Shared.Popups;
 using Content.Shared.Resist;
 using Content.Shared.Tools.Components;
 using Content.Shared.Tools.Systems;
-using Content.Shared.ActionBlocker;
 
 namespace Content.Server.Resist;
 
 public sealed class ResistLockerSystem : EntitySystem
 {
-    [Dependency] private readonly EntityStorageSystem _entityStorage = default!;
-    [Dependency] private readonly LockSystem _lockSystem = default!;
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
-    [Dependency] private readonly WeldableSystem _weldable = default!;
-    [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
+    [Dependency]
+    private readonly EntityStorageSystem _entityStorage = default!;
+
+    [Dependency]
+    private readonly LockSystem _lockSystem = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfterSystem = default!;
+
+    [Dependency]
+    private readonly WeldableSystem _weldable = default!;
+
+    [Dependency]
+    private readonly ActionBlockerSystem _actionBlocker = default!;
 
     public override void Initialize()
     {
@@ -28,7 +39,11 @@ public sealed class ResistLockerSystem : EntitySystem
         SubscribeLocalEvent<ResistLockerComponent, ResistLockerDoAfterEvent>(OnDoAfter);
     }
 
-    private void OnRelayMovement(EntityUid uid, ResistLockerComponent component, ref ContainerRelayMovementEntityEvent args)
+    private void OnRelayMovement(
+        EntityUid uid,
+        ResistLockerComponent component,
+        ref ContainerRelayMovementEntityEvent args
+    )
     {
         if (component.IsResisting)
             return;
@@ -45,12 +60,24 @@ public sealed class ResistLockerSystem : EntitySystem
         }
     }
 
-    private void AttemptResist(EntityUid user, EntityUid target, EntityStorageComponent? storageComponent = null, ResistLockerComponent? resistLockerComponent = null)
+    private void AttemptResist(
+        EntityUid user,
+        EntityUid target,
+        EntityStorageComponent? storageComponent = null,
+        ResistLockerComponent? resistLockerComponent = null
+    )
     {
         if (!Resolve(target, ref storageComponent, ref resistLockerComponent))
             return;
 
-        var doAfterEventArgs = new DoAfterArgs(EntityManager, user, resistLockerComponent.ResistTime, new ResistLockerDoAfterEvent(), target, target: target)
+        var doAfterEventArgs = new DoAfterArgs(
+            EntityManager,
+            user,
+            resistLockerComponent.ResistTime,
+            new ResistLockerDoAfterEvent(),
+            target,
+            target: target
+        )
         {
             BreakOnMove = true,
             BreakOnDamage = true,
@@ -67,7 +94,12 @@ public sealed class ResistLockerSystem : EntitySystem
         if (args.Cancelled)
         {
             component.IsResisting = false;
-            _popupSystem.PopupEntity(Loc.GetString("resist-locker-component-resist-interrupted"), args.Args.User, args.Args.User, PopupType.Medium);
+            _popupSystem.PopupEntity(
+                Loc.GetString("resist-locker-component-resist-interrupted"),
+                args.Args.User,
+                args.Args.User,
+                PopupType.Medium
+            );
             return;
         }
 

@@ -6,8 +6,11 @@ namespace Content.Shared.PDA
 {
     public abstract class SharedPdaSystem : EntitySystem
     {
-        [Dependency] protected readonly ItemSlotsSystem ItemSlotsSystem = default!;
-        [Dependency] protected readonly SharedAppearanceSystem Appearance = default!;
+        [Dependency]
+        protected readonly ItemSlotsSystem ItemSlotsSystem = default!;
+
+        [Dependency]
+        protected readonly SharedAppearanceSystem Appearance = default!;
 
         public override void Initialize()
         {
@@ -21,6 +24,7 @@ namespace Content.Shared.PDA
 
             SubscribeLocalEvent<PdaComponent, GetAdditionalAccessEvent>(OnGetAdditionalAccess);
         }
+
         protected virtual void OnComponentInit(EntityUid uid, PdaComponent pda, ComponentInit args)
         {
             if (pda.IdCard != null)

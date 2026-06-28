@@ -6,9 +6,9 @@
   components:
   - type: FlavorProfile
     flavors:
-      - sweet
-      - cheesy
-      - pear
+    - sweet
+    - cheesy
+    - pear
   - type: Sprite
     sprite: _NF/Objects/Consumable/Food/Baked/pie.rsi
     layers:
@@ -29,9 +29,9 @@
   components:
   - type: FlavorProfile
     flavors:
-      - sweet
-      - cheesy
-      - pear
+    - sweet
+    - cheesy
+    - pear
   - type: Sprite
     sprite: _NF/Objects/Consumable/Food/Baked/pie.rsi
     layers:
@@ -52,9 +52,9 @@
   components:
   - type: FlavorProfile
     flavors:
-      - honey
-      - apple
-      - oats
+    - honey
+    - apple
+    - oats
   - type: Sprite
     sprite: _NF/Objects/Consumable/Food/Baked/pie.rsi
     layers:
@@ -86,9 +86,9 @@
   components:
   - type: FlavorProfile
     flavors:
-      - honey
-      - apple
-      - oats
+    - honey
+    - apple
+    - oats
   - type: Sprite
     sprite: _NF/Objects/Consumable/Food/Baked/pie.rsi
     layers:

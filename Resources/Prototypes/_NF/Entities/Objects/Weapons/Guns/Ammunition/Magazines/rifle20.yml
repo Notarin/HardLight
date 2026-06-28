@@ -3,17 +3,17 @@
 - type: entity
   id: NFBaseMagazineRifle20
   name: magazine (.20 rifle)
-  parent: [ BaseC1Contraband, RecyclableItemSteelTiny, BaseMagazineRifle ]
+  parent: [BaseC1Contraband, RecyclableItemSteelTiny, BaseMagazineRifle]
   abstract: true
   components:
   - type: Tag
     tags:
-      - NFMagazineRifle20 # TODO: make it make sense, change the tags
+    - NFMagazineRifle20 # TODO: make it make sense, change the tags
   - type: BallisticAmmoProvider
     mayTransfer: true
     whitelist:
       tags:
-        - NFCartridgeRifle20
+      - NFCartridgeRifle20
     proto: NFCartridgeRifle20
     capacity: 25
   - type: Sprite
@@ -31,17 +31,17 @@
 - type: entity
   id: NFBaseMagazineDrumRifle20
   name: drum magazine (.20 rifle)
-  parent: [ BaseC2ContrabandUnredeemable, RecyclableItemSteelTiny, BaseMagazineRifle ]
+  parent: [BaseC2ContrabandUnredeemable, RecyclableItemSteelTiny, BaseMagazineRifle]
   abstract: true
   components:
   - type: Tag
     tags:
-      - NFMagazineDrumRifle20 # TODO: make it make sense, change the tags
+    - NFMagazineDrumRifle20 # TODO: make it make sense, change the tags
   - type: BallisticAmmoProvider
     mayTransfer: true
     whitelist:
       tags:
-        - NFCartridgeRifle20
+      - NFCartridgeRifle20
     proto: NFCartridgeRifle20
     capacity: 60
   - type: Sprite
@@ -57,7 +57,6 @@
     magState: mag
     steps: 10
     zeroVisible: false
-
 
 #region .20 magazines
 - type: entity
@@ -172,7 +171,6 @@
   name: drum magazine (.20 rifle)
   parent: NFBaseMagazineDrumRifle20
 
-
 # Frontier
 #region .20 Novalite
 - type: entity
@@ -183,14 +181,14 @@
   components:
   - type: Tag
     tags:
-      - NFMagazineClipRifle20
+    - NFMagazineClipRifle20
   - type: Item
     size: Small
   - type: BallisticAmmoProvider
     mayTransfer: true
     whitelist:
       tags:
-        - NFCartridgeRifle20
+      - NFCartridgeRifle20
     capacity: 25
   - type: ContainerContainer
     containers:

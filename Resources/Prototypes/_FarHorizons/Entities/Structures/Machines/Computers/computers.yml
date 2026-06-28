@@ -33,7 +33,7 @@
     deviceNetId: Wireless
   - type: DeviceLinkSink
     ports:
-      - NuclearReactorDataReceiver
+    - NuclearReactorDataReceiver
   - type: Computer
     board: NuclearReactorMonitorComputerCircuitboard
   - type: ContainerContainer
@@ -77,7 +77,7 @@
     deviceNetId: Wireless
   - type: DeviceLinkSink
     ports:
-      - GasTurbineDataReceiver
+    - GasTurbineDataReceiver
   - type: Computer
     board: GasTurbineMonitorComputerCircuitboard
   - type: ContainerContainer

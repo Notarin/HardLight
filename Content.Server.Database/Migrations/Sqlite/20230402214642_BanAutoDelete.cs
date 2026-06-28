@@ -15,15 +15,14 @@ namespace Content.Server.Database.Migrations.Sqlite
                 table: "server_ban",
                 type: "INTEGER",
                 nullable: false,
-                defaultValue: false);
+                defaultValue: false
+            );
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "auto_delete",
-                table: "server_ban");
+            migrationBuilder.DropColumn(name: "auto_delete", table: "server_ban");
         }
     }
 }

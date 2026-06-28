@@ -2,10 +2,11 @@ using System.Linq;
 using System.Text;
 using Content.Server._NF.GameTicking.Events;
 using Content.Server._NF.SectorServices;
+using Content.Server._NF.Shipyard.Systems;
 using Content.Server._NF.Smuggling.Components;
+using Content.Server._NF.Station.Systems;
 using Content.Server.Administration.Logs;
 using Content.Server.Radio.EntitySystems;
-using Content.Server._NF.Shipyard.Systems;
 using Content.Server.Shuttles.Components;
 using Content.Server.Shuttles.Systems;
 using Content.Server.Station.Components;
@@ -21,34 +22,66 @@ using Content.Shared.Paper;
 using Content.Shared.Shuttles.Components;
 using Content.Shared.Verbs;
 using Robust.Shared.Configuration;
+using Robust.Shared.EntitySerialization.Systems;
 using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
-using Content.Server._NF.Station.Systems;
-using Robust.Shared.EntitySerialization.Systems;
 
 namespace Content.Server._NF.Smuggling;
 
 public sealed class DeadDropSystem : EntitySystem
 {
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly MapLoaderSystem _map = default!;
-    [Dependency] private readonly MetaDataSystem _meta = default!;
-    [Dependency] private readonly PaperSystem _paper = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly RadioSystem _radio = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly ShipyardSystem _shipyard = default!;
-    [Dependency] private readonly ShuttleSystem _shuttle = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedMapSystem _mapManager = default!;
-    [Dependency] private readonly StationSystem _station = default!;
-    [Dependency] private readonly SectorServiceSystem _sectorService = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly SharedGameTicker _ticker = default!;
-    [Dependency] private readonly LinkedLifecycleGridSystem _linkedLifecycleGrid = default!;
-    [Dependency] private readonly StationRenameWarpsSystems _stationRenameWarps = default!;
+    [Dependency]
+    private readonly SharedHandsSystem _hands = default!;
+
+    [Dependency]
+    private readonly MapLoaderSystem _map = default!;
+
+    [Dependency]
+    private readonly MetaDataSystem _meta = default!;
+
+    [Dependency]
+    private readonly PaperSystem _paper = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly RadioSystem _radio = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly ShipyardSystem _shipyard = default!;
+
+    [Dependency]
+    private readonly ShuttleSystem _shuttle = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _mapManager = default!;
+
+    [Dependency]
+    private readonly StationSystem _station = default!;
+
+    [Dependency]
+    private readonly SectorServiceSystem _sectorService = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
+
+    [Dependency]
+    private readonly SharedGameTicker _ticker = default!;
+
+    [Dependency]
+    private readonly LinkedLifecycleGridSystem _linkedLifecycleGrid = default!;
+
+    [Dependency]
+    private readonly StationRenameWarpsSystems _stationRenameWarps = default!;
     private ISawmill _sawmill = default!;
 
     private readonly Queue<EntityUid> _drops = [];
@@ -66,6 +99,7 @@ public sealed class DeadDropSystem : EntitySystem
     private int _maxDeadDropDistance = 8000;
     private int _minDeadDropHints = 3;
     private int _maxDeadDropHints = 15;
+
     public override void Initialize()
     {
         base.Initialize();
@@ -202,9 +236,11 @@ public sealed class DeadDropSystem : EntitySystem
 
         var station = _station.GetOwningStation(uid);
         // If station is terminating, or if we aren't on one, nothing to do here.
-        if (station == null ||
-            !station.Value.Valid ||
-            MetaData(station.Value).EntityLifeStage >= EntityLifeStage.Terminating)
+        if (
+            station == null
+            || !station.Value.Valid
+            || MetaData(station.Value).EntityLifeStage >= EntityLifeStage.Terminating
+        )
         {
             return;
         }
@@ -384,8 +420,10 @@ public sealed class DeadDropSystem : EntitySystem
             _sawmill.Debug($"Dead drop hint generated at {ent}.");
         }
 
-        if (TryComp<SectorDeadDropComponent>(_sectorService.GetServiceEntity(), out var sectorDeadDrop) &&
-            _prototypeManager.TryIndex(sectorDeadDrop.FakeDeadDropHints, out var deadDropHints))
+        if (
+            TryComp<SectorDeadDropComponent>(_sectorService.GetServiceEntity(), out var sectorDeadDrop)
+            && _prototypeManager.TryIndex(sectorDeadDrop.FakeDeadDropHints, out var deadDropHints)
+        )
         {
             var hintCount = deadDropHints.Values.Count;
             for (int i = numHints; i < allHints.Count; i++)
@@ -410,7 +448,9 @@ public sealed class DeadDropSystem : EntitySystem
     {
         //set up the timing of the first activation
         if (component.NextDrop == null)
-            component.NextDrop = _timing.CurTime + TimeSpan.FromSeconds(_random.Next(component.MinimumCoolDown, component.MaximumCoolDown));
+            component.NextDrop =
+                _timing.CurTime
+                + TimeSpan.FromSeconds(_random.Next(component.MinimumCoolDown, component.MaximumCoolDown));
     }
 
     private void AddSearchVerb(EntityUid uid, DeadDropComponent component, GetVerbsEvent<InteractionVerb> args)
@@ -427,7 +467,7 @@ public sealed class DeadDropSystem : EntitySystem
             IconEntity = GetNetEntity(uid),
             Act = () => SendDeadDrop(uid, component, args.User, args.Hands),
             Text = Loc.GetString("deaddrop-search-text"),
-            Priority = 3
+            Priority = 3,
         };
 
         args.Verbs.Add(searchVerb);
@@ -510,9 +550,13 @@ public sealed class DeadDropSystem : EntitySystem
         //_adminLogger.Add(LogType.Action, LogImpact.Medium, $"{ToPrettyString(user)} sent a dead drop to {dropLocation.ToString()} from {ToPrettyString(uid)} at {Transform(uid).Coordinates.ToString()}");
 
         //reset the timer (needed for the text)
-        component.NextDrop = _timing.CurTime + TimeSpan.FromSeconds(_random.Next(component.MinimumCoolDown, component.MaximumCoolDown));
+        component.NextDrop =
+            _timing.CurTime + TimeSpan.FromSeconds(_random.Next(component.MinimumCoolDown, component.MaximumCoolDown));
 
-        var hintNextDrop = component.NextDrop.Value - _ticker.RoundStartTimeSpan + TimeSpan.FromSeconds(_random.Next(-MaxHintTimeErrorSeconds, MaxHintTimeErrorSeconds + 1));
+        var hintNextDrop =
+            component.NextDrop.Value
+            - _ticker.RoundStartTimeSpan
+            + TimeSpan.FromSeconds(_random.Next(-MaxHintTimeErrorSeconds, MaxHintTimeErrorSeconds + 1));
 
         // here we are just building a string for the hint paper so that it looks pretty and RP-like on the paper itself.
         var dropHint = new StringBuilder();
@@ -522,7 +566,9 @@ public sealed class DeadDropSystem : EntitySystem
         dropHint.AppendLine();
         dropHint.AppendLine(Loc.GetString("deaddrop-hint-posttext"));
         dropHint.AppendLine();
-        dropHint.AppendLine(Loc.GetString("deaddrop-hint-next-drop", ("time", hintNextDrop.ToString("hh\\:mm") + ":00")));
+        dropHint.AppendLine(
+            Loc.GetString("deaddrop-hint-next-drop", ("time", hintNextDrop.ToString("hh\\:mm") + ":00"))
+        );
 
         var paper = EntityManager.SpawnEntity(component.HintPaper, Transform(uid).Coordinates);
 
@@ -592,7 +638,9 @@ public sealed class DeadDropSystem : EntitySystem
                         var actualStationName = MetaData(sender).EntityName;
                         if (sectorDeadDrop is not null)
                         {
-                            var otherStationList = sectorDeadDrop.DeadDropStationNames.Values.Where(x => x != actualStationName).ToList();
+                            var otherStationList = sectorDeadDrop
+                                .DeadDropStationNames.Values.Where(x => x != actualStationName)
+                                .ToList();
                             if (otherStationList.Count > 0)
                             {
                                 string[] names = [actualStationName, _random.Pick<string>(otherStationList)];
@@ -613,16 +661,23 @@ public sealed class DeadDropSystem : EntitySystem
                         break;
                     case SmugglingReportMessageType.PodLocation:
                         var error = _random.NextVector2(messageError);
-                        output = Loc.GetString(messageLoc, ("x", $"{dropLocation.X + error.X:F0}"), ("y", $"{dropLocation.Y + error.Y:F0}"));
+                        output = Loc.GetString(
+                            messageLoc,
+                            ("x", $"{dropLocation.X + error.X:F0}"),
+                            ("y", $"{dropLocation.Y + error.Y:F0}")
+                        );
                         break;
                 }
 
                 if (delayMinutes > 0)
                 {
-                    Timer.Spawn(TimeSpan.FromMinutes(delayMinutes), () =>
-                    {
-                        _radio.SendRadioMessage(stationGrid.Value, output, messageSets.Channel, uid);
-                    });
+                    Timer.Spawn(
+                        TimeSpan.FromMinutes(delayMinutes),
+                        () =>
+                        {
+                            _radio.SendRadioMessage(stationGrid.Value, output, messageSets.Channel, uid);
+                        }
+                    );
                 }
                 else
                 {
@@ -671,17 +726,33 @@ public sealed class DeadDropSystem : EntitySystem
                 stationHintString = Loc.GetString("dead-drop-station-hint-generic");
 
             string timeString;
-            if (EntityManager.TryGetComponent<DeadDropComponent>(hintTuple.Item2, out var deadDrop) && deadDrop.NextDrop != null)
+            if (
+                EntityManager.TryGetComponent<DeadDropComponent>(hintTuple.Item2, out var deadDrop)
+                && deadDrop.NextDrop != null
+            )
             {
-                var dropTimeWithError = deadDrop.NextDrop.Value - _ticker.RoundStartTimeSpan + TimeSpan.FromSeconds(_random.Next(-MaxHintTimeErrorSeconds, MaxHintTimeErrorSeconds));
-                timeString = Loc.GetString("dead-drop-time-known", ("time", dropTimeWithError.ToString("hh\\:mm") + ":00"));
+                var dropTimeWithError =
+                    deadDrop.NextDrop.Value
+                    - _ticker.RoundStartTimeSpan
+                    + TimeSpan.FromSeconds(_random.Next(-MaxHintTimeErrorSeconds, MaxHintTimeErrorSeconds));
+                timeString = Loc.GetString(
+                    "dead-drop-time-known",
+                    ("time", dropTimeWithError.ToString("hh\\:mm") + ":00")
+                );
             }
             else
             {
                 timeString = Loc.GetString("dead-drop-time-unknown");
             }
 
-            hintLines.AppendLine(Loc.GetString("dead-drop-hint-line", ("object", objectHintString), ("poi", stationHintString), ("time", timeString)));
+            hintLines.AppendLine(
+                Loc.GetString(
+                    "dead-drop-hint-line",
+                    ("object", objectHintString),
+                    ("poi", stationHintString),
+                    ("time", timeString)
+                )
+            );
             hints++;
         }
         return Loc.GetString("dead-drop-hint-note", ("drops", hintLines));

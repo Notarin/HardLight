@@ -1,4 +1,4 @@
-﻿- type: entity
+- type: entity
   parent: CMBaseWeaponRifle
   name: M4SPR battle rifle
   id: WeaponRifleM4SPR
@@ -8,13 +8,13 @@
     sprite: _RMC14/Objects/Weapons/Guns/Rifles/m4spr/desert.rsi
     layers:
     - state: bolt-open
-      map: [ "enum.GunVisualLayers.Base" ]
+      map: ["enum.GunVisualLayers.Base"]
     - sprite: _RMC14/Objects/Weapons/Guns/Attachments/barrel.rsi
       state: d_m4spr_barrel
       offset: 0.65, 0
-      map: [ "barrel" ]
+      map: ["barrel"]
     - state: mag-0
-      map: [ "enum.GunVisualLayers.Mag" ]
+      map: ["enum.GunVisualLayers.Mag"]
   - type: Clothing
     sprite: _RMC14/Objects/Weapons/Guns/Rifles/m4spr/desert.rsi
   - type: Gun
@@ -26,24 +26,24 @@
     projectileSpeed: 35
     soundGunshot:
       path: /Audio/_RMC14/Weapons/Guns/Gunshots/gun_m4spr.ogg
-  # - type: RMCSelectiveFire
+      # - type: RMCSelectiveFire
     # baseFireModes:
     # - SemiAuto
     # recoilUnwielded: 2
     # scatterWielded: 6
     # baseFireRate: 2.86
-  # - type: RMCWeaponAccuracy
+  - type: WieldDelay
+    # - type: RMCWeaponAccuracy
     # accuracyMultiplier: 1.25
     # accuracyMultiplierUnwielded: 0.6
-  # - type: RMCWeaponDamageFalloff
+    # - type: RMCWeaponDamageFalloff
     # falloffMultiplier: 0
-  - type: WieldDelay
     baseDelay: 0.2
   # - type: WieldableSpeedModifiers
-    # base: 0.725
-    # light: 1
-    # medium: 1
-    # heavy: 1
+  # base: 0.725
+  # light: 1
+  # medium: 1
+  # heavy: 1
   - type: ItemSlots
     slots:
       gun_magazine:
@@ -58,51 +58,51 @@
           - CMMagazineRifleM4SPRExt
   - type: GunDamageModifier
     multiplier: 2.0
-  # - type: AttachableHolder
+    # - type: AttachableHolder
     # slots:
-      # rmc-aslot-barrel:
-        # whitelist:
-          # tags:
-          # - RMCAttachmentExtendedBarrel
-          # - RMCAttachmentSuppressor
-          # - RMCM5Bayonet
-      # rmc-aslot-rail:
-        # whitelist:
-          # tags:
-          # - RMCAttachmentB8SmartScope
-          # - RMCAttachmentMagneticHarness
-          # - RMCAttachmentRailFlashlight
-          # - RMCAttachmentS42xTelescopicMiniscope
-          # - RMCAttachmentS5RedDotSight
-          # - RMCAttachmentS6ReflexSight
-          # - RMCAttachmentS84xTelescopicScope
-      # rmc-aslot-underbarrel:
-        # whitelist:
-          # tags:
-          # - RMCAttachmentAngledGrip
-          # - RMCAttachmentBipod
-          # - RMCAttachmentFlashlightGrip
-          # - RMCAttachmentLaserSight
-          # - RMCAttachmentVerticalGrip
-  # - type: AttachableHolderVisuals
+    # rmc-aslot-barrel:
+    # whitelist:
+    # tags:
+    # - RMCAttachmentExtendedBarrel
+    # - RMCAttachmentSuppressor
+    # - RMCM5Bayonet
+    # rmc-aslot-rail:
+    # whitelist:
+    # tags:
+    # - RMCAttachmentB8SmartScope
+    # - RMCAttachmentMagneticHarness
+    # - RMCAttachmentRailFlashlight
+    # - RMCAttachmentS42xTelescopicMiniscope
+    # - RMCAttachmentS5RedDotSight
+    # - RMCAttachmentS6ReflexSight
+    # - RMCAttachmentS84xTelescopicScope
+    # rmc-aslot-underbarrel:
+    # whitelist:
+    # tags:
+    # - RMCAttachmentAngledGrip
+    # - RMCAttachmentBipod
+    # - RMCAttachmentFlashlightGrip
+    # - RMCAttachmentLaserSight
+    # - RMCAttachmentVerticalGrip
+    # - type: AttachableHolderVisuals
     # offsets:
-      # rmc-aslot-barrel: 1.12, 0.0
-      # rmc-aslot-rail: 0.225, 0.125
-      # rmc-aslot-underbarrel: 0.62, -0.31
-  # - type: ItemCamouflage
+    # rmc-aslot-barrel: 1.12, 0.0
+    # rmc-aslot-rail: 0.225, 0.125
+    # rmc-aslot-underbarrel: 0.62, -0.31
+    # - type: ItemCamouflage
     # camouflageVariations:
-      # Jungle: _RMC14/Objects/Weapons/Guns/Rifles/m4spr/jungle.rsi
-      # Desert: _RMC14/Objects/Weapons/Guns/Rifles/m4spr/desert.rsi
-      # Snow: _RMC14/Objects/Weapons/Guns/Rifles/m4spr/snow.rsi
-      # Classic: _RMC14/Objects/Weapons/Guns/Rifles/m4spr/classic.rsi
-      # Urban: _RMC14/Objects/Weapons/Guns/Rifles/m4spr/urban.rsi
+    # Jungle: _RMC14/Objects/Weapons/Guns/Rifles/m4spr/jungle.rsi
+    # Desert: _RMC14/Objects/Weapons/Guns/Rifles/m4spr/desert.rsi
+    # Snow: _RMC14/Objects/Weapons/Guns/Rifles/m4spr/snow.rsi
+    # Classic: _RMC14/Objects/Weapons/Guns/Rifles/m4spr/classic.rsi
+    # Urban: _RMC14/Objects/Weapons/Guns/Rifles/m4spr/urban.rsi
     # layers:
-      # barrel:
-        # Jungle: m4spr_barrel
-        # Desert: d_m4spr_barrel
-        # Snow: s_m4spr_barrel
-        # Classic: c_m4spr_barrel
-        # Urban: u_m4spr_barrel
+    # barrel:
+    # Jungle: m4spr_barrel
+    # Desert: d_m4spr_barrel
+    # Snow: s_m4spr_barrel
+    # Classic: c_m4spr_barrel
+    # Urban: u_m4spr_barrel
 
 - type: entity
   parent: WeaponRifleM4SPR
@@ -122,8 +122,8 @@
           - CMMagazineRifleM4SPR
           - CMMagazineRifleM4SPRAP
           - CMMagazineRifleM4SPRExt
-  # - type: ItemCamouflage
-    # camouflageVariations:
+          # - type: ItemCamouflage
+      # camouflageVariations:
       # Jungle: _RMC14/Objects/Weapons/Guns/Rifles/m4spr/jungle.rsi
       # Desert: _RMC14/Objects/Weapons/Guns/Rifles/m4spr/desert.rsi
       # Snow: _RMC14/Objects/Weapons/Guns/Rifles/m4spr/snow.rsi
@@ -165,9 +165,9 @@
     sprite: _RMC14/Objects/Weapons/Guns/Ammunition/Magazines/m4spr.rsi
     layers:
     - state: base
-      map: [ "enum.GunVisualLayers.Base" ]
+      map: ["enum.GunVisualLayers.Base"]
     - state: mag-1
-      map: [ "enum.GunVisualLayers.Mag" ]
+      map: ["enum.GunVisualLayers.Mag"]
     - state: ammo_band
       color: "#1F951F"
   - type: BallisticAmmoProvider

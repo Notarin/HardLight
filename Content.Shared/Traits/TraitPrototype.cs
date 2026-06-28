@@ -87,6 +87,7 @@ public sealed partial class TraitPrototype : IPrototype, IComparable<TraitProtot
     /// </summary>
     [DataField]
     public List<string>? RemoveLanguagesUnderstood { get; private set; } = default!;
+
     // Starlight end
 
     /// <summary>
@@ -125,7 +126,8 @@ public sealed partial class TraitPrototype : IPrototype, IComparable<TraitProtot
     /// </summary>
     public int CompareTo(TraitPrototype? other)
     {
-        if (other == null) return 1;
+        if (other == null)
+            return 1;
         return Cost.CompareTo(other.Cost);
     }
 }

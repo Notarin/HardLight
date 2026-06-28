@@ -38,8 +38,8 @@
   components:
   - type: InstantAction
     useDelay: 1
-    icon: { sprite: Objects/Tools/flashlight.rsi, state: flashlight }
-    iconOn: { sprite: Objects/Tools/flashlight.rsi, state: flashlight-on }
+    icon: {sprite: Objects/Tools/flashlight.rsi, state: flashlight}
+    iconOn: {sprite: Objects/Tools/flashlight.rsi, state: flashlight-on}
     event: !type:ToggleActionEvent
 
 - type: entity
@@ -154,7 +154,7 @@
 - type: entity
   id: ActionActivateDnaScramblerImplant
   name: Scramble DNA
-  description:  Randomly changes your name and appearance.
+  description: Randomly changes your name and appearance.
   components:
   - type: ConfirmableAction
     popup: dna-scrambler-action-popup
@@ -208,7 +208,7 @@
   description: Change the name others hear to something else.
   components:
   - type: InstantAction
-    icon: { sprite: Interface/Actions/voice-mask.rsi, state: icon }
+    icon: {sprite: Interface/Actions/voice-mask.rsi, state: icon}
     event: !type:VoiceMaskSetNameEvent
 
 - type: entity
@@ -238,8 +238,8 @@
   description: Raise or lower your shield.
   components:
   - type: InstantAction
-    icon: { sprite: Objects/Weapons/Melee/shields.rsi, state: teleriot-icon }
-    iconOn: { sprite: Objects/Weapons/Melee/shields.rsi, state: teleriot-on }
+    icon: {sprite: Objects/Weapons/Melee/shields.rsi, state: teleriot-icon}
+    iconOn: {sprite: Objects/Weapons/Melee/shields.rsi, state: teleriot-on}
     event: !type:ToggleActionEvent
 
 - type: entity
@@ -252,7 +252,7 @@
     checkCanInteract: false
     checkConsciousness: false
     temporary: true
-    icon: { sprite: _NF/Objects/Tools/multitool.rsi, state: icon } # Frontier: separate sprites (add _NF folder)
+    icon: {sprite: _NF/Objects/Tools/multitool.rsi, state: icon} # Frontier: separate sprites (add _NF folder)
     event: !type:ClearAllOverlaysEvent
 
 - type: entity
@@ -261,7 +261,7 @@
   description: Uses hunger to lay an egg.
   components:
   - type: InstantAction
-    icon: { sprite: Objects/Consumable/Food/egg.rsi, state: icon }
+    icon: {sprite: Objects/Consumable/Food/egg.rsi, state: icon}
     useDelay: 60
     event: !type:EggLayInstantActionEvent
 
@@ -273,7 +273,7 @@
   - type: InstantAction
     checkCanInteract: false
     checkConsciousness: false
-    icon: { sprite: Clothing/Head/Hats/pyjamasyndicatered.rsi, state: icon }
+    icon: {sprite: Clothing/Head/Hats/pyjamasyndicatered.rsi, state: icon}
     event: !type:SleepActionEvent
 
 - type: entity
@@ -282,7 +282,7 @@
   description: Stop sleeping.
   components:
   - type: InstantAction
-    icon: { sprite: Clothing/Head/Hats/pyjamasyndicatered.rsi, state: icon }
+    icon: {sprite: Clothing/Head/Hats/pyjamasyndicatered.rsi, state: icon}
     checkCanInteract: false
     checkConsciousness: false
     event: !type:WakeActionEvent
@@ -295,7 +295,7 @@
   description: Activates your honking implant, which will produce the signature sound of the clown.
   components:
   - type: InstantAction
-    icon: { sprite: Objects/Fun/bikehorn.rsi, state: icon }
+    icon: {sprite: Objects/Fun/bikehorn.rsi, state: icon}
     event: !type:ActivateImplantEvent
     useDelay: 1
 
@@ -328,12 +328,12 @@
   name: Wagging Tail
   description: Start or stop wagging your tail.
   components:
-    - type: InstantAction
-      icon: { sprite: Mobs/Customization/reptilian_parts.rsi, state: tail_smooth_behind }
-      iconOn: { sprite: Mobs/Customization/reptilian_parts.rsi, state: tail_smooth_behind }
-      itemIconStyle: NoItem
-      useDelay: 1 # emote spam
-      event: !type:ToggleActionEvent
+  - type: InstantAction
+    icon: {sprite: Mobs/Customization/reptilian_parts.rsi, state: tail_smooth_behind}
+    iconOn: {sprite: Mobs/Customization/reptilian_parts.rsi, state: tail_smooth_behind}
+    itemIconStyle: NoItem
+    useDelay: 1 # emote spam
+    event: !type:ToggleActionEvent
 
 - type: entity
   id: FakeMindShieldToggleAction
@@ -341,8 +341,8 @@
   description: Turn the Fake Mindshield implant's transmission on/off
   components:
   - type: InstantAction
-    icon: { sprite: Interface/Actions/actions_fakemindshield.rsi, state: icon }
-    iconOn: { sprite: Interface/Actions/actions_fakemindshield.rsi, state: icon-on }
+    icon: {sprite: Interface/Actions/actions_fakemindshield.rsi, state: icon}
+    iconOn: {sprite: Interface/Actions/actions_fakemindshield.rsi, state: icon-on}
     itemIconStyle: NoItem
     useDelay: 1
     event: !type:FakeMindShieldToggleEvent

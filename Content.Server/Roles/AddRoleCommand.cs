@@ -12,7 +12,8 @@ namespace Content.Server.Roles
     [AdminCommand(AdminFlags.Admin)]
     public sealed class AddRoleCommand : IConsoleCommand
     {
-        [Dependency] private readonly EntityManager _entityManager = default!;
+        [Dependency]
+        private readonly EntityManager _entityManager = default!;
 
         public string Command => "addrole";
 

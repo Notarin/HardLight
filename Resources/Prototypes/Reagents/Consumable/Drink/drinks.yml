@@ -257,10 +257,10 @@
   color: "#DFDFDF"
   recognizable: true
   plantMetabolism:
-    - !type:PlantAdjustNutrition
-      amount: 0.1
-    - !type:PlantAdjustWater
-      amount: 0.9
+  - !type:PlantAdjustNutrition
+    amount: 0.1
+  - !type:PlantAdjustWater
+    amount: 0.9
   metabolisms:
     Drink:
       effects:
@@ -469,8 +469,8 @@
         - !type:OrganType
           type: FeroxiDehydrated
         factor: 2
-      # DeltaV Converts H2O into CO2 for Feroxi
       - !type:ModifyLungGas
+        # DeltaV Converts H2O into CO2 for Feroxi
         conditions:
         - !type:OrganType
           type: Feroxi

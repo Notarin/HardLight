@@ -71,7 +71,8 @@ public sealed class PlayerShipSummary
         bool inFtl,
         string ftlState,
         bool ownerOnline,
-        bool purchasedWithVoucher)
+        bool purchasedWithVoucher
+    )
     {
         Name = name;
         Suffix = suffix;

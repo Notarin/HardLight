@@ -8,5 +8,6 @@ namespace Content.Shared.Players.PlayTimeTracking;
 [Prototype]
 public sealed partial class PlayTimeTrackerPrototype : IPrototype
 {
-    [IdDataField] public string ID { get; private set; } = default!;
+    [IdDataField]
+    public string ID { get; private set; } = default!;
 }

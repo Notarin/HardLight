@@ -34,7 +34,7 @@
     endSound:
       path: /Audio/_Shitmed/Medical/Surgery/organ2.ogg
   - type: Gibbable
-  # Shitmed Change End
+    # Shitmed Change End
 
 - type: entity
   id: LeftArmBorg

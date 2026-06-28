@@ -20,14 +20,29 @@ namespace Content.Server.Xenoarchaeology.Equipment.Systems;
 /// <inheritdoc/>
 public sealed class ArtifactCrusherSystem : SharedArtifactCrusherSystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly ArtifactSystem _artifact = default!;
-    [Dependency] private readonly BodySystem _body = default!;
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly StackSystem _stack = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly ArtifactSystem _artifact = default!;
+
+    [Dependency]
+    private readonly BodySystem _body = default!;
+
+    [Dependency]
+    private readonly DamageableSystem _damageable = default!;
+
+    [Dependency]
+    private readonly StackSystem _stack = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelistSystem = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -43,8 +58,10 @@ public sealed class ArtifactCrusherSystem : SharedArtifactCrusherSystem
         if (!args.CanAccess || !args.CanInteract || args.Hands == null || ent.Comp.Crushing)
             return;
 
-        if (!TryComp<EntityStorageComponent>(ent, out var entityStorageComp) ||
-            entityStorageComp.Contents.ContainedEntities.Count == 0)
+        if (
+            !TryComp<EntityStorageComponent>(ent, out var entityStorageComp)
+            || entityStorageComp.Contents.ContainedEntities.Count == 0
+        )
             return;
 
         if (!this.IsPowered(ent, EntityManager))
@@ -54,7 +71,7 @@ public sealed class ArtifactCrusherSystem : SharedArtifactCrusherSystem
         {
             Text = Loc.GetString("item-toggle-activate"), // Mono - #3899 shared with organ harvester
             Priority = 2,
-            Act = () => StartCrushing((ent, ent.Comp, entityStorageComp))
+            Act = () => StartCrushing((ent, ent.Comp, entityStorageComp)),
         };
         args.Verbs.Add(verb);
     }

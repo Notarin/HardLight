@@ -1,6 +1,6 @@
 - type: quickPhrase
   id: BaseLogisticsSubjectPhrase
-  parent: [ BaseSubjectPhrase, BaseLogisticsPhrase ]
+  parent: [BaseSubjectPhrase, BaseLogisticsPhrase]
   abstract: true
 
 - type: quickPhrase

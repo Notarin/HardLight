@@ -17,19 +17,17 @@
   - type: NoSlip
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 110
       behaviors:
       - !type:TriggerBehavior
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 120
       behaviors:
       - !type:SpillBehavior
         solution: tank
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: SolutionContainerManager
     solutions:
       tank:

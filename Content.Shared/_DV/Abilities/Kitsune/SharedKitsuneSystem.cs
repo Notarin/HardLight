@@ -10,10 +10,17 @@ namespace Content.Shared._DV.Abilities.Kitsune;
 
 public abstract class SharedKitsuneSystem : EntitySystem
 {
-    [Dependency] private readonly SharedPointLightSystem _light = default!;
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
-    [Dependency] private readonly SharedChargesSystem _charges = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency]
+    private readonly SharedPointLightSystem _light = default!;
+
+    [Dependency]
+    private readonly SharedActionsSystem _actions = default!;
+
+    [Dependency]
+    private readonly SharedChargesSystem _charges = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
 
     public override void Initialize()
     {
@@ -52,10 +59,21 @@ public abstract class SharedKitsuneSystem : EntitySystem
         }
 
         // This caps the amount of fox fire summons at a time to the charge count, deleting the oldest fire when exceeded.
-        if (ent.Comp.FoxfireAction is { } foxfireAction && TryComp<LimitedChargesComponent>(foxfireAction, out var foxfireCharges))
+        if (
+            ent.Comp.FoxfireAction is { } foxfireAction
+            && TryComp<LimitedChargesComponent>(foxfireAction, out var foxfireCharges)
+        )
         {
             TryComp<AutoRechargeComponent>(foxfireAction, out var foxfireRecharge);
-            if (_charges.GetCurrentCharges(new Entity<LimitedChargesComponent?, AutoRechargeComponent?>(foxfireAction, foxfireCharges, foxfireRecharge)) < 1)
+            if (
+                _charges.GetCurrentCharges(
+                    new Entity<LimitedChargesComponent?, AutoRechargeComponent?>(
+                        foxfireAction,
+                        foxfireCharges,
+                        foxfireRecharge
+                    )
+                ) < 1
+            )
             {
                 QueueDel(ent.Comp.ActiveFoxFires[0]);
                 ent.Comp.ActiveFoxFires.RemoveAt(0);
@@ -90,7 +108,11 @@ public abstract class SharedKitsuneSystem : EntitySystem
             return;
 
         TryComp<AutoRechargeComponent>(foxfireAction, out var rechargeComp);
-        var chargesEntity = new Entity<LimitedChargesComponent?, AutoRechargeComponent?>(foxfireAction, chargesComp, rechargeComp);
+        var chargesEntity = new Entity<LimitedChargesComponent?, AutoRechargeComponent?>(
+            foxfireAction,
+            chargesComp,
+            rechargeComp
+        );
         _charges.AddCharges(chargesEntity, 1);
 
         // If charges exceeds the maximum then set charges to max

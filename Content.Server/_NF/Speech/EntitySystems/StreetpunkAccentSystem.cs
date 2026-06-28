@@ -1,13 +1,14 @@
+using System.Text.RegularExpressions;
 using Content.Server._NF.Speech.Components;
 using Content.Server.Speech;
 using Content.Server.Speech.EntitySystems;
-using System.Text.RegularExpressions;
 
 namespace Content.Server._NF.Speech.EntitySystems;
 
 public sealed class StreetpunkAccentSystem : EntitySystem
 {
-    [Dependency] private readonly ReplacementAccentSystem _replacement = default!;
+    [Dependency]
+    private readonly ReplacementAccentSystem _replacement = default!;
     private static readonly Regex RegexIng = new(@"ing\b");
     private static readonly Regex RegexAnd = new(@"\band\b");
     private static readonly Regex RegexDve = new("d've");
@@ -30,7 +31,6 @@ public sealed class StreetpunkAccentSystem : EntitySystem
         msg = RegexDve.Replace(msg, "da");
 
         msg = _replacement.ApplyReplacements(msg, "streetpunk");
-
 
         return msg;
     }

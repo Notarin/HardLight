@@ -18,15 +18,18 @@ public sealed partial class CreateGas : EntityEffect
     public float Multiplier = 3f;
 
     public override bool ShouldLog => true;
+
     protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys)
     {
         var atmos = entSys.GetEntitySystem<AtmosphereSystem>();
         var gasProto = atmos.GetGas(Gas);
 
-        return Loc.GetString("reagent-effect-guidebook-create-gas",
+        return Loc.GetString(
+            "reagent-effect-guidebook-create-gas",
             ("chance", Probability),
             ("moles", Multiplier),
-            ("gas", gasProto.Name));
+            ("gas", gasProto.Name)
+        );
     }
 
     public override LogImpact LogImpact => LogImpact.High;

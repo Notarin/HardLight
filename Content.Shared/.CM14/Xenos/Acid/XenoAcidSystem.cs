@@ -8,10 +8,17 @@ namespace Content.Shared.CM14.Xenos.Acid;
 
 public sealed class XenoAcidSystem : EntitySystem
 {
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfter = default!;
+
+    [Dependency]
+    private readonly INetManager _net = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     public override void Initialize()
     {
@@ -27,9 +34,16 @@ public sealed class XenoAcidSystem : EntitySystem
         if (!CheckCorrodablePopups(xeno, args.Target))
             return;
 
-        var doAfter = new DoAfterArgs(EntityManager, xeno, xeno.Comp.AcidDelay, new XenoCorrosiveAcidDoAfterEvent(args), xeno, args.Target)
+        var doAfter = new DoAfterArgs(
+            EntityManager,
+            xeno,
+            xeno.Comp.AcidDelay,
+            new XenoCorrosiveAcidDoAfterEvent(args),
+            xeno,
+            args.Target
+        )
         {
-            BreakOnMove = true
+            BreakOnMove = true,
         };
         _doAfter.TryStartDoAfter(doAfter);
     }
@@ -46,11 +60,7 @@ public sealed class XenoAcidSystem : EntitySystem
             return;
 
         var acid = SpawnAttachedTo(args.AcidId, target.ToCoordinates());
-        AddComp(target, new CorrodingComponent
-        {
-            Acid = acid,
-            CorrodesAt = _timing.CurTime + args.Time
-        });
+        AddComp(target, new CorrodingComponent { Acid = acid, CorrodesAt = _timing.CurTime + args.Time });
     }
 
     private void OnCorrodingUnpaused(Entity<CorrodingComponent> ent, ref EntityUnpausedEvent args)

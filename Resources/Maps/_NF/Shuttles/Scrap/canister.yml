@@ -774,4 +774,3 @@ entities:
     - type: Physics
       canCollide: False
     - type: InsideEntityStorage
-...

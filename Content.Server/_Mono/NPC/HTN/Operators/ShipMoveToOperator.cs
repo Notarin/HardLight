@@ -1,3 +1,5 @@
+using System.Threading;
+using System.Threading.Tasks;
 using Content.Server.NPC;
 using Content.Server.NPC.HTN;
 using Content.Server.NPC.HTN.PrimitiveTasks;
@@ -5,8 +7,6 @@ using Content.Server.Power.Components;
 using Content.Server.Power.EntitySystems;
 using Content.Shared.Construction.Components;
 using Robust.Shared.Map;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Content.Server._Mono.NPC.HTN.Operators;
 
@@ -15,7 +15,8 @@ namespace Content.Server._Mono.NPC.HTN.Operators;
 /// </summary>
 public sealed partial class ShipMoveToOperator : HTNOperator, IHtnConditionalShutdown
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
     private PowerReceiverSystem _power = default!;
     private ShipSteeringSystem _steering = default!;
 
@@ -182,18 +183,17 @@ public sealed partial class ShipMoveToOperator : HTNOperator, IHtnConditionalShu
         _steering = sysManager.GetEntitySystem<ShipSteeringSystem>();
     }
 
-    public override async Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(NPCBlackboard blackboard,
-        CancellationToken cancelToken)
+    public override async Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(
+        NPCBlackboard blackboard,
+        CancellationToken cancelToken
+    )
     {
         if (!blackboard.TryGetValue<EntityCoordinates>(TargetKey, out var targetCoordinates, _entManager))
         {
             return (false, null);
         }
 
-        return (true, new Dictionary<string, object>()
-        {
-            {NPCBlackboard.OwnerCoordinates, targetCoordinates}
-        });
+        return (true, new Dictionary<string, object>() { { NPCBlackboard.OwnerCoordinates, targetCoordinates } });
     }
 
     public override void Startup(NPCBlackboard blackboard)
@@ -238,14 +238,17 @@ public sealed partial class ShipMoveToOperator : HTNOperator, IHtnConditionalShu
     {
         var owner = blackboard.GetValue<EntityUid>(NPCBlackboard.Owner);
 
-        if (!_entManager.TryGetComponent<ShipSteererComponent>(owner, out var steerer)
+        if (
+            !_entManager.TryGetComponent<ShipSteererComponent>(owner, out var steerer)
             || !blackboard.TryGetValue<EntityCoordinates>(TargetKey, out var target, _entManager)
             || !_entManager.TryGetComponent<TransformComponent>(owner, out var xform)
             // also fail if we're anchorable but are unanchored and require to be anchored
             || RequireAnchored
-                && _entManager.TryGetComponent<AnchorableComponent>(owner, out var anchorable) && !xform.Anchored
+                && _entManager.TryGetComponent<AnchorableComponent>(owner, out var anchorable)
+                && !xform.Anchored
             || RequirePowered
-                && _entManager.TryGetComponent<ApcPowerReceiverComponent>(owner, out var receiver) && !_power.IsPowered(owner, receiver)
+                && _entManager.TryGetComponent<ApcPowerReceiverComponent>(owner, out var receiver)
+                && !_power.IsPowered(owner, receiver)
         )
             return HTNOperatorStatus.Failed;
 
@@ -254,7 +257,11 @@ public sealed partial class ShipMoveToOperator : HTNOperator, IHtnConditionalShu
         if (comp == null)
             return HTNOperatorStatus.Failed;
 
-        if (target.EntityId == EntityUid.Invalid || !xform.Coordinates.TryDistance(_entManager, target, out var distance) || distance > MaxTargetingRange)
+        if (
+            target.EntityId == EntityUid.Invalid
+            || !xform.Coordinates.TryDistance(_entManager, target, out var distance)
+            || distance > MaxTargetingRange
+        )
             return HTNOperatorStatus.Finished;
 
         // Just keep moving in the background and let the other tasks handle it.
@@ -267,7 +274,7 @@ public sealed partial class ShipMoveToOperator : HTNOperator, IHtnConditionalShu
         {
             ShipSteeringStatus.InRange => HTNOperatorStatus.Finished,
             ShipSteeringStatus.Moving => HTNOperatorStatus.Continuing,
-            _ => throw new ArgumentOutOfRangeException()
+            _ => throw new ArgumentOutOfRangeException(),
         };
     }
 

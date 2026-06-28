@@ -7,14 +7,14 @@
   - type: Sprite
     sprite: Structures/Decoration/fireplace.rsi
     layers:
-      - state: fireplace
-      - state: fireplacefestive
-        map: ["christmas"]
-        visible: false
-      - state: fireplace_fire4
-        shader: unshaded
-      - state: fireplace_glow
-        shader: unshaded
+    - state: fireplace
+    - state: fireplacefestive
+      map: ["christmas"]
+      visible: false
+    - state: fireplace_fire4
+      shader: unshaded
+    - state: fireplace_glow
+      shader: unshaded
   - type: Appearance
   - type: HolidayVisuals
     holidays:
@@ -24,7 +24,7 @@
     visuals:
       enum.HolidayVisuals.Holiday:
         christmas:
-          festive: { visible: true }
+          festive: {visible: true}
   - type: AmbientSound
     volume: -6
     range: 5
@@ -39,12 +39,11 @@
     damageModifierSet: Metallic
   - type: Destructible
     thresholds:
-      - trigger:
-          !type:DamageTrigger
-          damage: 200
-        behaviors:
-          - !type:DoActsBehavior
-            acts: [ "Destruction" ]
+    - trigger: !type:DamageTrigger
+        damage: 200
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
   - type: AlwaysHot
   - type: Construction # Frontier
     graph: FiresGraph # Frontier

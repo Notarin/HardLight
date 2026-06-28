@@ -9,7 +9,8 @@ namespace Content.Server.NPC.HTN.PrimitiveTasks.Operators.Combat.Melee;
 
 public sealed partial class EscapeOperator : HTNOperator, IHtnConditionalShutdown
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
     private ContainerSystem _container = default!;
     private EntityStorageSystem _entityStorage = default!;
 
@@ -43,8 +44,10 @@ public sealed partial class EscapeOperator : HTNOperator, IHtnConditionalShutdow
         melee.Target = target;
     }
 
-    public override async Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(NPCBlackboard blackboard,
-        CancellationToken cancelToken)
+    public override async Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(
+        NPCBlackboard blackboard,
+        CancellationToken cancelToken
+    )
     {
         var owner = blackboard.GetValue<EntityUid>(NPCBlackboard.Owner);
         if (!blackboard.TryGetValue<EntityUid>(TargetKey, out var target, _entManager))
@@ -93,8 +96,10 @@ public sealed partial class EscapeOperator : HTNOperator, IHtnConditionalShutdow
         var owner = blackboard.GetValue<EntityUid>(NPCBlackboard.Owner);
         HTNOperatorStatus status;
 
-        if (_entManager.TryGetComponent<NPCMeleeCombatComponent>(owner, out var combat) &&
-            blackboard.TryGetValue<EntityUid>(TargetKey, out var target, _entManager))
+        if (
+            _entManager.TryGetComponent<NPCMeleeCombatComponent>(owner, out var combat)
+            && blackboard.TryGetValue<EntityUid>(TargetKey, out var target, _entManager)
+        )
         {
             combat.Target = target;
 

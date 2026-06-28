@@ -15,13 +15,12 @@ namespace Content.Client.Administration.UI.Logs;
 [GenerateTypedNameReferences]
 public sealed partial class AdminLogsControl : Control
 {
-    private readonly Comparer<AdminLogTypeButton> _adminLogTypeButtonComparer =
-        Comparer<AdminLogTypeButton>.Create((a, b) =>
-            string.Compare(a.Type.ToString(), b.Type.ToString(), StringComparison.Ordinal));
+    private readonly Comparer<AdminLogTypeButton> _adminLogTypeButtonComparer = Comparer<AdminLogTypeButton>.Create(
+        (a, b) => string.Compare(a.Type.ToString(), b.Type.ToString(), StringComparison.Ordinal)
+    );
 
     private readonly Comparer<AdminLogPlayerButton> _adminLogPlayerButtonComparer =
-        Comparer<AdminLogPlayerButton>.Create((a, b) =>
-            string.Compare(a.Text, b.Text, StringComparison.Ordinal));
+        Comparer<AdminLogPlayerButton>.Create((a, b) => string.Compare(a.Text, b.Text, StringComparison.Ordinal));
 
     public AdminLogsControl()
     {
@@ -259,14 +258,12 @@ public sealed partial class AdminLogsControl : Control
 
     private bool ShouldShowType(AdminLogTypeButton button)
     {
-        return button.Text != null &&
-               button.Text.Contains(TypeSearch.Text, StringComparison.OrdinalIgnoreCase);
+        return button.Text != null && button.Text.Contains(TypeSearch.Text, StringComparison.OrdinalIgnoreCase);
     }
 
     private bool ShouldShowPlayer(AdminLogPlayerButton button)
     {
-        return button.Text != null &&
-               button.Text.Contains(PlayerSearch.Text, StringComparison.OrdinalIgnoreCase);
+        return button.Text != null && button.Text.Contains(PlayerSearch.Text, StringComparison.OrdinalIgnoreCase);
     }
 
     private bool LogMatchesPlayerFilter(AdminLogLabel label)
@@ -300,7 +297,7 @@ public sealed partial class AdminLogsControl : Control
 
     private void TypeButtonPressed(ButtonEventArgs args)
     {
-        var button = (AdminLogTypeButton) args.Button;
+        var button = (AdminLogTypeButton)args.Button;
         if (button.Pressed)
         {
             SelectedTypes.Add(button.Type);
@@ -315,7 +312,7 @@ public sealed partial class AdminLogsControl : Control
 
     private void PlayerButtonPressed(ButtonEventArgs args)
     {
-        var button = (AdminLogPlayerButton) args.Button;
+        var button = (AdminLogPlayerButton)args.Button;
         if (button.Pressed)
         {
             SelectedPlayers.Add(button.Id);
@@ -330,7 +327,7 @@ public sealed partial class AdminLogsControl : Control
 
     private void ImpactButtonPressed(ButtonEventArgs args)
     {
-        var button = (AdminLogImpactButton) args.Button;
+        var button = (AdminLogImpactButton)args.Button;
         if (button.Pressed)
         {
             SelectedImpacts.Add(button.Impact);
@@ -349,10 +346,7 @@ public sealed partial class AdminLogsControl : Control
 
         foreach (var impact in impacts)
         {
-            var button = new AdminLogImpactButton(impact)
-            {
-                Text = impact.ToString()
-            };
+            var button = new AdminLogImpactButton(impact) { Text = impact.ToString() };
 
             SelectedImpacts.Add(impact);
             button.OnPressed += ImpactButtonPressed;
@@ -384,8 +378,7 @@ public sealed partial class AdminLogsControl : Control
 
         foreach (var control in TypesContainer.Children.ToArray())
         {
-            if (control is not AdminLogTypeButton type ||
-                !newTypes.Remove(type.Type))
+            if (control is not AdminLogTypeButton type || !newTypes.Remove(type.Type))
             {
                 continue;
             }
@@ -395,11 +388,7 @@ public sealed partial class AdminLogsControl : Control
 
         foreach (var type in newTypes)
         {
-            var button = new AdminLogTypeButton(type)
-            {
-                Text = type.ToString(),
-                Pressed = true
-            };
+            var button = new AdminLogTypeButton(type) { Text = type.ToString(), Pressed = true };
 
             SelectedTypes.Add(type);
             button.OnPressed += TypeButtonPressed;
@@ -438,11 +427,7 @@ public sealed partial class AdminLogsControl : Control
 
         foreach (var (id, name) in players)
         {
-            var button = new AdminLogPlayerButton(id)
-            {
-                Text = name,
-                Pressed = allSelected
-            };
+            var button = new AdminLogPlayerButton(id) { Text = name, Pressed = allSelected };
 
             if (allSelected)
                 SelectedPlayers.Add(id);
@@ -511,7 +496,9 @@ public sealed partial class AdminLogsControl : Control
 
         Count.Text = Loc.GetString(
             "admin-logs-count",
-            ("showing", ShownLogs), ("total", TotalLogs), ("round", RoundLogs)
+            ("showing", ShownLogs),
+            ("total", TotalLogs),
+            ("round", RoundLogs)
         );
     }
 

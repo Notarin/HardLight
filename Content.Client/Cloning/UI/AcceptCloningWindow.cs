@@ -28,49 +28,50 @@ namespace Content.Client.Cloning.UI
 
         public AcceptCloningWindow()
         {
-
             Title = Loc.GetString("accept-cloning-window-title");
 
-            Contents.AddChild(new BoxContainer
-            {
-                Orientation = LayoutOrientation.Vertical,
-                Children =
+            Contents.AddChild(
+                new BoxContainer
                 {
-                    new BoxContainer
+                    Orientation = LayoutOrientation.Vertical,
+                    Children =
                     {
-                        Orientation = LayoutOrientation.Vertical,
-                        Children =
+                        new BoxContainer
                         {
-                            (new Label()
+                            Orientation = LayoutOrientation.Vertical,
+                            Children =
                             {
-                                Text = Loc.GetString("accept-cloning-window-prompt-text-part")
-                            }),
-                            new BoxContainer
-                            {
-                                Orientation = LayoutOrientation.Horizontal,
-                                Align = AlignMode.Center,
-                                Children =
+                                (
+                                    new Label() { Text = Loc.GetString("accept-cloning-window-prompt-text-part") }
+                                ),
+                                new BoxContainer
                                 {
-                                    (AcceptButton = new Button
+                                    Orientation = LayoutOrientation.Horizontal,
+                                    Align = AlignMode.Center,
+                                    Children =
                                     {
-                                        Text = Loc.GetString("accept-cloning-window-accept-button"),
-                                    }),
-
-                                    (new Control()
-                                    {
-                                        MinSize = new Vector2(20, 0)
-                                    }),
-
-                                    (DenyButton = new Button
-                                    {
-                                        Text = Loc.GetString("accept-cloning-window-deny-button"),
-                                    })
-                                }
+                                        (
+                                            AcceptButton = new Button
+                                            {
+                                                Text = Loc.GetString("accept-cloning-window-accept-button"),
+                                            }
+                                        ),
+                                        (
+                                            new Control() { MinSize = new Vector2(20, 0) }
+                                        ),
+                                        (
+                                            DenyButton = new Button
+                                            {
+                                                Text = Loc.GetString("accept-cloning-window-deny-button"),
+                                            }
+                                        ),
+                                    },
+                                },
                             },
-                        }
+                        },
                     },
                 }
-            });
+            );
         }
     }
 }

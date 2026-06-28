@@ -9,9 +9,8 @@ namespace Content.Client.Wires.UI
         [ViewVariables]
         private WiresMenu? _menu;
 
-        public WiresBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-        {
-        }
+        public WiresBoundUserInterface(EntityUid owner, Enum uiKey)
+            : base(owner, uiKey) { }
 
         protected override void Open()
         {
@@ -23,7 +22,7 @@ namespace Content.Client.Wires.UI
         protected override void UpdateState(BoundUserInterfaceState state)
         {
             base.UpdateState(state);
-            _menu?.Populate((WiresBoundUserInterfaceState) state);
+            _menu?.Populate((WiresBoundUserInterfaceState)state);
         }
 
         public void PerformAction(int id, WiresAction action)

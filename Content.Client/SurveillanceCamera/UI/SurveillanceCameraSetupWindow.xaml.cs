@@ -9,7 +9,8 @@ namespace Content.Client.SurveillanceCamera.UI;
 [GenerateTypedNameReferences]
 public sealed partial class SurveillanceCameraSetupWindow : DefaultWindow
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
 
     public Action<string>? OnNameConfirm;
     public Action<int>? OnNetworkConfirm;
@@ -60,8 +61,7 @@ public sealed partial class SurveillanceCameraSetupWindow : DefaultWindow
 
         foreach (var (networkId, network) in idList)
         {
-            if (!_prototypeManager.TryIndex(network, out DeviceFrequencyPrototype? frequency)
-                || frequency.Name == null)
+            if (!_prototypeManager.TryIndex(network, out DeviceFrequencyPrototype? frequency) || frequency.Name == null)
             {
                 continue;
             }

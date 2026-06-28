@@ -18,17 +18,18 @@ public sealed partial class Drunk : EntityEffect
     [DataField]
     public bool SlurSpeech = true;
 
-    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys)
-        => Loc.GetString("reagent-effect-guidebook-drunk", ("chance", Probability));
+    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys) =>
+        Loc.GetString("reagent-effect-guidebook-drunk", ("chance", Probability));
 
     public override void Effect(EntityEffectBaseArgs args)
     {
         var boozePower = BoozePower;
 
-        if (args is EntityEffectReagentArgs reagentArgs) {
+        if (args is EntityEffectReagentArgs reagentArgs)
+        {
             boozePower *= reagentArgs.Scale.Float();
         }
-        
+
         var drunkSys = args.EntityManager.EntitySysManager.GetEntitySystem<SharedDrunkSystem>();
         drunkSys.TryApplyDrunkenness(args.TargetEntity, boozePower, SlurSpeech);
     }

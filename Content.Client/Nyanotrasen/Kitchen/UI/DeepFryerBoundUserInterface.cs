@@ -9,7 +9,8 @@ namespace Content.Client.Nyanotrasen.Kitchen.UI
 
         private NetEntity[] _entities = default!;
 
-        public DeepFryerBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
+        public DeepFryerBoundUserInterface(EntityUid owner, Enum uiKey)
+            : base(owner, uiKey)
         {
             base.Open();
             _window = new DeepFryerWindow();

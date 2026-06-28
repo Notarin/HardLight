@@ -1,44 +1,67 @@
+using Content.Server.Popups;
 using Content.Server.Radio.Components;
 using Content.Server.Silicons.Laws;
 using Content.Shared._CorvaxNext.Silicons.Borgs;
 using Content.Shared._CorvaxNext.Silicons.Borgs.Components;
+using Content.Shared._HL.Silicons.Components;
 using Content.Shared.Actions;
+using Content.Shared.Body.Part;
 using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Damage;
+using Content.Shared.Interaction.Events;
 using Content.Shared.Mind;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
-using Content.Shared.Standing;
 using Content.Shared.Silicons.Borgs.Components;
 using Content.Shared.Silicons.Laws.Components;
 using Content.Shared.Silicons.StationAi;
+using Content.Shared.Standing;
 using Content.Shared.StationAi;
 using Content.Shared.Verbs;
 using Robust.Server.GameObjects;
-using Content.Shared.Body.Part;
 using Robust.Shared.Containers;
 using Robust.Shared.Player;
-using Content.Shared._HL.Silicons.Components;
-using Content.Shared.Interaction.Events;
-using Content.Server.Popups;
 
 namespace Content.Server._CorvaxNext.Silicons.Borgs;
 
 public sealed class AiRemoteControlSystem : SharedAiRemoteControlSystem
 {
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
-    [Dependency] private readonly SiliconLawSystem _lawSystem = default!;
-    [Dependency] private readonly SharedStationAiSystem _stationAiSystem = default!;
-    [Dependency] private readonly SharedMindSystem _mind = default!;
-    [Dependency] private readonly UserInterfaceSystem _userInterface = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly MobThresholdSystem _mobThreshold = default!;
-    [Dependency] private readonly StandingStateSystem _standing = default!;
-    [Dependency] private readonly SharedTransformSystem _xformSystem = default!;
-    [Dependency] private readonly PositronicJumpSystem _positronicJumpSystem = default!; //Hardlight: Incorporates positronic jump system into transfer
-    [Dependency] private readonly TransformSystem _transformSystem = default!; //Used to prevent AI from selecting borgs from list that aren't on same grid
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
+    [Dependency]
+    private readonly SharedActionsSystem _actions = default!;
+
+    [Dependency]
+    private readonly SiliconLawSystem _lawSystem = default!;
+
+    [Dependency]
+    private readonly SharedStationAiSystem _stationAiSystem = default!;
+
+    [Dependency]
+    private readonly SharedMindSystem _mind = default!;
+
+    [Dependency]
+    private readonly UserInterfaceSystem _userInterface = default!;
+
+    [Dependency]
+    private readonly MobStateSystem _mobState = default!;
+
+    [Dependency]
+    private readonly MobThresholdSystem _mobThreshold = default!;
+
+    [Dependency]
+    private readonly StandingStateSystem _standing = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _xformSystem = default!;
+
+    [Dependency]
+    private readonly PositronicJumpSystem _positronicJumpSystem = default!; //Hardlight: Incorporates positronic jump system into transfer
+
+    [Dependency]
+    private readonly TransformSystem _transformSystem = default!; //Used to prevent AI from selecting borgs from list that aren't on same grid
+
+    [Dependency]
+    private readonly PopupSystem _popupSystem = default!;
 
     public override void Initialize()
     {
@@ -48,7 +71,9 @@ public sealed class AiRemoteControlSystem : SharedAiRemoteControlSystem
         SubscribeLocalEvent<AiRemoteControllerComponent, MapInitEvent>(OnMapInit);
         SubscribeLocalEvent<AiRemoteControllerComponent, ComponentShutdown>(OnShutdown);
         SubscribeLocalEvent<AiRemoteControllerComponent, GetVerbsEvent<AlternativeVerb>>(OnGetVerbs);
-        SubscribeLocalEvent<StationAiHeldComponent, AiRemoteControllerComponent.RemoteDeviceActionMessage>(OnUiRemoteAction);
+        SubscribeLocalEvent<StationAiHeldComponent, AiRemoteControllerComponent.RemoteDeviceActionMessage>(
+            OnUiRemoteAction
+        );
         SubscribeLocalEvent<StationAiHeldComponent, ToggleRemoteDevicesScreenEvent>(OnToggleRemoteDevicesScreen);
 
         SubscribeLocalEvent<AiRemoteBrainComponent, EntGotInsertedIntoContainerMessage>(OnBrainInserted);
@@ -72,9 +97,14 @@ public sealed class AiRemoteControlSystem : SharedAiRemoteControlSystem
 
         _popupSystem.PopupEntity("Radio linked to local grid", args.User, args.User);
     }
+
     //Hardlight End
 
-    private void OnBrainInserted(EntityUid uid, AiRemoteBrainComponent component, EntGotInsertedIntoContainerMessage args)
+    private void OnBrainInserted(
+        EntityUid uid,
+        AiRemoteBrainComponent component,
+        EntGotInsertedIntoContainerMessage args
+    )
     {
         var target = GetRemoteTarget(args.Container.Owner);
         if (target != null)
@@ -117,12 +147,13 @@ public sealed class AiRemoteControlSystem : SharedAiRemoteControlSystem
         var backArgs = new ReturnMindIntoAiEvent();
         backArgs.Performer = entity;
 
-        if (TryComp(entity, out IntrinsicRadioTransmitterComponent? transmitter)
-            && entity.Comp.PreviouslyTransmitterChannels != null)
+        if (
+            TryComp(entity, out IntrinsicRadioTransmitterComponent? transmitter)
+            && entity.Comp.PreviouslyTransmitterChannels != null
+        )
             transmitter.Channels = [.. entity.Comp.PreviouslyTransmitterChannels];
 
-        if (TryComp(entity, out ActiveRadioComponent? activeRadio)
-            && entity.Comp.PreviouslyActiveRadioChannels != null)
+        if (TryComp(entity, out ActiveRadioComponent? activeRadio) && entity.Comp.PreviouslyActiveRadioChannels != null)
             activeRadio.Channels = [.. entity.Comp.PreviouslyActiveRadioChannels];
 
         ReturnMindIntoAi(entity);
@@ -138,7 +169,7 @@ public sealed class AiRemoteControlSystem : SharedAiRemoteControlSystem
         var verb = new AlternativeVerb
         {
             Text = Loc.GetString("ai-remote-control"),
-            Act = () => AiTakeControl(user, entity)
+            Act = () => AiTakeControl(user, entity),
         };
         args.Verbs.Add(verb);
     }
@@ -179,9 +210,11 @@ public sealed class AiRemoteControlSystem : SharedAiRemoteControlSystem
 
         if (TryComp<MobStateComponent>(entity, out var mobState) && _mobState.IsDead(entity, mobState))
         {
-            if (_mobThreshold.TryGetThresholdForState(entity, MobState.Critical, out var critThreshold)
+            if (
+                _mobThreshold.TryGetThresholdForState(entity, MobState.Critical, out var critThreshold)
                 && TryComp<DamageableComponent>(entity, out var damageable)
-                && damageable.TotalDamage < critThreshold)
+                && damageable.TotalDamage < critThreshold
+            )
             {
                 _mobState.ChangeMobState(entity, MobState.Alive, mobState);
             }
@@ -201,7 +234,11 @@ public sealed class AiRemoteControlSystem : SharedAiRemoteControlSystem
         RewriteLaws(ai, entity);
     }
 
-    private void OnToggleRemoteDevicesScreen(EntityUid uid, StationAiHeldComponent component, ToggleRemoteDevicesScreenEvent args)
+    private void OnToggleRemoteDevicesScreen(
+        EntityUid uid,
+        StationAiHeldComponent component,
+        ToggleRemoteDevicesScreenEvent args
+    )
     {
         if (args.Handled || !TryComp<ActorComponent>(uid, out var actor))
             return;
@@ -217,7 +254,7 @@ public sealed class AiRemoteControlSystem : SharedAiRemoteControlSystem
         _userInterface.TryToggleUi(uid, RemoteDeviceUiKey.Key, actor.PlayerSession);
 
         //var query = EntityManager.EntityQueryEnumerator<AiRemoteControllerComponent>();
-        var query = EntityQueryEnumerator<BorgChassisComponent>();// Hardlight: Queries for Borg Chassis instead of AiRemoteController
+        var query = EntityQueryEnumerator<BorgChassisComponent>(); // Hardlight: Queries for Borg Chassis instead of AiRemoteController
         var remoteDevices = new List<RemoteDevicesData>();
 
         while (query.MoveNext(out var queryUid, out var comp))
@@ -247,7 +284,7 @@ public sealed class AiRemoteControlSystem : SharedAiRemoteControlSystem
             var data = new RemoteDevicesData
             {
                 NetEntityUid = GetNetEntity(queryUid),
-                DisplayName = Comp<MetaDataComponent>(queryUid).EntityName
+                DisplayName = Comp<MetaDataComponent>(queryUid).EntityName,
             };
 
             remoteDevices.Add(data);
@@ -257,7 +294,11 @@ public sealed class AiRemoteControlSystem : SharedAiRemoteControlSystem
         _userInterface.SetUiState(uid, RemoteDeviceUiKey.Key, state);
     }
 
-    private void OnUiRemoteAction(EntityUid uid, StationAiHeldComponent component, AiRemoteControllerComponent.RemoteDeviceActionMessage msg)
+    private void OnUiRemoteAction(
+        EntityUid uid,
+        StationAiHeldComponent component,
+        AiRemoteControllerComponent.RemoteDeviceActionMessage msg
+    )
     {
         if (msg.RemoteAction == null)
             return;
@@ -269,15 +310,16 @@ public sealed class AiRemoteControlSystem : SharedAiRemoteControlSystem
         if (target == null)
             return;
 
-
         //if (!HasComp<AiRemoteControllerComponent>(target))
         //    return;
         //Hardlight end
         switch (msg.RemoteAction?.ActionType)
         {
             case RemoteDeviceActionEvent.RemoteDeviceActionType.MoveToDevice:
-                if (!_stationAiSystem.TryGetCore(uid, out var stationAiCore)
-                    || stationAiCore.Comp?.RemoteEntity == null)
+                if (
+                    !_stationAiSystem.TryGetCore(uid, out var stationAiCore)
+                    || stationAiCore.Comp?.RemoteEntity == null
+                )
                     return;
                 _xformSystem.SetCoordinates(stationAiCore.Comp.RemoteEntity.Value, Transform(target.Value).Coordinates);
                 break;

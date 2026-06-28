@@ -1,7 +1,7 @@
 using Content.Server._NF.Explosion.Components;
-using Content.Shared.Implants;
 using Content.Server.Body.Components;
 using Content.Shared._NF.Interaction.Events;
+using Content.Shared.Implants;
 using Content.Shared.Projectiles;
 
 namespace Content.Server.Explosion.EntitySystems;
@@ -12,8 +12,12 @@ public sealed partial class TriggerSystem
     {
         SubscribeLocalEvent<TriggerOnBeingGibbedComponent, BeforeGibbedEvent>(OnBeingGibbed);
         SubscribeLocalEvent<TriggerOnBeingGibbedComponent, ImplantRelayEvent<BeforeGibbedEvent>>(OnBeingGibbedRelay);
-        SubscribeLocalEvent<TriggerOnInteractionPopupUseComponent, InteractionPopupOnUseFailureEvent>(OnPopupInteractionFailure);
-        SubscribeLocalEvent<TriggerOnInteractionPopupUseComponent, InteractionPopupOnUseSuccessEvent>(OnPopupInteractionSuccess);
+        SubscribeLocalEvent<TriggerOnInteractionPopupUseComponent, InteractionPopupOnUseFailureEvent>(
+            OnPopupInteractionFailure
+        );
+        SubscribeLocalEvent<TriggerOnInteractionPopupUseComponent, InteractionPopupOnUseSuccessEvent>(
+            OnPopupInteractionSuccess
+        );
 
         SubscribeLocalEvent<ReplaceOnTriggerComponent, TriggerEvent>(OnReplaceTrigger);
         SubscribeLocalEvent<TriggerOnProjectileHitComponent, ProjectileHitEvent>(OnProjectileHitEvent);
@@ -24,18 +28,30 @@ public sealed partial class TriggerSystem
         Trigger(uid);
     }
 
-    private void OnBeingGibbedRelay(EntityUid uid, TriggerOnBeingGibbedComponent component, ImplantRelayEvent<BeforeGibbedEvent> args)
+    private void OnBeingGibbedRelay(
+        EntityUid uid,
+        TriggerOnBeingGibbedComponent component,
+        ImplantRelayEvent<BeforeGibbedEvent> args
+    )
     {
         Trigger(uid);
     }
 
-    private void OnPopupInteractionFailure(EntityUid uid, TriggerOnInteractionPopupUseComponent component, InteractionPopupOnUseFailureEvent args)
+    private void OnPopupInteractionFailure(
+        EntityUid uid,
+        TriggerOnInteractionPopupUseComponent component,
+        InteractionPopupOnUseFailureEvent args
+    )
     {
         if (component.TriggerOnFailure)
             Trigger(uid);
     }
 
-    private void OnPopupInteractionSuccess(EntityUid uid, TriggerOnInteractionPopupUseComponent component, InteractionPopupOnUseSuccessEvent args)
+    private void OnPopupInteractionSuccess(
+        EntityUid uid,
+        TriggerOnInteractionPopupUseComponent component,
+        InteractionPopupOnUseSuccessEvent args
+    )
     {
         if (component.TriggerOnSuccess)
             Trigger(uid);
@@ -57,7 +73,11 @@ public sealed partial class TriggerSystem
         QueueDel(ent);
     }
 
-    private void OnProjectileHitEvent(EntityUid uid, TriggerOnProjectileHitComponent component, ref ProjectileHitEvent args)
+    private void OnProjectileHitEvent(
+        EntityUid uid,
+        TriggerOnProjectileHitComponent component,
+        ref ProjectileHitEvent args
+    )
     {
         Trigger(uid, args.Target);
     }

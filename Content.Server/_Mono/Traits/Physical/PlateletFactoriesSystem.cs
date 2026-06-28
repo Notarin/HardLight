@@ -12,9 +12,14 @@ namespace Content.Server._Mono.Traits.Physical;
 /// </summary>
 public sealed class PlateletFactoriesSystem : EntitySystem
 {
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly DamageableSystem _damageable = default!;
+
+    [Dependency]
+    private readonly MobStateSystem _mobState = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     // Reused across Tick calls to avoid allocating a fresh DamageSpecifier per heal tick.
     // DamageableSystem.TryChangeDamage copies the dict internally, so reusing this is safe.
@@ -66,9 +71,8 @@ public sealed class PlateletFactoriesSystem : EntitySystem
         heal.DamageDict.Clear();
 
         var amountPerTick = Math.Max(0f, comp.HealPerSecond) * Math.Max(0.1f, comp.IntervalSeconds);
-        var multiplier = (TryComp<MobStateComponent>(uid, out var ms) && _mobState.IsCritical(uid, ms))
-            ? comp.CritMultiplier
-            : 1f;
+        var multiplier =
+            (TryComp<MobStateComponent>(uid, out var ms) && _mobState.IsCritical(uid, ms)) ? comp.CritMultiplier : 1f;
 
         foreach (var (type, amount) in damage.Damage.DamageDict)
         {
@@ -88,5 +92,3 @@ public sealed class PlateletFactoriesSystem : EntitySystem
         _damageable.TryChangeDamage(uid, heal, true, false, damage);
     }
 }
-
-

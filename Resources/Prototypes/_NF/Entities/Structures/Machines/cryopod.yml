@@ -13,8 +13,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.45,-0.45,0.45,0.45"
         density: 190
         mask:
@@ -66,8 +65,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.45,-0.45,0.45,0.45"
         density: 190
         mask:
@@ -90,15 +88,15 @@
     visuals:
       enum.MedicalBountyRedemptionVisuals.Full:
         base:
-          True: { state: closed_full }
-          False: { state: closed }
+          True: {state: closed_full}
+          False: {state: closed}
         lights:
-          True: { state: both_on_unlit }
-          False: { state: left_on_unlit }
+          True: {state: both_on_unlit}
+          False: {state: left_on_unlit}
       enum.PowerDeviceVisuals.Powered:
         lights:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
   - type: ApcPowerReceiver
     powerLoad: 1000 # Keeping this explicit
   - type: Climbable

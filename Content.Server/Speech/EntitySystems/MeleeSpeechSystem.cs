@@ -10,9 +10,15 @@ namespace Content.Server.Speech.EntitySystems;
 
 public sealed class MeleeSpeechSystem : SharedMeleeSpeechSystem
 {
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly SharedActionsSystem _actionSystem = default!;
-    [Dependency] private readonly UserInterfaceSystem _uiSystem = default!;
+    [Dependency]
+    private readonly IAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    private readonly SharedActionsSystem _actionSystem = default!;
+
+    [Dependency]
+    private readonly UserInterfaceSystem _uiSystem = default!;
+
     public override void Initialize()
     {
         base.Initialize();
@@ -21,14 +27,17 @@ public sealed class MeleeSpeechSystem : SharedMeleeSpeechSystem
         SubscribeLocalEvent<MeleeSpeechComponent, GetItemActionsEvent>(OnGetActions);
         SubscribeLocalEvent<MeleeSpeechComponent, MapInitEvent>(OnComponentMapInit);
     }
+
     private void OnComponentMapInit(EntityUid uid, MeleeSpeechComponent component, MapInitEvent args)
     {
         _actionSystem.AddAction(uid, ref component.ConfigureActionEntity, component.ConfigureAction, uid);
     }
+
     private void OnGetActions(EntityUid uid, MeleeSpeechComponent component, GetItemActionsEvent args)
     {
         args.AddAction(ref component.ConfigureActionEntity, component.ConfigureAction);
     }
+
     private void OnBattlecryChanged(EntityUid uid, MeleeSpeechComponent comp, MeleeSpeechBattlecryChangedMessage args)
     {
         if (!TryComp<MeleeSpeechComponent>(uid, out var meleeSpeechUser))
@@ -38,6 +47,7 @@ public sealed class MeleeSpeechSystem : SharedMeleeSpeechSystem
             battlecry = battlecry[..comp.MaxBattlecryLength];
         TryChangeBattlecry(uid, battlecry, meleeSpeechUser);
     }
+
     /// <summary>
     /// Attempts to open the Battlecry UI.
     /// </summary>
@@ -45,6 +55,7 @@ public sealed class MeleeSpeechSystem : SharedMeleeSpeechSystem
     {
         TryOpenUi(args.Performer, uid, comp);
     }
+
     public void TryOpenUi(EntityUid user, EntityUid source, MeleeSpeechComponent? component = null)
     {
         if (!Resolve(source, ref component))
@@ -53,6 +64,7 @@ public sealed class MeleeSpeechSystem : SharedMeleeSpeechSystem
             return;
         _uiSystem.TryToggleUi(source, MeleeSpeechUiKey.Key, actor.PlayerSession);
     }
+
     /// <summary>
     /// Attempts to change the battlecry of an entity.
     /// Returns true/false.
@@ -76,7 +88,11 @@ public sealed class MeleeSpeechSystem : SharedMeleeSpeechSystem
             return true;
         meleeSpeechComp.Battlecry = battlecry;
         Dirty(uid, meleeSpeechComp);
-        _adminLogger.Add(LogType.ItemConfigure, LogImpact.Medium, $" {ToPrettyString(uid):entity}'s battlecry has been changed to {battlecry}");
+        _adminLogger.Add(
+            LogType.ItemConfigure,
+            LogImpact.Medium,
+            $" {ToPrettyString(uid):entity}'s battlecry has been changed to {battlecry}"
+        );
         return true;
     }
 }

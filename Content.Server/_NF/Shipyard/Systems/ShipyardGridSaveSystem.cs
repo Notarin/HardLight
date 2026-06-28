@@ -1,29 +1,30 @@
 using System.IO;
 using System.Threading.Tasks;
-using Content.Server.Popups;
+using Content.Server._HL.Shipyard; // HardLight
+using Content.Server._NF.ShuttleRecords; // VRS: refresh records on ship save (Triad PR #42)
 using Content.Server.Atmos.Piping.Components;
 using Content.Server.Chemistry.Components;
 using Content.Server.Construction.Components;
+using Content.Server.CriminalRecords.Systems;
+using Content.Server.Popups;
 using Content.Server.Power.Components;
 using Content.Server.Power.EntitySystems;
-using Content.Server.CriminalRecords.Systems;
 using Content.Server.PsionicsRecords.Systems;
 using Content.Server.Station.Systems; // VRS: station deletion on ship save (Triad PR #42)
 using Content.Server.StationRecords.Systems;
 using Content.Server.Store.Components; // HardLight
-using Content.Server._NF.ShuttleRecords; // VRS: refresh records on ship save (Triad PR #42)
-using Content.Server._HL.Shipyard; // HardLight
 using Content.Shared._Common.Consent; // HardLight
 using Content.Shared._HL.Shipyard; // HardLight
 using Content.Shared._NF.Shipyard.Components;
-using Content.Shared._Triad.Shipyard; // VRS: Triad SavingContraband port
 using Content.Shared._NF.Shipyard.Events;
+using Content.Shared._Triad.Shipyard; // VRS: Triad SavingContraband port
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.Components.SolutionManager;
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.DeviceLinking;
 using Content.Shared.DeviceLinking.Components;
 using Content.Shared.Doors.Components; // HardLight
+using Content.Shared.Ghost; // Hardlight
 using Content.Shared.Implants.Components; // HardLight
 using Content.Shared.Light.Components; // HardLight
 using Content.Shared.Mind.Components; // HardLight
@@ -35,18 +36,18 @@ using Content.Shared.VendingMachines;
 using Content.Shared.Wall; // WallMountComponent for preserving wall-mounted fixtures
 using Robust.Server.GameObjects; // HardLight
 using Robust.Server.Player;
-using Robust.Shared.Enums;
 using Robust.Shared.Containers;
 using Robust.Shared.ContentPack;
 using Robust.Shared.EntitySerialization;
 using Robust.Shared.EntitySerialization.Systems;
+using Robust.Shared.Enums;
+using Robust.Shared.Log;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Network;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes; // HardLight
-using Robust.Shared.Log;
 using Robust.Shared.Serialization;
 using Robust.Shared.Serialization.Markdown.Mapping;
 using Robust.Shared.Serialization.Markdown.Sequence;
@@ -55,7 +56,6 @@ using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 using YamlDotNet.Core;
 using YamlDotNet.RepresentationModel;
-using Content.Shared.Ghost; // Hardlight
 
 namespace Content.Server._NF.Shipyard.Systems;
 
@@ -86,22 +86,53 @@ public sealed class ShipyardGridSaveSystem : EntitySystem
         "PillAmbuzolPlus",
     };
 
-    [Dependency] private readonly IEntityManager _entityManager = default!;
-    [Dependency] private readonly IEntitySystemManager _entitySystemManager = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly CriminalRecordsConsoleSystem _criminalRecordsConsoles = default!;
-    [Dependency] private readonly GeneralStationRecordConsoleSystem _generalStationRecordConsoles = default!;
-    [Dependency] private readonly PsionicsRecordsConsoleSystem _psionicsRecordsConsoles = default!;
-    [Dependency] private readonly StationSystem _station = default!; // VRS: station deletion on ship save (Triad PR #42)
-    [Dependency] private readonly ShuttleRecordsSystem _shuttleRecords = default!; // VRS: refresh records on ship save (Triad PR #42)
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IResourceManager _resourceManager = default!;
-    [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
-    [Dependency] private readonly SharedDeviceLinkSystem _deviceLink = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!; // HardLight
-    [Dependency] private readonly AppearanceSystem _appearance = default!; // HardLight
-    [Dependency] private readonly SharedTransformSystem _transform = default!; // VRS: eject players before ship save (HL #1694)
+    [Dependency]
+    private readonly IEntityManager _entityManager = default!;
+
+    [Dependency]
+    private readonly IEntitySystemManager _entitySystemManager = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly CriminalRecordsConsoleSystem _criminalRecordsConsoles = default!;
+
+    [Dependency]
+    private readonly GeneralStationRecordConsoleSystem _generalStationRecordConsoles = default!;
+
+    [Dependency]
+    private readonly PsionicsRecordsConsoleSystem _psionicsRecordsConsoles = default!;
+
+    [Dependency]
+    private readonly StationSystem _station = default!; // VRS: station deletion on ship save (Triad PR #42)
+
+    [Dependency]
+    private readonly ShuttleRecordsSystem _shuttleRecords = default!; // VRS: refresh records on ship save (Triad PR #42)
+
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IResourceManager _resourceManager = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _containerSystem = default!;
+
+    [Dependency]
+    private readonly SharedDeviceLinkSystem _deviceLink = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!; // HardLight
+
+    [Dependency]
+    private readonly AppearanceSystem _appearance = default!; // HardLight
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!; // VRS: eject players before ship save (HL #1694)
 
     private ISawmill _sawmill = default!;
     private MapLoaderSystem _mapLoader = default!;
@@ -174,7 +205,6 @@ public sealed class ShipyardGridSaveSystem : EntitySystem
         // Lazy-allocate: most ticks have no expirations, so avoid the per-tick List allocation entirely.
         List<Guid>? expired = null;
 
-
         foreach (var (requestId, pending) in _pendingTrackedSaves)
         {
             if (now - pending.CreatedAt < PendingShipSaveTimeout)
@@ -191,13 +221,17 @@ public sealed class ShipyardGridSaveSystem : EntitySystem
             if (!_pendingTrackedSaves.Remove(requestId, out var pending))
                 continue;
 
-            if (_playerManager.TryGetSessionById(pending.PlayerUserId, out var session) &&
-                session.Status is SessionStatus.Connected or SessionStatus.InGame)
+            if (
+                _playerManager.TryGetSessionById(pending.PlayerUserId, out var session)
+                && session.Status is SessionStatus.Connected or SessionStatus.InGame
+            )
             {
                 _popup.PopupCursor(Loc.GetString("shipyard-console-save-timeout", ("ship", pending.ShipName)), session);
             }
 
-            _sawmill.Warning($"Tracked ship save for '{pending.ShipName}' timed out waiting for client acknowledgement.");
+            _sawmill.Warning(
+                $"Tracked ship save for '{pending.ShipName}' timed out waiting for client acknowledgement."
+            );
         }
     }
 
@@ -222,7 +256,11 @@ public sealed class ShipyardGridSaveSystem : EntitySystem
         }
     }
 
-    private void OnSaveShipMessage(EntityUid consoleUid, ShipyardConsoleComponent component, ShipyardConsoleSaveMessage args)
+    private void OnSaveShipMessage(
+        EntityUid consoleUid,
+        ShipyardConsoleComponent component,
+        ShipyardConsoleSaveMessage args
+    )
     {
         if (args.Actor is not { Valid: true } player)
             return;
@@ -261,11 +299,19 @@ public sealed class ShipyardGridSaveSystem : EntitySystem
         //_sawmill.Info($"Starting ship save for {deed.ShuttleName ?? "Unknown_Ship"} owned by {playerSession.Name}");
 
         // Run save inline on the main thread to avoid off-thread ECS access.
-        var result = TrySaveGridAsTrackedShip(shuttleUid.Value, targetId, deed.ShuttleName ?? "Unknown_Ship", playerSession);
+        var result = TrySaveGridAsTrackedShip(
+            shuttleUid.Value,
+            targetId,
+            deed.ShuttleName ?? "Unknown_Ship",
+            playerSession
+        );
 
         if (result == TrackedShipSaveResult.Failed)
         {
-            _popup.PopupCursor(Loc.GetString("shipyard-console-save-failed", ("ship", deed.ShuttleName ?? "Unknown_Ship")), playerSession);
+            _popup.PopupCursor(
+                Loc.GetString("shipyard-console-save-failed", ("ship", deed.ShuttleName ?? "Unknown_Ship")),
+                playerSession
+            );
         }
     }
 
@@ -281,8 +327,13 @@ public sealed class ShipyardGridSaveSystem : EntitySystem
 
         if (!msg.Success)
         {
-            _sawmill.Warning($"Client failed to persist ship '{pending.ShipName}' for {args.SenderSession.Name}: {msg.Error ?? "unknown error"}");
-            _popup.PopupCursor(Loc.GetString("shipyard-console-save-failed", ("ship", pending.ShipName)), args.SenderSession);
+            _sawmill.Warning(
+                $"Client failed to persist ship '{pending.ShipName}' for {args.SenderSession.Name}: {msg.Error ?? "unknown error"}"
+            );
+            _popup.PopupCursor(
+                Loc.GetString("shipyard-console-save-failed", ("ship", pending.ShipName)),
+                args.SenderSession
+            );
             return;
         }
 
@@ -311,11 +362,14 @@ public sealed class ShipyardGridSaveSystem : EntitySystem
             GridUid = pending.ShuttleUid,
             ShipName = pending.ShipName,
             PlayerUserId = pending.PlayerUserId.ToString(),
-            PlayerSession = args.SenderSession
+            PlayerSession = args.SenderSession,
         };
         RaiseLocalEvent(gridSavedEvent);
 
-        _popup.PopupCursor(Loc.GetString("shipyard-console-save-success", ("ship", pending.ShipName)), args.SenderSession);
+        _popup.PopupCursor(
+            Loc.GetString("shipyard-console-save-success", ("ship", pending.ShipName)),
+            args.SenderSession
+        );
     }
 
     /// <summary>
@@ -328,7 +382,11 @@ public sealed class ShipyardGridSaveSystem : EntitySystem
 
         while (query.MoveNext(out var entityUid, out var deed))
         {
-            if (deed.ShuttleUid != null && _entityManager.TryGetEntity(deed.ShuttleUid.Value, out var deedShuttleEntity) && deedShuttleEntity == shuttleUid)
+            if (
+                deed.ShuttleUid != null
+                && _entityManager.TryGetEntity(deed.ShuttleUid.Value, out var deedShuttleEntity)
+                && deedShuttleEntity == shuttleUid
+            )
             {
                 deedsToRemove.Add(entityUid);
             }
@@ -341,14 +399,22 @@ public sealed class ShipyardGridSaveSystem : EntitySystem
         }
     }
 
-    public TrackedShipSaveResult TrySaveGridAsTrackedShip(EntityUid gridUid, EntityUid deedUid, string shipName, ICommonSession playerSession)
+    public TrackedShipSaveResult TrySaveGridAsTrackedShip(
+        EntityUid gridUid,
+        EntityUid deedUid,
+        string shipName,
+        ICommonSession playerSession
+    )
     {
         foreach (var pending in _pendingTrackedSaves.Values)
         {
             if (pending.DeedUid != deedUid && pending.ShuttleUid != gridUid)
                 continue;
 
-            _popup.PopupCursor(Loc.GetString("shipyard-console-save-in-progress", ("ship", pending.ShipName)), playerSession);
+            _popup.PopupCursor(
+                Loc.GetString("shipyard-console-save-in-progress", ("ship", pending.ShipName)),
+                playerSession
+            );
             return TrackedShipSaveResult.AlreadyInProgress;
         }
 
@@ -413,7 +479,7 @@ public sealed class ShipyardGridSaveSystem : EntitySystem
             GridUid = gridUid,
             ShipName = shipName,
             PlayerUserId = playerUserId,
-            PlayerSession = playerSession
+            PlayerSession = playerSession,
         };
         RaiseLocalEvent(gridSavedEvent);
 
@@ -473,7 +539,7 @@ public sealed class ShipyardGridSaveSystem : EntitySystem
                 MissingEntityBehaviour = MissingEntityBehaviour.Ignore,
                 ErrorOnOrphan = false,
                 // Disable auto-include logging to avoid excessive log spam/lag during saves.
-                LogAutoInclude = null
+                LogAutoInclude = null,
             };
             var (node, category) = _mapLoader.SerializeEntitiesRecursive(entities, opts);
             /* if (category != FileCategory.Grid)
@@ -594,11 +660,11 @@ public sealed class ShipyardGridSaveSystem : EntitySystem
         }
         catch (Exception e)
         {
-            _sawmill.Warning($"TagStashContents: Exception while tagging stash contents on grid {gridUid}: {e.Message}");
+            _sawmill.Warning(
+                $"TagStashContents: Exception while tagging stash contents on grid {gridUid}: {e.Message}"
+            );
         }
     }
-
-
 
     /// <summary>
     /// Cleans up broken device links where one or both linked entities no longer exist.
@@ -643,7 +709,9 @@ public sealed class ShipyardGridSaveSystem : EntitySystem
         }
         catch (Exception e)
         {
-            _sawmill.Warning($"CleanupBrokenDeviceLinks: Exception while cleaning device links on grid {gridUid}: {e.Message}");
+            _sawmill.Warning(
+                $"CleanupBrokenDeviceLinks: Exception while cleaning device links on grid {gridUid}: {e.Message}"
+            );
         }
     }
 
@@ -756,7 +824,11 @@ public sealed class ShipyardGridSaveSystem : EntitySystem
                         if (_secretStashQuery.HasComp(ent) || _persistOnSaveQuery.HasComp(ent))
                             continue; // don't traverse preserved stash contents
                         foreach (var container in mgr.Containers.Values)
-                            CollectContainerContentsRecursive(container.ContainedEntities, fallbackContained, fallbackProcessed);
+                            CollectContainerContentsRecursive(
+                                container.ContainedEntities,
+                                fallbackContained,
+                                fallbackProcessed
+                            );
                     }
                 }
 
@@ -882,6 +954,7 @@ public sealed class ShipyardGridSaveSystem : EntitySystem
 
         return NonPersistentShipSaveEntityPrototypes.Contains(proto.ID);
     }
+
     // HardLight end
 
     private bool TryQueueLoose(EntityUid ent, List<EntityUid> list, HashSet<EntityUid> processed)
@@ -901,7 +974,11 @@ public sealed class ShipyardGridSaveSystem : EntitySystem
         return false;
     }
 
-    private void CollectContainerContentsRecursive(IReadOnlyList<EntityUid> contents, List<EntityUid> aggregate, HashSet<EntityUid> processed)
+    private void CollectContainerContentsRecursive(
+        IReadOnlyList<EntityUid> contents,
+        List<EntityUid> aggregate,
+        HashSet<EntityUid> processed
+    )
     {
         for (var i = 0; i < contents.Count; i++)
         {
@@ -998,6 +1075,7 @@ public sealed class ShipyardGridSaveSystem : EntitySystem
             }
         }
     }
+
     // HardLight end
 
     /// <summary>
@@ -1116,12 +1194,25 @@ public sealed class ShipyardGridSaveSystem : EntitySystem
                 {
                     if (_entitySystemManager.TryGetEntitySystem<SharedSolutionContainerSystem>(out var solutionSystem))
                     {
-                        if (solutionSystem.TryGetSolution(entity, "buffer", out var bufferEntity, out var bufferSolution))
+                        if (
+                            solutionSystem.TryGetSolution(
+                                entity,
+                                "buffer",
+                                out var bufferEntity,
+                                out var bufferSolution
+                            )
+                        )
                         {
-                            Logger.GetSawmill("hardlight").Info($"ChemMaster {entity} buffer before save: {bufferSolution.Volume}u, {bufferSolution.Contents.Count} types");
+                            Logger
+                                .GetSawmill("hardlight")
+                                .Info(
+                                    $"ChemMaster {entity} buffer before save: {bufferSolution.Volume}u, {bufferSolution.Contents.Count} types"
+                                );
                             foreach (var reagent in bufferSolution.Contents)
                             {
-                                Logger.GetSawmill("hardlight").Info($"  - {reagent.Reagent.Prototype}: {reagent.Quantity}u");
+                                Logger
+                                    .GetSawmill("hardlight")
+                                    .Info($"  - {reagent.Reagent.Prototype}: {reagent.Quantity}u");
                             }
                         }
                     }
@@ -1174,7 +1265,13 @@ public sealed class ShipyardGridSaveSystem : EntitySystem
         {
             var userData = _resourceManager.UserData;
             var backupDir = new ResPath("/Exports/server_backup");
-            try { userData.CreateDir(backupDir); } catch { /* already exists */ }
+            try
+            {
+                userData.CreateDir(backupDir);
+            }
+            catch
+            { /* already exists */
+            }
 
             var safeShipName = SanitizeFileNameComponent(shipName);
             var safePlayer = SanitizeFileNameComponent(playerUserId.ToString());
@@ -1187,7 +1284,9 @@ public sealed class ShipyardGridSaveSystem : EntitySystem
         }
         catch (Exception ex)
         {
-            _sawmill.Warning($"Server-side ship save backup for '{shipName}' (user {playerUserId}) failed: {ex.Message}");
+            _sawmill.Warning(
+                $"Server-side ship save backup for '{shipName}' (user {playerUserId}) failed: {ex.Message}"
+            );
         }
     }
 

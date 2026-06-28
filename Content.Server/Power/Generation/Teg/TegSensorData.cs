@@ -47,6 +47,6 @@ public sealed class TegSensorData
         float InletPressure,
         float OutletPressure,
         float InletTemperature,
-        float OutletTemperature);
+        float OutletTemperature
+    );
 }
-

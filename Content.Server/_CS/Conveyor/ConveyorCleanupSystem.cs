@@ -7,8 +7,8 @@ using JetBrains.Annotations;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Configuration;
-using Robust.Shared.Timing;
 using Robust.Shared.Physics.Components;
+using Robust.Shared.Timing;
 
 namespace Content.Server.Conveyor.EntitySystems
 {
@@ -18,12 +18,23 @@ namespace Content.Server.Conveyor.EntitySystems
     [UsedImplicitly]
     public sealed class ConveyorCleanupSystem : EntitySystem
     {
-        [Dependency] private readonly IEntityManager _entityManager = default!;
-        [Dependency] private readonly IAdminLogManager _adminLog = default!;
-        [Dependency] private readonly IConfigurationManager _cfg = default!;
-        [Dependency] private readonly IGameTiming _timing = default!;
-        [Dependency] private readonly SharedAudioSystem _audio = default!;
-        [Dependency] private readonly SharedPopupSystem _popup = default!;
+        [Dependency]
+        private readonly IEntityManager _entityManager = default!;
+
+        [Dependency]
+        private readonly IAdminLogManager _adminLog = default!;
+
+        [Dependency]
+        private readonly IConfigurationManager _cfg = default!;
+
+        [Dependency]
+        private readonly IGameTiming _timing = default!;
+
+        [Dependency]
+        private readonly SharedAudioSystem _audio = default!;
+
+        [Dependency]
+        private readonly SharedPopupSystem _popup = default!;
         private TimeSpan _nextCleanup = TimeSpan.Zero;
         private TimeSpan _cleanupInterval = TimeSpan.FromSeconds(51); // Time before next cleanup. Can be tuned in cvars.
         private readonly SoundPathSpecifier _breaksound = new("/Audio/Effects/metal_crunch.ogg");
@@ -33,7 +44,11 @@ namespace Content.Server.Conveyor.EntitySystems
         {
             base.Initialize();
             _cfg.OnValueChanged(CSCVars.ConveyorMaxItemCount, value => _maxItemCount = value, true);
-            _cfg.OnValueChanged(CSCVars.ConveyorCleanupIntervalSeconds, value => _cleanupInterval = TimeSpan.FromSeconds(value), true);
+            _cfg.OnValueChanged(
+                CSCVars.ConveyorCleanupIntervalSeconds,
+                value => _cleanupInterval = TimeSpan.FromSeconds(value),
+                true
+            );
         }
 
         public override void Update(float frameTime)
@@ -54,25 +69,32 @@ namespace Content.Server.Conveyor.EntitySystems
                 }
             }
         }
+
         private int CountEntitiesOnConveyor(EntityUid uid)
         {
             if (!TryComp<PhysicsComponent>(uid, out var physics)) //this is so much faster than iterating through every contact.
                 return 0;
             return physics.ContactCount;
         }
+
         private void QueueConveyorForDeletion(EntityUid uid, int itemCount)
         {
             TryComp(uid, out TransformComponent? transformComponent);
             if (transformComponent != null)
             {
-                _popup.PopupCoordinates(Loc.GetString("conveyor-overload-destroyed", ("conveyor", uid)), transformComponent.Coordinates, PopupType.LargeCaution);
+                _popup.PopupCoordinates(
+                    Loc.GetString("conveyor-overload-destroyed", ("conveyor", uid)),
+                    transformComponent.Coordinates,
+                    PopupType.LargeCaution
+                );
                 _audio.PlayPvs(_breaksound, transformComponent.Coordinates);
             }
             // Log for admins
             _adminLog.Add(
                 LogType.EntityDelete,
                 LogImpact.Medium,
-                $"Conveyor {ToPrettyString(uid)} destroyed because it had {itemCount} items on it (exceeds {_maxItemCount})");
+                $"Conveyor {ToPrettyString(uid)} destroyed because it had {itemCount} items on it (exceeds {_maxItemCount})"
+            );
             // Delete the conveyor
             _entityManager.QueueDeleteEntity(uid);
         }

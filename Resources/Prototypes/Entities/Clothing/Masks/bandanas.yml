@@ -23,7 +23,7 @@
   - type: Sprite
     layers:
     - state: icon_mask
-      map: [ "unfoldedLayer" ]
+      map: ["unfoldedLayer"]
     - state: icon
       map: ["foldedLayer"]
       visible: false

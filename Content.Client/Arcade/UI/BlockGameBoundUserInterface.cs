@@ -8,9 +8,8 @@ public sealed class BlockGameBoundUserInterface : BoundUserInterface
 {
     private BlockGameMenu? _menu;
 
-    public BlockGameBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-    }
+    public BlockGameBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {
@@ -45,14 +44,21 @@ public sealed class BlockGameBoundUserInterface : BoundUserInterface
                 _menu?.SetUsability(userMessage.IsPlayer);
                 break;
             case BlockGameMessages.BlockGameSetScreenMessage statusMessage:
-                if (statusMessage.IsStarted) _menu?.SetStarted();
+                if (statusMessage.IsStarted)
+                    _menu?.SetStarted();
                 _menu?.SetScreen(statusMessage.Screen);
                 if (statusMessage is BlockGameMessages.BlockGameGameOverScreenMessage gameOverScreenMessage)
-                    _menu?.SetGameoverInfo(gameOverScreenMessage.FinalScore, gameOverScreenMessage.LocalPlacement, gameOverScreenMessage.GlobalPlacement);
+                    _menu?.SetGameoverInfo(
+                        gameOverScreenMessage.FinalScore,
+                        gameOverScreenMessage.LocalPlacement,
+                        gameOverScreenMessage.GlobalPlacement
+                    );
                 break;
             case BlockGameMessages.BlockGameHighScoreUpdateMessage highScoreUpdateMessage:
-                _menu?.UpdateHighscores(highScoreUpdateMessage.LocalHighscores,
-                    highScoreUpdateMessage.GlobalHighscores);
+                _menu?.UpdateHighscores(
+                    highScoreUpdateMessage.LocalHighscores,
+                    highScoreUpdateMessage.GlobalHighscores
+                );
                 break;
             case BlockGameMessages.BlockGameLevelUpdateMessage levelUpdateMessage:
                 _menu?.UpdateLevel(levelUpdateMessage.Level);

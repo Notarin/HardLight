@@ -61,7 +61,7 @@
   parent:
   - BaseC2ExpeditionContraband
   - WeaponPistolMk32
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: WeaponPistolUniversalExpedition
   name: worn Mk32
 
@@ -70,7 +70,7 @@
   parent:
   - BaseC2ExpeditionContraband
   - NFWeaponRevolverArgenti
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: WeaponRevolverArgentiExpedition
   name: worn Argenti
 
@@ -108,7 +108,7 @@
   parent:
   - BaseExpeditionWeaponTier1
   - NFWeaponPistolMk58
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   id: NFWeaponPistolMk58Expedition
   name: worn Mk58
 
@@ -116,7 +116,7 @@
   parent:
   - BaseExpeditionWeaponTier1
   - NFWeaponPistolPollockHighCapacityMag
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   id: NFWeaponPistolPollockExpedition
   name: worn Pollock
 
@@ -125,7 +125,7 @@
   parent:
   - BaseExpeditionWeaponTier1
   - NFWeaponRevolverArgenti
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   id: NFWeaponRevolverArgentiExpedition
   name: worn Argenti
 
@@ -133,7 +133,7 @@
   parent:
   - BaseExpeditionWeaponTier1
   - NFWeaponRevolverFaith
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   id: NFWeaponRevolverFaithExpedition
   name: worn Faith
 
@@ -141,7 +141,7 @@
   parent:
   - BaseExpeditionWeaponTier1
   - WeaponRevolverDeckard
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   id: WeaponRevolverDeckardExpedition
   name: worn Deckard
 
@@ -149,7 +149,7 @@
   parent:
   - BaseExpeditionWeaponTier1Syndicate
   - NFWeaponRevolverRitland45
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   id: NFWeaponRevolverRitland45Expedition
   name: worn Ritland .45
 
@@ -158,7 +158,7 @@
   parent:
   - BaseExpeditionWeaponTier1Syndicate
   - WeaponSniperMosin
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   id: WeaponSniperMosinExpedition
   name: worn Mosin
 
@@ -169,7 +169,7 @@
   parent:
   - BaseExpeditionWeaponTier2Syndicate
   - NFWeaponPistolViper
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   id: NFWeaponPistolViperExpedition
   name: worn Viper
 
@@ -177,7 +177,7 @@
   parent:
   - BaseExpeditionWeaponTier2Pirate
   - WeaponPistolAnaconda
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   id: WeaponPistolAnacondaExpedition
   name: worn Anaconda
 
@@ -186,7 +186,7 @@
   parent:
   - BaseExpeditionWeaponTier2
   - NFWeaponRevolverFitz
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   id: NFWeaponRevolverFitzExpedition
   name: worn Fitz
 
@@ -194,7 +194,7 @@
   parent:
   - BaseExpeditionWeaponTier2
   - NFWeaponRevolverLucky
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   id: NFWeaponRevolverLuckyExpedition
   name: worn Lucky
 
@@ -202,7 +202,7 @@
   parent:
   - BaseExpeditionWeaponTier2Pirate
   - NFWeaponRevolverPirate
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   id: NFWeaponRevolverPirateExpedition
   name: worn Pirate revolver
 
@@ -210,7 +210,7 @@
   parent:
   - BaseExpeditionWeaponTier2
   - NFWeaponRevolverWard45
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   id: NFWeaponRevolverWard45Expedition
   name: worn Ward .45
 
@@ -219,7 +219,7 @@
   parent:
   - BaseExpeditionWeaponTier2
   - WeaponShotgunKammerer # HL
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   id: NFWeaponShotgunKammererExpedition
   name: worn Kammerer
 
@@ -228,7 +228,7 @@
   parent:
   - BaseExpeditionWeaponTier2Syndicate
   - NFWeaponSubMachineGunC20r
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   id: NFWeaponSubMachineGunC20rExpedition
   name: worn C20R
 
@@ -237,7 +237,7 @@
   parent:
   - BaseExpeditionWeaponTier2
   - NFWeaponRifleAssaultNovaliteC1
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   id: NFWeaponRifleAssaultNovaliteC1Expedition
   name: worn Novalite C1
 
@@ -245,7 +245,7 @@
   parent:
   - BaseExpeditionWeaponTier2
   - NFWeaponRifleAssaultGestio
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   id: NFWeaponRifleAssaultGestioExpedition
   name: worn Gestio
 
@@ -256,7 +256,7 @@
   parent:
   - BaseExpeditionWeaponTier2
   - NFWeaponEnergyPistolLaser
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   id: NFWeaponEnergyPistolLaserExpedition
 
 # region Tier 3
@@ -265,7 +265,7 @@
   parent:
   - BaseExpeditionWeaponTier3
   - NFWeaponRifleAssaultLecter
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   id: NFWeaponRifleAssaultLecterExpedition
   name: worn Lecter
 
@@ -273,7 +273,7 @@
   parent:
   - BaseExpeditionWeaponTier3Syndicate
   - NFWeaponRifleAssaultM90GrenadeLauncher
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   id: NFWeaponRifleAssaultM90GrenadeLauncherExpedition
   name: worn M90 rifle
 
@@ -289,7 +289,7 @@
   parent:
   - BaseExpeditionWeaponTier3Syndicate
   - WeaponRifleAK502
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   id: WeaponRifleAK502Expedition
   name: worn AK502
 
@@ -298,7 +298,7 @@
   parent:
   - BaseExpeditionWeaponTier3Syndicate
   - WeaponSniperHristov # HL
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   id: NFWeaponRifleSniperHristovExpedition
   name: worn Hristov
 
@@ -307,7 +307,7 @@
   parent:
   - BaseExpeditionWeaponTier3
   - NFWeaponSubMachineGunWt550
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   id: NFWeaponSubMachineGunWt550Expedition
   name: worn WT-550
 
@@ -315,7 +315,7 @@
   parent:
   - BaseExpeditionWeaponTier3
   - NFWeaponSubMachineGunDrozd
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   id: NFWeaponSubMachineGunDrozdExpedition
   name: worn Drozd
 
@@ -323,7 +323,7 @@
   parent:
   - BaseExpeditionWeaponTier3Syndicate
   - NFWeaponSubMachineGunAtreides
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   id: NFWeaponSubMachineGunAtreidesExpedition
   name: worn Atreides
 
@@ -331,7 +331,7 @@
   parent:
   - BaseExpeditionWeaponTier3
   - NFWeaponSubMachineGunTypewriter
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   id: NFWeaponSubMachineGunTypewriterExpedition
   name: worn Typewriter
 
@@ -340,7 +340,7 @@
   parent:
   - BaseExpeditionWeaponTier3
   - WeaponLaserSvalinn
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   id: NFWeaponEnergyPistolLaserSvalinnExpedition
   name: worn Svalinn
 
@@ -350,7 +350,7 @@
   parent:
   - BaseExpeditionWeaponTier4
   - NFWeaponShotgunEnforcer
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   id: NFWeaponShotgunEnforcerExpedition
   name: worn Enforcer
 
@@ -358,7 +358,7 @@
   parent:
   - BaseExpeditionWeaponTier4Syndicate
   - NFWeaponShotgunBulldog
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   id: NFWeaponShotgunBulldogExpedition
   name: worn Bulldog
 
@@ -367,7 +367,7 @@
   parent:
   - BaseExpeditionWeaponTier4Syndicate
   - NFWeaponRifleAssaultSm
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   id: NFWeaponRifleAssaultSmExpedition
   name: worn SM rifle
 
@@ -375,7 +375,7 @@
   parent:
   - BaseExpeditionWeaponTier4
   - NFWeaponRifleAssaultVulcan
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   id: NFWeaponRifleAssaultVulcanExpedition
   name: worn Vulcan
 
@@ -384,21 +384,21 @@
   parent:
   - BaseExpeditionWeaponTier4
   - NFWeaponEnergyRifleCarbine
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   id: NFWeaponEnergyRifleCarbineExpedition
 
 - type: entity
   parent:
   - BaseExpeditionWeaponTier4
   - NFWeaponEnergyPistolLaserAdvanced
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   id: NFWeaponEnergyPistolLaserAdvancedExpedition
 
 - type: entity
   parent:
   - BaseExpeditionWeaponTier4
   - NFWeaponEnergyPistolLaserAntique
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   id: NFWeaponEnergyPistolLaserAntiqueExpedition
 
 # region Tier 5
@@ -407,7 +407,7 @@
   parent:
   - BaseExpeditionWeaponTier5
   - WeaponTurretAsmgtHostileUniversallyPacked
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   id: WeaponTurretAsmgtHostileUniversallyPackedExpedition
 
 # Launchers
@@ -415,14 +415,14 @@
   parent:
   - BaseExpeditionWeaponTier5
   - NFWeaponLauncherRocket
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   id: NFWeaponLauncherRocketExpedition
 
 - type: entity
   parent:
   - BaseExpeditionWeaponTier5Syndicate
   - NFWeaponLauncherChinaLake
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   id: NFWeaponLauncherChinaLakeExpedition
 
 # LMGs
@@ -430,7 +430,7 @@
   parent:
   - BaseExpeditionWeaponTier5Syndicate
   - NFWeaponLightMachineGunL6
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   id: NFWeaponLightMachineGunL6Expedition
   name: worn L6
 
@@ -439,21 +439,21 @@
   parent:
   - BaseExpeditionWeaponTier5
   - NFWeaponEnergySubMachineGunDeltaV
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   id: NFWeaponEnergySubMachineGunDeltaVExpedition
 
 - type: entity
   parent:
   - BaseExpeditionWeaponTier5
   - NFWeaponEnergyRifleSniperXrayCannon
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   id: NFWeaponEnergyRifleSniperXrayCannonExpedition
 
 - type: entity
   parent:
   - BaseExpeditionWeaponTier5
   - NFWeaponEnergyRifleSniperCannon
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   id: NFWeaponEnergyRifleSniperCannonExpedition
   components: #Hardlight change
   - type: Tag
@@ -464,13 +464,13 @@
   parent:
   - BaseExpeditionWeaponTier5
   - NFWeaponEnergyRifleTemperature
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   id: NFWeaponEnergyRifleTemperatureExpedition
 
 - type: entity
   parent:
   - BaseExpeditionWeaponTier5
   - NFWeaponRifleAssaultJackdaw
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   id: NFWeaponRifleAssaultJackdawExpedition
   name: worn Jackdaw

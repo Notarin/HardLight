@@ -2,8 +2,8 @@ using Content.Server.Body.Components;
 using Content.Server.Body.Systems;
 using Content.Server.Mobs.Components;
 using Content.Shared.Chemistry.EntitySystems;
-using Content.Shared.Damage;
 using Content.Shared.Chemistry.Reagent;
+using Content.Shared.Damage;
 using Content.Shared.Damage.Prototypes;
 using Content.Shared.FixedPoint;
 using Content.Shared.Mobs.Components;
@@ -20,11 +20,20 @@ public sealed class HLSynthSystem : EntitySystem
     private static readonly string[] BruteTypes = ["Blunt", "Slash", "Piercing"];
     private static readonly string[] BurnTypes = ["Heat", "Shock", "Cold", "Caustic"];
 
-    [Dependency] private readonly BloodstreamSystem _bloodstream = default!;
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solution = default!;
+    [Dependency]
+    private readonly BloodstreamSystem _bloodstream = default!;
+
+    [Dependency]
+    private readonly DamageableSystem _damageable = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly MobStateSystem _mobState = default!;
+
+    [Dependency]
+    private readonly SharedSolutionContainerSystem _solution = default!;
 
     public override void Initialize()
     {
@@ -39,9 +48,16 @@ public sealed class HLSynthSystem : EntitySystem
         ent.Comp.NextUpdate = _timing.CurTime + ent.Comp.UpdateInterval;
         ent.Comp.NextHealUpdate = _timing.CurTime + ent.Comp.HealUpdateInterval;
 
-        if (!TryComp<BloodstreamComponent>(ent, out var bloodstream)
-            || !_solution.ResolveSolution(ent.Owner, bloodstream.BloodSolutionName, ref bloodstream.BloodSolution, out var bloodSolution)
-            || bloodstream.BloodSolution is not { } bloodSolutionEntity)
+        if (
+            !TryComp<BloodstreamComponent>(ent, out var bloodstream)
+            || !_solution.ResolveSolution(
+                ent.Owner,
+                bloodstream.BloodSolutionName,
+                ref bloodstream.BloodSolution,
+                out var bloodSolution
+            )
+            || bloodstream.BloodSolution is not { } bloodSolutionEntity
+        )
         {
             return;
         }
@@ -69,7 +85,12 @@ public sealed class HLSynthSystem : EntitySystem
     {
         base.Update(frameTime);
 
-        var query = EntityQueryEnumerator<HLSynthComponent, BloodstreamComponent, DamageableComponent, MobStateComponent>();
+        var query = EntityQueryEnumerator<
+            HLSynthComponent,
+            BloodstreamComponent,
+            DamageableComponent,
+            MobStateComponent
+        >();
         while (query.MoveNext(out var uid, out var synth, out var bloodstream, out var damageable, out var mobState))
         {
             var doGeneration = _timing.CurTime >= synth.NextUpdate;
@@ -78,7 +99,14 @@ public sealed class HLSynthSystem : EntitySystem
             if (!doGeneration && !doHealing)
                 continue;
 
-            if (!_solution.ResolveSolution(uid, bloodstream.BloodSolutionName, ref bloodstream.BloodSolution, out var bloodSolution))
+            if (
+                !_solution.ResolveSolution(
+                    uid,
+                    bloodstream.BloodSolutionName,
+                    ref bloodstream.BloodSolution,
+                    out var bloodSolution
+                )
+            )
             {
                 continue;
             }
@@ -90,20 +118,24 @@ public sealed class HLSynthSystem : EntitySystem
             if (doGeneration)
                 synth.NextUpdate += synth.UpdateInterval;
 
-            if (doGeneration &&
-                !dead &&
-                synthBlood - synth.BloodNaniteThreshold >= synth.NaniteGenerationCost &&
-                nanites < synth.MaxNanites &&
-                bloodstream.BloodSolution is { } bloodSolutionEntity)
+            if (
+                doGeneration
+                && !dead
+                && synthBlood - synth.BloodNaniteThreshold >= synth.NaniteGenerationCost
+                && nanites < synth.MaxNanites
+                && bloodstream.BloodSolution is { } bloodSolutionEntity
+            )
             {
                 var naniteRoom = synth.MaxNanites - nanites;
                 var nanitesToGenerate = FixedPoint2.Min(synth.NaniteGenerationAmount, naniteRoom);
                 var generationFraction = nanitesToGenerate / synth.NaniteGenerationAmount;
                 var bloodCost = synth.NaniteGenerationCost * generationFraction;
 
-                if (nanitesToGenerate > FixedPoint2.Zero &&
-                    bloodCost > FixedPoint2.Zero &&
-                    _solution.RemoveReagent(bloodSolutionEntity, SynthBloodReagent, bloodCost))
+                if (
+                    nanitesToGenerate > FixedPoint2.Zero
+                    && bloodCost > FixedPoint2.Zero
+                    && _solution.RemoveReagent(bloodSolutionEntity, SynthBloodReagent, bloodCost)
+                )
                 {
                     _solution.TryAddReagent(bloodSolutionEntity, NanitesReagent, nanitesToGenerate);
                     synthBlood -= bloodCost;
@@ -119,17 +151,21 @@ public sealed class HLSynthSystem : EntitySystem
             if (dead || nanites <= FixedPoint2.Zero || bloodstream.BloodSolution is not { } healSolutionEntity)
                 continue;
 
-            if (bloodstream.BleedAmount > 0f &&
-                synth.BleedSealNaniteCost > FixedPoint2.Zero &&
-                synth.BleedSealAmount > 0f)
+            if (
+                bloodstream.BleedAmount > 0f
+                && synth.BleedSealNaniteCost > FixedPoint2.Zero
+                && synth.BleedSealAmount > 0f
+            )
             {
                 var bleedSealSpend = FixedPoint2.Min(nanites, synth.BleedSealNaniteCost);
                 var bleedSealFraction = bleedSealSpend / synth.BleedSealNaniteCost;
                 var bleedReduction = synth.BleedSealAmount * bleedSealFraction.Float();
 
-                if (bleedReduction > 0f &&
-                    _bloodstream.TryModifyBleedAmount(uid, -bleedReduction, bloodstream) &&
-                    _solution.RemoveReagent(healSolutionEntity, NanitesReagent, bleedSealSpend))
+                if (
+                    bleedReduction > 0f
+                    && _bloodstream.TryModifyBleedAmount(uid, -bleedReduction, bloodstream)
+                    && _solution.RemoveReagent(healSolutionEntity, NanitesReagent, bleedSealSpend)
+                )
                 {
                     nanites -= bleedSealSpend;
                 }
@@ -144,18 +180,22 @@ public sealed class HLSynthSystem : EntitySystem
                 if (repair.DamageDict.Count > 0)
                 {
                     var delta = _damageable.TryChangeDamage(uid, repair, true, false, damageable);
-                    if (delta != null &&
-                        delta.DamageDict.Count > 0 &&
-                        _solution.RemoveReagent(healSolutionEntity, NanitesReagent, naniteToSpend))
+                    if (
+                        delta != null
+                        && delta.DamageDict.Count > 0
+                        && _solution.RemoveReagent(healSolutionEntity, NanitesReagent, naniteToSpend)
+                    )
                     {
                         nanites -= naniteToSpend;
                     }
                 }
             }
 
-            if (synth.PassiveBloodRestore > FixedPoint2.Zero &&
-                nanites >= synth.MaxNanites &&
-                synthBlood < synth.TargetBloodVolume)
+            if (
+                synth.PassiveBloodRestore > FixedPoint2.Zero
+                && nanites >= synth.MaxNanites
+                && synthBlood < synth.TargetBloodVolume
+            )
             {
                 var bloodToRestore = FixedPoint2.Min(synth.PassiveBloodRestore, synth.TargetBloodVolume - synthBlood);
                 if (bloodToRestore > FixedPoint2.Zero)
@@ -164,7 +204,11 @@ public sealed class HLSynthSystem : EntitySystem
         }
     }
 
-    private DamageSpecifier BuildPassiveRepair(HLSynthComponent synth, DamageableComponent damageable, FixedPoint2 healFraction)
+    private DamageSpecifier BuildPassiveRepair(
+        HLSynthComponent synth,
+        DamageableComponent damageable,
+        FixedPoint2 healFraction
+    )
     {
         var repair = new DamageSpecifier();
         AddRepairTypes(repair, damageable, BruteTypes, synth.PassiveBruteHeal * healFraction);
@@ -173,7 +217,12 @@ public sealed class HLSynthSystem : EntitySystem
         return repair;
     }
 
-    private static void AddRepairTypes(DamageSpecifier repair, DamageableComponent damageable, IReadOnlyList<string> damageTypes, FixedPoint2 healBudget)
+    private static void AddRepairTypes(
+        DamageSpecifier repair,
+        DamageableComponent damageable,
+        IReadOnlyList<string> damageTypes,
+        FixedPoint2 healBudget
+    )
     {
         if (healBudget <= FixedPoint2.Zero)
             return;

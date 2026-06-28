@@ -89,10 +89,7 @@ public sealed class SiliconChargeSystemTest
         var siliconComp = entityManager.EnsureComponent<SiliconComponent>(silicon);
         siliconComp.BatteryPowered = true;
         siliconComp.EntityType = SiliconType.Player;
-        siliconComp.SpeedModifierThresholds = new Dictionary<int, float>
-        {
-            [0] = 1f,
-        };
+        siliconComp.SpeedModifierThresholds = new Dictionary<int, float> { [0] = 1f };
 
         entityManager.EnsureComponent<MindContainerComponent>(silicon);
         entityManager.EnsureComponent<SiliconDownOnDeadComponent>(silicon);

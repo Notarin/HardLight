@@ -1,6 +1,6 @@
-using Content.Shared.Containers.ItemSlots;
 using Content.Server.Nutrition.Components;
 using Content.Server.Popups;
+using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Interaction;
 using Content.Shared.Nutrition.Components;
 using Content.Shared.Nutrition.EntitySystems;
@@ -16,17 +16,29 @@ namespace Content.Server.Nutrition.EntitySystems
     /// </summary>
     internal sealed class UtensilSystem : SharedUtensilSystem
     {
-        [Dependency] private readonly IRobustRandom _robustRandom = default!;
-        [Dependency] private readonly FoodSystem _foodSystem = default!;
-        [Dependency] private readonly PopupSystem _popupSystem = default!;
-        [Dependency] private readonly SharedAudioSystem _audio = default!;
-        [Dependency] private readonly SharedInteractionSystem _interactionSystem = default!;
+        [Dependency]
+        private readonly IRobustRandom _robustRandom = default!;
+
+        [Dependency]
+        private readonly FoodSystem _foodSystem = default!;
+
+        [Dependency]
+        private readonly PopupSystem _popupSystem = default!;
+
+        [Dependency]
+        private readonly SharedAudioSystem _audio = default!;
+
+        [Dependency]
+        private readonly SharedInteractionSystem _interactionSystem = default!;
 
         public override void Initialize()
         {
             base.Initialize();
 
-            SubscribeLocalEvent<UtensilComponent, AfterInteractEvent>(OnAfterInteract, after: new[] { typeof(ItemSlotsSystem), typeof(ToolOpenableSystem) });
+            SubscribeLocalEvent<UtensilComponent, AfterInteractEvent>(
+                OnAfterInteract,
+                after: new[] { typeof(ItemSlotsSystem), typeof(ToolOpenableSystem) }
+            );
         }
 
         /// <summary>
@@ -41,7 +53,11 @@ namespace Content.Server.Nutrition.EntitySystems
             ev.Handled = result.Handled;
         }
 
-        public (bool Success, bool Handled) TryUseUtensil(EntityUid user, EntityUid target, Entity<UtensilComponent> utensil)
+        public (bool Success, bool Handled) TryUseUtensil(
+            EntityUid user,
+            EntityUid target,
+            Entity<UtensilComponent> utensil
+        )
         {
             if (!EntityManager.TryGetComponent(target, out FoodComponent? food))
                 return (false, false);
@@ -49,7 +65,11 @@ namespace Content.Server.Nutrition.EntitySystems
             //Prevents food usage with a wrong utensil
             if ((food.Utensil & utensil.Comp.Types) == 0)
             {
-                _popupSystem.PopupEntity(Loc.GetString("food-system-wrong-utensil", ("food", target), ("utensil", utensil.Owner)), user, user);
+                _popupSystem.PopupEntity(
+                    Loc.GetString("food-system-wrong-utensil", ("food", target), ("utensil", utensil.Owner)),
+                    user,
+                    user
+                );
                 return (false, true);
             }
 

@@ -11,8 +11,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.45,-0.45,0.45,0.45"
         density: 1000
         mask:
@@ -46,8 +45,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.45,-0.45,0.45,0.45"
         density: 1000
         mask:
@@ -77,8 +75,7 @@
         collection: GlassSmash
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 150
       behaviors:
       - !type:EmptyAllContainersBehaviour
@@ -98,13 +95,13 @@
       - !type:ChangeConstructionNodeBehavior
         node: brokenGlassBox
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
 
 - type: entity
   id: GlassBoxLaser
   parent: GlassBox
   suffix: AntiqueLaser
-#  categories: [HideSpawnMenu] # Unhidden from Frontier
+  #  categories: [HideSpawnMenu] # Unhidden from Frontier
   components:
   - type: AccessReader
     access: [["StationCaptain"]] # HardLight
@@ -168,8 +165,7 @@
     damageModifierSet: Wood
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:PlaySoundBehavior
@@ -200,8 +196,7 @@
     node: brokenGlassBox
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:PlaySoundBehavior

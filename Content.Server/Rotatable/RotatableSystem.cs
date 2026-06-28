@@ -6,9 +6,9 @@ using Content.Shared.Rotatable;
 using Content.Shared.Verbs;
 using Robust.Shared.Input.Binding;
 using Robust.Shared.Map;
-using Robust.Shared.Player;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
+using Robust.Shared.Player;
 using Robust.Shared.Utility;
 
 namespace Content.Server.Rotatable
@@ -18,19 +18,32 @@ namespace Content.Server.Rotatable
     /// </summary>
     public sealed class RotatableSystem : EntitySystem
     {
-        [Dependency] private readonly PopupSystem _popup = default!;
-        [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
-        [Dependency] private readonly SharedInteractionSystem _interaction = default!;
-        [Dependency] private readonly SharedTransformSystem _transform = default!;
+        [Dependency]
+        private readonly PopupSystem _popup = default!;
+
+        [Dependency]
+        private readonly ActionBlockerSystem _actionBlocker = default!;
+
+        [Dependency]
+        private readonly SharedInteractionSystem _interaction = default!;
+
+        [Dependency]
+        private readonly SharedTransformSystem _transform = default!;
 
         public override void Initialize()
         {
             SubscribeLocalEvent<FlippableComponent, GetVerbsEvent<Verb>>(AddFlipVerb);
             SubscribeLocalEvent<RotatableComponent, GetVerbsEvent<Verb>>(AddRotateVerbs);
 
-            CommandBinds.Builder
-                .Bind(ContentKeyFunctions.RotateObjectClockwise, new PointerInputCmdHandler(HandleRotateObjectClockwise))
-                .Bind(ContentKeyFunctions.RotateObjectCounterclockwise, new PointerInputCmdHandler(HandleRotateObjectCounterclockwise))
+            CommandBinds
+                .Builder.Bind(
+                    ContentKeyFunctions.RotateObjectClockwise,
+                    new PointerInputCmdHandler(HandleRotateObjectClockwise)
+                )
+                .Bind(
+                    ContentKeyFunctions.RotateObjectCounterclockwise,
+                    new PointerInputCmdHandler(HandleRotateObjectCounterclockwise)
+                )
                 .Bind(ContentKeyFunctions.FlipObject, new PointerInputCmdHandler(HandleFlipObject))
                 .Register<RotatableSystem>();
         }
@@ -41,7 +54,10 @@ namespace Content.Server.Rotatable
                 return;
 
             // Check if the object is anchored.
-            if (EntityManager.TryGetComponent(uid, out PhysicsComponent? physics) && physics.BodyType == BodyType.Static)
+            if (
+                EntityManager.TryGetComponent(uid, out PhysicsComponent? physics)
+                && physics.BodyType == BodyType.Static
+            )
                 return;
 
             Verb verb = new()
@@ -51,22 +67,22 @@ namespace Content.Server.Rotatable
                 Category = VerbCategory.Rotate,
                 Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/flip.svg.192dpi.png")),
                 Priority = -3, // show flip last
-                DoContactInteraction = true
+                DoContactInteraction = true,
             };
             args.Verbs.Add(verb);
         }
 
         private void AddRotateVerbs(EntityUid uid, RotatableComponent component, GetVerbsEvent<Verb> args)
         {
-            if (!args.CanAccess
-                || !args.CanInteract
-                || Transform(uid).NoLocalRotation) // Good ol prototype inheritance, eh?
+            if (!args.CanAccess || !args.CanInteract || Transform(uid).NoLocalRotation) // Good ol prototype inheritance, eh?
                 return;
 
             // Check if the object is anchored, and whether we are still allowed to rotate it.
-            if (!component.RotateWhileAnchored &&
-                EntityManager.TryGetComponent(uid, out PhysicsComponent? physics) &&
-                physics.BodyType == BodyType.Static)
+            if (
+                !component.RotateWhileAnchored
+                && EntityManager.TryGetComponent(uid, out PhysicsComponent? physics)
+                && physics.BodyType == BodyType.Static
+            )
                 return;
 
             Verb resetRotation = new()
@@ -117,7 +133,11 @@ namespace Content.Server.Rotatable
             EntityManager.DeleteEntity(uid);
         }
 
-        public bool HandleRotateObjectClockwise(ICommonSession? playerSession, EntityCoordinates coordinates, EntityUid entity)
+        public bool HandleRotateObjectClockwise(
+            ICommonSession? playerSession,
+            EntityCoordinates coordinates,
+            EntityUid entity
+        )
         {
             if (playerSession?.AttachedEntity is not { Valid: true } player || !Exists(player))
                 return false;
@@ -129,8 +149,11 @@ namespace Content.Server.Rotatable
                 return false;
 
             // Check if the object is anchored, and whether we are still allowed to rotate it.
-            if (!rotatableComp.RotateWhileAnchored && EntityManager.TryGetComponent(entity, out PhysicsComponent? physics) &&
-                physics.BodyType == BodyType.Static)
+            if (
+                !rotatableComp.RotateWhileAnchored
+                && EntityManager.TryGetComponent(entity, out PhysicsComponent? physics)
+                && physics.BodyType == BodyType.Static
+            )
             {
                 _popup.PopupEntity(Loc.GetString("rotatable-component-try-rotate-stuck"), entity, player);
                 return false;
@@ -140,7 +163,11 @@ namespace Content.Server.Rotatable
             return true;
         }
 
-        public bool HandleRotateObjectCounterclockwise(ICommonSession? playerSession, EntityCoordinates coordinates, EntityUid entity)
+        public bool HandleRotateObjectCounterclockwise(
+            ICommonSession? playerSession,
+            EntityCoordinates coordinates,
+            EntityUid entity
+        )
         {
             if (playerSession?.AttachedEntity is not { Valid: true } player || !Exists(player))
                 return false;
@@ -152,8 +179,11 @@ namespace Content.Server.Rotatable
                 return false;
 
             // Check if the object is anchored, and whether we are still allowed to rotate it.
-            if (!rotatableComp.RotateWhileAnchored && EntityManager.TryGetComponent(entity, out PhysicsComponent? physics) &&
-                physics.BodyType == BodyType.Static)
+            if (
+                !rotatableComp.RotateWhileAnchored
+                && EntityManager.TryGetComponent(entity, out PhysicsComponent? physics)
+                && physics.BodyType == BodyType.Static
+            )
             {
                 _popup.PopupEntity(Loc.GetString("rotatable-component-try-rotate-stuck"), entity, player);
                 return false;
@@ -175,7 +205,10 @@ namespace Content.Server.Rotatable
                 return false;
 
             // Check if the object is anchored.
-            if (EntityManager.TryGetComponent(entity, out PhysicsComponent? physics) && physics.BodyType == BodyType.Static)
+            if (
+                EntityManager.TryGetComponent(entity, out PhysicsComponent? physics)
+                && physics.BodyType == BodyType.Static
+            )
             {
                 _popup.PopupEntity(Loc.GetString("flippable-component-try-flip-is-stuck"), entity, player);
                 return false;

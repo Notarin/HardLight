@@ -6,7 +6,7 @@
   id: SynthTail
   bodyPart: Tail
   markingCategory: Tail
-  speciesRestriction: [ Synth ]
+  speciesRestriction: [Synth]
   sprites:
   - sprite: _HL/Mobs/Customization/Synth/tails.rsi
     state: synth_tail
@@ -15,7 +15,7 @@
   id: SynthTailXenoCurl
   bodyPart: Tail
   markingCategory: Tail
-  speciesRestriction: [ Synth ]
+  speciesRestriction: [Synth]
   sprites:
   - sprite: _HL/Mobs/Customization/Synth/tails.rsi
     state: synth_tail_xeno_curl
@@ -24,7 +24,7 @@
   id: SynthTailXenoSpike
   bodyPart: Tail
   markingCategory: Tail
-  speciesRestriction: [ Synth ]
+  speciesRestriction: [Synth]
   sprites:
   - sprite: _HL/Mobs/Customization/Synth/tails.rsi
     state: synth_tail_xeno_spike
@@ -33,7 +33,7 @@
   id: SynthTailCore
   bodyPart: Tail
   markingCategory: Tail
-  speciesRestriction: [ Synth ]
+  speciesRestriction: [Synth]
   sprites:
   - sprite: _HL/Mobs/Customization/Synth/Orchids/tails.rsi
     state: synth_tail_core
@@ -44,7 +44,7 @@
   id: SynthTailXenoLight
   bodyPart: Tail
   markingCategory: Tail
-  speciesRestriction: [ Synth ]
+  speciesRestriction: [Synth]
   sprites:
   - sprite: _HL/Mobs/Customization/Synth/tails.rsi
     state: synth_tail_xeno_light
@@ -55,7 +55,7 @@
   id: SynthVisor
   bodyPart: Snout
   markingCategory: Snout
-  speciesRestriction: [ Synth ]
+  speciesRestriction: [Synth]
   sprites:
   - sprite: _HL/Mobs/Customization/Synth/snouts.rsi
     state: synth_frame
@@ -70,7 +70,7 @@
   id: SynthVisorBand
   bodyPart: Snout
   markingCategory: Snout
-  speciesRestriction: [ Synth ]
+  speciesRestriction: [Synth]
   sprites:
   - sprite: _HL/Mobs/Customization/Synth/Orchids/snouts.rsi
     state: synth_visor_band
@@ -81,7 +81,7 @@
   id: SynthHeterochromiaLeft
   bodyPart: Eyes
   markingCategory: Head
-  speciesRestriction: [ Synth ]
+  speciesRestriction: [Synth]
   sprites:
   - sprite: _HL/Mobs/Customization/Synth/Orchids/eyes.rsi
     state: synth_heterochromia_left
@@ -90,7 +90,7 @@
   id: SynthHeterochromiaRight
   bodyPart: Eyes
   markingCategory: Head
-  speciesRestriction: [ Synth ]
+  speciesRestriction: [Synth]
   sprites:
   - sprite: _HL/Mobs/Customization/Synth/Orchids/eyes.rsi
     state: synth_heterochromia_right
@@ -101,7 +101,7 @@
   id: SynthSolarFans
   bodyPart: Head
   markingCategory: Head
-  speciesRestriction: [ Synth ]
+  speciesRestriction: [Synth]
   sprites:
   - sprite: _HL/Mobs/Customization/Synth/head.rsi
     state: synth_solar_fans
@@ -110,7 +110,7 @@
   id: SynthHeadCore
   bodyPart: Head
   markingCategory: Head
-  speciesRestriction: [ Synth ]
+  speciesRestriction: [Synth]
   sprites:
   - sprite: _HL/Mobs/Customization/Synth/Orchids/head.rsi
     state: synth_head_core
@@ -119,7 +119,7 @@
   id: SynthHeadFracture
   bodyPart: Head
   markingCategory: Head
-  speciesRestriction: [ Synth ]
+  speciesRestriction: [Synth]
   sprites:
   - sprite: _HL/Mobs/Customization/Synth/Orchids/head.rsi
     state: synth_head_fracture
@@ -128,7 +128,7 @@
   id: SynthHeadStreak
   bodyPart: Head
   markingCategory: Head
-  speciesRestriction: [ Synth ]
+  speciesRestriction: [Synth]
   sprites:
   - sprite: _HL/Mobs/Customization/Synth/Orchids/head.rsi
     state: synth_head_streak
@@ -139,7 +139,7 @@
   id: SynthSolarFansLight
   bodyPart: Head
   markingCategory: Head
-  speciesRestriction: [ Synth ]
+  speciesRestriction: [Synth]
   sprites:
   - sprite: _HL/Mobs/Customization/Synth/head.rsi
     state: synth_solar_fans_light
@@ -150,7 +150,7 @@
   id: SynthAntennaCurl
   bodyPart: HeadTop
   markingCategory: HeadTop
-  speciesRestriction: [ Synth, Skrell, Thaven,Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid ]
+  speciesRestriction: [Synth, Skrell, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid]
   sprites:
   - sprite: _HL/Mobs/Customization/Synth/antennae.rsi
     state: synth_antenna_curl
@@ -158,7 +158,7 @@
   id: SynthAntennaSharp
   bodyPart: HeadTop
   markingCategory: HeadTop
-  speciesRestriction: [ Synth, Skrell, Thaven,Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid ]
+  speciesRestriction: [Synth, Skrell, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid]
   sprites:
   - sprite: _HL/Mobs/Customization/Synth/antennae.rsi
     state: synth_antenna_sharp
@@ -166,7 +166,7 @@
   id: SynthAntennaShort
   bodyPart: HeadTop
   markingCategory: HeadTop
-  speciesRestriction: [ Synth, Skrell, Thaven,Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid ]
+  speciesRestriction: [Synth, Skrell, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid]
   sprites:
   - sprite: _HL/Mobs/Customization/Synth/antennae.rsi
     state: synth_antenna_short
@@ -174,7 +174,7 @@
   id: SynthAntennaSlash
   bodyPart: HeadTop
   markingCategory: HeadTop
-  speciesRestriction: [ Synth, Skrell, Thaven,Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid ]
+  speciesRestriction: [Synth, Skrell, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid]
   sprites:
   - sprite: _HL/Mobs/Customization/Synth/antennae.rsi
     state: synth_antenna_slash
@@ -182,7 +182,7 @@
   id: SynthAntennaThick
   bodyPart: HeadTop
   markingCategory: HeadTop
-  speciesRestriction: [ Synth, Skrell, Thaven,Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid ]
+  speciesRestriction: [Synth, Skrell, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid]
   sprites:
   - sprite: _HL/Mobs/Customization/Synth/antennae.rsi
     state: synth_antenna_thick
@@ -190,7 +190,7 @@
   id: SynthAntennaTwin
   bodyPart: HeadTop
   markingCategory: HeadTop
-  speciesRestriction: [ Synth, Skrell, Thaven,Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid ]
+  speciesRestriction: [Synth, Skrell, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid]
   sprites:
   - sprite: _HL/Mobs/Customization/Synth/antennae.rsi
     state: synth_antenna_twin
@@ -198,7 +198,7 @@
   id: SynthAntennaSoftCurl
   bodyPart: HeadTop
   markingCategory: HeadTop
-  speciesRestriction: [ Synth, Skrell, Thaven,Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid ]
+  speciesRestriction: [Synth, Skrell, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid]
   sprites:
   - sprite: _HL/Mobs/Customization/Synth/antennae.rsi
     state: synth_antenna_soft_curl
@@ -209,7 +209,7 @@
   id: SynthAntennaSharpLight
   bodyPart: HeadTop
   markingCategory: HeadTop
-  speciesRestriction: [ Synth ]
+  speciesRestriction: [Synth]
   sprites:
   - sprite: _HL/Mobs/Customization/Synth/antennae.rsi
     state: synth_antenna_sharp_light
@@ -217,7 +217,7 @@
   id: SynthAntennaThickLight
   bodyPart: HeadTop
   markingCategory: HeadTop
-  speciesRestriction: [ Synth ]
+  speciesRestriction: [Synth]
   sprites:
   - sprite: _HL/Mobs/Customization/Synth/antennae.rsi
     state: synth_antenna_thick_light
@@ -225,7 +225,7 @@
   id: SynthAntennaTwinLight
   bodyPart: HeadTop
   markingCategory: HeadTop
-  speciesRestriction: [ Synth ]
+  speciesRestriction: [Synth]
   sprites:
   - sprite: _HL/Mobs/Customization/Synth/antennae.rsi
     state: synth_antenna_twin_light
@@ -233,7 +233,7 @@
   id: SynthAntennaSoftCurlLight
   bodyPart: HeadTop
   markingCategory: HeadTop
-  speciesRestriction: [ Synth ]
+  speciesRestriction: [Synth]
   sprites:
   - sprite: _HL/Mobs/Customization/Synth/antennae.rsi
     state: synth_antenna_soft_curl_light
@@ -244,7 +244,7 @@
   id: SynthBellyScutes
   bodyPart: Chest
   markingCategory: Chest
-  speciesRestriction: [ Synth ]
+  speciesRestriction: [Synth]
   sprites:
   - sprite: _HL/Mobs/Customization/Synth/Orchids/chest.rsi
     state: synth_belly_scutes
@@ -253,7 +253,7 @@
   id: SynthChestCore
   bodyPart: Chest
   markingCategory: Chest
-  speciesRestriction: [ Synth ]
+  speciesRestriction: [Synth]
   sprites:
   - sprite: _HL/Mobs/Customization/Synth/Orchids/chest.rsi
     state: synth_chest_core
@@ -262,7 +262,7 @@
   id: SynthChestFracture
   bodyPart: Chest
   markingCategory: Chest
-  speciesRestriction: [ Synth ]
+  speciesRestriction: [Synth]
   sprites:
   - sprite: _HL/Mobs/Customization/Synth/Orchids/chest.rsi
     state: synth_chest_fracture
@@ -271,7 +271,7 @@
   id: SynthChestStreak
   bodyPart: Chest
   markingCategory: Chest
-  speciesRestriction: [ Synth ]
+  speciesRestriction: [Synth]
   sprites:
   - sprite: _HL/Mobs/Customization/Synth/Orchids/chest.rsi
     state: synth_chest_streak
@@ -280,7 +280,7 @@
   id: SynthCross
   bodyPart: Chest
   markingCategory: Chest
-  speciesRestriction: [ Synth ]
+  speciesRestriction: [Synth]
   sprites:
   - sprite: _HL/Mobs/Customization/Synth/Orchids/chest.rsi
     state: synth_cross
@@ -289,7 +289,7 @@
   id: SynthStar
   bodyPart: Chest
   markingCategory: Chest
-  speciesRestriction: [ Synth ]
+  speciesRestriction: [Synth]
   sprites:
   - sprite: _HL/Mobs/Customization/Synth/Orchids/chest.rsi
     state: synth_star
@@ -302,7 +302,7 @@
   id: SynthArmLeftCore
   bodyPart: LArm
   markingCategory: Arms
-  speciesRestriction: [ Synth ]
+  speciesRestriction: [Synth]
   sprites:
   - sprite: _HL/Mobs/Customization/Synth/Orchids/arms.rsi
     state: synth_arm_left_core
@@ -311,7 +311,7 @@
   id: SynthArmLeftStreak
   bodyPart: LArm
   markingCategory: Arms
-  speciesRestriction: [ Synth ]
+  speciesRestriction: [Synth]
   sprites:
   - sprite: _HL/Mobs/Customization/Synth/Orchids/arms.rsi
     state: synth_arm_left_streak
@@ -320,7 +320,7 @@
   id: SynthArmRightCore
   bodyPart: RArm
   markingCategory: Arms
-  speciesRestriction: [ Synth ]
+  speciesRestriction: [Synth]
   sprites:
   - sprite: _HL/Mobs/Customization/Synth/Orchids/arms.rsi
     state: synth_arm_right_core
@@ -329,7 +329,7 @@
   id: SynthArmRightStreak
   bodyPart: RArm
   markingCategory: Arms
-  speciesRestriction: [ Synth ]
+  speciesRestriction: [Synth]
   sprites:
   - sprite: _HL/Mobs/Customization/Synth/Orchids/arms.rsi
     state: synth_arm_right_streak
@@ -340,7 +340,7 @@
   id: SynthLegLeftCore
   bodyPart: LLeg
   markingCategory: Legs
-  speciesRestriction: [ Synth ]
+  speciesRestriction: [Synth]
   sprites:
   - sprite: _HL/Mobs/Customization/Synth/Orchids/legs.rsi
     state: synth_leg_left_core
@@ -349,7 +349,7 @@
   id: SynthLegLeftStreak
   bodyPart: LLeg
   markingCategory: Legs
-  speciesRestriction: [ Synth ]
+  speciesRestriction: [Synth]
   sprites:
   - sprite: _HL/Mobs/Customization/Synth/Orchids/legs.rsi
     state: synth_leg_left_streak
@@ -358,7 +358,7 @@
   id: SynthLegRightCore
   bodyPart: RLeg
   markingCategory: Legs
-  speciesRestriction: [ Synth ]
+  speciesRestriction: [Synth]
   sprites:
   - sprite: _HL/Mobs/Customization/Synth/Orchids/legs.rsi
     state: synth_leg_right_core
@@ -367,7 +367,7 @@
   id: SynthLegRightStreak
   bodyPart: RLeg
   markingCategory: Legs
-  speciesRestriction: [ Synth ]
+  speciesRestriction: [Synth]
   sprites:
   - sprite: _HL/Mobs/Customization/Synth/Orchids/legs.rsi
     state: synth_leg_right_streak
@@ -378,7 +378,7 @@
   id: SynthWings
   bodyPart: Tail
   markingCategory: Chest
-  speciesRestriction: [Synth, Skrell, Thaven,Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Shadekin ]
+  speciesRestriction: [Synth, Skrell, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Shadekin]
   sprites:
   - sprite: _HL/Mobs/Customization/Synth/wings.rsi
     state: synth_wings
@@ -389,7 +389,7 @@
   id: SynthWingsLight
   bodyPart: Tail
   markingCategory: Chest
-  speciesRestriction: [ Synth ]
+  speciesRestriction: [Synth]
   sprites:
   - sprite: _HL/Mobs/Customization/Synth/wings.rsi
     state: synth_wings_light

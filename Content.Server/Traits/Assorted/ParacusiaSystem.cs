@@ -6,7 +6,8 @@ namespace Content.Server.Traits.Assorted;
 
 public sealed class ParacusiaSystem : SharedParacusiaSystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     public void SetSounds(EntityUid uid, SoundSpecifier sounds, ParacusiaComponent? component = null)
     {

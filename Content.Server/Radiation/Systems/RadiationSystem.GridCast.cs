@@ -18,7 +18,8 @@ public partial class RadiationSystem
     private readonly record struct SourceData(
         float Intensity,
         Entity<RadiationSourceComponent, TransformComponent> Entity,
-        Vector2 WorldPosition)
+        Vector2 WorldPosition
+    )
     {
         public EntityUid? GridUid => Entity.Comp2.GridUid;
         public float Slope => Entity.Comp1.Slope;
@@ -74,12 +75,14 @@ public partial class RadiationSystem
             foreach (var source in _sources)
             {
                 // Validate source entity still exists and has the required components
-                if (TerminatingOrDeleted(source.Entity.Owner) || 
-                    !TryComp<TransformComponent>(source.Entity.Owner, out var sourceXform))
+                if (
+                    TerminatingOrDeleted(source.Entity.Owner)
+                    || !TryComp<TransformComponent>(source.Entity.Owner, out var sourceXform)
+                )
                     continue;
 
                 // send ray towards destination entity
-                if (Irradiate(source, destUid, destTrs, destWorld, debug) is not {} ray)
+                if (Irradiate(source, destUid, destTrs, destWorld, debug) is not { } ray)
                     continue;
 
                 // add rads to total rad exposure
@@ -89,14 +92,16 @@ public partial class RadiationSystem
                 if (!debug)
                     continue;
 
-                debugRays!.Add(new DebugRadiationRay(
-                    ray.MapId,
-                    GetNetEntity(ray.SourceUid),
-                    ray.Source,
-                    GetNetEntity(ray.DestinationUid),
-                    ray.Destination,
-                    ray.Rads,
-                    ray.Blockers ?? new())
+                debugRays!.Add(
+                    new DebugRadiationRay(
+                        ray.MapId,
+                        GetNetEntity(ray.SourceUid),
+                        ray.Source,
+                        GetNetEntity(ray.DestinationUid),
+                        ray.Destination,
+                        ray.Rads,
+                        ray.Blockers ?? new()
+                    )
                 );
             }
 
@@ -128,11 +133,13 @@ public partial class RadiationSystem
         RaiseLocalEvent(new RadiationSystemUpdatedEvent());
     }
 
-    private RadiationRay? Irradiate(SourceData source,
+    private RadiationRay? Irradiate(
+        SourceData source,
         EntityUid destUid,
         TransformComponent destTrs,
         Vector2 destWorld,
-        bool saveVisitedTiles)
+        bool saveVisitedTiles
+    )
     {
         // lets first check that source and destination on the same map
         if (source.Transform.MapID != destTrs.MapID)
@@ -161,11 +168,17 @@ public partial class RadiationSystem
         // if source and destination on the same grid it's possible that
         // between them can be another grid (ie. shuttle in center of donut station)
         // however we can do simplification and ignore that case
-        if (GridcastSimplifiedSameGrid && destTrs.GridUid is {} gridUid && source.GridUid == gridUid)
+        if (GridcastSimplifiedSameGrid && destTrs.GridUid is { } gridUid && source.GridUid == gridUid)
         {
             if (!_gridQuery.TryGetComponent(gridUid, out var gridComponent))
                 return ray;
-            return Gridcast((gridUid, gridComponent, Transform(gridUid)), ref ray, saveVisitedTiles, source.Transform, destTrs);
+            return Gridcast(
+                (gridUid, gridComponent, Transform(gridUid)),
+                ref ray,
+                saveVisitedTiles,
+                source.Transform,
+                destTrs
+            );
         }
 
         // lets check how many grids are between source and destination
@@ -188,7 +201,13 @@ public partial class RadiationSystem
             if (TerminatingOrDeleted(grid.Owner))
                 continue;
 
-            ray = Gridcast((grid.Owner, grid.Comp, Transform(grid)), ref ray, saveVisitedTiles, source.Transform, destTrs);
+            ray = Gridcast(
+                (grid.Owner, grid.Comp, Transform(grid)),
+                ref ray,
+                saveVisitedTiles,
+                source.Transform,
+                destTrs
+            );
 
             // looks like last grid blocked all radiation
             // we can return right now
@@ -206,7 +225,8 @@ public partial class RadiationSystem
         ref RadiationRay ray,
         bool saveVisitedTiles,
         TransformComponent sourceTrs,
-        TransformComponent destTrs)
+        TransformComponent destTrs
+    )
     {
         var blockers = saveVisitedTiles ? new List<(Vector2i, float)>() : null;
 
@@ -226,21 +246,25 @@ public partial class RadiationSystem
         if (TerminatingOrDeleted(sourceTrs.Owner) || TerminatingOrDeleted(destTrs.Owner))
             return ray;
 
-        Vector2 srcLocal = sourceTrs.ParentUid == grid.Owner
-            ? sourceTrs.LocalPosition
-            : Vector2.Transform(ray.Source, grid.Comp2.InvLocalMatrix);
+        Vector2 srcLocal =
+            sourceTrs.ParentUid == grid.Owner
+                ? sourceTrs.LocalPosition
+                : Vector2.Transform(ray.Source, grid.Comp2.InvLocalMatrix);
 
-        Vector2 dstLocal = destTrs.ParentUid == grid.Owner
-            ? destTrs.LocalPosition
-            : Vector2.Transform(ray.Destination, grid.Comp2.InvLocalMatrix);
+        Vector2 dstLocal =
+            destTrs.ParentUid == grid.Owner
+                ? destTrs.LocalPosition
+                : Vector2.Transform(ray.Destination, grid.Comp2.InvLocalMatrix);
 
         Vector2i sourceGrid = new(
-            (int) Math.Floor(srcLocal.X / grid.Comp1.TileSize),
-            (int) Math.Floor(srcLocal.Y / grid.Comp1.TileSize));
+            (int)Math.Floor(srcLocal.X / grid.Comp1.TileSize),
+            (int)Math.Floor(srcLocal.Y / grid.Comp1.TileSize)
+        );
 
         Vector2i destGrid = new(
-            (int) Math.Floor(dstLocal.X / grid.Comp1.TileSize),
-            (int) Math.Floor(dstLocal.Y / grid.Comp1.TileSize));
+            (int)Math.Floor(dstLocal.X / grid.Comp1.TileSize),
+            (int)Math.Floor(dstLocal.Y / grid.Comp1.TileSize)
+        );
 
         // iterate tiles in grid line from source to destination
         var line = new GridLineEnumerator(sourceGrid, destGrid);

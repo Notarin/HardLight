@@ -109,7 +109,7 @@
 #  - type: EyeCursorOffset
 #    maxOffset: 5
 #    pvsIncrease: 0.5
-  # type: Telescope
+# type: Telescope
 
 # Just going to remake and comment out the old Forktail. This is so fucked.
 - type: entity

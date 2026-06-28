@@ -69,31 +69,49 @@ public partial class InventorySystem
         SubscribeLocalEvent<InventoryComponent, SolutionScanEvent>(RelayInventoryEvent);
 
         // ComponentActivatedClientSystems
-        SubscribeLocalEvent<InventoryComponent, RefreshEquipmentHudEvent<ShowJobIconsComponent>>(RefRelayInventoryEvent);
-        SubscribeLocalEvent<InventoryComponent, RefreshEquipmentHudEvent<ShowHealthBarsComponent>>(RefRelayInventoryEvent);
-        SubscribeLocalEvent<InventoryComponent, RefreshEquipmentHudEvent<ShowHealthIconsComponent>>(RefRelayInventoryEvent);
-        SubscribeLocalEvent<InventoryComponent, RefreshEquipmentHudEvent<ShowHungerIconsComponent>>(RefRelayInventoryEvent);
-        SubscribeLocalEvent<InventoryComponent, RefreshEquipmentHudEvent<ShowThirstIconsComponent>>(RefRelayInventoryEvent);
-        SubscribeLocalEvent<InventoryComponent, RefreshEquipmentHudEvent<ShowMindShieldIconsComponent>>(RefRelayInventoryEvent);
-        SubscribeLocalEvent<InventoryComponent, RefreshEquipmentHudEvent<ShowSyndicateIconsComponent>>(RefRelayInventoryEvent);
-        SubscribeLocalEvent<InventoryComponent, RefreshEquipmentHudEvent<ShowCriminalRecordIconsComponent>>(RefRelayInventoryEvent);
+        SubscribeLocalEvent<InventoryComponent, RefreshEquipmentHudEvent<ShowJobIconsComponent>>(
+            RefRelayInventoryEvent
+        );
+        SubscribeLocalEvent<InventoryComponent, RefreshEquipmentHudEvent<ShowHealthBarsComponent>>(
+            RefRelayInventoryEvent
+        );
+        SubscribeLocalEvent<InventoryComponent, RefreshEquipmentHudEvent<ShowHealthIconsComponent>>(
+            RefRelayInventoryEvent
+        );
+        SubscribeLocalEvent<InventoryComponent, RefreshEquipmentHudEvent<ShowHungerIconsComponent>>(
+            RefRelayInventoryEvent
+        );
+        SubscribeLocalEvent<InventoryComponent, RefreshEquipmentHudEvent<ShowThirstIconsComponent>>(
+            RefRelayInventoryEvent
+        );
+        SubscribeLocalEvent<InventoryComponent, RefreshEquipmentHudEvent<ShowMindShieldIconsComponent>>(
+            RefRelayInventoryEvent
+        );
+        SubscribeLocalEvent<InventoryComponent, RefreshEquipmentHudEvent<ShowSyndicateIconsComponent>>(
+            RefRelayInventoryEvent
+        );
+        SubscribeLocalEvent<InventoryComponent, RefreshEquipmentHudEvent<ShowCriminalRecordIconsComponent>>(
+            RefRelayInventoryEvent
+        );
 
         SubscribeLocalEvent<InventoryComponent, GetVerbsEvent<EquipmentVerb>>(OnGetEquipmentVerbs);
         SubscribeLocalEvent<InventoryComponent, GetVerbsEvent<InnateVerb>>(OnGetInnateVerbs);
-
     }
 
-    protected void RefRelayInventoryEvent<T>(EntityUid uid, InventoryComponent component, ref T args) where T : IInventoryRelayEvent
+    protected void RefRelayInventoryEvent<T>(EntityUid uid, InventoryComponent component, ref T args)
+        where T : IInventoryRelayEvent
     {
         RelayEvent((uid, component), ref args);
     }
 
-    protected void RelayInventoryEvent<T>(EntityUid uid, InventoryComponent component, T args) where T : IInventoryRelayEvent
+    protected void RelayInventoryEvent<T>(EntityUid uid, InventoryComponent component, T args)
+        where T : IInventoryRelayEvent
     {
         RelayEvent((uid, component), args);
     }
 
-    public void RelayEvent<T>(Entity<InventoryComponent> inventory, ref T args) where T : IInventoryRelayEvent
+    public void RelayEvent<T>(Entity<InventoryComponent> inventory, ref T args)
+        where T : IInventoryRelayEvent
     {
         if (args.TargetSlots == SlotFlags.NONE)
             return;
@@ -110,7 +128,8 @@ public partial class InventorySystem
         args = ev.Args;
     }
 
-    public void RelayEvent<T>(Entity<InventoryComponent> inventory, T args) where T : IInventoryRelayEvent
+    public void RelayEvent<T>(Entity<InventoryComponent> inventory, T args)
+        where T : IInventoryRelayEvent
     {
         if (args.TargetSlots == SlotFlags.NONE)
             return;
@@ -145,7 +164,6 @@ public partial class InventorySystem
             RaiseLocalEvent(item, ev);
         }
     }
-
 }
 
 /// <summary>

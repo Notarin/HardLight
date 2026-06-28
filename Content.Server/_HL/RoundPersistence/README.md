@@ -9,22 +9,24 @@ The Round Persistence System is a comprehensive solution to maintain critical ga
 Previously, when rounds restarted, the following critical systems would break:
 
 1. **Expedition Console**: Lost mission data, cooldowns, and active expedition state
-2. **Shuttle Records**: Lost ship ownership records and purchase history
-3. **IFF System**: Ships disappeared from radar and navigation systems
-4. **Player Manifest**: Lost crew records and job assignments
-5. **Ship-Station Associations**: Ships lost their docking capabilities and station relationships
-6. **Autopay System**: Lost player payment tracking data
+1. **Shuttle Records**: Lost ship ownership records and purchase history
+1. **IFF System**: Ships disappeared from radar and navigation systems
+1. **Player Manifest**: Lost crew records and job assignments
+1. **Ship-Station Associations**: Ships lost their docking capabilities and station relationships
+1. **Autopay System**: Lost player payment tracking data
 
 ## Architecture
 
 ### Components
 
 #### `RoundPersistenceComponent`
+
 - Stores all critical data that needs to persist across rounds
 - Contains dictionaries for expedition data, shuttle records, station records, ship data, and player payments
 - Applied to a persistent entity that survives round transitions
 
 #### Persistence Data Types
+
 - `PersistedExpeditionData`: Mission data, cooldowns, active expeditions
 - `PersistedStationRecords`: Crew manifest, job slots, station records
 - `PersistedShipData`: IFF flags, ownership, station associations
@@ -33,13 +35,16 @@ Previously, when rounds restarted, the following critical systems would break:
 ### Systems
 
 #### `RoundPersistenceSystem`
+
 Main orchestrator that:
+
 - Listens for round restart events
 - Saves data before station deletion
 - Restores data when new stations are created
 - Manages the persistent entity lifecycle
 
 #### `PlayerPaymentPersistenceSystem`
+
 Specialized system for tracking player work sessions and payment data across rounds.
 
 ## Configuration
@@ -65,12 +70,15 @@ hardlight.round_persistence.debug_logging = false
 ## Admin Commands
 
 ### `save_persistent_data`
+
 Force save all persistent data immediately.
 
 ### `persistent_data_status`
+
 Show current status and statistics of the persistence system.
 
 ### `clear_persistent_data` (Admin only)
+
 Clear all persistent data. Use with caution!
 
 ## How It Works
@@ -78,19 +86,23 @@ Clear all persistent data. Use with caution!
 ### Round Restart Process
 
 1. **Pre-Restart (OnRoundRestart)**:
+
    - `RoundRestartCleanupEvent` is fired by GameTicker
    - Persistence system captures all critical data from stations
    - Data is stored in a persistent entity on a dedicated map
 
-2. **Station Deletion**:
+1. **Station Deletion**:
+
    - GameTicker deletes all station entities as normal
    - Persistent entity and its data survive on the isolated map
 
-3. **New Round Start (OnRoundStarted)**:
+1. **New Round Start (OnRoundStarted)**:
+
    - System waits for new stations to be created
    - When stations initialize, data is automatically restored
 
-4. **Data Restoration**:
+1. **Data Restoration**:
+
    - Expedition data: Missions, cooldowns, active state
    - Shuttle records: Ownership, purchase history
    - Station records: Crew manifest, job assignments
@@ -99,10 +111,11 @@ Clear all persistent data. Use with caution!
 ### Ship Handling
 
 When ships are spawned or recreated:
+
 1. System detects `ShuttleComponent` initialization
-2. Looks up ship in persistent data by NetEntity ID
-3. Restores IFF flags, colors, and station associations
-4. Updates metadata with correct ship name
+1. Looks up ship in persistent data by NetEntity ID
+1. Restores IFF flags, colors, and station associations
+1. Updates metadata with correct ship name
 
 ## Implementation Details
 
@@ -129,21 +142,25 @@ When ships are spawned or recreated:
 ### Validation Steps
 
 1. **Expedition Continuity**:
+
    - Start an expedition before round restart
    - Verify expedition continues after restart
    - Check mission timers and cooldowns persist
 
-2. **Ship Persistence**:
+1. **Ship Persistence**:
+
    - Purchase/load ships before restart
    - Verify ships appear on IFF after restart
    - Test docking capabilities persist
 
-3. **Records Continuity**:
+1. **Records Continuity**:
+
    - Create player records before restart
    - Verify crew manifest persists
    - Check shuttle records console shows previous ships
 
-4. **Payment Tracking**:
+1. **Payment Tracking**:
+
    - Work on station before restart
    - Verify accumulated work time persists
    - Test autopay continues functioning
@@ -151,6 +168,7 @@ When ships are spawned or recreated:
 ### Debug Commands
 
 Enable debug logging for detailed information:
+
 ```
 hardlight.round_persistence.debug_logging true
 ```
@@ -160,16 +178,19 @@ hardlight.round_persistence.debug_logging true
 ### Common Issues
 
 1. **Data Not Persisting**:
+
    - Check `hardlight.round_persistence.enabled` is true
    - Verify no errors in server logs during round restart
    - Use `persistent_data_status` to check system status
 
-2. **Ships Not Appearing on IFF**:
+1. **Ships Not Appearing on IFF**:
+
    - Ensure `hardlight.round_persistence.ship_data` is enabled
    - Check ships have `IFFComponent` before restart
    - Verify ships are properly associated with a station
 
-3. **Expeditions Not Working**:
+1. **Expeditions Not Working**:
+
    - Confirm `hardlight.round_persistence.expeditions` is enabled
    - Check expedition console has data before restart
    - Verify station naming consistency
@@ -177,6 +198,7 @@ hardlight.round_persistence.debug_logging true
 ### Log Analysis
 
 Look for these log entries:
+
 - "Round restart detected, saving persistent data..."
 - "Restored expedition data with X missions"
 - "Restored IFF data for ship: [name]"
@@ -184,20 +206,22 @@ Look for these log entries:
 ## Future Enhancements
 
 Potential improvements:
+
 1. **Database Persistence**: Store data in SQL database for server restarts
-2. **Player Ship Tracking**: More detailed ship state preservation
-3. **Economy Persistence**: Bank account and transaction history
-4. **Cross-Server Persistence**: Share data between multiple servers
-5. **Selective Restoration**: Choose which data to restore per restart
+1. **Player Ship Tracking**: More detailed ship state preservation
+1. **Economy Persistence**: Bank account and transaction history
+1. **Cross-Server Persistence**: Share data between multiple servers
+1. **Selective Restoration**: Choose which data to restore per restart
 
 ## Contributing
 
 When modifying this system:
+
 1. Update relevant data structures in `RoundPersistenceComponent`
-2. Add save/restore logic to appropriate systems
-3. Update configuration variables if needed
-4. Add appropriate logging for debugging
-5. Test thoroughly with round restarts
+1. Add save/restore logic to appropriate systems
+1. Update configuration variables if needed
+1. Add appropriate logging for debugging
+1. Test thoroughly with round restarts
 
 ## Files
 

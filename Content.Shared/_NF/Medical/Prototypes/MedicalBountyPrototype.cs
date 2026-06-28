@@ -27,7 +27,10 @@ public sealed partial class MedicalBountyPrototype : IPrototype
     /// <summary>
     /// Damage types to be added to a bountied entity and the bonus/penalties associated with them
     /// </summary>
-    [DataField(required: true, customTypeSerializer: typeof(PrototypeIdDictionarySerializer<RandomDamagePreset, DamageTypePrototype>))]
+    [DataField(
+        required: true,
+        customTypeSerializer: typeof(PrototypeIdDictionarySerializer<RandomDamagePreset, DamageTypePrototype>)
+    )]
     public Dictionary<string, RandomDamagePreset> DamageSets = new();
 
     /// <summary>
@@ -57,16 +60,19 @@ public partial record struct RandomDamagePreset
     /// </summary>
     [DataField("min")]
     public int MinDamage;
+
     /// <summary>
     /// The maximum amount of damage to receive.
     /// </summary>
     [DataField("max")]
     public int MaxDamage;
+
     /// <summary>
     /// The maximum amount of damage to receive.
     /// </summary>
     [DataField("value")]
     public int ValuePerPoint;
+
     /// <summary>
     /// The base monetary reward
     /// </summary>
@@ -82,11 +88,13 @@ public partial record struct RandomReagentPreset
     /// </summary>
     [DataField("min")]
     public int MinQuantity;
+
     /// <summary>
     /// The maximum amount of damage to receive.
     /// </summary>
     [DataField("max")]
     public int MaxQuantity;
+
     /// <summary>
     /// The maximum amount of damage to receive.
     /// </summary>

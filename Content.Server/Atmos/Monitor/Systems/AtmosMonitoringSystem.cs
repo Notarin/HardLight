@@ -28,12 +28,23 @@ namespace Content.Server.Atmos.Monitor.Systems;
 // a danger), and atmos (which triggers based on set thresholds).
 public sealed class AtmosMonitorSystem : EntitySystem
 {
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly AtmosphereSystem _atmosphereSystem = default!;
-    [Dependency] private readonly AtmosDeviceSystem _atmosDeviceSystem = default!;
-    [Dependency] private readonly DeviceNetworkSystem _deviceNetSystem = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly NodeContainerSystem _nodeContainerSystem = default!;
+    [Dependency]
+    private readonly ISharedAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    private readonly AtmosphereSystem _atmosphereSystem = default!;
+
+    [Dependency]
+    private readonly AtmosDeviceSystem _atmosDeviceSystem = default!;
+
+    [Dependency]
+    private readonly DeviceNetworkSystem _deviceNetSystem = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly NodeContainerSystem _nodeContainerSystem = default!;
 
     // Commands
     public const string AtmosMonitorSetThresholdCmd = "atmos_monitor_set_threshold";
@@ -59,14 +70,25 @@ public sealed class AtmosMonitorSystem : EntitySystem
         SubscribeLocalEvent<AtmosMonitorComponent, AtmosDeviceEnabledEvent>(OnAtmosDeviceEnterAtmosphere);
     }
 
-    private void OnAtmosDeviceLeaveAtmosphere(EntityUid uid, AtmosMonitorComponent atmosMonitor, ref AtmosDeviceDisabledEvent args)
+    private void OnAtmosDeviceLeaveAtmosphere(
+        EntityUid uid,
+        AtmosMonitorComponent atmosMonitor,
+        ref AtmosDeviceDisabledEvent args
+    )
     {
         atmosMonitor.TileGas = null;
     }
 
-    private void OnAtmosDeviceEnterAtmosphere(EntityUid uid, AtmosMonitorComponent atmosMonitor, ref AtmosDeviceEnabledEvent args)
+    private void OnAtmosDeviceEnterAtmosphere(
+        EntityUid uid,
+        AtmosMonitorComponent atmosMonitor,
+        ref AtmosDeviceEnabledEvent args
+    )
     {
-        if (atmosMonitor.MonitorsPipeNet && _nodeContainerSystem.TryGetNode<PipeNode>(uid, atmosMonitor.NodeNameMonitoredPipe, out var pipeNode))
+        if (
+            atmosMonitor.MonitorsPipeNet
+            && _nodeContainerSystem.TryGetNode<PipeNode>(uid, atmosMonitor.NodeNameMonitoredPipe, out var pipeNode)
+        )
         {
             atmosMonitor.TileGas = pipeNode.Air;
             return;
@@ -102,8 +124,9 @@ public sealed class AtmosMonitorSystem : EntitySystem
 
     private void OnAtmosMonitorStartup(EntityUid uid, AtmosMonitorComponent component, ComponentStartup args)
     {
-        if (!HasComp<ApcPowerReceiverComponent>(uid)
-            && TryComp<AtmosDeviceComponent>(uid, out var atmosDeviceComponent))
+        if (
+            !HasComp<ApcPowerReceiverComponent>(uid) && TryComp<AtmosDeviceComponent>(uid, out var atmosDeviceComponent)
+        )
         {
             _atmosDeviceSystem.LeaveAtmosphere((uid, atmosDeviceComponent));
         }
@@ -111,7 +134,8 @@ public sealed class AtmosMonitorSystem : EntitySystem
 
     private void BeforePacketRecv(EntityUid uid, AtmosMonitorComponent component, BeforePacketSentEvent args)
     {
-        if (!component.NetEnabled) args.Cancel();
+        if (!component.NetEnabled)
+            args.Cancel();
     }
 
     private void OnPacketRecv(EntityUid uid, AtmosMonitorComponent component, DeviceNetworkPacketEvent args)
@@ -137,8 +161,13 @@ public sealed class AtmosMonitorSystem : EntitySystem
                 // Don't clear alarm states here.
                 break;
             case AtmosMonitorSetThresholdCmd:
-                if (args.Data.TryGetValue(AtmosMonitorThresholdData, out AtmosAlarmThreshold? thresholdData)
-                    && args.Data.TryGetValue(AtmosMonitorThresholdDataType, out AtmosMonitorThresholdType? thresholdType))
+                if (
+                    args.Data.TryGetValue(AtmosMonitorThresholdData, out AtmosAlarmThreshold? thresholdData)
+                    && args.Data.TryGetValue(
+                        AtmosMonitorThresholdDataType,
+                        out AtmosMonitorThresholdType? thresholdType
+                    )
+                )
                 {
                     args.Data.TryGetValue(AtmosMonitorThresholdGasType, out Gas? gas);
                     SetThreshold(uid, thresholdType.Value, thresholdData, gas);
@@ -161,16 +190,19 @@ public sealed class AtmosMonitorSystem : EntitySystem
                         gases.Add(gas, component.TileGas.GetMoles(gas));
                     }
 
-                    payload.Add(AtmosDeviceNetworkSystem.SyncData, new AtmosSensorData(
-                        component.TileGas.Pressure,
-                        component.TileGas.Temperature,
-                        component.TileGas.TotalMoles,
-                        component.LastAlarmState,
-                        gases,
-                        component.PressureThreshold ?? new(),
-                        component.TemperatureThreshold ?? new(),
-                        component.GasThresholds ?? new()
-                    ));
+                    payload.Add(
+                        AtmosDeviceNetworkSystem.SyncData,
+                        new AtmosSensorData(
+                            component.TileGas.Pressure,
+                            component.TileGas.Temperature,
+                            component.TileGas.TotalMoles,
+                            component.LastAlarmState,
+                            gases,
+                            component.PressureThreshold ?? new(),
+                            component.TemperatureThreshold ?? new(),
+                            component.GasThresholds ?? new()
+                        )
+                    );
                 }
 
                 _deviceNetSystem.QueuePacket(uid, args.SenderAddress, payload);
@@ -204,8 +236,7 @@ public sealed class AtmosMonitorSystem : EntitySystem
         // and just outright trigger a danger event
         //
         // somebody else can reset it :sunglasses:
-        if (component.MonitorFire
-            && component.LastAlarmState != AtmosAlarmType.Danger)
+        if (component.MonitorFire && component.LastAlarmState != AtmosAlarmType.Danger)
         {
             component.TrippedThresholds.Add(AtmosMonitorThresholdType.Temperature);
             Alert(uid, AtmosAlarmType.Danger, null, component); // technically???
@@ -214,9 +245,11 @@ public sealed class AtmosMonitorSystem : EntitySystem
         // only monitor state elevation so that stuff gets alarmed quicker during a fire,
         // let the atmos update loop handle when temperature starts to reach different
         // thresholds and different states than normal -> warning -> danger
-        if (component.TemperatureThreshold != null
+        if (
+            component.TemperatureThreshold != null
             && component.TemperatureThreshold.CheckThreshold(args.Temperature, out var temperatureState)
-            && temperatureState > component.LastAlarmState)
+            && temperatureState > component.LastAlarmState
+        )
         {
             component.TrippedThresholds.Add(AtmosMonitorThresholdType.Temperature);
             Alert(uid, AtmosAlarmType.Danger, null, component);
@@ -232,13 +265,18 @@ public sealed class AtmosMonitorSystem : EntitySystem
             return;
 
         // if we're not monitoring atmos, don't bother
-        if (component.TemperatureThreshold == null
+        if (
+            component.TemperatureThreshold == null
             && component.PressureThreshold == null
-            && component.GasThresholds == null)
+            && component.GasThresholds == null
+        )
             return;
 
         // If monitoring a pipe network, get its most recent gas mixture
-        if (component.MonitorsPipeNet && _nodeContainerSystem.TryGetNode<PipeNode>(uid, component.NodeNameMonitoredPipe, out var pipeNode))
+        if (
+            component.MonitorsPipeNet
+            && _nodeContainerSystem.TryGetNode<PipeNode>(uid, component.NodeNameMonitoredPipe, out var pipeNode)
+        )
             component.TileGas = pipeNode.Air;
 
         UpdateState(uid, component.TileGas, component);
@@ -254,15 +292,19 @@ public sealed class AtmosMonitorSystem : EntitySystem
     // of the monitor, it is set in the Alert call.
     private void UpdateState(EntityUid uid, GasMixture? air, AtmosMonitorComponent? monitor = null)
     {
-        if (air == null) return;
+        if (air == null)
+            return;
 
-        if (!Resolve(uid, ref monitor)) return;
+        if (!Resolve(uid, ref monitor))
+            return;
 
         var state = AtmosAlarmType.Normal;
         HashSet<AtmosMonitorThresholdType> alarmTypes = new(monitor.TrippedThresholds);
 
-        if (monitor.TemperatureThreshold != null
-            && monitor.TemperatureThreshold.CheckThreshold(air.Temperature, out var temperatureState))
+        if (
+            monitor.TemperatureThreshold != null
+            && monitor.TemperatureThreshold.CheckThreshold(air.Temperature, out var temperatureState)
+        )
         {
             if (temperatureState > state)
             {
@@ -275,9 +317,10 @@ public sealed class AtmosMonitorSystem : EntitySystem
             }
         }
 
-        if (monitor.PressureThreshold != null
+        if (
+            monitor.PressureThreshold != null
             && monitor.PressureThreshold.CheckThreshold(air.Pressure, out var pressureState)
-           )
+        )
         {
             if (pressureState > state)
             {
@@ -296,8 +339,7 @@ public sealed class AtmosMonitorSystem : EntitySystem
             foreach (var (gas, threshold) in monitor.GasThresholds)
             {
                 var gasRatio = air.GetMoles(gas) / air.TotalMoles;
-                if (threshold.CheckThreshold(gasRatio, out var gasState)
-                    && gasState > state)
+                if (threshold.CheckThreshold(gasRatio, out var gasState) && gasState > state)
                 {
                     state = gasState;
                     tripped = true;
@@ -327,7 +369,12 @@ public sealed class AtmosMonitorSystem : EntitySystem
     /// </summary>
     /// <param name="state">The alarm state to set this monitor to.</param>
     /// <param name="alarms">The alarms that caused this alarm state.</param>
-    public void Alert(EntityUid uid, AtmosAlarmType state, HashSet<AtmosMonitorThresholdType>? alarms = null, AtmosMonitorComponent? monitor = null)
+    public void Alert(
+        EntityUid uid,
+        AtmosAlarmType state,
+        HashSet<AtmosMonitorThresholdType>? alarms = null,
+        AtmosMonitorComponent? monitor = null
+    )
     {
         if (!Resolve(uid, ref monitor))
             return;
@@ -377,7 +424,7 @@ public sealed class AtmosMonitorSystem : EntitySystem
             [DeviceNetworkConstants.Command] = AtmosAlarmableSystem.AlertCmd,
             [DeviceNetworkConstants.CmdSetState] = monitor.LastAlarmState,
             [AtmosAlarmableSystem.AlertSource] = tags.Tags,
-            [AtmosAlarmableSystem.AlertTypes] = monitor.TrippedThresholds
+            [AtmosAlarmableSystem.AlertTypes] = monitor.TrippedThresholds,
         };
 
         foreach (var addr in monitor.RegisteredDevices)
@@ -392,7 +439,13 @@ public sealed class AtmosMonitorSystem : EntitySystem
     /// <param name="type">The type of threshold to change.</param>
     /// <param name="threshold">Threshold data.</param>
     /// <param name="gas">Gas, if applicable.</param>
-    public void SetThreshold(EntityUid uid, AtmosMonitorThresholdType type, AtmosAlarmThreshold threshold, Gas? gas = null, AtmosMonitorComponent? monitor = null)
+    public void SetThreshold(
+        EntityUid uid,
+        AtmosMonitorThresholdType type,
+        AtmosAlarmThreshold threshold,
+        Gas? gas = null,
+        AtmosMonitorComponent? monitor = null
+    )
     {
         if (!Resolve(uid, ref monitor))
             return;
@@ -422,11 +475,11 @@ public sealed class AtmosMonitorSystem : EntitySystem
                 if (gas == null || monitor.GasThresholds == null)
                     return;
 
-                logPrefix = ((Gas) gas).ToString();
+                logPrefix = ((Gas)gas).ToString();
                 logValueSuffix = "kPa";
-                monitor.GasThresholds.TryGetValue((Gas) gas, out logPreviousThreshold);
+                monitor.GasThresholds.TryGetValue((Gas)gas, out logPreviousThreshold);
 
-                monitor.GasThresholds[(Gas) gas] = threshold;
+                monitor.GasThresholds[(Gas)gas] = threshold;
                 break;
         }
 

@@ -20,16 +20,35 @@ namespace Content.Server.Dragon;
 
 public sealed partial class DragonSystem : EntitySystem
 {
-    [Dependency] private readonly CarpRiftsConditionSystem _carpRifts = default!;
-    [Dependency] private readonly ITileDefinitionManager _tileDef = default!;
-    [Dependency] private readonly MovementSpeedModifierSystem _movement = default!;
-    [Dependency] private readonly NpcFactionSystem _faction = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
+    [Dependency]
+    private readonly CarpRiftsConditionSystem _carpRifts = default!;
+
+    [Dependency]
+    private readonly ITileDefinitionManager _tileDef = default!;
+
+    [Dependency]
+    private readonly MovementSpeedModifierSystem _movement = default!;
+
+    [Dependency]
+    private readonly NpcFactionSystem _faction = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SharedActionsSystem _actions = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _map = default!;
+
+    [Dependency]
+    private readonly MobStateSystem _mobState = default!;
 
     private EntityQuery<CarpRiftsConditionComponent> _objQuery;
 
@@ -98,11 +117,11 @@ public sealed partial class DragonSystem : EntitySystem
                 comp.RiftAccumulator += frameTime;
 
             // Delete it, naughty dragon!
-          //  if (comp.RiftAccumulator >= comp.RiftMaxAccumulator)
-         //   {
-         //     Roar(uid, comp);
-         //       QueueDel(uid);
-         //   }
+            //  if (comp.RiftAccumulator >= comp.RiftMaxAccumulator)
+            //   {
+            //     Roar(uid, comp);
+            //       QueueDel(uid);
+            //   }
         }
     }
 
@@ -131,7 +150,11 @@ public sealed partial class DragonSystem : EntitySystem
             return;
         }
 
-        if (component.Rifts.Count > 0 && TryComp<DragonRiftComponent>(component.Rifts[^1], out var rift) && rift.State != DragonRiftState.Finished)
+        if (
+            component.Rifts.Count > 0
+            && TryComp<DragonRiftComponent>(component.Rifts[^1], out var rift)
+            && rift.State != DragonRiftState.Finished
+        )
         {
             _popup.PopupEntity(Loc.GetString("carp-rift-duplicate"), uid, uid);
             return;
@@ -157,7 +180,14 @@ public sealed partial class DragonSystem : EntitySystem
         }
 
         // cant put a rift on solars
-        foreach (var tile in _map.GetTilesIntersecting(xform.GridUid.Value, grid, new Circle(_transform.GetWorldPosition(xform), RiftTileRadius), false))
+        foreach (
+            var tile in _map.GetTilesIntersecting(
+                xform.GridUid.Value,
+                grid,
+                new Circle(_transform.GetWorldPosition(xform), RiftTileRadius),
+                false
+            )
+        )
         {
             if (!tile.IsSpace(_tileDef))
                 continue;

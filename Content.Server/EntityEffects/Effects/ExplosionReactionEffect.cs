@@ -1,10 +1,10 @@
+using System.Text.Json.Serialization;
 using Content.Server.Explosion.EntitySystems;
 using Content.Shared.Database;
 using Content.Shared.EntityEffects;
 using Content.Shared.Explosion;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
-using System.Text.Json.Serialization;
 
 namespace Content.Server.EntityEffects.Effects;
 
@@ -56,8 +56,9 @@ public sealed partial class ExplosionReactionEffect : EntityEffect
 
     public override bool ShouldLog => true;
 
-    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys)
-        => Loc.GetString("reagent-effect-guidebook-explosion-reaction-effect", ("chance", Probability));
+    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys) =>
+        Loc.GetString("reagent-effect-guidebook-explosion-reaction-effect", ("chance", Probability));
+
     public override LogImpact LogImpact => LogImpact.High;
 
     public override void Effect(EntityEffectBaseArgs args)
@@ -66,16 +67,10 @@ public sealed partial class ExplosionReactionEffect : EntityEffect
 
         if (args is EntityEffectReagentArgs reagentArgs)
         {
-            intensity = MathF.Min((float) reagentArgs.Quantity * IntensityPerUnit, MaxTotalIntensity);
+            intensity = MathF.Min((float)reagentArgs.Quantity * IntensityPerUnit, MaxTotalIntensity);
         }
 
         args.EntityManager.System<ExplosionSystem>()
-            .QueueExplosion(
-            args.TargetEntity,
-            ExplosionType,
-            intensity,
-            IntensitySlope,
-            MaxIntensity,
-			TileBreakScale);
+            .QueueExplosion(args.TargetEntity, ExplosionType, intensity, IntensitySlope, MaxIntensity, TileBreakScale);
     }
 }

@@ -1,14 +1,14 @@
 using Content.Shared.DoAfter;
 using Content.Shared.Interaction;
-using Content.Shared.Popups;
 using Content.Shared.Plunger.Components;
-using Robust.Shared.Audio.Systems;
-using Robust.Shared.Timing;
+using Content.Shared.Popups;
+using Content.Shared.Random;
 using Content.Shared.Random.Helpers;
+using Robust.Shared.Audio.Systems;
 using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
-using Content.Shared.Random;
+using Robust.Shared.Timing;
 
 namespace Content.Shared.Plunger.Systems;
 
@@ -17,11 +17,20 @@ namespace Content.Shared.Plunger.Systems;
 /// </summary>
 public sealed class PlungerSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfter = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
 
     public override void Initialize()
     {
@@ -43,12 +52,22 @@ public sealed class PlungerSystem : EntitySystem
         if (!plunger.NeedsPlunger) // Frontier: inverted condition
             return;
 
-        _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, component.PlungeDuration, new PlungerDoAfterEvent(), uid, target, uid)
-        {
-            BreakOnMove = true,
-            BreakOnDamage = true,
-            MovementThreshold = 1.0f,
-        });
+        _doAfter.TryStartDoAfter(
+            new DoAfterArgs(
+                EntityManager,
+                args.User,
+                component.PlungeDuration,
+                new PlungerDoAfterEvent(),
+                uid,
+                target,
+                uid
+            )
+            {
+                BreakOnMove = true,
+                BreakOnDamage = true,
+                MovementThreshold = 1.0f,
+            }
+        );
         args.Handled = true;
     }
 
@@ -63,7 +82,12 @@ public sealed class PlungerSystem : EntitySystem
         if (!TryComp(target, out PlungerUseComponent? plunge))
             return;
 
-        _popup.PopupClient(Loc.GetString("plunger-unblock", ("target", target)), args.User, args.User, PopupType.Medium);
+        _popup.PopupClient(
+            Loc.GetString("plunger-unblock", ("target", target)),
+            args.User,
+            args.User,
+            PopupType.Medium
+        );
 
         // Frontier: spawn stuff only on the first plunge
         if (!plunge.Plunged)
@@ -83,4 +107,3 @@ public sealed class PlungerSystem : EntitySystem
         args.Handled = true;
     }
 }
-

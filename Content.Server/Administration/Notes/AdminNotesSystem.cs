@@ -14,11 +14,20 @@ namespace Content.Server.Administration.Notes;
 
 public sealed class AdminNotesSystem : EntitySystem
 {
-    [Dependency] private readonly IConsoleHost _console = default!;
-    [Dependency] private readonly IAdminNotesManager _notes = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IChatManager _chat = default!;
-    [Dependency] private readonly EuiManager _euis = default!;
+    [Dependency]
+    private readonly IConsoleHost _console = default!;
+
+    [Dependency]
+    private readonly IAdminNotesManager _notes = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly IChatManager _chat = default!;
+
+    [Dependency]
+    private readonly EuiManager _euis = default!;
 
     public override void Initialize()
     {
@@ -28,8 +37,10 @@ public sealed class AdminNotesSystem : EntitySystem
 
     private void AddVerbs(GetVerbsEvent<Verb> ev)
     {
-        if (EntityManager.GetComponentOrNull<ActorComponent>(ev.User) is not {PlayerSession: var user} ||
-            EntityManager.GetComponentOrNull<ActorComponent>(ev.Target) is not {PlayerSession: var target})
+        if (
+            EntityManager.GetComponentOrNull<ActorComponent>(ev.User) is not { PlayerSession: var user }
+            || EntityManager.GetComponentOrNull<ActorComponent>(ev.Target) is not { PlayerSession: var target }
+        )
         {
             return;
         }
@@ -45,7 +56,7 @@ public sealed class AdminNotesSystem : EntitySystem
             Category = VerbCategory.Admin,
             Icon = new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/VerbIcons/examine.svg.192dpi.png")),
             Act = () => _console.RemoteExecuteCommand(user, $"{OpenAdminNotesCommand.CommandName} \"{target.UserId}\""),
-            Impact = LogImpact.Low
+            Impact = LogImpact.Low,
         };
 
         ev.Verbs.Add(verb);
@@ -67,7 +78,9 @@ public sealed class AdminNotesSystem : EntitySystem
         var username = playerData?.UserName ?? e.Session.UserId.ToString();
         foreach (var watchlist in watchlists)
         {
-            _chat.SendAdminAlert(Loc.GetString("admin-notes-watchlist", ("player", username), ("message", watchlist.Message)));
+            _chat.SendAdminAlert(
+                Loc.GetString("admin-notes-watchlist", ("player", username), ("message", watchlist.Message))
+            );
         }
 
         var messagesToShow = messages.OrderBy(x => x.CreatedAt).Where(x => !x.Dismissed).ToArray();

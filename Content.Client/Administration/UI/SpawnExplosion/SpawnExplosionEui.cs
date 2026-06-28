@@ -10,8 +10,11 @@ namespace Content.Client.Administration.UI.SpawnExplosion;
 [UsedImplicitly]
 public sealed class SpawnExplosionEui : BaseEui
 {
-    [Dependency] private readonly EntityManager _entManager = default!;
-    [Dependency] private readonly IOverlayManager _overlayManager = default!;
+    [Dependency]
+    private readonly EntityManager _entManager = default!;
+
+    [Dependency]
+    private readonly IOverlayManager _overlayManager = default!;
 
     private readonly SpawnExplosionWindow _window;
     private ExplosionDebugOverlay? _debugOverlay;
@@ -49,9 +52,21 @@ public sealed class SpawnExplosionEui : BaseEui
         _debugOverlay = null;
     }
 
-    public void RequestPreviewData(MapCoordinates epicenter, string typeId, float totalIntensity, float intensitySlope, float maxIntensity)
+    public void RequestPreviewData(
+        MapCoordinates epicenter,
+        string typeId,
+        float totalIntensity,
+        float intensitySlope,
+        float maxIntensity
+    )
     {
-        var msg = new SpawnExplosionEuiMsg.PreviewRequest(epicenter, typeId, totalIntensity, intensitySlope, maxIntensity);
+        var msg = new SpawnExplosionEuiMsg.PreviewRequest(
+            epicenter,
+            typeId,
+            totalIntensity,
+            intensitySlope,
+            maxIntensity
+        );
         SendMessage(msg);
     }
 

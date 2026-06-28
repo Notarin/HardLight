@@ -3,7 +3,7 @@
 - type: entity
   id: WeaponTurretCharon
   name: M381 CHARON mass driver
-  parent: [ BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband ]
+  parent: [BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband]
   suffix: Station, Recharging Ammo
   description: A capital-class railgun that fires a massive slug at extreme velocity, capable of catastrophic damage to enemy ships. Heavy linear accelerator, can be remotely activated or linked up to a GCS. This one feeds from an autoloader somewhere, and doesn't need manual reloads.
   components:
@@ -45,8 +45,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.5,-0.5,0.5,0.5"
         density: 1500
         mask:
@@ -55,12 +54,11 @@
         - MachineLayer
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 7000
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:PlaySoundBehavior
         sound:
           collection: MetalBreak
@@ -82,7 +80,7 @@
 - type: entity
   id: WeaponTurretCharonReload
   name: M381 CHARON mass driver
-  parent: [ BallisticArtilleryUnanchorableCartridge,  BaseC3ExpeditionContraband ]
+  parent: [BallisticArtilleryUnanchorableCartridge, BaseC3ExpeditionContraband]
   suffix: Ship, Manual Reload, No Rotate
   description: A capital-class railgun that fires a massive slug at extreme velocity, capable of catastrophic damage to enemy ships. Heavy linear accelerator, can be remotely activated or linked up to a GCS.
   components:
@@ -120,8 +118,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.5,-0.5,0.5,0.5"
         density: 1500
         mask:
@@ -130,12 +127,11 @@
         - MachineLayer
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 7000
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:PlaySoundBehavior
         sound:
           collection: MetalBreak

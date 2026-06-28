@@ -20,7 +20,7 @@ namespace Content.Client.UserInterface.Controls
             {
                 VerticalAlignment = VAlignment.Stretch,
                 Align = Label.AlignMode.Center,
-                VAlign = Label.VAlignMode.Center
+                VAlign = Label.VAlignMode.Center,
             };
             _label.AddStyleClass(StyleClassPlaceholderText);
             AddChild(_label);

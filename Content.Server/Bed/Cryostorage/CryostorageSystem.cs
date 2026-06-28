@@ -33,22 +33,53 @@ namespace Content.Server.Bed.Cryostorage;
 /// <inheritdoc/>
 public sealed class CryostorageSystem : SharedCryostorageSystem
 {
-    [Dependency] private readonly IChatManager _chatManager = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly AudioSystem _audio = default!;
-    [Dependency] private readonly AccessReaderSystem _accessReader = default!;
-    [Dependency] private readonly ChatSystem _chatSystem = default!;
-    [Dependency] private readonly ClimbSystem _climb = default!;
-    [Dependency] private readonly ContainerSystem _container = default!;
-    [Dependency] private readonly GhostSystem _ghostSystem = default!;
-    [Dependency] private readonly HandsSystem _hands = default!;
-    [Dependency] private readonly ServerInventorySystem _inventory = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly StationSystem _station = default!;
-    [Dependency] private readonly StationJobsSystem _stationJobs = default!;
-    [Dependency] private readonly StationRecordsSystem _stationRecords = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
+    [Dependency]
+    private readonly IChatManager _chatManager = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly AudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly AccessReaderSystem _accessReader = default!;
+
+    [Dependency]
+    private readonly ChatSystem _chatSystem = default!;
+
+    [Dependency]
+    private readonly ClimbSystem _climb = default!;
+
+    [Dependency]
+    private readonly ContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly GhostSystem _ghostSystem = default!;
+
+    [Dependency]
+    private readonly HandsSystem _hands = default!;
+
+    [Dependency]
+    private readonly ServerInventorySystem _inventory = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly StationSystem _station = default!;
+
+    [Dependency]
+    private readonly StationJobsSystem _stationJobs = default!;
+
+    [Dependency]
+    private readonly StationRecordsSystem _stationRecords = default!;
+
+    [Dependency]
+    private readonly TransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly UserInterfaceSystem _ui = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -109,9 +140,12 @@ public sealed class CryostorageSystem : SharedCryostorageSystem
         if (entity == null)
             return;
 
-        AdminLog.Add(LogType.Action, LogImpact.High,
-            $"{ToPrettyString(attachedEntity):player} removed item {ToPrettyString(entity)} from cryostorage-contained player " +
-            $"{ToPrettyString(cryoContained):player}, stored in cryostorage {ToPrettyString(ent)}");
+        AdminLog.Add(
+            LogType.Action,
+            LogImpact.High,
+            $"{ToPrettyString(attachedEntity):player} removed item {ToPrettyString(entity)} from cryostorage-contained player "
+                + $"{ToPrettyString(cryoContained):player}, stored in cryostorage {ToPrettyString(ent)}"
+        );
 
         _container.TryRemoveFromContainer(entity.Value);
         _transform.SetCoordinates(entity.Value, Transform(attachedEntity).Coordinates);
@@ -155,7 +189,8 @@ public sealed class CryostorageSystem : SharedCryostorageSystem
         if (args.NewStatus is SessionStatus.Disconnected or SessionStatus.Zombie)
         {
             containedComponent.AllowReEnteringBody = true;
-            var delay = CompOrNull<CryostorageComponent>(containedComponent.Cryostorage)?.NoMindGracePeriod ?? TimeSpan.Zero;
+            var delay =
+                CompOrNull<CryostorageComponent>(containedComponent.Cryostorage)?.NoMindGracePeriod ?? TimeSpan.Zero;
             containedComponent.GracePeriodEndTime = Timing.CurTime + delay;
             containedComponent.UserId = args.Session.UserId;
         }
@@ -210,8 +245,11 @@ public sealed class CryostorageSystem : SharedCryostorageSystem
 
         if (!CryoSleepRejoiningEnabled || !comp.AllowReEnteringBody)
         {
-            if (userId != null && Mind.TryGetMind(userId.Value, out var mind) &&
-                HasComp<CryostorageContainedComponent>(mind.Value.Comp.CurrentEntity))
+            if (
+                userId != null
+                && Mind.TryGetMind(userId.Value, out var mind)
+                && HasComp<CryostorageContainedComponent>(mind.Value.Comp.CurrentEntity)
+            )
             {
                 _ghostSystem.OnGhostAttempt(mind.Value, false);
             }
@@ -222,7 +260,11 @@ public sealed class CryostorageSystem : SharedCryostorageSystem
         cryostorageComponent.StoredPlayers.Add(ent);
         Dirty(ent, comp);
         UpdateCryostorageUIState((cryostorageEnt.Value, cryostorageComponent));
-        AdminLog.Add(LogType.Action, LogImpact.High, $"{ToPrettyString(ent):player} was entered into cryostorage inside of {ToPrettyString(cryostorageEnt.Value)}");
+        AdminLog.Add(
+            LogType.Action,
+            LogImpact.High,
+            $"{ToPrettyString(ent):player} was entered into cryostorage inside of {ToPrettyString(cryostorageEnt.Value)}"
+        );
 
         var jobName = Loc.GetString("earlyleave-cryo-job-unknown");
         var recordId = _stationRecords.GetRecordByName(stationUid, name); // HardLight: station.Value<stationUid
@@ -235,13 +277,15 @@ public sealed class CryostorageSystem : SharedCryostorageSystem
             _stationRecords.RemoveRecord(key); // HardLight: Removed stationRecords
         }
 
-        _chatSystem.DispatchStationAnnouncement(stationUid, // HardLight: station.Value<stationUid
+        _chatSystem.DispatchStationAnnouncement(
+            stationUid, // HardLight: station.Value<stationUid
             Loc.GetString(
                 "earlyleave-cryo-announcement",
                 ("character", name),
                 ("entity", ent.Owner), // gender things for supporting downstreams with other languages
                 ("job", CultureInfo.CurrentCulture.TextInfo.ToTitleCase(jobName))
-            ), Loc.GetString("earlyleave-cryo-sender"),
+            ),
+            Loc.GetString("earlyleave-cryo-sender"),
             playDefaultSound: false
         );
     }
@@ -253,9 +297,11 @@ public sealed class CryostorageSystem : SharedCryostorageSystem
             return;
 
         // How did you destroy these? they're indestructible.
-        if (comp.Cryostorage is not { } cryostorage ||
-            TerminatingOrDeleted(cryostorage) ||
-            !TryComp<CryostorageComponent>(cryostorage, out var cryostorageComponent))
+        if (
+            comp.Cryostorage is not { } cryostorage
+            || TerminatingOrDeleted(cryostorage)
+            || !TryComp<CryostorageComponent>(cryostorage, out var cryostorageComponent)
+        )
         {
             QueueDel(entity);
             return;
@@ -264,19 +310,28 @@ public sealed class CryostorageSystem : SharedCryostorageSystem
         var cryoXform = Transform(cryostorage);
         _transform.SetParent(uid, cryoXform.ParentUid);
         _transform.SetCoordinates(uid, cryoXform.Coordinates);
-        if (!_container.TryGetContainer(cryostorage, cryostorageComponent.ContainerId, out var container) ||
-            !_container.Insert(uid, container, cryoXform))
+        if (
+            !_container.TryGetContainer(cryostorage, cryostorageComponent.ContainerId, out var container)
+            || !_container.Insert(uid, container, cryoXform)
+        )
         {
             _climb.ForciblySetClimbing(uid, cryostorage);
         }
 
         comp.GracePeriodEndTime = null;
         cryostorageComponent.StoredPlayers.Remove(uid);
-        AdminLog.Add(LogType.Action, LogImpact.High, $"{ToPrettyString(entity):player} re-entered the game from cryostorage {ToPrettyString(cryostorage)}");
+        AdminLog.Add(
+            LogType.Action,
+            LogImpact.High,
+            $"{ToPrettyString(entity):player} re-entered the game from cryostorage {ToPrettyString(cryostorage)}"
+        );
         UpdateCryostorageUIState((cryostorage, cryostorageComponent));
     }
 
-    protected override void OnInsertedContainer(Entity<CryostorageComponent> ent, ref EntInsertedIntoContainerMessage args)
+    protected override void OnInsertedContainer(
+        Entity<CryostorageComponent> ent,
+        ref EntInsertedIntoContainerMessage args
+    )
     {
         var (uid, comp) = ent;
         if (args.Container.ID != comp.ContainerId)

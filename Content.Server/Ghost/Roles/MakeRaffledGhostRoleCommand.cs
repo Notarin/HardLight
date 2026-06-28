@@ -13,13 +13,17 @@ namespace Content.Server.Ghost.Roles
     [AdminCommand(AdminFlags.Admin)]
     public sealed class MakeRaffledGhostRoleCommand : IConsoleCommand
     {
-        [Dependency] private readonly IPrototypeManager _protoManager = default!;
-        [Dependency] private readonly IEntityManager _entManager = default!;
+        [Dependency]
+        private readonly IPrototypeManager _protoManager = default!;
+
+        [Dependency]
+        private readonly IEntityManager _entManager = default!;
 
         public string Command => "makeghostroleraffled";
         public string Description => "Turns an entity into a raffled ghost role.";
-        public string Help => $"Usage: {Command} <entity uid> <name> <description> (<settings prototype> | <initial duration> <extend by> <max duration>) [<rules>]\n" +
-                              $"Durations are in seconds.";
+        public string Help =>
+            $"Usage: {Command} <entity uid> <name> <description> (<settings prototype> | <initial duration> <extend by> <max duration>) [<rules>]\n"
+            + $"Durations are in seconds.";
 
         public void Execute(IConsoleShell shell, string argStr, string[] args)
         {
@@ -41,8 +45,7 @@ namespace Content.Server.Ghost.Roles
                 return;
             }
 
-            if (_entManager.TryGetComponent(uid, out MindContainerComponent? mind) &&
-                mind.HasMind)
+            if (_entManager.TryGetComponent(uid, out MindContainerComponent? mind) && mind.HasMind)
             {
                 shell.WriteLine($"Entity {metaData.EntityName} with id {uid} already has a mind.");
                 return;
@@ -50,13 +53,17 @@ namespace Content.Server.Ghost.Roles
 
             if (_entManager.TryGetComponent(uid, out GhostRoleComponent? ghostRole))
             {
-                shell.WriteLine($"Entity {metaData.EntityName} with id {uid} already has a {nameof(GhostRoleComponent)}");
+                shell.WriteLine(
+                    $"Entity {metaData.EntityName} with id {uid} already has a {nameof(GhostRoleComponent)}"
+                );
                 return;
             }
 
             if (_entManager.HasComponent<GhostTakeoverAvailableComponent>(uid))
             {
-                shell.WriteLine($"Entity {metaData.EntityName} with id {uid} already has a {nameof(GhostTakeoverAvailableComponent)}");
+                shell.WriteLine(
+                    $"Entity {metaData.EntityName} with id {uid} already has a {nameof(GhostTakeoverAvailableComponent)}"
+                );
                 return;
             }
 
@@ -79,11 +86,14 @@ namespace Content.Server.Ghost.Roles
             {
                 if (!_protoManager.TryIndex<GhostRoleRaffleSettingsPrototype>(args[3], out var proto))
                 {
-                    var validProtos = string.Join(", ",
+                    var validProtos = string.Join(
+                        ", ",
                         _protoManager.EnumeratePrototypes<GhostRoleRaffleSettingsPrototype>().Select(p => p.ID)
                     );
 
-                    shell.WriteLine($"{args[3]} is not a valid raffle settings prototype. Valid options: {validProtos}");
+                    shell.WriteLine(
+                        $"{args[3]} is not a valid raffle settings prototype. Valid options: {validProtos}"
+                    );
                     return;
                 }
 
@@ -91,10 +101,13 @@ namespace Content.Server.Ghost.Roles
             }
             else
             {
-                if (!uint.TryParse(args[3], out var initial)
+                if (
+                    !uint.TryParse(args[3], out var initial)
                     || !uint.TryParse(args[4], out var extends)
                     || !uint.TryParse(args[5], out var max)
-                    || initial == 0 || max == 0)
+                    || initial == 0
+                    || max == 0
+                )
                 {
                     shell.WriteLine($"The raffle initial/extends/max settings must be positive numbers.");
                     return;
@@ -110,7 +123,7 @@ namespace Content.Server.Ghost.Roles
                 {
                     InitialDuration = initial,
                     JoinExtendsDurationBy = extends,
-                    MaxDuration = max
+                    MaxDuration = max,
                 };
             }
 

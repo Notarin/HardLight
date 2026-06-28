@@ -8,7 +8,8 @@ namespace Content.Server.InteractionVerbs.Actions;
 public sealed partial class ToggleSleepingAction : InteractionAction
 {
     [DataField]
-    public bool WakeUp = false, Sleep = false;
+    public bool WakeUp = false,
+        Sleep = false;
 
     public override bool IsAllowed(InteractionArgs args, InteractionVerbPrototype proto, VerbDependencies deps)
     {
@@ -19,7 +20,12 @@ public sealed partial class ToggleSleepingAction : InteractionAction
         return WakeUp;
     }
 
-    public override bool CanPerform(InteractionArgs args, InteractionVerbPrototype proto, bool isBefore, VerbDependencies deps)
+    public override bool CanPerform(
+        InteractionArgs args,
+        InteractionVerbPrototype proto,
+        bool isBefore,
+        VerbDependencies deps
+    )
     {
         if (isBefore)
             args.Blackboard["sleeping"] = deps.EntMan.HasComponent<SleepingComponent>(args.Target);

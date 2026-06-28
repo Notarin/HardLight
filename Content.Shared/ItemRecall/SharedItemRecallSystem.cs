@@ -14,13 +14,26 @@ namespace Content.Shared.ItemRecall;
 /// </summary>
 public abstract partial class SharedItemRecallSystem : EntitySystem
 {
-    [Dependency] private readonly ISharedPlayerManager _player = default!;
-    [Dependency] private readonly SharedPvsOverrideSystem _pvs = default!;
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly MetaDataSystem _metaData = default!;
-    [Dependency] private readonly SharedPopupSystem _popups = default!;
-    [Dependency] private readonly SharedProjectileSystem _proj = default!;
+    [Dependency]
+    private readonly ISharedPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly SharedPvsOverrideSystem _pvs = default!;
+
+    [Dependency]
+    private readonly SharedActionsSystem _actions = default!;
+
+    [Dependency]
+    private readonly SharedHandsSystem _hands = default!;
+
+    [Dependency]
+    private readonly MetaDataSystem _metaData = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popups = default!;
+
+    [Dependency]
+    private readonly SharedProjectileSystem _proj = default!;
 
     public override void Initialize()
     {
@@ -56,11 +69,19 @@ public abstract partial class SharedItemRecallSystem : EntitySystem
 
             if (HasComp<RecallMarkerComponent>(markItem))
             {
-                _popups.PopupClient(Loc.GetString("item-recall-item-already-marked", ("item", markItem)), args.Performer, args.Performer);
+                _popups.PopupClient(
+                    Loc.GetString("item-recall-item-already-marked", ("item", markItem)),
+                    args.Performer,
+                    args.Performer
+                );
                 return;
             }
 
-            _popups.PopupClient(Loc.GetString("item-recall-item-marked", ("item", markItem.Value)), args.Performer, args.Performer);
+            _popups.PopupClient(
+                Loc.GetString("item-recall-item-marked", ("item", markItem.Value)),
+                args.Performer,
+                args.Performer
+            );
             TryMarkItem(ent, markItem.Value);
             return;
         }
@@ -85,10 +106,21 @@ public abstract partial class SharedItemRecallSystem : EntitySystem
         if (TryComp<EmbeddableProjectileComponent>(ent, out var projectile))
             _proj.EmbedDetach(ent, projectile, actionOwner.Value);
 
-        _popups.PopupPredicted(Loc.GetString("item-recall-item-summon-self", ("item", ent)),
-                               Loc.GetString("item-recall-item-summon-others", ("item", ent), ("name", Identity.Entity(actionOwner.Value, EntityManager))),
-                               actionOwner.Value, actionOwner.Value);
-        _popups.PopupPredictedCoordinates(Loc.GetString("item-recall-item-disappear", ("item", ent)), Transform(ent).Coordinates, actionOwner.Value);
+        _popups.PopupPredicted(
+            Loc.GetString("item-recall-item-summon-self", ("item", ent)),
+            Loc.GetString(
+                "item-recall-item-summon-others",
+                ("item", ent),
+                ("name", Identity.Entity(actionOwner.Value, EntityManager))
+            ),
+            actionOwner.Value,
+            actionOwner.Value
+        );
+        _popups.PopupPredictedCoordinates(
+            Loc.GetString("item-recall-item-disappear", ("item", ent)),
+            Transform(ent).Coordinates,
+            actionOwner.Value
+        );
 
         _hands.TryForcePickupAnyHand(actionOwner.Value, ent);
     }
@@ -143,7 +175,12 @@ public abstract partial class SharedItemRecallSystem : EntitySystem
             // This line will only do something once that is fixed.
             if (instantAction.AttachedEntity != null)
             {
-                _popups.PopupClient(Loc.GetString("item-recall-item-unmark", ("item", item)), instantAction.AttachedEntity.Value, instantAction.AttachedEntity.Value, PopupType.MediumCaution);
+                _popups.PopupClient(
+                    Loc.GetString("item-recall-item-unmark", ("item", item)),
+                    instantAction.AttachedEntity.Value,
+                    instantAction.AttachedEntity.Value,
+                    PopupType.MediumCaution
+                );
                 RemoveFromPvsOverride(item, instantAction.AttachedEntity.Value);
             }
 
@@ -171,12 +208,16 @@ public abstract partial class SharedItemRecallSystem : EntitySystem
         else
         {
             if (action.Comp.WhileMarkedName != null)
-                _metaData.SetEntityName(action, Loc.GetString(action.Comp.WhileMarkedName,
-                    ("item", action.Comp.MarkedEntity.Value)));
+                _metaData.SetEntityName(
+                    action,
+                    Loc.GetString(action.Comp.WhileMarkedName, ("item", action.Comp.MarkedEntity.Value))
+                );
 
             if (action.Comp.WhileMarkedDescription != null)
-                _metaData.SetEntityDescription(action, Loc.GetString(action.Comp.WhileMarkedDescription,
-                    ("item", action.Comp.MarkedEntity.Value)));
+                _metaData.SetEntityDescription(
+                    action,
+                    Loc.GetString(action.Comp.WhileMarkedDescription, ("item", action.Comp.MarkedEntity.Value))
+                );
 
             _actions.SetEntityIcon(action, action.Comp.MarkedEntity, instantAction);
         }

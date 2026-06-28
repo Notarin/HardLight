@@ -1,31 +1,42 @@
+using System.Linq;
+using Content.Server._Funkystation.Genetics;
+using Content.Server._Funkystation.Genetics.Components;
+using Content.Server._Funkystation.Genetics.Systems;
 using Content.Server.DoAfter;
 using Content.Server.Popups;
-using Content.Server._Funkystation.Genetics.Components;
-using Content.Shared.DoAfter;
-using Robust.Shared.Serialization;
-using Content.Server._Funkystation.Genetics;
-using System.Linq;
-using Content.Shared.Interaction;
-using Content.Shared.Examine;
-using Content.Server._Funkystation.Genetics.Systems;
-using Content.Shared._Funkystation.Genetics.Prototypes;
-using Robust.Shared.Prototypes;
 using Content.Shared._Funkystation.Genetics;
-using Content.Shared.Popups;
+using Content.Shared._Funkystation.Genetics.Prototypes;
+using Content.Shared.DoAfter;
+using Content.Shared.Examine;
 using Content.Shared.Hands.Components;
 using Content.Shared.Hands.EntitySystems;
+using Content.Shared.Interaction;
 using Content.Shared.Interaction.Events;
+using Content.Shared.Popups;
+using Robust.Shared.Prototypes;
+using Robust.Shared.Serialization;
 
 namespace Content.Server._Funkystation.Genetics.Systems;
 
 public sealed class DNASequenceInjectorSystem : EntitySystem
 {
-    [Dependency] private readonly DoAfterSystem _doAfter = default!;
-    [Dependency] private readonly GeneticShuffleSystem _shuffle = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly GeneticsSystem _genetics = default!;
+    [Dependency]
+    private readonly DoAfterSystem _doAfter = default!;
+
+    [Dependency]
+    private readonly GeneticShuffleSystem _shuffle = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototype = default!;
+
+    [Dependency]
+    private readonly SharedHandsSystem _hands = default!;
+
+    [Dependency]
+    private readonly GeneticsSystem _genetics = default!;
 
     public override void Initialize()
     {
@@ -71,7 +82,7 @@ public sealed class DNASequenceInjectorSystem : EntitySystem
             BreakOnMove = true,
             BreakOnHandChange = true,
             NeedHand = true,
-            DuplicateCondition = DuplicateConditions.SameTarget
+            DuplicateCondition = DuplicateConditions.SameTarget,
         };
 
         if (user != target)
@@ -108,7 +119,7 @@ public sealed class DNASequenceInjectorSystem : EntitySystem
             BreakOnMove = true,
             BreakOnHandChange = true,
             NeedHand = true,
-            DuplicateCondition = DuplicateConditions.SameTarget
+            DuplicateCondition = DuplicateConditions.SameTarget,
         };
 
         _popup.PopupEntity(Loc.GetString("dna-injector-start-self"), user, user);
@@ -155,8 +166,9 @@ public sealed class DNASequenceInjectorSystem : EntitySystem
 
         if (comp.IsMutator)
         {
-            success = _genetics.TryAddMutation(targetUid, genetics, mutationId) &&
-                      _genetics.TryActivateMutation(targetUid, genetics, mutationId);
+            success =
+                _genetics.TryAddMutation(targetUid, genetics, mutationId)
+                && _genetics.TryActivateMutation(targetUid, genetics, mutationId);
         }
         else
         {

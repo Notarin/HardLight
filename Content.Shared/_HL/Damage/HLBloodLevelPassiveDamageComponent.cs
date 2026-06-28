@@ -1,10 +1,10 @@
-using Content.Shared.Mobs;
-using Content.Shared.FixedPoint;
-using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
-using Robust.Shared.GameStates;
 using Content.Shared.Damage;
-using Robust.Shared.Prototypes;
 using Content.Shared.Damage.Prototypes;
+using Content.Shared.FixedPoint;
+using Content.Shared.Mobs;
+using Robust.Shared.GameStates;
+using Robust.Shared.Prototypes;
+using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
 namespace Content.Shared._HL.Damage;
 

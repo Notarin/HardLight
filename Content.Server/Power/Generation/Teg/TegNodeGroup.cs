@@ -101,7 +101,6 @@ public sealed class TegNodeGroup : BaseNodeGroup
                     CirculatorB = circulator;
                 }
             }
-
         }
 
         IsFullyBuilt = Generator != null && CirculatorA != null && CirculatorB != null;
@@ -131,7 +130,8 @@ public sealed partial class TegNodeGenerator : Node
         EntityQuery<NodeContainerComponent> nodeQuery,
         EntityQuery<TransformComponent> xformQuery,
         MapGridComponent? grid,
-        IEntityManager entMan)
+        IEntityManager entMan
+    )
     {
         if (!xform.Anchored || grid == null)
             yield break;
@@ -183,7 +183,8 @@ public sealed partial class TegNodeCirculator : Node
         EntityQuery<NodeContainerComponent> nodeQuery,
         EntityQuery<TransformComponent> xformQuery,
         MapGridComponent? grid,
-        IEntityManager entMan)
+        IEntityManager entMan
+    )
     {
         if (!xform.Anchored || grid == null)
             yield break;

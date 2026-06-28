@@ -14,13 +14,26 @@ namespace Content.Shared.Movement.Systems;
 
 public sealed partial class SharedJumpAbilitySystem : EntitySystem
 {
-    [Dependency] private readonly ThrowingSystem _throwing = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedGravitySystem _gravity = default!;
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
-    [Dependency] private readonly SharedStunSystem _stun = default!;
-    [Dependency] private readonly StandingStateSystem _standing = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency]
+    private readonly ThrowingSystem _throwing = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedGravitySystem _gravity = default!;
+
+    [Dependency]
+    private readonly SharedActionsSystem _actions = default!;
+
+    [Dependency]
+    private readonly SharedStunSystem _stun = default!;
+
+    [Dependency]
+    private readonly StandingStateSystem _standing = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
 
     public override void Initialize()
     {
@@ -53,7 +66,6 @@ public sealed partial class SharedJumpAbilitySystem : EntitySystem
 
     private void OnLeaperCollide(Entity<ActiveLeaperComponent> entity, ref StartCollideEvent args)
     {
-
         // HardLight start: Ignore map/grid collisions
         if (!TryComp<ThrownItemComponent>(entity.Owner, out var thrown) || thrown.Landed)
         {
@@ -102,7 +114,6 @@ public sealed partial class SharedJumpAbilitySystem : EntitySystem
             leaperComp.KnockdownDuration = entity.Comp.CollideKnockdown;
             Dirty(entity.Owner, leaperComp);
         }
-
         // HardLight start: Remove ActiveLeaperComponent if CanCollide is false
         else
         {

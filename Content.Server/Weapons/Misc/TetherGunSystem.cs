@@ -8,8 +8,11 @@ namespace Content.Server.Weapons.Misc;
 
 public sealed class TetherGunSystem : SharedTetherGunSystem
 {
-    [Dependency] private readonly PowerCellSystem _cell = default!;
-    [Dependency] private readonly ItemToggleSystem _toggle = default!;
+    [Dependency]
+    private readonly PowerCellSystem _cell = default!;
+
+    [Dependency]
+    private readonly ItemToggleSystem _toggle = default!;
 
     public override void Initialize()
     {
@@ -34,14 +37,25 @@ public sealed class TetherGunSystem : SharedTetherGunSystem
         return true;
     }
 
-    protected override void StartTether(EntityUid gunUid, BaseForceGunComponent component, EntityUid target, EntityUid? user,
-        PhysicsComponent? targetPhysics = null, TransformComponent? targetXform = null)
+    protected override void StartTether(
+        EntityUid gunUid,
+        BaseForceGunComponent component,
+        EntityUid target,
+        EntityUid? user,
+        PhysicsComponent? targetPhysics = null,
+        TransformComponent? targetXform = null
+    )
     {
         base.StartTether(gunUid, component, target, user, targetPhysics, targetXform);
         _toggle.TryActivate(gunUid);
     }
 
-    protected override void StopTether(EntityUid gunUid, BaseForceGunComponent component, bool land = true, bool transfer = false)
+    protected override void StopTether(
+        EntityUid gunUid,
+        BaseForceGunComponent component,
+        bool land = true,
+        bool transfer = false
+    )
     {
         base.StopTether(gunUid, component, land, transfer);
         _toggle.TryDeactivate(gunUid);

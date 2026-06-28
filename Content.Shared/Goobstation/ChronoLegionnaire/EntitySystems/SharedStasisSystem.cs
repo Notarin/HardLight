@@ -24,11 +24,20 @@ namespace Content.Shared.Goobstation.ChronoLegionnaire;
 
 public abstract class SharedStasisSystem : EntitySystem
 {
-    [Dependency] private readonly ActionBlockerSystem _blocker = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly StatusEffectsSystem _statusEffects = default!;
-    [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
+    [Dependency]
+    private readonly ActionBlockerSystem _blocker = default!;
+
+    [Dependency]
+    private readonly ISharedAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly StatusEffectsSystem _statusEffects = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transformSystem = default!;
 
     public override void Initialize()
     {
@@ -117,7 +126,10 @@ public abstract class SharedStasisSystem : EntitySystem
     /// <summary>
     /// Prevents everyone except stasisImmune persons to interact with target in stasis (stripping/dragging/etc.)
     /// </summary>
-    private void OnInteractionWithAttempt(Entity<InsideStasisComponent> stasised, ref GettingInteractedWithAttemptEvent args)
+    private void OnInteractionWithAttempt(
+        Entity<InsideStasisComponent> stasised,
+        ref GettingInteractedWithAttemptEvent args
+    )
     {
         if (HasComp<StasisImmunityComponent>(args.Uid))
             return;
@@ -184,7 +196,7 @@ public abstract class SharedStasisSystem : EntitySystem
             staminaComp.Decay /= protection.Comp.StaminaModifier;
         }
 
-        if (HasComp<StasisImmunityComponent>(args.Equipee) )
+        if (HasComp<StasisImmunityComponent>(args.Equipee))
             EntityManager.RemoveComponent<StasisImmunityComponent>(args.Equipee);
     }
 

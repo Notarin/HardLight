@@ -11,9 +11,14 @@ namespace Content.Server.Tesla.EntitySystems;
 /// </summary>
 public sealed class LightningTargetSystem : EntitySystem
 {
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly ExplosionSystem _explosionSystem = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
+    [Dependency]
+    private readonly DamageableSystem _damageable = default!;
+
+    [Dependency]
+    private readonly ExplosionSystem _explosionSystem = default!;
+
+    [Dependency]
+    private readonly TransformSystem _transform = default!;
 
     public override void Initialize()
     {
@@ -33,10 +38,12 @@ public sealed class LightningTargetSystem : EntitySystem
             _explosionSystem.QueueExplosion(
                 _transform.GetMapCoordinates(uid),
                 uid.Comp.ExplosionPrototype,
-                uid.Comp.TotalIntensity, uid.Comp.Dropoff,
+                uid.Comp.TotalIntensity,
+                uid.Comp.Dropoff,
                 uid.Comp.MaxTileIntensity,
                 uid,
-                canCreateVacuum: false);
+                canCreateVacuum: false
+            );
         }
     }
 }

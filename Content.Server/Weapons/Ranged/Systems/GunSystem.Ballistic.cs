@@ -33,10 +33,15 @@ public sealed partial class GunSystem
             component.UnspawnedCount--;
             Dirty(uid, component);
 
-            if (component.Proto is { } proto &&
-                ProtoManager.TryIndex<EntityPrototype>(proto, out var entityProto) &&
-                entityProto.Components.TryGetValue(_factory.GetComponentName(typeof(CartridgeAmmoComponent)), out var cartridgeComp) &&
-                cartridgeComp.Component is CartridgeAmmoComponent { DeleteOnSpawn: true })
+            if (
+                component.Proto is { } proto
+                && ProtoManager.TryIndex<EntityPrototype>(proto, out var entityProto)
+                && entityProto.Components.TryGetValue(
+                    _factory.GetComponentName(typeof(CartridgeAmmoComponent)),
+                    out var cartridgeComp
+                )
+                && cartridgeComp.Component is CartridgeAmmoComponent { DeleteOnSpawn: true }
+            )
             {
                 var caselessCycledEvent = new GunCycledEvent();
                 RaiseLocalEvent(uid, ref caselessCycledEvent);

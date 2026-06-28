@@ -3110,4 +3110,3 @@ entities:
     - type: Transform
       pos: -4.5,-2.5
       parent: 1
-...

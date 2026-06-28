@@ -7,7 +7,8 @@ namespace Content.Shared.Nutrition.EntitySystems;
 /// <inheritdoc cref="ExaminableHungerComponent"/>
 public sealed class ExaminableHungerSystem : EntitySystem
 {
-    [Dependency] private readonly HungerSystem _hunger = default!;
+    [Dependency]
+    private readonly HungerSystem _hunger = default!;
     private EntityQuery<HungerComponent> _hungerQuery;
 
     public override void Initialize()
@@ -27,8 +28,10 @@ public sealed class ExaminableHungerSystem : EntitySystem
     {
         var identity = Identity.Entity(entity, EntityManager);
 
-        if (!_hungerQuery.TryComp(entity, out var hungerComp)
-            || !entity.Comp.Descriptions.TryGetValue(_hunger.GetHungerThreshold(hungerComp), out var locId))
+        if (
+            !_hungerQuery.TryComp(entity, out var hungerComp)
+            || !entity.Comp.Descriptions.TryGetValue(_hunger.GetHungerThreshold(hungerComp), out var locId)
+        )
         {
             // Use a fallback message if the entity has no HungerComponent
             // or is missing a description for the current threshold

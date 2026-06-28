@@ -5,7 +5,7 @@
   name: shell
   parent: BaseBulletTrigger
   abstract: true
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: TimedDespawn
     lifetime: 3
@@ -22,7 +22,7 @@
 - type: entity
   id: 90mmBulletArmorPiercing
   parent: 90mmBulletExplosiveBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -59,7 +59,7 @@
   - type: Sprite
     layers:
     - state: base
-      map: [ "enum.AmmoVisualLayers.Base" ]
+      map: ["enum.AmmoVisualLayers.Base"]
   - type: Appearance
   - type: SpentAmmoVisuals
   - type: SpaceGarbage
@@ -79,7 +79,7 @@
   id: 90mmBulletExplosiveBase
   parent: 90mmBulletBase
   abstract: true
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: ExplodeOnTrigger
   - type: Explosive

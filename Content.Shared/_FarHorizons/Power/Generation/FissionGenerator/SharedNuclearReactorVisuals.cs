@@ -4,7 +4,6 @@
 //
 // SPDX-License-Identifier: CC-BY-NC-SA-3.0
 
-
 using Robust.Shared.Serialization;
 
 namespace Content.Shared._FarHorizons.Power.Generation.FissionGenerator;
@@ -16,7 +15,7 @@ namespace Content.Shared._FarHorizons.Power.Generation.FissionGenerator;
 [Serializable, NetSerializable]
 public enum ReactorCapVisuals
 {
-    Sprite
+    Sprite,
 }
 #endregion
 

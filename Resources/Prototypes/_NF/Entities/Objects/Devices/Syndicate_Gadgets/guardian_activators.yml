@@ -29,13 +29,13 @@
   components:
   - type: StorageFill
     contents:
-      - id: HoloparasiteInjectorAI
-      - id: HoloparasiteInfo
-      - id: ClothingHeadHatBizarreSoft
+    - id: HoloparasiteInjectorAI
+    - id: HoloparasiteInfo
+    - id: ClothingHeadHatBizarreSoft
   - type: Sprite
     layers:
-      - state: box
-      - state: holo
+    - state: box
+    - state: holo
   - type: StaticPrice
     price: 1500
 
@@ -46,15 +46,15 @@
   components:
   - type: StorageFill
     contents:
-      - id: HoloClownInjectorAI
-      - id: ToyFigurineHoloClown
-      - id: ToyHammer
+    - id: HoloClownInjectorAI
+    - id: ToyFigurineHoloClown
+    - id: ToyHammer
   - type: Sprite
     layers:
-      - state: box_hug
-      - state: holo
+    - state: box_hug
+    - state: holo
   - type: Tag
     tags:
-      - BoxHug
+    - BoxHug
   - type: StaticPrice
     price: 1500

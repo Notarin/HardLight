@@ -3,8 +3,7 @@
   icon: LanguageIconPlant
   speech:
     color: "#804000"
-  obfuscation:
-    !type:SyllableObfuscation
+  obfuscation: !type:SyllableObfuscation
     minSyllables: 1
     maxSyllables: 2
     replacement:

@@ -1,17 +1,16 @@
 - type: entity
-  parent: [ BaseMachinePowered, ConstructibleMachine ]
+  parent: [BaseMachinePowered, ConstructibleMachine]
   id: Holopad
   name: holopad
   description: "A floor-mounted device for projecting holographic images."
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   components:
   - type: Transform
     anchored: true
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.25
         mask:
         - Impassable
@@ -24,31 +23,31 @@
     snapCardinals: true
     layers:
     - state: base
-    - map: [ "lights" ]
+    - map: ["lights"]
       state: blank
       shader: unshaded
-    - map: [ "enum.PowerDeviceVisualLayers.Powered" ]
+    - map: ["enum.PowerDeviceVisualLayers.Powered"]
       state: unpowered
-    - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+    - map: ["enum.WiresVisualLayers.MaintenancePanel"]
       state: panel_open
   - type: Appearance
   - type: GenericVisualizer
     visuals:
       enum.TelephoneVisuals.Key:
         lights:
-          Idle: { state: blank }
-          Calling: { state: lights_calling }
-          Ringing: { state: lights_ringing }
-          InCall: { state: lights_in_call }
-          EndingCall: { state: lights_hanging_up }
+          Idle: {state: blank}
+          Calling: {state: lights_calling}
+          Ringing: {state: lights_ringing}
+          InCall: {state: lights_in_call}
+          EndingCall: {state: lights_hanging_up}
       enum.PowerDeviceVisuals.Powered:
         enum.PowerDeviceVisualLayers.Powered:
-          False: { visible: true }
-          True: { visible: false }
+          False: {visible: true}
+          True: {visible: false}
       enum.WiresVisuals.MaintenancePanelState:
         enum.WiresVisualLayers.MaintenancePanel:
-          True: { visible: false }
-          False: { visible: true }
+          True: {visible: false}
+          False: {visible: true}
   - type: Machine
     board: HolopadMachineCircuitboard
   - type: StationAiWhitelist
@@ -74,16 +73,16 @@
     listeningRange: 2.5
     speakerVolume: Speak
   - type: AccessReader
-    access: [[ "Command" ]]
+    access: [["Command"]]
   - type: ActivatableUI
     key: enum.HolopadUiKey.InteractionWindow
   - type: ActivatableUIRequiresPower
   - type: UserInterface
     interfaces:
-        enum.HolopadUiKey.InteractionWindow:
-          type: HolopadBoundUserInterface
-        enum.WiresUiKey.Key:
-          type: WiresBoundUserInterface
+      enum.HolopadUiKey.InteractionWindow:
+        type: HolopadBoundUserInterface
+      enum.WiresUiKey.Key:
+        type: WiresBoundUserInterface
   - type: WiresPanel
   - type: WiresVisuals
   - type: Wires
@@ -91,8 +90,7 @@
     layoutId: Holopad
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:PlaySoundBehavior
@@ -112,7 +110,7 @@
   description: "A floor-mounted device for projecting holographic images to similar devices that are far away."
   parent: Holopad
   id: HolopadLongRange
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   components:
   - type: Telephone
     transmissionRange: Map
@@ -126,7 +124,7 @@
   description: "An floor-mounted device for projecting holographic images to similar devices at extreme distances."
   parent: Holopad
   id: HolopadUnlimitedRange
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   components:
   - type: Telephone
     transmissionRange: Unlimited
@@ -141,7 +139,7 @@
   parent: Holopad
   id: HolopadBluespace
   suffix: Unrestricted range
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   components:
   - type: Telephone
     unlistedNumber: true
@@ -155,7 +153,7 @@
 - type: entity
   id: HolopadHologram
   name: hologram
-  categories: [ HideSpawnMenu, DoNotMap ]
+  categories: [HideSpawnMenu, DoNotMap]
   components:
   - type: Transform
     anchored: true
@@ -186,7 +184,7 @@
 - type: entity
   parent: Holopad
   id: HolopadGeneralTools
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Tools
   components:
   - type: Label
@@ -195,7 +193,7 @@
 - type: entity
   parent: Holopad
   id: HolopadGeneralCryosleep
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Cryosleep
   components:
   - type: Label
@@ -204,7 +202,7 @@
 - type: entity
   parent: Holopad
   id: HolopadGeneralTheater
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Theater
   components:
   - type: Label
@@ -213,7 +211,7 @@
 - type: entity
   parent: Holopad
   id: HolopadGeneralDisposals
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Disposals
   components:
   - type: Label
@@ -222,7 +220,7 @@
 - type: entity
   parent: Holopad
   id: HolopadGeneralEVAStorage
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: EVA Storage
   components:
   - type: Label
@@ -231,7 +229,7 @@
 - type: entity
   parent: Holopad
   id: HolopadGeneralLounge
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Lounge
   components:
   - type: Label
@@ -240,7 +238,7 @@
 - type: entity
   parent: Holopad
   id: HolopadGeneralArcade
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Arcade
   components:
   - type: Label
@@ -249,7 +247,7 @@
 - type: entity
   parent: Holopad
   id: HolopadGeneralEvac
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Evac
   components:
   - type: Label
@@ -258,7 +256,7 @@
 - type: entity
   parent: Holopad
   id: HolopadGeneralArrivals
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Arrivals
   components:
   - type: Label
@@ -268,7 +266,7 @@
 - type: entity
   parent: Holopad
   id: HolopadCommandBridge
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Bridge
   components:
   - type: Label
@@ -277,7 +275,7 @@
 - type: entity
   parent: Holopad
   id: HolopadCommandVault
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Vault
   components:
   - type: Label
@@ -286,7 +284,7 @@
 - type: entity
   parent: Holopad
   id: HolopadCommandBridgeHallway
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Bridge Hallway
   components:
   - type: Label
@@ -295,7 +293,7 @@
 - type: entity
   parent: Holopad
   id: HolopadCommandMeetingRoom
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Command Meeting
   components:
   - type: Label
@@ -304,7 +302,7 @@
 - type: entity
   parent: Holopad
   id: HolopadCommandLounge
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Command Lounge
   components:
   - type: Label
@@ -313,7 +311,7 @@
 - type: entity
   parent: Holopad
   id: HolopadCommandCaptain
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Captain
   components:
   - type: Label
@@ -322,7 +320,7 @@
 - type: entity
   parent: Holopad
   id: HolopadCommandHop
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: HoP
   components:
   - type: Label
@@ -331,7 +329,7 @@
 - type: entity
   parent: Holopad
   id: HolopadCommandCmo
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: CMO
   components:
   - type: Label
@@ -340,7 +338,7 @@
 - type: entity
   parent: Holopad
   id: HolopadCommandQm
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: QM
   components:
   - type: Label
@@ -349,7 +347,7 @@
 - type: entity
   parent: Holopad
   id: HolopadCommandCe
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: CE
   components:
   - type: Label
@@ -358,7 +356,7 @@
 - type: entity
   parent: Holopad
   id: HolopadCommandRd
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: RD
   components:
   - type: Label
@@ -367,7 +365,7 @@
 - type: entity
   parent: Holopad
   id: HolopadCommandHos
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: HoS
   components:
   - type: Label
@@ -377,7 +375,7 @@
 - type: entity
   parent: Holopad
   id: HolopadScienceAnomaly
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Anomaly
   components:
   - type: Label
@@ -386,7 +384,7 @@
 - type: entity
   parent: Holopad
   id: HolopadScienceArtifact
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Artifact
   components:
   - type: Label
@@ -395,7 +393,7 @@
 - type: entity
   parent: Holopad
   id: HolopadScienceArtifactNorth
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Artifact North
   components:
   - type: Label
@@ -404,7 +402,7 @@
 - type: entity
   parent: Holopad
   id: HolopadScienceArtifactSouth
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Artifact South
   components:
   - type: Label
@@ -413,7 +411,7 @@
 - type: entity
   parent: Holopad
   id: HolopadScienceRobotics
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Robotics
   components:
   - type: Label
@@ -422,7 +420,7 @@
 - type: entity
   parent: Holopad
   id: HolopadScienceRnd
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: R&D
   components:
   - type: Label
@@ -431,7 +429,7 @@
 - type: entity
   parent: Holopad
   id: HolopadScienceFront
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Sci Front
   components:
   - type: Label
@@ -440,7 +438,7 @@
 - type: entity
   parent: Holopad
   id: HolopadScienceBreakroom
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Sci Breakroom
   components:
   - type: Label
@@ -450,7 +448,7 @@
 - type: entity
   parent: Holopad
   id: HolopadMedicalMedbay
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Medbay
   components:
   - type: Label
@@ -459,7 +457,7 @@
 - type: entity
   parent: Holopad
   id: HolopadMedicalChemistry
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Chemistry
   components:
   - type: Label
@@ -468,7 +466,7 @@
 - type: entity
   parent: Holopad
   id: HolopadMedicalCryopods
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Cryopods
   components:
   - type: Label
@@ -477,7 +475,7 @@
 - type: entity
   parent: Holopad
   id: HolopadMedicalMorgue
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Morgue
   components:
   - type: Label
@@ -486,7 +484,7 @@
 - type: entity
   parent: Holopad
   id: HolopadMedicalSurgery
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Surgery
   components:
   - type: Label
@@ -495,7 +493,7 @@
 - type: entity
   parent: Holopad
   id: HolopadMedicalParamed
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Paramedic
   components:
   - type: Label
@@ -504,7 +502,7 @@
 - type: entity
   parent: Holopad
   id: HolopadMedicalVirology
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Virology
   components:
   - type: Label
@@ -513,7 +511,7 @@
 - type: entity
   parent: Holopad
   id: HolopadMedicalFront
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Med Front
   components:
   - type: Label
@@ -522,7 +520,7 @@
 - type: entity
   parent: Holopad
   id: HolopadMedicalBreakroom
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Med Breakroom
   components:
   - type: Label
@@ -531,7 +529,7 @@
 - type: entity
   parent: Holopad
   id: HolopadMedicalClinic
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Med Clinic
   components:
   - type: Label
@@ -541,7 +539,7 @@
 - type: entity
   parent: Holopad
   id: HolopadCargoFront
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Cargo Front
   components:
   - type: Label
@@ -550,7 +548,7 @@
 - type: entity
   parent: Holopad
   id: HolopadCargoBay
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Cargo Bay
   components:
   - type: Label
@@ -559,7 +557,7 @@
 - type: entity
   parent: Holopad
   id: HolopadCargoSalvageBay
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Salvage Bay
   components:
   - type: Label
@@ -568,7 +566,7 @@
 - type: entity
   parent: Holopad
   id: HolopadCargoBreakroom
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Cargo Breakroom
   components:
   - type: Label
@@ -577,7 +575,7 @@
 - type: entity
   parent: Holopad
   id: HolopadCargoMailroom
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Cargo Mailroom
   components:
   - type: Label
@@ -587,7 +585,7 @@
 - type: entity
   parent: Holopad
   id: HolopadEngineeringAtmosFront
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Atmos Front
   components:
   - type: Label
@@ -596,7 +594,7 @@
 - type: entity
   parent: Holopad
   id: HolopadEngineeringAtmosMain
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Atmos Main
   components:
   - type: Label
@@ -605,7 +603,7 @@
 - type: entity
   parent: Holopad
   id: HolopadEngineeringAtmosTeg
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: TEG
   components:
   - type: Label
@@ -614,7 +612,7 @@
 - type: entity
   parent: Holopad
   id: HolopadEngineeringStorage
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Engi Storage
   components:
   - type: Label
@@ -623,7 +621,7 @@
 - type: entity
   parent: Holopad
   id: HolopadEngineeringBreakroom
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Engi Breakroom
   components:
   - type: Label
@@ -632,7 +630,7 @@
 - type: entity
   parent: Holopad
   id: HolopadEngineeringFront
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Engi Front
   components:
   - type: Label
@@ -641,7 +639,7 @@
 - type: entity
   parent: Holopad
   id: HolopadEngineeringTelecoms
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Telecoms
   components:
   - type: Label
@@ -650,7 +648,7 @@
 - type: entity
   parent: Holopad
   id: HolopadEngineeringTechVault
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Tech Vault
   components:
   - type: Label
@@ -659,7 +657,7 @@
 - type: entity
   parent: Holopad
   id: HolopadEngineeringAME
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: AME
   components:
   - type: Label
@@ -668,7 +666,7 @@
 - type: entity
   parent: Holopad
   id: HolopadEngineeringPower
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Power
   components:
   - type: Label
@@ -677,7 +675,7 @@
 - type: entity
   parent: Holopad
   id: HolopadEngineeringMain
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Engi Main
   components:
   - type: Label
@@ -687,7 +685,7 @@
 - type: entity
   parent: Holopad
   id: HolopadSecurityFront
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Sec Front
   components:
   - type: Label
@@ -696,7 +694,7 @@
 - type: entity
   parent: Holopad
   id: HolopadSecurityBrig
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Brig
   components:
   - type: Label
@@ -705,7 +703,7 @@
 - type: entity
   parent: Holopad
   id: HolopadSecurityWarden
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Warden
   components:
   - type: Label
@@ -714,7 +712,7 @@
 - type: entity
   parent: Holopad
   id: HolopadSecurityInterrogation
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Interrogation
   components:
   - type: Label
@@ -723,7 +721,7 @@
 - type: entity
   parent: Holopad
   id: HolopadSecurityBreakroom
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Sec Breakroom
   components:
   - type: Label
@@ -732,7 +730,7 @@
 - type: entity
   parent: Holopad
   id: HolopadSecurityDetective
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Detective
   components:
   - type: Label
@@ -741,7 +739,7 @@
 - type: entity
   parent: Holopad
   id: HolopadSecurityPerma
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Perma
   components:
   - type: Label
@@ -750,7 +748,7 @@
 - type: entity
   parent: Holopad
   id: HolopadSecurityCourtroom
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Courtroom
   components:
   - type: Label
@@ -759,7 +757,7 @@
 - type: entity
   parent: Holopad
   id: HolopadSecurityLawyer
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Lawyer
   components:
   - type: Label
@@ -768,7 +766,7 @@
 - type: entity
   parent: Holopad
   id: HolopadSecurityArmory
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Armory
   components:
   - type: Label
@@ -777,7 +775,7 @@
 - type: entity
   parent: Holopad
   id: HolopadSecurityLockerRoom
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Sec Locker Room
   components:
   - type: Label
@@ -786,7 +784,7 @@
 - type: entity
   parent: Holopad
   id: HolopadSecurityBrigMed
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Brig Med
   components:
   - type: Label
@@ -795,7 +793,7 @@
 - type: entity
   parent: Holopad
   id: HolopadSecurityEvacCheckpoint
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Sec Evac Checkpoint
   components:
   - type: Label
@@ -804,7 +802,7 @@
 - type: entity
   parent: Holopad
   id: HolopadSecurityArrivalsCheckpoint
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Sec Arrivals Checkpoint
   components:
   - type: Label
@@ -814,7 +812,7 @@
 - type: entity
   parent: Holopad
   id: HolopadServiceJanitor
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Janitor
   components:
   - type: Label
@@ -823,7 +821,7 @@
 - type: entity
   parent: Holopad
   id: HolopadServiceBar
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Bar
   components:
   - type: Label
@@ -832,7 +830,7 @@
 - type: entity
   parent: Holopad
   id: HolopadServiceKitchen
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Kitchen
   components:
   - type: Label
@@ -841,7 +839,7 @@
 - type: entity
   parent: Holopad
   id: HolopadServiceBotany
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Botany
   components:
   - type: Label
@@ -850,7 +848,7 @@
 - type: entity
   parent: Holopad
   id: HolopadServiceChapel
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Chapel
   components:
   - type: Label
@@ -859,7 +857,7 @@
 - type: entity
   parent: Holopad
   id: HolopadServiceLibrary
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Library
   components:
   - type: Label
@@ -868,7 +866,7 @@
 - type: entity
   parent: Holopad
   id: HolopadServiceGameRoom
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Game Room
   components:
   - type: Label
@@ -877,7 +875,7 @@
 - type: entity
   parent: Holopad
   id: HolopadServiceNewsroom
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Newsroom
   components:
   - type: Label
@@ -886,7 +884,7 @@
 - type: entity
   parent: Holopad
   id: HolopadServiceZookeeper
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Zookeeper
   components:
   - type: Label
@@ -895,7 +893,7 @@
 - type: entity
   parent: Holopad
   id: HolopadServiceBoxer
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Boxer
   components:
   - type: Label
@@ -904,7 +902,7 @@
 - type: entity
   parent: Holopad
   id: HolopadServiceClown
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Clown
   components:
   - type: Label
@@ -913,7 +911,7 @@
 - type: entity
   parent: Holopad
   id: HolopadServiceMusician
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Musician
   components:
   - type: Label
@@ -922,7 +920,7 @@
 - type: entity
   parent: Holopad
   id: HolopadServiceMime
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Mime
   components:
   - type: Label
@@ -932,7 +930,7 @@
 - type: entity
   parent: Holopad
   id: HolopadAiCore
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: AI Core
   components:
   - type: Label
@@ -941,7 +939,7 @@
 - type: entity
   parent: Holopad
   id: HolopadAiMain
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: AI Main
   components:
   - type: Label
@@ -950,7 +948,7 @@
 - type: entity
   parent: Holopad
   id: HolopadAiUpload
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: AI Upload
   components:
   - type: Label
@@ -959,7 +957,7 @@
 - type: entity
   parent: Holopad
   id: HolopadAiBackupPower
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: AI Backup Power
   components:
   - type: Label
@@ -968,7 +966,7 @@
 - type: entity
   parent: Holopad
   id: HolopadAiEntrance
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: AI Entrance
   components:
   - type: Label
@@ -977,7 +975,7 @@
 - type: entity
   parent: Holopad
   id: HolopadAiChute
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: AI Chute
   components:
   - type: Label
@@ -987,7 +985,7 @@
 - type: entity
   parent: HolopadLongRange
   id: HolopadCargoAts
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: ATS
   components:
   - type: Label
@@ -996,7 +994,7 @@
 - type: entity
   parent: HolopadLongRange
   id: HolopadCommandBridgeLongRange
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Station Bridge
   components:
   - type: Label
@@ -1005,7 +1003,7 @@
 - type: entity
   parent: HolopadLongRange
   id: HolopadCargoBayLongRange
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Station Cargo Bay
   components:
   - type: Label
@@ -1014,7 +1012,7 @@
 - type: entity
   parent: HolopadLongRange
   id: HolopadCargoShuttle
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Cargo Shuttle
   components:
   - type: Label
@@ -1023,19 +1021,18 @@
 - type: entity
   parent: HolopadLongRange
   id: HolopadColCommEvacShuttle
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Evac Shuttle
   components:
   - type: Label
     currentLabel: holopad-Colcomm-evac
-
 
 # Map Specific
 # For holopads that only fit specific maps. For example: Bagel has Clown, Mime and Musician merged into one.
 - type: entity
   parent: Holopad
   id: HolopadServiceClownMime
-  categories: [ ] # Frontier
+  categories: [] # Frontier
   suffix: Clown/Mime
   components:
   - type: Label

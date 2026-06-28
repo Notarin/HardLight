@@ -43,10 +43,6 @@ public sealed partial class RottingComponent : Component
     [DataField]
     public DamageSpecifier Damage = new()
     {
-        DamageDict = new()
-        {
-            { "Blunt", 0.06 },
-            { "Cellular", 0.06 }
-        }
+        DamageDict = new() { { "Blunt", 0.06 }, { "Cellular", 0.06 } },
     };
 }

@@ -15,10 +15,17 @@ namespace Content.Client.Hands
 {
     public sealed class ShowHandItemOverlay : Overlay
     {
-        [Dependency] private readonly IConfigurationManager _cfg = default!;
-        [Dependency] private readonly IInputManager _inputManager = default!;
-        [Dependency] private readonly IClyde _clyde = default!;
-        [Dependency] private readonly IEntityManager _entMan = default!;
+        [Dependency]
+        private readonly IConfigurationManager _cfg = default!;
+
+        [Dependency]
+        private readonly IInputManager _inputManager = default!;
+
+        [Dependency]
+        private readonly IClyde _clyde = default!;
+
+        [Dependency]
+        private readonly IEntityManager _entMan = default!;
 
         private HandsSystem? _hands;
         private readonly IRenderTexture _renderBackbuffer;
@@ -35,10 +42,9 @@ namespace Content.Client.Hands
             _renderBackbuffer = _clyde.CreateRenderTarget(
                 (64, 64),
                 new RenderTargetFormatParameters(RenderTargetColorFormat.Rgba8Srgb, true),
-                new TextureSampleParameters
-                {
-                    Filter = true
-                }, nameof(ShowHandItemOverlay));
+                new TextureSampleParameters { Filter = true },
+                nameof(ShowHandItemOverlay)
+            );
         }
 
         protected override void DisposeBehavior()
@@ -70,7 +76,11 @@ namespace Content.Client.Hands
 
             if (IconOverride != null)
             {
-                screen.DrawTexture(IconOverride, mousePos.Position - IconOverride.Size / 2 + offsetVec, Color.White.WithAlpha(0.75f));
+                screen.DrawTexture(
+                    IconOverride,
+                    mousePos.Position - IconOverride.Size / 2 + offsetVec,
+                    Color.White.WithAlpha(0.75f)
+                );
                 return;
             }
 
@@ -83,12 +93,28 @@ namespace Content.Client.Hands
             var halfSize = _renderBackbuffer.Size / 2;
             var uiScale = (args.ViewportControl as Control)?.UIScale ?? 1f;
 
-            screen.RenderInRenderTarget(_renderBackbuffer, () =>
-            {
-                screen.DrawEntity(handEntity.Value, halfSize, new Vector2(1f, 1f) * uiScale, Angle.Zero, Angle.Zero, Direction.South, sprite);
-            }, Color.Transparent);
+            screen.RenderInRenderTarget(
+                _renderBackbuffer,
+                () =>
+                {
+                    screen.DrawEntity(
+                        handEntity.Value,
+                        halfSize,
+                        new Vector2(1f, 1f) * uiScale,
+                        Angle.Zero,
+                        Angle.Zero,
+                        Direction.South,
+                        sprite
+                    );
+                },
+                Color.Transparent
+            );
 
-            screen.DrawTexture(_renderBackbuffer.Texture, mousePos.Position - halfSize + offsetVec, Color.White.WithAlpha(0.75f));
+            screen.DrawTexture(
+                _renderBackbuffer.Texture,
+                mousePos.Position - halfSize + offsetVec,
+                Color.White.WithAlpha(0.75f)
+            );
         }
     }
 }

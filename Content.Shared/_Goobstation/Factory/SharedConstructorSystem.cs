@@ -9,9 +9,14 @@ namespace Content.Shared._Goobstation.Factory;
 
 public abstract class SharedConstructorSystem : EntitySystem
 {
-    [Dependency] protected readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] protected readonly IPrototypeManager Proto = default!;
-    [Dependency] protected readonly SharedTransformSystem _transform = default!;
+    [Dependency]
+    protected readonly ISharedAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    protected readonly IPrototypeManager Proto = default!;
+
+    [Dependency]
+    protected readonly SharedTransformSystem _transform = default!;
 
     public override void Initialize()
     {
@@ -19,10 +24,13 @@ public abstract class SharedConstructorSystem : EntitySystem
 
         SubscribeLocalEvent<ConstructorComponent, ExaminedEvent>(OnExamined);
         SubscribeLocalEvent<ConstructorComponent, ConstructedEvent>(OnConstructed);
-        Subs.BuiEvents<ConstructorComponent>(ConstructorUiKey.Key, subs =>
-        {
-            subs.Event<ConstructorSetProtoMessage>(OnSetProto);
-        });
+        Subs.BuiEvents<ConstructorComponent>(
+            ConstructorUiKey.Key,
+            subs =>
+            {
+                subs.Event<ConstructorSetProtoMessage>(OnSetProto);
+            }
+        );
     }
 
     private void OnExamined(Entity<ConstructorComponent> ent, ref ExaminedEvent args)
@@ -30,7 +38,7 @@ public abstract class SharedConstructorSystem : EntitySystem
         if (!args.IsInDetailsRange)
             return;
 
-        var msg = ent.Comp.Construction is {} id
+        var msg = ent.Comp.Construction is { } id
             ? Loc.GetString("constructor-examine", ("name", Proto.Index(id).Name ?? id))
             : Loc.GetString("constructor-examine-unset");
         args.PushMarkup(msg);
@@ -41,8 +49,7 @@ public abstract class SharedConstructorSystem : EntitySystem
 
     private void OnSetProto(Entity<ConstructorComponent> ent, ref ConstructorSetProtoMessage args)
     {
-        if (ent.Comp.Construction == args.Id
-            || !Proto.HasIndex(args.Id))
+        if (ent.Comp.Construction == args.Id || !Proto.HasIndex(args.Id))
             return;
 
         ent.Comp.Construction = args.Id;

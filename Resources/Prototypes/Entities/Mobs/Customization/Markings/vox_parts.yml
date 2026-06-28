@@ -9,8 +9,7 @@
     state: beak
   coloring:
     default:
-      type:
-        !type:SimpleColoring
+      type: !type:SimpleColoring
         color: "#937e3d"
 
 - type: marking
@@ -24,8 +23,7 @@
     state: l_arm
   coloring:
     default:
-      type:
-        !type:SimpleColoring
+      type: !type:SimpleColoring
         color: "#937e3d"
 
 - type: marking
@@ -39,8 +37,7 @@
     state: l_leg
   coloring:
     default:
-      type:
-        !type:SimpleColoring
+      type: !type:SimpleColoring
         color: "#937e3d"
 
 - type: marking
@@ -54,8 +51,7 @@
     state: r_arm
   coloring:
     default:
-      type:
-        !type:SimpleColoring
+      type: !type:SimpleColoring
         color: "#937e3d"
 
 - type: marking
@@ -69,8 +65,7 @@
     state: r_leg
   coloring:
     default:
-      type:
-        !type:SimpleColoring
+      type: !type:SimpleColoring
         color: "#937e3d"
 
 - type: marking
@@ -84,8 +79,7 @@
     state: r_hand
   coloring:
     default:
-      type:
-        !type:SimpleColoring
+      type: !type:SimpleColoring
         color: "#937e3d"
 
 - type: marking
@@ -99,8 +93,7 @@
     state: l_hand
   coloring:
     default:
-      type:
-        !type:SimpleColoring
+      type: !type:SimpleColoring
         color: "#937e3d"
 
 - type: marking
@@ -114,8 +107,7 @@
     state: l_foot
   coloring:
     default:
-      type:
-        !type:SimpleColoring
+      type: !type:SimpleColoring
         color: "#937e3d"
 
 - type: marking
@@ -129,8 +121,7 @@
     state: r_foot
   coloring:
     default:
-      type:
-        !type:SimpleColoring
+      type: !type:SimpleColoring
         color: "#937e3d"
 
 - type: marking

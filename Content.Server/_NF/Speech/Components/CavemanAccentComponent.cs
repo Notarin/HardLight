@@ -69,5 +69,4 @@ public sealed partial class CavemanAccentComponent : Component
         "accent-caveman-grunts-13",
         "accent-caveman-grunts-14",
     };
-
 }

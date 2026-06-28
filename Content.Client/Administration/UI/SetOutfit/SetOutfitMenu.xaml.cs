@@ -15,8 +15,11 @@ namespace Content.Client.Administration.UI.SetOutfit
     [GenerateTypedNameReferences]
     public sealed partial class SetOutfitMenu : DefaultWindow
     {
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly IClientConsoleHost _consoleHost = default!;
+        [Dependency]
+        private readonly IPrototypeManager _prototypeManager = default!;
+
+        [Dependency]
+        private readonly IClientConsoleHost _consoleHost = default!;
 
         public NetEntity? TargetEntityId { get; set; }
         private StartingGearPrototype? _selectedOutfit;
@@ -48,7 +51,7 @@ namespace Content.Client.Administration.UI.SetOutfit
 
         private void OutfitListOnOnItemSelected(ItemList.ItemListSelectedEventArgs obj)
         {
-            _selectedOutfit = (StartingGearPrototype) obj.ItemList[obj.ItemIndex].Metadata!;
+            _selectedOutfit = (StartingGearPrototype)obj.ItemList[obj.ItemIndex].Metadata!;
             ConfirmButton.Disabled = false;
         }
 
@@ -57,7 +60,6 @@ namespace Content.Client.Administration.UI.SetOutfit
             _selectedOutfit = null;
             ConfirmButton.Disabled = true;
         }
-
 
         private void SearchBarOnOnTextChanged(LineEdit.LineEditEventArgs obj)
         {
@@ -69,7 +71,8 @@ namespace Content.Client.Administration.UI.SetOutfit
             // Filter out any StartingGearPrototypes that belong to loadouts
             var loadouts = _prototypeManager.EnumeratePrototypes<LoadoutPrototype>();
             var loadoutGears = loadouts.Select(l => l.StartingGear);
-            return _prototypeManager.EnumeratePrototypes<StartingGearPrototype>()
+            return _prototypeManager
+                .EnumeratePrototypes<StartingGearPrototype>()
                 .Where(p => !loadoutGears.Contains(p.ID));
         }
 
@@ -86,22 +89,19 @@ namespace Content.Client.Administration.UI.SetOutfit
             OutfitList.Clear();
             foreach (var gear in GetPrototypes())
             {
-                if (!string.IsNullOrEmpty(filter) &&
-                    gear.ID.ToLowerInvariant().Contains(filter.Trim().ToLowerInvariant()))
+                if (
+                    !string.IsNullOrEmpty(filter)
+                    && gear.ID.ToLowerInvariant().Contains(filter.Trim().ToLowerInvariant())
+                )
                 {
                     OutfitList.Add(GetItem(gear, OutfitList));
                 }
             }
         }
 
-
         private static ItemList.Item GetItem(StartingGearPrototype gear, ItemList itemList)
         {
-            return new(itemList)
-            {
-                Metadata = gear,
-                Text = gear.ID
-            };
+            return new(itemList) { Metadata = gear, Text = gear.ID };
         }
     }
 }

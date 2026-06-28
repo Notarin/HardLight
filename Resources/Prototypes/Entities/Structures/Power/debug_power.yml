@@ -9,7 +9,7 @@
     supplyRampTolerance: 500
   - type: Tag
     tags:
-      - Debug
+    - Debug
 
 - type: entity
   id: DebugConsumer
@@ -20,15 +20,14 @@
   components:
   - type: Tag
     tags:
-      - Debug
+    - Debug
   - type: Clickable
   - type: InteractionOutline
   - type: Physics
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.5,-0.5,0.5,0.5"
         layer: [MobMask, Opaque]
   - type: Transform
@@ -38,8 +37,7 @@
     state: wiredmachine
   - type: NodeContainer
     nodes:
-      input:
-        !type:CableDeviceNode
+      input: !type:CableDeviceNode
         nodeGroupID: HVPower
   - type: PowerConsumer
     drawRate: 50
@@ -48,8 +46,7 @@
     damageModifierSet: Metallic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:DoActsBehavior
@@ -65,15 +62,14 @@
   components:
   - type: Tag
     tags:
-      - Debug
+    - Debug
   - type: Clickable
   - type: InteractionOutline
   - type: Physics
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.5,-0.5,0.5,0.5"
         layer: [MobMask, Opaque]
   - type: Transform
@@ -84,8 +80,7 @@
   - type: Battery
   - type: NodeContainer
     nodes:
-      input:
-        !type:CableDeviceNode
+      input: !type:CableDeviceNode
         nodeGroupID: HVPower
   - type: Anchorable
 
@@ -98,7 +93,7 @@
   components:
   - type: Tag
     tags:
-      - Debug
+    - Debug
   - type: Clickable
   - type: PowerNetworkBattery
   - type: InteractionOutline
@@ -106,8 +101,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.5,-0.5,0.5,0.5"
         layer: [MobMask, Opaque]
   - type: Transform
@@ -118,8 +112,7 @@
   - type: Battery
   - type: NodeContainer
     nodes:
-      input:
-        !type:CableDeviceNode
+      input: !type:CableDeviceNode
         nodeGroupID: HVPower
   - type: BatteryDischarger
   - type: Anchorable
@@ -131,7 +124,7 @@
   components:
   - type: Tag
     tags:
-      - Debug
+    - Debug
 
 - type: entity
   id: DebugSubstation
@@ -140,7 +133,7 @@
   components:
   - type: Tag
     tags:
-      - Debug
+    - Debug
 
 - type: entity
   id: DebugAPC
@@ -149,7 +142,7 @@
   components:
   - type: Tag
     tags:
-      - Debug
+    - Debug
 
 - type: entity
   id: DebugPowerReceiver
@@ -160,15 +153,14 @@
   components:
   - type: Tag
     tags:
-      - Debug
+    - Debug
   - type: Clickable
   - type: InteractionOutline
   - type: Physics
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.5,-0.5,0.5,0.5"
         layer: [MobMask, Opaque]
   - type: Transform

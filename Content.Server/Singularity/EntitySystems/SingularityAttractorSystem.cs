@@ -1,10 +1,10 @@
+using System.Numerics;
 using Content.Server.Physics.Components;
 using Content.Server.Power.EntitySystems;
 using Content.Server.Singularity.Components;
 using Content.Shared.Singularity.Components;
 using Robust.Shared.Map;
 using Robust.Shared.Timing;
-using System.Numerics;
 
 namespace Content.Server.Singularity.EntitySystems;
 
@@ -13,8 +13,11 @@ namespace Content.Server.Singularity.EntitySystems;
 /// </summary>
 public sealed class SingularityAttractorSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
 
     /// <summary>
     /// The minimum range at which the attraction will act.
@@ -54,7 +57,11 @@ public sealed class SingularityAttractorSystem : EntitySystem
     /// <param name="uid">The uid of the attractor to make pulse.</param>
     /// <param name="attractor">The state of the attractor to make pulse.</param>
     /// <param name="xform">The transform of the attractor to make pulse.</param>
-    private void Update(EntityUid uid, SingularityAttractorComponent? attractor = null, TransformComponent? xform = null)
+    private void Update(
+        EntityUid uid,
+        SingularityAttractorComponent? attractor = null,
+        TransformComponent? xform = null
+    )
     {
         if (!Resolve(uid, ref attractor, ref xform))
             return;

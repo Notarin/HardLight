@@ -9,9 +9,12 @@ namespace Content.Server.Discord;
 public sealed class DiscordWebhook : IPostInjectInit
 {
     private static readonly JsonSerializerOptions JsonOptions = new JsonSerializerOptions
-        { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull };
+    {
+        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+    };
 
-    [Dependency] private readonly ILogManager _log = default!;
+    [Dependency]
+    private readonly ILogManager _log = default!;
 
     private const string BaseUrl = "https://discord.com/api/v10/webhooks";
     private readonly HttpClient _http = new();
@@ -101,7 +104,11 @@ public sealed class DiscordWebhook : IPostInjectInit
     /// <param name="messageId">The message id to edit.</param>
     /// <param name="payload">The payload used to edit the message.</param>
     /// <returns>The response from Discord's API.</returns>
-    public async Task<HttpResponseMessage> EditMessage(WebhookIdentifier identifier, ulong messageId, WebhookPayload payload)
+    public async Task<HttpResponseMessage> EditMessage(
+        WebhookIdentifier identifier,
+        ulong messageId,
+        WebhookPayload payload
+    )
     {
         var url = $"{GetUrl(identifier)}/messages/{messageId}";
         var response = await _http.PatchAsJsonAsync(url, payload, JsonOptions);
@@ -138,6 +145,4 @@ public sealed class DiscordWebhook : IPostInjectInit
                 _sawmill.Debug($"Failed webhook response X-RateLimit-Scope: {string.Join(", ", rateLimitScope)}");
         }
     }
-
-
 }

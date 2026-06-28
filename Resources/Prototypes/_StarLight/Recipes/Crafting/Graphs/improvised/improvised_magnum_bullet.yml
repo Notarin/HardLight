@@ -2,15 +2,15 @@
   id: Improvised45MagnumBulletGraph
   start: start
   graph:
-    - node: start
-      edges:
-        - to: shell
-          steps:
-            - material: Steel
-              amount: 1
-              doAfter: 0.5
-            - material: CrushedPhosphorus
-              amount: 3
-              doAfter: 0.5
-    - node: shell
-      entity: Cartridge45MagnumImprovised
+  - node: start
+    edges:
+    - to: shell
+      steps:
+      - material: Steel
+        amount: 1
+        doAfter: 0.5
+      - material: CrushedPhosphorus
+        amount: 3
+        doAfter: 0.5
+  - node: shell
+    entity: Cartridge45MagnumImprovised

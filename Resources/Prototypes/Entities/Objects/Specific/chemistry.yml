@@ -9,10 +9,10 @@
   - type: Sprite
     sprite: Objects/Specific/Chemistry/beaker.rsi
     layers:
-      - state: beaker
-      - state: beaker1
-        map: ["enum.SolutionContainerLayers.Fill"]
-        visible: false
+    - state: beaker
+    - state: beaker1
+      map: ["enum.SolutionContainerLayers.Fill"]
+      visible: false
   - type: Item
     sprite: Objects/Specific/Chemistry/beaker.rsi
   - type: MeleeWeapon
@@ -58,8 +58,7 @@
     damageModifierSet: Glass
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 5
       behaviors:
       - !type:PlaySoundBehavior
@@ -76,7 +75,7 @@
             max: 1
         transferForensics: true
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: DamageOnLand
     damage:
       types:
@@ -107,10 +106,10 @@
   - type: Sprite
     sprite: Objects/Specific/Chemistry/beaker.rsi
     layers:
-      - state: beaker
-      - state: beaker1
-        map: ["enum.SolutionContainerLayers.Fill"]
-        visible: false
+    - state: beaker
+    - state: beaker1
+      map: ["enum.SolutionContainerLayers.Fill"]
+      visible: false
   - type: Item
     sprite: Objects/Specific/Chemistry/beaker.rsi
   - type: MeleeWeapon
@@ -169,8 +168,8 @@
   - type: StaticPrice
     price: 10
   # - type: PhysicalComposition # Frontier
-    # materialComposition:
-      # Glass: 50
+  # materialComposition:
+  # Glass: 50
   - type: SolutionContainerVisuals
     maxFillLevels: 6
     fillBaseName: beaker
@@ -203,10 +202,10 @@
   - type: Sprite
     sprite: Objects/Specific/Chemistry/beaker_large.rsi
     layers:
-      - state: beakerlarge
-      - state: beakerlarge1
-        map: ["enum.SolutionContainerLayers.Fill"]
-        visible: false
+    - state: beakerlarge
+    - state: beakerlarge1
+      map: ["enum.SolutionContainerLayers.Fill"]
+      visible: false
   - type: Item
     size: Normal
     sprite: Objects/Specific/Chemistry/beaker_large.rsi
@@ -221,8 +220,8 @@
     inHandsMaxFillLevels: 4
     inHandsFillBaseName: -fill-
   # - type: PhysicalComposition # Frontier
-    # materialComposition: # Frontier
-      # Glass: 100 # Frontier
+  # materialComposition: # Frontier
+  # Glass: 100 # Frontier
   - type: StaticPrice
     price: 20
 
@@ -238,7 +237,7 @@
   - type: Sprite
     sprite: Objects/Specific/Chemistry/beaker_cryostasis.rsi
     layers:
-      - state: beakernoreact
+    - state: beakernoreact
   - type: SolutionContainerVisuals
     maxFillLevels: 0
   - type: SolutionContainerManager
@@ -258,7 +257,7 @@
   - type: Sprite
     sprite: Objects/Specific/Chemistry/beaker_bluespace.rsi
     layers:
-      - state: beakerbluespace
+    - state: beakerbluespace
   - type: SolutionContainerVisuals
     maxFillLevels: 0
   - type: SolutionContainerManager
@@ -278,10 +277,10 @@
   - type: Sprite
     sprite: Objects/Specific/Chemistry/dropper.rsi
     layers:
-      - state: dropper
-      - state: dropper1
-        map: ["enum.SolutionContainerLayers.Fill"]
-        visible: false
+    - state: dropper
+    - state: dropper1
+      map: ["enum.SolutionContainerLayers.Fill"]
+      visible: false
   - type: SolutionContainerManager
     solutions:
       injector:
@@ -325,17 +324,17 @@
 - type: entity
   name: borgdropper
   parent: Dropper
-  categories: [ HideSpawnMenu ] # Hardlight change
+  categories: [HideSpawnMenu] # Hardlight change
   description: Used to transfer small amounts of chemical solution between containers. Extended for use by medical borgs.
   id: BorgDropper
   components:
   - type: Sprite
     sprite: Objects/Specific/Chemistry/dropper.rsi
     layers:
-      - state: borgdropper
-      - state: dropper1
-        map: ["enum.SolutionContainerLayers.Fill"]
-        visible: false
+    - state: borgdropper
+    - state: dropper1
+      map: ["enum.SolutionContainerLayers.Fill"]
+      visible: false
   - type: SolutionContainerManager
     solutions:
       injector:
@@ -353,11 +352,11 @@
   - type: Sprite
     sprite: Objects/Specific/Chemistry/syringe.rsi
     layers:
-      - state: syringe1
-        map: ["enum.SolutionContainerLayers.Fill"]
-        visible: false
-      - state: syringe_base0
-        map: ["enum.SolutionContainerLayers.Base"]
+    - state: syringe1
+      map: ["enum.SolutionContainerLayers.Fill"]
+      visible: false
+    - state: syringe_base0
+      map: ["enum.SolutionContainerLayers.Base"]
   - type: Icon
     sprite: Objects/Specific/Chemistry/syringe.rsi
     state: "syringe_base0"
@@ -411,10 +410,10 @@
   - type: Sprite
     sprite: Objects/Specific/Chemistry/syringe.rsi
     layers:
-      - state: minisyringe1
-        map: ["enum.SolutionContainerLayers.Fill"]
-        visible: false
-      - state: syringeproj
+    - state: minisyringe1
+      map: ["enum.SolutionContainerLayers.Fill"]
+      visible: false
+    - state: syringeproj
   - type: SolutionContainerVisuals
     maxFillLevels: 3
     fillBaseName: minisyringe
@@ -449,8 +448,7 @@
         restitution: 0.3
         friction: 0.2
       projectile:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.1,-0.3,0.1,0.3"
         hard: false
         mask:
@@ -515,7 +513,6 @@
     tags:
     - Syringe
 
-
 - type: entity
   id: SyringeCryostasis
   parent: BaseSyringe
@@ -550,7 +547,6 @@
     tags:
     - Syringe
 
-
 - type: entity
   name: pill
   parent: [BaseItem, RecyclableItemNoMats] # Frontier: added RecyclableItemNoMats
@@ -583,14 +579,13 @@
     damageContainer: Inorganic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 10
       behaviors:
       - !type:SpillBehavior
         solution: food
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: SolutionSpiker
     sourceSolution: food
   - type: Extractable
@@ -615,7 +610,7 @@
     state: pill_canister
   - type: Tag
     tags:
-      - PillCanister
+    - PillCanister
   - type: Storage
     grid:
     - 0,0,4,1

@@ -16,8 +16,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.25,-0.48,0.25,0.48"
         density: 75
         mask:
@@ -29,8 +28,7 @@
   - type: Anchorable
   - type: ContainerContainer
     containers:
-      insidebody:
-        !type:ContainerSlot
+      insidebody: !type:ContainerSlot
         showEnts: false
   - type: SolutionContainerManager
     solutions:
@@ -46,8 +44,7 @@
     damageModifierSet: Inflatable
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 150
       behaviors:
       - !type:EmptyAllContainersBehaviour

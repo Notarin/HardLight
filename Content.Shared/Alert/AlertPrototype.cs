@@ -59,9 +59,10 @@ public sealed partial class AlertPrototype : IPrototype
     /// <summary>
     /// -1 (no effect) unless MaxSeverity is specified. Defaults to 1. Minimum severity level supported by this state.
     /// </summary>
-    public short MinSeverity => MaxSeverity == -1 ? (short) -1 : _minSeverity;
+    public short MinSeverity => MaxSeverity == -1 ? (short)-1 : _minSeverity;
 
-    [DataField("minSeverity")] private short _minSeverity = 1;
+    [DataField("minSeverity")]
+    private short _minSeverity = 1;
 
     /// <summary>
     /// Maximum severity level supported by this state. -1 (default) indicates
@@ -86,9 +87,7 @@ public sealed partial class AlertPrototype : IPrototype
     /// <returns>the icon path to the texture for the provided severity level</returns>
     public SpriteSpecifier GetIcon(short? severity = null)
     {
-        var minIcons = SupportsSeverity
-            ? MaxSeverity - MinSeverity
-            : 1;
+        var minIcons = SupportsSeverity ? MaxSeverity - MinSeverity : 1;
 
         if (Icons.Count < minIcons)
             throw new InvalidOperationException($"Insufficient number of icons given for alert {ID}");
@@ -98,7 +97,10 @@ public sealed partial class AlertPrototype : IPrototype
 
         if (severity == null)
         {
-            throw new ArgumentException($"No severity specified but this alert ({AlertKey}) has severity.", nameof(severity));
+            throw new ArgumentException(
+                $"No severity specified but this alert ({AlertKey}) has severity.",
+                nameof(severity)
+            );
         }
 
         if (severity < MinSeverity)

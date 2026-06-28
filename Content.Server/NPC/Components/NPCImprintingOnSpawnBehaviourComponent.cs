@@ -2,6 +2,7 @@ using Content.Shared.Whitelist;
 using Robust.Shared.Collections;
 
 namespace Content.Server.NPC.Components;
+
 /// <summary>
 /// A component that makes the entity friendly to nearby creatures it sees on init.
 /// </summary>

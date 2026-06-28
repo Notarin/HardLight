@@ -9,8 +9,7 @@ using Robust.Client.UserInterface.XAML;
 namespace Content.Client.Shuttles.UI;
 
 [GenerateTypedNameReferences]
-public sealed partial class IFFConsoleWindow : FancyWindow,
-    IComputerWindow<IFFConsoleBoundUserInterfaceState>
+public sealed partial class IFFConsoleWindow : FancyWindow, IComputerWindow<IFFConsoleBoundUserInterfaceState>
 {
     private readonly ButtonGroup _showIFFButtonGroup = new();
     private readonly ButtonGroup _showVesselButtonGroup = new();

@@ -1,6 +1,6 @@
+using System.Numerics;
 using Content.Shared.CCVar;
 using Robust.Shared.Configuration;
-using System.Numerics;
 
 namespace Content.Client.UserInterface.Systems;
 
@@ -9,7 +9,8 @@ namespace Content.Client.UserInterface.Systems;
 /// </summary>
 public sealed class ProgressColorSystem : EntitySystem
 {
-    [Dependency] private readonly IConfigurationManager _configuration = default!;
+    [Dependency]
+    private readonly IConfigurationManager _configuration = default!;
 
     private bool _colorBlindFriendly;
 
@@ -19,7 +20,7 @@ public sealed class ProgressColorSystem : EntitySystem
         new(248, 149, 64),
         new(204, 71, 120),
         new(126, 3, 168),
-        new(13, 8, 135)
+        new(13, 8, 135),
     };
 
     /// <inheritdoc/>
@@ -56,7 +57,9 @@ public sealed class ProgressColorSystem : EntitySystem
     /// </summary>
     public static Color InterpolateColorGaussian(Color[] colors, double x)
     {
-        double r = 0.0, g = 0.0, b = 0.0;
+        double r = 0.0,
+            g = 0.0,
+            b = 0.0;
         var total = 0f;
         var step = 1.0 / (colors.Length - 1);
         var mu = 0.0;

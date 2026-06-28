@@ -9,7 +9,9 @@ namespace Content.Client.Computer
     /// NOTE: Despite the name, ComputerBoundUserInterface does not and will not care about things like power.
     /// </summary>
     [Virtual]
-    public class ComputerBoundUserInterface<TWindow, TState> : ComputerBoundUserInterfaceBase where TWindow : BaseWindow, IComputerWindow<TState>, new() where TState : BoundUserInterfaceState
+    public class ComputerBoundUserInterface<TWindow, TState> : ComputerBoundUserInterfaceBase
+        where TWindow : BaseWindow, IComputerWindow<TState>, new()
+        where TState : BoundUserInterfaceState
     {
         [ViewVariables]
         private TWindow? _window;
@@ -23,9 +25,8 @@ namespace Content.Client.Computer
         }
 
         // Alas, this constructor has to be copied to the subclass. :(
-        public ComputerBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-        {
-        }
+        public ComputerBoundUserInterface(EntityUid owner, Enum uiKey)
+            : base(owner, uiKey) { }
 
         protected override void UpdateState(BoundUserInterfaceState state)
         {
@@ -36,7 +37,7 @@ namespace Content.Client.Computer
                 return;
             }
 
-            _window.UpdateState((TState) state);
+            _window.UpdateState((TState)state);
         }
 
         protected override void ReceiveMessage(BoundUserInterfaceMessage message)
@@ -52,9 +53,8 @@ namespace Content.Client.Computer
     [Virtual]
     public class ComputerBoundUserInterfaceBase : BoundUserInterface
     {
-        public ComputerBoundUserInterfaceBase(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-        {
-        }
+        public ComputerBoundUserInterfaceBase(EntityUid owner, Enum uiKey)
+            : base(owner, uiKey) { }
 
         public new void SendMessage(BoundUserInterfaceMessage msg)
         {
@@ -64,17 +64,10 @@ namespace Content.Client.Computer
 
     public interface IComputerWindow<TState>
     {
-        void SetupComputerWindow(ComputerBoundUserInterfaceBase cb)
-        {
-        }
+        void SetupComputerWindow(ComputerBoundUserInterfaceBase cb) { }
 
-        void UpdateState(TState state)
-        {
-        }
+        void UpdateState(TState state) { }
 
-        void ReceiveMessage(BoundUserInterfaceMessage message)
-        {
-        }
+        void ReceiveMessage(BoundUserInterfaceMessage message) { }
     }
 }
-

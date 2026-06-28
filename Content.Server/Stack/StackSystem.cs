@@ -3,9 +3,9 @@ using Content.Shared.Stacks;
 using Content.Shared.Verbs;
 using JetBrains.Annotations;
 using Robust.Shared.Map;
-using Robust.Shared.Prototypes;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
+using Robust.Shared.Prototypes;
 
 namespace Content.Server.Stack
 {
@@ -16,12 +16,17 @@ namespace Content.Server.Stack
     [UsedImplicitly]
     public sealed class StackSystem : SharedStackSystem
     {
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly SharedUserInterfaceSystem _ui = default!; // Cherry-picked from space-station-14#32938 courtesy of Ilya246
-        [Dependency] private readonly EntityLookupSystem _lookup = default!;
+        [Dependency]
+        private readonly IPrototypeManager _prototypeManager = default!;
+
+        [Dependency]
+        private readonly SharedUserInterfaceSystem _ui = default!; // Cherry-picked from space-station-14#32938 courtesy of Ilya246
+
+        [Dependency]
+        private readonly EntityLookupSystem _lookup = default!;
 
         public static readonly int[] DefaultSplitAmounts = { 1, 5, 10, 20, 50, 100, 500, 1000, 5000, 10000 };
-        
+
         private const float AutoStackRange = 2f; // 2 tiles
         private const float AutoStackUpdateInterval = 10f; // Check every 10 seconds
         private float _autoStackAccumulator;
@@ -72,8 +77,12 @@ namespace Content.Server.Stack
                     continue;
 
                 // Find nearby stacks within 2 tiles
-                var nearbyStacks = _lookup.GetEntitiesInRange(xform.Coordinates, AutoStackRange, LookupFlags.Dynamic | LookupFlags.Sundries);
-                
+                var nearbyStacks = _lookup.GetEntitiesInRange(
+                    xform.Coordinates,
+                    AutoStackRange,
+                    LookupFlags.Dynamic | LookupFlags.Sundries
+                );
+
                 foreach (var nearbyUid in nearbyStacks)
                 {
                     if (nearbyUid == uid || processed.Contains(nearbyUid) || TerminatingOrDeleted(nearbyUid))
@@ -144,7 +153,12 @@ namespace Content.Server.Stack
         /// <summary>
         ///     Try to split this stack into two. Returns a non-null <see cref="Robust.Shared.GameObjects.EntityUid"/> if successful.
         /// </summary>
-        public override EntityUid? Split(EntityUid uid, int amount, EntityCoordinates spawnPosition, StackComponent? stack = null) // Goobstation - override virtual method
+        public override EntityUid? Split(
+            EntityUid uid,
+            int amount,
+            EntityCoordinates spawnPosition,
+            StackComponent? stack = null
+        ) // Goobstation - override virtual method
         {
             if (!Resolve(uid, ref stack))
                 return null;
@@ -211,7 +225,8 @@ namespace Content.Server.Stack
             if (amount <= 0)
             {
                 Log.Error(
-                    $"Attempted to spawn an invalid stack: {entityPrototype}, {amount}. Trace: {Environment.StackTrace}");
+                    $"Attempted to spawn an invalid stack: {entityPrototype}, {amount}. Trace: {Environment.StackTrace}"
+                );
                 return new();
             }
 
@@ -234,7 +249,8 @@ namespace Content.Server.Stack
             if (amount <= 0)
             {
                 Log.Error(
-                    $"Attempted to spawn an invalid stack: {entityPrototype}, {amount}. Trace: {Environment.StackTrace}");
+                    $"Attempted to spawn an invalid stack: {entityPrototype}, {amount}. Trace: {Environment.StackTrace}"
+                );
                 return new();
             }
 
@@ -273,7 +289,11 @@ namespace Content.Server.Stack
             return amounts;
         }
 
-        private void OnStackAlternativeInteract(EntityUid uid, StackComponent stack, GetVerbsEvent<AlternativeVerb> args)
+        private void OnStackAlternativeInteract(
+            EntityUid uid,
+            StackComponent stack,
+            GetVerbsEvent<AlternativeVerb> args
+        )
         {
             if (!args.CanAccess || !args.CanInteract || args.Hands == null || stack.Count == 1)
                 return;
@@ -290,7 +310,7 @@ namespace Content.Server.Stack
                     {
                         _ui.OpenUi(uid, StackCustomSplitUiKey.Key, args.User);
                     },
-                    Priority = priority--
+                    Priority = priority--,
                 };
                 args.Verbs.Add(custom);
             }
@@ -301,7 +321,7 @@ namespace Content.Server.Stack
                 Text = Loc.GetString("comp-stack-split-halve"),
                 Category = VerbCategory.Split,
                 Act = () => UserSplit(uid, args.User, stack.Count / 2, stack),
-                Priority = priority-- // Frontier: 1<priority--
+                Priority = priority--, // Frontier: 1<priority--
             };
             args.Verbs.Add(halve);
 
@@ -316,7 +336,7 @@ namespace Content.Server.Stack
                     Category = VerbCategory.Split,
                     Act = () => UserSplit(uid, args.User, amount, stack),
                     // we want to sort by size, not alphabetically by the verb text.
-                    Priority = priority
+                    Priority = priority,
                 };
 
                 priority--;
@@ -326,7 +346,10 @@ namespace Content.Server.Stack
         }
 
         // Cherry-picked from ss14#32938 courtesy of Ilya246
-        protected override void OnCustomSplitMessage(Entity<StackComponent> ent, ref StackCustomSplitAmountMessage message)
+        protected override void OnCustomSplitMessage(
+            Entity<StackComponent> ent,
+            ref StackCustomSplitAmountMessage message
+        )
         {
             var (uid, comp) = ent;
 
@@ -337,11 +360,16 @@ namespace Content.Server.Stack
             var amount = message.Amount;
             UserSplit(uid, user, amount, comp);
         }
+
         // End cherry-pick from ss14#32938 courtesy of Ilya246
 
-        private void UserSplit(EntityUid uid, EntityUid userUid, int amount,
+        private void UserSplit(
+            EntityUid uid,
+            EntityUid userUid,
+            int amount,
             StackComponent? stack = null,
-            TransformComponent? userTransform = null)
+            TransformComponent? userTransform = null
+        )
         {
             if (!Resolve(uid, ref stack))
                 return;
@@ -355,7 +383,7 @@ namespace Content.Server.Stack
                 return;
             }
 
-            if (Split(uid, amount, userTransform.Coordinates, stack) is not {} split)
+            if (Split(uid, amount, userTransform.Coordinates, stack) is not { } split)
                 return;
 
             Hands.PickupOrDrop(userUid, split);

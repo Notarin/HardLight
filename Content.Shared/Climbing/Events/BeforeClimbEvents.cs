@@ -1,5 +1,5 @@
-using Content.Shared.Inventory;
 using Content.Shared.Climbing.Components;
+using Content.Shared.Inventory;
 
 namespace Content.Shared.Climbing.Events;
 
@@ -9,7 +9,11 @@ public abstract partial class BeforeClimbEvent : CancellableEntityEventArgs
     public readonly EntityUid PuttingOnTable;
     public readonly Entity<ClimbableComponent> BeingClimbedOn;
 
-    public BeforeClimbEvent(EntityUid gettingPutOntable, EntityUid puttingOnTable, Entity<ClimbableComponent> beingClimbedOn)
+    public BeforeClimbEvent(
+        EntityUid gettingPutOntable,
+        EntityUid puttingOnTable,
+        Entity<ClimbableComponent> beingClimbedOn
+    )
     {
         GettingPutOnTable = gettingPutOntable;
         PuttingOnTable = puttingOnTable;
@@ -24,7 +28,13 @@ public abstract partial class BeforeClimbEvent : CancellableEntityEventArgs
 public sealed class SelfBeforeClimbEvent : BeforeClimbEvent, IInventoryRelayEvent
 {
     public SlotFlags TargetSlots { get; } = SlotFlags.WITHOUT_POCKET;
-    public SelfBeforeClimbEvent(EntityUid gettingPutOntable, EntityUid puttingOnTable, Entity<ClimbableComponent> beingClimbedOn) : base(gettingPutOntable, puttingOnTable, beingClimbedOn) { }
+
+    public SelfBeforeClimbEvent(
+        EntityUid gettingPutOntable,
+        EntityUid puttingOnTable,
+        Entity<ClimbableComponent> beingClimbedOn
+    )
+        : base(gettingPutOntable, puttingOnTable, beingClimbedOn) { }
 }
 
 /// <summary>
@@ -32,5 +42,10 @@ public sealed class SelfBeforeClimbEvent : BeforeClimbEvent, IInventoryRelayEven
 /// </summary>
 public sealed class TargetBeforeClimbEvent : BeforeClimbEvent
 {
-    public TargetBeforeClimbEvent(EntityUid gettingPutOntable, EntityUid puttingOnTable, Entity<ClimbableComponent> beingClimbedOn) : base(gettingPutOntable, puttingOnTable, beingClimbedOn) { }
+    public TargetBeforeClimbEvent(
+        EntityUid gettingPutOntable,
+        EntityUid puttingOnTable,
+        Entity<ClimbableComponent> beingClimbedOn
+    )
+        : base(gettingPutOntable, puttingOnTable, beingClimbedOn) { }
 }

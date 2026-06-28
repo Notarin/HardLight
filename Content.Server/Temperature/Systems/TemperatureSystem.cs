@@ -8,22 +8,31 @@ using Content.Shared.Atmos;
 using Content.Shared.Damage;
 using Content.Shared.Database;
 using Content.Shared.Inventory;
+using Content.Shared.Projectiles;
 using Content.Shared.Rejuvenate;
 using Content.Shared.Temperature;
 using Robust.Shared.Physics.Components;
-using Robust.Shared.Prototypes;
 using Robust.Shared.Physics.Events;
-using Content.Shared.Projectiles;
+using Robust.Shared.Prototypes;
 
 namespace Content.Server.Temperature.Systems;
 
 public sealed class TemperatureSystem : EntitySystem
 {
-    [Dependency] private readonly AlertsSystem _alerts = default!;
-    [Dependency] private readonly AtmosphereSystem _atmosphere = default!;
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly TemperatureSystem _temperature = default!;
+    [Dependency]
+    private readonly AlertsSystem _alerts = default!;
+
+    [Dependency]
+    private readonly AtmosphereSystem _atmosphere = default!;
+
+    [Dependency]
+    private readonly DamageableSystem _damageable = default!;
+
+    [Dependency]
+    private readonly IAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    private readonly TemperatureSystem _temperature = default!;
 
     /// <summary>
     ///     All the components that will have their damage updated at the end of the tick.
@@ -45,7 +54,8 @@ public sealed class TemperatureSystem : EntitySystem
         SubscribeLocalEvent<TemperatureComponent, RejuvenateEvent>(OnRejuvenate);
         SubscribeLocalEvent<AlertsComponent, OnTemperatureChangeEvent>(ServerAlert);
         SubscribeLocalEvent<TemperatureProtectionComponent, InventoryRelayedEvent<ModifyChangedTemperatureEvent>>(
-            OnTemperatureChangeAttempt);
+            OnTemperatureChangeAttempt
+        );
 
         SubscribeLocalEvent<InternalTemperatureComponent, MapInitEvent>(OnInit);
 
@@ -53,10 +63,10 @@ public sealed class TemperatureSystem : EntitySystem
 
         // Allows overriding thresholds based on the parent's thresholds.
         SubscribeLocalEvent<TemperatureComponent, EntParentChangedMessage>(OnParentChange);
-        SubscribeLocalEvent<ContainerTemperatureDamageThresholdsComponent, ComponentStartup>(
-            OnParentThresholdStartup);
+        SubscribeLocalEvent<ContainerTemperatureDamageThresholdsComponent, ComponentStartup>(OnParentThresholdStartup);
         SubscribeLocalEvent<ContainerTemperatureDamageThresholdsComponent, ComponentShutdown>(
-            OnParentThresholdShutdown);
+            OnParentThresholdShutdown
+        );
     }
 
     public override void Update(float frameTime)
@@ -122,12 +132,15 @@ public sealed class TemperatureSystem : EntitySystem
         float lastTemp = temperature.CurrentTemperature;
         float delta = temperature.CurrentTemperature - temp;
         temperature.CurrentTemperature = temp;
-        RaiseLocalEvent(uid, new OnTemperatureChangeEvent(temperature.CurrentTemperature, lastTemp, delta),
-            true);
+        RaiseLocalEvent(uid, new OnTemperatureChangeEvent(temperature.CurrentTemperature, lastTemp, delta), true);
     }
 
-    public void ChangeHeat(EntityUid uid, float heatAmount, bool ignoreHeatResistance = false,
-        TemperatureComponent? temperature = null)
+    public void ChangeHeat(
+        EntityUid uid,
+        float heatAmount,
+        bool ignoreHeatResistance = false,
+        TemperatureComponent? temperature = null
+    )
     {
         if (!Resolve(uid, ref temperature, false))
             return;
@@ -146,8 +159,7 @@ public sealed class TemperatureSystem : EntitySystem
         RaiseLocalEvent(uid, new OnTemperatureChangeEvent(temperature.CurrentTemperature, lastTemp, delta), true);
     }
 
-    private void OnAtmosExposedUpdate(EntityUid uid, TemperatureComponent temperature,
-        ref AtmosExposedUpdateEvent args)
+    private void OnAtmosExposedUpdate(EntityUid uid, TemperatureComponent temperature, ref AtmosExposedUpdateEvent args)
     {
         var transform = args.Transform;
 
@@ -157,8 +169,7 @@ public sealed class TemperatureSystem : EntitySystem
         var temperatureDelta = args.GasMixture.Temperature - temperature.CurrentTemperature;
         var airHeatCapacity = _atmosphere.GetHeatCapacity(args.GasMixture, false);
         var heatCapacity = GetHeatCapacity(uid, temperature);
-        var heat = temperatureDelta * (airHeatCapacity * heatCapacity /
-                                       (airHeatCapacity + heatCapacity));
+        var heat = temperatureDelta * (airHeatCapacity * heatCapacity / (airHeatCapacity + heatCapacity));
         ChangeHeat(uid, heat * temperature.AtmosTemperatureTransferEfficiency, temperature: temperature);
     }
 
@@ -200,9 +211,11 @@ public sealed class TemperatureSystem : EntitySystem
             return;
         }
 
-        if (TryComp<ThermalRegulatorComponent>(uid, out var regulator) &&
-            regulator.NormalBodyTemperature > temperature.ColdDamageThreshold &&
-            regulator.NormalBodyTemperature < temperature.HeatDamageThreshold)
+        if (
+            TryComp<ThermalRegulatorComponent>(uid, out var regulator)
+            && regulator.NormalBodyTemperature > temperature.ColdDamageThreshold
+            && regulator.NormalBodyTemperature < temperature.HeatDamageThreshold
+        )
         {
             idealTemp = regulator.NormalBodyTemperature;
         }
@@ -270,26 +283,41 @@ public sealed class TemperatureSystem : EntitySystem
         {
             if (!temperature.TakingDamage)
             {
-                _adminLogger.Add(LogType.Temperature, $"{ToPrettyString(uid):entity} started taking high temperature damage");
+                _adminLogger.Add(
+                    LogType.Temperature,
+                    $"{ToPrettyString(uid):entity} started taking high temperature damage"
+                );
                 temperature.TakingDamage = true;
             }
 
             var diff = Math.Abs(temperature.CurrentTemperature - heatDamageThreshold);
             var tempDamage = c / (1 + a * Math.Pow(Math.E, -heatK * diff)) - y;
-            _damageable.TryChangeDamage(uid, temperature.HeatDamage * tempDamage, ignoreResistances: true, interruptsDoAfters: false);
+            _damageable.TryChangeDamage(
+                uid,
+                temperature.HeatDamage * tempDamage,
+                ignoreResistances: true,
+                interruptsDoAfters: false
+            );
         }
         else if (temperature.CurrentTemperature <= coldDamageThreshold)
         {
             if (!temperature.TakingDamage)
             {
-                _adminLogger.Add(LogType.Temperature, $"{ToPrettyString(uid):entity} started taking low temperature damage");
+                _adminLogger.Add(
+                    LogType.Temperature,
+                    $"{ToPrettyString(uid):entity} started taking low temperature damage"
+                );
                 temperature.TakingDamage = true;
             }
 
             var diff = Math.Abs(temperature.CurrentTemperature - coldDamageThreshold);
-            var tempDamage =
-                Math.Sqrt(diff * (Math.Pow(temperature.DamageCap.Double(), 2) / coldDamageThreshold));
-            _damageable.TryChangeDamage(uid, temperature.ColdDamage * tempDamage, ignoreResistances: true, interruptsDoAfters: false);
+            var tempDamage = Math.Sqrt(diff * (Math.Pow(temperature.DamageCap.Double(), 2) / coldDamageThreshold));
+            _damageable.TryChangeDamage(
+                uid,
+                temperature.ColdDamage * tempDamage,
+                ignoreResistances: true,
+                interruptsDoAfters: false
+            );
         }
         else if (temperature.TakingDamage)
         {
@@ -298,12 +326,13 @@ public sealed class TemperatureSystem : EntitySystem
         }
     }
 
-    private void OnTemperatureChangeAttempt(EntityUid uid, TemperatureProtectionComponent component,
-        InventoryRelayedEvent<ModifyChangedTemperatureEvent> args)
+    private void OnTemperatureChangeAttempt(
+        EntityUid uid,
+        TemperatureProtectionComponent component,
+        InventoryRelayedEvent<ModifyChangedTemperatureEvent> args
+    )
     {
-        var coefficient = args.Args.TemperatureDelta < 0
-            ? component.CoolingCoefficient
-            : component.HeatingCoefficient;
+        var coefficient = args.Args.TemperatureDelta < 0 ? component.CoolingCoefficient : component.HeatingCoefficient;
 
         var ev = new GetTemperatureProtectionEvent(coefficient);
         RaiseLocalEvent(uid, ref ev);
@@ -311,13 +340,15 @@ public sealed class TemperatureSystem : EntitySystem
         args.Args.TemperatureDelta *= ev.Coefficient;
     }
 
-    private void ChangeTemperatureOnCollide(Entity<ChangeTemperatureOnCollideComponent> ent, ref ProjectileHitEvent args)
+    private void ChangeTemperatureOnCollide(
+        Entity<ChangeTemperatureOnCollideComponent> ent,
+        ref ProjectileHitEvent args
+    )
     {
-        _temperature.ChangeHeat(args.Target, ent.Comp.Heat, ent.Comp.IgnoreHeatResistance);// adjust the temperature
+        _temperature.ChangeHeat(args.Target, ent.Comp.Heat, ent.Comp.IgnoreHeatResistance); // adjust the temperature
     }
 
-    private void OnParentChange(EntityUid uid, TemperatureComponent component,
-        ref EntParentChangedMessage args)
+    private void OnParentChange(EntityUid uid, TemperatureComponent component, ref EntParentChangedMessage args)
     {
         var temperatureQuery = GetEntityQuery<TemperatureComponent>();
         var transformQuery = GetEntityQuery<TransformComponent>();
@@ -327,9 +358,10 @@ public sealed class TemperatureSystem : EntitySystem
             return;
 
         // We only need to update thresholds if the thresholds changed for the entity's ancestors.
-        var oldThresholds = args.OldParent != null
-            ? RecalculateParentThresholds(args.OldParent.Value, transformQuery, thresholdsQuery)
-            : (null, null);
+        var oldThresholds =
+            args.OldParent != null
+                ? RecalculateParentThresholds(args.OldParent.Value, transformQuery, thresholdsQuery)
+                : (null, null);
         var newThresholds = RecalculateParentThresholds(xform.ParentUid, transformQuery, thresholdsQuery);
 
         if (oldThresholds != newThresholds)
@@ -338,18 +370,32 @@ public sealed class TemperatureSystem : EntitySystem
         }
     }
 
-    private void OnParentThresholdStartup(EntityUid uid, ContainerTemperatureDamageThresholdsComponent component,
-        ComponentStartup args)
+    private void OnParentThresholdStartup(
+        EntityUid uid,
+        ContainerTemperatureDamageThresholdsComponent component,
+        ComponentStartup args
+    )
     {
-        RecursiveThresholdUpdate(uid, GetEntityQuery<TemperatureComponent>(), GetEntityQuery<TransformComponent>(),
-            GetEntityQuery<ContainerTemperatureDamageThresholdsComponent>());
+        RecursiveThresholdUpdate(
+            uid,
+            GetEntityQuery<TemperatureComponent>(),
+            GetEntityQuery<TransformComponent>(),
+            GetEntityQuery<ContainerTemperatureDamageThresholdsComponent>()
+        );
     }
 
-    private void OnParentThresholdShutdown(EntityUid uid, ContainerTemperatureDamageThresholdsComponent component,
-        ComponentShutdown args)
+    private void OnParentThresholdShutdown(
+        EntityUid uid,
+        ContainerTemperatureDamageThresholdsComponent component,
+        ComponentShutdown args
+    )
     {
-        RecursiveThresholdUpdate(uid, GetEntityQuery<TemperatureComponent>(), GetEntityQuery<TransformComponent>(),
-            GetEntityQuery<ContainerTemperatureDamageThresholdsComponent>());
+        RecursiveThresholdUpdate(
+            uid,
+            GetEntityQuery<TemperatureComponent>(),
+            GetEntityQuery<TransformComponent>(),
+            GetEntityQuery<ContainerTemperatureDamageThresholdsComponent>()
+        );
     }
 
     /// <summary>
@@ -359,9 +405,12 @@ public sealed class TemperatureSystem : EntitySystem
     /// <param name="temperatureQuery"></param>
     /// <param name="transformQuery"></param>
     /// <param name="tempThresholdsQuery"></param>
-    private void RecursiveThresholdUpdate(EntityUid root, EntityQuery<TemperatureComponent> temperatureQuery,
+    private void RecursiveThresholdUpdate(
+        EntityUid root,
+        EntityQuery<TemperatureComponent> temperatureQuery,
         EntityQuery<TransformComponent> transformQuery,
-        EntityQuery<ContainerTemperatureDamageThresholdsComponent> tempThresholdsQuery)
+        EntityQuery<ContainerTemperatureDamageThresholdsComponent> tempThresholdsQuery
+    )
     {
         RecalculateAndApplyParentThresholds(root, temperatureQuery, transformQuery, tempThresholdsQuery);
 
@@ -382,9 +431,12 @@ public sealed class TemperatureSystem : EntitySystem
     /// <param name="temperatureQuery"></param>
     /// <param name="transformQuery"></param>
     /// <param name="tempThresholdsQuery"></param>
-    private void RecalculateAndApplyParentThresholds(EntityUid uid,
-        EntityQuery<TemperatureComponent> temperatureQuery, EntityQuery<TransformComponent> transformQuery,
-        EntityQuery<ContainerTemperatureDamageThresholdsComponent> tempThresholdsQuery)
+    private void RecalculateAndApplyParentThresholds(
+        EntityUid uid,
+        EntityQuery<TemperatureComponent> temperatureQuery,
+        EntityQuery<TransformComponent> transformQuery,
+        EntityQuery<ContainerTemperatureDamageThresholdsComponent> tempThresholdsQuery
+    )
     {
         if (!temperatureQuery.TryGetComponent(uid, out var temperature))
         {
@@ -409,7 +461,8 @@ public sealed class TemperatureSystem : EntitySystem
     private (float?, float?) RecalculateParentThresholds(
         EntityUid initialParentUid,
         EntityQuery<TransformComponent> transformQuery,
-        EntityQuery<ContainerTemperatureDamageThresholdsComponent> tempThresholdsQuery)
+        EntityQuery<ContainerTemperatureDamageThresholdsComponent> tempThresholdsQuery
+    )
     {
         // Recursively check parents for the best threshold available
         var parentUid = initialParentUid;
@@ -421,14 +474,15 @@ public sealed class TemperatureSystem : EntitySystem
             {
                 if (newThresholds.HeatDamageThreshold != null)
                 {
-                    newHeatThreshold = Math.Max(newThresholds.HeatDamageThreshold.Value,
-                        newHeatThreshold ?? 0);
+                    newHeatThreshold = Math.Max(newThresholds.HeatDamageThreshold.Value, newHeatThreshold ?? 0);
                 }
 
                 if (newThresholds.ColdDamageThreshold != null)
                 {
-                    newColdThreshold = Math.Min(newThresholds.ColdDamageThreshold.Value,
-                        newColdThreshold ?? float.MaxValue);
+                    newColdThreshold = Math.Min(
+                        newThresholds.ColdDamageThreshold.Value,
+                        newColdThreshold ?? float.MaxValue
+                    );
                 }
             }
 

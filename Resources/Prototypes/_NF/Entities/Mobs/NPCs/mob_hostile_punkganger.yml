@@ -21,7 +21,7 @@
   - MobHumanoidInvetory
   - NFMobRestrictions
   description: |-
-   "Criminally-inclined individuals", as NT Security documents call them, these are armed with a variety of weapons. These weapons range from makeshift shivs and machined truncheons to rusty pistols and shotguns. Some may be armored, so plan appropriately.
+    "Criminally-inclined individuals", as NT Security documents call them, these are armed with a variety of weapons. These weapons range from makeshift shivs and machined truncheons to rusty pistols and shotguns. Some may be armored, so plan appropriately.
   components:
   - type: RandomHumanoidAppearance
     randomizeName: true
@@ -55,8 +55,8 @@
     nextAdvertisementTime: 10
   - type: AutoWakeUp
   - type: MovementSpeedModifier
-    baseWalkSpeed : 4.5
-    baseSprintSpeed : 4.5
+    baseWalkSpeed: 4.5
+    baseSprintSpeed: 4.5
 
 # Humans
 ## Tier 1
@@ -65,7 +65,7 @@
   parent:
   - MobPunkBase
   - MobHumanoidHostileAISimpleMelee
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Loadout
     prototypes:
@@ -76,11 +76,11 @@
   parent:
   - MobPunkBase
   - MobHumanoidHostileAISimpleRanged
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: MovementSpeedModifier
-    baseWalkSpeed : 4
-    baseSprintSpeed : 4
+    baseWalkSpeed: 4
+    baseSprintSpeed: 4
   - type: Loadout
     prototypes:
     - PunkGangerGearPistol
@@ -106,7 +106,7 @@
   parent:
   - MobPunkBase
   - MobHumanoidHostileAISimpleMelee
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Loadout
     prototypes:
@@ -122,11 +122,11 @@
   parent:
   - MobPunkBase
   - MobHumanoidHostileAISimpleRanged
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: MovementSpeedModifier
-    baseWalkSpeed : 4
-    baseSprintSpeed : 4
+    baseWalkSpeed: 4
+    baseSprintSpeed: 4
   - type: Loadout
     prototypes:
     - PunkGangerGearShotgun
@@ -152,7 +152,7 @@
   parent:
   - MobPunkBase
   - MobHumanoidHostileAISimpleMelee
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Loadout
     prototypes:
@@ -168,11 +168,11 @@
   - MobPunkBase
   - MobHumanoidHostileAISimpleRanged
   id: MobPunkGangerSmg
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: MovementSpeedModifier
-    baseWalkSpeed : 4
-    baseSprintSpeed : 4
+    baseWalkSpeed: 4
+    baseSprintSpeed: 4
   - type: Loadout
     prototypes:
     - PunkGangerGearSmg
@@ -202,11 +202,11 @@
   - NFMobBossRestrictions
   name: punk gang leader
   description: It takes a formidable figure to lead a pack of street trash. These leaders usually wield scavenged SMGs and wear armor taken from unfortunate security forces. Usually high on meth and booze.
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: MovementSpeedModifier
-    baseWalkSpeed : 4
-    baseSprintSpeed : 4
+    baseWalkSpeed: 4
+    baseSprintSpeed: 4
   - type: Loadout
     prototypes:
     - PunkGangerGearLaser
@@ -250,7 +250,7 @@
   id: PartyNadeGun
   name: party nade gun
   description: Needed to shoot a nade.
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: RechargeBasicEntityAmmo
     rechargeCooldown: 20
@@ -266,7 +266,7 @@
     fireRate: 1
     selectedMode: FullAuto
     availableModes:
-      - FullAuto
+    - FullAuto
     soundGunshot:
       path: /Audio/Items/bow_pull.ogg
     soundEmpty: null
@@ -276,12 +276,12 @@
 
 - type: entity
   id: ActionThrowPartyNade
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   name: "[color=yellow]Throw a party 'nade[/color]"
   description: "Hurls activated party 'nade filled with party chems, explodes on contact. [color=yellow]20 second cooldown.[/color]"
   components:
   - type: WorldTargetAction
-    icon: { sprite : Objects/Weapons/Grenades/metalfoam.rsi, state: primed }
+    icon: {sprite: Objects/Weapons/Grenades/metalfoam.rsi, state: primed}
     event: !type:ActionGunShootEvent
     priority: 2
     checkCanAccess: false

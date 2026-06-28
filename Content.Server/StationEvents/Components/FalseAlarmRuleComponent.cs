@@ -3,7 +3,4 @@
 namespace Content.Server.StationEvents.Components;
 
 [RegisterComponent, Access(typeof(FalseAlarmRule))]
-public sealed partial class FalseAlarmRuleComponent : Component
-{
-
-}
+public sealed partial class FalseAlarmRuleComponent : Component { }

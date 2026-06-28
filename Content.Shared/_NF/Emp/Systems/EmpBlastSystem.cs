@@ -6,7 +6,8 @@ namespace Content.Shared._NF.Emp.Systems;
 
 public sealed class EmpBlastSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     public override void Initialize()
     {

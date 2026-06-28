@@ -11,11 +11,20 @@ namespace Content.Server.VentHorde.Systems;
 
 public sealed class VentHordeSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly ThrowingSystem _throwing = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedJitteringSystem _jitter = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly ThrowingSystem _throwing = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedJitteringSystem _jitter = default!;
 
     public override void Initialize()
     {
@@ -76,7 +85,9 @@ public sealed class VentHordeSystem : EntitySystem
 
         hordeSpawner = EnsureComp<VentHordeSpawnerComponent>(uid);
 
-        hordeSpawner.AudioStream = _audio.PlayPvs(hordeSpawner.PassiveSound, uid, hordeSpawner.PassiveSound.Params.WithLoop(true))?.Entity;
+        hordeSpawner.AudioStream = _audio
+            .PlayPvs(hordeSpawner.PassiveSound, uid, hordeSpawner.PassiveSound.Params.WithLoop(true))
+            ?.Entity;
 
         hordeSpawner.Entities = spawns;
         hordeSpawner.SpawnTime = _timing.CurTime + spawnDelay;
@@ -95,7 +106,8 @@ public sealed class VentHordeSystem : EntitySystem
         foreach (var spawn in entity.Comp.Entities)
         {
             var spawned = Spawn(spawn, Transform(entity).Coordinates);
-            var direction = _random.NextVector2() * _random.NextFloat(entity.Comp.MinThrowDistance, entity.Comp.MaxThrowDistance);
+            var direction =
+                _random.NextVector2() * _random.NextFloat(entity.Comp.MinThrowDistance, entity.Comp.MaxThrowDistance);
             var throwSpeed = _random.NextFloat(entity.Comp.MinThrowSpeed, entity.Comp.MaxThrowSpeed);
             _throwing.TryThrow(spawned, direction, throwSpeed);
         }

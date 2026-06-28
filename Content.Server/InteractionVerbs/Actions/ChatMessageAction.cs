@@ -37,7 +37,12 @@ public sealed partial class ChatMessageAction : InteractionAction
 
     private EntityUid GetSpeaker(InteractionArgs args) => TargetIsSource ? args.Target : args.User;
 
-    public override bool CanPerform(InteractionArgs args, InteractionVerbPrototype proto, bool beforeDelay, VerbDependencies deps)
+    public override bool CanPerform(
+        InteractionArgs args,
+        InteractionVerbPrototype proto,
+        bool beforeDelay,
+        VerbDependencies deps
+    )
     {
         return deps.EntMan.System<ActionBlockerSystem>().CanSpeak(GetSpeaker(args));
     }
@@ -50,7 +55,9 @@ public sealed partial class ChatMessageAction : InteractionAction
         var used = args.Used ?? EntityUid.Invalid;
         if (!Loc.TryGetString(locString, out var message, ("user", args.User), ("target", args.Target), ("used", used)))
         {
-            Logger.GetSawmill("action.chat_message").Error($"No chat message found for interaction {proto.ID}! Loc string: {locString}.");
+            Logger
+                .GetSawmill("action.chat_message")
+                .Error($"No chat message found for interaction {proto.ID}! Loc string: {locString}.");
             return false;
         }
 

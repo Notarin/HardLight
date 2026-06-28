@@ -48,10 +48,18 @@ namespace Content.Server.Explosion.EntitySystems
                 return;
             }
 
-            if (!string.IsNullOrWhiteSpace(component.KeyPhrase) && message.IndexOf(component.KeyPhrase, StringComparison.InvariantCultureIgnoreCase) is var index and >= 0 )
+            if (
+                !string.IsNullOrWhiteSpace(component.KeyPhrase)
+                && message.IndexOf(component.KeyPhrase, StringComparison.InvariantCultureIgnoreCase)
+                    is var index
+                        and >= 0
+            )
             {
-                _adminLogger.Add(LogType.Trigger, LogImpact.Medium,
-                        $"A voice-trigger on {ToPrettyString(ent):entity} was triggered by {ToPrettyString(args.Source):speaker} speaking the key-phrase {component.KeyPhrase}.");
+                _adminLogger.Add(
+                    LogType.Trigger,
+                    LogImpact.Medium,
+                    $"A voice-trigger on {ToPrettyString(ent):entity} was triggered by {ToPrettyString(args.Source):speaker} speaking the key-phrase {component.KeyPhrase}."
+                );
                 Trigger(ent, args.Source);
 
                 var messageWithoutPhrase = message.Remove(index, component.KeyPhrase.Length).Trim();
@@ -69,32 +77,38 @@ namespace Content.Server.Explosion.EntitySystems
             var component = ent.Comp;
 
             var @event = args;
-            args.Verbs.Add(new AlternativeVerb()
-            {
-                Text = Loc.GetString(component.IsRecording ? "verb-trigger-voice-stop" : "verb-trigger-voice-record"),
-                Act = () =>
+            args.Verbs.Add(
+                new AlternativeVerb()
                 {
-                    if (component.IsRecording)
-                        StopRecording(ent);
-                    else
-                        StartRecording(ent, @event.User);
-                },
-                Priority = 1
-            });
+                    Text = Loc.GetString(
+                        component.IsRecording ? "verb-trigger-voice-stop" : "verb-trigger-voice-record"
+                    ),
+                    Act = () =>
+                    {
+                        if (component.IsRecording)
+                            StopRecording(ent);
+                        else
+                            StartRecording(ent, @event.User);
+                    },
+                    Priority = 1,
+                }
+            );
 
             if (string.IsNullOrWhiteSpace(component.KeyPhrase))
                 return;
 
-            args.Verbs.Add(new AlternativeVerb()
-            {
-                Text = Loc.GetString("verb-trigger-voice-clear"),
-                Act = () =>
+            args.Verbs.Add(
+                new AlternativeVerb()
                 {
-                    component.KeyPhrase = null;
-                    component.IsRecording = false;
-                    RemComp<ActiveListenerComponent>(ent);
+                    Text = Loc.GetString("verb-trigger-voice-clear"),
+                    Act = () =>
+                    {
+                        component.KeyPhrase = null;
+                        component.IsRecording = false;
+                        RemComp<ActiveListenerComponent>(ent);
+                    },
                 }
-            });
+            );
         }
 
         public void StartRecording(Entity<TriggerOnVoiceComponent> ent, EntityUid user)
@@ -103,8 +117,11 @@ namespace Content.Server.Explosion.EntitySystems
             component.IsRecording = true;
             EnsureComp<ActiveListenerComponent>(ent).Range = component.ListenRange;
 
-            _adminLogger.Add(LogType.Trigger, LogImpact.Low,
-                    $"A voice-trigger on {ToPrettyString(ent):entity} has started recording. User: {ToPrettyString(user):user}");
+            _adminLogger.Add(
+                LogType.Trigger,
+                LogImpact.Low,
+                $"A voice-trigger on {ToPrettyString(ent):entity} has started recording. User: {ToPrettyString(user):user}"
+            );
 
             _popupSystem.PopupEntity(Loc.GetString("popup-trigger-voice-start-recording"), ent);
         }
@@ -125,24 +142,31 @@ namespace Content.Server.Explosion.EntitySystems
             component.KeyPhrase = message;
             component.IsRecording = false;
 
-            _adminLogger.Add(LogType.Trigger, LogImpact.Low,
-                    $"A voice-trigger on {ToPrettyString(ent):entity} has recorded a new keyphrase: '{component.KeyPhrase}'. Recorded from {ToPrettyString(source):speaker}");
+            _adminLogger.Add(
+                LogType.Trigger,
+                LogImpact.Low,
+                $"A voice-trigger on {ToPrettyString(ent):entity} has recorded a new keyphrase: '{component.KeyPhrase}'. Recorded from {ToPrettyString(source):speaker}"
+            );
 
-            _popupSystem.PopupEntity(Loc.GetString("popup-trigger-voice-recorded", ("keyphrase", component.KeyPhrase!)), ent);
+            _popupSystem.PopupEntity(
+                Loc.GetString("popup-trigger-voice-recorded", ("keyphrase", component.KeyPhrase!)),
+                ent
+            );
         }
 
         private void OnVoiceExamine(EntityUid uid, TriggerOnVoiceComponent component, ExaminedEvent args)
         {
             if (args.IsInDetailsRange)
             {
-                args.PushText(string.IsNullOrWhiteSpace(component.KeyPhrase)
-                    ? Loc.GetString("trigger-voice-uninitialized")
-                    : Loc.GetString("examine-trigger-voice", ("keyphrase", component.KeyPhrase)));
+                args.PushText(
+                    string.IsNullOrWhiteSpace(component.KeyPhrase)
+                        ? Loc.GetString("trigger-voice-uninitialized")
+                        : Loc.GetString("examine-trigger-voice", ("keyphrase", component.KeyPhrase))
+                );
             }
         }
     }
 }
-
 
 /// <summary>
 ///    Raised when a voice trigger is activated, containing the message that triggered it.

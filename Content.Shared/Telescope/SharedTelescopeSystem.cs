@@ -9,7 +9,8 @@ namespace Content.Shared.Telescope;
 
 public abstract class SharedTelescopeSystem : EntitySystem
 {
-    [Dependency] private readonly SharedEyeSystem _eye = default!;
+    [Dependency]
+    private readonly SharedEyeSystem _eye = default!;
 
     public override void Initialize()
     {
@@ -23,8 +24,10 @@ public abstract class SharedTelescopeSystem : EntitySystem
 
     private void OnShutdown(Entity<TelescopeComponent> ent, ref ComponentShutdown args)
     {
-        if (!TryComp(ent.Comp.LastEntity, out EyeComponent? eye)
-            || ent.Comp.LastEntity == ent && TerminatingOrDeleted(ent))
+        if (
+            !TryComp(ent.Comp.LastEntity, out EyeComponent? eye)
+            || ent.Comp.LastEntity == ent && TerminatingOrDeleted(ent)
+        )
             return;
 
         SetOffset((ent.Comp.LastEntity.Value, eye), Vector2.Zero, ent);
@@ -40,8 +43,7 @@ public abstract class SharedTelescopeSystem : EntitySystem
 
     private void OnUnequip(Entity<TelescopeComponent> ent, ref GotUnequippedHandEvent args)
     {
-        if (!TryComp(args.User, out EyeComponent? eye)
-            || !HasComp<ItemComponent>(ent.Owner))
+        if (!TryComp(args.User, out EyeComponent? eye) || !HasComp<ItemComponent>(ent.Owner))
             return;
 
         SetOffset((args.User, eye), Vector2.Zero, ent);
@@ -51,9 +53,11 @@ public abstract class SharedTelescopeSystem : EntitySystem
     {
         TelescopeComponent? telescope = null;
 
-        if (TryComp<HandsComponent>(ent, out var hands)
+        if (
+            TryComp<HandsComponent>(ent, out var hands)
             && hands.ActiveHandEntity.HasValue
-            && TryComp<TelescopeComponent>(hands.ActiveHandEntity, out var handTelescope))
+            && TryComp<TelescopeComponent>(hands.ActiveHandEntity, out var handTelescope)
+        )
             telescope = handTelescope;
         else if (TryComp<TelescopeComponent>(ent, out var entityTelescope))
             telescope = entityTelescope;
@@ -63,8 +67,7 @@ public abstract class SharedTelescopeSystem : EntitySystem
 
     private void OnEyeOffsetChanged(EyeOffsetChangedEvent msg, EntitySessionEventArgs args)
     {
-        if (args.SenderSession.AttachedEntity is not { } ent
-            || !TryComp<EyeComponent>(ent, out var eye))
+        if (args.SenderSession.AttachedEntity is not { } ent || !TryComp<EyeComponent>(ent, out var eye))
             return;
 
         var telescope = GetRightTelescope(ent);

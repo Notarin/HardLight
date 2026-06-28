@@ -1,15 +1,20 @@
+using System.Linq;
 using Content.Shared._Shitmed.Body.Events;
 using Content.Shared.Body.Part;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.Manager;
 using Robust.Shared.Timing;
-using System.Linq;
 
 namespace Content.Shared._Shitmed.BodyEffects;
+
 public partial class BodyPartEffectSystem : EntitySystem
 {
-    [Dependency] private readonly ISerializationManager _serManager = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
+    [Dependency]
+    private readonly ISerializationManager _serManager = default!;
+
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
+
     public override void Initialize()
     {
         base.Initialize();
@@ -35,8 +40,7 @@ public partial class BodyPartEffectSystem : EntitySystem
         }
     }
 
-    private void OnPartComponentsModify(Entity<BodyPartComponent> partEnt,
-        ref BodyPartComponentsModifyEvent ev)
+    private void OnPartComponentsModify(Entity<BodyPartComponent> partEnt, ref BodyPartComponentsModifyEvent ev)
     {
         if (partEnt.Comp.OnAdd != null)
         {
@@ -57,10 +61,12 @@ public partial class BodyPartEffectSystem : EntitySystem
         Dirty(partEnt, partEnt.Comp);
     }
 
-    private void AddComponents(EntityUid body,
+    private void AddComponents(
+        EntityUid body,
         EntityUid part,
         ComponentRegistry reg,
-        BodyPartEffectComponent? effectComp = null)
+        BodyPartEffectComponent? effectComp = null
+    )
     {
         if (!Resolve(part, ref effectComp, logMissing: false))
             return;
@@ -71,17 +77,19 @@ public partial class BodyPartEffectSystem : EntitySystem
             if (HasComp(body, compType))
                 continue;
 
-            var newComp = (Component) _serManager.CreateCopy(comp.Component, notNullableOverride: true);
+            var newComp = (Component)_serManager.CreateCopy(comp.Component, notNullableOverride: true);
             EntityManager.AddComponent(body, newComp, true);
 
             effectComp.Active[key] = comp;
         }
     }
 
-    private void RemoveComponents(EntityUid body,
+    private void RemoveComponents(
+        EntityUid body,
         EntityUid part,
         ComponentRegistry reg,
-        BodyPartEffectComponent? effectComp = null)
+        BodyPartEffectComponent? effectComp = null
+    )
     {
         if (!Resolve(part, ref effectComp, logMissing: false))
             return;

@@ -9644,4 +9644,3 @@ entities:
       parent: 60
     - type: Physics
       canCollide: False
-...

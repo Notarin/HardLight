@@ -13,13 +13,23 @@ public sealed partial class DungeonJob
     /// <summary>
     /// <see cref="MiddleConnectionDunGen"/>
     /// </summary>
-    private async Task PostGen(MiddleConnectionDunGen gen, DungeonData data, Dungeon dungeon, HashSet<Vector2i> reservedTiles, Random random)
+    private async Task PostGen(
+        MiddleConnectionDunGen gen,
+        DungeonData data,
+        Dungeon dungeon,
+        HashSet<Vector2i> reservedTiles,
+        Random random
+    )
     {
-        if (!data.Tiles.TryGetValue(DungeonDataKey.FallbackTile, out var tileProto) ||
-            !data.SpawnGroups.TryGetValue(DungeonDataKey.Entrance, out var entranceProto) ||
-            !_prototype.TryIndex(entranceProto, out var entrance))
+        if (
+            !data.Tiles.TryGetValue(DungeonDataKey.FallbackTile, out var tileProto)
+            || !data.SpawnGroups.TryGetValue(DungeonDataKey.Entrance, out var entranceProto)
+            || !_prototype.TryIndex(entranceProto, out var entrance)
+        )
         {
-            _sawmill.Error($"Tried to run {nameof(MiddleConnectionDunGen)} without any dungeon data set which is unsupported");
+            _sawmill.Error(
+                $"Tried to run {nameof(MiddleConnectionDunGen)} without any dungeon data set which is unsupported"
+            );
             return;
         }
 
@@ -41,8 +51,7 @@ public sealed partial class DungeonJob
                     for (var y = -1; y <= 1; y++)
                     {
                         // Cardinals only
-                        if (x != 0 && y != 0 ||
-                            x == 0 && y == 0)
+                        if (x != 0 && y != 0 || x == 0 && y == 0)
                         {
                             continue;
                         }
@@ -52,7 +61,14 @@ public sealed partial class DungeonJob
                         if (dungeon.RoomTiles.Contains(neighbor))
                             continue;
 
-                        if (!_anchorable.TileFree(_grid, neighbor, DungeonSystem.CollisionLayer, DungeonSystem.CollisionMask))
+                        if (
+                            !_anchorable.TileFree(
+                                _grid,
+                                neighbor,
+                                DungeonSystem.CollisionLayer,
+                                DungeonSystem.CollisionMask
+                            )
+                        )
                             continue;
 
                         roomEdges.Add(neighbor);
@@ -75,8 +91,7 @@ public sealed partial class DungeonJob
 
             foreach (var (otherRoom, otherBorders) in roomBorders)
             {
-                if (room.Equals(otherRoom) ||
-                    conns.Contains(otherRoom))
+                if (room.Equals(otherRoom) || conns.Contains(otherRoom))
                 {
                     continue;
                 }
@@ -84,8 +99,7 @@ public sealed partial class DungeonJob
                 var flipp = new HashSet<Vector2i>(border);
                 flipp.IntersectWith(otherBorders);
 
-                if (flipp.Count == 0 ||
-                    gen.OverlapCount != -1 && flipp.Count != gen.OverlapCount)
+                if (flipp.Count == 0 || gen.OverlapCount != -1 && flipp.Count != gen.OverlapCount)
                     continue;
 
                 var center = Vector2.Zero;
@@ -116,7 +130,7 @@ public sealed partial class DungeonJob
                         continue;
 
                     width--;
-                    _maps.SetTile(_gridUid, _grid, node, _tile.GetVariantTile((ContentTileDefinition) tileDef, random));
+                    _maps.SetTile(_gridUid, _grid, node, _tile.GetVariantTile((ContentTileDefinition)tileDef, random));
 
                     if (flank != null && nodeDistances.Count - i <= 2)
                     {

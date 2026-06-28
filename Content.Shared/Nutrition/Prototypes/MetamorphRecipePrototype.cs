@@ -10,7 +10,8 @@ namespace Content.Shared.Nutrition.Prototypes;
 [Prototype]
 public sealed partial class MetamorphRecipePrototype : IPrototype
 {
-    [IdDataField] public string ID { get; private set; } = default!;
+    [IdDataField]
+    public string ID { get; private set; } = default!;
 
     /// <summary>
     /// The key of the FoodSequence being collected. For example “burger” “taco” etc.

@@ -41,11 +41,11 @@ public enum XenoEggState
     Item,
     Growing,
     Grown,
-    Opened
+    Opened,
 }
 
 [Serializable, NetSerializable]
 public enum XenoEggLayers
 {
-    Base
+    Base,
 }

@@ -8,8 +8,8 @@
     edges:
     - to: MeatSpike
       completed:
-      - !type:AdminLog # Needs a log for start of attempt in addition to the completion log
-        message: "Construction"
+      - !type:AdminLog
+        message: "Construction" # Needs a log for start of attempt in addition to the completion log
         impact: High
       - !type:SnapToGrid
         southRotation: true

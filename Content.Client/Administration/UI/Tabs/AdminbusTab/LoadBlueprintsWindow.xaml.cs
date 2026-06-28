@@ -25,7 +25,7 @@ namespace Content.Client.Administration.UI.Tabs.AdminbusTab
 
             foreach (var mapId in mapManager.GetAllMapIds())
             {
-                MapOptions.AddItem(mapId.ToString(), (int) mapId);
+                MapOptions.AddItem(mapId.ToString(), (int)mapId);
             }
 
             Reset();
@@ -65,12 +65,12 @@ namespace Content.Client.Administration.UI.Tabs.AdminbusTab
             }
 
             if (currentMap != MapId.Nullspace)
-                MapOptions.Select((int) currentMap);
+                MapOptions.Select((int)currentMap);
 
-            XCoordinate.Value = (int) position.X;
-            YCoordinate.Value = (int) position.Y;
+            XCoordinate.Value = (int)position.X;
+            YCoordinate.Value = (int)position.Y;
 
-            RotationSpin.OverrideValue(Wraparound((int) rotation.Degrees));
+            RotationSpin.OverrideValue(Wraparound((int)rotation.Degrees));
         }
 
         private void OnResetButtonPressed(BaseButton.ButtonEventArgs obj)
@@ -82,7 +82,8 @@ namespace Content.Client.Administration.UI.Tabs.AdminbusTab
         {
             var newValue = Wraparound(e.Value);
 
-            if (e.Value == newValue) return;
+            if (e.Value == newValue)
+                return;
 
             RotationSpin.OverrideValue(newValue);
         }
@@ -103,16 +104,21 @@ namespace Content.Client.Administration.UI.Tabs.AdminbusTab
 
         private void OnTeleportButtonPressed(BaseButton.ButtonEventArgs obj)
         {
-            IoCManager.Resolve<IClientConsoleHost>().ExecuteCommand(
-                $"tp {XCoordinate.Value} {YCoordinate.Value} {new MapId(MapOptions.SelectedId)}");
+            IoCManager
+                .Resolve<IClientConsoleHost>()
+                .ExecuteCommand($"tp {XCoordinate.Value} {YCoordinate.Value} {new MapId(MapOptions.SelectedId)}");
         }
 
         private void OnSubmitButtonPressed(BaseButton.ButtonEventArgs obj)
         {
-            if (MapPath.Text.Length == 0) return;
+            if (MapPath.Text.Length == 0)
+                return;
 
-            IoCManager.Resolve<IClientConsoleHost>().ExecuteCommand(
-                $"loadbp {new MapId(MapOptions.SelectedId)} \"{MapPath.Text}\" {XCoordinate.Value} {YCoordinate.Value} {RotationSpin.Value}");
+            IoCManager
+                .Resolve<IClientConsoleHost>()
+                .ExecuteCommand(
+                    $"loadbp {new MapId(MapOptions.SelectedId)} \"{MapPath.Text}\" {XCoordinate.Value} {YCoordinate.Value} {RotationSpin.Value}"
+                );
         }
     }
 }

@@ -1,22 +1,22 @@
 - type: entity
   name: WT-440 (46x30mm)
-  parent: [ BaseWeaponPistol, BaseC2ContrabandUnredeemable ] # Frontier: BaseSecurityContraband<BaseC2ContrabandUnredeemable
+  parent: [BaseWeaponPistol, BaseC2ContrabandUnredeemable] # Frontier: BaseSecurityContraband<BaseC2ContrabandUnredeemable
   id: WeaponPistolWT440446x30mm
   description: A rarely seen modification of the WT550, this high capacity pistol is a cut-down version of the famous SMG, lacking an arm brace or alternate firemodes. Easier to conceal, and with all serial numbers expertly removed. Takes 4.6x30mm WT magazines.
   components:
   - type: Sprite
     sprite: _HL/Objects/Weapons/Guns/Pistols/wt440.rsi
     layers:
-      - state: base
-        map: ["enum.GunVisualLayers.Base"]
-      - state: base-unshaded
-        map: ["enum.GunVisualLayers.BaseUnshaded"]
-        shader: unshaded
-      - state: mag-0
-        map: ["enum.GunVisualLayers.Mag"]
-      - state: mag-unshaded-0
-        map: ["enum.GunVisualLayers.MagUnshaded"]
-        shader: unshaded
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: base-unshaded
+      map: ["enum.GunVisualLayers.BaseUnshaded"]
+      shader: unshaded
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
+    - state: mag-unshaded-0
+      map: ["enum.GunVisualLayers.MagUnshaded"]
+      shader: unshaded
   - type: Clothing
     sprite: _HL/Objects/Weapons/Guns/Pistols/wt440.rsi
   - type: Item
@@ -47,7 +47,7 @@
         priority: 2
         whitelist:
           tags:
-            - Magazine46x30mmSubMachineGunTopMountedFMJ
+          - Magazine46x30mmSubMachineGunTopMountedFMJ
         whitelistFailPopup: gun-magazine-whitelist-fail
       gun_chamber:
         name: Chamber
@@ -55,7 +55,7 @@
         priority: 1
         whitelist:
           tags:
-            - Cartridge46x30mmFMJ
+          - Cartridge46x30mmFMJ
   - type: MagazineVisuals
     magState: mag
     steps: 6
@@ -64,23 +64,23 @@
 
 - type: entity
   name: WT-440 (57x28mm)
-  parent: [ BaseWeaponPistol, BaseC2ContrabandUnredeemable ] # Frontier: BaseSecurityContraband<BaseC2ContrabandUnredeemable
+  parent: [BaseWeaponPistol, BaseC2ContrabandUnredeemable] # Frontier: BaseSecurityContraband<BaseC2ContrabandUnredeemable
   id: WeaponPistolWT44057x28mm
   description: A rarely seen modification of the WT550, this high capacity pistol is a cut-down version of the famous SMG, lacking an arm brace or alternate firemodes. Easier to conceal, and with all serial numbers expertly removed. Takes 5.7x28mm WT magazines.
   components:
   - type: Sprite
     sprite: _HL/Objects/Weapons/Guns/Pistols/wt440.rsi
     layers:
-      - state: base
-        map: ["enum.GunVisualLayers.Base"]
-      - state: base-unshaded
-        map: ["enum.GunVisualLayers.BaseUnshaded"]
-        shader: unshaded
-      - state: mag-0
-        map: ["enum.GunVisualLayers.Mag"]
-      - state: mag-unshaded-0
-        map: ["enum.GunVisualLayers.MagUnshaded"]
-        shader: unshaded
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: base-unshaded
+      map: ["enum.GunVisualLayers.BaseUnshaded"]
+      shader: unshaded
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
+    - state: mag-unshaded-0
+      map: ["enum.GunVisualLayers.MagUnshaded"]
+      shader: unshaded
   - type: Clothing
     sprite: _HL/Objects/Weapons/Guns/Pistols/wt440.rsi
   - type: Item
@@ -111,7 +111,7 @@
         priority: 2
         whitelist:
           tags:
-            - Magazine57x28mmSubMachineGunTopMountedFMJ
+          - Magazine57x28mmSubMachineGunTopMountedFMJ
         whitelistFailPopup: gun-magazine-whitelist-fail
       gun_chamber:
         name: Chamber
@@ -119,7 +119,7 @@
         priority: 1
         whitelist:
           tags:
-            - Cartridge57x28mmFMJ
+          - Cartridge57x28mmFMJ
   - type: MagazineVisuals
     magState: mag
     steps: 6

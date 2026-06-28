@@ -5,14 +5,20 @@ namespace Content.Server.Abilities.Psionics;
 
 public sealed partial class AnomalyPowerSystem
 {
-    private void DoPuddleAnomalyEffects(EntityUid uid, PsionicComponent component, AnomalyPowerActionEvent args, bool overcharged = false)
+    private void DoPuddleAnomalyEffects(
+        EntityUid uid,
+        PsionicComponent component,
+        AnomalyPowerActionEvent args,
+        bool overcharged = false
+    )
     {
         if (args.Puddle is null)
             return;
 
         if (overcharged)
             PuddleSupercrit(uid, args);
-        else PuddlePulse(uid, component, args);
+        else
+            PuddlePulse(uid, component, args);
     }
 
     private void PuddleSupercrit(EntityUid uid, AnomalyPowerActionEvent args)
@@ -32,7 +38,10 @@ public sealed partial class AnomalyPowerSystem
             return;
 
         var xform = Transform(uid);
-        var puddleSol = _solutionContainer.SplitSolution(sol.Value, puddle.MaxPuddleSize * component.CurrentAmplification);
+        var puddleSol = _solutionContainer.SplitSolution(
+            sol.Value,
+            puddle.MaxPuddleSize * component.CurrentAmplification
+        );
         _puddle.TrySplashSpillAt(uid, xform.Coordinates, puddleSol, out _);
     }
 }

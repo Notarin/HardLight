@@ -18,7 +18,8 @@ namespace Content.Server.Database.Migrations.Postgres
                 nullable: true,
                 oldClrType: typeof(DateTime),
                 oldType: "timestamp with time zone",
-                oldDefaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                oldDefaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+            );
 
             migrationBuilder.Sql("UPDATE round SET start_date = NULL WHERE start_date = '-Infinity';");
         }
@@ -34,7 +35,8 @@ namespace Content.Server.Database.Migrations.Postgres
                 defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                 oldClrType: typeof(DateTime),
                 oldType: "timestamp with time zone",
-                oldNullable: true);
+                oldNullable: true
+            );
         }
     }
 }

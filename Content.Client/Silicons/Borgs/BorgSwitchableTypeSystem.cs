@@ -15,10 +15,17 @@ namespace Content.Client.Silicons.Borgs;
 /// <seealso cref="BorgSwitchableTypeComponent"/>
 public sealed class BorgSwitchableTypeSystem : SharedBorgSwitchableTypeSystem
 {
-    [Dependency] private readonly BorgSystem _borgSystem = default!;
-    [Dependency] private readonly AppearanceSystem _appearance = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
-    [Dependency] private readonly IResourceCache _resourceCache = default!;
+    [Dependency]
+    private readonly BorgSystem _borgSystem = default!;
+
+    [Dependency]
+    private readonly AppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
+
+    [Dependency]
+    private readonly IResourceCache _resourceCache = default!;
 
     public override void Initialize()
     {
@@ -40,18 +47,21 @@ public sealed class BorgSwitchableTypeSystem : SharedBorgSwitchableTypeSystem
 
     protected override void UpdateEntityAppearance(
         Entity<BorgSwitchableTypeComponent> entity,
-        BorgTypePrototype prototype)
+        BorgTypePrototype prototype
+    )
     {
         // CD - added checks to stop sprite state errors
-        if (!TryComp<BorgSwitchableSubtypeComponent>(entity, out var subtype) ||
-            subtype.BorgSubtype != null)
+        if (!TryComp<BorgSwitchableSubtypeComponent>(entity, out var subtype) || subtype.BorgSubtype != null)
             return;
 
         if (TryComp(entity, out SpriteComponent? sprite))
         {
-            if (_resourceCache.TryGetResource<RSIResource>(
+            if (
+                _resourceCache.TryGetResource<RSIResource>(
                     SpriteSpecifierSerializer.TextureRoot / prototype.SpritePath,
-                    out var res))
+                    out var res
+                )
+            )
             {
                 sprite.BaseRSI = res.RSI;
             }
@@ -64,7 +74,8 @@ public sealed class BorgSwitchableTypeSystem : SharedBorgSwitchableTypeSystem
             _borgSystem.SetMindStates(
                 (entity.Owner, chassis),
                 prototype.SpriteHasMindState,
-                prototype.SpriteNoMindState);
+                prototype.SpriteNoMindState
+            );
 
             if (TryComp(entity, out AppearanceComponent? appearance))
             {
@@ -77,15 +88,9 @@ public sealed class BorgSwitchableTypeSystem : SharedBorgSwitchableTypeSystem
         {
             var spriteMovement = EnsureComp<SpriteMovementComponent>(entity);
             spriteMovement.NoMovementLayers.Clear();
-            spriteMovement.NoMovementLayers["movement"] = new PrototypeLayerData
-            {
-                State = prototype.SpriteBodyState,
-            };
+            spriteMovement.NoMovementLayers["movement"] = new PrototypeLayerData { State = prototype.SpriteBodyState };
             spriteMovement.MovementLayers.Clear();
-            spriteMovement.MovementLayers["movement"] = new PrototypeLayerData
-            {
-                State = movementState,
-            };
+            spriteMovement.MovementLayers["movement"] = new PrototypeLayerData { State = movementState };
         }
         else
         {

@@ -24,15 +24,32 @@ namespace Content.Replay.Menu;
 /// </summary>
 public sealed class ReplayMainScreen : State
 {
-    [Dependency] private readonly IResourceManager _resMan = default!;
-    [Dependency] private readonly IComponentFactory _factory = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IReplayLoadManager _loadMan = default!;
-    [Dependency] private readonly IResourceCache _resourceCache = default!;
-    [Dependency] private readonly IGameController _controllerProxy = default!;
-    [Dependency] private readonly IClientRobustSerializer _serializer = default!;
-    [Dependency] private readonly IUserInterfaceManager _userInterfaceManager = default!;
-    [Dependency] private readonly ContentReplayPlaybackManager _replayMan = default!;
+    [Dependency]
+    private readonly IResourceManager _resMan = default!;
+
+    [Dependency]
+    private readonly IComponentFactory _factory = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
+
+    [Dependency]
+    private readonly IReplayLoadManager _loadMan = default!;
+
+    [Dependency]
+    private readonly IResourceCache _resourceCache = default!;
+
+    [Dependency]
+    private readonly IGameController _controllerProxy = default!;
+
+    [Dependency]
+    private readonly IClientRobustSerializer _serializer = default!;
+
+    [Dependency]
+    private readonly IUserInterfaceManager _userInterfaceManager = default!;
+
+    [Dependency]
+    private readonly ContentReplayPlaybackManager _replayMan = default!;
 
     private ReplayMainMenuControl _mainMenuControl = default!;
     private SelectReplayWindow? _selectWindow;
@@ -75,9 +92,10 @@ public sealed class ReplayMainScreen : State
         }
 
         using var fileReader = new ReplayFileReaderZip(
-            new ZipArchive(_resMan.UserData.OpenRead(replay)), ReplayZipFolder);
-        if (!_resMan.UserData.Exists(replay)
-            || _loadMan.LoadYamlMetadata(fileReader) is not { } data)
+            new ZipArchive(_resMan.UserData.OpenRead(replay)),
+            ReplayZipFolder
+        );
+        if (!_resMan.UserData.Exists(replay) || _loadMan.LoadYamlMetadata(fileReader) is not { } data)
         {
             info.SetMarkup(Loc.GetString("replay-info-invalid"));
             info.HorizontalAlignment = Control.HAlignment.Center;
@@ -187,18 +205,21 @@ public sealed class ReplayMainScreen : State
         info.HorizontalAlignment = Control.HAlignment.Left;
         info.VerticalAlignment = Control.VAlignment.Top;
 
-        info.SetMarkup(Loc.GetString(
-            "replay-info-info",
-            ("file", file),
-            ("name", name),
-            ("time", time),
-            ("roundId", roundIdNode?.Value ?? "???"),
-            ("duration", duration),
-            ("forkId", forkId),
-            ("version", forkVersion),
-            ("engVersion", engineVersion),
-            ("compHash", compHash),
-            ("hash", typeHash)));
+        info.SetMarkup(
+            Loc.GetString(
+                "replay-info-info",
+                ("file", file),
+                ("name", name),
+                ("time", time),
+                ("roundId", roundIdNode?.Value ?? "???"),
+                ("duration", duration),
+                ("forkId", forkId),
+                ("version", forkVersion),
+                ("engVersion", engineVersion),
+                ("compHash", compHash),
+                ("hash", typeHash)
+            )
+        );
     }
 
     private void OnFolderPressed(BaseButton.ButtonEventArgs obj)
@@ -214,7 +235,9 @@ public sealed class ReplayMainScreen : State
 
         _replayMan.LastLoad = (_selected.Value, ReplayZipFolder);
         var fileReader = new ReplayFileReaderZip(
-            new ZipArchive(_resMan.UserData.OpenRead(_selected.Value)), ReplayZipFolder);
+            new ZipArchive(_resMan.UserData.OpenRead(_selected.Value)),
+            ReplayZipFolder
+        );
         _loadMan.LoadAndStartReplay(fileReader);
     }
 
@@ -228,7 +251,9 @@ public sealed class ReplayMainScreen : State
             try
             {
                 using var fileReader = new ReplayFileReaderZip(
-                    new ZipArchive(_resMan.UserData.OpenRead(file)), ReplayZipFolder);
+                    new ZipArchive(_resMan.UserData.OpenRead(file)),
+                    ReplayZipFolder
+                );
 
                 var data = _loadMan.LoadYamlMetadata(fileReader);
                 if (data == null)
@@ -236,7 +261,6 @@ public sealed class ReplayMainScreen : State
 
                 var name = data.Get<ValueDataNode>(MetaKeyName).Value;
                 _replays.Add((name, file));
-
             }
             catch
             {

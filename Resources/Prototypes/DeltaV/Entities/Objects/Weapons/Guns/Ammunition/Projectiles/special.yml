@@ -2,7 +2,7 @@
   id: BulletSpecial
   name: bullet (.38 special)
   parent: BaseBullet
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -13,7 +13,7 @@
   id: BulletSpecialPractice
   name: bullet (.38 special practice)
   parent: BaseBulletPractice
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -24,7 +24,7 @@
   id: BulletSpecialIncendiary
   name: bullet (.38 special incendiary)
   parent: BaseBulletIncendiary
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -36,7 +36,7 @@
   id: BulletSpecialUranium
   name: bullet (.38 special uranium)
   parent: BaseBulletUranium
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -48,7 +48,7 @@
   id: BulletSpecialHoly
   name: bullet (.38 special holy)
   parent: BaseBullet
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -60,7 +60,7 @@
   id: BulletSpecialMindbreaker
   name: bullet (.38 special mindbreaker)
   parent: BaseBulletPractice
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:

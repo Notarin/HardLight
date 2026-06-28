@@ -68,7 +68,7 @@ namespace Content.Shared.Random.Helpers
         }
 
         public static T Pick<T>(this IRobustRandom random, Dictionary<T, float> weights)
-            where T: notnull
+            where T : notnull
         {
             var sum = weights.Values.Sum();
             var accumulated = 0f;
@@ -96,7 +96,11 @@ namespace Content.Shared.Random.Helpers
             return pick;
         }
 
-        public static bool TryPickAndTake<T>(this IRobustRandom random, Dictionary<T, float> weights, [NotNullWhen(true)] out T? pick)
+        public static bool TryPickAndTake<T>(
+            this IRobustRandom random,
+            Dictionary<T, float> weights,
+            [NotNullWhen(true)] out T? pick
+        )
             where T : notnull
         {
             if (weights.Count == 0)
@@ -129,7 +133,10 @@ namespace Content.Shared.Random.Helpers
             throw new InvalidOperationException("Invalid weighted pick");
         }
 
-        public static (string reagent, FixedPoint2 quantity) Pick(this WeightedRandomFillSolutionPrototype prototype, IRobustRandom? random = null)
+        public static (string reagent, FixedPoint2 quantity) Pick(
+            this WeightedRandomFillSolutionPrototype prototype,
+            IRobustRandom? random = null
+        )
         {
             var randomFill = prototype.PickRandomFill(random);
 
@@ -154,7 +161,10 @@ namespace Content.Shared.Random.Helpers
             throw new InvalidOperationException($"Invalid weighted pick for {prototype.ID}!");
         }
 
-        public static RandomFillSolution PickRandomFill(this WeightedRandomFillSolutionPrototype prototype, IRobustRandom? random = null)
+        public static RandomFillSolution PickRandomFill(
+            this WeightedRandomFillSolutionPrototype prototype,
+            IRobustRandom? random = null
+        )
         {
             IoCManager.Resolve(ref random);
 

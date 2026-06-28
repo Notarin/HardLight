@@ -36,9 +36,8 @@ namespace Content.Client.Administration.UI.SetOutfit
 
         public override void HandleState(EuiStateBase state)
         {
-            var outfitState = (SetOutfitEuiState) state;
+            var outfitState = (SetOutfitEuiState)state;
             _window.TargetEntityId = outfitState.TargetNetEntity;
-
         }
     }
 }

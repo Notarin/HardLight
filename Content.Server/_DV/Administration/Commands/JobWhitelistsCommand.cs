@@ -12,14 +12,17 @@ namespace Content.Server._DV.Administration.Commands;
 [AdminCommand(AdminFlags.Whitelist)]
 public sealed class JobWhitelistsCommand : LocalizedCommands
 {
-    [Dependency] private readonly EuiManager _eui = default!;
-    [Dependency] private readonly IPlayerLocator _locator = default!;
+    [Dependency]
+    private readonly EuiManager _eui = default!;
+
+    [Dependency]
+    private readonly IPlayerLocator _locator = default!;
 
     public override string Command => "jobwhitelists";
 
     public override async void Execute(IConsoleShell shell, string argStr, string[] args)
     {
-        if (shell.Player is not {} player)
+        if (shell.Player is not { } player)
         {
             shell.WriteError(Loc.GetString("shell-cannot-run-command-from-server"));
             return;

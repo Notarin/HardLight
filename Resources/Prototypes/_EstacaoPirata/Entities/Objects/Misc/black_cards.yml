@@ -10,7 +10,7 @@
     layers:
     - state: black_box
     - state: black_box_open
-      map: [ "openLayer" ]
+      map: ["openLayer"]
       visible: false
   - type: OpenTriggeredStorageFill
     contents:
@@ -21,7 +21,7 @@
   parent: CardDeckBase
   id: CardDeckBlack
   name: deck of cards
-  categories: [ HideSpawnMenu, DoNotMap ] # Frontier
+  categories: [HideSpawnMenu, DoNotMap] # Frontier
   components:
   - type: Sprite
     sprite: _EstacaoPirata/Objects/Misc/cards.rsi
@@ -91,7 +91,7 @@
   parent: BaseItem
   id: CardBase
   name: card
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: EmitSoundOnLand
     sound:
@@ -115,7 +115,7 @@
 
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc2OfClubsBlack
   components:
   - type: Card
@@ -126,7 +126,7 @@
 
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc3OfClubsBlack
   components:
   - type: Card
@@ -137,7 +137,7 @@
 
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc4OfClubsBlack
   components:
   - type: Card
@@ -148,7 +148,7 @@
 
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc5OfClubsBlack
   components:
   - type: Card
@@ -159,7 +159,7 @@
 
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc6OfClubsBlack
   components:
   - type: Card
@@ -170,7 +170,7 @@
 
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc7OfClubsBlack
   components:
   - type: Card
@@ -181,7 +181,7 @@
 
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc8OfClubsBlack
   components:
   - type: Card
@@ -192,7 +192,7 @@
 
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc9OfClubsBlack
   components:
   - type: Card
@@ -203,7 +203,7 @@
 
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc10OfClubsBlack
   components:
   - type: Card
@@ -214,7 +214,7 @@
 
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardScAceOfClubsBlack
   components:
   - type: Card
@@ -223,10 +223,9 @@
     sprite: _EstacaoPirata/Objects/Misc/cards.rsi
     state: sc_Ace_of_Clubs_black
 
-
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardScJackOfClubsBlack
   components:
   - type: Card
@@ -237,7 +236,7 @@
 
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardScKingOfClubsBlack
   components:
   - type: Card
@@ -248,7 +247,7 @@
 
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardScQueenOfClubsBlack
   components:
   - type: Card
@@ -257,10 +256,9 @@
     sprite: _EstacaoPirata/Objects/Misc/cards.rsi
     state: sc_Queen_of_Clubs_black
 
-
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardScJackOfDiamondsBlack
   components:
   - type: Card
@@ -271,7 +269,7 @@
 
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardScQueenOfDiamondsBlack
   components:
   - type: Card
@@ -282,7 +280,7 @@
 
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardScKingOfDiamondsBlack
   components:
   - type: Card
@@ -293,7 +291,7 @@
 
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardScAceOfDiamondsBlack
   components:
   - type: Card
@@ -304,7 +302,7 @@
 
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc2OfDiamondsBlack
   components:
   - type: Card
@@ -315,7 +313,7 @@
 
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc3OfDiamondsBlack
   components:
   - type: Card
@@ -326,7 +324,7 @@
 
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc4OfDiamondsBlack
   components:
   - type: Card
@@ -337,7 +335,7 @@
 
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc5OfDiamondsBlack
   components:
   - type: Card
@@ -348,7 +346,7 @@
 
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc6OfDiamondsBlack
   components:
   - type: Card
@@ -359,7 +357,7 @@
 
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc7OfDiamondsBlack
   components:
   - type: Card
@@ -370,7 +368,7 @@
 
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc8OfDiamondsBlack
   components:
   - type: Card
@@ -381,7 +379,7 @@
 
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc9OfDiamondsBlack
   components:
   - type: Card
@@ -392,7 +390,7 @@
 
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc10OfDiamondsBlack
   components:
   - type: Card
@@ -401,10 +399,9 @@
     sprite: _EstacaoPirata/Objects/Misc/cards.rsi
     state: sc_10_of_Diamonds_black
 
-
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc2OfHeartsBlack
   components:
   - type: Card
@@ -415,7 +412,7 @@
 
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc3OfHeartsBlack
   components:
   - type: Card
@@ -426,7 +423,7 @@
 
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc4OfHeartsBlack
   components:
   - type: Card
@@ -437,7 +434,7 @@
 
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc5OfHeartsBlack
   components:
   - type: Card
@@ -448,7 +445,7 @@
 
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc6OfHeartsBlack
   components:
   - type: Card
@@ -459,7 +456,7 @@
 
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc7OfHeartsBlack
   components:
   - type: Card
@@ -470,7 +467,7 @@
 
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc8OfHeartsBlack
   components:
   - type: Card
@@ -481,7 +478,7 @@
 
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc9OfHeartsBlack
   components:
   - type: Card
@@ -492,7 +489,7 @@
 
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc10OfHeartsBlack
   components:
   - type: Card
@@ -503,7 +500,7 @@
 
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardScKingOfHeartsBlack
   components:
   - type: Card
@@ -514,7 +511,7 @@
 
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardScQueenOfHeartsBlack
   components:
   - type: Card
@@ -525,7 +522,7 @@
 
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardScJackOfHeartsBlack
   components:
   - type: Card
@@ -536,7 +533,7 @@
 
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardScAceOfHeartsBlack
   components:
   - type: Card
@@ -545,10 +542,9 @@
     sprite: _EstacaoPirata/Objects/Misc/cards.rsi
     state: sc_Ace_of_Hearts_black
 
-
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc2OfSpadesBlack
   components:
   - type: Card
@@ -559,7 +555,7 @@
 
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc3OfSpadesBlack
   components:
   - type: Card
@@ -570,7 +566,7 @@
 
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc4OfSpadesBlack
   components:
   - type: Card
@@ -581,7 +577,7 @@
 
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc5OfSpadesBlack
   components:
   - type: Card
@@ -592,7 +588,7 @@
 
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc6OfSpadesBlack
   components:
   - type: Card
@@ -603,7 +599,7 @@
 
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc7OfSpadesBlack
   components:
   - type: Card
@@ -614,7 +610,7 @@
 
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc8OfSpadesBlack
   components:
   - type: Card
@@ -625,7 +621,7 @@
 
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc9OfSpadesBlack
   components:
   - type: Card
@@ -634,10 +630,9 @@
     sprite: _EstacaoPirata/Objects/Misc/cards.rsi
     state: sc_9_of_Spades_black
 
-
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc10OfSpadesBlack
   components:
   - type: Card
@@ -648,7 +643,7 @@
 
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardScKingOfSpadesBlack
   components:
   - type: Card
@@ -659,7 +654,7 @@
 
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardScQueenOfSpadesBlack
   components:
   - type: Card
@@ -670,7 +665,7 @@
 
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardScJackOfSpadesBlack
   components:
   - type: Card
@@ -681,7 +676,7 @@
 
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardScAceOfSpadesBlack
   components:
   - type: Card
@@ -692,7 +687,7 @@
 
 - type: entity
   parent: CardBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardScJokerBlack
   components:
   - type: Card

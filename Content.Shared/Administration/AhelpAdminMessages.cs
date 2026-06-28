@@ -3,9 +3,7 @@ using Robust.Shared.Serialization;
 namespace Content.Shared.Administration;
 
 [Serializable, NetSerializable]
-public sealed class RequestAhelpAdminStateMessage : EntityEventArgs
-{
-}
+public sealed class RequestAhelpAdminStateMessage : EntityEventArgs { }
 
 [Serializable, NetSerializable]
 public sealed class SetAhelpAutoReplyEnabledMessage : EntityEventArgs
@@ -182,7 +180,8 @@ public sealed class AhelpAdminCategoryState
         bool hasAutoReply,
         bool hasTriage,
         bool autoReplyEnabled,
-        bool triageEnabled)
+        bool triageEnabled
+    )
     {
         Name = name;
         Template = template;
@@ -211,7 +210,8 @@ public sealed class AhelpAdminConfigState
         bool triageEnabled,
         string autoReplyBotName,
         string panicAutoReplyTemplate,
-        AhelpAdminCategoryState[] categories)
+        AhelpAdminCategoryState[] categories
+    )
     {
         AutoReplyEnabled = autoReplyEnabled;
         PanicAutoReplyEnabled = panicAutoReplyEnabled;

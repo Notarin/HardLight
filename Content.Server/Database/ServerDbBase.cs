@@ -8,6 +8,7 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Content.Server.Administration.Logs;
+using Content.Server.Humanoid.Markings.Extensions;
 using Content.Shared._Common.Consent; // Consent system
 using Content.Shared.Administration.Logs;
 using Content.Shared.Construction.Prototypes;
@@ -26,7 +27,6 @@ using Robust.Shared.IoC;
 using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
-using Content.Server.Humanoid.Markings.Extensions;
 
 namespace Content.Server.Database
 {
@@ -48,27 +48,26 @@ namespace Content.Server.Database
         #region Preferences
         public async Task<PlayerPreferences?> GetPlayerPreferencesAsync(
             NetUserId userId,
-            CancellationToken cancel = default)
+            CancellationToken cancel = default
+        )
         {
             await using var db = await GetDb(cancel);
 
-            var prefs = await db.DbContext
-                .Preference
-                .AsNoTracking()
+            var prefs = await db
+                .DbContext.Preference.AsNoTracking()
                 .SingleOrDefaultAsync(p => p.UserId == userId.UserId, cancel);
 
             if (prefs is null)
                 return null;
 
-            var profileRows = await db.DbContext
-                .Profile
-                .Where(p => p.PreferenceId == prefs.Id)
+            var profileRows = await db
+                .DbContext.Profile.Where(p => p.PreferenceId == prefs.Id)
                 .Include(h => h.Jobs)
                 .Include(h => h.Antags)
                 .Include(h => h.Traits)
                 .Include(h => h.Loadouts)
                     .ThenInclude(l => l.Groups)
-                    .ThenInclude(group => group.Loadouts)
+                        .ThenInclude(group => group.Loadouts)
                 .AsSplitQuery()
                 .AsNoTracking()
                 .ToListAsync(cancel);
@@ -76,7 +75,9 @@ namespace Content.Server.Database
             if (profileRows.Count == 0)
             {
                 _opsLog.Warning($"Preference row for user {userId} contains no character profiles.");
-                throw new InvalidOperationException($"Preference row for user {userId} contains no character profiles.");
+                throw new InvalidOperationException(
+                    $"Preference row for user {userId} contains no character profiles."
+                );
             }
 
             var maxSlot = profileRows.Max(p => p.Slot) + 1;
@@ -100,12 +101,16 @@ namespace Content.Server.Database
 
             if (malformedCount > 0)
             {
-                _opsLog.Warning($"Skipped malformed profile slots for user {userId}: {malformedCount}/{profileRows.Count}. Slots=[{string.Join(",", malformedSlots)}]");
+                _opsLog.Warning(
+                    $"Skipped malformed profile slots for user {userId}: {malformedCount}/{profileRows.Count}. Slots=[{string.Join(",", malformedSlots)}]"
+                );
             }
 
             if (profiles.Count == 0)
             {
-                _opsLog.Error($"All profiles failed conversion for user {userId}; refusing to return empty preferences.");
+                _opsLog.Error(
+                    $"All profiles failed conversion for user {userId}; refusing to return empty preferences."
+                );
                 throw new InvalidOperationException($"All profiles failed conversion for user {userId}.");
             }
 
@@ -133,10 +138,9 @@ namespace Content.Server.Database
         {
             await using var db = await GetDb();
 
-            await db.DbContext.Preference
-                .Where(p => p.UserId == userId.UserId)
-                .ExecuteUpdateAsync(setters => setters
-                    .SetProperty(p => p.SelectedCharacterSlot, index));
+            await db
+                .DbContext.Preference.Where(p => p.UserId == userId.UserId)
+                .ExecuteUpdateAsync(setters => setters.SetProperty(p => p.SelectedCharacterSlot, index));
         }
 
         public async Task SaveCharacterSlotAsync(NetUserId userId, ICharacterProfile? profile, int slot)
@@ -156,24 +160,23 @@ namespace Content.Server.Database
                 throw new NotImplementedException();
             }
 
-            var oldProfile = db.DbContext.Profile
-                .Include(p => p.Preference)
+            var oldProfile = db
+                .DbContext.Profile.Include(p => p.Preference)
                 .Where(p => p.Preference.UserId == userId.UserId)
                 .Include(p => p.Jobs)
                 .Include(p => p.Antags)
                 .Include(p => p.Traits)
                 .Include(p => p.Loadouts)
                     .ThenInclude(l => l.Groups)
-                    .ThenInclude(group => group.Loadouts)
+                        .ThenInclude(group => group.Loadouts)
                 .AsSplitQuery()
                 .SingleOrDefault(h => h.Slot == slot);
 
             var newProfile = ConvertProfiles(humanoid, slot, oldProfile);
             if (oldProfile == null)
             {
-                var prefs = await db.DbContext
-                    .Preference
-                    .Include(p => p.Profiles)
+                var prefs = await db
+                    .DbContext.Preference.Include(p => p.Profiles)
                     .SingleAsync(p => p.UserId == userId.UserId);
 
                 prefs.Profiles.Add(newProfile);
@@ -184,7 +187,8 @@ namespace Content.Server.Database
 
         private static async Task DeleteCharacterSlot(ServerDbContext db, NetUserId userId, int slot)
         {
-            var profile = await db.Profile.Include(p => p.Preference)
+            var profile = await db
+                .Profile.Include(p => p.Preference)
                 .Where(p => p.Preference.UserId == userId.UserId && p.Slot == slot)
                 .SingleOrDefaultAsync();
 
@@ -200,12 +204,12 @@ namespace Content.Server.Database
         {
             await using var db = await GetDb();
 
-            var profile = ConvertProfiles((HumanoidCharacterProfile) defaultProfile, 0);
+            var profile = ConvertProfiles((HumanoidCharacterProfile)defaultProfile, 0);
             var prefs = new Preference
             {
                 UserId = userId.UserId,
                 SelectedCharacterSlot = 0,
-                AdminOOCColor = Color.Red.ToHex()
+                AdminOOCColor = Color.Red.ToHex(),
             };
 
             prefs.Profiles.Add(profile);
@@ -214,7 +218,11 @@ namespace Content.Server.Database
 
             await db.DbContext.SaveChangesAsync();
 
-            return new PlayerPreferences(new[] {new KeyValuePair<int, ICharacterProfile>(0, defaultProfile)}, 0, Color.FromHex(prefs.AdminOOCColor));
+            return new PlayerPreferences(
+                new[] { new KeyValuePair<int, ICharacterProfile>(0, defaultProfile) },
+                0,
+                Color.FromHex(prefs.AdminOOCColor)
+            );
         }
 
         public async Task DeleteSlotAndSetSelectedIndex(NetUserId userId, int deleteSlot, int newSlot)
@@ -230,14 +238,12 @@ namespace Content.Server.Database
         public async Task SaveAdminOOCColorAsync(NetUserId userId, Color color)
         {
             await using var db = await GetDb();
-            var prefs = await db.DbContext
-                .Preference
-                .Include(p => p.Profiles)
+            var prefs = await db
+                .DbContext.Preference.Include(p => p.Profiles)
                 .SingleAsync(p => p.UserId == userId.UserId);
             prefs.AdminOOCColor = color.ToHex();
 
             await db.DbContext.SaveChangesAsync();
-
         }
 
         private static async Task SetSelectedCharacterSlotAsync(NetUserId userId, int newSlot, ServerDbContext db)
@@ -248,7 +254,10 @@ namespace Content.Server.Database
 
         private static HumanoidCharacterProfile ConvertProfiles(Profile profile, IPrototypeManager prototypeManager)
         {
-            var jobs = profile.Jobs.ToDictionary(j => new ProtoId<JobPrototype>(j.JobName), j => (JobPriority) j.Priority);
+            var jobs = profile.Jobs.ToDictionary(
+                j => new ProtoId<JobPrototype>(j.JobName),
+                j => (JobPriority)j.Priority
+            );
             var antags = profile.Antags.Select(a => new ProtoId<AntagPrototype>(a.AntagName));
             var traits = profile.Traits.Select(t => new ProtoId<TraitPrototype>(t.TraitName));
 
@@ -256,7 +265,7 @@ namespace Content.Server.Database
             if (Enum.TryParse<Sex>(profile.Sex, true, out var sexVal))
                 sex = sexVal;
 
-            var spawnPriority = (SpawnPriorityPreference) profile.SpawnPriority;
+            var spawnPriority = (SpawnPriorityPreference)profile.SpawnPriority;
 
             var gender = sex == Sex.Male ? Gender.Male : Gender.Female;
             if (Enum.TryParse<Gender>(profile.Gender, true, out var genderVal))
@@ -274,7 +283,8 @@ namespace Content.Server.Database
                 {
                     var parsed = MarkingExtensions.ParseFromDbString(marking); //starlight
 
-                    if (parsed is null) continue;
+                    if (parsed is null)
+                        continue;
 
                     markings.Add(parsed);
                 }
@@ -284,20 +294,14 @@ namespace Content.Server.Database
 
             foreach (var role in profile.Loadouts)
             {
-                var loadout = new RoleLoadout(role.RoleName)
-                {
-                    EntityName = role.EntityName,
-                };
+                var loadout = new RoleLoadout(role.RoleName) { EntityName = role.EntityName };
 
                 foreach (var group in role.Groups)
                 {
                     var groupLoadouts = loadout.SelectedLoadouts.GetOrNew(group.GroupName);
                     foreach (var profLoadout in group.Loadouts)
                     {
-                        groupLoadouts.Add(new Loadout()
-                        {
-                            Prototype = profLoadout.LoadoutName,
-                        });
+                        groupLoadouts.Add(new Loadout() { Prototype = profLoadout.LoadoutName });
                     }
                 }
 
@@ -312,8 +316,10 @@ namespace Content.Server.Database
 
                 // `__species_loadout` is only the DB storage key. Restore the actual role prototype
                 // immediately so later profile validation never indexes the sentinel as a prototype.
-                if (prototypeManager.TryIndex<SpeciesPrototype>(profile.Species, out var speciesProto) &&
-                    speciesProto.Loadout != null)
+                if (
+                    prototypeManager.TryIndex<SpeciesPrototype>(profile.Species, out var speciesProto)
+                    && speciesProto.Loadout != null
+                )
                 {
                     speciesLoadout.Role = speciesProto.Loadout.Value;
                 }
@@ -339,8 +345,7 @@ namespace Content.Server.Database
                 sex,
                 gender,
                 balance,
-                new HumanoidCharacterAppearance
-                (
+                new HumanoidCharacterAppearance(
                     profile.HairName,
                     Color.FromHex(profile.HairColor),
                     profile.HairGlowing, //starlight
@@ -356,18 +361,19 @@ namespace Content.Server.Database
                 ),
                 spawnPriority,
                 jobs,
-                (PreferenceUnavailableMode) profile.PreferenceUnavailable,
+                (PreferenceUnavailableMode)profile.PreferenceUnavailable,
                 antags.ToHashSet(),
                 traits.ToHashSet(),
                 loadouts,
                 company,
-                speciesLoadout); // Far Horizons
+                speciesLoadout
+            ); // Far Horizons
         }
 
         private static Profile ConvertProfiles(HumanoidCharacterProfile humanoid, int slot, Profile? profile = null)
         {
             profile ??= new Profile();
-            var appearance = (HumanoidCharacterAppearance) humanoid.CharacterAppearance;
+            var appearance = (HumanoidCharacterAppearance)humanoid.CharacterAppearance;
             List<string> markingStrings = new();
             foreach (var marking in appearance.Markings)
             {
@@ -394,30 +400,24 @@ namespace Content.Server.Database
             profile.SkinColor = appearance.SkinColor.ToHex();
             profile.Height = appearance.Height;
             profile.Width = appearance.Width;
-            profile.SpawnPriority = (int) humanoid.SpawnPriority;
+            profile.SpawnPriority = (int)humanoid.SpawnPriority;
             profile.Markings = markings;
             profile.Slot = slot;
-            profile.PreferenceUnavailable = (DbPreferenceUnavailableMode) humanoid.PreferenceUnavailable;
+            profile.PreferenceUnavailable = (DbPreferenceUnavailableMode)humanoid.PreferenceUnavailable;
             profile.Company = humanoid.Company;
 
             profile.Jobs.Clear();
             profile.Jobs.AddRange(
-                humanoid.JobPriorities
-                    .Where(j => j.Value != JobPriority.Never)
-                    .Select(j => new Job {JobName = j.Key, Priority = (DbJobPriority) j.Value})
+                humanoid
+                    .JobPriorities.Where(j => j.Value != JobPriority.Never)
+                    .Select(j => new Job { JobName = j.Key, Priority = (DbJobPriority)j.Value })
             );
 
             profile.Antags.Clear();
-            profile.Antags.AddRange(
-                humanoid.AntagPreferences
-                    .Select(a => new Antag {AntagName = a})
-            );
+            profile.Antags.AddRange(humanoid.AntagPreferences.Select(a => new Antag { AntagName = a }));
 
             profile.Traits.Clear();
-            profile.Traits.AddRange(
-                humanoid.TraitPreferences
-                        .Select(t => new Trait {TraitName = t})
-            );
+            profile.Traits.AddRange(humanoid.TraitPreferences.Select(t => new Trait { TraitName = t }));
 
             profile.Loadouts.Clear();
 
@@ -429,25 +429,15 @@ namespace Content.Server.Database
 
             foreach (var (role, loadouts) in allLoadouts) // Far Horizons
             {
-                var dz = new ProfileRoleLoadout()
-                {
-                    RoleName = role,
-                    EntityName = loadouts.EntityName ?? string.Empty,
-                };
+                var dz = new ProfileRoleLoadout() { RoleName = role, EntityName = loadouts.EntityName ?? string.Empty };
 
                 foreach (var (group, groupLoadouts) in loadouts.SelectedLoadouts)
                 {
-                    var profileGroup = new ProfileLoadoutGroup()
-                    {
-                        GroupName = group,
-                    };
+                    var profileGroup = new ProfileLoadoutGroup() { GroupName = group };
 
                     foreach (var loadout in groupLoadouts)
                     {
-                        profileGroup.Loadouts.Add(new ProfileLoadout()
-                        {
-                            LoadoutName = loadout.Prototype,
-                        });
+                        profileGroup.Loadouts.Add(new ProfileLoadout() { LoadoutName = loadout.Prototype });
                     }
 
                     dz.Groups.Add(profileGroup);
@@ -473,11 +463,7 @@ namespace Content.Server.Database
         {
             await using var db = await GetDb();
 
-            db.DbContext.AssignedUserId.Add(new AssignedUserId
-            {
-                UserId = netUserId.UserId,
-                UserName = name
-            });
+            db.DbContext.AssignedUserId.Add(new AssignedUserId { UserId = netUserId.UserId, UserName = name });
 
             await db.DbContext.SaveChangesAsync();
         }
@@ -510,7 +496,8 @@ namespace Content.Server.Database
             NetUserId? userId,
             ImmutableArray<byte>? hwId,
             ImmutableArray<ImmutableArray<byte>>? modernHWIds,
-            BanType type);
+            BanType type
+        );
 
         /// <summary>
         ///     Looks up an user's ban history.
@@ -529,12 +516,20 @@ namespace Content.Server.Database
             ImmutableArray<byte>? hwId,
             ImmutableArray<ImmutableArray<byte>>? modernHWIds,
             bool includeUnbanned,
-            BanType type);
+            BanType type
+        );
 
         public abstract Task<BanDef> AddBanAsync(BanDef ban);
         public abstract Task AddUnbanAsync(UnbanDef unban);
 
-        public async Task EditBan(int id, string reason, NoteSeverity severity, DateTimeOffset? expiration, Guid editedBy, DateTimeOffset editedAt)
+        public async Task EditBan(
+            int id,
+            string reason,
+            NoteSeverity severity,
+            DateTimeOffset? expiration,
+            Guid editedBy,
+            DateTimeOffset editedAt
+        )
         {
             await using var db = await GetDb();
 
@@ -552,13 +547,16 @@ namespace Content.Server.Database
         protected static async Task<ServerBanExemptFlags?> GetBanExemptionCore(
             DbGuard db,
             NetUserId? userId,
-            CancellationToken cancel = default)
+            CancellationToken cancel = default
+        )
         {
             if (userId == null)
                 return null;
 
-            var exemption = await db.DbContext.BanExemption
-                .SingleOrDefaultAsync(e => e.UserId == userId.Value.UserId, cancellationToken: cancel);
+            var exemption = await db.DbContext.BanExemption.SingleOrDefaultAsync(
+                e => e.UserId == userId.Value.UserId,
+                cancellationToken: cancel
+            );
 
             return exemption?.Flags;
         }
@@ -577,10 +575,7 @@ namespace Content.Server.Database
             var exemption = await db.DbContext.BanExemption.SingleOrDefaultAsync(u => u.UserId == userId.UserId);
             if (exemption == null)
             {
-                exemption = new ServerBanExemption
-                {
-                    UserId = userId
-                };
+                exemption = new ServerBanExemption { UserId = userId };
 
                 db.DbContext.BanExemption.Add(exemption);
             }
@@ -621,19 +616,14 @@ namespace Content.Server.Database
         {
             await using var db = await GetDb(cancel);
 
-            return await db.DbContext.PlayTime
-                .Where(p => p.PlayerId == player)
-                .ToListAsync(cancel);
+            return await db.DbContext.PlayTime.Where(p => p.PlayerId == player).ToListAsync(cancel);
         }
 
         public async Task UpdatePlayTimes(IReadOnlyCollection<PlayTimeUpdate> updates)
         {
             await using var db = await GetDb();
 
-            var consolidatedUpdates = updates
-                .GroupBy(u => (u.User.UserId, u.Tracker))
-                .Select(g => g.Last())
-                .ToArray();
+            var consolidatedUpdates = updates.GroupBy(u => (u.User.UserId, u.Tracker)).Select(g => g.Last()).ToArray();
 
             if (consolidatedUpdates.Length == 0)
                 return;
@@ -645,16 +635,13 @@ namespace Content.Server.Database
             // Then we can update & insert without further round-trips to the DB.
 
             var players = consolidatedUpdates.Select(u => u.User.UserId).Distinct().ToArray();
-            var dbTimes = (await db.DbContext.PlayTime
-                    .Where(p => players.Contains(p.PlayerId))
-                    .ToArrayAsync())
+            var dbTimes = (await db.DbContext.PlayTime.Where(p => players.Contains(p.PlayerId)).ToArrayAsync())
                 .GroupBy(p => p.PlayerId)
                 .ToDictionary(g => g.Key, g => g.ToDictionary(p => p.Tracker, p => p));
 
             foreach (var (user, tracker, time) in consolidatedUpdates)
             {
-                if (dbTimes.TryGetValue(user.UserId, out var userTimes)
-                    && userTimes.TryGetValue(tracker, out var ent))
+                if (dbTimes.TryGetValue(user.UserId, out var userTimes) && userTimes.TryGetValue(tracker, out var ent))
                 {
                     // Already have a tracker in the database, update it.
                     ent.TimeSpent = time;
@@ -666,7 +653,7 @@ namespace Content.Server.Database
                 {
                     Tracker = tracker,
                     PlayerId = user.UserId,
-                    TimeSpent = time
+                    TimeSpent = time,
                 };
 
                 db.DbContext.PlayTime.Add(playTime);
@@ -685,18 +672,17 @@ namespace Content.Server.Database
             NetUserId userId,
             string userName,
             IPAddress address,
-            ImmutableTypedHwid? hwId)
+            ImmutableTypedHwid? hwId
+        )
         {
             await using var db = await GetDb();
 
             var record = await db.DbContext.Player.SingleOrDefaultAsync(p => p.UserId == userId.UserId);
             if (record == null)
             {
-                db.DbContext.Player.Add(record = new Player
-                {
-                    FirstSeenTime = DateTime.UtcNow,
-                    UserId = userId.UserId,
-                });
+                db.DbContext.Player.Add(
+                    record = new Player { FirstSeenTime = DateTime.UtcNow, UserId = userId.UserId }
+                );
             }
 
             record.LastSeenTime = DateTime.UtcNow;
@@ -714,8 +700,8 @@ namespace Content.Server.Database
             // Sort by descending last seen time.
             // So if, due to account renames, we have two people with the same username in the DB,
             // the most recent one is picked.
-            var record = await db.DbContext.Player
-                .OrderByDescending(p => p.LastSeenTime)
+            var record = await db
+                .DbContext.Player.OrderByDescending(p => p.LastSeenTime)
                 .FirstOrDefaultAsync(p => p.LastSeenUserName == userName, cancel);
 
             return record == null ? null : MakePlayerRecord(record);
@@ -725,8 +711,7 @@ namespace Content.Server.Database
         {
             await using var db = await GetDb();
 
-            var record = await db.DbContext.Player
-                .SingleOrDefaultAsync(p => p.UserId == userId.UserId, cancel);
+            var record = await db.DbContext.Player.SingleOrDefaultAsync(p => p.UserId == userId.UserId, cancel);
 
             return record == null ? null : MakePlayerRecord(record);
         }
@@ -761,7 +746,8 @@ namespace Content.Server.Database
                 player.LastSeenUserName,
                 new DateTimeOffset(NormalizeDatabaseTime(player.LastSeenTime)),
                 player.LastSeenAddress,
-                player.LastSeenHWId);
+                player.LastSeenHWId
+            );
         }
 
         #endregion
@@ -770,13 +756,15 @@ namespace Content.Server.Database
         /*
          * CONNECTION LOG
          */
-        public abstract Task<int> AddConnectionLogAsync(NetUserId userId,
+        public abstract Task<int> AddConnectionLogAsync(
+            NetUserId userId,
             string userName,
             IPAddress address,
             ImmutableTypedHwid? hwId,
             float trust,
             ConnectionDenyReason? denied,
-            int serverId);
+            int serverId
+        );
 
         public async Task AddServerBanHitsAsync(int connection, IEnumerable<BanDef> bans)
         {
@@ -784,10 +772,7 @@ namespace Content.Server.Database
 
             foreach (var ban in bans)
             {
-                db.DbContext.ServerBanHit.Add(new ServerBanHit
-                {
-                    ConnectionId = connection, BanId = ban.Id!.Value
-                });
+                db.DbContext.ServerBanHit.Add(new ServerBanHit { ConnectionId = connection, BanId = ban.Id!.Value });
             }
 
             await db.DbContext.SaveChangesAsync();
@@ -803,24 +788,23 @@ namespace Content.Server.Database
         {
             await using var db = await GetDb(cancel);
 
-            return await db.DbContext.Admin
-                .Include(p => p.Flags)
+            return await db
+                .DbContext.Admin.Include(p => p.Flags)
                 .Include(p => p.AdminRank)
-                .ThenInclude(p => p!.Flags)
+                    .ThenInclude(p => p!.Flags)
                 .AsSplitQuery() // tests fail because of a random warning if you dont have this!
                 .SingleOrDefaultAsync(p => p.UserId == userId.UserId, cancel);
         }
 
-        public abstract Task<((Admin, string? lastUserName)[] admins, AdminRank[])>
-            GetAllAdminAndRanksAsync(CancellationToken cancel);
+        public abstract Task<((Admin, string? lastUserName)[] admins, AdminRank[])> GetAllAdminAndRanksAsync(
+            CancellationToken cancel
+        );
 
         public async Task<AdminRank?> GetAdminRankDataForAsync(int id, CancellationToken cancel = default)
         {
             await using var db = await GetDb(cancel);
 
-            return await db.DbContext.AdminRank
-                .Include(r => r.Flags)
-                .SingleOrDefaultAsync(r => r.Id == id, cancel);
+            return await db.DbContext.AdminRank.Include(r => r.Flags).SingleOrDefaultAsync(r => r.Id == id, cancel);
         }
 
         public async Task RemoveAdminAsync(NetUserId userId, CancellationToken cancel)
@@ -846,7 +830,9 @@ namespace Content.Server.Database
         {
             await using var db = await GetDb(cancel);
 
-            var existing = await db.DbContext.Admin.Include(a => a.Flags).SingleAsync(a => a.UserId == admin.UserId, cancel);
+            var existing = await db
+                .DbContext.Admin.Include(a => a.Flags)
+                .SingleAsync(a => a.UserId == admin.UserId, cancel);
             existing.Flags = admin.Flags;
             existing.Title = admin.Title;
             existing.AdminRankId = admin.AdminRankId;
@@ -863,7 +849,8 @@ namespace Content.Server.Database
             var adminRecord = db.DbContext.Admin.Where(a => a.UserId == userId);
             await adminRecord.ExecuteUpdateAsync(
                 set => set.SetProperty(p => p.Deadminned, deadminned),
-                cancellationToken: cancel);
+                cancellationToken: cancel
+            );
 
             await db.DbContext.SaveChangesAsync(cancel);
         }
@@ -891,15 +878,13 @@ namespace Content.Server.Database
         {
             await using var db = await GetDb();
 
-            var players = await db.DbContext.Player
-                .Where(player => playerIds.Contains(player.UserId))
-                .ToListAsync();
+            var players = await db.DbContext.Player.Where(player => playerIds.Contains(player.UserId)).ToListAsync();
 
             var round = new Round
             {
                 StartDate = DateTime.UtcNow,
                 Players = players,
-                ServerId = server.Id
+                ServerId = server.Id,
             };
 
             db.DbContext.Round.Add(round);
@@ -913,9 +898,7 @@ namespace Content.Server.Database
         {
             await using var db = await GetDb();
 
-            var round = await db.DbContext.Round
-                .Include(round => round.Players)
-                .SingleAsync(round => round.Id == id);
+            var round = await db.DbContext.Round.Include(round => round.Players).SingleAsync(round => round.Id == id);
 
             return round;
         }
@@ -925,8 +908,8 @@ namespace Content.Server.Database
             await using var db = await GetDb();
 
             // ReSharper disable once SuggestVarOrType_Elsewhere
-            Dictionary<Guid, int> players = await db.DbContext.Player
-                .Where(player => playerIds.Contains(player.UserId))
+            Dictionary<Guid, int> players = await db
+                .DbContext.Player.Where(player => playerIds.Contains(player.UserId))
                 .ToDictionaryAsync(player => player.UserId, player => player.Id);
 
             foreach (var player in playerIds.Distinct())
@@ -937,9 +920,11 @@ namespace Content.Server.Database
                     continue;
                 }
 
-                await db.DbContext.Database.ExecuteSqlAsync($"""
+                await db.DbContext.Database.ExecuteSqlAsync(
+                    $"""
 INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON CONFLICT DO NOTHING
-""");
+"""
+                );
             }
 
             await db.DbContext.SaveChangesAsync();
@@ -951,19 +936,14 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
             if (round == null)
                 return null;
 
-            return new RoundRecord(
-                round.Id,
-                NormalizeDatabaseTime(round.StartDate),
-                MakeServerRecord(round.Server));
+            return new RoundRecord(round.Id, NormalizeDatabaseTime(round.StartDate), MakeServerRecord(round.Server));
         }
 
         public async Task UpdateAdminRankAsync(AdminRank rank, CancellationToken cancel)
         {
             await using var db = await GetDb(cancel);
 
-            var existing = await db.DbContext.AdminRank
-                .Include(r => r.Flags)
-                .SingleAsync(a => a.Id == rank.Id, cancel);
+            var existing = await db.DbContext.AdminRank.Include(r => r.Flags).SingleAsync(a => a.Id == rank.Id, cancel);
 
             existing.Flags = rank.Flags;
             existing.Name = rank.Name;
@@ -977,17 +957,14 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
         public async Task<(Server, bool existed)> AddOrGetServer(string serverName)
         {
             await using var db = await GetDb();
-            var server = await db.DbContext.Server
-                .Where(server => server.Name.Equals(serverName))
+            var server = await db
+                .DbContext.Server.Where(server => server.Name.Equals(serverName))
                 .SingleOrDefaultAsync();
 
             if (server != default)
                 return (server, true);
 
-            server = new Server
-            {
-                Name = serverName
-            };
+            server = new Server { Name = serverName };
 
             db.DbContext.Server.Add(server);
 
@@ -1022,15 +999,11 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
                     await using var db = await GetDb();
 
                     // Get all unique player IDs referenced in these logs
-                    var playerIds = logs
-                        .SelectMany(log => log.Players)
-                        .Select(p => p.PlayerUserId)
-                        .Distinct()
-                        .ToList();
+                    var playerIds = logs.SelectMany(log => log.Players).Select(p => p.PlayerUserId).Distinct().ToList();
 
                     // Get existing players from database
-                    var existingPlayerIds = await db.DbContext.Player
-                        .Where(p => playerIds.Contains(p.UserId))
+                    var existingPlayerIds = await db
+                        .DbContext.Player.Where(p => playerIds.Contains(p.UserId))
                         .Select(p => p.UserId)
                         .ToListAsync();
 
@@ -1108,15 +1081,17 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
                 if (filter.AnyPlayers != null)
                 {
                     query = query.Where(log =>
-                        log.Players.Any(p => filter.AnyPlayers.Contains(p.PlayerUserId)) ||
-                        log.Players.Count == 0 && filter.IncludeNonPlayers);
+                        log.Players.Any(p => filter.AnyPlayers.Contains(p.PlayerUserId))
+                        || log.Players.Count == 0 && filter.IncludeNonPlayers
+                    );
                 }
 
                 if (filter.AllPlayers != null)
                 {
                     query = query.Where(log =>
-                        log.Players.All(p => filter.AllPlayers.Contains(p.PlayerUserId)) ||
-                        log.Players.Count == 0 && filter.IncludeNonPlayers);
+                        log.Players.All(p => filter.AllPlayers.Contains(p.PlayerUserId))
+                        || log.Players.Count == 0 && filter.IncludeNonPlayers
+                    );
                 }
             }
             else
@@ -1130,8 +1105,10 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
                 {
                     DateOrder.Ascending => query.Where(log => log.Id > filter.LastLogId),
                     DateOrder.Descending => query.Where(log => log.Id < filter.LastLogId),
-                    _ => throw new ArgumentOutOfRangeException(nameof(filter),
-                        $"Unknown {nameof(DateOrder)} value {filter.DateOrder}")
+                    _ => throw new ArgumentOutOfRangeException(
+                        nameof(filter),
+                        $"Unknown {nameof(DateOrder)} value {filter.DateOrder}"
+                    ),
                 };
             }
 
@@ -1139,8 +1116,10 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
             {
                 DateOrder.Ascending => query.OrderBy(log => log.Date),
                 DateOrder.Descending => query.OrderByDescending(log => log.Date),
-                _ => throw new ArgumentOutOfRangeException(nameof(filter),
-                    $"Unknown {nameof(DateOrder)} value {filter.DateOrder}")
+                _ => throw new ArgumentOutOfRangeException(
+                    nameof(filter),
+                    $"Unknown {nameof(DateOrder)} value {filter.DateOrder}"
+                ),
             };
 
             const int hardLogLimit = 500_000;
@@ -1233,17 +1212,21 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
         {
             await using var db = await GetDb();
 
-            return NormalizeDatabaseTime(await db.DbContext.Player
-                .Where(dbPlayer => dbPlayer.UserId == player)
-                .Select(dbPlayer => dbPlayer.LastReadRules)
-                .SingleOrDefaultAsync());
+            return NormalizeDatabaseTime(
+                await db
+                    .DbContext.Player.Where(dbPlayer => dbPlayer.UserId == player)
+                    .Select(dbPlayer => dbPlayer.LastReadRules)
+                    .SingleOrDefaultAsync()
+            );
         }
 
         public async Task SetLastReadRules(NetUserId player, DateTimeOffset? date)
         {
             await using var db = await GetDb();
 
-            var dbPlayer = await db.DbContext.Player.Where(dbPlayer => dbPlayer.UserId == player).SingleOrDefaultAsync();
+            var dbPlayer = await db
+                .DbContext.Player.Where(dbPlayer => dbPlayer.UserId == player)
+                .SingleOrDefaultAsync();
             if (dbPlayer == null)
             {
                 return;
@@ -1284,7 +1267,15 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
         {
             await using var db = await GetDb();
 
-            db.DbContext.UploadedResourceLog.Add(new UploadedResourceLog() { UserId = user, Date = date.UtcDateTime, Path = path, Data = data });
+            db.DbContext.UploadedResourceLog.Add(
+                new UploadedResourceLog()
+                {
+                    UserId = user,
+                    Date = date.UtcDateTime,
+                    Path = path,
+                    Data = data,
+                }
+            );
             await db.DbContext.SaveChangesAsync();
         }
 
@@ -1294,9 +1285,7 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
 
             var date = DateTime.UtcNow.Subtract(TimeSpan.FromDays(days));
 
-            await foreach (var log in db.DbContext.UploadedResourceLog
-                               .Where(l => date > l.Date)
-                               .AsAsyncEnumerable())
+            await foreach (var log in db.DbContext.UploadedResourceLog.Where(l => date > l.Date).AsAsyncEnumerable())
             {
                 db.DbContext.UploadedResourceLog.Remove(log);
             }
@@ -1335,10 +1324,10 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
         public async Task<AdminNoteRecord?> GetAdminNote(int id)
         {
             await using var db = await GetDb();
-            var entity = await db.DbContext.AdminNotes
-                .Where(note => note.Id == id)
+            var entity = await db
+                .DbContext.AdminNotes.Where(note => note.Id == id)
                 .Include(note => note.Round)
-                .ThenInclude(r => r!.Server)
+                    .ThenInclude(r => r!.Server)
                 .Include(note => note.CreatedBy)
                 .Include(note => note.LastEditedBy)
                 .Include(note => note.DeletedBy)
@@ -1365,16 +1354,17 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
                 entity.Deleted,
                 MakePlayerRecord(entity.DeletedBy),
                 NormalizeDatabaseTime(entity.DeletedAt),
-                entity.Secret);
+                entity.Secret
+            );
         }
 
         public async Task<AdminWatchlistRecord?> GetAdminWatchlist(int id)
         {
             await using var db = await GetDb();
-            var entity = await db.DbContext.AdminWatchlists
-                .Where(note => note.Id == id)
+            var entity = await db
+                .DbContext.AdminWatchlists.Where(note => note.Id == id)
                 .Include(note => note.Round)
-                .ThenInclude(r => r!.Server)
+                    .ThenInclude(r => r!.Server)
                 .Include(note => note.CreatedBy)
                 .Include(note => note.LastEditedBy)
                 .Include(note => note.DeletedBy)
@@ -1387,10 +1377,10 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
         public async Task<AdminMessageRecord?> GetAdminMessage(int id)
         {
             await using var db = await GetDb();
-            var entity = await db.DbContext.AdminMessages
-                .Where(note => note.Id == id)
+            var entity = await db
+                .DbContext.AdminMessages.Where(note => note.Id == id)
                 .Include(note => note.Round)
-                .ThenInclude(r => r!.Server)
+                    .ThenInclude(r => r!.Server)
                 .Include(note => note.CreatedBy)
                 .Include(note => note.LastEditedBy)
                 .Include(note => note.DeletedBy)
@@ -1417,15 +1407,15 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
                 MakePlayerRecord(entity.DeletedBy),
                 NormalizeDatabaseTime(entity.DeletedAt),
                 entity.Seen,
-                entity.Dismissed);
+                entity.Dismissed
+            );
         }
 
         public async Task<BanNoteRecord?> GetBanAsNoteAsync(int id)
         {
             await using var db = await GetDb();
 
-            var ban = await BanRecordQuery(db.DbContext)
-                .SingleOrDefaultAsync(b => b.Id == id);
+            var ban = await BanRecordQuery(db.DbContext).SingleOrDefaultAsync(b => b.Id == id);
 
             if (ban is null)
                 return null;
@@ -1438,23 +1428,38 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
             await using var db = await GetDb();
             List<IAdminRemarksRecord> notes = new();
             notes.AddRange(
-                (await (from note in db.DbContext.AdminNotes
-                        where note.PlayerUserId == player &&
-                              !note.Deleted &&
-                              (note.ExpirationTime == null || DateTime.UtcNow < note.ExpirationTime)
-                        select note)
-                    .Include(note => note.Round)
-                    .ThenInclude(r => r!.Server)
-                    .Include(note => note.CreatedBy)
-                    .Include(note => note.LastEditedBy)
-                    .Include(note => note.Player)
-                    .ToListAsync()).Select(MakeAdminNoteRecord));
+                (
+                    await (
+                        from note in db.DbContext.AdminNotes
+                        where
+                            note.PlayerUserId == player
+                            && !note.Deleted
+                            && (note.ExpirationTime == null || DateTime.UtcNow < note.ExpirationTime)
+                        select note
+                    )
+                        .Include(note => note.Round)
+                            .ThenInclude(r => r!.Server)
+                        .Include(note => note.CreatedBy)
+                        .Include(note => note.LastEditedBy)
+                        .Include(note => note.Player)
+                        .ToListAsync()
+                ).Select(MakeAdminNoteRecord)
+            );
             notes.AddRange(await GetActiveWatchlistsImpl(db, player));
             notes.AddRange(await GetMessagesImpl(db, player));
             notes.AddRange(await GetBansAsNotesForUser(db, player));
             return notes;
         }
-        public async Task EditAdminNote(int id, string message, NoteSeverity severity, bool secret, Guid editedBy, DateTimeOffset editedAt, DateTimeOffset? expiryTime)
+
+        public async Task EditAdminNote(
+            int id,
+            string message,
+            NoteSeverity severity,
+            bool secret,
+            Guid editedBy,
+            DateTimeOffset editedAt,
+            DateTimeOffset? expiryTime
+        )
         {
             await using var db = await GetDb();
 
@@ -1469,7 +1474,13 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
             await db.DbContext.SaveChangesAsync();
         }
 
-        public async Task EditAdminWatchlist(int id, string message, Guid editedBy, DateTimeOffset editedAt, DateTimeOffset? expiryTime)
+        public async Task EditAdminWatchlist(
+            int id,
+            string message,
+            Guid editedBy,
+            DateTimeOffset editedAt,
+            DateTimeOffset? expiryTime
+        )
         {
             await using var db = await GetDb();
 
@@ -1482,7 +1493,13 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
             await db.DbContext.SaveChangesAsync();
         }
 
-        public async Task EditAdminMessage(int id, string message, Guid editedBy, DateTimeOffset editedAt, DateTimeOffset? expiryTime)
+        public async Task EditAdminMessage(
+            int id,
+            string message,
+            Guid editedBy,
+            DateTimeOffset editedAt,
+            DateTimeOffset? expiryTime
+        )
         {
             await using var db = await GetDb();
 
@@ -1552,17 +1569,23 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
             await using var db = await GetDb();
             List<IAdminRemarksRecord> notesCol = new();
             notesCol.AddRange(
-                (await (from note in db.DbContext.AdminNotes
-                        where note.PlayerUserId == player &&
-                              !note.Secret &&
-                              !note.Deleted &&
-                              (note.ExpirationTime == null || DateTime.UtcNow < note.ExpirationTime)
-                        select note)
-                    .Include(note => note.Round)
-                    .ThenInclude(r => r!.Server)
-                    .Include(note => note.CreatedBy)
-                    .Include(note => note.Player)
-                    .ToListAsync()).Select(MakeAdminNoteRecord));
+                (
+                    await (
+                        from note in db.DbContext.AdminNotes
+                        where
+                            note.PlayerUserId == player
+                            && !note.Secret
+                            && !note.Deleted
+                            && (note.ExpirationTime == null || DateTime.UtcNow < note.ExpirationTime)
+                        select note
+                    )
+                        .Include(note => note.Round)
+                            .ThenInclude(r => r!.Server)
+                        .Include(note => note.CreatedBy)
+                        .Include(note => note.Player)
+                        .ToListAsync()
+                ).Select(MakeAdminNoteRecord)
+            );
             notesCol.AddRange(await GetMessagesImpl(db, player));
             notesCol.AddRange(await GetBansAsNotesForUser(db, player));
             return notesCol;
@@ -1576,13 +1599,16 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
 
         protected async Task<List<AdminWatchlistRecord>> GetActiveWatchlistsImpl(DbGuard db, Guid player)
         {
-            var entities = await (from watchlist in db.DbContext.AdminWatchlists
-                          where watchlist.PlayerUserId == player &&
-                                !watchlist.Deleted &&
-                                (watchlist.ExpirationTime == null || DateTime.UtcNow < watchlist.ExpirationTime)
-                          select watchlist)
+            var entities = await (
+                from watchlist in db.DbContext.AdminWatchlists
+                where
+                    watchlist.PlayerUserId == player
+                    && !watchlist.Deleted
+                    && (watchlist.ExpirationTime == null || DateTime.UtcNow < watchlist.ExpirationTime)
+                select watchlist
+            )
                 .Include(note => note.Round)
-                .ThenInclude(r => r!.Server)
+                    .ThenInclude(r => r!.Server)
                 .Include(note => note.CreatedBy)
                 .Include(note => note.LastEditedBy)
                 .Include(note => note.Player)
@@ -1593,7 +1619,21 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
 
         private AdminWatchlistRecord MakeAdminWatchlistRecord(AdminWatchlist entity)
         {
-            return new AdminWatchlistRecord(entity.Id, MakeRoundRecord(entity.Round), MakePlayerRecord(entity.Player), entity.PlaytimeAtNote, entity.Message, MakePlayerRecord(entity.CreatedBy), NormalizeDatabaseTime(entity.CreatedAt), MakePlayerRecord(entity.LastEditedBy), NormalizeDatabaseTime(entity.LastEditedAt), NormalizeDatabaseTime(entity.ExpirationTime), entity.Deleted, MakePlayerRecord(entity.DeletedBy), NormalizeDatabaseTime(entity.DeletedAt));
+            return new AdminWatchlistRecord(
+                entity.Id,
+                MakeRoundRecord(entity.Round),
+                MakePlayerRecord(entity.Player),
+                entity.PlaytimeAtNote,
+                entity.Message,
+                MakePlayerRecord(entity.CreatedBy),
+                NormalizeDatabaseTime(entity.CreatedAt),
+                MakePlayerRecord(entity.LastEditedBy),
+                NormalizeDatabaseTime(entity.LastEditedAt),
+                NormalizeDatabaseTime(entity.ExpirationTime),
+                entity.Deleted,
+                MakePlayerRecord(entity.DeletedBy),
+                NormalizeDatabaseTime(entity.DeletedAt)
+            );
         }
 
         public async Task<List<AdminMessageRecord>> GetMessages(Guid player)
@@ -1604,15 +1644,20 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
 
         protected async Task<List<AdminMessageRecord>> GetMessagesImpl(DbGuard db, Guid player)
         {
-            var entities = await (from message in db.DbContext.AdminMessages
-                        where message.PlayerUserId == player && !message.Deleted &&
-                              (message.ExpirationTime == null || DateTime.UtcNow < message.ExpirationTime)
-                        select message).Include(note => note.Round)
+            var entities = await (
+                from message in db.DbContext.AdminMessages
+                where
+                    message.PlayerUserId == player
+                    && !message.Deleted
+                    && (message.ExpirationTime == null || DateTime.UtcNow < message.ExpirationTime)
+                select message
+            )
+                .Include(note => note.Round)
                     .ThenInclude(r => r!.Server)
-                    .Include(note => note.CreatedBy)
-                    .Include(note => note.LastEditedBy)
-                    .Include(note => note.Player)
-                    .ToListAsync();
+                .Include(note => note.CreatedBy)
+                .Include(note => note.LastEditedBy)
+                .Include(note => note.Player)
+                .ToListAsync();
 
             return entities.Select(MakeAdminMessageRecord).ToList();
         }
@@ -1629,11 +1674,11 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
 
         private static IQueryable<Ban> BanRecordQuery(ServerDbContext dbContext)
         {
-            return dbContext.Ban
-                .Include(ban => ban.Unban)
+            return dbContext
+                .Ban.Include(ban => ban.Unban)
                 .Include(ban => ban.Rounds!)
-                .ThenInclude(r => r.Round)
-                .ThenInclude(r => r!.Server)
+                    .ThenInclude(r => r.Round)
+                        .ThenInclude(r => r!.Server)
                 .Include(ban => ban.Addresses)
                 .Include(ban => ban.Players)
                 .Include(ban => ban.Roles)
@@ -1645,15 +1690,17 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
 
         private async Task<BanNoteRecord> MakeBanNoteRecord(ServerDbContext dbContext, Ban ban)
         {
-            var playerRecords = await AsyncSelect(ban.Players,
-                async bp => MakePlayerRecord(bp.UserId,
-                    await dbContext.Player.SingleOrDefaultAsync(p => p.UserId == bp.UserId)));
+            var playerRecords = await AsyncSelect(
+                ban.Players,
+                async bp =>
+                    MakePlayerRecord(bp.UserId, await dbContext.Player.SingleOrDefaultAsync(p => p.UserId == bp.UserId))
+            );
 
             return new BanNoteRecord(
                 ban.Id,
                 ban.Type,
-                [..ban.Rounds!.Select(br => MakeRoundRecord(br.Round!))],
-                [..playerRecords],
+                [.. ban.Rounds!.Select(br => MakeRoundRecord(br.Round!))],
+                [.. playerRecords],
                 ban.PlaytimeAtNote,
                 ban.Reason,
                 ban.Severity,
@@ -1667,9 +1714,11 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
                     ? null
                     : MakePlayerRecord(
                         ban.Unban.UnbanningAdmin.Value,
-                        await dbContext.Player.SingleOrDefaultAsync(p => p.UserId == ban.Unban.UnbanningAdmin.Value)),
+                        await dbContext.Player.SingleOrDefaultAsync(p => p.UserId == ban.Unban.UnbanningAdmin.Value)
+                    ),
                 NormalizeDatabaseTime(ban.Unban?.UnbanTime),
-                [..ban.Roles!.Select(br => new BanRoleDef(br.RoleType, br.RoleId))]);
+                [.. ban.Roles!.Select(br => new BanRoleDef(br.RoleType, br.RoleId))]
+            );
         }
 
         // These two are here because they get converted into notes later
@@ -1703,36 +1752,33 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
 
             // HL - Its paints me to do this.
 
-            var dbPlayer = await db.DbContext.Player
-                .SingleOrDefaultAsync(p => p.UserId == player);
+            var dbPlayer = await db.DbContext.Player.SingleOrDefaultAsync(p => p.UserId == player);
 
             if (dbPlayer == null)
             {
-                db.DbContext.Player.Add(new Player
-                {
-                    UserId = player,
-                    FirstSeenTime = DateTime.UtcNow,
-                    LastSeenTime = DateTime.UtcNow,
-                    LastSeenAddress = IPAddress.None,
-                    LastSeenUserName = player.ToString(),
-                });
+                db.DbContext.Player.Add(
+                    new Player
+                    {
+                        UserId = player,
+                        FirstSeenTime = DateTime.UtcNow,
+                        LastSeenTime = DateTime.UtcNow,
+                        LastSeenAddress = IPAddress.None,
+                        LastSeenUserName = player.ToString(),
+                    }
+                );
             }
 
             // HL
 
-            var exists = await db.DbContext.RoleWhitelists
-                .Where(w => w.PlayerUserId == player)
+            var exists = await db
+                .DbContext.RoleWhitelists.Where(w => w.PlayerUserId == player)
                 .Where(w => w.RoleId == job.Id)
                 .AnyAsync();
 
             if (exists)
                 return false;
 
-            var whitelist = new RoleWhitelist
-            {
-                PlayerUserId = player,
-                RoleId = job
-            };
+            var whitelist = new RoleWhitelist { PlayerUserId = player, RoleId = job };
             db.DbContext.RoleWhitelists.Add(whitelist);
             await db.DbContext.SaveChangesAsync();
             return true;
@@ -1741,8 +1787,8 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
         public async Task<List<string>> GetJobWhitelists(Guid player, CancellationToken cancel)
         {
             await using var db = await GetDb(cancel);
-            return await db.DbContext.RoleWhitelists
-                .Where(w => w.PlayerUserId == player)
+            return await db
+                .DbContext.RoleWhitelists.Where(w => w.PlayerUserId == player)
                 .Select(w => w.RoleId)
                 .ToListAsync(cancellationToken: cancel);
         }
@@ -1750,8 +1796,8 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
         public async Task<bool> IsJobWhitelisted(Guid player, ProtoId<JobPrototype> job)
         {
             await using var db = await GetDb();
-            return await db.DbContext.RoleWhitelists
-                .Where(w => w.PlayerUserId == player)
+            return await db
+                .DbContext.RoleWhitelists.Where(w => w.PlayerUserId == player)
                 .Where(w => w.RoleId == job.Id)
                 .AnyAsync();
         }
@@ -1759,8 +1805,8 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
         public async Task<bool> RemoveJobWhitelist(Guid player, ProtoId<JobPrototype> job)
         {
             await using var db = await GetDb();
-            var entry = await db.DbContext.RoleWhitelists
-                .Where(w => w.PlayerUserId == player)
+            var entry = await db
+                .DbContext.RoleWhitelists.Where(w => w.PlayerUserId == player)
                 .Where(w => w.RoleId == job.Id)
                 .SingleOrDefaultAsync();
 
@@ -1781,36 +1827,33 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
         {
             await using var db = await GetDb();
 
-           // HL - Its paints me to do this.
-            var dbPlayer = await db.DbContext.Player
-                .SingleOrDefaultAsync(p => p.UserId == player);
+            // HL - Its paints me to do this.
+            var dbPlayer = await db.DbContext.Player.SingleOrDefaultAsync(p => p.UserId == player);
 
             if (dbPlayer == null)
             {
-                db.DbContext.Player.Add(new Player
-                {
-                    UserId = player,
-                    FirstSeenTime = DateTime.UtcNow,
-                    LastSeenTime = DateTime.UtcNow,
-                    LastSeenAddress = IPAddress.None,
-                    LastSeenUserName = player.ToString(),
-                });
+                db.DbContext.Player.Add(
+                    new Player
+                    {
+                        UserId = player,
+                        FirstSeenTime = DateTime.UtcNow,
+                        LastSeenTime = DateTime.UtcNow,
+                        LastSeenAddress = IPAddress.None,
+                        LastSeenUserName = player.ToString(),
+                    }
+                );
             }
             // HL
 
-            var exists = await db.DbContext.RoleWhitelists
-                .Where(w => w.PlayerUserId == player)
+            var exists = await db
+                .DbContext.RoleWhitelists.Where(w => w.PlayerUserId == player)
                 .Where(w => w.RoleId == ghostRole.Id)
                 .AnyAsync();
 
             if (exists)
                 return false;
 
-            var whitelist = new RoleWhitelist
-            {
-                PlayerUserId = player,
-                RoleId = ghostRole
-            };
+            var whitelist = new RoleWhitelist { PlayerUserId = player, RoleId = ghostRole };
             db.DbContext.RoleWhitelists.Add(whitelist);
             await db.DbContext.SaveChangesAsync();
             return true;
@@ -1819,8 +1862,8 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
         public async Task<bool> IsGhostRoleWhitelisted(Guid player, ProtoId<GhostRolePrototype> ghostRole)
         {
             await using var db = await GetDb();
-            return await db.DbContext.RoleWhitelists
-                .Where(w => w.PlayerUserId == player)
+            return await db
+                .DbContext.RoleWhitelists.Where(w => w.PlayerUserId == player)
                 .Where(w => w.RoleId == ghostRole.Id)
                 .AnyAsync();
         }
@@ -1828,8 +1871,8 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
         public async Task<bool> RemoveGhostRoleWhitelist(Guid player, ProtoId<GhostRolePrototype> ghostRole)
         {
             await using var db = await GetDb();
-            var entry = await db.DbContext.RoleWhitelists
-                .Where(w => w.PlayerUserId == player)
+            var entry = await db
+                .DbContext.RoleWhitelists.Where(w => w.PlayerUserId == player)
                 .Where(w => w.RoleId == ghostRole.Id)
                 .SingleOrDefaultAsync();
 
@@ -1854,8 +1897,8 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
                 {
                     await using var db = await GetDb();
 
-                    var existing = await db.DbContext.IPIntelCache
-                        .Where(w => ip.Equals(w.Address))
+                    var existing = await db
+                        .DbContext.IPIntelCache.Where(w => ip.Equals(w.Address))
                         .SingleOrDefaultAsync();
 
                     if (existing == null)
@@ -1890,8 +1933,7 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
         {
             await using var db = await GetDb();
 
-            return await db.DbContext.IPIntelCache
-                .SingleOrDefaultAsync(w => ip.Equals(w.Address));
+            return await db.DbContext.IPIntelCache.SingleOrDefaultAsync(w => ip.Equals(w.Address));
         }
 
         public async Task<bool> CleanIPIntelCache(TimeSpan range)
@@ -1901,9 +1943,7 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
             // Calculating this here cause otherwise sqlite whines.
             var cutoffTime = DateTime.UtcNow.Subtract(range);
 
-            await db.DbContext.IPIntelCache
-                .Where(w => w.Time <= cutoffTime)
-                .ExecuteDeleteAsync();
+            await db.DbContext.IPIntelCache.Where(w => w.Time <= cutoffTime).ExecuteDeleteAsync();
 
             await db.DbContext.SaveChangesAsync();
             return true;
@@ -1915,9 +1955,7 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
 
         private static async Task DeletePlayerConsentSettings(ServerDbContext db, NetUserId userId)
         {
-            var consentSettings = await db.ConsentSettings
-                .Where(c => c.UserId == userId.UserId)
-                .SingleOrDefaultAsync();
+            var consentSettings = await db.ConsentSettings.Where(c => c.UserId == userId.UserId).SingleOrDefaultAsync();
 
             if (consentSettings is null)
             {
@@ -1939,14 +1977,15 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
             }
 
             // Get current consent settings so we know if freetext needs updating and which toggles to add or remove
-            var currentConsentSettings = await db.DbContext.ConsentSettings
-                .Include(c => c.ConsentToggles)
+            var currentConsentSettings = await db
+                .DbContext.ConsentSettings.Include(c => c.ConsentToggles)
                 .AsSplitQuery()
                 .SingleOrDefaultAsync(c => c.UserId == userId);
 
             if (currentConsentSettings is null)
             {
-                currentConsentSettings = new ConsentSettings() {
+                currentConsentSettings = new ConsentSettings()
+                {
                     UserId = userId,
                     ConsentToggles = new(),
                     ConsentFreetext = consentSettings.Freetext,
@@ -1955,23 +1994,30 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
 
                 db.DbContext.ConsentSettings.Add(currentConsentSettings);
             }
-            else if (currentConsentSettings.ConsentFreetext != consentSettings.Freetext || currentConsentSettings.ConsentFreetextUpdatedAt.Kind != DateTimeKind.Utc)
+            else if (
+                currentConsentSettings.ConsentFreetext != consentSettings.Freetext
+                || currentConsentSettings.ConsentFreetextUpdatedAt.Kind != DateTimeKind.Utc
+            )
             {
                 currentConsentSettings.ConsentFreetext = consentSettings.Freetext;
                 currentConsentSettings.ConsentFreetextUpdatedAt = DateTime.UtcNow;
             }
 
-            Dictionary<ProtoId<ConsentTogglePrototype>, string> currentConsentToggles = currentConsentSettings.ConsentToggles.ToDictionary(
-                keySelector: t => new ProtoId<ConsentTogglePrototype>(t.ToggleProtoId),
-                elementSelector: t => t.ToggleProtoState
-            );
+            Dictionary<ProtoId<ConsentTogglePrototype>, string> currentConsentToggles =
+                currentConsentSettings.ConsentToggles.ToDictionary(
+                    keySelector: t => new ProtoId<ConsentTogglePrototype>(t.ToggleProtoId),
+                    elementSelector: t => t.ToggleProtoState
+                );
 
             // Remove and update toggles
             foreach (var toggle in currentConsentToggles)
             {
                 if (consentSettings.Toggles.TryGetValue(toggle.Key, out var toggleState))
                 {
-                    currentConsentSettings.ConsentToggles.Where(t => t.ToggleProtoId == toggle.Key).First().ToggleProtoState = toggleState;
+                    currentConsentSettings
+                        .ConsentToggles.Where(t => t.ToggleProtoId == toggle.Key)
+                        .First()
+                        .ToggleProtoState = toggleState;
                 }
                 else
                 {
@@ -1984,11 +2030,9 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
                 if (currentConsentToggles.ContainsKey(toggle.Key))
                     continue;
 
-                currentConsentSettings.ConsentToggles.Add(new ()
-                {
-                    ToggleProtoId = toggle.Key,
-                    ToggleProtoState = toggle.Value,
-                });
+                currentConsentSettings.ConsentToggles.Add(
+                    new() { ToggleProtoId = toggle.Key, ToggleProtoState = toggle.Value }
+                );
             }
 
             await db.DbContext.SaveChangesAsync();
@@ -1998,8 +2042,8 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
         {
             await using var db = await GetDb();
 
-            var consentSettings = await db.DbContext.ConsentSettings
-                .Include(c => c.ConsentToggles)
+            var consentSettings = await db
+                .DbContext.ConsentSettings.Include(c => c.ConsentToggles)
                 .Include(c => c.ReadReceipts)
                 .SingleOrDefaultAsync(c => c.UserId == userId);
 
@@ -2009,20 +2053,28 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
             return consentSettings;
         }
 
-        public async Task<ConsentFreetextReadReceipt?> GetPlayerConsentReadReceipt(NetUserId readerUserId, int consentSettingsId)
+        public async Task<ConsentFreetextReadReceipt?> GetPlayerConsentReadReceipt(
+            NetUserId readerUserId,
+            int consentSettingsId
+        )
         {
             await using var db = await GetDb();
 
-            return await db.DbContext.ConsentFreetextReadReceipt
-                .SingleOrDefaultAsync(c => c.ReaderUserId == readerUserId && c.ReadConsentSettingsId == consentSettingsId);
+            return await db.DbContext.ConsentFreetextReadReceipt.SingleOrDefaultAsync(c =>
+                c.ReaderUserId == readerUserId && c.ReadConsentSettingsId == consentSettingsId
+            );
         }
 
-        public async Task<ConsentFreetextReadReceipt> UpdatePlayerConsentReadReceipt(NetUserId readerUserId, int readConsentSettingsId)
+        public async Task<ConsentFreetextReadReceipt> UpdatePlayerConsentReadReceipt(
+            NetUserId readerUserId,
+            int readConsentSettingsId
+        )
         {
             await using var db = await GetDb();
 
-            var readRecipe = await db.DbContext.ConsentFreetextReadReceipt
-                .SingleOrDefaultAsync(c => c.ReaderUserId == readerUserId && c.ReadConsentSettingsId == readConsentSettingsId);
+            var readRecipe = await db.DbContext.ConsentFreetextReadReceipt.SingleOrDefaultAsync(c =>
+                c.ReaderUserId == readerUserId && c.ReadConsentSettingsId == readConsentSettingsId
+            );
 
             if (readRecipe is null)
             {
@@ -2033,7 +2085,8 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
                     ReadAt = DateTime.UtcNow,
                 };
             }
-            else {
+            else
+            {
                 readRecipe.ReadAt = DateTime.UtcNow;
             }
 
@@ -2062,7 +2115,8 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
 
         protected abstract Task<DbGuard> GetDb(
             CancellationToken cancel = default,
-            [CallerMemberName] string? name = null);
+            [CallerMemberName] string? name = null
+        );
 
         protected void LogDbOp(string? name)
         {
@@ -2081,14 +2135,12 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
             OnNotificationReceived?.Invoke(notification);
         }
 
-        public virtual void Shutdown()
-        {
-
-        }
+        public virtual void Shutdown() { }
 
         private static async Task<IEnumerable<TResult>> AsyncSelect<T, TResult>(
             IEnumerable<T>? enumerable,
-            Func<T, Task<TResult>> selector)
+            Func<T, Task<TResult>> selector
+        )
         {
             var results = new List<TResult>();
 
@@ -2097,7 +2149,7 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
                 results.Add(await selector(item));
             }
 
-            return [..results];
+            return [.. results];
         }
     }
 }

@@ -6,7 +6,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsParamedic ]
+      board: [DoorElectronicsParamedic]
 
 # Glass Airlocks
 - type: entity
@@ -16,7 +16,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsParamedic ]
+      board: [DoorElectronicsParamedic]
 
 # Maintenance Hatches
 - type: entity
@@ -26,6 +26,6 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsParamedic ]
+      board: [DoorElectronicsParamedic]
   - type: Wires
     layoutId: AirlockMedical

@@ -16,7 +16,13 @@ public sealed partial class RoleBlacklistLoadoutEffect : LoadoutEffect
     [DataField] // Hardlight
     public bool Inverted; // Hardlight: if true, list is a whitelist, not a blacklist
 
-    public override bool Validate(HumanoidCharacterProfile profile, RoleLoadout loadout, ICommonSession? session, IDependencyCollection collection, [NotNullWhen(false)] out FormattedMessage? reason)
+    public override bool Validate(
+        HumanoidCharacterProfile profile,
+        RoleLoadout loadout,
+        ICommonSession? session,
+        IDependencyCollection collection,
+        [NotNullWhen(false)] out FormattedMessage? reason
+    )
     {
         if (Blacklist.Contains(loadout.Role) != Inverted)
         {

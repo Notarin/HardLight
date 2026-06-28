@@ -23,11 +23,14 @@ namespace Content.Server.GameTicking
         /// <summary>
         ///     For access to CVars in status responses.
         /// </summary>
-        [Dependency] private readonly IConfigurationManager _cfg = default!;
+        [Dependency]
+        private readonly IConfigurationManager _cfg = default!;
+
         /// <summary>
         ///     For access to the round ID in status responses.
         /// </summary>
-        [Dependency] private readonly SharedGameTicker _gameTicker = default!;
+        [Dependency]
+        private readonly SharedGameTicker _gameTicker = default!;
 
         private void InitializeStatusShell()
         {
@@ -49,7 +52,7 @@ namespace Content.Server.GameTicking
                     : _playerManager.PlayerCount - _adminManager.ActiveAdmins.Count();
                 jObject["soft_max_players"] = _cfg.GetCVar(CCVars.SoftMaxPlayers);
                 jObject["panic_bunker"] = _cfg.GetCVar(CCVars.PanicBunkerEnabled);
-                jObject["run_level"] = (int) _runLevel;
+                jObject["run_level"] = (int)_runLevel;
                 if (preset != null)
                     jObject["preset"] = Loc.GetString(preset.ModeTitle);
                 if (_runLevel >= GameRunLevel.InRound)

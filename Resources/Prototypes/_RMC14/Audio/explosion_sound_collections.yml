@@ -1,4 +1,4 @@
-﻿- type: soundCollection
+- type: soundCollection
   id: CMExplosion
   files:
   - /Audio/_RMC14/Explosion/explosion1.ogg

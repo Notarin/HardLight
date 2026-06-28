@@ -8,7 +8,16 @@ namespace Content.Client._NF.ShuttleRecords.UI;
 [GenerateTypedNameReferences]
 public sealed partial class ShuttleRecordDetailsControl : PanelContainer
 {
-    public sealed class ViewState(string shuttleName, string shuttleOwnerName, string activity, string toolTip, string timeOfPurchase, string voucherStatus, string transactionCost, string shuttlePrice)
+    public sealed class ViewState(
+        string shuttleName,
+        string shuttleOwnerName,
+        string activity,
+        string toolTip,
+        string timeOfPurchase,
+        string voucherStatus,
+        string transactionCost,
+        string shuttlePrice
+    )
     {
         public string ShuttleName { get; } = shuttleName;
 

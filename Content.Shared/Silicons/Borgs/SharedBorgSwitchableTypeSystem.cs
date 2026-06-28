@@ -1,10 +1,10 @@
 using Content.Shared._CD.Silicons.Borgs;
-using Content.Shared.Starlight; // Starlight-edit
 using Content.Shared.Actions;
 using Content.Shared.Interaction;
 using Content.Shared.Interaction.Components;
 using Content.Shared.Movement.Components;
 using Content.Shared.Silicons.Borgs.Components;
+using Content.Shared.Starlight; // Starlight-edit
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 
@@ -18,10 +18,17 @@ public abstract class SharedBorgSwitchableTypeSystem : EntitySystem
 {
     // TODO: Allow borgs to be reset to default configuration.
 
-    [Dependency] private readonly SharedActionsSystem _actionsSystem = default!;
-    [Dependency] private readonly SharedUserInterfaceSystem _userInterface = default!;
-    [Dependency] protected readonly IPrototypeManager Prototypes = default!;
-    [Dependency] private readonly InteractionPopupSystem _interactionPopup = default!;
+    [Dependency]
+    private readonly SharedActionsSystem _actionsSystem = default!;
+
+    [Dependency]
+    private readonly SharedUserInterfaceSystem _userInterface = default!;
+
+    [Dependency]
+    protected readonly IPrototypeManager Prototypes = default!;
+
+    [Dependency]
+    private readonly InteractionPopupSystem _interactionPopup = default!;
 
     [ValidatePrototypeId<EntityPrototype>]
     public const string ActionId = "ActionSelectBorgType";
@@ -34,11 +41,13 @@ public abstract class SharedBorgSwitchableTypeSystem : EntitySystem
         SubscribeLocalEvent<BorgSwitchableTypeComponent, ComponentShutdown>(OnShutdown);
         SubscribeLocalEvent<BorgSwitchableTypeComponent, BorgToggleSelectTypeEvent>(OnSelectBorgTypeAction);
 
-        Subs.BuiEvents<BorgSwitchableTypeComponent>(BorgSwitchableTypeUiKey.SelectBorgType,
+        Subs.BuiEvents<BorgSwitchableTypeComponent>(
+            BorgSwitchableTypeUiKey.SelectBorgType,
             sub =>
             {
                 sub.Event<BorgSelectTypeMessage>(SelectTypeMessageHandler);
-            });
+            }
+        );
     }
 
     //
@@ -101,7 +110,8 @@ public abstract class SharedBorgSwitchableTypeSystem : EntitySystem
 
     protected virtual void SelectBorgModule(
         Entity<BorgSwitchableTypeComponent> ent,
-        ProtoId<BorgTypePrototype> borgType)
+        ProtoId<BorgTypePrototype> borgType
+    )
     {
         ent.Comp.SelectedBorgType = borgType;
 
@@ -128,7 +138,8 @@ public abstract class SharedBorgSwitchableTypeSystem : EntitySystem
 
     protected virtual void UpdateEntityAppearance(
         Entity<BorgSwitchableTypeComponent> entity,
-        BorgTypePrototype prototype)
+        BorgTypePrototype prototype
+    )
     {
         if (TryComp(entity, out InteractionPopupComponent? popup))
         {
@@ -153,10 +164,7 @@ public abstract class SharedBorgSwitchableTypeSystem : EntitySystem
                     State = prototype.SpriteBodyState,
                 };
                 spriteMovement.MovementLayers.Clear();
-                spriteMovement.MovementLayers["movement"] = new PrototypeLayerData
-                {
-                    State = movementState,
-                };
+                spriteMovement.MovementLayers["movement"] = new PrototypeLayerData { State = movementState };
             }
             else
             {

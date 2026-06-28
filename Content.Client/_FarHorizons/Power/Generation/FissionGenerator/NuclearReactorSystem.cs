@@ -4,19 +4,22 @@
 //
 // SPDX-License-Identifier: CC-BY-NC-SA-3.0
 
+using Content.Client.Examine;
 using Content.Client.NodeContainer;
 using Content.Shared._FarHorizons.Power.Generation.FissionGenerator;
-using Robust.Shared.Map;
-using Content.Client.Examine;
 using Robust.Client.GameObjects;
 using Robust.Client.ResourceManagement;
+using Robust.Shared.Map;
 
 namespace Content.Client._FarHorizons.Power.Generation.FissionGenerator;
 
 public sealed class NuclearReactorSystem : SharedNuclearReactorSystem
 {
-    [Dependency] private readonly SpriteSystem _sprite = default!;
-    [Dependency] private readonly IResourceCache _resourceCache = default!;
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
+
+    [Dependency]
+    private readonly IResourceCache _resourceCache = default!;
 
     public override void Initialize()
     {
@@ -33,7 +36,12 @@ public sealed class NuclearReactorSystem : SharedNuclearReactorSystem
         if (!TryComp<SpriteComponent>(uid, out var sprite))
             return;
 
-        if (!_resourceCache.TryGetResource("/Textures/_FarHorizons/Structures/Power/Generation/FissionGenerator/reactor_component_cap.rsi", out RSIResource? resource))
+        if (
+            !_resourceCache.TryGetResource(
+                "/Textures/_FarHorizons/Structures/Power/Generation/FissionGenerator/reactor_component_cap.rsi",
+                out RSIResource? resource
+            )
+        )
             return;
 
         Entity<SpriteComponent?> entSprite = (uid, sprite);
@@ -54,7 +62,11 @@ public sealed class NuclearReactorSystem : SharedNuclearReactorSystem
             {
                 var layerID = _sprite.AddRsiLayer(entSprite, "empty_cap", resource.RSI);
                 _sprite.LayerMapSet(entSprite, FormatMap(x, y), layerID);
-                _sprite.LayerSetOffset(entSprite, layerID, new((xspace * (y - yAdj)) - xoff, (-yspace * (x - xAdj)) - yoff));
+                _sprite.LayerSetOffset(
+                    entSprite,
+                    layerID,
+                    new((xspace * (y - yAdj)) - xoff, (-yspace * (x - xAdj)) - yoff)
+                );
                 _sprite.LayerSetColor(entSprite, layerID, Color.Black);
             }
         }
@@ -62,7 +74,8 @@ public sealed class NuclearReactorSystem : SharedNuclearReactorSystem
 
     private static string FormatMap(int x, int y) => "NuclearReactorCap" + x + "/" + y;
 
-    private void ReactorExamined(EntityUid uid, NuclearReactorComponent comp, ClientExaminedEvent args) => Spawn(comp.ArrowPrototype, new EntityCoordinates(uid, 0, 0));
+    private void ReactorExamined(EntityUid uid, NuclearReactorComponent comp, ClientExaminedEvent args) =>
+        Spawn(comp.ArrowPrototype, new EntityCoordinates(uid, 0, 0));
 
     private void OnAppearanceChange(EntityUid uid, NuclearReactorComponent comp, ref AppearanceChangeEvent args)
     {
@@ -70,8 +83,8 @@ public sealed class NuclearReactorSystem : SharedNuclearReactorSystem
         {
             for (var y = 0; y < comp.ReactorGridHeight; y++)
             {
-                if(comp.VisualData.TryGetValue(new(x,y), out var data))
-                    UpdateRodAppearance(uid, FormatMap(x,y), data.cap, data.color);
+                if (comp.VisualData.TryGetValue(new(x, y), out var data))
+                    UpdateRodAppearance(uid, FormatMap(x, y), data.cap, data.color);
                 else
                     UpdateRodAppearance(uid, FormatMap(x, y), "empty_cap", Color.Black);
             }

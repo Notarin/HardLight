@@ -10,11 +10,20 @@ namespace Content.Shared.Doors.Systems;
 
 public abstract class SharedFirelockSystem : EntitySystem
 {
-    [Dependency] private readonly AccessReaderSystem _accessReaderSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedDoorSystem _doorSystem = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
+    [Dependency]
+    private readonly AccessReaderSystem _accessReaderSystem = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SharedDoorSystem _doorSystem = default!;
+
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
 
     public override void Initialize()
     {
@@ -38,9 +47,10 @@ public abstract class SharedFirelockSystem : EntitySystem
         if (!Resolve(uid, ref firelock, ref door))
             return false;
 
-        if (door.State != DoorState.Open
-            || firelock.EmergencyCloseCooldown != null
-            && _gameTiming.CurTime < firelock.EmergencyCloseCooldown)
+        if (
+            door.State != DoorState.Open
+            || firelock.EmergencyCloseCooldown != null && _gameTiming.CurTime < firelock.EmergencyCloseCooldown
+        )
             return false;
 
         if (!_doorSystem.TryClose(uid, door))
@@ -82,17 +92,21 @@ public abstract class SharedFirelockSystem : EntitySystem
     {
         if (ent.Comp.Temperature)
         {
-            _popupSystem.PopupClient(Loc.GetString("firelock-component-is-holding-fire-message"),
+            _popupSystem.PopupClient(
+                Loc.GetString("firelock-component-is-holding-fire-message"),
                 ent.Owner,
                 user,
-                PopupType.MediumCaution);
+                PopupType.MediumCaution
+            );
         }
         else if (ent.Comp.Pressure)
         {
-            _popupSystem.PopupClient(Loc.GetString("firelock-component-is-holding-pressure-message"),
+            _popupSystem.PopupClient(
+                Loc.GetString("firelock-component-is-holding-pressure-message"),
                 ent.Owner,
                 user,
-                PopupType.MediumCaution);
+                PopupType.MediumCaution
+            );
         }
     }
 
@@ -107,23 +121,24 @@ public abstract class SharedFirelockSystem : EntitySystem
 
     protected virtual void OnComponentStartup(Entity<FirelockComponent> ent, ref ComponentStartup args)
     {
-        UpdateVisuals(ent.Owner,ent.Comp, args);
+        UpdateVisuals(ent.Owner, ent.Comp, args);
     }
 
-    private void UpdateVisuals(EntityUid uid, FirelockComponent component, EntityEventArgs args) => UpdateVisuals(uid, component);
+    private void UpdateVisuals(EntityUid uid, FirelockComponent component, EntityEventArgs args) =>
+        UpdateVisuals(uid, component);
 
-    private void UpdateVisuals(EntityUid uid,
+    private void UpdateVisuals(
+        EntityUid uid,
         FirelockComponent? firelock = null,
         DoorComponent? door = null,
-        AppearanceComponent? appearance = null)
+        AppearanceComponent? appearance = null
+    )
     {
         if (!Resolve(uid, ref door, ref appearance, false))
             return;
 
         // only bother to check pressure on doors that are some variation of closed.
-        if (door.State != DoorState.Closed
-            && door.State != DoorState.Welded
-            && door.State != DoorState.Denying)
+        if (door.State != DoorState.Closed && door.State != DoorState.Welded && door.State != DoorState.Denying)
         {
             _appearance.SetData(uid, DoorVisuals.ClosedLights, false, appearance);
             return;
@@ -159,11 +174,11 @@ public enum FirelockVisuals : byte
 [Serializable, NetSerializable]
 public enum FirelockVisualLayersPressure : byte
 {
-    Base
+    Base,
 }
 
 [Serializable, NetSerializable]
 public enum FirelockVisualLayersTemperature : byte
 {
-    Base
+    Base,
 }

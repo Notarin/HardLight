@@ -105,27 +105,25 @@
     bodyType: Static
   - type: Fixtures
     fixtures:
-        fix1:
-          hard: false
-          density: 7
-          shape:
-           !type:PhysShapeCircle
-            radius: 0.35
-          layer:
-          - LowImpassable
+      fix1:
+        hard: false
+        density: 7
+        shape: !type:PhysShapeCircle
+          radius: 0.35
+        layer:
+        - LowImpassable
   - type: Destructible
     thresholds:
-      - trigger:
-          !type:DamageTrigger
-          damage: 10
-        behaviors:
-          - !type:DoActsBehavior
-            acts: [ "Destruction" ]
-          - !type:PlaySoundBehavior
-            sound:
-              path: /Audio/Items/hiss.ogg
-              params:
-                variation: 0.08
+    - trigger: !type:DamageTrigger
+        damage: 10
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Items/hiss.ogg
+          params:
+            variation: 0.08
   - type: DamagedByFlashing
     flashDamage:
       types:
@@ -134,12 +132,12 @@
     damageContainer: ShadowHaze
   - type: DamageContacts
     damage:
-        types:
-          Slash: 1.5
-          Cold: 1.5
+      types:
+        Slash: 1.5
+        Cold: 1.5
     ignoreWhitelist:
-        tags:
-        - Abyssal
+      tags:
+      - Abyssal
 
 - type: entity
   id: AbyssApparationDecoBPerm
@@ -158,27 +156,25 @@
     bodyType: Static
   - type: Fixtures
     fixtures:
-        fix1:
-          hard: false
-          density: 7
-          shape:
-           !type:PhysShapeCircle
-            radius: 0.35
-          layer:
-          - LowImpassable
+      fix1:
+        hard: false
+        density: 7
+        shape: !type:PhysShapeCircle
+          radius: 0.35
+        layer:
+        - LowImpassable
   - type: Destructible
     thresholds:
-      - trigger:
-          !type:DamageTrigger
-          damage: 10
-        behaviors:
-          - !type:DoActsBehavior
-            acts: [ "Destruction" ]
-          - !type:PlaySoundBehavior
-            sound:
-              path: /Audio/Items/hiss.ogg
-              params:
-                variation: 0.08
+    - trigger: !type:DamageTrigger
+        damage: 10
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Items/hiss.ogg
+          params:
+            variation: 0.08
   - type: DamagedByFlashing
     flashDamage:
       types:
@@ -187,12 +183,12 @@
     damageContainer: ShadowHaze
   - type: DamageContacts
     damage:
-        types:
-          Slash: 1.5
-          Cold: 1.5
+      types:
+        Slash: 1.5
+        Cold: 1.5
     ignoreWhitelist:
-        tags:
-        - Abyssal
+      tags:
+      - Abyssal
 
 - type: entity
   id: AbyssApparationDecoCPerm
@@ -211,27 +207,25 @@
     bodyType: Static
   - type: Fixtures
     fixtures:
-        fix1:
-          hard: false
-          density: 7
-          shape:
-           !type:PhysShapeCircle
-            radius: 0.35
-          layer:
-          - LowImpassable
+      fix1:
+        hard: false
+        density: 7
+        shape: !type:PhysShapeCircle
+          radius: 0.35
+        layer:
+        - LowImpassable
   - type: Destructible
     thresholds:
-      - trigger:
-          !type:DamageTrigger
-          damage: 10
-        behaviors:
-          - !type:DoActsBehavior
-            acts: [ "Destruction" ]
-          - !type:PlaySoundBehavior
-            sound:
-              path: /Audio/Items/hiss.ogg
-              params:
-                variation: 0.08
+    - trigger: !type:DamageTrigger
+        damage: 10
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Items/hiss.ogg
+          params:
+            variation: 0.08
   - type: DamagedByFlashing
     flashDamage:
       types:
@@ -240,12 +234,12 @@
     damageContainer: ShadowHaze
   - type: DamageContacts
     damage:
-        types:
-          Slash: 1.5
-          Cold: 1.5
+      types:
+        Slash: 1.5
+        Cold: 1.5
     ignoreWhitelist:
-        tags:
-        - Abyssal
+      tags:
+      - Abyssal
 
 - type: entity
   id: AbyssApparationDecoDPerm
@@ -264,27 +258,25 @@
     bodyType: Static
   - type: Fixtures
     fixtures:
-        fix1:
-          hard: false
-          density: 7
-          shape:
-           !type:PhysShapeCircle
-            radius: 0.35
-          layer:
-          - LowImpassable
+      fix1:
+        hard: false
+        density: 7
+        shape: !type:PhysShapeCircle
+          radius: 0.35
+        layer:
+        - LowImpassable
   - type: Destructible
     thresholds:
-      - trigger:
-          !type:DamageTrigger
-          damage: 10
-        behaviors:
-          - !type:DoActsBehavior
-            acts: [ "Destruction" ]
-          - !type:PlaySoundBehavior
-            sound:
-              path: /Audio/Items/hiss.ogg
-              params:
-                variation: 0.08
+    - trigger: !type:DamageTrigger
+        damage: 10
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Items/hiss.ogg
+          params:
+            variation: 0.08
   - type: DamagedByFlashing
     flashDamage:
       types:
@@ -293,12 +285,12 @@
     damageContainer: ShadowHaze
   - type: DamageContacts
     damage:
-        types:
-          Slash: 1.5
-          Cold: 1.5
+      types:
+        Slash: 1.5
+        Cold: 1.5
     ignoreWhitelist:
-        tags:
-        - Abyssal
+      tags:
+      - Abyssal
 
 - type: entity
   id: AbyssApparationDecoEPerm
@@ -317,27 +309,25 @@
     bodyType: Static
   - type: Fixtures
     fixtures:
-        fix1:
-          hard: false
-          density: 7
-          shape:
-           !type:PhysShapeCircle
-            radius: 0.35
-          layer:
-          - LowImpassable
+      fix1:
+        hard: false
+        density: 7
+        shape: !type:PhysShapeCircle
+          radius: 0.35
+        layer:
+        - LowImpassable
   - type: Destructible
     thresholds:
-      - trigger:
-          !type:DamageTrigger
-          damage: 10
-        behaviors:
-          - !type:DoActsBehavior
-            acts: [ "Destruction" ]
-          - !type:PlaySoundBehavior
-            sound:
-              path: /Audio/Items/hiss.ogg
-              params:
-                variation: 0.08
+    - trigger: !type:DamageTrigger
+        damage: 10
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Items/hiss.ogg
+          params:
+            variation: 0.08
   - type: DamagedByFlashing
     flashDamage:
       types:
@@ -346,12 +336,12 @@
     damageContainer: ShadowHaze
   - type: DamageContacts
     damage:
-        types:
-          Slash: 1.5
-          Cold: 1.5
+      types:
+        Slash: 1.5
+        Cold: 1.5
     ignoreWhitelist:
-        tags:
-        - Abyssal
+      tags:
+      - Abyssal
 
 - type: entity
   id: AbyssApparationCrack
@@ -370,35 +360,33 @@
     bodyType: Static
   - type: Fixtures
     fixtures:
-        fix1:
-          hard: false
-          density: 7
-          shape:
-           !type:PhysShapeCircle
-            radius: 0.35
-          layer:
-          - LowImpassable
+      fix1:
+        hard: false
+        density: 7
+        shape: !type:PhysShapeCircle
+          radius: 0.35
+        layer:
+        - LowImpassable
   - type: DamageContacts
     damage:
-        types:
-          Slash: 1.5
-          Cold: 1.5
+      types:
+        Slash: 1.5
+        Cold: 1.5
     ignoreWhitelist:
-        tags:
-        - Abyssal
+      tags:
+      - Abyssal
   - type: Destructible
     thresholds:
-      - trigger:
-          !type:DamageTrigger
-          damage: 10
-        behaviors:
-          - !type:DoActsBehavior
-            acts: [ "Destruction" ]
-          - !type:PlaySoundBehavior
-            sound:
-              path: /Audio/Items/hiss.ogg
-              params:
-                variation: 0.08
+    - trigger: !type:DamageTrigger
+        damage: 10
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Items/hiss.ogg
+          params:
+            variation: 0.08
   - type: DamagedByFlashing
     flashDamage:
       types:
@@ -423,27 +411,25 @@
     bodyType: Static
   - type: Fixtures
     fixtures:
-        fix1:
-          hard: true
-          density: 7
-          shape:
-           !type:PhysShapeCircle
-            radius: 0.75
-          layer:
-          - WallLayer
+      fix1:
+        hard: true
+        density: 7
+        shape: !type:PhysShapeCircle
+          radius: 0.75
+        layer:
+        - WallLayer
   - type: Destructible
     thresholds:
-      - trigger:
-          !type:DamageTrigger
-          damage: 100
-        behaviors:
-          - !type:DoActsBehavior
-            acts: [ "Destruction" ]
-          - !type:PlaySoundBehavior
-            sound:
-              path: /Audio/Items/hiss.ogg
-              params:
-                variation: 0.08
+    - trigger: !type:DamageTrigger
+        damage: 100
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Items/hiss.ogg
+          params:
+            variation: 0.08
   - type: DamagedByFlashing
     flashDamage:
       types:
@@ -468,27 +454,25 @@
     bodyType: Static
   - type: Fixtures
     fixtures:
-        fix1:
-          hard: false
-          density: 7
-          shape:
-           !type:PhysShapeCircle
-            radius: 0.85
-          layer:
-          - LowImpassable
+      fix1:
+        hard: false
+        density: 7
+        shape: !type:PhysShapeCircle
+          radius: 0.85
+        layer:
+        - LowImpassable
   - type: Destructible
     thresholds:
-      - trigger:
-          !type:DamageTrigger
-          damage: 50
-        behaviors:
-          - !type:DoActsBehavior
-            acts: [ "Destruction" ]
-          - !type:PlaySoundBehavior
-            sound:
-              path: /Audio/Items/hiss.ogg
-              params:
-                variation: 0.08
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Items/hiss.ogg
+          params:
+            variation: 0.08
   - type: DamagedByFlashing
     flashDamage:
       types:
@@ -497,12 +481,12 @@
     damageContainer: ShadowHaze
   - type: DamageContacts
     damage:
-        types:
-          Slash: 1.5
-          Cold: 3
+      types:
+        Slash: 1.5
+        Cold: 3
     ignoreWhitelist:
-        tags:
-        - Abyssal
+      tags:
+      - Abyssal
 
 - type: entity
   id: AbyssStorageTest
@@ -522,8 +506,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.5,-0.5,0.5,0.5"
         density: 15
         layer:

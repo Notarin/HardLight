@@ -8,18 +8,23 @@ public sealed class GridPathfindingChunk
     [ViewVariables]
     public readonly PathfindingBreadcrumb[,] Points = new PathfindingBreadcrumb[
         (SharedPathfindingSystem.ChunkSize) * SharedPathfindingSystem.SubStep,
-        (SharedPathfindingSystem.ChunkSize) * SharedPathfindingSystem.SubStep];
+        (SharedPathfindingSystem.ChunkSize) * SharedPathfindingSystem.SubStep
+    ];
 
     [ViewVariables]
     public Vector2i Origin;
 
     [ViewVariables]
-    public readonly List<PathPoly>[] Polygons = new List<PathPoly>[SharedPathfindingSystem.ChunkSize * SharedPathfindingSystem.ChunkSize];
+    public readonly List<PathPoly>[] Polygons = new List<PathPoly>[
+        SharedPathfindingSystem.ChunkSize * SharedPathfindingSystem.ChunkSize
+    ];
 
     /// <summary>
     /// Store the recalculated polygons to know what needs changing.
     /// </summary>
-    internal readonly List<PathPoly>[] BufferPolygons = new List<PathPoly>[SharedPathfindingSystem.ChunkSize * SharedPathfindingSystem.ChunkSize];
+    internal readonly List<PathPoly>[] BufferPolygons = new List<PathPoly>[
+        SharedPathfindingSystem.ChunkSize * SharedPathfindingSystem.ChunkSize
+    ];
 
     /// <summary>
     /// The relevant polygon for this chunk's portals

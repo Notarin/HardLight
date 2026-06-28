@@ -1,16 +1,17 @@
 using Content.Server.Popups;
-using Content.Shared.Hands.Components;
 using Content.Shared.Alert;
+using Content.Shared.Hands.Components;
 using Content.Shared.Hands.EntitySystems;
-using Content.Shared.OfferItem;
 using Content.Shared.IdentityManagement;
+using Content.Shared.OfferItem;
 using Robust.Shared.Player;
 
 namespace Content.Server.OfferItem;
 
 public sealed class OfferItemSystem : SharedOfferItemSystem
 {
-    [Dependency] private readonly AlertsSystem _alertsSystem = default!;
+    [Dependency]
+    private readonly AlertsSystem _alertsSystem = default!;
 
     public override void Update(float frameTime)
     {
@@ -22,8 +23,7 @@ public sealed class OfferItemSystem : SharedOfferItemSystem
             if (!TryComp<HandsComponent>(uid, out var hands) || hands.ActiveHand == null)
                 continue;
 
-            if (offerItem.Hand != null &&
-                hands.Hands[offerItem.Hand].HeldEntity == null)
+            if (offerItem.Hand != null && hands.Hands[offerItem.Hand].HeldEntity == null)
             {
                 if (offerItem.Target != null)
                 {
@@ -44,5 +44,4 @@ public sealed class OfferItemSystem : SharedOfferItemSystem
             _alertsSystem.ShowAlert(uid, offerItem.OfferAlert);
         }
     }
-
 }

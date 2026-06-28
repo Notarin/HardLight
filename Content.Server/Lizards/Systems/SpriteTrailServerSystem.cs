@@ -1,17 +1,18 @@
+using System;
+using System.Linq;
+using System.Numerics;
 using Content.Shared.Lizards.Components;
 using Robust.Shared.Map;
-using Robust.Shared.Timing;
-using Robust.Shared.Physics.Components;
-using System;
-using System.Numerics;
-using System.Linq;
 using Robust.Shared.Maths;
+using Robust.Shared.Physics.Components;
+using Robust.Shared.Timing;
 
 namespace Content.Server.Lizards.Systems;
 
 public sealed class SpriteTrailServerSystem : EntitySystem
 {
-    [Dependency] private readonly SharedTransformSystem _xformSys = default!;
+    [Dependency]
+    private readonly SharedTransformSystem _xformSys = default!;
 
     private readonly Dictionary<EntityUid, Queue<(EntityCoordinates, Angle)>> _buffers = new();
     private readonly Dictionary<EntityUid, bool> _leaderActive = new();
@@ -52,7 +53,10 @@ public sealed class SpriteTrailServerSystem : EntitySystem
                 var last = buf.Last();
                 var lastMap = last.Item1.ToMap(EntityManager, _xformSys);
                 var currMap = coords.ToMap(EntityManager, _xformSys);
-                if (Vector2.Distance(lastMap.Position, currMap.Position) < 0.02f && Math.Abs((rot - last.Item2).Theta) < 0.01f)
+                if (
+                    Vector2.Distance(lastMap.Position, currMap.Position) < 0.02f
+                    && Math.Abs((rot - last.Item2).Theta) < 0.01f
+                )
                     shouldEnqueue = false;
             }
 
@@ -107,9 +111,12 @@ public sealed class SpriteTrailServerSystem : EntitySystem
                 var dir = targetWorld.Position - xform.WorldPosition;
                 if (dir.LengthSquared() > 0f)
                 {
-                    var desiredWorldRot = Angle.FromDegrees((float)(Math.Atan2(dir.Y, dir.X) * 180.0 / Math.PI) + follower.RotationOffsetDeg);
+                    var desiredWorldRot = Angle.FromDegrees(
+                        (float)(Math.Atan2(dir.Y, dir.X) * 180.0 / Math.PI) + follower.RotationOffsetDeg
+                    );
                     var parentUid = xform.ParentUid;
-                    var parentWorldRot = parentUid != EntityUid.Invalid ? _xformSys.GetWorldRotation(parentUid) : Angle.Zero;
+                    var parentWorldRot =
+                        parentUid != EntityUid.Invalid ? _xformSys.GetWorldRotation(parentUid) : Angle.Zero;
                     var desiredLocalRot = desiredWorldRot - parentWorldRot;
                     _xformSys.SetLocalRotation(uid, desiredLocalRot);
                 }
@@ -130,9 +137,12 @@ public sealed class SpriteTrailServerSystem : EntitySystem
             }
             // Smoothly rotate to face the leader/target direction
             var dir2 = targetWorld.Position - _xformSys.GetWorldPosition(uid);
-            Angle desiredWorld = dir2.LengthSquared() > 0f
-                ? Angle.FromDegrees((float)(Math.Atan2(dir2.Y, dir2.X) * 180.0 / Math.PI) + follower.RotationOffsetDeg)
-                : target.Item2;
+            Angle desiredWorld =
+                dir2.LengthSquared() > 0f
+                    ? Angle.FromDegrees(
+                        (float)(Math.Atan2(dir2.Y, dir2.X) * 180.0 / Math.PI) + follower.RotationOffsetDeg
+                    )
+                    : target.Item2;
 
             var pUid = xform.ParentUid;
             var pWorldRot = pUid != EntityUid.Invalid ? _xformSys.GetWorldRotation(pUid) : Angle.Zero;

@@ -21,7 +21,8 @@ namespace Content.Shared.ActionBlocker
     [UsedImplicitly]
     public sealed class ActionBlockerSystem : EntitySystem
     {
-        [Dependency] private readonly SharedContainerSystem _container = default!;
+        [Dependency]
+        private readonly SharedContainerSystem _container = default!;
 
         private EntityQuery<ComplexInteractionComponent> _complexInteractionQuery;
 
@@ -121,7 +122,6 @@ namespace Content.Shared.ActionBlocker
             return !usedEv.Cancelled;
         }
 
-
         /// <summary>
         /// Whether a user conscious to perform an action.
         /// </summary>
@@ -190,7 +190,12 @@ namespace Content.Shared.ActionBlocker
             return !ev.Cancelled;
         }
 
-        public bool CanAttack(EntityUid uid, EntityUid? target = null, Entity<MeleeWeaponComponent>? weapon = null, bool disarm = false)
+        public bool CanAttack(
+            EntityUid uid,
+            EntityUid? target = null,
+            Entity<MeleeWeaponComponent>? weapon = null,
+            bool disarm = false
+        )
         {
             // If target is in a container can we attack
             if (target != null && _container.IsEntityInContainer(target.Value))

@@ -2,7 +2,7 @@
   id: Bullet8x65mmSKR
   name: bullet (8x65mm SKR)
   parent: BaseBullet
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -13,7 +13,7 @@
   id: Bullet8x65mmImprovised
   name: bullet (8x65mm improvised)
   parent: BaseBullet
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:

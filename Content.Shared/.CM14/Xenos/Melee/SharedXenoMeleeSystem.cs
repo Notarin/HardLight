@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Numerics;
 using Content.Shared.ActionBlocker;
+using Content.Shared.CM14.Xenos; // XenoComponent
 using Content.Shared.Damage;
 using Content.Shared.Effects;
 using Content.Shared.FixedPoint;
@@ -9,29 +10,43 @@ using Content.Shared.Mobs.Components;
 using Content.Shared.Physics;
 using Content.Shared.Weapons.Melee;
 using Content.Shared.Weapons.Melee.Events;
+using Robust.Shared.Audio.Systems; // SharedAudioSystem
 using Robust.Shared.Map;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
-using Content.Shared.CM14.Xenos; // XenoComponent
-using Robust.Shared.Audio.Systems; // SharedAudioSystem
 
 namespace Content.Shared.CM14.Xenos.Melee;
 
 public abstract class SharedXenoMeleeSystem : EntitySystem
 {
-    [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedColorFlashEffectSystem _colorFlash = default!;
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly SharedInteractionSystem _interaction = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency]
+    private readonly ActionBlockerSystem _actionBlocker = default!;
 
-    private const int AttackMask = (int) (CollisionGroup.MobMask | CollisionGroup.Opaque);
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedColorFlashEffectSystem _colorFlash = default!;
+
+    [Dependency]
+    private readonly DamageableSystem _damageable = default!;
+
+    [Dependency]
+    private readonly SharedInteractionSystem _interaction = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly SharedPhysicsSystem _physics = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    private const int AttackMask = (int)(CollisionGroup.MobMask | CollisionGroup.Opaque);
 
     protected Box2Rotated LastTailAttack;
 
@@ -44,8 +59,7 @@ public abstract class SharedXenoMeleeSystem : EntitySystem
 
     private void OnXenoTailStab(Entity<XenoComponent> xeno, ref XenoTailStabEvent args)
     {
-        if (!_actionBlocker.CanAttack(xeno) ||
-            !TryComp(xeno, out TransformComponent? transform))
+        if (!_actionBlocker.CanAttack(xeno) || !TryComp(xeno, out TransformComponent? transform))
         {
             return;
         }
@@ -67,7 +81,12 @@ public abstract class SharedXenoMeleeSystem : EntitySystem
             return;
 
         // Define a narrow box for debug / visualization and cache it.
-        var debugBox = new Box2(userCoords.Position.X - 0.10f, userCoords.Position.Y, userCoords.Position.X + 0.10f, userCoords.Position.Y + xeno.Comp.TailRange);
+        var debugBox = new Box2(
+            userCoords.Position.X - 0.10f,
+            userCoords.Position.Y,
+            userCoords.Position.X + 0.10f,
+            userCoords.Position.Y + xeno.Comp.TailRange
+        );
 
         // Determine stab direction from user to target (fallback to facing if zero-length).
         var dir = targetCoords.Position - userCoords.Position;
@@ -78,7 +97,13 @@ public abstract class SharedXenoMeleeSystem : EntitySystem
 
         // Single forward ray from user towards target to simplify hit detection.
         var ray = new CollisionRay(userCoords.Position, dir.Normalized(), AttackMask);
-        var hits = _physics.IntersectRayWithPredicate(transform.MapID, ray, xeno.Comp.TailRange, uid => uid != xeno.Owner && HasComp<MobStateComponent>(uid), false);
+        var hits = _physics.IntersectRayWithPredicate(
+            transform.MapID,
+            ray,
+            xeno.Comp.TailRange,
+            uid => uid != xeno.Owner && HasComp<MobStateComponent>(uid),
+            false
+        );
         var results = hits.Select(r => r.HitEntity).Distinct().ToList();
 
         // TODO CM14 sounds
@@ -103,13 +128,18 @@ public abstract class SharedXenoMeleeSystem : EntitySystem
                     _interaction.DoContactInteraction(xeno, hit);
                 }
 
-                var filter = Filter.Pvs(transform.Coordinates, entityMan: EntityManager).RemoveWhereAttachedEntity(o => o == xeno.Owner);
+                var filter = Filter
+                    .Pvs(transform.Coordinates, entityMan: EntityManager)
+                    .RemoveWhereAttachedEntity(o => o == xeno.Owner);
                 foreach (var hit in results)
                 {
                     var attackedEv = new AttackedEvent(xeno, xeno, args.Target);
                     RaiseLocalEvent(hit, attackedEv);
 
-                    var modifiedDamage = DamageSpecifier.ApplyModifierSets(damage + hitEvent.BonusDamage + attackedEv.BonusDamage, hitEvent.ModifiersList);
+                    var modifiedDamage = DamageSpecifier.ApplyModifierSets(
+                        damage + hitEvent.BonusDamage + attackedEv.BonusDamage,
+                        hitEvent.ModifiersList
+                    );
                     var change = _damageable.TryChangeDamage(hit, modifiedDamage, origin: xeno);
 
                     if (change?.GetTotal() > FixedPoint2.Zero)
@@ -138,7 +168,9 @@ public abstract class SharedXenoMeleeSystem : EntitySystem
         args.Handled = true;
     }
 
-    protected virtual void DoLunge(Entity<XenoComponent, TransformComponent> user, Vector2 localPos, EntProtoId animationId)
-    {
-    }
+    protected virtual void DoLunge(
+        Entity<XenoComponent, TransformComponent> user,
+        Vector2 localPos,
+        EntProtoId animationId
+    ) { }
 }

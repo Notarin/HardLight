@@ -9,6 +9,7 @@ public sealed partial class AcceptCryoWindow : DefaultWindow
 {
     public Action? OnAccept;
     public Action? OnDeny;
+
     public AcceptCryoWindow()
     {
         RobustXamlLoader.Load(this);

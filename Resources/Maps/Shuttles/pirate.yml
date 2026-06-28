@@ -4983,4 +4983,3 @@ entities:
       parent: 1
     - type: Physics
       canCollide: False
-...

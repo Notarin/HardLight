@@ -8,9 +8,11 @@ namespace Content.Client.Arcade.UI;
 
 public sealed class SpaceVillainArcadeBoundUserInterface : BoundUserInterface
 {
-    [ViewVariables] private SpaceVillainArcadeMenu? _menu;
+    [ViewVariables]
+    private SpaceVillainArcadeMenu? _menu;
 
-    public SpaceVillainArcadeBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
+    public SpaceVillainArcadeBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey)
     {
         SendAction(PlayerAction.RequestData);
     }

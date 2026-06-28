@@ -10,7 +10,6 @@ namespace Content.Shared._EstacaoPirata.Cards.Stack;
 /// This is used for holding the prototype ids of the cards in the stack or hand.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-
 public sealed partial class CardStackComponent : Component
 {
     [DataField]
@@ -24,7 +23,6 @@ public sealed partial class CardStackComponent : Component
 
     [DataField]
     public SoundSpecifier PlaceDownSound = new SoundCollectionSpecifier("cardShove");
-
 
     /// <summary>
     /// The containers that contain the items held in the stack
@@ -49,7 +47,8 @@ public sealed class CardStackInitiatedEvent(NetEntity cardStack) : EntityEventAr
 /// This gets Updated when new cards are added or removed from the stack
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class CardStackQuantityChangeEvent(NetEntity stack, NetEntity? card, StackQuantityChangeType type) : EntityEventArgs
+public sealed class CardStackQuantityChangeEvent(NetEntity stack, NetEntity? card, StackQuantityChangeType type)
+    : EntityEventArgs
 {
     public NetEntity Stack = stack;
     public NetEntity? Card = card;
@@ -62,10 +61,8 @@ public enum StackQuantityChangeType : sbyte
     Added,
     Removed,
     Joined,
-    Split
+    Split,
 }
-
-
 
 [Serializable, NetSerializable]
 public sealed class CardStackReorderedEvent(NetEntity stack) : EntityEventArgs

@@ -22,8 +22,7 @@
   - type: MeleeSound
     soundGroups:
       Brute:
-        path:
-          "/Audio/Weapons/boxingbell.ogg"
+        path: "/Audio/Weapons/boxingbell.ogg"
   - type: Appearance
   - type: Rotatable
   - type: CollisionWake
@@ -36,8 +35,7 @@
     damageContainer: Inorganic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 150
       behaviors:
       - !type:DoActsBehavior

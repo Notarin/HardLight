@@ -15,7 +15,7 @@
   category: construction-category-weapons
   description: cartridge-9x19mm-flechette
   objectType: Item
-  
+
 - type: construction
   id: Cartridge45_ACPHiPower
   graph: Cartridge45_ACPHiPowerGraph
@@ -186,7 +186,7 @@
   category: construction-category-weapons
   description: shellshotgun-23x75mm-hi-power-buckshot
   objectType: Item
-  
+
 - type: construction
   id: ShellShotgun23x75mmHiPowerSlug
   graph: ShellShotgun23x75mmHiPowerSlugGraph

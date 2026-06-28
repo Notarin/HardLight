@@ -29,7 +29,8 @@ namespace Content.Server.Disposal.Unit
         public Direction PreviousDirection { get; set; } = Direction.Invalid;
 
         [ViewVariables]
-        public Direction PreviousDirectionFrom => (PreviousDirection == Direction.Invalid) ? Direction.Invalid : PreviousDirection.GetOpposite();
+        public Direction PreviousDirectionFrom =>
+            (PreviousDirection == Direction.Invalid) ? Direction.Invalid : PreviousDirection.GetOpposite();
 
         [ViewVariables]
         public EntityUid? CurrentTube { get; set; }

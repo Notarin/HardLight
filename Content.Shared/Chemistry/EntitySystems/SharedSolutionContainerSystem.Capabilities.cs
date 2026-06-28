@@ -1,11 +1,11 @@
+using System.Diagnostics.CodeAnalysis;
+using System.Text;
 using Content.Shared.Chemistry.Components;
-using Content.Shared.Kitchen.Components;
 using Content.Shared.Chemistry.Components.SolutionManager;
 using Content.Shared.Chemistry.Reaction;
 using Content.Shared.FixedPoint;
+using Content.Shared.Kitchen.Components;
 using Robust.Shared.Utility;
-using System.Diagnostics.CodeAnalysis;
-using System.Text;
 
 namespace Content.Shared.Chemistry.EntitySystems;
 
@@ -13,7 +13,11 @@ public abstract partial class SharedSolutionContainerSystem
 {
     #region Solution Accessors
 
-    public bool TryGetRefillableSolution(Entity<RefillableSolutionComponent?, SolutionContainerManagerComponent?> entity, [NotNullWhen(true)] out Entity<SolutionComponent>? soln, [NotNullWhen(true)] out Solution? solution)
+    public bool TryGetRefillableSolution(
+        Entity<RefillableSolutionComponent?, SolutionContainerManagerComponent?> entity,
+        [NotNullWhen(true)] out Entity<SolutionComponent>? soln,
+        [NotNullWhen(true)] out Solution? solution
+    )
     {
         if (!Resolve(entity, ref entity.Comp1, logMissing: false))
         {
@@ -24,7 +28,11 @@ public abstract partial class SharedSolutionContainerSystem
         return TryGetSolution((entity.Owner, entity.Comp2), entity.Comp1.Solution, out soln, out solution);
     }
 
-    public bool TryGetDrainableSolution(Entity<DrainableSolutionComponent?, SolutionContainerManagerComponent?> entity, [NotNullWhen(true)] out Entity<SolutionComponent>? soln, [NotNullWhen(true)] out Solution? solution)
+    public bool TryGetDrainableSolution(
+        Entity<DrainableSolutionComponent?, SolutionContainerManagerComponent?> entity,
+        [NotNullWhen(true)] out Entity<SolutionComponent>? soln,
+        [NotNullWhen(true)] out Solution? solution
+    )
     {
         if (!Resolve(entity, ref entity.Comp1, logMissing: false))
         {
@@ -35,7 +43,11 @@ public abstract partial class SharedSolutionContainerSystem
         return TryGetSolution((entity.Owner, entity.Comp2), entity.Comp1.Solution, out soln, out solution);
     }
 
-    public bool TryGetExtractableSolution(Entity<ExtractableComponent?, SolutionContainerManagerComponent?> entity, [NotNullWhen(true)] out Entity<SolutionComponent>? soln, [NotNullWhen(true)] out Solution? solution)
+    public bool TryGetExtractableSolution(
+        Entity<ExtractableComponent?, SolutionContainerManagerComponent?> entity,
+        [NotNullWhen(true)] out Entity<SolutionComponent>? soln,
+        [NotNullWhen(true)] out Solution? solution
+    )
     {
         if (!Resolve(entity, ref entity.Comp1, logMissing: false))
         {
@@ -46,7 +58,11 @@ public abstract partial class SharedSolutionContainerSystem
         return TryGetSolution((entity.Owner, entity.Comp2), entity.Comp1.GrindableSolution, out soln, out solution);
     }
 
-    public bool TryGetDumpableSolution(Entity<DumpableSolutionComponent?, SolutionContainerManagerComponent?> entity, [NotNullWhen(true)] out Entity<SolutionComponent>? soln, [NotNullWhen(true)] out Solution? solution)
+    public bool TryGetDumpableSolution(
+        Entity<DumpableSolutionComponent?, SolutionContainerManagerComponent?> entity,
+        [NotNullWhen(true)] out Entity<SolutionComponent>? soln,
+        [NotNullWhen(true)] out Solution? solution
+    )
     {
         if (!Resolve(entity, ref entity.Comp1, logMissing: false))
         {
@@ -57,7 +73,11 @@ public abstract partial class SharedSolutionContainerSystem
         return TryGetSolution((entity.Owner, entity.Comp2), entity.Comp1.Solution, out soln, out solution);
     }
 
-    public bool TryGetDrawableSolution(Entity<DrawableSolutionComponent?, SolutionContainerManagerComponent?> entity, [NotNullWhen(true)] out Entity<SolutionComponent>? soln, [NotNullWhen(true)] out Solution? solution)
+    public bool TryGetDrawableSolution(
+        Entity<DrawableSolutionComponent?, SolutionContainerManagerComponent?> entity,
+        [NotNullWhen(true)] out Entity<SolutionComponent>? soln,
+        [NotNullWhen(true)] out Solution? solution
+    )
     {
         if (!Resolve(entity, ref entity.Comp1, logMissing: false))
         {
@@ -68,7 +88,11 @@ public abstract partial class SharedSolutionContainerSystem
         return TryGetSolution((entity.Owner, entity.Comp2), entity.Comp1.Solution, out soln, out solution);
     }
 
-    public bool TryGetInjectableSolution(Entity<InjectableSolutionComponent?, SolutionContainerManagerComponent?> entity, [NotNullWhen(true)] out Entity<SolutionComponent>? soln, [NotNullWhen(true)] out Solution? solution)
+    public bool TryGetInjectableSolution(
+        Entity<InjectableSolutionComponent?, SolutionContainerManagerComponent?> entity,
+        [NotNullWhen(true)] out Entity<SolutionComponent>? soln,
+        [NotNullWhen(true)] out Solution? solution
+    )
     {
         if (!Resolve(entity, ref entity.Comp1, logMissing: false))
         {
@@ -79,7 +103,11 @@ public abstract partial class SharedSolutionContainerSystem
         return TryGetSolution((entity.Owner, entity.Comp2), entity.Comp1.Solution, out soln, out solution);
     }
 
-    public bool TryGetFitsInDispenser(Entity<FitsInDispenserComponent?, SolutionContainerManagerComponent?> entity, [NotNullWhen(true)] out Entity<SolutionComponent>? soln, [NotNullWhen(true)] out Solution? solution)
+    public bool TryGetFitsInDispenser(
+        Entity<FitsInDispenserComponent?, SolutionContainerManagerComponent?> entity,
+        [NotNullWhen(true)] out Entity<SolutionComponent>? soln,
+        [NotNullWhen(true)] out Solution? solution
+    )
     {
         if (!Resolve(entity, ref entity.Comp1, logMissing: false))
         {
@@ -90,7 +118,11 @@ public abstract partial class SharedSolutionContainerSystem
         return TryGetSolution((entity.Owner, entity.Comp2), entity.Comp1.Solution, out soln, out solution);
     }
 
-    public bool TryGetMixableSolution(Entity<MixableSolutionComponent?, SolutionContainerManagerComponent?> entity, [NotNullWhen(true)] out Entity<SolutionComponent>? soln, [NotNullWhen(true)] out Solution? solution)
+    public bool TryGetMixableSolution(
+        Entity<MixableSolutionComponent?, SolutionContainerManagerComponent?> entity,
+        [NotNullWhen(true)] out Entity<SolutionComponent>? soln,
+        [NotNullWhen(true)] out Solution? solution
+    )
     {
         if (!Resolve(entity, ref entity.Comp1, logMissing: false))
         {
@@ -121,7 +153,11 @@ public abstract partial class SharedSolutionContainerSystem
         AddSolution(soln, inject);
     }
 
-    public Solution Drain(Entity<DrainableSolutionComponent?> entity, Entity<SolutionComponent> soln, FixedPoint2 quantity)
+    public Solution Drain(
+        Entity<DrainableSolutionComponent?> entity,
+        Entity<SolutionComponent> soln,
+        FixedPoint2 quantity
+    )
     {
         if (!Resolve(entity, ref entity.Comp, logMissing: false))
             return new();
@@ -129,7 +165,11 @@ public abstract partial class SharedSolutionContainerSystem
         return SplitSolution(soln, quantity);
     }
 
-    public Solution Draw(Entity<DrawableSolutionComponent?> entity, Entity<SolutionComponent> soln, FixedPoint2 quantity)
+    public Solution Draw(
+        Entity<DrawableSolutionComponent?> entity,
+        Entity<SolutionComponent> soln,
+        FixedPoint2 quantity
+    )
     {
         if (!Resolve(entity, ref entity.Comp, logMissing: false))
             return new();

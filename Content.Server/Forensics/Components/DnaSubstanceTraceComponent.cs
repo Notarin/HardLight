@@ -5,5 +5,4 @@ namespace Content.Server.Forensics;
 /// usually so fibres can be left instead.
 /// </summary>
 [RegisterComponent]
-public sealed partial class DnaSubstanceTraceComponent : Component
-{ }
+public sealed partial class DnaSubstanceTraceComponent : Component { }

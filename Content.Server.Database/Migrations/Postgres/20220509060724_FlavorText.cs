@@ -13,14 +13,13 @@ namespace Content.Server.Database.Migrations.Postgres
                 table: "profile",
                 type: "text",
                 nullable: false,
-                defaultValue: "");
+                defaultValue: ""
+            );
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "flavor_text",
-                table: "profile");
+            migrationBuilder.DropColumn(name: "flavor_text", table: "profile");
         }
     }
 }

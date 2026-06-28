@@ -12,9 +12,14 @@ namespace Content.Server.NameIdentifier;
 /// </summary>
 public sealed class NameIdentifierSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IRobustRandom _robustRandom = default!;
-    [Dependency] private readonly NameModifierSystem _nameModifier = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _robustRandom = default!;
+
+    [Dependency]
+    private readonly NameModifierSystem _nameModifier = default!;
 
     /// <summary>
     /// Free IDs available per <see cref="NameIdentifierGroupPrototype"/>.
@@ -49,7 +54,7 @@ public sealed class NameIdentifierSystem : EntitySystem
             ids[randomIndex] = ent.Comp.Identifier;
             ids.Add(random);
         }
-            _nameModifier.RefreshNameModifiers(ent.Owner);
+        _nameModifier.RefreshNameModifiers(ent.Owner);
     }
 
     /// <summary>
@@ -81,9 +86,7 @@ public sealed class NameIdentifierSystem : EntitySystem
         randomVal = set[^1];
         set.RemoveAt(set.Count - 1);
 
-        return proto.Prefix is not null
-            ? $"{proto.Prefix}-{randomVal}"
-            : $"{randomVal}";
+        return proto.Prefix is not null ? $"{proto.Prefix}-{randomVal}" : $"{randomVal}";
     }
 
     private void OnMapInit(Entity<NameIdentifierComponent> ent, ref MapInitEvent args)
@@ -98,14 +101,14 @@ public sealed class NameIdentifierSystem : EntitySystem
         string uniqueName;
 
         // If it has an existing valid identifier then use that, otherwise generate a new one.
-        if (ent.Comp.Identifier != -1 &&
-            CurrentIds.TryGetValue(ent.Comp.Group, out var ids) &&
-            ids.Remove(ent.Comp.Identifier))
+        if (
+            ent.Comp.Identifier != -1
+            && CurrentIds.TryGetValue(ent.Comp.Group, out var ids)
+            && ids.Remove(ent.Comp.Identifier)
+        )
         {
             id = ent.Comp.Identifier;
-            uniqueName = group.Prefix is not null
-                ? $"{group.Prefix}-{id}"
-                : $"{id}";
+            uniqueName = group.Prefix is not null ? $"{group.Prefix}-{id}" : $"{id}";
         }
         else
         {
@@ -113,9 +116,7 @@ public sealed class NameIdentifierSystem : EntitySystem
             ent.Comp.Identifier = id;
         }
 
-        ent.Comp.FullIdentifier = group.FullName
-            ? uniqueName
-            : $"({uniqueName})";
+        ent.Comp.FullIdentifier = group.FullName ? uniqueName : $"({uniqueName})";
 
         Dirty(ent);
         _nameModifier.RefreshNameModifiers(ent.Owner);
@@ -208,7 +209,6 @@ public sealed class NameIdentifierSystem : EntitySystem
             FillGroup(name_proto, ids);
         }
     }
-
 
     private void CleanupIds(RoundRestartCleanupEvent ev)
     {

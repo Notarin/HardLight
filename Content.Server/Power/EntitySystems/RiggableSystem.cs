@@ -13,8 +13,11 @@ namespace Content.Server.Power.EntitySystems;
 /// </summary>
 public sealed class RiggableSystem : EntitySystem
 {
-    [Dependency] private readonly ExplosionSystem _explosionSystem = default!;
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
+    [Dependency]
+    private readonly ExplosionSystem _explosionSystem = default!;
+
+    [Dependency]
+    private readonly IAdminLogManager _adminLogger = default!;
 
     public override void Initialize()
     {
@@ -59,7 +62,11 @@ public sealed class RiggableSystem : EntitySystem
 
         if (entity.Comp.IsRigged && !wasRigged)
         {
-            _adminLogger.Add(LogType.Explosion, LogImpact.Medium, $"{ToPrettyString(entity.Owner)} has been rigged up to explode when used.");
+            _adminLogger.Add(
+                LogType.Explosion,
+                LogImpact.Medium,
+                $"{ToPrettyString(entity.Owner)} has been rigged up to explode when used."
+            );
         }
     }
 
@@ -70,7 +77,7 @@ public sealed class RiggableSystem : EntitySystem
 
         var radius = MathF.Min(5, MathF.Sqrt(battery.CurrentCharge) / 9);
 
-        _explosionSystem.TriggerExplosive(uid, radius: radius, user:cause);
+        _explosionSystem.TriggerExplosive(uid, radius: radius, user: cause);
         QueueDel(uid);
     }
 }

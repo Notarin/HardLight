@@ -31,8 +31,7 @@ using static Content.Client.UserInterface.Systems.Actions.Windows.ActionsWindow;
 using static Robust.Client.UserInterface.Control;
 using static Robust.Client.UserInterface.Controls.BaseButton;
 using static Robust.Client.UserInterface.Controls.LineEdit;
-using static Robust.Client.UserInterface.Controls.MultiselectOptionButton<
-    Content.Client.UserInterface.Systems.Actions.Windows.ActionsWindow.Filters>;
+using static Robust.Client.UserInterface.Controls.MultiselectOptionButton<Content.Client.UserInterface.Systems.Actions.Windows.ActionsWindow.Filters>;
 using static Robust.Client.UserInterface.Controls.TextureRect;
 using static Robust.Shared.Input.Binding.PointerInputCmdHandler;
 
@@ -40,15 +39,29 @@ namespace Content.Client.UserInterface.Systems.Actions;
 
 public sealed class ActionUIController : UIController, IOnStateChanged<GameplayState>, IOnSystemChanged<ActionsSystem>
 {
-    [Dependency] private readonly IOverlayManager _overlays = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IInputManager _input = default!;
+    [Dependency]
+    private readonly IOverlayManager _overlays = default!;
 
-    [UISystemDependency] private readonly ActionsSystem? _actionsSystem = default;
-    [UISystemDependency] private readonly InteractionOutlineSystem? _interactionOutline = default;
-    [UISystemDependency] private readonly TargetOutlineSystem? _targetOutline = default;
-    [UISystemDependency] private readonly SpriteSystem _spriteSystem = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly IInputManager _input = default!;
+
+    [UISystemDependency]
+    private readonly ActionsSystem? _actionsSystem = default;
+
+    [UISystemDependency]
+    private readonly InteractionOutlineSystem? _interactionOutline = default;
+
+    [UISystemDependency]
+    private readonly TargetOutlineSystem? _targetOutline = default;
+
+    [UISystemDependency]
+    private readonly SpriteSystem _spriteSystem = default!;
 
     private ActionButtonContainer? _container;
     private readonly List<EntityUid?> _actions = new();
@@ -57,7 +70,8 @@ public sealed class ActionUIController : UIController, IOnStateChanged<GameplayS
     private ActionsWindow? _window;
 
     private ActionsBar? ActionsBar => UIManager.GetActiveUIWidgetOrNull<ActionsBar>();
-    private MenuButton? ActionButton => UIManager.GetActiveUIWidgetOrNull<MenuBar.Widgets.GameTopMenuBar>()?.ActionButton;
+    private MenuButton? ActionButton =>
+        UIManager.GetActiveUIWidgetOrNull<MenuBar.Widgets.GameTopMenuBar>()?.ActionButton;
 
     public bool IsDragging => _menuDragHelper.IsDragging;
 
@@ -75,7 +89,7 @@ public sealed class ActionUIController : UIController, IOnStateChanged<GameplayS
             Stretch = StretchMode.Scale,
             Visible = false,
             SetSize = new Vector2(64, 64),
-            MouseFilter = MouseFilterMode.Ignore
+            MouseFilter = MouseFilterMode.Ignore,
         };
     }
 
@@ -90,7 +104,7 @@ public sealed class ActionUIController : UIController, IOnStateChanged<GameplayS
 
     private void OnScreenLoad()
     {
-       LoadGui();
+        LoadGui();
     }
 
     private void OnScreenUnload()
@@ -119,22 +133,35 @@ public sealed class ActionUIController : UIController, IOnStateChanged<GameplayS
         {
             var boundId = i; // This is needed, because the lambda captures it.
             var boundKey = hotbarKeys[i];
-            builder = builder.Bind(boundKey, new PointerInputCmdHandler((in PointerInputCmdArgs args) =>
-            {
-                if (args.State != BoundKeyState.Down)
-                    return false;
+            builder = builder.Bind(
+                boundKey,
+                new PointerInputCmdHandler(
+                    (in PointerInputCmdArgs args) =>
+                    {
+                        if (args.State != BoundKeyState.Down)
+                            return false;
 
-                TriggerAction(boundId);
-                return true;
-            }, false, true));
+                        TriggerAction(boundId);
+                        return true;
+                    },
+                    false,
+                    true
+                )
+            );
         }
 
         builder
-            .Bind(ContentKeyFunctions.OpenActionsMenu,
-                InputCmdHandler.FromDelegate(_ => ToggleWindow()))
-            .BindBefore(EngineKeyFunctions.Use, new PointerInputCmdHandler(TargetingOnUse, outsidePrediction: true),
-                    typeof(ConstructionSystem), typeof(DragDropSystem))
-                .BindBefore(EngineKeyFunctions.UIRightClick, new PointerInputCmdHandler(TargetingCancel, outsidePrediction: true))
+            .Bind(ContentKeyFunctions.OpenActionsMenu, InputCmdHandler.FromDelegate(_ => ToggleWindow()))
+            .BindBefore(
+                EngineKeyFunctions.Use,
+                new PointerInputCmdHandler(TargetingOnUse, outsidePrediction: true),
+                typeof(ConstructionSystem),
+                typeof(DragDropSystem)
+            )
+            .BindBefore(
+                EngineKeyFunctions.UIRightClick,
+                new PointerInputCmdHandler(TargetingCancel, outsidePrediction: true)
+            )
             .Register<ActionUIController>();
     }
 
@@ -165,15 +192,16 @@ public sealed class ActionUIController : UIController, IOnStateChanged<GameplayS
         if (!EntityManager.TryGetComponent(user, out ActionsComponent? comp))
             return false;
 
-        if (!_actionsSystem.TryGetActionData(actionId, out var baseAction) ||
-            baseAction is not BaseTargetActionComponent action)
+        if (
+            !_actionsSystem.TryGetActionData(actionId, out var baseAction)
+            || baseAction is not BaseTargetActionComponent action
+        )
         {
             return false;
         }
 
         // Is the action currently valid?
-        if (!action.Enabled
-            || action.Cooldown.HasValue && action.Cooldown.Value.End > _timing.CurTime)
+        if (!action.Enabled || action.Cooldown.HasValue && action.Cooldown.Value.End > _timing.CurTime)
         {
             // The user is targeting with this action, but it is not valid. Maybe mark this click as
             // handled and prevent further interactions.
@@ -197,7 +225,13 @@ public sealed class ActionUIController : UIController, IOnStateChanged<GameplayS
         }
     }
 
-    private bool TryTargetWorld(in PointerInputCmdArgs args, EntityUid actionId, WorldTargetActionComponent action, EntityUid user, ActionsComponent actionComp)
+    private bool TryTargetWorld(
+        in PointerInputCmdArgs args,
+        EntityUid actionId,
+        WorldTargetActionComponent action,
+        EntityUid user,
+        ActionsComponent actionComp
+    )
     {
         if (_actionsSystem == null)
             return false;
@@ -223,7 +257,12 @@ public sealed class ActionUIController : UIController, IOnStateChanged<GameplayS
             _actionsSystem.PerformAction(user, actionComp, actionId, action, action.Event, _timing.CurTime);
         }
         else
-            EntityManager.RaisePredictiveEvent(new RequestPerformActionEvent(EntityManager.GetNetEntity(actionId), EntityManager.GetNetCoordinates(coords)));
+            EntityManager.RaisePredictiveEvent(
+                new RequestPerformActionEvent(
+                    EntityManager.GetNetEntity(actionId),
+                    EntityManager.GetNetCoordinates(coords)
+                )
+            );
 
         if (!action.Repeat)
             StopTargeting();
@@ -231,7 +270,13 @@ public sealed class ActionUIController : UIController, IOnStateChanged<GameplayS
         return true;
     }
 
-    private bool TryTargetEntity(in PointerInputCmdArgs args, EntityUid actionId, EntityTargetActionComponent action, EntityUid user, ActionsComponent actionComp)
+    private bool TryTargetEntity(
+        in PointerInputCmdArgs args,
+        EntityUid actionId,
+        EntityTargetActionComponent action,
+        EntityUid user,
+        ActionsComponent actionComp
+    )
     {
         if (_actionsSystem == null)
             return false;
@@ -256,7 +301,12 @@ public sealed class ActionUIController : UIController, IOnStateChanged<GameplayS
             _actionsSystem.PerformAction(user, actionComp, actionId, action, action.Event, _timing.CurTime);
         }
         else
-            EntityManager.RaisePredictiveEvent(new RequestPerformActionEvent(EntityManager.GetNetEntity(actionId), EntityManager.GetNetEntity(args.EntityUid)));
+            EntityManager.RaisePredictiveEvent(
+                new RequestPerformActionEvent(
+                    EntityManager.GetNetEntity(actionId),
+                    EntityManager.GetNetEntity(args.EntityUid)
+                )
+            );
 
         if (!action.Repeat)
             StopTargeting();
@@ -264,11 +314,13 @@ public sealed class ActionUIController : UIController, IOnStateChanged<GameplayS
         return true;
     }
 
-    private bool TryTargetEntityWorld(in PointerInputCmdArgs args,
+    private bool TryTargetEntityWorld(
+        in PointerInputCmdArgs args,
         EntityUid actionId,
         EntityWorldTargetActionComponent action,
         EntityUid user,
-        ActionsComponent actionComp)
+        ActionsComponent actionComp
+    )
     {
         if (_actionsSystem == null)
             return false;
@@ -295,7 +347,13 @@ public sealed class ActionUIController : UIController, IOnStateChanged<GameplayS
             _actionsSystem.PerformAction(user, actionComp, actionId, action, action.Event, _timing.CurTime);
         }
         else
-            EntityManager.RaisePredictiveEvent(new RequestPerformActionEvent(EntityManager.GetNetEntity(actionId), EntityManager.GetNetEntity(args.EntityUid), EntityManager.GetNetCoordinates(coords)));
+            EntityManager.RaisePredictiveEvent(
+                new RequestPerformActionEvent(
+                    EntityManager.GetNetEntity(actionId),
+                    EntityManager.GetNetEntity(args.EntityUid),
+                    EntityManager.GetNetCoordinates(coords)
+                )
+            );
 
         if (!action.Repeat)
             StopTargeting();
@@ -351,9 +409,11 @@ public sealed class ActionUIController : UIController, IOnStateChanged<GameplayS
 
     private void TriggerAction(int index)
     {
-        if (_actionsSystem == null ||
-            !_actions.TryGetValue(index, out var actionId) ||
-            !_actionsSystem.TryGetActionData(actionId, out var baseAction))
+        if (
+            _actionsSystem == null
+            || !_actions.TryGetValue(index, out var actionId)
+            || !_actionsSystem.TryGetActionData(actionId, out var baseAction)
+        )
         {
             return;
         }
@@ -366,8 +426,7 @@ public sealed class ActionUIController : UIController, IOnStateChanged<GameplayS
 
     private void OnActionAdded(EntityUid actionId)
     {
-        if (_actionsSystem == null ||
-            !_actionsSystem.TryGetActionData(actionId, out var action))
+        if (_actionsSystem == null || !_actionsSystem.TryGetActionData(actionId, out var action))
         {
             return;
         }
@@ -432,8 +491,10 @@ public sealed class ActionUIController : UIController, IOnStateChanged<GameplayS
         else
         {
             _window.FilterLabel.Visible = true;
-            _window.FilterLabel.Text = Loc.GetString("ui-actionmenu-filter-label",
-                ("selectedLabels", string.Join(", ", _window.FilterButton.SelectedLabels)));
+            _window.FilterLabel.Text = Loc.GetString(
+                "ui-actionmenu-filter-label",
+                ("selectedLabels", string.Join(", ", _window.FilterButton.SelectedLabels))
+            );
         }
     }
 
@@ -446,7 +507,7 @@ public sealed class ActionUIController : UIController, IOnStateChanged<GameplayS
             Filters.Innate => action.Container == null || action.Container == _playerManager.LocalEntity,
             Filters.Instant => action is InstantActionComponent,
             Filters.Targeted => action is BaseTargetActionComponent,
-            _ => throw new ArgumentOutOfRangeException(nameof(filter), filter, null)
+            _ => throw new ArgumentOutOfRangeException(nameof(filter), filter, null),
         };
     }
 
@@ -482,7 +543,7 @@ public sealed class ActionUIController : UIController, IOnStateChanged<GameplayS
                 continue;
             }
 
-            var button = new ActionButton(EntityManager, _spriteSystem, this) {Locked = true};
+            var button = new ActionButton(EntityManager, _spriteSystem, this) { Locked = true };
             button.ActionPressed += OnWindowActionPressed;
             button.ActionUnpressed += OnWindowActionUnPressed;
             button.ActionFocusExited += OnWindowActionFocusExisted;
@@ -561,9 +622,11 @@ public sealed class ActionUIController : UIController, IOnStateChanged<GameplayS
                     _actions.RemoveAt(position);
             }
         }
-        else if (button.TryReplaceWith(actionId.Value, _actionsSystem) &&
-            _container != null &&
-            _container.TryGetButtonIndex(button, out position))
+        else if (
+            button.TryReplaceWith(actionId.Value, _actionsSystem)
+            && _container != null
+            && _container.TryGetButtonIndex(button, out position)
+        )
         {
             if (position >= _actions.Count)
             {
@@ -581,7 +644,7 @@ public sealed class ActionUIController : UIController, IOnStateChanged<GameplayS
 
     private void DragAction()
     {
-        if (_menuDragHelper.Dragged is not {ActionId: {} action} dragged)
+        if (_menuDragHelper.Dragged is not { ActionId: { } action } dragged)
         {
             _menuDragHelper.EndDrag();
             return;
@@ -722,10 +785,15 @@ public sealed class ActionUIController : UIController, IOnStateChanged<GameplayS
         // TODO ACTIONS
         // The dragging icon shuld be based on the entity's icon style. I.e. if the action has a large icon texture,
         // and a small item/provider sprite, then the dragged icon should be the big texture, not the provider.
-        if (_actionsSystem != null && _actionsSystem.TryGetActionData(_menuDragHelper.Dragged?.ActionId, out var action))
+        if (
+            _actionsSystem != null
+            && _actionsSystem.TryGetActionData(_menuDragHelper.Dragged?.ActionId, out var action)
+        )
         {
-            if (EntityManager.TryGetComponent(action.EntityIcon, out SpriteComponent? sprite)
-                && sprite.Icon?.GetFrame(RsiDirection.South, 0) is {} frame)
+            if (
+                EntityManager.TryGetComponent(action.EntityIcon, out SpriteComponent? sprite)
+                && sprite.Icon?.GetFrame(RsiDirection.South, 0) is { } frame
+            )
             {
                 _dragShadow.Texture = frame;
             }
@@ -856,7 +924,7 @@ public sealed class ActionUIController : UIController, IOnStateChanged<GameplayS
     public override void FrameUpdate(FrameEventArgs args)
     {
         _menuDragHelper.Update(args.DeltaSeconds);
-        if (_window is {UpdateNeeded: true})
+        if (_window is { UpdateNeeded: true })
             SearchAndDisplay();
     }
 
@@ -962,7 +1030,14 @@ public sealed class ActionUIController : UIController, IOnStateChanged<GameplayS
         var range = entityAction.CheckCanAccess ? action.Range : -1;
 
         _interactionOutline?.SetEnabled(false);
-        _targetOutline?.Enable(range, entityAction.CheckCanAccess, predicate, entityAction.Whitelist, entityAction.Blacklist, null);
+        _targetOutline?.Enable(
+            range,
+            entityAction.CheckCanAccess,
+            predicate,
+            entityAction.Whitelist,
+            entityAction.Blacklist,
+            null
+        );
     }
 
     /// <summary>

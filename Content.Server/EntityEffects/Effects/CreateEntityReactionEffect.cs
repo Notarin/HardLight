@@ -19,11 +19,13 @@ public sealed partial class CreateEntityReactionEffect : EntityEffect
     [DataField]
     public uint Number = 1;
 
-    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys)
-        => Loc.GetString("reagent-effect-guidebook-create-entity-reaction-effect",
+    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys) =>
+        Loc.GetString(
+            "reagent-effect-guidebook-create-entity-reaction-effect",
             ("chance", Probability),
             ("entname", IoCManager.Resolve<IPrototypeManager>().Index<EntityPrototype>(Entity).Name),
-            ("amount", Number));
+            ("amount", Number)
+        );
 
     public override void Effect(EntityEffectBaseArgs args)
     {
@@ -35,7 +37,10 @@ public sealed partial class CreateEntityReactionEffect : EntityEffect
 
         for (var i = 0; i < quantity; i++)
         {
-            var uid = args.EntityManager.SpawnEntity(Entity, transformSystem.GetMapCoordinates(args.TargetEntity, xform: transform));
+            var uid = args.EntityManager.SpawnEntity(
+                Entity,
+                transformSystem.GetMapCoordinates(args.TargetEntity, xform: transform)
+            );
             transformSystem.AttachToGridOrMap(uid);
 
             // TODO figure out how to properly spawn inside of containers

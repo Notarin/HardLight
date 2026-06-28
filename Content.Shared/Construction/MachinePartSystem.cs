@@ -13,9 +13,14 @@ namespace Content.Shared.Construction
     /// </summary>
     public sealed class MachinePartSystem : EntitySystem
     {
-        [Dependency] private readonly IPrototypeManager _prototype = default!;
-        [Dependency] private readonly SharedLatheSystem _lathe = default!;
-        [Dependency] private readonly SharedConstructionSystem _construction = default!;
+        [Dependency]
+        private readonly IPrototypeManager _prototype = default!;
+
+        [Dependency]
+        private readonly SharedLatheSystem _lathe = default!;
+
+        [Dependency]
+        private readonly SharedConstructionSystem _construction = default!;
 
         public override void Initialize()
         {
@@ -37,25 +42,37 @@ namespace Content.Shared.Construction
                     var stack = _prototype.Index(material);
                     var name = _prototype.Index(stack.Spawn).Name;
 
-                    args.PushMarkup(Loc.GetString("machine-board-component-required-element-entry-text",
-                        ("amount", amount),
-                        ("requiredElement", Loc.GetString(name))));
+                    args.PushMarkup(
+                        Loc.GetString(
+                            "machine-board-component-required-element-entry-text",
+                            ("amount", amount),
+                            ("requiredElement", Loc.GetString(name))
+                        )
+                    );
                 }
 
                 foreach (var (_, info) in component.ComponentRequirements)
                 {
                     var examineName = _construction.GetExamineName(info);
-                    args.PushMarkup(Loc.GetString("machine-board-component-required-element-entry-text",
-                        ("amount", info.Amount),
-                        ("requiredElement", examineName)));
+                    args.PushMarkup(
+                        Loc.GetString(
+                            "machine-board-component-required-element-entry-text",
+                            ("amount", info.Amount),
+                            ("requiredElement", examineName)
+                        )
+                    );
                 }
 
                 foreach (var (_, info) in component.TagRequirements)
                 {
                     var examineName = _construction.GetExamineName(info);
-                    args.PushMarkup(Loc.GetString("machine-board-component-required-element-entry-text",
-                        ("amount", info.Amount),
-                        ("requiredElement", examineName)));
+                    args.PushMarkup(
+                        Loc.GetString(
+                            "machine-board-component-required-element-entry-text",
+                            ("amount", info.Amount),
+                            ("requiredElement", examineName)
+                        )
+                    );
                 }
 
                 // Frontier: restore upgradeable parts
@@ -63,9 +80,13 @@ namespace Content.Shared.Construction
                 {
                     var partProto = _prototype.Index(part);
                     var name = _prototype.Index(partProto.StockPartPrototype).Name;
-                    args.PushMarkup(Loc.GetString("machine-board-component-required-element-entry-text",
-                        ("amount", amount),
-                        ("requiredElement", Loc.GetString(name))));
+                    args.PushMarkup(
+                        Loc.GetString(
+                            "machine-board-component-required-element-entry-text",
+                            ("amount", amount),
+                            ("requiredElement", Loc.GetString(name))
+                        )
+                    );
                 }
                 // End Frontier
             }
@@ -79,15 +100,24 @@ namespace Content.Shared.Construction
 
             using (args.PushGroup(nameof(MachinePartComponent)))
             {
-                args.PushMarkup(Loc.GetString("machine-part-component-on-examine-rating-text",
-                    ("rating", component.Rating)));
-                args.PushMarkup(Loc.GetString("machine-part-component-on-examine-type-text", ("type",
-                    Loc.GetString(_prototype.Index<MachinePartPrototype>(component.PartType).Name))));
+                args.PushMarkup(
+                    Loc.GetString("machine-part-component-on-examine-rating-text", ("rating", component.Rating))
+                );
+                args.PushMarkup(
+                    Loc.GetString(
+                        "machine-part-component-on-examine-type-text",
+                        ("type", Loc.GetString(_prototype.Index<MachinePartPrototype>(component.PartType).Name))
+                    )
+                );
             }
         }
+
         // End Frontier
 
-        public Dictionary<string, int> GetMachineBoardMaterialCost(Entity<MachineBoardComponent> entity, int coefficient = 1)
+        public Dictionary<string, int> GetMachineBoardMaterialCost(
+            Entity<MachineBoardComponent> entity,
+            int coefficient = 1
+        )
         {
             var (_, comp) = entity;
 
@@ -98,7 +128,12 @@ namespace Content.Shared.Construction
                 var stackProto = _prototype.Index(stackId);
                 var defaultProto = _prototype.Index(stackProto.Spawn);
 
-                if (defaultProto.TryGetComponent<PhysicalCompositionComponent>(out var physComp, EntityManager.ComponentFactory))
+                if (
+                    defaultProto.TryGetComponent<PhysicalCompositionComponent>(
+                        out var physComp,
+                        EntityManager.ComponentFactory
+                    )
+                )
                 {
                     foreach (var (mat, matAmount) in physComp.MaterialComposition)
                     {
@@ -138,8 +173,13 @@ namespace Content.Shared.Construction
                         materials[mat] += matAmount * amount * coefficient;
                     }
                 }
-                else if (_prototype.TryIndex(defaultProtoId, out var defaultProto) &&
-                         defaultProto.TryGetComponent<PhysicalCompositionComponent>(out var physComp, EntityManager.ComponentFactory))
+                else if (
+                    _prototype.TryIndex(defaultProtoId, out var defaultProto)
+                    && defaultProto.TryGetComponent<PhysicalCompositionComponent>(
+                        out var physComp,
+                        EntityManager.ComponentFactory
+                    )
+                )
                 {
                     foreach (var (mat, matAmount) in physComp.MaterialComposition)
                     {

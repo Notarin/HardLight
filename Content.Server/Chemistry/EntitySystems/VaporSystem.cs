@@ -1,12 +1,13 @@
+using System.Numerics;
 using Content.Server.Chemistry.Components;
 using Content.Shared.Chemistry;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.Components.SolutionManager;
+using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Chemistry.Reagent;
 using Content.Shared.FixedPoint;
 using Content.Shared.Physics;
 using Content.Shared.Throwing;
-using Content.Shared.Chemistry.EntitySystems;
 using JetBrains.Annotations;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
@@ -15,20 +16,32 @@ using Robust.Shared.Physics.Events;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Spawners;
-using System.Numerics;
 
 namespace Content.Server.Chemistry.EntitySystems
 {
     [UsedImplicitly]
     internal sealed class VaporSystem : EntitySystem
     {
-        [Dependency] private readonly IPrototypeManager _protoManager = default!;
-        [Dependency] private readonly SharedMapSystem _map = default!;
-        [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-        [Dependency] private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
-        [Dependency] private readonly ThrowingSystem _throwing = default!;
-        [Dependency] private readonly ReactiveSystem _reactive = default!;
-        [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
+        [Dependency]
+        private readonly IPrototypeManager _protoManager = default!;
+
+        [Dependency]
+        private readonly SharedMapSystem _map = default!;
+
+        [Dependency]
+        private readonly SharedPhysicsSystem _physics = default!;
+
+        [Dependency]
+        private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
+
+        [Dependency]
+        private readonly ThrowingSystem _throwing = default!;
+
+        [Dependency]
+        private readonly ReactiveSystem _reactive = default!;
+
+        [Dependency]
+        private readonly SharedTransformSystem _transformSystem = default!;
 
         public override void Initialize()
         {
@@ -39,7 +52,8 @@ namespace Content.Server.Chemistry.EntitySystems
 
         private void HandleCollide(Entity<VaporComponent> entity, ref StartCollideEvent args)
         {
-            if (!EntityManager.TryGetComponent(entity.Owner, out SolutionContainerManagerComponent? contents)) return;
+            if (!EntityManager.TryGetComponent(entity.Owner, out SolutionContainerManagerComponent? contents))
+                return;
 
             foreach (var (_, soln) in _solutionContainerSystem.EnumerateSolutions((entity.Owner, contents)))
             {
@@ -54,13 +68,15 @@ namespace Content.Server.Chemistry.EntitySystems
             }
         }
 
-        public void Start(Entity<VaporComponent> vapor,
+        public void Start(
+            Entity<VaporComponent> vapor,
             TransformComponent vaporXform,
             Vector2 dir,
             float speed,
             MapCoordinates target,
             float aliveTime,
-            EntityUid? user = null)
+            EntityUid? user = null
+        )
         {
             vapor.Comp.Active = true;
             var despawn = EnsureComp<TimedDespawnComponent>(vapor);
@@ -87,9 +103,13 @@ namespace Content.Server.Chemistry.EntitySystems
                 return false;
             }
 
-            if (!_solutionContainerSystem.TryGetSolution(vapor.Owner,
+            if (
+                !_solutionContainerSystem.TryGetSolution(
+                    vapor.Owner,
                     VaporComponent.SolutionName,
-                    out var vaporSolution))
+                    out var vaporSolution
+                )
+            )
             {
                 return false;
             }
@@ -139,14 +159,16 @@ namespace Content.Server.Chemistry.EntitySystems
                             // Ex: A solution with a low percentage transfer amount will slowly approach 0.01... and never get deleted
                             var clampedAmount = Math.Max(
                                 (float)reagentQuantity.Quantity * vaporComp.TransferAmountPercentage,
-                                vaporComp.MinimumTransferAmount);
+                                vaporComp.MinimumTransferAmount
+                            );
 
                             // Preform the reagent's TileReaction
-                            var reaction =
-                                reagent.ReactionTile(tile,
-                                    clampedAmount,
-                                    EntityManager,
-                                    reagentQuantity.Reagent.Data);
+                            var reaction = reagent.ReactionTile(
+                                tile,
+                                clampedAmount,
+                                EntityManager,
+                                reagentQuantity.Reagent.Data
+                            );
 
                             if (reaction > reagentQuantity.Quantity)
                                 reaction = reagentQuantity.Quantity;
@@ -157,7 +179,6 @@ namespace Content.Server.Chemistry.EntitySystems
                         // Delete the vapor entity if it has no contents
                         if (contents.Volume == 0)
                             EntityManager.QueueDeleteEntity(uid);
-
                     }
 
                     // Set the previous tile reference to the current tile

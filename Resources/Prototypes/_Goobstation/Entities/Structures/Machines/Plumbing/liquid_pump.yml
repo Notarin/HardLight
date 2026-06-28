@@ -1,5 +1,5 @@
 - type: entity
-  parent: [ ConstructibleMachine, BaseMachinePowered ]
+  parent: [ConstructibleMachine, BaseMachinePowered]
   id: PlumbingPump
   name: liquid pump
   description: An electric pump that can transfer liquids between machines that have an automation upgrade installed.
@@ -10,14 +10,14 @@
     layers:
     - state: icon
     - state: active
-      map: [ "enum.PowerDeviceVisualLayers.Powered" ]
+      map: ["enum.PowerDeviceVisualLayers.Powered"]
   - type: Appearance
   - type: GenericVisualizer
     visuals:
       enum.PowerDeviceVisuals.Powered:
         enum.PowerDeviceVisualLayers.Powered:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
   # Construction
   - type: Machine
     board: PlumbingPumpCircuitboard

@@ -45,8 +45,6 @@ https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild
   <Target Name="Clean">
     <Message Importance="low" Text="Ignoring 'Clean' target." />
   </Target>
-  <Target Name="Compile">
-  </Target>
-  <Target Name="CoreCompile">
-  </Target>
+  <Target Name="Compile"></Target>
+  <Target Name="CoreCompile"></Target>
 </Project>

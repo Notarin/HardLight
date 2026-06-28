@@ -12,8 +12,11 @@ namespace Content.Server.Points;
 /// <inheritdoc/>
 public sealed class PointSystem : SharedPointSystem
 {
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly PvsOverrideSystem _pvsOverride = default!;
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly PvsOverrideSystem _pvsOverride = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -32,7 +35,13 @@ public sealed class PointSystem : SharedPointSystem
     /// Adds the specified point value to a player.
     /// </summary>
     [PublicAPI]
-    public void AdjustPointValue(EntityUid user, FixedPoint2 value, EntityUid uid, PointManagerComponent? component, ActorComponent? actor = null)
+    public void AdjustPointValue(
+        EntityUid user,
+        FixedPoint2 value,
+        EntityUid uid,
+        PointManagerComponent? component,
+        ActorComponent? actor = null
+    )
     {
         if (!Resolve(uid, ref component) || !Resolve(user, ref actor, false))
             return;
@@ -43,7 +52,13 @@ public sealed class PointSystem : SharedPointSystem
     /// Sets the amount of points for a player
     /// </summary>
     [PublicAPI]
-    public void SetPointValue(EntityUid user, FixedPoint2 value, EntityUid uid, PointManagerComponent? component, ActorComponent? actor = null)
+    public void SetPointValue(
+        EntityUid user,
+        FixedPoint2 value,
+        EntityUid uid,
+        PointManagerComponent? component,
+        ActorComponent? actor = null
+    )
     {
         if (!Resolve(uid, ref component) || !Resolve(user, ref actor, false))
             return;
@@ -54,7 +69,12 @@ public sealed class PointSystem : SharedPointSystem
     /// Gets the amount of points for a given player
     /// </summary>
     [PublicAPI]
-    public FixedPoint2 GetPointValue(EntityUid user, EntityUid uid, PointManagerComponent? component, ActorComponent? actor = null)
+    public FixedPoint2 GetPointValue(
+        EntityUid user,
+        EntityUid uid,
+        PointManagerComponent? component,
+        ActorComponent? actor = null
+    )
     {
         if (!Resolve(uid, ref component) || !Resolve(user, ref actor, false))
             return FixedPoint2.Zero;
@@ -76,10 +96,14 @@ public sealed class PointSystem : SharedPointSystem
             if (!_player.TryGetPlayerData(id, out var data))
                 continue;
 
-            msg.AddMarkupOrThrow(Loc.GetString("point-scoreboard-list",
-                ("place", place),
-                ("name", data.UserName),
-                ("points", points.Int())));
+            msg.AddMarkupOrThrow(
+                Loc.GetString(
+                    "point-scoreboard-list",
+                    ("place", place),
+                    ("name", data.UserName),
+                    ("points", points.Int())
+                )
+            );
             msg.PushNewline();
             place++;
         }

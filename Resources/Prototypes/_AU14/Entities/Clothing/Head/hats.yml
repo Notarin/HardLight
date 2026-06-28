@@ -8,7 +8,7 @@
     sprite: _AU14/Clothing/ussartemiscap.rsi
   - type: Clothing
     sprite: _AU14/Clothing/ussartemiscap.rsi
-    
+
 - type: entity
   parent: ClothingHeadBase
   id: AU14DesertPatrolCap
@@ -19,7 +19,7 @@
     sprite: _AU14/Clothing/DesertHats/cap.rsi
   - type: Clothing
     sprite: _AU14/Clothing/DesertHats/cap.rsi
-    
+
 - type: entity
   parent: ClothingHeadBase
   id: AU14DesertFlapCap
@@ -30,7 +30,7 @@
     sprite: _AU14/Clothing/DesertHats/flapcap.rsi
   - type: Clothing
     sprite: _AU14/Clothing/DesertHats/flapcap.rsi
-  
+
 - type: entity
   parent: ClothingHeadBase
   id: AU14DesertBoonieHat
@@ -41,7 +41,7 @@
     sprite: _AU14/Clothing/DesertHats/booniehat.rsi
   - type: Clothing
     sprite: _AU14/Clothing/DesertHats/booniehat.rsi
-  
+
 - type: entity
   parent: ClothingHeadBase
   id: AU14JunglePatrolCap
@@ -52,7 +52,7 @@
     sprite: _AU14/Clothing/JungleHats/cap.rsi
   - type: Clothing
     sprite: _AU14/Clothing/JungleHats/cap.rsi
-    
+
 - type: entity
   parent: ClothingHeadBase
   id: AU14JungleFlapCap
@@ -63,7 +63,7 @@
     sprite: _AU14/Clothing/JungleHats/flapcap.rsi
   - type: Clothing
     sprite: _AU14/Clothing/JungleHats/flapcap.rsi
-    
+
 - type: entity
   parent: ClothingHeadBase
   id: AU14JungleBoonieHat

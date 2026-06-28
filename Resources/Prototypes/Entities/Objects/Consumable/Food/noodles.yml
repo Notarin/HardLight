@@ -30,7 +30,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - pasta
+    - pasta
   - type: Sprite
     state: boiled
 # Tastes like pasta.
@@ -43,8 +43,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - pasta
-      - tomato
+    - pasta
+    - tomato
   - type: Sprite
     state: tomato
   - type: Tag
@@ -64,7 +64,7 @@
     - FoodPlateSmall
   - type: FlavorProfile
     flavors:
-      - copypasta
+    - copypasta
   - type: Sprite
     state: copypasta
   - type: SolutionContainerManager
@@ -88,8 +88,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - pasta
-      - meaty
+    - pasta
+    - meaty
   - type: Sprite
     state: meatball
   - type: SolutionContainerManager
@@ -116,8 +116,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - pasta
-      - meaty
+    - pasta
+    - meaty
   - type: Sprite
     state: spesslaw
   - type: SolutionContainerManager
@@ -141,10 +141,10 @@
   components:
   - type: FlavorProfile
     flavors:
-      - pasta
-      - oily
-      - eggplant
-      - carrot
+    - pasta
+    - oily
+    - eggplant
+    - carrot
   - type: Sprite
     state: chowmein
   - type: SolutionContainerManager
@@ -168,8 +168,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - pasta
-      - butter
+    - pasta
+    - butter
   - type: Sprite
     state: butter
   - type: SolutionContainerManager

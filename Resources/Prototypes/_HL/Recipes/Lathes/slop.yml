@@ -2,7 +2,7 @@
   id: NutrientPasteDispenserSlop
   result: FoodThaSlop
   categories:
-    - Food
+  - Food
   completetime: 3
   materials:
     Biomass: 15

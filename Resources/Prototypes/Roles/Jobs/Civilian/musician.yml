@@ -5,8 +5,8 @@
   playTimeTracker: JobMusician
   setPreference: true
   requirements:
-    - !type:OverallPlaytimeRequirement
-      time: 10800
+  - !type:OverallPlaytimeRequirement
+    time: 10800
   weight: -60 # HardLight
   startingGear: MusicianGear
   icon: "JobIconMusician"

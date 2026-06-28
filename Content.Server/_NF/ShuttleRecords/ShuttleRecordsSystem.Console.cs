@@ -1,16 +1,16 @@
 using System.Linq;
 using Content.Server._NF.Bank;
 using Content.Server.Cargo.Components;
+using Content.Server.Shuttles.Systems;
 using Content.Shared._NF.Bank.BUI;
+using Content.Shared._NF.Shipyard.Components;
 using Content.Shared._NF.ShuttleRecords;
 using Content.Shared._NF.ShuttleRecords.Components;
 using Content.Shared._NF.ShuttleRecords.Events;
 using Content.Shared.Access.Components;
 using Content.Shared.Database;
-using Content.Shared._NF.Shipyard.Components;
 using Robust.Shared.Audio;
 using Robust.Shared.Containers;
-using Content.Server.Shuttles.Systems;
 
 // Suppress naming rule for _NF namespace prefix (modding convention)
 #pragma warning disable IDE1006
@@ -18,12 +18,16 @@ namespace Content.Server._NF.ShuttleRecords;
 
 public sealed partial class ShuttleRecordsSystem
 {
-    [Dependency] private readonly BankSystem _bank = default!;
+    [Dependency]
+    private readonly BankSystem _bank = default!;
+
     public void InitializeShuttleRecords()
     {
         SubscribeLocalEvent<ShuttleRecordsConsoleComponent, BoundUIOpenedEvent>(OnConsoleUiOpened);
         SubscribeLocalEvent<ShuttleRecordsConsoleComponent, CopyDeedMessage>(OnCopyDeedMessage);
-        SubscribeLocalEvent<ShuttleRecordsConsoleComponent, CreateDeedFromDockedGridMessage>(OnCreateDeedFromDockedGrid);
+        SubscribeLocalEvent<ShuttleRecordsConsoleComponent, CreateDeedFromDockedGridMessage>(
+            OnCreateDeedFromDockedGrid
+        );
 
         SubscribeLocalEvent<ShuttleRecordsConsoleComponent, EntInsertedIntoContainerMessage>(OnIDSlotUpdated);
         SubscribeLocalEvent<ShuttleRecordsConsoleComponent, EntRemovedFromContainerMessage>(OnIDSlotUpdated);
@@ -133,11 +137,11 @@ public sealed partial class ShuttleRecordsSystem
         }
     }
 
-        private List<DockedGridEntry> GetDockedGridsForConsole(EntityUid consoleUid)
-        {
-            var list = new List<DockedGridEntry>();
-            if (!TryComp(consoleUid, out TransformComponent? xform) || xform.GridUid is not { } consoleGrid)
-                return list;
+    private List<DockedGridEntry> GetDockedGridsForConsole(EntityUid consoleUid)
+    {
+        var list = new List<DockedGridEntry>();
+        if (!TryComp(consoleUid, out TransformComponent? xform) || xform.GridUid is not { } consoleGrid)
+            return list;
 
         var xformQuery = GetEntityQuery<TransformComponent>();
         var dockQuery = GetEntityQuery<Content.Server.Shuttles.Components.DockingComponent>();
@@ -162,7 +166,11 @@ public sealed partial class ShuttleRecordsSystem
         return list;
     }
 
-    private void OnCreateDeedFromDockedGrid(EntityUid uid, ShuttleRecordsConsoleComponent component, CreateDeedFromDockedGridMessage args)
+    private void OnCreateDeedFromDockedGrid(
+        EntityUid uid,
+        ShuttleRecordsConsoleComponent component,
+        CreateDeedFromDockedGridMessage args
+    )
     {
         if (args.Actor is not { Valid: true } actor)
             return;
@@ -272,7 +280,9 @@ public sealed partial class ShuttleRecordsSystem
         }
 
         // Check if the shuttle record exists.
-        var record = dataComponent.ShuttleRecords.Values.Select(record => record).FirstOrDefault(record => record.EntityUid == args.ShuttleNetEntity);
+        var record = dataComponent
+            .ShuttleRecords.Values.Select(record => record)
+            .FirstOrDefault(record => record.EntityUid == args.ShuttleNetEntity);
         if (record == null)
         {
             _popup.PopupEntity(Loc.GetString("shuttle-records-no-record-found"), args.Actor);

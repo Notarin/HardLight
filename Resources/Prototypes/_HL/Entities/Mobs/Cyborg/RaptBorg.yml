@@ -75,17 +75,17 @@
     laws: Qborg
   - type: LeashAnchor # Floofstation
     kind: Intrinsic
-  - type: InteractionPopup  # Hardlight change
+  - type: InteractionPopup # Hardlight change
     interactSuccessString: petting-success-generic-cyborg
     interactFailureString: petting-failure-generic-cyborg
     interactSuccessSound:
       path: /Audio/Ambience/Objects/periodic_beep.ogg
-  # - type: SpriteStateToggle
-  #   spriteLayer: movement
-  #   stateOff: quadsprite
-  #   stateOn: quadspriteballz
-  #   movementStateOff: quadsprite_moving
-  #   movementStateOn: quadsprite_movingballz
+      # - type: SpriteStateToggle
+      #   spriteLayer: movement
+      #   stateOff: quadsprite
+      #   stateOn: quadspriteballz
+      #   movementStateOff: quadsprite_moving
+      #   movementStateOn: quadsprite_movingballz
 
 - type: entity
   id: BorgChassisRaptorTypeB
@@ -164,17 +164,17 @@
     laws: Qborg
   - type: LeashAnchor # Floofstation
     kind: Intrinsic
-  - type: InteractionPopup  # Hardlight change
+  - type: InteractionPopup # Hardlight change
     interactSuccessString: petting-success-generic-cyborg
     interactFailureString: petting-failure-generic-cyborg
     interactSuccessSound:
       path: /Audio/Ambience/Objects/periodic_beep.ogg
-  # - type: SpriteStateToggle
-  #   spriteLayer: movement
-  #   stateOff: quadsprite
-  #   stateOn: quadspriteballz
-  #   movementStateOff: quadsprite_moving
-  #   movementStateOn: quadsprite_movingballz
+      # - type: SpriteStateToggle
+      #   spriteLayer: movement
+      #   stateOff: quadsprite
+      #   stateOn: quadspriteballz
+      #   movementStateOff: quadsprite_moving
+      #   movementStateOn: quadsprite_movingballz
 
 - type: entity
   id: BorgChassisRaptorAthren
@@ -253,7 +253,7 @@
     laws: Qborg
   - type: LeashAnchor # Floofstation
     kind: Intrinsic
-  - type: InteractionPopup  # Hardlight change
+  - type: InteractionPopup # Hardlight change
     interactSuccessString: petting-success-generic-cyborg
     interactFailureString: petting-failure-generic-cyborg
     interactSuccessSound:

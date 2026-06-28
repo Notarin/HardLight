@@ -8,16 +8,24 @@ namespace Content.Shared.Emoting;
 // use as a template
 //[Serializable, NetSerializable, DataDefinition] public sealed partial class AnimationNameEmoteEvent : EntityEventArgs { }
 
-[Serializable, NetSerializable, DataDefinition] public sealed partial class AnimationFlipEmoteEvent : EntityEventArgs { }
-[Serializable, NetSerializable, DataDefinition] public sealed partial class AnimationSpinEmoteEvent : EntityEventArgs { }
-[Serializable, NetSerializable, DataDefinition] public sealed partial class AnimationJumpEmoteEvent : EntityEventArgs { }
+[Serializable, NetSerializable, DataDefinition]
+public sealed partial class AnimationFlipEmoteEvent : EntityEventArgs { }
 
-[RegisterComponent, NetworkedComponent] public sealed partial class AnimatedEmotesComponent : Component
+[Serializable, NetSerializable, DataDefinition]
+public sealed partial class AnimationSpinEmoteEvent : EntityEventArgs { }
+
+[Serializable, NetSerializable, DataDefinition]
+public sealed partial class AnimationJumpEmoteEvent : EntityEventArgs { }
+
+[RegisterComponent, NetworkedComponent]
+public sealed partial class AnimatedEmotesComponent : Component
 {
-    [DataField] public ProtoId<EmotePrototype>? Emote;
+    [DataField]
+    public ProtoId<EmotePrototype>? Emote;
 }
 
-[Serializable, NetSerializable] public sealed partial class AnimatedEmotesComponentState : ComponentState
+[Serializable, NetSerializable]
+public sealed partial class AnimatedEmotesComponentState : ComponentState
 {
     public ProtoId<EmotePrototype>? Emote;
 

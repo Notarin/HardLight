@@ -61,7 +61,4 @@ public sealed partial class StepTriggerComponent : Component
 
 [RegisterComponent]
 [Access(typeof(StepTriggerSystem))]
-public sealed partial class StepTriggerActiveComponent : Component
-{
-
-}
+public sealed partial class StepTriggerActiveComponent : Component { }

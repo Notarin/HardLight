@@ -22,12 +22,12 @@
   placement:
     mode: SnapgridCenter
   components:
-    - type: GasVolumePump
-      maxTransferRate: 600
-      HighFlow: true
-    - type: Construction
-      graph: GasBinaryHighFlow
-      node: volumepumpHighFlow
+  - type: GasVolumePump
+    maxTransferRate: 600
+    HighFlow: true
+  - type: Construction
+    graph: GasBinaryHighFlow
+    node: volumepumpHighFlow
 
 - type: entity
   parent: GasDualPortVentPump
@@ -37,9 +37,9 @@
   placement:
     mode: SnapgridCenter
   components:
-    - type: GasVentPump
-      maxPressure: 13500
-      HighFlow: true
-    - type: Construction
-      graph: GasBinaryHighFlow
-      node: dualportventpumpHighFlow
+  - type: GasVentPump
+    maxPressure: 13500
+    HighFlow: true
+  - type: Construction
+    graph: GasBinaryHighFlow
+    node: dualportventpumpHighFlow

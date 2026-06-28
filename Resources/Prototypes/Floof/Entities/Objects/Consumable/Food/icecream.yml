@@ -38,8 +38,7 @@
     - IceCream
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 5
       behaviors:
       - !type:PlaySoundBehavior
@@ -47,14 +46,14 @@
           collection: GlassBreak
           params:
             volume: -8
-      - !type:SpillBehavior { }
+      - !type:SpillBehavior {}
       - !type:SpawnEntitiesBehavior
         spawn:
           ShardGlass:
             min: 1
             max: 2
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
 
 - type: entity
   name: blood drop
@@ -250,7 +249,6 @@
           Quantity: 22
         - ReagentId: Nutriment
           Quantity: 22
-
 
 - type: entity
   name: spaghetti ice cream
@@ -537,7 +535,6 @@
           Quantity: 22
         - ReagentId: Nutriment
           Quantity: 22
-
 
 - type: entity
   name: neapolitan ice cream

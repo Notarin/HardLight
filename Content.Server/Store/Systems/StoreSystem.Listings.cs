@@ -23,8 +23,10 @@ public sealed partial class StoreSystem
         {
             foreach (var previousStateListingItem in previousState)
             {
-                if (!previousStateListingItem.IsCostModified
-                    || !TryGetListing(newState, previousStateListingItem.ID, out var found))
+                if (
+                    !previousStateListingItem.IsCostModified
+                    || !TryGetListing(newState, previousStateListingItem.ID, out var found)
+                )
                 {
                     continue;
                 }
@@ -89,7 +91,11 @@ public sealed partial class StoreSystem
     /// <param name="store"></param>
     /// <param name="component">The store the listings are coming from.</param>
     /// <returns>The available listings.</returns>
-    public IEnumerable<ListingDataWithCostModifiers> GetAvailableListings(EntityUid buyer, EntityUid store, StoreComponent component)
+    public IEnumerable<ListingDataWithCostModifiers> GetAvailableListings(
+        EntityUid buyer,
+        EntityUid store,
+        StoreComponent component
+    )
     {
         return GetAvailableListings(buyer, component.FullListingsCatalog, component.Categories, store);
     }
@@ -167,9 +173,13 @@ public sealed partial class StoreSystem
         return false;
     }
 
-    private bool TryGetListing(IReadOnlyCollection<ListingDataWithCostModifiers> collection, string listingId, [MaybeNullWhen(false)] out ListingDataWithCostModifiers found)
+    private bool TryGetListing(
+        IReadOnlyCollection<ListingDataWithCostModifiers> collection,
+        string listingId,
+        [MaybeNullWhen(false)] out ListingDataWithCostModifiers found
+    )
     {
-        foreach(var current in collection)
+        foreach (var current in collection)
         {
             if (current.ID == listingId)
             {

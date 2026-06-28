@@ -1,7 +1,7 @@
 using System.Threading;
+using Content.Server._NF.SectorServices; // Frontier
 using Content.Server.Administration.Logs;
 using Content.Server.AlertLevel;
-using Content.Shared.CCVar;
 using Content.Server.Chat.Managers;
 using Content.Server.Chat.Systems;
 using Content.Server.DeviceNetwork.Systems;
@@ -11,8 +11,10 @@ using Content.Server.Shuttles.Components;
 using Content.Server.Shuttles.Systems;
 using Content.Server.Station.Components;
 using Content.Server.Station.Systems;
+using Content.Shared.CCVar;
 using Content.Shared.Database;
 using Content.Shared.DeviceNetwork;
+using Content.Shared.DeviceNetwork.Components;
 using Content.Shared.GameTicking;
 using Content.Shared.GameTicking.Components;
 using Robust.Shared.Audio.Systems;
@@ -20,9 +22,7 @@ using Robust.Shared.Configuration;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
-using Content.Shared.DeviceNetwork.Components;
 using Timer = Robust.Shared.Timing.Timer;
-using Content.Server._NF.SectorServices; // Frontier
 
 namespace Content.Server.RoundEnd
 {
@@ -32,18 +32,41 @@ namespace Content.Server.RoundEnd
     /// </summary>
     public sealed class RoundEndSystem : EntitySystem
     {
-        [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-        [Dependency] private readonly IConfigurationManager _cfg = default!;
-        [Dependency] private readonly IChatManager _chatManager = default!;
-        [Dependency] private readonly IGameTiming _gameTiming = default!;
-        [Dependency] private readonly IPrototypeManager _protoManager = default!;
-        [Dependency] private readonly ChatSystem _chatSystem = default!;
-        [Dependency] private readonly GameTicker _gameTicker = default!;
-        [Dependency] private readonly DeviceNetworkSystem _deviceNetworkSystem = default!;
-        [Dependency] private readonly EmergencyShuttleSystem _shuttle = default!;
-        [Dependency] private readonly SharedAudioSystem _audio = default!;
-        [Dependency] private readonly StationSystem _stationSystem = default!;
-        [Dependency] private readonly SectorServiceSystem _sectorService = default!; // Frontier: sector-wide alerts
+        [Dependency]
+        private readonly IAdminLogManager _adminLogger = default!;
+
+        [Dependency]
+        private readonly IConfigurationManager _cfg = default!;
+
+        [Dependency]
+        private readonly IChatManager _chatManager = default!;
+
+        [Dependency]
+        private readonly IGameTiming _gameTiming = default!;
+
+        [Dependency]
+        private readonly IPrototypeManager _protoManager = default!;
+
+        [Dependency]
+        private readonly ChatSystem _chatSystem = default!;
+
+        [Dependency]
+        private readonly GameTicker _gameTicker = default!;
+
+        [Dependency]
+        private readonly DeviceNetworkSystem _deviceNetworkSystem = default!;
+
+        [Dependency]
+        private readonly EmergencyShuttleSystem _shuttle = default!;
+
+        [Dependency]
+        private readonly SharedAudioSystem _audio = default!;
+
+        [Dependency]
+        private readonly StationSystem _stationSystem = default!;
+
+        [Dependency]
+        private readonly SectorServiceSystem _sectorService = default!; // Frontier: sector-wide alerts
 
         public TimeSpan DefaultCooldownDuration { get; set; } = TimeSpan.FromSeconds(30);
 
@@ -100,7 +123,8 @@ namespace Content.Server.RoundEnd
         /// </summary>
         public EntityUid? GetStation()
         {
-            AllEntityQuery<StationEmergencyShuttleComponent, StationDataComponent>().MoveNext(out _, out _, out var data);
+            AllEntityQuery<StationEmergencyShuttleComponent, StationDataComponent>()
+                .MoveNext(out _, out _, out var data);
             if (data == null)
                 return null;
             var targetGrid = _stationSystem.GetLargestGrid(data);
@@ -127,7 +151,12 @@ namespace Content.Server.RoundEnd
             return _countdownTokenSource != null;
         }
 
-        public void RequestRoundEnd(EntityUid? requester = null, bool checkCooldown = true, string text = "round-end-system-shuttle-called-announcement", string name = "round-end-system-shuttle-sender-announcement")
+        public void RequestRoundEnd(
+            EntityUid? requester = null,
+            bool checkCooldown = true,
+            string text = "round-end-system-shuttle-called-announcement",
+            string name = "round-end-system-shuttle-sender-announcement"
+        )
         {
             var duration = DefaultCountdownDuration;
 
@@ -139,14 +168,21 @@ namespace Content.Server.RoundEnd
                 {
                     duration = _protoManager
                         .Index<AlertLevelPrototype>(AlertLevelSystem.DefaultAlertLevelSet)
-                        .Levels[alertLevel.CurrentLevel].ShuttleTime;
+                        .Levels[alertLevel.CurrentLevel]
+                        .ShuttleTime;
                 }
             }
 
             RequestRoundEnd(duration, requester, checkCooldown, text, name);
         }
 
-        public void RequestRoundEnd(TimeSpan countdownTime, EntityUid? requester = null, bool checkCooldown = true, string text = "round-end-system-shuttle-called-announcement", string name = "round-end-system-shuttle-sender-announcement")
+        public void RequestRoundEnd(
+            TimeSpan countdownTime,
+            EntityUid? requester = null,
+            bool checkCooldown = true,
+            string text = "round-end-system-shuttle-called-announcement",
+            string name = "round-end-system-shuttle-sender-announcement"
+        )
         {
             if (_gameTicker.RunLevel != GameRunLevel.InRound)
                 return;
@@ -161,7 +197,11 @@ namespace Content.Server.RoundEnd
 
             if (requester != null)
             {
-                _adminLogger.Add(LogType.ShuttleCalled, LogImpact.High, $"Shuttle called by {ToPrettyString(requester.Value):user}");
+                _adminLogger.Add(
+                    LogType.ShuttleCalled,
+                    LogImpact.High,
+                    $"Shuttle called by {ToPrettyString(requester.Value):user}"
+                );
             }
             else
             {
@@ -183,13 +223,13 @@ namespace Content.Server.RoundEnd
                 units = "eta-units-minutes";
             }
 
-            _chatSystem.DispatchGlobalAnnouncement(Loc.GetString(text,
-                ("time", time),
-                ("units", Loc.GetString(units))),
+            _chatSystem.DispatchGlobalAnnouncement(
+                Loc.GetString(text, ("time", time), ("units", Loc.GetString(units))),
                 Loc.GetString(name),
                 false,
                 null,
-                Color.Gold);
+                Color.Gold
+            );
 
             _audio.PlayGlobal("/Audio/Announcements/shuttlecalled.ogg", Filter.Broadcast(), true);
 
@@ -211,7 +251,9 @@ namespace Content.Server.RoundEnd
                     [ShuttleTimerMasks.SourceMap] = GetColcomm(),
                     [ShuttleTimerMasks.DestMap] = GetStation(),
                     [ShuttleTimerMasks.ShuttleTime] = countdownTime,
-                    [ShuttleTimerMasks.SourceTime] = countdownTime + TimeSpan.FromSeconds(_shuttle.TransitTime + _cfg.GetCVar(CCVars.EmergencyShuttleDockTime)),
+                    [ShuttleTimerMasks.SourceTime] =
+                        countdownTime
+                        + TimeSpan.FromSeconds(_shuttle.TransitTime + _cfg.GetCVar(CCVars.EmergencyShuttleDockTime)),
                     [ShuttleTimerMasks.DestTime] = countdownTime,
                 };
                 _deviceNetworkSystem.QueuePacket(shuttle.Value, null, payload, net.TransmitFrequency);
@@ -220,24 +262,35 @@ namespace Content.Server.RoundEnd
 
         public void CancelRoundEndCountdown(EntityUid? requester = null, bool checkCooldown = true)
         {
-            if (_gameTicker.RunLevel != GameRunLevel.InRound) return;
-            if (checkCooldown && _cooldownTokenSource != null) return;
+            if (_gameTicker.RunLevel != GameRunLevel.InRound)
+                return;
+            if (checkCooldown && _cooldownTokenSource != null)
+                return;
 
-            if (_countdownTokenSource == null) return;
+            if (_countdownTokenSource == null)
+                return;
             _countdownTokenSource.Cancel();
             _countdownTokenSource = null;
 
             if (requester != null)
             {
-                _adminLogger.Add(LogType.ShuttleRecalled, LogImpact.High, $"Shuttle recalled by {ToPrettyString(requester.Value):user}");
+                _adminLogger.Add(
+                    LogType.ShuttleRecalled,
+                    LogImpact.High,
+                    $"Shuttle recalled by {ToPrettyString(requester.Value):user}"
+                );
             }
             else
             {
                 _adminLogger.Add(LogType.ShuttleRecalled, LogImpact.High, $"Shuttle recalled");
             }
 
-            _chatSystem.DispatchGlobalAnnouncement(Loc.GetString("round-end-system-shuttle-recalled-announcement"),
-                Loc.GetString("Station"), false, colorOverride: Color.Gold);
+            _chatSystem.DispatchGlobalAnnouncement(
+                Loc.GetString("round-end-system-shuttle-recalled-announcement"),
+                Loc.GetString("Station"),
+                false,
+                colorOverride: Color.Gold
+            );
 
             _audio.PlayGlobal("/Audio/Announcements/shuttlerecalled.ogg", Filter.Broadcast(), true);
 
@@ -266,7 +319,8 @@ namespace Content.Server.RoundEnd
 
         public void EndRound(TimeSpan? countdownTime = null)
         {
-            if (_gameTicker.RunLevel != GameRunLevel.InRound) return;
+            if (_gameTicker.RunLevel != GameRunLevel.InRound)
+                return;
             LastCountdownStart = null;
             ExpectedCountdownEnd = null;
             RaiseLocalEvent(RoundEndSystemChangedEvent.Default);
@@ -291,7 +345,9 @@ namespace Content.Server.RoundEnd
                 Loc.GetString(
                     "round-end-system-round-restart-eta-announcement",
                     ("time", time),
-                    ("units", Loc.GetString(unitsLocString))));
+                    ("units", Loc.GetString(unitsLocString))
+                )
+            );
             Timer.Spawn(countdownTime.Value, AfterEndRoundRestart, _countdownTokenSource.Token);
         }
 
@@ -303,11 +359,13 @@ namespace Content.Server.RoundEnd
         /// <param name="sender"></param>
         /// <param name="textCall"></param>
         /// <param name="textAnnounce"></param>
-        public void DoRoundEndBehavior(RoundEndBehavior behavior,
+        public void DoRoundEndBehavior(
+            RoundEndBehavior behavior,
             TimeSpan time,
             string sender = "comms-console-announcement-title-centcom",
             string textCall = "round-end-system-shuttle-called-announcement",
-            string textAnnounce = "round-end-system-shuttle-already-called-announcement")
+            string textAnnounce = "round-end-system-shuttle-already-called-announcement"
+        )
         {
             switch (behavior)
             {
@@ -318,14 +376,15 @@ namespace Content.Server.RoundEnd
                     // Check is shuttle called or not. We should only dispatch announcement if it's already called
                     if (IsRoundEndRequested())
                     {
-                        _chatSystem.DispatchGlobalAnnouncement(Loc.GetString(textAnnounce),
+                        _chatSystem.DispatchGlobalAnnouncement(
+                            Loc.GetString(textAnnounce),
                             Loc.GetString(sender),
-                            colorOverride: Color.Gold);
+                            colorOverride: Color.Gold
+                        );
                     }
                     else
                     {
-                        RequestRoundEnd(time, null, false, textCall,
-                            Loc.GetString(sender));
+                        RequestRoundEnd(time, null, false, textCall, Loc.GetString(sender));
                     }
                     break;
             }
@@ -333,7 +392,8 @@ namespace Content.Server.RoundEnd
 
         private void AfterEndRoundRestart()
         {
-            if (_gameTicker.RunLevel != GameRunLevel.PostRound) return;
+            if (_gameTicker.RunLevel != GameRunLevel.PostRound)
+                return;
             Reset();
             _gameTicker.RestartRound();
         }
@@ -344,19 +404,24 @@ namespace Content.Server.RoundEnd
             _cooldownTokenSource = new();
 
             // TODO full game saves
-            Timer.Spawn(DefaultCooldownDuration, () =>
-            {
-                _cooldownTokenSource.Cancel();
-                _cooldownTokenSource = null;
-                RaiseLocalEvent(RoundEndSystemChangedEvent.Default);
-            }, _cooldownTokenSource.Token);
+            Timer.Spawn(
+                DefaultCooldownDuration,
+                () =>
+                {
+                    _cooldownTokenSource.Cancel();
+                    _cooldownTokenSource = null;
+                    RaiseLocalEvent(RoundEndSystemChangedEvent.Default);
+                },
+                _cooldownTokenSource.Token
+            );
         }
 
         public override void Update(float frameTime)
         {
             // Check if we should auto-call.
-            int mins = _autoCalledBefore ? _cfg.GetCVar(CCVars.EmergencyShuttleAutoCallExtensionTime)
-                                        : _cfg.GetCVar(CCVars.EmergencyShuttleAutoCallTime);
+            int mins = _autoCalledBefore
+                ? _cfg.GetCVar(CCVars.EmergencyShuttleAutoCallExtensionTime)
+                : _cfg.GetCVar(CCVars.EmergencyShuttleAutoCallTime);
 
             // Mono: allow an active RoundEndTimeRule game rule to override the auto-call time.
             var roundEndTimeQuery = EntityQueryEnumerator<RoundEndTimeRuleComponent, ActiveGameRuleComponent>();
@@ -401,6 +466,6 @@ namespace Content.Server.RoundEnd
         /// <summary>
         /// Do nothing
         /// </summary>
-        Nothing
+        Nothing,
     }
 }

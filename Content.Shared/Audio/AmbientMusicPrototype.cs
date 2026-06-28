@@ -12,7 +12,8 @@ namespace Content.Shared.Audio;
 [Prototype]
 public sealed partial class AmbientMusicPrototype : IPrototype
 {
-    [IdDataField] public string ID { get; private set; } = string.Empty;
+    [IdDataField]
+    public string ID { get; private set; } = string.Empty;
 
     /// <summary>
     /// Traditionally you'd prioritise most rules to least as priority but in our case we'll just be explicit.
@@ -35,6 +36,9 @@ public sealed partial class AmbientMusicPrototype : IPrototype
     [ViewVariables(VVAccess.ReadWrite), DataField("sound", required: true)]
     public SoundSpecifier Sound = default!;
 
-    [ViewVariables(VVAccess.ReadWrite), DataField("rules", required: true, customTypeSerializer:typeof(PrototypeIdSerializer<RulesPrototype>))]
+    [
+        ViewVariables(VVAccess.ReadWrite),
+        DataField("rules", required: true, customTypeSerializer: typeof(PrototypeIdSerializer<RulesPrototype>))
+    ]
     public string Rules = string.Empty;
 }

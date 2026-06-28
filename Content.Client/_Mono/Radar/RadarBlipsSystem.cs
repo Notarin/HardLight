@@ -1,20 +1,31 @@
+using System.Linq;
 using System.Numerics;
 using Content.Shared._Mono.Radar;
 using Content.Shared.Shuttles.Components;
 using Robust.Shared.Map;
 using Robust.Shared.Timing;
-using System.Linq;
 
 namespace Content.Client._Mono.Radar;
 
 public sealed partial class RadarBlipsSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IMapManager _map = default!;
-    [Dependency] private readonly SharedTransformSystem _xform = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IMapManager _map = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _xform = default!;
 
     private const double BlipStaleSeconds = 3.0;
-    private static readonly List<(NetEntity? Grid, Vector2 Start, Vector2 End, float Thickness, Color Color)> EmptyHitscanList = new();
+    private static readonly List<(
+        NetEntity? Grid,
+        Vector2 Start,
+        Vector2 End,
+        float Thickness,
+        Color Color
+    )> EmptyHitscanList = new();
     private TimeSpan _lastRequestTime = TimeSpan.Zero;
     public static readonly TimeSpan RequestThrottle = TimeSpan.FromMilliseconds(225);
 
@@ -92,7 +103,10 @@ public sealed partial class RadarBlipsSystem : EntitySystem
             if (!coord.IsValid(EntityManager))
                 continue;
 
-            var predictedPos = new EntityCoordinates(coord.EntityId, coord.Position + blip.Vel * (float)(_timing.CurTime - _lastUpdatedTime).TotalSeconds);
+            var predictedPos = new EntityCoordinates(
+                coord.EntityId,
+                coord.Position + blip.Vel * (float)(_timing.CurTime - _lastUpdatedTime).TotalSeconds
+            );
 
             var predictedMap = _xform.ToMapCoordinates(predictedPos);
 
@@ -127,7 +141,9 @@ public sealed partial class RadarBlipsSystem : EntitySystem
     /// <summary>
     /// Gets the hitscan lines to be rendered on the radar
     /// </summary>
-    public List<(Vector2 Start, Vector2 End, float Thickness, Color Color)> GetWorldHitscanLines(IReadOnlyList<EntityUid>? sourceEntities = null)
+    public List<(Vector2 Start, Vector2 End, float Thickness, Color Color)> GetWorldHitscanLines(
+        IReadOnlyList<EntityUid>? sourceEntities = null
+    )
     {
         if (_timing.CurTime.TotalSeconds - _lastHitscanUpdatedTime.TotalSeconds > BlipStaleSeconds)
             return new List<(Vector2, Vector2, float, Color)>();
@@ -137,7 +153,8 @@ public sealed partial class RadarBlipsSystem : EntitySystem
 
         foreach (var hitscan in _hitscans)
         {
-            Vector2 worldStart, worldEnd;
+            Vector2 worldStart,
+                worldEnd;
 
             // If no grid, positions are already in world coordinates
             if (hitscan.Grid == null)
@@ -181,7 +198,9 @@ public sealed partial class RadarBlipsSystem : EntitySystem
     /// <summary>
     /// Gets the raw hitscan data which includes grid information for more accurate rendering.
     /// </summary>
-    public List<(NetEntity? Grid, Vector2 Start, Vector2 End, float Thickness, Color Color)> GetRawHitscanLines(IReadOnlyList<EntityUid>? sourceEntities = null)
+    public List<(NetEntity? Grid, Vector2 Start, Vector2 End, float Thickness, Color Color)> GetRawHitscanLines(
+        IReadOnlyList<EntityUid>? sourceEntities = null
+    )
     {
         if (_timing.CurTime.TotalSeconds - _lastHitscanUpdatedTime.TotalSeconds > BlipStaleSeconds)
             return EmptyHitscanList;
@@ -189,7 +208,9 @@ public sealed partial class RadarBlipsSystem : EntitySystem
         if (_hitscans.Count == 0)
             return EmptyHitscanList;
 
-        var filteredHitscans = new List<(NetEntity? Grid, Vector2 Start, Vector2 End, float Thickness, Color Color)>(_hitscans.Count);
+        var filteredHitscans = new List<(NetEntity? Grid, Vector2 Start, Vector2 End, float Thickness, Color Color)>(
+            _hitscans.Count
+        );
         var sourcePositions = GetRenderSourcePositions(sourceEntities);
 
         foreach (var hitscan in _hitscans)
@@ -274,8 +295,7 @@ public sealed partial class RadarBlipsSystem : EntitySystem
     }
 }
 
-public record struct BlipData
-(
+public record struct BlipData(
     NetEntity NetUid,
     EntityCoordinates Position,
     Angle Rotation,

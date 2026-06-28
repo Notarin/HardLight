@@ -23,10 +23,11 @@ public sealed partial class AlertsUI : UIWidget
         LayoutContainer.SetGrowHorizontal(this, LayoutContainer.GrowDirection.Begin);
     }
 
-    public void SyncControls(AlertsSystem alertsSystem,
+    public void SyncControls(
+        AlertsSystem alertsSystem,
         AlertOrderPrototype? alertOrderPrototype,
-        IReadOnlyDictionary<AlertKey,
-        AlertState> alertStates)
+        IReadOnlyDictionary<AlertKey, AlertState> alertStates
+    )
     {
         // remove any controls with keys no longer present
         if (SyncRemoveControls(alertStates))
@@ -72,15 +73,22 @@ public sealed partial class AlertsUI : UIWidget
         return false;
     }
 
-    private void SyncUpdateControls(AlertsSystem alertsSystem, AlertOrderPrototype? alertOrderPrototype,
-        IReadOnlyDictionary<AlertKey, AlertState> alertStates)
+    private void SyncUpdateControls(
+        AlertsSystem alertsSystem,
+        AlertOrderPrototype? alertOrderPrototype,
+        IReadOnlyDictionary<AlertKey, AlertState> alertStates
+    )
     {
         foreach (var (alertKey, alertState) in alertStates)
         {
             if (!alertKey.AlertType.HasValue)
             {
-                Logger.WarningS("alert", "found alertkey without alerttype," +
-                                         " alert keys should never be stored without an alerttype set: {0}", alertKey);
+                Logger.WarningS(
+                    "alert",
+                    "found alertkey without alerttype,"
+                        + " alert keys should never be stored without an alerttype set: {0}",
+                    alertKey
+                );
                 continue;
             }
 
@@ -91,8 +99,10 @@ public sealed partial class AlertsUI : UIWidget
                 continue;
             }
 
-            if (_alertControls.TryGetValue(newAlert.AlertKey, out var existingAlertControl) &&
-                existingAlertControl.Alert.ID == newAlert.ID)
+            if (
+                _alertControls.TryGetValue(newAlert.AlertKey, out var existingAlertControl)
+                && existingAlertControl.Alert.ID == newAlert.ID
+            )
             {
                 // key is the same, simply update the existing control severity / cooldown
                 existingAlertControl.SetSeverity(alertState.Severity);
@@ -114,7 +124,7 @@ public sealed partial class AlertsUI : UIWidget
                     var added = false;
                     foreach (var alertControl in AlertContainer.Children)
                     {
-                        if (alertOrderPrototype.Compare(newAlert, ((AlertControl) alertControl).Alert) >= 0)
+                        if (alertOrderPrototype.Compare(newAlert, ((AlertControl)alertControl).Alert) >= 0)
                             continue;
 
                         var idx = alertControl.GetPositionInParent();
@@ -143,10 +153,7 @@ public sealed partial class AlertsUI : UIWidget
         if (alertState.ShowCooldown)
             cooldown = alertState.Cooldown;
 
-        var alertControl = new AlertControl(alert, alertState.Severity)
-        {
-            Cooldown = cooldown
-        };
+        var alertControl = new AlertControl(alert, alertState.Severity) { Cooldown = cooldown };
         alertControl.OnPressed += AlertControlPressed;
         return alertControl;
     }

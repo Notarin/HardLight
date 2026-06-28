@@ -6138,4 +6138,3 @@ entities:
     - type: Transform
       pos: 1.5,33.5
       parent: 2
-...

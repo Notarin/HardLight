@@ -24,6 +24,4 @@ public sealed class LobbyPlaylistChangedEvent : EntityEventArgs
 /// Event of stopping lobby music.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class LobbyMusicStopEvent : EntityEventArgs
-{
-}
+public sealed class LobbyMusicStopEvent : EntityEventArgs { }

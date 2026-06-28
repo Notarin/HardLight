@@ -14,15 +14,18 @@ namespace Content.Client.Movement.Systems;
 /// </summary>
 public sealed class ScopeToggleSystem : EntitySystem
 {
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly SharedCombatModeSystem _combatMode = default!;
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly SharedCombatModeSystem _combatMode = default!;
 
     public override void Initialize()
     {
         base.Initialize();
 
-        CommandBinds.Builder
-            .Bind(EngineKeyFunctions.UseSecondary, new ScopeToggleHandler(this))
+        CommandBinds
+            .Builder.Bind(EngineKeyFunctions.UseSecondary, new ScopeToggleHandler(this))
             .Register<ScopeToggleSystem>();
     }
 
@@ -67,7 +70,11 @@ public sealed class ScopeToggleSystem : EntitySystem
             _sys = sys;
         }
 
-        public override bool HandleCmdMessage(IEntityManager entManager, ICommonSession? session, IFullInputCmdMessage message)
+        public override bool HandleCmdMessage(
+            IEntityManager entManager,
+            ICommonSession? session,
+            IFullInputCmdMessage message
+        )
         {
             if (message.State != BoundKeyState.Down)
                 return false;

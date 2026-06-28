@@ -1,52 +1,87 @@
 using System.Numerics;
+using Content.Server._NF.Bank;
+using Content.Server._NF.Salvage;
+using Content.Server._NF.Station.Systems;
+using Content.Server._NF.StationEvents.Components;
 using Content.Server.Cargo.Systems;
-using Robust.Server.GameObjects;
-using Robust.Shared.Map;
+using Content.Server.GameTicking;
+using Content.Server.Maps.NameGenerators;
+using Content.Server.Procedural;
 using Content.Server.Shuttles.Components;
 using Content.Server.Shuttles.Systems;
 using Content.Server.StationEvents.Components;
-using Content.Shared.GameTicking.Components;
-using Robust.Shared.Random;
-using Content.Server._NF.Salvage;
-using Content.Server._NF.Bank;
-using Content.Shared._NF.Bank.BUI;
-using Content.Server.GameTicking;
-using Content.Server.Procedural;
-using Robust.Shared.Prototypes;
-using Content.Shared.Salvage;
-using Content.Server.Maps.NameGenerators;
 using Content.Server.StationEvents.Events;
-using Content.Server._NF.Station.Systems;
-using Content.Server._NF.StationEvents.Components;
+using Content.Shared._NF.Bank.BUI;
+using Content.Shared.GameTicking.Components;
+using Content.Shared.Salvage;
+using Robust.Server.GameObjects;
 using Robust.Shared.EntitySerialization.Systems;
+using Robust.Shared.Map;
+using Robust.Shared.Prototypes;
+using Robust.Shared.Random;
 
 namespace Content.Server._NF.StationEvents.Events;
 
 public sealed class BluespaceErrorRule : StationEventSystem<BluespaceErrorRuleComponent>
 {
     NanotrasenNameGenerator _nameGenerator = new();
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly MapSystem _map = default!;
-    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
-    [Dependency] private readonly IPrototypeManager _protoManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly DungeonSystem _dungeon = default!;
-    [Dependency] private readonly MapLoaderSystem _loader = default!;
-    [Dependency] private readonly MetaDataSystem _metadata = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly ShuttleSystem _shuttle = default!;
-    [Dependency] private readonly PricingSystem _pricing = default!;
-    [Dependency] private readonly LinkedLifecycleGridSystem _linkedLifecycleGrid = default!;
-    [Dependency] private readonly StationRenameWarpsSystems _renameWarps = default!;
-    [Dependency] private readonly BankSystem _bank = default!;
-    [Dependency] private readonly SharedSalvageSystem _salvage = default!;
+
+    [Dependency]
+    private readonly IMapManager _mapManager = default!;
+
+    [Dependency]
+    private readonly MapSystem _map = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _mapSystem = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _protoManager = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly DungeonSystem _dungeon = default!;
+
+    [Dependency]
+    private readonly MapLoaderSystem _loader = default!;
+
+    [Dependency]
+    private readonly MetaDataSystem _metadata = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly ShuttleSystem _shuttle = default!;
+
+    [Dependency]
+    private readonly PricingSystem _pricing = default!;
+
+    [Dependency]
+    private readonly LinkedLifecycleGridSystem _linkedLifecycleGrid = default!;
+
+    [Dependency]
+    private readonly StationRenameWarpsSystems _renameWarps = default!;
+
+    [Dependency]
+    private readonly BankSystem _bank = default!;
+
+    [Dependency]
+    private readonly SharedSalvageSystem _salvage = default!;
 
     public override void Initialize()
     {
         base.Initialize();
     }
 
-    protected override void Started(EntityUid uid, BluespaceErrorRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
+    protected override void Started(
+        EntityUid uid,
+        BluespaceErrorRuleComponent component,
+        GameRuleComponent gameRule,
+        GameRuleStartedEvent args
+    )
     {
         base.Started(uid, component, gameRule, args);
 
@@ -68,7 +103,9 @@ public sealed class BluespaceErrorRule : StationEventSystem<BluespaceErrorRuleCo
 
                 if (group.MinimumDistance > 0f)
                 {
-                    spawnCoords = spawnCoords.WithPosition(_random.NextVector2(group.MinimumDistance, group.MaximumDistance));
+                    spawnCoords = spawnCoords.WithPosition(
+                        _random.NextVector2(group.MinimumDistance, group.MaximumDistance)
+                    );
                 }
 
                 switch (group)
@@ -90,7 +127,6 @@ public sealed class BluespaceErrorRule : StationEventSystem<BluespaceErrorRuleCo
                 if (group.NameLoc != null && group.NameLoc.Count > 0)
                 {
                     _metadata.SetEntityName(spawned, Loc.GetString(_random.Pick(group.NameLoc)));
-
                 }
                 else if (_protoManager.TryIndex(group.NameDataset, out var dataset))
                 {
@@ -127,7 +163,13 @@ public sealed class BluespaceErrorRule : StationEventSystem<BluespaceErrorRuleCo
         _map.DeleteMap(mapId);
     }
 
-    private bool TryDungeonSpawn(EntityCoordinates spawnCoords, BluespaceErrorRuleComponent component, ref BluespaceDungeonSpawnGroup group, int i, out EntityUid spawned)
+    private bool TryDungeonSpawn(
+        EntityCoordinates spawnCoords,
+        BluespaceErrorRuleComponent component,
+        ref BluespaceDungeonSpawnGroup group,
+        int i,
+        out EntityUid spawned
+    )
     {
         spawned = EntityUid.Invalid;
 
@@ -153,14 +195,29 @@ public sealed class BluespaceErrorRule : StationEventSystem<BluespaceErrorRuleCo
         var spawnedGrid = _mapManager.CreateGridEntity(mapId);
 
         _transform.SetMapCoordinates(spawnedGrid, new MapCoordinates(Vector2.Zero, mapId));
-        _dungeon.GenerateDungeon(dungeonProto, dungeonProtoId, spawnedGrid.Owner, spawnedGrid.Comp, Vector2i.Zero, _random.Next(), spawnCoords);
+        _dungeon.GenerateDungeon(
+            dungeonProto,
+            dungeonProtoId,
+            spawnedGrid.Owner,
+            spawnedGrid.Comp,
+            Vector2i.Zero,
+            _random.Next(),
+            spawnCoords
+        );
 
         spawned = spawnedGrid.Owner;
         component.MapsUid.Add(mapId);
         return true;
     }
 
-    private bool TryGridSpawn(EntityCoordinates spawnCoords, EntityUid stationUid, MapId mapId, ref BluespaceGridSpawnGroup group, int i, out EntityUid spawned)
+    private bool TryGridSpawn(
+        EntityCoordinates spawnCoords,
+        EntityUid stationUid,
+        MapId mapId,
+        ref BluespaceGridSpawnGroup group,
+        int i,
+        out EntityUid spawned
+    )
     {
         spawned = EntityUid.Invalid;
 
@@ -200,7 +257,12 @@ public sealed class BluespaceErrorRule : StationEventSystem<BluespaceErrorRuleCo
         return false;
     }
 
-    protected override void Ended(EntityUid uid, BluespaceErrorRuleComponent component, GameRuleComponent gameRule, GameRuleEndedEvent args)
+    protected override void Ended(
+        EntityUid uid,
+        BluespaceErrorRuleComponent component,
+        GameRuleComponent gameRule,
+        GameRuleEndedEvent args
+    )
     {
         base.Ended(uid, component, gameRule, args);
 
@@ -247,7 +309,10 @@ public sealed class BluespaceErrorRule : StationEventSystem<BluespaceErrorRuleCo
                 var playerMobs = _linkedLifecycleGrid.GetEntitiesToReparent(gridUid);
                 foreach (var mob in playerMobs)
                 {
-                    if (!TryComp<MetaDataComponent>(mob.EntityUid, out var meta) || meta.EntityLifeStage >= EntityLifeStage.Terminating)
+                    if (
+                        !TryComp<MetaDataComponent>(mob.EntityUid, out var meta)
+                        || meta.EntityLifeStage >= EntityLifeStage.Terminating
+                    )
                         continue;
 
                     if (!TryComp<TransformComponent>(mob.EntityUid, out var xform) || xform.MapID == MapId.Nullspace)
@@ -263,7 +328,10 @@ public sealed class BluespaceErrorRule : StationEventSystem<BluespaceErrorRuleCo
 
                 foreach (var mob in playerMobs)
                 {
-                    if (!TryComp<MetaDataComponent>(mob.EntityUid, out var meta) || meta.EntityLifeStage >= EntityLifeStage.Terminating)
+                    if (
+                        !TryComp<MetaDataComponent>(mob.EntityUid, out var meta)
+                        || meta.EntityLifeStage >= EntityLifeStage.Terminating
+                    )
                         continue;
 
                     if (!TryComp<TransformComponent>(mob.EntityUid, out var xform) || xform.MapID != MapId.Nullspace)

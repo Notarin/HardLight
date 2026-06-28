@@ -119,7 +119,7 @@
     ears: ClothingHeadsetGrey
     gloves: ClothingHandsGlovesFingerless
   inhand:
-    - WeaponMeleeToolboxRobust
+  - WeaponMeleeToolboxRobust
 
 # Aghost
 - type: startingGear

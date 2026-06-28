@@ -63,11 +63,11 @@
   - type: Sprite
     sprite: Objects/Specific/Medical/hypospray.rsi
     layers:
-      - state: hypo
-        map: ["enum.SolutionContainerLayers.Base"]
-      - state: hypo_fill1
-        map: ["enum.SolutionContainerLayers.Fill"]
-        visible: false
+    - state: hypo
+      map: ["enum.SolutionContainerLayers.Base"]
+    - state: hypo_fill1
+      map: ["enum.SolutionContainerLayers.Fill"]
+      visible: false
   - type: Item
     sprite: Objects/Specific/Medical/hypospray.rsi
   - type: SolutionContainerManager
@@ -105,11 +105,11 @@
   - type: Sprite
     sprite: Objects/Specific/Medical/syndihypo.rsi
     layers:
-      - state: hypo
-        map: ["enum.SolutionContainerLayers.Base"]
-      - state: hypo_fill1
-        map: ["enum.SolutionContainerLayers.Fill"]
-        visible: false
+    - state: hypo
+      map: ["enum.SolutionContainerLayers.Base"]
+    - state: hypo_fill1
+      map: ["enum.SolutionContainerLayers.Fill"]
+      visible: false
   - type: Item
     sprite: Objects/Specific/Medical/syndihypo.rsi
   - type: SolutionContainerManager
@@ -135,17 +135,17 @@
   parent: BaseItem
   description: A sterile injector for rapid administration of drugs to patients. A cheaper and more specialised version for medical borgs.
   id: BorgHypo
-  categories: [ HideSpawnMenu ] # Hardlight change
+  categories: [HideSpawnMenu] # Hardlight change
   components:
   # Frontier: fillable sprite
   - type: Sprite
     sprite: _NF/Objects/Specific/Medical/borghypo.rsi
     layers:
     - state: borghypo
-      map: [ enum.SolutionContainerLayers.Base ]
+      map: [enum.SolutionContainerLayers.Base]
     - state: fill-1
       visible: false
-      map: [ enum.SolutionContainerLayers.Fill ]
+      map: [enum.SolutionContainerLayers.Fill]
   - type: Appearance
   - type: SolutionContainerVisuals
     maxFillLevels: 7
@@ -213,7 +213,6 @@
   - type: Tag
     tags:
     - JetInjector
-
 
 - type: entity
   parent: JetInjector
@@ -680,7 +679,7 @@
     sprite: Objects/Specific/Medical/medipen.rsi
     layers:
     - state: hypovolemic
-      map: [ "enum.SolutionContainerLayers.Fill" ]
+      map: ["enum.SolutionContainerLayers.Fill"]
   - type: Appearance
   - type: SolutionContainerVisuals
     maxFillLevels: 1
@@ -696,10 +695,10 @@
       pen:
         maxVol: 30
         reagents:
-          - ReagentId: Leporazine
-            Quantity: 10
-          - ReagentId: Barozine
-            Quantity: 20
+        - ReagentId: Leporazine
+          Quantity: 10
+        - ReagentId: Barozine
+          Quantity: 20
   - type: Tag
     tags: [Medipen]
 
@@ -870,7 +869,7 @@
     hideValues: true # Frontier - stealthy
 
 - type: entity
-  parent: [ BaseItem, BaseC3SyndicateContraband ] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  parent: [BaseItem, BaseC3SyndicateContraband] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
   id: HypopenBox
   name: hypopen box
   description: A small box containing a hypopen. Packaging disintegrates when opened, leaving no evidence behind.
@@ -896,7 +895,7 @@
     sprite: Objects/Specific/Medical/medipen.rsi
     layers:
     - state: medipen
-      map: [ "enum.SolutionContainerLayers.Fill" ]
+      map: ["enum.SolutionContainerLayers.Fill"]
   - type: SolutionContainerVisuals
     maxFillLevels: 1
     changeColor: false

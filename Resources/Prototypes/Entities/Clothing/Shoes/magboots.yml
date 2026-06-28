@@ -9,7 +9,7 @@
     sprite: Clothing/Shoes/Boots/magboots.rsi
     layers:
     - state: icon
-      map: [ "enum.ToggleVisuals.Layer" ]
+      map: ["enum.ToggleVisuals.Layer"]
   - type: Clothing
     sprite: Clothing/Shoes/Boots/magboots.rsi
   - type: ToggleClothing

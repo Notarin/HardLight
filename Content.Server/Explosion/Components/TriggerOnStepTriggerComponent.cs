@@ -5,6 +5,4 @@
 /// Not done by default, since it's not useful for everything and might cause weird behavior. But it is useful for a lot of stuff like mousetraps.
 /// </summary>
 [RegisterComponent]
-public sealed partial class TriggerOnStepTriggerComponent : Component
-{
-}
+public sealed partial class TriggerOnStepTriggerComponent : Component { }

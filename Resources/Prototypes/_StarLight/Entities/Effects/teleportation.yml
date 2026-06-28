@@ -1,6 +1,6 @@
 - type: entity
   id: EffectTeleportation
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   name: teleportation
   components:
   - type: Transform
@@ -18,7 +18,7 @@
 
 - type: entity
   id: EffectTeleportationEntity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   name: teleportation
   components:
   - type: Physics
@@ -31,7 +31,7 @@
     color: "#FD009899"
   - type: TimedDespawn
     lifetime: 5.0
-    
+
 - type: entity
   id: CryoPortal
   name: cryogenic portal
@@ -49,8 +49,7 @@
   - type: Fixtures
     fixtures:
       portalFixture:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.25,-0.48,0.25,0.48"
         mask:
         - FullTileMask

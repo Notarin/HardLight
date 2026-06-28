@@ -81,14 +81,8 @@ public sealed partial class SprayPainterDecals : Control
             {
                 var panelContainer = new PanelContainer()
                 {
-                    PanelOverride = new StyleBoxFlat()
-                    {
-                        BackgroundColor = StyleNano.ButtonColorDefault,
-                    },
-                    Children =
-                    {
-                        button,
-                    },
+                    PanelOverride = new StyleBoxFlat() { BackgroundColor = StyleNano.ButtonColorDefault },
+                    Children = { button },
                 };
                 DecalsGrid.AddChild(panelContainer);
             }
@@ -120,12 +114,12 @@ public sealed partial class SprayPainterDecals : Control
                     button.Modulate = modulateColor;
                     break;
                 case PanelContainer panelContainer:
-                    {
-                        foreach (TextureButton textureButton in panelContainer.Children)
-                            textureButton.Modulate = modulateColor;
+                {
+                    foreach (TextureButton textureButton in panelContainer.Children)
+                        textureButton.Modulate = modulateColor;
 
-                        break;
-                    }
+                    break;
+                }
             }
         }
     }

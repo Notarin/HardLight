@@ -6,22 +6,22 @@
   components:
   - type: StorageFill
     contents:
-      - id: CrowbarRed
-      - id: RadioHandheldNF # Frontier: RadioHandheld<RadioHandheldNF
-      - id: WelderMini
-      - id: FireExtinguisherMini
-      # Random lighting item orGroup
-      - id: FlashlightLantern
-        orGroup: LightingItem
-      - id: Flare
-        orGroup: LightingItem
-      - id: GlowstickBase
-        orGroup: LightingItem
-      # Low-chance items
-      # - id: FoodSnackChocolate # Frontier
-      #  prob: 0.15 # Frontier
-      - id: HarmonicaInstrument
-        prob: 0.15
+    - id: CrowbarRed
+    - id: RadioHandheldNF # Frontier: RadioHandheld<RadioHandheldNF
+    - id: WelderMini
+    - id: FireExtinguisherMini
+    # Random lighting item orGroup
+    - id: FlashlightLantern
+      orGroup: LightingItem
+    - id: Flare
+      orGroup: LightingItem
+    - id: GlowstickBase
+      orGroup: LightingItem
+    # Low-chance items
+    # - id: FoodSnackChocolate # Frontier
+    #  prob: 0.15 # Frontier
+    - id: HarmonicaInstrument
+      prob: 0.15
 
 - type: entity
   id: ToolboxElectricalFilled
@@ -31,18 +31,18 @@
   components:
   - type: StorageFill
     contents:
-      - id: Screwdriver
-      - id: CrowbarOrange
-      - id: Wirecutter
-      - id: CableApcStack10
-      - id: CableMVStack10
-      - id: trayScanner
-        prob: 0.9
-      - id: ClothingHandsGlovesColorYellow
-        prob: 0.05
-        orGroup: GlovesOrWires
-      - id: CableHVStack10
-        orGroup: GlovesOrWires
+    - id: Screwdriver
+    - id: CrowbarOrange
+    - id: Wirecutter
+    - id: CableApcStack10
+    - id: CableMVStack10
+    - id: trayScanner
+      prob: 0.9
+    - id: ClothingHandsGlovesColorYellow
+      prob: 0.05
+      orGroup: GlovesOrWires
+    - id: CableHVStack10
+      orGroup: GlovesOrWires
 
 - type: entity
   id: ToolboxElectricalTurretFilled
@@ -52,18 +52,18 @@
   components:
   - type: StorageFill
     contents:
-      - id: Screwdriver
-      - id: CrowbarOrange
-      - id: Wirecutter
-      - id: CableApcStack10
-      - id: CableMVStack10
-      - id: trayScanner
-        prob: 0.9
-      - id: ClothingHandsGlovesColorYellow
-        prob: 0.05
-        orGroup: GlovesOrWires
-      - id: CableHVStack10
-        orGroup: GlovesOrWires
+    - id: Screwdriver
+    - id: CrowbarOrange
+    - id: Wirecutter
+    - id: CableApcStack10
+    - id: CableMVStack10
+    - id: trayScanner
+      prob: 0.9
+    - id: ClothingHandsGlovesColorYellow
+      prob: 0.05
+      orGroup: GlovesOrWires
+    - id: CableHVStack10
+      orGroup: GlovesOrWires
 
 - type: entity
   id: ToolboxArtisticFilled
@@ -94,16 +94,16 @@
   components:
   - type: StorageFill
     contents:
-      - id: CrowbarOrange
-      - id: Wrench
-      - id: Welder
-      - id: Wirecutter
-      - id: Screwdriver
-        prob: 0.5
-      - id: FlashlightLantern
-        prob: 0.7
-      - id: ClothingHeadHatHardhatBlue
-        prob: 0.5
+    - id: CrowbarOrange
+    - id: Wrench
+    - id: Welder
+    - id: Wirecutter
+    - id: Screwdriver
+      prob: 0.5
+    - id: FlashlightLantern
+      prob: 0.7
+    - id: ClothingHeadHatHardhatBlue
+      prob: 0.5
 
 - type: entity
   id: ToolboxMechanicalFilledAllTools
@@ -144,6 +144,6 @@
   components:
   - type: StorageFill
     contents:
-      - id: IngotGold
-      - id: DrinkGoldenCup
-        prob: 0.05
+    - id: IngotGold
+    - id: DrinkGoldenCup
+      prob: 0.05

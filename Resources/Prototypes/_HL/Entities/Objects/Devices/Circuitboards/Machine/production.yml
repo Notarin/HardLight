@@ -4,15 +4,15 @@
   name: nutrient paste dispenser machine board
   description: A machine printed circuit board for a nutrient paste dispenser.
   components:
-    - type: Sprite
-      state: service
-    - type: MachineBoard
-      prototype: SlopDispenser
-      requirements:
-        MatterBin: 1
-        Manipulator: 4
-      stackRequirements:
-        Glass: 1
+  - type: Sprite
+    state: service
+  - type: MachineBoard
+    prototype: SlopDispenser
+    requirements:
+      MatterBin: 1
+      Manipulator: 4
+    stackRequirements:
+      Glass: 1
 
 - type: entity
   parent: BaseMachineCircuitboard

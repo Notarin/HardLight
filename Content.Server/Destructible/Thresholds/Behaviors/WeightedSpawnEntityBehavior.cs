@@ -19,7 +19,10 @@ namespace Content.Server.Destructible.Thresholds.Behaviors;
 [DataDefinition]
 public sealed partial class WeightedSpawnEntityBehavior : IThresholdBehavior
 {
-    private static readonly EntProtoId TemporaryEntityForTimedDespawnSpawners = new("TemporaryEntityForTimedDespawnSpawners");
+    private static readonly EntProtoId TemporaryEntityForTimedDespawnSpawners = new(
+        "TemporaryEntityForTimedDespawnSpawners"
+    );
+
     /// <summary>
     /// A table of entities with assigned weights to randomly pick from
     /// </summary>
@@ -56,7 +59,8 @@ public sealed partial class WeightedSpawnEntityBehavior : IThresholdBehavior
         var transform = system.EntityManager.System<TransformSystem>();
         var position = transform.GetMapCoordinates(uid);
         // Helper function used to randomly get an offset to apply to the original position
-        Vector2 GetRandomVector() => new (system.Random.NextFloat(-SpawnOffset, SpawnOffset), system.Random.NextFloat(-SpawnOffset, SpawnOffset));
+        Vector2 GetRandomVector() =>
+            new(system.Random.NextFloat(-SpawnOffset, SpawnOffset), system.Random.NextFloat(-SpawnOffset, SpawnOffset));
         // Randomly pick the entity to spawn and randomly pick how many to spawn
         var entity = system.PrototypeManager.Index(WeightedEntityTable).Pick(system.Random);
         var amountToSpawn = system.Random.NextFloat(MinSpawn, MaxSpawn);
@@ -75,7 +79,9 @@ public sealed partial class WeightedSpawnEntityBehavior : IThresholdBehavior
                 system.EntityManager.EnsureComponent<TimedDespawnComponent>(spawner, out var timedDespawnComponent);
                 timedDespawnComponent.Lifetime = SpawnAfter;
                 system.EntityManager.EnsureComponent<SpawnOnDespawnComponent>(spawner, out var spawnOnDespawnComponent);
-                system.EntityManager.System<SpawnOnDespawnSystem>().SetPrototype((spawner, spawnOnDespawnComponent), entity);
+                system
+                    .EntityManager.System<SpawnOnDespawnSystem>()
+                    .SetPrototype((spawner, spawnOnDespawnComponent), entity);
             }
         }
         else

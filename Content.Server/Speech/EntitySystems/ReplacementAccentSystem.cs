@@ -14,9 +14,14 @@ namespace Content.Server.Speech.EntitySystems
     /// </summary>
     public sealed class ReplacementAccentSystem : EntitySystem
     {
-        [Dependency] private readonly IPrototypeManager _proto = default!;
-        [Dependency] private readonly IRobustRandom _random = default!;
-        [Dependency] private readonly ILocalizationManager _loc = default!;
+        [Dependency]
+        private readonly IPrototypeManager _proto = default!;
+
+        [Dependency]
+        private readonly IRobustRandom _random = default!;
+
+        [Dependency]
+        private readonly ILocalizationManager _loc = default!;
 
         // Cache compiled word-boundary regexes keyed by the resolved replacement word.
         // Building a new Regex per word per spoken message was a major hotspot in chat-heavy rounds.
@@ -58,7 +63,9 @@ namespace Content.Server.Speech.EntitySystems
             // ideally both aren't used at the same time (but we don't have a way to enforce that in serialization yet)
             if (prototype.FullReplacements != null)
             {
-                return prototype.FullReplacements.Length != 0 ? Loc.GetString(_random.Pick(prototype.FullReplacements)) : "";
+                return prototype.FullReplacements.Length != 0
+                    ? Loc.GetString(_random.Pick(prototype.FullReplacements))
+                    : "";
             }
 
             if (prototype.WordReplacements == null)

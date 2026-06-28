@@ -50,7 +50,7 @@
     - id: PillowStarbirst
     - id: PillowEdenpump
     - id: PillowHeadHumpper
-#    - id: PillowLunarAnimated
+      #    - id: PillowLunarAnimated
     - id: PillowPirate
     - id: PillowPrototypemechacat
     - id: PillowSalmon

@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using Content.Server.Database;
 using Content.Shared.Administration.Logs;
 using Content.Shared.Database;
@@ -20,11 +20,13 @@ public sealed partial class AdminLogManager
 
     private static readonly Gauge CacheRoundCount = Metrics.CreateGauge(
         "admin_logs_cache_round_count",
-        "How many rounds are in cache.");
+        "How many rounds are in cache."
+    );
 
     private static readonly Gauge CacheLogCount = Metrics.CreateGauge(
         "admin_logs_cache_log_count",
-        "How many logs are in cache.");
+        "How many logs are in cache."
+    );
 
     // TODO ADMIN LOGS cache previous {MaxRoundsCached} rounds on startup
     public void CacheNewRound()
@@ -107,8 +109,10 @@ public sealed partial class AdminLogManager
         {
             DateOrder.Ascending => query,
             DateOrder.Descending => query.Reverse(),
-            _ => throw new ArgumentOutOfRangeException(nameof(filter),
-                $"Unknown {nameof(DateOrder)} value {filter.DateOrder}")
+            _ => throw new ArgumentOutOfRangeException(
+                nameof(filter),
+                $"Unknown {nameof(DateOrder)} value {filter.DateOrder}"
+            ),
         };
 
         if (filter.Search != null)
@@ -141,15 +145,17 @@ public sealed partial class AdminLogManager
             if (filter.AnyPlayers != null)
             {
                 query = query.Where(log =>
-                    filter.AnyPlayers.Any(filterPlayer => log.Players.Contains(filterPlayer)) ||
-                    log.Players.Length == 0 && filter.IncludeNonPlayers);
+                    filter.AnyPlayers.Any(filterPlayer => log.Players.Contains(filterPlayer))
+                    || log.Players.Length == 0 && filter.IncludeNonPlayers
+                );
             }
 
             if (filter.AllPlayers != null)
             {
                 query = query.Where(log =>
-                    filter.AllPlayers.All(filterPlayer => log.Players.Contains(filterPlayer)) ||
-                    log.Players.Length == 0 && filter.IncludeNonPlayers);
+                    filter.AllPlayers.All(filterPlayer => log.Players.Contains(filterPlayer))
+                    || log.Players.Length == 0 && filter.IncludeNonPlayers
+                );
             }
         }
         else

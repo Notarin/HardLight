@@ -38,7 +38,8 @@ public sealed class MachineConstruction : InteractionTest
             (Beaker, 2),
             (Manipulator1, 2),
             (Bin1, 2),
-            (ProtolatheBoard, 1));
+            (ProtolatheBoard, 1)
+        );
     }
 
     [Test]
@@ -78,7 +79,6 @@ public sealed class MachineConstruction : InteractionTest
         await Interact(Screw);
         AssertPrototype(Protolathe);
 
-
         // Query now returns higher quality parts.
         foreach (var part in SConstruction.GetAllParts(SEntMan.GetEntity(Target!.Value)))
         {
@@ -86,4 +86,3 @@ public sealed class MachineConstruction : InteractionTest
         }
     }
 }
-

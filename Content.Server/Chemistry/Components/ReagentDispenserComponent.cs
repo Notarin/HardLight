@@ -1,12 +1,12 @@
-using Content.Shared.Whitelist;
-using Content.Shared.Containers.ItemSlots;
 using Content.Server.Chemistry.EntitySystems;
 using Content.Shared.Chemistry;
 using Content.Shared.Chemistry.Dispenser;
-using Robust.Shared.Audio;
-using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
-using Robust.Shared.Prototypes; // Frontier
 using Content.Shared.Construction.Prototypes; // Frontier
+using Content.Shared.Containers.ItemSlots;
+using Content.Shared.Whitelist;
+using Robust.Shared.Audio;
+using Robust.Shared.Prototypes; // Frontier
+using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 
 namespace Content.Server.Chemistry.Components
 {
@@ -22,7 +22,7 @@ namespace Content.Server.Chemistry.Components
         /// fill is added to the dispenser on MapInit. Note that we don't use ContainerFill because
         /// we have to generate the storage slots at MapInit first, then fill them.
         /// </summary>
-        [DataField("pack", customTypeSerializer:typeof(PrototypeIdSerializer<ReagentDispenserInventoryPrototype>))]
+        [DataField("pack", customTypeSerializer: typeof(PrototypeIdSerializer<ReagentDispenserInventoryPrototype>))]
         [ViewVariables(VVAccess.ReadWrite)]
         public string? PackPrototypeId = default!;
 

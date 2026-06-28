@@ -11,7 +11,8 @@ namespace Content.Server.Explosion.EntitySystems;
 
 public sealed partial class ExplosionSystem
 {
-    [Dependency] private readonly DestructibleSystem _destructibleSystem = default!;
+    [Dependency]
+    private readonly DestructibleSystem _destructibleSystem = default!;
 
     private readonly Dictionary<string, int> _explosionTypes = new();
 
@@ -42,7 +43,12 @@ public sealed partial class ExplosionSystem
     // indices to this tile-data struct.
     private Dictionary<EntityUid, Dictionary<Vector2i, TileData>> _airtightMap = new();
 
-    public void UpdateAirtightMap(EntityUid gridId, Vector2i tile, MapGridComponent? grid = null, EntityQuery<AirtightComponent>? query = null)
+    public void UpdateAirtightMap(
+        EntityUid gridId,
+        Vector2i tile,
+        MapGridComponent? grid = null,
+        EntityQuery<AirtightComponent>? query = null
+    )
     {
         if (Resolve(gridId, ref grid, false))
             UpdateAirtightMap(gridId, grid, tile, query);
@@ -58,7 +64,12 @@ public sealed partial class ExplosionSystem
     ///     something like a normal and a reinforced windoor on the same tile. But given that this is a pretty rare
     ///     occurrence, I am fine with this.
     /// </remarks>
-    public void UpdateAirtightMap(EntityUid gridId, MapGridComponent grid, Vector2i tile, EntityQuery<AirtightComponent>? query = null)
+    public void UpdateAirtightMap(
+        EntityUid gridId,
+        MapGridComponent grid,
+        Vector2i tile,
+        EntityQuery<AirtightComponent>? query = null
+    )
     {
         var tolerance = new float[_explosionTypes.Count];
         var blockedDirections = AtmosDirection.Invalid;
@@ -105,7 +116,11 @@ public sealed partial class ExplosionSystem
         if (!TryComp<MapGridComponent>(transform.GridUid, out var grid))
             return;
 
-        UpdateAirtightMap(transform.GridUid.Value, grid, _mapSystem.CoordinatesToTile(transform.GridUid.Value, grid, transform.Coordinates));
+        UpdateAirtightMap(
+            transform.GridUid.Value,
+            grid,
+            _mapSystem.CoordinatesToTile(transform.GridUid.Value, grid, transform.Coordinates)
+        );
     }
 
     /// <summary>
@@ -114,7 +129,8 @@ public sealed partial class ExplosionSystem
     public float[] GetExplosionTolerance(
         EntityUid uid,
         EntityQuery<DamageableComponent> damageQuery,
-        EntityQuery<DestructibleComponent> destructibleQuery)
+        EntityQuery<DestructibleComponent> destructibleQuery
+    )
     {
         // How much total damage is needed to destroy this entity? This also includes "break" behaviors. This ASSUMES
         // that this will result in a non-airtight entity.Entities that ONLY break via construction graph node changes
@@ -157,9 +173,10 @@ public sealed partial class ExplosionSystem
                 damagePerIntensity += value * Math.Max(0, ev.DamageCoefficient);
             }
 
-            explosionTolerance[index] = damagePerIntensity > 0
-                ? (float) ((totalDamageTarget - damageable.TotalDamage) / damagePerIntensity)
-                : float.MaxValue;
+            explosionTolerance[index] =
+                damagePerIntensity > 0
+                    ? (float)((totalDamageTarget - damageable.TotalDamage) / damagePerIntensity)
+                    : float.MaxValue;
         }
 
         return explosionTolerance;

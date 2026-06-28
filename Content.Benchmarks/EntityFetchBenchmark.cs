@@ -10,7 +10,8 @@ namespace Content.Benchmarks
     [Virtual]
     public class EntityFetchBenchmark
     {
-        [Params(1000)] public int N { get; set; }
+        [Params(1000)]
+        public int N { get; set; }
 
         public int M { get; set; } = 10;
 
@@ -244,7 +245,6 @@ namespace Content.Benchmarks
                 _availableSlots.Add(e.Uid.Index);
             }
         }
-
 
         private readonly struct DictEntityUid : IEquatable<DictEntityUid>
         {

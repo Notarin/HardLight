@@ -51,7 +51,9 @@ public sealed partial class SprayPainterGroup : BoxContainer
         protoView.SetPrototype(spriteListData.Prototype);
         var label = new Label()
         {
-            Text = Loc.GetString($"spray-painter-style-{spriteListData.Group.ToLower()}-{spriteListData.Style.ToLower()}")
+            Text = Loc.GetString(
+                $"spray-painter-style-{spriteListData.Group.ToLower()}-{spriteListData.Style.ToLower()}"
+            ),
         };
 
         box.AddChild(protoView);

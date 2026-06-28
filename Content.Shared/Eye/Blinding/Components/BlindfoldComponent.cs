@@ -7,6 +7,4 @@ namespace Content.Shared.Eye.Blinding.Components;
 /// </summary>
 [RegisterComponent]
 [NetworkedComponent]
-public sealed partial class BlindfoldComponent : Component
-{
-}
+public sealed partial class BlindfoldComponent : Component { }

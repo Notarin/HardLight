@@ -40,7 +40,8 @@ namespace Content.Server.Administration
         ImmutableTypedHwid? LastHWId,
         string Username,
         ImmutableArray<byte>? LastLegacyHWId,
-        ImmutableArray<ImmutableArray<byte>> LastModernHWIds);
+        ImmutableArray<ImmutableArray<byte>> LastModernHWIds
+    );
 
     /// <summary>
     ///     Utilities for finding user IDs that extend to more than the server database.
@@ -72,10 +73,17 @@ namespace Content.Server.Administration
 
     internal sealed class PlayerLocator : IPlayerLocator, IDisposable, IPostInjectInit
     {
-        [Dependency] private readonly IPlayerManager _playerManager = default!;
-        [Dependency] private readonly IConfigurationManager _configurationManager = default!;
-        [Dependency] private readonly IServerDbManager _db = default!;
-        [Dependency] private readonly ILogManager _logManager = default!;
+        [Dependency]
+        private readonly IPlayerManager _playerManager = default!;
+
+        [Dependency]
+        private readonly IConfigurationManager _configurationManager = default!;
+
+        [Dependency]
+        private readonly IServerDbManager _db = default!;
+
+        [Dependency]
+        private readonly ILogManager _logManager = default!;
 
         private readonly HttpClient _httpClient = new();
         private ISawmill _sawmill = default!;
@@ -85,7 +93,8 @@ namespace Content.Server.Administration
             if (typeof(PlayerLocator).Assembly.GetName().Version is { } version)
             {
                 _httpClient.DefaultRequestHeaders.UserAgent.Add(
-                    new ProductInfoHeaderValue("SpaceStation14", version.ToString()));
+                    new ProductInfoHeaderValue("SpaceStation14", version.ToString())
+                );
             }
         }
 
@@ -127,7 +136,10 @@ namespace Content.Server.Administration
             return await HandleAuthServerResponse(resp, cancel);
         }
 
-        private async Task<LocatedPlayerData?> HandleAuthServerResponse(HttpResponseMessage resp, CancellationToken cancel)
+        private async Task<LocatedPlayerData?> HandleAuthServerResponse(
+            HttpResponseMessage resp,
+            CancellationToken cancel
+        )
         {
             if (resp.StatusCode == HttpStatusCode.NotFound)
                 return null;
@@ -145,7 +157,14 @@ namespace Content.Server.Administration
                 return null;
             }
 
-            return new LocatedPlayerData(new NetUserId(responseData.UserId), null, null, responseData.UserName, null, []);
+            return new LocatedPlayerData(
+                new NetUserId(responseData.UserId),
+                null,
+                null,
+                responseData.UserName,
+                null,
+                []
+            );
         }
 
         private static LocatedPlayerData ReturnForSession(ICommonSession session)
@@ -159,7 +178,8 @@ namespace Content.Server.Administration
                 hwId,
                 session.Name,
                 session.Channel.UserData.HWId,
-                session.Channel.UserData.ModernHWIds);
+                session.Channel.UserData.ModernHWIds
+            );
         }
 
         private static LocatedPlayerData ReturnForPlayerRecord(PlayerRecord record)
@@ -172,10 +192,14 @@ namespace Content.Server.Administration
                 hwid,
                 record.LastSeenUserName,
                 hwid is { Type: HwidType.Legacy } ? hwid.Hwid : null,
-                hwid is { Type: HwidType.Modern } ? [hwid.Hwid] : []);
+                hwid is { Type: HwidType.Modern } ? [hwid.Hwid] : []
+            );
         }
 
-        public async Task<LocatedPlayerData?> LookupIdByNameOrIdAsync(string playerName, CancellationToken cancel = default)
+        public async Task<LocatedPlayerData?> LookupIdByNameOrIdAsync(
+            string playerName,
+            CancellationToken cancel = default
+        )
         {
             if (Guid.TryParse(playerName, out var guid))
             {
@@ -188,9 +212,7 @@ namespace Content.Server.Administration
         }
 
         [UsedImplicitly]
-        private sealed record UserDataResponse(string UserName, Guid UserId)
-        {
-        }
+        private sealed record UserDataResponse(string UserName, Guid UserId) { }
 
         void IDisposable.Dispose()
         {

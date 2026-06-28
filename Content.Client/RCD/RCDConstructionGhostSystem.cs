@@ -12,9 +12,14 @@ namespace Content.Client.RCD;
 
 public sealed class RCDConstructionGhostSystem : EntitySystem
 {
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IPlacementManager _placementManager = default!;
-    [Dependency] private readonly IPrototypeManager _protoManager = default!;
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly IPlacementManager _placementManager = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _protoManager = default!;
 
     private string _placementMode = typeof(AlignRCDConstruction).Name;
     private Direction _placementDirection = default;
@@ -54,7 +59,9 @@ public sealed class RCDConstructionGhostSystem : EntitySystem
         if (_placementDirection != _placementManager.Direction)
         {
             _placementDirection = _placementManager.Direction;
-            RaiseNetworkEvent(new RCDConstructionGhostRotationEvent(GetNetEntity(heldEntity.Value), _placementDirection));
+            RaiseNetworkEvent(
+                new RCDConstructionGhostRotationEvent(GetNetEntity(heldEntity.Value), _placementDirection)
+            );
         }
 
         // If the placer has not changed, exit
@@ -67,7 +74,7 @@ public sealed class RCDConstructionGhostSystem : EntitySystem
             MobUid = heldEntity.Value,
             PlacementOption = _placementMode,
             EntityType = prototype.Prototype,
-            Range = (int) Math.Ceiling(SharedInteractionSystem.InteractionRange),
+            Range = (int)Math.Ceiling(SharedInteractionSystem.InteractionRange),
             IsTile = (prototype.Mode == RcdMode.ConstructTile),
             UseEditorContext = false,
         };

@@ -8,7 +8,8 @@ namespace Content.Server.Atmos.Commands
     [AdminCommand(AdminFlags.Debug)]
     public sealed class ListGasesCommand : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _e = default!;
+        [Dependency]
+        private readonly IEntityManager _e = default!;
 
         public string Command => "listgases";
         public string Description => "Prints a list of gases and their indices.";
@@ -25,5 +26,4 @@ namespace Content.Server.Atmos.Commands
             }
         }
     }
-
 }

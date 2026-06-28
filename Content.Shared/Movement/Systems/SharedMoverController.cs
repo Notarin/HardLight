@@ -11,6 +11,7 @@ using Content.Shared.Maps;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Movement.Components;
 using Content.Shared.Movement.Events;
+using Content.Shared.StepTrigger.Components; // Delta V-NoShoesSilentFootstepsComponent
 using Content.Shared.Tag;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
@@ -27,7 +28,6 @@ using Robust.Shared.Serialization.Manager.Exceptions;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 using PullableComponent = Content.Shared.Movement.Pulling.Components.PullableComponent;
-using Content.Shared.StepTrigger.Components; // Delta V-NoShoesSilentFootstepsComponent
 
 namespace Content.Shared.Movement.Systems;
 
@@ -37,19 +37,44 @@ namespace Content.Shared.Movement.Systems;
 /// </summary>
 public abstract partial class SharedMoverController : VirtualController
 {
-    [Dependency] private   readonly IConfigurationManager _configManager = default!;
-    [Dependency] protected readonly IGameTiming Timing = default!;
-    [Dependency] private   readonly ITileDefinitionManager _tileDefinitionManager = default!;
-    [Dependency] private   readonly ActionBlockerSystem _blocker = default!;
-    [Dependency] private   readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private   readonly InventorySystem _inventory = default!;
-    [Dependency] private   readonly MobStateSystem _mobState = default!;
-    [Dependency] private   readonly SharedAudioSystem _audio = default!;
-    [Dependency] private   readonly SharedContainerSystem _container = default!;
-    [Dependency] private   readonly SharedMapSystem _mapSystem = default!;
-    [Dependency] private   readonly SharedGravitySystem _gravity = default!;
-    [Dependency] private   readonly SharedTransformSystem _transform = default!;
-    [Dependency] private   readonly TagSystem _tags = default!;
+    [Dependency]
+    private readonly IConfigurationManager _configManager = default!;
+
+    [Dependency]
+    protected readonly IGameTiming Timing = default!;
+
+    [Dependency]
+    private readonly ITileDefinitionManager _tileDefinitionManager = default!;
+
+    [Dependency]
+    private readonly ActionBlockerSystem _blocker = default!;
+
+    [Dependency]
+    private readonly EntityLookupSystem _lookup = default!;
+
+    [Dependency]
+    private readonly InventorySystem _inventory = default!;
+
+    [Dependency]
+    private readonly MobStateSystem _mobState = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _mapSystem = default!;
+
+    [Dependency]
+    private readonly SharedGravitySystem _gravity = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly TagSystem _tags = default!;
 
     protected EntityQuery<InputMoverComponent> MoverQuery;
     protected EntityQuery<MobMoverComponent> MobMoverQuery;
@@ -93,7 +118,7 @@ public abstract partial class SharedMoverController : VirtualController
         CanMoveInAirQuery = GetEntityQuery<CanMoveInAirComponent>();
         FootstepModifierQuery = GetEntityQuery<FootstepModifierComponent>();
         MapGridQuery = GetEntityQuery<MapGridComponent>();
-    NoShoesSilentQuery = GetEntityQuery<NoShoesSilentFootstepsComponent>();
+        NoShoesSilentQuery = GetEntityQuery<NoShoesSilentFootstepsComponent>();
 
         SubscribeLocalEvent<MovementSpeedModifierComponent, TileFrictionEvent>(OnTileFriction);
 
@@ -129,9 +154,11 @@ public abstract partial class SharedMoverController : VirtualController
 
         var canMove = true;
 
-        if (_mobState.IsIncapacitated(relayTarget.Source) ||
-            TryComp<SleepingComponent>(relayTarget.Source, out _) ||
-            !MoverQuery.TryGetComponent(relayTarget.Source, out var relayedMover))
+        if (
+            _mobState.IsIncapacitated(relayTarget.Source)
+            || TryComp<SleepingComponent>(relayTarget.Source, out _)
+            || !MoverQuery.TryGetComponent(relayTarget.Source, out var relayedMover)
+        )
         {
             canMove = false;
         }
@@ -144,14 +171,13 @@ public abstract partial class SharedMoverController : VirtualController
 
         mover.CanMove = canMove;
     }
+
     // End Upstream - #34016
 
     /// <summary>
     ///     Movement while considering actionblockers, weightlessness, etc.
     /// </summary>
-    protected void HandleMobMovement(
-        Entity<InputMoverComponent> entity,
-        float frameTime)
+    protected void HandleMobMovement(Entity<InputMoverComponent> entity, float frameTime)
     {
         var uid = entity.Owner;
         var mover = entity.Comp;
@@ -217,9 +243,11 @@ public abstract partial class SharedMoverController : VirtualController
         }
 
         // If we can't move then just use tile-friction / no movement handling.
-        if (!mover.CanMove
+        if (
+            !mover.CanMove
             || !PhysicsQuery.TryComp(uid, out var physicsComponent)
-            || PullableQuery.TryGetComponent(uid, out var pullable) && pullable.BeingPulled)
+            || PullableQuery.TryGetComponent(uid, out var pullable) && pullable.BeingPulled
+        )
         {
             UsedMobMovement[uid] = false;
             return;
@@ -257,8 +285,10 @@ public abstract partial class SharedMoverController : VirtualController
         if (weightless || inAirHelpless)
         {
             // Find the speed we should be moving at and make sure we're not trying to move faster than that
-            var walkSpeed = moveSpeedComponent?.WeightlessWalkSpeed ?? MovementSpeedModifierComponent.DefaultBaseWalkSpeed;
-            var sprintSpeed = moveSpeedComponent?.WeightlessSprintSpeed ?? MovementSpeedModifierComponent.DefaultBaseSprintSpeed;
+            var walkSpeed =
+                moveSpeedComponent?.WeightlessWalkSpeed ?? MovementSpeedModifierComponent.DefaultBaseWalkSpeed;
+            var sprintSpeed =
+                moveSpeedComponent?.WeightlessSprintSpeed ?? MovementSpeedModifierComponent.DefaultBaseSprintSpeed;
 
             wishDir = AssertValidWish(mover, walkSpeed, sprintSpeed);
 
@@ -286,17 +316,22 @@ public abstract partial class SharedMoverController : VirtualController
                 friction = moveSpeedComponent?.OffGridFriction ?? _offGridDamping;
             }
 
-            accel = moveSpeedComponent?.WeightlessAcceleration ?? MovementSpeedModifierComponent.DefaultWeightlessAcceleration;
+            accel =
+                moveSpeedComponent?.WeightlessAcceleration
+                ?? MovementSpeedModifierComponent.DefaultWeightlessAcceleration;
         }
         else
         {
-            if (MapGridQuery.TryComp(xform.GridUid, out var gridComp)
+            if (
+                MapGridQuery.TryComp(xform.GridUid, out var gridComp)
                 && _mapSystem.TryGetTileRef(xform.GridUid.Value, gridComp, xform.Coordinates, out var tile)
-                && physicsComponent.BodyStatus == BodyStatus.OnGround)
-                tileDef = (ContentTileDefinition) _tileDefinitionManager[tile.Tile.TypeId];
+                && physicsComponent.BodyStatus == BodyStatus.OnGround
+            )
+                tileDef = (ContentTileDefinition)_tileDefinitionManager[tile.Tile.TypeId];
 
             var walkSpeed = moveSpeedComponent?.CurrentWalkSpeed ?? MovementSpeedModifierComponent.DefaultBaseWalkSpeed;
-            var sprintSpeed = moveSpeedComponent?.CurrentSprintSpeed ?? MovementSpeedModifierComponent.DefaultBaseSprintSpeed;
+            var sprintSpeed =
+                moveSpeedComponent?.CurrentSprintSpeed ?? MovementSpeedModifierComponent.DefaultBaseSprintSpeed;
 
             wishDir = AssertValidWish(mover, walkSpeed, sprintSpeed);
 
@@ -320,7 +355,8 @@ public abstract partial class SharedMoverController : VirtualController
         if (wishDir != Vector2.Zero)
             friction = Math.Min(friction, accel);
         friction = Math.Max(friction, _minDamping);
-        var minimumFrictionSpeed = moveSpeedComponent?.MinimumFrictionSpeed ?? MovementSpeedModifierComponent.DefaultMinimumFrictionSpeed;
+        var minimumFrictionSpeed =
+            moveSpeedComponent?.MinimumFrictionSpeed ?? MovementSpeedModifierComponent.DefaultMinimumFrictionSpeed;
         Friction(minimumFrictionSpeed, frameTime, friction, ref velocity);
 
         if (!weightless || touching)
@@ -360,13 +396,16 @@ public abstract partial class SharedMoverController : VirtualController
                 _transform.SetLocalRotation(uid, xform.LocalRotation + wishDir.ToWorldAngle() - worldRot, xform);
             }
 
-            if (!weightless && MobMoverQuery.TryGetComponent(uid, out var mobMover) &&
-                TryGetSound(weightless, uid, mover, mobMover, xform, out var sound, tileDef: tileDef))
+            if (
+                !weightless
+                && MobMoverQuery.TryGetComponent(uid, out var mobMover)
+                && TryGetSound(weightless, uid, mover, mobMover, xform, out var sound, tileDef: tileDef)
+            )
             {
                 var soundModifier = mover.Sprinting ? 3.5f : 1.5f;
 
-                var audioParams = sound.Params
-                    .WithVolume(sound.Params.Volume + soundModifier)
+                var audioParams = sound
+                    .Params.WithVolume(sound.Params.Volume + soundModifier)
                     .WithVariation(sound.Params.Variation ?? mobMover.FootstepVariation);
 
                 // If we're a relay target then predict the sound for all relays.
@@ -440,7 +479,6 @@ public abstract partial class SharedMoverController : VirtualController
         // This equation is lifted from the Physics Island solver.
         // We re-use it here because Kinematic Controllers can't/shouldn't use the Physics Friction
         velocity *= Math.Clamp(1.0f - frameTime * friction, 0.0f, 1.0f);
-
     }
 
     public void Friction(float minimumFrictionSpeed, float frameTime, float friction, ref float velocity)
@@ -451,7 +489,6 @@ public abstract partial class SharedMoverController : VirtualController
         // This equation is lifted from the Physics Island solver.
         // We re-use it here because Kinematic Controllers can't/shouldn't use the Physics Friction
         velocity *= Math.Clamp(1.0f - frameTime * friction, 0.0f, 1.0f);
-
     }
 
     /// <summary>
@@ -482,7 +519,13 @@ public abstract partial class SharedMoverController : VirtualController
     /// <summary>
     ///     Used for weightlessness to determine if we are near a wall.
     /// </summary>
-    private bool IsAroundCollider(SharedPhysicsSystem broadPhaseSystem, TransformComponent transform, MobMoverComponent mover, EntityUid physicsUid, PhysicsComponent collider)
+    private bool IsAroundCollider(
+        SharedPhysicsSystem broadPhaseSystem,
+        TransformComponent transform,
+        MobMoverComponent mover,
+        EntityUid physicsUid,
+        PhysicsComponent collider
+    )
     {
         var enlargedAABB = _lookup.GetWorldAABB(physicsUid, transform).Enlarged(mover.GrabRangeVV);
 
@@ -492,11 +535,15 @@ public abstract partial class SharedMoverController : VirtualController
                 continue; // Don't try to push off of yourself!
 
             // Only allow pushing off of anchored things that have collision.
-            if (otherCollider.BodyType != BodyType.Static ||
-                !otherCollider.CanCollide ||
-                ((collider.CollisionMask & otherCollider.CollisionLayer) == 0 &&
-                (otherCollider.CollisionMask & collider.CollisionLayer) == 0) ||
-                (TryComp(otherCollider.Owner, out PullableComponent? pullable) && pullable.BeingPulled))
+            if (
+                otherCollider.BodyType != BodyType.Static
+                || !otherCollider.CanCollide
+                || (
+                    (collider.CollisionMask & otherCollider.CollisionLayer) == 0
+                    && (otherCollider.CollisionMask & collider.CollisionLayer) == 0
+                )
+                || (TryComp(otherCollider.Owner, out PullableComponent? pullable) && pullable.BeingPulled)
+            )
             {
                 continue;
             }
@@ -516,7 +563,8 @@ public abstract partial class SharedMoverController : VirtualController
         MobMoverComponent mobMover,
         TransformComponent xform,
         [NotNullWhen(true)] out SoundSpecifier? sound,
-        ContentTileDefinition? tileDef = null)
+        ContentTileDefinition? tileDef = null
+    )
     {
         sound = null;
 
@@ -532,8 +580,10 @@ public abstract partial class SharedMoverController : VirtualController
         if (!weightless)
         {
             // Can happen when teleporting between grids.
-            if (!coordinates.TryDistance(EntityManager, mobMover.LastPosition, out var distance) ||
-                distance > distanceNeeded)
+            if (
+                !coordinates.TryDistance(EntityManager, mobMover.LastPosition, out var distance)
+                || distance > distanceNeeded
+            )
             {
                 mobMover.StepSoundDistance = distanceNeeded;
             }
@@ -558,8 +608,10 @@ public abstract partial class SharedMoverController : VirtualController
         // Frontier: check outer clothes
         // If you have a hardsuit or power armor on that goes around your boots, it's the hardsuit that hits the floor.
         // Check should happen before NoShoesSilentFootsteps check - loud power armor should count as wearing shoes.
-        if (_inventory.TryGetSlotEntity(uid, "outerClothing", out var outerClothing) &&
-            FootstepModifierQuery.TryComp(outerClothing, out var outerModifier))
+        if (
+            _inventory.TryGetSlotEntity(uid, "outerClothing", out var outerClothing)
+            && FootstepModifierQuery.TryComp(outerClothing, out var outerModifier)
+        )
         {
             sound = outerModifier.FootstepSoundCollection;
             return sound != null;
@@ -567,8 +619,7 @@ public abstract partial class SharedMoverController : VirtualController
         // End Frontier
 
         // DeltaV - Don't play the sound if they have no shoes and the component
-        if (NoShoesSilentQuery.HasComp(uid) &&
-            !_inventory.TryGetSlotEntity(uid, "shoes", out _))
+        if (NoShoesSilentQuery.HasComp(uid) && !_inventory.TryGetSlotEntity(uid, "shoes", out _))
         {
             return false;
         }
@@ -580,8 +631,10 @@ public abstract partial class SharedMoverController : VirtualController
             return sound != null;
         }
 
-        if (_inventory.TryGetSlotEntity(uid, "shoes", out var shoes) &&
-            FootstepModifierQuery.TryComp(shoes, out var modifier))
+        if (
+            _inventory.TryGetSlotEntity(uid, "shoes", out var shoes)
+            && FootstepModifierQuery.TryComp(shoes, out var modifier)
+        )
         {
             sound = modifier.FootstepSoundCollection;
             return sound != null;
@@ -595,7 +648,8 @@ public abstract partial class SharedMoverController : VirtualController
         TransformComponent xform,
         bool haveShoes,
         [NotNullWhen(true)] out SoundSpecifier? sound,
-        ContentTileDefinition? tileDef = null)
+        ContentTileDefinition? tileDef = null
+    )
     {
         sound = null;
 
@@ -627,8 +681,10 @@ public abstract partial class SharedMoverController : VirtualController
                 return true;
             }
 
-            if (_inventory.TryGetSlotEntity(uid, "shoes", out var shoes) &&
-                FootstepModifierQuery.TryComp(maybeFootstep, out var footstep))
+            if (
+                _inventory.TryGetSlotEntity(uid, "shoes", out var shoes)
+                && FootstepModifierQuery.TryComp(maybeFootstep, out var footstep)
+            )
             {
                 sound = footstep.FootstepSoundCollection;
                 return sound != null;
@@ -640,7 +696,7 @@ public abstract partial class SharedMoverController : VirtualController
         // if we have it
         if (tileDef == null && grid.TryGetTileRef(position, out var tileRef))
         {
-            tileDef = (ContentTileDefinition) _tileDefinitionManager[tileRef.Tile.TypeId];
+            tileDef = (ContentTileDefinition)_tileDefinitionManager[tileRef.Tile.TypeId];
         }
 
         if (tileDef == null)

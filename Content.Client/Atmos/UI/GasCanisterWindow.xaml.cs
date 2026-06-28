@@ -66,7 +66,10 @@ namespace Content.Client.Atmos.UI
 
         public void SetCanisterPressure(float pressure)
         {
-            CanisterPressureLabel.Text = Loc.GetString("comp-gas-canister-ui-pressure", ("pressure", Math.Round(pressure)));
+            CanisterPressureLabel.Text = Loc.GetString(
+                "comp-gas-canister-ui-pressure",
+                ("pressure", Math.Round(pressure))
+            );
         }
 
         public void SetPortStatus(bool status)
@@ -110,7 +113,7 @@ namespace Content.Client.Atmos.UI
             if (MathHelper.CloseTo(pressure, ReleasePressure.Value))
                 return;
 
-            if(!ReleasePressureSlider.Grabbed)
+            if (!ReleasePressureSlider.Grabbed)
                 ReleasePressureSlider.SetValueWithoutEvent(pressure);
             ReleasePressure.Value = pressure;
         }

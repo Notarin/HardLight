@@ -5,9 +5,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Arachnid, Reptilian, Diona, Oni, Felinid, Vulpkanin, Harpy, Gingerbread, Arachne, Tajaran, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#303030"
+      type: !type:SimpleColoring
+        color: "#303030"
   sprites:
   - sprite: Mobs/Customization/earrings.rsi
     state: stud_l
@@ -19,9 +18,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Arachnid, Reptilian, Diona, Oni, Felinid, Vulpkanin, Harpy, Gingerbread, Arachne, Tajaran, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#303030"
+      type: !type:SimpleColoring
+        color: "#303030"
   sprites:
   - sprite: Mobs/Customization/earrings.rsi
     state: stud_r
@@ -33,9 +31,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Arachnid, Reptilian, Diona, Oni, Felinid, Vulpkanin, Harpy, Gingerbread, Arachne, Tajaran, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#9df4fa"
+      type: !type:SimpleColoring
+        color: "#9df4fa"
   sprites:
   - sprite: Mobs/Customization/earrings.rsi
     state: heavy_l
@@ -47,9 +44,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Arachnid, Reptilian, Diona, Oni, Felinid, Vulpkanin, Harpy, Gingerbread, Arachne, Tajaran, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#9df4fa"
+      type: !type:SimpleColoring
+        color: "#9df4fa"
   sprites:
   - sprite: Mobs/Customization/earrings.rsi
     state: heavy_r
@@ -61,9 +57,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Arachnid, Reptilian, Diona, Oni, Felinid, Vulpkanin, Harpy, Gingerbread, Arachne, Tajaran, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#f3d052"
+      type: !type:SimpleColoring
+        color: "#f3d052"
   sprites:
   - sprite: Mobs/Customization/earrings.rsi
     state: drop_l
@@ -75,9 +70,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Arachnid, Reptilian, Diona, Oni, Felinid, Vulpkanin, Harpy, Gingerbread, Arachne, Tajaran, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#f3d052"
+      type: !type:SimpleColoring
+        color: "#f3d052"
   sprites:
   - sprite: Mobs/Customization/earrings.rsi
     state: drop_r
@@ -89,9 +83,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Arachnid, Reptilian, Diona, Oni, Felinid, Vulpkanin, Harpy, Gingerbread, Arachne, Tajaran, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#9df4fa"
+      type: !type:SimpleColoring
+        color: "#9df4fa"
   sprites:
   - sprite: Mobs/Customization/earrings.rsi
     state: drop_colored_tone_1_l
@@ -105,9 +98,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Arachnid, Reptilian, Diona, Oni, Felinid, Vulpkanin, Harpy, Gingerbread, Arachne, Tajaran, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#9df4fa"
+      type: !type:SimpleColoring
+        color: "#9df4fa"
   sprites:
   - sprite: Mobs/Customization/earrings.rsi
     state: drop_colored_tone_1_r
@@ -121,9 +113,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Arachnid, Reptilian, Diona, Oni, Felinid, Vulpkanin, Harpy, Gingerbread, Arachne, Tajaran, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#f3d052"
+      type: !type:SimpleColoring
+        color: "#f3d052"
   sprites:
   - sprite: Mobs/Customization/earrings.rsi
     state: drop_long_tone_1_l
@@ -137,9 +128,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Arachnid, Reptilian, Diona, Oni, Felinid, Vulpkanin, Harpy, Gingerbread, Arachne, Tajaran, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#f3d052"
+      type: !type:SimpleColoring
+        color: "#f3d052"
   sprites:
   - sprite: Mobs/Customization/earrings.rsi
     state: drop_long_tone_1_r
@@ -153,9 +143,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Arachnid, Reptilian, Diona, Oni, Felinid, Vulpkanin, Harpy, Gingerbread, Arachne, Tajaran, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#f4f4f4"
+      type: !type:SimpleColoring
+        color: "#f4f4f4"
   sprites:
   - sprite: Mobs/Customization/earrings.rsi
     state: crescent_l
@@ -167,9 +156,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Arachnid, Reptilian, Diona, Oni, Felinid, Vulpkanin, Harpy, Gingerbread, Arachne, Tajaran, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#f4f4f4"
+      type: !type:SimpleColoring
+        color: "#f4f4f4"
   sprites:
   - sprite: Mobs/Customization/earrings.rsi
     state: crescent_r
@@ -181,9 +169,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Arachnid, Reptilian, Diona, Oni, Felinid, Vulpkanin, Harpy, Gingerbread, Arachne, Tajaran, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#f3d052"
+      type: !type:SimpleColoring
+        color: "#f3d052"
   sprites:
   - sprite: Mobs/Customization/earrings.rsi
     state: bangle_l
@@ -195,9 +182,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Arachnid, Reptilian, Diona, Oni, Felinid, Vulpkanin, Harpy, Gingerbread, Arachne, Tajaran, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#f3d052"
+      type: !type:SimpleColoring
+        color: "#f3d052"
   sprites:
   - sprite: Mobs/Customization/earrings.rsi
     state: bangle_r
@@ -209,9 +195,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Arachnid, Reptilian, Diona, Oni, Felinid, Vulpkanin, Harpy, Gingerbread, Arachne, Tajaran, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#f3d052"
+      type: !type:SimpleColoring
+        color: "#f3d052"
   sprites:
   - sprite: Mobs/Customization/earrings.rsi
     state: hoop_l
@@ -223,9 +208,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Arachnid, Reptilian, Diona, Oni, Felinid, Vulpkanin, Harpy, Gingerbread, Arachne, Tajaran, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#f3d052"
+      type: !type:SimpleColoring
+        color: "#f3d052"
   sprites:
   - sprite: Mobs/Customization/earrings.rsi
     state: hoop_r
@@ -237,9 +221,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Arachnid, Reptilian, Diona, Oni, Felinid, Vulpkanin, Harpy, Gingerbread, Arachne, Tajaran, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#f3d052"
+      type: !type:SimpleColoring
+        color: "#f3d052"
   sprites:
   - sprite: Mobs/Customization/earrings.rsi
     state: hoop_mini_l
@@ -251,9 +234,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Arachnid, Reptilian, Diona, Oni, Felinid, Vulpkanin, Harpy, Gingerbread, Arachne, Tajaran, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#f3d052"
+      type: !type:SimpleColoring
+        color: "#f3d052"
   sprites:
   - sprite: Mobs/Customization/earrings.rsi
     state: hoop_mini_r
@@ -265,9 +247,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Arachnid, Reptilian, Diona, Oni, Felinid, Vulpkanin, Harpy, Gingerbread, Arachne, Tajaran, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#f3d052"
+      type: !type:SimpleColoring
+        color: "#f3d052"
   sprites:
   - sprite: Mobs/Customization/earrings.rsi
     state: cross_l
@@ -279,9 +260,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Arachnid, Reptilian, Diona, Oni, Felinid, Vulpkanin, Harpy, Gingerbread, Arachne, Tajaran, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#f3d052"
+      type: !type:SimpleColoring
+        color: "#f3d052"
   sprites:
   - sprite: Mobs/Customization/earrings.rsi
     state: cross_r
@@ -293,9 +273,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Arachnid, Reptilian, Diona, Oni, Felinid, Vulpkanin, Harpy, Gingerbread, Arachne, Tajaran, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#f3d052"
+      type: !type:SimpleColoring
+        color: "#f3d052"
   sprites:
   - sprite: Mobs/Customization/earrings.rsi
     state: cross_saint_peter_l
@@ -307,9 +286,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Arachnid, Reptilian, Diona, Oni, Felinid, Vulpkanin, Harpy, Gingerbread, Arachne, Tajaran, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#f3d052"
+      type: !type:SimpleColoring
+        color: "#f3d052"
   sprites:
   - sprite: Mobs/Customization/earrings.rsi
     state: cross_saint_peter_r
@@ -321,9 +299,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Arachnid, Reptilian, Diona, Oni, Felinid, Vulpkanin, Harpy, Gingerbread, Arachne, Tajaran, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#f3d052"
+      type: !type:SimpleColoring
+        color: "#f3d052"
   sprites:
   - sprite: Mobs/Customization/earrings.rsi
     state: gemstone_tone_1_l
@@ -337,9 +314,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Arachnid, Reptilian, Diona, Oni, Felinid, Vulpkanin, Harpy, Gingerbread, Arachne, Tajaran, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#f3d052"
+      type: !type:SimpleColoring
+        color: "#f3d052"
   sprites:
   - sprite: Mobs/Customization/earrings.rsi
     state: gemstone_tone_1_r
@@ -353,9 +329,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Arachnid, Reptilian, Diona, Oni, Felinid, Vulpkanin, Harpy, Gingerbread, Arachne, Tajaran, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#9df4fa"
+      type: !type:SimpleColoring
+        color: "#9df4fa"
   sprites:
   - sprite: Mobs/Customization/earrings.rsi
     state: gemstone_long_tone_1_l
@@ -369,9 +344,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Arachnid, Reptilian, Diona, Oni, Felinid, Vulpkanin, Harpy, Gingerbread, Arachne, Tajaran, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#9df4fa"
+      type: !type:SimpleColoring
+        color: "#9df4fa"
   sprites:
   - sprite: Mobs/Customization/earrings.rsi
     state: gemstone_long_tone_1_r
@@ -385,9 +359,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Arachnid, Reptilian, Diona, Oni, Felinid, Vulpkanin, Harpy, Gingerbread, Arachne, Tajaran, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#f3d052"
+      type: !type:SimpleColoring
+        color: "#f3d052"
   sprites:
   - sprite: Mobs/Customization/earrings.rsi
     state: gemstone_double_tone_1_l
@@ -403,9 +376,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Arachnid, Reptilian, Diona, Oni, Felinid, Vulpkanin, Harpy, Gingerbread, Arachne, Tajaran, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#f3d052"
+      type: !type:SimpleColoring
+        color: "#f3d052"
   sprites:
   - sprite: Mobs/Customization/earrings.rsi
     state: gemstone_double_tone_1_r
@@ -421,9 +393,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Arachnid, Reptilian, Diona, Oni, Felinid, Vulpkanin, Harpy, Gingerbread, Arachne, Tajaran, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#f3d052"
+      type: !type:SimpleColoring
+        color: "#f3d052"
   sprites:
   - sprite: Mobs/Customization/earrings.rsi
     state: dangle_tone_1_l
@@ -437,9 +408,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Arachnid, Reptilian, Diona, Oni, Felinid, Vulpkanin, Harpy, Gingerbread, Arachne, Tajaran, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#f3d052"
+      type: !type:SimpleColoring
+        color: "#f3d052"
   sprites:
   - sprite: Mobs/Customization/earrings.rsi
     state: dangle_tone_1_r
@@ -453,9 +423,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Arachnid, Reptilian, Diona, Oni, Felinid, Vulpkanin, Harpy, Gingerbread, Arachne, Tajaran, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#f3d052"
+      type: !type:SimpleColoring
+        color: "#f3d052"
   sprites:
   - sprite: Mobs/Customization/earrings.rsi
     state: dangle_long_tone_1_l
@@ -469,9 +438,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Arachnid, Reptilian, Diona, Oni, Felinid, Vulpkanin, Harpy, Gingerbread, Arachne, Tajaran, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#f3d052"
+      type: !type:SimpleColoring
+        color: "#f3d052"
   sprites:
   - sprite: Mobs/Customization/earrings.rsi
     state: dangle_long_tone_1_r
@@ -485,9 +453,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Arachnid, Reptilian, Diona, Oni, Felinid, Vulpkanin, Harpy, Gingerbread, Arachne, Tajaran, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#f4f4f4"
+      type: !type:SimpleColoring
+        color: "#f4f4f4"
   sprites:
   - sprite: Mobs/Customization/earrings.rsi
     state: eight_l
@@ -499,9 +466,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Arachnid, Reptilian, Diona, Oni, Felinid, Vulpkanin, Harpy, Gingerbread, Arachne, Tajaran, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#f4f4f4"
+      type: !type:SimpleColoring
+        color: "#f4f4f4"
   sprites:
   - sprite: Mobs/Customization/earrings.rsi
     state: eight_r
@@ -513,9 +479,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Arachnid, Reptilian, Diona, Oni, Felinid, Vulpkanin, Harpy, Gingerbread, Arachne, Tajaran, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#9df4fa"
+      type: !type:SimpleColoring
+        color: "#9df4fa"
   sprites:
   - sprite: Mobs/Customization/earrings.rsi
     state: crystal_tone_1_l
@@ -529,9 +494,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Arachnid, Reptilian, Diona, Oni, Felinid, Vulpkanin, Harpy, Gingerbread, Arachne, Tajaran, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#9df4fa"
+      type: !type:SimpleColoring
+        color: "#9df4fa"
   sprites:
   - sprite: Mobs/Customization/earrings.rsi
     state: crystal_tone_1_r
@@ -545,9 +509,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Arachnid, Reptilian, Diona, Oni, Felinid, Vulpkanin, Harpy, Gingerbread, Arachne, Tajaran, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#9df4fa"
+      type: !type:SimpleColoring
+        color: "#9df4fa"
   sprites:
   - sprite: Mobs/Customization/earrings.rsi
     state: crystal_long_tone_1_l
@@ -561,9 +524,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Arachnid, Reptilian, Diona, Oni, Felinid, Vulpkanin, Harpy, Gingerbread, Arachne, Tajaran, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#9df4fa"
+      type: !type:SimpleColoring
+        color: "#9df4fa"
   sprites:
   - sprite: Mobs/Customization/earrings.rsi
     state: crystal_long_tone_1_r

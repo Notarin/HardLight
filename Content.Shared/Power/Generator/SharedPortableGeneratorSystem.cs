@@ -7,9 +7,7 @@ namespace Content.Shared.Power.Generator;
 /// Shared logic for portable generators.
 /// </summary>
 /// <seealso cref="PortableGeneratorComponent"/>
-public abstract class SharedPortableGeneratorSystem : EntitySystem
-{
-}
+public abstract class SharedPortableGeneratorSystem : EntitySystem { }
 
 /// <summary>
 /// Used to start a portable generator.

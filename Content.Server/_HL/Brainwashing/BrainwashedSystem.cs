@@ -7,9 +7,15 @@ namespace Content.Server._HL.Brainwashing;
 
 public sealed class BrainwashedSystem : SharedBrainwashedSystem
 {
-    [Dependency] private readonly ActionsSystem _actionsSystem = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly EuiManager _euiManager = default!;
+    [Dependency]
+    private readonly ActionsSystem _actionsSystem = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly EuiManager _euiManager = default!;
+
     public override void Initialize()
     {
         SubscribeLocalEvent<BrainwashedComponent, BrainwashedEvent>(OnBrainwashed);

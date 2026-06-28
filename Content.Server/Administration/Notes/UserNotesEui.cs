@@ -11,9 +11,14 @@ namespace Content.Server.Administration.Notes;
 
 public sealed class UserNotesEui : BaseEui
 {
-    [Dependency] private readonly IAdminNotesManager _notesMan = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly ILogManager _log = default!;
+    [Dependency]
+    private readonly IAdminNotesManager _notesMan = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
+
+    [Dependency]
+    private readonly ILogManager _log = default!;
     private readonly bool _seeOwnNotes;
     private readonly ISawmill _sawmill;
 
@@ -33,20 +38,22 @@ public sealed class UserNotesEui : BaseEui
 
     public override EuiStateBase GetNewState()
     {
-        return new UserNotesEuiState(
-            Notes
-        );
+        return new UserNotesEuiState(Notes);
     }
 
     public async Task UpdateNotes()
     {
         if (!_seeOwnNotes)
         {
-            _sawmill.Warning($"User {Player.Name} with ID {Player.UserId} tried to update their own user notes when see_own_notes was set to false");
+            _sawmill.Warning(
+                $"User {Player.Name} with ID {Player.UserId} tried to update their own user notes when see_own_notes was set to false"
+            );
             return;
         }
 
-        Notes = (await _notesMan.GetVisibleRemarks(Player.UserId)).Select(note => note.ToShared()).ToDictionary(note => (note.Id, note.NoteType));
+        Notes = (await _notesMan.GetVisibleRemarks(Player.UserId))
+            .Select(note => note.ToShared())
+            .ToDictionary(note => (note.Id, note.NoteType));
         StateDirty();
     }
 }

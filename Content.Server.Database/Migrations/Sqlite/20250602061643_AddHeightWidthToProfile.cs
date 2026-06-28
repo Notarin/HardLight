@@ -15,26 +15,24 @@ namespace Content.Server.Database.Migrations.Sqlite
                 table: "profile",
                 type: "REAL",
                 nullable: false,
-                defaultValue: 0f);
+                defaultValue: 0f
+            );
 
             migrationBuilder.AddColumn<float>(
                 name: "width",
                 table: "profile",
                 type: "REAL",
                 nullable: false,
-                defaultValue: 0f);
+                defaultValue: 0f
+            );
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "height",
-                table: "profile");
+            migrationBuilder.DropColumn(name: "height", table: "profile");
 
-            migrationBuilder.DropColumn(
-                name: "width",
-                table: "profile");
+            migrationBuilder.DropColumn(name: "width", table: "profile");
         }
     }
 }

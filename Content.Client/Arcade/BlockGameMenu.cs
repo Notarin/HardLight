@@ -23,8 +23,8 @@ namespace Content.Client.Arcade
 {
     public sealed class BlockGameMenu : DefaultWindow
     {
-        private static readonly Color OverlayBackgroundColor = new(74,76,74,180);
-        private static readonly Color OverlayShadowColor = new(0,0,0,83);
+        private static readonly Color OverlayBackgroundColor = new(74, 76, 74, 180);
+        private static readonly Color OverlayShadowColor = new(0, 0, 0, 83);
 
         private static readonly Vector2 BlockSize = new(15, 15);
 
@@ -71,60 +71,31 @@ namespace Content.Client.Arcade
 
             #region Game Menu
             // building the game container
-            _gameRootContainer = new BoxContainer
-            {
-                Orientation = LayoutOrientation.Vertical
-            };
+            _gameRootContainer = new BoxContainer { Orientation = LayoutOrientation.Vertical };
 
-            _levelLabel = new Label
-            {
-                Align = Label.AlignMode.Center,
-                HorizontalExpand = true
-            };
+            _levelLabel = new Label { Align = Label.AlignMode.Center, HorizontalExpand = true };
             _gameRootContainer.AddChild(_levelLabel);
-            _gameRootContainer.AddChild(new Control
-            {
-                MinSize = new Vector2(1, 5)
-            });
+            _gameRootContainer.AddChild(new Control { MinSize = new Vector2(1, 5) });
 
-            _pointsLabel = new Label
-            {
-                Align = Label.AlignMode.Center,
-                HorizontalExpand = true
-            };
+            _pointsLabel = new Label { Align = Label.AlignMode.Center, HorizontalExpand = true };
             _gameRootContainer.AddChild(_pointsLabel);
-            _gameRootContainer.AddChild(new Control
-            {
-                MinSize = new Vector2(1, 10)
-            });
+            _gameRootContainer.AddChild(new Control { MinSize = new Vector2(1, 10) });
 
-            var gameBox = new BoxContainer
-            {
-                Orientation = LayoutOrientation.Horizontal
-            };
+            var gameBox = new BoxContainer { Orientation = LayoutOrientation.Horizontal };
             gameBox.AddChild(SetupHoldBox(backgroundTexture));
-            gameBox.AddChild(new Control
-            {
-                MinSize = new Vector2(10, 1)
-            });
+            gameBox.AddChild(new Control { MinSize = new Vector2(10, 1) });
             gameBox.AddChild(SetupGameGrid(backgroundTexture));
-            gameBox.AddChild(new Control
-            {
-                MinSize = new Vector2(10, 1)
-            });
+            gameBox.AddChild(new Control { MinSize = new Vector2(10, 1) });
             gameBox.AddChild(SetupNextBox(backgroundTexture));
 
             _gameRootContainer.AddChild(gameBox);
 
-            _gameRootContainer.AddChild(new Control
-            {
-                MinSize = new Vector2(1, 10)
-            });
+            _gameRootContainer.AddChild(new Control { MinSize = new Vector2(1, 10) });
 
             _pauseButton = new Button
             {
                 Text = Loc.GetString("blockgame-menu-button-pause"),
-                TextAlign = Label.AlignMode.Center
+                TextAlign = Label.AlignMode.Center,
             };
             _pauseButton.OnPressed += (e) => TryPause();
             _gameRootContainer.AddChild(_pauseButton);
@@ -133,30 +104,22 @@ namespace Content.Client.Arcade
             _mainPanel.AddChild(_gameRootContainer);
 
             #region Pause Menu
-            var pauseRootBack = new StyleBoxTexture
-            {
-                Texture = backgroundTexture,
-                Modulate = OverlayShadowColor
-            };
+            var pauseRootBack = new StyleBoxTexture { Texture = backgroundTexture, Modulate = OverlayShadowColor };
             pauseRootBack.SetPatchMargin(StyleBox.Margin.All, 10);
             _menuRootContainer = new PanelContainer
             {
                 PanelOverride = pauseRootBack,
                 VerticalAlignment = VAlignment.Center,
-                HorizontalAlignment = HAlignment.Center
+                HorizontalAlignment = HAlignment.Center,
             };
 
-            var pauseInnerBack = new StyleBoxTexture
-            {
-                Texture = backgroundTexture,
-                Modulate = OverlayBackgroundColor
-            };
+            var pauseInnerBack = new StyleBoxTexture { Texture = backgroundTexture, Modulate = OverlayBackgroundColor };
             pauseInnerBack.SetPatchMargin(StyleBox.Margin.All, 10);
             var pauseMenuInnerPanel = new PanelContainer
             {
                 PanelOverride = pauseInnerBack,
                 VerticalAlignment = VAlignment.Center,
-                HorizontalAlignment = HAlignment.Center
+                HorizontalAlignment = HAlignment.Center,
             };
 
             _menuRootContainer.AddChild(pauseMenuInnerPanel);
@@ -165,13 +128,13 @@ namespace Content.Client.Arcade
             {
                 Orientation = LayoutOrientation.Vertical,
                 HorizontalAlignment = HAlignment.Center,
-                VerticalAlignment = VAlignment.Center
+                VerticalAlignment = VAlignment.Center,
             };
 
             _newGameButton = new Button
             {
                 Text = Loc.GetString("blockgame-menu-button-new-game"),
-                TextAlign = Label.AlignMode.Center
+                TextAlign = Label.AlignMode.Center,
             };
             _newGameButton.OnPressed += (e) =>
             {
@@ -183,7 +146,7 @@ namespace Content.Client.Arcade
             _scoreBoardButton = new Button
             {
                 Text = Loc.GetString("blockgame-menu-button-scoreboard"),
-                TextAlign = Label.AlignMode.Center
+                TextAlign = Label.AlignMode.Center,
             };
             _scoreBoardButton.OnPressed += (e) =>
             {
@@ -197,7 +160,7 @@ namespace Content.Client.Arcade
             {
                 Text = Loc.GetString("blockgame-menu-button-unpause"),
                 TextAlign = Label.AlignMode.Center,
-                Visible = false
+                Visible = false,
             };
             _unpauseButton.OnPressed += (e) =>
             {
@@ -209,30 +172,26 @@ namespace Content.Client.Arcade
             #endregion
 
             #region Gameover Screen
-            var gameOverRootBack = new StyleBoxTexture
-            {
-                Texture = backgroundTexture,
-                Modulate = OverlayShadowColor
-            };
+            var gameOverRootBack = new StyleBoxTexture { Texture = backgroundTexture, Modulate = OverlayShadowColor };
             gameOverRootBack.SetPatchMargin(StyleBox.Margin.All, 10);
             _gameOverRootContainer = new PanelContainer
             {
                 PanelOverride = gameOverRootBack,
                 VerticalAlignment = VAlignment.Center,
-                HorizontalAlignment = HAlignment.Center
+                HorizontalAlignment = HAlignment.Center,
             };
 
             var gameOverInnerBack = new StyleBoxTexture
             {
                 Texture = backgroundTexture,
-                Modulate = OverlayBackgroundColor
+                Modulate = OverlayBackgroundColor,
             };
             gameOverInnerBack.SetPatchMargin(StyleBox.Margin.All, 10);
             var gameOverMenuInnerPanel = new PanelContainer
             {
                 PanelOverride = gameOverInnerBack,
                 VerticalAlignment = VAlignment.Center,
-                HorizontalAlignment = HAlignment.Center
+                HorizontalAlignment = HAlignment.Center,
             };
 
             _gameOverRootContainer.AddChild(gameOverMenuInnerPanel);
@@ -241,12 +200,13 @@ namespace Content.Client.Arcade
             {
                 Orientation = LayoutOrientation.Vertical,
                 HorizontalAlignment = HAlignment.Center,
-                VerticalAlignment = VAlignment.Center
+                VerticalAlignment = VAlignment.Center,
             };
 
-            gameOverMenuContainer.AddChild(new Label { Text = Loc.GetString("blockgame-menu-msg-game-over"), Align = Label.AlignMode.Center });
+            gameOverMenuContainer.AddChild(
+                new Label { Text = Loc.GetString("blockgame-menu-msg-game-over"), Align = Label.AlignMode.Center }
+            );
             gameOverMenuContainer.AddChild(new Control { MinSize = new Vector2(1, 10) });
-
 
             _finalScoreLabel = new Label { Align = Label.AlignMode.Center };
             gameOverMenuContainer.AddChild(_finalScoreLabel);
@@ -255,7 +215,7 @@ namespace Content.Client.Arcade
             _finalNewGameButton = new Button
             {
                 Text = Loc.GetString("blockgame-menu-button-new-game"),
-                TextAlign = Label.AlignMode.Center
+                TextAlign = Label.AlignMode.Center,
             };
             _finalNewGameButton.OnPressed += (e) =>
             {
@@ -267,31 +227,23 @@ namespace Content.Client.Arcade
             #endregion
 
             #region High Score Screen
-            var rootBack = new StyleBoxTexture
-            {
-                Texture = backgroundTexture,
-                Modulate = OverlayShadowColor
-            };
+            var rootBack = new StyleBoxTexture { Texture = backgroundTexture, Modulate = OverlayShadowColor };
             rootBack.SetPatchMargin(StyleBox.Margin.All, 10);
             _highscoresRootContainer = new PanelContainer
             {
                 PanelOverride = rootBack,
                 VerticalAlignment = VAlignment.Center,
-                HorizontalAlignment = HAlignment.Center
+                HorizontalAlignment = HAlignment.Center,
             };
 
             var c = new Color(OverlayBackgroundColor.R, OverlayBackgroundColor.G, OverlayBackgroundColor.B, 220);
-            var innerBack = new StyleBoxTexture
-            {
-                Texture = backgroundTexture,
-                Modulate = c
-            };
+            var innerBack = new StyleBoxTexture { Texture = backgroundTexture, Modulate = c };
             innerBack.SetPatchMargin(StyleBox.Margin.All, 10);
             var menuInnerPanel = new PanelContainer
             {
                 PanelOverride = innerBack,
                 VerticalAlignment = VAlignment.Center,
-                HorizontalAlignment = HAlignment.Center
+                HorizontalAlignment = HAlignment.Center,
             };
 
             _highscoresRootContainer.AddChild(menuInnerPanel);
@@ -300,34 +252,25 @@ namespace Content.Client.Arcade
             {
                 Orientation = LayoutOrientation.Vertical,
                 HorizontalAlignment = HAlignment.Center,
-                VerticalAlignment = VAlignment.Center
+                VerticalAlignment = VAlignment.Center,
             };
 
             menuContainer.AddChild(new Label { Text = Loc.GetString("blockgame-menu-label-highscores") });
             menuContainer.AddChild(new Control { MinSize = new Vector2(1, 10) });
 
-            var highScoreBox = new BoxContainer
-            {
-                Orientation = LayoutOrientation.Horizontal
-            };
+            var highScoreBox = new BoxContainer { Orientation = LayoutOrientation.Horizontal };
 
-            _localHighscoresLabel = new Label
-            {
-                Align = Label.AlignMode.Center
-            };
+            _localHighscoresLabel = new Label { Align = Label.AlignMode.Center };
             highScoreBox.AddChild(_localHighscoresLabel);
             highScoreBox.AddChild(new Control { MinSize = new Vector2(40, 1) });
-            _globalHighscoresLabel = new Label
-            {
-                Align = Label.AlignMode.Center
-            };
+            _globalHighscoresLabel = new Label { Align = Label.AlignMode.Center };
             highScoreBox.AddChild(_globalHighscoresLabel);
             menuContainer.AddChild(highScoreBox);
             menuContainer.AddChild(new Control { MinSize = new Vector2(1, 10) });
             _highscoreBackButton = new Button
             {
                 Text = Loc.GetString("blockgame-menu-button-back"),
-                TextAlign = Label.AlignMode.Center
+                TextAlign = Label.AlignMode.Center,
             };
             _highscoreBackButton.OnPressed += (e) =>
             {
@@ -365,26 +308,22 @@ namespace Content.Client.Arcade
             {
                 Columns = 10,
                 HSeparationOverride = 1,
-                VSeparationOverride = 1
+                VSeparationOverride = 1,
             };
             UpdateBlocks(Array.Empty<BlockGameBlock>());
 
-            var back = new StyleBoxTexture
-            {
-                Texture = panelTex,
-                Modulate = Color.FromHex("#4a4a51"),
-            };
+            var back = new StyleBoxTexture { Texture = panelTex, Modulate = Color.FromHex("#4a4a51") };
             back.SetPatchMargin(StyleBox.Margin.All, 10);
 
             var gamePanel = new PanelContainer
             {
                 PanelOverride = back,
                 HorizontalExpand = true,
-                SizeFlagsStretchRatio = 34.25f
+                SizeFlagsStretchRatio = 34.25f,
             };
             var backgroundPanel = new PanelContainer
             {
-                PanelOverride = new StyleBoxFlat{BackgroundColor = Color.FromHex("#869086")}
+                PanelOverride = new StyleBoxFlat { BackgroundColor = Color.FromHex("#869086") },
             };
             backgroundPanel.AddChild(_gameGrid);
             gamePanel.AddChild(backgroundPanel);
@@ -393,18 +332,14 @@ namespace Content.Client.Arcade
 
         private Control SetupNextBox(Texture panelTex)
         {
-            var previewBack = new StyleBoxTexture
-            {
-                Texture = panelTex,
-                Modulate = Color.FromHex("#4a4d4a")
-            };
+            var previewBack = new StyleBoxTexture { Texture = panelTex, Modulate = Color.FromHex("#4a4d4a") };
             previewBack.SetPatchMargin(StyleBox.Margin.All, 10);
 
             var grid = new GridContainer
             {
                 Columns = 1,
                 HorizontalExpand = true,
-                SizeFlagsStretchRatio = 20
+                SizeFlagsStretchRatio = 20,
             };
 
             var nextBlockPanel = new PanelContainer
@@ -412,37 +347,31 @@ namespace Content.Client.Arcade
                 PanelOverride = previewBack,
                 MinSize = BlockSize * 6.5f,
                 HorizontalAlignment = HAlignment.Left,
-                VerticalAlignment = VAlignment.Top
+                VerticalAlignment = VAlignment.Top,
             };
             var nextCenterContainer = new CenterContainer();
-            _nextBlockGrid = new GridContainer
-            {
-                HSeparationOverride = 1,
-                VSeparationOverride = 1
-            };
+            _nextBlockGrid = new GridContainer { HSeparationOverride = 1, VSeparationOverride = 1 };
             nextCenterContainer.AddChild(_nextBlockGrid);
             nextBlockPanel.AddChild(nextCenterContainer);
             grid.AddChild(nextBlockPanel);
 
-            grid.AddChild(new Label { Text = Loc.GetString("blockgame-menu-label-next"), Align = Label.AlignMode.Center });
+            grid.AddChild(
+                new Label { Text = Loc.GetString("blockgame-menu-label-next"), Align = Label.AlignMode.Center }
+            );
 
             return grid;
         }
 
         private Control SetupHoldBox(Texture panelTex)
         {
-            var previewBack = new StyleBoxTexture
-            {
-                Texture = panelTex,
-                Modulate = Color.FromHex("#4a4d4a")
-            };
+            var previewBack = new StyleBoxTexture { Texture = panelTex, Modulate = Color.FromHex("#4a4d4a") };
             previewBack.SetPatchMargin(StyleBox.Margin.All, 10);
 
             var grid = new GridContainer
             {
                 Columns = 1,
                 HorizontalExpand = true,
-                SizeFlagsStretchRatio = 20
+                SizeFlagsStretchRatio = 20,
             };
 
             var holdBlockPanel = new PanelContainer
@@ -450,19 +379,17 @@ namespace Content.Client.Arcade
                 PanelOverride = previewBack,
                 MinSize = BlockSize * 6.5f,
                 HorizontalAlignment = HAlignment.Left,
-                VerticalAlignment = VAlignment.Top
+                VerticalAlignment = VAlignment.Top,
             };
             var holdCenterContainer = new CenterContainer();
-            _holdBlockGrid = new GridContainer
-            {
-                HSeparationOverride = 1,
-                VSeparationOverride = 1
-            };
+            _holdBlockGrid = new GridContainer { HSeparationOverride = 1, VSeparationOverride = 1 };
             holdCenterContainer.AddChild(_holdBlockGrid);
             holdBlockPanel.AddChild(holdCenterContainer);
             grid.AddChild(holdBlockPanel);
 
-            grid.AddChild(new Label { Text = Loc.GetString("blockgame-menu-label-hold"), Align = Label.AlignMode.Center });
+            grid.AddChild(
+                new Label { Text = Loc.GetString("blockgame-menu-label-hold"), Align = Label.AlignMode.Center }
+            );
 
             return grid;
         }
@@ -535,11 +462,12 @@ namespace Content.Client.Arcade
         {
             var globalPlacementText = globalPlacement == null ? "-" : $"#{globalPlacement}";
             var localPlacementText = localPlacement == null ? "-" : $"#{localPlacement}";
-            _finalScoreLabel.Text =
-                Loc.GetString("blockgame-menu-gameover-info",
-                    ("global", globalPlacementText),
-                    ("local", localPlacementText),
-                    ("points", amount));
+            _finalScoreLabel.Text = Loc.GetString(
+                "blockgame-menu-gameover-info",
+                ("global", globalPlacementText),
+                ("local", localPlacementText),
+                ("points", amount)
+            );
         }
 
         public void UpdatePoints(int points)
@@ -552,21 +480,27 @@ namespace Content.Client.Arcade
             _levelLabel.Text = Loc.GetString("blockgame-menu-label-level", ("level", level + 1));
         }
 
-        public void UpdateHighscores(List<BlockGameMessages.HighScoreEntry> localHighscores,
-            List<BlockGameMessages.HighScoreEntry> globalHighscores)
+        public void UpdateHighscores(
+            List<BlockGameMessages.HighScoreEntry> localHighscores,
+            List<BlockGameMessages.HighScoreEntry> globalHighscores
+        )
         {
             var localHighscoreText = new StringBuilder(Loc.GetString("blockgame-menu-text-station") + "\n");
             var globalHighscoreText = new StringBuilder(Loc.GetString("blockgame-menu-text-nanotrasen") + "\n");
 
             for (var i = 0; i < 5; i++)
             {
-                localHighscoreText.AppendLine(localHighscores.Count > i
-                    ? $"#{i + 1}: {localHighscores[i].Name} - {localHighscores[i].Score}"
-                    : $"#{i + 1}: ??? - 0");
+                localHighscoreText.AppendLine(
+                    localHighscores.Count > i
+                        ? $"#{i + 1}: {localHighscores[i].Name} - {localHighscores[i].Score}"
+                        : $"#{i + 1}: ??? - 0"
+                );
 
-                globalHighscoreText.AppendLine(globalHighscores.Count > i
-                    ? $"#{i + 1}: {globalHighscores[i].Name} - {globalHighscores[i].Score}"
-                    : $"#{i + 1}: ??? - 0");
+                globalHighscoreText.AppendLine(
+                    globalHighscores.Count > i
+                        ? $"#{i + 1}: {globalHighscores[i].Name} - {globalHighscores[i].Score}"
+                        : $"#{i + 1}: ??? - 0"
+                );
             }
 
             _localHighscoresLabel.Text = localHighscoreText.ToString();
@@ -579,7 +513,6 @@ namespace Content.Client.Arcade
 
             if (!_isPlayer || args.Handled)
                 return;
-
             else if (args.Function == ContentKeyFunctions.ArcadeLeft)
                 OnAction?.Invoke(BlockGamePlayerAction.StartLeft);
             else if (args.Function == ContentKeyFunctions.ArcadeRight)
@@ -602,7 +535,6 @@ namespace Content.Client.Arcade
 
             if (!_isPlayer || args.Handled)
                 return;
-
             else if (args.Function == ContentKeyFunctions.ArcadeLeft)
                 OnAction?.Invoke(BlockGamePlayerAction.EndLeft);
             else if (args.Function == ContentKeyFunctions.ArcadeRight)
@@ -624,12 +556,14 @@ namespace Content.Client.Arcade
                 for (var x = 0; x < columnCount; x++)
                 {
                     var c = GetColorForPosition(blocks, x, y);
-                    _nextBlockGrid.AddChild(new PanelContainer
-                    {
-                        PanelOverride = new StyleBoxFlat { BackgroundColor = c },
-                        MinSize = BlockSize,
-                        RectDrawClipMargin = 0
-                    });
+                    _nextBlockGrid.AddChild(
+                        new PanelContainer
+                        {
+                            PanelOverride = new StyleBoxFlat { BackgroundColor = c },
+                            MinSize = BlockSize,
+                            RectDrawClipMargin = 0,
+                        }
+                    );
                 }
             }
         }
@@ -647,12 +581,14 @@ namespace Content.Client.Arcade
                 for (var x = 0; x < columnCount; x++)
                 {
                     var c = GetColorForPosition(blocks, x, y);
-                    _holdBlockGrid.AddChild(new PanelContainer
-                    {
-                        PanelOverride = new StyleBoxFlat { BackgroundColor = c },
-                        MinSize = BlockSize,
-                        RectDrawClipMargin = 0
-                    });
+                    _holdBlockGrid.AddChild(
+                        new PanelContainer
+                        {
+                            PanelOverride = new StyleBoxFlat { BackgroundColor = c },
+                            MinSize = BlockSize,
+                            RectDrawClipMargin = 0,
+                        }
+                    );
                 }
             }
         }
@@ -665,12 +601,14 @@ namespace Content.Client.Arcade
                 for (var x = 0; x < 10; x++)
                 {
                     var c = GetColorForPosition(blocks, x, y);
-                    _gameGrid.AddChild(new PanelContainer
-                    {
-                        PanelOverride = new StyleBoxFlat { BackgroundColor = c },
-                        MinSize = BlockSize,
-                        RectDrawClipMargin = 0
-                    });
+                    _gameGrid.AddChild(
+                        new PanelContainer
+                        {
+                            PanelOverride = new StyleBoxFlat { BackgroundColor = c },
+                            MinSize = BlockSize,
+                            RectDrawClipMargin = 0,
+                        }
+                    );
                 }
             }
         }

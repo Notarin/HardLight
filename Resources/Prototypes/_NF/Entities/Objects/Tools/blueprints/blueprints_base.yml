@@ -5,20 +5,20 @@
   components:
   - type: Sprite
     layers:
-      - sprite: _NF/Objects/Tools/blueprints.rsi
-        state: icon-base
-        color: "#7da0ba"
-      - sprite: _NF/Objects/Tools/blueprints.rsi
-        state: icon-text
-      - sprite: Objects/Misc/bureaucracy.rsi
-        state: paper_stamp-generic
-        offset: 0.15,-0.1
-        map: ["enum.PaperVisualLayers.Stamp"]
-        visible: false
-      - sprite: Objects/Misc/bureaucracy.rsi # Need for PaperVisuals otherwise it wont stop complaining
-        state: paper_words
-        map: ["enum.PaperVisualLayers.Writing"]
-        visible: false
+    - sprite: _NF/Objects/Tools/blueprints.rsi
+      state: icon-base
+      color: "#7da0ba"
+    - sprite: _NF/Objects/Tools/blueprints.rsi
+      state: icon-text
+    - sprite: Objects/Misc/bureaucracy.rsi
+      state: paper_stamp-generic
+      offset: 0.15,-0.1
+      map: ["enum.PaperVisualLayers.Stamp"]
+      visible: false
+    - sprite: Objects/Misc/bureaucracy.rsi # Need for PaperVisuals otherwise it wont stop complaining
+      state: paper_words
+      map: ["enum.PaperVisualLayers.Writing"]
+      visible: false
   - type: Item
     size: Normal
     sprite: _NF/Objects/Tools/blueprints.rsi
@@ -60,17 +60,16 @@
     damageModifierSet: Wood
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 15
       behaviors:
       - !type:SpawnEntitiesBehavior
         spawn:
-            Ash:
-              min: 1
-              max: 1
+          Ash:
+            min: 1
+            max: 1
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: Food
     solution: food
     delay: 7
@@ -106,20 +105,20 @@
   components:
   - type: Sprite
     layers:
-      - sprite: _NF/Objects/Tools/blueprints.rsi
-        state: icon-base
-        color: "#fff87c"
-      - sprite: _NF/Objects/Tools/blueprints.rsi
-        state: icon-text
-      - sprite: Objects/Misc/bureaucracy.rsi
-        state: paper_stamp-generic
-        offset: 0.15,-0.1
-        map: ["enum.PaperVisualLayers.Stamp"]
-        visible: false
-      - sprite: Objects/Misc/bureaucracy.rsi # Need for PaperVisuals otherwise it wont stop complaining
-        state: paper_words
-        map: ["enum.PaperVisualLayers.Writing"]
-        visible: false
+    - sprite: _NF/Objects/Tools/blueprints.rsi
+      state: icon-base
+      color: "#fff87c"
+    - sprite: _NF/Objects/Tools/blueprints.rsi
+      state: icon-text
+    - sprite: Objects/Misc/bureaucracy.rsi
+      state: paper_stamp-generic
+      offset: 0.15,-0.1
+      map: ["enum.PaperVisualLayers.Stamp"]
+      visible: false
+    - sprite: Objects/Misc/bureaucracy.rsi # Need for PaperVisuals otherwise it wont stop complaining
+      state: paper_words
+      map: ["enum.PaperVisualLayers.Writing"]
+      visible: false
   - type: Item
     size: Normal
     inhandVisuals:
@@ -139,20 +138,20 @@
   components:
   - type: Sprite
     layers:
-      - sprite: _NF/Objects/Tools/blueprints.rsi
-        state: icon-base
-        color: "#e1ba8b"
-      - sprite: _NF/Objects/Tools/blueprints.rsi
-        state: icon-text
-      - sprite: Objects/Misc/bureaucracy.rsi
-        state: paper_stamp-generic
-        offset: 0.15,-0.1
-        map: ["enum.PaperVisualLayers.Stamp"]
-        visible: false
-      - sprite: Objects/Misc/bureaucracy.rsi # Need for PaperVisuals otherwise it wont stop complaining
-        state: paper_words
-        map: ["enum.PaperVisualLayers.Writing"]
-        visible: false
+    - sprite: _NF/Objects/Tools/blueprints.rsi
+      state: icon-base
+      color: "#e1ba8b"
+    - sprite: _NF/Objects/Tools/blueprints.rsi
+      state: icon-text
+    - sprite: Objects/Misc/bureaucracy.rsi
+      state: paper_stamp-generic
+      offset: 0.15,-0.1
+      map: ["enum.PaperVisualLayers.Stamp"]
+      visible: false
+    - sprite: Objects/Misc/bureaucracy.rsi # Need for PaperVisuals otherwise it wont stop complaining
+      state: paper_words
+      map: ["enum.PaperVisualLayers.Writing"]
+      visible: false
   - type: Item
     size: Normal
     inhandVisuals:
@@ -172,20 +171,20 @@
   components:
   - type: Sprite
     layers:
-      - sprite: _NF/Objects/Tools/blueprints.rsi
-        state: icon-base
-        color: "#e18bd5"
-      - sprite: _NF/Objects/Tools/blueprints.rsi
-        state: icon-text
-      - sprite: Objects/Misc/bureaucracy.rsi
-        state: paper_stamp-generic
-        offset: 0.15,-0.1
-        map: ["enum.PaperVisualLayers.Stamp"]
-        visible: false
-      - sprite: Objects/Misc/bureaucracy.rsi # Need for PaperVisuals otherwise it wont stop complaining
-        state: paper_words
-        map: ["enum.PaperVisualLayers.Writing"]
-        visible: false
+    - sprite: _NF/Objects/Tools/blueprints.rsi
+      state: icon-base
+      color: "#e18bd5"
+    - sprite: _NF/Objects/Tools/blueprints.rsi
+      state: icon-text
+    - sprite: Objects/Misc/bureaucracy.rsi
+      state: paper_stamp-generic
+      offset: 0.15,-0.1
+      map: ["enum.PaperVisualLayers.Stamp"]
+      visible: false
+    - sprite: Objects/Misc/bureaucracy.rsi # Need for PaperVisuals otherwise it wont stop complaining
+      state: paper_words
+      map: ["enum.PaperVisualLayers.Writing"]
+      visible: false
   - type: Item
     size: Normal
     inhandVisuals:
@@ -205,20 +204,20 @@
   components:
   - type: Sprite
     layers:
-      - sprite: _NF/Objects/Tools/blueprints.rsi
-        state: icon-base
-        color: "#94e18b"
-      - sprite: _NF/Objects/Tools/blueprints.rsi
-        state: icon-text
-      - sprite: Objects/Misc/bureaucracy.rsi
-        state: paper_stamp-generic
-        offset: 0.15,-0.1
-        map: ["enum.PaperVisualLayers.Stamp"]
-        visible: false
-      - sprite: Objects/Misc/bureaucracy.rsi # Need for PaperVisuals otherwise it wont stop complaining
-        state: paper_words
-        map: ["enum.PaperVisualLayers.Writing"]
-        visible: false
+    - sprite: _NF/Objects/Tools/blueprints.rsi
+      state: icon-base
+      color: "#94e18b"
+    - sprite: _NF/Objects/Tools/blueprints.rsi
+      state: icon-text
+    - sprite: Objects/Misc/bureaucracy.rsi
+      state: paper_stamp-generic
+      offset: 0.15,-0.1
+      map: ["enum.PaperVisualLayers.Stamp"]
+      visible: false
+    - sprite: Objects/Misc/bureaucracy.rsi # Need for PaperVisuals otherwise it wont stop complaining
+      state: paper_words
+      map: ["enum.PaperVisualLayers.Writing"]
+      visible: false
   - type: Item
     size: Normal
     inhandVisuals:
@@ -238,20 +237,20 @@
   components:
   - type: Sprite
     layers:
-      - sprite: _NF/Objects/Tools/blueprints.rsi
-        state: icon-base
-        color: "#97cae1"
-      - sprite: _NF/Objects/Tools/blueprints.rsi
-        state: icon-text
-      - sprite: Objects/Misc/bureaucracy.rsi
-        state: paper_stamp-generic
-        offset: 0.15,-0.1
-        map: ["enum.PaperVisualLayers.Stamp"]
-        visible: false
-      - sprite: Objects/Misc/bureaucracy.rsi # Need for PaperVisuals otherwise it wont stop complaining
-        state: paper_words
-        map: ["enum.PaperVisualLayers.Writing"]
-        visible: false
+    - sprite: _NF/Objects/Tools/blueprints.rsi
+      state: icon-base
+      color: "#97cae1"
+    - sprite: _NF/Objects/Tools/blueprints.rsi
+      state: icon-text
+    - sprite: Objects/Misc/bureaucracy.rsi
+      state: paper_stamp-generic
+      offset: 0.15,-0.1
+      map: ["enum.PaperVisualLayers.Stamp"]
+      visible: false
+    - sprite: Objects/Misc/bureaucracy.rsi # Need for PaperVisuals otherwise it wont stop complaining
+      state: paper_words
+      map: ["enum.PaperVisualLayers.Writing"]
+      visible: false
   - type: Item
     size: Normal
     inhandVisuals:
@@ -271,20 +270,20 @@
   components:
   - type: Sprite
     layers:
-      - sprite: _NF/Objects/Tools/blueprints.rsi
-        state: icon-base
-        color: "#e18b8b"
-      - sprite: _NF/Objects/Tools/blueprints.rsi
-        state: icon-text
-      - sprite: Objects/Misc/bureaucracy.rsi
-        state: paper_stamp-generic
-        offset: 0.15,-0.1
-        map: ["enum.PaperVisualLayers.Stamp"]
-        visible: false
-      - sprite: Objects/Misc/bureaucracy.rsi # Need for PaperVisuals otherwise it wont stop complaining
-        state: paper_words
-        map: ["enum.PaperVisualLayers.Writing"]
-        visible: false
+    - sprite: _NF/Objects/Tools/blueprints.rsi
+      state: icon-base
+      color: "#e18b8b"
+    - sprite: _NF/Objects/Tools/blueprints.rsi
+      state: icon-text
+    - sprite: Objects/Misc/bureaucracy.rsi
+      state: paper_stamp-generic
+      offset: 0.15,-0.1
+      map: ["enum.PaperVisualLayers.Stamp"]
+      visible: false
+    - sprite: Objects/Misc/bureaucracy.rsi # Need for PaperVisuals otherwise it wont stop complaining
+      state: paper_words
+      map: ["enum.PaperVisualLayers.Writing"]
+      visible: false
   - type: Item
     size: Normal
     inhandVisuals:
@@ -304,21 +303,21 @@
   components:
   - type: Sprite
     layers:
-      - sprite: _NF/Objects/Tools/blueprints.rsi
-        state: icon-base
-        color: "#525252"
-      - sprite: _NF/Objects/Tools/blueprints.rsi
-        state: icon-text
-        color: "#cbab00"
-      - sprite: Objects/Misc/bureaucracy.rsi
-        state: paper_stamp-generic
-        offset: 0.15,-0.1
-        map: ["enum.PaperVisualLayers.Stamp"]
-        visible: false
-      - sprite: Objects/Misc/bureaucracy.rsi # Need for PaperVisuals otherwise it wont stop complaining
-        state: paper_words
-        map: ["enum.PaperVisualLayers.Writing"]
-        visible: false
+    - sprite: _NF/Objects/Tools/blueprints.rsi
+      state: icon-base
+      color: "#525252"
+    - sprite: _NF/Objects/Tools/blueprints.rsi
+      state: icon-text
+      color: "#cbab00"
+    - sprite: Objects/Misc/bureaucracy.rsi
+      state: paper_stamp-generic
+      offset: 0.15,-0.1
+      map: ["enum.PaperVisualLayers.Stamp"]
+      visible: false
+    - sprite: Objects/Misc/bureaucracy.rsi # Need for PaperVisuals otherwise it wont stop complaining
+      state: paper_words
+      map: ["enum.PaperVisualLayers.Writing"]
+      visible: false
   - type: Item
     size: Normal
     inhandVisuals:
@@ -336,26 +335,26 @@
 # Non-faxable variants (obtainable from expeditions)
 
 - type: entity # Armory
-  parent: [ BaseC3Contraband, NFBaseBlueprint ]
+  parent: [BaseC3Contraband, NFBaseBlueprint]
   id: BaseBlueprintExpedition
   abstract: true
   components:
   - type: Sprite
     layers:
-      - sprite: _NF/Objects/Tools/blueprints.rsi
-        state: icon-base
-        color: "#d70601"
-      - sprite: _NF/Objects/Tools/blueprints.rsi
-        state: icon-text
-      - sprite: Objects/Misc/bureaucracy.rsi
-        state: paper_stamp-generic
-        offset: 0.15,-0.1
-        map: ["enum.PaperVisualLayers.Stamp"]
-        visible: false
-      - sprite: Objects/Misc/bureaucracy.rsi # Need for PaperVisuals otherwise it wont stop complaining
-        state: paper_words
-        map: ["enum.PaperVisualLayers.Writing"]
-        visible: false
+    - sprite: _NF/Objects/Tools/blueprints.rsi
+      state: icon-base
+      color: "#d70601"
+    - sprite: _NF/Objects/Tools/blueprints.rsi
+      state: icon-text
+    - sprite: Objects/Misc/bureaucracy.rsi
+      state: paper_stamp-generic
+      offset: 0.15,-0.1
+      map: ["enum.PaperVisualLayers.Stamp"]
+      visible: false
+    - sprite: Objects/Misc/bureaucracy.rsi # Need for PaperVisuals otherwise it wont stop complaining
+      state: paper_words
+      map: ["enum.PaperVisualLayers.Writing"]
+      visible: false
   - type: Item
     size: Normal
     inhandVisuals:

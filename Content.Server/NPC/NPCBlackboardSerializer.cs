@@ -1,3 +1,4 @@
+using System.Globalization;
 using Robust.Shared.Reflection;
 using Robust.Shared.Serialization;
 using Robust.Shared.Serialization.Manager;
@@ -6,7 +7,6 @@ using Robust.Shared.Serialization.Markdown.Mapping;
 using Robust.Shared.Serialization.Markdown.Validation;
 using Robust.Shared.Serialization.TypeSerializers.Interfaces;
 using Robust.Shared.Utility;
-using System.Globalization;
 
 namespace Content.Server.NPC;
 
@@ -20,8 +20,12 @@ public sealed class NPCBlackboardSerializer : ITypeReader<NPCBlackboard, Mapping
         NPCBlackboard.NavSmash,
     };
 
-    public ValidationNode Validate(ISerializationManager serializationManager, MappingDataNode node,
-        IDependencyCollection dependencies, ISerializationContext? context = null)
+    public ValidationNode Validate(
+        ISerializationManager serializationManager,
+        MappingDataNode node,
+        IDependencyCollection dependencies,
+        ISerializationContext? context = null
+    )
     {
         var validated = new List<ValidationNode>();
 
@@ -64,10 +68,14 @@ public sealed class NPCBlackboardSerializer : ITypeReader<NPCBlackboard, Mapping
         return new ValidatedSequenceNode(validated);
     }
 
-    public NPCBlackboard Read(ISerializationManager serializationManager, MappingDataNode node,
+    public NPCBlackboard Read(
+        ISerializationManager serializationManager,
+        MappingDataNode node,
         IDependencyCollection dependencies,
-        SerializationHookContext hookCtx, ISerializationContext? context = null,
-        ISerializationManager.InstantiationDelegate<NPCBlackboard>? instanceProvider = null)
+        SerializationHookContext hookCtx,
+        ISerializationContext? context = null,
+        ISerializationManager.InstantiationDelegate<NPCBlackboard>? instanceProvider = null
+    )
     {
         var value = instanceProvider != null ? instanceProvider() : new NPCBlackboard();
 
@@ -111,7 +119,14 @@ public sealed class NPCBlackboardSerializer : ITypeReader<NPCBlackboard, Mapping
                             continue;
                         }
 
-                        if (float.TryParse(text, NumberStyles.Float | NumberStyles.AllowThousands, CultureInfo.InvariantCulture, out var f))
+                        if (
+                            float.TryParse(
+                                text,
+                                NumberStyles.Float | NumberStyles.AllowThousands,
+                                CultureInfo.InvariantCulture,
+                                out var f
+                            )
+                        )
                         {
                             value.SetValue(key, f);
                             continue;
@@ -151,7 +166,8 @@ public sealed class NPCBlackboardSerializer : ITypeReader<NPCBlackboard, Mapping
         ref NPCBlackboard target,
         IDependencyCollection dependencies,
         SerializationHookContext hookCtx,
-        ISerializationContext? context = null)
+        ISerializationContext? context = null
+    )
     {
         target.Clear();
         using var enumerator = source.GetEnumerator();

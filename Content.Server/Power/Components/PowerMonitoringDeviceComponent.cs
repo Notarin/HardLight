@@ -42,7 +42,10 @@ public sealed partial class PowerMonitoringDeviceComponent : Component
     /// <summary>
     ///     Indicates whether the entity is/should be part of a collection
     /// </summary>
-    public bool IsCollectionMasterOrChild { get { return CollectionName != string.Empty; } }
+    public bool IsCollectionMasterOrChild
+    {
+        get { return CollectionName != string.Empty; }
+    }
 
     /// <summary>
     ///     Specifies the uid of the master that represents this entity
@@ -59,7 +62,10 @@ public sealed partial class PowerMonitoringDeviceComponent : Component
     /// <remarks>
     ///     Used when grouping multiple entities into a single power monitoring console entry
     /// </remarks>
-    public bool IsCollectionMaster { get { return Owner == CollectionMaster; } }
+    public bool IsCollectionMaster
+    {
+        get { return Owner == CollectionMaster; }
+    }
 
     /// <summary>
     ///     A list of other entities that are to be represented by this entity
@@ -83,7 +89,7 @@ public sealed partial class PowerMonitoringDeviceComponent : Component
     public string SpriteState = string.Empty;
 
     /// <summary>
-    ///    Determines what power monitoring group this entity should belong to 
+    ///    Determines what power monitoring group this entity should belong to
     /// </summary>
     [DataField("group", required: true), ViewVariables]
     public PowerMonitoringConsoleGroup Group;

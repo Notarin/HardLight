@@ -11,7 +11,7 @@
     normalState: normal-unshaded
     ejectState: eject-unshaded
     denyState: deny-unshaded
-#   screenState: screen
+    #   screenState: screen
   - type: Sprite
     sprite: _NF/Structures/Machines/VendingMachines/mercvend.rsi
     layers:
@@ -20,9 +20,9 @@
     - state: "off"
       map: ["enum.VendingMachineVisualLayers.BaseUnshaded"]
       shader: unshaded
-#   - state: "screen"
-#     map: ["enum.VendingMachineVisualLayers.Screen"]
-#     shader: unshaded
+      #   - state: "screen"
+      #     map: ["enum.VendingMachineVisualLayers.Screen"]
+      #     shader: unshaded
     - state: panel
       map: ["enum.WiresVisualLayers.MaintenancePanel"]
   - type: PointLight
@@ -39,9 +39,9 @@
     tags:
     - SecurityUplink
     - SecurityVend
-#  - type: Store
-#    balance:
-#      MercCoin: 0 # Waits for the player to put in money
+    #  - type: Store
+    #    balance:
+    #      MercCoin: 0 # Waits for the player to put in money
   - type: AccessReader
     access: [["Security"]]
   - type: ActivatableUIRequiresAccess

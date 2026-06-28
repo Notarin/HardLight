@@ -1,10 +1,10 @@
 using System.Linq;
 using Content.Server.Gateway.Components;
-using Content.Shared.Gateway.Components;
 using Content.Server.Parallax;
 using Content.Server.Procedural;
 using Content.Shared.CCVar;
 using Content.Shared.Dataset;
+using Content.Shared.Gateway.Components;
 using Content.Shared.Maps;
 using Content.Shared.Parallax.Biomes;
 using Content.Shared.Procedural;
@@ -24,19 +24,44 @@ namespace Content.Server.Gateway.Systems;
 /// </summary>
 public sealed class GatewayGeneratorSystem : EntitySystem
 {
-    [Dependency] private readonly IConfigurationManager _cfgManager = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly IPrototypeManager _protoManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly ITileDefinitionManager _tileDefManager = default!;
-    [Dependency] private readonly BiomeSystem _biome = default!;
-    [Dependency] private readonly DungeonSystem _dungeon = default!;
-    [Dependency] private readonly GatewaySystem _gateway = default!;
-    [Dependency] private readonly MetaDataSystem _metadata = default!;
-    [Dependency] private readonly SharedMapSystem _maps = default!;
-    [Dependency] private readonly SharedSalvageSystem _salvage = default!;
-    [Dependency] private readonly TileSystem _tile = default!;
+    [Dependency]
+    private readonly IConfigurationManager _cfgManager = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IMapManager _mapManager = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _protoManager = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly ITileDefinitionManager _tileDefManager = default!;
+
+    [Dependency]
+    private readonly BiomeSystem _biome = default!;
+
+    [Dependency]
+    private readonly DungeonSystem _dungeon = default!;
+
+    [Dependency]
+    private readonly GatewaySystem _gateway = default!;
+
+    [Dependency]
+    private readonly MetaDataSystem _metadata = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _maps = default!;
+
+    [Dependency]
+    private readonly SharedSalvageSystem _salvage = default!;
+
+    [Dependency]
+    private readonly TileSystem _tile = default!;
 
     private static readonly ProtoId<LocalizedDatasetPrototype> PlanetNamesId = "NamesBorer";
     private static readonly ProtoId<BiomeTemplatePrototype> ContinentalId = "Continental";
@@ -118,7 +143,12 @@ public sealed class GatewayGeneratorSystem : EntitySystem
         {
             for (var y = -2; y <= 2; y++)
             {
-                tiles.Add((new Vector2i(x, y) + origin, new Tile(tileDef.TileId, variant: _tile.PickVariant((ContentTileDefinition) tileDef, random))));
+                tiles.Add(
+                    (
+                        new Vector2i(x, y) + origin,
+                        new Tile(tileDef.TileId, variant: _tile.PickVariant((ContentTileDefinition)tileDef, random))
+                    )
+                );
             }
         }
 
@@ -136,12 +166,19 @@ public sealed class GatewayGeneratorSystem : EntitySystem
         // Create the gateway.
         var gatewayUid = SpawnAtPosition(generator.Proto, originCoords);
         var gatewayComp = Comp<GatewayComponent>(gatewayUid);
-        _gateway.SetDestinationName(gatewayUid, FormattedMessage.FromMarkupOrThrow($"[color=#D381C996]{gatewayName}[/color]"), gatewayComp);
+        _gateway.SetDestinationName(
+            gatewayUid,
+            FormattedMessage.FromMarkupOrThrow($"[color=#D381C996]{gatewayName}[/color]"),
+            gatewayComp
+        );
         _gateway.SetEnabled(gatewayUid, true, gatewayComp);
         generator.Generated.Add(mapUid);
     }
 
-    private void OnGeneratorAttemptOpen(Entity<GatewayGeneratorDestinationComponent> ent, ref AttemptGatewayOpenEvent args)
+    private void OnGeneratorAttemptOpen(
+        Entity<GatewayGeneratorDestinationComponent> ent,
+        ref AttemptGatewayOpenEvent args
+    )
     {
         if (ent.Comp.Loaded || args.Cancelled)
             return;
@@ -182,7 +219,14 @@ public sealed class GatewayGeneratorSystem : EntitySystem
         var dungeonRotation = _dungeon.GetDungeonRotation(seed);
         var dungeonPosition = (origin + dungeonRotation.RotateVec(new Vector2i(0, dungeonDistance))).Floored();
 
-        _dungeon.GenerateDungeon(_protoManager.Index(ExperimentDungeonId), "Experiment", args.MapUid, grid, dungeonPosition, seed); // Frontier: add "Experiment" arg
+        _dungeon.GenerateDungeon(
+            _protoManager.Index(ExperimentDungeonId),
+            "Experiment",
+            args.MapUid,
+            grid,
+            dungeonPosition,
+            seed
+        ); // Frontier: add "Experiment" arg
 
         // TODO: Dungeon mobs + loot.
 

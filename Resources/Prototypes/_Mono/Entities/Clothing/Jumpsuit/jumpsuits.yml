@@ -10,7 +10,7 @@
     sprite: _Mono/Clothing/Uniforms/Jumpsuit/colonialnavy.rsi
 
 - type: entity
-  parent: [ ClothingUniformBase, BaseColcommContraband ]
+  parent: [ClothingUniformBase, BaseColcommContraband]
   id: ClothingUniformColonialNavyOfficer
   name: Colonial Navy officer uniform
   description: A set of Naval officer Dress A's. Signature Colonial Navy Officer Dress Uniform.

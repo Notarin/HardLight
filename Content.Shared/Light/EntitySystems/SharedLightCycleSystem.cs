@@ -60,7 +60,7 @@ public abstract class SharedLightCycleSystem : EntitySystem
     /// </summary>
     public static double CalculateLightLevel(LightCycleComponent comp, float time)
     {
-        var waveLength = MathF.Max(1, (float) comp.Duration.TotalSeconds);
+        var waveLength = MathF.Max(1, (float)comp.Duration.TotalSeconds);
         var crest = MathF.Max(0f, comp.MaxLightLevel);
         var shift = MathF.Max(0f, comp.MinLightLevel);
         return Math.Min(comp.ClipLight, CalculateCurve(time, waveLength, crest, shift, 6));
@@ -75,29 +75,29 @@ public abstract class SharedLightCycleSystem : EntitySystem
     /// </summary>
     public static Color CalculateColorLevel(LightCycleComponent comp, float time)
     {
-        var waveLength = MathF.Max(1f, (float) comp.Duration.TotalSeconds);
+        var waveLength = MathF.Max(1f, (float)comp.Duration.TotalSeconds);
 
-        var red = MathF.Min(comp.ClipLevel.R,
-            CalculateCurve(time,
-                waveLength,
-                MathF.Max(0f, comp.MaxLevel.R),
-                MathF.Max(0f, comp.MinLevel.R),
-                4f));
+        var red = MathF.Min(
+            comp.ClipLevel.R,
+            CalculateCurve(time, waveLength, MathF.Max(0f, comp.MaxLevel.R), MathF.Max(0f, comp.MinLevel.R), 4f)
+        );
 
-        var green = MathF.Min(comp.ClipLevel.G,
-            CalculateCurve(time,
-                waveLength,
-                MathF.Max(0f, comp.MaxLevel.G),
-                MathF.Max(0f, comp.MinLevel.G),
-                10f));
+        var green = MathF.Min(
+            comp.ClipLevel.G,
+            CalculateCurve(time, waveLength, MathF.Max(0f, comp.MaxLevel.G), MathF.Max(0f, comp.MinLevel.G), 10f)
+        );
 
-        var blue = MathF.Min(comp.ClipLevel.B,
-            CalculateCurve(time,
+        var blue = MathF.Min(
+            comp.ClipLevel.B,
+            CalculateCurve(
+                time,
                 waveLength / 2f,
                 MathF.Max(0f, comp.MaxLevel.B),
                 MathF.Max(0f, comp.MinLevel.B),
                 2,
-                waveLength / 4f));
+                waveLength / 4f
+            )
+        );
 
         return new Color(red, green, blue);
     }
@@ -112,12 +112,14 @@ public abstract class SharedLightCycleSystem : EntitySystem
     /// <param name="exponent"> It is the exponent of the sine, serves to "flatten" the function close to its minimum points and make it "steeper" close to its maximum. </param>
     /// <param name="phase"> It changes the phase of the wave, like a "horizontal shift". It is important to transform the sinusoidal function into cosine, when necessary. </param>
     /// <returns> The result of the function. </returns>
-    public static float CalculateCurve(float x,
+    public static float CalculateCurve(
+        float x,
         float waveLength,
         float crest,
         float shift,
         float exponent,
-        float phase = 0)
+        float phase = 0
+    )
     {
         var sen = MathF.Pow(MathF.Sin((MathF.PI * (phase + x)) / waveLength), exponent);
         return (crest - shift) * sen + shift;

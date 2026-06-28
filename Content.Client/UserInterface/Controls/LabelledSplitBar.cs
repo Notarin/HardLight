@@ -2,6 +2,7 @@ using System.Numerics;
 using Robust.Client.Graphics;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
+
 namespace Content.Client.UserInterface.Controls;
 
 public sealed class LabelledSplitBar : BoxContainer
@@ -38,10 +39,7 @@ public sealed class LabelledSplitBar : BoxContainer
             SizeFlagsStretchRatio = amount,
             MouseFilter = MouseFilterMode.Stop,
             RectClipContent = true,
-            PanelOverride = new StyleBoxFlat
-            {
-                BackgroundColor = color
-            }
+            PanelOverride = new StyleBoxFlat { BackgroundColor = color },
         };
 
         if (MinBarWidth != null)
@@ -52,7 +50,7 @@ public sealed class LabelledSplitBar : BoxContainer
             Text = label,
             Margin = LabelMargin,
             FontColorOverride = textColor,
-            ClipText = true
+            ClipText = true,
         };
 
         panel.AddChild(text);
@@ -64,12 +62,14 @@ public sealed class LabelledSplitBar : BoxContainer
         if (amount <= 0)
             return;
 
-        AddChild(new Control
-        {
-            HorizontalExpand = true,
-            VerticalExpand = true,
-            SizeFlagsStretchRatio = amount,
-            MouseFilter = MouseFilterMode.Stop
-        });
+        AddChild(
+            new Control
+            {
+                HorizontalExpand = true,
+                VerticalExpand = true,
+                SizeFlagsStretchRatio = amount,
+                MouseFilter = MouseFilterMode.Stop,
+            }
+        );
     }
 }

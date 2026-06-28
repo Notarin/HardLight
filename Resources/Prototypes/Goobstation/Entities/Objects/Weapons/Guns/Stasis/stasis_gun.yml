@@ -37,7 +37,7 @@
     providerWhitelist:
       tags:
       - StasisBattery
-      
+
 - type: entity
   id: WeaponStasisGun
   parent: WeaponStasisGunBase

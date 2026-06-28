@@ -41,7 +41,7 @@
       shader: unshaded
       map: ["light"]
       visible: false
-      
+
 - type: entity
   id: SpawnPointSalvageQuadborg
   parent: SpawnPointJobBase
@@ -63,7 +63,7 @@
       shader: unshaded
       map: ["light"]
       visible: false
-      
+
 - type: entity
   id: SpawnPointSecurityQuadborg
   parent: SpawnPointJobBase

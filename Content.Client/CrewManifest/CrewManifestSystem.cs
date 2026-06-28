@@ -6,7 +6,8 @@ namespace Content.Client.CrewManifest;
 
 public sealed class CrewManifestSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
 
     private Dictionary<string, Dictionary<string, int>> _jobDepartmentLookup = new();
     private HashSet<string> _departments = new();
@@ -69,8 +70,6 @@ public sealed class CrewManifestSystem : EntitySystem
             return -1;
         }
 
-        return departments.TryGetValue(department, out var order)
-            ? order
-            : -1;
+        return departments.TryGetValue(department, out var order) ? order : -1;
     }
 }

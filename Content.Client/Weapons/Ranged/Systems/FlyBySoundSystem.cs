@@ -12,9 +12,14 @@ namespace Content.Client.Weapons.Ranged.Systems;
 
 public sealed class FlyBySoundSystem : SharedFlyBySoundSystem
 {
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
 
     public override void Initialize()
     {
@@ -27,16 +32,16 @@ public sealed class FlyBySoundSystem : SharedFlyBySoundSystem
         var attachedEnt = _player.LocalEntity;
 
         // If it's not our ent or we shot it.
-        if (attachedEnt == null ||
-            args.OtherEntity != attachedEnt ||
-            TryComp<ProjectileComponent>(uid, out var projectile) &&
-            projectile.Shooter == attachedEnt)
+        if (
+            attachedEnt == null
+            || args.OtherEntity != attachedEnt
+            || TryComp<ProjectileComponent>(uid, out var projectile) && projectile.Shooter == attachedEnt
+        )
         {
             return;
         }
 
-        if (args.OurFixtureId != FlyByFixture ||
-            !_random.Prob(component.Prob))
+        if (args.OurFixtureId != FlyByFixture || !_random.Prob(component.Prob))
         {
             return;
         }

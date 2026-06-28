@@ -7,14 +7,14 @@
     mayTransfer: true
     whitelist:
       tags:
-        - Cartridge50_magnumFMJ
+      - Cartridge50_magnumFMJ
     proto: Cartridge50_magnumFMJ
     capacity: 30
   - type: Item
     size: Small
   - type: ContainerContainer
     containers:
-       ballistic-ammo: !type:Container
+      ballistic-ammo: !type:Container
   - type: Sprite
     sprite: _HL/Objects/Weapons/Guns/Ammunition/Boxes/50Magnum.rsi
   - type: MagazineVisuals

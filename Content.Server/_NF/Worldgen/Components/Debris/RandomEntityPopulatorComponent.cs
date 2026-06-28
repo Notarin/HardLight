@@ -24,9 +24,7 @@ public sealed partial class RandomEntityPopulatorComponent : Component
     /// </summary>
     [ViewVariables]
     public List<(RandomEntityParameters Params, EntitySpawnCollectionCache Cache)> Caches =>
-        _caches ??= _entries
-            .Select(x => (x.Params, new EntitySpawnCollectionCache(x.Entries)))
-            .ToList();
+        _caches ??= _entries.Select(x => (x.Params, new EntitySpawnCollectionCache(x.Entries))).ToList();
 }
 
 // A random set of entities to spawn

@@ -7,7 +7,7 @@
   components:
   - type: Tag
     tags:
-      - CartridgeRocket
+    - CartridgeRocket
   - type: Item
     size: Small
   - type: CartridgeAmmo
@@ -64,7 +64,7 @@
     - NFCartridgeGrenade40mm
 
 - type: entity
-  parent: [ NFBaseGrenade40mm, GrenadeBaton ]
+  parent: [NFBaseGrenade40mm, GrenadeBaton]
   id: NFGrenadeBaton
   name: baton grenade round
   components:
@@ -72,7 +72,7 @@
     proto: Bullet40mmGrenadeBaton
 
 - type: entity
-  parent: [ NFBaseGrenade40mm, GrenadeBlast ]
+  parent: [NFBaseGrenade40mm, GrenadeBlast]
   id: NFGrenadeBlast
   name: blast grenade round
   components:
@@ -80,7 +80,7 @@
     proto: Bullet40mmGrenadeThermobaric
 
 - type: entity
-  parent: [ NFBaseGrenade40mm, GrenadeCleanade ]
+  parent: [NFBaseGrenade40mm, GrenadeCleanade]
   id: NFGrenadeCleanade
   name: cleanade grenade round
   components:
@@ -88,7 +88,7 @@
     proto: NFBulletGrenadeCleanade
 
 - type: entity
-  parent: [ NFBaseGrenade40mm, GrenadeFlash ]
+  parent: [NFBaseGrenade40mm, GrenadeFlash]
   id: NFGrenadeFlash
   name: flash grenade round
   components:
@@ -100,7 +100,7 @@
     proto: Bullet40mmGrenadeFlash
 
 - type: entity
-  parent: [ NFBaseGrenade40mm, GrenadeFrag ]
+  parent: [NFBaseGrenade40mm, GrenadeFrag]
   id: NFGrenadeFrag
   name: frag grenade round
   components:
@@ -108,7 +108,7 @@
     proto: Bullet40mmGrenadeFragmentation
 
 - type: entity
-  parent: [ NFBaseGrenade40mm, GrenadeEMP ]
+  parent: [NFBaseGrenade40mm, GrenadeEMP]
   id: NFGrenadeEMP
   name: EMP grenade round
   components:

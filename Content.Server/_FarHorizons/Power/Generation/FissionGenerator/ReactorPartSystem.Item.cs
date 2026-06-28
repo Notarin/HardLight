@@ -12,17 +12,21 @@ namespace Content.Server._FarHorizons.Power.Generation.FissionGenerator;
 
 public sealed partial class ReactorPartSystem
 {
-    [Dependency] private readonly MetaDataSystem _metaDataSystem = default!;
+    [Dependency]
+    private readonly MetaDataSystem _metaDataSystem = default!;
 
     private void OnAtmosExposed(EntityUid uid, ReactorPartComponent component, ref AtmosExposedUpdateEvent args)
     {
         // Stops it from cooking the room while in the reactor
-        if(!TryComp(uid, out MetaDataComponent? metaData) || (metaData.Flags & MetaDataFlags.InContainer) == MetaDataFlags.InContainer)
+        if (
+            !TryComp(uid, out MetaDataComponent? metaData)
+            || (metaData.Flags & MetaDataFlags.InContainer) == MetaDataFlags.InContainer
+        )
             return;
 
         // Can't use args.GasMixture because then it wouldn't excite the tile
         var gasMix = _atmosphereSystem.GetContainingMixture(uid, false, true) ?? GasMixture.SpaceGas;
-        if(gasMix.TotalMoles < Atmospherics.GasMinMoles)
+        if (gasMix.TotalMoles < Atmospherics.GasMinMoles)
             gasMix = GasMixture.SpaceGas;
 
         var DeltaT = (component.Temperature - gasMix.Temperature) * 0.01f;
@@ -33,7 +37,8 @@ public sealed partial class ReactorPartSystem
         component.Temperature -= DeltaT;
         if (!gasMix.Immutable) // This prevents it from heating up space itself
             // This viloates COE, but if energy is conserved, then pulling out a hot rod will instantly turn the room into an oven
-            gasMix.Temperature += 0.1f * DeltaT * component.ThermalMass / _atmosphereSystem.GetHeatCapacity(gasMix, false);
+            gasMix.Temperature +=
+                0.1f * DeltaT * component.ThermalMass / _atmosphereSystem.GetHeatCapacity(gasMix, false);
 
         var burncomp = CompOrNull<DamageOnInteractComponent>(uid);
         if (burncomp is null)

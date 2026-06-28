@@ -12,9 +12,8 @@ public sealed class MailingUnitBoundUserInterface : BoundUserInterface
     [ViewVariables]
     public MailingUnitWindow? MailingUnitWindow;
 
-    public MailingUnitBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-    }
+    public MailingUnitBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     private void ButtonPressed(DisposalUnitComponent.UiButton button)
     {

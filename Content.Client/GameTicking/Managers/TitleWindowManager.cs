@@ -8,10 +8,17 @@ namespace Content.Client.GameTicking.Managers;
 
 public sealed class TitleWindowManager
 {
-    [Dependency] private readonly IBaseClient _client = default!;
-    [Dependency] private readonly IClyde _clyde = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IGameController _gameController = default!;
+    [Dependency]
+    private readonly IBaseClient _client = default!;
+
+    [Dependency]
+    private readonly IClyde _clyde = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
+
+    [Dependency]
+    private readonly IGameController _gameController = default!;
 
     public void Initialize()
     {

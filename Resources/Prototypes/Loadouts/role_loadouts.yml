@@ -18,7 +18,7 @@
   - HoPJumpsuit
   - HoPBackpack
   - HoPOuterClothing
-# HardLight start: Add departmental NF-style loadouts
+  # HardLight start: Add departmental NF-style loadouts
   - HoPShoes
   - HoPGloves
   - StcForcedOuterClothing
@@ -74,7 +74,7 @@
   - BartenderJumpsuit
   - ContractorBackpack
   - BartenderOuterClothing
-# HardLight start: Add departmental NF-style loadouts
+  # HardLight start: Add departmental NF-style loadouts
   - ContractorNeck
   - BartenderGloves
   - ContractorForcedOuterClothing
@@ -93,7 +93,7 @@
 - type: roleLoadout
   id: JobServiceWorker
   groups:
-# HardLight start: Add departmental NF-style loadouts
+  # HardLight start: Add departmental NF-style loadouts
   - ServiceJumpsuit
   - CommonBackpack
   - ContractorOuterClothing
@@ -121,7 +121,7 @@
   - ChefJumpsuit
   - CommonBackpack
   - ChefOuterClothing
-# HardLight start: Add departmental NF-style loadouts
+  # HardLight start: Add departmental NF-style loadouts
   - ContractorNeck
   - ChefGloves
   - ContractorForcedOuterClothing
@@ -142,7 +142,7 @@
   groups:
   - LibrarianJumpsuit
   - CommonBackpack
-# HardLight start: Add departmental NF-style loadouts
+  # HardLight start: Add departmental NF-style loadouts
   - ContractorHead
   - ContractorNeck
   - ServiceGloves
@@ -166,7 +166,7 @@
   - LawyerNeck
   - LawyerJumpsuit
   - CommonBackpack
-# HardLight start: Add departmental NF-style loadouts
+  # HardLight start: Add departmental NF-style loadouts
   - ContractorHead
   - ServiceGloves
   - ContractorOuterClothing
@@ -192,7 +192,7 @@
   - ChaplainJumpsuit
   - CommonBackpack
   - ChaplainOuterClothing
-# HardLight start: Add departmental NF-style loadouts
+  # HardLight start: Add departmental NF-style loadouts
   - ChaplainGloves
   - ContractorForcedOuterClothing
   - ChaplainShoes
@@ -216,7 +216,7 @@
   - CommonBackpack
   - JanitorOuterClothing
   - JanitorPlunger
-# HardLight start: Add departmental NF-style loadouts
+  # HardLight start: Add departmental NF-style loadouts
   - ContractorNeck
   - ContractorForcedOuterClothing
   - JanitorShoes
@@ -238,7 +238,7 @@
   - BotanistJumpsuit
   - BotanistBackpack
   - BotanistOuterClothing
-# HardLight start: Add departmental NF-style loadouts
+  # HardLight start: Add departmental NF-style loadouts
   - ContractorNeck
   - ServiceGloves
   - ContractorForcedOuterClothing
@@ -264,7 +264,7 @@
   - ClownOuterClothing
   - ClownShoes
   - SurvivalClown
-# HardLight start: Add departmental NF-style loadouts
+  # HardLight start: Add departmental NF-style loadouts
   - ContractorNeck
   - ServiceGloves
   - ContractorForcedOuterClothing
@@ -289,7 +289,7 @@
   - MimeOuterClothing
   - MimeBelt
   - SurvivalMime
-# HardLight start: Add departmental NF-style loadouts
+  # HardLight start: Add departmental NF-style loadouts
   - ContractorNeck
   - MimeGloves
   - ContractorForcedOuterClothing
@@ -310,7 +310,7 @@
   - CommonBackpack
   - MusicianOuterClothing
   - Instruments
-# HardLight start: Add departmental NF-style loadouts
+  # HardLight start: Add departmental NF-style loadouts
   - ContractorHead
   - ContractorNeck
   - MusicianGloves
@@ -337,7 +337,7 @@
   - CargoTechnicianBackpack
   - QuartermasterOuterClothing
   - QuartermasterShoes
-# HardLight start: Add departmental NF-style loadouts
+  # HardLight start: Add departmental NF-style loadouts
   - QuartermasterGloves
   - ContractorForcedOuterClothing
   - ContractorFace
@@ -359,7 +359,7 @@
   - CargoTechnicianBackpack
   - CargoTechnicianOuterClothing
   - CargoTechnicianShoes
-# HardLight start: Add departmental NF-style loadouts
+  # HardLight start: Add departmental NF-style loadouts
   - ContractorNeck
   - CargoGloves
   - ContractorForcedOuterClothing
@@ -377,7 +377,7 @@
 - type: roleLoadout
   id: JobSalvageSpecialist
   groups:
-# HardLight start: Add departmental NF-style loadouts
+  # HardLight start: Add departmental NF-style loadouts
   - MercenaryHead
   - ContractorNeck
   - SalvageSpecialistJumpsuit
@@ -408,7 +408,7 @@
   - ChiefEngineerOuterClothing
   - ChiefEngineerShoes
   - SurvivalExtended
-# HardLight start: Add departmental NF-style loadouts
+  # HardLight start: Add departmental NF-style loadouts
   - ChiefEngineerGloves
   - ContractorForcedOuterClothing
   - ContractorFace
@@ -427,7 +427,7 @@
   - TechnicalAssistantJumpsuit
   - StationEngineerBackpack
   - SurvivalExtended
-# HardLight start: Add departmental NF-style loadouts
+  # HardLight start: Add departmental NF-style loadouts
   - ContractorHead
   - ContractorNeck
   - EngineeringGloves
@@ -454,7 +454,7 @@
   - StationEngineerShoes
   - StationEngineerID
   - SurvivalExtended
-# HardLight start: Add departmental NF-style loadouts
+  # HardLight start: Add departmental NF-style loadouts
   - ContractorNeck
   - EngineeringGloves
   - ContractorForcedOuterClothing
@@ -476,7 +476,7 @@
   - AtmosphericTechnicianOuterClothing
   - AtmosphericTechnicianShoes
   - SurvivalExtended
-# HardLight start: Add departmental NF-style loadouts
+  # HardLight start: Add departmental NF-style loadouts
   - ContractorHead
   - ContractorNeck
   - EngineeringGloves
@@ -502,7 +502,7 @@
   - ResearchDirectorOuterClothing
   - ScientistGloves
   - ResearchDirectorShoes
-# HardLight start: Add departmental NF-style loadouts
+  # HardLight start: Add departmental NF-style loadouts
   - ContractorForcedOuterClothing
   - ContractorFace
   - ContractorGlasses
@@ -526,7 +526,7 @@
   - ScientistGloves
   - ScientistShoes
   - ScientistPDA
-# HardLight start: Add departmental NF-style loadouts
+  # HardLight start: Add departmental NF-style loadouts
   - ContractorForcedOuterClothing
   - ContractorFace
   - ContractorGlasses
@@ -544,7 +544,7 @@
   groups:
   - ResearchAssistantJumpsuit
   - ScientistBackpack
-# HardLight start: Add departmental NF-style loadouts
+  # HardLight start: Add departmental NF-style loadouts
   - ContractorHead
   - ContractorNeck
   - ScienceGloves
@@ -573,7 +573,7 @@
   - MantisOuterClothing
   - MantisShoes
   - MantisGloves
-# HardLight start: Add departmental NF-style loadouts
+  # HardLight start: Add departmental NF-style loadouts
   - ContractorForcedOuterClothing
   - ContractorFace
   - ContractorGlasses
@@ -599,7 +599,7 @@
   - HeadofSecurityOuterClothing
   - SecurityStar
   - SurvivalSecurity
-# HardLight start: Add departmental NF-style loadouts
+  # HardLight start: Add departmental NF-style loadouts
   - SecurityForcedOuterClothing
   - ContractorForcedOuterClothing
   - HeadofSecurityGloves
@@ -625,7 +625,7 @@
   - WardenOuterClothing
   - SecurityStar
   - SurvivalSecurity
-# HardLight start: Add departmental NF-style loadouts
+  # HardLight start: Add departmental NF-style loadouts
   - SecurityForcedOuterClothing
   - WardenShoes
   - SecurityGloves
@@ -653,7 +653,7 @@
   - SecurityBelt
   - SecurityStar
   - SurvivalSecurity
-# HardLight start: Add departmental NF-style loadouts
+  # HardLight start: Add departmental NF-style loadouts
   - SecurityForcedOuterClothing
   - SecurityGloves
   - ContractorForcedOuterClothing
@@ -679,7 +679,7 @@
   - DetectiveShoes
   - SecurityStar
   - SurvivalSecurity
-# HardLight start: Add departmental NF-style loadouts
+  # HardLight start: Add departmental NF-style loadouts
   - SecurityForcedOuterClothing
   - DetectiveGloves
   - ContractorForcedOuterClothing
@@ -700,7 +700,7 @@
   - SecurityCadetJumpsuit
   - SecurityBackpack
   - SurvivalSecurity
-# HardLight start: Add departmental NF-style loadouts
+  # HardLight start: Add departmental NF-style loadouts
   - SecurityForcedOuterClothing
   - SecurityCadetGloves
   - ContractorForcedOuterClothing
@@ -730,7 +730,7 @@
   - ChiefMedicalOfficerShoes
   - MedicalEyewear
   - SurvivalMedical
-# HardLight start: Add departmental NF-style loadouts
+  # HardLight start: Add departmental NF-style loadouts
   - ChiefMedicalOfficerGloves
   - DocForcedOuterClothing
   - ContractorGlasses
@@ -755,7 +755,7 @@
   - MedicalDoctorPDA
   - MedicalEyewear
   - SurvivalMedical
-# HardLight start: Add departmental NF-style loadouts
+  # HardLight start: Add departmental NF-style loadouts
   - DocForcedOuterClothing
   - ContractorNeck
   - ContractorForcedOuterClothing
@@ -773,7 +773,7 @@
   - MedicalBackpack
   - MedicalEyewear
   - SurvivalMedical
-# HardLight start: Add departmental NF-style loadouts
+  # HardLight start: Add departmental NF-style loadouts
   - DocForcedOuterClothing
   - ContractorHead
   - ContractorNeck
@@ -797,7 +797,7 @@
   - ChemistBackpack
   - ChemistOuterClothing
   - SurvivalMedical
-# HardLight start: Add departmental NF-style loadouts
+  # HardLight start: Add departmental NF-style loadouts
   - DocForcedOuterClothing
   - ChemistGloves
   - ChemistShoes
@@ -823,7 +823,7 @@
   - ParamedicShoes
   - MedicalEyewear
   - SurvivalMedical
-# HardLight start: Add departmental NF-style loadouts
+  # HardLight start: Add departmental NF-style loadouts
   - DocForcedOuterClothing
   - ParamedicGloves
   - ContractorNeck
@@ -839,7 +839,7 @@
 - type: roleLoadout
   id: JobZookeeper
   groups:
-# HardLight start: Add departmental NF-style loadouts
+  # HardLight start: Add departmental NF-style loadouts
   - ServiceForcedOuterClothing
   - ServiceJumpsuit
   - CommonBackpack
@@ -864,7 +864,7 @@
   groups:
   - ReporterJumpsuit
   - CommonBackpack
-# HardLight start: Add departmental NF-style loadouts
+  # HardLight start: Add departmental NF-style loadouts
   - ServiceForcedOuterClothing
   - ContractorOuterClothing
   - ContractorForcedOuterClothing
@@ -887,7 +887,7 @@
   groups:
   - PsychologistJumpsuit
   - MedicalBackpack
-# HardLight start: Add departmental NF-style loadouts
+  # HardLight start: Add departmental NF-style loadouts
   - DocForcedOuterClothing
   - ContractorOuterClothing
   - ContractorForcedOuterClothing
@@ -911,7 +911,7 @@
   - BoxerJumpsuit
   - BoxerGloves
   - CommonBackpack
-# HardLight start: Add departmental NF-style loadouts
+  # HardLight start: Add departmental NF-style loadouts
   - BoxerForcedOuterClothing
   - ContractorHead
   - ContractorNeck

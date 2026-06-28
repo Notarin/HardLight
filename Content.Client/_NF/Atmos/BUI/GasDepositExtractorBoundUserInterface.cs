@@ -1,7 +1,7 @@
 using Content.Client.Atmos.UI;
+using Content.Shared._NF.Atmos.Components;
 using Content.Shared.Atmos.Piping.Binary.Components;
 using Content.Shared.IdentityManagement;
-using Content.Shared._NF.Atmos.Components;
 using JetBrains.Annotations;
 using Robust.Client.UserInterface;
 

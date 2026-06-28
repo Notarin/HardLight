@@ -20,10 +20,12 @@ public sealed partial class AntagSelectionSystem
     /// <summary>
     /// Tries to get the next non-filled definition based on the current amount of selected minds and other factors.
     /// </summary>
-    public bool TryGetNextAvailableDefinition(Entity<AntagSelectionComponent> ent,
+    public bool TryGetNextAvailableDefinition(
+        Entity<AntagSelectionComponent> ent,
         [NotNullWhen(true)] out AntagSelectionDefinition? definition,
         int? players = null,
-        EntityUid? targetEntity = null) // Frontier: add targetEntity
+        EntityUid? targetEntity = null
+    ) // Frontier: add targetEntity
     {
         definition = null;
 
@@ -42,9 +44,13 @@ public sealed partial class AntagSelectionSystem
             var target = GetTargetAntagCount(ent, null, def);
 
             // Frontier: ignore non-whitelisted/blacklisted entities
-            if (targetEntity != null
-                && (_whitelist.IsWhitelistFail(def.Whitelist, targetEntity.Value)
-                || _whitelist.IsBlacklistPass(def.Blacklist, targetEntity.Value)))
+            if (
+                targetEntity != null
+                && (
+                    _whitelist.IsWhitelistFail(def.Whitelist, targetEntity.Value)
+                    || _whitelist.IsBlacklistPass(def.Blacklist, targetEntity.Value)
+                )
+            )
                 continue;
             // End Frontier
 
@@ -105,7 +111,9 @@ public sealed partial class AntagSelectionSystem
         var countOffset = 0;
         foreach (var otherDef in ent.Comp.Definitions)
         {
-            countOffset += Math.Clamp((poolSize - countOffset) / otherDef.PlayerRatio, otherDef.Min, otherDef.Max) * otherDef.PlayerRatio; // Note: Is the PlayerRatio necessary here? Seems like it can cause issues for defs with varied PlayerRatio.
+            countOffset +=
+                Math.Clamp((poolSize - countOffset) / otherDef.PlayerRatio, otherDef.Min, otherDef.Max)
+                * otherDef.PlayerRatio; // Note: Is the PlayerRatio necessary here? Seems like it can cause issues for defs with varied PlayerRatio.
         }
         // make sure we don't double-count the current selection
         countOffset -= Math.Clamp(poolSize / def.PlayerRatio, def.Min, def.Max) * def.PlayerRatio;
@@ -113,7 +121,9 @@ public sealed partial class AntagSelectionSystem
         var rawCount = (poolSize - countOffset) / def.PlayerRatio;
         var result = Math.Clamp(rawCount, def.Min, def.Max);
 
-        Log.Info($"GetTargetAntagCount Debug - PoolSize: {poolSize}, CountOffset: {countOffset}, RawCount: {rawCount}, Min: {def.Min}, Max: {def.Max}, PlayerRatio: {def.PlayerRatio}, Result: {result}");
+        Log.Info(
+            $"GetTargetAntagCount Debug - PoolSize: {poolSize}, CountOffset: {countOffset}, RawCount: {rawCount}, Min: {def.Min}, Max: {def.Max}, PlayerRatio: {def.PlayerRatio}, Result: {result}"
+        );
 
         return result;
     }
@@ -184,7 +194,7 @@ public sealed partial class AntagSelectionSystem
         if (def.PrefRoles.Count == 0)
             return false;
 
-        var pref = (HumanoidCharacterProfile) _pref.GetPreferences(session.UserId).SelectedCharacter;
+        var pref = (HumanoidCharacterProfile)_pref.GetPreferences(session.UserId).SelectedCharacter;
         return pref.AntagPreferences.Any(p => def.PrefRoles.Contains(p));
     }
 
@@ -199,7 +209,7 @@ public sealed partial class AntagSelectionSystem
         if (def.FallbackRoles.Count == 0)
             return false;
 
-        var pref = (HumanoidCharacterProfile) _pref.GetPreferences(session.UserId).SelectedCharacter;
+        var pref = (HumanoidCharacterProfile)_pref.GetPreferences(session.UserId).SelectedCharacter;
         return pref.AntagPreferences.Any(p => def.FallbackRoles.Contains(p));
     }
 
@@ -291,7 +301,12 @@ public sealed partial class AntagSelectionSystem
     /// <param name="briefingColor">The color the briefing should be, null for default</param>
     /// <param name="briefingSound">The sound to briefing/greeting sound to play</param>
     [PublicAPI]
-    public void SendBriefing(List<ICommonSession> sessions, string briefing, Color? briefingColor, SoundSpecifier? briefingSound)
+    public void SendBriefing(
+        List<ICommonSession> sessions,
+        string briefing,
+        Color? briefingColor,
+        SoundSpecifier? briefingSound
+    )
     {
         foreach (var session in sessions)
         {
@@ -304,9 +319,7 @@ public sealed partial class AntagSelectionSystem
     /// </summary>
     /// <param name="session">The player chosen to be an antag</param>
     /// <param name="data">The briefing data</param>
-    public void SendBriefing(
-        ICommonSession? session,
-        BriefingData? data)
+    public void SendBriefing(ICommonSession? session, BriefingData? data)
     {
         if (session == null || data == null)
             return;
@@ -326,7 +339,8 @@ public sealed partial class AntagSelectionSystem
         ICommonSession? session,
         string briefing,
         Color? briefingColor,
-        SoundSpecifier? briefingSound)
+        SoundSpecifier? briefingSound
+    )
     {
         if (session == null)
             return;
@@ -335,8 +349,15 @@ public sealed partial class AntagSelectionSystem
         if (!string.IsNullOrEmpty(briefing))
         {
             var wrappedMessage = Loc.GetString("chat-manager-server-wrap-message", ("message", briefing));
-            _chat.ChatMessageToOne(ChatChannel.Server, briefing, wrappedMessage, default, false, session.Channel,
-                briefingColor);
+            _chat.ChatMessageToOne(
+                ChatChannel.Server,
+                briefing,
+                wrappedMessage,
+                default,
+                false,
+                session.Channel,
+                briefingColor
+            );
         }
     }
 
@@ -344,7 +365,8 @@ public sealed partial class AntagSelectionSystem
     /// This technically is a gamerule-ent-less way to make an entity an antag.
     /// You should almost never be using this.
     /// </summary>
-    public void ForceMakeAntag<T>(ICommonSession? player, string defaultRule) where T : Component
+    public void ForceMakeAntag<T>(ICommonSession? player, string defaultRule)
+        where T : Component
     {
         var rule = ForceGetGameRuleEnt<T>(defaultRule);
 
@@ -357,7 +379,8 @@ public sealed partial class AntagSelectionSystem
     /// Tries to grab one of the weird specific antag gamerule ents or starts a new one.
     /// This is gross code but also most of this is pretty gross to begin with.
     /// </summary>
-    public Entity<AntagSelectionComponent> ForceGetGameRuleEnt<T>(string id) where T : Component
+    public Entity<AntagSelectionComponent> ForceGetGameRuleEnt<T>(string id)
+        where T : Component
     {
         var query = EntityQueryEnumerator<T, AntagSelectionComponent>();
         while (query.MoveNext(out var uid, out _, out var comp))
@@ -419,7 +442,10 @@ public sealed partial class AntagSelectionSystem
                 if (def.Equals(except))
                     continue;
 
-                if (def.MultiAntagSetting == AntagAcceptability.None && comp.PreSelectedSessions.TryGetValue(def, out var set))
+                if (
+                    def.MultiAntagSetting == AntagAcceptability.None
+                    && comp.PreSelectedSessions.TryGetValue(def, out var set)
+                )
                 {
                     result.UnionWith(set);
                     break;

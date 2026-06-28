@@ -125,10 +125,10 @@
   name: salvage leads's jumpskirt
   description: It's a snappy jumpskirt with a sturdy set of overalls. It's very dirty.
   components:
-    - type: Sprite
-      sprite: _CS/Clothes/Uniforms/Jumpskirt/salvagelead.rsi
-    - type: Clothing
-      sprite: _CS/Clothes/Uniforms/Jumpskirt/salvagelead.rsi
+  - type: Sprite
+    sprite: _CS/Clothes/Uniforms/Jumpskirt/salvagelead.rsi
+  - type: Clothing
+    sprite: _CS/Clothes/Uniforms/Jumpskirt/salvagelead.rsi
 
 - type: entity
   parent: ClothingUniformBase
@@ -180,10 +180,10 @@
   name: CentComm officer's suitskirt
   description: It's a suitskirt worn by CentComm's highest-tier Commanders.
   components:
-    - type: Sprite
-      sprite: _CS/Clothes/Uniforms/Jumpskirt/centcom_official.rsi
-    - type: Clothing
-      sprite: _CS/Clothes/Uniforms/Jumpskirt/centcom_official.rsi
+  - type: Sprite
+    sprite: _CS/Clothes/Uniforms/Jumpskirt/centcom_official.rsi
+  - type: Clothing
+    sprite: _CS/Clothes/Uniforms/Jumpskirt/centcom_official.rsi
 
 - type: entity
   parent: ClothingUniformSkirtBase
@@ -290,7 +290,7 @@
   name: sweet pastry dress
   description: A delicate pastry dress made from light, comfortable fabric with an elegant cut.
   components:
-    - type: Sprite
-      sprite: _CS/Clothes/Uniforms/Jumpskirt/pastry.rsi
-    - type: Clothing
-      sprite: _CS/Clothes/Uniforms/Jumpskirt/pastry.rsi
+  - type: Sprite
+    sprite: _CS/Clothes/Uniforms/Jumpskirt/pastry.rsi
+  - type: Clothing
+    sprite: _CS/Clothes/Uniforms/Jumpskirt/pastry.rsi

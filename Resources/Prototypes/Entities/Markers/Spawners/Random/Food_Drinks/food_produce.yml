@@ -8,9 +8,9 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - sprite: Objects/Specific/Hydroponics/onion_red.rsi
-        state: produce
+    - state: green
+    - sprite: Objects/Specific/Hydroponics/onion_red.rsi
+      state: produce
   - type: EntityTableSpawner
     table: !type:NestedSelector
       tableId: ProduceTable
@@ -21,8 +21,8 @@
   id: ProduceTable
   table: !type:GroupSelector
     children:
-    #Common
     - !type:GroupSelector
+      #Common
       weight: 100
       children:
       - id: WheatBushel
@@ -143,23 +143,23 @@
         amount: !type:RangeNumberSelector
           range: 1, 5
       - id: FoodCoffee # Frontier
-        amount: !type:RangeNumberSelector # Frontier
+        amount: !type:RangeNumberSelector
           range: 1, 5 # Frontier
       - id: FoodAvocado # Frontier
-        amount: !type:RangeNumberSelector # Frontier
+        amount: !type:RangeNumberSelector
           range: 1, 5 # Frontier
       - id: FoodCucumber # Frontier
-        amount: !type:RangeNumberSelector # Frontier
+        amount: !type:RangeNumberSelector
           range: 1, 5 # Frontier
       - id: FoodHoneyComb # Frontier
-        amount: !type:RangeNumberSelector # Frontier
+        amount: !type:RangeNumberSelector
           range: 1, 5 # Frontier
       - id: FoodPomegranate # Floofstation
-        amount: !type:RangeNumberSelector # Floofstation
+        amount: !type:RangeNumberSelector
           range: 1, 5 # Floofstation
-    #rare
     - !type:GroupSelector
-      children:
+      #rare
+      children: # Floofstation
       - id: FoodBlueTomato
         amount: !type:RangeNumberSelector
           range: 1, 5

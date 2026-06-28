@@ -43,6 +43,7 @@ namespace Content.Shared.Soul
     public sealed class GolemMasterNameChangedMessage : BoundUserInterfaceMessage
     {
         public string MasterName { get; }
+
         public GolemMasterNameChangedMessage(string masterName)
         {
             MasterName = masterName;
@@ -55,7 +56,6 @@ namespace Content.Shared.Soul
     [Serializable, NetSerializable]
     public sealed class GolemInstallRequestMessage : BoundUserInterfaceMessage
     {
-        public GolemInstallRequestMessage()
-        {}
+        public GolemInstallRequestMessage() { }
     }
 }

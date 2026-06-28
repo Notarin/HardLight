@@ -8,8 +8,10 @@ public sealed partial class RoadkillComponent : Component
 {
     [DataField]
     public float KillSpeed;
+
     [DataField]
     public float DestroySpeed;
+
     [DataField]
     public SoundSpecifier? DestroySound;
 }

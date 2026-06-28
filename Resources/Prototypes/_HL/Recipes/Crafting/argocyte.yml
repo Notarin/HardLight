@@ -6,7 +6,7 @@
   category: construction-category-clothing
   description: item-argocyte-armor-heavy
   objectType: Item
- 
+
 - type: construction
   id: ArgoArmorLight
   graph: ArgoArmorLightGraph
@@ -15,7 +15,7 @@
   category: construction-category-clothing
   description: item-argocyte-armor-light
   objectType: Item
- 
+
 - type: construction
   id: ArgoGauntletsHard
   graph: ArgoGauntletsHeavyGraph
@@ -24,7 +24,7 @@
   category: construction-category-clothing
   description: item-argocyte-gauntlets-heavy
   objectType: Item
-  
+
 - type: construction
   id: ArgoGauntletsLight
   graph: ArgoGauntletsLightGraph
@@ -33,7 +33,7 @@
   category: construction-category-clothing
   description: item-argocyte-gauntlets-light
   objectType: Item
- 
+
 - type: construction
   id: ArgoHelmetHard
   graph: ArgoHelmetHeavyGraph
@@ -42,7 +42,7 @@
   category: construction-category-clothing
   description: item-argocyte-helmet-heavy
   objectType: Item
-  
+
 - type: construction
   id: ArgoHelmetLight
   graph: ArgoHelmetLightGraph
@@ -51,7 +51,7 @@
   category: construction-category-clothing
   description: item-argocyte-helmet-light
   objectType: Item
- 
+
 - type: construction
   id: ArgoShieldHard
   graph: ArgoShieldHeavyGraph
@@ -60,7 +60,7 @@
   category: construction-category-weapons
   description: item-argocyte-shield-heavy
   objectType: Item
-  
+
 - type: construction
   id: ArgoShieldLight
   graph: ArgoShieldLightGraph
@@ -69,7 +69,7 @@
   category: construction-category-weapons
   description: item-argocyte-shield-light
   objectType: Item
- 
+
 - type: construction
   id: ArgoBootsHard
   graph: ArgoBootsHeavyGraph
@@ -78,7 +78,7 @@
   category: construction-category-clothing
   description: item-argocyte-boots-heavy
   objectType: Item
-  
+
 - type: construction
   id: ArgoBootsLight
   graph: ArgoBootsLightGraph
@@ -87,7 +87,7 @@
   category: construction-category-clothing
   description: item-argocyte-boots-light
   objectType: Item
- 
+
 - type: construction
   id: ArgoTwinsword
   graph: ArgoTwinswordGraph
@@ -96,7 +96,7 @@
   category: construction-category-weapons
   description: item-argocyte-twinsword
   objectType: Item
-  
+
 - type: construction
   id: ArgoHammer
   graph: ArgoHammerGraph

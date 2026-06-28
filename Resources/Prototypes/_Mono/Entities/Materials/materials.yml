@@ -4,7 +4,7 @@
   stackEntity: MaterialPyrogel1
   name: materials-pyrogel
   unit: materials-unit-sheet
-  icon: { sprite: _Mono/Objects/Materials/pyrogel.rsi, state: icon }
+  icon: {sprite: _Mono/Objects/Materials/pyrogel.rsi, state: icon}
   color: "#C0C0C0"
   price: 5
 
@@ -42,7 +42,7 @@
   stackEntity: SheetIridite1
   name: materials-iridite
   unit: materials-unit-sheet
-  icon: { sprite: /Textures/_Mono/Objects/Materials/iridite.rsi, state: iridite }
+  icon: {sprite: /Textures/_Mono/Objects/Materials/iridite.rsi, state: iridite}
   color: "#252229"
   price: 12.5 # 1250/sheet
 
@@ -127,7 +127,7 @@
   stackEntity: SheetUraniumFissile1
   name: materials-uraniumfissile
   unit: materials-unit-sheet
-  icon: { sprite: /Textures/_Mono/Objects/Materials/fissiles.rsi, state: uranium }
+  icon: {sprite: /Textures/_Mono/Objects/Materials/fissiles.rsi, state: uranium}
   color: "#8a8568"
   price: 250 # 25000/sheet
 
@@ -211,7 +211,7 @@
   stackEntity: SheetUraniumDepleted1
   name: materials-uraniumdepleted
   unit: materials-unit-sheet
-  icon: { sprite: /Textures/_Mono/Objects/Materials/fissiles.rsi, state: depleted }
+  icon: {sprite: /Textures/_Mono/Objects/Materials/fissiles.rsi, state: depleted}
   color: "#14211d"
   price: 20 # 250/sheet
 

@@ -1,45 +1,82 @@
-using Content.Shared.Abilities.Psionics;
-using Content.Shared.Nyanotrasen.Abilities.Psionics;
-using Content.Shared.Actions.Events;
-using Content.Shared.Psionics.Glimmer;
-using Robust.Shared.Random;
-using Content.Shared.Anomaly;
-using Robust.Shared.Audio.Systems;
-using Content.Shared.Actions;
-using Content.Shared.Damage;
-using Content.Server.Popups;
-using Content.Shared.Administration.Logs;
-using Content.Server.Lightning;
+using Content.Server.Atmos.EntitySystems;
+using Content.Server.Chemistry.Containers.EntitySystems;
 using Content.Server.Emp;
 using Content.Server.Explosion.EntitySystems;
-using Content.Server.Atmos.EntitySystems;
-using Content.Shared.Throwing;
-using Content.Server.Chemistry.Containers.EntitySystems;
 using Content.Server.Fluids.EntitySystems;
+using Content.Server.Lightning;
+using Content.Server.Popups;
+using Content.Shared.Abilities.Psionics;
+using Content.Shared.Actions;
+using Content.Shared.Actions.Events;
+using Content.Shared.Administration.Logs;
+using Content.Shared.Anomaly;
+using Content.Shared.Damage;
+using Content.Shared.Nyanotrasen.Abilities.Psionics;
+using Content.Shared.Psionics.Glimmer;
+using Content.Shared.Throwing;
+using Robust.Shared.Audio.Systems;
+using Robust.Shared.Random;
 
 namespace Content.Server.Abilities.Psionics;
 
 public sealed partial class AnomalyPowerSystem : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly GlimmerSystem _glimmerSystem = default!;
-    [Dependency] private readonly SharedAnomalySystem _anomalySystem = default!;
-    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedPsionicAbilitiesSystem _psionics = default!;
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly SharedTransformSystem _xform = default!;
-    [Dependency] private readonly LightningSystem _lightning = default!;
-    [Dependency] private readonly EmpSystem _emp = default!;
-    [Dependency] private readonly ExplosionSystem _boom = default!;
-    [Dependency] private readonly AtmosphereSystem _atmosphere = default!;
-    [Dependency] private readonly ThrowingSystem _throwing = default!;
-    [Dependency] private readonly SolutionContainerSystem _solutionContainer = default!;
-    [Dependency] private readonly PuddleSystem _puddle = default!;
-    [Dependency] private readonly FlammableSystem _flammable = default!;
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly GlimmerSystem _glimmerSystem = default!;
+
+    [Dependency]
+    private readonly SharedAnomalySystem _anomalySystem = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _mapSystem = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedPsionicAbilitiesSystem _psionics = default!;
+
+    [Dependency]
+    private readonly SharedActionsSystem _actions = default!;
+
+    [Dependency]
+    private readonly DamageableSystem _damageable = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly EntityLookupSystem _lookup = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _xform = default!;
+
+    [Dependency]
+    private readonly LightningSystem _lightning = default!;
+
+    [Dependency]
+    private readonly EmpSystem _emp = default!;
+
+    [Dependency]
+    private readonly ExplosionSystem _boom = default!;
+
+    [Dependency]
+    private readonly AtmosphereSystem _atmosphere = default!;
+
+    [Dependency]
+    private readonly ThrowingSystem _throwing = default!;
+
+    [Dependency]
+    private readonly SolutionContainerSystem _solutionContainer = default!;
+
+    [Dependency]
+    private readonly PuddleSystem _puddle = default!;
+
+    [Dependency]
+    private readonly FlammableSystem _flammable = default!;
 
     public override void Initialize()
     {
@@ -49,11 +86,22 @@ public sealed partial class AnomalyPowerSystem : EntitySystem
 
     private void OnPowerUsed(EntityUid uid, PsionicComponent component, AnomalyPowerActionEvent args)
     {
-        if (!_psionics.OnAttemptPowerUse(args.Performer, args.Settings.PowerName, args.Settings.ManaCost, args.Settings.CheckInsulation))
+        if (
+            !_psionics.OnAttemptPowerUse(
+                args.Performer,
+                args.Settings.PowerName,
+                args.Settings.ManaCost,
+                args.Settings.CheckInsulation
+            )
+        )
             return;
 
-        var overcharged = args.Settings.DoSupercritical ? _glimmerSystem.Glimmer * component.CurrentAmplification
-            > Math.Min(args.Settings.SupercriticalThreshold * component.CurrentDampening, args.Settings.MaxSupercriticalThreshold)
+        var overcharged = args.Settings.DoSupercritical
+            ? _glimmerSystem.Glimmer * component.CurrentAmplification
+                > Math.Min(
+                    args.Settings.SupercriticalThreshold * component.CurrentDampening,
+                    args.Settings.MaxSupercriticalThreshold
+                )
             : false;
 
         // Behold the wall of nullable logic gates.
@@ -75,7 +123,12 @@ public sealed partial class AnomalyPowerSystem : EntitySystem
         args.Handled = true;
     }
 
-    public void DoAnomalySounds(EntityUid uid, PsionicComponent component, AnomalyPowerActionEvent args, bool overcharged = false)
+    public void DoAnomalySounds(
+        EntityUid uid,
+        PsionicComponent component,
+        AnomalyPowerActionEvent args,
+        bool overcharged = false
+    )
     {
         if (overcharged && args.Settings.SupercriticalSound is not null)
         {
@@ -83,37 +136,53 @@ public sealed partial class AnomalyPowerSystem : EntitySystem
             return;
         }
 
-        if (args.Settings.PulseSound is null
-            || _glimmerSystem.Glimmer < args.Settings.GlimmerSoundThreshold * component.CurrentDampening)
+        if (
+            args.Settings.PulseSound is null
+            || _glimmerSystem.Glimmer < args.Settings.GlimmerSoundThreshold * component.CurrentDampening
+        )
             return;
 
         _audio.PlayEntity(args.Settings.PulseSound, uid, uid);
     }
 
-    public void DoGlimmerEffects(EntityUid uid, PsionicComponent component, AnomalyPowerActionEvent args, bool overcharged = false)
+    public void DoGlimmerEffects(
+        EntityUid uid,
+        PsionicComponent component,
+        AnomalyPowerActionEvent args,
+        bool overcharged = false
+    )
     {
-        var minGlimmer = (int) Math.Round(MathF.MinMagnitude(args.Settings.MinGlimmer, args.Settings.MaxGlimmer)
-            * (overcharged ? args.Settings.SupercriticalGlimmerMultiplier : 1)
-            * component.CurrentAmplification - component.CurrentDampening);
-        var maxGlimmer = (int) Math.Round(MathF.MaxMagnitude(args.Settings.MinGlimmer, args.Settings.MaxGlimmer)
-            * (overcharged ? args.Settings.SupercriticalGlimmerMultiplier : 1)
-            * component.CurrentAmplification - component.CurrentDampening);
+        var minGlimmer = (int)
+            Math.Round(
+                MathF.MinMagnitude(args.Settings.MinGlimmer, args.Settings.MaxGlimmer)
+                    * (overcharged ? args.Settings.SupercriticalGlimmerMultiplier : 1)
+                    * component.CurrentAmplification
+                    - component.CurrentDampening
+            );
+        var maxGlimmer = (int)
+            Math.Round(
+                MathF.MaxMagnitude(args.Settings.MinGlimmer, args.Settings.MaxGlimmer)
+                    * (overcharged ? args.Settings.SupercriticalGlimmerMultiplier : 1)
+                    * component.CurrentAmplification
+                    - component.CurrentDampening
+            );
 
         _psionics.LogPowerUsed(uid, args.Settings.PowerName, minGlimmer, maxGlimmer);
     }
 
     public void DoOverchargedEffects(EntityUid uid, PsionicComponent component, AnomalyPowerActionEvent args)
     {
-        if (args.Settings.OverchargeFeedback is not null
-            && Loc.TryGetString(args.Settings.OverchargeFeedback, out var popup))
+        if (
+            args.Settings.OverchargeFeedback is not null
+            && Loc.TryGetString(args.Settings.OverchargeFeedback, out var popup)
+        )
             _popup.PopupEntity(popup, uid, uid);
 
         var dampening = component.CurrentDampening;
         if (dampening <= 0f || !float.IsFinite(dampening))
             dampening = 1f;
 
-        if (args.Settings.OverchargeRecoil is not null
-            && TryComp<DamageableComponent>(uid, out var damageable))
+        if (args.Settings.OverchargeRecoil is not null && TryComp<DamageableComponent>(uid, out var damageable))
             _damageable.TryChangeDamage(uid, args.Settings.OverchargeRecoil / dampening, true, true, damageable, uid);
 
         if (args.Settings.OverchargeCooldown > 0)

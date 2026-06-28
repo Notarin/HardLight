@@ -8,8 +8,11 @@ namespace Content.Shared.Clothing.EntitySystems;
 
 public sealed class HideLayerClothingSystem : EntitySystem
 {
-    [Dependency] private readonly SharedHumanoidAppearanceSystem _humanoid = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly SharedHumanoidAppearanceSystem _humanoid = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     public override void Initialize()
     {
@@ -37,7 +40,8 @@ public sealed class HideLayerClothingSystem : EntitySystem
     private void SetLayerVisibility(
         Entity<HideLayerClothingComponent?, ClothingComponent?> clothing,
         Entity<HumanoidAppearanceComponent?> user,
-        bool hideLayers)
+        bool hideLayers
+    )
     {
         if (_timing.ApplyingState)
             return;

@@ -7,12 +7,16 @@ namespace Content.Shared._VRS.Planet;
 public sealed class SavedPlotInfo
 {
     public string SlotName = string.Empty;
+
     /// <summary>Tile width of the saved grid's bounding box.</summary>
     public int Width;
+
     /// <summary>Tile height of the saved grid's bounding box.</summary>
     public int Height;
+
     /// <summary>Total tile count (used for load cost).</summary>
     public int TileCount;
+
     /// <summary>Computed cost to load this plot at the current location.</summary>
     public int LoadCost;
 }

@@ -33,6 +33,6 @@
     Grifty:
       stationProto: DeadDropRecordsFrontierOutpost
       components:
-        - type: StationNameSetup
-          mapNameTemplate: "Grifty's Gas n Grub"
-        - type: BindToStationVariationPassExemption
+      - type: StationNameSetup
+        mapNameTemplate: "Grifty's Gas n Grub"
+      - type: BindToStationVariationPassExemption

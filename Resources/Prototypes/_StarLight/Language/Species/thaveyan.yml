@@ -9,8 +9,7 @@
     - chat-speech-verb-thaven-2
     - chat-speech-verb-thaven-3
     - chat-speech-verb-thaven-4
-  obfuscation:
-    !type:SyllableObfuscation
+  obfuscation: !type:SyllableObfuscation
     minSyllables: 1
     maxSyllables: 5
     replacement:

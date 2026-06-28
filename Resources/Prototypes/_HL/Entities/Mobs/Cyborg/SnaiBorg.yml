@@ -1,5 +1,5 @@
 - type: entity
-  parent: [ BaseXenoborgChassis, BaseXenoborgTransponder ]
+  parent: [BaseXenoborgChassis, BaseXenoborgTransponder]
   id: XenoQuadfeathered
   name: S'nai
   suffix: with brain

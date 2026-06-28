@@ -29,7 +29,7 @@
 
 - type: entity
   id: ParadoxCloneDummy
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   name: Paradox Clone
   components:
   - type: Sprite

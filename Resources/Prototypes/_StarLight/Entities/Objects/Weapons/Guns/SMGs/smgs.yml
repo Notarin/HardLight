@@ -25,7 +25,7 @@
     maxAngle: 64
     selectedMode: FullAuto
     availableModes:
-      - FullAuto
+    - FullAuto
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/smg.ogg
   - type: MagazineVisuals
@@ -43,7 +43,7 @@
         priority: 2
         whitelist:
           tags:
-            - Magazine9x19mmSMGImprovised
+          - Magazine9x19mmSMGImprovised
         whitelistFailPopup: gun-magazine-whitelist-fail
       gun_chamber:
         name: Chamber
@@ -51,7 +51,7 @@
         priority: 1
         whitelist:
           tags:
-            - Cartridge9x19mm
+          - Cartridge9x19mm
   - type: Construction
     graph: MakeshiftSMGGraph
     node: shotgun
@@ -62,18 +62,18 @@
         Blunt: 5
         Heat: 5
     items:
-      - id: ModularBarrel
-        launchAngle: 0
-        prob: 1
-      - id: ModularReceiver
-        launchAngle: 90
-        prob: 0.30
-      - id: RifleStock
-        launchAngle: 180
-        prob: 0.80
-      - id: Magazine9x19mmSubMachineGunImprovised
-        launchAngle: 190
-        prob: 1
+    - id: ModularBarrel
+      launchAngle: 0
+      prob: 1
+    - id: ModularReceiver
+      launchAngle: 90
+      prob: 0.30
+    - id: RifleStock
+      launchAngle: 180
+      prob: 0.80
+    - id: Magazine9x19mmSubMachineGunImprovised
+      launchAngle: 190
+      prob: 1
 
 - type: entity
   name: improvised SMG
@@ -109,24 +109,24 @@
   - type: WeaponDismantleOnShoot
     dismantleChance: 0.01
     items:
-      - id: ModularBarrel
-        launchAngle: 0
-        prob: 1
-      - id: ModularReceiver
-        launchAngle: 90
-        prob: 0.10
-      - id: SheetSteel1
-        launchAngle: 67
-        prob: 0.20
-      - id: SheetSteel1
-        launchAngle: 87
-        prob: 0.20
-      - id: SheetSteel1
-        launchAngle: 270
-        prob: 0.20
-      - id: RifleStock
-        launchAngle: 180
-        prob: 0.80
+    - id: ModularBarrel
+      launchAngle: 0
+      prob: 1
+    - id: ModularReceiver
+      launchAngle: 90
+      prob: 0.10
+    - id: SheetSteel1
+      launchAngle: 67
+      prob: 0.20
+    - id: SheetSteel1
+      launchAngle: 87
+      prob: 0.20
+    - id: SheetSteel1
+      launchAngle: 270
+      prob: 0.20
+    - id: RifleStock
+      launchAngle: 180
+      prob: 0.80
   - type: StaticPrice
     price: 1000
 

@@ -10625,17 +10625,7 @@ entities:
           priority: 0
           component: ClothingSpeedModifier
         - message: >-
-            It provides the following protection:
-
-            - [color=yellow]Blunt[/color] damage reduced by [color=lightblue]20%[/color].
-
-            - [color=yellow]Slash[/color] damage reduced by [color=lightblue]20%[/color].
-
-            - [color=yellow]Piercing[/color] damage reduced by [color=lightblue]30%[/color].
-
-            - [color=yellow]Heat[/color] damage reduced by [color=lightblue]30%[/color].
-
-            - [color=aqua]Stamina[/color] damage reduced by [color=lightblue]60%[/color].
+            It provides the following protection: #magic___^_^___line - [color=yellow]Blunt[/color] damage reduced by [color=lightblue]20%[/color]. #magic___^_^___line - [color=yellow]Slash[/color] damage reduced by [color=lightblue]20%[/color]. #magic___^_^___line - [color=yellow]Piercing[/color] damage reduced by [color=lightblue]30%[/color]. #magic___^_^___line - [color=yellow]Heat[/color] damage reduced by [color=lightblue]30%[/color]. #magic___^_^___line - [color=aqua]Stamina[/color] damage reduced by [color=lightblue]60%[/color].
           priority: 0
           component: Armor
         title: null
@@ -36439,4 +36429,3 @@ entities:
     - type: Transform
       pos: 9.99612,10.882572
       parent: 1
-...

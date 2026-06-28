@@ -14,9 +14,7 @@ public abstract class SharedPuddleDebugOverlaySystem : EntitySystem
 /// Message for disable puddle overlay
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class PuddleOverlayDisableMessage : EntityEventArgs
-{
-}
+public sealed class PuddleOverlayDisableMessage : EntityEventArgs { }
 
 /// <summary>
 /// Message for puddle overlay display data
@@ -27,7 +25,6 @@ public sealed class PuddleOverlayDebugMessage : EntityEventArgs
     public PuddleDebugOverlayData[] OverlayData { get; }
 
     public NetEntity GridUid { get; }
-
 
     public PuddleOverlayDebugMessage(NetEntity gridUid, PuddleDebugOverlayData[] overlayData)
     {

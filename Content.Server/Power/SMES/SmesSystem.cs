@@ -11,8 +11,11 @@ namespace Content.Server.Power.SMES;
 [UsedImplicitly]
 internal sealed class SmesSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
 
     public override void Initialize()
     {
@@ -37,7 +40,10 @@ internal sealed class SmesSystem : EntitySystem
     private void UpdateSmesState(EntityUid uid, SmesComponent smes)
     {
         var newLevel = CalcChargeLevel(uid);
-        if (newLevel != smes.LastChargeLevel && smes.LastChargeLevelTime + smes.VisualsChangeDelay < _gameTiming.CurTime)
+        if (
+            newLevel != smes.LastChargeLevel
+            && smes.LastChargeLevelTime + smes.VisualsChangeDelay < _gameTiming.CurTime
+        )
         {
             smes.LastChargeLevel = newLevel;
             smes.LastChargeLevelTime = _gameTiming.CurTime;
@@ -46,7 +52,10 @@ internal sealed class SmesSystem : EntitySystem
         }
 
         var newChargeState = CalcChargeState(uid);
-        if (newChargeState != smes.LastChargeState && smes.LastChargeStateTime + smes.VisualsChangeDelay < _gameTiming.CurTime)
+        if (
+            newChargeState != smes.LastChargeState
+            && smes.LastChargeStateTime + smes.VisualsChangeDelay < _gameTiming.CurTime
+        )
         {
             smes.LastChargeState = newChargeState;
             smes.LastChargeStateTime = _gameTiming.CurTime;
@@ -72,7 +81,7 @@ internal sealed class SmesSystem : EntitySystem
         {
             > 0 => ChargeState.Discharging,
             < 0 => ChargeState.Charging,
-            _ => ChargeState.Still
+            _ => ChargeState.Still,
         };
     }
 }

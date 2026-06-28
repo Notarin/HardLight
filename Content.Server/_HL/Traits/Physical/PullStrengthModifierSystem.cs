@@ -20,7 +20,6 @@ public sealed class PullStrengthModifierSystem : EntitySystem
         if (!TryComp<PullerComponent>(uid, out var puller) || puller.Pulling == null)
             return;
 
-        args.ModifySpeed(args.WalkSpeedModifier * comp.Multiplier,
-            args.SprintSpeedModifier * comp.Multiplier);
+        args.ModifySpeed(args.WalkSpeedModifier * comp.Multiplier, args.SprintSpeedModifier * comp.Multiplier);
     }
 }

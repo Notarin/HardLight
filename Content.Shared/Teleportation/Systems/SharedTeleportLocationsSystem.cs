@@ -10,10 +10,14 @@ namespace Content.Shared.Teleportation.Systems;
 /// </summary>
 public abstract partial class SharedTeleportLocationsSystem : EntitySystem
 {
-    [Dependency] protected readonly UseDelaySystem Delay = default!;
+    [Dependency]
+    protected readonly UseDelaySystem Delay = default!;
 
-    [Dependency] private readonly SharedUserInterfaceSystem _ui = default!;
-    [Dependency] private readonly SharedTransformSystem _xform = default!;
+    [Dependency]
+    private readonly SharedUserInterfaceSystem _ui = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _xform = default!;
 
     protected const string TeleportDelay = "TeleportDelay";
 
@@ -22,7 +26,9 @@ public abstract partial class SharedTeleportLocationsSystem : EntitySystem
         base.Initialize();
 
         SubscribeLocalEvent<TeleportLocationsComponent, ActivatableUIOpenAttemptEvent>(OnUiOpenAttempt);
-        SubscribeLocalEvent<TeleportLocationsComponent, TeleportLocationDestinationMessage>(OnTeleportToLocationRequest);
+        SubscribeLocalEvent<TeleportLocationsComponent, TeleportLocationDestinationMessage>(
+            OnTeleportToLocationRequest
+        );
     }
 
     private void OnUiOpenAttempt(Entity<TeleportLocationsComponent> ent, ref ActivatableUIOpenAttemptEvent args)
@@ -33,9 +39,17 @@ public abstract partial class SharedTeleportLocationsSystem : EntitySystem
         args.Cancel();
     }
 
-    protected virtual void OnTeleportToLocationRequest(Entity<TeleportLocationsComponent> ent, ref TeleportLocationDestinationMessage args)
+    protected virtual void OnTeleportToLocationRequest(
+        Entity<TeleportLocationsComponent> ent,
+        ref TeleportLocationDestinationMessage args
+    )
     {
-        if (!TryGetEntity(args.NetEnt, out var telePointEnt) || TerminatingOrDeleted(telePointEnt) || !HasComp<WarpPointComponent>(telePointEnt) || Delay.IsDelayed(ent.Owner, TeleportDelay))
+        if (
+            !TryGetEntity(args.NetEnt, out var telePointEnt)
+            || TerminatingOrDeleted(telePointEnt)
+            || !HasComp<WarpPointComponent>(telePointEnt)
+            || Delay.IsDelayed(ent.Owner, TeleportDelay)
+        )
             return;
 
         var comp = ent.Comp;

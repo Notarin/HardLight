@@ -17,10 +17,17 @@ namespace Content.Shared.Silicons.Borgs;
 /// </summary>
 public abstract partial class SharedBorgSystem : EntitySystem
 {
-    [Dependency] protected readonly SharedContainerSystem Container = default!;
-    [Dependency] protected readonly ItemSlotsSystem ItemSlots = default!;
-    [Dependency] protected readonly ItemToggleSystem Toggle = default!;
-    [Dependency] protected readonly SharedPopupSystem Popup = default!;
+    [Dependency]
+    protected readonly SharedContainerSystem Container = default!;
+
+    [Dependency]
+    protected readonly ItemSlotsSystem ItemSlots = default!;
+
+    [Dependency]
+    protected readonly ItemToggleSystem Toggle = default!;
+
+    [Dependency]
+    protected readonly SharedPopupSystem Popup = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -55,13 +62,19 @@ public abstract partial class SharedBorgSystem : EntitySystem
         args.Handled = true;
     }
 
-    private void OnItemSlotInsertAttempt(EntityUid uid, BorgChassisComponent component, ref ItemSlotInsertAttemptEvent args)
+    private void OnItemSlotInsertAttempt(
+        EntityUid uid,
+        BorgChassisComponent component,
+        ref ItemSlotInsertAttemptEvent args
+    )
     {
         if (args.Cancelled)
             return;
 
-        if (!TryComp<PowerCellSlotComponent>(uid, out var cellSlotComp) ||
-            !TryComp<WiresPanelComponent>(uid, out var panel))
+        if (
+            !TryComp<PowerCellSlotComponent>(uid, out var cellSlotComp)
+            || !TryComp<WiresPanelComponent>(uid, out var panel)
+        )
             return;
 
         if (!ItemSlots.TryGetSlot(uid, cellSlotComp.CellSlotId, out var cellSlot) || cellSlot != args.Slot)
@@ -71,13 +84,19 @@ public abstract partial class SharedBorgSystem : EntitySystem
             args.Cancelled = true;
     }
 
-    private void OnItemSlotEjectAttempt(EntityUid uid, BorgChassisComponent component, ref ItemSlotEjectAttemptEvent args)
+    private void OnItemSlotEjectAttempt(
+        EntityUid uid,
+        BorgChassisComponent component,
+        ref ItemSlotEjectAttemptEvent args
+    )
     {
         if (args.Cancelled)
             return;
 
-        if (!TryComp<PowerCellSlotComponent>(uid, out var cellSlotComp) ||
-            !TryComp<WiresPanelComponent>(uid, out var panel))
+        if (
+            !TryComp<PowerCellSlotComponent>(uid, out var cellSlotComp)
+            || !TryComp<WiresPanelComponent>(uid, out var panel)
+        )
             return;
 
         if (!ItemSlots.TryGetSlot(uid, cellSlotComp.CellSlotId, out var cellSlot) || cellSlot != args.Slot)
@@ -92,8 +111,16 @@ public abstract partial class SharedBorgSystem : EntitySystem
         if (!TryComp<ContainerManagerComponent>(uid, out var containerManager))
             return;
 
-        component.BrainContainer = Container.EnsureContainer<ContainerSlot>(uid, component.BrainContainerId, containerManager);
-        component.ModuleContainer = Container.EnsureContainer<Container>(uid, component.ModuleContainerId, containerManager);
+        component.BrainContainer = Container.EnsureContainer<ContainerSlot>(
+            uid,
+            component.BrainContainerId,
+            containerManager
+        );
+        component.ModuleContainer = Container.EnsureContainer<Container>(
+            uid,
+            component.ModuleContainerId,
+            containerManager
+        );
     }
 
     private void OnUIOpenAttempt(EntityUid uid, BorgChassisComponent component, ActivatableUIOpenAttemptEvent args)
@@ -103,17 +130,23 @@ public abstract partial class SharedBorgSystem : EntitySystem
             args.Cancel();
     }
 
-    protected virtual void OnInserted(EntityUid uid, BorgChassisComponent component, EntInsertedIntoContainerMessage args)
-    {
+    protected virtual void OnInserted(
+        EntityUid uid,
+        BorgChassisComponent component,
+        EntInsertedIntoContainerMessage args
+    ) { }
 
-    }
+    protected virtual void OnRemoved(
+        EntityUid uid,
+        BorgChassisComponent component,
+        EntRemovedFromContainerMessage args
+    ) { }
 
-    protected virtual void OnRemoved(EntityUid uid, BorgChassisComponent component, EntRemovedFromContainerMessage args)
-    {
-
-    }
-
-    private void OnRefreshMovementSpeedModifiers(EntityUid uid, BorgChassisComponent component, RefreshMovementSpeedModifiersEvent args)
+    private void OnRefreshMovementSpeedModifiers(
+        EntityUid uid,
+        BorgChassisComponent component,
+        RefreshMovementSpeedModifiersEvent args
+    )
     {
         if (Toggle.IsActivated(uid))
             return;

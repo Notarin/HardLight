@@ -19,8 +19,11 @@ namespace Content.Client.CartridgeLoader.Cartridges;
 [GenerateTypedNameReferences]
 public sealed partial class WantedListUiFragment : BoxContainer
 {
-    [Dependency] private readonly IEntitySystemManager _entitySystem = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency]
+    private readonly IEntitySystemManager _entitySystem = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
     private readonly SpriteSystem _spriteSystem;
 
     private string? _selectedTargetName;
@@ -39,8 +42,9 @@ public sealed partial class WantedListUiFragment : BoxContainer
     {
         var found = !String.IsNullOrWhiteSpace(args.Text)
             ? _wantedRecords.FindAll(r =>
-                r.TargetInfo.Name.Contains(args.Text) ||
-                r.Status.ToString().Contains(args.Text, StringComparison.OrdinalIgnoreCase))
+                r.TargetInfo.Name.Contains(args.Text)
+                || r.Status.ToString().Contains(args.Text, StringComparison.OrdinalIgnoreCase)
+            )
             : _wantedRecords;
 
         UpdateState(found, false);
@@ -84,7 +88,7 @@ public sealed partial class WantedListUiFragment : BoxContainer
         if (data is not StatusListData(var record))
             return;
 
-        FormattedMessage GetLoc(string fluentId, params (string,object)[] args)
+        FormattedMessage GetLoc(string fluentId, params (string, object)[] args)
         {
             var msg = new FormattedMessage();
             var fluent = Loc.GetString(fluentId, args);
@@ -94,65 +98,60 @@ public sealed partial class WantedListUiFragment : BoxContainer
 
         // Set personal info
         PersonName.Text = record.TargetInfo.Name;
-        TargetAge.SetMessage(GetLoc(
-            "wanted-list-age-label",
-            ("age", record.TargetInfo.Age)
-        ));
-        TargetJob.SetMessage(GetLoc(
-            "wanted-list-job-label",
-            ("job", record.TargetInfo.JobTitle.ToLower())
-        ));
-        TargetSpecies.SetMessage(GetLoc(
-            "wanted-list-species-label",
-            ("species", record.TargetInfo.Species.ToLower())
-        ));
-        TargetGender.SetMessage(GetLoc(
-            "wanted-list-gender-label",
-            ("gender", record.TargetInfo.Gender)
-        ));
+        TargetAge.SetMessage(GetLoc("wanted-list-age-label", ("age", record.TargetInfo.Age)));
+        TargetJob.SetMessage(GetLoc("wanted-list-job-label", ("job", record.TargetInfo.JobTitle.ToLower())));
+        TargetSpecies.SetMessage(GetLoc("wanted-list-species-label", ("species", record.TargetInfo.Species.ToLower())));
+        TargetGender.SetMessage(GetLoc("wanted-list-gender-label", ("gender", record.TargetInfo.Gender)));
 
         // Set reason
-        WantedReason.SetMessage(GetLoc(
-            "wanted-list-reason-label",
-            ("reason", record.Reason ?? Loc.GetString("wanted-list-unknown-reason-label"))
-        ));
+        WantedReason.SetMessage(
+            GetLoc(
+                "wanted-list-reason-label",
+                ("reason", record.Reason ?? Loc.GetString("wanted-list-unknown-reason-label"))
+            )
+        );
 
         // Set status
-        PersonState.SetMessage(GetLoc(
-            "wanted-list-status-label",
-            ("status", record.Status.ToString().ToLower())
-        ));
+        PersonState.SetMessage(GetLoc("wanted-list-status-label", ("status", record.Status.ToString().ToLower())));
 
         // Set initiator
-        InitiatorName.SetMessage(GetLoc(
-            "wanted-list-initiator-label",
-            ("initiator", record.Initiator ?? Loc.GetString("wanted-list-unknown-initiator-label"))
-        ));
+        InitiatorName.SetMessage(
+            GetLoc(
+                "wanted-list-initiator-label",
+                ("initiator", record.Initiator ?? Loc.GetString("wanted-list-unknown-initiator-label"))
+            )
+        );
 
         // History table
         // Clear table if it exists
         HistoryTable.RemoveAllChildren();
 
-        HistoryTable.AddChild(new Label()
-        {
-            Text = Loc.GetString("wanted-list-history-table-time-col"),
-            StyleClasses = { "LabelSmall" },
-            HorizontalAlignment = HAlignment.Center,
-        });
-        HistoryTable.AddChild(new Label()
-        {
-            Text = Loc.GetString("wanted-list-history-table-reason-col"),
-            StyleClasses = { "LabelSmall" },
-            HorizontalAlignment = HAlignment.Center,
-            HorizontalExpand = true,
-        });
+        HistoryTable.AddChild(
+            new Label()
+            {
+                Text = Loc.GetString("wanted-list-history-table-time-col"),
+                StyleClasses = { "LabelSmall" },
+                HorizontalAlignment = HAlignment.Center,
+            }
+        );
+        HistoryTable.AddChild(
+            new Label()
+            {
+                Text = Loc.GetString("wanted-list-history-table-reason-col"),
+                StyleClasses = { "LabelSmall" },
+                HorizontalAlignment = HAlignment.Center,
+                HorizontalExpand = true,
+            }
+        );
 
-        HistoryTable.AddChild(new Label()
-        {
-            Text = Loc.GetString("wanted-list-history-table-initiator-col"),
-            StyleClasses = { "LabelSmall" },
-            HorizontalAlignment = HAlignment.Center,
-        });
+        HistoryTable.AddChild(
+            new Label()
+            {
+                Text = Loc.GetString("wanted-list-history-table-initiator-col"),
+                StyleClasses = { "LabelSmall" },
+                HorizontalAlignment = HAlignment.Center,
+            }
+        );
 
         if (record.History.Count > 0)
         {
@@ -160,28 +159,34 @@ public sealed partial class WantedListUiFragment : BoxContainer
 
             foreach (var history in record.History.OrderByDescending(h => h.AddTime))
             {
-                HistoryTable.AddChild(new Label()
-                {
-                    Text = $"{history.AddTime.Hours:00}:{history.AddTime.Minutes:00}:{history.AddTime.Seconds:00}",
-                    StyleClasses = { "LabelSmall" },
-                    VerticalAlignment = VAlignment.Top,
-                });
+                HistoryTable.AddChild(
+                    new Label()
+                    {
+                        Text = $"{history.AddTime.Hours:00}:{history.AddTime.Minutes:00}:{history.AddTime.Seconds:00}",
+                        StyleClasses = { "LabelSmall" },
+                        VerticalAlignment = VAlignment.Top,
+                    }
+                );
 
-                HistoryTable.AddChild(new RichTextLabel()
-                {
-                    Text = $"[color=white]{history.Crime}[/color]",
-                    HorizontalExpand = true,
-                    VerticalAlignment = VAlignment.Top,
-                    StyleClasses = { "LabelSubText" },
-                    Margin = new(10f, 0f),
-                });
+                HistoryTable.AddChild(
+                    new RichTextLabel()
+                    {
+                        Text = $"[color=white]{history.Crime}[/color]",
+                        HorizontalExpand = true,
+                        VerticalAlignment = VAlignment.Top,
+                        StyleClasses = { "LabelSubText" },
+                        Margin = new(10f, 0f),
+                    }
+                );
 
-                HistoryTable.AddChild(new RichTextLabel()
-                {
-                    Text = $"[color=white]{history.InitiatorName}[/color]",
-                    StyleClasses = { "LabelSubText" },
-                    VerticalAlignment = VAlignment.Top,
-                });
+                HistoryTable.AddChild(
+                    new RichTextLabel()
+                    {
+                        Text = $"[color=white]{history.InitiatorName}[/color]",
+                        StyleClasses = { "LabelSubText" },
+                        VerticalAlignment = VAlignment.Top,
+                    }
+                );
             }
         }
 
@@ -209,11 +214,13 @@ public sealed partial class WantedListUiFragment : BoxContainer
 
         if (record.Status is not SecurityStatus.None)
         {
-            var proto = "SecurityIcon" + record.Status switch
-            {
-                SecurityStatus.Detained => "Incarcerated",
-                _ => record.Status.ToString(),
-            };
+            var proto =
+                "SecurityIcon"
+                + record.Status switch
+                {
+                    SecurityStatus.Detained => "Incarcerated",
+                    _ => record.Status.ToString(),
+                };
 
             if (_prototypeManager.TryIndex<SecurityIconPrototype>(proto, out var prototype))
             {
@@ -230,9 +237,7 @@ public sealed partial class WantedListUiFragment : BoxContainer
         {
             button.Pressed = true;
             // For some reason the event is not called when `Pressed` changed, call it manually.
-            OnItemSelected(
-                new(button, new(new(), BoundKeyState.Down, new(), false, new(), new())),
-                data);
+            OnItemSelected(new(button, new(new(), BoundKeyState.Down, new(), false, new(), new())), data);
         }
     }
 }

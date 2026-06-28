@@ -7,7 +7,7 @@
     mayTransfer: true
     whitelist:
       tags:
-        - Cartridge762x54mmRFMJ
+      - Cartridge762x54mmRFMJ
     proto: Cartridge762x54mmRFMJ
     capacity: 60
   - type: Item
@@ -16,7 +16,7 @@
     containers:
       ballistic-ammo: !type:Container
   - type: Sprite
-    sprite:  _Mono/Objects/Weapons/Guns/Ammunition/Boxes/762x54mmR.rsi
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/762x54mmR.rsi
   - type: MagazineVisuals
     magState: mag
     steps: 4
@@ -42,7 +42,7 @@
   # Frontier:
   - type: MagazineVisuals
     magState: magb
-  # End Frontier
+    # End Frontier
 
 - type: entity
   parent: BaseAmmoBox762x54mmR

@@ -30,7 +30,7 @@
   - type: OreSiloClient
   - type: DeviceLinkSink
     ports:
-      - FillbotAnyItem
+    - FillbotAnyItem
   - type: AccessReader # HardLight
     access: [["Cargo"]]
   - type: ActivatableUIRequiresAccess # HardLight
@@ -41,33 +41,33 @@
   name: nutrient paste dispenser
   description: Produces tha slop using biomass. Can also convert plants to biomass for direct use.
   components:
-    - type: Sprite
-      sprite: _HL/Structures/Machines/slop_machine.rsi
-      snapCardinals: true
-      layers:
-        - state: icon
-          map: ["enum.LatheVisualLayers.IsRunning"]
-        - state: unlit
-          shader: unshaded
-          map: ["enum.PowerDeviceVisualLayers.Powered"]
-        - state: inserting
-          map: ["enum.MaterialStorageVisualLayers.Inserting"]
-        - state: panel
-          map: ["enum.WiresVisualLayers.MaintenancePanel"]
-    - type: Machine
-      board: SlopDispenserMachineCircuitboard
-    - type: MaterialStorage
-      ignoreColor: true
-      whitelist:
-        tags:
-          - Sheet
-          - RawMaterial
-    - type: Lathe
-      idleState: icon
-      runningState: building
-      staticPacks:
-        - SlopStatic
-    - type: ProduceMaterialExtractor
+  - type: Sprite
+    sprite: _HL/Structures/Machines/slop_machine.rsi
+    snapCardinals: true
+    layers:
+    - state: icon
+      map: ["enum.LatheVisualLayers.IsRunning"]
+    - state: unlit
+      shader: unshaded
+      map: ["enum.PowerDeviceVisualLayers.Powered"]
+    - state: inserting
+      map: ["enum.MaterialStorageVisualLayers.Inserting"]
+    - state: panel
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+  - type: Machine
+    board: SlopDispenserMachineCircuitboard
+  - type: MaterialStorage
+    ignoreColor: true
+    whitelist:
+      tags:
+      - Sheet
+      - RawMaterial
+  - type: Lathe
+    idleState: icon
+    runningState: building
+    staticPacks:
+    - SlopStatic
+  - type: ProduceMaterialExtractor
 
 - type: entity
   abstract: true
@@ -111,8 +111,8 @@
   - type: MaterialStorage
     whitelist:
       tags:
-        - TiderAnvilMats
-        - TiderAnvilParts
+      - TiderAnvilMats
+      - TiderAnvilParts
   - type: OreSiloClient
   - type: Lathe
     idleState: icon

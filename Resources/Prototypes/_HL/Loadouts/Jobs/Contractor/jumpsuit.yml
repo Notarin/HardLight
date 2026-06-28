@@ -4,8 +4,8 @@
   - !type:GroupLoadoutEffect
     proto: ContractorT1
   hideEffects:
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 500
   equipment:
     jumpsuit: ClothingUniformJumpskirtReporter
@@ -16,8 +16,8 @@
   - !type:GroupLoadoutEffect
     proto: ContractorT1
   hideEffects:
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 500
   equipment:
     jumpsuit: ClothingUniformJumpsuitJournalist
@@ -28,8 +28,8 @@
   - !type:GroupLoadoutEffect
     proto: ContractorT1
   hideEffects:
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 500
   equipment:
     jumpsuit: ClothingUniformJumpskirtJournalist

@@ -2,98 +2,98 @@
   id: BulletAcidLarge
   name: large spit
   parent: BulletAcid
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
-    - type: Projectile
-      damage:
-        types:
-          Caustic: 10
-    - type: Sprite
-      sprite: Objects/Weapons/Guns/Projectiles/xeno_toxic.rsi
-      layers:
-        - state: xeno_toxic_large
-    - type: Ammo
-      muzzleFlash: null
+  - type: Projectile
+    damage:
+      types:
+        Caustic: 10
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Projectiles/xeno_toxic.rsi
+    layers:
+    - state: xeno_toxic_large
+  - type: Ammo
+    muzzleFlash: null
 
 - type: entity
   id: BulletAcidMassive
   name: large spit
   parent: BulletAcid
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
-    - type: Projectile
-      damage:
-        types:
-          Caustic: 20
-    - type: Sprite
-      sprite: Objects/Weapons/Guns/Projectiles/xeno_toxic.rsi
-      layers:
-        - state: xeno_toxic_massive
-    - type: Ammo
-      muzzleFlash: null
+  - type: Projectile
+    damage:
+      types:
+        Caustic: 20
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Projectiles/xeno_toxic.rsi
+    layers:
+    - state: xeno_toxic_massive
+  - type: Ammo
+    muzzleFlash: null
 
 - type: entity
   id: HLBulletEsar550Low
   name: ESAR Low Bolt
   parent: BulletLaser
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
-    - type: Projectile
-      damage:
-        types:
-          Heat: 14
-    - type: Sprite
-      sprite: Objects/Weapons/Guns/Projectiles/projectiles_tg.rsi
-      layers:
-      - state: omnilaser_greyscale
-        shader: unshaded
-        color: yellow
-    - type: Ammo
-      muzzleFlash: null
+  - type: Projectile
+    damage:
+      types:
+        Heat: 14
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Projectiles/projectiles_tg.rsi
+    layers:
+    - state: omnilaser_greyscale
+      shader: unshaded
+      color: yellow
+  - type: Ammo
+    muzzleFlash: null
 
 - type: entity
   id: HLBulletEsar550Medium
   name: ESAR Medium Bolt
   parent: BulletLaser
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
-    - type: Projectile
-      damage:
-        types:
-          Heat: 16
-    - type: Sprite
-      sprite: Objects/Weapons/Guns/Projectiles/projectiles_tg.rsi
-      layers:
-      - state: omnilaser_greyscale
-        shader: unshaded
-        color: orange
-    - type: Ammo
-      muzzleFlash: null
+  - type: Projectile
+    damage:
+      types:
+        Heat: 16
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Projectiles/projectiles_tg.rsi
+    layers:
+    - state: omnilaser_greyscale
+      shader: unshaded
+      color: orange
+  - type: Ammo
+    muzzleFlash: null
 
 - type: entity
   id: HLBulletEsar550High
   name: ESAR High Bolt
   parent: BulletLaser
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
-    - type: Projectile
-      damage:
-        types:
-          Heat: 18
-    - type: Sprite
-      sprite: Objects/Weapons/Guns/Projectiles/projectiles_tg.rsi
-      layers:
-      - state: omnilaser_greyscale
-        shader: unshaded
-        color: red
-    - type: Ammo
-      muzzleFlash: null
+  - type: Projectile
+    damage:
+      types:
+        Heat: 18
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Projectiles/projectiles_tg.rsi
+    layers:
+    - state: omnilaser_greyscale
+      shader: unshaded
+      color: red
+  - type: Ammo
+    muzzleFlash: null
 
 - type: entity
   id: HLDartAberrantBone
   name: bone spike
-  parent: [ ConjuredObject10, BaseArrow ]
-  categories: [ HideSpawnMenu ]
+  parent: [ConjuredObject10, BaseArrow]
+  categories: [HideSpawnMenu]
   components:
   - type: EmbeddableProjectile
     offset: -0.15,0.0
@@ -122,8 +122,8 @@
 - type: entity
   id: HLDartAberrantBonePellet
   name: bone spike
-  parent: [ ConjuredObject10, BaseArrow ]
-  categories: [ HideSpawnMenu ]
+  parent: [ConjuredObject10, BaseArrow]
+  categories: [HideSpawnMenu]
   components:
   - type: EmbeddableProjectile
     offset: -0.15,0.0
@@ -151,7 +151,7 @@
 
 - type: entity
   id: HLDartAberrantBonePelletSpread
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: HLDartAberrantBonePellet
   components:
   - type: ProjectileSpread
@@ -162,8 +162,8 @@
 - type: entity
   id: HLDartAberrantBoneLong
   name: bone spike
-  parent: [ ConjuredObject10, BaseArrow ]
-  categories: [ HideSpawnMenu ]
+  parent: [ConjuredObject10, BaseArrow]
+  categories: [HideSpawnMenu]
   components:
   - type: EmbeddableProjectile
     offset: -0.15,0.0
@@ -196,14 +196,14 @@
   name: subfloor emitter bolt
   id: EmitterBoltSubfloor
   parent: EmitterBolt
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: Structures/Power/Generation/Singularity/emitter.rsi
     drawdepth: ThinWire
     layers:
-      - state: projectile
-        shader: unshaded
+    - state: projectile
+      shader: unshaded
   - type: Tag
     tags:
     - EmitterBolt

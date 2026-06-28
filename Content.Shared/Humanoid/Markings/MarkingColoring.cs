@@ -26,8 +26,7 @@ public static class MarkingColoring
     /// <summary>
     ///     Returns list of colors for marking layers
     /// </summary>
-    public static List<Color> GetMarkingLayerColors
-    (
+    public static List<Color> GetMarkingLayerColors(
         MarkingPrototype prototype,
         Color? skinColor,
         Color? eyeColor,
@@ -59,7 +58,7 @@ public static class MarkingColoring
                 {
                     SpriteSpecifier.Rsi rsi => rsi.RsiState,
                     SpriteSpecifier.Texture texture => texture.TexturePath.Filename,
-                    _ => null
+                    _ => null,
                 };
                 if (name == null)
                 {
@@ -96,7 +95,7 @@ public sealed partial class LayerColoringDefinition
     ///     Coloring types that will be used if main coloring type will return nil
     /// </summary>
     [DataField("fallbackTypes")]
-    public List<LayerColoringType> FallbackTypes = new() {};
+    public List<LayerColoringType> FallbackTypes = new() { };
 
     /// <summary>
     ///     Color that will be used if coloring type and fallback type will return nil
@@ -114,7 +113,8 @@ public sealed partial class LayerColoringDefinition
             foreach (var type in FallbackTypes)
             {
                 color = type.GetColor(skin, eyes, markingSet);
-                if (color != null) break;
+                if (color != null)
+                    break;
             }
         }
         return color ?? FallbackColor;
@@ -133,6 +133,7 @@ public abstract partial class LayerColoringType
     [DataField("negative")]
     public bool Negative { get; private set; } = false;
     public abstract Color? GetCleanColor(Color? skin, Color? eyes, MarkingSet markingSet);
+
     public Color? GetColor(Color? skin, Color? eyes, MarkingSet markingSet)
     {
         var color = GetCleanColor(skin, eyes, markingSet);
@@ -140,9 +141,9 @@ public abstract partial class LayerColoringType
         if (color != null && Negative)
         {
             var rcolor = color.Value;
-            rcolor.R = 1f-rcolor.R;
-            rcolor.G = 1f-rcolor.G;
-            rcolor.B = 1f-rcolor.B;
+            rcolor.R = 1f - rcolor.R;
+            rcolor.G = 1f - rcolor.G;
+            rcolor.B = 1f - rcolor.B;
             return rcolor;
         }
         return color;

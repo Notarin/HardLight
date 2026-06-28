@@ -6,6 +6,4 @@ namespace Content.Shared._Mono.NoDeconstruct;
 /// Prevents construction/deconstruction interactions when present on an entity.
 /// </summary>
 [RegisterComponent, NetworkedComponent]
-public sealed partial class NoDeconstructComponent : Component
-{
-}
+public sealed partial class NoDeconstructComponent : Component { }

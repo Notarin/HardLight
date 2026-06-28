@@ -1,28 +1,37 @@
-using Content.Server.Power.Components;
+using System.Diagnostics.CodeAnalysis;
+using Content.Server._NF.Power.Components; // Frontier
 using Content.Server.Emp;
+using Content.Server.Power.Components;
 using Content.Server.PowerCell;
+using Content.Shared.Emp;
 using Content.Shared.Examine;
 using Content.Shared.Power;
 using Content.Shared.PowerCell.Components;
-using Content.Shared.Emp;
-using JetBrains.Annotations;
-using Robust.Shared.Containers;
-using System.Diagnostics.CodeAnalysis;
 using Content.Shared.Storage.Components;
-using Robust.Server.Containers;
 using Content.Shared.Whitelist;
-using Content.Server._NF.Power.Components; // Frontier
+using JetBrains.Annotations;
+using Robust.Server.Containers;
+using Robust.Shared.Containers;
 
 namespace Content.Server.Power.EntitySystems;
 
 [UsedImplicitly]
 internal sealed class ChargerSystem : EntitySystem
 {
-    [Dependency] private readonly ContainerSystem _container = default!;
-    [Dependency] private readonly PowerCellSystem _powerCell = default!;
-    [Dependency] private readonly BatterySystem _battery = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
+    [Dependency]
+    private readonly ContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly PowerCellSystem _powerCell = default!;
+
+    [Dependency]
+    private readonly BatterySystem _battery = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelistSystem = default!;
 
     public override void Initialize()
     {
@@ -50,7 +59,9 @@ internal sealed class ChargerSystem : EntitySystem
         using (args.PushGroup(nameof(ChargerComponent)))
         {
             // rate at which the charger charges
-            args.PushMarkup(Loc.GetString("charger-examine", ("color", "yellow"), ("chargeRate", (int) component.ChargeRate)));
+            args.PushMarkup(
+                Loc.GetString("charger-examine", ("color", "yellow"), ("chargeRate", (int)component.ChargeRate))
+            );
 
             // try to get contents of the charger
             if (!_container.TryGetContainer(uid, component.SlotId, out var container))
@@ -74,7 +85,7 @@ internal sealed class ChargerSystem : EntitySystem
                         continue;
 
                     var chargePercentage = (battery.CurrentCharge / battery.MaxCharge) * 100;
-                    args.PushMarkup(Loc.GetString("charger-content", ("chargePercentage", (int) chargePercentage)));
+                    args.PushMarkup(Loc.GetString("charger-content", ("chargePercentage", (int)chargePercentage)));
                 }
             }
         }
@@ -86,11 +97,9 @@ internal sealed class ChargerSystem : EntitySystem
 
         if (HasComp<EmpDisabledComponent>(uid))
             charge = false;
-        else
-        if (!TryComp<BatteryComponent>(target, out var battery))
+        else if (!TryComp<BatteryComponent>(target, out var battery))
             charge = false;
-        else
-        if (Math.Abs(battery.MaxCharge - battery.CurrentCharge) < 0.01)
+        else if (Math.Abs(battery.MaxCharge - battery.CurrentCharge) < 0.01)
             charge = false;
 
         // wrap functionality in an if statement instead of returning...
@@ -119,7 +128,10 @@ internal sealed class ChargerSystem : EntitySystem
             if (!TryComp<ChargerComponent>(charging.ChargerUid, out var charger)) // Frontier: Upstream - #28984
                 continue;
 
-            if (charging.ChargerComponent.Status == CellChargerStatus.Off || charging.ChargerComponent.Status == CellChargerStatus.Empty) // Frontier: Upstream - #28984
+            if (
+                charging.ChargerComponent.Status == CellChargerStatus.Off
+                || charging.ChargerComponent.Status == CellChargerStatus.Empty
+            ) // Frontier: Upstream - #28984
                 continue;
 
             // Frontier: Upstream - #28984 Start
@@ -202,7 +214,11 @@ internal sealed class ChargerSystem : EntitySystem
             args.Cancel();
     }
 
-    private void OnEntityStorageInsertAttempt(EntityUid uid, ChargerComponent component, ref InsertIntoEntityStorageAttemptEvent args)
+    private void OnEntityStorageInsertAttempt(
+        EntityUid uid,
+        ChargerComponent component,
+        ref InsertIntoEntityStorageAttemptEvent args
+    )
     {
         if (!component.Initialized || args.Cancelled)
             return;
@@ -365,7 +381,11 @@ internal sealed class ChargerSystem : EntitySystem
         UpdateStatus(uid, component);
     }
 
-    private bool SearchForBattery(EntityUid uid, [NotNullWhen(true)] out EntityUid? batteryUid, [NotNullWhen(true)] out BatteryComponent? component)
+    private bool SearchForBattery(
+        EntityUid uid,
+        [NotNullWhen(true)] out EntityUid? batteryUid,
+        [NotNullWhen(true)] out BatteryComponent? component
+    )
     {
         // try get a battery directly on the inserted entity
         if (!TryComp(uid, out component))

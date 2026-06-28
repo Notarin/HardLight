@@ -12,7 +12,10 @@ namespace Content.Client.Replay.UI.Loading;
 [GenerateTypedNameReferences]
 public sealed partial class LoadingScreenControl : Control
 {
-    public static SpriteSpecifier Sprite = new SpriteSpecifier.Rsi(new ("/Textures/Mobs/Silicon/Bots/mommi.rsi"), "wiggle");
+    public static SpriteSpecifier Sprite = new SpriteSpecifier.Rsi(
+        new("/Textures/Mobs/Silicon/Bots/mommi.rsi"),
+        "wiggle"
+    );
 
     public LoadingScreenControl(IResourceCache resCache)
     {
@@ -33,7 +36,7 @@ public sealed partial class LoadingScreenControl : Control
         {
             BackgroundColor = Color.FromHex("#303033"),
             BorderColor = Color.FromHex("#5a5a5a"),
-            BorderThickness = new Thickness(4)
+            BorderThickness = new Thickness(4),
         };
     }
 }

@@ -11,7 +11,7 @@
       map: ["enum.GunVisualLayers.Base"]
     - state: mode-disabler
       shader: unshaded
-      map: [ "Firemode" ]
+      map: ["Firemode"]
     - state: mag-unshaded-4
       map: ["enum.GunVisualLayers.MagUnshaded"]
       shader: unshaded
@@ -51,9 +51,9 @@
     visuals:
       enum.EnergyGunFireModeVisuals.State:
         Firemode:
-          Disabler: { state: mode-disabler }
-          Lethal: { state: mode-lethal }
-          Special: { state: mode-stun } # Unused
+          Disabler: {state: mode-disabler}
+          Lethal: {state: mode-lethal}
+          Special: {state: mode-stun} # Unused
 
 - type: entity
   name: x-01 multiphase energy gun
@@ -69,7 +69,7 @@
       map: ["enum.GunVisualLayers.Base"]
     - state: mode-disabler
       shader: unshaded
-      map: [ "Firemode" ]
+      map: ["Firemode"]
     - state: mag-unshaded-4
       map: ["enum.GunVisualLayers.MagUnshaded"]
       shader: unshaded
@@ -114,9 +114,9 @@
     visuals:
       enum.EnergyGunFireModeVisuals.State:
         Firemode:
-          Disabler: { state: mode-disabler }
-          Lethal: { state: mode-lethal }
-          Special: { state: mode-ion }
+          Disabler: {state: mode-disabler}
+          Lethal: {state: mode-lethal}
+          Special: {state: mode-ion}
   - type: Tag
     tags:
     - HighRiskItem

@@ -7,7 +7,7 @@
   name: survivor bundle
   description: There's ex-survivor bits stuck to it.
   abstract: true
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   suffix: NPC Loot
   components:
   - type: Sprite
@@ -23,118 +23,118 @@
 - type: entity
   parent: ZombieGiftBox
   id: MobZombieGearT1
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: SpawnItemsOnUse
     items:
-      - id: SpaceCash500
-      # Bonus Loot
-      - id: SpaceCash500
-        prob: 0.9
-      - id: SpawnDungeonLootMaterialsBasicFull
-        prob: 0.5
-      - id: FoodSnackNutribrick
-        prob: 0.3
-      - id: DrinkMREFlask
-        prob: 0.3
+    - id: SpaceCash500
+    # Bonus Loot
+    - id: SpaceCash500
+      prob: 0.9
+    - id: SpawnDungeonLootMaterialsBasicFull
+      prob: 0.5
+    - id: FoodSnackNutribrick
+      prob: 0.3
+    - id: DrinkMREFlask
+      prob: 0.3
     sound:
       path: /Audio/Effects/gib1.ogg
 
 - type: entity
   parent: ZombieGiftBox
   id: MobZombieGearT2
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: SpawnItemsOnUse
     items:
-      - id: SpaceCash500
-      # Bonus Loot
-      - id: SpaceCash500
-        prob: 0.9
-      - id: SpaceCash500
-        prob: 0.9
-      - id: SpaceCash1000
-        prob: 0.8
-      - id: SpawnDungeonLootMaterialsBasicFull
-        prob: 0.5
-      - id: ClothingHandsGlovesPuncherPoc
-        prob: 0.2
-      - id: ClothingHandsGlovesPuncherPocSharp
-        prob: 0.2
-      - id: BatSpiked
-        prob: 0.2
-      - id: BatReinforced
-        prob: 0.2
-      - id: PickaxeSharp
-        prob: 0.2
-      - id: SignAxe
-        prob: 0.2
+    - id: SpaceCash500
+    # Bonus Loot
+    - id: SpaceCash500
+      prob: 0.9
+    - id: SpaceCash500
+      prob: 0.9
+    - id: SpaceCash1000
+      prob: 0.8
+    - id: SpawnDungeonLootMaterialsBasicFull
+      prob: 0.5
+    - id: ClothingHandsGlovesPuncherPoc
+      prob: 0.2
+    - id: ClothingHandsGlovesPuncherPocSharp
+      prob: 0.2
+    - id: BatSpiked
+      prob: 0.2
+    - id: BatReinforced
+      prob: 0.2
+    - id: PickaxeSharp
+      prob: 0.2
+    - id: SignAxe
+      prob: 0.2
     sound:
       path: /Audio/Effects/gib1.ogg
 
 - type: entity
   parent: ZombieGiftBox
   id: MobZombieGearT3
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: SpawnItemsOnUse
     items:
-      - id: SpaceCash500
-      # Bonus Loot
-      - id: SpaceCash500
-        prob: 0.9
-      - id: SpaceCash500
-        prob: 0.9
-      - id: SpaceCash1000
-        prob: 0.8
-      - id: SpawnDungeonLootMaterialsBasicFull
-        prob: 0.7
-      - id: ClothingOuterArmorFireSuitPoc
-        prob: 0.2
-      - id: ThrowingBrick
-        prob: 0.4
-      - id: SpawnDungeonLootMaterialsValuableFull
-        prob: 0.4
-      - id: ClothingHandsGlovesPuncherPoc
-        prob: 0.3
-      - id: ClothingHandsGlovesPuncherPocSharp
-        prob: 0.3
-      - id: WeaponShotgunTripleSawn
-        prob: 0.3
+    - id: SpaceCash500
+    # Bonus Loot
+    - id: SpaceCash500
+      prob: 0.9
+    - id: SpaceCash500
+      prob: 0.9
+    - id: SpaceCash1000
+      prob: 0.8
+    - id: SpawnDungeonLootMaterialsBasicFull
+      prob: 0.7
+    - id: ClothingOuterArmorFireSuitPoc
+      prob: 0.2
+    - id: ThrowingBrick
+      prob: 0.4
+    - id: SpawnDungeonLootMaterialsValuableFull
+      prob: 0.4
+    - id: ClothingHandsGlovesPuncherPoc
+      prob: 0.3
+    - id: ClothingHandsGlovesPuncherPocSharp
+      prob: 0.3
+    - id: WeaponShotgunTripleSawn
+      prob: 0.3
     sound:
       path: /Audio/Effects/gib1.ogg
 
 - type: entity
   parent: ZombieGiftBox
   id: MobZombieGearT4
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: SpawnItemsOnUse
     items:
-      - id: SpaceCash1000
-      - id: ThrowingGun
-      # Bonus Loot
-      - id: SpaceCash1000
-        prob: 0.9
-      - id: SpaceCash1000
-        prob: 0.9
-      - id: SpaceCash1000
-        prob: 0.8
-      - id: SpawnDungeonLootMaterialsValuableFull
-        prob: 0.7
-      - id: flamethrower
-        prob: 0.4
-      - id: ClothingOuterArmorFireSuitPoc
-        prob: 0.4
-      - id: ThrowingGun
-        prob: 0.3
-      - id: ThrowingBrick
-        prob: 0.4
-      - id: ImpactGrenade
-        prob: 0.4
-      - id: SpawnDungeonLootVaultGuns
-        prob: 0.2
-      - id: PickaxeSharp
-        prob: 0.2
+    - id: SpaceCash1000
+    - id: ThrowingGun
+    # Bonus Loot
+    - id: SpaceCash1000
+      prob: 0.9
+    - id: SpaceCash1000
+      prob: 0.9
+    - id: SpaceCash1000
+      prob: 0.8
+    - id: SpawnDungeonLootMaterialsValuableFull
+      prob: 0.7
+    - id: flamethrower
+      prob: 0.4
+    - id: ClothingOuterArmorFireSuitPoc
+      prob: 0.4
+    - id: ThrowingGun
+      prob: 0.3
+    - id: ThrowingBrick
+      prob: 0.4
+    - id: ImpactGrenade
+      prob: 0.4
+    - id: SpawnDungeonLootVaultGuns
+      prob: 0.2
+    - id: PickaxeSharp
+      prob: 0.2
     sound:
       path: /Audio/Effects/gib1.ogg

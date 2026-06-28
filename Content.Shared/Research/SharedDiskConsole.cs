@@ -5,7 +5,7 @@ namespace Content.Shared.Research;
 [Serializable, NetSerializable]
 public enum DiskConsoleUiKey : byte
 {
-    Key
+    Key,
 }
 
 [Serializable, NetSerializable]
@@ -17,7 +17,13 @@ public sealed class DiskConsoleBoundUserInterfaceState : BoundUserInterfaceState
     public int PointCostRare; // Frontier
     public int ServerPoints;
 
-    public DiskConsoleBoundUserInterfaceState(int serverPoints, int pointCost, int pointCostRare, bool canPrint, bool canPrintRare) // Frontier: add pointCostRare, canPrintRare
+    public DiskConsoleBoundUserInterfaceState(
+        int serverPoints,
+        int pointCost,
+        int pointCostRare,
+        bool canPrint,
+        bool canPrintRare
+    ) // Frontier: add pointCostRare, canPrintRare
     {
         CanPrint = canPrint;
         CanPrintRare = canPrintRare; // Frontier
@@ -28,13 +34,7 @@ public sealed class DiskConsoleBoundUserInterfaceState : BoundUserInterfaceState
 }
 
 [Serializable, NetSerializable]
-public sealed class DiskConsolePrintDiskMessage : BoundUserInterfaceMessage
-{
-
-}
+public sealed class DiskConsolePrintDiskMessage : BoundUserInterfaceMessage { }
 
 [Serializable, NetSerializable] // Frontier
-public sealed class DiskConsolePrintRareDiskMessage : BoundUserInterfaceMessage
-{
-
-}
+public sealed class DiskConsolePrintRareDiskMessage : BoundUserInterfaceMessage { }

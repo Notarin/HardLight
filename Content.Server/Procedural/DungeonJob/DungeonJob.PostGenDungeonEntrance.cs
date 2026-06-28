@@ -12,10 +12,18 @@ public sealed partial class DungeonJob
     /// <summary>
     /// <see cref="DungeonEntranceDunGen"/>
     /// </summary>
-    private async Task PostGen(DungeonEntranceDunGen gen, DungeonData data, Dungeon dungeon, HashSet<Vector2i> reservedTiles, Random random)
+    private async Task PostGen(
+        DungeonEntranceDunGen gen,
+        DungeonData data,
+        Dungeon dungeon,
+        HashSet<Vector2i> reservedTiles,
+        Random random
+    )
     {
-        if (!data.Tiles.TryGetValue(DungeonDataKey.FallbackTile, out var tileProto) ||
-            !data.SpawnGroups.TryGetValue(DungeonDataKey.Entrance, out var entrance))
+        if (
+            !data.Tiles.TryGetValue(DungeonDataKey.FallbackTile, out var tileProto)
+            || !data.SpawnGroups.TryGetValue(DungeonDataKey.Entrance, out var entrance)
+        )
         {
             LogDataError(typeof(DungeonEntranceDunGen));
             return;
@@ -23,7 +31,7 @@ public sealed partial class DungeonJob
 
         var rooms = new List<DungeonRoom>(dungeon.Rooms);
         var roomTiles = new List<Vector2i>();
-        var tileDef = (ContentTileDefinition) _tileDefManager[tileProto];
+        var tileDef = (ContentTileDefinition)_tileDefManager[tileProto];
 
         for (var i = 0; i < gen.Count; i++)
         {
@@ -43,7 +51,7 @@ public sealed partial class DungeonJob
                 // Check if one side is dungeon and the other side is nothing.
                 for (var j = 0; j < 4; j++)
                 {
-                    var dir = (Direction) (j * 2);
+                    var dir = (Direction)(j * 2);
                     var oppositeDir = dir.GetOpposite();
                     var dirVec = tile + dir.ToIntVec();
                     var oppositeDirVec = tile + oppositeDir.ToIntVec();
@@ -53,10 +61,12 @@ public sealed partial class DungeonJob
                         continue;
                     }
 
-                    if (dungeon.RoomTiles.Contains(oppositeDirVec) ||
-                        dungeon.RoomExteriorTiles.Contains(oppositeDirVec) ||
-                        dungeon.CorridorExteriorTiles.Contains(oppositeDirVec) ||
-                        dungeon.CorridorTiles.Contains(oppositeDirVec))
+                    if (
+                        dungeon.RoomTiles.Contains(oppositeDirVec)
+                        || dungeon.RoomExteriorTiles.Contains(oppositeDirVec)
+                        || dungeon.CorridorExteriorTiles.Contains(oppositeDirVec)
+                        || dungeon.CorridorTiles.Contains(oppositeDirVec)
+                    )
                     {
                         continue;
                     }
@@ -88,12 +98,21 @@ public sealed partial class DungeonJob
                     }
 
                     // Clear out any biome tiles nearby to avoid blocking it
-                    foreach (var nearTile in _maps.GetLocalTilesIntersecting(_gridUid, _grid, new Circle(gridCoords.Position, 1.5f), false))
+                    foreach (
+                        var nearTile in _maps.GetLocalTilesIntersecting(
+                            _gridUid,
+                            _grid,
+                            new Circle(gridCoords.Position, 1.5f),
+                            false
+                        )
+                    )
                     {
-                        if (dungeon.RoomTiles.Contains(nearTile.GridIndices) ||
-                            dungeon.RoomExteriorTiles.Contains(nearTile.GridIndices) ||
-                            dungeon.CorridorTiles.Contains(nearTile.GridIndices) ||
-                            dungeon.CorridorExteriorTiles.Contains(nearTile.GridIndices))
+                        if (
+                            dungeon.RoomTiles.Contains(nearTile.GridIndices)
+                            || dungeon.RoomExteriorTiles.Contains(nearTile.GridIndices)
+                            || dungeon.CorridorTiles.Contains(nearTile.GridIndices)
+                            || dungeon.CorridorExteriorTiles.Contains(nearTile.GridIndices)
+                        )
                         {
                             continue;
                         }

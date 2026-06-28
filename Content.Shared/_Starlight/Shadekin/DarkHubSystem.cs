@@ -12,17 +12,28 @@ namespace Content.Shared._Starlight.Shadekin;
 
 public sealed class DarkHubSystem : EntitySystem
 {
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly INetManager _netMan = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelist = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly INetManager _netMan = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
     public override void Initialize()
     {
         base.Initialize();
 
         SubscribeLocalEvent<DarkHubComponent, OnAttemptPortalEvent>(OnAttemptPortal);
     }
+
     // I only one have thing to say... WHY DOES THIS WORK WHEN DARK PORTAL DOES NOT? YOU ARE BULLSHIT GAME! Thank you peoples
     // But yes, this one is shared and its works... THE OTHERS DOES NOT AND I HAVE TO MAKE COPY AND PASTE FOR PREDICTION... FUCK YOU!
     // I suffer by watching this.

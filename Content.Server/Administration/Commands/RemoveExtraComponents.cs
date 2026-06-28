@@ -8,8 +8,10 @@ namespace Content.Server.Administration.Commands
     public sealed class RemoveExtraComponents : IConsoleCommand
     {
         public string Command => "removeextracomponents";
-        public string Description => "Removes all components from all entities of the specified id if that component is not in its prototype.\nIf no id is specified, it matches all entities.";
+        public string Description =>
+            "Removes all components from all entities of the specified id if that component is not in its prototype.\nIf no id is specified, it matches all entities.";
         public string Help => $"{Command} <entityId> / {Command}";
+
         public void Execute(IConsoleShell shell, string argStr, string[] args)
         {
             var id = args.Length == 0 ? null : string.Join(" ", args);
@@ -54,7 +56,9 @@ namespace Content.Server.Administration.Commands
                     entities++;
             }
 
-            shell.WriteLine($"Removed {components} components from {entities} entities{(id == null ? "." : $" with id {id}")}");
+            shell.WriteLine(
+                $"Removed {components} components from {entities} entities{(id == null ? "." : $" with id {id}")}"
+            );
         }
     }
 }

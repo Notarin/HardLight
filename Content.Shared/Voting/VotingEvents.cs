@@ -4,10 +4,7 @@ using Robust.Shared.Serialization;
 namespace Content.Shared.Voting;
 
 [Serializable, NetSerializable]
-public sealed class VotePlayerListRequestEvent : EntityEventArgs
-{
-
-}
+public sealed class VotePlayerListRequestEvent : EntityEventArgs { }
 
 [Serializable, NetSerializable]
 public sealed class VotePlayerListResponseEvent : EntityEventArgs

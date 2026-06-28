@@ -14,13 +14,26 @@ namespace Content.Server.GameTicking.Rules;
 
 public sealed class XenoborgsRuleSystem : GameRuleSystem<XenoborgsRuleComponent>
 {
-    [Dependency] private readonly AntagSelectionSystem _antag = default!;
-    [Dependency] private readonly ChatSystem _chatSystem = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly SharedMindSystem _mindSystem = default!;
-    [Dependency] private readonly RoundEndSystem _roundEnd = default!;
-    [Dependency] private readonly StationSystem _station = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly AntagSelectionSystem _antag = default!;
+
+    [Dependency]
+    private readonly ChatSystem _chatSystem = default!;
+
+    [Dependency]
+    private readonly MobStateSystem _mobState = default!;
+
+    [Dependency]
+    private readonly SharedMindSystem _mindSystem = default!;
+
+    [Dependency]
+    private readonly RoundEndSystem _roundEnd = default!;
+
+    [Dependency]
+    private readonly StationSystem _station = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     private static readonly Color AnnouncmentColor = Color.Gold;
 
@@ -32,23 +45,27 @@ public sealed class XenoborgsRuleSystem : GameRuleSystem<XenoborgsRuleComponent>
         var status = mothershipCoreAlive ? "alive" : "dead";
         _chatSystem.DispatchGlobalAnnouncement(
             Loc.GetString($"xenoborgs-no-more-threat-mothership-core-{status}-announcement"),
-            colorOverride: AnnouncmentColor);
+            colorOverride: AnnouncmentColor
+        );
     }
 
     public void SendMothershipDeathAnnouncement(Entity<XenoborgsRuleComponent> ent)
     {
         _chatSystem.DispatchGlobalAnnouncement(
             Loc.GetString("mothership-destroyed-announcement"),
-            colorOverride: AnnouncmentColor);
+            colorOverride: AnnouncmentColor
+        );
 
         ent.Comp.MothershipCoreDeathAnnouncmentSent = true;
     }
 
     // TODO: Refactor the end of round text
-    protected override void AppendRoundEndText(EntityUid uid,
+    protected override void AppendRoundEndText(
+        EntityUid uid,
         XenoborgsRuleComponent component,
         GameRuleComponent gameRule,
-        ref RoundEndTextAppendEvent args)
+        ref RoundEndTextAppendEvent args
+    )
     {
         base.AppendRoundEndText(uid, component, gameRule, ref args);
 
@@ -96,20 +113,34 @@ public sealed class XenoborgsRuleSystem : GameRuleSystem<XenoborgsRuleComponent>
         {
             foreach (var station in _station.GetStations())
             {
-                _chatSystem.DispatchStationAnnouncement(station, Loc.GetString("xenoborg-shuttle-call"), colorOverride: Color.BlueViolet);
+                _chatSystem.DispatchStationAnnouncement(
+                    station,
+                    Loc.GetString("xenoborg-shuttle-call"),
+                    colorOverride: Color.BlueViolet
+                );
             }
             _roundEnd.RequestRoundEnd(null, false);
         }
     }
 
-    protected override void Started(EntityUid uid, XenoborgsRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
+    protected override void Started(
+        EntityUid uid,
+        XenoborgsRuleComponent component,
+        GameRuleComponent gameRule,
+        GameRuleStartedEvent args
+    )
     {
         base.Started(uid, component, gameRule, args);
 
         component.NextRoundEndCheck = _timing.CurTime + component.EndCheckDelay;
     }
 
-    protected override void ActiveTick(EntityUid uid, XenoborgsRuleComponent component, GameRuleComponent gameRule, float frameTime)
+    protected override void ActiveTick(
+        EntityUid uid,
+        XenoborgsRuleComponent component,
+        GameRuleComponent gameRule,
+        float frameTime
+    )
     {
         base.ActiveTick(uid, component, gameRule, frameTime);
 

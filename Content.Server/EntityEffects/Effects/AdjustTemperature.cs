@@ -10,11 +10,16 @@ namespace Content.Server.EntityEffects.Effects
         [DataField]
         public float Amount;
 
-        protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys)
-            => Loc.GetString("reagent-effect-guidebook-adjust-temperature",
+        protected override string? ReagentEffectGuidebookText(
+            IPrototypeManager prototype,
+            IEntitySystemManager entSys
+        ) =>
+            Loc.GetString(
+                "reagent-effect-guidebook-adjust-temperature",
                 ("chance", Probability),
                 ("deltasign", MathF.Sign(Amount)),
-                ("amount", MathF.Abs(Amount)));
+                ("amount", MathF.Abs(Amount))
+            );
 
         public override void Effect(EntityEffectBaseArgs args)
         {

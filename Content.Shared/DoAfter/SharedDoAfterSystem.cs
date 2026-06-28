@@ -1,7 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
-using Content.Shared._Goobstation.DoAfter; // Goobstation
 using Content.Shared._Funkystation.Genetics.Mutations.Components;
+using Content.Shared._Goobstation.DoAfter; // Goobstation
 using Content.Shared.ActionBlocker;
 using Content.Shared.Damage;
 using Content.Shared.Hands.Components;
@@ -16,10 +16,17 @@ namespace Content.Shared.DoAfter;
 
 public abstract partial class SharedDoAfterSystem : EntitySystem
 {
-    [Dependency] protected readonly IGameTiming GameTiming = default!;
-    [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly TagSystem _tag = default!;
+    [Dependency]
+    protected readonly IGameTiming GameTiming = default!;
+
+    [Dependency]
+    private readonly ActionBlockerSystem _actionBlocker = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly TagSystem _tag = default!;
 
     /// <summary>
     ///     We'll use an excess time so stuff like finishing effects can show.
@@ -89,8 +96,7 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
             RaiseLocalEvent((object)ev);
 
         // <Goobstation>
-        if (component.RaiseEndedEvent
-            && Exists(doAfter.Args.User))
+        if (component.RaiseEndedEvent && Exists(doAfter.Args.User))
         {
             var ended = new DoAfterEndedEvent(doAfter.Args.Target, doAfter.Cancelled);
             RaiseLocalEvent(doAfter.Args.User, ref ended);
@@ -174,8 +180,8 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
     /// <param name="args">The DoAfter arguments</param>
     /// <param name="component">The user's DoAfter component</param>
     /// <returns></returns>
-    public bool TryStartDoAfter(DoAfterArgs args, DoAfterComponent? component = null)
-        => TryStartDoAfter(args, out _, component);
+    public bool TryStartDoAfter(DoAfterArgs args, DoAfterComponent? component = null) =>
+        TryStartDoAfter(args, out _, component);
 
     /// <summary>
     ///     Attempts to start a new DoAfter. Note that even if this function returns false, an interaction may have
@@ -187,10 +193,14 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
     /// <returns></returns>
     public bool TryStartDoAfter(DoAfterArgs args, [NotNullWhen(true)] out DoAfterId? id, DoAfterComponent? comp = null)
     {
-        DebugTools.Assert(args.Broadcast || Exists(args.EventTarget) || args.Event.GetType() == typeof(AwaitedDoAfterEvent));
-        DebugTools.Assert(args.Event.GetType().HasCustomAttribute<NetSerializableAttribute>()
-            || args.Event.GetType().Namespace is {} ns && ns.StartsWith("Content.IntegrationTests"), // classes defined in tests cannot be marked as serializable.
-            $"Do after event is not serializable. Event: {args.Event.GetType()}");
+        DebugTools.Assert(
+            args.Broadcast || Exists(args.EventTarget) || args.Event.GetType() == typeof(AwaitedDoAfterEvent)
+        );
+        DebugTools.Assert(
+            args.Event.GetType().HasCustomAttribute<NetSerializableAttribute>()
+                || args.Event.GetType().Namespace is { } ns && ns.StartsWith("Content.IntegrationTests"), // classes defined in tests cannot be marked as serializable.
+            $"Do after event is not serializable. Event: {args.Event.GetType()}"
+        );
 
         if (!Resolve(args.User, ref comp))
         {
@@ -308,22 +318,19 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
         return IsDuplicate(args, otherArgs, otherArgs.DuplicateCondition);
     }
 
-    private bool IsDuplicate(DoAfterArgs args, DoAfterArgs otherArgs, DuplicateConditions conditions )
+    private bool IsDuplicate(DoAfterArgs args, DoAfterArgs otherArgs, DuplicateConditions conditions)
     {
-        if ((conditions & DuplicateConditions.SameTarget) != 0
-            && args.Target != otherArgs.Target)
+        if ((conditions & DuplicateConditions.SameTarget) != 0 && args.Target != otherArgs.Target)
         {
             return false;
         }
 
-        if ((conditions & DuplicateConditions.SameTool) != 0
-            && args.Used != otherArgs.Used)
+        if ((conditions & DuplicateConditions.SameTool) != 0 && args.Used != otherArgs.Used)
         {
             return false;
         }
 
-        if ((conditions & DuplicateConditions.SameEvent) != 0
-            && !args.Event.IsDuplicate(otherArgs.Event))
+        if ((conditions & DuplicateConditions.SameEvent) != 0 && !args.Event.IsDuplicate(otherArgs.Event))
         {
             return false;
         }

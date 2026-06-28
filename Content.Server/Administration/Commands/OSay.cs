@@ -2,8 +2,8 @@ using System.Linq;
 using Content.Server.Administration.Logs;
 using Content.Server.Chat.Systems;
 using Content.Shared.Administration;
-using Content.Shared.Database;
 using Content.Shared.Chat; // For InGameICChatType
+using Content.Shared.Database;
 using Robust.Shared.Console;
 
 namespace Content.Server.Administration.Commands;
@@ -11,8 +11,11 @@ namespace Content.Server.Administration.Commands;
 [AdminCommand(AdminFlags.Admin)]
 public sealed class OSay : LocalizedCommands
 {
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly IEntityManager _entityManager = default!;
+    [Dependency]
+    private readonly IAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    private readonly IEntityManager _entityManager = default!;
 
     public override string Command => "osay";
 
@@ -25,8 +28,10 @@ public sealed class OSay : LocalizedCommands
 
         if (args.Length == 2)
         {
-            return CompletionResult.FromHintOptions(Enum.GetNames(typeof(InGameICChatType)),
-                Loc.GetString("osay-command-arg-type"));
+            return CompletionResult.FromHintOptions(
+                Enum.GetNames(typeof(InGameICChatType)),
+                Loc.GetString("osay-command-arg-type")
+            );
         }
 
         if (args.Length > 2)
@@ -47,7 +52,11 @@ public sealed class OSay : LocalizedCommands
 
         var chatType = (InGameICChatType)Enum.Parse(typeof(InGameICChatType), args[1]);
 
-        if (!NetEntity.TryParse(args[0], out var sourceNet) || !_entityManager.TryGetEntity(sourceNet, out var source) || !_entityManager.EntityExists(source))
+        if (
+            !NetEntity.TryParse(args[0], out var sourceNet)
+            || !_entityManager.TryGetEntity(sourceNet, out var source)
+            || !_entityManager.EntityExists(source)
+        )
         {
             shell.WriteLine(Loc.GetString("osay-command-error-euid", ("arg", args[0])));
             return;
@@ -58,6 +67,10 @@ public sealed class OSay : LocalizedCommands
             return;
 
         _entityManager.System<ChatSystem>().TrySendInGameICMessage(source.Value, message, chatType, false);
-        _adminLogger.Add(LogType.Action, LogImpact.Low, $"{(shell.Player != null ? shell.Player.Name : "An administrator")} forced {_entityManager.ToPrettyString(source.Value)} to {args[1]}: {message}");
+        _adminLogger.Add(
+            LogType.Action,
+            LogImpact.Low,
+            $"{(shell.Player != null ? shell.Player.Name : "An administrator")} forced {_entityManager.ToPrettyString(source.Value)} to {args[1]}: {message}"
+        );
     }
 }

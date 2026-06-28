@@ -11,9 +11,8 @@ public sealed class CargoPalletConsoleNFBoundUserInterface : BoundUserInterface
     [ViewVariables]
     private CargoPalletMenu? _menu;
 
-    public CargoPalletConsoleNFBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-    }
+    public CargoPalletConsoleNFBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {

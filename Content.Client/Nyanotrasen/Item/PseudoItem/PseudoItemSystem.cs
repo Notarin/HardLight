@@ -2,6 +2,4 @@
 
 namespace Content.Client.Nyanotrasen.Item.PseudoItem;
 
-public sealed class PseudoItemSystem : SharedPseudoItemSystem
-{
-}
+public sealed class PseudoItemSystem : SharedPseudoItemSystem { }

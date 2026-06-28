@@ -1,16 +1,21 @@
-using Content.Shared.DoAfter;
 using Content.Shared.Containers.ItemSlots;
+using Content.Shared.DoAfter;
+using Content.Shared.Examine;
 using Content.Shared.Verbs;
 using Robust.Shared.Audio.Systems;
-using Content.Shared.Examine;
 
 namespace Content.Shared.Paper;
 
 public sealed class EnvelopeSystem : EntitySystem
 {
-    [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audioSystem = default!;
-    [Dependency] private readonly ItemSlotsSystem _itemSlotsSystem = default!;
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfterSystem = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audioSystem = default!;
+
+    [Dependency]
+    private readonly ItemSlotsSystem _itemSlotsSystem = default!;
 
     public override void Initialize()
     {
@@ -44,15 +49,23 @@ public sealed class EnvelopeSystem : EntitySystem
             return;
 
         var user = args.User;
-        args.Verbs.Add(new AlternativeVerb()
-        {
-            Text = Loc.GetString(ent.Comp.State == EnvelopeComponent.EnvelopeState.Open ? "envelope-verb-seal" : "envelope-verb-tear"),
-            IconEntity = GetNetEntity(ent.Owner),
-            Act = () =>
+        args.Verbs.Add(
+            new AlternativeVerb()
             {
-                TryStartDoAfter(ent, user, ent.Comp.State == EnvelopeComponent.EnvelopeState.Open ? ent.Comp.SealDelay : ent.Comp.TearDelay);
-            },
-        });
+                Text = Loc.GetString(
+                    ent.Comp.State == EnvelopeComponent.EnvelopeState.Open ? "envelope-verb-seal" : "envelope-verb-tear"
+                ),
+                IconEntity = GetNetEntity(ent.Owner),
+                Act = () =>
+                {
+                    TryStartDoAfter(
+                        ent,
+                        user,
+                        ent.Comp.State == EnvelopeComponent.EnvelopeState.Open ? ent.Comp.SealDelay : ent.Comp.TearDelay
+                    );
+                },
+            }
+        );
     }
 
     private void OnInsertAttempt(Entity<EnvelopeComponent> ent, ref ItemSlotInsertAttemptEvent args)
@@ -70,7 +83,14 @@ public sealed class EnvelopeSystem : EntitySystem
         if (ent.Comp.EnvelopeDoAfter.HasValue)
             return;
 
-        var doAfterEventArgs = new DoAfterArgs(EntityManager, user, delay, new EnvelopeDoAfterEvent(), ent.Owner, ent.Owner)
+        var doAfterEventArgs = new DoAfterArgs(
+            EntityManager,
+            user,
+            delay,
+            new EnvelopeDoAfterEvent(),
+            ent.Owner,
+            ent.Owner
+        )
         {
             BreakOnDamage = true,
             NeedHand = true,
@@ -82,6 +102,7 @@ public sealed class EnvelopeSystem : EntitySystem
         if (_doAfterSystem.TryStartDoAfter(doAfterEventArgs, out var doAfterId))
             ent.Comp.EnvelopeDoAfter = doAfterId;
     }
+
     private void OnDoAfter(Entity<EnvelopeComponent> ent, ref EnvelopeDoAfterEvent args)
     {
         ent.Comp.EnvelopeDoAfter = null;

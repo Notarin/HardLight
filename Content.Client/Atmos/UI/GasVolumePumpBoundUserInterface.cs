@@ -18,9 +18,8 @@ namespace Content.Client.Atmos.UI
         [ViewVariables]
         private GasVolumePumpWindow? _window;
 
-        public GasVolumePumpBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-        {
-        }
+        public GasVolumePumpBoundUserInterface(EntityUid owner, Enum uiKey)
+            : base(owner, uiKey) { }
 
         protected override void Open()
         {
@@ -41,7 +40,8 @@ namespace Content.Client.Atmos.UI
 
         private void OnToggleStatusButtonPressed()
         {
-            if (_window is null) return;
+            if (_window is null)
+                return;
 
             SendPredictedMessage(new GasVolumePumpToggleStatusMessage(_window.PumpStatus));
         }

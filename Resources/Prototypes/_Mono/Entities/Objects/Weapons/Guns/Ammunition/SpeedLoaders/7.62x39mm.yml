@@ -1,17 +1,17 @@
 - type: entity
   id: SpeedLoader762x39mmFMJ
   name: "speed loader (762x39mm FMJ)"
-  parent: [ BaseItem, BaseC1Contraband ] # Frontier: BaseSecurityContraband<BaseC1Contraband
+  parent: [BaseItem, BaseC1Contraband] # Frontier: BaseSecurityContraband<BaseC1Contraband
   components:
   - type: Tag
     tags:
-      - SpeedLoaderRifle
+    - SpeedLoaderRifle
   - type: SpeedLoader
   - type: BallisticAmmoProvider
     mayTransfer: true
     whitelist:
       tags:
-        - Cartridge762x39mmFMJ
+      - Cartridge762x39mmFMJ
     capacity: 5
     proto: Cartridge762x39mmFMJ
   - type: Sprite

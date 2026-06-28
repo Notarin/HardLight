@@ -18,7 +18,7 @@ public sealed partial class HumanoidProfileEditor
 
         var species = _species.Find(x => x.ID == Profile?.Species) ?? _species.First();
 
-        if(species.HasSubspecies == false && species.SubspeciesOf == null)
+        if (species.HasSubspecies == false && species.SubspeciesOf == null)
             return;
 
         List<SpeciesPrototype> subspecies = [];
@@ -26,16 +26,38 @@ public sealed partial class HumanoidProfileEditor
 
         if (species.HasSubspecies)
         {
-            List<SpeciesPrototype> allSubspecies = [.. _prototypeManager.EnumeratePrototypes<SpeciesPrototype>().Where(p => p.SubspeciesOf == species.ID)];
-            allSubspecies.Sort((a, b) => string.Compare(a.SubspeciesName ?? a.Name, b.SubspeciesName ?? b.Name, StringComparison.OrdinalIgnoreCase));
+            List<SpeciesPrototype> allSubspecies =
+            [
+                .. _prototypeManager.EnumeratePrototypes<SpeciesPrototype>().Where(p => p.SubspeciesOf == species.ID),
+            ];
+            allSubspecies.Sort(
+                (a, b) =>
+                    string.Compare(
+                        a.SubspeciesName ?? a.Name,
+                        b.SubspeciesName ?? b.Name,
+                        StringComparison.OrdinalIgnoreCase
+                    )
+            );
 
             subspecies.Add(species);
             subspecies.AddRange(allSubspecies);
         }
-        else if (species.SubspeciesOf != null) 
+        else if (species.SubspeciesOf != null)
         {
-            List<SpeciesPrototype> allSubspecies = [.. _prototypeManager.EnumeratePrototypes<SpeciesPrototype>().Where(p => p.SubspeciesOf == species.SubspeciesOf)];
-            allSubspecies.Sort((a, b) => string.Compare(a.SubspeciesName ?? a.Name, b.SubspeciesName ?? b.Name, StringComparison.OrdinalIgnoreCase));
+            List<SpeciesPrototype> allSubspecies =
+            [
+                .. _prototypeManager
+                    .EnumeratePrototypes<SpeciesPrototype>()
+                    .Where(p => p.SubspeciesOf == species.SubspeciesOf),
+            ];
+            allSubspecies.Sort(
+                (a, b) =>
+                    string.Compare(
+                        a.SubspeciesName ?? a.Name,
+                        b.SubspeciesName ?? b.Name,
+                        StringComparison.OrdinalIgnoreCase
+                    )
+            );
             var parent = _prototypeManager.Index(species.SubspeciesOf);
 
             subspecies.Add(parent);
@@ -50,10 +72,11 @@ public sealed partial class HumanoidProfileEditor
         {
             _subspecies.Add(subspecies[i]);
 
-            var name = Loc.GetString(subspecies[i].SubspeciesName == null ? subspecies[i].Name : subspecies[i].SubspeciesName!.Value);
+            var name = Loc.GetString(
+                subspecies[i].SubspeciesName == null ? subspecies[i].Name : subspecies[i].SubspeciesName!.Value
+            );
             SubspeciesButton.AddItem(name, i);
         }
-        
 
         SubspeciesButton.SelectId(selected);
         CSubspecies.Visible = true;
@@ -63,12 +86,13 @@ public sealed partial class HumanoidProfileEditor
     {
         CSpeciesLoadout.Visible = false;
 
-        if (Profile == null || 
-            !_prototypeManager.TryIndex(Profile.Species, out var species) || 
-            species.Loadout == null ||
-            !_prototypeManager.TryIndex(species.Loadout, out var loadoutProto))
+        if (
+            Profile == null
+            || !_prototypeManager.TryIndex(Profile.Species, out var species)
+            || species.Loadout == null
+            || !_prototypeManager.TryIndex(species.Loadout, out var loadoutProto)
+        )
             return;
-        
 
         CSpeciesLoadout.Visible = true;
         SpeciesLoadout.OnPressed += args =>
@@ -79,7 +103,9 @@ public sealed partial class HumanoidProfileEditor
             {
                 loadout = Profile.GetSpeciesLoadoutOrDefault(_playerManager.LocalSession, _prototypeManager);
                 loadout!.SetDefault(Profile, _playerManager.LocalSession, _prototypeManager);
-            } else {
+            }
+            else
+            {
                 loadout = Profile.SpeciesLoadout!.Clone();
                 loadout!.SetDefault(Profile, _playerManager.LocalSession, _prototypeManager);
             }
@@ -88,7 +114,11 @@ public sealed partial class HumanoidProfileEditor
         };
     }
 
-    private void OpenSpeciesLoadout(SpeciesPrototype species, RoleLoadout speciesLoadout, RoleLoadoutPrototype speciesLoadoutProto)
+    private void OpenSpeciesLoadout(
+        SpeciesPrototype species,
+        RoleLoadout speciesLoadout,
+        RoleLoadoutPrototype speciesLoadoutProto
+    )
     {
         _loadoutWindow?.Dispose();
         _loadoutWindow = null;
@@ -99,7 +129,13 @@ public sealed partial class HumanoidProfileEditor
 
         var session = _playerManager.LocalSession;
 
-        _loadoutWindow = new LoadoutWindow(Profile, speciesLoadout, speciesLoadoutProto, _playerManager.LocalSession, collection)
+        _loadoutWindow = new LoadoutWindow(
+            Profile,
+            speciesLoadout,
+            speciesLoadoutProto,
+            _playerManager.LocalSession,
+            collection
+        )
         {
             Title = Loc.GetString("loadout-window-title-loadout", ("job", $"{Loc.GetString(species.Name)}")),
         };
@@ -123,7 +159,7 @@ public sealed partial class HumanoidProfileEditor
             Profile = Profile?.WithSpeciesLoadout(speciesLoadout);
             ReloadPreview();
         };
-        
+
         ReloadPreview();
 
         _loadoutWindow.OnClose += () =>

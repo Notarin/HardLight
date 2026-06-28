@@ -9,8 +9,10 @@ public sealed class HandLabelerSystem : SharedHandLabelerSystem
 {
     protected override void UpdateUI(Entity<HandLabelerComponent> ent)
     {
-        if (UserInterfaceSystem.TryGetOpenUi(ent.Owner, HandLabelerUiKey.Key, out var bui)
-            && bui is HandLabelerBoundUserInterface cBui)
+        if (
+            UserInterfaceSystem.TryGetOpenUi(ent.Owner, HandLabelerUiKey.Key, out var bui)
+            && bui is HandLabelerBoundUserInterface cBui
+        )
         {
             cBui.Reload();
         }

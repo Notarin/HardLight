@@ -6,8 +6,11 @@ namespace Content.Server._Mono.Trigger;
 
 public sealed partial class TriggerSystem : EntitySystem
 {
-    [Dependency] private readonly LightningSystem _lightning = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency]
+    private readonly LightningSystem _lightning = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
 
     public override void Initialize()
     {
@@ -21,6 +24,13 @@ public sealed partial class TriggerSystem : EntitySystem
         if (!_random.Prob(ent.Comp.Chance))
             return;
 
-        _lightning.ShootRandomLightnings(ent, ent.Comp.Range, ent.Comp.Count, ent.Comp.LightningProto, ent.Comp.ArcDepth, ent.Comp.LightningEffects);
+        _lightning.ShootRandomLightnings(
+            ent,
+            ent.Comp.Range,
+            ent.Comp.Count,
+            ent.Comp.LightningProto,
+            ent.Comp.ArcDepth,
+            ent.Comp.LightningEffects
+        );
     }
 }

@@ -7,7 +7,4 @@ namespace Content.Server.Shuttles.Components;
 /// for FTL event handlers
 /// </summary>
 [RegisterComponent]
-public sealed partial class EmergencyShuttleComponent : Component
-{
-
-}
+public sealed partial class EmergencyShuttleComponent : Component { }

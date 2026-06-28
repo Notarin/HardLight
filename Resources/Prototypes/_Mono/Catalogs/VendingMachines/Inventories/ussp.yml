@@ -1,4 +1,4 @@
-﻿- type: vendingMachineInventory
+- type: vendingMachineInventory
   id: USSPVendInventory
   startingInventory:
     MagazineLightRifle: 4294967295 # Infinite

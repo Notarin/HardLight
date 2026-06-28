@@ -18,9 +18,14 @@ namespace Content.Server.Physics.Controllers;
 internal sealed class RandomWalkController : VirtualController
 {
     #region Dependencies
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly PhysicsSystem _physics = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly PhysicsSystem _physics = default!;
     #endregion Dependencies
 
     public override void Initialize()
@@ -43,9 +48,11 @@ internal sealed class RandomWalkController : VirtualController
         var query = EntityQueryEnumerator<RandomWalkComponent, PhysicsComponent>();
         while (query.MoveNext(out var uid, out var randomWalk, out var physics))
         {
-            if (EntityManager.HasComponent<ActorComponent>(uid)
-            ||  EntityManager.HasComponent<ThrownItemComponent>(uid)
-            ||  EntityManager.HasComponent<FollowerComponent>(uid))
+            if (
+                EntityManager.HasComponent<ActorComponent>(uid)
+                || EntityManager.HasComponent<ThrownItemComponent>(uid)
+                || EntityManager.HasComponent<FollowerComponent>(uid)
+            )
                 continue;
 
             var curTime = _timing.CurTime;
@@ -62,12 +69,16 @@ internal sealed class RandomWalkController : VirtualController
     /// <param name="physics">The physics body associated with the random walker.</param>
     public void Update(EntityUid uid, RandomWalkComponent? randomWalk = null, PhysicsComponent? physics = null)
     {
-        if(!Resolve(uid, ref randomWalk))
+        if (!Resolve(uid, ref randomWalk))
             return;
 
         var curTime = _timing.CurTime;
-        randomWalk.NextStepTime = curTime + TimeSpan.FromSeconds(_random.NextDouble(randomWalk.MinStepCooldown.TotalSeconds, randomWalk.MaxStepCooldown.TotalSeconds));
-        if(!Resolve(uid, ref physics))
+        randomWalk.NextStepTime =
+            curTime
+            + TimeSpan.FromSeconds(
+                _random.NextDouble(randomWalk.MinStepCooldown.TotalSeconds, randomWalk.MaxStepCooldown.TotalSeconds)
+            );
+        if (!Resolve(uid, ref physics))
             return;
 
         var pushVec = _random.NextAngle().ToVec();
@@ -77,7 +88,11 @@ internal sealed class RandomWalkController : VirtualController
             randomWalk.BiasVector *= 0f;
         var pushStrength = _random.NextFloat(randomWalk.MinSpeed, randomWalk.MaxSpeed);
 
-        _physics.SetLinearVelocity(uid, physics.LinearVelocity * randomWalk.AccumulatorRatio + pushVec * pushStrength, body: physics);
+        _physics.SetLinearVelocity(
+            uid,
+            physics.LinearVelocity * randomWalk.AccumulatorRatio + pushVec * pushStrength,
+            body: physics
+        );
     }
 
     /// <summary>
@@ -91,6 +106,10 @@ internal sealed class RandomWalkController : VirtualController
         if (comp.StepOnStartup)
             Update(uid, comp);
         else
-            comp.NextStepTime = _timing.CurTime + TimeSpan.FromSeconds(_random.NextDouble(comp.MinStepCooldown.TotalSeconds, comp.MaxStepCooldown.TotalSeconds));
+            comp.NextStepTime =
+                _timing.CurTime
+                + TimeSpan.FromSeconds(
+                    _random.NextDouble(comp.MinStepCooldown.TotalSeconds, comp.MaxStepCooldown.TotalSeconds)
+                );
     }
 }

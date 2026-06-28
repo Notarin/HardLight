@@ -50,12 +50,12 @@
     maxTransferAmount: 10
   - type: Sprite
     layers:
-      - state: packet-trans-2
-        map: ["enum.SolutionContainerLayers.Fill"]
-        visible: true
-      - state: packet-layer
-        map: ["enum.OpenableVisuals.Layer"]
-      - state: packet-label
+    - state: packet-trans-2
+      map: ["enum.SolutionContainerLayers.Fill"]
+      visible: true
+    - state: packet-layer
+      map: ["enum.OpenableVisuals.Layer"]
+    - state: packet-label
   - type: GenericVisualizer
     visuals:
       enum.OpenableVisuals.Opened:
@@ -69,7 +69,7 @@
       Plastic: 50
   - type: Tag
     tags:
-      - Packet
+    - Packet
 
 - type: entity
   parent: BaseFoodCondimentPacket
@@ -86,12 +86,12 @@
           Quantity: 10
   - type: Sprite
     layers:
-      - state: packet-trans-2
-        map: ["enum.SolutionContainerLayers.Fill"]
-        visible: true
-      - state: packet-layer
-        map: ["enum.OpenableVisuals.Layer"]
-      - state: packet-label-a
+    - state: packet-trans-2
+      map: ["enum.SolutionContainerLayers.Fill"]
+      visible: true
+    - state: packet-layer
+      map: ["enum.OpenableVisuals.Layer"]
+    - state: packet-label-a
   - type: Icon
     state: packet-astrotame
   - type: Appearance
@@ -273,13 +273,13 @@
           Quantity: 10
   - type: Sprite
     layers:
-      - state: packet-solid-2
-        map: ["enum.SolutionContainerLayers.Fill"]
-        visible: true
-      - state: packet-layer
-        map: ["enum.OpenableVisuals.Layer"]
-      - state: packet-label
-        color: black
+    - state: packet-solid-2
+      map: ["enum.SolutionContainerLayers.Fill"]
+      visible: true
+    - state: packet-layer
+      map: ["enum.OpenableVisuals.Layer"]
+    - state: packet-label
+      color: black
   - type: Icon
     state: packet-salt
   - type: Appearance
@@ -394,7 +394,7 @@
     state: bottle-coldsauce
   - type: Tag
     tags:
-      - Coldsauce
+    - Coldsauce
 
 - type: entity
   parent: BaseFoodCondimentBottle
@@ -420,7 +420,7 @@
     state: bottle-enzyme
   - type: Tag
     tags:
-      - Enzyme
+    - Enzyme
 
 - type: entity
   parent: BaseFoodCondimentBottle
@@ -469,7 +469,7 @@
     state: bottle-hotsauce
   - type: Tag
     tags:
-      - Hotsauce
+    - Hotsauce
 
 - type: entity
   parent: BaseFoodCondimentBottle
@@ -495,7 +495,7 @@
     state: bottle-ketchup
   - type: Tag
     tags:
-      - Ketchup
+    - Ketchup
 
 - type: entity
   parent: BaseFoodCondimentBottle
@@ -522,7 +522,7 @@
     state: bottle-ketchup
   - type: Tag
     tags:
-      - BBQsauce
+    - BBQsauce
 
 # Shakers
 
@@ -547,14 +547,13 @@
     maxTransferAmount: 20
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 5
       behaviors:
       - !type:PlaySoundBehavior
         sound:
           collection: GlassBreak
-      - !type:SpillBehavior { }
+      - !type:SpillBehavior {}
       - !type:SpawnEntitiesBehavior
         spawn:
           ShardGlass:
@@ -562,7 +561,7 @@
             max: 1
         transferForensics: true
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: Sprite
     state: shaker-empty
   - type: RefillableSolution
@@ -588,7 +587,7 @@
     state: shaker-salt
   - type: Tag
     tags:
-      - SaltShaker
+    - SaltShaker
 
 - type: entity
   parent: BaseFoodShaker
@@ -608,4 +607,4 @@
     state: shaker-pepper
   - type: Tag
     tags:
-      - PepperShaker
+    - PepperShaker

@@ -4,8 +4,4 @@ namespace Content.Shared.Atmos.Rotting;
 /// Entities inside this container will not rot.
 /// </summary>
 [RegisterComponent]
-public sealed partial class AntiRottingContainerComponent : Component
-{
-
-}
-
+public sealed partial class AntiRottingContainerComponent : Component { }

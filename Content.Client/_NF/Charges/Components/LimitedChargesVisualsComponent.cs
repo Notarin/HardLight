@@ -11,17 +11,20 @@ public sealed partial class LimitedChargesVisualsComponent : Component
     /// <summary>
     /// The prefix we use for states.
     /// </summary>
-    [DataField] public string? ChargePrefix;
+    [DataField]
+    public string? ChargePrefix;
 
     /// <summary>
     /// How many steps there are.
     /// </summary>
-    [DataField] public int ChargeSteps;
+    [DataField]
+    public int ChargeSteps;
 
     /// <summary>
     /// Should we hide when the count is 0?
     /// </summary>
-    [DataField] public bool ZeroVisible;
+    [DataField]
+    public bool ZeroVisible;
 }
 
 public enum LimitedChargesVisualLayers : byte

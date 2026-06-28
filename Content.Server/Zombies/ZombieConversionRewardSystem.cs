@@ -1,11 +1,11 @@
+using Content.Server._NF.Bank;
 using Content.Server.Administration.Logs;
 using Content.Server.Popups;
-using Content.Server._NF.Bank;
 using Content.Shared._NF.Bank.Components;
 using Content.Shared.Database;
 using Content.Shared.Mind;
-using Content.Shared.Zombies;
 using Content.Shared.Popups;
+using Content.Shared.Zombies;
 using Robust.Shared.Player;
 
 namespace Content.Server.Zombies;
@@ -16,10 +16,17 @@ namespace Content.Server.Zombies;
 /// </summary>
 public sealed class ZombieConversionRewardSystem : EntitySystem
 {
-    [Dependency] private readonly BankSystem _bank = default!;
-    [Dependency] private readonly SharedMindSystem _mind = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly IAdminLogManager _adminLog = default!;
+    [Dependency]
+    private readonly BankSystem _bank = default!;
+
+    [Dependency]
+    private readonly SharedMindSystem _mind = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly IAdminLogManager _adminLog = default!;
 
     // TODO: Make configurable via CVars or prototype if desired.
     private const int RewardAmount = 20_000;
@@ -49,11 +56,15 @@ public sealed class ZombieConversionRewardSystem : EntitySystem
         _rewardedTargets.Add(target);
 
         // Notify the player if applicable
-        var msg = $"You converted {ToPrettyString(target)}. You were paid {Content.Shared._NF.Bank.BankSystemExtensions.ToSpesoString(RewardAmount)}.";
+        var msg =
+            $"You converted {ToPrettyString(target)}. You were paid {Content.Shared._NF.Bank.BankSystemExtensions.ToSpesoString(RewardAmount)}.";
         _popup.PopupEntity(msg, paidEntity, Filter.Entities(paidEntity), false, PopupType.Small);
 
-        _adminLog.Add(LogType.Action, LogImpact.Low,
-            $"ZombieConversionReward: Paid {RewardAmount} to {ToPrettyString(paidEntity)} for zombifying {ToPrettyString(target)} (infector: {ToPrettyString(infector)}).");
+        _adminLog.Add(
+            LogType.Action,
+            LogImpact.Low,
+            $"ZombieConversionReward: Paid {RewardAmount} to {ToPrettyString(paidEntity)} for zombifying {ToPrettyString(target)} (infector: {ToPrettyString(infector)})."
+        );
     }
 
     private bool TryPayInfector(EntityUid infector, out EntityUid paidEntity)
@@ -72,7 +83,11 @@ public sealed class ZombieConversionRewardSystem : EntitySystem
         }
 
         // Otherwise try paying their currently owned entity via mind.
-        if (_mind.TryGetMind(infector, out var mindId, out var mind) && mind.OwnedEntity is { } owned && HasComp<BankAccountComponent>(owned))
+        if (
+            _mind.TryGetMind(infector, out var mindId, out var mind)
+            && mind.OwnedEntity is { } owned
+            && HasComp<BankAccountComponent>(owned)
+        )
         {
             if (_bank.TryBankDeposit(owned, RewardAmount))
             {

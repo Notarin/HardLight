@@ -5,9 +5,9 @@
   playTimeTracker: JobStationEngineer
   setPreference: true
   requirements:
-    - !type:DepartmentTimeRequirement
-      department: Engineering
-      time: 9000 # 2.5 hrs
+  - !type:DepartmentTimeRequirement
+    department: Engineering
+    time: 9000 # 2.5 hrs
   weight: 20 # HardLight
   startingGear: StationEngineerGear
   icon: "JobIconStationEngineer"

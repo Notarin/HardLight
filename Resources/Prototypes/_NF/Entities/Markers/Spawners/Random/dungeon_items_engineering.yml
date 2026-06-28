@@ -7,14 +7,14 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-        scale: 0.7, 0.7
-      - sprite: Objects/Misc/skub.rsi
-        scale: 0.7, 0.7
-        state: icon
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: red
+    - state: green
+      scale: 0.7, 0.7
+    - sprite: Objects/Misc/skub.rsi
+      scale: 0.7, 0.7
+      state: icon
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: red
   - type: RandomSpawner
     prototypes:
     - SpawnDungeonLootPartsEngi
@@ -45,15 +45,15 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-        scale: 0.7, 0.7
-      - sprite: _NF/Objects/Tools/wrench.rsi # Frontier: separate sprites (add _NF folder)
-        state: icon
-      - sprite: _NF/Objects/Tools/crowbar.rsi # Frontier: separate sprites (add _NF folder)
-        state: icon
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: red
+    - state: green
+      scale: 0.7, 0.7
+    - sprite: _NF/Objects/Tools/wrench.rsi # Frontier: separate sprites (add _NF folder)
+      state: icon
+    - sprite: _NF/Objects/Tools/crowbar.rsi # Frontier: separate sprites (add _NF folder)
+      state: icon
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: red
   - type: RandomSpawner
     prototypes:
     - Wirecutter
@@ -88,13 +88,13 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-        scale: 0.7, 0.7
-      - sprite: Objects/Tools/drill.rsi
-        state: drill_screw
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: red
+    - state: green
+      scale: 0.7, 0.7
+    - sprite: Objects/Tools/drill.rsi
+      state: drill_screw
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: red
   - type: RandomSpawner
     prototypes:
     - PowerDrill
@@ -118,13 +118,13 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-        scale: 0.7, 0.7
-      - sprite: Objects/Tools/Toolboxes/toolbox_yellow.rsi
-        state: icon
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: red
+    - state: green
+      scale: 0.7, 0.7
+    - sprite: Objects/Tools/Toolboxes/toolbox_yellow.rsi
+      state: icon
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: red
   - type: RandomSpawner
     prototypes:
     - ToolboxElectrical
@@ -149,13 +149,13 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-        scale: 0.7, 0.7
-      - sprite: Clothing/Uniforms/Jumpsuit/engineering.rsi
-        state: icon
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: red
+    - state: green
+      scale: 0.7, 0.7
+    - sprite: Clothing/Uniforms/Jumpsuit/engineering.rsi
+      state: icon
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: red
   - type: RandomSpawner
     prototypes:
     - ClothingUniformJumpsuitEngineeringHazard
@@ -180,14 +180,14 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - sprite: Structures/Storage/closet.rsi
-        state: eng_secure
-      - sprite: Structures/Storage/closet.rsi
-        state: eng_secure_door
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: red
+    - state: green
+    - sprite: Structures/Storage/closet.rsi
+      state: eng_secure
+    - sprite: Structures/Storage/closet.rsi
+      state: eng_secure_door
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: red
   - type: RandomSpawner
     prototypes:
     - LockerEngineer
@@ -218,14 +218,14 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - sprite: Structures/Storage/suit_storage.rsi
-        state: base
-      - sprite: Structures/Storage/suit_storage.rsi
-        state: door
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: red
+    - state: green
+    - sprite: Structures/Storage/suit_storage.rsi
+      state: base
+    - sprite: Structures/Storage/suit_storage.rsi
+      state: door
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: red
   - type: RandomSpawner
     prototypes:
     - SuitStorageBase
@@ -239,7 +239,7 @@
     offset: 0.0
     rarePrototypes:
     - SuitStorageNTSRA
-#    - SuitStorageCE
+    #    - SuitStorageCE
     rareChance: 0.05
 
 - type: entity
@@ -250,12 +250,12 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - sprite: Structures/Storage/Crates/engineering.rsi
-        state: icon
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: red
+    - state: green
+    - sprite: Structures/Storage/Crates/engineering.rsi
+      state: icon
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: red
   - type: RandomSpawner
     prototypes:
     # Empty crates
@@ -320,12 +320,12 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - sprite: Structures/Storage/Crates/engineering.rsi
-        state: icon
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: red
+    - state: green
+    - sprite: Structures/Storage/Crates/engineering.rsi
+      state: icon
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: red
   - type: RandomSpawner
     prototypes:
     - CratePlasma
@@ -344,12 +344,12 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - sprite: Structures/Storage/Crates/engineering.rsi
-        state: icon
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: red
+    - state: green
+    - sprite: Structures/Storage/Crates/engineering.rsi
+      state: icon
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: red
   - type: RandomSpawner
     prototypes:
     - CrateVendingMachineRestockEngineeringFilled
@@ -369,14 +369,14 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - sprite: Structures/Machines/techfab.rsi
-        state: icon
-      - sprite: Structures/Machines/techfab.rsi
-        state: engi
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: red
+    - state: green
+    - sprite: Structures/Machines/techfab.rsi
+      state: icon
+    - sprite: Structures/Machines/techfab.rsi
+      state: engi
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: red
   - type: RandomSpawner
     prototypes:
     - Autolathe
@@ -404,12 +404,12 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - sprite: Structures/Machines/VendingMachines/youtool.rsi
-        state: off
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: red
+    - state: green
+    - sprite: Structures/Machines/VendingMachines/youtool.rsi
+      state: off
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: red
   - type: RandomSpawner
     prototypes:
     - VendingMachineAtmosDrobe
@@ -421,7 +421,7 @@
     offset: 0.0
     rarePrototypes:
     - VendingMachineSyndieContraband
-#    - VendingMachineSyndieDrobe # A bit less Syndicate loot
+    #    - VendingMachineSyndieDrobe # A bit less Syndicate loot
     - VendingMachineRobotics
     rareChance: 0.01
 
@@ -434,13 +434,13 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-        scale: 0.7, 0.7
-      - sprite: _NF/Objects/Misc/stock_parts.rsi
-        state: bluespace_matter_bin
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: red
+    - state: green
+      scale: 0.7, 0.7
+    - sprite: _NF/Objects/Misc/stock_parts.rsi
+      state: bluespace_matter_bin
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: red
   - type: RandomSpawner
     prototypes:
     # T1
@@ -482,13 +482,13 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-        scale: 0.7, 0.7
-      - sprite: Objects/Power/power_cells.rsi
-        state: hyper
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: red
+    - state: green
+      scale: 0.7, 0.7
+    - sprite: Objects/Power/power_cells.rsi
+      state: hyper
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: red
   - type: RandomSpawner
     prototypes:
     - PowerCellMedium
@@ -509,13 +509,13 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-        scale: 0.7, 0.7
-      - sprite: Objects/Misc/module.rsi
-        state: science
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: red
+    - state: green
+      scale: 0.7, 0.7
+    - sprite: Objects/Misc/module.rsi
+      state: science
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: red
   - type: RandomSpawner
     prototypes:
     # Computers
@@ -564,12 +564,12 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - sprite: _NF/Objects/Devices/flatpack.rsi
-        state: engineering_lathe
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: red
+    - state: green
+    - sprite: _NF/Objects/Devices/flatpack.rsi
+      state: engineering_lathe
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: red
   - type: RandomSpawner
     prototypes:
     - AutolatheFlatpack

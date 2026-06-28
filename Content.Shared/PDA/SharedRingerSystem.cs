@@ -22,15 +22,28 @@ public abstract class SharedRingerSystem : EntitySystem
     public const int NoteTempo = 300;
     public const float NoteDelay = 60f / NoteTempo;
 
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly INetManager _net = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
     // [Dependency] private readonly SharedMindSystem _mind = default!; // Frontier: warning suppression
-    [Dependency] private readonly SharedPdaSystem _pda = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency]
+    private readonly SharedPdaSystem _pda = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
     // [Dependency] private readonly SharedRoleSystem _role = default!; // Frontier: warning suppression
-    [Dependency] private readonly SharedTransformSystem _xform = default!;
-    [Dependency] protected readonly SharedUserInterfaceSystem UI = default!;
+    [Dependency]
+    private readonly SharedTransformSystem _xform = default!;
+
+    [Dependency]
+    protected readonly SharedUserInterfaceSystem UI = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -77,11 +90,7 @@ public abstract class SharedRingerSystem : EntitySystem
             ringer.NoteCount++;
 
             // Dirty the fields we just changed
-            DirtyFields(uid,
-                ringer,
-                null,
-                nameof(RingerComponent.NextNoteTime),
-                nameof(RingerComponent.NoteCount));
+            DirtyFields(uid, ringer, null, nameof(RingerComponent.NextNoteTime), nameof(RingerComponent.NoteCount));
 
             // Check if we've finished playing all notes
             if (ringer.NoteCount >= RingtoneLength)
@@ -90,12 +99,14 @@ public abstract class SharedRingerSystem : EntitySystem
                 ringer.NextNoteTime = null;
                 ringer.NoteCount = 0;
 
-                DirtyFields(uid,
+                DirtyFields(
+                    uid,
                     ringer,
                     null,
                     nameof(RingerComponent.Active),
                     nameof(RingerComponent.NextNoteTime),
-                    nameof(RingerComponent.NoteCount));
+                    nameof(RingerComponent.NoteCount)
+                );
 
                 UpdateRingerUi((uid, ringer));
             }
@@ -221,9 +232,10 @@ public abstract class SharedRingerSystem : EntitySystem
         }
 
         var selfMessage = Loc.GetString("comp-ringer-vibration-popup-self");
-        var othersMessage = ownerName != null
-            ? Loc.GetString("comp-ringer-vibration-popup-other-owner", ("owner", ownerName))
-            : Loc.GetString("comp-ringer-vibration-popup-other-unknown"); // Fallback if no owner.
+        var othersMessage =
+            ownerName != null
+                ? Loc.GetString("comp-ringer-vibration-popup-other-owner", ("owner", ownerName))
+                : Loc.GetString("comp-ringer-vibration-popup-other-unknown"); // Fallback if no owner.
 
         if (recipient != null)
         {
@@ -234,7 +246,8 @@ public abstract class SharedRingerSystem : EntitySystem
                 ent.Owner,
                 Filter.PvsExcept(recipient.Value, entityManager: EntityManager),
                 true,
-                PopupType.Small);
+                PopupType.Small
+            );
         }
         else
         {
@@ -242,11 +255,13 @@ public abstract class SharedRingerSystem : EntitySystem
         }
         // Hardlight end
 
-        DirtyFields(ent.AsNullable(),
+        DirtyFields(
+            ent.AsNullable(),
             null,
             nameof(RingerComponent.NextNoteTime),
             nameof(RingerComponent.Active),
-            nameof(RingerComponent.NoteCount));
+            nameof(RingerComponent.NoteCount)
+        );
     }
 
     /// <summary>
@@ -294,9 +309,7 @@ public abstract class SharedRingerSystem : EntitySystem
     /// <summary>
     /// Updates the RingerBoundUserInterface.
     /// </summary>
-    protected virtual void UpdateRingerUi(Entity<RingerComponent> ent)
-    {
-    }
+    protected virtual void UpdateRingerUi(Entity<RingerComponent> ent) { }
 }
 
 /// <summary>
@@ -316,5 +329,5 @@ public enum Note : byte
     F,
     Fsharp,
     G,
-    Gsharp
+    Gsharp,
 }

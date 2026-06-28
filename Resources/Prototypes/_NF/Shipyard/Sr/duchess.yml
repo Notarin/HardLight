@@ -33,8 +33,7 @@
     Duchess:
       stationProto: StandardFrontierVessel
       components:
-        - type: StationNameSetup
-          mapNameTemplate: 'Duchess {1}'
-          nameGenerator:
-            !type:NanotrasenNameGenerator
-            prefixCreator: '14'
+      - type: StationNameSetup
+        mapNameTemplate: 'Duchess {1}'
+        nameGenerator: !type:NanotrasenNameGenerator
+          prefixCreator: '14'

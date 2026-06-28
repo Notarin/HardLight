@@ -12,9 +12,8 @@ namespace Content.Client.Configurable.UI
         [ViewVariables]
         private ConfigurationMenu? _menu;
 
-        public ConfigurationBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-        {
-        }
+        public ConfigurationBoundUserInterface(EntityUid owner, Enum uiKey)
+            : base(owner, uiKey) { }
 
         protected override void Open()
         {
@@ -43,7 +42,7 @@ namespace Content.Client.Configurable.UI
                     VerticalAlignment = Control.VAlignment.Center,
                     HorizontalExpand = true,
                     SizeFlagsStretchRatio = .2f,
-                    MinSize = new Vector2(60, 0)
+                    MinSize = new Vector2(60, 0),
                 };
 
                 var input = new LineEdit
@@ -52,15 +51,12 @@ namespace Content.Client.Configurable.UI
                     Text = field.Value ?? "",
                     IsValid = _menu.Validate,
                     HorizontalExpand = true,
-                    SizeFlagsStretchRatio = .8f
+                    SizeFlagsStretchRatio = .8f,
                 };
 
                 _menu.Inputs.Add((field.Key, input));
 
-                var row = new BoxContainer
-                {
-                    Orientation = BoxContainer.LayoutOrientation.Horizontal
-                };
+                var row = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Horizontal };
 
                 ConfigurationMenu.CopyProperties(_menu.Row, row);
 

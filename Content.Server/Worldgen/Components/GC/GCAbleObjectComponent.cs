@@ -22,4 +22,3 @@ public sealed partial class GCAbleObjectComponent : Component
     [DataField("linkedGridEntity")]
     public EntityUid LinkedGridEntity = EntityUid.Invalid;
 }
-

@@ -43,7 +43,10 @@ public sealed partial class RatKingRummageableComponent : Component
     /// <summary>
     /// A weighted random entity prototype containing the different loot that rummaging can provide.
     /// </summary>
-    [DataField("rummageLoot", customTypeSerializer: typeof(PrototypeIdSerializer<WeightedRandomEntityPrototype>)), ViewVariables(VVAccess.ReadWrite)]
+    [
+        DataField("rummageLoot", customTypeSerializer: typeof(PrototypeIdSerializer<WeightedRandomEntityPrototype>)),
+        ViewVariables(VVAccess.ReadWrite)
+    ]
     [AutoNetworkedField]
     public string RummageLoot = "RatKingLoot";
 

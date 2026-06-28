@@ -1,4 +1,3 @@
-
 namespace Content.Shared.Fax.Components;
 
 /// <summary>
@@ -6,4 +5,3 @@ namespace Content.Shared.Fax.Components;
 /// </summary
 [ByRefEvent]
 public record struct DamageOnFaxecuteEvent(FaxMachineComponent? Action);
-

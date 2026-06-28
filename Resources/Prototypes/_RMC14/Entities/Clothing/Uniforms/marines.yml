@@ -123,7 +123,6 @@
   - type: Sprite
     sprite: _RMC14/Objects/Clothing/Uniforms/Command/CO/standard/jungle.rsi
 
-
 - type: entity
   parent: RMCMarineUniformBase
   id: CMJumpsuitCOUrban

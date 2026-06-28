@@ -8,8 +8,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.25,-0.35,0.25,0.35"
         density: 190
         mask:
@@ -29,8 +28,7 @@
     damageModifierSet: Electronic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:PlaySoundBehavior
@@ -56,17 +54,17 @@
     sprite: Structures/Machines/parts.rsi
     layers:
     - state: 0
-      map: [ "enum.ConstructionVisuals.Layer" ]
+      map: ["enum.ConstructionVisuals.Layer"]
   - type: Appearance
   - type: GenericVisualizer
     visuals:
       enum.ConstructionVisuals.Key:
         enum.ConstructionVisuals.Layer:
-          frameUnsecured: { state: 0 }
-          boardUnsecured: { state: 1 }
-          missingWires: { state: 2 }
-          monitorMissing: { state: 3 }
-          monitorUnsecured: { state: 4 }
+          frameUnsecured: {state: 0}
+          boardUnsecured: {state: 1}
+          missingWires: {state: 2}
+          monitorMissing: {state: 3}
+          monitorUnsecured: {state: 4}
 
 - type: entity
   parent: BaseStructureComputer
@@ -90,21 +88,19 @@
     visuals:
       enum.EdgeConnectionVisuals.ConnectionMask:
         computerLayerBody:
-          None: { state: broken, sprite: Structures/Machines/computers.rsi }
-          West: { state: computer_r-broken, sprite: _Starlight/Structures/Machines/computers.rsi }
-          East: { state: computer_l-broken, sprite: _Starlight/Structures/Machines/computers.rsi }
-          East, West: { state: computer_l_r-broken, sprite: _Starlight/Structures/Machines/computers.rsi }
+          None: {state: broken, sprite: Structures/Machines/computers.rsi}
+          West: {state: computer_r-broken, sprite: _Starlight/Structures/Machines/computers.rsi}
+          East: {state: computer_l-broken, sprite: _Starlight/Structures/Machines/computers.rsi}
+          East, West: {state: computer_l_r-broken, sprite: _Starlight/Structures/Machines/computers.rsi}
   # Starlight end
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
-        - !type:DoActsBehavior
-          acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 50
       behaviors:
       - !type:PlaySoundBehavior
@@ -118,6 +114,6 @@
             min: 1
             max: 1
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: StaticPrice
     price: 30 # Frontier 25<30

@@ -7,7 +7,6 @@ namespace Content.Server.Medical.CrewMonitoring;
 [Access(typeof(CrewMonitoringServerSystem))]
 public sealed partial class CrewMonitoringServerComponent : Component
 {
-
     /// <summary>
     ///     List of all currently connected sensors to this server.
     /// </summary>

@@ -1,7 +1,7 @@
 using System.Linq;
+using System.Text.RegularExpressions;
 using Content.Server.Speech.Components;
 using Robust.Shared.Random;
-using System.Text.RegularExpressions;
 
 namespace Content.Server.Speech.EntitySystems;
 
@@ -9,8 +9,11 @@ public sealed class PirateAccentSystem : EntitySystem
 {
     private static readonly Regex FirstWordAllCapsRegex = new(@"^(\S+)");
 
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly ReplacementAccentSystem _replacement = default!;
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly ReplacementAccentSystem _replacement = default!;
 
     public override void Initialize()
     {

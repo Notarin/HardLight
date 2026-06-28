@@ -223,7 +223,7 @@ namespace Content.Shared.Verbs
             typeof(AlternativeVerb),
             typeof(ActivationVerb),
             typeof(ExamineVerb),
-            typeof(EquipmentVerb)
+            typeof(EquipmentVerb),
         };
     }
 
@@ -248,11 +248,12 @@ namespace Content.Shared.Verbs
     [Serializable, NetSerializable]
     public sealed class InteractionVerb : Verb
     {
-        public new static string DefaultTextStyleClass = "InteractionVerb";
+        public static new string DefaultTextStyleClass = "InteractionVerb";
         public override int TypePriority => 4;
         public override bool DefaultDoContactInteraction => true;
 
-        public InteractionVerb() : base()
+        public InteractionVerb()
+            : base()
         {
             TextStyleClass = DefaultTextStyleClass;
         }
@@ -274,7 +275,8 @@ namespace Content.Shared.Verbs
         public override int TypePriority => 3;
         public override bool DefaultDoContactInteraction => true;
 
-        public UtilityVerb() : base()
+        public UtilityVerb()
+            : base()
         {
             TextStyleClass = InteractionVerb.DefaultTextStyleClass;
         }
@@ -291,7 +293,9 @@ namespace Content.Shared.Verbs
     public sealed class InnateVerb : Verb
     {
         public override int TypePriority => 3;
-        public InnateVerb() : base()
+
+        public InnateVerb()
+            : base()
         {
             TextStyleClass = InteractionVerb.DefaultTextStyleClass;
         }
@@ -308,10 +312,11 @@ namespace Content.Shared.Verbs
     public sealed class AlternativeVerb : Verb
     {
         public override int TypePriority => 2;
-        public new static string DefaultTextStyleClass = "AlternativeVerb";
+        public static new string DefaultTextStyleClass = "AlternativeVerb";
         public override bool DefaultDoContactInteraction => true;
 
-        public AlternativeVerb() : base()
+        public AlternativeVerb()
+            : base()
         {
             TextStyleClass = DefaultTextStyleClass;
         }
@@ -330,10 +335,11 @@ namespace Content.Shared.Verbs
     public sealed class ActivationVerb : Verb
     {
         public override int TypePriority => 1;
-        public new static string DefaultTextStyleClass = "ActivationVerb";
+        public static new string DefaultTextStyleClass = "ActivationVerb";
         public override bool DefaultDoContactInteraction => true;
 
-        public ActivationVerb() : base()
+        public ActivationVerb()
+            : base()
         {
             TextStyleClass = DefaultTextStyleClass;
         }

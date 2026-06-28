@@ -18,8 +18,11 @@ namespace Content.Shared._Starlight.Actions.Stasis;
 /// </summary>
 public abstract class SharedStasisFrozenSystem : EntitySystem
 {
-    [Dependency] private readonly ActionBlockerSystem _blocker = default!;
-    [Dependency] private readonly PullingSystem _pulling = default!;
+    [Dependency]
+    private readonly ActionBlockerSystem _blocker = default!;
+
+    [Dependency]
+    private readonly PullingSystem _pulling = default!;
 
     public override void Initialize()
     {
@@ -78,8 +81,7 @@ public abstract class SharedStasisFrozenSystem : EntitySystem
     /// <summary>
     /// Handles various cancellable attempts, blocking them all.
     /// </summary>
-    private void OnCancellableAttempt(EntityUid uid, StasisFrozenComponent component,
-        CancellableEntityEventArgs args)
+    private void OnCancellableAttempt(EntityUid uid, StasisFrozenComponent component, CancellableEntityEventArgs args)
     {
         args.Cancel();
     }

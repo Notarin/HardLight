@@ -31,7 +31,6 @@
       - ReagentId: Blood
         Quantity: 20
 
-
 - type: entity
   id: HeadChitinid
   name: "chitinid head"

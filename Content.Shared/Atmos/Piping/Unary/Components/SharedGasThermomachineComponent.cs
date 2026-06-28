@@ -9,14 +9,12 @@ public sealed record GasThermoMachineData(float EnergyDelta);
 [NetSerializable]
 public enum ThermomachineUiKey : byte
 {
-    Key
+    Key,
 }
 
 [Serializable]
 [NetSerializable]
-public sealed class GasThermomachineToggleMessage : BoundUserInterfaceMessage
-{
-}
+public sealed class GasThermomachineToggleMessage : BoundUserInterfaceMessage { }
 
 [Serializable]
 [NetSerializable]

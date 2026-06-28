@@ -31,7 +31,8 @@ public sealed partial class AccessReaderComponent : Component
     /// List of access groups that grant access to this reader. Only a single matching group is required to gain access.
     /// A group matches if it is a subset of the set being checked against.
     /// </summary>
-    [DataField("access")] [ViewVariables(VVAccess.ReadWrite)]
+    [DataField("access")]
+    [ViewVariables(VVAccess.ReadWrite)]
     public List<HashSet<ProtoId<AccessLevelPrototype>>> AccessLists = new();
 
     /// <summary>
@@ -81,14 +82,12 @@ public sealed partial class AccessReaderComponent : Component
 
 [DataDefinition, Serializable, NetSerializable]
 public readonly partial record struct AccessRecord(
-    [property: DataField, ViewVariables(VVAccess.ReadWrite)]
-    TimeSpan AccessTime,
-    [property: DataField, ViewVariables(VVAccess.ReadWrite)]
-    string Accessor)
+    [property: DataField, ViewVariables(VVAccess.ReadWrite)] TimeSpan AccessTime,
+    [property: DataField, ViewVariables(VVAccess.ReadWrite)] string Accessor
+)
 {
-    public AccessRecord() : this(TimeSpan.Zero, string.Empty)
-    {
-    }
+    public AccessRecord()
+        : this(TimeSpan.Zero, string.Empty) { }
 }
 
 [Serializable, NetSerializable]
@@ -106,7 +105,14 @@ public sealed class AccessReaderComponentState : ComponentState
 
     public int AccessLogLimit;
 
-    public AccessReaderComponentState(bool enabled, HashSet<ProtoId<AccessLevelPrototype>> denyTags, List<HashSet<ProtoId<AccessLevelPrototype>>> accessLists, List<(NetEntity, uint)> accessKeys, Queue<AccessRecord> accessLog, int accessLogLimit)
+    public AccessReaderComponentState(
+        bool enabled,
+        HashSet<ProtoId<AccessLevelPrototype>> denyTags,
+        List<HashSet<ProtoId<AccessLevelPrototype>>> accessLists,
+        List<(NetEntity, uint)> accessKeys,
+        Queue<AccessRecord> accessLog,
+        int accessLogLimit
+    )
     {
         Enabled = enabled;
         DenyTags = denyTags;
@@ -119,7 +125,5 @@ public sealed class AccessReaderComponentState : ComponentState
 
 public sealed class AccessReaderConfigurationChangedEvent : EntityEventArgs
 {
-    public AccessReaderConfigurationChangedEvent()
-    {
-    }
+    public AccessReaderConfigurationChangedEvent() { }
 }

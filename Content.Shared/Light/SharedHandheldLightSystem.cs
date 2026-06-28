@@ -13,11 +13,20 @@ namespace Content.Shared.Light;
 
 public abstract class SharedHandheldLightSystem : EntitySystem
 {
-    [Dependency] private readonly SharedItemSystem _itemSys = default!;
-    [Dependency] private readonly ClothingSystem _clothingSys = default!;
-    [Dependency] private readonly SharedActionsSystem _actionSystem = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency]
+    private readonly SharedItemSystem _itemSys = default!;
+
+    [Dependency]
+    private readonly ClothingSystem _clothingSys = default!;
+
+    [Dependency]
+    private readonly SharedActionsSystem _actionSystem = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
 
     public override void Initialize()
     {
@@ -45,7 +54,12 @@ public abstract class SharedHandheldLightSystem : EntitySystem
         SetActivated(uid, state.Activated, component, false);
     }
 
-    public void SetActivated(EntityUid uid, bool activated, HandheldLightComponent? component = null, bool makeNoise = true)
+    public void SetActivated(
+        EntityUid uid,
+        bool activated,
+        HandheldLightComponent? component = null,
+        bool makeNoise = true
+    )
     {
         if (!Resolve(uid, ref component))
             return;
@@ -65,7 +79,11 @@ public abstract class SharedHandheldLightSystem : EntitySystem
         UpdateVisuals(uid, component);
     }
 
-    public void UpdateVisuals(EntityUid uid, HandheldLightComponent? component = null, AppearanceComponent? appearance = null)
+    public void UpdateVisuals(
+        EntityUid uid,
+        HandheldLightComponent? component = null,
+        AppearanceComponent? appearance = null
+    )
     {
         if (!Resolve(uid, ref component, ref appearance, false))
             return;
@@ -92,10 +110,8 @@ public abstract class SharedHandheldLightSystem : EntitySystem
         ActivationVerb verb = new()
         {
             Text = Loc.GetString("verb-common-toggle-light"),
-            Icon = new SpriteSpecifier.Texture(new ("/Textures/Interface/VerbIcons/light.svg.192dpi.png")),
-            Act = ent.Comp.Activated
-                ? () => TurnOff(ent)
-                : () => TurnOn(@event.User, ent)
+            Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/light.svg.192dpi.png")),
+            Act = ent.Comp.Activated ? () => TurnOff(ent) : () => TurnOn(@event.User, ent),
         };
 
         args.Verbs.Add(verb);

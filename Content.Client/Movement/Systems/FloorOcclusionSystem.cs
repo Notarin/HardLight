@@ -8,7 +8,8 @@ namespace Content.Client.Movement.Systems;
 
 public sealed class FloorOcclusionSystem : SharedFloorOcclusionSystem
 {
-    [Dependency] private readonly IPrototypeManager _proto = default!;
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
 
     private static readonly ProtoId<ShaderPrototype> HorizontalCutShaderId = "HorizontalCut";
 

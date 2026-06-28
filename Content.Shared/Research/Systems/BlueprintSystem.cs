@@ -1,3 +1,4 @@
+using System.Linq;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Interaction;
 using Content.Shared.Lathe;
@@ -7,15 +8,19 @@ using Content.Shared.Research.Prototypes;
 using Content.Shared.Whitelist;
 using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
-using System.Linq;
 
 namespace Content.Shared.Research.Systems;
 
 public sealed class BlueprintSystem : EntitySystem
 {
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly EntityWhitelistSystem _entityWhitelist = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _entityWhitelist = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -46,7 +51,11 @@ public sealed class BlueprintSystem : EntitySystem
         }
     }
 
-    public bool TryInsertBlueprint(Entity<BlueprintReceiverComponent> ent, Entity<BlueprintComponent> blueprint, EntityUid? user)
+    public bool TryInsertBlueprint(
+        Entity<BlueprintReceiverComponent> ent,
+        Entity<BlueprintComponent> blueprint,
+        EntityUid? user
+    )
     {
         if (!CanInsertBlueprint(ent, blueprint, user))
             return false;
@@ -56,10 +65,12 @@ public sealed class BlueprintSystem : EntitySystem
             var userId = Identity.Entity(user.Value, EntityManager);
             var bpId = Identity.Entity(blueprint, EntityManager);
             var machineId = Identity.Entity(ent, EntityManager);
-            var msg = Loc.GetString("blueprint-receiver-popup-insert",
+            var msg = Loc.GetString(
+                "blueprint-receiver-popup-insert",
                 ("user", userId),
                 ("blueprint", bpId),
-                ("receiver", machineId));
+                ("receiver", machineId)
+            );
             _popup.PopupPredicted(msg, ent, user);
         }
 
@@ -70,7 +81,11 @@ public sealed class BlueprintSystem : EntitySystem
         return true;
     }
 
-    public bool CanInsertBlueprint(Entity<BlueprintReceiverComponent> ent, Entity<BlueprintComponent> blueprint, EntityUid? user)
+    public bool CanInsertBlueprint(
+        Entity<BlueprintReceiverComponent> ent,
+        Entity<BlueprintComponent> blueprint,
+        EntityUid? user
+    )
     {
         if (_entityWhitelist.IsWhitelistFail(ent.Comp.Whitelist, blueprint))
         {

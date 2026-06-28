@@ -13,8 +13,11 @@ namespace Content.Client.UserInterface.Controls
     /// </summary>
     public sealed class MainViewport : UIWidget
     {
-        [Dependency] private readonly IConfigurationManager _cfg = default!;
-        [Dependency] private readonly ViewportManager _vpManager = default!;
+        [Dependency]
+        private readonly IConfigurationManager _cfg = default!;
+
+        [Dependency]
+        private readonly ViewportManager _vpManager = default!;
 
         public ScalingViewport Viewport { get; }
 
@@ -26,7 +29,7 @@ namespace Content.Client.UserInterface.Controls
             {
                 AlwaysRender = true,
                 RenderScaleMode = ScalingViewportRenderScaleMode.CeilInt,
-                MouseFilter = MouseFilterMode.Stop
+                MouseFilter = MouseFilterMode.Stop,
             };
 
             AddChild(Viewport);
@@ -61,7 +64,9 @@ namespace Content.Client.UserInterface.Controls
                     // Did not find a snap, enable stretching.
                     Viewport.FixedStretchSize = null;
                     Viewport.StretchMode = ScalingViewportStretchMode.Bilinear;
-                    Viewport.IgnoreDimension = verticalFit ? ScalingViewportIgnoreDimension.Horizontal : ScalingViewportIgnoreDimension.None;
+                    Viewport.IgnoreDimension = verticalFit
+                        ? ScalingViewportIgnoreDimension.Horizontal
+                        : ScalingViewportIgnoreDimension.None;
 
                     if (renderScaleUp)
                     {
@@ -121,14 +126,18 @@ namespace Content.Client.UserInterface.Controls
             {
                 var toleranceMargin = i * cfgToleranceMargin;
                 var toleranceClip = i * cfgToleranceClip;
-                var scaled = (Vector2) Viewport.ViewportSize * i;
+                var scaled = (Vector2)Viewport.ViewportSize * i;
                 var (dx, dy) = PixelSize - scaled;
 
                 // The rule for which snap fits is that at LEAST one axis needs to be in the tolerance size wise.
                 // One axis MAY be larger but not smaller than tolerance.
                 // Obviously if it's too small it's bad, and if it's too big on both axis we should stretch up.
                 // Additionally, if the viewport's supposed  to be vertically fit, then the horizontal scale should just be ignored where appropriate.
-                if ((Fits(dx) || cfgVerticalFit) && Fits(dy) || !cfgVerticalFit && Fits(dx) && Larger(dy) || Larger(dx) && Fits(dy))
+                if (
+                    (Fits(dx) || cfgVerticalFit) && Fits(dy)
+                    || !cfgVerticalFit && Fits(dx) && Larger(dy)
+                    || Larger(dx) && Fits(dy)
+                )
                 {
                     // Found snap that fits.
                     return i;

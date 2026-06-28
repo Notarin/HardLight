@@ -8,7 +8,7 @@
     mayTransfer: true
     whitelist:
       tags:
-        - CartridgeLightRifle
+      - CartridgeLightRifle
     proto: CartridgeLightRifle # Frontier
     capacity: 60
   - type: Item

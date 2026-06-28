@@ -40,30 +40,28 @@
     damageContainer: Shield
   - type: Destructible
     thresholds:
-      - trigger:
-          !type:DamageTrigger
-          damage: 60
-        behaviors:
-          - !type:DoActsBehavior
-            acts: [ "Destruction" ]
-      - trigger:
-          !type:DamageTrigger
-          damage: 40
-        behaviors:
-          - !type:DoActsBehavior
-            acts: [ "Destruction" ]
-          - !type:PlaySoundBehavior
-            sound:
-              collection: MetalBreak
-          - !type:SpawnEntitiesBehavior
-            spawn:
-              MaterialArgocytePlateHeavy:
-                min: 1
-                max: 5
+    - trigger: !type:DamageTrigger
+        damage: 60
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
+        damage: 40
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          MaterialArgocytePlateHeavy:
+            min: 1
+            max: 5
   - type: Construction
     graph: ArgoGauntletsHeavyGraph
     node: finish
-       
+
 - type: entity
   parent: ClothingHandsBase
   id: ClothingHandsGlovesArgocyteLight
@@ -75,7 +73,7 @@
   - type: Clothing
     sprite: _HL/Clothing/Gloves/argocytelight.rsi
   - type: StaminaDamageOnHit
-    damage: 7 
+    damage: 7
   - type: MeleeWeapon
     autoAttack: True
     attackRate: 3
@@ -97,26 +95,24 @@
     damageContainer: Shield
   - type: Destructible
     thresholds:
-      - trigger:
-          !type:DamageTrigger
-          damage: 30
-        behaviors:
-          - !type:DoActsBehavior
-            acts: [ "Destruction" ]
-      - trigger:
-          !type:DamageTrigger
-          damage: 20
-        behaviors:
-          - !type:DoActsBehavior
-            acts: [ "Destruction" ]
-          - !type:PlaySoundBehavior
-            sound:
-              collection: MetalBreak
-          - !type:SpawnEntitiesBehavior
-            spawn:
-              MaterialArgocytePlateLight:
-                min: 1
-                max: 5
+    - trigger: !type:DamageTrigger
+        damage: 30
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
+        damage: 20
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          MaterialArgocytePlateLight:
+            min: 1
+            max: 5
   - type: Construction
     graph: ArgoGauntletsLightGraph
     node: finish

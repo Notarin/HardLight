@@ -26,5 +26,5 @@ public sealed partial class StorageContainerVisualsComponent : Component
 
 public enum StorageContainerVisualLayers : byte
 {
-    Fill
+    Fill,
 }

@@ -62,7 +62,6 @@
   - Hunter
   - Soupivore
 
-
 - type: dataset
   id: MoodItems
   values:
@@ -882,8 +881,7 @@
   - yawn
   - yell
   - zip
-  - zoom
-    - adorable
+  - zoom - adorable
   - adventurous
   - aggressive
   - alert

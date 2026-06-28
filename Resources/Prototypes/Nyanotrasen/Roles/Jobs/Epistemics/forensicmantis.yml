@@ -4,12 +4,12 @@
   description: job-description-mantis
   playTimeTracker: JobForensicMantis
   requirements:
-    - !type:RoleTimeRequirement
-      role: JobScientist
-      time: 9000
-    - !type:DepartmentTimeRequirement
-      department: Science
-      time: 12000
+  - !type:RoleTimeRequirement
+    role: JobScientist
+    time: 9000
+  - !type:DepartmentTimeRequirement
+    department: Science
+    time: 12000
     # - !type:CharacterLogicOrRequirement
     #   requirements:
     #     - !type:CharacterSpeciesRequirement
@@ -42,19 +42,19 @@
   special:
   - !type:AddComponentSpecial
     components:
-      - type: Psionic
-        powerSlots: 2
-        baselinePowerCost: 75
-        nextPowerCost: 75
-        removable: false
-        # powerPool: PsychoHistorianPowerPool
-      - type: InnatePsionicPowers
-        powersToAdd:
-          - MetapsionicPower
-          - TelepathyPower
-          - TelepathicIdentificationPower # Hardlight
-          - MantisSummonBlackBlade
-          - AssayPower # Hardlight
+    - type: Psionic
+      powerSlots: 2
+      baselinePowerCost: 75
+      nextPowerCost: 75
+      removable: false
+      # powerPool: PsychoHistorianPowerPool
+    - type: InnatePsionicPowers
+      powersToAdd:
+      - MetapsionicPower
+      - TelepathyPower
+      - TelepathicIdentificationPower # Hardlight
+      - MantisSummonBlackBlade
+      - AssayPower # Hardlight
 
 - type: playTimeTracker
   id: JobForensicMantis

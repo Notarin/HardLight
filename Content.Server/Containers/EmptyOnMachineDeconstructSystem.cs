@@ -11,7 +11,8 @@ namespace Content.Server.Containers
     [UsedImplicitly]
     public sealed class EmptyOnMachineDeconstructSystem : EntitySystem
     {
-        [Dependency] private readonly SharedContainerSystem _container = default!;
+        [Dependency]
+        private readonly SharedContainerSystem _container = default!;
 
         public override void Initialize()
         {
@@ -31,7 +32,11 @@ namespace Content.Server.Containers
             }
         }
 
-        private void OnDeconstruct(EntityUid uid, EmptyOnMachineDeconstructComponent component, MachineDeconstructedEvent ev)
+        private void OnDeconstruct(
+            EntityUid uid,
+            EmptyOnMachineDeconstructComponent component,
+            MachineDeconstructedEvent ev
+        )
         {
             if (!TryComp<ContainerManagerComponent>(uid, out var mComp))
                 return;

@@ -22,11 +22,10 @@
     Schooner:
       stationProto: StandardFrontierAntagVessel
       components:
-        - type: StationNameSetup
-          mapNameTemplate: 'Schooner {1}'
-          nameGenerator:
-            !type:NanotrasenNameGenerator
-            prefixCreator: '14'
-        - type: StationJobs
-          availableJobs:
-            NFPirate: [ 0, 0 ]
+      - type: StationNameSetup
+        mapNameTemplate: 'Schooner {1}'
+        nameGenerator: !type:NanotrasenNameGenerator
+          prefixCreator: '14'
+      - type: StationJobs
+        availableJobs:
+          NFPirate: [0, 0]

@@ -30,13 +30,18 @@ public sealed partial class PathfindingSystem
 
         if (end.GraphUid != start.GraphUid)
         {
-            if (!TryComp(start.GraphUid, out TransformComponent? startXform) ||
-                !TryComp(end.GraphUid, out TransformComponent? endXform))
+            if (
+                !TryComp(start.GraphUid, out TransformComponent? startXform)
+                || !TryComp(end.GraphUid, out TransformComponent? endXform)
+            )
             {
                 return Vector2.Zero;
             }
 
-            endPos = Vector2.Transform(Vector2.Transform(endPos, _transform.GetWorldMatrix(endXform)), _transform.GetInvWorldMatrix(startXform));
+            endPos = Vector2.Transform(
+                Vector2.Transform(endPos, _transform.GetWorldMatrix(endXform)),
+                _transform.GetInvWorldMatrix(startXform)
+            );
         }
 
         // TODO: Numerics when we changeover.

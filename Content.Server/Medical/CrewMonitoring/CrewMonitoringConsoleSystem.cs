@@ -13,8 +13,11 @@ namespace Content.Server.Medical.CrewMonitoring;
 
 public sealed class CrewMonitoringConsoleSystem : EntitySystem
 {
-    [Dependency] private readonly PowerCellSystem _cell = default!;
-    [Dependency] private readonly UserInterfaceSystem _uiSystem = default!;
+    [Dependency]
+    private readonly PowerCellSystem _cell = default!;
+
+    [Dependency]
+    private readonly UserInterfaceSystem _uiSystem = default!;
 
     public override void Initialize()
     {
@@ -29,7 +32,11 @@ public sealed class CrewMonitoringConsoleSystem : EntitySystem
         component.ConnectedSensors.Clear();
     }
 
-    private void OnPacketReceived(EntityUid uid, CrewMonitoringConsoleComponent component, DeviceNetworkPacketEvent args)
+    private void OnPacketReceived(
+        EntityUid uid,
+        CrewMonitoringConsoleComponent component,
+        DeviceNetworkPacketEvent args
+    )
     {
         var payload = args.Data;
 
@@ -40,7 +47,12 @@ public sealed class CrewMonitoringConsoleSystem : EntitySystem
         if (command != DeviceNetworkConstants.CmdUpdatedState)
             return;
 
-        if (!payload.TryGetValue(SuitSensorConstants.NET_STATUS_COLLECTION, out Dictionary<string, SuitSensorStatus>? sensorStatus))
+        if (
+            !payload.TryGetValue(
+                SuitSensorConstants.NET_STATUS_COLLECTION,
+                out Dictionary<string, SuitSensorStatus>? sensorStatus
+            )
+        )
             return;
 
         component.ConnectedSensors = sensorStatus;

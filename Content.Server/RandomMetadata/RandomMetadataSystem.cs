@@ -8,9 +8,14 @@ namespace Content.Server.RandomMetadata;
 
 public sealed class RandomMetadataSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly MetaDataSystem _metaData = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototype = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly MetaDataSystem _metaData = default!;
 
     private readonly List<(string, object)> _outputSegments = new();
 
@@ -33,8 +38,11 @@ public sealed class RandomMetadataSystem : EntitySystem
 
         if (component.DescriptionSegments != null)
         {
-            _metaData.SetEntityDescription(uid,
-                GetRandomFromSegments(component.DescriptionSegments, component.DescriptionFormat), meta);
+            _metaData.SetEntityDescription(
+                uid,
+                GetRandomFromSegments(component.DescriptionSegments, component.DescriptionFormat),
+                meta
+            );
         }
     }
 

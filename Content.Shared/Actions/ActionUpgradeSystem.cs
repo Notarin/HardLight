@@ -8,9 +8,14 @@ namespace Content.Shared.Actions;
 
 public sealed class ActionUpgradeSystem : EntitySystem
 {
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
-    [Dependency] private readonly ActionContainerSystem _actionContainer = default!;
-    [Dependency] private readonly EntityManager _entityManager = default!;
+    [Dependency]
+    private readonly SharedActionsSystem _actions = default!;
+
+    [Dependency]
+    private readonly ActionContainerSystem _actionContainer = default!;
+
+    [Dependency]
+    private readonly EntityManager _entityManager = default!;
 
     public override void Initialize()
     {
@@ -21,8 +26,10 @@ public sealed class ActionUpgradeSystem : EntitySystem
 
     private void OnActionUpgradeEvent(EntityUid uid, ActionUpgradeComponent component, ActionUpgradeEvent args)
     {
-        if (!CanUpgrade(args.NewLevel, component.EffectedLevels, out var newActionProto)
-            || !_actions.TryGetActionData(uid, out var actionComp))
+        if (
+            !CanUpgrade(args.NewLevel, component.EffectedLevels, out var newActionProto)
+            || !_actions.TryGetActionData(uid, out var actionComp)
+        )
             return;
 
         var originalContainer = actionComp.Container;
@@ -31,8 +38,10 @@ public sealed class ActionUpgradeSystem : EntitySystem
         _actionContainer.RemoveAction(uid, actionComp);
 
         EntityUid? upgradedActionId = null;
-        if (originalContainer != null
-            && TryComp<ActionsContainerComponent>(originalContainer.Value, out var actionContainerComp))
+        if (
+            originalContainer != null
+            && TryComp<ActionsContainerComponent>(originalContainer.Value, out var actionContainerComp)
+        )
         {
             upgradedActionId = _actionContainer.AddAction(originalContainer.Value, newActionProto, actionContainerComp);
 
@@ -56,7 +65,12 @@ public sealed class ActionUpgradeSystem : EntitySystem
         _entityManager.DeleteEntity(uid);
     }
 
-    public bool TryUpgradeAction(EntityUid? actionId, out EntityUid? upgradeActionId, ActionUpgradeComponent? actionUpgradeComponent = null, int newLevel = 0)
+    public bool TryUpgradeAction(
+        EntityUid? actionId,
+        out EntityUid? upgradeActionId,
+        ActionUpgradeComponent? actionUpgradeComponent = null,
+        int newLevel = 0
+    )
     {
         upgradeActionId = null;
         if (!TryGetActionUpgrade(actionId, out var actionUpgradeComp))
@@ -110,7 +124,11 @@ public sealed class ActionUpgradeSystem : EntitySystem
         return canLevel;
     }
 
-    private bool CanUpgrade(int newLevel, Dictionary<int, EntProtoId> levelDict,  [NotNullWhen(true)]out EntProtoId? newLevelProto)
+    private bool CanUpgrade(
+        int newLevel,
+        Dictionary<int, EntProtoId> levelDict,
+        [NotNullWhen(true)] out EntProtoId? newLevelProto
+    )
     {
         var canUpgrade = false;
         newLevelProto = null;
@@ -134,7 +152,12 @@ public sealed class ActionUpgradeSystem : EntitySystem
     /// <summary>
     ///     Raises a level by one
     /// </summary>
-    public EntityUid? UpgradeAction(EntityUid? actionId, ActionUpgradeComponent? actionUpgradeComponent = null, EntProtoId? newActionProto = null, int newLevel = 0)
+    public EntityUid? UpgradeAction(
+        EntityUid? actionId,
+        ActionUpgradeComponent? actionUpgradeComponent = null,
+        EntProtoId? newActionProto = null,
+        int newLevel = 0
+    )
     {
         if (!TryGetActionUpgrade(actionId, out var actionUpgradeComp))
             return null;
@@ -149,8 +172,10 @@ public sealed class ActionUpgradeSystem : EntitySystem
         actionUpgradeComponent.Level = newLevel;
         // RaiseActionUpgradeEvent(newLevel, actionId.Value);
 
-        if (!CanUpgrade(newLevel, actionUpgradeComponent.EffectedLevels, out var newActionPrototype)
-            || !_actions.TryGetActionData(actionId, out var actionComp))
+        if (
+            !CanUpgrade(newLevel, actionUpgradeComponent.EffectedLevels, out var newActionPrototype)
+            || !_actions.TryGetActionData(actionId, out var actionComp)
+        )
             return null;
 
         newActionProto ??= newActionPrototype;
@@ -162,8 +187,10 @@ public sealed class ActionUpgradeSystem : EntitySystem
         _actionContainer.RemoveAction(actionId.Value, actionComp);
 
         EntityUid? upgradedActionId = null;
-        if (originalContainer != null
-            && TryComp<ActionsContainerComponent>(originalContainer.Value, out var actionContainerComp))
+        if (
+            originalContainer != null
+            && TryComp<ActionsContainerComponent>(originalContainer.Value, out var actionContainerComp)
+        )
         {
             upgradedActionId = _actionContainer.AddAction(originalContainer.Value, newActionProto, actionContainerComp);
 
@@ -198,7 +225,8 @@ public sealed class ActionUpgradeSystem : EntitySystem
     public bool TryGetActionUpgrade(
         [NotNullWhen(true)] EntityUid? uid,
         [NotNullWhen(true)] out ActionUpgradeComponent? result,
-        bool logError = true)
+        bool logError = true
+    )
     {
         result = null;
         if (!Exists(uid))

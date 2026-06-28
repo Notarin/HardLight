@@ -9,9 +9,14 @@ namespace Content.Shared.Research.Systems;
 
 public abstract class SharedResearchStealerSystem : EntitySystem
 {
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedNinjaGlovesSystem _gloves = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfter = default!;
+
+    [Dependency]
+    private readonly SharedNinjaGlovesSystem _gloves = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
 
     public override void Initialize()
     {
@@ -43,7 +48,15 @@ public abstract class SharedResearchStealerSystem : EntitySystem
             return;
         }
 
-        var doAfterArgs = new DoAfterArgs(EntityManager, uid, comp.Delay, new ResearchStealDoAfterEvent(), target: target, used: uid, eventTarget: uid)
+        var doAfterArgs = new DoAfterArgs(
+            EntityManager,
+            uid,
+            comp.Delay,
+            new ResearchStealDoAfterEvent(),
+            target: target,
+            used: uid,
+            eventTarget: uid
+        )
         {
             BreakOnDamage = true,
             BreakOnMove = true,
@@ -58,6 +71,4 @@ public abstract class SharedResearchStealerSystem : EntitySystem
 /// Raised on the research stealer when the doafter completes.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed partial class ResearchStealDoAfterEvent : SimpleDoAfterEvent
-{
-}
+public sealed partial class ResearchStealDoAfterEvent : SimpleDoAfterEvent { }

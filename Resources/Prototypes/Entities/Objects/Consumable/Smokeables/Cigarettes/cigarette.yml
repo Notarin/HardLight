@@ -9,12 +9,12 @@
     state: unlit-icon
   - type: Tag
     tags:
-      - Cigarette
-      - Trash
+    - Cigarette
+    - Trash
   - type: SpaceGarbage
   - type: Clothing
     sprite: Objects/Consumable/Smokeables/Cigarettes/cigarette.rsi
-    slots: [ mask ]
+    slots: [mask]
     equippedPrefix: unlit
   - type: Item
     size: Tiny
@@ -36,12 +36,12 @@
     state: unlit-icon
   - type: Tag
     tags:
-      - Cigarette
-      - Trash
+    - Cigarette
+    - Trash
   - type: SpaceGarbage
   - type: Clothing
     sprite: Objects/Consumable/Smokeables/Cigarettes/cigarette.rsi
-    slots: [ mask ]
+    slots: [mask]
     equippedPrefix: unlit
   - type: Item
     size: Tiny
@@ -64,9 +64,9 @@
         maxVol: 20
   - type: Tag
     tags:
-      - Cigarette
-      - Trash
-      - Burnt
+    - Cigarette
+    - Trash
+    - Burnt
 
 - type: entity
   id: CigaretteSyndicate
@@ -79,10 +79,10 @@
       smokable:
         maxVol: 40
         reagents:
-          - ReagentId: Nicotine
-            Quantity: 10
-          - ReagentId: Omnizine
-            Quantity: 30
+        - ReagentId: Nicotine
+          Quantity: 10
+        - ReagentId: Omnizine
+          Quantity: 30
 
 - type: entity
   id: CigaretteOmnizine
@@ -94,10 +94,10 @@
       smokable:
         maxVol: 40
         reagents:
-          - ReagentId: Nicotine
-            Quantity: 10
-          - ReagentId: Omnizine
-            Quantity: 10
+        - ReagentId: Nicotine
+          Quantity: 10
+        - ReagentId: Omnizine
+          Quantity: 10
 
 - type: entity
   id: CigaretteIron
@@ -109,10 +109,10 @@
       smokable:
         maxVol: 40
         reagents:
-          - ReagentId: Nicotine
-            Quantity: 10
-          - ReagentId: Iron
-            Quantity: 10
+        - ReagentId: Nicotine
+          Quantity: 10
+        - ReagentId: Iron
+          Quantity: 10
 
 - type: entity
   id: CigaretteTricordrazine
@@ -124,10 +124,10 @@
       smokable:
         maxVol: 40
         reagents:
-          - ReagentId: Nicotine
-            Quantity: 10
-          - ReagentId: Tricordrazine
-            Quantity: 10
+        - ReagentId: Nicotine
+          Quantity: 10
+        - ReagentId: Tricordrazine
+          Quantity: 10
 
 - type: entity
   id: CigaretteDylovene
@@ -139,10 +139,10 @@
       smokable:
         maxVol: 40
         reagents:
-          - ReagentId: Nicotine
-            Quantity: 10
-          - ReagentId: Dylovene
-            Quantity: 10
+        - ReagentId: Nicotine
+          Quantity: 10
+        - ReagentId: Dylovene
+          Quantity: 10
 
 - type: entity
   id: CigaretteDermaline
@@ -154,10 +154,10 @@
       smokable:
         maxVol: 40
         reagents:
-          - ReagentId: Nicotine
-            Quantity: 10
-          - ReagentId: Dermaline
-            Quantity: 10
+        - ReagentId: Nicotine
+          Quantity: 10
+        - ReagentId: Dermaline
+          Quantity: 10
 
 - type: entity
   id: CigaretteArithrazine
@@ -169,10 +169,10 @@
       smokable:
         maxVol: 40
         reagents:
-          - ReagentId: Nicotine
-            Quantity: 10
-          - ReagentId: Arithrazine
-            Quantity: 10
+        - ReagentId: Nicotine
+          Quantity: 10
+        - ReagentId: Arithrazine
+          Quantity: 10
 
 - type: entity
   id: CigaretteIpecac
@@ -184,10 +184,10 @@
       smokable:
         maxVol: 40
         reagents:
-          - ReagentId: Nicotine
-            Quantity: 10
-          - ReagentId: Ipecac
-            Quantity: 2
+        - ReagentId: Nicotine
+          Quantity: 10
+        - ReagentId: Ipecac
+          Quantity: 2
 
 - type: entity
   id: CigaretteBicaridine
@@ -199,10 +199,10 @@
       smokable:
         maxVol: 40
         reagents:
-          - ReagentId: Nicotine
-            Quantity: 10
-          - ReagentId: Bicaridine
-            Quantity: 10
+        - ReagentId: Nicotine
+          Quantity: 10
+        - ReagentId: Bicaridine
+          Quantity: 10
 
 - type: entity
   id: CigaretteDexalin
@@ -214,10 +214,10 @@
       smokable:
         maxVol: 40
         reagents:
-          - ReagentId: Nicotine
-            Quantity: 10
-          - ReagentId: Dexalin
-            Quantity: 10
+        - ReagentId: Nicotine
+          Quantity: 10
+        - ReagentId: Dexalin
+          Quantity: 10
 
 - type: entity
   id: CigarettePax
@@ -229,10 +229,10 @@
       smokable:
         maxVol: 40
         reagents:
-          - ReagentId: Nicotine
-            Quantity: 10
-          - ReagentId: Pax
-            Quantity: 2
+        - ReagentId: Nicotine
+          Quantity: 10
+        - ReagentId: Pax
+          Quantity: 2
 
 - type: entity
   id: CigaretteBbqSauce
@@ -244,10 +244,10 @@
       smokable:
         maxVol: 40
         reagents:
-          - ReagentId: Nicotine
-            Quantity: 10
-          - ReagentId: BbqSauce
-            Quantity: 10
+        - ReagentId: Nicotine
+          Quantity: 10
+        - ReagentId: BbqSauce
+          Quantity: 10
 
 - type: entity
   id: CigaretteBlackPepper
@@ -259,10 +259,10 @@
       smokable:
         maxVol: 40
         reagents:
-          - ReagentId: Nicotine
-            Quantity: 10
-          - ReagentId: Blackpepper
-            Quantity: 10
+        - ReagentId: Nicotine
+          Quantity: 10
+        - ReagentId: Blackpepper
+          Quantity: 10
 
 - type: entity
   id: CigaretteCapsaicinOil
@@ -274,10 +274,10 @@
       smokable:
         maxVol: 40
         reagents:
-          - ReagentId: Nicotine
-            Quantity: 10
-          - ReagentId: CapsaicinOil
-            Quantity: 10
+        - ReagentId: Nicotine
+          Quantity: 10
+        - ReagentId: CapsaicinOil
+          Quantity: 10
 
 - type: entity
   id: CigaretteBread
@@ -289,8 +289,8 @@
       smokable:
         maxVol: 40
         reagents:
-          - ReagentId: Nicotine
-            Quantity: 10
+        - ReagentId: Nicotine
+          Quantity: 10
 
 - type: entity
   id: CigaretteMilk
@@ -302,10 +302,10 @@
       smokable:
         maxVol: 40
         reagents:
-          - ReagentId: Nicotine
-            Quantity: 10
-          - ReagentId: Milk
-            Quantity: 10
+        - ReagentId: Nicotine
+          Quantity: 10
+        - ReagentId: Milk
+          Quantity: 10
 
 - type: entity
   id: CigaretteBanana
@@ -317,10 +317,10 @@
       smokable:
         maxVol: 40
         reagents:
-          - ReagentId: Nicotine
-            Quantity: 10
-          - ReagentId: BananaHonk
-            Quantity: 10
+        - ReagentId: Nicotine
+          Quantity: 10
+        - ReagentId: BananaHonk
+          Quantity: 10
 
 - type: entity
   id: CigaretteSpaceDrugs
@@ -332,10 +332,10 @@
       smokable:
         maxVol: 40
         reagents:
-          - ReagentId: Nicotine
-            Quantity: 10
-          - ReagentId: SpaceDrugs
-            Quantity: 10
+        - ReagentId: Nicotine
+          Quantity: 10
+        - ReagentId: SpaceDrugs
+          Quantity: 10
 
 - type: entity
   id: CigaretteMuteToxin
@@ -347,10 +347,10 @@
       smokable:
         maxVol: 40
         reagents:
-          - ReagentId: Nicotine
-            Quantity: 10
-          - ReagentId: MuteToxin
-            Quantity: 2
+        - ReagentId: Nicotine
+          Quantity: 10
+        - ReagentId: MuteToxin
+          Quantity: 2
 
 - type: entity
   id: CigaretteMold
@@ -362,10 +362,10 @@
       smokable:
         maxVol: 40
         reagents:
-          - ReagentId: Nicotine
-            Quantity: 10
-          - ReagentId: Mold
-            Quantity: 2
+        - ReagentId: Nicotine
+          Quantity: 10
+        - ReagentId: Mold
+          Quantity: 2
 
 - type: entity
   id: CigaretteLicoxide
@@ -377,10 +377,10 @@
       smokable:
         maxVol: 40
         reagents:
-          - ReagentId: Nicotine
-            Quantity: 10
-          - ReagentId: Licoxide
-            Quantity: 5
+        - ReagentId: Nicotine
+          Quantity: 10
+        - ReagentId: Licoxide
+          Quantity: 5
 
 - type: entity
   id: CigaretteWeldingFuel
@@ -392,10 +392,10 @@
       smokable:
         maxVol: 40
         reagents:
-          - ReagentId: Nicotine
-            Quantity: 10
-          - ReagentId: WeldingFuel
-            Quantity: 5
+        - ReagentId: Nicotine
+          Quantity: 10
+        - ReagentId: WeldingFuel
+          Quantity: 5
 
 - type: entity
   id: CigaretteTHC
@@ -407,7 +407,7 @@
       smokable:
         maxVol: 40
         reagents:
-          - ReagentId: Nicotine
-            Quantity: 10
-          - ReagentId: THC
-            Quantity: 5
+        - ReagentId: Nicotine
+          Quantity: 10
+        - ReagentId: THC
+          Quantity: 5

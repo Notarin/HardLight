@@ -1,14 +1,14 @@
 // New Frontiers - This file is licensed under AGPLv3
 // Copyright (c) 2024 New Frontiers Contributors
 // See AGPLv3.txt for details.
+using System.Numerics;
+using Content.Shared._Mono.Company;
 using Content.Shared._NF.Shuttles.Events;
 using Content.Shared.Shuttles.BUIStates;
 using Content.Shared.Shuttles.Components;
-using Robust.Shared.Physics.Components;
-using System.Numerics;
-using Content.Shared._Mono.Company;
 using Robust.Client.Graphics;
 using Robust.Shared.Collections;
+using Robust.Shared.Physics.Components;
 using Robust.Shared.Prototypes;
 
 namespace Content.Client.Shuttles.UI
@@ -23,10 +23,14 @@ namespace Content.Client.Shuttles.UI
 
         private void NfUpdateState(NavInterfaceState state)
         {
-
-            if (!EntManager.GetCoordinates(state.Coordinates).HasValue ||
-                !EntManager.TryGetComponent(EntManager.GetCoordinates(state.Coordinates).GetValueOrDefault().EntityId,out TransformComponent? transform) ||
-                !EntManager.TryGetComponent(transform.GridUid, out PhysicsComponent? physicsComponent))
+            if (
+                !EntManager.GetCoordinates(state.Coordinates).HasValue
+                || !EntManager.TryGetComponent(
+                    EntManager.GetCoordinates(state.Coordinates).GetValueOrDefault().EntityId,
+                    out TransformComponent? transform
+                )
+                || !EntManager.TryGetComponent(transform.GridUid, out PhysicsComponent? physicsComponent)
+            )
             {
                 return;
             }
@@ -59,40 +63,66 @@ namespace Content.Client.Shuttles.UI
             return shouldDrawIff;
         }
 
-        private static void NfAddBlipToList(List<BlipData> blipDataList, bool isOutsideRadarCircle, Vector2 uiPosition, int uiXCentre, int uiYCentre, Color color)
+        private static void NfAddBlipToList(
+            List<BlipData> blipDataList,
+            bool isOutsideRadarCircle,
+            Vector2 uiPosition,
+            int uiXCentre,
+            int uiYCentre,
+            Color color
+        )
         {
-            blipDataList.Add(new BlipData
-            {
-                IsOutsideRadarCircle = isOutsideRadarCircle,
-                UiPosition = uiPosition,
-                VectorToPosition = uiPosition - new Vector2(uiXCentre, uiYCentre),
-                Color = color
-            });
+            blipDataList.Add(
+                new BlipData
+                {
+                    IsOutsideRadarCircle = isOutsideRadarCircle,
+                    UiPosition = uiPosition,
+                    VectorToPosition = uiPosition - new Vector2(uiXCentre, uiYCentre),
+                    Color = color,
+                }
+            );
         }
 
-        private static void NfAddBlipToList(List<BlipData> blipDataList, bool isOutsideRadarCircle, Vector2 uiPosition, int uiXCentre, int uiYCentre, Color color, EntityUid gridUid = default)
+        private static void NfAddBlipToList(
+            List<BlipData> blipDataList,
+            bool isOutsideRadarCircle,
+            Vector2 uiPosition,
+            int uiXCentre,
+            int uiYCentre,
+            Color color,
+            EntityUid gridUid = default
+        )
         {
             // Check if the entity has a company component and use that color if available
             Color blipColor = color;
 
-            if (gridUid != default &&
-                IoCManager.Resolve<IEntityManager>().TryGetComponent(gridUid, out Shared._Mono.Company.CompanyComponent? companyComp) &&
-                !string.IsNullOrEmpty(companyComp.CompanyName))
+            if (
+                gridUid != default
+                && IoCManager
+                    .Resolve<IEntityManager>()
+                    .TryGetComponent(gridUid, out Shared._Mono.Company.CompanyComponent? companyComp)
+                && !string.IsNullOrEmpty(companyComp.CompanyName)
+            )
             {
                 var prototypeManager = IoCManager.Resolve<IPrototypeManager>();
-                if (prototypeManager.TryIndex<CompanyPrototype>(companyComp.CompanyName, out var prototype) && prototype != null)
+                if (
+                    prototypeManager.TryIndex<CompanyPrototype>(companyComp.CompanyName, out var prototype)
+                    && prototype != null
+                )
                 {
                     blipColor = prototype.Color;
                 }
             }
 
-            blipDataList.Add(new BlipData
-            {
-                IsOutsideRadarCircle = isOutsideRadarCircle,
-                UiPosition = uiPosition,
-                VectorToPosition = uiPosition - new Vector2(uiXCentre, uiYCentre),
-                Color = blipColor
-            });
+            blipDataList.Add(
+                new BlipData
+                {
+                    IsOutsideRadarCircle = isOutsideRadarCircle,
+                    UiPosition = uiPosition,
+                    VectorToPosition = uiPosition - new Vector2(uiXCentre, uiYCentre),
+                    Color = blipColor,
+                }
+            );
         }
 
         /**
@@ -107,20 +137,24 @@ namespace Content.Client.Shuttles.UI
             {
                 var triangleShapeVectorPoints = new[]
                 {
-                new Vector2(0, 0),
-                new Vector2(RadarBlipSize, 0),
-                new Vector2(RadarBlipSize * 0.5f, RadarBlipSize)
-            };
+                    new Vector2(0, 0),
+                    new Vector2(RadarBlipSize, 0),
+                    new Vector2(RadarBlipSize * 0.5f, RadarBlipSize),
+                };
 
                 if (blipData.IsOutsideRadarCircle)
                 {
                     // Calculate the angle of rotation
-                    var angle = (float) Math.Atan2(blipData.VectorToPosition.Y, blipData.VectorToPosition.X) + -1.6f;
+                    var angle = (float)Math.Atan2(blipData.VectorToPosition.Y, blipData.VectorToPosition.X) + -1.6f;
 
                     // Manually create a rotation matrix
-                    var cos = (float) Math.Cos(angle);
-                    var sin = (float) Math.Sin(angle);
-                    float[,] rotationMatrix = { { cos, -sin }, { sin, cos } };
+                    var cos = (float)Math.Cos(angle);
+                    var sin = (float)Math.Sin(angle);
+                    float[,] rotationMatrix =
+                    {
+                        { cos, -sin },
+                        { sin, cos },
+                    };
 
                     // Rotate each vertex
                     for (var i = 0; i < triangleShapeVectorPoints.Length; i++)
@@ -152,7 +186,6 @@ namespace Content.Client.Shuttles.UI
                 if (!blipValueList.TryGetValue(blipData.Color, out var valueList))
                 {
                     valueList = new ValueList<Vector2>();
-
                 }
                 valueList.Add(newVerts[0]);
                 valueList.Add(newVerts[1]);

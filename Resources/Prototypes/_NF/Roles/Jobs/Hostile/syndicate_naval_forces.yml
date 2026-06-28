@@ -7,12 +7,12 @@
     shoes: ClothingShoesBootsCombat
     gloves: ClothingHandsGlovesColorBlackPython
     neck: ClothingNeckScarfStripedSyndieRed
-#    mask: ClothingMaskGasSyndicate
+    #    mask: ClothingMaskGasSyndicate
     outerClothing: ClothingOuterCoatSyndieCapArmored
     back: ClothingBackpackSyndicateCaptainLootA
     pocket2: DoubleEmergencyAirTankFilled
   inhand:
-    - PlasteelArmingSword
+  - PlasteelArmingSword
 
 - type: startingGear
   id: SyndicateNavalCaptainGearB
@@ -22,12 +22,12 @@
     shoes: ClothingShoesBootsCombat
     gloves: ClothingHandsGlovesColorBlackPython
     neck: ClothingNeckScarfStripedSyndieRed
-#    mask: ClothingMaskGasSyndicate
+    #    mask: ClothingMaskGasSyndicate
     outerClothing: ClothingOuterCoatSyndieCapArmored
     back: ClothingBackpackSyndicateCaptainLootB
     pocket2: DoubleEmergencyAirTankFilled
   inhand:
-    - PlasteelArmingSword
+  - PlasteelArmingSword
 
 - type: startingGear
   id: SyndicateNavalCaptainGearC
@@ -37,7 +37,7 @@
     shoes: ClothingShoesBootsCombat
     gloves: ClothingHandsGlovesColorBlackPython
     neck: ClothingNeckScarfStripedSyndieRed
-#    mask: ClothingMaskGasSyndicate
+    #    mask: ClothingMaskGasSyndicate
     outerClothing: ClothingOuterCoatSyndieCapArmored
     back: ClothingBackpackSyndicateCaptainLootC
     pocket2: DoubleEmergencyAirTankFilled
@@ -50,7 +50,7 @@
     shoes: ClothingShoesBootsCombat
     gloves: ClothingHandsGlovesColorBlackPython
     neck: ClothingNeckScarfStripedSyndieRed
-#    mask: ClothingMaskGasSyndicate
+    #    mask: ClothingMaskGasSyndicate
     outerClothing: ClothingOuterCoatSyndieCapArmored
     back: ClothingBackpackSyndicateCaptainLootD
     pocket2: DoubleEmergencyAirTankFilled
@@ -64,12 +64,12 @@
     shoes: ClothingShoesBootsCombat
     gloves: ClothingHandsGlovesColorBlackShotgun
     belt: ClothingBeltUtility
-#    mask: ClothingMaskGasSyndicate
+    #    mask: ClothingMaskGasSyndicate
     outerClothing: ClothingOuterArmorBasic
     back: ClothingBackpackSyndicateEngineerLootA
     pocket2: DoubleEmergencyAirTankFilled
   inhand:
-    - ToolboxSyndicate
+  - ToolboxSyndicate
 
 - type: startingGear
   id: SyndicateNavalEngineerGearB
@@ -79,12 +79,12 @@
     shoes: ClothingShoesBootsCombat
     gloves: ClothingHandsGlovesColorBlackShotgun
     belt: ClothingBeltUtility
-#    mask: ClothingMaskGasSyndicate
+    #    mask: ClothingMaskGasSyndicate
     outerClothing: ClothingOuterArmorBasic
     back: ClothingBackpackSyndicateEngineerLootB
     pocket2: DoubleEmergencyAirTankFilled
   inhand:
-    - ToolboxEmergency
+  - ToolboxEmergency
 
 - type: startingGear
   id: SyndicateNavalEngineerGearC
@@ -94,12 +94,12 @@
     shoes: ClothingShoesBootsCombat
     gloves: ClothingHandsGlovesColorBlackShotgun
     belt: ClothingBeltUtility
-#    mask: ClothingMaskGasSyndicate
+    #    mask: ClothingMaskGasSyndicate
     outerClothing: ClothingOuterArmorBasic
     back: ClothingBackpackSyndicateEngineerLootC
     pocket2: DoubleEmergencyAirTankFilled
   inhand:
-    - ToolboxElectrical
+  - ToolboxElectrical
 
 - type: startingGear
   id: SyndicateNavalEngineerGearD
@@ -109,12 +109,12 @@
     shoes: ClothingShoesBootsCombat
     gloves: ClothingHandsGlovesColorBlackShotgun
     belt: ClothingBeltUtility
-#    mask: ClothingMaskGasSyndicate
+    #    mask: ClothingMaskGasSyndicate
     outerClothing: ClothingOuterArmorBasic
     back: ClothingBackpackSyndicateEngineerLootD
     pocket2: DoubleEmergencyAirTankFilled
   inhand:
-    - ToolboxMechanical
+  - ToolboxMechanical
 
 # Medic
 - type: startingGear
@@ -126,12 +126,12 @@
     gloves: ClothingHandsGlovesCombat
     belt: ClothingBeltMedical
     neck: ClothingNeckStethoscope
-#    mask: ClothingMaskGasSyndicate
+    #    mask: ClothingMaskGasSyndicate
     outerClothing: ClothingOuterCoatAMG
     back: ClothingBackpackSyndicateMedicLootA
     pocket2: DoubleEmergencyAirTankFilled
   inhand:
-    - SawAdvanced
+  - SawAdvanced
 
 - type: startingGear
   id: SyndicateNavalMedicGearB
@@ -142,12 +142,12 @@
     gloves: ClothingHandsGlovesCombat
     belt: ClothingBeltMedical
     neck: ClothingNeckStethoscope
-#    mask: ClothingMaskGasSyndicate
+    #    mask: ClothingMaskGasSyndicate
     outerClothing: ClothingOuterCoatAMG
     back: ClothingBackpackSyndicateMedicLootB
     pocket2: DoubleEmergencyAirTankFilled
   inhand:
-    - ScalpelAdvanced
+  - ScalpelAdvanced
 
 - type: startingGear
   id: SyndicateNavalMedicGearC
@@ -158,12 +158,12 @@
     gloves: ClothingHandsGlovesCombat
     belt: ClothingBeltMedical
     neck: ClothingNeckStethoscope
-#    mask: ClothingMaskGasSyndicate
+    #    mask: ClothingMaskGasSyndicate
     outerClothing: ClothingOuterCoatAMG
     back: ClothingBackpackSyndicateMedicLootC
     pocket2: DoubleEmergencyAirTankFilled
   inhand:
-    - Drill
+  - Drill
 
 - type: startingGear
   id: SyndicateNavalMedicGearD
@@ -174,12 +174,12 @@
     gloves: ClothingHandsGlovesCombat
     belt: ClothingBeltMedical
     neck: ClothingNeckStethoscope
-#    mask: ClothingMaskGasSyndicate
+    #    mask: ClothingMaskGasSyndicate
     outerClothing: ClothingOuterCoatAMG
     back: ClothingBackpackSyndicateMedicLootD
     pocket2: DoubleEmergencyAirTankFilled
   inhand:
-    - SawImprov
+  - SawImprov
 
 # Syndicate Second Officer
 - type: startingGear
@@ -191,12 +191,12 @@
     gloves: ClothingHandsGlovesColorBlackLaserPistol
     eyes: ClothingEyesGlassesSunglasses
     belt: ClothingBeltMilitaryWebbing
-#    mask: ClothingMaskNeckGaiter
+    #    mask: ClothingMaskNeckGaiter
     outerClothing: ClothingOuterArmorBasic
     back: ClothingBackpackSyndicateSecondOfficerLootA
     pocket2: DoubleEmergencyAirTankFilled
   inhand:
-    - Cutlass
+  - Cutlass
 
 - type: startingGear
   id: SyndicateNavalSecondOfficerGearB
@@ -207,12 +207,12 @@
     gloves: ClothingHandsGlovesColorBlackLaserPistol
     eyes: ClothingEyesGlassesSunglasses
     belt: ClothingBeltMilitaryWebbing
-#    mask: ClothingMaskNeckGaiter
+    #    mask: ClothingMaskNeckGaiter
     outerClothing: ClothingOuterArmorBasic
     back: ClothingBackpackSyndicateSecondOfficerLootB
     pocket2: DoubleEmergencyAirTankFilled
   inhand:
-    - Machete
+  - Machete
 
 - type: startingGear
   id: SyndicateNavalSecondOfficerGearC
@@ -223,12 +223,12 @@
     gloves: ClothingHandsGlovesColorBlackLaserPistol
     eyes: ClothingEyesGlassesSunglasses
     belt: ClothingBeltMilitaryWebbing
-#    mask: ClothingMaskNeckGaiter
+    #    mask: ClothingMaskNeckGaiter
     outerClothing: ClothingOuterArmorBasic
     back: ClothingBackpackSyndicateSecondOfficerLootC
     pocket2: DoubleEmergencyAirTankFilled
   inhand:
-    - CombatKnife
+  - CombatKnife
 
 - type: startingGear
   id: SyndicateNavalSecondOfficerGearD
@@ -239,7 +239,7 @@
     gloves: ClothingHandsGlovesColorBlackLaserPistol
     eyes: ClothingEyesGlassesSunglasses
     belt: ClothingBeltMilitaryWebbing
-#    mask: ClothingMaskNeckGaiter
+    #    mask: ClothingMaskNeckGaiter
     outerClothing: ClothingOuterArmorBasic
     back: ClothingBackpackSyndicateSecondOfficerLootD
     pocket2: DoubleEmergencyAirTankFilled
@@ -254,11 +254,11 @@
     shoes: ClothingShoesBootsCombat
     gloves: ClothingHandsGlovesColorBlackSMG
     belt: ClothingBeltMilitaryWebbing
-#    mask: ClothingMaskGasSyndicate
+    #    mask: ClothingMaskGasSyndicate
     outerClothing: ClothingOuterArmorBulletproof
     pocket2: DoubleEmergencyAirTankFilled
   inhand:
-    - KukriKnife
+  - KukriKnife
 
 - type: startingGear
   id: SyndicateNavalOperatorGearB
@@ -269,11 +269,11 @@
     shoes: ClothingShoesBootsCombat
     gloves: ClothingHandsGlovesColorBlackSMG
     belt: ClothingBeltMilitaryWebbing
-#    mask: ClothingMaskGasSyndicate
+    #    mask: ClothingMaskGasSyndicate
     outerClothing: ClothingOuterArmorBulletproof
     pocket2: DoubleEmergencyAirTankFilled
   inhand:
-    - KukriKnife
+  - KukriKnife
 
 - type: startingGear
   id: SyndicateNavalOperatorGearC
@@ -284,11 +284,11 @@
     shoes: ClothingShoesBootsCombat
     gloves: ClothingHandsGlovesColorBlackSMG
     belt: ClothingBeltMilitaryWebbing
-#    mask: ClothingMaskGasSyndicate
+    #    mask: ClothingMaskGasSyndicate
     outerClothing: ClothingOuterArmorBulletproof
     pocket2: DoubleEmergencyAirTankFilled
   inhand:
-    - Machete
+  - Machete
 
 - type: startingGear
   id: SyndicateNavalOperatorGearD
@@ -299,11 +299,11 @@
     shoes: ClothingShoesBootsCombat
     gloves: ClothingHandsGlovesColorBlackSMG
     belt: ClothingBeltMilitaryWebbing
-#    mask: ClothingMaskGasSyndicate
+    #    mask: ClothingMaskGasSyndicate
     outerClothing: ClothingOuterArmorBulletproof
     pocket2: DoubleEmergencyAirTankFilled
   inhand:
-    - CombatKnife
+  - CombatKnife
 
 # Syndicate Grenadier
 - type: startingGear
@@ -315,7 +315,7 @@
     shoes: ClothingShoesBootsCombat
     gloves: ClothingHandsGlovesColorBlackChinaLake
     belt: ClothingBeltMilitaryWebbing
-#    mask: ClothingMaskGasSyndicate
+    #    mask: ClothingMaskGasSyndicate
     outerClothing: ClothingOuterSuitBombSyndie
     pocket2: DoubleEmergencyAirTankFilled
 
@@ -328,7 +328,7 @@
     shoes: ClothingShoesBootsCombat
     gloves: ClothingHandsGlovesColorBlackChinaLake
     belt: ClothingBeltMilitaryWebbing
-#    mask: ClothingMaskGasSyndicate
+    #    mask: ClothingMaskGasSyndicate
     outerClothing: ClothingOuterSuitBombSyndie
     pocket2: DoubleEmergencyAirTankFilled
 
@@ -341,7 +341,7 @@
     shoes: ClothingShoesBootsCombat
     gloves: ClothingHandsGlovesColorBlackChinaLake
     belt: ClothingBeltMilitaryWebbing
-#    mask: ClothingMaskGasSyndicate
+    #    mask: ClothingMaskGasSyndicate
     outerClothing: ClothingOuterSuitBombSyndie
     pocket2: DoubleEmergencyAirTankFilled
 
@@ -354,7 +354,7 @@
     shoes: ClothingShoesBootsCombat
     gloves: ClothingHandsGlovesColorBlackChinaLake
     belt: ClothingBeltMilitaryWebbing
-#    mask: ClothingMaskGasSyndicate
+    #    mask: ClothingMaskGasSyndicate
     outerClothing: ClothingOuterSuitBombSyndie
     pocket2: DoubleEmergencyAirTankFilled
 
@@ -367,12 +367,12 @@
     shoes: ClothingShoesBootsCombat
     gloves: ClothingHandsGlovesColorBlackPistol
     eyes: ClothingEyesGlassesSunglasses
-#    mask: ClothingMaskNeckGaiter
+    #    mask: ClothingMaskNeckGaiter
     outerClothing: ClothingOuterArmorBasicSlim
     back: ClothingBackpackSyndicateSaboteurLootA
     pocket2: DoubleEmergencyAirTankFilled
   inhand:
-    - CombatKnife
+  - CombatKnife
 
 - type: startingGear
   id: SyndicateNavalSaboteurGearB
@@ -382,12 +382,12 @@
     shoes: ClothingShoesBootsCombat
     gloves: ClothingHandsGlovesColorBlackPistol
     eyes: ClothingEyesGlassesSunglasses
-#    mask: ClothingMaskNeckGaiter
+    #    mask: ClothingMaskNeckGaiter
     outerClothing: ClothingOuterArmorBasicSlim
     back: ClothingBackpackSyndicateSaboteurLootB
     pocket2: DoubleEmergencyAirTankFilled
   inhand:
-    - CombatKnife
+  - CombatKnife
 
 - type: startingGear
   id: SyndicateNavalSaboteurGearC
@@ -397,12 +397,12 @@
     shoes: ClothingShoesBootsCombat
     gloves: ClothingHandsGlovesColorBlackPistol
     eyes: ClothingEyesGlassesSunglasses
-#    mask: ClothingMaskNeckGaiter
+    #    mask: ClothingMaskNeckGaiter
     outerClothing: ClothingOuterArmorBasicSlim
     back: ClothingBackpackSyndicateSaboteurLootC
     pocket2: DoubleEmergencyAirTankFilled
   inhand:
-    - CombatKnife
+  - CombatKnife
 
 - type: startingGear
   id: SyndicateNavalSaboteurGearD
@@ -412,12 +412,12 @@
     shoes: ClothingShoesBootsCombat
     gloves: ClothingHandsGlovesColorBlackPistol
     eyes: ClothingEyesGlassesSunglasses
-#    mask: ClothingMaskNeckGaiter
+    #    mask: ClothingMaskNeckGaiter
     outerClothing: ClothingOuterArmorBasicSlim
     back: ClothingBackpackSyndicateSaboteurLootD
     pocket2: DoubleEmergencyAirTankFilled
   inhand:
-    - CombatKnife
+  - CombatKnife
 
 # Syndicate Victim: Driven Insane Victim of Experimentation
 - type: startingGear
@@ -427,13 +427,13 @@
     mask: ClothingMaskMuzzle
     neck: ClothingNeckHeadphones
   inhand:
-    - ReinforcedShiv
+  - ReinforcedShiv
 
 # Syndicate Commander
 - type: startingGear
   id: SyndicateNavalCommanderGearA # Megafauna for dungeons
   equipment:
-#    mask: ClothingMaskGasSyndicate
+    #    mask: ClothingMaskGasSyndicate
     neck: BedsheetSyndie
     jumpsuit: ClothingUniformJumpsuitSyndieFormalNF
     outerClothing: ClothingOuterHardsuitSyndieEliteUnremoveable
@@ -443,12 +443,12 @@
     back: ClothingBackpackSyndicateCommanderLootA
     pocket2: DoubleEmergencyAirTankFilled
   inhand:
-    - CaptainSabre
+  - CaptainSabre
 
 - type: startingGear
   id: SyndicateNavalCommanderGearB
   equipment:
-#    mask: ClothingMaskGasSyndicate
+    #    mask: ClothingMaskGasSyndicate
     jumpsuit: ClothingUniformJumpsuitSyndieFormalNF
     outerClothing: ClothingOuterHardsuitSyndieEliteUnremoveable
     head: ClothingHeadHelmetHardsuitSyndieEliteUnremoveable
@@ -457,12 +457,12 @@
     back: ClothingBackpackSyndicateCommanderLootB
     pocket2: DoubleEmergencyAirTankFilled
   inhand:
-    - CaptainSabre
+  - CaptainSabre
 
 - type: startingGear
   id: SyndicateNavalCommanderGearC
   equipment:
-#    mask: ClothingMaskGasSyndicate
+    #    mask: ClothingMaskGasSyndicate
     neck: BedsheetSyndie
     jumpsuit: ClothingUniformJumpsuitSyndieFormalNF
     outerClothing: ClothingOuterHardsuitSyndieBloodRedUnremoveable
@@ -472,12 +472,12 @@
     back: ClothingBackpackSyndicateCommanderLootC
     pocket2: DoubleEmergencyAirTankFilled
   inhand:
-    - CaptainSabre
+  - CaptainSabre
 
 - type: startingGear
   id: SyndicateNavalCommanderGearD
   equipment:
-#    mask: ClothingMaskGasSyndicate
+    #    mask: ClothingMaskGasSyndicate
     jumpsuit: ClothingUniformJumpsuitSyndieFormalNF
     outerClothing: ClothingOuterHardsuitSyndieBloodRedUnremoveable
     head: ClothingHeadHelmetHardsuitSyndieUnremoveable
@@ -486,7 +486,7 @@
     back: ClothingBackpackSyndicateCommanderLootD
     pocket2: DoubleEmergencyAirTankFilled
   inhand:
-    - CaptainSabre
+  - CaptainSabre
 
 # Syndicate Deckhand
 - type: startingGear
@@ -500,7 +500,7 @@
     back: ClothingBackpackSyndicateDeckhandLootA
     pocket2: DoubleEmergencyAirTankFilled
   inhand:
-    - PowerDrill
+  - PowerDrill
 
 - type: startingGear
   id: SyndicateNavalDeckhandGearB
@@ -513,7 +513,7 @@
     back: ClothingBackpackSyndicateDeckhandLootB
     pocket2: DoubleEmergencyAirTankFilled
   inhand:
-    - Crowbar
+  - Crowbar
 
 - type: startingGear
   id: SyndicateNavalDeckhandGearC
@@ -526,7 +526,7 @@
     back: ClothingBackpackSyndicateDeckhandLootC
     pocket2: DoubleEmergencyAirTankFilled
   inhand:
-    - Wrench
+  - Wrench
 
 - type: startingGear
   id: SyndicateNavalDeckhandGearD
@@ -539,14 +539,14 @@
     back: ClothingBackpackSyndicateDeckhandLootD
     pocket2: DoubleEmergencyAirTankFilled
   inhand:
-    - Screwdriver
+  - Screwdriver
 
 # Syndicate Mime
 - type: startingGear
   id: SyndicateNavalMimeGear
   equipment:
     head: ClothingHeadHatBeret
-#    mask: ClothingMaskMime
+    #    mask: ClothingMaskMime
     neck: ClothingNeckScarfStripedSyndieRed
     jumpsuit: ClothingUniformJumpsuitMime
     gloves: ClothingHandsGlovesCombat
@@ -557,14 +557,14 @@
     pocket1: Stimpack
     pocket2: DoubleEmergencyAirTankFilled
   inhand:
-    - Chainsaw
+  - Chainsaw
 
 # Syndicate Chemwarrior
 - type: startingGear
   id: SyndicateNavalChemwarriorGearA
   equipment:
     head: ClothingHeadHatHoodWinterSyndieUnremoveable
-#    mask: ClothingMaskGasSyndicate
+    #    mask: ClothingMaskGasSyndicate
     neck: ClothingNeckScarfStripedSyndieRed
     jumpsuit: ClothingUniformJumpsuitPyjamaSyndicateRed
     gloves: ClothingHandsGlovesColorBlackSprayNozzle
@@ -574,7 +574,7 @@
     back: ClothingBackpackSyndicateChemwarriorLootA
     pocket2: DoubleEmergencyAirTankFilled
   inhand:
-    - SpearUranium
+  - SpearUranium
 
 - type: startingGear
   id: SyndicateNavalChemwarriorGearB
@@ -588,7 +588,7 @@
     back: ClothingBackpackSyndicateChemwarriorLootB
     pocket2: DoubleEmergencyAirTankFilled
   inhand:
-    - SpearPlasma
+  - SpearPlasma
 
 - type: startingGear
   id: SyndicateNavalChemwarriorGearC
@@ -602,7 +602,7 @@
     back: ClothingBackpackSyndicateChemwarriorLootC
     pocket2: DoubleEmergencyAirTankFilled
   inhand:
-    - SpearReinforced
+  - SpearReinforced
 
 - type: startingGear
   id: SyndicateNavalChemwarriorGearD
@@ -616,7 +616,7 @@
     back: ClothingBackpackSyndicateChemwarriorLootD
     pocket2: DoubleEmergencyAirTankFilled
   inhand:
-    - SpearBone
+  - SpearBone
 
 # Syndicate Deckhand Void
 - type: startingGear
@@ -630,7 +630,7 @@
     back: ClothingBackpackSyndicateDeckhandLootA
     pocket2: DoubleEmergencyAirTankFilled
   inhand:
-    - Crowbar
+  - Crowbar
 
 # Engineer Void
 - type: startingGear
@@ -642,10 +642,10 @@
     shoes: ClothingShoesBootsMagSyndie
     gloves: ClothingHandsGlovesColorBlackShotgun
     belt: ClothingBeltUtility
-#    mask: ClothingMaskGasSyndicate
+    #    mask: ClothingMaskGasSyndicate
     back: ClothingBackpackSyndicateEngineerLootA
   inhand:
-    - ToolboxSyndicate
+  - ToolboxSyndicate
 
 # Syndicate Security Operative Void
 - type: startingGear
@@ -657,10 +657,10 @@
     shoes: ClothingShoesBootsMagSyndie
     gloves: ClothingHandsGlovesColorBlackSMG
     belt: ClothingBeltMilitaryWebbing
-#    mask: ClothingMaskGasSyndicate
+    #    mask: ClothingMaskGasSyndicate
     outerClothing: ClothingOuterHardsuitSyndieBloodRedUnremoveable
   inhand:
-    - KukriKnife
+  - KukriKnife
 
 # Syndicate Second Officer Void
 - type: startingGear
@@ -672,11 +672,11 @@
     gloves: ClothingHandsGlovesColorBlackLaserPistol
     eyes: ClothingEyesGlassesSunglasses
     belt: ClothingBeltMilitaryWebbing
-#    mask: ClothingMaskNeckGaiter
+    #    mask: ClothingMaskNeckGaiter
     outerClothing: ClothingOuterHardsuitSyndieBloodRedUnremoveable
     back: ClothingBackpackSyndicateSecondOfficerLootA
   inhand:
-    - Machete
+  - Machete
 
 # Syndicate Captain Void
 - type: startingGear
@@ -687,12 +687,12 @@
     shoes: ClothingShoesBootsMagSyndie
     gloves: ClothingHandsGlovesColorBlackPython
     neck: ClothingNeckScarfStripedSyndieRed
-#    mask: ClothingMaskGasSyndicate
+    #    mask: ClothingMaskGasSyndicate
     outerClothing: ClothingOuterHardsuitSyndieEliteUnremoveable
     back: ClothingBackpackSyndicateCaptainLootB
     pocket2: DoubleEmergencyAirTankFilled
   inhand:
-    - PlasteelArmingSword
+  - PlasteelArmingSword
 
 # Syndicate Medic Void
 - type: startingGear
@@ -703,9 +703,9 @@
     shoes: ClothingShoesBootsMagSyndie
     belt: ClothingBeltMedicalFilled
     neck: ClothingNeckStethoscope
-#    mask: ClothingMaskGasSyndicate
+    #    mask: ClothingMaskGasSyndicate
     outerClothing: ClothingOuterHardsuitSyndieMedic
     back: ClothingBackpackSyndicateMedicLootA
     pocket2: DoubleEmergencyAirTankFilled
   inhand:
-    - SawAdvanced
+  - SawAdvanced

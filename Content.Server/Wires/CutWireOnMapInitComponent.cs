@@ -5,6 +5,4 @@ namespace Content.Server.Wires;
 /// Runs at MapInit and removes itself afterwards.
 /// </summary>
 [RegisterComponent]
-public sealed partial class CutWireOnMapInitComponent : Component
-{
-}
+public sealed partial class CutWireOnMapInitComponent : Component { }

@@ -10,7 +10,8 @@ namespace Content.Server.Antag;
 /// </summary>
 public sealed class AntagObjectivesSystem : EntitySystem
 {
-    [Dependency] private readonly SharedMindSystem _mind = default!;
+    [Dependency]
+    private readonly SharedMindSystem _mind = default!;
 
     public override void Initialize()
     {
@@ -23,7 +24,9 @@ public sealed class AntagObjectivesSystem : EntitySystem
     {
         if (!_mind.TryGetMind(args.Session, out var mindId, out var mind))
         {
-            Log.Error($"Antag {ToPrettyString(args.EntityUid):player} was selected by {ToPrettyString(ent):rule} but had no mind attached!");
+            Log.Error(
+                $"Antag {ToPrettyString(args.EntityUid):player} was selected by {ToPrettyString(ent):rule} but had no mind attached!"
+            );
             return;
         }
 

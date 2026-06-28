@@ -40,8 +40,13 @@ namespace Content.Server.Construction.Conditions
             var entity = args.Examined;
 
             var entityManager = IoCManager.Resolve<IEntityManager>();
-            if (!entityManager.TryGetComponent(entity, out ContainerManagerComponent? containerManager) ||
-                !entityManager.System<SharedContainerSystem>().TryGetContainer(entity, Container, out var container, containerManager)) return false;
+            if (
+                !entityManager.TryGetComponent(entity, out ContainerManagerComponent? containerManager)
+                || !entityManager
+                    .System<SharedContainerSystem>()
+                    .TryGetContainer(entity, Container, out var container, containerManager)
+            )
+                return false;
 
             if (container.ContainedEntities.Count == 0)
                 return false;
@@ -49,16 +54,13 @@ namespace Content.Server.Construction.Conditions
             args.PushMarkup(Loc.GetString(ExamineText));
             return true;
         }
+
         public IEnumerable<ConstructionGuideEntry> GenerateGuideEntry()
         {
             if (string.IsNullOrEmpty(GuideText))
                 yield break;
 
-            yield return new ConstructionGuideEntry()
-            {
-                Localization = GuideText,
-                Icon = GuideIcon,
-            };
+            yield return new ConstructionGuideEntry() { Localization = GuideText, Icon = GuideIcon };
         }
     }
 }

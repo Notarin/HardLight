@@ -6,7 +6,6 @@ using Content.Shared.FixedPoint;
 using Content.Shared.Interaction;
 using JetBrains.Annotations;
 
-
 namespace Content.Server._Starlight.Plumbing.EntitySystems;
 
 /// <summary>
@@ -15,8 +14,11 @@ namespace Content.Server._Starlight.Plumbing.EntitySystems;
 [UsedImplicitly]
 public sealed class PlumbingInputSystem : EntitySystem
 {
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionSystem = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
+    [Dependency]
+    private readonly SharedSolutionContainerSystem _solutionSystem = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
 
     public override void Initialize()
     {
@@ -30,10 +32,19 @@ public sealed class PlumbingInputSystem : EntitySystem
         if (args.Handled)
             return;
 
-        if (!_solutionSystem.TryGetDrainableSolution(args.Used, out var drainableSolutionEnt, out var drainableSolution))
+        if (
+            !_solutionSystem.TryGetDrainableSolution(args.Used, out var drainableSolutionEnt, out var drainableSolution)
+        )
             return;
 
-        if (!_solutionSystem.TryGetSolution(ent.Owner, ent.Comp.SolutionName, out var inputSolutionEnt, out var inputSolution))
+        if (
+            !_solutionSystem.TryGetSolution(
+                ent.Owner,
+                ent.Comp.SolutionName,
+                out var inputSolutionEnt,
+                out var inputSolution
+            )
+        )
             return;
 
         var transferAmount = drainableSolution.Volume;

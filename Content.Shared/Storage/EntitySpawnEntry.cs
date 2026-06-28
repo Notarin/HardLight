@@ -31,7 +31,8 @@ public partial struct EntitySpawnEntry
     /// <summary>
     ///     The probability that an item will spawn. Takes decimal form so 0.05 is 5%, 0.50 is 50% etc.
     /// </summary>
-    [DataField("prob")] public float SpawnProbability = 1;
+    [DataField("prob")]
+    public float SpawnProbability = 1;
 
     /// <summary>
     ///     orGroup signifies to pick between entities designated with an ID.
@@ -54,16 +55,19 @@ public partial struct EntitySpawnEntry
     /// </code>
     ///     </example>
     /// </summary>
-    [DataField("orGroup")] public string? GroupId = null;
+    [DataField("orGroup")]
+    public string? GroupId = null;
 
-    [DataField] public int Amount = 1;
+    [DataField]
+    public int Amount = 1;
 
     /// <summary>
     ///     How many of this can be spawned, in total.
     ///     If this is lesser or equal to <see cref="Amount"/>, it will spawn <see cref="Amount"/> exactly.
     ///     Otherwise, it chooses a random value between <see cref="Amount"/> and <see cref="MaxAmount"/> on spawn.
     /// </summary>
-    [DataField] public int MaxAmount = 1;
+    [DataField]
+    public int MaxAmount = 1;
 
     public EntitySpawnEntry() { }
 }
@@ -86,8 +90,7 @@ public static class EntitySpawnCollection
     /// <param name="entries">The entity spawn entries.</param>
     /// <param name="random">Resolve param.</param>
     /// <returns>A list of entity prototypes that should be spawned.</returns>
-    public static List<string> GetSpawns(IEnumerable<EntitySpawnEntry> entries,
-        IRobustRandom? random = null)
+    public static List<string> GetSpawns(IEnumerable<EntitySpawnEntry> entries, IRobustRandom? random = null)
     {
         IoCManager.Resolve(ref random);
 
@@ -104,7 +107,7 @@ public static class EntitySpawnCollection
             if (entry.PrototypeId == null)
                 continue;
 
-            var amount = (int) entry.GetAmount(random);
+            var amount = (int)entry.GetAmount(random);
 
             for (var i = 0; i < amount; i++)
             {
@@ -131,7 +134,7 @@ public static class EntitySpawnCollection
                     break;
 
                 // Dice roll succeeded, add item and break loop
-                var amount = (int) entry.GetAmount(random);
+                var amount = (int)entry.GetAmount(random);
 
                 for (var i = 0; i < amount; i++)
                 {
@@ -145,8 +148,7 @@ public static class EntitySpawnCollection
         return spawned;
     }
 
-    public static List<string?> GetSpawns(IEnumerable<EntitySpawnEntry> entries,
-        System.Random random)
+    public static List<string?> GetSpawns(IEnumerable<EntitySpawnEntry> entries, System.Random random)
     {
         var spawned = new List<string?>();
         var ungrouped = CollectOrGroups(entries, out var orGroupedSpawns);
@@ -158,7 +160,7 @@ public static class EntitySpawnCollection
             if (entry.SpawnProbability != 1f && !random.Prob(entry.SpawnProbability))
                 continue;
 
-            var amount = (int) entry.GetAmount(random);
+            var amount = (int)entry.GetAmount(random);
 
             for (var i = 0; i < amount; i++)
             {
@@ -182,7 +184,7 @@ public static class EntitySpawnCollection
                     continue;
 
                 // Dice roll succeeded, add item and break loop
-                var amount = (int) entry.GetAmount(random);
+                var amount = (int)entry.GetAmount(random);
 
                 for (var i = 0; i < amount; i++)
                 {
@@ -216,7 +218,10 @@ public static class EntitySpawnCollection
     /// <param name="entries">A list of entries that will be collected into OrGroups.</param>
     /// <param name="orGroups">A list of entries collected into OrGroups.</param>
     /// <returns>A list of entries that are not in an OrGroup.</returns>
-    public static List<EntitySpawnEntry> CollectOrGroups(IEnumerable<EntitySpawnEntry> entries, out List<OrGroup> orGroups)
+    public static List<EntitySpawnEntry> CollectOrGroups(
+        IEnumerable<EntitySpawnEntry> entries,
+        out List<OrGroup> orGroups
+    )
     {
         var ungrouped = new List<EntitySpawnEntry>();
         var orGroupsDict = new Dictionary<string, OrGroup>();

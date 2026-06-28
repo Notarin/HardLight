@@ -4,7 +4,8 @@ namespace Content.Client.Physics;
 
 public sealed class JointVisualsSystem : EntitySystem
 {
-    [Dependency] private readonly IOverlayManager _overlay = default!;
+    [Dependency]
+    private readonly IOverlayManager _overlay = default!;
 
     public override void Initialize()
     {

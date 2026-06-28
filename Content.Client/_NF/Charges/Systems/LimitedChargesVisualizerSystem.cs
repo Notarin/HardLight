@@ -2,15 +2,17 @@ using Content.Client._NF.Charges.Components;
 using Content.Shared.Charges.Systems;
 using Content.Shared.Rounding;
 using Robust.Client.GameObjects;
-using Robust.Shared.Graphics.RSI;
 using Robust.Client.Graphics;
+using Robust.Shared.Graphics.RSI;
 
 namespace Content.Client._NF.Charges.Systems;
 
 // Limited charge visualizer - essentially a copy of the magazine visuals.
 public sealed partial class LimitedChargesVisualizerSystem : EntitySystem
 {
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
+
     public override void Initialize()
     {
         base.Initialize();
@@ -21,20 +23,30 @@ public sealed partial class LimitedChargesVisualizerSystem : EntitySystem
 
     private void OnChargeVisualsInit(EntityUid uid, LimitedChargesVisualsComponent component, ComponentInit args)
     {
-        if (!TryComp<SpriteComponent>(uid, out var sprite)) return;
+        if (!TryComp<SpriteComponent>(uid, out var sprite))
+            return;
 
         if (_sprite.LayerMapTryGet((uid, sprite), LimitedChargesVisualLayers.Charges, out var chargeLayer, false))
         {
-            _sprite.LayerSetRsiState((uid, sprite), chargeLayer, new RSI.StateId($"{component.ChargePrefix}-{component.ChargeSteps - 1}"));
+            _sprite.LayerSetRsiState(
+                (uid, sprite),
+                chargeLayer,
+                new RSI.StateId($"{component.ChargePrefix}-{component.ChargeSteps - 1}")
+            );
             _sprite.LayerSetVisible((uid, sprite), chargeLayer, false);
         }
     }
 
-    private void OnMagazineVisualsChange(EntityUid uid, LimitedChargesVisualsComponent component, ref AppearanceChangeEvent args)
+    private void OnMagazineVisualsChange(
+        EntityUid uid,
+        LimitedChargesVisualsComponent component,
+        ref AppearanceChangeEvent args
+    )
     {
         var sprite = args.Sprite;
 
-        if (sprite == null) return;
+        if (sprite == null)
+            return;
 
         if (!args.AppearanceData.TryGetValue(LimitedChargeVisuals.MaxCharges, out var capacity))
             capacity = component.ChargeSteps;

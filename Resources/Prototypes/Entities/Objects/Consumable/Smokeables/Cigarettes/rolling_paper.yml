@@ -13,8 +13,8 @@
       - CigFilter
   - type: StorageFill
     contents:
-      - id: PaperRolling
-        amount: 4
+    - id: PaperRolling
+      amount: 4
   - type: Sprite
     sprite: Objects/Consumable/Smokeables/Cigarettes/paper.rsi
     state: cigpapers
@@ -34,10 +34,10 @@
       - CigFilter
   - type: StorageFill
     contents:
-      - id: PaperRolling
-        amount: 2
-      - id: CigaretteFilter
-        amount: 2
+    - id: PaperRolling
+      amount: 2
+    - id: CigaretteFilter
+      amount: 2
 
 - type: entity
   id: PaperRolling
@@ -66,8 +66,8 @@
   suffix: Single
   parent: PaperRolling
   components:
-    - type: Stack
-      count: 1
+  - type: Stack
+    count: 1
 
 - type: entity
   id: CigaretteFilter
@@ -95,5 +95,5 @@
   suffix: Single
   parent: CigaretteFilter
   components:
-    - type: Stack
-      count: 1
+  - type: Stack
+    count: 1

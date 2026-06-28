@@ -36,7 +36,9 @@ namespace Content.Client.Administration.UI.Tabs.AtmosTab
             {
                 var player = playerManager.LocalEntity;
                 var playerGrid = entManager.GetComponentOrNull<TransformComponent>(player)?.GridUid;
-                GridOptions.AddItem($"{uid} {(playerGrid == uid ? Loc.GetString($"admin-ui-atmos-grid-current") : "")}");
+                GridOptions.AddItem(
+                    $"{uid} {(playerGrid == uid ? Loc.GetString($"admin-ui-atmos-grid-current") : "")}"
+                );
                 _gridData.Add(entManager.GetNetEntity(uid));
             }
 
@@ -66,8 +68,7 @@ namespace Content.Client.Administration.UI.Tabs.AtmosTab
             var gasList = _gasData.ToList();
             var gasId = gasList[GasOptions.SelectedId].ID;
 
-            IoCManager.Resolve<IClientConsoleHost>().ExecuteCommand(
-                $"fillgas {gridIndex} {gasId} {AmountSpin.Value}");
+            IoCManager.Resolve<IClientConsoleHost>().ExecuteCommand($"fillgas {gridIndex} {gasId} {AmountSpin.Value}");
         }
     }
 }

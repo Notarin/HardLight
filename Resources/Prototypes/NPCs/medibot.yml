@@ -1,45 +1,45 @@
 - type: htnCompound
   id: MedibotCompound
   branches:
-    - tasks:
-        - !type:HTNCompoundTask
-          task: InjectNearbyCompound
-    - tasks:
-        - !type:HTNCompoundTask
-          task: IdleCompound
+  - tasks:
+    - !type:HTNCompoundTask
+      task: InjectNearbyCompound
+  - tasks:
+    - !type:HTNCompoundTask
+      task: IdleCompound
 
 - type: htnCompound
   id: InjectNearbyCompound
   branches:
-    - tasks:
-        # TODO: Kill this shit
-        - !type:HTNPrimitiveTask
-          operator: !type:PickNearbyInjectableOperator
-            targetKey: InjectTarget
-            targetMoveKey: TargetCoordinates
+  - tasks:
+    - !type:HTNPrimitiveTask
+      # TODO: Kill this shit
+      operator: !type:PickNearbyInjectableOperator
+        targetKey: InjectTarget
+        targetMoveKey: TargetCoordinates
 
-        - !type:HTNPrimitiveTask
-          operator: !type:SpeakOperator
-            speech: medibot-start-inject
-            hidden: true
+    - !type:HTNPrimitiveTask
+      operator: !type:SpeakOperator
+        speech: medibot-start-inject
+        hidden: true
 
-        - !type:HTNPrimitiveTask
-          operator: !type:MoveToOperator
-            pathfindInPlanning: false
+    - !type:HTNPrimitiveTask
+      operator: !type:MoveToOperator
+        pathfindInPlanning: false
 
-        - !type:HTNPrimitiveTask
-          operator: !type:SetFloatOperator
-            targetKey: IdleTime
-            amount: 3
+    - !type:HTNPrimitiveTask
+      operator: !type:SetFloatOperator
+        targetKey: IdleTime
+        amount: 3
 
-        - !type:HTNPrimitiveTask
-          operator: !type:WaitOperator
-            key: IdleTime
-          preconditions:
-            - !type:KeyExistsPrecondition
-              key: IdleTime
+    - !type:HTNPrimitiveTask
+      operator: !type:WaitOperator
+        key: IdleTime
+      preconditions:
+      - !type:KeyExistsPrecondition
+        key: IdleTime
 
-        # TODO: Kill this
-        - !type:HTNPrimitiveTask
-          operator: !type:MedibotInjectOperator
-            targetKey: InjectTarget
+    - !type:HTNPrimitiveTask
+      # TODO: Kill this
+      operator: !type:MedibotInjectOperator
+        targetKey: InjectTarget

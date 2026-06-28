@@ -12,7 +12,7 @@
   - type: Clickable
   - type: Tag
     tags:
-      - Structure
+    - Structure
   - type: Sprite
     drawdepth: WallMountedItems
     sprite: Structures/Storage/Shelfs/wood.rsi
@@ -23,8 +23,7 @@
     damageContainer: StructuralInorganic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 60
       behaviors:
       - !type:PlaySoundBehavior
@@ -40,8 +39,8 @@
     maxItemSize: Normal
   - type: UserInterface
     interfaces:
-     enum.StorageUiKey.Key:
-      type: StorageBoundUserInterface
+      enum.StorageUiKey.Key:
+        type: StorageBoundUserInterface
   - type: InteractionOutline
   - type: ContainerContainer
     containers:
@@ -86,8 +85,7 @@
   components:
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 60
       behaviors:
       - !type:PlaySoundBehavior
@@ -122,8 +120,7 @@
     damageContainer: StructuralInorganic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 120
       behaviors:
       - !type:PlaySoundBehavior
@@ -157,8 +154,7 @@
     damageContainer: StructuralInorganic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 50
       behaviors:
       - !type:PlaySoundBehavior
@@ -198,8 +194,7 @@
       shader: unshaded
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 215
       behaviors:
       - !type:PlaySoundBehavior
@@ -226,8 +221,7 @@
     sprite: Structures/Storage/Shelfs/metal.rsi
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 450
       behaviors:
       - !type:PlaySoundBehavior
@@ -260,8 +254,7 @@
     sprite: Structures/Storage/Shelfs/glass.rsi
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 250
       behaviors:
       - !type:PlaySoundBehavior
@@ -295,17 +288,16 @@
     sprite: Structures/Storage/Shelfs/Departments/Service/bar.rsi
     state: base
     layers:
-      - state: base
-      - state: bar-0
-      - map: ["enum.StorageFillLayers.Fill"]
+    - state: base
+    - state: bar-0
+    - map: ["enum.StorageFillLayers.Fill"]
   - type: Appearance
   - type: StorageFillVisualizer
     maxFillLevels: 13
     fillBaseName: bar
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:PlaySoundBehavior
@@ -348,17 +340,16 @@
     sprite: Structures/Storage/Shelfs/Departments/Service/kitchen.rsi
     state: base
     layers:
-      - state: base
-      - state: kitchen-0
-      - map: ["enum.StorageFillLayers.Fill"]
+    - state: base
+    - state: kitchen-0
+    - map: ["enum.StorageFillLayers.Fill"]
   - type: Appearance
   - type: StorageFillVisualizer
     maxFillLevels: 13
     fillBaseName: kitchen
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 150
       behaviors:
       - !type:PlaySoundBehavior
@@ -440,8 +431,7 @@
     fillBaseName: chem
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 330
       behaviors:
       - !type:PlaySoundBehavior
@@ -480,8 +470,6 @@
   - type: Construction
     graph: Shelf
     node: ShelfChemistry
-
-
 
 # Access presets
 # Try to keep alphabetical sorting if adding more

@@ -6,7 +6,8 @@ namespace Content.Client.Graphics;
 /// A cache for <see cref="Overlay"/>s to store per-viewport render resources, such as render targets.
 /// </summary>
 /// <typeparam name="T">The type of data stored in the cache.</typeparam>
-public sealed class OverlayResourceCache<T> : IDisposable where T : class, IDisposable
+public sealed class OverlayResourceCache<T> : IDisposable
+    where T : class, IDisposable
 {
     private readonly Dictionary<long, CacheEntry> _cache = new();
 
@@ -42,11 +43,7 @@ public sealed class OverlayResourceCache<T> : IDisposable where T : class, IDisp
 
         wasCached = false;
 
-        entry = new CacheEntry
-        {
-            Data = factory(viewport),
-            Viewport = new WeakReference<IClydeViewport>(viewport),
-        };
+        entry = new CacheEntry { Data = factory(viewport), Viewport = new WeakReference<IClydeViewport>(viewport) };
         _cache.Add(viewport.Id, entry);
 
         viewport.ClearCachedResources += ViewportOnClearCachedResources;

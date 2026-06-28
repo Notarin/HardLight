@@ -1,4 +1,5 @@
 using System.Linq;
+using Content.Server._NF.CryoSleep; // Frontier
 using Content.Server.GameTicking;
 using Content.Server.Ghost;
 using Content.Server.Mind;
@@ -9,15 +10,17 @@ using Robust.Server.GameObjects;
 using Robust.Server.Player;
 using Robust.Shared.Console;
 using Robust.Shared.Player;
-using Content.Server._NF.CryoSleep; // Frontier
 
 namespace Content.Server.Administration.Commands;
 
 [AdminCommand(AdminFlags.Admin)]
 public sealed class AGhostCommand : LocalizedCommands
 {
-    [Dependency] private readonly IEntityManager _entities = default!;
-    [Dependency] private readonly ISharedPlayerManager _playerManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entities = default!;
+
+    [Dependency]
+    private readonly ISharedPlayerManager _playerManager = default!;
 
     public override string Command => "aghost";
     public override string Help => "aghost";
@@ -27,7 +30,10 @@ public sealed class AGhostCommand : LocalizedCommands
         if (args.Length == 1)
         {
             var names = _playerManager.Sessions.OrderBy(c => c.Name).Select(c => c.Name).ToArray();
-            return CompletionResult.FromHintOptions(names, LocalizationManager.GetString("shell-argument-username-optional-hint"));
+            return CompletionResult.FromHintOptions(
+                names,
+                LocalizationManager.GetString("shell-argument-username-optional-hint")
+            );
         }
 
         return CompletionResult.Empty;
@@ -80,13 +86,18 @@ public sealed class AGhostCommand : LocalizedCommands
 
         if (!mindSystem.TryGetMind(player, out var mindId, out var mind))
         {
-            shell.WriteError(self
-                ? LocalizationManager.GetString("aghost-no-mind-self")
-                : LocalizationManager.GetString("aghost-no-mind-other"));
+            shell.WriteError(
+                self
+                    ? LocalizationManager.GetString("aghost-no-mind-self")
+                    : LocalizationManager.GetString("aghost-no-mind-other")
+            );
             return;
         }
 
-        if (mind.VisitingEntity != default && _entities.TryGetComponent<GhostComponent>(mind.VisitingEntity, out var oldGhostComponent))
+        if (
+            mind.VisitingEntity != default
+            && _entities.TryGetComponent<GhostComponent>(mind.VisitingEntity, out var oldGhostComponent)
+        )
         {
             mindSystem.UnVisit(mindId, mind);
             // If already an admin ghost, then return to body.
@@ -94,11 +105,11 @@ public sealed class AGhostCommand : LocalizedCommands
                 return;
         }
 
-        var canReturn = mind.CurrentEntity != null
-                        && !_entities.HasComponent<GhostComponent>(mind.CurrentEntity);
-        var coordinates = player!.AttachedEntity != null
-            ? _entities.GetComponent<TransformComponent>(player.AttachedEntity.Value).Coordinates
-            : gameTicker.GetObserverSpawnPoint();
+        var canReturn = mind.CurrentEntity != null && !_entities.HasComponent<GhostComponent>(mind.CurrentEntity);
+        var coordinates =
+            player!.AttachedEntity != null
+                ? _entities.GetComponent<TransformComponent>(player.AttachedEntity.Value).Coordinates
+                : gameTicker.GetObserverSpawnPoint();
         var ghost = _entities.SpawnEntity(GameTicker.AdminObserverPrototypeName, coordinates);
         transformSystem.AttachToGridOrMap(ghost, _entities.GetComponent<TransformComponent>(ghost));
 

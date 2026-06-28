@@ -34,7 +34,18 @@ public static class BanPanelEuiStateMsg
         public bool UseLastHwid { get; set; }
         public bool Erase { get; set; }
 
-        public CreateBanRequest(string? player, (IPAddress, int)? ipAddress, bool useLastIp, ImmutableTypedHwid? hwid, bool useLastHwid, uint minutes, string reason, NoteSeverity severity, string[]? roles, bool erase)
+        public CreateBanRequest(
+            string? player,
+            (IPAddress, int)? ipAddress,
+            bool useLastIp,
+            ImmutableTypedHwid? hwid,
+            bool useLastHwid,
+            uint minutes,
+            string reason,
+            NoteSeverity severity,
+            string[]? roles,
+            bool erase
+        )
         {
             Player = player;
             IpAddress = ipAddress == null ? null : $"{ipAddress.Value.Item1}/{ipAddress.Value.Item2}";

@@ -12,9 +12,14 @@ namespace Content.Client.Eui
 {
     public sealed class EuiManager
     {
-        [Dependency] private readonly IClientNetManager _net = default!;
-        [Dependency] private readonly IReflectionManager _refl = default!;
-        [Dependency] private readonly IDynamicTypeFactory _dtf = default!;
+        [Dependency]
+        private readonly IClientNetManager _net = default!;
+
+        [Dependency]
+        private readonly IReflectionManager _refl = default!;
+
+        [Dependency]
+        private readonly IDynamicTypeFactory _dtf = default!;
 
         private readonly Dictionary<uint, EuiData> _openUis = new();
 

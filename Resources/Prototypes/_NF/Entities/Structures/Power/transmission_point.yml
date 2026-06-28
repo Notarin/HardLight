@@ -1,6 +1,6 @@
 - type: entity
   id: PowerTransmissionPoint
-  parent: [ BaseStructureDisableToolUse, BaseStructureIndestructible, BaseMachine ]
+  parent: [BaseStructureDisableToolUse, BaseStructureIndestructible, BaseMachine]
   name: power transmission point
   description: A gargantuan machine for offsite power transmission using quantum entanglement.
   placement:
@@ -11,8 +11,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-1.45,-1.45,1.45,1.45"
         density: 500
         mask:
@@ -32,32 +31,32 @@
     noRot: true
     drawdepth: Mobs
     layers:
-      - state: base
-      - sprite: _NF/Structures/Power/TransmissionPoint/96x32.rsi
-        state: base-unlit
-        shader: unshaded
-        map: ["unlit"]
-        visible: false
-        offset: 0, 2
-      - sprite: _NF/Structures/Power/TransmissionPoint/96x32.rsi
-        state: base-foreground
-        offset: 0, 2
-      - sprite: _NF/Structures/Power/TransmissionPoint/32x32.rsi
-        state: panel-unlit
-        map: ["panel"]
-        visible: false
-        offset: 0, -2
+    - state: base
+    - sprite: _NF/Structures/Power/TransmissionPoint/96x32.rsi
+      state: base-unlit
+      shader: unshaded
+      map: ["unlit"]
+      visible: false
+      offset: 0, 2
+    - sprite: _NF/Structures/Power/TransmissionPoint/96x32.rsi
+      state: base-foreground
+      offset: 0, 2
+    - sprite: _NF/Structures/Power/TransmissionPoint/32x32.rsi
+      state: panel-unlit
+      map: ["panel"]
+      visible: false
+      offset: 0, -2
   - type: SpriteFade
   - type: Appearance
   - type: GenericVisualizer
     visuals:
       enum.PowerDeviceVisuals.Powered:
         unlit:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
         panel:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
   - type: PowerTransmission
     account: Engineering
   - type: PowerConsumer
@@ -66,8 +65,7 @@
   - type: NodeContainer
     examinable: true
     nodes:
-      input:
-        !type:CableDeviceNode
+      input: !type:CableDeviceNode
         nodeGroupID: HVPower
         enabled: false
   - type: PowerMonitoringDevice

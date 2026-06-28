@@ -9,42 +9,42 @@
   category: SpeechTraits
   cost: 1
   components:
-    - type: StreetpunkAccent
-
-# 2 Cost
+  - type: StreetpunkAccent
 
 - type: trait
+  # 2 Cost
+
   id: GoblinAccent
   name: trait-goblin-accent-name
   description: trait-goblin-accent-desc
   category: SpeechTraits
   cost: 2
   components:
-    - type: GoblinAccent
-
-# 2 Cost
+  - type: GoblinAccent
 
 - type: trait
+  # 2 Cost
+
   id: LizardAccent
   name: trait-lizard-accent-name
   description: trait-lizard-accent-desc
   category: SpeechTraits
   cost: 2
   components:
-    - type: LizardAccent
-
-# 2 Cost
+  - type: LizardAccent
 
 - type: trait
+  # 2 Cost
+
   id: MothAccent
   name: trait-moth-accent-name
   description: trait-moth-accent-desc
   category: SpeechTraits
   cost: 2
   components:
-    - type: MothAccent
-    - type: ZombieAccentOverride
-      accent: zombieMoth
+  - type: MothAccent
+  - type: ZombieAccentOverride
+    accent: zombieMoth
 
 # 1 Cost
 
@@ -55,5 +55,5 @@
   category: SpeechTraits
   cost: 1
   components:
-    - type: ReplacementAccent
-      accent: dwarf
+  - type: ReplacementAccent
+    accent: dwarf

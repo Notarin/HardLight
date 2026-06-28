@@ -24,5 +24,3 @@ public sealed partial class LethargyComponent : Component
     [DataField]
     public float CooldownIncrease = 1.25f;
 }
-
-

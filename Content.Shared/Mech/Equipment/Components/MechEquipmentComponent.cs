@@ -13,12 +13,14 @@ public sealed partial class MechEquipmentComponent : Component
     /// <summary>
     /// How long does it take to install this piece of equipment
     /// </summary>
-    [DataField("installDuration")] public float InstallDuration = 5;
+    [DataField("installDuration")]
+    public float InstallDuration = 5;
 
     /// <summary>
     /// The mech that the equipment is inside of.
     /// </summary>
-    [ViewVariables] public EntityUid? EquipmentOwner;
+    [ViewVariables]
+    public EntityUid? EquipmentOwner;
 }
 
 /// <summary>
@@ -37,17 +39,10 @@ public sealed class MechEquipmentInstallFinished : EntityEventArgs
 /// <summary>
 /// Raised on the equipment when the installation fails.
 /// </summary>
-public sealed class MechEquipmentInstallCancelled : EntityEventArgs
-{
-}
+public sealed class MechEquipmentInstallCancelled : EntityEventArgs { }
 
 [Serializable, NetSerializable]
-public sealed partial class GrabberDoAfterEvent : SimpleDoAfterEvent
-{
-}
+public sealed partial class GrabberDoAfterEvent : SimpleDoAfterEvent { }
 
 [Serializable, NetSerializable]
-public sealed partial class InsertEquipmentEvent : SimpleDoAfterEvent
-{
-}
-
+public sealed partial class InsertEquipmentEvent : SimpleDoAfterEvent { }

@@ -7,11 +7,16 @@ namespace Content.Client.Commands;
 
 public sealed class HideMechanismsCommand : LocalizedCommands
 {
-    [Dependency] private readonly IEntityManager _entityManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entityManager = default!;
 
     public override string Command => "hidemechanisms";
 
-    public override string Description => LocalizationManager.GetString($"cmd-{Command}-desc", ("showMechanismsCommand", ShowMechanismsCommand.CommandName));
+    public override string Description =>
+        LocalizationManager.GetString(
+            $"cmd-{Command}-desc",
+            ("showMechanismsCommand", ShowMechanismsCommand.CommandName)
+        );
 
     public override string Help => LocalizationManager.GetString($"cmd-{Command}-help", ("command", Command));
 

@@ -30,7 +30,7 @@ public sealed partial class CryoPodComponent : Component
     public float BeakerTransferTime = 1f;
 
     [ViewVariables(VVAccess.ReadWrite)]
-    [DataField("nextInjectionTime", customTypeSerializer:typeof(TimeOffsetSerializer))]
+    [DataField("nextInjectionTime", customTypeSerializer: typeof(TimeOffsetSerializer))]
     public TimeSpan? NextInjectionTime;
 
     /// <summary>
@@ -47,6 +47,7 @@ public sealed partial class CryoPodComponent : Component
     [ViewVariables(VVAccess.ReadWrite)]
     [DataField("PotencyAmount")]
     public float PotencyMultiplier = 2f;
+
     // End Frontier
 
     /// <summary>
@@ -87,6 +88,6 @@ public sealed partial class CryoPodComponent : Component
     public enum CryoPodVisuals : byte
     {
         ContainsEntity,
-        IsOn
+        IsOn,
     }
 }

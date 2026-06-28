@@ -15,7 +15,8 @@ namespace Content.IntegrationTests.Tests.GameObjects.Components.ActionBlocking
     public sealed class HandCuffTest
     {
         [TestPrototypes]
-        private const string Prototypes = @"
+        private const string Prototypes =
+            @"
 - type: entity
   name: HumanHandcuffDummy
   id: HumanHandcuffDummy
@@ -71,16 +72,35 @@ namespace Content.IntegrationTests.Tests.GameObjects.Components.ActionBlocking
                 // Test for components existing
                 Assert.Multiple(() =>
                 {
-                    Assert.That(entityManager.TryGetComponent(human, out cuffed!), $"Human has no {nameof(CuffableComponent)}");
-                    Assert.That(entityManager.TryGetComponent(human, out hands!), $"Human has no {nameof(HandsComponent)}");
-                    Assert.That(entityManager.TryGetComponent(human, out BodyComponent? _), $"Human has no {nameof(BodyComponent)}");
-                    Assert.That(entityManager.TryGetComponent(cuffs, out HandcuffComponent? _), $"Handcuff has no {nameof(HandcuffComponent)}");
-                    Assert.That(entityManager.TryGetComponent(secondCuffs, out HandcuffComponent? _), $"Second handcuffs has no {nameof(HandcuffComponent)}");
+                    Assert.That(
+                        entityManager.TryGetComponent(human, out cuffed!),
+                        $"Human has no {nameof(CuffableComponent)}"
+                    );
+                    Assert.That(
+                        entityManager.TryGetComponent(human, out hands!),
+                        $"Human has no {nameof(HandsComponent)}"
+                    );
+                    Assert.That(
+                        entityManager.TryGetComponent(human, out BodyComponent? _),
+                        $"Human has no {nameof(BodyComponent)}"
+                    );
+                    Assert.That(
+                        entityManager.TryGetComponent(cuffs, out HandcuffComponent? _),
+                        $"Handcuff has no {nameof(HandcuffComponent)}"
+                    );
+                    Assert.That(
+                        entityManager.TryGetComponent(secondCuffs, out HandcuffComponent? _),
+                        $"Second handcuffs has no {nameof(HandcuffComponent)}"
+                    );
                 });
 
                 // Test to ensure cuffed players register the handcuffs
                 cuffableSys.TryAddNewCuffs(human, human, cuffs, cuffed);
-                Assert.That(cuffed.CuffedHandCount, Is.GreaterThan(0), "Handcuffing a player did not result in their hands being cuffed");
+                Assert.That(
+                    cuffed.CuffedHandCount,
+                    Is.GreaterThan(0),
+                    "Handcuffing a player did not result in their hands being cuffed"
+                );
 
                 // Test to ensure a player with 4 hands will still only have 2 hands cuffed
                 AddHand(entityManager.GetNetEntity(human), host);
@@ -94,7 +114,11 @@ namespace Content.IntegrationTests.Tests.GameObjects.Components.ActionBlocking
 
                 // Test to give a player with 4 hands 2 sets of cuffs
                 cuffableSys.TryAddNewCuffs(human, human, secondCuffs, cuffed);
-                Assert.That(cuffed.CuffedHandCount, Is.EqualTo(4), "Player doesn't have correct amount of hands cuffed");
+                Assert.That(
+                    cuffed.CuffedHandCount,
+                    Is.EqualTo(4),
+                    "Player doesn't have correct amount of hands cuffed"
+                );
             });
 
             await pair.CleanReturnAsync();

@@ -10,6 +10,7 @@ Glad I do not have to write this myself! Get detailed help information by runnin
 `python3 .github/mapchecker/mapchecker.py --help`
 
 The following help block is printed:
+
 ```
 usage: mapchecker.py [-h] [-v] [-p PROTOTYPES_PATH [PROTOTYPES_PATH ...]] [-m MAP_PATH [MAP_PATH ...]] [-w WHITELIST]
 
@@ -28,6 +29,7 @@ options:
 
 You should generally not need to configure `-p`, `-m` or `-w`, as they are autofilled with sensible defaults. You can do
 this:
+
 - Set `-p` to only check against prototypes in a specific directory.
 - Set `-m` to just check a specific map. (Make sure to **point it at the prototype**, not the map file itself!)
 - Set `-v` with `-m` set as per above to get detailed information about a possible rejection for just that map.
@@ -38,12 +40,14 @@ Matchers are set in `config.py`. Currently it has a global list of matchers that
 of conditional matchers.
 
 For each map, a set of applicable matchers is constructed according to this workflow:
+
 1. Add all global illegal matchers.
-2. Add all conditional matchers for non-matching shipyard groups
-3. Remove all conditional matchers from the matching shipyard group (if it exists), to support duplicates across
+1. Add all conditional matchers for non-matching shipyard groups
+1. Remove all conditional matchers from the matching shipyard group (if it exists), to support duplicates across
    shipyard groups
 
 A match will attempt to match the following during prototype collection:
+
 - Prototype ID (contains matcher, case insensitive)
 - Prototype name (contains matcher, case insensitive)
 - Prototype suffixes (separated per `, `) (exact, case insensitive)

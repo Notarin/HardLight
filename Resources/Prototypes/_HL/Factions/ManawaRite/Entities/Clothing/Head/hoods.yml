@@ -1,7 +1,7 @@
 - type: entity
   parent: ClothingHeadBase
   id: ClothingHeadHatHoodManawaRite
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   name: Manawa Rite hood
   description: A hood worn by members of the Manawa Rite.
   components:

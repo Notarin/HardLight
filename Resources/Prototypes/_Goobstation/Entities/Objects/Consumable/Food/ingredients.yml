@@ -31,7 +31,6 @@
     count: 4
     slice: FoodFreedomCheeseSlice
 
-
 - type: entity
   name: freedom cheese slice
   parent: FoodBakingBase

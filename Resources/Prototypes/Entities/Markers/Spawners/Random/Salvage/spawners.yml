@@ -2,8 +2,8 @@
   id: SalvageScrapSpawnerCommon
   table: !type:GroupSelector
     children:
-    # 70% chance of scrap of some kind
     - !type:GroupSelector
+      # 70% chance of scrap of some kind
       weight: 70
       children:
       - !type:NestedSelector
@@ -15,16 +15,16 @@
       - !type:NestedSelector
         tableId: SalvageScrapLarge
         weight: 10
-    # 10% chance of some trash
     - !type:NestedSelector
+      # 10% chance of some trash
       tableId: GenericTrashItems
       weight: 10
-    # 15% chance of low-value equipment
     - !type:NestedSelector
+      # 15% chance of low-value equipment
       tableId: SalvageEquipmentCommon
       weight: 15
-    # 5% chance of low-value treasure or maintenance tools
     - !type:GroupSelector
+      # 5% chance of low-value treasure or maintenance tools
       weight: 5
       children:
       - !type:NestedSelector
@@ -64,8 +64,8 @@
   id: SalvageScrapSpawnerValuable
   table: !type:GroupSelector
     children:
-    # 75% chance of scrap of some kind
     - !type:GroupSelector
+      # 75% chance of scrap of some kind
       weight: 75
       children:
       - !type:NestedSelector
@@ -77,12 +77,12 @@
       - !type:NestedSelector
         tableId: SalvageScrapLarge
         weight: 40
-    # 15% chance of low-value equipment
     - !type:NestedSelector
+      # 15% chance of low-value equipment
       tableId: SalvageEquipmentCommon
       weight: 15
-    # 10% chance of low-value treasure or maintenance tools
     - !type:GroupSelector
+      # 10% chance of low-value treasure or maintenance tools
       weight: 10
       children:
       - !type:NestedSelector
@@ -125,8 +125,8 @@
   id: SalvageTreasureSpawnerCommon
   table: !type:GroupSelector
     children:
-    # 80% chance of some treasure
     - !type:GroupSelector
+      # 80% chance of some treasure
       weight: 80
       children:
       - !type:NestedSelector
@@ -141,8 +141,8 @@
       - !type:NestedSelector
         tableId: SalvageTreasureLegendary
         weight: 1
-    # 10% chance of low-level equipment
     - !type:GroupSelector
+      # 10% chance of low-level equipment
       weight: 10
       children:
       - !type:NestedSelector
@@ -151,8 +151,8 @@
       - !type:NestedSelector
         tableId: SalvageEquipmentUncommon
         weight: 40
-    # 5% chance of moderate scrap
     - !type:GroupSelector
+      # 5% chance of moderate scrap
       weight: 5
       children:
       - !type:NestedSelector
@@ -164,8 +164,8 @@
       - !type:NestedSelector
         tableId: SalvageScrapLarge
         weight: 10
-    # 5% chance of maintenance fluff
     - !type:NestedSelector
+      # 5% chance of maintenance fluff
       tableId: MaintFluffTable
       weight: 5
 
@@ -190,8 +190,8 @@
   id: SalvageTreasureSpawnerValuable
   table: !type:GroupSelector
     children:
-    # 80% chance of some treasure
     - !type:GroupSelector
+      # 80% chance of some treasure
       weight: 80
       children:
       - !type:NestedSelector
@@ -203,14 +203,14 @@
       - !type:NestedSelector
         tableId: SalvageTreasureRare
         weight: 7.5 # Frontier: 15<7.5
-      - !type:NestedSelector # Frontier
+      - !type:NestedSelector
         tableId: TableStashVariety # Frontier
         weight: 7.5 # Frontier
       - !type:NestedSelector
-        tableId: SalvageTreasureLegendary
+        tableId: SalvageTreasureLegendary # Frontier
         weight: 5
-    # 10% chance of low-level equipment
     - !type:GroupSelector
+      # 10% chance of low-level equipment
       weight: 10
       children:
       - !type:NestedSelector
@@ -222,8 +222,8 @@
       - !type:NestedSelector
         tableId: SalvageEquipmentUncommon
         weight: 10
-    # 5% chance of moderate scrap
     - !type:GroupSelector
+      # 5% chance of moderate scrap
       weight: 5
       children:
       - !type:NestedSelector
@@ -235,8 +235,8 @@
       - !type:NestedSelector
         tableId: SalvageScrapLarge
         weight: 25
-    # 5% chance of maintenance fluff
     - !type:NestedSelector
+      # 5% chance of maintenance fluff
       tableId: MaintFluffTable
       weight: 5
       rolls: !type:RangeNumberSelector
@@ -263,8 +263,8 @@
   id: SalvageEquipmentSpawnerCommon
   table: !type:GroupSelector
     children:
-    # 90% chance of equipment item
     - !type:GroupSelector
+      # 90% chance of equipment item
       weight: 90
       children:
       - !type:NestedSelector
@@ -279,8 +279,8 @@
       - !type:NestedSelector
         tableId: SalvageEquipmentLegendary
         weight: 1
-    # 5% chance of decent-ish treasure
     - !type:GroupSelector
+      # 5% chance of decent-ish treasure
       weight: 5
       children:
       - !type:NestedSelector
@@ -292,8 +292,8 @@
       - !type:NestedSelector
         tableId: SalvageTreasureRare
         weight: 5
-    # 5% chance of decent maintenance loot
     - !type:GroupSelector
+      # 5% chance of decent maintenance loot
       weight: 5
       children:
       - !type:NestedSelector
@@ -322,8 +322,8 @@
   id: SalvageEquipmentSpawnerValuable
   table: !type:GroupSelector
     children:
-    # 90% chance of equipment item
     - !type:GroupSelector
+      # 90% chance of equipment item
       weight: 90
       children:
       - !type:NestedSelector
@@ -338,8 +338,8 @@
       - !type:NestedSelector
         tableId: SalvageEquipmentLegendary
         weight: 10
-    # 5% chance of decent-ish treasure
     - !type:GroupSelector
+      # 5% chance of decent-ish treasure
       weight: 5
       children:
       - !type:NestedSelector
@@ -351,15 +351,15 @@
       - !type:NestedSelector
         tableId: SalvageTreasureRare
         weight: 10
-    # 4% chance of decent maintenance loot
     - !type:GroupSelector
+      # 4% chance of decent maintenance loot
       weight: 4
       children:
       - !type:NestedSelector
         tableId: MaintToolsTable
       - !type:NestedSelector
         tableId: MaintFluffTable
-    # 1% chance of syndie maintenance loot
+        # 1% chance of syndie maintenance loot
 #    - !type:GroupSelector # Frontier
 #      weight: 1 # Frontier
 #      children: # Frontier
@@ -405,10 +405,10 @@
         weight: 0.25
       - id: NitrousOxideCanister
         weight: 0.25
-#      - id: TritiumCanister # Frontier
-#        weight: 0.05 # Frontier
-#      - id: FrezonCanister # Frontier
-#        weight: 0.03 # Frontier
+        #      - id: TritiumCanister # Frontier
+        #        weight: 0.05 # Frontier
+        #      - id: FrezonCanister # Frontier
+        #        weight: 0.03 # Frontier
       - id: StorageCanister # Frontier
       - id: AmmoniaCanister # Frontier
       - id: WaterVaporCanister # Frontier
@@ -436,7 +436,7 @@
       - id: NFMobCarp # Frontier MobCarpSalvage<NFMobCarp
         amount: !type:ConstantNumberSelector
           value: 2
-    # - id: MobHivebot (solo hivebot spawn)
+          # - id: MobHivebot (solo hivebot spawn)
 
 - type: entity
   parent: MarkerBase

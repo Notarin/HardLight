@@ -14,5 +14,4 @@ public sealed partial class EarthDiggingComponent : Component
 
     [ViewVariables, DataField]
     public float Delay = 2f;
-
 }

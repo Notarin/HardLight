@@ -101,7 +101,10 @@ namespace Content.Server.Medical.BiomassReclaimer
         /// <summary>
         /// The machine part that increses the processing speed.
         /// </summary>
-        [DataField("machinePartProcessSpeed", customTypeSerializer: typeof(PrototypeIdSerializer<MachinePartPrototype>))]
+        [DataField(
+            "machinePartProcessSpeed",
+            customTypeSerializer: typeof(PrototypeIdSerializer<MachinePartPrototype>)
+        )]
         public string MachinePartProcessingSpeed = "Manipulator";
 
         /// <summary>

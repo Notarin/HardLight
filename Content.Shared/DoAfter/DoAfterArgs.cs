@@ -209,7 +209,8 @@ public sealed partial class DoAfterArgs
         DoAfterEvent @event,
         EntityUid? eventTarget,
         EntityUid? target = null,
-        EntityUid? used = null)
+        EntityUid? used = null
+    )
     {
         User = user;
         Delay = delay;
@@ -228,9 +229,7 @@ public sealed partial class DoAfterArgs
     ///     An empty do-after constructor. This WILL cause runtime errors if used to create a do-after. Only use this if you really know what you're doing!
     /// </summary>
     [Obsolete("Use the other constructors if possible.")]
-    public DoAfterArgs()
-    {
-    }
+    public DoAfterArgs() { }
 
     /// <summary>
     ///     Creates a new set of DoAfter arguments.
@@ -248,10 +247,9 @@ public sealed partial class DoAfterArgs
         DoAfterEvent @event,
         EntityUid? eventTarget,
         EntityUid? target = null,
-        EntityUid? used = null)
-        : this(entManager, user, TimeSpan.FromSeconds(seconds), @event, eventTarget, target, used)
-    {
-    }
+        EntityUid? used = null
+    )
+        : this(entManager, user, TimeSpan.FromSeconds(seconds), @event, eventTarget, target, used) { }
 
     #endregion
 
@@ -350,5 +348,5 @@ public enum AttemptFrequency : byte
     /// <summary>
     ///     Raise the attempt event every tick while the DoAfter is running.
     /// </summary>
-    EveryTick = 2
+    EveryTick = 2,
 }

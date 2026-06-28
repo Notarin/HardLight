@@ -52,7 +52,16 @@ public sealed partial class NFCargoOrderData
     [DataField]
     public NetEntity? Computer = null;
 
-    public NFCargoOrderData(int orderId, string productId, string productName, int price, int amount, string purchaser, string notes, NetEntity? computer)
+    public NFCargoOrderData(
+        int orderId,
+        string productId,
+        string productName,
+        int price,
+        int amount,
+        string purchaser,
+        string notes,
+        NetEntity? computer
+    )
     {
         OrderId = orderId;
         ProductId = productId;

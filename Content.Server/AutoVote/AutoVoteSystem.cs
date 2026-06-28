@@ -1,18 +1,23 @@
-using Robust.Shared.Configuration;
+using Content.Server.GameTicking;
 using Content.Server.Voting.Managers;
+using Content.Shared.CCVar;
 using Content.Shared.GameTicking;
 using Content.Shared.Voting;
-using Content.Shared.CCVar;
 using Robust.Server.Player;
-using Content.Server.GameTicking;
+using Robust.Shared.Configuration;
 
 namespace Content.Server.AutoVote;
 
 public sealed class AutoVoteSystem : EntitySystem
 {
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] public readonly IVoteManager _voteManager = default!;
-    [Dependency] public readonly IPlayerManager _playerManager = default!;
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
+
+    [Dependency]
+    public readonly IVoteManager _voteManager = default!;
+
+    [Dependency]
+    public readonly IPlayerManager _playerManager = default!;
 
     public bool _shouldVoteNextJoin = false;
 

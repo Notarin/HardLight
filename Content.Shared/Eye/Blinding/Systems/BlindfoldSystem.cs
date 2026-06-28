@@ -1,12 +1,13 @@
 using Content.Shared.Eye.Blinding.Components;
-using Content.Shared.Inventory.Events;
 using Content.Shared.Inventory;
+using Content.Shared.Inventory.Events;
 
 namespace Content.Shared.Eye.Blinding.Systems;
 
 public sealed class BlindfoldSystem : EntitySystem
 {
-    [Dependency] private readonly BlindableSystem _blindableSystem = default!;
+    [Dependency]
+    private readonly BlindableSystem _blindableSystem = default!;
 
     public override void Initialize()
     {
@@ -17,7 +18,10 @@ public sealed class BlindfoldSystem : EntitySystem
         SubscribeLocalEvent<BlindfoldComponent, InventoryRelayedEvent<CanSeeAttemptEvent>>(OnBlindfoldTrySee);
     }
 
-    private void OnBlindfoldTrySee(Entity<BlindfoldComponent> blindfold, ref InventoryRelayedEvent<CanSeeAttemptEvent> args)
+    private void OnBlindfoldTrySee(
+        Entity<BlindfoldComponent> blindfold,
+        ref InventoryRelayedEvent<CanSeeAttemptEvent> args
+    )
     {
         args.Args.Cancel();
     }

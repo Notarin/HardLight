@@ -1,10 +1,10 @@
+using System.Linq;
 using Content.Server.Administration;
 using Content.Server.Database.Migrations.Postgres;
 using Content.Shared.Administration;
 using Content.Shared.Nutrition.Components;
 using Content.Shared.Nutrition.EntitySystems;
 using Robust.Shared.Console;
-using System.Linq;
 
 namespace Content.Server.Nutrition;
 
@@ -30,10 +30,13 @@ public sealed class SetNutrit : LocalizedEntityCommands
 
         if (args.Length != 2)
         {
-            shell.WriteError(Loc.GetString("shell-wrong-arguments-number-need-specific",
-                ("properAmount", 2),
-                ("currentAmount", args.Length)
-            ));
+            shell.WriteError(
+                Loc.GetString(
+                    "shell-wrong-arguments-number-need-specific",
+                    ("properAmount", 2),
+                    ("currentAmount", args.Length)
+                )
+            );
             return;
         }
 
@@ -50,10 +53,13 @@ public sealed class SetNutrit : LocalizedEntityCommands
 
                 if (!Enum.TryParse(args[1], out HungerThreshold hungerThreshold))
                 {
-                    shell.WriteError(Loc.GetString("cmd-setnutrit-error-invalid-threshold",
-                        ("thresholdType", nameof(HungerThreshold)),
-                        ("thresholdString", args[1])
-                    ));
+                    shell.WriteError(
+                        Loc.GetString(
+                            "cmd-setnutrit-error-invalid-threshold",
+                            ("thresholdType", nameof(HungerThreshold)),
+                            ("thresholdString", args[1])
+                        )
+                    );
                     return;
                 }
 
@@ -71,10 +77,13 @@ public sealed class SetNutrit : LocalizedEntityCommands
 
                 if (!Enum.TryParse(args[1], out ThirstThreshold thirstThreshold))
                 {
-                    shell.WriteError(Loc.GetString("cmd-setnutrit-error-invalid-threshold",
-                         ("thresholdType", nameof(ThirstThreshold)),
-                         ("thresholdString", args[1])
-                     ));
+                    shell.WriteError(
+                        Loc.GetString(
+                            "cmd-setnutrit-error-invalid-threshold",
+                            ("thresholdType", nameof(ThirstThreshold)),
+                            ("thresholdString", args[1])
+                        )
+                    );
                     return;
                 }
 
@@ -103,8 +112,14 @@ public sealed class SetNutrit : LocalizedEntityCommands
             {
                 return args[0] switch
                 {
-                    "hunger" => CompletionResult.FromHintOptions(Enum.GetNames<HungerThreshold>(), nameof(HungerThreshold)),
-                    "thirst" => CompletionResult.FromHintOptions(Enum.GetNames<ThirstThreshold>(), nameof(ThirstThreshold)),
+                    "hunger" => CompletionResult.FromHintOptions(
+                        Enum.GetNames<HungerThreshold>(),
+                        nameof(HungerThreshold)
+                    ),
+                    "thirst" => CompletionResult.FromHintOptions(
+                        Enum.GetNames<ThirstThreshold>(),
+                        nameof(ThirstThreshold)
+                    ),
                     _ => CompletionResult.Empty,
                 };
             }

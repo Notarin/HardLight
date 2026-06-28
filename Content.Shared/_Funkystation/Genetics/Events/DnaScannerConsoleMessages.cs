@@ -64,9 +64,7 @@ public sealed class DnaScannerPrintMutatorMessage : BoundUserInterfaceMessage
 [Serializable, NetSerializable]
 public sealed class DnaScannerScrambleDnaMessage : BoundUserInterfaceMessage
 {
-    public DnaScannerScrambleDnaMessage()
-    {
-    }
+    public DnaScannerScrambleDnaMessage() { }
 }
 
 [Serializable, NetSerializable]
@@ -94,7 +92,5 @@ public sealed class DnaScannerToggleResearchMessage : BoundUserInterfaceMessage
 [Serializable, NetSerializable]
 public sealed class DnaScannerUseJokerMessage : BoundUserInterfaceMessage
 {
-    public DnaScannerUseJokerMessage()
-    {
-    }
+    public DnaScannerUseJokerMessage() { }
 }

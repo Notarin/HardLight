@@ -1,6 +1,6 @@
 - type: entity
   id: KitchenReagentGrinder
-  parent: [ BaseMachinePowered, SmallConstructibleMachine ]
+  parent: [BaseMachinePowered, SmallConstructibleMachine]
   name: reagent grinder
   description: From BlenderTech. Will It Blend? Let's find out!
   suffix: grinder/juicer
@@ -23,8 +23,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.17,0,0.20,0.4"
         mask:
         - TabletopMachineMask
@@ -36,7 +35,7 @@
     snapCardinals: true
     offset: "0.0,0.4"
     layers:
-    - map: [ "grinder" ]
+    - map: ["grinder"]
       state: "grinder_empty"
   - type: ApcPowerReceiver
     powerLoad: 300
@@ -55,8 +54,8 @@
       containerId: inputContainer
       maxItems: 6 # manually have to sync it with ReagentGrinderComponent :
     - !type:AutomatedBeakerSlot
-        input: PlumbingDispenser
-        output: PlumbingDispenser
+      input: PlumbingDispenser
+      output: PlumbingDispenser
   - type: ItemSlots
     slots:
       beakerSlot:
@@ -102,7 +101,7 @@
   - type: Sprite
     sprite: Structures/Machines/recycling.rsi
     layers:
-      - state: grinder-b0
+    - state: grinder-b0
   - type: AutomationSlots # Goobstation
     slots:
     - !type:AutomatedSolution
@@ -114,9 +113,9 @@
     visuals:
       enum.ConveyorVisuals.State:
         enum.ConveyorState.Off:
-          Forward: { state: grinder-b1 }
-          Reverse: { state: grinder-b1 }
-          Off: { state: grinder-b0 }
+          Forward: {state: grinder-b1}
+          Reverse: {state: grinder-b1}
+          Off: {state: grinder-b0}
   - type: ContainerContainer
     containers:
       machine_board: !type:Container
@@ -142,19 +141,15 @@
     - outletWest
   - type: NodeContainer
     nodes:
-      outletNorth:
-        !type:PlumbingNode
+      outletNorth: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: North
-      outletEast:
-        !type:PlumbingNode
+      outletEast: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: East
-      outletSouth:
-        !type:PlumbingNode
+      outletSouth: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: South
-      outletWest:
-        !type:PlumbingNode
+      outletWest: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: West

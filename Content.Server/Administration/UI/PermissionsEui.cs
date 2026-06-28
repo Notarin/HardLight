@@ -7,18 +7,24 @@ using Content.Shared.Administration;
 using Content.Shared.Eui;
 using Robust.Server.Player;
 using Robust.Shared.Network;
-using DbAdminRank = Content.Server.Database.AdminRank;
 using static Content.Shared.Administration.PermissionsEuiMsg;
-
+using DbAdminRank = Content.Server.Database.AdminRank;
 
 namespace Content.Server.Administration.UI
 {
     public sealed class PermissionsEui : BaseEui
     {
-        [Dependency] private readonly IPlayerManager _playerManager = default!;
-        [Dependency] private readonly IServerDbManager _db = default!;
-        [Dependency] private readonly IAdminManager _adminManager = default!;
-        [Dependency] private readonly ILogManager _logManager = default!;
+        [Dependency]
+        private readonly IPlayerManager _playerManager = default!;
+
+        [Dependency]
+        private readonly IServerDbManager _db = default!;
+
+        [Dependency]
+        private readonly IAdminManager _adminManager = default!;
+
+        [Dependency]
+        private readonly ILogManager _logManager = default!;
 
         private readonly ISawmill _sawmill;
         private bool _isLoading;
@@ -61,30 +67,32 @@ namespace Content.Server.Administration.UI
         {
             if (_isLoading)
             {
-                return new PermissionsEuiState
-                {
-                    IsLoading = true
-                };
+                return new PermissionsEuiState { IsLoading = true };
             }
 
             return new PermissionsEuiState
             {
-                Admins = _admins.Select(p => new PermissionsEuiState.AdminData
-                {
-                    PosFlags = AdminFlagsHelper.NamesToFlags(p.a.Flags.Where(f => !f.Negative).Select(f => f.Flag)),
-                    NegFlags = AdminFlagsHelper.NamesToFlags(p.a.Flags.Where(f => f.Negative).Select(f => f.Flag)),
-                    Title = p.a.Title,
-                    RankId = p.a.AdminRankId,
-                    UserId = new NetUserId(p.a.UserId),
-                    UserName = p.lastUserName,
-                    Suspended = p.a.Suspended,
-                }).ToArray(),
+                Admins = _admins
+                    .Select(p => new PermissionsEuiState.AdminData
+                    {
+                        PosFlags = AdminFlagsHelper.NamesToFlags(p.a.Flags.Where(f => !f.Negative).Select(f => f.Flag)),
+                        NegFlags = AdminFlagsHelper.NamesToFlags(p.a.Flags.Where(f => f.Negative).Select(f => f.Flag)),
+                        Title = p.a.Title,
+                        RankId = p.a.AdminRankId,
+                        UserId = new NetUserId(p.a.UserId),
+                        UserName = p.lastUserName,
+                        Suspended = p.a.Suspended,
+                    })
+                    .ToArray(),
 
-                AdminRanks = _adminRanks.ToDictionary(a => a.Id, a => new PermissionsEuiState.AdminRankData
-                {
-                    Flags = AdminFlagsHelper.NamesToFlags(a.Flags.Select(p => p.Flag)),
-                    Name = a.Name
-                })
+                AdminRanks = _adminRanks.ToDictionary(
+                    a => a.Id,
+                    a => new PermissionsEuiState.AdminRankData
+                    {
+                        Flags = AdminFlagsHelper.NamesToFlags(a.Flags.Select(p => p.Flag)),
+                        Name = a.Name,
+                    }
+                ),
             };
         }
 
@@ -195,11 +203,7 @@ namespace Content.Server.Administration.UI
                 return;
             }
 
-            var rank = new DbAdminRank
-            {
-                Name = ar.Name,
-                Flags = GenRankFlagList(ar.Flags)
-            };
+            var rank = new DbAdminRank { Name = ar.Name, Flags = GenRankFlagList(ar.Flags) };
 
             await _db.AddAdminRankAsync(rank);
 
@@ -422,14 +426,14 @@ namespace Content.Server.Administration.UI
             var negFlagList = AdminFlagsHelper.FlagsToNames(negFlags);
 
             return posFlagList
-                .Select(f => new AdminFlag {Negative = false, Flag = f})
-                .Concat(negFlagList.Select(f => new AdminFlag {Negative = true, Flag = f}))
+                .Select(f => new AdminFlag { Negative = false, Flag = f })
+                .Concat(negFlagList.Select(f => new AdminFlag { Negative = true, Flag = f }))
                 .ToList();
         }
 
         private static List<AdminRankFlag> GenRankFlagList(AdminFlags flags)
         {
-            return AdminFlagsHelper.FlagsToNames(flags).Select(f => new AdminRankFlag {Flag = f}).ToList();
+            return AdminFlagsHelper.FlagsToNames(flags).Select(f => new AdminRankFlag { Flag = f }).ToList();
         }
 
         private bool UserAdminFlagCheck(AdminFlags flags)
@@ -441,7 +445,8 @@ namespace Content.Server.Administration.UI
         {
             var posFlags = AdminFlagsHelper.NamesToFlags(admin.Flags.Where(f => !f.Negative).Select(f => f.Flag));
             var rankFlags = AdminFlagsHelper.NamesToFlags(
-                admin.AdminRank?.Flags.Select(f => f.Flag) ?? Array.Empty<string>());
+                admin.AdminRank?.Flags.Select(f => f.Flag) ?? Array.Empty<string>()
+            );
 
             var totalFlags = posFlags | rankFlags;
             return UserAdminFlagCheck(totalFlags);

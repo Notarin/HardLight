@@ -21,15 +21,20 @@ public sealed class ConeLightingOverlay : Overlay
     public bool Enabled;
     public float Strength = 0.5f;
 
-    public ConeLightingOverlay(IPrototypeManager prototypeManager, SpriteSystem spriteSystem, ProtoId<ShaderPrototype> shader)
+    public ConeLightingOverlay(
+        IPrototypeManager prototypeManager,
+        SpriteSystem spriteSystem,
+        ProtoId<ShaderPrototype> shader
+    )
     {
         _shader = prototypeManager.Index(shader).InstanceUnique();
-        ZIndex = (int) DrawDepth.Effects;
+        ZIndex = (int)DrawDepth.Effects;
 
         _maskTexture = spriteSystem.Frame0(BloomOverlayVisualsComponent.Cone);
 
         var xOffset = BloomOverlayVisualsComponent.ConeOffset.X - (_maskTexture.Width / 2f) / EyeManager.PixelsPerMeter;
-        var yOffset = BloomOverlayVisualsComponent.ConeOffset.Y - (_maskTexture.Height / 2f) / EyeManager.PixelsPerMeter;
+        var yOffset =
+            BloomOverlayVisualsComponent.ConeOffset.Y - (_maskTexture.Height / 2f) / EyeManager.PixelsPerMeter;
         _maskOffset = new Vector2(xOffset, yOffset);
     }
 

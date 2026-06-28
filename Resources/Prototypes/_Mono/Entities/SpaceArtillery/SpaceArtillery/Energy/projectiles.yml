@@ -18,7 +18,7 @@
   id: ShipMediumPlasmaProjectile
   name: plasma projectile
   parent: BaseBulletTrigger
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -58,7 +58,7 @@
   id: ShipCerberusPlasma
   name: plasma projectile
   parent: BaseBulletTrigger
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -104,7 +104,7 @@
   id: ShipAutopulserPlasmaProjectile
   name: plasma projectile
   parent: BaseBulletTrigger
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -145,7 +145,7 @@
   id: ShipPlasmaProjectileScylla
   name: plasma projectile
   parent: BaseBulletTrigger
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -175,14 +175,13 @@
     maxIntensity: 5
     maxTileBreak: 0
 
-
 # Type 241
 
 - type: entity
   id: ShipGlassingBeamPlasmaProjectile
   name: plasma projectile
   parent: BaseBulletTrigger
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -223,7 +222,7 @@
   id: ShipM25Projectile
   name: M25 projectile
   parent: BaseBulletTrigger
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -258,7 +257,7 @@
   id: ShipRubiconProjectile
   name: EMP projectile
   parent: BaseBulletTrigger
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -294,7 +293,7 @@
   id: ShipDymereProjectile
   name: Ionized Gas Projectile
   parent: BaseBulletTrigger
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -335,7 +334,7 @@
   id: ShipNeutronProjectile
   name: neutron projectile
   parent: BaseBulletTrigger
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -375,7 +374,7 @@
   id: ShipIonProjectile
   name: ion shot
   parent: BaseBulletTrigger
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -416,7 +415,7 @@
   id: ShipAntiMatterProjectile
   name: antimatter projectile
   parent: BaseBulletTrigger
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -446,7 +445,6 @@
     maxIntensity: 45
     maxTileBreak: 4
 
-
 # region Laser Hitscans
 
 # Phalanx
@@ -454,7 +452,7 @@
 - type: entity
   parent: BasicHitscan
   id: PhalanxLaser
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: HitscanBasicVisuals
     muzzleFlash:
@@ -470,9 +468,9 @@
     radarColor: red
   - type: HitscanBasicDamage
     damage:
-     types:
-      Heat: 100
-      Structural: 100
+      types:
+        Heat: 100
+        Structural: 100
   - type: HitscanBasicRaycast
     maxDistance: 1200
 
@@ -481,7 +479,7 @@
 - type: entity
   parent: BasicHitscan
   id: ApolloLaser
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: HitscanBasicVisuals
     muzzleFlash:
@@ -497,9 +495,9 @@
     radarColor: "#e67a22"
   - type: HitscanBasicDamage
     damage:
-     types:
-      Heat: 1500       # ~3k DPS, better than Kargil + hitscan
-      Structural: 7500
+      types:
+        Heat: 1500 # ~3k DPS, better than Kargil + hitscan
+        Structural: 7500
   - type: HitscanSpawnEntity
     spawnedEntity: ApolloExplosion
   - type: HitscanBasicRaycast
@@ -510,13 +508,13 @@
 - type: entity
   parent: ApolloLaser
   id: PrometheusLaser
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: HitscanBasicDamage
     damage:
-     types:
-       Heat: 120
-       Structural: 500
+      types:
+        Heat: 120
+        Structural: 500
   - type: HitscanSpawnEntity
     spawnedEntity: PrometheusExplosion
   - type: HitscanBasicRaycast
@@ -527,7 +525,7 @@
 - type: entity
   parent: BasicHitscan
   id: TachyonLaser
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: HitscanBasicVisuals
     muzzleFlash:
@@ -543,9 +541,9 @@
     radarColor: "#1cd471"
   - type: HitscanBasicDamage
     damage:
-     types:
-      Heat: 30000
-      Structural: 100000
+      types:
+        Heat: 30000
+        Structural: 100000
   - type: HitscanSpawnEntity
     spawnedEntity: TachyonExplosion
   - type: HitscanBasicRaycast
@@ -556,7 +554,7 @@
 - type: entity
   parent: BasicHitscan
   id: SunderLaser
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: HitscanBasicVisuals
     muzzleFlash:
@@ -572,9 +570,9 @@
     radarColor: "#f29705"
   - type: HitscanBasicDamage
     damage:
-     types:
-      Heat: 350
-      Structural: 2500
+      types:
+        Heat: 350
+        Structural: 2500
   - type: HitscanSpawnEntity
     spawnedEntity: SunderExplosion
   - type: HitscanBasicRaycast
@@ -585,7 +583,7 @@
 - type: entity
   parent: BasicHitscan
   id: GaussRound
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: HitscanBasicVisuals
     muzzleFlash:
@@ -602,10 +600,10 @@
     lifeTime: 0.1
   - type: HitscanBasicDamage
     damage:
-     types:
-      Piercing: 125
-      Heat: 25
-      Structural: 200
+      types:
+        Piercing: 125
+        Heat: 25
+        Structural: 200
   - type: HitscanBasicRaycast
     maxDistance: 1200
 
@@ -613,7 +611,7 @@
 
 - type: entity
   id: ApolloExplosion
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: TriggerOnSpawn
   - type: ExplodeOnTrigger
@@ -626,7 +624,7 @@
 
 - type: entity
   id: TachyonExplosion
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: TriggerOnSpawn
   - type: ExplodeOnTrigger
@@ -639,7 +637,7 @@
 
 - type: entity
   id: SunderExplosion
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: TriggerOnSpawn
   - type: ExplodeOnTrigger
@@ -652,7 +650,7 @@
 
 - type: entity
   id: PrometheusExplosion
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: TriggerOnSpawn
   - type: ExplodeOnTrigger

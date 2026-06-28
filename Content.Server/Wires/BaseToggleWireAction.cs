@@ -12,11 +12,13 @@ public abstract partial class BaseToggleWireAction : BaseWireAction
     ///     is expected to handle the value toggle appropriately.
     /// </summary>
     public abstract void ToggleValue(EntityUid owner, bool setting);
+
     /// <summary>
     ///     Gets the value on the given entity. An implementor
     ///     is expected to handle the value getter properly.
     /// </summary>
     public abstract bool GetValue(EntityUid owner);
+
     /// <summary>
     ///     Timeout key for the wire, if it is pulsed.
     ///     If this is null, there will be no value revert

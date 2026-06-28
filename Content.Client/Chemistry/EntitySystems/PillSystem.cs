@@ -5,7 +5,8 @@ namespace Content.Client.Chemistry.EntitySystems;
 
 public sealed class PillSystem : EntitySystem
 {
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     public override void Initialize()
     {

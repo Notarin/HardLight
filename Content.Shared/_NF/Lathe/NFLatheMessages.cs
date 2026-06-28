@@ -25,6 +25,4 @@ public sealed class LatheMoveRequestMessage(int index, int change) : BoundUserIn
 ///     Sent to the server to stop producing the current item.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class LatheAbortFabricationMessage() : BoundUserInterfaceMessage
-{
-}
+public sealed class LatheAbortFabricationMessage() : BoundUserInterfaceMessage { }

@@ -10,8 +10,8 @@ namespace Content.Server.EntityEffects.Effects;
 /// </summary>
 public sealed partial class DecrementBloodModificationTracker : EntityEffect
 {
-    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys)
-        => Loc.GetString("reagent-effect-guidebook-decrement-blood-modification-tracker");
+    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys) =>
+        Loc.GetString("reagent-effect-guidebook-decrement-blood-modification-tracker");
 
     public override void Effect(EntityEffectBaseArgs args)
     {

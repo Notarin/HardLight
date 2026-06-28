@@ -116,9 +116,7 @@ public sealed partial class ConstructionInteractDoAfterEvent : DoAfterEvent
     [DataField("clickLocation")]
     public NetCoordinates ClickLocation;
 
-    private ConstructionInteractDoAfterEvent()
-    {
-    }
+    private ConstructionInteractDoAfterEvent() { }
 
     public ConstructionInteractDoAfterEvent(IEntityManager entManager, InteractUsingEvent ev)
     {
@@ -129,6 +127,4 @@ public sealed partial class ConstructionInteractDoAfterEvent : DoAfterEvent
 }
 
 [Serializable, NetSerializable]
-public sealed partial class WelderRefineDoAfterEvent : SimpleDoAfterEvent
-{
-}
+public sealed partial class WelderRefineDoAfterEvent : SimpleDoAfterEvent { }

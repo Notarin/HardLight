@@ -21,7 +21,6 @@ public sealed partial class PowerCellSlotComponent : Component
     /// </summary>
     [DataField("fitsInCharger")]
     public bool FitsInCharger = true;
-
 }
 
 /// <summary>

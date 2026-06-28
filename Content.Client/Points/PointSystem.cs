@@ -9,7 +9,8 @@ namespace Content.Client.Points;
 /// <inheritdoc/>
 public sealed class PointSystem : SharedPointSystem
 {
-    [Dependency] private readonly CharacterInfoSystem _characterInfo = default!;
+    [Dependency]
+    private readonly CharacterInfoSystem _characterInfo = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -32,13 +33,10 @@ public sealed class PointSystem : SharedPointSystem
             var box = new BoxContainer
             {
                 Margin = new Thickness(5),
-                Orientation = BoxContainer.LayoutOrientation.Vertical
+                Orientation = BoxContainer.LayoutOrientation.Vertical,
             };
 
-            var title = new RichTextLabel
-            {
-                HorizontalAlignment = Control.HAlignment.Center
-            };
+            var title = new RichTextLabel { HorizontalAlignment = Control.HAlignment.Center };
             title.SetMarkup(Loc.GetString("point-scoreboard-header"));
 
             var text = new RichTextLabel();

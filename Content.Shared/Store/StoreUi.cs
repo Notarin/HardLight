@@ -7,7 +7,7 @@ namespace Content.Shared.Store;
 [Serializable, NetSerializable]
 public enum StoreUiKey : byte
 {
-    Key
+    Key,
 }
 
 [Serializable, NetSerializable]
@@ -21,7 +21,12 @@ public sealed class StoreUpdateState : BoundUserInterfaceState
 
     public readonly bool AllowRefund;
 
-    public StoreUpdateState(HashSet<ListingDataWithCostModifiers> listings, Dictionary<ProtoId<CurrencyPrototype>, FixedPoint2> balance, bool showFooter, bool allowRefund)
+    public StoreUpdateState(
+        HashSet<ListingDataWithCostModifiers> listings,
+        Dictionary<ProtoId<CurrencyPrototype>, FixedPoint2> balance,
+        bool showFooter,
+        bool allowRefund
+    )
     {
         Listings = listings;
         Balance = balance;
@@ -31,10 +36,7 @@ public sealed class StoreUpdateState : BoundUserInterfaceState
 }
 
 [Serializable, NetSerializable]
-public sealed class StoreRequestUpdateInterfaceMessage : BoundUserInterfaceMessage
-{
-
-}
+public sealed class StoreRequestUpdateInterfaceMessage : BoundUserInterfaceMessage { }
 
 [Serializable, NetSerializable]
 public sealed class StoreBuyListingMessage(ProtoId<ListingPrototype> listing) : BoundUserInterfaceMessage
@@ -60,7 +62,4 @@ public sealed class StoreRequestWithdrawMessage : BoundUserInterfaceMessage
 ///     Used when the refund button is pressed
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class StoreRequestRefundMessage : BoundUserInterfaceMessage
-{
-
-}
+public sealed class StoreRequestRefundMessage : BoundUserInterfaceMessage { }

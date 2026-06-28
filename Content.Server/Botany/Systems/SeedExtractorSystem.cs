@@ -13,10 +13,17 @@ namespace Content.Server.Botany.Systems;
 
 public sealed class SeedExtractorSystem : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
-    [Dependency] private readonly BotanySystem _botanySystem = default!;
-    [Dependency] private readonly StackSystem _stackSystem = default!;
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly BotanySystem _botanySystem = default!;
+
+    [Dependency]
+    private readonly StackSystem _stackSystem = default!;
 
     public override void Initialize()
     {
@@ -32,22 +39,31 @@ public sealed class SeedExtractorSystem : EntitySystem
         if (!this.IsPowered(uid, EntityManager))
             return;
 
-        if (!TryComp(args.Used, out ProduceComponent? produce)) return;
+        if (!TryComp(args.Used, out ProduceComponent? produce))
+            return;
         if (!_botanySystem.TryGetSeed(produce, out var seed) || seed.Seedless || seed.PermanentlySeedless) // Frontier: add permanently seedless
         {
-            _popupSystem.PopupCursor(Loc.GetString("seed-extractor-component-no-seeds", ("name", args.Used)),
-                args.User, PopupType.MediumCaution);
+            _popupSystem.PopupCursor(
+                Loc.GetString("seed-extractor-component-no-seeds", ("name", args.Used)),
+                args.User,
+                PopupType.MediumCaution
+            );
             return;
         }
 
-        _popupSystem.PopupCursor(Loc.GetString("seed-extractor-component-interact-message", ("name", args.Used)),
-            args.User, PopupType.Medium);
+        _popupSystem.PopupCursor(
+            Loc.GetString("seed-extractor-component-interact-message", ("name", args.Used)),
+            args.User,
+            PopupType.Medium
+        );
 
         var stackCount = 1;
         if (TryComp<StackComponent>(args.Used, out var stack))
             stackCount = stack.Count;
 
-        var amountPerProduce = (int) _random.NextFloat(seedExtractor.BaseMinSeeds, seedExtractor.BaseMaxSeeds + 1) * seedExtractor.SeedAmountMultiplier;
+        var amountPerProduce =
+            (int)_random.NextFloat(seedExtractor.BaseMinSeeds, seedExtractor.BaseMaxSeeds + 1)
+            * seedExtractor.SeedAmountMultiplier;
         var amount = amountPerProduce * stackCount;
         var coords = Transform(uid).Coordinates;
 
@@ -58,7 +74,7 @@ public sealed class SeedExtractorSystem : EntitySystem
         for (var i = 0; i < amount; i++)
         {
             var seedPacket = _botanySystem.SpawnSeedPacket(packetSeed, coords, args.User);
-            
+
             // Add ownership component to track who extracted this seed
             // Store the player's NetUserId from their ActorComponent so ownership persists across body changes
             if (TryComp<ActorComponent>(args.User, out var actor))
@@ -79,7 +95,10 @@ public sealed class SeedExtractorSystem : EntitySystem
     private void OnRefreshParts(EntityUid uid, SeedExtractorComponent seedExtractor, RefreshPartsEvent args)
     {
         var manipulatorQuality = args.PartRatings[seedExtractor.MachinePartSeedAmount];
-        seedExtractor.SeedAmountMultiplier = MathF.Pow(seedExtractor.PartRatingSeedAmountMultiplier, manipulatorQuality - 1);
+        seedExtractor.SeedAmountMultiplier = MathF.Pow(
+            seedExtractor.PartRatingSeedAmountMultiplier,
+            manipulatorQuality - 1
+        );
     }
 
     private void OnUpgradeExamine(EntityUid uid, SeedExtractorComponent seedExtractor, UpgradeExamineEvent args)

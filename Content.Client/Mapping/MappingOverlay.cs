@@ -11,9 +11,14 @@ namespace Content.Client.Mapping;
 
 public sealed class MappingOverlay : Overlay
 {
-    [Dependency] private readonly IEntityManager _entities = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IPrototypeManager _prototypes = default!;
+    [Dependency]
+    private readonly IEntityManager _entities = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypes = default!;
 
     private readonly SpriteSystem _sprite;
 
@@ -62,8 +67,10 @@ public sealed class MappingOverlay : Overlay
         {
             case CursorState.Pick:
             {
-                if (_state.GetHoveredEntity() is { } entity &&
-                    _entities.TryGetComponent(entity, out SpriteComponent? sprite))
+                if (
+                    _state.GetHoveredEntity() is { } entity
+                    && _entities.TryGetComponent(entity, out SpriteComponent? sprite)
+                )
                 {
                     _oldColors[entity] = sprite.Color;
                     _sprite.SetColor((entity, sprite), PickColor);
@@ -73,8 +80,10 @@ public sealed class MappingOverlay : Overlay
             }
             case CursorState.Delete:
             {
-                if (_state.GetHoveredEntity() is { } entity &&
-                    _entities.TryGetComponent(entity, out SpriteComponent? sprite))
+                if (
+                    _state.GetHoveredEntity() is { } entity
+                    && _entities.TryGetComponent(entity, out SpriteComponent? sprite)
+                )
                 {
                     _oldColors[entity] = sprite.Color;
                     _sprite.SetColor((entity, sprite), DeleteColor);

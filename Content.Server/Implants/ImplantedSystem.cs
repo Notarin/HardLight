@@ -34,6 +34,5 @@ public sealed partial class ImplanterSystem
             if (TryComp<StorageComponent>(implant, out var storage))
                 _container.EmptyContainer(storage.Container, destination: Transform(ent).Coordinates);
         }
-
     }
 }

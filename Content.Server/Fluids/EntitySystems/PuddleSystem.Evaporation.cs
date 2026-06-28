@@ -43,7 +43,14 @@ public sealed partial class PuddleSystem
 
             evaporation.NextTick += EvaporationCooldown;
 
-            if (!_solutionContainerSystem.ResolveSolution(uid, puddle.SolutionName, ref puddle.Solution, out var puddleSolution))
+            if (
+                !_solutionContainerSystem.ResolveSolution(
+                    uid,
+                    puddle.SolutionName,
+                    ref puddle.Solution,
+                    out var puddleSolution
+                )
+            )
                 continue;
 
             foreach ((string evaporatingReagent, FixedPoint2 evaporatingSpeed) in GetEvaporationSpeeds(puddleSolution))

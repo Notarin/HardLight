@@ -26,10 +26,10 @@
     noRot: true
     sprite: _HL/Objects/Abyssal/wardcandles.rsi
     layers:
-      - state: candle-big
-        color: "#16111a"
-      - state: fire-big
-        shader: unshaded
+    - state: candle-big
+      color: "#16111a"
+    - state: fire-big
+      shader: unshaded
   - type: PointLight
     color: "#a834eb"
     radius: 7

@@ -1,8 +1,8 @@
 using Content.Server.Cargo.Systems;
 using Content.Server.Power.Components;
+using Content.Server.Shuttles.Systems;
 using Content.Shared._Mono.CCVar;
 using Content.Shared.Shuttles.Components;
-using Content.Server.Shuttles.Systems;
 using Robust.Shared.Configuration;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Physics.Components;
@@ -14,11 +14,20 @@ namespace Content.Server._Mono.Cleanup;
 /// </summary>
 public sealed class GridCleanupSystem : BaseCleanupSystem<MapGridComponent>
 {
-    [Dependency] private readonly CleanupHelperSystem _cleanup = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly PricingSystem _pricing = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
+    [Dependency]
+    private readonly CleanupHelperSystem _cleanup = default!;
+
+    [Dependency]
+    private readonly EntityLookupSystem _lookup = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
+
+    [Dependency]
+    private readonly PricingSystem _pricing = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _map = default!;
 
     private float _maxDistance;
     private float _maxValue;
@@ -56,9 +65,11 @@ public sealed class GridCleanupSystem : BaseCleanupSystem<MapGridComponent>
         // for entities that can't possibly be cleaned up (planet maps, child grids, immune marks).
         // Previously EnsureComp<GridCleanupGridComponent> ran unconditionally, polluting every
         // map and planet grid with a cleanup state component on every cleanup pass.
-        if (HasComp<MapComponent>(uid) // if we're a planetmap ignore
+        if (
+            HasComp<MapComponent>(uid) // if we're a planetmap ignore
             || HasComp<MapGridComponent>(parent) // do not delete anything on planetmaps either
-            || _immuneQuery.HasComp(uid))
+            || _immuneQuery.HasComp(uid)
+        )
         {
             return false;
         }
@@ -69,10 +80,12 @@ public sealed class GridCleanupSystem : BaseCleanupSystem<MapGridComponent>
         var scale = MathF.Min(tiles / _aggressiveTiles, 1f);
         var hasVisibleIff = TryComp<IFFComponent>(uid, out var iffComp) && (iffComp.Flags & IFFFlags.HideLabel) == 0;
 
-        if (!state.IgnoreIFF && hasVisibleIff // delete only if IFF off
+        if (
+            !state.IgnoreIFF && hasVisibleIff // delete only if IFF off
             || _cleanup.HasNearbyPlayers(xform.Coordinates, state.DistanceOverride ?? _maxDistance * scale * scale) // square it
             || !state.IgnorePowered && HasPoweredAPC((uid, xform)) // don't delete if it has powered APCs
-            || !state.IgnorePrice && _pricing.AppraiseGridExceeds(uid, _maxValue)) // expensive to run, put last
+            || !state.IgnorePrice && _pricing.AppraiseGridExceeds(uid, _maxValue)
+        ) // expensive to run, put last
         {
             state.CleanupAccumulator = TimeSpan.FromSeconds(0);
             return false;
@@ -97,7 +110,8 @@ public sealed class GridCleanupSystem : BaseCleanupSystem<MapGridComponent>
         foreach (var apc in _apcList)
         {
             // charge check should ideally be a comparision to 0f but i don't trust that
-            if (_batteryQuery.TryComp(apc, out var battery)
+            if (
+                _batteryQuery.TryComp(apc, out var battery)
                 && battery.CurrentCharge > battery.MaxCharge * 0.01f
                 && apc.Comp.MainBreakerEnabled // if it's disabled consider it depowered
             )

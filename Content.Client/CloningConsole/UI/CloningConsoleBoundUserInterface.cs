@@ -10,8 +10,8 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-using JetBrains.Annotations;
 using Content.Shared.Cloning.CloningConsole;
+using JetBrains.Annotations;
 using Robust.Client.UserInterface;
 
 namespace Content.Client.CloningConsole.UI
@@ -22,9 +22,8 @@ namespace Content.Client.CloningConsole.UI
         [ViewVariables]
         private CloningConsoleWindow? _window;
 
-        public CloningConsoleBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-        {
-        }
+        public CloningConsoleBoundUserInterface(EntityUid owner, Enum uiKey)
+            : base(owner, uiKey) { }
 
         protected override void Open()
         {
@@ -40,7 +39,7 @@ namespace Content.Client.CloningConsole.UI
         {
             base.UpdateState(state);
 
-            _window?.Populate((CloningConsoleBoundUserInterfaceState) state);
+            _window?.Populate((CloningConsoleBoundUserInterfaceState)state);
         }
     }
 }

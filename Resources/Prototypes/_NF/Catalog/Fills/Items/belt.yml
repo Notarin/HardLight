@@ -5,14 +5,14 @@
   components:
   - type: StorageFill
     contents:
-      - id: CrowbarRed
-      - id: Wrench
-      - id: Screwdriver
-      - id: Multitool
-      - id: HandHeldMassScanner
-      - id: RemoteSignaller
-      - id: NFInflatableWallStack5
-      - id: NFInflatableDoorStack1
+    - id: CrowbarRed
+    - id: Wrench
+    - id: Screwdriver
+    - id: Multitool
+    - id: HandHeldMassScanner
+    - id: RemoteSignaller
+    - id: NFInflatableWallStack5
+    - id: NFInflatableDoorStack1
 
 - type: entity
   id: ClothingBeltNfsdFilled
@@ -25,14 +25,14 @@
   components:
   - type: StorageFill
     contents:
-      - id: Brutepack
-        amount: 2
-      - id: Ointment
-        amount: 1
-      - id: Bloodpack
-        amount: 1
-      - id: Gauze
-      - id: EmergencyMedipen #You never know what people are going to latejoin into
+    - id: Brutepack
+      amount: 2
+    - id: Ointment
+      amount: 1
+    - id: Bloodpack
+      amount: 1
+    - id: Gauze
+    - id: EmergencyMedipen #You never know what people are going to latejoin into
 
 - type: entity
   id: ClothingBeltNfsdWebbingFilled
@@ -41,11 +41,11 @@
   components:
   - type: StorageFill
     contents:
-      - id: GrenadeFlashBang
-      - id: TearGasGrenade
-      - id: Stunbaton
-      - id: Handcuffs
-      - id: Handcuffs
+    - id: GrenadeFlashBang
+    - id: TearGasGrenade
+    - id: Stunbaton
+    - id: Handcuffs
+    - id: Handcuffs
 
 - type: entity
   id: ClothingBeltSalvageWebbingFilledNF
@@ -54,12 +54,12 @@
   components:
   - type: StorageFill
     contents:
-      - id: Crowbar
-      - id: Wrench
-      - id: Screwdriver
-      - id: Wirecutter
-      - id: Welder
-      - id: Multitool
+    - id: Crowbar
+    - id: Wrench
+    - id: Screwdriver
+    - id: Wirecutter
+    - id: Welder
+    - id: Multitool
 
 - type: entity
   id: ClothingBeltChaplainSashFilled
@@ -68,12 +68,12 @@
   components:
   - type: StorageFill
     contents:
-      - id: ClothingNeckCrucifix
-      - id: Censer
-      - id: Bible
-      - id: Lantern
-      - id: ChaplainHolywaterFlaskFilled
-      - id: UrnMortuary
+    - id: ClothingNeckCrucifix
+    - id: Censer
+    - id: Bible
+    - id: Lantern
+    - id: ChaplainHolywaterFlaskFilled
+    - id: UrnMortuary
 
 - type: entity
   id: ClothingBeltPunkRandomizedFilled
@@ -82,12 +82,12 @@
   components:
   - type: StorageFill
     contents:
-      - id: Crowbar
-      - id: Wrench
-      - id: Screwdriver
-      - id: Wirecutter
-      - id: Welder
-      - id: Multitool
+    - id: Crowbar
+    - id: Wrench
+    - id: Screwdriver
+    - id: Wirecutter
+    - id: Welder
+    - id: Multitool
 
 - type: entity
   id: ClothingBeltSheathFilledHilt

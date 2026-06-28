@@ -19,14 +19,29 @@ namespace Content.Shared._DV.Abilities;
 /// </summary>
 public sealed partial class CrawlUnderObjectsSystem : EntitySystem // HardLight: Added partial
 {
-    [Dependency] private readonly MovementSpeedModifierSystem _moveSpeed = default!;
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly StandingStateSystem _standing = default!;
-    [Dependency] private readonly INetManager _net = default!; // HardLight
-    [Dependency] private readonly IGameTiming _timing = default!; // HardLight
+    [Dependency]
+    private readonly MovementSpeedModifierSystem _moveSpeed = default!;
+
+    [Dependency]
+    private readonly SharedActionsSystem _actions = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SharedPhysicsSystem _physics = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly StandingStateSystem _standing = default!;
+
+    [Dependency]
+    private readonly INetManager _net = default!; // HardLight
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!; // HardLight
 
     public override void Initialize()
     {
@@ -76,6 +91,7 @@ public sealed partial class CrawlUnderObjectsSystem : EntitySystem // HardLight:
 
         _actions.AddAction(ent, ref ent.Comp.ToggleHideAction, ent.Comp.ActionProto.Value);
     }
+
     // HardLight end
 
     private void OnToggleCrawling(Entity<CrawlUnderObjectsComponent> ent, ref ToggleCrawlingStateEvent args)
@@ -95,7 +111,8 @@ public sealed partial class CrawlUnderObjectsSystem : EntitySystem // HardLight:
             args.Cancelled = true;
     }
 
-    private void CancelWhenSneaking<TEvent>(Entity<CrawlUnderObjectsComponent> ent, ref TEvent args) where TEvent : CancellableEntityEventArgs
+    private void CancelWhenSneaking<TEvent>(Entity<CrawlUnderObjectsComponent> ent, ref TEvent args)
+        where TEvent : CancellableEntityEventArgs
     {
         if (ent.Comp.Enabled)
             args.Cancel();

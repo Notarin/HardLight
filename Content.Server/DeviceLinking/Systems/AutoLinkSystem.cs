@@ -7,7 +7,8 @@ namespace Content.Server.DeviceLinking.Systems;
 /// </summary>
 public sealed class AutoLinkSystem : EntitySystem
 {
-    [Dependency] private readonly DeviceLinkSystem _deviceLinkSystem = default!;
+    [Dependency]
+    private readonly DeviceLinkSystem _deviceLinkSystem = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -34,4 +35,3 @@ public sealed class AutoLinkSystem : EntitySystem
         }
     }
 }
-

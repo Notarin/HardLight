@@ -2,17 +2,17 @@
 - type: entity
   id: BaseMagazineDMR
   name: "magazine (DMR)"
-  parent: [ BaseItem, BaseC1Contraband, RecyclableItemSteelTiny ]
+  parent: [BaseItem, BaseC1Contraband, RecyclableItemSteelTiny]
   abstract: true
   components:
   - type: Tag
     tags:
-      - MagazineDMR
+    - MagazineDMR
   - type: BallisticAmmoProvider
     mayTransfer: true
     whitelist:
       tags:
-        - CartridgeDMR
+      - CartridgeDMR
     proto: CartridgeDMR
     capacity: 20
   - type: Item

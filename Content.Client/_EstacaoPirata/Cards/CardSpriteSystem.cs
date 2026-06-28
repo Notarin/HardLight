@@ -33,7 +33,6 @@ public sealed class CardSpriteSystem : EntitySystem
         if (sprite.AllLayers.Count() < layerCount)
             for (var i = sprite.AllLayers.Count(); i < layerCount; i++)
                 sprite.AddBlankLayer(i);
-
         //Removes extra layers
         else if (sprite.AllLayers.Count() > layerCount)
             for (var i = sprite.AllLayers.Count() - 1; i >= layerCount; i--)
@@ -42,7 +41,11 @@ public sealed class CardSpriteSystem : EntitySystem
         return true;
     }
 
-    public bool TryHandleLayerConfiguration(Entity<SpriteComponent, CardStackComponent> uid, int cardCount, Func<Entity<SpriteComponent>, int, int, bool> layerFunc)
+    public bool TryHandleLayerConfiguration(
+        Entity<SpriteComponent, CardStackComponent> uid,
+        int cardCount,
+        Func<Entity<SpriteComponent>, int, int, bool> layerFunc
+    )
     {
         var sprite = uid.Comp1;
         var stack = uid.Comp2;

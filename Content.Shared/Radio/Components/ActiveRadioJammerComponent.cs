@@ -8,6 +8,4 @@ namespace Content.Shared.Radio.Components;
 /// </summary>
 [RegisterComponent, NetworkedComponent]
 [Access(typeof(SharedJammerSystem))]
-public sealed partial class ActiveRadioJammerComponent : Component
-{
-}
+public sealed partial class ActiveRadioJammerComponent : Component { }

@@ -9,8 +9,11 @@ namespace Content.Shared.Jittering
     /// </summary>
     public abstract class SharedJitteringSystem : EntitySystem
     {
-        [Dependency] protected readonly IGameTiming GameTiming = default!;
-        [Dependency] protected readonly StatusEffectsSystem StatusEffects = default!;
+        [Dependency]
+        protected readonly IGameTiming GameTiming = default!;
+
+        [Dependency]
+        protected readonly StatusEffectsSystem StatusEffects = default!;
 
         public float MaxAmplitude = 300f;
         public float MinAmplitude = 1f;
@@ -43,8 +46,15 @@ namespace Content.Shared.Jittering
         /// <param name="frequency">Frequency for jittering. See <see cref="MaxFrequency"/> and <see cref="MinFrequency"/>.</param>
         /// <param name="forceValueChange">Whether to change any existing jitter value even if they're greater than the ones we're setting.</param>
         /// <param name="status">The status effects component to modify.</param>
-        public void DoJitter(EntityUid uid, TimeSpan time, bool refresh, float amplitude = 10f, float frequency = 4f, bool forceValueChange = false,
-            StatusEffectsComponent? status = null)
+        public void DoJitter(
+            EntityUid uid,
+            TimeSpan time,
+            bool refresh,
+            float amplitude = 10f,
+            float frequency = 4f,
+            bool forceValueChange = false,
+            StatusEffectsComponent? status = null
+        )
         {
             if (!Resolve(uid, ref status, false))
                 return;
@@ -56,7 +66,7 @@ namespace Content.Shared.Jittering
             {
                 var jittering = EntityManager.GetComponent<JitteringComponent>(uid);
 
-                if(forceValueChange || jittering.Amplitude < amplitude)
+                if (forceValueChange || jittering.Amplitude < amplitude)
                     jittering.Amplitude = amplitude;
 
                 if (forceValueChange || jittering.Frequency < frequency)

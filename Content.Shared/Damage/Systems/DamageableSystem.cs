@@ -1,4 +1,7 @@
 using System.Linq;
+using Content.Shared._Shitmed.Targeting;
+// Shitmed Change
+using Content.Shared.Body.Systems;
 using Content.Shared.CCVar;
 using Content.Shared.Chemistry;
 using Content.Shared.Damage.Prototypes;
@@ -13,25 +16,36 @@ using Robust.Shared.Configuration;
 using Robust.Shared.GameStates;
 using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
-using Robust.Shared.Utility;
-
-// Shitmed Change
-using Content.Shared.Body.Systems;
-using Content.Shared._Shitmed.Targeting;
 using Robust.Shared.Random;
+using Robust.Shared.Utility;
 
 namespace Content.Shared.Damage
 {
     public sealed class DamageableSystem : EntitySystem
     {
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-        [Dependency] private readonly INetManager _netMan = default!;
-        [Dependency] private readonly SharedBodySystem _body = default!; // Shitmed Change
-        [Dependency] private readonly MobThresholdSystem _mobThreshold = default!;
-        [Dependency] private readonly IConfigurationManager _config = default!;
-        [Dependency] private readonly SharedChemistryGuideDataSystem _chemistryGuideData = default!;
-        [Dependency] private readonly SharedExplosionSystem _explosion = default!;
+        [Dependency]
+        private readonly IPrototypeManager _prototypeManager = default!;
+
+        [Dependency]
+        private readonly SharedAppearanceSystem _appearance = default!;
+
+        [Dependency]
+        private readonly INetManager _netMan = default!;
+
+        [Dependency]
+        private readonly SharedBodySystem _body = default!; // Shitmed Change
+
+        [Dependency]
+        private readonly MobThresholdSystem _mobThreshold = default!;
+
+        [Dependency]
+        private readonly IConfigurationManager _config = default!;
+
+        [Dependency]
+        private readonly SharedChemistryGuideDataSystem _chemistryGuideData = default!;
+
+        [Dependency]
+        private readonly SharedExplosionSystem _explosion = default!;
 
         private EntityQuery<AppearanceComponent> _appearanceQuery;
         private EntityQuery<DamageableComponent> _damageableQuery;
@@ -61,38 +75,88 @@ namespace Content.Shared.Damage
 
             // Damage modifier CVars are updated and stored here to be queried in other systems.
             // Note that certain modifiers requires reloading the guidebook.
-            Subs.CVar(_config, CCVars.PlaytestAllDamageModifier, value =>
-            {
-                UniversalAllDamageModifier = value;
-                _chemistryGuideData.ReloadAllReagentPrototypes();
-                _explosion.ReloadMap();
-            }, true);
-            Subs.CVar(_config, CCVars.PlaytestAllHealModifier, value =>
-            {
-                UniversalAllHealModifier = value;
-                _chemistryGuideData.ReloadAllReagentPrototypes();
-            }, true);
-            Subs.CVar(_config, CCVars.PlaytestProjectileDamageModifier, value => UniversalProjectileDamageModifier = value, true);
+            Subs.CVar(
+                _config,
+                CCVars.PlaytestAllDamageModifier,
+                value =>
+                {
+                    UniversalAllDamageModifier = value;
+                    _chemistryGuideData.ReloadAllReagentPrototypes();
+                    _explosion.ReloadMap();
+                },
+                true
+            );
+            Subs.CVar(
+                _config,
+                CCVars.PlaytestAllHealModifier,
+                value =>
+                {
+                    UniversalAllHealModifier = value;
+                    _chemistryGuideData.ReloadAllReagentPrototypes();
+                },
+                true
+            );
+            Subs.CVar(
+                _config,
+                CCVars.PlaytestProjectileDamageModifier,
+                value => UniversalProjectileDamageModifier = value,
+                true
+            );
             Subs.CVar(_config, CCVars.PlaytestMeleeDamageModifier, value => UniversalMeleeDamageModifier = value, true);
-            Subs.CVar(_config, CCVars.PlaytestProjectileDamageModifier, value => UniversalProjectileDamageModifier = value, true);
-            Subs.CVar(_config, CCVars.PlaytestHitscanDamageModifier, value => UniversalHitscanDamageModifier = value, true);
-            Subs.CVar(_config, CCVars.PlaytestReagentDamageModifier, value =>
-            {
-                UniversalReagentDamageModifier = value;
-                _chemistryGuideData.ReloadAllReagentPrototypes();
-            }, true);
-            Subs.CVar(_config, CCVars.PlaytestReagentHealModifier, value =>
-            {
-                 UniversalReagentHealModifier = value;
-                 _chemistryGuideData.ReloadAllReagentPrototypes();
-            }, true);
-            Subs.CVar(_config, CCVars.PlaytestExplosionDamageModifier, value =>
-            {
-                UniversalExplosionDamageModifier = value;
-                _explosion.ReloadMap();
-            }, true);
-            Subs.CVar(_config, CCVars.PlaytestThrownDamageModifier, value => UniversalThrownDamageModifier = value, true);
-            Subs.CVar(_config, CCVars.PlaytestTopicalsHealModifier, value => UniversalTopicalsHealModifier = value, true);
+            Subs.CVar(
+                _config,
+                CCVars.PlaytestProjectileDamageModifier,
+                value => UniversalProjectileDamageModifier = value,
+                true
+            );
+            Subs.CVar(
+                _config,
+                CCVars.PlaytestHitscanDamageModifier,
+                value => UniversalHitscanDamageModifier = value,
+                true
+            );
+            Subs.CVar(
+                _config,
+                CCVars.PlaytestReagentDamageModifier,
+                value =>
+                {
+                    UniversalReagentDamageModifier = value;
+                    _chemistryGuideData.ReloadAllReagentPrototypes();
+                },
+                true
+            );
+            Subs.CVar(
+                _config,
+                CCVars.PlaytestReagentHealModifier,
+                value =>
+                {
+                    UniversalReagentHealModifier = value;
+                    _chemistryGuideData.ReloadAllReagentPrototypes();
+                },
+                true
+            );
+            Subs.CVar(
+                _config,
+                CCVars.PlaytestExplosionDamageModifier,
+                value =>
+                {
+                    UniversalExplosionDamageModifier = value;
+                    _explosion.ReloadMap();
+                },
+                true
+            );
+            Subs.CVar(
+                _config,
+                CCVars.PlaytestThrownDamageModifier,
+                value => UniversalThrownDamageModifier = value,
+                true
+            );
+            Subs.CVar(
+                _config,
+                CCVars.PlaytestTopicalsHealModifier,
+                value => UniversalTopicalsHealModifier = value,
+                true
+            );
             Subs.CVar(_config, CCVars.PlaytestMobDamageModifier, value => UniversalMobDamageModifier = value, true);
         }
 
@@ -101,9 +165,13 @@ namespace Content.Shared.Damage
         /// </summary>
         private void DamageableInit(EntityUid uid, DamageableComponent component, ComponentInit _)
         {
-            if (component.DamageContainerID != null &&
-                _prototypeManager.TryIndex<DamageContainerPrototype>(component.DamageContainerID,
-                out var damageContainerPrototype))
+            if (
+                component.DamageContainerID != null
+                && _prototypeManager.TryIndex<DamageContainerPrototype>(
+                    component.DamageContainerID,
+                    out var damageContainerPrototype
+                )
+            )
             {
                 // Initialize damage dictionary, using the types and groups from the damage
                 // container prototype
@@ -154,8 +222,14 @@ namespace Content.Shared.Damage
         ///     This updates cached damage information, flags the component as dirty, and raises a damage changed event.
         ///     The damage changed event is used by other systems, such as damage thresholds.
         /// </remarks>
-        public void DamageChanged(EntityUid uid, DamageableComponent component, DamageSpecifier? damageDelta = null,
-            bool interruptsDoAfters = true, EntityUid? origin = null, bool? canSever = null) // Shitmed Change
+        public void DamageChanged(
+            EntityUid uid,
+            DamageableComponent component,
+            DamageSpecifier? damageDelta = null,
+            bool interruptsDoAfters = true,
+            EntityUid? origin = null,
+            bool? canSever = null
+        ) // Shitmed Change
         {
             component.Damage.GetDamagePerGroup(_prototypeManager, component.DamagePerGroup);
             component.TotalDamage = component.Damage.GetTotal();
@@ -169,7 +243,10 @@ namespace Content.Shared.Damage
 
             // TODO DAMAGE
             // byref struct event.
-            RaiseLocalEvent(uid, new DamageChangedEvent(component, damageDelta, interruptsDoAfters, origin, canSever ?? true)); // Shitmed Change
+            RaiseLocalEvent(
+                uid,
+                new DamageChangedEvent(component, damageDelta, interruptsDoAfters, origin, canSever ?? true)
+            ); // Shitmed Change
         }
 
         /// <summary>
@@ -198,7 +275,13 @@ namespace Content.Shared.Damage
             EntityUid? origin = null,
             bool ignoreGlobalModifiers = false,
             // Shitmed Change
-            bool? canSever = true, bool? canEvade = false, float? partMultiplier = 1.00f, TargetBodyPart? targetPart = null, EntityUid? tool = null, float armorPenetration = 0)
+            bool? canSever = true,
+            bool? canEvade = false,
+            float? partMultiplier = 1.00f,
+            TargetBodyPart? targetPart = null,
+            EntityUid? tool = null,
+            float armorPenetration = 0
+        )
         {
             if (!uid.HasValue || !_damageableQuery.Resolve(uid.Value, ref damageable, false))
             {
@@ -219,7 +302,15 @@ namespace Content.Shared.Damage
                 return null;
 
             // Shitmed Change Start
-            var partDamage = new TryChangePartDamageEvent(damage, origin, targetPart, ignoreResistances, canSever ?? true, canEvade ?? false, partMultiplier ?? 1.00f);
+            var partDamage = new TryChangePartDamageEvent(
+                damage,
+                origin,
+                targetPart,
+                ignoreResistances,
+                canSever ?? true,
+                canEvade ?? false,
+                partMultiplier ?? 1.00f
+            );
             RaiseLocalEvent(uid.Value, ref partDamage);
 
             if (partDamage.Evaded || partDamage.Cancelled)
@@ -230,8 +321,10 @@ namespace Content.Shared.Damage
             // Apply resistances
             if (!ignoreResistances)
             {
-                if (damageable.DamageModifierSetId != null &&
-                    _prototypeManager.Resolve(damageable.DamageModifierSetId, out var modifierSet)) // HardLight: Not sure where it came from, but upstream had Resolve while we had TryIndex. Commenting in case that becomes important later.
+                if (
+                    damageable.DamageModifierSetId != null
+                    && _prototypeManager.Resolve(damageable.DamageModifierSetId, out var modifierSet)
+                ) // HardLight: Not sure where it came from, but upstream had Resolve while we had TryIndex. Commenting in case that becomes important later.
                 {
                     damage = DamageSpecifier.ApplyModifierSet(damage, modifierSet);
                 }
@@ -343,25 +436,12 @@ namespace Content.Shared.Damage
             // Shitmed Change End
         }
 
-                /// <summary>
-
-
-
+        /// <summary>
         ///     Changes all damage types supported by a <see cref="DamageableComponent"/> by the specified value.
-
-
         /// </summary>
-
-
         /// <remakrs>
-
-
         ///     Will not lower damage to a negative value.
-
-
         /// </remakrs>
-
-
         public void ChangeAllDamage(EntityUid uid, DamageableComponent component, FixedPoint2 addedValue)
         {
             foreach (var type in component.Damage.DamageDict.Keys)
@@ -389,8 +469,6 @@ namespace Content.Shared.Damage
             // Shitmed Change End
         }
 
-
-
         public void SetDamageModifierSetId(EntityUid uid, string? damageModifierSetId, DamageableComponent? comp = null)
         {
             if (!_damageableQuery.Resolve(uid, ref comp))
@@ -404,12 +482,22 @@ namespace Content.Shared.Damage
         {
             if (_netMan.IsServer)
             {
-                args.State = new DamageableComponentState(component.Damage.DamageDict, component.DamageContainerID, component.DamageModifierSetId, component.HealthBarThreshold);
+                args.State = new DamageableComponentState(
+                    component.Damage.DamageDict,
+                    component.DamageContainerID,
+                    component.DamageModifierSetId,
+                    component.HealthBarThreshold
+                );
             }
             else
             {
                 // avoid mispredicting damage on newly spawned entities.
-                args.State = new DamageableComponentState(component.Damage.DamageDict.ShallowClone(), component.DamageContainerID, component.DamageModifierSetId, component.HealthBarThreshold);
+                args.State = new DamageableComponentState(
+                    component.Damage.DamageDict.ShallowClone(),
+                    component.DamageContainerID,
+                    component.DamageModifierSetId,
+                    component.HealthBarThreshold
+                );
             }
         }
 
@@ -467,7 +555,8 @@ namespace Content.Shared.Damage
         DamageSpecifier Damage,
         EntityUid? Origin = null,
         TargetBodyPart? TargetPart = null, // Shitmed Change
-        bool Cancelled = false);
+        bool Cancelled = false
+    );
 
     /// <summary>
     ///     Shitmed Change: Raised on parts before damage is done so we can cancel the damage if they evade.
@@ -482,7 +571,8 @@ namespace Content.Shared.Damage
         bool CanEvade = false,
         float PartMultiplier = 1.00f,
         bool Evaded = false,
-        bool Cancelled = false);
+        bool Cancelled = false
+    );
 
     /// <summary>
     ///     Raised on an entity when damage is about to be dealt,
@@ -503,7 +593,13 @@ namespace Content.Shared.Damage
         public readonly float ArmorPenetration = 0; // Goobstation
         public EntityUid? Tool;
 
-        public DamageModifyEvent(DamageSpecifier damage, EntityUid? origin = null, float armorPenetration = 0, TargetBodyPart? targetPart = null, EntityUid? tool = null) // Shitmed Change
+        public DamageModifyEvent(
+            DamageSpecifier damage,
+            EntityUid? origin = null,
+            float armorPenetration = 0,
+            TargetBodyPart? targetPart = null,
+            EntityUid? tool = null
+        ) // Shitmed Change
         {
             OriginalDamage = damage;
             Damage = damage;
@@ -554,7 +650,13 @@ namespace Content.Shared.Damage
         /// </summary>
         public readonly bool CanSever;
 
-        public DamageChangedEvent(DamageableComponent damageable, DamageSpecifier? damageDelta, bool interruptsDoAfters, EntityUid? origin, bool canSever = true) // Shitmed Change
+        public DamageChangedEvent(
+            DamageableComponent damageable,
+            DamageSpecifier? damageDelta,
+            bool interruptsDoAfters,
+            EntityUid? origin,
+            bool canSever = true
+        ) // Shitmed Change
         {
             Damageable = damageable;
             DamageDelta = damageDelta;

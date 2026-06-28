@@ -40,9 +40,6 @@ public sealed partial class ItemCougherComponent : Component
     [DataField]
     public SoundSpecifier Sound = new SoundPathSpecifier("/Audio/Animals/cat_hiss.ogg")
     {
-        Params = new AudioParams
-        {
-            Variation = 0.15f
-        }
+        Params = new AudioParams { Variation = 0.15f },
     };
 }

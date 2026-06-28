@@ -48,8 +48,7 @@
     lowVoltageNode: low
   - type: NodeContainer
     nodes:
-      medium:
-        !type:CableDeviceNode
+      medium: !type:CableDeviceNode
         nodeGroupID: MVPower
         # sadly, HVPower and Apc cables doesn't work right now
 
@@ -96,10 +95,10 @@
   components:
   - type: Reactive
     groups:
-      Acidic: [ Touch ]
+      Acidic: [Touch]
     reactions:
-    - reagents: [ Water ]
-      methods: [ Touch ]
+    - reagents: [Water]
+      methods: [Touch]
       effects:
       - !type:ActivateArtifact
 
@@ -110,10 +109,10 @@
   components:
   - type: Reactive
     groups:
-      Acidic: [ Touch ]
+      Acidic: [Touch]
     reactions:
-    - reagents: [ Blood, CopperBlood, InsectBlood, Slime, AmmoniaBlood, ZombieBlood ]
-      methods: [ Touch ]
+    - reagents: [Blood, CopperBlood, InsectBlood, Slime, AmmoniaBlood, ZombieBlood]
+      methods: [Touch]
       effects:
       - !type:ActivateArtifact
 
@@ -124,10 +123,10 @@
   components:
   - type: Reactive
     groups:
-      Acidic: [ Touch ]
+      Acidic: [Touch]
     reactions:
-    - reagents: [ Dylovene, Diphenhydramine, Arithrazine, Bicaridine, Dermaline, Dexalin, DexalinPlus, Tricordrazine, Leporazine, Bruizine, Lacerinol, Puncturase, Pyrazine, Insuzine, Kelotane, Hyronalin, Inaprovaline, Epinephrine ]
-      methods: [ Touch ]
+    - reagents: [Dylovene, Diphenhydramine, Arithrazine, Bicaridine, Dermaline, Dexalin, DexalinPlus, Tricordrazine, Leporazine, Bruizine, Lacerinol, Puncturase, Pyrazine, Insuzine, Kelotane, Hyronalin, Inaprovaline, Epinephrine]
+      methods: [Touch]
       effects:
       - !type:ActivateArtifact
 

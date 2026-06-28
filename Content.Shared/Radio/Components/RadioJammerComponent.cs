@@ -1,5 +1,5 @@
-using Robust.Shared.Serialization;
 using Robust.Shared.GameStates;
+using Robust.Shared.Serialization;
 
 namespace Content.Shared.Radio.Components;
 
@@ -59,18 +59,18 @@ public enum RadioJammerChargeLevel : byte
 {
     Low,
     Medium,
-    High
+    High,
 }
 
 [Serializable, NetSerializable]
 public enum RadioJammerLayers : byte
 {
-    LED
+    LED,
 }
 
 [Serializable, NetSerializable]
 public enum RadioJammerVisuals : byte
 {
     ChargeLevel,
-    LEDOn
+    LEDOn,
 }

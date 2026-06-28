@@ -42,7 +42,7 @@ public sealed partial class ForcedMutation
 
     [DataField("startActive")]
     public float StartActive { get; set; } = 1f;
+
     [DataField("chance")]
     public float Chance { get; set; } = 1f;
 }
-

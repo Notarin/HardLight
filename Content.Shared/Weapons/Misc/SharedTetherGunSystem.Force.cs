@@ -24,9 +24,15 @@ public abstract partial class SharedTetherGunSystem
     {
         if (IsTethered(component))
         {
-            if (!args.ClickLocation.TryDistance(EntityManager, TransformSystem, Transform(uid).Coordinates,
-                    out var distance) ||
-                distance > component.ThrowDistance)
+            if (
+                !args.ClickLocation.TryDistance(
+                    EntityManager,
+                    TransformSystem,
+                    Transform(uid).Coordinates,
+                    out var distance
+                )
+                || distance > component.ThrowDistance
+            )
             {
                 return;
             }
@@ -47,7 +53,10 @@ public abstract partial class SharedTetherGunSystem
         {
             // Pickup
             if (TryTether(uid, args.Target.Value, args.User, component))
-                TransformSystem.SetCoordinates(component.TetherEntity!.Value, new EntityCoordinates(uid, new Vector2(0f, 0f)));
+                TransformSystem.SetCoordinates(
+                    component.TetherEntity!.Value,
+                    new EntityCoordinates(uid, new Vector2(0f, 0f))
+                );
         }
     }
 

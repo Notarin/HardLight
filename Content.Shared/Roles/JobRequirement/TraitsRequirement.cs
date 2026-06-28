@@ -20,11 +20,13 @@ public sealed partial class TraitsRequirement : JobRequirement
     [DataField(required: true)]
     public HashSet<ProtoId<TraitPrototype>> Traits = new();
 
-    public override bool Check(IEntityManager entManager,
+    public override bool Check(
+        IEntityManager entManager,
         IPrototypeManager protoManager,
         HumanoidCharacterProfile? profile,
         IReadOnlyDictionary<string, TimeSpan> playTimes,
-        [NotNullWhen(false)] out FormattedMessage? reason)
+        [NotNullWhen(false)] out FormattedMessage? reason
+    )
     {
         reason = new FormattedMessage();
 

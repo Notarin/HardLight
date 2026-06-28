@@ -2,12 +2,12 @@
   parent: CardBase
   id: CardBaseSyndicate
   name: card
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   components:
-    - type: Card
-      backSprite:
-      - sprite: _EstacaoPirata/Objects/Misc/cards.rsi
-        state: singlecard_down_syndicate
+  - type: Card
+    backSprite:
+    - sprite: _EstacaoPirata/Objects/Misc/cards.rsi
+      state: singlecard_down_syndicate
 
 - type: entity
   parent: CardBoxBase
@@ -21,7 +21,7 @@
     layers:
     - state: syndicate_box
     - state: syndicate_box_open
-      map: [ "openLayer" ]
+      map: ["openLayer"]
       visible: false
   - type: OpenTriggeredStorageFill
     contents:
@@ -32,7 +32,7 @@
   parent: CardDeckBase
   id: CardDeckSyndicate
   name: deck of cards
-  categories: [ HideSpawnMenu, DoNotMap ] # Frontier
+  categories: [HideSpawnMenu, DoNotMap] # Frontier
   components:
   - type: Sprite
     sprite: _EstacaoPirata/Objects/Misc/cards.rsi
@@ -102,7 +102,7 @@
 
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc2OfClubsSyndicate
   components:
   - type: Card
@@ -113,7 +113,7 @@
 
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc3OfClubsSyndicate
   components:
   - type: Card
@@ -124,7 +124,7 @@
 
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc4OfClubsSyndicate
   components:
   - type: Card
@@ -135,7 +135,7 @@
 
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc5OfClubsSyndicate
   components:
   - type: Card
@@ -146,7 +146,7 @@
 
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc6OfClubsSyndicate
   components:
   - type: Card
@@ -157,7 +157,7 @@
 
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc7OfClubsSyndicate
   components:
   - type: Card
@@ -168,7 +168,7 @@
 
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc8OfClubsSyndicate
   components:
   - type: Card
@@ -179,7 +179,7 @@
 
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc9OfClubsSyndicate
   components:
   - type: Card
@@ -190,7 +190,7 @@
 
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc10OfClubsSyndicate
   components:
   - type: Card
@@ -201,7 +201,7 @@
 
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardScAceOfClubsSyndicate
   components:
   - type: Card
@@ -210,10 +210,9 @@
     sprite: _EstacaoPirata/Objects/Misc/cards.rsi
     state: sc_Ace_of_Clubs_syndicate
 
-
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardScJackOfClubsSyndicate
   components:
   - type: Card
@@ -224,7 +223,7 @@
 
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardScKingOfClubsSyndicate
   components:
   - type: Card
@@ -235,7 +234,7 @@
 
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardScQueenOfClubsSyndicate
   components:
   - type: Card
@@ -244,10 +243,9 @@
     sprite: _EstacaoPirata/Objects/Misc/cards.rsi
     state: sc_Queen_of_Clubs_syndicate
 
-
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardScJackOfDiamondsSyndicate
   components:
   - type: Card
@@ -258,7 +256,7 @@
 
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardScQueenOfDiamondsSyndicate
   components:
   - type: Card
@@ -269,7 +267,7 @@
 
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardScKingOfDiamondsSyndicate
   components:
   - type: Card
@@ -280,7 +278,7 @@
 
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardScAceOfDiamondsSyndicate
   components:
   - type: Card
@@ -291,7 +289,7 @@
 
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc2OfDiamondsSyndicate
   components:
   - type: Card
@@ -302,7 +300,7 @@
 
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc3OfDiamondsSyndicate
   components:
   - type: Card
@@ -313,7 +311,7 @@
 
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc4OfDiamondsSyndicate
   components:
   - type: Card
@@ -324,7 +322,7 @@
 
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc5OfDiamondsSyndicate
   components:
   - type: Card
@@ -335,7 +333,7 @@
 
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc6OfDiamondsSyndicate
   components:
   - type: Card
@@ -346,7 +344,7 @@
 
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc7OfDiamondsSyndicate
   components:
   - type: Card
@@ -357,7 +355,7 @@
 
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc8OfDiamondsSyndicate
   components:
   - type: Card
@@ -368,7 +366,7 @@
 
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc9OfDiamondsSyndicate
   components:
   - type: Card
@@ -379,7 +377,7 @@
 
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc10OfDiamondsSyndicate
   components:
   - type: Card
@@ -388,10 +386,9 @@
     sprite: _EstacaoPirata/Objects/Misc/cards.rsi
     state: sc_10_of_Diamonds_syndicate
 
-
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc2OfHeartsSyndicate
   components:
   - type: Card
@@ -402,7 +399,7 @@
 
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc3OfHeartsSyndicate
   components:
   - type: Card
@@ -413,7 +410,7 @@
 
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc4OfHeartsSyndicate
   components:
   - type: Card
@@ -424,7 +421,7 @@
 
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc5OfHeartsSyndicate
   components:
   - type: Card
@@ -435,7 +432,7 @@
 
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc6OfHeartsSyndicate
   components:
   - type: Card
@@ -446,7 +443,7 @@
 
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc7OfHeartsSyndicate
   components:
   - type: Card
@@ -457,7 +454,7 @@
 
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc8OfHeartsSyndicate
   components:
   - type: Card
@@ -468,7 +465,7 @@
 
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc9OfHeartsSyndicate
   components:
   - type: Card
@@ -479,7 +476,7 @@
 
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc10OfHeartsSyndicate
   components:
   - type: Card
@@ -490,7 +487,7 @@
 
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardScKingOfHeartsSyndicate
   components:
   - type: Card
@@ -501,7 +498,7 @@
 
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardScQueenOfHeartsSyndicate
   components:
   - type: Card
@@ -512,7 +509,7 @@
 
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardScJackOfHeartsSyndicate
   components:
   - type: Card
@@ -523,7 +520,7 @@
 
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardScAceOfHeartsSyndicate
   components:
   - type: Card
@@ -532,10 +529,9 @@
     sprite: _EstacaoPirata/Objects/Misc/cards.rsi
     state: sc_Ace_of_Hearts_syndicate
 
-
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc2OfSpadesSyndicate
   components:
   - type: Card
@@ -546,7 +542,7 @@
 
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc3OfSpadesSyndicate
   components:
   - type: Card
@@ -557,7 +553,7 @@
 
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc4OfSpadesSyndicate
   components:
   - type: Card
@@ -568,7 +564,7 @@
 
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc5OfSpadesSyndicate
   components:
   - type: Card
@@ -579,7 +575,7 @@
 
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc6OfSpadesSyndicate
   components:
   - type: Card
@@ -590,7 +586,7 @@
 
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc7OfSpadesSyndicate
   components:
   - type: Card
@@ -601,7 +597,7 @@
 
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc8OfSpadesSyndicate
   components:
   - type: Card
@@ -612,7 +608,7 @@
 
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc9OfSpadesSyndicate
   components:
   - type: Card
@@ -621,10 +617,9 @@
     sprite: _EstacaoPirata/Objects/Misc/cards.rsi
     state: sc_9_of_Spades_syndicate
 
-
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardSc10OfSpadesSyndicate
   components:
   - type: Card
@@ -635,7 +630,7 @@
 
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardScKingOfSpadesSyndicate
   components:
   - type: Card
@@ -646,7 +641,7 @@
 
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardScQueenOfSpadesSyndicate
   components:
   - type: Card
@@ -657,7 +652,7 @@
 
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardScJackOfSpadesSyndicate
   components:
   - type: Card
@@ -668,7 +663,7 @@
 
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardScAceOfSpadesSyndicate
   components:
   - type: Card
@@ -679,7 +674,7 @@
 
 - type: entity
   parent: CardBaseSyndicate
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: CardScJokerSyndicate
   components:
   - type: Card

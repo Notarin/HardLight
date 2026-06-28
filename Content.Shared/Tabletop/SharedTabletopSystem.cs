@@ -13,11 +13,20 @@ namespace Content.Shared.Tabletop
 {
     public abstract class SharedTabletopSystem : EntitySystem
     {
-        [Dependency] protected readonly ActionBlockerSystem ActionBlockerSystem = default!;
-        [Dependency] private readonly SharedInteractionSystem _interactionSystem = default!;
-        [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-        [Dependency] protected readonly SharedTransformSystem Transforms = default!;
-        [Dependency] private readonly IMapManager _mapMan = default!;
+        [Dependency]
+        protected readonly ActionBlockerSystem ActionBlockerSystem = default!;
+
+        [Dependency]
+        private readonly SharedInteractionSystem _interactionSystem = default!;
+
+        [Dependency]
+        private readonly SharedAppearanceSystem _appearance = default!;
+
+        [Dependency]
+        protected readonly SharedTransformSystem Transforms = default!;
+
+        [Dependency]
+        private readonly IMapManager _mapMan = default!;
 
         public override void Initialize()
         {
@@ -61,15 +70,19 @@ namespace Content.Shared.Tabletop
             if (draggableComponent.DraggingPlayer != null)
             {
                 _appearance.SetData(dragged, TabletopItemVisuals.Scale, new Vector2(1.25f, 1.25f), appearance);
-                _appearance.SetData(dragged, TabletopItemVisuals.DrawDepth, (int) DrawDepth.DrawDepth.Items + 1, appearance);
+                _appearance.SetData(
+                    dragged,
+                    TabletopItemVisuals.DrawDepth,
+                    (int)DrawDepth.DrawDepth.Items + 1,
+                    appearance
+                );
             }
             else
             {
                 _appearance.SetData(dragged, TabletopItemVisuals.Scale, Vector2.One, appearance);
-                _appearance.SetData(dragged, TabletopItemVisuals.DrawDepth, (int) DrawDepth.DrawDepth.Items, appearance);
+                _appearance.SetData(dragged, TabletopItemVisuals.DrawDepth, (int)DrawDepth.DrawDepth.Items, appearance);
             }
         }
-
 
         [Serializable, NetSerializable]
         public sealed class TabletopDraggableComponentState : ComponentState
@@ -99,17 +112,24 @@ namespace Content.Shared.Tabletop
         protected bool CanSeeTable(EntityUid playerEntity, EntityUid? table)
         {
             // Table may have been deleted, hence TryComp
-            if (!TryComp(table, out MetaDataComponent? meta)
+            if (
+                !TryComp(table, out MetaDataComponent? meta)
                 || meta.EntityLifeStage >= EntityLifeStage.Terminating
-                || (meta.Flags & MetaDataFlags.InContainer) == MetaDataFlags.InContainer)
+                || (meta.Flags & MetaDataFlags.InContainer) == MetaDataFlags.InContainer
+            )
             {
                 return false;
             }
 
-            return _interactionSystem.InRangeUnobstructed(playerEntity, table.Value) && ActionBlockerSystem.CanInteract(playerEntity, table);
+            return _interactionSystem.InRangeUnobstructed(playerEntity, table.Value)
+                && ActionBlockerSystem.CanInteract(playerEntity, table);
         }
 
-        protected bool CanDrag(EntityUid playerEntity, EntityUid target, [NotNullWhen(true)] out TabletopDraggableComponent? draggable)
+        protected bool CanDrag(
+            EntityUid playerEntity,
+            EntityUid target,
+            [NotNullWhen(true)] out TabletopDraggableComponent? draggable
+        )
         {
             if (!TryComp(target, out draggable))
                 return false;

@@ -19,7 +19,8 @@ namespace Content.IntegrationTests.Tests.Interaction.Click
     public sealed class InteractionSystemTests
     {
         [TestPrototypes]
-        private const string Prototypes = @"
+        private const string Prototypes =
+            @"
 - type: entity
   id: DummyDebugWall
   components:
@@ -84,10 +85,22 @@ namespace Content.IntegrationTests.Tests.Interaction.Click
             var interactHand = false;
             await server.WaitAssertion(() =>
             {
-                testInteractionSystem.InteractUsingEvent = (ev) => { Assert.That(ev.Target, Is.EqualTo(target)); interactUsing = true; };
-                testInteractionSystem.InteractHandEvent = (ev) => { Assert.That(ev.Target, Is.EqualTo(target)); interactHand = true; };
+                testInteractionSystem.InteractUsingEvent = (ev) =>
+                {
+                    Assert.That(ev.Target, Is.EqualTo(target));
+                    interactUsing = true;
+                };
+                testInteractionSystem.InteractHandEvent = (ev) =>
+                {
+                    Assert.That(ev.Target, Is.EqualTo(target));
+                    interactHand = true;
+                };
 
-                interactionSystem.UserInteraction(user, sEntities.GetComponent<TransformComponent>(target).Coordinates, target);
+                interactionSystem.UserInteraction(
+                    user,
+                    sEntities.GetComponent<TransformComponent>(target).Coordinates,
+                    target
+                );
                 Assert.Multiple(() =>
                 {
                     Assert.That(interactUsing, Is.False);
@@ -96,7 +109,11 @@ namespace Content.IntegrationTests.Tests.Interaction.Click
 
                 Assert.That(handSys.TryPickup(user, item));
 
-                interactionSystem.UserInteraction(user, sEntities.GetComponent<TransformComponent>(target).Coordinates, target);
+                interactionSystem.UserInteraction(
+                    user,
+                    sEntities.GetComponent<TransformComponent>(target).Coordinates,
+                    target
+                );
                 Assert.That(interactUsing);
             });
 
@@ -133,7 +150,10 @@ namespace Content.IntegrationTests.Tests.Interaction.Click
                 target = sEntities.SpawnEntity(null, new MapCoordinates(new Vector2(1.9f, 0), mapId));
                 item = sEntities.SpawnEntity(null, coords);
                 sEntities.EnsureComponent<ItemComponent>(item);
-                wall = sEntities.SpawnEntity("DummyDebugWall", new MapCoordinates(new Vector2(1, 0), sEntities.GetComponent<TransformComponent>(user).MapID));
+                wall = sEntities.SpawnEntity(
+                    "DummyDebugWall",
+                    new MapCoordinates(new Vector2(1, 0), sEntities.GetComponent<TransformComponent>(user).MapID)
+                );
             });
 
             await server.WaitRunTicks(1);
@@ -151,10 +171,22 @@ namespace Content.IntegrationTests.Tests.Interaction.Click
             var interactHand = false;
             await server.WaitAssertion(() =>
             {
-                testInteractionSystem.InteractUsingEvent = (ev) => { Assert.That(ev.Target, Is.EqualTo(target)); interactUsing = true; };
-                testInteractionSystem.InteractHandEvent = (ev) => { Assert.That(ev.Target, Is.EqualTo(target)); interactHand = true; };
+                testInteractionSystem.InteractUsingEvent = (ev) =>
+                {
+                    Assert.That(ev.Target, Is.EqualTo(target));
+                    interactUsing = true;
+                };
+                testInteractionSystem.InteractHandEvent = (ev) =>
+                {
+                    Assert.That(ev.Target, Is.EqualTo(target));
+                    interactHand = true;
+                };
 
-                interactionSystem.UserInteraction(user, sEntities.GetComponent<TransformComponent>(target).Coordinates, target);
+                interactionSystem.UserInteraction(
+                    user,
+                    sEntities.GetComponent<TransformComponent>(target).Coordinates,
+                    target
+                );
                 Assert.Multiple(() =>
                 {
                     Assert.That(interactUsing, Is.False);
@@ -163,7 +195,11 @@ namespace Content.IntegrationTests.Tests.Interaction.Click
 
                 Assert.That(handSys.TryPickup(user, item));
 
-                interactionSystem.UserInteraction(user, sEntities.GetComponent<TransformComponent>(target).Coordinates, target);
+                interactionSystem.UserInteraction(
+                    user,
+                    sEntities.GetComponent<TransformComponent>(target).Coordinates,
+                    target
+                );
                 Assert.That(interactUsing, Is.False);
             });
 
@@ -197,7 +233,10 @@ namespace Content.IntegrationTests.Tests.Interaction.Click
                 sEntities.EnsureComponent<HandsComponent>(user);
                 sEntities.EnsureComponent<ComplexInteractionComponent>(user);
                 handSys.AddHand(user, "hand", HandLocation.Left);
-                target = sEntities.SpawnEntity(null, new MapCoordinates(new Vector2(SharedInteractionSystem.InteractionRange - 0.1f, 0), mapId));
+                target = sEntities.SpawnEntity(
+                    null,
+                    new MapCoordinates(new Vector2(SharedInteractionSystem.InteractionRange - 0.1f, 0), mapId)
+                );
                 item = sEntities.SpawnEntity(null, coords);
                 sEntities.EnsureComponent<ItemComponent>(item);
             });
@@ -217,10 +256,22 @@ namespace Content.IntegrationTests.Tests.Interaction.Click
             var interactHand = false;
             await server.WaitAssertion(() =>
             {
-                testInteractionSystem.InteractUsingEvent = (ev) => { Assert.That(ev.Target, Is.EqualTo(target)); interactUsing = true; };
-                testInteractionSystem.InteractHandEvent = (ev) => { Assert.That(ev.Target, Is.EqualTo(target)); interactHand = true; };
+                testInteractionSystem.InteractUsingEvent = (ev) =>
+                {
+                    Assert.That(ev.Target, Is.EqualTo(target));
+                    interactUsing = true;
+                };
+                testInteractionSystem.InteractHandEvent = (ev) =>
+                {
+                    Assert.That(ev.Target, Is.EqualTo(target));
+                    interactHand = true;
+                };
 
-                interactionSystem.UserInteraction(user, sEntities.GetComponent<TransformComponent>(target).Coordinates, target);
+                interactionSystem.UserInteraction(
+                    user,
+                    sEntities.GetComponent<TransformComponent>(target).Coordinates,
+                    target
+                );
                 Assert.Multiple(() =>
                 {
                     Assert.That(interactUsing, Is.False);
@@ -229,14 +280,17 @@ namespace Content.IntegrationTests.Tests.Interaction.Click
 
                 Assert.That(handSys.TryPickup(user, item));
 
-                interactionSystem.UserInteraction(user, sEntities.GetComponent<TransformComponent>(target).Coordinates, target);
+                interactionSystem.UserInteraction(
+                    user,
+                    sEntities.GetComponent<TransformComponent>(target).Coordinates,
+                    target
+                );
                 Assert.That(interactUsing);
             });
 
             testInteractionSystem.ClearHandlers();
             await pair.CleanReturnAsync();
         }
-
 
         [Test]
         public async Task InteractionOutOfRangeTest()
@@ -263,7 +317,10 @@ namespace Content.IntegrationTests.Tests.Interaction.Click
                 user = sEntities.SpawnEntity(null, coords);
                 sEntities.EnsureComponent<HandsComponent>(user);
                 handSys.AddHand(user, "hand", HandLocation.Left);
-                target = sEntities.SpawnEntity(null, new MapCoordinates(new Vector2(SharedInteractionSystem.InteractionRange + 0.01f, 0), mapId));
+                target = sEntities.SpawnEntity(
+                    null,
+                    new MapCoordinates(new Vector2(SharedInteractionSystem.InteractionRange + 0.01f, 0), mapId)
+                );
                 item = sEntities.SpawnEntity(null, coords);
                 sEntities.EnsureComponent<ItemComponent>(item);
             });
@@ -283,10 +340,22 @@ namespace Content.IntegrationTests.Tests.Interaction.Click
             var interactHand = false;
             await server.WaitAssertion(() =>
             {
-                testInteractionSystem.InteractUsingEvent = (ev) => { Assert.That(ev.Target, Is.EqualTo(target)); interactUsing = true; };
-                testInteractionSystem.InteractHandEvent = (ev) => { Assert.That(ev.Target, Is.EqualTo(target)); interactHand = true; };
+                testInteractionSystem.InteractUsingEvent = (ev) =>
+                {
+                    Assert.That(ev.Target, Is.EqualTo(target));
+                    interactUsing = true;
+                };
+                testInteractionSystem.InteractHandEvent = (ev) =>
+                {
+                    Assert.That(ev.Target, Is.EqualTo(target));
+                    interactHand = true;
+                };
 
-                interactionSystem.UserInteraction(user, sEntities.GetComponent<TransformComponent>(target).Coordinates, target);
+                interactionSystem.UserInteraction(
+                    user,
+                    sEntities.GetComponent<TransformComponent>(target).Coordinates,
+                    target
+                );
                 Assert.Multiple(() =>
                 {
                     Assert.That(interactUsing, Is.False);
@@ -295,7 +364,11 @@ namespace Content.IntegrationTests.Tests.Interaction.Click
 
                 Assert.That(handSys.TryPickup(user, item));
 
-                interactionSystem.UserInteraction(user, sEntities.GetComponent<TransformComponent>(target).Coordinates, target);
+                interactionSystem.UserInteraction(
+                    user,
+                    sEntities.GetComponent<TransformComponent>(target).Coordinates,
+                    target
+                );
                 Assert.That(interactUsing, Is.False);
             });
 
@@ -361,17 +434,33 @@ namespace Content.IntegrationTests.Tests.Interaction.Click
                 Assert.That(sEntities.GetComponent<TransformComponent>(user).ParentUid, Is.EqualTo(containerEntity));
 #pragma warning restore NUnit2045
 
-                testInteractionSystem.InteractUsingEvent = (ev) => { Assert.That(ev.Target, Is.EqualTo(containerEntity)); interactUsing = true; };
-                testInteractionSystem.InteractHandEvent = (ev) => { Assert.That(ev.Target, Is.EqualTo(containerEntity)); interactHand = true; };
+                testInteractionSystem.InteractUsingEvent = (ev) =>
+                {
+                    Assert.That(ev.Target, Is.EqualTo(containerEntity));
+                    interactUsing = true;
+                };
+                testInteractionSystem.InteractHandEvent = (ev) =>
+                {
+                    Assert.That(ev.Target, Is.EqualTo(containerEntity));
+                    interactHand = true;
+                };
 
-                interactionSystem.UserInteraction(user, sEntities.GetComponent<TransformComponent>(target).Coordinates, target);
+                interactionSystem.UserInteraction(
+                    user,
+                    sEntities.GetComponent<TransformComponent>(target).Coordinates,
+                    target
+                );
                 Assert.Multiple(() =>
                 {
                     Assert.That(interactUsing, Is.False);
                     Assert.That(interactHand, Is.False);
                 });
 
-                interactionSystem.UserInteraction(user, sEntities.GetComponent<TransformComponent>(containerEntity).Coordinates, containerEntity);
+                interactionSystem.UserInteraction(
+                    user,
+                    sEntities.GetComponent<TransformComponent>(containerEntity).Coordinates,
+                    containerEntity
+                );
                 Assert.Multiple(() =>
                 {
                     Assert.That(interactUsing, Is.False);
@@ -380,10 +469,18 @@ namespace Content.IntegrationTests.Tests.Interaction.Click
 
                 Assert.That(handSys.TryPickup(user, item));
 
-                interactionSystem.UserInteraction(user, sEntities.GetComponent<TransformComponent>(target).Coordinates, target);
+                interactionSystem.UserInteraction(
+                    user,
+                    sEntities.GetComponent<TransformComponent>(target).Coordinates,
+                    target
+                );
                 Assert.That(interactUsing, Is.False);
 
-                interactionSystem.UserInteraction(user, sEntities.GetComponent<TransformComponent>(containerEntity).Coordinates, containerEntity);
+                interactionSystem.UserInteraction(
+                    user,
+                    sEntities.GetComponent<TransformComponent>(containerEntity).Coordinates,
+                    containerEntity
+                );
                 Assert.That(interactUsing, Is.True);
             });
 
@@ -409,6 +506,5 @@ namespace Content.IntegrationTests.Tests.Interaction.Click
                 InteractHandEvent = null;
             }
         }
-
     }
 }

@@ -6,7 +6,8 @@
 /// </summary>
 public sealed partial class KeyFloatEqualsPrecondition : HTNPrecondition
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
 
     [DataField(required: true), ViewVariables]
     public string Key = string.Empty;
@@ -16,7 +17,6 @@ public sealed partial class KeyFloatEqualsPrecondition : HTNPrecondition
 
     public override bool IsMet(NPCBlackboard blackboard)
     {
-        return blackboard.TryGetValue<float>(Key, out var value, _entManager) &&
-               MathHelper.CloseTo(value, value);
+        return blackboard.TryGetValue<float>(Key, out var value, _entManager) && MathHelper.CloseTo(value, value);
     }
 }

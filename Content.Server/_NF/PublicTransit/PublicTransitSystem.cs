@@ -2,14 +2,17 @@ using System.Diagnostics.CodeAnalysis;
 #pragma warning disable IDE1006 // Naming rule violation: Prefix '_' is not expected
 using System.Linq;
 using System.Numerics;
+using Content.Server._NF.GameTicking.Events;
 using Content.Server._NF.PublicTransit.Components;
 using Content.Server._NF.PublicTransit.Prototypes;
 using Content.Server._NF.SectorServices;
 using Content.Server._NF.Station.Systems;
 using Content.Server.Chat.Systems;
-using Content.Shared.Chat; // For InGameICChatType
 using Content.Server.DeviceNetwork.Systems;
 using Content.Server.GameTicking;
+using Content.Server.GameTicking.Events;
+using Content.Server.GameTicking.Presets;
+using Content.Server.GameTicking.Rules;
 using Content.Server.Maps;
 using Content.Server.Screens.Components;
 using Content.Server.Shuttles.Components;
@@ -17,17 +20,14 @@ using Content.Server.Shuttles.Events;
 using Content.Server.Shuttles.Systems;
 using Content.Server.Station.Components;
 using Content.Server.Station.Systems;
-using Content.Server.GameTicking.Presets;
-using Content.Server.GameTicking.Rules;
-using Content.Server.GameTicking.Events;
-using Content.Server._NF.GameTicking.Events;
-using Content.Shared.GameTicking;
 using Content.Shared._NF.CCVar;
 using Content.Shared._NF.PublicTransit;
 using Content.Shared._NF.PublicTransit.Components;
+using Content.Shared.Chat; // For InGameICChatType
 using Content.Shared.DeviceNetwork;
 using Content.Shared.DeviceNetwork.Components;
 using Content.Shared.Examine;
+using Content.Shared.GameTicking;
 using Content.Shared.Random.Helpers;
 using Content.Shared.Shuttles.Components;
 using Content.Shared.Shuttles.Events;
@@ -45,21 +45,50 @@ namespace Content.Server._NF.PublicTransit;
 
 public sealed class PublicTransitSystem : EntitySystem
 {
-    [Dependency] private readonly IConfigurationManager _cfgManager = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly GameTicker _ticker = default!;
-    [Dependency] private readonly MapSystem _map = default!;
-    [Dependency] private readonly MapLoaderSystem _loader = default!;
-    [Dependency] private readonly ShuttleSystem _shuttles = default!;
-    [Dependency] private readonly ChatSystem _chat = default!;
-    [Dependency] private readonly MetaDataSystem _meta = default!;
-    [Dependency] private readonly StationRenameWarpsSystems _renameWarps = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly StationSystem _station = default!;
-    [Dependency] private readonly AppearanceSystem _appearance = default!;
-    [Dependency] private readonly DeviceNetworkSystem _deviceNetwork = default!;
-    [Dependency] private readonly SectorServiceSystem _sectorService = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency]
+    private readonly IConfigurationManager _cfgManager = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly GameTicker _ticker = default!;
+
+    [Dependency]
+    private readonly MapSystem _map = default!;
+
+    [Dependency]
+    private readonly MapLoaderSystem _loader = default!;
+
+    [Dependency]
+    private readonly ShuttleSystem _shuttles = default!;
+
+    [Dependency]
+    private readonly ChatSystem _chat = default!;
+
+    [Dependency]
+    private readonly MetaDataSystem _meta = default!;
+
+    [Dependency]
+    private readonly StationRenameWarpsSystems _renameWarps = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly StationSystem _station = default!;
+
+    [Dependency]
+    private readonly AppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly DeviceNetworkSystem _deviceNetwork = default!;
+
+    [Dependency]
+    private readonly SectorServiceSystem _sectorService = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
 
     /// <summary>
     /// If enabled then spawns the bus and sets up the bus line.
@@ -97,7 +126,6 @@ public sealed class PublicTransitSystem : EntitySystem
         _cfgManager.UnsubValueChanged(NFCCVars.PublicTransit, SetTransit);
     }
 
-
     /// <summary>
     /// Hardcoded snippit to intercept FTL events. It catches the transit shuttle and ensures its looking for the "DockTransit" priority dock.
     /// </summary>
@@ -124,24 +152,30 @@ public sealed class PublicTransitSystem : EntitySystem
         PublicTransitRoutePrototype? transitRoute;
 
         // Exception: if this is a route-dedicated bus schedule, just get its route's livery colour
-        if (TryComp(ent, out BusScheduleComponent? comp)
+        if (
+            TryComp(ent, out BusScheduleComponent? comp)
             && comp.RouteId != null
-            && _proto.TryIndex(comp.RouteId, out transitRoute))
+            && _proto.TryIndex(comp.RouteId, out transitRoute)
+        )
         {
             _appearance.SetData(ent, PublicTransitVisuals.Livery, transitRoute.LiveryColor);
             return true;
         }
 
         // Otherwise, check the grid we're on.
-        if (TryComp(xform.GridUid, out TransitShuttleComponent? transitShuttle)
-            && _proto.TryIndex(transitShuttle.RouteId, out transitRoute))
+        if (
+            TryComp(xform.GridUid, out TransitShuttleComponent? transitShuttle)
+            && _proto.TryIndex(transitShuttle.RouteId, out transitRoute)
+        )
         {
             _appearance.SetData(ent, PublicTransitVisuals.Livery, transitRoute.LiveryColor);
             return true;
         }
-        else if (TryComp(xform.GridUid, out StationTransitComponent? stationTransit)
+        else if (
+            TryComp(xform.GridUid, out StationTransitComponent? stationTransit)
             && stationTransit.Routes.Count > 0
-            && _proto.TryIndex(stationTransit.Routes.First().Key, out transitRoute))
+            && _proto.TryIndex(stationTransit.Routes.First().Key, out transitRoute)
+        )
         {
             _appearance.SetData(ent, PublicTransitVisuals.Livery, transitRoute.LiveryColor);
             return true;
@@ -155,8 +189,7 @@ public sealed class PublicTransitSystem : EntitySystem
         if (!args.IsInDetailsRange)
             return;
 
-        if (!TryComp(ent, out TransformComponent? xform)
-            || xform.GridUid == null)
+        if (!TryComp(ent, out TransformComponent? xform) || xform.GridUid == null)
         {
             args.PushMarkup(Loc.GetString("bus-schedule-no-bus"));
             return;
@@ -197,11 +230,17 @@ public sealed class PublicTransitSystem : EntitySystem
         }
     }
 
-    public void PrintBusSchedule(ProtoId<PublicTransitRoutePrototype> route, Entity<TransitShuttleComponent> grid, ref ExaminedEvent args)
+    public void PrintBusSchedule(
+        ProtoId<PublicTransitRoutePrototype> route,
+        Entity<TransitShuttleComponent> grid,
+        ref ExaminedEvent args
+    )
     {
-        if (!TryComp<SectorPublicTransitComponent>(_sectorService.GetServiceEntity(), out var sectorPublicTransit)
+        if (
+            !TryComp<SectorPublicTransitComponent>(_sectorService.GetServiceEntity(), out var sectorPublicTransit)
             || !sectorPublicTransit.Routes.TryGetValue(route, out var routeData)
-            || !routeData.StopIndicesByGrid.TryGetValue(grid.Comp.CurrentGrid, out var destInfo))
+            || !routeData.StopIndicesByGrid.TryGetValue(grid.Comp.CurrentGrid, out var destInfo)
+        )
         {
             args.PushMarkup(Loc.GetString("bus-schedule-no-stops-on-route"));
             return;
@@ -217,7 +256,13 @@ public sealed class PublicTransitSystem : EntitySystem
         {
             var nextStopArrival = arrivalTime - routeData.Prototype.WaitTime - routeData.Prototype.TravelTime;
             message.PushNewline();
-            message.AddMarkupPermissive(Loc.GetString("bus-schedule-arrival", ("station", Name(grid.Comp.CurrentGrid)), ("time", nextStopArrival.ToString(@"hh\:mm\:ss"))));
+            message.AddMarkupPermissive(
+                Loc.GetString(
+                    "bus-schedule-arrival",
+                    ("station", Name(grid.Comp.CurrentGrid)),
+                    ("time", nextStopArrival.ToString(@"hh\:mm\:ss"))
+                )
+            );
             maxIndex -= 1; // Don't double count the furthest index.
         }
 
@@ -226,7 +271,13 @@ public sealed class PublicTransitSystem : EntitySystem
             var stopUid = routeData.GridStops.GetValueAtIndex((destInfo.stopIndex + i) % routeData.GridStops.Count);
 
             message.PushNewline();
-            message.AddMarkupPermissive(Loc.GetString("bus-schedule-arrival", ("station", Name(stopUid)), ("time", arrivalTime.ToString(@"hh\:mm\:ss"))));
+            message.AddMarkupPermissive(
+                Loc.GetString(
+                    "bus-schedule-arrival",
+                    ("station", Name(stopUid)),
+                    ("time", arrivalTime.ToString(@"hh\:mm\:ss"))
+                )
+            );
             arrivalTime += routeData.Prototype.TravelTime + routeData.Prototype.WaitTime;
         }
         args.PushMessage(message);
@@ -235,9 +286,11 @@ public sealed class PublicTransitSystem : EntitySystem
     public void PrintStationSchedule(ProtoId<PublicTransitRoutePrototype> route, EntityUid grid, ref ExaminedEvent args)
     {
         // Get stop index on requested route
-        if (!TryComp<SectorPublicTransitComponent>(_sectorService.GetServiceEntity(), out var sectorPublicTransit)
+        if (
+            !TryComp<SectorPublicTransitComponent>(_sectorService.GetServiceEntity(), out var sectorPublicTransit)
             || !sectorPublicTransit.Routes.TryGetValue(route, out var routeData)
-            || !routeData.StopIndicesByGrid.TryGetValue(grid, out var destInfo))
+            || !routeData.StopIndicesByGrid.TryGetValue(grid, out var destInfo)
+        )
         {
             args.PushMarkup(Loc.GetString("bus-schedule-no-buses-on-route"));
             return;
@@ -273,10 +326,19 @@ public sealed class PublicTransitSystem : EntitySystem
         }
 
         // Calculate the departure time from this stop and the arrival time at the next stops.
-        var departureTime = nextBus.Comp.NextTransfer + stopDistance * (routeData.Prototype.TravelTime + routeData.Prototype.WaitTime) - _ticker.RoundStartTimeSpan;
+        var departureTime =
+            nextBus.Comp.NextTransfer
+            + stopDistance * (routeData.Prototype.TravelTime + routeData.Prototype.WaitTime)
+            - _ticker.RoundStartTimeSpan;
 
         FormattedMessage message = new();
-        message.AddMarkupPermissive(Loc.GetString("bus-schedule-next-departure", ("bus", Name(nextBus)), ("time", departureTime.ToString(@"hh\:mm\:ss"))));
+        message.AddMarkupPermissive(
+            Loc.GetString(
+                "bus-schedule-next-departure",
+                ("bus", Name(nextBus)),
+                ("time", departureTime.ToString(@"hh\:mm\:ss"))
+            )
+        );
         message.PushNewline();
         message.AddMarkupPermissive(Loc.GetString("bus-schedule-arrival-header"));
 
@@ -286,7 +348,13 @@ public sealed class PublicTransitSystem : EntitySystem
             var stopUid = routeData.GridStops.GetValueAtIndex((destInfo.stopIndex + i) % routeData.GridStops.Count);
 
             message.PushNewline();
-            message.AddMarkupPermissive(Loc.GetString("bus-schedule-arrival", ("station", Name(stopUid)), ("time", arrivalTime.ToString(@"hh\:mm\:ss"))));
+            message.AddMarkupPermissive(
+                Loc.GetString(
+                    "bus-schedule-arrival",
+                    ("station", Name(stopUid)),
+                    ("time", arrivalTime.ToString(@"hh\:mm\:ss"))
+                )
+            );
             arrivalTime += routeData.Prototype.TravelTime + routeData.Prototype.WaitTime;
         }
         args.PushMessage(message);
@@ -388,10 +456,19 @@ public sealed class PublicTransitSystem : EntitySystem
             if (!TryComp(nextGrid, out MetaDataComponent? metadata))
                 continue;
 
-            _chat.TrySendInGameICMessage(consoleUid, Loc.GetString("public-transit-arrival",
-                    ("destination", metadata.EntityName), ("waittime", route.Prototype.WaitTime)),
-                InGameICChatType.Speak, ChatTransmitRange.HideChat, hideLog: true, checkRadioPrefix: false,
-                ignoreActionBlocker: true);
+            _chat.TrySendInGameICMessage(
+                consoleUid,
+                Loc.GetString(
+                    "public-transit-arrival",
+                    ("destination", metadata.EntityName),
+                    ("waittime", route.Prototype.WaitTime)
+                ),
+                InGameICChatType.Speak,
+                ChatTransmitRange.HideChat,
+                hideLog: true,
+                checkRadioPrefix: false,
+                ignoreActionBlocker: true
+            );
         }
     }
 
@@ -402,7 +479,11 @@ public sealed class PublicTransitSystem : EntitySystem
     /// Then, it checks to make sure that there even is anything in the list
     /// and if so, we return the next station, and then increment our counter for the next time its ran
     /// </summary>
-    public bool TryGetNextStop(PublicTransitRoute route, EntityUid currentGrid, [NotNullWhen(true)] out EntityUid? nextGrid)
+    public bool TryGetNextStop(
+        PublicTransitRoute route,
+        EntityUid currentGrid,
+        [NotNullWhen(true)] out EntityUid? nextGrid
+    )
     {
         nextGrid = null;
         if (route.GridStops.Count <= 0)
@@ -455,8 +536,18 @@ public sealed class PublicTransitSystem : EntitySystem
                 continue; // NOTE: this bus is dead, should we despawn it?
 
             // FTL to next station if it exists.  Do this before the print.
-            var hyperspaceTime = MathF.Max(0.0f, (float)route.Prototype.TravelTime.TotalSeconds - _shuttles.DefaultStartupTime);
-            _shuttles.FTLToDock(uid, shuttle, nextGrid.Value, startupTime: _shuttles.DefaultStartupTime, hyperspaceTime: hyperspaceTime, priorityTag: comp.DockTag); // TODO: Unhard code the priorityTag as it should be added from the system.
+            var hyperspaceTime = MathF.Max(
+                0.0f,
+                (float)route.Prototype.TravelTime.TotalSeconds - _shuttles.DefaultStartupTime
+            );
+            _shuttles.FTLToDock(
+                uid,
+                shuttle,
+                nextGrid.Value,
+                startupTime: _shuttles.DefaultStartupTime,
+                hyperspaceTime: hyperspaceTime,
+                priorityTag: comp.DockTag
+            ); // TODO: Unhard code the priorityTag as it should be added from the system.
             comp.CurrentGrid = nextGrid.Value;
 
             if (!TryComp(nextGrid, out MetaDataComponent? metadata))
@@ -469,10 +560,19 @@ public sealed class PublicTransitSystem : EntitySystem
                 if (xform.GridUid != uid)
                     continue;
 
-                _chat.TrySendInGameICMessage(consoleUid, Loc.GetString("public-transit-departure",
-                        ("destination", metadata.EntityName), ("flytime", route.Prototype.TravelTime)),
-                    InGameICChatType.Speak, ChatTransmitRange.HideChat, hideLog: true, checkRadioPrefix: false,
-                    ignoreActionBlocker: true);
+                _chat.TrySendInGameICMessage(
+                    consoleUid,
+                    Loc.GetString(
+                        "public-transit-departure",
+                        ("destination", metadata.EntityName),
+                        ("flytime", route.Prototype.TravelTime)
+                    ),
+                    InGameICChatType.Speak,
+                    ChatTransmitRange.HideChat,
+                    hideLog: true,
+                    checkRadioPrefix: false,
+                    ignoreActionBlocker: true
+                );
             }
         }
     }
@@ -500,9 +600,11 @@ public sealed class PublicTransitSystem : EntitySystem
             if (TryComp<SectorPublicTransitComponent>(_sectorService.GetServiceEntity(), out var publicTransit))
                 publicTransit.RoutesCreated = false;
         }
-        else if (TryComp<SectorPublicTransitComponent>(_sectorService.GetServiceEntity(), out var publicTransit)
-                && !publicTransit.RoutesCreated
-                && publicTransit.StationsGenerated)
+        else if (
+            TryComp<SectorPublicTransitComponent>(_sectorService.GetServiceEntity(), out var publicTransit)
+            && !publicTransit.RoutesCreated
+            && publicTransit.StationsGenerated
+        )
         {
             SetupPublicTransit(publicTransit);
         }
@@ -587,10 +689,17 @@ public sealed class PublicTransitSystem : EntitySystem
                     continue;
 
                 // Spawn the bus onto a dummy map
-                if (!_loader.TryLoadGrid(dummyMap, busVessel.ShuttlePath, out var shuttleMaybe, offset: new Vector2(shuttleOffset, 1f))
+                if (
+                    !_loader.TryLoadGrid(
+                        dummyMap,
+                        busVessel.ShuttlePath,
+                        out var shuttleMaybe,
+                        offset: new Vector2(shuttleOffset, 1f)
+                    )
                     || shuttleMaybe is not { } shuttleEnt
                     || !TryComp<MapGridComponent>(shuttleEnt, out var mapGrid)
-                    || !TryComp<ShuttleComponent>(shuttleEnt, out var shuttleComp))
+                    || !TryComp<ShuttleComponent>(shuttleEnt, out var shuttleComp)
+                )
                 {
                     break;
                 }
@@ -602,17 +711,29 @@ public sealed class PublicTransitSystem : EntitySystem
                 transitComp.RouteId = route.Prototype.ID;
                 transitComp.DockTag = route.Prototype.DockTag;
                 var busSuffix = (char)('A' + numBuses);
-                transitComp.ScreenText = Loc.GetString("public-transit-shuttle-screen-text", ("number", route.Prototype.RouteNumber), ("suffix", busSuffix));
+                transitComp.ScreenText = Loc.GetString(
+                    "public-transit-shuttle-screen-text",
+                    ("number", route.Prototype.RouteNumber),
+                    ("suffix", busSuffix)
+                );
 
                 EnsureComp<PreventPilotComponent>(shuttleEnt.Owner);
 
-                var shuttleName = Loc.GetString("public-transit-shuttle-name", ("number", route.Prototype.RouteNumber), ("suffix", busSuffix));
+                var shuttleName = Loc.GetString(
+                    "public-transit-shuttle-name",
+                    ("number", route.Prototype.RouteNumber),
+                    ("suffix", busSuffix)
+                );
 
                 // Set both the bus grid and station name, adjust warp points
                 _meta.SetEntityName(shuttleEnt.Owner, shuttleName);
                 if (_proto.TryIndex<GameMapPrototype>(busVessel.ID, out var stationProto))
                 {
-                    var shuttleStation = _station.InitializeNewStation(stationProto.Stations[busVessel.ID], [shuttleEnt], shuttleName);
+                    var shuttleStation = _station.InitializeNewStation(
+                        stationProto.Stations[busVessel.ID],
+                        [shuttleEnt],
+                        shuttleName
+                    );
                 }
                 _renameWarps.SyncWarpPointsToGrid(shuttleEnt);
 
@@ -623,9 +744,16 @@ public sealed class PublicTransitSystem : EntitySystem
 
                 // We set up a default in case the second time we call it fails for some reason
                 var nextGrid = route.GridStops.GetValueAtIndex((int)relativeIndex);
-                _shuttles.FTLToDock(shuttleEnt, shuttleComp, nextGrid, hyperspaceTime: (float)initialHyperspaceTime.TotalSeconds, priorityTag: transitComp.DockTag);
+                _shuttles.FTLToDock(
+                    shuttleEnt,
+                    shuttleComp,
+                    nextGrid,
+                    hyperspaceTime: (float)initialHyperspaceTime.TotalSeconds,
+                    priorityTag: transitComp.DockTag
+                );
                 transitComp.CurrentGrid = nextGrid;
-                transitComp.NextTransfer = _timing.CurTime + route.Prototype.WaitTime + extraTime + initialHyperspaceTime;
+                transitComp.NextTransfer =
+                    _timing.CurTime + route.Prototype.WaitTime + extraTime + initialHyperspaceTime;
 
                 // Set up the screen text on the bus
                 var netComp = EnsureComp<DeviceNetworkComponent>(shuttleEnt);
@@ -657,6 +785,7 @@ public sealed class PublicTransitSystem : EntitySystem
             TrySetGridVisuals((visualUid, visualComp));
         }
     }
+
     public void AddStopToRoute(EntityUid grid, ProtoId<PublicTransitRoutePrototype> routeId, int order)
     {
         if (!TryComp<StationTransitComponent>(grid, out var stationTransit))
@@ -670,7 +799,12 @@ public sealed class PublicTransitSystem : EntitySystem
         OnStationStartup((grid, stationTransit), ref startup);
     }
 
-    public void RegisterBus(EntityUid shuttle, ProtoId<PublicTransitRoutePrototype> routeId, EntityUid startGrid, string dockTag)
+    public void RegisterBus(
+        EntityUid shuttle,
+        ProtoId<PublicTransitRoutePrototype> routeId,
+        EntityUid startGrid,
+        string dockTag
+    )
     {
         var transit = EnsureComp<TransitShuttleComponent>(shuttle);
         transit.RouteId = routeId;
@@ -713,5 +847,3 @@ public sealed class PublicTransitSystem : EntitySystem
 }
 
 #pragma warning restore IDE1006 // Naming rule violation: Prefix '_' is not expected
-
-

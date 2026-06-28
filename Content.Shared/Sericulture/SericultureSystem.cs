@@ -1,11 +1,11 @@
 using Content.Shared.Actions;
 using Content.Shared.DoAfter;
-using Content.Shared.Nutrition.EntitySystems;
-using Robust.Shared.Serialization;
-using Content.Shared.Popups;
-using Robust.Shared.Network;
 using Content.Shared.Nutrition.Components;
+using Content.Shared.Nutrition.EntitySystems;
+using Content.Shared.Popups;
 using Content.Shared.Stacks;
+using Robust.Shared.Network;
+using Robust.Shared.Serialization;
 
 namespace Content.Shared.Sericulture;
 
@@ -15,14 +15,24 @@ namespace Content.Shared.Sericulture;
 public abstract partial class SharedSericultureSystem : EntitySystem
 {
     // Managers
-    [Dependency] private readonly INetManager _netManager = default!;
+    [Dependency]
+    private readonly INetManager _netManager = default!;
 
     // Systems
-    [Dependency] private readonly SharedActionsSystem _actionsSystem = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
-    [Dependency] private readonly HungerSystem _hungerSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedStackSystem _stackSystem = default!;
+    [Dependency]
+    private readonly SharedActionsSystem _actionsSystem = default!;
+
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfterSystem = default!;
+
+    [Dependency]
+    private readonly HungerSystem _hungerSystem = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly SharedStackSystem _stackSystem = default!;
 
     public override void Initialize()
     {
@@ -52,11 +62,15 @@ public abstract partial class SharedSericultureSystem : EntitySystem
 
     private void OnSericultureStart(EntityUid uid, SericultureComponent comp, SericultureActionEvent args)
     {
-        if (TryComp<HungerComponent>(uid, out var hungerComp)
-            && _hungerSystem.IsHungerBelowState(uid,
+        if (
+            TryComp<HungerComponent>(uid, out var hungerComp)
+            && _hungerSystem.IsHungerBelowState(
+                uid,
                 comp.MinHungerThreshold,
                 _hungerSystem.GetHunger(hungerComp) - comp.HungerCost,
-                hungerComp))
+                hungerComp
+            )
+        )
         {
             _popupSystem.PopupClient(Loc.GetString(comp.PopupText), uid, uid);
             return;
@@ -73,18 +87,20 @@ public abstract partial class SharedSericultureSystem : EntitySystem
         _doAfterSystem.TryStartDoAfter(doAfter);
     }
 
-
     private void OnSericultureDoAfter(EntityUid uid, SericultureComponent comp, SericultureDoAfterEvent args)
     {
         if (args.Cancelled || args.Handled || comp.Deleted)
             return;
 
-        if (TryComp<HungerComponent>(uid,
-                out var hungerComp) // A check, just incase the doafter is somehow performed when the entity is not in the right hunger state.
-            && _hungerSystem.IsHungerBelowState(uid,
+        if (
+            TryComp<HungerComponent>(uid, out var hungerComp) // A check, just incase the doafter is somehow performed when the entity is not in the right hunger state.
+            && _hungerSystem.IsHungerBelowState(
+                uid,
                 comp.MinHungerThreshold,
                 _hungerSystem.GetHunger(hungerComp) - comp.HungerCost,
-                hungerComp))
+                hungerComp
+            )
+        )
         {
             _popupSystem.PopupClient(Loc.GetString(comp.PopupText), uid, uid);
             return;
@@ -113,4 +129,3 @@ public sealed partial class SericultureActionEvent : InstantActionEvent { }
 /// </summary>
 [Serializable, NetSerializable]
 public sealed partial class SericultureDoAfterEvent : SimpleDoAfterEvent { }
-

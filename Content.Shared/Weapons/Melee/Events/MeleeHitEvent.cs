@@ -66,7 +66,13 @@ public sealed class MeleeHitEvent : HandledEntityEventArgs
     /// </remarks>
     public bool IsHit = true;
 
-    public MeleeHitEvent(List<EntityUid> hitEntities, EntityUid user, EntityUid weapon, DamageSpecifier baseDamage, Vector2? direction)
+    public MeleeHitEvent(
+        List<EntityUid> hitEntities,
+        EntityUid user,
+        EntityUid weapon,
+        DamageSpecifier baseDamage,
+        Vector2? direction
+    )
     {
         HitEntities = hitEntities;
         User = user;
@@ -80,7 +86,13 @@ public sealed class MeleeHitEvent : HandledEntityEventArgs
 /// Raised on a melee weapon to calculate potential damage bonuses or decreases.
 /// </summary>
 [ByRefEvent]
-public record struct GetMeleeDamageEvent(EntityUid Weapon, DamageSpecifier Damage, List<DamageModifierSet> Modifiers, EntityUid User, bool ResistanceBypass = false);
+public record struct GetMeleeDamageEvent(
+    EntityUid Weapon,
+    DamageSpecifier Damage,
+    List<DamageModifierSet> Modifiers,
+    EntityUid User,
+    bool ResistanceBypass = false
+);
 
 /// <summary>
 /// Raised on a melee weapon to calculate the attack rate.
@@ -92,4 +104,9 @@ public record struct GetMeleeAttackRateEvent(EntityUid Weapon, float Rate, float
 /// Raised on a melee weapon to calculate the heavy damage modifier.
 /// </summary>
 [ByRefEvent]
-public record struct GetHeavyDamageModifierEvent(EntityUid Weapon, FixedPoint2 DamageModifier, float Multipliers, EntityUid User);
+public record struct GetHeavyDamageModifierEvent(
+    EntityUid Weapon,
+    FixedPoint2 DamageModifier,
+    float Multipliers,
+    EntityUid User
+);

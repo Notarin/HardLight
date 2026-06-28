@@ -15,7 +15,8 @@ namespace Content.Server.Mapping
     [AdminCommand(AdminFlags.Server | AdminFlags.Mapping)]
     sealed class MappingCommand : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _entities = default!;
+        [Dependency]
+        private readonly IEntityManager _entities = default!;
 
         public string Command => "mapping";
         public string Description => Loc.GetString("cmd-mapping-desc");
@@ -29,7 +30,8 @@ namespace Content.Server.Mapping
                     return CompletionResult.FromHint(Loc.GetString("cmd-hint-mapping-id"));
                 case 2:
                     var res = IoCManager.Resolve<IResourceManager>();
-                    var opts = CompletionHelper.UserFilePath(args[1], res.UserData)
+                    var opts = CompletionHelper
+                        .UserFilePath(args[1], res.UserData)
                         .Concat(CompletionHelper.ContentFilePath(args[1], res));
                     return CompletionResult.FromHintOptions(opts, Loc.GetString("cmd-hint-mapping-path"));
                 case 3:
@@ -101,7 +103,7 @@ namespace Content.Server.Mapping
                 {
                     var path = new ResPath(args[1]);
                     toLoad = path.FilenameWithoutExtension;
-                    var opts = new DeserializationOptions {StoreYamlUids = true};
+                    var opts = new DeserializationOptions { StoreYamlUids = true };
                     var loader = _entities.System<MapLoaderSystem>();
 
                     if (isGrid == true)
@@ -148,8 +150,11 @@ namespace Content.Server.Mapping
             }
 
             // map successfully created. run misc helpful mapping commands
-            if (player.AttachedEntity is { Valid: true } playerEntity &&
-                _entities.GetComponent<MetaDataComponent>(playerEntity).EntityPrototype?.ID != GameTicker.AdminObserverPrototypeName.ToString())
+            if (
+                player.AttachedEntity is { Valid: true } playerEntity
+                && _entities.GetComponent<MetaDataComponent>(playerEntity).EntityPrototype?.ID
+                    != GameTicker.AdminObserverPrototypeName.ToString()
+            )
             {
                 shell.ExecuteCommand("aghost");
             }

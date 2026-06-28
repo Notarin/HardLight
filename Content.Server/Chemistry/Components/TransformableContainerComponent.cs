@@ -21,6 +21,7 @@ public sealed partial class TransformableContainerComponent : Component
     /// </summary>
     [DataField("initialDescription")]
     public string? InitialDescription;
+
     /// <summary>
     /// This stores whatever primary reagent is currently in the container.
     /// It is used to help determine if a transformation is needed on solution update.

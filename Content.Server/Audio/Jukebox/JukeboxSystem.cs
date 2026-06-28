@@ -8,19 +8,27 @@ using Robust.Shared.Audio.Components;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
-using JukeboxComponent = Content.Shared.Audio.Jukebox.JukeboxComponent;
 using Robust.Shared.Random; // Frontier
+using JukeboxComponent = Content.Shared.Audio.Jukebox.JukeboxComponent;
 
 namespace Content.Server.Audio.Jukebox;
 
-
 public sealed class JukeboxSystem : SharedJukeboxSystem
 {
-    [Dependency] private readonly IPrototypeManager _protoManager = default!;
-    [Dependency] private readonly AppearanceSystem _appearanceSystem = default!;
-    [Dependency] private readonly IRobustRandom _random = default!; // Frontier
-    [Dependency] private readonly TransformSystem _transform = default!; // Frontier
-    [Dependency] private readonly UserInterfaceSystem _userInterface = default!; // Frontier
+    [Dependency]
+    private readonly IPrototypeManager _protoManager = default!;
+
+    [Dependency]
+    private readonly AppearanceSystem _appearanceSystem = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!; // Frontier
+
+    [Dependency]
+    private readonly TransformSystem _transform = default!; // Frontier
+
+    [Dependency]
+    private readonly UserInterfaceSystem _userInterface = default!; // Frontier
 
     public override void Initialize()
     {
@@ -57,6 +65,7 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
         var state = new JukeboxInterfaceState(ent.Comp.PlaybackMode);
         _userInterface.SetUiState(ent.Owner, JukeboxUiKey.Key, state);
     }
+
     // End Frontier: Shuffle & Repeat
 
     private void OnJukeboxPlay(EntityUid uid, JukeboxComponent component, ref JukeboxPlayingMessage args)
@@ -70,22 +79,28 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
             component.AudioStream = Audio.Stop(component.AudioStream);
 
             // Frontier: Shuffling feature.
-            if (component.PlaybackMode == JukeboxPlaybackMode.Shuffle
+            if (
+                component.PlaybackMode == JukeboxPlaybackMode.Shuffle
                 && !component.FirstPlay
                 && _protoManager.TryGetRandom<JukeboxPrototype>(_random, out var newProto)
-                && newProto is JukeboxPrototype newJukeboxProto)
+                && newProto is JukeboxPrototype newJukeboxProto
+            )
             {
                 component.SelectedSongId = newJukeboxProto;
             }
             // End Frontier
 
-            if (string.IsNullOrEmpty(component.SelectedSongId) ||
-                !_protoManager.TryIndex(component.SelectedSongId, out var jukeboxProto))
+            if (
+                string.IsNullOrEmpty(component.SelectedSongId)
+                || !_protoManager.TryIndex(component.SelectedSongId, out var jukeboxProto)
+            )
             {
                 return;
             }
 
-            component.AudioStream = Audio.PlayPvs(jukeboxProto.Path, uid, AudioParams.Default.WithMaxDistance(10f))?.Entity;
+            component.AudioStream = Audio
+                .PlayPvs(jukeboxProto.Path, uid, AudioParams.Default.WithMaxDistance(10f))
+                ?.Entity;
 
             // Frontier: wallmount jukebox, shuffle state
             if (TryComp<TransformComponent>(component.AudioStream, out var xform))
@@ -104,7 +119,10 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
     }
 
     // Frontier: Shuffle & Repeat
-    private void OnJukeboxSetPlayback(Entity<JukeboxComponent> ent, ref JukeboxSetPlaybackModeMessage playbackModeMessage)
+    private void OnJukeboxSetPlayback(
+        Entity<JukeboxComponent> ent,
+        ref JukeboxSetPlaybackModeMessage playbackModeMessage
+    )
     {
         if (ent.Comp.PlaybackMode != playbackModeMessage.PlaybackMode)
         {
@@ -121,6 +139,7 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
 
         return component.State;
     }
+
     // End Frontier: Shuffle & Repeat
 
     private void OnJukeboxSetTime(EntityUid uid, JukeboxComponent component, JukeboxSetTimeMessage args)
@@ -155,6 +174,7 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
         entity.Comp.FirstPlay = true;
         Dirty(entity);
     }
+
     // End Frontier
 
     private void OnJukeboxSelected(EntityUid uid, JukeboxComponent component, JukeboxSelectedMessage args)
@@ -197,8 +217,11 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
             }
 
             // Frontier: Replay feature. Please pitch in if you have better ideas. This is a pretty bad implementation.
-            if (comp.PlaybackMode != JukeboxPlaybackMode.Single && comp.AudioStream != null &&
-                GetAudioState(comp.AudioStream) == AudioState.Stopped)
+            if (
+                comp.PlaybackMode != JukeboxPlaybackMode.Single
+                && comp.AudioStream != null
+                && GetAudioState(comp.AudioStream) == AudioState.Stopped
+            )
             {
                 var msg = new JukeboxPlayingMessage();
                 OnJukeboxPlay(uid, comp, ref msg);

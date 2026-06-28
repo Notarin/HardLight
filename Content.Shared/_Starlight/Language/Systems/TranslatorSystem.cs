@@ -1,13 +1,13 @@
 using System.Linq;
 using Content.Shared._Starlight.Language.Components;
-using Content.Shared.Examine;
-using Content.Shared.Toggleable;
 using Content.Shared._Starlight.Language.Events;
+using Content.Shared.Examine;
 using Content.Shared.Item.ItemToggle;
 using Content.Shared.Item.ItemToggle.Components;
 using Content.Shared.Popups;
 using Content.Shared.PowerCell;
 using Content.Shared.PowerCell.Components; // HardLight
+using Content.Shared.Toggleable;
 using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
@@ -17,12 +17,23 @@ namespace Content.Shared._Starlight.Language.Systems;
 
 public sealed class TranslatorSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedContainerSystem _containers = default!;
-    [Dependency] private readonly ItemToggleSystem _itemToggle = default!;
-    [Dependency] private readonly SharedLanguageSystem _language = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedPowerCellSystem _powerCell = default!; // HardLight: PowerCellSystem<SharedPowerCellSystem
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _containers = default!;
+
+    [Dependency]
+    private readonly ItemToggleSystem _itemToggle = default!;
+
+    [Dependency]
+    private readonly SharedLanguageSystem _language = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SharedPowerCellSystem _powerCell = default!; // HardLight: PowerCellSystem<SharedPowerCellSystem
 
     public override void Initialize()
     {
@@ -55,23 +66,36 @@ public sealed class TranslatorSystem : EntitySystem
 
     private void OnExamined(Entity<HandheldTranslatorComponent> ent, ref ExaminedEvent args)
     {
-        var understoodLanguageNames = ent.Comp.Understood
-            .Select(it => Loc.GetString($"language-{it}-name"));
-        var spokenLanguageNames = ent.Comp.Spoken
-            .Select(it => Loc.GetString($"language-{it}-name"));
-        var requiredLanguageNames = ent.Comp.Requires
-            .Select(it => Loc.GetString($"language-{it}-name"));
+        var understoodLanguageNames = ent.Comp.Understood.Select(it => Loc.GetString($"language-{it}-name"));
+        var spokenLanguageNames = ent.Comp.Spoken.Select(it => Loc.GetString($"language-{it}-name"));
+        var requiredLanguageNames = ent.Comp.Requires.Select(it => Loc.GetString($"language-{it}-name"));
 
-        args.PushMarkup(Loc.GetString("translator-examined-langs-understood", ("languages", string.Join(", ", understoodLanguageNames))));
-        args.PushMarkup(Loc.GetString("translator-examined-langs-spoken", ("languages", string.Join(", ", spokenLanguageNames))));
+        args.PushMarkup(
+            Loc.GetString(
+                "translator-examined-langs-understood",
+                ("languages", string.Join(", ", understoodLanguageNames))
+            )
+        );
+        args.PushMarkup(
+            Loc.GetString("translator-examined-langs-spoken", ("languages", string.Join(", ", spokenLanguageNames)))
+        );
 
-        args.PushMarkup(Loc.GetString(ent.Comp.RequiresAll ? "translator-examined-requires-all" : "translator-examined-requires-any",
-            ("languages", string.Join(", ", requiredLanguageNames))));
+        args.PushMarkup(
+            Loc.GetString(
+                ent.Comp.RequiresAll ? "translator-examined-requires-all" : "translator-examined-requires-any",
+                ("languages", string.Join(", ", requiredLanguageNames))
+            )
+        );
 
-        args.PushMarkup(Loc.GetString(ent.Comp.Enabled ? "translator-examined-enabled" : "translator-examined-disabled"));
+        args.PushMarkup(
+            Loc.GetString(ent.Comp.Enabled ? "translator-examined-enabled" : "translator-examined-disabled")
+        );
     }
 
-    private void OnTranslatorInserted(Entity<HandheldTranslatorComponent> ent, ref EntGotInsertedIntoContainerMessage args)
+    private void OnTranslatorInserted(
+        Entity<HandheldTranslatorComponent> ent,
+        ref EntGotInsertedIntoContainerMessage args
+    )
     {
         if (args.Container.Owner is not { Valid: true } holder || !HasComp<LanguageSpeakerComponent>(holder))
             return;
@@ -114,31 +138,39 @@ public sealed class TranslatorSystem : EntitySystem
         _powerCell.SetDrawEnabled(translator.Owner, isEnabled);
         _appearance.SetData(translator, ToggleableLightVisuals.Enabled, translator.Comp.Enabled); // HardLight: ToggleableVisuals<ToggleableLightVisuals
 
-        if (_containers.TryGetContainingContainer(translator.Owner, out var holderCont)
-            && TryComp<LanguageSpeakerComponent>(holderCont.Owner, out var languageComp))
+        if (
+            _containers.TryGetContainingContainer(translator.Owner, out var holderCont)
+            && TryComp<LanguageSpeakerComponent>(holderCont.Owner, out var languageComp)
+        )
         {
             // The first new spoken language added by this translator, or null
-            var firstNewLanguage = translator.Comp.Spoken.FirstOrDefault(it => !languageComp.SpokenLanguages.Contains(it));
+            var firstNewLanguage = translator.Comp.Spoken.FirstOrDefault(it =>
+                !languageComp.SpokenLanguages.Contains(it)
+            );
             _language.UpdateEntityLanguages(holderCont.Owner);
 
             // Update the current language of the entity if necessary
-            if (isEnabled && translator.Comp.SetLanguageOnInteract && firstNewLanguage is {})
+            if (isEnabled && translator.Comp.SetLanguageOnInteract && firstNewLanguage is { })
                 _language.SetLanguage((holderCont.Owner, languageComp), firstNewLanguage);
         }
 
-        var loc = isEnabled
-            ? "translator-component-turnon"
-            : "translator-component-shutoff";
+        var loc = isEnabled ? "translator-component-turnon" : "translator-component-shutoff";
         var message = Loc.GetString(loc, ("translator", translator));
         _popup.PopupClient(message, translator, args.User);
     }
 
-    private void OnDetermineLanguages(EntityUid uid, IntrinsicTranslatorComponent component, DetermineEntityLanguagesEvent ev)
+    private void OnDetermineLanguages(
+        EntityUid uid,
+        IntrinsicTranslatorComponent component,
+        DetermineEntityLanguagesEvent ev
+    )
     {
-        if (!component.Enabled
+        if (
+            !component.Enabled
             || component.LifeStage >= ComponentLifeStage.Removing
             || !TryComp<LanguageKnowledgeComponent>(uid, out var knowledge)
-            || !_powerCell.HasActivatableCharge(uid))
+            || !_powerCell.HasActivatableCharge(uid)
+        )
             return;
 
         CopyLanguages(component, ev, knowledge);
@@ -158,8 +190,7 @@ public sealed class TranslatorSystem : EntitySystem
             if (!translatorComp.Enabled || !_powerCell.HasActivatableCharge(translator))
                 continue;
 
-            if (!_containers.TryGetContainingContainer(translator, out var container) ||
-                container.Owner != ent.Owner)
+            if (!_containers.TryGetContainingContainer(translator, out var container) || container.Owner != ent.Owner)
             {
                 staleTranslators ??= []; // HardLight
                 staleTranslators.Add(translator); // HardLight
@@ -182,7 +213,11 @@ public sealed class TranslatorSystem : EntitySystem
         Dirty(ent);
     }
 
-    private void CopyLanguages(BaseTranslatorComponent from, DetermineEntityLanguagesEvent to, LanguageKnowledgeComponent knowledge)
+    private void CopyLanguages(
+        BaseTranslatorComponent from,
+        DetermineEntityLanguagesEvent to,
+        LanguageKnowledgeComponent knowledge
+    )
     {
         var addSpoken = CheckLanguagesMatch(from.Requires, knowledge.Speaks, from.RequiresAll);
         var addUnderstood = CheckLanguagesMatch(from.Requires, knowledge.Understands, from.RequiresAll);
@@ -199,13 +234,15 @@ public sealed class TranslatorSystem : EntitySystem
     /// <summary>
     ///     Checks whether any OR all required languages are provided. Used for utility purposes.
     /// </summary>
-    public bool CheckLanguagesMatch(ICollection<ProtoId<LanguagePrototype>> required, ICollection<ProtoId<LanguagePrototype>> provided, bool requireAll)
+    public bool CheckLanguagesMatch(
+        ICollection<ProtoId<LanguagePrototype>> required,
+        ICollection<ProtoId<LanguagePrototype>> provided,
+        bool requireAll
+    )
     {
         if (required.Count == 0)
             return true;
 
-        return requireAll
-            ? required.All(provided.Contains)
-            : required.Any(provided.Contains);
+        return requireAll ? required.All(provided.Contains) : required.Any(provided.Contains);
     }
 }

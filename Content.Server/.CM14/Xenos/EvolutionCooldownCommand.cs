@@ -12,8 +12,11 @@ namespace Content.Server.CM14.Xenos;
 [AdminCommand(AdminFlags.Debug)]
 public sealed class EvolutionCooldownCommand : LocalizedCommands
 {
-    [Dependency] private readonly IEntityManager _entities = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly IEntityManager _entities = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     public override string Command => "evolutioncooldown";
 
@@ -39,8 +42,9 @@ public sealed class EvolutionCooldownCommand : LocalizedCommands
 
         if (!_entities.TryGetComponent(entity, out XenoComponent? xeno))
         {
-            shell.WriteError(Loc.GetString("cm-cmd-entity-no-component",
-                ("entity", entity), ("component", nameof(XenoComponent))));
+            shell.WriteError(
+                Loc.GetString("cm-cmd-entity-no-component", ("entity", entity), ("component", nameof(XenoComponent)))
+            );
             return;
         }
 
@@ -52,7 +56,11 @@ public sealed class EvolutionCooldownCommand : LocalizedCommands
             if (seconds == 0)
                 actions.ClearCooldown(xeno.EvolveAction);
             else
-                actions.SetCooldown(xeno.EvolveAction, _timing.CurTime, _timing.CurTime + TimeSpan.FromSeconds(seconds));
+                actions.SetCooldown(
+                    xeno.EvolveAction,
+                    _timing.CurTime,
+                    _timing.CurTime + TimeSpan.FromSeconds(seconds)
+                );
         }
         else
         {
@@ -81,4 +89,3 @@ public sealed class EvolutionCooldownCommand : LocalizedCommands
         shell.WriteLine(Loc.GetString("cmd-evolutioncooldown-set-cooldown", ("seconds", seconds)));
     }
 }
-

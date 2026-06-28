@@ -39,8 +39,10 @@ public sealed partial class UseDelayInfo
 {
     [DataField]
     public TimeSpan Length { get; set; }
+
     [DataField]
     public TimeSpan StartTime { get; set; }
+
     [DataField]
     public TimeSpan EndTime { get; set; }
 

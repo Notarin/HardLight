@@ -17,34 +17,30 @@ namespace Content.Shared.Store;
 [Virtual, DataDefinition]
 public partial class ListingData : IEquatable<ListingData>
 {
-    public ListingData()
-    {
-    }
+    public ListingData() { }
 
-    public ListingData(ListingData other) : this(
-        other.Name,
-        other.DiscountCategory,
-        other.Description,
-        other.Conditions,
-        other.Icon,
-        other.Priority,
-        other.ProductEntity,
-        other.ProductAction,
-        other.ProductUpgradeId,
-        other.ProductActionEntity,
-        other.ProductEvent,
-        other.RaiseProductEventOnUser,
-        other.PurchaseAmount,
-        other.ID,
-        other.Categories,
-        other.OriginalCost,
-        other.RestockTime,
-        other.DiscountDownTo,
-        other.DisableRefund
-    )
-    {
-
-    }
+    public ListingData(ListingData other)
+        : this(
+            other.Name,
+            other.DiscountCategory,
+            other.Description,
+            other.Conditions,
+            other.Icon,
+            other.Priority,
+            other.ProductEntity,
+            other.ProductAction,
+            other.ProductUpgradeId,
+            other.ProductActionEntity,
+            other.ProductEvent,
+            other.RaiseProductEventOnUser,
+            other.PurchaseAmount,
+            other.ID,
+            other.Categories,
+            other.OriginalCost,
+            other.RestockTime,
+            other.DiscountDownTo,
+            other.DisableRefund
+        ) { }
 
     public ListingData(
         string? name,
@@ -123,7 +119,8 @@ public partial class ListingData : IEquatable<ListingData>
     /// cost modifiers (due to discounts or surplus). Use Cost property on derived class instead.
     /// </summary>
     [DataField]
-    public IReadOnlyDictionary<ProtoId<CurrencyPrototype>, FixedPoint2> OriginalCost = new Dictionary<ProtoId<CurrencyPrototype>, FixedPoint2>();
+    public IReadOnlyDictionary<ProtoId<CurrencyPrototype>, FixedPoint2> OriginalCost =
+        new Dictionary<ProtoId<CurrencyPrototype>, FixedPoint2>();
 
     /// <summary>
     /// Specific customizable conditions that determine whether or not the listing can be purchased.
@@ -209,13 +206,15 @@ public partial class ListingData : IEquatable<ListingData>
             return false;
 
         //simple conditions
-        if (Priority != listing.Priority ||
-            Name != listing.Name ||
-            Description != listing.Description ||
-            ProductEntity != listing.ProductEntity ||
-            ProductAction != listing.ProductAction ||
-            ProductEvent?.GetType() != listing.ProductEvent?.GetType() ||
-            RestockTime != listing.RestockTime)
+        if (
+            Priority != listing.Priority
+            || Name != listing.Name
+            || Description != listing.Description
+            || ProductEntity != listing.ProductEntity
+            || ProductAction != listing.ProductAction
+            || ProductEvent?.GetType() != listing.ProductEvent?.GetType()
+            || RestockTime != listing.RestockTime
+        )
             return false;
 
         if (Icon != null && !Icon.Equals(listing.Icon))
@@ -229,13 +228,14 @@ public partial class ListingData : IEquatable<ListingData>
         if (!OriginalCost.OrderBy(x => x).SequenceEqual(listing.OriginalCost.OrderBy(x => x)))
             return false;
 
-        if ((Conditions != null && listing.Conditions != null) &&
-            !Conditions.OrderBy(x => x).SequenceEqual(listing.Conditions.OrderBy(x => x)))
+        if (
+            (Conditions != null && listing.Conditions != null)
+            && !Conditions.OrderBy(x => x).SequenceEqual(listing.Conditions.OrderBy(x => x))
+        )
             return false;
 
         return true;
     }
-
 }
 
 /// <summary>
@@ -297,9 +297,7 @@ public sealed partial class ListingDataWithCostModifiers : ListingData
             listingData.RestockTime,
             listingData.DiscountDownTo,
             listingData.DisableRefund
-        )
-    {
-    }
+        ) { }
 
     /// <summary> Marker, if cost of listing item have any modifiers. </summary>
     public bool IsCostModified => CostModifiersBySourceId.Count > 0;
@@ -309,9 +307,10 @@ public sealed partial class ListingDataWithCostModifiers : ListingData
     {
         get
         {
-            return _costModified ??= CostModifiersBySourceId.Count == 0
-                ? new Dictionary<ProtoId<CurrencyPrototype>, FixedPoint2>(OriginalCost)
-                : ApplyAllModifiers();
+            return _costModified ??=
+                CostModifiersBySourceId.Count == 0
+                    ? new Dictionary<ProtoId<CurrencyPrototype>, FixedPoint2>(OriginalCost)
+                    : ApplyAllModifiers();
         }
     }
 
@@ -382,7 +381,6 @@ public sealed partial class ListingDataWithCostModifiers : ListingData
         }
 
         return relativeModifiedPercent;
-
     }
 
     private Dictionary<ProtoId<CurrencyPrototype>, FixedPoint2> ApplyAllModifiers()

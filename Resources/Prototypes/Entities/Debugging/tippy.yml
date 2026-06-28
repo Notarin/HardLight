@@ -1,6 +1,6 @@
 - type: entity
   id: Tippy
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     netsync: false
@@ -9,14 +9,14 @@
     layers:
     - sprite: Tips/tippy.rsi
       state: left
-      map: [ "revealing" ]
+      map: ["revealing"]
     - sprite: Tips/tippy.rsi
       state: right
-      map: [ "hiding" ]
+      map: ["hiding"]
     - sprite: Tips/tippy.rsi
       state: down
       visible: false
-      map: [ "speaking" ]
+      map: ["speaking"]
   # footstep sounds wile waddling onto the screen. 
   - type: FootstepModifier
     footstepSoundCollection:

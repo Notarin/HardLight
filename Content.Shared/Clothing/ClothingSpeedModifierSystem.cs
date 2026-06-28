@@ -12,10 +12,17 @@ namespace Content.Shared.Clothing;
 
 public sealed class ClothingSpeedModifierSystem : EntitySystem
 {
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly ExamineSystemShared _examine = default!;
-    [Dependency] private readonly MovementSpeedModifierSystem _movementSpeed = default!;
-    [Dependency] private readonly ItemToggleSystem _toggle = default!;
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly ExamineSystemShared _examine = default!;
+
+    [Dependency]
+    private readonly MovementSpeedModifierSystem _movementSpeed = default!;
+
+    [Dependency]
+    private readonly ItemToggleSystem _toggle = default!;
 
     public override void Initialize()
     {
@@ -23,7 +30,9 @@ public sealed class ClothingSpeedModifierSystem : EntitySystem
 
         SubscribeLocalEvent<ClothingSpeedModifierComponent, ComponentGetState>(OnGetState);
         SubscribeLocalEvent<ClothingSpeedModifierComponent, ComponentHandleState>(OnHandleState);
-        SubscribeLocalEvent<ClothingSpeedModifierComponent, InventoryRelayedEvent<RefreshMovementSpeedModifiersEvent>>(OnRefreshMoveSpeed);
+        SubscribeLocalEvent<ClothingSpeedModifierComponent, InventoryRelayedEvent<RefreshMovementSpeedModifiersEvent>>(
+            OnRefreshMoveSpeed
+        );
         SubscribeLocalEvent<ClothingSpeedModifierComponent, GetVerbsEvent<ExamineVerb>>(OnClothingVerbExamine);
         SubscribeLocalEvent<ClothingSpeedModifierComponent, ItemToggledEvent>(OnToggled);
     }
@@ -38,8 +47,9 @@ public sealed class ClothingSpeedModifierSystem : EntitySystem
         if (args.Current is not ClothingSpeedModifierComponentState state)
             return;
 
-        var diff = !MathHelper.CloseTo(component.SprintModifier, state.SprintModifier) ||
-                   !MathHelper.CloseTo(component.WalkModifier, state.WalkModifier);
+        var diff =
+            !MathHelper.CloseTo(component.SprintModifier, state.SprintModifier)
+            || !MathHelper.CloseTo(component.WalkModifier, state.WalkModifier);
 
         component.WalkModifier = state.WalkModifier;
         component.SprintModifier = state.SprintModifier;
@@ -52,13 +62,21 @@ public sealed class ClothingSpeedModifierSystem : EntitySystem
         }
     }
 
-    private void OnRefreshMoveSpeed(EntityUid uid, ClothingSpeedModifierComponent component, InventoryRelayedEvent<RefreshMovementSpeedModifiersEvent> args)
+    private void OnRefreshMoveSpeed(
+        EntityUid uid,
+        ClothingSpeedModifierComponent component,
+        InventoryRelayedEvent<RefreshMovementSpeedModifiersEvent> args
+    )
     {
         if (_toggle.IsActivated(uid))
             args.Args.ModifySpeed(component.WalkModifier, component.SprintModifier);
     }
 
-    private void OnClothingVerbExamine(EntityUid uid, ClothingSpeedModifierComponent component, GetVerbsEvent<ExamineVerb> args)
+    private void OnClothingVerbExamine(
+        EntityUid uid,
+        ClothingSpeedModifierComponent component,
+        GetVerbsEvent<ExamineVerb> args
+    )
     {
         if (!args.CanInteract || !args.CanAccess)
             return;
@@ -74,19 +92,38 @@ public sealed class ClothingSpeedModifierSystem : EntitySystem
         if (MathHelper.CloseTo(walkModifierPercentage, sprintModifierPercentage, 0.5f))
         {
             if (walkModifierPercentage < 0.0f)
-                msg.AddMarkupOrThrow(Loc.GetString("clothing-speed-increase-equal-examine", ("walkSpeed", (int) MathF.Abs(walkModifierPercentage)), ("runSpeed", (int) MathF.Abs(sprintModifierPercentage))));
+                msg.AddMarkupOrThrow(
+                    Loc.GetString(
+                        "clothing-speed-increase-equal-examine",
+                        ("walkSpeed", (int)MathF.Abs(walkModifierPercentage)),
+                        ("runSpeed", (int)MathF.Abs(sprintModifierPercentage))
+                    )
+                );
             else
-                msg.AddMarkupOrThrow(Loc.GetString("clothing-speed-decrease-equal-examine", ("walkSpeed", (int) walkModifierPercentage), ("runSpeed", (int) sprintModifierPercentage)));
+                msg.AddMarkupOrThrow(
+                    Loc.GetString(
+                        "clothing-speed-decrease-equal-examine",
+                        ("walkSpeed", (int)walkModifierPercentage),
+                        ("runSpeed", (int)sprintModifierPercentage)
+                    )
+                );
         }
         else
         {
             if (sprintModifierPercentage < 0.0f)
             {
-                msg.AddMarkupOrThrow(Loc.GetString("clothing-speed-increase-run-examine", ("runSpeed", (int) MathF.Abs(sprintModifierPercentage))));
+                msg.AddMarkupOrThrow(
+                    Loc.GetString(
+                        "clothing-speed-increase-run-examine",
+                        ("runSpeed", (int)MathF.Abs(sprintModifierPercentage))
+                    )
+                );
             }
             else if (sprintModifierPercentage > 0.0f)
             {
-                msg.AddMarkupOrThrow(Loc.GetString("clothing-speed-decrease-run-examine", ("runSpeed", (int) sprintModifierPercentage)));
+                msg.AddMarkupOrThrow(
+                    Loc.GetString("clothing-speed-decrease-run-examine", ("runSpeed", (int)sprintModifierPercentage))
+                );
             }
             if (walkModifierPercentage != 0.0f && sprintModifierPercentage != 0.0f)
             {
@@ -94,15 +131,29 @@ public sealed class ClothingSpeedModifierSystem : EntitySystem
             }
             if (walkModifierPercentage < 0.0f)
             {
-                msg.AddMarkupOrThrow(Loc.GetString("clothing-speed-increase-walk-examine", ("walkSpeed", (int) MathF.Abs(walkModifierPercentage))));
+                msg.AddMarkupOrThrow(
+                    Loc.GetString(
+                        "clothing-speed-increase-walk-examine",
+                        ("walkSpeed", (int)MathF.Abs(walkModifierPercentage))
+                    )
+                );
             }
             else if (walkModifierPercentage > 0.0f)
             {
-                msg.AddMarkupOrThrow(Loc.GetString("clothing-speed-decrease-walk-examine", ("walkSpeed", (int) walkModifierPercentage)));
+                msg.AddMarkupOrThrow(
+                    Loc.GetString("clothing-speed-decrease-walk-examine", ("walkSpeed", (int)walkModifierPercentage))
+                );
             }
         }
 
-        _examine.AddDetailedExamineVerb(args, component, msg, Loc.GetString("clothing-speed-examinable-verb-text"), "/Textures/Interface/VerbIcons/outfit.svg.192dpi.png", Loc.GetString("clothing-speed-examinable-verb-message"));
+        _examine.AddDetailedExamineVerb(
+            args,
+            component,
+            msg,
+            Loc.GetString("clothing-speed-examinable-verb-text"),
+            "/Textures/Interface/VerbIcons/outfit.svg.192dpi.png",
+            Loc.GetString("clothing-speed-examinable-verb-message")
+        );
     }
 
     private void OnToggled(Entity<ClothingSpeedModifierComponent> ent, ref ItemToggledEvent args)

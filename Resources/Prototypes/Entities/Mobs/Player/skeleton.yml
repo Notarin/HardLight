@@ -28,7 +28,6 @@
     prototypes: [PirateGear]
   - type: RandomHumanoidAppearance
 
-
 - type: entity
   name: skeleton biker
   parent: MobSkeletonPerson

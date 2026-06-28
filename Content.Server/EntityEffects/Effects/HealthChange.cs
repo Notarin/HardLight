@@ -1,3 +1,5 @@
+using System.Linq;
+using System.Text.Json.Serialization;
 using Content.Shared.Damage;
 using Content.Shared.Damage.Prototypes;
 using Content.Shared.EntityEffects;
@@ -5,8 +7,6 @@ using Content.Shared.FixedPoint;
 using Content.Shared.Localizations;
 using JetBrains.Annotations;
 using Robust.Shared.Prototypes;
-using System.Linq;
-using System.Text.Json.Serialization;
 
 namespace Content.Server.EntityEffects.Effects
 {
@@ -49,8 +49,9 @@ namespace Content.Server.EntityEffects.Effects
                 if (!damageSpec.TryGetDamageInGroup(group, out var amount))
                     continue;
 
-                var relevantTypes = damageSpec.DamageDict
-                    .Where(x => x.Value != FixedPoint2.Zero && group.DamageTypes.Contains(x.Key)).ToList();
+                var relevantTypes = damageSpec
+                    .DamageDict.Where(x => x.Value != FixedPoint2.Zero && group.DamageTypes.Contains(x.Key))
+                    .ToList();
 
                 if (relevantTypes.Count != group.DamageTypes.Count)
                     continue;
@@ -78,11 +79,13 @@ namespace Content.Server.EntityEffects.Effects
                     deals = true;
 
                 damages.Add(
-                    Loc.GetString("health-change-display",
+                    Loc.GetString(
+                        "health-change-display",
                         ("kind", group.LocalizedName),
                         ("amount", MathF.Abs(amount.Float())),
                         ("deltasign", sign)
-                    ));
+                    )
+                );
 
                 foreach (var type in group.DamageTypes)
                 {
@@ -100,19 +103,23 @@ namespace Content.Server.EntityEffects.Effects
                     deals = true;
 
                 damages.Add(
-                    Loc.GetString("health-change-display",
+                    Loc.GetString(
+                        "health-change-display",
                         ("kind", prototype.Index<DamageTypePrototype>(kind).LocalizedName),
                         ("amount", MathF.Abs(amount.Float())),
                         ("deltasign", sign)
-                    ));
+                    )
+                );
             }
 
             var healsordeals = heals ? (deals ? "both" : "heals") : (deals ? "deals" : "none");
 
-            return Loc.GetString("reagent-effect-guidebook-health-change",
+            return Loc.GetString(
+                "reagent-effect-guidebook-health-change",
                 ("chance", Probability),
                 ("changes", ContentLocalizationManager.FormatList(damages)),
-                ("healsordeals", healsordeals));
+                ("healsordeals", healsordeals)
+            );
         }
 
         public override void Effect(EntityEffectBaseArgs args)
@@ -124,11 +131,8 @@ namespace Content.Server.EntityEffects.Effects
                 scale = ScaleByQuantity ? reagentArgs.Quantity * reagentArgs.Scale : reagentArgs.Scale;
             }
 
-            args.EntityManager.System<DamageableSystem>().TryChangeDamage(
-                args.TargetEntity,
-                Damage * scale,
-                IgnoreResistances,
-                interruptsDoAfters: false);
+            args.EntityManager.System<DamageableSystem>()
+                .TryChangeDamage(args.TargetEntity, Damage * scale, IgnoreResistances, interruptsDoAfters: false);
         }
     }
 }

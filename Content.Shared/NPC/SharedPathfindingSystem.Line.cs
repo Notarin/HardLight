@@ -6,16 +6,22 @@ public abstract partial class SharedPathfindingSystem
     {
         // https://gist.github.com/Pyr3z/46884d67641094d6cf353358566db566
         // declare all locals at the top so it's obvious how big the footprint is
-        int dx, dy, xinc, yinc, side, i, error;
+        int dx,
+            dy,
+            xinc,
+            yinc,
+            side,
+            i,
+            error;
 
         // starting cell is always returned
         if (!callback(start))
             return;
 
-        xinc  = (end.X < start.X) ? -1 : 1;
-        yinc  = (end.Y < start.Y) ? -1 : 1;
-        dx    = xinc * (end.X - start.X);
-        dy    = yinc * (end.Y - start.Y);
+        xinc = (end.X < start.X) ? -1 : 1;
+        yinc = (end.Y < start.Y) ? -1 : 1;
+        dx = xinc * (end.X - start.X);
+        dy = yinc * (end.Y - start.Y);
         var ax = start.X;
         var ay = start.Y;
 
@@ -31,7 +37,7 @@ public abstract partial class SharedPathfindingSystem
             // raycasts, for example, then perfect diagonals will check half as many
             // cells.
 
-            while (dx --> 0)
+            while (dx-- > 0)
             {
                 ax += xinc;
                 ay += yinc;
@@ -46,22 +52,22 @@ public abstract partial class SharedPathfindingSystem
 
         side = -1 * ((dx == 0 ? yinc : xinc) - 1);
 
-        i     = dx + dy;
+        i = dx + dy;
         error = dx - dy;
 
         dx *= 2;
         dy *= 2;
 
-        while (i --> 0)
+        while (i-- > 0)
         {
             if (error > 0 || error == side)
             {
-                ax    += xinc;
+                ax += xinc;
                 error -= dy;
             }
             else
             {
-                ay    += yinc;
+                ay += yinc;
                 error += dx;
             }
 

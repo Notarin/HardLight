@@ -13,7 +13,8 @@ namespace Content.Server.Xenoarchaeology.Equipment.Systems;
 
 public sealed class TraversalDistorterSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -65,7 +66,7 @@ public sealed class TraversalDistorterSystem : EntitySystem
                 examine = Loc.GetString("traversal-distorter-desc-down");
                 break;
         }
-        
+
         args.PushMarkup(examine);
     }
 

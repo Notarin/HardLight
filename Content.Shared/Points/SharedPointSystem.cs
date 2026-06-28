@@ -12,7 +12,12 @@ public abstract class SharedPointSystem : EntitySystem
     /// <summary>
     /// Adds the specified point value to a player.
     /// </summary>
-    public void AdjustPointValue(NetUserId userId, FixedPoint2 value, EntityUid uid, PointManagerComponent? component = null)
+    public void AdjustPointValue(
+        NetUserId userId,
+        FixedPoint2 value,
+        EntityUid uid,
+        PointManagerComponent? component = null
+    )
     {
         if (!Resolve(uid, ref component))
             return;
@@ -26,7 +31,12 @@ public abstract class SharedPointSystem : EntitySystem
     /// <summary>
     /// Sets the amount of points for a player
     /// </summary>
-    public void SetPointValue(NetUserId userId, FixedPoint2 value, EntityUid uid, PointManagerComponent? component = null)
+    public void SetPointValue(
+        NetUserId userId,
+        FixedPoint2 value,
+        EntityUid uid,
+        PointManagerComponent? component = null
+    )
     {
         if (!Resolve(uid, ref component))
             return;
@@ -50,9 +60,7 @@ public abstract class SharedPointSystem : EntitySystem
         if (!Resolve(uid, ref component))
             return FixedPoint2.Zero;
 
-        return component.Points.TryGetValue(userId, out var value)
-            ? value
-            : FixedPoint2.Zero;
+        return component.Points.TryGetValue(userId, out var value) ? value : FixedPoint2.Zero;
     }
 
     /// <summary>

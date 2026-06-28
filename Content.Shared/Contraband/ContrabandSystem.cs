@@ -1,4 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using Content.Shared.Access.Systems;
 using Content.Shared.CCVar;
 using Content.Shared.Examine;
@@ -8,7 +9,6 @@ using Content.Shared.Verbs;
 using Robust.Shared.Configuration;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
-using System.Linq;
 
 namespace Content.Shared.Contraband;
 
@@ -17,10 +17,17 @@ namespace Content.Shared.Contraband;
 /// </summary>
 public sealed partial class ContrabandSystem : EntitySystem
 {
-    [Dependency] private readonly IConfigurationManager _configuration = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly SharedIdCardSystem _id = default!;
-    [Dependency] private readonly ExamineSystemShared _examine = default!;
+    [Dependency]
+    private readonly IConfigurationManager _configuration = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly SharedIdCardSystem _id = default!;
+
+    [Dependency]
+    private readonly ExamineSystemShared _examine = default!;
 
     private bool _contrabandExamineEnabled;
 
@@ -45,7 +52,6 @@ public sealed partial class ContrabandSystem : EntitySystem
 
     private void OnDetailedExamine(EntityUid ent, ContrabandComponent component, ref GetVerbsEvent<ExamineVerb> args)
     {
-
         if (!_contrabandExamineEnabled)
             return;
 
@@ -61,12 +67,19 @@ public sealed partial class ContrabandSystem : EntitySystem
         if (severity.ShowDepartmentsAndJobs)
         {
             // department restricted text
-            departmentExamineMessage =
-                GenerateDepartmentExamineMessage(component.AllowedDepartments, component.AllowedJobs, severity.Color);
+            departmentExamineMessage = GenerateDepartmentExamineMessage(
+                component.AllowedDepartments,
+                component.AllowedJobs,
+                severity.Color
+            );
         }
         else
         {
-            departmentExamineMessage = Loc.GetString(severity.ExamineText, ("type", ContrabandItemType.Item), ("color", severity.Color.ToHex()));
+            departmentExamineMessage = Loc.GetString(
+                severity.ExamineText,
+                ("type", ContrabandItemType.Item),
+                ("color", severity.Color.ToHex())
+            );
         }
 
         // if it is fully restricted, you're department-less, or your department isn't in the allowed list, you cannot carry it. Otherwise, you can.
@@ -78,11 +91,13 @@ public sealed partial class ContrabandSystem : EntitySystem
             iconTexture = "/Textures/Interface/VerbIcons/lock-red.svg.192dpi.png";
         }
         var examineMarkup = GetContrabandExamine(departmentExamineMessage, carryingMessage);
-        _examine.AddHoverExamineVerb(args,
+        _examine.AddHoverExamineVerb(
+            args,
             component,
             Loc.GetString("contraband-examinable-verb-text"),
             examineMarkup.ToMarkup(),
-            iconTexture);
+            iconTexture
+        );
     }
 
     /// <summary>
@@ -93,9 +108,16 @@ public sealed partial class ContrabandSystem : EntitySystem
     /// <param name="color">The color of the text.</param>
     /// <param name="itemType">The type of entity (item, reagent etc...)</param>
     /// <returns>A localized string with the formatted message</returns>
-    public string GenerateDepartmentExamineMessage(HashSet<ProtoId<DepartmentPrototype>> allowedDepartments, HashSet<ProtoId<JobPrototype>> allowedJobs, Color color, ContrabandItemType itemType = ContrabandItemType.Item)
+    public string GenerateDepartmentExamineMessage(
+        HashSet<ProtoId<DepartmentPrototype>> allowedDepartments,
+        HashSet<ProtoId<JobPrototype>> allowedJobs,
+        Color color,
+        ContrabandItemType itemType = ContrabandItemType.Item
+    )
     {
-        var localizedDepartments = allowedDepartments.Select(p => Loc.GetString("contraband-department-plural", ("department", Loc.GetString(_proto.Index(p).Name))));
+        var localizedDepartments = allowedDepartments.Select(p =>
+            Loc.GetString("contraband-department-plural", ("department", Loc.GetString(_proto.Index(p).Name)))
+        );
         var jobs = allowedJobs.Select(p => _proto.Index(p).LocalizedName).ToArray();
         var localizedJobs = jobs.Select(p => Loc.GetString("contraband-job-plural", ("job", p)));
 
@@ -103,7 +125,12 @@ public sealed partial class ContrabandSystem : EntitySystem
         var list = ContentLocalizationManager.FormatList(localizedDepartments.Concat(localizedJobs).ToList());
 
         // department restricted text
-        return Loc.GetString("contraband-examine-text-Restricted-department", ("departments", list), ("type", itemType), ("color", color.ToHex()));
+        return Loc.GetString(
+            "contraband-examine-text-Restricted-department",
+            ("departments", list),
+            ("type", itemType),
+            ("color", color.ToHex())
+        );
     }
 
     private FormattedMessage GetContrabandExamine(string deptMessage, string carryMessage)
@@ -128,7 +155,11 @@ public sealed partial class ContrabandSystem : EntitySystem
     /// <param name="player">The player that we are checking if they are allowed to have this contraband.</param>
     /// <param name="contraProtoId">The contraband ProtoId if the item is contraband.</param>
     /// <returns></returns>
-    public bool IsContraband(Entity<ContrabandComponent?> contraband, EntityUid? player, [NotNullWhen(true)] out ProtoId<ContrabandSeverityPrototype>? contraProtoId)
+    public bool IsContraband(
+        Entity<ContrabandComponent?> contraband,
+        EntityUid? player,
+        [NotNullWhen(true)] out ProtoId<ContrabandSeverityPrototype>? contraProtoId
+    )
     {
         contraProtoId = null;
 
@@ -164,5 +195,5 @@ public sealed partial class ContrabandSystem : EntitySystem
 public enum ContrabandItemType
 {
     Item,
-    Reagent
+    Reagent,
 }

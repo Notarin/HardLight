@@ -16,7 +16,12 @@ public sealed partial class NPCSystem
         blackboard.SetValue(key, value);
     }
 
-    public bool TryGetBlackboardValue<T>(EntityUid uid, string key, [NotNullWhen(true)] out T? value, HTNComponent? component = null)
+    public bool TryGetBlackboardValue<T>(
+        EntityUid uid,
+        string key,
+        [NotNullWhen(true)] out T? value,
+        HTNComponent? component = null
+    )
     {
         if (!Resolve(uid, ref component, false))
         {

@@ -20,7 +20,8 @@ public sealed class VendingInteractionTest : InteractionTest
     private const string RestockBoxOtherProtoId = "InteractionTestRestockBoxOther";
 
     [TestPrototypes]
-    private const string TestPrototypes = $@"
+    private const string TestPrototypes =
+        $@"
 - type: entity
   parent: BaseItem
   id: {VendedItemProtoId}
@@ -63,9 +64,9 @@ public sealed class VendingInteractionTest : InteractionTest
     sprite: error.rsi
 ";
 
-  private static readonly ProtoId<DamageTypePrototype> BluntId = "Blunt";
+    private static readonly ProtoId<DamageTypePrototype> BluntId = "Blunt";
 
-  [Test]
+    [Test]
     public async Task InteractUITest()
     {
         await SpawnTarget(VendingMachineProtoId);
@@ -113,7 +114,11 @@ public sealed class VendingInteractionTest : InteractionTest
 
         // Verify initial item count
         Assert.That(items, Is.Not.Empty, $"{VendingMachineProtoId} spawned with no items.");
-        Assert.That(items.First().Amount, Is.EqualTo(5), $"{VendingMachineProtoId} spawned with unexpected item count.");
+        Assert.That(
+            items.First().Amount,
+            Is.EqualTo(5),
+            $"{VendingMachineProtoId} spawned with unexpected item count."
+        );
 
         // Power the vending machine
         await SpawnEntity("APCBasic", SEntMan.GetCoordinates(TargetCoords));
@@ -130,10 +135,7 @@ public sealed class VendingInteractionTest : InteractionTest
         // Make sure the stock decreased
         Assert.That(items.First().Amount, Is.EqualTo(4), "Stocked item count did not decrease.");
         // Make sure the dispensed item was spawned in to the world
-        await AssertEntityLookup(
-            ("APCBasic", 1),
-            (VendedItemProtoId, 1)
-        );
+        await AssertEntityLookup(("APCBasic", 1), (VendedItemProtoId, 1));
     }
 
     [Test]
@@ -151,7 +153,11 @@ public sealed class VendingInteractionTest : InteractionTest
         var items = vendingSystem.GetAllInventory(vendorEnt);
 
         Assert.That(items, Is.Not.Empty, $"{VendingMachineProtoId} spawned with no items.");
-        Assert.That(items.First().Amount, Is.EqualTo(5), $"{VendingMachineProtoId} spawned with unexpected item count.");
+        Assert.That(
+            items.First().Amount,
+            Is.EqualTo(5),
+            $"{VendingMachineProtoId} spawned with unexpected item count."
+        );
 
         // Try to restock with the maintenance panel closed (nothing happens)
         await InteractUsing(RestockBoxProtoId);
@@ -200,14 +206,27 @@ public sealed class VendingInteractionTest : InteractionTest
     private async Task BreakVendor()
     {
         var damageableSys = SEntMan.System<DamageableSystem>();
-        Assert.That(TryComp<DamageableComponent>(out var damageableComp), $"{VendingMachineProtoId} does not have DamageableComponent.");
-        Assert.That(damageableComp.Damage.GetTotal(), Is.EqualTo(FixedPoint2.Zero), $"{VendingMachineProtoId} started with unexpected damage.");
+        Assert.That(
+            TryComp<DamageableComponent>(out var damageableComp),
+            $"{VendingMachineProtoId} does not have DamageableComponent."
+        );
+        Assert.That(
+            damageableComp.Damage.GetTotal(),
+            Is.EqualTo(FixedPoint2.Zero),
+            $"{VendingMachineProtoId} started with unexpected damage."
+        );
 
         // Damage the vending machine to the point that it breaks
         var damageType = ProtoMan.Index<DamageTypePrototype>("Blunt");
         var damage = new DamageSpecifier(damageType, FixedPoint2.New(100));
-        await Server.WaitPost(() => damageableSys.TryChangeDamage(SEntMan.GetEntity(Target), damage, ignoreResistances: true));
+        await Server.WaitPost(() =>
+            damageableSys.TryChangeDamage(SEntMan.GetEntity(Target), damage, ignoreResistances: true)
+        );
         await RunTicks(5);
-        Assert.That(damageableComp.Damage.GetTotal(), Is.GreaterThan(FixedPoint2.Zero), $"{VendingMachineProtoId} did not take damage.");
+        Assert.That(
+            damageableComp.Damage.GetTotal(),
+            Is.GreaterThan(FixedPoint2.Zero),
+            $"{VendingMachineProtoId} did not take damage."
+        );
     }
 }

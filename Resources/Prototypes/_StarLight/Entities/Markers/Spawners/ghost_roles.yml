@@ -1,5 +1,5 @@
 - type: entity
-  categories: [ HideSpawnMenu, Spawner ]
+  categories: [HideSpawnMenu, Spawner]
   parent: BaseAntagSpawner
   id: SpawnPointGhostDerelictBorgi
   components:

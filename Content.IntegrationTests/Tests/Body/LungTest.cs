@@ -1,3 +1,5 @@
+using System.Linq;
+using System.Numerics;
 using Content.Server.Atmos.Components;
 using Content.Server.Atmos.EntitySystems;
 using Content.Server.Body.Components;
@@ -6,12 +8,10 @@ using Content.Shared.Body.Components;
 using Robust.Server.GameObjects;
 using Robust.Shared;
 using Robust.Shared.Configuration;
+using Robust.Shared.EntitySerialization.Systems;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
-using System.Linq;
-using System.Numerics;
-using Robust.Shared.EntitySerialization.Systems;
 using Robust.Shared.Utility;
 
 namespace Content.IntegrationTests.Tests.Body
@@ -21,7 +21,8 @@ namespace Content.IntegrationTests.Tests.Body
     public sealed class LungTest
     {
         [TestPrototypes]
-        private const string Prototypes = @"
+        private const string Prototypes =
+            @"
 - type: entity
   name: HumanLungDummy
   id: HumanLungDummy
@@ -99,7 +100,6 @@ namespace Content.IntegrationTests.Tests.Body
                 human = entityManager.SpawnEntity("HumanLungDummy", coordinates);
                 relevantAtmos = entityManager.GetComponent<GridAtmosphereComponent>(grid.Value);
                 startingMoles = 100f; // Hardcoded because GetMapMoles returns 900 here for some reason.
-
 #pragma warning disable NUnit2045
                 Assert.That(entityManager.TryGetComponent(human, out body), Is.True);
                 Assert.That(entityManager.TryGetComponent(human, out resp), Is.True);
@@ -113,15 +113,13 @@ namespace Content.IntegrationTests.Tests.Body
             {
                 // Breathe in
                 await PoolManager.WaitUntil(server, () => resp.Status == RespiratorStatus.Exhaling);
-                Assert.That(
-                    GetMapMoles(), Is.LessThan(startingMoles),
-                    "Did not inhale in any gas"
-                );
+                Assert.That(GetMapMoles(), Is.LessThan(startingMoles), "Did not inhale in any gas");
 
                 // Breathe out
                 await PoolManager.WaitUntil(server, () => resp.Status == RespiratorStatus.Inhaling);
                 Assert.That(
-                    GetMapMoles(), Is.EqualTo(startingMoles).Within(0.0002),
+                    GetMapMoles(),
+                    Is.EqualTo(startingMoles).Within(0.0002),
                     "Did not exhale as much gas as was inhaled"
                 );
             }
@@ -182,8 +180,11 @@ namespace Content.IntegrationTests.Tests.Body
                 await server.WaitRunTicks(increment);
                 await server.WaitAssertion(() =>
                 {
-                    Assert.That(respirator.SuffocationCycles, Is.LessThanOrEqualTo(respirator.SuffocationCycleThreshold),
-                        $"Entity {entityManager.GetComponent<MetaDataComponent>(human).EntityName} is suffocating on tick {tick}");
+                    Assert.That(
+                        respirator.SuffocationCycles,
+                        Is.LessThanOrEqualTo(respirator.SuffocationCycleThreshold),
+                        $"Entity {entityManager.GetComponent<MetaDataComponent>(human).EntityName} is suffocating on tick {tick}"
+                    );
                 });
             }
 

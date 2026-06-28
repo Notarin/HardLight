@@ -1,6 +1,6 @@
-using Content.Shared.Shuttles.Components;
 using Content.Server.Salvage.Expeditions;
 using Content.Server.Shuttles.Systems;
+using Content.Shared.Shuttles.Components;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
@@ -14,9 +14,14 @@ namespace Content.Server.Objectives.Systems;
 /// </summary>
 public sealed class RoundEndArrivalSystem : EntitySystem
 {
-    [Dependency] private readonly EmergencyShuttleSystem _emergencyShuttle = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency]
+    private readonly EmergencyShuttleSystem _emergencyShuttle = default!;
+
+    [Dependency]
+    private readonly IMapManager _mapManager = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
 
     /// <summary>
     /// Returns true if the entity is on ColComm or on an active expedition map.
@@ -38,9 +43,11 @@ public sealed class RoundEndArrivalSystem : EntitySystem
         // End-round owned/transit shuttles are queued to FTL to ColComm before
         // objective resolution runs. Count passengers on those grids as arrived
         // even if the map transition has not completed yet.
-        if (xform.GridUid != null &&
-            TryComp<FTLComponent>(xform.GridUid.Value, out var ftl) &&
-            _emergencyShuttle.IsColcommMap(GetTargetMap(ftl.TargetCoordinates)))
+        if (
+            xform.GridUid != null
+            && TryComp<FTLComponent>(xform.GridUid.Value, out var ftl)
+            && _emergencyShuttle.IsColcommMap(GetTargetMap(ftl.TargetCoordinates))
+        )
         {
             return true;
         }

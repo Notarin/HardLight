@@ -13,8 +13,11 @@ namespace Content.Client.Items.Systems;
 
 public sealed class ItemSystem : SharedItemSystem
 {
-    [Dependency] private readonly IResourceCache _resCache = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly IResourceCache _resCache = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     public override void Initialize()
     {
@@ -84,7 +87,12 @@ public sealed class ItemSystem : SharedItemSystem
     /// <remarks>
     ///     Useful for lazily adding in-hand sprites without modifying yaml. And backwards compatibility.
     /// </remarks>
-    private bool TryGetDefaultVisuals(EntityUid uid, ItemComponent item, string defaultKey, [NotNullWhen(true)] out List<PrototypeLayerData>? result)
+    private bool TryGetDefaultVisuals(
+        EntityUid uid,
+        ItemComponent item,
+        string defaultKey,
+        [NotNullWhen(true)] out List<PrototypeLayerData>? result
+    )
     {
         result = null;
 
@@ -98,9 +106,7 @@ public sealed class ItemSystem : SharedItemSystem
         if (rsi == null)
             return false;
 
-        var state = (item.HeldPrefix == null)
-            ? defaultKey
-            : $"{item.HeldPrefix}-{defaultKey}";
+        var state = (item.HeldPrefix == null) ? defaultKey : $"{item.HeldPrefix}-{defaultKey}";
 
         if (!rsi.TryGetState(state, out var _))
             return false;
@@ -118,7 +124,11 @@ public sealed class ItemSystem : SharedItemSystem
     /// <summary>
     /// Sets an item's inhand visuals and send out an update.
     /// </summary>
-    public void SetVisuals(EntityUid uid, ItemComponent item, Dictionary<HandLocation, List<PrototypeLayerData>> visuals)
+    public void SetVisuals(
+        EntityUid uid,
+        ItemComponent item,
+        Dictionary<HandLocation, List<PrototypeLayerData>> visuals
+    )
     {
         item.InhandVisuals = visuals;
         VisualsChanged(uid);

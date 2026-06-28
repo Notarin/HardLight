@@ -7,7 +7,8 @@ namespace Content.Shared.Cloning.Events;
 ///    This is raised on the original mob.
 /// </summary>
 [ByRefEvent]
-public record struct CloningAttemptEvent(CloningSettingsPrototype Settings, bool Cancelled = false) : IInventoryRelayEvent
+public record struct CloningAttemptEvent(CloningSettingsPrototype Settings, bool Cancelled = false)
+    : IInventoryRelayEvent
 {
     SlotFlags IInventoryRelayEvent.TargetSlots => SlotFlags.WITHOUT_POCKET;
 }

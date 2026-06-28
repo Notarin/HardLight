@@ -1,3 +1,5 @@
+using System.Linq;
+using System.Numerics;
 using Content.Server.Administration.Logs;
 using Content.Server.Destructible;
 using Content.Server.Effects;
@@ -8,8 +10,8 @@ using Content.Shared.Damage.Components;
 using Content.Shared.Damage.Systems;
 using Content.Shared.Database;
 using Content.Shared.FixedPoint;
-using Content.Shared.Projectiles;
 using Content.Shared.Physics;
+using Content.Shared.Projectiles;
 using Content.Shared.Whitelist; // HardLight
 using Robust.Shared.Map;
 using Robust.Shared.Physics;
@@ -18,18 +20,22 @@ using Robust.Shared.Physics.Dynamics; // Mono
 using Robust.Shared.Physics.Events; // HardLight - PreventCollideEvent in anti-tunnel raycast
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Timing;
-using System.Linq;
-using System.Numerics;
 
 namespace Content.Server.Projectiles;
 
 public sealed class ProjectileSystem : SharedProjectileSystem
 {
-    [Dependency] private readonly DestructibleSystem _destructibleSystem = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!; // HardLight
+    [Dependency]
+    private readonly DestructibleSystem _destructibleSystem = default!;
 
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelist = default!; // HardLight
+
+    [Dependency]
+    private readonly SharedPhysicsSystem _physics = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transformSystem = default!;
 
     private EntityQuery<PhysicsComponent> _physQuery;
     private EntityQuery<FixturesComponent> _fixQuery;
@@ -52,15 +58,22 @@ public sealed class ProjectileSystem : SharedProjectileSystem
         UpdatesBefore.Add(typeof(SharedPhysicsSystem));
     }
 
-    public override DamageSpecifier? ProjectileCollide(Entity<ProjectileComponent, PhysicsComponent> projectile, EntityUid target, MapCoordinates? collisionCoordinates, bool predicted = false)
+    public override DamageSpecifier? ProjectileCollide(
+        Entity<ProjectileComponent, PhysicsComponent> projectile,
+        EntityUid target,
+        MapCoordinates? collisionCoordinates,
+        bool predicted = false
+    )
     {
         var (uid, component, ourBody) = projectile;
         // Check if projectile is already spent (server-specific check)
         if (component.ProjectileSpent)
             return null;
 
-        if (TryComp<ProjectileTargetWhitelistComponent>(uid, out var targetFilter) // HardLight
-            && !_whitelist.CheckBoth(target, targetFilter.Blacklist, targetFilter.Whitelist))
+        if (
+            TryComp<ProjectileTargetWhitelistComponent>(uid, out var targetFilter) // HardLight
+            && !_whitelist.CheckBoth(target, targetFilter.Blacklist, targetFilter.Whitelist)
+        )
         {
             return null;
         }
@@ -157,11 +170,14 @@ public sealed class ProjectileSystem : SharedProjectileSystem
 
             var collisionMask = projFix.CollisionMask;
 
-            var hits = _physics.IntersectRay(xform.MapID,
-                new CollisionRay(lastPosition, rayDirection, collisionMask),
-                rayDistance,
-                uid, // Entity to ignore (self)
-                false) // IncludeNonHard = false
+            var hits = _physics
+                .IntersectRay(
+                    xform.MapID,
+                    new CollisionRay(lastPosition, rayDirection, collisionMask),
+                    rayDistance,
+                    uid, // Entity to ignore (self)
+                    false
+                ) // IncludeNonHard = false
                 .ToList();
 
             TryComp<ProjectileTargetWhitelistComponent>(uid, out var targetFilter); // HardLight
@@ -178,14 +194,21 @@ public sealed class ProjectileSystem : SharedProjectileSystem
                 if (projectileComp.IgnoreShooter && projectileComp.Shooter == hitEnt)
                     continue;
 
-                if (targetFilter != null && !_whitelist.CheckBoth(hitEnt, targetFilter.Blacklist, targetFilter.Whitelist))
+                if (
+                    targetFilter != null
+                    && !_whitelist.CheckBoth(hitEnt, targetFilter.Blacklist, targetFilter.Whitelist)
+                )
                     continue;
 
                 if (RaycastHitPrevented(uid, physicsComp, projFix, hitEnt))
                 {
                     // Collision prevented. If the shell was also consumed (shield intercept), stop;
                     // otherwise it genuinely passes through (own grid / EMP bypass) so keep scanning.
-                    if (projectileComp.ProjectileSpent || TerminatingOrDeleted(uid) || EntityManager.IsQueuedForDeletion(uid))
+                    if (
+                        projectileComp.ProjectileSpent
+                        || TerminatingOrDeleted(uid)
+                        || EntityManager.IsQueuedForDeletion(uid)
+                    )
                         break;
                     continue;
                 }

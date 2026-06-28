@@ -17,14 +17,12 @@
     damageModifierSet: Metallic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 200
       behaviors:
-        - !type:DoActsBehavior
-          acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:DoActsBehavior
@@ -49,8 +47,8 @@
     visuals:
       enum.KitchenSpikeVisuals.Status:
         base:
-          Empty: { state: spike }
-          Bloody: { state: spikebloody }
+          Empty: {state: spike}
+          Bloody: {state: spikebloody}
   - type: Construction
     graph: MeatSpike
     node: MeatSpike

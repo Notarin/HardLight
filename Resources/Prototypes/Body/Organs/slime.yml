@@ -10,10 +10,10 @@
   - type: Stomach
     specialDigestible:
       tags:
-       - ClothMade
-       - Paper
-       - Pill
-       - Trash
+      - ClothMade
+      - Paper
+      - Pill
+      - Trash
       components:
       - MothFood
       isSpecialDigestibleExclusive: false
@@ -23,7 +23,7 @@
   - type: Brain
   - type: Metabolizer
     maxReagents: 6
-    metabolizerTypes: [ Slime, Animal, Goblin, Moth, Vox ]
+    metabolizerTypes: [Slime, Animal, Goblin, Moth, Vox]
     updateInterval: 0.5
     removeEmpty: true
     groups:
@@ -52,7 +52,6 @@
     size: Small
     heldPrefix: brain
 
-
 - type: entity
   id: OrganSlimeLungs
   parent: BaseHumanOrgan
@@ -72,7 +71,7 @@
     removeEmpty: true
     solutionOnBody: false
     solution: "Lung"
-    metabolizerTypes: [ Slime ]
+    metabolizerTypes: [Slime]
     groups:
     - id: Gas
       rateModifier: 100.0

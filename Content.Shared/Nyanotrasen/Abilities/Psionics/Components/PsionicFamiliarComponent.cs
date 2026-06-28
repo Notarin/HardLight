@@ -1,8 +1,8 @@
 using Content.Shared.Abilities.Psionics;
 using Content.Shared.Nyanotrasen.Abilities.Psionics;
 using Content.Shared.Popups;
-using Robust.Shared.GameStates;
 using Robust.Shared.Analyzers;
+using Robust.Shared.GameStates;
 
 namespace Content.Shared.Nyanotrasen.Abilities.Psionics.Components;
 

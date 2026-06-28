@@ -10,6 +10,7 @@ using Content.Client.Examine;
 using Content.Client.Gameplay;
 using Content.Client.Ghost;
 using Content.Client.Mind;
+using Content.Client.Nyanotrasen.Chat; //Nyano - Summary: chat namespace.
 using Content.Client.Roles;
 using Content.Client.Stylesheets;
 using Content.Client.UserInterface.Screens;
@@ -41,72 +42,109 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Replays;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
-using Content.Client.Nyanotrasen.Chat; //Nyano - Summary: chat namespace.
 
 namespace Content.Client.UserInterface.Systems.Chat;
 
 public sealed partial class ChatUIController : UIController
 {
-    [Dependency] private readonly IClientAdminManager _admin = default!;
-    [Dependency] private readonly IChatManager _manager = default!;
-    [Dependency] private readonly IConfigurationManager _config = default!;
-    [Dependency] private readonly IEyeManager _eye = default!;
-    [Dependency] private readonly IEntityManager _ent = default!;
-    [Dependency] private readonly IInputManager _input = default!;
-    [Dependency] private readonly IClientNetManager _net = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IStateManager _state = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IReplayRecordingManager _replayRecording = default!;
+    [Dependency]
+    private readonly IClientAdminManager _admin = default!;
 
-    [UISystemDependency] private readonly ExamineSystem? _examine = default;
-    [UISystemDependency] private readonly GhostSystem? _ghost = default;
-    [UISystemDependency] private readonly TypingIndicatorSystem? _typingIndicator = default;
-    [UISystemDependency] private readonly ChatSystem? _chatSys = default;
-    [UISystemDependency] private readonly TransformSystem? _transform = default;
-    [UISystemDependency] private readonly MindSystem? _mindSystem = default!;
-    [UISystemDependency] private readonly RoleCodewordSystem? _roleCodewordSystem = default!;
+    [Dependency]
+    private readonly IChatManager _manager = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _config = default!;
+
+    [Dependency]
+    private readonly IEyeManager _eye = default!;
+
+    [Dependency]
+    private readonly IEntityManager _ent = default!;
+
+    [Dependency]
+    private readonly IInputManager _input = default!;
+
+    [Dependency]
+    private readonly IClientNetManager _net = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly IStateManager _state = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IReplayRecordingManager _replayRecording = default!;
+
+    [UISystemDependency]
+    private readonly ExamineSystem? _examine = default;
+
+    [UISystemDependency]
+    private readonly GhostSystem? _ghost = default;
+
+    [UISystemDependency]
+    private readonly TypingIndicatorSystem? _typingIndicator = default;
+
+    [UISystemDependency]
+    private readonly ChatSystem? _chatSys = default;
+
+    [UISystemDependency]
+    private readonly TransformSystem? _transform = default;
+
+    [UISystemDependency]
+    private readonly MindSystem? _mindSystem = default!;
+
+    [UISystemDependency]
+    private readonly RoleCodewordSystem? _roleCodewordSystem = default!;
 
     [ValidatePrototypeId<ColorPalettePrototype>]
     private const string ChatNamePalette = "ChatNames";
     private string[] _chatNameColors = default!;
     private bool _chatNameColorsEnabled;
-    [UISystemDependency] private readonly PsionicChatUpdateSystem? _psionic = default!; //Nyano - Summary: makes the psionic chat available.
+
+    [UISystemDependency]
+    private readonly PsionicChatUpdateSystem? _psionic = default!; //Nyano - Summary: makes the psionic chat available.
 
     private ISawmill _sawmill = default!;
 
     public static readonly Dictionary<char, ChatSelectChannel> PrefixToChannel = new()
     {
-        {SharedChatSystem.LocalPrefix, ChatSelectChannel.Local},
-        {SharedChatSystem.WhisperPrefix, ChatSelectChannel.Whisper},
-        {SharedChatSystem.ConsolePrefix, ChatSelectChannel.Console},
-        {SharedChatSystem.LOOCPrefix, ChatSelectChannel.LOOC},
-        {SharedChatSystem.OOCPrefix, ChatSelectChannel.OOC},
-        {SharedChatSystem.EmotesPrefix, ChatSelectChannel.Emotes},
-        {SharedChatSystem.EmotesAltPrefix, ChatSelectChannel.Emotes},
-        {SharedChatSystem.SubtlePrefix, ChatSelectChannel.Subtle}, // Floofstation
-        {SharedChatSystem.SubtleOOCPrefix, ChatSelectChannel.SubtleOOC}, // Den
-        {SharedChatSystem.AdminPrefix, ChatSelectChannel.Admin},
-        {SharedChatSystem.RadioCommonPrefix, ChatSelectChannel.Radio},
-        {SharedChatSystem.DeadPrefix, ChatSelectChannel.Dead},
-        {SharedChatSystem.TelepathicPrefix, ChatSelectChannel.Telepathic} //Nyano - Summary: adds the telepathic prefix =.
+        { SharedChatSystem.LocalPrefix, ChatSelectChannel.Local },
+        { SharedChatSystem.WhisperPrefix, ChatSelectChannel.Whisper },
+        { SharedChatSystem.ConsolePrefix, ChatSelectChannel.Console },
+        { SharedChatSystem.LOOCPrefix, ChatSelectChannel.LOOC },
+        { SharedChatSystem.OOCPrefix, ChatSelectChannel.OOC },
+        { SharedChatSystem.EmotesPrefix, ChatSelectChannel.Emotes },
+        { SharedChatSystem.EmotesAltPrefix, ChatSelectChannel.Emotes },
+        { SharedChatSystem.SubtlePrefix, ChatSelectChannel.Subtle }, // Floofstation
+        { SharedChatSystem.SubtleOOCPrefix, ChatSelectChannel.SubtleOOC }, // Den
+        { SharedChatSystem.AdminPrefix, ChatSelectChannel.Admin },
+        { SharedChatSystem.RadioCommonPrefix, ChatSelectChannel.Radio },
+        { SharedChatSystem.DeadPrefix, ChatSelectChannel.Dead },
+        { SharedChatSystem.TelepathicPrefix, ChatSelectChannel.Telepathic }, //Nyano - Summary: adds the telepathic prefix =.
     };
 
     public static readonly Dictionary<ChatSelectChannel, char> ChannelPrefixes = new()
     {
-        {ChatSelectChannel.Local, SharedChatSystem.LocalPrefix},
-        {ChatSelectChannel.Whisper, SharedChatSystem.WhisperPrefix},
-        {ChatSelectChannel.Console, SharedChatSystem.ConsolePrefix},
-        {ChatSelectChannel.LOOC, SharedChatSystem.LOOCPrefix},
-        {ChatSelectChannel.OOC, SharedChatSystem.OOCPrefix},
-        {ChatSelectChannel.Emotes, SharedChatSystem.EmotesPrefix},
-        {ChatSelectChannel.Subtle, SharedChatSystem.SubtlePrefix}, // Floofstation
-        {ChatSelectChannel.SubtleOOC, SharedChatSystem.SubtleOOCPrefix}, // Den
-        {ChatSelectChannel.Admin, SharedChatSystem.AdminPrefix},
-        {ChatSelectChannel.Radio, SharedChatSystem.RadioCommonPrefix},
-        {ChatSelectChannel.Dead, SharedChatSystem.DeadPrefix},
-        {ChatSelectChannel.Telepathic, SharedChatSystem.TelepathicPrefix } //Nyano - Summary: associates telepathic with =.
+        { ChatSelectChannel.Local, SharedChatSystem.LocalPrefix },
+        { ChatSelectChannel.Whisper, SharedChatSystem.WhisperPrefix },
+        { ChatSelectChannel.Console, SharedChatSystem.ConsolePrefix },
+        { ChatSelectChannel.LOOC, SharedChatSystem.LOOCPrefix },
+        { ChatSelectChannel.OOC, SharedChatSystem.OOCPrefix },
+        { ChatSelectChannel.Emotes, SharedChatSystem.EmotesPrefix },
+        { ChatSelectChannel.Subtle, SharedChatSystem.SubtlePrefix }, // Floofstation
+        { ChatSelectChannel.SubtleOOC, SharedChatSystem.SubtleOOCPrefix }, // Den
+        { ChatSelectChannel.Admin, SharedChatSystem.AdminPrefix },
+        { ChatSelectChannel.Radio, SharedChatSystem.RadioCommonPrefix },
+        { ChatSelectChannel.Dead, SharedChatSystem.DeadPrefix },
+        { ChatSelectChannel.Telepathic, SharedChatSystem.TelepathicPrefix }, //Nyano - Summary: associates telepathic with =.
     };
 
     /// <summary>
@@ -135,14 +173,12 @@ public sealed partial class ChatUIController : UIController
     ///     Speech bubbles that are currently visible on screen.
     ///     We track them to push them up when new ones get added.
     /// </summary>
-    private readonly Dictionary<EntityUid, List<SpeechBubble>> _activeSpeechBubbles =
-        new();
+    private readonly Dictionary<EntityUid, List<SpeechBubble>> _activeSpeechBubbles = new();
 
     /// <summary>
     ///     Speech bubbles that are to-be-sent because of the "rate limit" they have.
     /// </summary>
-    private readonly Dictionary<EntityUid, SpeechBubbleQueueData> _queuedSpeechBubbles
-        = new();
+    private readonly Dictionary<EntityUid, SpeechBubbleQueueData> _queuedSpeechBubbles = new();
 
     private readonly HashSet<ChatBox> _chats = new();
     public IReadOnlySet<ChatBox> Chats => _chats;
@@ -201,48 +237,75 @@ public sealed partial class ChatUIController : UIController
         _net.RegisterNetMessage<MsgChatMessage>(OnChatMessage);
         _net.RegisterNetMessage<MsgDeleteChatMessagesBy>(OnDeleteChatMessagesBy);
         SubscribeNetworkEvent<DamageForceSayEvent>(OnDamageForceSay);
-        _config.OnValueChanged(CCVars.ChatEnableColorName, (value) => { _chatNameColorsEnabled = value; });
+        _config.OnValueChanged(
+            CCVars.ChatEnableColorName,
+            (value) =>
+            {
+                _chatNameColorsEnabled = value;
+            }
+        );
         _chatNameColorsEnabled = _config.GetCVar(CCVars.ChatEnableColorName);
 
         _speechBubbleRoot = new LayoutContainer();
 
         UpdateChannelPermissions();
 
-        _input.SetInputCommand(ContentKeyFunctions.FocusChat,
-            InputCmdHandler.FromDelegate(_ => FocusChat()));
+        _input.SetInputCommand(ContentKeyFunctions.FocusChat, InputCmdHandler.FromDelegate(_ => FocusChat()));
 
-        _input.SetInputCommand(ContentKeyFunctions.FocusLocalChat,
-            InputCmdHandler.FromDelegate(_ => FocusChannel(ChatSelectChannel.Local)));
+        _input.SetInputCommand(
+            ContentKeyFunctions.FocusLocalChat,
+            InputCmdHandler.FromDelegate(_ => FocusChannel(ChatSelectChannel.Local))
+        );
 
-        _input.SetInputCommand(ContentKeyFunctions.FocusEmote,
-            InputCmdHandler.FromDelegate(_ => FocusChannel(ChatSelectChannel.Emotes)));
+        _input.SetInputCommand(
+            ContentKeyFunctions.FocusEmote,
+            InputCmdHandler.FromDelegate(_ => FocusChannel(ChatSelectChannel.Emotes))
+        );
 
-        _input.SetInputCommand(ContentKeyFunctions.FocusWhisperChat,
-            InputCmdHandler.FromDelegate(_ => FocusChannel(ChatSelectChannel.Whisper)));
+        _input.SetInputCommand(
+            ContentKeyFunctions.FocusWhisperChat,
+            InputCmdHandler.FromDelegate(_ => FocusChannel(ChatSelectChannel.Whisper))
+        );
 
-        _input.SetInputCommand(ContentKeyFunctions.FocusLOOC,
-            InputCmdHandler.FromDelegate(_ => FocusChannel(ChatSelectChannel.LOOC)));
+        _input.SetInputCommand(
+            ContentKeyFunctions.FocusLOOC,
+            InputCmdHandler.FromDelegate(_ => FocusChannel(ChatSelectChannel.LOOC))
+        );
 
-        _input.SetInputCommand(ContentKeyFunctions.FocusOOC,
-            InputCmdHandler.FromDelegate(_ => FocusChannel(ChatSelectChannel.OOC)));
+        _input.SetInputCommand(
+            ContentKeyFunctions.FocusOOC,
+            InputCmdHandler.FromDelegate(_ => FocusChannel(ChatSelectChannel.OOC))
+        );
 
-        _input.SetInputCommand(ContentKeyFunctions.FocusAdminChat,
-            InputCmdHandler.FromDelegate(_ => FocusChannel(ChatSelectChannel.Admin)));
+        _input.SetInputCommand(
+            ContentKeyFunctions.FocusAdminChat,
+            InputCmdHandler.FromDelegate(_ => FocusChannel(ChatSelectChannel.Admin))
+        );
 
-        _input.SetInputCommand(ContentKeyFunctions.FocusRadio,
-            InputCmdHandler.FromDelegate(_ => FocusChannel(ChatSelectChannel.Radio)));
+        _input.SetInputCommand(
+            ContentKeyFunctions.FocusRadio,
+            InputCmdHandler.FromDelegate(_ => FocusChannel(ChatSelectChannel.Radio))
+        );
 
-        _input.SetInputCommand(ContentKeyFunctions.FocusDeadChat,
-            InputCmdHandler.FromDelegate(_ => FocusChannel(ChatSelectChannel.Dead)));
+        _input.SetInputCommand(
+            ContentKeyFunctions.FocusDeadChat,
+            InputCmdHandler.FromDelegate(_ => FocusChannel(ChatSelectChannel.Dead))
+        );
 
-        _input.SetInputCommand(ContentKeyFunctions.FocusConsoleChat,
-            InputCmdHandler.FromDelegate(_ => FocusChannel(ChatSelectChannel.Console)));
+        _input.SetInputCommand(
+            ContentKeyFunctions.FocusConsoleChat,
+            InputCmdHandler.FromDelegate(_ => FocusChannel(ChatSelectChannel.Console))
+        );
 
-        _input.SetInputCommand(ContentKeyFunctions.CycleChatChannelForward,
-            InputCmdHandler.FromDelegate(_ => CycleChatChannel(true)));
+        _input.SetInputCommand(
+            ContentKeyFunctions.CycleChatChannelForward,
+            InputCmdHandler.FromDelegate(_ => CycleChatChannel(true))
+        );
 
-        _input.SetInputCommand(ContentKeyFunctions.CycleChatChannelBackward,
-            InputCmdHandler.FromDelegate(_ => CycleChatChannel(false)));
+        _input.SetInputCommand(
+            ContentKeyFunctions.CycleChatChannelBackward,
+            InputCmdHandler.FromDelegate(_ => CycleChatChannel(false))
+        );
 
         var gameplayStateLoad = UIManager.GetUIController<GameplayStateLoadController>();
         gameplayStateLoad.OnScreenLoad += OnScreenLoad;
@@ -282,7 +345,8 @@ public sealed partial class ChatUIController : UIController
 
     private void SetChatWindowOpacity(float opacity)
     {
-        var chatBox = UIManager.ActiveScreen?.GetWidget<ChatBox>() ?? UIManager.ActiveScreen?.GetWidget<ResizableChatBox>();
+        var chatBox =
+            UIManager.ActiveScreen?.GetWidget<ChatBox>() ?? UIManager.ActiveScreen?.GetWidget<ResizableChatBox>();
 
         var panel = chatBox?.ChatWindowPanel;
         if (panel is null)
@@ -291,16 +355,15 @@ public sealed partial class ChatUIController : UIController
         Color color;
         if (panel.PanelOverride is StyleBoxFlat styleBoxFlat)
             color = styleBoxFlat.BackgroundColor;
-        else if (panel.TryGetStyleProperty<StyleBox>(PanelContainer.StylePropertyPanel, out var style)
-                 && style is StyleBoxFlat propStyleBoxFlat)
+        else if (
+            panel.TryGetStyleProperty<StyleBox>(PanelContainer.StylePropertyPanel, out var style)
+            && style is StyleBoxFlat propStyleBoxFlat
+        )
             color = propStyleBoxFlat.BackgroundColor;
         else
             color = StyleNano.ChatBackgroundColor;
 
-        panel.PanelOverride = new StyleBoxFlat
-        {
-            BackgroundColor = color.WithAlpha(opacity)
-        };
+        panel.PanelOverride = new StyleBoxFlat { BackgroundColor = color.WithAlpha(opacity) };
     }
 
     public void SetMainChat(bool setting)
@@ -356,8 +419,8 @@ public sealed partial class ChatUIController : UIController
 
         var chatSize = new Vector2(
             float.Parse(split[0], CultureInfo.InvariantCulture),
-            float.Parse(split[1], CultureInfo.InvariantCulture));
-
+            float.Parse(split[1], CultureInfo.InvariantCulture)
+        );
 
         screen.SetChatSize(chatSize);
     }
@@ -468,8 +531,7 @@ public sealed partial class ChatUIController : UIController
 
     private void CreateSpeechBubble(EntityUid entity, SpeechBubbleData speechData)
     {
-        var bubble =
-            SpeechBubble.CreateSpeechBubble(speechData.Type, speechData.Message, entity);
+        var bubble = SpeechBubble.CreateSpeechBubble(speechData.Type, speechData.Message, entity);
 
         bubble.OnDied += SpeechBubbleDied;
 
@@ -561,7 +623,7 @@ public sealed partial class ChatUIController : UIController
 
             // Can only send local / radio / emote when attached to a non-ghost entity.
             // TODO: this logic is iffy (checking if controlling something that's NOT a ghost), is there a better way to check this?
-            if (_ghost is not {IsGhost: true})
+            if (_ghost is not { IsGhost: true })
             {
                 FilterableChannels |= ChatChannel.Subtle;
                 FilterableChannels |= ChatChannel.SubtleOOC;
@@ -576,7 +638,7 @@ public sealed partial class ChatUIController : UIController
         }
 
         // Only ghosts and admins can send / see deadchat.
-        if (_admin.HasFlag(AdminFlags.Admin) || _ghost is {IsGhost: true})
+        if (_admin.HasFlag(AdminFlags.Admin) || _ghost is { IsGhost: true })
         {
             FilterableChannels |= ChatChannel.Dead;
             CanSendChannels |= ChatSelectChannel.Dead;
@@ -674,11 +736,9 @@ public sealed partial class ChatUIController : UIController
         }
 
         var player = _player.LocalEntity;
-        var predicate = static (EntityUid uid, (EntityUid compOwner, EntityUid? attachedEntity) data)
-            => uid == data.compOwner || uid == data.attachedEntity;
-        var playerPos = player != null
-            ? _eye.CurrentEye.Position
-            : MapCoordinates.Nullspace;
+        var predicate = static (EntityUid uid, (EntityUid compOwner, EntityUid? attachedEntity) data) =>
+            uid == data.compOwner || uid == data.attachedEntity;
+        var playerPos = player != null ? _eye.CurrentEye.Position : MapCoordinates.Nullspace;
 
         var occluded = player != null && _examine.IsOccluded(player.Value);
 
@@ -698,10 +758,7 @@ public sealed partial class ChatUIController : UIController
 
             var otherPos = _transform?.GetMapCoordinates(ent) ?? MapCoordinates.Nullspace;
 
-            if (occluded && !_examine.InRangeUnOccluded(
-                    playerPos,
-                    otherPos, 0f,
-                    (ent, player), predicate))
+            if (occluded && !_examine.InRangeUnOccluded(playerPos, otherPos, 0f, (ent, player), predicate))
             {
                 SetBubbles(bubs, false);
                 continue;
@@ -721,7 +778,7 @@ public sealed partial class ChatUIController : UIController
 
     public ChatSelectChannel MapLocalIfGhost(ChatSelectChannel channel)
     {
-        if (channel == ChatSelectChannel.Local && _ghost is {IsGhost: true})
+        if (channel == ChatSelectChannel.Local && _ghost is { IsGhost: true })
             return ChatSelectChannel.Dead;
 
         return channel;
@@ -731,8 +788,8 @@ public sealed partial class ChatUIController : UIController
     {
         radioChannel = null;
         return _player.LocalEntity is EntityUid { Valid: true } uid
-           && _chatSys != null
-           && _chatSys.TryProccessRadioMessage(uid, text, out _, out radioChannel, quiet: true);
+            && _chatSys != null
+            && _chatSys.TryProccessRadioMessage(uid, text, out _, out radioChannel, quiet: true);
     }
 
     public void UpdateSelectedChannel(ChatBox box)
@@ -745,7 +802,9 @@ public sealed partial class ChatUIController : UIController
             box.ChatInput.ChannelSelector.UpdateChannelSelectButton(prefixChannel, radioChannel);
     }
 
-    public (ChatSelectChannel chatChannel, string text, RadioChannelPrototype? radioChannel) SplitInputContents(string text)
+    public (ChatSelectChannel chatChannel, string text, RadioChannelPrototype? radioChannel) SplitInputContents(
+        string text
+    )
     {
         text = text.Trim();
         if (text.Length == 0)
@@ -794,8 +853,7 @@ public sealed partial class ChatUIController : UIController
         // Check if message is longer than the character limit
         if (text.Length > MaxMessageLength)
         {
-            var locWarning = Loc.GetString("chat-manager-max-message-length",
-                ("maxMessageLength", MaxMessageLength));
+            var locWarning = Loc.GetString("chat-manager-max-message-length", ("maxMessageLength", MaxMessageLength));
             box.AddLine(locWarning, Color.Orange);
             return;
         }
@@ -813,7 +871,8 @@ public sealed partial class ChatUIController : UIController
 
     private void OnDamageForceSay(DamageForceSayEvent ev, EntitySessionEventArgs _)
     {
-        var chatBox = UIManager.ActiveScreen?.GetWidget<ChatBox>() ?? UIManager.ActiveScreen?.GetWidget<ResizableChatBox>();
+        var chatBox =
+            UIManager.ActiveScreen?.GetWidget<ChatBox>() ?? UIManager.ActiveScreen?.GetWidget<ResizableChatBox>();
         if (chatBox == null)
             return;
 
@@ -832,18 +891,19 @@ public sealed partial class ChatUIController : UIController
         if (prefixChannel != ChatSelectChannel.None && (prefixChannel & allowedChannels) == ChatSelectChannel.None)
             return;
 
-        if (_player.LocalSession?.AttachedEntity is not { } ent
-            || !EntityManager.TryGetComponent<DamageForceSayComponent>(ent, out var forceSay))
+        if (
+            _player.LocalSession?.AttachedEntity is not { } ent
+            || !EntityManager.TryGetComponent<DamageForceSayComponent>(ent, out var forceSay)
+        )
             return;
 
         if (string.IsNullOrWhiteSpace(msg))
             return;
 
-        var modifiedText = ev.Suffix != null
-            ? Loc.GetString(forceSay.ForceSayMessageWrap,
-                ("message", msg), ("suffix", ev.Suffix))
-            : Loc.GetString(forceSay.ForceSayMessageWrapNoSuffix,
-                ("message", msg));
+        var modifiedText =
+            ev.Suffix != null
+                ? Loc.GetString(forceSay.ForceSayMessageWrap, ("message", msg), ("suffix", ev.Suffix))
+                : Loc.GetString(forceSay.ForceSayMessageWrapNoSuffix, ("message", msg));
 
         chatBox.ChatInput.Input.SetText(modifiedText);
         chatBox.ChatInput.Input.ForceSubmitText();
@@ -854,8 +914,7 @@ public sealed partial class ChatUIController : UIController
         var msg = message.Message;
         ProcessChatMessage(msg);
 
-        if ((msg.Channel & ChatChannel.AdminRelated) == 0 ||
-            _config.GetCVar(CCVars.ReplayRecordAdminChat))
+        if ((msg.Channel & ChatChannel.AdminRelated) == 0 || _config.GetCVar(CCVars.ReplayRecordAdminChat))
         {
             _replayRecording.RecordClientMessage(msg);
         }
@@ -868,18 +927,31 @@ public sealed partial class ChatUIController : UIController
         {
             var grammar = _ent.GetComponentOrNull<GrammarComponent>(_ent.GetEntity(msg.SenderEntity));
             if (grammar != null && grammar.ProperNoun == true)
-                msg.WrappedMessage = SharedChatSystem.InjectTagInsideTag(msg, "Name", "color", GetNameColor(SharedChatSystem.GetStringInsideTag(msg, "Name")));
+                msg.WrappedMessage = SharedChatSystem.InjectTagInsideTag(
+                    msg,
+                    "Name",
+                    "color",
+                    GetNameColor(SharedChatSystem.GetStringInsideTag(msg, "Name"))
+                );
         }
 
         // Color any codewords for minds that have roles that use them
         if (_player.LocalUser != null && _mindSystem != null && _roleCodewordSystem != null)
         {
-            if (_mindSystem.TryGetMind(_player.LocalUser.Value, out var mindId) && _ent.TryGetComponent(mindId, out RoleCodewordComponent? codewordComp))
+            if (
+                _mindSystem.TryGetMind(_player.LocalUser.Value, out var mindId)
+                && _ent.TryGetComponent(mindId, out RoleCodewordComponent? codewordComp)
+            )
             {
                 foreach (var (_, codewordData) in codewordComp.RoleCodewords)
                 {
                     foreach (string codeword in codewordData.Codewords)
-                        msg.WrappedMessage = SharedChatSystem.InjectTagAroundString(msg, codeword, "color", codewordData.Color.ToHex());
+                        msg.WrappedMessage = SharedChatSystem.InjectTagAroundString(
+                            msg,
+                            codeword,
+                            "color",
+                            codewordData.Color.ToHex()
+                        );
                 }
             }
         }
@@ -890,8 +962,10 @@ public sealed partial class ChatUIController : UIController
         var hadHighlight = false;
 
         // Skip highlight check if this is a message from the local player
-        if (_player.LocalSession?.AttachedEntity is not { } localEntity ||
-            msg.SenderEntity != _ent.GetNetEntity(localEntity))
+        if (
+            _player.LocalSession?.AttachedEntity is not { } localEntity
+            || msg.SenderEntity != _ent.GetNetEntity(localEntity)
+        )
         {
             foreach (var highlight in _highlights)
             {
@@ -949,7 +1023,7 @@ public sealed partial class ChatUIController : UIController
                 break;
 
             case ChatChannel.Dead:
-                if (_ghost is not {IsGhost: true})
+                if (_ghost is not { IsGhost: true })
                     break;
 
                 AddSpeechBubble(msg, SpeechBubble.SpeechType.Say);

@@ -6,7 +6,7 @@
 - type: entity
   id: LightMechMountEquipment
   abstract: true
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Tag
     tags:
@@ -17,7 +17,7 @@
 - type: entity
   id: MediumMechMountEquipment
   abstract: true
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Tag
     tags:
@@ -28,7 +28,7 @@
 - type: entity
   id: HeavyMechMountEquipment
   abstract: true
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Tag
     tags:
@@ -39,7 +39,7 @@
 - type: entity
   id: LightMultiroleMountEquipment
   abstract: true
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Tag
     tags:
@@ -51,7 +51,7 @@
 - type: entity
   id: EWARMechMountEquipment
   abstract: true
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Tag
     tags:

@@ -7,35 +7,59 @@ using Content.Shared.Examine;
 using Content.Shared.Item;
 using Content.Shared.Maps;
 using Content.Shared.Physics;
-using Content.Shared.Throwing;
 using Content.Shared.Power.Components;
 using Content.Shared.Power.EntitySystems;
+using Content.Shared.Throwing;
+using Robust.Shared;
+using Robust.Shared.Configuration;
 using Robust.Shared.Containers;
 using Robust.Shared.Map;
 using Robust.Shared.Physics.Events;
-using Robust.Shared.Timing;
-using Robust.Shared.Configuration;
 using Robust.Shared.Player;
-using Robust.Shared;
+using Robust.Shared.Timing;
 
 namespace Content.Shared._Goobstation.Factory;
 
 public sealed class RoboticArmSystem : EntitySystem
 {
+    [Dependency]
+    private readonly AutomationFilterSystem _filter = default!;
 
-    [Dependency] private readonly AutomationFilterSystem _filter = default!;
-    [Dependency] private readonly CollisionWakeSystem _wake = default!;
-    [Dependency] private readonly ExclusiveSlotsSystem _exclusive = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IMapManager _map = default!;
-    [Dependency] private readonly ItemSlotsSystem _slots = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedDeviceLinkSystem _device = default!;
-    [Dependency] private readonly SharedPowerReceiverSystem _power = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly TurfSystem _turf = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency]
+    private readonly CollisionWakeSystem _wake = default!;
+
+    [Dependency]
+    private readonly ExclusiveSlotsSystem _exclusive = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IMapManager _map = default!;
+
+    [Dependency]
+    private readonly ItemSlotsSystem _slots = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SharedDeviceLinkSystem _device = default!;
+
+    [Dependency]
+    private readonly SharedPowerReceiverSystem _power = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly TurfSystem _turf = default!;
+
+    [Dependency]
+    private readonly EntityLookupSystem _lookup = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
 
     private EntityQuery<ItemComponent> _itemQuery;
     private EntityQuery<ThrownItemComponent> _thrownQuery;
@@ -78,13 +102,13 @@ public sealed class RoboticArmSystem : EntitySystem
             if (!_power.IsPowered(uid))
                 continue;
 
-            if (comp.NextMove is {} nextMove && now < nextMove)
+            if (comp.NextMove is { } nextMove && now < nextMove)
                 continue;
 
             var ent = (uid, comp);
             StopMoving(ent);
 
-            if (comp.HeldItem is {} item)
+            if (comp.HeldItem is { } item)
             {
                 if (!TryDrop(ent, item))
                     continue;
@@ -126,12 +150,16 @@ public sealed class RoboticArmSystem : EntitySystem
 
         using (args.PushGroup(nameof(RoboticArmComponent)))
         {
-            args.PushMarkup(_filter.GetSlot(ent) is {} filter
-                ? Loc.GetString("robotic-arm-examine-filter", ("filter", filter))
-                : Loc.GetString("robotic-arm-examine-no-filter"));
-            args.PushMarkup(ent.Comp.HeldItem is {} item
-                ? Loc.GetString("robotic-arm-examine-item", ("item", item))
-                : Loc.GetString("robotic-arm-examine-no-item"));
+            args.PushMarkup(
+                _filter.GetSlot(ent) is { } filter
+                    ? Loc.GetString("robotic-arm-examine-filter", ("filter", filter))
+                    : Loc.GetString("robotic-arm-examine-no-filter")
+            );
+            args.PushMarkup(
+                ent.Comp.HeldItem is { } item
+                    ? Loc.GetString("robotic-arm-examine-item", ("item", item))
+                    : Loc.GetString("robotic-arm-examine-no-item")
+            );
         }
     }
 
@@ -184,7 +212,8 @@ public sealed class RoboticArmSystem : EntitySystem
         _wake.SetEnabled(args.OtherEntity, wake); // don't break conveyors for skipped items
     }
 
-    private void OnItemModified<T>(Entity<RoboticArmComponent> ent, ref T args) where T: ContainerModifiedMessage
+    private void OnItemModified<T>(Entity<RoboticArmComponent> ent, ref T args)
+        where T : ContainerModifiedMessage
     {
         if (args.Container.ID != ent.Comp.ItemSlotId)
             return;
@@ -278,11 +307,11 @@ public sealed class RoboticArmSystem : EntitySystem
             return false;
 
         var filter = _filter.GetSlot(ent);
-        if (slot.GetItem(filter) is not {} item)
+        if (slot.GetItem(filter) is not { } item)
             return false;
 
         // client can't predict splitting because it spawns entities
-        if (_filter.TrySplit(filter, item) is not {} stack)
+        if (_filter.TrySplit(filter, item) is not { } stack)
             return false;
 
         return _slots.TryInsert(ent, ent.Comp.ItemSlot, stack, user: null);
@@ -309,8 +338,8 @@ public sealed class RoboticArmSystem : EntitySystem
     private bool IsOutputBlocked(EntityUid uid)
     {
         var coords = OutputPosition(uid);
-        return coords.GetTileRef(EntityManager, _map) is {} turf &&
-            _turf.IsTileBlocked(turf, CollisionGroup.MachineMask);
+        return coords.GetTileRef(EntityManager, _map) is { } turf
+            && _turf.IsTileBlocked(turf, CollisionGroup.MachineMask);
     }
 
     private void StartMoving(Entity<RoboticArmComponent> ent)

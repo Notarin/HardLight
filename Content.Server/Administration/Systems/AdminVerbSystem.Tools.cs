@@ -43,18 +43,41 @@ namespace Content.Server.Administration.Systems;
 
 public sealed partial class AdminVerbSystem
 {
-    [Dependency] private readonly DoorSystem _door = default!;
-    [Dependency] private readonly AirlockSystem _airlockSystem = default!;
-    [Dependency] private readonly StackSystem _stackSystem = default!;
-    [Dependency] private readonly SharedAccessSystem _accessSystem = default!;
-    [Dependency] private readonly HandsSystem _handsSystem = default!;
-    [Dependency] private readonly QuickDialogSystem _quickDialog = default!;
-    [Dependency] private readonly AdminTestArenaSystem _adminTestArenaSystem = default!;
-    [Dependency] private readonly StationJobsSystem _stationJobsSystem = default!;
-    [Dependency] private readonly JointSystem _jointSystem = default!;
-    [Dependency] private readonly BatterySystem _batterySystem = default!;
-    [Dependency] private readonly MetaDataSystem _metaSystem = default!;
-    [Dependency] private readonly GunSystem _gun = default!;
+    [Dependency]
+    private readonly DoorSystem _door = default!;
+
+    [Dependency]
+    private readonly AirlockSystem _airlockSystem = default!;
+
+    [Dependency]
+    private readonly StackSystem _stackSystem = default!;
+
+    [Dependency]
+    private readonly SharedAccessSystem _accessSystem = default!;
+
+    [Dependency]
+    private readonly HandsSystem _handsSystem = default!;
+
+    [Dependency]
+    private readonly QuickDialogSystem _quickDialog = default!;
+
+    [Dependency]
+    private readonly AdminTestArenaSystem _adminTestArenaSystem = default!;
+
+    [Dependency]
+    private readonly StationJobsSystem _stationJobsSystem = default!;
+
+    [Dependency]
+    private readonly JointSystem _jointSystem = default!;
+
+    [Dependency]
+    private readonly BatterySystem _batterySystem = default!;
+
+    [Dependency]
+    private readonly MetaDataSystem _metaSystem = default!;
+
+    [Dependency]
+    private readonly GunSystem _gun = default!;
 
     private void AddTricksVerbs(GetVerbsEvent<Verb> args)
     {
@@ -80,9 +103,9 @@ public sealed partial class AdminVerbSystem
                     _door.SetBoltsDown((args.Target, bolts), !bolts.BoltsDown);
                 },
                 Impact = LogImpact.Medium,
-                Message = Loc.GetString(bolts.BoltsDown
-                    ? "admin-trick-unbolt-description"
-                    : "admin-trick-bolt-description"),
+                Message = Loc.GetString(
+                    bolts.BoltsDown ? "admin-trick-unbolt-description" : "admin-trick-bolt-description"
+                ),
                 Priority = (int)(bolts.BoltsDown ? TricksVerbPriorities.Unbolt : TricksVerbPriorities.Bolt),
             };
             args.Verbs.Add(bolt);
@@ -100,10 +123,16 @@ public sealed partial class AdminVerbSystem
                     _airlockSystem.SetEmergencyAccess((args.Target, airlockComp), !airlockComp.EmergencyAccess);
                 },
                 Impact = LogImpact.Medium,
-                Message = Loc.GetString(airlockComp.EmergencyAccess
-                    ? "admin-trick-emergency-access-off-description"
-                    : "admin-trick-emergency-access-on-description"),
-                Priority = (int)(airlockComp.EmergencyAccess ? TricksVerbPriorities.EmergencyAccessOff : TricksVerbPriorities.EmergencyAccessOn),
+                Message = Loc.GetString(
+                    airlockComp.EmergencyAccess
+                        ? "admin-trick-emergency-access-off-description"
+                        : "admin-trick-emergency-access-on-description"
+                ),
+                Priority = (int)(
+                    airlockComp.EmergencyAccess
+                        ? TricksVerbPriorities.EmergencyAccessOff
+                        : TricksVerbPriorities.EmergencyAccessOn
+                ),
             };
             args.Verbs.Add(emergencyAccess);
         }
@@ -412,14 +441,19 @@ public sealed partial class AdminVerbSystem
                 Act = () =>
                 {
                     // Unbounded intentionally.
-                    _quickDialog.OpenDialog(player, "Adjust stack", $"Amount (max {_stackSystem.GetMaxCount(stack)})", (int newAmount) =>
-                    {
-                        _stackSystem.SetCount(args.Target, newAmount, stack);
-                    });
+                    _quickDialog.OpenDialog(
+                        player,
+                        "Adjust stack",
+                        $"Amount (max {_stackSystem.GetMaxCount(stack)})",
+                        (int newAmount) =>
+                        {
+                            _stackSystem.SetCount(args.Target, newAmount, stack);
+                        }
+                    );
                 },
                 Impact = LogImpact.Medium,
                 Message = Loc.GetString("admin-trick-adjust-stack-description"),
-                Priority = (int) TricksVerbPriorities.AdjustStack,
+                Priority = (int)TricksVerbPriorities.AdjustStack,
             };
             args.Verbs.Add(adjustStack);
 
@@ -434,7 +468,7 @@ public sealed partial class AdminVerbSystem
                 },
                 Impact = LogImpact.Medium,
                 Message = Loc.GetString("admin-trick-fill-stack-description"),
-                Priority = (int) TricksVerbPriorities.FillStack,
+                Priority = (int)TricksVerbPriorities.FillStack,
             };
             args.Verbs.Add(fillStack);
         }
@@ -446,14 +480,19 @@ public sealed partial class AdminVerbSystem
             Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/AdminActions/rename.png")),
             Act = () =>
             {
-                _quickDialog.OpenDialog(player, "Rename", "Name", (string newName) =>
-                {
-                    _metaSystem.SetEntityName(args.Target, newName);
-                });
+                _quickDialog.OpenDialog(
+                    player,
+                    "Rename",
+                    "Name",
+                    (string newName) =>
+                    {
+                        _metaSystem.SetEntityName(args.Target, newName);
+                    }
+                );
             },
             Impact = LogImpact.Medium,
             Message = Loc.GetString("admin-trick-rename-description"),
-            Priority = (int) TricksVerbPriorities.Rename,
+            Priority = (int)TricksVerbPriorities.Rename,
         };
         args.Verbs.Add(rename);
 
@@ -464,14 +503,19 @@ public sealed partial class AdminVerbSystem
             Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/AdminActions/redescribe.png")),
             Act = () =>
             {
-                _quickDialog.OpenDialog(player, "Redescribe", "Description", (LongString newDescription) =>
-                {
-                    _metaSystem.SetEntityDescription(args.Target, newDescription.String);
-                });
+                _quickDialog.OpenDialog(
+                    player,
+                    "Redescribe",
+                    "Description",
+                    (LongString newDescription) =>
+                    {
+                        _metaSystem.SetEntityDescription(args.Target, newDescription.String);
+                    }
+                );
             },
             Impact = LogImpact.Medium,
             Message = Loc.GetString("admin-trick-redescribe-description"),
-            Priority = (int) TricksVerbPriorities.Redescribe,
+            Priority = (int)TricksVerbPriorities.Redescribe,
         };
         args.Verbs.Add(redescribe);
 
@@ -482,17 +526,22 @@ public sealed partial class AdminVerbSystem
             Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/AdminActions/rename_and_redescribe.png")),
             Act = () =>
             {
-                _quickDialog.OpenDialog(player, "Rename & Redescribe", "Name", "Description",
+                _quickDialog.OpenDialog(
+                    player,
+                    "Rename & Redescribe",
+                    "Name",
+                    "Description",
                     (string newName, LongString newDescription) =>
                     {
                         var meta = MetaData(args.Target);
                         _metaSystem.SetEntityName(args.Target, newName, meta);
                         _metaSystem.SetEntityDescription(args.Target, newDescription.String, meta);
-                    });
+                    }
+                );
             },
             Impact = LogImpact.Medium,
             Message = Loc.GetString("admin-trick-rename-and-redescribe-description"),
-            Priority = (int) TricksVerbPriorities.RenameAndRedescribe,
+            Priority = (int)TricksVerbPriorities.RenameAndRedescribe,
         };
         args.Verbs.Add(renameAndRedescribe);
 
@@ -514,7 +563,7 @@ public sealed partial class AdminVerbSystem
                     },
                     Impact = LogImpact.Extreme,
                     Message = Loc.GetString("admin-trick-bar-job-slots-description"),
-                    Priority = (int) TricksVerbPriorities.BarJobSlots,
+                    Priority = (int)TricksVerbPriorities.BarJobSlots,
                 };
                 args.Verbs.Add(barJobSlots);
             }
@@ -535,7 +584,7 @@ public sealed partial class AdminVerbSystem
                 },
                 Impact = LogImpact.Low,
                 Message = Loc.GetString("admin-trick-locate-cargo-shuttle-description"),
-                Priority = (int) TricksVerbPriorities.LocateCargoShuttle,
+                Priority = (int)TricksVerbPriorities.LocateCargoShuttle,
             };
             args.Verbs.Add(locateCargoShuttle);
         }
@@ -559,7 +608,7 @@ public sealed partial class AdminVerbSystem
                 },
                 Impact = LogImpact.Extreme,
                 Message = Loc.GetString("admin-trick-refill-battery-description"),
-                Priority = (int) TricksVerbPriorities.RefillBattery,
+                Priority = (int)TricksVerbPriorities.RefillBattery,
             };
             args.Verbs.Add(refillBattery);
 
@@ -580,7 +629,7 @@ public sealed partial class AdminVerbSystem
                 },
                 Impact = LogImpact.Extreme,
                 Message = Loc.GetString("admin-trick-drain-battery-description"),
-                Priority = (int) TricksVerbPriorities.DrainBattery,
+                Priority = (int)TricksVerbPriorities.DrainBattery,
             };
             args.Verbs.Add(drainBattery);
 
@@ -607,7 +656,7 @@ public sealed partial class AdminVerbSystem
                 },
                 Impact = LogImpact.Extreme,
                 Message = Loc.GetString("admin-trick-infinite-battery-description"),
-                Priority = (int) TricksVerbPriorities.InfiniteBattery,
+                Priority = (int)TricksVerbPriorities.InfiniteBattery,
             };
             args.Verbs.Add(infiniteBattery);
         }
@@ -626,7 +675,7 @@ public sealed partial class AdminVerbSystem
                 },
                 Impact = LogImpact.Medium,
                 Message = Loc.GetString("admin-trick-halt-movement-description"),
-                Priority = (int) TricksVerbPriorities.HaltMovement,
+                Priority = (int)TricksVerbPriorities.HaltMovement,
             };
             args.Verbs.Add(haltMovement);
         }
@@ -648,7 +697,7 @@ public sealed partial class AdminVerbSystem
                         },
                         Impact = LogImpact.Extreme,
                         Message = Loc.GetString("admin-trick-unpause-map-description"),
-                        Priority = (int) TricksVerbPriorities.Unpause,
+                        Priority = (int)TricksVerbPriorities.Unpause,
                     };
                     args.Verbs.Add(unpauseMap);
                 }
@@ -665,7 +714,7 @@ public sealed partial class AdminVerbSystem
                         },
                         Impact = LogImpact.Extreme,
                         Message = Loc.GetString("admin-trick-pause-map-description"),
-                        Priority = (int) TricksVerbPriorities.Pause,
+                        Priority = (int)TricksVerbPriorities.Pause,
                     };
                     args.Verbs.Add(pauseMap);
                 }
@@ -685,7 +734,7 @@ public sealed partial class AdminVerbSystem
                 },
                 Impact = LogImpact.Medium,
                 Message = Loc.GetString("admin-trick-snap-joints-description"),
-                Priority = (int) TricksVerbPriorities.SnapJoints,
+                Priority = (int)TricksVerbPriorities.SnapJoints,
             };
             args.Verbs.Add(snapJoints);
         }
@@ -704,7 +753,7 @@ public sealed partial class AdminVerbSystem
                 },
                 Impact = LogImpact.Medium,
                 Message = Loc.GetString("admin-trick-minigun-fire-description"),
-                Priority = (int) TricksVerbPriorities.MakeMinigun,
+                Priority = (int)TricksVerbPriorities.MakeMinigun,
             };
             args.Verbs.Add(minigunFire);
         }
@@ -718,18 +767,23 @@ public sealed partial class AdminVerbSystem
                 Icon = new SpriteSpecifier.Rsi(new("/Textures/Objects/Fun/caps.rsi"), "mag-6"),
                 Act = () =>
                 {
-                    _quickDialog.OpenDialog(player, "Set Bullet Amount", $"Amount (standard {ballisticAmmo.Capacity}):", (string amount) =>
-                    {
-                        if (!int.TryParse(amount, out var result))
-                            return;
+                    _quickDialog.OpenDialog(
+                        player,
+                        "Set Bullet Amount",
+                        $"Amount (standard {ballisticAmmo.Capacity}):",
+                        (string amount) =>
+                        {
+                            if (!int.TryParse(amount, out var result))
+                                return;
 
-                        _gun.SetBallisticUnspawned((args.Target, ballisticAmmo), result);
-                        _gun.UpdateBallisticAppearance(args.Target, ballisticAmmo);
-                    });
+                            _gun.SetBallisticUnspawned((args.Target, ballisticAmmo), result);
+                            _gun.UpdateBallisticAppearance(args.Target, ballisticAmmo);
+                        }
+                    );
                 },
                 Impact = LogImpact.Medium,
                 Message = Loc.GetString("admin-trick-set-bullet-amount-description"),
-                Priority = (int) TricksVerbPriorities.SetBulletAmount,
+                Priority = (int)TricksVerbPriorities.SetBulletAmount,
             };
             args.Verbs.Add(setCapacity);
         }
@@ -757,8 +811,11 @@ public sealed partial class AdminVerbSystem
 
     private bool TryGetGridChildren(EntityUid target, [NotNullWhen(true)] out IEnumerable<EntityUid>? enumerator)
     {
-        if (!HasComp<MapComponent>(target) && !HasComp<MapGridComponent>(target) &&
-            !HasComp<StationDataComponent>(target))
+        if (
+            !HasComp<MapComponent>(target)
+            && !HasComp<MapGridComponent>(target)
+            && !HasComp<StationDataComponent>(target)
+        )
         {
             enumerator = null;
             return false;
@@ -812,8 +869,7 @@ public sealed partial class AdminVerbSystem
             {
                 return slotEntity.Value;
             }
-            else if (TryComp<PdaComponent>(slotEntity, out var pda)
-                && HasComp<IdCardComponent>(pda.ContainedId))
+            else if (TryComp<PdaComponent>(slotEntity, out var pda) && HasComp<IdCardComponent>(pda.ContainedId))
             {
                 return pda.ContainedId;
             }
@@ -836,7 +892,8 @@ public sealed partial class AdminVerbSystem
     {
         var allAccess = _prototypeManager
             .EnumeratePrototypes<AccessLevelPrototype>()
-            .Select(p => new ProtoId<AccessLevelPrototype>(p.ID)).ToArray();
+            .Select(p => new ProtoId<AccessLevelPrototype>(p.ID))
+            .ToArray();
 
         _accessSystem.TrySetTags(entity, allAccess);
     }

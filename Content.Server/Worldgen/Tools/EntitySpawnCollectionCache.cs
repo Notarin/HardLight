@@ -9,7 +9,8 @@ namespace Content.Server.Worldgen.Tools;
 /// </summary>
 public sealed class EntitySpawnCollectionCache
 {
-    [ViewVariables] private readonly Dictionary<string, OrGroup> _orGroups = new();
+    [ViewVariables]
+    private readonly Dictionary<string, OrGroup> _orGroups = new();
 
     public EntitySpawnCollectionCache(IEnumerable<EntitySpawnEntry> entries)
     {
@@ -88,9 +89,10 @@ public sealed class EntitySpawnCollectionCache
 
     private sealed class OrGroup
     {
-        [ViewVariables] public List<EntitySpawnEntry> Entries { get; } = new();
+        [ViewVariables]
+        public List<EntitySpawnEntry> Entries { get; } = new();
 
-        [ViewVariables] public float CumulativeProbability { get; set; }
+        [ViewVariables]
+        public float CumulativeProbability { get; set; }
     }
 }
-

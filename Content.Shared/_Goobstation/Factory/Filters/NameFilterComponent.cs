@@ -34,18 +34,21 @@ public enum NameFilterMode : byte
 {
     // Name must contain a string somewhere
     Contain,
+
     // Name must start with a string
     Start,
+
     // Name must end with a string
     End,
+
     // Name must match exactly, even if it's labelled
-    Match
+    Match,
 }
 
 [Serializable, NetSerializable]
 public enum NameFilterUiKey : byte
 {
-    Key
+    Key,
 }
 
 [Serializable, NetSerializable]

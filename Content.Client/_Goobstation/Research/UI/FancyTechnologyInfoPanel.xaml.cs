@@ -16,15 +16,25 @@ namespace Content.Client._Goobstation.Research.UI;
 [GenerateTypedNameReferences]
 public sealed partial class FancyTechnologyInfoPanel : Control
 {
-    [Dependency] private readonly IEntityManager _ent = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly ILogManager _logManager = default!; // Frontier
+    [Dependency]
+    private readonly IEntityManager _ent = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly ILogManager _logManager = default!; // Frontier
 
     private ISawmill _sawmill = default!; // Frontier: added debug log
     public TechnologyPrototype Prototype;
     public Action<TechnologyPrototype>? BuyAction;
 
-    public FancyTechnologyInfoPanel(TechnologyPrototype proto, bool hasAccess, ResearchAvailability availability, SpriteSystem sprite)
+    public FancyTechnologyInfoPanel(
+        TechnologyPrototype proto,
+        bool hasAccess,
+        ResearchAvailability availability,
+        SpriteSystem sprite
+    )
     {
         RobustXamlLoader.Load(this);
         IoCManager.InjectDependencies(this);
@@ -60,20 +70,19 @@ public sealed partial class FancyTechnologyInfoPanel : Control
 
         InitializeRecipeUnlocks(proto, lathe, sprite);
 
-        ResearchButton.ToolTip = !hasAccess
-            ? Loc.GetString("research-console-no-access-popup")
-            : null;
+        ResearchButton.ToolTip = !hasAccess ? Loc.GetString("research-console-no-access-popup") : null;
 
-        ResearchButton.Text = availability == ResearchAvailability.Researched
-            ? Loc.GetString("research-console-menu-server-researched-button")
-            : ResearchButton.Text;
+        ResearchButton.Text =
+            availability == ResearchAvailability.Researched
+                ? Loc.GetString("research-console-menu-server-researched-button")
+                : ResearchButton.Text;
 
         Color? color = availability switch
         {
             ResearchAvailability.Researched => Color.LimeGreen,
             ResearchAvailability.PrereqsMet => Color.Crimson,
             ResearchAvailability.Unavailable => Color.Crimson,
-            _ => null
+            _ => null,
         };
         TechnologyCostLabel.SetMessage(
             Loc.GetString("research-console-tech-cost-label", ("cost", proto.Cost)),
@@ -97,7 +106,9 @@ public sealed partial class FancyTechnologyInfoPanel : Control
             }
         };
 
-        _sawmill.Debug($"Created tech panel: {proto.ID}, availability: {availability}, button disabled: {ResearchButton.Disabled}");
+        _sawmill.Debug(
+            $"Created tech panel: {proto.ID}, availability: {availability}, button disabled: {ResearchButton.Disabled}"
+        );
     }
 
     private void InitializePrerequisites(TechnologyPrototype proto, ResearchSystem research, SpriteSystem sprite)

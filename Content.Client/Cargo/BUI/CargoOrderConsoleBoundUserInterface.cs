@@ -1,5 +1,5 @@
-using Content.Shared.Cargo;
 using Content.Client.Cargo.UI;
+using Content.Shared.Cargo;
 using Content.Shared.Cargo.BUI;
 using Content.Shared.Cargo.Components;
 using Content.Shared.Cargo.Events;
@@ -7,8 +7,8 @@ using Content.Shared.Cargo.Prototypes;
 using Content.Shared.IdentityManagement;
 using Robust.Client.GameObjects;
 using Robust.Client.Player;
-using Robust.Shared.Utility;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Utility;
 using static Robust.Client.UserInterface.Controls.BaseButton;
 
 namespace Content.Client.Cargo.BUI
@@ -44,7 +44,8 @@ namespace Content.Client.Cargo.BUI
         [ViewVariables]
         private CargoProductPrototype? _product;
 
-        public CargoOrderConsoleBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
+        public CargoOrderConsoleBoundUserInterface(EntityUid owner, Enum uiKey)
+            : base(owner, uiKey)
         {
             _cargoSystem = EntMan.System<SharedCargoSystem>();
         }
@@ -128,7 +129,10 @@ namespace Content.Client.Cargo.BUI
         {
             base.UpdateState(state);
 
-            if (state is not CargoConsoleInterfaceState cState || !EntMan.TryGetComponent<CargoOrderConsoleComponent>(Owner, out var orderConsole))
+            if (
+                state is not CargoConsoleInterfaceState cState
+                || !EntMan.TryGetComponent<CargoOrderConsoleComponent>(Owner, out var orderConsole)
+            )
                 return;
             var station = EntMan.GetEntity(cState.Station);
 
@@ -161,11 +165,14 @@ namespace Content.Client.Cargo.BUI
                 return false;
             }
 
-            SendMessage(new CargoConsoleAddOrderMessage(
-                _orderMenu?.Requester.Text ?? "",
-                _orderMenu?.Reason.Text ?? "",
-                _product?.ID ?? "",
-                orderAmt));
+            SendMessage(
+                new CargoConsoleAddOrderMessage(
+                    _orderMenu?.Requester.Text ?? "",
+                    _orderMenu?.Reason.Text ?? "",
+                    _product?.ID ?? "",
+                    orderAmt
+                )
+            );
 
             return true;
         }

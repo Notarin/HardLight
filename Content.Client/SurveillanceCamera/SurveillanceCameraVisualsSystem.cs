@@ -5,7 +5,8 @@ namespace Content.Client.SurveillanceCamera;
 
 public sealed class SurveillanceCameraVisualsSystem : EntitySystem
 {
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     public override void Initialize()
     {
@@ -14,14 +15,19 @@ public sealed class SurveillanceCameraVisualsSystem : EntitySystem
         SubscribeLocalEvent<SurveillanceCameraVisualsComponent, AppearanceChangeEvent>(OnAppearanceChange);
     }
 
-    private void OnAppearanceChange(EntityUid uid, SurveillanceCameraVisualsComponent component,
-        ref AppearanceChangeEvent args)
+    private void OnAppearanceChange(
+        EntityUid uid,
+        SurveillanceCameraVisualsComponent component,
+        ref AppearanceChangeEvent args
+    )
     {
-        if (!args.AppearanceData.TryGetValue(SurveillanceCameraVisualsKey.Key, out var data)
+        if (
+            !args.AppearanceData.TryGetValue(SurveillanceCameraVisualsKey.Key, out var data)
             || data is not SurveillanceCameraVisuals key
             || args.Sprite == null
             || !_sprite.LayerMapTryGet((uid, args.Sprite), SurveillanceCameraVisualsKey.Layer, out var layer, false)
-            || !component.CameraSprites.TryGetValue(key, out var state))
+            || !component.CameraSprites.TryGetValue(key, out var state)
+        )
         {
             return;
         }

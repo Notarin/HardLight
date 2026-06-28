@@ -15,7 +15,8 @@ namespace Content.Client.Silicons.Borgs;
 [GenerateTypedNameReferences]
 public sealed partial class BorgMenu : FancyWindow
 {
-    [Dependency] private readonly IEntityManager _entity = default!;
+    [Dependency]
+    private readonly IEntityManager _entity = default!;
     private readonly NameModifierSystem _nameModifier;
 
     public Action? BrainButtonPressed;
@@ -72,15 +73,17 @@ public sealed partial class BorgMenu : FancyWindow
         base.FrameUpdate(args);
 
         AccumulatedTime += args.DeltaSeconds;
-        BorgSprite.OverrideDirection = (Direction) ((int) AccumulatedTime % 4 * 2);
+        BorgSprite.OverrideDirection = (Direction)((int)AccumulatedTime % 4 * 2);
     }
 
     public void UpdateState(BorgBuiState state)
     {
         EjectBatteryButton.Disabled = !state.HasBattery;
         ChargeBar.Value = state.ChargePercent;
-        ChargeLabel.Text = Loc.GetString("borg-ui-charge-label",
-            ("charge", (int) MathF.Round(state.ChargePercent * 100)));
+        ChargeLabel.Text = Loc.GetString(
+            "borg-ui-charge-label",
+            ("charge", (int)MathF.Round(state.ChargePercent * 100))
+        );
 
         UpdateBrainButton();
         UpdateModulePanel();
@@ -110,9 +113,11 @@ public sealed partial class BorgMenu : FancyWindow
         if (!_entity.TryGetComponent(Entity, out BorgChassisComponent? chassis))
             return;
 
-        ModuleCounter.Text = Loc.GetString("borg-ui-module-counter",
+        ModuleCounter.Text = Loc.GetString(
+            "borg-ui-module-counter",
             ("actual", chassis.ModuleCount),
-            ("max", chassis.MaxModules));
+            ("max", chassis.MaxModules)
+        );
 
         if (chassis.ModuleContainer.Count == _modules.Count)
         {
@@ -146,9 +151,7 @@ public sealed partial class BorgMenu : FancyWindow
 
     private void OnNameChanged(LineEdit.LineEditEventArgs obj)
     {
-        if (obj.Text.Length == 0 ||
-            string.IsNullOrWhiteSpace(obj.Text) ||
-            string.IsNullOrEmpty(obj.Text))
+        if (obj.Text.Length == 0 || string.IsNullOrWhiteSpace(obj.Text) || string.IsNullOrEmpty(obj.Text))
         {
             return;
         }
@@ -169,10 +172,12 @@ public sealed partial class BorgMenu : FancyWindow
 
     private void OnNameFocusExit(LineEdit.LineEditEventArgs obj)
     {
-        if (obj.Text.Length > HumanoidCharacterProfile.MaxNameLength ||
-            obj.Text.Length == 0 ||
-            string.IsNullOrWhiteSpace(obj.Text) ||
-            string.IsNullOrEmpty(obj.Text))
+        if (
+            obj.Text.Length > HumanoidCharacterProfile.MaxNameLength
+            || obj.Text.Length == 0
+            || string.IsNullOrWhiteSpace(obj.Text)
+            || string.IsNullOrEmpty(obj.Text)
+        )
         {
             obj.Control.Text = _lastValidName.Trim();
         }

@@ -1,3 +1,4 @@
+using Content.Server._NF.SectorServices; // Frontier: sector services
 using Content.Server.AlertLevel;
 using Content.Server.Audio;
 using Content.Server.Light.Components;
@@ -11,18 +12,26 @@ using Content.Shared.Power;
 using Content.Shared.Station.Components;
 using Robust.Server.GameObjects;
 using Color = Robust.Shared.Maths.Color;
-using Content.Server._NF.SectorServices; // Frontier: sector services
 
 namespace Content.Server.Light.EntitySystems;
 
 public sealed class EmergencyLightSystem : SharedEmergencyLightSystem
 {
-    [Dependency] private readonly AmbientSoundSystem _ambient = default!;
-    [Dependency] private readonly BatterySystem _battery = default!;
-    [Dependency] private readonly PointLightSystem _pointLight = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+    [Dependency]
+    private readonly AmbientSoundSystem _ambient = default!;
+
+    [Dependency]
+    private readonly BatterySystem _battery = default!;
+
+    [Dependency]
+    private readonly PointLightSystem _pointLight = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
     // [Dependency] private readonly StationSystem _station = default!; // Frontier: sector-wide alerts
-    [Dependency] private readonly SectorServiceSystem _sectorService = default!; // Frontier: sector-wide alerts
+    [Dependency]
+    private readonly SectorServiceSystem _sectorService = default!; // Frontier: sector-wide alerts
 
     public override void Initialize()
     {
@@ -41,8 +50,7 @@ public sealed class EmergencyLightSystem : SharedEmergencyLightSystem
         var meta = MetaData(entity.Owner);
 
         // TODO: PowerChangedEvent shouldn't be issued for paused ents but this is the world we live in.
-        if (meta.EntityLifeStage >= EntityLifeStage.Terminating ||
-            meta.EntityPaused)
+        if (meta.EntityLifeStage >= EntityLifeStage.Terminating || meta.EntityPaused)
         {
             return;
         }
@@ -55,9 +63,11 @@ public sealed class EmergencyLightSystem : SharedEmergencyLightSystem
         using (args.PushGroup(nameof(EmergencyLightComponent)))
         {
             args.PushMarkup(
-                Loc.GetString("emergency-light-component-on-examine",
-                    ("batteryStateText",
-                        Loc.GetString(component.BatteryStateText[component.State]))));
+                Loc.GetString(
+                    "emergency-light-component-on-examine",
+                    ("batteryStateText", Loc.GetString(component.BatteryStateText[component.State]))
+                )
+            );
 
             // Show alert level on the light itself.
             // Frontier: sector-wide alerts
@@ -75,9 +85,12 @@ public sealed class EmergencyLightSystem : SharedEmergencyLightSystem
                 color = details.Color;
 
             args.PushMarkup(
-                Loc.GetString("emergency-light-component-on-examine-alert",
+                Loc.GetString(
+                    "emergency-light-component-on-examine-alert",
                     ("color", color.ToHex()),
-                    ("level", Loc.GetString($"alert-level-{name.ToString().ToLower()}"))));
+                    ("level", Loc.GetString($"alert-level-{name.ToString().ToLower()}"))
+                )
+            );
         }
     }
 
@@ -110,7 +123,12 @@ public sealed class EmergencyLightSystem : SharedEmergencyLightSystem
         if (alert.AlertLevels == null || !alert.AlertLevels.Levels.TryGetValue(ev.AlertLevel, out var details))
             return;
 
-        var query = EntityQueryEnumerator<EmergencyLightComponent, PointLightComponent, AppearanceComponent, TransformComponent>();
+        var query = EntityQueryEnumerator<
+            EmergencyLightComponent,
+            PointLightComponent,
+            AppearanceComponent,
+            TransformComponent
+        >();
         while (query.MoveNext(out var uid, out var light, out var pointLight, out var appearance, out var xform))
         {
             // if (CompOrNull<StationMemberComponent>(xform.GridUid)?.Station != ev.Station) // Frontier: sector-wide alerts
@@ -135,7 +153,8 @@ public sealed class EmergencyLightSystem : SharedEmergencyLightSystem
 
     public void SetState(EntityUid uid, EmergencyLightComponent component, EmergencyLightState state)
     {
-        if (component.State == state) return;
+        if (component.State == state)
+            return;
 
         component.State = state;
         RaiseLocalEvent(uid, new EmergencyLightEvent(state));
@@ -162,7 +181,11 @@ public sealed class EmergencyLightSystem : SharedEmergencyLightSystem
         }
         else
         {
-            _battery.SetCharge(entity.Owner, battery.CurrentCharge + entity.Comp.ChargingWattage * frameTime * entity.Comp.ChargingEfficiency, battery);
+            _battery.SetCharge(
+                entity.Owner,
+                battery.CurrentCharge + entity.Comp.ChargingWattage * frameTime * entity.Comp.ChargingEfficiency,
+                battery
+            );
             if (_battery.IsFull(entity, battery))
             {
                 if (TryComp<ApcPowerReceiverComponent>(entity.Owner, out var receiver))
@@ -198,7 +221,7 @@ public sealed class EmergencyLightSystem : SharedEmergencyLightSystem
 
         if (receiver.Powered && !entity.Comp.ForciblyEnabled) // Green alert
         {
-            receiver.Load = (int) Math.Abs(entity.Comp.Wattage);
+            receiver.Load = (int)Math.Abs(entity.Comp.Wattage);
             TurnOff(entity, details.Color);
             SetState(entity.Owner, entity.Comp, EmergencyLightState.Charging);
         }

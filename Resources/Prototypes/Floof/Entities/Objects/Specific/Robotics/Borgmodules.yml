@@ -9,7 +9,7 @@
 
 - type: entity
   id: BorgModuleStun
-  parent: [ BaseBorgModuleSecurity, BaseProviderBorgModule ]
+  parent: [BaseBorgModuleSecurity, BaseProviderBorgModule]
   name: Disabler cyborg Module
   description: A Module "incapable of causing harm if used correctly"
   components:
@@ -35,7 +35,7 @@
 
 - type: entity
   id: BorgModuleKill
-  parent: [ BaseBorgModuleSecurity, BaseProviderBorgModule ]
+  parent: [BaseBorgModuleSecurity, BaseProviderBorgModule]
   name: Combat cyborg module
   components:
   - type: Sprite
@@ -52,7 +52,7 @@
 
 - type: entity
   id: BorgModuleInvestigation
-  parent: [ BaseBorgModuleSecurity, BaseProviderBorgModule ]
+  parent: [BaseBorgModuleSecurity, BaseProviderBorgModule]
   name: Investigation cyborg module
   components:
   - type: Sprite
@@ -69,7 +69,7 @@
 
 - type: entity
   id: BorgModuleadvancedmeasures
-  parent: [ BaseBorgModuleSecurity, BaseProviderBorgModule ]
+  parent: [BaseBorgModuleSecurity, BaseProviderBorgModule]
   name: advanced combat cyborg module
   components:
   - type: Sprite

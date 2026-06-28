@@ -9,11 +9,13 @@ namespace Content.Client.Salvage.UI;
 
 public sealed class SalvageMagnetBoundUserInterface : BoundUserInterface
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
 
     private OfferingWindow? _window;
 
-    public SalvageMagnetBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
+    public SalvageMagnetBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey)
     {
         IoCManager.InjectDependencies(this);
     }
@@ -54,10 +56,7 @@ public sealed class SalvageMagnetBoundUserInterface : BoundUserInterface
 
             option.ClaimPressed += _ =>
             {
-                SendMessage(new MagnetClaimOfferEvent
-                {
-                    Index = claimIndex
-                });
+                SendMessage(new MagnetClaimOfferEvent { Index = claimIndex });
             };
 
             switch (offer)
@@ -79,8 +78,7 @@ public sealed class SalvageMagnetBoundUserInterface : BoundUserInterface
 
                         var resourceLabel = new Label
                         {
-                            Text = Loc.GetString("salvage-magnet-resources",
-                                ("resource", resource)),
+                            Text = Loc.GetString("salvage-magnet-resources", ("resource", resource)),
                             HorizontalAlignment = Control.HAlignment.Left,
                         };
 

@@ -26,7 +26,7 @@ public sealed class SimpleCensor : IChatCensor
     private string[] _falseNegatives = Array.Empty<string>();
 
     // What unicode ranges are allowed? If this array is empty, don't filter by range.
-    private UnicodeRange[] _allowedUnicodeRanges= Array.Empty<UnicodeRange>();
+    private UnicodeRange[] _allowedUnicodeRanges = Array.Empty<UnicodeRange>();
 
     /// <summary>
     /// Censors the input string.
@@ -91,10 +91,10 @@ public sealed class SimpleCensor : IChatCensor
             if (_shouldSanitizeLeetspeak || _shouldSanitizeSpecialCharacters)
             {
                 // detect "()"
-                if (originalInput[i] == '(' && i != originalInput.Length - 1 && originalInput[i+1] == ')')
+                if (originalInput[i] == '(' && i != originalInput.Length - 1 && originalInput[i + 1] == ')')
                 {
                     // censored has now had "o" replaced with "o) so both strings line up again..."
-                    censored.Insert(i+1, censored[i] != replaceWith ? ')' : replaceWith);
+                    censored.Insert(i + 1, censored[i] != replaceWith ? ')' : replaceWith);
                 }
             }
 
@@ -180,13 +180,13 @@ public sealed class SimpleCensor : IChatCensor
             var endOfFoundWord = 0;
             var foundIndex = input.IndexOf(word, endOfFoundWord, StringComparison.OrdinalIgnoreCase);
 
-            while(foundIndex > -1)
+            while (foundIndex > -1)
             {
                 endOfFoundWord = foundIndex + wordLength;
 
                 for (var i = 0; i < wordLength; i++)
                 {
-                    censored[foundIndex+i] = replaceWith;
+                    censored[foundIndex + i] = replaceWith;
                 }
 
                 foundIndex = input.IndexOf(word, endOfFoundWord, StringComparison.OrdinalIgnoreCase);
@@ -209,7 +209,7 @@ public sealed class SimpleCensor : IChatCensor
             var endOfFoundWord = 0;
             var foundIndex = input.IndexOf(word, endOfFoundWord, StringComparison.OrdinalIgnoreCase);
 
-            while(foundIndex > -1)
+            while (foundIndex > -1)
             {
                 endOfFoundWord = foundIndex + wordLength;
 
@@ -238,7 +238,10 @@ public sealed class SimpleCensor : IChatCensor
         // ReSharper disable once ForeachCanBePartlyConvertedToQueryUsingAnotherGetEnumerator
         foreach (var character in input)
         {
-            if (character == ' ' || _shouldSanitizeSpecialCharacters && _specialCharacterReplacements.Contains(character))
+            if (
+                character == ' '
+                || _shouldSanitizeSpecialCharacters && _specialCharacterReplacements.Contains(character)
+            )
             {
                 continue;
             }
@@ -311,7 +314,7 @@ public sealed class SimpleCensor : IChatCensor
                 '@',
                 '!',
                 '?',
-                '+'
+                '+',
             ];
         }
 
@@ -331,7 +334,7 @@ public sealed class SimpleCensor : IChatCensor
                 ['3'] = 'e',
                 ['5'] = 's',
                 ['9'] = 'g',
-                ['<'] = 'c'
+                ['<'] = 'c',
             }.ToFrozenDictionary();
         }
 

@@ -8,14 +8,13 @@ using Robust.Client.Console;
 using Robust.Client.GameObjects;
 using Robust.Client.ResourceManagement;
 using Robust.Client.UserInterface;
-using Robust.Shared.IoC;
-using Robust.Shared.Network;
-using Robust.Shared.Timing;
-using Robust.Shared.Player;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Sources;
 using Robust.Shared.ContentPack;
-
+using Robust.Shared.IoC;
+using Robust.Shared.Network;
+using Robust.Shared.Player;
+using Robust.Shared.Timing;
 
 namespace Content.Client.Voting
 {
@@ -37,12 +36,23 @@ namespace Content.Client.Voting
 
     public sealed class VoteManager : IVoteManager
     {
-        [Dependency] private readonly IAudioManager _audio = default!;
-        [Dependency] private readonly IBaseClient _client = default!;
-        [Dependency] private readonly IClientConsoleHost _console = default!;
-        [Dependency] private readonly IClientNetManager _netManager = default!;
-        [Dependency] private readonly IGameTiming _gameTiming = default!;
-        [Dependency] private readonly IResourceCache _res = default!;
+        [Dependency]
+        private readonly IAudioManager _audio = default!;
+
+        [Dependency]
+        private readonly IBaseClient _client = default!;
+
+        [Dependency]
+        private readonly IClientConsoleHost _console = default!;
+
+        [Dependency]
+        private readonly IClientNetManager _netManager = default!;
+
+        [Dependency]
+        private readonly IGameTiming _gameTiming = default!;
+
+        [Dependency]
+        private readonly IResourceCache _res = default!;
 
         private readonly Dictionary<StandardVoteType, TimeSpan> _standardVoteTimeouts = new();
         private readonly Dictionary<int, ActiveVote> _votes = new();
@@ -175,9 +185,7 @@ namespace Content.Client.Voting
                 // New vote from the server.
                 var vote = new ActiveVote(voteId)
                 {
-                    Entries = message.Options
-                        .Select(c => new VoteEntry(c.name))
-                        .ToArray()
+                    Entries = message.Options.Select(c => new VoteEntry(c.name)).ToArray(),
                 };
 
                 existingVote = vote;
@@ -189,7 +197,6 @@ namespace Content.Client.Voting
                 _votes.Remove(voteId);
                 if (_votePopups.TryGetValue(voteId, out var toRemove))
                 {
-
                     toRemove.Orphan();
                     _votePopups.Remove(voteId);
                 }
@@ -271,6 +278,7 @@ namespace Content.Client.Voting
             public int Id;
             public bool DisplayVotes;
             public int? TargetEntity; // NetEntity
+
             public ActiveVote(int voteId)
             {
                 Id = voteId;
@@ -289,4 +297,3 @@ namespace Content.Client.Voting
         }
     }
 }
-

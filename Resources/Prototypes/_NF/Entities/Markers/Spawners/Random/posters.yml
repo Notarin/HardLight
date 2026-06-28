@@ -58,7 +58,7 @@
     - id: NFPosterLegitMothPlease
     - id: NFPosterLegitHaveYouSeenThisEgg
     - id: NFPosterLegitGunTurnIn
-# endregion tables
+      # endregion tables
 
 #region spawners
 - type: entity
@@ -112,7 +112,7 @@
     offset: 0
     deleteSpawnerAfterSpawn: true
     table: !type:NestedSelector
-        tableId: TableRandomPosterContrabandLvhi
+      tableId: TableRandomPosterContrabandLvhi
 
 - type: entity
   id: NFSpawnerRandomPosterGoblin
@@ -131,7 +131,7 @@
     offset: 0
     deleteSpawnerAfterSpawn: true
     table: !type:NestedSelector
-        tableId: TableRandomPosterGoblin
+      tableId: TableRandomPosterGoblin
 
 - type: entity
   id: NFSpawnerRandomPosterFsb
@@ -153,5 +153,5 @@
     offset: 0
     deleteSpawnerAfterSpawn: true
     table: !type:NestedSelector
-        tableId: TableRandomPosterContrabandFsb
+      tableId: TableRandomPosterContrabandFsb
 # endregion spawners

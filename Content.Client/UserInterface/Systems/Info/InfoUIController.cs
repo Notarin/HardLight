@@ -12,10 +12,17 @@ namespace Content.Client.UserInterface.Systems.Info;
 
 public sealed class InfoUIController : UIController, IOnStateExited<GameplayState>
 {
-    [Dependency] private readonly IClientConsoleHost _consoleHost = default!;
-    [Dependency] private readonly INetManager _netManager = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly ILogManager _logMan = default!;
+    [Dependency]
+    private readonly IClientConsoleHost _consoleHost = default!;
+
+    [Dependency]
+    private readonly INetManager _netManager = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototype = default!;
+
+    [Dependency]
+    private readonly ILogManager _logMan = default!;
 
     private RulesPopup? _rulesPopup;
     private RulesAndInfoWindow? _infoWindow;
@@ -34,13 +41,15 @@ public sealed class InfoUIController : UIController, IOnStateExited<GameplayStat
         _netManager.RegisterNetMessage<RulesAcceptedMessage>();
         _netManager.RegisterNetMessage<SendRulesInformationMessage>(OnRulesInformationMessage);
 
-        _consoleHost.RegisterCommand("fuckrules",
+        _consoleHost.RegisterCommand(
+            "fuckrules",
             "",
             "",
             (_, _, _) =>
-        {
-            OnAcceptPressed();
-        });
+            {
+                OnAcceptPressed();
+            }
+        );
     }
 
     private void OnRulesInformationMessage(SendRulesInformationMessage message)
@@ -65,10 +74,7 @@ public sealed class InfoUIController : UIController, IOnStateExited<GameplayStat
         if (_rulesPopup != null)
             return;
 
-        _rulesPopup = new RulesPopup
-        {
-            Timer = time
-        };
+        _rulesPopup = new RulesPopup { Timer = time };
 
         _rulesPopup.OnQuitPressed += OnQuitPressed;
         _rulesPopup.OnAcceptPressed += OnAcceptPressed;
@@ -94,7 +100,9 @@ public sealed class InfoUIController : UIController, IOnStateExited<GameplayStat
         if (!_prototype.TryIndex(RulesEntryId, out var guideEntryPrototype))
         {
             guideEntryPrototype = _prototype.Index<GuideEntryPrototype>(DefaultRuleset);
-            _sawmill.Error($"Couldn't find the following prototype: {RulesEntryId}. Falling back to {DefaultRuleset}, please check that the server has the rules set up correctly");
+            _sawmill.Error(
+                $"Couldn't find the following prototype: {RulesEntryId}. Falling back to {DefaultRuleset}, please check that the server has the rules set up correctly"
+            );
             return guideEntryPrototype;
         }
 

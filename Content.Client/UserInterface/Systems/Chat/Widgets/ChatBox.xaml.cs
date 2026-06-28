@@ -8,11 +8,11 @@ using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.XAML;
 using Robust.Shared.Audio;
+using Robust.Shared.Configuration;
 using Robust.Shared.Input;
 using Robust.Shared.Player;
 using Robust.Shared.Utility;
 using static Robust.Client.UserInterface.Controls.LineEdit;
-using Robust.Shared.Configuration;
 
 namespace Content.Client.UserInterface.Systems.Chat.Widgets;
 
@@ -28,10 +28,12 @@ public partial class ChatBox : UIWidget
     public bool Main { get; set; }
 
     public ChatSelectChannel SelectedChannel => ChatInput.ChannelSelector.SelectedChannel;
+
     // WD EDIT START
     private bool _coalescence = false; // op ult btw
     private (string, Color)? _lastLine;
     private int _lastLineRepeatCount = 0;
+
     // WD EDIT END
 
     public ChatBox()
@@ -62,7 +64,11 @@ public partial class ChatBox : UIWidget
         // WD EDIT END
     }
 
-    private void UpdateCoalescence(bool value) { _coalescence = value; Repopulate(); } // WD EDIT
+    private void UpdateCoalescence(bool value)
+    {
+        _coalescence = value;
+        Repopulate();
+    } // WD EDIT
 
     private void OnTextEntered(LineEditEventArgs args)
     {
@@ -78,15 +84,19 @@ public partial class ChatBox : UIWidget
         }
 
         // HardLight: client-side radio channel filter
-        if (msg.Channel == ChatChannel.Radio
+        if (
+            msg.Channel == ChatChannel.Radio
             && msg.RadioChannelId != null
-            && !ChatInput.FilterButton.Popup.IsRadioChannelVisible(msg.RadioChannelId))
+            && !ChatInput.FilterButton.Popup.IsRadioChannelVisible(msg.RadioChannelId)
+        )
         {
             return;
         }
 
         if (msg is { Read: false, AudioPath: { } })
-            _entManager.System<AudioSystem>().PlayGlobal(msg.AudioPath, Filter.Local(), false, AudioParams.Default.WithVolume(msg.AudioVolume));
+            _entManager
+                .System<AudioSystem>()
+                .PlayGlobal(msg.AudioPath, Filter.Local(), false, AudioParams.Default.WithVolume(msg.AudioVolume));
 
         msg.Read = true;
 
@@ -170,14 +180,17 @@ public partial class ChatBox : UIWidget
         formatted.PushColor(color);
         formatted.AddMarkupOrThrow(message);
         formatted.Pop();
-        if(repeat != 0) // WD EDIT START
+        if (repeat != 0) // WD EDIT START
         {
             int displayRepeat = repeat + 1;
             int sizeIncrease = Math.Min(displayRepeat / 6, 5);
-            formatted.AddMarkup(_loc.GetString("chat-system-repeated-message-counter",
-                ("count", displayRepeat),
-                ("size", 8+sizeIncrease)
-            ));
+            formatted.AddMarkup(
+                _loc.GetString(
+                    "chat-system-repeated-message-counter",
+                    ("count", displayRepeat),
+                    ("size", 8 + sizeIncrease)
+                )
+            );
         } // WD EDIT END
         Contents.AddMessage(formatted, tagsAllowed: null);
     }
@@ -268,7 +281,8 @@ public partial class ChatBox : UIWidget
     {
         base.Dispose(disposing);
 
-        if (!disposing) return;
+        if (!disposing)
+            return;
         _controller.UnregisterChat(this);
         ChatInput.Input.OnTextEntered -= OnTextEntered;
         ChatInput.Input.OnKeyBindDown -= OnInputKeyBindDown;

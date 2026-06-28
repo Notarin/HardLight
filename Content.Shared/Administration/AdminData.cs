@@ -1,5 +1,4 @@
-﻿
-namespace Content.Shared.Administration
+﻿namespace Content.Shared.Administration
 {
     /// <summary>
     ///     Represents data for a single server admin.

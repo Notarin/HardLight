@@ -16,16 +16,23 @@ namespace Content.Server.StationEvents.Events;
 
 public sealed class MedicalBountyTargetsRule : StationEventSystem<MedicalBountyTargetsRuleComponent>
 {
-    [Dependency] private readonly IPlayerManager _player = default!;
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
 
-    protected override void Started(EntityUid uid, MedicalBountyTargetsRuleComponent component, GameRuleComponent gameRule,
-        GameRuleStartedEvent args)
+    protected override void Started(
+        EntityUid uid,
+        MedicalBountyTargetsRuleComponent component,
+        GameRuleComponent gameRule,
+        GameRuleStartedEvent args
+    )
     {
         base.Started(uid, component, gameRule, args);
 
-        if (!TryGetRandomStation(out var station)
+        if (
+            !TryGetRandomStation(out var station)
             || component.Entries.Count == 0
-            || !PrototypeManager.TryIndex<DepartmentPrototype>(component.DepartmentId, out var department))
+            || !PrototypeManager.TryIndex<DepartmentPrototype>(component.DepartmentId, out var department)
+        )
         {
             return;
         }
@@ -39,7 +46,7 @@ public sealed class MedicalBountyTargetsRule : StationEventSystem<MedicalBountyT
             return;
 
         var variation = RobustRandom.NextFloat(-component.Variance, component.Variance);
-        var spawnCount = Math.Max(1, (int) MathF.Round(medicalWorkers * (1f + variation)));
+        var spawnCount = Math.Max(1, (int)MathF.Round(medicalWorkers * (1f + variation)));
 
         for (var i = 0; i < spawnCount; i++)
         {
@@ -57,19 +64,23 @@ public sealed class MedicalBountyTargetsRule : StationEventSystem<MedicalBountyT
         var query = EntityQueryEnumerator<JobTrackingComponent, MindContainerComponent>();
         while (query.MoveNext(out _, out var tracking, out var mindContainer))
         {
-            if (!tracking.Active
+            if (
+                !tracking.Active
                 || tracking.SpawnStation != station
                 || tracking.Job is not { } jobId
-                || !roles.Contains(jobId))
+                || !roles.Contains(jobId)
+            )
             {
                 continue;
             }
 
-            if (!mindContainer.HasMind
+            if (
+                !mindContainer.HasMind
                 || !TryComp<MindComponent>(mindContainer.Mind, out var mind)
                 || mind.UserId is not { } userId
                 || !_player.TryGetSessionById(userId, out var session)
-                || session.Status != SessionStatus.InGame)
+                || session.Status != SessionStatus.InGame
+            )
             {
                 continue;
             }

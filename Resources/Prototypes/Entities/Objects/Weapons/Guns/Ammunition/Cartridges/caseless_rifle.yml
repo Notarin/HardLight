@@ -1,13 +1,13 @@
 - type: entity
   id: BaseCartridgeCaselessRifle
   name: cartridge (.25 rifle)
-  parent: [ BaseCartridge, BaseC3SyndicateContrabandNoValue ] # Frontier: BaseSecurityContraband<BaseC3SyndicateContraband
+  parent: [BaseCartridge, BaseC3SyndicateContrabandNoValue] # Frontier: BaseSecurityContraband<BaseC3SyndicateContraband
   abstract: true
   components:
   - type: Tag
     tags:
-      - Cartridge
-      - CartridgeCaselessRifle
+    - Cartridge
+    - CartridgeCaselessRifle
   - type: CartridgeAmmo
     deleteOnSpawn: true
   - type: Sprite
@@ -22,7 +22,7 @@
     price: 1
 
 - type: entity
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   id: CartridgeCaselessRifle
   name: cartridge (.25 caseless)
   parent: BaseCartridgeCaselessRifle
@@ -32,7 +32,7 @@
     proto: BulletCaselessRifle # Frontier
 
 - type: entity
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   id: CartridgeCaselessRiflePractice
   name: cartridge (.25 caseless practice)
   parent: BaseCartridgeCaselessRifle
@@ -42,8 +42,8 @@
     proto: BulletCaselessRiflePractice # Frontier
   - type: Sprite
     layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
-      - state: tip
-        color: "#dbdbdb"
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      color: "#dbdbdb"
 

@@ -8,15 +8,24 @@ namespace Content.Server._HL.Body.Systems;
 
 public sealed class BloodSolutionModifierSystem : EntitySystem
 {
-    [Dependency] private readonly BloodstreamSystem _bloodstream = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solution = default!;
+    [Dependency]
+    private readonly BloodstreamSystem _bloodstream = default!;
+
+    [Dependency]
+    private readonly SharedSolutionContainerSystem _solution = default!;
 
     public override void Initialize()
     {
         base.Initialize();
 
-        SubscribeLocalEvent<BloodSolutionModifierComponent, ComponentStartup>(OnStartup, after: [typeof(BloodstreamSystem)]);
-        SubscribeLocalEvent<BloodSolutionModifierComponent, MapInitEvent>(OnMapInit, after: [typeof(BloodstreamSystem)]);
+        SubscribeLocalEvent<BloodSolutionModifierComponent, ComponentStartup>(
+            OnStartup,
+            after: [typeof(BloodstreamSystem)]
+        );
+        SubscribeLocalEvent<BloodSolutionModifierComponent, MapInitEvent>(
+            OnMapInit,
+            after: [typeof(BloodstreamSystem)]
+        );
     }
 
     private void OnStartup(Entity<BloodSolutionModifierComponent> ent, ref ComponentStartup args)
@@ -31,15 +40,27 @@ public sealed class BloodSolutionModifierSystem : EntitySystem
 
     public void ApplyModifier(Entity<BloodSolutionModifierComponent> ent)
     {
-        if (!TryComp<BloodstreamComponent>(ent, out var bloodstream)
-            || !_solution.ResolveSolution(ent.Owner, bloodstream.BloodSolutionName, ref bloodstream.BloodSolution, out _)
-            || bloodstream.BloodSolution is not { } bloodSolutionEntity)
+        if (
+            !TryComp<BloodstreamComponent>(ent, out var bloodstream)
+            || !_solution.ResolveSolution(
+                ent.Owner,
+                bloodstream.BloodSolutionName,
+                ref bloodstream.BloodSolution,
+                out _
+            )
+            || bloodstream.BloodSolution is not { } bloodSolutionEntity
+        )
         {
             return;
         }
 
         if (!string.IsNullOrWhiteSpace(ent.Comp.BloodReagent))
-            _bloodstream.ChangeBloodReagent(ent.Owner, ent.Comp.BloodReagent, bloodstream, storeOriginalBloodReagent: false);
+            _bloodstream.ChangeBloodReagent(
+                ent.Owner,
+                ent.Comp.BloodReagent,
+                bloodstream,
+                storeOriginalBloodReagent: false
+            );
 
         if (ent.Comp.ClearExisting)
             _solution.RemoveAllSolution(bloodSolutionEntity);
@@ -60,7 +81,8 @@ public sealed class BloodSolutionModifierSystem : EntitySystem
                 reagent.Quantity,
                 out _,
                 ent.Comp.Solution.Temperature,
-                reagentData);
+                reagentData
+            );
         }
     }
 }

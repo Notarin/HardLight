@@ -17,14 +17,22 @@ using DebugMessage = Content.Shared.Atmos.EntitySystems.SharedAtmosDebugOverlayS
 
 namespace Content.Client.Atmos.Overlays;
 
-
 public sealed class AtmosDebugOverlay : Overlay
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly IInputManager _input = default!;
-    [Dependency] private readonly IUserInterfaceManager _ui = default!;
-    [Dependency] private readonly IResourceCache _cache = default!;
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
+
+    [Dependency]
+    private readonly IMapManager _mapManager = default!;
+
+    [Dependency]
+    private readonly IInputManager _input = default!;
+
+    [Dependency]
+    private readonly IUserInterfaceManager _ui = default!;
+
+    [Dependency]
+    private readonly IResourceCache _cache = default!;
     private readonly SharedTransformSystem _transform;
     private readonly AtmosDebugOverlaySystem _system;
     private readonly SharedMapSystem _map;
@@ -70,8 +78,7 @@ public sealed class AtmosDebugOverlay : Overlay
         handle.SetTransform(Matrix3x2.Identity);
     }
 
-    private void DrawData(DebugMessage msg,
-        DrawingHandleWorld handle)
+    private void DrawData(DebugMessage msg, DrawingHandleWorld handle)
     {
         foreach (var data in msg.OverlayData)
         {
@@ -80,8 +87,7 @@ public sealed class AtmosDebugOverlay : Overlay
         }
     }
 
-    private void DrawGridTile(AtmosDebugOverlayData data,
-        DrawingHandleWorld handle)
+    private void DrawGridTile(AtmosDebugOverlayData data, DrawingHandleWorld handle)
     {
         DrawFill(data, handle);
         DrawBlocked(data, handle);
@@ -102,9 +108,10 @@ public sealed class AtmosDebugOverlay : Overlay
         else
         {
             // Red-Green-Blue interpolation
-            res = interp < 0.5f
-                ? Color.InterpolateBetween(Color.Red, Color.LimeGreen, interp * 2)
-                : Color.InterpolateBetween(Color.LimeGreen, Color.Blue, (interp - 0.5f) * 2);
+            res =
+                interp < 0.5f
+                    ? Color.InterpolateBetween(Color.Red, Color.LimeGreen, interp * 2)
+                    : Color.InterpolateBetween(Color.LimeGreen, Color.Blue, (interp - 0.5f) * 2);
         }
 
         res = res.WithAlpha(0.75f);
@@ -153,13 +160,14 @@ public sealed class AtmosDebugOverlay : Overlay
         }
 
         // -- Excited Groups --
-        if (data.InExcitedGroup is {} grp)
+        if (data.InExcitedGroup is { } grp)
         {
             var basisA = tile;
             var basisB = tile + new Vector2(1.0f, 1.0f);
             var basisC = tile + new Vector2(0.0f, 1.0f);
             var basisD = tile + new Vector2(1.0f, 0.0f);
-            var color = Color.White // Use first three nibbles for an unique color... Good enough?
+            var color = Color
+                .White // Use first three nibbles for an unique color... Good enough?
                 .WithRed(grp & 0x000F)
                 .WithGreen((grp & 0x00F0) >> 4)
                 .WithBlue((grp & 0x0F00) >> 8);
@@ -181,7 +189,8 @@ public sealed class AtmosDebugOverlay : Overlay
         AtmosDebugOverlayData data,
         DrawingHandleWorld handle,
         AtmosDirection dir,
-        Vector2 tileCentre)
+        Vector2 tileCentre
+    )
     {
         if (!data.BlockDirection.HasFlag(dir))
             return;
@@ -195,11 +204,7 @@ public sealed class AtmosDebugOverlay : Overlay
         handle.DrawLine(basisA, basisB, Color.Azure);
     }
 
-    private void DrawPressureDirection(
-        DrawingHandleWorld handle,
-        AtmosDirection d,
-        Vector2 center,
-        Color color)
+    private void DrawPressureDirection(DrawingHandleWorld handle, AtmosDirection d, Vector2 center, Color color)
     {
         // Account for South being 0.
         var atmosAngle = d.ToAngle() - Angle.FromDegrees(90);
@@ -217,7 +222,7 @@ public sealed class AtmosDebugOverlay : Overlay
         if (_ui.MouseGetControl(mousePos) is not IViewportControl viewport)
             return;
 
-        var coords= viewport.PixelToMap(mousePos.Position);
+        var coords = viewport.PixelToMap(mousePos.Position);
         var box = Box2.CenteredAround(coords.Position, 3 * Vector2.One);
         GetGrids(coords.MapId, new Box2Rotated(box));
 
@@ -238,11 +243,9 @@ public sealed class AtmosDebugOverlay : Overlay
     private void DrawTooltip(DrawingHandleScreen handle, Vector2 pos, AtmosDebugOverlayData data)
     {
         var lineHeight = _font.GetLineHeight(1f);
-        var offset  = new Vector2(0, lineHeight);
+        var offset = new Vector2(0, lineHeight);
 
-        var moles = data.Moles == null
-            ? "No Air"
-            : data.Moles.Sum().ToString(CultureInfo.InvariantCulture);
+        var moles = data.Moles == null ? "No Air" : data.Moles.Sum().ToString(CultureInfo.InvariantCulture);
 
         handle.DrawString(_font, pos, $"Moles: {moles}");
         pos += offset;
@@ -266,13 +269,12 @@ public sealed class AtmosDebugOverlay : Overlay
             mapId,
             box,
             ref _grids,
-            (EntityUid uid,
-                MapGridComponent grid,
-            ref List<(Entity<MapGridComponent>, DebugMessage)> state) =>
-        {
-            if (_system.TileData.TryGetValue(uid, out var data))
-                state.Add(((uid, grid), data));
-            return true;
-        });
+            (EntityUid uid, MapGridComponent grid, ref List<(Entity<MapGridComponent>, DebugMessage)> state) =>
+            {
+                if (_system.TileData.TryGetValue(uid, out var data))
+                    state.Add(((uid, grid), data));
+                return true;
+            }
+        );
     }
 }

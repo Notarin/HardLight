@@ -26,12 +26,13 @@ public sealed partial class PlaytimeStatsHeader : Control
     public enum Header : byte
     {
         Role,
-        Playtime
+        Playtime,
     }
+
     public enum SortDirection : byte
     {
         Ascending,
-        Descending
+        Descending,
     }
 
     private void HeaderClicked(GUIBoundKeyEventArgs args, Header header)
@@ -44,10 +45,12 @@ public sealed partial class PlaytimeStatsHeader : Control
         switch (header)
         {
             case Header.Role:
-                _roleDirection = _roleDirection == SortDirection.Ascending ? SortDirection.Descending : SortDirection.Ascending;
+                _roleDirection =
+                    _roleDirection == SortDirection.Ascending ? SortDirection.Descending : SortDirection.Ascending;
                 break;
             case Header.Playtime:
-                _playtimeDirection = _playtimeDirection == SortDirection.Ascending ? SortDirection.Descending : SortDirection.Ascending;
+                _playtimeDirection =
+                    _playtimeDirection == SortDirection.Ascending ? SortDirection.Descending : SortDirection.Ascending;
                 break;
         }
 
@@ -55,12 +58,14 @@ public sealed partial class PlaytimeStatsHeader : Control
         OnHeaderClicked?.Invoke(header, header == Header.Role ? _roleDirection : _playtimeDirection);
         args.Handle();
     }
+
     private void UpdateLabels()
     {
-        RoleLabel.Text = Loc.GetString("ui-playtime-header-role-type") +
-                         (_roleDirection == SortDirection.Ascending ? " ↓" : " ↑");
-        PlaytimeLabel.Text = Loc.GetString("ui-playtime-header-role-time") +
-                             (_playtimeDirection == SortDirection.Ascending ? " ↓" : " ↑");
+        RoleLabel.Text =
+            Loc.GetString("ui-playtime-header-role-type") + (_roleDirection == SortDirection.Ascending ? " ↓" : " ↑");
+        PlaytimeLabel.Text =
+            Loc.GetString("ui-playtime-header-role-time")
+            + (_playtimeDirection == SortDirection.Ascending ? " ↓" : " ↑");
     }
 
     private void RoleClicked(GUIBoundKeyEventArgs args)

@@ -16,16 +16,31 @@ using Robust.Shared.Serialization;
 
 namespace Content.Shared.Medical.Cryogenics;
 
-public abstract partial class SharedCryoPodSystem: EntitySystem
+public abstract partial class SharedCryoPodSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearanceSystem = default!;
-    [Dependency] private readonly StandingStateSystem _standingStateSystem = default!;
-    [Dependency] private readonly EmagSystem _emag = default!;
-    [Dependency] private readonly MobStateSystem _mobStateSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
-    [Dependency] private readonly SharedPointLightSystem _light = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearanceSystem = default!;
+
+    [Dependency]
+    private readonly StandingStateSystem _standingStateSystem = default!;
+
+    [Dependency]
+    private readonly EmagSystem _emag = default!;
+
+    [Dependency]
+    private readonly MobStateSystem _mobStateSystem = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _containerSystem = default!;
+
+    [Dependency]
+    private readonly SharedPointLightSystem _light = default!;
+
+    [Dependency]
+    private readonly ISharedAdminLogManager _adminLogger = default!;
 
     public override void Initialize()
     {
@@ -49,7 +64,11 @@ public abstract partial class SharedCryoPodSystem: EntitySystem
         cryoPodComponent.BodyContainer = _containerSystem.EnsureContainer<ContainerSlot>(uid, "scanner-body");
     }
 
-    protected void UpdateAppearance(EntityUid uid, CryoPodComponent? cryoPod = null, AppearanceComponent? appearance = null)
+    protected void UpdateAppearance(
+        EntityUid uid,
+        CryoPodComponent? cryoPod = null,
+        AppearanceComponent? appearance = null
+    )
     {
         if (!Resolve(uid, ref cryoPod))
             return;
@@ -64,7 +83,12 @@ public abstract partial class SharedCryoPodSystem: EntitySystem
         if (!Resolve(uid, ref appearance))
             return;
 
-        _appearanceSystem.SetData(uid, CryoPodComponent.CryoPodVisuals.ContainsEntity, cryoPod.BodyContainer.ContainedEntity == null, appearance);
+        _appearanceSystem.SetData(
+            uid,
+            CryoPodComponent.CryoPodVisuals.ContainsEntity,
+            cryoPod.BodyContainer.ContainedEntity == null,
+            appearance
+        );
         _appearanceSystem.SetData(uid, CryoPodComponent.CryoPodVisuals.IsOn, cryoPodEnabled, appearance);
     }
 
@@ -101,7 +125,11 @@ public abstract partial class SharedCryoPodSystem: EntitySystem
 
         var ejected = EjectBody(uid, cryoPodComponent);
         if (ejected != null)
-            _adminLogger.Add(LogType.Action, LogImpact.Medium, $"{ToPrettyString(ejected.Value)} ejected from {ToPrettyString(uid)} by {ToPrettyString(userId)}");
+            _adminLogger.Add(
+                LogType.Action,
+                LogImpact.Medium,
+                $"{ToPrettyString(ejected.Value)} ejected from {ToPrettyString(uid)} by {ToPrettyString(userId)}"
+            );
     }
 
     /// <summary>
@@ -115,7 +143,7 @@ public abstract partial class SharedCryoPodSystem: EntitySystem
         if (!Resolve(uid, ref cryoPodComponent))
             return null;
 
-        if (cryoPodComponent.BodyContainer.ContainedEntity is not {Valid: true} contained)
+        if (cryoPodComponent.BodyContainer.ContainedEntity is not { Valid: true } contained)
             return null;
 
         _containerSystem.Remove(contained, cryoPodComponent.BodyContainer);
@@ -136,7 +164,11 @@ public abstract partial class SharedCryoPodSystem: EntitySystem
         return contained;
     }
 
-    protected void AddAlternativeVerbs(EntityUid uid, CryoPodComponent cryoPodComponent, GetVerbsEvent<AlternativeVerb> args)
+    protected void AddAlternativeVerbs(
+        EntityUid uid,
+        CryoPodComponent cryoPodComponent,
+        GetVerbsEvent<AlternativeVerb> args
+    )
     {
         if (!args.CanAccess || !args.CanInteract)
             return;
@@ -144,13 +176,15 @@ public abstract partial class SharedCryoPodSystem: EntitySystem
         // Eject verb
         if (cryoPodComponent.BodyContainer.ContainedEntity != null)
         {
-            args.Verbs.Add(new AlternativeVerb
-            {
-                Text = Loc.GetString("cryo-pod-verb-noun-occupant"),
-                Category = VerbCategory.Eject,
-                Priority = 1, // Promote to top to make ejecting the ALT-click action
-                Act = () => TryEjectBody(uid, args.User, cryoPodComponent)
-            });
+            args.Verbs.Add(
+                new AlternativeVerb
+                {
+                    Text = Loc.GetString("cryo-pod-verb-noun-occupant"),
+                    Category = VerbCategory.Eject,
+                    Priority = 1, // Promote to top to make ejecting the ALT-click action
+                    Act = () => TryEjectBody(uid, args.User, cryoPodComponent),
+                }
+            );
         }
     }
 
@@ -187,6 +221,7 @@ public abstract partial class SharedCryoPodSystem: EntitySystem
         cryoPodComponent.Locked = false;
         args.Handled = true;
     }
+
     // End Frontier: demag
 
     protected void OnCryoPodPryFinished(EntityUid uid, CryoPodComponent cryoPodComponent, CryoPodPryFinished args)
@@ -196,16 +231,16 @@ public abstract partial class SharedCryoPodSystem: EntitySystem
 
         var ejected = EjectBody(uid, cryoPodComponent);
         if (ejected != null)
-            _adminLogger.Add(LogType.Action, LogImpact.Medium, $"{ToPrettyString(ejected.Value)} pried out of {ToPrettyString(uid)} by {ToPrettyString(args.User)}");
+            _adminLogger.Add(
+                LogType.Action,
+                LogImpact.Medium,
+                $"{ToPrettyString(ejected.Value)} pried out of {ToPrettyString(uid)} by {ToPrettyString(args.User)}"
+            );
     }
 
     [Serializable, NetSerializable]
-    public sealed partial class CryoPodPryFinished : SimpleDoAfterEvent
-    {
-    }
+    public sealed partial class CryoPodPryFinished : SimpleDoAfterEvent { }
 
     [Serializable, NetSerializable]
-    public sealed partial class CryoPodDragFinished : SimpleDoAfterEvent
-    {
-    }
+    public sealed partial class CryoPodDragFinished : SimpleDoAfterEvent { }
 }

@@ -1,5 +1,5 @@
-using Robust.Shared.Player;
 using Robust.Shared.Network;
+using Robust.Shared.Player;
 
 namespace Content.Server.Voting.Managers;
 

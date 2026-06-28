@@ -1,24 +1,24 @@
 using Content.Server.Chemistry.Components;
 using Content.Server.Chemistry.Containers.EntitySystems;
+using Content.Server.Construction; // Frontier
+using Content.Shared._Starlight.Plumbing.Components; // Starlight
 using Content.Shared.Chemistry;
 using Content.Shared.Chemistry.Dispenser;
 using Content.Shared.Chemistry.EntitySystems;
+using Content.Shared.Chemistry.Reagent; // Frontier
 using Content.Shared.Containers.ItemSlots;
+using Content.Shared.Examine; // Frontier
 using Content.Shared.FixedPoint;
+using Content.Shared.Labels.Components;
+using Content.Shared.Labels.EntitySystems; // Frontier
 using Content.Shared.Nutrition.EntitySystems;
+using Content.Shared.Verbs; // Frontier
 using JetBrains.Annotations;
 using Robust.Server.Audio;
 using Robust.Server.GameObjects;
 using Robust.Shared.Audio;
 using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
-using Content.Shared.Labels.Components;
-using Content.Shared.Chemistry.Reagent; // Frontier
-using Content.Shared.Verbs; // Frontier
-using Content.Shared.Examine; // Frontier
-using Content.Server.Construction; // Frontier
-using Content.Shared.Labels.EntitySystems; // Frontier
-using Content.Shared._Starlight.Plumbing.Components; // Starlight
 
 namespace Content.Server.Chemistry.EntitySystems
 {
@@ -29,15 +29,32 @@ namespace Content.Server.Chemistry.EntitySystems
     [UsedImplicitly]
     public sealed class ReagentDispenserSystem : EntitySystem
     {
-        [Dependency] private readonly AudioSystem _audioSystem = default!;
-        [Dependency] private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
-        [Dependency] private readonly SolutionTransferSystem _solutionTransferSystem = default!;
-        [Dependency] private readonly ItemSlotsSystem _itemSlotsSystem = default!;
-        [Dependency] private readonly UserInterfaceSystem _userInterfaceSystem = default!;
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly OpenableSystem _openable = default!;
-        [Dependency] private readonly LabelSystem _label = default!; // Frontier
-        [Dependency] private readonly SharedContainerSystem _containers = default!; // Frontier
+        [Dependency]
+        private readonly AudioSystem _audioSystem = default!;
+
+        [Dependency]
+        private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
+
+        [Dependency]
+        private readonly SolutionTransferSystem _solutionTransferSystem = default!;
+
+        [Dependency]
+        private readonly ItemSlotsSystem _itemSlotsSystem = default!;
+
+        [Dependency]
+        private readonly UserInterfaceSystem _userInterfaceSystem = default!;
+
+        [Dependency]
+        private readonly IPrototypeManager _prototypeManager = default!;
+
+        [Dependency]
+        private readonly OpenableSystem _openable = default!;
+
+        [Dependency]
+        private readonly LabelSystem _label = default!; // Frontier
+
+        [Dependency]
+        private readonly SharedContainerSystem _containers = default!; // Frontier
 
         public override void Initialize()
         {
@@ -54,11 +71,20 @@ namespace Content.Server.Chemistry.EntitySystems
             SubscribeLocalEvent<ReagentDispenserComponent, RefreshPartsEvent>(OnRefreshParts); // Frontier
             SubscribeLocalEvent<ReagentDispenserComponent, UpgradeExamineEvent>(OnUpgradeExamine); // Frontier
 
-            SubscribeLocalEvent<ReagentDispenserComponent, ReagentDispenserSetDispenseAmountMessage>(OnSetDispenseAmountMessage);
-            SubscribeLocalEvent<ReagentDispenserComponent, ReagentDispenserDispenseReagentMessage>(OnDispenseReagentMessage);
-            SubscribeLocalEvent<ReagentDispenserComponent, ReagentDispenserClearContainerSolutionMessage>(OnClearContainerSolutionMessage);
+            SubscribeLocalEvent<ReagentDispenserComponent, ReagentDispenserSetDispenseAmountMessage>(
+                OnSetDispenseAmountMessage
+            );
+            SubscribeLocalEvent<ReagentDispenserComponent, ReagentDispenserDispenseReagentMessage>(
+                OnDispenseReagentMessage
+            );
+            SubscribeLocalEvent<ReagentDispenserComponent, ReagentDispenserClearContainerSolutionMessage>(
+                OnClearContainerSolutionMessage
+            );
 
-            SubscribeLocalEvent<ReagentDispenserComponent, MapInitEvent>(OnMapInit, before: new []{typeof(ItemSlotsSystem)});
+            SubscribeLocalEvent<ReagentDispenserComponent, MapInitEvent>(
+                OnMapInit,
+                before: new[] { typeof(ItemSlotsSystem) }
+            );
             SubscribeLocalEvent<ReagentDispenserComponent, ComponentInit>(OnDispenserInit); // FIX: Added ComponentInit subscription
 
             SubscribeLocalEvent<ReagentDispenserComponent, ReagentDispenserToggleValveMessage>(OnToggleValveMessage);
@@ -75,14 +101,24 @@ namespace Content.Server.Chemistry.EntitySystems
             if (ent.Comp.AutoLabel && _solutionContainerSystem.TryGetDrainableSolution(ev.Entity, out _, out var sol))
             {
                 ReagentId? reagentId = sol.GetPrimaryReagentId();
-                if (reagentId != null && _prototypeManager.TryIndex<ReagentPrototype>(reagentId.Value.Prototype, out var reagent))
+                if (
+                    reagentId != null
+                    && _prototypeManager.TryIndex<ReagentPrototype>(reagentId.Value.Prototype, out var reagent)
+                )
                 {
                     var reagentQuantity = sol.GetReagentQuantity(reagentId.Value);
                     var totalQuantity = sol.Volume;
                     if (reagentQuantity == totalQuantity)
                         _label.Label(ev.Entity, reagent.LocalizedName);
                     else
-                        _label.Label(ev.Entity, Loc.GetString("reagent-dispenser-component-impure-auto-label", ("reagent", reagent.LocalizedName), ("purity", 100.0f * reagentQuantity / totalQuantity)));
+                        _label.Label(
+                            ev.Entity,
+                            Loc.GetString(
+                                "reagent-dispenser-component-impure-auto-label",
+                                ("reagent", reagent.LocalizedName),
+                                ("purity", 100.0f * reagentQuantity / totalQuantity)
+                            )
+                        );
                 }
             }
 
@@ -94,17 +130,19 @@ namespace Content.Server.Chemistry.EntitySystems
             if (!ent.Comp.CanAutoLabel)
                 return;
 
-            args.Verbs.Add(new AlternativeVerb()
-            {
-                Act = () =>
+            args.Verbs.Add(
+                new AlternativeVerb()
                 {
-                    SetAutoLabel(ent, !ent.Comp.AutoLabel);
-                },
-                Text = ent.Comp.AutoLabel ?
-                Loc.GetString("reagent-dispenser-component-set-auto-label-off-verb")
-                : Loc.GetString("reagent-dispenser-component-set-auto-label-on-verb"),
-                Priority = -1, //Not important, low priority.
-            });
+                    Act = () =>
+                    {
+                        SetAutoLabel(ent, !ent.Comp.AutoLabel);
+                    },
+                    Text = ent.Comp.AutoLabel
+                        ? Loc.GetString("reagent-dispenser-component-set-auto-label-off-verb")
+                        : Loc.GetString("reagent-dispenser-component-set-auto-label-on-verb"),
+                    Priority = -1, //Not important, low priority.
+                }
+            );
         }
 
         private void SetAutoLabel(Entity<ReagentDispenserComponent> ent, bool autoLabel)
@@ -125,17 +163,29 @@ namespace Content.Server.Chemistry.EntitySystems
             else
                 args.PushMarkup(Loc.GetString("reagent-dispenser-component-examine-auto-label-off"));
         }
+
         // End Frontier
 
         private void UpdateUiState(Entity<ReagentDispenserComponent> reagentDispenser)
         {
-            var outputContainer = _itemSlotsSystem.GetItemOrNull(reagentDispenser, SharedReagentDispenser.OutputSlotName);
+            var outputContainer = _itemSlotsSystem.GetItemOrNull(
+                reagentDispenser,
+                SharedReagentDispenser.OutputSlotName
+            );
             var outputContainerInfo = BuildOutputContainerInfo(outputContainer);
 
             var inventory = GetInventory(reagentDispenser);
 
-            var valveOpen = TryComp<PlumbingOutletComponent>(reagentDispenser.Owner, out var plumbingOutlet) && plumbingOutlet.Enabled; // Starlight-edit: Plumbing valve
-            var state = new ReagentDispenserBoundUserInterfaceState(outputContainerInfo, GetNetEntity(outputContainer), inventory, reagentDispenser.Comp.DispenseAmount, valveOpen); // Starlight: Valve
+            var valveOpen =
+                TryComp<PlumbingOutletComponent>(reagentDispenser.Owner, out var plumbingOutlet)
+                && plumbingOutlet.Enabled; // Starlight-edit: Plumbing valve
+            var state = new ReagentDispenserBoundUserInterfaceState(
+                outputContainerInfo,
+                GetNetEntity(outputContainer),
+                inventory,
+                reagentDispenser.Comp.DispenseAmount,
+                valveOpen
+            ); // Starlight: Valve
             _userInterfaceSystem.SetUiState(reagentDispenser.Owner, ReagentDispenserUiKey.Key, state);
         }
 
@@ -148,7 +198,7 @@ namespace Content.Server.Chemistry.EntitySystems
             {
                 return new ContainerInfo(Name(container.Value), solution.Volume, solution.MaxVolume)
                 {
-                    Reagents = solution.Contents
+                    Reagents = solution.Contents,
                 };
             }
 
@@ -166,7 +216,9 @@ namespace Content.Server.Chemistry.EntitySystems
 
                 // Set label from manually-applied label, or metadata if unavailable
                 string reagentLabel;
-                if (TryComp<LabelComponent>(storedContainer, out var label) && !string.IsNullOrEmpty(label.CurrentLabel))
+                if (
+                    TryComp<LabelComponent>(storedContainer, out var label) && !string.IsNullOrEmpty(label.CurrentLabel)
+                )
                     reagentLabel = label.CurrentLabel;
                 else if (storedContainer != null)
                     reagentLabel = Name(storedContainer.Value);
@@ -176,7 +228,10 @@ namespace Content.Server.Chemistry.EntitySystems
                 // Get volume remaining and color of solution
                 FixedPoint2 quantity = 0f;
                 var reagentColor = Color.White;
-                if (storedContainer != null && _solutionContainerSystem.TryGetDrainableSolution(storedContainer.Value, out _, out var sol))
+                if (
+                    storedContainer != null
+                    && _solutionContainerSystem.TryGetDrainableSolution(storedContainer.Value, out _, out var sol)
+                )
                 {
                     quantity = sol.Volume;
                     reagentColor = sol.GetColor(_prototypeManager);
@@ -188,43 +243,70 @@ namespace Content.Server.Chemistry.EntitySystems
             return inventory;
         }
 
-        private void OnSetDispenseAmountMessage(Entity<ReagentDispenserComponent> reagentDispenser, ref ReagentDispenserSetDispenseAmountMessage message)
+        private void OnSetDispenseAmountMessage(
+            Entity<ReagentDispenserComponent> reagentDispenser,
+            ref ReagentDispenserSetDispenseAmountMessage message
+        )
         {
             reagentDispenser.Comp.DispenseAmount = message.ReagentDispenserDispenseAmount;
             UpdateUiState(reagentDispenser);
             ClickSound(reagentDispenser);
         }
 
-        private void OnDispenseReagentMessage(Entity<ReagentDispenserComponent> reagentDispenser, ref ReagentDispenserDispenseReagentMessage message)
+        private void OnDispenseReagentMessage(
+            Entity<ReagentDispenserComponent> reagentDispenser,
+            ref ReagentDispenserDispenseReagentMessage message
+        )
         {
             // Ensure that the reagent is something this reagent dispenser can dispense.
             var storedContainer = _itemSlotsSystem.GetItemOrNull(reagentDispenser, message.SlotId);
             if (storedContainer == null)
                 return;
 
-            var outputContainer = _itemSlotsSystem.GetItemOrNull(reagentDispenser, SharedReagentDispenser.OutputSlotName);
-            if (outputContainer is not { Valid: true } || !_solutionContainerSystem.TryGetFitsInDispenser(outputContainer.Value, out var solution, out _))
+            var outputContainer = _itemSlotsSystem.GetItemOrNull(
+                reagentDispenser,
+                SharedReagentDispenser.OutputSlotName
+            );
+            if (
+                outputContainer is not { Valid: true }
+                || !_solutionContainerSystem.TryGetFitsInDispenser(outputContainer.Value, out var solution, out _)
+            )
                 return;
 
-            if (_solutionContainerSystem.TryGetDrainableSolution(storedContainer.Value, out var src, out _) &&
-                _solutionContainerSystem.TryGetRefillableSolution(outputContainer.Value, out var dst, out _))
+            if (
+                _solutionContainerSystem.TryGetDrainableSolution(storedContainer.Value, out var src, out _)
+                && _solutionContainerSystem.TryGetRefillableSolution(outputContainer.Value, out var dst, out _)
+            )
             {
                 // force open container, if applicable, to avoid confusing people on why it doesn't dispense
                 _openable.SetOpen(storedContainer.Value, true);
-                _solutionTransferSystem.Transfer(reagentDispenser,
-                        storedContainer.Value, src.Value,
-                        outputContainer.Value, dst.Value,
-                        (int)reagentDispenser.Comp.DispenseAmount);
+                _solutionTransferSystem.Transfer(
+                    reagentDispenser,
+                    storedContainer.Value,
+                    src.Value,
+                    outputContainer.Value,
+                    dst.Value,
+                    (int)reagentDispenser.Comp.DispenseAmount
+                );
             }
 
             UpdateUiState(reagentDispenser);
             ClickSound(reagentDispenser);
         }
 
-        private void OnClearContainerSolutionMessage(Entity<ReagentDispenserComponent> reagentDispenser, ref ReagentDispenserClearContainerSolutionMessage message)
+        private void OnClearContainerSolutionMessage(
+            Entity<ReagentDispenserComponent> reagentDispenser,
+            ref ReagentDispenserClearContainerSolutionMessage message
+        )
         {
-            var outputContainer = _itemSlotsSystem.GetItemOrNull(reagentDispenser, SharedReagentDispenser.OutputSlotName);
-            if (outputContainer is not { Valid: true } || !_solutionContainerSystem.TryGetFitsInDispenser(outputContainer.Value, out var solution, out _))
+            var outputContainer = _itemSlotsSystem.GetItemOrNull(
+                reagentDispenser,
+                SharedReagentDispenser.OutputSlotName
+            );
+            if (
+                outputContainer is not { Valid: true }
+                || !_solutionContainerSystem.TryGetFitsInDispenser(outputContainer.Value, out var solution, out _)
+            )
                 return;
 
             _solutionContainerSystem.RemoveAllSolution(solution.Value);
@@ -233,7 +315,10 @@ namespace Content.Server.Chemistry.EntitySystems
         }
 
         // Starlight-start: Plumbing valve toggle
-        private void OnToggleValveMessage(Entity<ReagentDispenserComponent> reagentDispenser, ref ReagentDispenserToggleValveMessage message)
+        private void OnToggleValveMessage(
+            Entity<ReagentDispenserComponent> reagentDispenser,
+            ref ReagentDispenserToggleValveMessage message
+        )
         {
             if (!TryComp<PlumbingOutletComponent>(reagentDispenser.Owner, out var plumbingOutlet))
                 return;
@@ -243,11 +328,16 @@ namespace Content.Server.Chemistry.EntitySystems
             UpdateUiState(reagentDispenser);
             ClickSound(reagentDispenser);
         }
+
         // Starlight-end
 
         private void ClickSound(Entity<ReagentDispenserComponent> reagentDispenser)
         {
-            _audioSystem.PlayPvs(reagentDispenser.Comp.ClickSound, reagentDispenser, AudioParams.Default.WithVolume(-2f));
+            _audioSystem.PlayPvs(
+                reagentDispenser.Comp.ClickSound,
+                reagentDispenser,
+                AudioParams.Default.WithVolume(-2f)
+            );
         }
 
         /// <summary>
@@ -286,13 +376,19 @@ namespace Content.Server.Chemistry.EntitySystems
                 component.StorageSlots[i].Name = "Storage Slot " + (i+1);
                 _itemSlotsSystem.AddItemSlot(uid, component.StorageSlotIds[i], component.StorageSlots[i]);
             }
-            */ // End Frontier: no need to change slots, already done through RefreshParts
+            */
+            // End Frontier: no need to change slots, already done through RefreshParts
 
             _itemSlotsSystem.AddItemSlot(uid, SharedReagentDispenser.OutputSlotName, component.BeakerSlot);
 
             // Frontier: spawn slot contents
-            if (component.PackPrototypeId is not null
-                && _prototypeManager.TryIndex(component.PackPrototypeId, out ReagentDispenserInventoryPrototype? packPrototype))
+            if (
+                component.PackPrototypeId is not null
+                && _prototypeManager.TryIndex(
+                    component.PackPrototypeId,
+                    out ReagentDispenserInventoryPrototype? packPrototype
+                )
+            )
             {
                 for (var i = 0; i < packPrototype.Inventory.Count && i < component.StorageSlots.Count; i++)
                 {
@@ -319,14 +415,11 @@ namespace Content.Server.Chemistry.EntitySystems
                 Logger.Info($"Dispenser {uid} has no slots (loaded from save), creating them via RefreshParts");
 
                 // Create default part ratings - base parts (rating 1.0)
-                var partRatings = new Dictionary<string, float>
-                {
-                    { component.SlotUpgradeMachinePart, 1.0f }
-                };
+                var partRatings = new Dictionary<string, float> { { component.SlotUpgradeMachinePart, 1.0f } };
 
                 // Trigger RefreshParts to create the slots
-				var ev = new RefreshPartsEvent { PartRatings = partRatings };
-				RaiseLocalEvent(uid, ev);
+                var ev = new RefreshPartsEvent { PartRatings = partRatings };
+                RaiseLocalEvent(uid, ev);
 
                 Logger.Info($"Created {component.StorageSlots.Count} storage slots for dispenser {uid}");
             }
@@ -338,7 +431,8 @@ namespace Content.Server.Chemistry.EntitySystems
             if (!args.PartRatings.TryGetValue(component.SlotUpgradeMachinePart, out float partRating))
                 partRating = 1.0f;
 
-            component.NumSlots = component.BaseNumStorageSlots + (int)(component.ExtraSlotsPerTier * (partRating - 1.0f));
+            component.NumSlots =
+                component.BaseNumStorageSlots + (int)(component.ExtraSlotsPerTier * (partRating - 1.0f));
             // Not enough?
             for (int i = component.StorageSlots.Count; i < component.NumSlots; i++)
             {
@@ -351,7 +445,7 @@ namespace Content.Server.Chemistry.EntitySystems
 
                 component.StorageSlotIds.Add(storageSlotId);
                 component.StorageSlots.Add(storageComponent);
-                component.StorageSlots[i].Name = "Storage Slot " + (i+1);
+                component.StorageSlots[i].Name = "Storage Slot " + (i + 1);
                 _itemSlotsSystem.AddItemSlot(uid, component.StorageSlotIds[i], component.StorageSlots[i]);
             }
             // Too many?
@@ -365,7 +459,10 @@ namespace Content.Server.Chemistry.EntitySystems
 
         private void OnUpgradeExamine(EntityUid uid, ReagentDispenserComponent component, UpgradeExamineEvent args)
         {
-            args.AddNumberUpgrade("reagent-dispenser-component-examine-extra-slots", component.NumSlots - component.BaseNumStorageSlots);
+            args.AddNumberUpgrade(
+                "reagent-dispenser-component-examine-extra-slots",
+                component.NumSlots - component.BaseNumStorageSlots
+            );
         }
         // End Frontier
     }

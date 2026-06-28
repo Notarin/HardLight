@@ -1,32 +1,43 @@
+using Content.Server._Funkystation.Genetics.Mutations.Components;
 using Content.Server.Body.Components;
-using Content.Shared.Chemistry.EntitySystems;
+using Content.Server.Mobs.Components; // HardLight
 using Content.Shared.Administration.Logs;
 using Content.Shared.Body.Organ;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.Components.SolutionManager;
+using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Chemistry.Reagent;
 using Content.Shared.Database;
 using Content.Shared.EntityEffects;
 using Content.Shared.FixedPoint;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
-using Content.Server.Mobs.Components; // HardLight
 using Robust.Shared.Collections;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
-using Content.Server._Funkystation.Genetics.Mutations.Components;
 
 namespace Content.Server.Body.Systems
 {
     public sealed class MetabolizerSystem : EntitySystem
     {
-        [Dependency] private readonly IGameTiming _gameTiming = default!;
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly IRobustRandom _random = default!;
-        [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-        [Dependency] private readonly MobStateSystem _mobStateSystem = default!;
-        [Dependency] private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
+        [Dependency]
+        private readonly IGameTiming _gameTiming = default!;
+
+        [Dependency]
+        private readonly IPrototypeManager _prototypeManager = default!;
+
+        [Dependency]
+        private readonly IRobustRandom _random = default!;
+
+        [Dependency]
+        private readonly ISharedAdminLogManager _adminLogger = default!;
+
+        [Dependency]
+        private readonly MobStateSystem _mobStateSystem = default!;
+
+        [Dependency]
+        private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
 
         private EntityQuery<OrganComponent> _organQuery;
         private EntityQuery<SolutionContainerManagerComponent> _solutionQuery;
@@ -68,7 +79,8 @@ namespace Content.Server.Body.Systems
 
         private void OnApplyMetabolicMultiplier(
             Entity<MetabolizerComponent> ent,
-            ref ApplyMetabolicMultiplierEvent args)
+            ref ApplyMetabolicMultiplierEvent args
+        )
         {
             if (!float.IsFinite(args.Multiplier) || args.Multiplier == 0f)
                 return;
@@ -89,7 +101,9 @@ namespace Content.Server.Body.Systems
         {
             base.Update(frameTime);
 
-            var metabolizers = new ValueList<(EntityUid Uid, MetabolizerComponent Component)>(Count<MetabolizerComponent>());
+            var metabolizers = new ValueList<(EntityUid Uid, MetabolizerComponent Component)>(
+                Count<MetabolizerComponent>()
+            );
             var query = EntityQueryEnumerator<MetabolizerComponent>();
 
             while (query.MoveNext(out var uid, out var comp))
@@ -108,7 +122,9 @@ namespace Content.Server.Body.Systems
             }
         }
 
-        private void TryMetabolize(Entity<MetabolizerComponent, OrganComponent?, SolutionContainerManagerComponent?> ent)
+        private void TryMetabolize(
+            Entity<MetabolizerComponent, OrganComponent?, SolutionContainerManagerComponent?> ent
+        )
         {
             _organQuery.Resolve(ent, ref ent.Comp2, logMissing: false);
 
@@ -138,10 +154,7 @@ namespace Content.Server.Body.Systems
                 solutionEntityUid = ent;
             }
 
-            if (solutionEntityUid is null
-                || soln is null
-                || solution is null
-                || solution.Contents.Count == 0)
+            if (solutionEntityUid is null || soln is null || solution is null || solution.Contents.Count == 0)
             {
                 return;
             }
@@ -163,7 +176,10 @@ namespace Content.Server.Body.Systems
                 // Chemical resistance mutation - completely ignore selected chem metabolism
                 var bodyUid = ent.Comp2?.Body ?? solutionEntityUid.Value;
 
-                if (TryComp<ChemicalResistanceComponent>(bodyUid, out var resistance) && resistance.Reagents.Contains(reagent.Prototype))
+                if (
+                    TryComp<ChemicalResistanceComponent>(bodyUid, out var resistance)
+                    && resistance.Reagents.Contains(reagent.Prototype)
+                )
                 {
                     var removeAmount = FixedPoint2.Min(resistance.PurgeAmount, quantity);
                     solution.RemoveReagent(reagent, removeAmount);
@@ -187,7 +203,6 @@ namespace Content.Server.Body.Systems
                     continue;
                 // End Frontier
 
-
                 // loop over all our groups and see which ones apply
                 if (ent.Comp1.MetabolismGroups is null)
                     continue;
@@ -197,11 +212,11 @@ namespace Content.Server.Body.Systems
                     if (!proto.Metabolisms.TryGetValue(group.Id, out var entry))
                         continue;
 
-                    var rate = entry.MetabolismRate * (float) group.MetabolismRateModifier;
+                    var rate = entry.MetabolismRate * (float)group.MetabolismRateModifier;
                     if (rate <= FixedPoint2.Zero)
                         continue;
 
-                    var rateFloat = (float) rate;
+                    var rateFloat = (float)rate;
                     if (!float.IsFinite(rateFloat) || rateFloat <= 0f)
                         continue;
 
@@ -214,7 +229,7 @@ namespace Content.Server.Body.Systems
                         continue;
                     // End Frontier
 
-                    float scale = (float) mostToRemove / rateFloat;
+                    float scale = (float)mostToRemove / rateFloat;
                     if (!float.IsFinite(scale) || scale <= 0f)
                         continue;
 
@@ -240,7 +255,16 @@ namespace Content.Server.Body.Systems
                         continue;
                     // HardLight end
 
-                    var args = new EntityEffectReagentArgs(actualEntity, EntityManager, ent, solution, mostToRemove, proto, null, scale);
+                    var args = new EntityEffectReagentArgs(
+                        actualEntity,
+                        EntityManager,
+                        ent,
+                        solution,
+                        mostToRemove,
+                        proto,
+                        null,
+                        scale
+                    );
 
                     // do all effects, if conditions apply
                     foreach (var effect in entry.Effects)
@@ -254,9 +278,9 @@ namespace Content.Server.Body.Systems
                                 LogType.ReagentEffect,
                                 effect.LogImpact,
                                 $"Metabolism effect {effect.GetType().Name:effect}"
-                                + $" of reagent {proto.LocalizedName:reagent}"
-                                + $" applied on entity {actualEntity:entity}"
-                                + $" at {Transform(actualEntity).Coordinates:coordinates}"
+                                    + $" of reagent {proto.LocalizedName:reagent}"
+                                    + $" applied on entity {actualEntity:entity}"
+                                    + $" at {Transform(actualEntity).Coordinates:coordinates}"
                             );
                         }
 
@@ -283,10 +307,7 @@ namespace Content.Server.Body.Systems
     // This will cause rates to slowly drift over time due to floating point errors.
     // Instead, the system that raised this should trigger an update and subscribe to get-modifier events.
     [ByRefEvent]
-    public readonly record struct ApplyMetabolicMultiplierEvent(
-        EntityUid Uid,
-        float Multiplier,
-        bool Apply)
+    public readonly record struct ApplyMetabolicMultiplierEvent(EntityUid Uid, float Multiplier, bool Apply)
     {
         /// <summary>
         /// The entity whose metabolism is being modified.

@@ -30,17 +30,20 @@ public sealed partial class GunSystem
         SubscribeLocalEvent<ProjectileBatteryAmmoProviderComponent, PowerCellChangedEvent>(OnPowerCellChanged);
     }
 
-    private void OnBatteryStartup<T>(Entity<T> entity, ref ComponentStartup args) where T : BatteryAmmoProviderComponent
+    private void OnBatteryStartup<T>(Entity<T> entity, ref ComponentStartup args)
+        where T : BatteryAmmoProviderComponent
     {
         UpdateShots(entity, entity.Comp);
     }
 
-    private void OnBatteryChargeChange<T>(Entity<T> entity, ref ChargeChangedEvent args) where T : BatteryAmmoProviderComponent
+    private void OnBatteryChargeChange<T>(Entity<T> entity, ref ChargeChangedEvent args)
+        where T : BatteryAmmoProviderComponent
     {
         UpdateShots(entity, entity.Comp, args.Charge, args.MaxCharge);
     }
 
-    private void OnPowerCellChanged<T>(Entity<T> entity, ref PowerCellChangedEvent args) where T : BatteryAmmoProviderComponent
+    private void OnPowerCellChanged<T>(Entity<T> entity, ref PowerCellChangedEvent args)
+        where T : BatteryAmmoProviderComponent
     {
         UpdateShots(entity, entity.Comp);
     }
@@ -55,8 +58,8 @@ public sealed partial class GunSystem
 
     private void UpdateShots(EntityUid uid, BatteryAmmoProviderComponent component, float charge, float maxCharge)
     {
-        var shots = (int) (charge / component.FireCost);
-        var maxShots = (int) (maxCharge / component.FireCost);
+        var shots = (int)(charge / component.FireCost);
+        var maxShots = (int)(maxCharge / component.FireCost);
 
         if (component.Shots != shots || component.Capacity != maxShots)
         {
@@ -74,7 +77,8 @@ public sealed partial class GunSystem
         RaiseLocalEvent(uid, ref updateAmmoEv);
     }
 
-    private void OnBatteryDamageExamine<T>(Entity<T> entity, ref DamageExamineEvent args) where T : BatteryAmmoProviderComponent
+    private void OnBatteryDamageExamine<T>(Entity<T> entity, ref DamageExamineEvent args)
+        where T : BatteryAmmoProviderComponent
     {
         var component = entity.Comp; // Retrieve the component from the entity
 
@@ -97,10 +101,13 @@ public sealed partial class GunSystem
     {
         if (component is ProjectileBatteryAmmoProviderComponent battery)
         {
-            if (ProtoManager.Index<EntityPrototype>(battery.Prototype).Components
-                .TryGetValue(_factory.GetComponentName(typeof(ProjectileComponent)), out var projectile))
+            if (
+                ProtoManager
+                    .Index<EntityPrototype>(battery.Prototype)
+                    .Components.TryGetValue(_factory.GetComponentName(typeof(ProjectileComponent)), out var projectile)
+            )
             {
-                var p = (ProjectileComponent) projectile.Component;
+                var p = (ProjectileComponent)projectile.Component;
 
                 if (!p.Damage.Empty)
                 {

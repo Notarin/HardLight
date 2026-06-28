@@ -1,5 +1,5 @@
-using Content.Shared.Ninja.Components;
 using Content.Shared.DoAfter;
+using Content.Shared.Ninja.Components;
 using Robust.Shared.Serialization;
 
 namespace Content.Shared.Ninja.Systems;
@@ -20,7 +20,10 @@ public abstract class SharedBatteryDrainerSystem : EntitySystem
     /// <summary>
     /// Cancel any drain doafters if the battery is removed or, on the server, gets filled.
     /// </summary>
-    protected virtual void OnDoAfterAttempt(Entity<BatteryDrainerComponent> ent, ref DoAfterAttemptEvent<DrainDoAfterEvent> args)
+    protected virtual void OnDoAfterAttempt(
+        Entity<BatteryDrainerComponent> ent,
+        ref DoAfterAttemptEvent<DrainDoAfterEvent> args
+    )
     {
         if (ent.Comp.BatteryUid == null)
             args.Cancel();
@@ -32,7 +35,7 @@ public abstract class SharedBatteryDrainerSystem : EntitySystem
     /// </summary>
     private void OnDoAfter(Entity<BatteryDrainerComponent> ent, ref DrainDoAfterEvent args)
     {
-        if (args.Cancelled || args.Handled || args.Target is not {} target)
+        if (args.Cancelled || args.Handled || args.Target is not { } target)
             return;
 
         // repeat if there is still power to drain

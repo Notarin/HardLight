@@ -15,7 +15,8 @@ public class GuideEntry
     /// <summary>
     ///     The file containing the contents of this guide.
     /// </summary>
-    [DataField(required: true)] public ResPath Text = default!;
+    [DataField(required: true)]
+    public ResPath Text = default!;
 
     /// <summary>
     ///     The unique id for this guide.
@@ -26,7 +27,8 @@ public class GuideEntry
     /// <summary>
     ///     The name of this guide. This gets localized.
     /// </summary>
-    [DataField(required: true)] public string Name = default!;
+    [DataField(required: true)]
+    public string Name = default!;
 
     /// <summary>
     ///     The "children" of this guide for when guides are shown in a tree / table of contents.
@@ -37,13 +39,16 @@ public class GuideEntry
     /// <summary>
     ///     Enable filtering of items.
     /// </summary>
-    [DataField] public bool FilterEnabled = default!;
+    [DataField]
+    public bool FilterEnabled = default!;
 
-    [DataField] public bool RuleEntry;
+    [DataField]
+    public bool RuleEntry;
 
     /// <summary>
     ///     Priority for sorting top-level guides when shown in a tree / table of contents.
     ///     If the guide is the child of some other guide, the order simply determined by the order of children in <see cref="Children"/>.
     /// </summary>
-    [DataField] public int Priority = 0;
+    [DataField]
+    public int Priority = 0;
 }

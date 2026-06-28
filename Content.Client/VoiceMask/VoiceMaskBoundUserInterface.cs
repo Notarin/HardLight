@@ -7,14 +7,14 @@ namespace Content.Client.VoiceMask;
 
 public sealed class VoiceMaskBoundUserInterface : BoundUserInterface
 {
-    [Dependency] private readonly IPrototypeManager _protomanager = default!;
+    [Dependency]
+    private readonly IPrototypeManager _protomanager = default!;
 
     [ViewVariables]
     private VoiceMaskNameChangeWindow? _window;
 
-    public VoiceMaskBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-    }
+    public VoiceMaskBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {

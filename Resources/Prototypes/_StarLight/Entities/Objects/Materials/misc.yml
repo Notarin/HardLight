@@ -49,9 +49,9 @@
       CrushedPhosphorus: 100
   - type: Tag
     tags:
-      - TiderAnvilParts
-      - TiderAnvilMats
-      - RawMaterial
+    - TiderAnvilParts
+    - TiderAnvilMats
+    - RawMaterial
   - type: Stack
     stackType: CrushedPhosphorus
     baseLayer: base

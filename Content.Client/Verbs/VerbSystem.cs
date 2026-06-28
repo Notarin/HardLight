@@ -24,16 +24,35 @@ namespace Content.Client.Verbs
     [UsedImplicitly]
     public sealed class VerbSystem : SharedVerbSystem
     {
-        [Dependency] private readonly PopupSystem _popupSystem = default!;
-        [Dependency] private readonly ExamineSystem _examine = default!;
-        [Dependency] private readonly SpriteTreeSystem _tree = default!;
-        [Dependency] private readonly TagSystem _tagSystem = default!;
-        [Dependency] private readonly IStateManager _stateManager = default!;
-        [Dependency] private readonly IEyeManager _eyeManager = default!;
-        [Dependency] private readonly IPlayerManager _playerManager = default!;
-        [Dependency] private readonly SharedContainerSystem _containers = default!;
-        [Dependency] private readonly IConfigurationManager _cfg = default!;
-        [Dependency] private readonly EntityLookupSystem _lookup = default!;
+        [Dependency]
+        private readonly PopupSystem _popupSystem = default!;
+
+        [Dependency]
+        private readonly ExamineSystem _examine = default!;
+
+        [Dependency]
+        private readonly SpriteTreeSystem _tree = default!;
+
+        [Dependency]
+        private readonly TagSystem _tagSystem = default!;
+
+        [Dependency]
+        private readonly IStateManager _stateManager = default!;
+
+        [Dependency]
+        private readonly IEyeManager _eyeManager = default!;
+
+        [Dependency]
+        private readonly IPlayerManager _playerManager = default!;
+
+        [Dependency]
+        private readonly SharedContainerSystem _containers = default!;
+
+        [Dependency]
+        private readonly IConfigurationManager _cfg = default!;
+
+        [Dependency]
+        private readonly EntityLookupSystem _lookup = default!;
 
         private float _lookupSize;
 
@@ -63,7 +82,10 @@ namespace Content.Client.Verbs
         /// Get all of the entities in an area for displaying on the context menu.
         /// </summary>
         /// <returns>True if any entities were found.</returns>
-        public bool TryGetEntityMenuEntities(MapCoordinates targetPos, [NotNullWhen(true)] out List<EntityUid>? entities)
+        public bool TryGetEntityMenuEntities(
+            MapCoordinates targetPos,
+            [NotNullWhen(true)] out List<EntityUid>? entities
+        )
         {
             entities = null;
 
@@ -76,11 +98,7 @@ namespace Content.Client.Verbs
             // If FOV drawing is disabled, we will modify the visibility option to ignore visiblity checks.
             var visibility = _eyeManager.CurrentEye.DrawFov ? Visibility : Visibility | MenuVisibility.NoFov;
 
-            var ev = new MenuVisibilityEvent
-            {
-                TargetPos = targetPos,
-                Visibility = visibility,
-            };
+            var ev = new MenuVisibilityEvent { TargetPos = targetPos, Visibility = visibility };
 
             RaiseLocalEvent(player, ref ev);
             visibility = ev.Visibility;
@@ -99,9 +117,11 @@ namespace Content.Client.Verbs
             if (_containers.TryGetContainingContainer((player, null), out var container))
             {
                 // Only include the container contents when clicking near it.
-                if (entities.Contains(container.Owner)
+                if (
+                    entities.Contains(container.Owner)
                     || _containers.TryGetOuterContainer(container.Owner, Transform(container.Owner), out var outer)
-                    && entities.Contains(outer.Owner))
+                        && entities.Contains(outer.Owner)
+                )
                 {
                     // The container itself might be in some other container, so it might not have been added by the
                     // sprite tree lookup.
@@ -173,7 +193,13 @@ namespace Content.Client.Verbs
         ///     Ask the server to send back a list of server-side verbs, and for now return an incomplete list of verbs
         ///     (only those defined locally).
         /// </summary>
-        public SortedSet<Verb> GetVerbs(NetEntity target, EntityUid user, List<Type> verbTypes, out List<VerbCategory> extraCategories, bool force = false)
+        public SortedSet<Verb> GetVerbs(
+            NetEntity target,
+            EntityUid user,
+            List<Type> verbTypes,
+            out List<VerbCategory> extraCategories,
+            bool force = false
+        )
         {
             if (!target.IsClientSide())
                 RaiseNetworkEvent(new RequestServerVerbsEvent(target, verbTypes, adminRequest: force));
@@ -187,7 +213,6 @@ namespace Content.Client.Verbs
 
             return GetLocalVerbs(local.Value, user, verbTypes, out extraCategories, force);
         }
-
 
         /// <summary>
         ///     Execute actions associated with the given verb.
@@ -208,7 +233,7 @@ namespace Content.Client.Verbs
         /// </remarks>
         public void ExecuteVerb(NetEntity target, Verb verb)
         {
-            if ( _playerManager.LocalEntity is not {} user)
+            if (_playerManager.LocalEntity is not { } user)
                 return;
 
             // is this verb actually valid?

@@ -1,31 +1,46 @@
 using Content.Server.Fluids.EntitySystems;
-using Content.Shared.Chemistry.EntitySystems;
 using Content.Server.Popups;
-using Robust.Shared.Audio;
-using Robust.Shared.Audio.Systems;
 using Content.Shared._Mono.Traits.Physical;
+using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.DoAfter;
+using Content.Shared.FloofStation.Traits.Events;
+using Content.Shared.FloofStation.Traits.Events.Components;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Nutrition.Components;
 using Content.Shared.Nutrition.EntitySystems;
 using Content.Shared.Popups;
-using Content.Shared.FloofStation.Traits.Events;
-using Content.Shared.FloofStation.Traits.Events.Components;
+using Robust.Shared.Audio;
+using Robust.Shared.Audio.Systems;
 using Robust.Shared.Timing;
 
 namespace Content.Server.FloofStation.Traits;
 
 public sealed class LewdTraitSystem : SharedLewdTraitSystem // HL: Move LewdTrait to shared system to fix slow UI loading
 {
-    [Dependency] private readonly HungerSystem _hunger = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainer = default!;
-    [Dependency] private readonly PuddleSystem _puddle = default!; // HardLight
-    [Dependency] private readonly SharedAudioSystem _audio = default!; // HardLight
+    [Dependency]
+    private readonly HungerSystem _hunger = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly MobStateSystem _mobState = default!;
+
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfterSystem = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly SharedSolutionContainerSystem _solutionContainer = default!;
+
+    [Dependency]
+    private readonly PuddleSystem _puddle = default!; // HardLight
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!; // HardLight
 
     public override void Initialize()
     {
@@ -48,9 +63,7 @@ public sealed class LewdTraitSystem : SharedLewdTraitSystem // HL: Move LewdTrai
     #region event handling
     private void OnComponentInitCum(Entity<CumProducerComponent> entity, ref ComponentStartup args)
     {
-        if (!_solutionContainer.EnsureSolution(entity.Owner,
-                entity.Comp.SolutionName,
-                out var solutionCum))
+        if (!_solutionContainer.EnsureSolution(entity.Owner, entity.Comp.SolutionName, out var solutionCum))
             return;
 
         solutionCum.MaxVolume = entity.Comp.MaxVolume;
@@ -60,9 +73,7 @@ public sealed class LewdTraitSystem : SharedLewdTraitSystem // HL: Move LewdTrai
 
     private void OnComponentInitMilk(Entity<MilkProducerComponent> entity, ref ComponentStartup args)
     {
-        if (!_solutionContainer.EnsureSolution(entity.Owner,
-                entity.Comp.SolutionName,
-                out var solutionMilk))
+        if (!_solutionContainer.EnsureSolution(entity.Owner, entity.Comp.SolutionName, out var solutionMilk))
             return;
 
         solutionMilk.MaxVolume = entity.Comp.MaxVolume;
@@ -80,9 +91,7 @@ public sealed class LewdTraitSystem : SharedLewdTraitSystem // HL: Move LewdTrai
 
     private void OnComponentInitPiss(Entity<PissProducerComponent> entity, ref ComponentStartup args)
     {
-        if (!_solutionContainer.EnsureSolution(entity.Owner,
-                entity.Comp.SolutionName,
-                out var solutionPiss))
+        if (!_solutionContainer.EnsureSolution(entity.Owner, entity.Comp.SolutionName, out var solutionPiss))
             return;
 
         solutionPiss.MaxVolume = entity.Comp.MaxVolume;
@@ -95,11 +104,24 @@ public sealed class LewdTraitSystem : SharedLewdTraitSystem // HL: Move LewdTrai
         if (args.Cancelled || args.Handled || args.Args.Used == null)
             return;
 
-        if (!_solutionContainer.ResolveSolution(entity.Owner, entity.Comp.SolutionName, ref entity.Comp.Solution, out var solution))
+        if (
+            !_solutionContainer.ResolveSolution(
+                entity.Owner,
+                entity.Comp.SolutionName,
+                ref entity.Comp.Solution,
+                out var solution
+            )
+        )
             return;
 
         // Try refillable solution first (containers like beakers)
-        if (_solutionContainer.TryGetRefillableSolution(args.Args.Used.Value, out var targetSoln, out var targetSolution))
+        if (
+            _solutionContainer.TryGetRefillableSolution(
+                args.Args.Used.Value,
+                out var targetSoln,
+                out var targetSolution
+            )
+        )
         {
             args.Handled = true;
             var quantity = solution.Volume;
@@ -114,13 +136,28 @@ public sealed class LewdTraitSystem : SharedLewdTraitSystem // HL: Move LewdTrai
 
             var split = _solutionContainer.SplitSolution(entity.Comp.Solution.Value, quantity);
             _solutionContainer.TryAddSolution(targetSoln.Value, split);
-            _popupSystem.PopupEntity(Loc.GetString("cum-verb-success", ("amount", quantity), ("target", Identity.Entity(args.Args.Used.Value, EntityManager))), entity.Owner, args.Args.User, PopupType.Medium);
+            _popupSystem.PopupEntity(
+                Loc.GetString(
+                    "cum-verb-success",
+                    ("amount", quantity),
+                    ("target", Identity.Entity(args.Args.Used.Value, EntityManager))
+                ),
+                entity.Owner,
+                args.Args.User,
+                PopupType.Medium
+            );
 
             return;
         }
 
         // Try injectable solution (entities like players with stomachs)
-        if (_solutionContainer.TryGetInjectableSolution(args.Args.Used.Value, out var injectSoln, out var injectSolution))
+        if (
+            _solutionContainer.TryGetInjectableSolution(
+                args.Args.Used.Value,
+                out var injectSoln,
+                out var injectSolution
+            )
+        )
         {
             args.Handled = true;
             var quantity = solution.Volume;
@@ -146,11 +183,33 @@ public sealed class LewdTraitSystem : SharedLewdTraitSystem // HL: Move LewdTrai
                 var splitOverflow = _solutionContainer.SplitSolution(entity.Comp.Solution.Value, overflow);
                 _puddle.TrySpillAt(args.Args.Used.Value, splitOverflow, out _, sound: false);
                 _audio.PlayPvs(new SoundPathSpecifier("/Audio/Effects/Fluids/splat.ogg"), args.Args.Used.Value);
-                _popupSystem.PopupEntity(Loc.GetString("cum-verb-overflow", ("amount", overflow)), args.Args.Used.Value, PopupType.MediumCaution);
+                _popupSystem.PopupEntity(
+                    Loc.GetString("cum-verb-overflow", ("amount", overflow)),
+                    args.Args.Used.Value,
+                    PopupType.MediumCaution
+                );
             }
 
-            _popupSystem.PopupEntity(Loc.GetString("cum-verb-success", ("amount", injected), ("target", Identity.Entity(args.Args.Used.Value, EntityManager))), entity.Owner, args.Args.User, PopupType.Medium);
-            _popupSystem.PopupEntity(Loc.GetString("cum-verb-success-other", ("amount", injected), ("target", Identity.Entity(args.Args.User, EntityManager))), entity.Owner, args.Args.Used.Value, PopupType.Medium);
+            _popupSystem.PopupEntity(
+                Loc.GetString(
+                    "cum-verb-success",
+                    ("amount", injected),
+                    ("target", Identity.Entity(args.Args.Used.Value, EntityManager))
+                ),
+                entity.Owner,
+                args.Args.User,
+                PopupType.Medium
+            );
+            _popupSystem.PopupEntity(
+                Loc.GetString(
+                    "cum-verb-success-other",
+                    ("amount", injected),
+                    ("target", Identity.Entity(args.Args.User, EntityManager))
+                ),
+                entity.Owner,
+                args.Args.Used.Value,
+                PopupType.Medium
+            );
             // HardLight end
             return;
         }
@@ -161,10 +220,23 @@ public sealed class LewdTraitSystem : SharedLewdTraitSystem // HL: Move LewdTrai
         if (args.Cancelled || args.Handled || args.Args.Used == null)
             return;
 
-        if (!_solutionContainer.ResolveSolution(entity.Owner, entity.Comp.SolutionName, ref entity.Comp.Solution, out var solution))
+        if (
+            !_solutionContainer.ResolveSolution(
+                entity.Owner,
+                entity.Comp.SolutionName,
+                ref entity.Comp.Solution,
+                out var solution
+            )
+        )
             return;
 
-        if (!_solutionContainer.TryGetRefillableSolution(args.Args.Used.Value, out var targetSoln, out var targetSolution))
+        if (
+            !_solutionContainer.TryGetRefillableSolution(
+                args.Args.Used.Value,
+                out var targetSoln,
+                out var targetSolution
+            )
+        )
             return;
 
         args.Handled = true;
@@ -176,17 +248,15 @@ public sealed class LewdTraitSystem : SharedLewdTraitSystem // HL: Move LewdTrai
             {
                 _popupSystem.PopupEntity(Loc.GetString("milk-verb-dry"), entity.Owner, args.Args.User);
             }
-
             else
             {
                 _popupSystem.PopupEntity(
-                    Loc.GetString("milk-verb-dry-other",
-                        ("person", Identity.Entity(entity.Owner, EntityManager))),
+                    Loc.GetString("milk-verb-dry-other", ("person", Identity.Entity(entity.Owner, EntityManager))),
                     entity.Owner,
                     args.Args.User,
-                    PopupType.Medium);
+                    PopupType.Medium
+                );
                 _popupSystem.PopupEntity(Loc.GetString("milk-verb-dry"), entity.Owner, entity.Owner);
-
             }
             // Hardlight End
             return;
@@ -201,41 +271,58 @@ public sealed class LewdTraitSystem : SharedLewdTraitSystem // HL: Move LewdTrai
         if (entity.Owner == args.Args.User)
         {
             _popupSystem.PopupEntity(
-                Loc.GetString("milk-verb-success",
+                Loc.GetString(
+                    "milk-verb-success",
                     ("amount", quantity),
-                    ("target", Identity.Entity(args.Args.Used.Value, EntityManager))),
+                    ("target", Identity.Entity(args.Args.Used.Value, EntityManager))
+                ),
                 entity.Owner,
                 args.Args.User,
-                PopupType.Medium);
+                PopupType.Medium
+            );
         }
         else
         {
             _popupSystem.PopupEntity(
-                Loc.GetString("milk-verb-success-other",
+                Loc.GetString(
+                    "milk-verb-success-other",
                     ("amount", quantity),
                     ("target", Identity.Entity(args.Args.Used.Value, EntityManager)),
-                    ("person", Identity.Entity(entity.Owner, EntityManager))),
+                    ("person", Identity.Entity(entity.Owner, EntityManager))
+                ),
                 entity.Owner,
                 args.Args.User,
-                PopupType.Medium);
+                PopupType.Medium
+            );
             _popupSystem.PopupEntity(
-                Loc.GetString("milk-verb-success-other-self",
+                Loc.GetString(
+                    "milk-verb-success-other-self",
                     ("amount", quantity),
                     ("target", Identity.Entity(args.Args.Used.Value, EntityManager)),
-                    ("person", Identity.Entity(args.Args.User, EntityManager))),
+                    ("person", Identity.Entity(args.Args.User, EntityManager))
+                ),
                 entity.Owner,
                 entity.Owner,
-                PopupType.Medium);
+                PopupType.Medium
+            );
         }
         // Hardlight End
     }
+
     // Hardlight Start
     private void OnDoAfterDrinkMilk(Entity<MilkProducerComponent> entity, ref DrinkMilkDoAfterEvent args)
     {
         if (args.Cancelled || args.Handled)
             return;
 
-        if (!_solutionContainer.ResolveSolution(entity.Owner, entity.Comp.SolutionName, ref entity.Comp.Solution, out var solution))
+        if (
+            !_solutionContainer.ResolveSolution(
+                entity.Owner,
+                entity.Comp.SolutionName,
+                ref entity.Comp.Solution,
+                out var solution
+            )
+        )
             return;
 
         if (!_solutionContainer.TryGetInjectableSolution(args.Args.User, out var injectSoln, out var injectSolution))
@@ -250,17 +337,15 @@ public sealed class LewdTraitSystem : SharedLewdTraitSystem // HL: Move LewdTrai
             {
                 _popupSystem.PopupEntity(Loc.GetString("milk-verb-dry"), entity.Owner, args.Args.User);
             }
-
             else
             {
                 _popupSystem.PopupEntity(
-                    Loc.GetString("milk-verb-dry-other",
-                        ("person", Identity.Entity(entity.Owner, EntityManager))),
+                    Loc.GetString("milk-verb-dry-other", ("person", Identity.Entity(entity.Owner, EntityManager))),
                     entity.Owner,
                     args.Args.User,
-                    PopupType.Medium);
+                    PopupType.Medium
+                );
                 _popupSystem.PopupEntity(Loc.GetString("milk-verb-dry"), entity.Owner, entity.Owner);
-
             }
             return;
         }
@@ -273,33 +358,39 @@ public sealed class LewdTraitSystem : SharedLewdTraitSystem // HL: Move LewdTrai
         if (entity.Owner == args.Args.User)
         {
             _popupSystem.PopupEntity(
-                Loc.GetString("drink-milk-verb-success",
-                    ("amount", quantity)),
+                Loc.GetString("drink-milk-verb-success", ("amount", quantity)),
                 entity.Owner,
                 args.Args.User,
-                PopupType.Medium);
+                PopupType.Medium
+            );
         }
         else
         {
             _popupSystem.PopupEntity(
-                Loc.GetString("drink-milk-verb-success-other",
+                Loc.GetString(
+                    "drink-milk-verb-success-other",
                     ("amount", quantity),
-                    ("person", Identity.Entity(entity.Owner, EntityManager))),
+                    ("person", Identity.Entity(entity.Owner, EntityManager))
+                ),
                 entity.Owner,
                 args.Args.User,
-                PopupType.Medium);
+                PopupType.Medium
+            );
             _popupSystem.PopupEntity(
-                Loc.GetString("drink-milk-verb-success-other-self",
+                Loc.GetString(
+                    "drink-milk-verb-success-other-self",
                     ("amount", quantity),
-                    ("person", Identity.Entity(args.Args.User, EntityManager))),
+                    ("person", Identity.Entity(args.Args.User, EntityManager))
+                ),
                 entity.Owner,
                 entity.Owner,
-                PopupType.Medium);
+                PopupType.Medium
+            );
         }
         AttemptDrinkMilk(entity, args.Args.User);
     }
-    // Hardlight End
 
+    // Hardlight End
 
     //private void OnDoAfterSquirt(Entity<SquirtProducerComponent> entity, ref SquirtingDoAfterEvent args) //Unused-Trait is WIP
     //{
@@ -333,11 +424,24 @@ public sealed class LewdTraitSystem : SharedLewdTraitSystem // HL: Move LewdTrai
         if (args.Cancelled || args.Handled || args.Args.Used == null)
             return;
 
-        if (!_solutionContainer.ResolveSolution(entity.Owner, entity.Comp.SolutionName, ref entity.Comp.Solution, out var solution))
+        if (
+            !_solutionContainer.ResolveSolution(
+                entity.Owner,
+                entity.Comp.SolutionName,
+                ref entity.Comp.Solution,
+                out var solution
+            )
+        )
             return;
 
         // Try refillable solution first (containers like beakers)
-        if (_solutionContainer.TryGetRefillableSolution(args.Args.Used.Value, out var targetSoln, out var targetSolution))
+        if (
+            _solutionContainer.TryGetRefillableSolution(
+                args.Args.Used.Value,
+                out var targetSoln,
+                out var targetSolution
+            )
+        )
         {
             args.Handled = true;
             var quantity = solution.Volume;
@@ -352,12 +456,27 @@ public sealed class LewdTraitSystem : SharedLewdTraitSystem // HL: Move LewdTrai
 
             var split = _solutionContainer.SplitSolution(entity.Comp.Solution.Value, quantity);
             _solutionContainer.TryAddSolution(targetSoln.Value, split);
-            _popupSystem.PopupEntity(Loc.GetString("piss-verb-success", ("amount", quantity), ("target", Identity.Entity(args.Args.Used.Value, EntityManager))), entity.Owner, args.Args.User, PopupType.Medium);
+            _popupSystem.PopupEntity(
+                Loc.GetString(
+                    "piss-verb-success",
+                    ("amount", quantity),
+                    ("target", Identity.Entity(args.Args.Used.Value, EntityManager))
+                ),
+                entity.Owner,
+                args.Args.User,
+                PopupType.Medium
+            );
             return;
         }
 
         // Try injectable solution (entities like players with stomachs)
-        if (_solutionContainer.TryGetInjectableSolution(args.Args.Used.Value, out var injectSoln, out var injectSolution))
+        if (
+            _solutionContainer.TryGetInjectableSolution(
+                args.Args.Used.Value,
+                out var injectSoln,
+                out var injectSolution
+            )
+        )
         {
             args.Handled = true;
             var quantity = solution.Volume;
@@ -372,7 +491,16 @@ public sealed class LewdTraitSystem : SharedLewdTraitSystem // HL: Move LewdTrai
 
             var split = _solutionContainer.SplitSolution(entity.Comp.Solution.Value, quantity);
             _solutionContainer.TryAddSolution(injectSoln.Value, split);
-            _popupSystem.PopupEntity(Loc.GetString("piss-verb-success", ("amount", quantity), ("target", Identity.Entity(args.Args.Used.Value, EntityManager))), entity.Owner, args.Args.User, PopupType.Medium);
+            _popupSystem.PopupEntity(
+                Loc.GetString(
+                    "piss-verb-success",
+                    ("amount", quantity),
+                    ("target", Identity.Entity(args.Args.Used.Value, EntityManager))
+                ),
+                entity.Owner,
+                args.Args.User,
+                PopupType.Medium
+            );
             return;
         }
     }
@@ -384,7 +512,15 @@ public sealed class LewdTraitSystem : SharedLewdTraitSystem // HL: Move LewdTrai
         if (!HasComp<CumProducerComponent>(userUid))
             return;
 
-        var doargs = new DoAfterArgs(EntityManager, userUid, 5, new CummingDoAfterEvent(), lewd, lewd, used: containerUid)
+        var doargs = new DoAfterArgs(
+            EntityManager,
+            userUid,
+            5,
+            new CummingDoAfterEvent(),
+            lewd,
+            lewd,
+            used: containerUid
+        )
         {
             BreakOnMove = true,
             BreakOnDamage = true,
@@ -399,7 +535,15 @@ public sealed class LewdTraitSystem : SharedLewdTraitSystem // HL: Move LewdTrai
         if (!Resolve(lewd, ref lewd.Comp!))
             return;
 
-        var doargs = new DoAfterArgs(EntityManager, userUid, 5, new MilkingDoAfterEvent(), lewd, lewd, used: containerUid)
+        var doargs = new DoAfterArgs(
+            EntityManager,
+            userUid,
+            5,
+            new MilkingDoAfterEvent(),
+            lewd,
+            lewd,
+            used: containerUid
+        )
         {
             BreakOnMove = true,
             BreakOnDamage = true,
@@ -450,7 +594,15 @@ public sealed class LewdTraitSystem : SharedLewdTraitSystem // HL: Move LewdTrai
         if (!HasComp<PissProducerComponent>(userUid))
             return;
 
-        var doargs = new DoAfterArgs(EntityManager, userUid, 5, new PissingDoAfterEvent(), lewd, lewd, used: containerUid)
+        var doargs = new DoAfterArgs(
+            EntityManager,
+            userUid,
+            5,
+            new PissingDoAfterEvent(),
+            lewd,
+            lewd,
+            used: containerUid
+        )
         {
             BreakOnMove = true,
             BreakOnDamage = true,
@@ -485,10 +637,12 @@ public sealed class LewdTraitSystem : SharedLewdTraitSystem // HL: Move LewdTrai
             {
                 if (_hunger.GetHungerThreshold(hunger) < HungerThreshold.Okay)
                     continue;
-                _solutionContainer.TryAddReagent(containerCum.Solution.Value,
+                _solutionContainer.TryAddReagent(
+                    containerCum.Solution.Value,
                     containerCum.ReagentId,
                     containerCum.QuantityPerUpdate,
-                    out var quantity);
+                    out var quantity
+                );
                 if (quantity > 0)
                 {
                     _hunger.ModifyHunger(uid, -containerCum.HungerUsage, hunger);
@@ -497,11 +651,12 @@ public sealed class LewdTraitSystem : SharedLewdTraitSystem // HL: Move LewdTrai
                 continue;
             }
 
-            _solutionContainer.TryAddReagent(containerCum.Solution.Value, containerCum.ReagentId, containerCum.QuantityPerUpdate, out _);
-
-
-
-
+            _solutionContainer.TryAddReagent(
+                containerCum.Solution.Value,
+                containerCum.ReagentId,
+                containerCum.QuantityPerUpdate,
+                out _
+            );
         }
 
         while (queryMilk.MoveNext(out var uid, out var containerMilk))
@@ -521,18 +676,24 @@ public sealed class LewdTraitSystem : SharedLewdTraitSystem // HL: Move LewdTrai
             {
                 if (_hunger.GetHungerThreshold(hunger) < HungerThreshold.Okay)
                     continue;
-                _solutionContainer.TryAddReagent(containerMilk.Solution.Value, containerMilk.ReagentId, containerMilk.QuantityPerUpdate, out var quantity);
+                _solutionContainer.TryAddReagent(
+                    containerMilk.Solution.Value,
+                    containerMilk.ReagentId,
+                    containerMilk.QuantityPerUpdate,
+                    out var quantity
+                );
                 if (quantity > 0)
                 {
                     _hunger.ModifyHunger(uid, -containerMilk.HungerUsage, hunger);
                     continue;
                 }
             }
-            _solutionContainer.TryAddReagent(containerMilk.Solution.Value, containerMilk.ReagentId, containerMilk.QuantityPerUpdate, out _);
-
-
-
-
+            _solutionContainer.TryAddReagent(
+                containerMilk.Solution.Value,
+                containerMilk.ReagentId,
+                containerMilk.QuantityPerUpdate,
+                out _
+            );
         }
 
         while (queryPiss.MoveNext(out var uid, out var containerPiss))
@@ -551,7 +712,12 @@ public sealed class LewdTraitSystem : SharedLewdTraitSystem // HL: Move LewdTrai
             {
                 if (_hunger.GetHungerThreshold(hunger) < HungerThreshold.Okay)
                     continue;
-                _solutionContainer.TryAddReagent(containerPiss.Solution.Value, containerPiss.ReagentId, containerPiss.QuantityPerUpdate, out var quantity);
+                _solutionContainer.TryAddReagent(
+                    containerPiss.Solution.Value,
+                    containerPiss.ReagentId,
+                    containerPiss.QuantityPerUpdate,
+                    out var quantity
+                );
                 if (quantity > 0)
                 {
                     _hunger.ModifyHunger(uid, -containerPiss.HungerUsage, hunger);
@@ -559,7 +725,12 @@ public sealed class LewdTraitSystem : SharedLewdTraitSystem // HL: Move LewdTrai
                 continue;
             }
 
-            _solutionContainer.TryAddReagent(containerPiss.Solution.Value, containerPiss.ReagentId, containerPiss.QuantityPerUpdate, out _);
+            _solutionContainer.TryAddReagent(
+                containerPiss.Solution.Value,
+                containerPiss.ReagentId,
+                containerPiss.QuantityPerUpdate,
+                out _
+            );
         }
 
         //if (!(now < containerSquirt.NextGrowth)) //Unused-Trait is WIP

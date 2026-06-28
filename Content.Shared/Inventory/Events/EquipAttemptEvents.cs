@@ -32,8 +32,12 @@ public abstract class EquipAttemptBase : CancellableEntityEventArgs
     /// </summary>
     public string? Reason;
 
-    public EquipAttemptBase(EntityUid equipee, EntityUid equipTarget, EntityUid equipment,
-        SlotDefinition slotDefinition)
+    public EquipAttemptBase(
+        EntityUid equipee,
+        EntityUid equipTarget,
+        EntityUid equipment,
+        SlotDefinition slotDefinition
+    )
     {
         EquipTarget = equipTarget;
         Equipment = equipment;
@@ -45,16 +49,22 @@ public abstract class EquipAttemptBase : CancellableEntityEventArgs
 
 public sealed class BeingEquippedAttemptEvent : EquipAttemptBase
 {
-    public BeingEquippedAttemptEvent(EntityUid equipee, EntityUid equipTarget, EntityUid equipment,
-        SlotDefinition slotDefinition) : base(equipee, equipTarget, equipment, slotDefinition)
-    {
-    }
+    public BeingEquippedAttemptEvent(
+        EntityUid equipee,
+        EntityUid equipTarget,
+        EntityUid equipment,
+        SlotDefinition slotDefinition
+    )
+        : base(equipee, equipTarget, equipment, slotDefinition) { }
 }
 
 public sealed class IsEquippingAttemptEvent : EquipAttemptBase
 {
-    public IsEquippingAttemptEvent(EntityUid equipee, EntityUid equipTarget, EntityUid equipment,
-        SlotDefinition slotDefinition) : base(equipee, equipTarget, equipment, slotDefinition)
-    {
-    }
+    public IsEquippingAttemptEvent(
+        EntityUid equipee,
+        EntityUid equipTarget,
+        EntityUid equipment,
+        SlotDefinition slotDefinition
+    )
+        : base(equipee, equipTarget, equipment, slotDefinition) { }
 }

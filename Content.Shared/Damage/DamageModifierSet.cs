@@ -18,10 +18,16 @@ namespace Content.Shared.Damage
     [Virtual]
     public partial class DamageModifierSet
     {
-        [DataField("coefficients", customTypeSerializer: typeof(PrototypeIdDictionarySerializer<float, DamageTypePrototype>))]
+        [DataField(
+            "coefficients",
+            customTypeSerializer: typeof(PrototypeIdDictionarySerializer<float, DamageTypePrototype>)
+        )]
         public Dictionary<string, float> Coefficients = new();
 
-        [DataField("flatReductions", customTypeSerializer: typeof(PrototypeIdDictionarySerializer<float, DamageTypePrototype>))]
+        [DataField(
+            "flatReductions",
+            customTypeSerializer: typeof(PrototypeIdDictionarySerializer<float, DamageTypePrototype>)
+        )]
         public Dictionary<string, float> FlatReduction = new();
     }
 }

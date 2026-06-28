@@ -76,12 +76,18 @@ public sealed partial class DungeonSystem
     {
         if (args.Length == 1)
         {
-            return CompletionResult.FromHintOptions(CompletionHelper.MapIds(EntityManager), Loc.GetString("cmd-dungen-hint-map"));
+            return CompletionResult.FromHintOptions(
+                CompletionHelper.MapIds(EntityManager),
+                Loc.GetString("cmd-dungen-hint-map")
+            );
         }
 
         if (args.Length == 2)
         {
-            return CompletionResult.FromHintOptions(CompletionHelper.PrototypeIDs<DungeonConfigPrototype>(proto: _prototype), Loc.GetString("cmd-dungen-hint-config"));
+            return CompletionResult.FromHintOptions(
+                CompletionHelper.PrototypeIDs<DungeonConfigPrototype>(proto: _prototype),
+                Loc.GetString("cmd-dungen-hint-config")
+            );
         }
 
         if (args.Length == 3)
@@ -172,7 +178,7 @@ public sealed partial class DungeonSystem
         }
 
         var mapId = new MapId(mapInt);
-        var mapUid =_maps.GetMapOrInvalid(mapId);
+        var mapUid = _maps.GetMapOrInvalid(mapId);
 
         if (!_prototype.TryIndex<DungeonPresetPrototype>(args[1], out var preset))
         {
@@ -203,12 +209,17 @@ public sealed partial class DungeonSystem
     {
         if (args.Length == 1)
         {
-            return CompletionResult.FromHintOptions(CompletionHelper.MapIds(EntityManager), Loc.GetString("cmd-dungen-hint-map"));
+            return CompletionResult.FromHintOptions(
+                CompletionHelper.MapIds(EntityManager),
+                Loc.GetString("cmd-dungen-hint-map")
+            );
         }
 
         if (args.Length == 2)
         {
-            return CompletionResult.FromOptions(CompletionHelper.PrototypeIDs<DungeonPresetPrototype>(proto: _prototype));
+            return CompletionResult.FromOptions(
+                CompletionHelper.PrototypeIDs<DungeonPresetPrototype>(proto: _prototype)
+            );
         }
 
         return CompletionResult.Empty;
@@ -218,12 +229,17 @@ public sealed partial class DungeonSystem
     {
         if (args.Length == 1)
         {
-            return CompletionResult.FromHintOptions(CompletionHelper.MapIds(EntityManager), Loc.GetString("cmd-dungen-hint-map"));
+            return CompletionResult.FromHintOptions(
+                CompletionHelper.MapIds(EntityManager),
+                Loc.GetString("cmd-dungen-hint-map")
+            );
         }
 
         if (args.Length == 2)
         {
-            return CompletionResult.FromOptions(CompletionHelper.PrototypeIDs<DungeonRoomPackPrototype>(proto: _prototype));
+            return CompletionResult.FromOptions(
+                CompletionHelper.PrototypeIDs<DungeonRoomPackPrototype>(proto: _prototype)
+            );
         }
 
         return CompletionResult.Empty;

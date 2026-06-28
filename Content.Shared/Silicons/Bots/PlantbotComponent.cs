@@ -31,7 +31,7 @@ public sealed partial class PlantbotComponent : Component
     [DataField]
     public SoundSpecifier EmagSparkSound = new SoundCollectionSpecifier("sparks")
     {
-        Params = AudioParams.Default.WithVolume(8f)
+        Params = AudioParams.Default.WithVolume(8f),
     };
 
     public bool IsEmagged = false;

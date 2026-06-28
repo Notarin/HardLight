@@ -69,7 +69,8 @@ public sealed partial class BuckleComponent : Component
     /// <summary>
     /// Used for client rendering
     /// </summary>
-    [ViewVariables] public int? OriginalDrawDepth;
+    [ViewVariables]
+    public int? OriginalDrawDepth;
 }
 
 public sealed partial class UnbuckleAlertEvent : BaseAlertEvent;
@@ -82,7 +83,8 @@ public record struct StrapAttemptEvent(
     Entity<StrapComponent> Strap,
     Entity<BuckleComponent> Buckle,
     EntityUid? User,
-    bool Popup)
+    bool Popup
+)
 {
     public bool Cancelled;
 }
@@ -95,7 +97,8 @@ public record struct BuckleAttemptEvent(
     Entity<StrapComponent> Strap,
     Entity<BuckleComponent> Buckle,
     EntityUid? User,
-    bool Popup)
+    bool Popup
+)
 {
     public bool Cancelled;
 }
@@ -108,7 +111,8 @@ public record struct UnstrapAttemptEvent(
     Entity<StrapComponent> Strap,
     Entity<BuckleComponent> Buckle,
     EntityUid? User,
-    bool Popup)
+    bool Popup
+)
 {
     public bool Cancelled;
 }
@@ -121,7 +125,8 @@ public record struct UnbuckleAttemptEvent(
     Entity<StrapComponent> Strap,
     Entity<BuckleComponent> Buckle,
     EntityUid? User,
-    bool Popup)
+    bool Popup
+)
 {
     public bool Cancelled;
 }
@@ -153,5 +158,5 @@ public readonly record struct UnbuckledEvent(Entity<StrapComponent> Strap, Entit
 [Serializable, NetSerializable]
 public enum BuckleVisuals
 {
-    Buckled
+    Buckled,
 }

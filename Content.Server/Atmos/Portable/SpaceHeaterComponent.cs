@@ -67,5 +67,4 @@ public sealed partial class SpaceHeaterComponent : Component
     [GuidebookData]
     public float MaxFunctionalTemperature = Atmospherics.T0C + 100;
     // End Frontier
-
 }

@@ -5,13 +5,12 @@ using Robust.Shared.Serialization;
 /// <summary>
 /// EVERYTHING HERE IS A MODIFIED VERSION OF CRIMINAL RECORDS
 /// </summary>
-
 namespace Content.Shared.PsionicsRecords;
 
 [Serializable, NetSerializable]
 public enum PsionicsRecordsConsoleKey : byte
 {
-    Key
+    Key,
 }
 
 /// <summary>
@@ -54,11 +53,11 @@ public sealed class PsionicsRecordsConsoleState : BoundUserInterfaceState
     /// <summary>
     /// Default state for opening the console
     /// </summary>
-    public PsionicsRecordsConsoleState() : this(null, null)
-    {
-    }
+    public PsionicsRecordsConsoleState()
+        : this(null, null) { }
 
-    public bool IsEmpty() => SelectedKey == null && StationRecord == null && PsionicsRecord == null && RecordListing == null;
+    public bool IsEmpty() =>
+        SelectedKey == null && StationRecord == null && PsionicsRecord == null && RecordListing == null;
 }
 
 /// <summary>

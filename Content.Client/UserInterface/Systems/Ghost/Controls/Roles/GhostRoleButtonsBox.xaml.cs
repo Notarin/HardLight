@@ -16,7 +16,12 @@ namespace Content.Client.UserInterface.Systems.Ghost.Controls.Roles
         public event Action<GhostRoleInfo>? OnRoleSelected;
         public event Action<GhostRoleInfo>? OnRoleFollow;
 
-        public GhostRoleButtonsBox(bool hasAccess, FormattedMessage? reason, IEnumerable<GhostRoleInfo> roles, SpriteSystem spriteSystem)
+        public GhostRoleButtonsBox(
+            bool hasAccess,
+            FormattedMessage? reason,
+            IEnumerable<GhostRoleInfo> roles,
+            SpriteSystem spriteSystem
+        )
         {
             RobustXamlLoader.Load(this);
             _spriteSystem = spriteSystem;
@@ -38,14 +43,18 @@ namespace Content.Client.UserInterface.Systems.Ghost.Controls.Roles
                         button.RequestButton.TooltipSupplier = _ => tooltip;
                     }
 
-                    button.RequestButton.AddChild(new TextureRect
-                    {
-                        TextureScale = new Vector2(0.4f, 0.4f),
-                        Stretch = TextureRect.StretchMode.KeepCentered,
-                        Texture = _spriteSystem.Frame0(new SpriteSpecifier.Texture(new ("/Textures/Interface/Nano/lock.svg.192dpi.png"))),
-                        HorizontalExpand = true,
-                        HorizontalAlignment = HAlignment.Right,
-                    });
+                    button.RequestButton.AddChild(
+                        new TextureRect
+                        {
+                            TextureScale = new Vector2(0.4f, 0.4f),
+                            Stretch = TextureRect.StretchMode.KeepCentered,
+                            Texture = _spriteSystem.Frame0(
+                                new SpriteSpecifier.Texture(new("/Textures/Interface/Nano/lock.svg.192dpi.png"))
+                            ),
+                            HorizontalExpand = true,
+                            HorizontalAlignment = HAlignment.Right,
+                        }
+                    );
                 }
 
                 Buttons.AddChild(button);

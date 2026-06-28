@@ -48,7 +48,7 @@
   startNode: start
   targetNode: ground
   category: construction-category-misc
-#    color: darkgreen
+  #    color: darkgreen
   objectType: Item
 
 - type: construction
@@ -65,5 +65,5 @@
   startNode: start
   targetNode: ground
   category: construction-category-misc
-#    color: brown
+  #    color: brown
   objectType: Item

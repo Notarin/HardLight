@@ -8,8 +8,11 @@ namespace Content.Server.GameTicking.Commands
     [AnyCommand]
     sealed class ObserveCommand : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _e = default!;
-        [Dependency] private readonly IAdminManager _adminManager = default!;
+        [Dependency]
+        private readonly IEntityManager _e = default!;
+
+        [Dependency]
+        private readonly IAdminManager _adminManager = default!;
 
         public string Command => "observe";
         public string Description => "";
@@ -38,8 +41,10 @@ namespace Content.Server.GameTicking.Commands
                 _adminManager.DeAdmin(player);
             }
 
-            if (ticker.PlayerGameStatuses.TryGetValue(player.UserId, out var status) &&
-                status != PlayerGameStatus.JoinedGame)
+            if (
+                ticker.PlayerGameStatuses.TryGetValue(player.UserId, out var status)
+                && status != PlayerGameStatus.JoinedGame
+            )
             {
                 ticker.JoinAsObserver(player);
             }

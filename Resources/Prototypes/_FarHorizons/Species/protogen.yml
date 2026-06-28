@@ -47,7 +47,7 @@
     Special:
       points: 4
       required: true
-      defaultMarkings: [ ProtogenMediumArmor, ProtogenLights, ProtogenLEDFace, ProtogenVisor ]
+      defaultMarkings: [ProtogenMediumArmor, ProtogenLights, ProtogenLEDFace, ProtogenVisor]
     Hair:
       points: 1
       required: false
@@ -60,11 +60,11 @@
     Tail:
       points: 1
       required: true
-      defaultMarkings: [ ProtogenTail ]
+      defaultMarkings: [ProtogenTail]
     HeadTop:
       points: 1
       required: true
-      defaultMarkings: [ ProtogenEars ]
+      defaultMarkings: [ProtogenEars]
     Chest:
       points: 1 #HL modifcation
       required: false
@@ -222,7 +222,7 @@
     Special:
       points: 4
       required: true
-      defaultMarkings: [ ProtoVulpMediumArmor, ProtoVulpVisor, ProtoVulpLights, ProtoVulpLEDFace ]
+      defaultMarkings: [ProtoVulpMediumArmor, ProtoVulpVisor, ProtoVulpLights, ProtoVulpLEDFace]
     Hair:
       points: 1
       required: false
@@ -235,11 +235,11 @@
     Tail:
       points: 1
       required: true
-      defaultMarkings: [ ProtogenTail ]
+      defaultMarkings: [ProtogenTail]
     HeadTop:
       points: 1
       required: true
-      defaultMarkings: [ FoxEar ]
+      defaultMarkings: [FoxEar]
     Head:
       points: 2
       required: false
@@ -396,7 +396,7 @@
     Special:
       points: 4
       required: true
-      defaultMarkings: [ ProtoVoxMediumArmor, ProtoVoxVisor, ProtoVoxLights, ProtoVoxLEDFace ]
+      defaultMarkings: [ProtoVoxMediumArmor, ProtoVoxVisor, ProtoVoxLights, ProtoVoxLEDFace]
     Hair:
       points: 1
       required: false
@@ -409,7 +409,7 @@
     Tail:
       points: 1
       required: true
-      defaultMarkings: [ VoxTail ]
+      defaultMarkings: [VoxTail]
     HeadTop:
       points: 1
       required: false
@@ -485,7 +485,7 @@
     Special:
       points: 4
       required: true
-      defaultMarkings: [ ProtoThavenMediumArmor, ProtoThavenVisor, ProtoThavenLights, ProtoThavenLEDFace ]
+      defaultMarkings: [ProtoThavenMediumArmor, ProtoThavenVisor, ProtoThavenLights, ProtoThavenLEDFace]
     Hair:
       points: 1
       required: false
@@ -563,7 +563,7 @@
     Special:
       points: 4
       required: true
-      defaultMarkings: [ ProtoSlimePersonMediumArmor, ProtoSlimePersonVisor, ProtogenLights, ProtoSlimePersonLEDFace ]
+      defaultMarkings: [ProtoSlimePersonMediumArmor, ProtoSlimePersonVisor, ProtogenLights, ProtoSlimePersonLEDFace]
     Hair:
       points: 1
       required: false
@@ -649,7 +649,7 @@
     Special:
       points: 4
       required: true
-      defaultMarkings: [ ProtoKinMediumArmor, ProtoKinVisor, ProtoKinLights, ProtoKinLEDFace ]
+      defaultMarkings: [ProtoKinMediumArmor, ProtoKinVisor, ProtoKinLights, ProtoKinLEDFace]
     Hair:
       points: 1
       required: false
@@ -742,7 +742,7 @@
     Special:
       points: 4
       required: true
-      defaultMarkings: [ ProtoResomiMediumArmor, ProtoResomiVisor, ProtoResomiLights, ProtoResomiLEDFace ]
+      defaultMarkings: [ProtoResomiMediumArmor, ProtoResomiVisor, ProtoResomiLights, ProtoResomiLEDFace]
     Hair:
       points: 1
       required: false
@@ -824,7 +824,7 @@
     Special:
       points: 4
       required: true
-      defaultMarkings: [ ProtogenMediumArmor, ProtoVulpVisor, ProtogenLights, ProtoReptileLEDFaceBoxy ]
+      defaultMarkings: [ProtogenMediumArmor, ProtoVulpVisor, ProtogenLights, ProtoReptileLEDFaceBoxy]
     Hair:
       points: 0
       required: false
@@ -837,7 +837,7 @@
     Tail:
       points: 1
       required: true
-      defaultMarkings: [ LizardTailSmooth ]
+      defaultMarkings: [LizardTailSmooth]
     HeadTop:
       points: 1
       required: false
@@ -907,7 +907,7 @@
     Special:
       points: 4
       required: true
-      defaultMarkings: [ ProtoMothMediumArmor, ProtoMothVisor, ProtoMothLights, ProtoMothLEDFace ]
+      defaultMarkings: [ProtoMothMediumArmor, ProtoMothVisor, ProtoMothLights, ProtoMothLEDFace]
     Hair:
       points: 0
       required: false
@@ -923,7 +923,7 @@
     HeadTop:
       points: 1
       required: true
-      defaultMarkings: [ MothAntennasDefault ]
+      defaultMarkings: [MothAntennasDefault]
     Head:
       points: 2
       required: false
@@ -986,7 +986,7 @@
     Special:
       points: 4
       required: true
-      defaultMarkings: [ ProtogenMediumArmor, ProtogenVisorRound, ProtogenLights, ProtogenLEDFaceRound ]
+      defaultMarkings: [ProtogenMediumArmor, ProtogenVisorRound, ProtogenLights, ProtogenLEDFaceRound]
     Hair:
       points: 1
       required: false
@@ -1068,7 +1068,7 @@
     Special:
       points: 4
       required: true
-      defaultMarkings: [ ProtoFelineMediumArmor, ProtoFelineVisor, ProtoFelineLights, ProtoFelineLEDFace ]
+      defaultMarkings: [ProtoFelineMediumArmor, ProtoFelineVisor, ProtoFelineLights, ProtoFelineLEDFace]
     Hair:
       points: 1
       required: false
@@ -1081,7 +1081,7 @@
     Tail:
       points: 1
       required: true
-      defaultMarkings: [ FelionoidTailAnimated ]
+      defaultMarkings: [FelionoidTailAnimated]
     HeadTop:
       points: 2
       required: false
@@ -1120,7 +1120,7 @@
     Special:
       points: 4
       required: true
-      defaultMarkings: [ ProtogenMediumArmor, ProtogenVisorRound, ProtogenLights, ProtogenLEDFaceRound ]
+      defaultMarkings: [ProtogenMediumArmor, ProtogenVisorRound, ProtogenLights, ProtogenLEDFaceRound]
     Hair:
       points: 1
       required: false
@@ -1203,7 +1203,7 @@
     Special:
       points: 4
       required: true
-      defaultMarkings: [ ProtoDionaeMediumArmor, ProtoDionaeVisor, ProtoDionaeLights, ProtoDionaeLEDFace ]
+      defaultMarkings: [ProtoDionaeMediumArmor, ProtoDionaeVisor, ProtoDionaeLights, ProtoDionaeLEDFace]
     Hair:
       points: 1
       required: false
@@ -1293,7 +1293,7 @@
     Special:
       points: 4
       required: true
-      defaultMarkings: [ ProtoAvaliMediumArmor, ProtoAvaliVisor, ProtoAvaliLights, ProtoAvaliLEDFace ]
+      defaultMarkings: [ProtoAvaliMediumArmor, ProtoAvaliVisor, ProtoAvaliLights, ProtoAvaliLEDFace]
     Hair:
       points: 1
       required: false
@@ -1306,7 +1306,7 @@
     Tail:
       points: 1
       required: true
-      defaultMarkings: [ AvaliTailBase ]
+      defaultMarkings: [AvaliTailBase]
     HeadTop:
       points: 2
       required: false
@@ -1316,7 +1316,7 @@
     HeadSide:
       points: 1
       required: true
-      defaultMarkings: [ AvaliEarsBase ]
+      defaultMarkings: [AvaliEarsBase]
     Chest:
       points: 2
       required: false
@@ -1382,7 +1382,7 @@
     Special:
       points: 4
       required: true
-      defaultMarkings: [ ProtogenMediumArmor, ProtoArachnidVisor, ProtogenLights, ProtoArachnidLEDFace ]
+      defaultMarkings: [ProtogenMediumArmor, ProtoArachnidVisor, ProtogenLights, ProtoArachnidLEDFace]
     Hair:
       points: 1
       required: false
@@ -1395,7 +1395,7 @@
     Tail:
       points: 1
       required: true
-      defaultMarkings: [ ArachnidAppendagesDefault ]
+      defaultMarkings: [ArachnidAppendagesDefault]
     HeadTop:
       points: 2
       required: false
@@ -1405,7 +1405,7 @@
     HeadSide:
       points: 1
       required: true
-      defaultMarkings: [ ArachnidCheliceraeDownwards ]
+      defaultMarkings: [ArachnidCheliceraeDownwards]
     Chest:
       points: 2
       required: false

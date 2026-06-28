@@ -11,6 +11,6 @@ public sealed partial class MidRoundAntagRuleComponent : Component
         "SpawnPointGhostRatKing",
         "SpawnPointGhostVampSpider",
         "SpawnPointGhostFugitive",
-        "MobEvilTwinSpawn"
+        "MobEvilTwinSpawn",
     };
 }

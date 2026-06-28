@@ -10,8 +10,11 @@ namespace Content.Shared.Mech.Equipment.Systems;
 /// </summary>
 public sealed class MechSoundboardSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly UseDelaySystem _useDelay = default!;
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly UseDelaySystem _useDelay = default!;
 
     public override void Initialize()
     {
@@ -25,10 +28,7 @@ public sealed class MechSoundboardSystem : EntitySystem
     {
         // you have to specify a collection so it must exist probably
         var sounds = comp.Sounds.Select(sound => sound.Collection!);
-        var state = new MechSoundboardUiState
-        {
-            Sounds = sounds.ToList()
-        };
+        var state = new MechSoundboardUiState { Sounds = sounds.ToList() };
         args.States.Add(GetNetEntity(uid), state);
     }
 
@@ -37,15 +37,13 @@ public sealed class MechSoundboardSystem : EntitySystem
         if (args.Message is not MechSoundboardPlayMessage msg)
             return;
 
-        if (!TryComp<MechEquipmentComponent>(uid, out var equipment) ||
-            equipment.EquipmentOwner == null)
+        if (!TryComp<MechEquipmentComponent>(uid, out var equipment) || equipment.EquipmentOwner == null)
             return;
 
         if (msg.Sound >= comp.Sounds.Count)
             return;
 
-        if (TryComp(uid, out UseDelayComponent? useDelay)
-            && !_useDelay.TryResetDelay((uid, useDelay), true))
+        if (TryComp(uid, out UseDelayComponent? useDelay) && !_useDelay.TryResetDelay((uid, useDelay), true))
             return;
 
         // honk!!!!!

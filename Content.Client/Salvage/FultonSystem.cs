@@ -12,9 +12,14 @@ namespace Content.Client.Salvage;
 
 public sealed class FultonSystem : SharedFultonSystem
 {
-    [Dependency] private readonly ISerializationManager _serManager = default!;
-    [Dependency] private readonly AnimationPlayerSystem _player = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly ISerializationManager _serManager = default!;
+
+    [Dependency]
+    private readonly AnimationPlayerSystem _player = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     private static readonly TimeSpan AnimationDuration = TimeSpan.FromSeconds(0.4);
 
@@ -30,9 +35,9 @@ public sealed class FultonSystem : SharedFultonSystem
                 {
                     new AnimationTrackSpriteFlick.KeyFrame(new RSI.StateId("fulton_expand"), 0f),
                     new AnimationTrackSpriteFlick.KeyFrame(new RSI.StateId("fulton_balloon"), 0.4f),
-                }
-            }
-        }
+                },
+            },
+        },
     };
 
     private static readonly Animation FultonAnimation = new()
@@ -49,9 +54,9 @@ public sealed class FultonSystem : SharedFultonSystem
                     new AnimationTrackProperty.KeyFrame(Vector2.Zero, 0f),
                     new AnimationTrackProperty.KeyFrame(new Vector2(0f, -0.3f), 0.3f),
                     new AnimationTrackProperty.KeyFrame(new Vector2(0f, 20f), 0.5f),
-                }
-            }
-        }
+                },
+            },
+        },
     };
 
     public override void Initialize()
@@ -81,7 +86,10 @@ public sealed class FultonSystem : SharedFultonSystem
         }
 
         sprite.NoRotation = true;
-        var effectLayer = _sprite.AddLayer((animationEnt, sprite), new SpriteSpecifier.Rsi(new ResPath("Objects/Tools/fulton_balloon.rsi"), "fulton_balloon"));
+        var effectLayer = _sprite.AddLayer(
+            (animationEnt, sprite),
+            new SpriteSpecifier.Rsi(new ResPath("Objects/Tools/fulton_balloon.rsi"), "fulton_balloon")
+        );
         _sprite.LayerSetOffset((animationEnt, sprite), effectLayer, EffectOffset + new Vector2(0f, 0.5f));
 
         var despawn = AddComp<TimedDespawnComponent>(animationEnt);
@@ -116,6 +124,4 @@ public sealed class FultonSystem : SharedFultonSystem
     {
         Base,
     }
-
-
 }

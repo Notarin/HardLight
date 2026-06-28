@@ -2,7 +2,7 @@
   id: Bullet762x39mmFMJ
   name: bullet (762x39mm FMJ)
   parent: BaseBullet
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -13,7 +13,7 @@
   id: Bullet762x39mmImprovised
   name: bullet (7.62x39mm improvised)
   parent: BaseBullet
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -25,7 +25,7 @@
   id: Bullet762x39mmPractice
   name: bullet (7.62x39mm practice)
   parent: BaseBulletPractice
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -36,7 +36,7 @@
   id: Bullet762x39mmRubber
   name: bullet (762x39mm rubber)
   parent: BaseBulletRubber
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -47,7 +47,7 @@
   id: Bullet762x39mmIncendiary
   parent: BaseBulletIncendiary
   name: bullet (762x39mm incendiary)
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -59,7 +59,7 @@
   id: Bullet762x39mmUranium
   parent: BaseBulletUranium
   name: bullet (762x39mm uranium)
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -71,7 +71,7 @@
   id: Bullet762x39mmSubsonic
   name: bullet (762x39mm subsonic)
   parent: BaseBullet
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:

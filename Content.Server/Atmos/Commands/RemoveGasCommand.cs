@@ -9,23 +9,27 @@ namespace Content.Server.Atmos.Commands
     [AdminCommand(AdminFlags.Debug)]
     public sealed class RemoveGasCommand : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _entManager = default!;
+        [Dependency]
+        private readonly IEntityManager _entManager = default!;
 
         public string Command => "removegas";
         public string Description => "Removes an amount of gases.";
-        public string Help => "removegas <X> <Y> <GridId> <amount> <ratio>\nIf <ratio> is true, amount will be treated as the ratio of gas to be removed.";
+        public string Help =>
+            "removegas <X> <Y> <GridId> <amount> <ratio>\nIf <ratio> is true, amount will be treated as the ratio of gas to be removed.";
 
         public void Execute(IConsoleShell shell, string argStr, string[] args)
         {
             if (args.Length < 5)
                 return;
 
-            if (!int.TryParse(args[0], out var x)
-               || !int.TryParse(args[1], out var y)
-               || !NetEntity.TryParse(args[2], out var idNet)
-               || !_entManager.TryGetEntity(idNet, out var id)
-               || !float.TryParse(args[3], out var amount)
-               || !bool.TryParse(args[4], out var ratio))
+            if (
+                !int.TryParse(args[0], out var x)
+                || !int.TryParse(args[1], out var y)
+                || !NetEntity.TryParse(args[2], out var idNet)
+                || !_entManager.TryGetEntity(idNet, out var id)
+                || !float.TryParse(args[3], out var amount)
+                || !bool.TryParse(args[4], out var ratio)
+            )
             {
                 return;
             }
@@ -46,5 +50,4 @@ namespace Content.Server.Atmos.Commands
                 tile.Remove(amount);
         }
     }
-
 }

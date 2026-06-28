@@ -5,7 +5,8 @@ namespace Content.Shared.Item;
 /// </summary>
 public sealed class PickupAttemptEvent : BasePickupAttemptEvent
 {
-    public PickupAttemptEvent(EntityUid user, EntityUid item) : base(user, item) { }
+    public PickupAttemptEvent(EntityUid user, EntityUid item)
+        : base(user, item) { }
 }
 
 /// <summary>
@@ -13,7 +14,8 @@ public sealed class PickupAttemptEvent : BasePickupAttemptEvent
 /// </summary>
 public sealed class GettingPickedUpAttemptEvent : BasePickupAttemptEvent
 {
-    public GettingPickedUpAttemptEvent(EntityUid user, EntityUid item) : base(user, item) { }
+    public GettingPickedUpAttemptEvent(EntityUid user, EntityUid item)
+        : base(user, item) { }
 }
 
 [Virtual]

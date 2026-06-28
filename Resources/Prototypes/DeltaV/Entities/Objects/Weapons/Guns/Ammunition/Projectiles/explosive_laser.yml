@@ -1,6 +1,6 @@
 - type: entity
   id: SimpleLaserExplosion
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Explosive # Powerful explosion in a very small radius. Doesn't break underplating.
     explosionType: DemolitionCharge
@@ -13,7 +13,7 @@
 - type: entity
   parent: BasicHitscan
   id: ExplosiveLaser
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: HitscanSpawnEntity
     spawnedEntity: SimpleLaserExplosion

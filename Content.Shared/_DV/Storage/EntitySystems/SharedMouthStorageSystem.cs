@@ -1,7 +1,7 @@
+using Content.Shared._DV.Storage.Components;
 using Content.Shared.Actions;
 using Content.Shared.CombatMode;
 using Content.Shared.Damage;
-using Content.Shared._DV.Storage.Components;
 using Content.Shared.Examine;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Standing;
@@ -14,9 +14,14 @@ namespace Content.Shared._DV.Storage.EntitySystems;
 
 public abstract class SharedMouthStorageSystem : EntitySystem
 {
-    [Dependency] private readonly DumpableSystem _dumpableSystem = default!;
-    [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
-    [Dependency] private readonly SharedActionsSystem _actionsSystem = default!;
+    [Dependency]
+    private readonly DumpableSystem _dumpableSystem = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _containerSystem = default!;
+
+    [Dependency]
+    private readonly SharedActionsSystem _actionsSystem = default!;
 
     public override void Initialize()
     {
@@ -81,9 +86,11 @@ public abstract class SharedMouthStorageSystem : EntitySystem
     private void OnDamageModified(EntityUid uid, MouthStorageComponent component, DamageChangedEvent args)
     {
         // Example logic: spit out contents if damage exceeds threshold
-        if (args.DamageDelta == null
+        if (
+            args.DamageDelta == null
             || !args.DamageIncreased
-            || args.DamageDelta.GetTotal() < component.SpitDamageThreshold)
+            || args.DamageDelta.GetTotal() < component.SpitDamageThreshold
+        )
             return;
 
         DropAllContents(uid, component, args);

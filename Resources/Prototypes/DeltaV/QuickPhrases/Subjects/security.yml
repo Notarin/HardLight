@@ -1,6 +1,6 @@
 - type: quickPhrase
   id: BaseSecuritySubjectPhrase
-  parent: [ BaseSubjectPhrase, BaseSecurityPhrase ]
+  parent: [BaseSubjectPhrase, BaseSecurityPhrase]
   abstract: true
 
 - type: quickPhrase

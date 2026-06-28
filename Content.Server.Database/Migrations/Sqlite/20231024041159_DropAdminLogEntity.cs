@@ -10,8 +10,7 @@ namespace Content.Server.Database.Migrations.Sqlite
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "admin_log_entity");
+            migrationBuilder.DropTable(name: "admin_log_entity");
         }
 
         /// <inheritdoc />
@@ -21,11 +20,10 @@ namespace Content.Server.Database.Migrations.Sqlite
                 name: "admin_log_entity",
                 columns: table => new
                 {
-                    uid = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                    uid = table.Column<int>(type: "INTEGER", nullable: false).Annotation("Sqlite:Autoincrement", true),
                     admin_log_id = table.Column<int>(type: "INTEGER", nullable: true),
                     admin_log_round_id = table.Column<int>(type: "INTEGER", nullable: true),
-                    name = table.Column<string>(type: "TEXT", nullable: true)
+                    name = table.Column<string>(type: "TEXT", nullable: true),
                 },
                 constraints: table =>
                 {
@@ -34,13 +32,16 @@ namespace Content.Server.Database.Migrations.Sqlite
                         name: "FK_admin_log_entity_admin_log_admin_log_id_admin_log_round_id",
                         columns: x => new { x.admin_log_id, x.admin_log_round_id },
                         principalTable: "admin_log",
-                        principalColumns: new[] { "admin_log_id", "round_id" });
-                });
+                        principalColumns: new[] { "admin_log_id", "round_id" }
+                    );
+                }
+            );
 
             migrationBuilder.CreateIndex(
                 name: "IX_admin_log_entity_admin_log_id_admin_log_round_id",
                 table: "admin_log_entity",
-                columns: new[] { "admin_log_id", "admin_log_round_id" });
+                columns: new[] { "admin_log_id", "admin_log_round_id" }
+            );
         }
     }
 }

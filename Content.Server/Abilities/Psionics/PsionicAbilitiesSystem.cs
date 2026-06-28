@@ -3,38 +3,61 @@ using Content.Server.Ghost;
 using Content.Server.Mind;
 using Content.Server.NPC.HTN;
 using Content.Shared.Abilities.Psionics;
+using Content.Shared.Actions;
+using Content.Shared.CCVar;
+using Content.Shared.Chat;
+using Content.Shared.NPC.Systems;
 using Content.Shared.Nyanotrasen.Abilities.Psionics.Components;
 using Content.Shared.Popups;
-using Content.Shared.Chat;
 using Content.Shared.Psionics;
 using Content.Shared.Random.Helpers;
 using Content.Shared.StatusEffect;
 using Robust.Shared.Configuration;
+using Robust.Shared.Localization;
+using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Serialization.Manager;
-using Robust.Shared.Player;
-using Content.Shared.CCVar;
-using Content.Shared.NPC.Systems;
-using Content.Shared.Actions;
-using Robust.Shared.Localization;
 
 namespace Content.Server.Abilities.Psionics;
 
 public sealed class PsionicAbilitiesSystem : EntitySystem
 {
-    [Dependency] private readonly IComponentFactory _componentFactory = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly StatusEffectsSystem _statusEffectsSystem = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly SharedPopupSystem _popups = default!;
-    [Dependency] private readonly ISerializationManager _serialization = default!;
-    [Dependency] private readonly ISharedPlayerManager _playerManager = default!;
-    [Dependency] private readonly IChatManager _chatManager = default!;
-    [Dependency] private readonly PsionicFamiliarSystem _psionicFamiliar = default!;
-    [Dependency] private readonly NpcFactionSystem _npcFaction = default!;
-    [Dependency] private readonly GhostSystem _ghost = default!;
-    [Dependency] private readonly MindSystem _mind = default!;
+    [Dependency]
+    private readonly IComponentFactory _componentFactory = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly StatusEffectsSystem _statusEffectsSystem = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popups = default!;
+
+    [Dependency]
+    private readonly ISerializationManager _serialization = default!;
+
+    [Dependency]
+    private readonly ISharedPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly IChatManager _chatManager = default!;
+
+    [Dependency]
+    private readonly PsionicFamiliarSystem _psionicFamiliar = default!;
+
+    [Dependency]
+    private readonly NpcFactionSystem _npcFaction = default!;
+
+    [Dependency]
+    private readonly GhostSystem _ghost = default!;
+
+    [Dependency]
+    private readonly MindSystem _mind = default!;
 
     public override void Initialize()
     {
@@ -53,7 +76,12 @@ public sealed class PsionicAbilitiesSystem : EntitySystem
 
         foreach (var protoId in comp.PowersToAdd)
         {
-            if (_prototypeManager.TryIndex<Content.Shared.Abilities.Psionics.PsionicPowerPrototype>(protoId, out var proto))
+            if (
+                _prototypeManager.TryIndex<Content.Shared.Abilities.Psionics.PsionicPowerPrototype>(
+                    protoId,
+                    out var proto
+                )
+            )
             {
                 if (!psionic.ActivePowers.Contains(proto))
                     InitializePsionicPower(uid, proto, psionic, false);
@@ -63,8 +91,7 @@ public sealed class PsionicAbilitiesSystem : EntitySystem
 
     private void OnPsionicShutdown(EntityUid uid, PsionicComponent component, ComponentShutdown args)
     {
-        if (!EntityManager.EntityExists(uid)
-            || HasComp<MindbrokenComponent>(uid))
+        if (!EntityManager.EntityExists(uid) || HasComp<MindbrokenComponent>(uid))
             return;
 
         KillFamiliars(component);
@@ -103,8 +130,12 @@ public sealed class PsionicAbilitiesSystem : EntitySystem
         var copy = _serialization.CreateCopy(psionic.AvailablePowers, notNullableOverride: true);
         foreach (var weight in copy)
         {
-            if (!_prototypeManager.TryIndex<Content.Shared.Abilities.Psionics.PsionicPowerPrototype>(weight.Key, out var copyPower)
-                || !psionic.ActivePowers.Contains(copyPower))
+            if (
+                !_prototypeManager.TryIndex<Content.Shared.Abilities.Psionics.PsionicPowerPrototype>(
+                    weight.Key,
+                    out var copyPower
+                ) || !psionic.ActivePowers.Contains(copyPower)
+            )
                 continue;
 
             psionic.AvailablePowers.Remove(copyPower.ID);
@@ -113,7 +144,12 @@ public sealed class PsionicAbilitiesSystem : EntitySystem
         // If no available powers have been populated yet, seed them from the configured weighted pool.
         if (psionic.AvailablePowers.Count <= 0)
         {
-            if (_prototypeManager.TryIndex<Content.Shared.Random.WeightedRandomPrototype>(psionic.PowerPool, out var pool))
+            if (
+                _prototypeManager.TryIndex<Content.Shared.Random.WeightedRandomPrototype>(
+                    psionic.PowerPool,
+                    out var pool
+                )
+            )
             {
                 // Copy weights so we can mutate the dictionary independently per-entity.
                 foreach (var (powerId, weight) in pool.Weights)
@@ -128,7 +164,12 @@ public sealed class PsionicAbilitiesSystem : EntitySystem
         if (psionic.AvailablePowers.Count <= 0)
             return;
         var proto = _random.Pick(psionic.AvailablePowers);
-    if (!_prototypeManager.TryIndex<Content.Shared.Abilities.Psionics.PsionicPowerPrototype>(proto, out var newPower))
+        if (
+            !_prototypeManager.TryIndex<Content.Shared.Abilities.Psionics.PsionicPowerPrototype>(
+                proto,
+                out var newPower
+            )
+        )
             return;
 
         // Remove from available pool so we don't attempt to grant it again.
@@ -140,10 +181,17 @@ public sealed class PsionicAbilitiesSystem : EntitySystem
     /// <summary>
     ///     Initializes a new Psionic Power on a given entity, assuming the entity does not already have said power initialized.
     /// </summary>
-    public void InitializePsionicPower(EntityUid uid, Content.Shared.Abilities.Psionics.PsionicPowerPrototype proto, Content.Shared.Abilities.Psionics.PsionicComponent psionic, bool playFeedback = true)
+    public void InitializePsionicPower(
+        EntityUid uid,
+        Content.Shared.Abilities.Psionics.PsionicPowerPrototype proto,
+        Content.Shared.Abilities.Psionics.PsionicComponent psionic,
+        bool playFeedback = true
+    )
     {
-        if (!_prototypeManager.HasIndex<Content.Shared.Abilities.Psionics.PsionicPowerPrototype>(proto.ID)
-            || psionic.ActivePowers.Contains(proto))
+        if (
+            !_prototypeManager.HasIndex<Content.Shared.Abilities.Psionics.PsionicPowerPrototype>(proto.ID)
+            || psionic.ActivePowers.Contains(proto)
+        )
             return;
 
         psionic.ActivePowers.Add(proto);
@@ -205,7 +253,11 @@ public sealed class PsionicAbilitiesSystem : EntitySystem
     /// <summary>
     ///     Initializes a new Psionic Power on a given entity, assuming the entity does not already have said power initialized.
     /// </summary>
-    public void InitializePsionicPower(EntityUid uid, Content.Shared.Abilities.Psionics.PsionicPowerPrototype proto, bool playFeedback = true)
+    public void InitializePsionicPower(
+        EntityUid uid,
+        Content.Shared.Abilities.Psionics.PsionicPowerPrototype proto,
+        bool playFeedback = true
+    )
     {
         EnsureComp<PsionicComponent>(uid, out var psionic);
 
@@ -253,12 +305,22 @@ public sealed class PsionicAbilitiesSystem : EntitySystem
 
         RemoveAllPsionicPowers(uid, true);
         EnsureComp<MindbrokenComponent>(uid);
-        _statusEffectsSystem.TryAddStatusEffect(uid, psionic.MindbreakingStutterCondition,
-            TimeSpan.FromMinutes(psionic.MindbreakingStutterTime * psionic.CurrentAmplification * psionic.CurrentDampening),
+        _statusEffectsSystem.TryAddStatusEffect(
+            uid,
+            psionic.MindbreakingStutterCondition,
+            TimeSpan.FromMinutes(
+                psionic.MindbreakingStutterTime * psionic.CurrentAmplification * psionic.CurrentDampening
+            ),
             false,
-            psionic.MindbreakingStutterAccent);
+            psionic.MindbreakingStutterAccent
+        );
 
-        _popups.PopupEntity(Loc.GetString(psionic.MindbreakingFeedback, ("entity", MetaData(uid).EntityName)), uid, uid, PopupType.MediumCaution);
+        _popups.PopupEntity(
+            Loc.GetString(psionic.MindbreakingFeedback, ("entity", MetaData(uid).EntityName)),
+            uid,
+            uid,
+            PopupType.MediumCaution
+        );
 
         KillFamiliars(psionic);
         RemComp<PsionicComponent>(uid);
@@ -284,7 +346,8 @@ public sealed class PsionicAbilitiesSystem : EntitySystem
             feedbackMessage,
             EntityUid.Invalid,
             false,
-            session.Channel);
+            session.Channel
+        );
 
         if (!_mind.TryGetMind(session, out var mindId, out var mind))
             return;
@@ -301,8 +364,7 @@ public sealed class PsionicAbilitiesSystem : EntitySystem
     /// </summary>
     public void RemoveAllPsionicPowers(EntityUid uid, bool mindbreak = false)
     {
-        if (!TryComp<PsionicComponent>(uid, out var psionic)
-            || !psionic.Removable)
+        if (!TryComp<PsionicComponent>(uid, out var psionic) || !psionic.Removable)
             return;
 
         foreach (var proto in psionic.ActivePowers)
@@ -314,10 +376,14 @@ public sealed class PsionicAbilitiesSystem : EntitySystem
         RefreshPsionicModifiers(uid, psionic);
     }
 
-    public void RemovePsionicPower(EntityUid uid, Content.Shared.Abilities.Psionics.PsionicComponent psionicComponent, Content.Shared.Abilities.Psionics.PsionicPowerPrototype psionicPower, bool forced = false)
+    public void RemovePsionicPower(
+        EntityUid uid,
+        Content.Shared.Abilities.Psionics.PsionicComponent psionicComponent,
+        Content.Shared.Abilities.Psionics.PsionicPowerPrototype psionicPower,
+        bool forced = false
+    )
     {
-        if (!psionicComponent.ActivePowers.Contains(psionicPower)
-            || !psionicComponent.Removable && !forced)
+        if (!psionicComponent.ActivePowers.Contains(psionicPower) || !psionicComponent.Removable && !forced)
             return;
 
         // Remove actions associated with this power (handles multiple entries with suffixed keys)
@@ -364,11 +430,17 @@ public sealed class PsionicAbilitiesSystem : EntitySystem
         UpdatePowerSlots(psionicComponent);
     }
 
-    public void RemovePsionicPower(EntityUid uid, Content.Shared.Abilities.Psionics.PsionicPowerPrototype psionicPower, bool forced = false)
+    public void RemovePsionicPower(
+        EntityUid uid,
+        Content.Shared.Abilities.Psionics.PsionicPowerPrototype psionicPower,
+        bool forced = false
+    )
     {
-        if (!TryComp<PsionicComponent>(uid, out var psionicComponent)
+        if (
+            !TryComp<PsionicComponent>(uid, out var psionicComponent)
             || !psionicComponent.ActivePowers.Contains(psionicPower)
-            || !psionicComponent.Removable && !forced)
+            || !psionicComponent.Removable && !forced
+        )
             return;
 
         // Delegate to main removal path for complete cleanup
@@ -391,8 +463,12 @@ public sealed class PsionicAbilitiesSystem : EntitySystem
 
         foreach (var familiar in component.Familiars)
         {
-            if (!TryComp<Content.Shared.Nyanotrasen.Abilities.Psionics.Components.PsionicFamiliarComponent>(familiar, out var familiarComponent)
-                || !familiarComponent.DespawnOnMasterDeath)
+            if (
+                !TryComp<Content.Shared.Nyanotrasen.Abilities.Psionics.Components.PsionicFamiliarComponent>(
+                    familiar,
+                    out var familiarComponent
+                ) || !familiarComponent.DespawnOnMasterDeath
+            )
                 continue;
 
             _psionicFamiliar.DespawnFamiliar(familiar, familiarComponent);

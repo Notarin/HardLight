@@ -6,12 +6,12 @@
   placement:
     mode: SnapgridCenter
   components:
-    - type: GasVentPump
-      maxPressure: 13500
-      HighFlow: true
-    - type: Construction
-      graph: GasUnaryHighFlow
-      node: ventpumphighflow
+  - type: GasVentPump
+    maxPressure: 13500
+    HighFlow: true
+  - type: Construction
+    graph: GasUnaryHighFlow
+    node: ventpumphighflow
 
 - type: entity
   parent: GasVentScrubber
@@ -21,13 +21,13 @@
   placement:
     mode: SnapgridCenter
   components:
-    - type: GasVentScrubber
-      maxPressure: 13500
-      maxTransferRate: 600
-      HighFlow: true
-    - type: Construction
-      graph: GasUnaryHighFlow
-      node: ventscrubberhighflow
+  - type: GasVentScrubber
+    maxPressure: 13500
+    maxTransferRate: 600
+    HighFlow: true
+  - type: Construction
+    graph: GasUnaryHighFlow
+    node: ventscrubberhighflow
 
 - type: entity
   parent: GasOutletInjector
@@ -37,11 +37,11 @@
   placement:
     mode: SnapgridCenter
   components:
-    - type: GasOutletInjector
-      transferRate: 600
-      maxTransferRate: 600
-      maxPressure: 27000
-      HighFlow: true
-    - type: Construction
-      graph: GasUnaryHighFlow
-      node: outletinjectorhighflow
+  - type: GasOutletInjector
+    transferRate: 600
+    maxTransferRate: 600
+    maxPressure: 27000
+    HighFlow: true
+  - type: Construction
+    graph: GasUnaryHighFlow
+    node: outletinjectorhighflow

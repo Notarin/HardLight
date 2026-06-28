@@ -10,11 +10,20 @@ namespace Content.Server._Starlight.Shadekin;
 
 public sealed partial class ShadegenSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly PoweredLightSystem _light = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly HandheldLightSystem _handheldLight = default!;
-    [Dependency] private readonly ContainerSystem _container = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly PoweredLightSystem _light = default!;
+
+    [Dependency]
+    private readonly EntityLookupSystem _lookup = default!;
+
+    [Dependency]
+    private readonly HandheldLightSystem _handheldLight = default!;
+
+    [Dependency]
+    private readonly ContainerSystem _container = default!;
     private readonly HashSet<EntityUid> _updateQueue = new();
 
     public override void Initialize()
@@ -44,14 +53,20 @@ public sealed partial class ShadegenSystem : EntitySystem
 
             _updateQueue.Clear();
 
-            var lightQuery = _lookup.GetEntitiesInRange<PointLightComponent>(Transform(uid).Coordinates, component.Range);
+            var lightQuery = _lookup.GetEntitiesInRange<PointLightComponent>(
+                Transform(uid).Coordinates,
+                component.Range
+            );
 
-            var containerQuery = _lookup.GetEntitiesInRange<ContainerManagerComponent>(Transform(uid).Coordinates, component.Range);
+            var containerQuery = _lookup.GetEntitiesInRange<ContainerManagerComponent>(
+                Transform(uid).Coordinates,
+                component.Range
+            );
             foreach (var containerent in containerQuery)
-                foreach (var container in _container.GetAllContainers(containerent.Owner, containerent.Comp))
-                    foreach (var contained in container.ContainedEntities)
-                        if (TryComp<PointLightComponent>(contained, out var pointLight))
-                            lightQuery.Add((contained, pointLight));
+            foreach (var container in _container.GetAllContainers(containerent.Owner, containerent.Comp))
+            foreach (var contained in container.ContainedEntities)
+                if (TryComp<PointLightComponent>(contained, out var pointLight))
+                    lightQuery.Add((contained, pointLight));
 
             foreach (var light in lightQuery)
             {
@@ -64,7 +79,11 @@ public sealed partial class ShadegenSystem : EntitySystem
                 if (TryComp<HandheldLightComponent>(light.Owner, out var handheldcomp) && handheldcomp.Activated)
                     _handheldLight.TurnOff((light.Owner, handheldcomp), makeNoise: false);
 
-                if (component.DestroyLights && TryComp<PoweredLightComponent>(light.Owner, out var poweredcomp) && poweredcomp.On)
+                if (
+                    component.DestroyLights
+                    && TryComp<PoweredLightComponent>(light.Owner, out var poweredcomp)
+                    && poweredcomp.On
+                )
                     _light.TryDestroyBulb(light.Owner, poweredcomp);
             }
         }

@@ -1,7 +1,7 @@
 - type: entity
   id: TapeDeck
   name: tape deck
-  parent: [ BaseMachinePowered, ConstructibleMachine ]
+  parent: [BaseMachinePowered, ConstructibleMachine]
   description: An old school tape deck, ready to play the newest podcast made by the crew.
   components:
   - type: Transform
@@ -10,7 +10,7 @@
     sprite: _Goobstation/Structures/Machines/StationRadio/tapedeck.rsi
     layers:
     - state: icon
-    # TODO: unlit & maints panel sprite
+      # TODO: unlit & maints panel sprite
   - type: Rotatable
   - type: Machine
     board: TapeDeckCircuitboard

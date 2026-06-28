@@ -27,12 +27,23 @@ namespace Content.Server.CrewManifest;
 
 public sealed class CrewManifestSystem : EntitySystem
 {
-    [Dependency] private readonly StationSystem _stationSystem = default!;
-    [Dependency] private readonly StationRecordsSystem _recordsSystem = default!;
-    [Dependency] private readonly EuiManager _euiManager = default!;
-    [Dependency] private readonly IConfigurationManager _configManager = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IdCardSystem _idCardSystem = default!; // Coyote
+    [Dependency]
+    private readonly StationSystem _stationSystem = default!;
+
+    [Dependency]
+    private readonly StationRecordsSystem _recordsSystem = default!;
+
+    [Dependency]
+    private readonly EuiManager _euiManager = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _configManager = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly IdCardSystem _idCardSystem = default!; // Coyote
 
     /// <summary>
     ///     Cached crew manifest entries. The alternative is to outright
@@ -54,24 +65,23 @@ public sealed class CrewManifestSystem : EntitySystem
         SubscribeLocalEvent<CrewManifestViewerComponent, CrewManifestOpenUiMessage>(OpenEuiFromBui);
     }
 
-/*     private void OnRoundRestart(RoundRestartCleanupEvent ev)
-    {
-        foreach (var (_, euis) in _openEuis)
+    /*     private void OnRoundRestart(RoundRestartCleanupEvent ev)
         {
-            foreach (var (_, eui) in euis)
+            foreach (var (_, euis) in _openEuis)
             {
-                eui.Close();
+                foreach (var (_, eui) in euis)
+                {
+                    eui.Close();
+                }
             }
-        }
-
-        _openEuis.Clear();
-        _cachedEntries.Clear();
-    } */
+    
+            _openEuis.Clear();
+            _cachedEntries.Clear();
+        } */
 
     private void OnRequestCrewManifest(RequestCrewManifestMessage message, EntitySessionEventArgs args)
     {
-        if (args.SenderSession is not { } sessionCast
-            || !_configManager.GetCVar(CCVars.CrewManifestWithoutEntity))
+        if (args.SenderSession is not { } sessionCast || !_configManager.GetCVar(CCVars.CrewManifestWithoutEntity))
         {
             return;
         }
@@ -141,7 +151,10 @@ public sealed class CrewManifestSystem : EntitySystem
         {
             Log.Error(
                 "{User} tried to open crew manifest from wrong UI: {Key}. Correct owned is {ExpectedKey}",
-                msg.Actor, msg.UiKey, component.OwnerKey);
+                msg.Actor,
+                msg.UiKey,
+                component.OwnerKey
+            );
             return;
         }
 
@@ -203,8 +216,7 @@ public sealed class CrewManifestSystem : EntitySystem
             return;
         }
 
-        if (!_openEuis.TryGetValue(station, out var euis)
-            || !euis.TryGetValue(session, out var eui))
+        if (!_openEuis.TryGetValue(station, out var euis) || !euis.TryGetValue(session, out var eui))
         {
             return;
         }
@@ -232,7 +244,10 @@ public sealed class CrewManifestSystem : EntitySystem
 
         while (sensors.MoveNext(out var uid, out var sensor)) // Coyote start
         {
-            if (sensor.User == null || TryComp<SSDIndicatorComponent>(sensor.User, out var indicator) && indicator.IsSSD)
+            if (
+                sensor.User == null
+                || TryComp<SSDIndicatorComponent>(sensor.User, out var indicator) && indicator.IsSSD
+            )
             {
                 continue;
             }
@@ -256,14 +271,16 @@ public sealed class CrewManifestSystem : EntitySystem
             entriesSort.Add((null, entry));
         } // Coyote end
 
-        entriesSort.Sort((a, b) =>
-        {
-            var cmp = JobUIComparer.Instance.Compare(a.job, b.job);
-            if (cmp != 0)
-                return cmp;
+        entriesSort.Sort(
+            (a, b) =>
+            {
+                var cmp = JobUIComparer.Instance.Compare(a.job, b.job);
+                if (cmp != 0)
+                    return cmp;
 
-            return string.Compare(a.entry.Name, b.entry.Name, StringComparison.CurrentCultureIgnoreCase);
-        });
+                return string.Compare(a.entry.Name, b.entry.Name, StringComparison.CurrentCultureIgnoreCase);
+            }
+        );
 
         entries.Entries = entriesSort.Select(x => x.entry).ToArray();
         // _cachedEntries[station] = entries; // coyote: causes problems
@@ -278,7 +295,8 @@ public sealed class CrewManifestCommand : IConsoleCommand
     public string Description => "Opens the crew manifest for the given station.";
     public string Help => $"Usage: {Command} <entity uid>";
 
-    [Dependency] private readonly IEntityManager _entityManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entityManager = default!;
 
     public CrewManifestCommand()
     {

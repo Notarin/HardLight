@@ -11,7 +11,8 @@ namespace Content.Server._NF.Roles.Systems;
 
 public abstract partial class SharedInterviewHologramSystem : EntitySystem
 {
-    [Dependency] protected SharedIdCardSystem IdCardSystem = default!;
+    [Dependency]
+    protected SharedIdCardSystem IdCardSystem = default!;
 
     public override void Initialize()
     {

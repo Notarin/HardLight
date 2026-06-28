@@ -10,11 +10,17 @@ namespace Content.Server.Objectives.Commands
     [AdminCommand(AdminFlags.Admin)]
     public sealed class RemoveObjectiveCommand : LocalizedEntityCommands
     {
-        [Dependency] private readonly IPlayerManager _players = default!;
-        [Dependency] private readonly SharedMindSystem _mind = default!;
-        [Dependency] private readonly SharedObjectivesSystem _objectives = default!;
+        [Dependency]
+        private readonly IPlayerManager _players = default!;
+
+        [Dependency]
+        private readonly SharedMindSystem _mind = default!;
+
+        [Dependency]
+        private readonly SharedObjectivesSystem _objectives = default!;
 
         public override string Command => "rmobjective";
+
         public override void Execute(IConsoleShell shell, string argStr, string[] args)
         {
             if (args.Length != 2)
@@ -37,9 +43,11 @@ namespace Content.Server.Objectives.Commands
 
             if (int.TryParse(args[1], out var i))
             {
-                shell.WriteLine(Loc.GetString(_mind.TryRemoveObjective(mindId, mind, i)
-                    ? "cmd-rmobjective-success"
-                    : "cmd-rmobjective-failed"));
+                shell.WriteLine(
+                    Loc.GetString(
+                        _mind.TryRemoveObjective(mindId, mind, i) ? "cmd-rmobjective-success" : "cmd-rmobjective-failed"
+                    )
+                );
             }
             else
             {
@@ -51,7 +59,10 @@ namespace Content.Server.Objectives.Commands
         {
             if (args.Length == 1)
             {
-                return CompletionResult.FromHintOptions(CompletionHelper.SessionNames(), LocalizationManager.GetString("shell-argument-username-hint"));
+                return CompletionResult.FromHintOptions(
+                    CompletionHelper.SessionNames(),
+                    LocalizationManager.GetString("shell-argument-username-hint")
+                );
             }
             if (args.Length == 2)
             {
@@ -68,7 +79,10 @@ namespace Content.Server.Objectives.Commands
                 for (int i = 0; i < mind.Objectives.Count; i++)
                 {
                     var info = _objectives.GetInfo(mind.Objectives[i], mindId, mind);
-                    var hint = info == null ? Loc.GetString("cmd-rmobjective-invalid-objective-info") : $"{mind.Objectives[i]} ({info.Value.Title})";
+                    var hint =
+                        info == null
+                            ? Loc.GetString("cmd-rmobjective-invalid-objective-info")
+                            : $"{mind.Objectives[i]} ({info.Value.Title})";
                     options.Add(new CompletionOption(i.ToString(), hint));
                 }
 

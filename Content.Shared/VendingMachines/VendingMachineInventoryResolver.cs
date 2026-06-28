@@ -7,7 +7,8 @@ public static class VendingMachineInventoryResolver
 {
     public static Dictionary<string, uint> ResolveRegular(
         IPrototypeManager prototypes,
-        VendingMachineInventoryPrototype prototype)
+        VendingMachineInventoryPrototype prototype
+    )
     {
         var resolved = new Dictionary<string, uint>();
         var seen = new HashSet<string>();
@@ -17,7 +18,8 @@ public static class VendingMachineInventoryResolver
 
     public static Dictionary<string, uint> ResolveEmagged(
         IPrototypeManager prototypes,
-        VendingMachineInventoryPrototype prototype)
+        VendingMachineInventoryPrototype prototype
+    )
     {
         var resolved = new Dictionary<string, uint>();
         var seen = new HashSet<string>();
@@ -27,7 +29,8 @@ public static class VendingMachineInventoryResolver
 
     public static Dictionary<string, uint> ResolveContraband(
         IPrototypeManager prototypes,
-        VendingMachineInventoryPrototype prototype)
+        VendingMachineInventoryPrototype prototype
+    )
     {
         var resolved = new Dictionary<string, uint>();
         var seen = new HashSet<string>();
@@ -40,12 +43,18 @@ public static class VendingMachineInventoryResolver
         VendingMachineInventoryPrototype prototype,
         Func<VendingMachineInventoryPrototype, Dictionary<string, uint>?> selector,
         Dictionary<string, uint> resolved,
-        HashSet<string> seen)
+        HashSet<string> seen
+    )
     {
         if (!seen.Add(prototype.ID))
-            throw new InvalidOperationException($"Circular vending inventory inheritance detected at '{prototype.ID}'.");
+            throw new InvalidOperationException(
+                $"Circular vending inventory inheritance detected at '{prototype.ID}'."
+            );
 
-        if (prototype.Inherits != null && prototypes.TryIndex(prototype.Inherits, out VendingMachineInventoryPrototype? parent))
+        if (
+            prototype.Inherits != null
+            && prototypes.TryIndex(prototype.Inherits, out VendingMachineInventoryPrototype? parent)
+        )
             Resolve(prototypes, parent, selector, resolved, seen);
 
         if (prototype.InheritAsUnlimited)

@@ -44,6 +44,7 @@ public sealed partial class LoadoutGroupPrototype : IPrototype
     /// </summary>
     [DataField]
     public List<ProtoId<LoadoutGroupPrototype>> Subgroups = new();
+
     // End Frontier
 
     // Frontier: handle unaffordable loadouts

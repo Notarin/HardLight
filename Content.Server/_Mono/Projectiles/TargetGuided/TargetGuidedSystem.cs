@@ -1,8 +1,8 @@
 using System.Numerics;
-using Content.Shared.Interaction;
-using Content.Shared.Projectiles;
 using Content.Server._Mono.FireControl;
 using Content.Shared._Mono.FireControl;
+using Content.Shared.Interaction;
+using Content.Shared.Projectiles;
 using Robust.Server.GameObjects;
 using Robust.Shared.Physics.Components;
 using EntityCoordinates = Robust.Shared.Map.EntityCoordinates;
@@ -14,9 +14,14 @@ namespace Content.Server._Mono.Projectiles.TargetGuided;
 /// </summary>
 public sealed class TargetGuidedSystem : EntitySystem
 {
-    [Dependency] private readonly SharedTransformSystem _transform = null!;
-    [Dependency] private readonly RotateToFaceSystem _rotateToFace = null!;
-    [Dependency] private readonly PhysicsSystem _physics = null!;
+    [Dependency]
+    private readonly SharedTransformSystem _transform = null!;
+
+    [Dependency]
+    private readonly RotateToFaceSystem _rotateToFace = null!;
+
+    [Dependency]
+    private readonly PhysicsSystem _physics = null!;
 
     public override void Initialize()
     {
@@ -100,7 +105,12 @@ public sealed class TargetGuidedSystem : EntitySystem
             if (guidedComp.ControlPermanentlyLost && guidedComp.FixedDirection.HasValue)
             {
                 // Use the fixed direction when control is permanently lost
-                _physics.SetLinearVelocity(uid, guidedComp.InheritedVelocity + guidedComp.FixedDirection.Value.ToWorldVec() * guidedComp.CurrentSpeed, body: body);
+                _physics.SetLinearVelocity(
+                    uid,
+                    guidedComp.InheritedVelocity
+                        + guidedComp.FixedDirection.Value.ToWorldVec() * guidedComp.CurrentSpeed,
+                    body: body
+                );
 
                 // Also set the transform rotation to match the fixed direction to prevent visual stuttering
                 _transform.SetWorldRotation(xform, guidedComp.FixedDirection.Value);
@@ -108,7 +118,12 @@ public sealed class TargetGuidedSystem : EntitySystem
             else
             {
                 // Normal operation - use current rotation
-                _physics.SetLinearVelocity(uid, guidedComp.InheritedVelocity + _transform.GetWorldRotation(xform).ToWorldVec() * guidedComp.CurrentSpeed, body: body);
+                _physics.SetLinearVelocity(
+                    uid,
+                    guidedComp.InheritedVelocity
+                        + _transform.GetWorldRotation(xform).ToWorldVec() * guidedComp.CurrentSpeed,
+                    body: body
+                );
             }
         }
     }
@@ -160,7 +175,12 @@ public sealed class TargetGuidedSystem : EntitySystem
     /// <summary>
     /// Guides the projectile toward its target position.
     /// </summary>
-    private void GuideToTarget(EntityUid uid, TargetGuidedComponent guidedComp, TransformComponent xform, float frameTime)
+    private void GuideToTarget(
+        EntityUid uid,
+        TargetGuidedComponent guidedComp,
+        TransformComponent xform,
+        float frameTime
+    )
     {
         if (!guidedComp.TargetPosition.HasValue)
             return;
@@ -208,8 +228,10 @@ public sealed class TargetGuidedSystem : EntitySystem
                 return true;
 
             // Check if console is still powered/functioning
-            if (!TryComp<FireControlConsoleComponent>(component.ControllingConsole.Value, out var console) ||
-                console.ConnectedServer == null)
+            if (
+                !TryComp<FireControlConsoleComponent>(component.ControllingConsole.Value, out var console)
+                || console.ConnectedServer == null
+            )
                 return true;
         }
 

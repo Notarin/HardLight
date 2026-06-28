@@ -1,7 +1,7 @@
+using Content.Server._NF.Power.Components;
 using Content.Server.Construction;
 using Content.Server.Construction.Components;
 using Content.Server.Power.Components;
-using Content.Server._NF.Power.Components;
 
 namespace Content.Server._NF.Power.EntitySystems;
 
@@ -61,7 +61,8 @@ public sealed class UpgradePowerSystem : EntitySystem
     private void OnUpgradeExamine(EntityUid uid, UpgradePowerDrawComponent component, UpgradeExamineEvent args)
     {
         // UpgradePowerDrawComponent.PowerDrawMultiplier is not the actual multiplier, so we have to do this.
-        var powerDrawMultiplier = CompOrNull<ApcPowerReceiverComponent>(uid)?.Load / component.BaseLoad
+        var powerDrawMultiplier =
+            CompOrNull<ApcPowerReceiverComponent>(uid)?.Load / component.BaseLoad
             ?? CompOrNull<PowerConsumerComponent>(uid)?.DrawRate / component.BaseLoad;
 
         if (powerDrawMultiplier is not null)
@@ -98,7 +99,11 @@ public sealed class UpgradePowerSystem : EntitySystem
             powa.MaxSupply = supply;
     }
 
-    private void OnSupplierUpgradeExamine(EntityUid uid, UpgradePowerSupplierComponent component, UpgradeExamineEvent args)
+    private void OnSupplierUpgradeExamine(
+        EntityUid uid,
+        UpgradePowerSupplierComponent component,
+        UpgradeExamineEvent args
+    )
     {
         args.AddPercentageUpgrade("upgrade-power-supply", component.ActualScalar);
     }
@@ -109,7 +114,11 @@ public sealed class UpgradePowerSystem : EntitySystem
             component.BaseRampRate = battery.SupplyRampRate;
     }
 
-    private void OnSupplyRampingRefreshParts(EntityUid uid, UpgradePowerSupplyRampingComponent component, RefreshPartsEvent args)
+    private void OnSupplyRampingRefreshParts(
+        EntityUid uid,
+        UpgradePowerSupplyRampingComponent component,
+        RefreshPartsEvent args
+    )
     {
         var rampRate = component.BaseRampRate;
         var rating = args.PartRatings[component.MachinePartRampRate];
@@ -133,7 +142,11 @@ public sealed class UpgradePowerSystem : EntitySystem
             battery.SupplyRampRate = rampRate;
     }
 
-    private void OnSupplyRampingUpgradeExamine(EntityUid uid, UpgradePowerSupplyRampingComponent component, UpgradeExamineEvent args)
+    private void OnSupplyRampingUpgradeExamine(
+        EntityUid uid,
+        UpgradePowerSupplyRampingComponent component,
+        UpgradeExamineEvent args
+    )
     {
         args.AddPercentageUpgrade("upgrade-power-supply-ramping", component.ActualScalar);
     }

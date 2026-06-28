@@ -1,22 +1,30 @@
 using System.Numerics;
+using Content.Server.Sprite; // HardLight
+using Content.Shared._NF.SizeAttribute;
+using Content.Shared.Humanoid;
+using Content.Shared.Nyanotrasen.Item.PseudoItem;
+using Content.Shared.Silicons.Borgs.Components; // HardLight
 using Robust.Server.GameObjects;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Collision.Shapes;
 using Robust.Shared.Physics.Systems;
-using Content.Server.Sprite; // HardLight
-using Content.Shared._NF.SizeAttribute;
-using Content.Shared.Nyanotrasen.Item.PseudoItem;
-using Content.Shared.Humanoid;
-using Content.Shared.Silicons.Borgs.Components; // HardLight
 
 namespace Content.Server.SizeAttribute
 {
     public sealed class SizeAttributeSystem : EntitySystem
     {
-        [Dependency] private readonly IEntityManager _entityManager = default!;
-        [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-        [Dependency] private readonly AppearanceSystem _appearance = default!;
-        [Dependency] private readonly ScaleVisualsSystem _scaleVisuals = default!; // HardLight
+        [Dependency]
+        private readonly IEntityManager _entityManager = default!;
+
+        [Dependency]
+        private readonly SharedPhysicsSystem _physics = default!;
+
+        [Dependency]
+        private readonly AppearanceSystem _appearance = default!;
+
+        [Dependency]
+        private readonly ScaleVisualsSystem _scaleVisuals = default!; // HardLight
+
         public override void Initialize()
         {
             base.Initialize();
@@ -51,25 +59,43 @@ namespace Content.Server.SizeAttribute
             if (component.Tall && TryComp<TallWhitelistComponent>(uid, out var tallComp))
             {
                 var resolvedScale = ResolveScale(uid, tallComp.Scale, tallComp.BorgScale);
-                Scale(uid,
+                Scale(
+                    uid,
                     resolvedScale,
                     tallComp.Density,
                     tallComp.DensityMultiplier,
                     tallComp.CosmeticOnly,
-                    tallComp.BorgFixtureRadius);
-                PseudoItem(uid, component, tallComp.PseudoItem, tallComp.Shape, tallComp.StoredOffset, tallComp.StoredRotation);
+                    tallComp.BorgFixtureRadius
+                );
+                PseudoItem(
+                    uid,
+                    component,
+                    tallComp.PseudoItem,
+                    tallComp.Shape,
+                    tallComp.StoredOffset,
+                    tallComp.StoredRotation
+                );
                 component.Applied = true;
             }
             else if (component.Short && TryComp<ShortWhitelistComponent>(uid, out var shortComp))
             {
                 var resolvedScale = ResolveScale(uid, shortComp.Scale, shortComp.BorgScale);
-                Scale(uid,
+                Scale(
+                    uid,
                     resolvedScale,
                     shortComp.Density,
                     shortComp.DensityMultiplier,
                     shortComp.CosmeticOnly,
-                    shortComp.BorgFixtureRadius);
-                PseudoItem(uid, component, shortComp.PseudoItem, shortComp.Shape, shortComp.StoredOffset, shortComp.StoredRotation);
+                    shortComp.BorgFixtureRadius
+                );
+                PseudoItem(
+                    uid,
+                    component,
+                    shortComp.PseudoItem,
+                    shortComp.Shape,
+                    shortComp.StoredOffset,
+                    shortComp.StoredRotation
+                );
                 component.Applied = true;
             }
         }
@@ -81,9 +107,17 @@ namespace Content.Server.SizeAttribute
 
             return defaultScale;
         }
+
         // HardLight end
 
-        private void PseudoItem(EntityUid uid, SizeAttributeComponent _, bool active, List<Box2i>? shape, Vector2i? storedOffset, float storedRotation)
+        private void PseudoItem(
+            EntityUid uid,
+            SizeAttributeComponent _,
+            bool active,
+            List<Box2i>? shape,
+            Vector2i? storedOffset,
+            float storedRotation
+        )
         {
             if (active)
             {
@@ -91,12 +125,8 @@ namespace Content.Server.SizeAttribute
 
                 pseudoI.StoredRotation = storedRotation;
                 pseudoI.StoredOffset = storedOffset ?? new(0, 17);
-                pseudoI.Shape = shape ?? new List<Box2i>
-                {
-                    new Box2i(0, 0, 1, 4),
-                    new Box2i(0, 2, 3, 4),
-                    new Box2i(4, 0, 5, 4)
-                };
+                pseudoI.Shape =
+                    shape ?? new List<Box2i> { new Box2i(0, 0, 1, 4), new Box2i(0, 2, 3, 4), new Box2i(4, 0, 5, 4) };
             }
             else
             {
@@ -111,7 +141,8 @@ namespace Content.Server.SizeAttribute
             float density,
             float densityMultiplier,
             bool cosmeticOnly,
-            float? borgFixtureRadius)
+            float? borgFixtureRadius
+        )
         {
             if (scale <= 0f)
                 return;
@@ -142,7 +173,15 @@ namespace Content.Server.SizeAttribute
                                     radius = overrideRadius * scale;
                             }
 
-                            _physics.SetPositionRadius(uid, id, fixture, circle, circle.Position * scale, radius, manager);
+                            _physics.SetPositionRadius(
+                                uid,
+                                id,
+                                fixture,
+                                circle,
+                                circle.Position * scale,
+                                radius,
+                                manager
+                            );
                             break;
                         default:
                             // Skip unsupported shapes instead of crashing on initialization.

@@ -9,7 +9,8 @@ namespace Content.Server._Mono.Traits.Physical;
 /// </summary>
 public sealed class VigorSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     public override void Initialize()
     {
@@ -64,4 +65,3 @@ public sealed class VigorSystem : EntitySystem
         Dirty(ent, stamina);
     }
 }
-

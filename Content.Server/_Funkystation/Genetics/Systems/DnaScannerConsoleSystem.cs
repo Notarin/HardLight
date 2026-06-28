@@ -26,16 +26,35 @@ namespace Content.Server._Funkystation.Genetics.Systems;
 
 public sealed class DnaScannerConsoleSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly GeneticsSystem _genetics = default!;
-    [Dependency] private readonly GeneticShuffleSystem _shuffle = default!;
-    [Dependency] private readonly SharedMutationDiscoverySystem _discovery = default!;
-    [Dependency] private readonly SharedUserInterfaceSystem _ui = default!;
-    [Dependency] private readonly MutationUnlockTriggerSystem _unlockTrigger = default!;
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly DamageableSystem _damageable = default!;
+
+    [Dependency]
+    private readonly GeneticsSystem _genetics = default!;
+
+    [Dependency]
+    private readonly GeneticShuffleSystem _shuffle = default!;
+
+    [Dependency]
+    private readonly SharedMutationDiscoverySystem _discovery = default!;
+
+    [Dependency]
+    private readonly SharedUserInterfaceSystem _ui = default!;
+
+    [Dependency]
+    private readonly MutationUnlockTriggerSystem _unlockTrigger = default!;
 
     private const float SequencerButtonRadiationDamage = 0.2f;
     private const float ScrambleRadiationDamage = 15f;
@@ -147,8 +166,7 @@ public sealed class DnaScannerConsoleSystem : EntitySystem
     {
         var mutationId = msg.MutationId;
 
-        if (comp.CurrentSubject is { Valid: true } subject &&
-            TryComp<GeneticsComponent>(subject, out var genetics))
+        if (comp.CurrentSubject is { Valid: true } subject && TryComp<GeneticsComponent>(subject, out var genetics))
         {
             var mutation = genetics.Mutations.Find(m => m.Id == mutationId);
             if (mutation != null && mutation.RevealedSequence == mutation.OriginalSequence)
@@ -169,7 +187,11 @@ public sealed class DnaScannerConsoleSystem : EntitySystem
         SendUiUpdate(uid, comp, true);
     }
 
-    private void OnMedicalScannerInsert(EntityUid uid, MedicalScannerComponent component, EntInsertedIntoContainerMessage args)
+    private void OnMedicalScannerInsert(
+        EntityUid uid,
+        MedicalScannerComponent component,
+        EntInsertedIntoContainerMessage args
+    )
     {
         if (args.Container.ID != $"scanner-bodyContainer")
             return;
@@ -177,7 +199,11 @@ public sealed class DnaScannerConsoleSystem : EntitySystem
         NotifyLinkedConsoles(uid, args.Entity);
     }
 
-    private void OnMedicalScannerRemove(EntityUid uid, MedicalScannerComponent component, EntRemovedFromContainerMessage args)
+    private void OnMedicalScannerRemove(
+        EntityUid uid,
+        MedicalScannerComponent component,
+        EntRemovedFromContainerMessage args
+    )
     {
         if (args.Container.ID != $"scanner-bodyContainer")
             return;
@@ -209,10 +235,16 @@ public sealed class DnaScannerConsoleSystem : EntitySystem
         }
     }
 
-    private void OnSaveMutation(EntityUid uid, DnaScannerConsoleComponent comp, DnaScannerSaveMutationToStorageMessage msg)
+    private void OnSaveMutation(
+        EntityUid uid,
+        DnaScannerConsoleComponent comp,
+        DnaScannerSaveMutationToStorageMessage msg
+    )
     {
-        if (comp.CurrentSubject is not { Valid: true } subject ||
-            !TryComp<GeneticsComponent>(subject, out var genetics))
+        if (
+            comp.CurrentSubject is not { Valid: true } subject
+            || !TryComp<GeneticsComponent>(subject, out var genetics)
+        )
             return;
 
         var mutation = genetics.Mutations.Find(m => m.Id == msg.MutationId);
@@ -223,7 +255,11 @@ public sealed class DnaScannerConsoleSystem : EntitySystem
             SendUiUpdate(uid, comp, true);
     }
 
-    private void OnDeleteMutation(EntityUid uid, DnaScannerConsoleComponent comp, DnaScannerDeleteMutationFromStorageMessage msg)
+    private void OnDeleteMutation(
+        EntityUid uid,
+        DnaScannerConsoleComponent comp,
+        DnaScannerDeleteMutationFromStorageMessage msg
+    )
     {
         var mutationId = msg.MutationId;
 
@@ -236,15 +272,21 @@ public sealed class DnaScannerConsoleSystem : EntitySystem
             SendUiUpdate(uid, comp, true);
     }
 
-    private void OnSequencerButton(EntityUid uid, DnaScannerConsoleComponent comp, DnaScannerSequencerButtonPressedMessage msg)
+    private void OnSequencerButton(
+        EntityUid uid,
+        DnaScannerConsoleComponent comp,
+        DnaScannerSequencerButtonPressedMessage msg
+    )
     {
-        if (comp.CurrentSubject is not { Valid: true } subject ||
-            !TryComp<GeneticsComponent>(subject, out var genetics) ||
-            !TryComp<MobStateComponent>(subject, out var mobState) ||
-            mobState.CurrentState == MobState.Dead ||
-            !_proto.TryIndex<GeneticMutationPrototype>(msg.MutationId, out var proto) ||
-            proto.SequencerResistant ||
-            !_genetics.TryModifyMutationSequence(subject, genetics, msg.MutationId, msg.ButtonIndex, msg.NewBase))
+        if (
+            comp.CurrentSubject is not { Valid: true } subject
+            || !TryComp<GeneticsComponent>(subject, out var genetics)
+            || !TryComp<MobStateComponent>(subject, out var mobState)
+            || mobState.CurrentState == MobState.Dead
+            || !_proto.TryIndex<GeneticMutationPrototype>(msg.MutationId, out var proto)
+            || proto.SequencerResistant
+            || !_genetics.TryModifyMutationSequence(subject, genetics, msg.MutationId, msg.ButtonIndex, msg.NewBase)
+        )
         {
             _audio.PlayPvs(comp.SoundDeny, uid);
             return;
@@ -262,7 +304,10 @@ public sealed class DnaScannerConsoleSystem : EntitySystem
             _genetics.TryDeactivateMutation(subject, genetics, msg.MutationId);
 
         // Apply radiation damage
-        var damage = new DamageSpecifier(_proto.Index<DamageTypePrototype>("Radiation"), SequencerButtonRadiationDamage);
+        var damage = new DamageSpecifier(
+            _proto.Index<DamageTypePrototype>("Radiation"),
+            SequencerButtonRadiationDamage
+        );
         if (TryComp<DamageableComponent>(subject, out var damageable))
             _damageable.TryChangeDamage(subject, damage, ignoreResistances: true, damageable: damageable);
 
@@ -286,7 +331,10 @@ public sealed class DnaScannerConsoleSystem : EntitySystem
     {
         if (!_proto.TryIndex<GeneticMutationPrototype>(mutationId, out var proto) || !proto.Printable)
         {
-            _popup.PopupEntity(Loc.GetString("dna-scanner-print-corrupted", ("mutation", proto?.Name ?? "Unknown")), uid);
+            _popup.PopupEntity(
+                Loc.GetString("dna-scanner-print-corrupted", ("mutation", proto?.Name ?? "Unknown")),
+                uid
+            );
             _audio.PlayPvs(comp.SoundDeny, uid);
             return;
         }
@@ -315,7 +363,10 @@ public sealed class DnaScannerConsoleSystem : EntitySystem
 
     private void OnScrambleDna(EntityUid uid, DnaScannerConsoleComponent comp, DnaScannerScrambleDnaMessage msg)
     {
-        if (comp.CurrentSubject is not { Valid: true } subject || !TryComp<GeneticsComponent>(subject, out var genetics))
+        if (
+            comp.CurrentSubject is not { Valid: true } subject
+            || !TryComp<GeneticsComponent>(subject, out var genetics)
+        )
             return;
 
         _genetics.ScrambleDna(subject, genetics);
@@ -407,8 +458,10 @@ public sealed class DnaScannerConsoleSystem : EntitySystem
 
     private void DiscoverCompletedMutations(EntityUid uid, DnaScannerConsoleComponent comp)
     {
-        if (comp.CurrentSubject is not { Valid: true } subject ||
-            !TryComp<GeneticsComponent>(subject, out var genetics))
+        if (
+            comp.CurrentSubject is not { Valid: true } subject
+            || !TryComp<GeneticsComponent>(subject, out var genetics)
+        )
             return;
 
         foreach (var mutation in genetics.Mutations)
@@ -418,7 +471,11 @@ public sealed class DnaScannerConsoleSystem : EntitySystem
         }
     }
 
-    private GeneticistsConsoleBoundUserInterfaceState BuildUiState(EntityUid uid, DnaScannerConsoleComponent comp, bool fullUpdate)
+    private GeneticistsConsoleBoundUserInterfaceState BuildUiState(
+        EntityUid uid,
+        DnaScannerConsoleComponent comp,
+        bool fullUpdate
+    )
     {
         string? subjectName = null;
         string? healthStatus = null;
@@ -494,7 +551,7 @@ public sealed class DnaScannerConsoleSystem : EntitySystem
             MobState.Critical or MobState.Alive => TryComp<DamageableComponent>(uid, out var d)
                 ? MathF.Round((float)d.TotalDamage, 1).ToString()
                 : "0",
-            _ => null
+            _ => null,
         };
     }
 
@@ -509,7 +566,11 @@ public sealed class DnaScannerConsoleSystem : EntitySystem
         return MathF.Round(rad.Float(), 2);
     }
 
-    private void ProcessResearchTick(EntityUid uid, DnaScannerConsoleComponent console, ResearchPointSourceComponent source)
+    private void ProcessResearchTick(
+        EntityUid uid,
+        DnaScannerConsoleComponent console,
+        ResearchPointSourceComponent source
+    )
     {
         if (console.ActiveResearchQueue.Count == 0)
         {
@@ -568,7 +629,11 @@ public sealed class DnaScannerConsoleSystem : EntitySystem
         }
     }
 
-    private void UpdateResearchRate(EntityUid uid, DnaScannerConsoleComponent console, ResearchPointSourceComponent? source = null)
+    private void UpdateResearchRate(
+        EntityUid uid,
+        DnaScannerConsoleComponent console,
+        ResearchPointSourceComponent? source = null
+    )
     {
         if (!Resolve(uid, ref source, false))
             return;
@@ -594,7 +659,11 @@ public sealed class DnaScannerConsoleSystem : EntitySystem
         }
     }
 
-    public bool TryStartResearchingMutation(EntityUid uid, string mutationId, DnaScannerConsoleComponent? console = null)
+    public bool TryStartResearchingMutation(
+        EntityUid uid,
+        string mutationId,
+        DnaScannerConsoleComponent? console = null
+    )
     {
         if (!Resolve(uid, ref console))
             return false;
@@ -622,7 +691,11 @@ public sealed class DnaScannerConsoleSystem : EntitySystem
         return true;
     }
 
-    public bool TryCancelResearchingMutation(EntityUid uid, string mutationId, DnaScannerConsoleComponent? console = null)
+    public bool TryCancelResearchingMutation(
+        EntityUid uid,
+        string mutationId,
+        DnaScannerConsoleComponent? console = null
+    )
     {
         if (!Resolve(uid, ref console))
             return false;

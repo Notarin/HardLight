@@ -1,21 +1,26 @@
 using Content.Server.Administration;
-using Content.Shared.Administration;
 using Content.Shared._Mono.ShipRepair.Components;
+using Content.Shared.Administration;
 using Robust.Shared.Console;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 
 namespace Content.Server._Mono.ShipRepair;
+
 public sealed partial class ShipRepairSystem
 {
-    [Dependency] private readonly IConsoleHost _conHost = default!;
+    [Dependency]
+    private readonly IConsoleHost _conHost = default!;
 
     public void InitCommands()
     {
-        _conHost.RegisterCommand("repairgrid", "Repair a grid to snapshot", "repairgrid <uid>",
-            RepairGridCmd);
-        _conHost.RegisterCommand("snapshotgrid", "Snapshot a grid's current data for repair", "snapshotgrid <uid>",
-            SnapshotGridCmd);
+        _conHost.RegisterCommand("repairgrid", "Repair a grid to snapshot", "repairgrid <uid>", RepairGridCmd);
+        _conHost.RegisterCommand(
+            "snapshotgrid",
+            "Snapshot a grid's current data for repair",
+            "snapshotgrid <uid>",
+            SnapshotGridCmd
+        );
     }
 
     [AdminCommand(AdminFlags.Admin)]
@@ -66,9 +71,7 @@ public sealed partial class ShipRepairSystem
                 {
                     var origXform = Transform(origUid.Value);
                     // if it's not on another grid just teleport it
-                    if (origXform.Coordinates.TryDistance(EntityManager, coords, out var distance)
-                        && distance > 0.01f
-                    )
+                    if (origXform.Coordinates.TryDistance(EntityManager, coords, out var distance) && distance > 0.01f)
                         // delete it before making replacement, will troll anyone who stole it but this is an admin command and we do not care
                         QueueDel(origUid);
                     else

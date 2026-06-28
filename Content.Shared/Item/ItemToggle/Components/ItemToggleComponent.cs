@@ -44,6 +44,7 @@ public sealed partial class ItemToggleComponent : Component
     /// </summary>
     [DataField]
     public int AltPriority;
+
     // End Frontier
 
     /// <summary>

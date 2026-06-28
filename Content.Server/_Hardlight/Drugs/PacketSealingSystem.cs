@@ -15,16 +15,25 @@ namespace Content.Server._Hardlight.Drugs;
 /// </summary>
 public sealed class PacketSealingSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solution = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly SharedStorageSystem _storage = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedSolutionContainerSystem _solution = default!;
+
+    [Dependency]
+    private readonly SharedHandsSystem _hands = default!;
+
+    [Dependency]
+    private readonly SharedStorageSystem _storage = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
 
     public override void Initialize()
     {
         base.Initialize();
-        
+
         SubscribeLocalEvent<PacketSealingComponent, PacketSealDoAfterEvent>(OnSealDoAfter);
     }
 
@@ -98,8 +107,8 @@ public sealed class PacketSealingSystem : EntitySystem
     private bool TryPlaceInSameLocation(EntityUid oldPacket, EntityUid newPacket, EntityUid user)
     {
         var oldCoordinates = Transform(oldPacket).Coordinates;
-        
-        // Check if it's in user's hands  
+
+        // Check if it's in user's hands
         if (_hands.IsHolding(user, oldPacket, out var handName))
         {
             // Use proper container transfer - remove from hand into a temporary container,
@@ -112,8 +121,10 @@ public sealed class PacketSealingSystem : EntitySystem
         if (_container.TryGetContainingContainer(oldPacket, out var container))
         {
             // For storage containers, try to maintain the exact grid position
-            if (container.ID == StorageComponent.ContainerId && 
-                TryComp<StorageComponent>(container.Owner, out var storage))
+            if (
+                container.ID == StorageComponent.ContainerId
+                && TryComp<StorageComponent>(container.Owner, out var storage)
+            )
             {
                 // Get the storage location of the old packet
                 ItemStorageLocation? oldLocation = null;
@@ -128,9 +139,19 @@ public sealed class PacketSealingSystem : EntitySystem
                 // If we had a specific location, try to insert at the same spot
                 if (oldLocation.HasValue)
                 {
-                    if (_storage.ItemFitsInGridLocation((newPacket, null), (container.Owner, storage), oldLocation.Value))
+                    if (
+                        _storage.ItemFitsInGridLocation(
+                            (newPacket, null),
+                            (container.Owner, storage),
+                            oldLocation.Value
+                        )
+                    )
                     {
-                        _storage.TrySetItemStorageLocation((newPacket, null), (container.Owner, storage), oldLocation.Value);
+                        _storage.TrySetItemStorageLocation(
+                            (newPacket, null),
+                            (container.Owner, storage),
+                            oldLocation.Value
+                        );
                         return _container.Insert(newPacket, container);
                     }
                 }
@@ -138,7 +159,7 @@ public sealed class PacketSealingSystem : EntitySystem
                 // Fallback: insert normally if we can't preserve exact location
                 return _container.Insert(newPacket, container);
             }
-            
+
             // For non-storage containers (like hand containers), just insert normally
             _container.Remove(oldPacket, container);
             return _container.Insert(newPacket, container);
@@ -155,11 +176,11 @@ public sealed class PacketSealingSystem : EntitySystem
         return reagentId switch
         {
             "Bake" => "WrappedBakePackage",
-            "Rust" => "WrappedRustPackage", 
+            "Rust" => "WrappedRustPackage",
             "Grit" => "WrappedGritPackage",
             "Breakout" => "WrappedBreakoutPackage",
             "Widow" => "WrappedWidowPackage",
-            _ => null
+            _ => null,
         };
     }
 }

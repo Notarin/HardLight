@@ -3,7 +3,6 @@ using Robust.Shared.GameStates;
 
 namespace Content.Shared.Damage.Components;
 
-
 /// <summary>
 /// This component is added to entities that you want to damage the player
 /// if the player interacts with it. For example, if a player tries touching

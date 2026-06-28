@@ -9,9 +9,14 @@ namespace Content.Shared.Tools.Systems;
 
 public sealed class ToolRefinablSystem : EntitySystem
 {
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedToolSystem _toolSystem = default!;
+    [Dependency]
+    private readonly INetManager _net = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly SharedToolSystem _toolSystem = default!;
 
     public override void Initialize()
     {
@@ -32,7 +37,8 @@ public sealed class ToolRefinablSystem : EntitySystem
             component.RefineTime,
             component.QualityNeeded,
             new WelderRefineDoAfterEvent(),
-            fuel: component.RefineFuel);
+            fuel: component.RefineFuel
+        );
     }
 
     private void OnDoAfter(EntityUid uid, ToolRefinableComponent component, WelderRefineDoAfterEvent args)

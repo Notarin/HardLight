@@ -10,9 +10,14 @@ namespace Content.Shared.Atmos.Piping.Binary.Systems;
 
 public abstract class SharedGasVolumePumpSystem : EntitySystem
 {
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedPowerReceiverSystem _receiver = default!;
+    [Dependency]
+    private readonly ISharedAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SharedPowerReceiverSystem _receiver = default!;
 
     public override void Initialize()
     {
@@ -22,7 +27,9 @@ public abstract class SharedGasVolumePumpSystem : EntitySystem
 
         SubscribeLocalEvent<GasVolumePumpComponent, ExaminedEvent>(OnExamined);
         SubscribeLocalEvent<GasVolumePumpComponent, GasVolumePumpToggleStatusMessage>(OnToggleStatusMessage);
-        SubscribeLocalEvent<GasVolumePumpComponent, GasVolumePumpChangeTransferRateMessage>(OnTransferRateChangeMessage);
+        SubscribeLocalEvent<GasVolumePumpComponent, GasVolumePumpChangeTransferRateMessage>(
+            OnTransferRateChangeMessage
+        );
     }
 
     private void OnInit(Entity<GasVolumePumpComponent> ent, ref ComponentInit args)
@@ -35,30 +42,41 @@ public abstract class SharedGasVolumePumpSystem : EntitySystem
         UpdateAppearance(ent.Owner, ent.Comp);
     }
 
-    protected virtual void UpdateUi(Entity<GasVolumePumpComponent> entity)
-    {
+    protected virtual void UpdateUi(Entity<GasVolumePumpComponent> entity) { }
 
-    }
-
-    private void OnToggleStatusMessage(EntityUid uid, GasVolumePumpComponent pump, GasVolumePumpToggleStatusMessage args)
+    private void OnToggleStatusMessage(
+        EntityUid uid,
+        GasVolumePumpComponent pump,
+        GasVolumePumpToggleStatusMessage args
+    )
     {
         pump.Enabled = args.Enabled;
-        _adminLogger.Add(LogType.AtmosPowerChanged, LogImpact.Medium,
-            $"{ToPrettyString(args.Actor):player} set the power on {ToPrettyString(uid):device} to {args.Enabled}");
+        _adminLogger.Add(
+            LogType.AtmosPowerChanged,
+            LogImpact.Medium,
+            $"{ToPrettyString(args.Actor):player} set the power on {ToPrettyString(uid):device} to {args.Enabled}"
+        );
 
         Dirty(uid, pump);
         UpdateUi((uid, pump));
         UpdateAppearance(uid, pump);
     }
 
-    private void OnTransferRateChangeMessage(EntityUid uid, GasVolumePumpComponent pump, GasVolumePumpChangeTransferRateMessage args)
+    private void OnTransferRateChangeMessage(
+        EntityUid uid,
+        GasVolumePumpComponent pump,
+        GasVolumePumpChangeTransferRateMessage args
+    )
     {
         var max = pump.HighFlow ? pump.MaxTransferRate * 5f : pump.MaxTransferRate;
         pump.TransferRate = Math.Clamp(args.TransferRate, 0f, max);
         Dirty(uid, pump);
         UpdateUi((uid, pump));
-        _adminLogger.Add(LogType.AtmosVolumeChanged, LogImpact.Medium,
-            $"{ToPrettyString(args.Actor):player} set the transfer rate on {ToPrettyString(uid):device} to {args.TransferRate}");
+        _adminLogger.Add(
+            LogType.AtmosVolumeChanged,
+            LogImpact.Medium,
+            $"{ToPrettyString(args.Actor):player} set the transfer rate on {ToPrettyString(uid):device} to {args.TransferRate}"
+        );
     }
 
     private void OnExamined(EntityUid uid, GasVolumePumpComponent pump, ExaminedEvent args)
@@ -66,17 +84,24 @@ public abstract class SharedGasVolumePumpSystem : EntitySystem
         if (!Transform(uid).Anchored)
             return;
 
-        if (Loc.TryGetString("gas-volume-pump-system-examined",
+        if (
+            Loc.TryGetString(
+                "gas-volume-pump-system-examined",
                 out var str,
                 ("statusColor", "lightblue"), // TODO: change with volume?
                 ("rate", pump.TransferRate)
-            ))
+            )
+        )
         {
             args.PushMarkup(str);
         }
     }
 
-    protected void UpdateAppearance(EntityUid uid, GasVolumePumpComponent? pump = null, AppearanceComponent? appearance = null)
+    protected void UpdateAppearance(
+        EntityUid uid,
+        GasVolumePumpComponent? pump = null,
+        AppearanceComponent? appearance = null
+    )
     {
         if (!Resolve(uid, ref pump, ref appearance, false))
             return;

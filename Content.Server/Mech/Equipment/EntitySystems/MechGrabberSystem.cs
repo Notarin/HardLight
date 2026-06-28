@@ -1,14 +1,19 @@
 using System.Linq;
+using Content.Server.Ghost.Roles.Components; // Frontier
 using Content.Server.Interaction;
 using Content.Server.Mech.Equipment.Components;
 using Content.Server.Mech.Systems;
+using Content.Shared.Buckle; // Frontier
+using Content.Shared.Buckle.Components; // Frontier
 using Content.Shared.DoAfter;
 using Content.Shared.Interaction;
 using Content.Shared.Mech;
 using Content.Shared.Mech.Components;
 using Content.Shared.Mech.Equipment.Components;
+using Content.Shared.Mind.Components; // Frontier
 using Content.Shared.Mobs.Components;
 using Content.Shared.Wall;
+using Content.Shared.Whitelist; // Frontier
 using Robust.Server.GameObjects;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
@@ -16,11 +21,6 @@ using Robust.Shared.Containers;
 using Robust.Shared.Map;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
-using Content.Shared.Whitelist; // Frontier
-using Content.Shared.Buckle.Components; // Frontier
-using Content.Shared.Buckle; // Frontier
-using Content.Shared.Mind.Components; // Frontier
-using Content.Server.Ghost.Roles.Components; // Frontier
 
 namespace Content.Server.Mech.Equipment.EntitySystems;
 
@@ -29,14 +29,29 @@ namespace Content.Server.Mech.Equipment.EntitySystems;
 /// </summary>
 public sealed class MechGrabberSystem : EntitySystem
 {
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly MechSystem _mech = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly InteractionSystem _interaction = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!; // Frontier
-    [Dependency] private readonly SharedBuckleSystem _buckle = default!; // Frontier
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly MechSystem _mech = default!;
+
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfter = default!;
+
+    [Dependency]
+    private readonly InteractionSystem _interaction = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly TransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelist = default!; // Frontier
+
+    [Dependency]
+    private readonly SharedBuckleSystem _buckle = default!; // Frontier
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -56,8 +71,10 @@ public sealed class MechGrabberSystem : EntitySystem
         if (args.Message is not MechGrabberEjectMessage msg)
             return;
 
-        if (!TryComp<MechEquipmentComponent>(uid, out var equipmentComponent) ||
-            equipmentComponent.EquipmentOwner == null)
+        if (
+            !TryComp<MechEquipmentComponent>(uid, out var equipmentComponent)
+            || equipmentComponent.EquipmentOwner == null
+        )
             return;
         var mech = equipmentComponent.EquipmentOwner.Value;
 
@@ -98,8 +115,10 @@ public sealed class MechGrabberSystem : EntitySystem
 
     private void OnEquipmentRemoved(EntityUid uid, MechGrabberComponent component, ref MechEquipmentRemovedEvent args)
     {
-        if (!TryComp<MechEquipmentComponent>(uid, out var equipmentComponent) ||
-            equipmentComponent.EquipmentOwner == null)
+        if (
+            !TryComp<MechEquipmentComponent>(uid, out var equipmentComponent)
+            || equipmentComponent.EquipmentOwner == null
+        )
             return;
         var mech = equipmentComponent.EquipmentOwner.Value;
 
@@ -110,7 +129,11 @@ public sealed class MechGrabberSystem : EntitySystem
         }
     }
 
-    private void OnAttemptRemove(EntityUid uid, MechGrabberComponent component, ref AttemptRemoveMechEquipmentEvent args)
+    private void OnAttemptRemove(
+        EntityUid uid,
+        MechGrabberComponent component,
+        ref AttemptRemoveMechEquipmentEvent args
+    )
     {
         args.Cancelled = component.ItemContainer.ContainedEntities.Any();
     }
@@ -125,7 +148,7 @@ public sealed class MechGrabberSystem : EntitySystem
         var state = new MechGrabberUiState
         {
             Contents = GetNetEntityList(component.ItemContainer.ContainedEntities.ToList()),
-            MaxContents = component.MaxContents
+            MaxContents = component.MaxContents,
         };
         args.States.Add(GetNetEntity(uid), state);
     }
@@ -139,9 +162,11 @@ public sealed class MechGrabberSystem : EntitySystem
         if (args.Target == args.User || component.DoAfter != null)
             return;
 
-        if (TryComp<PhysicsComponent>(target, out var physics) && physics.BodyType == BodyType.Static ||
-            HasComp<WallMountComponent>(target) ||
-            HasComp<MobStateComponent>(target))
+        if (
+            TryComp<PhysicsComponent>(target, out var physics) && physics.BodyType == BodyType.Static
+            || HasComp<WallMountComponent>(target)
+            || HasComp<MobStateComponent>(target)
+        )
         {
             return;
         }
@@ -166,9 +191,17 @@ public sealed class MechGrabberSystem : EntitySystem
 
         args.Handled = true;
         component.AudioStream = _audio.PlayPvs(component.GrabSound, uid)?.Entity;
-        var doAfterArgs = new DoAfterArgs(EntityManager, args.User, component.GrabDelay, new GrabberDoAfterEvent(), uid, target: target, used: uid)
+        var doAfterArgs = new DoAfterArgs(
+            EntityManager,
+            args.User,
+            component.GrabDelay,
+            new GrabberDoAfterEvent(),
+            uid,
+            target: target,
+            used: uid
+        )
         {
-            BreakOnMove = true
+            BreakOnMove = true,
         };
 
         _doAfter.TryStartDoAfter(doAfterArgs, out component.DoAfter);
@@ -187,7 +220,10 @@ public sealed class MechGrabberSystem : EntitySystem
         if (args.Handled || args.Args.Target == null)
             return;
 
-        if (!TryComp<MechEquipmentComponent>(uid, out var equipmentComponent) || equipmentComponent.EquipmentOwner == null)
+        if (
+            !TryComp<MechEquipmentComponent>(uid, out var equipmentComponent)
+            || equipmentComponent.EquipmentOwner == null
+        )
             return;
         if (!_mech.TryChangeEnergy(equipmentComponent.EquipmentOwner.Value, component.GrabEnergyDelta))
             return;
@@ -206,7 +242,7 @@ public sealed class MechGrabberSystem : EntitySystem
         if (TryComp<ContainerManagerComponent>(args.Args.Target, out var containerManager))
         {
             EntityCoordinates? coords = null;
-            if (TryComp(equipmentComponent.EquipmentOwner, out TransformComponent? xform)) 
+            if (TryComp(equipmentComponent.EquipmentOwner, out TransformComponent? xform))
                 coords = xform.Coordinates;
 
             List<EntityUid> toRemove = new();
@@ -215,9 +251,10 @@ public sealed class MechGrabberSystem : EntitySystem
                 toRemove.Clear();
                 foreach (var contained in container.Value.ContainedEntities)
                 {
-                    if (HasComp<GhostRoleComponent>(contained)
-                        || TryComp<MindContainerComponent>(contained, out var mindContainer)
-                        && mindContainer.HasMind)
+                    if (
+                        HasComp<GhostRoleComponent>(contained)
+                        || TryComp<MindContainerComponent>(contained, out var mindContainer) && mindContainer.HasMind
+                    )
                     {
                         toRemove.Add(contained);
                     }

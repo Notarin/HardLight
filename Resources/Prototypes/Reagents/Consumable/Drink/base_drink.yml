@@ -11,15 +11,15 @@
         factor: 3
   reactiveEffects:
     Extinguish:
-      methods: [ Touch ]
+      methods: [Touch]
       effects:
       - !type:ExtinguishReaction
   plantMetabolism:
   - !type:PlantAdjustWater
     amount: 1
   tileReactions:
-  - !type:ExtinguishTileReaction { }
-  - !type:SpillIfPuddlePresentTileReaction { }
+  - !type:ExtinguishTileReaction {}
+  - !type:SpillIfPuddlePresentTileReaction {}
 
 - type: reagent
   id: BaseSoda
@@ -60,7 +60,7 @@
         amount: 0.06
   reactiveEffects:
     Flammable:
-      methods: [ Touch ]
+      methods: [Touch]
       effects:
       - !type:FlammableReaction
   tileReactions:

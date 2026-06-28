@@ -11,10 +11,7 @@ public sealed class AmmoBar : Control
     private int _value;
     public int Value
     {
-        get
-        {
-            return _value;
-        }
+        get { return _value; }
         set
         {
             _value = value;
@@ -26,10 +23,7 @@ public sealed class AmmoBar : Control
     private int _maxValue;
     public int MaxValue
     {
-        get
-        {
-            return _maxValue;
-        }
+        get { return _maxValue; }
         set
         {
             _maxValue = value;
@@ -46,33 +40,34 @@ public sealed class AmmoBar : Control
         HorizontalExpand = true;
         VerticalAlignment = VAlignment.Center;
 
-        AddChild(new BoxContainer
-        {
-            Orientation = BoxContainer.LayoutOrientation.Horizontal,
-            HorizontalExpand = true,
-            Margin = new Thickness(0, 1),
-            Children =
+        AddChild(
+            new BoxContainer
             {
-                new Control { MinSize = new Vector2(5, 0) },
-                new Control
+                Orientation = BoxContainer.LayoutOrientation.Horizontal,
+                HorizontalExpand = true,
+                Margin = new Thickness(0, 1),
+                Children =
                 {
-                    HorizontalExpand = true,
-                    MaxHeight = 18,
-                    Children =
+                    new Control { MinSize = new Vector2(5, 0) },
+                    new Control
                     {
-                        (_bar = new ProgressBar
+                        HorizontalExpand = true,
+                        MaxHeight = 18,
+                        Children =
                         {
-                            MinValue = 0,
-                        }),
-                        (_label = new Label
-                        {
-                            StyleClasses = { StyleNano.StyleClassItemStatus },
-                            Align = Label.AlignMode.Center
-                        })
-                    }
+                            (_bar = new ProgressBar { MinValue = 0 }),
+                            (
+                                _label = new Label
+                                {
+                                    StyleClasses = { StyleNano.StyleClassItemStatus },
+                                    Align = Label.AlignMode.Center,
+                                }
+                            ),
+                        },
+                    },
+                    new Control { MinSize = new Vector2(5, 0) },
                 },
-                new Control { MinSize = new Vector2(5, 0) },
             }
-        });
+        );
     }
 }

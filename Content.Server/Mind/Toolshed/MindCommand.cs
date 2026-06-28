@@ -33,7 +33,6 @@ public sealed class MindCommand : ToolshedCommand
     {
         _mind ??= GetSys<SharedMindSystem>();
 
-
         if (!_mind.TryGetMind(player, out var mindId, out var mind))
         {
             ctx.ReportError(new SessionHasNoEntityError(player));

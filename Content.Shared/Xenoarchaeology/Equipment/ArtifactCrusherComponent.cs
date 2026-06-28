@@ -27,13 +27,21 @@ public sealed partial class ArtifactCrusherComponent : Component
     /// <summary>
     /// When the current crushing will end.
     /// </summary>
-    [DataField(customTypeSerializer: typeof(TimeOffsetSerializer)), ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
+    [
+        DataField(customTypeSerializer: typeof(TimeOffsetSerializer)),
+        ViewVariables(VVAccess.ReadWrite),
+        AutoNetworkedField
+    ]
     public TimeSpan CrushEndTime;
 
     /// <summary>
     /// The next second. Used to apply damage over time.
     /// </summary>
-    [DataField(customTypeSerializer: typeof(TimeOffsetSerializer)), ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
+    [
+        DataField(customTypeSerializer: typeof(TimeOffsetSerializer)),
+        ViewVariables(VVAccess.ReadWrite),
+        AutoNetworkedField
+    ]
     public TimeSpan NextSecond;
 
     /// <summary>
@@ -112,5 +120,5 @@ public sealed partial class ArtifactCrusherComponent : Component
 [Serializable, NetSerializable]
 public enum ArtifactCrusherVisuals : byte
 {
-    Crushing
+    Crushing,
 }

@@ -23,7 +23,6 @@
   engine:
   - Uranium
 
-
 - type: gameMap
   id: Stalker
   mapName: 'AI Stalker'
@@ -33,11 +32,10 @@
     Stalker:
       stationProto: StandardFrontierSecurityVessel
       components:
-        - type: StationNameSetup
-          mapNameTemplate: 'Stalker {1}'
-          nameGenerator:
-            !type:NanotrasenNameGenerator
-            prefixCreator: '14'
-        - type: StationJobs
-          availableJobs: {}
+      - type: StationNameSetup
+        mapNameTemplate: 'Stalker {1}'
+        nameGenerator: !type:NanotrasenNameGenerator
+          prefixCreator: '14'
+      - type: StationJobs
+        availableJobs: {}
 

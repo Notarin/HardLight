@@ -12,8 +12,11 @@ namespace Content.Client._VRS.Planet;
 /// </summary>
 public sealed class LandgrabPlotBorderSystem : EntitySystem
 {
-    [Dependency] private readonly IOverlayManager _overlays = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
+    [Dependency]
+    private readonly IOverlayManager _overlays = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
 
     private LandgrabPlotBorderOverlay? _overlay;
 

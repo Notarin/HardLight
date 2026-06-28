@@ -1,3 +1,4 @@
+using System.Globalization;
 using Content.Server.Antag;
 using Content.Server.Chat.Systems;
 using Content.Server.GameTicking.Rules.Components;
@@ -17,23 +18,43 @@ using Content.Shared.Roles;
 using Content.Shared.Zombies;
 using Robust.Shared.Player;
 using Robust.Shared.Timing;
-using System.Globalization;
 
 namespace Content.Server.GameTicking.Rules;
 
 public sealed class ZombieRuleSystem : GameRuleSystem<ZombieRuleComponent>
 {
-    [Dependency] private readonly AntagSelectionSystem _antag = default!;
-    [Dependency] private readonly ChatSystem _chat = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly ISharedPlayerManager _player = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly RoundEndSystem _roundEnd = default!;
-    [Dependency] private readonly SharedMindSystem _mindSystem = default!;
-    [Dependency] private readonly SharedRoleSystem _roles = default!;
-    [Dependency] private readonly StationSystem _station = default!;
-    [Dependency] private readonly ZombieSystem _zombie = default!;
+    [Dependency]
+    private readonly AntagSelectionSystem _antag = default!;
+
+    [Dependency]
+    private readonly ChatSystem _chat = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly ISharedPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly MobStateSystem _mobState = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly RoundEndSystem _roundEnd = default!;
+
+    [Dependency]
+    private readonly SharedMindSystem _mindSystem = default!;
+
+    [Dependency]
+    private readonly SharedRoleSystem _roles = default!;
+
+    [Dependency]
+    private readonly StationSystem _station = default!;
+
+    [Dependency]
+    private readonly ZombieSystem _zombie = default!;
 
     public override void Initialize()
     {
@@ -55,10 +76,12 @@ public sealed class ZombieRuleSystem : GameRuleSystem<ZombieRuleComponent>
         args.Append(Loc.GetString("zombie-infection-greeting"));
     }
 
-    protected override void AppendRoundEndText(EntityUid uid,
+    protected override void AppendRoundEndText(
+        EntityUid uid,
         ZombieRuleComponent component,
         GameRuleComponent gameRule,
-        ref RoundEndTextAppendEvent args)
+        ref RoundEndTextAppendEvent args
+    )
     {
         base.AppendRoundEndText(uid, component, gameRule, ref args);
 
@@ -70,9 +93,19 @@ public sealed class ZombieRuleSystem : GameRuleSystem<ZombieRuleComponent>
         else if (fraction <= 0.25)
             args.AddLine(Loc.GetString("zombie-round-end-amount-low"));
         else if (fraction <= 0.5)
-            args.AddLine(Loc.GetString("zombie-round-end-amount-medium", ("percent", Math.Round((fraction * 100), 2).ToString(CultureInfo.InvariantCulture))));
+            args.AddLine(
+                Loc.GetString(
+                    "zombie-round-end-amount-medium",
+                    ("percent", Math.Round((fraction * 100), 2).ToString(CultureInfo.InvariantCulture))
+                )
+            );
         else if (fraction < 1)
-            args.AddLine(Loc.GetString("zombie-round-end-amount-high", ("percent", Math.Round((fraction * 100), 2).ToString(CultureInfo.InvariantCulture))));
+            args.AddLine(
+                Loc.GetString(
+                    "zombie-round-end-amount-high",
+                    ("percent", Math.Round((fraction * 100), 2).ToString(CultureInfo.InvariantCulture))
+                )
+            );
         else
             args.AddLine(Loc.GetString("zombie-round-end-amount-all"));
 
@@ -80,9 +113,9 @@ public sealed class ZombieRuleSystem : GameRuleSystem<ZombieRuleComponent>
         args.AddLine(Loc.GetString("zombie-round-end-initial-count", ("initialCount", antags.Count)));
         foreach (var (_, data, entName) in antags)
         {
-            args.AddLine(Loc.GetString("zombie-round-end-user-was-initial",
-                ("name", entName),
-                ("username", data.UserName)));
+            args.AddLine(
+                Loc.GetString("zombie-round-end-user-was-initial", ("name", entName), ("username", data.UserName))
+            );
         }
 
         var healthy = GetHealthyHumans();
@@ -96,15 +129,17 @@ public sealed class ZombieRuleSystem : GameRuleSystem<ZombieRuleComponent>
         {
             var meta = MetaData(survivor);
             var username = string.Empty;
-            if (_mindSystem.TryGetMind(survivor, out _, out var mind) &&
-                _player.TryGetSessionById(mind.UserId, out var session))
+            if (
+                _mindSystem.TryGetMind(survivor, out _, out var mind)
+                && _player.TryGetSessionById(mind.UserId, out var session)
+            )
             {
                 username = session.Name;
             }
 
-            args.AddLine(Loc.GetString("zombie-round-end-user-was-survivor",
-                ("name", meta.EntityName),
-                ("username", username)));
+            args.AddLine(
+                Loc.GetString("zombie-round-end-user-was-survivor", ("name", meta.EntityName), ("username", username))
+            );
         }
     }
 
@@ -117,11 +152,18 @@ public sealed class ZombieRuleSystem : GameRuleSystem<ZombieRuleComponent>
         if (healthy.Count == 1) // Only one human left. spooky
             _popup.PopupEntity(Loc.GetString("zombie-alone"), healthy[0], healthy[0]);
 
-        if (GetInfectedFraction(false) > zombieRuleComponent.ZombieShuttleCallPercentage && !_roundEnd.IsRoundEndRequested())
+        if (
+            GetInfectedFraction(false) > zombieRuleComponent.ZombieShuttleCallPercentage
+            && !_roundEnd.IsRoundEndRequested()
+        )
         {
             foreach (var station in _station.GetStations())
             {
-                _chat.DispatchStationAnnouncement(station, Loc.GetString("zombie-shuttle-call"), colorOverride: Color.Crimson);
+                _chat.DispatchStationAnnouncement(
+                    station,
+                    Loc.GetString("zombie-shuttle-call"),
+                    colorOverride: Color.Crimson
+                );
             }
             _roundEnd.RequestRoundEnd(null, false);
         }
@@ -132,14 +174,24 @@ public sealed class ZombieRuleSystem : GameRuleSystem<ZombieRuleComponent>
             _roundEnd.EndRound();
     }
 
-    protected override void Started(EntityUid uid, ZombieRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
+    protected override void Started(
+        EntityUid uid,
+        ZombieRuleComponent component,
+        GameRuleComponent gameRule,
+        GameRuleStartedEvent args
+    )
     {
         base.Started(uid, component, gameRule, args);
 
         component.NextRoundEndCheck = _timing.CurTime + component.EndCheckDelay;
     }
 
-    protected override void ActiveTick(EntityUid uid, ZombieRuleComponent component, GameRuleComponent gameRule, float frameTime)
+    protected override void ActiveTick(
+        EntityUid uid,
+        ZombieRuleComponent component,
+        GameRuleComponent gameRule,
+        float frameTime
+    )
     {
         base.ActiveTick(uid, component, gameRule, frameTime);
         if (!component.NextRoundEndCheck.HasValue || component.NextRoundEndCheck > _timing.CurTime)
@@ -173,7 +225,7 @@ public sealed class ZombieRuleSystem : GameRuleSystem<ZombieRuleComponent>
             zombieCount++;
         }
 
-        return zombieCount / (float) (players.Count + zombieCount);
+        return zombieCount / (float)(players.Count + zombieCount);
     }
 
     /// <summary>
@@ -195,7 +247,12 @@ public sealed class ZombieRuleSystem : GameRuleSystem<ZombieRuleComponent>
             }
         }
 
-        var players = AllEntityQuery<HumanoidAppearanceComponent, ActorComponent, MobStateComponent, TransformComponent>();
+        var players = AllEntityQuery<
+            HumanoidAppearanceComponent,
+            ActorComponent,
+            MobStateComponent,
+            TransformComponent
+        >();
         var zombers = GetEntityQuery<ZombieComponent>();
         while (players.MoveNext(out var uid, out _, out _, out var mob, out var xform))
         {

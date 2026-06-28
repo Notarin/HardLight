@@ -11,10 +11,17 @@ namespace Content.Shared.Repairable;
 
 public sealed partial class RepairableSystem : EntitySystem
 {
-    [Dependency] private readonly SharedToolSystem _toolSystem = default!;
-    [Dependency] private readonly DamageableSystem _damageableSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
+    [Dependency]
+    private readonly SharedToolSystem _toolSystem = default!;
+
+    [Dependency]
+    private readonly DamageableSystem _damageableSystem = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly ISharedAdminLogManager _adminLogger = default!;
 
     public override void Initialize()
     {
@@ -22,7 +29,7 @@ public sealed partial class RepairableSystem : EntitySystem
         SubscribeLocalEvent<RepairableComponent, RepairFinishedEvent>(OnRepairFinished);
     }
 
-    private void OnRepairFinished(Entity<RepairableComponent> ent,  ref RepairFinishedEvent args)
+    private void OnRepairFinished(Entity<RepairableComponent> ent, ref RepairFinishedEvent args)
     {
         if (args.Cancelled)
             return;
@@ -32,15 +39,26 @@ public sealed partial class RepairableSystem : EntitySystem
 
         if (ent.Comp.Damage != null)
         {
-            var damageChanged = _damageableSystem.TryChangeDamage(ent.Owner, ent.Comp.Damage, true, false, origin: args.User);
-            _adminLogger.Add(LogType.Healed, $"{ToPrettyString(args.User):user} repaired {ToPrettyString(ent.Owner):target} by {damageChanged?.GetTotal()}");
+            var damageChanged = _damageableSystem.TryChangeDamage(
+                ent.Owner,
+                ent.Comp.Damage,
+                true,
+                false,
+                origin: args.User
+            );
+            _adminLogger.Add(
+                LogType.Healed,
+                $"{ToPrettyString(args.User):user} repaired {ToPrettyString(ent.Owner):target} by {damageChanged?.GetTotal()}"
+            );
         }
-
         else
         {
             // Repair all damage
             _damageableSystem.SetAllDamage(ent.Owner, damageable, 0);
-            _adminLogger.Add(LogType.Healed, $"{ToPrettyString(args.User):user} repaired {ToPrettyString(ent.Owner):target} back to full health");
+            _adminLogger.Add(
+                LogType.Healed,
+                $"{ToPrettyString(args.User):user} repaired {ToPrettyString(ent.Owner):target} back to full health"
+            );
         }
 
         var str = Loc.GetString("comp-repairable-repair", ("target", ent.Owner), ("tool", args.Used!));
@@ -71,7 +89,15 @@ public sealed partial class RepairableSystem : EntitySystem
         }
 
         // Run the repairing doafter
-        args.Handled = _toolSystem.UseTool(args.Used, args.User, ent.Owner, delay, ent.Comp.QualityNeeded, new RepairFinishedEvent(), ent.Comp.FuelCost);
+        args.Handled = _toolSystem.UseTool(
+            args.Used,
+            args.User,
+            ent.Owner,
+            delay,
+            ent.Comp.QualityNeeded,
+            new RepairFinishedEvent(),
+            ent.Comp.FuelCost
+        );
     }
 }
 

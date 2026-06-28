@@ -1,9 +1,9 @@
-using Content.Shared.Abilities.Psionics;
-using Content.Shared.Actions.Events;
-using Content.Shared.Mobs.Components;
 using System.Linq;
 using System.Numerics;
+using Content.Shared.Abilities.Psionics;
+using Content.Shared.Actions.Events;
 using Content.Shared.Database;
+using Content.Shared.Mobs.Components;
 using Robust.Shared.Collections;
 
 namespace Content.Server.Abilities.Psionics;
@@ -15,14 +15,20 @@ public sealed partial class AnomalyPowerSystem
     ///     while substituting their Psionic casting stats for "Severity and Stability".
     ///     Essentially, scramble the location of entities near the caster(possibly to include the caster).
     /// </summary>
-    private void DoBluespaceAnomalyEffects(EntityUid uid, PsionicComponent component, AnomalyPowerActionEvent args, bool overcharged = false)
+    private void DoBluespaceAnomalyEffects(
+        EntityUid uid,
+        PsionicComponent component,
+        AnomalyPowerActionEvent args,
+        bool overcharged = false
+    )
     {
         if (args.Bluespace is null)
             return;
 
         if (overcharged)
             BluespaceSupercrit(uid, component, args);
-        else BluespacePulse(uid, component, args);
+        else
+            BluespacePulse(uid, component, args);
     }
 
     private void BluespaceSupercrit(EntityUid uid, PsionicComponent component, AnomalyPowerActionEvent args)
@@ -62,8 +68,10 @@ public sealed partial class AnomalyPowerSystem
         var coords = new ValueList<Vector2>();
         foreach (var ent in allEnts)
         {
-            if (args.Bluespace!.Value.PulseTeleportsCaster && ent == uid
-                || !xformQuery.TryGetComponent(ent, out var allXform))
+            if (
+                args.Bluespace!.Value.PulseTeleportsCaster && ent == uid
+                || !xformQuery.TryGetComponent(ent, out var allXform)
+            )
                 continue;
 
             coords.Add(_xform.GetWorldPosition(allXform));
@@ -72,7 +80,7 @@ public sealed partial class AnomalyPowerSystem
         _random.Shuffle(coords);
         for (var i = 0; i < allEnts.Count; i++)
         {
-           // _adminLogger.Add(LogType.Teleport, $"{ToPrettyString(allEnts[i])} has been shuffled to {coords[i]} by the {ToPrettyString(uid)} at {xform.Coordinates}");
+            // _adminLogger.Add(LogType.Teleport, $"{ToPrettyString(allEnts[i])} has been shuffled to {coords[i]} by the {ToPrettyString(uid)} at {xform.Coordinates}");
             _xform.SetWorldPosition(allEnts[i], coords[i]);
         }
     }

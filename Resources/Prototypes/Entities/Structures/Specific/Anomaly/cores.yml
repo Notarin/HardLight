@@ -17,8 +17,8 @@
     visuals:
       enum.AnomalyCoreVisuals.Decaying:
         decay:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
   - type: Item
     size: Tiny
   - type: EmitSoundOnUse #placeholder for future unical mechanic
@@ -159,7 +159,7 @@
     castShadows: false
 
 - type: entity
-  parent: [ BaseAnomalyCore, BaseShadow ]
+  parent: [BaseAnomalyCore, BaseShadow]
   id: AnomalyCoreShadow
   suffix: Shadow
   components:
@@ -335,7 +335,7 @@
     castShadows: false
 
 - type: entity
-  parent: [ BaseAnomalyInertCore, BaseShadow ]
+  parent: [BaseAnomalyInertCore, BaseShadow]
   id: AnomalyCoreShadowInert
   suffix: Shadow, Inert
   components:

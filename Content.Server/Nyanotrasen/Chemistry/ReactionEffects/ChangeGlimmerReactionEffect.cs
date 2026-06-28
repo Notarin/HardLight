@@ -1,16 +1,19 @@
 using Content.Shared.Chemistry.Reagent;
+using Content.Shared.EntityEffects;
 using Content.Shared.Psionics.Glimmer;
 using Robust.Shared.Prototypes;
-using Content.Shared.EntityEffects;
 
 namespace Content.Server.Chemistry.ReactionEffects;
 
 [DataDefinition]
 public sealed partial class ChangeGlimmerReactionEffect : EntityEffect
 {
-    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys)
-        => Loc.GetString("reagent-effect-guidebook-change-glimmer-reaction-effect", ("chance", Probability),
-            ("count", Count));
+    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys) =>
+        Loc.GetString(
+            "reagent-effect-guidebook-change-glimmer-reaction-effect",
+            ("chance", Probability),
+            ("count", Count)
+        );
 
     /// <summary>
     ///     Added to glimmer when reaction occurs.

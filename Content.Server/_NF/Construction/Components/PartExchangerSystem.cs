@@ -3,32 +3,45 @@ using Content.Server.Construction;
 using Content.Server.Construction.Components;
 using Content.Server.Stack;
 using Content.Server.Storage.EntitySystems;
-using Content.Shared.DoAfter;
 using Content.Shared.Construction.Components;
+using Content.Shared.Construction.Prototypes;
+using Content.Shared.DoAfter;
 using Content.Shared.Exchanger;
 using Content.Shared.Interaction;
 using Content.Shared.Popups;
+using Content.Shared.Stacks;
 using Content.Shared.Storage;
-using Robust.Shared.Containers;
-using Robust.Shared.Utility;
 using Content.Shared.Wires;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Collections;
+using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
-using Content.Shared.Stacks;
-using Content.Shared.Construction.Prototypes;
+using Robust.Shared.Utility;
 
 namespace Content.Server._NF.Construction;
 
 public sealed class PartExchangerSystem : EntitySystem
 {
-    [Dependency] private readonly ConstructionSystem _construction = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly StorageSystem _storage = default!;
-    [Dependency] private readonly StackSystem _stack = default!;
+    [Dependency]
+    private readonly ConstructionSystem _construction = default!;
+
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfter = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly StorageSystem _storage = default!;
+
+    [Dependency]
+    private readonly StackSystem _stack = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -87,7 +100,12 @@ public sealed class PartExchangerSystem : EntitySystem
         args.Handled = true;
     }
 
-    private void TryExchangeMachineParts(MachineComponent machine, EntityUid uid, EntityUid storageUid, Dictionary<ProtoId<MachinePartPrototype>, List<(EntityUid part, UpgradePartState state)>> partsByType)
+    private void TryExchangeMachineParts(
+        MachineComponent machine,
+        EntityUid uid,
+        EntityUid storageUid,
+        Dictionary<ProtoId<MachinePartPrototype>, List<(EntityUid part, UpgradePartState state)>> partsByType
+    )
     {
         var board = machine.BoardContainer.ContainedEntities.FirstOrNull();
 
@@ -146,7 +164,9 @@ public sealed class PartExchangerSystem : EntitySystem
                         else
                         {
                             // Partial stack is needed, split off what we need, ensure the new entry is moved.
-                            EntityUid splitStack = _stack.Split(part, partsNeeded, Transform(uid).Coordinates, state.Stack) ?? EntityUid.Invalid;
+                            EntityUid splitStack =
+                                _stack.Split(part, partsNeeded, Transform(uid).Coordinates, state.Stack)
+                                ?? EntityUid.Invalid;
 
                             if (splitStack == EntityUid.Invalid)
                                 continue;
@@ -197,7 +217,12 @@ public sealed class PartExchangerSystem : EntitySystem
         _construction.RefreshParts(uid, machine);
     }
 
-    private void TryConstructMachineParts(MachineFrameComponent machine, EntityUid uid, EntityUid storageEnt, Dictionary<ProtoId<MachinePartPrototype>, List<(EntityUid part, UpgradePartState state)>> partsByType)
+    private void TryConstructMachineParts(
+        MachineFrameComponent machine,
+        EntityUid uid,
+        EntityUid storageEnt,
+        Dictionary<ProtoId<MachinePartPrototype>, List<(EntityUid part, UpgradePartState state)>> partsByType
+    )
     {
         var board = machine.BoardContainer.ContainedEntities.FirstOrNull();
 
@@ -262,7 +287,9 @@ public sealed class PartExchangerSystem : EntitySystem
                         else
                         {
                             // Partial stack is needed, split off what we need, ensure the new entry is moved.
-                            EntityUid splitStack = _stack.Split(part, partsNeeded, Transform(uid).Coordinates, state.Stack) ?? EntityUid.Invalid;
+                            EntityUid splitStack =
+                                _stack.Split(part, partsNeeded, Transform(uid).Coordinates, state.Stack)
+                                ?? EntityUid.Invalid;
 
                             if (splitStack == EntityUid.Invalid)
                                 continue;
@@ -326,8 +353,7 @@ public sealed class PartExchangerSystem : EntitySystem
 
         if (TryComp<WiresPanelComponent>(args.Target, out var panel) && !panel.Open)
         {
-            _popup.PopupEntity(Loc.GetString("construction-step-condition-wire-panel-open"),
-                args.Target.Value);
+            _popup.PopupEntity(Loc.GetString("construction-step-condition-wire-panel-open"), args.Target.Value);
             return;
         }
 
@@ -337,10 +363,20 @@ public sealed class PartExchangerSystem : EntitySystem
             component.AudioStream = audioStream.Value.Entity;
         }
 
-        _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, component.ExchangeDuration, new ExchangerDoAfterEvent(), uid, target: args.Target, used: uid)
-        {
-            BreakOnDamage = true,
-            BreakOnMove = true
-        });
+        _doAfter.TryStartDoAfter(
+            new DoAfterArgs(
+                EntityManager,
+                args.User,
+                component.ExchangeDuration,
+                new ExchangerDoAfterEvent(),
+                uid,
+                target: args.Target,
+                used: uid
+            )
+            {
+                BreakOnDamage = true,
+                BreakOnMove = true,
+            }
+        );
     }
 }

@@ -10,9 +10,9 @@
     - state: base
     - state: base_unlit
       shader: unshaded
-    - map: [ "enum.ClockVisualLayers.MinuteHand"]
+    - map: ["enum.ClockVisualLayers.MinuteHand"]
       shader: unshaded
-    - map: [ "enum.ClockVisualLayers.HourHand"]
+    - map: ["enum.ClockVisualLayers.HourHand"]
       shader: unshaded
   - type: Item
     size: Small

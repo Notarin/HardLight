@@ -1,4 +1,3 @@
-
 using Content.Shared._NF.Cargo.Components;
 using Content.Shared.Examine;
 using Robust.Shared.Containers;
@@ -10,7 +9,9 @@ namespace Content.Shared._NF.Cargo.EntitySystems;
 /// </summary>
 public sealed class CrateStorageRackSystem : EntitySystem
 {
-    [Dependency] private readonly SharedContainerSystem _container = default!;
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
+
     public override void Initialize()
     {
         base.Initialize();

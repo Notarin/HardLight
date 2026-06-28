@@ -22,15 +22,23 @@ public sealed partial class ServerApi
         });
     }
 
-    private void RegisterActorHandler(HttpMethod method, string exactPath, Func<IStatusHandlerContext, Actor, Task> handler)
+    private void RegisterActorHandler(
+        HttpMethod method,
+        string exactPath,
+        Func<IStatusHandlerContext, Actor, Task> handler
+    )
     {
-        RegisterHandler(method, exactPath, async context =>
-        {
-            if (await CheckActor(context) is not { } actor)
-                return;
+        RegisterHandler(
+            method,
+            exactPath,
+            async context =>
+            {
+                if (await CheckActor(context) is not { } actor)
+                    return;
 
-            await handler(context, actor);
-        });
+                await handler(context, actor);
+            }
+        );
     }
 
     /// <summary>
@@ -100,7 +108,8 @@ public sealed partial class ServerApi
     /// <summary>
     /// Helper function to read JSON encoded data from the request body.
     /// </summary>
-    private static async Task<T?> ReadJson<T>(IStatusHandlerContext context) where T : notnull
+    private static async Task<T?> ReadJson<T>(IStatusHandlerContext context)
+        where T : notnull
     {
         try
         {
@@ -122,16 +131,19 @@ public sealed partial class ServerApi
         ErrorCode errorCode,
         HttpStatusCode statusCode,
         string message,
-        ExceptionData? exception = null)
+        ExceptionData? exception = null
+    )
     {
-        await context.RespondJsonAsync(new BaseResponse(message, errorCode, exception), statusCode)
+        await context
+            .RespondJsonAsync(new BaseResponse(message, errorCode, exception), statusCode)
             .ConfigureAwait(false);
     }
 
     private static async Task RespondBadRequest(
         IStatusHandlerContext context,
         string message,
-        ExceptionData? exception = null)
+        ExceptionData? exception = null
+    )
     {
         await RespondError(context, ErrorCode.BadRequest, HttpStatusCode.BadRequest, message, exception)
             .ConfigureAwait(false);
@@ -139,8 +151,7 @@ public sealed partial class ServerApi
 
     private static async Task RespondOk(IStatusHandlerContext context)
     {
-        await context.RespondJsonAsync(new BaseResponse("OK"))
-            .ConfigureAwait(false);
+        await context.RespondJsonAsync(new BaseResponse("OK")).ConfigureAwait(false);
     }
 
     private static string FormatLogActor(Actor actor) => $"{actor.Name} ({actor.Guid})";

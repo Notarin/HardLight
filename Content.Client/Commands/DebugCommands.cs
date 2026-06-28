@@ -10,7 +10,8 @@ namespace Content.Client.Commands;
 
 internal sealed class ShowMarkersCommand : LocalizedCommands
 {
-    [Dependency] private readonly IEntitySystemManager _entitySystemManager = default!;
+    [Dependency]
+    private readonly IEntitySystemManager _entitySystemManager = default!;
 
     public override string Command => "showmarkers";
 
@@ -24,7 +25,8 @@ internal sealed class ShowMarkersCommand : LocalizedCommands
 
 internal sealed class ShowSubFloor : LocalizedCommands
 {
-    [Dependency] private readonly IEntitySystemManager _entitySystemManager = default!;
+    [Dependency]
+    private readonly IEntitySystemManager _entitySystemManager = default!;
 
     public override string Command => "showsubfloor";
 
@@ -38,7 +40,8 @@ internal sealed class ShowSubFloor : LocalizedCommands
 
 internal sealed class NotifyCommand : LocalizedCommands
 {
-    [Dependency] private readonly IEntitySystemManager _entitySystemManager = default!;
+    [Dependency]
+    private readonly IEntitySystemManager _entitySystemManager = default!;
 
     public override string Command => "notify";
 

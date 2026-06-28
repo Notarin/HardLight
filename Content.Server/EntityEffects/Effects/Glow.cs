@@ -23,7 +23,7 @@ public sealed partial class Glow : EntityEffect
         Color.Green,
         Color.Blue,
         Color.Purple,
-        Color.Pink
+        Color.Pink,
     };
 
     public override void Effect(EntityEffectBaseArgs args)

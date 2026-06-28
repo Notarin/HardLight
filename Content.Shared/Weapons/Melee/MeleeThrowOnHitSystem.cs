@@ -1,11 +1,11 @@
+using System.Numerics;
 using Content.Shared.Stunnable;
 using Content.Shared.Throwing;
 using Content.Shared.Timing;
 using Content.Shared.Weapons.Melee.Components;
 using Content.Shared.Weapons.Melee.Events;
-using Robust.Shared.Physics.Components;
-using System.Numerics;
 using Content.Shared.Whitelist; // Frontier
+using Robust.Shared.Physics.Components;
 
 namespace Content.Shared.Weapons.Melee;
 
@@ -14,11 +14,21 @@ namespace Content.Shared.Weapons.Melee;
 /// </summary>
 public sealed class MeleeThrowOnHitSystem : EntitySystem
 {
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly UseDelaySystem _delay = default!;
-    [Dependency] private readonly SharedStunSystem _stun = default!;
-    [Dependency] private readonly ThrowingSystem _throwing = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!; // Frontier
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly UseDelaySystem _delay = default!;
+
+    [Dependency]
+    private readonly SharedStunSystem _stun = default!;
+
+    [Dependency]
+    private readonly ThrowingSystem _throwing = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelist = default!; // Frontier
+
     /// <inheritdoc/>
     public override void Initialize()
     {
@@ -58,7 +68,12 @@ public sealed class MeleeThrowOnHitSystem : EntitySystem
         ThrowOnHitHelper(weapon, args.Component.Thrower, args.Target, weaponPhysics.LinearVelocity);
     }
 
-    private void ThrowOnHitHelper(Entity<MeleeThrowOnHitComponent> ent, EntityUid? user, EntityUid target, Vector2 direction)
+    private void ThrowOnHitHelper(
+        Entity<MeleeThrowOnHitComponent> ent,
+        EntityUid? user,
+        EntityUid target,
+        Vector2 direction
+    )
     {
         var attemptEvent = new AttemptMeleeThrowOnHitEvent(target, user);
         RaiseLocalEvent(ent.Owner, ref attemptEvent);
@@ -79,6 +94,12 @@ public sealed class MeleeThrowOnHitSystem : EntitySystem
         var unanchorOnHit = ent.Comp.UnanchorOnHit && _whitelist.IsWhitelistPassOrNull(ent.Comp.Whitelist, target);
         // End Frontier
 
-        _throwing.TryThrow(target, direction.Normalized() * ent.Comp.Distance, ent.Comp.Speed, user, unanchor: unanchorOnHit); // Frontier: ent.Comp.UnanchorOnHit<unanchorOnHit
+        _throwing.TryThrow(
+            target,
+            direction.Normalized() * ent.Comp.Distance,
+            ent.Comp.Speed,
+            user,
+            unanchor: unanchorOnHit
+        ); // Frontier: ent.Comp.UnanchorOnHit<unanchorOnHit
     }
 }

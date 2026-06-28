@@ -1,17 +1,17 @@
 - type: entity
   id: SpeedLoaderLightRifle
   name: "speed loader (.30 rifle)"
-  parent: [ BaseItem, BaseC1Contraband ] # Frontier: BaseSecurityContraband<BaseC1Contraband
+  parent: [BaseItem, BaseC1Contraband] # Frontier: BaseSecurityContraband<BaseC1Contraband
   components:
   - type: Tag
     tags:
-      - SpeedLoaderRifle
+    - SpeedLoaderRifle
   - type: SpeedLoader
   - type: BallisticAmmoProvider
     mayTransfer: true
     whitelist:
       tags:
-        - CartridgeLightRifle
+      - CartridgeLightRifle
     capacity: 5
     proto: CartridgeLightRifle
   - type: Sprite

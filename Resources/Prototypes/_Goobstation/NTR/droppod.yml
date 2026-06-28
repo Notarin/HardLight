@@ -2,7 +2,7 @@
 - type: entity
   id: SpawnSupplyEmpty
   name: SpawnSupplyEmpty
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: TimedDespawn
     lifetime: 9.75
@@ -17,7 +17,7 @@
 
 - type: entity
   id: SpawnSupplypodAnimation
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _Goobstation/Objects/Specific/DropPod/marker.rsi
@@ -36,7 +36,7 @@
 
 - type: entity
   id: SpawnSupplypodPermaMarkerAnimation
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _Goobstation/Objects/Specific/DropPod/marker.rsi
@@ -53,7 +53,7 @@
 
 - type: entity
   id: SpawnSupplypodStartAnimationSound
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: EmitSoundOnTrigger
     sound:
@@ -63,7 +63,7 @@
 
 - type: entity
   id: SpawnSupplypodLandingAnimation
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _Goobstation/Objects/Specific/DropPod/landingpod.rsi
@@ -80,7 +80,7 @@
 
 - type: entity
   id: SpawnSupplypodLanded
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: TriggerOnSpawn
   - type: SmokeOnTrigger
@@ -101,7 +101,7 @@
 
 - type: entity
   id: SpawnSupplypodLandedOpening
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     offset: 0, 0.25
@@ -123,7 +123,7 @@
 
 - type: entity
   id: SpawnSupplypodWooshSound
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: EmitSoundOnTrigger
     sound:

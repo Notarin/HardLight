@@ -1,13 +1,13 @@
 using System;
-using Robust.Shared.Serialization;
 using Content.Shared.UserInterface;
+using Robust.Shared.Serialization;
 
 namespace Content.Shared.CM14.Xenos.Evolution;
 
 [Serializable, NetSerializable]
 public enum XenoEvolutionUIKey : byte
 {
-    Key
+    Key,
 }
 
 [Serializable, NetSerializable]

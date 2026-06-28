@@ -10,7 +10,8 @@ namespace Content.Server.NPC.HTN.PrimitiveTasks.Operators.Combat.Ranged;
 
 public sealed partial class GunOperator : HTNOperator, IHtnConditionalShutdown
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
 
     [DataField("shutdownState")]
     public HTNPlanState ShutdownState { get; private set; } = HTNPlanState.TaskFinished;
@@ -41,8 +42,10 @@ public sealed partial class GunOperator : HTNOperator, IHtnConditionalShutdown
 
     // Like movement we add a component and pass it off to the dedicated system.
 
-    public override async Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(NPCBlackboard blackboard,
-        CancellationToken cancelToken)
+    public override async Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(
+        NPCBlackboard blackboard,
+        CancellationToken cancelToken
+    )
     {
         // Don't attack if they're already as wounded as we want them.
         if (!blackboard.TryGetValue<EntityUid>(TargetKey, out var target, _entManager))
@@ -50,8 +53,10 @@ public sealed partial class GunOperator : HTNOperator, IHtnConditionalShutdown
             return (false, null);
         }
 
-        if (_entManager.TryGetComponent<MobStateComponent>(target, out var mobState) &&
-            mobState.CurrentState > TargetState)
+        if (
+            _entManager.TryGetComponent<MobStateComponent>(target, out var mobState)
+            && mobState.CurrentState > TargetState
+        )
         {
             return (false, null);
         }
@@ -63,7 +68,9 @@ public sealed partial class GunOperator : HTNOperator, IHtnConditionalShutdown
     {
         base.Startup(blackboard);
 
-        var ranged = _entManager.EnsureComponent<NPCRangedCombatComponent>(blackboard.GetValue<EntityUid>(NPCBlackboard.Owner));
+        var ranged = _entManager.EnsureComponent<NPCRangedCombatComponent>(
+            blackboard.GetValue<EntityUid>(NPCBlackboard.Owner)
+        );
         ranged.Target = blackboard.GetValue<EntityUid>(TargetKey);
         ranged.UseOpaqueForLOSChecks = UseOpaqueForLOSChecks;
 
@@ -92,14 +99,18 @@ public sealed partial class GunOperator : HTNOperator, IHtnConditionalShutdown
         var owner = blackboard.GetValue<EntityUid>(NPCBlackboard.Owner);
         HTNOperatorStatus status;
 
-        if (_entManager.TryGetComponent<NPCRangedCombatComponent>(owner, out var combat) &&
-            blackboard.TryGetValue<EntityUid>(TargetKey, out var target, _entManager))
+        if (
+            _entManager.TryGetComponent<NPCRangedCombatComponent>(owner, out var combat)
+            && blackboard.TryGetValue<EntityUid>(TargetKey, out var target, _entManager)
+        )
         {
             combat.Target = target;
 
             // Success
-            if (_entManager.TryGetComponent<MobStateComponent>(combat.Target, out var mobState) &&
-                mobState.CurrentState > TargetState)
+            if (
+                _entManager.TryGetComponent<MobStateComponent>(combat.Target, out var mobState)
+                && mobState.CurrentState > TargetState
+            )
             {
                 status = HTNOperatorStatus.Finished;
             }

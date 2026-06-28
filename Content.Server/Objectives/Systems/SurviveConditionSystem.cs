@@ -1,6 +1,6 @@
 using Content.Server.Objectives.Components;
-using Content.Shared.Objectives.Components;
 using Content.Shared.Mind;
+using Content.Shared.Objectives.Components;
 
 namespace Content.Server.Objectives.Systems;
 
@@ -9,7 +9,8 @@ namespace Content.Server.Objectives.Systems;
 /// </summary>
 public sealed class SurviveConditionSystem : EntitySystem
 {
-    [Dependency] private readonly SharedMindSystem _mind = default!;
+    [Dependency]
+    private readonly SharedMindSystem _mind = default!;
 
     public override void Initialize()
     {

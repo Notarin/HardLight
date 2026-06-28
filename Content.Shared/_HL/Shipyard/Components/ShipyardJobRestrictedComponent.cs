@@ -5,6 +5,4 @@ namespace Content.Shared._NF.Shipyard.Components;
 /// Applied based on job restrictions at spawn.
 /// </summary>
 [RegisterComponent]
-public sealed partial class ShipyardJobRestrictedComponent : Component
-{
-}
+public sealed partial class ShipyardJobRestrictedComponent : Component { }

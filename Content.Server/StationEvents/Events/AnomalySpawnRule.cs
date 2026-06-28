@@ -7,21 +7,34 @@ namespace Content.Server.StationEvents.Events;
 
 public sealed class AnomalySpawnRule : StationEventSystem<AnomalySpawnRuleComponent>
 {
-    [Dependency] private readonly AnomalySystem _anomaly = default!;
+    [Dependency]
+    private readonly AnomalySystem _anomaly = default!;
 
-    protected override void Added(EntityUid uid, AnomalySpawnRuleComponent component, GameRuleComponent gameRule, GameRuleAddedEvent args)
+    protected override void Added(
+        EntityUid uid,
+        AnomalySpawnRuleComponent component,
+        GameRuleComponent gameRule,
+        GameRuleAddedEvent args
+    )
     {
         if (!TryComp<StationEventComponent>(uid, out var stationEvent))
             return;
 
-        var str = Loc.GetString("anomaly-spawn-event-announcement",
-            ("sighting", Loc.GetString($"anomaly-spawn-sighting-{RobustRandom.Next(1, 6)}")));
+        var str = Loc.GetString(
+            "anomaly-spawn-event-announcement",
+            ("sighting", Loc.GetString($"anomaly-spawn-sighting-{RobustRandom.Next(1, 6)}"))
+        );
         stationEvent.StartAnnouncement = str;
 
         base.Added(uid, component, gameRule, args);
     }
 
-    protected override void Started(EntityUid uid, AnomalySpawnRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
+    protected override void Started(
+        EntityUid uid,
+        AnomalySpawnRuleComponent component,
+        GameRuleComponent gameRule,
+        GameRuleStartedEvent args
+    )
     {
         base.Started(uid, component, gameRule, args);
 

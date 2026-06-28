@@ -2,14 +2,14 @@
   id: Resin
   name: materials-Resin
   unit: materials-unit-Resin
-  icon: { sprite: _HL/Objects/Materials/resin.rsi, state: icon }
+  icon: {sprite: _HL/Objects/Materials/resin.rsi, state: icon}
   color: "#1a243b" #eeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
   price: 0.005 # Frontier: 0<0.005 - same value as cardboard
-  
+
 - type: material
   id: RoyalResin
   name: materials-Royal-Resin
   unit: materials-unit-Royal-Resin
-  icon: { sprite: _HL/Objects/Materials/royalresin.rsi, state: icon }
+  icon: {sprite: _HL/Objects/Materials/royalresin.rsi, state: icon}
   color: "#10121f" #eeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
   price: 0.005 # Frontier: 0<0.005 - same value as cardboard

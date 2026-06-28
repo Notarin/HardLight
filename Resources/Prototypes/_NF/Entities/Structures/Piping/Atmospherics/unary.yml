@@ -1,5 +1,5 @@
 - type: entity
-  parent: [ BaseStructureDynamic, ConstructibleMachine ]
+  parent: [BaseStructureDynamic, ConstructibleMachine]
   id: GasMiningDrill
   name: gas mining drill
   description: A powerful, luggable drill for mining gas deposits on asteroids. Outputs gas through a pipe.
@@ -25,8 +25,7 @@
   - type: PipeRestrictOverlap
   - type: NodeContainer
     nodes:
-      outlet:
-        !type:PipeNode
+      outlet: !type:PipeNode
         nodeGroupID: Pipe
         pipeDirection: South
   - type: Transform
@@ -45,41 +44,41 @@
     snapCardinals: true
     granularLayersRendering: true
     layers:
-      - state: pipe
-        map: [ "enum.PipeVisualLayers.Pipe" ]
-        renderingStrategy: Default
-      - state: drill-off
-        map: [ "drill" ]
-      - state: base
-      - state: base-powered
-        shader: unshaded
-        visible: false
-        map: [ "enum.PowerDeviceVisualLayers.Powered" ]
-      - state: drill-empty-unlit
-        shader: unshaded
-        map: [ "light" ]
-        visible: false
-      - state: panel
-        map: ["enum.WiresVisualLayers.MaintenancePanel"]
+    - state: pipe
+      map: ["enum.PipeVisualLayers.Pipe"]
+      renderingStrategy: Default
+    - state: drill-off
+      map: ["drill"]
+    - state: base
+    - state: base-powered
+      shader: unshaded
+      visible: false
+      map: ["enum.PowerDeviceVisualLayers.Powered"]
+    - state: drill-empty-unlit
+      shader: unshaded
+      map: ["light"]
+      visible: false
+    - state: panel
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
   - type: GenericVisualizer
     visuals:
       enum.PowerDeviceVisuals.Powered:
         enum.PowerDeviceVisualLayers.Powered:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
       enum.GasDepositExtractorVisuals.State:
         drill:
-          Off: { state: drill-off }
-          Blocked: { state: drill-off }
-          Empty: { state: drill-off }
-          Low: { state: drill }
-          On: { state: drill }
+          Off: {state: drill-off}
+          Blocked: {state: drill-off}
+          Empty: {state: drill-off}
+          Low: {state: drill}
+          On: {state: drill}
         light:
-          Off: { visible: false }
-          Blocked: { state: drill-blocked-unlit, visible: true }
-          Empty: { state: drill-empty-unlit, visible: true }
-          Low: { state: drill-low-unlit, visible: true }
-          On: { state: drill-on-unlit, visible: true }
+          Off: {visible: false}
+          Blocked: {state: drill-blocked-unlit, visible: true}
+          Empty: {state: drill-empty-unlit, visible: true}
+          Low: {state: drill-low-unlit, visible: true}
+          On: {state: drill-on-unlit, visible: true}
   #- type: ApcPowerReceiver
   #  powerLoad: 1000
   - type: Machine
@@ -92,8 +91,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.35,-0.35,0.35,0.35" # a little smaller, should fit through doors
         density: 60
         mask:
@@ -104,7 +102,7 @@
   - type: BindToStationExemption # Frontier - we exempt this machine from binding to grids because the intention is for it to have that ability
 
 - type: entity
-  parent: [ BaseStructureIndestructible, BaseStructureDisableToolUse, BaseMachinePowered ]
+  parent: [BaseStructureIndestructible, BaseStructureDisableToolUse, BaseMachinePowered]
   id: GasSalePoint
   name: gas sale point
   suffix: Internal
@@ -114,8 +112,7 @@
     noRot: false
   - type: NodeContainer
     nodes:
-      inlet:
-        !type:PipeNode
+      inlet: !type:PipeNode
         nodeGroupID: Pipe
         pipeDirection: South
   - type: DeviceNetwork
@@ -124,15 +121,15 @@
   - type: Sprite
     sprite: _NF/Structures/Piping/Atmospherics/salepoint.rsi
     layers:
-      - state: base
-      - state: base-unlit
-        shader: unshaded
-      - state: on-unlit
-        shader: unshaded
-        visible: false
-        map: [ "enum.PowerDeviceVisualLayers.Powered" ]
-      - state: pipe
-        map: [ "enum.PipeVisualLayers.Pipe" ]
+    - state: base
+    - state: base-unlit
+      shader: unshaded
+    - state: on-unlit
+      shader: unshaded
+      visible: false
+      map: ["enum.PowerDeviceVisualLayers.Powered"]
+    - state: pipe
+      map: ["enum.PipeVisualLayers.Pipe"]
   - type: ApcPowerReceiver
     powerLoad: 1000
   - type: Machine
@@ -156,34 +153,33 @@
   - type: AtmosDevice
 
 - type: entity
-  parent: [ GasSalePoint, BaseGaslock ]
+  parent: [GasSalePoint, BaseGaslock]
   id: GasSalePort
   name: gas sale port
   suffix: Dockable
   components:
   - type: NodeContainer
     nodes:
-      inlet:
-        !type:DockablePipeNode
+      inlet: !type:DockablePipeNode
         nodeGroupID: Pipe
         pipeDirection: South
   - type: Sprite
     sprite: _NF/Structures/Piping/Atmospherics/salepoint.rsi
     layers:
-      - state: base
-      - state: base-unlit
-        shader: unshaded
-      - state: struts
-      - state: docked-unlit
-        shader: unshaded
-        visible: false
-        map: [ "docked-unlit" ]
-      - state: on-unlit
-        shader: unshaded
-        visible: false
-        map: [ "enum.PowerDeviceVisualLayers.Powered" ]
-      - state: pipe
-        map: [ "enum.PipeVisualLayers.Pipe" ]
+    - state: base
+    - state: base-unlit
+      shader: unshaded
+    - state: struts
+    - state: docked-unlit
+      shader: unshaded
+      visible: false
+      map: ["docked-unlit"]
+    - state: on-unlit
+      shader: unshaded
+      visible: false
+      map: ["enum.PowerDeviceVisualLayers.Powered"]
+    - state: pipe
+      map: ["enum.PipeVisualLayers.Pipe"]
   - type: DockablePipe
     dockNodeName: inlet
     internalNodeName: inlet
@@ -191,12 +187,12 @@
     visuals:
       enum.DockablePipeVisuals.Docked:
         docked-unlit:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
 
 # When mapping this, ensure the middle square has HV cable and a connector port, it should work.
 - type: entity
-  parent: [ BaseStructureDisableToolUse, BaseStructureIndestructible, BaseMachine ]
+  parent: [BaseStructureDisableToolUse, BaseStructureIndestructible, BaseMachine]
   id: EnergyAirConverter
   name: energy-to-air converter
   description: An enormous machine that converts huge amounts of power into superheated air.
@@ -208,8 +204,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-1.45,-1.45,1.45,1.45"
         density: 500
         mask:
@@ -219,12 +214,10 @@
   - type: NodeContainer
     examinable: true
     nodes:
-      input:
-        !type:CableDeviceNode
+      input: !type:CableDeviceNode
         nodeGroupID: HVPower
         enabled: false
-      port:
-        !type:PortablePipeNode
+      port: !type:PortablePipeNode
         nodeGroupID: Pipe
         rotationsEnabled: false
         volume: 1
@@ -258,23 +251,23 @@
     visuals:
       enum.PowerDeviceVisuals.Powered:
         fan:
-          True: { state: fan-animated }
-          False: { state: fan }
+          True: {state: fan-animated}
+          False: {state: fan}
         front-panel:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
         panel:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
         window:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
       enum.GasCanisterVisuals.PressureState:
         gas:
-          0: { color: "#FFFFFF01" }
-          1: { color: "#FFFFFF22" }
-          2: { color: "#FFFFFF44" }
-          3: { color: "#FFFFFF66" }
+          0: {color: "#FFFFFF01"}
+          1: {color: "#FFFFFF22"}
+          2: {color: "#FFFFFF44"}
+          3: {color: "#FFFFFF66"}
   - type: PowerConsumer
     drawRate: 100000
   - type: PowerMonitoringDevice

@@ -22,7 +22,7 @@ public abstract partial class SharedInstrumentComponent : Component
     public bool AllowPercussion { get; set; }
 
     [DataField("allowProgramChange"), ViewVariables(VVAccess.ReadWrite)]
-    public bool AllowProgramChange { get ; set; }
+    public bool AllowProgramChange { get; set; }
 
     [DataField("respectMidiLimits"), ViewVariables(VVAccess.ReadWrite)]
     public bool RespectMidiLimits { get; set; } = true;
@@ -65,7 +65,6 @@ public sealed class InstrumentComponentState : ComponentState
 
     public BitArray FilteredChannels = default!;
 }
-
 
 /// <summary>
 ///     This message is sent to the client to completely stop midi input and midi playback.
@@ -177,6 +176,7 @@ public sealed class MidiTrack
     /// The first specified Track Name
     /// </summary>
     public string? TrackName;
+
     /// <summary>
     /// The first specified instrument name
     /// </summary>
@@ -208,6 +208,7 @@ public sealed class MidiTrack
     }
 
     private const string Postfix = "…";
+
     // TODO: Make a general method to use in RT? idk if we have that.
     private string Truncate(string input, int limit)
     {

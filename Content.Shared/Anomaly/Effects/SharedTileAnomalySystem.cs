@@ -1,6 +1,3 @@
-
 namespace Content.Shared.Anomaly.Effects;
 
-public abstract class SharedTileAnomalySystem : EntitySystem
-{
-}
+public abstract class SharedTileAnomalySystem : EntitySystem { }

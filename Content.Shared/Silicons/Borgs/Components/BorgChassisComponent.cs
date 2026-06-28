@@ -89,7 +89,7 @@ public sealed partial class BorgChassisComponent : Component
 [Serializable, NetSerializable]
 public enum BorgVisuals : byte
 {
-    HasPlayer
+    HasPlayer,
 }
 
 [Serializable, NetSerializable]

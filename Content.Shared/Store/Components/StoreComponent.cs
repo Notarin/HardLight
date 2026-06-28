@@ -99,6 +99,7 @@ public sealed partial class StoreComponent : Component
 /// </summary>
 [ByRefEvent]
 public readonly record struct StoreAddedEvent;
+
 /// <summary>
 /// Event that is broadcast when a store is removed from an entity
 /// </summary>

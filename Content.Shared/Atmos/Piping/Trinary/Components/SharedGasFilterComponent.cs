@@ -28,7 +28,12 @@ namespace Content.Shared.Atmos.Piping.Trinary.Components
         public bool HighFlow { get; }
         public float MaxTransferRate { get; }
 
-        public GasFilterBoundUserInterfaceState(string filterLabel, float transferRate, bool enabled, HashSet<Gas>? filterGases)
+        public GasFilterBoundUserInterfaceState(
+            string filterLabel,
+            float transferRate,
+            bool enabled,
+            HashSet<Gas>? filterGases
+        )
         {
             FilterLabel = filterLabel;
             TransferRate = transferRate;
@@ -38,7 +43,14 @@ namespace Content.Shared.Atmos.Piping.Trinary.Components
             MaxTransferRate = transferRate;
         }
 
-        public GasFilterBoundUserInterfaceState(string filterLabel, float transferRate, bool enabled, HashSet<Gas>? filterGases, bool highFlow, float maxTransferRate)
+        public GasFilterBoundUserInterfaceState(
+            string filterLabel,
+            float transferRate,
+            bool enabled,
+            HashSet<Gas>? filterGases,
+            bool highFlow,
+            float maxTransferRate
+        )
         {
             FilterLabel = filterLabel;
             TransferRate = transferRate;
@@ -70,6 +82,7 @@ namespace Content.Shared.Atmos.Piping.Trinary.Components
             Rate = rate;
         }
     }
+
     // Funky Station Start - Changed to hashset, function and variable names changed
     [Serializable, NetSerializable]
     public sealed class GasFilterChangeGasesMessage : BoundUserInterfaceMessage

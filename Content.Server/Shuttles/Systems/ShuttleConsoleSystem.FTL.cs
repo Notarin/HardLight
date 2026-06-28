@@ -1,18 +1,18 @@
+using System.Linq;
+using System.Numerics;
+using Content.Server._VRS.Planet;
 using Content.Server.Shuttles.Components;
 using Content.Server.Shuttles.Events;
-using Content.Server._VRS.Planet;
+using Content.Server.Station.Components;
+using Content.Shared._VRS.Planet;
 using Content.Shared.Popups;
 using Content.Shared.Shuttles.BUIStates;
 using Content.Shared.Shuttles.Components;
 using Content.Shared.Shuttles.Events;
 using Content.Shared.Shuttles.UI.MapObjects;
-using Content.Shared._VRS.Planet;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Physics.Components;
-using Content.Server.Station.Components;
-using System.Linq;
-using System.Numerics;
 
 namespace Content.Server.Shuttles.Systems;
 
@@ -62,7 +62,10 @@ public sealed partial class ShuttleConsoleSystem
         }
 
         var angle = args.Angle.Reduced();
-        var targetCoordinates = new EntityCoordinates(targetXform.MapUid!.Value, _transform.GetWorldPosition(targetXform));
+        var targetCoordinates = new EntityCoordinates(
+            targetXform.MapUid!.Value,
+            _transform.GetWorldPosition(targetXform)
+        );
 
         ConsoleFTL(ent, targetCoordinates, angle, targetXform.MapID);
     }
@@ -82,7 +85,10 @@ public sealed partial class ShuttleConsoleSystem
         ConsoleFTL(entity, targetCoordinates, angle, args.Coordinates.MapId);
     }
 
-    private void OnStationDockFTLMessage(Entity<ShuttleConsoleComponent> ent, ref ShuttleConsoleFTLStationDockMessage args)
+    private void OnStationDockFTLMessage(
+        Entity<ShuttleConsoleComponent> ent,
+        ref ShuttleConsoleFTLStationDockMessage args
+    )
     {
         var stationEnt = GetEntity(args.Station);
         if (!Exists(stationEnt))
@@ -95,8 +101,10 @@ public sealed partial class ShuttleConsoleSystem
         if (consoleUid == null)
             return;
 
-        if (!_xformQuery.TryGetComponent(consoleUid.Value, out var shuttleXform) ||
-            !TryComp<ShuttleComponent>(shuttleXform.GridUid, out var shuttleComp))
+        if (
+            !_xformQuery.TryGetComponent(consoleUid.Value, out var shuttleXform)
+            || !TryComp<ShuttleComponent>(shuttleXform.GridUid, out var shuttleComp)
+        )
         {
             return;
         }
@@ -142,7 +150,13 @@ public sealed partial class ShuttleConsoleSystem
                 continue;
 
             exclusions ??= new List<ShuttleExclusionObject>();
-            exclusions.Add(new ShuttleExclusionObject(GetNetCoordinates(xform.Coordinates), comp.Range, Loc.GetString("shuttle-console-exclusion")));
+            exclusions.Add(
+                new ShuttleExclusionObject(
+                    GetNetCoordinates(xform.Coordinates),
+                    comp.Range,
+                    Loc.GetString("shuttle-console-exclusion")
+                )
+            );
         }
     }
 
@@ -160,14 +174,21 @@ public sealed partial class ShuttleConsoleSystem
 
             // Add station as FTL dock target
             stations ??= new List<ShuttleStationObject>();
-            stations.Add(new ShuttleStationObject(GetNetEntity(stationUid), GetNetCoordinates(xform.Coordinates), $"🏭 {name}"));
+            stations.Add(
+                new ShuttleStationObject(GetNetEntity(stationUid), GetNetCoordinates(xform.Coordinates), $"🏭 {name}")
+            );
         }
     }
 
     /// <summary>
     /// Handles shuttle console FTLs.
     /// </summary>
-    private void ConsoleFTL(Entity<ShuttleConsoleComponent> ent, EntityCoordinates targetCoordinates, Angle targetAngle, MapId targetMap)
+    private void ConsoleFTL(
+        Entity<ShuttleConsoleComponent> ent,
+        EntityCoordinates targetCoordinates,
+        Angle targetAngle,
+        MapId targetMap
+    )
     {
         var consoleUid = GetDroneConsole(ent.Owner);
 
@@ -214,7 +235,11 @@ public sealed partial class ShuttleConsoleSystem
         // arrival are squashed by PlanetSpawnerSystem's FTL-completed handler.
         if (IsInsideContractNoLandingRadius(targetMap, targetCoordinates.Position))
         {
-            _popup.PopupEntity(Loc.GetString("shuttle-console-ftl-contract-too-close"), ent.Owner, PopupType.MediumCaution);
+            _popup.PopupEntity(
+                Loc.GetString("shuttle-console-ftl-contract-too-close"),
+                ent.Owner,
+                PopupType.MediumCaution
+            );
             return;
         }
 
@@ -227,7 +252,11 @@ public sealed partial class ShuttleConsoleSystem
             {
                 if (Vector2.DistanceSquared(targetPos, dungeon.Position) <= rangeSq)
                 {
-                    _popup.PopupEntity(Loc.GetString("shuttle-console-ftl-dungeon-too-close"), ent.Owner, PopupType.MediumCaution);
+                    _popup.PopupEntity(
+                        Loc.GetString("shuttle-console-ftl-dungeon-too-close"),
+                        ent.Owner,
+                        PopupType.MediumCaution
+                    );
                     return;
                 }
             }

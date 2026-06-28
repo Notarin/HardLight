@@ -11,10 +11,17 @@ namespace Content.Client.Flash
 {
     public sealed class FlashOverlay : Overlay
     {
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly IEntityManager _entityManager = default!;
-        [Dependency] private readonly IPlayerManager _playerManager = default!;
-        [Dependency] private readonly IGameTiming _timing = default!;
+        [Dependency]
+        private readonly IPrototypeManager _prototypeManager = default!;
+
+        [Dependency]
+        private readonly IEntityManager _entityManager = default!;
+
+        [Dependency]
+        private readonly IPlayerManager _playerManager = default!;
+
+        [Dependency]
+        private readonly IGameTiming _timing = default!;
 
         private readonly SharedFlashSystem _flash;
         private readonly StatusEffectsSystem _statusSys;
@@ -32,7 +39,7 @@ namespace Content.Client.Flash
             _statusSys = _entityManager.System<StatusEffectsSystem>();
         }
 
-    private static readonly ProtoId<ShaderPrototype> FlashedEffectShaderId = "FlashedEffect";
+        private static readonly ProtoId<ShaderPrototype> FlashedEffectShaderId = "FlashedEffect";
 
         protected override void FrameUpdate(FrameEventArgs args)
         {
@@ -41,16 +48,18 @@ namespace Content.Client.Flash
             if (playerEntity == null)
                 return;
 
-            if (!_entityManager.HasComponent<FlashedComponent>(playerEntity)
-                || !_entityManager.TryGetComponent<StatusEffectsComponent>(playerEntity, out var status))
+            if (
+                !_entityManager.HasComponent<FlashedComponent>(playerEntity)
+                || !_entityManager.TryGetComponent<StatusEffectsComponent>(playerEntity, out var status)
+            )
                 return;
 
             if (!_statusSys.TryGetTime(playerEntity.Value, _flash.FlashedKey, out var time, status))
                 return;
 
             var curTime = _timing.CurTime;
-            var lastsFor = (float) (time.Value.Item2 - time.Value.Item1).TotalSeconds;
-            var timeDone = (float) (curTime - time.Value.Item1).TotalSeconds;
+            var lastsFor = (float)(time.Value.Item2 - time.Value.Item1).TotalSeconds;
+            var timeDone = (float)(curTime - time.Value.Item1).TotalSeconds;
 
             PercentComplete = timeDone / lastsFor;
         }

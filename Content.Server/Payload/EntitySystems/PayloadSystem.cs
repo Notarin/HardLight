@@ -1,28 +1,39 @@
+using System.Linq;
 using Content.Server.Administration.Logs;
 using Content.Server.Explosion.EntitySystems;
 using Content.Shared.Chemistry.Components;
+using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Database;
 using Content.Shared.Examine;
 using Content.Shared.Payload.Components;
 using Content.Shared.Tag;
-using Content.Shared.Chemistry.EntitySystems;
+using Robust.Server.GameObjects;
 using Robust.Shared.Containers;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.Manager;
 using Robust.Shared.Utility;
-using System.Linq;
-using Robust.Server.GameObjects;
-using Robust.Shared.Prototypes;
 
 namespace Content.Server.Payload.EntitySystems;
 
 public sealed class PayloadSystem : EntitySystem
 {
-    [Dependency] private readonly TagSystem _tagSystem = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly IComponentFactory _componentFactory = default!;
-    [Dependency] private readonly ISerializationManager _serializationManager = default!;
+    [Dependency]
+    private readonly TagSystem _tagSystem = default!;
+
+    [Dependency]
+    private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
+
+    [Dependency]
+    private readonly TransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly IAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    private readonly IComponentFactory _componentFactory = default!;
+
+    [Dependency]
+    private readonly ISerializationManager _serializationManager = default!;
 
     private static readonly ProtoId<TagPrototype> PayloadTag = "Payload";
 
@@ -101,9 +112,9 @@ public sealed class PayloadSystem : EntitySystem
             if (_componentFactory.GetComponent(registration.Type) is not Component component)
                 continue;
 
-            var temp = (object) component;
+            var temp = (object)component;
             _serializationManager.CopyTo(data.Component, ref temp);
-            EntityManager.AddComponent(uid, (Component) temp!);
+            EntityManager.AddComponent(uid, (Component)temp!);
 
             trigger.GrantedComponents.Add(registration.Type);
         }
@@ -147,14 +158,16 @@ public sealed class PayloadSystem : EntitySystem
 
     private void HandleChemicalPayloadTrigger(Entity<ChemicalPayloadComponent> entity, ref TriggerEvent args)
     {
-        if (entity.Comp.BeakerSlotA.Item is not EntityUid beakerA
+        if (
+            entity.Comp.BeakerSlotA.Item is not EntityUid beakerA
             || entity.Comp.BeakerSlotB.Item is not EntityUid beakerB
             || !TryComp(beakerA, out FitsInDispenserComponent? compA)
             || !TryComp(beakerB, out FitsInDispenserComponent? compB)
             || !_solutionContainerSystem.TryGetSolution(beakerA, compA.Solution, out var solnA, out var solutionA)
             || !_solutionContainerSystem.TryGetSolution(beakerB, compB.Solution, out var solnB, out var solutionB)
             || solutionA.Volume == 0
-            || solutionB.Volume == 0)
+            || solutionB.Volume == 0
+        )
         {
             return;
         }
@@ -162,15 +175,20 @@ public sealed class PayloadSystem : EntitySystem
         var solStringA = SharedSolutionContainerSystem.ToPrettyString(solutionA);
         var solStringB = SharedSolutionContainerSystem.ToPrettyString(solutionB);
 
-        _adminLogger.Add(LogType.ChemicalReaction,
-            $"Chemical bomb payload {ToPrettyString(entity.Owner):payload} at {_transform.GetMapCoordinates(entity.Owner):location} is combining two solutions: {solStringA:solutionA} and {solStringB:solutionB}");
+        _adminLogger.Add(
+            LogType.ChemicalReaction,
+            $"Chemical bomb payload {ToPrettyString(entity.Owner):payload} at {_transform.GetMapCoordinates(entity.Owner):location} is combining two solutions: {solStringA:solutionA} and {solStringB:solutionB}"
+        );
 
         solutionA.MaxVolume += solutionB.MaxVolume;
         _solutionContainerSystem.TryAddSolution(solnA.Value, solutionB);
         _solutionContainerSystem.RemoveAllSolution(solnB.Value);
 
         // The grenade might be a dud. Redistribute solution:
-        var tmpSol = _solutionContainerSystem.SplitSolution(solnA.Value, solutionA.Volume * solutionB.MaxVolume / solutionA.MaxVolume);
+        var tmpSol = _solutionContainerSystem.SplitSolution(
+            solnA.Value,
+            solutionA.Volume * solutionB.MaxVolume / solutionA.MaxVolume
+        );
         _solutionContainerSystem.TryAddSolution(solnB.Value, tmpSol);
         solutionA.MaxVolume -= solutionB.MaxVolume;
         _solutionContainerSystem.UpdateChemicals(solnA.Value);

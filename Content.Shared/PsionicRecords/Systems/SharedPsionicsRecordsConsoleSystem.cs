@@ -6,7 +6,6 @@ using Content.Shared.Psionics.Components;
 /// <summary>
 /// EVERYTHING HERE IS A MODIFIED VERSION OF CRIMINAL RECORDS
 /// </summary>
-
 namespace Content.Shared.PsionicsRecords.Systems;
 
 public abstract class SharedPsionicsRecordsConsoleSystem : EntitySystem
@@ -45,7 +44,7 @@ public abstract class SharedPsionicsRecordsConsoleSystem : EntitySystem
             PsionicsStatus.Suspected => "PsionicsIconSuspected",
             PsionicsStatus.Registered => "PsionicsIconRegistered",
             PsionicsStatus.Abusing => "PsionicsIconAbusing",
-            _ => record.StatusIcon
+            _ => record.StatusIcon,
         };
 
         if (previousIcon != record.StatusIcon)

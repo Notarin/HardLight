@@ -1,13 +1,13 @@
-﻿using Content.Server.Explosion.EntitySystems;
+﻿using Content.Server.Chat.Systems;
+using Content.Server.Explosion.EntitySystems;
 using Content.Server.Power.Components;
-using Content.Shared.Examine;
-using Robust.Shared.Utility;
-using Content.Server.Chat.Systems;
+using Content.Server.Power.EntitySystems;
 using Content.Server.Station.Systems;
-using Robust.Shared.Timing;
+using Content.Shared.Examine;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
-using Content.Server.Power.EntitySystems;
+using Robust.Shared.Timing;
+using Robust.Shared.Utility;
 
 namespace Content.Server.PowerSink
 {
@@ -27,12 +27,23 @@ namespace Content.Server.PowerSink
         /// <returns></returns>
         private readonly TimeSpan _explosionDelayTime = TimeSpan.FromSeconds(1.465);
 
-        [Dependency] private readonly IGameTiming _gameTiming = default!;
-        [Dependency] private readonly ChatSystem _chat = default!;
-        [Dependency] private readonly ExplosionSystem _explosionSystem = default!;
-        [Dependency] private readonly SharedAudioSystem _audio = default!;
-        [Dependency] private readonly StationSystem _station = default!;
-        [Dependency] private readonly BatterySystem _battery = default!;
+        [Dependency]
+        private readonly IGameTiming _gameTiming = default!;
+
+        [Dependency]
+        private readonly ChatSystem _chat = default!;
+
+        [Dependency]
+        private readonly ExplosionSystem _explosionSystem = default!;
+
+        [Dependency]
+        private readonly SharedAudioSystem _audio = default!;
+
+        [Dependency]
+        private readonly StationSystem _station = default!;
+
+        [Dependency]
+        private readonly BatterySystem _battery = default!;
 
         public override void Initialize()
         {
@@ -46,33 +57,49 @@ namespace Content.Server.PowerSink
             if (!args.IsInDetailsRange || !TryComp<PowerConsumerComponent>(uid, out var consumer))
                 return;
 
-            var drainAmount = (int) consumer.NetworkLoad.ReceivingPower / 1000;
+            var drainAmount = (int)consumer.NetworkLoad.ReceivingPower / 1000;
             args.PushMarkup(
-                Loc.GetString(
-                    "powersink-examine-drain-amount",
-                    ("amount", drainAmount),
-                    ("markupDrainColor", "orange"))
+                Loc.GetString("powersink-examine-drain-amount", ("amount", drainAmount), ("markupDrainColor", "orange"))
             );
         }
 
         public override void Update(float frameTime)
         {
             var toRemove = new RemQueue<(EntityUid Entity, PowerSinkComponent Sink)>();
-            var query = EntityQueryEnumerator<PowerSinkComponent, PowerConsumerComponent, BatteryComponent, TransformComponent>();
+            var query = EntityQueryEnumerator<
+                PowerSinkComponent,
+                PowerConsumerComponent,
+                BatteryComponent,
+                TransformComponent
+            >();
 
             // Realistically it's gonna be like <5 per station.
-            while (query.MoveNext(out var entity, out var component, out var networkLoad, out var battery, out var transform))
+            while (
+                query.MoveNext(
+                    out var entity,
+                    out var component,
+                    out var networkLoad,
+                    out var battery,
+                    out var transform
+                )
+            )
             {
                 if (!transform.Anchored)
                     continue;
 
-                _battery.SetCharge(entity, battery.CurrentCharge + networkLoad.NetworkLoad.ReceivingPower / 1000, battery);
+                _battery.SetCharge(
+                    entity,
+                    battery.CurrentCharge + networkLoad.NetworkLoad.ReceivingPower / 1000,
+                    battery
+                );
 
                 var currentBatteryThreshold = battery.CurrentCharge / battery.MaxCharge;
 
                 // Check for warning message threshold
-                if (!component.SentImminentExplosionWarningMessage &&
-                    currentBatteryThreshold >= WarningMessageThreshold)
+                if (
+                    !component.SentImminentExplosionWarningMessage
+                    && currentBatteryThreshold >= WarningMessageThreshold
+                )
                 {
                     NotifyStationOfImminentExplosion(entity, component);
                 }
@@ -80,8 +107,10 @@ namespace Content.Server.PowerSink
                 // Check for warning sound threshold
                 foreach (var testThreshold in _warningSoundThresholds)
                 {
-                    if (currentBatteryThreshold >= testThreshold &&
-                        testThreshold > component.HighestWarningSoundThreshold)
+                    if (
+                        currentBatteryThreshold >= testThreshold
+                        && testThreshold > component.HighestWarningSoundThreshold
+                    )
                     {
                         component.HighestWarningSoundThreshold = currentBatteryThreshold; // Don't re-play in future until next threshold hit
                         _audio.PlayPvs(component.ElectricSound, entity); // Play SFX

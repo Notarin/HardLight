@@ -1,10 +1,8 @@
 using System.Numerics;
-using Content.Shared.GameTicking;
 using Content.Shared._Mono.Radar;
+using Content.Shared.GameTicking;
 using Content.Shared.HL.CCVar;
-using NFRadarBlipShape = Content.Shared._NF.Radar.RadarBlipShape;
 using Content.Shared.Shuttles.Components;
-using RadarBlipComponent = Content.Server._NF.Radar.RadarBlipComponent;
 using Robust.Server.GameObjects;
 using Robust.Shared.Configuration;
 using Robust.Shared.Map;
@@ -12,16 +10,27 @@ using Robust.Shared.Network;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Timing;
+using NFRadarBlipShape = Content.Shared._NF.Radar.RadarBlipShape;
+using RadarBlipComponent = Content.Server._NF.Radar.RadarBlipComponent;
 
 namespace Content.Server._Mono.Radar;
 
 public sealed partial class RadarBlipSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly HitscanRadarSystem _hitscanRadar = default!;
-    [Dependency] private readonly SharedTransformSystem _xform = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly HitscanRadarSystem _hitscanRadar = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _xform = default!;
+
+    [Dependency]
+    private readonly SharedPhysicsSystem _physics = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
 
     private readonly Dictionary<NetUserId, TimeSpan> _nextBlipRequestPerUser = new();
     private readonly Dictionary<EntityUid, CachedRadarReport> _recentRadarReports = new();
@@ -52,17 +61,23 @@ public sealed partial class RadarBlipSystem : EntitySystem
         SubscribeLocalEvent<RoundRestartCleanupEvent>(OnRoundRestart);
         SubscribeLocalEvent<RadarBlipComponent, ComponentShutdown>(OnBlipShutdown);
 
-        Subs.CVar(_cfg, HLCCVars.RadarMinRequestMs,
-            v => _minRequestPeriod = TimeSpan.FromMilliseconds(Math.Max(0, v)), true);
-        Subs.CVar(_cfg, HLCCVars.RadarReportCacheTtlMs,
-            v => _reportCacheLifetime = TimeSpan.FromMilliseconds(Math.Max(0, v)), true);
+        Subs.CVar(
+            _cfg,
+            HLCCVars.RadarMinRequestMs,
+            v => _minRequestPeriod = TimeSpan.FromMilliseconds(Math.Max(0, v)),
+            true
+        );
+        Subs.CVar(
+            _cfg,
+            HLCCVars.RadarReportCacheTtlMs,
+            v => _reportCacheLifetime = TimeSpan.FromMilliseconds(Math.Max(0, v)),
+            true
+        );
     }
 
     private void OnBlipsRequested(RequestBlipsEvent ev, EntitySessionEventArgs args)
     {
-        if (!TryGetEntity(ev.Radar, out var radarUid)
-            || !TryComp<RadarConsoleComponent>(radarUid, out var radar)
-        )
+        if (!TryGetEntity(ev.Radar, out var radarUid) || !TryComp<RadarConsoleComponent>(radarUid, out var radar))
             return;
 
         var now = _timing.RealTime;
@@ -73,11 +88,20 @@ public sealed partial class RadarBlipSystem : EntitySystem
 
         PrepareRadarSources(radarUid.Value);
 
-        if (_recentRadarReports.TryGetValue(radarUid.Value, out var cachedReport)
-            && now - cachedReport.CreatedAt <= _reportCacheLifetime)
+        if (
+            _recentRadarReports.TryGetValue(radarUid.Value, out var cachedReport)
+            && now - cachedReport.CreatedAt <= _reportCacheLifetime
+        )
         {
             _hitscanRadar.CopyVisibleHitscans(_tempSourcePositionsCache, radar.MaxRange, _tempHitscansCache);
-            RaiseNetworkEvent(new GiveBlipsEvent(cachedReport.ConfigPalette, cachedReport.Blips, new List<HitscanNetData>(_tempHitscansCache)), args.SenderSession);
+            RaiseNetworkEvent(
+                new GiveBlipsEvent(
+                    cachedReport.ConfigPalette,
+                    cachedReport.Blips,
+                    new List<HitscanNetData>(_tempHitscansCache)
+                ),
+                args.SenderSession
+            );
             ClearTemporaryState();
             return;
         }
@@ -88,11 +112,16 @@ public sealed partial class RadarBlipSystem : EntitySystem
         var report = new CachedRadarReport(
             now,
             new List<BlipConfig>(_tempPaletteCache),
-            new List<BlipNetData>(_tempBlipsCache));
+            new List<BlipNetData>(_tempBlipsCache)
+        );
         _recentRadarReports[radarUid.Value] = report;
 
         // Combine the blips and hitscan lines
-        var giveEv = new GiveBlipsEvent(report.ConfigPalette, report.Blips, new List<HitscanNetData>(_tempHitscansCache));
+        var giveEv = new GiveBlipsEvent(
+            report.ConfigPalette,
+            report.Blips,
+            new List<HitscanNetData>(_tempHitscansCache)
+        );
         RaiseNetworkEvent(giveEv, args.SenderSession);
 
         ClearTemporaryState();
@@ -182,7 +211,11 @@ public sealed partial class RadarBlipSystem : EntitySystem
         _hasGridlessSource = false;
     }
 
-    private void AssembleBlipsReport(EntityUid uid, List<Vector2> sourcePositions, RadarConsoleComponent? component = null)
+    private void AssembleBlipsReport(
+        EntityUid uid,
+        List<Vector2> sourcePositions,
+        RadarConsoleComponent? component = null
+    )
     {
         if (!Resolve(uid, ref component))
             return;
@@ -197,7 +230,8 @@ public sealed partial class RadarBlipSystem : EntitySystem
         var blipEnumerator = EntityQueryEnumerator<RadarBlipComponent, TransformComponent, PhysicsComponent>();
         while (blipEnumerator.MoveNext(out var blipUid, out var blip, out var blipXform, out var blipPhysics))
         {
-            if (!blip.Enabled
+            if (
+                !blip.Enabled
                 || blipXform.MapID != radarMapId
                 || !NearAnySources(_xform.GetWorldPosition(blipXform), sourcePositions, component.MaxRange)
             )
@@ -205,7 +239,8 @@ public sealed partial class RadarBlipSystem : EntitySystem
 
             var blipGrid = blipXform.GridUid;
 
-            if (blip.RequireNoGrid && blipGrid != null // if we want no grid but we are on a grid
+            if (
+                blip.RequireNoGrid && blipGrid != null // if we want no grid but we are on a grid
                 || !blip.VisibleFromOtherGrids && !MatchesAnyRadarSourceGrid(blipGrid)
             )
                 continue; // don't show this blip
@@ -235,7 +270,7 @@ public sealed partial class RadarBlipSystem : EntitySystem
             {
                 Color = blip.RadarColor,
                 Shape = shape,
-                Bounds = new Box2(-blip.Scale * 1.5f, -blip.Scale * 1.5f, blip.Scale * 1.5f, blip.Scale * 1.5f)
+                Bounds = new Box2(-blip.Scale * 1.5f, -blip.Scale * 1.5f, blip.Scale * 1.5f, blip.Scale * 1.5f),
             };
 
             BlipConfig? gridCfg = null;
@@ -256,12 +291,9 @@ public sealed partial class RadarBlipSystem : EntitySystem
             ushort? gridConfigIdx = gridCfg is { } gridCf ? GetOrAddConfig(gridCf) : null;
 
             // ideally we would handle blips being culled by detection on server but detection grid culling is already clientside so might as well
-            _tempBlipsCache.Add(new(netBlipUid,
-                            GetNetCoordinates(coord),
-                            blipVelocity,
-                            rotation,
-                            configIdx,
-                            gridConfigIdx));
+            _tempBlipsCache.Add(
+                new(netBlipUid, GetNetCoordinates(coord), blipVelocity, rotation, configIdx, gridConfigIdx)
+            );
         }
     }
 
@@ -308,5 +340,6 @@ public sealed partial class RadarBlipSystem : EntitySystem
     private sealed record CachedRadarReport(
         TimeSpan CreatedAt,
         List<BlipConfig> ConfigPalette,
-        List<BlipNetData> Blips);
+        List<BlipNetData> Blips
+    );
 }

@@ -12,8 +12,7 @@ namespace Content.IntegrationTests.Pair;
 // Contains misc helper functions to make writing tests easier.
 public sealed partial class TestPair
 {
-    public Task<TestMapData> CreateTestMap(bool initialized = true)
-        => CreateTestMap(initialized, "Plating");
+    public Task<TestMapData> CreateTestMap(bool initialized = true) => CreateTestMap(initialized, "Plating");
 
     /// <summary>
     /// Set a user's antag preferences. Modified preferences are automatically reset at the end of the test.
@@ -21,7 +20,7 @@ public sealed partial class TestPair
     public async Task SetAntagPreference(ProtoId<AntagPrototype> id, bool value, NetUserId? user = null)
     {
         user ??= Client.User!.Value;
-        if (user is not {} userId)
+        if (user is not { } userId)
             return;
 
         var prefMan = Server.ResolveDependency<IServerPreferencesManager>();
@@ -30,7 +29,7 @@ public sealed partial class TestPair
         // Automatic preference resetting only resets slot 0.
         Assert.That(prefs.SelectedCharacterIndex, Is.EqualTo(0));
 
-        var profile = (HumanoidCharacterProfile) prefs.Characters[0];
+        var profile = (HumanoidCharacterProfile)prefs.Characters[0];
         var newProfile = profile.WithAntagPreference(id, value);
         _modifiedProfiles.Add(userId);
         await Server.WaitPost(() => prefMan.SetProfile(userId, 0, newProfile).Wait());
@@ -47,8 +46,8 @@ public sealed partial class TestPair
     }
 
     /// <inheritdoc cref="SetJobPriority"/>
-    public async Task SetJobPriorities(params (ProtoId<JobPrototype>, JobPriority)[] priorities)
-        => await SetJobPriorities(Client.User!.Value, priorities);
+    public async Task SetJobPriorities(params (ProtoId<JobPrototype>, JobPriority)[] priorities) =>
+        await SetJobPriorities(Client.User!.Value, priorities);
 
     /// <inheritdoc cref="SetJobPriority"/>
     public async Task SetJobPriorities(NetUserId user, params (ProtoId<JobPrototype>, JobPriority)[] priorities)
@@ -58,7 +57,7 @@ public sealed partial class TestPair
 
         var prefMan = Server.ResolveDependency<IServerPreferencesManager>();
         var prefs = prefMan.GetPreferences(user);
-        var profile = (HumanoidCharacterProfile) prefs.Characters[0];
+        var profile = (HumanoidCharacterProfile)prefs.Characters[0];
         var dictionary = new Dictionary<ProtoId<JobPrototype>, JobPriority>(profile.JobPriorities);
 
         // Automatic preference resetting only resets slot 0.

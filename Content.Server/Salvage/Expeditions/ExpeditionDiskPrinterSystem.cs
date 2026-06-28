@@ -1,26 +1,37 @@
+using Content.Server._NF.Bank;
+using Content.Shared._NF.Bank;
+using Content.Shared._NF.Bank.Components;
 using Content.Shared.Popups;
 using Content.Shared.Procedural;
 using Content.Shared.Salvage;
 using Content.Shared.Salvage.Expeditions;
-using Content.Shared._NF.Bank;
-using Content.Shared._NF.Bank.Components;
 using Content.Shared.UserInterface;
 using Robust.Server.Audio;
 using Robust.Server.GameObjects;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
-using Content.Server._NF.Bank;
 
 namespace Content.Server.Salvage.Expeditions;
 
 public sealed class ExpeditionDiskPrinterSystem : EntitySystem
 {
-    [Dependency] private readonly AudioSystem _audio = default!;
-    [Dependency] private readonly BankSystem _bank = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
+    [Dependency]
+    private readonly AudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly BankSystem _bank = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly UserInterfaceSystem _ui = default!;
 
     public override void Initialize()
     {
@@ -34,7 +45,11 @@ public sealed class ExpeditionDiskPrinterSystem : EntitySystem
         UpdateUserInterface(uid, component);
     }
 
-    private void OnBeforeUiOpen(EntityUid uid, ExpeditionDiskPrinterComponent component, BeforeActivatableUIOpenEvent args)
+    private void OnBeforeUiOpen(
+        EntityUid uid,
+        ExpeditionDiskPrinterComponent component,
+        BeforeActivatableUIOpenEvent args
+    )
     {
         UpdateUserInterface(uid, component);
     }
@@ -53,9 +68,18 @@ public sealed class ExpeditionDiskPrinterSystem : EntitySystem
         _ui.SetUiState(uid, ExpeditionDiskPrinterUiKey.Key, state);
     }
 
-    private void OnPrint(EntityUid uid, ExpeditionDiskPrinterComponent component, ExpeditionDiskPrinterPrintMessage args)
+    private void OnPrint(
+        EntityUid uid,
+        ExpeditionDiskPrinterComponent component,
+        ExpeditionDiskPrinterPrintMessage args
+    )
     {
-        if (!_prototypeManager.TryIndex<Content.Shared.Procedural.SalvageDifficultyPrototype>(args.DifficultyId, out var _))
+        if (
+            !_prototypeManager.TryIndex<Content.Shared.Procedural.SalvageDifficultyPrototype>(
+                args.DifficultyId,
+                out var _
+            )
+        )
         {
             _popupSystem.PopupEntity(Loc.GetString("expedition-disk-printer-invalid"), uid, PopupType.MediumCaution);
             return;
@@ -81,7 +105,14 @@ public sealed class ExpeditionDiskPrinterSystem : EntitySystem
         var cost = (difficultyIndex + 1) * 1000;
         if (!_bank.TryBankWithdraw(actor, cost))
         {
-            _popupSystem.PopupEntity(Loc.GetString("expedition-disk-printer-insufficient-funds", ("cost", BankSystemExtensions.ToSpesoString(cost))), uid, actor);
+            _popupSystem.PopupEntity(
+                Loc.GetString(
+                    "expedition-disk-printer-insufficient-funds",
+                    ("cost", BankSystemExtensions.ToSpesoString(cost))
+                ),
+                uid,
+                actor
+            );
             return;
         }
 
@@ -94,7 +125,8 @@ public sealed class ExpeditionDiskPrinterSystem : EntitySystem
             diskComp.Difficulty = args.DifficultyId;
             diskComp.DifficultyNumber = difficultyIndex + 1;
             diskComp.Seed = _random.Next();
-            diskComp.MissionType = (Content.Shared.Salvage.SalvageMissionType)_random.NextByte((byte)Content.Shared.Salvage.SalvageMissionType.Max);
+            diskComp.MissionType = (Content.Shared.Salvage.SalvageMissionType)
+                _random.NextByte((byte)Content.Shared.Salvage.SalvageMissionType.Max);
             diskComp.CooldownEnd = TimeSpan.Zero;
         }
 

@@ -9,11 +9,11 @@
   cost: 25000
 
   recipeUnlocks:
-    - LauncherSyringe
-    - MiniSyringe
-    - SyringeDart
-    - NFDartTracking
-    - DartGun
+  - LauncherSyringe
+  - MiniSyringe
+  - SyringeDart
+  - NFDartTracking
+  - DartGun
   technologyPrerequisites:
-    - IndustrialMedicine
+  - IndustrialMedicine
   position: -5, 11

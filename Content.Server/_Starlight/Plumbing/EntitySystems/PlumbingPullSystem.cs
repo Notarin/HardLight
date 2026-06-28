@@ -1,7 +1,7 @@
 using Content.Server._Starlight.Plumbing.NodeGroups;
 using Content.Server._Starlight.Plumbing.Nodes;
-using Content.Shared._Starlight.Plumbing.Components;
 using Content.Server.Chemistry.Components;
+using Content.Shared._Starlight.Plumbing.Components;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Chemistry.Reagent;
@@ -25,8 +25,11 @@ namespace Content.Server._Starlight.Plumbing.EntitySystems;
 [UsedImplicitly]
 public sealed class PlumbingPullSystem : EntitySystem
 {
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionSystem = default!;
-    [Dependency] private readonly ItemSlotsSystem _itemSlots = default!;
+    [Dependency]
+    private readonly SharedSolutionContainerSystem _solutionSystem = default!;
+
+    [Dependency]
+    private readonly ItemSlotsSystem _itemSlots = default!;
 
     private EntityQuery<PlumbingOutletComponent> _outletQuery;
 
@@ -41,7 +44,11 @@ public sealed class PlumbingPullSystem : EntitySystem
     ///     This handles containerSlotId pointing at a single slot as before, and expands
     ///     ReagentDispenser storage slots so each stored jug can be pulled from individually.
     /// </summary>
-    private List<Entity<SolutionComponent>> GetOutletSolutionEntities(EntityUid outletOwner, string nodeName, PlumbingOutletComponent outlet)
+    private List<Entity<SolutionComponent>> GetOutletSolutionEntities(
+        EntityUid outletOwner,
+        string nodeName,
+        PlumbingOutletComponent outlet
+    )
     {
         var res = new List<Entity<SolutionComponent>>();
 
@@ -58,7 +65,13 @@ public sealed class PlumbingPullSystem : EntitySystem
                         continue;
 
                     // Try drainable solution (any usable solution on the stored container)
-                    if (_solutionSystem.TryGetDrainableSolution(containerEntity.Value, out var solEntEntity, out var sol))
+                    if (
+                        _solutionSystem.TryGetDrainableSolution(
+                            containerEntity.Value,
+                            out var solEntEntity,
+                            out var sol
+                        )
+                    )
                     {
                         if (solEntEntity != null)
                             res.Add(solEntEntity.Value);
@@ -120,7 +133,8 @@ public sealed class PlumbingPullSystem : EntitySystem
         IPlumbingNet network,
         Entity<SolutionComponent> destination,
         FixedPoint2 maxAmount,
-        int roundRobinIndex)
+        int roundRobinIndex
+    )
     {
         var availableVolume = destination.Comp.Solution.AvailableVolume;
         var remaining = FixedPoint2.Min(maxAmount, availableVolume);
@@ -174,7 +188,15 @@ public sealed class PlumbingPullSystem : EntitySystem
             var index = (startIndex + i) % outlets.Count;
             var (plumbingNode, outlet, sourceSol) = outlets[index];
 
-            var pulled = PullFromOutlet(puller, plumbingNode.Owner, plumbingNode.Name, outlet, destination, remaining, sourceSol);
+            var pulled = PullFromOutlet(
+                puller,
+                plumbingNode.Owner,
+                plumbingNode.Name,
+                outlet,
+                destination,
+                remaining,
+                sourceSol
+            );
             totalPulled += pulled;
             remaining -= pulled;
         }
@@ -195,14 +217,17 @@ public sealed class PlumbingPullSystem : EntitySystem
         FixedPoint2 maxAmount,
         int roundRobinIndex,
         bool filterEnabled,
-        HashSet<ProtoId<ReagentPrototype>> filteredReagents)
+        HashSet<ProtoId<ReagentPrototype>> filteredReagents
+    )
     {
         var remaining = maxAmount;
         if (remaining <= 0)
             return (FixedPoint2.Zero, roundRobinIndex);
 
-        if (filteredDestination.Comp.Solution.AvailableVolume <= 0
-            && passthroughDestination.Comp.Solution.AvailableVolume <= 0)
+        if (
+            filteredDestination.Comp.Solution.AvailableVolume <= 0
+            && passthroughDestination.Comp.Solution.AvailableVolume <= 0
+        )
             return (FixedPoint2.Zero, roundRobinIndex);
 
         var outlets = new List<(PlumbingNode Node, PlumbingOutletComponent Outlet, Entity<SolutionComponent> Source)>();
@@ -258,7 +283,8 @@ public sealed class PlumbingPullSystem : EntitySystem
                 remaining,
                 filterEnabled,
                 filteredReagents,
-                sourceSol);
+                sourceSol
+            );
 
             totalPulled += pulled;
             remaining -= pulled;
@@ -283,7 +309,8 @@ public sealed class PlumbingPullSystem : EntitySystem
         IPlumbingNet network,
         Entity<SolutionComponent> destination,
         Dictionary<string, FixedPoint2> reagentTargets,
-        FixedPoint2 transferLimit)
+        FixedPoint2 transferLimit
+    )
     {
         var pulled = new Dictionary<string, FixedPoint2>();
         var destSolution = destination.Comp.Solution;
@@ -347,10 +374,19 @@ public sealed class PlumbingPullSystem : EntitySystem
                     var toPull = FixedPoint2.Min(available, stillNeeded);
                     toPull = FixedPoint2.Min(toPull, remaining);
 
-                    var actualPulled = _solutionSystem.RemoveReagentAndReturn(sourceSoln, new ReagentId(reagentId, null), toPull);
+                    var actualPulled = _solutionSystem.RemoveReagentAndReturn(
+                        sourceSoln,
+                        new ReagentId(reagentId, null),
+                        toPull
+                    );
                     if (actualPulled > 0)
                     {
-                        _solutionSystem.TryAddReagent(destination, new ReagentId(reagentId, null), actualPulled, out var actuallyAdded);
+                        _solutionSystem.TryAddReagent(
+                            destination,
+                            new ReagentId(reagentId, null),
+                            actualPulled,
+                            out var actuallyAdded
+                        );
 
                         // Return any excess to source to prevent loss
                         var excess = actualPulled - actuallyAdded;
@@ -378,7 +414,8 @@ public sealed class PlumbingPullSystem : EntitySystem
         PlumbingOutletComponent outlet,
         Entity<SolutionComponent> destination,
         FixedPoint2 maxAmount,
-        Entity<SolutionComponent>? sourceSolOverride = null)
+        Entity<SolutionComponent>? sourceSolOverride = null
+    )
     {
         Entity<SolutionComponent>? sourceSoln = sourceSolOverride ?? GetOutletSolution(sourceOwner, nodeName, outlet);
         if (sourceSoln is null)
@@ -464,7 +501,8 @@ public sealed class PlumbingPullSystem : EntitySystem
         FixedPoint2 maxAmount,
         bool filterEnabled,
         HashSet<ProtoId<ReagentPrototype>> filteredReagents,
-        Entity<SolutionComponent>? sourceSolOverride = null)
+        Entity<SolutionComponent>? sourceSolOverride = null
+    )
     {
         Entity<SolutionComponent>? sourceSoln = sourceSolOverride ?? GetOutletSolution(sourceOwner, nodeName, outlet);
         if (sourceSoln is null)
@@ -498,7 +536,8 @@ public sealed class PlumbingPullSystem : EntitySystem
             if (remaining <= 0)
                 break;
 
-            var isFiltered = filterEnabled && filteredReagents.Contains(new ProtoId<ReagentPrototype>(reagent.Prototype));
+            var isFiltered =
+                filterEnabled && filteredReagents.Contains(new ProtoId<ReagentPrototype>(reagent.Prototype));
             var destination = isFiltered ? filteredDestination : passthroughDestination;
 
             var destinationAvailable = destination.Comp.Solution.AvailableVolume;
@@ -543,7 +582,11 @@ public sealed class PlumbingPullSystem : EntitySystem
     ///     Otherwise, gets the solution directly from the outlet entity.
     /// </summary>
     /// <returns>The solution entity, or null if not found.</returns>
-    private Entity<SolutionComponent>? GetOutletSolution(EntityUid outletOwner, string nodeName, PlumbingOutletComponent outlet)
+    private Entity<SolutionComponent>? GetOutletSolution(
+        EntityUid outletOwner,
+        string nodeName,
+        PlumbingOutletComponent outlet
+    )
     {
         EntityUid targetEntity;
 
@@ -561,8 +604,7 @@ public sealed class PlumbingPullSystem : EntitySystem
 
         var solutionName = outlet.SolutionName;
 
-        if (targetEntity == outletOwner
-            && TryComp<StarlightPlumbingFilterComponent>(outletOwner, out var filterComp))
+        if (targetEntity == outletOwner && TryComp<StarlightPlumbingFilterComponent>(outletOwner, out var filterComp))
         {
             if (nodeName.Equals(filterComp.FilterNodeName, StringComparison.OrdinalIgnoreCase))
                 solutionName = filterComp.FilteredSolutionName;
@@ -574,5 +616,4 @@ public sealed class PlumbingPullSystem : EntitySystem
             ? solutionEnt
             : null;
     }
-
 }

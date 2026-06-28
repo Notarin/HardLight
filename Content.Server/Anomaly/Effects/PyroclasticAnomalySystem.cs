@@ -11,8 +11,11 @@ namespace Content.Server.Anomaly.Effects;
 /// </summary>
 public sealed class PyroclasticAnomalySystem : EntitySystem
 {
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly FlammableSystem _flammable = default!;
+    [Dependency]
+    private readonly EntityLookupSystem _lookup = default!;
+
+    [Dependency]
+    private readonly FlammableSystem _flammable = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -28,7 +31,11 @@ public sealed class PyroclasticAnomalySystem : EntitySystem
         IgniteNearby(uid, xform.Coordinates, args.Severity, ignitionRadius);
     }
 
-    private void OnSupercritical(EntityUid uid, PyroclasticAnomalyComponent component, ref AnomalySupercriticalEvent args)
+    private void OnSupercritical(
+        EntityUid uid,
+        PyroclasticAnomalyComponent component,
+        ref AnomalySupercriticalEvent args
+    )
     {
         var xform = Transform(uid);
         IgniteNearby(uid, xform.Coordinates, 1, component.MaximumIgnitionRadius * 2 * args.PowerModifier);
@@ -42,7 +49,7 @@ public sealed class PyroclasticAnomalySystem : EntitySystem
         foreach (var flammable in flammables)
         {
             var ent = flammable.Owner;
-            var stackAmount = 1 + (int) (severity / 0.15f);
+            var stackAmount = 1 + (int)(severity / 0.15f);
             _flammable.AdjustFireStacks(ent, stackAmount, flammable);
             _flammable.Ignite(ent, uid, flammable);
         }

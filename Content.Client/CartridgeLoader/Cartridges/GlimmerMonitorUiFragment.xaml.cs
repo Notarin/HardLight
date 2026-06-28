@@ -11,7 +11,8 @@ namespace Content.Client.CartridgeLoader.Cartridges;
 [GenerateTypedNameReferences]
 public sealed partial class GlimmerMonitorUiFragment : BoxContainer
 {
-    [Dependency] private readonly IResourceCache _resourceCache = default!;
+    [Dependency]
+    private readonly IResourceCache _resourceCache = default!;
 
     public event Action<bool>? OnSync;
     private List<int> _cachedValues = new();
@@ -58,7 +59,6 @@ public sealed partial class GlimmerMonitorUiFragment : BoxContainer
         graph.SetSize = new Vector2(450, 250);
         MonitorBox.AddChild(graph);
     }
-
 
     private List<int> FormatGlimmerValues(List<int> glimmerValues)
     {

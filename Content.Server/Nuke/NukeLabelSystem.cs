@@ -5,8 +5,11 @@ namespace Content.Server.Nuke;
 /// </summary>
 public sealed class NukeLabelSystem : EntitySystem
 {
-    [Dependency] private readonly NukeSystem _nuke = default!;
-    [Dependency] private readonly MetaDataSystem _metaData = default!;
+    [Dependency]
+    private readonly NukeSystem _nuke = default!;
+
+    [Dependency]
+    private readonly MetaDataSystem _metaData = default!;
 
     /// <inheritdoc/>
     public override void Initialize()

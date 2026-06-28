@@ -17,5 +17,5 @@ public enum RadCollectorState : byte
 {
     Empty,
     Low,
-    Full
+    Full,
 }

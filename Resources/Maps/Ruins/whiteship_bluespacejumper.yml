@@ -2008,4 +2008,3 @@ entities:
     - type: Transform
       pos: 6.5,-10.5
       parent: 1
-...

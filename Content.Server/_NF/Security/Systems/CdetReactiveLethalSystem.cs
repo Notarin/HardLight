@@ -12,11 +12,20 @@ namespace Content.Server._NF.Security.Systems;
 
 public sealed class CdetReactiveLethalSystem : EntitySystem
 {
-    [Dependency] private readonly BatteryWeaponFireModesSystem _fireModes = default!;
-    [Dependency] private readonly SharedGunSystem _gun = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly NPCRetaliationSystem _retaliation = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly BatteryWeaponFireModesSystem _fireModes = default!;
+
+    [Dependency]
+    private readonly SharedGunSystem _gun = default!;
+
+    [Dependency]
+    private readonly EntityLookupSystem _lookup = default!;
+
+    [Dependency]
+    private readonly NPCRetaliationSystem _retaliation = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     public override void Initialize()
     {
@@ -65,9 +74,8 @@ public sealed class CdetReactiveLethalSystem : EntitySystem
         if (!TryComp<BatteryWeaponFireModesComponent>(ent, out var fireModes))
             return;
 
-        args.SoundGunshot = fireModes.CurrentFireMode == ent.Comp.LethalFireMode
-            ? ent.Comp.LethalSound
-            : ent.Comp.NonLethalSound;
+        args.SoundGunshot =
+            fireModes.CurrentFireMode == ent.Comp.LethalFireMode ? ent.Comp.LethalSound : ent.Comp.NonLethalSound;
     }
 
     private void Activate(Entity<CdetReactiveLethalComponent> ent, bool propagate, EntityUid? attacker = null)
@@ -83,7 +91,12 @@ public sealed class CdetReactiveLethalSystem : EntitySystem
         if (!propagate)
             return;
 
-        foreach (var (otherUid, otherReactive) in _lookup.GetEntitiesInRange<CdetReactiveLethalComponent>(Transform(ent.Owner).Coordinates, ent.Comp.AlertRadius))
+        foreach (
+            var (otherUid, otherReactive) in _lookup.GetEntitiesInRange<CdetReactiveLethalComponent>(
+                Transform(ent.Owner).Coordinates,
+                ent.Comp.AlertRadius
+            )
+        )
         {
             if (otherUid == ent.Owner)
                 continue;
@@ -92,7 +105,11 @@ public sealed class CdetReactiveLethalSystem : EntitySystem
         }
     }
 
-    private void SetFireMode(Entity<CdetReactiveLethalComponent> ent, BatteryWeaponFireModesComponent fireModes, int mode)
+    private void SetFireMode(
+        Entity<CdetReactiveLethalComponent> ent,
+        BatteryWeaponFireModesComponent fireModes,
+        int mode
+    )
     {
         if (!_fireModes.TrySetFireMode(ent.Owner, fireModes, mode))
             return;

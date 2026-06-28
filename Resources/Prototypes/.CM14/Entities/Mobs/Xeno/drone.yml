@@ -1,15 +1,15 @@
-﻿- type: entity # TODO CM14 description
+- type: entity # TODO CM14 description
   parent: CMXenoDeveloped
   id: CMXenoDrone
   name: Drone
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: Mobs
     sprite: Mobs/Aliens/Xenos/drone.rsi
     offset: 0,0.4
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: alive
   - type: MobState
     allowedStates:

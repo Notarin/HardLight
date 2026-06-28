@@ -19,7 +19,8 @@ namespace Content.Shared._DeltaV.NanoChat;
 /// </summary>
 public abstract class SharedNanoChatSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     public override void Initialize()
     {
@@ -49,9 +50,7 @@ public abstract class SharedNanoChatSystem : EntitySystem
         if (string.IsNullOrEmpty(text))
             return string.Empty;
 
-        return text.Length > maxLength
-            ? text[..(maxLength - overflowText.Length)] + overflowText
-            : text;
+        return text.Length > maxLength ? text[..(maxLength - overflowText.Length)] + overflowText : text;
     }
 
     #region Public API Methods
@@ -319,9 +318,11 @@ public abstract class SharedNanoChatSystem : EntitySystem
     ///     If the recipient doesn't exist, they will be added with the provided info.
     /// </summary>
     /// <returns>True if the recipient was added or already existed</returns>
-    public bool EnsureRecipientExists(Entity<NanoChatCardComponent?> card,
+    public bool EnsureRecipientExists(
+        Entity<NanoChatCardComponent?> card,
         uint recipientNumber,
-        NanoChatRecipient? recipientInfo = null)
+        NanoChatRecipient? recipientInfo = null
+    )
     {
         if (!Resolve(card, ref card.Comp))
             return false;

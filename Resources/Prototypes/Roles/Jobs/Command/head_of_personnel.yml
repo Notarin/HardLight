@@ -1,77 +1,77 @@
-  - type: job
-    id: HeadOfPersonnel
-    name: job-name-hop
-    description: job-description-hop
-    playTimeTracker: JobHeadOfPersonnel # Frontier
-    requirements:
-    - !type:DepartmentTimeRequirement
-      department: Engineering
-      time: 9000 # 2.5 hours
-    - !type:DepartmentTimeRequirement
-      department: Medical
-      time: 9000 # 2.5 hours
-    - !type:DepartmentTimeRequirement
-      department: Science
-      time: 9000 # 2.5 hrs
-    - !type:DepartmentTimeRequirement
-      department: Security
-      time: 9000 # 2.5 hrs
-    - !type:DepartmentTimeRequirement
-      department: Command
-      time: 9000 # 2.5 hours
-    weight: 70 # HardLight: 20<70
-    startingGear: HoPGear
-    icon: "JobIconHeadOfPersonnel"
-    supervisors: job-supervisors-captain
-    requireAdminNotify: true
-    canBeAntag: false
-    access:
-    - Command
-    - HeadOfPersonnel
-    - Bar
-    - Service
-    - Maintenance
-    - Janitor
-    - Theatre
-    - Kitchen
-    - Chapel
-    - Hydroponics
-    - External
-    - Cryogenics
-    - Chemistry
-    - Paramedic # Hardlight: Add Paramedic access
-    - Engineering
-    - Research
-    - Detective
-    - Salvage
-    - Security
-    - Brig
-    - Lawyer
-    - Cargo
-    - Atmospherics
-    - Medical
-    - Frontier
-    - Journalism # HardLight
-    - Genetics # HardLight
-    accessGroups:
-    - GeneralAccess # Frontier: default access
-    - AllAccess
-    special:
-    - !type:AddImplantSpecial
-      implants: [ MindShieldImplant ]
-    - !type:AddComponentSpecial
-      components:
-      - type: CommandStaff
-      - type: PsionicBonusChance # Nyano: Makes it more likely to become psionic.
-        flatBonus: 0.025
-  - type: startingGear
-    id: HoPGear
-    equipment:
-      # shoes: ClothingShoesColorBrown # HardLight: Add NF-style departmental loadouts
-      id: HoPPDA
-      # gloves: ClothingHandsGlovesHop # HardLight: Add NF-style departmental loadouts
-      ears: ClothingHeadsetAltCommand
-      belt: BoxFolderClipboard
-    storage:
-      back:
-      - Flash
+- type: job
+  id: HeadOfPersonnel
+  name: job-name-hop
+  description: job-description-hop
+  playTimeTracker: JobHeadOfPersonnel # Frontier
+  requirements:
+  - !type:DepartmentTimeRequirement
+    department: Engineering
+    time: 9000 # 2.5 hours
+  - !type:DepartmentTimeRequirement
+    department: Medical
+    time: 9000 # 2.5 hours
+  - !type:DepartmentTimeRequirement
+    department: Science
+    time: 9000 # 2.5 hrs
+  - !type:DepartmentTimeRequirement
+    department: Security
+    time: 9000 # 2.5 hrs
+  - !type:DepartmentTimeRequirement
+    department: Command
+    time: 9000 # 2.5 hours
+  weight: 70 # HardLight: 20<70
+  startingGear: HoPGear
+  icon: "JobIconHeadOfPersonnel"
+  supervisors: job-supervisors-captain
+  requireAdminNotify: true
+  canBeAntag: false
+  access:
+  - Command
+  - HeadOfPersonnel
+  - Bar
+  - Service
+  - Maintenance
+  - Janitor
+  - Theatre
+  - Kitchen
+  - Chapel
+  - Hydroponics
+  - External
+  - Cryogenics
+  - Chemistry
+  - Paramedic # Hardlight: Add Paramedic access
+  - Engineering
+  - Research
+  - Detective
+  - Salvage
+  - Security
+  - Brig
+  - Lawyer
+  - Cargo
+  - Atmospherics
+  - Medical
+  - Frontier
+  - Journalism # HardLight
+  - Genetics # HardLight
+  accessGroups:
+  - GeneralAccess # Frontier: default access
+  - AllAccess
+  special:
+  - !type:AddImplantSpecial
+    implants: [MindShieldImplant]
+  - !type:AddComponentSpecial
+    components:
+    - type: CommandStaff
+    - type: PsionicBonusChance # Nyano: Makes it more likely to become psionic.
+      flatBonus: 0.025
+- type: startingGear
+  id: HoPGear
+  equipment:
+    # shoes: ClothingShoesColorBrown # HardLight: Add NF-style departmental loadouts
+    id: HoPPDA
+    # gloves: ClothingHandsGlovesHop # HardLight: Add NF-style departmental loadouts
+    ears: ClothingHeadsetAltCommand
+    belt: BoxFolderClipboard
+  storage:
+    back:
+    - Flash

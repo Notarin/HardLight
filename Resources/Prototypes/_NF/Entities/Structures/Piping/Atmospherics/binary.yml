@@ -43,17 +43,15 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.49,-0.49,0.49,0.49" # don't want this colliding with walls or they won't close
         density: 100
         mask:
-          - FullTileMask
+        - FullTileMask
         layer:
-          - WallLayer
+        - WallLayer
       docking:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.2
           position: "0,-0.5"
         hard: false
@@ -67,8 +65,8 @@
     joinSystem: true # Any pipe system on an asteroid should update.
   - type: Tag
     tags:
-      - Unstackable
-      - Pipe
+    - Unstackable
+    - Pipe
   - type: PipeRestrictOverlap
   - type: AtmosUnsafeUnanchor
   - type: AtmosPipeColor
@@ -85,7 +83,7 @@
     noRot: false
   - type: DeviceLinkSource
     ports:
-      - DockStatus
+    - DockStatus
   - type: Wires
     layoutId: Docking # TODO: rework these
   #- type: ApcPowerReceiver
@@ -97,18 +95,16 @@
     settableDirection: true
   - type: NodeContainer
     nodes:
-      inlet:
-        !type:PipeNode
+      inlet: !type:PipeNode
         nodeGroupID: Pipe
         pipeDirection: North
-      outlet:
-        !type:DockablePipeNode
+      outlet: !type:DockablePipeNode
         nodeGroupID: Pipe
         pipeDirection: South
   - type: UserInterface
     interfaces:
-        enum.GasPressurePumpUiKey.BidiKey:
-          type: GasPressureBidiPumpBoundUserInterface
+      enum.GasPressurePumpUiKey.BidiKey:
+        type: GasPressureBidiPumpBoundUserInterface
   - type: ActivatableUI
     key: enum.GasPressurePumpUiKey.BidiKey
   - type: DockablePipe
@@ -123,9 +119,9 @@
   - type: PipeAppearance
   - type: Tag
     tags:
-      - Unstackable
-      - Pipe
-      - ForceNoFixRotations
+    - Unstackable
+    - Pipe
+    - ForceNoFixRotations
   - type: AtmosAlertsDevice
     group: Gaslock
   - type: AtmosAlarmable
@@ -157,10 +153,10 @@
       map: ["docked-unlit"]
       visible: false
     - state: pipeStraight
-      map: [ "enum.PipeVisualLayers.Pipe" ]
+      map: ["enum.PipeVisualLayers.Pipe"]
     - state: pumpPressure
     - state: pumpPressureOnOut
-      map: [ "enabled-unlit" ]
+      map: ["enabled-unlit"]
       shader: unshaded
     - state: panel_open
       map: ["enum.WiresVisualLayers.MaintenancePanel"]
@@ -168,16 +164,16 @@
     visuals:
       enum.PumpVisuals.Enabled:
         enabled-unlit:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
       enum.DockablePipeVisuals.Docked:
         docked-unlit:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
       enum.PumpVisuals.PumpingInwards:
         enabled-unlit:
-          True: { state: pumpPressureOnIn }
-          False: { state: pumpPressureOnOut }
+          True: {state: pumpPressureOnIn}
+          False: {state: pumpPressureOnOut}
   - type: StaticPrice
     price: 350
   - type: BlockWeather
@@ -186,7 +182,7 @@
   - type: IconSmooth
     key: walls
     mode: NoSprite
-  - type: Construction  # Hardlight
+  - type: Construction # Hardlight
     graph: Girder
     node: gaslock
 
@@ -212,10 +208,10 @@
       map: ["docked-unlit"]
       visible: false
     - state: pipeStraight
-      map: [ "enum.PipeVisualLayers.Pipe" ]
+      map: ["enum.PipeVisualLayers.Pipe"]
     - state: pumpPressure
     - state: pumpPressureOnOut
-      map: [ "enabled-unlit" ]
+      map: ["enabled-unlit"]
       shader: unshaded
     - state: panel_open
       map: ["enum.WiresVisualLayers.MaintenancePanel"]
@@ -223,16 +219,16 @@
     visuals:
       enum.PumpVisuals.Enabled:
         enabled-unlit:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
       enum.DockablePipeVisuals.Docked:
         docked-unlit:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
       enum.PumpVisuals.PumpingInwards:
         enabled-unlit:
-          True: { state: pumpPressureOnIn }
-          False: { state: pumpPressureOnOut }
+          True: {state: pumpPressureOnIn}
+          False: {state: pumpPressureOnOut}
   - type: GasPressurePump
     HighFlow: true
   - type: StaticPrice
@@ -249,7 +245,7 @@
 # End Hardlight
 
 - type: entity
-  parent: [ BaseStructureDynamic, BasePressurePumpGaslock, ConstructibleMachine ]
+  parent: [BaseStructureDynamic, BasePressurePumpGaslock, ConstructibleMachine]
   id: GaslockFrame
   name: portable gaslock
   description: Pumps gas through. Accepts docking, but cannot dock. Both sides must be docked and pumping in the same direction for gas to flow.
@@ -272,10 +268,10 @@
       map: ["docked-unlit"]
       visible: false
     - state: pipeStraight
-      map: [ "enum.PipeVisualLayers.Pipe" ]
+      map: ["enum.PipeVisualLayers.Pipe"]
     - state: pumpPressure
     - state: pumpPressureOnOut
-      map: [ "enabled-unlit" ]
+      map: ["enabled-unlit"]
       shader: unshaded
     - state: panel_open
       map: ["enum.WiresVisualLayers.MaintenancePanel"]
@@ -283,16 +279,16 @@
     visuals:
       enum.PumpVisuals.Enabled:
         enabled-unlit:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
       enum.DockablePipeVisuals.Docked:
         docked-unlit:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
       enum.PumpVisuals.PumpingInwards:
         enabled-unlit:
-          True: { state: pumpPressureOnIn }
-          False: { state: pumpPressureOnOut }
+          True: {state: pumpPressureOnIn}
+          False: {state: pumpPressureOnOut}
   - type: StaticPrice
     price: 100
   - type: Docking
@@ -302,17 +298,15 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.25,-0.49,0.25,0.25" # narrow enough to fit through doors when pulled
         density: 100
         mask:
-          - FullTileMask
+        - FullTileMask
         layer:
-          - AirlockLayer
+        - AirlockLayer
       docking:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.2
           position: "0,-0.5"
         hard: false

@@ -2,17 +2,17 @@
   id: MaintFluffTable
   table: !type:GroupSelector
     children:
-    # Common Group
     - !type:GroupSelector
+      # Common Group
       weight: 75
       children:
-      # Smoker's specialty
       - !type:AllSelector
+        # Smoker's specialty
         children:
         - id: Lighter
         - id: CigCartonBlue
-      # Gar glasses
       - !type:GroupSelector
+        # Gar glasses
         children:
         - id: ClothingEyesGlassesGar
         - id: ClothingEyesGlassesGarOrange
@@ -29,8 +29,8 @@
       - id: ClothingUnderSocksBee
       - id: ClothingUnderSocksCoder
       - id: ClothingHeadHatSquid
-      # Animal Masks
       - !type:GroupSelector
+        # Animal Masks
         children:
         - id: ClothingMaskRat
         - id: ClothingMaskFox
@@ -88,14 +88,14 @@
       - id: ClothingShoesTourist
       - id: ClothingUniformJumpsuitLoungewear
       - id: ClothingHeadHatCowboyRed
-    # Uncommon Group
     - !type:GroupSelector
+      # Uncommon Group
       weight: 23
       children:
       - id: ClothingNeckCloakHerald
       - id: ClothingHeadHelmetTemplar
-      # Cloaks
       - !type:GroupSelector
+        # Cloaks
         children:
         - id: ClothingNeckCloakTrans
         - id: ClothingNeckCloakAdmin
@@ -119,8 +119,8 @@
       - id: BalloonCorgi
       - id: MysteryFigureBox
       - id: RubberChicken
-      # Cult
       - !type:AllSelector
+        # Cult
         children:
         - id: ClothingOuterRobesCult
         - id: ClothingShoesCult
@@ -139,8 +139,8 @@
       - id: ClothingUniformJumpsuitPirate
       - id: ClothingShoesBootsCowboyFancy
       - id: ClothingHeadHatCowboyBountyHunter
-      # Pins
       - !type:GroupSelector
+        # Pins
         children:
         - id: ClothingNeckLGBTPin
         - id: ClothingNeckAllyPin
@@ -160,8 +160,8 @@
         - id: ClothingNeckTransPin
         - id: ClothingNeckAutismPin
         - id: ClothingNeckGoldAutismPin
-    # Rare Group
     - !type:GroupSelector
+      # Rare Group
       weight: 2
       children:
       - id: Skub
@@ -182,9 +182,9 @@
   components:
   - type: Sprite
     layers:
-      - state: red
-      - sprite: Clothing/Eyes/Glasses/gar.rsi
-        state: icon-super
+    - state: red
+    - sprite: Clothing/Eyes/Glasses/gar.rsi
+      state: icon-super
   - type: EntityTableSpawner
     table: !type:NestedSelector
       tableId: MaintFluffTable
@@ -194,8 +194,8 @@
   id: MaintToolsTable
   table: !type:GroupSelector
     children:
-    # Common Group
     - !type:GroupSelector
+      # Common Group
       weight: 75
       children:
       - id: FlashlightLantern
@@ -208,10 +208,10 @@
         children:
         - id: NitrogenTankFilled
         - id: DoubleEmergencyNitrogenTankFilled
-      # - id: EmergencyFunnyOxygenTankFilled # Frontier
-      #   weight: 0.5 # Frontier
-      - !type:GroupSelector # DeltaV - Random water vapor tanks spawn too
-        children:
+      - !type:GroupSelector
+        # - id: EmergencyFunnyOxygenTankFilled # Frontier
+        #   weight: 0.5 # Frontier
+        children: # DeltaV - Random water vapor tanks spawn too
         - !type:EntSelector
           id: WaterVaporTankFilled
         - !type:EntSelector
@@ -262,7 +262,7 @@
           weight: 1
         - id: ClothingHandsGlovesConducting
           weight: 0.1
-      # Uncommon Group
+          # Uncommon Group
     - !type:GroupSelector
       weight: 23
       children:
@@ -292,7 +292,7 @@
         children:
         - id: DrinkSpaceGlue
         - id: DrinkSpaceLube
-      # Rare Group
+          # Rare Group
     - !type:GroupSelector
       weight: 2
       children:
@@ -308,7 +308,7 @@
       - id: PetCarrier
       - id: DrinkMopwataBottleRandom
       - id: SpectralLocator
-      - id: WehpetInstrument  # Omu - Weh-pet is a rare spawn
+      - id: WehpetInstrument # Omu - Weh-pet is a rare spawn
       - id: LidSalami
         weight: 0.05
       - id: PlushieMaintsNaked
@@ -321,9 +321,9 @@
   components:
   - type: Sprite
     layers:
-      - state: red
-      - sprite: Objects/Power/power_cells.rsi
-        state: high
+    - state: red
+    - sprite: Objects/Power/power_cells.rsi
+      state: high
   - type: EntityTableSpawner
     table: !type:NestedSelector
       tableId: MaintToolsTable
@@ -333,8 +333,8 @@
   id: MaintWeaponTable
   table: !type:GroupSelector
     children:
-    # Common Group
     - !type:GroupSelector
+      # Common Group
       weight: 95
       children:
       - id: Machete
@@ -344,8 +344,8 @@
       - id: RifleStock
       - id: ModularReceiver
       - id: HydroponicsToolScythe
-    # Rare Group
     - !type:GroupSelector
+      # Rare Group
       weight: 5
       children:
       - id: Lighter
@@ -379,9 +379,9 @@
   components:
   - type: Sprite
     layers:
-      - state: red
-      - sprite: Objects/Weapons/Melee/machete.rsi
-        state: icon
+    - state: red
+    - sprite: Objects/Weapons/Melee/machete.rsi
+      state: icon
   - type: EntityTableSpawner
     table: !type:NestedSelector
       tableId: MaintWeaponTable
@@ -393,17 +393,16 @@
   id: MaintenancePlantSpawner
   parent: MarkerBase
   components:
-    - type: Sprite
-      layers:
-        - state: red
-        - sprite: Objects/Misc/spaceshroom.rsi
-          state: structure
-    - type: RandomSpawner
-      prototypes:
-        - Spaceshroom
-      chance: 0.6
-      offset: 0.0
-
+  - type: Sprite
+    layers:
+    - state: red
+    - sprite: Objects/Misc/spaceshroom.rsi
+      state: structure
+  - type: RandomSpawner
+    prototypes:
+    - Spaceshroom
+    chance: 0.6
+    offset: 0.0
 
 - type: entityTable
   id: InsulsTable

@@ -2,7 +2,7 @@
 #region Laser
 - type: entity
   id: NFWeaponEnergyPistolLaserSvalinn
-  parent: [ NFBaseWeaponFrameEnergyPistolNanotrasen, BaseWeaponPowerCellSmall ]
+  parent: [NFBaseWeaponFrameEnergyPistolNanotrasen, BaseWeaponPowerCellSmall]
   name: svalinn
   description: A cheap and widely used laser pistol.
   components:
@@ -13,7 +13,7 @@
 
 - type: entity
   id: NFWeaponEnergyPistolLaserMakeshift
-  parent: [ NFBaseWeaponEnergyPistolHitScan, NFBaseWeaponFrameEnergyPistolFrontierGunsmith ]
+  parent: [NFBaseWeaponEnergyPistolHitScan, NFBaseWeaponFrameEnergyPistolFrontierGunsmith]
   name: makeshift laser pistol
   description: Better pray it won't burn your hands off. At least it's legal.
   components:
@@ -28,9 +28,9 @@
     autoRecharge: false
 
 - type: entity
-  categories: [ DoNotMap ]
+  categories: [DoNotMap]
   id: NFWeaponEnergyPistolLaserAntique
-  parent: [ NFBaseWeaponEnergyPistolFireModes, NFBaseWeaponFrameEnergyPistolNanotrasen ]
+  parent: [NFBaseWeaponEnergyPistolFireModes, NFBaseWeaponFrameEnergyPistolNanotrasen]
   name: antique laser pistol
   description: |-
     This is an antique laser pistol with two settings: disable and kill. All craftsmanship is of the highest quality. It is decorated with a mahogany grip and chrome filigree. The object menaces with spikes of energy. On the item is an image of a captain and a clown. The clown is dead. The captain is striking a heroic pose.
@@ -57,9 +57,9 @@
       - state: inhand-right
 
 - type: entity
-  categories: [ DoNotMap ]
+  categories: [DoNotMap]
   id: NFWeaponEnergyPistolLaserX01Multiphase
-  parent: [ BaseC2ContrabandUnredeemable, NFWeaponEnergyPistolLaserAntique ]
+  parent: [BaseC2ContrabandUnredeemable, NFWeaponEnergyPistolLaserAntique]
   name: X-01 multiphase energy gun
   description: |-
     This is an expensive, modern recreation of an antique laser gun. This gun has several unique firemodes. On the handle is a label that says 'for authorized use only.'
@@ -74,7 +74,7 @@
 
 - type: entity
   id: NFWeaponEnergyPistolLaserAdvanced
-  parent: [ NFBaseWeaponEnergyPistolFireModes, NFBaseWeaponFrameEnergyPistolNanotrasen ]
+  parent: [NFBaseWeaponEnergyPistolFireModes, NFBaseWeaponFrameEnergyPistolNanotrasen]
   name: advanced laser pistol
   description: |-
     An experimental civilian grade high-energy laser pistol with a self-charging nuclear battery and two settings: disable and kill.
@@ -85,7 +85,7 @@
     - state: base
       map: ["enum.GunVisualLayers.Base"]
     - state: mode-lethal
-      map: [ "Firemode" ]
+      map: ["Firemode"]
     - state: mag-unshaded-4
       map: ["enum.GunVisualLayers.MagUnshaded"]
       shader: unshaded
@@ -98,7 +98,7 @@
 # Frontier
 - type: entity
   id: NFWeaponEnergyPistolLaser
-  parent: [ NFBaseWeaponEnergyPistolFireModes, NFBaseWeaponFrameEnergyPistolNanotrasen ]
+  parent: [NFBaseWeaponEnergyPistolFireModes, NFBaseWeaponFrameEnergyPistolNanotrasen]
   name: laser pistol
   description: |-
     An older model of civilian-grade laser pistol with two settings: disable and kill.
@@ -122,7 +122,7 @@
 #region Pulse
 - type: entity
   id: NFWeaponEnergyPistolPulse
-  parent: [ BaseC2ContrabandUnredeemable, NFBaseWeaponEnergyPistolHitScanPulse, NFBaseWeaponFrameEnergyPistolNanotrasen ]
+  parent: [BaseC2ContrabandUnredeemable, NFBaseWeaponEnergyPistolHitScanPulse, NFBaseWeaponFrameEnergyPistolNanotrasen]
   name: pulse pistol
   description: |-
     A state of the art energy pistol favoured as a sidearm by the NT operatives. On the handle is a label that says 'for authorized use only.'
@@ -138,7 +138,7 @@
 #region Disablers
 - type: entity
   id: NFWeaponEnergyPistolDisabler
-  parent: [ NFBaseWeaponEnergyPistolDisabler, NFBaseWeaponFrameEnergyPistolNanotrasen ]
+  parent: [NFBaseWeaponEnergyPistolDisabler, NFBaseWeaponFrameEnergyPistolNanotrasen]
   name: disabler pistol
   description: |-
     A civilian grade self-defense weapon that exhausts organic targets, weakening them until they collapse.
@@ -153,7 +153,7 @@
 
 - type: entity
   id: NFWeaponEnergyPistolDisablerPractice
-  parent: [ NFBaseWeaponEnergyGunPractice, NFBaseWeaponFrameEnergyPistolNanotrasen ]
+  parent: [NFBaseWeaponEnergyGunPractice, NFBaseWeaponFrameEnergyPistolNanotrasen]
   name: practice disabler pistol
   description: |-
     A self-defense weapon that exhausts organic targets, weakening them until they collapse. This one has been undertuned for cadets making it mostly harmless.
@@ -206,7 +206,7 @@
 # Frontier
 - type: entity
   id: NFWeaponHoloflareGun
-  parent: [ NFBaseWeaponFrameEnergyPistol ]
+  parent: [NFBaseWeaponFrameEnergyPistol]
   name: holoflare pistol
   description: |-
     A modification of a civilian-grade laser pistol that can project holoflares onto surfaces.
@@ -221,7 +221,7 @@
       shader: unshaded
     - state: mode-cyan
       shader: unshaded
-      map: [ "Firemode" ]
+      map: ["Firemode"]
   - type: Item
     size: Small
     inhandVisuals:
@@ -238,7 +238,7 @@
     selectedMode: SemiAuto
     fireRate: 2
     availableModes:
-      - SemiAuto
+    - SemiAuto
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/flaregun.ogg
     projectileSpeed: 15
@@ -274,8 +274,8 @@
     visuals:
       enum.EnergyGunFireModeVisuals.State:
         Firemode:
-          Cyan: { state: mode-cyan }
-          Red: { state: mode-red }
-          Yellow: { state: mode-yellow }
+          Cyan: {state: mode-cyan}
+          Red: {state: mode-red}
+          Yellow: {state: mode-yellow}
   - type: StaticPrice
     price: 250

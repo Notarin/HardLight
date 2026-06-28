@@ -250,7 +250,6 @@ public sealed partial class DoorComponent : Component
                 return;
 
             NextStateChange = IoCManager.Resolve<IGameTiming>().CurTime + TimeSpan.FromSeconds(value.Value);
-
         }
     }
     #endregion
@@ -292,10 +291,10 @@ public sealed partial class DoorComponent : Component
     public bool ClickOpen = true;
 
     [DataField(customTypeSerializer: typeof(ConstantSerializer<DrawDepthTag>))]
-    public int OpenDrawDepth = (int) DrawDepth.DrawDepth.Doors;
+    public int OpenDrawDepth = (int)DrawDepth.DrawDepth.Doors;
 
     [DataField(customTypeSerializer: typeof(ConstantSerializer<DrawDepthTag>))]
-    public int ClosedDrawDepth = (int) DrawDepth.DrawDepth.Doors;
+    public int ClosedDrawDepth = (int)DrawDepth.DrawDepth.Doors;
 }
 
 [Serializable, NetSerializable]
@@ -307,7 +306,7 @@ public enum DoorState : byte
     Opening,
     Welded,
     Denying,
-    Emagging
+    Emagging,
 }
 
 [Serializable, NetSerializable]

@@ -3,15 +3,16 @@ using Content.Server.Administration.Logs;
 using Content.Server.Bible.Components;
 using Content.Server.Chat.Managers;
 using Content.Server.Popups;
+using Content.Shared.Chat;
 using Content.Shared.Database;
 using Content.Shared.Popups;
-using Content.Shared.Chat;
 using Content.Shared.Prayer;
 using Content.Shared.Verbs;
 using Robust.Server.GameObjects;
 using Robust.Shared.Player;
 
 namespace Content.Server.Prayer;
+
 /// <summary>
 /// System to handle subtle messages and praying
 /// </summary>
@@ -20,10 +21,17 @@ namespace Content.Server.Prayer;
 /// </remarks>
 public sealed class PrayerSystem : EntitySystem
 {
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
-    [Dependency] private readonly IChatManager _chatManager = default!;
-    [Dependency] private readonly QuickDialogSystem _quickDialog = default!;
+    [Dependency]
+    private readonly IAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly IChatManager _chatManager = default!;
+
+    [Dependency]
+    private readonly QuickDialogSystem _quickDialog = default!;
 
     public override void Initialize()
     {
@@ -48,21 +56,33 @@ public sealed class PrayerSystem : EntitySystem
             Icon = comp.VerbImage,
             Act = () =>
             {
-                if (comp.BibleUserOnly && !EntityManager.TryGetComponent<BibleUserComponent>(args.User, out var bibleUser))
+                if (
+                    comp.BibleUserOnly
+                    && !EntityManager.TryGetComponent<BibleUserComponent>(args.User, out var bibleUser)
+                )
                 {
-                    _popupSystem.PopupEntity(Loc.GetString("prayer-popup-notify-pray-locked"), uid, actor.PlayerSession, PopupType.Large);
+                    _popupSystem.PopupEntity(
+                        Loc.GetString("prayer-popup-notify-pray-locked"),
+                        uid,
+                        actor.PlayerSession,
+                        PopupType.Large
+                    );
                     return;
                 }
 
-                _quickDialog.OpenDialog(actor.PlayerSession, Loc.GetString(comp.Verb), Loc.GetString("prayer-popup-notify-pray-ui-message"), (string message) =>
-                {
-                    // Make sure the player's entity and the Prayable entity+component still exist
-                    if (actor?.PlayerSession != null && HasComp<PrayableComponent>(uid))
-                        Pray(actor.PlayerSession, comp, message);
-                });
+                _quickDialog.OpenDialog(
+                    actor.PlayerSession,
+                    Loc.GetString(comp.Verb),
+                    Loc.GetString("prayer-popup-notify-pray-ui-message"),
+                    (string message) =>
+                    {
+                        // Make sure the player's entity and the Prayable entity+component still exist
+                        if (actor?.PlayerSession != null && HasComp<PrayableComponent>(uid))
+                            Pray(actor.PlayerSession, comp, message);
+                    }
+                );
             },
             Impact = LogImpact.Low,
-
         };
         prayerVerb.Impact = LogImpact.Low;
         args.Verbs.Add(prayerVerb);
@@ -75,7 +95,12 @@ public sealed class PrayerSystem : EntitySystem
     /// <param name="source">The IPlayerSession that sent the message</param>
     /// <param name="messageString">The main message sent to the player via the chatbox</param>
     /// <param name="popupMessage">The popup to notify the player, also prepended to the messageString</param>
-    public void SendSubtleMessage(ICommonSession target, ICommonSession source, string messageString, string popupMessage)
+    public void SendSubtleMessage(
+        ICommonSession target,
+        ICommonSession source,
+        string messageString,
+        string popupMessage
+    )
     {
         if (target.AttachedEntity is not { } attached || !attached.Valid || !EntityManager.EntityExists(attached))
             return;
@@ -86,8 +111,19 @@ public sealed class PrayerSystem : EntitySystem
         var message = popupMessage == "" ? "" : popupMessage + (messageString == "" ? "" : $" \"{messageString}\"");
 
         _popupSystem.PopupEntity(popupMessage, attached, target, PopupType.Large);
-        _chatManager.ChatMessageToOne(ChatChannel.Local, messageString, message, EntityUid.Invalid, false, target.Channel);
-        _adminLogger.Add(LogType.AdminMessage, LogImpact.Low, $"{ToPrettyString(attached):player} received subtle message from {source.Name}: {message}");
+        _chatManager.ChatMessageToOne(
+            ChatChannel.Local,
+            messageString,
+            message,
+            EntityUid.Invalid,
+            false,
+            target.Channel
+        );
+        _adminLogger.Add(
+            LogType.AdminMessage,
+            LogImpact.Low,
+            $"{ToPrettyString(attached):player} received subtle message from {source.Name}: {message}"
+        );
     }
 
     /// <summary>
@@ -97,7 +133,12 @@ public sealed class PrayerSystem : EntitySystem
     /// <param name="source">The IPlayerSession that sent the message</param>
     /// <param name="messageString">The main message sent to the player via the chatbox</param>
     /// <param name="popupMessage">The popup to notify the player, also prepended to the messageString</param>
-    public void SendCrypticMessage(ICommonSession target, ICommonSession source, string messageString, string popupMessage)
+    public void SendCrypticMessage(
+        ICommonSession target,
+        ICommonSession source,
+        string messageString,
+        string popupMessage
+    )
     {
         if (target.AttachedEntity is not { } attached || !attached.Valid || !EntityManager.EntityExists(attached))
             return;
@@ -108,7 +149,11 @@ public sealed class PrayerSystem : EntitySystem
         var message = popupMessage == "" ? "" : popupMessage + (messageString == "" ? "" : $" \"{messageString}\"");
 
         _popupSystem.PopupEntity(popupMessage, attached, target, PopupType.Cryptic);
-        _adminLogger.Add(LogType.AdminMessage, LogImpact.Low, $"{ToPrettyString(attached):player} received cryptic message from {source.Name}: {message}");
+        _adminLogger.Add(
+            LogType.AdminMessage,
+            LogImpact.Low,
+            $"{ToPrettyString(attached):player} received cryptic message from {source.Name}: {message}"
+        );
     }
 
     /// <summary>
@@ -126,9 +171,18 @@ public sealed class PrayerSystem : EntitySystem
         if (sender.AttachedEntity == null)
             return;
 
-        _popupSystem.PopupEntity(Loc.GetString(comp.SentMessage), sender.AttachedEntity.Value, sender, PopupType.Medium);
+        _popupSystem.PopupEntity(
+            Loc.GetString(comp.SentMessage),
+            sender.AttachedEntity.Value,
+            sender,
+            PopupType.Medium
+        );
 
         _chatManager.SendAdminAnnouncement($"{Loc.GetString(comp.NotificationPrefix)} <{sender.Name}>: {message}");
-        _adminLogger.Add(LogType.AdminMessage, LogImpact.Low, $"{ToPrettyString(sender.AttachedEntity.Value):player} sent prayer ({Loc.GetString(comp.NotificationPrefix)}): {message}");
+        _adminLogger.Add(
+            LogType.AdminMessage,
+            LogImpact.Low,
+            $"{ToPrettyString(sender.AttachedEntity.Value):player} sent prayer ({Loc.GetString(comp.NotificationPrefix)}): {message}"
+        );
     }
 }

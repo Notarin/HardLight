@@ -12,7 +12,8 @@ namespace Content.Server.PDA.Ringer;
 /// </summary>
 public sealed class RingerSystem : SharedRingerSystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -92,14 +93,7 @@ public sealed class RingerSystem : SharedRingerSystem
     private Note[] GenerateRingtone()
     {
         // Default to using C pentatonic so it at least sounds not terrible.
-        return GenerateRingtone(new[]
-        {
-            Note.C,
-            Note.D,
-            Note.E,
-            Note.G,
-            Note.A
-        });
+        return GenerateRingtone(new[] { Note.C, Note.D, Note.E, Note.G, Note.A });
     }
 
     /// <summary>

@@ -6,6 +6,5 @@ namespace Content.Shared.Bed.Sleep
     /// Prevents waking up. Use as a status effect.
     /// </summary>
     [NetworkedComponent, RegisterComponent]
-    public sealed partial class ForcedSleepingComponent : Component
-    {}
+    public sealed partial class ForcedSleepingComponent : Component { }
 }

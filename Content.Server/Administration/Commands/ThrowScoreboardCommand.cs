@@ -7,7 +7,8 @@ namespace Content.Server.Administration.Commands;
 [AdminCommand(AdminFlags.VarEdit)]
 public sealed class ThrowScoreboardCommand : IConsoleCommand
 {
-    [Dependency] private readonly IEntityManager _e = default!;
+    [Dependency]
+    private readonly IEntityManager _e = default!;
 
     public string Command => "throwscoreboard";
 

@@ -1,6 +1,6 @@
 - files:
-    - SDS_Charge.ogg
-    - SDS_Charge2.ogg
+  - SDS_Charge.ogg
+  - SDS_Charge2.ogg
   license: Custom
   source: https://freesound.org/people/Teh_Bucket/sounds/518739/
   # couldn't figure out how to source multiple (the right way) without shit breaking so heres the rest: https://pixabay.com/sound-effects/switchbigpowerwav-14710/ https://pixabay.com/sound-effects/shield-recharging-107016/

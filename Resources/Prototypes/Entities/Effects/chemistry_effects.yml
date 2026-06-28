@@ -15,8 +15,7 @@
     fixtures:
       fix1:
         hard: false
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.4,-0.4,0.4,0.4"
         mask:
         - ItemMask
@@ -36,7 +35,7 @@
   parent: BaseFoam
   id: Smoke
   name: smoke
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Occluder
   - type: Sprite
@@ -52,7 +51,7 @@
   parent: Smoke
   id: WizardSmoke
   name: smoke
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Smoke
     spreadAmount: 1
@@ -62,12 +61,11 @@
         maxVol: 10
         canReact: false
 
-
 - type: entity
   parent: BaseFoam
   id: Foam
   name: foam
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     color: "#ffffffcc"
@@ -75,13 +73,13 @@
     layers:
     - state: foam
       map: ["enum.FoamVisualLayers.Base"]
-    - map: [ "enum.EdgeLayer.South" ]
+    - map: ["enum.EdgeLayer.South"]
       state: foam-south
-    - map: [ "enum.EdgeLayer.East" ]
+    - map: ["enum.EdgeLayer.East"]
       state: foam-east
-    - map: [ "enum.EdgeLayer.North" ]
+    - map: ["enum.EdgeLayer.North"]
       state: foam-north
-    - map: [ "enum.EdgeLayer.West" ]
+    - map: ["enum.EdgeLayer.West"]
       state: foam-west
   - type: SmoothEdge
   - type: IconSmooth
@@ -91,14 +89,14 @@
     animationState: foam-dissolve
   - type: Slippery
   - type: StepTrigger
-  # disabled until foam reagent duplication is fixed
-  #- type: ScoopableSolution
-  #  solution: solutionArea
+    # disabled until foam reagent duplication is fixed
+    #- type: ScoopableSolution
+    #  solution: solutionArea
 
 - type: entity
   id: MetalFoam
   name: metal foam
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: Foam
   components:
   - type: Sprite
@@ -107,13 +105,13 @@
     layers:
     - state: m_foam
       map: ["enum.FoamVisualLayers.Base"]
-    - map: [ "enum.EdgeLayer.South" ]
+    - map: ["enum.EdgeLayer.South"]
       state: m_foam-south
-    - map: [ "enum.EdgeLayer.East" ]
+    - map: ["enum.EdgeLayer.East"]
       state: m_foam-east
-    - map: [ "enum.EdgeLayer.North" ]
+    - map: ["enum.EdgeLayer.North"]
       state: m_foam-north
-    - map: [ "enum.EdgeLayer.West" ]
+    - map: ["enum.EdgeLayer.West"]
       state: m_foam-west
   - type: EdgeSpreader
     id: MetalFoam
@@ -124,7 +122,7 @@
 - type: entity
   id: IronMetalFoam
   name: iron metal foam
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: MetalFoam
   components:
   - type: SpawnOnDespawn
@@ -133,7 +131,7 @@
 - type: entity
   id: AluminiumMetalFoam
   name: aluminium metal foam
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: MetalFoam
   components:
   - type: SpawnOnDespawn
@@ -160,8 +158,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb {}
+        shape: !type:PhysShapeAabb {}
         layer:
         - WallLayer
         mask:
@@ -187,12 +184,11 @@
     damageModifierSet: Metallic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 12
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
 
 - type: entity
   id: FoamedIronMetal
@@ -207,13 +203,13 @@
     layers:
     - state: iron_foam
       map: ["enum.FoamVisualLayers.Base"]
-    - map: [ "enum.EdgeLayer.South" ]
+    - map: ["enum.EdgeLayer.South"]
       state: iron_foam-south
-    - map: [ "enum.EdgeLayer.East" ]
+    - map: ["enum.EdgeLayer.East"]
       state: iron_foam-east
-    - map: [ "enum.EdgeLayer.North" ]
+    - map: ["enum.EdgeLayer.North"]
       state: iron_foam-north
-    - map: [ "enum.EdgeLayer.West" ]
+    - map: ["enum.EdgeLayer.West"]
       state: iron_foam-west
 
 - type: entity
@@ -229,18 +225,18 @@
     layers:
     - state: metal_foam
       map: ["enum.FoamVisualLayers.Base"]
-    - map: [ "enum.EdgeLayer.South" ]
+    - map: ["enum.EdgeLayer.South"]
       state: metal_foam-south
-    - map: [ "enum.EdgeLayer.East" ]
+    - map: ["enum.EdgeLayer.East"]
       state: metal_foam-east
-    - map: [ "enum.EdgeLayer.North" ]
+    - map: ["enum.EdgeLayer.North"]
       state: metal_foam-north
-    - map: [ "enum.EdgeLayer.West" ]
+    - map: ["enum.EdgeLayer.West"]
       state: metal_foam-west
 
 - type: entity
   id: ReactionFlash
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: PointLight
     enabled: true

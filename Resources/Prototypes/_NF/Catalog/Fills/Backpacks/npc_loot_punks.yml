@@ -5,7 +5,7 @@
   name: punk bundle
   description: Loot boxes? Here?
   abstract: true
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   suffix: NPC Loot
   components:
   - type: Sprite
@@ -45,7 +45,7 @@
   parent: PunkMessengerGiftBox
   id: ClothingBackpackPunkLootA
   name: punk gear bundle
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:
@@ -85,7 +85,7 @@
 - type: entity
   parent: ClothingBackpackPunkLootA
   id: ClothingBackpackPunkLootB
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:
@@ -137,7 +137,7 @@
 - type: entity
   parent: ClothingBackpackPunkLootA
   id: ClothingBackpackPunkLootC
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:
@@ -188,7 +188,7 @@
 - type: entity
   parent: ClothingBackpackPunkLootA
   id: ClothingBackpackPunkLootD
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:
@@ -245,7 +245,7 @@
 - type: entity
   parent: ClothingBackpackPunkLootA
   id: ClothingBackpackPunkLootBoss
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:

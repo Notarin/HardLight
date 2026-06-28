@@ -18,7 +18,9 @@ public partial class SharedMartialArtsSystem
     {
         SubscribeLocalEvent<CanPerformComboComponent, SleepingCarpGnashingTeethPerformedEvent>(OnSleepingCarpGnashing);
         SubscribeLocalEvent<CanPerformComboComponent, SleepingCarpKneeHaulPerformedEvent>(OnSleepingCarpKneeHaul);
-        SubscribeLocalEvent<CanPerformComboComponent, SleepingCarpCrashingWavesPerformedEvent>(OnSleepingCarpCrashingWaves);
+        SubscribeLocalEvent<CanPerformComboComponent, SleepingCarpCrashingWavesPerformedEvent>(
+            OnSleepingCarpCrashingWaves
+        );
 
         SubscribeLocalEvent<GrantSleepingCarpComponent, UseInHandEvent>(OnGrantSleepingCarp);
     }
@@ -40,11 +42,7 @@ public partial class SharedMartialArtsSystem
 
         if (_timing.CurTime < studentComp.UseAgainTime)
         {
-            _popupSystem.PopupEntity(
-                Loc.GetString("carp-scroll-waiting"),
-                ent,
-                args.User,
-                PopupType.MediumCaution);
+            _popupSystem.PopupEntity(Loc.GetString("carp-scroll-waiting"), ent, args.User, PopupType.MediumCaution);
             return;
         }
 
@@ -59,11 +57,7 @@ public partial class SharedMartialArtsSystem
                 var userReflect = EnsureComp<ReflectComponent>(args.User);
                 userReflect.ReflectProb = 1;
                 userReflect.Spread = 60;
-                _popupSystem.PopupEntity(
-                    Loc.GetString("carp-scroll-complete"),
-                    ent,
-                    args.User,
-                    PopupType.LargeCaution);
+                _popupSystem.PopupEntity(Loc.GetString("carp-scroll-complete"), ent, args.User, PopupType.LargeCaution);
                 return;
         }
     }
@@ -73,23 +67,23 @@ public partial class SharedMartialArtsSystem
         var time = new System.Random().Next(ent.Comp.MinUseDelay, ent.Comp.MaxUseDelay);
         ent.Comp.UseAgainTime = _timing.CurTime + TimeSpan.FromSeconds(time);
         ent.Comp.Stage++;
-        _popupSystem.PopupEntity(
-            Loc.GetString("carp-scroll-advance"),
-            ent,
-            ent,
-            PopupType.Medium);
+        _popupSystem.PopupEntity(Loc.GetString("carp-scroll-advance"), ent, ent, PopupType.Medium);
     }
 
     #endregion
 
     #region Combo Methods
 
-    private void OnSleepingCarpGnashing(Entity<CanPerformComboComponent> ent,
-        ref SleepingCarpGnashingTeethPerformedEvent args)
+    private void OnSleepingCarpGnashing(
+        Entity<CanPerformComboComponent> ent,
+        ref SleepingCarpGnashingTeethPerformedEvent args
+    )
     {
-        if (!_proto.TryIndex(ent.Comp.BeingPerformed, out var proto)
+        if (
+            !_proto.TryIndex(ent.Comp.BeingPerformed, out var proto)
             || !_proto.TryIndex<MartialArtPrototype>(proto.MartialArtsForm.ToString(), out var martialArtProto)
-            || !TryUseMartialArt(ent, proto.MartialArtsForm, out var target, out var downed))
+            || !TryUseMartialArt(ent, proto.MartialArtsForm, out var target, out var downed)
+        )
             return;
 
         DoDamage(ent, target, proto.DamageType, proto.ExtraDamage + ent.Comp.ConsecutiveGnashes * 5, out _);
@@ -97,27 +91,29 @@ public partial class SharedMartialArtsSystem
         _audio.PlayPvs(new SoundPathSpecifier("/Audio/Weapons/genhit1.ogg"), target);
         if (!downed)
         {
-            var saying =
-                martialArtProto.RandomSayings.ElementAt(
-                    _random.Next(martialArtProto.RandomSayings.Count));
+            var saying = martialArtProto.RandomSayings.ElementAt(_random.Next(martialArtProto.RandomSayings.Count));
             var ev = new SleepingCarpSaying(saying);
             RaiseLocalEvent(ent, ev);
         }
         else
         {
-            var saying =
-                martialArtProto.RandomSayingsDowned.ElementAt(
-                    _random.Next(martialArtProto.RandomSayingsDowned.Count));
+            var saying = martialArtProto.RandomSayingsDowned.ElementAt(
+                _random.Next(martialArtProto.RandomSayingsDowned.Count)
+            );
             var ev = new SleepingCarpSaying(saying);
             RaiseLocalEvent(ent, ev);
         }
     }
 
-    private void OnSleepingCarpKneeHaul(Entity<CanPerformComboComponent> ent,
-        ref SleepingCarpKneeHaulPerformedEvent args)
+    private void OnSleepingCarpKneeHaul(
+        Entity<CanPerformComboComponent> ent,
+        ref SleepingCarpKneeHaulPerformedEvent args
+    )
     {
-        if (!_proto.TryIndex(ent.Comp.BeingPerformed, out var proto)
-            || !TryUseMartialArt(ent, proto.MartialArtsForm, out var target, out var downed))
+        if (
+            !_proto.TryIndex(ent.Comp.BeingPerformed, out var proto)
+            || !TryUseMartialArt(ent, proto.MartialArtsForm, out var target, out var downed)
+        )
             return;
 
         if (!downed)
@@ -138,12 +134,16 @@ public partial class SharedMartialArtsSystem
         ComboPopup(ent, target, proto.Name);
     }
 
-    private void OnSleepingCarpCrashingWaves(Entity<CanPerformComboComponent> ent,
-        ref SleepingCarpCrashingWavesPerformedEvent args)
+    private void OnSleepingCarpCrashingWaves(
+        Entity<CanPerformComboComponent> ent,
+        ref SleepingCarpCrashingWavesPerformedEvent args
+    )
     {
-        if (!_proto.TryIndex(ent.Comp.BeingPerformed, out var proto)
+        if (
+            !_proto.TryIndex(ent.Comp.BeingPerformed, out var proto)
             || !TryUseMartialArt(ent, proto.MartialArtsForm, out var target, out var downed)
-            || downed)
+            || downed
+        )
             return;
 
         DoDamage(ent, target, proto.DamageType, proto.ExtraDamage, out var damage);

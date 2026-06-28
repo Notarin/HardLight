@@ -11,12 +11,14 @@ public sealed partial class DnaScannerConsoleComponent : Component
     /// <summary>
     /// Currently scanned entity
     /// </summary>
-    [DataField] public EntityUid? CurrentSubject;
+    [DataField]
+    public EntityUid? CurrentSubject;
 
     /// <summary>
     /// Mutations saved in the console's storage
     /// </summary>
-    [DataField] public List<MutationEntry> SavedMutations = new();
+    [DataField]
+    public List<MutationEntry> SavedMutations = new();
 
     /// <summary>
     /// Mutations currently being researched in this console.
@@ -33,7 +35,8 @@ public sealed partial class DnaScannerConsoleComponent : Component
     /// <summary>
     /// Number of available DNA injectors in storage
     /// </summary>
-    [DataField] public int DnaInjectors = 60;
+    [DataField]
+    public int DnaInjectors = 60;
 
     /// <summary>
     /// When the scramble cooldown ends
@@ -92,7 +95,8 @@ public sealed class GeneticistsConsoleBoundUserInterfaceState : BoundUserInterfa
         Dictionary<string, int> researchRemaining = default!,
         Dictionary<string, int> researchOriginal = default!,
         HashSet<string>? activeResearchMutationIds = null,
-        TimeSpan? jokerCooldownEnd = null)
+        TimeSpan? jokerCooldownEnd = null
+    )
     {
         SubjectName = subjectName;
         HealthStatus = healthStatus;
@@ -114,5 +118,5 @@ public sealed class GeneticistsConsoleBoundUserInterfaceState : BoundUserInterfa
 [Serializable, NetSerializable]
 public enum DnaScannerConsoleUiKey : byte
 {
-    Key
+    Key,
 }

@@ -4,8 +4,7 @@
   speech:
     color: "#00a3e2dd"
     fontId: RubikBubbles
-  obfuscation:
-    !type:SyllableObfuscation
+  obfuscation: !type:SyllableObfuscation
     minSyllables: 1
     maxSyllables: 3
     replacement:

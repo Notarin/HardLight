@@ -297,9 +297,9 @@
   id: JobNFPirate
   groups:
   - NFPirateHead
-#  - NFPirateNeck
+  #  - NFPirateNeck
   - NFPirateJumpsuit
-#  - NFPirateGloves
+  #  - NFPirateGloves
   - ContractorBackpack
   - NFPirateForcedOuterClothing
   - NFPirateShoes
@@ -316,9 +316,9 @@
   id: JobNFPirateFirstMate
   groups:
   - NFPirateFirstMateHead
-#  - NFPirateNeck
+  #  - NFPirateNeck
   - NFPirateJumpsuit
-#  - NFPirateGloves
+  #  - NFPirateGloves
   - ContractorBackpack
   - NFPirateFirstMateOuterClothing
   - NFPirateForcedOuterClothing
@@ -336,9 +336,9 @@
   id: JobNFPirateCaptain
   groups:
   - NFPirateCaptainHead
-#  - NFPirateNeck
+  #  - NFPirateNeck
   - NFPirateJumpsuit
-#  - NFPirateGloves
+  #  - NFPirateGloves
   - ContractorBackpack
   - NFPirateCaptainOuterClothing
   - NFPirateForcedOuterClothing
@@ -357,13 +357,13 @@
 - type: roleLoadout
   id: JobPrisoner
   groups:
-#  - PrisonerHead
-#  - PrisonerNeck
+  #  - PrisonerHead
+  #  - PrisonerNeck
   - PrisonerJumpsuit
-#  - PrisonerGloves
-#  - PrisonerBackpack
+  #  - PrisonerGloves
+  #  - PrisonerBackpack
   - PrisonerForcedOuterClothing
-#  - PrisonerShoes
+  #  - PrisonerShoes
   - PrisonerFace
   - PrisonerSurvival
   - PrisonerPDA

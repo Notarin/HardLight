@@ -22,13 +22,26 @@ namespace Content.Server.IdentityManagement;
 /// </summary>
 public sealed class IdentitySystem : SharedIdentitySystem
 {
-    [Dependency] private readonly IdCardSystem _idCard = default!;
-    [Dependency] private readonly IAdminLogManager _adminLog = default!;
-    [Dependency] private readonly MetaDataSystem _metaData = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly HumanoidAppearanceSystem _humanoid = default!;
-    [Dependency] private readonly CriminalRecordsConsoleSystem _criminalRecordsConsole = default!;
-    [Dependency] private readonly GrammarSystem _grammarSystem = default!;
+    [Dependency]
+    private readonly IdCardSystem _idCard = default!;
+
+    [Dependency]
+    private readonly IAdminLogManager _adminLog = default!;
+
+    [Dependency]
+    private readonly MetaDataSystem _metaData = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly HumanoidAppearanceSystem _humanoid = default!;
+
+    [Dependency]
+    private readonly CriminalRecordsConsoleSystem _criminalRecordsConsole = default!;
+
+    [Dependency]
+    private readonly GrammarSystem _grammarSystem = default!;
 
     private HashSet<EntityUid> _queuedIdentityUpdates = new();
 
@@ -97,6 +110,7 @@ public sealed class IdentitySystem : SharedIdentitySystem
 
         return name;
     }
+
     // WWDP edit end
 
     #region Private API
@@ -109,9 +123,7 @@ public sealed class IdentitySystem : SharedIdentitySystem
         if (identity.IdentityEntitySlot.ContainedEntity is not { } ident)
             return;
 
-        if (TerminatingOrDeleted(uid)
-            || TerminatingOrDeleted(ident)
-            || !TryComp<MetaDataComponent>(ident, out _))
+        if (TerminatingOrDeleted(uid) || TerminatingOrDeleted(ident) || !TryComp<MetaDataComponent>(ident, out _))
         {
             return;
         }
@@ -170,9 +182,11 @@ public sealed class IdentitySystem : SharedIdentitySystem
     ///     Gets an 'identity representation' of an entity, with their true name being the entity name
     ///     and their 'presumed name' and 'presumed job' being the name/job on their ID card, if they have one.
     /// </summary>
-    private IdentityRepresentation GetIdentityRepresentation(EntityUid target,
-        InventoryComponent? inventory=null,
-        HumanoidAppearanceComponent? appearance=null)
+    private IdentityRepresentation GetIdentityRepresentation(
+        EntityUid target,
+        InventoryComponent? inventory = null,
+        HumanoidAppearanceComponent? appearance = null
+    )
     {
         int age = 18;
         Gender gender = Gender.Epicene;

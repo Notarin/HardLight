@@ -17,13 +17,26 @@ namespace Content.Server.Glue;
 
 public sealed class GlueSystem : SharedGlueSystem
 {
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainer = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly OpenableSystem _openable = default!;
-    [Dependency] private readonly NameModifierSystem _nameMod = default!;
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SharedSolutionContainerSystem _solutionContainer = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    private readonly OpenableSystem _openable = default!;
+
+    [Dependency]
+    private readonly NameModifierSystem _nameMod = default!;
 
     public override void Initialize()
     {
@@ -51,8 +64,12 @@ public sealed class GlueSystem : SharedGlueSystem
 
     private void OnUtilityVerb(Entity<GlueComponent> entity, ref GetVerbsEvent<UtilityVerb> args)
     {
-        if (!args.CanInteract || !args.CanAccess || args.Target is not { Valid: true } target ||
-        _openable.IsClosed(entity))
+        if (
+            !args.CanInteract
+            || !args.CanAccess
+            || args.Target is not { Valid: true } target
+            || _openable.IsClosed(entity)
+        )
             return;
 
         var user = args.User;
@@ -62,7 +79,7 @@ public sealed class GlueSystem : SharedGlueSystem
             Act = () => TryGlue(entity, target, user),
             IconEntity = GetNetEntity(entity),
             Text = Loc.GetString("glue-verb-text"),
-            Message = Loc.GetString("glue-verb-message")
+            Message = Loc.GetString("glue-verb-message"),
         };
 
         args.Verbs.Add(verb);
@@ -77,13 +94,20 @@ public sealed class GlueSystem : SharedGlueSystem
             return false;
         }
 
-        if (HasComp<ItemComponent>(target) && _solutionContainer.TryGetSolution(entity.Owner, entity.Comp.Solution, out _, out var solution))
+        if (
+            HasComp<ItemComponent>(target)
+            && _solutionContainer.TryGetSolution(entity.Owner, entity.Comp.Solution, out _, out var solution)
+        )
         {
             var quantity = solution.RemoveReagent(entity.Comp.Reagent, entity.Comp.ConsumptionUnit);
             if (quantity > 0)
             {
                 EnsureComp<GluedComponent>(target).Duration = quantity.Double() * entity.Comp.DurationPerUnit;
-                _adminLogger.Add(LogType.Action, LogImpact.Medium, $"{ToPrettyString(actor):actor} glued {ToPrettyString(target):subject} with {ToPrettyString(entity.Owner):tool}");
+                _adminLogger.Add(
+                    LogType.Action,
+                    LogImpact.Medium,
+                    $"{ToPrettyString(actor):actor} glued {ToPrettyString(target):subject} with {ToPrettyString(entity.Owner):tool}"
+                );
                 _audio.PlayPvs(entity.Comp.Squeeze, entity.Owner);
                 _popup.PopupEntity(Loc.GetString("glue-success", ("target", target)), actor, actor, PopupType.Medium);
                 return true;

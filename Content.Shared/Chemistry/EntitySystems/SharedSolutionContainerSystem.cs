@@ -1,24 +1,24 @@
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Numerics;
+using System.Runtime.CompilerServices;
+using System.Text;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.Components.SolutionManager;
 using Content.Shared.Chemistry.Reaction;
 using Content.Shared.Chemistry.Reagent;
 using Content.Shared.Examine;
 using Content.Shared.FixedPoint;
+using Content.Shared.Hands.Components;
+using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Verbs;
 using JetBrains.Annotations;
 using Robust.Shared.Containers;
 using Robust.Shared.GameStates;
-using Robust.Shared.Prototypes;
-using Robust.Shared.Utility;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Numerics;
-using System.Runtime.CompilerServices;
-using System.Text;
-using Content.Shared.Hands.Components;
-using Content.Shared.Hands.EntitySystems;
 using Robust.Shared.Map;
 using Robust.Shared.Network;
+using Robust.Shared.Prototypes;
+using Robust.Shared.Utility;
 using Dependency = Robust.Shared.IoC.DependencyAttribute;
 
 namespace Content.Shared.Chemistry.EntitySystems;
@@ -43,8 +43,10 @@ public partial record struct SolutionOverflowEvent(Entity<SolutionComponent> Sol
 {
     /// <summary>The solution entity that has been overfilled.</summary>
     public readonly Entity<SolutionComponent> Solution = Solution;
+
     /// <summary>The amount by which the solution entity has been overfilled.</summary>
     public readonly FixedPoint2 Overflow = Overflow;
+
     /// <summary>Whether any of the event handlers for this event have handled overflow behaviour.</summary>
     public bool Handled = false;
 }
@@ -62,14 +64,30 @@ public partial record struct SolutionAccessAttemptEvent(string SolutionName)
 public abstract partial class SharedSolutionContainerSystem : EntitySystem
 {
     private static readonly ProtoId<MixingCategoryPrototype> ElectrolysisCategory = "Electrolysis"; // HardLight
-    [Dependency] protected readonly IPrototypeManager PrototypeManager = default!;
-    [Dependency] protected readonly ChemicalReactionSystem ChemicalReactionSystem = default!;
-    [Dependency] protected readonly ExamineSystemShared ExamineSystem = default!;
-    [Dependency] protected readonly SharedAppearanceSystem AppearanceSystem = default!;
-    [Dependency] protected readonly SharedHandsSystem Hands = default!;
-    [Dependency] protected readonly SharedContainerSystem ContainerSystem = default!;
-    [Dependency] protected readonly MetaDataSystem MetaDataSys = default!;
-    [Dependency] protected readonly INetManager NetManager = default!;
+
+    [Dependency]
+    protected readonly IPrototypeManager PrototypeManager = default!;
+
+    [Dependency]
+    protected readonly ChemicalReactionSystem ChemicalReactionSystem = default!;
+
+    [Dependency]
+    protected readonly ExamineSystemShared ExamineSystem = default!;
+
+    [Dependency]
+    protected readonly SharedAppearanceSystem AppearanceSystem = default!;
+
+    [Dependency]
+    protected readonly SharedHandsSystem Hands = default!;
+
+    [Dependency]
+    protected readonly SharedContainerSystem ContainerSystem = default!;
+
+    [Dependency]
+    protected readonly MetaDataSystem MetaDataSys = default!;
+
+    [Dependency]
+    protected readonly INetManager NetManager = default!;
 
     public override void Initialize()
     {
@@ -98,7 +116,6 @@ public abstract partial class SharedSolutionContainerSystem : EntitySystem
         }
     }
 
-
     /// <summary>
     /// Attempts to resolve a solution associated with an entity.
     /// </summary>
@@ -108,7 +125,12 @@ public abstract partial class SharedSolutionContainerSystem : EntitySystem
     /// <param name="solution">Returns the solution state of the solution entity.</param>
     /// <returns>Whether the solution was successfully resolved.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public bool ResolveSolution(Entity<SolutionContainerManagerComponent?> container, string? name, [NotNullWhen(true)] ref Entity<SolutionComponent>? entity, [NotNullWhen(true)] out Solution? solution)
+    public bool ResolveSolution(
+        Entity<SolutionContainerManagerComponent?> container,
+        string? name,
+        [NotNullWhen(true)] ref Entity<SolutionComponent>? entity,
+        [NotNullWhen(true)] out Solution? solution
+    )
     {
         if (!ResolveSolution(container, name, ref entity))
         {
@@ -122,12 +144,17 @@ public abstract partial class SharedSolutionContainerSystem : EntitySystem
 
     /// <inheritdoc cref="ResolveSolution"/>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public bool ResolveSolution(Entity<SolutionContainerManagerComponent?> container, string? name, [NotNullWhen(true)] ref Entity<SolutionComponent>? entity)
+    public bool ResolveSolution(
+        Entity<SolutionContainerManagerComponent?> container,
+        string? name,
+        [NotNullWhen(true)] ref Entity<SolutionComponent>? entity
+    )
     {
         if (entity is not null)
         {
-            DebugTools.Assert(TryGetSolution(container, name, out var debugEnt)
-                              && debugEnt.Value.Owner == entity.Value.Owner);
+            DebugTools.Assert(
+                TryGetSolution(container, name, out var debugEnt) && debugEnt.Value.Owner == entity.Value.Owner
+            );
             return true;
         }
 
@@ -151,7 +178,8 @@ public abstract partial class SharedSolutionContainerSystem : EntitySystem
         string? name,
         [NotNullWhen(true)] out Entity<SolutionComponent>? entity,
         [NotNullWhen(true)] out Solution? solution,
-        bool errorOnMissing = false)
+        bool errorOnMissing = false
+    )
     {
         if (!TryGetSolution(container, name, out entity, errorOnMissing: errorOnMissing))
         {
@@ -168,15 +196,16 @@ public abstract partial class SharedSolutionContainerSystem : EntitySystem
         Entity<SolutionContainerManagerComponent?> container,
         string? name,
         [NotNullWhen(true)] out Entity<SolutionComponent>? entity,
-        bool errorOnMissing = false)
+        bool errorOnMissing = false
+    )
     {
         EntityUid uid;
         if (name is null)
             uid = container;
         else if (
-            ContainerSystem.TryGetContainer(container, $"solution@{name}", out var solutionContainer) &&
-            solutionContainer is ContainerSlot solutionSlot &&
-            solutionSlot.ContainedEntity is { } containedSolution
+            ContainerSystem.TryGetContainer(container, $"solution@{name}", out var solutionContainer)
+            && solutionContainer is ContainerSlot solutionSlot
+            && solutionSlot.ContainedEntity is { } containedSolution
         )
         {
             var attemptEv = new SolutionAccessAttemptEvent(name);
@@ -215,10 +244,12 @@ public abstract partial class SharedSolutionContainerSystem : EntitySystem
     /// <summary>
     /// Version of TryGetSolution that doesn't take or return an entity.
     /// Used for prototypes and with old code parity.
-    public bool TryGetSolution(SolutionContainerManagerComponent container,
+    public bool TryGetSolution(
+        SolutionContainerManagerComponent container,
         string name,
         [NotNullWhen(true)] out Solution? solution,
-        bool errorOnMissing = false)
+        bool errorOnMissing = false
+    )
     {
         solution = null;
         if (container.Solutions != null)
@@ -229,7 +260,10 @@ public abstract partial class SharedSolutionContainerSystem : EntitySystem
         return false;
     }
 
-    public IEnumerable<(string? Name, Entity<SolutionComponent> Solution)> EnumerateSolutions(Entity<SolutionContainerManagerComponent?> container, bool includeSelf = true)
+    public IEnumerable<(string? Name, Entity<SolutionComponent> Solution)> EnumerateSolutions(
+        Entity<SolutionContainerManagerComponent?> container,
+        bool includeSelf = true
+    )
     {
         if (includeSelf && TryComp(container, out SolutionComponent? solutionComp))
             yield return (null, (container.Owner, solutionComp));
@@ -245,7 +279,10 @@ public abstract partial class SharedSolutionContainerSystem : EntitySystem
             if (attemptEv.Cancelled)
                 continue;
 
-            if (ContainerSystem.GetContainer(container, $"solution@{name}") is ContainerSlot slot && slot.ContainedEntity is { } solutionId)
+            if (
+                ContainerSystem.GetContainer(container, $"solution@{name}") is ContainerSlot slot
+                && slot.ContainedEntity is { } solutionId
+            )
                 yield return (name, (solutionId, Comp<SolutionComponent>(solutionId)));
         }
     }
@@ -261,30 +298,56 @@ public abstract partial class SharedSolutionContainerSystem : EntitySystem
         }
     }
 
-
-    protected void UpdateAppearance(Entity<AppearanceComponent?> container, Entity<SolutionComponent, ContainedSolutionComponent> soln)
+    protected void UpdateAppearance(
+        Entity<AppearanceComponent?> container,
+        Entity<SolutionComponent, ContainedSolutionComponent> soln
+    )
     {
         var (uid, appearanceComponent) = container;
-        if (!HasComp<SolutionContainerVisualsComponent>(uid) || !Resolve(uid, ref appearanceComponent, logMissing: false))
+        if (
+            !HasComp<SolutionContainerVisualsComponent>(uid)
+            || !Resolve(uid, ref appearanceComponent, logMissing: false)
+        )
             return;
 
         var (_, comp, relation) = soln;
         var solution = comp.Solution;
 
-        AppearanceSystem.SetData(uid, SolutionContainerVisuals.FillFraction, solution.FillFraction, appearanceComponent);
-        AppearanceSystem.SetData(uid, SolutionContainerVisuals.Color, solution.GetColor(PrototypeManager), appearanceComponent);
-        AppearanceSystem.SetData(uid, SolutionContainerVisuals.SolutionName, relation.ContainerName, appearanceComponent);
+        AppearanceSystem.SetData(
+            uid,
+            SolutionContainerVisuals.FillFraction,
+            solution.FillFraction,
+            appearanceComponent
+        );
+        AppearanceSystem.SetData(
+            uid,
+            SolutionContainerVisuals.Color,
+            solution.GetColor(PrototypeManager),
+            appearanceComponent
+        );
+        AppearanceSystem.SetData(
+            uid,
+            SolutionContainerVisuals.SolutionName,
+            relation.ContainerName,
+            appearanceComponent
+        );
 
         if (solution.GetPrimaryReagentId() is { } reagent)
-            AppearanceSystem.SetData(uid, SolutionContainerVisuals.BaseOverride, reagent.ToString(), appearanceComponent);
+            AppearanceSystem.SetData(
+                uid,
+                SolutionContainerVisuals.BaseOverride,
+                reagent.ToString(),
+                appearanceComponent
+            );
     }
-
 
     public FixedPoint2 GetTotalPrototypeQuantity(EntityUid owner, string reagentId)
     {
         var reagentQuantity = FixedPoint2.New(0);
-        if (EntityManager.EntityExists(owner)
-            && EntityManager.TryGetComponent(owner, out SolutionContainerManagerComponent? managerComponent))
+        if (
+            EntityManager.EntityExists(owner)
+            && EntityManager.TryGetComponent(owner, out SolutionContainerManagerComponent? managerComponent)
+        )
         {
             foreach (var (_, soln) in EnumerateSolutions((owner, managerComponent)))
             {
@@ -296,7 +359,6 @@ public abstract partial class SharedSolutionContainerSystem : EntitySystem
         return reagentQuantity;
     }
 
-
     /// <summary>
     /// Dirties a solution entity that has been modified and prompts updates to chemical reactions and overflow state.
     /// Should be invoked whenever a solution entity is modified.
@@ -307,7 +369,11 @@ public abstract partial class SharedSolutionContainerSystem : EntitySystem
     /// <param name="soln"></param>
     /// <param name="needsReactionsProcessing"></param>
     /// <param name="mixerComponent"></param>
-    public void UpdateChemicals(Entity<SolutionComponent> soln, bool needsReactionsProcessing = true, ReactionMixerComponent? mixerComponent = null)
+    public void UpdateChemicals(
+        Entity<SolutionComponent> soln,
+        bool needsReactionsProcessing = true,
+        ReactionMixerComponent? mixerComponent = null
+    )
     {
         Dirty(soln);
 
@@ -315,7 +381,8 @@ public abstract partial class SharedSolutionContainerSystem : EntitySystem
         var solution = comp.Solution;
 
         // Process reactions
-        var canProcessReactions = solution.CanReact || mixerComponent?.ReactionTypes.Contains(ElectrolysisCategory) == true; // HardLight: Electrolysis can always process reactions
+        var canProcessReactions =
+            solution.CanReact || mixerComponent?.ReactionTypes.Contains(ElectrolysisCategory) == true; // HardLight: Electrolysis can always process reactions
         if (needsReactionsProcessing && canProcessReactions) // HardLight: solution.CanReact<canProcessReactions
             ChemicalReactionSystem.FullyReactSolution(soln, mixerComponent);
 
@@ -340,11 +407,26 @@ public abstract partial class SharedSolutionContainerSystem : EntitySystem
         if (!EntityManager.EntityExists(uid) || !Resolve(uid, ref appearanceComponent, false))
             return;
 
-        AppearanceSystem.SetData(uid, SolutionContainerVisuals.FillFraction, solution.FillFraction, appearanceComponent);
-        AppearanceSystem.SetData(uid, SolutionContainerVisuals.Color, solution.GetColor(PrototypeManager), appearanceComponent);
+        AppearanceSystem.SetData(
+            uid,
+            SolutionContainerVisuals.FillFraction,
+            solution.FillFraction,
+            appearanceComponent
+        );
+        AppearanceSystem.SetData(
+            uid,
+            SolutionContainerVisuals.Color,
+            solution.GetColor(PrototypeManager),
+            appearanceComponent
+        );
 
         if (solution.GetPrimaryReagentId() is { } reagent)
-            AppearanceSystem.SetData(uid, SolutionContainerVisuals.BaseOverride, reagent.ToString(), appearanceComponent);
+            AppearanceSystem.SetData(
+                uid,
+                SolutionContainerVisuals.BaseOverride,
+                reagent.ToString(),
+                appearanceComponent
+            );
     }
 
     /// <summary>
@@ -387,7 +469,11 @@ public abstract partial class SharedSolutionContainerSystem : EntitySystem
     /// <param name="quantity">The amount of each reagent to split.</param>
     /// <param name="reagents">The list of reagents to split a fixed amount of, if present.</param>
     /// <returns>The solution that was removed.</returns>
-    public Solution SplitSolutionPerReagentWithOnly(Entity<SolutionComponent> soln, FixedPoint2 quantity, params string[] reagents)
+    public Solution SplitSolutionPerReagentWithOnly(
+        Entity<SolutionComponent> soln,
+        FixedPoint2 quantity,
+        params string[] reagents
+    )
     {
         var (uid, comp) = soln;
         var solution = comp.Solution;
@@ -396,6 +482,7 @@ public abstract partial class SharedSolutionContainerSystem : EntitySystem
         UpdateChemicals(soln);
         return splitSol;
     }
+
     // End Frontier
 
     public Solution SplitStackSolution(Entity<SolutionComponent> soln, FixedPoint2 quantity, int stackCount)
@@ -460,14 +547,18 @@ public abstract partial class SharedSolutionContainerSystem : EntitySystem
     /// <param name="reagentQuantity">The reagent to add.</param>
     /// <param name="acceptedQuantity">The amount of reagent successfully added.</param>
     /// <returns>If all the reagent could be added.</returns>
-    public bool TryAddReagent(Entity<SolutionComponent> soln, ReagentQuantity reagentQuantity, out FixedPoint2 acceptedQuantity, float? temperature = null)
+    public bool TryAddReagent(
+        Entity<SolutionComponent> soln,
+        ReagentQuantity reagentQuantity,
+        out FixedPoint2 acceptedQuantity,
+        float? temperature = null
+    )
     {
         var (uid, comp) = soln;
         var solution = comp.Solution;
 
-        acceptedQuantity = solution.AvailableVolume > reagentQuantity.Quantity
-            ? reagentQuantity.Quantity
-            : solution.AvailableVolume;
+        acceptedQuantity =
+            solution.AvailableVolume > reagentQuantity.Quantity ? reagentQuantity.Quantity : solution.AvailableVolume;
 
         if (acceptedQuantity <= 0)
             return reagentQuantity.Quantity == 0;
@@ -495,8 +586,13 @@ public abstract partial class SharedSolutionContainerSystem : EntitySystem
     /// <param name="quantity">The amount of reagent to add.</param>
     /// <returns>If all the reagent could be added.</returns>
     [PublicAPI]
-    public bool TryAddReagent(Entity<SolutionComponent> soln, string prototype, FixedPoint2 quantity, float? temperature = null, List<ReagentData>? data = null)
-        => TryAddReagent(soln, new ReagentQuantity(prototype, quantity, data), out _, temperature);
+    public bool TryAddReagent(
+        Entity<SolutionComponent> soln,
+        string prototype,
+        FixedPoint2 quantity,
+        float? temperature = null,
+        List<ReagentData>? data = null
+    ) => TryAddReagent(soln, new ReagentQuantity(prototype, quantity, data), out _, temperature);
 
     /// <summary>
     ///     Adds reagent of an Id to the container.
@@ -507,7 +603,14 @@ public abstract partial class SharedSolutionContainerSystem : EntitySystem
     /// <param name="quantity">The amount of reagent to add.</param>
     /// <param name="acceptedQuantity">The amount of reagent successfully added.</param>
     /// <returns>If all the reagent could be added.</returns>
-    public bool TryAddReagent(Entity<SolutionComponent> soln, string prototype, FixedPoint2 quantity, out FixedPoint2 acceptedQuantity, float? temperature = null, List<ReagentData>? data = null)
+    public bool TryAddReagent(
+        Entity<SolutionComponent> soln,
+        string prototype,
+        FixedPoint2 quantity,
+        out FixedPoint2 acceptedQuantity,
+        float? temperature = null,
+        List<ReagentData>? data = null
+    )
     {
         var reagent = new ReagentQuantity(prototype, quantity, data);
         return TryAddReagent(soln, reagent, out acceptedQuantity, temperature);
@@ -522,7 +625,13 @@ public abstract partial class SharedSolutionContainerSystem : EntitySystem
     /// <param name="quantity">The amount of reagent to add.</param>
     /// <param name="acceptedQuantity">The amount of reagent successfully added.</param>
     /// <returns>If all the reagent could be added.</returns>
-    public bool TryAddReagent(Entity<SolutionComponent> soln, ReagentId reagentId, FixedPoint2 quantity, out FixedPoint2 acceptedQuantity, float? temperature = null)
+    public bool TryAddReagent(
+        Entity<SolutionComponent> soln,
+        ReagentId reagentId,
+        FixedPoint2 quantity,
+        out FixedPoint2 acceptedQuantity,
+        float? temperature = null
+    )
     {
         var quant = new ReagentQuantity(reagentId, quantity);
         return TryAddReagent(soln, quant, out acceptedQuantity, temperature);
@@ -574,7 +683,12 @@ public abstract partial class SharedSolutionContainerSystem : EntitySystem
     /// <param name="prototype">The Id of the reagent to remove.</param>
     /// <param name="quantity">The amount of reagent to remove.</param>
     /// <returns>If the reagent to remove was found in the container.</returns>
-    public bool RemoveReagent(Entity<SolutionComponent> soln, string prototype, FixedPoint2 quantity, List<ReagentData>? data = null)
+    public bool RemoveReagent(
+        Entity<SolutionComponent> soln,
+        string prototype,
+        FixedPoint2 quantity,
+        List<ReagentData>? data = null
+    )
     {
         return RemoveReagent(soln, new ReagentQuantity(prototype, quantity, data));
     }
@@ -696,7 +810,12 @@ public abstract partial class SharedSolutionContainerSystem : EntitySystem
     /// If the combined volume is below this an empty solution is returned.</param>
     /// <param name="overflowingSolution">Solution that exceeded overflowThreshold</param>
     /// <returns>Whether any reagents were added to <paramref cref="targetSolution"/>.</returns>
-    public bool TryMixAndOverflow(Entity<SolutionComponent> soln, Solution toAdd, FixedPoint2 overflowThreshold, [MaybeNullWhen(false)] out Solution overflowingSolution)
+    public bool TryMixAndOverflow(
+        Entity<SolutionComponent> soln,
+        Solution toAdd,
+        FixedPoint2 overflowThreshold,
+        [MaybeNullWhen(false)] out Solution overflowingSolution
+    )
     {
         var (uid, comp) = soln;
         var solution = comp.Solution;
@@ -708,7 +827,9 @@ public abstract partial class SharedSolutionContainerSystem : EntitySystem
         }
 
         solution.AddSolution(toAdd, PrototypeManager);
-        overflowingSolution = solution.SplitSolution(FixedPoint2.Max(FixedPoint2.Zero, solution.Volume - overflowThreshold));
+        overflowingSolution = solution.SplitSolution(
+            FixedPoint2.Max(FixedPoint2.Zero, solution.Volume - overflowThreshold)
+        );
         UpdateChemicals(soln);
         return true;
     }
@@ -855,18 +976,26 @@ public abstract partial class SharedSolutionContainerSystem : EntitySystem
             return;
         }
 
-        var colorHex = solution.GetColor(PrototypeManager)
-            .ToHexNoAlpha(); //TODO: If the chem has a dark color, the examine text becomes black on a black background, which is unreadable.
+        var colorHex = solution.GetColor(PrototypeManager).ToHexNoAlpha(); //TODO: If the chem has a dark color, the examine text becomes black on a black background, which is unreadable.
         var messageString = "shared-solution-container-component-on-examine-main-text";
 
         using (args.PushGroup(nameof(ExaminableSolutionComponent)))
         {
-            args.PushMarkup(Loc.GetString(messageString,
-                ("color", colorHex),
-                ("wordedAmount", Loc.GetString(solution.Contents.Count == 1
-                    ? "shared-solution-container-component-on-examine-worded-amount-one-reagent"
-                    : "shared-solution-container-component-on-examine-worded-amount-multiple-reagents")),
-                ("desc", primary.LocalizedPhysicalDescription)));
+            args.PushMarkup(
+                Loc.GetString(
+                    messageString,
+                    ("color", colorHex),
+                    (
+                        "wordedAmount",
+                        Loc.GetString(
+                            solution.Contents.Count == 1
+                                ? "shared-solution-container-component-on-examine-worded-amount-one-reagent"
+                                : "shared-solution-container-component-on-examine-worded-amount-multiple-reagents"
+                        )
+                    ),
+                    ("desc", primary.LocalizedPhysicalDescription)
+                )
+            );
 
             var reagentPrototypes = solution.GetReagentPrototypes(PrototypeManager);
 
@@ -911,16 +1040,25 @@ public abstract partial class SharedSolutionContainerSystem : EntitySystem
                     part = "examinable-solution-recognized-next";
                 }
 
-                msg.Append(Loc.GetString(part, ("color", reagent.SubstanceColor.ToHexNoAlpha()),
-                    ("chemical", reagent.LocalizedName)));
+                msg.Append(
+                    Loc.GetString(
+                        part,
+                        ("color", reagent.SubstanceColor.ToHexNoAlpha()),
+                        ("chemical", reagent.LocalizedName)
+                    )
+                );
             }
 
-            args.PushMarkup(Loc.GetString("examinable-solution-has-recognizable-chemicals",
-                ("recognizedString", msg.ToString())));
+            args.PushMarkup(
+                Loc.GetString("examinable-solution-has-recognizable-chemicals", ("recognizedString", msg.ToString()))
+            );
         }
     }
 
-    private void OnSolutionExaminableVerb(Entity<ExaminableSolutionComponent> entity, ref GetVerbsEvent<ExamineVerb> args)
+    private void OnSolutionExaminableVerb(
+        Entity<ExaminableSolutionComponent> entity,
+        ref GetVerbsEvent<ExamineVerb> args
+    )
     {
         if (!args.CanInteract || !args.CanAccess)
             return;
@@ -980,14 +1118,20 @@ public abstract partial class SharedSolutionContainerSystem : EntitySystem
         foreach (var (proto, quantity) in sortedReagentPrototypes)
         {
             msg.PushNewline();
-            msg.AddMarkupOrThrow(Loc.GetString("scannable-solution-chemical"
-                , ("type", proto.LocalizedName)
-                , ("color", proto.SubstanceColor.ToHexNoAlpha())
-                , ("amount", quantity)));
+            msg.AddMarkupOrThrow(
+                Loc.GetString(
+                    "scannable-solution-chemical",
+                    ("type", proto.LocalizedName),
+                    ("color", proto.SubstanceColor.ToHexNoAlpha()),
+                    ("amount", quantity)
+                )
+            );
         }
 
         msg.PushNewline();
-        msg.AddMarkupOrThrow(Loc.GetString("scannable-solution-temperature", ("temperature", Math.Round(solution.Temperature))));
+        msg.AddMarkupOrThrow(
+            Loc.GetString("scannable-solution-temperature", ("temperature", Math.Round(solution.Temperature)))
+        );
 
         return msg;
     }
@@ -1030,7 +1174,13 @@ public abstract partial class SharedSolutionContainerSystem : EntitySystem
 
         foreach (var name in entity.Comp.Containers)
         {
-            if (!TryGetSolution((entity.Owner, (SolutionContainerManagerComponent?) entity.Comp), name, out Entity<SolutionComponent>? soln))
+            if (
+                !TryGetSolution(
+                    (entity.Owner, (SolutionContainerManagerComponent?)entity.Comp),
+                    name,
+                    out Entity<SolutionComponent>? soln
+                )
+            )
                 continue;
 
             if (!TryComp<ContainedSolutionComponent>(soln.Value, out var contained))
@@ -1040,7 +1190,10 @@ public abstract partial class SharedSolutionContainerSystem : EntitySystem
         }
     }
 
-    private void OnContainerManagerShutdown(Entity<SolutionContainerManagerComponent> entity, ref ComponentShutdown args)
+    private void OnContainerManagerShutdown(
+        Entity<SolutionContainerManagerComponent> entity,
+        ref ComponentShutdown args
+    )
     {
         foreach (var name in entity.Comp.Containers)
         {
@@ -1090,7 +1243,10 @@ public abstract partial class SharedSolutionContainerSystem : EntitySystem
         };
     }
 
-    private void OnContainedSolutionHandleState(Entity<ContainedSolutionComponent> entity, ref ComponentHandleState args)
+    private void OnContainedSolutionHandleState(
+        Entity<ContainedSolutionComponent> entity,
+        ref ComponentHandleState args
+    )
     {
         if (args.Current is not ContainedSolutionComponentState state)
             return;
@@ -1104,8 +1260,9 @@ public abstract partial class SharedSolutionContainerSystem : EntitySystem
     public bool EnsureSolution(
         Entity<MetaDataComponent?> entity,
         string name,
-        [NotNullWhen(true)]out Solution? solution,
-        FixedPoint2 maxVol = default)
+        [NotNullWhen(true)] out Solution? solution,
+        FixedPoint2 maxVol = default
+    )
     {
         return EnsureSolution(entity, name, maxVol, null, out _, out solution);
     }
@@ -1114,8 +1271,9 @@ public abstract partial class SharedSolutionContainerSystem : EntitySystem
         Entity<MetaDataComponent?> entity,
         string name,
         out bool existed,
-        [NotNullWhen(true)]out Solution? solution,
-        FixedPoint2 maxVol = default)
+        [NotNullWhen(true)] out Solution? solution,
+        FixedPoint2 maxVol = default
+    )
     {
         return EnsureSolution(entity, name, maxVol, null, out existed, out solution);
     }
@@ -1126,7 +1284,8 @@ public abstract partial class SharedSolutionContainerSystem : EntitySystem
         FixedPoint2 maxVol,
         Solution? prototype,
         out bool existed,
-        [NotNullWhen(true)] out Solution? solution)
+        [NotNullWhen(true)] out Solution? solution
+    )
     {
         solution = null;
         existed = false;
@@ -1137,8 +1296,7 @@ public abstract partial class SharedSolutionContainerSystem : EntitySystem
         var manager = EnsureComp<SolutionContainerManagerComponent>(uid);
         if (meta.EntityLifeStage >= EntityLifeStage.MapInitialized)
         {
-            EnsureSolutionEntity((uid, manager), name, out existed,
-                out var solEnt, maxVol, prototype);
+            EnsureSolutionEntity((uid, manager), name, out existed, out var solEnt, maxVol, prototype);
             solution = solEnt!.Value.Comp.Solution;
             return true;
         }
@@ -1167,8 +1325,8 @@ public abstract partial class SharedSolutionContainerSystem : EntitySystem
         Entity<SolutionContainerManagerComponent?> entity,
         string name,
         [NotNullWhen(true)] out Entity<SolutionComponent>? solutionEntity,
-        FixedPoint2 maxVol = default) =>
-        EnsureSolutionEntity(entity, name, out _, out solutionEntity, maxVol);
+        FixedPoint2 maxVol = default
+    ) => EnsureSolutionEntity(entity, name, out _, out solutionEntity, maxVol);
 
     public bool EnsureSolutionEntity(
         Entity<SolutionContainerManagerComponent?> entity,
@@ -1177,7 +1335,7 @@ public abstract partial class SharedSolutionContainerSystem : EntitySystem
         [NotNullWhen(true)] out Entity<SolutionComponent>? solutionEntity,
         FixedPoint2 maxVol = default,
         Solution? prototype = null
-        )
+    )
     {
         existed = true;
         solutionEntity = null;
@@ -1251,7 +1409,13 @@ public abstract partial class SharedSolutionContainerSystem : EntitySystem
         return true;
     }
 
-    private Solution EnsureSolutionPrototype(Entity<SolutionContainerManagerComponent?> entity, string name, FixedPoint2 maxVol, Solution? prototype, out bool existed)
+    private Solution EnsureSolutionPrototype(
+        Entity<SolutionContainerManagerComponent?> entity,
+        string name,
+        FixedPoint2 maxVol,
+        Solution? prototype,
+        out bool existed
+    )
     {
         existed = true;
 
@@ -1278,7 +1442,12 @@ public abstract partial class SharedSolutionContainerSystem : EntitySystem
         return solution;
     }
 
-    private Entity<SolutionComponent, ContainedSolutionComponent> SpawnSolutionUninitialized(ContainerSlot container, string name, FixedPoint2 maxVol, Solution prototype)
+    private Entity<SolutionComponent, ContainedSolutionComponent> SpawnSolutionUninitialized(
+        ContainerSlot container,
+        string name,
+        FixedPoint2 maxVol,
+        Solution prototype
+    )
     {
         var coords = new EntityCoordinates(container.Owner, Vector2.Zero);
         var uid = EntityManager.CreateEntityUninitialized(null, coords, null);
@@ -1299,41 +1468,48 @@ public abstract partial class SharedSolutionContainerSystem : EntitySystem
         Entity<SolutionComponent> dissolvedSolution,
         FixedPoint2 volume,
         ReagentId reagent,
-        float concentrationChange)
+        float concentrationChange
+    )
     {
         if (concentrationChange == 0)
             return;
         var dissolvedSol = dissolvedSolution.Comp.Solution;
-        var amtChange =
-            GetReagentQuantityFromConcentration(dissolvedSolution, volume, MathF.Abs(concentrationChange));
+        var amtChange = GetReagentQuantityFromConcentration(dissolvedSolution, volume, MathF.Abs(concentrationChange));
         if (concentrationChange > 0)
         {
             dissolvedSol.AddReagent(reagent, amtChange);
         }
         else
         {
-            dissolvedSol.RemoveReagent(reagent,amtChange);
+            dissolvedSol.RemoveReagent(reagent, amtChange);
         }
         UpdateChemicals(dissolvedSolution);
     }
 
-    public FixedPoint2 GetReagentQuantityFromConcentration(Entity<SolutionComponent> dissolvedSolution,
-        FixedPoint2 volume,float concentration)
+    public FixedPoint2 GetReagentQuantityFromConcentration(
+        Entity<SolutionComponent> dissolvedSolution,
+        FixedPoint2 volume,
+        float concentration
+    )
     {
         var dissolvedSol = dissolvedSolution.Comp.Solution;
-        if (volume == 0
-            || dissolvedSol.Volume == 0)
+        if (volume == 0 || dissolvedSol.Volume == 0)
             return 0;
         return concentration * volume;
     }
 
-    public float GetReagentConcentration(Entity<SolutionComponent> dissolvedSolution,
-        FixedPoint2 volume, ReagentId dissolvedReagent)
+    public float GetReagentConcentration(
+        Entity<SolutionComponent> dissolvedSolution,
+        FixedPoint2 volume,
+        ReagentId dissolvedReagent
+    )
     {
         var dissolvedSol = dissolvedSolution.Comp.Solution;
-        if (volume == 0
+        if (
+            volume == 0
             || dissolvedSol.Volume == 0
-            || !dissolvedSol.TryGetReagentQuantity(dissolvedReagent, out var dissolvedVol))
+            || !dissolvedSol.TryGetReagentQuantity(dissolvedReagent, out var dissolvedVol)
+        )
             return 0;
         return (float)dissolvedVol / volume.Float();
     }
@@ -1343,12 +1519,15 @@ public abstract partial class SharedSolutionContainerSystem : EntitySystem
         FixedPoint2 volume,
         ReagentId dissolvedReagent,
         FixedPoint2 dissolvedReagentAmount,
-        float maxConcentration = 1f)
+        float maxConcentration = 1f
+    )
     {
         var dissolvedSol = dissolvedSolution.Comp.Solution;
-        if (volume == 0
+        if (
+            volume == 0
             || dissolvedSol.Volume == 0
-            || !dissolvedSol.TryGetReagentQuantity(dissolvedReagent, out var dissolvedVol))
+            || !dissolvedSol.TryGetReagentQuantity(dissolvedReagent, out var dissolvedVol)
+        )
             return 0;
         volume *= maxConcentration;
         dissolvedVol += dissolvedReagentAmount;

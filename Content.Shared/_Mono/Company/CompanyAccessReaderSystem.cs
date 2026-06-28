@@ -9,7 +9,8 @@ namespace Content.Shared._Mono.Company;
 /// </summary>
 public sealed class CompanyAccessReaderSystem : EntitySystem
 {
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
 
     public override void Initialize()
     {

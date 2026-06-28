@@ -1,4 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using Content.Server.Administration.Logs;
 using Content.Server.Atmos.EntitySystems;
 using Content.Server.Body.Systems;
@@ -14,37 +15,62 @@ using Content.Shared.Damage;
 using Content.Shared.Database;
 using Content.Shared.Destructible;
 using Content.Shared.FixedPoint;
+using Content.Shared.Humanoid;
 using JetBrains.Annotations;
 using Robust.Server.Audio;
 using Robust.Server.GameObjects;
 using Robust.Shared.Containers;
+using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
-using System.Linq;
-using Content.Shared.Humanoid;
-using Robust.Shared.Player;
 
 namespace Content.Server.Destructible
 {
     [UsedImplicitly]
     public sealed class DestructibleSystem : SharedDestructibleSystem
     {
-        [Dependency] public readonly IRobustRandom Random = default!;
+        [Dependency]
+        public readonly IRobustRandom Random = default!;
         public new IEntityManager EntityManager => base.EntityManager;
 
-        [Dependency] public readonly AtmosphereSystem AtmosphereSystem = default!;
-        [Dependency] public readonly AudioSystem AudioSystem = default!;
-        [Dependency] public readonly BodySystem BodySystem = default!;
-        [Dependency] public readonly ConstructionSystem ConstructionSystem = default!;
-        [Dependency] public readonly ExplosionSystem ExplosionSystem = default!;
-        [Dependency] public readonly StackSystem StackSystem = default!;
-        [Dependency] public readonly TriggerSystem TriggerSystem = default!;
-        [Dependency] public readonly SharedSolutionContainerSystem SolutionContainerSystem = default!;
-        [Dependency] public readonly PuddleSystem PuddleSystem = default!;
-        [Dependency] public readonly SharedContainerSystem ContainerSystem = default!;
-        [Dependency] public readonly IPrototypeManager PrototypeManager = default!;
-        [Dependency] public readonly IComponentFactory ComponentFactory = default!;
-        [Dependency] public readonly IAdminLogManager _adminLogger = default!;
+        [Dependency]
+        public readonly AtmosphereSystem AtmosphereSystem = default!;
+
+        [Dependency]
+        public readonly AudioSystem AudioSystem = default!;
+
+        [Dependency]
+        public readonly BodySystem BodySystem = default!;
+
+        [Dependency]
+        public readonly ConstructionSystem ConstructionSystem = default!;
+
+        [Dependency]
+        public readonly ExplosionSystem ExplosionSystem = default!;
+
+        [Dependency]
+        public readonly StackSystem StackSystem = default!;
+
+        [Dependency]
+        public readonly TriggerSystem TriggerSystem = default!;
+
+        [Dependency]
+        public readonly SharedSolutionContainerSystem SolutionContainerSystem = default!;
+
+        [Dependency]
+        public readonly PuddleSystem PuddleSystem = default!;
+
+        [Dependency]
+        public readonly SharedContainerSystem ContainerSystem = default!;
+
+        [Dependency]
+        public readonly IPrototypeManager PrototypeManager = default!;
+
+        [Dependency]
+        public readonly IComponentFactory ComponentFactory = default!;
+
+        [Dependency]
+        public readonly IAdminLogManager _adminLogger = default!;
 
         private EntityQuery<DestructibleComponent> _destructibleQuery; // VRS (Triad #3732);
 
@@ -70,16 +96,19 @@ namespace Content.Server.Destructible
 
                     var logImpact = LogImpact.Low;
                     // Convert behaviors into string for logs
-                    var triggeredBehaviors = string.Join(", ", threshold.Behaviors.Select(b =>
-                    {
-                        if (logImpact <= b.Impact)
-                            logImpact = b.Impact;
-                        if (b is DoActsBehavior doActsBehavior)
+                    var triggeredBehaviors = string.Join(
+                        ", ",
+                        threshold.Behaviors.Select(b =>
                         {
-                            return $"{b.GetType().Name}:{doActsBehavior.Acts.ToString()}";
-                        }
-                        return b.GetType().Name;
-                    }));
+                            if (logImpact <= b.Impact)
+                                logImpact = b.Impact;
+                            if (b is DoActsBehavior doActsBehavior)
+                            {
+                                return $"{b.GetType().Name}:{doActsBehavior.Acts.ToString()}";
+                            }
+                            return b.GetType().Name;
+                        })
+                    );
 
                     // If it doesn't have a humanoid component, it's probably not particularly notable?
                     if (logImpact > LogImpact.Medium && !HasComp<HumanoidAppearanceComponent>(uid))
@@ -87,15 +116,19 @@ namespace Content.Server.Destructible
 
                     if (args.Origin != null)
                     {
-                        _adminLogger.Add(LogType.Damaged,
+                        _adminLogger.Add(
+                            LogType.Damaged,
                             logImpact,
-                            $"{ToPrettyString(args.Origin.Value):actor} caused {ToPrettyString(uid):subject} to trigger [{triggeredBehaviors}]");
+                            $"{ToPrettyString(args.Origin.Value):actor} caused {ToPrettyString(uid):subject} to trigger [{triggeredBehaviors}]"
+                        );
                     }
                     else
                     {
-                        _adminLogger.Add(LogType.Damaged,
+                        _adminLogger.Add(
+                            LogType.Damaged,
                             logImpact,
-                            $"Unknown damage source caused {ToPrettyString(uid):subject} to trigger [{triggeredBehaviors}]");
+                            $"Unknown damage source caused {ToPrettyString(uid):subject} to trigger [{triggeredBehaviors}]"
+                        );
                     }
 
                     threshold.Execute(uid, this, EntityManager, args.Origin);
@@ -103,8 +136,13 @@ namespace Content.Server.Destructible
 
                 if (threshold.OldTriggered)
                 {
-                    component.IsBroken |= threshold.Behaviors.Any(b => b is DoActsBehavior doActsBehavior &&
-                        (doActsBehavior.HasAct(ThresholdActs.Breakage) || doActsBehavior.HasAct(ThresholdActs.Destruction)));
+                    component.IsBroken |= threshold.Behaviors.Any(b =>
+                        b is DoActsBehavior doActsBehavior
+                        && (
+                            doActsBehavior.HasAct(ThresholdActs.Breakage)
+                            || doActsBehavior.HasAct(ThresholdActs.Destruction)
+                        )
+                    );
                 }
 
                 // if destruction behavior (or some other deletion effect) occurred, don't run other triggers.
@@ -113,7 +151,10 @@ namespace Content.Server.Destructible
             }
         }
 
-        public bool TryGetDestroyedAt(Entity<DestructibleComponent?> ent, [NotNullWhen(true)] out FixedPoint2? destroyedAt)
+        public bool TryGetDestroyedAt(
+            Entity<DestructibleComponent?> ent,
+            [NotNullWhen(true)] out FixedPoint2? destroyedAt
+        )
         {
             destroyedAt = null;
             if (!_destructibleQuery.TryComp(ent, out ent.Comp)) // VRS (Triad #3732)
@@ -147,8 +188,10 @@ namespace Content.Server.Destructible
 
                 foreach (var behavior in threshold.Behaviors)
                 {
-                    if (behavior is DoActsBehavior actBehavior &&
-                        actBehavior.HasAct(ThresholdActs.Destruction | ThresholdActs.Breakage))
+                    if (
+                        behavior is DoActsBehavior actBehavior
+                        && actBehavior.HasAct(ThresholdActs.Destruction | ThresholdActs.Breakage)
+                    )
                     {
                         damageNeeded = Math.Min(damageNeeded.Float(), trigger.Damage);
                     }

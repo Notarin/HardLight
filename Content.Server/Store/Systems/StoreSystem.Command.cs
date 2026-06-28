@@ -1,8 +1,8 @@
 using System.Linq;
-using Content.Server.Store.Components;
-using Content.Shared.FixedPoint;
 using Content.Server.Administration;
+using Content.Server.Store.Components;
 using Content.Shared.Administration;
+using Content.Shared.FixedPoint;
 using Content.Shared.Store.Components;
 using Robust.Shared.Console;
 
@@ -10,13 +10,18 @@ namespace Content.Server.Store.Systems;
 
 public sealed partial class StoreSystem
 {
-    [Dependency] private readonly IConsoleHost _consoleHost = default!;
+    [Dependency]
+    private readonly IConsoleHost _consoleHost = default!;
 
     public void InitializeCommand()
     {
-        _consoleHost.RegisterCommand("addcurrency", "Adds currency to the specified store", "addcurrency <uid> <currency prototype> <amount>",
+        _consoleHost.RegisterCommand(
+            "addcurrency",
+            "Adds currency to the specified store",
+            "addcurrency <uid> <currency prototype> <amount>",
             AddCurrencyCommand,
-            AddCurrencyCommandCompletions);
+            AddCurrencyCommandCompletions
+        );
     }
 
     [AdminCommand(AdminFlags.Fun)]
@@ -28,7 +33,11 @@ public sealed partial class StoreSystem
             return;
         }
 
-        if (!NetEntity.TryParse(args[0], out var uidNet) || !TryGetEntity(uidNet, out var uid) || !float.TryParse(args[2], out var id))
+        if (
+            !NetEntity.TryParse(args[0], out var uidNet)
+            || !TryGetEntity(uidNet, out var uid)
+            || !float.TryParse(args[2], out var id)
+        )
         {
             return;
         }
@@ -36,10 +45,7 @@ public sealed partial class StoreSystem
         if (!TryComp<StoreComponent>(uid, out var store))
             return;
 
-        var currency = new Dictionary<string, FixedPoint2>
-        {
-            { args[1], id }
-        };
+        var currency = new Dictionary<string, FixedPoint2> { { args[1], id } };
 
         TryAddCurrency(currency, uid.Value, store);
     }
@@ -60,7 +66,10 @@ public sealed partial class StoreSystem
         if (args.Length == 2 && NetEntity.TryParse(args[0], out var uidNet) && TryGetEntity(uidNet, out var uid))
         {
             if (TryComp<StoreComponent>(uid, out var store))
-                return CompletionResult.FromHintOptions(store.CurrencyWhitelist.Select(p => p.ToString()), "<currency prototype>");
+                return CompletionResult.FromHintOptions(
+                    store.CurrencyWhitelist.Select(p => p.ToString()),
+                    "<currency prototype>"
+                );
         }
 
         return CompletionResult.Empty;

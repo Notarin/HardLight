@@ -30,15 +30,13 @@
   - type: Fixtures
     fixtures:
       slips:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.4,-0.3,0.4,0.3"
         layer:
         - SlipLayer
         hard: false
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.4,-0.3,0.4,0.3"
         density: 10
         mask:
@@ -63,7 +61,7 @@
   - type: PaintRemover
   - type: FlavorProfile
     flavors:
-      - clean
+    - clean
   - type: Food
     solution: soap
   - type: BadFood
@@ -135,8 +133,8 @@
     heldPrefix: syndie
   - type: FlavorProfile
     flavors:
-      - clean
-      - punishment
+    - clean
+    - punishment
   - type: CleansForensics
     cleanDelay: 8.0
   - type: Residue
@@ -146,7 +144,7 @@
 - type: entity
   name: soaplet
   id: SoapletSyndie
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: Soap
   description: A tiny piece of syndicate soap.
   components:
@@ -164,15 +162,13 @@
   - type: Fixtures
     fixtures:
       slips:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.08,-0.06,0.08,0.06"
         layer:
         - SlipLayer
         hard: false
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.08,-0.06,0.08,0.06"
         density: 1
         mask:
@@ -202,8 +198,8 @@
     heldPrefix: gibs
   - type: FlavorProfile
     flavors:
-      - clean
-      - meaty
+    - clean
+    - meaty
   - type: Residue
     residueAdjective: residue-slippery
     residueColor: residue-red

@@ -21,13 +21,26 @@ namespace Content.Shared.CM14.Xenos.Construction.Nest;
 
 public sealed class XenoNestSystem : EntitySystem
 {
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly StandingStateSystem _standingState = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly PullingSystem _pulling = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfter = default!;
+
+    [Dependency]
+    private readonly StandingStateSystem _standingState = default!;
+
+    [Dependency]
+    private readonly INetManager _net = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly PullingSystem _pulling = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
 
     private readonly List<Direction> _candidateNests = new();
 
@@ -36,7 +49,9 @@ public sealed class XenoNestSystem : EntitySystem
         base.Initialize();
 
         SubscribeLocalEvent<XenoNestSurfaceComponent, InteractHandEvent>(OnNestSurfaceInteractHand);
-        SubscribeLocalEvent<XenoNestSurfaceComponent, DoAfterAttemptEvent<XenoNestDoAfterEvent>>(OnNestSurfaceDoAfterAttempt);
+        SubscribeLocalEvent<XenoNestSurfaceComponent, DoAfterAttemptEvent<XenoNestDoAfterEvent>>(
+            OnNestSurfaceDoAfterAttempt
+        );
         SubscribeLocalEvent<XenoNestSurfaceComponent, XenoNestDoAfterEvent>(OnNestSurfaceDoAfter);
 
         SubscribeLocalEvent<XenoNestComponent, ComponentRemove>(OnNestRemove);
@@ -46,7 +61,7 @@ public sealed class XenoNestSystem : EntitySystem
         SubscribeLocalEvent<XenoNestedComponent, PreventCollideEvent>(OnNestedPreventCollide);
         SubscribeLocalEvent<XenoNestedComponent, PullAttemptEvent>(OnNestedPullAttempt);
         SubscribeLocalEvent<XenoNestedComponent, UpdateCanMoveEvent>(OnNestedCancel);
-    SubscribeLocalEvent<XenoNestedComponent, InteractionAttemptEvent>(OnNestedCancel);
+        SubscribeLocalEvent<XenoNestedComponent, InteractionAttemptEvent>(OnNestedCancel);
         SubscribeLocalEvent<XenoNestedComponent, UseAttemptEvent>(OnNestedCancel);
         SubscribeLocalEvent<XenoNestedComponent, ThrowAttemptEvent>(OnNestedCancel);
         SubscribeLocalEvent<XenoNestedComponent, PickupAttemptEvent>(OnNestedCancel);
@@ -71,11 +86,12 @@ public sealed class XenoNestSystem : EntitySystem
 
     private void OnNestSurfaceInteractHand(Entity<XenoNestSurfaceComponent> ent, ref InteractHandEvent args)
     {
-        if (TryComp(args.User, out PullerComponent? puller) &&
-            puller.Pulling is { } pulling)
+        if (TryComp(args.User, out PullerComponent? puller) && puller.Pulling is { } pulling)
         {
-            if (GetNestDirection(ent, pulling) is not { } direction ||
-                !CanNestPopup(args.User, pulling, ent, direction))
+            if (
+                GetNestDirection(ent, pulling) is not { } direction
+                || !CanNestPopup(args.User, pulling, ent, direction)
+            )
             {
                 return;
             }
@@ -85,14 +101,18 @@ public sealed class XenoNestSystem : EntitySystem
             var doAfter = new DoAfterArgs(EntityManager, args.User, ent.Comp.DoAfter, ev, ent, pulling)
             {
                 BreakOnMove = true,
-                AttemptFrequency = AttemptFrequency.EveryTick
+                AttemptFrequency = AttemptFrequency.EveryTick,
             };
 
             _doAfter.TryStartDoAfter(doAfter);
 
             // TODO CM14 make a method to do this
             var victimName = Identity.Name(pulling, EntityManager, args.User);
-            _popup.PopupClient($"You pin {victimName} into the alien nest, preparing the securing resin.", args.User, args.User);
+            _popup.PopupClient(
+                $"You pin {victimName} into the alien nest, preparing the securing resin.",
+                args.User,
+                args.User
+            );
 
             foreach (var session in Filter.PvsExcept(args.User).Recipients)
             {
@@ -104,22 +124,36 @@ public sealed class XenoNestSystem : EntitySystem
 
                 if (recipient == pulling)
                 {
-                    _popup.PopupEntity($"{userName} pins you into the alien nest, preparing the securing resin.", args.User, recipient, PopupType.MediumCaution);
+                    _popup.PopupEntity(
+                        $"{userName} pins you into the alien nest, preparing the securing resin.",
+                        args.User,
+                        recipient,
+                        PopupType.MediumCaution
+                    );
                 }
                 else
                 {
-                    _popup.PopupEntity($"{userName} pins {victimName} into the alien nest, preparing the securing resin.", args.User, recipient);
+                    _popup.PopupEntity(
+                        $"{userName} pins {victimName} into the alien nest, preparing the securing resin.",
+                        args.User,
+                        recipient
+                    );
                 }
             }
         }
     }
 
-    private void OnNestSurfaceDoAfterAttempt(Entity<XenoNestSurfaceComponent> ent, ref DoAfterAttemptEvent<XenoNestDoAfterEvent> args)
+    private void OnNestSurfaceDoAfterAttempt(
+        Entity<XenoNestSurfaceComponent> ent,
+        ref DoAfterAttemptEvent<XenoNestDoAfterEvent> args
+    )
     {
-        if (args.DoAfter.Args.Target is not { } target ||
-            TerminatingOrDeleted(target) ||
-            GetNestDirection(ent, target) is not { } direction ||
-            !CanNestPopup(args.DoAfter.Args.User, target, ent, direction))
+        if (
+            args.DoAfter.Args.Target is not { } target
+            || TerminatingOrDeleted(target)
+            || GetNestDirection(ent, target) is not { } direction
+            || !CanNestPopup(args.DoAfter.Args.User, target, ent, direction)
+        )
         {
             args.Cancel();
         }
@@ -130,10 +164,12 @@ public sealed class XenoNestSystem : EntitySystem
         if (args.Cancelled || args.Handled)
             return;
 
-        if (args.Target is not { } victim ||
-            GetNestDirection(ent, victim) is not { } direction ||
-            !CanNestPopup(args.User, victim, ent, direction) ||
-            ent.Comp.Nests.ContainsKey(direction))
+        if (
+            args.Target is not { } victim
+            || GetNestDirection(ent, victim) is not { } direction
+            || !CanNestPopup(args.User, victim, ent, direction)
+            || ent.Comp.Nests.ContainsKey(direction)
+        )
         {
             return;
         }
@@ -153,7 +189,7 @@ public sealed class XenoNestSystem : EntitySystem
             Direction.East => new Vector2(0.5f, 0),
             Direction.North => new Vector2(0, 0.5f),
             Direction.West => new Vector2(-0.5f, 0),
-            _ => Vector2.Zero
+            _ => Vector2.Zero,
         };
 
         var nest = SpawnAttachedTo(ent.Comp.Nest, nestCoordinates);
@@ -178,7 +214,11 @@ public sealed class XenoNestSystem : EntitySystem
 
         // TODO CM14 make a method to do this
         var victimName = Identity.Name(victim, EntityManager, args.User);
-        _popup.PopupClient($"You secrete a thick, vile resin, securing {victimName} into the alien nest!", args.User, args.User);
+        _popup.PopupClient(
+            $"You secrete a thick, vile resin, securing {victimName} into the alien nest!",
+            args.User,
+            args.User
+        );
 
         foreach (var session in Filter.PvsExcept(args.User).Recipients)
         {
@@ -190,11 +230,20 @@ public sealed class XenoNestSystem : EntitySystem
 
             if (recipient == victim)
             {
-                _popup.PopupEntity($"{userName} secretes a thick, vile resin, securing you into the alien nest!", args.User, recipient, PopupType.MediumCaution);
+                _popup.PopupEntity(
+                    $"{userName} secretes a thick, vile resin, securing you into the alien nest!",
+                    args.User,
+                    recipient,
+                    PopupType.MediumCaution
+                );
             }
             else
             {
-                _popup.PopupEntity($"{userName} secretes a thick, vile resin, securing {victimName} into the alien nest!", args.User, recipient);
+                _popup.PopupEntity(
+                    $"{userName} secretes a thick, vile resin, securing {victimName} into the alien nest!",
+                    args.User,
+                    recipient
+                );
             }
         }
     }
@@ -209,7 +258,8 @@ public sealed class XenoNestSystem : EntitySystem
         args.Cancelled = true;
     }
 
-    private void OnNestedCancel<T>(Entity<XenoNestedComponent> ent, ref T args) where T : CancellableEntityEventArgs
+    private void OnNestedCancel<T>(Entity<XenoNestedComponent> ent, ref T args)
+        where T : CancellableEntityEventArgs
     {
         args.Cancel();
     }
@@ -226,7 +276,7 @@ public sealed class XenoNestSystem : EntitySystem
         if (!nestCoords.TryDelta(EntityManager, _transform, victimCoords, out var delta))
             return null;
 
-        return (new Angle(delta) + - MathHelper.PiOver2).GetCardinalDir();
+        return (new Angle(delta) + -MathHelper.PiOver2).GetCardinalDir();
     }
 
     private bool CanNestPopup(EntityUid user, EntityUid victim, EntityUid surface, Direction direction)
@@ -265,9 +315,11 @@ public sealed class XenoNestSystem : EntitySystem
         if (_timing.ApplyingState)
             return;
 
-        if (nestedNullable is not { } nested ||
-            TerminatingOrDeleted(nested) ||
-            !TryComp(nested, out TransformComponent? xform))
+        if (
+            nestedNullable is not { } nested
+            || TerminatingOrDeleted(nested)
+            || !TryComp(nested, out TransformComponent? xform)
+        )
         {
             return;
         }
@@ -282,8 +334,10 @@ public sealed class XenoNestSystem : EntitySystem
             nestedComp.Detached = true;
             Dirty(nested, nestedComp);
 
-            if (TryComp(nest, out XenoNestComponent? nestComp) &&
-                TryComp(nestComp.Surface, out XenoNestSurfaceComponent? surfaceComp))
+            if (
+                TryComp(nest, out XenoNestComponent? nestComp)
+                && TryComp(nestComp.Surface, out XenoNestSurfaceComponent? surfaceComp)
+            )
             {
                 _candidateNests.Clear();
                 foreach (var (dir, _) in surfaceComp.Nests)

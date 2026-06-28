@@ -10,6 +10,7 @@ namespace Content.Client._NF.CartridgeLoader.Cartridges;
 public sealed partial class LedgerUiFragment : BoxContainer
 {
     private Dictionary<SectorBankAccount, LedgerTab> _tabsByAccount = new();
+
     public LedgerUiFragment()
     {
         RobustXamlLoader.Load(this);

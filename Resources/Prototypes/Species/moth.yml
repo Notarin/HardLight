@@ -60,14 +60,14 @@
     Tail:
       points: 1
       required: true
-      defaultMarkings: [ MothWingsDefault ]
+      defaultMarkings: [MothWingsDefault]
     Snout:
       points: 1
       required: false
     HeadTop:
       points: 1
       required: true
-      defaultMarkings: [ MothAntennasDefault ]
+      defaultMarkings: [MothAntennasDefault]
     HeadSide:
       points: 1
       required: false

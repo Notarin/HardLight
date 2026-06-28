@@ -28,8 +28,14 @@ public sealed class FactionRadioChannelTests
         await server.WaitAssertion(async () =>
         {
             var source = entMan.SpawnEntity("MobHuman", new MapCoordinates(new Vector2(0.5f, 0.5f), testMap.MapId));
-            var alliedListener = entMan.SpawnEntity("MobHuman", new MapCoordinates(new Vector2(1.5f, 0.5f), testMap.MapId));
-            var outsiderListener = entMan.SpawnEntity("MobHuman", new MapCoordinates(new Vector2(2.5f, 0.5f), testMap.MapId));
+            var alliedListener = entMan.SpawnEntity(
+                "MobHuman",
+                new MapCoordinates(new Vector2(1.5f, 0.5f), testMap.MapId)
+            );
+            var outsiderListener = entMan.SpawnEntity(
+                "MobHuman",
+                new MapCoordinates(new Vector2(2.5f, 0.5f), testMap.MapId)
+            );
 
             SetCompany(entMan, source, "Arcadia");
             SetCompany(entMan, alliedListener, "Arcadia");
@@ -43,7 +49,10 @@ public sealed class FactionRadioChannelTests
             Assert.Multiple(() =>
             {
                 Assert.That(entMan.GetComponent<RadioReceiveCounterComponent>(alliedRadio).ReceiveCount, Is.EqualTo(1));
-                Assert.That(entMan.GetComponent<RadioReceiveCounterComponent>(outsiderRadio).ReceiveCount, Is.EqualTo(0));
+                Assert.That(
+                    entMan.GetComponent<RadioReceiveCounterComponent>(outsiderRadio).ReceiveCount,
+                    Is.EqualTo(0)
+                );
             });
 
             entMan.GetComponent<RadioReceiveCounterComponent>(alliedRadio).ReceiveCount = 0;
@@ -54,7 +63,10 @@ public sealed class FactionRadioChannelTests
             Assert.Multiple(() =>
             {
                 Assert.That(entMan.GetComponent<RadioReceiveCounterComponent>(alliedRadio).ReceiveCount, Is.EqualTo(1));
-                Assert.That(entMan.GetComponent<RadioReceiveCounterComponent>(outsiderRadio).ReceiveCount, Is.EqualTo(1));
+                Assert.That(
+                    entMan.GetComponent<RadioReceiveCounterComponent>(outsiderRadio).ReceiveCount,
+                    Is.EqualTo(1)
+                );
             });
         });
 

@@ -38,4 +38,3 @@ entities:
         nodes: []
     - type: SpreaderGrid
     - type: GridPathfinding
-...

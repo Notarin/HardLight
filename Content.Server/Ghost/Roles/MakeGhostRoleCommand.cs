@@ -9,7 +9,8 @@ namespace Content.Server.Ghost.Roles
     [AdminCommand(AdminFlags.Admin)]
     public sealed class MakeGhostRoleCommand : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _entManager = default!;
+        [Dependency]
+        private readonly IEntityManager _entManager = default!;
 
         public string Command => "makeghostrole";
         public string Description => "Turns an entity into a ghost role.";
@@ -35,8 +36,7 @@ namespace Content.Server.Ghost.Roles
                 return;
             }
 
-            if (_entManager.TryGetComponent(uid, out MindContainerComponent? mind) &&
-                mind.HasMind)
+            if (_entManager.TryGetComponent(uid, out MindContainerComponent? mind) && mind.HasMind)
             {
                 shell.WriteLine($"Entity {metaData.EntityName} with id {uid} already has a mind.");
                 return;
@@ -48,13 +48,17 @@ namespace Content.Server.Ghost.Roles
 
             if (_entManager.TryGetComponent(uid, out GhostRoleComponent? ghostRole))
             {
-                shell.WriteLine($"Entity {metaData.EntityName} with id {uid} already has a {nameof(GhostRoleComponent)}");
+                shell.WriteLine(
+                    $"Entity {metaData.EntityName} with id {uid} already has a {nameof(GhostRoleComponent)}"
+                );
                 return;
             }
 
             if (_entManager.HasComponent<GhostTakeoverAvailableComponent>(uid))
             {
-                shell.WriteLine($"Entity {metaData.EntityName} with id {uid} already has a {nameof(GhostTakeoverAvailableComponent)}");
+                shell.WriteLine(
+                    $"Entity {metaData.EntityName} with id {uid} already has a {nameof(GhostTakeoverAvailableComponent)}"
+                );
                 return;
             }
 

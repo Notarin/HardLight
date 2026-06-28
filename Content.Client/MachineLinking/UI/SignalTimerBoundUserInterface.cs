@@ -10,9 +10,8 @@ public sealed class SignalTimerBoundUserInterface : BoundUserInterface
     [ViewVariables]
     private SignalTimerWindow? _window;
 
-    public SignalTimerBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-    }
+    public SignalTimerBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {
@@ -40,6 +39,7 @@ public sealed class SignalTimerBoundUserInterface : BoundUserInterface
     {
         SendMessage(new SignalTimerRepeatToggled(newRepeat));
     }
+
     //End Frontier
 
     private void OnDelayChanged(TimeSpan newDelay) // Mono

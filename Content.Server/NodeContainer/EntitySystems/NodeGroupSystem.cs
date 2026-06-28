@@ -22,10 +22,17 @@ namespace Content.Server.NodeContainer.EntitySystems
     [UsedImplicitly]
     public sealed class NodeGroupSystem : EntitySystem
     {
-        [Dependency] private readonly IPlayerManager _playerManager = default!;
-        [Dependency] private readonly IAdminManager _adminManager = default!;
-        [Dependency] private readonly INodeGroupFactory _nodeGroupFactory = default!;
-        [Dependency] private readonly ILogManager _logManager = default!;
+        [Dependency]
+        private readonly IPlayerManager _playerManager = default!;
+
+        [Dependency]
+        private readonly IAdminManager _adminManager = default!;
+
+        [Dependency]
+        private readonly INodeGroupFactory _nodeGroupFactory = default!;
+
+        [Dependency]
+        private readonly ILogManager _logManager = default!;
 
         private readonly List<int> _visDeletes = new();
         private readonly List<BaseNodeGroup> _visSends = new();
@@ -136,7 +143,7 @@ namespace Content.Server.NodeContainer.EntitySystems
 
             QueueReflood(node);
 
-            InitGroup(node, new List<Node> {node});
+            InitGroup(node, new List<Node> { node });
         }
 
         public override void Update(float frameTime)
@@ -175,7 +182,7 @@ namespace Content.Server.NodeContainer.EntitySystems
                 if (toRemove.NodeGroup == null)
                     continue;
 
-                var group = (BaseNodeGroup) toRemove.NodeGroup;
+                var group = (BaseNodeGroup)toRemove.NodeGroup;
 
                 group.RemoveNode(toRemove);
                 toRemove.NodeGroup = null;
@@ -208,7 +215,7 @@ namespace Content.Server.NodeContainer.EntitySystems
 
                 if (node.NodeGroup?.Remaking == false)
                 {
-                    QueueRemakeGroup((BaseNodeGroup) node.NodeGroup);
+                    QueueRemakeGroup((BaseNodeGroup)node.NodeGroup);
                 }
 
                 // GetCompatibleNodes will involve getting the transform & grid as most connection requirements are
@@ -223,7 +230,7 @@ namespace Content.Server.NodeContainer.EntitySystems
                     {
                         // We are expanding into an existing group,
                         // remake it so that we can treat it uniformly.
-                        var group = (BaseNodeGroup) compatible.NodeGroup;
+                        var group = (BaseNodeGroup)compatible.NodeGroup;
                         QueueRemakeGroup(group);
                     }
 
@@ -286,7 +293,9 @@ namespace Content.Server.NodeContainer.EntitySystems
                 RaiseLocalEvent(uid, ref ev, true);
             }
 
-            _sawmill.Debug($"Updated node groups in {sw.Elapsed.TotalMilliseconds}ms. {newGroups.Count} new groups, {refloodCount} nodes processed.");
+            _sawmill.Debug(
+                $"Updated node groups in {sw.Elapsed.TotalMilliseconds}ms. {newGroups.Count} new groups, {refloodCount} nodes processed."
+            );
         }
 
         private void ClearReachableIfNecessary(Node node)
@@ -300,7 +309,7 @@ namespace Content.Server.NodeContainer.EntitySystems
 
         private BaseNodeGroup InitGroup(Node node, List<Node> groupNodes)
         {
-            var newGroup = (BaseNodeGroup) _nodeGroupFactory.MakeNodeGroup(node.NodeGroupID);
+            var newGroup = (BaseNodeGroup)_nodeGroupFactory.MakeNodeGroup(node.NodeGroupID);
             newGroup.Initialize(node, EntityManager);
             newGroup.NetId = _groupNetIdCounter++;
 
@@ -347,7 +356,11 @@ namespace Content.Server.NodeContainer.EntitySystems
             return allNodes;
         }
 
-        private IEnumerable<Node> GetCompatibleNodes(Node node, EntityQuery<TransformComponent> xformQuery, EntityQuery<NodeContainerComponent> nodeQuery)
+        private IEnumerable<Node> GetCompatibleNodes(
+            Node node,
+            EntityQuery<TransformComponent> xformQuery,
+            EntityQuery<NodeContainerComponent> nodeQuery
+        )
         {
             var xform = xformQuery.GetComponent(node.Owner);
             TryComp<MapGridComponent>(xform.GridUid, out var grid);
@@ -359,20 +372,24 @@ namespace Content.Server.NodeContainer.EntitySystems
             {
                 DebugTools.Assert(reachable != node, "GetReachableNodes() should not include self.");
 
-                if (reachable.NodeGroupID == node.NodeGroupID
-                    && reachable.Connectable(EntityManager, xformQuery.GetComponent(reachable.Owner)))
+                if (
+                    reachable.NodeGroupID == node.NodeGroupID
+                    && reachable.Connectable(EntityManager, xformQuery.GetComponent(reachable.Owner))
+                )
                 {
                     yield return reachable;
                 }
             }
         }
+
         // Starlight Start: DockPipeSystem
         private IEnumerable<Node> GetCompatibleNodes(
             Node node,
             NodeContainerComponent container,
             EntityQuery<NodeContainerComponent> nodeQuery,
             EntityQuery<TransformComponent> xformQuery,
-            MapGridComponent? grid)
+            MapGridComponent? grid
+        )
         {
             if (!xformQuery.TryGetComponent(node.Owner, out var xform))
                 yield break;
@@ -386,6 +403,7 @@ namespace Content.Server.NodeContainer.EntitySystems
                     yield return reachable;
             }
         }
+
         // Starlight End
 
         private void VisDoUpdate(float frametime)
@@ -395,9 +413,7 @@ namespace Content.Server.NodeContainer.EntitySystems
 
             _accumulatedFrameTime += frametime;
 
-            if (_accumulatedFrameTime < VisDataUpdateInterval
-                && _visSends.Count == 0
-                && _visDeletes.Count == 0)
+            if (_accumulatedFrameTime < VisDataUpdateInterval && _visSends.Count == 0 && _visDeletes.Count == 0)
                 return;
 
             var msg = new NodeVis.MsgData();
@@ -445,15 +461,17 @@ namespace Content.Server.NodeContainer.EntitySystems
                 NetId = group.NetId,
                 GroupId = group.GroupId.ToString(),
                 Color = CalcNodeGroupColor(group),
-                Nodes = group.Nodes.Select(n => new NodeVis.NodeDatum
-                {
-                    Name = n.Name,
-                    NetId = n.NetId,
-                    Reachable = n.ReachableNodes.Select(r => r.NetId).ToArray(),
-                    Entity = GetNetEntity(n.Owner),
-                    Type = n.GetType().Name
-                }).ToArray(),
-                DebugData = group.GetDebugData()
+                Nodes = group
+                    .Nodes.Select(n => new NodeVis.NodeDatum
+                    {
+                        Name = n.Name,
+                        NetId = n.NetId,
+                        Reachable = n.ReachableNodes.Select(r => r.NetId).ToArray(),
+                        Entity = GetNetEntity(n.Owner),
+                        Type = n.GetType().Name,
+                    })
+                    .ToArray(),
+                DebugData = group.GetDebugData(),
             };
         }
 
@@ -469,7 +487,7 @@ namespace Content.Server.NodeContainer.EntitySystems
                 NodeGroupID.WireNet => Color.DarkMagenta,
                 NodeGroupID.Teg => Color.Red,
                 NodeGroupID.NullEnforcer => Color.MediumPurple,
-                _ => Color.White
+                _ => Color.White,
             };
         }
     }

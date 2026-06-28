@@ -6,13 +6,14 @@ namespace Content.Shared.Strip;
 
 public sealed class ThievingSystem : EntitySystem
 {
-
     public override void Initialize()
     {
         base.Initialize();
 
         SubscribeLocalEvent<ThievingComponent, BeforeStripEvent>(OnBeforeStrip);
-        SubscribeLocalEvent<ThievingComponent, InventoryRelayedEvent<BeforeStripEvent>>((e, c, ev) => OnBeforeStrip(e, c, ev.Args));
+        SubscribeLocalEvent<ThievingComponent, InventoryRelayedEvent<BeforeStripEvent>>(
+            (e, c, ev) => OnBeforeStrip(e, c, ev.Args)
+        );
     }
 
     private void OnBeforeStrip(EntityUid uid, ThievingComponent component, BeforeStripEvent args)
@@ -21,7 +22,17 @@ public sealed class ThievingSystem : EntitySystem
         args.Additive -= component.StripTimeReduction;
         args.Multiplier *= component.TimeMultiplier; // Mono
 
-        var thievingTime = TimeSpan.FromSeconds(Math.Round(Math.Max(args.InitialTime.TotalSeconds * component.TimeMultiplier - component.StripTimeReduction.TotalSeconds, 0.5f), 3, MidpointRounding.ToZero));
+        var thievingTime = TimeSpan.FromSeconds(
+            Math.Round(
+                Math.Max(
+                    args.InitialTime.TotalSeconds * component.TimeMultiplier
+                        - component.StripTimeReduction.TotalSeconds,
+                    0.5f
+                ),
+                3,
+                MidpointRounding.ToZero
+            )
+        );
         if (args.BestTimeOverride == null || thievingTime < args.BestTimeOverride.Value)
         {
             args.BestTimeOverride = thievingTime;

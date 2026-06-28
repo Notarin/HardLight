@@ -11,8 +11,11 @@ namespace Content.Shared.Temperature.Systems;
 /// </summary>
 public sealed class SharedTemperatureSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly MovementSpeedModifierSystem _movementSpeedModifier = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly MovementSpeedModifierSystem _movementSpeedModifier = default!;
 
     /// <summary>
     /// Band-aid for unpredicted atmos. Delays the application for a short period so that laggy clients can get the replicated temperature.
@@ -24,15 +27,19 @@ public sealed class SharedTemperatureSystem : EntitySystem
         base.Initialize();
 
         SubscribeLocalEvent<TemperatureSpeedComponent, OnTemperatureChangeEvent>(OnTemperatureChanged);
-        SubscribeLocalEvent<TemperatureSpeedComponent, RefreshMovementSpeedModifiersEvent>(OnRefreshMovementSpeedModifiers);
+        SubscribeLocalEvent<TemperatureSpeedComponent, RefreshMovementSpeedModifiersEvent>(
+            OnRefreshMovementSpeedModifiers
+        );
     }
 
     private void OnTemperatureChanged(Entity<TemperatureSpeedComponent> ent, ref OnTemperatureChangeEvent args)
     {
         foreach (var (threshold, modifier) in ent.Comp.Thresholds)
         {
-            if (args.CurrentTemperature < threshold && args.LastTemperature > threshold ||
-                args.CurrentTemperature > threshold && args.LastTemperature < threshold)
+            if (
+                args.CurrentTemperature < threshold && args.LastTemperature > threshold
+                || args.CurrentTemperature > threshold && args.LastTemperature < threshold
+            )
             {
                 ent.Comp.NextSlowdownUpdate = _timing.CurTime + SlowdownApplicationDelay;
                 ent.Comp.CurrentSpeedModifier = modifier;
@@ -50,7 +57,10 @@ public sealed class SharedTemperatureSystem : EntitySystem
         }
     }
 
-    private void OnRefreshMovementSpeedModifiers(Entity<TemperatureSpeedComponent> ent, ref RefreshMovementSpeedModifiersEvent args)
+    private void OnRefreshMovementSpeedModifiers(
+        Entity<TemperatureSpeedComponent> ent,
+        ref RefreshMovementSpeedModifiersEvent args
+    )
     {
         // Don't update speed and mispredict while we're compensating for lag.
         if (ent.Comp.NextSlowdownUpdate != null || ent.Comp.CurrentSpeedModifier == null)

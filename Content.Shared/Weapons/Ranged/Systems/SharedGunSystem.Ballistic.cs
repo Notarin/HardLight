@@ -15,9 +15,11 @@ namespace Content.Shared.Weapons.Ranged.Systems;
 
 public abstract partial class SharedGunSystem
 {
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedInteractionSystem _interaction = default!;
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfter = default!;
 
+    [Dependency]
+    private readonly SharedInteractionSystem _interaction = default!;
 
     protected virtual void InitializeBallistic()
     {
@@ -25,8 +27,12 @@ public abstract partial class SharedGunSystem
         SubscribeLocalEvent<BallisticAmmoProviderComponent, ComponentHandleState>(OnBallisticHandleState);
         SubscribeLocalEvent<BallisticAmmoProviderComponent, ComponentInit>(OnBallisticInit);
         SubscribeLocalEvent<BallisticAmmoProviderComponent, MapInitEvent>(OnBallisticMapInit);
-        SubscribeLocalEvent<BallisticAmmoProviderComponent, EntInsertedIntoContainerMessage>(OnBallisticContainerModified);
-        SubscribeLocalEvent<BallisticAmmoProviderComponent, EntRemovedFromContainerMessage>(OnBallisticContainerModified);
+        SubscribeLocalEvent<BallisticAmmoProviderComponent, EntInsertedIntoContainerMessage>(
+            OnBallisticContainerModified
+        );
+        SubscribeLocalEvent<BallisticAmmoProviderComponent, EntRemovedFromContainerMessage>(
+            OnBallisticContainerModified
+        );
         SubscribeLocalEvent<BallisticAmmoProviderComponent, TakeAmmoEvent>(OnBallisticTakeAmmo);
         SubscribeLocalEvent<BallisticAmmoProviderComponent, CheckShootPrototypeEvent>(OnBallisticCheckProto); // Mono
         SubscribeLocalEvent<BallisticAmmoProviderComponent, GetAmmoCountEvent>(OnBallisticAmmoCount);
@@ -48,17 +54,26 @@ public abstract partial class SharedGunSystem
         args.Handled = true;
     }
 
-    private void OnBallisticGetState(EntityUid uid, BallisticAmmoProviderComponent component, ref ComponentGetState args)
+    private void OnBallisticGetState(
+        EntityUid uid,
+        BallisticAmmoProviderComponent component,
+        ref ComponentGetState args
+    )
     {
         SyncBallisticEntities(uid, component);
 
         args.State = new BallisticAmmoProviderComponentState(
             component.UnspawnedCount,
             GetNetEntityList(component.Entities),
-            component.Cycleable);
+            component.Cycleable
+        );
     }
 
-    private void OnBallisticHandleState(EntityUid uid, BallisticAmmoProviderComponent component, ref ComponentHandleState args)
+    private void OnBallisticHandleState(
+        EntityUid uid,
+        BallisticAmmoProviderComponent component,
+        ref ComponentHandleState args
+    )
     {
         if (args.Current is not BallisticAmmoProviderComponentState state)
             return;
@@ -68,7 +83,11 @@ public abstract partial class SharedGunSystem
         EnsureEntityList<BallisticAmmoProviderComponent>(state.Entities, uid, component.Entities);
     }
 
-    private void OnBallisticContainerModified(EntityUid uid, BallisticAmmoProviderComponent component, ContainerModifiedMessage args)
+    private void OnBallisticContainerModified(
+        EntityUid uid,
+        BallisticAmmoProviderComponent component,
+        ContainerModifiedMessage args
+    )
     {
         if (args.Container.ID != "ballistic-ammo")
             return;
@@ -76,7 +95,11 @@ public abstract partial class SharedGunSystem
         SyncBallisticEntities(uid, component);
     }
 
-    private void OnBallisticInteractUsing(EntityUid uid, BallisticAmmoProviderComponent component, InteractUsingEvent args)
+    private void OnBallisticInteractUsing(
+        EntityUid uid,
+        BallisticAmmoProviderComponent component,
+        InteractUsingEvent args
+    )
     {
         if (args.Handled)
             return;
@@ -101,14 +124,20 @@ public abstract partial class SharedGunSystem
         Dirty(uid, component);
     }
 
-    private void OnBallisticAfterInteract(EntityUid uid, BallisticAmmoProviderComponent component, AfterInteractEvent args)
+    private void OnBallisticAfterInteract(
+        EntityUid uid,
+        BallisticAmmoProviderComponent component,
+        AfterInteractEvent args
+    )
     {
-        if (args.Handled ||
-            !component.MayTransfer ||
-            !Timing.IsFirstTimePredicted ||
-            args.Target == null ||
-            args.Used == args.Target ||
-            Deleted(args.Target))
+        if (
+            args.Handled
+            || !component.MayTransfer
+            || !Timing.IsFirstTimePredicted
+            || args.Target == null
+            || args.Used == args.Target
+            || Deleted(args.Target)
+        )
         {
             return;
         }
@@ -117,12 +146,18 @@ public abstract partial class SharedGunSystem
         // Ensure the target of interaction has a valid component.
         var validComponent = false;
         TimeSpan fillDelay = component.FillDelay; // Default value should not be used.
-        if (TryComp<BallisticAmmoProviderComponent>(args.Target, out var ballisticComponent) && ballisticComponent.Whitelist is not null)
+        if (
+            TryComp<BallisticAmmoProviderComponent>(args.Target, out var ballisticComponent)
+            && ballisticComponent.Whitelist is not null
+        )
         {
             validComponent = true;
             fillDelay = ballisticComponent.FillDelay;
         }
-        else if (TryComp<RevolverAmmoProviderComponent>(args.Target, out var revolverComponent) && revolverComponent.Whitelist is not null)
+        else if (
+            TryComp<RevolverAmmoProviderComponent>(args.Target, out var revolverComponent)
+            && revolverComponent.Whitelist is not null
+        )
         {
             validComponent = true;
             fillDelay = revolverComponent.FillDelay;
@@ -133,16 +168,30 @@ public abstract partial class SharedGunSystem
             args.Handled = true;
 
             // Continuous loading
-            _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, fillDelay, new AmmoFillDoAfterEvent(), used: uid, target: args.Target, eventTarget: uid) // Frontier: component.FillDelay<fillDelay
-            {
-                BreakOnMove = true,
-                BreakOnDamage = false,
-                NeedHand = true
-            });
+            _doAfter.TryStartDoAfter(
+                new DoAfterArgs(
+                    EntityManager,
+                    args.User,
+                    fillDelay,
+                    new AmmoFillDoAfterEvent(),
+                    used: uid,
+                    target: args.Target,
+                    eventTarget: uid
+                ) // Frontier: component.FillDelay<fillDelay
+                {
+                    BreakOnMove = true,
+                    BreakOnDamage = false,
+                    NeedHand = true,
+                }
+            );
         }
     }
 
-    private void OnBallisticAmmoFillDoAfter(EntityUid uid, BallisticAmmoProviderComponent component, AmmoFillDoAfterEvent args)
+    private void OnBallisticAmmoFillDoAfter(
+        EntityUid uid,
+        BallisticAmmoProviderComponent component,
+        AmmoFillDoAfterEvent args
+    )
     {
         if (Deleted(args.Target)) // Frontier: deferred component & whitelist check
             return;
@@ -154,40 +203,43 @@ public abstract partial class SharedGunSystem
         {
             return;
         }
-        if ((ballisticTarget is null || ballisticTarget.Whitelist is null) &&
-            (revolverTarget is null || revolverTarget.Whitelist is null))
+        if (
+            (ballisticTarget is null || ballisticTarget.Whitelist is null)
+            && (revolverTarget is null || revolverTarget.Whitelist is null)
+        )
         {
             // No supported component type with valid whitelist.
             return;
         }
 
         //Check capacity
-        if (ballisticTarget is not null && GetBallisticShots(ballisticTarget) >= ballisticTarget.Capacity ||
-            revolverTarget is not null && GetRevolverCount(revolverTarget) >= revolverTarget.Capacity)
+        if (
+            ballisticTarget is not null && GetBallisticShots(ballisticTarget) >= ballisticTarget.Capacity
+            || revolverTarget is not null && GetRevolverCount(revolverTarget) >= revolverTarget.Capacity
+        )
         {
-            Popup(
-                Loc.GetString("gun-ballistic-transfer-target-full",
-                    ("entity", args.Target)),
-                args.Target,
-                args.User);
+            Popup(Loc.GetString("gun-ballistic-transfer-target-full", ("entity", args.Target)), args.Target, args.User);
             return;
         }
         // End Frontier
 
         if (component.Entities.Count + component.UnspawnedCount == 0)
         {
-            Popup(
-                Loc.GetString("gun-ballistic-transfer-empty",
-                    ("entity", uid)),
-                uid,
-                args.User);
+            Popup(Loc.GetString("gun-ballistic-transfer-empty", ("entity", uid)), uid, args.User);
             return;
         }
 
         void SimulateInsertAmmo(EntityUid ammo, EntityUid ammoProvider, EntityCoordinates coordinates)
         {
             // We call SharedInteractionSystem to raise contact events. Checks are already done by this point.
-            _interaction.InteractUsing(args.User, ammo, ammoProvider, coordinates, checkCanInteract: false, checkCanUse: false);
+            _interaction.InteractUsing(
+                args.User,
+                ammo,
+                ammoProvider,
+                coordinates,
+                checkCanInteract: false,
+                checkCanUse: false
+            );
         }
 
         List<(EntityUid? Entity, IShootable Shootable)> ammo = new();
@@ -201,15 +253,23 @@ public abstract partial class SharedGunSystem
             if (ent == null)
                 continue;
 
-            if (ballisticTarget is not null && _whitelistSystem.IsWhitelistFailOrNull(ballisticTarget?.Whitelist, ent.Value) || // Frontier: better revolver reloading
-                revolverTarget is not null && _whitelistSystem.IsWhitelistFailOrNull(revolverTarget?.Whitelist, ent.Value)) // Frontier: better revolver reloading
+            if (
+                ballisticTarget is not null
+                    && _whitelistSystem.IsWhitelistFailOrNull(ballisticTarget?.Whitelist, ent.Value)
+                || // Frontier: better revolver reloading
+                revolverTarget is not null
+                    && _whitelistSystem.IsWhitelistFailOrNull(revolverTarget?.Whitelist, ent.Value)
+            ) // Frontier: better revolver reloading
             {
                 Popup(
-                    Loc.GetString("gun-ballistic-transfer-invalid",
+                    Loc.GetString(
+                        "gun-ballistic-transfer-invalid",
                         ("ammoEntity", ent.Value),
-                        ("targetEntity", args.Target.Value)),
+                        ("targetEntity", args.Target.Value)
+                    ),
                     uid,
-                    args.User);
+                    args.User
+                );
 
                 SimulateInsertAmmo(ent.Value, uid, Transform(uid).Coordinates);
 
@@ -245,13 +305,14 @@ public abstract partial class SharedGunSystem
 
         if (component.Cycleable)
         {
-            args.Verbs.Add(new Verb()
-            {
-                Text = Loc.GetString("gun-ballistic-cycle"),
-                Disabled = GetBallisticShots(component) == 0,
-                Act = () => ManualCycle(uid, component, TransformSystem.GetMapCoordinates(uid), args.User),
-            });
-
+            args.Verbs.Add(
+                new Verb()
+                {
+                    Text = Loc.GetString("gun-ballistic-cycle"),
+                    Disabled = GetBallisticShots(component) == 0,
+                    Act = () => ManualCycle(uid, component, TransformSystem.GetMapCoordinates(uid), args.User),
+                }
+            );
         }
     }
 
@@ -260,18 +321,24 @@ public abstract partial class SharedGunSystem
         if (!args.IsInDetailsRange)
             return;
 
-        args.PushMarkup(Loc.GetString("gun-magazine-examine", ("color", AmmoExamineColor), ("count", GetBallisticShots(component))));
+        args.PushMarkup(
+            Loc.GetString("gun-magazine-examine", ("color", AmmoExamineColor), ("count", GetBallisticShots(component)))
+        );
     }
 
-    private void ManualCycle(EntityUid uid, BallisticAmmoProviderComponent component, MapCoordinates coordinates, EntityUid? user = null, GunComponent? gunComp = null)
+    private void ManualCycle(
+        EntityUid uid,
+        BallisticAmmoProviderComponent component,
+        MapCoordinates coordinates,
+        EntityUid? user = null,
+        GunComponent? gunComp = null
+    )
     {
         if (!component.Cycleable)
             return;
 
         // Reset shotting for cycling
-        if (Resolve(uid, ref gunComp, false) &&
-            gunComp is { FireRateModified: > 0f } &&
-            !Paused(uid))
+        if (Resolve(uid, ref gunComp, false) && gunComp is { FireRateModified: > 0f } && !Paused(uid))
         {
             gunComp.NextFire = Timing.CurTime + TimeSpan.FromSeconds(1 / gunComp.FireRateModified);
             DirtyField(uid, gunComp, nameof(GunComponent.NextFire));
@@ -354,7 +421,8 @@ public abstract partial class SharedGunSystem
                 args.Ammo.Add((entity, EnsureShootable(entity)));
             }
 
-            NextShot: ;
+            NextShot:
+            ;
         }
 
         UpdateBallisticAppearance(uid, component);
@@ -384,7 +452,11 @@ public abstract partial class SharedGunSystem
         }
     }
 
-    private void OnBallisticAmmoCount(EntityUid uid, BallisticAmmoProviderComponent component, ref GetAmmoCountEvent args)
+    private void OnBallisticAmmoCount(
+        EntityUid uid,
+        BallisticAmmoProviderComponent component,
+        ref GetAmmoCountEvent args
+    )
     {
         args.Count = GetBallisticShots(component);
         args.Capacity = component.Capacity;
@@ -456,9 +528,7 @@ public abstract partial class SharedGunSystem
 /// DoAfter event for filling one ballistic ammo provider from another.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed partial class AmmoFillDoAfterEvent : SimpleDoAfterEvent
-{
-}
+public sealed partial class AmmoFillDoAfterEvent : SimpleDoAfterEvent { }
 
 [Serializable, NetSerializable]
 public sealed class BallisticAmmoProviderComponentState : ComponentState

@@ -24,8 +24,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.25,-0.5,0.25,0.5"
         mask:
         - SubfloorMask
@@ -37,14 +36,12 @@
     damageModifierSet: Metallic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100 #excess damage (nuke?). avoid computational cost of spawning entities.
       behaviors:
       - !type:DoActsBehavior
         acts: ["Destruction"]
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 50
       behaviors:
       - !type:PlaySoundBehavior
@@ -69,7 +66,7 @@
 
 - type: entity
   id: DisposalHolder
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   name: disposal holder
   components:
   - type: DisposalHolder
@@ -87,7 +84,7 @@
   components:
   - type: Sprite
     layers:
-    - map: [ "pipe" ]
+    - map: ["pipe"]
       state: pipe-b
   - type: Construction
     graph: DisposalPipe
@@ -103,7 +100,7 @@
   components:
   - type: Sprite
     layers:
-    - map: [ "pipe" ]
+    - map: ["pipe"]
       state: conpipe-s
   - type: DisposalTube
     containerId: DisposalTransit
@@ -115,8 +112,8 @@
     visuals:
       enum.DisposalTubeVisuals.VisualState:
         pipe:
-          Free: { state: conpipe-s }
-          Anchored: { state: pipe-s }
+          Free: {state: conpipe-s}
+          Anchored: {state: pipe-s}
   - type: Construction
     graph: DisposalPipe
     node: pipe
@@ -131,7 +128,7 @@
   components:
   - type: Sprite
     layers:
-    - map: [ "pipe" ]
+    - map: ["pipe"]
       state: conpipe-tagger
   - type: DisposalTube
     containerId: DisposalTagger
@@ -143,8 +140,8 @@
     visuals:
       enum.DisposalTubeVisuals.VisualState:
         pipe:
-          Free: { state: conpipe-tagger }
-          Anchored: { state: pipe-tagger }
+          Free: {state: conpipe-tagger}
+          Anchored: {state: pipe-tagger}
   - type: ActivatableUI
     key: enum.DisposalTaggerUiKey.Key
   - type: UserInterface
@@ -165,7 +162,7 @@
   components:
   - type: Sprite
     layers:
-    - map: [ "pipe" ]
+    - map: ["pipe"]
       state: conpipe-t
   - type: DisposalTube
     containerId: DisposalEntry
@@ -177,13 +174,12 @@
     visuals:
       enum.DisposalTubeVisuals.VisualState:
         pipe:
-          Free: { state: conpipe-t }
-          Anchored: { state: pipe-t }
+          Free: {state: conpipe-t}
+          Anchored: {state: pipe-t}
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.25,-0.5,0.25,0.4"
         mask:
         - SubfloorMask
@@ -201,7 +197,7 @@
   components:
   - type: Sprite
     layers:
-    - map: [ "pipe" ]
+    - map: ["pipe"]
       state: conpipe-j1s
   - type: DisposalTube
     containerId: DisposalRouter
@@ -217,8 +213,8 @@
     visuals:
       enum.DisposalTubeVisuals.VisualState:
         pipe:
-          Free: { state: conpipe-j1s }
-          Anchored: { state: pipe-j1s }
+          Free: {state: conpipe-j1s}
+          Anchored: {state: pipe-j1s}
   - type: Flippable
     mirrorEntity: DisposalRouterFlipped
   - type: ActivatableUI
@@ -230,8 +226,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.5,-0.5,0.25,0.5"
         mask:
         - SubfloorMask
@@ -249,7 +244,7 @@
   components:
   - type: Sprite
     layers:
-    - map: [ "pipe" ]
+    - map: ["pipe"]
       state: conpipe-j2s
   - type: DisposalTube
     containerId: DisposalRouter
@@ -265,15 +260,14 @@
     visuals:
       enum.DisposalTubeVisuals.VisualState:
         pipe:
-          Free: { state: conpipe-j2s }
-          Anchored: { state: pipe-j2s }
+          Free: {state: conpipe-j2s}
+          Anchored: {state: pipe-j2s}
   - type: Flippable
     mirrorEntity: DisposalRouter
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.25,-0.5,0.5,0.5"
         mask:
         - SubfloorMask
@@ -290,7 +284,7 @@
   components:
   - type: Sprite
     layers:
-    - map: [ "pipe" ]
+    - map: ["pipe"]
       state: conpipe-j1
     visible: true
   - type: DisposalTube
@@ -307,15 +301,14 @@
     visuals:
       enum.DisposalTubeVisuals.VisualState:
         pipe:
-          Free: { state: conpipe-j1 }
-          Anchored: { state: pipe-j1 }
+          Free: {state: conpipe-j1}
+          Anchored: {state: pipe-j1}
   - type: Flippable
     mirrorEntity: DisposalJunctionFlipped
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.5,-0.5,0.25,0.5"
         mask:
         - SubfloorMask
@@ -333,7 +326,7 @@
   components:
   - type: Sprite
     layers:
-    - map: [ "pipe" ]
+    - map: ["pipe"]
       state: conpipe-j2
   - type: DisposalTube
     containerId: DisposalJunction
@@ -349,15 +342,14 @@
     visuals:
       enum.DisposalTubeVisuals.VisualState:
         pipe:
-          Free: { state: conpipe-j2 }
-          Anchored: { state: pipe-j2 }
+          Free: {state: conpipe-j2}
+          Anchored: {state: pipe-j2}
   - type: Flippable
     mirrorEntity: DisposalJunction
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.25,-0.5,0.5,0.5"
         mask:
         - SubfloorMask
@@ -374,7 +366,7 @@
   components:
   - type: Sprite
     layers:
-    - map: [ "pipe" ]
+    - map: ["pipe"]
       state: conpipe-y
   - type: DisposalTube
     containerId: DisposalJunction
@@ -390,13 +382,12 @@
     visuals:
       enum.DisposalTubeVisuals.VisualState:
         pipe:
-          Free: { state: conpipe-y }
-          Anchored: { state: pipe-y }
+          Free: {state: conpipe-y}
+          Anchored: {state: pipe-y}
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.5,-0.5,0.5,0.25"
         mask:
         - SubfloorMask
@@ -414,7 +405,7 @@
   components:
   - type: Sprite
     layers:
-    - map: [ "pipe" ]
+    - map: ["pipe"]
       state: conpipe-c
   - type: DisposalTube
     containerId: DisposalBend
@@ -426,13 +417,12 @@
     visuals:
       enum.DisposalTubeVisuals.VisualState:
         pipe:
-          Free: { state: conpipe-c }
-          Anchored: { state: pipe-c }
+          Free: {state: conpipe-c}
+          Anchored: {state: pipe-c}
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.5,-0.5,0.25,0.25"
         mask:
         - SubfloorMask
@@ -450,7 +440,7 @@
   components:
   - type: Sprite
     layers:
-    - map: [ "pipe" ]
+    - map: ["pipe"]
       state: signal-router-free
   - type: DisposalTube
     containerId: DisposalSignalRouter
@@ -472,8 +462,8 @@
     visuals:
       enum.DisposalTubeVisuals.VisualState:
         pipe:
-          Free: { state: signal-router-free }
-          Anchored: { state: signal-router }
+          Free: {state: signal-router-free}
+          Anchored: {state: signal-router}
   - type: Flippable
     mirrorEntity: DisposalSignalRouterFlipped
   - type: Construction
@@ -489,7 +479,7 @@
   components:
   - type: Sprite
     layers:
-    - map: [ "pipe" ]
+    - map: ["pipe"]
       state: signal-router-flipped-free
   - type: DisposalJunction
     degrees:
@@ -500,7 +490,7 @@
     visuals:
       enum.DisposalTubeVisuals.VisualState:
         pipe:
-          Free: { state: signal-router-flipped-free }
-          Anchored: { state: signal-router-flipped }
+          Free: {state: signal-router-flipped-free}
+          Anchored: {state: signal-router-flipped}
   - type: Construction
     node: signal_router_flipped

@@ -15,7 +15,8 @@ namespace Content.Tests.Shared.Utility
     {
         private const string TestDatasetId = "TestDataset";
 
-        private static readonly string Prototypes = $@"
+        private static readonly string Prototypes =
+            $@"
 - type: dataset
   id: {TestDatasetId}
   values:

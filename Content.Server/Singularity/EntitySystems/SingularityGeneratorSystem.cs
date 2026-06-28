@@ -13,11 +13,20 @@ namespace Content.Server.Singularity.EntitySystems;
 public sealed class SingularityGeneratorSystem : SharedSingularityGeneratorSystem
 {
     #region Dependencies
-    [Dependency] private readonly IViewVariablesManager _vvm = default!;
-    [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
-    [Dependency] private readonly PhysicsSystem _physics = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly MetaDataSystem _metadata = default!;
+    [Dependency]
+    private readonly IViewVariablesManager _vvm = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transformSystem = default!;
+
+    [Dependency]
+    private readonly PhysicsSystem _physics = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly MetaDataSystem _metadata = default!;
     #endregion Dependencies
 
     public override void Initialize()
@@ -39,7 +48,6 @@ public sealed class SingularityGeneratorSystem : SharedSingularityGeneratorSyste
 
         base.Shutdown();
     }
-
 
     /// <summary>
     /// Handles what happens when a singularity generator passes its power threshold.
@@ -112,7 +120,10 @@ public sealed class SingularityGeneratorSystem : SharedSingularityGeneratorSyste
         if (!EntityManager.TryGetComponent<SingularityGeneratorComponent>(args.OtherEntity, out var generatorComp))
             return;
 
-        if (_timing.CurTime < _metadata.GetPauseTime(uid) + generatorComp.NextFailsafe && !generatorComp.FailsafeDisabled)
+        if (
+            _timing.CurTime < _metadata.GetPauseTime(uid) + generatorComp.NextFailsafe
+            && !generatorComp.FailsafeDisabled
+        )
         {
             EntityManager.QueueDeleteEntity(uid);
             return;
@@ -125,7 +136,13 @@ public sealed class SingularityGeneratorSystem : SharedSingularityGeneratorSyste
             var directions = Enum.GetValues<Direction>().Length;
             for (var i = 0; i < directions - 1; i += 2) // Skip every other direction, checking only cardinals
             {
-                if (!CheckContainmentField((Direction)i, new Entity<SingularityGeneratorComponent>(args.OtherEntity, generatorComp), transform))
+                if (
+                    !CheckContainmentField(
+                        (Direction)i,
+                        new Entity<SingularityGeneratorComponent>(args.OtherEntity, generatorComp),
+                        transform
+                    )
+                )
                     contained = false;
             }
         }
@@ -133,21 +150,26 @@ public sealed class SingularityGeneratorSystem : SharedSingularityGeneratorSyste
         if (!contained && !generatorComp.FailsafeDisabled)
         {
             generatorComp.NextFailsafe = _timing.CurTime + generatorComp.FailsafeCooldown;
-            PopupSystem.PopupEntity(Loc.GetString("comp-generator-failsafe", ("target", args.OtherEntity)), args.OtherEntity, PopupType.LargeCaution);
+            PopupSystem.PopupEntity(
+                Loc.GetString("comp-generator-failsafe", ("target", args.OtherEntity)),
+                args.OtherEntity,
+                PopupType.LargeCaution
+            );
         }
         else
         {
             SetPower(
                 args.OtherEntity,
-                generatorComp.Power + component.State switch
-                {
-                    ParticleAcceleratorPowerState.Standby => 0,
-                    ParticleAcceleratorPowerState.Level0 => 1,
-                    ParticleAcceleratorPowerState.Level1 => 2,
-                    ParticleAcceleratorPowerState.Level2 => 4,
-                    ParticleAcceleratorPowerState.Level3 => 8,
-                    _ => 0
-                },
+                generatorComp.Power
+                    + component.State switch
+                    {
+                        ParticleAcceleratorPowerState.Standby => 0,
+                        ParticleAcceleratorPowerState.Level0 => 1,
+                        ParticleAcceleratorPowerState.Level1 => 2,
+                        ParticleAcceleratorPowerState.Level2 => 4,
+                        ParticleAcceleratorPowerState.Level3 => 8,
+                        _ => 0,
+                    },
                 generatorComp
             );
         }
@@ -161,7 +183,11 @@ public sealed class SingularityGeneratorSystem : SharedSingularityGeneratorSyste
     /// </summary>
     /// <param name="transform">The transform component of the singularity generator.</param>
     /// <remarks>Mostly copied from <see cref="ContainmentFieldGeneratorSystem"/> </remarks>
-    private bool CheckContainmentField(Direction dir, Entity<SingularityGeneratorComponent> generator, TransformComponent transform)
+    private bool CheckContainmentField(
+        Direction dir,
+        Entity<SingularityGeneratorComponent> generator,
+        TransformComponent transform
+    )
     {
         var component = generator.Comp;
 
@@ -188,6 +214,7 @@ public sealed class SingularityGeneratorSystem : SharedSingularityGeneratorSyste
         var ent = closestResult.Value.HitEntity;
 
         // Check that the field can't be moved. The fields' transform parenting is weird, so skip that
-        return TryComp<PhysicsComponent>(ent, out var collidableComponent) && collidableComponent.BodyType == BodyType.Static;
+        return TryComp<PhysicsComponent>(ent, out var collidableComponent)
+            && collidableComponent.BodyType == BodyType.Static;
     }
 }

@@ -1,7 +1,7 @@
-using Robust.Shared.Audio;
 using Content.Shared.Chat.Prototypes;
 using Content.Shared.Damage;
 using Content.Shared.Roles;
+using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
@@ -22,13 +22,7 @@ public sealed partial class CluwneComponent : Component
     /// Amount of genetic damage dealt when they revert
     /// </summary>
     [DataField]
-    public DamageSpecifier RevertDamage = new()
-    {
-        DamageDict = new()
-        {
-            { "Genetic", 300.0 },
-        },
-    };
+    public DamageSpecifier RevertDamage = new() { DamageDict = new() { { "Genetic", 300.0 } } };
 
     /// <summary>
     /// Chance that the Cluwne will be knocked over and paralyzed.

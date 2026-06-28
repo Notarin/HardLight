@@ -15,7 +15,8 @@ namespace Content.Client.NetworkConfigurator;
 [GenerateTypedNameReferences]
 public sealed partial class NetworkConfiguratorLinkMenu : FancyWindow
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
 
     private const string PanelBgColor = "#202023";
 
@@ -41,7 +42,7 @@ public sealed partial class NetworkConfiguratorLinkMenu : FancyWindow
         var footerStyleBox = new StyleBoxFlat()
         {
             BorderThickness = new Thickness(0, 2, 0, 0),
-            BorderColor = Color.FromHex("#5A5A5A")
+            BorderColor = Color.FromHex("#5A5A5A"),
         };
 
         FooterPanel.PanelOverride = footerStyleBox;
@@ -146,7 +147,8 @@ public sealed partial class NetworkConfiguratorLinkMenu : FancyWindow
 
         args.Button.Pressed = false;
 
-        var container = _selectedButton.Value.position == ButtonPosition.Left ? ButtonContainerLeft : ButtonContainerRight;
+        var container =
+            _selectedButton.Value.position == ButtonPosition.Left ? ButtonContainerLeft : ButtonContainerRight;
         if (container.GetChild(_selectedButton.Value.index) is Button button)
             button.Pressed = false;
 
@@ -156,7 +158,7 @@ public sealed partial class NetworkConfiguratorLinkMenu : FancyWindow
     private enum ButtonPosition
     {
         Left,
-        Right
+        Right,
     }
 
     /// <summary>
@@ -181,7 +183,10 @@ public sealed partial class NetworkConfiguratorLinkMenu : FancyWindow
         {
             foreach (var (left, right) in Links)
             {
-                if (!SourceButtons.TryGetValue(left, out var leftChild) || !SinkButtons.TryGetValue(right, out var rightChild))
+                if (
+                    !SourceButtons.TryGetValue(left, out var leftChild)
+                    || !SinkButtons.TryGetValue(right, out var rightChild)
+                )
                     continue;
 
                 var leftOffset = _leftButtonContainer.PixelPosition.Y;

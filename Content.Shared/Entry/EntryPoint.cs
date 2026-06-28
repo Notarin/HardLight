@@ -18,9 +18,14 @@ namespace Content.Shared.Entry
 {
     public sealed class EntryPoint : GameShared
     {
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly ITileDefinitionManager _tileDefinitionManager = default!;
-        [Dependency] private readonly IResourceManager _resMan = default!;
+        [Dependency]
+        private readonly IPrototypeManager _prototypeManager = default!;
+
+        [Dependency]
+        private readonly ITileDefinitionManager _tileDefinitionManager = default!;
+
+        [Dependency]
+        private readonly IResourceManager _resMan = default!;
 
         private readonly ResPath _ignoreFileDirectory = new("/IgnoredPrototypes/");
 
@@ -112,7 +117,7 @@ namespace Content.Shared.Entry
             {
                 foreach (var node in sequence.Sequence)
                 {
-                    var path = new ResPath(((ValueDataNode) node).Value);
+                    var path = new ResPath(((ValueDataNode)node).Value);
 
                     if (string.IsNullOrEmpty(path.Extension))
                     {
@@ -141,7 +146,7 @@ namespace Content.Shared.Entry
                 if (documents == null)
                     continue;
 
-                sequence.Add((SequenceDataNode) documents.Root);
+                sequence.Add((SequenceDataNode)documents.Root);
             }
             return true;
         }

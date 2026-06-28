@@ -16,7 +16,8 @@ public sealed partial class GridSpawnComponent : Component
     /// Dictionary of groups where each group will have entries selected.
     /// String is just an identifier to make yaml easier.
     /// </summary>
-    [DataField(required: true)] public Dictionary<string, IGridSpawnGroup> Groups = new();
+    [DataField(required: true)]
+    public Dictionary<string, IGridSpawnGroup> Groups = new();
 }
 
 public interface IGridSpawnGroup
@@ -29,7 +30,7 @@ public interface IGridSpawnGroup
     /// <summary>
     /// Maximum distance to spawn away from the station.
     /// </summary>
-    public float MaximumDistance { get;  }
+    public float MaximumDistance { get; }
 
     /// <inheritdoc />
     public ProtoId<LocalizedDatasetPrototype>? NameDataset { get; }
@@ -114,5 +115,3 @@ public sealed partial class GridSpawnGroup : IGridSpawnGroup
     public bool NameGrid { get; set; } = true;
     public bool StationGrid { get; set; } = true;
 }
-
-

@@ -21,7 +21,7 @@ namespace Content.Shared.Power
         ElectrifiedCancel,
         MainWire,
         WireCount,
-        CutWires
+        CutWires,
     }
 
     [Serializable, NetSerializable]

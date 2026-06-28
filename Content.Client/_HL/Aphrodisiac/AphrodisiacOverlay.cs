@@ -10,11 +10,20 @@ namespace Content.Client._HL.Aphrodisiac;
 
 public sealed class AphrodisiacOverlay : Overlay
 {
-    [Dependency] private readonly IEntityManager _entityManager = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IEntitySystemManager _sysMan = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly IEntityManager _entityManager = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly IEntitySystemManager _sysMan = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     public override OverlaySpace Space => OverlaySpace.WorldSpace;
     public override bool RequestScreenTexture => true;
@@ -42,8 +51,10 @@ public sealed class AphrodisiacOverlay : Overlay
         if (playerEntity == null)
             return;
 
-        if (!_entityManager.HasComponent<AphrodisiacStatusEffectComponent>(playerEntity)
-            || !_entityManager.TryGetComponent<StatusEffectsComponent>(playerEntity, out var status))
+        if (
+            !_entityManager.HasComponent<AphrodisiacStatusEffectComponent>(playerEntity)
+            || !_entityManager.TryGetComponent<StatusEffectsComponent>(playerEntity, out var status)
+        )
             return;
 
         var statusSys = _sysMan.GetEntitySystem<StatusEffectsSystem>();
@@ -51,7 +62,7 @@ public sealed class AphrodisiacOverlay : Overlay
             return;
 
         var curTime = _timing.CurTime;
-        var power = (float) (time.Value.Item2 - curTime).TotalSeconds;
+        var power = (float)(time.Value.Item2 - curTime).TotalSeconds;
 
         CurrentAphrodisiacPower += 1f * (power * 0.5f - CurrentAphrodisiacPower) * args.DeltaSeconds / (power + 1);
     }

@@ -10,7 +10,8 @@ namespace Content.Server.DeviceNetwork.Systems;
 [UsedImplicitly]
 public sealed class DeviceListSystem : SharedDeviceListSystem
 {
-    [Dependency] private readonly NetworkConfiguratorSystem _configurator = default!;
+    [Dependency]
+    private readonly NetworkConfiguratorSystem _configurator = default!;
     private float _cleanupAccumulator;
     private const float CleanupInterval = 1f;
 
@@ -74,12 +75,12 @@ public sealed class DeviceListSystem : SharedDeviceListSystem
             if (!TryComp(deviceUid, out DeviceNetworkComponent? deviceNet))
                 continue;
 
-            var address = MetaData(deviceUid).EntityLifeStage == EntityLifeStage.MapInitialized
-                ? deviceNet.Address
-                : $"UID: {deviceUid.ToString()}";
+            var address =
+                MetaData(deviceUid).EntityLifeStage == EntityLifeStage.MapInitialized
+                    ? deviceNet.Address
+                    : $"UID: {deviceUid.ToString()}";
 
             devices.Add(address, deviceUid);
-
         }
 
         return devices;
@@ -176,7 +177,8 @@ public sealed class DeviceListSystem : SharedDeviceListSystem
                 // when full saves are supported, this should instead add data to the BeforeSaveEvent informing the
                 // saving system that this map (or null-space entity) also needs to be included in the save.
                 Log.Error(
-                    $"Saving a device list ({ToPrettyString(uid)}) that has a reference to an entity on another map ({ToPrettyString(ent)}). Removing entity from list.");
+                    $"Saving a device list ({ToPrettyString(uid)}) that has a reference to an entity on another map ({ToPrettyString(ent)}). Removing entity from list."
+                );
             }
 
             if (toRemove.Count == 0)
@@ -197,7 +199,12 @@ public sealed class DeviceListSystem : SharedDeviceListSystem
     /// <param name="devices">The devices to store.</param>
     /// <param name="merge">Whether to merge or replace the devices stored.</param>
     /// <param name="deviceList">Device list component</param>
-    public DeviceListUpdateResult UpdateDeviceList(EntityUid uid, IEnumerable<EntityUid> devices, bool merge = false, DeviceListComponent? deviceList = null)
+    public DeviceListUpdateResult UpdateDeviceList(
+        EntityUid uid,
+        IEnumerable<EntityUid> devices,
+        bool merge = false,
+        DeviceListComponent? deviceList = null
+    )
     {
         if (!Resolve(uid, ref deviceList))
             return DeviceListUpdateResult.NoComponent;

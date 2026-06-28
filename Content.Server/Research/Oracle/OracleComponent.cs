@@ -27,14 +27,12 @@ public sealed partial class OracleComponent : Component
     public float AbnormalReagentChance = 0.2f;
 
     [DataField]
-    public TimeSpan
-        NextDemandTime = TimeSpan.Zero,
+    public TimeSpan NextDemandTime = TimeSpan.Zero,
         NextBarkTime = TimeSpan.Zero,
         NextRejectTime = TimeSpan.Zero;
 
     [DataField]
-    public TimeSpan
-        DemandDelay = TimeSpan.FromMinutes(10),
+    public TimeSpan DemandDelay = TimeSpan.FromMinutes(10),
         BarkDelay = TimeSpan.FromMinutes(2),
         RejectDelay = TimeSpan.FromSeconds(10);
 
@@ -58,16 +56,9 @@ public sealed partial class OracleComponent : Component
         "oracle-demand-9",
         "oracle-demand-10",
         "oracle-demand-11",
-        "oracle-demand-12"
+        "oracle-demand-12",
     };
 
     [DataField("rejectMessages")]
-    public IReadOnlyList<string> RejectMessages = new[]
-    {
-        "ἄγνοια",
-        "υλικό",
-        "ἀγνωσία",
-        "γήινος",
-        "σάκλας"
-    };
+    public IReadOnlyList<string> RejectMessages = new[] { "ἄγνοια", "υλικό", "ἀγνωσία", "γήινος", "σάκλας" };
 }

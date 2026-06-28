@@ -12,9 +12,14 @@ namespace Content.Client.UserInterface.Systems.Ghost.Controls.Roles;
 [UsedImplicitly]
 public sealed class MakeGhostRoleEui : BaseEui
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IClientConsoleHost _consoleHost = default!;
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly IClientConsoleHost _consoleHost = default!;
 
     private readonly MakeGhostRoleWindow _window;
 
@@ -42,7 +47,14 @@ public sealed class MakeGhostRoleEui : BaseEui
         _window.OpenCentered();
     }
 
-    private void OnMake(NetEntity entity, string name, string description, string rules, bool makeSentient, GhostRoleRaffleSettings? raffleSettings)
+    private void OnMake(
+        NetEntity entity,
+        string name,
+        string description,
+        string rules,
+        bool makeSentient,
+        GhostRoleRaffleSettings? raffleSettings
+    )
     {
         var session = _playerManager.LocalSession;
         if (session == null)
@@ -53,16 +65,17 @@ public sealed class MakeGhostRoleEui : BaseEui
         var command = raffleSettings is not null ? "makeghostroleraffled" : "makeghostrole";
 
         var makeGhostRoleCommand =
-            $"{command} " +
-            $"\"{CommandParsing.Escape(entity.ToString())}\" " +
-            $"\"{CommandParsing.Escape(name)}\" " +
-            $"\"{CommandParsing.Escape(description)}\" ";
+            $"{command} "
+            + $"\"{CommandParsing.Escape(entity.ToString())}\" "
+            + $"\"{CommandParsing.Escape(name)}\" "
+            + $"\"{CommandParsing.Escape(description)}\" ";
 
         if (raffleSettings is not null)
         {
-            makeGhostRoleCommand += $"{raffleSettings.InitialDuration} " +
-                                    $"{raffleSettings.JoinExtendsDurationBy} " +
-                                    $"{raffleSettings.MaxDuration} ";
+            makeGhostRoleCommand +=
+                $"{raffleSettings.InitialDuration} "
+                + $"{raffleSettings.JoinExtendsDurationBy} "
+                + $"{raffleSettings.MaxDuration} ";
         }
 
         makeGhostRoleCommand += $"\"{CommandParsing.Escape(rules)}\"";

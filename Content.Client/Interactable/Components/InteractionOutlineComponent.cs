@@ -7,8 +7,11 @@ namespace Content.Client.Interactable.Components
     [RegisterComponent]
     public sealed partial class InteractionOutlineComponent : Component
     {
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly IEntityManager _entMan = default!;
+        [Dependency]
+        private readonly IPrototypeManager _prototypeManager = default!;
+
+        [Dependency]
+        private readonly IEntityManager _entMan = default!;
 
         private const float DefaultWidth = 1;
 
@@ -49,9 +52,11 @@ namespace Content.Client.Interactable.Components
 
         public void UpdateInRange(EntityUid uid, bool inInteractionRange, int renderScale)
         {
-            if (_entMan.TryGetComponent(uid, out SpriteComponent? sprite)
+            if (
+                _entMan.TryGetComponent(uid, out SpriteComponent? sprite)
                 && sprite.PostShader == _shader
-                && (inInteractionRange != _inRange || _lastRenderScale != renderScale))
+                && (inInteractionRange != _inRange || _lastRenderScale != renderScale)
+            )
             {
                 _inRange = inInteractionRange;
                 _lastRenderScale = renderScale;

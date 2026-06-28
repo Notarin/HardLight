@@ -13,8 +13,7 @@
     - chat-speech-verb-sign-1
     - chat-speech-verb-sign-2
     - chat-speech-verb-sign-3
-  obfuscation:
-    !type:ReplacementObfuscation
+  obfuscation: !type:ReplacementObfuscation
     replacement:
     - something
     - a happy signal to you

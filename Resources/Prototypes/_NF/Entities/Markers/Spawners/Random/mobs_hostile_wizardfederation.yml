@@ -7,8 +7,8 @@
   components:
   - type: Sprite
     layers:
-      - state: red
-      - state: ai
+    - state: red
+    - state: ai
   - type: RandomSpawner
     prototypes:
     - MobWizFedWizardBlue
@@ -26,8 +26,8 @@
   components:
   - type: Sprite
     layers:
-      - state: red
-      - state: ai
+    - state: red
+    - state: ai
   - type: RandomSpawner
     prototypes:
     - MobWizFedWizardBlueHardsuit
@@ -46,11 +46,11 @@
   components:
   - type: Sprite
     layers:
-      - state: red
-      - state: ai
+    - state: red
+    - state: ai
   - type: ConditionalSpawner
     prototypes:
-      - MobWizFedWizardBlue
+    - MobWizFedWizardBlue
 
 - type: entity
   name: Red Wizard Spawner
@@ -60,11 +60,11 @@
   components:
   - type: Sprite
     layers:
-      - state: red
-      - state: ai
+    - state: red
+    - state: ai
   - type: ConditionalSpawner
     prototypes:
-      - MobWizFedWizardRed
+    - MobWizFedWizardRed
 
 - type: entity
   name: Violet Wizard Spawner
@@ -74,11 +74,11 @@
   components:
   - type: Sprite
     layers:
-      - state: red
-      - state: ai
+    - state: red
+    - state: ai
   - type: ConditionalSpawner
     prototypes:
-      - MobWizFedWizardViolet
+    - MobWizFedWizardViolet
 
 - type: entity
   name: Soap Wizard Spawner
@@ -88,11 +88,11 @@
   components:
   - type: Sprite
     layers:
-      - state: red
-      - state: ai
+    - state: red
+    - state: ai
   - type: ConditionalSpawner
     prototypes:
-      - MobWizFedWizardSoap
+    - MobWizFedWizardSoap
 
 # Hardsuits
 - type: entity
@@ -103,11 +103,11 @@
   components:
   - type: Sprite
     layers:
-      - state: red
-      - state: ai
+    - state: red
+    - state: ai
   - type: ConditionalSpawner
     prototypes:
-      - MobWizFedWizardBlueHardsuit
+    - MobWizFedWizardBlueHardsuit
 
 - type: entity
   name: Red Wizard Spawner
@@ -117,11 +117,11 @@
   components:
   - type: Sprite
     layers:
-      - state: red
-      - state: ai
+    - state: red
+    - state: ai
   - type: ConditionalSpawner
     prototypes:
-      - MobWizFedWizardRedHardsuit
+    - MobWizFedWizardRedHardsuit
 
 - type: entity
   name: Violet Wizard Spawner
@@ -131,11 +131,11 @@
   components:
   - type: Sprite
     layers:
-      - state: red
-      - state: ai
+    - state: red
+    - state: ai
   - type: ConditionalSpawner
     prototypes:
-      - MobWizFedWizardVioletHardsuit
+    - MobWizFedWizardVioletHardsuit
 
 - type: entity
   name: Soap Wizard Spawner
@@ -145,8 +145,8 @@
   components:
   - type: Sprite
     layers:
-      - state: red
-      - state: ai
+    - state: red
+    - state: ai
   - type: ConditionalSpawner
     prototypes:
-      - MobWizFedWizardSoapHardsuit
+    - MobWizFedWizardSoapHardsuit

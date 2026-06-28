@@ -3,9 +3,7 @@ using Robust.Shared.Serialization;
 namespace Content.Shared.Instruments.UI;
 
 [Serializable, NetSerializable]
-public sealed class InstrumentBandRequestBuiMessage : BoundUserInterfaceMessage
-{
-}
+public sealed class InstrumentBandRequestBuiMessage : BoundUserInterfaceMessage { }
 
 [Serializable, NetSerializable]
 public sealed class InstrumentBandResponseBuiMessage : BoundUserInterfaceMessage

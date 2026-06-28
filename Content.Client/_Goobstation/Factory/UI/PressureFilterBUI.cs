@@ -11,9 +11,8 @@ public sealed class PressureFilterBUI : BoundUserInterface
 {
     private PressureFilterWindow? _window;
 
-    public PressureFilterBUI(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-    }
+    public PressureFilterBUI(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {

@@ -45028,9 +45028,7 @@ entities:
         - ClothingSpeedModifier
         entries:
         - message: >-
-            It provides the following protection:
-
-            - [color=orange]Explosion[/color] damage [color=white]to contents[/color] reduced by [color=lightblue]10%[/color].
+            It provides the following protection: #magic___^_^___line - [color=orange]Explosion[/color] damage [color=white]to contents[/color] reduced by [color=lightblue]10%[/color].
           priority: 0
           component: Armor
         title: null
@@ -45834,17 +45832,7 @@ entities:
           priority: 0
           component: ClothingSpeedModifier
         - message: >-
-            It provides the following protection:
-
-            - [color=yellow]Blunt[/color] damage reduced by [color=lightblue]40%[/color].
-
-            - [color=yellow]Slash[/color] damage reduced by [color=lightblue]40%[/color].
-
-            - [color=yellow]Piercing[/color] damage reduced by [color=lightblue]40%[/color].
-
-            - [color=yellow]Caustic[/color] damage reduced by [color=lightblue]30%[/color].
-
-            - [color=orange]Explosion[/color] damage reduced by [color=lightblue]60%[/color].
+            It provides the following protection: #magic___^_^___line - [color=yellow]Blunt[/color] damage reduced by [color=lightblue]40%[/color]. #magic___^_^___line - [color=yellow]Slash[/color] damage reduced by [color=lightblue]40%[/color]. #magic___^_^___line - [color=yellow]Piercing[/color] damage reduced by [color=lightblue]40%[/color]. #magic___^_^___line - [color=yellow]Caustic[/color] damage reduced by [color=lightblue]30%[/color]. #magic___^_^___line - [color=orange]Explosion[/color] damage reduced by [color=lightblue]60%[/color].
           priority: 0
           component: Armor
         title: null
@@ -84346,7 +84334,6 @@ entities:
       content: >-
         todo list
 
-
         - come up with a joke
     - type: Physics
       canCollide: False
@@ -84369,12 +84356,9 @@ entities:
       content: >-
         To the atmospherics staff on Glacier Station,
 
-
         Automated gas mining is only possible with nitrogen due to the low atmospheric pressure at this altitude. Your task is to filter and heat a controlled amount of oxygen from the thin air and then send it around the station, keeping it breathable.
 
-
         The gas inlet pump should be kept at a low speed as to not outpace the heater's capabilities, unless you are using a special setup and are certified in advanced oxygen production.
-
 
         This is also a reminder not to dump toxic waste gases down towards the planet below, please store them to be safely disposed of so we are not involved in YET ANOTHER lawsuit from poisoning the local space elk.
   - uid: 12126
@@ -111724,4 +111708,3 @@ entities:
     - type: Transform
       pos: 14.810942,13.553889
       parent: 2
-...

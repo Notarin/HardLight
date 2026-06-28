@@ -1,9 +1,9 @@
 using System.Collections.Frozen;
 using System.Collections.Immutable;
+using Content.Shared._HL.Traits.Assorted;
 using Content.Shared.Chat;
 using Content.Shared.Chat.Prototypes;
 using Content.Shared.Speech;
-using Content.Shared._HL.Traits.Assorted;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 
@@ -12,7 +12,10 @@ namespace Content.Server.Chat.Systems;
 // emotes using emote prototype
 public partial class ChatSystem
 {
-    private FrozenDictionary<string, ImmutableList<EmotePrototype>> _wordEmoteDict = FrozenDictionary<string, ImmutableList<EmotePrototype>>.Empty; // DeltaV - Multiple emotes
+    private FrozenDictionary<string, ImmutableList<EmotePrototype>> _wordEmoteDict = FrozenDictionary<
+        string,
+        ImmutableList<EmotePrototype>
+    >.Empty; // DeltaV - Multiple emotes
 
     protected override void OnPrototypeReload(PrototypesReloadedEventArgs obj)
     {
@@ -65,11 +68,19 @@ public partial class ChatSystem
         string? nameOverride = null,
         bool ignoreActionBlocker = false,
         bool forceEmote = false
-        )
+    )
     {
         if (!_prototypeManager.TryIndex<EmotePrototype>(emoteId, out var proto))
             return;
-        TryEmoteWithChat(source, proto, range, hideLog: hideLog, nameOverride, ignoreActionBlocker: ignoreActionBlocker, forceEmote: forceEmote);
+        TryEmoteWithChat(
+            source,
+            proto,
+            range,
+            hideLog: hideLog,
+            nameOverride,
+            ignoreActionBlocker: ignoreActionBlocker,
+            forceEmote: forceEmote
+        );
     }
 
     /// <summary>
@@ -90,7 +101,7 @@ public partial class ChatSystem
         string? nameOverride = null,
         bool ignoreActionBlocker = false,
         bool forceEmote = false
-        )
+    )
     {
         if (!forceEmote && !AllowedToUseEmote(source, emote))
             return;
@@ -101,7 +112,16 @@ public partial class ChatSystem
             // not all emotes are loc'd, but for the ones that are we pass in entity
             var action = Loc.GetString(_random.Pick(emote.ChatMessages), ("entity", source));
             var language = _language.GetLanguage(source); // Starlight-edit: Languages
-            SendEntityEmote(source, action, range, nameOverride, language, hideLog: hideLog, checkEmote: false, ignoreActionBlocker: ignoreActionBlocker); // Starlight-edit: Languages
+            SendEntityEmote(
+                source,
+                action,
+                range,
+                nameOverride,
+                language,
+                hideLog: hideLog,
+                checkEmote: false,
+                ignoreActionBlocker: ignoreActionBlocker
+            ); // Starlight-edit: Languages
         }
 
         // do the rest of emote event logic here
@@ -175,6 +195,7 @@ public partial class ChatSystem
     }
 
     private const float EmoteVariationMultiplier = 0.5f; // HardLight: halve every emote's random pitch spread
+
     /// <summary>
     /// Checks if a valid emote was typed, to play sounds and etc and invokes an event.
     /// </summary>
@@ -216,6 +237,7 @@ public partial class ChatSystem
             return textInput[trimStart..trimEnd];
         }
     }
+
     /// <summary>
     /// Checks if we can use this emote based on the emotes whitelist, blacklist, and availibility to the entity.
     /// </summary>
@@ -225,15 +247,16 @@ public partial class ChatSystem
     private bool AllowedToUseEmote(EntityUid source, EmotePrototype emote)
     {
         // If emote is in AllowedEmotes, it will bypass whitelist and blacklist
-        if (TryComp<SpeechComponent>(source, out var speech) &&
-            speech.AllowedEmotes.Contains(emote.ID))
+        if (TryComp<SpeechComponent>(source, out var speech) && speech.AllowedEmotes.Contains(emote.ID))
         {
             return true;
         }
 
         // Check the whitelist and blacklist
-        if (_whitelistSystem.IsWhitelistFail(emote.Whitelist, source) ||
-            _whitelistSystem.IsBlacklistPass(emote.Blacklist, source))
+        if (
+            _whitelistSystem.IsWhitelistFail(emote.Whitelist, source)
+            || _whitelistSystem.IsBlacklistPass(emote.Blacklist, source)
+        )
         {
             return false;
         }
@@ -246,7 +269,6 @@ public partial class ChatSystem
 
         return true;
     }
-
 
     private void InvokeEmoteEvent(EntityUid uid, EmotePrototype proto)
     {

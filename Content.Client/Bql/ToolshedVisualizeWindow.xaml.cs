@@ -39,11 +39,13 @@ internal sealed partial class ToolshedVisualizeWindow : DefaultWindow
             vvButton.ToolTip = _loc.GetString("ui-bql-results-vv-tooltip");
             vvButton.OnPressed += _ => _console.ExecuteCommand($"vv {entity}");
 
-            ItemList.AddChild(new BoxContainer
-            {
-                Orientation = BoxContainer.LayoutOrientation.Horizontal,
-                Children = { nameLabel, tpButton, vvButton }
-            });
+            ItemList.AddChild(
+                new BoxContainer
+                {
+                    Orientation = BoxContainer.LayoutOrientation.Horizontal,
+                    Children = { nameLabel, tpButton, vvButton },
+                }
+            );
         }
     }
 }

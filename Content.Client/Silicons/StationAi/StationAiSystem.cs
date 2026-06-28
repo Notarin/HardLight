@@ -8,10 +8,17 @@ namespace Content.Client.Silicons.StationAi;
 
 public sealed partial class StationAiSystem : SharedStationAiSystem
 {
-    [Dependency] private readonly IOverlayManager _overlayMgr = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly IOverlayManager _overlayMgr = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     private StationAiOverlay? _overlay;
 
@@ -84,7 +91,14 @@ public sealed partial class StationAiSystem : SharedStationAiSystem
         if (!_sprite.LayerMapTryGet((entity.Owner, args.Sprite), StationAiVisualLayers.Icon, out _, logMissing: false))
             return;
 
-        if (_appearance.TryGetData<PrototypeLayerData>(entity.Owner, StationAiVisualLayers.Icon, out var layerData, args.Component))
+        if (
+            _appearance.TryGetData<PrototypeLayerData>(
+                entity.Owner,
+                StationAiVisualLayers.Icon,
+                out var layerData,
+                args.Component
+            )
+        )
             _sprite.LayerSetData((entity.Owner, args.Sprite), StationAiVisualLayers.Icon, layerData);
 
         _sprite.LayerSetVisible((entity.Owner, args.Sprite), StationAiVisualLayers.Icon, layerData != null);

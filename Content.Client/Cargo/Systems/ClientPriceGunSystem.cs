@@ -1,6 +1,6 @@
 using Content.Shared.Cargo.Components;
-using Content.Shared.Timing;
 using Content.Shared.Cargo.Systems;
+using Content.Shared.Timing;
 
 namespace Content.Client.Cargo.Systems;
 
@@ -9,7 +9,8 @@ namespace Content.Client.Cargo.Systems;
 /// </summary>
 public sealed class ClientPriceGunSystem : SharedPriceGunSystem
 {
-    [Dependency] private readonly UseDelaySystem _useDelay = default!;
+    [Dependency]
+    private readonly UseDelaySystem _useDelay = default!;
 
     protected override bool GetPriceOrBounty(Entity<PriceGunComponent> entity, EntityUid target, EntityUid user)
     {

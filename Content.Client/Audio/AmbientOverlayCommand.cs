@@ -7,6 +7,7 @@ public sealed class AmbientOverlayCommand : IConsoleCommand
     public string Command => "showambient";
     public string Description => "Shows all AmbientSoundComponents in the viewport";
     public string Help => $"{Command}";
+
     public void Execute(IConsoleShell shell, string argStr, string[] args)
     {
         var system = IoCManager.Resolve<IEntitySystemManager>().GetEntitySystem<AmbientSoundSystem>();

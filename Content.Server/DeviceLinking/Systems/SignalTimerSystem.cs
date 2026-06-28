@@ -1,9 +1,9 @@
 using Content.Server.DeviceLinking.Components;
-using Content.Shared.UserInterface;
 using Content.Shared.Access.Systems;
 using Content.Shared.DeviceLinking.Events;
 using Content.Shared.MachineLinking;
 using Content.Shared.TextScreen;
+using Content.Shared.UserInterface;
 using Robust.Server.GameObjects;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Timing;
@@ -12,12 +12,23 @@ namespace Content.Server.DeviceLinking.Systems;
 
 public sealed class SignalTimerSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly DeviceLinkSystem _signalSystem = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearanceSystem = default!;
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
-    [Dependency] private readonly AccessReaderSystem _accessReader = default!;
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
+
+    [Dependency]
+    private readonly DeviceLinkSystem _signalSystem = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearanceSystem = default!;
+
+    [Dependency]
+    private readonly UserInterfaceSystem _ui = default!;
+
+    [Dependency]
+    private readonly AccessReaderSystem _accessReader = default!;
 
     /// <summary>
     /// Per-tick timer cache.
@@ -45,19 +56,29 @@ public sealed class SignalTimerSystem : EntitySystem
         _signalSystem.EnsureSinkPorts(uid, component.Trigger);
     }
 
-    private void OnAfterActivatableUIOpen(EntityUid uid, SignalTimerComponent component, AfterActivatableUIOpenEvent args)
+    private void OnAfterActivatableUIOpen(
+        EntityUid uid,
+        SignalTimerComponent component,
+        AfterActivatableUIOpenEvent args
+    )
     {
         var time = TryComp<ActiveSignalTimerComponent>(uid, out var active) ? active.TriggerTime : TimeSpan.Zero;
 
         if (_ui.HasUi(uid, SignalTimerUiKey.Key))
         {
-            _ui.SetUiState(uid, SignalTimerUiKey.Key, new SignalTimerBoundUserInterfaceState(component.Label,
-                TimeSpan.FromSeconds(component.Delay), // Mono
-                component.Repeat, // Frontier: Repeat value
-                component.CanEditLabel,
-                time,
-                active != null,
-                _accessReader.IsAllowed(args.User, uid)));
+            _ui.SetUiState(
+                uid,
+                SignalTimerUiKey.Key,
+                new SignalTimerBoundUserInterfaceState(
+                    component.Label,
+                    TimeSpan.FromSeconds(component.Delay), // Mono
+                    component.Repeat, // Frontier: Repeat value
+                    component.CanEditLabel,
+                    time,
+                    active != null,
+                    _accessReader.IsAllowed(args.User, uid)
+                )
+            );
         }
     }
 
@@ -73,13 +94,19 @@ public sealed class SignalTimerSystem : EntitySystem
 
         if (_ui.HasUi(uid, SignalTimerUiKey.Key))
         {
-            _ui.SetUiState(uid, SignalTimerUiKey.Key, new SignalTimerBoundUserInterfaceState(signalTimer.Label,
-                TimeSpan.FromSeconds(signalTimer.Delay), // Mono
-                signalTimer.Repeat, // Frontier: Repeat value
-                signalTimer.CanEditLabel,
-                TimeSpan.Zero,
-                false,
-                true));
+            _ui.SetUiState(
+                uid,
+                SignalTimerUiKey.Key,
+                new SignalTimerBoundUserInterfaceState(
+                    signalTimer.Label,
+                    TimeSpan.FromSeconds(signalTimer.Delay), // Mono
+                    signalTimer.Repeat, // Frontier: Repeat value
+                    signalTimer.CanEditLabel,
+                    TimeSpan.Zero,
+                    false,
+                    true
+                )
+            );
         }
 
         // Frontier: Start new timer if repeat is on and not set to 0 seconds
@@ -155,7 +182,11 @@ public sealed class SignalTimerSystem : EntitySystem
     ///     Called by <see cref="SignalTimerDelayChangedMessage"/> to change the <see cref="SignalTimerComponent"/>
     ///     delay, and propagate that change to a textscreen.
     /// </summary>
-    private void OnDelayChangedMessage(EntityUid uid, SignalTimerComponent component, SignalTimerDelayChangedMessage args)
+    private void OnDelayChangedMessage(
+        EntityUid uid,
+        SignalTimerComponent component,
+        SignalTimerDelayChangedMessage args
+    )
     {
         if (!IsMessageValid(uid, args))
             return;
@@ -175,6 +206,7 @@ public sealed class SignalTimerSystem : EntitySystem
 
         component.Repeat = args.Repeat;
     }
+
     // End Frontier
 
     /// <summary>

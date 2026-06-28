@@ -20,7 +20,9 @@ public static class BoundKeyHelper
 
     private static string? DefaultShortKeyName(BoundKeyFunction keyFunction)
     {
-        var name = FormattedMessage.EscapeText(IoCManager.Resolve<IInputManager>().GetKeyFunctionButtonString(keyFunction));
+        var name = FormattedMessage.EscapeText(
+            IoCManager.Resolve<IInputManager>().GetKeyFunctionButtonString(keyFunction)
+        );
         return name.Length > 3 ? null : name;
     }
 
@@ -30,8 +32,11 @@ public static class BoundKeyHelper
         {
             // can't possibly fit a modifier key in the top button, so omit it
             var key = binding.BaseKey;
-            if (binding.Mod1 != Keyboard.Key.Unknown || binding.Mod2 != Keyboard.Key.Unknown ||
-                binding.Mod3 != Keyboard.Key.Unknown)
+            if (
+                binding.Mod1 != Keyboard.Key.Unknown
+                || binding.Mod2 != Keyboard.Key.Unknown
+                || binding.Mod3 != Keyboard.Key.Unknown
+            )
             {
                 name = null;
                 return false;
@@ -100,7 +105,7 @@ public static class BoundKeyHelper
                 Keyboard.Key.PageUp => "PgU",
                 Keyboard.Key.RBracket => "]",
                 Keyboard.Key.SemiColon => ";",
-                _ => DefaultShortKeyName(keyFunction)
+                _ => DefaultShortKeyName(keyFunction),
             };
             return name != null;
         }

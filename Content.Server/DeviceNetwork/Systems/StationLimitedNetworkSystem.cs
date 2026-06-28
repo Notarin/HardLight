@@ -12,7 +12,9 @@ namespace Content.Server.DeviceNetwork.Systems
     [UsedImplicitly]
     public sealed class StationLimitedNetworkSystem : EntitySystem
     {
-        [Dependency] private readonly StationSystem _stationSystem = default!;
+        [Dependency]
+        private readonly StationSystem _stationSystem = default!;
+
         public override void Initialize()
         {
             base.Initialize();
@@ -54,7 +56,11 @@ namespace Content.Server.DeviceNetwork.Systems
         /// <summary>
         /// Checks if both devices are limited to the same station
         /// </summary>
-        private void OnBeforePacketSent(EntityUid uid, StationLimitedNetworkComponent component, BeforePacketSentEvent args)
+        private void OnBeforePacketSent(
+            EntityUid uid,
+            StationLimitedNetworkComponent component,
+            BeforePacketSentEvent args
+        )
         {
             if (!component.StationId.HasValue)
                 TrySetStationId(uid, component);
@@ -70,7 +76,12 @@ namespace Content.Server.DeviceNetwork.Systems
         /// Returns false if either of them doesn't have a station ID or if their station ID isn't equal.
         /// Returns true even when the sending entity isn't tied to a station if `allowNonStationPackets` is set to true.
         /// </summary>
-        private bool CheckStationId(EntityUid senderUid, bool allowNonStationPackets, EntityUid? receiverStationId, StationLimitedNetworkComponent? sender = null)
+        private bool CheckStationId(
+            EntityUid senderUid,
+            bool allowNonStationPackets,
+            EntityUid? receiverStationId,
+            StationLimitedNetworkComponent? sender = null
+        )
         {
             if (!receiverStationId.HasValue)
                 return false;

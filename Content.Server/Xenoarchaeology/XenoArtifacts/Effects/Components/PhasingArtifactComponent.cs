@@ -5,6 +5,4 @@
 ///     and such.
 /// </summary>
 [RegisterComponent]
-public sealed partial class PhasingArtifactComponent : Component
-{
-}
+public sealed partial class PhasingArtifactComponent : Component { }

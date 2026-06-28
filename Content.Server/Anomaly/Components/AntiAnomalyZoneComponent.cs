@@ -1,4 +1,3 @@
-
 namespace Content.Server.Anomaly.Components;
 
 /// <summary>

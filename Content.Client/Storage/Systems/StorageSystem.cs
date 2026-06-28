@@ -13,9 +13,14 @@ namespace Content.Client.Storage.Systems;
 
 public sealed class StorageSystem : SharedStorageSystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly EntityPickupAnimationSystem _entityPickupAnimation = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly EntityPickupAnimationSystem _entityPickupAnimation = default!;
 
     private Dictionary<EntityUid, ItemStorageLocation> _oldStoredItems = new();
 
@@ -65,14 +70,25 @@ public sealed class StorageSystem : SharedStorageSystem
 
         var uiDirty = !component.StoredItems.SequenceEqual(_oldStoredItems);
 
-        if (uiDirty && UI.TryGetOpenUi<StorageBoundUserInterface>(uid, StorageComponent.StorageUiKey.Key, out var storageBui))
+        if (
+            uiDirty
+            && UI.TryGetOpenUi<StorageBoundUserInterface>(uid, StorageComponent.StorageUiKey.Key, out var storageBui)
+        )
         {
             storageBui.Refresh();
             // Make sure nesting still updated.
             var player = _player.LocalEntity;
 
-            if (NestedStorage && player != null && ContainerSystem.TryGetContainingContainer((uid, null, null), out var container) &&
-                UI.TryGetOpenUi<StorageBoundUserInterface>(container.Owner, StorageComponent.StorageUiKey.Key, out var containerBui))
+            if (
+                NestedStorage
+                && player != null
+                && ContainerSystem.TryGetContainingContainer((uid, null, null), out var container)
+                && UI.TryGetOpenUi<StorageBoundUserInterface>(
+                    container.Owner,
+                    StorageComponent.StorageUiKey.Key,
+                    out var containerBui
+                )
+            )
             {
                 _queuedBuis.Add((containerBui, false));
             }
@@ -104,8 +120,13 @@ public sealed class StorageSystem : SharedStorageSystem
     }
 
     /// <inheritdoc />
-    public override void PlayPickupAnimation(EntityUid uid, EntityCoordinates initialCoordinates, EntityCoordinates finalCoordinates,
-        Angle initialRotation, EntityUid? user = null)
+    public override void PlayPickupAnimation(
+        EntityUid uid,
+        EntityCoordinates initialCoordinates,
+        EntityCoordinates finalCoordinates,
+        Angle initialRotation,
+        EntityUid? user = null
+    )
     {
         if (!_timing.IsFirstTimePredicted)
             return;
@@ -115,16 +136,29 @@ public sealed class StorageSystem : SharedStorageSystem
 
     private void HandlePickupAnimation(PickupAnimationEvent msg)
     {
-        PickupAnimation(GetEntity(msg.ItemUid), GetCoordinates(msg.InitialPosition), GetCoordinates(msg.FinalPosition), msg.InitialAngle);
+        PickupAnimation(
+            GetEntity(msg.ItemUid),
+            GetCoordinates(msg.InitialPosition),
+            GetCoordinates(msg.FinalPosition),
+            msg.InitialAngle
+        );
     }
 
-    public void PickupAnimation(EntityUid item, EntityCoordinates initialCoords, EntityCoordinates finalCoords, Angle initialAngle)
+    public void PickupAnimation(
+        EntityUid item,
+        EntityCoordinates initialCoords,
+        EntityCoordinates finalCoords,
+        Angle initialAngle
+    )
     {
         if (!_timing.IsFirstTimePredicted)
             return;
 
-        if (TransformSystem.InRange(finalCoords, initialCoords, 0.1f) ||
-            !Exists(initialCoords.EntityId) || !Exists(finalCoords.EntityId))
+        if (
+            TransformSystem.InRange(finalCoords, initialCoords, 0.1f)
+            || !Exists(initialCoords.EntityId)
+            || !Exists(finalCoords.EntityId)
+        )
         {
             return;
         }
@@ -150,7 +184,12 @@ public sealed class StorageSystem : SharedStorageSystem
             var initialPosition = msg.EntityPositions[i];
             if (Exists(entity) && transformComp != null)
             {
-                _entityPickupAnimation.AnimateEntityPickup(entity, GetCoordinates(initialPosition), transformComp.LocalPosition, msg.EntityAngles[i]);
+                _entityPickupAnimation.AnimateEntityPickup(
+                    entity,
+                    GetCoordinates(initialPosition),
+                    transformComp.LocalPosition,
+                    msg.EntityAngles[i]
+                );
             }
         }
     }

@@ -12,7 +12,7 @@
     tags:
     - ResinStructures
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: Xenolight
@@ -28,8 +28,8 @@
     tags:
     - ResinStructures
   conditions:
-    - !type:TileNotBlocked
-    
+  - !type:TileNotBlocked
+
 - type: construction
   id: WallXenolight
   graph: ResinStructures
@@ -43,7 +43,7 @@
   entityWhitelist:
     tags:
     - ResinStructures
-    
+
 - type: construction
   id: WallXenoResin
   graph: ResinStructures
@@ -58,7 +58,7 @@
     tags:
     - ResinStructures
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: WallXenoMembrane
@@ -74,7 +74,7 @@
     tags:
     - ResinStructures
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: DoorXenoResin
@@ -90,7 +90,7 @@
     tags:
     - ResinStructures
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: XenoNest
@@ -119,7 +119,7 @@
   entityWhitelist:
     tags:
     - ResinStructures
-    
+
 - type: construction
   id: WallXenoResinThick
   graph: ResinStructures
@@ -134,7 +134,7 @@
     tags:
     - ResinStructures
   conditions:
-    - !type:TileNotBlocked    
+  - !type:TileNotBlocked
 
 - type: construction
   id: WallXenoMembraneThick
@@ -150,7 +150,7 @@
     tags:
     - ResinStructures
   conditions:
-    - !type:TileNotBlocked 
+  - !type:TileNotBlocked
 
 - type: construction
   id: DoorXenoResinThick
@@ -166,7 +166,7 @@
     tags:
     - ResinStructures
   conditions:
-    - !type:TileNotBlocked 
+  - !type:TileNotBlocked
 
 - type: construction
   id: XenoHiveWeeds
@@ -182,7 +182,7 @@
     tags:
     - ResinStructures
   conditions:
-    - !type:TileNotBlocked 
+  - !type:TileNotBlocked
 
 - type: construction
   id: XenoTurret
@@ -198,8 +198,8 @@
     tags:
     - ResinStructures
   conditions:
-    - !type:TileNotBlocked 
-    
+  - !type:TileNotBlocked
+
 - type: construction
   id: XenoTrapdrone
   graph: ResinStructures
@@ -214,7 +214,7 @@
     tags:
     - ResinStructures
   conditions:
-    - !type:TileNotBlocked 
+  - !type:TileNotBlocked
 
 - type: construction
   id: XenoTrapburrower
@@ -230,8 +230,5 @@
     tags:
     - ResinStructures
   conditions:
-    - !type:TileNotBlocked 
-
-
-
+  - !type:TileNotBlocked
 

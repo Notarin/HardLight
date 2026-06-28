@@ -15,40 +15,39 @@
   name: fulton beacon
   description: Beacon to receive fulton extractions.
   components:
-    - type: Physics
-      bodyType: Dynamic
-    - type: Fixtures
-      fixtures:
-        fix1:
-          shape:
-            !type:PhysShapeAabb
-            bounds: "-0.25,-0.4,0.25,0.1"
-          density: 20
-          mask:
-            - Impassable
-    - type: Item
-      size: Normal
-    - type: Foldable
-      folded: true
-    - type: Clickable
-    - type: InteractionOutline
-    - type: FultonBeacon
-    - type: Appearance
-    - type: GenericVisualizer
-      visuals:
-        enum.FoldedVisuals.State:
-          foldedLayer:
-            True: { state: folded_extraction }
-            False: { state: extraction_point }
-    - type: Sprite
-      sprite: Objects/Tools/fulton.rsi
-      drawdepth: SmallObjects
-      noRot: true
-      layers:
-        - state: extraction_point
-          map: [ "foldedLayer" ]
-    - type: StaticPrice
-      price: 100
+  - type: Physics
+    bodyType: Dynamic
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.4,0.25,0.1"
+        density: 20
+        mask:
+        - Impassable
+  - type: Item
+    size: Normal
+  - type: Foldable
+    folded: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: FultonBeacon
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.FoldedVisuals.State:
+        foldedLayer:
+          True: {state: folded_extraction}
+          False: {state: extraction_point}
+  - type: Sprite
+    sprite: Objects/Tools/fulton.rsi
+    drawdepth: SmallObjects
+    noRot: true
+    layers:
+    - state: extraction_point
+      map: ["foldedLayer"]
+  - type: StaticPrice
+    price: 100
 
 - type: entity
   id: RescueBeacon
@@ -56,7 +55,7 @@
   name: Rescue beacon
   description: Beacon to receive rescue extractions.
   components:
-    - type: RescueBeacon
+  - type: RescueBeacon
 
 - type: entity
   id: Fulton
@@ -79,12 +78,11 @@
     damageContainer: Inorganic
   - type: Destructible
     thresholds:
-      - trigger:
-          !type:DamageTrigger
-          damage: 100
-        behaviors:
-          - !type:DoActsBehavior
-            acts: [ "Destruction" ]
+    - trigger: !type:DamageTrigger
+        damage: 100
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
 
 - type: entity
   id: Fulton1
@@ -97,7 +95,7 @@
 
 - type: entity
   id: FultonEffect
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   name: fulton effect
   components:
   - type: TimedDespawn
@@ -107,10 +105,10 @@
     noRot: true
     offset: 0,0.5
     layers:
-      - map: [ "enum.FultonVisualLayers.Base" ]
-        sprite: Objects/Tools/fulton_balloon.rsi
-        state: fulton_balloon
+    - map: ["enum.FultonVisualLayers.Base"]
+      sprite: Objects/Tools/fulton_balloon.rsi
+      state: fulton_balloon
   - type: Tag
     tags:
-      - HideContextMenu
+    - HideContextMenu
   - type: AnimationPlayer

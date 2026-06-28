@@ -28,8 +28,7 @@
     slope: 0.3
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 80
       behaviors:
       - !type:PlaySoundBehavior
@@ -41,7 +40,7 @@
             min: 1
             max: 3
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
 
 - type: entity
   parent: NFMobOreCrab
@@ -53,8 +52,7 @@
     state: gold_crab
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 50 # Gold soft u know
       behaviors:
       - !type:PlaySoundBehavior
@@ -66,7 +64,7 @@
             min: 2
             max: 4
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
 
 - type: entity
   parent: NFMobOreCrab
@@ -82,8 +80,7 @@
         Slash: 7
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:PlaySoundBehavior
@@ -95,7 +92,7 @@
             min: 2
             max: 4
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: PointLight
     radius: 2
     energy: 3
@@ -111,8 +108,7 @@
     state: salt_crab
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 80
       behaviors:
       - !type:PlaySoundBehavior
@@ -124,7 +120,7 @@
             min: 1
             max: 3
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
 
 - type: entity
   parent: NFMobOreCrab
@@ -135,8 +131,7 @@
     state: quartz_crab
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 50
       behaviors:
       - !type:PlaySoundBehavior
@@ -148,7 +143,7 @@
             min: 3
             max: 5
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
 
 - type: entity
   parent: NFMobOreCrab
@@ -158,12 +153,11 @@
   - type: Sprite
     state: iron_crab
   - type: MovementSpeedModifier
-    baseWalkSpeed : 1.5
-    baseSprintSpeed : 2
+    baseWalkSpeed: 1.5
+    baseSprintSpeed: 2
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 80
       behaviors:
       - !type:PlaySoundBehavior
@@ -175,7 +169,7 @@
             min: 3
             max: 5
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
 
 - type: entity
   parent: NFMobOreCrab
@@ -187,8 +181,7 @@
     slope: 0.3
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 80
       behaviors:
       - !type:PlaySoundBehavior
@@ -200,7 +193,7 @@
             min: 2
             max: 4
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: PointLight
     radius: 2
     energy: 3
@@ -215,8 +208,7 @@
     state: silver_crab
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 80
       behaviors:
       - !type:PlaySoundBehavior
@@ -228,14 +220,14 @@
             min: 2
             max: 4
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
 
 # region Golems
 - type: entity
   abstract: true
   id: NFMobOreGolem
   name: ore golem
-  parent: [ MobElementalBase, MobCombat, NFMobRestrictions, NFMobRoadkillable ]
+  parent: [MobElementalBase, MobCombat, NFMobRestrictions, NFMobRoadkillable]
   components:
   - type: Sprite
     sprite: /Textures/_NF/Mobs/Elemental/golems.rsi
@@ -251,11 +243,11 @@
       types:
         Blunt: 12
   - type: MovementSpeedModifier
-    baseWalkSpeed : 2
-    baseSprintSpeed : 2.25
+    baseWalkSpeed: 2
+    baseSprintSpeed: 2.25
   - type: NpcFactionMember
     factions:
-      - SimpleHostile
+    - SimpleHostile
   - type: Damageable
     damageContainer: StructuralInorganic
   - type: MovementIgnoreGravity # Or they just can't do something
@@ -277,8 +269,7 @@
     slope: 0.3
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 150
       behaviors:
       - !type:PlaySoundBehavior
@@ -290,7 +281,7 @@
             min: 5
             max: 10
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
 
 - type: entity
   parent: NFMobOreCrab
@@ -302,8 +293,7 @@
     state: coal_crab
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 80
       behaviors:
       - !type:PlaySoundBehavior
@@ -315,7 +305,7 @@
             min: 2
             max: 4
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
 
 - type: entity
   parent: NFMobOreGolem
@@ -326,8 +316,7 @@
     state: coal_golem
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 150
       behaviors:
       - !type:PlaySoundBehavior
@@ -339,7 +328,7 @@
             min: 5
             max: 15
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
 
 - type: entity
   parent: NFMobOreGolem
@@ -350,8 +339,7 @@
     state: gold_golem
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:PlaySoundBehavior
@@ -363,7 +351,7 @@
             min: 5
             max: 15
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
 
 - type: entity
   parent: NFMobOreGolem
@@ -374,8 +362,7 @@
     state: iron_golem
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 150
       behaviors:
       - !type:PlaySoundBehavior
@@ -387,7 +374,7 @@
             min: 5
             max: 15
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
 
 - type: entity
   parent: NFMobOreGolem
@@ -402,8 +389,7 @@
         Slash: 10
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 150
       behaviors:
       - !type:PlaySoundBehavior
@@ -415,7 +401,7 @@
             min: 5
             max: 15
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: PointLight
     radius: 2
     energy: 3
@@ -430,8 +416,7 @@
     state: quartz_golem
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 150
       behaviors:
       - !type:PlaySoundBehavior
@@ -443,7 +428,7 @@
             min: 5
             max: 15
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
 
 - type: entity
   parent: NFMobOreGolem
@@ -454,8 +439,7 @@
     state: salt_golem
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 150
       behaviors:
       - !type:PlaySoundBehavior
@@ -467,7 +451,7 @@
             min: 5
             max: 10
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
 
 - type: entity
   parent: NFMobOreGolem
@@ -478,8 +462,7 @@
     state: silver_golem
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 150
       behaviors:
       - !type:PlaySoundBehavior
@@ -491,7 +474,7 @@
             min: 5
             max: 15
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
 
 - type: entity
   parent: NFMobOreGolem
@@ -505,8 +488,7 @@
     slope: 0.3
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 150
       behaviors:
       - !type:PlaySoundBehavior
@@ -518,4 +500,4 @@
             min: 5
             max: 15
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]

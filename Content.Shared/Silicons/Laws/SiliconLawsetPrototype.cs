@@ -47,11 +47,7 @@ public sealed partial class SiliconLawset
             laws.Add(law.ShallowClone());
         }
 
-        return new SiliconLawset()
-        {
-            Laws = laws,
-            ObeysTo = ObeysTo
-        };
+        return new SiliconLawset() { Laws = laws, ObeysTo = ObeysTo };
     }
 }
 

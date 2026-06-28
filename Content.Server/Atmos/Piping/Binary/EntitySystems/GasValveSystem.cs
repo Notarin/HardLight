@@ -16,10 +16,17 @@ namespace Content.Server.Atmos.Piping.Binary.EntitySystems
     [UsedImplicitly]
     public sealed class GasValveSystem : EntitySystem
     {
-        [Dependency] private readonly SharedAmbientSoundSystem _ambientSoundSystem = default!;
-        [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-        [Dependency] private readonly SharedAudioSystem _audio = default!;
-        [Dependency] private readonly NodeContainerSystem _nodeContainer = default!;
+        [Dependency]
+        private readonly SharedAmbientSoundSystem _ambientSoundSystem = default!;
+
+        [Dependency]
+        private readonly SharedAppearanceSystem _appearance = default!;
+
+        [Dependency]
+        private readonly SharedAudioSystem _audio = default!;
+
+        [Dependency]
+        private readonly NodeContainerSystem _nodeContainer = default!;
 
         public override void Initialize()
         {
@@ -36,9 +43,14 @@ namespace Content.Server.Atmos.Piping.Binary.EntitySystems
             if (!Comp<TransformComponent>(ent).Anchored || !args.IsInDetailsRange) // Not anchored? Out of range? No status.
                 return;
 
-            if (Loc.TryGetString("gas-valve-system-examined", out var str,
+            if (
+                Loc.TryGetString(
+                    "gas-valve-system-examined",
+                    out var str,
                     ("statusColor", valve.Open ? "green" : "orange"),
-                    ("open", valve.Open)))
+                    ("open", valve.Open)
+                )
+            )
             {
                 args.PushMarkup(str);
             }
@@ -64,7 +76,15 @@ namespace Content.Server.Atmos.Piping.Binary.EntitySystems
         {
             component.Open = value;
 
-            if (_nodeContainer.TryGetNodes(uid, component.InletName, component.OutletName, out PipeNode? inlet, out PipeNode? outlet))
+            if (
+                _nodeContainer.TryGetNodes(
+                    uid,
+                    component.InletName,
+                    component.OutletName,
+                    out PipeNode? inlet,
+                    out PipeNode? outlet
+                )
+            )
             {
                 if (TryComp<AppearanceComponent>(uid, out var appearance))
                 {

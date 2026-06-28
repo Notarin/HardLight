@@ -1,18 +1,23 @@
-using Content.Server.NF.Speech.Components;
-using Robust.Shared.Random;
-using Content.Server.Speech;
-using Content.Server.Speech.EntitySystems;
+using System;
 using System.Linq;
 using Content.Server.Chat.Systems;
-using System;
+using Content.Server.NF.Speech.Components;
+using Content.Server.Speech;
+using Content.Server.Speech.EntitySystems;
+using Robust.Shared.Random;
 
 namespace Content.Server._NF.Speech.EntitySystems;
 
 public sealed class CavemanAccentSystem : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly ReplacementAccentSystem _replacement = default!;
-    [Dependency] private readonly ChatSystem _chat = default!;
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly ReplacementAccentSystem _replacement = default!;
+
+    [Dependency]
+    private readonly ChatSystem _chat = default!;
 
     public readonly string[] PunctuationStringsToRemove = { "'", "\"", ".", ",", "!", "?", ";", ":" }; // Leave hyphens
 
@@ -149,5 +154,4 @@ public sealed class CavemanAccentSystem : EntitySystem
 
         return word;
     }
-
 }

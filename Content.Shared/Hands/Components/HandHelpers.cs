@@ -19,7 +19,8 @@ public static class HandHelpers
     ///     Get the number of hands that are not currently holding anything. This is a LinQ method, not a property, so
     ///     cache it instead of accessing this multiple times.
     /// </summary>
-    public static int CountFreeHands(this HandsComponent component) => component.Hands.Values.Count(hand => hand.IsEmpty);
+    public static int CountFreeHands(this HandsComponent component) =>
+        component.Hands.Values.Count(hand => hand.IsEmpty);
 
     /// <summary>
     ///     Get the number of hands that are not currently holding anything. This is a LinQ method, not a property, so
@@ -34,11 +35,13 @@ public static class HandHelpers
     ///     Get a list of hands that are currently holding nothing. This is a LinQ method, not a property, so cache
     ///     it instead of accessing this multiple times.
     /// </summary>
-    public static IEnumerable<Hand> GetFreeHands(this HandsComponent component) => component.Hands.Values.Where(hand => !hand.IsEmpty);
+    public static IEnumerable<Hand> GetFreeHands(this HandsComponent component) =>
+        component.Hands.Values.Where(hand => !hand.IsEmpty);
 
     /// <summary>
     ///     Get a list of hands that are currently holding nothing. This is a LinQ method, not a property, so cache
     ///     it instead of accessing this multiple times.
     /// </summary>
-    public static IEnumerable<string> GetFreeHandNames(this HandsComponent component) => GetFreeHands(component).Select(hand => hand.Name);
+    public static IEnumerable<string> GetFreeHandNames(this HandsComponent component) =>
+        GetFreeHands(component).Select(hand => hand.Name);
 }

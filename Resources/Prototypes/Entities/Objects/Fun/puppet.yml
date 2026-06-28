@@ -1,5 +1,5 @@
 - type: entity
-  parent: [ BaseItem, MobCombat ]
+  parent: [BaseItem, MobCombat]
   id: MrChips
   name: mr chips
   suffix: Dummy
@@ -14,17 +14,17 @@
   - type: DoAfter
   - type: VentriloquistPuppet # Frontier
     removeHand:
-      - ventriloquist-puppet-remove-hand
+    - ventriloquist-puppet-remove-hand
     removedHand:
-      - ventriloquist-puppet-removed-hand
+    - ventriloquist-puppet-removed-hand
     insertHand:
-      - ventriloquist-puppet-insert-hand
+    - ventriloquist-puppet-insert-hand
     insertedHand:
-      - ventriloquist-puppet-inserted-hand
+    - ventriloquist-puppet-inserted-hand
     puppetRoleName:
-      - ventriloquist-puppet-role-name
+    - ventriloquist-puppet-role-name
     puppetRoleDescription:
-      - ventriloquist-puppet-role-description
+    - ventriloquist-puppet-role-description
   - type: Item
     size: Normal
   - type: Muted

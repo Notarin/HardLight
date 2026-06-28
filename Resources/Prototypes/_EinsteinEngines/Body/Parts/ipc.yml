@@ -56,7 +56,7 @@
   - type: GhostOnMove
   - type: Tag
     tags:
-      - Head
+    - Head
 
 - type: entity
   id: LeftArmIPC

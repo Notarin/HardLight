@@ -39,8 +39,7 @@ public sealed class GeigerItemControl : Control
             var color = SharedGeigerSystem.LevelToColor(_component.DangerLevel);
             var currentRads = _component.CurrentRadiation;
             var rads = currentRads.ToString("N1");
-            msg = Loc.GetString("geiger-item-control-status",
-                ("rads", rads), ("color", color));
+            msg = Loc.GetString("geiger-item-control-status", ("rads", rads), ("color", color));
         }
         else
         {

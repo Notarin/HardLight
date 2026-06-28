@@ -17,7 +17,7 @@ namespace Content.Client.Atmos.Monitor.UI;
 public sealed partial class AirAlarmWindow : FancyWindow
 {
     public event Action<string, IAtmosDeviceData>? AtmosDeviceDataChanged;
-	public event Action<IAtmosDeviceData>? AtmosDeviceDataCopied;
+    public event Action<IAtmosDeviceData>? AtmosDeviceDataCopied;
     public event Action<string, AtmosMonitorThresholdType, AtmosAlarmThreshold, Gas?>? AtmosAlarmThresholdChanged;
     public event Action<AirAlarmMode>? AirAlarmModeChanged;
     public event Action<bool>? AutoModeChanged;
@@ -37,7 +37,6 @@ public sealed partial class AirAlarmWindow : FancyWindow
     private Dictionary<string, ScrubberControl> _scrubbers = new();
     private Dictionary<string, SensorInfo> _sensors = new();
     private Button _resyncDevices => CResyncButton;
-
 
     private Dictionary<Gas, Label> _gasLabels = new();
 
@@ -66,7 +65,7 @@ public sealed partial class AirAlarmWindow : FancyWindow
         _modes.OnItemSelected += args =>
         {
             _modes.SelectId(args.Id);
-            AirAlarmModeChanged!.Invoke((AirAlarmMode) args.Id);
+            AirAlarmModeChanged!.Invoke((AirAlarmMode)args.Id);
         };
 
         _autoMode.OnToggled += _ =>
@@ -99,11 +98,23 @@ public sealed partial class AirAlarmWindow : FancyWindow
     {
         _address.SetMarkup(state.Address);
         _deviceTotal.SetMarkup($"{state.DeviceCount}");
-        _pressure.SetMarkup(Loc.GetString("air-alarm-ui-window-pressure", ("pressure", $"{state.PressureAverage:0.##}")));
-        _temperature.SetMarkup(Loc.GetString("air-alarm-ui-window-temperature", ("tempC", $"{TemperatureHelpers.KelvinToCelsius(state.TemperatureAverage):0.#}"), ("temperature", $"{state.TemperatureAverage:0.##}")));
-        _alarmState.SetMarkup(Loc.GetString("air-alarm-ui-window-alarm-state",
-                    ("color", ColorForAlarm(state.AlarmType)),
-                    ("state", state.AlarmType)));
+        _pressure.SetMarkup(
+            Loc.GetString("air-alarm-ui-window-pressure", ("pressure", $"{state.PressureAverage:0.##}"))
+        );
+        _temperature.SetMarkup(
+            Loc.GetString(
+                "air-alarm-ui-window-temperature",
+                ("tempC", $"{TemperatureHelpers.KelvinToCelsius(state.TemperatureAverage):0.#}"),
+                ("temperature", $"{state.TemperatureAverage:0.##}")
+            )
+        );
+        _alarmState.SetMarkup(
+            Loc.GetString(
+                "air-alarm-ui-window-alarm-state",
+                ("color", ColorForAlarm(state.AlarmType)),
+                ("state", state.AlarmType)
+            )
+        );
         UpdateModeSelector(state.Mode);
         UpdateAutoMode(state.AutoMode);
         foreach (var (addr, dev) in state.DeviceData)
@@ -114,7 +125,7 @@ public sealed partial class AirAlarmWindow : FancyWindow
 
     public void UpdateModeSelector(AirAlarmMode mode)
     {
-        _modes.SelectId((int) mode);
+        _modes.SelectId((int)mode);
     }
 
     public void UpdateAutoMode(bool enabled)
@@ -129,7 +140,7 @@ public sealed partial class AirAlarmWindow : FancyWindow
             case GasVentPumpData pump:
                 if (!_pumps.TryGetValue(addr, out var pumpControl))
                 {
-                    var control= new PumpControl(pump, addr);
+                    var control = new PumpControl(pump, addr);
                     control.PumpDataChanged += AtmosDeviceDataChanged;
                     control.PumpDataCopied += AtmosDeviceDataCopied;
                     _pumps.Add(addr, control);
@@ -146,7 +157,7 @@ public sealed partial class AirAlarmWindow : FancyWindow
                 {
                     var control = new ScrubberControl(scrubber, addr);
                     control.ScrubberDataChanged += AtmosDeviceDataChanged;
-					control.ScrubberDataCopied += AtmosDeviceDataCopied;
+                    control.ScrubberDataCopied += AtmosDeviceDataCopied;
                     _scrubbers.Add(addr, control);
                     CScrubberContainer.AddChild(control);
                 }
@@ -189,6 +200,4 @@ public sealed partial class AirAlarmWindow : FancyWindow
             _ => StyleNano.GoodGreenFore,
         };
     }
-
-
 }

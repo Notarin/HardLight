@@ -27,11 +27,10 @@
     Barnacle:
       stationProto: StandardFrontierAntagVessel
       components:
-        - type: StationNameSetup
-          mapNameTemplate: 'Prospector {1}' # Fake name eh?
-          nameGenerator:
-            !type:NanotrasenNameGenerator
-            prefixCreator: '14'
-        - type: StationJobs
-          availableJobs: 
-            NFPirate: [ 0, 0 ]
+      - type: StationNameSetup
+        mapNameTemplate: 'Prospector {1}' # Fake name eh?
+        nameGenerator: !type:NanotrasenNameGenerator
+          prefixCreator: '14'
+      - type: StationJobs
+        availableJobs:
+          NFPirate: [0, 0]

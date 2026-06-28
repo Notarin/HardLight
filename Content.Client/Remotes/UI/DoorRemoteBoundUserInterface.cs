@@ -27,7 +27,10 @@ public sealed class DoorRemoteBoundUserInterface(EntityUid owner, Enum uiKey) : 
         _menu.OpenOverMouseScreenPosition();
     }
 
-    private IEnumerable<RadialMenuOptionBase> CreateButtons(OperatingMode selectedMode, List<DoorRemoteModeInfo> modeOptions)
+    private IEnumerable<RadialMenuOptionBase> CreateButtons(
+        OperatingMode selectedMode,
+        List<DoorRemoteModeInfo> modeOptions
+    )
     {
         var options = new List<RadialMenuOptionBase>();
         for (var i = 0; i < modeOptions.Count; i++)
@@ -47,7 +50,7 @@ public sealed class DoorRemoteBoundUserInterface(EntityUid owner, Enum uiKey) : 
                 IconSpecifier = RadialMenuIconSpecifier.With(modeOption.Icon),
                 ToolTip = Loc.GetString(modeOption.Tooltip),
                 BackgroundColor = optionCustomColor,
-                HoverBackgroundColor = optionHoverCustomColor
+                HoverBackgroundColor = optionHoverCustomColor,
             };
             options.Add(option);
         }

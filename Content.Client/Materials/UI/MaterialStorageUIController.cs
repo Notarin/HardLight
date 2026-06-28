@@ -7,6 +7,8 @@ public sealed class MaterialStorageUIController : UIController
 {
     public void SendLatheEjectMessage(EntityUid uid, string material, int sheetsToEject)
     {
-        EntityManager.RaisePredictiveEvent(new EjectMaterialMessage(EntityManager.GetNetEntity(uid), material, sheetsToEject));
+        EntityManager.RaisePredictiveEvent(
+            new EjectMaterialMessage(EntityManager.GetNetEntity(uid), material, sheetsToEject)
+        );
     }
 }

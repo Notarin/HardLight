@@ -11,7 +11,8 @@ namespace Content.Server._Mono.Traits.Physical;
 /// </summary>
 public sealed class WillToDieSystem : EntitySystem
 {
-    [Dependency] private readonly MobThresholdSystem _mobThresholds = default!;
+    [Dependency]
+    private readonly MobThresholdSystem _mobThresholds = default!;
 
     public override void Initialize()
     {
@@ -40,5 +41,3 @@ public sealed class WillToDieSystem : EntitySystem
         _mobThresholds.SetMobStateThreshold(uid, newValue, MobState.Dead, thresholdsComp);
     }
 }
-
-

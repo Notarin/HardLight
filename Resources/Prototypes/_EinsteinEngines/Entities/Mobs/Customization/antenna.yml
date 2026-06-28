@@ -1,20 +1,20 @@
 - type: marking
-  speciesRestriction: [Thaven,Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid]
+  speciesRestriction: [Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid]
   id: RobotAntennaTv
   bodyPart: HeadTop
   markingCategory: HeadTop
   sprites:
-    - sprite: _EE/Mobs/Customization/ipc_antenna.rsi
-      state: ipc_antenna_tv
+  - sprite: _EE/Mobs/Customization/ipc_antenna.rsi
+    state: ipc_antenna_tv
 
 - type: marking
-  speciesRestriction: [Thaven,Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid]
+  speciesRestriction: [Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid]
   id: RobotAntennaTesla
   bodyPart: HeadTop
   markingCategory: HeadTop
   sprites:
-    - sprite: _EE/Mobs/Customization/ipc_antenna.rsi
-      state: ipc_antenna_tesla
+  - sprite: _EE/Mobs/Customization/ipc_antenna.rsi
+    state: ipc_antenna_tesla
 
 # - type: marking
 #   speciesRestriction: [Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid]
@@ -35,13 +35,13 @@
 #       state: ipc_antenna_light
 
 - type: marking
-  speciesRestriction: [Thaven,Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid]
+  speciesRestriction: [Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid]
   id: RobotAntennaCyberhead
   bodyPart: HeadTop
   markingCategory: HeadTop
   sprites:
-    - sprite: _EE/Mobs/Customization/ipc_antenna.rsi
-      state: ipc_antenna_cyberhead
+  - sprite: _EE/Mobs/Customization/ipc_antenna.rsi
+    state: ipc_antenna_cyberhead
 
 # - type: marking
 #   speciesRestriction: [Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid]
@@ -53,37 +53,37 @@
 #       state: ipc_antenna_sidelights
 
 - type: marking
-  speciesRestriction: [Thaven,Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid]
+  speciesRestriction: [Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid]
   id: RobotAntennaAntlers
   bodyPart: HeadTop
   markingCategory: HeadTop
   sprites:
-    - sprite: _EE/Mobs/Customization/ipc_antenna.rsi
-      state: ipc_antenna_antlers
+  - sprite: _EE/Mobs/Customization/ipc_antenna.rsi
+    state: ipc_antenna_antlers
 
 - type: marking
-  speciesRestriction: [Thaven,Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid]
+  speciesRestriction: [Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid]
   id: RobotAntennaDroneeyes
   bodyPart: HeadTop
   markingCategory: HeadTop
   sprites:
-    - sprite: _EE/Mobs/Customization/ipc_antenna.rsi
-      state: ipc_antenna_droneeyes
+  - sprite: _EE/Mobs/Customization/ipc_antenna.rsi
+    state: ipc_antenna_droneeyes
 
 - type: marking
-  speciesRestriction: [Thaven,Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid]
+  speciesRestriction: [Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid]
   id: RobotAntennaCrowned
   bodyPart: HeadTop
   markingCategory: HeadTop
   sprites:
-    - sprite: _EE/Mobs/Customization/ipc_antenna.rsi
-      state: ipc_antenna_crowned
+  - sprite: _EE/Mobs/Customization/ipc_antenna.rsi
+    state: ipc_antenna_crowned
 
 - type: marking
-  speciesRestriction: [Thaven,Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid]
+  speciesRestriction: [Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid]
   id: RobotAntennaTowers
   bodyPart: HeadTop
   markingCategory: HeadTop
   sprites:
-    - sprite: _EE/Mobs/Customization/ipc_antenna.rsi
-      state: ipc_antenna_towers
+  - sprite: _EE/Mobs/Customization/ipc_antenna.rsi
+    state: ipc_antenna_towers

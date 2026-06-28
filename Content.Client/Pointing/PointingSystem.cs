@@ -10,7 +10,8 @@ namespace Content.Client.Pointing;
 
 public sealed partial class PointingSystem : SharedPointingSystem
 {
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     public override void Initialize()
     {
@@ -48,7 +49,7 @@ public sealed partial class PointingSystem : SharedPointingSystem
             Text = Loc.GetString("pointing-verb-get-data-text"),
             Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/point.svg.192dpi.png")),
             ClientExclusive = true,
-            Act = () => RaiseNetworkEvent(new PointingAttemptEvent(GetNetEntity(args.Target)))
+            Act = () => RaiseNetworkEvent(new PointingAttemptEvent(GetNetEntity(args.Target))),
         };
 
         args.Verbs.Add(verb);

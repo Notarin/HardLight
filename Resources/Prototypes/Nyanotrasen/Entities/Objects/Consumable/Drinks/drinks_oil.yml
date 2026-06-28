@@ -1,6 +1,6 @@
 # Frontier: redefined to be closer to cartons
 - type: entity
-  parent: 
+  parent:
   - RecyclableItemPlasticMedium
   - DrinkCartonVisualsOpenable
   - DrinkCartonBaseLargeFull
@@ -22,9 +22,9 @@
   components:
   - type: Sprite
     layers:
-      - state: icon
-        map: ["enum.OpenableVisuals.Layer"]
-      - state: butter
+    - state: icon
+      map: ["enum.OpenableVisuals.Layer"]
+    - state: butter
   - type: SolutionContainerManager
     solutions:
       drink:
@@ -41,9 +41,9 @@
   components:
   - type: Sprite
     layers:
-      - state: icon
-        map: ["enum.OpenableVisuals.Layer"]
-      - state: corn
+    - state: icon
+      map: ["enum.OpenableVisuals.Layer"]
+    - state: corn
   - type: SolutionContainerManager
     solutions:
       drink:
@@ -60,9 +60,9 @@
   components:
   - type: Sprite
     layers:
-      - state: icon
-        map: ["enum.OpenableVisuals.Layer"]
-      - state: olives
+    - state: icon
+      map: ["enum.OpenableVisuals.Layer"]
+    - state: olives
   - type: SolutionContainerManager
     solutions:
       drink:

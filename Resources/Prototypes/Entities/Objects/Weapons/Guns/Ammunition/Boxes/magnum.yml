@@ -7,7 +7,7 @@
     mayTransfer: true
     whitelist:
       tags:
-        - CartridgeMagnum
+      - CartridgeMagnum
     proto: CartridgeMagnum # Frontier
     capacity: 12
   - type: Item

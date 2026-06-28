@@ -15,11 +15,11 @@ public sealed class ChannelSelectorPopup : Popup
         ChatSelectChannel.Subtle, // Floofstation
         ChatSelectChannel.SubtleOOC,
         ChatSelectChannel.Radio,
-        ChatSelectChannel.Telepathic, //Nyano - Summary: determines the order in which telepathic shows. 
+        ChatSelectChannel.Telepathic, //Nyano - Summary: determines the order in which telepathic shows.
         ChatSelectChannel.LOOC,
         ChatSelectChannel.OOC,
         ChatSelectChannel.Dead,
-        ChatSelectChannel.Admin
+        ChatSelectChannel.Admin,
         // NOTE: Console is not in there and it can never be permanently selected.
         // You can, however, still submit commands as console by prefixing with /.
     };
@@ -35,7 +35,7 @@ public sealed class ChannelSelectorPopup : Popup
         _channelSelectorHBox = new BoxContainer
         {
             Orientation = BoxContainer.LayoutOrientation.Horizontal,
-            SeparationOverride = 1
+            SeparationOverride = 1,
         };
 
         _chatUIController = UserInterfaceManager.GetUIController<ChatUIController>();
@@ -62,8 +62,7 @@ public sealed class ChannelSelectorPopup : Popup
     private bool IsPreferredAvailable()
     {
         var preferred = _chatUIController.MapLocalIfGhost(_chatUIController.GetPreferredChannel());
-        return _selectorStates.TryGetValue(preferred, out var selector) &&
-               !selector.IsHidden;
+        return _selectorStates.TryGetValue(preferred, out var selector) && !selector.IsHidden;
     }
 
     public void SetChannels(ChatSelectChannel channels)
@@ -107,7 +106,7 @@ public sealed class ChannelSelectorPopup : Popup
 
     private void OnSelectorPressed(ButtonEventArgs args)
     {
-        var button = (ChannelSelectorItemButton) args.Button;
+        var button = (ChannelSelectorItemButton)args.Button;
         Select(button.Channel);
     }
 

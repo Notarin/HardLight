@@ -2,7 +2,4 @@
 
 namespace Content.Shared.VoiceMask;
 
-public sealed partial class VoiceMaskSetNameEvent : InstantActionEvent
-{
-}
-
+public sealed partial class VoiceMaskSetNameEvent : InstantActionEvent { }

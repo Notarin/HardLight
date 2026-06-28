@@ -79,8 +79,8 @@
     normalState: normal-unshaded
     ejectState: eject-unshaded
     denyState: deny-unshaded
-#  - type: Advertise
-#    pack: FlatpackVendAds
+    #  - type: Advertise
+    #    pack: FlatpackVendAds
   - type: Sprite
     sprite: _NF/Structures/Machines/VendingMachines/flatpackvend.rsi
     layers:
@@ -170,7 +170,7 @@
     normalState: normal-unshaded
     ejectState: eject-unshaded
     denyState: deny-unshaded
-#   screenState: screen
+    #   screenState: screen
   - type: Sprite
     sprite: _NF/Structures/Machines/VendingMachines/mercvend.rsi
     layers:
@@ -179,9 +179,9 @@
     - state: "off"
       map: ["enum.VendingMachineVisualLayers.BaseUnshaded"]
       shader: unshaded
-#   - state: "screen"
-#     map: ["enum.VendingMachineVisualLayers.Screen"]
-#     shader: unshaded
+      #   - state: "screen"
+      #     map: ["enum.VendingMachineVisualLayers.Screen"]
+      #     shader: unshaded
     - state: panel
       map: ["enum.WiresVisualLayers.MaintenancePanel"]
   - type: PointLight
@@ -197,9 +197,9 @@
   - type: Tag
     tags:
     - MercenaryUplink
-#  - type: Store
-#    balance:
-#      MercCoin: 0 # Waits for the player to put in money
+    #  - type: Store
+    #    balance:
+    #      MercCoin: 0 # Waits for the player to put in money
   - type: AccessReader
     access: [["Security"], ["Mercenary"]]
   - type: ActivatableUIRequiresAccess
@@ -216,9 +216,9 @@
     brokenState: broken
     normalState: normal-unshaded
     # ejectState: eject-unshaded  No sprite, see chefvend/dinnerware/BODA/etc for expamples
-#  - type: Advertise
-#    pack: BountyVendAds
   - type: Sprite
+    #  - type: Advertise
+    #    pack: BountyVendAds
     sprite: _NF/Structures/Machines/VendingMachines/bountyvend.rsi
     layers:
     - state: "off"
@@ -234,7 +234,7 @@
     color: "#4b93ad"
 
 - type: entity
-  parent: [ BaseStructureDisableAnchoring, VendingMachineBountyVend ]
+  parent: [BaseStructureDisableAnchoring, VendingMachineBountyVend]
   id: VendingMachineBountyVendPOI
   suffix: POI
   components:
@@ -244,35 +244,35 @@
 - type: entity
   id: VendingMachineArcadia
   name: ArcadiaDrobe
-  parent: [ VendingMachine, BaseC3Contraband ]
+  parent: [VendingMachine, BaseC3Contraband]
   description: Selling clothes from another reality for cheap prices!
   components:
-    - type: VendingMachine
-      pack: ArcadiaDrobeInventory
-      dispenseOnHitChance: 0.25
-      dispenseOnHitThreshold: 2
-      offState: off
-      brokenState: broken
-      normalState: normal-unshaded
-      # ejectState: eject-unshaded  No sprite, see chefvend/dinnerware/BODA/etc for expamples
-      # denyState: deny-unshaded
-      ejectDelay: 3
-    - type: Advertise
-      pack: ArcadiaDrobeAds
-    - type: Sprite
-      sprite: _NF/Structures/Machines/VendingMachines/arcadiadrobe.rsi
-      layers:
-      - state: "off"
-        map: ["enum.VendingMachineVisualLayers.Base"]
-      - state: "off"
-        map: ["enum.VendingMachineVisualLayers.BaseUnshaded"]
-        shader: unshaded
-      - state: panel
-        map: ["enum.WiresVisualLayers.MaintenancePanel"]
-    - type: PointLight
-      radius: 1.5
-      energy: 1.6
-      color: "#ff033e"
+  - type: VendingMachine
+    pack: ArcadiaDrobeInventory
+    dispenseOnHitChance: 0.25
+    dispenseOnHitThreshold: 2
+    offState: off
+    brokenState: broken
+    normalState: normal-unshaded
+    # ejectState: eject-unshaded  No sprite, see chefvend/dinnerware/BODA/etc for expamples
+    # denyState: deny-unshaded
+    ejectDelay: 3
+  - type: Advertise
+    pack: ArcadiaDrobeAds
+  - type: Sprite
+    sprite: _NF/Structures/Machines/VendingMachines/arcadiadrobe.rsi
+    layers:
+    - state: "off"
+      map: ["enum.VendingMachineVisualLayers.Base"]
+    - state: "off"
+      map: ["enum.VendingMachineVisualLayers.BaseUnshaded"]
+      shader: unshaded
+    - state: panel
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+  - type: PointLight
+    radius: 1.5
+    energy: 1.6
+    color: "#ff033e"
 
 - type: entity
   parent: VendingMachine
@@ -280,43 +280,43 @@
   name: LessLethalVend
   description: Making violence safe since '08.
   components:
-    - type: VendingMachine
-      pack: LessLethalVendInventory
-      dispenseOnHitChance: 0.25
-      dispenseOnHitThreshold: 2
-      offState: off
-      brokenState: broken
-      normalState: normal-unshaded
-      ejectState: eject-unshaded
-      denyState: deny-unshaded
-      ejectDelay: 3
-    - type: Advertise
-      pack: LessLethalVendAds
-    - type: Sprite
-      sprite: _NF/Structures/Machines/VendingMachines/lesslethalvend.rsi
-      layers:
-      - state: "off"
-        map: ["enum.VendingMachineVisualLayers.Base"]
-      - state: "off"
-        map: ["enum.VendingMachineVisualLayers.BaseUnshaded"]
-        shader: unshaded
-      - state: panel
-        map: ["enum.WiresVisualLayers.MaintenancePanel"]
-    - type: PointLight
-      radius: 1.5
-      energy: 1.6
-      color: "#ff033e"
-    - type: AccessReader
-      access: [["Security"], ["Contractor"], ["Pilot"], ["Mercenary"]]
-    - type: ActivatableUIRequiresAccess
+  - type: VendingMachine
+    pack: LessLethalVendInventory
+    dispenseOnHitChance: 0.25
+    dispenseOnHitThreshold: 2
+    offState: off
+    brokenState: broken
+    normalState: normal-unshaded
+    ejectState: eject-unshaded
+    denyState: deny-unshaded
+    ejectDelay: 3
+  - type: Advertise
+    pack: LessLethalVendAds
+  - type: Sprite
+    sprite: _NF/Structures/Machines/VendingMachines/lesslethalvend.rsi
+    layers:
+    - state: "off"
+      map: ["enum.VendingMachineVisualLayers.Base"]
+    - state: "off"
+      map: ["enum.VendingMachineVisualLayers.BaseUnshaded"]
+      shader: unshaded
+    - state: panel
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+  - type: PointLight
+    radius: 1.5
+    energy: 1.6
+    color: "#ff033e"
+  - type: AccessReader
+    access: [["Security"], ["Contractor"], ["Pilot"], ["Mercenary"]]
+  - type: ActivatableUIRequiresAccess
 
 - type: entity
   parent: [BaseStructureDisableAnchoring, LessLethalVendingMachine]
   id: LessLethalVendingMachinePOI
   suffix: POI
   components:
-    - type: VendingMachine
-      pack: LessLethalVendPOIInventory
+  - type: VendingMachine
+    pack: LessLethalVendPOIInventory
 
 - type: entity
   parent: VendingMachine
@@ -324,35 +324,35 @@
   name: NonLethalVend
   description: Try not to aim for the eyes!
   components:
-    - type: VendingMachine
-      pack: NonLethalVendInventory
-      dispenseOnHitChance: 0.25
-      dispenseOnHitThreshold: 2
-      offState: off
-      brokenState: broken
-      normalState: normal-unshaded
-      ejectState: eject-unshaded
-      denyState: deny-unshaded
-      ejectDelay: 3
-    - type: Advertise
-      pack: LessLethalVendAds
-    - type: Sprite
-      sprite: _NF/Structures/Machines/VendingMachines/nonlethalvend.rsi
-      layers:
-      - state: "off"
-        map: ["enum.VendingMachineVisualLayers.Base"]
-      - state: "off"
-        map: ["enum.VendingMachineVisualLayers.BaseUnshaded"]
-        shader: unshaded
-      - state: panel
-        map: ["enum.WiresVisualLayers.MaintenancePanel"]
-    - type: PointLight
-      radius: 1.5
-      energy: 1.6
-      color: "#ff033e"
-    - type: AccessReader
-      access: [["Security"], ["Contractor"], ["Pilot"], ["Mercenary"]]
-    - type: ActivatableUIRequiresAccess
+  - type: VendingMachine
+    pack: NonLethalVendInventory
+    dispenseOnHitChance: 0.25
+    dispenseOnHitThreshold: 2
+    offState: off
+    brokenState: broken
+    normalState: normal-unshaded
+    ejectState: eject-unshaded
+    denyState: deny-unshaded
+    ejectDelay: 3
+  - type: Advertise
+    pack: LessLethalVendAds
+  - type: Sprite
+    sprite: _NF/Structures/Machines/VendingMachines/nonlethalvend.rsi
+    layers:
+    - state: "off"
+      map: ["enum.VendingMachineVisualLayers.Base"]
+    - state: "off"
+      map: ["enum.VendingMachineVisualLayers.BaseUnshaded"]
+      shader: unshaded
+    - state: panel
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+  - type: PointLight
+    radius: 1.5
+    energy: 1.6
+    color: "#ff033e"
+  - type: AccessReader
+    access: [["Security"], ["Contractor"], ["Pilot"], ["Mercenary"]]
+  - type: ActivatableUIRequiresAccess
 
 - type: entity
   parent: [BaseStructureDisableAnchoring, VendingMachine]
@@ -367,8 +367,8 @@
     normalState: normal-unshaded
     ejectState: eject-unshaded
     denyState: deny-unshaded
-#  - type: Advertise
-#    pack: AutoTuneVendAds
+    #  - type: Advertise
+    #    pack: AutoTuneVendAds
   - type: Sprite
     sprite: _NF/Structures/Machines/VendingMachines/autotunevend.rsi
     layers:
@@ -383,7 +383,7 @@
     radius: 1.5
     energy: 1.6
     color: "#4b93ad"
-#Interface
+    #Interface
   - type: UserInterface
     interfaces:
       enum.VendingMachineUiKey.Key:
@@ -392,15 +392,15 @@
         type: WiresBoundUserInterface
       enum.InstrumentUiKey.Key: # Added
         type: InstrumentBoundUserInterface # Added
-#Music
+        #Music
   - type: Instrument
     allowPercussion: true
     allowProgramChange: true
     handheld: false
-#Ghost
+    #Ghost
   # - type: GhostRole
-    # makeSentient: true
-    # allowSpeech: true
+  # makeSentient: true
+  # allowSpeech: true
   # - type: GhostTakeoverAvailable
 
 - type: entity
@@ -563,7 +563,7 @@
       map: ["enum.WiresVisualLayers.MaintenancePanel"]
     - sprite: _NF/Structures/Holo/graffiti/simple.rsi
       state: holograffiti01
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       shader: unshaded
       scale: 0.7, 0.7
   - type: PointLight
@@ -602,7 +602,7 @@
       map: ["enum.WiresVisualLayers.MaintenancePanel"]
     - sprite: _NF/Structures/Holo/graffiti/simple.rsi
       state: holograffiti01
-      map: [ "graffiti" ]
+      map: ["graffiti"]
       shader: unshaded
       scale: 0.7, 0.7
   - type: PointLight
@@ -898,7 +898,7 @@
 
 #region DEBUG
 - type: entity
-  categories: [ DoNotMap ]
+  categories: [DoNotMap]
   parent: VendingMachineBountyVendPunk
   id: DEBUGVendingMachineRangedWeapons
   name: All Guns
@@ -907,8 +907,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.3,-0.16,0.3,0.16"
         density: 190
         mask:
@@ -919,7 +918,7 @@
     pack: DEBUGVendingMachineInventoryRangedWeapons
 
 - type: entity
-  categories: [ DoNotMap ]
+  categories: [DoNotMap]
   parent: VendingMachineClothingPunk
   id: DEBUGVendingMachineMagazines
   name: All Gun Magazines
@@ -928,8 +927,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.3,-0.16,0.3,0.16"
         density: 190
         mask:
@@ -940,7 +938,7 @@
     pack: DEBUGVendingMachineInventoryMagazines
 
 - type: entity
-  categories: [ DoNotMap ]
+  categories: [DoNotMap]
   parent: VendingMachineClothingPunk
   id: DEBUGVendingMachineAmmoBoxes
   name: All Ammo Boxes
@@ -949,8 +947,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.3,-0.16,0.3,0.16"
         density: 190
         mask:

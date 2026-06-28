@@ -2,7 +2,7 @@
 # Corpse loadout definitions
 - type: entity
   id: NFRandomLoadoutService
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Loadout
     prototypes: &service
@@ -42,7 +42,7 @@
 
 - type: entity
   id: NFRandomLoadoutEngineering
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Loadout
     prototypes: &engineering
@@ -55,7 +55,7 @@
 
 - type: entity
   id: NFRandomLoadoutCargo
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Loadout
     prototypes: &cargo
@@ -66,7 +66,7 @@
 
 - type: entity
   id: NFRandomLoadoutMedical
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Loadout
     prototypes: &medical
@@ -91,7 +91,7 @@
 
 - type: entity
   id: NFRandomLoadoutScience
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Loadout
     prototypes: &science
@@ -102,7 +102,7 @@
 
 - type: entity
   id: NFRandomLoadoutSecurity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Loadout
     prototypes: &security
@@ -117,7 +117,7 @@
 
 - type: entity
   id: NFRandomLoadoutCommand
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Loadout
     prototypes: &command

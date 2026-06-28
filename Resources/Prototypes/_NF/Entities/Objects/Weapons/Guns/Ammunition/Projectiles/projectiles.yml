@@ -2,7 +2,7 @@
   id: BaseBulletRubber
   name: base bullet rubber
   parent: BaseBullet
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
@@ -21,7 +21,7 @@
   id: BaseBulletEmp
   name: base bullet emp
   parent: BaseBulletTrigger
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -41,7 +41,7 @@
   id: NFBulletRocketEmp
   name: rocket
   parent: BaseBulletTrigger
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -62,7 +62,7 @@
   parent: BaseBulletTrigger
   id: ProjectileEmp
   name: emp projectile
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: Objects/Weapons/Guns/Projectiles/magic.rsi
@@ -75,8 +75,7 @@
   - type: Fixtures
     fixtures:
       projectile:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.2,-0.2,0.2,0.2"
         hard: false
         mask:
@@ -106,7 +105,7 @@
   parent: BaseBulletTrigger
   id: BulletGrenadeCleanade
   name: cleanade grenade round
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
@@ -135,13 +134,13 @@
 - type: entity
   parent: BulletGrenadeCleanade
   id: NFBulletGrenadeCleanade
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
 
 - type: entity
   id: NFBulletCannonBallEmp
   name: shockshot
   parent: BaseBulletTrigger
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Objects/Weapons/Guns/Ammunition/Projectiles/projectiles2.rsi
@@ -166,7 +165,7 @@
   id: NFBaseBulletLaser
   name: laser bolt
   parent: BulletLaser
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: Objects/Weapons/Guns/Projectiles/projectiles_tg.rsi
@@ -177,8 +176,7 @@
   - type: Fixtures
     fixtures:
       projectile:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.15,-0.3,0.15,0.3"
         hard: false
         mask:
@@ -190,44 +188,44 @@
 - type: entity
   parent: MuzzleFlashEffect
   id: NFMuzzleFlashEffect
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
 
 - type: entity
   parent: MuzzleFlashEffectOmnilaser
   id: NFMuzzleFlashEffectOmnilaser
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
 
 - type: entity
   parent: MuzzleFlashEffectHeavyLaser
   id: NFMuzzleFlashEffectHeavyLaser
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
 
 - type: entity
   parent: EmitterBolt
   id: NFEmitterBolt
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
 
 - type: entity
   parent: WatcherBolt
   id: NFWatcherBolt
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
 
 - type: entity
   parent: WatcherBoltMagmawing
   id: NFWatcherBoltMagmawing
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
 
 - type: entity
   parent: BulletKinetic
   id: NFBulletKinetic
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: MiningGatheringSoft # Frontier
 
 - type: entity
   parent: BulletKineticShuttle
   id: NFBulletKineticShuttle
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     color: "#FF8888" # distinguish from regular PKA bolts
@@ -245,89 +243,89 @@
 - type: entity
   parent: BulletCharge
   id: NFBulletCharge
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: MiningGatheringSoft # Frontier
 
 - type: entity
   parent: AnomalousParticleDelta
   id: NFAnomalousParticleDelta
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
 
 - type: entity
   parent: AnomalousParticleDeltaStrong
   id: NFAnomalousParticleDeltaStrong
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
 
 - type: entity
   parent: AnomalousParticleEpsilon
   id: NFAnomalousParticleEpsilon
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
 
 - type: entity
   parent: AnomalousParticleEpsilonStrong
   id: NFAnomalousParticleEpsilonStrong
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
 
 - type: entity
   parent: AnomalousParticleZeta
   id: NFAnomalousParticleZeta
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
 
 - type: entity
   parent: AnomalousParticleZetaStrong
   id: NFAnomalousParticleZetaStrong
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
 
 - type: entity
   parent: AnomalousParticleOmegaStrong
   id: NFAnomalousParticleOmegaStrong
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
 
 - type: entity
   parent: AnomalousParticleSigma
   id: NFAnomalousParticleSigma
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
 
 - type: entity
   parent: AnomalousParticleSigmaStrong
   id: NFAnomalousParticleSigmaStrong
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
 
 - type: entity
   parent: BulletRocket
   id: NFBulletRocket
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
 
 - type: entity
   parent: BulletWeakRocket
   id: NFBulletWeakRocket
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
 
 - type: entity
   parent: BulletCap
   id: NFBulletCap
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
 
 - type: entity
   parent: BulletAcid
   id: NFBulletAcid
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
 
 - type: entity
   parent: BulletCannonBall
   id: NFBulletCannonBall
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
 
 - type: entity
   parent: GrapplingHook
   id: NFGrapplingHook
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
 
 - type: entity
   parent: BulletEnergyTurretLaser
   id: NFBulletEnergyTurretLaser
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Ammo
     muzzleFlash: NFMuzzleFlashEffectHeavyLaser
@@ -335,7 +333,7 @@
 - type: entity
   parent: BulletEnergyTurretDisabler
   id: NFBulletEnergyTurretDisabler
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Ammo
     muzzleFlash: NFMuzzleFlashEffectOmnilaser
@@ -343,18 +341,18 @@
 - type: entity
   parent: PelletShotgunFlare
   id: NFPelletShotgunFlare
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
 
 - type: entity
   parent: TeslaGunBullet
   id: NFTeslaGunBullet
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
 
 - type: entity
   name: freezing bolt
   id: NFBoltTempgunCold
   parent: BoltTempgunCold
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     impactEffect: BulletImpactEffectDisabler
@@ -369,7 +367,7 @@
 - type: entity
   id: NFBoltTempgunHot
   parent: BoltTempgunHot
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     impactEffect: BulletImpactEffectOrangeDisabler
@@ -384,12 +382,12 @@
 - type: entity
   parent: PelletGrapeshot
   id: NFPelletGrapeshot
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
 
 - type: entity
   parent: NFPelletGrapeshot
   id: NFPelletGrapeshotSpread
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: ProjectileSpread
     proto: NFPelletGrapeshot
@@ -399,12 +397,12 @@
 - type: entity
   parent: PelletGlass
   id: NFPelletGlass
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
 
 - type: entity
   parent: NFPelletGlass
   id: NFPelletGlassSpread
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: ProjectileSpread
     proto: NFPelletGlass

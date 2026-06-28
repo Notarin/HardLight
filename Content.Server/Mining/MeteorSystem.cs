@@ -11,10 +11,17 @@ namespace Content.Server.Mining;
 
 public sealed class MeteorSystem : EntitySystem
 {
-    [Dependency] private readonly IAdminLogManager _adminLog = default!;
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly DestructibleSystem _destructible = default!;
-    [Dependency] private readonly MobThresholdSystem _mobThreshold = default!;
+    [Dependency]
+    private readonly IAdminLogManager _adminLog = default!;
+
+    [Dependency]
+    private readonly DamageableSystem _damageable = default!;
+
+    [Dependency]
+    private readonly DestructibleSystem _destructible = default!;
+
+    [Dependency]
+    private readonly MobThresholdSystem _mobThreshold = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -35,7 +42,11 @@ public sealed class MeteorSystem : EntitySystem
         {
             threshold = mobThreshold.Value;
             if (HasComp<ActorComponent>(args.OtherEntity))
-                _adminLog.Add(LogType.Action, LogImpact.High, $"{ToPrettyString(args.OtherEntity):player} was struck by meteor {ToPrettyString(uid):ent} and killed instantly.");
+                _adminLog.Add(
+                    LogType.Action,
+                    LogImpact.High,
+                    $"{ToPrettyString(args.OtherEntity):player} was struck by meteor {ToPrettyString(uid):ent} and killed instantly."
+                );
         }
         else if (_destructible.TryGetDestroyedAt(args.OtherEntity, out var destroyThreshold))
         {
@@ -50,7 +61,8 @@ public sealed class MeteorSystem : EntitySystem
         threshold -= otherEntDamage;
 
         // The max amount of damage our meteor can take before breaking.
-        var maxMeteorDamage = _destructible.DestroyedAt(uid) - CompOrNull<DamageableComponent>(uid)?.TotalDamage ?? FixedPoint2.Zero;
+        var maxMeteorDamage =
+            _destructible.DestroyedAt(uid) - CompOrNull<DamageableComponent>(uid)?.TotalDamage ?? FixedPoint2.Zero;
 
         // Cap damage so we don't overkill the meteor
         var trueDamage = FixedPoint2.Min(maxMeteorDamage, threshold);

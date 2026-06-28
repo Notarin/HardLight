@@ -1,4 +1,4 @@
-﻿- type: entity
+- type: entity
   parent: RMCWeaponRevolverBase
   id: RMCWeaponRevolverM44
   name: M44 combat revolver
@@ -15,42 +15,42 @@
       - RMCCartridgeRevolver44
     proto: RMCCartridgeRevolver44
     capacity: 7
-    chambers: [ True, True, True, True, True, True, True ]
-    ammoSlots: [ null, null, null, null, null, null, null ]
-  # - type: RMCSelectiveFire
+    chambers: [True, True, True, True, True, True, True]
+    ammoSlots: [null, null, null, null, null, null, null]
+    # - type: RMCSelectiveFire
     # baseFireRate: 2
-  # - type: AttachableHolder
+    # - type: AttachableHolder
     # slots:
-      # rmc-aslot-barrel:
-        # whitelist:
-          # tags:
-          # - RMCM5Bayonet
-          # - RMCAttachmentRecoilCompensator
-          # - RMCAttachmentBarrelCharger
-          # - RMCAttachmentExtendedBarrel
-      # rmc-aslot-rail:
-        # whitelist:
-          # tags:
-          # - RMCAttachmentRailFlashlight
-          # - RMCAttachmentS5RedDotSight
-          # - RMCAttachmentS6ReflexSight
-          # - RMCAttachmentS84xTelescopicScope
-          # - RMCAttachmentS42xTelescopicMiniscope
-          # - RMCAttachmentB8SmartScope
-      # rmc-aslot-stock:
-        # whitelist:
-          # tags:
-          # - RMCAttachmentM44MagnumSharpshooterStock
-      # rmc-aslot-underbarrel:
-        # whitelist:
-          # tags:
-          # - RMCAttachmentLaserSight
-  # - type: AttachableHolderVisuals
+    # rmc-aslot-barrel:
+    # whitelist:
+    # tags:
+    # - RMCM5Bayonet
+    # - RMCAttachmentRecoilCompensator
+    # - RMCAttachmentBarrelCharger
+    # - RMCAttachmentExtendedBarrel
+    # rmc-aslot-rail:
+    # whitelist:
+    # tags:
+    # - RMCAttachmentRailFlashlight
+    # - RMCAttachmentS5RedDotSight
+    # - RMCAttachmentS6ReflexSight
+    # - RMCAttachmentS84xTelescopicScope
+    # - RMCAttachmentS42xTelescopicMiniscope
+    # - RMCAttachmentB8SmartScope
+    # rmc-aslot-stock:
+    # whitelist:
+    # tags:
+    # - RMCAttachmentM44MagnumSharpshooterStock
+    # rmc-aslot-underbarrel:
+    # whitelist:
+    # tags:
+    # - RMCAttachmentLaserSight
+    # - type: AttachableHolderVisuals
     # offsets:
-      # rmc-aslot-barrel: 0.715, 0.125
-      # rmc-aslot-rail: 0, 0.185
-      # rmc-aslot-stock: -0.59375, 0.09375
-      # rmc-aslot-underbarrel: 0.375, -0.155
+    # rmc-aslot-barrel: 0.715, 0.125
+    # rmc-aslot-rail: 0, 0.185
+    # rmc-aslot-stock: -0.59375, 0.09375
+    # rmc-aslot-underbarrel: 0.375, -0.155
 
 - type: entity
   parent: RMCWeaponRevolverM44
@@ -94,9 +94,9 @@
     sprite: _RMC14/Objects/Weapons/Guns/Ammunition/SpeedLoaders/m44.rsi
     layers:
     - state: base
-      map: [ "enum.GunVisualLayers.Base" ]
+      map: ["enum.GunVisualLayers.Base"]
     - state: base-5
-      map: [ "enum.GunVisualLayers.Mag" ]
+      map: ["enum.GunVisualLayers.Mag"]
   - type: MagazineVisuals
     magState: base
     steps: 6
@@ -116,12 +116,12 @@
     sprite: _RMC14/Objects/Weapons/Guns/Ammunition/SpeedLoaders/m44.rsi
     layers:
     - state: base
-      map: [ "enum.GunVisualLayers.Base" ]
+      map: ["enum.GunVisualLayers.Base"]
     - state: base-5
-      map: [ "enum.GunVisualLayers.Mag" ]
+      map: ["enum.GunVisualLayers.Mag"]
     - state: base-unshaded-5
       color: "#FF744F"
-      map: [ "enum.GunVisualLayers.MagUnshaded" ]
+      map: ["enum.GunVisualLayers.MagUnshaded"]
   - type: BallisticAmmoProvider
     proto: RMCCartridgeRevolver44Marksman
     capacity: 7
@@ -159,12 +159,12 @@
     damage:
       types:
         Piercing: 50
-  # - type: CMArmorPiercing
+        # - type: CMArmorPiercing
     # amount: 5
-  # - type: RMCProjectileAccuracy
-    # accuracy: 90
-
 - type: entity
+  # - type: RMCProjectileAccuracy
+  # accuracy: 90
+
   parent: CMBulletBase
   id: RMCBulletRevolver44Marksman
   name: bullet (.44 Marksman)
@@ -173,18 +173,18 @@
     damage:
       types:
         Piercing: 40
-  # - type: RMCProjectileDamageFalloff
-    # thresholds:
-    # - range: 22
+        # - type: RMCProjectileDamageFalloff
+      # thresholds:
+      # - range: 22
       # falloff: 9999
       # ignoreModifiers: true
-  # - type: CMArmorPiercing
-    # amount: 35
-  # - type: RMCProjectileAccuracy
-    # accuracy: 90
-    # thresholds:
-    # - range: 12
-      # falloff: 10
-
 - type: Tag
+  # - type: CMArmorPiercing
+  # amount: 35
+  # - type: RMCProjectileAccuracy
+  # accuracy: 90
+  # thresholds:
+  # - range: 12
+  # falloff: 10
+
   id: RMCSpeedLoaderM44

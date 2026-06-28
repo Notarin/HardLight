@@ -13,8 +13,8 @@ public sealed class AmbientSoundTreeSystem : ComponentTreeSystem<AmbientSoundTre
     protected override int InitialCapacity => 256;
     protected override bool Recursive => true;
 
-    protected override Box2 ExtractAabb(in ComponentTreeEntry<AmbientSoundComponent> entry, Vector2 pos, Angle rot)
-        => new Box2(pos - entry.Component.RangeVector, pos + entry.Component.RangeVector);
+    protected override Box2 ExtractAabb(in ComponentTreeEntry<AmbientSoundComponent> entry, Vector2 pos, Angle rot) =>
+        new Box2(pos - entry.Component.RangeVector, pos + entry.Component.RangeVector);
 
     protected override Box2 ExtractAabb(in ComponentTreeEntry<AmbientSoundComponent> entry)
     {
@@ -24,7 +24,8 @@ public sealed class AmbientSoundTreeSystem : ComponentTreeSystem<AmbientSoundTre
         var pos = XformSystem.GetRelativePosition(
             entry.Transform,
             entry.Component.TreeUid.Value,
-            GetEntityQuery<TransformComponent>());
+            GetEntityQuery<TransformComponent>()
+        );
 
         return ExtractAabb(in entry, pos, default);
     }

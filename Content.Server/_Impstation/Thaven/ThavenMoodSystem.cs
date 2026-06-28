@@ -13,43 +13,59 @@ using Content.Server.Actions;
 using Content.Server.Chat.Managers;
 using Content.Server.GameTicking;
 using Content.Server.Roles.Jobs;
+using Content.Shared._Impstation.CCVar;
+using Content.Shared._Impstation.Thaven;
+using Content.Shared._Impstation.Thaven.Components;
 using Content.Shared.CCVar;
 using Content.Shared.Chat;
 using Content.Shared.Dataset;
 using Content.Shared.Emag.Systems;
 using Content.Shared.GameTicking;
-using Content.Shared._Impstation.Thaven;
-using Content.Shared._Impstation.Thaven.Components;
+using Content.Shared.Mind;
+using Content.Shared.Mindshield.Components;
 using Content.Shared.Random;
 using Content.Shared.Random.Helpers;
 using Robust.Server.GameObjects;
+using Robust.Shared.Audio.Systems;
 using Robust.Shared.Configuration;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
-using Content.Shared._Impstation.CCVar;
-using Content.Shared.Mind;
-using Content.Shared.Mindshield.Components;
-using Robust.Shared.Audio.Systems;
 using Robust.Shared.Utility;
 
 namespace Content.Server._Impstation.Thaven;
 
 public sealed partial class ThavenMoodsSystem : SharedThavenMoodSystem
 {
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly ActionsSystem _actions = default!;
-    [Dependency] private readonly IConfigurationManager _config = default!;
-    [Dependency] private readonly UserInterfaceSystem _bui = default!;
-    [Dependency] private readonly IChatManager _chatManager = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedMindSystem _mind = default!; // funky
-    [Dependency] private readonly JobSystem _jobs = default!; // funky
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly ActionsSystem _actions = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _config = default!;
+
+    [Dependency]
+    private readonly UserInterfaceSystem _bui = default!;
+
+    [Dependency]
+    private readonly IChatManager _chatManager = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedMindSystem _mind = default!; // funky
+
+    [Dependency]
+    private readonly JobSystem _jobs = default!; // funky
 
     public IReadOnlyList<ThavenMood> SharedMoods => _sharedMoods.AsReadOnly();
     private readonly List<ThavenMood> _sharedMoods = new();
-
 
     private static readonly ProtoId<DatasetPrototype> SharedDataset = "ThavenMoodsShared";
 
@@ -103,7 +119,13 @@ public sealed partial class ThavenMoodsSystem : SharedThavenMoodSystem
             }
         }
 
-        if (checkConflicts && (GetConflicts(_sharedMoods).Contains(mood.ProtoId) || GetMoodProtoSet(_sharedMoods).Overlaps(mood.Conflicts)))
+        if (
+            checkConflicts
+            && (
+                GetConflicts(_sharedMoods).Contains(mood.ProtoId)
+                || GetMoodProtoSet(_sharedMoods).Overlaps(mood.Conflicts)
+            )
+        )
             return false;
 
         _sharedMoods.Add(mood);
@@ -124,7 +146,11 @@ public sealed partial class ThavenMoodsSystem : SharedThavenMoodSystem
         UpdateBUIState(uid, boundComponent);
     }
 
-    private void OnToggleMoodsScreen(EntityUid uid, ThavenMoodsBoundComponent boundComponent, ToggleMoodsScreenEvent args)
+    private void OnToggleMoodsScreen(
+        EntityUid uid,
+        ThavenMoodsBoundComponent boundComponent,
+        ToggleMoodsScreenEvent args
+    )
     {
         if (args.Handled || !TryComp<ActorComponent>(uid, out var actor))
             return;
@@ -133,10 +159,13 @@ public sealed partial class ThavenMoodsSystem : SharedThavenMoodSystem
         _bui.TryToggleUi(uid, ThavenMoodsUiKey.Key, actor.PlayerSession);
     }
 
-    private bool TryPick(string datasetProto, [NotNullWhen(true)] out ThavenMoodPrototype? proto,
+    private bool TryPick(
+        string datasetProto,
+        [NotNullWhen(true)] out ThavenMoodPrototype? proto,
         IEnumerable<ThavenMood>? currentMoods = null,
         HashSet<string>? conflicts = null,
-        string? department = null)
+        string? department = null
+    )
     {
         var dataset = _proto.Index<DatasetPrototype>(datasetProto);
         var choices = dataset.Values.ToList();
@@ -184,7 +213,15 @@ public sealed partial class ThavenMoodsSystem : SharedThavenMoodSystem
 
         var msg = Loc.GetString("thaven-moods-update-notify");
         var wrappedMessage = Loc.GetString("chat-manager-server-wrap-message", ("message", msg));
-        _chatManager.ChatMessageToOne(ChatChannel.Server, msg, wrappedMessage, default, false, actor.PlayerSession.Channel, colorOverride: Color.Orange);
+        _chatManager.ChatMessageToOne(
+            ChatChannel.Server,
+            msg,
+            wrappedMessage,
+            default,
+            false,
+            actor.PlayerSession.Channel,
+            colorOverride: Color.Orange
+        );
     }
 
     public void UpdateBUIState(EntityUid uid, ThavenMoodsBoundComponent? comp = null)
@@ -263,7 +300,13 @@ public sealed partial class ThavenMoodsSystem : SharedThavenMoodSystem
     /// Checks if the given mood prototype conflicts with the current moods, and
     /// adds the mood if it does not.
     /// </summary>
-    public bool TryAddMood(EntityUid uid, ThavenMoodPrototype moodProto, ThavenMoodsBoundComponent? comp = null, bool allowConflict = false, bool notify = true)
+    public bool TryAddMood(
+        EntityUid uid,
+        ThavenMoodPrototype moodProto,
+        ThavenMoodsBoundComponent? comp = null,
+        bool allowConflict = false,
+        bool notify = true
+    )
     {
         if (!Resolve(uid, ref comp))
             return false;
@@ -299,7 +342,12 @@ public sealed partial class ThavenMoodsSystem : SharedThavenMoodSystem
         return TryAddRandomMood(uid, datasetProto, comp);
     }
 
-    public void SetMoods(EntityUid uid, IEnumerable<ThavenMood> moods, ThavenMoodsBoundComponent? comp = null, bool notify = true)
+    public void SetMoods(
+        EntityUid uid,
+        IEnumerable<ThavenMood> moods,
+        ThavenMoodsBoundComponent? comp = null,
+        bool notify = true
+    )
     {
         if (!Resolve(uid, ref comp))
             return;
@@ -337,7 +385,6 @@ public sealed partial class ThavenMoodsSystem : SharedThavenMoodSystem
         else
             UpdateBUIState(ent);
     }
-
 
     /// <summary>
     /// Allows external systems to toggle wether or not a ThavenMoodsComponent follows the shared thaven mood.
@@ -392,7 +439,11 @@ public sealed partial class ThavenMoodsSystem : SharedThavenMoodSystem
     /// <summary>
     /// Return a list of the moods that are affecting this entity.
     /// </summary>
-    public List<ThavenMood> GetActiveMoods(EntityUid uid, ThavenMoodsBoundComponent? comp = null, bool includeShared = true)
+    public List<ThavenMood> GetActiveMoods(
+        EntityUid uid,
+        ThavenMoodsBoundComponent? comp = null,
+        bool includeShared = true
+    )
     {
         if (!Resolve(uid, ref comp))
             return [];
@@ -446,6 +497,7 @@ public sealed partial class ThavenMoodsSystem : SharedThavenMoodSystem
     {
         TryAddRandomMood(ent.Owner, WildcardDataset, ent.Comp);
     }
+
     // End DeltaV: thaven mood upsets
 
     // begin funky

@@ -3,8 +3,8 @@ using System.Numerics;
 using Content.Client.CrewManifest;
 using Content.Client.GameTicking.Managers;
 using Content.Client.Lobby;
-using Content.Client.UserInterface.Controls;
 using Content.Client.Players.PlayTimeTracking;
+using Content.Client.UserInterface.Controls;
 using Content.Shared.CCVar;
 using Content.Shared.GameTicking; // Frontier
 using Content.Shared.Preferences;
@@ -24,12 +24,23 @@ namespace Content.Client.LateJoin
 {
     public sealed class LateJoinGui : DefaultWindow
     {
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly IClientConsoleHost _consoleHost = default!;
-        [Dependency] private readonly IConfigurationManager _configManager = default!;
-        [Dependency] private readonly IEntitySystemManager _entitySystem = default!;
-        [Dependency] private readonly JobRequirementsManager _jobRequirements = default!;
-        [Dependency] private readonly IClientPreferencesManager _preferencesManager = default!;
+        [Dependency]
+        private readonly IPrototypeManager _prototypeManager = default!;
+
+        [Dependency]
+        private readonly IClientConsoleHost _consoleHost = default!;
+
+        [Dependency]
+        private readonly IConfigurationManager _configManager = default!;
+
+        [Dependency]
+        private readonly IEntitySystemManager _entitySystem = default!;
+
+        [Dependency]
+        private readonly JobRequirementsManager _jobRequirements = default!;
+
+        [Dependency]
+        private readonly IClientPreferencesManager _preferencesManager = default!;
 
         public event Action<(NetEntity, string)> SelectedId;
 
@@ -53,11 +64,7 @@ namespace Content.Client.LateJoin
 
             Title = Loc.GetString("late-join-gui-title");
 
-            _base = new BoxContainer()
-            {
-                Orientation = LayoutOrientation.Vertical,
-                VerticalExpand = true,
-            };
+            _base = new BoxContainer() { Orientation = LayoutOrientation.Vertical, VerticalExpand = true };
 
             Contents.AddChild(_base);
 
@@ -105,35 +112,30 @@ namespace Content.Client.LateJoin
                             Margin = new Thickness(8, 0),
                             HorizontalAlignment = HAlignment.Center,
                             VerticalAlignment = VAlignment.Center,
-                        }
-                    }
+                        },
+                    },
                 };
 
-                _base.AddChild(new StripeBack()
-                {
-                    Children =
+                _base.AddChild(
+                    new StripeBack()
                     {
-                        new PanelContainer()
+                        Children =
                         {
-                            Children =
+                            new PanelContainer()
                             {
-                                new Label()
+                                Children =
                                 {
-                                    Text = name,
-                                    Align = Label.AlignMode.Center,
+                                    new Label() { Text = name, Align = Label.AlignMode.Center },
+                                    collapseButton,
                                 },
-                                collapseButton
-                            }
-                        }
+                            },
+                        },
                     }
-                });
+                );
 
                 if (_configManager.GetCVar(CCVars.CrewManifestWithoutEntity))
                 {
-                    var crewManifestButton = new Button()
-                    {
-                        Text = Loc.GetString("crew-manifest-button-label")
-                    };
+                    var crewManifestButton = new Button() { Text = Loc.GetString("crew-manifest-button-label") };
                     crewManifestButton.OnPressed += _ => _crewManifest.RequestCrewManifest(id);
 
                     _base.AddChild(crewManifestButton);
@@ -193,8 +195,10 @@ namespace Content.Client.LateJoin
                     {
                         Orientation = LayoutOrientation.Vertical,
                         Name = department.ID,
-                        ToolTip = Loc.GetString("late-join-gui-jobs-amount-in-department-tooltip",
-                            ("departmentName", departmentName))
+                        ToolTip = Loc.GetString(
+                            "late-join-gui-jobs-amount-in-department-tooltip",
+                            ("departmentName", departmentName)
+                        ),
                     };
 
                     if (firstCategory)
@@ -203,23 +207,25 @@ namespace Content.Client.LateJoin
                     }
                     else
                     {
-                        category.AddChild(new Control
-                        {
-                            MinSize = new Vector2(0, 23),
-                        });
+                        category.AddChild(new Control { MinSize = new Vector2(0, 23) });
                     }
 
-                    category.AddChild(new PanelContainer
-                    {
-                        Children =
+                    category.AddChild(
+                        new PanelContainer
                         {
-                            new Label
+                            Children =
                             {
-                                StyleClasses = { "LabelBig" },
-                                Text = Loc.GetString("late-join-gui-department-jobs-label", ("departmentName", departmentName))
-                            }
+                                new Label
+                                {
+                                    StyleClasses = { "LabelBig" },
+                                    Text = Loc.GetString(
+                                        "late-join-gui-department-jobs-label",
+                                        ("departmentName", departmentName)
+                                    ),
+                                },
+                            },
                         }
-                    });
+                    );
 
                     _jobCategories[id][department.ID] = category;
                     jobList.AddChild(category);
@@ -229,23 +235,20 @@ namespace Content.Client.LateJoin
                         // Frontier: stationAvailable[prototype.ID]; -> stationAvailable.JobsAvailable[prototype.ID];
                         var value = stationAvailable.JobsAvailable[prototype.ID];
 
-                        var jobLabel = new Label
-                        {
-                            Margin = new Thickness(5f, 0, 0, 0)
-                        };
+                        var jobLabel = new Label { Margin = new Thickness(5f, 0, 0, 0) };
 
                         var jobButton = new JobButton(jobLabel, prototype.ID, prototype.LocalizedName, value);
 
                         var jobSelector = new BoxContainer
                         {
                             Orientation = LayoutOrientation.Horizontal,
-                            HorizontalExpand = true
+                            HorizontalExpand = true,
                         };
 
                         var icon = new TextureRect
                         {
                             TextureScale = new Vector2(2, 2),
-                            VerticalAlignment = VAlignment.Center
+                            VerticalAlignment = VAlignment.Center,
                         };
 
                         var jobIcon = _prototypeManager.Index(prototype.Icon);
@@ -258,7 +261,13 @@ namespace Content.Client.LateJoin
 
                         jobButton.OnPressed += _ => SelectedId.Invoke((id, jobButton.JobId));
 
-                        if (!_jobRequirements.IsAllowed(prototype, (HumanoidCharacterProfile?)_preferencesManager.Preferences?.SelectedCharacter, out var reason))
+                        if (
+                            !_jobRequirements.IsAllowed(
+                                prototype,
+                                (HumanoidCharacterProfile?)_preferencesManager.Preferences?.SelectedCharacter,
+                                out var reason
+                            )
+                        )
                         {
                             jobButton.Disabled = true;
 
@@ -269,14 +278,18 @@ namespace Content.Client.LateJoin
                                 jobButton.TooltipSupplier = _ => tooltip;
                             }
 
-                            jobSelector.AddChild(new TextureRect
-                            {
-                                TextureScale = new Vector2(0.4f, 0.4f),
-                                Stretch = TextureRect.StretchMode.KeepCentered,
-                                Texture = _sprites.Frame0(new SpriteSpecifier.Texture(new ("/Textures/Interface/Nano/lock.svg.192dpi.png"))),
-                                HorizontalExpand = true,
-                                HorizontalAlignment = HAlignment.Right,
-                            });
+                            jobSelector.AddChild(
+                                new TextureRect
+                                {
+                                    TextureScale = new Vector2(0.4f, 0.4f),
+                                    Stretch = TextureRect.StretchMode.KeepCentered,
+                                    Texture = _sprites.Frame0(
+                                        new SpriteSpecifier.Texture(new("/Textures/Interface/Nano/lock.svg.192dpi.png"))
+                                    ),
+                                    HorizontalExpand = true,
+                                    HorizontalAlignment = HAlignment.Right,
+                                }
+                            );
                         }
                         else if (value == 0)
                         {
@@ -309,7 +322,11 @@ namespace Content.Client.LateJoin
                 {
                     if (!jobInformation.JobsAvailable.TryGetValue(existingJobEntry.Key, out var updatedJobValue))
                         continue;
-                    foreach (var matchingJobButton in existingJobEntry.Value.Where(matchingJobButton => matchingJobButton.Amount != updatedJobValue))
+                    foreach (
+                        var matchingJobButton in existingJobEntry.Value.Where(matchingJobButton =>
+                            matchingJobButton.Amount != updatedJobValue
+                        )
+                    )
                     {
                         matchingJobButton.RefreshLabel(updatedJobValue);
                         matchingJobButton.Disabled |= matchingJobButton.Amount == 0;
@@ -359,9 +376,10 @@ namespace Content.Client.LateJoin
             }
             Amount = amount;
 
-            JobLabel.Text = Amount != null ?
-                Loc.GetString("late-join-gui-job-slot-capped", ("jobName", JobLocalisedName), ("amount", Amount)) :
-                Loc.GetString("late-join-gui-job-slot-uncapped", ("jobName", JobLocalisedName));
+            JobLabel.Text =
+                Amount != null
+                    ? Loc.GetString("late-join-gui-job-slot-capped", ("jobName", JobLocalisedName), ("amount", Amount))
+                    : Loc.GetString("late-join-gui-job-slot-uncapped", ("jobName", JobLocalisedName));
         }
     }
 }

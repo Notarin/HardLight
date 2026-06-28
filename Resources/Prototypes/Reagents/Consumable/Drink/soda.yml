@@ -134,7 +134,7 @@
         - !type:Temperature
           min: 298.15 # Floof
         amount: -1000
-  # Floof region end
+        # Floof region end
 
 - type: reagent
   id: LemonLime

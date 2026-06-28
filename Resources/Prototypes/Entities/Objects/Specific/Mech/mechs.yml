@@ -84,8 +84,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.45
         density: 1000
         mask:
@@ -98,8 +97,9 @@
       mech-pilot-slot: !type:ContainerSlot
       mech-equipment-container: !type:Container
       mech-battery-slot: !type:ContainerSlot
-      paper_label: !type:ContainerSlot # Goobstation
-  - type: Damageable
+      paper_label: !type:ContainerSlot
+  - # Goobstation
+    type: Damageable
     damageContainer: Inorganic
     damageModifierSet: LightArmor # Goobstation
   - type: FootstepModifier
@@ -110,8 +110,7 @@
     - Robotics
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 1000 # Goobstation
       behaviors:
       - !type:PlaySoundBehavior
@@ -135,14 +134,14 @@
     visuals:
       enum.PaperLabelVisuals.HasLabel:
         enum.PaperLabelVisuals.Layer:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
       enum.PaperLabelVisuals.LabelType:
         enum.PaperLabelVisuals.Layer:
-          Paper: { state: paper }
-          Bounty: { state: bounty }
-          CaptainsPaper: { state: captains_paper }
-          Invoice: { state: invoice }
+          Paper: {state: paper}
+          Bounty: {state: bounty}
+          CaptainsPaper: {state: captains_paper}
+          Invoice: {state: invoice}
   - type: PaperLabel
     labelSlot:
       insertVerbText: Attach Label
@@ -162,7 +161,7 @@
 
 - type: entity
   id: MechRipley
-  parent: [ BaseMech, IndustrialMech, BaseCargoContraband ] # Goobstation
+  parent: [BaseMech, IndustrialMech, BaseCargoContraband] # Goobstation
   name: Ripley APLU
   description: Versatile and lightly armored, the Ripley is useful for almost any heavy work scenario. The "APLU" stands for Autonomous Power Loading Unit.
   components:
@@ -171,7 +170,7 @@
     noRot: true
     sprite: Objects/Specific/Mech/mecha.rsi
     layers:
-    - map: [ "enum.MechVisualLayers.Base" ]
+    - map: ["enum.MechVisualLayers.Base"]
       state: ripley
   - type: FootstepModifier
     footstepSoundCollection:
@@ -183,7 +182,7 @@
     mechToPilotDamageMultiplier: 0.75
     pilotWhitelist:
       components:
-        - HumanoidAppearance
+      - HumanoidAppearance
   - type: MeleeWeapon
     hidden: true
     attackRate: 1
@@ -205,7 +204,7 @@
       - PowerCellHigh
 
 - type: entity
-  parent: [ BaseMech, SpecialMech, BaseCivilianContraband ] # Goobstation
+  parent: [BaseMech, SpecialMech, BaseCivilianContraband] # Goobstation
   id: MechHonker
   name: H.O.N.K.
   description: "Produced by \"Tyranny of Honk, INC\", this exosuit is designed as heavy clown-support. Used to spread the fun and joy of life. HONK!"
@@ -215,7 +214,7 @@
     noRot: true
     sprite: Objects/Specific/Mech/mecha.rsi
     layers:
-    - map: [ "enum.MechVisualLayers.Base" ]
+    - map: ["enum.MechVisualLayers.Base"]
       state: honker
   - type: FootstepModifier
     footstepSoundCollection:
@@ -244,7 +243,7 @@
       - PowerCellHigh
 
 - type: entity
-  parent: [ BaseMech, SmallMech ] # Goobstation
+  parent: [BaseMech, SmallMech] # Goobstation
   id: MechHamtr
   name: HAMTR
   description: "An experimental mech which uses a brain–computer interface to connect directly to a hamsters brain."
@@ -254,7 +253,7 @@
     noRot: true
     sprite: Objects/Specific/Mech/mecha.rsi
     layers:
-    - map: [ "enum.MechVisualLayers.Base" ]
+    - map: ["enum.MechVisualLayers.Base"]
       state: hamtr
   - type: FootstepModifier
     footstepSoundCollection:
@@ -303,13 +302,12 @@
     noRot: true
     sprite: Objects/Specific/Mech/mecha.rsi
     layers:
-    - map: [ "enum.MechVisualLayers.Base" ]
+    - map: ["enum.MechVisualLayers.Base"]
       state: vim
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.15
         density: 80
         mask:

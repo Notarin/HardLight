@@ -1,16 +1,20 @@
 using Content.Shared.Abilities.Psionics;
+using Content.Shared.Actions.Events;
 using Content.Shared.Nyanotrasen.Abilities.Psionics;
 using Content.Shared.Popups;
-using Content.Shared.Actions.Events;
 
 namespace Content.Server.Abilities.Psionics
 {
     public sealed class MetapsionicPowerSystem : EntitySystem
     {
-        [Dependency] private readonly EntityLookupSystem _lookup = default!;
-        [Dependency] private readonly SharedPopupSystem _popups = default!;
-        [Dependency] private readonly SharedPsionicAbilitiesSystem _psionics = default!;
+        [Dependency]
+        private readonly EntityLookupSystem _lookup = default!;
 
+        [Dependency]
+        private readonly SharedPopupSystem _popups = default!;
+
+        [Dependency]
+        private readonly SharedPsionicAbilitiesSystem _psionics = default!;
 
         public override void Initialize()
         {
@@ -25,8 +29,12 @@ namespace Content.Server.Abilities.Psionics
 
             foreach (var entity in _lookup.GetEntitiesInRange(uid, component.Range))
             {
-                if (HasComp<PsionicComponent>(entity) && entity != uid && !HasComp<PsionicInsulationComponent>(entity) &&
-                    !(HasComp<ClothingGrantPsionicPowerComponent>(entity) && Transform(entity).ParentUid == uid))
+                if (
+                    HasComp<PsionicComponent>(entity)
+                    && entity != uid
+                    && !HasComp<PsionicInsulationComponent>(entity)
+                    && !(HasComp<ClothingGrantPsionicPowerComponent>(entity) && Transform(entity).ParentUid == uid)
+                )
                 {
                     _popups.PopupEntity(Loc.GetString("metapsionic-pulse-success"), uid, uid, PopupType.LargeCaution);
                     args.Handled = true;

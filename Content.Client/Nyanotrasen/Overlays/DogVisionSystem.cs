@@ -1,5 +1,5 @@
-using Content.Shared.Abilities;
 using Content.Shared._DV.CCVars;
+using Content.Shared.Abilities;
 using Robust.Client.Graphics;
 using Robust.Shared.Configuration;
 using Robust.Shared.Player;
@@ -8,10 +8,17 @@ namespace Content.Client.Nyanotrasen.Overlays;
 
 public sealed partial class DogVisionSystem : EntitySystem
 {
-    [Dependency] private readonly IOverlayManager _overlayMan = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly ISharedPlayerManager _playerMan = default!;
-    [Dependency] private readonly IEntityManager _entityManager = default!;
+    [Dependency]
+    private readonly IOverlayManager _overlayMan = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
+
+    [Dependency]
+    private readonly ISharedPlayerManager _playerMan = default!;
+
+    [Dependency]
+    private readonly IEntityManager _entityManager = default!;
 
     private DogVisionOverlay _overlay = default!;
 
@@ -62,7 +69,8 @@ public sealed partial class DogVisionSystem : EntitySystem
     {
         // If a no-bypass component exists on the local player, ignore the accessibility toggle.
         var local = _playerMan.LocalEntity;
-        var hasNoBypass = local is { Valid: true } && _entityManager.HasComponent<DogVisionNoBypassComponent>(local.Value);
+        var hasNoBypass =
+            local is { Valid: true } && _entityManager.HasComponent<DogVisionNoBypassComponent>(local.Value);
 
         if (enabled && !hasNoBypass)
             _overlayMan.RemoveOverlay(_overlay);
@@ -76,18 +84,30 @@ public sealed partial class DogVisionSystem : EntitySystem
             _overlayMan.AddOverlay(_overlay);
     }
 
-    private void OnDogVisionNoBypassShutdown(EntityUid uid, DogVisionNoBypassComponent component, ComponentShutdown args)
+    private void OnDogVisionNoBypassShutdown(
+        EntityUid uid,
+        DogVisionNoBypassComponent component,
+        ComponentShutdown args
+    )
     {
         if (uid == _playerMan.LocalEntity)
             _overlayMan.RemoveOverlay(_overlay);
     }
 
-    private void OnDogVisionNoBypassPlayerAttached(EntityUid uid, DogVisionNoBypassComponent component, LocalPlayerAttachedEvent args)
+    private void OnDogVisionNoBypassPlayerAttached(
+        EntityUid uid,
+        DogVisionNoBypassComponent component,
+        LocalPlayerAttachedEvent args
+    )
     {
         _overlayMan.AddOverlay(_overlay);
     }
 
-    private void OnDogVisionNoBypassPlayerDetached(EntityUid uid, DogVisionNoBypassComponent component, LocalPlayerDetachedEvent args)
+    private void OnDogVisionNoBypassPlayerDetached(
+        EntityUid uid,
+        DogVisionNoBypassComponent component,
+        LocalPlayerDetachedEvent args
+    )
     {
         _overlayMan.RemoveOverlay(_overlay);
     }

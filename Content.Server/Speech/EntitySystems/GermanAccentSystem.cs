@@ -1,14 +1,17 @@
 using System.Text;
+using System.Text.RegularExpressions;
 using Content.Server.Speech.Components;
 using Robust.Shared.Random;
-using System.Text.RegularExpressions;
 
 namespace Content.Server.Speech.EntitySystems;
 
 public sealed class GermanAccentSystem : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly ReplacementAccentSystem _replacement = default!;
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly ReplacementAccentSystem _replacement = default!;
 
     private static readonly Regex RegexTh = new(@"(?<=\s|^)th", RegexOptions.IgnoreCase);
     private static readonly Regex RegexThe = new(@"(?<=\s|^)the(?=\s|$)", RegexOptions.IgnoreCase);
@@ -29,11 +32,12 @@ public sealed class GermanAccentSystem : EntitySystem
             if (_random.Prob(0.3f))
             {
                 // just shift T, H and E over to D, A and S to preserve capitalization
-                msg = msg.Substring(0, match.Index) +
-                      (char)(msg[match.Index] - 16) +
-                      (char)(msg[match.Index + 1] - 7) +
-                      (char)(msg[match.Index + 2] + 14) +
-                      msg.Substring(match.Index + 3);
+                msg =
+                    msg.Substring(0, match.Index)
+                    + (char)(msg[match.Index] - 16)
+                    + (char)(msg[match.Index + 1] - 7)
+                    + (char)(msg[match.Index + 2] + 14)
+                    + msg.Substring(match.Index + 3);
             }
         }
 
@@ -45,7 +49,7 @@ public sealed class GermanAccentSystem : EntitySystem
         foreach (Match match in RegexTh.Matches(msg))
         {
             // just shift the T over to a Z to preserve capitalization
-            msgBuilder[match.Index] = (char) (msgBuilder[match.Index] + 6);
+            msgBuilder[match.Index] = (char)(msgBuilder[match.Index] + 6);
         }
 
         // Random Umlaut Time! (The joke outweighs the emotional damage this inflicts on actual Germans)
@@ -64,7 +68,7 @@ public sealed class GermanAccentSystem : EntitySystem
                         'o' => 'ö',
                         'U' => 'Ü',
                         'u' => 'ü',
-                        _ => msgBuilder[i]
+                        _ => msgBuilder[i],
                     };
                     umlautCooldown = 4;
                 }

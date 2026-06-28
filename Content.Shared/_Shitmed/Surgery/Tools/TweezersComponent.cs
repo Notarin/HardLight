@@ -10,6 +10,7 @@ public sealed partial class TweezersComponent : Component, ISurgeryToolComponent
 {
     public string ToolName => "tweezers";
     public bool? Used { get; set; } = null;
+
     [DataField]
     public float Speed { get; set; } = 1f;
 }

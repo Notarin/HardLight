@@ -20,11 +20,11 @@
     Tail:
       points: 1
       required: true
-      defaultMarkings: [ TajaranTailRetro ]
+      defaultMarkings: [TajaranTailRetro]
     HeadTop:
       points: 1
       required: true
-      defaultMarkings: [ TajaranEarsBasic ]
+      defaultMarkings: [TajaranEarsBasic]
     Chest:
       points: 1
       required: false

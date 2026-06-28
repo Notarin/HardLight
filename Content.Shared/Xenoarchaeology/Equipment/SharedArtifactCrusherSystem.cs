@@ -1,8 +1,8 @@
+using Content.Shared.Emag.Systems;
 using Content.Shared.Examine;
 using Content.Shared.Storage.Components;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
-using Content.Shared.Emag.Systems;
 
 namespace Content.Shared.Xenoarchaeology.Equipment;
 
@@ -11,9 +11,14 @@ namespace Content.Shared.Xenoarchaeology.Equipment;
 /// </summary>
 public abstract class SharedArtifactCrusherSystem : EntitySystem
 {
-    [Dependency] protected readonly SharedAppearanceSystem Appearance = default!;
-    [Dependency] protected readonly SharedAudioSystem AudioSystem = default!;
-    [Dependency] protected readonly SharedContainerSystem ContainerSystem = default!;
+    [Dependency]
+    protected readonly SharedAppearanceSystem Appearance = default!;
+
+    [Dependency]
+    protected readonly SharedAudioSystem AudioSystem = default!;
+
+    [Dependency]
+    protected readonly SharedContainerSystem ContainerSystem = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -52,7 +57,11 @@ public abstract class SharedArtifactCrusherSystem : EntitySystem
 
     private void OnExamine(Entity<ArtifactCrusherComponent> ent, ref ExaminedEvent args)
     {
-        args.PushMarkup(ent.Comp.AutoLock ? Loc.GetString("artifact-crusher-examine-autolocks") : Loc.GetString("artifact-crusher-examine-no-autolocks"));
+        args.PushMarkup(
+            ent.Comp.AutoLock
+                ? Loc.GetString("artifact-crusher-examine-autolocks")
+                : Loc.GetString("artifact-crusher-examine-no-autolocks")
+        );
     }
 
     public void StopCrushing(Entity<ArtifactCrusherComponent> ent, bool early = true)

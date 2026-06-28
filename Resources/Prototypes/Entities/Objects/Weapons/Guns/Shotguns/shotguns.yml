@@ -8,7 +8,7 @@
   - type: Sprite
     layers:
     - state: icon
-      map: [ "enum.GunVisualLayers.Base" ]
+      map: ["enum.GunVisualLayers.Base"]
   - type: Item
     # If you update this also update the bulldog's size.
     size: Large
@@ -154,7 +154,7 @@
     id: Enforcer # Frontier
 
 - type: entity
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   parent: WeaponShotgunEnforcer
   id: WeaponShotgunEnforcerRubber
   suffix: Non-Lethal
@@ -188,7 +188,7 @@
 
 - type: entity
   name: sawn-off shotgun (12 gauge)
-  parent: [ BaseWeaponShotgun, BaseC1Contraband ] # Frontier: BaseSecurityBartenderContraband<BaseC1Contraband
+  parent: [BaseWeaponShotgun, BaseC1Contraband] # Frontier: BaseSecurityBartenderContraband<BaseC1Contraband
   id: WeaponShotgunSawn
   description: Groovy! Uses 12 gauge shotgun shells.
   components: # needs to be super inaccurate because you don't need to wield it

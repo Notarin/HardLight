@@ -1,6 +1,6 @@
 - type: quickPhrase
   id: BaseEngineeringSubjectPhrase
-  parent: [ BaseSubjectPhrase, BaseEngineeringPhrase ]
+  parent: [BaseSubjectPhrase, BaseEngineeringPhrase]
   abstract: true
 
 - type: quickPhrase

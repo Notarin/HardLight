@@ -1,23 +1,29 @@
+using System.Linq;
 using Content.Server.Atmos.Piping.Unary.Components;
 using Content.Server.Fluids.EntitySystems;
 using Content.Server.StationEvents.Components;
 using Content.Shared.Chemistry.Components;
+using Content.Shared.Chemistry.Reaction;
 using Content.Shared.Chemistry.Reagent;
 using Content.Shared.GameTicking.Components;
 using Content.Shared.Station.Components;
 using JetBrains.Annotations;
 using Robust.Shared.Random;
-using System.Linq;
-using Content.Shared.Chemistry.Reaction;
 
 namespace Content.Server.StationEvents.Events;
 
 [UsedImplicitly]
 public sealed class VentClogRule : StationEventSystem<VentClogRuleComponent>
 {
-    [Dependency] private readonly SmokeSystem _smoke = default!;
+    [Dependency]
+    private readonly SmokeSystem _smoke = default!;
 
-    protected override void Started(EntityUid uid, VentClogRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
+    protected override void Started(
+        EntityUid uid,
+        VentClogRuleComponent component,
+        GameRuleComponent gameRule,
+        GameRuleStartedEvent args
+    )
     {
         base.Started(uid, component, gameRule, args);
 
@@ -25,9 +31,11 @@ public sealed class VentClogRule : StationEventSystem<VentClogRuleComponent>
             return;
 
         // TODO: "safe random" for chems. Right now this includes admin chemicals.
-        var allReagents = PrototypeManager.EnumeratePrototypes<ReagentPrototype>()
+        var allReagents = PrototypeManager
+            .EnumeratePrototypes<ReagentPrototype>()
             .Where(x => !x.Abstract)
-            .Select(x => x.ID).ToList();
+            .Select(x => x.ID)
+            .ToList();
 
         foreach (var (_, transform) in EntityManager.EntityQuery<GasVentPumpComponent, TransformComponent>())
         {

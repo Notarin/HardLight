@@ -2,8 +2,8 @@
 //
 // SPDX-License-Identifier: MPL-2.0
 
-using Robust.Shared.Map.Components;
 using System;
+using Robust.Shared.Map.Components;
 
 namespace Content.Shared._Mono.Detection;
 
@@ -27,7 +27,9 @@ public sealed class DetectionSystem : EntitySystem
         var visualSig = gridDiagonal;
         var visualRadius = visualSig * comp.VisualMultiplier;
 
-        var thermalSig = TryComp<ThermalSignatureComponent>(grid, out var sigComp) ? MathF.Max(sigComp.TotalHeat, 0f) : 0f;
+        var thermalSig = TryComp<ThermalSignatureComponent>(grid, out var sigComp)
+            ? MathF.Max(sigComp.TotalHeat, 0f)
+            : 0f;
         var thermalRadius = MathF.Sqrt(thermalSig) * comp.InfraredMultiplier;
 
         if (TryComp<DetectedAtRangeMultiplierComponent>(grid, out var compAt))
@@ -76,5 +78,5 @@ public enum DetectionLevel : int
 {
     Detected = 0,
     PartialDetected = 1,
-    Undetected = 2
+    Undetected = 2,
 }

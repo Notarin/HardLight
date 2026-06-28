@@ -17,10 +17,7 @@ public sealed partial class FlyBySoundComponent : Component
 
     [ViewVariables(VVAccess.ReadWrite), DataField("sound")]
     [AutoNetworkedField]
-    public SoundSpecifier Sound = new SoundCollectionSpecifier("BulletMiss")
-    {
-        Params = AudioParams.Default,
-    };
+    public SoundSpecifier Sound = new SoundCollectionSpecifier("BulletMiss") { Params = AudioParams.Default };
 
     [DataField("range")]
     [AutoNetworkedField]

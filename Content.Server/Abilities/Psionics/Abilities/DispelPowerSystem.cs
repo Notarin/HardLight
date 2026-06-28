@@ -1,28 +1,40 @@
-using Content.Shared.StatusEffect;
-using Content.Shared.Abilities.Psionics;
-using Content.Shared.Nyanotrasen.Abilities.Psionics;
-using Content.Shared.Damage;
-using Content.Shared.Revenant.Components;
-using Content.Server.Guardian;
 using Content.Server.Bible.Components;
+using Content.Server.Guardian;
 using Content.Server.Popups;
+using Content.Shared.Abilities.Psionics;
+using Content.Shared.Actions.Events;
+using Content.Shared.Damage;
+using Content.Shared.Nyanotrasen.Abilities.Psionics;
+using Content.Shared.Revenant.Components;
+using Content.Shared.StatusEffect;
+using Robust.Shared.Audio.Systems;
 using Robust.Shared.Player;
 using Robust.Shared.Random;
-using Content.Shared.Actions.Events;
-using Robust.Shared.Audio.Systems;
 
 namespace Content.Server.Abilities.Psionics
 {
     public sealed class DispelPowerSystem : EntitySystem
     {
-        [Dependency] private readonly StatusEffectsSystem _statusEffects = default!;
-        [Dependency] private readonly DamageableSystem _damageableSystem = default!;
-        [Dependency] private readonly GuardianSystem _guardianSystem = default!;
-        [Dependency] private readonly IRobustRandom _random = default!;
-        [Dependency] private readonly SharedPsionicAbilitiesSystem _psionics = default!;
-        [Dependency] private readonly SharedAudioSystem _audioSystem = default!;
-        [Dependency] private readonly PopupSystem _popupSystem = default!;
+        [Dependency]
+        private readonly StatusEffectsSystem _statusEffects = default!;
 
+        [Dependency]
+        private readonly DamageableSystem _damageableSystem = default!;
+
+        [Dependency]
+        private readonly GuardianSystem _guardianSystem = default!;
+
+        [Dependency]
+        private readonly IRobustRandom _random = default!;
+
+        [Dependency]
+        private readonly SharedPsionicAbilitiesSystem _psionics = default!;
+
+        [Dependency]
+        private readonly SharedAudioSystem _audioSystem = default!;
+
+        [Dependency]
+        private readonly PopupSystem _popupSystem = default!;
 
         public override void Initialize()
         {
@@ -59,7 +71,13 @@ namespace Content.Server.Abilities.Psionics
 
             QueueDel(uid);
             Spawn("Ash", Transform(uid).Coordinates);
-            _popupSystem.PopupCoordinates(Loc.GetString("psionic-burns-up", ("item", uid)), Transform(uid).Coordinates, Filter.Pvs(uid), true, Shared.Popups.PopupType.MediumCaution);
+            _popupSystem.PopupCoordinates(
+                Loc.GetString("psionic-burns-up", ("item", uid)),
+                Transform(uid).Coordinates,
+                Filter.Pvs(uid),
+                true,
+                Shared.Popups.PopupType.MediumCaution
+            );
             _audioSystem.PlayEntity("/Audio/Effects/lightburn.ogg", Filter.Pvs(uid), uid, true);
             args.Handled = true;
         }
@@ -106,7 +124,13 @@ namespace Content.Server.Abilities.Psionics
             if (Deleted(uid))
                 return;
 
-            _popupSystem.PopupCoordinates(Loc.GetString("psionic-burn-resist", ("item", uid)), Transform(uid).Coordinates, Filter.Pvs(uid), true, Shared.Popups.PopupType.SmallCaution);
+            _popupSystem.PopupCoordinates(
+                Loc.GetString("psionic-burn-resist", ("item", uid)),
+                Transform(uid).Coordinates,
+                Filter.Pvs(uid),
+                true,
+                Shared.Popups.PopupType.SmallCaution
+            );
             _audioSystem.PlayEntity("/Audio/Effects/lightburn.ogg", Filter.Pvs(uid), uid, true);
 
             if (damage == null)
@@ -117,7 +141,6 @@ namespace Content.Server.Abilities.Psionics
             _damageableSystem.TryChangeDamage(uid, damage, true, true);
         }
     }
-    public sealed class DispelledEvent : HandledEntityEventArgs {}
+
+    public sealed class DispelledEvent : HandledEntityEventArgs { }
 }
-
-

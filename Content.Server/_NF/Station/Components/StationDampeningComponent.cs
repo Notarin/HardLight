@@ -5,6 +5,4 @@
 namespace Content.Server._NF.Station.Components;
 
 [RegisterComponent]
-public sealed partial class StationDampeningComponent : Component
-{
-}
+public sealed partial class StationDampeningComponent : Component { }

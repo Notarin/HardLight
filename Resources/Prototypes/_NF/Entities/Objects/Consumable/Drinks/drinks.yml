@@ -129,7 +129,7 @@
     solution: drink
   - type: Tag
     tags:
-      - DrinkGlass
+    - DrinkGlass
   - type: Sprite
     sprite: _NF/Objects/Consumable/Drinks/coffeecup.rsi
     state: icon

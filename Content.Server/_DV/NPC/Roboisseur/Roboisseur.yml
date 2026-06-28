@@ -3,13 +3,13 @@
   name: Roboisseur
   description: Robotic connoisseur
   components:
-    - type: Roboisseur
-    - type: InteractionOutline
-    - type: Clickable
-    - type: ActionOnInteract
-      actions:
-        - type: ActivateInWorld
-    - type: Sprite
-      sprite: /Textures/Objects/roboisseur.rsi
-      layers:
-        - state: roboisseur
+  - type: Roboisseur
+  - type: InteractionOutline
+  - type: Clickable
+  - type: ActionOnInteract
+    actions:
+    - type: ActivateInWorld
+  - type: Sprite
+    sprite: /Textures/Objects/roboisseur.rsi
+    layers:
+    - state: roboisseur

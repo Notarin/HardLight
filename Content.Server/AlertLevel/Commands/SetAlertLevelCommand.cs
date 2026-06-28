@@ -12,13 +12,14 @@ namespace Content.Server.AlertLevel.Commands
     [AdminCommand(AdminFlags.Fun)]
     public sealed class SetAlertLevelCommand : LocalizedCommands
     {
-        [Dependency] private readonly IEntitySystemManager _entitySystems = default!;
+        [Dependency]
+        private readonly IEntitySystemManager _entitySystems = default!;
 
         public override string Command => "setalertlevel";
 
         public override CompletionResult GetCompletion(IConsoleShell shell, string[] args)
         {
-            var levelNames = new string[] {};
+            var levelNames = new string[] { };
             var player = shell.Player;
             if (player?.AttachedEntity != null)
             {
@@ -34,10 +35,14 @@ namespace Content.Server.AlertLevel.Commands
 
             return args.Length switch
             {
-                1 => CompletionResult.FromHintOptions(levelNames,
-                    LocalizationManager.GetString("cmd-setalertlevel-hint-1")),
-                2 => CompletionResult.FromHintOptions(CompletionHelper.Booleans,
-                    LocalizationManager.GetString("cmd-setalertlevel-hint-2")),
+                1 => CompletionResult.FromHintOptions(
+                    levelNames,
+                    LocalizationManager.GetString("cmd-setalertlevel-hint-1")
+                ),
+                2 => CompletionResult.FromHintOptions(
+                    CompletionHelper.Booleans,
+                    LocalizationManager.GetString("cmd-setalertlevel-hint-2")
+                ),
                 _ => CompletionResult.Empty,
             };
         }
@@ -64,7 +69,9 @@ namespace Content.Server.AlertLevel.Commands
                 return;
             }
 
-            var stationUid = _entitySystems.GetEntitySystem<StationSystem>().GetOwningStation(player.AttachedEntity.Value);
+            var stationUid = _entitySystems
+                .GetEntitySystem<StationSystem>()
+                .GetOwningStation(player.AttachedEntity.Value);
             if (stationUid == null)
             {
                 shell.WriteLine(LocalizationManager.GetString("cmd-setalertlevel-invalid-grid"));
@@ -79,7 +86,9 @@ namespace Content.Server.AlertLevel.Commands
                 return;
             }
 
-            _entitySystems.GetEntitySystem<AlertLevelSystem>().SetLevel(stationUid.Value, level, true, true, true, locked);
+            _entitySystems
+                .GetEntitySystem<AlertLevelSystem>()
+                .SetLevel(stationUid.Value, level, true, true, true, locked);
         }
 
         // Frontier: sector-wide alert level names
@@ -88,10 +97,10 @@ namespace Content.Server.AlertLevel.Commands
             var sectorServiceUid = _entitySystems.GetEntitySystem<SectorServiceSystem>().GetServiceEntity();
             var entityManager = IoCManager.Resolve<IEntityManager>();
             if (!entityManager.TryGetComponent<AlertLevelComponent>(sectorServiceUid, out var alertLevelComp))
-                return new string[]{};
+                return new string[] { };
 
             if (alertLevelComp.AlertLevels == null)
-                return new string[]{};
+                return new string[] { };
 
             return alertLevelComp.AlertLevels.Levels.Keys.ToArray();
         }

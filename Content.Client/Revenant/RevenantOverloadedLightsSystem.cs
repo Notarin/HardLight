@@ -6,7 +6,8 @@ namespace Content.Client.Revenant;
 
 public sealed class RevenantOverloadedLightsSystem : SharedRevenantOverloadedLightsSystem
 {
-    [Dependency] private readonly SharedPointLightSystem _lights = default!;
+    [Dependency]
+    private readonly SharedPointLightSystem _lights = default!;
 
     public override void Initialize()
     {
@@ -25,7 +26,7 @@ public sealed class RevenantOverloadedLightsSystem : SharedRevenantOverloadedLig
         while (enumerator.MoveNext(out var uid, out var comp, out var light))
         {
             //this looks cool :HECK:
-            _lights.SetEnergy(uid, 2f * Math.Abs((float) Math.Sin(0.25 * Math.PI * comp.Accumulator)), light);
+            _lights.SetEnergy(uid, 2f * Math.Abs((float)Math.Sin(0.25 * Math.PI * comp.Accumulator)), light);
         }
     }
 
@@ -55,8 +56,5 @@ public sealed class RevenantOverloadedLightsSystem : SharedRevenantOverloadedLig
         Dirty(uid, light);
     }
 
-    protected override void OnZap(Entity<RevenantOverloadedLightsComponent> component)
-    {
-
-    }
+    protected override void OnZap(Entity<RevenantOverloadedLightsComponent> component) { }
 }

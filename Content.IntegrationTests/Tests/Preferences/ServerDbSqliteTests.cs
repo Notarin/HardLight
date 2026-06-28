@@ -22,7 +22,8 @@ namespace Content.IntegrationTests.Tests.Preferences
     public sealed class ServerDbSqliteTests
     {
         [TestPrototypes]
-        private const string Prototypes = @"
+        private const string Prototypes =
+            @"
 - type: dataset
   id: sqlite_test_names_first_male
   values:
@@ -56,7 +57,8 @@ namespace Content.IntegrationTests.Tests.Preferences
                     Color.Azure,
                     false, //starlight
                     Color.Beige,
-                    new ())
+                    new()
+                ),
             }.WithBankBalance(27000); // Frontier - accessor issue
         }
 
@@ -119,8 +121,11 @@ namespace Content.IntegrationTests.Tests.Preferences
             var pair = await PoolManager.GetServerClient();
             var server = pair.Server;
             var db = GetDb(server);
-            Assert.That(async () => await db.HasPendingModelChanges(), Is.False,
-                "The database has pending model changes. Add a new migration to apply them. See https://learn.microsoft.com/en-us/ef/core/managing-schemas/migrations");
+            Assert.That(
+                async () => await db.HasPendingModelChanges(),
+                Is.False,
+                "The database has pending model changes. Add a new migration to apply them. See https://learn.microsoft.com/en-us/ef/core/managing-schemas/migrations"
+            );
             await pair.CleanReturnAsync();
         }
 

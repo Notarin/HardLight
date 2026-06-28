@@ -5,4 +5,7 @@ using Robust.Shared.Prototypes;
 namespace Content.Server._NF.Players.GhostRole.Events;
 
 [ByRefEvent]
-public readonly record struct GetDisallowedGhostRolesEvent(ICommonSession Player, HashSet<ProtoId<GhostRolePrototype>> GhostRoles);
+public readonly record struct GetDisallowedGhostRolesEvent(
+    ICommonSession Player,
+    HashSet<ProtoId<GhostRolePrototype>> GhostRoles
+);

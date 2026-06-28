@@ -11,7 +11,11 @@ public sealed class SmokeVisualizerSystem : VisualizerSystem<SmokeVisualsCompone
     /// <summary>
     /// Syncs the color of the smoke with the color of its contained reagents.
     /// </summary>
-    protected override void OnAppearanceChange(EntityUid uid, SmokeVisualsComponent comp, ref AppearanceChangeEvent args)
+    protected override void OnAppearanceChange(
+        EntityUid uid,
+        SmokeVisualsComponent comp,
+        ref AppearanceChangeEvent args
+    )
     {
         if (args.Sprite == null)
             return;

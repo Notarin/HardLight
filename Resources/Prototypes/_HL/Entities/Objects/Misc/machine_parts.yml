@@ -9,15 +9,15 @@
   - type: EmitSoundOnLand
     sound:
       path: /Audio/Items/crowbar_drop.ogg
-# Placeholder sprite, but has to be good enough in case it isn't replaced for a long time
+      # Placeholder sprite, but has to be good enough in case it isn't replaced for a long time
   - type: Sprite
     sprite: Structures/Piping/Atmospherics/pump.rsi
     state: PumpManualValve
     rotation: 90 # Rotated 90 degrees to best match default rotation when stored.
     layers:
-      - sprite: Structures/Piping/Atmospherics/pipe.rsi
-        state: pipeStraight
-      - state: pumpManualValve
+    - sprite: Structures/Piping/Atmospherics/pipe.rsi
+      state: pipeStraight
+    - state: pumpManualValve
   - type: StaticPrice
     price: 55
   - type: PhysicalComposition
@@ -49,9 +49,9 @@
     state: pumpVolume
     rotation: 90 # Rotated 90 degrees to best match default rotation when stored.
     layers:
-      - sprite: Structures/Piping/Atmospherics/pipe.rsi
-        state: pipeStraight
-      - state: pumpVolume
+    - sprite: Structures/Piping/Atmospherics/pipe.rsi
+      state: pipeStraight
+    - state: pumpVolume
   - type: StaticPrice
     price: 1200
   - type: PhysicalComposition

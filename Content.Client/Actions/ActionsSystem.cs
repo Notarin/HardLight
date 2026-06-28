@@ -23,11 +23,20 @@ namespace Content.Client.Actions
     {
         public delegate void OnActionReplaced(EntityUid actionId);
 
-        [Dependency] private readonly SharedChargesSystem _sharedCharges = default!;
-        [Dependency] private readonly IPlayerManager _playerManager = default!;
-        [Dependency] private readonly IResourceManager _resources = default!;
-        [Dependency] private readonly ISerializationManager _serialization = default!;
-        [Dependency] private readonly MetaDataSystem _metaData = default!;
+        [Dependency]
+        private readonly SharedChargesSystem _sharedCharges = default!;
+
+        [Dependency]
+        private readonly IPlayerManager _playerManager = default!;
+
+        [Dependency]
+        private readonly IResourceManager _resources = default!;
+
+        [Dependency]
+        private readonly ISerializationManager _serialization = default!;
+
+        [Dependency]
+        private readonly MetaDataSystem _metaData = default!;
 
         public event Action<EntityUid>? OnActionAdded;
         public event Action<EntityUid>? OnActionRemoved;
@@ -53,7 +62,11 @@ namespace Content.Client.Actions
             SubscribeLocalEvent<EntityWorldTargetActionComponent, ComponentHandleState>(OnEntityWorldTargetHandleState);
         }
 
-        private void OnInstantHandleState(EntityUid uid, InstantActionComponent component, ref ComponentHandleState args)
+        private void OnInstantHandleState(
+            EntityUid uid,
+            InstantActionComponent component,
+            ref ComponentHandleState args
+        )
         {
             if (args.Current is not InstantActionComponentState state)
                 return;
@@ -61,7 +74,11 @@ namespace Content.Client.Actions
             BaseHandleState<InstantActionComponent>(uid, component, state);
         }
 
-        private void OnEntityTargetHandleState(EntityUid uid, EntityTargetActionComponent component, ref ComponentHandleState args)
+        private void OnEntityTargetHandleState(
+            EntityUid uid,
+            EntityTargetActionComponent component,
+            ref ComponentHandleState args
+        )
         {
             if (args.Current is not EntityTargetActionComponentState state)
                 return;
@@ -72,7 +89,11 @@ namespace Content.Client.Actions
             BaseHandleState<EntityTargetActionComponent>(uid, component, state);
         }
 
-        private void OnWorldTargetHandleState(EntityUid uid, WorldTargetActionComponent component, ref ComponentHandleState args)
+        private void OnWorldTargetHandleState(
+            EntityUid uid,
+            WorldTargetActionComponent component,
+            ref ComponentHandleState args
+        )
         {
             if (args.Current is not WorldTargetActionComponentState state)
                 return;
@@ -80,9 +101,11 @@ namespace Content.Client.Actions
             BaseHandleState<WorldTargetActionComponent>(uid, component, state);
         }
 
-        private void OnEntityWorldTargetHandleState(EntityUid uid,
+        private void OnEntityWorldTargetHandleState(
+            EntityUid uid,
             EntityWorldTargetActionComponent component,
-            ref ComponentHandleState args)
+            ref ComponentHandleState args
+        )
         {
             if (args.Current is not EntityWorldTargetActionComponentState state)
                 return;
@@ -92,7 +115,8 @@ namespace Content.Client.Actions
             BaseHandleState<EntityWorldTargetActionComponent>(uid, component, state);
         }
 
-        private void BaseHandleState<T>(EntityUid uid, BaseActionComponent component, BaseActionComponentState state) where T : BaseActionComponent
+        private void BaseHandleState<T>(EntityUid uid, BaseActionComponent component, BaseActionComponentState state)
+            where T : BaseActionComponent
         {
             // TODO ACTIONS use auto comp states
             component.Icon = state.Icon;
@@ -129,7 +153,10 @@ namespace Content.Client.Actions
                 return;
 
             // TODO: Decouple this.
-            action.IconColor = _sharedCharges.GetCurrentCharges(actionId.Value) == 0 ? action.DisabledIconColor : action.OriginalIconColor;
+            action.IconColor =
+                _sharedCharges.GetCurrentCharges(actionId.Value) == 0
+                    ? action.DisabledIconColor
+                    : action.OriginalIconColor;
 
             base.UpdateAction(actionId, action);
             if (_playerManager.LocalEntity != action.AttachedEntity)
@@ -195,8 +222,12 @@ namespace Content.Client.Actions
             return priorityA - priorityB;
         }
 
-        protected override void ActionAdded(EntityUid performer, EntityUid actionId, ActionsComponent comp,
-            BaseActionComponent action)
+        protected override void ActionAdded(
+            EntityUid performer,
+            EntityUid actionId,
+            ActionsComponent comp,
+            BaseActionComponent action
+        )
         {
             if (_playerManager.LocalEntity != performer)
                 return;
@@ -204,7 +235,12 @@ namespace Content.Client.Actions
             OnActionAdded?.Invoke(actionId);
         }
 
-        protected override void ActionRemoved(EntityUid performer, EntityUid actionId, ActionsComponent comp, BaseActionComponent action)
+        protected override void ActionRemoved(
+            EntityUid performer,
+            EntityUid actionId,
+            ActionsComponent comp,
+            BaseActionComponent action
+        )
         {
             if (_playerManager.LocalEntity != performer)
                 return;
@@ -237,8 +273,7 @@ namespace Content.Client.Actions
 
         public void LinkAllActions(ActionsComponent? actions = null)
         {
-            if (_playerManager.LocalEntity is not { } user ||
-                !Resolve(user, ref actions, false))
+            if (_playerManager.LocalEntity is not { } user || !Resolve(user, ref actions, false))
             {
                 return;
             }
@@ -254,8 +289,7 @@ namespace Content.Client.Actions
 
         public void TriggerAction(EntityUid actionId, BaseActionComponent action)
         {
-            if (_playerManager.LocalEntity is not { } user ||
-                !TryComp(user, out ActionsComponent? actions))
+            if (_playerManager.LocalEntity is not { } user || !TryComp(user, out ActionsComponent? actions))
             {
                 return;
             }
@@ -283,9 +317,7 @@ namespace Content.Client.Actions
                 return;
 
             var file = new ResPath(path).ToRootedPath();
-            TextReader reader = userData
-                ? _resources.UserData.OpenText(file)
-                : _resources.ContentFileReadText(file);
+            TextReader reader = userData ? _resources.UserData.OpenText(file) : _resources.ContentFileReadText(file);
 
             var yamlStream = new YamlStream();
             yamlStream.Load(reader);
@@ -316,7 +348,10 @@ namespace Content.Client.Actions
                 if (!map.TryGet("assignments", out var assignmentNode))
                     continue;
 
-                var nodeAssignments = _serialization.Read<List<(byte Hotbar, byte Slot)>>(assignmentNode, notNullableOverride: true);
+                var nodeAssignments = _serialization.Read<List<(byte Hotbar, byte Slot)>>(
+                    assignmentNode,
+                    notNullableOverride: true
+                );
 
                 foreach (var index in nodeAssignments)
                 {

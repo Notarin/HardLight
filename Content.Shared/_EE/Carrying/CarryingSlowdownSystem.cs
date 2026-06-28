@@ -5,7 +5,8 @@ namespace Content.Shared.Carrying
 {
     public sealed class CarryingSlowdownSystem : EntitySystem
     {
-        [Dependency] private readonly MovementSpeedModifierSystem _movementSpeed = default!;
+        [Dependency]
+        private readonly MovementSpeedModifierSystem _movementSpeed = default!;
 
         public override void Initialize()
         {
@@ -15,7 +16,12 @@ namespace Content.Shared.Carrying
             SubscribeLocalEvent<CarryingSlowdownComponent, RefreshMovementSpeedModifiersEvent>(OnRefreshMoveSpeed);
         }
 
-        public void SetModifier(EntityUid uid, float walkSpeedModifier, float sprintSpeedModifier, CarryingSlowdownComponent? component = null)
+        public void SetModifier(
+            EntityUid uid,
+            float walkSpeedModifier,
+            float sprintSpeedModifier,
+            CarryingSlowdownComponent? component = null
+        )
         {
             if (!Resolve(uid, ref component))
                 return;
@@ -24,6 +30,7 @@ namespace Content.Shared.Carrying
             component.SprintModifier = sprintSpeedModifier;
             _movementSpeed.RefreshMovementSpeedModifiers(uid);
         }
+
         private void OnGetState(EntityUid uid, CarryingSlowdownComponent component, ref ComponentGetState args)
         {
             args.State = new CarryingSlowdownComponentState(component.WalkModifier, component.SprintModifier);
@@ -38,7 +45,12 @@ namespace Content.Shared.Carrying
             component.SprintModifier = state.SprintModifier;
             _movementSpeed.RefreshMovementSpeedModifiers(uid);
         }
-        private void OnRefreshMoveSpeed(EntityUid uid, CarryingSlowdownComponent component, RefreshMovementSpeedModifiersEvent args)
+
+        private void OnRefreshMoveSpeed(
+            EntityUid uid,
+            CarryingSlowdownComponent component,
+            RefreshMovementSpeedModifiersEvent args
+        )
         {
             args.ModifySpeed(component.WalkModifier, component.SprintModifier);
         }

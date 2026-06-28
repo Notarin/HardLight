@@ -1,14 +1,13 @@
 using System.Diagnostics.CodeAnalysis;
-using Content.Server.StationRecords.Systems;
-using Content.Shared.PsionicsRecords;
-using Content.Shared.Psionics;
-using Content.Shared.StationRecords;
 using Content.Server.GameTicking;
+using Content.Server.StationRecords.Systems;
+using Content.Shared.Psionics;
+using Content.Shared.PsionicsRecords;
+using Content.Shared.StationRecords;
 
 /// <summary>
 /// EVERYTHING HERE IS A MODIFIED VERSION OF CRIMINAL RECORDS
 /// </summary>
-
 namespace Content.Server.PsionicsRecords.Systems;
 
 /// <summary>
@@ -21,7 +20,8 @@ namespace Content.Server.PsionicsRecords.Systems;
 /// </summary>
 public sealed class PsionicsRecordsSystem : EntitySystem
 {
-    [Dependency] private readonly StationRecordsSystem _stationRecords = default!;
+    [Dependency]
+    private readonly StationRecordsSystem _stationRecords = default!;
 
     public override void Initialize()
     {
@@ -44,8 +44,7 @@ public sealed class PsionicsRecordsSystem : EntitySystem
     public bool TryChangeStatus(StationRecordKey key, PsionicsStatus status, string? reason)
     {
         // don't do anything if its the same status
-        if (!_stationRecords.TryGetRecord<PsionicsRecord>(key, out var record)
-            || status == record.Status)
+        if (!_stationRecords.TryGetRecord<PsionicsRecord>(key, out var record) || status == record.Status)
             return false;
 
         record.Status = status;

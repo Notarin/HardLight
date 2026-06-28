@@ -13,8 +13,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.35,-0.4,0.35,0.4"
         density: 100
   - type: Damageable
@@ -28,12 +27,11 @@
           variation: 0.05
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 10
       behaviors:
       - !type:DoActsBehavior
-          acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:SpawnEntitiesBehavior
         spawn:
           Log:
@@ -73,8 +71,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.1,-0.5,0.1,0.5"
         mask:
         - FullTileMask
@@ -89,12 +86,11 @@
           variation: 0.05
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 50
       behaviors:
       - !type:DoActsBehavior
-          acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:SpawnEntitiesBehavior
         spawn:
           Log:
@@ -113,8 +109,7 @@
     fixtures:
       fix1:
         hard: false
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.5,-0.5,0.5,0.5"
         mask:
         - FullTileMask
@@ -148,8 +143,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.5,-0.5,0.5,0.5"
         mask:
         - FullTileMask
@@ -158,12 +152,11 @@
         density: 1000
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 75
       behaviors:
       - !type:DoActsBehavior
-          acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:SpawnEntitiesBehavior
         spawn:
           Log:
@@ -179,12 +172,11 @@
     state: support_wall_broken
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 50
       behaviors:
       - !type:DoActsBehavior
-          acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:SpawnEntitiesBehavior
         spawn:
           Log:

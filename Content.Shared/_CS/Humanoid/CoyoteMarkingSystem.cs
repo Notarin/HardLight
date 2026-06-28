@@ -6,13 +6,13 @@ namespace Content.Shared._CS.Humanoid;
 
 public sealed class CoyoteMarkingSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototype = default!;
 
     public bool TryGetWaggingId(ProtoId<MarkingPrototype> markingId, [NotNullWhen(true)] out string? waggingId)
     {
         waggingId = null!;
-        if (!_prototype.TryIndex(markingId, out var marking) ||
-            marking.WaggingId == null)
+        if (!_prototype.TryIndex(markingId, out var marking) || marking.WaggingId == null)
         {
             return false;
         }
@@ -24,8 +24,7 @@ public sealed class CoyoteMarkingSystem : EntitySystem
     public bool TryGetStaticId(ProtoId<MarkingPrototype> markingId, [NotNullWhen(true)] out string? staticId)
     {
         staticId = null!;
-        if (!_prototype.TryIndex(markingId, out var marking) ||
-            marking.StaticId == null)
+        if (!_prototype.TryIndex(markingId, out var marking) || marking.StaticId == null)
         {
             return false;
         }

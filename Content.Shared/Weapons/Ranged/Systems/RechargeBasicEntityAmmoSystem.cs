@@ -11,11 +11,20 @@ namespace Content.Shared.Weapons.Ranged.Systems;
 
 public sealed class RechargeBasicEntityAmmoSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly INetManager _netManager = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedGunSystem _gun = default!;
-    [Dependency] private readonly MetaDataSystem _metadata = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly INetManager _netManager = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedGunSystem _gun = default!;
+
+    [Dependency]
+    private readonly MetaDataSystem _metadata = default!;
 
     public override void Initialize()
     {
@@ -69,16 +78,23 @@ public sealed class RechargeBasicEntityAmmoSystem : EntitySystem
         if (!component.ShowExamineText)
             return;
 
-        if (!TryComp<BasicEntityAmmoProviderComponent>(uid, out var ammo)
-            || ammo.Count == ammo.Capacity ||
-            component.NextCharge == null)
+        if (
+            !TryComp<BasicEntityAmmoProviderComponent>(uid, out var ammo)
+            || ammo.Count == ammo.Capacity
+            || component.NextCharge == null
+        )
         {
             args.PushMarkup(Loc.GetString("recharge-basic-entity-ammo-full"));
             return;
         }
 
         var timeLeft = component.NextCharge + _metadata.GetPauseTime(uid) - _timing.CurTime;
-        args.PushMarkup(Loc.GetString("recharge-basic-entity-ammo-can-recharge", ("seconds", Math.Round(timeLeft.Value.TotalSeconds, 1))));
+        args.PushMarkup(
+            Loc.GetString(
+                "recharge-basic-entity-ammo-can-recharge",
+                ("seconds", Math.Round(timeLeft.Value.TotalSeconds, 1))
+            )
+        );
     }
 
     public void Reset(EntityUid uid, RechargeBasicEntityAmmoComponent? recharge = null)

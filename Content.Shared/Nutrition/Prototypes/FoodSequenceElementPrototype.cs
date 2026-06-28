@@ -1,7 +1,7 @@
+using System.Numerics;
 using Content.Shared.Tag;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
-using System.Numerics;
 
 namespace Content.Shared.Nutrition.Prototypes;
 
@@ -11,7 +11,8 @@ namespace Content.Shared.Nutrition.Prototypes;
 [Prototype]
 public sealed partial class FoodSequenceElementPrototype : IPrototype
 {
-    [IdDataField] public string ID { get; private set; } = default!;
+    [IdDataField]
+    public string ID { get; private set; } = default!;
 
     /// <summary>
     /// sprite options. A random one will be selected and used to display the layer.

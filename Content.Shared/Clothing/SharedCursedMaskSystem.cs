@@ -13,9 +13,14 @@ namespace Content.Shared.Clothing;
 /// </summary>
 public abstract class SharedCursedMaskSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly MovementSpeedModifierSystem _movementSpeedModifier = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly MovementSpeedModifierSystem _movementSpeedModifier = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -26,7 +31,9 @@ public abstract class SharedCursedMaskSystem : EntitySystem
         SubscribeLocalEvent<CursedMaskComponent, ClothingGotUnequippedEvent>(OnClothingUnequip);
         SubscribeLocalEvent<CursedMaskComponent, ExaminedEvent>(OnExamine);
 
-        SubscribeLocalEvent<CursedMaskComponent, InventoryRelayedEvent<RefreshMovementSpeedModifiersEvent>>(OnMovementSpeedModifier);
+        SubscribeLocalEvent<CursedMaskComponent, InventoryRelayedEvent<RefreshMovementSpeedModifiersEvent>>(
+            OnMovementSpeedModifier
+        );
         SubscribeLocalEvent<CursedMaskComponent, InventoryRelayedEvent<DamageModifyEvent>>(OnModifyDamage);
     }
 
@@ -46,7 +53,10 @@ public abstract class SharedCursedMaskSystem : EntitySystem
         args.PushMarkup(Loc.GetString($"cursed-mask-examine-{ent.Comp.CurrentState.ToString()}"));
     }
 
-    private void OnMovementSpeedModifier(Entity<CursedMaskComponent> ent, ref InventoryRelayedEvent<RefreshMovementSpeedModifiersEvent> args)
+    private void OnMovementSpeedModifier(
+        Entity<CursedMaskComponent> ent,
+        ref InventoryRelayedEvent<RefreshMovementSpeedModifiersEvent> args
+    )
     {
         if (ent.Comp.CurrentState == CursedMaskExpression.Joy)
             args.Args.ModifySpeed(ent.Comp.JoySpeedModifier);
@@ -60,14 +70,11 @@ public abstract class SharedCursedMaskSystem : EntitySystem
 
     protected void RandomizeCursedMask(Entity<CursedMaskComponent> ent, EntityUid wearer)
     {
-        var random = new System.Random((int) _timing.CurTick.Value);
+        var random = new System.Random((int)_timing.CurTick.Value);
         ent.Comp.CurrentState = random.Pick(Enum.GetValues<CursedMaskExpression>());
         _appearance.SetData(ent, CursedMaskVisuals.State, ent.Comp.CurrentState);
         _movementSpeedModifier.RefreshMovementSpeedModifiers(wearer);
     }
 
-    protected virtual void TryTakeover(Entity<CursedMaskComponent> ent, EntityUid wearer)
-    {
-
-    }
+    protected virtual void TryTakeover(Entity<CursedMaskComponent> ent, EntityUid wearer) { }
 }

@@ -9,11 +9,13 @@ namespace Content.Server.Decals;
 [AdminCommand(AdminFlags.Mapping)]
 public sealed class EditDecalCommand : IConsoleCommand
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
 
     public string Command => "editdecal";
     public string Description => "Edits a decal.";
-    public string Help => $@"{Command} <gridId> <uid> <mode>\n
+    public string Help =>
+        $@"{Command} <gridId> <uid> <mode>\n
 Possible modes are:\n
 - position <x position> <y position>\n
 - color <color>\n
@@ -22,6 +24,7 @@ Possible modes are:\n
 - zindex <zIndex>\n
 - clean <cleanable>
 ";
+
     public void Execute(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length < 4)
@@ -52,7 +55,7 @@ Possible modes are:\n
         switch (args[2].ToLower())
         {
             case "position":
-                if(args.Length != 5)
+                if (args.Length != 5)
                 {
                     shell.WriteError("Expected 6 arguments.");
                     return;
@@ -70,7 +73,7 @@ Possible modes are:\n
                 }
                 break;
             case "color":
-                if(args.Length != 4)
+                if (args.Length != 4)
                 {
                     shell.WriteError("Expected 5 arguments.");
                     return;
@@ -88,7 +91,7 @@ Possible modes are:\n
                 }
                 break;
             case "id":
-                if(args.Length != 4)
+                if (args.Length != 4)
                 {
                     shell.WriteError("Expected 5 arguments.");
                     return;
@@ -100,7 +103,7 @@ Possible modes are:\n
                 }
                 break;
             case "rotation":
-                if(args.Length != 4)
+                if (args.Length != 4)
                 {
                     shell.WriteError("Expected 5 arguments.");
                     return;
@@ -118,7 +121,7 @@ Possible modes are:\n
                 }
                 break;
             case "zindex":
-                if(args.Length != 4)
+                if (args.Length != 4)
                 {
                     shell.WriteError("Expected 5 arguments.");
                     return;
@@ -136,7 +139,7 @@ Possible modes are:\n
                 }
                 break;
             case "clean":
-                if(args.Length != 4)
+                if (args.Length != 4)
                 {
                     shell.WriteError("Expected 5 arguments.");
                     return;

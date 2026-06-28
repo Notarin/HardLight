@@ -35,7 +35,7 @@ public sealed partial class EmergencyLightComponent : SharedEmergencyLightCompon
         { EmergencyLightState.Full, "emergency-light-component-light-state-full" },
         { EmergencyLightState.Empty, "emergency-light-component-light-state-empty" },
         { EmergencyLightState.Charging, "emergency-light-component-light-state-charging" },
-        { EmergencyLightState.On, "emergency-light-component-light-state-on" }
+        { EmergencyLightState.On, "emergency-light-component-light-state-on" },
     };
 }
 
@@ -44,7 +44,7 @@ public enum EmergencyLightState : byte
     Charging,
     Full,
     Empty,
-    On
+    On,
 }
 
 public sealed class EmergencyLightEvent : EntityEventArgs

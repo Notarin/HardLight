@@ -8,5 +8,5 @@ public enum EntitySpawnMaterialVisuals : byte
     /// <summary>
     /// Whether or not the machine has enough materials to continue processing a unit.
     /// </summary>
-    SufficientMaterial
+    SufficientMaterial,
 }

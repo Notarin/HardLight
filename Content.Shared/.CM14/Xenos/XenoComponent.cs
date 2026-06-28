@@ -25,6 +25,7 @@ public sealed partial class XenoComponent : Component
     // Weeds prototype to spawn; use EntProtoId instead of a custom serializer to avoid missing type errors.
     [ViewVariables(VVAccess.ReadWrite), DataField("Weedprototype")]
     public EntProtoId Weedprototype = "XenoWeeds";
+
     [DataField]
     public EntityUid? EvolveAction;
 

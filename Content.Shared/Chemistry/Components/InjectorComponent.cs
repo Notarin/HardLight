@@ -10,9 +10,7 @@ using Robust.Shared.Serialization;
 namespace Content.Shared.Chemistry.Components;
 
 [Serializable, NetSerializable]
-public sealed partial class InjectorDoAfterEvent : SimpleDoAfterEvent
-{
-}
+public sealed partial class InjectorDoAfterEvent : SimpleDoAfterEvent { }
 
 /// <summary>
 /// Implements draw/inject behavior for droppers and syringes.
@@ -160,5 +158,5 @@ public enum InjectorToggleMode : byte
     /// <summary>
     /// The injector will try to draw reagent from things.
     /// </summary>
-    Draw
+    Draw,
 }

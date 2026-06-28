@@ -1,7 +1,7 @@
 - type: entity
   parent: EffectFlashBluespace
   id: EffectFlashMcBluespace
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: PointLight
     color: "#9e561b"
@@ -18,7 +18,7 @@
 - type: entity
   parent: EffectFlashBluespace
   id: EffectFlashBluespaceQuiet
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: EmitSoundOnSpawn
     sound:

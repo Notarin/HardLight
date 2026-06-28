@@ -25,8 +25,10 @@ public abstract partial class HTNOperator
     /// <param name="cancelToken"></param>
     /// <returns>Whether the plan is still valid and the effects to apply to the blackboard.
     /// These get re-applied during execution and are up to the operator to use or discard.</returns>
-    public virtual async Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(NPCBlackboard blackboard,
-        CancellationToken cancelToken)
+    public virtual async Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(
+        NPCBlackboard blackboard,
+        CancellationToken cancelToken
+    )
     {
         return (true, null);
     }
@@ -43,18 +45,15 @@ public abstract partial class HTNOperator
     /// <summary>
     /// Called when the plan has finished running.
     /// </summary>
-    public virtual void PlanShutdown(NPCBlackboard blackboard)
-    {
-
-    }
+    public virtual void PlanShutdown(NPCBlackboard blackboard) { }
 
     /// <summary>
     /// Called the first time an operator runs.
     /// </summary>
-    public virtual void Startup(NPCBlackboard blackboard) {}
+    public virtual void Startup(NPCBlackboard blackboard) { }
 
     /// <summary>
     /// Called whenever the operator stops running.
     /// </summary>
-    public virtual void TaskShutdown(NPCBlackboard blackboard, HTNOperatorStatus status) {}
+    public virtual void TaskShutdown(NPCBlackboard blackboard, HTNOperatorStatus status) { }
 }

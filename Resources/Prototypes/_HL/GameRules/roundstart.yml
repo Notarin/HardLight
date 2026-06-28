@@ -133,8 +133,8 @@
   - type: AntagSelection
     selectionTime: PrePlayerSpawn
     definitions:
-    - prefRoles: [ NukeopsCommander ]
-      fallbackRoles: [ Nukeops, NukeopsMedic ]
+    - prefRoles: [NukeopsCommander]
+      fallbackRoles: [Nukeops, NukeopsMedic]
       spawnerPrototype: SpawnPointNukeopsCommander
       startingGear: SyndicateCommanderGearFull
       roleLoadout:
@@ -150,8 +150,8 @@
         - Syndicate
       mindRoles:
       - MindRoleNukeopsCommander
-    - prefRoles: [ NukeopsMedic ]
-      fallbackRoles: [ Nukeops, NukeopsCommander ]
+    - prefRoles: [NukeopsMedic]
+      fallbackRoles: [Nukeops, NukeopsCommander]
       spawnerPrototype: SpawnPointNukeopsMedic
       startingGear: SyndicateOperativeMedicFull
       roleLoadout:
@@ -167,8 +167,8 @@
         - Syndicate
       mindRoles:
       - MindRoleNukeopsMedic
-    - prefRoles: [ Nukeops ]
-      fallbackRoles: [ NukeopsCommander, NukeopsMedic ]
+    - prefRoles: [Nukeops]
+      fallbackRoles: [NukeopsCommander, NukeopsMedic]
       spawnerPrototype: SpawnPointNukeopsOperative
       max: 3
       playerRatio: 10
@@ -214,7 +214,7 @@
   - type: AntagSelection
     selectionTime: IntraPlayerSpawn
     definitions:
-    - prefRoles: [ Traitor ]
+    - prefRoles: [Traitor]
       min: 1
       max: 5
       playerRatio: 10
@@ -235,7 +235,7 @@
     giveBriefing: false
   - type: AntagSelection
     definitions:
-    - prefRoles: [ Traitor ]
+    - prefRoles: [Traitor]
       mindRoles:
       - MindRoleTraitorReinforcement
 
@@ -252,7 +252,7 @@
   - type: AntagSelection
     selectionTime: IntraPlayerSpawn
     definitions:
-    - prefRoles: [ HeadRev ]
+    - prefRoles: [HeadRev]
       min: 1
       max: 3
       playerRatio: 15
@@ -306,12 +306,12 @@
     agentName: wizard-round-end-name
     selectionTime: PrePlayerSpawn
     definitions:
-    - prefRoles: [ Wizard ]
+    - prefRoles: [Wizard]
       max: 1
       playerRatio: 1
       spawnerPrototype: SpawnPointGhostWizard
       roleLoadout:
-       - RoleSurvivalExtended
+      - RoleSurvivalExtended
       briefing:
         text: wizard-role-greeting
         color: Turquoise
@@ -344,7 +344,7 @@
   - type: AntagSelection
     selectionTime: IntraPlayerSpawn
     definitions:
-    - prefRoles: [ InitialInfected ]
+    - prefRoles: [InitialInfected]
       max: 6
       playerRatio: 10
       blacklist:
@@ -375,7 +375,7 @@
     selectionTime: IntraPlayerSpawn # Pre-selection before jobs; assignment doesn't really matter though, we only care about the pre-selection to block other antags.
     removeUponFailedSpawn: false
     definitions:
-    - prefRoles: [ InitialInfected, Traitor, Thief, HeadRev ]
+    - prefRoles: [InitialInfected, Traitor, Thief, HeadRev]
       max: 2
       playerRatio: 30
 
@@ -383,37 +383,35 @@
 
 - type: entityTable
   id: BasicGameRulesTable
-  table: !type:AllSelector # we need to pass a list of rules, since rules have further restrictions to consider via StationEventComp
-    children:
-      - !type:NestedSelector
-        tableId: BasicCalmEventsTable
-      - !type:NestedSelector
-        tableId: BasicAntagEventsTable
-      - !type:NestedSelector
-        tableId: GlimmerEventsTable
+  table: !type:AllSelector
+    children: # we need to pass a list of rules, since rules have further restrictions to consider via StationEventComp
+    - !type:NestedSelector
+      tableId: BasicCalmEventsTable
+    - !type:NestedSelector
+      tableId: BasicAntagEventsTable
+    - !type:NestedSelector
+      tableId: GlimmerEventsTable
       #- !type:NestedSelector
-       # tableId: CargoGiftsTable
-      # - !type:NestedSelector
-        # tableId: CalmPestEventsTable
-      # - !type:NestedSelector
-        # tableId: SpicyPestEventsTable
-      # - !type:NestedSelector
-        # tableId: NFCalmPestEventsTable
-      # - !type:NestedSelector
-        # tableId: NFBasicCalmEventsTable
-
-
-
 - type: entityTable # As stated on scheduler ** THESE DON'T WORK WITH OUR SHUTTLE SETUP **
+  # tableId: CargoGiftsTable
+  # - !type:NestedSelector
+  # tableId: CalmPestEventsTable
+  # - !type:NestedSelector
+  # tableId: SpicyPestEventsTable
+  # - !type:NestedSelector
+  # tableId: NFCalmPestEventsTable
+  # - !type:NestedSelector
+  # tableId: NFBasicCalmEventsTable
+
   id: SpaceTrafficControlTable
-  table: !type:AllSelector # we need to pass a list of rules, since rules have further restrictions to consider via StationEventComp
-    children:
-      - !type:NestedSelector
-        tableId: UnknownShuttlesFriendlyTable
-      - !type:NestedSelector
-        tableId: UnknownShuttlesFreelanceTable
-      - !type:NestedSelector
-        tableId: UnknownShuttlesHostileTable
+  table: !type:AllSelector
+    children: # we need to pass a list of rules, since rules have further restrictions to consider via StationEventComp
+    - !type:NestedSelector
+      tableId: UnknownShuttlesFriendlyTable
+    - !type:NestedSelector
+      tableId: UnknownShuttlesFreelanceTable
+    - !type:NestedSelector
+      tableId: UnknownShuttlesHostileTable
 
 - type: entity
   id: BasicStationEventScheduler
@@ -437,7 +435,7 @@
 
 - type: entity # ** DO NOT USE THIS SCHEDULER **
   id: SpaceTrafficControlEventScheduler # iff we make a selector for EntityTables that can respect StationEventComp restrictions, or somehow impliment them otherwise in said tables,
-  parent: BaseGameRule                  # we can remerge this with the other schedulers, but it will silently fail due to that limitation without a separate scheduler to balance atm.
+  parent: BaseGameRule # we can remerge this with the other schedulers, but it will silently fail due to that limitation without a separate scheduler to balance atm.
   components:
   - type: BasicStationEventScheduler
     minimumTimeUntilFirstEvent: 2700 # 45 mins #shows up like half way through shift.
@@ -468,24 +466,24 @@
     rules:
     - id: BasicPoweredLightVariationPass
     - id: BasicTrashVariationPass
-#    - id: SolidWallRustingVariationPass # Frontier - disabled becuase mismatched types and sprites
-#    - id: ReinforcedWallRustingVariationPass # Frontier
+      #    - id: SolidWallRustingVariationPass # Frontier - disabled becuase mismatched types and sprites
+      #    - id: ReinforcedWallRustingVariationPass # Frontier
     - id: BasicPuddleMessVariationPass
       prob: 0.99
       orGroup: puddleMess
-#    - id: BloodbathPuddleMessVariationPass # Frontier
-#      prob: 0.01 # Frontier
-#      orGroup: puddleMess # Frontier
-#    - id: SmugglerStashVariationPass # Frontier
-#      prob: 0.90 # Frontier
+      #    - id: BloodbathPuddleMessVariationPass # Frontier
+      #      prob: 0.01 # Frontier
+      #      orGroup: puddleMess # Frontier
+      #    - id: SmugglerStashVariationPass # Frontier
+      #      prob: 0.90 # Frontier
     - id: SolarPanelDamageVariationPass
     - id: SolarPanelEmptyVariationPass
-    # - id: NFBasicBindToStationVariationPass
+      # - id: NFBasicBindToStationVariationPass
 
 - type: entity
   id: NFAdventure
   parent: BaseGameRule
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: NFAdventureRule
 
@@ -503,8 +501,8 @@
 
 - type: entityTable
   id: MajorBluespaceEventsTable
-  table: !type:AllSelector # we need to pass a list of rules, since rules have further restrictions to consider via StationEventComp
-    children:
+  table: !type:AllSelector
+    children: # we need to pass a list of rules, since rules have further restrictions to consider via StationEventComp
     - id: BluespaceCacheError
     - id: BluespaceCave
     - id: BluespaceVaultError
@@ -527,8 +525,8 @@
 
 - type: entityTable
   id: DungeonBluespaceEventsTable
-  table: !type:AllSelector # we need to pass a list of rules, since rules have further restrictions to consider via StationEventComp
-    children:
+  table: !type:AllSelector
+    children: # we need to pass a list of rules, since rules have further restrictions to consider via StationEventComp
     - id: BluespaceDungeonBasalt
     - id: BluespaceDungeonChromite
     - id: BluespaceDungeonSnow
@@ -548,8 +546,8 @@
 
 - type: entityTable
   id: SalvageBluespaceEventsTable
-  table: !type:AllSelector # we need to pass a list of rules, since rules have further restrictions to consider via StationEventComp
-    children:
+  table: !type:AllSelector
+    children: # we need to pass a list of rules, since rules have further restrictions to consider via StationEventComp
     - id: BluespaceSalvage
 
 - type: entity
@@ -566,8 +564,8 @@
 
 - type: entityTable
   id: MajorSmugglingEventsTable
-  table: !type:AllSelector # we need to pass a list of rules, since rules have further restrictions to consider via StationEventComp
-    children:
+  table: !type:AllSelector
+    children: # we need to pass a list of rules, since rules have further restrictions to consider via StationEventComp
     - id: NFSmugglingFaxBig
 
 - type: entity
@@ -583,7 +581,7 @@
     agentName: nf-pirate-round-end-agent-name
     definitions:
     # Pirate Captain role
-    - prefRoles: [ NFPirateCaptain ]
+    - prefRoles: [NFPirateCaptain]
       max: 1
       playerRatio: -1
       lateJoinAdditional: true
@@ -602,7 +600,7 @@
       briefing: &pirateBriefing
         sound: "/Audio/_NF/Misc/pirate_greeting.ogg"
     # Pirate First Mate role
-    - prefRoles: [ NFPirateFirstMate ]
+    - prefRoles: [NFPirateFirstMate]
       max: 3
       playerRatio: -1
       lateJoinAdditional: true
@@ -616,7 +614,7 @@
         - AutoPirateFirstMate
       briefing: *pirateBriefing
     # Pirate role
-    - prefRoles: [ NFPirate ]
+    - prefRoles: [NFPirate]
       max: 5
       playerRatio: -1
       lateJoinAdditional: true
@@ -651,22 +649,22 @@
     - id: NFBasicPoweredLightVariationPass
     - id: NFBasicTrashVariationPass
     - id: NFBasicPuddleMessVariationPass
-    # - id: NFBasicBindToStationVariationPass
-    # - id: NFBasicDeadDropHintVariationPass # ccvar for it found at smuggling.min_hints/smuggling.max_hints
+      # - id: NFBasicBindToStationVariationPass
+      # - id: NFBasicDeadDropHintVariationPass # ccvar for it found at smuggling.min_hints/smuggling.max_hints
 
-# - type: entityTable
-#  id: NFGameRulesTable
-#  table: !type:AllSelector # we need to pass a list of rules, since rules have further restrictions to consider via StationEventComp
-#    children:
-#      - !type:NestedSelector
-#        tableId: NFBasicCalmEventsTable
-      # - !type:NestedSelector
-        # tableId: NFCalmPestEventsTable
+  # - type: entityTable
+  #  id: NFGameRulesTable
+  #  table: !type:AllSelector # we need to pass a list of rules, since rules have further restrictions to consider via StationEventComp
+  #    children:
+  #      - !type:NestedSelector
+  #        tableId: NFBasicCalmEventsTable
+  # - !type:NestedSelector
+  # tableId: NFCalmPestEventsTable
 
-# - type: entity
+  # - type: entity
   # id: NFBasicStationEventScheduler
   # parent: BaseGameRule
   # components:
   # - type: BasicStationEventScheduler
-    # scheduledGameRules: !type:NestedSelector
-      # tableId: NFGameRulesTable
+# scheduledGameRules: !type:NestedSelector
+# tableId: NFGameRulesTable

@@ -6,6 +6,7 @@ namespace Content.Shared._NF.Books.Systems;
 public sealed class OpenURLEvent : EntityEventArgs
 {
     public string URL { get; }
+
     public OpenURLEvent(string url)
     {
         URL = url;

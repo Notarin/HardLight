@@ -11,7 +11,8 @@ namespace Content.Server.Examine
     [UsedImplicitly]
     public sealed class ExamineSystem : ExamineSystemShared
     {
-        [Dependency] private readonly VerbSystem _verbSystem = default!;
+        [Dependency]
+        private readonly VerbSystem _verbSystem = default!;
 
         private readonly FormattedMessage _entityNotFoundMessage = new();
         private readonly FormattedMessage _entityOutOfRangeMessage = new();
@@ -25,7 +26,13 @@ namespace Content.Server.Examine
             SubscribeNetworkEvent<ExamineSystemMessages.RequestExamineInfoMessage>(ExamineInfoRequest);
         }
 
-        public override void SendExamineTooltip(EntityUid player, EntityUid target, FormattedMessage message, bool getVerbs, bool centerAtCursor)
+        public override void SendExamineTooltip(
+            EntityUid player,
+            EntityUid target,
+            FormattedMessage message,
+            bool getVerbs,
+            bool centerAtCursor
+        )
         {
             if (!TryComp<ActorComponent>(player, out var actor))
                 return;
@@ -37,31 +44,50 @@ namespace Content.Server.Examine
                 verbs = _verbSystem.GetLocalVerbs(target, player, typeof(ExamineVerb));
 
             var ev = new ExamineSystemMessages.ExamineInfoResponseMessage(
-                GetNetEntity(target), 0, message, verbs?.ToList(), centerAtCursor
+                GetNetEntity(target),
+                0,
+                message,
+                verbs?.ToList(),
+                centerAtCursor
             );
 
             RaiseNetworkEvent(ev, session.Channel);
         }
 
-        private void ExamineInfoRequest(ExamineSystemMessages.RequestExamineInfoMessage request, EntitySessionEventArgs eventArgs)
+        private void ExamineInfoRequest(
+            ExamineSystemMessages.RequestExamineInfoMessage request,
+            EntitySessionEventArgs eventArgs
+        )
         {
             var player = eventArgs.SenderSession;
             var session = eventArgs.SenderSession;
             var channel = player.Channel;
             var entity = GetEntity(request.NetEntity);
 
-            if (session.AttachedEntity is not {Valid: true} playerEnt
-                || !EntityManager.EntityExists(entity))
+            if (session.AttachedEntity is not { Valid: true } playerEnt || !EntityManager.EntityExists(entity))
             {
-                RaiseNetworkEvent(new ExamineSystemMessages.ExamineInfoResponseMessage(
-                    request.NetEntity, request.Id, _entityNotFoundMessage), channel);
+                RaiseNetworkEvent(
+                    new ExamineSystemMessages.ExamineInfoResponseMessage(
+                        request.NetEntity,
+                        request.Id,
+                        _entityNotFoundMessage
+                    ),
+                    channel
+                );
                 return;
             }
 
             if (!CanExamine(playerEnt, entity))
             {
-                RaiseNetworkEvent(new ExamineSystemMessages.ExamineInfoResponseMessage(
-                    request.NetEntity, request.Id, _entityOutOfRangeMessage, knowTarget: false), channel);
+                RaiseNetworkEvent(
+                    new ExamineSystemMessages.ExamineInfoResponseMessage(
+                        request.NetEntity,
+                        request.Id,
+                        _entityOutOfRangeMessage,
+                        knowTarget: false
+                    ),
+                    channel
+                );
                 return;
             }
 
@@ -70,8 +96,15 @@ namespace Content.Server.Examine
                 verbs = _verbSystem.GetLocalVerbs(entity, playerEnt, typeof(ExamineVerb));
 
             var text = GetExamineText(entity, player.AttachedEntity);
-            RaiseNetworkEvent(new ExamineSystemMessages.ExamineInfoResponseMessage(
-                request.NetEntity, request.Id, text, verbs?.ToList()), channel);
+            RaiseNetworkEvent(
+                new ExamineSystemMessages.ExamineInfoResponseMessage(
+                    request.NetEntity,
+                    request.Id,
+                    text,
+                    verbs?.ToList()
+                ),
+                channel
+            );
         }
     }
 }

@@ -24,7 +24,6 @@ namespace Content.IntegrationTests.Tests.Lobby
 
             var serverPrefManager = server.ResolveDependency<IServerPreferencesManager>();
 
-
             // Need to run them in sync to receive the messages.
             await pair.RunTicksSync(1);
 
@@ -58,7 +57,11 @@ namespace Content.IntegrationTests.Tests.Lobby
                 Assert.That(clientCharacters[1].MemberwiseEquals(profile));
             });
 
-            await PoolManager.WaitUntil(server, () => serverPrefManager.GetPreferences(clientNetId).Characters.Count == 2, maxTicks: 60);
+            await PoolManager.WaitUntil(
+                server,
+                () => serverPrefManager.GetPreferences(clientNetId).Characters.Count == 2,
+                maxTicks: 60
+            );
 
             await server.WaitAssertion(() =>
             {
@@ -76,7 +79,11 @@ namespace Content.IntegrationTests.Tests.Lobby
                 Assert.That(clientCharacters, Is.EqualTo(1));
             });
 
-            await PoolManager.WaitUntil(server, () => serverPrefManager.GetPreferences(clientNetId).Characters.Count == 1, maxTicks: 60);
+            await PoolManager.WaitUntil(
+                server,
+                () => serverPrefManager.GetPreferences(clientNetId).Characters.Count == 1,
+                maxTicks: 60
+            );
 
             await server.WaitAssertion(() =>
             {
@@ -99,7 +106,11 @@ namespace Content.IntegrationTests.Tests.Lobby
                 Assert.That(clientCharacters[1].MemberwiseEquals(profile));
             });
 
-            await PoolManager.WaitUntil(server, () => serverPrefManager.GetPreferences(clientNetId).Characters.Count == 2, maxTicks: 60);
+            await PoolManager.WaitUntil(
+                server,
+                () => serverPrefManager.GetPreferences(clientNetId).Characters.Count == 2,
+                maxTicks: 60
+            );
 
             await server.WaitAssertion(() =>
             {

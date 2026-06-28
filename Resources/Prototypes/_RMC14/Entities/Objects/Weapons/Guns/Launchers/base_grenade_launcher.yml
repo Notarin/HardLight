@@ -1,6 +1,6 @@
-﻿- type: entity
+- type: entity
   abstract: true
-  parent: [ BaseItem, CMBaseWeaponGun, RMCBaseAttachableHolder, BaseC3ExpeditionContraband  ]
+  parent: [BaseItem, CMBaseWeaponGun, RMCBaseAttachableHolder, BaseC3ExpeditionContraband]
   id: RMCBaseWeaponGrenadeLauncher
   components:
   - type: Item
@@ -14,29 +14,29 @@
       path: /Audio/Weapons/Guns/Gunshots/grenade_launcher.ogg
     resetOnHandSelected: false
   # - type: RMCSelectiveFire
-    # baseFireModes:
-    # - SemiAuto
-    # recoilWielded: 2
+  # baseFireModes:
+  # - SemiAuto
+  # recoilWielded: 2
   # - type: ShootAtFixedPoint
-    # shootArcProj: true
+  # shootArcProj: true
   # - type: OnShootTriggerAmmoTimer
-    # delay: 1
-    # beepInterval: 2
-    # initialBeepDelay: 0
-    # beepSound:
-      # path: "/Audio/Effects/beep1.ogg"
-      # params:
-        # volume: 5
+  # delay: 1
+  # beepInterval: 2
+  # initialBeepDelay: 0
+  # beepSound:
+  # path: "/Audio/Effects/beep1.ogg"
+  # params:
+  # volume: 5
   - type: ContainerContainer
     containers:
       ballistic-ammo: !type:Container
         ents: []
-  # - type: RMCAmmoEject
-    # containerID: ballistic-ammo
-    # ejectSound:
+        # - type: RMCAmmoEject
+      # containerID: ballistic-ammo
+      # ejectSound:
       # path: /Audio/_RMC14/Weapons/Guns/Reload/grenade_insert.ogg
       # params:
-        # volume: -2
+      # volume: -2
   - type: BallisticAmmoProvider
     whitelist:
       tags:
@@ -48,10 +48,10 @@
   - type: Wieldable
   - type: GunRequiresWield
   # - type: WieldableSpeedModifiers
-    # base: 0.5
-    # light: 0.69
-    # medium: 0.75
-    # heavy: 0.806
+  # base: 0.5
+  # light: 0.69
+  # medium: 0.75
+  # heavy: 0.806
   - type: WieldDelay
     baseDelay: 0.8
   - type: Clothing
@@ -60,8 +60,8 @@
   - type: StaticPrice
     price: 500
   # - type: RMCNameItemOnVend
-    # item: PrimaryGun
+  # item: PrimaryGun
   # - type: WieldedCrosshair
-    # rsi:
-      # sprite: _RMC14/Interface/MousePointer/explosive_mouse.rsi
-      # state: all
+  # rsi:
+  # sprite: _RMC14/Interface/MousePointer/explosive_mouse.rsi
+  # state: all

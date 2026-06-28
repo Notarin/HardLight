@@ -38,5 +38,5 @@ public sealed partial class PacketSealingComponent : Component
 public enum PacketState : byte
 {
     Open,
-    Sealed
+    Sealed,
 }

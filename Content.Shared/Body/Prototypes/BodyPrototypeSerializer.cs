@@ -15,7 +15,10 @@ namespace Content.Shared.Body.Prototypes;
 [TypeSerializer]
 public sealed class BodyPrototypeSerializer : ITypeReader<BodyPrototype, MappingDataNode>
 {
-    private (ValidationNode Node, List<string> Connections) ValidateSlot(MappingDataNode slot, IDependencyCollection dependencies)
+    private (ValidationNode Node, List<string> Connections) ValidateSlot(
+        MappingDataNode slot,
+        IDependencyCollection dependencies
+    )
     {
         var nodes = new List<ValidationNode>();
         var prototypes = dependencies.Resolve<IPrototypeManager>();
@@ -63,8 +66,12 @@ public sealed class BodyPrototypeSerializer : ITypeReader<BodyPrototype, Mapping
         return (validation, connections);
     }
 
-    public ValidationNode Validate(ISerializationManager serializationManager, MappingDataNode node,
-        IDependencyCollection dependencies, ISerializationContext? context = null)
+    public ValidationNode Validate(
+        ISerializationManager serializationManager,
+        MappingDataNode node,
+        IDependencyCollection dependencies,
+        ISerializationContext? context = null
+    )
     {
         var nodes = new List<ValidationNode>();
 
@@ -105,20 +112,25 @@ public sealed class BodyPrototypeSerializer : ITypeReader<BodyPrototype, Mapping
         return new ValidatedSequenceNode(nodes);
     }
 
-    public BodyPrototype Read(ISerializationManager serializationManager, MappingDataNode node,
+    public BodyPrototype Read(
+        ISerializationManager serializationManager,
+        MappingDataNode node,
         IDependencyCollection dependencies,
-        SerializationHookContext hookCtx, ISerializationContext? context = null,
-        ISerializationManager.InstantiationDelegate<BodyPrototype>? instanceProvider = null)
+        SerializationHookContext hookCtx,
+        ISerializationContext? context = null,
+        ISerializationManager.InstantiationDelegate<BodyPrototype>? instanceProvider = null
+    )
     {
         var id = node.Get<ValueDataNode>("id").Value;
         var name = node.Get<ValueDataNode>("name").Value;
         var root = node.Get<ValueDataNode>("root").Value;
         var slotNodes = node.Get<MappingDataNode>("slots");
-        var allConnections = new Dictionary<string, (string? Part, HashSet<string>? Connections, Dictionary<string, string>? Organs)>();
+        var allConnections =
+            new Dictionary<string, (string? Part, HashSet<string>? Connections, Dictionary<string, string>? Organs)>();
 
         foreach (var (slotId, valueNode) in slotNodes)
         {
-            var slot = (MappingDataNode) valueNode;
+            var slot = (MappingDataNode)valueNode;
 
             string? part = null;
             if (slot.TryGet<ValueDataNode>("part", out var value))
@@ -144,7 +156,7 @@ public sealed class BodyPrototypeSerializer : ITypeReader<BodyPrototype, Mapping
 
                 foreach (var (organKey, organValueNode) in slotOrgansNode)
                 {
-                    organs.Add(organKey, ((ValueDataNode) organValueNode).Value);
+                    organs.Add(organKey, ((ValueDataNode)organValueNode).Value);
                 }
             }
 
@@ -169,7 +181,11 @@ public sealed class BodyPrototypeSerializer : ITypeReader<BodyPrototype, Mapping
 
         foreach (var (slotId, (part, connections, organs)) in allConnections)
         {
-            var slot = new BodyPrototypeSlot(part, connections ?? new HashSet<string>(), organs ?? new Dictionary<string, string>());
+            var slot = new BodyPrototypeSlot(
+                part,
+                connections ?? new HashSet<string>(),
+                organs ?? new Dictionary<string, string>()
+            );
             slots.Add(slotId, slot);
         }
 

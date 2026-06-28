@@ -2,9 +2,9 @@ using System.Linq;
 using Content.Shared.Anomaly.Components;
 using Content.Shared.Anomaly.Effects.Components;
 using Content.Shared.Ghost;
+using Content.Shared.Physics;
 using Content.Shared.Throwing;
 using Robust.Shared.Map;
-using Content.Shared.Physics;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Physics.Components;
 
@@ -12,10 +12,17 @@ namespace Content.Shared.Anomaly.Effects;
 
 public abstract class SharedGravityAnomalySystem : EntitySystem
 {
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly ThrowingSystem _throwing = default!;
-    [Dependency] private readonly SharedTransformSystem _xform = default!;
-    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
+    [Dependency]
+    private readonly EntityLookupSystem _lookup = default!;
+
+    [Dependency]
+    private readonly ThrowingSystem _throwing = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _xform = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _mapSystem = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -36,8 +43,10 @@ public abstract class SharedGravityAnomalySystem : EntitySystem
 
         foreach (var ent in lookup)
         {
-            if (physQuery.TryGetComponent(ent, out var phys)
-                && (phys.CollisionMask & (int) CollisionGroup.GhostImpassable) != 0)
+            if (
+                physQuery.TryGetComponent(ent, out var phys)
+                && (phys.CollisionMask & (int)CollisionGroup.GhostImpassable) != 0
+            )
                 continue;
 
             var foo = _xform.GetWorldPosition(ent, xformQuery) - worldPos;
@@ -52,10 +61,8 @@ public abstract class SharedGravityAnomalySystem : EntitySystem
             return;
 
         var worldPos = _xform.GetWorldPosition(xform);
-        var tileref = _mapSystem.GetTilesIntersecting(
-                xform.GridUid.Value,
-                grid,
-                new Circle(worldPos, component.SpaceRange))
+        var tileref = _mapSystem
+            .GetTilesIntersecting(xform.GridUid.Value, grid, new Circle(worldPos, component.SpaceRange))
             .ToArray();
 
         var tiles = tileref.Select(t => (t.GridIndices, Tile.Empty)).ToList();
@@ -69,8 +76,10 @@ public abstract class SharedGravityAnomalySystem : EntitySystem
 
         foreach (var ent in lookup)
         {
-            if (physQuery.TryGetComponent(ent, out var phys)
-                && (phys.CollisionMask & (int) CollisionGroup.GhostImpassable) != 0)
+            if (
+                physQuery.TryGetComponent(ent, out var phys)
+                && (phys.CollisionMask & (int)CollisionGroup.GhostImpassable) != 0
+            )
                 continue;
 
             var foo = _xform.GetWorldPosition(ent, xformQuery) - worldPos;
@@ -78,4 +87,3 @@ public abstract class SharedGravityAnomalySystem : EntitySystem
         }
     }
 }
-

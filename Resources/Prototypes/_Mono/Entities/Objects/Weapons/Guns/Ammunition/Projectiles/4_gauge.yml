@@ -1,7 +1,7 @@
 - type: entity
   id: Pellet23x75mmSlug
   name: pellet (4 gauge slug)
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseBullet
   components:
   - type: Sprite
@@ -17,7 +17,7 @@
   id: Pellet23x75mmImprovised
   name: pellet (4 gauge improvised)
   parent: BaseBullet
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
@@ -32,7 +32,7 @@
 - type: entity
   id: Pellet23x75mmFlashbang
   name: pellet (4 gauge flashbang)
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseBulletTrigger
   components:
   - type: Sprite
@@ -49,7 +49,7 @@
 - type: entity
   id: Pellet23x75mmBeanbag
   name: beanbag (4 gauge)
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseBullet
   components:
   - type: Sprite
@@ -65,7 +65,7 @@
 - type: entity
   id: Pellet23x75mmBuckshot
   name: pellet (4 gauge)
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseBullet
   components:
   - type: Sprite
@@ -78,7 +78,7 @@
 
 - type: entity
   id: Pellet23x75mmBuckshotSpread
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: Pellet23x75mmBuckshot
   components:
   - type: ProjectileSpread
@@ -89,7 +89,7 @@
 - type: entity
   id: Pellet23x75mmIncendiary
   name: pellet (4 gauge incendiary)
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseBulletIncendiary
   components:
   - type: Sprite
@@ -105,7 +105,7 @@
 
 - type: entity
   id: Pellet23x75mmIncendiarySpread
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: Pellet23x75mmIncendiary
   components:
   - type: ProjectileSpread
@@ -116,7 +116,7 @@
 - type: entity
   id: Pellet23x75mmPractice
   name: pellet (4 gauge practice)
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseBulletPractice
   components:
   - type: Sprite
@@ -129,7 +129,7 @@
 
 - type: entity
   id: Pellet23x75mmPracticeSpread
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: Pellet23x75mmPractice
   components:
   - type: ProjectileSpread
@@ -140,7 +140,7 @@
 - type: entity
   id: Pellet23x75mmFlare
   name: pellet (4 gauge flare)
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Physics
     bodyType: Dynamic
@@ -150,11 +150,10 @@
   - type: Fixtures
     fixtures:
       projectile:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.1,-0.1,0.1,0.1"
         mask:
-          - BulletImpassable
+        - BulletImpassable
   - type: Sprite
     sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
     state: buckshot-flare
@@ -187,7 +186,7 @@
 - type: entity
   id: Pellet23x75mmUranium
   name: pellet (4 gauge uranium)
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseBullet
   components:
   - type: Sprite
@@ -201,7 +200,7 @@
 
 - type: entity
   id: Pellet23x75mmUraniumSpread
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: Pellet23x75mmUranium
   components:
   - type: ProjectileSpread
@@ -212,7 +211,7 @@
 - type: entity
   id: Pellet23x75mmDozd
   name: pellet (4 gauge)
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseBullet
   components:
   - type: Sprite
@@ -225,7 +224,7 @@
 
 - type: entity
   id: Pellet23x75mmDozdSpread
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: Pellet23x75mmDozd
   components:
   - type: ProjectileSpread

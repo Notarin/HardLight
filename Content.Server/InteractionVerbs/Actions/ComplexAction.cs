@@ -51,7 +51,12 @@ public sealed partial class ComplexAction : InteractionAction
         return Delegate(act => act.IsAllowed(args, proto, deps));
     }
 
-    public override bool CanPerform(InteractionArgs args, InteractionVerbPrototype proto, bool beforeDelay, VerbDependencies deps)
+    public override bool CanPerform(
+        InteractionArgs args,
+        InteractionVerbPrototype proto,
+        bool beforeDelay,
+        VerbDependencies deps
+    )
     {
         return Delegate(act => act.CanPerform(args, proto, beforeDelay, deps));
     }

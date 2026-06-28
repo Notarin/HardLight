@@ -5,8 +5,8 @@
   components:
   - type: ContainerFill # HardLight
     containers:
-      light_bulb: [ LightTubeUltraviolet ]
-      
+      light_bulb: [LightTubeUltraviolet]
+
 - type: entity
   id: NFPoweredlightShieldedEmpty
   parent: PoweredlightEmpty

@@ -9,7 +9,7 @@
     NetworkConfigurator: 15
     AppraisalTool: 15
     ClothingBeltUtility: 15
-#    ClothingHandsGlovesColorYellowBudget: 30 # Not a single soul buy this.
+    #    ClothingHandsGlovesColorYellowBudget: 30 # Not a single soul buy this.
     CableApcStack: 20
     CableMVStack: 20
     CableHVStack: 20

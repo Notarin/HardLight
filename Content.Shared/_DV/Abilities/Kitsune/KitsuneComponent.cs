@@ -12,29 +12,37 @@ namespace Content.Shared._DV.Abilities.Kitsune;
 [AutoGenerateComponentState]
 public sealed partial class KitsuneComponent : Component
 {
-    [DataField] public ProtoId<PolymorphPrototype> KitsunePolymorphId = "KitsuneMorph";
+    [DataField]
+    public ProtoId<PolymorphPrototype> KitsunePolymorphId = "KitsuneMorph";
 
-    [DataField] public EntProtoId KitsuneAction = "ActionKitsuneMorph";
+    [DataField]
+    public EntProtoId KitsuneAction = "ActionKitsuneMorph";
 
-    [DataField, AutoNetworkedField] public EntityUid? KitsuneActionEntity;
+    [DataField, AutoNetworkedField]
+    public EntityUid? KitsuneActionEntity;
 
     /// <summary>
     /// The foxfire prototype to use.
     /// </summary>
-    [DataField] public EntProtoId FoxfirePrototype = "Foxfire";
+    [DataField]
+    public EntProtoId FoxfirePrototype = "Foxfire";
 
-    [DataField] public EntProtoId FoxfireActionId = "ActionFoxfire";
+    [DataField]
+    public EntProtoId FoxfireActionId = "ActionFoxfire";
 
-    [DataField, AutoNetworkedField] public EntityUid? FoxfireAction;
+    [DataField, AutoNetworkedField]
+    public EntityUid? FoxfireAction;
 
-    [DataField, AutoNetworkedField] public List<EntityUid> ActiveFoxFires = [];
+    [DataField, AutoNetworkedField]
+    public List<EntityUid> ActiveFoxFires = [];
 
-    [DataField, AutoNetworkedField] public Color? Color;
+    [DataField, AutoNetworkedField]
+    public Color? Color;
 }
 
 [Serializable, NetSerializable]
 public enum KitsuneColorVisuals : byte
 {
     Color,
-    Layer
+    Layer,
 }

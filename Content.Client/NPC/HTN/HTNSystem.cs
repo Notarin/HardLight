@@ -20,18 +20,12 @@ public sealed class HTNSystem : EntitySystem
             if (_enableOverlay)
             {
                 overlayManager.AddOverlay(new HTNOverlay(EntityManager, IoCManager.Resolve<IResourceCache>()));
-                RaiseNetworkEvent(new RequestHTNMessage()
-                {
-                    Enabled = true,
-                });
+                RaiseNetworkEvent(new RequestHTNMessage() { Enabled = true });
             }
             else
             {
                 overlayManager.RemoveOverlay<HTNOverlay>();
-                RaiseNetworkEvent(new RequestHTNMessage()
-                {
-                    Enabled = false,
-                });
+                RaiseNetworkEvent(new RequestHTNMessage() { Enabled = false });
             }
         }
     }

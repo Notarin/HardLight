@@ -25,7 +25,7 @@
     air:
       volume: 1
       moles:
-         - 0.4101137219 # oxygen
+      - 0.4101137219 # oxygen
       temperature: 293.15
   - type: StaticPrice
     price: 20
@@ -34,8 +34,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.25,-0.25,0.25,0.25"
         density: 100
         mask:
@@ -273,12 +272,12 @@
     air:
       volume: 1
       moles:
-         - 0 # oxygen
-         - 0 # nitrogen
-         - 0 # CO2
-         - 0 # plasma
-         - 0 # tritium
-         - 0 # water vapor
-         - 0 # miasma
-         - 0.4101137219 # N2O
+      - 0 # oxygen
+      - 0 # nitrogen
+      - 0 # CO2
+      - 0 # plasma
+      - 0 # tritium
+      - 0 # water vapor
+      - 0 # miasma
+      - 0.4101137219 # N2O
       temperature: 293.15

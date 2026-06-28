@@ -19,25 +19,25 @@ public sealed partial class NPCBlackboard : IEnumerable<KeyValuePair<string, obj
     /// </summary>
     private static readonly Dictionary<string, object> BlackboardDefaults = new()
     {
-        {"BufferRange", 10f},
-        {"FollowCloseRange", 3f},
-        {"FollowRange", 7f},
-        {"IdleRange", 7f},
-        {"InteractRange", SharedInteractionSystem.InteractionRange},
-        {"MaximumIdleTime", 7f},
-        {MedibotInjectRange, 4f},
-        {WeldbotWeldRange, 4f},
-        {PlantbotServiceRange, 4f},
-        {FillbotPickupRange, 10f},
-        {MeleeMissChance, 0.3f},
-        {"MeleeRange", 1f},
-        {"MinimumIdleTime", 2f},
-        {"MovementRangeClose", 0.2f},
-        {"MovementRange", 1.5f},
-        {"RangedRange", 30f},
-        {"RotateSpeed", float.MaxValue},
-        {"VisionRadius", 20f},
-        {"AggroVisionRadius", 15f},
+        { "BufferRange", 10f },
+        { "FollowCloseRange", 3f },
+        { "FollowRange", 7f },
+        { "IdleRange", 7f },
+        { "InteractRange", SharedInteractionSystem.InteractionRange },
+        { "MaximumIdleTime", 7f },
+        { MedibotInjectRange, 4f },
+        { WeldbotWeldRange, 4f },
+        { PlantbotServiceRange, 4f },
+        { FillbotPickupRange, 10f },
+        { MeleeMissChance, 0.3f },
+        { "MeleeRange", 1f },
+        { "MinimumIdleTime", 2f },
+        { "MovementRangeClose", 0.2f },
+        { "MovementRange", 1.5f },
+        { "RangedRange", 30f },
+        { "RotateSpeed", float.MaxValue },
+        { "VisionRadius", 20f },
+        { "AggroVisionRadius", 15f },
     };
 
     /// <summary>
@@ -80,7 +80,7 @@ public sealed partial class NPCBlackboard : IEnumerable<KeyValuePair<string, obj
     [Pure]
     public T GetValue<T>(string key)
     {
-        return (T) _blackboard[key];
+        return (T)_blackboard[key];
     }
 
     /// <summary>
@@ -91,17 +91,17 @@ public sealed partial class NPCBlackboard : IEnumerable<KeyValuePair<string, obj
     {
         if (_blackboard.TryGetValue(key, out var value))
         {
-            return (T) value;
+            return (T)value;
         }
 
         if (TryGetEntityDefault(key, out value, entManager))
         {
-            return (T) value;
+            return (T)value;
         }
 
         if (BlackboardDefaults.TryGetValue(key, out value))
         {
-            return (T) value;
+            return (T)value;
         }
 
         return default;
@@ -114,19 +114,19 @@ public sealed partial class NPCBlackboard : IEnumerable<KeyValuePair<string, obj
     {
         if (_blackboard.TryGetValue(key, out var data))
         {
-            value = (T) data;
+            value = (T)data;
             return true;
         }
 
         if (TryGetEntityDefault(key, out data, entManager))
         {
-            value = (T) data;
+            value = (T)data;
             return true;
         }
 
         if (BlackboardDefaults.TryGetValue(key, out data))
         {
-            value = (T) data;
+            value = (T)data;
             return true;
         }
 
@@ -170,9 +170,11 @@ public sealed partial class NPCBlackboard : IEnumerable<KeyValuePair<string, obj
             }
             case ActiveHand:
             {
-                if (!TryGetValue(Owner, out owner, entManager) ||
-                    !entManager.TryGetComponent<HandsComponent>(owner, out var hands) ||
-                    hands.ActiveHand == null)
+                if (
+                    !TryGetValue(Owner, out owner, entManager)
+                    || !entManager.TryGetComponent<HandsComponent>(owner, out var hands)
+                    || hands.ActiveHand == null
+                )
                 {
                     return false;
                 }
@@ -182,9 +184,11 @@ public sealed partial class NPCBlackboard : IEnumerable<KeyValuePair<string, obj
             }
             case ActiveHandFree:
             {
-                if (!TryGetValue(Owner, out owner, entManager) ||
-                    !entManager.TryGetComponent<HandsComponent>(owner, out var hands) ||
-                    hands.ActiveHand == null)
+                if (
+                    !TryGetValue(Owner, out owner, entManager)
+                    || !entManager.TryGetComponent<HandsComponent>(owner, out var hands)
+                    || hands.ActiveHand == null
+                )
                 {
                     return false;
                 }
@@ -205,9 +209,11 @@ public sealed partial class NPCBlackboard : IEnumerable<KeyValuePair<string, obj
             }
             case FreeHands:
             {
-                if (!TryGetValue(Owner, out owner, entManager) ||
-                    !entManager.TryGetComponent<HandsComponent>(owner, out var hands) ||
-                    hands.ActiveHand == null)
+                if (
+                    !TryGetValue(Owner, out owner, entManager)
+                    || !entManager.TryGetComponent<HandsComponent>(owner, out var hands)
+                    || hands.ActiveHand == null
+                )
                 {
                     return false;
                 }
@@ -227,9 +233,11 @@ public sealed partial class NPCBlackboard : IEnumerable<KeyValuePair<string, obj
             }
             case Inventory:
             {
-                if (!TryGetValue(Owner, out owner, entManager) ||
-                    !entManager.TryGetComponent<HandsComponent>(owner, out var hands) ||
-                    hands.ActiveHand == null)
+                if (
+                    !TryGetValue(Owner, out owner, entManager)
+                    || !entManager.TryGetComponent<HandsComponent>(owner, out var hands)
+                    || hands.ActiveHand == null
+                )
                 {
                     return false;
                 }
@@ -275,9 +283,7 @@ public sealed partial class NPCBlackboard : IEnumerable<KeyValuePair<string, obj
 
     public string GetVisionRadiusKey(IEntityManager entMan)
     {
-        return TryGetValue<EntityUid>("Target", out _, entMan)
-            ? AggroVisionRadius
-            : VisionRadius;
+        return TryGetValue<EntityUid>("Target", out _, entMan) ? AggroVisionRadius : VisionRadius;
     }
 
     // I Ummd and Ahhd about using strings vs enums and decided on tags because

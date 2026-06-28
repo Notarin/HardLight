@@ -46,8 +46,7 @@
         restitution: 0.3
         friction: 0.2
       projectile:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.1,-0.1,0.1,0.1"
         hard: false
         mask:
@@ -72,7 +71,7 @@
 - type: entity
   name: soaplet
   id: SoapletBloodCult
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: SoapConjured
   components:
   - type: Sprite
@@ -93,8 +92,7 @@
         restitution: 0.3
         friction: 0.1
       projectile:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.08,-0.06,0.08,0.06"
         hard: false
         mask:
@@ -147,8 +145,7 @@
     damageContainer: Inorganic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 10
       behaviors:
       - !type:TriggerBehavior
@@ -191,7 +188,7 @@
 - type: entity
   id: SoapletBloodCultSpread
   parent: SoapletBloodCult
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: ProjectileSpread
     proto: SoapletBloodCult

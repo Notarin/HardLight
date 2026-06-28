@@ -9,11 +9,13 @@ namespace Content.Server.Database.Migrations.Postgres
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql(@"ALTER TABLE preference
+            migrationBuilder.Sql(
+                @"ALTER TABLE preference
 ADD CONSTRAINT ""FK_preference_profile_selected_character_slot_preference_id""
 FOREIGN KEY (selected_character_slot, preference_id)
 REFERENCES profile (slot, preference_id)
-DEFERRABLE INITIALLY DEFERRED;");
+DEFERRABLE INITIALLY DEFERRED;"
+            );
         }
     }
 }

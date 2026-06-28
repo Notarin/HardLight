@@ -1,3 +1,4 @@
+using System.Linq;
 using Content.Client.Pinpointer.UI;
 using Content.Client.UserInterface.Controls;
 using Content.Shared.Power;
@@ -8,16 +9,18 @@ using Robust.Client.UserInterface.XAML;
 using Robust.Shared.Map;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
-using System.Linq;
 
 namespace Content.Client.Power;
 
 [GenerateTypedNameReferences]
 public sealed partial class PowerMonitoringWindow : FancyWindow
 {
-    [Dependency] private IEntityManager _entManager = default!;
+    [Dependency]
+    private IEntityManager _entManager = default!;
     private readonly SpriteSystem _spriteSystem;
-    [Dependency] private IGameTiming _gameTiming = default!;
+
+    [Dependency]
+    private IGameTiming _gameTiming = default!;
     private SharedTransformSystem _transformSystem; // Frontier modification
 
     private const float BlinkFrequency = 1f;
@@ -28,10 +31,28 @@ public sealed partial class PowerMonitoringWindow : FancyWindow
 
     private Dictionary<PowerMonitoringConsoleGroup, (SpriteSpecifier.Texture, Color)> _groupBlips = new()
     {
-        { PowerMonitoringConsoleGroup.Generator, (new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/NavMap/beveled_circle.png")), Color.Purple) },
-        { PowerMonitoringConsoleGroup.SMES, (new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/NavMap/beveled_hexagon.png")), Color.OrangeRed) },
-        { PowerMonitoringConsoleGroup.Substation, (new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/NavMap/beveled_square.png")), Color.Yellow) },
-        { PowerMonitoringConsoleGroup.APC, (new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/NavMap/beveled_triangle.png")), Color.LimeGreen) },
+        {
+            PowerMonitoringConsoleGroup.Generator,
+            (new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/NavMap/beveled_circle.png")), Color.Purple)
+        },
+        {
+            PowerMonitoringConsoleGroup.SMES,
+            (
+                new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/NavMap/beveled_hexagon.png")),
+                Color.OrangeRed
+            )
+        },
+        {
+            PowerMonitoringConsoleGroup.Substation,
+            (new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/NavMap/beveled_square.png")), Color.Yellow)
+        },
+        {
+            PowerMonitoringConsoleGroup.APC,
+            (
+                new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/NavMap/beveled_triangle.png")),
+                Color.LimeGreen
+            )
+        },
     };
 
     public EntityUid Entity;
@@ -88,7 +109,6 @@ public sealed partial class PowerMonitoringWindow : FancyWindow
 
             StationName.SetMessage(msg);
         }
-
         else
         {
             StationName.SetMessage(stationName);
@@ -98,7 +118,7 @@ public sealed partial class PowerMonitoringWindow : FancyWindow
 
     private void OnTabChanged(int tab)
     {
-        SendPowerMonitoringConsoleMessageAction?.Invoke(_focusEntity, (PowerMonitoringConsoleGroup) tab);
+        SendPowerMonitoringConsoleMessageAction?.Invoke(_focusEntity, (PowerMonitoringConsoleGroup)tab);
     }
 
     private void OnShowCableToggled(PowerMonitoringConsoleLineGroup lineGroup)
@@ -107,14 +127,15 @@ public sealed partial class PowerMonitoringWindow : FancyWindow
             NavMap.HiddenLineGroups.Add(lineGroup);
     }
 
-    public void ShowEntites
-        (double totalSources,
+    public void ShowEntites(
+        double totalSources,
         double totalBatteryUsage,
         double totalLoads,
         PowerMonitoringConsoleEntry[] allEntries,
         PowerMonitoringConsoleEntry[] focusSources,
         PowerMonitoringConsoleEntry[] focusLoads,
-        EntityCoordinates? monitorCoords)
+        EntityCoordinates? monitorCoords
+    )
     {
         if (!_entManager.TryGetComponent<PowerMonitoringConsoleComponent>(Entity, out var console))
             return;
@@ -125,11 +146,15 @@ public sealed partial class PowerMonitoringWindow : FancyWindow
         TotalLoads.Text = Loc.GetString("power-monitoring-window-value", ("value", totalLoads));
 
         // 10+% of station power is being drawn from batteries
-        TotalBatteryUsage.FontColorOverride = (totalSources * 0.1111f) < totalBatteryUsage ? new Color(180, 0, 0) : Color.White;
+        TotalBatteryUsage.FontColorOverride =
+            (totalSources * 0.1111f) < totalBatteryUsage ? new Color(180, 0, 0) : Color.White;
 
         // Station generator and battery output is less than the current demand
-        TotalLoads.FontColorOverride = (totalSources + totalBatteryUsage) < totalLoads &&
-            !MathHelper.CloseToPercent(totalSources + totalBatteryUsage, totalLoads, 0.1f) ? new Color(180, 0, 0) : Color.White;
+        TotalLoads.FontColorOverride =
+            (totalSources + totalBatteryUsage) < totalLoads
+            && !MathHelper.CloseToPercent(totalSources + totalBatteryUsage, totalLoads, 0.1f)
+                ? new Color(180, 0, 0)
+                : Color.White;
 
         // Update system warnings
         UpdateWarningLabel(console.Flags);
@@ -165,7 +190,9 @@ public sealed partial class PowerMonitoringWindow : FancyWindow
 
         if (monitorCoords != null && mon.IsValid())
         {
-            var texture = _spriteSystem.Frame0(new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/NavMap/beveled_circle.png")));
+            var texture = _spriteSystem.Frame0(
+                new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/NavMap/beveled_circle.png"))
+            );
 
             var blip = new NavMapBlip(monitorCoords.Value, texture, Color.Cyan, true, false);
             NavMap.TrackedEntities[mon] = blip;
@@ -185,11 +212,14 @@ public sealed partial class PowerMonitoringWindow : FancyWindow
         switch (GetCurrentPowerMonitoringConsoleGroup())
         {
             case PowerMonitoringConsoleGroup.SMES:
-                currentContainer = SMESList; break;
+                currentContainer = SMESList;
+                break;
             case PowerMonitoringConsoleGroup.Substation:
-                currentContainer = SubstationList; break;
+                currentContainer = SubstationList;
+                break;
             case PowerMonitoringConsoleGroup.APC:
-                currentContainer = ApcList; break;
+                currentContainer = ApcList;
+                break;
         }
 
         // Clear excess children from the container
@@ -203,7 +233,6 @@ public sealed partial class PowerMonitoringWindow : FancyWindow
 
             if (entry.NetEntity == _focusEntity)
                 UpdateWindowConsoleEntry(currentContainer, index, entry, focusSources, focusLoads);
-
             else
                 UpdateWindowConsoleEntry(currentContainer, index, entry);
         }
@@ -216,7 +245,11 @@ public sealed partial class PowerMonitoringWindow : FancyWindow
         }
     }
 
-    private void AddTrackedEntityToNavMap(NetEntity netEntity, PowerMonitoringDeviceMetaData metaData, List<NetEntity> entitiesOfInterest)
+    private void AddTrackedEntityToNavMap(
+        NetEntity netEntity,
+        PowerMonitoringDeviceMetaData metaData,
+        List<NetEntity> entitiesOfInterest
+    )
     {
         if (!_groupBlips.TryGetValue(metaData.Group, out var data))
             return;
@@ -272,7 +305,10 @@ public sealed partial class PowerMonitoringWindow : FancyWindow
         SystemWarningPanel.Modulate = lit ? Color.White : new Color(178, 178, 178);
     }
 
-    private PowerMonitoringConsoleEntry[] GetUpdatedPowerMonitoringConsoleEntries(PowerMonitoringConsoleEntry[] entries, PowerMonitoringConsoleComponent console)
+    private PowerMonitoringConsoleEntry[] GetUpdatedPowerMonitoringConsoleEntries(
+        PowerMonitoringConsoleEntry[] entries,
+        PowerMonitoringConsoleComponent console
+    )
     {
         for (int i = 0; i < entries.Length; i++)
         {

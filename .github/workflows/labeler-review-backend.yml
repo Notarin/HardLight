@@ -15,19 +15,19 @@ jobs:
       pull-requests: write
       actions: write
     steps:
-      - name: Checkout Repository Code
-        uses: actions/checkout@v4
+    - name: Checkout Repository Code
+      uses: actions/checkout@v4
 
-      - name: Run Apply Label Action
-        id: applylabel
-        uses: ./.github/actions/apply-label
+    - name: Run Apply Label Action
+      id: applylabel
+      uses: ./.github/actions/apply-label
 
-      # If this errors we don't REALLY care, but I like not having label hell
-      - name: Remove Old Label
-        continue-on-error: true
-        env:
-          PR_NO: ${{ steps.applylabel.outputs.pr_num }}
-          OLD_LABEL: "S: Needs Review"
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GH_REPO: ${{ github.repository }}
-        run: 'gh pr edit "$PR_NO" --repo "${{ github.repository }}" --remove-label "$OLD_LABEL"'
+    # If this errors we don't REALLY care, but I like not having label hell
+    - name: Remove Old Label
+      continue-on-error: true
+      env:
+        PR_NO: ${{ steps.applylabel.outputs.pr_num }}
+        OLD_LABEL: "S: Needs Review"
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GH_REPO: ${{ github.repository }}
+      run: 'gh pr edit "$PR_NO" --repo "${{ github.repository }}" --remove-label "$OLD_LABEL"'

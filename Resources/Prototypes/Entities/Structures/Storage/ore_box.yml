@@ -1,5 +1,5 @@
 - type: entity
-  categories: [ HideSpawnMenu ] # Frontier: Use NF variant
+  categories: [HideSpawnMenu] # Frontier: Use NF variant
   id: OreBox
   name: ore box
   description: A large storage container for holding unprocessed ores.
@@ -14,14 +14,12 @@
     damageModifierSet: Wood
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 150
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:EmptyAllContainersBehaviour
@@ -31,7 +29,7 @@
             min: 3
             max: 5
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: Climbable
 
   # orebox-specific
@@ -41,15 +39,15 @@
     layers:
     - state: orebox
     - state: orebox-top
-      map: [ top ]
+      map: [top]
       visible: true
   - type: Appearance
   - type: GenericVisualizer
     visuals:
       enum.StorageVisuals.Open:
         top:
-          True: { visible: false }
-          False: { visible: true }
+          True: {visible: false}
+          False: {visible: true}
   - type: Storage
     grid:
     - 0,0,9,5
@@ -66,12 +64,11 @@
   - type: ContainerContainer
     containers:
       storagebase: !type:Container
-        ents: [ ]
+        ents: []
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.3
         # very not dense to make it easy to pull
         density: 20

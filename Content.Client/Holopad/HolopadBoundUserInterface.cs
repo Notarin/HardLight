@@ -1,19 +1,21 @@
+using System.Numerics;
 using Content.Shared.Holopad;
 using Content.Shared.Silicons.StationAi;
 using Robust.Client.UserInterface;
 using Robust.Shared.Player;
-using System.Numerics;
 
 namespace Content.Client.Holopad;
 
 public sealed class HolopadBoundUserInterface : BoundUserInterface
 {
-    [Dependency] private readonly ISharedPlayerManager _playerManager = default!;
+    [Dependency]
+    private readonly ISharedPlayerManager _playerManager = default!;
 
     [ViewVariables]
     private HolopadWindow? _window;
 
-    public HolopadBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
+    public HolopadBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey)
     {
         IoCManager.InjectDependencies(this);
     }
@@ -23,7 +25,10 @@ public sealed class HolopadBoundUserInterface : BoundUserInterface
         base.Open();
 
         _window = this.CreateWindow<HolopadWindow>();
-        _window.Title = Loc.GetString("holopad-window-title", ("title", EntMan.GetComponent<MetaDataComponent>(Owner).EntityName));
+        _window.Title = Loc.GetString(
+            "holopad-window-title",
+            ("title", EntMan.GetComponent<MetaDataComponent>(Owner).EntityName)
+        );
 
         if (this.UiKey is not HolopadUiKey)
         {
@@ -34,7 +39,10 @@ public sealed class HolopadBoundUserInterface : BoundUserInterface
         var uiKey = (HolopadUiKey)this.UiKey;
 
         // AIs will see a different holopad interface to crew when interacting with them in the world
-        if (uiKey == HolopadUiKey.InteractionWindow && EntMan.HasComponent<StationAiHeldComponent>(_playerManager.LocalEntity))
+        if (
+            uiKey == HolopadUiKey.InteractionWindow
+            && EntMan.HasComponent<StationAiHeldComponent>(_playerManager.LocalEntity)
+        )
             uiKey = HolopadUiKey.InteractionWindowForAi;
 
         _window.SetState(Owner, uiKey);
@@ -51,7 +59,6 @@ public sealed class HolopadBoundUserInterface : BoundUserInterface
         // If this call is addressed to an AI, open the window in the bottom right hand corner of the screen
         if (uiKey == HolopadUiKey.AiRequestWindow)
             _window.OpenCenteredAt(new Vector2(1f, 1f));
-
         // Otherwise offset to the left so the holopad can still be seen
         else
             _window.OpenCenteredAt(new Vector2(0.3333f, 0.50f));

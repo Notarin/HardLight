@@ -14,8 +14,8 @@
         walkSpeedModifier: 1.15
         sprintSpeedModifier: 1.15
       - !type:SatiateHunger
-      - !type:HealthChange #minor health benefit if you eat full meals, helps with the existing 'healthy' vitamins etc. to create a complete and balanced diet.
-        conditions:
+      - !type:HealthChange
+        conditions: #minor health benefit if you eat full meals, helps with the existing 'healthy' vitamins etc. to create a complete and balanced diet.
         - !type:ReagentThreshold
           min: 10
         damage:
@@ -44,8 +44,8 @@
   metabolisms:
     Food:
       effects:
-      # Minimally filling
       - !type:AdjustReagent
+        # Minimally filling
         reagent: Sugar
         amount: 0.2
       - !type:AdjustReagent

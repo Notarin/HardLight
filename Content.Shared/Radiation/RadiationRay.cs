@@ -15,28 +15,34 @@ public struct RadiationRay(
     Vector2 source,
     EntityUid destinationUid,
     Vector2 destination,
-    float rads)
+    float rads
+)
 {
     /// <summary>
     ///     Map on which source and receiver are placed.
     /// </summary>
     public MapId MapId = mapId;
+
     /// <summary>
     ///     Uid of entity with <see cref="RadiationSourceComponent"/>.
     /// </summary>
     public EntityUid SourceUid = sourceUid;
+
     /// <summary>
     ///     World coordinates of radiation source.
     /// </summary>
     public Vector2 Source = source;
+
     /// <summary>
     ///     Uid of entity with radiation receiver component.
     /// </summary>
     public EntityUid DestinationUid = destinationUid;
+
     /// <summary>
     ///     World coordinates of radiation receiver.
     /// </summary>
     public Vector2 Destination = destination;
+
     /// <summary>
     ///     How many rads intensity reached radiation receiver.
     /// </summary>
@@ -56,7 +62,6 @@ public struct RadiationRay(
     ///     Grid traversal order isn't guaranteed.
     /// </remarks>
     public Dictionary<NetEntity, List<(Vector2i, float)>>? Blockers;
-
 }
 
 // Variant of RadiationRay that uses NetEntities.
@@ -68,7 +73,8 @@ public readonly record struct DebugRadiationRay(
     NetEntity DestinationUid,
     Vector2 Destination,
     float Rads,
-    Dictionary<NetEntity, List<(Vector2i, float)>> Blockers)
+    Dictionary<NetEntity, List<(Vector2i, float)>> Blockers
+)
 {
     public bool ReachedDestination => Rads > 0;
 }

@@ -1,13 +1,13 @@
 using Content.Shared.Anomaly.Components;
+using Content.Shared.Anomaly.Effects; // Frontier
 using Content.Shared.Construction.Components;
 using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Examine;
 using Content.Shared.Weapons.Melee.Components;
+using Robust.Shared.Network; // Frontier
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Timing;
-using Robust.Shared.Network; // Frontier
-using Content.Shared.Anomaly.Effects; // Frontier
 
 namespace Content.Shared.Anomaly;
 
@@ -16,10 +16,17 @@ namespace Content.Shared.Anomaly;
 /// </summary>
 public sealed class SharedAnomalyCoreSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly ItemSlotsSystem _itemSlots = default!;
-    [Dependency] private readonly INetManager _net = default!; // Frontier
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly ItemSlotsSystem _itemSlots = default!;
+
+    [Dependency]
+    private readonly INetManager _net = default!; // Frontier
 
     public override void Initialize()
     {
@@ -39,10 +46,12 @@ public sealed class SharedAnomalyCoreSystem : EntitySystem
         var (uid, comp) = ent;
 
         // don't waste charges on non-anchorable non-anomalous static bodies.
-        if (!HasComp<AnomalyComponent>(args.Target)
+        if (
+            !HasComp<AnomalyComponent>(args.Target)
             && !HasComp<AnchorableComponent>(args.Target)
             && TryComp<PhysicsComponent>(args.Target, out var body)
-            && body.BodyType == BodyType.Static)
+            && body.BodyType == BodyType.Static
+        )
             return;
 
         args.Cancelled = true;
@@ -73,8 +82,10 @@ public sealed class SharedAnomalyCoreSystem : EntitySystem
         if (!args.IsInDetailsRange)
             return;
 
-        if (!_itemSlots.TryGetSlot(uid, comp.CoreSlotId, out var slot) ||
-            !TryComp<AnomalyCoreComponent>(slot.Item, out var coreComponent))
+        if (
+            !_itemSlots.TryGetSlot(uid, comp.CoreSlotId, out var slot)
+            || !TryComp<AnomalyCoreComponent>(slot.Item, out var coreComponent)
+        )
         {
             args.PushMarkup(Loc.GetString("anomaly-gorilla-charge-none"));
             return;
@@ -126,7 +137,8 @@ public sealed class SharedAnomalyCoreSystem : EntitySystem
         if (!_net.IsServer)
             return;
 
-        int price = (int)Math.Clamp(pointsEarned * component.PointPriceCoefficient, component.MinimumPrice, component.MaximumPrice);
+        int price = (int)
+            Math.Clamp(pointsEarned * component.PointPriceCoefficient, component.MinimumPrice, component.MaximumPrice);
 
         component.StartPrice = price;
         component.EndPrice = price;

@@ -9,8 +9,11 @@ namespace Content.Client.Flash;
 
 public sealed class FlashSystem : SharedFlashSystem
 {
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IOverlayManager _overlayMan = default!;
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly IOverlayManager _overlayMan = default!;
 
     private FlashOverlay _overlay = default!;
 

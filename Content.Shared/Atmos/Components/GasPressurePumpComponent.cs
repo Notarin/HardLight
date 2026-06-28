@@ -1,6 +1,6 @@
+using Content.Shared.Atmos.Piping.Binary.Components; // Frontier
 using Content.Shared.Guidebook;
 using Robust.Shared.GameStates;
-using Content.Shared.Atmos.Piping.Binary.Components; // Frontier
 
 namespace Content.Shared.Atmos.Components;
 

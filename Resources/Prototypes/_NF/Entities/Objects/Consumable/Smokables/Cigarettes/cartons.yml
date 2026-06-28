@@ -11,5 +11,5 @@
     sprite: _NF/Objects/Consumable/Smokeables/Cigarettes/Cartons/mccargo.rsi
   - type: StorageFill
     contents:
-      - id: CigPackMcCargo
-        amount: 5
+    - id: CigPackMcCargo
+      amount: 5

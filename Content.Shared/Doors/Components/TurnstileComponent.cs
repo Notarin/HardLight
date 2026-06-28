@@ -54,7 +54,10 @@ public sealed partial class TurnstileComponent : Component
     /// Sound to play when the turnstile admits a mob through.
     /// </summary>
     [DataField]
-    public SoundSpecifier? TurnSound = new SoundPathSpecifier("/Audio/Items/ratchet.ogg", AudioParams.Default.WithVolume(-6));
+    public SoundSpecifier? TurnSound = new SoundPathSpecifier(
+        "/Audio/Items/ratchet.ogg",
+        AudioParams.Default.WithVolume(-6)
+    );
 
     /// <summary>
     /// Sound to play when the turnstile denies entry
@@ -62,15 +65,12 @@ public sealed partial class TurnstileComponent : Component
     [DataField]
     public SoundSpecifier? DenySound = new SoundPathSpecifier("/Audio/Machines/airlock_deny.ogg")
     {
-        Params = new()
-        {
-            Volume = -7,
-        },
+        Params = new() { Volume = -7 },
     };
 }
 
 [Serializable, NetSerializable]
 public enum TurnstileVisualLayers : byte
 {
-    Base
+    Base,
 }

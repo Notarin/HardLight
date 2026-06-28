@@ -1,5 +1,5 @@
 - type: entity
-  parent: [ BaseMobSpecies, MobBloodstream, MobAtmosExposed, MobFlammable ]
+  parent: [BaseMobSpecies, MobBloodstream, MobAtmosExposed, MobFlammable]
   id: BaseMobSynth
   name: Urist McSynth
   save: false
@@ -87,7 +87,7 @@
   - type: Speech
     speechVerb: Robotic
     speechSounds: Borg
-    allowedEmotes: [ 'Thump', 'Purr', 'Beep', 'Ping', 'Buzz' ]
+    allowedEmotes: ['Thump', 'Purr', 'Beep', 'Ping', 'Buzz']
   - type: Vocal
     sounds:
       Male: UnisexSilicon
@@ -146,7 +146,7 @@
   parent: BaseSpeciesDummy
   id: MobSynthDummy
   name: Synth Dummy
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Inventory
     speciesId: synth

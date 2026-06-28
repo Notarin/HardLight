@@ -27,6 +27,7 @@ public sealed class PowerChargeState : BoundUserInterfaceState
 {
     public bool On;
     public bool ActionUnlocked; // Frontier
+
     // 0 -> 255
     public byte Charge;
     public PowerChargePowerStatus PowerStatus;
@@ -41,7 +42,8 @@ public sealed class PowerChargeState : BoundUserInterfaceState
         PowerChargePowerStatus powerStatus,
         short powerDraw,
         short powerDrawMax,
-        short etaSeconds)
+        short etaSeconds
+    )
     {
         On = on;
         ActionUnlocked = actionUnlocked; // Frontier
@@ -56,7 +58,7 @@ public sealed class PowerChargeState : BoundUserInterfaceState
 [Serializable, NetSerializable]
 public enum PowerChargeUiKey
 {
-    Key
+    Key,
 }
 
 [Serializable, NetSerializable]
@@ -64,7 +66,7 @@ public enum PowerChargeVisuals
 {
     State,
     Charge,
-    Active
+    Active,
 }
 
 [Serializable, NetSerializable]
@@ -73,7 +75,7 @@ public enum PowerChargeStatus
     Broken,
     Unpowered,
     Off,
-    On
+    On,
 }
 
 [Serializable, NetSerializable]
@@ -82,5 +84,5 @@ public enum PowerChargePowerStatus : byte
     Off,
     Discharging,
     Charging,
-    FullyCharged
+    FullyCharged,
 }

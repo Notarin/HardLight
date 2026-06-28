@@ -16,25 +16,19 @@
     count: 2
 
   - !type:RoomEntranceDunGen
-
   - !type:EntranceFlankDunGen
-
   - !type:ExternalWindowDunGen
-
   - !type:WallMountDunGen
-
   - !type:BoundaryWallDunGen
-
   - !type:JunctionDunGen
+
     width: 1
 
   - !type:JunctionDunGen
-
   - !type:AutoCablingDunGen
-
   - !type:CornerClutterDunGen
-
   - !type:CorridorDecalSkirtingDunGen
+
     cardinalDecals:
       South: BrickTileWhiteLineS
       East: BrickTileWhiteLineE

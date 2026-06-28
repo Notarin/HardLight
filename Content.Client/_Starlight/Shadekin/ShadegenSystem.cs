@@ -7,9 +7,14 @@ namespace Content.Client._Starlight.Shadekin;
 
 public sealed class ShadegenSystem : EntitySystem
 {
-    [Dependency] private readonly PointLightSystem _lightSys = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly ContainerSystem _container = default!;
+    [Dependency]
+    private readonly PointLightSystem _lightSys = default!;
+
+    [Dependency]
+    private readonly EntityLookupSystem _lookup = default!;
+
+    [Dependency]
+    private readonly ContainerSystem _container = default!;
 
     private readonly HashSet<EntityUid> _updateQueue = new();
 
@@ -43,13 +48,19 @@ public sealed class ShadegenSystem : EntitySystem
             if (Transform(uid).MapID == MapId.Nullspace)
                 continue;
 
-            var lightQuery = _lookup.GetEntitiesInRange<PointLightComponent>(Transform(uid).Coordinates, shadegen.Range);
-            var containerQuery = _lookup.GetEntitiesInRange<ContainerManagerComponent>(Transform(uid).Coordinates, shadegen.Range);
+            var lightQuery = _lookup.GetEntitiesInRange<PointLightComponent>(
+                Transform(uid).Coordinates,
+                shadegen.Range
+            );
+            var containerQuery = _lookup.GetEntitiesInRange<ContainerManagerComponent>(
+                Transform(uid).Coordinates,
+                shadegen.Range
+            );
             foreach (var containerent in containerQuery)
-                foreach (var container in _container.GetAllContainers(containerent.Owner, containerent.Comp))
-                    foreach (var contained in container.ContainedEntities)
-                        if (TryComp<PointLightComponent>(contained, out var pointLight))
-                            lightQuery.Add((contained, pointLight));
+            foreach (var container in _container.GetAllContainers(containerent.Owner, containerent.Comp))
+            foreach (var contained in container.ContainedEntities)
+                if (TryComp<PointLightComponent>(contained, out var pointLight))
+                    lightQuery.Add((contained, pointLight));
 
             foreach (var light in lightQuery)
             {

@@ -12,8 +12,11 @@ namespace Content.Server.Maps;
 /// </summary>
 public sealed class TileGridSplitSystem : EntitySystem
 {
-    [Dependency] private readonly SharedMapSystem _maps = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly SharedMapSystem _maps = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     public override void Initialize()
     {
@@ -40,11 +43,17 @@ public sealed class TileGridSplitSystem : EntitySystem
             foreach (var tile in _maps.GetAllTiles(gridUid, newGrid))
             {
                 // calculate where this tile was on the old grid
-                var oldIndices = _maps.LocalToTile(ev.Grid, oldGrid, new EntityCoordinates(gridUid, new Vector2(tile.GridIndices.X + 0.5f, tile.GridIndices.Y + 0.5f)));
+                var oldIndices = _maps.LocalToTile(
+                    ev.Grid,
+                    oldGrid,
+                    new EntityCoordinates(gridUid, new Vector2(tile.GridIndices.X + 0.5f, tile.GridIndices.Y + 0.5f))
+                );
 
                 var chunkIndices = SharedMapSystem.GetChunkIndices(oldIndices, TileSystem.ChunkSize);
-                if (oldHistory.ChunkHistory.TryGetValue(chunkIndices, out var oldChunk) &&
-                    oldChunk.History.TryGetValue(oldIndices, out var history))
+                if (
+                    oldHistory.ChunkHistory.TryGetValue(chunkIndices, out var oldChunk)
+                    && oldChunk.History.TryGetValue(oldIndices, out var history)
+                )
                 {
                     // now we move the history from the old grid to the new grid
                     var newChunkIndices = SharedMapSystem.GetChunkIndices(tile.GridIndices, TileSystem.ChunkSize);

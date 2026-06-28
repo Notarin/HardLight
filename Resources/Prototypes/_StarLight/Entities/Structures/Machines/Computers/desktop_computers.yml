@@ -7,22 +7,21 @@
     graph: DesktopComputer
     node: computer
     containers:
-      - board
+    - board
   - type: Sprite
     sprite: _Starlight/Structures/Machines/desktop_computers.rsi
     drawdepth: SmallObjects
     offset: 0,0.2
     noRot: true
-  - type: GenericVisualizer  # Override to prevent edge connection sprites
+  - type: GenericVisualizer # Override to prevent edge connection sprites
     visuals:
       enum.EdgeConnectionVisuals.ConnectionMask:
         computerLayerBody:
-          None: { state: computer, sprite: _Starlight/Structures/Machines/desktop_computers.rsi }
+          None: {state: computer, sprite: _Starlight/Structures/Machines/desktop_computers.rsi}
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.10,-0.10,0.10,0.10"
         density: 500
         mask:
@@ -46,8 +45,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.10,-0.10,0.10,0.10"
         density: 500
         mask:
@@ -67,8 +65,7 @@
     damageModifierSet: Electronic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:PlaySoundBehavior
@@ -92,17 +89,17 @@
     noRot: true
     layers:
     - state: 0
-      map: [ "enum.ConstructionVisuals.Layer" ]
+      map: ["enum.ConstructionVisuals.Layer"]
   - type: Appearance
   - type: GenericVisualizer
     visuals:
       enum.ConstructionVisuals.Key:
         enum.ConstructionVisuals.Layer:
-          frameUnsecured: { state: 0 }
-          boardUnsecured: { state: 1 }
-          missingWires: { state: 2 }
-          monitorMissing: { state: 3 }
-          monitorUnsecured: { state: 4 }
+          frameUnsecured: {state: 0}
+          boardUnsecured: {state: 1}
+          missingWires: {state: 2}
+          monitorMissing: {state: 3}
+          monitorUnsecured: {state: 4}
 
 - type: entity
   parent: BaseStructureDesktopComputer
@@ -121,14 +118,12 @@
     state: broken
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
-        - !type:DoActsBehavior
-          acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 50
       behaviors:
       - !type:PlaySoundBehavior
@@ -142,12 +137,12 @@
             min: 1
             max: 1
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
 # endregion: Frame
 
 # region: Computers
 - type: entity
-  parent: [ BaseDesktop, ComputerAlert ]
+  parent: [BaseDesktop, ComputerAlert]
   id: ComputerAlertDesktop
   name: atmospheric alerts desktop computer
   description: Used to access the station's atmospheric automated alert system.
@@ -156,7 +151,7 @@
     board: AlertsComputerCircuitboardDesktop
 
 - type: entity
-  parent: [ BaseDesktop, ComputerAtmosMonitoring ]
+  parent: [BaseDesktop, ComputerAtmosMonitoring]
   id: ComputerAtmosMonitoringDesktop
   name: desktop atmospheric network monitor
   description: Used to monitor the station's atmospheric networks.
@@ -165,7 +160,7 @@
     board: AtmosMonitoringComputerCircuitboardDesktop
 
 - type: entity
-  parent: [ BaseDesktop, ComputerSurveillanceCameraMonitor ]
+  parent: [BaseDesktop, ComputerSurveillanceCameraMonitor]
   id: ComputerSurveillanceCameraMonitorDesktop
   name: camera monitor
   description: A surveillance camera monitor. You're watching them. Maybe.
@@ -174,7 +169,7 @@
     board: SurveillanceCameraMonitorCircuitboardDesktop
 
 - type: entity
-  parent: [ BaseDesktop, ComputerCargoBounty ]
+  parent: [BaseDesktop, ComputerCargoBounty]
   id: ComputerCargoBountyDesktop
   name: cargo bounty desktop computer
   description: Used to manage currently active bounties.
@@ -183,7 +178,7 @@
     board: CargoBountyComputerCircuitboardDesktop
 
 - type: entity
-  parent: [ BaseDesktop, ComputerCrewMonitoring ]
+  parent: [BaseDesktop, ComputerCrewMonitoring]
   id: ComputerCrewMonitoringDesktop
   name: desktop crew monitoring console
   description: Used to monitor active health sensors built into most of the crew's uniforms.
@@ -192,7 +187,7 @@
     board: CrewMonitoringComputerCircuitboardDesktop
 
 - type: entity
-  parent: [ BaseDesktop, ComputerCriminalRecords ]
+  parent: [BaseDesktop, ComputerCriminalRecords]
   id: ComputerCriminalRecordsDesktop
   name: security records desktop computer
   description: This can be used to access security records.
@@ -201,7 +196,7 @@
     board: CriminalRecordsComputerCircuitboardDesktop
 
 - type: entity
-  parent: [ BaseDesktop, ComputerStationRecords ]
+  parent: [BaseDesktop, ComputerStationRecords]
   id: ComputerStationRecordsDesktop
   name: employment records desktop computer
   description: This can be used to check employment records.
@@ -210,7 +205,7 @@
     board: StationRecordsComputerCircuitboardDesktop
 
 - type: entity
-  parent: [ BaseDesktop, ComputerMassMedia ]
+  parent: [BaseDesktop, ComputerMassMedia]
   id: ComputerMassMediaDesktop
   name: news manager desktop computer
   components:
@@ -218,7 +213,7 @@
     board: ComputerMassMediaCircuitboardDesktop
 
 - type: entity
-  parent: [ BaseDesktop, ComputerPowerMonitoring ]
+  parent: [BaseDesktop, ComputerPowerMonitoring]
   id: ComputerPowerMonitoringDesktop
   name: power monitoring desktop computer
   description: It monitors power levels across the station.
@@ -236,7 +231,7 @@
 #    board: SalvageJobBoardComputerCircuitboardDesktop
 
 - type: entity
-  parent: [ BaseDesktop, ComputerCargoOrders ]
+  parent: [BaseDesktop, ComputerCargoOrders]
   id: ComputerCargoOrdersDesktop
   name: cargo request desktop computer
   description: Used to order supplies and approve requests.
@@ -246,7 +241,7 @@
 
 # Request console variants.
 - type: entity
-  parent: [ BaseDesktop, ComputerCargoOrdersEngineering ]
+  parent: [BaseDesktop, ComputerCargoOrdersEngineering]
   id: ComputerCargoOrdersEngineeringDesktop
   name: engineering request desktop computer
   description: Used by the engineering department to order supplies.
@@ -255,7 +250,7 @@
     board: CargoRequestEngineeringComputerCircuitboardDesktop
 
 - type: entity
-  parent: [ BaseDesktop, ComputerCargoOrdersMedical ]
+  parent: [BaseDesktop, ComputerCargoOrdersMedical]
   id: ComputerCargoOrdersMedicalDesktop
   name: medical request desktop computer
   description: Used by the medical department to order supplies.
@@ -264,7 +259,7 @@
     board: CargoRequestMedicalComputerCircuitboardDesktop
 
 - type: entity
-  parent: [ BaseDesktop, ComputerCargoOrdersScience ]
+  parent: [BaseDesktop, ComputerCargoOrdersScience]
   id: ComputerCargoOrdersScienceDesktop
   name: science request desktop computer
   description: Used by the science department to order supplies.
@@ -273,7 +268,7 @@
     board: CargoRequestScienceComputerCircuitboardDesktop
 
 - type: entity
-  parent: [ BaseDesktop, ComputerCargoOrdersSecurity ]
+  parent: [BaseDesktop, ComputerCargoOrdersSecurity]
   id: ComputerCargoOrdersSecurityDesktop
   name: security request desktop computer
   description: Used by the security department to order supplies.
@@ -282,7 +277,7 @@
     board: CargoRequestSecurityComputerCircuitboardDesktop
 
 - type: entity
-  parent: [ BaseDesktop, ComputerCargoOrdersService ]
+  parent: [BaseDesktop, ComputerCargoOrdersService]
   id: ComputerCargoOrdersServiceDesktop
   name: service request desktop computer
   description: Used by the service department to order supplies.
@@ -294,7 +289,7 @@
 # region: Custom Computers
 # Desktop computers without corresponding console
 - type: entity
-  parent: [ BaseDesktop, BaseComputerAiAccess, StorePresetUplink ]
+  parent: [BaseDesktop, BaseComputerAiAccess, StorePresetUplink]
   id: ComputerPersonalDesktop
   name: personal desktop computer
   description: For all your stationary computing needs!
@@ -309,16 +304,16 @@
       state: personal
     - map: ["computerLayerKeys"]
       state: service_keys
-    - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+    - map: ["enum.WiresVisualLayers.MaintenancePanel"]
       state: generic_panel_open
-    - map: [ "enum.PdaVisualLayers.Base" ]
+    - map: ["enum.PdaVisualLayers.Base"]
       state: "pda"
       visible: false
-    - map: [ "enum.PdaVisualLayers.Flashlight" ]
+    - map: ["enum.PdaVisualLayers.Flashlight"]
       state: "pda"
       shader: "unshaded"
       visible: false
-    - map: [ "enum.PdaVisualLayers.IdLight" ]
+    - map: ["enum.PdaVisualLayers.IdLight"]
       state: "pda"
       shader: "unshaded"
       visible: false
@@ -343,9 +338,7 @@
       program-container: !type:Container
   - type: Appearance
     appearanceDataInit:
-     enum.PdaVisuals.PdaType:
-       !type:String
-       pda
+      enum.PdaVisuals.PdaType: !type:String pda
   - type: Icon
     sprite: _Starlight/Structures/Machines/desktop_computers.rsi
     state: computer
@@ -389,10 +382,10 @@
   - type: CartridgeLoader
     uiKey: enum.PdaUiKey.Key
     preinstalled:
-      - CrewManifestCartridge
-      - NotekeeperCartridge
-      - NanoTaskCartridge
-      - NewsReaderCartridge
+    - CrewManifestCartridge
+    - NotekeeperCartridge
+    - NanoTaskCartridge
+    - NewsReaderCartridge
     cartridgeSlot:
       priority: -1
       name: device-pda-slot-component-slot-name-cartridge
@@ -400,7 +393,7 @@
       insertSound: /Audio/Machines/id_insert.ogg
       whitelist:
         components:
-          - Cartridge
+        - Cartridge
   - type: ActivatableUI
     key: enum.PdaUiKey.Key
     singleUser: true

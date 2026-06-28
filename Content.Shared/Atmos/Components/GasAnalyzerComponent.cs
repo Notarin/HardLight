@@ -33,7 +33,14 @@ public sealed partial class GasAnalyzerComponent : Component
         public bool DeviceFlipped;
         public string? Error;
         public GasMixEntry[] NodeGasMixes;
-        public GasAnalyzerUserMessage(GasMixEntry[] nodeGasMixes, string deviceName, NetEntity deviceUid, bool deviceFlipped, string? error = null)
+
+        public GasAnalyzerUserMessage(
+            GasMixEntry[] nodeGasMixes,
+            string deviceName,
+            NetEntity deviceUid,
+            bool deviceFlipped,
+            string? error = null
+        )
         {
             NodeGasMixes = nodeGasMixes;
             DeviceName = deviceName;
@@ -88,18 +95,12 @@ public sealed partial class GasAnalyzerComponent : Component
         public override string ToString()
         {
             // e.g. "Plasma: 2000 mol"
-            return Loc.GetString(
-                "gas-entry-info",
-                 ("gasName", Name),
-                 ("gasAmount", Amount));
+            return Loc.GetString("gas-entry-info", ("gasName", Name), ("gasAmount", Amount));
         }
     }
 
     [Serializable, NetSerializable]
-    public sealed class GasAnalyzerDisableMessage : BoundUserInterfaceMessage
-    {
-
-    }
+    public sealed class GasAnalyzerDisableMessage : BoundUserInterfaceMessage { }
 }
 
 [Serializable, NetSerializable]
@@ -107,4 +108,3 @@ public enum GasAnalyzerVisuals : byte
 {
     Enabled,
 }
-

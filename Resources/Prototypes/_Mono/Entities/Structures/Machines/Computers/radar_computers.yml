@@ -14,7 +14,7 @@
       state: eris_control
     - map: ["computerLayerKeys"]
       state: generic_keys
-    - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+    - map: ["enum.WiresVisualLayers.MaintenancePanel"]
       state: generic_panel_open
   - type: DetectionRangeMultiplier
     infraredMultiplier: 1.5

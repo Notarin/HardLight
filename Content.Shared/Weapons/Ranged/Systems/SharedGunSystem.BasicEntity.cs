@@ -47,13 +47,20 @@ public abstract partial class SharedGunSystem
     }
 
     // Mono
-    private void OnBasicEntityCheckProto(Entity<BasicEntityAmmoProviderComponent> ent, ref CheckShootPrototypeEvent args)
+    private void OnBasicEntityCheckProto(
+        Entity<BasicEntityAmmoProviderComponent> ent,
+        ref CheckShootPrototypeEvent args
+    )
     {
         ProtoManager.TryIndex(ent.Comp.Proto, out var proto);
         args.ShootPrototype = proto;
     }
 
-    private void OnBasicEntityAmmoCount(EntityUid uid, BasicEntityAmmoProviderComponent component, ref GetAmmoCountEvent args)
+    private void OnBasicEntityAmmoCount(
+        EntityUid uid,
+        BasicEntityAmmoProviderComponent component,
+        ref GetAmmoCountEvent args
+    )
     {
         args.Capacity = component.Capacity ?? int.MaxValue;
         args.Count = component.Count ?? int.MaxValue;

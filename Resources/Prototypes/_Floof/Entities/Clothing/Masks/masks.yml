@@ -27,7 +27,7 @@
 - type: entity
   parent: ClothingMaskMuffledBase
   id: ClothingMaskGasExplorerMuffled
-  name:  explorer gas mask
+  name: explorer gas mask
   suffix: muffled
   description: A military-grade gas mask that can be connected to an air supply. Comes with an integrated gag that blocks your speech.
   components:

@@ -50,8 +50,7 @@
   components:
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:PlaySoundBehavior
@@ -69,8 +68,7 @@
     damageModifierSet: Metallic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 0
 
 - type: entity
@@ -80,7 +78,7 @@
   placement:
     mode: SnapgridCenter
     snap:
-      - Wallmount
+    - Wallmount
   components:
   - type: Sprite
     drawdepth: WallMountedItems

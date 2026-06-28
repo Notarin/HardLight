@@ -32,7 +32,9 @@ public sealed partial class EntityWhitelist
     /// <summary>
     ///     Component names that are allowed in the whitelist.
     /// </summary>
-    [DataField] public string[]? Components;
+    [DataField]
+    public string[]? Components;
+
     // TODO yaml validation
 
     /// <summary>

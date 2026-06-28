@@ -181019,7 +181019,6 @@ entities:
       content: >-
         Was it ever even here...?
 
-
         Or was it all just a dream...?
   - uid: 3736
     components:
@@ -181157,15 +181156,11 @@ entities:
 
         [color=red]
 
-
         Page 37, Line 80 of the Space Operating Procedures states that:
 
         [color=black]
 
-
         [italic]"Any substance with the capacity to cause harm as a consequence of overdose may not be stocked, stored, or displayed in an area and fashion that leaves such substances open and accessible to the public."[/italic]
-
-
 
         Your compliance is [color=red]mandatory. [color=black]Thank you.
   - uid: 27406
@@ -181231,14 +181226,11 @@ entities:
       content: >-
         Remember, Doctors, cloning should be your LAST RESORT.
 
-
         - Are they rotten?
 
         - Is their damage unrecoverably high (>200 rads, poison)?
 
-
         If not, please ensure that you and your co-workers know how to operate a defibrillator and have a healthy stock of ointments, bruise packs, sutures, and meshes.
-
 
         Cloning is *not* a cure-all. It can be distressing and psychologically damaging to wake up in a different body. Patients may act belligerent - and would you blame them? You may want to alert any active Psychologists to be on deck.
   - uid: 36134
@@ -181310,18 +181302,9 @@ entities:
       content: >-
         ...inconclusive. Will increase to 30 mg administered within rations in an attempt to induce clearer results. Three subjects complained of mild...
 
-
-
-
-
         ...biological compound matches...
 
-
-
-
         ...feverish, sweating, nauseous, skin discoloration...
-
-
 
         ...fourteen casualties.
   - uid: 36866
@@ -245147,4 +245130,3 @@ entities:
       rot: 3.141592653589793 rad
       pos: 106.7689,15.3065815
       parent: 2
-...

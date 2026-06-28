@@ -14,7 +14,7 @@
       - material: Resin
         amount: 1
         doAfter: 1
-        
+
     - to: Xenolight
       completed:
       - !type:SnapToGrid
@@ -23,7 +23,7 @@
       - material: Resin
         amount: 1
         doAfter: 1
-        
+
     - to: WallXenolight
       completed:
       - !type:SnapToGrid
@@ -32,7 +32,7 @@
       - material: Resin
         amount: 1
         doAfter: 1
-        
+
     - to: WallXenoResin
       completed:
       - !type:SnapToGrid
@@ -50,7 +50,7 @@
       - material: Resin
         amount: 1
         doAfter: 1
-        
+
     - to: DoorXenoResin
       completed:
       - !type:SnapToGrid
@@ -68,7 +68,7 @@
       - material: Resin
         amount: 1
         doAfter: 1
-        
+
     - to: XenoWeedsWall
       completed:
       - !type:SnapToGrid
@@ -95,7 +95,7 @@
       - material: RoyalResin
         amount: 2
         doAfter: 2
-    
+
     - to: DoorXenoResinThick
       completed:
       - !type:SnapToGrid
@@ -104,7 +104,7 @@
       - material: RoyalResin
         amount: 5
         doAfter: 3
-    
+
     - to: XenoTurret
       completed:
       - !type:SnapToGrid
@@ -113,7 +113,7 @@
       - material: RoyalResin
         amount: 6
         doAfter: 3
-        
+
     - to: XenoTrapdrone
       completed:
       - !type:SnapToGrid
@@ -122,7 +122,7 @@
       - material: RoyalResin
         amount: 6
         doAfter: 3
-        
+
     - to: XenoTrapburrower
       completed:
       - !type:SnapToGrid
@@ -130,8 +130,8 @@
       steps:
       - material: RoyalResin
         amount: 6
-        doAfter: 3    
-            
+        doAfter: 3
+
     - to: XenoHiveWeeds
       completed:
       - !type:SnapToGrid
@@ -140,10 +140,9 @@
       - material: RoyalResin
         amount: 2
         doAfter: 1
-    
 
     #Nodes
-    
+
   - node: XenoWeeds
     entity: XenoWeeds
 
@@ -155,16 +154,16 @@
 
   - node: Xenolight
     entity: Xenolight
-    
+
   - node: WallXenolight
     entity: WallXenolight
-  
+
   - node: XenoTrapdrone
     entity: SpawnFloorTrapXenoDrone
-    
+
   - node: XenoTrapburrower
     entity: SpawnFloorTrapXenoBurrower
-    
+
   - node: DoorXenoResin
     entity: DoorXenoResin
 
@@ -185,19 +184,19 @@
 
   - node: XenoHiveWeeds
     entity: XenoHiveWeeds
-  
+
   - node: XenoTurret
     entity: WeaponTurretXeno
-    
+
   # Deconstruction is down here
   # - node: nest
-    # entity: WebNest
-    # edges:
-    # - to: start
-      # completed:
-      # - !type:SpawnPrototype
-        # prototype: MaterialWebSilk1
-        # amount: 5
-      # steps:
-      # - tool: Cutting
-        # doAfter: 2
+  # entity: WebNest
+  # edges:
+  # - to: start
+  # completed:
+  # - !type:SpawnPrototype
+  # prototype: MaterialWebSilk1
+  # amount: 5
+  # steps:
+  # - tool: Cutting
+  # doAfter: 2

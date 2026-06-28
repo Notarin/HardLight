@@ -1,7 +1,7 @@
 # The machines here are to separate out the recipes that different microwave-based machines can make.
 - type: entity
   id: KitchenElectricRange
-  parent: [ BaseMachinePowered, ConstructibleMachine ]
+  parent: [BaseMachinePowered, ConstructibleMachine]
   name: electric range
   description: A functional range with a range of functions.
   components:
@@ -22,23 +22,23 @@
     visuals:
       enum.PowerDeviceVisuals.VisualState:
         enum.MicrowaveVisualizerLayers.Base:
-          Idle: { state: "off_no_door" }
-          Broken: { state: "off_no_door" } # don't care, can't break
-          Cooking: { state: "off_no_door" }
+          Idle: {state: "off_no_door"}
+          Broken: {state: "off_no_door"} # don't care, can't break
+          Cooking: {state: "off_no_door"}
         enum.MicrowaveVisualizerLayers.BaseUnlit:
-          Idle: { state: "unlit" }
-          Broken: { state: "unlit" } # don't care, can't break
-          Cooking: { state: "cooking_unlit" }
+          Idle: {state: "unlit"}
+          Broken: {state: "unlit"} # don't care, can't break
+          Cooking: {state: "cooking_unlit"}
       enum.PowerDeviceVisuals.Powered:
         enum.MicrowaveVisualizerLayers.BaseUnlit:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
       enum.EntityHeaterVisuals.Setting:
         enum.EntityHeaterVisuals.Setting:
-          Off: { visible: false }
-          Low: { visible: true, state: range_low }
-          Medium: { visible: true, state: range_medium }
-          High: { visible: true, state: range_high }
+          Off: {visible: false}
+          Low: {visible: true, state: range_low}
+          Medium: {visible: true, state: range_medium}
+          High: {visible: true, state: range_high}
   - type: ActivatableUI
     key: enum.MicrowaveUiKey.ElectricRangeKey
   - type: DeviceLinkSink
@@ -58,8 +58,7 @@
   - type: Fixtures
     fixtures:
       fix1: # The body of the oven
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.30,-0.25,0.30,0.45"
         density: 600
         mask:
@@ -67,8 +66,7 @@
         layer:
         - MachineLayer
       fix2: # The range
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.30,0.15,0.30,0.45"
         mask:
         - TabletopMachineMask
@@ -93,8 +91,7 @@
       visible: false
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:DoActsBehavior
@@ -167,31 +164,31 @@
     visuals:
       enum.PowerDeviceVisuals.VisualState:
         enum.MicrowaveVisualizerLayers.Base:
-          Idle: { state: "assembler" }
-          Broken: { state: "assembler" }
-          Cooking: { state: "assembler" }
+          Idle: {state: "assembler"}
+          Broken: {state: "assembler"}
+          Cooking: {state: "assembler"}
         enum.MicrowaveVisualizerLayers.BaseUnlit:
-          Idle: { state: "assembler-on-unlit" }
-          Broken: { state: "assembler-broken-unlit" }
-          Cooking: { state: "assembler-running-unlit" }
+          Idle: {state: "assembler-on-unlit"}
+          Broken: {state: "assembler-broken-unlit"}
+          Cooking: {state: "assembler-running-unlit"}
         blinky:
-          Idle: { state: "assembler-invisible" }
-          Broken: { state: "assembler-invisible" }
-          Cooking: { state: "assembler-blinky-unlit" }
+          Idle: {state: "assembler-invisible"}
+          Broken: {state: "assembler-invisible"}
+          Cooking: {state: "assembler-blinky-unlit"}
         scan:
-          Idle: { state: "assembler-invisible" }
-          Broken: { state: "assembler-invisible" }
-          Cooking: { state: "assembler-scan-unlit" }
+          Idle: {state: "assembler-invisible"}
+          Broken: {state: "assembler-invisible"}
+          Cooking: {state: "assembler-scan-unlit"}
       enum.PowerDeviceVisuals.Powered:
         enum.MicrowaveVisualizerLayers.BaseUnlit:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
         blinky:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
         scan:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
   - type: Sprite
     sprite: _NF/Structures/Machines/assembler.rsi
     drawdepth: SmallObjects
@@ -224,7 +221,7 @@
 
 - type: entity
   id: MedicalAssembler
-  parent: [ BaseMachinePowered, ConstructibleMachine, KitchenAssembler]
+  parent: [BaseMachinePowered, ConstructibleMachine, KitchenAssembler]
   name: medical assembler
   description: Great for medicine, apparently. You don't know how it works.
   components:
@@ -238,17 +235,17 @@
     visuals:
       enum.PowerDeviceVisuals.VisualState:
         enum.MicrowaveVisualizerLayers.Base:
-          Idle: { state: "mediwave-base" }
-          Broken: { state: "mediwave-base" }
-          Cooking: { state: "mediwave-base" }
+          Idle: {state: "mediwave-base"}
+          Broken: {state: "mediwave-base"}
+          Cooking: {state: "mediwave-base"}
         enum.MicrowaveVisualizerLayers.BaseUnlit:
-          Idle: { state: "mediwave-off-unlit" }
-          Broken: { state: "mediwave-off-unlit" }
-          Cooking: { state: "mediwave-on-unlit" }
+          Idle: {state: "mediwave-off-unlit"}
+          Broken: {state: "mediwave-off-unlit"}
+          Cooking: {state: "mediwave-on-unlit"}
       enum.PowerDeviceVisuals.Powered:
         enum.MicrowaveVisualizerLayers.BaseUnlit:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
   - type: Sprite
     sprite: _NF/Structures/Machines/medical_assembler.rsi
     snapCardinals: true

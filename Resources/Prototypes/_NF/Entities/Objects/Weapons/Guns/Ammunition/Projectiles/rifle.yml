@@ -4,7 +4,7 @@
   id: NFBulletRifle10
   name: bullet (.10 rifle)
   parent: NFBaseBullet
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -15,7 +15,7 @@
   id: NFBulletRifle10Practice
   name: bullet (.10 rifle, practice)
   parent: NFBaseBulletPractice
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -26,7 +26,7 @@
   id: NFBulletRifle10Rubber
   name: bullet (.10 rifle, rubber)
   parent: NFBaseBulletRubber
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -40,7 +40,7 @@
   id: NFBulletRifle20
   name: bullet (.20 rifle)
   parent: NFBaseBullet
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -51,7 +51,7 @@
   id: NFBulletRifle20Overpressure
   name: bullet (.20 rifle, overpressure)
   parent: NFBaseBulletOverpressure
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -62,7 +62,7 @@
   id: NFBulletRifle20Incendiary
   name: bullet (.20 rifle, incendiary)
   parent: NFBaseBulletIncendiary
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -74,7 +74,7 @@
   id: NFBulletRifle20Uranium
   name: bullet (.20 rifle, uranium)
   parent: NFBaseBulletUranium
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -86,7 +86,7 @@
   id: NFBulletRifle20Practice
   name: bullet (.20 rifle, practice)
   parent: NFBaseBulletPractice
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -97,7 +97,7 @@
   id: NFBulletRifle20Rubber
   name: bullet (.20 rifle, rubber)
   parent: NFBaseBulletRubber
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -111,7 +111,7 @@
   id: NFBulletRifle25
   name: bullet (.25 rifle)
   parent: NFBaseBullet
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -122,7 +122,7 @@
   id: NFBulletRifle25Overpressure
   name: bullet (.25 rifle, overpressure)
   parent: NFBaseBulletOverpressure
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -133,7 +133,7 @@
   id: NFBulletRifle25Incendiary
   name: bullet (.25 rifle, incendiary)
   parent: NFBaseBulletIncendiary
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -145,7 +145,7 @@
   id: NFBulletRifle25Uranium
   name: bullet (.25 rifle, uranium)
   parent: NFBaseBulletUranium
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -157,7 +157,7 @@
   id: NFBulletRifle25Practice
   name: bullet (.25 rifle, practice)
   parent: NFBaseBulletPractice
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -168,7 +168,7 @@
   id: NFBulletRifle25Rubber
   name: bullet (.25 rifle, rubber)
   parent: NFBaseBulletRubber
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -182,7 +182,7 @@
   id: NFBulletRifle30
   name: bullet (.30 rifle)
   parent: NFBaseBullet
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -193,7 +193,7 @@
   id: NFBulletRifle30Overpressure
   name: bullet (.30 rifle, overpressure)
   parent: NFBaseBulletOverpressure
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -204,7 +204,7 @@
   id: NFBulletRifle30Incendiary
   name: bullet (.30 rifle, incendiary)
   parent: NFBaseBulletIncendiary
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -216,7 +216,7 @@
   id: NFBulletRifle30Uranium
   name: bullet (.30 rifle, uranium)
   parent: NFBaseBulletUranium
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -228,7 +228,7 @@
   id: NFBulletRifle30Practice
   name: bullet (.30 rifle, practice)
   parent: NFBaseBulletPractice
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -239,7 +239,7 @@
   id: NFBulletRifle30Rubber
   name: bullet (.30 rifle, rubber)
   parent: NFBaseBulletRubber
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -253,7 +253,7 @@
   id: NFBulletRifle60
   name: bullet (.60 rifle)
   parent: NFBaseBulletAntiMateriel
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -268,7 +268,7 @@
   id: NFBulletRifle60Rubber
   name: bullet (.60 rifle, rubber)
   parent: NFBaseBulletAntiMaterielRubber
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:

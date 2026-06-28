@@ -31,6 +31,6 @@ namespace Content.Shared.Nutrition.Components
     {
         Knife, // e.g. goliaths
         Spike, // e.g. monkeys
-        Gibber // e.g. humans. TODO
+        Gibber, // e.g. humans. TODO
     }
 }

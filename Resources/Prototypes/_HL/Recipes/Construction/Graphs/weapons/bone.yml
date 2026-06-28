@@ -15,7 +15,7 @@
 
   - node: BoneArrow
     entity: ArrowBone
-    
+
 - type: constructionGraph
   id: BoneBow
   start: start
@@ -33,7 +33,7 @@
 
   - node: BoneBow
     entity: BowBone
-   
+
 - type: constructionGraph
   id: BoneKnife
   start: start
@@ -51,7 +51,7 @@
 
   - node: BoneKnife
     entity: KnifeBone
-   
+
 - type: constructionGraph
   id: BoneHatchet
   start: start
@@ -69,7 +69,7 @@
 
   - node: BoneHatchet
     entity: BoneToolHatchet
-    
+
 - type: constructionGraph
   id: BoneHalberd
   start: start
@@ -87,7 +87,7 @@
 
   - node: BoneHalberd
     entity: WeaponHalberdBone
-    
+
 - type: constructionGraph
   id: BoneClub
   start: start
@@ -102,7 +102,7 @@
 
   - node: BoneClub
     entity: ClubBone
-    
+
 - type: constructionGraph
   id: BoneKnifeFang
   start: start
@@ -125,7 +125,7 @@
 
   - node: BoneKnifeFang
     entity: KnifeBoneFang
-    
+
 - type: constructionGraph
   id: BoneDart
   start: start
@@ -140,7 +140,7 @@
 
   - node: BoneDart
     entity: DartBone
-   
+
 - type: constructionGraph
   id: BoneSkewer
   start: start

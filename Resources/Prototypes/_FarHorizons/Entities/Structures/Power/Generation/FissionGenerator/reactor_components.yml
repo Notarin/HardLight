@@ -1,7 +1,7 @@
 - type: entity
   id: BaseReactorItem
   parent: BaseItem
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _FarHorizons/Structures/Power/Generation/FissionGenerator/reactor_parts.rsi
@@ -27,8 +27,8 @@
 # Fuel Rods
 - type: entity
   id: BaseReactorFuelRod
-  parent: [ BaseReactorPart ]
-  categories: [ HideSpawnMenu ]
+  parent: [BaseReactorPart]
+  categories: [HideSpawnMenu]
   name: fuel rod
   description: A fuel rod for a nuclear reactor.
   components:
@@ -39,9 +39,9 @@
     neutronCrossSection: 1.0
     thermalCrossSection: 10
     thermalMass: 420000 # specific heat capacity of steel (420 J/KgK) * mass of component (1000Kg)
-  # - type: SentienceTarget # Hardlight: Sentience bad for shipsaving
-  #   flavorKind: station-event-random-sentience-flavor-inanimate
-  #   weight: 0.2
+    # - type: SentienceTarget # Hardlight: Sentience bad for shipsaving
+    #   flavorKind: station-event-random-sentience-flavor-inanimate
+    #   weight: 0.2
 
 - type: entity
   id: CerenkiteReactorFuelRod
@@ -66,18 +66,18 @@
   components:
   - type: ReactorPart
     material: Plutonium
-  # - type: GhostRole # HL: Bad for shipsaving
-  #   makeSentient: true
-  #   allowSpeech: true
-  #   allowMovement: false
-  #   name: ghost-role-information-plutonium-rod-name
-  #   description: ghost-role-information-plutonium-rod-description
-  #   rules: ghost-role-information-plutonium-rod-rules
-  #   mindRoles:
-  #   - MindRoleGhostRoleFreeAgentHarmless
-  # - type: GhostTakeoverAvailable
-  # - type: SentienceTarget
-  #   weight: 2
+    # - type: GhostRole # HL: Bad for shipsaving
+    #   makeSentient: true
+    #   allowSpeech: true
+    #   allowMovement: false
+    #   name: ghost-role-information-plutonium-rod-name
+    #   description: ghost-role-information-plutonium-rod-description
+    #   rules: ghost-role-information-plutonium-rod-rules
+    #   mindRoles:
+    #   - MindRoleGhostRoleFreeAgentHarmless
+    # - type: GhostTakeoverAvailable
+    # - type: SentienceTarget
+    #   weight: 2
 
 - type: entity
   id: BananiumReactorFuelRod
@@ -124,7 +124,7 @@
 - type: entity
   id: BaseReactorControlRod
   parent: BaseReactorPart
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   name: control rod
   description: A control rod assembly for a nuclear reactor.
   components:
@@ -249,7 +249,7 @@
 - type: entity
   id: BaseReactorGasChannel
   parent: BaseReactorPart
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   name: gas channel rod
   description: A gas channel for a nuclear reactor.
   components:
@@ -363,7 +363,7 @@
 - type: entity
   id: BaseReactorHeatExchanger
   parent: BaseReactorPart
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   name: heat exchanger rod
   description: A heat exchanger for a nuclear reactor.
   components:

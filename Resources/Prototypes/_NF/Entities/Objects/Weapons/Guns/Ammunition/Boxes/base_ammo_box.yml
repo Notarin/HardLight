@@ -1,6 +1,6 @@
 - type: entity
   id: NFBaseAmmunitionBox
-  parent: [ BaseItem, RecyclableItemCardboard ]
+  parent: [BaseItem, RecyclableItemCardboard]
   abstract: true
   components:
   - type: BallisticAmmoProvider

@@ -16,11 +16,20 @@ namespace Content.Server.Beam;
 
 public sealed class BeamSystem : SharedBeamSystem
 {
-    [Dependency] private readonly FixtureSystem _fixture = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedBroadphaseSystem _broadphase = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
+    [Dependency]
+    private readonly FixtureSystem _fixture = default!;
+
+    [Dependency]
+    private readonly TransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedBroadphaseSystem _broadphase = default!;
+
+    [Dependency]
+    private readonly SharedPhysicsSystem _physics = default!;
 
     public override void Initialize()
     {
@@ -67,18 +76,20 @@ public sealed class BeamSystem : SharedBeamSystem
     /// <param name="controller"> The virtual beam controller that this beam will use. If one doesn't exist it will be created here.</param>
     /// <param name="bodyState">Optional sprite state for the <see cref="prototype"/> if it needs a dynamic one</param>
     /// <param name="shader">Optional shader for the <see cref="prototype"/> and <see cref="bodyState"/> if it needs something other than default</param>
-    private void CreateBeam(string prototype,
+    private void CreateBeam(
+        string prototype,
         Angle userAngle,
         Vector2 calculatedDistance,
         MapCoordinates beamStartPos,
         Vector2 distanceCorrection,
         EntityUid? controller,
         string? bodyState = null,
-        string shader = "unshaded")
+        string shader = "unshaded"
+    )
     {
         var beamSpawnPos = beamStartPos;
         var ent = Spawn(prototype, beamSpawnPos);
-        var shape = new EdgeShape(distanceCorrection, new Vector2(0,0));
+        var shape = new EdgeShape(distanceCorrection, new Vector2(0, 0));
 
         if (!TryComp<PhysicsComponent>(ent, out var physics) || !TryComp<BeamComponent>(ent, out var beam))
             return;
@@ -92,7 +103,8 @@ public sealed class BeamSystem : SharedBeamSystem
             collisionMask: (int)CollisionGroup.ItemMask,
             collisionLayer: (int)CollisionGroup.MobLayer,
             manager: manager,
-            body: physics);
+            body: physics
+        );
 
         _physics.SetBodyType(ent, BodyType.Dynamic, manager: manager, body: physics);
         _physics.SetCanCollide(ent, true, manager: manager, body: physics);
@@ -100,12 +112,17 @@ public sealed class BeamSystem : SharedBeamSystem
 
         var distanceLength = distanceCorrection.Length();
 
-        var beamVisualizerEvent = new BeamVisualizerEvent(GetNetEntity(ent), distanceLength, userAngle, bodyState, shader);
+        var beamVisualizerEvent = new BeamVisualizerEvent(
+            GetNetEntity(ent),
+            distanceLength,
+            userAngle,
+            bodyState,
+            shader
+        );
         RaiseNetworkEvent(beamVisualizerEvent);
 
         if (controller != null)
             beam.VirtualBeamController = controller;
-
         else
         {
             var controllerEnt = Spawn("VirtualBeamEntityController", beamSpawnPos);
@@ -118,7 +135,7 @@ public sealed class BeamSystem : SharedBeamSystem
         }
 
         //Create the rest of the beam, sprites handled through the BeamVisualizerEvent
-        for (var i = 0; i < distanceLength-1; i++)
+        for (var i = 0; i < distanceLength - 1; i++)
         {
             beamSpawnPos = beamSpawnPos.Offset(calculatedDistance.Normalized());
             var newEnt = Spawn(prototype, beamSpawnPos);
@@ -141,7 +158,14 @@ public sealed class BeamSystem : SharedBeamSystem
     /// <param name="bodyState">Optional sprite state for the <see cref="bodyPrototype"/> if a default one is not given</param>
     /// <param name="shader">Optional shader for the <see cref="bodyPrototype"/> if a default one is not given</param>
     /// <param name="controller"></param>
-    public void TryCreateBeam(EntityUid user, EntityUid target, string bodyPrototype, string? bodyState = null, string shader = "unshaded", EntityUid? controller = null)
+    public void TryCreateBeam(
+        EntityUid user,
+        EntityUid target,
+        string bodyPrototype,
+        string? bodyState = null,
+        string shader = "unshaded",
+        EntityUid? controller = null
+    )
     {
         if (Deleted(user) || Deleted(target))
             return;
@@ -171,7 +195,16 @@ public sealed class BeamSystem : SharedBeamSystem
 
         var distanceCorrection = calculatedDistance - calculatedDistance.Normalized();
 
-        CreateBeam(bodyPrototype, userAngle, calculatedDistance, beamStartPos, distanceCorrection, controller, bodyState, shader);
+        CreateBeam(
+            bodyPrototype,
+            userAngle,
+            calculatedDistance,
+            beamStartPos,
+            distanceCorrection,
+            controller,
+            bodyState,
+            shader
+        );
 
         var ev = new CreateBeamSuccessEvent(user, target);
         RaiseLocalEvent(user, ev);

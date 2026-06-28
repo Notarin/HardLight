@@ -6,27 +6,25 @@
   description: A high-tech autonomous weapons system designed to keep unauthorized personnel out of sensitive areas.
   components:
   - type: Anchorable
-    flags: 
+    flags:
     - Anchorable
   - type: Rotatable
   - type: Fixtures
     fixtures:
       body:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.45
         density: 60
         mask:
-          - Impassable
+        - Impassable
       turret:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.45
         density: 60
         mask:
-          - MachineMask
+        - MachineMask
         layer:
-          - MachineLayer
+        - MachineLayer
         hard: false
 
   # Sprites and appearance
@@ -38,23 +36,23 @@
     - state: support
       renderingStrategy: NoRotation
     - state: base_shadow
-      map: [ "shadow" ]
+      map: ["shadow"]
     - state: base
-      map: [ "base" ]
+      map: ["base"]
     - state: stun
-      map: [ "enum.DeployableTurretVisuals.Weapon" ]
+      map: ["enum.DeployableTurretVisuals.Weapon"]
       shader: "unshaded"
       visible: false
     - state: cover_closed
-      map: [ "enum.DeployableTurretVisuals.Turret" ]
+      map: ["enum.DeployableTurretVisuals.Turret"]
       renderingStrategy: NoRotation
     - state: cover_light_on
-      map: [ "enum.PowerDeviceVisualLayers.Powered" ]
+      map: ["enum.PowerDeviceVisualLayers.Powered"]
       shader: "unshaded"
       renderingStrategy: NoRotation
       visible: false
     - state: panel
-      map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
       renderingStrategy: NoRotation
       visible: false
   - type: AnimationPlayer
@@ -63,16 +61,16 @@
     visuals:
       enum.BatteryWeaponFireModeVisuals.State:
         enum.DeployableTurretVisuals.Weapon:
-          BulletEnergyTurretDisabler: { state: stun }
-          BulletEnergyTurretLaser: { state: lethal }
+          BulletEnergyTurretDisabler: {state: stun}
+          BulletEnergyTurretLaser: {state: lethal}
       enum.DeployableTurretVisuals.Broken:
         base:
-          True: { state: destroyed }
-          False: { state: base }
+          True: {state: destroyed}
+          False: {state: base}
       enum.WiresVisuals.MaintenancePanelState:
         enum.WiresVisualLayers.MaintenancePanel:
-          True: { visible: false }
-          False: { visible: true }
+          True: {visible: false}
+          False: {visible: true}
 
   # HTN
   - type: HTN
@@ -106,17 +104,15 @@
     allowSelfRepair: false
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 300
       behaviors:
       - !type:PlaySoundBehavior
         sound:
           collection: MetalBreak
       - !type:DoActsBehavior
-        acts: [ "Breakage" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Breakage"]
+    - trigger: !type:DamageTrigger
         damage: 600
       behaviors:
       - !type:PlaySoundBehavior
@@ -218,79 +214,76 @@
   description: A willing crystal entity pulled through the space aether by magic. They can temporarily exist on this plane, but will return home before long.
   suffix: wizard
   components:
-    - type: NpcFactionMember
-      factions:
-        - NanoTrasen
-    - type: Sprite
-      sprite: Structures/Decoration/crystal.rsi
-      color: "#32a8a0"
-      noRot: true
-      drawdepth: Mobs
-      layers:
-        - state: crystal_grey
-    - type: InteractionPopup
-      interactDelay: 0.2
-      successChance: 0.8
-      interactSuccessString: petting-success-generic
-      interactFailureString: petting-failure-generic
-      interactSuccessSound:
+  - type: NpcFactionMember
+    factions:
+    - NanoTrasen
+  - type: Sprite
+    sprite: Structures/Decoration/crystal.rsi
+    color: "#32a8a0"
+    noRot: true
+    drawdepth: Mobs
+    layers:
+    - state: crystal_grey
+  - type: InteractionPopup
+    interactDelay: 0.2
+    successChance: 0.8
+    interactSuccessString: petting-success-generic
+    interactFailureString: petting-failure-generic
+    interactSuccessSound:
+      path: /Audio/_NF/Effects/bloodcult/ghost-scream.ogg
+  - type: Gun
+    showExamineText: false
+    fireRate: 6
+    minAngle: 10
+    maxAngle: 20
+    angleIncrease: 2
+    angleDecay: 3
+    selectedMode: FullAuto
+    availableModes:
+    - FullAuto
+    soundGunshot:
+      collection: RadiationPulse
+  - type: BasicEntityAmmoProvider
+    proto: ProjectileCrystal
+    capacity: 300
+    count: 300
+  - type: HTN
+    rootTask:
+      task: TurretCompound
+    blackboard:
+      RotateSpeed: !type:Single 6
+      SoundTargetInLOS: !type:SoundPathSpecifier
         path: /Audio/_NF/Effects/bloodcult/ghost-scream.ogg
-    - type: Gun
-      showExamineText: false
-      fireRate: 6
-      minAngle: 10
-      maxAngle: 20
-      angleIncrease: 2
-      angleDecay: 3
-      selectedMode: FullAuto
-      availableModes:
-        - FullAuto
-      soundGunshot:
-        collection: RadiationPulse
-    - type: BasicEntityAmmoProvider
-      proto: ProjectileCrystal
-      capacity: 300
-      count: 300
-    - type: HTN
-      rootTask:
-        task: TurretCompound
-      blackboard:
-        RotateSpeed: !type:Single
-          6
-        SoundTargetInLOS: !type:SoundPathSpecifier
-          path: /Audio/_NF/Effects/bloodcult/ghost-scream.ogg
-    - type: PointLight
-      radius: 1.4
-      energy: 1.2
-      color: "#ff0000"
-      castShadows: true
-    - type: AmbientSound
-      volume: -2
-      range: 5
-      sound:
-        path: /Audio/Effects/shuttle_thruster.ogg
-    - type: Destructible
-      thresholds:
-        - trigger:
-            !type:DamageTrigger
-            damage: 540
-          behaviors:
-            - !type:DoActsBehavior
-              acts: [ "Destruction" ]
-        - trigger:
-            !type:DamageTrigger
-            damage: 300
-          behaviors:
-            - !type:DoActsBehavior
-              acts: [ "Destruction" ]
-            - !type:PlaySoundBehavior
-              sound:
-                collection: MetalGlassBreak
-            - !type:SpawnEntitiesBehavior
-              spawn:
-                ShardCrystalCyan:
-                  min: 1
-                  max: 3
-    - type: TimedDespawn
-      lifetime: 300
-    - type: AmmoCounter
+  - type: PointLight
+    radius: 1.4
+    energy: 1.2
+    color: "#ff0000"
+    castShadows: true
+  - type: AmbientSound
+    volume: -2
+    range: 5
+    sound:
+      path: /Audio/Effects/shuttle_thruster.ogg
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 540
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
+        damage: 300
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalGlassBreak
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          ShardCrystalCyan:
+            min: 1
+            max: 3
+  - type: TimedDespawn
+    lifetime: 300
+  - type: AmmoCounter

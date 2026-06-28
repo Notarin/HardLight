@@ -82,7 +82,10 @@ public sealed class DeployableTurretExemptAccessLevelChangedMessage : BoundUserI
     public HashSet<ProtoId<AccessLevelPrototype>> AccessLevels;
     public bool Enabled;
 
-    public DeployableTurretExemptAccessLevelChangedMessage(HashSet<ProtoId<AccessLevelPrototype>> accessLevels, bool enabled)
+    public DeployableTurretExemptAccessLevelChangedMessage(
+        HashSet<ProtoId<AccessLevelPrototype>> accessLevels,
+        bool enabled
+    )
     {
         AccessLevels = accessLevels;
         Enabled = enabled;

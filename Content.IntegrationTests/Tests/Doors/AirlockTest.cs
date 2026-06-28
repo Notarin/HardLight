@@ -14,7 +14,8 @@ namespace Content.IntegrationTests.Tests.Doors
     public sealed class AirlockTest
     {
         [TestPrototypes]
-        private const string Prototypes = @"
+        private const string Prototypes =
+            @"
 - type: entity
   name: AirlockPhysicsDummy
   id: AirlockPhysicsDummy
@@ -50,6 +51,7 @@ namespace Content.IntegrationTests.Tests.Doors
         mask:
         - Impassable
 ";
+
         [Test]
         public async Task OpenCloseDestroyTest()
         {
@@ -112,7 +114,9 @@ namespace Content.IntegrationTests.Tests.Doors
         [Test]
         public async Task AirlockBlockTest()
         {
-            await using var pair = await PoolManager.GetServerClient(new PoolSettings { Connected = false, DummyTicker = true });
+            await using var pair = await PoolManager.GetServerClient(
+                new PoolSettings { Connected = false, DummyTicker = true }
+            );
             var server = pair.Server;
 
             await server.WaitIdleAsync();

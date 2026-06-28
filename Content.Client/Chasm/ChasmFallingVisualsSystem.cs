@@ -10,8 +10,11 @@ namespace Content.Client.Chasm;
 /// </summary>
 public sealed class ChasmFallingVisualsSystem : EntitySystem
 {
-    [Dependency] private readonly AnimationPlayerSystem _anim = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly AnimationPlayerSystem _anim = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     private readonly string _chasmFallAnimationKey = "chasm_fall";
 
@@ -25,8 +28,7 @@ public sealed class ChasmFallingVisualsSystem : EntitySystem
 
     private void OnComponentInit(EntityUid uid, ChasmFallingComponent component, ComponentInit args)
     {
-        if (!TryComp<SpriteComponent>(uid, out var sprite) ||
-            TerminatingOrDeleted(uid))
+        if (!TryComp<SpriteComponent>(uid, out var sprite) || TerminatingOrDeleted(uid))
         {
             return;
         }
@@ -74,9 +76,9 @@ public sealed class ChasmFallingVisualsSystem : EntitySystem
                         new AnimationTrackProperty.KeyFrame(component.OriginalScale, 0.0f),
                         new AnimationTrackProperty.KeyFrame(component.AnimationScale, length.Seconds),
                     },
-                    InterpolationMode = AnimationInterpolationMode.Cubic
-                }
-            }
+                    InterpolationMode = AnimationInterpolationMode.Cubic,
+                },
+            },
         };
     }
 }

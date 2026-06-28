@@ -23,14 +23,12 @@
   - type: Destructible
     thresholds:
     # if tinned food is nuked just delete it, no sound
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 50
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 6
       behaviors:
       - !type:OpenBehavior
@@ -92,7 +90,7 @@
     - sweet
     - funny
   - type: Food
-    trash: 
+    trash:
     - FoodTinPeachesTrash
   - type: Tag
     tags:
@@ -115,7 +113,7 @@
   - type: Sprite
     sprite: Objects/Consumable/Food/Tins/maint_peaches.rsi
   - type: Food
-    trash: 
+    trash:
     - FoodTinPeachesMaintTrash
 
 # only exists for backwards compatibility with a few maps, nothing else uses it
@@ -153,7 +151,7 @@
     - salty
     - cheap
   - type: Food
-    trash: 
+    trash:
     - FoodTinBeansTrash
 
 - type: entity
@@ -183,7 +181,7 @@
     - salty
     - cheap
   - type: Food
-    trash: 
+    trash:
     - FoodTinMRETrash
   - type: Tag
     tags:

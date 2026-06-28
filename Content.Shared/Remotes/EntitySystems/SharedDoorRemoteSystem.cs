@@ -18,17 +18,35 @@ namespace Content.Shared.Remotes.EntitySystems;
 
 public abstract class SharedDoorRemoteSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAirlockSystem _airlock = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedDoorSystem _doorSystem = default!;
-    [Dependency] private readonly SharedElectrocutionSystem _electrify = default!;
-    [Dependency] private readonly ExamineSystemShared _examine = default!;
-    [Dependency] private readonly SharedPowerReceiverSystem _powerReceiver = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly TagSystem _tagSystem = default!;
-    [Dependency] protected readonly IGameTiming Timing = default!;
+    [Dependency]
+    private readonly SharedAirlockSystem _airlock = default!;
 
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedDoorSystem _doorSystem = default!;
+
+    [Dependency]
+    private readonly SharedElectrocutionSystem _electrify = default!;
+
+    [Dependency]
+    private readonly ExamineSystemShared _examine = default!;
+
+    [Dependency]
+    private readonly SharedPowerReceiverSystem _powerReceiver = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly ISharedAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    private readonly TagSystem _tagSystem = default!;
+
+    [Dependency]
+    protected readonly IGameTiming Timing = default!;
 
     public override void Initialize()
     {
@@ -49,16 +67,22 @@ public abstract class SharedDoorRemoteSystem : EntitySystem
 
         var isAirlock = TryComp<AirlockComponent>(args.Target, out var airlockComp);
 
-        if (args.Handled
+        if (
+            args.Handled
             || args.Target == null
             || !TryComp<DoorComponent>(args.Target, out var doorComp) // If it isn't a door we don't use it
-                                                                      // Only able to control doors if they are within your vision and within your max range.
-                                                                      // Not affected by mobs or machines anymore.
-            || (entity.Comp.RequireInRangeUnoccluded && !_examine.InRangeUnOccluded(args.User,
-                args.Target.Value,
-                SharedInteractionSystem.MaxRaycastRange,
-                null)))
-
+            // Only able to control doors if they are within your vision and within your max range.
+            // Not affected by mobs or machines anymore.
+            || (
+                entity.Comp.RequireInRangeUnoccluded
+                && !_examine.InRangeUnOccluded(
+                    args.User,
+                    args.Target.Value,
+                    SharedInteractionSystem.MaxRaycastRange,
+                    null
+                )
+            )
+        )
         {
             return;
         }
@@ -80,7 +104,10 @@ public abstract class SharedDoorRemoteSystem : EntitySystem
         }
 
         // Only let remote work on doors that have AccessReader; otherwise, it works on anything with a Door component (curtains, fence gates, etc)
-        if (TryComp<AccessReaderComponent>(args.Target, out var accessComponent) && _tagSystem.HasTag(args.Target.Value, entity.Comp.TargetTag))
+        if (
+            TryComp<AccessReaderComponent>(args.Target, out var accessComponent)
+            && _tagSystem.HasTag(args.Target.Value, entity.Comp.TargetTag)
+        )
         {
             // Has an access reader component. Check access.
             if (!_doorSystem.HasAccess(args.Target.Value, accessTarget, doorComp, accessComponent))
@@ -100,19 +127,28 @@ public abstract class SharedDoorRemoteSystem : EntitySystem
         {
             case OperatingMode.OpenClose:
                 if (_doorSystem.TryToggleDoor(args.Target.Value, doorComp, user: args.User, predicted: true))
-                    _adminLogger.Add(LogType.Action,
+                    _adminLogger.Add(
+                        LogType.Action,
                         LogImpact.Medium,
-                        $"{ToPrettyString(args.User):player} used {ToPrettyString(args.Used)} on {ToPrettyString(args.Target.Value)}: {doorComp.State}");
+                        $"{ToPrettyString(args.User):player} used {ToPrettyString(args.Used)} on {ToPrettyString(args.Target.Value)}: {doorComp.State}"
+                    );
                 break;
             case OperatingMode.ToggleBolts:
                 if (TryComp<DoorBoltComponent>(args.Target, out var boltsComp))
                 {
                     if (!boltsComp.BoltWireCut)
                     {
-                        _doorSystem.SetBoltsDown((args.Target.Value, boltsComp), !boltsComp.BoltsDown, user: args.User, predicted: true);
-                        _adminLogger.Add(LogType.Action,
+                        _doorSystem.SetBoltsDown(
+                            (args.Target.Value, boltsComp),
+                            !boltsComp.BoltsDown,
+                            user: args.User,
+                            predicted: true
+                        );
+                        _adminLogger.Add(
+                            LogType.Action,
                             LogImpact.Medium,
-                            $"{ToPrettyString(args.User):player} used {ToPrettyString(args.Used)} on {ToPrettyString(args.Target.Value)} to {(boltsComp.BoltsDown ? "" : "un")}bolt it");
+                            $"{ToPrettyString(args.User):player} used {ToPrettyString(args.Used)} on {ToPrettyString(args.Target.Value)} to {(boltsComp.BoltsDown ? "" : "un")}bolt it"
+                        );
                     }
                 }
 
@@ -120,10 +156,17 @@ public abstract class SharedDoorRemoteSystem : EntitySystem
             case OperatingMode.ToggleEmergencyAccess:
                 if (airlockComp != null)
                 {
-                    _airlock.SetEmergencyAccess((args.Target.Value, airlockComp), !airlockComp.EmergencyAccess, user: args.User, predicted: true);
-                    _adminLogger.Add(LogType.Action,
+                    _airlock.SetEmergencyAccess(
+                        (args.Target.Value, airlockComp),
+                        !airlockComp.EmergencyAccess,
+                        user: args.User,
+                        predicted: true
+                    );
+                    _adminLogger.Add(
+                        LogType.Action,
                         LogImpact.Medium,
-                        $"{ToPrettyString(args.User):player} used {ToPrettyString(args.Used)} on {ToPrettyString(args.Target.Value)} to set emergency access {(airlockComp.EmergencyAccess ? "on" : "off")}");
+                        $"{ToPrettyString(args.User):player} used {ToPrettyString(args.Used)} on {ToPrettyString(args.Target.Value)} to set emergency access {(airlockComp.EmergencyAccess ? "on" : "off")}"
+                    );
                 }
 
                 break;
@@ -135,15 +178,18 @@ public abstract class SharedDoorRemoteSystem : EntitySystem
                         ? electrifiedComp.AirlockElectrifyEnabled
                         : electrifiedComp.AirlockElectrifyDisabled;
                     _audio.PlayLocal(soundToPlay, args.Target.Value, args.User);
-                    _adminLogger.Add(LogType.Action,
+                    _adminLogger.Add(
+                        LogType.Action,
                         LogImpact.Medium,
-                        $"{ToPrettyString(args.User):player} used {ToPrettyString(args.Used)} on {ToPrettyString(args.Target.Value)} to {(electrifiedComp.Enabled ? "" : "un")}electrify it");
+                        $"{ToPrettyString(args.User):player} used {ToPrettyString(args.Used)} on {ToPrettyString(args.Target.Value)} to {(electrifiedComp.Enabled ? "" : "un")}electrify it"
+                    );
                 }
 
                 break;
             default:
                 throw new InvalidOperationException(
-                    $"{nameof(DoorRemoteComponent)} had invalid mode {entity.Comp.Mode}");
+                    $"{nameof(DoorRemoteComponent)} had invalid mode {entity.Comp.Mode}"
+                );
         }
     }
 }
@@ -157,5 +203,5 @@ public sealed class DoorRemoteModeChangeMessage : BoundUserInterfaceMessage
 [Serializable, NetSerializable]
 public enum DoorRemoteUiKey : byte
 {
-    Key
+    Key,
 }

@@ -1,6 +1,6 @@
 #Basic Helmet (Abductor Helmet)
 - type: entity
-  parent: [ ClothingHeadHelmetBase, BaseC2Contraband ]
+  parent: [ClothingHeadHelmetBase, BaseC2Contraband]
   id: ClothingHeadHelmetAbductor
   name: helmet
   components:
@@ -23,7 +23,7 @@
     tags:
     - WhitelistChameleon
     - SecurityHelmet
-    
+
 #Basic Helmet (Security Helmet Reskin)
 - type: entity
   parent: [ClothingHeadHelmetBase, BaseC1Contraband]
@@ -50,11 +50,11 @@
     sprite: _Starlight/Clothing/Head/Helmets/bulletproof.rsi
     layers:
     - state: icon
-      map: [ "enum.ToggleVisuals.Layer" ]
+      map: ["enum.ToggleVisuals.Layer"]
   - type: Clothing
     sprite: _Starlight/Clothing/Head/Helmets/bulletproof.rsi
   - type: Item
-    storedRotation: 0  
+    storedRotation: 0
   - type: ItemToggle # Welding mask starts in an activated state
     activated: true
   - type: Appearance
@@ -101,7 +101,7 @@
   - type: Reflect
     reflectProb: 0.2
     reflects:
-      - Energy  
+    - Energy
   - type: Tag
     tags:
     - SecurityHelmet
@@ -128,7 +128,7 @@
     - SecurityHelmet
 
 - type: entity
-  parent:  [ClothingHeadHelmetBase, BaseC1Contraband ]
+  parent: [ClothingHeadHelmetBase, BaseC1Contraband]
   id: ClothingHeadHelmetStabproof
   name: stabproof helmet
   description: The most "comfortable" security helmet, as rated by officers. Will take a blow to the head nicely, but a bullet'll go right through it.
@@ -149,7 +149,7 @@
     - SecurityHelmet
 
 - type: entity
-  parent: [ ClothingHeadHelmetBase, BaseC1Contraband ]
+  parent: [ClothingHeadHelmetBase, BaseC1Contraband]
   id: ClothingHeadHelmetHeatAbsorbent
   name: heat absorbent helmet
   description: Advanced helmet best paired with the vest for pure style, has minor reflective properties and can absorb heat fairly well.
@@ -243,7 +243,7 @@
     sprite: _Starlight/Clothing/Head/Helmets/paladin.rsi
   - type: Clothing
     sprite: _Starlight/Clothing/Head/Helmets/paladin.rsi
-    
+
 - type: entity
   parent: ClothingHeadHelmetERTLeader
   id: ClothingHeadHelmetNTCCConsortium

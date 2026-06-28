@@ -7,7 +7,4 @@ namespace Content.Shared.Weapons.Melee.Components;
 /// Indicates that this meleeweapon requires wielding to be useable.
 /// </summary>
 [RegisterComponent, NetworkedComponent, Access(typeof(SharedWieldableSystem))]
-public sealed partial class MeleeRequiresWieldComponent : Component
-{
-
-}
+public sealed partial class MeleeRequiresWieldComponent : Component { }

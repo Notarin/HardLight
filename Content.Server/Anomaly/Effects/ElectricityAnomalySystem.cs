@@ -11,13 +11,26 @@ namespace Content.Server.Anomaly.Effects;
 
 public sealed class ElectricityAnomalySystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly LightningSystem _lightning = default!;
-    [Dependency] private readonly ElectrocutionSystem _electrocution = default!;
-    [Dependency] private readonly EmpSystem _emp = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly LightningSystem _lightning = default!;
+
+    [Dependency]
+    private readonly ElectrocutionSystem _electrocution = default!;
+
+    [Dependency]
+    private readonly EmpSystem _emp = default!;
+
+    [Dependency]
+    private readonly EntityLookupSystem _lookup = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -30,7 +43,10 @@ public sealed class ElectricityAnomalySystem : EntitySystem
     {
         var range = anomaly.Comp.MaxElectrocuteRange * args.Stability * args.PowerModifier;
 
-        int boltCount = (int)MathF.Floor(MathHelper.Lerp((float)anomaly.Comp.MinBoltCount, (float)anomaly.Comp.MaxBoltCount, args.Severity));
+        int boltCount = (int)
+            MathF.Floor(
+                MathHelper.Lerp((float)anomaly.Comp.MinBoltCount, (float)anomaly.Comp.MaxBoltCount, args.Severity)
+            );
 
         _lightning.ShootRandomLightnings(anomaly, range, boltCount);
     }
@@ -39,7 +55,12 @@ public sealed class ElectricityAnomalySystem : EntitySystem
     {
         var range = anomaly.Comp.MaxElectrocuteRange * 3 * args.PowerModifier;
 
-        _emp.EmpPulse(_transform.GetMapCoordinates(anomaly), range, anomaly.Comp.EmpEnergyConsumption, anomaly.Comp.EmpDisabledDuration);
+        _emp.EmpPulse(
+            _transform.GetMapCoordinates(anomaly),
+            range,
+            anomaly.Comp.EmpEnergyConsumption,
+            anomaly.Comp.EmpDisabledDuration
+        );
         _lightning.ShootRandomLightnings(anomaly, range, anomaly.Comp.MaxBoltCount * 3, arcDepth: 3);
     }
 
@@ -58,12 +79,25 @@ public sealed class ElectricityAnomalySystem : EntitySystem
                 continue;
 
             var range = elec.MaxElectrocuteRange * anom.Stability;
-            var damage = (int) (elec.MaxElectrocuteDamage * anom.Severity);
+            var damage = (int)(elec.MaxElectrocuteDamage * anom.Severity);
             var duration = elec.MaxElectrocuteDuration * anom.Severity;
 
-            foreach (var (ent, comp) in _lookup.GetEntitiesInRange<StatusEffectsComponent>(_transform.GetMapCoordinates(uid, xform), range))
+            foreach (
+                var (ent, comp) in _lookup.GetEntitiesInRange<StatusEffectsComponent>(
+                    _transform.GetMapCoordinates(uid, xform),
+                    range
+                )
+            )
             {
-                _electrocution.TryDoElectrocution(ent, uid, damage, duration, true, statusEffects: comp, ignoreInsulation: true);
+                _electrocution.TryDoElectrocution(
+                    ent,
+                    uid,
+                    damage,
+                    duration,
+                    true,
+                    statusEffects: comp,
+                    ignoreInsulation: true
+                );
             }
         }
     }

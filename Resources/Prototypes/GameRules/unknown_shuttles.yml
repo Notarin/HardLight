@@ -2,8 +2,8 @@
 
 - type: entityTable
   id: UnknownShuttlesFriendlyTable
-  table: !type:AllSelector # we need to pass a list of rules, since rules have further restrictions to consider via StationEventComp
-    children:
+  table: !type:AllSelector
+    children: # we need to pass a list of rules, since rules have further restrictions to consider via StationEventComp
     - id: UnknownShuttleCargoLost
     - id: UnknownShuttleTravelingCuisine
     - id: UnknownShuttleDisasterEvacPod
@@ -23,23 +23,23 @@
 
 - type: entityTable
   id: UnknownShuttlesFreelanceTable
-  table: !type:AllSelector # we need to pass a list of rules, since rules have further restrictions to consider via StationEventComp
-    children:
+  table: !type:AllSelector
+    children: # we need to pass a list of rules, since rules have further restrictions to consider via StationEventComp
     - id: UnknownShuttleSyndieEvacPod
 
 - type: entityTable
   id: UnknownShuttlesHostileTable
-  table: !type:AllSelector # we need to pass a list of rules, since rules have further restrictions to consider via StationEventComp
-    children:
+  table: !type:AllSelector
+    children: # we need to pass a list of rules, since rules have further restrictions to consider via StationEventComp
     - id: LoneOpsSpawn
     - id: UnknownShuttleManOWar
     - id: UnknownShuttleInstigator
 
-# HardLight - lack of FTL ability on shuttles means that they are stuck in bluespace, **DO NOT USE THEM**
-
-# Shuttle Game Rules
-
 - type: entity
+  # HardLight - lack of FTL ability on shuttles means that they are stuck in bluespace, **DO NOT USE THEM**
+
+  # Shuttle Game Rules
+
   abstract: true
   parent: BaseGameRule
   id: BaseUnknownShuttleRule
@@ -80,7 +80,6 @@
         paths:
         - /Maps/Shuttles/ShuttleEvent/lost_cargo.yml
 
-
 - type: entity
   parent: BaseUnknownShuttleRule
   id: UnknownShuttleTravelingCuisine
@@ -108,7 +107,6 @@
           radius: 10
         paths:
         - /Maps/Shuttles/ShuttleEvent/traveling_china_cuisine.yml
-
 
 - type: entity
   parent: BaseUnknownShuttleRule
@@ -138,7 +136,6 @@
         paths:
         - /Maps/Shuttles/ShuttleEvent/disaster_evacpod.yml
 
-
 # The power of 3 clowns proved too strong for the players and may need to be 1984'ed. Replace this with a more engaging clown shuttle.
 - type: entity
   parent: BaseUnknownShuttleRule
@@ -167,7 +164,6 @@
           radius: 10
         paths:
         - /Maps/Shuttles/ShuttleEvent/honki.yml
-
 
 - type: entity
   parent: BaseUnknownShuttleRule
@@ -256,7 +252,6 @@
         paths:
         - /Maps/Shuttles/ShuttleEvent/cruiser.yml
 
-
 - type: entity
   id: UnknownShuttleCryptid
   parent: BaseUnknownShuttleRule
@@ -283,7 +278,6 @@
           radius: 10
         paths:
         - /Maps/Shuttles/ShuttleEvent/cryptid.yml
-
 
 - type: entity
   id: UnknownShuttleEternal
@@ -312,7 +306,6 @@
         paths:
         - /Maps/Shuttles/ShuttleEvent/eternal.yml
 
-
 - type: entity
   id: UnknownShuttleFlatline
   parent: BaseUnknownShuttleRule
@@ -339,7 +332,6 @@
           radius: 10
         paths:
         - /Maps/Shuttles/ShuttleEvent/flatline.yml
-
 
 - type: entity
   id: UnknownShuttleGym
@@ -368,7 +360,6 @@
           radius: 10
         paths:
         - /Maps/Shuttles/ShuttleEvent/gym.yml
-
 
 - type: entity
   id: UnknownShuttleNTIncorporation
@@ -399,7 +390,6 @@
         paths:
         - /Maps/Shuttles/ShuttleEvent/incorporation.yml
 
-
 - type: entity
   id: UnknownShuttleInstigator
   parent: BaseUnknownShuttleRule
@@ -429,7 +419,6 @@
         paths:
         - /Maps/Shuttles/ShuttleEvent/instigator.yml
 
-
 - type: entity
   id: UnknownShuttleJoe
   parent: BaseUnknownShuttleRule
@@ -457,7 +446,6 @@
         paths:
         - /Maps/Shuttles/ShuttleEvent/joe.yml
 
-
 - type: entity
   id: UnknownShuttleLambordeere
   parent: BaseUnknownShuttleRule
@@ -484,7 +472,6 @@
           radius: 10
         paths:
         - /Maps/Shuttles/ShuttleEvent/lambordeere.yml
-
 
 - type: entity
   id: UnknownShuttleManOWar
@@ -515,7 +502,6 @@
         paths:
         - /Maps/Shuttles/ShuttleEvent/manowar.yml
 
-
 - type: entity
   id: UnknownShuttleMeatZone
   parent: BaseUnknownShuttleRule
@@ -542,7 +528,6 @@
           radius: 10
         paths:
         - /Maps/Shuttles/ShuttleEvent/meatzone.yml
-
 
 - type: entity
   id: UnknownShuttleMicroshuttle
@@ -572,7 +557,6 @@
           radius: 10
         paths:
         - /Maps/Shuttles/ShuttleEvent/microshuttle.yml
-
 
 - type: entity
   id: UnknownShuttleSpacebus

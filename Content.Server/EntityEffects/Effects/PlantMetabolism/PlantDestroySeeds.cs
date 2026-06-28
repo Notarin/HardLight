@@ -9,7 +9,6 @@ namespace Content.Server.EntityEffects.Effects.PlantMetabolism;
 /// <summary>
 ///     Handles removal of seeds on a plant.
 /// </summary>
-
 public sealed partial class PlantDestroySeeds : EntityEffect
 {
     public override void Effect(EntityEffectBaseArgs args)

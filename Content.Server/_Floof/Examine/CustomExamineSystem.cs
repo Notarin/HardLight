@@ -1,8 +1,6 @@
 using Content.Shared._Floof.Examine;
 
-
 namespace Content.Server._Floof.Examine;
-
 
 public sealed class CustomExamineSystem : SharedCustomExamineSystem
 {

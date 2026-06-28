@@ -1,32 +1,45 @@
-using Content.Shared.Actions;
+using Content.Server.DoAfter;
+using Content.Server.GameTicking;
+using Content.Server.Mind;
+using Content.Server.Popups;
+using Content.Server.Psionics;
 using Content.Shared.Abilities.Psionics;
+using Content.Shared.Actions;
+using Content.Shared.Actions.Events;
+using Content.Shared.Damage;
+using Content.Shared.DoAfter;
+using Content.Shared.Mind;
+using Content.Shared.Mobs;
+using Content.Shared.Mobs.Components;
+using Content.Shared.Mobs.Systems;
 using Content.Shared.Nyanotrasen.Abilities.Psionics;
 using Content.Shared.Speech;
 using Content.Shared.Stealth.Components;
-using Content.Shared.Mobs.Components;
-using Content.Shared.Mobs;
-using Content.Shared.Damage;
-using Content.Server.Mind;
-using Content.Shared.Mobs.Systems;
-using Content.Server.Popups;
-using Content.Server.Psionics;
-using Content.Server.GameTicking;
-using Content.Shared.Mind;
-using Content.Shared.Actions.Events;
-using Content.Server.DoAfter;
-using Content.Shared.DoAfter;
 
 namespace Content.Server.Abilities.Psionics
 {
     public sealed class MindSwapPowerSystem : EntitySystem
     {
-        [Dependency] private readonly SharedActionsSystem _actions = default!;
-        [Dependency] private readonly MobStateSystem _mobStateSystem = default!;
-        [Dependency] private readonly SharedPsionicAbilitiesSystem _psionics = default!;
-        [Dependency] private readonly PopupSystem _popupSystem = default!;
-        [Dependency] private readonly MindSystem _mindSystem = default!;
-        [Dependency] private readonly MetaDataSystem _metaDataSystem = default!;
-        [Dependency] private readonly DoAfterSystem _doAfterSystem = default!;
+        [Dependency]
+        private readonly SharedActionsSystem _actions = default!;
+
+        [Dependency]
+        private readonly MobStateSystem _mobStateSystem = default!;
+
+        [Dependency]
+        private readonly SharedPsionicAbilitiesSystem _psionics = default!;
+
+        [Dependency]
+        private readonly PopupSystem _popupSystem = default!;
+
+        [Dependency]
+        private readonly MindSystem _mindSystem = default!;
+
+        [Dependency]
+        private readonly MetaDataSystem _metaDataSystem = default!;
+
+        [Dependency]
+        private readonly DoAfterSystem _doAfterSystem = default!;
 
         public override void Initialize()
         {
@@ -43,16 +56,31 @@ namespace Content.Server.Abilities.Psionics
 
         private void OnPowerUsed(EntityUid uid, MindSwapPowerComponent component, MindSwapPowerActionEvent args)
         {
-            if (!_psionics.OnAttemptPowerUse(args.Performer, "mind swap")
-                || !(TryComp<DamageableComponent>(args.Target, out var damageable) && damageable.DamageContainerID == "Biological"))
+            if (
+                !_psionics.OnAttemptPowerUse(args.Performer, "mind swap")
+                || !(
+                    TryComp<DamageableComponent>(args.Target, out var damageable)
+                    && damageable.DamageContainerID == "Biological"
+                )
+            )
                 return;
 
-            _doAfterSystem.TryStartDoAfter(new DoAfterArgs(EntityManager, args.Performer, component.UseDelay, new MindSwapPowerDoAfterEvent(), args.Performer, target: args.Target)
-            {
-                Hidden = true,
-                BreakOnDamage = true,
-                BreakOnMove = true
-            }, out var doAfterId);
+            _doAfterSystem.TryStartDoAfter(
+                new DoAfterArgs(
+                    EntityManager,
+                    args.Performer,
+                    component.UseDelay,
+                    new MindSwapPowerDoAfterEvent(),
+                    args.Performer,
+                    target: args.Target
+                )
+                {
+                    Hidden = true,
+                    BreakOnDamage = true,
+                    BreakOnMove = true,
+                },
+                out var doAfterId
+            );
 
             if (TryComp<PsionicComponent>(uid, out var magic))
                 magic.DoAfter = doAfterId;
@@ -67,8 +95,7 @@ namespace Content.Server.Abilities.Psionics
                 return;
             component.DoAfter = null;
 
-            if (args.Target is null
-                || args.Cancelled)
+            if (args.Target is null || args.Cancelled)
                 return;
 
             Swap(uid, args.Target.Value);
@@ -76,7 +103,10 @@ namespace Content.Server.Abilities.Psionics
 
         private void OnPowerReturned(EntityUid uid, MindSwappedComponent component, MindSwapPowerReturnActionEvent args)
         {
-            if (HasComp<PsionicInsulationComponent>(component.OriginalEntity) || HasComp<PsionicInsulationComponent>(uid))
+            if (
+                HasComp<PsionicInsulationComponent>(component.OriginalEntity)
+                || HasComp<PsionicInsulationComponent>(uid)
+            )
                 return;
 
             if (HasComp<MobStateComponent>(uid) && !_mobStateSystem.IsAlive(uid))
@@ -104,7 +134,9 @@ namespace Content.Server.Abilities.Psionics
             }
 
             // 3. Target is dead
-            if (HasComp<MobStateComponent>(component.OriginalEntity) && _mobStateSystem.IsDead(component.OriginalEntity))
+            if (
+                HasComp<MobStateComponent>(component.OriginalEntity) && _mobStateSystem.IsDead(component.OriginalEntity)
+            )
             {
                 GetTrapped(uid);
                 return;
@@ -205,10 +237,22 @@ namespace Content.Server.Abilities.Psionics
 
             // Do the transfer.
             if (performerMind != null)
-                _mindSystem.TransferTo(performerMindId, target, ghostCheckOverride: true, createGhost: false, mind: performerMind);
+                _mindSystem.TransferTo(
+                    performerMindId,
+                    target,
+                    ghostCheckOverride: true,
+                    createGhost: false,
+                    mind: performerMind
+                );
 
             if (targetMind != null)
-                _mindSystem.TransferTo(targetMindId, performer, ghostCheckOverride: true, createGhost: false, mind: targetMind);
+                _mindSystem.TransferTo(
+                    targetMindId,
+                    performer,
+                    ghostCheckOverride: true,
+                    createGhost: false,
+                    mind: targetMind
+                );
 
             if (end)
             {
@@ -225,7 +269,6 @@ namespace Content.Server.Abilities.Psionics
 
         public void GetTrapped(EntityUid uid)
         {
-
             _popupSystem.PopupEntity(Loc.GetString("mindswap-trapped"), uid, uid, Shared.Popups.PopupType.LargeCaution);
             var perfComp = EnsureComp<MindSwappedComponent>(uid);
             _actions.RemoveAction(uid, perfComp.MindSwapReturnActionEntity, null);

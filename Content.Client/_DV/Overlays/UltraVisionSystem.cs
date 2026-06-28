@@ -1,5 +1,5 @@
-using Content.Shared.Abilities;
 using Content.Shared._DV.CCVars;
+using Content.Shared.Abilities;
 using Robust.Client.Graphics;
 using Robust.Shared.Configuration;
 using Robust.Shared.Player;
@@ -8,10 +8,17 @@ namespace Content.Client._DV.Overlays;
 
 public sealed partial class UltraVisionSystem : EntitySystem
 {
-    [Dependency] private readonly IOverlayManager _overlayMan = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly ISharedPlayerManager _playerMan = default!;
-    [Dependency] private readonly IEntityManager _entityManager = default!;
+    [Dependency]
+    private readonly IOverlayManager _overlayMan = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
+
+    [Dependency]
+    private readonly ISharedPlayerManager _playerMan = default!;
+
+    [Dependency]
+    private readonly IEntityManager _entityManager = default!;
 
     private UltraVisionOverlay _overlay = default!;
 
@@ -27,8 +34,12 @@ public sealed partial class UltraVisionSystem : EntitySystem
         // No-bypass variants: always apply overlay regardless of accessibility cvar.
         SubscribeLocalEvent<UltraVisionNoBypassComponent, ComponentInit>(OnUltraVisionNoBypassInit);
         SubscribeLocalEvent<UltraVisionNoBypassComponent, ComponentShutdown>(OnUltraVisionNoBypassShutdown);
-        SubscribeLocalEvent<UltraVisionNoBypassComponent, LocalPlayerAttachedEvent>(OnUltraVisionNoBypassPlayerAttached);
-        SubscribeLocalEvent<UltraVisionNoBypassComponent, LocalPlayerDetachedEvent>(OnUltraVisionNoBypassPlayerDetached);
+        SubscribeLocalEvent<UltraVisionNoBypassComponent, LocalPlayerAttachedEvent>(
+            OnUltraVisionNoBypassPlayerAttached
+        );
+        SubscribeLocalEvent<UltraVisionNoBypassComponent, LocalPlayerDetachedEvent>(
+            OnUltraVisionNoBypassPlayerDetached
+        );
 
         Subs.CVar(_cfg, DCCVars.NoVisionFilters, OnNoVisionFiltersChanged);
 
@@ -61,7 +72,8 @@ public sealed partial class UltraVisionSystem : EntitySystem
     private void OnNoVisionFiltersChanged(bool enabled)
     {
         var local = _playerMan.LocalEntity;
-        var hasNoBypass = local is { Valid: true } && _entityManager.HasComponent<UltraVisionNoBypassComponent>(local.Value);
+        var hasNoBypass =
+            local is { Valid: true } && _entityManager.HasComponent<UltraVisionNoBypassComponent>(local.Value);
 
         if (enabled && !hasNoBypass)
             _overlayMan.RemoveOverlay(_overlay);
@@ -75,18 +87,30 @@ public sealed partial class UltraVisionSystem : EntitySystem
             _overlayMan.AddOverlay(_overlay);
     }
 
-    private void OnUltraVisionNoBypassShutdown(EntityUid uid, UltraVisionNoBypassComponent component, ComponentShutdown args)
+    private void OnUltraVisionNoBypassShutdown(
+        EntityUid uid,
+        UltraVisionNoBypassComponent component,
+        ComponentShutdown args
+    )
     {
         if (uid == _playerMan.LocalEntity)
             _overlayMan.RemoveOverlay(_overlay);
     }
 
-    private void OnUltraVisionNoBypassPlayerAttached(EntityUid uid, UltraVisionNoBypassComponent component, LocalPlayerAttachedEvent args)
+    private void OnUltraVisionNoBypassPlayerAttached(
+        EntityUid uid,
+        UltraVisionNoBypassComponent component,
+        LocalPlayerAttachedEvent args
+    )
     {
         _overlayMan.AddOverlay(_overlay);
     }
 
-    private void OnUltraVisionNoBypassPlayerDetached(EntityUid uid, UltraVisionNoBypassComponent component, LocalPlayerDetachedEvent args)
+    private void OnUltraVisionNoBypassPlayerDetached(
+        EntityUid uid,
+        UltraVisionNoBypassComponent component,
+        LocalPlayerDetachedEvent args
+    )
     {
         _overlayMan.RemoveOverlay(_overlay);
     }

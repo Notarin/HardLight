@@ -12,6 +12,7 @@ public sealed class SetOOCCommand : IConsoleCommand
     public string Command => "setooc";
     public string Description => Loc.GetString("set-ooc-command-description");
     public string Help => Loc.GetString("set-ooc-command-help");
+
     public void Execute(IConsoleShell shell, string argStr, string[] args)
     {
         var cfg = IoCManager.Resolve<IConfigurationManager>();

@@ -14,7 +14,9 @@ using Robust.Shared.Timing;
 namespace Content.Client.Power
 {
     [GenerateTypedNameReferences]
-    public sealed partial class SolarControlWindow : DefaultWindow, IComputerWindow<SolarControlConsoleBoundInterfaceState>
+    public sealed partial class SolarControlWindow
+        : DefaultWindow,
+            IComputerWindow<SolarControlConsoleBoundInterfaceState>
     {
         [ViewVariables]
         private SolarControlConsoleBoundInterfaceState _lastState = new(0, 0, 0, 0);
@@ -28,12 +30,13 @@ namespace Content.Client.Power
         {
             PanelRotation.OnTextEntered += text =>
             {
-                if (!double.TryParse((string?) text.Text, out var value))
+                if (!double.TryParse((string?)text.Text, out var value))
                     return;
 
                 SolarControlConsoleAdjustMessage msg = new()
                 {
-                    Rotation = Angle.FromDegrees(value), AngularVelocity = _lastState.AngularVelocity,
+                    Rotation = Angle.FromDegrees(value),
+                    AngularVelocity = _lastState.AngularVelocity,
                 };
 
                 cb.SendMessage(msg);
@@ -45,12 +48,13 @@ namespace Content.Client.Power
 
             PanelVelocity.OnTextEntered += text =>
             {
-                if (!double.TryParse((string?) text.Text, out var value))
+                if (!double.TryParse((string?)text.Text, out var value))
                     return;
 
                 SolarControlConsoleAdjustMessage msg = new()
                 {
-                    Rotation = NotARadar.PredictedPanelRotation, AngularVelocity = Angle.FromDegrees(value / 60),
+                    Rotation = NotARadar.PredictedPanelRotation,
+                    AngularVelocity = Angle.FromDegrees(value / 60),
                 };
 
                 cb.SendMessage(msg);
@@ -81,19 +85,19 @@ namespace Content.Client.Power
         {
             _lastState = scc;
             NotARadar.UpdateState(scc);
-            OutputPower.Text = ((int) MathF.Floor(scc.OutputPower)).ToString();
+            OutputPower.Text = ((int)MathF.Floor(scc.OutputPower)).ToString();
             SunAngle.Text = FormatAngle(scc.TowardsSun);
             UpdateField(PanelRotation, FormatAngle(scc.Rotation));
             UpdateField(PanelVelocity, FormatAngle(scc.AngularVelocity * 60));
         }
-
     }
 
     public sealed class SolarControlNotARadar : Control
     {
         // This is used for client-side prediction of the panel rotation.
         // This makes the display feel a lot smoother.
-        [Dependency] private readonly IGameTiming _gameTiming = default!;
+        [Dependency]
+        private readonly IGameTiming _gameTiming = default!;
 
         private SolarControlConsoleBoundInterfaceState _lastState = new(0, 0, 0, 0);
 
@@ -101,8 +105,8 @@ namespace Content.Client.Power
 
         public const int StandardSizeFull = 290;
         public const int StandardRadiusCircle = 140;
-        public int SizeFull => (int) (StandardSizeFull * UIScale);
-        public int RadiusCircle => (int) (StandardRadiusCircle * UIScale);
+        public int SizeFull => (int)(StandardSizeFull * UIScale);
+        public int RadiusCircle => (int)(StandardRadiusCircle * UIScale);
 
         public SolarControlNotARadar()
         {
@@ -116,7 +120,8 @@ namespace Content.Client.Power
             _lastStateTime = _gameTiming.CurTime;
         }
 
-        public Angle PredictedPanelRotation => _lastState.Rotation + _lastState.AngularVelocity * (_gameTiming.CurTime - _lastStateTime).TotalSeconds;
+        public Angle PredictedPanelRotation =>
+            _lastState.Rotation + _lastState.AngularVelocity * (_gameTiming.CurTime - _lastStateTime).TotalSeconds;
 
         protected override void Draw(DrawingHandleScreen handle)
         {
@@ -134,7 +139,12 @@ namespace Content.Client.Power
             // Draw grid lines
             for (var i = 0; i < gridLinesEquatorial; i++)
             {
-                handle.DrawCircle(new Vector2(point, point), (RadiusCircle / gridLinesEquatorial) * i, gridLines, false);
+                handle.DrawCircle(
+                    new Vector2(point, point),
+                    (RadiusCircle / gridLinesEquatorial) * i,
+                    gridLines,
+                    false
+                );
             }
 
             for (var i = 0; i < gridLinesRadial; i++)
@@ -153,8 +163,16 @@ namespace Content.Client.Power
 
             var extent = (predictedPanelRotation + rotOfs).ToVec() * rotMul * RadiusCircle;
             var extentOrtho = new Vector2(extent.Y, -extent.X);
-            handle.DrawLine(new Vector2(point, point) - extentOrtho, new Vector2(point, point) + extentOrtho, Color.White);
-            handle.DrawLine(new Vector2(point, point) + (extent / panelExtentCutback), new Vector2(point, point) + extent - (extent / panelExtentCutback), Color.DarkGray);
+            handle.DrawLine(
+                new Vector2(point, point) - extentOrtho,
+                new Vector2(point, point) + extentOrtho,
+                Color.White
+            );
+            handle.DrawLine(
+                new Vector2(point, point) + (extent / panelExtentCutback),
+                new Vector2(point, point) + extent - (extent / panelExtentCutback),
+                Color.DarkGray
+            );
 
             var sunExtent = (_lastState.TowardsSun + rotOfs).ToVec() * rotMul * RadiusCircle;
             handle.DrawLine(new Vector2(point, point) + sunExtent, new Vector2(point, point), Color.Yellow);
@@ -162,10 +180,10 @@ namespace Content.Client.Power
     }
 
     [UsedImplicitly]
-    public sealed class SolarControlConsoleBoundUserInterface : ComputerBoundUserInterface<SolarControlWindow, SolarControlConsoleBoundInterfaceState>
+    public sealed class SolarControlConsoleBoundUserInterface
+        : ComputerBoundUserInterface<SolarControlWindow, SolarControlConsoleBoundInterfaceState>
     {
-        public SolarControlConsoleBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-        {
-        }
+        public SolarControlConsoleBoundUserInterface(EntityUid owner, Enum uiKey)
+            : base(owner, uiKey) { }
     }
 }

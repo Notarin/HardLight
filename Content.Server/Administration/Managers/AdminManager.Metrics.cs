@@ -13,9 +13,14 @@ public sealed partial class AdminManager
 
     private const int SentinelRankId = -1;
 
-    [Dependency] private readonly IMetricsManager _metrics = default!;
-    [Dependency] private readonly IAfkManager _afkManager = default!;
-    [Dependency] private readonly IMeterFactory _meterFactory = default!;
+    [Dependency]
+    private readonly IMetricsManager _metrics = default!;
+
+    [Dependency]
+    private readonly IAfkManager _afkManager = default!;
+
+    [Dependency]
+    private readonly IMeterFactory _meterFactory = default!;
 
     private void InitializeMetrics()
     {
@@ -23,11 +28,7 @@ public sealed partial class AdminManager
 
         var meter = _meterFactory.Create("SS14.AdminManager");
 
-        meter.CreateObservableGauge(
-            "admins_online_count",
-            MeasureAdminCount,
-            null,
-            "The count of online admins");
+        meter.CreateObservableGauge("admins_online_count", MeasureAdminCount, null, "The count of online admins");
     }
 
     private void MetricsOnUpdateMetrics()
@@ -82,17 +83,20 @@ public sealed partial class AdminManager
             yield return new Measurement<int>(
                 active,
                 new KeyValuePair<string, object?>("state", "active"),
-                new KeyValuePair<string, object?>("rank", rank == SentinelRankId ? "none" : rank.ToString()));
+                new KeyValuePair<string, object?>("rank", rank == SentinelRankId ? "none" : rank.ToString())
+            );
 
             yield return new Measurement<int>(
                 afk,
                 new KeyValuePair<string, object?>("state", "afk"),
-                new KeyValuePair<string, object?>("rank", rank == SentinelRankId ? "none" : rank.ToString()));
+                new KeyValuePair<string, object?>("rank", rank == SentinelRankId ? "none" : rank.ToString())
+            );
 
             yield return new Measurement<int>(
                 deadminned,
                 new KeyValuePair<string, object?>("state", "deadminned"),
-                new KeyValuePair<string, object?>("rank", rank == SentinelRankId ? "none" : rank.ToString()));
+                new KeyValuePair<string, object?>("rank", rank == SentinelRankId ? "none" : rank.ToString())
+            );
         }
     }
 }

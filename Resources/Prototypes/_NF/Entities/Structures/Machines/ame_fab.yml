@@ -1,5 +1,5 @@
 - type: entity
-  parent: [ BaseStructureDisableToolUse, BaseStructureIndestructible, BaseMachine ]
+  parent: [BaseStructureDisableToolUse, BaseStructureIndestructible, BaseMachine]
   id: AntiMatterFabricator
   name: anti-matter fabricator
   description: A colossal machine that converts plasteel and power into antimatter and stores it in AME fuel jars in a slot.
@@ -11,8 +11,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-1.45,-1.45,1.45,1.45"
         density: 500
         mask:
@@ -22,8 +21,7 @@
   - type: NodeContainer
     examinable: true
     nodes:
-      input:
-        !type:CableDeviceNode
+      input: !type:CableDeviceNode
         nodeGroupID: HVPower
         enabled: false
   - type: Sprite
@@ -35,30 +33,30 @@
       state: base
     - state: dial
       offset: -0.5, 0.5
-      map: [ dial ]
+      map: [dial]
     - sprite: _NF/Structures/Machines/AMEFab/64x32.rsi
       state: flywheel
       offset: 0.5, 0.5
-      map: [ flywheel ]
+      map: [flywheel]
     - sprite: _NF/Structures/Machines/AMEFab/64x32.rsi
       state: press
       offset: -0.5, 0
-      map: [ press ]
+      map: [press]
     - state: slot-full
       offset: 1, 0
-      map: [ slot-full ]
+      map: [slot-full]
       visible: false
     - state: slot-unlit
-      map: [ slot-unlit ]
+      map: [slot-unlit]
       shader: unshaded
       visible: false
     - state: material-good
-      map: [ material ]
+      map: [material]
       shader: unshaded
       visible: false
     - state: panel-unlit
       offset: 1, -1
-      map: [ panel ]
+      map: [panel]
       shader: unshaded
       visible: false
     - state: inserting
@@ -70,24 +68,24 @@
     visuals:
       enum.PowerDeviceVisuals.Powered:
         dial:
-          True: { state: dial-animated }
-          False: { state: dial }
+          True: {state: dial-animated}
+          False: {state: dial}
         flywheel:
-          True: { state: flywheel-animated }
-          False: { state: flywheel }
+          True: {state: flywheel-animated}
+          False: {state: flywheel}
         press:
-          True: { state: press-animated }
-          False: { state: press }
+          True: {state: press-animated}
+          False: {state: press}
         panel:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
         material:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
       enum.EntitySpawnMaterialVisuals.SufficientMaterial:
         material:
-          True: { state: material-good }
-          False: { state: material-low }
+          True: {state: material-good}
+          False: {state: material-low}
   - type: ItemMapper
     containerWhitelist:
     - output

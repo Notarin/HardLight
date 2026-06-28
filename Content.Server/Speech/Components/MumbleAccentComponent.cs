@@ -1,7 +1,4 @@
 namespace Content.Server.Speech.Components;
 
 [RegisterComponent]
-public sealed partial class MumbleAccentComponent : Component
-{
-
-}
+public sealed partial class MumbleAccentComponent : Component { }

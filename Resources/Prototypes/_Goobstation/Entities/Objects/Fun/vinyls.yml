@@ -15,8 +15,7 @@
     damageModifierSet: Wood
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 12
       behaviors:
       - !type:PlaySoundBehavior
@@ -28,7 +27,7 @@
             min: 1
             max: 1
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: DamageOnLand
     ignoreResistances: true
     damage:
@@ -55,8 +54,8 @@
     sprite: _Goobstation/Objects/Misc/RadioStation/vinylsleeves.rsi
   - type: ContainerContainer
     containers:
-      vinyl: !type:ContainerSlot &vinyl_container # Hardlight added anchor
-        showEnts: false
+      vinyl: &vinyl_container !type:ContainerSlot
+        showEnts: false # Hardlight added anchor
         occludes: true
         ent: null
       # Hardlight start - Add containers for new slots
@@ -69,8 +68,8 @@
     price: 10
   - type: ItemSlots
     slots:
-      vinyl: &vinyl_slot # Hardlight added anchor, kept first slot with same name for compatibility.
-        insertSound: /Audio/_Goobstation/RadioStation/vinyl/vinylEject.ogg
+      vinyl: &vinyl_slot
+        insertSound: /Audio/_Goobstation/RadioStation/vinyl/vinylEject.ogg # Hardlight added anchor, kept first slot with same name for compatibility.
         ejectSound: /Audio/_Goobstation/RadioStation/vinyl/vinylInsert.ogg
         whitelist:
           tags:
@@ -184,8 +183,7 @@
   - type: Fixtures
     fixtures:
       slips:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.4,-0.3,0.4,0.3"
         hard: false
         layer:

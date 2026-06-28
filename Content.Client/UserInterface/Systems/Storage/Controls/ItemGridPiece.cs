@@ -48,7 +48,7 @@ public sealed class ItemGridPiece : Control, IEntityControl
     private Texture? _markedSecondTexture;
     #endregion
 
-    public ItemGridPiece(Entity<ItemComponent> entity, ItemStorageLocation location,  IEntityManager entityManager)
+    public ItemGridPiece(Entity<ItemComponent> entity, ItemStorageLocation location, IEntityManager entityManager)
     {
         IoCManager.InjectDependencies(this);
 
@@ -71,10 +71,7 @@ public sealed class ItemGridPiece : Control, IEntityControl
         if (_storageController.IsDragging)
             return null;
 
-        return new Tooltip
-        {
-            Text = _entityManager.GetComponent<MetaDataComponent>(Entity).EntityName
-        };
+        return new Tooltip { Text = _entityManager.GetComponent<MetaDataComponent>(Entity).EntityName };
     }
 
     protected override void OnThemeUpdated()
@@ -99,25 +96,33 @@ public sealed class ItemGridPiece : Control, IEntityControl
         base.Draw(handle);
 
         // really just an "oh shit" catch.
-        if (!_entityManager.EntityExists(Entity) || !_entityManager.TryGetComponent<ItemComponent>(Entity, out var itemComponent))
+        if (
+            !_entityManager.EntityExists(Entity)
+            || !_entityManager.TryGetComponent<ItemComponent>(Entity, out var itemComponent)
+        )
         {
             Dispose();
             return;
         }
 
-        if (_storageController.IsDragging && _storageController.DraggingGhost?.Entity == Entity &&
-            _storageController.DraggingGhost != this)
+        if (
+            _storageController.IsDragging
+            && _storageController.DraggingGhost?.Entity == Entity
+            && _storageController.DraggingGhost != this
+        )
         {
             return;
         }
 
-        var adjustedShape = _entityManager.System<ItemSystem>().GetAdjustedItemShape((Entity, itemComponent), Location.Rotation, Vector2i.Zero);
+        var adjustedShape = _entityManager
+            .System<ItemSystem>()
+            .GetAdjustedItemShape((Entity, itemComponent), Location.Rotation, Vector2i.Zero);
         var boundingGrid = adjustedShape.GetBoundingBox();
         var size = _centerTexture!.Size * 2 * UIScale;
 
         var hovering = !_storageController.IsDragging && UserInterfaceManager.CurrentlyHovered == this;
         //yeah, this coloring is kinda hardcoded. deal with it. B)
-        Color? colorModulate = hovering  ? null : Color.FromHex("#a8a8a8");
+        Color? colorModulate = hovering ? null : Color.FromHex("#a8a8a8");
 
         var marked = Marked != null;
         Vector2i? maybeMarkedPos = null;
@@ -133,12 +138,16 @@ public sealed class ItemGridPiece : Control, IEntityControl
                 var offset = size * 2 * new Vector2(x - boundingGrid.Left, y - boundingGrid.Bottom);
                 var topLeft = PixelPosition + offset.Floored();
 
-                if (GetTexture(adjustedShape, new Vector2i(x, y), Direction.NorthEast) is {} neTexture)
+                if (GetTexture(adjustedShape, new Vector2i(x, y), Direction.NorthEast) is { } neTexture)
                 {
                     var neOffset = new Vector2(size.X, 0);
-                    handle.DrawTextureRect(neTexture, new UIBox2(topLeft + neOffset, topLeft + neOffset + size), colorModulate);
+                    handle.DrawTextureRect(
+                        neTexture,
+                        new UIBox2(topLeft + neOffset, topLeft + neOffset + size),
+                        colorModulate
+                    );
                 }
-                if (GetTexture(adjustedShape, new Vector2i(x, y), Direction.NorthWest) is {} nwTexture)
+                if (GetTexture(adjustedShape, new Vector2i(x, y), Direction.NorthWest) is { } nwTexture)
                 {
                     _texturesPositions.Add((nwTexture, Position + offset / UIScale));
                     handle.DrawTextureRect(nwTexture, new UIBox2(topLeft, topLeft + size), colorModulate);
@@ -149,15 +158,23 @@ public sealed class ItemGridPiece : Control, IEntityControl
                         marked = false;
                     }
                 }
-                if (GetTexture(adjustedShape, new Vector2i(x, y), Direction.SouthEast) is {} seTexture)
+                if (GetTexture(adjustedShape, new Vector2i(x, y), Direction.SouthEast) is { } seTexture)
                 {
                     var seOffset = size;
-                    handle.DrawTextureRect(seTexture, new UIBox2(topLeft + seOffset, topLeft + seOffset + size), colorModulate);
+                    handle.DrawTextureRect(
+                        seTexture,
+                        new UIBox2(topLeft + seOffset, topLeft + seOffset + size),
+                        colorModulate
+                    );
                 }
-                if (GetTexture(adjustedShape, new Vector2i(x, y), Direction.SouthWest) is {} swTexture)
+                if (GetTexture(adjustedShape, new Vector2i(x, y), Direction.SouthWest) is { } swTexture)
                 {
                     var swOffset = new Vector2(0, size.Y);
-                    handle.DrawTextureRect(swTexture, new UIBox2(topLeft + swOffset, topLeft + swOffset + size), colorModulate);
+                    handle.DrawTextureRect(
+                        swTexture,
+                        new UIBox2(topLeft + swOffset, topLeft + swOffset + size),
+                        colorModulate
+                    );
                 }
             }
         }
@@ -166,7 +183,8 @@ public sealed class ItemGridPiece : Control, IEntityControl
         var iconOffset = Location.Rotation.RotateVec(itemComponent.StoredOffset) * 2 * UIScale;
         var iconPosition = new Vector2(
             (boundingGrid.Width + 1) * size.X + iconOffset.X,
-            (boundingGrid.Height + 1) * size.Y + iconOffset.Y);
+            (boundingGrid.Height + 1) * size.Y + iconOffset.Y
+        );
         var iconRotation = Location.Rotation + Angle.FromDegrees(itemComponent.StoredRotation);
 
         if (itemComponent.StoredSprite is { } storageSprite)
@@ -176,12 +194,13 @@ public sealed class ItemGridPiece : Control, IEntityControl
 
             var sizeDifference = ((boundingGrid.Size + Vector2i.One) * _centerTexture.Size * 2 - sprite.Size) * UIScale;
 
-            var spriteBox = new Box2Rotated(new Box2(0f, sprite.Height * scale, sprite.Width * scale, 0f), -iconRotation, Vector2.Zero);
+            var spriteBox = new Box2Rotated(
+                new Box2(0f, sprite.Height * scale, sprite.Width * scale, 0f),
+                -iconRotation,
+                Vector2.Zero
+            );
             var root = spriteBox.CalcBoundingBox().BottomLeft;
-            var pos = PixelPosition * 2
-                      + (Parent?.GlobalPixelPosition ?? Vector2.Zero)
-                      + sizeDifference
-                      + iconOffset;
+            var pos = PixelPosition * 2 + (Parent?.GlobalPixelPosition ?? Vector2.Zero) + sizeDifference + iconOffset;
 
             handle.SetTransform(pos, iconRotation);
             var box = new UIBox2(root, root + sprite.Size * scale);
@@ -191,15 +210,17 @@ public sealed class ItemGridPiece : Control, IEntityControl
         else
         {
             _entityManager.System<SpriteSystem>().ForceUpdate(Entity);
-            handle.DrawEntity(Entity,
+            handle.DrawEntity(
+                Entity,
                 PixelPosition + iconPosition,
                 Vector2.One * 2 * UIScale,
                 Angle.Zero,
                 eyeRotation: iconRotation,
-                overrideDirection: Direction.South);
+                overrideDirection: Direction.South
+            );
         }
 
-        if (maybeMarkedPos is {} markedPos)
+        if (maybeMarkedPos is { } markedPos)
         {
             var markedTexture = Marked switch
             {
@@ -288,7 +309,11 @@ public sealed class ItemGridPiece : Control, IEntityControl
         }
     }
 
-    public static Vector2 GetCenterOffset(Entity<ItemComponent?> entity, ItemStorageLocation location, IEntityManager entMan)
+    public static Vector2 GetCenterOffset(
+        Entity<ItemComponent?> entity,
+        ItemStorageLocation location,
+        IEntityManager entMan
+    )
     {
         var boxSize = entMan.System<ItemSystem>().GetAdjustedItemShape(entity, location).GetBoundingBox().Size;
         var actualSize = new Vector2(boxSize.X + 1, boxSize.Y + 1);

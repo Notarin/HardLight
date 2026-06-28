@@ -12,11 +12,10 @@ public sealed partial class AltFireMeleeComponent : Component
     public AltFireAttackType AttackType = AltFireAttackType.Light;
 }
 
-
 [Flags]
 public enum AltFireAttackType : byte
 {
     Light = 0, // Standard single-target attack.
     Heavy = 1 << 0, // Wide swing.
-    Disarm = 1 << 1
+    Disarm = 1 << 1,
 }

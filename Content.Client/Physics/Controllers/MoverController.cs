@@ -13,10 +13,17 @@ namespace Content.Client.PhysicsSystem.Controllers;
 
 public sealed class MoverController : SharedMoverController
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly AlertsSystem _alerts = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly AlertsSystem _alerts = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
 
     public override void Initialize()
     {
@@ -38,7 +45,10 @@ public sealed class MoverController : SharedMoverController
             args.IsPredicted = true;
     }
 
-    private void OnUpdateRelayTargetPredicted(Entity<MovementRelayTargetComponent> entity, ref UpdateIsPredictedEvent args)
+    private void OnUpdateRelayTargetPredicted(
+        Entity<MovementRelayTargetComponent> entity,
+        ref UpdateIsPredictedEvent args
+    )
     {
         if (entity.Comp.Source == _playerManager.LocalEntity)
             args.IsPredicted = true;
@@ -88,7 +98,7 @@ public sealed class MoverController : SharedMoverController
     {
         base.UpdateBeforeSolve(prediction, frameTime);
 
-        if (_playerManager.LocalEntity is not {Valid: true} player)
+        if (_playerManager.LocalEntity is not { Valid: true } player)
             return;
 
         if (RelayQuery.TryGetComponent(player, out var relayMover))
@@ -127,4 +137,3 @@ public sealed class MoverController : SharedMoverController
             _alerts.ClearAlert(entity, WalkingAlert);
     }
 }
-

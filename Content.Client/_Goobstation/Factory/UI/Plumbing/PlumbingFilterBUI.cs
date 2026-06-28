@@ -11,9 +11,8 @@ public sealed class PlumbingFilterBUI : BoundUserInterface
 {
     private PlumbingFilterWindow? _window;
 
-    public PlumbingFilterBUI(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-    }
+    public PlumbingFilterBUI(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {

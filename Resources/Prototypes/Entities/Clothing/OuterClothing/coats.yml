@@ -37,7 +37,6 @@
   - type: Clothing
     sprite: Clothing/OuterClothing/Coats/detective_grey.rsi
 
-
 - type: entity
   parent: ClothingOuterCoatDetective
   id: ClothingOuterCoatDetectiveLoadout

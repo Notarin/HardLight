@@ -11,9 +11,9 @@
     noRot: true
     layers:
     - state: ano30
-      map: [ "enum.ArtifactsVisualLayers.Base" ]
+      map: ["enum.ArtifactsVisualLayers.Base"]
     - state: ano30_on
-      map: [ "enum.ArtifactsVisualLayers.Effect" ]
+      map: ["enum.ArtifactsVisualLayers.Effect"]
       visible: false
   - type: Damageable
   - type: Physics
@@ -36,8 +36,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.45
         density: 75
         layer: # doesn't collide with artifact storage
@@ -62,11 +61,13 @@
     stealGroup: Artifact
   - type: ContainerContainer
     containers:
-      storagebase: !type:Container # needed for the EffectStorage artifactEffect
-        ents: [ ]
-      revolver-ammo: !type:Container # needed for the EffectBigIron artifactEffect
+      storagebase: !type:Container
+        ents: []
+      revolver-ammo: !type:Container
 
-- type: entity
+- # needed for the EffectStorage artifactEffect
+  # needed for the EffectBigIron artifactEffect
+  type: entity
   parent: BaseXenoArtifact
   id: SimpleXenoArtifact
   suffix: Simple

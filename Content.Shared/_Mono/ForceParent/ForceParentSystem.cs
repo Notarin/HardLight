@@ -4,7 +4,8 @@ namespace Content.Shared._Mono.ForceParent;
 
 public sealed partial class ForceParentSystem : EntitySystem
 {
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
 
     public override void Initialize()
     {

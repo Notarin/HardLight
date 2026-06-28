@@ -1,20 +1,22 @@
-using Content.Shared.Shuttles.Save;
-using Robust.Shared.GameObjects;
-using Robust.Shared.IoC;
-using Robust.Shared.Network;
 using System;
-using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
-using Robust.Shared.Log;
+using System.Threading.Tasks;
+using Content.Shared.Shuttles.Save;
 using Robust.Shared.ContentPack;
+using Robust.Shared.GameObjects;
+using Robust.Shared.IoC;
+using Robust.Shared.Log;
+using Robust.Shared.Network;
+
 // Alias not needed; type is available via using Content.Shared.Shuttles.Save
 
 namespace Content.Client.Shuttles.Save
 {
     public sealed class ShipFileManagementSystem : EntitySystem
     {
-        [Dependency] private readonly IResourceManager _resourceManager = default!;
+        [Dependency]
+        private readonly IResourceManager _resourceManager = default!;
 
         private const string RoomGridDirectory = "/Exports/room_grids/";
         private const string RoomGridPrefix = "/Exports/room_";
@@ -123,8 +125,12 @@ namespace Content.Client.Shuttles.Save
         {
             // Don't clear locally loaded ships - server message is for server-side ships only
             // The client handles local ship files independently
-            Logger.Debug($"Instance #{_instanceId}: Received {message.ShipNames.Count} available ships from server (not clearing local ships)");
-            Logger.Debug($"Instance #{_instanceId}: Current state before processing: {AvailableShips.Count} ships, {CachedShipData.Count} cached");
+            Logger.Debug(
+                $"Instance #{_instanceId}: Received {message.ShipNames.Count} available ships from server (not clearing local ships)"
+            );
+            Logger.Debug(
+                $"Instance #{_instanceId}: Current state before processing: {AvailableShips.Count} ships, {CachedShipData.Count} cached"
+            );
 
             // Only add server ships that aren't already in our local list
             foreach (var serverShip in message.ShipNames)
@@ -145,8 +151,9 @@ namespace Content.Client.Shuttles.Save
 
             // Find and overwrite the original file with the converted version
             var originalFile = AvailableShips.FirstOrDefault(ship =>
-                ship.Contains(message.ShipName) || CachedShipData.ContainsKey(ship) &&
-                CachedShipData[ship].Contains($"shipName: {message.ShipName}"));
+                ship.Contains(message.ShipName)
+                || CachedShipData.ContainsKey(ship) && CachedShipData[ship].Contains($"shipName: {message.ShipName}")
+            );
 
             if (originalFile != null)
             {
@@ -165,12 +172,16 @@ namespace Content.Client.Shuttles.Save
                 catch (Exception ex)
                 {
                     Logger.Error($"Failed to overwrite legacy ship file '{originalFile}': {ex.Message}");
-                    Logger.Warning($"Legacy ship '{message.ShipName}' conversion failed - please manually re-save the ship to get secure format");
+                    Logger.Warning(
+                        $"Legacy ship '{message.ShipName}' conversion failed - please manually re-save the ship to get secure format"
+                    );
                 }
             }
             else
             {
-                Logger.Warning($"Could not find original file for converted ship '{message.ShipName}' - creating new file");
+                Logger.Warning(
+                    $"Could not find original file for converted ship '{message.ShipName}' - creating new file"
+                );
 
                 // Create a new file with the converted data
                 var fileName = $"/Exports/{message.ShipName}_converted_{DateTime.Now:yyyyMMdd_HHmmss}.yml";
@@ -260,11 +271,13 @@ namespace Content.Client.Shuttles.Save
                     var filePath = file.ToString();
 
                     // Accept any .yml file in Exports (not just ship_index), but exclude backups
-                    if (filePath.Contains("Exports")
+                    if (
+                        filePath.Contains("Exports")
                         && !filePath.Contains("Exports/backup")
                         && !IsRoomGridFile(filePath)
                         && filePath.EndsWith(".yml")
-                        && !filePath.Contains("ship_index"))
+                        && !filePath.Contains("ship_index")
+                    )
                     {
                         if (!AvailableShips.Contains(filePath))
                         {
@@ -283,7 +296,9 @@ namespace Content.Client.Shuttles.Save
                     }
                 }
 
-                Logger.Debug($"Instance #{_instanceId}: Final result: Loaded {AvailableShips.Count} saved ships from Exports directory");
+                Logger.Debug(
+                    $"Instance #{_instanceId}: Final result: Loaded {AvailableShips.Count} saved ships from Exports directory"
+                );
 
                 // Trigger UI update
                 ShipsUpdated?.Invoke();
@@ -371,8 +386,10 @@ namespace Content.Client.Shuttles.Save
 
                 // Parse metadata without caching full content (lazy loading)
                 var lines = content.Split('\n');
-                var shipName = lines.FirstOrDefault(l => l.Trim().StartsWith("shipName:"))?.Split(':')[1].Trim() ?? "Unknown";
-                var timestampStr = lines.FirstOrDefault(l => l.Trim().StartsWith("timestamp:"))?.Split(':', 2)[1].Trim() ?? "";
+                var shipName =
+                    lines.FirstOrDefault(l => l.Trim().StartsWith("shipName:"))?.Split(':')[1].Trim() ?? "Unknown";
+                var timestampStr =
+                    lines.FirstOrDefault(l => l.Trim().StartsWith("timestamp:"))?.Split(':', 2)[1].Trim() ?? "";
 
                 if (DateTime.TryParse(timestampStr, out var timestamp))
                 {
@@ -493,7 +510,9 @@ namespace Content.Client.Shuttles.Save
                 }
                 else
                 {
-                    Logger.Warning($"Admin {message.AdminName} requested ship data for {message.ShipFilename} but file not found");
+                    Logger.Warning(
+                        $"Admin {message.AdminName} requested ship data for {message.ShipFilename} but file not found"
+                    );
                 }
             }
             catch (Exception ex)
@@ -523,7 +542,9 @@ namespace Content.Client.Shuttles.Save
                     // If a file with the same name already exists in backup, append a timestamp
                     if (_resourceManager.UserData.Exists(destinationPath))
                     {
-                        var timestamped = new Robust.Shared.Utility.ResPath($"/Exports/backup/{fileName}_loaded_{DateTime.Now:yyyyMMdd_HHmmss}.yml");
+                        var timestamped = new Robust.Shared.Utility.ResPath(
+                            $"/Exports/backup/{fileName}_loaded_{DateTime.Now:yyyyMMdd_HHmmss}.yml"
+                        );
                         destinationPath = timestamped;
                     }
 

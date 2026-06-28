@@ -1,6 +1,6 @@
 using System.Collections.Immutable;
-using Content.Server.Players.JobWhitelist;
 using Content.Server._NF.Players.GhostRole.Events;
+using Content.Server.Players.JobWhitelist;
 using Content.Shared.CCVar;
 using Content.Shared.Ghost.Roles;
 using Robust.Server.Player;
@@ -12,10 +12,17 @@ namespace Content.Server._NF.Players.GhostRole;
 
 public sealed class GhostRoleWhitelistSystem : EntitySystem
 {
-    [Dependency] private readonly IConfigurationManager _config = default!;
-    [Dependency] private readonly JobWhitelistManager _manager = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IPrototypeManager _prototypes = default!;
+    [Dependency]
+    private readonly IConfigurationManager _config = default!;
+
+    [Dependency]
+    private readonly JobWhitelistManager _manager = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypes = default!;
 
     private ImmutableArray<ProtoId<GhostRolePrototype>> _whitelistedGhostRoles = [];
 
@@ -43,8 +50,7 @@ public sealed class GhostRoleWhitelistSystem : EntitySystem
         for (var i = ev.GhostRoles.Count - 1; i >= 0; i--)
         {
             var ghostRoleId = ev.GhostRoles[i];
-            if (_player.TryGetSessionById(ev.Player, out var player) &&
-                !_manager.IsAllowed(player, ghostRoleId))
+            if (_player.TryGetSessionById(ev.Player, out var player) && !_manager.IsAllowed(player, ghostRoleId))
             {
                 ev.GhostRoles.RemoveSwap(i);
             }

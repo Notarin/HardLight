@@ -37,7 +37,9 @@ public sealed partial class BrainwasherComponent : Component
 
 public abstract class SharedBrainwasherSystem : EntitySystem // HL: Move verbs to shared so the client can draw them without waiting for the server
 {
-    [Dependency] private readonly SharedConsentSystem _consentSystem = default!;
+    [Dependency]
+    private readonly SharedConsentSystem _consentSystem = default!;
+
     public override void Initialize()
     {
         base.Initialize();
@@ -48,38 +50,45 @@ public abstract class SharedBrainwasherSystem : EntitySystem // HL: Move verbs t
 
     private void ConfigureVerb(EntityUid uid, BrainwasherComponent component, GetVerbsEvent<Verb> args)
     {
-        if (!args.CanAccess || !args.CanInteract
-            || HasComp<MobStateComponent>(uid) && args.User != uid)
+        if (!args.CanAccess || !args.CanInteract || HasComp<MobStateComponent>(uid) && args.User != uid)
             return;
 
-        args.Verbs.Add(new Verb
-        {
-            Act = () => DoConfigureVerb(uid, args.User, component),
-            Text = component.ConfigureText,
-            Icon = new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/VerbIcons/sentient.svg.192dpi.png")),
-            Priority = 1
-        });
+        args.Verbs.Add(
+            new Verb
+            {
+                Act = () => DoConfigureVerb(uid, args.User, component),
+                Text = component.ConfigureText,
+                Icon = new SpriteSpecifier.Texture(
+                    new ResPath("/Textures/Interface/VerbIcons/sentient.svg.192dpi.png")
+                ),
+                Priority = 1,
+            }
+        );
     }
 
     private void BrainwashingVerb(EntityUid uid, BrainwasherComponent component, GetVerbsEvent<InnateVerb> args)
     {
-        if (!args.CanAccess || !args.CanInteract || args.User != uid
-            || HasComp<BorgChassisComponent>(args.Target))
+        if (!args.CanAccess || !args.CanInteract || args.User != uid || HasComp<BorgChassisComponent>(args.Target))
             return;
 
         if (uid != args.Target && _consentSystem.HasConsent(args.Target, "MindControl"))
         {
-            args.Verbs.Add(new InnateVerb
-            {
-                Act = () => DoBrainwashingVerb(args.User, args.Target, component),
-                Text = "Brainwash",
-                Icon = new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/VerbIcons/sentient.svg.192dpi.png")),
-                Priority = 1
-            });
+            args.Verbs.Add(
+                new InnateVerb
+                {
+                    Act = () => DoBrainwashingVerb(args.User, args.Target, component),
+                    Text = "Brainwash",
+                    Icon = new SpriteSpecifier.Texture(
+                        new ResPath("/Textures/Interface/VerbIcons/sentient.svg.192dpi.png")
+                    ),
+                    Priority = 1,
+                }
+            );
         }
     }
 
     protected virtual void DoConfigureVerb(EntityUid uid, EntityUid user, BrainwasherComponent component) { }
+
     protected virtual void DoBrainwashingVerb(EntityUid uid, EntityUid target, BrainwasherComponent component) { }
 }
 
@@ -90,6 +99,7 @@ public sealed partial class EngagedEvent : SimpleDoAfterEvent
     {
         Wearer = wearer;
     }
+
     [DataField]
     public NetEntity Wearer;
 }

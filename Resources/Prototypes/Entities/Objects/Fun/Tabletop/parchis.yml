@@ -11,8 +11,7 @@
   - type: TabletopGame
     boardName: tabletop-parchis-board-name
     size: 574, 574
-    setup:
-      !type:TabletopParchisSetup
+    setup: !type:TabletopParchisSetup
       boardPrototype: ParchisBoardTabletop
 
 # Parchís tabletop item (item only visible in tabletop game)
@@ -20,7 +19,7 @@
   id: ParchisBoardTabletop
   name: parchís
   parent: BaseBoardTabletop
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: Objects/Fun/Tabletop/parchis_tabletop.rsi

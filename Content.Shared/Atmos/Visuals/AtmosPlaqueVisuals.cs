@@ -5,6 +5,6 @@ namespace Content.Shared.Atmos.Visuals
     [Serializable, NetSerializable]
     public enum AtmosPlaqueVisuals
     {
-        State
+        State,
     }
 }

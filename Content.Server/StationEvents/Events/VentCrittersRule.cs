@@ -14,7 +14,12 @@ public sealed class VentCrittersRule : StationEventSystem<VentCrittersRuleCompon
      * USE THE PROTOTYPE.
      */
 
-    protected override void Started(EntityUid uid, VentCrittersRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
+    protected override void Started(
+        EntityUid uid,
+        VentCrittersRuleComponent component,
+        GameRuleComponent gameRule,
+        GameRuleStartedEvent args
+    )
     {
         base.Started(uid, component, gameRule, args);
 

@@ -1,5 +1,5 @@
-using Content.Server.Speech.Components;
 using System.Text.RegularExpressions;
+using Content.Server.Speech.Components;
 
 namespace Content.Server.Speech.EntitySystems;
 
@@ -8,7 +8,8 @@ namespace Content.Server.Speech.EntitySystems;
 /// </summary>
 public sealed class FrenchAccentSystem : EntitySystem
 {
-    [Dependency] private readonly ReplacementAccentSystem _replacement = default!;
+    [Dependency]
+    private readonly ReplacementAccentSystem _replacement = default!;
 
     private static readonly Regex RegexTh = new(@"th", RegexOptions.IgnoreCase);
     private static readonly Regex RegexStartH = new(@"(?<!\w)h", RegexOptions.IgnoreCase);

@@ -1,15 +1,18 @@
+using System.Linq;
 using Content.Shared.Damage;
 using Content.Shared.Damage.Prototypes;
 using Content.Shared.Mobs.Components;
 using Robust.Shared.Prototypes;
-using System.Linq;
 
 namespace Content.Shared.Chat;
 
 public sealed class SharedSuicideSystem : EntitySystem
 {
-    [Dependency] private readonly DamageableSystem _damageableSystem = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency]
+    private readonly DamageableSystem _damageableSystem = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
     private static readonly ProtoId<DamageTypePrototype> BluntDamageId = "Blunt";
     private static readonly ProtoId<DamageTypePrototype> StructuralDamageId = "Structural";
 
@@ -37,7 +40,7 @@ public sealed class SharedSuicideSystem : EntitySystem
         // Split the total amount of damage needed to kill the target by every damage type in the DamageSpecifier
         foreach (var (key, value) in appliedDamageSpecifier.DamageDict)
         {
-            appliedDamageSpecifier.DamageDict[key] = Math.Ceiling((double) (value * lethalAmountOfDamage / totalDamage));
+            appliedDamageSpecifier.DamageDict[key] = Math.Ceiling((double)(value * lethalAmountOfDamage / totalDamage));
         }
 
         _damageableSystem.TryChangeDamage(target, appliedDamageSpecifier, true, origin: target);
@@ -57,9 +60,14 @@ public sealed class SharedSuicideSystem : EntitySystem
         var lethalAmountOfDamage = mobThresholds.Thresholds.Keys.Last() - target.Comp.TotalDamage;
 
         // We don't want structural damage for the same reasons listed above
-        if (!_prototypeManager.TryIndex(damageType, out var damagePrototype) || damagePrototype.ID == StructuralDamageId.ToString())
+        if (
+            !_prototypeManager.TryIndex(damageType, out var damagePrototype)
+            || damagePrototype.ID == StructuralDamageId.ToString()
+        )
         {
-            Log.Error($"{nameof(SharedSuicideSystem)} could not find the damage type prototype associated with {damageType}. Falling back to Blunt");
+            Log.Error(
+                $"{nameof(SharedSuicideSystem)} could not find the damage type prototype associated with {damageType}. Falling back to Blunt"
+            );
             damagePrototype = _prototypeManager.Index<DamageTypePrototype>(BluntDamageId);
         }
 

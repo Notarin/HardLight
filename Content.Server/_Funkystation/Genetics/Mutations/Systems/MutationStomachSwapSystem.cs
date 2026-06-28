@@ -10,9 +10,14 @@ namespace Content.Server._Funkystation.Genetics.Mutations.Systems;
 
 public sealed class MutationStomachSwapSystem : EntitySystem
 {
-    [Dependency] private readonly SharedBodySystem _body = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solution = default!;
+    [Dependency]
+    private readonly SharedBodySystem _body = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly SharedSolutionContainerSystem _solution = default!;
     private const string HiddenStorageContainerId = "mutation_hidden_stomach_storage";
 
     public override void Initialize()
@@ -28,7 +33,10 @@ public sealed class MutationStomachSwapSystem : EntitySystem
         var hiddenContainer = _container.EnsureContainer<ContainerSlot>(ent.Owner, HiddenStorageContainerId);
 
         // Find current stomach
-        if (!TryGetStomachOrgan(ent.Owner, out var originalStomachNullable) || originalStomachNullable is not { } originalStomach)
+        if (
+            !TryGetStomachOrgan(ent.Owner, out var originalStomachNullable)
+            || originalStomachNullable is not { } originalStomach
+        )
         {
             RemComp<MutationStomachSwapComponent>(ent.Owner);
             return;
@@ -58,8 +66,7 @@ public sealed class MutationStomachSwapSystem : EntitySystem
     {
         var comp = ent.Comp;
 
-        if (comp.OriginalStomach is not { Valid: true } original ||
-            comp.SwappedStomach is not { Valid: true } swapped)
+        if (comp.OriginalStomach is not { Valid: true } original || comp.SwappedStomach is not { Valid: true } swapped)
             return;
 
         if (!TryGetStomachSlot(ent.Owner, out var stomachSlot) || stomachSlot is null)
@@ -71,9 +78,11 @@ public sealed class MutationStomachSwapSystem : EntitySystem
             Del(current);
         }
 
-        if (_container.TryGetContainer(ent.Owner, HiddenStorageContainerId, out var baseHiddenContainer) &&
-            baseHiddenContainer is ContainerSlot hiddenContainer &&
-            hiddenContainer.ContainedEntity is { } storedStomach)
+        if (
+            _container.TryGetContainer(ent.Owner, HiddenStorageContainerId, out var baseHiddenContainer)
+            && baseHiddenContainer is ContainerSlot hiddenContainer
+            && hiddenContainer.ContainedEntity is { } storedStomach
+        )
         {
             _container.Remove(storedStomach, hiddenContainer);
             _container.Insert(storedStomach, stomachSlot);
@@ -106,7 +115,10 @@ public sealed class MutationStomachSwapSystem : EntitySystem
         slot = null;
         foreach (var part in _body.GetBodyChildren(body))
         {
-            if (_container.TryGetContainer(part.Id, "body_organ_slot_stomach", out var container) && container is ContainerSlot organSlot)
+            if (
+                _container.TryGetContainer(part.Id, "body_organ_slot_stomach", out var container)
+                && container is ContainerSlot organSlot
+            )
             {
                 slot = organSlot;
                 return true;
@@ -122,13 +134,17 @@ public sealed class MutationStomachSwapSystem : EntitySystem
         foreach (var name in solutionNames)
         {
             // Get source solution
-            if (!_solution.TryGetSolution(from, name, out var fromSolEntNullable, out var fromSol) ||
-                fromSolEntNullable is not { } fromSolEnt)
+            if (
+                !_solution.TryGetSolution(from, name, out var fromSolEntNullable, out var fromSol)
+                || fromSolEntNullable is not { } fromSolEnt
+            )
                 continue;
 
             // Get target solution
-            if (!_solution.TryGetSolution(to, name, out var toSolEntNullable, out var toSol) ||
-                toSolEntNullable is not { } toSolEnt)
+            if (
+                !_solution.TryGetSolution(to, name, out var toSolEntNullable, out var toSol)
+                || toSolEntNullable is not { } toSolEnt
+            )
                 continue;
 
             if (fromSol.Volume > 0)

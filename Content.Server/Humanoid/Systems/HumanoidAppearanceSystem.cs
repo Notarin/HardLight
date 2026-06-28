@@ -9,7 +9,8 @@ namespace Content.Server.Humanoid;
 
 public sealed partial class HumanoidAppearanceSystem : SharedHumanoidAppearanceSystem
 {
-    [Dependency] private readonly MarkingManager _markingManager = default!;
+    [Dependency]
+    private readonly MarkingManager _markingManager = default!;
 
     public override void Initialize()
     {
@@ -27,10 +28,14 @@ public sealed partial class HumanoidAppearanceSystem : SharedHumanoidAppearanceS
     /// <param name="marking">The marking to try and remove.</param>
     /// <param name="sync">Whether to immediately sync this to the humanoid</param>
     /// <param name="humanoid">Humanoid component of the entity</param>
-    public void RemoveMarking(EntityUid uid, string marking, bool sync = true, HumanoidAppearanceComponent? humanoid = null)
+    public void RemoveMarking(
+        EntityUid uid,
+        string marking,
+        bool sync = true,
+        HumanoidAppearanceComponent? humanoid = null
+    )
     {
-        if (!Resolve(uid, ref humanoid)
-            || !_markingManager.Markings.TryGetValue(marking, out var prototype))
+        if (!Resolve(uid, ref humanoid) || !_markingManager.Markings.TryGetValue(marking, out var prototype))
         {
             return;
         }
@@ -48,12 +53,19 @@ public sealed partial class HumanoidAppearanceSystem : SharedHumanoidAppearanceS
     /// <param name="category">Category of the marking</param>
     /// <param name="index">Index of the marking</param>
     /// <param name="humanoid">Humanoid component of the entity</param>
-    public void RemoveMarking(EntityUid uid, MarkingCategories category, int index, HumanoidAppearanceComponent? humanoid = null)
+    public void RemoveMarking(
+        EntityUid uid,
+        MarkingCategories category,
+        int index,
+        HumanoidAppearanceComponent? humanoid = null
+    )
     {
-        if (index < 0
+        if (
+            index < 0
             || !Resolve(uid, ref humanoid)
             || !humanoid.MarkingSet.TryGetCategory(category, out var markings)
-            || index >= markings.Count)
+            || index >= markings.Count
+        )
         {
             return;
         }
@@ -70,13 +82,21 @@ public sealed partial class HumanoidAppearanceSystem : SharedHumanoidAppearanceS
     /// <param name="index">Index of the marking</param>
     /// <param name="markingId">The marking ID to use</param>
     /// <param name="humanoid">Humanoid component of the entity</param>
-    public void SetMarkingId(EntityUid uid, MarkingCategories category, int index, string markingId, HumanoidAppearanceComponent? humanoid = null)
+    public void SetMarkingId(
+        EntityUid uid,
+        MarkingCategories category,
+        int index,
+        string markingId,
+        HumanoidAppearanceComponent? humanoid = null
+    )
     {
-        if (index < 0
+        if (
+            index < 0
             || !_markingManager.MarkingsByCategory(category).TryGetValue(markingId, out var markingPrototype)
             || !Resolve(uid, ref humanoid)
             || !humanoid.MarkingSet.TryGetCategory(category, out var markings)
-            || index >= markings.Count)
+            || index >= markings.Count
+        )
         {
             return;
         }
@@ -99,13 +119,20 @@ public sealed partial class HumanoidAppearanceSystem : SharedHumanoidAppearanceS
     /// <param name="index">Index of the marking</param>
     /// <param name="colors">The marking colors to use</param>
     /// <param name="humanoid">Humanoid component of the entity</param>
-    public void SetMarkingColor(EntityUid uid, MarkingCategories category, int index, List<Color> colors,
-        HumanoidAppearanceComponent? humanoid = null)
+    public void SetMarkingColor(
+        EntityUid uid,
+        MarkingCategories category,
+        int index,
+        List<Color> colors,
+        HumanoidAppearanceComponent? humanoid = null
+    )
     {
-        if (index < 0
+        if (
+            index < 0
             || !Resolve(uid, ref humanoid)
             || !humanoid.MarkingSet.TryGetCategory(category, out var markings)
-            || index >= markings.Count)
+            || index >= markings.Count
+        )
         {
             return;
         }

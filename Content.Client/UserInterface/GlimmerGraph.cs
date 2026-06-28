@@ -44,7 +44,11 @@ public sealed class GlimmerGraph : Control
             handle.DrawLine(vector1, vector2, Color.FromHex("#A200BB"));
             handle.DrawLine(vector1 + new Vector2(0, 1), vector2 + new Vector2(0, 1), Color.FromHex("#A200BB"));
             handle.DrawLine(vector1 - new Vector2(0, 1), vector2 - new Vector2(0, 1), Color.FromHex("#A200BB"));
-            handle.DrawLine(new Vector2(XOffset + i * spacing, YOffset), new Vector2(XOffset + i * spacing, YOffsetTop), Color.FromHex("#686868"));
+            handle.DrawLine(
+                new Vector2(XOffset + i * spacing, YOffset),
+                new Vector2(XOffset + i * spacing, YOffsetTop),
+                Color.FromHex("#686868")
+            );
             i++;
         }
     }

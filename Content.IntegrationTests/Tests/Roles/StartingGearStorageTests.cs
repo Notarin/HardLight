@@ -1,8 +1,8 @@
 using System.Linq;
-using Content.Shared.Roles;
 using Content.Server.Storage.EntitySystems;
-using Robust.Shared.GameObjects;
+using Content.Shared.Roles;
 using Robust.Shared.Collections;
+using Robust.Shared.GameObjects;
 
 namespace Content.IntegrationTests.Tests.Roles;
 
@@ -21,8 +21,8 @@ public sealed class StartingGearPrototypeStorageTest
         var mapSystem = server.System<SharedMapSystem>();
         var storageSystem = server.System<StorageSystem>();
 
-        var protos = server.ProtoMan
-            .EnumeratePrototypes<StartingGearPrototype>()
+        var protos = server
+            .ProtoMan.EnumeratePrototypes<StartingGearPrototype>()
             .Where(p => !p.Abstract)
             .ToList()
             .OrderBy(p => p.ID);
@@ -55,7 +55,9 @@ public sealed class StartingGearPrototypeStorageTest
                     foreach (var ent in ents)
                     {
                         if (!storageSystem.CanInsert(bag, ent, out _))
-                            Assert.Fail($"StartingGearPrototype {gearProto.ID} could not successfully put items into storage {bag.Id}");
+                            Assert.Fail(
+                                $"StartingGearPrototype {gearProto.ID} could not successfully put items into storage {bag.Id}"
+                            );
 
                         server.EntMan.DeleteEntity(ent);
                     }

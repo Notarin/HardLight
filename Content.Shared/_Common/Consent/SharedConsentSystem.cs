@@ -11,8 +11,11 @@ namespace Content.Shared._Common.Consent;
 
 public abstract partial class SharedConsentSystem : EntitySystem
 {
-    [Dependency] protected readonly SharedMindSystem _mindSystem = default!;
-    [Dependency] private readonly ExamineSystemShared _examineSystem = default!;
+    [Dependency]
+    protected readonly SharedMindSystem _mindSystem = default!;
+
+    [Dependency]
+    private readonly ExamineSystemShared _examineSystem = default!;
 
     protected virtual bool ConsentTextUpdatedSinceLastRead(Entity<ConsentComponent> targetEnt, EntityUid readerUid)
     {
@@ -49,22 +52,24 @@ public abstract partial class SharedConsentSystem : EntitySystem
         var user = args.User;
         bool updatedSinceLastRead = ConsentTextUpdatedSinceLastRead(ent, user);
         ResPath iconPath = updatedSinceLastRead
-            ? new ("/Textures/_Common/Interface/VerbIcons/consent_examine_with_red_dot.svg.192dpi.png")
-            : new ("/Textures/Interface/VerbIcons/settings.svg.192dpi.png");
+            ? new("/Textures/_Common/Interface/VerbIcons/consent_examine_with_red_dot.svg.192dpi.png")
+            : new("/Textures/Interface/VerbIcons/settings.svg.192dpi.png");
 
-        args.Verbs.Add(new()
-        {
-            Text = Loc.GetString("consent-examine-verb"),
-            Icon = new SpriteSpecifier.Texture(iconPath),
-            Act = () =>
+        args.Verbs.Add(
+            new()
             {
-                var message = GetConsentText(ent.Comp.ConsentSettings);
-                _examineSystem.SendExamineTooltip(user, ent, message, getVerbs: false, centerAtCursor: false);
-                UpdateReadReceipt(ent, user);
-            },
-            Category = VerbCategory.Examine,
-            CloseMenu = true,
-        });
+                Text = Loc.GetString("consent-examine-verb"),
+                Icon = new SpriteSpecifier.Texture(iconPath),
+                Act = () =>
+                {
+                    var message = GetConsentText(ent.Comp.ConsentSettings);
+                    _examineSystem.SendExamineTooltip(user, ent, message, getVerbs: false, centerAtCursor: false);
+                    UpdateReadReceipt(ent, user);
+                },
+                Category = VerbCategory.Examine,
+                CloseMenu = true,
+            }
+        );
     }
 
     private FormattedMessage GetConsentText(PlayerConsentSettings consentSettings)

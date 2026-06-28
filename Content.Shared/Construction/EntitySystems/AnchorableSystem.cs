@@ -1,20 +1,20 @@
 using Content.Shared.Administration.Logs;
-using Content.Shared.Examine;
 using Content.Shared.Construction.Components;
 using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Coordinates.Helpers;
 using Content.Shared.Database;
 using Content.Shared.DoAfter;
+using Content.Shared.Examine;
 using Content.Shared.Interaction;
 using Content.Shared.Movement.Pulling.Components;
 using Content.Shared.Movement.Pulling.Systems;
 using Content.Shared.Popups;
+using Content.Shared.Tag;
 using Content.Shared.Tools;
 using Content.Shared.Tools.Components;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Physics.Components;
-using Content.Shared.Tag;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
@@ -24,14 +24,29 @@ namespace Content.Shared.Construction.EntitySystems;
 
 public sealed partial class AnchorableSystem : EntitySystem
 {
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly PullingSystem _pulling = default!;
-    [Dependency] private readonly SharedToolSystem _tool = default!;
-    [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
-    [Dependency] private   readonly TagSystem _tagSystem = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+    [Dependency]
+    private readonly IMapManager _mapManager = default!;
+
+    [Dependency]
+    private readonly ISharedAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly PullingSystem _pulling = default!;
+
+    [Dependency]
+    private readonly SharedToolSystem _tool = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transformSystem = default!;
+
+    [Dependency]
+    private readonly TagSystem _tagSystem = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
 
     private EntityQuery<PhysicsComponent> _physicsQuery;
 
@@ -43,8 +58,11 @@ public sealed partial class AnchorableSystem : EntitySystem
 
         _physicsQuery = GetEntityQuery<PhysicsComponent>();
 
-        SubscribeLocalEvent<AnchorableComponent, InteractUsingEvent>(OnInteractUsing,
-            before: new[] { typeof(ItemSlotsSystem) }, after: new[] { typeof(SharedConstructionSystem) });
+        SubscribeLocalEvent<AnchorableComponent, InteractUsingEvent>(
+            OnInteractUsing,
+            before: new[] { typeof(ItemSlotsSystem) },
+            after: new[] { typeof(SharedConstructionSystem) }
+        );
         SubscribeLocalEvent<AnchorableComponent, TryAnchorCompletedEvent>(OnAnchorComplete);
         SubscribeLocalEvent<AnchorableComponent, TryUnanchorCompletedEvent>(OnUnanchorComplete);
         SubscribeLocalEvent<AnchorableComponent, ExaminedEvent>(OnAnchoredExamine);
@@ -66,10 +84,14 @@ public sealed partial class AnchorableSystem : EntitySystem
     ///     Tries to unanchor the entity.
     /// </summary>
     /// <returns>true if unanchored, false otherwise</returns>
-    private void TryUnAnchor(EntityUid uid, EntityUid userUid, EntityUid usingUid,
+    private void TryUnAnchor(
+        EntityUid uid,
+        EntityUid userUid,
+        EntityUid usingUid,
         AnchorableComponent? anchorable = null,
         TransformComponent? transform = null,
-        ToolComponent? usingTool = null)
+        ToolComponent? usingTool = null
+    )
     {
         if (!Resolve(uid, ref anchorable, ref transform))
             return;
@@ -81,9 +103,20 @@ public sealed partial class AnchorableSystem : EntitySystem
             return;
 
         // Log unanchor attempt (server only)
-        _adminLogger.Add(LogType.Anchor, LogImpact.Low, $"{ToPrettyString(userUid):user} is trying to unanchor {ToPrettyString(uid):entity} from {transform.Coordinates:targetlocation}");
+        _adminLogger.Add(
+            LogType.Anchor,
+            LogImpact.Low,
+            $"{ToPrettyString(userUid):user} is trying to unanchor {ToPrettyString(uid):entity} from {transform.Coordinates:targetlocation}"
+        );
 
-        _tool.UseTool(usingUid, userUid, uid, anchorable.CurrentDelay, usingTool.Qualities, new TryUnanchorCompletedEvent()); // Frontier: Delay<CurrentDelay
+        _tool.UseTool(
+            usingUid,
+            userUid,
+            uid,
+            anchorable.CurrentDelay,
+            usingTool.Qualities,
+            new TryUnanchorCompletedEvent()
+        ); // Frontier: Delay<CurrentDelay
     }
 
     private void OnInteractUsing(EntityUid uid, AnchorableComponent anchorable, InteractUsingEvent args)
@@ -139,8 +172,7 @@ public sealed partial class AnchorableSystem : EntitySystem
             return;
 
         var xform = Transform(uid);
-        if (TryComp<PhysicsComponent>(uid, out var anchorBody) &&
-            !TileFree(xform.Coordinates, anchorBody))
+        if (TryComp<PhysicsComponent>(uid, out var anchorBody) && !TileFree(xform.Coordinates, anchorBody))
         {
             _popup.PopupClient(Loc.GetString("anchorable-occupied"), uid, args.User);
             return;
@@ -190,11 +222,15 @@ public sealed partial class AnchorableSystem : EntitySystem
     ///     override is used due to popup and adminlog being server side systems in this case.
     /// </summary>
     /// <returns>true if toggled, false otherwise</returns>
-    public void TryToggleAnchor(EntityUid uid, EntityUid userUid, EntityUid usingUid,
+    public void TryToggleAnchor(
+        EntityUid uid,
+        EntityUid userUid,
+        EntityUid usingUid,
         AnchorableComponent? anchorable = null,
         TransformComponent? transform = null,
         PullableComponent? pullable = null,
-        ToolComponent? usingTool = null)
+        ToolComponent? usingTool = null
+    )
     {
         if (!Resolve(uid, ref transform))
             return;
@@ -213,11 +249,15 @@ public sealed partial class AnchorableSystem : EntitySystem
     ///     Tries to anchor the entity.
     /// </summary>
     /// <returns>true if anchored, false otherwise</returns>
-    private void TryAnchor(EntityUid uid, EntityUid userUid, EntityUid usingUid,
-            AnchorableComponent? anchorable = null,
-            TransformComponent? transform = null,
-            PullableComponent? pullable = null,
-            ToolComponent? usingTool = null)
+    private void TryAnchor(
+        EntityUid uid,
+        EntityUid userUid,
+        EntityUid usingUid,
+        AnchorableComponent? anchorable = null,
+        TransformComponent? transform = null,
+        PullableComponent? pullable = null,
+        ToolComponent? usingTool = null
+    )
     {
         if (!Resolve(uid, ref anchorable, ref transform))
             return;
@@ -232,10 +272,13 @@ public sealed partial class AnchorableSystem : EntitySystem
             return;
 
         // Log anchor attempt (server only)
-        _adminLogger.Add(LogType.Anchor, LogImpact.Low, $"{ToPrettyString(userUid):user} is trying to anchor {ToPrettyString(uid):entity} to {transform.Coordinates:targetlocation}");
+        _adminLogger.Add(
+            LogType.Anchor,
+            LogImpact.Low,
+            $"{ToPrettyString(userUid):user} is trying to anchor {ToPrettyString(uid):entity} to {transform.Coordinates:targetlocation}"
+        );
 
-        if (TryComp<PhysicsComponent>(uid, out var anchorBody) &&
-            !TileFree(transform.Coordinates, anchorBody))
+        if (TryComp<PhysicsComponent>(uid, out var anchorBody) && !TileFree(transform.Coordinates, anchorBody))
         {
             _popup.PopupClient(Loc.GetString("anchorable-occupied"), uid, userUid);
             return;
@@ -247,7 +290,14 @@ public sealed partial class AnchorableSystem : EntitySystem
             return;
         }
 
-        _tool.UseTool(usingUid, userUid, uid, anchorable.CurrentDelay, usingTool.Qualities, new TryAnchorCompletedEvent()); // Frontier: Delay<CurrentDelay
+        _tool.UseTool(
+            usingUid,
+            userUid,
+            uid,
+            anchorable.CurrentDelay,
+            usingTool.Qualities,
+            new TryAnchorCompletedEvent()
+        ); // Frontier: Delay<CurrentDelay
     }
 
     private bool Valid(
@@ -256,7 +306,8 @@ public sealed partial class AnchorableSystem : EntitySystem
         EntityUid usingUid,
         bool anchoring,
         AnchorableComponent? anchorable = null,
-        ToolComponent? usingTool = null)
+        ToolComponent? usingTool = null
+    )
     {
         if (!Resolve(uid, ref anchorable))
             return false;
@@ -270,14 +321,15 @@ public sealed partial class AnchorableSystem : EntitySystem
         if (!anchoring && (anchorable.Flags & AnchorableFlags.Unanchorable) == 0x0)
             return false;
 
-        BaseAnchoredAttemptEvent attempt =
-            anchoring ? new AnchorAttemptEvent(userUid, usingUid) : new UnanchorAttemptEvent(userUid, usingUid);
+        BaseAnchoredAttemptEvent attempt = anchoring
+            ? new AnchorAttemptEvent(userUid, usingUid)
+            : new UnanchorAttemptEvent(userUid, usingUid);
 
         // Need to cast the event or it will be raised as BaseAnchoredAttemptEvent.
         if (anchoring)
-            RaiseLocalEvent(uid, (AnchorAttemptEvent) attempt);
+            RaiseLocalEvent(uid, (AnchorAttemptEvent)attempt);
         else
-            RaiseLocalEvent(uid, (UnanchorAttemptEvent) attempt);
+            RaiseLocalEvent(uid, (UnanchorAttemptEvent)attempt);
 
         anchorable.CurrentDelay = anchorable.Delay + attempt.Delay; // Frontier: assign delay from base value
 
@@ -309,15 +361,12 @@ public sealed partial class AnchorableSystem : EntitySystem
 
         while (enumerator.MoveNext(out var ent))
         {
-            if (!_physicsQuery.TryGetComponent(ent, out var body) ||
-                !body.CanCollide ||
-                !body.Hard)
+            if (!_physicsQuery.TryGetComponent(ent, out var body) || !body.CanCollide || !body.Hard)
             {
                 continue;
             }
 
-            if ((body.CollisionMask & collisionLayer) != 0x0 ||
-                (body.CollisionLayer & collisionMask) != 0x0)
+            if ((body.CollisionMask & collisionLayer) != 0x0 || (body.CollisionLayer & collisionMask) != 0x0)
             {
                 return false;
             }
@@ -357,18 +406,14 @@ public sealed partial class AnchorableSystem : EntitySystem
     }
 
     [Serializable, NetSerializable]
-    private sealed partial class TryUnanchorCompletedEvent : SimpleDoAfterEvent
-    {
-    }
+    private sealed partial class TryUnanchorCompletedEvent : SimpleDoAfterEvent { }
 
     [Serializable, NetSerializable]
-    private sealed partial class TryAnchorCompletedEvent : SimpleDoAfterEvent
-    {
-    }
+    private sealed partial class TryAnchorCompletedEvent : SimpleDoAfterEvent { }
 }
 
 [Serializable, NetSerializable]
 public enum AnchorVisuals : byte
 {
-    Anchored
+    Anchored,
 }

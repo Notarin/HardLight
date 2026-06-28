@@ -19,9 +19,9 @@
     requiresSpecialDigestion: true
   - type: FlavorProfile
     flavors:
-      - cobwebs
+    - cobwebs
     ignoreReagents:
-      - Fiber
+    - Fiber
   - type: Extractable
     juiceSolution:
       reagents:
@@ -36,9 +36,9 @@
           Quantity: 3
   - type: Tag
     tags:
-      - ClothMade
-      - DroneUsable
-      - RawMaterial
+    - ClothMade
+    - DroneUsable
+    - RawMaterial
   - type: Item
     sprite: _HL/Objects/Materials/resin.rsi
     heldPrefix: resin
@@ -80,9 +80,9 @@
     requiresSpecialDigestion: true
   - type: FlavorProfile
     flavors:
-      - cobwebs
+    - cobwebs
     ignoreReagents:
-      - Fiber
+    - Fiber
   - type: Extractable
     juiceSolution:
       reagents:
@@ -97,9 +97,9 @@
           Quantity: 3
   - type: Tag
     tags:
-      - ClothMade
-      - DroneUsable
-      - RawMaterial
+    - ClothMade
+    - DroneUsable
+    - RawMaterial
   - type: Item
     sprite: _HL/Objects/Materials/royalresin.rsi
     heldPrefix: royalresin
@@ -140,16 +140,16 @@
     heldPrefix: LightShipWeaponFrame
 
 - type: entity
-  parent:  MaterialLightShipWeaponFrame
-  id:  MaterialLightShipWeaponFrame2
+  parent: MaterialLightShipWeaponFrame
+  id: MaterialLightShipWeaponFrame2
   suffix: 5
   components:
   - type: Stack
     count: 5
 
 - type: entity
-  parent:  MaterialLightShipWeaponFrame
-  id:  MaterialLightShipWeaponFrame1
+  parent: MaterialLightShipWeaponFrame
+  id: MaterialLightShipWeaponFrame1
   suffix: 1
   components:
   - type: Stack
@@ -175,16 +175,16 @@
     heldPrefix: LightShipWeaponServo
 
 - type: entity
-  parent:  MaterialLightShipWeaponServo
-  id:  MaterialLightShipWeaponServo2
+  parent: MaterialLightShipWeaponServo
+  id: MaterialLightShipWeaponServo2
   suffix: 5
   components:
   - type: Stack
     count: 5
 
 - type: entity
-  parent:  MaterialLightShipWeaponServo
-  id:  MaterialLightShipWeaponServo1
+  parent: MaterialLightShipWeaponServo
+  id: MaterialLightShipWeaponServo1
   suffix: 1
   components:
   - type: Stack
@@ -213,16 +213,16 @@
     heldPrefix: LightShipWeaponInternal
 
 - type: entity
-  parent:  MaterialLightShipWeaponInternal
-  id:  MaterialLightShipWeaponInternal2
+  parent: MaterialLightShipWeaponInternal
+  id: MaterialLightShipWeaponInternal2
   suffix: 5
   components:
   - type: Stack
     count: 5
 
 - type: entity
-  parent:  MaterialLightShipWeaponInternal
-  id:  MaterialLightShipWeaponInternal1
+  parent: MaterialLightShipWeaponInternal
+  id: MaterialLightShipWeaponInternal1
   suffix: 1
   components:
   - type: Stack
@@ -248,16 +248,16 @@
     heldPrefix: MediumShipWeaponFrame
 
 - type: entity
-  parent:  MaterialMediumShipWeaponFrame
-  id:  MaterialMediumShipWeaponFrame2
+  parent: MaterialMediumShipWeaponFrame
+  id: MaterialMediumShipWeaponFrame2
   suffix: 5
   components:
   - type: Stack
     count: 25
 
 - type: entity
-  parent:  MaterialMediumShipWeaponFrame
-  id:  MaterialMediumShipWeaponFrame1
+  parent: MaterialMediumShipWeaponFrame
+  id: MaterialMediumShipWeaponFrame1
   suffix: 1
   components:
   - type: Stack
@@ -283,16 +283,16 @@
     heldPrefix: MediumShipWeaponServo
 
 - type: entity
-  parent:  MaterialMediumShipWeaponServo
-  id:  MaterialMediumShipWeaponServo2
+  parent: MaterialMediumShipWeaponServo
+  id: MaterialMediumShipWeaponServo2
   suffix: 5
   components:
   - type: Stack
     count: 5
 
 - type: entity
-  parent:  MaterialMediumShipWeaponServo
-  id:  MaterialMediumShipWeaponServo1
+  parent: MaterialMediumShipWeaponServo
+  id: MaterialMediumShipWeaponServo1
   suffix: 1
   components:
   - type: Stack
@@ -321,16 +321,16 @@
     heldPrefix: MediumShipWeaponInternal
 
 - type: entity
-  parent:  MaterialMediumShipWeaponInternal
-  id:  MaterialMediumShipWeaponInternal2
+  parent: MaterialMediumShipWeaponInternal
+  id: MaterialMediumShipWeaponInternal2
   suffix: 5
   components:
   - type: Stack
     count: 5
 
 - type: entity
-  parent:  MaterialMediumShipWeaponInternal
-  id:  MaterialMediumShipWeaponInternal1
+  parent: MaterialMediumShipWeaponInternal
+  id: MaterialMediumShipWeaponInternal1
   suffix: 1
   components:
   - type: Stack
@@ -356,16 +356,16 @@
     heldPrefix: HeavyShipWeaponFrame
 
 - type: entity
-  parent:  MaterialHeavyShipWeaponFrame
-  id:  MaterialHeavyShipWeaponFrame2
+  parent: MaterialHeavyShipWeaponFrame
+  id: MaterialHeavyShipWeaponFrame2
   suffix: 5
   components:
   - type: Stack
     count: 5
 
 - type: entity
-  parent:  MaterialHeavyShipWeaponFrame
-  id:  MaterialHeavyShipWeaponFrame1
+  parent: MaterialHeavyShipWeaponFrame
+  id: MaterialHeavyShipWeaponFrame1
   suffix: 1
   components:
   - type: Stack
@@ -391,16 +391,16 @@
     heldPrefix: HeavyShipWeaponServo
 
 - type: entity
-  parent:  MaterialHeavyShipWeaponServo
-  id:  MaterialHeavyShipWeaponServo2
+  parent: MaterialHeavyShipWeaponServo
+  id: MaterialHeavyShipWeaponServo2
   suffix: 5
   components:
   - type: Stack
     count: 5
 
 - type: entity
-  parent:  MaterialHeavyShipWeaponServo
-  id:  MaterialHeavyShipWeaponServo1
+  parent: MaterialHeavyShipWeaponServo
+  id: MaterialHeavyShipWeaponServo1
   suffix: 1
   components:
   - type: Stack
@@ -429,16 +429,16 @@
     heldPrefix: HeavyShipWeaponInternal
 
 - type: entity
-  parent:  MaterialHeavyShipWeaponInternal
-  id:  MaterialHeavyShipWeaponInternal2
+  parent: MaterialHeavyShipWeaponInternal
+  id: MaterialHeavyShipWeaponInternal2
   suffix: 5
   components:
   - type: Stack
     count: 5
 
 - type: entity
-  parent:  MaterialHeavyShipWeaponInternal
-  id:  MaterialHeavyShipWeaponInternal1
+  parent: MaterialHeavyShipWeaponInternal
+  id: MaterialHeavyShipWeaponInternal1
   suffix: 1
   components:
   - type: Stack
@@ -464,16 +464,16 @@
     heldPrefix: CapitalShipWeaponFrame
 
 - type: entity
-  parent:  MaterialCapitalShipWeaponFrame
-  id:  MaterialCapitalShipWeaponFrame2
+  parent: MaterialCapitalShipWeaponFrame
+  id: MaterialCapitalShipWeaponFrame2
   suffix: 5
   components:
   - type: Stack
     count: 5
 
 - type: entity
-  parent:  MaterialCapitalShipWeaponFrame
-  id:  MaterialCapitalShipWeaponFrame1
+  parent: MaterialCapitalShipWeaponFrame
+  id: MaterialCapitalShipWeaponFrame1
   suffix: 1
   components:
   - type: Stack
@@ -499,16 +499,16 @@
     heldPrefix: CapitalShipWeaponServo
 
 - type: entity
-  parent:  MaterialCapitalShipWeaponServo
-  id:  MaterialCapitalShipWeaponServo2
+  parent: MaterialCapitalShipWeaponServo
+  id: MaterialCapitalShipWeaponServo2
   suffix: 5
   components:
   - type: Stack
     count: 5
 
 - type: entity
-  parent:  MaterialCapitalShipWeaponServo
-  id:  MaterialCapitalShipWeaponServo1
+  parent: MaterialCapitalShipWeaponServo
+  id: MaterialCapitalShipWeaponServo1
   suffix: 1
   components:
   - type: Stack
@@ -537,16 +537,16 @@
     heldPrefix: CapitalShipWeaponInternal
 
 - type: entity
-  parent:  MaterialCapitalShipWeaponInternal
-  id:  MaterialCapitalShipWeaponInternal2
+  parent: MaterialCapitalShipWeaponInternal
+  id: MaterialCapitalShipWeaponInternal2
   suffix: 5
   components:
   - type: Stack
     count: 5
 
 - type: entity
-  parent:  MaterialCapitalShipWeaponInternal
-  id:  MaterialCapitalShipWeaponInternal1
+  parent: MaterialCapitalShipWeaponInternal
+  id: MaterialCapitalShipWeaponInternal1
   suffix: 1
   components:
   - type: Stack

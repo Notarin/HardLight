@@ -14,8 +14,21 @@ public sealed class BanPanelEui : BaseEui
     {
         BanPanel = new BanPanel();
         BanPanel.OnClose += () => SendMessage(new CloseEuiMessage());
-        BanPanel.BanSubmitted += (player, ip, useLastIp, hwid, useLastHwid, minutes, reason, severity, roles, erase)
-            => SendMessage(new BanPanelEuiStateMsg.CreateBanRequest(player, ip, useLastIp, hwid, useLastHwid, minutes, reason, severity, roles, erase));
+        BanPanel.BanSubmitted += (player, ip, useLastIp, hwid, useLastHwid, minutes, reason, severity, roles, erase) =>
+            SendMessage(
+                new BanPanelEuiStateMsg.CreateBanRequest(
+                    player,
+                    ip,
+                    useLastIp,
+                    hwid,
+                    useLastHwid,
+                    minutes,
+                    reason,
+                    severity,
+                    roles,
+                    erase
+                )
+            );
         BanPanel.PlayerChanged += player => SendMessage(new BanPanelEuiStateMsg.GetPlayerInfoRequest(player));
     }
 

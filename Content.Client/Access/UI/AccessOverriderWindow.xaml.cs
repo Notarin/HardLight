@@ -34,11 +34,7 @@ namespace Content.Client.Access.UI
                     continue;
                 }
 
-                var newButton = new Button
-                {
-                    Text = accessLevel.GetAccessLevelName(),
-                    ToggleMode = true,
-                };
+                var newButton = new Button { Text = accessLevel.GetAccessLevelName(), ToggleMode = true };
 
                 AccessLevelGrid.AddChild(newButton);
                 _accessButtons.Add(accessLevel.ID, newButton);
@@ -46,7 +42,11 @@ namespace Content.Client.Access.UI
                 {
                     OnSubmit?.Invoke(
                         // Iterate over the buttons dictionary, filter by `Pressed`, only get key from the key/value pair
-                        _accessButtons.Where(x => x.Value.Pressed).Select(x => new ProtoId<AccessLevelPrototype>(x.Key)).ToList());
+                        _accessButtons
+                            .Where(x => x.Value.Pressed)
+                            .Select(x => new ProtoId<AccessLevelPrototype>(x.Key))
+                            .ToList()
+                    );
                 };
             }
         }
@@ -75,13 +75,15 @@ namespace Content.Client.Access.UI
 
                 foreach (string tag in state.MissingPrivilegesList)
                 {
-                    var privilege = Loc.GetString(protoManager.Index<AccessLevelPrototype>(tag)?.Name ?? "generic-unknown");
+                    var privilege = Loc.GetString(
+                        protoManager.Index<AccessLevelPrototype>(tag)?.Name ?? "generic-unknown"
+                    );
                     missingPrivileges.Add(privilege);
                 }
 
-                MissingPrivilegesLabel.Text = state.ShowPrivilegedIdGrid ?
-                    Loc.GetString("access-overrider-window-missing-privileges") :
-                    Loc.GetString("access-overrider-window-missing-privileges-no-id");
+                MissingPrivilegesLabel.Text = state.ShowPrivilegedIdGrid
+                    ? Loc.GetString("access-overrider-window-missing-privileges")
+                    : Loc.GetString("access-overrider-window-missing-privileges-no-id");
                 MissingPrivilegesText.Text = string.Join(", ", missingPrivileges);
             }
 
@@ -93,8 +95,11 @@ namespace Content.Client.Access.UI
                 if (interfaceEnabled)
                 {
                     // Explicit cast because Rider gives a false error otherwise.
-                    button.Pressed = state.TargetAccessReaderIdAccessList?.Contains((ProtoId<AccessLevelPrototype>) accessName) ?? false;
-                    button.Disabled = (!state.AllowedModifyAccessList?.Contains((ProtoId<AccessLevelPrototype>) accessName)) ?? true;
+                    button.Pressed =
+                        state.TargetAccessReaderIdAccessList?.Contains((ProtoId<AccessLevelPrototype>)accessName)
+                        ?? false;
+                    button.Disabled =
+                        (!state.AllowedModifyAccessList?.Contains((ProtoId<AccessLevelPrototype>)accessName)) ?? true;
                 }
             }
         }

@@ -12,29 +12,46 @@ using Content.Shared.Access.Systems;
 using Content.Shared.CartridgeLoader;
 using Content.Shared.CartridgeLoader.Cartridges;
 using Content.Shared.Database;
+using Content.Shared.GameTicking; // Frontier
+using Content.Shared.IdentityManagement;
 using Content.Shared.MassMedia.Components;
 using Content.Shared.MassMedia.Systems;
 using Content.Shared.Popups;
 using Robust.Server.GameObjects;
 using Robust.Shared.Audio.Systems;
-using Content.Shared.IdentityManagement;
 using Robust.Shared.Timing;
-using Content.Shared.GameTicking; // Frontier
 
 namespace Content.Server.MassMedia.Systems;
 
 public sealed class NewsSystem : SharedNewsSystem
 {
-    [Dependency] private readonly AccessReaderSystem _accessReaderSystem = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
-    [Dependency] private readonly CartridgeLoaderSystem _cartridgeLoaderSystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
+    [Dependency]
+    private readonly AccessReaderSystem _accessReaderSystem = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    private readonly UserInterfaceSystem _ui = default!;
+
+    [Dependency]
+    private readonly CartridgeLoaderSystem _cartridgeLoaderSystem = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
+
     // [Dependency] private readonly StationSystem _station = default!; // Frontier
-    [Dependency] private readonly GameTicker _ticker = default!;
-    [Dependency] private readonly IChatManager _chatManager = default!;
+    [Dependency]
+    private readonly GameTicker _ticker = default!;
+
+    [Dependency]
+    private readonly IChatManager _chatManager = default!;
 
     public override void Initialize()
     {
@@ -48,14 +65,17 @@ public sealed class NewsSystem : SharedNewsSystem
         // End Frontier
 
         // New writer bui messages
-        Subs.BuiEvents<NewsWriterComponent>(NewsWriterUiKey.Key, subs =>
-        {
-            subs.Event<NewsWriterDeleteMessage>(OnWriteUiDeleteMessage);
-            subs.Event<NewsWriterArticlesRequestMessage>(OnRequestArticlesUiMessage);
-            subs.Event<NewsWriterPublishMessage>(OnWriteUiPublishMessage);
-            subs.Event<NewsWriterSaveDraftMessage>(OnNewsWriterDraftUpdatedMessage);
-            subs.Event<NewsWriterRequestDraftMessage>(OnRequestArticleDraftMessage);
-        });
+        Subs.BuiEvents<NewsWriterComponent>(
+            NewsWriterUiKey.Key,
+            subs =>
+            {
+                subs.Event<NewsWriterDeleteMessage>(OnWriteUiDeleteMessage);
+                subs.Event<NewsWriterArticlesRequestMessage>(OnRequestArticlesUiMessage);
+                subs.Event<NewsWriterPublishMessage>(OnWriteUiPublishMessage);
+                subs.Event<NewsWriterSaveDraftMessage>(OnNewsWriterDraftUpdatedMessage);
+                subs.Event<NewsWriterRequestDraftMessage>(OnRequestArticleDraftMessage);
+            }
+        );
 
         // News reader
         SubscribeLocalEvent<NewsReaderCartridgeComponent, NewsArticlePublishedEvent>(OnArticlePublished);
@@ -63,13 +83,14 @@ public sealed class NewsSystem : SharedNewsSystem
         SubscribeLocalEvent<NewsReaderCartridgeComponent, CartridgeMessageEvent>(OnReaderUiMessage);
         SubscribeLocalEvent<NewsReaderCartridgeComponent, CartridgeUiReadyEvent>(OnReaderUiReady);
     }
- 
+
     // Frontier: article lifecycle management
     private void OnRoundRestart(RoundRestartCleanupEvent ev)
     {
         // A new round is starting, clear any articles from the previous round.
         SectorNewsComponent.Articles.Clear();
     }
+
     // End Frontier
 
     public override void Update(float frameTime)
@@ -113,9 +134,10 @@ public sealed class NewsSystem : SharedNewsSystem
         if (CanUse(msg.Actor, ent.Owner))
         {
             _adminLogger.Add(
-                LogType.Chat, LogImpact.Medium,
+                LogType.Chat,
+                LogImpact.Medium,
                 $"{ToPrettyString(msg.Actor):actor} deleted news article {article.Title} by {article.Author}: {article.Content}"
-                );
+            );
 
             articles.RemoveAt(msg.ArticleNum);
             _audio.PlayPvs(ent.Comp.ConfirmSound, ent);
@@ -170,7 +192,7 @@ public sealed class NewsSystem : SharedNewsSystem
             Title = title.Length <= MaxTitleLength ? title : $"{title[..MaxTitleLength]}...",
             Content = content.Length <= MaxContentLength ? content : $"{content[..MaxContentLength]}...",
             Author = authorName,
-            ShareTime = _ticker.RoundDuration()
+            ShareTime = _ticker.RoundDuration(),
         };
 
         _audio.PlayPvs(ent.Comp.ConfirmSound, ent);
@@ -179,13 +201,16 @@ public sealed class NewsSystem : SharedNewsSystem
             LogType.Chat,
             LogImpact.Medium,
             $"{ToPrettyString(msg.Actor):actor} created news article {article.Title} by {article.Author}: {article.Content}"
-            );
+        );
 
-        _chatManager.SendAdminAnnouncement(Loc.GetString("news-publish-admin-announcement",
-            ("actor", msg.Actor),
-            ("title", article.Title),
-            ("author", article.Author ?? Loc.GetString("news-read-ui-no-author"))
-            ));
+        _chatManager.SendAdminAnnouncement(
+            Loc.GetString(
+                "news-publish-admin-announcement",
+                ("actor", msg.Actor),
+                ("title", article.Title),
+                ("author", article.Author ?? Loc.GetString("news-read-ui-no-author"))
+            )
+        );
 
         articles.Add(article);
 
@@ -215,7 +240,8 @@ public sealed class NewsSystem : SharedNewsSystem
         _cartridgeLoaderSystem.SendNotification(
             loaderUid,
             Loc.GetString("news-pda-notification-header"),
-            args.Article.Title);
+            args.Article.Title
+        );
     }
 
     private void OnArticleDeleted(Entity<NewsReaderCartridgeComponent> ent, ref NewsArticleDeletedEvent args)
@@ -267,7 +293,8 @@ public sealed class NewsSystem : SharedNewsSystem
 
         // Any SectorNewsComponent will have a complete article set, we ensure one exists before returning the complete set.
         var query = EntityQueryEnumerator<SectorNewsComponent>();
-        if (query.MoveNext(out var _)) {
+        if (query.MoveNext(out var _))
+        {
             articles = SectorNewsComponent.Articles;
             return true;
         }
@@ -284,7 +311,13 @@ public sealed class NewsSystem : SharedNewsSystem
         if (!TryGetArticles(ent, out var articles))
             return;
 
-        var state = new NewsWriterBoundUserInterfaceState(articles.ToArray(), ent.Comp.PublishEnabled, ent.Comp.NextPublish, ent.Comp.DraftTitle, ent.Comp.DraftContent);
+        var state = new NewsWriterBoundUserInterfaceState(
+            articles.ToArray(),
+            ent.Comp.PublishEnabled,
+            ent.Comp.NextPublish,
+            ent.Comp.DraftTitle,
+            ent.Comp.DraftContent
+        );
         _ui.SetUiState(ent.Owner, NewsWriterUiKey.Key, state);
     }
 
@@ -297,7 +330,10 @@ public sealed class NewsSystem : SharedNewsSystem
 
         if (articles.Count == 0)
         {
-            _cartridgeLoaderSystem.UpdateCartridgeUiState(loaderUid, new NewsReaderEmptyBoundUserInterfaceState(ent.Comp.NotificationOn));
+            _cartridgeLoaderSystem.UpdateCartridgeUiState(
+                loaderUid,
+                new NewsReaderEmptyBoundUserInterfaceState(ent.Comp.NotificationOn)
+            );
             return;
         }
 
@@ -305,7 +341,8 @@ public sealed class NewsSystem : SharedNewsSystem
             articles[ent.Comp.ArticleNumber],
             ent.Comp.ArticleNumber + 1,
             articles.Count,
-            ent.Comp.NotificationOn);
+            ent.Comp.NotificationOn
+        );
 
         _cartridgeLoaderSystem.UpdateCartridgeUiState(loaderUid, state);
     }

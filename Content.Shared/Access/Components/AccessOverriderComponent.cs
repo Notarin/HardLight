@@ -59,7 +59,8 @@ public sealed partial class AccessOverriderComponent : Component
         public readonly ProtoId<AccessLevelPrototype>[]? AllowedModifyAccessList;
         public readonly ProtoId<AccessLevelPrototype>[]? MissingPrivilegesList;
 
-        public AccessOverriderBoundUserInterfaceState(bool isPrivilegedIdPresent,
+        public AccessOverriderBoundUserInterfaceState(
+            bool isPrivilegedIdPresent,
             bool isPrivilegedIdAuthorized,
             ProtoId<AccessLevelPrototype>[]? targetAccessReaderIdAccessList,
             ProtoId<AccessLevelPrototype>[]? allowedModifyAccessList,
@@ -67,7 +68,8 @@ public sealed partial class AccessOverriderComponent : Component
             string privilegedIdName,
             string targetLabel,
             Color targetLabelColor,
-            bool showPrivilegedIdGrid)
+            bool showPrivilegedIdGrid
+        )
         {
             IsPrivilegedIdPresent = isPrivilegedIdPresent;
             IsPrivilegedIdAuthorized = isPrivilegedIdAuthorized;

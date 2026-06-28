@@ -14,7 +14,8 @@ namespace Content.Client.UserInterface.Systems.Ghost.Controls.Roles
     [GenerateTypedNameReferences]
     public sealed partial class MakeGhostRoleWindow : DefaultWindow
     {
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+        [Dependency]
+        private readonly IPrototypeManager _prototypeManager = default!;
         private readonly List<GhostRoleRaffleSettingsPrototype> _rafflePrototypes = [];
 
         private const int RaffleDontRaffleId = -1;
@@ -63,12 +64,10 @@ namespace Content.Client.UserInterface.Systems.Ghost.Controls.Roles
             RaffleJoinExtendsDurationBy.ValueChanged += OnRaffleDurationChanged;
             RaffleMaxDuration.ValueChanged += OnRaffleDurationChanged;
 
-
             RaffleButton.AddItem("Don't raffle", RaffleDontRaffleId);
             RaffleButton.AddItem("Custom settings", RaffleCustomRaffleId);
 
-            var raffleProtos =
-                _prototypeManager.EnumeratePrototypes<GhostRoleRaffleSettingsPrototype>();
+            var raffleProtos = _prototypeManager.EnumeratePrototypes<GhostRoleRaffleSettingsPrototype>();
 
             var idx = 0;
             foreach (var raffleProto in raffleProtos)
@@ -140,9 +139,9 @@ namespace Content.Client.UserInterface.Systems.Ghost.Controls.Roles
             {
                 raffleSettings = new GhostRoleRaffleSettings()
                 {
-                    InitialDuration = (uint) RaffleInitialDuration.Value,
-                    JoinExtendsDurationBy = (uint) RaffleJoinExtendsDurationBy.Value,
-                    MaxDuration = (uint) RaffleMaxDuration.Value
+                    InitialDuration = (uint)RaffleInitialDuration.Value,
+                    JoinExtendsDurationBy = (uint)RaffleJoinExtendsDurationBy.Value,
+                    MaxDuration = (uint)RaffleMaxDuration.Value,
                 };
             }
             else if (_raffleSettingId != RaffleDontRaffleId)
@@ -150,9 +149,23 @@ namespace Content.Client.UserInterface.Systems.Ghost.Controls.Roles
                 raffleSettings = _rafflePrototypes[_raffleSettingId].Settings;
             }
 
-            OnMake?.Invoke(Entity.Value, RoleName.Text, RoleDescription.Text, RoleRules.Text, MakeSentientCheckbox.Pressed, raffleSettings);
+            OnMake?.Invoke(
+                Entity.Value,
+                RoleName.Text,
+                RoleDescription.Text,
+                RoleRules.Text,
+                MakeSentientCheckbox.Pressed,
+                raffleSettings
+            );
         }
 
-        public delegate void MakeRole(NetEntity uid, string name, string description, string rules, bool makeSentient, GhostRoleRaffleSettings? settings);
+        public delegate void MakeRole(
+            NetEntity uid,
+            string name,
+            string description,
+            string rules,
+            bool makeSentient,
+            GhostRoleRaffleSettings? settings
+        );
     }
 }

@@ -10,7 +10,8 @@ namespace Content.Server._CD.Silicons.Borgs;
 /// </summary>
 public sealed class BorgSwitchableSubstypeSystem : SharedBorgSwitchableSubtypeSystem
 {
-    [Dependency] private readonly InventorySystem _inventorySystem = default!;
+    [Dependency]
+    private readonly InventorySystem _inventorySystem = default!;
 
     protected override void SelectBorgSubtype(Entity<BorgSwitchableSubtypeComponent> ent)
     {

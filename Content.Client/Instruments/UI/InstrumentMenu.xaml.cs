@@ -20,9 +20,14 @@ namespace Content.Client.Instruments.UI
     [GenerateTypedNameReferences]
     public sealed partial class InstrumentMenu : DefaultWindow
     {
-        [Dependency] private readonly IEntityManager _entManager = default!;
-        [Dependency] private readonly IFileDialogManager _dialogs = default!;
-        [Dependency] private readonly IPlayerManager _player = default!;
+        [Dependency]
+        private readonly IEntityManager _entManager = default!;
+
+        [Dependency]
+        private readonly IFileDialogManager _dialogs = default!;
+
+        [Dependency]
+        private readonly IPlayerManager _player = default!;
 
         private bool _isMidiFileDialogueWindowOpen;
 
@@ -151,10 +156,7 @@ namespace Content.Client.Instruments.UI
                 return;
             }
 
-            if (!_entManager.System<InstrumentSystem>()
-                    .OpenMidi(Entity,
-                        file.CopyToArray(),
-                    instrument))
+            if (!_entManager.System<InstrumentSystem>().OpenMidi(Entity, file.CopyToArray(), instrument))
             {
                 return;
             }

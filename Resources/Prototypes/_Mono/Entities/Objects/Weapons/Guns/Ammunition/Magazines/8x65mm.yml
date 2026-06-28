@@ -6,12 +6,12 @@
   components:
   - type: Tag
     tags:
-      - Magazine8x65mmSKR
+    - Magazine8x65mmSKR
   - type: BallisticAmmoProvider
     mayTransfer: true
     whitelist:
       tags:
-        - Cartridge8x65mmSKR
+      - Cartridge8x65mmSKR
     capacity: 20
   - type: Item
     size: Small

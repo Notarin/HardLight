@@ -18,7 +18,13 @@ public sealed partial class LoadoutGroupContainer : BoxContainer
     public event Action<ProtoId<LoadoutPrototype>>? OnLoadoutPressed;
     public event Action<ProtoId<LoadoutPrototype>>? OnLoadoutUnpressed;
 
-    public LoadoutGroupContainer(HumanoidCharacterProfile profile, RoleLoadout loadout, LoadoutGroupPrototype groupProto, ICommonSession session, IDependencyCollection collection)
+    public LoadoutGroupContainer(
+        HumanoidCharacterProfile profile,
+        RoleLoadout loadout,
+        LoadoutGroupPrototype groupProto,
+        ICommonSession session,
+        IDependencyCollection collection
+    )
     {
         RobustXamlLoader.Load(this);
         _groupProto = groupProto;
@@ -29,7 +35,12 @@ public sealed partial class LoadoutGroupContainer : BoxContainer
     /// <summary>
     /// Updates button availabilities and buttons.
     /// </summary>
-    public void RefreshLoadouts(HumanoidCharacterProfile profile, RoleLoadout loadout, ICommonSession session, IDependencyCollection collection)
+    public void RefreshLoadouts(
+        HumanoidCharacterProfile profile,
+        RoleLoadout loadout,
+        ICommonSession session,
+        IDependencyCollection collection
+    )
     {
         var protoMan = collection.Resolve<IPrototypeManager>();
         var loadoutSystem = collection.Resolve<IEntityManager>().System<LoadoutSystem>();
@@ -37,29 +48,39 @@ public sealed partial class LoadoutGroupContainer : BoxContainer
 
         if (_groupProto.MinLimit > 0)
         {
-            RestrictionsContainer.AddChild(new Label()
-            {
-                Text = Loc.GetString("loadouts-min-limit", ("count", _groupProto.MinLimit)),
-                Margin = new Thickness(5, 0, 5, 5),
-            });
+            RestrictionsContainer.AddChild(
+                new Label()
+                {
+                    Text = Loc.GetString("loadouts-min-limit", ("count", _groupProto.MinLimit)),
+                    Margin = new Thickness(5, 0, 5, 5),
+                }
+            );
         }
 
         if (_groupProto.MaxLimit > 0)
         {
-            RestrictionsContainer.AddChild(new Label()
-            {
-                Text = Loc.GetString("loadouts-max-limit", ("count", _groupProto.MaxLimit)),
-                Margin = new Thickness(5, 0, 5, 5),
-            });
+            RestrictionsContainer.AddChild(
+                new Label()
+                {
+                    Text = Loc.GetString("loadouts-max-limit", ("count", _groupProto.MaxLimit)),
+                    Margin = new Thickness(5, 0, 5, 5),
+                }
+            );
         }
 
         if (protoMan.TryIndex(loadout.Role, out var roleProto) && roleProto.Points != null && loadout.Points != null)
         {
-            RestrictionsContainer.AddChild(new Label()
-            {
-                Text = Loc.GetString("loadouts-points-limit", ("count", loadout.Points.Value), ("max", roleProto.Points.Value)),
-                Margin = new Thickness(5, 0, 5, 5),
-            });
+            RestrictionsContainer.AddChild(
+                new Label()
+                {
+                    Text = Loc.GetString(
+                        "loadouts-points-limit",
+                        ("count", loadout.Points.Value),
+                        ("max", roleProto.Points.Value)
+                    ),
+                    Margin = new Thickness(5, 0, 5, 5),
+                }
+            );
         }
 
         LoadoutsContainer.DisposeAllChildren();
@@ -83,7 +104,9 @@ public sealed partial class LoadoutGroupContainer : BoxContainer
             var enabled = loadout.IsValid(profile, session, loadoutProto, collection, out var reason);
             var loadoutContainer = new LoadoutContainer(loadoutProto, !enabled, reason);
             loadoutContainer.Select.Pressed = pressed;
-            loadoutContainer.Text = string.IsNullOrEmpty(loadProto.Name) ? loadoutSystem.GetName(loadProto) : loadProto.Name; // Frontier: allow overriding loadout names
+            loadoutContainer.Text = string.IsNullOrEmpty(loadProto.Name)
+                ? loadoutSystem.GetName(loadProto)
+                : loadProto.Name; // Frontier: allow overriding loadout names
 
             loadoutContainer.Select.OnPressed += args =>
             {
@@ -116,7 +139,9 @@ public sealed partial class LoadoutGroupContainer : BoxContainer
                 var enabled = loadout.IsValid(profile, session, loadoutProto, collection, out var reason);
                 var loadoutContainer = new LoadoutContainer(loadoutProto, !enabled, reason);
                 loadoutContainer.Select.Pressed = pressed;
-                loadoutContainer.Text = string.IsNullOrEmpty(loadProto.Name) ? loadoutSystem.GetName(loadProto) : loadProto.Name; // Frontier: allow overriding loadout names
+                loadoutContainer.Text = string.IsNullOrEmpty(loadProto.Name)
+                    ? loadoutSystem.GetName(loadProto)
+                    : loadProto.Name; // Frontier: allow overriding loadout names
 
                 loadoutContainer.Select.OnPressed += args =>
                 {

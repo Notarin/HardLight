@@ -21,7 +21,7 @@ public enum RadarBlipShape
     Diamond,
     Hexagon,
     Arrow,
-    Ring
+    Ring,
 }
 
 [Serializable, NetSerializable]
@@ -52,7 +52,8 @@ public sealed class GiveBlipsEvent : EntityEventArgs
 
     public GiveBlipsEvent(
         List<BlipNetData> blips,
-        List<(NetEntity? Grid, Vector2 Start, Vector2 End, float Thickness, Color Color)> hitscans)
+        List<(NetEntity? Grid, Vector2 Start, Vector2 End, float Thickness, Color Color)> hitscans
+    )
     {
         ConfigPalette = new List<BlipConfig>();
         Blips = blips;
@@ -63,10 +64,7 @@ public sealed class GiveBlipsEvent : EntityEventArgs
         }
     }
 
-    public GiveBlipsEvent(
-        List<BlipConfig> configPalette,
-        List<BlipNetData> blips,
-        List<HitscanNetData> hitscans)
+    public GiveBlipsEvent(List<BlipConfig> configPalette, List<BlipNetData> blips, List<HitscanNetData> hitscans)
     {
         ConfigPalette = configPalette;
         Blips = blips;
@@ -78,6 +76,7 @@ public sealed class GiveBlipsEvent : EntityEventArgs
 public sealed class RequestBlipsEvent : EntityEventArgs
 {
     public NetEntity Radar;
+
     public RequestBlipsEvent(NetEntity radar)
     {
         Radar = radar;
@@ -96,8 +95,7 @@ public sealed class BlipRemovalEvent : EntityEventArgs
 }
 
 [Serializable, NetSerializable]
-public record struct BlipNetData
-(
+public record struct BlipNetData(
     NetEntity Uid,
     NetCoordinates Position,
     Vector2 Vel,

@@ -6,7 +6,6 @@ using Content.Shared.Database;
 using Robust.Shared.Configuration;
 using Robust.Shared.Network;
 
-
 namespace Content.Server.Database
 {
     public sealed class BanDef
@@ -44,14 +43,16 @@ namespace Content.Server.Database
             NetUserId? banningAdmin,
             UnbanDef? unban,
             ServerBanExemptFlags exemptFlags = default,
-            ImmutableArray<BanRoleDef>? roles = null)
+            ImmutableArray<BanRoleDef>? roles = null
+        )
         {
             if (userIds.Length == 0 && addresses.Length == 0 && hwIds.Length == 0)
             {
                 throw new ArgumentException("Must have at least one of banned user, banned address or hardware ID");
             }
 
-            addresses = addresses.Select(address =>
+            addresses = addresses
+                .Select(address =>
                 {
                     if (address is { address.IsIPv4MappedToIPv6: true } addr)
                     {
@@ -107,7 +108,11 @@ namespace Content.Server.Database
             {
                 var duration = expireTime - BanTime;
                 var utc = expireTime.ToUniversalTime();
-                expires = loc.GetString("ban-expires", ("duration", duration.TotalMinutes.ToString("N0")), ("time", utc.ToString("f")));
+                expires = loc.GetString(
+                    "ban-expires",
+                    ("duration", duration.TotalMinutes.ToString("N0")),
+                    ("time", utc.ToString("f"))
+                );
             }
             else
             {
@@ -118,11 +123,11 @@ namespace Content.Server.Database
             }
 
             return $"""
-                   {loc.GetString("ban-banned-1")}
-                   {loc.GetString("ban-banned-2", ("reason", Reason))}
-                   {expires}
-                   {loc.GetString("ban-banned-3")}
-                   """;
+                {loc.GetString("ban-banned-1")}
+                {loc.GetString("ban-banned-2", ("reason", Reason))}
+                {expires}
+                {loc.GetString("ban-banned-3")}
+                """;
         }
     }
 }

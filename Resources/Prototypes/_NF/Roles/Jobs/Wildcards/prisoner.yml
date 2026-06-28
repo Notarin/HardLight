@@ -4,11 +4,11 @@
   description: job-description-prisoner
   playTimeTracker: JobPrisoner
   requirements:
-    - !type:OverallPlaytimeRequirement
-      time: 86400 # 24 hours
-    - !type:DepartmentTimeRequirement
-      department: Security
-      time: 10800 # 3 hrs
+  - !type:OverallPlaytimeRequirement
+    time: 86400 # 24 hours
+  - !type:DepartmentTimeRequirement
+    department: Security
+    time: 10800 # 3 hrs
   #whitelisted: true
   canBeAntag: true
   weight: -10 # HardLight: displayWeight<weight; 10<-10
@@ -18,12 +18,12 @@
   supervisors: job-supervisors-prisoner
   special:
   - !type:AddImplantSpecial
-    implants: [ TrackingImplant ] # Frontier
-  - !type:GiveItemOnHolidaySpecial # Frontier: even prisoners get a piece of cake (with no file inside).
+    implants: [TrackingImplant] # Frontier
+  - !type:GiveItemOnHolidaySpecial
     holiday: FrontierBirthday # Frontier
     prototype: FrontierBirthdayGift # Frontier
 
-- type: startingGear
+- type: startingGear # Frontier: even prisoners get a piece of cake (with no file inside).
   id: PrisonerGear
   equipment:
     shoes: ClothingShoesColorBlack

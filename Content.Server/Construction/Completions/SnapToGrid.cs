@@ -1,5 +1,5 @@
-using Content.Shared.Coordinates.Helpers;
 using Content.Shared.Construction;
+using Content.Shared.Coordinates.Helpers;
 using JetBrains.Annotations;
 
 namespace Content.Server.Construction.Completions
@@ -8,14 +8,17 @@ namespace Content.Server.Construction.Completions
     [DataDefinition]
     public sealed partial class SnapToGrid : IGraphAction
     {
-        [DataField("southRotation")] public bool SouthRotation { get; private set; }
+        [DataField("southRotation")]
+        public bool SouthRotation { get; private set; }
 
         public void PerformAction(EntityUid uid, EntityUid? userUid, IEntityManager entityManager)
         {
             var transform = entityManager.GetComponent<TransformComponent>(uid);
 
             if (!transform.Anchored)
-                entityManager.System<SharedTransformSystem>().SetCoordinates(uid, transform.Coordinates.SnapToGrid(entityManager));
+                entityManager
+                    .System<SharedTransformSystem>()
+                    .SetCoordinates(uid, transform.Coordinates.SnapToGrid(entityManager));
 
             if (SouthRotation)
             {

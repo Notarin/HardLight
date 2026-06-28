@@ -1,11 +1,10 @@
-using Content.Shared.Mining.Components;
 using Content.Shared._NF.Mining.Components;
+using Content.Shared.Mining.Components;
 
 namespace Content.Shared.Mining;
 
 public sealed partial class MiningScannerSystem : EntitySystem
 {
-
     /// <inheritdoc/>
     public void NFInitialize()
     {

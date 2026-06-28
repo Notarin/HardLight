@@ -9,11 +9,20 @@ namespace Content.Shared.Storage.EntitySystems;
 
 internal sealed class StoreOnCollideSystem : EntitySystem
 {
-    [Dependency] private readonly SharedEntityStorageSystem _storage = default!;
-    [Dependency] private readonly LockSystem _lock = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
-    [Dependency] private readonly INetManager _netMan = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
+    [Dependency]
+    private readonly SharedEntityStorageSystem _storage = default!;
+
+    [Dependency]
+    private readonly LockSystem _lock = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelist = default!;
+
+    [Dependency]
+    private readonly INetManager _netMan = default!;
+
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
 
     public override void Initialize()
     {
@@ -47,11 +56,16 @@ internal sealed class StoreOnCollideSystem : EntitySystem
         if (_netMan.IsClient || _gameTiming.ApplyingState)
             return;
 
-        if (ent.Comp.Disabled || storageEnt == target || Transform(target).Anchored || _storage.IsOpen(storageEnt) || _whitelist.IsWhitelistFail(comp.Whitelist, target))
+        if (
+            ent.Comp.Disabled
+            || storageEnt == target
+            || Transform(target).Anchored
+            || _storage.IsOpen(storageEnt)
+            || _whitelist.IsWhitelistFail(comp.Whitelist, target)
+        )
             return;
 
         _storage.Insert(target, storageEnt);
-
     }
 
     private void TryLockStorage(Entity<StoreOnCollideComponent> ent)

@@ -6,7 +6,8 @@ namespace Content.Client.Atmos.Piping.Binary.Systems;
 
 public sealed class GasVolumePumpSystem : SharedGasVolumePumpSystem
 {
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
+    [Dependency]
+    private readonly UserInterfaceSystem _ui = default!;
 
     public override void Initialize()
     {

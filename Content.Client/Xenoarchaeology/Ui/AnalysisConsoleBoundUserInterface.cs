@@ -11,9 +11,8 @@ public sealed class AnalysisConsoleBoundUserInterface : BoundUserInterface
     [ViewVariables]
     private AnalysisConsoleMenu? _consoleMenu;
 
-    public AnalysisConsoleBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-    }
+    public AnalysisConsoleBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {
@@ -71,4 +70,3 @@ public sealed class AnalysisConsoleBoundUserInterface : BoundUserInterface
         _consoleMenu?.Dispose();
     }
 }
-

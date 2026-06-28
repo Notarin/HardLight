@@ -1,5 +1,5 @@
-using Robust.Shared.GameStates;
 using Content.Shared.Clothing.EntitySystems;
+using Robust.Shared.GameStates;
 
 namespace Content.Shared.Clothing.Components;
 
@@ -38,7 +38,6 @@ public sealed partial class SkatesComponent : Component
     [DataField]
     public float StunSeconds = 3f;
 
-
     /// <summary>
     /// The time duration before another collision can take place.
     /// </summary>
@@ -50,7 +49,6 @@ public sealed partial class SkatesComponent : Component
     /// </summary>
     [DataField]
     public float SpeedDamage = 1f;
-
 
     /// <summary>
     /// Defaults for MinimumSpeed, StunSeconds, DamageCooldown and SpeedDamage.

@@ -5,9 +5,9 @@
   category: Physical
   cost: 5
   components:
-    - type: Prying
-      speedModifier: 0.2
-      pryPowered: true
+  - type: Prying
+    speedModifier: 0.2
+    pryPowered: true
 
 - type: trait
   id: Vigor
@@ -159,13 +159,13 @@
   category: Physical
   cost: 1
   speciesBlacklist:
-    - IPC
+  - IPC
   blacklist:
     components:
     - BorgChassis
   components:
-    - type: Voracious
-      consumptionSpeedMultiplier: 2.0
+  - type: Voracious
+    consumptionSpeedMultiplier: 2.0
 
 - type: trait
   id: BionicSpinarette
@@ -174,20 +174,20 @@
   category: Physical
   cost: 2
   speciesBlacklist:
-    - IPC
-    - Arachnid
+  - IPC
+  - Arachnid
   blacklist:
     components:
     - BorgChassis
   components:
-    - type: Sericulture
-      action: ActionSericulture
-      productionLength: 2
-      entityProduced: MaterialWebSilk1
-      hungerCost: 4
-    - type: Tag # Hardlight
-      tags:
-        - SpiderCraft
+  - type: Sericulture
+    action: ActionSericulture
+    productionLength: 2
+    entityProduced: MaterialWebSilk1
+    hungerCost: 4
+  - type: Tag # Hardlight
+    tags:
+    - SpiderCraft
 
 - type: trait
   id: Feeble
@@ -196,14 +196,14 @@
   category: Physical
   cost: -4
   mutuallyExclusiveTraits:
-   - Steadfast
+  - Steadfast
   speciesBlacklist:
-   - Felinid
+  - Felinid
   components:
-    - type: SlowOnDamage
-      speedModifierThresholds:
-        "45": 0.70
-        "65": 0.46
+  - type: SlowOnDamage
+    speedModifierThresholds:
+      "45": 0.70
+      "65": 0.46
 
 - type: trait
   id: TrapAvoider
@@ -212,11 +212,10 @@
   category: Physical
   cost: 5
   speciesBlacklist:
-    - Felinid
-    - Harpy
+  - Felinid
+  - Harpy
   components:
-    - type: TrapAvoider
-
+  - type: TrapAvoider
 
 - type: trait
   id: PsionicallyGifted
@@ -225,13 +224,13 @@
   category: Physical
   cost: 6
   speciesBlacklist:
-    - IPC
+  - IPC
   blacklist: # HardLight
     components:
     - BorgChassis
   components:
-    - type: PsionicBonusChance
-      flatBonus: 1
+  - type: PsionicBonusChance
+    flatBonus: 1
 
 - type: trait
   id: SelfAware

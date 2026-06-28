@@ -1,7 +1,6 @@
 # region Upstream
 # Guns
 
-
 # region Hardlight
 
 #Secuirty Vending machine
@@ -11,70 +10,70 @@
 
 - type: listing
   id: UplinkSecurityWeaponBigLeady
-  name:  uplink-security-Weapons-BigL-name
+  name: uplink-security-Weapons-BigL-name
   description: uplink-security-Weapons-BigL-desc
   productEntity: WeaponShotgunBigLeady
-  icon: { sprite: _Mono/Objects/Weapons/Guns/Shotguns/BigLeady.rsi, state: icon }
+  icon: {sprite: _Mono/Objects/Weapons/Guns/Shotguns/BigLeady.rsi, state: icon}
   cost:
     FrontierUplinkCoin: 10
   categories:
-    - UplinkSecurityWeapons
+  - UplinkSecurityWeapons
   conditions:
-    - !type:StoreWhitelistCondition
-      whitelist:
-        tags:
-          - SecurityUplink
+  - !type:StoreWhitelistCondition
+    whitelist:
+      tags:
+      - SecurityUplink
 
 - type: listing
   id: UplinkSecurityEhalberd
-  name:  uplink-Weapons-Ehalberd-name
+  name: uplink-Weapons-Ehalberd-name
   description: uplink-Weapons-Ehalberd-desc
   productEntity: WeaponEnergyHalberdAntique
-  icon: { sprite: _HL/Objects/Weapons/Melee/e_halberd.rsi, state: e_halberd }
+  icon: {sprite: _HL/Objects/Weapons/Melee/e_halberd.rsi, state: e_halberd}
   cost:
     FrontierUplinkCoin: 5
   categories:
-    - UplinkSecurityWeapons
+  - UplinkSecurityWeapons
   conditions:
-    - !type:StoreWhitelistCondition
-      whitelist:
-        tags:
-          - SecurityUplink
+  - !type:StoreWhitelistCondition
+    whitelist:
+      tags:
+      - SecurityUplink
 
 - type: listing
   id: UplinkSecurityRailgun
-  name:  uplink-security-Weapons-railgun-name
+  name: uplink-security-Weapons-railgun-name
   description: uplink-security-Weapons-railgun-desc
   productEntity: WeaponRailgunPeregrine
-  icon: { sprite: _HL/Objects/Weapons/Guns/Rifles/peregrine.rsi, state: icon }
+  icon: {sprite: _HL/Objects/Weapons/Guns/Rifles/peregrine.rsi, state: icon}
   cost:
     FrontierUplinkCoin: 10
   categories:
-    - UplinkSecurityWeapons
+  - UplinkSecurityWeapons
   conditions:
-    - !type:StoreWhitelistCondition
-      whitelist:
-        tags:
-          - SecurityUplink
+  - !type:StoreWhitelistCondition
+    whitelist:
+      tags:
+      - SecurityUplink
 
 # Syndicate
 - type: listing
   id: UplinkSynicateEhalberd
-  name:  uplink-Weapons-Ehalberd-name
+  name: uplink-Weapons-Ehalberd-name
   description: uplink-Weapons-Ehalberd-desc
   productEntity: WeaponEnergyHalberd
-  icon: { sprite: _HL/Objects/Weapons/Melee/e_halberd.rsi, state: e_halberd }
+  icon: {sprite: _HL/Objects/Weapons/Melee/e_halberd.rsi, state: e_halberd}
   discountCategory: rareDiscounts
   cost:
     Telecrystal: 8
   categories:
-    - UplinkWeaponry
-    
+  - UplinkWeaponry
+
 - type: listing
   id: UplinkSyndieOmniHandRight
   name: uplink-syndie-omnihand-right-name
   description: uplink-syndie-omnihand-desc
-  icon: { sprite: /Textures/_HL/Objects/Tools/syndie_omnihand.rsi, state: omnihand }
+  icon: {sprite: /Textures/_HL/Objects/Tools/syndie_omnihand.rsi, state: omnihand}
   productEntity: CyberneticsSyndieOmnihandRight
   discountDownTo:
     Telecrystal: 3
@@ -82,12 +81,12 @@
     Telecrystal: 6
   categories:
   - UplinkCybernetics
-  
+
 - type: listing
   id: UplinkSyndieOmniHandLeft
   name: uplink-syndie-omnihand-left-name
   description: uplink-syndie-omnihand-desc
-  icon: { sprite: /Textures/_HL/Objects/Tools/syndie_omnihand.rsi, state: omnihand }
+  icon: {sprite: /Textures/_HL/Objects/Tools/syndie_omnihand.rsi, state: omnihand}
   productEntity: CyberneticsSyndieOmnihandLeft
   discountDownTo:
     Telecrystal: 3
@@ -108,4 +107,4 @@
   cost:
     Telecrystal: 5
   categories:
-    - UplinkWearables
+  - UplinkWearables

@@ -2,7 +2,6 @@ using Content.Shared.EntityTable.EntitySelectors;
 
 namespace Content.Shared.Procedural.DungeonLayers;
 
-
 /// <summary>
 /// Spawns entities inside of the dungeon randomly.
 /// </summary>

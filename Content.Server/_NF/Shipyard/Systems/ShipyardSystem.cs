@@ -1,19 +1,3 @@
-using Content.Server.Shuttles.Systems;
-using Content.Server.Shuttles.Components;
-using Content.Shared.Station.Components;
-using Content.Server.Cargo.Systems;
-using Content.Server._HL.Shipyard; // HardLight
-using Content.Server.Shuttles.Save; // HardLight
-using Robust.Shared.Timing; // For IGameTiming
-using Content.Server.Station.Systems;
-using Content.Shared._NF.Shipyard.Components;
-using Content.Shared._NF.Shipyard;
-using Content.Shared.GameTicking;
-using Robust.Server.GameObjects;
-using Robust.Shared.Map;
-using Content.Shared._NF.CCVar;
-using Content.Shared.HL.CCVar; // HardLight
-using Robust.Shared.Configuration;
 using System.Diagnostics.CodeAnalysis;
 using System.IO; // HardLight
 using System.Linq;
@@ -21,30 +5,46 @@ using System.Numerics;
 using System.Reflection;
 using System.Text; // HardLight
 using System.Text.RegularExpressions; // HardLight
+using Content.Server._HL.Shipyard; // HardLight
+using Content.Server._NF.Station.Components;
+using Content.Server.Cargo.Components;
+using Content.Server.Cargo.Systems;
+using Content.Server.Gravity;
+using Content.Server.Shuttles.Components;
+using Content.Server.Shuttles.Save; // HardLight
+using Content.Server.Shuttles.Systems;
+using Content.Server.Station.Systems;
+using Content.Server.Storage.Components;
+using Content.Shared._NF.CCVar;
+using Content.Shared._NF.Shipyard;
+using Content.Shared._NF.Shipyard.Components;
+using Content.Shared._NF.Shipyard.Events;
+using Content.Shared.GameTicking;
+using Content.Shared.HL.CCVar; // HardLight
+using Content.Shared.Mobs.Components;
+using Content.Shared.Shuttles.Components; // For IFFComponent
+using Content.Shared.Station.Components;
+using Content.Shared.Storage;
+using Content.Shared.Timing;
+using Robust.Server.GameObjects;
+using Robust.Shared.Configuration;
+using Robust.Shared.Containers;
+using Robust.Shared.ContentPack;
+using Robust.Shared.EntitySerialization;
+using Robust.Shared.EntitySerialization.Systems;
+using Robust.Shared.Map;
+using Robust.Shared.Map.Components;
+using Robust.Shared.Map.Events; // HardLight
+using Robust.Shared.Physics;
+using Robust.Shared.Physics.Components; // For GravitySystem
+using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization; // HardLight
 using Robust.Shared.Serialization.Markdown; // HardLight
 using Robust.Shared.Serialization.Markdown.Mapping; // HardLight
 using Robust.Shared.Serialization.Markdown.Sequence; // HardLight
 using Robust.Shared.Serialization.Markdown.Value; // HardLight
-using Content.Shared._NF.Shipyard.Events;
-using Content.Shared.Mobs.Components;
-using Robust.Shared.EntitySerialization;
-using Robust.Shared.Containers;
-using Content.Server._NF.Station.Components;
-using Robust.Shared.EntitySerialization.Systems;
+using Robust.Shared.Timing; // For IGameTiming
 using Robust.Shared.Utility;
-using Robust.Shared.ContentPack;
-using Content.Shared.Shuttles.Components; // For IFFComponent
-using Content.Shared.Timing;
-using Content.Server.Gravity;
-using Robust.Shared.Physics;
-using Robust.Shared.Map.Components;
-using Robust.Shared.Physics.Components; // For GravitySystem
-using Robust.Shared.Map.Events; // HardLight
-using Robust.Shared.Prototypes;
-using Content.Server.Cargo.Components;
-using Content.Server.Storage.Components;
-using Content.Shared.Storage;
 using YamlDotNet.Core; // HardLight
 using YamlDotNet.RepresentationModel; // HardLight
 
@@ -52,15 +52,42 @@ namespace Content.Server._NF.Shipyard.Systems;
 
 public sealed partial class ShipyardSystem : SharedShipyardSystem
 {
-    private static readonly Regex ShipSaveProtoLineRegex = new(@"^(\s*)- proto:\s*(.+)$", RegexOptions.Compiled | RegexOptions.CultureInvariant); // HardLight
-    private static readonly Regex ShipSaveUidLineRegex = new(@"^\s*- uid:\s*\d+", RegexOptions.Compiled | RegexOptions.CultureInvariant); // HardLight
-    private static readonly Regex ShipSaveUidCaptureLineRegex = new(@"^\s*-\s*uid:\s*(\d+)\b", RegexOptions.Compiled | RegexOptions.CultureInvariant); // HardLight
-    private static readonly Regex ShipSaveEntitiesSectionRegex = new(@"^(\s*)entities\s*:\s*$", RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.CultureInvariant); // HardLight
-    private static readonly Regex ShipSaveLegacyUidLineRegex = new(@"^(\s*)-\s*uid\s*:\s*\d+\s*$", RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.CultureInvariant); // HardLight
-    private static readonly Regex ShipSaveLegacyTypeLineRegex = new(@"^\s*type\s*:\s*(.+)$", RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.CultureInvariant); // HardLight
-    private static readonly FieldInfo? ContainerListField = typeof(Container).GetField("_containerList", BindingFlags.Instance | BindingFlags.NonPublic);
-    private static readonly FieldInfo? ContainerSlotEntityField = typeof(ContainerSlot).GetField("_containedEntity", BindingFlags.Instance | BindingFlags.NonPublic);
-    private static readonly FieldInfo? ContainerSlotArrayField = typeof(ContainerSlot).GetField("_containedEntityArray", BindingFlags.Instance | BindingFlags.NonPublic);
+    private static readonly Regex ShipSaveProtoLineRegex = new(
+        @"^(\s*)- proto:\s*(.+)$",
+        RegexOptions.Compiled | RegexOptions.CultureInvariant
+    ); // HardLight
+    private static readonly Regex ShipSaveUidLineRegex = new(
+        @"^\s*- uid:\s*\d+",
+        RegexOptions.Compiled | RegexOptions.CultureInvariant
+    ); // HardLight
+    private static readonly Regex ShipSaveUidCaptureLineRegex = new(
+        @"^\s*-\s*uid:\s*(\d+)\b",
+        RegexOptions.Compiled | RegexOptions.CultureInvariant
+    ); // HardLight
+    private static readonly Regex ShipSaveEntitiesSectionRegex = new(
+        @"^(\s*)entities\s*:\s*$",
+        RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.CultureInvariant
+    ); // HardLight
+    private static readonly Regex ShipSaveLegacyUidLineRegex = new(
+        @"^(\s*)-\s*uid\s*:\s*\d+\s*$",
+        RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.CultureInvariant
+    ); // HardLight
+    private static readonly Regex ShipSaveLegacyTypeLineRegex = new(
+        @"^\s*type\s*:\s*(.+)$",
+        RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.CultureInvariant
+    ); // HardLight
+    private static readonly FieldInfo? ContainerListField = typeof(Container).GetField(
+        "_containerList",
+        BindingFlags.Instance | BindingFlags.NonPublic
+    );
+    private static readonly FieldInfo? ContainerSlotEntityField = typeof(ContainerSlot).GetField(
+        "_containedEntity",
+        BindingFlags.Instance | BindingFlags.NonPublic
+    );
+    private static readonly FieldInfo? ContainerSlotArrayField = typeof(ContainerSlot).GetField(
+        "_containedEntityArray",
+        BindingFlags.Instance | BindingFlags.NonPublic
+    );
 
     // HardLight: Set of tokens that, if found as UIDs in the YAML, indicate a stale or invalid UID
     // that should be sanitized during load to prevent deserialization failures.
@@ -72,22 +99,50 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
         "0",
     };
 
-    [Dependency] private readonly IConfigurationManager _configManager = default!;
-    [Dependency] private readonly DockingSystem _docking = default!;
-    [Dependency] private readonly PricingSystem _pricing = default!;
-    [Dependency] private readonly ShuttleSystem _shuttle = default!;
-    [Dependency] private readonly StationSystem _station = default!;
-    [Dependency] private readonly MapLoaderSystem _mapLoader = default!;
-    [Dependency] private readonly MetaDataSystem _metaData = default!;
-    [Dependency] private readonly MapSystem _map = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly IEntitySystemManager _entitySystemManager = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!; // For safe container removal before deletion
-    [Dependency] private readonly UseDelaySystem _useDelay = default!;
-    [Dependency] private readonly IGameTiming _timing = default!; // For cooldown timing
-    [Dependency] private readonly ShipSerializationSystem _shipSerialization = default!; // HardLight
+    [Dependency]
+    private readonly IConfigurationManager _configManager = default!;
+
+    [Dependency]
+    private readonly DockingSystem _docking = default!;
+
+    [Dependency]
+    private readonly PricingSystem _pricing = default!;
+
+    [Dependency]
+    private readonly ShuttleSystem _shuttle = default!;
+
+    [Dependency]
+    private readonly StationSystem _station = default!;
+
+    [Dependency]
+    private readonly MapLoaderSystem _mapLoader = default!;
+
+    [Dependency]
+    private readonly MetaDataSystem _metaData = default!;
+
+    [Dependency]
+    private readonly MapSystem _map = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly IEntitySystemManager _entitySystemManager = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!; // For safe container removal before deletion
+
+    [Dependency]
+    private readonly UseDelaySystem _useDelay = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!; // For cooldown timing
+
+    [Dependency]
+    private readonly ShipSerializationSystem _shipSerialization = default!; // HardLight
 
     private EntityQuery<TransformComponent> _transformQuery;
+
     // HardLight: cache queries hit per-entity by SanitizeLoadedShuttle so the post-load tree walk
     // does not pay a fresh component-dictionary lookup for every entity in a 5k-entity capital ship.
     private EntityQuery<ContainerManagerComponent> _containerManagerQuery;
@@ -170,6 +225,7 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
         _configManager.UnsubValueChanged(NFCCVars.Shipyard, SetShipyardEnabled);
         _configManager.UnsubValueChanged(NFCCVars.ShipyardSellRate, SetShipyardSellRate);
     }
+
     private void OnShipyardStartup(EntityUid uid, ShipyardConsoleComponent component, ComponentStartup args)
     {
         if (!_enabled)
@@ -261,7 +317,11 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
     /// <param name="consoleUid">The entity of the shipyard console to dock to its grid</param>
     /// <param name="shuttlePath">The path to the shuttle file to load. Must be a grid file!</param>
     /// <param name="shuttleEntityUid">The EntityUid of the shuttle that was purchased</param>
-    public bool TryPurchaseShuttle(EntityUid consoleUid, ResPath shuttlePath, [NotNullWhen(true)] out EntityUid? shuttleEntityUid)
+    public bool TryPurchaseShuttle(
+        EntityUid consoleUid,
+        ResPath shuttlePath,
+        [NotNullWhen(true)] out EntityUid? shuttleEntityUid
+    )
     {
         // Get the grid the console is on
         if (!_transformQuery.TryComp(consoleUid, out var consoleXform) || consoleXform.GridUid == null)
@@ -311,7 +371,11 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
     /// <param name="consoleUid">The entity of the shipyard console to dock to its grid</param>
     /// <param name="shuttlePath">The path to the shuttle file to load. Must be a grid file!</param>
     /// <param name="shuttleEntityUid">The EntityUid of the shuttle that was loaded</param>
-    public bool TryPurchaseShuttleFromFile(EntityUid consoleUid, ResPath shuttlePath, [NotNullWhen(true)] out EntityUid? shuttleEntityUid)
+    public bool TryPurchaseShuttleFromFile(
+        EntityUid consoleUid,
+        ResPath shuttlePath,
+        [NotNullWhen(true)] out EntityUid? shuttleEntityUid
+    )
     {
         if (!TryAddShuttle(shuttlePath, out var shuttleGrid)) // HardLight
         {
@@ -334,7 +398,14 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
         if (ShipyardMap == null)
             return false;
 
-        if (!_mapLoader.TryLoadGrid(ShipyardMap.Value, shuttlePath, out var grid, offset: new Vector2(500f + _shuttleIndex, 1f)))
+        if (
+            !_mapLoader.TryLoadGrid(
+                ShipyardMap.Value,
+                shuttlePath,
+                out var grid,
+                offset: new Vector2(500f + _shuttleIndex, 1f)
+            )
+        )
         {
             //_sawmill.Error($"Unable to spawn shuttle {shuttlePath}");
             return false;
@@ -349,7 +420,11 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
     /// <summary>
     /// Loads shuttle YAML straight from memory so ship loads do not have to bounce through a temp file.
     /// </summary>
-    private bool TryAddShuttleFromYamlData(string yamlData, string fileName, [NotNullWhen(true)] out EntityUid? shuttleGrid)
+    private bool TryAddShuttleFromYamlData(
+        string yamlData,
+        string fileName,
+        [NotNullWhen(true)] out EntityUid? shuttleGrid
+    )
     {
         shuttleGrid = null;
 
@@ -385,7 +460,12 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
         return true;
     }
 
-    private bool TryPurchaseShuttleFromRawYamlData(EntityUid consoleUid, string yamlData, string fileName, [NotNullWhen(true)] out EntityUid? shuttleEntityUid)
+    private bool TryPurchaseShuttleFromRawYamlData(
+        EntityUid consoleUid,
+        string yamlData,
+        string fileName,
+        [NotNullWhen(true)] out EntityUid? shuttleEntityUid
+    )
     {
         shuttleEntityUid = null;
 
@@ -398,7 +478,11 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
     /// <summary>
     /// Tries the normal strict load path first, then falls back through the compatibility recovery steps.
     /// </summary>
-    private bool TryPurchaseShuttleFromYamlData(EntityUid consoleUid, string yamlData, [NotNullWhen(true)] out EntityUid? shuttleEntityUid)
+    private bool TryPurchaseShuttleFromYamlData(
+        EntityUid consoleUid,
+        string yamlData,
+        [NotNullWhen(true)] out EntityUid? shuttleEntityUid
+    )
     {
         shuttleEntityUid = null;
         var fileName = $"shipyard_load_{DateTime.UtcNow:yyyyMMdd_HHmmss_fff}_{Guid.NewGuid():N}.yml";
@@ -422,22 +506,31 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
             var recoveryYaml = yamlData;
 
             // Strip out missing prototypes and retry before doing anything more invasive.
-            var sanitizedYaml = SanitizeLoadYamlMissingPrototypes(yamlData, out var removedProtoBlocks, out var removedEntities);
+            var sanitizedYaml = SanitizeLoadYamlMissingPrototypes(
+                yamlData,
+                out var removedProtoBlocks,
+                out var removedEntities
+            );
             var deletedPrototypeIds = FindMissingPrototypeIdsForLoad(sanitizedYaml);
-            var needsSanitizedRetry = removedProtoBlocks > 0
-                                      || deletedPrototypeIds.Count > 0
-                                      || !string.Equals(sanitizedYaml, yamlData, StringComparison.Ordinal);
+            var needsSanitizedRetry =
+                removedProtoBlocks > 0
+                || deletedPrototypeIds.Count > 0
+                || !string.Equals(sanitizedYaml, yamlData, StringComparison.Ordinal);
 
             if (needsSanitizedRetry)
             {
                 if (removedProtoBlocks > 0)
                 {
-                    _sawmill.Warning($"[ShipLoad] Removed {removedProtoBlocks} invalid prototype block(s) containing {removedEntities} entities from ship YAML before load.");
+                    _sawmill.Warning(
+                        $"[ShipLoad] Removed {removedProtoBlocks} invalid prototype block(s) containing {removedEntities} entities from ship YAML before load."
+                    );
                 }
 
                 if (deletedPrototypeIds.Count > 0)
                 {
-                    _sawmill.Warning($"[ShipLoad] Ignoring {deletedPrototypeIds.Count} missing prototype id(s) during ship load.");
+                    _sawmill.Warning(
+                        $"[ShipLoad] Ignoring {deletedPrototypeIds.Count} missing prototype id(s) during ship load."
+                    );
                 }
 
                 _activeLoadDeletedPrototypes = deletedPrototypeIds.Count > 0 ? deletedPrototypeIds : null;
@@ -453,7 +546,9 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
             {
                 if (TryPurchaseShuttleFromYamlDataSafe(consoleUid, strippedYaml, fileName, out shuttleEntityUid))
                 {
-                    _sawmill.Warning("[ShipLoad] Loaded ship after stripping serialized component payloads for compatibility recovery.");
+                    _sawmill.Warning(
+                        "[ShipLoad] Loaded ship after stripping serialized component payloads for compatibility recovery."
+                    );
                     return true;
                 }
 
@@ -479,7 +574,12 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
         }
     }
 
-    private bool TryPurchaseShuttleFromYamlDataSafe(EntityUid consoleUid, string yamlData, string fileName, [NotNullWhen(true)] out EntityUid? shuttleEntityUid)
+    private bool TryPurchaseShuttleFromYamlDataSafe(
+        EntityUid consoleUid,
+        string yamlData,
+        string fileName,
+        [NotNullWhen(true)] out EntityUid? shuttleEntityUid
+    )
     {
         shuttleEntityUid = null;
 
@@ -495,7 +595,11 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
     }
 
     // Let strict file loads fail without aborting the whole ship load.
-    private bool TryPurchaseShuttleFromFileSafe(EntityUid consoleUid, ResPath shuttlePath, [NotNullWhen(true)] out EntityUid? shuttleEntityUid)
+    private bool TryPurchaseShuttleFromFileSafe(
+        EntityUid consoleUid,
+        ResPath shuttlePath,
+        [NotNullWhen(true)] out EntityUid? shuttleEntityUid
+    )
     {
         shuttleEntityUid = null;
 
@@ -511,7 +615,11 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
     }
 
     // Tolerant fallback that skips entities we still cannot reconstruct.
-    private bool TryPurchaseShuttleFromShipDataYaml(EntityUid consoleUid, string yamlData, [NotNullWhen(true)] out EntityUid? shuttleEntityUid)
+    private bool TryPurchaseShuttleFromShipDataYaml(
+        EntityUid consoleUid,
+        string yamlData,
+        [NotNullWhen(true)] out EntityUid? shuttleEntityUid
+    )
     {
         shuttleEntityUid = null;
 
@@ -528,7 +636,11 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
         try
         {
             var shipData = _shipSerialization.DeserializeShipGridDataFromYaml(yamlData, Guid.Empty, out _);
-            var grid = _shipSerialization.ReconstructShipOnMap(shipData, ShipyardMap.Value, new Vector2(500f + _shuttleIndex, 1f));
+            var grid = _shipSerialization.ReconstructShipOnMap(
+                shipData,
+                ShipyardMap.Value,
+                new Vector2(500f + _shuttleIndex, 1f)
+            );
 
             if (!TryComp<MapGridComponent>(grid, out var gridComp))
             {
@@ -555,7 +667,11 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
     }
 
     // Finish wiring up a loaded shuttle without letting setup failures abort the whole load.
-    private bool TryFinalizeLoadedShuttle(EntityUid consoleUid, EntityUid grid, [NotNullWhen(true)] out EntityUid? shuttleEntityUid)
+    private bool TryFinalizeLoadedShuttle(
+        EntityUid consoleUid,
+        EntityUid grid,
+        [NotNullWhen(true)] out EntityUid? shuttleEntityUid
+    )
     {
         shuttleEntityUid = null;
 
@@ -614,7 +730,11 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
     /// <summary>
     /// Removes grouped entities whose prototypes no longer exist so older ship saves still have a chance to load.
     /// </summary>
-    private string SanitizeLoadYamlMissingPrototypes(string yamlData, out int removedPrototypeBlocks, out int removedEntities)
+    private string SanitizeLoadYamlMissingPrototypes(
+        string yamlData,
+        out int removedPrototypeBlocks,
+        out int removedEntities
+    )
     {
         removedPrototypeBlocks = 0;
         removedEntities = 0;
@@ -651,7 +771,9 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
             var protoId = rawProto.Trim().Trim('"', '\'');
 
             // Empty proto blocks are runtime data. Leave them alone.
-            var keepBlock = string.IsNullOrWhiteSpace(protoId) || _prototypeManager.TryIndex<Robust.Shared.Prototypes.EntityPrototype>(protoId, out _);
+            var keepBlock =
+                string.IsNullOrWhiteSpace(protoId)
+                || _prototypeManager.TryIndex<Robust.Shared.Prototypes.EntityPrototype>(protoId, out _);
             if (keepBlock)
             {
                 output.AppendLine(line);
@@ -724,7 +846,12 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
     }
 
     // Structured pass for pruning stale container and storage references.
-    private static void PruneLoadNodeReferencesToRemovedEntities(MappingDataNode root, HashSet<string> removedEntityUids, HashSet<string> knownEntityUids, ref bool changed)
+    private static void PruneLoadNodeReferencesToRemovedEntities(
+        MappingDataNode root,
+        HashSet<string> removedEntityUids,
+        HashSet<string> knownEntityUids,
+        ref bool changed
+    )
     {
         if (!root.TryGet("entities", out SequenceDataNode? protoSeq) || protoSeq == null)
             return;
@@ -751,7 +878,12 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
         }
     }
 
-    private static void PruneLoadEntityNodeReferences(MappingDataNode entMap, HashSet<string> removedEntityUids, HashSet<string> knownEntityUids, ref bool changed)
+    private static void PruneLoadEntityNodeReferences(
+        MappingDataNode entMap,
+        HashSet<string> removedEntityUids,
+        HashSet<string> knownEntityUids,
+        ref bool changed
+    )
     {
         if (!entMap.TryGet("components", out SequenceDataNode? comps) || comps == null)
             return;
@@ -819,9 +951,11 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
                     }
 
                     var normalized = NormalizeSerializedUidToken(actionValue.Value);
-                    if (normalized.Length == 0
+                    if (
+                        normalized.Length == 0
                         || IsStaleSerializedUidReference(normalized, removedEntityUids)
-                        || !knownEntityUids.Contains(normalized))
+                        || !knownEntityUids.Contains(normalized)
+                    )
                     {
                         actionsNode.RemoveAt(idx);
                         changed = true;
@@ -833,10 +967,12 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
 
             if (componentType == "Transform")
             {
-                if (compMap.TryGet("parent", out ValueDataNode? parentNode)
+                if (
+                    compMap.TryGet("parent", out ValueDataNode? parentNode)
                     && parentNode != null
                     && !parentNode.IsNull
-                    && IsStaleSerializedUidReference(parentNode.Value, removedEntityUids))
+                    && IsStaleSerializedUidReference(parentNode.Value, removedEntityUids)
+                )
                 {
                     compMap["parent"] = new ValueDataNode("invalid");
                     changed = true;
@@ -845,9 +981,11 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
                 continue;
             }
 
-            if (componentType != "Storage"
+            if (
+                componentType != "Storage"
                 || !compMap.TryGet("storedItems", out MappingDataNode? storedItemsMap)
-                || storedItemsMap == null)
+                || storedItemsMap == null
+            )
             {
                 continue;
             }
@@ -917,7 +1055,10 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
         var start = 0;
         if (yamlData.Length > 0 && yamlData[0] == '\uFEFF')
             start = 1;
-        while (start < yamlData.Length && (yamlData[start] == ' ' || yamlData[start] == '\t' || yamlData[start] == '\r' || yamlData[start] == '\n'))
+        while (
+            start < yamlData.Length
+            && (yamlData[start] == ' ' || yamlData[start] == '\t' || yamlData[start] == '\r' || yamlData[start] == '\n')
+        )
             start++;
 
         var marker = ShipSaveYamlSanitizer.SanitizedMarkerComment;
@@ -965,7 +1106,10 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
     }
 
     // Fallback for malformed YAML we cannot round-trip through the structured parser.
-    private static string PruneLoadYamlReferencesToRemovedEntitiesLineBased(string yamlData, HashSet<string> removedEntityUids)
+    private static string PruneLoadYamlReferencesToRemovedEntitiesLineBased(
+        string yamlData,
+        HashSet<string> removedEntityUids
+    )
     {
         if (string.IsNullOrWhiteSpace(yamlData))
             return yamlData;
@@ -1090,8 +1234,8 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
             return false;
 
         return yamlData.Contains("tilemap:", StringComparison.Ordinal)
-               || yamlData.Contains("orphans:", StringComparison.Ordinal)
-               || yamlData.Contains("maps:", StringComparison.Ordinal);
+            || yamlData.Contains("orphans:", StringComparison.Ordinal)
+            || yamlData.Contains("maps:", StringComparison.Ordinal);
     }
 
     /// <summary>
@@ -1148,8 +1292,10 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
             if (protoMatch.Success)
             {
                 var protoId = ParseShipSavePrototypeValue(protoMatch.Groups[2].Value);
-                if (!string.IsNullOrWhiteSpace(protoId)
-                    && !_prototypeManager.TryIndex<Robust.Shared.Prototypes.EntityPrototype>(protoId, out _))
+                if (
+                    !string.IsNullOrWhiteSpace(protoId)
+                    && !_prototypeManager.TryIndex<Robust.Shared.Prototypes.EntityPrototype>(protoId, out _)
+                )
                 {
                     missing.Add(protoId);
                 }
@@ -1181,8 +1327,10 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
                 continue;
 
             var legacyProtoId = ParseShipSavePrototypeValue(legacyTypeMatch.Groups[1].Value);
-            if (!string.IsNullOrWhiteSpace(legacyProtoId)
-                && !_prototypeManager.TryIndex<Robust.Shared.Prototypes.EntityPrototype>(legacyProtoId, out _))
+            if (
+                !string.IsNullOrWhiteSpace(legacyProtoId)
+                && !_prototypeManager.TryIndex<Robust.Shared.Prototypes.EntityPrototype>(legacyProtoId, out _)
+            )
             {
                 missing.Add(legacyProtoId);
             }
@@ -1209,8 +1357,10 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
         if (string.IsNullOrWhiteSpace(yamlData))
             return yamlData;
 
-        if (yamlData.IndexOf("components:", StringComparison.Ordinal) < 0
-            && yamlData.IndexOf("missingComponents:", StringComparison.Ordinal) < 0)
+        if (
+            yamlData.IndexOf("components:", StringComparison.Ordinal) < 0
+            && yamlData.IndexOf("missingComponents:", StringComparison.Ordinal) < 0
+        )
             return yamlData;
 
         var normalized = yamlData.Replace("\r\n", "\n");
@@ -1223,8 +1373,9 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
             var trimmed = line.TrimStart();
             var indent = line.Length - trimmed.Length;
 
-            var isComponentsStart = trimmed.StartsWith("components:", StringComparison.Ordinal)
-                                    || trimmed.StartsWith("missingComponents:", StringComparison.Ordinal);
+            var isComponentsStart =
+                trimmed.StartsWith("components:", StringComparison.Ordinal)
+                || trimmed.StartsWith("missingComponents:", StringComparison.Ordinal);
             if (!isComponentsStart)
             {
                 output.AppendLine(line);
@@ -1300,7 +1451,9 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
                         {
                             _container.Remove(contained, container, force: true);
                         }
-                        catch { /* best-effort */ }
+                        catch
+                        { /* best-effort */
+                        }
 
                         // Recursively ensure any nested containers are emptied then delete.
                         SafeDelete(contained);
@@ -1311,7 +1464,9 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
             // Ensure the entity itself is not inside a container anymore (paranoia in case callers misclassify parent).
             _container.TryRemoveFromContainer(uid);
         }
-        catch { /* best-effort */ }
+        catch
+        { /* best-effort */
+        }
 
         // Finally queue the deletion of the entity itself.
         QueueDel(uid);
@@ -1329,39 +1484,44 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
 
         // HardLight: use cached queries instead of TryComp<T> per entity. On a multi-thousand entity
         // capital ship the original three TryComp calls per entity dominate this method's cost.
-        VisitEntityAndDescendants(gridUid, uid =>
-        {
-            RemComp<JointComponent>(uid);
-
-            if (_containerManagerQuery.TryComp(uid, out var manager))
-                prunedContainers += PruneInvalidContainerContents(uid, manager);
-
-            if (_dockingQuery.TryComp(uid, out var dock))
+        VisitEntityAndDescendants(
+            gridUid,
+            uid =>
             {
-                dock.DockJoint = null;
-                dock.DockJointId = null;
+                RemComp<JointComponent>(uid);
 
-                if (dock.DockedWith != null)
+                if (_containerManagerQuery.TryComp(uid, out var manager))
+                    prunedContainers += PruneInvalidContainerContents(uid, manager);
+
+                if (_dockingQuery.TryComp(uid, out var dock))
                 {
-                    var other = dock.DockedWith.Value;
-                    if (!other.IsValid() || !_metaQuery.HasComp(other))
-                        dock.DockedWith = null;
+                    dock.DockJoint = null;
+                    dock.DockJointId = null;
+
+                    if (dock.DockedWith != null)
+                    {
+                        var other = dock.DockedWith.Value;
+                        if (!other.IsValid() || !_metaQuery.HasComp(other))
+                            dock.DockedWith = null;
+                    }
+                }
+
+                if (_useDelayQuery.TryComp(uid, out var useDelay))
+                {
+                    // HardLight: defer the reset to spread the Dirty() / GetPauseTime cost across ticks.
+                    // Falls back to immediate reset when the budget CVar is 0 (preserves original behavior).
+                    if (_configManager.GetCVar(HLCCVars.ShipLoadDeferredUseDelayBudget) > 0)
+                        _pendingUseDelayResets.Enqueue(uid);
+                    else
+                        _useDelay.ResetAllDelays((uid, useDelay));
                 }
             }
-
-            if (_useDelayQuery.TryComp(uid, out var useDelay))
-            {
-                // HardLight: defer the reset to spread the Dirty() / GetPauseTime cost across ticks.
-                // Falls back to immediate reset when the budget CVar is 0 (preserves original behavior).
-                if (_configManager.GetCVar(HLCCVars.ShipLoadDeferredUseDelayBudget) > 0)
-                    _pendingUseDelayResets.Enqueue(uid);
-                else
-                    _useDelay.ResetAllDelays((uid, useDelay));
-            }
-        });
+        );
 
         if (prunedContainers > 0)
-            _sawmill.Warning($"[ShipLoad] Pruned {prunedContainers} stale contained UID reference(s) from loaded shuttle {ToPrettyString(gridUid)}.");
+            _sawmill.Warning(
+                $"[ShipLoad] Pruned {prunedContainers} stale contained UID reference(s) from loaded shuttle {ToPrettyString(gridUid)}."
+            );
     }
 
     private int PruneInvalidContainerContents(EntityUid owner, ContainerManagerComponent manager)
@@ -1385,10 +1545,12 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
 
         foreach (var contained in container.ContainedEntities.ToArray())
         {
-            if (!contained.IsValid()
+            if (
+                !contained.IsValid()
                 || TerminatingOrDeleted(contained)
                 || !HasComp<MetaDataComponent>(contained)
-                || !HasComp<TransformComponent>(contained))
+                || !HasComp<TransformComponent>(contained)
+            )
             {
                 stale.Add(contained);
             }
@@ -1415,7 +1577,9 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
             default:
                 foreach (var contained in stale)
                 {
-                    _sawmill.Warning($"[ShipLoad] Failed to scrub stale contained UID {contained} from {container.GetType().Name} on {ToPrettyString(owner)}.");
+                    _sawmill.Warning(
+                        $"[ShipLoad] Failed to scrub stale contained UID {contained} from {container.GetType().Name} on {ToPrettyString(owner)}."
+                    );
                 }
 
                 return 0;
@@ -1439,10 +1603,12 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
         ShipyardSaleResult result = new ShipyardSaleResult();
         bill = 0;
 
-        if (!HasComp<ShuttleComponent>(shuttleUid)
+        if (
+            !HasComp<ShuttleComponent>(shuttleUid)
             || !_transformQuery.TryComp(shuttleUid, out var xform)
             || !_transformQuery.TryComp(consoleUid, out var consoleXform)
-            || consoleXform.GridUid == null) // HardLight
+            || consoleXform.GridUid == null
+        ) // HardLight
         {
             result.Error = ShipyardSaleError.InvalidShip;
             return result;
@@ -1491,7 +1657,7 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
             CleanGrid(shuttleUid, consoleUid);
         }
 
-        bill = (int) AppraiseGridForShipyardSale(shuttleUid);
+        bill = (int)AppraiseGridForShipyardSale(shuttleUid);
         QueueDel(shuttleUid);
         //_sawmill.Info($"Sold shuttle {shuttleUid} for {bill}");
 
@@ -1551,8 +1717,7 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
     // manufacture value during pricing or depend on outside reward systems.
     private bool IsSafeForShipyardAppraisal(EntityUid uid)
     {
-        return !HasComp<SpawnItemsOnUseComponent>(uid)
-               && !HasComp<CargoBountyLabelComponent>(uid);
+        return !HasComp<SpawnItemsOnUseComponent>(uid) && !HasComp<CargoBountyLabelComponent>(uid);
     }
 
     private bool IsSafeForShipyardSaleAppraisal(EntityUid uid)
@@ -1575,13 +1740,16 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
         Func<EntityUid, bool> predicate = saleMode ? IsSafeForShipyardSaleAppraisal : IsSafeForShipyardAppraisal;
         var price = _pricing.AppraiseGrid(gridUid, predicate);
 
-        VisitEntityAndDescendants(gridUid, uid =>
-        {
-            if (saleMode && !LacksPreserveOnSaleComp(uid))
-                return;
+        VisitEntityAndDescendants(
+            gridUid,
+            uid =>
+            {
+                if (saleMode && !LacksPreserveOnSaleComp(uid))
+                    return;
 
-            price += GetShipyardSpecialCaseAppraisal(uid);
-        });
+                price += GetShipyardSpecialCaseAppraisal(uid);
+            }
+        );
 
         return price;
     }
@@ -1601,22 +1769,32 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
 
         foreach (var entry in ungrouped)
         {
-            if (entry.PrototypeId is not { } prototypeId || !_prototypeManager.TryIndex<EntityPrototype>(prototypeId, out var prototype))
+            if (
+                entry.PrototypeId is not { } prototypeId
+                || !_prototypeManager.TryIndex<EntityPrototype>(prototypeId, out var prototype)
+            )
                 continue;
 
-            price += _pricing.GetEstimatedPrice(prototype) * entry.SpawnProbability * entry.GetAmount(Random.Shared, getAverage: true);
+            price +=
+                _pricing.GetEstimatedPrice(prototype)
+                * entry.SpawnProbability
+                * entry.GetAmount(Random.Shared, getAverage: true);
         }
 
         foreach (var group in orGroups)
         {
             foreach (var entry in group.Entries)
             {
-                if (entry.PrototypeId is not { } prototypeId || !_prototypeManager.TryIndex<EntityPrototype>(prototypeId, out var prototype))
+                if (
+                    entry.PrototypeId is not { } prototypeId
+                    || !_prototypeManager.TryIndex<EntityPrototype>(prototypeId, out var prototype)
+                )
                     continue;
 
-                price += _pricing.GetEstimatedPrice(prototype)
-                         * (entry.SpawnProbability / group.CumulativeProbability)
-                         * entry.GetAmount(Random.Shared, getAverage: true);
+                price +=
+                    _pricing.GetEstimatedPrice(prototype)
+                    * (entry.SpawnProbability / group.CumulativeProbability)
+                    * entry.GetAmount(Random.Shared, getAverage: true);
             }
         }
 
@@ -1690,9 +1868,11 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
             return false;
 
         var shuttle = shuttleDeed.ShuttleUid;
-        if (shuttle != null
-             && TryGetEntity(shuttle.Value, out var shuttleEntity)
-             && _station.GetOwningStation(shuttleEntity.Value) is { Valid: true } shuttleStation)
+        if (
+            shuttle != null
+            && TryGetEntity(shuttle.Value, out var shuttleEntity)
+            && _station.GetOwningStation(shuttleEntity.Value) is { Valid: true } shuttleStation
+        )
         {
             shuttleDeed.ShuttleName = newName;
             shuttleDeed.ShuttleNameSuffix = newSuffix;
@@ -1710,8 +1890,10 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
         }
 
         //TODO: move this to an event that others hook into.
-        if (shuttleDeed.ShuttleUid != null &&
-            _shuttleRecordsSystem.TryGetRecord(shuttleDeed.ShuttleUid.Value, out var record))
+        if (
+            shuttleDeed.ShuttleUid != null
+            && _shuttleRecordsSystem.TryGetRecord(shuttleDeed.ShuttleUid.Value, out var record)
+        )
         {
             record.Name = newName ?? "";
             record.Suffix = newSuffix ?? "";

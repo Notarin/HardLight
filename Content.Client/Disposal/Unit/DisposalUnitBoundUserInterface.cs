@@ -12,11 +12,11 @@ namespace Content.Client.Disposal.Unit
     [UsedImplicitly]
     public sealed class DisposalUnitBoundUserInterface : BoundUserInterface
     {
-        [ViewVariables] private DisposalUnitWindow? _disposalUnitWindow;
+        [ViewVariables]
+        private DisposalUnitWindow? _disposalUnitWindow;
 
-        public DisposalUnitBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-        {
-        }
+        public DisposalUnitBoundUserInterface(EntityUid owner, Enum uiKey)
+            : base(owner, uiKey) { }
 
         private void ButtonPressed(DisposalUnitComponent.UiButton button)
         {

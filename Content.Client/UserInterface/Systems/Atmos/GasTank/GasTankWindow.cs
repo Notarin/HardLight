@@ -15,11 +15,13 @@ using static Robust.Client.UserInterface.Controls.BoxContainer;
 
 namespace Content.Client.UserInterface.Systems.Atmos.GasTank;
 
-public sealed class GasTankWindow
-    : BaseWindow
+public sealed class GasTankWindow : BaseWindow
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
-    [Dependency] private readonly IResourceCache _cache = default!;
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
+
+    [Dependency]
+    private readonly IResourceCache _cache = default!;
 
     private readonly RichTextLabel _lblPressure;
     private readonly FloatSpinBox _spbPressure;
@@ -44,24 +46,13 @@ public sealed class GasTankWindow
         MouseFilter = MouseFilterMode.Stop;
 
         var panelTex = _cache.GetTexture("/Textures/Interface/Nano/button.svg.96dpi.png");
-        var back = new StyleBoxTexture
-        {
-            Texture = panelTex,
-            Modulate = Color.FromHex("#25252A"),
-        };
+        var back = new StyleBoxTexture { Texture = panelTex, Modulate = Color.FromHex("#25252A") };
 
         back.SetPatchMargin(StyleBox.Margin.All, 10);
 
-        var topPanel = new PanelContainer
-        {
-            PanelOverride = back,
-            MouseFilter = MouseFilterMode.Pass
-        };
+        var topPanel = new PanelContainer { PanelOverride = back, MouseFilter = MouseFilterMode.Pass };
 
-        var bottomWrap = new LayoutContainer
-        {
-            Name = "BottomWrap"
-        };
+        var bottomWrap = new LayoutContainer { Name = "BottomWrap" };
 
         rootContainer.AddChild(topPanel);
         rootContainer.AddChild(bottomWrap);
@@ -72,18 +63,14 @@ public sealed class GasTankWindow
         LayoutContainer.SetAnchorPreset(bottomWrap, LayoutContainer.LayoutPreset.VerticalCenterWide);
         LayoutContainer.SetGrowHorizontal(bottomWrap, LayoutContainer.GrowDirection.Both);
 
-
         var topContainerWrap = new BoxContainer
         {
             Orientation = LayoutOrientation.Vertical,
             Children =
             {
-                (topContainer = new BoxContainer
-                {
-                    Orientation = LayoutOrientation.Vertical
-                }),
-                new Control {MinSize = new Vector2(0, 110)}
-            }
+                (topContainer = new BoxContainer { Orientation = LayoutOrientation.Vertical }),
+                new Control { MinSize = new Vector2(0, 110) },
+            },
         };
 
         rootContainer.AddChild(topContainerWrap);
@@ -109,12 +96,14 @@ public sealed class GasTankWindow
             Children =
             {
                 _topLabel,
-                (btnClose = new TextureButton
-                {
-                    StyleClasses = {DefaultWindow.StyleClassWindowCloseButton},
-                    VerticalAlignment = VAlignment.Center
-                })
-            }
+                (
+                    btnClose = new TextureButton
+                    {
+                        StyleClasses = { DefaultWindow.StyleClassWindowCloseButton },
+                        VerticalAlignment = VAlignment.Center,
+                    }
+                ),
+            },
         };
 
         var middle = new PanelContainer
@@ -122,34 +111,38 @@ public sealed class GasTankWindow
             PanelOverride = new StyleBoxFlat { BackgroundColor = Color.FromHex("#202025") },
             Children =
             {
-                (contentContainer = new BoxContainer
-                {
-                    Orientation = LayoutOrientation.Vertical,
-                    Margin = new Thickness(8, 4),
-                })
-            }
+                (
+                    contentContainer = new BoxContainer
+                    {
+                        Orientation = LayoutOrientation.Vertical,
+                        Margin = new Thickness(8, 4),
+                    }
+                ),
+            },
         };
 
         topContainer.AddChild(topRow);
-        topContainer.AddChild(new PanelContainer
-        {
-            MinSize = new Vector2(0, 2),
-            PanelOverride = new StyleBoxFlat { BackgroundColor = Color.FromHex("#525252ff") }
-        });
+        topContainer.AddChild(
+            new PanelContainer
+            {
+                MinSize = new Vector2(0, 2),
+                PanelOverride = new StyleBoxFlat { BackgroundColor = Color.FromHex("#525252ff") },
+            }
+        );
         topContainer.AddChild(middle);
-        topContainer.AddChild(new PanelContainer
-        {
-            MinSize = new Vector2(0, 2),
-            PanelOverride = new StyleBoxFlat { BackgroundColor = Color.FromHex("#525252ff") }
-        });
-
+        topContainer.AddChild(
+            new PanelContainer
+            {
+                MinSize = new Vector2(0, 2),
+                PanelOverride = new StyleBoxFlat { BackgroundColor = Color.FromHex("#525252ff") },
+            }
+        );
 
         _lblPressure = new RichTextLabel();
         contentContainer.AddChild(_lblPressure);
 
         //internals
-        _lblInternals = new RichTextLabel
-            { MinSize = new Vector2(200, 0), VerticalAlignment = VAlignment.Center };
+        _lblInternals = new RichTextLabel { MinSize = new Vector2(200, 0), VerticalAlignment = VAlignment.Center };
         _btnInternals = new Button { Text = Loc.GetString("gas-tank-window-internals-toggle-button") };
 
         contentContainer.AddChild(
@@ -157,25 +150,17 @@ public sealed class GasTankWindow
             {
                 Orientation = LayoutOrientation.Horizontal,
                 Margin = new Thickness(0, 7, 0, 0),
-                Children = { _lblInternals, _btnInternals }
-            });
+                Children = { _lblInternals, _btnInternals },
+            }
+        );
 
         // Separator
-        contentContainer.AddChild(new Control
-        {
-            MinSize = new Vector2(0, 10)
-        });
+        contentContainer.AddChild(new Control { MinSize = new Vector2(0, 10) });
 
-        contentContainer.AddChild(new Label
-        {
-            Text = Loc.GetString("gas-tank-window-output-pressure-label"),
-            Align = Label.AlignMode.Center
-        });
-        _spbPressure = new FloatSpinBox
-        {
-            IsValid = f => f >= 0 || f <= 3000,
-            Margin = new Thickness(25, 0, 25, 7)
-        };
+        contentContainer.AddChild(
+            new Label { Text = Loc.GetString("gas-tank-window-output-pressure-label"), Align = Label.AlignMode.Center }
+        );
+        _spbPressure = new FloatSpinBox { IsValid = f => f >= 0 || f <= 3000, Margin = new Thickness(25, 0, 25, 7) };
         contentContainer.AddChild(_spbPressure);
 
         // Handlers
@@ -199,14 +184,27 @@ public sealed class GasTankWindow
 
     public void UpdateState(GasTankBoundUserInterfaceState state)
     {
-        _lblPressure.SetMarkup(Loc.GetString("gas-tank-window-tank-pressure-text", ("tankPressure", $"{state.TankPressure:0.##}")));
+        _lblPressure.SetMarkup(
+            Loc.GetString("gas-tank-window-tank-pressure-text", ("tankPressure", $"{state.TankPressure:0.##}"))
+        );
     }
 
     public void Update(bool canConnectInternals, bool internalsConnected, float outputPressure)
     {
         _btnInternals.Disabled = !canConnectInternals;
-        _lblInternals.SetMarkup(Loc.GetString("gas-tank-window-internal-text",
-            ("status", Loc.GetString(internalsConnected ? "gas-tank-window-internal-connected" : "gas-tank-window-internal-disconnected"))));
+        _lblInternals.SetMarkup(
+            Loc.GetString(
+                "gas-tank-window-internal-text",
+                (
+                    "status",
+                    Loc.GetString(
+                        internalsConnected
+                            ? "gas-tank-window-internal-connected"
+                            : "gas-tank-window-internal-disconnected"
+                    )
+                )
+            )
+        );
         _spbPressure.Value = outputPressure;
     }
 
@@ -223,7 +221,9 @@ public sealed class GasTankWindow
 
         if (!_btnInternals.Disabled)
         {
-            _btnInternals.Disabled = _entManager.System<UseDelaySystem>().IsDelayed(Entity, id: SharedGasTankSystem.GasTankDelay);
+            _btnInternals.Disabled = _entManager
+                .System<UseDelaySystem>()
+                .IsDelayed(Entity, id: SharedGasTankSystem.GasTankDelay);
         }
     }
 

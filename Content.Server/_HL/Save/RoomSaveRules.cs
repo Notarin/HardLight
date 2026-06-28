@@ -11,7 +11,9 @@ public static class RoomSaveRules
     /// Entity prototype IDs that must never appear in room saves.
     /// Mirrors the spirit of ShipSaveYamlSanitizer.FilteredPrototypes for the room context.
     /// </summary>
-    public static readonly IReadOnlySet<string> FilteredPrototypes = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+    public static readonly IReadOnlySet<string> FilteredPrototypes = new HashSet<string>(
+        StringComparer.OrdinalIgnoreCase
+    )
     {
         "ContainmentField",
         "PortalBlue",
@@ -24,7 +26,9 @@ public static class RoomSaveRules
     /// entity to be excluded from the room save entirely.
     /// Mirrors ShipSaveYamlSanitizer.FilteredEntityByComponentTypes for the room context.
     /// </summary>
-    public static readonly IReadOnlySet<string> EntityExclusionComponentNames = new HashSet<string>(StringComparer.Ordinal)
+    public static readonly IReadOnlySet<string> EntityExclusionComponentNames = new HashSet<string>(
+        StringComparer.Ordinal
+    )
     {
         "GhostComponent",
         "GhostRoleComponent",

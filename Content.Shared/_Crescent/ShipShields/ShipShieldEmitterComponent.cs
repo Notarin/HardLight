@@ -86,6 +86,7 @@ public sealed partial class ShipShieldEmitterComponent : Component
     public float ShieldPadding = 50f;
 
     public float OverloadAccumulator = 0f;
+
     /// <summary>
     /// On power up, players for all on vessel, pitched down.
     /// </summary>

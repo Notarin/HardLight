@@ -6,8 +6,8 @@
   - type: Sprite
     sprite: Objects/Specific/Janitorial/trashbag.rsi
     layers:
-      - state: icon-0
-        map: ["enum.StorageFillLayers.Fill"]
+    - state: icon-0
+      map: ["enum.StorageFillLayers.Fill"]
   - type: Storage
     maxItemSize: Normal
     grid:
@@ -20,10 +20,10 @@
       collection: trashBagRustle
     whitelist:
       tags:
-        - Cartridge
-        - Trash
+      - Cartridge
+      - Trash
       components: # Frontier: added GoblinMade
-        - GoblinMade # Frontier: added GoblinMade
+      - GoblinMade # Frontier: added GoblinMade
   - type: UseDelay
     delay: 0.5
   - type: Tag
@@ -50,8 +50,8 @@
   components:
   - type: Sprite
     layers:
-      - state: blue-icon-0
-        map: ["enum.StorageFillLayers.Fill"]
+    - state: blue-icon-0
+      map: ["enum.StorageFillLayers.Fill"]
   - type: Item
     heldPrefix: blue
   - type: StorageFillVisualizer

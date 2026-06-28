@@ -1,6 +1,6 @@
 - type: entity
   id: KitchenDeepFryer
-  parent: [ BaseMachinePowered, ConstructibleMachine ]
+  parent: [BaseMachinePowered, ConstructibleMachine]
   name: deep fryer
   description: An industrial deep fryer. A big hit at state fairs!
   components:
@@ -10,9 +10,9 @@
     netsync: false
     sprite: Nyanotrasen/Structures/Machines/deep_fryer.rsi
     layers:
-      - state: off-0
-      - map: ["enum.SolutionContainerLayers.Fill"]
-        state: off-1
+    - state: off-0
+    - map: ["enum.SolutionContainerLayers.Fill"]
+      state: off-1
   - type: AmbientSound
     volume: -4
     range: 5
@@ -32,8 +32,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.30,-0.25,0.30,0.45"
         density: 600
         mask:
@@ -71,46 +70,46 @@
       - Document
     charredPrototype: FoodBadRecipe
     goodReagents:
-      - ReagentId: Omnizine
-        Quantity: 1
-      - ReagentId: Flavorol
-        Quantity: 3
+    - ReagentId: Omnizine
+      Quantity: 1
+    - ReagentId: Flavorol
+      Quantity: 3
     badReagents:
-      - ReagentId: Toxin
-        Quantity: 2
+    - ReagentId: Toxin
+      Quantity: 2
     wasteReagents:
-      - ReagentId: Charcoal
-        Quantity: 0.5
-      - ReagentId: Ash
-        Quantity: 0.5
+    - ReagentId: Charcoal
+      Quantity: 0.5
+    - ReagentId: Ash
+      Quantity: 0.5
     # What food items are actually going to be improved by deep-frying?
     # This is based on flavor profiles.
     goodFlavors:
-      - bread
-      - bun
-      - donk
-      - dough
-      - fishy
-      - meaty
-      - pasta
-      - potatoes
-      - tofu
-      - onion
-      - mushroom
+    - bread
+    - bun
+    - donk
+    - dough
+    - fishy
+    - meaty
+    - pasta
+    - potatoes
+    - tofu
+    - onion
+    - mushroom
     badFlavors:
-      - acid
-      - chocolate
-      - gunpowder
-      - minty
-      - raisins
-      - tea
-      - terrible
+    - acid
+    - chocolate
+    - gunpowder
+    - minty
+    - raisins
+    - tea
+    - terrible
     solution: vat_oil
     fryingOils:
-      - Cornoil
-      - OilGhee
-      - OilOlive
-      - OilVegetable # Frontier
+    - Cornoil
+    - OilGhee
+    - OilOlive
+    - OilVegetable # Frontier
     #unsafeOilVolumeEffects: #Can't pass UninitializedSaveTest. Modifies itself on spawn. Very weird.
     #- !type:AreaReactionEffect
     #  duration: 10
@@ -143,8 +142,7 @@
         type: DeepFryerBoundUserInterface
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 200
       behaviors:
       - !type:DoActsBehavior
@@ -154,9 +152,9 @@
           collection: MetalBreak
       - !type:SpillBehavior
         solution: vat_oil
-      - !type:ChangeConstructionNodeBehavior # Delta-V
+      - !type:ChangeConstructionNodeBehavior
         node: machineFrame # Delta-V
-  - type: ApcPowerReceiver
+  - type: ApcPowerReceiver # Delta-V
     powerLoad: 300
   - type: Machine
     board: DeepFryerMachineCircuitboard

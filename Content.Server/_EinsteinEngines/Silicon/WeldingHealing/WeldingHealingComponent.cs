@@ -14,11 +14,10 @@ namespace Content.Server._EinsteinEngines.Silicon.WeldingHealing
         ///     If this data-field is specified, it will change damage by this amount instead of setting all damage to 0.
         ///     in order to heal/repair the damage values have to be negative.
         /// </remarks>
-
         [DataField(required: true)]
         public DamageSpecifier Damage;
 
-        [DataField(customTypeSerializer:typeof(PrototypeIdSerializer<ToolQualityPrototype>))]
+        [DataField(customTypeSerializer: typeof(PrototypeIdSerializer<ToolQualityPrototype>))]
         public string QualityNeeded = "Welding";
 
         /// <summary>

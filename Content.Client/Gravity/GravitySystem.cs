@@ -6,8 +6,11 @@ namespace Content.Client.Gravity;
 
 public sealed partial class GravitySystem : SharedGravitySystem
 {
-    [Dependency] private readonly AppearanceSystem _appearanceSystem = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly AppearanceSystem _appearanceSystem = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     public override void Initialize()
     {
@@ -24,7 +27,14 @@ public sealed partial class GravitySystem : SharedGravitySystem
         if (args.Sprite == null)
             return;
 
-        if (_appearanceSystem.TryGetData<PowerChargeStatus>(uid, PowerChargeVisuals.State, out var state, args.Component))
+        if (
+            _appearanceSystem.TryGetData<PowerChargeStatus>(
+                uid,
+                PowerChargeVisuals.State,
+                out var state,
+                args.Component
+            )
+        )
         {
             if (comp.SpriteMap.TryGetValue(state, out var spriteState))
             {
@@ -65,5 +75,5 @@ public sealed partial class GravitySystem : SharedGravitySystem
 public enum GravityGeneratorVisualLayers : byte
 {
     Base,
-    Core
+    Core,
 }

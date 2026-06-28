@@ -25,7 +25,8 @@ public sealed class CharacterOverrideRuleSystemTests
     private const string BlacklistedMatchingProfileName = "Override Blacklist Test";
 
     [TestPrototypes]
-    private const string Prototypes = @"
+    private const string Prototypes =
+        @"
 - type: gameMap
   id: CharacterOverrideRuleTestMap
   mapName: CharacterOverrideRuleTestMap
@@ -90,13 +91,15 @@ public sealed class CharacterOverrideRuleSystemTests
     [Test]
     public async Task EntityOverrideReappliesSelectedProfileTraitsTest()
     {
-        await using var pair = await PoolManager.GetServerClient(new PoolSettings
-        {
-            DummyTicker = false,
-            Connected = true,
-            InLobby = true,
-            Dirty = true
-        });
+        await using var pair = await PoolManager.GetServerClient(
+            new PoolSettings
+            {
+                DummyTicker = false,
+                Connected = true,
+                InLobby = true,
+                Dirty = true,
+            }
+        );
 
         var server = pair.Server;
         var ticker = server.System<GameTicker>();
@@ -110,9 +113,7 @@ public sealed class CharacterOverrideRuleSystemTests
         Assert.That(prefs.SelectedCharacterIndex, Is.Zero);
 
         var selected = (HumanoidCharacterProfile)prefs.Characters[0];
-        var profile = selected
-            .WithName(MatchingProfileName)
-            .WithTraitPreference(TraitId, server.ProtoMan);
+        var profile = selected.WithName(MatchingProfileName).WithTraitPreference(TraitId, server.ProtoMan);
 
         await server.WaitPost(() => prefMan.SetProfile(userId, 0, profile).Wait());
 
@@ -139,13 +140,15 @@ public sealed class CharacterOverrideRuleSystemTests
     [Test]
     public async Task EntityOverrideIgnoresOverrideBodyRestrictionWhenReapplyingTraitsTest()
     {
-        await using var pair = await PoolManager.GetServerClient(new PoolSettings
-        {
-            DummyTicker = false,
-            Connected = true,
-            InLobby = true,
-            Dirty = true
-        });
+        await using var pair = await PoolManager.GetServerClient(
+            new PoolSettings
+            {
+                DummyTicker = false,
+                Connected = true,
+                InLobby = true,
+                Dirty = true,
+            }
+        );
 
         var server = pair.Server;
         var ticker = server.System<GameTicker>();
@@ -160,8 +163,8 @@ public sealed class CharacterOverrideRuleSystemTests
 
         var selected = (HumanoidCharacterProfile)prefs.Characters[0];
         var profile = selected
-          .WithName(BlacklistedMatchingProfileName)
-          .WithTraitPreference(BlacklistedTraitId, server.ProtoMan);
+            .WithName(BlacklistedMatchingProfileName)
+            .WithTraitPreference(BlacklistedTraitId, server.ProtoMan);
 
         await server.WaitPost(() => prefMan.SetProfile(userId, 0, profile).Wait());
 

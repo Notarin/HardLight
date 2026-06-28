@@ -1,7 +1,7 @@
 - type: entity
   id: ShowSecurityIcons
   abstract: true
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: ShowJobIcons
   - type: ShowMindShieldIcons
@@ -10,7 +10,7 @@
 - type: entity
   id: ShowMedicalIcons
   abstract: true
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: ShowHealthBars
   - type: ShowHealthIcons
@@ -108,8 +108,8 @@
           Quantity: 3
   - type: FlavorProfile
     flavors:
-      - onion
-      - greasey
+    - onion
+    - greasey
 
 - type: entity
   parent: ClothingEyesBase
@@ -257,7 +257,7 @@
     sprite: Clothing/Eyes/Hud/secpatch.rsi
 
 - type: entity
-  parent: [ClothingEyesEyepatchHudSecurity,  ClothingHeadEyeBaseFlipped]
+  parent: [ClothingEyesEyepatchHudSecurity, ClothingHeadEyeBaseFlipped]
   id: ClothingEyesEyepatchHudSecurityFlipped
   name: security hud eyepatch
 

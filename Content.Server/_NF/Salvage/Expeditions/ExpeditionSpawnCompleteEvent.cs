@@ -8,6 +8,7 @@ public sealed class ExpeditionSpawnCompleteEvent : EntityEventArgs
     public EntityUid Station;
     public bool Success;
     public ushort MissionIndex;
+
     public ExpeditionSpawnCompleteEvent(EntityUid station, bool success, ushort missionIndex)
     {
         Station = station;

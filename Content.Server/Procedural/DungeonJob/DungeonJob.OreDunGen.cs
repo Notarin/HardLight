@@ -14,10 +14,7 @@ public sealed partial class DungeonJob
     /// <summary>
     /// <see cref="OreDunGen"/>
     /// </summary>
-    private async Task PostGen(
-        OreDunGen gen,
-        Dungeon dungeon,
-        Random random)
+    private async Task PostGen(OreDunGen gen, Dungeon dungeon, Random random)
     {
         // Doesn't use dungeon data because layers and we don't need top-down support at the moment.
 
@@ -38,7 +35,7 @@ public sealed partial class DungeonJob
             //Tile mask filtering
             if (gen.TileMask is not null)
             {
-                if (!gen.TileMask.Contains(((ContentTileDefinition) _tileDefManager[tileRef.Value.Tile.TypeId]).ID))
+                if (!gen.TileMask.Contains(((ContentTileDefinition)_tileDefManager[tileRef.Value.Tile.TypeId]).ID))
                     continue;
             }
 
@@ -101,10 +98,12 @@ public sealed partial class DungeonJob
         var remapping = new Dictionary<EntProtoId, EntProtoId>();
 
         // TODO: Move this to engine
-        if (_prototype.TryIndex(gen.Entity, out var proto) &&
-            proto.Components.TryGetComponent("EntityRemap", out var comps))
+        if (
+            _prototype.TryIndex(gen.Entity, out var proto)
+            && proto.Components.TryGetComponent("EntityRemap", out var comps)
+        )
         {
-            var remappingComp = (EntityRemapComponent) comps;
+            var remappingComp = (EntityRemapComponent)comps;
             remapping = remappingComp.Mask;
         }
 

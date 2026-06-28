@@ -60,9 +60,7 @@ public abstract partial class SharedDoorSystem
 
     public bool GetBoltLightsVisible(Entity<DoorBoltComponent> ent)
     {
-        return ent.Comp.BoltLightsEnabled &&
-               ent.Comp.BoltsDown &&
-               ent.Comp.Powered;
+        return ent.Comp.BoltLightsEnabled && ent.Comp.BoltsDown && ent.Comp.Powered;
     }
 
     public void SetBoltLightsEnabled(Entity<DoorBoltComponent> ent, bool value)

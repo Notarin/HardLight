@@ -8,6 +8,7 @@ namespace Content.Shared.Paper;
 public sealed partial class PaperComponent : Component
 {
     public PaperAction Mode;
+
     [DataField("content"), AutoNetworkedField]
     public string Content { get; set; } = "";
 
@@ -30,9 +31,10 @@ public sealed partial class PaperComponent : Component
     /// Sound played after writing to the paper.
     /// </summary>
     [DataField("sound")]
-    public SoundSpecifier? Sound { get; private set; } = new SoundCollectionSpecifier("PaperScribbles", AudioParams.Default.WithVariation(0.1f));
+    public SoundSpecifier? Sound { get; private set; } =
+        new SoundCollectionSpecifier("PaperScribbles", AudioParams.Default.WithVariation(0.1f));
 
-    // Frontier: 
+    // Frontier:
     /// <summary>
     /// Sound played after writing to the paper.
     /// </summary>
@@ -41,6 +43,7 @@ public sealed partial class PaperComponent : Component
 
     [DataField]
     public string? DestroyMessage { get; private set; }
+
     // End Frontier
 
     [Serializable, NetSerializable]
@@ -50,7 +53,11 @@ public sealed partial class PaperComponent : Component
         public readonly List<StampDisplayInfo> StampedBy;
         public readonly PaperAction Mode;
 
-        public PaperBoundUserInterfaceState(string text, List<StampDisplayInfo> stampedBy, PaperAction mode = PaperAction.Read)
+        public PaperBoundUserInterfaceState(
+            string text,
+            List<StampDisplayInfo> stampedBy,
+            PaperAction mode = PaperAction.Read
+        )
         {
             Text = text;
             StampedBy = stampedBy;
@@ -72,7 +79,7 @@ public sealed partial class PaperComponent : Component
     [Serializable, NetSerializable]
     public enum PaperUiKey
     {
-        Key
+        Key,
     }
 
     [Serializable, NetSerializable]
@@ -86,13 +93,13 @@ public sealed partial class PaperComponent : Component
     public enum PaperVisuals : byte
     {
         Status,
-        Stamp
+        Stamp,
     }
 
     [Serializable, NetSerializable]
     public enum PaperStatus : byte
     {
         Blank,
-        Written
+        Written,
     }
 }

@@ -7,6 +7,7 @@ namespace Content.Shared._NF.Bank.BUI;
 public sealed class NFLedgerState : BoundUserInterfaceState
 {
     public readonly NFLedgerEntry[] Entries;
+
     public NFLedgerState(NFLedgerEntry[] entries)
     {
         Entries = entries;
@@ -38,6 +39,7 @@ public enum LedgerEntryType : byte
     StationDepositDonation,
     StationDepositAssetsSold,
     StationDepositOther,
+
     // Expense entries
     MailPenalty,
     ShuttleRecordFees,
@@ -46,6 +48,7 @@ public enum LedgerEntryType : byte
     StationWithdrawalSupplies,
     StationWithdrawalBounty,
     StationWithdrawalOther,
+
     // Utility values
     FirstExpense = MailPenalty,
 }

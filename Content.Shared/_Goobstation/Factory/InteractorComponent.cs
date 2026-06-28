@@ -32,14 +32,14 @@ public sealed partial class InteractorComponent : Component
 [Serializable, NetSerializable]
 public enum InteractorVisuals : byte
 {
-    State
+    State,
 }
 
 [Serializable, NetSerializable]
 public enum InteractorLayers : byte
 {
     Hand,
-    Powered
+    Powered,
 }
 
 [Serializable, NetSerializable]
@@ -47,8 +47,10 @@ public enum InteractorState : byte
 {
     // Inactive with no tool
     Empty,
+
     // Inactive with a tool
     Inactive,
+
     // Active, with or without a tool
-    Active
+    Active,
 }

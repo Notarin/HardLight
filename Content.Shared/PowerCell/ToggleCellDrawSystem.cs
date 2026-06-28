@@ -9,8 +9,11 @@ namespace Content.Shared.PowerCell;
 /// </summary>
 public sealed class ToggleCellDrawSystem : EntitySystem
 {
-    [Dependency] private readonly ItemToggleSystem _toggle = default!;
-    [Dependency] private readonly SharedPowerCellSystem _cell = default!;
+    [Dependency]
+    private readonly ItemToggleSystem _toggle = default!;
+
+    [Dependency]
+    private readonly SharedPowerCellSystem _cell = default!;
 
     public override void Initialize()
     {
@@ -29,8 +32,7 @@ public sealed class ToggleCellDrawSystem : EntitySystem
 
     private void OnActivateAttempt(Entity<ToggleCellDrawComponent> ent, ref ItemToggleActivateAttemptEvent args)
     {
-        if (!_cell.HasDrawCharge(ent, user: args.User)
-            || !_cell.HasActivatableCharge(ent, user: args.User))
+        if (!_cell.HasDrawCharge(ent, user: args.User) || !_cell.HasActivatableCharge(ent, user: args.User))
             args.Cancelled = true;
     }
 

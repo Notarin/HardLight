@@ -130,7 +130,7 @@
 - type: entity
   parent: ComputerShuttle
   id: ComputerShuttleAntag
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     layers:
@@ -157,7 +157,7 @@
   components:
   - type: IFFConsole
     allowedFlags:
-      - Hide
+    - Hide
   - type: ActivatableUI
     key: enum.IFFConsoleUiKey.Key
   - type: UserInterface
@@ -274,8 +274,7 @@
   #   - Pirate # Frontier: eventually?  maybe?
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 250
       behaviors:
       - !type:PlaySoundBehavior
@@ -324,8 +323,7 @@
     locStringPrefix: pirate-
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 250
       behaviors:
       - !type:PlaySoundBehavior
@@ -383,8 +381,7 @@
     color: "#b89f25"
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 250
       behaviors:
       - !type:PlaySoundBehavior
@@ -413,12 +410,12 @@
   parent: ComputerSalvageExpedition
   suffix: Debug
   components:
-    - type: SalvageExpeditionConsole
-      debug: true
+  - type: SalvageExpeditionConsole
+    debug: true
 
 #region Gas Sale
 - type: entity
-  parent: [ BaseStructureIndestructible, BaseStructureDisableToolUse, BaseComputer ]
+  parent: [BaseStructureIndestructible, BaseStructureDisableToolUse, BaseComputer]
   id: GasSaleConsole
   name: gas sale console
   description: Sells gas pumped into any nearby gas sale ports or points.

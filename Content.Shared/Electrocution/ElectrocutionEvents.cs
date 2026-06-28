@@ -10,7 +10,12 @@ namespace Content.Shared.Electrocution
         public readonly EntityUid? SourceUid;
         public float SiemensCoefficient = 1f;
 
-        public ElectrocutionAttemptEvent(EntityUid targetUid, EntityUid? sourceUid, float siemensCoefficient, SlotFlags targetSlots)
+        public ElectrocutionAttemptEvent(
+            EntityUid targetUid,
+            EntityUid? sourceUid,
+            float siemensCoefficient,
+            SlotFlags targetSlots
+        )
         {
             TargetUid = targetUid;
             TargetSlots = targetSlots;

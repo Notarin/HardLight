@@ -175,8 +175,8 @@
   minLimit: 0
   loadouts:
   - MercenaryWt550Loadout
-# HardLight: I miss you.
-#  - MercenaryC20rLoadout
+  # HardLight: I miss you.
+  #  - MercenaryC20rLoadout
   - MercenaryKammererLoadout
   - MercenaryEnforcerLoadout
   - MercenaryLecterLoadout

@@ -4,7 +4,8 @@ namespace Content.Server.NPC.HTN.PrimitiveTasks.Operators.Combat;
 
 public sealed partial class ContainerOperator : HTNOperator
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
     private ContainerSystem _container = default!;
     private EntityQuery<TransformComponent> _transformQuery;
 
@@ -26,7 +27,10 @@ public sealed partial class ContainerOperator : HTNOperator
         base.Startup(blackboard);
         var owner = blackboard.GetValue<EntityUid>(NPCBlackboard.Owner);
 
-        if (!_container.TryGetOuterContainer(owner, _transformQuery.GetComponent(owner), out var outerContainer) && outerContainer == null)
+        if (
+            !_container.TryGetOuterContainer(owner, _transformQuery.GetComponent(owner), out var outerContainer)
+            && outerContainer == null
+        )
             return;
 
         var target = outerContainer.Owner;

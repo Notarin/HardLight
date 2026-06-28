@@ -6,8 +6,8 @@
   components:
   - type: Sprite
     layers:
-      - state: lung-l
-      - state: lung-r
+    - state: lung-l
+    - state: lung-r
   - type: Lung
   - type: Organ
     slotId: lungs
@@ -15,7 +15,7 @@
     removeEmpty: true
     solutionOnBody: false
     solution: "Lung"
-    metabolizerTypes: [ Human ]
+    metabolizerTypes: [Human]
     groups:
     - id: Gas
       rateModifier: 100.0

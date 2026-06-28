@@ -27,7 +27,11 @@ public sealed class SetFundingAllocationBuiMessage : BoundUserInterfaceMessage
     public double PrimaryCut;
     public double LockboxCut;
 
-    public SetFundingAllocationBuiMessage(Dictionary<ProtoId<CargoAccountPrototype>, int> percents, double primaryCut, double lockboxCut)
+    public SetFundingAllocationBuiMessage(
+        Dictionary<ProtoId<CargoAccountPrototype>, int> percents,
+        double primaryCut,
+        double lockboxCut
+    )
     {
         Percents = percents;
         PrimaryCut = primaryCut;
@@ -49,5 +53,5 @@ public sealed class FundingAllocationConsoleBuiState : BoundUserInterfaceState
 [Serializable, NetSerializable]
 public enum FundingAllocationConsoleUiKey : byte
 {
-    Key
+    Key,
 }

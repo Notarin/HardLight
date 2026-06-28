@@ -4,98 +4,96 @@
   id: Jug
   description: Used to contain a very large amount of chemicals or solutions. Chugging is extremely ill-advised.
   components:
-    - type: SolutionContainerManager
-      solutions:
-        beaker:
-          maxVol: 200
-    - type: Sprite
-      sprite: Objects/Specific/Chemistry/jug.rsi
-      layers:
-        - state: jug
-        - state: jug1
-          map: [ "enum.SolutionContainerLayers.Fill" ]
-          visible: false
-    - type: Item
-      size: Normal
-      sprite: Objects/Specific/Chemistry/jug.rsi
-    - type: MixableSolution
-      solution: beaker
-    - type: RefillableSolution
-      solution: beaker
-    - type: DrainableSolution
-      solution: beaker
-    - type: ExaminableSolution
-      solution: beaker
-    - type: DrawableSolution
-      solution: beaker
-    - type: InjectableSolution
-      solution: beaker
-    - type: SolutionTransfer
-      canChangeTransferAmount: true
-    - type: SolutionItemStatus
-      solution: beaker
-    - type: UserInterface
-      interfaces:
-        enum.TransferAmountUiKey.Key:
-          type: TransferAmountBoundUserInterface
-    - type: Drink
-      solution: beaker
-    - type: Spillable
-      solution: beaker
-    - type: Appearance
-    - type: SolutionContainerVisuals
-      maxFillLevels: 6
-      fillBaseName: jug
-      inHandsMaxFillLevels: 5
-      inHandsFillBaseName: -fill-
-    - type: Damageable
-      damageContainer: Inorganic
-    - type: Destructible
-      thresholds:
-      - trigger:
-          !type:DamageTrigger
-          damage: 200
-        behaviors:
-          - !type:DoActsBehavior
-            acts: [ "Destruction" ]
-      - trigger:
-          !type:DamageTrigger
-          damage: 20
-        behaviors:
-        - !type:PlaySoundBehavior
-          sound:
-            collection: MetalBreak
-            params:
-              volume: -4
-        - !type:SpillBehavior { }
-        - !type:SpawnEntitiesBehavior
-          spawn:
-            SheetPlastic1:
-              min: 0
-              max: 1
-          transferForensics: true
-        - !type:DoActsBehavior
-          acts: [ "Destruction" ]
-    - type: Label
-    - type: Tag
-      tags:
-      - ChemDispensable
-    - type: DnaSubstanceTrace
-    - type: TrashOnSolutionEmpty # Frontier
-      solution: beaker # Frontier
-    - type: Openable
-      sound:
-        collection: bottleOpenSounds
-      closeable: true
-      opened: true
-      closeSound:
-        collection: bottleCloseSounds
+  - type: SolutionContainerManager
+    solutions:
+      beaker:
+        maxVol: 200
+  - type: Sprite
+    sprite: Objects/Specific/Chemistry/jug.rsi
+    layers:
+    - state: jug
+    - state: jug1
+      map: ["enum.SolutionContainerLayers.Fill"]
+      visible: false
+  - type: Item
+    size: Normal
+    sprite: Objects/Specific/Chemistry/jug.rsi
+  - type: MixableSolution
+    solution: beaker
+  - type: RefillableSolution
+    solution: beaker
+  - type: DrainableSolution
+    solution: beaker
+  - type: ExaminableSolution
+    solution: beaker
+  - type: DrawableSolution
+    solution: beaker
+  - type: InjectableSolution
+    solution: beaker
+  - type: SolutionTransfer
+    canChangeTransferAmount: true
+  - type: SolutionItemStatus
+    solution: beaker
+  - type: UserInterface
+    interfaces:
+      enum.TransferAmountUiKey.Key:
+        type: TransferAmountBoundUserInterface
+  - type: Drink
+    solution: beaker
+  - type: Spillable
+    solution: beaker
+  - type: Appearance
+  - type: SolutionContainerVisuals
+    maxFillLevels: 6
+    fillBaseName: jug
+    inHandsMaxFillLevels: 5
+    inHandsFillBaseName: -fill-
+  - type: Damageable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 200
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
+        damage: 20
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+          params:
+            volume: -4
+      - !type:SpillBehavior {}
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetPlastic1:
+            min: 0
+            max: 1
+        transferForensics: true
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+  - type: Label
+  - type: Tag
+    tags:
+    - ChemDispensable
+  - type: DnaSubstanceTrace
+  - type: TrashOnSolutionEmpty # Frontier
+    solution: beaker # Frontier
+  - type: Openable
+    sound:
+      collection: bottleOpenSounds
+    closeable: true
+    opened: true
+    closeSound:
+      collection: bottleCloseSounds
 
 - type: entity
   parent: Jug
   suffix: carbon
   id: JugCarbon
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Label
     currentLabel: reagent-name-carbon
@@ -110,7 +108,7 @@
   parent: Jug
   suffix: iodine
   id: JugIodine
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Label
     currentLabel: reagent-name-iodine
@@ -125,7 +123,7 @@
   parent: Jug
   suffix: fluorine
   id: JugFluorine
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Label
     currentLabel: reagent-name-fluorine
@@ -140,7 +138,7 @@
   parent: Jug
   suffix: chlorine
   id: JugChlorine
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Label
     currentLabel: reagent-name-chlorine
@@ -155,7 +153,7 @@
   parent: Jug
   suffix: aluminium
   id: JugAluminium
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Label
     currentLabel: reagent-name-aluminium
@@ -170,7 +168,7 @@
   parent: Jug
   suffix: phosphorus
   id: JugPhosphorus
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Label
     currentLabel: reagent-name-phosphorus
@@ -185,7 +183,7 @@
   parent: Jug
   suffix: sulfur
   id: JugSulfur
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Label
     currentLabel: reagent-name-sulfur
@@ -200,7 +198,7 @@
   parent: Jug
   suffix: silicon
   id: JugSilicon
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Label
     currentLabel: reagent-name-silicon
@@ -215,7 +213,7 @@
   parent: Jug
   suffix: hydrogen
   id: JugHydrogen
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Label
     currentLabel: reagent-name-hydrogen
@@ -230,7 +228,7 @@
   parent: Jug
   suffix: lithium
   id: JugLithium
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Label
     currentLabel: reagent-name-lithium
@@ -245,7 +243,7 @@
   parent: Jug
   suffix: sodium
   id: JugSodium
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Label
     currentLabel: reagent-name-sodium
@@ -260,7 +258,7 @@
   parent: Jug
   suffix: potassium
   id: JugPotassium
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Label
     currentLabel: reagent-name-potassium
@@ -275,7 +273,7 @@
   parent: Jug
   suffix: radium
   id: JugRadium
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Label
     currentLabel: reagent-name-radium
@@ -290,7 +288,7 @@
   parent: Jug
   suffix: iron
   id: JugIron
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Label
     currentLabel: reagent-name-iron
@@ -305,7 +303,7 @@
   parent: Jug
   suffix: copper
   id: JugCopper
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Label
     currentLabel: reagent-name-copper
@@ -320,7 +318,7 @@
   parent: Jug
   suffix: gold
   id: JugGold
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Label
     currentLabel: reagent-name-gold
@@ -335,7 +333,7 @@
   parent: Jug
   suffix: mercury
   id: JugMercury
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Label
     currentLabel: reagent-name-mercury
@@ -350,7 +348,7 @@
   parent: Jug
   suffix: silver
   id: JugSilver
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Label
     currentLabel: reagent-name-silver
@@ -365,7 +363,7 @@
   parent: Jug
   suffix: ethanol
   id: JugEthanol
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Label
     currentLabel: reagent-name-ethanol
@@ -380,7 +378,7 @@
   parent: Jug
   suffix: sugar
   id: JugSugar
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Label
     currentLabel: reagent-name-sugar
@@ -395,7 +393,7 @@
   parent: Jug
   suffix: nitrogen
   id: JugNitrogen
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Label
     currentLabel: reagent-name-nitrogen
@@ -410,7 +408,7 @@
   parent: Jug
   suffix: oxygen
   id: JugOxygen
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Label
     currentLabel: reagent-name-oxygen
@@ -425,7 +423,7 @@
   parent: Jug
   suffix: Plant-B-Gone
   id: JugPlantBGone
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Label
     currentLabel: reagent-name-plant-b-gone
@@ -440,7 +438,7 @@
   parent: Jug
   suffix: welding fuel
   id: JugWeldingFuel
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Label
     currentLabel: reagent-name-welding-fuel

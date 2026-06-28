@@ -9,14 +9,18 @@ namespace Content.Shared.Cybernetics
 {
     public sealed class InternalBombSystem : EntitySystem
     {
+        [Dependency]
+        private readonly SharedActionsSystem _actions = default!;
 
-        [Dependency] private readonly SharedActionsSystem _actions = default!;
+        [Dependency]
+        private readonly BodySystem _body = default!;
 
-        [Dependency] private readonly BodySystem _body = default!;
+        [Dependency]
+        private readonly ExplosionSystem _explosion = default!;
 
-        [Dependency] private readonly ExplosionSystem _explosion = default!;
+        [Dependency]
+        private readonly InventorySystem _inventory = default!;
 
-        [Dependency] private readonly InventorySystem _inventory = default!;
         public override void Initialize()
         {
             base.Initialize();
@@ -27,9 +31,12 @@ namespace Content.Shared.Cybernetics
             SubscribeLocalEvent<InternalBombComponent, ComponentShutdown>(OnShutdown);
         }
 
-        private void OnCortexBombActivated(EntityUid uid, InternalBombComponent component, InternalBombActivatedEvent args)
+        private void OnCortexBombActivated(
+            EntityUid uid,
+            InternalBombComponent component,
+            InternalBombActivatedEvent args
+        )
         {
-
             var items = _inventory.GetHandOrInventoryEntities(uid);
             foreach (var item in items)
             {

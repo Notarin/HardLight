@@ -11,15 +11,13 @@ public sealed partial class SiliconLawContainer : BoxContainer
 {
     public const string StyleClassSiliconLawPositionLabel = "SiliconLawPositionLabel";
 
-    public static readonly string CorruptedString =
-        Loc.GetString("ion-storm-law-scrambled-number", ("length", 5));
+    public static readonly string CorruptedString = Loc.GetString("ion-storm-law-scrambled-number", ("length", 5));
 
     private SiliconLaw? _law;
 
     public event Action<SiliconLaw>? MoveLawUp;
     public event Action<SiliconLaw>? MoveLawDown;
     public event Action<SiliconLaw>? DeleteAction;
-
 
     public SiliconLawContainer()
     {

@@ -12,5 +12,3 @@ public sealed partial class WillToDieComponent : Component
     [DataField]
     public int DeadDecrease = 15;
 }
-
-

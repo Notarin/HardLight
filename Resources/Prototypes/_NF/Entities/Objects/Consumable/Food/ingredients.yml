@@ -83,7 +83,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - bitter
+    - bitter
   - type: Food
   - type: SolutionContainerManager
     solutions:
@@ -121,7 +121,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - bitter
+    - bitter
   - type: Food
   - type: SolutionContainerManager
     solutions:
@@ -210,8 +210,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - dough
-      - butter
+    - dough
+    - butter
   - type: Sprite
     sprite: _NF/Objects/Consumable/Food/ingredients.rsi
     state: dough-flat-buttered

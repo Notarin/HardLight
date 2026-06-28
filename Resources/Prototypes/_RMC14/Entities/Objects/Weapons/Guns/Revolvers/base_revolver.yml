@@ -1,5 +1,5 @@
-﻿- type: entity
-  parent: [BaseItem, CMBaseWeaponGun, RMCBaseAttachableHolder, BaseC3ExpeditionContraband ]
+- type: entity
+  parent: [BaseItem, CMBaseWeaponGun, RMCBaseAttachableHolder, BaseC3ExpeditionContraband]
   abstract: true
   id: RMCWeaponRevolverBase
   components:
@@ -23,7 +23,7 @@
     - SemiAuto
     soundGunshot:
       path: /Audio/_RMC14/Weapons/Guns/Gunshots/gun_44mag.ogg
-  # - type: RMCSelectiveFire
+      # - type: RMCSelectiveFire
     # baseFireModes:
     # - SemiAuto
     # recoilWielded: 1
@@ -40,21 +40,21 @@
       - RMCMagazineRevolver
     proto: RMCCartridgeRevolver44
     capacity: 6
-    chambers: [ True, True, True, True, True, True ]
-    ammoSlots: [ null, null, null, null, null, null ]
+    chambers: [True, True, True, True, True, True]
+    ammoSlots: [null, null, null, null, null, null]
     soundEject:
       path: /Audio/Weapons/Guns/MagOut/revolver_magout.ogg
     soundInsert:
       path: /Audio/Weapons/Guns/MagIn/revolver_magin.ogg
   - type: Appearance
-  # - type: RMCNameItemOnVend
+    # - type: RMCNameItemOnVend
     # item: Sidearm
-  # - type: GunUnskilledPenalty
+    # - type: GunUnskilledPenalty
     # angleIncrease: 5
-  # - type: GunDualWielding
+    # - type: GunDualWielding
     # weaponGroup: Handgun
-  # - type: GunPointBlank
-  # - type: RMCWeaponAccuracy
+    # - type: GunPointBlank
+    # - type: RMCWeaponAccuracy
     # accuracyMultiplier: 0.85
 
 - type: Tag

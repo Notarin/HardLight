@@ -6,16 +6,16 @@
   components:
   - type: Tag
     tags:
-      - PowerCellPulseRifle # For use with the Prototype Pulse Rifle, and nothing else, so we can whitelist it
+    - PowerCellPulseRifle # For use with the Prototype Pulse Rifle, and nothing else, so we can whitelist it
   - type: Sprite
     sprite: Floof/Objects/Power/prototype_power_cell.rsi
     layers:
-      - map: [ "enum.PowerCellVisualLayers.Base" ]
-        state: ppr-power-cell
-      - map: [ "enum.PowerCellVisualLayers.Unshaded" ]
-        state: o2
-        shader: unshaded
-        visible: false
+    - map: ["enum.PowerCellVisualLayers.Base"]
+      state: ppr-power-cell
+    - map: ["enum.PowerCellVisualLayers.Unshaded"]
+      state: o2
+      shader: unshaded
+      visible: false
   - type: Battery
     maxCharge: 700
     startingCharge: 700

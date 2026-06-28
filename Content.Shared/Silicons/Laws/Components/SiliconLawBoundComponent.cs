@@ -36,15 +36,12 @@ public record struct GetSiliconLawsEvent(EntityUid Entity)
     public bool Handled = false;
 }
 
-public sealed partial class ToggleLawsScreenEvent : InstantActionEvent
-{
-
-}
+public sealed partial class ToggleLawsScreenEvent : InstantActionEvent { }
 
 [NetSerializable, Serializable]
 public enum SiliconLawsUiKey : byte
 {
-    Key
+    Key,
 }
 
 [Serializable, NetSerializable]

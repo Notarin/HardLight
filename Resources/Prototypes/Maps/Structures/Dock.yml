@@ -7,8 +7,7 @@
     Crossroads:
       stationProto: StandardFrontierVessel
       components:
-        - type: StationNameSetup
-          mapNameTemplate: 'Dock {1}'
-          nameGenerator:
-            !type:NanotrasenNameGenerator
-            prefixCreator: '14'
+      - type: StationNameSetup
+        mapNameTemplate: 'Dock {1}'
+        nameGenerator: !type:NanotrasenNameGenerator
+          prefixCreator: '14'

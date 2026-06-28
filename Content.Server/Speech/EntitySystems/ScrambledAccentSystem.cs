@@ -9,7 +9,8 @@ namespace Content.Server.Speech.EntitySystems
     {
         private static readonly Regex RegexLoneI = new(@"(?<=\ )i(?=[\ \.\?]|$)");
 
-        [Dependency] private readonly IRobustRandom _random = default!;
+        [Dependency]
+        private readonly IRobustRandom _random = default!;
 
         public override void Initialize()
         {

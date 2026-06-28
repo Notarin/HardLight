@@ -18,7 +18,10 @@ public sealed partial class AnomalyGeneratorComponent : Component
     /// <summary>
     /// The time at which the cooldown for generating another anomaly will be over
     /// </summary>
-    [DataField("cooldownEndTime", customTypeSerializer: typeof(TimeOffsetSerializer)), ViewVariables(VVAccess.ReadWrite)]
+    [
+        DataField("cooldownEndTime", customTypeSerializer: typeof(TimeOffsetSerializer)),
+        ViewVariables(VVAccess.ReadWrite)
+    ]
     [AutoPausedField]
     public TimeSpan CooldownEndTime = TimeSpan.Zero;
 
@@ -37,7 +40,10 @@ public sealed partial class AnomalyGeneratorComponent : Component
     /// <summary>
     /// The material needed to generate an anomaly
     /// </summary>
-    [DataField("requiredMaterial", customTypeSerializer: typeof(PrototypeIdSerializer<MaterialPrototype>)), ViewVariables(VVAccess.ReadWrite)]
+    [
+        DataField("requiredMaterial", customTypeSerializer: typeof(PrototypeIdSerializer<MaterialPrototype>)),
+        ViewVariables(VVAccess.ReadWrite)
+    ]
     public string RequiredMaterial = "Bananium"; // Frontier - Plasma to Bananium
 
     /// <summary>
@@ -49,7 +55,10 @@ public sealed partial class AnomalyGeneratorComponent : Component
     /// <summary>
     /// The random anomaly spawner entity
     /// </summary>
-    [DataField("spawnerPrototype", customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>)), ViewVariables(VVAccess.ReadWrite)]
+    [
+        DataField("spawnerPrototype", customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>)),
+        ViewVariables(VVAccess.ReadWrite)
+    ]
     public string SpawnerPrototype = "RandomAnomalySpawner";
 
     /// <summary>

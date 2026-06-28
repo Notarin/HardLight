@@ -12,6 +12,7 @@ public sealed partial class MachineComponent : Component
 
     [ViewVariables]
     public Container BoardContainer = default!;
+
     [ViewVariables]
     public Container PartContainer = default!;
 }
@@ -23,6 +24,6 @@ public sealed partial class MachineComponent : Component
 public enum MachineUpgradeScalingType : byte
 {
     Linear,
-    Exponential
+    Exponential,
 }
 // End Frontier

@@ -20,12 +20,10 @@
   delay: 1.5
   cooldown: 0.5
   hideByRequirement: true
-  requirement:
-    !type:StandingStateRequirement
+  requirement: !type:StandingStateRequirement
     allowLaying: true
     allowKnockedDown: true
-  action:
-    !type:ComplexAction
+  action: !type:ComplexAction
     requireAll: false
     actions:
     - !type:ToggleSleepingAction
@@ -44,11 +42,9 @@
   parent: [BaseHelp, BaseGlobal]
   delay: 4.5
   hideByRequirement: true
-  requirement:
-    !type:StandingStateRequirement
+  requirement: !type:StandingStateRequirement
     allowStanding: true
-  action:
-    !type:ChangeStandingStateAction
+  action: !type:ChangeStandingStateAction
     makeLaying: true
 
 - type: Interaction
@@ -57,16 +53,14 @@
   priority: -6
   delay: 10 # Should be long enough to be non-abusable, right?
   hideByRequirement: true
-  requirement:
-    !type:ComplexRequirement
+  requirement: !type:ComplexRequirement
     requirements:
-      - !type:StandingStateRequirement
-        allowLaying: true
-        allowKnockedDown: true
-      - !type:MobStateRequirement
-        allowedStates: [Alive, Critical]
-  action:
-    !type:ToggleSleepingAction
+    - !type:StandingStateRequirement
+      allowLaying: true
+      allowKnockedDown: true
+    - !type:MobStateRequirement
+      allowedStates: [Alive, Critical]
+  action: !type:ToggleSleepingAction
     sleep: true
 
 # Shake the target to wake them up and sober them up a little bit
@@ -78,11 +72,9 @@
   cooldown: 10 # Slightly abusable
   effectDelayed: null
   hideByRequirement: true
-  requirement:
-    !type:MobStateRequirement
+  requirement: !type:MobStateRequirement
     allowedStates: [Alive, Critical]
-  action:
-    !type:ComplexAction
+  action: !type:ComplexAction
     actions:
     - !type:ModifyStatusEffectAction
       effect: Drunk

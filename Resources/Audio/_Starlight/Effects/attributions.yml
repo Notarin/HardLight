@@ -1,4 +1,4 @@
-- files: ["chisel","stones_falling"]
+- files: ["chisel", "stones_falling"]
   license: "CC-BY-4.0"
   copyright: 'Darkrell'
   source: "https://github.com/ss14Starlight/space-station-14"
@@ -24,18 +24,18 @@
   source: "https://freesound.org/people/Breviceps/sounds/468442/"
 
 - files:
-    - whine_1.ogg
-    - whine_2.ogg
-    - whine_3.ogg
-    - whine_4.ogg
-    - whine_5.ogg
-    - whine_6.ogg
-    - whine_7.ogg
-    - whine_8.ogg
-    - whine_9.ogg
-    - whine_10.ogg
-    - whine_11.ogg
-    - whine_12.ogg
+  - whine_1.ogg
+  - whine_2.ogg
+  - whine_3.ogg
+  - whine_4.ogg
+  - whine_5.ogg
+  - whine_6.ogg
+  - whine_7.ogg
+  - whine_8.ogg
+  - whine_9.ogg
+  - whine_10.ogg
+  - whine_11.ogg
+  - whine_12.ogg
   copyright: "Created by fujiwaranao"
   license: "CC-BY-NC-SA-4.0"
   source: "https://github.com/space-wizards/space-station-14/pull/27578"

@@ -4,8 +4,8 @@
   description: job-description-nf-pirate-captain
   playTimeTracker: JobPirateCaptain
   requirements:
-    - !type:OverallPlaytimeRequirement
-      time: 172800 # 48 hours
+  - !type:OverallPlaytimeRequirement
+    time: 172800 # 48 hours
   whitelisted: true
   startingGear: NFPirateCaptainGear
   alwaysUseSpawner: true
@@ -27,9 +27,9 @@
     - type: SpecialSectorStationRecord # must be given on spawn
       recordGeneration: FalseRecord
   - !type:AddImplantSpecial
-    implants: [ FreelanceTrackingImplant ]
-  - !type:GiveItemOnHolidaySpecial # Even pirates get a piece of cake.
-    holiday: FrontierBirthday
+    implants: [FreelanceTrackingImplant]
+  - !type:GiveItemOnHolidaySpecial
+    holiday: FrontierBirthday # Even pirates get a piece of cake.
     prototype: FrontierBirthdayGift
 
 - type: startingGear

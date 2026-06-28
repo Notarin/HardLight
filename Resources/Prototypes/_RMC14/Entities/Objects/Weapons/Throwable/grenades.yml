@@ -1,6 +1,6 @@
 - type: entity
   abstract: true
-  parent: [ GrenadeBase, BaseC3ExpeditionContraband ]
+  parent: [GrenadeBase, BaseC3ExpeditionContraband]
   id: CMGrenadeBase
   name: grenade
   description: Duck and cover.
@@ -24,8 +24,8 @@
     - suitStorage
   - type: Destructible
     thresholds: []
-  # - type: ChangeItemSizeOnTimerTrigger
-  # - type: CancelUseWithCloak
+    # - type: ChangeItemSizeOnTimerTrigger
+    # - type: CancelUseWithCloak
 
 - type: entity
   abstract: true
@@ -46,7 +46,7 @@
   - type: Sprite
     sprite: _RMC14/Objects/Weapons/Grenades/flashbang.rsi
   # - type: RMCStunOnTrigger
-    # range: 7
+  # range: 7
   - type: FlashOnTrigger
     range: 7
   - type: SoundOnTrigger
@@ -85,9 +85,9 @@
   - type: RandomTimerTrigger
     min: 1
     max: 4
-  # - type: CMExplosionEffect
-  # - type: CMVocalizeTrigger
-  # - type: RMCScorchEffect
+    # - type: CMExplosionEffect
+    # - type: CMVocalizeTrigger
+    # - type: RMCScorchEffect
 
 - type: entity
   parent: NFPelletClusterLethal
@@ -140,7 +140,7 @@
     - HideContextMenu
   - type: Appearance
   - type: ActiveEdgeSpreader
-  # - type: DeleteOnExplosion
+    # - type: DeleteOnExplosion
 
 - type: entity
   parent: CMGrenadeHighExplosive
@@ -163,11 +163,11 @@
     containers:
       cluster-payload: !type:Container
   - type: Ammo
-  # - type: ClusterLimitHits
-  # - type: CMExplosionEffect
+    # - type: ClusterLimitHits
+    # - type: CMExplosionEffect
     # maxShrapnel: 0
-  # - type: CMVocalizeTrigger
-  # - type: RMCScorchEffect
+    # - type: CMVocalizeTrigger
+    # - type: RMCScorchEffect
 
 - type: entity
   parent: CMGrenadeHighExplosive
@@ -193,11 +193,11 @@
     tags:
     - Grenade
   - type: Ammo
-  # - type: ClusterLimitHits
-  # - type: CMExplosionEffect
+    # - type: ClusterLimitHits
+    # - type: CMExplosionEffect
     # maxShrapnel: 0
-  # - type: CMVocalizeTrigger
-  # - type: RMCScorchEffect
+    # - type: CMVocalizeTrigger
+    # - type: RMCScorchEffect
 
 - type: entity
   parent: CMGrenadeBase
@@ -232,8 +232,8 @@
   - type: Tag # HL: Move Grenade tag to here so child and base can be put in bags
     tags:
     - Grenade
-  # - type: CMVocalizeTrigger
-  # - type: TileFireOnTrigger
+    # - type: CMVocalizeTrigger
+    # - type: TileFireOnTrigger
     # spawn: RMCTileFireGreen
 
 - type: entity
@@ -249,7 +249,7 @@
   - type: RandomTimerTrigger
     min: 1
     max: 4
-  # - type: TileFireOnTrigger
+    # - type: TileFireOnTrigger
     # spawn: RMCTileFire
 
 - type: entity
@@ -265,11 +265,11 @@
 
 - type: entity
   id: RMCExplosionEffectGrenadeShockWave
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: TimedDespawn
     lifetime: 0.5
-  # - type: RMCExplosionShockWave
+    # - type: RMCExplosionShockWave
 
 - type: entity
   id: CMExplosionEffectShrapnel1
@@ -283,8 +283,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.25,-0.25,0.25,0.25"
         density: 20
         mask:
@@ -299,7 +298,6 @@
   - type: TriggerOnCollide
     fixtureID: fix1
   - type: DeleteOnTrigger
-
 
 - type: entity
   parent: CMExplosionEffectShrapnel1

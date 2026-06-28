@@ -19,10 +19,7 @@ namespace Content.Client.Decals.Overlays
 
         private readonly List<(uint Id, Decal Decal)> _decals = new();
 
-        public DecalOverlay(
-            SpriteSystem sprites,
-            IEntityManager entManager,
-            IPrototypeManager prototypeManager)
+        public DecalOverlay(SpriteSystem sprites, IEntityManager entManager, IPrototypeManager prototypeManager)
         {
             _sprites = sprites;
             _entManager = entManager;
@@ -36,8 +33,10 @@ namespace Content.Client.Decals.Overlays
 
             var owner = Grid.Owner;
 
-            if (!_entManager.TryGetComponent(owner, out DecalGridComponent? decalGrid) ||
-                !_entManager.TryGetComponent(owner, out TransformComponent? xform))
+            if (
+                !_entManager.TryGetComponent(owner, out DecalGridComponent? decalGrid)
+                || !_entManager.TryGetComponent(owner, out TransformComponent? xform)
+            )
             {
                 return;
             }
@@ -71,15 +70,17 @@ namespace Content.Client.Decals.Overlays
             if (_decals.Count == 0)
                 return;
 
-            _decals.Sort((x, y) =>
-            {
-                var zComp = x.Decal.ZIndex.CompareTo(y.Decal.ZIndex);
+            _decals.Sort(
+                (x, y) =>
+                {
+                    var zComp = x.Decal.ZIndex.CompareTo(y.Decal.ZIndex);
 
-                if (zComp != 0)
-                    return zComp;
+                    if (zComp != 0)
+                        return zComp;
 
-                return x.Id.CompareTo(y.Id);
-            });
+                    return x.Id.CompareTo(y.Id);
+                }
+            );
 
             var (_, worldRot, worldMatrix) = xformSystem.GetWorldPositionRotationMatrix(xform);
             handle.SetTransform(worldMatrix);

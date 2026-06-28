@@ -8,7 +8,6 @@ namespace Content.Server.Tabletop
     [UsedImplicitly]
     public sealed partial class TabletopCheckerSetup : TabletopSetup
     {
-
         [DataField("prototypePieceWhite", customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
         public string PrototypePieceWhite = default!;
 
@@ -23,16 +22,17 @@ namespace Content.Server.Tabletop
 
         public override void SetupTabletop(TabletopSession session, IEntityManager entityManager)
         {
-            session.Entities.Add(
-                entityManager.SpawnEntity(BoardPrototype, session.Position.Offset(-1, 0))
-            );
+            session.Entities.Add(entityManager.SpawnEntity(BoardPrototype, session.Position.Offset(-1, 0)));
 
             SpawnPieces(session, entityManager, session.Position.Offset(-4.5f, 3.5f));
         }
 
         private void SpawnPieces(TabletopSession session, IEntityManager entityManager, MapCoordinates left)
         {
-            static float GetOffset(float offset) => offset * 1f /* separation */;
+            static float GetOffset(float offset) =>
+                offset
+                * 1f /* separation */
+            ;
 
             Span<EntityUid> pieces = stackalloc EntityUid[42];
             var pieceIndex = 0;
@@ -45,7 +45,8 @@ namespace Content.Server.Tabletop
                 for (var offsetX = 0; offsetX < 8; offsetX += 2)
                 {
                     // Prevents an extra piece on the middle row
-                    if (checker + offsetX > 8) continue;
+                    if (checker + offsetX > 8)
+                        continue;
 
                     pieces[pieceIndex] = entityManager.SpawnEntity(
                         PrototypePieceBlack,

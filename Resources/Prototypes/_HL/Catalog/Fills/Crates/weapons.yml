@@ -6,7 +6,7 @@
   components:
   - type: StorageFill
     contents:
-      - id: WeaponShotgunVortex
-        amount: 2
-      - id: Magazine12_gaugeBuckshot
-        amount: 3
+    - id: WeaponShotgunVortex
+      amount: 2
+    - id: Magazine12_gaugeBuckshot
+      amount: 3

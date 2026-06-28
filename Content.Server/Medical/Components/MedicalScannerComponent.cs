@@ -16,7 +16,10 @@ namespace Content.Server.Medical.Components
         [ViewVariables(VVAccess.ReadWrite)]
         public float CloningFailChanceMultiplier = 1f;
 
-        [DataField("machinePartCloningFailChance", customTypeSerializer: typeof(PrototypeIdSerializer<MachinePartPrototype>))]
+        [DataField(
+            "machinePartCloningFailChance",
+            customTypeSerializer: typeof(PrototypeIdSerializer<MachinePartPrototype>)
+        )]
         public string MachinePartCloningFailChance = "Capacitor";
 
         [DataField("partRatingCloningFailChanceMultiplier")]

@@ -39,14 +39,12 @@ public abstract class UnequippedEventBase : EntityEventArgs
 
 public sealed class DidUnequipEvent : UnequippedEventBase
 {
-    public DidUnequipEvent(EntityUid equipee, EntityUid equipment, SlotDefinition slotDefinition) : base(equipee, equipment, slotDefinition)
-    {
-    }
+    public DidUnequipEvent(EntityUid equipee, EntityUid equipment, SlotDefinition slotDefinition)
+        : base(equipee, equipment, slotDefinition) { }
 }
 
 public sealed class GotUnequippedEvent : UnequippedEventBase
 {
-    public GotUnequippedEvent(EntityUid equipee, EntityUid equipment, SlotDefinition slotDefinition) : base(equipee, equipment, slotDefinition)
-    {
-    }
+    public GotUnequippedEvent(EntityUid equipee, EntityUid equipment, SlotDefinition slotDefinition)
+        : base(equipee, equipment, slotDefinition) { }
 }

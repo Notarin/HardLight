@@ -30,8 +30,11 @@ public abstract class SharedCameraRecoilSystem : EntitySystem
     /// </summary>
     protected const float KickMagnitudeMax = 1f;
 
-    [Dependency] private readonly SharedContentEyeSystem _eye = default!;
-    [Dependency] private readonly INetManager _net = default!;
+    [Dependency]
+    private readonly SharedContentEyeSystem _eye = default!;
+
+    [Dependency]
+    private readonly INetManager _net = default!;
 
     public override void Initialize()
     {
@@ -59,8 +62,12 @@ public abstract class SharedCameraRecoilSystem : EntitySystem
         while (query.MoveNext(out var uid, out var recoil, out var eye))
         {
             // Sanitize invalid values that can come from external kicks (e.g., projectiles/effects)
-            if (float.IsNaN(recoil.CurrentKick.X) || float.IsInfinity(recoil.CurrentKick.X) ||
-                float.IsNaN(recoil.CurrentKick.Y) || float.IsInfinity(recoil.CurrentKick.Y))
+            if (
+                float.IsNaN(recoil.CurrentKick.X)
+                || float.IsInfinity(recoil.CurrentKick.X)
+                || float.IsNaN(recoil.CurrentKick.Y)
+                || float.IsInfinity(recoil.CurrentKick.Y)
+            )
             {
                 recoil.CurrentKick = Vector2.Zero;
                 recoil.LastKickTime = 0f;
@@ -75,16 +82,26 @@ public abstract class SharedCameraRecoilSystem : EntitySystem
             {
                 var normalized = recoil.CurrentKick.Normalized();
                 recoil.LastKickTime += frameTime;
-                var restoreRate = MathHelper.Lerp(RestoreRateMin, RestoreRateMax, Math.Min(1, recoil.LastKickTime / RestoreRateRamp));
+                var restoreRate = MathHelper.Lerp(
+                    RestoreRateMin,
+                    RestoreRateMax,
+                    Math.Min(1, recoil.LastKickTime / RestoreRateRamp)
+                );
                 var restore = normalized * restoreRate * frameTime;
                 var (x, y) = recoil.CurrentKick - restore;
                 // Avoid Math.Sign on NaN/Infinity; clamp to zero when crossing sign or invalid
-                if (!(float.IsNaN(x) || float.IsInfinity(x)) && !(float.IsNaN(recoil.CurrentKick.X) || float.IsInfinity(recoil.CurrentKick.X)) &&
-                    Math.Sign(x) != Math.Sign(recoil.CurrentKick.X))
+                if (
+                    !(float.IsNaN(x) || float.IsInfinity(x))
+                    && !(float.IsNaN(recoil.CurrentKick.X) || float.IsInfinity(recoil.CurrentKick.X))
+                    && Math.Sign(x) != Math.Sign(recoil.CurrentKick.X)
+                )
                     x = 0;
 
-                if (!(float.IsNaN(y) || float.IsInfinity(y)) && !(float.IsNaN(recoil.CurrentKick.Y) || float.IsInfinity(recoil.CurrentKick.Y)) &&
-                    Math.Sign(y) != Math.Sign(recoil.CurrentKick.Y))
+                if (
+                    !(float.IsNaN(y) || float.IsInfinity(y))
+                    && !(float.IsNaN(recoil.CurrentKick.Y) || float.IsInfinity(recoil.CurrentKick.Y))
+                    && Math.Sign(y) != Math.Sign(recoil.CurrentKick.Y)
+                )
                     y = 0;
 
                 if (float.IsNaN(x) || float.IsInfinity(x))

@@ -41,7 +41,7 @@
   offset: 0,6
   ignoreTile: FloorShuttleOrange
   tags:
-    - NFWreck
+  - NFWreck
 
 - type: dungeonRoom
   id: NFWreck5x5f

@@ -78,9 +78,9 @@
   - type: ContainerContainer
     containers:
       toggleable-clothing: !type:ContainerSlot {}
-      storagebase: !type:Container # Frontier
+      storagebase: !type:Container
         ents: [] # Frontier
-  - type: Tag
+  - type: Tag # Frontier
     tags:
     - SuitEVA
     - MonkeyWearable
@@ -90,7 +90,7 @@
 #Prisoner EVA
 - type: entity
   parent: ClothingOuterEVASuitBase
-  id:  ClothingOuterHardsuitEVAPrisoner
+  id: ClothingOuterHardsuitEVAPrisoner
   name: prisoner EVA suit
   description: A lightweight space suit for prisoners to protect them from the vacuum of space during emergencies.
   components:
@@ -182,5 +182,5 @@
   - type: ContainerContainer
     containers:
       toggleable-clothing: !type:ContainerSlot {}
-      storagebase: !type:Container # Frontier
+      storagebase: !type:Container
         ents: [] # Frontier

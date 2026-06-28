@@ -63,7 +63,7 @@
     sprite: _NF/Clothing/Belt/pilot.rsi
 
 - type: entity
-  parent: [ BaseC2ContrabandUnredeemable, ClothingBeltAssault ]
+  parent: [BaseC2ContrabandUnredeemable, ClothingBeltAssault]
   id: ClothingBeltNfsd
   name: ColSec belt
   description: A tactical assault belt.
@@ -74,7 +74,7 @@
     sprite: _NF/Clothing/Belt/nfsd_belt.rsi
 
 - type: entity
-  parent: [ BaseC2ContrabandUnredeemable, ClothingBeltSecurityWebbing ]
+  parent: [BaseC2ContrabandUnredeemable, ClothingBeltSecurityWebbing]
   id: ClothingBeltNfsdWebbing
   name: ColSec webbing
   description: A tactical assault webbing.

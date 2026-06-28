@@ -19,8 +19,8 @@
     price: 100
   - type: Tag
     tags:
-      - Trash
-# Shitmed Change Start
+    - Trash
+    # Shitmed Change Start
   - type: Gibbable
   - type: SurgeryTool
     startSound:
@@ -29,20 +29,17 @@
       path: /Audio/_Shitmed/Medical/Surgery/organ2.ogg
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTypeTrigger
+    - trigger: !type:DamageTypeTrigger
         damageType: Blunt
         damage: 250
       behaviors:
-      - !type:GibPartBehavior { }
-    - trigger:
-        !type:DamageTypeTrigger
+      - !type:GibPartBehavior {}
+    - trigger: !type:DamageTypeTrigger
         damageType: Slash
         damage: 250
       behaviors:
-      - !type:GibPartBehavior { }
-    - trigger:
-        !type:DamageTypeTrigger
+      - !type:GibPartBehavior {}
+    - trigger: !type:DamageTypeTrigger
         damageType: Heat
         damage: 250
       behaviors:
@@ -52,11 +49,11 @@
           Ash:
             min: 1
             max: 1
-      - !type:BurnBodyBehavior { }
+      - !type:BurnBodyBehavior {}
       - !type:PlaySoundBehavior
         sound:
           collection: MeatLaserImpact
-  # Shitmed Change End
+          # Shitmed Change End
 
 - type: entity
   id: TorsoRodentia
@@ -69,7 +66,7 @@
     state: "torso_m"
   - type: BodyPart
     partType: Torso
-  # Shitmed Change Start
+    # Shitmed Change Start
     toolName: "a torso"
     containerName: "torso_slot"
   - type: ContainerContainer
@@ -77,20 +74,17 @@
       torso_slot: !type:ContainerSlot {}
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTypeTrigger
+    - trigger: !type:DamageTypeTrigger
         damageType: Blunt
         damage: 400
       behaviors:
-      - !type:GibPartBehavior { }
-    - trigger:
-        !type:DamageTypeTrigger
+      - !type:GibPartBehavior {}
+    - trigger: !type:DamageTypeTrigger
         damageType: Slash
         damage: 400
       behaviors:
-      - !type:GibPartBehavior { }
-    - trigger:
-        !type:DamageTypeTrigger
+      - !type:GibPartBehavior {}
+    - trigger: !type:DamageTypeTrigger
         damageType: Heat
         damage: 400
       behaviors:
@@ -100,11 +94,11 @@
           Ash:
             min: 1
             max: 1
-      - !type:BurnBodyBehavior { }
+      - !type:BurnBodyBehavior {}
       - !type:PlaySoundBehavior
         sound:
           collection: MeatLaserImpact
-  # Shitmed Change End
+          # Shitmed Change End
 
 - type: entity
   id: HeadRodentia
@@ -125,7 +119,7 @@
   - type: GhostOnMove
   - type: Tag
     tags:
-      - Head
+    - Head
 
 - type: entity
   id: LeftArmRodentia

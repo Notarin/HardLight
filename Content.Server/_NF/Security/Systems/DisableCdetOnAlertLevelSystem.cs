@@ -1,5 +1,5 @@
-using Content.Server.AlertLevel;
 using Content.Server._NF.Security.Components;
+using Content.Server.AlertLevel;
 using Content.Server.Station.Systems;
 using Content.Server.Turrets;
 using Content.Shared.Popups;
@@ -9,10 +9,17 @@ namespace Content.Server._NF.Security.Systems;
 
 public sealed class DisableCdetOnAlertLevelSystem : EntitySystem
 {
-    [Dependency] private readonly AlertLevelSystem _alertLevel = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly StationSystem _station = default!;
-    [Dependency] private readonly DeployableTurretSystem _turrets = default!;
+    [Dependency]
+    private readonly AlertLevelSystem _alertLevel = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly StationSystem _station = default!;
+
+    [Dependency]
+    private readonly DeployableTurretSystem _turrets = default!;
 
     public override void Initialize()
     {
@@ -28,7 +35,10 @@ public sealed class DisableCdetOnAlertLevelSystem : EntitySystem
         RefreshTurretState(ent);
     }
 
-    private void OnAttemptStateChange(Entity<DisableCdetOnAlertLevelComponent> ent, ref DeployableTurretStateAttemptEvent args)
+    private void OnAttemptStateChange(
+        Entity<DisableCdetOnAlertLevelComponent> ent,
+        ref DeployableTurretStateAttemptEvent args
+    )
     {
         if (!args.Enabled || !IsDisabledForCurrentAlert(ent))
             return;
@@ -41,7 +51,11 @@ public sealed class DisableCdetOnAlertLevelSystem : EntitySystem
 
     private void OnAlertLevelChanged(AlertLevelChangedEvent args)
     {
-        var query = EntityQueryEnumerator<DisableCdetOnAlertLevelComponent, DeployableTurretComponent, TransformComponent>();
+        var query = EntityQueryEnumerator<
+            DisableCdetOnAlertLevelComponent,
+            DeployableTurretComponent,
+            TransformComponent
+        >();
         while (query.MoveNext(out var uid, out var alertLock, out var turret, out var xform))
         {
             if (args.Station != EntityUid.Invalid && _station.GetOwningStation(uid, xform) != args.Station)
@@ -54,7 +68,8 @@ public sealed class DisableCdetOnAlertLevelSystem : EntitySystem
     private void RefreshTurretState(
         Entity<DisableCdetOnAlertLevelComponent> ent,
         Entity<DeployableTurretComponent?> turretEnt = default,
-        string? currentAlert = null)
+        string? currentAlert = null
+    )
     {
         if (!Resolve(turretEnt.Owner, ref turretEnt.Comp, false))
             return;
@@ -91,8 +106,7 @@ public sealed class DisableCdetOnAlertLevelSystem : EntitySystem
         if (ent.Comp.DisabledAlertLevels.Contains(currentAlert))
             return true;
 
-        return ent.Comp.EnabledAlertLevels.Count > 0
-            && !ent.Comp.EnabledAlertLevels.Contains(currentAlert);
+        return ent.Comp.EnabledAlertLevels.Count > 0 && !ent.Comp.EnabledAlertLevels.Contains(currentAlert);
     }
 
     private string GetCurrentAlert(EntityUid uid)

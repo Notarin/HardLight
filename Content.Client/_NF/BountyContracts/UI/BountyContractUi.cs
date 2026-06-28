@@ -28,7 +28,6 @@ public sealed partial class BountyContractUi : UIFragment
         _lastState = null;
     }
 
-
     public override void UpdateState(BoundUserInterfaceState state)
     {
         if (_fragment == null)
@@ -137,7 +136,10 @@ public sealed partial class BountyContractUi : UIFragment
     }
 
     // Convenience functions for message creation
-    private BountyContractCommandMessageEvent MakeCommand(BountyContractCommand command, ProtoId<BountyContractCollectionPrototype> collection)
+    private BountyContractCommandMessageEvent MakeCommand(
+        BountyContractCommand command,
+        ProtoId<BountyContractCollectionPrototype> collection
+    )
     {
         return new BountyContractCommandMessageEvent(command, collection);
     }

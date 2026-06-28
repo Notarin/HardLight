@@ -12,8 +12,8 @@
     state: eyeball
     color: "#90EE90"
     layers:
-      - state: eyeball
-        shader: unshaded
+    - state: eyeball
+      shader: unshaded
   - type: Psionic
   - type: MindContainer
   - type: Clickable
@@ -24,8 +24,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35
         density: 13
         mask:

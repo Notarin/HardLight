@@ -14,9 +14,7 @@ namespace Content.Shared.Nyanotrasen.Kitchen
         [DataField("amount", required: true)]
         public FixedPoint2 Amount;
 
-        private ClearSlagDoAfterEvent()
-        {
-        }
+        private ClearSlagDoAfterEvent() { }
 
         public ClearSlagDoAfterEvent(Solution solution, FixedPoint2 amount)
         {

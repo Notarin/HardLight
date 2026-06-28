@@ -5,7 +5,7 @@
   components:
   - type: StorageFill
     contents:
-      - id: SmallThrusterFlatpack
+    - id: SmallThrusterFlatpack
 
 - type: entity
   parent: CrateEngineering
@@ -14,4 +14,4 @@
   components:
   - type: StorageFill
     contents:
-      - id: SmallGyroscopeFlatpack
+    - id: SmallGyroscopeFlatpack

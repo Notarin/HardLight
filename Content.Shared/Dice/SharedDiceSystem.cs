@@ -9,9 +9,14 @@ namespace Content.Shared.Dice;
 
 public abstract class SharedDiceSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
 
     public override void Initialize()
     {
@@ -41,9 +46,12 @@ public abstract class SharedDiceSystem : EntitySystem
         //No details check, since the sprite updates to show the side.
         using (args.PushGroup(nameof(DiceComponent)))
         {
-            args.PushMarkup(Loc.GetString("dice-component-on-examine-message-part-1", ("sidesAmount", entity.Comp.Sides)));
-            args.PushMarkup(Loc.GetString("dice-component-on-examine-message-part-2",
-                ("currentSide", entity.Comp.CurrentValue)));
+            args.PushMarkup(
+                Loc.GetString("dice-component-on-examine-message-part-1", ("sidesAmount", entity.Comp.Sides))
+            );
+            args.PushMarkup(
+                Loc.GetString("dice-component-on-examine-message-part-2", ("currentSide", entity.Comp.CurrentValue))
+            );
         }
     }
 
@@ -77,9 +85,11 @@ public abstract class SharedDiceSystem : EntitySystem
         var roll = rand.Next(1, entity.Comp.Sides + 1);
         SetCurrentSide(entity, roll);
 
-        var popupString = Loc.GetString("dice-component-on-roll-land",
+        var popupString = Loc.GetString(
+            "dice-component-on-roll-land",
             ("die", entity),
-            ("currentSide", entity.Comp.CurrentValue));
+            ("currentSide", entity.Comp.CurrentValue)
+        );
         _popup.PopupPredicted(popupString, entity, user);
         _audio.PlayPredicted(entity.Comp.Sound, entity, user);
     }

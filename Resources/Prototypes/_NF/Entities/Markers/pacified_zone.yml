@@ -7,22 +7,22 @@
   - type: Sprite
     sprite: _NF/Markers/pacifiedzone.rsi
     layers:
-      - sprite: Markers/cross.rsi
-        state: pink
-      - state: pacified_zone
+    - sprite: Markers/cross.rsi
+      state: pink
+    - state: pacified_zone
   - type: PacifiedZoneGenerator
     radius: 10
     immuneRoles:
-      - Bailiff
-      - Brigmedic
-      - Cadet
-      - Deputy
-      - NFDetective
-      - SeniorOfficer
-      - Sheriff
-      - SecurityGuard
-      - StationRepresentative
-      - StationTrafficController
+    - Bailiff
+    - Brigmedic
+    - Cadet
+    - Deputy
+    - NFDetective
+    - SeniorOfficer
+    - Sheriff
+    - SecurityGuard
+    - StationRepresentative
+    - StationTrafficController
 
 - type: entity
   parent: BasePacifiedZone

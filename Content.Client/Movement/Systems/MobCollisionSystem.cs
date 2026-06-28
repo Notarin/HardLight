@@ -10,8 +10,11 @@ namespace Content.Client.Movement.Systems;
 
 public sealed class MobCollisionSystem : SharedMobCollisionSystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
 
     public override void Update(float frameTime)
     {
@@ -33,10 +36,6 @@ public sealed class MobCollisionSystem : SharedMobCollisionSystem
 
     protected override void RaiseCollisionEvent(EntityUid uid, Vector2 direction, float speedMod)
     {
-        RaisePredictiveEvent(new MobCollisionMessage()
-        {
-            Direction = direction,
-            SpeedModifier = speedMod,
-        });
+        RaisePredictiveEvent(new MobCollisionMessage() { Direction = direction, SpeedModifier = speedMod });
     }
 }

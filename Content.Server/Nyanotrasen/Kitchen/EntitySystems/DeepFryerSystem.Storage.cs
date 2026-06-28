@@ -16,38 +16,28 @@ public sealed partial class DeepFryerSystem
     public bool CanInsertItem(EntityUid uid, DeepFryerComponent component, EntityUid item)
     {
         // Keep this consistent with the checks in TryInsertItem.
-        return HasComp<ItemComponent>(item) &&
-               !HasComp<StorageComponent>(item) &&
-               component.Storage.ContainedEntities.Count < component.StorageMaxEntities;
+        return HasComp<ItemComponent>(item)
+            && !HasComp<StorageComponent>(item)
+            && component.Storage.ContainedEntities.Count < component.StorageMaxEntities;
     }
 
     private bool TryInsertItem(EntityUid uid, DeepFryerComponent component, EntityUid user, EntityUid item)
     {
         if (!HasComp<ItemComponent>(item))
         {
-            _popupSystem.PopupEntity(
-                Loc.GetString("deep-fryer-interact-using-not-item"),
-                uid,
-                user);
+            _popupSystem.PopupEntity(Loc.GetString("deep-fryer-interact-using-not-item"), uid, user);
             return false;
         }
 
         if (HasComp<StorageComponent>(item))
         {
-            _popupSystem.PopupEntity(
-                Loc.GetString("deep-fryer-storage-no-fit",
-                    ("item", item)),
-                uid,
-                user);
+            _popupSystem.PopupEntity(Loc.GetString("deep-fryer-storage-no-fit", ("item", item)), uid, user);
             return false;
         }
 
         if (component.Storage.ContainedEntities.Count >= component.StorageMaxEntities)
         {
-            _popupSystem.PopupEntity(
-                Loc.GetString("deep-fryer-storage-full"),
-                uid,
-                user);
+            _popupSystem.PopupEntity(Loc.GetString("deep-fryer-storage-full"), uid, user);
             return false;
         }
 
@@ -56,8 +46,11 @@ public sealed partial class DeepFryerSystem
 
         AfterInsert(uid, component, item);
 
-        _adminLogManager.Add(LogType.Action, LogImpact.Low,
-            $"{ToPrettyString(user)} put {ToPrettyString(item)} inside {ToPrettyString(uid)}.");
+        _adminLogManager.Add(
+            LogType.Action,
+            LogImpact.Low,
+            $"{ToPrettyString(user)} put {ToPrettyString(item)} inside {ToPrettyString(uid)}."
+        );
 
         return true;
     }
@@ -70,8 +63,7 @@ public sealed partial class DeepFryerSystem
         // By default, allow entities with SolutionTransfer or Tool
         // components to perform their usual actions. Inserting them (if
         // the chef really wants to) will be supported through the UI.
-        if (HasComp<SolutionTransferComponent>(args.Used) ||
-            HasComp<ToolComponent>(args.Used))
+        if (HasComp<SolutionTransferComponent>(args.Used) || HasComp<ToolComponent>(args.Used))
             return;
 
         if (TryInsertItem(uid, component, args.User, args.Used))
@@ -80,8 +72,7 @@ public sealed partial class DeepFryerSystem
 
     private void OnInsertItem(EntityUid uid, DeepFryerComponent component, DeepFryerInsertItemMessage args)
     {
-        if (!TryComp<HandsComponent>(args.Actor, out var handsComponent) ||
-            handsComponent.ActiveHandEntity == null)
+        if (!TryComp<HandsComponent>(args.Actor, out var handsComponent) || handsComponent.ActiveHandEntity == null)
             return;
 
         if (handsComponent.ActiveHandEntity != null)

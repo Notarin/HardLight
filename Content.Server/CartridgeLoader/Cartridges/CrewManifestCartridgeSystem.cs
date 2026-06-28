@@ -11,10 +11,17 @@ namespace Content.Server.CartridgeLoader.Cartridges;
 
 public sealed class CrewManifestCartridgeSystem : EntitySystem
 {
-    [Dependency] private readonly CartridgeLoaderSystem _cartridgeLoader = default!;
-    [Dependency] private readonly IConfigurationManager _configManager = default!;
-    [Dependency] private readonly CrewManifestSystem _crewManifest = default!;
-    [Dependency] private readonly StationSystem _stationSystem = default!;
+    [Dependency]
+    private readonly CartridgeLoaderSystem _cartridgeLoader = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _configManager = default!;
+
+    [Dependency]
+    private readonly CrewManifestSystem _crewManifest = default!;
+
+    [Dependency]
+    private readonly StationSystem _stationSystem = default!;
 
     private static readonly EntProtoId CartridgePrototypeName = new("CrewManifestCartridge");
 
@@ -87,7 +94,15 @@ public sealed class CrewManifestCartridgeSystem : EntitySystem
                 return;
             }
 
-            if (_cartridgeLoader.TryGetProgram<CrewManifestCartridgeComponent>(loaderUid, out var program, true, comp, cont))
+            if (
+                _cartridgeLoader.TryGetProgram<CrewManifestCartridgeComponent>(
+                    loaderUid,
+                    out var program,
+                    true,
+                    comp,
+                    cont
+                )
+            )
                 _cartridgeLoader.UninstallProgram(loaderUid, program.Value, comp);
         }
     }

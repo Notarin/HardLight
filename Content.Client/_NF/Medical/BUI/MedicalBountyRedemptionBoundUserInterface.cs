@@ -1,6 +1,6 @@
-using JetBrains.Annotations;
 using Content.Client._NF.Medical.UI;
 using Content.Shared._NF.Medical;
+using JetBrains.Annotations;
 using Robust.Client.UserInterface;
 
 namespace Content.Client._NF.Medical.BUI;
@@ -11,9 +11,8 @@ public sealed class MedicalBountyRedemptionBoundUserInterface : BoundUserInterfa
     [ViewVariables]
     private MedicalBountyRedemptionMenu? _menu;
 
-    public MedicalBountyRedemptionBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-    }
+    public MedicalBountyRedemptionBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {

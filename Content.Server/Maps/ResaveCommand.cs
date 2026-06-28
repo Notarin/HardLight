@@ -16,9 +16,14 @@ namespace Content.Server.Maps;
 [AdminCommand(AdminFlags.Host)]
 public sealed class ResaveCommand : LocalizedCommands
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
-    [Dependency] private readonly IResourceManager _res = default!;
-    [Dependency] private readonly ILogManager _log = default!;
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
+
+    [Dependency]
+    private readonly IResourceManager _res = default!;
+
+    [Dependency]
+    private readonly ILogManager _log = default!;
 
     public override string Command => "resave";
 
@@ -28,12 +33,11 @@ public sealed class ResaveCommand : LocalizedCommands
 
         var opts = MapLoadOptions.Default with
         {
-
             DeserializationOptions = DeserializationOptions.Default with
             {
                 StoreYamlUids = true,
-                LogOrphanedGrids = false
-            }
+                LogOrphanedGrids = false,
+            },
         };
 
         var log = _log.GetSawmill(Command);
@@ -50,7 +54,8 @@ public sealed class ResaveCommand : LocalizedCommands
             if (result.Maps.Count != 1)
             {
                 shell.WriteError(
-                    $"Multi-map or multi-grid files like {fn} are not yet supported by the {Command} command");
+                    $"Multi-map or multi-grid files like {fn} are not yet supported by the {Command} command"
+                );
                 loader.Delete(result);
                 continue;
             }

@@ -10,12 +10,14 @@ namespace Content.Server._Mono.TargetSeekingAlert;
 /// <summary>
 ///     Handles logic for things that make alerts for entities with <see cref="TargetSeekingComponent"/>.
 /// </summary>
-
 // I really wonder what might unexpectedly happen when you put a target-seeker-alerter on a planetmap, since those count as grids.
 public sealed class TargetSeekerAlertSystem : EntitySystem
 {
-    [Dependency] private readonly AudioSystem _audioSystem = default!;
-    [Dependency] private readonly PowerReceiverSystem _powerReceiverSystem = default!;
+    [Dependency]
+    private readonly AudioSystem _audioSystem = default!;
+
+    [Dependency]
+    private readonly PowerReceiverSystem _powerReceiverSystem = default!;
 
     private EntityQuery<TargetSeekerAlertComponent> _alertQuery = new();
 
@@ -36,11 +38,17 @@ public sealed class TargetSeekerAlertSystem : EntitySystem
         SubscribeLocalEvent<TargetSeekerAlertComponent, ComponentShutdown>(OnAlerterShutdown);
         SubscribeLocalEvent<TargetSeekerAlertComponent, PowerChangedEvent>(OnAlerterPowerChanged);
 
-        SubscribeLocalEvent<TargetSeekerAlertComponent, TargetSeekerAlertStartedBeingTargetedEvent>(OnAlerterStartedBeingTargeted);
+        SubscribeLocalEvent<TargetSeekerAlertComponent, TargetSeekerAlertStartedBeingTargetedEvent>(
+            OnAlerterStartedBeingTargeted
+        );
         SubscribeLocalEvent<TargetSeekerAlertComponent, TargetSeekerAlertDeactivatedEvent>(OnAlerterDeactivated);
 
-        SubscribeLocalEvent<TargetSeekerAlertGridComponent, EntityStartedBeingSeekedTargetEvent>(OnGridStartingBeingTargeted);
-        SubscribeLocalEvent<TargetSeekerAlertGridComponent, EntityStoppedBeingSeekedTargetEvent>(OnGridStoppedBeingTargeted);
+        SubscribeLocalEvent<TargetSeekerAlertGridComponent, EntityStartedBeingSeekedTargetEvent>(
+            OnGridStartingBeingTargeted
+        );
+        SubscribeLocalEvent<TargetSeekerAlertGridComponent, EntityStoppedBeingSeekedTargetEvent>(
+            OnGridStoppedBeingTargeted
+        );
     }
 
     public override void Update(float frameTime)
@@ -64,8 +72,14 @@ public sealed class TargetSeekerAlertSystem : EntitySystem
 
             foreach (var (_, seekerComponent, seekerTransform) in alertGridComponent.CurrentSeekers)
             {
-                if (!seekerComponent.ExposesTracking ||
-                    !gridTransform.Coordinates.TryDistance(EntityManager, seekerTransform.Coordinates, out var seekerDistance))
+                if (
+                    !seekerComponent.ExposesTracking
+                    || !gridTransform.Coordinates.TryDistance(
+                        EntityManager,
+                        seekerTransform.Coordinates,
+                        out var seekerDistance
+                    )
+                )
                     continue;
 
                 if (seekerDistance < closestSeekerDistance)
@@ -121,9 +135,7 @@ public sealed class TargetSeekerAlertSystem : EntitySystem
             break;
         }
 
-        if ((bestSound == null ||
-            newSoundKey == null) ^
-            alertEntity.Comp.ActiveAlertSoundKey == newSoundKey)
+        if ((bestSound == null || newSoundKey == null) ^ alertEntity.Comp.ActiveAlertSoundKey == newSoundKey)
             return;
 
         alertEntity.Comp.ActiveAlertSoundKey = newSoundKey;
@@ -137,13 +149,19 @@ public sealed class TargetSeekerAlertSystem : EntitySystem
             alertEntity.Comp.Audio = audioTuple.Value.Entity;
     }
 
-    private void OnAlerterStartedBeingTargeted(Entity<TargetSeekerAlertComponent> alertEntity, ref TargetSeekerAlertStartedBeingTargetedEvent args)
+    private void OnAlerterStartedBeingTargeted(
+        Entity<TargetSeekerAlertComponent> alertEntity,
+        ref TargetSeekerAlertStartedBeingTargetedEvent args
+    )
     {
         if (alertEntity.Comp.TargetGainSound is { } gainSound)
             _audioSystem.PlayPvs(gainSound, alertEntity.Owner);
     }
 
-    private void OnAlerterDeactivated(Entity<TargetSeekerAlertComponent> alertEntity, ref TargetSeekerAlertDeactivatedEvent args)
+    private void OnAlerterDeactivated(
+        Entity<TargetSeekerAlertComponent> alertEntity,
+        ref TargetSeekerAlertDeactivatedEvent args
+    )
     {
         if (alertEntity.Comp.Audio is { } alertAudio)
             _audioSystem.Stop(alertAudio);
@@ -170,7 +188,10 @@ public sealed class TargetSeekerAlertSystem : EntitySystem
     ///         and removes the grid's <see cref="TargetSeekerAlertGridComponent"/> if no more of
     ///         such entities are left specified as alerters on it. Raises associated events on the grid.
     /// </summary>
-    private void RemoveAlerterFromGrid(Entity<TargetSeekerAlertGridComponent?> gridEntity, Entity<TargetSeekerAlertComponent> alertEntity)
+    private void RemoveAlerterFromGrid(
+        Entity<TargetSeekerAlertGridComponent?> gridEntity,
+        Entity<TargetSeekerAlertComponent> alertEntity
+    )
     {
         if (!Resolve(gridEntity, ref gridEntity.Comp, logMissing: false))
             return;
@@ -188,14 +209,19 @@ public sealed class TargetSeekerAlertSystem : EntitySystem
         }
     }
 
-    private void OnAlerterParentChanged(Entity<TargetSeekerAlertComponent> alertEntity, ref EntParentChangedMessage args)
+    private void OnAlerterParentChanged(
+        Entity<TargetSeekerAlertComponent> alertEntity,
+        ref EntParentChangedMessage args
+    )
     {
         // Always detach from the old grid (if any) before attaching to the new one,
         // otherwise stale alerter membership lingers when an alerter changes grids and
         // the prior code accidentally removed from the new grid instead of the old one.
-        if (args.OldParent is { } oldParent &&
-            TryComp<MapGridComponent>(oldParent, out _) &&
-            TryComp<TargetSeekerAlertGridComponent>(oldParent, out var oldGridComponent))
+        if (
+            args.OldParent is { } oldParent
+            && TryComp<MapGridComponent>(oldParent, out _)
+            && TryComp<TargetSeekerAlertGridComponent>(oldParent, out var oldGridComponent)
+        )
         {
             RemoveAlerterFromGrid((oldParent, oldGridComponent), alertEntity);
         }
@@ -214,14 +240,19 @@ public sealed class TargetSeekerAlertSystem : EntitySystem
     {
         var alertTransform = Transform(alertEntity);
 
-        if (alertTransform.GridUid is not { } alertGridUid ||
-            !TryComp<TargetSeekerAlertGridComponent>(alertGridUid, out var alertGridComponent))
+        if (
+            alertTransform.GridUid is not { } alertGridUid
+            || !TryComp<TargetSeekerAlertGridComponent>(alertGridUid, out var alertGridComponent)
+        )
             return;
 
         RemoveAlerterFromGrid((alertGridUid, alertGridComponent), alertEntity);
     }
 
-    private void OnGridStartingBeingTargeted(Entity<TargetSeekerAlertGridComponent> gridEntity, ref EntityStartedBeingSeekedTargetEvent args)
+    private void OnGridStartingBeingTargeted(
+        Entity<TargetSeekerAlertGridComponent> gridEntity,
+        ref EntityStartedBeingSeekedTargetEvent args
+    )
     {
         var wasAlreadyActive = gridEntity.Comp.CurrentSeekers.Count > 0;
         gridEntity.Comp.CurrentSeekers.Add(args.Seeker);
@@ -243,7 +274,10 @@ public sealed class TargetSeekerAlertSystem : EntitySystem
         }
     }
 
-    private void OnGridStoppedBeingTargeted(Entity<TargetSeekerAlertGridComponent> gridEntity, ref EntityStoppedBeingSeekedTargetEvent args)
+    private void OnGridStoppedBeingTargeted(
+        Entity<TargetSeekerAlertGridComponent> gridEntity,
+        ref EntityStoppedBeingSeekedTargetEvent args
+    )
     {
         gridEntity.Comp.CurrentSeekers.Remove(args.Seeker);
         var stillTargeted = gridEntity.Comp.CurrentSeekers.Count > 0;

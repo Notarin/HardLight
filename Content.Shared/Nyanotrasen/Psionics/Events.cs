@@ -1,7 +1,7 @@
-using Robust.Shared.Serialization;
+using Content.Shared.Abilities.Psionics;
 using Content.Shared.Damage;
 using Content.Shared.DoAfter;
-using Content.Shared.Abilities.Psionics;
+using Robust.Shared.Serialization;
 
 namespace Content.Shared.Psionics.Events;
 
@@ -77,9 +77,7 @@ public sealed partial class AssayDoAfterEvent : DoAfterEvent
     [DataField]
     public string FontColor = "#8A00C2";
 
-    private AssayDoAfterEvent()
-    {
-    }
+    private AssayDoAfterEvent() { }
 
     public AssayDoAfterEvent(TimeSpan startedAt, int fontSize, string fontColor)
     {

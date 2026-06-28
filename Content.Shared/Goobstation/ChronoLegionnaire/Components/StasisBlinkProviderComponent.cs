@@ -8,7 +8,12 @@ namespace Content.Shared.Goobstation.ChronoLegionnaire.Components
     /// <summary>
     /// Marks an clothing that will give stasis blink ability to wearer
     /// </summary>
-    [RegisterComponent, NetworkedComponent, Access(typeof(SharedStasisBlinkProviderSystem)), AutoGenerateComponentState]
+    [
+        RegisterComponent,
+        NetworkedComponent,
+        Access(typeof(SharedStasisBlinkProviderSystem)),
+        AutoGenerateComponentState
+    ]
     public sealed partial class StasisBlinkProviderComponent : Component
     {
         /// <summary>

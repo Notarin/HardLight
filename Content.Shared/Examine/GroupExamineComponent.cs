@@ -18,11 +18,7 @@ namespace Content.Shared.Examine
             // TODO Remove hardcoded component names.
             new ExamineGroup()
             {
-                Components = new()
-                {
-                    "Armor",
-                    "ClothingSpeedModifier",
-                },
+                Components = new() { "Armor", "ClothingSpeedModifier" },
             },
         };
     }
@@ -109,5 +105,4 @@ namespace Content.Shared.Examine
             Component = default!;
         }
     }
-
 }

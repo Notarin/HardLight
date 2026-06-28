@@ -5,7 +5,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsUSSP ]
+      board: [DoorElectronicsUSSP]
 
 - type: entity
   parent: AirlockGlassShuttleSyndicate
@@ -14,7 +14,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsUSSP ]
+      board: [DoorElectronicsUSSP]
 
 # Mono port: capital-class syndicate docking airlocks (~plastitanium-tier HP).
 - type: entity
@@ -24,8 +24,7 @@
   components:
   - type: Destructible # Mono - buff docking port health
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 7000 # Almost equal to plastitanium.
       behaviors:
       - !type:DoActsBehavior
@@ -41,8 +40,7 @@
   components:
   - type: Destructible # Mono - buff docking port health
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 7000
       behaviors:
       - !type:DoActsBehavior

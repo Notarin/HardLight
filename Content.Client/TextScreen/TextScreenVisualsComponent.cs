@@ -69,8 +69,10 @@ public sealed partial class TextScreenVisualsComponent : Component
 
     [DataField("hourFormat")]
     public string HourFormat = "D2";
+
     [DataField("minuteFormat")]
     public string MinuteFormat = "D2";
+
     [DataField("secondFormat")]
     public string SecondFormat = "D2";
 }

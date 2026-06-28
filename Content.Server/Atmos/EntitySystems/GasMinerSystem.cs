@@ -11,8 +11,11 @@ namespace Content.Server.Atmos.EntitySystems;
 [UsedImplicitly]
 public sealed class GasMinerSystem : SharedGasMinerSystem
 {
-    [Dependency] private readonly AtmosphereSystem _atmosphereSystem = default!;
-    [Dependency] private readonly TransformSystem _transformSystem = default!;
+    [Dependency]
+    private readonly AtmosphereSystem _atmosphereSystem = default!;
+
+    [Dependency]
+    private readonly TransformSystem _transformSystem = default!;
 
     public override void Initialize()
     {
@@ -76,12 +79,16 @@ public sealed class GasMinerSystem : SharedGasMinerSystem
 
         // How many moles could we theoretically spawn. Cap by pressure and amount.
         var allowableMoles = Math.Min(
-            (miner.MaxExternalPressure - environment.Pressure) * environment.Volume / (miner.SpawnTemperature * Atmospherics.R),
-            miner.MaxExternalAmount - environment.TotalMoles);
+            (miner.MaxExternalPressure - environment.Pressure)
+                * environment.Volume
+                / (miner.SpawnTemperature * Atmospherics.R),
+            miner.MaxExternalAmount - environment.TotalMoles
+        );
 
         var toSpawnReal = Math.Clamp(allowableMoles, 0f, toSpawnTarget);
 
-        if (toSpawnReal < Atmospherics.GasMinMoles) {
+        if (toSpawnReal < Atmospherics.GasMinMoles)
+        {
             return 0f;
         }
 

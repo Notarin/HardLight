@@ -21,8 +21,8 @@ public abstract partial class SharedLanguageSystem
     }
 
     /// <summary>
-        /// Restores an entity's languages from their <see cref="LanguageCacheComponent"/>
-        /// recommended to call UpdateLanguages after calling this.
+    /// Restores an entity's languages from their <see cref="LanguageCacheComponent"/>
+    /// recommended to call UpdateLanguages after calling this.
     /// </summary>
     /// <param name="ent">The entity the cache should be restored for</param>
     public void RestoreCache(Entity<LanguageCacheComponent> ent)

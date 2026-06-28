@@ -18,9 +18,11 @@ namespace Content.Server.NodeContainer.NodeGroups
         /// <summary>
         ///     The list of nodes in this group.
         /// </summary>
-        [ViewVariables] public readonly List<Node> Nodes = new();
+        [ViewVariables]
+        public readonly List<Node> Nodes = new();
 
-        [ViewVariables] public int NodeCount => Nodes.Count;
+        [ViewVariables]
+        public int NodeCount => Nodes.Count;
 
         /// <summary>
         ///     Debug variable to indicate that this NodeGroup should not be being used by anything.
@@ -42,9 +44,7 @@ namespace Content.Server.NodeContainer.NodeGroups
             GroupId = groupId;
         }
 
-        public virtual void Initialize(Node sourceNode, IEntityManager entMan)
-        {
-        }
+        public virtual void Initialize(Node sourceNode, IEntityManager entMan) { }
 
         /// <summary>
         ///     Called when a node has been removed from this group via deletion of the node.
@@ -54,16 +54,13 @@ namespace Content.Server.NodeContainer.NodeGroups
         ///     but hooking this method is good for book keeping.
         /// </remarks>
         /// <param name="node">The node that was deleted.</param>
-        public virtual void RemoveNode(Node node)
-        {
-        }
+        public virtual void RemoveNode(Node node) { }
 
         /// <summary>
         ///     Called to load this newly created group up with new nodes.
         /// </summary>
         /// <param name="groupNodes">The new nodes for this group.</param>
-        public virtual void LoadNodes(
-            List<Node> groupNodes)
+        public virtual void LoadNodes(List<Node> groupNodes)
         {
             Nodes.AddRange(groupNodes);
         }

@@ -5,7 +5,8 @@ namespace Content.Client.Paper;
 
 public sealed class EnvelopeSystem : VisualizerSystem<EnvelopeComponent>
 {
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     public override void Initialize()
     {
@@ -23,15 +24,27 @@ public sealed class EnvelopeSystem : VisualizerSystem<EnvelopeComponent>
         if (!Resolve(ent.Owner, ref sprite))
             return;
 
-        _sprite.LayerSetVisible((ent.Owner, sprite), EnvelopeVisualLayers.Open, ent.Comp.State == EnvelopeComponent.EnvelopeState.Open);
-        _sprite.LayerSetVisible((ent.Owner, sprite), EnvelopeVisualLayers.Sealed, ent.Comp.State == EnvelopeComponent.EnvelopeState.Sealed);
-        _sprite.LayerSetVisible((ent.Owner, sprite), EnvelopeVisualLayers.Torn, ent.Comp.State == EnvelopeComponent.EnvelopeState.Torn);
+        _sprite.LayerSetVisible(
+            (ent.Owner, sprite),
+            EnvelopeVisualLayers.Open,
+            ent.Comp.State == EnvelopeComponent.EnvelopeState.Open
+        );
+        _sprite.LayerSetVisible(
+            (ent.Owner, sprite),
+            EnvelopeVisualLayers.Sealed,
+            ent.Comp.State == EnvelopeComponent.EnvelopeState.Sealed
+        );
+        _sprite.LayerSetVisible(
+            (ent.Owner, sprite),
+            EnvelopeVisualLayers.Torn,
+            ent.Comp.State == EnvelopeComponent.EnvelopeState.Torn
+        );
     }
 
     public enum EnvelopeVisualLayers : byte
     {
         Open,
         Sealed,
-        Torn
+        Torn,
     }
 }

@@ -36,7 +36,14 @@ public static class ResearchColorScheme
         public Color Connection { get; set; }
         public Color InfoText { get; set; }
 
-        public TechItemColors(Color background, Color border, Color hover, Color selected, Color connection, Color? infoText = null)
+        public TechItemColors(
+            Color background,
+            Color border,
+            Color hover,
+            Color selected,
+            Color connection,
+            Color? infoText = null
+        )
         {
             Background = background;
             Border = border;
@@ -138,7 +145,7 @@ public static class ResearchColorScheme
             selected: Color.Crimson,
             connection: Color.Crimson,
             infoText: Color.Crimson
-        )
+        ),
     };
 
     /// <summary>
@@ -202,7 +209,7 @@ public static class ResearchColorScheme
             ResearchAvailability.Available => UIColors.InterpolationFactors.Available,
             ResearchAvailability.PrereqsMet => UIColors.InterpolationFactors.PrereqsMet,
             ResearchAvailability.Unavailable => UIColors.InterpolationFactors.Unavailable,
-            _ => UIColors.InterpolationFactors.Default
+            _ => UIColors.InterpolationFactors.Default,
         };
     }
 
@@ -226,8 +233,15 @@ public static class ResearchColorScheme
     /// <param name="selected">Selected color (optional, defaults to border)</param>
     /// <param name="connection">Connection line color (optional, defaults to border)</param>
     /// <param name="infoText">Info panel text color (optional, defaults to border)</param>
-    public static void SetTechItemColors(ResearchAvailability availability, Color background, Color border,
-        Color? hover = null, Color? selected = null, Color? connection = null, Color? infoText = null)
+    public static void SetTechItemColors(
+        ResearchAvailability availability,
+        Color background,
+        Color border,
+        Color? hover = null,
+        Color? selected = null,
+        Color? connection = null,
+        Color? infoText = null
+    )
     {
         BaseTechItemColors[availability] = new TechItemColors(
             background: background,

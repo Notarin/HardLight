@@ -59,9 +59,11 @@ public sealed partial class GuidebookData
             throw new InvalidOperationException("Freeze the GuidebookData before calling TryGetValue!");
 
         // Look in frozen dictionary
-        if (FrozenData.TryGetValue(prototype, out var p)
+        if (
+            FrozenData.TryGetValue(prototype, out var p)
             && p.TryGetValue(component, out var c)
-            && c.TryGetValue(field, out value))
+            && c.TryGetValue(field, out value)
+        )
         {
             return true;
         }

@@ -1,6 +1,6 @@
 using Content.Shared.FixedPoint;
-using Robust.Shared.GameStates;
 using Robust.Shared.Audio; // Frontier
+using Robust.Shared.GameStates;
 
 namespace Content.Shared.Chemistry.Components;
 
@@ -64,6 +64,5 @@ public sealed partial class SolutionTransferComponent : Component
     ///     Frontier - What sound to play when transfering liquid
     /// </summary>
     [DataField("transferSound")]
-    public SoundSpecifier TransferSound =
-    new SoundPathSpecifier("/Audio/_NF/Effects/splat.ogg");
+    public SoundSpecifier TransferSound = new SoundPathSpecifier("/Audio/_NF/Effects/splat.ogg");
 }

@@ -16,10 +16,8 @@
     belt: ClothingBeltAssaultMarrikFilled
     back: ClothingBackpackMessengerChaplainMarrikFilled
     id: BoxerPDAMarrik
-  # inhand:
+    # inhand:
     # - PlushieLizard
-
-
 
 # pocket1
 - type: entity
@@ -41,7 +39,7 @@
     projectileSpeed: 35
   - type: Contraband
     severity: Class1
-    allowedDepartments: [ Civilian, Security, Command, Frontier, CentralCommand ]
+    allowedDepartments: [Civilian, Security, Command, Frontier, CentralCommand]
   - type: EnergyGun
     fireModes:
     - proto: BulletDisabler
@@ -72,12 +70,10 @@
       hypospray:
         maxVol: 250
         reagents:
-          - ReagentId: Ichor
-            Quantity: 125
-          - ReagentId: Omnizine
-            Quantity: 125
-
-
+        - ReagentId: Ichor
+          Quantity: 125
+        - ReagentId: Omnizine
+          Quantity: 125
 
 # head
 - type: entity
@@ -119,7 +115,7 @@
   - type: FlashImmunity
   - type: Contraband
     severity: Class1
-    allowedDepartments: [ Civilian, Security, Command, Frontier, CentralCommand ]
+    allowedDepartments: [Civilian, Security, Command, Frontier, CentralCommand]
 
 # eyes
 - type: entity
@@ -180,7 +176,7 @@
 # suitstorage
 - type: entity
   id: PlasteelArmingSwordMarrik
-  parent: [ BaseSword, BaseC1Contraband ] # PlasteelArmingSword
+  parent: [BaseSword, BaseC1Contraband] # PlasteelArmingSword
   name: the headcount
   description: The short sword vibrates with a low frequency, and reflects light at odd angles. There are tally marks on the handguard and grip.
   suffix: Marrik, Admin
@@ -236,21 +232,21 @@
     damageCoefficient: 0.75
   - type: Contraband
     severity: Class1
-    allowedDepartments: [ Civilian, Security, Command, Frontier, CentralCommand ]
+    allowedDepartments: [Civilian, Security, Command, Frontier, CentralCommand]
   - type: FireProtection
     reduction: 0.75
-  # - type: Armor
+    # - type: Armor
     # modifiers:
-      # coefficients:
-        # Blunt: 0.1
-        # Slash: 0.1
-        # Piercing: 0.1
-        # Heat: 0.1
-        # Radiation: 0.1
-        # Caustic: 0.1
-  # - type: FireProtection
+    # coefficients:
+    # Blunt: 0.1
+    # Slash: 0.1
+    # Piercing: 0.1
+    # Heat: 0.1
+    # Radiation: 0.1
+    # Caustic: 0.1
+    # - type: FireProtection
     # reduction: 0.8
-  # - type: ExplosionResistance
+    # - type: ExplosionResistance
     # damageCoefficient: 0.2
 
 # jumpsuit
@@ -282,9 +278,9 @@
     - Admin
   - type: StorageFill
     contents:
-      - id: StunbatonMarrik
-      - id: HandcuffsMarrik
-        amount: 2
+    - id: StunbatonMarrik
+    - id: HandcuffsMarrik
+      amount: 2
 
 # backpack
 - type: entity
@@ -301,20 +297,20 @@
     damageCoefficient: 0.5
   - type: StorageFill
     contents:
-      - id: ClothingHeadHelmetSwatMarrik
-      - id: JetpackBlackFilledMarrik
-      - id: ClothingOuterHardsuitMaximMarrik
-      - id: HandHeldMassScannerMarrik
-      - id: ClothingWalletLeatherPirateMarrik
-      - id: MiningDrillDiamondMarrik
-      - id: ThrowingKnifeMarrik
-      # - id: BluespaceThrowingKnivesKit
-      - id: MedicalTrackingImplanterDisposable
-      - id: TrackingImplanterDisposable
-      - id: PaintSoapDisposable
-      - id: SprayPaintOrangeDisposable
-      - id: SprayPaintRedDisposable
-      - id: SprayPaintWhiteDisposable
+    - id: ClothingHeadHelmetSwatMarrik
+    - id: JetpackBlackFilledMarrik
+    - id: ClothingOuterHardsuitMaximMarrik
+    - id: HandHeldMassScannerMarrik
+    - id: ClothingWalletLeatherPirateMarrik
+    - id: MiningDrillDiamondMarrik
+    - id: ThrowingKnifeMarrik
+    # - id: BluespaceThrowingKnivesKit
+    - id: MedicalTrackingImplanterDisposable
+    - id: TrackingImplanterDisposable
+    - id: PaintSoapDisposable
+    - id: SprayPaintOrangeDisposable
+    - id: SprayPaintRedDisposable
+    - id: SprayPaintWhiteDisposable
 
 # pda
 - type: entity
@@ -341,14 +337,14 @@
     autoRot: true
   - type: CartridgeLoader
     preinstalled:
-      - CrewManifestCartridge
-      - NotekeeperCartridge
-      - NanoTaskCartridge
-      - NewsReaderCartridge
-      - BountyContractsCartridge
-      - AstroNavCartridge
-      - MedTekCartridge
-      - WantedListCartridge
+    - CrewManifestCartridge
+    - NotekeeperCartridge
+    - NanoTaskCartridge
+    - NewsReaderCartridge
+    - BountyContractsCartridge
+    - AstroNavCartridge
+    - MedTekCartridge
+    - WantedListCartridge
   - type: HealthAnalyzer
     scanDelay: 0.4
 
@@ -383,10 +379,6 @@
     - Wizard
     - Xenoborg
     - Pirate
-
-
-
-
 
 # Stunbaton
 - type: entity
@@ -432,7 +424,7 @@
 # HandHeldMassScanner
 - type: entity
   id: HandHeldMassScannerMarrik
-  parent: [ BaseMicroreactorItem, HandHeldMassScanner ]
+  parent: [BaseMicroreactorItem, HandHeldMassScanner]
   # name:
   # description:
   suffix: Marrik, Admin
@@ -446,11 +438,10 @@
     inHandsOnly: false
     requireActiveHand: false
 
-
 # ClothingOuterHardsuitMaxim
 - type: entity
   id: ClothingOuterHardsuitMaximMarrik
-  parent: [ ClothingOuterHardsuitMaxim, BaseC3Contraband ]
+  parent: [ClothingOuterHardsuitMaxim, BaseC3Contraband]
   name: bounty hunter's hardsuit
   description: A sturdy and compressible suit offering maximum mobility with minimal sacrifices to protection. The ankle plating offers magnetism.
   suffix: Marrik, Admin
@@ -465,7 +456,7 @@
     damageCoefficient: 0.5
   - type: Contraband
     severity: Class1
-    allowedDepartments: [ Civilian, Security, Command, Frontier, CentralCommand ]
+    allowedDepartments: [Civilian, Security, Command, Frontier, CentralCommand]
   - type: Item
     size: Normal
   - type: Armor
@@ -499,14 +490,14 @@
       volume: 25
       temperature: 293.15
       moles:
-        - 5.128447625 # oxygen
-        - 5.128447625 # nitrogen
+      - 5.128447625 # oxygen
+      - 5.128447625 # nitrogen
   - type: Jetpack
     moleUsage: 0.00025
     acceleration: 5
   - type: Contraband
     severity: Class1
-    allowedDepartments: [ Civilian, Security, Command, Frontier, CentralCommand ]
+    allowedDepartments: [Civilian, Security, Command, Frontier, CentralCommand]
   - type: Item
     size: Normal
     # shape:
@@ -531,7 +522,7 @@
     lowPressureMultiplier: 1000
   - type: Contraband
     severity: Class1
-    allowedDepartments: [ Civilian, Security, Command, Frontier, CentralCommand ]
+    allowedDepartments: [Civilian, Security, Command, Frontier, CentralCommand]
 
 # MiningDrillDiamond
 - type: entity
@@ -568,10 +559,6 @@
     range: 2.0
     clickPartDamageMultiplier: 50
     heavyPartDamageMultiplier: 0
-
-
-
-
 
 # Marrik Sword Reflect Sounds
 - type: soundCollection

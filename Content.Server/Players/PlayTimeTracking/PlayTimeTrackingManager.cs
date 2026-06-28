@@ -57,13 +57,26 @@ public delegate void CalcPlayTimeTrackersCallback(ICommonSession player, HashSet
 /// </remarks>
 public sealed partial class PlayTimeTrackingManager : ISharedPlaytimeManager, IPostInjectInit // Frontier: add partial
 {
-    [Dependency] private readonly IServerDbManager _db = default!;
-    [Dependency] private readonly IServerNetManager _net = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly ITaskManager _task = default!;
-    [Dependency] private readonly IRuntimeLog _runtimeLog = default!;
-    [Dependency] private readonly UserDbDataManager _userDb = default!;
+    [Dependency]
+    private readonly IServerDbManager _db = default!;
+
+    [Dependency]
+    private readonly IServerNetManager _net = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly ITaskManager _task = default!;
+
+    [Dependency]
+    private readonly IRuntimeLog _runtimeLog = default!;
+
+    [Dependency]
+    private readonly UserDbDataManager _userDb = default!;
 
     private ISawmill _sawmill = default!;
 
@@ -211,7 +224,10 @@ public sealed partial class PlayTimeTrackingManager : ISharedPlaytimeManager, IP
         return GetTrackerTimes(session);
     }
 
-    public bool TryGetPlayTimes(ICommonSession session, [NotNullWhen(true)] out IReadOnlyDictionary<string, TimeSpan>? playTimes)
+    public bool TryGetPlayTimes(
+        ICommonSession session,
+        [NotNullWhen(true)] out IReadOnlyDictionary<string, TimeSpan>? playTimes
+    )
     {
         playTimes = null;
 
@@ -226,10 +242,7 @@ public sealed partial class PlayTimeTrackingManager : ISharedPlaytimeManager, IP
     {
         var roles = GetTrackerTimes(pSession);
 
-        var msg = new MsgPlayTime
-        {
-            Trackers = roles
-        };
+        var msg = new MsgPlayTime { Trackers = roles };
 
         _net.ServerSendMessage(msg, pSession.Channel);
         SessionPlayTimeUpdated?.Invoke(pSession);

@@ -37,10 +37,6 @@ public sealed partial class EntityWhitelistCondition : IConstructionCondition
 
     public ConstructionGuideEntry GenerateGuideEntry()
     {
-        return new ConstructionGuideEntry
-        {
-            Localization = ConditionString,
-            Icon = ConditionIcon
-        };
+        return new ConstructionGuideEntry { Localization = ConditionString, Icon = ConditionIcon };
     }
 }

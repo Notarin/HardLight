@@ -12,7 +12,8 @@ namespace Content.Server.Construction.Commands;
 [AdminCommand(AdminFlags.Mapping)]
 public sealed class FixRotationsCommand : IConsoleCommand
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
 
     private static readonly ProtoId<TagPrototype> ForceFixRotationsTag = "ForceFixRotations";
     private static readonly ProtoId<TagPrototype> ForceNoFixRotationsTag = "ForceNoFixRotations";
@@ -68,7 +69,6 @@ public sealed class FixRotationsCommand : IConsoleCommand
 
         var changed = 0;
         var tagSystem = _entManager.EntitySysManager.GetEntitySystem<TagSystem>();
-
 
         var enumerator = xformQuery.GetComponent(gridId.Value).ChildEnumerator;
         while (enumerator.MoveNext(out var child))

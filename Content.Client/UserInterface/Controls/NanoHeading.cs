@@ -12,10 +12,7 @@ namespace Content.Client.UserInterface.Controls
         {
             _panel = new PanelContainer
             {
-                Children = {(_label = new Label
-                {
-                    StyleClasses = {StyleNano.StyleClassLabelHeading}
-                })}
+                Children = { (_label = new Label { StyleClasses = { StyleNano.StyleClassLabelHeading } }) },
             };
             AddChild(_panel);
 

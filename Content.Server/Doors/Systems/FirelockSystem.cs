@@ -16,11 +16,20 @@ namespace Content.Server.Doors.Systems
 {
     public sealed class FirelockSystem : SharedFirelockSystem
     {
-        [Dependency] private readonly SharedDoorSystem _doorSystem = default!;
-        [Dependency] private readonly AtmosphereSystem _atmosSystem = default!;
-        [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-        [Dependency] private readonly SharedMapSystem _mapping = default!;
-        [Dependency] private readonly PointLightSystem _pointLight = default!;
+        [Dependency]
+        private readonly SharedDoorSystem _doorSystem = default!;
+
+        [Dependency]
+        private readonly AtmosphereSystem _atmosSystem = default!;
+
+        [Dependency]
+        private readonly SharedAppearanceSystem _appearance = default!;
+
+        [Dependency]
+        private readonly SharedMapSystem _mapping = default!;
+
+        [Dependency]
+        private readonly PointLightSystem _pointLight = default!;
 
         private const int UpdateInterval = 30;
         private int _accumulatedTicks;
@@ -32,7 +41,6 @@ namespace Content.Server.Doors.Systems
             SubscribeLocalEvent<FirelockComponent, AtmosAlarmEvent>(OnAtmosAlarm);
 
             SubscribeLocalEvent<FirelockComponent, PowerChangedEvent>(PowerChanged);
-
         }
 
         private void PowerChanged(EntityUid uid, FirelockComponent component, ref PowerChangedEvent args)
@@ -58,16 +66,16 @@ namespace Content.Server.Doors.Systems
             while (query.MoveNext(out var uid, out var firelock, out var door))
             {
                 // only bother to check pressure on doors that are some variation of closed.
-                if (door.State != DoorState.Closed
-                    && door.State != DoorState.Welded
-                    && door.State != DoorState.Denying)
+                if (door.State != DoorState.Closed && door.State != DoorState.Welded && door.State != DoorState.Denying)
                 {
                     continue;
                 }
 
-                if (airtightQuery.TryGetComponent(uid, out var airtight)
+                if (
+                    airtightQuery.TryGetComponent(uid, out var airtight)
                     && xformQuery.TryGetComponent(uid, out var xform)
-                    && appearanceQuery.TryGetComponent(uid, out var appearance))
+                    && appearanceQuery.TryGetComponent(uid, out var appearance)
+                )
                 {
                     var (pressure, fire) = CheckPressureAndFire(uid, firelock, xform, airtight, airtightQuery);
                     _appearance.SetData(uid, DoorVisuals.ClosedLights, fire || pressure, appearance);
@@ -113,11 +121,12 @@ namespace Content.Server.Doors.Systems
         }
 
         public (bool Pressure, bool Fire) CheckPressureAndFire(
-        EntityUid uid,
-        FirelockComponent firelock,
-        TransformComponent xform,
-        AirtightComponent airtight,
-        EntityQuery<AirtightComponent> airtightQuery)
+            EntityUid uid,
+            FirelockComponent firelock,
+            TransformComponent xform,
+            AirtightComponent airtight,
+            EntityQuery<AirtightComponent> airtightQuery
+        )
         {
             if (!airtight.AirBlocked)
                 return (false, false);
@@ -128,10 +137,12 @@ namespace Content.Server.Doors.Systems
                 return (false, false);
             }
 
-            if (!HasComp<GridAtmosphereComponent>(xform.ParentUid)
+            if (
+                !HasComp<GridAtmosphereComponent>(xform.ParentUid)
                 || xform.MapUid == null
                 || !HasComp<MapAtmosphereComponent>(xform.MapUid.Value)
-                || !TryComp<MapGridComponent>(xform.ParentUid, out var grid))
+                || !TryComp<MapGridComponent>(xform.ParentUid, out var grid)
+            )
                 return (false, false);
 
             var pos = _mapping.CoordinatesToTile(xform.ParentUid, grid, xform.Coordinates);
@@ -180,7 +191,13 @@ namespace Content.Server.Doors.Systems
                 {
                     // Is there some airtight entity blocking this direction? If yes, don't include this direction in the
                     // pressure differential
-                    if (HasAirtightBlocker(_mapping.GetAnchoredEntities(xform.ParentUid, grid, adjacentPos), dir.GetOpposite(), airtightQuery))
+                    if (
+                        HasAirtightBlocker(
+                            _mapping.GetAnchoredEntities(xform.ParentUid, grid, adjacentPos),
+                            dir.GetOpposite(),
+                            airtightQuery
+                        )
+                    )
                         continue;
 
                     var p = gas.Pressure;
@@ -223,7 +240,11 @@ namespace Content.Server.Doors.Systems
             return (holdingPressure, holdingFire);
         }
 
-        private bool HasAirtightBlocker(IEnumerable<EntityUid> enumerable, AtmosDirection dir, EntityQuery<AirtightComponent> airtightQuery)
+        private bool HasAirtightBlocker(
+            IEnumerable<EntityUid> enumerable,
+            AtmosDirection dir,
+            EntityQuery<AirtightComponent> airtightQuery
+        )
         {
             foreach (var ent in enumerable)
             {

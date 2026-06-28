@@ -127948,16 +127948,13 @@ entities:
 
         ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
 
-
         [bold]Full Name:[/bold]
 
         [bold]Current Job:[/bold]
 
-
         ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
 
         [bold]Order ID:[/bold] 1
-
 
         [bold]Items Requested:[/bold]
 
@@ -127968,7 +127965,6 @@ entities:
         [bullet/] 90x Plasteel
 
         [bullet/] 30x Plastic
-
 
         ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
 
@@ -127984,7 +127980,6 @@ entities:
       content: >2-
 
         [head=1]Health Advisory[/head]
-
 
         Due to the slight deviations in the gravity generator's gravitaitonal field, runoff water from mining operations has accumulated near the centre of the station. Tests have concluded that this water is [bold]contaminated with dangerous levels of plasma[/bold]. Avoid contact with the contaminated water until it can be safely extracted. Do not consume the contaminated water under any circumstances.
   - uid: 9488
@@ -128008,24 +128003,17 @@ entities:
 
         [head=1]Aussec Security Suite[/head]
 
-
         Congratulations on the installation of your [bold]Aussec Security Suite[/bold]. This short guide will run you through the functions of each button.
-
 
         [bold]Desk Shutters[/bold] operates the exterior shutters of the front desk, useful for silencing rioters who complain.
 
-
         [bold]Open Doors[/bold] operates the front doors to allow civilians entrance into security - or exit, if you're feeling inclined.
-
 
         [bold]Janitor Light[/bold] toggles the exterior janitor light, to alert the janitor that you have another blood spill.
 
-
         [bold]Entrance Lockdown[/bold] toggles the entrance blast doors, for the most extreme circumstances where security is at risk of being overrun.
 
-
         [bold]Cell Shutters[/bold] toggles the holding cell shutters to prevent criminal scum from communicating with their accomplices.
-
 
         [bold]Perma Lockdown[/bold] toggles the permabrig blast doors, for containing the most extreme prison riots.
       editingDisabled: True
@@ -128051,12 +128039,9 @@ entities:
 
         [head=2]TB Engineering Firm[/head]
 
-
         Thankyou for ordering your very own Thermal Electric Generator (TEG) from TB Engineering. Many first time adopters of the TEG struggle to understand it's ins and outs, but fear not! We've organised this short instruction pamphlet to provide a guide to setting up a basic TEG. This is not the only way to set up a TEG, but it's among the simplest.
 
-
         [head=2]Setup[/head]
-
 
         [bold]Step 0:[/bold] If this is your first time operating the TEG, TB Engineering highly recommend preparing an auxilary power solution first. The TEG may require extensive setup time - and will be difficult if assistance is not available.
 
@@ -128068,9 +128053,7 @@ entities:
 
         [bold]Step 4:[/bold] Connect the [italic]"Burn Chamber Output"[/italic] pump to the north-west port of the TEG, and connect the [italic]"TEG to Space"[/italic] pump to the north-east port of the TEG.
 
-
         [head=2]Operation[/head]
-
 
         [bold]Step 6:[/bold] Enable all pumps that are part of the southern cooling loop to allow coolant flow.
 
@@ -128084,21 +128067,15 @@ entities:
 
         [bold]Step 9[/bold] Engage [italic]"TEG to Space"[/italic] pump fully, and partially engage [italic]"Burn Chamber Output"[/italic] pump, limited to 30L/s.
 
-
         [head=3]Troubleshooting[/head]
-
 
         [bold]Circulators aren't turning:[/bold] The circulators are directional. Ensure that gas flow occurs in a clockwise direction. The provided unit should include pumps to help indicate direction.
 
-
         [bold]Burn chamber not burning:[/bold] If chamber is still hot, this is normal and occurs once the burn chamber is at sufficient pressure and fuel is no longer injecting. Otherwise, ensure that fuel mixture is correct. If starting from a cold start, avoid injecting too much fuel to avoid flooding the chamber.
-
 
         [bold]Insufficient power to operate TEG:[/bold] Use any available secondary power sources to power equipment as needed to start the TEG. If necassary, disable auxilary power connections to ensure TEG is properly powered for startup.
 
-
         [bold]Gas leak occured within TEG facility:[/bold] Use included emergency ventilation shutters to evacuate gas from facility. Ensure proper hazard protection is worn during this proceedure. This operation can be done from the TEG chamber or TEG control room.
-
 
         [bold]My team is incompetent:[/bold] Please return your team to your manufacturer as soon as possible and order a new one. Refunds may apply as per manufacturer warranty. TB Engineering takes no responsibility for injury, financial losses, station losses, braincell losses, loss of life or migraines caused by attempting to operate the TEG with a faulty team.
       editingDisabled: True
@@ -128124,12 +128101,9 @@ entities:
 
         [head=2]TB Engineering Firm[/head]
 
-
         Thankyou for ordering your very own Thermal Electric Generator (TEG) from TB Engineering. Many first time adopters of the TEG struggle to understand it's ins and outs, but fear not! We've organised this short instruction pamphlet to provide a guide to setting up a basic TEG. This is not the only way to set up a TEG, but it's among the simplest.
 
-
         [head=2]Setup[/head]
-
 
         [bold]Step 0:[/bold] If this is your first time operating the TEG, TB Engineering highly recommend preparing an auxilary power solution first. The TEG may require extensive setup time - and will be difficult if assistance is not available.
 
@@ -128141,9 +128115,7 @@ entities:
 
         [bold]Step 4:[/bold] Connect the [italic]"Burn Chamber Output"[/italic] pump to the north-west port of the TEG, and connect the [italic]"TEG to Space"[/italic] pump to the north-east port of the TEG.
 
-
         [head=2]Operation[/head]
-
 
         [bold]Step 6:[/bold] Enable all pumps that are part of the southern cooling loop to allow coolant flow.
 
@@ -128157,21 +128129,15 @@ entities:
 
         [bold]Step 9[/bold] Engage [italic]"TEG to Space"[/italic] pump fully, and partially engage [italic]"Burn Chamber Output"[/italic] pump, limited to 30L/s.
 
-
         [head=3]Troubleshooting[/head]
-
 
         [bold]Circulators aren't turning:[/bold] The circulators are directional. Ensure that gas flow occurs in a clockwise direction. The provided unit should include pumps to help indicate direction.
 
-
         [bold]Burn chamber not burning:[/bold] If chamber is still hot, this is normal and occurs once the burn chamber is at sufficient pressure and fuel is no longer injecting. Otherwise, ensure that fuel mixture is correct. If starting from a cold start, avoid injecting too much fuel to avoid flooding the chamber.
-
 
         [bold]Insufficient power to operate TEG:[/bold] Use any available secondary power sources to power equipment as needed to start the TEG. If necassary, disable auxilary power connections to ensure TEG is properly powered for startup.
 
-
         [bold]Gas leak occured within TEG facility:[/bold] Use included emergency ventilation shutters to evacuate gas from facility. Ensure proper hazard protection is worn during this proceedure. This operation can be done from the TEG chamber or TEG control room.
-
 
         [bold]My team is incompetent:[/bold] Please return your team to your manufacturer as soon as possible and order a new one. Refunds may apply as per manufacturer warranty. TB Engineering takes no responsibility for injury, financial losses, station losses, braincell losses, loss of life or migraines caused by attempting to operate the TEG with a faulty team.
       editingDisabled: True
@@ -128197,21 +128163,15 @@ entities:
 
         [head=2]TB Engineering Firm[/head]
 
-
         Thank you for purchasing your very own Intrepid Class Self-Contained Research Module! We here at TB Engineering have done our very best to ensure that this self-contained laboratory services all your research and prototyping needs.
-
 
         The front of the module includes the main laboratory - that can be retrofitted for a variety of purposes, such as Xenobiology, Xenoarcheology, Cleanroom, Materials Analysis and far more! Ask us about the various options available - as we garantee we have one for your purposes. If not, custom refits are available at an increased cost.
 
-
         The centre of the module consists of a multipurpose break room that can function as a place for rest and relaxation during designated break periods. Options include a deluxe variant with individual bunks for crew, a corporate standard variant with office and break room or a budget variant which includes a basic living area and bulk bunks.
-
 
         The rear of the module consists of the storage compartments - which can be refitted into workshops or other utility rooms as needed. External retrofitting options will be required - as we do not provide equipment for these rooms.
 
-
         For information about parts, repairs, refits or miscellaneous queries, contact us via our website at gww.tbeng.ntnet
-
 
         [italic]TB Engineering Firm and it's subsidiaries takes no responsibility for any minor or major injury, loss of life, loss of profit, loss of time or loss of spacetime caused by use of the "Intrepid" Class Self-Contained Research Module. Read the full terms and conditions for details.[/italic]
       editingDisabled: True
@@ -128495,7 +128455,6 @@ entities:
       content: >-
         [head=1]TODO List:[/head]
 
-
         Power:
 
         - Set up the AME
@@ -128503,7 +128462,6 @@ entities:
         - Set up the TEG [italic](What? There's no singularity?)[/italic]
 
         - Set up solars
-
 
         Atmos:
 
@@ -128514,7 +128472,6 @@ entities:
         - Prep fuel for TEG
 
         - Make trit
-
 
         Other:
 
@@ -128533,7 +128490,6 @@ entities:
     - type: Paper
       content: >-
         [bold]Notice from management:[/bold]
-
 
         Material redemption lines are not rides, please exit the material redemption line.
   - uid: 26086
@@ -168454,4 +168410,3 @@ entities:
     - type: Transform
       pos: -120.40426,-34.49997
       parent: 2
-...

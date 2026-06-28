@@ -13,7 +13,8 @@ public sealed class RateLimitRegistration(
     Action<ICommonSession>? playerLimitedAction,
     CVarDef<int>? cVarAdminAnnounceDelay = null,
     Action<ICommonSession>? adminAnnounceAction = null,
-    LogType adminLogType = LogType.RateLimited)
+    LogType adminLogType = LogType.RateLimited
+)
 {
     /// <summary>
     /// CVar that controls the period over which the rate limit is counted, measured in seconds.

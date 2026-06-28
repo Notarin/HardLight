@@ -1,7 +1,8 @@
+using System.Linq;
 using Content.Shared.Buckle;
 using Content.Shared.Buckle.Components;
-using Content.Shared.Climbing.Systems;
 using Content.Shared.Climbing.Components;
+using Content.Shared.Climbing.Systems;
 using Content.Shared.Hands.Components;
 using Content.Shared.Movement.Systems;
 using Content.Shared.Physics;
@@ -9,21 +10,31 @@ using Content.Shared.Rotation;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Systems;
-using System.Linq;
 
 namespace Content.Shared.Standing;
 
 public sealed class StandingStateSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly MovementSpeedModifierSystem _movement = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly ClimbSystem _climb = default!;
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedPhysicsSystem _physics = default!;
+
+    [Dependency]
+    private readonly MovementSpeedModifierSystem _movement = default!;
+
+    [Dependency]
+    private readonly EntityLookupSystem _lookup = default!;
+
+    [Dependency]
+    private readonly ClimbSystem _climb = default!;
 
     // If StandingCollisionLayer value is ever changed to more than one layer, the logic needs to be edited.
-    private const int StandingCollisionLayer = (int) CollisionGroup.MidImpassable;
+    private const int StandingCollisionLayer = (int)CollisionGroup.MidImpassable;
 
     public bool IsDown(EntityUid uid, StandingStateComponent? standingState = null)
     {
@@ -33,11 +44,15 @@ public sealed class StandingStateSystem : EntitySystem
         return standingState.CurrentState is StandingState.Lying or StandingState.GettingUp;
     }
 
-    public bool Down(EntityUid uid, bool playSound = true, bool dropHeldItems = true,
+    public bool Down(
+        EntityUid uid,
+        bool playSound = true,
+        bool dropHeldItems = true,
         StandingStateComponent? standingState = null,
         AppearanceComponent? appearance = null,
         HandsComponent? hands = null,
-        bool setDrawDepth = false)
+        bool setDrawDepth = false
+    )
     {
         // TODO: This should actually log missing comps...
         if (!Resolve(uid, ref standingState, false))
@@ -81,7 +96,13 @@ public sealed class StandingStateSystem : EntitySystem
                     continue;
 
                 standingState.ChangedFixtures.Add(key);
-                _physics.SetCollisionMask(uid, key, fixture, fixture.CollisionMask & ~StandingCollisionLayer, manager: fixtureComponent);
+                _physics.SetCollisionMask(
+                    uid,
+                    key,
+                    fixture,
+                    fixture.CollisionMask & ~StandingCollisionLayer,
+                    manager: fixtureComponent
+                );
             }
 
         // check if component was just added or streamed to client
@@ -99,10 +120,12 @@ public sealed class StandingStateSystem : EntitySystem
         return true;
     }
 
-    public bool Stand(EntityUid uid,
+    public bool Stand(
+        EntityUid uid,
         StandingStateComponent? standingState = null,
         AppearanceComponent? appearance = null,
-        bool force = false)
+        bool force = false
+    )
     {
         // TODO: This should actually log missing comps...
         if (!Resolve(uid, ref standingState, false))
@@ -137,7 +160,13 @@ public sealed class StandingStateSystem : EntitySystem
             foreach (var key in standingState.ChangedFixtures)
             {
                 if (fixtureComponent.Fixtures.TryGetValue(key, out var fixture))
-                    _physics.SetCollisionMask(uid, key, fixture, fixture.CollisionMask | StandingCollisionLayer, fixtureComponent);
+                    _physics.SetCollisionMask(
+                        uid,
+                        key,
+                        fixture,
+                        fixture.CollisionMask | StandingCollisionLayer,
+                        fixtureComponent
+                    );
             }
         }
         standingState.ChangedFixtures.Clear();
@@ -156,13 +185,14 @@ public sealed class StandingStateSystem : EntitySystem
 
         foreach (var entity in _lookup.GetEntitiesIntersecting(uid)) // Floof - changed to GetEntitiesIntersecting to avoid climbing through walls
             if (TryComp<ClimbableComponent>(entity, out var climb) && !climb.Disabled)
-                entityDistances[entity] = (Transform(uid).Coordinates.Position - Transform(entity).Coordinates.Position).LengthSquared();
+                entityDistances[entity] = (
+                    Transform(uid).Coordinates.Position - Transform(entity).Coordinates.Position
+                ).LengthSquared();
 
         if (entityDistances.Count > 0)
             _climb.ForciblySetClimbing(uid, entityDistances.OrderBy(e => e.Value).First().Key);
     }
 }
-
 
 public sealed class DropHandItemsEvent : EventArgs { }
 

@@ -1,13 +1,15 @@
-using Content.Shared.Body.Systems;
-using Content.Shared.Mobs;
 using Content.Shared._Shitmed.Targeting;
 using Content.Shared._Shitmed.Targeting.Events;
 using Content.Shared.Body.Part;
+using Content.Shared.Body.Systems;
+using Content.Shared.Mobs;
 
 namespace Content.Server._Shitmed.Targeting;
+
 public sealed class TargetingSystem : SharedTargetingSystem
 {
-    [Dependency] private readonly SharedBodySystem _bodySystem = default!;
+    [Dependency]
+    private readonly SharedBodySystem _bodySystem = default!;
 
     public override void Initialize()
     {
@@ -40,7 +42,10 @@ public sealed class TargetingSystem : SharedTargetingSystem
             // I love groin shitcode.
             component.BodyStatus[TargetBodyPart.Groin] = TargetIntegrity.Dead;
         }
-        else if (args.OldMobState == MobState.Dead && (args.NewMobState == MobState.Alive || args.NewMobState == MobState.Critical))
+        else if (
+            args.OldMobState == MobState.Dead
+            && (args.NewMobState == MobState.Alive || args.NewMobState == MobState.Critical)
+        )
         {
             component.BodyStatus = _bodySystem.GetBodyPartStatus(uid);
             changed = true;

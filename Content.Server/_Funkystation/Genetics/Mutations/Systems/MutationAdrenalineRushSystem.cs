@@ -1,15 +1,18 @@
 using Content.Server._Funkystation.Genetics.Mutations.Components;
-using Content.Shared.Actions;
-using Content.Shared.FixedPoint;
 using Content.Shared._Funkystation.Genetics.Events;
+using Content.Shared.Actions;
 using Content.Shared.Chemistry.EntitySystems;
+using Content.Shared.FixedPoint;
 
 namespace Content.Server._Funkystation.Genetics.Mutations.Systems;
 
 public sealed class MutationAdrenalineRushSystem : EntitySystem
 {
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solution = default!;
+    [Dependency]
+    private readonly SharedActionsSystem _actions = default!;
+
+    [Dependency]
+    private readonly SharedSolutionContainerSystem _solution = default!;
 
     private const string ReagentId = "Epinephrine";
     private const float Amount = 10f;

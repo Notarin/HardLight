@@ -1,11 +1,11 @@
 using System.Linq;
 using System.Numerics;
 using Content.Server.Physics.Components;
-using Robust.Shared.Random;
-using Robust.Shared.Timing;
-using Robust.Shared.Physics.Systems;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Controllers;
+using Robust.Shared.Physics.Systems;
+using Robust.Shared.Random;
+using Robust.Shared.Timing;
 
 namespace Content.Server.Physics.Controllers;
 
@@ -14,11 +14,20 @@ namespace Content.Server.Physics.Controllers;
 /// </summary>
 public sealed class ChasingWalkSystem : VirtualController
 {
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly EntityLookupSystem _lookup = default!;
+
+    [Dependency]
+    private readonly SharedPhysicsSystem _physics = default!;
 
     private readonly HashSet<Entity<IComponent>> _potentialChaseTargets = new();
 
@@ -53,7 +62,9 @@ public sealed class ChasingWalkSystem : VirtualController
             {
                 ChangeTarget(uid, chasing);
 
-                var delay = TimeSpan.FromSeconds(_random.NextFloat(chasing.ChangeVectorMinInterval, chasing.ChangeVectorMaxInterval));
+                var delay = TimeSpan.FromSeconds(
+                    _random.NextFloat(chasing.ChangeVectorMinInterval, chasing.ChangeVectorMaxInterval)
+                );
                 chasing.NextChangeVectorTime += delay;
             }
         }
@@ -69,7 +80,13 @@ public sealed class ChasingWalkSystem : VirtualController
         var range = component.MaxChaseRadius;
         var compType = _random.Pick(component.ChasingComponent.Values).Component.GetType();
         _potentialChaseTargets.Clear();
-        _lookup.GetEntitiesInRange(compType, _transform.GetMapCoordinates(xform), range, _potentialChaseTargets, LookupFlags.Uncontained);
+        _lookup.GetEntitiesInRange(
+            compType,
+            _transform.GetMapCoordinates(xform),
+            range,
+            _potentialChaseTargets,
+            LookupFlags.Uncontained
+        );
 
         //If there are no required components in the radius, don't moving.
         if (_potentialChaseTargets.Count <= 0)

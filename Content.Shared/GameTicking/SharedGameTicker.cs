@@ -1,5 +1,7 @@
 using System.Linq;
+using Content.Shared._NF.Shipyard.Prototypes; // Frontier
 using Content.Shared.Roles;
+using Robust.Shared.Audio;
 using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Replays;
@@ -7,16 +9,17 @@ using Robust.Shared.Serialization;
 using Robust.Shared.Serialization.Markdown.Mapping;
 using Robust.Shared.Serialization.Markdown.Value;
 using Robust.Shared.Timing;
-using Robust.Shared.Audio;
 using Robust.Shared.Utility;
-using Content.Shared._NF.Shipyard.Prototypes; // Frontier
 
 namespace Content.Shared.GameTicking
 {
     public abstract class SharedGameTicker : EntitySystem
     {
-        [Dependency] private readonly IReplayRecordingManager _replay = default!;
-        [Dependency] private readonly IGameTiming _gameTiming = default!;
+        [Dependency]
+        private readonly IReplayRecordingManager _replay = default!;
+
+        [Dependency]
+        private readonly IGameTiming _gameTiming = default!;
 
         // See ideally these would be pulled from the job definition or something.
         // But this is easier, and at least it isn't hardcoded.
@@ -29,7 +32,9 @@ namespace Content.Shared.GameTicking
         // Probably most useful for replays, round end info, and probably things like lobby menus.
         [ViewVariables]
         public int RoundId { get; protected set; }
-        [ViewVariables] public TimeSpan RoundStartTimeSpan { get; protected set; }
+
+        [ViewVariables]
+        public TimeSpan RoundStartTimeSpan { get; protected set; }
 
         public override void Initialize()
         {
@@ -57,14 +62,10 @@ namespace Content.Shared.GameTicking
     }
 
     [Serializable, NetSerializable]
-    public sealed class TickerJoinLobbyEvent : EntityEventArgs
-    {
-    }
+    public sealed class TickerJoinLobbyEvent : EntityEventArgs { }
 
     [Serializable, NetSerializable]
-    public sealed class TickerJoinGameEvent : EntityEventArgs
-    {
-    }
+    public sealed class TickerJoinGameEvent : EntityEventArgs { }
 
     [Serializable, NetSerializable]
     public sealed class TickerLateJoinStatusEvent : EntityEventArgs
@@ -82,6 +83,7 @@ namespace Content.Shared.GameTicking
     public sealed class TickerConnectionStatusEvent : EntityEventArgs
     {
         public TimeSpan RoundStartTimeSpan { get; }
+
         public TickerConnectionStatusEvent(TimeSpan roundStartTimeSpan)
         {
             RoundStartTimeSpan = roundStartTimeSpan;
@@ -94,12 +96,21 @@ namespace Content.Shared.GameTicking
         public bool IsRoundStarted { get; }
         public string? LobbyBackground { get; }
         public bool YouAreReady { get; }
+
         // UTC.
         public TimeSpan StartTime { get; }
         public TimeSpan RoundStartTimeSpan { get; }
         public bool Paused { get; }
 
-        public TickerLobbyStatusEvent(bool isRoundStarted, string? lobbyBackground, bool youAreReady, TimeSpan startTime, TimeSpan preloadTime, TimeSpan roundStartTimeSpan, bool paused)
+        public TickerLobbyStatusEvent(
+            bool isRoundStarted,
+            string? lobbyBackground,
+            bool youAreReady,
+            TimeSpan startTime,
+            TimeSpan preloadTime,
+            TimeSpan roundStartTimeSpan,
+            bool paused
+        )
         {
             IsRoundStarted = isRoundStarted;
             LobbyBackground = lobbyBackground;
@@ -155,7 +166,7 @@ namespace Content.Shared.GameTicking
         bool isLateJoinStation,
         StationDisplayInformation? stationDisplayInfo,
         VesselDisplayInformation? vesselDisplayInfo
-        )
+    )
     {
         public string StationName { get; } = stationName;
         public Dictionary<ProtoId<JobPrototype>, int?> JobsAvailable { get; } = jobsAvailable;
@@ -179,7 +190,7 @@ namespace Content.Shared.GameTicking
         ResPath? stationIcon,
         int lobbySortOrder,
         bool hiddenIfNoJobs
-        )
+    )
     {
         public LocId? StationSubtext { get; } = stationSubtext;
         public LocId? StationDescription { get; } = stationDescription;
@@ -199,12 +210,13 @@ namespace Content.Shared.GameTicking
         string vesselAdvertisement,
         ProtoId<VesselPrototype>? vessel,
         bool hiddenIfNoJobs
-        )
+    )
     {
         public string VesselAdvertisement { get; } = vesselAdvertisement;
         public ProtoId<VesselPrototype>? Vessel { get; } = vessel;
         public bool HiddenIfNoJobs { get; } = hiddenIfNoJobs;
     }
+
     // End Frontier: station job info, optional structs
 
     [Serializable, NetSerializable]
@@ -268,7 +280,8 @@ namespace Content.Shared.GameTicking
             int roundId,
             int playerCount,
             RoundEndPlayerInfo[] allPlayersEndInfo,
-            ResolvedSoundSpecifier? restartSound)
+            ResolvedSoundSpecifier? restartSound
+        )
         {
             GamemodeTitle = gamemodeTitle;
             RoundEndText = roundEndText;

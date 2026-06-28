@@ -5,7 +5,7 @@ namespace Content.Shared.Singularity.Components
     [NetSerializable, Serializable]
     public enum ParticleAcceleratorVisuals
     {
-        VisualState
+        VisualState,
     }
 
     [NetSerializable, Serializable]
@@ -18,7 +18,7 @@ namespace Content.Shared.Singularity.Components
         Level0, //0 prefix
         Level1, //1 prefix
         Level2, //2 prefix
-        Level3 //3 prefix
+        Level3, //3 prefix
     }
 
     [NetSerializable, Serializable]
@@ -34,7 +34,7 @@ namespace Content.Shared.Singularity.Components
     public enum ParticleAcceleratorVisualLayers
     {
         Base,
-        Unlit
+        Unlit,
     }
 
     [Serializable, NetSerializable]
@@ -67,7 +67,22 @@ namespace Content.Shared.Singularity.Components
         public ParticleAcceleratorPowerState MaxLevel;
         public bool WirePowerBlock;
 
-        public ParticleAcceleratorUIState(bool assembled, bool enabled, ParticleAcceleratorPowerState state, int powerReceive, int powerDraw, bool emitterStarboardExists, bool emitterForeExists, bool emitterPortExists, bool powerBoxExists, bool fuelChamberExists, bool endCapExists, bool interfaceBlock, ParticleAcceleratorPowerState maxLevel, bool wirePowerBlock)
+        public ParticleAcceleratorUIState(
+            bool assembled,
+            bool enabled,
+            ParticleAcceleratorPowerState state,
+            int powerReceive,
+            int powerDraw,
+            bool emitterStarboardExists,
+            bool emitterForeExists,
+            bool emitterPortExists,
+            bool powerBoxExists,
+            bool fuelChamberExists,
+            bool endCapExists,
+            bool interfaceBlock,
+            ParticleAcceleratorPowerState maxLevel,
+            bool wirePowerBlock
+        )
         {
             Assembled = assembled;
             Enabled = enabled;
@@ -90,6 +105,7 @@ namespace Content.Shared.Singularity.Components
     public sealed class ParticleAcceleratorSetEnableMessage : BoundUserInterfaceMessage
     {
         public readonly bool Enabled;
+
         public ParticleAcceleratorSetEnableMessage(bool enabled)
         {
             Enabled = enabled;
@@ -99,9 +115,7 @@ namespace Content.Shared.Singularity.Components
     [NetSerializable, Serializable]
     public sealed class ParticleAcceleratorRescanPartsMessage : BoundUserInterfaceMessage
     {
-        public ParticleAcceleratorRescanPartsMessage()
-        {
-        }
+        public ParticleAcceleratorRescanPartsMessage() { }
     }
 
     [NetSerializable, Serializable]
@@ -118,6 +132,6 @@ namespace Content.Shared.Singularity.Components
     [NetSerializable, Serializable]
     public enum ParticleAcceleratorControlBoxUiKey
     {
-        Key
+        Key,
     }
 }

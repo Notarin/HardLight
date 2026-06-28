@@ -1,35 +1,52 @@
 using System.Linq;
+using Content.Server._NF.Roles.Systems; // Frontier
 using Content.Server.GameTicking;
+using Content.Server.Mind; // Frontier
+using Content.Server.Psionics.Glimmer;
 using Content.Server.RoundEnd;
 using Content.Server.StationEvents.Components;
 using Content.Shared.CCVar;
+using Content.Shared.EntityTable;
+using Content.Shared.EntityTable.EntitySelectors;
+using Content.Shared.Psionics.Glimmer;
 using Robust.Server.Player;
 using Robust.Shared.Configuration;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
-using Content.Shared.EntityTable.EntitySelectors;
-using Content.Shared.EntityTable;
-using Content.Server.Mind; // Frontier
-using Content.Server._NF.Roles.Systems; // Frontier
 
-using Content.Server.Psionics.Glimmer;
-using Content.Shared.Psionics.Glimmer;
 namespace Content.Server.StationEvents;
 
 public sealed class EventManagerSystem : EntitySystem
 {
-    [Dependency] private readonly IConfigurationManager _configurationManager = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly EntityTableSystem _entityTable = default!;
-    [Dependency] public readonly GameTicker GameTicker = default!;
-    [Dependency] private readonly RoundEndSystem _roundEnd = default!;
-    [Dependency] private readonly JobTrackingSystem _jobs = default!; // Frontier
-    [Dependency] private readonly GlimmerSystem _glimmerSystem = default!; //Nyano - Summary: pulls in the glimmer system.
+    [Dependency]
+    private readonly IConfigurationManager _configurationManager = default!;
 
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototype = default!;
+
+    [Dependency]
+    private readonly EntityTableSystem _entityTable = default!;
+
+    [Dependency]
+    public readonly GameTicker GameTicker = default!;
+
+    [Dependency]
+    private readonly RoundEndSystem _roundEnd = default!;
+
+    [Dependency]
+    private readonly JobTrackingSystem _jobs = default!; // Frontier
+
+    [Dependency]
+    private readonly GlimmerSystem _glimmerSystem = default!; //Nyano - Summary: pulls in the glimmer system.
 
     public bool EventsEnabled { get; private set; }
+
     private void SetEnabled(bool value) => EventsEnabled = value;
 
     public override void Initialize()
@@ -63,7 +80,7 @@ public sealed class EventManagerSystem : EntitySystem
     public void RunRandomEvent(EntityTableSelector limitedEventsTable)
     {
         var availableEvents = AvailableEvents(); // handles the player counts and individual event restrictions.
-                                                 // Putting this here only makes any sense in the context of the toolshed commands in BasicStationEventScheduler. Kill me.
+        // Putting this here only makes any sense in the context of the toolshed commands in BasicStationEventScheduler. Kill me.
 
         if (!TryBuildLimitedEvents(limitedEventsTable, availableEvents, out var limitedEvents))
         {
@@ -94,7 +111,7 @@ public sealed class EventManagerSystem : EntitySystem
         EntityTableSelector limitedEventsTable,
         Dictionary<EntityPrototype, StationEventComponent> availableEvents,
         out Dictionary<EntityPrototype, StationEventComponent> limitedEvents
-        )
+    )
     {
         limitedEvents = new Dictionary<EntityPrototype, StationEventComponent>();
 
@@ -123,7 +140,9 @@ public sealed class EventManagerSystem : EntitySystem
             if (eventproto.Abstract)
                 continue;
 
-            if (!eventproto.TryGetComponent<StationEventComponent>(out var stationEvent, EntityManager.ComponentFactory))
+            if (
+                !eventproto.TryGetComponent<StationEventComponent>(out var stationEvent, EntityManager.ComponentFactory)
+            )
                 continue;
 
             if (!availableEvents.ContainsKey(eventproto))
@@ -192,14 +211,13 @@ public sealed class EventManagerSystem : EntitySystem
     public Dictionary<EntityPrototype, StationEventComponent> AvailableEvents(
         bool ignoreEarliestStart = false,
         int? playerCountOverride = null,
-        TimeSpan? currentTimeOverride = null)
+        TimeSpan? currentTimeOverride = null
+    )
     {
         var playerCount = playerCountOverride ?? _playerManager.PlayerCount;
 
         // playerCount does a lock so we'll just keep the variable here
-        var currentTime = currentTimeOverride ?? (!ignoreEarliestStart
-            ? GameTicker.RoundDuration()
-            : TimeSpan.Zero);
+        var currentTime = currentTimeOverride ?? (!ignoreEarliestStart ? GameTicker.RoundDuration() : TimeSpan.Zero);
 
         var result = new Dictionary<EntityPrototype, StationEventComponent>();
 
@@ -252,7 +270,12 @@ public sealed class EventManagerSystem : EntitySystem
         return TimeSpan.Zero;
     }
 
-    private bool CanRun(EntityPrototype prototype, StationEventComponent stationEvent, int playerCount, TimeSpan currentTime)
+    private bool CanRun(
+        EntityPrototype prototype,
+        StationEventComponent stationEvent,
+        int playerCount,
+        TimeSpan currentTime
+    )
     {
         if (GameTicker.IsGameRuleActive(prototype.ID))
             return false;
@@ -273,8 +296,10 @@ public sealed class EventManagerSystem : EntitySystem
         }
 
         var lastRun = TimeSinceLastEvent(prototype);
-        if (lastRun != TimeSpan.Zero && currentTime.TotalMinutes <
-            stationEvent.ReoccurrenceDelay + lastRun.TotalMinutes)
+        if (
+            lastRun != TimeSpan.Zero
+            && currentTime.TotalMinutes < stationEvent.ReoccurrenceDelay + lastRun.TotalMinutes
+        )
         {
             return false;
         }
@@ -300,10 +325,14 @@ public sealed class EventManagerSystem : EntitySystem
 
         // Nyano - Summary: - Begin modified code block: check for glimmer events.
         // This could not be cleanly done anywhere else.
-        if (_configurationManager.GetCVar(CCVars.GlimmerEnabled) &&
-            prototype.TryGetComponent<GlimmerEventComponent>(out var glimmerEvent) &&
-            (_glimmerSystem.Glimmer < glimmerEvent.MinimumGlimmer ||
-            _glimmerSystem.Glimmer > glimmerEvent.MaximumGlimmer))
+        if (
+            _configurationManager.GetCVar(CCVars.GlimmerEnabled)
+            && prototype.TryGetComponent<GlimmerEventComponent>(out var glimmerEvent)
+            && (
+                _glimmerSystem.Glimmer < glimmerEvent.MinimumGlimmer
+                || _glimmerSystem.Glimmer > glimmerEvent.MaximumGlimmer
+            )
+        )
         {
             return false;
         }

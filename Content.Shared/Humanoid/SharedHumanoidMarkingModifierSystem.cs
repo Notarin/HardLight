@@ -6,7 +6,7 @@ namespace Content.Shared.Humanoid;
 [Serializable, NetSerializable]
 public enum HumanoidMarkingModifierKey
 {
-    Key
+    Key,
 }
 
 [Serializable, NetSerializable]
@@ -25,7 +25,11 @@ public sealed class HumanoidMarkingModifierMarkingSetMessage : BoundUserInterfac
 [Serializable, NetSerializable]
 public sealed class HumanoidMarkingModifierBaseLayersSetMessage : BoundUserInterfaceMessage
 {
-    public HumanoidMarkingModifierBaseLayersSetMessage(HumanoidVisualLayers layer, CustomBaseLayerInfo? info, bool resendState)
+    public HumanoidMarkingModifierBaseLayersSetMessage(
+        HumanoidVisualLayers layer,
+        CustomBaseLayerInfo? info,
+        bool resendState
+    )
     {
         Layer = layer;
         Info = info;

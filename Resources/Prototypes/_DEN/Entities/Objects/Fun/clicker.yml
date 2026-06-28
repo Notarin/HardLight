@@ -12,7 +12,7 @@
     size: Tiny
   - type: Tag
     tags:
-      - Payload
+    - Payload
   - type: EmitSoundOnUse
     sound:
       path: /Audio/_DEN/Items/clicker.ogg

@@ -13,9 +13,8 @@ public sealed class HumanoidMarkingModifierBoundUserInterface : BoundUserInterfa
     [ViewVariables]
     private HumanoidMarkingModifierWindow? _window;
 
-    public HumanoidMarkingModifierBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-    }
+    public HumanoidMarkingModifierBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {
@@ -56,5 +55,3 @@ public sealed class HumanoidMarkingModifierBoundUserInterface : BoundUserInterfa
         SendMessage(new HumanoidMarkingModifierBaseLayersSetMessage(layer, info, true));
     }
 }
-
-

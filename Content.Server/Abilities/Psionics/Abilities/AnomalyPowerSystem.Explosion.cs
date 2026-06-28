@@ -10,14 +10,20 @@ public sealed partial class AnomalyPowerSystem
     ///     while substituting their Psionic casting stats for "Severity and Stability".
     ///     Generates an explosion centered on the caster.
     /// </summary>
-    private void DoExplosionAnomalyEffects(EntityUid uid, PsionicComponent component, AnomalyPowerActionEvent args, bool overcharged = false)
+    private void DoExplosionAnomalyEffects(
+        EntityUid uid,
+        PsionicComponent component,
+        AnomalyPowerActionEvent args,
+        bool overcharged = false
+    )
     {
         if (args.Explosion is null)
             return;
 
         if (overcharged)
             ExplosionSupercrit(uid, component, args);
-        else ExplosionPulse(uid, component, args);
+        else
+            ExplosionPulse(uid, component, args);
     }
 
     private void ExplosionSupercrit(EntityUid uid, PsionicComponent component, AnomalyPowerActionEvent args)

@@ -21,13 +21,26 @@ namespace Content.Server.GameTicking.Rules;
 /// </summary>
 public sealed class DeathMatchRuleSystem : GameRuleSystem<DeathMatchRuleComponent>
 {
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly MindSystem _mind = default!;
-    [Dependency] private readonly PointSystem _point = default!;
-    [Dependency] private readonly RespawnRuleSystem _respawn = default!;
-    [Dependency] private readonly RoundEndSystem _roundEnd = default!;
-    [Dependency] private readonly StationSpawningSystem _stationSpawning = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly MindSystem _mind = default!;
+
+    [Dependency]
+    private readonly PointSystem _point = default!;
+
+    [Dependency]
+    private readonly RespawnRuleSystem _respawn = default!;
+
+    [Dependency]
+    private readonly RoundEndSystem _roundEnd = default!;
+
+    [Dependency]
+    private readonly StationSpawningSystem _stationSpawning = default!;
+
+    [Dependency]
+    private readonly TransformSystem _transform = default!;
 
     public override void Initialize()
     {
@@ -41,7 +54,12 @@ public sealed class DeathMatchRuleSystem : GameRuleSystem<DeathMatchRuleComponen
 
     private void OnBeforeSpawn(PlayerBeforeSpawnEvent ev)
     {
-        var query = EntityQueryEnumerator<DeathMatchRuleComponent, RespawnTrackerComponent, PointManagerComponent, GameRuleComponent>();
+        var query = EntityQueryEnumerator<
+            DeathMatchRuleComponent,
+            RespawnTrackerComponent,
+            PointManagerComponent,
+            GameRuleComponent
+        >();
         while (query.MoveNext(out var uid, out var dm, out var tracker, out var point, out var rule))
         {
             if (!GameTicker.IsGameRuleActive(uid, rule))
@@ -116,7 +134,12 @@ public sealed class DeathMatchRuleSystem : GameRuleSystem<DeathMatchRuleComponen
         _roundEnd.EndRound(component.RestartDelay);
     }
 
-    protected override void AppendRoundEndText(EntityUid uid, DeathMatchRuleComponent component, GameRuleComponent gameRule, ref RoundEndTextAppendEvent args)
+    protected override void AppendRoundEndText(
+        EntityUid uid,
+        DeathMatchRuleComponent component,
+        GameRuleComponent gameRule,
+        ref RoundEndTextAppendEvent args
+    )
     {
         if (!TryComp<PointManagerComponent>(uid, out var point))
             return;

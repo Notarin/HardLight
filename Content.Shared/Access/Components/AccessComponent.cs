@@ -41,9 +41,7 @@ public struct GetAdditionalAccessEvent
 {
     public HashSet<EntityUid> Entities = new();
 
-    public GetAdditionalAccessEvent()
-    {
-    }
+    public GetAdditionalAccessEvent() { }
 }
 
 [ByRefEvent]

@@ -377,8 +377,8 @@
   name: mime messenger bag
   description: A robust messenger bag for waging war against clowns.
   components:
-    - type: Sprite
-      sprite: _NF/Clothing/Back/Messenger/mime.rsi
+  - type: Sprite
+    sprite: _NF/Clothing/Back/Messenger/mime.rsi
 
 - type: entity
   parent: ClothingBackpackMessengerContractor
@@ -470,8 +470,8 @@
   name: mail carrier messenger bag
   description: A robust messenger bag for waging war against mail.
   components:
-    - type: Sprite
-      sprite: _NF/Clothing/Back/Messenger/mailman.rsi
+  - type: Sprite
+    sprite: _NF/Clothing/Back/Messenger/mailman.rsi
 
 - type: entity
   parent: ClothingBackpackMessengerContractor
@@ -553,7 +553,7 @@
   parent: ClothingBackpackMessengerContractor
   id: ClothingBackpackMessengerMercenary
   name: mercenary messenger bag
-  description:  A robust messenger bag for war crimes.
+  description: A robust messenger bag for war crimes.
   components:
   - type: Sprite
     sprite: _NF/Clothing/Back/Messenger/color.rsi
@@ -591,7 +591,7 @@
   parent: ClothingBackpackMessengerContractor
   id: ClothingBackpackMessengerPrivateSecurity
   name: private security messenger bag
-  description:  A robust messenger bag for committing war crimes on a payroll.
+  description: A robust messenger bag for committing war crimes on a payroll.
   components:
   - type: Sprite
     sprite: _NF/Clothing/Back/Messenger/color.rsi
@@ -757,7 +757,7 @@
 - type: entity
   id: ClothingBackpackMessengerArcadia
   name: arcadia messenger bag
-  parent: [ ClothingBackpackMessengerContractor, ContrabandClothing ]
+  parent: [ClothingBackpackMessengerContractor, ContrabandClothing]
   components:
   - type: Sprite
     sprite: _NF/Clothing/Back/Messenger/color.rsi
@@ -1288,36 +1288,36 @@
     sprite: _NF/Clothing/Back/Messenger/color.rsi
     layers:
     - state: icon-base
-      map: [ "iconMessengerBase" ]
+      map: ["iconMessengerBase"]
     - state: icon-sling
-      map: [ "iconMessengerSling" ]
+      map: ["iconMessengerSling"]
     - state: icon-clasp
-      map: [ "iconMessengerClasp" ]
+      map: ["iconMessengerClasp"]
       shader: unshaded
   - type: Clothing
     sprite: _NF/Clothing/Back/Messenger/color.rsi
     clothingVisuals:
       back:
       - state: base-equipped-BACKPACK
-        map: [ "clothingMessengerBase" ]
+        map: ["clothingMessengerBase"]
       - state: sling-equipped-BACKPACK
-        map: [ "clothingMessengerSling" ]
+        map: ["clothingMessengerSling"]
       - state: clasp-equipped-BACKPACK
-        map: [ "clothingMessengerClasp" ]
+        map: ["clothingMessengerClasp"]
         shader: unshaded
   - type: Item
     inhandVisuals:
       left:
       - state: base-inhand-left
-        map: [ "leftMessengerBase" ]
+        map: ["leftMessengerBase"]
       - state: clasp-inhand-left
-        map: [ "leftgMessengerBase" ]
+        map: ["leftgMessengerBase"]
         shader: unshaded
       right:
       - state: base-inhand-right
-        map: [ "rightMessengerBase" ]
+        map: ["rightMessengerBase"]
       - state: clasp-inhand-right
-        map: [ "rightMessengerBase" ]
+        map: ["rightMessengerBase"]
         shader: unshaded
   - type: RandomSprite
     available:
@@ -1328,19 +1328,19 @@
         icon-sling: Sling
       iconMessengerClasp:
         icon-clasp: Clasp
-    # clothing
+        # clothing
       clothingMessengerBase:
         base-equipped-BACKPACK: Base
       clothingMessengerSling:
         sling-equipped-BACKPACK: Sling
       clothingMessengerClasp:
         clasp-equipped-BACKPACK: Clasp
-    # left hand
+        # left hand
       leftMessengerBase:
         base-inhand-left: Base
       leftgMessengerBase:
         clasp-inhand-left: Clasp
-    # right hand
+        # right hand
       rightMessengerBase:
         base-inhand-right: Base
       rightgMessengerBase:

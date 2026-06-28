@@ -1,5 +1,5 @@
-using Content.Shared.EntityEffects;
 using Content.Shared.Damage;
+using Content.Shared.EntityEffects;
 using Content.Shared.FixedPoint;
 using Robust.Shared.Prototypes;
 
@@ -27,8 +27,10 @@ public sealed partial class TotalDamage : EntityEffectCondition
 
     public override string GuidebookExplanation(IPrototypeManager prototype)
     {
-        return Loc.GetString("reagent-effect-condition-guidebook-total-damage",
-            ("max", Max == FixedPoint2.MaxValue ? (float) int.MaxValue : Max.Float()),
-            ("min", Min.Float()));
+        return Loc.GetString(
+            "reagent-effect-condition-guidebook-total-damage",
+            ("max", Max == FixedPoint2.MaxValue ? (float)int.MaxValue : Max.Float()),
+            ("min", Min.Float())
+        );
     }
 }

@@ -13,7 +13,7 @@
   components:
   - type: Contraband
     severity: Class1
-    allowedDepartments: [ Civilian, Security, Command, Frontier, CentralCommand ]
+    allowedDepartments: [Civilian, Security, Command, Frontier, CentralCommand]
   - type: Sprite
     sprite: _HL/Objects/BorgArmor/physarmor/defaultarmor.rsi
     state: icon
@@ -48,7 +48,7 @@
   components:
   - type: Contraband
     severity: Class2
-    allowedDepartments: [ Security, Command ]
+    allowedDepartments: [Security, Command]
   - type: Sprite
     sprite: _HL/Objects/BorgArmor/physarmor/defaultarmor.rsi
     state: icon
@@ -63,7 +63,7 @@
         Heat: 0.8
         Radiation: 0 # Ditto to below
         Caustic: 0 # Synths shouldnt be taking caustic damage. Untreatable
-  - type: ClothingSpeedModifier  # Stacks with other slowdowns. Be careful!
+  - type: ClothingSpeedModifier # Stacks with other slowdowns. Be careful!
     walkModifier: 0.85 # OUCH
     sprintModifier: 0.65 # We don't want people running around with this
   - type: ClothingGrantComponent
@@ -86,7 +86,7 @@
   components:
   - type: Contraband
     severity: Class2
-    allowedDepartments: [ Security, Command ]
+    allowedDepartments: [Security, Command]
   - type: Sprite
     sprite: _HL/Objects/BorgArmor/physarmor/defaultarmor.rsi
     state: icon
@@ -101,7 +101,7 @@
         Heat: 0.5
         Radiation: 0 # Ditto to below
         Caustic: 0 # Synths shouldnt be taking caustic damage. Untreatable
-  - type: ClothingSpeedModifier  # Stacks with other slowdowns. Be careful!
+  - type: ClothingSpeedModifier # Stacks with other slowdowns. Be careful!
     walkModifier: 0.25 # OUCH
     sprintModifier: 0.25 # We don't want people running around with this
   - type: ClothingGrantComponent
@@ -115,7 +115,6 @@
       useRate: 0
     - type: UseDelay
       delay: 3.0
-
 
 - type: entity
   parent: SyntheticBorgArmorLightShield #Inherit all changes from this. Hopefully will prevent compatability issues in the future
@@ -137,7 +136,7 @@
         Heat: 0.9
         Radiation: 0 # Ditto to below
         Caustic: 0 # Synths shouldnt be taking caustic damage. Untreatable
-  - type: ClothingSpeedModifier  # Stacks with other slowdowns. Be careful!
+  - type: ClothingSpeedModifier # Stacks with other slowdowns. Be careful!
     walkModifier: 0.85 # Slower.
     sprintModifier: 0.85 # Slower than usual.
   - type: ClothingGrantComponent

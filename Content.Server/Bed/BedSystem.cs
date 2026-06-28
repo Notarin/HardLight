@@ -21,13 +21,26 @@ namespace Content.Server.Bed
 {
     public sealed class BedSystem : EntitySystem
     {
-        [Dependency] private readonly DamageableSystem _damageableSystem = default!;
-        [Dependency] private readonly ActionsSystem _actionsSystem = default!;
-        [Dependency] private readonly EmagSystem _emag = default!;
-        [Dependency] private readonly SleepingSystem _sleepingSystem = default!;
-        [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-        [Dependency] private readonly MobStateSystem _mobStateSystem = default!;
-        [Dependency] private readonly IGameTiming _timing = default!;
+        [Dependency]
+        private readonly DamageableSystem _damageableSystem = default!;
+
+        [Dependency]
+        private readonly ActionsSystem _actionsSystem = default!;
+
+        [Dependency]
+        private readonly EmagSystem _emag = default!;
+
+        [Dependency]
+        private readonly SleepingSystem _sleepingSystem = default!;
+
+        [Dependency]
+        private readonly SharedAppearanceSystem _appearance = default!;
+
+        [Dependency]
+        private readonly MobStateSystem _mobStateSystem = default!;
+
+        [Dependency]
+        private readonly IGameTiming _timing = default!;
 
         public override void Initialize()
         {
@@ -77,8 +90,7 @@ namespace Content.Server.Bed
 
                 foreach (var healedEntity in strapComponent.BuckledEntities)
                 {
-                    if (_mobStateSystem.IsDead(healedEntity)
-                        || HasComp<SiliconComponent>(healedEntity)) // Goobstation
+                    if (_mobStateSystem.IsDead(healedEntity) || HasComp<SiliconComponent>(healedEntity)) // Goobstation
                         continue;
 
                     var damage = bedComponent.Damage;
@@ -150,6 +162,7 @@ namespace Content.Server.Bed
             UpdateMetabolisms(uid, component, true);
             args.Handled = true;
         }
+
         // End Frontier: demag
 
         private void UpdateMetabolisms(EntityUid uid, StasisBedComponent component, bool shouldApply)
@@ -159,7 +172,11 @@ namespace Content.Server.Bed
 
             foreach (var buckledEntity in strap.BuckledEntities)
             {
-                var metabolicEvent = new ApplyMetabolicMultiplierEvent(buckledEntity, component.Multiplier, shouldApply);
+                var metabolicEvent = new ApplyMetabolicMultiplierEvent(
+                    buckledEntity,
+                    component.Multiplier,
+                    shouldApply
+                );
                 RaiseLocalEvent(buckledEntity, ref metabolicEvent);
             }
         }
@@ -175,7 +192,10 @@ namespace Content.Server.Bed
 
         private void OnUpgradeExamine(EntityUid uid, StasisBedComponent component, UpgradeExamineEvent args)
         {
-            args.AddPercentageUpgrade("stasis-bed-component-upgrade-stasis", component.Multiplier / component.BaseMultiplier);
+            args.AddPercentageUpgrade(
+                "stasis-bed-component-upgrade-stasis",
+                component.Multiplier / component.BaseMultiplier
+            );
         }
         // End Frontier: upgradeable parts
     }

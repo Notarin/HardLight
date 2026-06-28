@@ -8,7 +8,8 @@ namespace Content.Server.Administration.Commands
     [AdminCommand(AdminFlags.Admin)]
     public sealed class AddEntityStorageCommand : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _entManager = default!;
+        [Dependency]
+        private readonly IEntityManager _entManager = default!;
 
         public string Command => "addstorage";
         public string Description => "Adds a given entity to a containing storage.";
@@ -22,20 +23,28 @@ namespace Content.Server.Administration.Commands
                 return;
             }
 
-            if (!NetEntity.TryParse(args[0], out var entityUidNet) || !_entManager.TryGetEntity(entityUidNet, out var entityUid))
+            if (
+                !NetEntity.TryParse(args[0], out var entityUidNet)
+                || !_entManager.TryGetEntity(entityUidNet, out var entityUid)
+            )
             {
                 shell.WriteError(Loc.GetString("shell-entity-uid-must-be-number"));
                 return;
             }
 
-            if (!NetEntity.TryParse(args[1], out var storageUidNet) || !_entManager.TryGetEntity(storageUidNet, out var storageUid))
+            if (
+                !NetEntity.TryParse(args[1], out var storageUidNet)
+                || !_entManager.TryGetEntity(storageUidNet, out var storageUid)
+            )
             {
                 shell.WriteError(Loc.GetString("shell-entity-uid-must-be-number"));
                 return;
             }
 
-            if (_entManager.HasComponent<EntityStorageComponent>(storageUid) &&
-                _entManager.EntitySysManager.TryGetEntitySystem<EntityStorageSystem>(out var storageSys))
+            if (
+                _entManager.HasComponent<EntityStorageComponent>(storageUid)
+                && _entManager.EntitySysManager.TryGetEntitySystem<EntityStorageSystem>(out var storageSys)
+            )
             {
                 storageSys.Insert(entityUid.Value, storageUid.Value);
             }

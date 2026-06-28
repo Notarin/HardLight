@@ -16,7 +16,7 @@
   - type: Holopad
     useStationName: true
   - type: AccessReader
-    access: [ [ "HeadOfSecurity" ] ]
+    access: [["HeadOfSecurity"]]
   - type: PowerSwitch
 
 - type: entity

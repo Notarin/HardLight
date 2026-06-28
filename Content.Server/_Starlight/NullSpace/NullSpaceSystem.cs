@@ -1,54 +1,85 @@
-using Content.Shared.Eye;
-using Robust.Server.GameObjects;
-using Content.Server.Atmos.Components;
-using Content.Shared.Temperature.Components;
-using Content.Shared.Stealth;
-using Content.Shared.Stealth.Components;
 using System.Linq;
-using Content.Shared.NPC.Components;
-using Content.Shared.NPC.Systems;
-using Content.Shared._Starlight.NullSpace;
-using Content.Shared.Movement.Pulling.Systems;
-using Content.Shared.Movement.Pulling.Components;
+using Content.Server.Atmos.Components;
 using Content.Server.Atmos.EntitySystems;
-using Content.Shared.Inventory.VirtualItem;
+using Content.Server.Body.Systems;
+using Content.Shared._Starlight.NullSpace;
+using Content.Shared.Actions;
+using Content.Shared.Body.Components;
+using Content.Shared.Eye;
+using Content.Shared.Hands;
 using Content.Shared.Hands.Components;
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Interaction.Components;
-using Content.Shared.Hands;
-using Content.Shared.Shuttles.Components;
-using Content.Shared.Stunnable;
-using Content.Shared.Movement.Components;
-using Content.Shared.Body.Components;
-using Content.Server.Body.Systems;
-using Content.Shared.Timing;
+using Content.Shared.Inventory.VirtualItem;
 using Content.Shared.Maps;
-using Robust.Shared.Map;
-using Robust.Shared.Random;
-using Robust.Shared.Map.Components;
+using Content.Shared.Movement.Components;
+using Content.Shared.Movement.Pulling.Components;
+using Content.Shared.Movement.Pulling.Systems;
+using Content.Shared.NPC.Components;
+using Content.Shared.NPC.Systems;
 using Content.Shared.Physics;
-using Content.Shared.Actions;
+using Content.Shared.Shuttles.Components;
+using Content.Shared.Stealth;
+using Content.Shared.Stealth.Components;
+using Content.Shared.Stunnable;
+using Content.Shared.Temperature.Components;
+using Content.Shared.Timing;
+using Robust.Server.GameObjects;
+using Robust.Shared.Map;
+using Robust.Shared.Map.Components;
+using Robust.Shared.Random;
 
 namespace Content.Server._Starlight.NullSpace;
 
 public sealed partial class NullSpaceSystem : SharedNullSpaceSystem
 {
-    [Dependency] private readonly SharedStealthSystem _stealth = default!;
-    [Dependency] private readonly EyeSystem _eye = default!;
-    [Dependency] private readonly NpcFactionSystem _factions = default!;
-    [Dependency] private readonly PullingSystem _pulling = default!;
-    [Dependency] private readonly SharedVirtualItemSystem _virtualItem = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly NullSpacePhaseSystem _phaseSystem = default!;
-    [Dependency] private readonly VisibilitySystem _visibility = default!;
-    [Dependency] private readonly InternalsSystem _internals = default!;
-    [Dependency] private readonly UseDelaySystem _usedelay = default!;
-    [Dependency] private readonly TurfSystem _turf = default!;
-    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
-    [Dependency] private readonly SharedActionsSystem _actionsSystem = default!;
+    [Dependency]
+    private readonly SharedStealthSystem _stealth = default!;
+
+    [Dependency]
+    private readonly EyeSystem _eye = default!;
+
+    [Dependency]
+    private readonly NpcFactionSystem _factions = default!;
+
+    [Dependency]
+    private readonly PullingSystem _pulling = default!;
+
+    [Dependency]
+    private readonly SharedVirtualItemSystem _virtualItem = default!;
+
+    [Dependency]
+    private readonly SharedHandsSystem _hands = default!;
+
+    [Dependency]
+    private readonly NullSpacePhaseSystem _phaseSystem = default!;
+
+    [Dependency]
+    private readonly VisibilitySystem _visibility = default!;
+
+    [Dependency]
+    private readonly InternalsSystem _internals = default!;
+
+    [Dependency]
+    private readonly UseDelaySystem _usedelay = default!;
+
+    [Dependency]
+    private readonly TurfSystem _turf = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _mapSystem = default!;
+
+    [Dependency]
+    private readonly IMapManager _mapManager = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly TransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly SharedActionsSystem _actionsSystem = default!;
 
     public override void Initialize()
     {
@@ -99,11 +130,16 @@ public sealed partial class NullSpaceSystem : SharedNullSpaceSystem
                         continue;
 
                     if (TryComp<VirtualItemComponent>(hand.HeldEntity, out var vcomp))
-                        if (HasComp<NullSpacePulledComponent>(vcomp.BlockingEntity) && TryComp<PullableComponent>(vcomp.BlockingEntity, out var pulling) && pulling.BeingPulled)
+                        if (
+                            HasComp<NullSpacePulledComponent>(vcomp.BlockingEntity)
+                            && TryComp<PullableComponent>(vcomp.BlockingEntity, out var pulling)
+                            && pulling.BeingPulled
+                        )
                         {
                             RemComp<NullSpacePulledComponent>(vcomp.BlockingEntity);
                             // safety check just to make sure you dont pull something out of nullspace by phasing in
-                            if (!HasComp<NullSpaceComponent>(vcomp.BlockingEntity)) _phaseSystem.Phase(vcomp.BlockingEntity);
+                            if (!HasComp<NullSpaceComponent>(vcomp.BlockingEntity))
+                                _phaseSystem.Phase(vcomp.BlockingEntity);
                             continue;
                         }
 
@@ -146,8 +182,14 @@ public sealed partial class NullSpaceSystem : SharedNullSpaceSystem
 
     private static readonly Vector2i[] AdjacentOffsets =
     [
-        new(0, 1), new(0, -1), new(1, 0), new(-1, 0),
-        new(1, 1), new(-1, 1), new(1, -1), new(-1, -1),
+        new(0, 1),
+        new(0, -1),
+        new(1, 0),
+        new(-1, 0),
+        new(1, 1),
+        new(-1, 1),
+        new(1, -1),
+        new(-1, -1),
     ];
 
     private void TrySlideToFreeTile(EntityUid uid)
@@ -223,7 +265,8 @@ public sealed partial class NullSpaceSystem : SharedNullSpaceSystem
                     if (TryComp<VirtualItemComponent>(hand.HeldEntity, out var vcomp))
                     {
                         // safety check just to make sure you dont pull something into nullspace by phasing out.
-                        if (HasComp<NullSpaceComponent>(vcomp.BlockingEntity)) _phaseSystem.Phase(vcomp.BlockingEntity);
+                        if (HasComp<NullSpaceComponent>(vcomp.BlockingEntity))
+                            _phaseSystem.Phase(vcomp.BlockingEntity);
                         continue;
                     }
 

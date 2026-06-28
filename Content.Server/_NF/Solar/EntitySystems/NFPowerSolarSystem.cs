@@ -4,8 +4,8 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 using System.Linq;
-using Content.Server.Power.Components;
 using Content.Server._NF.Solar.Components;
+using Content.Server.Power.Components;
 using Content.Shared.GameTicking;
 using Content.Shared.Light.Components; // Mono
 using Content.Shared.Light.EntitySystems; // Mono
@@ -28,12 +28,23 @@ namespace Content.Server._NF.Solar.EntitySystems;
 [UsedImplicitly]
 internal sealed class NFPowerSolarSystem : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _robustRandom = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physicsSystem = default!;
-    [Dependency] private readonly SharedRoofSystem _roof = default!; // Mono
-    [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!; // Frontier
-    [Dependency] private readonly IMapManager _mapMan = default!; // Mono
+    [Dependency]
+    private readonly IRobustRandom _robustRandom = default!;
+
+    [Dependency]
+    private readonly SharedPhysicsSystem _physicsSystem = default!;
+
+    [Dependency]
+    private readonly SharedRoofSystem _roof = default!; // Mono
+
+    [Dependency]
+    private readonly SharedTransformSystem _transformSystem = default!;
+
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!; // Frontier
+
+    [Dependency]
+    private readonly IMapManager _mapMan = default!; // Mono
 
     /// <summary>
     /// Maximum panel angular velocity range - used to stop people rotating panels fast enough that the lag prevention becomes noticable
@@ -130,8 +141,7 @@ internal sealed class NFPowerSolarSystem : EntitySystem
             var gridQuery = EntityQueryEnumerator<SolarPoweredGridComponent>();
             while (gridQuery.MoveNext(out var uid, out var gridPower))
             {
-                if (!gridPower.DoNotCull &&
-                    gridPower.LastUpdatedTick != _gameTiming.CurTick.Value)
+                if (!gridPower.DoNotCull && gridPower.LastUpdatedTick != _gameTiming.CurTick.Value)
                 {
                     RemCompDeferred<SolarPoweredGridComponent>(uid);
                 }
@@ -192,22 +202,36 @@ internal sealed class NFPowerSolarSystem : EntitySystem
         {
             var gridCoords = _transformSystem.WithEntityId(xform.Coordinates, gridUid.Value);
             // drop coverage to 0 if the solar panel is roofed
-            if (_roof.IsRooved((gridUid.Value, gridComp, roofComp), gridCoords.ToVector2i(EntityManager, _mapMan, _transformSystem)))
+            if (
+                _roof.IsRooved(
+                    (gridUid.Value, gridComp, roofComp),
+                    gridCoords.ToVector2i(EntityManager, _mapMan, _transformSystem)
+                )
+            )
                 coverage = 0f;
         }
 
         if (coverage > 0)
         {
             // Determine if the solar panel is occluded, and zero out coverage if so.
-            var ray = new CollisionRay(_transformSystem.GetWorldPosition(xform), TowardsSun.ToWorldVec(), (int)CollisionGroup.Opaque);
+            var ray = new CollisionRay(
+                _transformSystem.GetWorldPosition(xform),
+                TowardsSun.ToWorldVec(),
+                (int)CollisionGroup.Opaque
+            );
             var rayCastResults = _physicsSystem.IntersectRayWithPredicate(
                 xform.MapID,
                 ray,
                 SunOcclusionCheckDistance,
-                e => !xform.Anchored || e == entity);
+                e => !xform.Anchored || e == entity
+            );
             if (rayCastResults.Any())
                 // Mono
-                coverage = MathHelper.Lerp(panel.Comp.ObstructedCoverage, 1f, rayCastResults.First().Distance / SunOcclusionCheckDistance);
+                coverage = MathHelper.Lerp(
+                    panel.Comp.ObstructedCoverage,
+                    1f,
+                    rayCastResults.First().Distance / SunOcclusionCheckDistance
+                );
         }
 
         // Total coverage calculated; apply it to the panel.
@@ -218,7 +242,8 @@ internal sealed class NFPowerSolarSystem : EntitySystem
     public void UpdateSupply(
         EntityUid uid,
         NFSolarPanelComponent? solar = null,
-        PowerSupplierComponent? supplier = null)
+        PowerSupplierComponent? supplier = null
+    )
     {
         if (!Resolve(uid, ref solar, ref supplier, false))
             return;

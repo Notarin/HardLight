@@ -11,8 +11,11 @@ namespace Content.Client.NukeOps;
 [GenerateTypedNameReferences]
 public sealed partial class WarDeclaratorWindow : FancyWindow
 {
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly ILocalizationManager _localizationManager = default!;
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
+
+    [Dependency]
+    private readonly ILocalizationManager _localizationManager = default!;
 
     public event Action<string>? OnActivated;
 
@@ -47,7 +50,6 @@ public sealed partial class WarDeclaratorWindow : FancyWindow
         _status = state.Status.Value;
 
         UpdateStatus(state.Status.Value);
-
     }
 
     private void UpdateStatus(WarConditionStatus status)
@@ -96,12 +98,15 @@ public sealed partial class WarDeclaratorWindow : FancyWindow
 
     private void UpdateTimer()
     {
-        switch(_status)
+        switch (_status)
         {
             case WarConditionStatus.YesWar:
                 var timeLeft = _endTime.Subtract(_gameTiming.CurTime);
                 if (timeLeft > TimeSpan.Zero)
-                    InfoLabel.Text = Loc.GetString("war-declarator-boost-timer", ("time", timeLeft.ToString("mm\\:ss")));
+                    InfoLabel.Text = Loc.GetString(
+                        "war-declarator-boost-timer",
+                        ("time", timeLeft.ToString("mm\\:ss"))
+                    );
                 else
                     UpdateStatus(WarConditionStatus.NoWarTimeout);
                 break;

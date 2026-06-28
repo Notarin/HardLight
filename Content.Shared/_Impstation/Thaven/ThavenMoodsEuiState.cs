@@ -13,6 +13,7 @@ public sealed class ThavenMoodsEuiState : EuiStateBase
 {
     public List<ThavenMood> Moods { get; }
     public NetEntity Target { get; }
+
     public ThavenMoodsEuiState(List<ThavenMood> moods, NetEntity target)
     {
         Moods = moods;

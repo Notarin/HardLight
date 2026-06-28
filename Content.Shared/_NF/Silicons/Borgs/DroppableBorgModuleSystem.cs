@@ -12,12 +12,23 @@ namespace Content.Shared._NF.Silicons.Borgs;
 
 public sealed class DroppableBorgModuleSystem : EntitySystem
 {
-    [Dependency] private readonly HandPlaceholderSystem _placeholder = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly SharedInteractionSystem _interaction = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly MetaDataSystem _meta = default!;
+    [Dependency]
+    private readonly HandPlaceholderSystem _placeholder = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly SharedHandsSystem _hands = default!;
+
+    [Dependency]
+    private readonly SharedInteractionSystem _interaction = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly MetaDataSystem _meta = default!;
 
     public override void Initialize()
     {
@@ -39,15 +50,30 @@ public sealed class DroppableBorgModuleSystem : EntitySystem
             // only the server runs mapinit, this wont make clientside entities
             var successful = TrySpawnInContainer(slot.Id, ent, ent.Comp.ContainerId, out var item);
             // this would only fail if the current entity is being terminated, which is impossible for mapinit
-            DebugTools.Assert(successful, $"Somehow failed to insert {ToPrettyString(item)} into {ToPrettyString(ent)}");
-            var placeholderUid = _placeholder.SpawnPlaceholder(placeholders, item!.Value, slot.Id, slot.Whitelist, slot.Blacklist);
+            DebugTools.Assert(
+                successful,
+                $"Somehow failed to insert {ToPrettyString(item)} into {ToPrettyString(ent)}"
+            );
+            var placeholderUid = _placeholder.SpawnPlaceholder(
+                placeholders,
+                item!.Value,
+                slot.Id,
+                slot.Whitelist,
+                slot.Blacklist
+            );
             if (slot.DisplayName != null)
                 _meta.SetEntityName(placeholderUid, Loc.GetString(slot.DisplayName));
         }
 
         foreach (var placeholder in ent.Comp.Placeholders)
         {
-            var placeholderUid = _placeholder.SpawnPlaceholder(placeholders, EntityUid.Invalid, placeholder.Id, placeholder.Whitelist, placeholder.Blacklist);
+            var placeholderUid = _placeholder.SpawnPlaceholder(
+                placeholders,
+                EntityUid.Invalid,
+                placeholder.Id,
+                placeholder.Whitelist,
+                placeholder.Blacklist
+            );
             if (placeholder.DisplayName != null)
                 _meta.SetEntityName(placeholderUid, Loc.GetString(placeholder.DisplayName));
             _container.Insert(placeholderUid, items, force: true);
@@ -105,12 +131,16 @@ public sealed class DroppableBorgModuleSystem : EntitySystem
             for (int i = 0; i < ent.Comp.Items.Count; i++)
             {
                 if (!DeleteHandAndHeldItem((chassis, hands), HandId(ent, i)))
-                    Log.Warning($"Borg {ToPrettyString(chassis)} terminated with empty hand {i} in {ToPrettyString(ent)}");
+                    Log.Warning(
+                        $"Borg {ToPrettyString(chassis)} terminated with empty hand {i} in {ToPrettyString(ent)}"
+                    );
             }
             for (int i = 0; i < ent.Comp.Placeholders.Count; i++)
             {
                 if (!DeleteHandAndHeldItem((chassis, hands), PlaceholderHandId(ent, i)))
-                    Log.Error($"Borg {ToPrettyString(chassis)} terminated with empty hand {i} in {ToPrettyString(ent)}");
+                    Log.Error(
+                        $"Borg {ToPrettyString(chassis)} terminated with empty hand {i} in {ToPrettyString(ent)}"
+                    );
             }
             return;
         }
@@ -155,7 +185,9 @@ public sealed class DroppableBorgModuleSystem : EntitySystem
         _hands.DoPickup(chassis, hand, item, chassis.Comp);
         if (hand.HeldEntity != item)
         {
-            Log.Error($"Failed to pick up {ToPrettyString(item)} into hand {handId} of {ToPrettyString(chassis)}, it holds {ToPrettyString(hand.HeldEntity)}");
+            Log.Error(
+                $"Failed to pick up {ToPrettyString(item)} into hand {handId} of {ToPrettyString(chassis)}, it holds {ToPrettyString(hand.HeldEntity)}"
+            );
             // If we didn't pick up our expected item, delete the hand.  No free hands!
             _hands.RemoveHand(chassis, handId, chassis.Comp);
         }
@@ -206,4 +238,8 @@ public sealed class DroppableBorgModuleSystem : EntitySystem
 /// This should exist upstream but doesn't.
 /// </summary>
 [ByRefEvent]
-public record struct BorgCanInsertModuleEvent(Entity<BorgChassisComponent> Chassis, EntityUid? User, bool Cancelled = false);
+public record struct BorgCanInsertModuleEvent(
+    Entity<BorgChassisComponent> Chassis,
+    EntityUid? User,
+    bool Cancelled = false
+);

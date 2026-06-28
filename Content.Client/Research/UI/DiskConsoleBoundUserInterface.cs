@@ -10,9 +10,8 @@ namespace Content.Client.Research.UI
         [ViewVariables]
         private DiskConsoleMenu? _menu;
 
-        public DiskConsoleBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-        {
-        }
+        public DiskConsoleBoundUserInterface(EntityUid owner, Enum uiKey)
+            : base(owner, uiKey) { }
 
         protected override void Open()
         {

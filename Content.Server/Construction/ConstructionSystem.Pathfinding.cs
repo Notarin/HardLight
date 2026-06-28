@@ -13,7 +13,11 @@ namespace Content.Server.Construction
         /// <param name="targetNodeId">The target node to pathfind, or null to clear the current pathfinding node.</param>
         /// <param name="construction">The construction component of the target entity. Will be resolved if null.</param>
         /// <returns>Whether we could set/clear the pathfinding target node.</returns>
-        public bool SetPathfindingTarget(EntityUid uid, string? targetNodeId, ConstructionComponent? construction = null)
+        public bool SetPathfindingTarget(
+            EntityUid uid,
+            string? targetNodeId,
+            ConstructionComponent? construction = null
+        )
         {
             if (!Resolve(uid, ref construction))
                 return false;
@@ -27,13 +31,13 @@ namespace Content.Server.Construction
                 return true;
             }
 
-            if (GetCurrentGraph(uid, construction) is not {} graph)
+            if (GetCurrentGraph(uid, construction) is not { } graph)
                 return false;
 
             if (GetNodeFromGraph(graph, construction.Node) is not { } node)
                 return false;
 
-            if (GetNodeFromGraph(graph, targetNodeId) is not {} targetNode)
+            if (GetNodeFromGraph(graph, targetNodeId) is not { } targetNode)
                 return false;
 
             return UpdatePathfinding(uid, graph, node, targetNode, GetCurrentEdge(uid, construction), construction);
@@ -50,12 +54,14 @@ namespace Content.Server.Construction
             if (!Resolve(uid, ref construction))
                 return false;
 
-            if (construction.TargetNode is not {} targetNodeId)
+            if (construction.TargetNode is not { } targetNodeId)
                 return false;
 
-            if (GetCurrentGraph(uid, construction) is not {} graph
-                || GetNodeFromGraph(graph, construction.Node) is not {} node
-                || GetNodeFromGraph(graph, targetNodeId) is not {} targetNode)
+            if (
+                GetCurrentGraph(uid, construction) is not { } graph
+                || GetNodeFromGraph(graph, construction.Node) is not { } node
+                || GetNodeFromGraph(graph, targetNodeId) is not { } targetNode
+            )
                 return false;
 
             return UpdatePathfinding(uid, graph, node, targetNode, GetCurrentEdge(uid, construction), construction);
@@ -72,10 +78,14 @@ namespace Content.Server.Construction
         /// <param name="currentEdge">The current edge the entity is at, or null if none.</param>
         /// <param name="construction">The construction component of the target entity. Will be resolved if null.</param>
         /// <returns>Whether we could update the pathfinding state correctly.</returns>
-        private bool UpdatePathfinding(EntityUid uid, ConstructionGraphPrototype graph,
-            ConstructionGraphNode currentNode, ConstructionGraphNode targetNode,
+        private bool UpdatePathfinding(
+            EntityUid uid,
+            ConstructionGraphPrototype graph,
+            ConstructionGraphNode currentNode,
+            ConstructionGraphNode targetNode,
             ConstructionGraphEdge? currentEdge,
-            ConstructionComponent? construction = null)
+            ConstructionComponent? construction = null
+        )
         {
             if (!Resolve(uid, ref construction))
                 return false;
@@ -110,7 +120,7 @@ namespace Content.Server.Construction
                 construction.NodePathfinding.Dequeue();
             }
 
-            if (currentEdge != null && construction.TargetEdgeIndex is {} targetEdgeIndex)
+            if (currentEdge != null && construction.TargetEdgeIndex is { } targetEdgeIndex)
             {
                 if (currentNode.Edges.Count >= targetEdgeIndex)
                 {
@@ -125,9 +135,11 @@ namespace Content.Server.Construction
                 }
             }
 
-            if (construction.EdgeIndex == null
+            if (
+                construction.EdgeIndex == null
                 && construction.TargetEdgeIndex == null
-                && construction.NodePathfinding != null)
+                && construction.NodePathfinding != null
+            )
                 construction.TargetEdgeIndex = (currentNode.GetEdgeIndex(construction.NodePathfinding.Peek()));
 
             return true;

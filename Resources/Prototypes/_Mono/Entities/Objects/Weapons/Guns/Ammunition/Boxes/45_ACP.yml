@@ -7,7 +7,7 @@
     mayTransfer: true
     whitelist:
       tags:
-        - Cartridge45_ACPFMJ
+      - Cartridge45_ACPFMJ
     proto: Cartridge45_ACPFMJ
     capacity: 70 # 60->70 Two mags per box
   - type: Item
@@ -33,7 +33,7 @@
   - type: BallisticAmmoProvider
     capacity: 280 # 8 mags per box similar to rifle box
     proto: Cartridge45_ACPFMJ
-  - type: Sprite       # Hardlight change for the Error to be fix for RSI
+  - type: Sprite # Hardlight change for the Error to be fix for RSI
     layers:
     - state: base-b # Frontier: base-big<base-b
       map: ["enum.GunVisualLayers.Base"]

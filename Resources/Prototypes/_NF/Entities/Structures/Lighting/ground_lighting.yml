@@ -6,7 +6,7 @@
   - type: Sprite
     layers:
     - state: base
-      map: [ "enum.PoweredLightLayers.Base" ]
+      map: ["enum.PoweredLightLayers.Base"]
   - type: ContainerFill # HardLight
     containers:
-      light_bulb: [ LightTubeCrystalRed ]
+      light_bulb: [LightTubeCrystalRed]

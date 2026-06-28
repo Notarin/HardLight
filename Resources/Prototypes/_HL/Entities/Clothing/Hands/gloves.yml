@@ -86,7 +86,7 @@
     fiberMaterial: fibers-durathread
     fiberColor: fibers-pink
   - type: FingerprintMask
- 
+
 - type: entity
   parent: [ClothingHandsBase, BaseC3ExpeditionContraband]
   id: ClothingHandsGlovesAberrant
@@ -118,5 +118,5 @@
   - type: Armor
     modifiers:
       coefficients:
-        Heat: 1.1 
+        Heat: 1.1
   - type: Insulated

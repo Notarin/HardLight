@@ -20,20 +20,32 @@ namespace Content.Server.Power.Components
     public abstract partial class BaseNetConnectorComponent<TNetType> : Component, IBaseNetConnectorComponent<TNetType>
         where TNetType : class
     {
-        [Dependency] private readonly IEntityManager _entMan = default!;
+        [Dependency]
+        private readonly IEntityManager _entMan = default!;
 
         [ViewVariables(VVAccess.ReadWrite)]
-        public Voltage Voltage { get => _voltage; set => SetVoltage(value); }
+        public Voltage Voltage
+        {
+            get => _voltage;
+            set => SetVoltage(value);
+        }
+
         [DataField("voltage")]
         private Voltage _voltage = Voltage.High;
 
         [ViewVariables]
-        public TNetType? Net { get => _net; set => SetNet(value); }
+        public TNetType? Net
+        {
+            get => _net;
+            set => SetNet(value);
+        }
         private TNetType? _net;
 
-        [ViewVariables] public bool NeedsNet => _net != null;
+        [ViewVariables]
+        public bool NeedsNet => _net != null;
 
-        [DataField("node")] public string? NodeId { get; set; }
+        [DataField("node")]
+        public string? NodeId { get; set; }
 
         public void TryFindAndSetNet()
         {
@@ -60,8 +72,10 @@ namespace Content.Server.Power.Components
         {
             if (_entMan.TryGetComponent(Owner, out NodeContainerComponent? container))
             {
-                var compatibleNet = container.Nodes.Values
-                    .Where(node => (NodeId == null || NodeId == node.Name) && node.NodeGroupID == (NodeGroupID) Voltage)
+                var compatibleNet = container
+                    .Nodes.Values.Where(node =>
+                        (NodeId == null || NodeId == node.Name) && node.NodeGroupID == (NodeGroupID)Voltage
+                    )
                     .Select(node => node.NodeGroup)
                     .OfType<TNetType>()
                     .FirstOrDefault();

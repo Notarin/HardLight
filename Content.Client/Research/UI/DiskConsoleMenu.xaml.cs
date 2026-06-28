@@ -31,4 +31,3 @@ public sealed partial class DiskConsoleMenu : FancyWindow
         PrintRareButton.Text = Loc.GetString("tech-disk-ui-print-rare-button", ("amount", state.PointCostRare)); // Frontier
     }
 }
-

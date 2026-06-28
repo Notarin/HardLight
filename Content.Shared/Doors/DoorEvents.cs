@@ -66,9 +66,7 @@ namespace Content.Shared.Doors
     /// Called when the door is determining whether it is able to deny.
     /// Cancel to stop the door from being able to deny.
     /// </summary>
-    public sealed class BeforeDoorDeniedEvent : CancellableEntityEventArgs
-    {
-    }
+    public sealed class BeforeDoorDeniedEvent : CancellableEntityEventArgs { }
 
     /// <summary>
     /// Raised to determine whether the door should automatically close.
@@ -77,7 +75,5 @@ namespace Content.Shared.Doors
     /// <remarks>
     /// This is called when a door decides whether it SHOULD auto close, not when it actually closes.
     /// </remarks>
-    public sealed class BeforeDoorAutoCloseEvent : CancellableEntityEventArgs
-    {
-    }
+    public sealed class BeforeDoorAutoCloseEvent : CancellableEntityEventArgs { }
 }

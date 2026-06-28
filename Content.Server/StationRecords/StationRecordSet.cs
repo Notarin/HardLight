@@ -103,14 +103,16 @@ public sealed partial class StationRecordSet
     {
         entry = default;
 
-        if (!Keys.Contains(key)
+        if (
+            !Keys.Contains(key)
             || !_tables.TryGetValue(typeof(T), out var table)
-            || !table.TryGetValue(key, out var entryObject))
+            || !table.TryGetValue(key, out var entryObject)
+        )
         {
             return false;
         }
 
-        entry = (T) entryObject;
+        entry = (T)entryObject;
         _recentlyAccessed.Add(key);
 
         return true;
@@ -124,9 +126,7 @@ public sealed partial class StationRecordSet
     /// <returns>True if the entry exists, false otherwise.</returns>
     public bool HasRecordEntry<T>(uint key)
     {
-        return Keys.Contains(key)
-               && _tables.TryGetValue(typeof(T), out var table)
-               && table.ContainsKey(key);
+        return Keys.Contains(key) && _tables.TryGetValue(typeof(T), out var table) && table.ContainsKey(key);
     }
 
     /// <summary>
@@ -172,5 +172,3 @@ public sealed partial class StationRecordSet
         return true;
     }
 }
-
-

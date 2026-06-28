@@ -1,8 +1,8 @@
-using Content.Shared.FixedPoint;
 using Content.Shared._Goobstation.Factory;
 using Content.Shared._Goobstation.Factory.Slots;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.EntitySystems;
+using Content.Shared.FixedPoint;
 using Content.Shared.Power.EntitySystems;
 using Robust.Shared.Timing;
 
@@ -10,11 +10,20 @@ namespace Content.Shared._Goobstation.Factory.Plumbing;
 
 public sealed class PlumbingPumpSystem : EntitySystem
 {
-    [Dependency] private readonly ExclusiveSlotsSystem _exclusive = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly PlumbingFilterSystem _filter = default!;
-    [Dependency] private readonly SharedPowerReceiverSystem _power = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solution = default!;
+    [Dependency]
+    private readonly ExclusiveSlotsSystem _exclusive = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly PlumbingFilterSystem _filter = default!;
+
+    [Dependency]
+    private readonly SharedPowerReceiverSystem _power = default!;
+
+    [Dependency]
+    private readonly SharedSolutionContainerSystem _solution = default!;
 
     private EntityQuery<SolutionTransferComponent> _transferQuery;
 
@@ -88,7 +97,7 @@ public sealed class PlumbingPumpSystem : EntitySystem
         try
         {
             var maybeIn = inSlot.GetSolution();
-            if (maybeIn is not {} ie)
+            if (maybeIn is not { } ie)
             {
                 return;
             }
@@ -102,7 +111,7 @@ public sealed class PlumbingPumpSystem : EntitySystem
         try
         {
             var maybeOut = outSlot.GetSolution();
-            if (maybeOut is not {} oe)
+            if (maybeOut is not { } oe)
             {
                 return;
             }
@@ -117,13 +126,10 @@ public sealed class PlumbingPumpSystem : EntitySystem
         var output = outputEnt.Comp.Solution;
 
         var limit = _transferQuery.Comp(ent).TransferAmount;
-        
 
         var amount = FixedPoint2.Min(input.Volume, limit);
         if (output.MaxVolume > FixedPoint2.Zero)
             amount = FixedPoint2.Min(amount, output.AvailableVolume);
-
-        
 
         if (amount <= FixedPoint2.Zero)
         {
@@ -131,15 +137,10 @@ public sealed class PlumbingPumpSystem : EntitySystem
         }
 
         var filter = _filter.GetFilteredReagent(ent);
-        
 
-        var split = filter is {} f
-            ? input.SplitSolutionWithOnly(amount, f)
-            : input.SplitSolution(amount);
+        var split = filter is { } f ? input.SplitSolutionWithOnly(amount, f) : input.SplitSolution(amount);
 
         _solution.UpdateChemicals(inputEnt, false); // removing reagents should never cause reactions? don't waste cpu updating it
         _solution.ForceAddSolution(outputEnt, split);
-
-        
     }
 }

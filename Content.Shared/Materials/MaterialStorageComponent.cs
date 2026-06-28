@@ -72,7 +72,7 @@ public sealed partial class MaterialStorageComponent : Component
 [Serializable, NetSerializable]
 public enum MaterialStorageVisuals : byte
 {
-    Inserting
+    Inserting,
 }
 
 /// <summary>
@@ -82,7 +82,11 @@ public enum MaterialStorageVisuals : byte
 /// <param name="Materials">A dictionary of all materials held</param>
 /// <param name="LocalOnly">An optional specifier. Non-local sources (silo, etc.) should not add materials when this is false.</param>
 [ByRefEvent]
-public readonly record struct GetStoredMaterialsEvent(Entity<MaterialStorageComponent> Entity, Dictionary<ProtoId<MaterialPrototype>, int> Materials, bool LocalOnly);
+public readonly record struct GetStoredMaterialsEvent(
+    Entity<MaterialStorageComponent> Entity,
+    Dictionary<ProtoId<MaterialPrototype>, int> Materials,
+    bool LocalOnly
+);
 
 /// <summary>
 /// After using materials, removes them from storage.
@@ -91,7 +95,11 @@ public readonly record struct GetStoredMaterialsEvent(Entity<MaterialStorageComp
 /// <param name="Materials">A dictionary of the difference of materials left.</param>
 /// <param name="LocalOnly">An optional specifier. Non-local sources (silo, etc.) should not consume materials when this is false.</param>
 [ByRefEvent]
-public readonly record struct ConsumeStoredMaterialsEvent(Entity<MaterialStorageComponent> Entity, Dictionary<ProtoId<MaterialPrototype>, int> Materials, bool LocalOnly);
+public readonly record struct ConsumeStoredMaterialsEvent(
+    Entity<MaterialStorageComponent> Entity,
+    Dictionary<ProtoId<MaterialPrototype>, int> Materials,
+    bool LocalOnly
+);
 
 /// <summary>
 /// event raised on the materialStorage when a material entity is inserted into it.
@@ -136,4 +144,3 @@ public sealed class EjectMaterialMessage : EntityEventArgs
         SheetsToExtract = sheetsToExtract;
     }
 }
-

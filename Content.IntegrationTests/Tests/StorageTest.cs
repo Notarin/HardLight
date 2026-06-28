@@ -34,15 +34,19 @@ namespace Content.IntegrationTests.Tests
             {
                 foreach (var proto in protoManager.EnumeratePrototypes<EntityPrototype>())
                 {
-                    if (!proto.TryGetComponent<StorageComponent>("Storage", out var storage) ||
-                        storage.Whitelist != null ||
-                        storage.MaxItemSize == null ||
-                        !proto.TryGetComponent<ItemComponent>("Item", out var item))
+                    if (
+                        !proto.TryGetComponent<StorageComponent>("Storage", out var storage)
+                        || storage.Whitelist != null
+                        || storage.MaxItemSize == null
+                        || !proto.TryGetComponent<ItemComponent>("Item", out var item)
+                    )
                         continue;
 
-                    Assert.That(itemSys.GetSizePrototype(storage.MaxItemSize.Value).Weight,
+                    Assert.That(
+                        itemSys.GetSizePrototype(storage.MaxItemSize.Value).Weight,
                         Is.LessThanOrEqualTo(itemSys.GetSizePrototype(item.Size).Weight),
-                        $"Found storage arbitrage on {proto.ID}");
+                        $"Found storage arbitrage on {proto.ID}"
+                    );
                 }
             });
             await pair.CleanReturnAsync();
@@ -67,8 +71,16 @@ namespace Content.IntegrationTests.Tests
 
                         foreach (var entry in storage.Contents)
                         {
-                            Assert.That(entry.Amount, Is.GreaterThan(0), $"Specified invalid amount of {entry.Amount} for prototype {proto.ID}");
-                            Assert.That(entry.SpawnProbability, Is.GreaterThan(0), $"Specified invalid probability of {entry.SpawnProbability} for prototype {proto.ID}");
+                            Assert.That(
+                                entry.Amount,
+                                Is.GreaterThan(0),
+                                $"Specified invalid amount of {entry.Amount} for prototype {proto.ID}"
+                            );
+                            Assert.That(
+                                entry.SpawnProbability,
+                                Is.GreaterThan(0),
+                                $"Specified invalid probability of {entry.SpawnProbability} for prototype {proto.ID}"
+                            );
                         }
                     }
                 });
@@ -135,7 +147,11 @@ namespace Content.IntegrationTests.Tests
                     if (maxSize == null)
                         continue;
 
-                    Assert.That(size, Is.LessThanOrEqualTo(storage.Grid.GetArea()), $"{proto.ID} storage fill is too large.");
+                    Assert.That(
+                        size,
+                        Is.LessThanOrEqualTo(storage.Grid.GetArea()),
+                        $"{proto.ID} storage fill is too large."
+                    );
 
                     foreach (var entry in fill.Contents)
                     {
@@ -154,9 +170,11 @@ namespace Content.IntegrationTests.Tests
                         if (entryItem == null)
                             continue;
 
-                        Assert.That(protoMan.Index(entryItem.Size).Weight,
+                        Assert.That(
+                            protoMan.Index(entryItem.Size).Weight,
                             Is.LessThanOrEqualTo(protoMan.Index(maxSize.Value).Weight),
-                            $"Entity {proto.ID} has storage-fill item, {entry.PrototypeId}, that is too large");
+                            $"Entity {proto.ID} has storage-fill item, {entry.PrototypeId}, that is too large"
+                        );
                     }
                 }
             });
@@ -191,14 +209,22 @@ namespace Content.IntegrationTests.Tests
                         return;
 
                     var size = GetFillSize(fill, true, protoMan, itemSys);
-                    Assert.That(size, Is.LessThanOrEqualTo(entStorage.Capacity),
-                        $"{proto.ID} storage fill is too large.");
+                    Assert.That(
+                        size,
+                        Is.LessThanOrEqualTo(entStorage.Capacity),
+                        $"{proto.ID} storage fill is too large."
+                    );
                 });
             }
             await pair.CleanReturnAsync();
         }
 
-        private int GetEntrySize(EntitySpawnEntry entry, bool getCount, IPrototypeManager protoMan, SharedItemSystem itemSystem)
+        private int GetEntrySize(
+            EntitySpawnEntry entry,
+            bool getCount,
+            IPrototypeManager protoMan,
+            SharedItemSystem itemSystem
+        )
         {
             if (entry.PrototypeId == null)
                 return 0;
@@ -212,7 +238,6 @@ namespace Content.IntegrationTests.Tests
             if (getCount)
                 return entry.Amount;
 
-
             if (proto.TryGetComponent<ItemComponent>("Item", out var item))
                 return itemSystem.GetItemShape(item).GetArea() * entry.Amount;
 
@@ -220,7 +245,12 @@ namespace Content.IntegrationTests.Tests
             return 0;
         }
 
-        private int GetFillSize(StorageFillComponent fill, bool getCount, IPrototypeManager protoMan, SharedItemSystem itemSystem)
+        private int GetFillSize(
+            StorageFillComponent fill,
+            bool getCount,
+            IPrototypeManager protoMan,
+            SharedItemSystem itemSystem
+        )
         {
             var totalSize = 0;
             var groups = new Dictionary<string, int>();

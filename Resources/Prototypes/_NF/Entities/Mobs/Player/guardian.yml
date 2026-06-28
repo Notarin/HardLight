@@ -4,14 +4,14 @@
   parent: MobHoloparasiteGuardian
   suffix: Ghost, AI
   components:
-    - type: Guardian
-      ai: true
-    - type: NpcFactionMember
-      factions: 
-        - Syndicate
-    - type: HTN
-      rootTask:
-        task: SimpleHumanoidHostileCompound
+  - type: Guardian
+    ai: true
+  - type: NpcFactionMember
+    factions:
+    - Syndicate
+  - type: HTN
+    rootTask:
+      task: SimpleHumanoidHostileCompound
 
 # From Wizard deck of cards
 - type: entity
@@ -19,19 +19,19 @@
   parent: MobIfritGuardian
   suffix: Ghost, AI
   components:
-    - type: Guardian
-      ai: true
+  - type: Guardian
+    ai: true
 
 - type: entity
   id: MobHoloClownGuardianAI
   parent: MobHoloClownGuardian
   suffix: Ghost, AI
   components:
-    - type: Guardian
-      ai: true
-    - type: NpcFactionMember
-      factions: 
-        - Syndicate
-    - type: HTN
-      rootTask:
-        task: SimpleHumanoidHostileCompound
+  - type: Guardian
+    ai: true
+  - type: NpcFactionMember
+    factions:
+    - Syndicate
+  - type: HTN
+    rootTask:
+      task: SimpleHumanoidHostileCompound

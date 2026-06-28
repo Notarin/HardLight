@@ -29,14 +29,29 @@ namespace Content.Server.Silicons.Laws;
 /// <inheritdoc/>
 public sealed class SiliconLawSystem : SharedSiliconLawSystem
 {
-    [Dependency] private readonly IChatManager _chatManager = default!;
-    [Dependency] private readonly SharedMindSystem _mind = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly SharedRoleSystem _roles = default!;
-    [Dependency] private readonly StationSystem _station = default!;
-    [Dependency] private readonly UserInterfaceSystem _userInterface = default!;
-    [Dependency] private readonly EmagSystem _emag = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
+    [Dependency]
+    private readonly IChatManager _chatManager = default!;
+
+    [Dependency]
+    private readonly SharedMindSystem _mind = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototype = default!;
+
+    [Dependency]
+    private readonly SharedRoleSystem _roles = default!;
+
+    [Dependency]
+    private readonly StationSystem _station = default!;
+
+    [Dependency]
+    private readonly UserInterfaceSystem _userInterface = default!;
+
+    [Dependency]
+    private readonly EmagSystem _emag = default!;
+
+    [Dependency]
+    private readonly ISharedAdminLogManager _adminLogger = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -69,7 +84,15 @@ public sealed class SiliconLawSystem : SharedSiliconLawSystem
 
         var msg = Loc.GetString("laws-notify");
         var wrappedMessage = Loc.GetString("chat-manager-server-wrap-message", ("message", msg));
-        _chatManager.ChatMessageToOne(ChatChannel.Server, msg, wrappedMessage, default, false, actor.PlayerSession.Channel, colorOverride: Color.FromHex("#5ed7aa"));
+        _chatManager.ChatMessageToOne(
+            ChatChannel.Server,
+            msg,
+            wrappedMessage,
+            default,
+            false,
+            actor.PlayerSession.Channel,
+            colorOverride: Color.FromHex("#5ed7aa")
+        );
 
         if (!TryComp<SiliconLawProviderComponent>(uid, out var lawcomp))
             return;
@@ -79,12 +102,24 @@ public sealed class SiliconLawSystem : SharedSiliconLawSystem
 
         var modifedLawMsg = Loc.GetString("laws-notify-subverted");
         var modifiedLawWrappedMessage = Loc.GetString("chat-manager-server-wrap-message", ("message", modifedLawMsg));
-        _chatManager.ChatMessageToOne(ChatChannel.Server, modifedLawMsg, modifiedLawWrappedMessage, default, false, actor.PlayerSession.Channel, colorOverride: Color.Red);
+        _chatManager.ChatMessageToOne(
+            ChatChannel.Server,
+            modifedLawMsg,
+            modifiedLawWrappedMessage,
+            default,
+            false,
+            actor.PlayerSession.Channel,
+            colorOverride: Color.Red
+        );
     }
 
     private void OnLawProviderMindAdded(Entity<SiliconLawProviderComponent> ent, ref MindAddedMessage args)
     {
-        _adminLogger.Add(LogType.SiliconLaw, LogImpact.Low, $"{ent.Owner} laws at MindAdded are [{ent.Comp.Lawset?.LoggingString()}]");
+        _adminLogger.Add(
+            LogType.SiliconLaw,
+            LogImpact.Low,
+            $"{ent.Owner} laws at MindAdded are [{ent.Comp.Lawset?.LoggingString()}]"
+        );
 
         if (!ent.Comp.Subverted)
             return;
@@ -97,7 +132,6 @@ public sealed class SiliconLawSystem : SharedSiliconLawSystem
             return;
         RemoveSubvertedSiliconRole(args.Mind);
     }
-
 
     private void OnToggleLawsScreen(EntityUid uid, SiliconLawBoundComponent component, ToggleLawsScreenEvent args)
     {
@@ -163,19 +197,18 @@ public sealed class SiliconLawSystem : SharedSiliconLawSystem
         // HardLight end
 
         // Add the first emag law before the others
-        lawset.Laws.Insert(0, new SiliconLaw // HardLight
-        {
-            LawString = customLaw, // HardLight
-            Order = 0
-        });
+        lawset.Laws.Insert(
+            0,
+            new SiliconLaw // HardLight
+            {
+                LawString = customLaw, // HardLight
+                Order = 0,
+            }
+        );
 
         // Add the secrecy law after the others
         // HardLight start
-        lawset.Laws.Add(new SiliconLaw
-        {
-            LawString = secrecyLaw,
-            Order = lawset.Laws.Max(law => law.Order) + 1
-        });
+        lawset.Laws.Add(new SiliconLaw { LawString = secrecyLaw, Order = lawset.Laws.Max(law => law.Order) + 1 });
 
         if (TryComp<EmagSiliconLawComponent>(uid, out var emagLaw))
             emagLaw.OwnerName = emaggerName;
@@ -204,8 +237,7 @@ public sealed class SiliconLawSystem : SharedSiliconLawSystem
 
         var changed = false;
 
-        if (TryComp<EmagSiliconLawComponent>(uid, out var emagLaw) &&
-            !string.IsNullOrWhiteSpace(emagLaw.OwnerName))
+        if (TryComp<EmagSiliconLawComponent>(uid, out var emagLaw) && !string.IsNullOrWhiteSpace(emagLaw.OwnerName))
         {
             var customLaw = Loc.GetString("law-emag-custom", ("name", emagLaw.OwnerName), ("title", obeysTo));
             changed |= lawset.Laws.RemoveAll(law => law.Order == 0 && law.LawString == customLaw) > 0;
@@ -245,6 +277,7 @@ public sealed class SiliconLawSystem : SharedSiliconLawSystem
         else
             RemoveSubvertedSiliconRole(mindId);
     }
+
     // HardLight end
 
     protected override void EnsureSubvertedSiliconRole(EntityUid mindId)
@@ -299,9 +332,11 @@ public sealed class SiliconLawSystem : SharedSiliconLawSystem
             }
         }
 
-        if (component.LastLawProvider == null ||
-            Deleted(component.LastLawProvider) ||
-            Terminating(component.LastLawProvider.Value))
+        if (
+            component.LastLawProvider == null
+            || Deleted(component.LastLawProvider)
+            || Terminating(component.LastLawProvider.Value)
+        )
         {
             component.LastLawProvider = null;
         }
@@ -324,14 +359,26 @@ public sealed class SiliconLawSystem : SharedSiliconLawSystem
 
         if (!TryComp<SiliconLawProviderComponent>(uid, out var lawProvider))
             return;
-        _adminLogger.Add(LogType.SiliconLaw, LogImpact.Low, $"{uid} laws changed to [{lawProvider.Lawset?.LoggingString()}]");
+        _adminLogger.Add(
+            LogType.SiliconLaw,
+            LogImpact.Low,
+            $"{uid} laws changed to [{lawProvider.Lawset?.LoggingString()}]"
+        );
 
         if (!TryComp<ActorComponent>(uid, out var actor))
             return;
 
         var msg = Loc.GetString("laws-update-notify");
         var wrappedMessage = Loc.GetString("chat-manager-server-wrap-message", ("message", msg));
-        _chatManager.ChatMessageToOne(ChatChannel.Server, msg, wrappedMessage, default, false, actor.PlayerSession.Channel, colorOverride: Color.Red);
+        _chatManager.ChatMessageToOne(
+            ChatChannel.Server,
+            msg,
+            wrappedMessage,
+            default,
+            false,
+            actor.PlayerSession.Channel,
+            colorOverride: Color.Red
+        );
 
         if (cue != null && _mind.TryGetMind(uid, out var mindId, out _))
             _roles.MindPlaySound(mindId, cue);
@@ -343,10 +390,7 @@ public sealed class SiliconLawSystem : SharedSiliconLawSystem
     public SiliconLawset GetLawset(ProtoId<SiliconLawsetPrototype> lawset)
     {
         var proto = _prototype.Index(lawset);
-        var laws = new SiliconLawset()
-        {
-            Laws = new List<SiliconLaw>(proto.Laws.Count)
-        };
+        var laws = new SiliconLawset() { Laws = new List<SiliconLaw>(proto.Laws.Count) };
         foreach (var law in proto.Laws)
         {
             laws.Laws.Add(_prototype.Index<SiliconLawPrototype>(law).ShallowClone());
@@ -371,7 +415,10 @@ public sealed class SiliconLawSystem : SharedSiliconLawSystem
         NotifyLawsChanged(target, cue);
     }
 
-    protected override void OnUpdaterInsert(Entity<SiliconLawUpdaterComponent> ent, ref EntInsertedIntoContainerMessage args)
+    protected override void OnUpdaterInsert(
+        Entity<SiliconLawUpdaterComponent> ent,
+        ref EntInsertedIntoContainerMessage args
+    )
     {
         // TODO: Prediction dump this
         if (!TryComp(args.Entity, out SiliconLawProviderComponent? provider))
@@ -385,9 +432,11 @@ public sealed class SiliconLawSystem : SharedSiliconLawSystem
             SetLaws(lawset, update, provider.LawUploadSound);
 
             // Corvax-Next-AiRemoteControl-Start
-            if (TryComp<StationAiHeldComponent>(update, out var stationAiHeldComp)
+            if (
+                TryComp<StationAiHeldComponent>(update, out var stationAiHeldComp)
                 && stationAiHeldComp.CurrentConnectedEntity != null
-                && HasComp<SiliconLawProviderComponent>(stationAiHeldComp.CurrentConnectedEntity))
+                && HasComp<SiliconLawProviderComponent>(stationAiHeldComp.CurrentConnectedEntity)
+            )
             {
                 SetLaws(lawset, stationAiHeldComp.CurrentConnectedEntity.Value, provider.LawUploadSound);
             }

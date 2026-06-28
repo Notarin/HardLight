@@ -3,7 +3,7 @@
   name: exosuit proto-kinetic accelerator
   description: Fires normal-damage kinetic bolts at a short range.
   suffix: Mech Weapon, Gun, Industrial, Kinetic Accelerator
-  parent: [ BaseMechWeaponRange, IndustrialMechEquipment ]
+  parent: [BaseMechWeaponRange, IndustrialMechEquipment]
   components:
   - type: Sprite
     sprite: Objects/Specific/Mech/mecha_equipment.rsi
@@ -12,7 +12,7 @@
     fireRate: 1
     selectedMode: SemiAuto
     availableModes:
-      - SemiAuto
+    - SemiAuto
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/kinetic_accel.ogg
   - type: ProjectileBatteryAmmoProvider

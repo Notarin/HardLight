@@ -7,9 +7,9 @@
   components:
   - type: DockingArmGenerator
     proto: Gateway
-    unlockCooldown: 0  # 30 minutes in seconds
-    initialCount: 0  # Number of initial docking arm options
-    minSpawnDistance: 64  # Minimum distance from station to spawn
-    maxSpawnDistance: 256  # Maximum distance from station to spawn
+    unlockCooldown: 0 # 30 minutes in seconds
+    initialCount: 0 # Number of initial docking arm options
+    minSpawnDistance: 64 # Minimum distance from station to spawn
+    maxSpawnDistance: 256 # Maximum distance from station to spawn
     dockingArmGrids:
-      - /Maps/Structures/dock.yml
+    - /Maps/Structures/dock.yml

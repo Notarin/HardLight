@@ -32,43 +32,106 @@ namespace Content.Server.GameTicking
 {
     public sealed partial class GameTicker : SharedGameTicker
     {
-        [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-        [Dependency] private readonly IBanManager _banManager = default!;
-        [Dependency] private readonly IBaseServer _baseServer = default!;
-        [Dependency] private readonly IChatManager _chatManager = default!;
-        [Dependency] private readonly IConsoleHost _consoleHost = default!;
-        [Dependency] private readonly IGameMapManager _gameMapManager = default!;
-        [Dependency] private readonly IGameTiming _gameTiming = default!;
-        [Dependency] private readonly ILogManager _logManager = default!;
-        [Dependency] private readonly IMapManager _mapManager = default!;
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly IRobustRandom _robustRandom = default!;
+        [Dependency]
+        private readonly IAdminLogManager _adminLogger = default!;
+
+        [Dependency]
+        private readonly IBanManager _banManager = default!;
+
+        [Dependency]
+        private readonly IBaseServer _baseServer = default!;
+
+        [Dependency]
+        private readonly IChatManager _chatManager = default!;
+
+        [Dependency]
+        private readonly IConsoleHost _consoleHost = default!;
+
+        [Dependency]
+        private readonly IGameMapManager _gameMapManager = default!;
+
+        [Dependency]
+        private readonly IGameTiming _gameTiming = default!;
+
+        [Dependency]
+        private readonly ILogManager _logManager = default!;
+
+        [Dependency]
+        private readonly IMapManager _mapManager = default!;
+
+        [Dependency]
+        private readonly IPrototypeManager _prototypeManager = default!;
+
+        [Dependency]
+        private readonly IRobustRandom _robustRandom = default!;
+
 #if EXCEPTION_TOLERANCE
-        [Dependency] private readonly IRuntimeLog _runtimeLog = default!;
+        [Dependency]
+        private readonly IRuntimeLog _runtimeLog = default!;
 #endif
-        [Dependency] private readonly IServerPreferencesManager _prefsManager = default!;
-        [Dependency] private readonly IServerDbManager _db = default!;
-        [Dependency] private readonly ChatSystem _chatSystem = default!;
-        [Dependency] private readonly MapLoaderSystem _loader = default!;
-        [Dependency] private readonly SharedMapSystem _map = default!;
-        [Dependency] private readonly GhostSystem _ghost = default!;
-        [Dependency] private readonly SharedMindSystem _mind = default!;
-        [Dependency] private readonly PlayTimeTrackingSystem _playTimeTrackings = default!;
-        [Dependency] private readonly PvsOverrideSystem _pvsOverride = default!;
-        [Dependency] private readonly ServerUpdateManager _serverUpdates = default!;
-        [Dependency] private readonly SharedAudioSystem _audio = default!;
-        [Dependency] private readonly StationJobsSystem _stationJobs = default!;
-        [Dependency] private readonly StationSpawningSystem _stationSpawning = default!;
-        [Dependency] private readonly SharedTransformSystem _transform = default!;
-        [Dependency] private readonly UserDbDataManager _userDb = default!;
-        [Dependency] private readonly MetaDataSystem _metaData = default!;
-        [Dependency] private readonly SharedRoleSystem _roles = default!;
-        [Dependency] private readonly ServerDbEntryManager _dbEntryManager = default!;
 
-        [ViewVariables] private bool _initialized;
-        [ViewVariables] private bool _postInitialized;
+        [Dependency]
+        private readonly IServerPreferencesManager _prefsManager = default!;
 
-        [ViewVariables] public MapId DefaultMap { get; private set; }
+        [Dependency]
+        private readonly IServerDbManager _db = default!;
+
+        [Dependency]
+        private readonly ChatSystem _chatSystem = default!;
+
+        [Dependency]
+        private readonly MapLoaderSystem _loader = default!;
+
+        [Dependency]
+        private readonly SharedMapSystem _map = default!;
+
+        [Dependency]
+        private readonly GhostSystem _ghost = default!;
+
+        [Dependency]
+        private readonly SharedMindSystem _mind = default!;
+
+        [Dependency]
+        private readonly PlayTimeTrackingSystem _playTimeTrackings = default!;
+
+        [Dependency]
+        private readonly PvsOverrideSystem _pvsOverride = default!;
+
+        [Dependency]
+        private readonly ServerUpdateManager _serverUpdates = default!;
+
+        [Dependency]
+        private readonly SharedAudioSystem _audio = default!;
+
+        [Dependency]
+        private readonly StationJobsSystem _stationJobs = default!;
+
+        [Dependency]
+        private readonly StationSpawningSystem _stationSpawning = default!;
+
+        [Dependency]
+        private readonly SharedTransformSystem _transform = default!;
+
+        [Dependency]
+        private readonly UserDbDataManager _userDb = default!;
+
+        [Dependency]
+        private readonly MetaDataSystem _metaData = default!;
+
+        [Dependency]
+        private readonly SharedRoleSystem _roles = default!;
+
+        [Dependency]
+        private readonly ServerDbEntryManager _dbEntryManager = default!;
+
+        [ViewVariables]
+        private bool _initialized;
+
+        [ViewVariables]
+        private bool _postInitialized;
+
+        [ViewVariables]
+        public MapId DefaultMap { get; private set; }
 
         private ISawmill _sawmill = default!;
 
@@ -88,8 +151,10 @@ namespace Content.Server.GameTicking
             InitializePlayer();
             InitializeLobbyBackground();
             InitializeGamePreset();
-            DebugTools.Assert(_prototypeManager.Index<JobPrototype>(FallbackOverflowJob).Name == FallbackOverflowJobName,
-                "Overflow role does not have the correct name!");
+            DebugTools.Assert(
+                _prototypeManager.Index<JobPrototype>(FallbackOverflowJob).Name == FallbackOverflowJobName,
+                "Overflow role does not have the correct name!"
+            );
             InitializeGameRules();
             InitializeReplays();
             _initialized = true;

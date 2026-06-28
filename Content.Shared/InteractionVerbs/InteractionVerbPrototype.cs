@@ -30,7 +30,7 @@ public sealed partial class InteractionVerbPrototype : IPrototype, IInheritingPr
     // Locale getters
     public string Name => Loc.TryGetString($"interaction-{ID}-name", out var loc) ? loc : ID;
 
-    public string? Description => Loc.TryGetString($"interaction-{ID}-description" , out var loc) ? loc : null;
+    public string? Description => Loc.TryGetString($"interaction-{ID}-description", out var loc) ? loc : null;
 
     /// <summary>
     ///     Sprite of the icon that the user sees on the verb button.
@@ -43,7 +43,8 @@ public sealed partial class InteractionVerbPrototype : IPrototype, IInheritingPr
     ///     Effects specified here are shown after the associated do-after has ended, if any.
     /// </summary>
     [DataField]
-    public EffectSpecifier? EffectSuccess, EffectFailure;
+    public EffectSpecifier? EffectSuccess,
+        EffectFailure;
 
     /// <summary>
     ///     Specifies what popups are shown when a do-after for this verb is started.
@@ -94,7 +95,8 @@ public sealed partial class InteractionVerbPrototype : IPrototype, IInheritingPr
     ///     If true, the contests defined in <see cref="AllowedContests"/> will affect the delay or the cooldown of the verb.
     /// </summary>
     [DataField]
-    public bool ContestDelay = true, ContestCooldown = false;
+    public bool ContestDelay = true,
+        ContestCooldown = false;
 
     /// <summary>
     ///     If true, the cooldown of this verb will be applied regardless of the verb target,
@@ -117,7 +119,7 @@ public sealed partial class InteractionVerbPrototype : IPrototype, IInheritingPr
         BreakOnWeightlessMove = true,
         RequireCanInteract = false,
         // Never used, but must be present because the field is non-nullable and will error during serialization if not set.
-        Event = new InteractionVerbDoAfterEvent(default, default!)
+        Event = new InteractionVerbDoAfterEvent(default, default!),
     };
 
     [DataField]
@@ -191,9 +193,14 @@ public sealed partial class InteractionVerbPrototype : IPrototype, IInheritingPr
     [DataDefinition, Serializable]
     public partial struct RangeSpecifier()
     {
-        [DataField] public float Min = 0f;
-        [DataField] public float Max = float.PositiveInfinity;
-        [DataField] public bool Inverse = false;
+        [DataField]
+        public float Min = 0f;
+
+        [DataField]
+        public float Max = float.PositiveInfinity;
+
+        [DataField]
+        public bool Inverse = false;
 
         public bool IsInRange(float value) => (Inverse ? value < Min || value > Max : value >= Min && value <= Max);
 
@@ -230,10 +237,7 @@ public sealed partial class InteractionVerbPrototype : IPrototype, IInheritingPr
         public bool SoundPerceivedByOthers = true;
 
         [DataField]
-        public AudioParams SoundParams = new AudioParams()
-        {
-            Variation = 0.1f
-        };
+        public AudioParams SoundParams = new AudioParams() { Variation = 0.1f };
     }
 
     [Serializable, Flags]
@@ -243,18 +247,21 @@ public sealed partial class InteractionVerbPrototype : IPrototype, IInheritingPr
         ///     Popup will be shown above the person executing the verb.
         /// </summary>
         User,
+
         /// <summary>
         ///     Popup will be shown above the target of the verb.
         /// </summary>
         Target,
+
         /// <summary>
         ///     The user will see the popup shown above itself, others will see the popup above the target.
         /// </summary>
         UserThenTarget,
+
         /// <summary>
         ///     The target will see the popup shown above itself, others will see the popup above the user.
         /// </summary>
-        TargetThenUser
+        TargetThenUser,
     }
 
     [Serializable, Flags]
@@ -264,7 +271,6 @@ public sealed partial class InteractionVerbPrototype : IPrototype, IInheritingPr
         Stamina = 1 << 1,
         Health = 1 << 2,
         All = Mass | Stamina | Health,
-        None = 0
+        None = 0,
     }
 }
-

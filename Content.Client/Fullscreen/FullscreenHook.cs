@@ -1,22 +1,31 @@
 using Content.Shared.Input;
 using Robust.Client.Graphics;
 using Robust.Client.Input;
-using Robust.Shared.Input.Binding;
 using Robust.Shared;
 using Robust.Shared.Configuration;
+using Robust.Shared.Input.Binding;
 using Robust.Shared.Player;
 
 namespace Content.Client.Fullscreen;
+
 public sealed class FullscreenHook
 {
-    [Dependency] private readonly IInputManager _inputManager = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly ILogManager _logManager = default!;
+    [Dependency]
+    private readonly IInputManager _inputManager = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
+
+    [Dependency]
+    private readonly ILogManager _logManager = default!;
     private ISawmill _sawmill = default!;
 
     public void Initialize()
     {
-        _inputManager.SetInputCommand(ContentKeyFunctions.ToggleFullscreen, InputCmdHandler.FromDelegate(ToggleFullscreen));
+        _inputManager.SetInputCommand(
+            ContentKeyFunctions.ToggleFullscreen,
+            InputCmdHandler.FromDelegate(ToggleFullscreen)
+        );
         _sawmill = _logManager.GetSawmill("fullscreen");
     }
 
@@ -26,13 +35,13 @@ public sealed class FullscreenHook
 
         switch (currentWindowMode)
         {
-            case (int) WindowMode.Windowed:
-                _cfg.SetCVar(CVars.DisplayWindowMode, (int) WindowMode.Fullscreen);
+            case (int)WindowMode.Windowed:
+                _cfg.SetCVar(CVars.DisplayWindowMode, (int)WindowMode.Fullscreen);
                 _sawmill.Info("Switched to Fullscreen mode");
                 break;
 
-            case (int) WindowMode.Fullscreen:
-                _cfg.SetCVar(CVars.DisplayWindowMode, (int) WindowMode.Windowed);
+            case (int)WindowMode.Fullscreen:
+                _cfg.SetCVar(CVars.DisplayWindowMode, (int)WindowMode.Windowed);
                 _sawmill.Info("Switched to Windowed mode");
                 break;
 

@@ -32,7 +32,8 @@ public sealed class ShuttleMapInterfaceState
         StartEndTime ftlTime,
         List<ShuttleBeaconObject> destinations,
         List<ShuttleExclusionObject> exclusions,
-        List<ShuttleStationObject> stations)
+        List<ShuttleStationObject> stations
+    )
     {
         FTLState = ftlState;
         FTLTime = ftlTime;

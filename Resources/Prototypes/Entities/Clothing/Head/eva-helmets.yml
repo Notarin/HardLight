@@ -79,11 +79,11 @@
 
 #Paramedic Void Helmet
 - type: entity
-  parent: [ ClothingHeadSuitWithLightBase, ClothingHeadEVAHelmetBase ] #Despite acting like a hardsuit helmet, since it inherits from EVA Helmet, it goes here.
+  parent: [ClothingHeadSuitWithLightBase, ClothingHeadEVAHelmetBase] #Despite acting like a hardsuit helmet, since it inherits from EVA Helmet, it goes here.
   id: ClothingHeadHelmetVoidParamed
   name: paramedic void helmet
   description: A void helmet made for paramedics.
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: Clothing/Head/Hardsuits/paramedhelm.rsi

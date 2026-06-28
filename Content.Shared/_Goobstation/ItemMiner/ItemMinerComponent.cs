@@ -1,7 +1,7 @@
+using System;
 using Content.Shared.Random;
 using Robust.Shared.Audio;
 using Robust.Shared.Prototypes;
-using System;
 
 namespace Content.Shared._Goobstation.ItemMiner;
 
@@ -27,7 +27,10 @@ public sealed partial class ItemMinerComponent : Component
     /// Sound to loop while working.
     /// </summary>
     [DataField]
-    public SoundSpecifier? MiningSound = new SoundPathSpecifier("/Audio/Ambience/Objects/server_fans.ogg", AudioParams.Default.WithVolume(-7));
+    public SoundSpecifier? MiningSound = new SoundPathSpecifier(
+        "/Audio/Ambience/Objects/server_fans.ogg",
+        AudioParams.Default.WithVolume(-7)
+    );
 
     /// <summary>
     /// Sound to play when printing an item.

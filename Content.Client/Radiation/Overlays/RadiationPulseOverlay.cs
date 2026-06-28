@@ -13,9 +13,14 @@ namespace Content.Client.Radiation.Overlays
 {
     public sealed class RadiationPulseOverlay : Overlay
     {
-        [Dependency] private readonly IEntityManager _entityManager = default!;
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly IGameTiming _gameTiming = default!;
+        [Dependency]
+        private readonly IEntityManager _entityManager = default!;
+
+        [Dependency]
+        private readonly IPrototypeManager _prototypeManager = default!;
+
+        [Dependency]
+        private readonly IGameTiming _gameTiming = default!;
         private TransformSystem? _transform;
 
         private const float MaxDist = 15.0f;
@@ -32,7 +37,7 @@ namespace Content.Client.Radiation.Overlays
             _baseShader = _prototypeManager.Index(RadiationShaderId).Instance().Duplicate();
         }
 
-    private static readonly ProtoId<ShaderPrototype> RadiationShaderId = "Radiation";
+        private static readonly ProtoId<ShaderPrototype> RadiationShaderId = "Radiation";
 
         protected override bool BeforeDraw(in OverlayDrawArgs args)
         {
@@ -61,14 +66,20 @@ namespace Content.Client.Radiation.Overlays
                 shd?.SetParameter("positionInput", tempCoords);
                 shd?.SetParameter("range", instance.Range);
                 var life = (_gameTiming.RealTime - instance.Start).TotalSeconds / instance.Duration;
-                shd?.SetParameter("life", (float) life);
+                shd?.SetParameter("life", (float)life);
 
                 // There's probably a very good reason not to do this.
                 // Oh well!
                 shd?.SetParameter("SCREEN_TEXTURE", viewport.RenderTarget.Texture);
 
                 worldHandle.UseShader(shd);
-                worldHandle.DrawRect(Box2.CenteredAround(instance.CurrentMapCoords.Position, new Vector2(instance.Range, instance.Range) * 2f), Color.White);
+                worldHandle.DrawRect(
+                    Box2.CenteredAround(
+                        instance.CurrentMapCoords.Position,
+                        new Vector2(instance.Range, instance.Range) * 2f
+                    ),
+                    Color.White
+                );
             }
 
             worldHandle.UseShader(null);
@@ -94,16 +105,16 @@ namespace Content.Client.Radiation.Overlays
                 if (!_pulses.ContainsKey(pulseEntity) && PulseQualifies(pulseEntity, currentEyeLoc))
                 {
                     _pulses.Add(
-                            pulseEntity,
-                            (
-                                _baseShader.Duplicate(),
-                                new RadiationShaderInstance(
-                                    _transform.GetMapCoordinates(pulseEntity),
-                                    pulse.VisualRange,
-                                    pulse.StartTime,
-                                    pulse.VisualDuration
-                                )
+                        pulseEntity,
+                        (
+                            _baseShader.Duplicate(),
+                            new RadiationShaderInstance(
+                                _transform.GetMapCoordinates(pulseEntity),
+                                pulse.VisualRange,
+                                pulse.StartTime,
+                                pulse.VisualDuration
                             )
+                        )
                     );
                 }
             }
@@ -111,9 +122,11 @@ namespace Content.Client.Radiation.Overlays
             var activeShaderIds = _pulses.Keys;
             foreach (var pulseEntity in activeShaderIds) //Remove all pulses that are added and no longer qualify
             {
-                if (_entityManager.EntityExists(pulseEntity) &&
-                    PulseQualifies(pulseEntity, currentEyeLoc) &&
-                    _entityManager.TryGetComponent(pulseEntity, out RadiationPulseComponent? pulse))
+                if (
+                    _entityManager.EntityExists(pulseEntity)
+                    && PulseQualifies(pulseEntity, currentEyeLoc)
+                    && _entityManager.TryGetComponent(pulseEntity, out RadiationPulseComponent? pulse)
+                )
                 {
                     var shaderInstance = _pulses[pulseEntity];
                     shaderInstance.instance.CurrentMapCoords = _transform.GetMapCoordinates(pulseEntity);
@@ -125,7 +138,6 @@ namespace Content.Client.Radiation.Overlays
                     _pulses.Remove(pulseEntity);
                 }
             }
-
         }
 
         private bool PulseQualifies(EntityUid pulseEntity, MapCoordinates currentEyeLoc)
@@ -133,10 +145,19 @@ namespace Content.Client.Radiation.Overlays
             var transformComponent = _entityManager.GetComponent<TransformComponent>(pulseEntity);
             var transformSystem = _entityManager.System<SharedTransformSystem>();
             return transformComponent.MapID == currentEyeLoc.MapId
-                && transformSystem.InRange(transformComponent.Coordinates, transformSystem.ToCoordinates(transformComponent.ParentUid, currentEyeLoc), MaxDist);
+                && transformSystem.InRange(
+                    transformComponent.Coordinates,
+                    transformSystem.ToCoordinates(transformComponent.ParentUid, currentEyeLoc),
+                    MaxDist
+                );
         }
 
-        private sealed record RadiationShaderInstance(MapCoordinates CurrentMapCoords, float Range, TimeSpan Start, float Duration)
+        private sealed record RadiationShaderInstance(
+            MapCoordinates CurrentMapCoords,
+            float Range,
+            TimeSpan Start,
+            float Duration
+        )
         {
             public MapCoordinates CurrentMapCoords = CurrentMapCoords;
             public float Range = Range;
@@ -145,4 +166,3 @@ namespace Content.Client.Radiation.Overlays
         };
     }
 }
-

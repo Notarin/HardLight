@@ -4,20 +4,20 @@
   description: trait-cum-producer-desc
   category: Lewd
   components:
-    - type: CumProducer
-      maxVol: 25
-      reVol: 5
-      reHunger: 1
+  - type: CumProducer
+    maxVol: 25
+    reVol: 5
+    reHunger: 1
     ##  solutionname: "penis"
     ##- type: SolutionContainerManager
-      ##solutions:
-        ##penis:
-          ##maxVol: 25
-          ##reagents:
-          ##- ReagentId: Cum
-            ##Quantity: 25
-          ##Commented out section were all doing exactly NOTHING in their interaction with the mob and were extranious.
-          ##Not deleting them here to leave the example for future ref
+    ##solutions:
+    ##penis:
+    ##maxVol: 25
+    ##reagents:
+    ##- ReagentId: Cum
+    ##Quantity: 25
+    ##Commented out section were all doing exactly NOTHING in their interaction with the mob and were extranious.
+    ##Not deleting them here to leave the example for future ref
 
 - type: trait
   id: CumCascade
@@ -30,10 +30,10 @@
   - BluespaceBalls
   - BarrelBalls
   components:
-    - type: CumProducer
-      maxVol: 100
-      reVol: 20
-      reHunger: 1
+  - type: CumProducer
+    maxVol: 100
+    reVol: 20
+    reHunger: 1
 
 - type: trait
   id: CumFlood
@@ -46,10 +46,10 @@
   - BluespaceBalls
   - BarrelBalls
   components:
-    - type: CumProducer
-      maxVol: 250
-      reVol: 50
-      reHunger: 1
+  - type: CumProducer
+    maxVol: 250
+    reVol: 50
+    reHunger: 1
 
 - type: trait
   id: BluespaceBalls
@@ -62,10 +62,10 @@
   - CumFlood
   - BarrelBalls
   components:
-    - type: CumProducer
-      maxVol: 1000
-      reVol: 200
-      reHunger: 1
+  - type: CumProducer
+    maxVol: 1000
+    reVol: 200
+    reHunger: 1
 
 - type: trait
   id: BarrelBalls
@@ -78,30 +78,30 @@
   - CumFlood
   - BluespaceBalls
   components:
-    - type: CumProducer
-      maxVol: 15000
-      reVol: 3750
-      reHunger: 1
+  - type: CumProducer
+    maxVol: 15000
+    reVol: 3750
+    reHunger: 1
 
-##- type: trait
+  ##- type: trait
   ##id: MilkProducer
   ##name: trait-milk-producer-name
   ##description: trait-milk-producer-desc
   ##category: Physical
   ##components:
-    ##- type: MilkProducer
-      ##maxVol: 50
-      ##reVol: 5
-      ##reHunger: 10
-      ##solutionname: "breasts"
-    ##- type: SolutionContainerManager
-      ##solutions:
-        ##breasts:
-          ##maxVol: 50
-          ##reagents:
-          ##- ReagentId: Milk
-            ##Quantity: 50
-            ##THIS VERSION OF THE TRAIT BREAKS EVERYTHING AND I CANNOT FIGURE OUT WHY SO I REMADE IT BELOW
+  ##- type: MilkProducer
+  ##maxVol: 50
+  ##reVol: 5
+  ##reHunger: 10
+  ##solutionname: "breasts"
+  ##- type: SolutionContainerManager
+  ##solutions:
+  ##breasts:
+  ##maxVol: 50
+  ##reagents:
+  ##- ReagentId: Milk
+  ##Quantity: 50
+  ##THIS VERSION OF THE TRAIT BREAKS EVERYTHING AND I CANNOT FIGURE OUT WHY SO I REMADE IT BELOW
 
 - type: trait
   id: MilkProducer
@@ -114,10 +114,10 @@
   - BluespaceBreasts
   - BarrelBreasts
   components:
-    - type: MilkProducer
-      maxVol: 50
-      reVol: 10
-      reHunger: 1
+  - type: MilkProducer
+    maxVol: 50
+    reVol: 10
+    reHunger: 1
 
 - type: trait
   id: MilkCascade
@@ -130,10 +130,10 @@
   - BluespaceBreasts
   - BarrelBreasts
   components:
-    - type: MilkProducer
-      maxVol: 100
-      reVol: 20
-      reHunger: 1
+  - type: MilkProducer
+    maxVol: 100
+    reVol: 20
+    reHunger: 1
 
 - type: trait
   id: MilkFlood
@@ -146,10 +146,10 @@
   - BluespaceBreasts
   - BarrelBreasts
   components:
-    - type: MilkProducer
-      maxVol: 250
-      reVol: 50
-      reHunger: 1
+  - type: MilkProducer
+    maxVol: 250
+    reVol: 50
+    reHunger: 1
 
 - type: trait
   id: BluespaceBreasts
@@ -162,10 +162,10 @@
   - MilkFlood
   - BarrelBreasts
   components:
-    - type: MilkProducer
-      maxVol: 1000
-      reVol: 200
-      reHunger: 1
+  - type: MilkProducer
+    maxVol: 1000
+    reVol: 200
+    reHunger: 1
 
 - type: trait
   id: BarrelBreasts
@@ -178,10 +178,10 @@
   - MilkFlood
   - BluespaceBreasts
   components:
-    - type: MilkProducer
-      maxVol: 15000
-      reVol: 3750
-      reHunger: 1
+  - type: MilkProducer
+    maxVol: 15000
+    reVol: 3750
+    reHunger: 1
 
 # WIP - Needs a Reagent
 # - type: trait
@@ -210,7 +210,7 @@
   description: trait-pisser-desc
   category: Lewd
   components:
-    - type: PissProducer
-      maxVol: 100
-      reVol: 15
-      reHunger: 1
+  - type: PissProducer
+    maxVol: 100
+    reVol: 15
+    reHunger: 1

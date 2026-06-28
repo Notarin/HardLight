@@ -9,7 +9,6 @@ namespace Content.Server.Atmos.Piping.Unary.Components
     [Access(typeof(GasOutletInjectorSystem))]
     public sealed partial class GasOutletInjectorComponent : Component
     {
-
         [ViewVariables(VVAccess.ReadWrite)]
         public bool Enabled { get; set; } = true;
 

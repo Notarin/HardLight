@@ -11,7 +11,8 @@ namespace Content.Client.Info.PlaytimeStats;
 [GenerateTypedNameReferences]
 public sealed partial class PlaytimeStatsWindow : FancyWindow
 {
-    [Dependency] private readonly JobRequirementsManager _jobRequirementsManager = default!;
+    [Dependency]
+    private readonly JobRequirementsManager _jobRequirementsManager = default!;
     private ISawmill _sawmill = Logger.GetSawmill("PlaytimeStatsWindow");
     private readonly Color _altColor = Color.FromHex("#292B38");
     private readonly Color _defaultColor = Color.FromHex("#2F2F3B");
@@ -58,9 +59,10 @@ public sealed partial class PlaytimeStatsWindow : FancyWindow
         if (header != null)
             RolesPlaytimeList.AddChild(header);
 
-        var sortedEntries = (direction == PlaytimeStatsHeader.SortDirection.Ascending)
-            ? entries.OrderBy(entry => entry.RoleText).ToList()
-            : entries.OrderByDescending(entry => entry.RoleText).ToList();
+        var sortedEntries =
+            (direction == PlaytimeStatsHeader.SortDirection.Ascending)
+                ? entries.OrderBy(entry => entry.RoleText).ToList()
+                : entries.OrderByDescending(entry => entry.RoleText).ToList();
 
         _useAltColor = false;
 
@@ -84,9 +86,10 @@ public sealed partial class PlaytimeStatsWindow : FancyWindow
         if (header != null)
             RolesPlaytimeList.AddChild(header);
 
-        var sortedEntries = (direction == PlaytimeStatsHeader.SortDirection.Ascending)
-            ? entries.OrderBy(entry => entry.Playtime).ToList()
-            : entries.OrderByDescending(entry => entry.Playtime).ToList();
+        var sortedEntries =
+            (direction == PlaytimeStatsHeader.SortDirection.Ascending)
+                ? entries.OrderBy(entry => entry.Playtime).ToList()
+                : entries.OrderByDescending(entry => entry.Playtime).ToList();
 
         _useAltColor = false;
 
@@ -98,7 +101,6 @@ public sealed partial class PlaytimeStatsWindow : FancyWindow
             _useAltColor ^= true;
         }
     }
-
 
     private void PopulatePlaytimeData()
     {
@@ -123,8 +125,11 @@ public sealed partial class PlaytimeStatsWindow : FancyWindow
     {
         if (TimeSpan.TryParse(playtimeString, out var playtime))
         {
-            var entry = new PlaytimeStatsEntry(role, playtime,
-                new StyleBoxFlat(_useAltColor ? _altColor : _defaultColor));
+            var entry = new PlaytimeStatsEntry(
+                role,
+                playtime,
+                new StyleBoxFlat(_useAltColor ? _altColor : _defaultColor)
+            );
             RolesPlaytimeList.AddChild(entry);
             _useAltColor ^= true;
         }

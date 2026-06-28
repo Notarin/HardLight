@@ -5,42 +5,42 @@
   components:
   - type: StorageFill
     contents:
-      - id: ClothingOuterVestHazard
-        prob: 0.4
-      - id: FlashlightLantern
-        prob: 0.7
-      - id: Screwdriver
-        prob: 0.7
-      - id: Wrench
-        prob: 0.7
-      - id: Welder
-        prob: 0.7
-      - id: Crowbar
-        prob: 0.7
-      - id: Wirecutter
-        prob: 0.7
-      - id: Multitool
-        prob: 0.2
-      - id: trayScanner
-        prob: 0.7
-      - id: GasAnalyzer
-        prob: 0.7
-      - id: ClothingBeltUtility
-        prob: 0.2
-      - id: ClothingHandsGlovesColorYellow
-        prob: 0.05
-      - id: ClothingHeadHatHardhatRed
-        prob: 0.4
-      - id: CableApcStack
-        prob: 0.3
-      - id: CableApcStack
-        prob: 0.3
-      - id: CableApcStack
-        prob: 0.3
-      - id: SprayPainter
-        prob: 0.7
-      - id: MaintenanceJack # Frontier
-        prob: 0.1 # Frontier
+    - id: ClothingOuterVestHazard
+      prob: 0.4
+    - id: FlashlightLantern
+      prob: 0.7
+    - id: Screwdriver
+      prob: 0.7
+    - id: Wrench
+      prob: 0.7
+    - id: Welder
+      prob: 0.7
+    - id: Crowbar
+      prob: 0.7
+    - id: Wirecutter
+      prob: 0.7
+    - id: Multitool
+      prob: 0.2
+    - id: trayScanner
+      prob: 0.7
+    - id: GasAnalyzer
+      prob: 0.7
+    - id: ClothingBeltUtility
+      prob: 0.2
+    - id: ClothingHandsGlovesColorYellow
+      prob: 0.05
+    - id: ClothingHeadHatHardhatRed
+      prob: 0.4
+    - id: CableApcStack
+      prob: 0.3
+    - id: CableApcStack
+      prob: 0.3
+    - id: CableApcStack
+      prob: 0.3
+    - id: SprayPainter
+      prob: 0.7
+    - id: MaintenanceJack # Frontier
+      prob: 0.1 # Frontier
 
 - type: entity
   id: LockerElectricalSuppliesFilled
@@ -146,12 +146,12 @@
     - id: GasAnalyzer
     - id: MedkitOxygenFilled
     - id: HolofanProjector
-#    - id: DoorRemoteFirefight
+      #    - id: DoorRemoteFirefight
     - id: ClothingHandsGlovesColorYellow # Frontier
     - id: trayScanner # Frontier
     - id: ClothingBeltUtilityEngineering # Frontier
-#    - id: RCD
-#    - id: RCDAmmo
+      #    - id: RCD
+      #    - id: RCDAmmo
     - id: AirGrenade
 
 - type: entityTable
@@ -159,7 +159,7 @@
   table: !type:AllSelector
     children:
     - id: ClothingOuterHardsuitAtmos
-#    - id: OxygenTankFilled
+      #    - id: OxygenTankFilled
     - id: NFTankO2N2EqualFilled # Frontier
     - id: ClothingMaskBreath
     - id: ClothingShoesBootsMag # Frontier
@@ -206,7 +206,7 @@
   table: !type:AllSelector
     children:
     - id: ClothingOuterHardsuitEngineering
-#    - id: OxygenTankFilled
+      #    - id: OxygenTankFilled
     - id: NFTankO2N2EqualFilled # Frontier
     - id: ClothingShoesBootsMag
     - id: JetpackMiniFilled # Frontier
@@ -242,12 +242,12 @@
   components:
   - type: StorageFill
     contents:
-      - id: BoxInflatable
-      - id: HolofanProjector
-      - id: MetalFoamGrenade
-        amount: 3
-      - id: AirGrenade
-        amount: 3
+    - id: BoxInflatable
+    - id: HolofanProjector
+    - id: MetalFoamGrenade
+      amount: 3
+    - id: AirGrenade
+      amount: 3
 
 - type: entity
   parent: LockerWallEvacRepair
@@ -256,9 +256,9 @@
   components:
   - type: StorageFill
     contents:
-      - id: BoxInflatable
-      - id: HolofanProjector
-      - id: MetalFoamGrenade
-        amount: 3
-      - id: AirGrenade
-        amount: 3
+    - id: BoxInflatable
+    - id: HolofanProjector
+    - id: MetalFoamGrenade
+      amount: 3
+    - id: AirGrenade
+      amount: 3

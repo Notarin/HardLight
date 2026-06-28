@@ -9,8 +9,11 @@ namespace Content.Server.NPC.HTN.PrimitiveTasks.Operators.Interactions;
 /// </summary>
 public sealed partial class PullOperator : HTNOperator
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
     private PullingSystem _pulling = default!;
 
     /// <summary>
@@ -50,7 +53,7 @@ public sealed partial class PullOperator : HTNOperator
         // Always try to pull (will succeed if not already pulling, or re-establish if lost)
         blackboard.SetValue(LastPullAttemptKey, _timing.CurTime);
         _pulling.TryStartPull(owner, target);
-        
+
         return HTNOperatorStatus.Finished;
     }
 }

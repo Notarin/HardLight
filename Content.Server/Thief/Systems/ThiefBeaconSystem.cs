@@ -5,8 +5,8 @@ using Content.Server.Thief.Components;
 using Content.Shared.Examine;
 using Content.Shared.Foldable;
 using Content.Shared.Popups;
-using Content.Shared.Verbs;
 using Content.Shared.Roles;
+using Content.Shared.Verbs;
 using Robust.Shared.Audio.Systems;
 
 namespace Content.Server.Thief.Systems;
@@ -16,10 +16,18 @@ namespace Content.Server.Thief.Systems;
 /// </summary>
 public sealed class ThiefBeaconSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly MindSystem _mind = default!;
-    [Dependency] private readonly SharedRoleSystem _roles = default!;
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly MindSystem _mind = default!;
+
+    [Dependency]
+    private readonly SharedRoleSystem _roles = default!;
+
     public override void Initialize()
     {
         base.Initialize();
@@ -42,15 +50,17 @@ public sealed class ThiefBeaconSystem : EntitySystem
             return;
 
         var user = args.User;
-        args.Verbs.Add(new()
-        {
-            Act = () =>
+        args.Verbs.Add(
+            new()
             {
-                SetCoordinate(beacon, mind.Value);
-            },
-            Message = Loc.GetString("thief-fulton-verb-message"),
-            Text = Loc.GetString("thief-fulton-verb-text"),
-        });
+                Act = () =>
+                {
+                    SetCoordinate(beacon, mind.Value);
+                },
+                Message = Loc.GetString("thief-fulton-verb-message"),
+                Text = Loc.GetString("thief-fulton-verb-text"),
+            }
+        );
     }
 
     private void OnFolded(Entity<ThiefBeaconComponent> beacon, ref FoldedEvent args)
@@ -64,9 +74,9 @@ public sealed class ThiefBeaconSystem : EntitySystem
         if (!TryComp<StealAreaComponent>(beacon, out var area))
             return;
 
-        args.PushText(Loc.GetString(area.Owners.Count == 0
-            ? "thief-fulton-examined-unset"
-            : "thief-fulton-examined-set"));
+        args.PushText(
+            Loc.GetString(area.Owners.Count == 0 ? "thief-fulton-examined-unset" : "thief-fulton-examined-set")
+        );
     }
 
     private void SetCoordinate(Entity<ThiefBeaconComponent> beacon, EntityUid mind)

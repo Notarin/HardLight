@@ -5,7 +5,7 @@
   components:
   - type: InstantAction
     useDelay: 3.4 # Frontier: keep the old value
-    icon: { sprite: Objects/Fun/bikehorn.rsi, state: icon }
+    icon: {sprite: Objects/Fun/bikehorn.rsi, state: icon}
     event: !type:HornActionEvent
 
 - type: entity
@@ -15,5 +15,5 @@
   components:
   - type: InstantAction
     useDelay: 3.4 # Frontier: keep the old value
-    icon: { sprite: Objects/Fun/bikehorn.rsi, state: icon }
+    icon: {sprite: Objects/Fun/bikehorn.rsi, state: icon}
     event: !type:SirenActionEvent

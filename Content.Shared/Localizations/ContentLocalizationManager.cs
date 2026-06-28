@@ -7,7 +7,8 @@ namespace Content.Shared.Localizations
 {
     public sealed class ContentLocalizationManager
     {
-        [Dependency] private readonly ILocalizationManager _loc = default!;
+        [Dependency]
+        private readonly ILocalizationManager _loc = default!;
 
         // If you want to change your codebase's language, do it here.
         private const string Culture = "en-US";
@@ -15,13 +16,7 @@ namespace Content.Shared.Localizations
         /// <summary>
         /// Custom format strings used for parsing and displaying minutes:seconds timespans.
         /// </summary>
-        public static readonly string[] TimeSpanMinutesFormats = new[]
-        {
-            @"m\:ss",
-            @"mm\:ss",
-            @"%m",
-            @"mm"
-        };
+        public static readonly string[] TimeSpanMinutesFormats = new[] { @"m\:ss", @"mm\:ss", @"%m", @"mm" };
 
         public void Initialize()
         {
@@ -41,7 +36,6 @@ namespace Content.Shared.Localizations
             _loc.AddFunction(culture, "PLAYTIME", FormatPlaytime);
             _loc.AddFunction(culture, "GASQUANTITY", FormatGasQuantity); // Frontier
 
-
             /*
              * The following language functions are specific to the english localization. When working on your own
              * localization you should NOT modify these, instead add new functions specific to your language/culture.
@@ -55,41 +49,49 @@ namespace Content.Shared.Localizations
 
         private ILocValue FormatMany(LocArgs args)
         {
-            var count = ((LocValueNumber) args.Args[1]).Value;
+            var count = ((LocValueNumber)args.Args[1]).Value;
 
             if (Math.Abs(count - 1) < 0.0001f)
             {
-                return (LocValueString) args.Args[0];
+                return (LocValueString)args.Args[0];
             }
             else
             {
-                return (LocValueString) FormatMakePlural(args);
+                return (LocValueString)FormatMakePlural(args);
             }
         }
 
         private ILocValue FormatNaturalPercent(LocArgs args)
         {
-            var number = ((LocValueNumber) args.Args[0]).Value * 100;
-            var maxDecimals = (int)Math.Floor(((LocValueNumber) args.Args[1]).Value);
+            var number = ((LocValueNumber)args.Args[0]).Value * 100;
+            var maxDecimals = (int)Math.Floor(((LocValueNumber)args.Args[1]).Value);
             var formatter = (NumberFormatInfo)NumberFormatInfo.GetInstance(CultureInfo.GetCultureInfo(Culture)).Clone();
             formatter.NumberDecimalDigits = maxDecimals;
-            return new LocValueString(string.Format(formatter, "{0:N}", number).TrimEnd('0').TrimEnd(char.Parse(formatter.NumberDecimalSeparator)) + "%");
+            return new LocValueString(
+                string.Format(formatter, "{0:N}", number)
+                    .TrimEnd('0')
+                    .TrimEnd(char.Parse(formatter.NumberDecimalSeparator)) + "%"
+            );
         }
 
         private ILocValue FormatNaturalFixed(LocArgs args)
         {
-            var number = ((LocValueNumber) args.Args[0]).Value;
-            var maxDecimals = (int)Math.Floor(((LocValueNumber) args.Args[1]).Value);
+            var number = ((LocValueNumber)args.Args[0]).Value;
+            var maxDecimals = (int)Math.Floor(((LocValueNumber)args.Args[1]).Value);
             var formatter = (NumberFormatInfo)NumberFormatInfo.GetInstance(CultureInfo.GetCultureInfo(Culture)).Clone();
             formatter.NumberDecimalDigits = maxDecimals;
-            return new LocValueString(string.Format(formatter, "{0:N}", number).TrimEnd('0').TrimEnd(char.Parse(formatter.NumberDecimalSeparator)));
+            return new LocValueString(
+                string.Format(formatter, "{0:N}", number)
+                    .TrimEnd('0')
+                    .TrimEnd(char.Parse(formatter.NumberDecimalSeparator))
+            );
         }
 
         private static readonly Regex PluralEsRule = new("^.*(s|sh|ch|x|z)$");
 
         private ILocValue FormatMakePlural(LocArgs args)
         {
-            var text = ((LocValueString) args.Args[0]).Value;
+            var text = ((LocValueString)args.Args[0]).Value;
             var split = text.Split(" ", 1);
             var firstWord = split[0];
             if (PluralEsRule.IsMatch(firstWord))
@@ -119,7 +121,7 @@ namespace Content.Shared.Localizations
                 <= 0 => string.Empty,
                 1 => list[0],
                 2 => $"{list[0]} and {list[1]}",
-                _ => $"{string.Join(", ", list.GetRange(0, list.Count - 1))}, and {list[^1]}"
+                _ => $"{string.Join(", ", list.GetRange(0, list.Count - 1))}, and {list[^1]}",
             };
         }
 
@@ -133,7 +135,7 @@ namespace Content.Shared.Localizations
                 <= 0 => string.Empty,
                 1 => list[0],
                 2 => $"{list[0]} or {list[1]}",
-                _ => $"{string.Join(" or ", list)}"
+                _ => $"{string.Join(" or ", list)}",
             };
         }
 
@@ -158,7 +160,7 @@ namespace Content.Shared.Localizations
 
         private static ILocValue FormatLoc(LocArgs args)
         {
-            var id = ((LocValueString) args.Args[0]).Value;
+            var id = ((LocValueString)args.Args[0]).Value;
 
             return new LocValueString(Loc.GetString(id, args.Options.Select(x => (x.Key, x.Value.Value!)).ToArray()));
         }
@@ -166,7 +168,7 @@ namespace Content.Shared.Localizations
         private static ILocValue FormatToString(CultureInfo culture, LocArgs args)
         {
             var arg = args.Args[0];
-            var fmt = ((LocValueString) args.Args[1]).Value;
+            var fmt = ((LocValueString)args.Args[1]).Value;
 
             var obj = arg.Value;
             if (obj is IFormattable formattable)
@@ -178,10 +180,11 @@ namespace Content.Shared.Localizations
         private static ILocValue FormatUnitsGeneric(
             LocArgs args,
             string mode,
-            Func<double, double>? transformValue = null)
+            Func<double, double>? transformValue = null
+        )
         {
             const int maxPlaces = 5; // Matches amount in _lib.ftl
-            var pressure = ((LocValueNumber) args.Args[0]).Value;
+            var pressure = ((LocValueNumber)args.Args[0]).Value;
 
             if (transformValue != null)
                 pressure = transformValue(pressure);
@@ -223,20 +226,21 @@ namespace Content.Shared.Localizations
         {
             return FormatUnitsGeneric(args, "zzzz-fmt-gas-quantity");
         }
+
         // End Frontier
 
         private static ILocValue FormatUnits(LocArgs args)
         {
-            if (!Units.Types.TryGetValue(((LocValueString) args.Args[0]).Value, out var ut))
-                throw new ArgumentException($"Unknown unit type {((LocValueString) args.Args[0]).Value}");
+            if (!Units.Types.TryGetValue(((LocValueString)args.Args[0]).Value, out var ut))
+                throw new ArgumentException($"Unknown unit type {((LocValueString)args.Args[0]).Value}");
 
-            var fmtstr = ((LocValueString) args.Args[1]).Value;
+            var fmtstr = ((LocValueString)args.Args[1]).Value;
 
             double max = Double.NegativeInfinity;
             var iargs = new double[args.Args.Count - 1];
             for (var i = 2; i < args.Args.Count; i++)
             {
-                var n = ((LocValueNumber) args.Args[i]).Value;
+                var n = ((LocValueNumber)args.Args[i]).Value;
                 if (n > max)
                     max = n;
 
@@ -257,10 +261,7 @@ namespace Content.Shared.Localizations
             // https://docs.microsoft.com/en-us/dotnet/standard/base-types/composite-formatting#escaping-braces
             //
             // Note that the closing brace isn't replaced so that format specifiers can be applied.
-            var res = String.Format(
-                fmtstr.Replace("{UNIT", "{" + $"{fargs.Length - 1}"),
-                fargs
-            );
+            var res = String.Format(fmtstr.Replace("{UNIT", "{" + $"{fargs.Length - 1}"), fargs);
 
             return new LocValueString(res);
         }

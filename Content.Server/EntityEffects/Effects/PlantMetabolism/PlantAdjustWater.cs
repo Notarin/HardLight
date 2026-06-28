@@ -19,4 +19,3 @@ public sealed partial class PlantAdjustWater : PlantAdjustAttribute
         plantHolder.AdjustWater(args.TargetEntity, Amount, plantHolderComp);
     }
 }
-

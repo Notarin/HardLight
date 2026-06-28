@@ -10,8 +10,11 @@ namespace Content.Shared.Storage.EntitySystems;
 /// </summary>
 public sealed class AnchoredStorageFilterSystem : EntitySystem
 {
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelist = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
 
     /// <inheritdoc/>
     public override void Initialize()

@@ -3,18 +3,18 @@
   id: Spoder
   parent: SuperTalon
   description: oh god what the fuck is that
-#  categories: [ HideSpawnMenu ] # Frontier
+  #  categories: [ HideSpawnMenu ] # Frontier
   components:
   - type: Sprite
     sprite: _HL/Mobs/Empty/empty.rsi # this is a wangjangled solution but it was either this or refactoring one of the component systems sooooo...
     scale: 1, 1
     layers:
     - state: empty
-      map: [ "enum.DamageStateVisualLayers.BaseUnshaded", "enum.BorgVisualLayers.Light" ]
+      map: ["enum.DamageStateVisualLayers.BaseUnshaded", "enum.BorgVisualLayers.Light"]
       shader: unshaded
       visible: false
     - state: empty
-      map: [ "light" ]
+      map: ["light"]
       shader: unshaded
       visible: false
   - type: OptionsVisualizer
@@ -25,21 +25,21 @@
           drawdepth: Mobs
           sprite: _HL/Mobs/Player/Spiders/spoder.rsi
           scale: 0.7, 0.7
-          map: [ "enum.DamageStateVisualLayers.Base", "movement" ]
+          map: ["enum.DamageStateVisualLayers.Base", "movement"]
           state: spider
       - options: Arachnophobia
         data:
           drawdepth: Mobs
           sprite: _HL/Mobs/Player/Spiders/Arachnophobia/spoder.rsi
           scale: 0.7, 0.7
-          map: [ "enum.DamageStateVisualLayers.Base", "movement" ]
+          map: ["enum.DamageStateVisualLayers.Base", "movement"]
           state: spider
       enum.DamageStateVisualLayers.BaseUnshaded:
       - options: Default
         data:
           sprite: _HL/Mobs/Player/Spiders/spoder.rsi
           scale: 0.7, 0.7
-          map: [ "enum.DamageStateVisualLayers.BaseUnshaded", "enum.BorgVisualLayers.Light" ]
+          map: ["enum.DamageStateVisualLayers.BaseUnshaded", "enum.BorgVisualLayers.Light"]
           state: glow
           shader: unshaded
           visible: false
@@ -47,7 +47,7 @@
         data:
           sprite: _HL/Mobs/Player/Spiders/Arachnophobia/spoder.rsi
           scale: 0.7, 0.7
-          map: [ "enum.DamageStateVisualLayers.BaseUnshaded", "enum.BorgVisualLayers.Light" ]
+          map: ["enum.DamageStateVisualLayers.BaseUnshaded", "enum.BorgVisualLayers.Light"]
           state: glow
           shader: unshaded
           visible: false
@@ -56,7 +56,7 @@
         data:
           sprite: _HL/Mobs/Player/Spiders/spoder.rsi
           scale: 0.7, 0.7
-          map: [ "light" ]
+          map: ["light"]
           state: glow
           shader: unshaded
           visible: false
@@ -64,7 +64,7 @@
         data:
           sprite: _HL/Mobs/Player/Spiders/Arachnophobia/spoder.rsi
           scale: 0.7, 0.7
-          map: [ "light" ]
+          map: ["light"]
           state: glow
           shader: unshaded
           visible: false
@@ -89,8 +89,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35
         density: 120
         mask:

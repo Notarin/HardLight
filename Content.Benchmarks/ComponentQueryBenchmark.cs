@@ -52,13 +52,16 @@ public class ComponentQueryBenchmark
         _mapQuery = _entMan.GetEntityQuery<MapComponent>();
 
         _pair.Server.ResolveDependency<IRobustRandom>().SetSeed(42);
-        _pair.Server.WaitPost(() =>
-        {
-            var map = new ResPath(Map);
-            var opts = DeserializationOptions.Default with {InitializeMaps = true};
-            if (!_entMan.System<MapLoaderSystem>().TryLoadMap(map, out _, out _, opts))
-                throw new Exception("Map load failed");
-        }).GetAwaiter().GetResult();
+        _pair
+            .Server.WaitPost(() =>
+            {
+                var map = new ResPath(Map);
+                var opts = DeserializationOptions.Default with { InitializeMaps = true };
+                if (!_entMan.System<MapLoaderSystem>().TryLoadMap(map, out _, out _, opts))
+                    throw new Exception("Map load failed");
+            })
+            .GetAwaiter()
+            .GetResult();
 
         _items = new EntityUid[_entMan.Count<ItemComponent>()];
         var i = 0;

@@ -16,10 +16,10 @@
     - state: pistol-0
     - map: ["enum.StorageFillLayers.Fill"]
     - state: locked
-      map: [ enum.LockVisualLayers.Lock ]
+      map: [enum.LockVisualLayers.Lock]
       shader: unshaded
   - type: AccessReader
-    access: [ ["HeadOfPersonnel"] ]
+    access: [["HeadOfPersonnel"]]
   - type: Lock
     locked: true
 
@@ -39,10 +39,10 @@
     - state: pistol-0
     - map: ["enum.StorageFillLayers.Fill"]
     - state: locked
-      map: [ enum.LockVisualLayers.Lock ]
+      map: [enum.LockVisualLayers.Lock]
       shader: unshaded
   - type: AccessReader
-    access: [ ["HeadOfPersonnel"] ]
+    access: [["HeadOfPersonnel"]]
   - type: Lock
     locked: true
 
@@ -63,10 +63,10 @@
     - state: pistol-0
     - map: ["enum.StorageFillLayers.Fill"]
     - state: locked
-      map: [ enum.LockVisualLayers.Lock ]
+      map: [enum.LockVisualLayers.Lock]
       shader: unshaded
   - type: AccessReader
-    access: [ ["HeadOfSecurity"] ]
+    access: [["HeadOfSecurity"]]
   - type: Lock
     locked: true
 
@@ -86,10 +86,10 @@
     - state: pistol-0
     - map: ["enum.StorageFillLayers.Fill"]
     - state: locked
-      map: [ enum.LockVisualLayers.Lock ]
+      map: [enum.LockVisualLayers.Lock]
       shader: unshaded
   - type: AccessReader
-    access: [ ["HeadOfSecurity"] ]
+    access: [["HeadOfSecurity"]]
   - type: Lock
     locked: true
 

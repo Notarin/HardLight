@@ -5,7 +5,6 @@ namespace Content.Server.Psionics
     [RegisterComponent]
     public sealed partial class AntiPsionicWeaponComponent : Component
     {
-
         [DataField("modifiers", required: true)]
         public DamageModifierSet Modifiers = default!;
 

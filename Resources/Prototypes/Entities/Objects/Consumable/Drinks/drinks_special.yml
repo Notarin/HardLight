@@ -60,13 +60,13 @@
   - type: Sprite
     sprite: Objects/Consumable/Drinks/shotglass.rsi
     layers:
-      - state: icon
-        map: [ "enum.SolutionContainerLayers.Base" ]
-      - state: fill1
-        map: [ "enum.SolutionContainerLayers.Fill" ]
-        visible: false
-      - state: icon-front
-        map: [ "enum.SolutionContainerLayers.Overlay" ]
+    - state: icon
+      map: ["enum.SolutionContainerLayers.Base"]
+    - state: fill1
+      map: ["enum.SolutionContainerLayers.Fill"]
+      visible: false
+    - state: icon-front
+      map: ["enum.SolutionContainerLayers.Overlay"]
   - type: Appearance
   - type: SolutionContainerVisuals
     maxFillLevels: 2
@@ -82,13 +82,13 @@
   - type: Sprite
     sprite: Objects/Consumable/Drinks/jar.rsi
     layers:
-      - state: icon
-        map: [ "enum.SolutionContainerLayers.Base" ]
-      - state: fill1
-        map: [ "enum.SolutionContainerLayers.Fill" ]
-        visible: false
-      - state: icon-front
-        map: [ "enum.SolutionContainerLayers.Overlay" ]
+    - state: icon
+      map: ["enum.SolutionContainerLayers.Base"]
+    - state: fill1
+      map: ["enum.SolutionContainerLayers.Fill"]
+      visible: false
+    - state: icon-front
+      map: ["enum.SolutionContainerLayers.Overlay"]
   - type: Appearance
   - type: SolutionContainerManager
     solutions:

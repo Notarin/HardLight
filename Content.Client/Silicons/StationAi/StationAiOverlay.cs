@@ -16,11 +16,20 @@ public sealed class StationAiOverlay : Overlay
     private static readonly ProtoId<ShaderPrototype> StencilMaskShader = "StencilMask";
     private static readonly ProtoId<ShaderPrototype> StencilDrawShader = "StencilDraw";
 
-    [Dependency] private readonly IClyde _clyde = default!;
-    [Dependency] private readonly IEntityManager _entManager = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
+    [Dependency]
+    private readonly IClyde _clyde = default!;
+
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
 
     public override OverlaySpace Space => OverlaySpace.WorldSpace;
 
@@ -43,10 +52,16 @@ public sealed class StationAiOverlay : Overlay
         {
             _staticTexture?.Dispose();
             _stencilTexture?.Dispose();
-            _stencilTexture = _clyde.CreateRenderTarget(args.Viewport.Size, new RenderTargetFormatParameters(RenderTargetColorFormat.Rgba8Srgb), name: "station-ai-stencil");
-            _staticTexture = _clyde.CreateRenderTarget(args.Viewport.Size,
+            _stencilTexture = _clyde.CreateRenderTarget(
+                args.Viewport.Size,
                 new RenderTargetFormatParameters(RenderTargetColorFormat.Rgba8Srgb),
-                name: "station-ai-static");
+                name: "station-ai-stencil"
+            );
+            _staticTexture = _clyde.CreateRenderTarget(
+                args.Viewport.Size,
+                new RenderTargetFormatParameters(RenderTargetColorFormat.Rgba8Srgb),
+                name: "station-ai-static"
+            );
         }
 
         var worldHandle = args.WorldHandle;
@@ -60,7 +75,7 @@ public sealed class StationAiOverlay : Overlay
         _entManager.TryGetComponent(gridUid, out BroadphaseComponent? broadphase);
 
         var invMatrix = args.Viewport.GetWorldToLocalMatrix();
-        _accumulator -= (float) _timing.FrameTime.TotalSeconds;
+        _accumulator -= (float)_timing.FrameTime.TotalSeconds;
 
         if (grid != null && broadphase != null)
         {
@@ -71,50 +86,57 @@ public sealed class StationAiOverlay : Overlay
             {
                 _accumulator = MathF.Max(0f, _accumulator + _updateRate);
                 _visibleTiles.Clear();
-                _entManager.System<StationAiVisionSystem>().GetView((gridUid, broadphase, grid), worldBounds, _visibleTiles);
+                _entManager
+                    .System<StationAiVisionSystem>()
+                    .GetView((gridUid, broadphase, grid), worldBounds, _visibleTiles);
             }
 
             var gridMatrix = xforms.GetWorldMatrix(gridUid);
-            var matty =  Matrix3x2.Multiply(gridMatrix, invMatrix);
+            var matty = Matrix3x2.Multiply(gridMatrix, invMatrix);
 
             // Draw visible tiles to stencil
-            worldHandle.RenderInRenderTarget(_stencilTexture!, () =>
-            {
-                worldHandle.SetTransform(matty);
-
-                foreach (var tile in _visibleTiles)
+            worldHandle.RenderInRenderTarget(
+                _stencilTexture!,
+                () =>
                 {
-                    var aabb = lookups.GetLocalBounds(tile, grid.TileSize);
-                    worldHandle.DrawRect(aabb, Color.White);
-                }
-            },
-            Color.Transparent);
+                    worldHandle.SetTransform(matty);
+
+                    foreach (var tile in _visibleTiles)
+                    {
+                        var aabb = lookups.GetLocalBounds(tile, grid.TileSize);
+                        worldHandle.DrawRect(aabb, Color.White);
+                    }
+                },
+                Color.Transparent
+            );
 
             // Once this is gucci optimise rendering.
-            worldHandle.RenderInRenderTarget(_staticTexture!,
-            () =>
-            {
-                worldHandle.SetTransform(invMatrix);
-                var shader = _proto.Index(CameraStaticShader).Instance();
-                worldHandle.UseShader(shader);
-                worldHandle.DrawRect(worldBounds, Color.White);
-            },
-            Color.Black);
+            worldHandle.RenderInRenderTarget(
+                _staticTexture!,
+                () =>
+                {
+                    worldHandle.SetTransform(invMatrix);
+                    var shader = _proto.Index(CameraStaticShader).Instance();
+                    worldHandle.UseShader(shader);
+                    worldHandle.DrawRect(worldBounds, Color.White);
+                },
+                Color.Black
+            );
         }
         // Not on a grid
         else
         {
-            worldHandle.RenderInRenderTarget(_stencilTexture!, () =>
-            {
-            },
-            Color.Transparent);
+            worldHandle.RenderInRenderTarget(_stencilTexture!, () => { }, Color.Transparent);
 
-            worldHandle.RenderInRenderTarget(_staticTexture!,
-            () =>
-            {
-                worldHandle.SetTransform(Matrix3x2.Identity);
-                worldHandle.DrawRect(worldBounds, Color.Black);
-            }, Color.Black);
+            worldHandle.RenderInRenderTarget(
+                _staticTexture!,
+                () =>
+                {
+                    worldHandle.SetTransform(Matrix3x2.Identity);
+                    worldHandle.DrawRect(worldBounds, Color.Black);
+                },
+                Color.Black
+            );
         }
 
         // Use the lighting as a mask
@@ -127,6 +149,5 @@ public sealed class StationAiOverlay : Overlay
 
         worldHandle.SetTransform(Matrix3x2.Identity);
         worldHandle.UseShader(null);
-
     }
 }

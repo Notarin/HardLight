@@ -1,3 +1,4 @@
+using System.Linq;
 using Content.Server._CorvaxNext.Silicons.Borgs.Components;
 using Content.Server._Mono.SpaceArtillery.Components;
 using Content.Server._NF.Roles.Systems; // VRS: move JobTrackingComponent across shunt (HL #1354)
@@ -22,21 +23,37 @@ using Content.Shared.Verbs;
 using Robust.Server.GameObjects;
 using Robust.Shared.Containers;
 using Robust.Shared.GameStates;
-using System.Linq;
 
 namespace Content.Server._CorvaxNext.Silicons.Borgs;
 
 public sealed class PositronicJumpSystem : EntitySystem
 {
-    [Dependency] private readonly ActionContainerSystem _actionContainer = default!;
-    [Dependency] private readonly SharedMindSystem _mind = default!;
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SiliconLawSystem _lawSystem = default!;
-    [Dependency] private readonly MechSystem _mech = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly JobTrackingSystem _jobTracking = default!; // VRS: HL #1354
-    [Dependency] private readonly TransformSystem _transformSystem = default!;
+    [Dependency]
+    private readonly ActionContainerSystem _actionContainer = default!;
+
+    [Dependency]
+    private readonly SharedMindSystem _mind = default!;
+
+    [Dependency]
+    private readonly SharedActionsSystem _actions = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly SiliconLawSystem _lawSystem = default!;
+
+    [Dependency]
+    private readonly MechSystem _mech = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly JobTrackingSystem _jobTracking = default!; // VRS: HL #1354
+
+    [Dependency]
+    private readonly TransformSystem _transformSystem = default!;
 
     private const string ReturnToAiAction = "ActionBackToAi";
 
@@ -77,14 +94,14 @@ public sealed class PositronicJumpSystem : EntitySystem
         var user = args.User;
         var target = uid;
 
-        args.Verbs.Add(new AlternativeVerb
-        {
-            Text = "Take control",
-            Act = () => TryTakeControl(user, target)
-        });
+        args.Verbs.Add(new AlternativeVerb { Text = "Take control", Act = () => TryTakeControl(user, target) });
     }
 
-    private void OnTurretGetVerbs(EntityUid uid, StationAiTurretComponent component, ref GetVerbsEvent<AlternativeVerb> args)
+    private void OnTurretGetVerbs(
+        EntityUid uid,
+        StationAiTurretComponent component,
+        ref GetVerbsEvent<AlternativeVerb> args
+    )
     {
         if (args.User == uid)
         {
@@ -104,14 +121,14 @@ public sealed class PositronicJumpSystem : EntitySystem
         var user = args.User;
         var target = uid;
 
-        args.Verbs.Add(new AlternativeVerb
-        {
-            Text = "Take control",
-            Act = () => TryTakeControl(user, target)
-        });
+        args.Verbs.Add(new AlternativeVerb { Text = "Take control", Act = () => TryTakeControl(user, target) });
     }
 
-    private void OnBorgChassisGetVerbs(EntityUid uid, BorgChassisComponent component, ref GetVerbsEvent<AlternativeVerb> args)
+    private void OnBorgChassisGetVerbs(
+        EntityUid uid,
+        BorgChassisComponent component,
+        ref GetVerbsEvent<AlternativeVerb> args
+    )
     {
         if (!args.CanAccess)
             return;
@@ -129,14 +146,14 @@ public sealed class PositronicJumpSystem : EntitySystem
         var user = args.User;
         var target = uid;
 
-        args.Verbs.Add(new AlternativeVerb
-        {
-            Text = "Take control",
-            Act = () => TryTakeControl(user, target)
-        });
+        args.Verbs.Add(new AlternativeVerb { Text = "Take control", Act = () => TryTakeControl(user, target) });
     }
 
-    private void OnSpaceArtilleryGetVerbs(EntityUid uid, SpaceArtilleryComponent component, ref GetVerbsEvent<AlternativeVerb> args)
+    private void OnSpaceArtilleryGetVerbs(
+        EntityUid uid,
+        SpaceArtilleryComponent component,
+        ref GetVerbsEvent<AlternativeVerb> args
+    )
     {
         if (!args.CanAccess)
             return;
@@ -150,11 +167,7 @@ public sealed class PositronicJumpSystem : EntitySystem
         var user = args.User;
         var target = uid;
 
-        args.Verbs.Add(new AlternativeVerb
-        {
-            Text = "Take control",
-            Act = () => TryTakeControl(user, target)
-        });
+        args.Verbs.Add(new AlternativeVerb { Text = "Take control", Act = () => TryTakeControl(user, target) });
     }
 
     private void OnPAIGetVerbs(EntityUid uid, PAIComponent component, ref GetVerbsEvent<AlternativeVerb> args)
@@ -177,14 +190,14 @@ public sealed class PositronicJumpSystem : EntitySystem
         var user = args.User;
         var target = uid;
 
-        args.Verbs.Add(new AlternativeVerb
-        {
-            Text = "Take control",
-            Act = () => TryTakeControl(user, target)
-        });
+        args.Verbs.Add(new AlternativeVerb { Text = "Take control", Act = () => TryTakeControl(user, target) });
     }
 
-    private void OnCameraGetVerbs(EntityUid uid, SurveillanceCameraComponent component, ref SurveillanceCameraAlternativeVerbsEvent args)
+    private void OnCameraGetVerbs(
+        EntityUid uid,
+        SurveillanceCameraComponent component,
+        ref SurveillanceCameraAlternativeVerbsEvent args
+    )
     {
         var verbs = args.Args;
 
@@ -206,11 +219,7 @@ public sealed class PositronicJumpSystem : EntitySystem
         var user = verbs.User;
         var target = uid;
 
-        verbs.Verbs.Add(new AlternativeVerb
-        {
-            Text = "Take control",
-            Act = () => TryTakeControl(user, target)
-        });
+        verbs.Verbs.Add(new AlternativeVerb { Text = "Take control", Act = () => TryTakeControl(user, target) });
     }
 
     private void OnMechGetVerbs(EntityUid uid, MechComponent component, ref MechAlternativeVerbsEvent args)
@@ -229,26 +238,21 @@ public sealed class PositronicJumpSystem : EntitySystem
         var user = verbs.User;
         var target = uid;
 
-        verbs.Verbs.Add(new AlternativeVerb
-        {
-            Text = "Take control",
-            Act = () => TryTakeControl(user, target)
-        });
+        verbs.Verbs.Add(new AlternativeVerb { Text = "Take control", Act = () => TryTakeControl(user, target) });
     }
 
     private bool ActorCanUseAbility(EntityUid user)
     {
         return HasComp<StationAiHeldComponent>(user)
-               || HasComp<BorgChassisComponent>(user)
-               || HasComp<StationAiTurretComponent>(user)
-               || HasComp<BorgBrainComponent>(user)
-               || HasComp<PAIComponent>(user);
+            || HasComp<BorgChassisComponent>(user)
+            || HasComp<StationAiTurretComponent>(user)
+            || HasComp<BorgBrainComponent>(user)
+            || HasComp<PAIComponent>(user);
     }
 
     private void AddReturnVerb(EntityUid uid, ref GetVerbsEvent<AlternativeVerb> args)
     {
-        if (!TryComp<PositronicReturnComponent>(uid, out var returnComp)
-            || returnComp.ReturnTarget == null)
+        if (!TryComp<PositronicReturnComponent>(uid, out var returnComp) || returnComp.ReturnTarget == null)
         {
             return;
         }
@@ -261,11 +265,7 @@ public sealed class PositronicJumpSystem : EntitySystem
         if (!ReturnTargetAvailable(returnTarget))
             return;
 
-        args.Verbs.Add(new AlternativeVerb
-        {
-            Text = "Return control",
-            Act = () => TryReturnControl(uid)
-        });
+        args.Verbs.Add(new AlternativeVerb { Text = "Return control", Act = () => TryReturnControl(uid) });
     }
 
     private bool ReturnTargetAvailable(EntityUid returnTarget)
@@ -284,11 +284,13 @@ public sealed class PositronicJumpSystem : EntitySystem
         var resolved = entity;
         var visited = new HashSet<EntityUid>();
 
-        while (visited.Add(resolved)
-               && TryComp<PositronicReturnComponent>(resolved, out var returnComp)
-               && returnComp.ReturnTarget is { } next
-               && next.IsValid()
-               && Exists(next))
+        while (
+            visited.Add(resolved)
+            && TryComp<PositronicReturnComponent>(resolved, out var returnComp)
+            && returnComp.ReturnTarget is { } next
+            && next.IsValid()
+            && Exists(next)
+        )
         {
             resolved = next;
         }
@@ -318,7 +320,11 @@ public sealed class PositronicJumpSystem : EntitySystem
         }
     }
 
-    private void OnPositronicReturnShutdown(EntityUid uid, PositronicReturnComponent component, ref ComponentShutdown args)
+    private void OnPositronicReturnShutdown(
+        EntityUid uid,
+        PositronicReturnComponent component,
+        ref ComponentShutdown args
+    )
     {
         RemoveReturnAction(component);
     }
@@ -396,6 +402,7 @@ public sealed class PositronicJumpSystem : EntitySystem
 
         return true;
     }
+
     //Hardlight End
     public bool TryReturnControl(EntityUid target)
     {
@@ -405,8 +412,7 @@ public sealed class PositronicJumpSystem : EntitySystem
         if (!_mind.TryGetMind(target, out var mindId, out var mind))
             return false;
 
-        if (!TryComp<PositronicReturnComponent>(target, out var returnComp)
-            || returnComp.ReturnTarget == null)
+        if (!TryComp<PositronicReturnComponent>(target, out var returnComp) || returnComp.ReturnTarget == null)
         {
             return false;
         }
@@ -473,12 +479,16 @@ public sealed class PositronicJumpSystem : EntitySystem
         var remotePilot = EnsureComp<RemoteMechPilotComponent>(proxy);
         remotePilot.Mech = mech;
 
-        if (!_mech.TryInsert(mech,
+        if (
+            !_mech.TryInsert(
+                mech,
                 proxy,
                 mechComponent,
                 whitelistUser: user,
                 bypassMovementCheck: true,
-                bypassPilotWhitelist: true))
+                bypassPilotWhitelist: true
+            )
+        )
         {
             Del(proxy);
             PopupJumpFailure(user, "ai-remote-control-mech-failed");
@@ -508,8 +518,7 @@ public sealed class PositronicJumpSystem : EntitySystem
         if (!_mind.TryGetMind(proxy, out var mindId, out var mind))
             return false;
 
-        if (!TryComp<PositronicReturnComponent>(proxy, out var returnComp)
-            || returnComp.ReturnTarget == null)
+        if (!TryComp<PositronicReturnComponent>(proxy, out var returnComp) || returnComp.ReturnTarget == null)
         {
             return false;
         }
@@ -524,9 +533,11 @@ public sealed class PositronicJumpSystem : EntitySystem
 
         remotePilot.Returning = true;
 
-        if (Exists(remotePilot.Mech)
+        if (
+            Exists(remotePilot.Mech)
             && TryComp<MechComponent>(remotePilot.Mech, out var mechComponent)
-            && mechComponent.PilotSlot.ContainedEntity == proxy)
+            && mechComponent.PilotSlot.ContainedEntity == proxy
+        )
         {
             _mech.TryEject(remotePilot.Mech, mechComponent);
         }
@@ -538,7 +549,11 @@ public sealed class PositronicJumpSystem : EntitySystem
         return true;
     }
 
-    private void OnRemoteMechPilotRemoved(EntityUid uid, RemoteMechPilotComponent component, ref EntGotRemovedFromContainerMessage args)
+    private void OnRemoteMechPilotRemoved(
+        EntityUid uid,
+        RemoteMechPilotComponent component,
+        ref EntGotRemovedFromContainerMessage args
+    )
     {
         if (component.Returning)
             return;
@@ -552,7 +567,11 @@ public sealed class PositronicJumpSystem : EntitySystem
             Del(uid);
     }
 
-    private void OnRemoteMechPilotShutdown(EntityUid uid, RemoteMechPilotComponent component, ref ComponentShutdown args)
+    private void OnRemoteMechPilotShutdown(
+        EntityUid uid,
+        RemoteMechPilotComponent component,
+        ref ComponentShutdown args
+    )
     {
         if (component.Mech == EntityUid.Invalid || !Exists(component.Mech))
             return;

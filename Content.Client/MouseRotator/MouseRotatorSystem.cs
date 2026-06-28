@@ -10,11 +10,20 @@ namespace Content.Client.MouseRotator;
 /// <inheritdoc/>
 public sealed class MouseRotatorSystem : SharedMouseRotatorSystem
 {
-    [Dependency] private readonly IInputManager _input = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IEyeManager _eye = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency]
+    private readonly IInputManager _input = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IEyeManager _eye = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
 
     public override void Update(float frameTime)
     {
@@ -37,7 +46,9 @@ public sealed class MouseRotatorSystem : SharedMouseRotatorSystem
         if (mapPos.MapId == MapId.Nullspace)
             return;
 
-        var angle = (mapPos.Position - _transform.GetMapCoordinates(player.Value, xform: xform).Position).ToWorldAngle();
+        var angle = (
+            mapPos.Position - _transform.GetMapCoordinates(player.Value, xform: xform).Position
+        ).ToWorldAngle();
 
         var curRot = _transform.GetWorldRotation(xform);
 
@@ -55,10 +66,7 @@ public sealed class MouseRotatorSystem : SharedMouseRotatorSystem
                 rotation -= 2 * Math.PI;
             else if (rotation < -Math.PI)
                 rotation += 2 * Math.PI;
-            RaisePredictiveEvent(new RequestMouseRotatorRotationEvent
-            {
-                Rotation = rotation
-            });
+            RaisePredictiveEvent(new RequestMouseRotatorRotationEvent { Rotation = rotation });
 
             return;
         }
@@ -75,9 +83,6 @@ public sealed class MouseRotatorSystem : SharedMouseRotatorSystem
                 return;
         }
 
-        RaisePredictiveEvent(new RequestMouseRotatorRotationEvent
-        {
-            Rotation = angle
-        });
+        RaisePredictiveEvent(new RequestMouseRotatorRotationEvent { Rotation = angle });
     }
 }

@@ -8,7 +8,8 @@ namespace Content.Client.Commands;
 [AnyCommand]
 public sealed class ToggleOutlineCommand : LocalizedCommands
 {
-    [Dependency] private readonly IConfigurationManager _configurationManager = default!;
+    [Dependency]
+    private readonly IConfigurationManager _configurationManager = default!;
 
     public override string Command => "toggleoutline";
 
@@ -20,6 +21,8 @@ public sealed class ToggleOutlineCommand : LocalizedCommands
         var old = _configurationManager.GetCVar(cvar);
 
         _configurationManager.SetCVar(cvar, !old);
-        shell.WriteLine(LocalizationManager.GetString($"cmd-{Command}-notify", ("state", _configurationManager.GetCVar(cvar))));
+        shell.WriteLine(
+            LocalizationManager.GetString($"cmd-{Command}-notify", ("state", _configurationManager.GetCVar(cvar)))
+        );
     }
 }

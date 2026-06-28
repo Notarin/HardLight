@@ -14,7 +14,8 @@ namespace Content.Client._Starlight.Plumbing.UI;
 [GenerateTypedNameReferences]
 public sealed partial class PlumbingReactorWindow : DefaultWindow
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
 
     public event Action<bool>? OnToggle;
     public event Action<string, FixedPoint2>? OnSetTarget;
@@ -124,11 +125,13 @@ public sealed partial class PlumbingReactorWindow : DefaultWindow
         foreach (var (reagentId, targetQuantity) in state.ReagentTargets)
         {
             var currentAmount = state.BufferContents.GetValueOrDefault(reagentId, FixedPoint2.Zero);
-            TargetsList.Add(new ItemList.Item(TargetsList)
-            {
-                Metadata = reagentId,
-                Text = $"{reagentId}: {currentAmount}u / {targetQuantity}u"
-            });
+            TargetsList.Add(
+                new ItemList.Item(TargetsList)
+                {
+                    Metadata = reagentId,
+                    Text = $"{reagentId}: {currentAmount}u / {targetQuantity}u",
+                }
+            );
         }
 
         // Then add non-target reagents so a player knows to plunger it to remove them
@@ -137,11 +140,9 @@ public sealed partial class PlumbingReactorWindow : DefaultWindow
             if (state.ReagentTargets.ContainsKey(reagentId))
                 continue;
 
-            TargetsList.Add(new ItemList.Item(TargetsList)
-            {
-                Metadata = reagentId,
-                Text = $"{reagentId}: {currentAmount}u / 0u"
-            });
+            TargetsList.Add(
+                new ItemList.Item(TargetsList) { Metadata = reagentId, Text = $"{reagentId}: {currentAmount}u / 0u" }
+            );
         }
 
         _selectedTarget = null;
@@ -174,11 +175,7 @@ public sealed partial class PlumbingReactorWindow : DefaultWindow
 
         foreach (var reagent in matches)
         {
-            SuggestionList.Add(new ItemList.Item(SuggestionList)
-            {
-                Metadata = reagent.ID,
-                Text = reagent.ID
-            });
+            SuggestionList.Add(new ItemList.Item(SuggestionList) { Metadata = reagent.ID, Text = reagent.ID });
         }
 
         SuggestionList.Visible = SuggestionList.Count > 0;

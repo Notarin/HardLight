@@ -25,15 +25,29 @@ using static Robust.Client.UserInterface.Controls.BaseButton;
 namespace Content.Client.UserInterface.Systems.Character;
 
 [UsedImplicitly]
-public sealed class CharacterUIController : UIController, IOnStateEntered<GameplayState>, IOnStateExited<GameplayState>, IOnSystemChanged<CharacterInfoSystem>
+public sealed class CharacterUIController
+    : UIController,
+        IOnStateEntered<GameplayState>,
+        IOnStateExited<GameplayState>,
+        IOnSystemChanged<CharacterInfoSystem>
 {
-    [Dependency] private readonly IEntityManager _ent = default!;
-    [Dependency] private readonly ILogManager _logMan = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency]
+    private readonly IEntityManager _ent = default!;
 
-    [UISystemDependency] private readonly CharacterInfoSystem _characterInfo = default!;
-    [UISystemDependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly ILogManager _logMan = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [UISystemDependency]
+    private readonly CharacterInfoSystem _characterInfo = default!;
+
+    [UISystemDependency]
+    private readonly SpriteSystem _sprite = default!;
 
     private ISawmill _sawmill = default!;
 
@@ -47,7 +61,8 @@ public sealed class CharacterUIController : UIController, IOnStateEntered<Gamepl
     }
 
     private CharacterWindow? _window;
-    private MenuButton? CharacterButton => UIManager.GetActiveUIWidgetOrNull<MenuBar.Widgets.GameTopMenuBar>()?.CharacterButton;
+    private MenuButton? CharacterButton =>
+        UIManager.GetActiveUIWidgetOrNull<MenuBar.Widgets.GameTopMenuBar>()?.CharacterButton;
 
     public void OnStateEntered(GameplayState state)
     {
@@ -59,9 +74,8 @@ public sealed class CharacterUIController : UIController, IOnStateEntered<Gamepl
         _window.OnClose += DeactivateButton;
         _window.OnOpen += ActivateButton;
 
-        CommandBinds.Builder
-            .Bind(ContentKeyFunctions.OpenCharacterMenu,
-                InputCmdHandler.FromDelegate(_ => ToggleWindow()))
+        CommandBinds
+            .Builder.Bind(ContentKeyFunctions.OpenCharacterMenu, InputCmdHandler.FromDelegate(_ => ToggleWindow()))
             .Register<CharacterUIController>();
     }
 
@@ -151,17 +165,13 @@ public sealed class CharacterUIController : UIController, IOnStateEntered<Gamepl
             var objectiveControl = new CharacterObjectiveControl
             {
                 Orientation = BoxContainer.LayoutOrientation.Vertical,
-                Modulate = Color.Gray
+                Modulate = Color.Gray,
             };
-
 
             var objectiveText = new FormattedMessage();
             objectiveText.TryAddMarkup(groupId, out _);
 
-            var objectiveLabel = new RichTextLabel
-            {
-                StyleClasses = { StyleNano.StyleClassTooltipActionTitle }
-            };
+            var objectiveLabel = new RichTextLabel { StyleClasses = { StyleNano.StyleClassTooltipActionTitle } };
             objectiveLabel.SetMessage(objectiveText);
 
             objectiveControl.AddChild(objectiveLabel);
@@ -214,15 +224,19 @@ public sealed class CharacterUIController : UIController, IOnStateEntered<Gamepl
         if (_window == null || !_window.IsOpen)
             return;
 
-        if (!_ent.TryGetComponent<MindContainerComponent>(_player.LocalEntity, out var container)
-            || container.Mind is null)
+        if (
+            !_ent.TryGetComponent<MindContainerComponent>(_player.LocalEntity, out var container)
+            || container.Mind is null
+        )
             return;
 
         if (!_ent.TryGetComponent<MindComponent>(container.Mind.Value, out var mind))
             return;
 
         if (!_prototypeManager.TryIndex(mind.RoleType, out var proto))
-            _sawmill.Error($"Player '{_player.LocalSession}' has invalid Role Type '{mind.RoleType}'. Displaying default instead");
+            _sawmill.Error(
+                $"Player '{_player.LocalSession}' has invalid Role Type '{mind.RoleType}'. Displaying default instead"
+            );
 
         _window.RoleType.Text = Loc.GetString(proto?.Name ?? "role-type-crew-aligned-name");
         _window.RoleType.FontColorOverride = proto?.Color ?? Color.White;

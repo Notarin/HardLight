@@ -17,8 +17,10 @@ namespace Content.Server.EntityEffects.Effects
         public PopupType VisualType = PopupType.Small;
 
         // JUSTIFICATION: This is purely cosmetic.
-        protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys)
-            => null;
+        protected override string? ReagentEffectGuidebookText(
+            IPrototypeManager prototype,
+            IEntitySystemManager entSys
+        ) => null;
 
         public override void Effect(EntityEffectBaseArgs args)
         {
@@ -26,10 +28,7 @@ namespace Content.Server.EntityEffects.Effects
             var random = IoCManager.Resolve<IRobustRandom>();
 
             var msg = random.Pick(Messages);
-            var msgArgs = new (string, object)[]
-            {
-                ("entity", args.TargetEntity),
-            };
+            var msgArgs = new (string, object)[] { ("entity", args.TargetEntity) };
 
             if (args is EntityEffectReagentArgs reagentArgs)
             {
@@ -50,6 +49,6 @@ namespace Content.Server.EntityEffects.Effects
     public enum PopupRecipients
     {
         Pvs,
-        Local
+        Local,
     }
 }

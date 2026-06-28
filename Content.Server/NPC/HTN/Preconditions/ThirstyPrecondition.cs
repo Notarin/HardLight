@@ -9,7 +9,8 @@ namespace Content.Server.NPC.HTN.Preconditions;
 /// </summary>
 public sealed partial class ThirstyPrecondition : HTNPrecondition
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
 
     [DataField(required: true)]
     public ThirstThreshold MinThirstState = ThirstThreshold.Parched;
@@ -21,6 +22,8 @@ public sealed partial class ThirstyPrecondition : HTNPrecondition
             return false;
         }
 
-        return _entManager.TryGetComponent<ThirstComponent>(owner, out var thirst) ? thirst.CurrentThirstThreshold <= MinThirstState : false;
+        return _entManager.TryGetComponent<ThirstComponent>(owner, out var thirst)
+            ? thirst.CurrentThirstThreshold <= MinThirstState
+            : false;
     }
 }

@@ -55,25 +55,28 @@ namespace Content.Server.Atmos.Piping.Unary.Components
         ///     Since we want to prevent automating the work of atmos, the leaking rate of 0.0001f is set to make auto
         ///     repressurizing of the development map take about 30 minutes using an oxygen tank (high pressure)
         /// </remarks>
-
         [DataField]
         public float UnderPressureLockoutLeaking = 0.0001f;
+
         /// <summary>
         /// Is the vent pressure lockout currently manually disabled?
         /// </summary>
         [DataField]
         public bool IsPressureLockoutManuallyDisabled = false;
+
         /// <summary>
         /// The time when the manual pressure lockout will be reenabled.
         /// </summary>
         [DataField]
         [AutoPausedField]
         public TimeSpan ManualLockoutReenabledAt;
+
         /// <summary>
         /// How long the lockout should remain manually disabled after being interacted with.
         /// </summary>
         [DataField]
         public TimeSpan ManualLockoutDisabledDuration = TimeSpan.FromSeconds(30); // Enough time to fill a 5x5 room
+
         /// <summary>
         /// How long the doAfter should take when attempting to manually disable the pressure lockout.
         /// </summary>
@@ -83,10 +86,7 @@ namespace Content.Server.Atmos.Piping.Unary.Components
         public float ExternalPressureBound
         {
             get => _externalPressureBound;
-            set
-            {
-                _externalPressureBound = Math.Clamp(value, 0, MaxPressure);
-            }
+            set { _externalPressureBound = Math.Clamp(value, 0, MaxPressure); }
         }
 
         private float _externalPressureBound = Atmospherics.OneAtmosphere;
@@ -95,10 +95,7 @@ namespace Content.Server.Atmos.Piping.Unary.Components
         public float InternalPressureBound
         {
             get => _internalPressureBound;
-            set
-            {
-                _internalPressureBound = Math.Clamp(value, 0, MaxPressure);
-            }
+            set { _internalPressureBound = Math.Clamp(value, 0, MaxPressure); }
         }
 
         private float _internalPressureBound = 0;
@@ -168,7 +165,7 @@ namespace Content.Server.Atmos.Piping.Unary.Components
                 PressureChecks = PressureChecks,
                 ExternalPressureBound = ExternalPressureBound,
                 InternalPressureBound = InternalPressureBound,
-                PressureLockoutOverride = PressureLockoutOverride
+                PressureLockoutOverride = PressureLockoutOverride,
             };
         }
 

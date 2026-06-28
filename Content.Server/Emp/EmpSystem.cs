@@ -1,33 +1,42 @@
+using Content.Server._Mono.Emp; // Mono
 using Content.Server.Entry;
+using Content.Server.Examine; // Frontier: examine verb
 using Content.Server.Explosion.EntitySystems;
 using Content.Server.Power.Components;
 using Content.Server.Power.EntitySystems;
 using Content.Server.Radio;
 using Content.Server.Station.Components;
 using Content.Server.SurveillanceCamera;
-using Content.Server._Mono.Emp; // Mono
+using Content.Shared._NF.Emp.Components; // Frontier
 using Content.Shared.Emp;
 using Content.Shared.Examine;
 using Content.Shared.Tiles; // Frontier
-using Robust.Server.GameObjects;
-using Robust.Shared.Map;
-using Content.Shared._NF.Emp.Components; // Frontier
-using Robust.Server.GameStates; // Frontier: EMP Blast PVS
-using Robust.Shared.Configuration; // Frontier: EMP Blast PVS
-using Robust.Shared; // Frontier: EMP Blast PVS
 using Content.Shared.Verbs; // Frontier: examine verb
+using Robust.Server.GameObjects;
+using Robust.Server.GameStates; // Frontier: EMP Blast PVS
+using Robust.Shared; // Frontier: EMP Blast PVS
+using Robust.Shared.Configuration; // Frontier: EMP Blast PVS
+using Robust.Shared.Map;
 using Robust.Shared.Utility; // Frontier: examine verb
-using Content.Server.Examine; // Frontier: examine verb
 
 namespace Content.Server.Emp;
 
 public sealed class EmpSystem : SharedEmpSystem
 {
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
-    [Dependency] private readonly PvsOverrideSystem _pvs = default!; // Frontier: EMP Blast PVS
-    [Dependency] private readonly IConfigurationManager _cfg = default!; // Frontier: EMP Blast PVS
-    [Dependency] private readonly ExamineSystem _examine = default!; // Frontier: examine verb
+    [Dependency]
+    private readonly EntityLookupSystem _lookup = default!;
+
+    [Dependency]
+    private readonly TransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly PvsOverrideSystem _pvs = default!; // Frontier: EMP Blast PVS
+
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!; // Frontier: EMP Blast PVS
+
+    [Dependency]
+    private readonly ExamineSystem _examine = default!; // Frontier: examine verb
 
     public const string EmpPulseEffectPrototype = "EffectEmpBlast"; // Frontier: EffectEmpPulse
 
@@ -53,15 +62,25 @@ public sealed class EmpSystem : SharedEmpSystem
     /// <param name="energyConsumption">The amount of energy consumed by the EMP pulse.</param>
     /// <param name="duration">The duration of the EMP effects.</param>
     /// <param name="immuneGrids">Frontier: a list of the grids that should not be affected by the pulse.</param>
-    public void EmpPulse(MapCoordinates coordinates, float range, float energyConsumption, float duration, List<EntityUid>? immuneGrids = null)
+    public void EmpPulse(
+        MapCoordinates coordinates,
+        float range,
+        float energyConsumption,
+        float duration,
+        List<EntityUid>? immuneGrids = null
+    )
     {
         foreach (var uid in _lookup.GetEntitiesInRange(coordinates, range))
         {
             // Frontier: Block EMP on grid
             var gridUid = Transform(uid).GridUid;
-            if (gridUid != null &&
-                (immuneGrids != null && immuneGrids.Contains(gridUid.Value) ||
-                TryComp<ProtectedGridComponent>(gridUid, out var prot) && prot.PreventEmpEvents))
+            if (
+                gridUid != null
+                && (
+                    immuneGrids != null && immuneGrids.Contains(gridUid.Value)
+                    || TryComp<ProtectedGridComponent>(gridUid, out var prot) && prot.PreventEmpEvents
+                )
+            )
                 continue;
             // End Frontier: block EMP on grid
 
@@ -183,20 +202,35 @@ public sealed class EmpSystem : SharedEmpSystem
 
         var msg = GetEmpDescription(component.Range, component.EnergyConsumption, component.DisableDuration);
 
-        _examine.AddDetailedExamineVerb(args, component, msg,
-            Loc.GetString("emp-examinable-verb-text"), "/Textures/Interface/VerbIcons/smite.svg.192dpi.png",
-            Loc.GetString("emp-examinable-verb-message"));
+        _examine.AddDetailedExamineVerb(
+            args,
+            component,
+            msg,
+            Loc.GetString("emp-examinable-verb-text"),
+            "/Textures/Interface/VerbIcons/smite.svg.192dpi.png",
+            Loc.GetString("emp-examinable-verb-message")
+        );
     }
-    private void OnEmpDescriptorExamine(EntityUid uid, EmpDescriptionComponent component, GetVerbsEvent<ExamineVerb> args)
+
+    private void OnEmpDescriptorExamine(
+        EntityUid uid,
+        EmpDescriptionComponent component,
+        GetVerbsEvent<ExamineVerb> args
+    )
     {
         if (!args.CanInteract || !args.CanAccess)
             return;
 
         var msg = GetEmpDescription(component.Range, component.EnergyConsumption, component.DisableDuration);
 
-        _examine.AddDetailedExamineVerb(args, component, msg,
-            Loc.GetString("emp-examinable-verb-text"), "/Textures/Interface/VerbIcons/smite.svg.192dpi.png",
-            Loc.GetString("emp-examinable-verb-message"));
+        _examine.AddDetailedExamineVerb(
+            args,
+            component,
+            msg,
+            Loc.GetString("emp-examinable-verb-text"),
+            "/Textures/Interface/VerbIcons/smite.svg.192dpi.png",
+            Loc.GetString("emp-examinable-verb-message")
+        );
     }
 
     private FormattedMessage GetEmpDescription(float range, float energy, float time)
@@ -204,16 +238,14 @@ public sealed class EmpSystem : SharedEmpSystem
         var msg = new FormattedMessage();
         msg.AddMarkupOrThrow(Loc.GetString("emp-examine"));
         msg.PushNewline();
-        msg.AddMarkupOrThrow(Loc.GetString("emp-range-value",
-            ("value", range)));
+        msg.AddMarkupOrThrow(Loc.GetString("emp-range-value", ("value", range)));
         msg.PushNewline();
-        msg.AddMarkupOrThrow(Loc.GetString("emp-energy-value",
-            ("value", energy)));
+        msg.AddMarkupOrThrow(Loc.GetString("emp-energy-value", ("value", energy)));
         msg.PushNewline();
-        msg.AddMarkupOrThrow(Loc.GetString("emp-time-value",
-            ("value", time)));
+        msg.AddMarkupOrThrow(Loc.GetString("emp-time-value", ("value", time)));
         return msg;
     }
+
     // End Frontier
 
     private void HandleEmpTrigger(EntityUid uid, EmpOnTriggerComponent comp, TriggerEvent args)
@@ -241,15 +273,12 @@ public sealed class EmpSystem : SharedEmpSystem
     //{
     //    args.Cancelled = true;
     //}
-
 }
 
 /// <summary>
 /// Raised on an entity before <see cref="EmpPulseEvent"/>. Cancel this to prevent the emp event being raised.
 /// </summary>
-public sealed partial class EmpAttemptEvent : CancellableEntityEventArgs
-{
-}
+public sealed partial class EmpAttemptEvent : CancellableEntityEventArgs { }
 
 [ByRefEvent]
 public record struct EmpPulseEvent(float EnergyConsumption, bool Affected, bool Disabled, TimeSpan Duration);

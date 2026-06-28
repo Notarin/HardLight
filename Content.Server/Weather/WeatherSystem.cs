@@ -1,27 +1,32 @@
+using System.Linq;
 using Content.Server.Administration;
 using Content.Shared.Administration;
 using Content.Shared.Weather;
 using Robust.Shared.Console;
 using Robust.Shared.GameStates;
 using Robust.Shared.Map;
-using System.Linq;
 
 namespace Content.Server.Weather;
 
 public sealed class WeatherSystem : SharedWeatherSystem
 {
-    [Dependency] private readonly IConsoleHost _console = default!;
-    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
+    [Dependency]
+    private readonly IConsoleHost _console = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _mapSystem = default!;
 
     public override void Initialize()
     {
         base.Initialize();
         SubscribeLocalEvent<WeatherComponent, ComponentGetState>(OnWeatherGetState);
-        _console.RegisterCommand("weather",
+        _console.RegisterCommand(
+            "weather",
             Loc.GetString("cmd-weather-desc"),
             Loc.GetString("cmd-weather-help"),
             WeatherTwo,
-            WeatherCompletion);
+            WeatherCompletion
+        );
     }
 
     private void OnWeatherGetState(EntityUid uid, WeatherComponent component, ref ComponentGetState args)

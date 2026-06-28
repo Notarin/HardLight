@@ -13,10 +13,14 @@ namespace Content.Server.Database.Migrations.Postgres
                 name: "trait",
                 columns: table => new
                 {
-                    trait_id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    trait_id = table
+                        .Column<int>(type: "integer", nullable: false)
+                        .Annotation(
+                            "Npgsql:ValueGenerationStrategy",
+                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
+                        ),
                     profile_id = table.Column<int>(type: "integer", nullable: false),
-                    trait_name = table.Column<string>(type: "text", nullable: false)
+                    trait_name = table.Column<string>(type: "text", nullable: false),
                 },
                 constraints: table =>
                 {
@@ -26,19 +30,17 @@ namespace Content.Server.Database.Migrations.Postgres
                         column: x => x.profile_id,
                         principalTable: "profile",
                         principalColumn: "profile_id",
-                        onDelete: ReferentialAction.Cascade);
-                });
+                        onDelete: ReferentialAction.Cascade
+                    );
+                }
+            );
 
-            migrationBuilder.CreateIndex(
-                name: "IX_trait_profile_id",
-                table: "trait",
-                column: "profile_id");
+            migrationBuilder.CreateIndex(name: "IX_trait_profile_id", table: "trait", column: "profile_id");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "trait");
+            migrationBuilder.DropTable(name: "trait");
         }
     }
 }

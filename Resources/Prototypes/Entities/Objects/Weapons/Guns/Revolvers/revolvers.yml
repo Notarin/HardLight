@@ -39,13 +39,13 @@
   - type: RevolverAmmoProvider
     whitelist:
       tags:
-        - Cartridge45_magnumFMJ
-        - SpeedLoader45_magnumFMJ
+      - Cartridge45_magnumFMJ
+      - SpeedLoader45_magnumFMJ
     mayTransfer: true # Frontier
     proto: Cartridge45_magnumFMJ
     capacity: 6
-    chambers: [ True, True, True, True, True, True ]
-    ammoSlots: [ null, null, null, null, null, null ]
+    chambers: [True, True, True, True, True, True]
+    ammoSlots: [null, null, null, null, null, null]
     soundEject:
       path: /Audio/Weapons/Guns/MagOut/revolver_magout.ogg
     soundInsert:
@@ -75,8 +75,8 @@
     fireRate: 2
   - type: RevolverAmmoProvider
     capacity: 5
-    chambers: [ True, True, True, True, True ]
-    ammoSlots: [ null, null, null, null, null ]
+    chambers: [True, True, True, True, True]
+    ammoSlots: [null, null, null, null, null]
   - type: MagazineVisuals
     magState: mag
     steps: 4
@@ -97,8 +97,8 @@
     sprite: Objects/Weapons/Guns/Revolvers/inspector.rsi
   - type: RevolverAmmoProvider
     capacity: 6
-    chambers: [ True, True, True, True, True, True ]
-    ammoSlots: [ null, null, null, null, null, null ]
+    chambers: [True, True, True, True, True, True]
+    ammoSlots: [null, null, null, null, null, null]
 
 - type: entity
   name: Mateba (.45 magnum)
@@ -116,7 +116,7 @@
       path: /Audio/Weapons/Guns/Gunshots/mateba.ogg
 
 - type: entity
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   parent: WeaponRevolverMateba
   id: WeaponRevolverMatebaAP # For deathsquad
   suffix: armor-piercing
@@ -147,7 +147,7 @@
     price: 1
 
 - type: entity
-  categories: [ HideSpawnMenu ] # Frontier (also removed from uplink)
+  categories: [HideSpawnMenu] # Frontier (also removed from uplink)
   parent: WeaponRevolverPython
   id: WeaponRevolverPythonAP # For the uplink.
   suffix: armor-piercing
@@ -155,10 +155,9 @@
   - type: RevolverAmmoProvider
     whitelist:
       tags:
-        - Cartridge45_magnumFMJ
-        - SpeedLoader45_magnumFMJ
+      - Cartridge45_magnumFMJ
+      - SpeedLoader45_magnumFMJ
     proto: Cartridge45_magnumAP
-
 
 - type: entity
   name: pirate revolver (.45 magnum)
@@ -177,8 +176,8 @@
       revolver-ammo: !type:Container
   - type: RevolverAmmoProvider
     capacity: 5
-    chambers: [ True, True, True, True, True ]
-    ammoSlots: [ null, null, null, null, null ]
+    chambers: [True, True, True, True, True]
+    ammoSlots: [null, null, null, null, null]
 
 - type: entity
   name: pirate revolver
@@ -190,6 +189,6 @@
   - type: RevolverAmmoProvider
     proto: null
     capacity: 5
-    chambers: [ null, null, null, null, null ]
-    ammoSlots: [ null, null, null, null, null ]
+    chambers: [null, null, null, null, null]
+    ammoSlots: [null, null, null, null, null]
 

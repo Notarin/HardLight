@@ -9,7 +9,8 @@ namespace Content.Client.Info
 {
     public sealed class RulesAndInfoWindow : DefaultWindow
     {
-        [Dependency] private readonly IResourceManager _resourceManager = default!;
+        [Dependency]
+        private readonly IResourceManager _resourceManager = default!;
 
         public RulesAndInfoWindow()
         {
@@ -19,14 +20,8 @@ namespace Content.Client.Info
 
             var rootContainer = new TabContainer();
 
-            var rulesList = new RulesControl
-            {
-                Margin = new Thickness(10)
-            };
-            var tutorialList = new Info
-            {
-                Margin = new Thickness(10)
-            };
+            var rulesList = new RulesControl { Margin = new Thickness(10) };
+            var tutorialList = new Info { Margin = new Thickness(10) };
 
             rootContainer.AddChild(rulesList);
             rootContainer.AddChild(tutorialList);
@@ -49,7 +44,8 @@ namespace Content.Client.Info
             AddSection(tutorialList, Loc.GetString("ui-info-header-gameplay"), "Gameplay.txt", true);
             AddSection(tutorialList, Loc.GetString("ui-info-header-sandbox"), "Sandbox.txt", true);
 
-            infoControlSection.ControlsButton.OnPressed += _ => UserInterfaceManager.GetUIController<OptionsUIController>().OpenWindow();
+            infoControlSection.ControlsButton.OnPressed += _ =>
+                UserInterfaceManager.GetUIController<OptionsUIController>().OpenWindow();
         }
 
         private static void AddSection(Info info, Control control)
@@ -66,6 +62,5 @@ namespace Content.Client.Info
         {
             return new InfoSection(title, res.ContentFileReadAllText($"/ServerInfo/{path}"), markup);
         }
-
     }
 }

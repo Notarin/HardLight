@@ -41,7 +41,7 @@
   offset: 0,6
   ignoreTile: FloorShuttleOrange
   tags:
-    - NFVGRoidInterior
+  - NFVGRoidInterior
 
 - type: dungeonRoom
   id: NFVGRoidInterior5x5f

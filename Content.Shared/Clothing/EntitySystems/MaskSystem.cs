@@ -10,11 +10,20 @@ namespace Content.Shared.Clothing.EntitySystems;
 
 public sealed class MaskSystem : EntitySystem
 {
-    [Dependency] private readonly SharedActionsSystem _actionSystem = default!;
-    [Dependency] private readonly InventorySystem _inventorySystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly ClothingSystem _clothing = default!;
+    [Dependency]
+    private readonly SharedActionsSystem _actionSystem = default!;
+
+    [Dependency]
+    private readonly InventorySystem _inventorySystem = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly ClothingSystem _clothing = default!;
 
     public override void Initialize()
     {
@@ -46,9 +55,11 @@ public sealed class MaskSystem : EntitySystem
 
         // TODO Inventory / Clothing
         // Add an easier way to check if clothing is equipped to a valid slot.
-        if (!TryComp(ent, out ClothingComponent? clothing)
+        if (
+            !TryComp(ent, out ClothingComponent? clothing)
             || clothing.InSlotFlag is not { } slotFlag
-            || !clothing.Slots.HasFlag(slotFlag))
+            || !clothing.Slots.HasFlag(slotFlag)
+        )
         {
             return;
         }
@@ -107,9 +118,11 @@ public sealed class MaskSystem : EntitySystem
         // TODO Inventory / Clothing
         // Add an easier way to get the entity that is wearing clothing in a valid slot.
         EntityUid? wearer = null;
-        if (TryComp(mask, out ClothingComponent? clothing)
-            && clothing.InSlotFlag is {} slotFlag
-            && clothing.Slots.HasFlag(slotFlag))
+        if (
+            TryComp(mask, out ClothingComponent? clothing)
+            && clothing.InSlotFlag is { } slotFlag
+            && clothing.Slots.HasFlag(slotFlag)
+        )
         {
             wearer = Transform(mask).ParentUid;
         }

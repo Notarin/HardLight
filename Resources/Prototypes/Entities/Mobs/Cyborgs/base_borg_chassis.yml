@@ -1,5 +1,5 @@
 - type: entity
-  parent: [ BaseMob, StripableInventoryBase, BaseSiliconLanguages ] # Starlight: Languages
+  parent: [BaseMob, StripableInventoryBase, BaseSiliconLanguages] # Starlight: Languages
   id: BaseBorgChassisNotIonStormable
   name: cyborg
   description: A synthetic that assists in station activity. They love being asked to state their laws over and over. #HL Edit. We have positronics, BORIS modules, and straight up AI's here. These aren't MMI-exclusive.
@@ -24,8 +24,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35
         density: 150
         mask:
@@ -33,8 +32,8 @@
         layer:
         - MobLayer
   - type: MovementSpeedModifier
-    baseWalkSpeed : 2.5
-    baseSprintSpeed : 4.5
+    baseWalkSpeed: 2.5
+    baseSprintSpeed: 4.5
   - type: Sprite
     sprite: Mobs/Silicon/Chassis/generic/default.rsi
   - type: StatusIcon
@@ -59,11 +58,11 @@
     allowRevives: true
   - type: HealthExaminable
     examinableTypes:
-      - Blunt
-      - Slash
-      - Piercing
-      - Heat
-      - Shock
+    - Blunt
+    - Slash
+    - Piercing
+    - Heat
+    - Shock
     locPrefix: silicon
   - type: UserInterface
     interfaces:
@@ -113,13 +112,14 @@
     group: Silicon
   - type: ContainerContainer
     containers:
-      borg_brain: !type:ContainerSlot { }
-      cell_slot: !type:ContainerSlot { }
-      borg_module: !type:Container { }
+      borg_brain: !type:ContainerSlot {}
+      cell_slot: !type:ContainerSlot {}
+      borg_module: !type:Container {}
       part-container: !type:Container
-      key_slots: !type:Container # HardLight: Added a slot for encryption keys
+      key_slots: !type:Container
   # HardLight start: Added encryption key slots in addition to intrinsic radio channels.
-  - type: EncryptionKeyHolder
+  - # HardLight: Added a slot for encryption keys
+    type: EncryptionKeyHolder
     keySlots: 10
     preserveExistingChannels: true
     examineWhileLocked: false
@@ -198,8 +198,7 @@
     damageContainer: Silicon
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 75
       behaviors:
       - !type:PlaySoundBehavior
@@ -207,8 +206,7 @@
           path: /Audio/Machines/warning_buzzer.ogg
           params:
             volume: 5
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 300
       behaviors:
       - !type:PlaySoundBehavior
@@ -220,7 +218,7 @@
         - borg_module
         - cell_slot
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: HandheldLight
     toggleOnInteract: false
     wattage: 0.2
@@ -285,7 +283,7 @@
     - Critical
     - Dead
   - type: PreventDropOnDowned # Frontier: borgs don't drop items when falling
-  - type: InteractionPopup   # Hardlight: should be able to pet the borgs now
+  - type: InteractionPopup # Hardlight: should be able to pet the borgs now
     interactSuccessString: petting-success-generic-cyborg
     interactFailureString: petting-failure-generic-cyborg
     interactSuccessSound:
@@ -359,7 +357,7 @@
   components:
   - type: RandomMetadata
     nameSegments:
-      - NFNamesBorg # Frontier: use NF variant
+    - NFNamesBorg # Frontier: use NF variant
   - type: NpcFactionMember
     factions:
     - NanoTrasen
@@ -550,8 +548,7 @@
   - type: Hands
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 90
       behaviors:
       - !type:PlaySoundBehavior
@@ -559,8 +556,7 @@
           path: /Audio/Machines/warning_buzzer_xenoborg.ogg
           params:
             volume: 5
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 375
       behaviors:
       - !type:PlaySoundBehavior
@@ -577,7 +573,7 @@
         - borg_module
         - cell_slot
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: PointLight
     color: "#0033ff"
   - type: GuideHelp

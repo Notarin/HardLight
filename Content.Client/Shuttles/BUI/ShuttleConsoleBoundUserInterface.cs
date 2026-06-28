@@ -13,9 +13,8 @@ public sealed partial class ShuttleConsoleBoundUserInterface : BoundUserInterfac
     [ViewVariables]
     private ShuttleConsoleWindow? _window;
 
-    public ShuttleConsoleBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-    }
+    public ShuttleConsoleBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {
@@ -41,46 +40,27 @@ public sealed partial class ShuttleConsoleBoundUserInterface : BoundUserInterfac
 
     private void OnUndockRequest(NetEntity entity)
     {
-        SendMessage(new UndockRequestMessage()
-        {
-            DockEntity = entity,
-        });
+        SendMessage(new UndockRequestMessage() { DockEntity = entity });
     }
 
     private void OnDockRequest(NetEntity entity, NetEntity target)
     {
-        SendMessage(new DockRequestMessage()
-        {
-            DockEntity = entity,
-            TargetDockEntity = target,
-        });
+        SendMessage(new DockRequestMessage() { DockEntity = entity, TargetDockEntity = target });
     }
 
     private void OnFTLBeaconRequest(NetEntity ent, Angle angle)
     {
-        SendMessage(new ShuttleConsoleFTLBeaconMessage()
-        {
-            Beacon = ent,
-            Angle = angle,
-        });
+        SendMessage(new ShuttleConsoleFTLBeaconMessage() { Beacon = ent, Angle = angle });
     }
 
     private void OnFTLStationRequest(NetEntity ent, Angle angle)
     {
-        SendMessage(new ShuttleConsoleFTLStationDockMessage()
-        {
-            Station = ent,
-            Angle = angle,
-        });
+        SendMessage(new ShuttleConsoleFTLStationDockMessage() { Station = ent, Angle = angle });
     }
 
     private void OnFTLRequest(MapCoordinates obj, Angle angle)
     {
-        SendMessage(new ShuttleConsoleFTLPositionMessage()
-        {
-            Coordinates = obj,
-            Angle = angle,
-        });
+        SendMessage(new ShuttleConsoleFTLPositionMessage() { Coordinates = obj, Angle = angle });
     }
 
     private void OnActivateExpeditionDisk()
@@ -98,6 +78,7 @@ public sealed partial class ShuttleConsoleBoundUserInterface : BoundUserInterfac
     {
         SendMessage(new ShuttleConsoleWEPMessage());
     }
+
     // End HL
 
     protected override void Dispose(bool disposing)

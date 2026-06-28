@@ -8,7 +8,8 @@ namespace Content.Shared.Shuttles.Systems
 {
     public abstract class SharedShuttleConsoleSystem : EntitySystem
     {
-        [Dependency] protected readonly ActionBlockerSystem ActionBlockerSystem = default!;
+        [Dependency]
+        protected readonly ActionBlockerSystem ActionBlockerSystem = default!;
 
         public override void Initialize()
         {

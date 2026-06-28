@@ -1,6 +1,6 @@
 - type: entity
   name: abductor's wirecutter
-  parent: [ BaseItem, BaseC2Contraband ]
+  parent: [BaseItem, BaseC2Contraband]
   id: WirecutterAbductor
   components:
   - type: EmitSoundOnLand
@@ -17,7 +17,7 @@
   - type: Tool
     speedModifier: 2
     qualities:
-      - Cutting
+    - Cutting
     useSound:
       path: /Audio/Items/wirecutter.ogg
   - type: MeleeWeapon
@@ -37,10 +37,10 @@
       Steel: 100
   - type: StaticPrice
     price: 30
-  
+
 - type: entity
   name: abductor's screwdriver
-  parent: [ BaseItem, BaseC2Contraband ]
+  parent: [BaseItem, BaseC2Contraband]
   id: ScrewdriverAbductor
   components:
   - type: EmitSoundOnLand
@@ -56,7 +56,7 @@
   - type: Tool
     speedModifier: 2
     qualities:
-      - Screwing
+    - Screwing
     useSound:
       collection: Screwdriver
   - type: Item
@@ -76,10 +76,10 @@
       Steel: 100
   - type: StaticPrice
     price: 30
-    
+
 - type: entity
   name: abductor's wrench
-  parent: [ Wrench, BaseC2Contraband ]
+  parent: [Wrench, BaseC2Contraband]
   id: WrenchAbductor
   components:
   - type: Sprite
@@ -94,22 +94,22 @@
   - type: Tool
     speedModifier: 2
     qualities:
-      - Anchoring
+    - Anchoring
     useSound:
       path: /Audio/Items/ratchet.ogg
-      
+
 - type: entity
   name: abductor's multitool
-  parent: [ Multitool, BaseC2Contraband ]
+  parent: [Multitool, BaseC2Contraband]
   id: MultitoolAbductor
   components:
   - type: Sprite
     sprite: _Starlight/Objects/Tools/multitool.rsi
   - type: Tag
     tags:
-      - Multitool
-      - DoorElectronicsConfigurator
-      - ShowWires
+    - Multitool
+    - DoorElectronicsConfigurator
+    - ShowWires
 
 - type: entity
   name: makeshift crowbar-wrench
@@ -119,7 +119,7 @@
   components:
   - type: EmitSoundOnLand
     sound:
-      path: /Audio/Items/crowbar_drop.ogg  
+      path: /Audio/Items/crowbar_drop.ogg
   - type: Sprite
     sprite: _Starlight/Objects/Tools/makeshift_omnitool.rsi
     state: wrench
@@ -127,13 +127,13 @@
     sprite: _Starlight/Objects/Tools/makeshift_omnitool.rsi
   - type: Prying
     enabled: false
-    speedModifier: 0.25 
+    speedModifier: 0.25
   - type: ToolTileCompatible
     delay: 4
   - type: Tool
     qualities:
-      - Screwing
-    speedModifier: 0.25  
+    - Screwing
+    speedModifier: 0.25
   - type: MeleeWeapon
     wideAnimationRotation: -135
     damage:
@@ -142,25 +142,25 @@
   - type: MultipleTool
     statusShowBehavior: true
     entries:
-      - behavior: Prying
-        sprite:
-          sprite: _Starlight/Objects/Tools/makeshift_omnitool.rsi
-          state: wrench
-        useSound:
-          path: /Audio/Items/crowbar.ogg
-      - behavior: Anchoring
-        sprite:
-          sprite: _Starlight/Objects/Tools/makeshift_omnitool.rsi
-          state: wrenchflipped
-        useSound:
-          path: /Audio/Items/ratchet.ogg
+    - behavior: Prying
+      sprite:
+        sprite: _Starlight/Objects/Tools/makeshift_omnitool.rsi
+        state: wrench
+      useSound:
+        path: /Audio/Items/crowbar.ogg
+    - behavior: Anchoring
+      sprite:
+        sprite: _Starlight/Objects/Tools/makeshift_omnitool.rsi
+        state: wrenchflipped
+      useSound:
+        path: /Audio/Items/ratchet.ogg
   - type: ToolRefinable
     refineResult:
     - id: CrowbarWrenchScrewdriverMakeshift
   - type: Tag
     tags:
-      - Crowbar
-      - Wrench
+    - Crowbar
+    - Wrench
 
 - type: entity
   name: makeshift crowbar-wrench-screwdriver
@@ -180,30 +180,30 @@
   - type: MultipleTool
     statusShowBehavior: true
     entries:
-      - behavior: Prying
-        sprite:
-          sprite: _Starlight/Objects/Tools/makeshift_omnitool.rsi
-          state: screwdriver
-        useSound:
-          path: /Audio/Items/crowbar.ogg
-      - behavior: Screwing
-        sprite:
-          sprite: _Starlight/Objects/Tools/makeshift_omnitool.rsi
-          state: screwdriverflipped
-      - behavior: Anchoring
-        sprite:
-          sprite: _Starlight/Objects/Tools/makeshift_omnitool.rsi
-          state: screwdriverflipped
-        useSound:
-          path: /Audio/Items/ratchet.ogg
+    - behavior: Prying
+      sprite:
+        sprite: _Starlight/Objects/Tools/makeshift_omnitool.rsi
+        state: screwdriver
+      useSound:
+        path: /Audio/Items/crowbar.ogg
+    - behavior: Screwing
+      sprite:
+        sprite: _Starlight/Objects/Tools/makeshift_omnitool.rsi
+        state: screwdriverflipped
+    - behavior: Anchoring
+      sprite:
+        sprite: _Starlight/Objects/Tools/makeshift_omnitool.rsi
+        state: screwdriverflipped
+      useSound:
+        path: /Audio/Items/ratchet.ogg
   - type: ToolRefinable
     refineResult:
     - id: OmnitoolMakeshift
   - type: Tag
     tags:
-      - Crowbar
-      - Wrench
-      - Screwdriver
+    - Crowbar
+    - Wrench
+    - Screwdriver
 
 - type: entity
   name: makeshift omni-tool
@@ -223,34 +223,34 @@
   - type: MultipleTool
     statusShowBehavior: true
     entries:
-      - behavior: Prying
-        sprite:
-          sprite: _Starlight/Objects/Tools/makeshift_omnitool.rsi
-          state: wirecutter
-        useSound:
-          path: /Audio/Items/crowbar.ogg
-      - behavior: Screwing
-        sprite:
-          sprite: _Starlight/Objects/Tools/makeshift_omnitool.rsi
-          state: wirecutterflipped
-      - behavior: Anchoring
-        sprite:
-          sprite: _Starlight/Objects/Tools/makeshift_omnitool.rsi
-          state: wirecutterflipped
-        useSound:
-          path: /Audio/Items/ratchet.ogg
-      - behavior: Cutting
-        sprite:
-          sprite: _Starlight/Objects/Tools/makeshift_omnitool.rsi
-          state: wirecutterside
-        useSound:
-          path: /Audio/Items/wirecutter.ogg
+    - behavior: Prying
+      sprite:
+        sprite: _Starlight/Objects/Tools/makeshift_omnitool.rsi
+        state: wirecutter
+      useSound:
+        path: /Audio/Items/crowbar.ogg
+    - behavior: Screwing
+      sprite:
+        sprite: _Starlight/Objects/Tools/makeshift_omnitool.rsi
+        state: wirecutterflipped
+    - behavior: Anchoring
+      sprite:
+        sprite: _Starlight/Objects/Tools/makeshift_omnitool.rsi
+        state: wirecutterflipped
+      useSound:
+        path: /Audio/Items/ratchet.ogg
+    - behavior: Cutting
+      sprite:
+        sprite: _Starlight/Objects/Tools/makeshift_omnitool.rsi
+        state: wirecutterside
+      useSound:
+        path: /Audio/Items/wirecutter.ogg
   - type: Tag
     tags:
-      - Crowbar
-      - Wrench
-      - Screwdriver
-      - Wirecutter
+    - Crowbar
+    - Wrench
+    - Screwdriver
+    - Wirecutter
 
 - type: entity
   name: improvised screwdriver
@@ -308,7 +308,7 @@
         Slash: 2 #WHY IS WIZ SO OBSESSED WITH PIERCE
     soundHit:
       path: "/Audio/Items/wirecutter.ogg"
-    attackRate: 2 
+    attackRate: 2
   - type: Item
     sprite: _Starlight/Objects/Tools/improvised_wirecutters.rsi
     storedRotation: -90
@@ -379,7 +379,7 @@
     - Belt
   - type: Tool
     qualities:
-      - Pulsing
+    - Pulsing
   - type: NetworkConfigurator
   - type: ActivatableUI
     key: enum.NetworkConfiguratorUiKey.List
@@ -394,8 +394,8 @@
         type: NetworkConfiguratorBoundUserInterface
   - type: Tag
     tags:
-      - ImprovisedMultitool
-      - DoorElectronicsConfigurator
+    - ImprovisedMultitool
+    - DoorElectronicsConfigurator
 
 - type: entity
   name: improvised omnitool
@@ -405,7 +405,7 @@
   components:
   - type: EmitSoundOnLand
     sound:
-      path: /Audio/Items/crowbar_drop.ogg  
+      path: /Audio/Items/crowbar_drop.ogg
   - type: Sprite
     sprite: _Starlight/Objects/Tools/improvised_omnitool.rsi
     layers:
@@ -427,8 +427,8 @@
     visuals:
       enum.ToggleVisuals.Toggled:
         enum.ToggleVisuals.Layer:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
   - type: Item
     sprite: _Starlight/Objects/Tools/improvised_omnitool.rsi
     size: Normal
@@ -446,7 +446,7 @@
         - type: Tool
           speedModifier: 0.75
           qualities:
-            - Prying
+          - Prying
           useSound:
             path: /Audio/Items/crowbar.ogg
         - type: MeleeWeapon
@@ -469,7 +469,7 @@
         components:
         - type: Tool
           qualities:
-            - Screwing
+          - Screwing
           useSound:
             collection: Screwdriver
           speedModifier: 0.75
@@ -494,7 +494,7 @@
         - type: ToolTileCompatible
         - type: Tool
           qualities:
-            - Cutting
+          - Cutting
           useSound:
             path: /Audio/Items/wirecutter.ogg
           speedModifier: 0.75
@@ -518,7 +518,7 @@
         components:
         - type: Tool
           qualities:
-            - Anchoring
+          - Anchoring
           useSound:
             path: /Audio/Items/ratchet.ogg
           speedModifier: 0.75
@@ -542,7 +542,7 @@
         components:
         - type: Tool
           qualities:
-            - Pulsing
+          - Pulsing
         - type: NetworkConfigurator
         - type: ActivatableUI
           key: enum.NetworkConfiguratorUiKey.List
@@ -639,12 +639,12 @@
               Slash: 5
   - type: Tag
     tags:
-      - Multitool
-      - DoorElectronicsConfigurator
-      - Wrench
-      - PlantSampleTaker
-      - Wirecutter
-      - Screwdriver
+    - Multitool
+    - DoorElectronicsConfigurator
+    - Wrench
+    - PlantSampleTaker
+    - Wirecutter
+    - Screwdriver
 
 - type: entity
   name: forged omnitool
@@ -654,7 +654,7 @@
   components:
   - type: EmitSoundOnLand
     sound:
-      path: /Audio/Items/crowbar_drop.ogg  
+      path: /Audio/Items/crowbar_drop.ogg
   - type: Sprite
     sprite: _Starlight/Objects/Tools/forged_omnitool.rsi
     layers:
@@ -676,8 +676,8 @@
     visuals:
       enum.ToggleVisuals.Toggled:
         enum.ToggleVisuals.Layer:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
   - type: Item
     sprite: _Starlight/Objects/Tools/forged_omnitool.rsi
     size: Normal
@@ -694,7 +694,7 @@
           delay: 1
         - type: Tool
           qualities:
-            - Prying
+          - Prying
           useSound:
             path: /Audio/Items/crowbar.ogg
         - type: MeleeWeapon
@@ -716,7 +716,7 @@
         components:
         - type: Tool
           qualities:
-            - Screwing
+          - Screwing
           useSound:
             collection: Screwdriver
         - type: MeleeWeapon
@@ -739,7 +739,7 @@
         - type: ToolTileCompatible
         - type: Tool
           qualities:
-            - Cutting
+          - Cutting
           useSound:
             path: /Audio/Items/wirecutter.ogg
         - type: MeleeWeapon
@@ -761,7 +761,7 @@
         components:
         - type: Tool
           qualities:
-            - Anchoring
+          - Anchoring
           useSound:
             path: /Audio/Items/ratchet.ogg
         - type: MeleeWeapon
@@ -783,7 +783,7 @@
         components:
         - type: Tool
           qualities:
-            - Pulsing
+          - Pulsing
         - type: NetworkConfigurator
         - type: ActivatableUI
           key: enum.NetworkConfiguratorUiKey.List
@@ -875,12 +875,12 @@
               Blunt: 5
   - type: Tag
     tags:
-      - Multitool
-      - DoorElectronicsConfigurator
-      - Wrench
-      - PlantSampleTaker
-      - Wirecutter
-      - Screwdriver
+    - Multitool
+    - DoorElectronicsConfigurator
+    - Wrench
+    - PlantSampleTaker
+    - Wirecutter
+    - Screwdriver
 
 # =============================================================================
 # RPLD (Rapid Plumbing Device) - places plumbing ducts and machines

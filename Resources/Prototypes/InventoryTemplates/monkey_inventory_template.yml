@@ -50,7 +50,7 @@
     displayName: ID
   - name: suitstorage
     slotTexture: suit_storage
-    slotFlags:   SUITSTORAGE
+    slotFlags: SUITSTORAGE
     slotGroup: MainHotbar
     stripTime: 3
     uiWindowPos: 2,0
@@ -80,9 +80,9 @@
     displayName: Suit
     whitelist:
       tags:
-        - MonkeyWearable
+      - MonkeyWearable
       components: # Frontier
-        - MonkeyWearable # Frontier
+      - MonkeyWearable # Frontier
   # Frontier: wallet slot
   - name: wallet
     slotTexture: wallet

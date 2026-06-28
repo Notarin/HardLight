@@ -25,6 +25,7 @@ public sealed partial class NFCargoSystem
         // Shouldn't need re-anchored event
         SubscribeLocalEvent<NFCargoTelepadComponent, AnchorStateChangedEvent>(OnTelepadAnchorChange);
     }
+
     private void UpdateTelepad(float frameTime)
     {
         var query = EntityQueryEnumerator<NFCargoTelepadComponent>();
@@ -41,9 +42,11 @@ public sealed partial class NFCargoSystem
                 continue;
             }
 
-            if (!TryComp<DeviceLinkSinkComponent>(uid, out var sinkComponent) ||
-                sinkComponent.LinkedSources.FirstOrNull() is not { } console ||
-                !HasComp<NFCargoOrderConsoleComponent>(console))
+            if (
+                !TryComp<DeviceLinkSinkComponent>(uid, out var sinkComponent)
+                || sinkComponent.LinkedSources.FirstOrNull() is not { } console
+                || !HasComp<NFCargoOrderConsoleComponent>(console)
+            )
             {
                 comp.Accumulator = comp.Delay;
                 continue;
@@ -61,8 +64,10 @@ public sealed partial class NFCargoSystem
 
             var station = _station.GetOwningStation(console);
 
-            if (!TryComp<NFStationCargoOrderDatabaseComponent>(station, out var orderDatabase) ||
-                orderDatabase.Orders.Count == 0)
+            if (
+                !TryComp<NFStationCargoOrderDatabaseComponent>(station, out var orderDatabase)
+                || orderDatabase.Orders.Count == 0
+            )
             {
                 comp.Accumulator += comp.Delay;
                 continue;
@@ -104,8 +109,11 @@ public sealed partial class NFCargoSystem
         args.AddPercentageUpgrade("cargo-telepad-delay-upgrade", ent.Comp.Delay / ent.Comp.BaseDelay);
     }
 
-    private void SetEnabled(Entity<NFCargoTelepadComponent> ent, ApcPowerReceiverComponent? receiver = null,
-        TransformComponent? xform = null)
+    private void SetEnabled(
+        Entity<NFCargoTelepadComponent> ent,
+        ApcPowerReceiverComponent? receiver = null,
+        TransformComponent? xform = null
+    )
     {
         // False due to AllCompsOneEntity test where they may not have the powerreceiver.
         if (!Resolve(ent, ref receiver, ref xform, false))

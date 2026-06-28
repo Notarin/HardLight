@@ -16,14 +16,15 @@ namespace Content.Server.Administration.Commands
     [AdminCommand(AdminFlags.Admin)]
     public sealed class WarpCommand : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _entManager = default!;
+        [Dependency]
+        private readonly IEntityManager _entManager = default!;
 
         public string Command => "warp";
         public string Description => "Teleports you to predefined areas on the map.";
 
         public string Help =>
-            "warp <location>\nLocations you can teleport to are predefined by the map. " +
-            "You can specify '?' as location to get a list of valid locations.";
+            "warp <location>\nLocations you can teleport to are predefined by the map. "
+            + "You can specify '?' as location to get a list of valid locations.";
 
         public void Execute(IConsoleShell shell, string argStr, string[] args)
         {
@@ -61,49 +62,54 @@ namespace Content.Server.Administration.Commands
                 var xformSystem = _entManager.System<SharedTransformSystem>();
 
                 var found = GetWarpPointByName(location)
-                    .OrderBy(p => p.Item1, Comparer<EntityCoordinates>.Create((a, b) =>
-                    {
-                        // Sort so that warp points on the same grid/map are first.
-                        // So if you have two maps loaded with the same warp points,
-                        // it will prefer the warp points on the map you're currently on.
-                        var aGrid = xformSystem.GetGrid(a);
-                        var bGrid = xformSystem.GetGrid(b);
+                    .OrderBy(
+                        p => p.Item1,
+                        Comparer<EntityCoordinates>.Create(
+                            (a, b) =>
+                            {
+                                // Sort so that warp points on the same grid/map are first.
+                                // So if you have two maps loaded with the same warp points,
+                                // it will prefer the warp points on the map you're currently on.
+                                var aGrid = xformSystem.GetGrid(a);
+                                var bGrid = xformSystem.GetGrid(b);
 
-                        if (aGrid == bGrid)
-                        {
-                            return 0;
-                        }
+                                if (aGrid == bGrid)
+                                {
+                                    return 0;
+                                }
 
-                        if (aGrid == currentGrid)
-                        {
-                            return -1;
-                        }
+                                if (aGrid == currentGrid)
+                                {
+                                    return -1;
+                                }
 
-                        if (bGrid == currentGrid)
-                        {
-                            return 1;
-                        }
+                                if (bGrid == currentGrid)
+                                {
+                                    return 1;
+                                }
 
-                        var mapA = xformSystem.GetMapId(a);
-                        var mapB = xformSystem.GetMapId(b);
+                                var mapA = xformSystem.GetMapId(a);
+                                var mapB = xformSystem.GetMapId(b);
 
-                        if (mapA == mapB)
-                        {
-                            return 0;
-                        }
+                                if (mapA == mapB)
+                                {
+                                    return 0;
+                                }
 
-                        if (mapA == currentMap)
-                        {
-                            return -1;
-                        }
+                                if (mapA == currentMap)
+                                {
+                                    return -1;
+                                }
 
-                        if (mapB == currentMap)
-                        {
-                            return 1;
-                        }
+                                if (mapB == currentMap)
+                                {
+                                    return 1;
+                                }
 
-                        return 0;
-                    }))
+                                return 0;
+                            }
+                        )
+                    )
                     .FirstOrDefault();
 
                 var (coords, follow) = found;
@@ -124,7 +130,9 @@ namespace Content.Server.Administration.Commands
                 xformSystem.AttachToGridOrMap(playerEntity);
                 if (_entManager.TryGetComponent(playerEntity, out PhysicsComponent? physics))
                 {
-                    _entManager.System<SharedPhysicsSystem>().SetLinearVelocity(playerEntity, Vector2.Zero, body: physics);
+                    _entManager
+                        .System<SharedPhysicsSystem>()
+                        .SetLinearVelocity(playerEntity, Vector2.Zero, body: physics);
                 }
             }
         }
@@ -145,7 +153,11 @@ namespace Content.Server.Administration.Commands
         private List<(EntityCoordinates, bool)> GetWarpPointByName(string name)
         {
             List<(EntityCoordinates, bool)> points = new();
-            var query = _entManager.AllEntityQueryEnumerator<WarpPointComponent, MetaDataComponent, TransformComponent>();
+            var query = _entManager.AllEntityQueryEnumerator<
+                WarpPointComponent,
+                MetaDataComponent,
+                TransformComponent
+            >();
             while (query.MoveNext(out var uid, out var warp, out var meta, out var xform))
             {
                 if (name == (warp.Location ?? meta.EntityName))

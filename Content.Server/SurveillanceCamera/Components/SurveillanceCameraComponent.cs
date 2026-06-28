@@ -32,7 +32,7 @@ public sealed partial class SurveillanceCameraComponent : Component
     // the most terrible thing possible.
     [ViewVariables(VVAccess.ReadWrite)]
     [DataField("id")]
-    public string CameraId { get; set;  } = "camera";
+    public string CameraId { get; set; } = "camera";
 
     [ViewVariables(VVAccess.ReadWrite)]
     [DataField("nameSet")]
@@ -43,6 +43,9 @@ public sealed partial class SurveillanceCameraComponent : Component
     public bool NetworkSet { get; set; }
 
     // This has to be device network frequency prototypes.
-    [DataField("setupAvailableNetworks", customTypeSerializer:typeof(PrototypeIdListSerializer<DeviceFrequencyPrototype>))]
+    [DataField(
+        "setupAvailableNetworks",
+        customTypeSerializer: typeof(PrototypeIdListSerializer<DeviceFrequencyPrototype>)
+    )]
     public List<string> AvailableNetworks { get; private set; } = new();
 }

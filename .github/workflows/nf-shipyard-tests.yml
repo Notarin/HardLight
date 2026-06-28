@@ -2,15 +2,15 @@ name: Build & Run Shipyard Tests
 
 on:
   pull_request:
-    branches: [ "master" ]
+    branches: ["master"]
     paths:
-      - "Resources/Maps/_NF/Shuttles/**/*.yml" # Ship grids
-      - "Resources/Maps/_HL/Shuttles/**/*.yml" # Ship grids
-      - "Resources/Maps/_Mono/Shuttles/**/*.yml" # Ship grids
-      - "Resources/Prototypes/_NF/Shipyard/**/*.yml" # Shipyard prototypes
-      - "Resources/Prototypes/_HL/Shipyard/**/*.yml" # Shipyard prototypes
-      - "Resources/Prototypes/_Mono/Shipyard/**/*.yml" # Shipyard prototypes
-      - "Content.IntegrationTests/Tests/_NF/ShipyardTests.cs" # Shipyard tests
+    - "Resources/Maps/_NF/Shuttles/**/*.yml" # Ship grids
+    - "Resources/Maps/_HL/Shuttles/**/*.yml" # Ship grids
+    - "Resources/Maps/_Mono/Shuttles/**/*.yml" # Ship grids
+    - "Resources/Prototypes/_NF/Shipyard/**/*.yml" # Shipyard prototypes
+    - "Resources/Prototypes/_HL/Shipyard/**/*.yml" # Shipyard prototypes
+    - "Resources/Prototypes/_Mono/Shipyard/**/*.yml" # Shipyard prototypes
+    - "Content.IntegrationTests/Tests/_NF/ShipyardTests.cs" # Shipyard tests
 
 jobs:
   build:
@@ -56,8 +56,8 @@ jobs:
   ci-success:
     name: Build & Run Shipyard Tests
     needs:
-      - build
+    - build
     runs-on: ubuntu-latest
     steps:
-      - name: CI succeeded
-        run: exit 0
+    - name: CI succeeded
+      run: exit 0

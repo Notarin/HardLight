@@ -38,4 +38,3 @@ public sealed partial class GCQueuePrototype : IPrototype
     [DataField("trySkipQueue")]
     public bool TrySkipQueue { get; private set; }
 }
-

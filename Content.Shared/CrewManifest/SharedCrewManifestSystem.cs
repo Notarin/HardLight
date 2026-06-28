@@ -66,5 +66,4 @@ public sealed class CrewManifestEntry
 ///     this entity's point of view.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class CrewManifestOpenUiMessage : BoundUserInterfaceMessage
-{}
+public sealed class CrewManifestOpenUiMessage : BoundUserInterfaceMessage { }

@@ -1,8 +1,8 @@
-﻿using Content.Shared.CM14.Xenos;
+﻿using Content.Client.DamageState;
+using Content.Shared.CM14.Xenos;
 using Content.Shared.CM14.Xenos.Rest;
-using Content.Shared.Mobs;
 using Content.Shared.Damage;
-using Content.Client.DamageState;
+using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Robust.Client.GameObjects;
 using DrawDepth = Content.Shared.DrawDepth.DrawDepth;
@@ -19,8 +19,10 @@ public sealed class XenoVisualizerSystem : VisualizerSystem<XenoComponent>
             return;
 
         // Prefer the XenoVisualLayers.Base mapping, but fall back to DamageStateVisualLayers.Base
-        if (!sprite.LayerMapTryGet(XenoVisualLayers.Base, out var layer) &&
-            !sprite.LayerMapTryGet(DamageStateVisualLayers.Base, out layer))
+        if (
+            !sprite.LayerMapTryGet(XenoVisualLayers.Base, out var layer)
+            && !sprite.LayerMapTryGet(DamageStateVisualLayers.Base, out layer)
+        )
             return;
 
         var state = CompOrNull<MobStateComponent>(uid)?.CurrentState;
@@ -42,8 +44,10 @@ public sealed class XenoVisualizerSystem : VisualizerSystem<XenoComponent>
             default:
                 ClearDrawDepth((uid, component, sprite));
 
-                if (args.AppearanceData.TryGetValue(XenoVisualLayers.Base, out var resting) &&
-                    resting is XenoRestState.Resting)
+                if (
+                    args.AppearanceData.TryGetValue(XenoVisualLayers.Base, out var resting)
+                    && resting is XenoRestState.Resting
+                )
                 {
                     if (rsi.TryGetState("sleeping", out _))
                         sprite.LayerSetState(layer, "sleeping");

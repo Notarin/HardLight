@@ -26,8 +26,8 @@ public sealed partial class RandomMutation : EntityEffect
     [DataField]
     public int MaxMutations = 1;
 
-    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys)
-        => Loc.GetString("reagent-effect-guidebook-mutation", ("chance", Probability));
+    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys) =>
+        Loc.GetString("reagent-effect-guidebook-mutation", ("chance", Probability));
 
     public override void Effect(EntityEffectBaseArgs args)
     {

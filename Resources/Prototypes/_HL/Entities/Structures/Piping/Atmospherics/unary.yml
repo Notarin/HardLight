@@ -6,18 +6,18 @@
   placement:
     mode: SnapgridCenter
   components:
-    - type: SubFloorHide
-      visibleLayers:
-      - enum.SubfloorLayers.FirstLayer
-    - type: Sprite
-      sprite: Structures/Piping/Atmospherics/gascanisterport.rsi
-      layers:
-        - state: gasCanisterPort
-          map: [ "enum.SubfloorLayers.FirstLayer", "enum.PipeVisualLayers.Pipe" ]
-    - type: Appearance
-    - type: AtmosPipeLayers
-      spriteLayersRsiPaths: {}
-    - type: GasPort
-    - type: Construction
-      graph: GasUnaryHL
-      node: portstorage
+  - type: SubFloorHide
+    visibleLayers:
+    - enum.SubfloorLayers.FirstLayer
+  - type: Sprite
+    sprite: Structures/Piping/Atmospherics/gascanisterport.rsi
+    layers:
+    - state: gasCanisterPort
+      map: ["enum.SubfloorLayers.FirstLayer", "enum.PipeVisualLayers.Pipe"]
+  - type: Appearance
+  - type: AtmosPipeLayers
+    spriteLayersRsiPaths: {}
+  - type: GasPort
+  - type: Construction
+    graph: GasUnaryHL
+    node: portstorage

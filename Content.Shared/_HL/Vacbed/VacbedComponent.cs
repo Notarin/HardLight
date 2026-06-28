@@ -22,6 +22,6 @@ public sealed partial class VacbedComponent : Component
     [Serializable, NetSerializable]
     public enum VacbedVisuals : byte
     {
-        ContainsEntity
+        ContainsEntity,
     }
 }

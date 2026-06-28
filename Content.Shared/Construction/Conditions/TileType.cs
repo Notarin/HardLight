@@ -39,11 +39,7 @@ namespace Content.Shared.Construction.Conditions
             if (GuideText == null)
                 return null;
 
-            return new ConstructionGuideEntry()
-            {
-                Localization = GuideText,
-                Icon = GuideIcon,
-            };
+            return new ConstructionGuideEntry() { Localization = GuideText, Icon = GuideIcon };
         }
     }
 }

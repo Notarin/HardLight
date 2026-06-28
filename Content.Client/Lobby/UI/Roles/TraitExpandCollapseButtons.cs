@@ -1,8 +1,8 @@
-using Robust.Client.UserInterface;
-using Robust.Client.UserInterface.Controls;
 using System;
 using System.Numerics;
 using Robust.Client.Graphics;
+using Robust.Client.UserInterface;
+using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Maths;
 
 namespace Content.Client.Lobby.UI.Roles;
@@ -18,7 +18,7 @@ public sealed class TraitExpandCollapseButtons : PanelContainer
         {
             Orientation = BoxContainer.LayoutOrientation.Horizontal,
             HorizontalExpand = true,
-            SeparationOverride = 0 // No separation between buttons
+            SeparationOverride = 0, // No separation between buttons
         };
 
         // Create the expand all button
@@ -29,7 +29,7 @@ public sealed class TraitExpandCollapseButtons : PanelContainer
             HorizontalExpand = true,
             VerticalExpand = true,
             TextAlign = Label.AlignMode.Center,
-            MinSize = new Vector2(0, 30)
+            MinSize = new Vector2(0, 30),
         };
 
         // Create the collapse all button
@@ -40,7 +40,7 @@ public sealed class TraitExpandCollapseButtons : PanelContainer
             HorizontalExpand = true,
             VerticalExpand = true,
             TextAlign = Label.AlignMode.Center,
-            MinSize = new Vector2(0, 30)
+            MinSize = new Vector2(0, 30),
         };
 
         // Add event handlers

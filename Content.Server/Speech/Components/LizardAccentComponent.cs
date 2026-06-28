@@ -4,7 +4,4 @@
 ///     Hiss!
 /// </summary>
 [RegisterComponent]
-public sealed partial class LizardAccentComponent : Component
-{
-
-}
+public sealed partial class LizardAccentComponent : Component { }

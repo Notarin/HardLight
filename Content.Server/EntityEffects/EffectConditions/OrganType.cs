@@ -37,9 +37,11 @@ public sealed partial class OrganType : EntityEffectCondition
     public bool Condition(Entity<MetabolizerComponent?> metabolizer, IEntityManager entMan)
     {
         metabolizer.Comp ??= entMan.GetComponentOrNull<MetabolizerComponent>(metabolizer.Owner);
-        if (metabolizer.Comp != null
+        if (
+            metabolizer.Comp != null
             && metabolizer.Comp.MetabolizerTypes != null
-            && metabolizer.Comp.MetabolizerTypes.Contains(Type))
+            && metabolizer.Comp.MetabolizerTypes.Contains(Type)
+        )
             return ShouldHave;
         return !ShouldHave;
     }
@@ -50,8 +52,10 @@ public sealed partial class OrganType : EntityEffectCondition
         if (prototype.TryIndex<MetabolizerTypePrototype>(Type, out var metabolizerType))
             metabolizerName = metabolizerType.LocalizedName;
 
-        return Loc.GetString("reagent-effect-condition-guidebook-organ-type",
+        return Loc.GetString(
+            "reagent-effect-condition-guidebook-organ-type",
             ("name", metabolizerName),
-            ("shouldhave", ShouldHave));
+            ("shouldhave", ShouldHave)
+        );
     }
 }

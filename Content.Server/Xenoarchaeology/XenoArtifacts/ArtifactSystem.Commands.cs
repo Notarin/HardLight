@@ -7,16 +7,25 @@ namespace Content.Server.Xenoarchaeology.XenoArtifacts;
 
 public partial class ArtifactSystem
 {
-    [Dependency] private readonly IConsoleHost _conHost = default!;
+    [Dependency]
+    private readonly IConsoleHost _conHost = default!;
 
     public void InitializeCommands()
     {
-        _conHost.RegisterCommand("forceartifactnode", "Forces an artifact to traverse to a given node", "forceartifacteffect <uid> <node ID>",
+        _conHost.RegisterCommand(
+            "forceartifactnode",
+            "Forces an artifact to traverse to a given node",
+            "forceartifacteffect <uid> <node ID>",
             ForceArtifactNode,
-            ForceArtifactNodeCompletions);
+            ForceArtifactNodeCompletions
+        );
 
-        _conHost.RegisterCommand("getartifactmaxvalue", "Reports the maximum research point value for a given artifact", "forceartifacteffect <uid>",
-            GetArtifactMaxValue);
+        _conHost.RegisterCommand(
+            "getartifactmaxvalue",
+            "Reports the maximum research point value for a given artifact",
+            "forceartifacteffect <uid>",
+            GetArtifactMaxValue
+        );
     }
 
     [AdminCommand(AdminFlags.Fun)]
@@ -28,7 +37,11 @@ public partial class ArtifactSystem
             return;
         }
 
-        if (!NetEntity.TryParse(args[0], out var uidNet) || !TryGetEntity(uidNet, out var uid) || !int.TryParse(args[1], out var id))
+        if (
+            !NetEntity.TryParse(args[0], out var uidNet)
+            || !TryGetEntity(uidNet, out var uid)
+            || !int.TryParse(args[1], out var id)
+        )
             return;
 
         if (!TryComp<ArtifactComponent>(uid, out var artifact))
@@ -66,6 +79,8 @@ public partial class ArtifactSystem
             return;
 
         var pointSum = GetResearchPointValue(uid.Value, artifact, true);
-        shell.WriteLine($"Max point value for {ToPrettyString(uid.Value)} with {artifact.NodeTree.Count} nodes: {pointSum}");
+        shell.WriteLine(
+            $"Max point value for {ToPrettyString(uid.Value)} with {artifact.NodeTree.Count} nodes: {pointSum}"
+        );
     }
 }

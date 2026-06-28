@@ -9,6 +9,7 @@ namespace Content.IntegrationTests.Tests.Construction.Interaction;
 public sealed class WindowRepair : InteractionTest
 {
     private static readonly ProtoId<DamageTypePrototype> BluntDamageId = "Blunt";
+
     [Test]
     public async Task RepairReinforcedWindow()
     {
@@ -29,15 +30,8 @@ public sealed class WindowRepair : InteractionTest
         Assert.That(comp.Damage.GetTotal(), Is.EqualTo(FixedPoint2.Zero));
 
         // Validate that we can still deconstruct the entity (i.e., that welding deconstruction is not blocked).
-        await Interact(
-            Weld,
-            Screw,
-            Pry,
-            Weld,
-            Screw,
-            Wrench);
+        await Interact(Weld, Screw, Pry, Weld, Screw, Wrench);
         AssertDeleted();
         await AssertEntityLookup((RGlass, 2));
     }
 }
-

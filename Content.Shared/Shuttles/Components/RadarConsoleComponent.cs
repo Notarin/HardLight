@@ -20,10 +20,11 @@ public sealed partial class RadarConsoleComponent : Component
     public float RangeVV
     {
         get => MaxRange;
-        set => IoCManager
-            .Resolve<IEntitySystemManager>()
-            .GetEntitySystem<SharedRadarConsoleSystem>()
-            .SetRange(Owner, value, this);
+        set =>
+            IoCManager
+                .Resolve<IEntitySystemManager>()
+                .GetEntitySystem<SharedRadarConsoleSystem>()
+                .SetRange(Owner, value, this);
     }
 
     [DataField, AutoNetworkedField]
@@ -47,6 +48,7 @@ public sealed partial class RadarConsoleComponent : Component
     /// </summary>
     [DataField]
     public bool HideCoords = false;
+
     // End Frontier
 
     // Mono

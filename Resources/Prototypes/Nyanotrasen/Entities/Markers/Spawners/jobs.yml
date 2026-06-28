@@ -7,8 +7,8 @@
     job_id: MailCarrier
   - type: Sprite
     layers:
-      - state: green
-      - state: mailcarrier
+    - state: green
+    - state: mailcarrier
 
 - type: entity
   id: SpawnPointPrisoner
@@ -19,8 +19,8 @@
     job_id: Prisoner
   - type: Sprite
     layers:
-      - state: green
-      - state: prisoner
+    - state: green
+    - state: prisoner
 
 - type: entity
   id: SpawnPointValet
@@ -31,8 +31,8 @@
     job_id: Valet
   - type: Sprite
     layers:
-      - state: green
-      - state: passenger
+    - state: green
+    - state: passenger
 
 - type: entity
   id: SpawnPointPrisonGuard
@@ -43,8 +43,8 @@
     job_id: PrisonGuard
   - type: Sprite
     layers:
-      - state: green
-      - state: prisonguard
+    - state: green
+    - state: prisonguard
 
 - type: entity
   id: SpawnPointForensicMantis
@@ -55,5 +55,5 @@
     job_id: ForensicMantis
   - type: Sprite
     layers:
-      - state: green
-      - state: scientist
+    - state: green
+    - state: scientist

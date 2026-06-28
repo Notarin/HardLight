@@ -7,20 +7,20 @@
   components:
   - type: Tag
     tags:
-      - SpeedLoaderBulletFoam
+    - SpeedLoaderBulletFoam
   - type: SpeedLoader
   - type: BallisticAmmoProvider
     whitelist:
       tags:
-        - BulletFoam
+      - BulletFoam
     capacity: 6
   - type: Sprite
     sprite: _HL/Objects/Fun/foam_speed_loader.rsi
     layers:
-      - state: base
-        map: [ "enum.GunVisualLayers.Base" ]
-      - state: base-6
-        map: [ "enum.GunVisualLayers.Mag" ]
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: base-6
+      map: ["enum.GunVisualLayers.Mag"]
   - type: MagazineVisuals
     magState: base
     steps: 7

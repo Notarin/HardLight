@@ -1,13 +1,14 @@
 using System.Linq;
+using Content.Server._NF.Shipyard.Systems; // Frontier
 using Content.Server.Chat.Systems;
-using Content.Shared.Chat; // For InGameICChatType
 using Content.Server.Containers;
 using Content.Server.StationRecords.Systems;
-using Content.Shared.Access.Components;
-using static Content.Shared.Access.Components.IdCardConsoleComponent;
-using Content.Shared.Access.Systems;
+using Content.Shared._NF.Shipyard.Components; // Frontier
 using Content.Shared.Access;
+using Content.Shared.Access.Components;
+using Content.Shared.Access.Systems;
 using Content.Shared.Administration.Logs;
+using Content.Shared.Chat; // For InGameICChatType
 using Content.Shared.Construction;
 using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Damage;
@@ -20,33 +21,57 @@ using Robust.Server.GameObjects;
 using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
-using Content.Server._NF.Shipyard.Systems; // Frontier
-using Content.Shared._NF.Shipyard.Components; // Frontier
 using static Content.Shared._NF.Shipyard.Components.ShuttleDeedComponent; // Frontier
+using static Content.Shared.Access.Components.IdCardConsoleComponent;
 
 namespace Content.Server.Access.Systems;
 
 [UsedImplicitly]
 public sealed class IdCardConsoleSystem : SharedIdCardConsoleSystem
 {
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly StationRecordsSystem _record = default!;
-    [Dependency] private readonly UserInterfaceSystem _userInterface = default!;
-    [Dependency] private readonly AccessReaderSystem _accessReader = default!;
-    [Dependency] private readonly AccessSystem _access = default!;
-    [Dependency] private readonly IdCardSystem _idCard = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly ThrowingSystem _throwing = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly ChatSystem _chat = default!;
-    [Dependency] private readonly ShipyardSystem _shipyard = default!; // Frontier
+    [Dependency]
+    private readonly IPrototypeManager _prototype = default!;
+
+    [Dependency]
+    private readonly StationRecordsSystem _record = default!;
+
+    [Dependency]
+    private readonly UserInterfaceSystem _userInterface = default!;
+
+    [Dependency]
+    private readonly AccessReaderSystem _accessReader = default!;
+
+    [Dependency]
+    private readonly AccessSystem _access = default!;
+
+    [Dependency]
+    private readonly IdCardSystem _idCard = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly ThrowingSystem _throwing = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly ChatSystem _chat = default!;
+
+    [Dependency]
+    private readonly ShipyardSystem _shipyard = default!; // Frontier
 
     public override void Initialize()
     {
         base.Initialize();
 
-        SubscribeLocalEvent<IdCardConsoleComponent, SharedIdCardSystem.WriteToTargetIdMessage>(OnWriteToTargetIdMessage);
-        SubscribeLocalEvent<IdCardConsoleComponent, SharedIdCardSystem.WriteToShuttleDeedMessage>(OnWriteToShuttleDeedMessage);
+        SubscribeLocalEvent<IdCardConsoleComponent, SharedIdCardSystem.WriteToTargetIdMessage>(
+            OnWriteToTargetIdMessage
+        );
+        SubscribeLocalEvent<IdCardConsoleComponent, SharedIdCardSystem.WriteToShuttleDeedMessage>(
+            OnWriteToShuttleDeedMessage
+        );
 
         // one day, maybe bound user interfaces can be shared too.
         SubscribeLocalEvent<IdCardConsoleComponent, ComponentStartup>(UpdateUserInterface);
@@ -55,11 +80,17 @@ public sealed class IdCardConsoleSystem : SharedIdCardConsoleSystem
         SubscribeLocalEvent<IdCardConsoleComponent, DamageChangedEvent>(OnDamageChanged);
 
         // Intercept the event before anyone can do anything with it!
-        SubscribeLocalEvent<IdCardConsoleComponent, MachineDeconstructedEvent>(OnMachineDeconstructed,
-            before: [typeof(EmptyOnMachineDeconstructSystem), typeof(ItemSlotsSystem)]);
+        SubscribeLocalEvent<IdCardConsoleComponent, MachineDeconstructedEvent>(
+            OnMachineDeconstructed,
+            before: [typeof(EmptyOnMachineDeconstructSystem), typeof(ItemSlotsSystem)]
+        );
     }
 
-    private void OnWriteToTargetIdMessage(EntityUid uid, IdCardConsoleComponent component, SharedIdCardSystem.WriteToTargetIdMessage args)
+    private void OnWriteToTargetIdMessage(
+        EntityUid uid,
+        IdCardConsoleComponent component,
+        SharedIdCardSystem.WriteToTargetIdMessage args
+    )
     {
         if (args.Actor is not { Valid: true } player)
             return;
@@ -69,8 +100,11 @@ public sealed class IdCardConsoleSystem : SharedIdCardConsoleSystem
         UpdateUserInterface(uid, component, args);
     }
 
-    private void OnWriteToShuttleDeedMessage(EntityUid uid, IdCardConsoleComponent component,
-        SharedIdCardSystem.WriteToShuttleDeedMessage args)
+    private void OnWriteToShuttleDeedMessage(
+        EntityUid uid,
+        IdCardConsoleComponent component,
+        SharedIdCardSystem.WriteToShuttleDeedMessage args
+    )
     {
         if (args.Actor is not { Valid: true } player)
             return;
@@ -109,7 +143,8 @@ public sealed class IdCardConsoleSystem : SharedIdCardConsoleSystem
                 possibleAccess,
                 string.Empty,
                 privilegedIdName,
-                string.Empty);
+                string.Empty
+            );
         }
         else
         {
@@ -117,9 +152,11 @@ public sealed class IdCardConsoleSystem : SharedIdCardConsoleSystem
             var targetAccessComponent = EntityManager.GetComponent<AccessComponent>(targetId);
 
             var jobProto = targetIdComponent.JobPrototype ?? new ProtoId<JobPrototype>(string.Empty); // Frontier: AccessLevelPrototype<JobPrototype
-            if (TryComp<StationRecordKeyStorageComponent>(targetId, out var keyStorage)
+            if (
+                TryComp<StationRecordKeyStorageComponent>(targetId, out var keyStorage)
                 && keyStorage.Key is { } key
-                && _record.TryGetRecord<GeneralStationRecord>(key, out var record))
+                && _record.TryGetRecord<GeneralStationRecord>(key, out var record)
+            )
             {
                 jobProto = record.JobPrototype;
             }
@@ -144,7 +181,8 @@ public sealed class IdCardConsoleSystem : SharedIdCardConsoleSystem
                 possibleAccess,
                 jobProto,
                 privilegedIdName,
-                Name(targetId));
+                Name(targetId)
+            );
         }
 
         _userInterface.SetUiState(uid, IdCardConsoleUiKey.Key, newState);
@@ -154,13 +192,15 @@ public sealed class IdCardConsoleSystem : SharedIdCardConsoleSystem
     /// Called whenever an access button is pressed, adding or removing that access from the target ID card.
     /// Writes data passed from the UI into the ID stored in <see cref="IdCardConsoleComponent.TargetIdSlot"/>, if present.
     /// </summary>
-    private void TryWriteToTargetId(EntityUid uid,
+    private void TryWriteToTargetId(
+        EntityUid uid,
         string newFullName,
         string newJobTitle,
         List<ProtoId<AccessLevelPrototype>> newAccessList,
         ProtoId<JobPrototype> newJobProto, // Frontier: AccessLevelPrototype<JobPrototype
         EntityUid player,
-        IdCardConsoleComponent? component = null)
+        IdCardConsoleComponent? component = null
+    )
     {
         if (!Resolve(uid, ref component))
             return;
@@ -171,18 +211,24 @@ public sealed class IdCardConsoleSystem : SharedIdCardConsoleSystem
         _idCard.TryChangeFullName(targetId, newFullName, player: player);
         _idCard.TryChangeJobTitle(targetId, newJobTitle, player: player);
 
-        if (_prototype.TryIndex<JobPrototype>(newJobProto, out var job)
-            && _prototype.TryIndex(job.Icon, out var jobIcon))
+        if (
+            _prototype.TryIndex<JobPrototype>(newJobProto, out var job)
+            && _prototype.TryIndex(job.Icon, out var jobIcon)
+        )
         {
             _idCard.TryChangeJobIcon(targetId, jobIcon, player: player);
             _idCard.TryChangeJobDepartment(targetId, job);
         }
 
         UpdateStationRecord(uid, targetId, newFullName, newJobTitle, job);
-        if ((!TryComp<StationRecordKeyStorageComponent>(targetId, out var keyStorage)
-            || keyStorage.Key is not { } key
-            || !_record.TryGetRecord<GeneralStationRecord>(key, out _))
-            && newJobProto != string.Empty)
+        if (
+            (
+                !TryComp<StationRecordKeyStorageComponent>(targetId, out var keyStorage)
+                || keyStorage.Key is not { } key
+                || !_record.TryGetRecord<GeneralStationRecord>(key, out _)
+            )
+            && newJobProto != string.Empty
+        )
         {
             Comp<IdCardComponent>(targetId).JobPrototype = newJobProto;
         }
@@ -218,19 +264,21 @@ public sealed class IdCardConsoleSystem : SharedIdCardConsoleSystem
 
         /*TODO: ECS SharedIdCardConsoleComponent and then log on card ejection, together with the save.
         This current implementation is pretty shit as it logs 27 entries (27 lines) if someone decides to give themselves AA*/
-/*         _adminLogger.Add(LogType.Action, LogImpact.Medium,
-            $"{ToPrettyString(player):player} has modified {ToPrettyString(targetId):entity} with the following accesses: [{string.Join(", ", addedTags.Union(removedTags))}] [{string.Join(", ", newAccessList)}]"); */
+        /*         _adminLogger.Add(LogType.Action, LogImpact.Medium,
+                    $"{ToPrettyString(player):player} has modified {ToPrettyString(targetId):entity} with the following accesses: [{string.Join(", ", addedTags.Union(removedTags))}] [{string.Join(", ", newAccessList)}]"); */
     }
 
     /// <summary>
     /// Called whenever an attempt to change the shuttle deed of the target id is made.
     /// Writes data passed from the ui to the shuttle deed and the grid of shuttle.
     /// </summary>
-    private void TryWriteToShuttleDeed(EntityUid uid,
+    private void TryWriteToShuttleDeed(
+        EntityUid uid,
         string newShuttleName,
         string newShuttleSuffix,
         EntityUid player,
-        IdCardConsoleComponent? component = null)
+        IdCardConsoleComponent? component = null
+    )
     {
         if (!Resolve(uid, ref component))
             return;
@@ -242,7 +290,10 @@ public sealed class IdCardConsoleSystem : SharedIdCardConsoleSystem
             return;
         else
         {
-            if (shuttleDeed!.ShuttleUid == null || (TryGetEntity(shuttleDeed.ShuttleUid.Value, out var shuttleEntity) && Deleted(shuttleEntity.Value)))
+            if (
+                shuttleDeed!.ShuttleUid == null
+                || (TryGetEntity(shuttleDeed.ShuttleUid.Value, out var shuttleEntity) && Deleted(shuttleEntity.Value))
+            )
             {
                 RemComp<ShuttleDeedComponent>(targetId);
                 return;
@@ -284,11 +335,19 @@ public sealed class IdCardConsoleSystem : SharedIdCardConsoleSystem
         return privilegedId != null && _accessReader.IsAllowed(privilegedId.Value, uid, reader);
     }
 
-    private void UpdateStationRecord(EntityUid uid, EntityUid targetId, string newFullName, ProtoId<AccessLevelPrototype> newJobTitle, JobPrototype? newJobProto)
+    private void UpdateStationRecord(
+        EntityUid uid,
+        EntityUid targetId,
+        string newFullName,
+        ProtoId<AccessLevelPrototype> newJobTitle,
+        JobPrototype? newJobProto
+    )
     {
-        if (!TryComp<StationRecordKeyStorageComponent>(targetId, out var keyStorage)
+        if (
+            !TryComp<StationRecordKeyStorageComponent>(targetId, out var keyStorage)
             || keyStorage.Key is not { } key
-            || !_record.TryGetRecord<GeneralStationRecord>(key, out var record))
+            || !_record.TryGetRecord<GeneralStationRecord>(key, out var record)
+        )
         {
             return;
         }
@@ -313,7 +372,12 @@ public sealed class IdCardConsoleSystem : SharedIdCardConsoleSystem
     private void OnDamageChanged(Entity<IdCardConsoleComponent> entity, ref DamageChangedEvent args)
     {
         if (TryDropAndThrowIds(entity.AsNullable()))
-            _chat.TrySendInGameICMessage(entity, Loc.GetString("id-card-console-damaged"), InGameICChatType.Speak, true);
+            _chat.TrySendInGameICMessage(
+                entity,
+                Loc.GetString("id-card-console-damaged"),
+                InGameICChatType.Speak,
+                true
+            );
     }
 
     #region PublicAPI

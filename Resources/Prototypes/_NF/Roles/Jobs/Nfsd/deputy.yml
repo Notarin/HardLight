@@ -4,11 +4,11 @@
   description: job-description-deputy
   playTimeTracker: JobSecurityOfficerOld
   requirements:
-    - !type:OverallPlaytimeRequirement
-      time: 43200 # 12 hours
-    - !type:DepartmentTimeRequirement
-      department: Security
-      time: 21600 # 6 hours
+  - !type:OverallPlaytimeRequirement
+    time: 43200 # 12 hours
+  - !type:DepartmentTimeRequirement
+    department: Security
+    time: 21600 # 6 hours
   alternateRequirementSets:
     longerPlaytimeLessSec:
     - !type:OverallPlaytimeRequirement
@@ -24,7 +24,7 @@
   - GeneralNfsdAccess
   special:
   - !type:AddImplantSpecial
-    implants: [ MindShieldImplant, TrackingImplant ]
+    implants: [MindShieldImplant, TrackingImplant]
   - !type:GiveItemOnHolidaySpecial
     holiday: FrontierBirthday
     prototype: FrontierBirthdayGift

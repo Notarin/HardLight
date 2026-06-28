@@ -16,5 +16,8 @@ public sealed partial class ClaimableGridComponent : Component
     /// Whether we're currently claimed.
     /// </summary>
     [ViewVariables]
-    public bool Claimed { get => ClaimedBy.Count != 0; }
+    public bool Claimed
+    {
+        get => ClaimedBy.Count != 0;
+    }
 }

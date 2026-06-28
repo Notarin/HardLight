@@ -128,7 +128,8 @@ public sealed class CommandLineArgs
 
     private static void PrintHelp()
     {
-        Console.WriteLine(@"
+        Console.WriteLine(
+            @"
 Usage: Content.Packaging [client/server] [options]
 
 Options:
@@ -137,7 +138,8 @@ Options:
   --hybrid-acz          Use HybridACZ for server builds.
   --platform            Platform for server builds. Default will output several x64 targets.
   --configuration       Configuration to use for building the server (Release, Debug, Tools). Default is Release.
-");
+"
+        );
     }
 
     private CommandLineArgs(
@@ -146,7 +148,8 @@ Options:
         bool wipeRelease,
         bool hybridAcz,
         List<string>? platforms,
-        string configuration)
+        string configuration
+    )
     {
         Client = client;
         SkipBuild = skipBuild;

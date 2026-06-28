@@ -21,7 +21,7 @@ namespace Content.Shared.Atmos.Piping.Binary.Components
     public enum GasCanisterVisuals
     {
         PressureState,
-        TankInserted
+        TankInserted,
     }
 
     #endregion
@@ -47,8 +47,7 @@ namespace Content.Shared.Atmos.Piping.Binary.Components
     [Serializable, NetSerializable]
     public sealed class GasCanisterHoldingTankEjectMessage : BoundUserInterfaceMessage
     {
-        public GasCanisterHoldingTankEjectMessage()
-        {}
+        public GasCanisterHoldingTankEjectMessage() { }
     }
 
     [Serializable, NetSerializable]

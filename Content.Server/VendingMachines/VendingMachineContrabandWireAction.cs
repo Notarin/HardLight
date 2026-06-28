@@ -25,9 +25,7 @@ public sealed partial class VendingMachineContrabandWireAction : BaseToggleWireA
     {
         if (EntityManager.TryGetComponent(wire.Owner, out VendingMachineComponent? vending))
         {
-            return vending.Contraband
-                ? StatusLightState.BlinkingSlow
-                : StatusLightState.On;
+            return vending.Contraband ? StatusLightState.BlinkingSlow : StatusLightState.On;
         }
 
         return StatusLightState.Off;

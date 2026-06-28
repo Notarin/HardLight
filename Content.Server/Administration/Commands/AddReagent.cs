@@ -1,11 +1,11 @@
-using Content.Shared.Chemistry.EntitySystems;
+using System.Linq;
 using Content.Shared.Administration;
 using Content.Shared.Chemistry.Components.SolutionManager;
+using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Chemistry.Reagent;
 using Content.Shared.FixedPoint;
 using Robust.Shared.Console;
 using Robust.Shared.Prototypes;
-using System.Linq;
 
 namespace Content.Server.Administration.Commands
 {
@@ -15,8 +15,11 @@ namespace Content.Server.Administration.Commands
     [AdminCommand(AdminFlags.Admin)]
     public sealed class AddReagent : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _entManager = default!;
-        [Dependency] private readonly IPrototypeManager _protomanager = default!;
+        [Dependency]
+        private readonly IEntityManager _entManager = default!;
+
+        [Dependency]
+        private readonly IPrototypeManager _protomanager = default!;
 
         public string Command => "addreagent";
         public string Description => "Add (or remove) some amount of reagent from some solution.";
@@ -45,8 +48,13 @@ namespace Content.Server.Administration.Commands
             var solutionContainerSystem = _entManager.System<SharedSolutionContainerSystem>();
             if (!solutionContainerSystem.TryGetSolution((uid.Value, man), args[1], out var solution))
             {
-                var validSolutions = string.Join(", ", solutionContainerSystem.EnumerateSolutions((uid.Value, man)).Select(s => s.Name));
-                shell.WriteLine($"Entity does not have a \"{args[1]}\" solution. Valid solutions are:\n{validSolutions}");
+                var validSolutions = string.Join(
+                    ", ",
+                    solutionContainerSystem.EnumerateSolutions((uid.Value, man)).Select(s => s.Name)
+                );
+                shell.WriteLine(
+                    $"Entity does not have a \"{args[1]}\" solution. Valid solutions are:\n{validSolutions}"
+                );
                 return;
             }
 

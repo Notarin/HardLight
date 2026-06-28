@@ -4,6 +4,4 @@ using Robust.Shared.Serialization;
 namespace Content.Shared.Anomaly;
 
 [Serializable, NetSerializable]
-public sealed partial class ScannerDoAfterEvent : SimpleDoAfterEvent
-{
-}
+public sealed partial class ScannerDoAfterEvent : SimpleDoAfterEvent { }

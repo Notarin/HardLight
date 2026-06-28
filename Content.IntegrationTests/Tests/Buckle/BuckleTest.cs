@@ -1,9 +1,9 @@
 using System.Numerics;
 using Content.Server.Body.Systems;
-using Content.Shared.Buckle;
 using Content.Shared.ActionBlocker;
 using Content.Shared.Body.Components;
 using Content.Shared.Body.Part;
+using Content.Shared.Buckle;
 using Content.Shared.Buckle.Components;
 using Content.Shared.Hands.Components;
 using Content.Shared.Hands.EntitySystems;
@@ -22,7 +22,8 @@ namespace Content.IntegrationTests.Tests.Buckle
         private const string ItemDummyId = "ItemDummy";
 
         [TestPrototypes]
-        private const string Prototypes = $@"
+        private const string Prototypes =
+            $@"
 - type: entity
   name: {BuckleDummyId}
   id: {BuckleDummyId}

@@ -43,10 +43,10 @@
   id: PaperWrittenNfsdWarrant
   name: search warrant (person)
   parent: Paper
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Paper
-    content: |2
+    content: |
       [color=#40516e]◥[bold]CS[/bold]◣ [bold]ColSec[/bold][/color]
       [color=#40516e]‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾[/color]
       [head=2]Personal Search Warrant[/head]
@@ -62,8 +62,6 @@
       [bold]Requesting Officer:[/bold][form]
       [bold]Officer Rank:[/bold][form]
 
-
-
       [color=#AAAAAA]This Warrant is only valid when requested by an agent of ColSec and approved, signed, and stamped by a [italic]distinct[/italic] (unless impossible) officer ranked Warden or above or a Station Captain.[/color]
 
 - type: entity # Creator: Kwentov (Vica)
@@ -73,7 +71,7 @@
   #  categories: [ HideSpawnMenu ]
   components:
   - type: Paper
-    content: |2
+    content: |
       [color=#40516e]◥[bold]CS[/bold]◣ [bold]ColSec[/bold][/color]
       [color=#40516e]‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾[/color]
       [head=2]Ship Search Warrant[/head]
@@ -89,8 +87,6 @@
       [bold]Requesting Officer:[/bold][form]
       [bold]Officer Rank:[/bold][form]
 
-
-
       [color=#AAAAAA]This Warrant is only valid when requested by an agent of the ColSec and approved, signed, and stamped by a [italic]distinct[/italic] (unless impossible) officer ranked Warden or above or a Station Captain.[/color]
 
 - type: entity # Creator: Kwentov (Vica)
@@ -100,7 +96,7 @@
   #  categories: [ HideSpawnMenu ]
   components:
   - type: Paper
-    content: |2
+    content: |
       [color=#40516e]◥[bold]CS[/bold]◣ [bold]ColSec[/bold][/color]
       [color=#40516e]‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾[/color]
       [head=2]Department Search Warrant[/head]
@@ -117,20 +113,16 @@
       [bold]Requesting Officer:[/bold][form]
       [bold]Officer Rank:[/bold][form]
 
-
-
       [color=#AAAAAA]This Warrant is only valid when requested by an agent of the ColSec and approved, signed, and stamped by a [italic]distinct[/italic] (unless impossible) officer ranked Warden or above or a Station Captain.[/color]
-
-
 
 - type: entity # Creator: Starly (Shaw Clifflower)
   id: PaperWrittenNfsdReport
   name: after action report
   parent: Paper
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Paper
-    content: |2
+    content: |
       [color=#40516e]◥[bold]CS[/bold]◣ [bold]ColSec[/bold][/color]
       [color=#40516e]‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾[/color]
       [head=2]After Action Report[/head]
@@ -151,19 +143,11 @@
       [head=3]Evidence Collected[/head]
       List all evidence collected below and the officer in possession.
 
-
-
       [head=3]Incident Summary[/head]
-
-
 
       [head=3]Commendations[/head]
 
-
-
       [head=3]Recommendations[/head]
-
-
 
       [color=#AAAAAA]I, the [italic]Warden or Head of Security[/italic] of ColSec, or an agent acting on their behalf, certify that everything written in this report is correct and truthful. I am aware of the penalties should anything in this report be proven incorrect, falsified, or exaggerated.[/color]
 
@@ -171,10 +155,10 @@
   id: PaperWrittenNfsdArrestWarrant
   name: arrest warrant
   parent: Paper
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Paper
-    content: |2
+    content: |
       [color=#40516e]◥[bold]CS[/bold]◣ [bold]ColSec[/bold][/color]
       [color=#40516e]‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾[/color]
       [head=2]Arrest Warrant[/head]
@@ -200,18 +184,16 @@
       [bold]Authorizing Officer:[/bold][form]
       [bold]Time of Authorization:[/bold][form]
 
-
-
       [color=#AAAAAA]This warrant is only valid when requested by an agent of ColSec, and approved, signed and stamped by a distinct (unless impossible) officer ranked Warden or above, or a Station Captain.[/color]
 
 - type: entity # Creator: Kwentov (Vica)
   id: PaperWrittenNfsdArrestReport
   name: arrest report
   parent: Paper
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Paper
-    content: |2
+    content: |
       [color=#40516e]◥[bold]CS[/bold]◣ [bold]ColSec[/bold][/color]
       [color=#40516e]‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾[/color]
       [head=2]Arrest Report[/head]
@@ -235,20 +217,16 @@
       [bold]Arresting Officer:[/bold][form]
       [bold]Supervisor:[/bold][form]
 
-
-
       [color=#AAAAAA]I, the undersigned, hereby swear under oath that all information on this report is accurate and correct to the best of my knowledge at the time of signing.[/color]
-
-
 
 - type: entity
   id: PaperWrittenNfsdDutyLog
   name: duty log
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   parent: Paper
   components:
   - type: Paper
-    content: |2 # If editing this, edit PaperWrittenFrontierEmployeePayHistory
+    content: | # If editing this, edit PaperWrittenFrontierEmployeePayHistory
       [color=#40516e]◥[bold]CS[/bold]◣ [bold]ColSec[/bold][/color]
       [color=#40516e]‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾[/color]
       [head=2]Duty Log[/head]
@@ -274,18 +252,16 @@
       [bold]Sign On Time:[/bold][form]
       [bold]Sign Off Time:[/bold][form]
 
-
       [color=#AAAAAA]This Form is considered NT Sensitive Data, Class 2, and is for internal ColSec use only.[/color]
-
 
 - type: entity # Based on form made by Blumbee (Aki Suboshi)
   id: PaperWrittenNfsdContrabandTurnover
   name: contraband turnover receipt
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   parent: Paper
   components:
   - type: Paper
-    content: |2 # If updating this, update PaperWrittenFrontierContrabandTurnover
+    content: | # If updating this, update PaperWrittenFrontierContrabandTurnover
       [color=#40516e]◥[bold]CS[/bold]◣ [bold]ColSec[/bold][/color]
       [color=#40516e]‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾[/color]
       [head=2]Contraband Turnover Receipt[/head]
@@ -307,18 +283,16 @@
 
       [bold]Shift Time:[/bold][form]
 
-
-
       [color=#AAAAAA]This Form is void without the signatures of both Parties and a stamp of Command (Head of Security or Station Captain).[/color]
 
 - type: entity # Based on form made by Blumbee (Aki Suboshi)
   id: PaperWrittenNfsdContrabandAmnesty
   name: contraband amnesty agreement
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   parent: Paper
   components:
   - type: Paper
-    content: |2 # If updating this, update PaperWrittenFrontierContrabandAmnesty
+    content: | # If updating this, update PaperWrittenFrontierContrabandAmnesty
       [color=#40516e]◥[bold]CS[/bold]◣ [bold]ColSec[/bold][/color]
       [color=#40516e]‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾[/color]
       [head=2]Contraband Amnesty Agreement[/head]
@@ -337,18 +311,16 @@
 
       If the Contraband Holder is not paid in full at the above rate for any contraband turned in, they may remain in possession of the contraband without penalty at their discretion.
 
-
-
       [color=#AAAAAA]This form is always void.[/color]
 
 - type: entity # Based on form made by Blumbee (Aki Suboshi)
   id: PaperWrittenNfsdContrabandPermit
   name: class 2 contraband permit
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   parent: Paper
   components:
   - type: Paper
-    content: |2 # If updating this, update PaperWrittenFrontierContrabandPermit
+    content: | # If updating this, update PaperWrittenFrontierContrabandPermit
       [color=#40516e]◥[bold]CS[/bold]◣ [bold]ColSec[/bold][/color]
       [color=#40516e]‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾[/color]
       [head=2]Class 2 Contraband Permit[/head]
@@ -365,18 +337,16 @@
       Non-compliance with a Contraband Amnesty agreement voids this Permit.
       Refer to §6.1.4 of Space Law for a full definition of class 2 contraband.
 
-
-
       [color=#AAAAAA]This Permit is void without the signature of the Holder and the signature and stamp of the Head of Security[/color]
 
 - type: entity # Based on form made by Starly (Shaw Clifflower)
   id: PaperWrittenNfsdAuthorization
   name: authorization for bluespace threats
   parent: Paper
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Paper
-    content: |2 # When updating this, update PaperWrittenFrontierAuthorization
+    content: | # When updating this, update PaperWrittenFrontierAuthorization
       [color=#40516e]◥[bold]CS[/bold]◣ [bold]ColSec[/bold][/color]
       [color=#40516e]‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾[/color]
       [head=2]Authorization for Bluespace Threats[/head]
@@ -402,7 +372,5 @@
       The authorized party is to keep a copy of this document for inspection. The authorized party is expected to maintain contact with ColSec command and/or the Station Captain to minimize casualties.
 
       Before engaging with hostile vessels, the authorized party is expected to follow any instructions given by ColSec for staging or other preparation prior to boarding.
-
-
 
       [color=#AAAAAA]This Form is void without the signatures of both Parties and a stamp of Command (Head of Security or Station Captain).[/color]

@@ -11,10 +11,17 @@ namespace Content.Shared.Atmos.Piping.Unary.Systems;
 
 public abstract class SharedGasCanisterSystem : EntitySystem
 {
-    [Dependency] protected readonly ISharedAdminLogManager AdminLogger = default!;
-    [Dependency] private   readonly ItemSlotsSystem _slots = default!;
-    [Dependency] private   readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] protected readonly SharedUserInterfaceSystem UI = default!;
+    [Dependency]
+    protected readonly ISharedAdminLogManager AdminLogger = default!;
+
+    [Dependency]
+    private readonly ItemSlotsSystem _slots = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    protected readonly SharedUserInterfaceSystem UI = default!;
 
     public override void Initialize()
     {
@@ -26,7 +33,9 @@ public abstract class SharedGasCanisterSystem : EntitySystem
 
         // Bound UI subscriptions
         SubscribeLocalEvent<GasCanisterComponent, GasCanisterHoldingTankEjectMessage>(OnHoldingTankEjectMessage);
-        SubscribeLocalEvent<GasCanisterComponent, GasCanisterChangeReleasePressureMessage>(OnCanisterChangeReleasePressure);
+        SubscribeLocalEvent<GasCanisterComponent, GasCanisterChangeReleasePressureMessage>(
+            OnCanisterChangeReleasePressure
+        );
         SubscribeLocalEvent<GasCanisterComponent, GasCanisterChangeReleaseValveMessage>(OnCanisterChangeReleaseValve);
     }
 
@@ -36,7 +45,11 @@ public abstract class SharedGasCanisterSystem : EntitySystem
         _slots.AddItemSlot(ent.Owner, ent.Comp.ContainerName, ent.Comp.GasTankSlot);
     }
 
-    private void OnCanisterContainerModified(EntityUid uid, GasCanisterComponent component, ContainerModifiedMessage args)
+    private void OnCanisterContainerModified(
+        EntityUid uid,
+        GasCanisterComponent component,
+        ContainerModifiedMessage args
+    )
     {
         if (args.Container.ID != component.ContainerName)
             return;
@@ -50,7 +63,11 @@ public abstract class SharedGasCanisterSystem : EntitySystem
         return string.Join(", ", canister.Comp.Air);
     }
 
-    private void OnHoldingTankEjectMessage(EntityUid uid, GasCanisterComponent canister, GasCanisterHoldingTankEjectMessage args)
+    private void OnHoldingTankEjectMessage(
+        EntityUid uid,
+        GasCanisterComponent canister,
+        GasCanisterHoldingTankEjectMessage args
+    )
     {
         if (canister.GasTankSlot.Item == null)
             return;
@@ -60,11 +77,19 @@ public abstract class SharedGasCanisterSystem : EntitySystem
 
         if (canister.ReleaseValve)
         {
-            AdminLogger.Add(LogType.CanisterTankEjected, LogImpact.High, $"Player {ToPrettyString(args.Actor):player} ejected tank {ToPrettyString(item):tank} from {ToPrettyString(uid):canister} while the valve was open, releasing [{GetContainedGasesString((uid, canister))}] to atmosphere");
+            AdminLogger.Add(
+                LogType.CanisterTankEjected,
+                LogImpact.High,
+                $"Player {ToPrettyString(args.Actor):player} ejected tank {ToPrettyString(item):tank} from {ToPrettyString(uid):canister} while the valve was open, releasing [{GetContainedGasesString((uid, canister))}] to atmosphere"
+            );
         }
         else
         {
-            AdminLogger.Add(LogType.CanisterTankEjected, LogImpact.Medium, $"Player {ToPrettyString(args.Actor):player} ejected tank {ToPrettyString(item):tank} from {ToPrettyString(uid):canister}");
+            AdminLogger.Add(
+                LogType.CanisterTankEjected,
+                LogImpact.Medium,
+                $"Player {ToPrettyString(args.Actor):player} ejected tank {ToPrettyString(item):tank} from {ToPrettyString(uid):canister}"
+            );
         }
 
         if (UI.TryGetUiState<GasCanisterBoundUserInterfaceState>(uid, GasCanisterUiKey.Key, out var lastState))
@@ -77,18 +102,30 @@ public abstract class SharedGasCanisterSystem : EntitySystem
         DirtyUI(uid, canister);
     }
 
-    private void OnCanisterChangeReleasePressure(EntityUid uid, GasCanisterComponent canister, GasCanisterChangeReleasePressureMessage args)
+    private void OnCanisterChangeReleasePressure(
+        EntityUid uid,
+        GasCanisterComponent canister,
+        GasCanisterChangeReleasePressureMessage args
+    )
     {
         var pressure = Math.Clamp(args.Pressure, canister.MinReleasePressure, canister.MaxReleasePressure);
 
-        AdminLogger.Add(LogType.CanisterPressure, LogImpact.Medium, $"{ToPrettyString(args.Actor):player} set the release pressure on {ToPrettyString(uid):canister} to {args.Pressure}");
+        AdminLogger.Add(
+            LogType.CanisterPressure,
+            LogImpact.Medium,
+            $"{ToPrettyString(args.Actor):player} set the release pressure on {ToPrettyString(uid):canister} to {args.Pressure}"
+        );
 
         canister.ReleasePressure = pressure;
         Dirty(uid, canister);
         DirtyUI(uid, canister);
     }
 
-    private void OnCanisterChangeReleaseValve(EntityUid uid, GasCanisterComponent canister, GasCanisterChangeReleaseValveMessage args)
+    private void OnCanisterChangeReleaseValve(
+        EntityUid uid,
+        GasCanisterComponent canister,
+        GasCanisterChangeReleaseValveMessage args
+    )
     {
         // filling a jetpack with plasma is less important than filling a room with it
         var impact = canister.GasTankSlot.HasItem ? LogImpact.Medium : LogImpact.High;
@@ -101,14 +138,22 @@ public abstract class SharedGasCanisterSystem : EntitySystem
             containedGasDict.Add((Gas)i, canister.Air[i]);
         }
 
-        AdminLogger.Add(LogType.CanisterValve, impact, $"{ToPrettyString(args.Actor):player} set the valve on {ToPrettyString(uid):canister} to {args.Valve:valveState} while it contained [{string.Join(", ", containedGasDict)}]");
+        AdminLogger.Add(
+            LogType.CanisterValve,
+            impact,
+            $"{ToPrettyString(args.Actor):player} set the valve on {ToPrettyString(uid):canister} to {args.Valve:valveState} while it contained [{string.Join(", ", containedGasDict)}]"
+        );
 
         canister.ReleaseValve = args.Valve;
         Dirty(uid, canister);
         DirtyUI(uid, canister);
     }
 
-    private void OnCanisterInsertAttempt(EntityUid uid, GasCanisterComponent component, ref ItemSlotInsertAttemptEvent args)
+    private void OnCanisterInsertAttempt(
+        EntityUid uid,
+        GasCanisterComponent component,
+        ref ItemSlotInsertAttemptEvent args
+    )
     {
         if (args.Slot.ID != component.ContainerName || args.User == null)
             return;
@@ -120,5 +165,9 @@ public abstract class SharedGasCanisterSystem : EntitySystem
         }
     }
 
-    protected abstract void DirtyUI(EntityUid uid, GasCanisterComponent? component = null, NodeContainerComponent? nodes = null);
+    protected abstract void DirtyUI(
+        EntityUid uid,
+        GasCanisterComponent? component = null,
+        NodeContainerComponent? nodes = null
+    );
 }

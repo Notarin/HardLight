@@ -71,7 +71,7 @@
     Tail:
       points: 1
       required: true
-      defaultMarkings: [ FelionoidTailAnimated ]
+      defaultMarkings: [FelionoidTailAnimated]
     # Hardlight Add:
     Genital:
       points: 35

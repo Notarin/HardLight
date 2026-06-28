@@ -34,7 +34,8 @@ namespace Content.Server.Destructible.Thresholds.Behaviors
             var tSys = system.EntityManager.System<TransformSystem>();
             var position = tSys.GetMapCoordinates(owner);
 
-            var getRandomVector = () => new Vector2(system.Random.NextFloat(-Offset, Offset), system.Random.NextFloat(-Offset, Offset));
+            var getRandomVector = () =>
+                new Vector2(system.Random.NextFloat(-Offset, Offset), system.Random.NextFloat(-Offset, Offset));
 
             var executions = 1;
             if (system.EntityManager.TryGetComponent<StackComponent>(owner, out var stack))
@@ -46,14 +47,18 @@ namespace Content.Server.Destructible.Thresholds.Behaviors
             {
                 for (var execution = 0; execution < executions; execution++)
                 {
-                    var count = minMax.Min >= minMax.Max
-                        ? minMax.Min
-                        : system.Random.Next(minMax.Min, minMax.Max + 1);
+                    var count = minMax.Min >= minMax.Max ? minMax.Min : system.Random.Next(minMax.Min, minMax.Max + 1);
 
                     if (count == 0)
                         continue;
 
-                    if (EntityPrototypeHelpers.HasComponent<StackComponent>(entityId, system.PrototypeManager, system.ComponentFactory))
+                    if (
+                        EntityPrototypeHelpers.HasComponent<StackComponent>(
+                            entityId,
+                            system.PrototypeManager,
+                            system.ComponentFactory
+                        )
+                    )
                     {
                         var spawned = SpawnInContainer
                             ? system.EntityManager.SpawnNextToOrDrop(entityId, owner)
@@ -79,8 +84,10 @@ namespace Content.Server.Destructible.Thresholds.Behaviors
 
         public void TransferForensics(EntityUid spawned, DestructibleSystem system, EntityUid owner)
         {
-            if (!DoTransferForensics ||
-                !system.EntityManager.TryGetComponent<ForensicsComponent>(owner, out var forensicsComponent))
+            if (
+                !DoTransferForensics
+                || !system.EntityManager.TryGetComponent<ForensicsComponent>(owner, out var forensicsComponent)
+            )
                 return;
 
             var comp = system.EntityManager.EnsureComponent<ForensicsComponent>(spawned);

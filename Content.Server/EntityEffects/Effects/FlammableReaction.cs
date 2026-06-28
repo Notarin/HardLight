@@ -19,8 +19,10 @@ namespace Content.Server.EntityEffects.Effects
 
         public override bool ShouldLog => true;
 
-        protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys)
-            => Loc.GetString("reagent-effect-guidebook-flammable-reaction", ("chance", Probability));
+        protected override string? ReagentEffectGuidebookText(
+            IPrototypeManager prototype,
+            IEntitySystemManager entSys
+        ) => Loc.GetString("reagent-effect-guidebook-flammable-reaction", ("chance", Probability));
 
         public override LogImpact LogImpact => LogImpact.Medium;
 
@@ -30,15 +32,19 @@ namespace Content.Server.EntityEffects.Effects
                 return;
 
             // Sets the multiplier for FireStacks to MultiplierOnExisting is 0 or greater and target already has FireStacks
-            var multiplier = flammable.FireStacks != 0f && MultiplierOnExisting >= 0 ? MultiplierOnExisting : Multiplier;
+            var multiplier =
+                flammable.FireStacks != 0f && MultiplierOnExisting >= 0 ? MultiplierOnExisting : Multiplier;
             var quantity = 1f;
             if (args is EntityEffectReagentArgs reagentArgs)
             {
                 quantity = reagentArgs.Quantity.Float();
-                reagentArgs.EntityManager.System<FlammableSystem>().AdjustFireStacks(args.TargetEntity, quantity * multiplier, flammable);
+                reagentArgs
+                    .EntityManager.System<FlammableSystem>()
+                    .AdjustFireStacks(args.TargetEntity, quantity * multiplier, flammable);
                 if (reagentArgs.Reagent != null)
                     reagentArgs.Source?.RemoveReagent(reagentArgs.Reagent.ID, reagentArgs.Quantity);
-            } else
+            }
+            else
             {
                 args.EntityManager.System<FlammableSystem>().AdjustFireStacks(args.TargetEntity, multiplier, flammable);
             }

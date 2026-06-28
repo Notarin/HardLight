@@ -22,13 +22,26 @@ namespace Content.Client.Replay.Spectator;
 /// </remarks>
 public sealed partial class ReplaySpectatorSystem : EntitySystem
 {
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IConsoleHost _conHost = default!;
-    [Dependency] private readonly IStateManager _stateMan = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
-    [Dependency] private readonly SharedMoverController _mover = default!;
-    [Dependency] private readonly SharedContentEyeSystem _eye = default!;
-    [Dependency] private readonly IReplayPlaybackManager _replayPlayback = default!;
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly IConsoleHost _conHost = default!;
+
+    [Dependency]
+    private readonly IStateManager _stateMan = default!;
+
+    [Dependency]
+    private readonly TransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly SharedMoverController _mover = default!;
+
+    [Dependency]
+    private readonly SharedContentEyeSystem _eye = default!;
+
+    [Dependency]
+    private readonly IReplayPlaybackManager _replayPlayback = default!;
 
     private SpectatorData? _spectatorData;
     public const string SpectateCmd = "replay_spectate";
@@ -69,11 +82,13 @@ public sealed partial class ReplaySpectatorSystem : EntitySystem
     private void OnPlaybackStarted(MappingDataNode yamlMappingNode, List<object> objects)
     {
         InitializeMovement();
-        _conHost.RegisterCommand(SpectateCmd,
+        _conHost.RegisterCommand(
+            SpectateCmd,
             Loc.GetString("cmd-replay-spectate-desc"),
             Loc.GetString("cmd-replay-spectate-help"),
             SpectateCommand,
-            SpectateCompletions);
+            SpectateCompletions
+        );
 
         if (_replayPlayback.TryGetRecorderEntity(out var recorder))
             SpectateEntity(recorder.Value);

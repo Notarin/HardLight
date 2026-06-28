@@ -1,18 +1,23 @@
 using Content.Shared.Maps;
 using Robust.Server.Console;
-using Robust.Shared.Utility;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Player;
+using Robust.Shared.Utility;
 
 namespace Content.Server.Maps;
 
 /// <inheritdoc />
 public sealed class GridDraggingSystem : SharedGridDraggingSystem
 {
-    [Dependency] private readonly IConGroupController _admin = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
+    [Dependency]
+    private readonly IConGroupController _admin = default!;
+
+    [Dependency]
+    private readonly SharedPhysicsSystem _physics = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transformSystem = default!;
 
     private readonly HashSet<ICommonSession> _draggers = new();
 
@@ -33,29 +38,25 @@ public sealed class GridDraggingSystem : SharedGridDraggingSystem
         DebugTools.Assert(_admin.CanCommand(pSession, CommandName));
 
         // Weird but it's a toggle
-        if (_draggers.Add(session))
-        {
-
-        }
+        if (_draggers.Add(session)) { }
         else
         {
             _draggers.Remove(session);
         }
 
-        RaiseNetworkEvent(new GridDragToggleMessage()
-        {
-            Enabled = _draggers.Contains(session),
-        }, session.Channel);
+        RaiseNetworkEvent(new GridDragToggleMessage() { Enabled = _draggers.Contains(session) }, session.Channel);
     }
 
     private void OnRequestVelocity(GridDragVelocityRequest ev, EntitySessionEventArgs args)
     {
         var grid = GetEntity(ev.Grid);
 
-        if (args.SenderSession is not { } playerSession ||
-            !_admin.CanCommand(playerSession, CommandName) ||
-            !Exists(grid) ||
-            Deleted(grid))
+        if (
+            args.SenderSession is not { } playerSession
+            || !_admin.CanCommand(playerSession, CommandName)
+            || !Exists(grid)
+            || Deleted(grid)
+        )
         {
             return;
         }
@@ -69,10 +70,12 @@ public sealed class GridDraggingSystem : SharedGridDraggingSystem
     {
         var grid = GetEntity(msg.Grid);
 
-        if (args.SenderSession is not { } playerSession ||
-            !_admin.CanCommand(playerSession, CommandName) ||
-            !Exists(grid) ||
-            Deleted(grid))
+        if (
+            args.SenderSession is not { } playerSession
+            || !_admin.CanCommand(playerSession, CommandName)
+            || !Exists(grid)
+            || Deleted(grid)
+        )
         {
             return;
         }

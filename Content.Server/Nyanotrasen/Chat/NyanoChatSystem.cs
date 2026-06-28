@@ -1,3 +1,5 @@
+using System.Linq;
+using System.Text;
 using Content.Server.Administration.Logs;
 using Content.Server.Administration.Managers;
 using Content.Server.Chat.Managers;
@@ -13,52 +15,65 @@ using Content.Shared.Psionics.Glimmer;
 using Robust.Shared.Network;
 using Robust.Shared.Player;
 using Robust.Shared.Random;
-using System.Linq;
-using System.Text;
 
 namespace Content.Server.Nyanotrasen.Chat
 {
     /// <summary>
     /// Extensions for nyano's chat stuff
     /// </summary>
-
     public sealed class NyanoChatSystem : EntitySystem
     {
-        [Dependency] private readonly IAdminManager _adminManager = default!;
-        [Dependency] private readonly IChatManager _chatManager = default!;
-        [Dependency] private readonly IRobustRandom _random = default!;
-        [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-        [Dependency] private readonly GlimmerSystem _glimmerSystem = default!;
-        [Dependency] private readonly ChatSystem _chatSystem = default!;
+        [Dependency]
+        private readonly IAdminManager _adminManager = default!;
+
+        [Dependency]
+        private readonly IChatManager _chatManager = default!;
+
+        [Dependency]
+        private readonly IRobustRandom _random = default!;
+
+        [Dependency]
+        private readonly IAdminLogManager _adminLogger = default!;
+
+        [Dependency]
+        private readonly GlimmerSystem _glimmerSystem = default!;
+
+        [Dependency]
+        private readonly ChatSystem _chatSystem = default!;
+
         private IEnumerable<INetChannel> GetPsionicChatClients()
         {
-            return Filter.Empty()
+            return Filter
+                .Empty()
                 .AddWhereAttachedEntity(IsEligibleForTelepathy)
                 .RemoveWhereAttachedEntity(IsEligibleForAddressedTelepathy) // HardLight: Remove those with addressed telepathy bc we're gonna give them addressed telepathy instead
-                .Recipients
-                .Select(p => p.Channel);
+                .Recipients.Select(p => p.Channel);
         }
 
         private IEnumerable<INetChannel> GetAddressedPsionicChatClients() // Hardlight: Mantis ability to see names in telepathy
         {
-            return Filter.Empty()
+            return Filter
+                .Empty()
                 .AddWhereAttachedEntity(IsEligibleForAddressedTelepathy)
-                .Recipients
-                .Select(p => p.Channel);
+                .Recipients.Select(p => p.Channel);
         }
 
         private IEnumerable<INetChannel> GetAdminClients()
         {
-            return _adminManager.ActiveAdmins
-                .Select(p => p.Channel);
+            return _adminManager.ActiveAdmins.Select(p => p.Channel);
         }
 
         private List<INetChannel> GetDreamers(IEnumerable<INetChannel> removeList)
         {
-            var filtered = Filter.Empty()
-                .AddWhereAttachedEntity(entity => HasComp<SleepingComponent>(entity) || HasComp<SeeingRainbowsComponent>(entity) && !HasComp<PsionicsDisabledComponent>(entity) && !HasComp<PsionicInsulationComponent>(entity))
-                .Recipients
-                .Select(p => p.Channel);
+            var filtered = Filter
+                .Empty()
+                .AddWhereAttachedEntity(entity =>
+                    HasComp<SleepingComponent>(entity)
+                    || HasComp<SeeingRainbowsComponent>(entity)
+                        && !HasComp<PsionicsDisabledComponent>(entity)
+                        && !HasComp<PsionicInsulationComponent>(entity)
+                )
+                .Recipients.Select(p => p.Channel);
 
             var filteredList = filtered.ToList();
 
@@ -86,7 +101,6 @@ namespace Content.Server.Nyanotrasen.Chat
             if (!IsEligibleForTelepathy(source))
                 return;
 
-
             var clients = GetPsionicChatClients();
             var clientsAddressed = GetAddressedPsionicChatClients();
             var admins = GetAdminClients();
@@ -94,32 +108,80 @@ namespace Content.Server.Nyanotrasen.Chat
             string addressedMessageWrap;
             string adminMessageWrap;
 
-            messageWrap = Loc.GetString("chat-manager-send-telepathic-chat-wrap-message",
-                ("telepathicChannelName", Loc.GetString("chat-manager-telepathic-channel-name")), ("message", message));
+            messageWrap = Loc.GetString(
+                "chat-manager-send-telepathic-chat-wrap-message",
+                ("telepathicChannelName", Loc.GetString("chat-manager-telepathic-channel-name")),
+                ("message", message)
+            );
 
-            addressedMessageWrap = Loc.GetString("chat-manager-send-telepathic-chat-wrap-message-addressed",
+            addressedMessageWrap = Loc.GetString(
+                "chat-manager-send-telepathic-chat-wrap-message-addressed",
                 ("telepathicChannelName", Loc.GetString("chat-manager-telepathic-channel-name")),
                 ("source", source),
-                ("message", message)); // Hardlight: Mantis ability to see names in telepathy
+                ("message", message)
+            ); // Hardlight: Mantis ability to see names in telepathy
 
-            adminMessageWrap = Loc.GetString("chat-manager-send-telepathic-chat-wrap-message-admin",
-                ("source", source), ("message", message));
+            adminMessageWrap = Loc.GetString(
+                "chat-manager-send-telepathic-chat-wrap-message-admin",
+                ("source", source),
+                ("message", message)
+            );
 
-            _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Telepathic chat from {ToPrettyString(source):Player}: {message}");
+            _adminLogger.Add(
+                LogType.Chat,
+                LogImpact.Low,
+                $"Telepathic chat from {ToPrettyString(source):Player}: {message}"
+            );
 
-            _chatManager.ChatMessageToMany(ChatChannel.Telepathic, message, messageWrap, source, hideChat, true, clients.ToList(), Color.PaleVioletRed);
-            _chatManager.ChatMessageToMany(ChatChannel.Telepathic, message, addressedMessageWrap, source, hideChat, true, clientsAddressed.ToList(), Color.PaleVioletRed); // Hardlight: Mantis ability to see names in telepathy
+            _chatManager.ChatMessageToMany(
+                ChatChannel.Telepathic,
+                message,
+                messageWrap,
+                source,
+                hideChat,
+                true,
+                clients.ToList(),
+                Color.PaleVioletRed
+            );
+            _chatManager.ChatMessageToMany(
+                ChatChannel.Telepathic,
+                message,
+                addressedMessageWrap,
+                source,
+                hideChat,
+                true,
+                clientsAddressed.ToList(),
+                Color.PaleVioletRed
+            ); // Hardlight: Mantis ability to see names in telepathy
 
-            _chatManager.ChatMessageToMany(ChatChannel.Telepathic, message, adminMessageWrap, source, hideChat, true, admins, Color.PaleVioletRed);
+            _chatManager.ChatMessageToMany(
+                ChatChannel.Telepathic,
+                message,
+                adminMessageWrap,
+                source,
+                hideChat,
+                true,
+                admins,
+                Color.PaleVioletRed
+            );
 
             if (_random.Prob(0.1f))
                 _glimmerSystem.Glimmer++;
 
-            if (_random.Prob(Math.Min(0.33f + ((float) _glimmerSystem.Glimmer / 1500), 1)))
+            if (_random.Prob(Math.Min(0.33f + ((float)_glimmerSystem.Glimmer / 1500), 1)))
             {
-                float obfuscation = (0.25f + (float) _glimmerSystem.Glimmer / 2000);
+                float obfuscation = (0.25f + (float)_glimmerSystem.Glimmer / 2000);
                 var obfuscated = ObfuscateMessageReadability(message, obfuscation);
-                _chatManager.ChatMessageToMany(ChatChannel.Telepathic, obfuscated, messageWrap, source, hideChat, false, GetDreamers(clients), Color.PaleVioletRed);
+                _chatManager.ChatMessageToMany(
+                    ChatChannel.Telepathic,
+                    obfuscated,
+                    messageWrap,
+                    source,
+                    hideChat,
+                    false,
+                    GetDreamers(clients),
+                    Color.PaleVioletRed
+                );
             }
 
             foreach (var repeater in EntityQuery<TelepathicRepeaterComponent>())

@@ -8,16 +8,24 @@ namespace Content.Server._DV.Traits.Assorted;
 
 public sealed class AmputeeSystem : EntitySystem
 {
-    [Dependency] private readonly BodySystem _body = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
-    [Dependency] private readonly BloodstreamSystem _bloodstream = default!;
-    [Dependency] private readonly SharedHumanoidAppearanceSystem _humanoid = default!;
+    [Dependency]
+    private readonly BodySystem _body = default!;
+
+    [Dependency]
+    private readonly TransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly BloodstreamSystem _bloodstream = default!;
+
+    [Dependency]
+    private readonly SharedHumanoidAppearanceSystem _humanoid = default!;
 
     public override void Initialize()
     {
         base.Initialize();
         SubscribeLocalEvent<AmputeeComponent, MapInitEvent>(OnMapInit);
     }
+
     // Logic here taken from Den at https://github.com/TheDenSS14/TheDen/blob/d6f85a10fccf0f282981438e55b808d7ece73ad9/Content.Server/Traits/TraitSystem.Functions.cs
     private void OnMapInit(Entity<AmputeeComponent> ent, ref MapInitEvent args)
     {

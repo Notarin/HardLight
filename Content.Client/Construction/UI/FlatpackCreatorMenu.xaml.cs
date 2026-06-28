@@ -18,8 +18,11 @@ namespace Content.Client.Construction.UI;
 [GenerateTypedNameReferences]
 public sealed partial class FlatpackCreatorMenu : FancyWindow
 {
-    [Dependency] private readonly IEntityManager _entityManager = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entityManager = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
 
     private readonly ItemSlotsSystem _itemSlots;
     private readonly FlatpackSystem _flatpack;
@@ -58,8 +61,10 @@ public sealed partial class FlatpackCreatorMenu : FancyWindow
     {
         base.FrameUpdate(args);
 
-        if (!_entityManager.TryGetComponent<FlatpackCreatorComponent>(_owner, out var flatpacker) ||
-            !_itemSlots.TryGetSlot(_owner, flatpacker.SlotId, out var itemSlot))
+        if (
+            !_entityManager.TryGetComponent<FlatpackCreatorComponent>(_owner, out var flatpacker)
+            || !_itemSlots.TryGetSlot(_owner, flatpacker.SlotId, out var itemSlot)
+        )
             return;
 
         if (flatpacker.Packing)
@@ -92,7 +97,10 @@ public sealed partial class FlatpackCreatorMenu : FancyWindow
             if (_entityManager.TryGetComponent<MachineBoardComponent>(_currentBoard, out var newMachineBoardComp))
             {
                 prototype = newMachineBoardComp.Prototype;
-                cost = _flatpack.GetFlatpackCreationCost((_owner, flatpacker), (_currentBoard.Value, newMachineBoardComp));
+                cost = _flatpack.GetFlatpackCreationCost(
+                    (_owner, flatpacker),
+                    (_currentBoard.Value, newMachineBoardComp)
+                );
             }
             else if (_entityManager.TryGetComponent<ComputerBoardComponent>(_currentBoard, out var computerBoard))
             {
@@ -128,13 +136,17 @@ public sealed partial class FlatpackCreatorMenu : FancyWindow
             var matProto = _prototypeManager.Index<MaterialPrototype>(mat);
 
             var sheetVolume = _materialStorage.GetSheetVolume(matProto);
-            var sheets = (float) -amount / sheetVolume;
-            var amountText = Loc.GetString("lathe-menu-material-amount",
+            var sheets = (float)-amount / sheetVolume;
+            var amountText = Loc.GetString(
+                "lathe-menu-material-amount",
                 ("amount", sheets),
-                ("unit", Loc.GetString(matProto.Unit)));
-            var text = Loc.GetString("lathe-menu-tooltip-display",
+                ("unit", Loc.GetString(matProto.Unit))
+            );
+            var text = Loc.GetString(
+                "lathe-menu-tooltip-display",
                 ("amount", amountText),
-                ("material", Loc.GetString(matProto.Name)));
+                ("material", Loc.GetString(matProto.Name))
+            );
 
             msg.TryAddMarkup(text, out _);
 

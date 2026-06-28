@@ -19,10 +19,9 @@ public abstract partial class SharedEntityStorageComponent : Component
     /// <summary>
     ///     Collision masks that get removed when the storage gets opened.
     /// </summary>
-    public readonly int MasksToRemove = (int) (
-        CollisionGroup.MidImpassable |
-        CollisionGroup.HighImpassable |
-        CollisionGroup.LowImpassable);
+    public readonly int MasksToRemove = (int)(
+        CollisionGroup.MidImpassable | CollisionGroup.HighImpassable | CollisionGroup.LowImpassable
+    );
 
     /// <summary>
     ///     Collision masks that were removed from ANY layer when the storage was opened;
@@ -135,7 +134,14 @@ public sealed class EntityStorageComponentState : ComponentState
 
     public TimeSpan NextInternalOpenAttempt;
 
-    public EntityStorageComponentState(bool open, int capacity, bool isCollidableWhenOpen, bool openOnMove, float enteringRange, TimeSpan nextInternalOpenAttempt)
+    public EntityStorageComponentState(
+        bool open,
+        int capacity,
+        bool isCollidableWhenOpen,
+        bool openOnMove,
+        float enteringRange,
+        TimeSpan nextInternalOpenAttempt
+    )
     {
         Open = open;
         Capacity = capacity;

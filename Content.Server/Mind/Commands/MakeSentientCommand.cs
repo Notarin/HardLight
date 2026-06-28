@@ -1,16 +1,17 @@
-using Content.Server.Administration;
-using Content.Shared.Administration;
-using Robust.Shared.Console;
 using Content.Server._Starlight.Language; // Starlight
+using Content.Server.Administration;
 using Content.Shared._Starlight.Language.Components; // Starlight
 using Content.Shared._Starlight.Language.Systems; // Starlight
+using Content.Shared.Administration;
+using Robust.Shared.Console;
 
 namespace Content.Server.Mind.Commands;
 
 [AdminCommand(AdminFlags.Admin)]
 public sealed class MakeSentientCommand : LocalizedEntityCommands
 {
-    [Dependency] private readonly MindSystem _mindSystem = default!;
+    [Dependency]
+    private readonly MindSystem _mindSystem = default!;
 
     public override string Command => "makesentient";
 
@@ -22,7 +23,11 @@ public sealed class MakeSentientCommand : LocalizedEntityCommands
             return;
         }
 
-        if (!NetEntity.TryParse(args[0], out var entNet) || !EntityManager.TryGetEntity(entNet, out var entId) || !EntityManager.EntityExists(entId))
+        if (
+            !NetEntity.TryParse(args[0], out var entNet)
+            || !EntityManager.TryGetEntity(entNet, out var entId)
+            || !EntityManager.EntityExists(entId)
+        )
         {
             shell.WriteLine(Loc.GetString("shell-could-not-find-entity-with-uid", ("uid", args[0])));
             return;

@@ -164,15 +164,15 @@
       weight: 0.05 # Frontier
     - id: CardBoxSyndicate # Frontier
       weight: 0.005 # Frontier
-    - !type:NestedSelector # Frontier
+    - !type:NestedSelector
       tableId: TableStashVariety # Frontier
-    - !type:NestedSelector  #HL
+    - !type:NestedSelector
       tableId: PillowTableRare #HL
-    - !type:NestedSelector # Frontier
+    - !type:NestedSelector
       tableId: TableArtLoot # Frontier, from 500 to 1000 spesos
       weight: 0.1 # Frontier
 
-- type: entityTable
+- type: entityTable # Frontier
   id: SalvageTreasureLegendary
   table: !type:GroupSelector
     children:
@@ -188,12 +188,12 @@
       tableId: RingTableRare
       rolls: !type:RangeNumberSelector
         range: 2, 3
-    - !type:NestedSelector # Frontier
+    - !type:NestedSelector
       tableId: TableStashVariety # Frontier
 
 # Equipment: Tools and things used by salvagers. Quote unquote "Gamer Loot"
 
-- type: entityTable
+- type: entityTable # Frontier
   id: SalvageEquipmentCommon
   table: !type:GroupSelector
     children:
@@ -212,8 +212,9 @@
     - id: FlashlightLantern
     - id: FireExtinguisher
     - id: SurvivalKnife
-    - !type:GroupSelector # Frontier
+    - !type:GroupSelector
       children: # Frontier
+      # Frontier
       - id: BoxInflatable # Frontier
       - id: BoxLighttube # Frontier
       - id: BoxLightbulb # Frontier
@@ -225,7 +226,7 @@
   table: !type:GroupSelector
     children:
     - id: OreBag
-#    - id: HandheldGPSBasic # Frontier - Useless
+      #    - id: HandheldGPSBasic # Frontier - Useless
     - id: PowerCellHighPrinted
     - id: RadioHandheldNF # Frontier RadioHandheld<RadioHandheldNF
     - id: ClothingBeltUtility
@@ -278,8 +279,8 @@
   table: !type:GroupSelector
     children:
     - id: AdvancedMineralScanner
-#    - id: BlueprintFulton # Frontier
-#    - id: BlueprintSeismicCharge # Frontier
+      #    - id: BlueprintFulton # Frontier
+      #    - id: BlueprintSeismicCharge # Frontier
     - id: WeaponCrusherGlaive
     - id: ClothingOuterHardsuitSalvage
     - id: ChemistryBottleOmnizine

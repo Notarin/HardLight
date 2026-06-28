@@ -1,3 +1,4 @@
+using Content.Server._HL.ColComm; // HardLight
 using Content.Server.Actions;
 using Content.Server.Administration.Logs;
 using Content.Server.Chat.Managers;
@@ -5,7 +6,6 @@ using Content.Server.GameTicking;
 using Content.Server.PDA.Ringer;
 using Content.Server.Preferences.Managers;
 using Content.Server.Station.Systems;
-using Content.Server._HL.ColComm; // HardLight
 using Content.Shared._NF.Roles.Components;
 using Content.Shared._NF.Roles.Events;
 using Content.Shared.Chat;
@@ -31,24 +31,59 @@ namespace Content.Server._NF.Roles.Systems;
 
 public sealed class InterviewHologramSystem : SharedInterviewHologramSystem
 {
-    [Dependency] private IAdminLogManager _adminLogger = default!;
-    [Dependency] private IChatManager _chat = default!;
-    [Dependency] private GameTicker _gameTicker = default!;
-    [Dependency] private IPlayerManager _player = default!;
-    [Dependency] private IPrototypeManager _proto = default!;
-    [Dependency] private IServerPreferencesManager _prefs = default!;
-    [Dependency] private ActionsSystem _actions = default!;
-    [Dependency] private InventorySystem _inventory = default!;
-    [Dependency] private MetaDataSystem _meta = default!;
-    [Dependency] private RingerSystem _ringer = default!;
-    [Dependency] private SharedHumanoidAppearanceSystem _humanoid = default!;
-    [Dependency] private SharedMindSystem _mind = default!;
-    [Dependency] private SharedRoleSystem _roles = default!;
-    [Dependency] private JobTrackingSystem _jobTracking = default!;
-    [Dependency] private StationJobsSystem _stationJobs = default!;
-    [Dependency] private StationSpawningSystem _stationSpawning = default!;
-    [Dependency] private StationSystem _station = default!;
-    [Dependency] private ColcommJobSystem _colcommJobs = default!; // HardLight
+    [Dependency]
+    private IAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    private IChatManager _chat = default!;
+
+    [Dependency]
+    private GameTicker _gameTicker = default!;
+
+    [Dependency]
+    private IPlayerManager _player = default!;
+
+    [Dependency]
+    private IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private IServerPreferencesManager _prefs = default!;
+
+    [Dependency]
+    private ActionsSystem _actions = default!;
+
+    [Dependency]
+    private InventorySystem _inventory = default!;
+
+    [Dependency]
+    private MetaDataSystem _meta = default!;
+
+    [Dependency]
+    private RingerSystem _ringer = default!;
+
+    [Dependency]
+    private SharedHumanoidAppearanceSystem _humanoid = default!;
+
+    [Dependency]
+    private SharedMindSystem _mind = default!;
+
+    [Dependency]
+    private SharedRoleSystem _roles = default!;
+
+    [Dependency]
+    private JobTrackingSystem _jobTracking = default!;
+
+    [Dependency]
+    private StationJobsSystem _stationJobs = default!;
+
+    [Dependency]
+    private StationSpawningSystem _stationSpawning = default!;
+
+    [Dependency]
+    private StationSystem _station = default!;
+
+    [Dependency]
+    private ColcommJobSystem _colcommJobs = default!; // HardLight
 
     public override void Initialize()
     {
@@ -91,28 +126,44 @@ public sealed class InterviewHologramSystem : SharedInterviewHologramSystem
         bool accepted = ent.Comp.CaptainApproved;
         EntityUid captain = ev.User;
         bool isCaptain = IsCaptain(ev.User, ent);
-        ev.Verbs.Add(new AlternativeVerb()
-        {
-            Act = () => RaiseLocalEvent(ent, new SetCaptainApprovedEvent(captain, !accepted)),
-            Text = Loc.GetString(accepted ? "interview-hologram-rescind" : "interview-hologram-approve"),
-            Icon = new SpriteSpecifier.Texture(new(accepted ? "/Textures/_NF/Interface/VerbIcons/cross.png" : "/Textures/_NF/Interface/VerbIcons/check.png")),
-            Disabled = !isCaptain,
-            Message = isCaptain ? null : Loc.GetString("interview-hologram-verb-message-need-deed")
-        });
-        ev.Verbs.Add(new AlternativeVerb()
-        {
-            Act = () => RaiseLocalEvent(ent, new DismissInterviewEvent(captain, true)),
-            Text = Loc.GetString("interview-hologram-dismiss"),
-            Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/delete_transparent.svg.192dpi.png")),
-            Priority = -1
-        });
-        ev.Verbs.Add(new AlternativeVerb()
-        {
-            Act = () => RaiseLocalEvent(ent, new DismissInterviewEvent(captain, false)),
-            Text = Loc.GetString("interview-hologram-dismiss-and-close"),
-            Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/delete_transparent.svg.192dpi.png")),
-            Priority = -2
-        });
+        ev.Verbs.Add(
+            new AlternativeVerb()
+            {
+                Act = () => RaiseLocalEvent(ent, new SetCaptainApprovedEvent(captain, !accepted)),
+                Text = Loc.GetString(accepted ? "interview-hologram-rescind" : "interview-hologram-approve"),
+                Icon = new SpriteSpecifier.Texture(
+                    new(
+                        accepted
+                            ? "/Textures/_NF/Interface/VerbIcons/cross.png"
+                            : "/Textures/_NF/Interface/VerbIcons/check.png"
+                    )
+                ),
+                Disabled = !isCaptain,
+                Message = isCaptain ? null : Loc.GetString("interview-hologram-verb-message-need-deed"),
+            }
+        );
+        ev.Verbs.Add(
+            new AlternativeVerb()
+            {
+                Act = () => RaiseLocalEvent(ent, new DismissInterviewEvent(captain, true)),
+                Text = Loc.GetString("interview-hologram-dismiss"),
+                Icon = new SpriteSpecifier.Texture(
+                    new("/Textures/Interface/VerbIcons/delete_transparent.svg.192dpi.png")
+                ),
+                Priority = -1,
+            }
+        );
+        ev.Verbs.Add(
+            new AlternativeVerb()
+            {
+                Act = () => RaiseLocalEvent(ent, new DismissInterviewEvent(captain, false)),
+                Text = Loc.GetString("interview-hologram-dismiss-and-close"),
+                Icon = new SpriteSpecifier.Texture(
+                    new("/Textures/Interface/VerbIcons/delete_transparent.svg.192dpi.png")
+                ),
+                Priority = -2,
+            }
+        );
     }
 
     private void OnHologramMindRemoved(Entity<InterviewHologramComponent> ent, ref MindRemovedMessage ev)
@@ -133,8 +184,10 @@ public sealed class InterviewHologramSystem : SharedInterviewHologramSystem
     private void OnHologramMindAdded(Entity<InterviewHologramComponent> ent, ref MindAddedMessage ev)
     {
         // Nothing to do.
-        if (ent.Comp.AppearanceApplied && ent.Comp.NotificationsSent
-            || !_player.TryGetSessionByEntity(ent, out var session))
+        if (
+            ent.Comp.AppearanceApplied && ent.Comp.NotificationsSent
+            || !_player.TryGetSessionByEntity(ent, out var session)
+        )
         {
             return;
         }
@@ -154,20 +207,28 @@ public sealed class InterviewHologramSystem : SharedInterviewHologramSystem
             else
                 jobTitle = Loc.GetString("interview-notification-default-job");
 
-            var msgString = Loc.GetString("interview-hologram-pda-notification", ("applicant", ent), ("jobTitle", jobTitle));
+            var msgString = Loc.GetString(
+                "interview-hologram-pda-notification",
+                ("applicant", ent),
+                ("jobTitle", jobTitle)
+            );
             var message = FormattedMessage.EscapeText(msgString);
-            var wrappedMessage = Loc.GetString("pda-notification-message",
+            var wrappedMessage = Loc.GetString(
+                "pda-notification-message",
                 ("header", Loc.GetString("interview-notification-pda-header")),
-                ("message", message));
+                ("message", message)
+            );
 
             // Only active player sessions can receive PDA notifications.
             foreach (var playerSession in _player.Sessions)
             {
-                if (playerSession.Status is SessionStatus.Disconnected or SessionStatus.Zombie
+                if (
+                    playerSession.Status is SessionStatus.Disconnected or SessionStatus.Zombie
                     || playerSession.AttachedEntity is not { Valid: true } currentEntity
                     || !_inventory.TryGetSlotEntity(currentEntity, "id", out var slotItem)
                     || !HasComp<PdaComponent>(slotItem)
-                    || !IsCaptain(currentEntity, ent))
+                    || !IsCaptain(currentEntity, ent)
+                )
                 {
                     continue;
                 }
@@ -180,7 +241,8 @@ public sealed class InterviewHologramSystem : SharedInterviewHologramSystem
                     wrappedMessage,
                     EntityUid.Invalid,
                     false,
-                    playerSession.Channel);
+                    playerSession.Channel
+                );
             }
 
             ent.Comp.NotificationsSent = true;
@@ -205,9 +267,11 @@ public sealed class InterviewHologramSystem : SharedInterviewHologramSystem
         if (!TryComp(ent, out TransformComponent? xform))
             return;
 
-        if (!_mind.TryGetMind(ent, out var mindUid, out var mindComp)
+        if (
+            !_mind.TryGetMind(ent, out var mindUid, out var mindComp)
             || mindComp.UserId == null
-            || !_player.TryGetSessionById(mindComp.UserId, out var session))
+            || !_player.TryGetSessionById(mindComp.UserId, out var session)
+        )
         {
             return;
         }
@@ -222,13 +286,14 @@ public sealed class InterviewHologramSystem : SharedInterviewHologramSystem
         RemComp<JobTrackingComponent>(ent);
 
         // Spawn and inhabit new entity, tell them they got the job.
-        var newEntity = _stationSpawning.SpawnPlayerMob(xform.Coordinates,
+        var newEntity = _stationSpawning.SpawnPlayerMob(
+            xform.Coordinates,
             ent.Comp.Job,
             profile,
             ent.Comp.Station,
             entity: null,
             session: session
-            );
+        );
 
         _jobTracking.EnsureTrackedJob(newEntity, ent.Comp.Job, ent.Comp.Station);
 
@@ -249,14 +314,16 @@ public sealed class InterviewHologramSystem : SharedInterviewHologramSystem
 
         // Run spawn event for game rules, traits, etc.
         _gameTicker.PlayersJoinedRoundNormally++;
-        var aev = new PlayerSpawnCompleteEvent(newEntity,
+        var aev = new PlayerSpawnCompleteEvent(
+            newEntity,
             session,
             ent.Comp.Job,
             lateJoin: true,
             silent: true,
             joinOrder: _gameTicker.PlayersJoinedRoundNormally, // Increment regardless (unused as of writing)
             ent.Comp.Station,
-            profile);
+            profile
+        );
         RaiseLocalEvent(newEntity, aev, true);
 
         // Log the acceptance.
@@ -266,9 +333,11 @@ public sealed class InterviewHologramSystem : SharedInterviewHologramSystem
         else
             stationName = "an unknown station";
 
-        _adminLogger.Add(LogType.LateJoin,
+        _adminLogger.Add(
+            LogType.LateJoin,
             LogImpact.Medium,
-            $"Player {session.Name} controlling {ToPrettyString(ent):entity} has been spawned via interview on {stationName} as a {ent.Comp.Job:jobName}.");
+            $"Player {session.Name} controlling {ToPrettyString(ent):entity} has been spawned via interview on {stationName} as a {ent.Comp.Job:jobName}."
+        );
 
         // Delete the old hologram.
         QueueDel(ent);
@@ -290,9 +359,11 @@ public sealed class InterviewHologramSystem : SharedInterviewHologramSystem
         else
             station = "an unknown station";
 
-        _adminLogger.Add(LogType.LateJoin,
+        _adminLogger.Add(
+            LogType.LateJoin,
             LogImpact.Medium,
-            $"{player} controlling {ToPrettyString(ent):entity} cancelled their interview on {station} for a {ent.Comp.Job:jobName} position.");
+            $"{player} controlling {ToPrettyString(ent):entity} cancelled their interview on {station} for a {ent.Comp.Job:jobName} position."
+        );
 
         // Run dismissal
         DismissHologram(ent, message: Loc.GetString("interview-hologram-message-cancelled"));
@@ -314,9 +385,11 @@ public sealed class InterviewHologramSystem : SharedInterviewHologramSystem
         else
             station = "an unknown station";
 
-        _adminLogger.Add(LogType.LateJoin,
+        _adminLogger.Add(
+            LogType.LateJoin,
             LogImpact.Medium,
-            $"{player} controlling {ToPrettyString(ev.Dismisser):entity} dismissed {ToPrettyString(ent):entity} from their interview on {station} for a {ent.Comp.Job:jobName} position.");
+            $"{player} controlling {ToPrettyString(ev.Dismisser):entity} dismissed {ToPrettyString(ent):entity} from their interview on {station} for a {ent.Comp.Job:jobName} position."
+        );
 
         // Run dismissal
         DismissHologram(ent, ev.ReopenSlot, message: Loc.GetString("interview-hologram-message-dismissed"));

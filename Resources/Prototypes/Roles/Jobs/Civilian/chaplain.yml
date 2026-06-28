@@ -5,8 +5,8 @@
   playTimeTracker: JobChaplain
   setPreference: true
   requirements:
-    - !type:OverallPlaytimeRequirement
-      time: 10800
+  - !type:OverallPlaytimeRequirement
+    time: 10800
   weight: 10 # HardLight
   startingGear: ChaplainGear
   icon: "JobIconChaplain"
@@ -25,8 +25,8 @@
       multiplier: 3
     - type: InnatePsionicPowers
       powersToAdd:
-        - TelepathyPower
-        - HealingWordPower
+      - TelepathyPower
+      - HealingWordPower
 
 - type: startingGear
   id: ChaplainGear
@@ -39,4 +39,4 @@
     - Bible
     - RubberStampChaplain
   inhand:
-    - STextImplanter
+  - STextImplanter

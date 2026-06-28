@@ -13,10 +13,17 @@ namespace Content.Shared.Temperature.Systems;
 /// </summary>
 public abstract partial class SharedEntityHeaterSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedPowerReceiverSystem _receiver = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SharedPowerReceiverSystem _receiver = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
 
     private readonly int _settingCount = Enum.GetValues<EntityHeaterSetting>().Length;
 
@@ -46,14 +53,16 @@ public abstract partial class SharedEntityHeaterSystem : EntitySystem
         var nextSetting = (EntityHeaterSetting)nextSettingIndex;
 
         var user = args.User;
-        args.Verbs.Add(new AlternativeVerb()
-        {
-            Text = Loc.GetString("entity-heater-switch-setting", ("setting", nextSetting)),
-            Act = () =>
+        args.Verbs.Add(
+            new AlternativeVerb()
             {
-                ChangeSetting(ent, nextSetting, user);
+                Text = Loc.GetString("entity-heater-switch-setting", ("setting", nextSetting)),
+                Act = () =>
+                {
+                    ChangeSetting(ent, nextSetting, user);
+                },
             }
-        });
+        );
     }
 
     private void OnPowerChanged(Entity<EntityHeaterComponent> ent, ref PowerChangedEvent args)
@@ -64,7 +73,11 @@ public abstract partial class SharedEntityHeaterSystem : EntitySystem
         _appearance.SetData(ent, EntityHeaterVisuals.Setting, setting);
     }
 
-    protected virtual void ChangeSetting(Entity<EntityHeaterComponent> ent, EntityHeaterSetting setting, EntityUid? user = null)
+    protected virtual void ChangeSetting(
+        Entity<EntityHeaterComponent> ent,
+        EntityHeaterSetting setting,
+        EntityUid? user = null
+    )
     {
         // Still allow changing the setting without power
         ent.Comp.Setting = setting;

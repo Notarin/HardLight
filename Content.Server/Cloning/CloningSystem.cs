@@ -57,6 +57,8 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 //using Content.Goobstation.Common.Cloning;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using Content.Server.Atmos.EntitySystems;
 using Content.Server.Chat.Systems;
 using Content.Server.Cloning.Components;
@@ -66,28 +68,26 @@ using Content.Server.Fluids.EntitySystems;
 using Content.Server.Humanoid;
 using Content.Server.Preferences.Managers; // HardLight
 using Content.Server.Traits; // HardLight
+using Content.Shared._EinsteinEngines.Silicon.Components;
 using Content.Shared.Administration.Logs;
 using Content.Shared.Cloning;
 using Content.Shared.Cloning.Events;
 using Content.Shared.Database;
 using Content.Shared.Humanoid;
-using Content.Shared.Inventory;
 using Content.Shared.Implants;
 using Content.Shared.Implants.Components;
+using Content.Shared.Inventory;
+using Content.Shared.Mind; // HardLight
 using Content.Shared.NameModifier.EntitySystems;
 using Content.Shared.Preferences; // HardLight
 using Content.Shared.StatusEffect;
 using Content.Shared.Storage;
 using Content.Shared.Storage.EntitySystems;
 using Content.Shared.Whitelist;
+using Robust.Server.Player; // HardLight
 using Robust.Shared.Containers;
 using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using Content.Shared._EinsteinEngines.Silicon.Components;
-using Content.Shared.Mind; // HardLight
-using Robust.Server.Player; // HardLight
 using Robust.Shared.Random;
 
 namespace Content.Server.Cloning;
@@ -98,25 +98,57 @@ namespace Content.Server.Cloning;
 /// </summary>
 public sealed partial class CloningSystem : EntitySystem
 {
-    [Dependency] private readonly HumanoidAppearanceSystem _humanoidSystem = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!;
-    [Dependency] private readonly MetaDataSystem _metaData = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedStorageSystem _storage = default!;
-    [Dependency] private readonly SharedSubdermalImplantSystem _subdermalImplant = default!;
-    [Dependency] private readonly NameModifierSystem _nameMod = default!;
-    [Dependency] private readonly SharedMindSystem _mind = default!; // HardLight
-    [Dependency] private readonly IServerPreferencesManager _prefs = default!; // HardLight
-    [Dependency] private readonly IPlayerManager _player = default!; // HardLight
-    [Dependency] private readonly TraitSystem _traits = default!; // HardLight
+    [Dependency]
+    private readonly HumanoidAppearanceSystem _humanoidSystem = default!;
+
+    [Dependency]
+    private readonly InventorySystem _inventory = default!;
+
+    [Dependency]
+    private readonly MetaDataSystem _metaData = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototype = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelist = default!;
+
+    [Dependency]
+    private readonly ISharedAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly SharedStorageSystem _storage = default!;
+
+    [Dependency]
+    private readonly SharedSubdermalImplantSystem _subdermalImplant = default!;
+
+    [Dependency]
+    private readonly NameModifierSystem _nameMod = default!;
+
+    [Dependency]
+    private readonly SharedMindSystem _mind = default!; // HardLight
+
+    [Dependency]
+    private readonly IServerPreferencesManager _prefs = default!; // HardLight
+
+    [Dependency]
+    private readonly IPlayerManager _player = default!; // HardLight
+
+    [Dependency]
+    private readonly TraitSystem _traits = default!; // HardLight
 
     /// <summary>
     ///     Spawns a clone of the given humanoid mob at the specified location or in nullspace.
     /// </summary>
-    public bool TryCloning(EntityUid original, MapCoordinates? coords, ProtoId<CloningSettingsPrototype> settingsId, [NotNullWhen(true)] out EntityUid? clone)
+    public bool TryCloning(
+        EntityUid original,
+        MapCoordinates? coords,
+        ProtoId<CloningSettingsPrototype> settingsId,
+        [NotNullWhen(true)] out EntityUid? clone
+    )
     {
         clone = null;
         if (!_prototype.TryIndex(settingsId, out var settings))
@@ -160,15 +192,21 @@ public sealed partial class CloningSystem : EntitySystem
         // Set the clone's name. The raised events will also adjust their PDA and ID card names.
         _metaData.SetEntityName(clone.Value, originalName);
 
-        _adminLogger.Add(LogType.Chat, LogImpact.Medium, $"The body of {original:player} was cloned as {clone.Value:player}");
+        _adminLogger.Add(
+            LogType.Chat,
+            LogImpact.Medium,
+            $"The body of {original:player} was cloned as {clone.Value:player}"
+        );
         return true;
     }
 
     private void ApplySelectedTraits(EntityUid original, EntityUid clone) // HardLight
     {
-        if (!_mind.TryGetMind(original, out _, out var mind) ||
-            mind.UserId == null ||
-            _prefs.GetPreferences(mind.UserId.Value).SelectedCharacter is not HumanoidCharacterProfile profile)
+        if (
+            !_mind.TryGetMind(original, out _, out var mind)
+            || mind.UserId == null
+            || _prefs.GetPreferences(mind.UserId.Value).SelectedCharacter is not HumanoidCharacterProfile profile
+        )
         {
             return;
         }
@@ -195,7 +233,10 @@ public sealed partial class CloningSystem : EntitySystem
         // don't make status effects permanent
         if (TryComp<StatusEffectsComponent>(original, out var statusComp))
         {
-            var statusComps = statusComp.ActiveEffects.Values.Select(s => s.RelevantComponent).Where(s => s != null).ToList();
+            var statusComps = statusComp
+                .ActiveEffects.Values.Select(s => s.RelevantComponent)
+                .Where(s => s != null)
+                .ToList();
             componentsToCopy.ExceptWith(statusComps!);
             componentsToEvent.ExceptWith(statusComps!);
         }
@@ -383,11 +424,18 @@ public sealed partial class CloningSystem : EntitySystem
         RaiseLocalEvent(original, ref cloningEv); // used for datafields that cannot be directly copied using CopyComp
     } */
     }
+
     /// <summary>
     ///     Copies the equipment the original has to the clone.
     ///     This uses the original prototype of the items, so any changes to components that are done after spawning are lost!
     /// </summary>
-    public void CopyEquipment(Entity<InventoryComponent?> original, Entity<InventoryComponent?> clone, SlotFlags slotFlags, EntityWhitelist? whitelist = null, EntityWhitelist? blacklist = null)
+    public void CopyEquipment(
+        Entity<InventoryComponent?> original,
+        Entity<InventoryComponent?> clone,
+        SlotFlags slotFlags,
+        EntityWhitelist? whitelist = null,
+        EntityWhitelist? blacklist = null
+    )
     {
         if (!Resolve(original, ref original.Comp) || !Resolve(clone, ref clone.Comp))
             return;
@@ -400,7 +448,10 @@ public sealed partial class CloningSystem : EntitySystem
         {
             var cloneItem = CopyItem(item, coords, whitelist, blacklist);
 
-            if (cloneItem != null && !_inventory.TryEquip(clone, cloneItem.Value, slot.Name, silent: true, inventory: clone.Comp))
+            if (
+                cloneItem != null
+                && !_inventory.TryEquip(clone, cloneItem.Value, slot.Name, silent: true, inventory: clone.Comp)
+            )
                 Del(cloneItem); // delete it again if the clone cannot equip it
         }
     }
@@ -413,7 +464,12 @@ public sealed partial class CloningSystem : EntitySystem
     ///     This is not perfect and only considers item in storage containers.
     ///     Some components have their own additional spawn logic on map init, so we cannot just copy all containers.
     /// </remarks>
-    public EntityUid? CopyItem(EntityUid original, EntityCoordinates coords, EntityWhitelist? whitelist = null, EntityWhitelist? blacklist = null)
+    public EntityUid? CopyItem(
+        EntityUid original,
+        EntityCoordinates coords,
+        EntityWhitelist? whitelist = null,
+        EntityWhitelist? blacklist = null
+    )
     {
         // we use a whitelist and blacklist to be sure to exclude any problematic entities
         if (!_whitelist.CheckBoth(original, blacklist, whitelist))
@@ -430,7 +486,10 @@ public sealed partial class CloningSystem : EntitySystem
         RaiseLocalEvent(original, ref ev);
 
         // if the original has items inside its storage, copy those as well
-        if (TryComp<StorageComponent>(original, out var originalStorage) && TryComp<StorageComponent>(spawned, out var spawnedStorage))
+        if (
+            TryComp<StorageComponent>(original, out var originalStorage)
+            && TryComp<StorageComponent>(spawned, out var spawnedStorage)
+        )
         {
             // remove all items that spawned with the entity inside its storage
             // this ignores other containers, but this should be good enough for our purposes
@@ -454,7 +513,12 @@ public sealed partial class CloningSystem : EntitySystem
     ///     The storage grids should have the same shape or it will drop on the floor.
     ///     Basically the same as CopyItem, but we don't copy the outermost container.
     /// </summary>
-    public void CopyStorage(Entity<StorageComponent?> original, Entity<StorageComponent?> target, EntityWhitelist? whitelist = null, EntityWhitelist? blacklist = null)
+    public void CopyStorage(
+        Entity<StorageComponent?> original,
+        Entity<StorageComponent?> target,
+        EntityWhitelist? whitelist = null,
+        EntityWhitelist? blacklist = null
+    )
     {
         if (!Resolve(original, ref original.Comp, false) || !Resolve(target, ref target.Comp, false))
             return;
@@ -483,7 +547,13 @@ public sealed partial class CloningSystem : EntitySystem
     /// <param name="copyStorage">If true will copy storage of the implants (E.g storage implant)</param>
     /// <param name="whitelist">Whitelist for the storage copy (If copyStorage is true)</param>
     /// <param name="blacklist">Blacklist for the storage copy (If copyStorage is true)</param>
-    public void CopyImplants(Entity<ImplantedComponent?> original, EntityUid target, bool copyStorage = false, EntityWhitelist? whitelist = null, EntityWhitelist? blacklist = null)
+    public void CopyImplants(
+        Entity<ImplantedComponent?> original,
+        EntityUid target,
+        bool copyStorage = false,
+        EntityWhitelist? whitelist = null,
+        EntityWhitelist? blacklist = null
+    )
     {
         if (!Resolve(original, ref original.Comp, false))
             return; // they don't have any implants to copy!
@@ -510,6 +580,5 @@ public sealed partial class CloningSystem : EntitySystem
             if (copyStorage)
                 CopyStorage(originalImplant, targetImplant.Value, whitelist, blacklist); // only needed for storage implants
         }
-
     }
 }

@@ -5,12 +5,12 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - state: icon
-        sprite: _NF/Mobs/ArcadiaIndustries/arcind_shredder.rsi
+    - state: green
+    - state: icon
+      sprite: _NF/Mobs/ArcadiaIndustries/arcind_shredder.rsi
   - type: ConditionalSpawner
     prototypes:
-      - MobArcIndShredder
+    - MobArcIndShredder
 
 - type: entity
   name: Arcadia Industries Guardian Spawner
@@ -19,12 +19,12 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - state: icon
-        sprite: _NF/Mobs/ArcadiaIndustries/arcind_guardians.rsi
+    - state: green
+    - state: icon
+      sprite: _NF/Mobs/ArcadiaIndustries/arcind_guardians.rsi
   - type: ConditionalSpawner
     prototypes:
-      - MobArcIndHoloparasiteGuardian
+    - MobArcIndHoloparasiteGuardian
 
 - type: entity
   name: Arcadia Industries Blaster Spawner
@@ -33,9 +33,9 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - state: icon
-        sprite: _NF/Mobs/ArcadiaIndustries/arcind_blasters.rsi
+    - state: green
+    - state: icon
+      sprite: _NF/Mobs/ArcadiaIndustries/arcind_blasters.rsi
   - type: ConditionalSpawner
     prototypes:
-      - MobArcIndBlaster
+    - MobArcIndBlaster

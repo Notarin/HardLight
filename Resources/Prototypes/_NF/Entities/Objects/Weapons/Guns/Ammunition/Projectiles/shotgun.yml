@@ -1,6 +1,6 @@
 #region Pellets
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: NFPelletShotgun
   name: pellet (.50)
   parent: NFBasePellet
@@ -12,7 +12,7 @@
         Structural: 15
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: NFPelletShotgunIncendiary
   name: pellet (.50 incendiary)
   parent: NFBasePelletIncendiary
@@ -24,7 +24,7 @@
         Heat: 7
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: NFPelletShotgunPractice
   name: pellet (.50 practice)
   parent: NFBasePelletPractice
@@ -35,7 +35,7 @@
         Blunt: 1
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: NFPelletShotgunUranium
   name: pellet (.50 uranium)
   parent: NFBasePelletUranium
@@ -47,7 +47,7 @@
         Piercing: 5
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: NFPelletShotgunImprovised
   name: pellet (.50 improvised)
   parent: NFBasePelletPractice
@@ -67,7 +67,7 @@
         Slash: 3
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: NFPelletShotgunGlass
   name: pellet (.50 glass)
   parent: NFPelletShotgunImprovised
@@ -78,7 +78,7 @@
         Slash: 10
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: NFPelletShotgunGrapeshot
   name: pellet (.50 grapeshot)
   parent: NFBasePellet
@@ -99,7 +99,7 @@
     spread: 11
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: NFPelletShotgunSpread
   parent: [NFBasePelletShotgunSpread, NFPelletShotgun]
   components:
@@ -107,7 +107,7 @@
     proto: NFPelletShotgun
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: NFPelletShotgunIncendiarySpread
   parent: [NFBasePelletShotgunSpread, NFPelletShotgunIncendiary]
   components:
@@ -115,7 +115,7 @@
     proto: NFPelletShotgunIncendiary
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: NFPelletShotgunPracticeSpread
   parent: [NFBasePelletShotgunSpread, NFPelletShotgunPractice]
   components:
@@ -123,7 +123,7 @@
     proto: NFPelletShotgunPractice
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: NFPelletShotgunUraniumSpread
   parent: [NFBasePelletShotgunSpread, NFPelletShotgunUranium]
   components:
@@ -131,7 +131,7 @@
     proto: NFPelletShotgunUranium
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: NFPelletShotgunImprovisedSpread
   parent: [NFBasePelletShotgunSpread, NFPelletShotgunImprovised]
   components:
@@ -139,7 +139,7 @@
     proto: NFPelletShotgunImprovised
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: NFPelletShotgunGlassSpread
   parent: [NFBasePelletShotgunSpread, NFPelletShotgunGlass]
   components:
@@ -147,7 +147,7 @@
     proto: NFPelletShotgunGlass
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: NFPelletShotgunGrapeshotSpread
   parent: [NFBasePelletShotgunSpread, NFPelletShotgunGrapeshot]
   components:
@@ -156,7 +156,7 @@
 
 #region Slugs
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: NFShotgunSlug
   parent: NFBaseBullet
   name: slug (.50)
@@ -168,7 +168,7 @@
         Structural: 15
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: NFShotgunSlugBeanbag
   parent: NFBaseBulletRubber
   name: slug (.50 beanbag)
@@ -181,7 +181,7 @@
     damage: 30 # 4 hits to stun
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: NFShotgunSlugFlare
   parent: NFPelletShotgunFlare
   name: slug (.50)
@@ -201,7 +201,7 @@
     length: 2
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: NFShotgunSlugTranquilizer
   parent: NFBaseBullet
   name: slug (.50 tranquilizer)

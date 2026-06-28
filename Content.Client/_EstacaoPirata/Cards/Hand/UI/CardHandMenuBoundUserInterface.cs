@@ -8,12 +8,16 @@ namespace Content.Client._EstacaoPirata.Cards.Hand.UI;
 [UsedImplicitly]
 public sealed class CardHandMenuBoundUserInterface : BoundUserInterface
 {
-    [Dependency] private readonly IClyde _displayManager = default!;
-    [Dependency] private readonly IInputManager _inputManager = default!;
+    [Dependency]
+    private readonly IClyde _displayManager = default!;
+
+    [Dependency]
+    private readonly IInputManager _inputManager = default!;
 
     private CardHandMenu? _menu;
 
-    public CardHandMenuBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
+    public CardHandMenuBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey)
     {
         IoCManager.InjectDependencies(this);
     }
@@ -36,7 +40,8 @@ public sealed class CardHandMenuBoundUserInterface : BoundUserInterface
     protected override void Dispose(bool disposing)
     {
         base.Dispose(disposing);
-        if (!disposing) return;
+        if (!disposing)
+            return;
 
         _menu?.Dispose();
     }

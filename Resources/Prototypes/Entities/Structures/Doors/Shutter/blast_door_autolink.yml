@@ -8,7 +8,6 @@
   - type: AutoLinkReceiver
     channel: Ext1
 
-
 - type: entity
   id: BlastDoorExterior1Open
   parent: BlastDoorOpen
@@ -25,7 +24,6 @@
   - type: AutoLinkReceiver
     channel: Ext2
 
-
 - type: entity
   id: BlastDoorExterior2Open
   parent: BlastDoorOpen
@@ -41,7 +39,6 @@
   components:
   - type: AutoLinkReceiver
     channel: Ext3
-
 
 - type: entity
   id: BlastDoorExterior3Open

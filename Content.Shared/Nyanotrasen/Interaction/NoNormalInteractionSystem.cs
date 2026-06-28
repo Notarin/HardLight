@@ -10,7 +10,11 @@ namespace Content.Shared.Interaction
             SubscribeLocalEvent<NoNormalInteractionComponent, InteractionAttemptEvent>(OnInteractionAttempt);
         }
 
-        private void OnInteractionAttempt(EntityUid uid, NoNormalInteractionComponent component, InteractionAttemptEvent args)
+        private void OnInteractionAttempt(
+            EntityUid uid,
+            NoNormalInteractionComponent component,
+            InteractionAttemptEvent args
+        )
         {
             args.Cancelled = true;
         }

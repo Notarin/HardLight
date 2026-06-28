@@ -7,11 +7,11 @@
   - type: BallisticAmmoProvider
     whitelist:
       tags:
-        - BulletBB
+      - BulletBB
     proto: BulletBB
   - type: Sprite
     sprite: _DV/Objects/Weapons/Guns/Ammunition/Boxes/bbgun.rsi
     layers:
-      - state: bbbox
+    - state: bbbox
   - type: StaticPrice
     price: 250

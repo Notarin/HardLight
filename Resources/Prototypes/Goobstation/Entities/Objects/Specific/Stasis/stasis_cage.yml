@@ -21,8 +21,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.45
         density: 25
         mask:
@@ -51,4 +50,4 @@
     sprite: Goobstation/Objects/Specific/ChronoLegionnaire/stasis_cage.rsi
   - type: Tag
     tags:
-      - StasisCage
+    - StasisCage

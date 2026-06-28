@@ -1,9 +1,9 @@
 using System.Numerics;
 using System.Threading;
 using Content.Shared.DoAfter;
+using Content.Shared.Whitelist; // Frontier
 using Robust.Shared.Audio;
 using Robust.Shared.Containers;
-using Content.Shared.Whitelist; // Frontier
 
 namespace Content.Server.Mech.Equipment.Components;
 

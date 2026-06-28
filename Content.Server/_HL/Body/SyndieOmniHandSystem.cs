@@ -15,14 +15,20 @@ namespace Content.Shared.Cybernetics
 {
     public sealed class SyndieOmniHandSystem : EntitySystem
     {
+        [Dependency]
+        private readonly SharedActionsSystem _actions = default!;
 
-        [Dependency] private readonly SharedActionsSystem _actions = default!;
-        [Dependency] private readonly SharedHandsSystem _hands = default!;
-        [Dependency] private readonly PopupSystem _popup = default!;
+        [Dependency]
+        private readonly SharedHandsSystem _hands = default!;
 
-        [Dependency] private readonly IRobustRandom _rand = default!;
-        [Dependency] private readonly AudioSystem _audio = default!;
+        [Dependency]
+        private readonly PopupSystem _popup = default!;
 
+        [Dependency]
+        private readonly IRobustRandom _rand = default!;
+
+        [Dependency]
+        private readonly AudioSystem _audio = default!;
 
         public override void Initialize()
         {
@@ -34,7 +40,11 @@ namespace Content.Shared.Cybernetics
             SubscribeLocalEvent<SyndieOmniHandComponent, ComponentShutdown>(OnShutdown);
         }
 
-        private void OnSyndieOmniHandToggled(EntityUid uid, SyndieOmniHandComponent component, SyndieOmniHandToggledEvent args)
+        private void OnSyndieOmniHandToggled(
+            EntityUid uid,
+            SyndieOmniHandComponent component,
+            SyndieOmniHandToggledEvent args
+        )
         {
             if (!TryToggleItem(uid, component.SwordPrototype, component, out _))
                 return;
@@ -61,13 +71,18 @@ namespace Content.Shared.Cybernetics
             _actions.RemoveAction(uid, component.Action);
         }
 
-        public bool TryToggleItem(EntityUid uid, EntProtoId proto, SyndieOmniHandComponent comp, out EntityUid? equipment)
+        public bool TryToggleItem(
+            EntityUid uid,
+            EntProtoId proto,
+            SyndieOmniHandComponent comp,
+            out EntityUid? equipment
+        )
         {
             equipment = null;
             if (!comp.Equipment.TryGetValue(proto.Id, out var item))
             {
                 item = Spawn(proto, Transform(uid).Coordinates);
-                if (!_hands.TryForcePickupAnyHand(uid, (EntityUid) item))
+                if (!_hands.TryForcePickupAnyHand(uid, (EntityUid)item))
                 {
                     _popup.PopupEntity(Loc.GetString("changeling-fail-hands"), uid, uid);
                     QueueDel(item);

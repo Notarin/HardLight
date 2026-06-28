@@ -48,16 +48,16 @@ entities:
     type: Transform
   - type: ContainerContainer
     typeChange:
-      - 0
-      - 1
-      - 2
+    - 0
+    - 1
+    - 2
     example:
-      - 0
-      - 1
-      - 2
-      - 3
-      - 855
-      - "contributionA"
+    - 0
+    - 1
+    - 2
+    - 3
+    - 855
+    - "contributionA"
 - uid: 1
   type: FakeTestDummy
   components:

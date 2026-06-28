@@ -51,50 +51,63 @@ using Content.Server._Mono.Projectiles.TargetSeeking;
 using Content.Server.Cargo.Systems;
 using Content.Server.Power.EntitySystems;
 using Content.Server.Weapons.Ranged.Components;
-using Content.Shared._Mono;
 using Content.Shared._Crescent.ShipShields;
+using Content.Shared._Mono;
 using Content.Shared._RMC14.Weapons.Ranged.Prediction;
+using Content.Shared._Starlight.NullSpace;
 using Content.Shared.Damage;
-using Content.Shared.Damage.Systems;
 using Content.Shared.Damage.Components;
+using Content.Shared.Damage.Systems;
 using Content.Shared.Database;
 using Content.Shared.Effects;
+using Content.Shared.Examine; // Frontier
+using Content.Shared.Hands.Components;
+using Content.Shared.Interaction; // Frontier
+using Content.Shared.Power;
 using Content.Shared.Projectiles;
+using Content.Shared.Weapons.Hitscan.Components;
+using Content.Shared.Weapons.Hitscan.Events;
 using Content.Shared.Weapons.Melee;
 using Content.Shared.Weapons.Ranged;
 using Content.Shared.Weapons.Ranged.Components;
 using Content.Shared.Weapons.Ranged.Events;
 using Content.Shared.Weapons.Ranged.Systems;
-using Content.Shared.Weapons.Hitscan.Components;
-using Content.Shared.Weapons.Hitscan.Events;
 using Content.Shared.Weapons.Reflect;
 using Robust.Server.GameObjects;
 using Robust.Server.Player;
 using Robust.Shared.Audio;
+using Robust.Shared.Containers;
 using Robust.Shared.Map;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
-using Robust.Shared.Containers;
-using Content.Shared.Interaction; // Frontier
-using Content.Shared.Examine; // Frontier
-using Content.Shared.Hands.Components;
-using Content.Shared.Power;
-using Content.Shared._Starlight.NullSpace;
 
 namespace Content.Server.Weapons.Ranged.Systems;
 
 public sealed partial class GunSystem : SharedGunSystem
 {
-    [Dependency] private readonly IComponentFactory _factory = default!;
-    [Dependency] private readonly DamageExamineSystem _damageExamine = default!;
-    [Dependency] private readonly PricingSystem _pricing = default!;
-    [Dependency] private readonly SharedColorFlashEffectSystem _color = default!;
-    [Dependency] private readonly SharedStaminaSystem _stamina = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
+    [Dependency]
+    private readonly IComponentFactory _factory = default!;
+
+    [Dependency]
+    private readonly DamageExamineSystem _damageExamine = default!;
+
+    [Dependency]
+    private readonly PricingSystem _pricing = default!;
+
+    [Dependency]
+    private readonly SharedColorFlashEffectSystem _color = default!;
+
+    [Dependency]
+    private readonly SharedStaminaSystem _stamina = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _map = default!;
 
     private const float DamagePitchVariation = 0.05f;
 
@@ -110,7 +123,11 @@ public sealed partial class GunSystem : SharedGunSystem
         SubscribeLocalEvent<AutoShootGunComponent, AnchorStateChangedEvent>(OnAnchorChange); // Frontier
     }
 
-    private void OnBallisticPrice(EntityUid uid, BallisticAmmoProviderComponent component, ref PriceCalculationEvent args)
+    private void OnBallisticPrice(
+        EntityUid uid,
+        BallisticAmmoProviderComponent component,
+        ref PriceCalculationEvent args
+    )
     {
         if (string.IsNullOrEmpty(component.Proto) || component.UnspawnedCount == 0)
             return;
@@ -126,8 +143,16 @@ public sealed partial class GunSystem : SharedGunSystem
         args.Price += price * component.UnspawnedCount;
     }
 
-    public override void Shoot(EntityUid gunUid, GunComponent gun, List<(EntityUid? Entity, IShootable Shootable)> ammo,
-        EntityCoordinates fromCoordinates, EntityCoordinates toCoordinates, out bool userImpulse, EntityUid? user = null, bool throwItems = false)
+    public override void Shoot(
+        EntityUid gunUid,
+        GunComponent gun,
+        List<(EntityUid? Entity, IShootable Shootable)> ammo,
+        EntityCoordinates fromCoordinates,
+        EntityCoordinates toCoordinates,
+        out bool userImpulse,
+        EntityUid? user = null,
+        bool throwItems = false
+    )
     {
         userImpulse = true;
 
@@ -188,10 +213,7 @@ public sealed partial class GunSystem : SharedGunSystem
                         var uid = Spawn(cartridge.Prototype, fromEnt);
                         CreateAndFireProjectiles(uid, cartridge);
 
-                        RaiseLocalEvent(ent!.Value, new AmmoShotEvent()
-                        {
-                            FiredProjectiles = shotProjectiles,
-                        });
+                        RaiseLocalEvent(ent!.Value, new AmmoShotEvent() { FiredProjectiles = shotProjectiles });
 
                         SetCartridgeSpent(ent.Value, cartridge, true);
 
@@ -231,7 +253,8 @@ public sealed partial class GunSystem : SharedGunSystem
 
                     // HardLight: ship shield interaction (own-shield bypass + enemy-shield scatter).
                     var firingGrid = Transform(gunUid).GridUid;
-                    var isShipWeaponBeam = HasComp<Content.Server._Mono.SpaceArtillery.Components.SpaceArtilleryComponent>(gunUid);
+                    var isShipWeaponBeam =
+                        HasComp<Content.Server._Mono.SpaceArtillery.Components.SpaceArtilleryComponent>(gunUid);
 
                     if (hitscan.Reflective != ReflectType.None)
                     {
@@ -248,13 +271,21 @@ public sealed partial class GunSystem : SharedGunSystem
 
                             var ray = new CollisionRay(from.Position, dir, hitscan.CollisionMask);
                             // HardLight: also ignore the firing ship's own shield so a turret never hits its own bubble.
-                            var rayCastResults =
-                                Physics.IntersectRayWithPredicate(from.MapId, ray, hitscan.MaxLength,
-                                    ent => ent == lastUser
-                                        || (firingGrid != null
+                            var rayCastResults = Physics
+                                .IntersectRayWithPredicate(
+                                    from.MapId,
+                                    ray,
+                                    hitscan.MaxLength,
+                                    ent =>
+                                        ent == lastUser
+                                        || (
+                                            firingGrid != null
                                             && TryComp<ShipShieldComponent>(ent, out var ownSc)
-                                            && ownSc.Shielded == firingGrid.Value),
-                                    false).ToList();
+                                            && ownSc.Shielded == firingGrid.Value
+                                        ),
+                                    false
+                                )
+                                .ToList();
                             if (!rayCastResults.Any())
                                 break;
 
@@ -266,10 +297,16 @@ public sealed partial class GunSystem : SharedGunSystem
                                 // Checks if the laser should pass over unless targeted by its user
                                 foreach (var collide in rayCastResults)
                                 {
-                                    if (hitscan.Reflective != ReflectType.Energy && HasComp<NullSpaceComponent>(collide.HitEntity))
+                                    if (
+                                        hitscan.Reflective != ReflectType.Energy
+                                        && HasComp<NullSpaceComponent>(collide.HitEntity)
+                                    )
                                         continue;
-                                    if (collide.HitEntity != gun.Target &&
-                                        CompOrNull<RequireProjectileTargetComponent>(collide.HitEntity)?.Active == true)
+                                    if (
+                                        collide.HitEntity != gun.Target
+                                        && CompOrNull<RequireProjectileTargetComponent>(collide.HitEntity)?.Active
+                                            == true
+                                    )
                                     {
                                         continue;
                                     }
@@ -281,7 +318,15 @@ public sealed partial class GunSystem : SharedGunSystem
 
                             var hit = result.HitEntity;
 
-                                FireEffects(fromEffect, result.Distance, dir.Normalized().ToAngle(), hitscan, hit, user, gunUid);
+                            FireEffects(
+                                fromEffect,
+                                result.Distance,
+                                dir.Normalized().ToAngle(),
+                                hitscan,
+                                hit,
+                                user,
+                                gunUid
+                            );
 
                             // HardLight: an enemy shield scatters a ship-weapon beam instead of
                             // blocking it, and drains the shield emitter; the beam then continues from the crossing point.
@@ -292,7 +337,10 @@ public sealed partial class GunSystem : SharedGunSystem
                                     if (crossedShield.Source is { } emitterSource)
                                     {
                                         var drain = (float)(hitscan.Damage?.GetTotal() ?? 0);
-                                        var drainEv = new Content.Server._Crescent.ShipShields.ShipShieldsSystem.ShieldHitscanDeflectedEvent(drain);
+                                        var drainEv =
+                                            new Content.Server._Crescent.ShipShields.ShipShieldsSystem.ShieldHitscanDeflectedEvent(
+                                                drain
+                                            );
                                         RaiseLocalEvent(emitterSource, ref drainEv);
                                     }
 
@@ -336,7 +384,11 @@ public sealed partial class GunSystem : SharedGunSystem
 
                         var hitName = ToPrettyString(hitEntity);
                         if (dmg != null)
-                            dmg = Damageable.TryChangeDamage(hitEntity, dmg * Damageable.UniversalHitscanDamageModifier, origin: user);
+                            dmg = Damageable.TryChangeDamage(
+                                hitEntity,
+                                dmg * Damageable.UniversalHitscanDamageModifier,
+                                origin: user
+                            );
 
                         // check null again, as TryChangeDamage returns modified damage values
                         if (dmg != null)
@@ -345,7 +397,11 @@ public sealed partial class GunSystem : SharedGunSystem
                             {
                                 if (dmg.AnyPositive())
                                 {
-                                    _color.RaiseEffect(Color.Red, new List<EntityUid>() { hitEntity }, Filter.Pvs(hitEntity, entityManager: EntityManager));
+                                    _color.RaiseEffect(
+                                        Color.Red,
+                                        new List<EntityUid>() { hitEntity },
+                                        Filter.Pvs(hitEntity, entityManager: EntityManager)
+                                    );
                                 }
 
                                 // TODO get fallback position for playing hit sound.
@@ -354,13 +410,17 @@ public sealed partial class GunSystem : SharedGunSystem
 
                             if (user != null)
                             {
-                                Logs.Add(LogType.HitScanHit,
-                                    $"{ToPrettyString(user.Value):user} hit {hitName:target} using hitscan and dealt {dmg.GetTotal():damage} damage");
+                                Logs.Add(
+                                    LogType.HitScanHit,
+                                    $"{ToPrettyString(user.Value):user} hit {hitName:target} using hitscan and dealt {dmg.GetTotal():damage} damage"
+                                );
                             }
                             else
                             {
-                                Logs.Add(LogType.HitScanHit,
-                                    $"{hitName:target} hit by hitscan dealing {dmg.GetTotal():damage} damage");
+                                Logs.Add(
+                                    LogType.HitScanHit,
+                                    $"{hitName:target} hit by hitscan dealing {dmg.GetTotal():damage} damage"
+                                );
                             }
 
                             // Mono: notify gatherable systems about hitscan damage dealt
@@ -384,11 +444,14 @@ public sealed partial class GunSystem : SharedGunSystem
             }
         }
 
-        RaiseLocalEvent(gunUid, new AmmoShotEvent()
-        {
-            FiredProjectiles = shotProjectiles,
-            Shooter = user, //starlight
-        });
+        RaiseLocalEvent(
+            gunUid,
+            new AmmoShotEvent()
+            {
+                FiredProjectiles = shotProjectiles,
+                Shooter = user, //starlight
+            }
+        );
 
         void CreateAndFireProjectiles(EntityUid ammoEnt, AmmoComponent ammoComp)
         {
@@ -397,8 +460,11 @@ public sealed partial class GunSystem : SharedGunSystem
                 var spreadEvent = new GunGetAmmoSpreadEvent(ammoSpreadComp.Spread);
                 RaiseLocalEvent(gunUid, ref spreadEvent);
 
-                var angles = LinearSpread(mapAngle - spreadEvent.Spread / 2,
-                    mapAngle + spreadEvent.Spread / 2, ammoSpreadComp.Count);
+                var angles = LinearSpread(
+                    mapAngle - spreadEvent.Spread / 2,
+                    mapAngle + spreadEvent.Spread / 2,
+                    ammoSpreadComp.Count
+                );
 
                 ShootOrThrow(ammoEnt, angles[0].ToVec(), gunVelocity, gun, gunUid, user);
                 shotProjectiles.Add(ammoEnt);
@@ -421,7 +487,14 @@ public sealed partial class GunSystem : SharedGunSystem
         }
     }
 
-    private void ShootOrThrow(EntityUid uid, Vector2 mapDirection, Vector2 gunVelocity, GunComponent gun, EntityUid gunUid, EntityUid? user)
+    private void ShootOrThrow(
+        EntityUid uid,
+        Vector2 mapDirection,
+        Vector2 gunVelocity,
+        GunComponent gun,
+        EntityUid gunUid,
+        EntityUid? user
+    )
     {
         if (HasComp<Content.Server._Mono.FireControl.FireControllableComponent>(gunUid))
         {
@@ -494,7 +567,13 @@ public sealed partial class GunSystem : SharedGunSystem
     private Angle GetRecoilAngle(TimeSpan curTime, GunComponent component, Angle direction)
     {
         var timeSinceLastFire = (curTime - component.LastFire).TotalSeconds;
-        var newTheta = MathHelper.Clamp(component.CurrentAngle.Theta + component.AngleIncreaseModified.Theta - component.AngleDecayModified.Theta * timeSinceLastFire, component.MinAngleModified.Theta, component.MaxAngleModified.Theta);
+        var newTheta = MathHelper.Clamp(
+            component.CurrentAngle.Theta
+                + component.AngleIncreaseModified.Theta
+                - component.AngleDecayModified.Theta * timeSinceLastFire,
+            component.MinAngleModified.Theta,
+            component.MaxAngleModified.Theta
+        );
         component.CurrentAngle = new Angle(newTheta);
         component.LastFire = component.NextFire;
 
@@ -518,7 +597,14 @@ public sealed partial class GunSystem : SharedGunSystem
         RaiseNetworkEvent(message, filter);
     }
 
-    public override void PlayImpactSound(EntityUid otherEntity, DamageSpecifier? modifiedDamage, SoundSpecifier? weaponSound, bool forceWeaponSound, Robust.Shared.Player.Filter? filter = null, Entity<ProjectileComponent, PhysicsComponent>? projectile = null)
+    public override void PlayImpactSound(
+        EntityUid otherEntity,
+        DamageSpecifier? modifiedDamage,
+        SoundSpecifier? weaponSound,
+        bool forceWeaponSound,
+        Robust.Shared.Player.Filter? filter = null,
+        Entity<ProjectileComponent, PhysicsComponent>? projectile = null
+    )
     {
         DebugTools.Assert(!Deleted(otherEntity), "Impact sound entity was deleted");
 
@@ -530,7 +616,12 @@ public sealed partial class GunSystem : SharedGunSystem
         // 3. Nothing
         var playedSound = false;
 
-        if (!forceWeaponSound && modifiedDamage != null && modifiedDamage.GetTotal() > 0 && TryComp<RangedDamageSoundComponent>(otherEntity, out var rangedSound))
+        if (
+            !forceWeaponSound
+            && modifiedDamage != null
+            && modifiedDamage.GetTotal() > 0
+            && TryComp<RangedDamageSoundComponent>(otherEntity, out var rangedSound)
+        )
         {
             var type = SharedMeleeWeaponSystem.GetHighestDamageSound(modifiedDamage, ProtoManager);
 
@@ -555,12 +646,28 @@ public sealed partial class GunSystem : SharedGunSystem
     // TODO: Pseudo RNG so the client can predict these.
     #region Hitscan effects
 
-    private void FireEffects(EntityCoordinates fromCoordinates, float distance, Angle angle, HitscanPrototype hitscan, EntityUid? hitEntity = null, EntityUid? user = null, EntityUid? gunUid = null)
+    private void FireEffects(
+        EntityCoordinates fromCoordinates,
+        float distance,
+        Angle angle,
+        HitscanPrototype hitscan,
+        EntityUid? hitEntity = null,
+        EntityUid? user = null,
+        EntityUid? gunUid = null
+    )
     {
         // Raise custom event for radar tracking
         // Keep both the firing gun and the user so radar logic can key off the weapon entity.
         var shooter = user ?? GetShooterFromCoordinates(fromCoordinates);
-        var radarEv = new _Mono.Radar.HitscanRadarSystem.HitscanFireEffectEvent(fromCoordinates, distance, angle, hitscan, hitEntity, gunUid, shooter);
+        var radarEv = new _Mono.Radar.HitscanRadarSystem.HitscanFireEffectEvent(
+            fromCoordinates,
+            distance,
+            angle,
+            hitscan,
+            hitEntity,
+            gunUid,
+            shooter
+        );
         RaiseLocalEvent(radarEv);
 
         // Lord
@@ -614,10 +721,10 @@ public sealed partial class GunSystem : SharedGunSystem
 
         if (sprites.Count > 0)
         {
-            RaiseNetworkEvent(new HitscanEvent
-            {
-                Sprites = sprites,
-            }, Filter.Pvs(fromCoordinates, entityMan: EntityManager));
+            RaiseNetworkEvent(
+                new HitscanEvent { Sprites = sprites },
+                Filter.Pvs(fromCoordinates, entityMan: EntityManager)
+            );
         }
     }
 

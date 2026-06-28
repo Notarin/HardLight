@@ -22,7 +22,7 @@ public sealed class MapTextSystem : SharedMapTextSystem
             Color = ent.Comp.Color,
             FontId = ent.Comp.FontId,
             FontSize = ent.Comp.FontSize,
-            Offset = ent.Comp.Offset
+            Offset = ent.Comp.Offset,
         };
     }
 }

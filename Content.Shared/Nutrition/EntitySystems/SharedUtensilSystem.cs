@@ -1,5 +1,3 @@
 namespace Content.Shared.Nutrition.EntitySystems;
 
-public abstract class SharedUtensilSystem : EntitySystem
-{
-}
+public abstract class SharedUtensilSystem : EntitySystem { }

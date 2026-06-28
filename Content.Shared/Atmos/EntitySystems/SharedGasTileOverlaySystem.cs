@@ -12,7 +12,8 @@ namespace Content.Shared.Atmos.EntitySystems
         protected float AccumulatedFrameTime;
         protected bool PvsEnabled;
 
-        [Dependency] protected readonly IPrototypeManager ProtoMan = default!;
+        [Dependency]
+        protected readonly IPrototypeManager ProtoMan = default!;
 
         /// <summary>
         ///     array of the ids of all visible gases.
@@ -29,7 +30,11 @@ namespace Content.Shared.Atmos.EntitySystems
             for (var i = 0; i < Atmospherics.TotalNumberOfGases; i++)
             {
                 var gasPrototype = ProtoMan.Index<GasPrototype>(i.ToString());
-                if (!string.IsNullOrEmpty(gasPrototype.GasOverlayTexture) || !string.IsNullOrEmpty(gasPrototype.GasOverlaySprite) && !string.IsNullOrEmpty(gasPrototype.GasOverlayState))
+                if (
+                    !string.IsNullOrEmpty(gasPrototype.GasOverlayTexture)
+                    || !string.IsNullOrEmpty(gasPrototype.GasOverlaySprite)
+                        && !string.IsNullOrEmpty(gasPrototype.GasOverlayState)
+                )
                     visibleGases.Add(i);
             }
 
@@ -60,7 +65,7 @@ namespace Content.Shared.Atmos.EntitySystems
 
         public static Vector2i GetGasChunkIndices(Vector2i indices)
         {
-            return new((int) MathF.Floor((float) indices.X / ChunkSize), (int) MathF.Floor((float) indices.Y / ChunkSize));
+            return new((int)MathF.Floor((float)indices.X / ChunkSize), (int)MathF.Floor((float)indices.Y / ChunkSize));
         }
 
         [Serializable, NetSerializable]

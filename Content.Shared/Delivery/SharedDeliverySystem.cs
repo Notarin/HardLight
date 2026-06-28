@@ -1,5 +1,4 @@
 using System.Linq;
-using Content.Shared.Shuttles.Components;
 using Content.Shared.Examine;
 using Content.Shared.FingerprintReader;
 using Content.Shared.Hands.EntitySystems;
@@ -8,8 +7,9 @@ using Content.Shared.Interaction.Events;
 using Content.Shared.NameModifier.EntitySystems;
 using Content.Shared.Objectives.Components;
 using Content.Shared.Popups;
-using Content.Shared.Tools.Components;
+using Content.Shared.Shuttles.Components;
 using Content.Shared.Tag;
+using Content.Shared.Tools.Components;
 using Content.Shared.Verbs;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
@@ -23,14 +23,29 @@ namespace Content.Shared.Delivery;
 /// </summary>
 public abstract class SharedDeliverySystem : EntitySystem
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly FingerprintReaderSystem _fingerprintReader = default!;
-    [Dependency] private readonly TagSystem _tag = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly NameModifierSystem _nameModifier = default!;
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly FingerprintReaderSystem _fingerprintReader = default!;
+
+    [Dependency]
+    private readonly TagSystem _tag = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly SharedHandsSystem _hands = default!;
+
+    [Dependency]
+    private readonly NameModifierSystem _nameModifier = default!;
 
     private static readonly ProtoId<TagPrototype> TrashTag = "Trash";
     private static readonly ProtoId<TagPrototype> RecyclableTag = "Recyclable";
@@ -64,7 +79,10 @@ public abstract class SharedDeliverySystem : EntitySystem
 
     private void OnSpawnerExamine(Entity<DeliverySpawnerComponent> ent, ref ExaminedEvent args)
     {
-        args.PushMarkup(Loc.GetString("delivery-teleporter-amount-examine", ("amount", ent.Comp.ContainedDeliveryAmount)), 50);
+        args.PushMarkup(
+            Loc.GetString("delivery-teleporter-amount-examine", ("amount", ent.Comp.ContainedDeliveryAmount)),
+            50
+        );
     }
 
     private void OnUseInHand(Entity<DeliveryComponent> ent, ref UseInHandEvent args)
@@ -90,19 +108,20 @@ public abstract class SharedDeliverySystem : EntitySystem
 
         var user = args.User;
 
-        args.Verbs.Add(new AlternativeVerb()
-        {
-            Act = () =>
+        args.Verbs.Add(
+            new AlternativeVerb()
             {
-                if (ent.Comp.IsLocked)
-                    TryUnlockDelivery(ent, user);
-                else
-                    OpenDelivery(ent, user, false);
-            },
-            Text = ent.Comp.IsLocked ? Loc.GetString("delivery-unlock-verb") : Loc.GetString("delivery-open-verb"),
-        });
+                Act = () =>
+                {
+                    if (ent.Comp.IsLocked)
+                        TryUnlockDelivery(ent, user);
+                    else
+                        OpenDelivery(ent, user, false);
+                },
+                Text = ent.Comp.IsLocked ? Loc.GetString("delivery-unlock-verb") : Loc.GetString("delivery-open-verb"),
+            }
+        );
     }
-
 
     private void OnAttemptSimpleToolUse(Entity<DeliveryComponent> ent, ref AttemptSimpleToolUseEvent args)
     {
@@ -128,30 +147,46 @@ public abstract class SharedDeliverySystem : EntitySystem
 
         var user = args.User;
 
-        args.Verbs.Add(new AlternativeVerb()
-        {
-            Act = () =>
+        args.Verbs.Add(
+            new AlternativeVerb()
             {
-                _audio.PlayPredicted(ent.Comp.OpenSound, ent.Owner, user);
-
-                if(ent.Comp.ContainedDeliveryAmount == 0)
+                Act = () =>
                 {
-                    _popup.PopupPredicted(Loc.GetString("delivery-teleporter-empty", ("entity", ent)), null, ent, user);
-                    return;
-                }
+                    _audio.PlayPredicted(ent.Comp.OpenSound, ent.Owner, user);
 
-                SpawnDeliveries(ent.Owner);
+                    if (ent.Comp.ContainedDeliveryAmount == 0)
+                    {
+                        _popup.PopupPredicted(
+                            Loc.GetString("delivery-teleporter-empty", ("entity", ent)),
+                            null,
+                            ent,
+                            user
+                        );
+                        return;
+                    }
 
-                UpdateDeliverySpawnerVisuals(ent, ent.Comp.ContainedDeliveryAmount);
-            },
-            Text = Loc.GetString("delivery-teleporter-empty-verb"),
-        });
+                    SpawnDeliveries(ent.Owner);
+
+                    UpdateDeliverySpawnerVisuals(ent, ent.Comp.ContainedDeliveryAmount);
+                },
+                Text = Loc.GetString("delivery-teleporter-empty-verb"),
+            }
+        );
     }
 
-    private bool TryUnlockDelivery(Entity<DeliveryComponent> ent, EntityUid user, bool rewardMoney = true, bool force = false)
+    private bool TryUnlockDelivery(
+        Entity<DeliveryComponent> ent,
+        EntityUid user,
+        bool rewardMoney = true,
+        bool force = false
+    )
     {
         // Check fingerprint access if there is a reader on the mail
-        if (!force && TryComp<FingerprintReaderComponent>(ent, out var reader) && !_fingerprintReader.IsAllowed((ent, reader), user))
+        if (
+            !force
+            && TryComp<FingerprintReaderComponent>(ent, out var reader)
+            && !_fingerprintReader.IsAllowed((ent, reader), user)
+        )
             return false;
 
         var deliveryName = _nameModifier.GetBaseName(ent.Owner);
@@ -173,13 +208,27 @@ public abstract class SharedDeliverySystem : EntitySystem
             GrantSpesoReward(ent.AsNullable());
 
         if (!force)
-            _popup.PopupPredicted(Loc.GetString("delivery-unlocked-self", ("delivery", deliveryName)),
-                Loc.GetString("delivery-unlocked-others", ("delivery", deliveryName), ("recipient", Identity.Name(user, EntityManager)), ("possadj", user)), user, user);
+            _popup.PopupPredicted(
+                Loc.GetString("delivery-unlocked-self", ("delivery", deliveryName)),
+                Loc.GetString(
+                    "delivery-unlocked-others",
+                    ("delivery", deliveryName),
+                    ("recipient", Identity.Name(user, EntityManager)),
+                    ("possadj", user)
+                ),
+                user,
+                user
+            );
 
         return true;
     }
 
-    private void OpenDelivery(Entity<DeliveryComponent> ent, EntityUid user, bool attemptPickup = true, bool force = false)
+    private void OpenDelivery(
+        Entity<DeliveryComponent> ent,
+        EntityUid user,
+        bool attemptPickup = true,
+        bool force = false
+    )
     {
         var deliveryName = _nameModifier.GetBaseName(ent.Owner);
 
@@ -201,8 +250,17 @@ public abstract class SharedDeliverySystem : EntitySystem
         DirtyField(ent.Owner, ent.Comp, nameof(DeliveryComponent.IsOpened));
 
         if (!force)
-            _popup.PopupPredicted(Loc.GetString("delivery-opened-self", ("delivery", deliveryName)),
-                Loc.GetString("delivery-opened-others", ("delivery", deliveryName), ("recipient", Identity.Name(user, EntityManager)), ("possadj", user)), user, user);
+            _popup.PopupPredicted(
+                Loc.GetString("delivery-opened-self", ("delivery", deliveryName)),
+                Loc.GetString(
+                    "delivery-opened-others",
+                    ("delivery", deliveryName),
+                    ("recipient", Identity.Name(user, EntityManager)),
+                    ("possadj", user)
+                ),
+                user,
+                user
+            );
 
         if (!_container.TryGetContainer(ent, ent.Comp.Container, out var container))
             return;
@@ -249,7 +307,8 @@ public abstract class SharedDeliverySystem : EntitySystem
 public record struct GetDeliveryMultiplierEvent(float Multiplier)
 {
     // we can't use an optional parameter because the default parameterless constructor defaults everything
-    public GetDeliveryMultiplierEvent() : this(1.0f) { }
+    public GetDeliveryMultiplierEvent()
+        : this(1.0f) { }
 }
 
 /// <summary>

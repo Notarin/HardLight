@@ -56,8 +56,13 @@ public sealed partial class MinSolution : IGraphCondition
         if (quantity >= Quantity)
             return false;
 
-        args.PushMarkup(Loc.GetString("construction-examine-condition-min-solution",
-            ("quantity", Quantity - quantity), ("reagent", Name())) + "\n");
+        args.PushMarkup(
+            Loc.GetString(
+                "construction-examine-condition-min-solution",
+                ("quantity", Quantity - quantity),
+                ("reagent", Name())
+            ) + "\n"
+        );
         return true;
     }
 
@@ -66,11 +71,7 @@ public sealed partial class MinSolution : IGraphCondition
         yield return new ConstructionGuideEntry()
         {
             Localization = "construction-guide-condition-min-solution",
-            Arguments = new (string, object)[]
-            {
-                ("quantity", Quantity),
-                ("reagent", Name())
-            }
+            Arguments = new (string, object)[] { ("quantity", Quantity), ("reagent", Name()) },
         };
     }
 

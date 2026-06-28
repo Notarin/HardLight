@@ -12,10 +12,17 @@ namespace Content.Server.Players.JobWhitelist;
 
 public sealed class JobWhitelistSystem : EntitySystem
 {
-    [Dependency] private readonly IConfigurationManager _config = default!;
-    [Dependency] private readonly JobWhitelistManager _manager = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IPrototypeManager _prototypes = default!;
+    [Dependency]
+    private readonly IConfigurationManager _config = default!;
+
+    [Dependency]
+    private readonly JobWhitelistManager _manager = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypes = default!;
 
     private ImmutableArray<ProtoId<JobPrototype>> _whitelistedJobs = [];
 
@@ -43,8 +50,7 @@ public sealed class JobWhitelistSystem : EntitySystem
         for (var i = ev.Jobs.Count - 1; i >= 0; i--)
         {
             var jobId = ev.Jobs[i];
-            if (_player.TryGetSessionById(ev.Player, out var player) &&
-                !_manager.IsAllowed(player, jobId))
+            if (_player.TryGetSessionById(ev.Player, out var player) && !_manager.IsAllowed(player, jobId))
             {
                 ev.Jobs.RemoveSwap(i);
             }

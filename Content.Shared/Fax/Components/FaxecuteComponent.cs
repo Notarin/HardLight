@@ -9,11 +9,9 @@ namespace Content.Shared.Fax.Components;
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class FaxecuteComponent : Component
 {
-
     /// <summary>
     /// Type of damage dealt when entity is faxecuted.
     /// </summary>
     [DataField(required: true), AutoNetworkedField]
     public DamageSpecifier Damage = new();
 }
-

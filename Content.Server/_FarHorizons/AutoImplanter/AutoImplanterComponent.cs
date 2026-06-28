@@ -7,5 +7,6 @@ public sealed partial class AutoImplanterComponent : Component
 {
     public const string ContainerId = "autoImplant";
 
-    [ViewVariables] public Container Container = default!;
+    [ViewVariables]
+    public Container Container = default!;
 }

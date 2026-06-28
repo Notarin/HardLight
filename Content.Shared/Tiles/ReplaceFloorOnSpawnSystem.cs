@@ -7,10 +7,17 @@ namespace Content.Shared.Tiles;
 
 public sealed class ReplaceFloorOnSpawnSystem : EntitySystem
 {
-    [Dependency] private readonly ITileDefinitionManager _tile = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
+    [Dependency]
+    private readonly ITileDefinitionManager _tile = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototype = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _map = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -36,9 +43,11 @@ public sealed class ReplaceFloorOnSpawnSystem : EntitySystem
             if (!_map.TryGetTileRef(grid, gridComp, actualIndices, out var tile))
                 continue;
 
-            if (ent.Comp.ReplaceableTiles != null &&
-                !tile.Tile.IsEmpty &&
-                !ent.Comp.ReplaceableTiles.Contains(_tile[tile.Tile.TypeId].ID))
+            if (
+                ent.Comp.ReplaceableTiles != null
+                && !tile.Tile.IsEmpty
+                && !ent.Comp.ReplaceableTiles.Contains(_tile[tile.Tile.TypeId].ID)
+            )
                 continue;
 
             var tileToSet = _random.Pick(ent.Comp.ReplacementTiles);

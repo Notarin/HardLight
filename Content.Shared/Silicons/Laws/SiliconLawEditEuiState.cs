@@ -8,6 +8,7 @@ public sealed class SiliconLawsEuiState : EuiStateBase
 {
     public List<SiliconLaw> Laws { get; }
     public NetEntity Target { get; }
+
     public SiliconLawsEuiState(List<SiliconLaw> laws, NetEntity target)
     {
         Laws = laws;

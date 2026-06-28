@@ -19,7 +19,10 @@ namespace Content.Server.Bible.Components
         /// Sound to play when entity is summoned.
         /// </summary>
         [DataField]
-        public SoundSpecifier SummonSound = new SoundCollectionSpecifier(DefaultSummonSound, AudioParams.Default.WithVolume(-4f));
+        public SoundSpecifier SummonSound = new SoundCollectionSpecifier(
+            DefaultSummonSound,
+            AudioParams.Default.WithVolume(-4f)
+        );
 
         /// <summary>
         /// Used for a special item only the Chaplain can summon. Usually a mob, but supports regular items too.
@@ -46,6 +49,7 @@ namespace Content.Server.Bible.Components
         /// Used for respawning
         [DataField("accumulator")]
         public float Accumulator = 0f;
+
         [DataField("respawnTime")]
         public float RespawnTime = 180f;
     }

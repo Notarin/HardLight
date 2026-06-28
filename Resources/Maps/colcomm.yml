@@ -63523,9 +63523,7 @@ entities:
         - ClothingSpeedModifier
         entries:
         - message: >-
-            It provides the following protection:
-
-            - [color=orange]Explosion[/color] damage [color=white]to contents[/color] reduced by [color=lightblue]10%[/color].
+            It provides the following protection: #magic___^_^___line - [color=orange]Explosion[/color] damage [color=white]to contents[/color] reduced by [color=lightblue]10%[/color].
           priority: 0
           component: Armor
         - message: This decreases your running speed by [color=yellow]10%[/color].
@@ -64199,21 +64197,7 @@ entities:
           priority: 0
           component: ClothingSpeedModifier
         - message: >-
-            It provides the following protection:
-
-            - [color=yellow]Blunt[/color] damage reduced by [color=lightblue]60%[/color].
-
-            - [color=yellow]Slash[/color] damage reduced by [color=lightblue]60%[/color].
-
-            - [color=yellow]Piercing[/color] damage reduced by [color=lightblue]70%[/color].
-
-            - [color=yellow]Heat[/color] damage reduced by [color=lightblue]50%[/color].
-
-            - [color=yellow]Radiation[/color] damage reduced by [color=lightblue]75%[/color].
-
-            - [color=yellow]Caustic[/color] damage reduced by [color=lightblue]60%[/color].
-
-            - [color=orange]Explosion[/color] damage reduced by [color=lightblue]50%[/color].
+            It provides the following protection: #magic___^_^___line - [color=yellow]Blunt[/color] damage reduced by [color=lightblue]60%[/color]. #magic___^_^___line - [color=yellow]Slash[/color] damage reduced by [color=lightblue]60%[/color]. #magic___^_^___line - [color=yellow]Piercing[/color] damage reduced by [color=lightblue]70%[/color]. #magic___^_^___line - [color=yellow]Heat[/color] damage reduced by [color=lightblue]50%[/color]. #magic___^_^___line - [color=yellow]Radiation[/color] damage reduced by [color=lightblue]75%[/color]. #magic___^_^___line - [color=yellow]Caustic[/color] damage reduced by [color=lightblue]60%[/color]. #magic___^_^___line - [color=orange]Explosion[/color] damage reduced by [color=lightblue]50%[/color].
           priority: 0
           component: Armor
         title: null
@@ -165498,4 +165482,3 @@ entities:
     - type: Transform
       pos: -39.5,52.5
       parent: 1
-...

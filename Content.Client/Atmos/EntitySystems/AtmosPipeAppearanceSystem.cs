@@ -11,15 +11,21 @@ namespace Content.Client.Atmos.EntitySystems;
 [UsedImplicitly]
 public sealed partial class AtmosPipeAppearanceSystem : SharedAtmosPipeAppearanceSystem
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     public override void Initialize()
     {
         base.Initialize();
 
         SubscribeLocalEvent<PipeAppearanceComponent, ComponentInit>(OnInit);
-        SubscribeLocalEvent<PipeAppearanceComponent, AppearanceChangeEvent>(OnAppearanceChanged, after: [typeof(SubFloorHideSystem)]);
+        SubscribeLocalEvent<PipeAppearanceComponent, AppearanceChangeEvent>(
+            OnAppearanceChanged,
+            after: [typeof(SubFloorHideSystem)]
+        );
     }
 
     private void OnInit(EntityUid uid, PipeAppearanceComponent component, ComponentInit args)
@@ -42,7 +48,11 @@ public sealed partial class AtmosPipeAppearanceSystem : SharedAtmosPipeAppearanc
         }
     }
 
-    private void HideAllPipeConnection(Entity<SpriteComponent> entity, AtmosPipeLayersComponent? atmosPipeLayers, int numberOfPipeLayers)
+    private void HideAllPipeConnection(
+        Entity<SpriteComponent> entity,
+        AtmosPipeLayersComponent? atmosPipeLayers,
+        int numberOfPipeLayers
+    )
     {
         var sprite = entity.Comp;
 
@@ -75,7 +85,9 @@ public sealed partial class AtmosPipeAppearanceSystem : SharedAtmosPipeAppearanc
 
         var numberOfPipeLayers = GetNumberOfPipeLayers(uid, out var atmosPipeLayers);
 
-        if (!_appearance.TryGetData<int>(uid, PipeVisuals.VisualState, out var worldConnectedDirections, args.Component))
+        if (
+            !_appearance.TryGetData<int>(uid, PipeVisuals.VisualState, out var worldConnectedDirections, args.Component)
+        )
         {
             HideAllPipeConnection((uid, args.Sprite), atmosPipeLayers, numberOfPipeLayers);
             return;
@@ -89,7 +101,9 @@ public sealed partial class AtmosPipeAppearanceSystem : SharedAtmosPipeAppearanc
             // Extract the cardinal pipe orientations for the current pipe layer
             // '15' is the four bit mask that is used to extract the pipe orientations of interest from 'worldConnectedDirections'
             // Fun fact: a collection of four bits is called a 'nibble'! They aren't natively supported :(
-            var pipeLayerConnectedDirections = (PipeDirection)(15 & (worldConnectedDirections >> (PipeDirectionHelpers.PipeDirections * i)));
+            var pipeLayerConnectedDirections = (PipeDirection)(
+                15 & (worldConnectedDirections >> (PipeDirectionHelpers.PipeDirections * i))
+            );
 
             // Transform the connected directions to local-coordinates
             var connectedDirections = pipeLayerConnectedDirections.RotatePipeDirection(-Transform(uid).LocalRotation);

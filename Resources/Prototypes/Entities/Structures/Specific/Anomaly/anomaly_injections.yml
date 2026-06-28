@@ -13,7 +13,7 @@
 - type: entity
   parent: AnomalyInjectionBase
   id: AnomalyInjectionPyroclastic
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: PointLight
     color: "#E25822"
@@ -37,7 +37,7 @@
 - type: entity
   parent: AnomalyInjectionBase
   id: AnomalyInjectionElectric
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: PointLight
     color: "#ffffaa"
@@ -51,7 +51,7 @@
 - type: entity
   parent: AnomalyInjectionBase
   id: AnomalyInjectionShadow
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: PointLight
     color: "#793a80"
@@ -76,7 +76,7 @@
 - type: entity
   parent: AnomalyInjectionBase
   id: AnomalyInjectionIce
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: PointLight
     color: "#befaff"
@@ -109,7 +109,7 @@
 - type: entity
   parent: AnomalyInjectionBase
   id: AnomalyInjectionFlora
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: PointLight
     color: "#6270bb"
@@ -147,7 +147,7 @@
 - type: entity
   parent: AnomalyInjectionBase
   id: AnomalyInjectionBluespace
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: PointLight
     color: "#00ccff"
@@ -156,7 +156,7 @@
 - type: entity
   parent: AnomalyInjectionBase
   id: AnomalyInjectionFlesh
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: PointLight
     color: "#cb5b7e"
@@ -234,7 +234,7 @@
 - type: entity
   parent: AnomalyInjectionBase
   id: AnomalyInjectionGravity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: PointLight
     color: "#1e070e"
@@ -252,12 +252,12 @@
 - type: entity
   parent: AnomalyInjectionBase
   id: AnomalyInjectionTech
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: PointLight
     color: "#56c1e8"
   - type: TechAnomaly
-    linkRadius: 
+    linkRadius:
       min: 2
       max: 5
     linkCountPerPulse:
@@ -266,8 +266,8 @@
     linkCountSupercritical: 15
   - type: DeviceLinkSource
     ports:
-      - Pulse
-      - Timer
+    - Pulse
+    - Timer
   - type: WirelessNetworkConnection
     range: 10
   - type: DeviceNetwork
@@ -277,7 +277,7 @@
 - type: entity
   parent: AnomalyInjectionBase
   id: AnomalyInjectionRock
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: PointLight
     color: "#5ca8cb"
@@ -355,7 +355,7 @@
 - type: entity
   parent: AnomalyInjectionBase
   id: AnomalyInjectionSanta
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: PointLight
     color: "#db8127"

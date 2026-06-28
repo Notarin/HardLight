@@ -7,7 +7,4 @@ namespace Content.Shared.Lock;
 /// This is used for a <see cref="AnchorableComponent"/> that cannot be unanchored while locked.
 /// </summary>
 [RegisterComponent, NetworkedComponent, Access(typeof(LockSystem))]
-public sealed partial class LockedAnchorableComponent : Component
-{
-
-}
+public sealed partial class LockedAnchorableComponent : Component { }

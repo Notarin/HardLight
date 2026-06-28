@@ -25,8 +25,11 @@ namespace Content.Client._NF.Guidebook.Controls;
 [UsedImplicitly, GenerateTypedNameReferences]
 public sealed partial class GuideMedicalEmbed : BoxContainer, IDocumentTag, ISearchableControl
 {
-    [Dependency] private readonly IEntitySystemManager _systemManager = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
+    [Dependency]
+    private readonly IEntitySystemManager _systemManager = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototype = default!;
 
     private readonly MedicalGuideDataSystem _medicalGuideData;
     private readonly ISawmill _logger = default!;
@@ -40,7 +43,8 @@ public sealed partial class GuideMedicalEmbed : BoxContainer, IDocumentTag, ISea
         MouseFilter = MouseFilterMode.Stop;
     }
 
-    public GuideMedicalEmbed(MedicalGuideEntry entry) : this()
+    public GuideMedicalEmbed(MedicalGuideEntry entry)
+        : this()
     {
         GenerateControl(entry);
     }
@@ -48,7 +52,7 @@ public sealed partial class GuideMedicalEmbed : BoxContainer, IDocumentTag, ISea
     public bool CheckMatchesSearch(string query)
     {
         return ResultName.GetMessage()?.Contains(query, StringComparison.InvariantCultureIgnoreCase) == true
-               || Description.GetMessage()?.Contains(query, StringComparison.InvariantCultureIgnoreCase) == true;
+            || Description.GetMessage()?.Contains(query, StringComparison.InvariantCultureIgnoreCase) == true;
     }
 
     public void SetHiddenState(bool state, string query)
@@ -86,8 +90,12 @@ public sealed partial class GuideMedicalEmbed : BoxContainer, IDocumentTag, ISea
             return;
         }
 
-        var composition = data.Composition
-            .Select(it => _prototype.TryIndex<ReagentPrototype>(it.Reagent.Prototype, out var reagent) ? (reagent, it.Quantity) : (null, 0))
+        var composition = data
+            .Composition.Select(it =>
+                _prototype.TryIndex<ReagentPrototype>(it.Reagent.Prototype, out var reagent)
+                    ? (reagent, it.Quantity)
+                    : (null, 0)
+            )
             .Where(it => it.reagent is not null)
             .Cast<(ReagentPrototype, FixedPoint2)>()
             .ToList();
@@ -96,10 +104,7 @@ public sealed partial class GuideMedicalEmbed : BoxContainer, IDocumentTag, ISea
 
         CalculateColors(composition, out var textColor, out var backgroundColor);
 
-        NameBackground.PanelOverride = new StyleBoxFlat
-        {
-            BackgroundColor = backgroundColor
-        };
+        NameBackground.PanelOverride = new StyleBoxFlat { BackgroundColor = backgroundColor };
         ResultName.SetMarkup(Loc.GetString("guidebook-food-name", ("color", textColor), ("name", proto.Name)));
 
         #endregion
@@ -156,11 +161,17 @@ public sealed partial class GuideMedicalEmbed : BoxContainer, IDocumentTag, ISea
         Description.SetMessage(description);
     }
 
-    private void CalculateColors(List<(ReagentPrototype, FixedPoint2)> composition, out Color text, out Color background)
+    private void CalculateColors(
+        List<(ReagentPrototype, FixedPoint2)> composition,
+        out Color text,
+        out Color background
+    )
     {
         // Background color is calculated as the weighted average of the colors of the composition.
         // Text color is determined based on background luminosity.
-        float r = 0, g = 0, b = 0;
+        float r = 0,
+            g = 0,
+            b = 0;
         FixedPoint2 weight = 0;
 
         foreach (var (proto, quantity) in composition)

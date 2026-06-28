@@ -40159,11 +40159,7 @@ entities:
         - ClothingSpeedModifier
         entries:
         - message: >-
-            It provides the following protection:
-
-            - [color=blue]Stamina[/color] damage reduced by [color=lightblue]0%[/color].
-
-            - [color=orange]Explosion[/color] damage [color=white]to contents[/color] reduced by [color=lightblue]10%[/color].
+            It provides the following protection: #magic___^_^___line - [color=blue]Stamina[/color] damage reduced by [color=lightblue]0%[/color]. #magic___^_^___line - [color=orange]Explosion[/color] damage [color=white]to contents[/color] reduced by [color=lightblue]10%[/color].
           priority: 0
           component: Armor
         - message: This decreases your running speed by [color=yellow]10%[/color].
@@ -190711,4 +190707,3 @@ entities:
     - type: Transform
       pos: -9.363627,-26.423508
       parent: 2
-...

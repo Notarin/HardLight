@@ -7,7 +7,8 @@ namespace Content.Server.SurveillanceCamera;
 [RegisterComponent]
 public sealed partial class SurveillanceCameraRouterComponent : Component
 {
-    [ViewVariables] public bool Active { get; set; }
+    [ViewVariables]
+    public bool Active { get; set; }
 
     // The name of the subnet connected to this router.
     [DataField("subnetName")]
@@ -23,9 +24,13 @@ public sealed partial class SurveillanceCameraRouterComponent : Component
     [ViewVariables]
     // The frequency that talks to this router's subnet.
     public uint SubnetFrequency;
-    [DataField("subnetFrequency", customTypeSerializer:typeof(PrototypeIdSerializer<DeviceFrequencyPrototype>))]
-    public string? SubnetFrequencyId { get; set;  }
 
-    [DataField("setupAvailableNetworks", customTypeSerializer:typeof(PrototypeIdListSerializer<DeviceFrequencyPrototype>))]
+    [DataField("subnetFrequency", customTypeSerializer: typeof(PrototypeIdSerializer<DeviceFrequencyPrototype>))]
+    public string? SubnetFrequencyId { get; set; }
+
+    [DataField(
+        "setupAvailableNetworks",
+        customTypeSerializer: typeof(PrototypeIdListSerializer<DeviceFrequencyPrototype>)
+    )]
     public List<string> AvailableNetworks { get; private set; } = new();
 }

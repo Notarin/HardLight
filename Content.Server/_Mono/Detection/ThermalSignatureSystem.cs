@@ -2,6 +2,8 @@
 //
 // SPDX-License-Identifier: MPL-2.0
 
+using System;
+using System.Collections.Generic;
 using Content.Server.Power.Components;
 using Content.Server.Shuttles.Components;
 using Content.Shared._Mono.Detection;
@@ -12,8 +14,6 @@ using Content.Shared.Shuttles.Systems;
 using Content.Shared.Weapons.Ranged.Components;
 using Content.Shared.Weapons.Ranged.Systems;
 using Robust.Shared.Map.Components;
-using System;
-using System.Collections.Generic;
 
 namespace Content.Server._Mono.Detection;
 
@@ -22,7 +22,8 @@ namespace Content.Server._Mono.Detection;
 /// </summary>
 public sealed class ThermalSignatureSystem : EntitySystem
 {
-    [Dependency] private readonly SharedPowerReceiverSystem _power = default!;
+    [Dependency]
+    private readonly SharedPowerReceiverSystem _power = default!;
 
     private TimeSpan _updateInterval = TimeSpan.FromSeconds(0.5);
     private TimeSpan _updateAccumulator = TimeSpan.FromSeconds(0);
@@ -31,6 +32,7 @@ public sealed class ThermalSignatureSystem : EntitySystem
     private EntityQuery<GunComponent> _gunQuery;
     private readonly Dictionary<EntityUid, float> _gridHeatAccumulator = new();
     private readonly HashSet<EntityUid> _dirtyGrids = new();
+
     // Last value we actually networked per grid. Used to skip Dirty() when the
     // per-tick change is below an audible threshold for radar UI, since the
     // half-second cadence × dozens of grids was generating large amounts of
@@ -170,8 +172,7 @@ public sealed class ThermalSignatureSystem : EntitySystem
 
             // Always Dirty when crossing the zero boundary so clients reliably get the on/off
             // transition; otherwise only Dirty when the change is meaningful for the UI.
-            if (MathF.Abs(current - last) < DirtyHeatEpsilon
-                && (current == 0f) == (last == 0f))
+            if (MathF.Abs(current - last) < DirtyHeatEpsilon && (current == 0f) == (last == 0f))
             {
                 continue;
             }

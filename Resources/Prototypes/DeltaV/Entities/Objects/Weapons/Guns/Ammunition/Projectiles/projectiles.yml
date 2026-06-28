@@ -3,7 +3,7 @@
   name: 45_magnum bolt
   id: BulletEnergyGun45_magnum
   parent: BaseBullet
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Reflective
     reflective:
@@ -23,8 +23,7 @@
   - type: Fixtures
     fixtures:
       projectile:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.2,-0.2,0.2,0.2"
         hard: false
         mask:

@@ -16,7 +16,7 @@ namespace Content.Server.Database.Migrations.Postgres
                 columns: table => new
                 {
                     player_user_id = table.Column<Guid>(type: "uuid", nullable: false),
-                    role_id = table.Column<string>(type: "text", nullable: false)
+                    role_id = table.Column<string>(type: "text", nullable: false),
                 },
                 constraints: table =>
                 {
@@ -26,15 +26,16 @@ namespace Content.Server.Database.Migrations.Postgres
                         column: x => x.player_user_id,
                         principalTable: "player",
                         principalColumn: "user_id",
-                        onDelete: ReferentialAction.Cascade);
-                });
+                        onDelete: ReferentialAction.Cascade
+                    );
+                }
+            );
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "role_whitelists");
+            migrationBuilder.DropTable(name: "role_whitelists");
         }
     }
 }

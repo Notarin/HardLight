@@ -8,9 +8,9 @@
     - to: timelineDisruptor
       completed:
       - !type:SpawnPrototype
-            prototype: TimelineDisruptorFlatpack
-            amount: 1
+        prototype: TimelineDisruptorFlatpack
+        amount: 1
       - !type:DeleteEntity {}
       steps:
-        - tool: Screwing
-          doAfter: 5
+      - tool: Screwing
+        doAfter: 5

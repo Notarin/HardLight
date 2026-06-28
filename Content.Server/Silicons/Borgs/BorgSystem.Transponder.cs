@@ -1,15 +1,15 @@
-using Content.Shared.DeviceNetwork;
-using Content.Shared.Movement.Components;
-using Content.Shared.Popups;
-using Content.Shared.Robotics;
-using Content.Shared.Silicons.Borgs.Components;
-using Content.Shared.DeviceNetwork.Components;
-using Content.Shared.DeviceNetwork.Events;
-using Content.Shared.Emag.Systems;
 using Content.Server.DeviceNetwork;
 using Content.Server.DeviceNetwork.Components;
 using Content.Server.DeviceNetwork.Systems;
 using Content.Server.Explosion.Components;
+using Content.Shared.DeviceNetwork;
+using Content.Shared.DeviceNetwork.Components;
+using Content.Shared.DeviceNetwork.Events;
+using Content.Shared.Emag.Systems;
+using Content.Shared.Movement.Components;
+using Content.Shared.Popups;
+using Content.Shared.Robotics;
+using Content.Shared.Silicons.Borgs.Components;
 using Robust.Shared.Utility;
 
 namespace Content.Server.Silicons.Borgs;
@@ -17,7 +17,8 @@ namespace Content.Server.Silicons.Borgs;
 /// <inheritdoc/>
 public sealed partial class BorgSystem
 {
-    [Dependency] private readonly EmagSystem _emag = default!;
+    [Dependency]
+    private readonly EmagSystem _emag = default!;
 
     private void InitializeTransponder()
     {
@@ -29,10 +30,15 @@ public sealed partial class BorgSystem
         base.Update(frameTime);
 
         var now = _timing.CurTime;
-        var query = EntityQueryEnumerator<BorgTransponderComponent, BorgChassisComponent, DeviceNetworkComponent, MetaDataComponent>();
+        var query = EntityQueryEnumerator<
+            BorgTransponderComponent,
+            BorgChassisComponent,
+            DeviceNetworkComponent,
+            MetaDataComponent
+        >();
         while (query.MoveNext(out var uid, out var comp, out var chassis, out var device, out var meta))
         {
-            if (comp.NextDisable is {} nextDisable && now >= nextDisable)
+            if (comp.NextDisable is { } nextDisable && now >= nextDisable)
                 DoDisable((uid, comp, chassis, meta));
 
             if (now < comp.NextBroadcast)
@@ -51,12 +57,13 @@ public sealed partial class BorgSystem
                 charge,
                 chassis.ModuleCount,
                 hasBrain,
-                canDisable);
+                canDisable
+            );
 
             var payload = new NetworkPayload()
             {
                 [DeviceNetworkConstants.Command] = DeviceNetworkConstants.CmdUpdatedState,
-                [RoboticsConsoleConstants.NET_CYBORG_DATA] = data
+                [RoboticsConsoleConstants.NET_CYBORG_DATA] = data,
             };
             _deviceNetwork.QueuePacket(uid, null, payload, device: device);
 
@@ -74,7 +81,7 @@ public sealed partial class BorgSystem
             return;
         }
 
-        if (ent.Comp2.BrainEntity is not {} brain)
+        if (ent.Comp2.BrainEntity is not { } brain)
             return;
 
         var message = Loc.GetString(ent.Comp1.DisabledPopup, ("name", Name(ent, ent.Comp3)));
@@ -140,7 +147,12 @@ public sealed partial class BorgSystem
     {
         if (_emag.CheckFlag(uid, EmagType.Interaction))
         {
-            Popup.PopupEntity(Loc.GetString($"borg-transponder-emagged-{name}-popup"), uid, uid, PopupType.LargeCaution);
+            Popup.PopupEntity(
+                Loc.GetString($"borg-transponder-emagged-{name}-popup"),
+                uid,
+                uid,
+                PopupType.LargeCaution
+            );
             return true;
         }
 

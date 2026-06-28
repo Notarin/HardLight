@@ -12,11 +12,20 @@ namespace Content.Server.Administration.Commands;
 [AdminCommand(AdminFlags.Ban)]
 public sealed class JobWhitelistAddCommand : LocalizedCommands
 {
-    [Dependency] private readonly IServerDbManager _db = default!;
-    [Dependency] private readonly JobWhitelistManager _jobWhitelist = default!;
-    [Dependency] private readonly IPlayerLocator _playerLocator = default!;
-    [Dependency] private readonly IPlayerManager _players = default!;
-    [Dependency] private readonly IPrototypeManager _prototypes = default!;
+    [Dependency]
+    private readonly IServerDbManager _db = default!;
+
+    [Dependency]
+    private readonly JobWhitelistManager _jobWhitelist = default!;
+
+    [Dependency]
+    private readonly IPlayerLocator _playerLocator = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _players = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypes = default!;
 
     public override string Command => "jobwhitelistadd";
 
@@ -24,9 +33,13 @@ public sealed class JobWhitelistAddCommand : LocalizedCommands
     {
         if (args.Length != 2)
         {
-            shell.WriteError(Loc.GetString("shell-wrong-arguments-number-need-specific",
-                ("properAmount", 2),
-                ("currentAmount", args.Length)));
+            shell.WriteError(
+                Loc.GetString(
+                    "shell-wrong-arguments-number-need-specific",
+                    ("properAmount", 2),
+                    ("currentAmount", args.Length)
+                )
+            );
             shell.WriteLine(Help);
             return;
         }
@@ -47,18 +60,26 @@ public sealed class JobWhitelistAddCommand : LocalizedCommands
             var isWhitelisted = await _db.IsJobWhitelisted(guid, job);
             if (isWhitelisted)
             {
-                shell.WriteLine(Loc.GetString("cmd-jobwhitelistadd-already-whitelisted",
-                    ("player", player),
-                    ("jobId", job.Id),
-                    ("jobName", jobPrototype.LocalizedName)));
+                shell.WriteLine(
+                    Loc.GetString(
+                        "cmd-jobwhitelistadd-already-whitelisted",
+                        ("player", player),
+                        ("jobId", job.Id),
+                        ("jobName", jobPrototype.LocalizedName)
+                    )
+                );
                 return;
             }
 
             _jobWhitelist.AddWhitelist(guid, job);
-            shell.WriteLine(Loc.GetString("cmd-jobwhitelistadd-added",
-                ("player", player),
-                ("jobId", job.Id),
-                ("jobName", jobPrototype.LocalizedName)));
+            shell.WriteLine(
+                Loc.GetString(
+                    "cmd-jobwhitelistadd-added",
+                    ("player", player),
+                    ("jobId", job.Id),
+                    ("jobName", jobPrototype.LocalizedName)
+                )
+            );
             return;
         }
 
@@ -71,14 +92,16 @@ public sealed class JobWhitelistAddCommand : LocalizedCommands
         {
             return CompletionResult.FromHintOptions(
                 _players.Sessions.Select(s => s.Name),
-                Loc.GetString("cmd-jobwhitelist-hint-player"));
+                Loc.GetString("cmd-jobwhitelist-hint-player")
+            );
         }
 
         if (args.Length == 2)
         {
             return CompletionResult.FromHintOptions(
                 _prototypes.EnumeratePrototypes<JobPrototype>().Select(p => p.ID),
-                Loc.GetString("cmd-jobwhitelist-hint-job"));
+                Loc.GetString("cmd-jobwhitelist-hint-job")
+            );
         }
 
         return CompletionResult.Empty;
@@ -88,9 +111,14 @@ public sealed class JobWhitelistAddCommand : LocalizedCommands
 [AdminCommand(AdminFlags.Ban)]
 public sealed class GetJobWhitelistCommand : LocalizedCommands
 {
-    [Dependency] private readonly IServerDbManager _db = default!;
-    [Dependency] private readonly IPlayerLocator _playerLocator = default!;
-    [Dependency] private readonly IPlayerManager _players = default!;
+    [Dependency]
+    private readonly IServerDbManager _db = default!;
+
+    [Dependency]
+    private readonly IPlayerLocator _playerLocator = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _players = default!;
 
     public override string Command => "jobwhitelistget";
 
@@ -115,9 +143,13 @@ public sealed class GetJobWhitelistCommand : LocalizedCommands
                 return;
             }
 
-            shell.WriteLine(Loc.GetString("cmd-jobwhitelistget-whitelisted-for",
-                ("player", player),
-                ("jobs", string.Join(", ", whitelists))));
+            shell.WriteLine(
+                Loc.GetString(
+                    "cmd-jobwhitelistget-whitelisted-for",
+                    ("player", player),
+                    ("jobs", string.Join(", ", whitelists))
+                )
+            );
             return;
         }
 
@@ -130,7 +162,8 @@ public sealed class GetJobWhitelistCommand : LocalizedCommands
         {
             return CompletionResult.FromHintOptions(
                 _players.Sessions.Select(s => s.Name),
-                Loc.GetString("cmd-jobwhitelist-hint-player"));
+                Loc.GetString("cmd-jobwhitelist-hint-player")
+            );
         }
 
         return CompletionResult.Empty;
@@ -140,11 +173,20 @@ public sealed class GetJobWhitelistCommand : LocalizedCommands
 [AdminCommand(AdminFlags.Ban)]
 public sealed class RemoveJobWhitelistCommand : LocalizedCommands
 {
-    [Dependency] private readonly IServerDbManager _db = default!;
-    [Dependency] private readonly JobWhitelistManager _jobWhitelist = default!;
-    [Dependency] private readonly IPlayerLocator _playerLocator = default!;
-    [Dependency] private readonly IPlayerManager _players = default!;
-    [Dependency] private readonly IPrototypeManager _prototypes = default!;
+    [Dependency]
+    private readonly IServerDbManager _db = default!;
+
+    [Dependency]
+    private readonly JobWhitelistManager _jobWhitelist = default!;
+
+    [Dependency]
+    private readonly IPlayerLocator _playerLocator = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _players = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypes = default!;
 
     public override string Command => "jobwhitelistremove";
 
@@ -152,9 +194,13 @@ public sealed class RemoveJobWhitelistCommand : LocalizedCommands
     {
         if (args.Length != 2)
         {
-            shell.WriteError(Loc.GetString("shell-wrong-arguments-number-need-specific",
-                ("properAmount", 2),
-                ("currentAmount", args.Length)));
+            shell.WriteError(
+                Loc.GetString(
+                    "shell-wrong-arguments-number-need-specific",
+                    ("properAmount", 2),
+                    ("currentAmount", args.Length)
+                )
+            );
             shell.WriteLine(Help);
             return;
         }
@@ -175,18 +221,26 @@ public sealed class RemoveJobWhitelistCommand : LocalizedCommands
             var isWhitelisted = await _db.IsJobWhitelisted(guid, job);
             if (!isWhitelisted)
             {
-                shell.WriteError(Loc.GetString("cmd-jobwhitelistremove-was-not-whitelisted",
-                    ("player", player),
-                    ("jobId", job.Id),
-                    ("jobName", jobPrototype.LocalizedName)));
+                shell.WriteError(
+                    Loc.GetString(
+                        "cmd-jobwhitelistremove-was-not-whitelisted",
+                        ("player", player),
+                        ("jobId", job.Id),
+                        ("jobName", jobPrototype.LocalizedName)
+                    )
+                );
                 return;
             }
 
             _jobWhitelist.RemoveWhitelist(guid, job);
-            shell.WriteLine(Loc.GetString("cmd-jobwhitelistremove-removed",
-                ("player", player),
-                ("jobId", job.Id),
-                ("jobName", jobPrototype.LocalizedName)));
+            shell.WriteLine(
+                Loc.GetString(
+                    "cmd-jobwhitelistremove-removed",
+                    ("player", player),
+                    ("jobId", job.Id),
+                    ("jobName", jobPrototype.LocalizedName)
+                )
+            );
             return;
         }
 
@@ -199,14 +253,16 @@ public sealed class RemoveJobWhitelistCommand : LocalizedCommands
         {
             return CompletionResult.FromHintOptions(
                 _players.Sessions.Select(s => s.Name),
-                Loc.GetString("cmd-jobwhitelist-hint-player"));
+                Loc.GetString("cmd-jobwhitelist-hint-player")
+            );
         }
 
         if (args.Length == 2)
         {
             return CompletionResult.FromHintOptions(
                 _prototypes.EnumeratePrototypes<JobPrototype>().Select(p => p.ID),
-                Loc.GetString("cmd-jobwhitelist-hint-job"));
+                Loc.GetString("cmd-jobwhitelist-hint-job")
+            );
         }
 
         return CompletionResult.Empty;

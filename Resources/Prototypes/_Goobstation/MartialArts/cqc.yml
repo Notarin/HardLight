@@ -19,10 +19,9 @@
   attacks:
   - Grab
   - Harm
-  event: !type:CqcSlamPerformedEvent { }
+  event: !type:CqcSlamPerformedEvent {}
   extraDamage: 10 #
   paralyzeTime: 12 # in seconds
-
 
 - type: combo
   id: CQCKick

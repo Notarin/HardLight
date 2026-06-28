@@ -15,11 +15,20 @@ namespace Content.Shared.Research.TechnologyDisk.Systems;
 
 public sealed class TechnologyDiskSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _protoMan = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedResearchSystem _research = default!;
-    [Dependency] private readonly SharedLatheSystem _lathe = default!;
+    [Dependency]
+    private readonly IPrototypeManager _protoMan = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SharedResearchSystem _research = default!;
+
+    [Dependency]
+    private readonly SharedLatheSystem _lathe = default!;
 
     public override void Initialize()
     {
@@ -62,7 +71,9 @@ public sealed class TechnologyDiskSystem : EntitySystem
         if (args.Handled || !args.CanReach || args.Target is not { } target)
             return;
 
-        if (!HasComp<ResearchServerComponent>(target) || !TryComp<TechnologyDatabaseComponent>(target, out var database))
+        if (
+            !HasComp<ResearchServerComponent>(target) || !TryComp<TechnologyDatabaseComponent>(target, out var database)
+        )
             return;
 
         if (ent.Comp.Recipes != null)

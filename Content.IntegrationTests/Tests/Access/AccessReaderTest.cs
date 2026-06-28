@@ -19,7 +19,6 @@ namespace Content.IntegrationTests.Tests.Access
             var server = pair.Server;
             var entityManager = server.ResolveDependency<IEntityManager>();
 
-
             await server.WaitAssertion(() =>
             {
                 var system = entityManager.System<AccessReaderSystem>();
@@ -28,9 +27,18 @@ namespace Content.IntegrationTests.Tests.Access
                 var reader = new AccessReaderComponent();
                 Assert.Multiple(() =>
                 {
-                    Assert.That(system.AreAccessTagsAllowed(new List<ProtoId<AccessLevelPrototype>> { "Foo" }, reader), Is.True);
-                    Assert.That(system.AreAccessTagsAllowed(new List<ProtoId<AccessLevelPrototype>> { "Bar" }, reader), Is.True);
-                    Assert.That(system.AreAccessTagsAllowed(Array.Empty<ProtoId<AccessLevelPrototype>>(), reader), Is.True);
+                    Assert.That(
+                        system.AreAccessTagsAllowed(new List<ProtoId<AccessLevelPrototype>> { "Foo" }, reader),
+                        Is.True
+                    );
+                    Assert.That(
+                        system.AreAccessTagsAllowed(new List<ProtoId<AccessLevelPrototype>> { "Bar" }, reader),
+                        Is.True
+                    );
+                    Assert.That(
+                        system.AreAccessTagsAllowed(Array.Empty<ProtoId<AccessLevelPrototype>>(), reader),
+                        Is.True
+                    );
                 });
 
                 // test deny
@@ -38,10 +46,22 @@ namespace Content.IntegrationTests.Tests.Access
                 reader.DenyTags.Add("A");
                 Assert.Multiple(() =>
                 {
-                    Assert.That(system.AreAccessTagsAllowed(new List<ProtoId<AccessLevelPrototype>> { "Foo" }, reader), Is.True);
-                    Assert.That(system.AreAccessTagsAllowed(new List<ProtoId<AccessLevelPrototype>> { "A" }, reader), Is.False);
-                    Assert.That(system.AreAccessTagsAllowed(new List<ProtoId<AccessLevelPrototype>> { "A", "Foo" }, reader), Is.False);
-                    Assert.That(system.AreAccessTagsAllowed(Array.Empty<ProtoId<AccessLevelPrototype>>(), reader), Is.True);
+                    Assert.That(
+                        system.AreAccessTagsAllowed(new List<ProtoId<AccessLevelPrototype>> { "Foo" }, reader),
+                        Is.True
+                    );
+                    Assert.That(
+                        system.AreAccessTagsAllowed(new List<ProtoId<AccessLevelPrototype>> { "A" }, reader),
+                        Is.False
+                    );
+                    Assert.That(
+                        system.AreAccessTagsAllowed(new List<ProtoId<AccessLevelPrototype>> { "A", "Foo" }, reader),
+                        Is.False
+                    );
+                    Assert.That(
+                        system.AreAccessTagsAllowed(Array.Empty<ProtoId<AccessLevelPrototype>>(), reader),
+                        Is.True
+                    );
                 });
 
                 // test one list
@@ -49,10 +69,22 @@ namespace Content.IntegrationTests.Tests.Access
                 reader.AccessLists.Add(new HashSet<ProtoId<AccessLevelPrototype>> { "A" });
                 Assert.Multiple(() =>
                 {
-                    Assert.That(system.AreAccessTagsAllowed(new List<ProtoId<AccessLevelPrototype>> { "A" }, reader), Is.True);
-                    Assert.That(system.AreAccessTagsAllowed(new List<ProtoId<AccessLevelPrototype>> { "B" }, reader), Is.False);
-                    Assert.That(system.AreAccessTagsAllowed(new List<ProtoId<AccessLevelPrototype>> { "A", "B" }, reader), Is.True);
-                    Assert.That(system.AreAccessTagsAllowed(Array.Empty<ProtoId<AccessLevelPrototype>>(), reader), Is.False);
+                    Assert.That(
+                        system.AreAccessTagsAllowed(new List<ProtoId<AccessLevelPrototype>> { "A" }, reader),
+                        Is.True
+                    );
+                    Assert.That(
+                        system.AreAccessTagsAllowed(new List<ProtoId<AccessLevelPrototype>> { "B" }, reader),
+                        Is.False
+                    );
+                    Assert.That(
+                        system.AreAccessTagsAllowed(new List<ProtoId<AccessLevelPrototype>> { "A", "B" }, reader),
+                        Is.True
+                    );
+                    Assert.That(
+                        system.AreAccessTagsAllowed(Array.Empty<ProtoId<AccessLevelPrototype>>(), reader),
+                        Is.False
+                    );
                 });
 
                 // test one list - two items
@@ -60,10 +92,22 @@ namespace Content.IntegrationTests.Tests.Access
                 reader.AccessLists.Add(new HashSet<ProtoId<AccessLevelPrototype>> { "A", "B" });
                 Assert.Multiple(() =>
                 {
-                    Assert.That(system.AreAccessTagsAllowed(new List<ProtoId<AccessLevelPrototype>> { "A" }, reader), Is.False);
-                    Assert.That(system.AreAccessTagsAllowed(new List<ProtoId<AccessLevelPrototype>> { "B" }, reader), Is.False);
-                    Assert.That(system.AreAccessTagsAllowed(new List<ProtoId<AccessLevelPrototype>> { "A", "B" }, reader), Is.True);
-                    Assert.That(system.AreAccessTagsAllowed(Array.Empty<ProtoId<AccessLevelPrototype>>(), reader), Is.False);
+                    Assert.That(
+                        system.AreAccessTagsAllowed(new List<ProtoId<AccessLevelPrototype>> { "A" }, reader),
+                        Is.False
+                    );
+                    Assert.That(
+                        system.AreAccessTagsAllowed(new List<ProtoId<AccessLevelPrototype>> { "B" }, reader),
+                        Is.False
+                    );
+                    Assert.That(
+                        system.AreAccessTagsAllowed(new List<ProtoId<AccessLevelPrototype>> { "A", "B" }, reader),
+                        Is.True
+                    );
+                    Assert.That(
+                        system.AreAccessTagsAllowed(Array.Empty<ProtoId<AccessLevelPrototype>>(), reader),
+                        Is.False
+                    );
                 });
 
                 // test two list
@@ -72,12 +116,30 @@ namespace Content.IntegrationTests.Tests.Access
                 reader.AccessLists.Add(new HashSet<ProtoId<AccessLevelPrototype>> { "B", "C" });
                 Assert.Multiple(() =>
                 {
-                    Assert.That(system.AreAccessTagsAllowed(new List<ProtoId<AccessLevelPrototype>> { "A" }, reader), Is.True);
-                    Assert.That(system.AreAccessTagsAllowed(new List<ProtoId<AccessLevelPrototype>> { "B" }, reader), Is.False);
-                    Assert.That(system.AreAccessTagsAllowed(new List<ProtoId<AccessLevelPrototype>> { "A", "B" }, reader), Is.True);
-                    Assert.That(system.AreAccessTagsAllowed(new List<ProtoId<AccessLevelPrototype>> { "C", "B" }, reader), Is.True);
-                    Assert.That(system.AreAccessTagsAllowed(new List<ProtoId<AccessLevelPrototype>> { "C", "B", "A" }, reader), Is.True);
-                    Assert.That(system.AreAccessTagsAllowed(Array.Empty<ProtoId<AccessLevelPrototype>>(), reader), Is.False);
+                    Assert.That(
+                        system.AreAccessTagsAllowed(new List<ProtoId<AccessLevelPrototype>> { "A" }, reader),
+                        Is.True
+                    );
+                    Assert.That(
+                        system.AreAccessTagsAllowed(new List<ProtoId<AccessLevelPrototype>> { "B" }, reader),
+                        Is.False
+                    );
+                    Assert.That(
+                        system.AreAccessTagsAllowed(new List<ProtoId<AccessLevelPrototype>> { "A", "B" }, reader),
+                        Is.True
+                    );
+                    Assert.That(
+                        system.AreAccessTagsAllowed(new List<ProtoId<AccessLevelPrototype>> { "C", "B" }, reader),
+                        Is.True
+                    );
+                    Assert.That(
+                        system.AreAccessTagsAllowed(new List<ProtoId<AccessLevelPrototype>> { "C", "B", "A" }, reader),
+                        Is.True
+                    );
+                    Assert.That(
+                        system.AreAccessTagsAllowed(Array.Empty<ProtoId<AccessLevelPrototype>>(), reader),
+                        Is.False
+                    );
                 });
 
                 // test deny list
@@ -86,14 +148,25 @@ namespace Content.IntegrationTests.Tests.Access
                 reader.DenyTags.Add("B");
                 Assert.Multiple(() =>
                 {
-                    Assert.That(system.AreAccessTagsAllowed(new List<ProtoId<AccessLevelPrototype>> { "A" }, reader), Is.True);
-                    Assert.That(system.AreAccessTagsAllowed(new List<ProtoId<AccessLevelPrototype>> { "B" }, reader), Is.False);
-                    Assert.That(system.AreAccessTagsAllowed(new List<ProtoId<AccessLevelPrototype>> { "A", "B" }, reader), Is.False);
-                    Assert.That(system.AreAccessTagsAllowed(Array.Empty<ProtoId<AccessLevelPrototype>>(), reader), Is.False);
+                    Assert.That(
+                        system.AreAccessTagsAllowed(new List<ProtoId<AccessLevelPrototype>> { "A" }, reader),
+                        Is.True
+                    );
+                    Assert.That(
+                        system.AreAccessTagsAllowed(new List<ProtoId<AccessLevelPrototype>> { "B" }, reader),
+                        Is.False
+                    );
+                    Assert.That(
+                        system.AreAccessTagsAllowed(new List<ProtoId<AccessLevelPrototype>> { "A", "B" }, reader),
+                        Is.False
+                    );
+                    Assert.That(
+                        system.AreAccessTagsAllowed(Array.Empty<ProtoId<AccessLevelPrototype>>(), reader),
+                        Is.False
+                    );
                 });
             });
             await pair.CleanReturnAsync();
         }
-
     }
 }

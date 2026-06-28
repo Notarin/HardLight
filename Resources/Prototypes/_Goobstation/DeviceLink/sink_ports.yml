@@ -110,7 +110,6 @@
 
 # Lathe
 
-
 - type: sinkPort
   id: FaxCopy
   name: signal-port-name-fax-copy

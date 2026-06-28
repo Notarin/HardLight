@@ -9,8 +9,11 @@ namespace Content.Client.Mapping;
 
 public sealed class MappingManager : IPostInjectInit
 {
-    [Dependency] private readonly IFileDialogManager _file = default!;
-    [Dependency] private readonly IClientNetManager _net = default!;
+    [Dependency]
+    private readonly IFileDialogManager _file = default!;
+
+    [Dependency]
+    private readonly IClientNetManager _net = default!;
 
     private Stream? _saveStream;
     private MappingMapDataMessage? _mapData;

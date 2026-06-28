@@ -9,8 +9,11 @@ namespace Content.Client.Shuttles.Systems
 {
     public sealed class ShuttleConsoleSystem : SharedShuttleConsoleSystem
     {
-        [Dependency] private readonly IInputManager _input = default!;
-        [Dependency] private readonly IPlayerManager _playerManager = default!;
+        [Dependency]
+        private readonly IInputManager _input = default!;
+
+        [Dependency]
+        private readonly IPlayerManager _playerManager = default!;
 
         public override void Initialize()
         {
@@ -36,14 +39,16 @@ namespace Content.Client.Shuttles.Systems
         protected override void HandlePilotShutdown(EntityUid uid, PilotComponent component, ComponentShutdown args)
         {
             base.HandlePilotShutdown(uid, component, args);
-            if (_playerManager.LocalEntity != uid) return;
+            if (_playerManager.LocalEntity != uid)
+                return;
 
             _input.Contexts.SetActiveContext("human");
         }
 
         private void OnHandleState(EntityUid uid, PilotComponent component, ref ComponentHandleState args)
         {
-            if (args.Current is not PilotComponentState state) return;
+            if (args.Current is not PilotComponentState state)
+                return;
 
             var console = EnsureEntity<PilotComponent>(state.Console, uid);
 

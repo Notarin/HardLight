@@ -6,6 +6,7 @@ using Content.Client.Gameplay;
 using Content.Client.UserInterface.Controls;
 using Content.Client.UserInterface.Systems.MenuBar.Widgets;
 using Content.Shared.Input;
+using JetBrains.Annotations;
 using Robust.Client.Input;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controllers;
@@ -14,7 +15,6 @@ using Robust.Shared.Input.Binding;
 using Robust.Shared.Map;
 using Robust.Shared.Player;
 using Robust.Shared.Utility;
-using JetBrains.Annotations;
 using static Robust.Client.UserInterface.Controls.BaseButton;
 
 namespace Content.Client._Common.Consent.UI;
@@ -22,7 +22,8 @@ namespace Content.Client._Common.Consent.UI;
 [UsedImplicitly]
 public sealed class ConsentUiController : UIController, IOnStateChanged<GameplayState>
 {
-    [Dependency] private readonly IInputManager _input = default!;
+    [Dependency]
+    private readonly IInputManager _input = default!;
 
     private ConsentWindow? _window;
 
@@ -32,8 +33,10 @@ public sealed class ConsentUiController : UIController, IOnStateChanged<Gameplay
     {
         EnsureWindow();
 
-        _input.SetInputCommand(ContentKeyFunctions.OpenConsentWindow,
-            InputCmdHandler.FromDelegate(_ => ToggleWindow()));
+        _input.SetInputCommand(
+            ContentKeyFunctions.OpenConsentWindow,
+            InputCmdHandler.FromDelegate(_ => ToggleWindow())
+        );
     }
 
     public void OnStateExited(GameplayState state)
@@ -76,11 +79,13 @@ public sealed class ConsentUiController : UIController, IOnStateChanged<Gameplay
             return;
 
         _window = UIManager.CreateWindow<ConsentWindow>();
-        _window.OnOpen += () => {
+        _window.OnOpen += () =>
+        {
             if (ConsentButton is not null)
                 ConsentButton.Pressed = true;
         };
-        _window.OnClose += () => {
+        _window.OnClose += () =>
+        {
             if (ConsentButton is not null)
                 ConsentButton.Pressed = false;
             _window.UpdateUi(); // Discard unsaved changes

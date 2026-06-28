@@ -36,10 +36,12 @@ public sealed class InjectorStatusControl : Control
             return;
 
         // only updates the UI if any of the details are different than they previously were
-        if (PrevVolume == solution.Volume
+        if (
+            PrevVolume == solution.Volume
             && PrevMaxVolume == solution.MaxVolume
             && PrevTransferAmount == _parent.Comp.TransferAmount
-            && PrevToggleState == _parent.Comp.ToggleState)
+            && PrevToggleState == _parent.Comp.ToggleState
+        )
             return;
 
         PrevVolume = solution.Volume;
@@ -48,17 +50,23 @@ public sealed class InjectorStatusControl : Control
         PrevToggleState = _parent.Comp.ToggleState;
 
         // Update current volume and injector state
-        var modeStringLocalized = Loc.GetString(_parent.Comp.ToggleState switch
-        {
-            InjectorToggleMode.Draw => "injector-draw-text",
-            InjectorToggleMode.Inject => "injector-inject-text",
-            _ => "injector-invalid-injector-toggle-mode"
-        });
+        var modeStringLocalized = Loc.GetString(
+            _parent.Comp.ToggleState switch
+            {
+                InjectorToggleMode.Draw => "injector-draw-text",
+                InjectorToggleMode.Inject => "injector-inject-text",
+                _ => "injector-invalid-injector-toggle-mode",
+            }
+        );
 
-        _label.SetMarkup(Loc.GetString("injector-volume-label",
-            ("currentVolume", solution.Volume),
-            ("totalVolume", solution.MaxVolume),
-            ("modeString", modeStringLocalized),
-            ("transferVolume", _parent.Comp.TransferAmount)));
+        _label.SetMarkup(
+            Loc.GetString(
+                "injector-volume-label",
+                ("currentVolume", solution.Volume),
+                ("totalVolume", solution.MaxVolume),
+                ("modeString", modeStringLocalized),
+                ("transferVolume", _parent.Comp.TransferAmount)
+            )
+        );
     }
 }

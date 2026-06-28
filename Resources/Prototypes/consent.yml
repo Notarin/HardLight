@@ -8,30 +8,30 @@
   name: Digestion
   description: 'Allow yourself to be digested. WARNING: BEING DIGESTED WILL ROUND-REMOVE YOU.'
 
-# - type: consentToggle
+# - type: consentToggle No mechanics for this yet
+# id: NSFWDescriptions
+# name: See NSFW Descriptions
+# description: Turn this on to see any temporary descriptions that are flagged as NSFW.
+
+- type: consentToggle
+  # - type: consentToggle
   # id: Digestion
   # name: Digestion
   # description: Allow yourself to be digested. WARNING: BEING DIGESTED WILL ROUND-REMOVE YOU.
 
-# - type: consentToggle no mechanics for this
+  # - type: consentToggle no mechanics for this
   # id: Hypno
   # category: Hypno
   # unused: true
   # name: Hypnosis
   # description: Allow yourself to be hypnotized.
 
-# - type: consentToggle Setting doesn't work yet
- #  id: NoClone
+  # - type: consentToggle Setting doesn't work yet
+  #  id: NoClone
   # unused: true
   # name: Disallow Paradox Anomaly
   # description: Turn this on to disallow Paradox clones of yourself.
 
-# - type: consentToggle No mechanics for this yet
-  # id: NSFWDescriptions
-  # name: See NSFW Descriptions
-  # description: Turn this on to see any temporary descriptions that are flagged as NSFW.
-
-- type: consentToggle
   id: GenitalMarkings
   name: See Genital Markings
   description: Turn this on to allow showing/hiding genital markings in-game.

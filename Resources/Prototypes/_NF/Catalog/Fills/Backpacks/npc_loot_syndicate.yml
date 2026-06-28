@@ -5,7 +5,7 @@
   name: syndicate naval operative bundle
   description: Loot boxes? Here?
   abstract: true
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   suffix: NPC Loot
   components:
   - type: Sprite
@@ -19,7 +19,7 @@
     - back
   - type: SpawnItemsOnUse
     items:
-      - id: SpaceCash10
+    - id: SpaceCash10
     sound:
       path: /Audio/Items/jumpsuit_equip.ogg
 
@@ -29,7 +29,7 @@
   name: syndicate naval operative bundle
   description: Loot boxes? Here?
   abstract: true
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   suffix: NPC Loot
   components:
   - type: Sprite
@@ -69,127 +69,127 @@
 - type: entity
   parent: SyndieMessengerGiftBox
   id: ClothingBackpackSyndicateCaptainLootA
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:
-      - id: WeaponRevolverPythonAP
-      - id: SpeedLoader45_magnumAP
-      - id: SpeedLoader45_magnumAP
-      - id: SpaceCash5000
-      # Bonus Loot T3
-      - id: SpaceCash1000
-        prob: 0.9
-      - id: SpaceCash500
-        prob: 0.9
-      - id: SpawnDungeonLootMaterialsBasicFull
-        prob: 0.7
-      - id: SpawnDungeonLootMaterialsValuableFull
-        prob: 0.7
-      - id: SpawnDungeonLootPartsEngi
-        amount: 2
-        prob: 0.7
-      - id: SpawnDungeonLootFlatpacks
-        prob: 0.5
-      - id: SpawnDungeonLootToolsAdvancedEngineering
-        prob: 0.4
-      - id: MercCoin1
-        prob: 1
+    - id: WeaponRevolverPythonAP
+    - id: SpeedLoader45_magnumAP
+    - id: SpeedLoader45_magnumAP
+    - id: SpaceCash5000
+    # Bonus Loot T3
+    - id: SpaceCash1000
+      prob: 0.9
+    - id: SpaceCash500
+      prob: 0.9
+    - id: SpawnDungeonLootMaterialsBasicFull
+      prob: 0.7
+    - id: SpawnDungeonLootMaterialsValuableFull
+      prob: 0.7
+    - id: SpawnDungeonLootPartsEngi
+      amount: 2
+      prob: 0.7
+    - id: SpawnDungeonLootFlatpacks
+      prob: 0.5
+    - id: SpawnDungeonLootToolsAdvancedEngineering
+      prob: 0.4
+    - id: MercCoin1
+      prob: 1
     sound:
       path: /Audio/Items/jumpsuit_equip.ogg
 
 - type: entity
   parent: ClothingBackpackSyndicateCaptainLootA
   id: ClothingBackpackSyndicateCaptainLootB
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:
-      - id: WeaponRevolverPython
-      - id: SpeedLoader45_magnumFMJ
-      - id: SpeedLoader45_magnumFMJ
-      - id: SpaceCash2500
-      # Bonus Loot T3
-      - id: SpaceCash1000
-        prob: 0.9
-      - id: SpaceCash500
-        prob: 0.9
-      - id: SpaceCash1000
-        prob: 0.7
-      - id: SpawnDungeonLootMaterialsValuableFull
-        prob: 0.7
-      - id: SpawnDungeonLootPartsEngi
-        amount: 2
-        prob: 0.7
-      - id: SpawnDungeonLootFlatpacks
-        prob: 0.5
-      - id: SpawnDungeonLootToolsAdvancedEngineering
-        prob: 0.4
-      - id: MercCoin1
-        prob: 1
-      - id: ClothingNeckCloakSIN
-        prob: 0.1
+    - id: WeaponRevolverPython
+    - id: SpeedLoader45_magnumFMJ
+    - id: SpeedLoader45_magnumFMJ
+    - id: SpaceCash2500
+    # Bonus Loot T3
+    - id: SpaceCash1000
+      prob: 0.9
+    - id: SpaceCash500
+      prob: 0.9
+    - id: SpaceCash1000
+      prob: 0.7
+    - id: SpawnDungeonLootMaterialsValuableFull
+      prob: 0.7
+    - id: SpawnDungeonLootPartsEngi
+      amount: 2
+      prob: 0.7
+    - id: SpawnDungeonLootFlatpacks
+      prob: 0.5
+    - id: SpawnDungeonLootToolsAdvancedEngineering
+      prob: 0.4
+    - id: MercCoin1
+      prob: 1
+    - id: ClothingNeckCloakSIN
+      prob: 0.1
     sound:
       path: /Audio/Items/jumpsuit_equip.ogg
 
 - type: entity
   parent: ClothingBackpackSyndicateCaptainLootA
   id: ClothingBackpackSyndicateCaptainLootC
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:
-      - id: SpeedLoader45_magnumFMJ
-      - id: SpaceCash2500
-      # Bonus Loot T3
-      - id: SpaceCash1000
-        prob: 0.9
-      - id: SpaceCash500
-        prob: 0.9
-      - id: SpawnDungeonLootMaterialsBasicFull
-        prob: 0.7
-      - id: SpaceCash1000
-        prob: 0.7
-      - id: SpawnDungeonLootPartsEngi
-        amount: 2
-        prob: 0.7
-      - id: SpawnDungeonLootFlatpacks
-        prob: 0.5
-      - id: SpawnDungeonLootToolsAdvancedEngineering
-        prob: 0.4
-      - id: MercCoin1
-        prob: 1
-      - id: ClothingNeckMantleSIN
-        prob: 0.1
+    - id: SpeedLoader45_magnumFMJ
+    - id: SpaceCash2500
+    # Bonus Loot T3
+    - id: SpaceCash1000
+      prob: 0.9
+    - id: SpaceCash500
+      prob: 0.9
+    - id: SpawnDungeonLootMaterialsBasicFull
+      prob: 0.7
+    - id: SpaceCash1000
+      prob: 0.7
+    - id: SpawnDungeonLootPartsEngi
+      amount: 2
+      prob: 0.7
+    - id: SpawnDungeonLootFlatpacks
+      prob: 0.5
+    - id: SpawnDungeonLootToolsAdvancedEngineering
+      prob: 0.4
+    - id: MercCoin1
+      prob: 1
+    - id: ClothingNeckMantleSIN
+      prob: 0.1
     sound:
       path: /Audio/Items/jumpsuit_equip.ogg
 
 - type: entity
   parent: ClothingBackpackSyndicateCaptainLootA
   id: ClothingBackpackSyndicateCaptainLootD
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:
-      - id: SpaceCash2500
-      # Bonus Loot T3
-      - id: SpaceCash1000
-        prob: 0.9
-      - id: SpaceCash500
-        prob: 0.9
-      - id: SpaceCash1000
-        prob: 0.7
-      - id: SpawnDungeonLootMaterialsValuableFull
-        prob: 0.7
-      - id: SpawnDungeonLootPartsEngi
-        amount: 2
-        prob: 0.7
-      - id: SpawnDungeonLootFlatpacks
-        prob: 0.5
-      - id: SpawnDungeonLootToolsAdvancedEngineering
-        prob: 0.4
-      - id: MercCoin1
-        prob: 1
+    - id: SpaceCash2500
+    # Bonus Loot T3
+    - id: SpaceCash1000
+      prob: 0.9
+    - id: SpaceCash500
+      prob: 0.9
+    - id: SpaceCash1000
+      prob: 0.7
+    - id: SpawnDungeonLootMaterialsValuableFull
+      prob: 0.7
+    - id: SpawnDungeonLootPartsEngi
+      amount: 2
+      prob: 0.7
+    - id: SpawnDungeonLootFlatpacks
+      prob: 0.5
+    - id: SpawnDungeonLootToolsAdvancedEngineering
+      prob: 0.4
+    - id: MercCoin1
+      prob: 1
     sound:
       path: /Audio/Items/jumpsuit_equip.ogg
 
@@ -197,120 +197,120 @@
 - type: entity
   parent: ClothingBackpackSyndicateCaptainLootA
   id: ClothingBackpackSyndicateSecondOfficerLootA
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:
-      - id: NFWeaponEnergyPistolLaserAdvancedExpedition
-      - id: SpaceCash2500
-      # Bonus Loot T3
-      - id: SpaceCash1000
-        prob: 0.9
-      - id: SpaceCash500
-        prob: 0.9
-      - id: SpawnDungeonLootMaterialsBasicFull
-        prob: 0.7
-      - id: SpaceCash1000
-        prob: 0.7
-      - id: SpawnDungeonLootPartsEngi
-        amount: 2
-        prob: 0.7
-      - id: SpawnDungeonLootFlatpacks
-        prob: 0.5
-      - id: SpawnDungeonLootToolsAdvancedEngineering
-        prob: 0.4
-      - id: MercCoin1
-        prob: 1
+    - id: NFWeaponEnergyPistolLaserAdvancedExpedition
+    - id: SpaceCash2500
+    # Bonus Loot T3
+    - id: SpaceCash1000
+      prob: 0.9
+    - id: SpaceCash500
+      prob: 0.9
+    - id: SpawnDungeonLootMaterialsBasicFull
+      prob: 0.7
+    - id: SpaceCash1000
+      prob: 0.7
+    - id: SpawnDungeonLootPartsEngi
+      amount: 2
+      prob: 0.7
+    - id: SpawnDungeonLootFlatpacks
+      prob: 0.5
+    - id: SpawnDungeonLootToolsAdvancedEngineering
+      prob: 0.4
+    - id: MercCoin1
+      prob: 1
     sound:
       path: /Audio/Items/jumpsuit_equip.ogg
 
 - type: entity
   parent: ClothingBackpackSyndicateCaptainLootA
   id: ClothingBackpackSyndicateSecondOfficerLootB
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:
-      - id: NFWeaponEnergyPistolLaserExpedition
-      - id: SpaceCash2500
-      # Bonus Loot T3
-      - id: SpaceCash1000
-        prob: 0.9
-      - id: SpaceCash500
-        prob: 0.9
-      - id: SpaceCash1000
-        prob: 0.7
-      - id: SpawnDungeonLootMaterialsValuableFull
-        prob: 0.7
-      - id: SpawnDungeonLootPartsEngi
-        amount: 2
-        prob: 0.7
-      - id: SpawnDungeonLootFlatpacks
-        prob: 0.5
-      - id: SpawnDungeonLootToolsAdvancedEngineering
-        prob: 0.4
-      - id: MercCoin1
-        prob: 1
+    - id: NFWeaponEnergyPistolLaserExpedition
+    - id: SpaceCash2500
+    # Bonus Loot T3
+    - id: SpaceCash1000
+      prob: 0.9
+    - id: SpaceCash500
+      prob: 0.9
+    - id: SpaceCash1000
+      prob: 0.7
+    - id: SpawnDungeonLootMaterialsValuableFull
+      prob: 0.7
+    - id: SpawnDungeonLootPartsEngi
+      amount: 2
+      prob: 0.7
+    - id: SpawnDungeonLootFlatpacks
+      prob: 0.5
+    - id: SpawnDungeonLootToolsAdvancedEngineering
+      prob: 0.4
+    - id: MercCoin1
+      prob: 1
     sound:
       path: /Audio/Items/jumpsuit_equip.ogg
 
 - type: entity
   parent: ClothingBackpackSyndicateCaptainLootA
   id: ClothingBackpackSyndicateSecondOfficerLootC
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:
-      - id: PowerCellHighPrinted
-      - id: SpaceCash2500
-      # Bonus Loot T3
-      - id: SpaceCash1000
-        prob: 0.9
-      - id: SpaceCash500
-        prob: 0.9
-      - id: SpawnDungeonLootMaterialsBasicFull
-        prob: 0.7
-      - id: SpaceCash1000
-        prob: 0.7
-      - id: SpawnDungeonLootPartsEngi
-        amount: 2
-        prob: 0.7
-      - id: SpawnDungeonLootFlatpacks
-        prob: 0.5
-      - id: SpawnDungeonLootToolsAdvancedEngineering
-        prob: 0.4
-      - id: MercCoin1
-        prob: 1
+    - id: PowerCellHighPrinted
+    - id: SpaceCash2500
+    # Bonus Loot T3
+    - id: SpaceCash1000
+      prob: 0.9
+    - id: SpaceCash500
+      prob: 0.9
+    - id: SpawnDungeonLootMaterialsBasicFull
+      prob: 0.7
+    - id: SpaceCash1000
+      prob: 0.7
+    - id: SpawnDungeonLootPartsEngi
+      amount: 2
+      prob: 0.7
+    - id: SpawnDungeonLootFlatpacks
+      prob: 0.5
+    - id: SpawnDungeonLootToolsAdvancedEngineering
+      prob: 0.4
+    - id: MercCoin1
+      prob: 1
     sound:
       path: /Audio/Items/jumpsuit_equip.ogg
 
 - type: entity
   parent: ClothingBackpackSyndicateCaptainLootA
   id: ClothingBackpackSyndicateSecondOfficerLootD
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:
-      - id: SpaceCash1000
-      - id: SpaceCash500
-      # Bonus Loot T3
-      - id: SpaceCash1000
-        prob: 0.9
-      - id: SpaceCash500
-        prob: 0.9
-      - id: SpaceCash1000
-        prob: 0.7
-      - id: SpawnDungeonLootMaterialsValuableFull
-        prob: 0.7
-      - id: SpawnDungeonLootPartsEngi
-        amount: 2
-        prob: 0.7
-      - id: SpawnDungeonLootFlatpacks
-        prob: 0.5
-      - id: SpawnDungeonLootToolsAdvancedEngineering
-        prob: 0.4
-      - id: MercCoin1
-        prob: 1
+    - id: SpaceCash1000
+    - id: SpaceCash500
+    # Bonus Loot T3
+    - id: SpaceCash1000
+      prob: 0.9
+    - id: SpaceCash500
+      prob: 0.9
+    - id: SpaceCash1000
+      prob: 0.7
+    - id: SpawnDungeonLootMaterialsValuableFull
+      prob: 0.7
+    - id: SpawnDungeonLootPartsEngi
+      amount: 2
+      prob: 0.7
+    - id: SpawnDungeonLootFlatpacks
+      prob: 0.5
+    - id: SpawnDungeonLootToolsAdvancedEngineering
+      prob: 0.4
+    - id: MercCoin1
+      prob: 1
     sound:
       path: /Audio/Items/jumpsuit_equip.ogg
 
@@ -318,121 +318,121 @@
 - type: entity
   parent: SyndieMessengerGiftBox
   id: ClothingBackpackSyndicateCommanderLootA
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:
-      - id: WeaponRifleMR8C # mono - change from AK
-      - id: Magazine8x65mmSKR
-      - id: Magazine8x65mmSKR
-      - id: ClothingShoesBootsMagSyndie
-      - id: SpaceCash10000
-      # Bonus Loot T4
-      - id: SpaceCash2500
-        prob: 0.9
-      - id: SpawnDungeonLootFlatpacks
-        prob: 0.9
-      - id: SpaceCash1000
-        prob: 0.7
-      - id: SpawnDungeonLootMaterialsValuableFull
-        prob: 0.7
-      - id: SpawnDungeonLootPartsEngi
-        amount: 3
-        prob: 0.7
-      - id: SpawnDungeonLootVaultGuns
-        prob: 0.4
-      - id: MercCoin1
-        prob: 1
+    - id: WeaponRifleMR8C # mono - change from AK
+    - id: Magazine8x65mmSKR
+    - id: Magazine8x65mmSKR
+    - id: ClothingShoesBootsMagSyndie
+    - id: SpaceCash10000
+    # Bonus Loot T4
+    - id: SpaceCash2500
+      prob: 0.9
+    - id: SpawnDungeonLootFlatpacks
+      prob: 0.9
+    - id: SpaceCash1000
+      prob: 0.7
+    - id: SpawnDungeonLootMaterialsValuableFull
+      prob: 0.7
+    - id: SpawnDungeonLootPartsEngi
+      amount: 3
+      prob: 0.7
+    - id: SpawnDungeonLootVaultGuns
+      prob: 0.4
+    - id: MercCoin1
+      prob: 1
     sound:
       path: /Audio/Items/jumpsuit_equip.ogg
 
 - type: entity
   parent: ClothingBackpackSyndicateCommanderLootA
   id: ClothingBackpackSyndicateCommanderLootB
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:
-      - id: WeaponRifleLecter
-      - id: Magazine556x45mmFMJ
-      - id: Magazine556x45mmFMJ
-      - id: ClothingShoesBootsMagSyndie
-      - id: SpaceCash10000
-      # Bonus Loot T4
-      - id: SpaceCash2500
-        prob: 0.9
-      - id: SpawnDungeonLootFlatpacks
-        prob: 0.9
-      - id: SpaceCash1000
-        prob: 0.7
-      - id: SpawnDungeonLootMaterialsValuableFull
-        prob: 0.7
-      - id: SpawnDungeonLootPartsEngi
-        amount: 3
-        prob: 0.7
-      - id: SpawnDungeonLootVaultGuns
-        prob: 0.4
-      - id: MercCoin1
-        prob: 1
+    - id: WeaponRifleLecter
+    - id: Magazine556x45mmFMJ
+    - id: Magazine556x45mmFMJ
+    - id: ClothingShoesBootsMagSyndie
+    - id: SpaceCash10000
+    # Bonus Loot T4
+    - id: SpaceCash2500
+      prob: 0.9
+    - id: SpawnDungeonLootFlatpacks
+      prob: 0.9
+    - id: SpaceCash1000
+      prob: 0.7
+    - id: SpawnDungeonLootMaterialsValuableFull
+      prob: 0.7
+    - id: SpawnDungeonLootPartsEngi
+      amount: 3
+      prob: 0.7
+    - id: SpawnDungeonLootVaultGuns
+      prob: 0.4
+    - id: MercCoin1
+      prob: 1
     sound:
       path: /Audio/Items/jumpsuit_equip.ogg
 
 - type: entity
   parent: ClothingBackpackSyndicateCommanderLootA
   id: ClothingBackpackSyndicateCommanderLootC
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:
-      - id: Magazine762x39mmFMJ
-      - id: Magazine762x39mmFMJ
-      - id: ClothingShoesBootsMagSyndie
-      - id: SpaceCash10000
-      # Bonus Loot T4
-      - id: SpaceCash2500
-        prob: 0.9
-      - id: SpawnDungeonLootFlatpacks
-        prob: 0.9
-      - id: SpaceCash1000
-        prob: 0.7
-      - id: SpawnDungeonLootMaterialsValuableFull
-        prob: 0.7
-      - id: SpawnDungeonLootPartsEngi
-        amount: 3
-        prob: 0.7
-      - id: SpawnDungeonLootVaultGuns
-        prob: 0.4
-      - id: MercCoin1
-        prob: 1
+    - id: Magazine762x39mmFMJ
+    - id: Magazine762x39mmFMJ
+    - id: ClothingShoesBootsMagSyndie
+    - id: SpaceCash10000
+    # Bonus Loot T4
+    - id: SpaceCash2500
+      prob: 0.9
+    - id: SpawnDungeonLootFlatpacks
+      prob: 0.9
+    - id: SpaceCash1000
+      prob: 0.7
+    - id: SpawnDungeonLootMaterialsValuableFull
+      prob: 0.7
+    - id: SpawnDungeonLootPartsEngi
+      amount: 3
+      prob: 0.7
+    - id: SpawnDungeonLootVaultGuns
+      prob: 0.4
+    - id: MercCoin1
+      prob: 1
     sound:
       path: /Audio/Items/jumpsuit_equip.ogg
 
 - type: entity
   parent: ClothingBackpackSyndicateCommanderLootA
   id: ClothingBackpackSyndicateCommanderLootD
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:
-      - id: ClothingOuterHardsuitMaxim
-        prob: 0.05
-      - id: SpaceCash10000
-      # Bonus Loot T4
-      - id: SpaceCash2500
-        prob: 0.9
-      - id: SpawnDungeonLootFlatpacks
-        prob: 0.9
-      - id: SpaceCash1000
-        prob: 0.7
-      - id: SpawnDungeonLootMaterialsValuableFull
-        prob: 0.7
-      - id: SpawnDungeonLootPartsEngi
-        amount: 3
-        prob: 0.7
-      - id: SpawnDungeonLootVaultGuns
-        prob: 0.4
-      - id: MercCoin1
-        prob: 1
+    - id: ClothingOuterHardsuitMaxim
+      prob: 0.05
+    - id: SpaceCash10000
+    # Bonus Loot T4
+    - id: SpaceCash2500
+      prob: 0.9
+    - id: SpawnDungeonLootFlatpacks
+      prob: 0.9
+    - id: SpaceCash1000
+      prob: 0.7
+    - id: SpawnDungeonLootMaterialsValuableFull
+      prob: 0.7
+    - id: SpawnDungeonLootPartsEngi
+      amount: 3
+      prob: 0.7
+    - id: SpawnDungeonLootVaultGuns
+      prob: 0.4
+    - id: MercCoin1
+      prob: 1
     sound:
       path: /Audio/Items/jumpsuit_equip.ogg
 
@@ -440,133 +440,133 @@
 - type: entity
   parent: SyndieDuffelGiftBox
   id: ClothingBackpackSyndicateOperativeLootA
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:
-      - id: WeaponSubMachineGunAtreides
-      - id: Magazine57x28mmSubMachineGunFMJ
-      - id: Magazine57x28mmSubMachineGunFMJ
-      - id: SpaceCash1000
-      - id: SpaceCash1000
-      # Bonus Loot T3
-      - id: SpaceCash1000
-        prob: 0.9
-      - id: SpaceCash500
-        prob: 0.9
-      - id: SpaceCash1000
-        prob: 0.7
-      - id: SpawnDungeonLootMaterialsValuableFull
-        prob: 0.7
-      - id: SpawnDungeonLootPartsEngi
-        amount: 2
-        prob: 0.7
-      - id: SpawnDungeonLootFlatpacks
-        prob: 0.5
-      - id: SpawnDungeonLootToolsAdvancedEngineering
-        prob: 0.4
-      - id: MercCoin1
-        prob: 1
+    - id: WeaponSubMachineGunAtreides
+    - id: Magazine57x28mmSubMachineGunFMJ
+    - id: Magazine57x28mmSubMachineGunFMJ
+    - id: SpaceCash1000
+    - id: SpaceCash1000
+    # Bonus Loot T3
+    - id: SpaceCash1000
+      prob: 0.9
+    - id: SpaceCash500
+      prob: 0.9
+    - id: SpaceCash1000
+      prob: 0.7
+    - id: SpawnDungeonLootMaterialsValuableFull
+      prob: 0.7
+    - id: SpawnDungeonLootPartsEngi
+      amount: 2
+      prob: 0.7
+    - id: SpawnDungeonLootFlatpacks
+      prob: 0.5
+    - id: SpawnDungeonLootToolsAdvancedEngineering
+      prob: 0.4
+    - id: MercCoin1
+      prob: 1
     sound:
       path: /Audio/Items/jumpsuit_equip.ogg
 
 - type: entity
   parent: ClothingBackpackSyndicateOperativeLootA
   id: ClothingBackpackSyndicateOperativeLootB
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:
-      - id: WeaponSubMachineGunWt550
-      - id: Magazine46x30mmSubMachineGunTopMountedFMJ
-      - id: SpaceCash1000
-      - id: SpaceCash500
-      # Bonus Loot T3
-      - id: SpaceCash1000
-        prob: 0.9
-      - id: SpaceCash500
-        prob: 0.9
-      - id: SpawnDungeonLootMaterialsBasicFull
-        prob: 0.7
-      - id: SpaceCash1000
-        prob: 0.7
-      - id: SpawnDungeonLootPartsEngi
-        amount: 2
-        prob: 0.7
-      - id: SpawnDungeonLootFlatpacks
-        prob: 0.5
-      - id: SpawnDungeonLootToolsAdvancedEngineering
-        prob: 0.4
-      - id: MercCoin1
-        prob: 1
+    - id: WeaponSubMachineGunWt550
+    - id: Magazine46x30mmSubMachineGunTopMountedFMJ
+    - id: SpaceCash1000
+    - id: SpaceCash500
+    # Bonus Loot T3
+    - id: SpaceCash1000
+      prob: 0.9
+    - id: SpaceCash500
+      prob: 0.9
+    - id: SpawnDungeonLootMaterialsBasicFull
+      prob: 0.7
+    - id: SpaceCash1000
+      prob: 0.7
+    - id: SpawnDungeonLootPartsEngi
+      amount: 2
+      prob: 0.7
+    - id: SpawnDungeonLootFlatpacks
+      prob: 0.5
+    - id: SpawnDungeonLootToolsAdvancedEngineering
+      prob: 0.4
+    - id: MercCoin1
+      prob: 1
     sound:
       path: /Audio/Items/jumpsuit_equip.ogg
 
 - type: entity
   parent: ClothingBackpackSyndicateOperativeLootA
   id: ClothingBackpackSyndicateOperativeLootC
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:
-      - id: AmmoBox9x19mmFMJ
-      - id: AmmoBox9x19mmFMJ
-      - id: SpaceCash1000
-      - id: SpaceCash500
-      # Bonus Loot T3
-      - id: SpaceCash1000
-        prob: 0.9
-      - id: SpaceCash500
-        prob: 0.9
-      - id: SpaceCash1000
-        prob: 0.7
-      - id: SpawnDungeonLootMaterialsValuableFull
-        prob: 0.7
-      - id: AmmoBox9x19mmBigFMJ # Mono
-      - prob: 0.7
-      - id: SpawnDungeonLootPartsEngi
-        amount: 2
-        prob: 0.7
-      - id: SpawnDungeonLootFlatpacks
-        prob: 0.5
-      - id: SpawnDungeonLootToolsAdvancedEngineering
-        prob: 0.4
-      - id: NFBaseMagazineDrumRifle20
-        prob: 0.1
-      - id: MercCoin1
-        prob: 1
+    - id: AmmoBox9x19mmFMJ
+    - id: AmmoBox9x19mmFMJ
+    - id: SpaceCash1000
+    - id: SpaceCash500
+    # Bonus Loot T3
+    - id: SpaceCash1000
+      prob: 0.9
+    - id: SpaceCash500
+      prob: 0.9
+    - id: SpaceCash1000
+      prob: 0.7
+    - id: SpawnDungeonLootMaterialsValuableFull
+      prob: 0.7
+    - id: AmmoBox9x19mmBigFMJ # Mono
+    - prob: 0.7
+    - id: SpawnDungeonLootPartsEngi
+      amount: 2
+      prob: 0.7
+    - id: SpawnDungeonLootFlatpacks
+      prob: 0.5
+    - id: SpawnDungeonLootToolsAdvancedEngineering
+      prob: 0.4
+    - id: NFBaseMagazineDrumRifle20
+      prob: 0.1
+    - id: MercCoin1
+      prob: 1
     sound:
       path: /Audio/Items/jumpsuit_equip.ogg
 
 - type: entity
   parent: ClothingBackpackSyndicateOperativeLootA
   id: ClothingBackpackSyndicateOperativeLootD
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:
-      - id: SpaceCash1000
-      - id: SpaceCash500
-      # Bonus Loot T3
-      - id: SpaceCash1000
-        prob: 0.9
-      - id: SpaceCash500
-        prob: 0.9
-      - id: SpawnDungeonLootMaterialsBasicFull
-        prob: 0.7
-      - id: SpaceCash1000
-        prob: 0.7
-      - id: SpawnDungeonLootPartsEngi
-        amount: 2
-        prob: 0.7
-      - id: SpawnDungeonLootFlatpacks
-        prob: 0.5
-      - id: SpawnDungeonLootToolsAdvancedEngineering
-        prob: 0.4
-      - id: NFBaseMagazineDrumRifle20
-        prob: 0.1
-      - id: MercCoin1
-        prob: 1
+    - id: SpaceCash1000
+    - id: SpaceCash500
+    # Bonus Loot T3
+    - id: SpaceCash1000
+      prob: 0.9
+    - id: SpaceCash500
+      prob: 0.9
+    - id: SpawnDungeonLootMaterialsBasicFull
+      prob: 0.7
+    - id: SpaceCash1000
+      prob: 0.7
+    - id: SpawnDungeonLootPartsEngi
+      amount: 2
+      prob: 0.7
+    - id: SpawnDungeonLootFlatpacks
+      prob: 0.5
+    - id: SpawnDungeonLootToolsAdvancedEngineering
+      prob: 0.4
+    - id: NFBaseMagazineDrumRifle20
+      prob: 0.1
+    - id: MercCoin1
+      prob: 1
     sound:
       path: /Audio/Items/jumpsuit_equip.ogg
 
@@ -574,87 +574,87 @@
 - type: entity
   parent: SyndieDuffelGiftBox
   id: ClothingBackpackSyndicateDeckhandLootA
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:
-      - id: WeaponPistolViper
-      - id: Magazine9x19mmPistolFMJ
-      - id: Magazine9x19mmPistolFMJ
-      - id: SpaceCash1000
-      # Bonus Loot T1
-      - id: SpaceCash500
-        prob: 0.9
-      - id: SpaceCash1000
-        prob: 0.7
-      - id: SpawnDungeonLootPartsEngi
-        prob: 0.7
-      - id: MercCoin1
-        prob: 1
+    - id: WeaponPistolViper
+    - id: Magazine9x19mmPistolFMJ
+    - id: Magazine9x19mmPistolFMJ
+    - id: SpaceCash1000
+    # Bonus Loot T1
+    - id: SpaceCash500
+      prob: 0.9
+    - id: SpaceCash1000
+      prob: 0.7
+    - id: SpawnDungeonLootPartsEngi
+      prob: 0.7
+    - id: MercCoin1
+      prob: 1
     sound:
       path: /Audio/Items/jumpsuit_equip.ogg
 
 - type: entity
   parent: SyndieDuffelGiftBox
   id: ClothingBackpackSyndicateDeckhandLootB
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:
-      - id: WeaponPistolMk58
-      - id: Magazine9x19mmPistolFMJ
-      - id: SpaceCash1000
-      # Bonus Loot T1
-      - id: SpaceCash500
-        prob: 0.9
-      - id: SpaceCash1000
-        prob: 0.7
-      - id: SpawnDungeonLootPartsEngi
-        prob: 0.7
-      - id: MercCoin1
-        prob: 1
+    - id: WeaponPistolMk58
+    - id: Magazine9x19mmPistolFMJ
+    - id: SpaceCash1000
+    # Bonus Loot T1
+    - id: SpaceCash500
+      prob: 0.9
+    - id: SpaceCash1000
+      prob: 0.7
+    - id: SpawnDungeonLootPartsEngi
+      prob: 0.7
+    - id: MercCoin1
+      prob: 1
     sound:
       path: /Audio/Items/jumpsuit_equip.ogg
 
 - type: entity
   parent: SyndieDuffelGiftBox
   id: ClothingBackpackSyndicateDeckhandLootC
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:
-      - id: Magazine9x19mmPistolFMJ
-      - id: Magazine9x19mmPistolFMJ
-      - id: SpaceCash1000
-      # Bonus Loot T1
-      - id: SpaceCash500
-        prob: 0.9
-      - id: SpaceCash1000
-        prob: 0.7
-      - id: SpawnDungeonLootPartsEngi
-        prob: 0.7
-      - id: MercCoin1
-        prob: 1
+    - id: Magazine9x19mmPistolFMJ
+    - id: Magazine9x19mmPistolFMJ
+    - id: SpaceCash1000
+    # Bonus Loot T1
+    - id: SpaceCash500
+      prob: 0.9
+    - id: SpaceCash1000
+      prob: 0.7
+    - id: SpawnDungeonLootPartsEngi
+      prob: 0.7
+    - id: MercCoin1
+      prob: 1
     sound:
       path: /Audio/Items/jumpsuit_equip.ogg
 
 - type: entity
   parent: SyndieDuffelGiftBox
   id: ClothingBackpackSyndicateDeckhandLootD
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:
-      - id: SpaceCash1000
-      # Bonus Loot T1
-      - id: SpaceCash500
-        prob: 0.9
-      - id: SpaceCash1000
-        prob: 0.7
-      - id: SpawnDungeonLootPartsEngi
-        prob: 0.7
-      - id: MercCoin1
-        prob: 1
+    - id: SpaceCash1000
+    # Bonus Loot T1
+    - id: SpaceCash500
+      prob: 0.9
+    - id: SpaceCash1000
+      prob: 0.7
+    - id: SpawnDungeonLootPartsEngi
+      prob: 0.7
+    - id: MercCoin1
+      prob: 1
     sound:
       path: /Audio/Items/jumpsuit_equip.ogg
 
@@ -683,97 +683,97 @@
 - type: entity
   parent: SyndieDuffelGiftBox
   id: ClothingBackpackSyndicateMedicLootA
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     sprite: Clothing/Back/Duffels/syndicate.rsi
     state: icon-med
   - type: SpawnItemsOnUse
     items:
-      - id: HypoMiniLimitedEdition
-      - id: BruteAutoInjector
-      - id: AntiPoisonMedipen
-      - id: MedicatedSuture
-      - id: Stimpack
-      - id: SpaceCash1000
-      # Bonus Loot T1
-      - id: SpaceCash500
-        prob: 0.9
-      - id: SpaceCash1000
-        prob: 0.7
-      - id: SpawnDungeonLootPartsEngi
-        prob: 0.7
-      - id: MercCoin1
-        prob: 1
+    - id: HypoMiniLimitedEdition
+    - id: BruteAutoInjector
+    - id: AntiPoisonMedipen
+    - id: MedicatedSuture
+    - id: Stimpack
+    - id: SpaceCash1000
+    # Bonus Loot T1
+    - id: SpaceCash500
+      prob: 0.9
+    - id: SpaceCash1000
+      prob: 0.7
+    - id: SpawnDungeonLootPartsEngi
+      prob: 0.7
+    - id: MercCoin1
+      prob: 1
     sound:
       path: /Audio/Items/jumpsuit_equip.ogg
 
 - type: entity
   parent: ClothingBackpackSyndicateMedicLootA
   id: ClothingBackpackSyndicateMedicLootB
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:
-      - id: HypoMini
-      - id: BruteAutoInjector
-      - id: AntiPoisonMedipen
-      - id: MedicatedSuture
-      - id: SpaceCash1000
-      # Bonus Loot T1
-      - id: SpaceCash500
-        prob: 0.9
-      - id: SpaceCash1000
-        prob: 0.7
-      - id: SpawnDungeonLootPartsEngi
-        prob: 0.7
-      - id: MercCoin1
-        prob: 1
+    - id: HypoMini
+    - id: BruteAutoInjector
+    - id: AntiPoisonMedipen
+    - id: MedicatedSuture
+    - id: SpaceCash1000
+    # Bonus Loot T1
+    - id: SpaceCash500
+      prob: 0.9
+    - id: SpaceCash1000
+      prob: 0.7
+    - id: SpawnDungeonLootPartsEngi
+      prob: 0.7
+    - id: MercCoin1
+      prob: 1
     sound:
       path: /Audio/Items/jumpsuit_equip.ogg
 
 - type: entity
   parent: ClothingBackpackSyndicateMedicLootA
   id: ClothingBackpackSyndicateMedicLootC
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:
-      - id: HypoMini
-      - id: AntiPoisonMedipen
-      - id: MedicatedSuture
-      - id: SpaceCash1000
-      # Bonus Loot T1
-      - id: SpaceCash500
-        prob: 0.9
-      - id: SpaceCash1000
-        prob: 0.7
-      - id: SpawnDungeonLootPartsEngi
-        prob: 0.7
-      - id: MercCoin1
-        prob: 1
+    - id: HypoMini
+    - id: AntiPoisonMedipen
+    - id: MedicatedSuture
+    - id: SpaceCash1000
+    # Bonus Loot T1
+    - id: SpaceCash500
+      prob: 0.9
+    - id: SpaceCash1000
+      prob: 0.7
+    - id: SpawnDungeonLootPartsEngi
+      prob: 0.7
+    - id: MercCoin1
+      prob: 1
     sound:
       path: /Audio/Items/jumpsuit_equip.ogg
 
 - type: entity
   parent: ClothingBackpackSyndicateMedicLootA
   id: ClothingBackpackSyndicateMedicLootD
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:
-      - id: AntiPoisonMedipen
-      - id: MedicatedSuture
-      - id: SpaceCash1000
-      # Bonus Loot T1
-      - id: SpaceCash500
-        prob: 0.9
-      - id: SpaceCash1000
-        prob: 0.7
-      - id: SpawnDungeonLootPartsEngi
-        prob: 0.7
-      - id: MercCoin1
-        prob: 1
+    - id: AntiPoisonMedipen
+    - id: MedicatedSuture
+    - id: SpaceCash1000
+    # Bonus Loot T1
+    - id: SpaceCash500
+      prob: 0.9
+    - id: SpaceCash1000
+      prob: 0.7
+    - id: SpawnDungeonLootPartsEngi
+      prob: 0.7
+    - id: MercCoin1
+      prob: 1
     sound:
       path: /Audio/Items/jumpsuit_equip.ogg
 
@@ -781,118 +781,118 @@
 - type: entity
   parent: SyndieDuffelGiftBox
   id: ClothingBackpackSyndicateEngineerLootA
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     sprite: Clothing/Back/Duffels/syndicate.rsi
     state: icon
   - type: SpawnItemsOnUse
     items:
-      - id: NFWeaponShotgunKammererExpedition
-      - id: SyndicateJawsOfLife
-      - id: AmmoBox12_gaugeSlug
-      - id: SpaceCash1000
-      - id: SpaceCash1000
-      # Bonus Loot T2
-      - id: SpaceCash1000
-        prob: 0.9
-      - id: SpawnDungeonLootMaterialsBasicFull
-        prob: 0.7
-      - id: SpaceCash1000
-        prob: 0.7
-      - id: SpawnDungeonLootPartsEngi
-        amount: 2
-        prob: 0.7
-      - id: SpawnDungeonLootCircuitBoardEngi
-        prob: 0.7
-      - id: SpawnDungeonLootToolsAdvancedEngineering
-        prob: 0.3
-      - id: MercCoin1
-        prob: 1
+    - id: NFWeaponShotgunKammererExpedition
+    - id: SyndicateJawsOfLife
+    - id: AmmoBox12_gaugeSlug
+    - id: SpaceCash1000
+    - id: SpaceCash1000
+    # Bonus Loot T2
+    - id: SpaceCash1000
+      prob: 0.9
+    - id: SpawnDungeonLootMaterialsBasicFull
+      prob: 0.7
+    - id: SpaceCash1000
+      prob: 0.7
+    - id: SpawnDungeonLootPartsEngi
+      amount: 2
+      prob: 0.7
+    - id: SpawnDungeonLootCircuitBoardEngi
+      prob: 0.7
+    - id: SpawnDungeonLootToolsAdvancedEngineering
+      prob: 0.3
+    - id: MercCoin1
+      prob: 1
     sound:
       path: /Audio/Items/jumpsuit_equip.ogg
 
 - type: entity
   parent: ClothingBackpackSyndicateEngineerLootA
   id: ClothingBackpackSyndicateEngineerLootB
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:
-      - id: NFWeaponShotgunKammererExpedition
-      - id: JawsOfLife
-      - id: SpaceCash1000
-      # Bonus Loot T2
-      - id: SpaceCash1000
-        prob: 0.9
-      - id: SpaceCash1000
-        prob: 0.7
-      - id: SpawnDungeonLootMaterialsValuableFull
-        prob: 0.7
-      - id: SpawnDungeonLootPartsEngi
-        amount: 2
-        prob: 0.7
-      - id: SpawnDungeonLootCircuitBoardEngi
-        prob: 0.7
-      - id: SpawnDungeonLootToolsAdvancedEngineering
-        prob: 0.3
-      - id: MercCoin1
-        prob: 1
+    - id: NFWeaponShotgunKammererExpedition
+    - id: JawsOfLife
+    - id: SpaceCash1000
+    # Bonus Loot T2
+    - id: SpaceCash1000
+      prob: 0.9
+    - id: SpaceCash1000
+      prob: 0.7
+    - id: SpawnDungeonLootMaterialsValuableFull
+      prob: 0.7
+    - id: SpawnDungeonLootPartsEngi
+      amount: 2
+      prob: 0.7
+    - id: SpawnDungeonLootCircuitBoardEngi
+      prob: 0.7
+    - id: SpawnDungeonLootToolsAdvancedEngineering
+      prob: 0.3
+    - id: MercCoin1
+      prob: 1
     sound:
       path: /Audio/Items/jumpsuit_equip.ogg
 
 - type: entity
   parent: ClothingBackpackSyndicateEngineerLootA
   id: ClothingBackpackSyndicateEngineerLootC
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:
-      - id: JawsOfLife
-      - id: SpaceCash1000
-      # Bonus Loot T2
-      - id: SpaceCash1000
-        prob: 0.9
-      - id: SpawnDungeonLootMaterialsBasicFull
-        prob: 0.7
-      - id: SpaceCash1000
-        prob: 0.7
-      - id: SpawnDungeonLootPartsEngi
-        amount: 2
-        prob: 0.7
-      - id: SpawnDungeonLootCircuitBoardEngi
-        prob: 0.7
-      - id: SpawnDungeonLootToolsAdvancedEngineering
-        prob: 0.3
-      - id: MercCoin1
-        prob: 1
+    - id: JawsOfLife
+    - id: SpaceCash1000
+    # Bonus Loot T2
+    - id: SpaceCash1000
+      prob: 0.9
+    - id: SpawnDungeonLootMaterialsBasicFull
+      prob: 0.7
+    - id: SpaceCash1000
+      prob: 0.7
+    - id: SpawnDungeonLootPartsEngi
+      amount: 2
+      prob: 0.7
+    - id: SpawnDungeonLootCircuitBoardEngi
+      prob: 0.7
+    - id: SpawnDungeonLootToolsAdvancedEngineering
+      prob: 0.3
+    - id: MercCoin1
+      prob: 1
     sound:
       path: /Audio/Items/jumpsuit_equip.ogg
 
 - type: entity
   parent: ClothingBackpackSyndicateEngineerLootA
   id: ClothingBackpackSyndicateEngineerLootD
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:
-      - id: SpaceCash1000
-      # Bonus Loot T2
-      - id: SpaceCash1000
-        prob: 0.9
-      - id: SpaceCash1000
-        prob: 0.7
-      - id: SpawnDungeonLootMaterialsValuableFull
-        prob: 0.7
-      - id: SpawnDungeonLootPartsEngi
-        amount: 2
-        prob: 0.7
-      - id: SpawnDungeonLootCircuitBoardEngi
-        prob: 0.7
-      - id: SpawnDungeonLootToolsAdvancedEngineering
-        prob: 0.3
-      - id: MercCoin1
-        prob: 1
+    - id: SpaceCash1000
+    # Bonus Loot T2
+    - id: SpaceCash1000
+      prob: 0.9
+    - id: SpaceCash1000
+      prob: 0.7
+    - id: SpawnDungeonLootMaterialsValuableFull
+      prob: 0.7
+    - id: SpawnDungeonLootPartsEngi
+      amount: 2
+      prob: 0.7
+    - id: SpawnDungeonLootCircuitBoardEngi
+      prob: 0.7
+    - id: SpawnDungeonLootToolsAdvancedEngineering
+      prob: 0.3
+    - id: MercCoin1
+      prob: 1
     sound:
       path: /Audio/Items/jumpsuit_equip.ogg
 
@@ -900,114 +900,114 @@
 - type: entity
   parent: SyndieDuffelGiftBox
   id: ClothingBackpackSyndicateChemwarriorLootA
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     sprite: Clothing/Back/Backpacks/waterbackpack.rsi
     state: icon
   - type: SpawnItemsOnUse
     items:
-      - id: ClothingBackpackWaterTank
-      - id: WeaponSprayNozzle
-      - id: Stimpack
-      - id: SpaceCash2500
-      # Bonus Loot T2
-      - id: SpaceCash1000
-        prob: 0.9
-      - id: SpawnDungeonLootMaterialsBasicFull
-        prob: 0.7
-      - id: SpaceCash1000
-        prob: 0.7
-      - id: SpawnDungeonLootPartsEngi
-        amount: 2
-        prob: 0.7
-      - id: SpawnDungeonLootCircuitBoardEngi
-        prob: 0.7
-      - id: SpawnDungeonLootToolsAdvancedEngineering
-        prob: 0.3
-      - id: MercCoin1
-        prob: 1
+    - id: ClothingBackpackWaterTank
+    - id: WeaponSprayNozzle
+    - id: Stimpack
+    - id: SpaceCash2500
+    # Bonus Loot T2
+    - id: SpaceCash1000
+      prob: 0.9
+    - id: SpawnDungeonLootMaterialsBasicFull
+      prob: 0.7
+    - id: SpaceCash1000
+      prob: 0.7
+    - id: SpawnDungeonLootPartsEngi
+      amount: 2
+      prob: 0.7
+    - id: SpawnDungeonLootCircuitBoardEngi
+      prob: 0.7
+    - id: SpawnDungeonLootToolsAdvancedEngineering
+      prob: 0.3
+    - id: MercCoin1
+      prob: 1
     sound:
       path: /Audio/Items/jumpsuit_equip.ogg
 
 - type: entity
   parent: ClothingBackpackSyndicateChemwarriorLootA
   id: ClothingBackpackSyndicateChemwarriorLootB
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:
-      - id: WeaponWaterBlasterSuper
-      - id: Stimpack
-      - id: SpaceCash2500
-      # Bonus Loot T2
-      - id: SpaceCash1000
-        prob: 0.9
-      - id: SpaceCash1000
-        prob: 0.7
-      - id: SpawnDungeonLootMaterialsValuableFull
-        prob: 0.7
-      - id: SpawnDungeonLootPartsEngi
-        amount: 2
-        prob: 0.7
-      - id: SpawnDungeonLootCircuitBoardEngi
-        prob: 0.7
-      - id: SpawnDungeonLootToolsAdvancedEngineering
-        prob: 0.3
-      - id: MercCoin1
-        prob: 1
+    - id: WeaponWaterBlasterSuper
+    - id: Stimpack
+    - id: SpaceCash2500
+    # Bonus Loot T2
+    - id: SpaceCash1000
+      prob: 0.9
+    - id: SpaceCash1000
+      prob: 0.7
+    - id: SpawnDungeonLootMaterialsValuableFull
+      prob: 0.7
+    - id: SpawnDungeonLootPartsEngi
+      amount: 2
+      prob: 0.7
+    - id: SpawnDungeonLootCircuitBoardEngi
+      prob: 0.7
+    - id: SpawnDungeonLootToolsAdvancedEngineering
+      prob: 0.3
+    - id: MercCoin1
+      prob: 1
     sound:
       path: /Audio/Items/jumpsuit_equip.ogg
 
 - type: entity
   parent: ClothingBackpackSyndicateChemwarriorLootA
   id: ClothingBackpackSyndicateChemwarriorLootC
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:
-      - id: WeaponWaterBlaster
-      - id: SpaceCash2500
-      # Bonus Loot T2
-      - id: SpaceCash1000
-        prob: 0.9
-      - id: SpawnDungeonLootMaterialsBasicFull
-        prob: 0.7
-      - id: SpaceCash1000
-        prob: 0.7
-      - id: SpawnDungeonLootPartsEngi
-        amount: 2
-        prob: 0.7
-      - id: SpawnDungeonLootCircuitBoardEngi
-        prob: 0.7
-      - id: SpawnDungeonLootToolsAdvancedEngineering
-        prob: 0.3
+    - id: WeaponWaterBlaster
+    - id: SpaceCash2500
+    # Bonus Loot T2
+    - id: SpaceCash1000
+      prob: 0.9
+    - id: SpawnDungeonLootMaterialsBasicFull
+      prob: 0.7
+    - id: SpaceCash1000
+      prob: 0.7
+    - id: SpawnDungeonLootPartsEngi
+      amount: 2
+      prob: 0.7
+    - id: SpawnDungeonLootCircuitBoardEngi
+      prob: 0.7
+    - id: SpawnDungeonLootToolsAdvancedEngineering
+      prob: 0.3
     sound:
       path: /Audio/Items/jumpsuit_equip.ogg
 
 - type: entity
   parent: ClothingBackpackSyndicateChemwarriorLootA
   id: ClothingBackpackSyndicateChemwarriorLootD
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:
-      - id: WeaponWaterPistol
-      - id: SpaceCash2500
-      # Bonus Loot T2
-      - id: SpaceCash1000
-        prob: 0.9
-      - id: SpaceCash1000
-        prob: 0.7
-      - id: SpawnDungeonLootMaterialsValuableFull
-        prob: 0.7
-      - id: SpawnDungeonLootPartsEngi
-        amount: 2
-        prob: 0.7
-      - id: SpawnDungeonLootCircuitBoardEngi
-        prob: 0.7
-      - id: SpawnDungeonLootToolsAdvancedEngineering
-        prob: 0.3
+    - id: WeaponWaterPistol
+    - id: SpaceCash2500
+    # Bonus Loot T2
+    - id: SpaceCash1000
+      prob: 0.9
+    - id: SpaceCash1000
+      prob: 0.7
+    - id: SpawnDungeonLootMaterialsValuableFull
+      prob: 0.7
+    - id: SpawnDungeonLootPartsEngi
+      amount: 2
+      prob: 0.7
+    - id: SpawnDungeonLootCircuitBoardEngi
+      prob: 0.7
+    - id: SpawnDungeonLootToolsAdvancedEngineering
+      prob: 0.3
     sound:
       path: /Audio/Items/jumpsuit_equip.ogg
 
@@ -1015,107 +1015,107 @@
 - type: entity
   parent: SyndieDuffelGiftBox
   id: ClothingBackpackSyndicateGrenadierLootA
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:
-      - id: ExGrenade
-        amount: 4
-      - id: SpaceCash5000
-      # Bonus Loot T2
-      - id: SpaceCash1000
-        prob: 0.9
-      - id: SpawnDungeonLootMaterialsBasicFull
-        prob: 0.7
-      - id: SpaceCash1000
-        prob: 0.7
-      - id: SpawnDungeonLootPartsEngi
-        amount: 2
-        prob: 0.7
-      - id: SpawnDungeonLootCircuitBoardEngi
-        prob: 0.7
-      - id: SpawnDungeonLootToolsAdvancedEngineering
-        prob: 0.3
+    - id: ExGrenade
+      amount: 4
+    - id: SpaceCash5000
+    # Bonus Loot T2
+    - id: SpaceCash1000
+      prob: 0.9
+    - id: SpawnDungeonLootMaterialsBasicFull
+      prob: 0.7
+    - id: SpaceCash1000
+      prob: 0.7
+    - id: SpawnDungeonLootPartsEngi
+      amount: 2
+      prob: 0.7
+    - id: SpawnDungeonLootCircuitBoardEngi
+      prob: 0.7
+    - id: SpawnDungeonLootToolsAdvancedEngineering
+      prob: 0.3
     sound:
       path: /Audio/Items/jumpsuit_equip.ogg
 
 - type: entity
   parent: ClothingBackpackSyndicateGrenadierLootA
   id: ClothingBackpackSyndicateGrenadierLootB
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:
-      - id: ExGrenade
-        amount: 2
-      - id: SpaceCash2500
-      # Bonus Loot T2
-      - id: SpaceCash1000
-        prob: 0.9
-      - id: SpaceCash1000
-        prob: 0.7
-      - id: SpawnDungeonLootMaterialsValuableFull
-        prob: 0.7
-      - id: SpawnDungeonLootPartsEngi
-        amount: 2
-        prob: 0.7
-      - id: SpawnDungeonLootCircuitBoardEngi
-        prob: 0.7
-      - id: SpawnDungeonLootToolsAdvancedEngineering
-        prob: 0.3
+    - id: ExGrenade
+      amount: 2
+    - id: SpaceCash2500
+    # Bonus Loot T2
+    - id: SpaceCash1000
+      prob: 0.9
+    - id: SpaceCash1000
+      prob: 0.7
+    - id: SpawnDungeonLootMaterialsValuableFull
+      prob: 0.7
+    - id: SpawnDungeonLootPartsEngi
+      amount: 2
+      prob: 0.7
+    - id: SpawnDungeonLootCircuitBoardEngi
+      prob: 0.7
+    - id: SpawnDungeonLootToolsAdvancedEngineering
+      prob: 0.3
     sound:
       path: /Audio/Items/jumpsuit_equip.ogg
 
 - type: entity
   parent: ClothingBackpackSyndicateGrenadierLootA
   id: ClothingBackpackSyndicateGrenadierLootC
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:
-      - id: GrenadeFlashBang
-        amount: 4
-      - id: SpaceCash2500
-      # Bonus Loot T2
-      - id: SpaceCash1000
-        prob: 0.9
-      - id: SpawnDungeonLootMaterialsBasicFull
-        prob: 0.7
-      - id: SpaceCash1000
-        prob: 0.7
-      - id: SpawnDungeonLootPartsEngi
-        amount: 2
-        prob: 0.7
-      - id: SpawnDungeonLootCircuitBoardEngi
-        prob: 0.7
-      - id: SpawnDungeonLootToolsAdvancedEngineering
-        prob: 0.3
+    - id: GrenadeFlashBang
+      amount: 4
+    - id: SpaceCash2500
+    # Bonus Loot T2
+    - id: SpaceCash1000
+      prob: 0.9
+    - id: SpawnDungeonLootMaterialsBasicFull
+      prob: 0.7
+    - id: SpaceCash1000
+      prob: 0.7
+    - id: SpawnDungeonLootPartsEngi
+      amount: 2
+      prob: 0.7
+    - id: SpawnDungeonLootCircuitBoardEngi
+      prob: 0.7
+    - id: SpawnDungeonLootToolsAdvancedEngineering
+      prob: 0.3
     sound:
       path: /Audio/Items/jumpsuit_equip.ogg
 
 - type: entity
   parent: ClothingBackpackSyndicateGrenadierLootA
   id: ClothingBackpackSyndicateGrenadierLootD
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:
-      - id: GrenadeFlashBang
-        amount: 2
-      - id: SpaceCash2500
-      # Bonus Loot T2
-      - id: SpaceCash1000
-        prob: 0.9
-      - id: SpaceCash1000
-        prob: 0.7
-      - id: SpawnDungeonLootMaterialsValuableFull
-        prob: 0.7
-      - id: SpawnDungeonLootPartsEngi
-        amount: 2
-        prob: 0.7
-      - id: SpawnDungeonLootCircuitBoardEngi
-        prob: 0.7
-      - id: SpawnDungeonLootToolsAdvancedEngineering
-        prob: 0.3
+    - id: GrenadeFlashBang
+      amount: 2
+    - id: SpaceCash2500
+    # Bonus Loot T2
+    - id: SpaceCash1000
+      prob: 0.9
+    - id: SpaceCash1000
+      prob: 0.7
+    - id: SpawnDungeonLootMaterialsValuableFull
+      prob: 0.7
+    - id: SpawnDungeonLootPartsEngi
+      amount: 2
+      prob: 0.7
+    - id: SpawnDungeonLootCircuitBoardEngi
+      prob: 0.7
+    - id: SpawnDungeonLootToolsAdvancedEngineering
+      prob: 0.3
     sound:
       path: /Audio/Items/jumpsuit_equip.ogg

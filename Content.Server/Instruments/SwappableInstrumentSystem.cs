@@ -7,8 +7,11 @@ namespace Content.Server.Instruments;
 
 public sealed class SwappableInstrumentSystem : EntitySystem
 {
-    [Dependency] private readonly SharedInstrumentSystem _sharedInstrument = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency]
+    private readonly SharedInstrumentSystem _sharedInstrument = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
 
     public override void Initialize()
     {
@@ -17,7 +20,11 @@ public sealed class SwappableInstrumentSystem : EntitySystem
         SubscribeLocalEvent<SwappableInstrumentComponent, GetVerbsEvent<AlternativeVerb>>(AddStyleVerb);
     }
 
-    private void AddStyleVerb(EntityUid uid, SwappableInstrumentComponent component, GetVerbsEvent<AlternativeVerb> args)
+    private void AddStyleVerb(
+        EntityUid uid,
+        SwappableInstrumentComponent component,
+        GetVerbsEvent<AlternativeVerb> args
+    )
     {
         if (!args.CanInteract || !args.CanAccess || component.InstrumentList.Count <= 1)
             return;
@@ -39,9 +46,12 @@ public sealed class SwappableInstrumentSystem : EntitySystem
                 Act = () =>
                 {
                     _sharedInstrument.SetInstrumentProgram(uid, instrument, entry.Value.Item1, entry.Value.Item2);
-                    _popup.PopupEntity(Loc.GetString("swappable-instrument-component-style-set", ("style", entry.Key)),
-                        args.User, args.User);
-                }
+                    _popup.PopupEntity(
+                        Loc.GetString("swappable-instrument-component-style-set", ("style", entry.Key)),
+                        args.User,
+                        args.User
+                    );
+                },
             };
 
             priority--;

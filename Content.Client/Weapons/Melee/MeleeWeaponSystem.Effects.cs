@@ -18,7 +18,14 @@ public sealed partial class MeleeWeaponSystem
     /// <summary>
     /// Does all of the melee effects for a player that are predicted, i.e. character lunge and weapon animation.
     /// </summary>
-    public override void DoLunge(EntityUid user, EntityUid weapon, Angle angle, Vector2 localPos, string? animation, bool predicted = true)
+    public override void DoLunge(
+        EntityUid user,
+        EntityUid weapon,
+        Angle angle,
+        Vector2 localPos,
+        string? animation,
+        bool predicted = true
+    )
     {
         if (!Timing.IsFirstTimePredicted)
             return;
@@ -37,8 +44,10 @@ public sealed partial class MeleeWeaponSystem
 
         var animationUid = Spawn(animation, userXform.Coordinates);
 
-        if (!TryComp<SpriteComponent>(animationUid, out var sprite)
-            || !TryComp<WeaponArcVisualsComponent>(animationUid, out var arcComponent))
+        if (
+            !TryComp<SpriteComponent>(animationUid, out var sprite)
+            || !TryComp<WeaponArcVisualsComponent>(animationUid, out var arcComponent)
+        )
         {
             return;
         }
@@ -47,11 +56,12 @@ public sealed partial class MeleeWeaponSystem
         var offset = 1f;
 
         var spriteRotation = Angle.Zero;
-        if (arcComponent.Animation != WeaponArcAnimation.None
-            && TryComp(weapon, out MeleeWeaponComponent? meleeWeaponComponent))
+        if (
+            arcComponent.Animation != WeaponArcAnimation.None
+            && TryComp(weapon, out MeleeWeaponComponent? meleeWeaponComponent)
+        )
         {
-            if (user != weapon
-                && TryComp(weapon, out SpriteComponent? weaponSpriteComponent))
+            if (user != weapon && TryComp(weapon, out SpriteComponent? weaponSpriteComponent))
                 _sprite.CopySprite((weapon, weaponSpriteComponent), (animationUid, sprite));
 
             spriteRotation = meleeWeaponComponent.WideAnimationRotation;
@@ -72,16 +82,32 @@ public sealed partial class MeleeWeaponSystem
             case WeaponArcAnimation.Slash:
                 track = EnsureComp<TrackUserComponent>(animationUid);
                 track.User = user;
-                _animation.Play(animationUid, GetSlashAnimation((animationUid, sprite), angle, spriteRotation, length, offset), SlashAnimationKey);
+                _animation.Play(
+                    animationUid,
+                    GetSlashAnimation((animationUid, sprite), angle, spriteRotation, length, offset),
+                    SlashAnimationKey
+                );
                 if (arcComponent.Fadeout)
-                    _animation.Play(animationUid, GetFadeAnimation(sprite, length * 0.5f, length + 0.15f), FadeAnimationKey);
+                    _animation.Play(
+                        animationUid,
+                        GetFadeAnimation(sprite, length * 0.5f, length + 0.15f),
+                        FadeAnimationKey
+                    );
                 break;
             case WeaponArcAnimation.Thrust:
                 track = EnsureComp<TrackUserComponent>(animationUid);
                 track.User = user;
-                _animation.Play(animationUid, GetThrustAnimation((animationUid, sprite), offset, spriteRotation, length), ThrustAnimationKey);
+                _animation.Play(
+                    animationUid,
+                    GetThrustAnimation((animationUid, sprite), offset, spriteRotation, length),
+                    ThrustAnimationKey
+                );
                 if (arcComponent.Fadeout)
-                    _animation.Play(animationUid, GetFadeAnimation(sprite, length * 0.5f, length + 0.15f), FadeAnimationKey);
+                    _animation.Play(
+                        animationUid,
+                        GetFadeAnimation(sprite, length * 0.5f, length + 0.15f),
+                        FadeAnimationKey
+                    );
                 break;
             case WeaponArcAnimation.None:
                 var (mapPos, mapRot) = TransformSystem.GetWorldPositionRotation(userXform);
@@ -98,7 +124,13 @@ public sealed partial class MeleeWeaponSystem
     /// Makes the sprite move in a slash motion around the player.
     /// For example for wide swing animations.
     /// </summary>
-    private Animation GetSlashAnimation(Entity<SpriteComponent> sprite, Angle arc, Angle spriteRotation, float length, float offset)
+    private Animation GetSlashAnimation(
+        Entity<SpriteComponent> sprite,
+        Angle arc,
+        Angle spriteRotation,
+        float length,
+        float offset
+    )
     {
         var startRotation = sprite.Comp.Rotation + (arc * 0.5f);
         var endRotation = sprite.Comp.Rotation - (arc * 0.5f);
@@ -121,11 +153,27 @@ public sealed partial class MeleeWeaponSystem
                     Property = nameof(SpriteComponent.Rotation),
                     KeyFrames =
                     {
-                        new AnimationTrackProperty.KeyFrame(Angle.Lerp(startRotation,endRotation,0.0f), length * 0.0f),
-                        new AnimationTrackProperty.KeyFrame(Angle.Lerp(startRotation,endRotation,0.5f), length * 0.10f),
-                        new AnimationTrackProperty.KeyFrame(Angle.Lerp(startRotation,endRotation,1.0f), length * 0.15f),
-                        new AnimationTrackProperty.KeyFrame(Angle.Lerp(startRotation,endRotation,0.9f), length * 0.20f),
-                        new AnimationTrackProperty.KeyFrame(Angle.Lerp(startRotation,endRotation,0.80f), length * 0.6f, Easings.OutQuart)
+                        new AnimationTrackProperty.KeyFrame(
+                            Angle.Lerp(startRotation, endRotation, 0.0f),
+                            length * 0.0f
+                        ),
+                        new AnimationTrackProperty.KeyFrame(
+                            Angle.Lerp(startRotation, endRotation, 0.5f),
+                            length * 0.10f
+                        ),
+                        new AnimationTrackProperty.KeyFrame(
+                            Angle.Lerp(startRotation, endRotation, 1.0f),
+                            length * 0.15f
+                        ),
+                        new AnimationTrackProperty.KeyFrame(
+                            Angle.Lerp(startRotation, endRotation, 0.9f),
+                            length * 0.20f
+                        ),
+                        new AnimationTrackProperty.KeyFrame(
+                            Angle.Lerp(startRotation, endRotation, 0.80f),
+                            length * 0.6f,
+                            Easings.OutQuart
+                        ),
                     },
                 },
                 new AnimationTrackComponentProperty()
@@ -134,13 +182,23 @@ public sealed partial class MeleeWeaponSystem
                     Property = nameof(SpriteComponent.Offset),
                     KeyFrames =
                     {
-                        new AnimationTrackProperty.KeyFrame(Vector2.Lerp(startRotationOffset,endRotationOffset,0.0f), length * 0.0f),
+                        new AnimationTrackProperty.KeyFrame(
+                            Vector2.Lerp(startRotationOffset, endRotationOffset, 0.0f),
+                            length * 0.0f
+                        ),
                         new AnimationTrackProperty.KeyFrame(minRotationOffset, length * 0.10f),
-                        new AnimationTrackProperty.KeyFrame(Vector2.Lerp(startRotationOffset,endRotationOffset,1.0f), length * 0.15f),
-                        new AnimationTrackProperty.KeyFrame(Vector2.Lerp(startRotationOffset,endRotationOffset,0.80f), length * 0.6f, Easings.OutQuart)
-                    }
+                        new AnimationTrackProperty.KeyFrame(
+                            Vector2.Lerp(startRotationOffset, endRotationOffset, 1.0f),
+                            length * 0.15f
+                        ),
+                        new AnimationTrackProperty.KeyFrame(
+                            Vector2.Lerp(startRotationOffset, endRotationOffset, 0.80f),
+                            length * 0.6f,
+                            Easings.OutQuart
+                        ),
+                    },
                 },
-            }
+            },
         };
     }
 
@@ -148,7 +206,12 @@ public sealed partial class MeleeWeaponSystem
     /// Makes the sprite move in a thrust motion from the player towards the target, then slightly pulls back.
     /// For example for spears.
     /// </summary>
-    private Animation GetThrustAnimation(Entity<SpriteComponent> sprite, float offset, Angle spriteRotation, float length)
+    private Animation GetThrustAnimation(
+        Entity<SpriteComponent> sprite,
+        float offset,
+        Angle spriteRotation,
+        float length
+    )
     {
         var startOffset = sprite.Comp.Rotation.RotateVec(new Vector2(0f, 0f));
         var endOffset = sprite.Comp.Rotation.RotateVec(new Vector2(0f, -offset * 1.2f));
@@ -167,13 +230,20 @@ public sealed partial class MeleeWeaponSystem
                     KeyFrames =
                     {
                         new AnimationTrackProperty.KeyFrame(Vector2.Lerp(startOffset, endOffset, 0f), length * 0f),
-                        new AnimationTrackProperty.KeyFrame(Vector2.Lerp(startOffset, endOffset, 0.65f), length * 0.10f),
+                        new AnimationTrackProperty.KeyFrame(
+                            Vector2.Lerp(startOffset, endOffset, 0.65f),
+                            length * 0.10f
+                        ),
                         new AnimationTrackProperty.KeyFrame(Vector2.Lerp(startOffset, endOffset, 1f), length * 0.20f),
                         new AnimationTrackProperty.KeyFrame(Vector2.Lerp(startOffset, endOffset, 0.9f), length * 0.30f),
-                        new AnimationTrackProperty.KeyFrame(Vector2.Lerp(startOffset, endOffset, 0.7f), length * 0.60f, Easings.OutQuart)
-                    }
+                        new AnimationTrackProperty.KeyFrame(
+                            Vector2.Lerp(startOffset, endOffset, 0.7f),
+                            length * 0.60f,
+                            Easings.OutQuart
+                        ),
+                    },
                 },
-            }
+            },
         };
     }
 
@@ -195,10 +265,10 @@ public sealed partial class MeleeWeaponSystem
                     KeyFrames =
                     {
                         new AnimationTrackProperty.KeyFrame(sprite.Color, start),
-                        new AnimationTrackProperty.KeyFrame(sprite.Color.WithAlpha(0f), end)
-                    }
-                }
-            }
+                        new AnimationTrackProperty.KeyFrame(sprite.Color.WithAlpha(0f), end),
+                    },
+                },
+            },
         };
     }
 
@@ -223,8 +293,8 @@ public sealed partial class MeleeWeaponSystem
                     KeyFrames =
                     {
                         new AnimationTrackProperty.KeyFrame(Vector2.Zero, 0f),
-                        new AnimationTrackProperty.KeyFrame(direction.Normalized() * 0.15f, length*0.4f),
-                        new AnimationTrackProperty.KeyFrame(Vector2.Zero, length*0.6f),
+                        new AnimationTrackProperty.KeyFrame(direction.Normalized() * 0.15f, length * 0.4f),
+                        new AnimationTrackProperty.KeyFrame(Vector2.Zero, length * 0.6f),
                     },
                 },
             },

@@ -7,8 +7,11 @@ namespace Content.Shared.Light.EntitySystems;
 
 public abstract class SharedLightBulbSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
 
     public override void Initialize()
     {
@@ -70,8 +73,11 @@ public abstract class SharedLightBulbSystem : EntitySystem
         _audio.PlayPredicted(bulb.BreakSound, uid, user: user);
     }
 
-    private void UpdateAppearance(EntityUid uid, LightBulbComponent? bulb = null,
-        AppearanceComponent? appearance = null)
+    private void UpdateAppearance(
+        EntityUid uid,
+        LightBulbComponent? bulb = null,
+        AppearanceComponent? appearance = null
+    )
     {
         if (!Resolve(uid, ref bulb, ref appearance, logMissing: false))
             return;

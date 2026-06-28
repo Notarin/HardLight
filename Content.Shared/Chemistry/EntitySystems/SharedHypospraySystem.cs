@@ -1,20 +1,29 @@
+using Content.Shared.Administration.Logs;
 using Content.Shared.Chemistry.Components;
+using Content.Shared.Popups;
 using Content.Shared.Timing;
 using Content.Shared.Verbs;
-using Content.Shared.Popups;
 using Robust.Shared.Player;
-using Content.Shared.Administration.Logs;
 
 namespace Content.Shared.Chemistry.EntitySystems;
 
 public abstract class SharedHypospraySystem : EntitySystem
 {
-    [Dependency] protected readonly UseDelaySystem _useDelay = default!;
-    [Dependency] protected readonly SharedPopupSystem _popup = default!;
-    [Dependency] protected readonly SharedSolutionContainerSystem _solutionContainers = default!;
-    [Dependency] protected readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] protected readonly ReactiveSystem _reactiveSystem = default!;
-    
+    [Dependency]
+    protected readonly UseDelaySystem _useDelay = default!;
+
+    [Dependency]
+    protected readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    protected readonly SharedSolutionContainerSystem _solutionContainers = default!;
+
+    [Dependency]
+    protected readonly ISharedAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    protected readonly ReactiveSystem _reactiveSystem = default!;
+
     public override void Initialize()
     {
         SubscribeLocalEvent<HyposprayComponent, GetVerbsEvent<AlternativeVerb>>(AddToggleModeVerb);
@@ -38,7 +47,7 @@ public abstract class SharedHypospraySystem : EntitySystem
             Act = () =>
             {
                 ToggleMode(entity, user);
-            }
+            },
         };
         args.Verbs.Add(verb);
     }
@@ -46,7 +55,9 @@ public abstract class SharedHypospraySystem : EntitySystem
     private void ToggleMode(Entity<HyposprayComponent> entity, EntityUid user)
     {
         SetMode(entity, !entity.Comp.OnlyAffectsMobs);
-        string msg = entity.Comp.OnlyAffectsMobs ? "hypospray-verb-mode-inject-mobs-only" : "hypospray-verb-mode-inject-all";
+        string msg = entity.Comp.OnlyAffectsMobs
+            ? "hypospray-verb-mode-inject-mobs-only"
+            : "hypospray-verb-mode-inject-all";
         _popup.PopupClient(Loc.GetString(msg), entity, user);
     }
 

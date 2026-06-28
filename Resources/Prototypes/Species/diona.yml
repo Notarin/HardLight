@@ -77,7 +77,7 @@
     Overlay:
       points: 1
       required: true
-      defaultMarkings: [ DionaVineOverlay ]
+      defaultMarkings: [DionaVineOverlay]
 
 - type: humanoidBaseSprite
   id: MobDionaEyes

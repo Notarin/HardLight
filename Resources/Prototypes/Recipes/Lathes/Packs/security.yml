@@ -2,7 +2,7 @@
 
 - type: latheRecipePack
   id: SecurityEquipmentStatic
-  recipes:  # Frontier
+  recipes: # Frontier
   - ClothingEyesHudSecurity # Frontier
   - ForensicPad # Frontier
   - Handcuffs # Frontier
@@ -30,7 +30,7 @@
 
 - type: latheRecipePack
   id: SecurityWeaponsStatic
-  recipes:  # Frontier
+  recipes: # Frontier
   - Flash # Frontier
   - Stunbaton # Frontier
   - CombatKnife # Frontier

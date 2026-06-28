@@ -6,7 +6,6 @@ namespace Content.Shared._NF.Market.Components;
 [NetworkedComponent]
 public sealed partial class MarketItemSpawnerComponent : Component
 {
-
     [NonSerialized]
     public List<MarketData> ItemsToSpawn;
 }

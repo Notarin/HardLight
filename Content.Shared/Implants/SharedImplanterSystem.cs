@@ -20,14 +20,29 @@ namespace Content.Shared.Implants;
 
 public abstract class SharedImplanterSystem : EntitySystem
 {
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly ItemSlotsSystem _itemSlots = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
-    [Dependency] private readonly DamageableSystem _damageableSystem = default!;
-    [Dependency] private readonly SharedUserInterfaceSystem _uiSystem = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly ItemSlotsSystem _itemSlots = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelistSystem = default!;
+
+    [Dependency]
+    private readonly DamageableSystem _damageableSystem = default!;
+
+    [Dependency]
+    private readonly SharedUserInterfaceSystem _uiSystem = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
 
     public override void Initialize()
     {
@@ -67,6 +82,7 @@ public abstract class SharedImplanterSystem : EntitySystem
 
         args.PushMarkup(Loc.GetString("implanter-contained-implant-text", ("desc", component.ImplantData.Item2)));
     }
+
     public bool CheckSameImplant(EntityUid target, EntityUid implant)
     {
         if (!TryComp<ImplantedComponent>(target, out var implanted))
@@ -82,11 +98,13 @@ public abstract class SharedImplanterSystem : EntitySystem
 
         if (component.CurrentMode == ImplanterToggleMode.Draw)
         {
-            args.Verbs.Add(new InteractionVerb()
-            {
-                Text = Loc.GetString("implanter-set-draw-verb"),
-                Act = () => TryOpenUi(uid, args.User, component)
-            });
+            args.Verbs.Add(
+                new InteractionVerb()
+                {
+                    Text = Loc.GetString("implanter-set-draw-verb"),
+                    Act = () => TryOpenUi(uid, args.User, component),
+                }
+            );
         }
     }
 
@@ -158,14 +176,17 @@ public abstract class SharedImplanterSystem : EntitySystem
         EntityUid implanter,
         ImplanterComponent component,
         [NotNullWhen(true)] out EntityUid? implant,
-        [NotNullWhen(true)] out SubdermalImplantComponent? implantComp)
+        [NotNullWhen(true)] out SubdermalImplantComponent? implantComp
+    )
     {
         implant = component.ImplanterSlot.ContainerSlot?.ContainedEntities.FirstOrNull();
         if (!TryComp(implant, out implantComp))
             return false;
 
-        if (!CheckTarget(target, component.Whitelist, component.Blacklist) ||
-            !CheckTarget(target, implantComp.Whitelist, implantComp.Blacklist))
+        if (
+            !CheckTarget(target, component.Whitelist, component.Blacklist)
+            || !CheckTarget(target, implantComp.Whitelist, implantComp.Blacklist)
+        )
         {
             return false;
         }
@@ -177,8 +198,8 @@ public abstract class SharedImplanterSystem : EntitySystem
 
     protected bool CheckTarget(EntityUid target, EntityWhitelist? whitelist, EntityWhitelist? blacklist)
     {
-        return _whitelistSystem.IsWhitelistPassOrNull(whitelist, target) &&
-            _whitelistSystem.IsBlacklistFailOrNull(blacklist, target);
+        return _whitelistSystem.IsWhitelistPassOrNull(whitelist, target)
+            && _whitelistSystem.IsBlacklistFailOrNull(blacklist, target);
     }
 
     //Draw the implant out of the target
@@ -211,7 +232,14 @@ public abstract class SharedImplanterSystem : EntitySystem
                         continue;
                     }
 
-                    DrawImplantIntoImplanter(implanter, target, implant, implantContainer, implanterContainer, implantComp);
+                    DrawImplantIntoImplanter(
+                        implanter,
+                        target,
+                        implant,
+                        implantContainer,
+                        implanterContainer,
+                        implantComp
+                    );
                     permanentFound = implantComp.Permanent;
 
                     //Break so only one implant is drawn
@@ -229,8 +257,13 @@ public abstract class SharedImplanterSystem : EntitySystem
                 {
                     if (TryComp<SubdermalImplantComponent>(implantEntity, out var subdermalComp))
                     {
-                        if (component.DeimplantChosen == subdermalComp.DrawableProtoIdOverride ||
-                            (Prototype(implantEntity) != null && component.DeimplantChosen == Prototype(implantEntity)!))
+                        if (
+                            component.DeimplantChosen == subdermalComp.DrawableProtoIdOverride
+                            || (
+                                Prototype(implantEntity) != null
+                                && component.DeimplantChosen == Prototype(implantEntity)!
+                            )
+                        )
                             implant = implantEntity;
                     }
                 }
@@ -242,11 +275,17 @@ public abstract class SharedImplanterSystem : EntitySystem
                     {
                         DrawPermanentFailurePopup(implant.Value, target, user);
                         permanentFound = implantComp.Permanent;
-
                     }
                     else
                     {
-                        DrawImplantIntoImplanter(implanter, target, implant.Value, implantContainer, implanterContainer, implantComp);
+                        DrawImplantIntoImplanter(
+                            implanter,
+                            target,
+                            implant.Value,
+                            implantContainer,
+                            implanterContainer,
+                            implantComp
+                        );
                         permanentFound = implantComp.Permanent;
                     }
 
@@ -260,7 +299,6 @@ public abstract class SharedImplanterSystem : EntitySystem
             }
 
             Dirty(implanter, component);
-
         }
         else
         {
@@ -272,12 +310,22 @@ public abstract class SharedImplanterSystem : EntitySystem
     {
         var implantName = Identity.Entity(implant, EntityManager);
         var targetName = Identity.Entity(target, EntityManager);
-        var failedPermanentMessage = Loc.GetString("implanter-draw-failed-permanent",
-            ("implant", implantName), ("target", targetName));
+        var failedPermanentMessage = Loc.GetString(
+            "implanter-draw-failed-permanent",
+            ("implant", implantName),
+            ("target", targetName)
+        );
         _popup.PopupEntity(failedPermanentMessage, target, user);
     }
 
-    private void DrawImplantIntoImplanter(EntityUid implanter, EntityUid target, EntityUid implant, BaseContainer implantContainer, ContainerSlot implanterContainer, SubdermalImplantComponent implantComp)
+    private void DrawImplantIntoImplanter(
+        EntityUid implanter,
+        EntityUid target,
+        EntityUid implant,
+        BaseContainer implantContainer,
+        ContainerSlot implanterContainer,
+        SubdermalImplantComponent implantComp
+    )
     {
         _container.Remove(implant, implantContainer);
         implantComp.ImplantedEntity = null;
@@ -289,7 +337,12 @@ public abstract class SharedImplanterSystem : EntitySystem
 
     private void DrawCatastrophicFailure(EntityUid implanter, ImplanterComponent component, EntityUid user)
     {
-        _damageableSystem.TryChangeDamage(user, component.DeimplantFailureDamage, ignoreResistances: true, origin: implanter);
+        _damageableSystem.TryChangeDamage(
+            user,
+            component.DeimplantFailureDamage,
+            ignoreResistances: true,
+            origin: implanter
+        );
         var userName = Identity.Entity(user, EntityManager);
         var failedCatastrophicallyMessage = Loc.GetString("implanter-draw-failed-catastrophically", ("user", userName));
         _popup.PopupEntity(failedCatastrophicallyMessage, user, PopupType.MediumCaution);
@@ -316,20 +369,16 @@ public abstract class SharedImplanterSystem : EntitySystem
 
         if (component.ImplanterSlot.HasItem)
             implantFound = true;
-
         else
             implantFound = false;
 
         if (component.CurrentMode == ImplanterToggleMode.Inject && !component.ImplantOnly)
             _appearance.SetData(uid, ImplanterVisuals.Full, implantFound, appearance);
-
         else if (component.CurrentMode == ImplanterToggleMode.Inject && component.ImplantOnly)
         {
             _appearance.SetData(uid, ImplanterVisuals.Full, implantFound, appearance);
-            _appearance.SetData(uid, ImplanterImplantOnlyVisuals.ImplantOnly, component.ImplantOnly,
-                appearance);
+            _appearance.SetData(uid, ImplanterImplantOnlyVisuals.ImplantOnly, component.ImplantOnly, appearance);
         }
-
         else
             _appearance.SetData(uid, ImplanterVisuals.Full, implantFound, appearance);
     }
@@ -347,14 +396,10 @@ public abstract class SharedImplanterSystem : EntitySystem
 }
 
 [Serializable, NetSerializable]
-public sealed partial class ImplantEvent : SimpleDoAfterEvent
-{
-}
+public sealed partial class ImplantEvent : SimpleDoAfterEvent { }
 
 [Serializable, NetSerializable]
-public sealed partial class DrawEvent : SimpleDoAfterEvent
-{
-}
+public sealed partial class DrawEvent : SimpleDoAfterEvent { }
 
 public sealed class AddImplantAttemptEvent : CancellableEntityEventArgs
 {
@@ -389,5 +434,5 @@ public sealed class DeimplantChangeVerbMessage : BoundUserInterfaceMessage
 [Serializable, NetSerializable]
 public enum DeimplantUiKey : byte
 {
-    Key
+    Key,
 }

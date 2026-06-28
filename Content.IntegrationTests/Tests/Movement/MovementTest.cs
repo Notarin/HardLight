@@ -58,8 +58,9 @@ public abstract class MovementTest : InteractionTest
             return 0;
         }
 
-        var delta = Transform.GetWorldPosition(SEntMan.GetEntity(target.Value)) - Transform.GetWorldPosition(SEntMan.GetEntity(other ?? Player));
+        var delta =
+            Transform.GetWorldPosition(SEntMan.GetEntity(target.Value))
+            - Transform.GetWorldPosition(SEntMan.GetEntity(other ?? Player));
         return delta.X;
     }
 }
-

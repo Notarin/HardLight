@@ -1,6 +1,6 @@
+using Content.Server._NF.Shipyard.Systems;
 using Content.Shared._NF.Shipyard.Components;
 using Content.Shared.Examine;
-using Content.Server._NF.Shipyard.Systems;
 
 namespace Content.Shared._NF.Shipyard;
 

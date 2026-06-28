@@ -82088,9 +82088,7 @@ entities:
         - ClothingSpeedModifier
         entries:
         - message: >-
-            It provides the following protection:
-
-            - [color=orange]Explosion[/color] damage [color=white]to contents[/color] reduced by [color=lightblue]10%[/color].
+            It provides the following protection: #magic___^_^___line - [color=orange]Explosion[/color] damage [color=white]to contents[/color] reduced by [color=lightblue]10%[/color].
           priority: 0
           component: Armor
         - message: This decreases your running speed by [color=yellow]10%[/color].
@@ -82158,9 +82156,7 @@ entities:
         - ClothingSpeedModifier
         entries:
         - message: >-
-            It provides the following protection:
-
-            - [color=orange]Explosion[/color] damage [color=white]to contents[/color] reduced by [color=lightblue]10%[/color].
+            It provides the following protection: #magic___^_^___line - [color=orange]Explosion[/color] damage [color=white]to contents[/color] reduced by [color=lightblue]10%[/color].
           priority: 0
           component: Armor
         - message: This decreases your running speed by [color=yellow]10%[/color].
@@ -82202,9 +82198,7 @@ entities:
         - ClothingSpeedModifier
         entries:
         - message: >-
-            It provides the following protection:
-
-            - [color=orange]Explosion[/color] damage [color=white]to contents[/color] reduced by [color=lightblue]10%[/color].
+            It provides the following protection: #magic___^_^___line - [color=orange]Explosion[/color] damage [color=white]to contents[/color] reduced by [color=lightblue]10%[/color].
           priority: 0
           component: Armor
         title: null
@@ -87802,7 +87796,6 @@ entities:
         HIV 2 - ✓
 
         SHARK - ✓
-
 
         30 ILLNESSES OUTSIDE OF BOUNDS POSSIBLE
     - type: SolutionContainerManager
@@ -145414,18 +145407,13 @@ entities:
 
         Hi there!
 
-
         Don't ask just how long it took me to get this thing to work.
-
 
         It's, uh, unstable as hell, still.
 
-
         Just put it in the AME and hope it doesn't blow up while you set up som Radcollectors around the ESSM.
 
-
         You got this!
-
 
         -Caelo Quillwing, Head of Experimental Research, Colonial Command
     - type: Tag
@@ -145659,16 +145647,7 @@ entities:
       pos: 85.4306,-14.496534
       parent: 2
     - type: Paper
-      content: >-
-        Notice; 
-
-        This window is a error in the engineering IPC's room creation protocalls, and will be removed in the future. please pay no mind to it.
-
-
-        If the window is somehow accidentally usefull, please do not pay mind to it.
-
-
-        If this window becomes a large enough hinderance you are considering calling the engineering department; please pay no mind to it.
+      content: "Notice; \n      #magic___^_^___line\nThis window is a error in the engineering IPC's room creation protocalls, and will be removed in the future. please pay no mind to it.\n      #magic___^_^___line\nIf the window is somehow accidentally usefull, please do not pay mind to it.\n      #magic___^_^___line\nIf this window becomes a large enough hinderance you are considering calling the engineering department; please pay no mind to it."
     - type: SolutionContainerManager
       solutions: null
       containers:
@@ -145731,17 +145710,7 @@ entities:
       pos: 59.280983,-1.3334818
       parent: 2
     - type: Paper
-      content: >-
-        HEY JACKASSES!!!!!
-
-
-
-        Project 'RESPAWN' is to be ABANDONED IMMEDENTLY
-
-        If i, or anoter secof catches you idiots in here again i WILL see to it personally that your medical liscences are revoked 
-
-
-        I dont know what were doing with this room in the future, but we are NOT CLONING MUTANT CLUWN SPIDERS!!!!!
+      content: "HEY JACKASSES!!!!!\n      #magic___^_^___line\nProject 'RESPAWN' is to be ABANDONED IMMEDENTLY\n      #magic___^_^___line\nIf i, or anoter secof catches you idiots in here again i WILL see to it personally that your medical liscences are revoked \n      #magic___^_^___line\nI dont know what were doing with this room in the future, but we are NOT CLONING MUTANT CLUWN SPIDERS!!!!!"
     - type: SolutionContainerManager
       solutions: null
       containers:
@@ -145952,7 +145921,6 @@ entities:
       content: >-
         LEMON-AID - 50 SPESOS
 
-
         ABOUT 90% OF ALL PROCEEDS GO TO THE CHONAGERS ENGINEERING RELEAF FUND, AND WILL HELP REHABILITATE ATMOSTECHS
     - type: SolutionContainerManager
       solutions: null
@@ -145984,12 +145952,7 @@ entities:
       pos: 24.479622,11.492325
       parent: 2
     - type: Paper
-      content: >-
-        Do i look like a nice, peace of marketplace to you? If so; contact your local quartermaster today, as this shop-space is 
-
-         FOR RENT!!!
-
-        ((currently going about 2k spesos a shift
+      content: "Do i look like a nice, peace of marketplace to you? If so; contact your local quartermaster today, as this shop-space is \n      #magic___^_^___line\n FOR RENT!!!\n      #magic___^_^___line\n((currently going about 2k spesos a shift"
     - type: SolutionContainerManager
       solutions: null
       containers:
@@ -146134,14 +146097,11 @@ entities:
       content: >-
         NAME:     RACE:     PLAYER NAME:    LEVEL:
 
-
         HP:   DEF:
 
         SAN:   MR:
 
-
         LUCK:
-
 
         STR:
 
@@ -146159,9 +146119,7 @@ entities:
 
         EDU:
 
-
         SKILLS:
-
 
         ITEMS AND SPELLS:
     - type: SolutionContainerManager
@@ -146221,7 +146179,6 @@ entities:
 
         1
 
-
         HP: 6  DEF:
 
         1
@@ -146230,9 +146187,7 @@ entities:
 
         3
 
-
         LUCK: 3
-
 
         STR:
 
@@ -146266,7 +146221,6 @@ entities:
 
         15
 
-
         SKILLS:
 
         Civil: Cooking
@@ -146274,7 +146228,6 @@ entities:
         Scientific: literation
 
         Occult: Sex (kinky)
-
 
         ITEMS AND SPELLS:
 
@@ -146347,14 +146300,11 @@ entities:
       content: >-
         NAME:     RACE:     PLAYER NAME:    LEVEL:
 
-
         HP:   DEF:
 
         SAN:   MR:
 
-
         LUCK:
-
 
         STR:
 
@@ -146372,9 +146322,7 @@ entities:
 
         EDU:
 
-
         SKILLS:
-
 
         ITEMS AND SPELLS:
     - type: SolutionContainerManager
@@ -203241,4 +203189,3 @@ entities:
     - type: Transform
       pos: 23.433456,-65.575584
       parent: 2
-...

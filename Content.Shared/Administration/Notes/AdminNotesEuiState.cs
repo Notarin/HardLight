@@ -7,7 +7,13 @@ namespace Content.Shared.Administration.Notes;
 [Serializable, NetSerializable]
 public sealed class AdminNotesEuiState : EuiStateBase
 {
-    public AdminNotesEuiState(string notedPlayerName, Dictionary<(int, NoteType), SharedAdminNote> notes, bool canCreate, bool canDelete, bool canEdit)
+    public AdminNotesEuiState(
+        string notedPlayerName,
+        Dictionary<(int, NoteType), SharedAdminNote> notes,
+        bool canCreate,
+        bool canDelete,
+        bool canEdit
+    )
     {
         NotedPlayerName = notedPlayerName;
         Notes = notes;
@@ -28,7 +34,13 @@ public static class AdminNoteEuiMsg
     [Serializable, NetSerializable]
     public sealed class CreateNoteRequest : EuiMessageBase
     {
-        public CreateNoteRequest(NoteType type, string message, NoteSeverity? severity, bool secret, DateTime? expiryTime)
+        public CreateNoteRequest(
+            NoteType type,
+            string message,
+            NoteSeverity? severity,
+            bool secret,
+            DateTime? expiryTime
+        )
         {
             NoteType = type;
             Message = message;
@@ -60,7 +72,14 @@ public static class AdminNoteEuiMsg
     [Serializable, NetSerializable]
     public sealed class EditNoteRequest : EuiMessageBase
     {
-        public EditNoteRequest(int id, NoteType type, string message, NoteSeverity? severity, bool secret, DateTime? expiryTime)
+        public EditNoteRequest(
+            int id,
+            NoteType type,
+            string message,
+            NoteSeverity? severity,
+            bool secret,
+            DateTime? expiryTime
+        )
         {
             Id = id;
             Type = type;

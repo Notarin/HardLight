@@ -10,7 +10,6 @@ namespace Content.Server.Construction.Completions
     [DataDefinition]
     public sealed partial class EmptySolution : IGraphAction
     {
-
         [DataField("solution")]
         public string Solution { get; private set; } = string.Empty;
 

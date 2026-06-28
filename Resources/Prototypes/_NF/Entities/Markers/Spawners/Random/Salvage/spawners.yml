@@ -2,8 +2,8 @@
   id: SalvageScrapSpawnerBrass
   table: !type:GroupSelector
     children:
-    # 70% chance of scrap of some kind
     - !type:GroupSelector
+      # 70% chance of scrap of some kind
       children:
       - !type:NestedSelector
         tableId: SalvageScrapBrass

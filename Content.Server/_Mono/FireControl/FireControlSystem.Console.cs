@@ -7,17 +7,25 @@ using Content.Shared.Popups;
 using Content.Shared.Power;
 using Content.Shared.Shuttles.BUIStates;
 using Content.Shared.UserInterface;
-using Robust.Shared.Network;
 using Robust.Server.GameObjects;
+using Robust.Shared.Network;
 
 namespace Content.Server._Mono.FireControl;
 
 public sealed partial class FireControlSystem : EntitySystem
 {
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
-    [Dependency] private readonly ShuttleConsoleSystem _shuttleConsoleSystem = default!;
-    [Dependency] private readonly CrewedShuttleSystem _crewedShuttle = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency]
+    private readonly UserInterfaceSystem _ui = default!;
+
+    [Dependency]
+    private readonly ShuttleConsoleSystem _shuttleConsoleSystem = default!;
+
+    [Dependency]
+    private readonly CrewedShuttleSystem _crewedShuttle = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
     private void InitializeConsole()
     {
         SubscribeLocalEvent<FireControlConsoleComponent, PowerChangedEvent>(OnPowerChanged);
@@ -29,7 +37,11 @@ public sealed partial class FireControlSystem : EntitySystem
         SubscribeLocalEvent<FireControlConsoleComponent, ActivatableUIOpenAttemptEvent>(OnConsoleUIOpenAttempt);
     }
 
-    private void OnConsoleUIOpenAttempt(EntityUid uid, FireControlConsoleComponent component, ActivatableUIOpenAttemptEvent args)
+    private void OnConsoleUIOpenAttempt(
+        EntityUid uid,
+        FireControlConsoleComponent component,
+        ActivatableUIOpenAttemptEvent args
+    )
     {
         // Mono: on crewed shuttles, deny opening a gunnery console if this user already has
         // a shuttle console open on the same grid (unless they are an AdvancedPilot).
@@ -63,16 +75,22 @@ public sealed partial class FireControlSystem : EntitySystem
         UnregisterConsole(uid, component);
     }
 
-    private void OnRefreshServer(EntityUid uid, FireControlConsoleComponent component, FireControlConsoleRefreshServerMessage args)
+    private void OnRefreshServer(
+        EntityUid uid,
+        FireControlConsoleComponent component,
+        FireControlConsoleRefreshServerMessage args
+    )
     {
         if (component.ConnectedServer == null)
         {
             TryRegisterConsole(uid, component);
         }
 
-        if (component.ConnectedServer != null &&
-            TryComp<FireControlServerComponent>(component.ConnectedServer, out var server) &&
-            server.ConnectedGrid != null)
+        if (
+            component.ConnectedServer != null
+            && TryComp<FireControlServerComponent>(component.ConnectedServer, out var server)
+            && server.ConnectedGrid != null
+        )
         {
             RefreshControllables((EntityUid)server.ConnectedGrid);
         }
@@ -80,7 +98,10 @@ public sealed partial class FireControlSystem : EntitySystem
 
     private void OnFire(EntityUid uid, FireControlConsoleComponent component, FireControlConsoleFireMessage args)
     {
-        if (component.ConnectedServer == null || !TryComp<FireControlServerComponent>(component.ConnectedServer, out var server))
+        if (
+            component.ConnectedServer == null
+            || !TryComp<FireControlServerComponent>(component.ConnectedServer, out var server)
+        )
             return;
 
         // Fire the actual weapons
@@ -101,13 +122,17 @@ public sealed partial class FireControlSystem : EntitySystem
         if (!Resolve(console, ref component))
             return;
 
-        if (component.ConnectedServer == null || !TryComp<FireControlServerComponent>(component.ConnectedServer, out var server))
+        if (
+            component.ConnectedServer == null
+            || !TryComp<FireControlServerComponent>(component.ConnectedServer, out var server)
+        )
             return;
 
         server.Consoles.Remove(console);
         component.ConnectedServer = null;
         UpdateUi(console, component);
     }
+
     private bool TryRegisterConsole(EntityUid console, FireControlConsoleComponent? consoleComponent = null)
     {
         if (!Resolve(console, ref consoleComponent))
@@ -118,7 +143,10 @@ public sealed partial class FireControlSystem : EntitySystem
         if (gridServer.ServerUid == null || gridServer.ServerComponent == null)
             return false;
 
-        if (gridServer.ServerComponent.Consoles.Add(console) || consoleComponent.ConnectedServer != gridServer.ServerUid)
+        if (
+            gridServer.ServerComponent.Consoles.Add(console)
+            || consoleComponent.ConnectedServer != gridServer.ServerUid
+        )
         {
             consoleComponent.ConnectedServer = gridServer.ServerUid;
             UpdateUi(console, consoleComponent);
@@ -130,7 +158,11 @@ public sealed partial class FireControlSystem : EntitySystem
         }
     }
 
-    private void UpdateUi(EntityUid uid, FireControlConsoleComponent? component = null, Dictionary<NetEntity, List<DockingPortState>>? docks = null)
+    private void UpdateUi(
+        EntityUid uid,
+        FireControlConsoleComponent? component = null,
+        Dictionary<NetEntity, List<DockingPortState>>? docks = null
+    )
     {
         if (!Resolve(uid, ref component))
             return;
@@ -139,7 +171,10 @@ public sealed partial class FireControlSystem : EntitySystem
         NavInterfaceState navState = _shuttleConsoleSystem.GetNavState(uid, docks);
 
         List<FireControllableEntry> controllables = new();
-        if (component.ConnectedServer != null && TryComp<FireControlServerComponent>(component.ConnectedServer, out var server))
+        if (
+            component.ConnectedServer != null
+            && TryComp<FireControlServerComponent>(component.ConnectedServer, out var server)
+        )
         {
             foreach (var controllable in server.Controlled)
             {
@@ -169,7 +204,12 @@ public sealed partial class FireControlSystem : EntitySystem
             }
         }
 
-        var state = new FireControlConsoleBoundInterfaceState(component.ConnectedServer != null, array, navState, shieldHealth);
+        var state = new FireControlConsoleBoundInterfaceState(
+            component.ConnectedServer != null,
+            array,
+            navState,
+            shieldHealth
+        );
         _ui.SetUiState(uid, FireControlConsoleUiKey.Key, state);
     }
 }

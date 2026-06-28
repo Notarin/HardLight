@@ -21,15 +21,32 @@ namespace Content.Server.Store.Systems;
 
 public sealed partial class StoreSystem
 {
-    [Dependency] private readonly IAdminLogManager _admin = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly ActionsSystem _actions = default!;
-    [Dependency] private readonly ActionContainerSystem _actionContainer = default!;
-    [Dependency] private readonly ActionUpgradeSystem _actionUpgrade = default!;
-    [Dependency] private readonly SharedMindSystem _mind = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly StackSystem _stack = default!;
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
+    [Dependency]
+    private readonly IAdminLogManager _admin = default!;
+
+    [Dependency]
+    private readonly SharedHandsSystem _hands = default!;
+
+    [Dependency]
+    private readonly ActionsSystem _actions = default!;
+
+    [Dependency]
+    private readonly ActionContainerSystem _actionContainer = default!;
+
+    [Dependency]
+    private readonly ActionUpgradeSystem _actionUpgrade = default!;
+
+    [Dependency]
+    private readonly SharedMindSystem _mind = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly StackSystem _stack = default!;
+
+    [Dependency]
+    private readonly UserInterfaceSystem _ui = default!;
 
     private void InitializeUi()
     {
@@ -90,7 +107,11 @@ public sealed partial class StoreSystem
         //this is the person who will be passed into logic for all listing filtering.
         if (user != null) //if we have no "buyer" for this update, then don't update the listings
         {
-            component.LastAvailableListings = GetAvailableListings(component.AccountOwner ?? user.Value, store, component)
+            component.LastAvailableListings = GetAvailableListings(
+                    component.AccountOwner ?? user.Value,
+                    store,
+                    component
+                )
                 .ToHashSet();
         }
 
@@ -110,7 +131,12 @@ public sealed partial class StoreSystem
         // only tell operatives to lock their uplink if it can be locked
         var showFooter = HasComp<RingerUplinkComponent>(store);
 
-        var state = new StoreUpdateState(component.LastAvailableListings, allCurrency, showFooter, component.RefundAllowed);
+        var state = new StoreUpdateState(
+            component.LastAvailableListings,
+            allCurrency,
+            showFooter,
+            component.RefundAllowed
+        );
         _ui.SetUiState(store, StoreUiKey.Key, state);
     }
 
@@ -146,7 +172,12 @@ public sealed partial class StoreSystem
         //condition checking because why not
         if (listing.Conditions != null)
         {
-            var args = new ListingConditionArgs(component.AccountOwner ?? GetBuyerMind(buyer), uid, listing, EntityManager);
+            var args = new ListingConditionArgs(
+                component.AccountOwner ?? GetBuyerMind(buyer),
+                uid,
+                listing,
+                EntityManager
+            );
             var conditionsMet = listing.Conditions.All(condition => condition.Condition(args));
 
             if (!conditionsMet)
@@ -262,18 +293,16 @@ public sealed partial class StoreSystem
         }
 
         //log dat shit.
-        _admin.Add(LogType.StorePurchase,
+        _admin.Add(
+            LogType.StorePurchase,
             LogImpact.Low,
-            $"{ToPrettyString(buyer):player} purchased listing \"{ListingLocalisationHelpers.GetLocalisedNameOrEntityName(listing, _proto)}\" from {ToPrettyString(uid)}");
+            $"{ToPrettyString(buyer):player} purchased listing \"{ListingLocalisationHelpers.GetLocalisedNameOrEntityName(listing, _proto)}\" from {ToPrettyString(uid)}"
+        );
 
         listing.PurchaseAmount++; //track how many times something has been purchased
         _audio.PlayEntity(component.BuySuccessSound, msg.Actor, uid); //cha-ching!
 
-        var buyFinished = new StoreBuyFinishedEvent
-        {
-            PurchasedItem = listing,
-            StoreUid = uid
-        };
+        var buyFinished = new StoreBuyFinishedEvent { PurchasedItem = listing, StoreUid = uid };
         RaiseLocalEvent(ref buyFinished);
 
         UpdateUserInterface(buyer, uid, component);
@@ -312,9 +341,9 @@ public sealed partial class StoreSystem
         foreach (var value in sortedCashValues)
         {
             var cashId = proto.Cash[value];
-            var amountToSpawn = (int) MathF.Floor((float) (amountRemaining / value));
+            var amountToSpawn = (int)MathF.Floor((float)(amountRemaining / value));
             var ents = _stack.SpawnMultiple(cashId, amountToSpawn, coordinates);
-            if (ents.FirstOrDefault() is {} ent)
+            if (ents.FirstOrDefault() is { } ent)
                 _hands.PickupOrDrop(buyer, ent);
             amountRemaining -= value * amountToSpawn;
         }
@@ -339,7 +368,11 @@ public sealed partial class StoreSystem
         if (!component.RefundAllowed || component.BoughtEntities.Count == 0)
             return;
 
-        _admin.Add(LogType.StoreRefund, LogImpact.Low, $"{ToPrettyString(buyer):player} has refunded their purchases from {ToPrettyString(uid):store}");
+        _admin.Add(
+            LogType.StoreRefund,
+            LogImpact.Low,
+            $"{ToPrettyString(buyer):player} has refunded their purchases from {ToPrettyString(uid):store}"
+        );
 
         for (var i = component.BoughtEntities.Count - 1; i >= 0; i--)
         {
@@ -403,7 +436,4 @@ public sealed partial class StoreSystem
 /// <param name="StoreUid">EntityUid on which store is placed.</param>
 /// <param name="PurchasedItem">ListingItem that was purchased.</param>
 [ByRefEvent]
-public readonly record struct StoreBuyFinishedEvent(
-    EntityUid StoreUid,
-    ListingDataWithCostModifiers PurchasedItem
-);
+public readonly record struct StoreBuyFinishedEvent(EntityUid StoreUid, ListingDataWithCostModifiers PurchasedItem);

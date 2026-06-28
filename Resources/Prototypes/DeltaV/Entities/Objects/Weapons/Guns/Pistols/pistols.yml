@@ -23,14 +23,14 @@
         priority: 2
         whitelist:
           tags:
-            - MagazinePistolSpecial
+          - MagazinePistolSpecial
       gun_chamber:
         name: Chamber
         startingItem: CartridgeSpecialMindbreaker
         priority: 1
         whitelist:
           tags:
-            - CartridgeSpecial
+          - CartridgeSpecial
   - type: ContainerContainer
     containers:
       gun_magazine: !type:ContainerSlot

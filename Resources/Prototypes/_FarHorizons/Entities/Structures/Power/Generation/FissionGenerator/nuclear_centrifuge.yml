@@ -1,6 +1,6 @@
 - type: entity
   id: NuclearCentrifuge
-  parent: [ BaseMachinePowered, ConstructibleMachine ]
+  parent: [BaseMachinePowered, ConstructibleMachine]
   name: nuclear centrifuge
   description: A large machine that can be used to separate radioactive isotopes from spent fuel.
   components:
@@ -19,12 +19,12 @@
     visuals:
       enum.NuclearCentrifugeVisuals.Processing:
         enum.NuclearCentrifugeVisualLayers.Processing:
-          True: { state: centrifuge_process }
-          False: { state: centrifuge }
+          True: {state: centrifuge_process}
+          False: {state: centrifuge}
       enum.PowerDeviceVisuals.Powered:
         enum.PowerDeviceVisualLayers.Powered:
-          True: { visible: True }
-          False: { visible: False }
+          True: {visible: True}
+          False: {visible: False}
   - type: Appearance
   - type: Machine
     board: NuclearCentrifugeMachineCircuitboard

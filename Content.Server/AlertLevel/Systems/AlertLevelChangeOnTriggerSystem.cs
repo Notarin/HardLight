@@ -6,8 +6,11 @@ namespace Content.Server.AlertLevel.Systems;
 
 public sealed class AlertLevelChangeOnTriggerSystem : EntitySystem
 {
-    [Dependency] private readonly AlertLevelSystem _alertLevelSystem = default!;
-    [Dependency] private readonly StationSystem _station = default!;
+    [Dependency]
+    private readonly AlertLevelSystem _alertLevelSystem = default!;
+
+    [Dependency]
+    private readonly StationSystem _station = default!;
 
     public override void Initialize()
     {
@@ -22,6 +25,12 @@ public sealed class AlertLevelChangeOnTriggerSystem : EntitySystem
         if (!stationUid.HasValue)
             return;
 
-        _alertLevelSystem.SetLevel(stationUid.Value, ent.Comp.Level, ent.Comp.PlaySound, ent.Comp.Announce, ent.Comp.Force);
+        _alertLevelSystem.SetLevel(
+            stationUid.Value,
+            ent.Comp.Level,
+            ent.Comp.PlaySound,
+            ent.Comp.Announce,
+            ent.Comp.Force
+        );
     }
 }

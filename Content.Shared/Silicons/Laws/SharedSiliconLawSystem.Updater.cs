@@ -10,7 +10,10 @@ public abstract partial class SharedSiliconLawSystem
         SubscribeLocalEvent<SiliconLawUpdaterComponent, EntInsertedIntoContainerMessage>(OnUpdaterInsert);
     }
 
-    protected virtual void OnUpdaterInsert(Entity<SiliconLawUpdaterComponent> ent, ref EntInsertedIntoContainerMessage args)
+    protected virtual void OnUpdaterInsert(
+        Entity<SiliconLawUpdaterComponent> ent,
+        ref EntInsertedIntoContainerMessage args
+    )
     {
         // TODO: Prediction
     }

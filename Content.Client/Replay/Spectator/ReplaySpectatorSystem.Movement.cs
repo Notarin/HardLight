@@ -23,8 +23,8 @@ public sealed partial class ReplaySpectatorSystem
         var moveRightCmdHandler = new MoverHandler(this, DirectionFlag.East);
         var moveDownCmdHandler = new MoverHandler(this, DirectionFlag.South);
 
-        CommandBinds.Builder
-            .Bind(EngineKeyFunctions.MoveUp, moveUpCmdHandler)
+        CommandBinds
+            .Builder.Bind(EngineKeyFunctions.MoveUp, moveUpCmdHandler)
             .Bind(EngineKeyFunctions.MoveLeft, moveLeftCmdHandler)
             .Bind(EngineKeyFunctions.MoveRight, moveRightCmdHandler)
             .Bind(EngineKeyFunctions.MoveDown, moveDownCmdHandler)
@@ -113,7 +113,11 @@ public sealed partial class ReplaySpectatorSystem
             _dir = dir;
         }
 
-        public override bool HandleCmdMessage(IEntityManager entManager, ICommonSession? session, IFullInputCmdMessage message)
+        public override bool HandleCmdMessage(
+            IEntityManager entManager,
+            ICommonSession? session,
+            IFullInputCmdMessage message
+        )
         {
             if (message.State == BoundKeyState.Down)
                 _sys.Direction |= _dir;

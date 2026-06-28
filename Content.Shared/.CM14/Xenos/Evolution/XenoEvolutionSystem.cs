@@ -9,8 +9,11 @@ namespace Content.Shared.CM14.Xenos.Evolution;
 
 public sealed class XenoEvolutionSystem : EntitySystem
 {
-    [Dependency] private readonly SharedActionsSystem _action = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly SharedActionsSystem _action = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     public override void Initialize()
     {

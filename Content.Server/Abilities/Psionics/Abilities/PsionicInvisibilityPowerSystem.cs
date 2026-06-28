@@ -1,13 +1,13 @@
-using Content.Shared.Actions;
-using Content.Shared.CombatMode.Pacification;
+using Content.Server.Psionics;
 using Content.Shared.Abilities.Psionics;
-using Content.Shared.Nyanotrasen.Abilities.Psionics;
+using Content.Shared.Actions;
+using Content.Shared.Actions.Events;
+using Content.Shared.CombatMode.Pacification;
 using Content.Shared.Damage;
-using Content.Shared.Stunnable;
+using Content.Shared.Nyanotrasen.Abilities.Psionics;
 using Content.Shared.Stealth;
 using Content.Shared.Stealth.Components;
-using Content.Server.Psionics;
-using Content.Shared.Actions.Events;
+using Content.Shared.Stunnable;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 
@@ -17,11 +17,20 @@ namespace Content.Server.Abilities.Psionics
     {
         private static readonly SoundPathSpecifier ToggleSound = new("/Audio/Effects/toss.ogg");
 
-        [Dependency] private readonly SharedActionsSystem _actions = default!;
-        [Dependency] private readonly SharedStunSystem _stunSystem = default!;
-        [Dependency] private readonly SharedPsionicAbilitiesSystem _psionics = default!;
-        [Dependency] private readonly SharedStealthSystem _stealth = default!;
-        [Dependency] private readonly SharedAudioSystem _audio = default!;
+        [Dependency]
+        private readonly SharedActionsSystem _actions = default!;
+
+        [Dependency]
+        private readonly SharedStunSystem _stunSystem = default!;
+
+        [Dependency]
+        private readonly SharedPsionicAbilitiesSystem _psionics = default!;
+
+        [Dependency]
+        private readonly SharedStealthSystem _stealth = default!;
+
+        [Dependency]
+        private readonly SharedAudioSystem _audio = default!;
 
         public override void Initialize()
         {
@@ -33,10 +42,16 @@ namespace Content.Server.Abilities.Psionics
             SubscribeLocalEvent<PsionicInvisibilityUsedComponent, DamageChangedEvent>(OnDamageChanged);
         }
 
-        private void OnPowerUsed(EntityUid uid, PsionicInvisibilityPowerComponent component, PsionicInvisibilityPowerActionEvent args)
+        private void OnPowerUsed(
+            EntityUid uid,
+            PsionicInvisibilityPowerComponent component,
+            PsionicInvisibilityPowerActionEvent args
+        )
         {
-            if (!_psionics.OnAttemptPowerUse(args.Performer, "psionic invisibility")
-                || HasComp<PsionicInvisibilityUsedComponent>(uid))
+            if (
+                !_psionics.OnAttemptPowerUse(args.Performer, "psionic invisibility")
+                || HasComp<PsionicInvisibilityUsedComponent>(uid)
+            )
                 return;
 
             ToggleInvisibility(args.Performer);
@@ -56,7 +71,11 @@ namespace Content.Server.Abilities.Psionics
 
         private void OnStart(EntityUid uid, PsionicInvisibilityUsedComponent component, ComponentInit args)
         {
-            _actions.AddAction(uid, ref component.PsionicInvisibilityUsedActionEntity, component.PsionicInvisibilityUsedActionId);
+            _actions.AddAction(
+                uid,
+                ref component.PsionicInvisibilityUsedActionEntity,
+                component.PsionicInvisibilityUsedActionId
+            );
             if (component.PsionicInvisibilityUsedActionEntity is { } action)
             {
                 _actions.TryGetActionData(action, out var actionData);
@@ -69,7 +88,6 @@ namespace Content.Server.Abilities.Psionics
             var stealth = EnsureComp<StealthComponent>(uid);
             _stealth.SetVisibility(uid, 0.66f, stealth);
             _audio.PlayPvs(ToggleSound, uid);
-
         }
 
         private void OnEnd(EntityUid uid, PsionicInvisibilityUsedComponent component, ComponentShutdown args)

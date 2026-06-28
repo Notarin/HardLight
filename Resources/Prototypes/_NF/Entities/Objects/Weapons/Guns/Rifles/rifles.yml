@@ -15,7 +15,7 @@
         priority: 2
         whitelist:
           tags:
-            - Magazine556x45mmFMJ
+          - Magazine556x45mmFMJ
         whitelistFailPopup: gun-magazine-whitelist-fail
       gun_chamber:
         name: Chamber
@@ -23,7 +23,7 @@
         priority: 1
         whitelist:
           tags:
-            - Cartridge556x45mmFMJ
+          - Cartridge556x45mmFMJ
 
 #Delta-V
 - type: entity
@@ -42,8 +42,8 @@
         priority: 2
         whitelist:
           tags:
-            - Magazine762x51mmFMJ
-            - Magazine762x51mmLowCapacityFMJ
+          - Magazine762x51mmFMJ
+          - Magazine762x51mmLowCapacityFMJ
         whitelistFailPopup: gun-magazine-whitelist-fail
       gun_chamber:
         name: Chamber
@@ -51,22 +51,22 @@
         priority: 1
         whitelist:
           tags:
-            - Cartridge762x51mmFMJ
+          - Cartridge762x51mmFMJ
 
 # Frontier
 - type: entity
   name: Gestio (762x39mm)
-  parent: [ BaseWeaponRifle, BaseC1Contraband ]
+  parent: [BaseWeaponRifle, BaseC1Contraband]
   id: WeaponRifleGestio
   description: An old burst-fire rifle made by Silver Industries that never left trials. Accepts low capacity 762x39mm magazines.
   components:
   - type: Sprite
     sprite: _NF/Objects/Weapons/Guns/Rifles/gestio.rsi
     layers:
-      - state: mag-0
-        map: ["enum.GunVisualLayers.Mag"]
-      - state: base
-        map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
   - type: Clothing
     sprite: _NF/Objects/Weapons/Guns/Rifles/gestio.rsi
   - type: Gun
@@ -76,8 +76,8 @@
     burstCooldown: 0.4
     selectedMode: Burst
     availableModes:
-      - Burst
-      - SemiAuto
+    - Burst
+    - SemiAuto
     soundGunshot:
       path: /Audio/_NF/Weapons/Guns/Gunshots/rifle.ogg
       params:
@@ -92,8 +92,8 @@
         priority: 2
         whitelist:
           tags:
-            - Magazine762x39mmLowCapacityFMJ
-            - Magazine762x39mmFMJ
+          - Magazine762x39mmLowCapacityFMJ
+          - Magazine762x39mmFMJ
         whitelistFailPopup: gun-magazine-whitelist-fail
       gun_chamber:
         name: Chamber
@@ -101,7 +101,7 @@
         priority: 1
         whitelist:
           tags:
-            - Cartridge762x39mmFMJ
+          - Cartridge762x39mmFMJ
   - type: ContainerContainer
     containers:
       gun_magazine: !type:ContainerSlot
@@ -127,7 +127,7 @@
         priority: 2
         whitelist:
           tags:
-            - Magazine762x39mmLowCapacityFMJ
+          - Magazine762x39mmLowCapacityFMJ
         whitelistFailPopup: gun-magazine-whitelist-fail
       gun_chamber:
         name: Chamber
@@ -135,10 +135,10 @@
         priority: 1
         whitelist:
           tags:
-            - Cartridge762x39mmFMJ
+          - Cartridge762x39mmFMJ
 
 - type: entity
-  parent: [ BaseWeaponRifle, BaseC1Contraband ]
+  parent: [BaseWeaponRifle, BaseC1Contraband]
   id: WeaponRifleNovaliteC1
   name: Novalite C1 (556x45mm)
   description: A modification to the Lecter from SW LLC, a civilian grade semi-automatic rifle with an internal magazine. Uses 556x45mm ammo.
@@ -146,17 +146,17 @@
   - type: Sprite
     sprite: _NF/Objects/Weapons/Guns/Rifles/novalitec1.rsi
     layers:
-      - state: mag-0
-        map: ["enum.GunVisualLayers.Mag"]
-      - state: base
-        map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
   - type: Clothing
     sprite: _NF/Objects/Weapons/Guns/Rifles/novalitec1.rsi
   - type: Gun
     fireRate: 5
     selectedMode: SemiAuto
     availableModes:
-      - SemiAuto
+    - SemiAuto
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/ltrifle.ogg
       params:
@@ -171,7 +171,7 @@
         priority: 2
         whitelist:
           tags:
-            - MagazineNovaliteC1
+          - MagazineNovaliteC1
         whitelistFailPopup: gun-magazine-whitelist-fail
       gun_chamber:
         name: Chamber
@@ -179,7 +179,7 @@
         priority: 1
         whitelist:
           tags:
-            - Cartridge556x45mmFMJ
+          - Cartridge556x45mmFMJ
   - type: ContainerContainer
     containers:
       gun_magazine: !type:ContainerSlot
@@ -205,7 +205,7 @@
         priority: 2
         whitelist:
           tags:
-            - MagazineNovaliteC1
+          - MagazineNovaliteC1
         whitelistFailPopup: gun-magazine-whitelist-fail
       gun_chamber:
         name: Chamber
@@ -213,22 +213,22 @@
         priority: 1
         whitelist:
           tags:
-            - Cartridge556x45mmFMJ
+          - Cartridge556x45mmFMJ
 
 - type: entity
   id: WeaponRifleSVS
   name: SVT-42 (762x54mmR)
-  parent: [ BaseWeaponRifle, BaseGunMelee, BaseC1Contraband ]
-  description: "Originally designed by SESWC, this old surplus rifle looks like it's seen a few wars. Uses low capacity 10 rounder 762x54mmR magazines. Equipped with bayonet."  #Hardlight
+  parent: [BaseWeaponRifle, BaseGunMelee, BaseC1Contraband]
+  description: "Originally designed by SESWC, this old surplus rifle looks like it's seen a few wars. Uses low capacity 10 rounder 762x54mmR magazines. Equipped with bayonet." #Hardlight
   components:
   - type: Sharp #It literally has a blade
   - type: Sprite
     sprite: _NF/Objects/Weapons/Guns/Rifles/svs42.rsi
     layers:
-      - state: mag-0
-        map: ["enum.GunVisualLayers.Mag"]
-      - state: base
-        map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
   - type: Clothing
     sprite: _NF/Objects/Weapons/Guns/Rifles/svs42.rsi
     quickEquip: false
@@ -236,11 +236,11 @@
     - Back
     - suitStorage
   - type: Gun
-    fireRate: 5  # highly underpower so buff  Hardlight
+    fireRate: 5 # highly underpower so buff  Hardlight
     selectedMode: SemiAuto
     availableModes:
-      - SemiAuto
-      - FullAuto
+    - SemiAuto
+    - FullAuto
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/rifle2.ogg
   - type: ChamberMagazineAmmoProvider
@@ -256,7 +256,7 @@
         priority: 2
         whitelist:
           tags:
-            - Magazine762x54mmRFMJ
+          - Magazine762x54mmRFMJ
         whitelistFailPopup: gun-magazine-whitelist-fail
       gun_chamber:
         name: Chamber
@@ -264,7 +264,7 @@
         priority: 1
         whitelist:
           tags:
-            - Cartridge762x54mmRFMJ
+          - Cartridge762x54mmRFMJ
   - type: ContainerContainer
     containers:
       gun_magazine: !type:ContainerSlot
@@ -280,5 +280,5 @@
     pvsIncrease: 0.15
   - type: AltFireMelee
     attackType: Light
-  - type: NFWeaponDetails  # Hardlight change
+  - type: NFWeaponDetails # Hardlight change
     manufacturer: weapon-details-manufacturer-SESWC-consortium

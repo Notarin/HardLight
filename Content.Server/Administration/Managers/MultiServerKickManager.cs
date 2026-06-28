@@ -19,15 +19,32 @@ public sealed class MultiServerKickManager
 {
     public const string NotificationChannel = "multi_server_kick";
 
-    [Dependency] private readonly IPlayerManager _playerManager = null!;
-    [Dependency] private readonly IServerDbManager _dbManager = null!;
-    [Dependency] private readonly ILogManager _logManager = null!;
-    [Dependency] private readonly IConfigurationManager _cfg = null!;
-    [Dependency] private readonly IAdminManager _adminManager = null!;
-    [Dependency] private readonly ITaskManager _taskManager = null!;
-    [Dependency] private readonly IServerNetManager _netManager = null!;
-    [Dependency] private readonly ILocalizationManager _loc = null!;
-    [Dependency] private readonly ServerDbEntryManager _serverDbEntry = null!;
+    [Dependency]
+    private readonly IPlayerManager _playerManager = null!;
+
+    [Dependency]
+    private readonly IServerDbManager _dbManager = null!;
+
+    [Dependency]
+    private readonly ILogManager _logManager = null!;
+
+    [Dependency]
+    private readonly IConfigurationManager _cfg = null!;
+
+    [Dependency]
+    private readonly IAdminManager _adminManager = null!;
+
+    [Dependency]
+    private readonly ITaskManager _taskManager = null!;
+
+    [Dependency]
+    private readonly IServerNetManager _netManager = null!;
+
+    [Dependency]
+    private readonly ILocalizationManager _loc = null!;
+
+    [Dependency]
+    private readonly ServerDbEntryManager _serverDbEntry = null!;
 
     private ISawmill _sawmill = null!;
     private bool _allowed;
@@ -60,15 +77,19 @@ public sealed class MultiServerKickManager
         // Send notification to other servers so they can kick this player that just connected.
         try
         {
-            await _dbManager.SendNotification(new DatabaseNotification
-            {
-                Channel = NotificationChannel,
-                Payload = JsonSerializer.Serialize(new NotificationData
+            await _dbManager.SendNotification(
+                new DatabaseNotification
                 {
-                    PlayerId = e.Session.UserId,
-                    ServerId = (await _serverDbEntry.ServerEntity).Id,
-                }),
-            });
+                    Channel = NotificationChannel,
+                    Payload = JsonSerializer.Serialize(
+                        new NotificationData
+                        {
+                            PlayerId = e.Session.UserId,
+                            ServerId = (await _serverDbEntry.ServerEntity).Id,
+                        }
+                    ),
+                }
+            );
         }
         catch (Exception ex)
         {
@@ -80,7 +101,9 @@ public sealed class MultiServerKickManager
     {
         if (_allowed)
         {
-            _sawmill.Verbose("Received notification for player join, but multi server play is allowed on this server. Ignoring");
+            _sawmill.Verbose(
+                "Received notification for player join, but multi server play is allowed on this server. Ignoring"
+            );
             return false;
         }
 

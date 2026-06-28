@@ -5,7 +5,7 @@
 - type: entity
   id: WeaponTurretASM220
   name: ASM-220 torpedo VLS
-  parent: [ BallisticArtilleryUnanchorableCartridge, BaseC3ExpeditionContraband ]
+  parent: [BallisticArtilleryUnanchorableCartridge, BaseC3ExpeditionContraband]
   description: A heavy torpedo VLS relying on manual loading to work. Its missiles are very effective however.
   components:
   - type: StaticPrice
@@ -39,12 +39,11 @@
       path: /Audio/Items/rped.ogg
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 5000
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:PlaySoundBehavior
         sound:
           collection: MetalBreak

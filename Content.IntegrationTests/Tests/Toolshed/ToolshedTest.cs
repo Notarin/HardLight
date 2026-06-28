@@ -71,7 +71,7 @@ public abstract class ToolshedTest : IInvocationContext
     {
         InvokeCommand(command, out var res);
         Assert.That(res, Is.AssignableTo<T>());
-        return (T) res!;
+        return (T)res!;
     }
 
     protected void ParseCommand(string command, Type? inputType = null, Type? expectedType = null)
@@ -139,12 +139,12 @@ public abstract class ToolshedTest : IInvocationContext
         if (AssertOnUnexpectedError)
         {
             Assert.That(
-                    err.GetType().IsAssignableTo(ty),
-                    $"The error {err.GetType()} wasn't assignable to the expected type {ty}.\n{err.Describe()}"
-                );
+                err.GetType().IsAssignableTo(ty),
+                $"The error {err.GetType()} wasn't assignable to the expected type {ty}.\n{err.Describe()}"
+            );
         }
 
-    done:
+        done:
         _errors.Add(err);
     }
 

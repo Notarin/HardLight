@@ -8,11 +8,16 @@ namespace Content.Server.NPC.HTN.PrimitiveTasks.Operators.Test;
 
 public sealed partial class PickPathfindPointOperator : HTNOperator
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
 
-    public override async Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(NPCBlackboard blackboard,
-        CancellationToken cancelToken)
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    public override async Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(
+        NPCBlackboard blackboard,
+        CancellationToken cancelToken
+    )
     {
         var owner = blackboard.GetValue<EntityUid>(NPCBlackboard.Owner);
 
@@ -25,7 +30,9 @@ public sealed partial class PickPathfindPointOperator : HTNOperator
 
         var points = new List<TransformComponent>();
 
-        foreach (var (point, pointXform) in _entManager.EntityQuery<NPCPathfindPointComponent, TransformComponent>(true))
+        foreach (
+            var (point, pointXform) in _entManager.EntityQuery<NPCPathfindPointComponent, TransformComponent>(true)
+        )
         {
             if (gridUid != pointXform.GridUid)
                 continue;
@@ -38,9 +45,6 @@ public sealed partial class PickPathfindPointOperator : HTNOperator
 
         var selected = _random.Pick(points);
 
-        return (true, new Dictionary<string, object>()
-        {
-            { NPCBlackboard.MovementTarget, selected.Coordinates }
-        });
+        return (true, new Dictionary<string, object>() { { NPCBlackboard.MovementTarget, selected.Coordinates } });
     }
 }

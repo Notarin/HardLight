@@ -1,7 +1,7 @@
 using Content.Client.Clothing.Systems;
 using Content.Shared.Clothing.Components;
-using Content.Shared.Tag;
 using Content.Shared.Prototypes;
+using Content.Shared.Tag;
 using JetBrains.Annotations;
 using Robust.Client.GameObjects;
 using Robust.Client.UserInterface;
@@ -12,15 +12,19 @@ namespace Content.Client.Clothing.UI;
 [UsedImplicitly]
 public sealed class ChameleonBoundUserInterface : BoundUserInterface
 {
-    [Dependency] private readonly IComponentFactory _factory = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
+    [Dependency]
+    private readonly IComponentFactory _factory = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
     private readonly ChameleonClothingSystem _chameleon;
     private readonly TagSystem _tag;
 
     [ViewVariables]
     private ChameleonMenu? _menu;
 
-    public ChameleonBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
+    public ChameleonBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey)
     {
         _chameleon = EntMan.System<ChameleonClothingSystem>();
         _tag = EntMan.System<TagSystem>();
@@ -55,7 +59,8 @@ public sealed class ChameleonBoundUserInterface : BoundUserInterface
                 newTargets.Add(target);
             }
             _menu?.UpdateState(newTargets, st.SelectedId);
-        } else
+        }
+        else
         {
             _menu?.UpdateState(targets, st.SelectedId);
         }

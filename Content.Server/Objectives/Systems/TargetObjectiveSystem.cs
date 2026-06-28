@@ -1,9 +1,9 @@
+using System.Diagnostics.CodeAnalysis;
 using Content.Server.Objectives.Components;
 using Content.Shared.Mind;
 using Content.Shared.Objectives.Components;
 using Content.Shared.Roles.Jobs;
 using Robust.Shared.GameObjects;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Content.Server.Objectives.Systems;
 
@@ -12,8 +12,11 @@ namespace Content.Server.Objectives.Systems;
 /// </summary>
 public sealed class TargetObjectiveSystem : EntitySystem
 {
-    [Dependency] private readonly MetaDataSystem _metaData = default!;
-    [Dependency] private readonly SharedJobSystem _job = default!;
+    [Dependency]
+    private readonly MetaDataSystem _metaData = default!;
+
+    [Dependency]
+    private readonly SharedJobSystem _job = default!;
 
     public override void Initialize()
     {
@@ -47,7 +50,11 @@ public sealed class TargetObjectiveSystem : EntitySystem
     /// <remarks>
     /// If it is null then the prototype is invalid, just return.
     /// </remarks>
-    public bool GetTarget(EntityUid uid, [NotNullWhen(true)] out EntityUid? target, TargetObjectiveComponent? comp = null)
+    public bool GetTarget(
+        EntityUid uid,
+        [NotNullWhen(true)] out EntityUid? target,
+        TargetObjectiveComponent? comp = null
+    )
     {
         target = Resolve(uid, ref comp) ? comp.Target : null;
         return target != null;
@@ -64,5 +71,4 @@ public sealed class TargetObjectiveSystem : EntitySystem
         var jobName = _job.MindTryGetJobName(target);
         return Loc.GetString(title, ("targetName", targetName), ("job", jobName));
     }
-
 }

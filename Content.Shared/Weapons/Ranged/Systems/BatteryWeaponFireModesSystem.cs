@@ -13,10 +13,17 @@ namespace Content.Shared.Weapons.Ranged.Systems;
 
 public sealed class BatteryWeaponFireModesSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly AccessReaderSystem _accessReaderSystem = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearanceSystem = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly AccessReaderSystem _accessReaderSystem = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearanceSystem = default!;
 
     public override void Initialize()
     {
@@ -73,7 +80,7 @@ public sealed class BatteryWeaponFireModesSystem : EntitySystem
                 Act = () =>
                 {
                     TrySetFireMode(uid, component, index, args.User);
-                }
+                },
             };
 
             args.Verbs.Add(v);
@@ -97,7 +104,12 @@ public sealed class BatteryWeaponFireModesSystem : EntitySystem
         TrySetFireMode(uid, component, index, user);
     }
 
-    public bool TrySetFireMode(EntityUid uid, BatteryWeaponFireModesComponent component, int index, EntityUid? user = null)
+    public bool TrySetFireMode(
+        EntityUid uid,
+        BatteryWeaponFireModesComponent component,
+        int index,
+        EntityUid? user = null
+    )
     {
         if (index < 0 || index >= component.FireModes.Count)
             return false;
@@ -110,7 +122,12 @@ public sealed class BatteryWeaponFireModesSystem : EntitySystem
         return true;
     }
 
-    private void SetFireMode(EntityUid uid, BatteryWeaponFireModesComponent component, int index, EntityUid? user = null)
+    private void SetFireMode(
+        EntityUid uid,
+        BatteryWeaponFireModesComponent component,
+        int index,
+        EntityUid? user = null
+    )
     {
         var fireMode = component.FireModes[index];
         component.CurrentFireMode = index;
@@ -133,8 +150,10 @@ public sealed class BatteryWeaponFireModesSystem : EntitySystem
             projectileBatteryAmmoProviderComponent.FireCost = fireMode.FireCost;
 
             float FireCostDiff = (float)fireMode.FireCost / (float)OldFireCost;
-            projectileBatteryAmmoProviderComponent.Shots = (int)Math.Round(projectileBatteryAmmoProviderComponent.Shots / FireCostDiff);
-            projectileBatteryAmmoProviderComponent.Capacity = (int)Math.Round(projectileBatteryAmmoProviderComponent.Capacity / FireCostDiff);
+            projectileBatteryAmmoProviderComponent.Shots = (int)
+                Math.Round(projectileBatteryAmmoProviderComponent.Shots / FireCostDiff);
+            projectileBatteryAmmoProviderComponent.Capacity = (int)
+                Math.Round(projectileBatteryAmmoProviderComponent.Capacity / FireCostDiff);
 
             Dirty(uid, projectileBatteryAmmoProviderComponent);
 

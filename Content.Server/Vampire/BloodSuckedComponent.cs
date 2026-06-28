@@ -4,6 +4,5 @@ namespace Content.Server.Vampiric
     /// For entities who have been succed.
     /// </summary>
     [RegisterComponent]
-    public sealed partial class BloodSuckedComponent : Component
-    {}
+    public sealed partial class BloodSuckedComponent : Component { }
 }

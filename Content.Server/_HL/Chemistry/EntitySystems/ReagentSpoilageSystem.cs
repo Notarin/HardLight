@@ -15,9 +15,14 @@ public sealed class ReagentSpoilageSystem : EntitySystem
 {
     private readonly record struct SpoilageKey(EntityUid Owner, EntityUid Solution, ReagentId Reagent);
 
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solution = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototype = default!;
+
+    [Dependency]
+    private readonly SharedSolutionContainerSystem _solution = default!;
 
     private readonly HashSet<EntityUid> _processing = [];
     private readonly Dictionary<SpoilageKey, TimeSpan> _pendingSpoilage = [];
@@ -47,14 +52,20 @@ public sealed class ReagentSpoilageSystem : EntitySystem
 
     private void OnSolutionChanged(Entity<MetaDataComponent> ent, ref SolutionContainerChangedEvent args)
     {
-        if (_processing.Contains(ent.Owner) ||
-            !TryComp<SolutionContainerManagerComponent>(ent, out var manager))
+        if (_processing.Contains(ent.Owner) || !TryComp<SolutionContainerManagerComponent>(ent, out var manager))
         {
             return;
         }
 
         Entity<SolutionComponent>? solutionEntity = null;
-        if (!_solution.ResolveSolution((ent.Owner, (SolutionContainerManagerComponent?) manager), args.SolutionId, ref solutionEntity, out var solution))
+        if (
+            !_solution.ResolveSolution(
+                (ent.Owner, (SolutionContainerManagerComponent?)manager),
+                args.SolutionId,
+                ref solutionEntity,
+                out var solution
+            )
+        )
             return;
 
         _processing.Add(ent.Owner);
@@ -90,7 +101,11 @@ public sealed class ReagentSpoilageSystem : EntitySystem
             _pendingSpoilage.Remove(key);
         }
 
-        foreach (var key in _pendingSpoilage.Keys.Where(x => x.Owner == ent.Owner && x.Solution == solutionEntity!.Value.Owner).ToArray())
+        foreach (
+            var key in _pendingSpoilage
+                .Keys.Where(x => x.Owner == ent.Owner && x.Solution == solutionEntity!.Value.Owner)
+                .ToArray()
+        )
         {
             if (!seenSpoilage.Contains(key))
                 _pendingSpoilage.Remove(key);
@@ -101,9 +116,11 @@ public sealed class ReagentSpoilageSystem : EntitySystem
 
     private void TryProcessPendingSpoilage(SpoilageKey key)
     {
-        if (_processing.Contains(key.Owner) ||
-            !EntityManager.EntityExists(key.Owner) ||
-            !TryComp<SolutionComponent>(key.Solution, out var solutionComp))
+        if (
+            _processing.Contains(key.Owner)
+            || !EntityManager.EntityExists(key.Owner)
+            || !TryComp<SolutionComponent>(key.Solution, out var solutionComp)
+        )
         {
             _pendingSpoilage.Remove(key);
             return;
@@ -139,7 +156,9 @@ public sealed class ReagentSpoilageSystem : EntitySystem
         if (HasComp<HLSynthComponent>(owner))
             return true;
 
-        if ((proto.SpoilConditions?.PreservedBySpoilageContainers ?? true) && HasComp<PreservesSpoilageComponent>(owner))
+        if (
+            (proto.SpoilConditions?.PreservedBySpoilageContainers ?? true) && HasComp<PreservesSpoilageComponent>(owner)
+        )
             return true;
 
         if (proto.SpoilConditions == null)

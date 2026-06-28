@@ -10,9 +10,7 @@ public interface IAdminLogConverter
 
 public abstract class AdminLogConverter<T> : JsonConverter<T>, IAdminLogConverter
 {
-    public virtual void Init(IDependencyCollection dependencies)
-    {
-    }
+    public virtual void Init(IDependencyCollection dependencies) { }
 
     public override T Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {

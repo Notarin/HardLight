@@ -13,25 +13,27 @@ public abstract class SharedNetworkConfiguratorSystem : EntitySystem
         SubscribeLocalEvent<NetworkConfiguratorComponent, ActivatableUIOpenAttemptEvent>(OnUiOpenAttempt);
     }
 
-    private void OnUiOpenAttempt(EntityUid uid, NetworkConfiguratorComponent configurator, ActivatableUIOpenAttemptEvent args)
+    private void OnUiOpenAttempt(
+        EntityUid uid,
+        NetworkConfiguratorComponent configurator,
+        ActivatableUIOpenAttemptEvent args
+    )
     {
         if (configurator.LinkModeActive)
             args.Cancel();
     }
 }
 
-public sealed partial class ClearAllOverlaysEvent : InstantActionEvent
-{
-}
+public sealed partial class ClearAllOverlaysEvent : InstantActionEvent { }
 
 [Serializable, NetSerializable]
 public enum NetworkConfiguratorVisuals
 {
-    Mode
+    Mode,
 }
 
 [Serializable, NetSerializable]
 public enum NetworkConfiguratorLayers
 {
-    ModeLight
+    ModeLight,
 }

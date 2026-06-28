@@ -24,8 +24,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.40
         density: 100
         mask:
@@ -48,7 +47,7 @@
     coldDamageThreshold: 0
   - type: MeleeWeapon
     soundHit:
-        path: /Audio/Weapons/Xeno/alien_claw_flesh3.ogg
+      path: /Audio/Weapons/Xeno/alien_claw_flesh3.ogg
     angle: 0
     animation: WeaponArcClaw
     damage:
@@ -74,15 +73,15 @@
   id: MobBearSpace
   parent: MobSpaceBasic
   description: It looks friendly. Why don't you give it a hug?
-#  categories: [ HideSpawnMenu ] # Frontier
+  #  categories: [ HideSpawnMenu ] # Frontier
   components:
   - type: Sprite
     drawdepth: Mobs
     sprite: Mobs/Animals/bear.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: bear
-    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+    - map: ["enum.DamageStateVisualLayers.BaseUnshaded"]
       state: glow
       shader: unshaded
   - type: DamageStateVisuals
@@ -117,7 +116,7 @@
   id: MobBearSpaceSalvage
   parent: MobBearSpace
   suffix: "Salvage Ruleset"
-#  categories: [ HideSpawnMenu ] # Frontier
+  #  categories: [ HideSpawnMenu ] # Frontier
   components:
   - type: NFSalvageMobRestrictions # Frontier: SalvageMobRestrictions<NFSalvageMobRestrictions
 
@@ -126,20 +125,20 @@
   id: MobKangarooSpace
   parent: [MobSpaceBasic, StripableInventoryBase]
   description: It looks friendly. Why don't you give it a hug?
-#  categories: [ HideSpawnMenu ] # Frontier
+  #  categories: [ HideSpawnMenu ] # Frontier
   components:
   - type: Sprite
     drawdepth: Mobs
     sprite: Mobs/Animals/kangaroo.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: kangaroo-space
-    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+    - map: ["enum.DamageStateVisualLayers.BaseUnshaded"]
       state: glow
       shader: unshaded
   - type: MeleeWeapon
     soundHit:
-        path: /Audio/Weapons/Xeno/alien_claw_flesh3.ogg
+      path: /Audio/Weapons/Xeno/alien_claw_flesh3.ogg
     angle: 0
     animation: WeaponArcClaw
     damage:
@@ -180,7 +179,7 @@
   id: MobKangarooSpaceSalvage
   parent: MobKangarooSpace
   suffix: "Salvage Ruleset"
-#  categories: [ HideSpawnMenu ] # Frontier
+  #  categories: [ HideSpawnMenu ] # Frontier
   components:
   - type: NFSalvageMobRestrictions # Frontier: SalvageMobRestrictions<NFSalvageMobRestrictions
 
@@ -189,39 +188,39 @@
   id: MobSpiderSpace
   parent: MobSpaceBasic
   description: It's so glowing, it looks dangerous.
-#  categories: [ HideSpawnMenu ] # Frontier
+  #  categories: [ HideSpawnMenu ] # Frontier
   components:
   # Starlight start
   - type: OptionsVisualizer
     visuals:
       base:
-        - options: Default
-          data:
-            drawdepth: Mobs
-            sprite: Mobs/Animals/spacespider.rsi
-            map: [ "enum.DamageStateVisualLayers.Base" ]
-            state: spacespider
-        - options: Arachnophobia
-          data:
-            drawdepth: Mobs
-            sprite: _Starlight/Mobs/Animals/Spiders/Arachnophobia/spacespider.rsi
-            map: [ "enum.DamageStateVisualLayers.Base" ]
-            state: spacespider
+      - options: Default
+        data:
+          drawdepth: Mobs
+          sprite: Mobs/Animals/spacespider.rsi
+          map: ["enum.DamageStateVisualLayers.Base"]
+          state: spacespider
+      - options: Arachnophobia
+        data:
+          drawdepth: Mobs
+          sprite: _Starlight/Mobs/Animals/Spiders/Arachnophobia/spacespider.rsi
+          map: ["enum.DamageStateVisualLayers.Base"]
+          state: spacespider
       baseUnshaded:
-        - options: Default
-          data:
-            drawdepth: Mobs
-            sprite: Mobs/Animals/spacespider.rsi
-            map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
-            state: glow
-            shader: unshaded
-        - options: Arachnophobia
-          data:
-            drawdepth: Mobs
-            sprite: _Starlight/Mobs/Animals/Spiders/Arachnophobia/spacespider.rsi
-            map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
-            state: glow
-            shader: unshaded
+      - options: Default
+        data:
+          drawdepth: Mobs
+          sprite: Mobs/Animals/spacespider.rsi
+          map: ["enum.DamageStateVisualLayers.BaseUnshaded"]
+          state: glow
+          shader: unshaded
+      - options: Arachnophobia
+        data:
+          drawdepth: Mobs
+          sprite: _Starlight/Mobs/Animals/Spiders/Arachnophobia/spacespider.rsi
+          map: ["enum.DamageStateVisualLayers.BaseUnshaded"]
+          state: glow
+          shader: unshaded
   # Starlight end
   - type: MobThresholds
     thresholds:
@@ -249,8 +248,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35
         density: 120
         mask:
@@ -303,7 +301,7 @@
   id: MobSpiderSpaceSalvage
   parent: MobSpiderSpace
   suffix: "Salvage Ruleset"
-#  categories: [ HideSpawnMenu ] # Frontier
+  #  categories: [ HideSpawnMenu ] # Frontier
   components:
   - type: NFSalvageMobRestrictions # Frontier: SalvageMobRestrictions<NFSalvageMobRestrictions
 
@@ -312,101 +310,100 @@
   id: MobCobraSpace
   parent: MobSpaceBasic
   description: Long fangs and a glowing hood, and the alluring look begs to come closer.
-#  categories: [ HideSpawnMenu ] # Frontier
+  #  categories: [ HideSpawnMenu ] # Frontier
   components:
-    - type: Body # Shitmed Change
-      prototype: SpaceCobra
-    - type: Sprite
-      drawdepth: Mobs
-      sprite: Mobs/Animals/spacecobra.rsi
-      layers:
-        - map: [ "enum.DamageStateVisualLayers.Base" ]
-          state: spacecobra
-        - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
-          state: glow
-          shader: unshaded
-    - type: FootstepModifier
-      footstepSoundCollection:
-        collection: FootstepSnake
-    - type: MobThresholds
-      thresholds:
-        0: Alive
-        100: Dead
-    - type: Stamina
-      critThreshold: 150
-    - type: DamageStateVisuals
-      states:
-        Alive:
-          Base: spacecobra
-          BaseUnshaded: glow
-        Dead:
-          Base: dead_spacecobra
-    - type: Butcherable
-      spawned:
-        - id: FoodMeatSnake
-          amount: 2
-        - id: UraniumOre1
-          amount: 1
-        - id: ClothingShoesSnakeskinBoots
-          amount: 1
-          prob: 0.3
-    - type: Bloodstream
-      bloodMaxVolume: 200
-      bloodReagent: Cryoxadone
-    - type: Fixtures
-      fixtures:
-        fix1:
-          shape:
-            !type:PhysShapeCircle
-            radius: 0.40
-          density: 120
-          mask:
-          - MobMask
-          layer:
-          - MobLayer
-    - type: MeleeWeapon
-      hidden: true
-      soundHit:
-        path: /Audio/Effects/bite.ogg
-      angle: 0
-      animation: WeaponArcBite
-      damage:
-        types:
-          Piercing: 6
-          Poison: 4
-    - type: SolutionContainerManager
-      solutions:
-        melee:
-          reagents:
-          - ReagentId: NorepinephricAcid
-            Quantity: 90
-    - type: MeleeChemicalInjector
-      solution: melee
-      transferAmount: 6
-    - type: ReplacementAccent
-      accent: xeno
-    - type: InteractionPopup
-      successChance: 0.2
-      interactSuccessString: petting-success-snake
-      interactFailureString: petting-failure-generic
-    - type: PointLight
-      radius: 1.1
-      energy: 1.5
-      color: "#4faffb"
-    - type: Stealth
-      enabledOnDeath: false
-      maxVisibility: 1.2
-    - type: StealthOnMove
-      passiveVisibilityRate: -0.25
-      movementVisibilityRate: 0.25
+  - type: Body # Shitmed Change
+    prototype: SpaceCobra
+  - type: Sprite
+    drawdepth: Mobs
+    sprite: Mobs/Animals/spacecobra.rsi
+    layers:
+    - map: ["enum.DamageStateVisualLayers.Base"]
+      state: spacecobra
+    - map: ["enum.DamageStateVisualLayers.BaseUnshaded"]
+      state: glow
+      shader: unshaded
+  - type: FootstepModifier
+    footstepSoundCollection:
+      collection: FootstepSnake
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      100: Dead
+  - type: Stamina
+    critThreshold: 150
+  - type: DamageStateVisuals
+    states:
+      Alive:
+        Base: spacecobra
+        BaseUnshaded: glow
+      Dead:
+        Base: dead_spacecobra
+  - type: Butcherable
+    spawned:
+    - id: FoodMeatSnake
+      amount: 2
+    - id: UraniumOre1
+      amount: 1
+    - id: ClothingShoesSnakeskinBoots
+      amount: 1
+      prob: 0.3
+  - type: Bloodstream
+    bloodMaxVolume: 200
+    bloodReagent: Cryoxadone
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.40
+        density: 120
+        mask:
+        - MobMask
+        layer:
+        - MobLayer
+  - type: MeleeWeapon
+    hidden: true
+    soundHit:
+      path: /Audio/Effects/bite.ogg
+    angle: 0
+    animation: WeaponArcBite
+    damage:
+      types:
+        Piercing: 6
+        Poison: 4
+  - type: SolutionContainerManager
+    solutions:
+      melee:
+        reagents:
+        - ReagentId: NorepinephricAcid
+          Quantity: 90
+  - type: MeleeChemicalInjector
+    solution: melee
+    transferAmount: 6
+  - type: ReplacementAccent
+    accent: xeno
+  - type: InteractionPopup
+    successChance: 0.2
+    interactSuccessString: petting-success-snake
+    interactFailureString: petting-failure-generic
+  - type: PointLight
+    radius: 1.1
+    energy: 1.5
+    color: "#4faffb"
+  - type: Stealth
+    enabledOnDeath: false
+    maxVisibility: 1.2
+  - type: StealthOnMove
+    passiveVisibilityRate: -0.25
+    movementVisibilityRate: 0.25
 
 - type: entity
   id: MobCobraSpaceSalvage
   parent: MobCobraSpace
   suffix: "Salvage Ruleset"
-#  categories: [ HideSpawnMenu ] # Frontier
+  #  categories: [ HideSpawnMenu ] # Frontier
   components:
-    - type: NFSalvageMobRestrictions # Frontier: SalvageMobRestrictions<NFSalvageMobRestrictions
+  - type: NFSalvageMobRestrictions # Frontier: SalvageMobRestrictions<NFSalvageMobRestrictions
 
 - type: entity
   parent: SimpleSpaceMobBase
@@ -437,7 +434,7 @@
     size: Tiny
   - type: NpcFactionMember
     factions:
-      - Mouse
+    - Mouse
   - type: HTN
     constantlyReplan: false
     rootTask:
@@ -446,8 +443,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.2
         density: 100
         mask:
@@ -468,8 +464,8 @@
       10: Critical
       20: Dead
   - type: MovementSpeedModifier
-    baseWalkSpeed : 2
-    baseSprintSpeed : 3
+    baseWalkSpeed: 2
+    baseSprintSpeed: 3
   - type: DamageStateVisuals
     states:
       Alive:
@@ -480,7 +476,7 @@
         Base: dead
   - type: Food
   - type: Thirst
-    startingThirst: 25  # spawn with Okay thirst state
+    startingThirst: 25 # spawn with Okay thirst state
     thresholds:
       OverHydrated: 35
       Okay: 25
@@ -543,7 +539,7 @@
       - !type:PopupMessage
         type: Local
         visualType: Large
-        messages: [ "snail-hurt-by-salt-popup" ]
+        messages: ["snail-hurt-by-salt-popup"]
         probability: 0.66
 
 - type: entity
@@ -587,9 +583,9 @@
       Dead:
         Base: spacedead
   - type: MovementSpeedModifier
-    baseWalkSpeed : 5 #he go fast, also they cant slip so its probably fine.
-    baseSprintSpeed : 7
-#  - type: ActiveJetpack # I think this will need a custom component to not make tests angry.
+    baseWalkSpeed: 5 #he go fast, also they cant slip so its probably fine.
+    baseSprintSpeed: 7
+    #  - type: ActiveJetpack # I think this will need a custom component to not make tests angry.
   - type: MovementAlwaysTouching
 
 - type: entity

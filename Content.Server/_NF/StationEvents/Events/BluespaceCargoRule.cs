@@ -1,31 +1,48 @@
+using Content.Server.Atmos.EntitySystems;
 using Content.Server.Station.Components;
 using Content.Server.StationEvents.Components;
-using Content.Shared.Physics;
-using Robust.Shared.Map.Components;
-using Robust.Shared.Physics.Components;
-using Robust.Shared.Physics;
-using Robust.Shared.Random;
-using Robust.Shared.Configuration;
-using Content.Server.Atmos.EntitySystems;
-using Content.Shared.GameTicking.Components;
 using Content.Shared._NF.CCVar;
+using Content.Shared.GameTicking.Components;
+using Content.Shared.Physics;
 using Robust.Server.GameObjects;
+using Robust.Shared.Configuration;
+using Robust.Shared.Map.Components;
+using Robust.Shared.Physics;
+using Robust.Shared.Physics.Components;
+using Robust.Shared.Random;
 
 namespace Content.Server.StationEvents.Events;
 
 public sealed class BluespaceCargoRule : StationEventSystem<BluespaceCargoRuleComponent>
 {
-    [Dependency] private readonly IConfigurationManager _configuration = default!;
-    [Dependency] private readonly AtmosphereSystem _atmosphere = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly MapSystem _map = default!;
+    [Dependency]
+    private readonly IConfigurationManager _configuration = default!;
 
-    protected override void Added(EntityUid uid, BluespaceCargoRuleComponent component, GameRuleComponent gameRule, GameRuleAddedEvent args)
+    [Dependency]
+    private readonly AtmosphereSystem _atmosphere = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly MapSystem _map = default!;
+
+    protected override void Added(
+        EntityUid uid,
+        BluespaceCargoRuleComponent component,
+        GameRuleComponent gameRule,
+        GameRuleAddedEvent args
+    )
     {
         base.Added(uid, component, gameRule, args);
     }
 
-    protected override void Started(EntityUid uid, BluespaceCargoRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
+    protected override void Started(
+        EntityUid uid,
+        BluespaceCargoRuleComponent component,
+        GameRuleComponent gameRule,
+        GameRuleStartedEvent args
+    )
     {
         base.Started(uid, component, gameRule, args);
 
@@ -43,7 +60,12 @@ public sealed class BluespaceCargoRule : StationEventSystem<BluespaceCargoRuleCo
         var amountToSpawn = _random.Next(component.MinimumSpawns, component.MaximumSpawns + 1); // +1 required: [min, max)
         for (var i = 0; i < amountToSpawn; i++)
         {
-            SpawnOnRandomGridLocation(grid.Value, component.SpawnerPrototype, component.FlashPrototype, component.RequireSafeAtmosphere);
+            SpawnOnRandomGridLocation(
+                grid.Value,
+                component.SpawnerPrototype,
+                component.FlashPrototype,
+                component.RequireSafeAtmosphere
+            );
         }
     }
 
@@ -65,8 +87,10 @@ public sealed class BluespaceCargoRule : StationEventSystem<BluespaceCargoRuleCo
             var tile = new Vector2i(randomX, randomY);
 
             // no air-blocked areas.
-            if (_atmosphere.IsTileSpace(grid, xform.MapUid, tile) ||
-                _atmosphere.IsTileAirBlocked(grid, tile, mapGridComp: gridComp))
+            if (
+                _atmosphere.IsTileSpace(grid, xform.MapUid, tile)
+                || _atmosphere.IsTileAirBlocked(grid, tile, mapGridComp: gridComp)
+            )
             {
                 continue;
             }
@@ -78,9 +102,11 @@ public sealed class BluespaceCargoRule : StationEventSystem<BluespaceCargoRuleCo
             {
                 if (!physQuery.TryGetComponent(ent, out var body))
                     continue;
-                if (body.BodyType != BodyType.Static ||
-                    !body.Hard ||
-                    (body.CollisionLayer & (int)CollisionGroup.Impassable) == 0)
+                if (
+                    body.BodyType != BodyType.Static
+                    || !body.Hard
+                    || (body.CollisionLayer & (int)CollisionGroup.Impassable) == 0
+                )
                     continue;
 
                 valid = false;

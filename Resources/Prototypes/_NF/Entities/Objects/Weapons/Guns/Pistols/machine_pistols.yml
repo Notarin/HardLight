@@ -25,7 +25,7 @@
 
 - type: entity
   id: NFWeaponPistolViper
-  parent: [ NFBaseWeaponPistolChamber35HighCapacity, NFBaseWeaponFrameMachinePistolGorlex ]
+  parent: [NFBaseWeaponPistolChamber35HighCapacity, NFBaseWeaponFrameMachinePistolGorlex]
   name: viper
   description: |-
     A small, easily concealable machine pistol. An illegal firearm often used by Syndicate agents.
@@ -38,7 +38,7 @@
 #region DeltaV
 - type: entity
   id: NFWeaponPistolPollock
-  parent: [ NFBaseWeaponPistolChamber35, NFBaseWeaponFrameMachinePistolNanotrasen ]
+  parent: [NFBaseWeaponPistolChamber35, NFBaseWeaponFrameMachinePistolNanotrasen]
   name: pollock
   description: A compact and mass-produced combat pistol.
   components:
@@ -49,5 +49,5 @@
 
 - type: entity
   id: NFWeaponPistolPollockHighCapacityMag
-  parent: [ NFBaseWeaponPistolChamber35HighCapacity, NFWeaponPistolPollock ]
+  parent: [NFBaseWeaponPistolChamber35HighCapacity, NFWeaponPistolPollock]
   suffix: Frontier, High capacity mag

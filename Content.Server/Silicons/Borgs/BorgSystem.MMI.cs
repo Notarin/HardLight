@@ -10,8 +10,8 @@ namespace Content.Server.Silicons.Borgs;
 /// <inheritdoc/>
 public sealed partial class BorgSystem
 {
-
-    [Dependency] private readonly SharedRoleSystem _roles = default!;
+    [Dependency]
+    private readonly SharedRoleSystem _roles = default!;
 
     public void InitializeMMI()
     {
@@ -68,8 +68,7 @@ public sealed partial class BorgSystem
 
     private void OnMMILinkedMindAdded(EntityUid uid, MMILinkedComponent component, MindAddedMessage args)
     {
-        if (!_mind.TryGetMind(uid, out var mindId, out var mind) ||
-            component.LinkedMMI == null)
+        if (!_mind.TryGetMind(uid, out var mindId, out var mind) || component.LinkedMMI == null)
             return;
 
         _mind.TransferTo(mindId, component.LinkedMMI, true, mind: mind);

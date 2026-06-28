@@ -22,7 +22,7 @@
         heart: OrganAnimalHeart
         lungs: OrganHumanLungs
         stomach: OrganVulpkaninStomach
-        liver:  OrganAnimalLiver
+        liver: OrganAnimalLiver
         kidneys: OrganHumanKidneys
     right arm:
       part: RightArmTajaran

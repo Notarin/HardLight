@@ -10,31 +10,44 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+using System.Linq;
 using Content.Server.Administration.Managers;
+using Content.Server.Database;
+using Content.Server.Players.JobWhitelist;
 using Content.Shared.Administration;
 using Content.Shared.CCVar;
-using Content.Server.Database;
 using Content.Shared.Database;
 using Content.Shared.Roles;
-using Robust.Shared.Configuration;
 using Robust.Server.Player;
+using Robust.Shared.Configuration;
 using Robust.Shared.Console;
 using Robust.Shared.Prototypes;
-using System.Linq;
-using Content.Server.Players.JobWhitelist;
 
 namespace Content.Server.Administration.Commands;
 
 [AdminCommand(AdminFlags.Ban)]
 public sealed class PermaBrigCommand : LocalizedCommands
 {
-    [Dependency] private readonly IServerDbManager _db = default!;
-    [Dependency] private readonly JobWhitelistManager _jobWhitelist = default!;
-    [Dependency] private readonly IPlayerLocator _playerLocator = default!;
-    [Dependency] private readonly IBanManager _bans = default!;
-    [Dependency] private readonly IPlayerManager _players = default!;
-    [Dependency] private readonly IPrototypeManager _prototypes = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency]
+    private readonly IServerDbManager _db = default!;
+
+    [Dependency]
+    private readonly JobWhitelistManager _jobWhitelist = default!;
+
+    [Dependency]
+    private readonly IPlayerLocator _playerLocator = default!;
+
+    [Dependency]
+    private readonly IBanManager _bans = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _players = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypes = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
 
     public override string Command => "permabrig";
 
@@ -42,9 +55,13 @@ public sealed class PermaBrigCommand : LocalizedCommands
     {
         if (args.Length != 1)
         {
-            shell.WriteError(Loc.GetString("shell-wrong-arguments-number-need-specific",
-                ("properAmount", 1),
-                ("currentAmount", args.Length)));
+            shell.WriteError(
+                Loc.GetString(
+                    "shell-wrong-arguments-number-need-specific",
+                    ("properAmount", 1),
+                    ("currentAmount", args.Length)
+                )
+            );
             shell.WriteLine(Help);
             return;
         }
@@ -59,16 +76,20 @@ public sealed class PermaBrigCommand : LocalizedCommands
             var isWhitelisted = await _db.IsJobWhitelisted(guid, prisonerJob);
             if (isWhitelisted)
             {
-                shell.WriteLine(Loc.GetString("cmd-permabrig-player-already-imprisoned",
-                    ("player", player)));
+                shell.WriteLine(Loc.GetString("cmd-permabrig-player-already-imprisoned", ("player", player)));
                 return;
             }
             if (!Enum.TryParse(_cfg.GetCVar(CCVars.ImprisonmentDefaultSeverity), out NoteSeverity severity))
             {
-                Logger.WarningS("admin.role_ban", "Imprisonment roleban severity could not be parsed from config! Defaulting to medium.");
+                Logger.WarningS(
+                    "admin.role_ban",
+                    "Imprisonment roleban severity could not be parsed from config! Defaulting to medium."
+                );
                 severity = NoteSeverity.Medium;
             }
-            foreach (var proto in _prototypes.EnumeratePrototypes<JobPrototype>().Where(value => value.ID != "Prisoner"))
+            foreach (
+                var proto in _prototypes.EnumeratePrototypes<JobPrototype>().Where(value => value.ID != "Prisoner")
+            )
             {
                 var banInfo = new CreateRoleBanInfo("cmd-permabrig-ban-description");
                 banInfo.AddUser(guid, data.Username);
@@ -81,8 +102,7 @@ public sealed class PermaBrigCommand : LocalizedCommands
             }
             _jobWhitelist.AddWhitelist(guid, prisonerJob);
 
-            shell.WriteLine(Loc.GetString("cmd-permabrig-player-imprisoned-successfully",
-                ("player", player)));
+            shell.WriteLine(Loc.GetString("cmd-permabrig-player-imprisoned-successfully", ("player", player)));
             return;
         }
 
@@ -95,7 +115,8 @@ public sealed class PermaBrigCommand : LocalizedCommands
         {
             return CompletionResult.FromHintOptions(
                 _players.Sessions.Select(s => s.Name),
-                Loc.GetString("cmd-permabrig-hint-player"));
+                Loc.GetString("cmd-permabrig-hint-player")
+            );
         }
 
         return CompletionResult.Empty;
@@ -105,11 +126,20 @@ public sealed class PermaBrigCommand : LocalizedCommands
 [AdminCommand(AdminFlags.Ban)]
 public sealed class PermaPardonCommand : LocalizedCommands
 {
-    [Dependency] private readonly IServerDbManager _db = default!;
-    [Dependency] private readonly JobWhitelistManager _jobWhitelist = default!;
-    [Dependency] private readonly IPlayerLocator _playerLocator = default!;
-    [Dependency] private readonly IPlayerManager _players = default!;
-    [Dependency] private readonly IBanManager _bans = default!;
+    [Dependency]
+    private readonly IServerDbManager _db = default!;
+
+    [Dependency]
+    private readonly JobWhitelistManager _jobWhitelist = default!;
+
+    [Dependency]
+    private readonly IPlayerLocator _playerLocator = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _players = default!;
+
+    [Dependency]
+    private readonly IBanManager _bans = default!;
 
     public override string Command => "permapardon";
 
@@ -117,9 +147,13 @@ public sealed class PermaPardonCommand : LocalizedCommands
     {
         if (args.Length != 1)
         {
-            shell.WriteError(Loc.GetString("shell-wrong-arguments-number-need-specific",
-                ("properAmount", 1),
-                ("currentAmount", args.Length)));
+            shell.WriteError(
+                Loc.GetString(
+                    "shell-wrong-arguments-number-need-specific",
+                    ("properAmount", 1),
+                    ("currentAmount", args.Length)
+                )
+            );
             shell.WriteLine(Help);
             return;
         }
@@ -134,8 +168,7 @@ public sealed class PermaPardonCommand : LocalizedCommands
             var isWhitelisted = await _db.IsJobWhitelisted(guid, prisonerJob);
             if (!isWhitelisted)
             {
-                shell.WriteError(Loc.GetString("cmd-permabrig-player-not-imprisoned",
-                    ("player", player)));
+                shell.WriteError(Loc.GetString("cmd-permabrig-player-not-imprisoned", ("player", player)));
                 return;
             }
             _jobWhitelist.RemoveWhitelist(guid, prisonerJob);
@@ -152,7 +185,8 @@ public sealed class PermaPardonCommand : LocalizedCommands
         {
             return CompletionResult.FromHintOptions(
                 _players.Sessions.Select(s => s.Name),
-                Loc.GetString("cmd-permabrig-hint-player"));
+                Loc.GetString("cmd-permabrig-hint-player")
+            );
         }
 
         return CompletionResult.Empty;

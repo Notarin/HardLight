@@ -1,19 +1,19 @@
+using System.Drawing.Printing;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using Content.Shared.CCVar;
+using Content.Server.Database;
 using Content.Shared._FS.CCVar;
 using Content.Shared._FS.DiscordAuth;
+using Content.Shared.CCVar;
 using JetBrains.Annotations;
 using Robust.Server.Player;
 using Robust.Shared.Configuration;
 using Robust.Shared.Enums;
 using Robust.Shared.Network;
 using Robust.Shared.Player;
-using Content.Server.Database;
-using System.Drawing.Printing;
 
 namespace Content.Server._FS.DiscordAuth;
 
@@ -22,11 +22,17 @@ namespace Content.Server._FS.DiscordAuth;
 /// </summary>
 public sealed class DiscordAuthManager
 {
-    [Dependency] private readonly IServerNetManager _net = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IConfigurationManager _configuration = default!;
-    [Dependency] private readonly IServerDbManager _db = default!;
+    [Dependency]
+    private readonly IServerNetManager _net = default!;
 
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _configuration = default!;
+
+    [Dependency]
+    private readonly IServerDbManager _db = default!;
 
     private ISawmill _sawmill = default!;
     private readonly HttpClient _httpClient = new();
@@ -38,7 +44,6 @@ public sealed class DiscordAuthManager
     ///     Raised when player passed verification or if feature disabled
     /// </summary>
     public event EventHandler<ICommonSession>? PlayerVerified;
-
 
     public void Initialize()
     {
@@ -126,7 +131,6 @@ public sealed class DiscordAuthManager
         }
     }
 
-
     public async Task<string> GenerateAuthLink(NetUserId userId, CancellationToken cancel = default)
     {
         _sawmill.Info($"Player {userId} requested generation Discord verification link");
@@ -136,7 +140,9 @@ public sealed class DiscordAuthManager
         if (!response.IsSuccessStatusCode)
         {
             var content = await response.Content.ReadAsStringAsync();
-            throw new Exception($"Verification API returned bad status code: {response.StatusCode}\nResponse: {content}");
+            throw new Exception(
+                $"Verification API returned bad status code: {response.StatusCode}\nResponse: {content}"
+            );
         }
 
         var data = await response.Content.ReadFromJsonAsync<DiscordGenerateLinkResponse>(cancellationToken: cancel);
@@ -152,7 +158,9 @@ public sealed class DiscordAuthManager
         if (!response.IsSuccessStatusCode)
         {
             var content = await response.Content.ReadAsStringAsync();
-            throw new Exception($"Verification API returned bad status code: {response.StatusCode}\nResponse: {content}");
+            throw new Exception(
+                $"Verification API returned bad status code: {response.StatusCode}\nResponse: {content}"
+            );
         }
 
         var data = await response.Content.ReadFromJsonAsync<DiscordAuthInfoResponse>(cancellationToken: cancel);
@@ -168,15 +176,21 @@ public sealed class DiscordAuthManager
         if (!response.IsSuccessStatusCode)
         {
             var content = await response.Content.ReadAsStringAsync();
-            throw new Exception($"Verification API returned bad status code: {response.StatusCode}\nResponse: {content}");
+            throw new Exception(
+                $"Verification API returned bad status code: {response.StatusCode}\nResponse: {content}"
+            );
         }
 
         var data = await response.Content.ReadFromJsonAsync<DiscordWhitelistInfoResponse>(cancellationToken: cancel);
         return data!.IsWhitelisted;
     }
 
+    [UsedImplicitly]
+    private sealed record DiscordGenerateLinkResponse(string Url);
 
-    [UsedImplicitly] private sealed record DiscordGenerateLinkResponse(string Url);
-    [UsedImplicitly] private sealed record DiscordAuthInfoResponse(bool IsLinked);
-    [UsedImplicitly] private sealed record DiscordWhitelistInfoResponse(bool IsWhitelisted);
+    [UsedImplicitly]
+    private sealed record DiscordAuthInfoResponse(bool IsLinked);
+
+    [UsedImplicitly]
+    private sealed record DiscordWhitelistInfoResponse(bool IsWhitelisted);
 }

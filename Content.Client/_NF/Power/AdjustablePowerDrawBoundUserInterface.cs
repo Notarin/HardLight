@@ -14,7 +14,8 @@ public sealed class AdjustablePowerDrawBoundUserInterface : BoundUserInterface
     [ViewVariables]
     private AdjustablePowerDrawMenu? _window;
 
-    public AdjustablePowerDrawBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
+    public AdjustablePowerDrawBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey)
     {
         IoCManager.InjectDependencies(this);
     }

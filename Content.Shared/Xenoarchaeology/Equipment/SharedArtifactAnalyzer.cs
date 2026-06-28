@@ -6,28 +6,20 @@ namespace Content.Shared.Xenoarchaeology.Equipment;
 [Serializable, NetSerializable]
 public enum ArtifactAnalzyerUiKey : byte
 {
-    Key
+    Key,
 }
 
 [Serializable, NetSerializable]
-public sealed class AnalysisConsoleServerSelectionMessage : BoundUserInterfaceMessage
-{
-}
+public sealed class AnalysisConsoleServerSelectionMessage : BoundUserInterfaceMessage { }
 
 [Serializable, NetSerializable]
-public sealed class AnalysisConsoleScanButtonPressedMessage : BoundUserInterfaceMessage
-{
-}
+public sealed class AnalysisConsoleScanButtonPressedMessage : BoundUserInterfaceMessage { }
 
 [Serializable, NetSerializable]
-public sealed class AnalysisConsolePrintButtonPressedMessage : BoundUserInterfaceMessage
-{
-}
+public sealed class AnalysisConsolePrintButtonPressedMessage : BoundUserInterfaceMessage { }
 
 [Serializable, NetSerializable]
-public sealed class AnalysisConsoleExtractButtonPressedMessage : BoundUserInterfaceMessage
-{
-}
+public sealed class AnalysisConsoleExtractButtonPressedMessage : BoundUserInterfaceMessage { }
 
 [Serializable, NetSerializable]
 public sealed class AnalysisConsoleBiasButtonPressedMessage(bool isDown) : BoundUserInterfaceMessage
@@ -50,8 +42,7 @@ public sealed class AnalysisConsoleUpdateState(
     TimeSpan? totalTime,
     int pointAmount,
     bool isTraversalDown
-)
-    : BoundUserInterfaceState
+) : BoundUserInterfaceState
 {
     public NetEntity? Artifact = artifact;
     public bool AnalyzerConnected = analyzerConnected;

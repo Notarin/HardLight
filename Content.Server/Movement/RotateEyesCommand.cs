@@ -11,6 +11,7 @@ public sealed class RotateEyesCommand : IConsoleCommand
     public string Command => "rotateeyes";
     public string Description => Loc.GetString("rotateeyes-command-description");
     public string Help => Loc.GetString("rotateeyes-command-help");
+
     public void Execute(IConsoleShell shell, string argStr, string[] args)
     {
         var entManager = IoCManager.Resolve<IEntityManager>();

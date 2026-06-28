@@ -22,7 +22,12 @@ namespace Content.Shared.Verbs
 
         public readonly bool AdminRequest;
 
-        public RequestServerVerbsEvent(NetEntity entityUid, IEnumerable<Type> verbTypes, NetEntity? slotOwner = null, bool adminRequest = false)
+        public RequestServerVerbsEvent(
+            NetEntity entityUid,
+            IEnumerable<Type> verbTypes,
+            NetEntity? slotOwner = null,
+            bool adminRequest = false
+        )
         {
             EntityUid = entityUid;
             SlotOwner = slotOwner;
@@ -70,7 +75,8 @@ namespace Content.Shared.Verbs
     /// <summary>
     ///     Directed event that requests verbs from any systems/components on a target entity.
     /// </summary>
-    public sealed class GetVerbsEvent<TVerb> : EntityEventArgs where TVerb : Verb
+    public sealed class GetVerbsEvent<TVerb> : EntityEventArgs
+        where TVerb : Verb
     {
         /// <summary>
         ///     Event output. Set of verbs that can be executed.
@@ -135,7 +141,16 @@ namespace Content.Shared.Verbs
         /// </remarks>
         public readonly EntityUid? Using;
 
-        public GetVerbsEvent(EntityUid user, EntityUid target, EntityUid? @using, HandsComponent? hands, bool canInteract, bool canComplexInteract, bool canAccess, List<VerbCategory> extraCategories)
+        public GetVerbsEvent(
+            EntityUid user,
+            EntityUid target,
+            EntityUid? @using,
+            HandsComponent? hands,
+            bool canInteract,
+            bool canComplexInteract,
+            bool canAccess,
+            List<VerbCategory> extraCategories
+        )
         {
             User = user;
             Target = target;

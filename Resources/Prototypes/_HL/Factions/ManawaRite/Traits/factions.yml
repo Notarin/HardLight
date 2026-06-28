@@ -4,7 +4,7 @@
   description: manawa-rite-onboarding-desc
   category: FactionOnboarding
   cost: 0
-  logins: ["IngvarJackal"]  # fill in SS14 username(s) of the Manawa Rite head player(s)
+  logins: ["IngvarJackal"] # fill in SS14 username(s) of the Manawa Rite head player(s)
   components:
   - type: ActionGrant
     actions:

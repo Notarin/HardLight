@@ -22,11 +22,11 @@
     sprite: Objects/Tools/handheld_mass_scanner.rsi
     state: icon
     layers:
-      - state: icon
-      - state: scanner
-        shader: unshaded
-        visible: false
-        map: [ "enum.PowerDeviceVisualLayers.Powered" ]
+    - state: icon
+    - state: scanner
+      shader: unshaded
+      visible: false
+      map: ["enum.PowerDeviceVisualLayers.Powered"]
   - type: RadarConsole
     maxRange: 512
     followEntity: true
@@ -40,8 +40,8 @@
     visuals:
       enum.PowerCellSlotVisuals.Enabled:
         enum.PowerDeviceVisualLayers.Powered:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
   - type: PowerCellDraw
     drawRate: 1.5
   - type: ToggleCellDraw

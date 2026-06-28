@@ -18,9 +18,14 @@ namespace Content.Shared.Chunking;
 /// </summary>
 public sealed class ChunkingSystem : EntitySystem
 {
-    [Dependency] private readonly IConfigurationManager _configurationManager = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency]
+    private readonly IConfigurationManager _configurationManager = default!;
+
+    [Dependency]
+    private readonly IMapManager _mapManager = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
 
     private EntityQuery<TransformComponent> _xformQuery;
 
@@ -43,12 +48,13 @@ public sealed class ChunkingSystem : EntitySystem
         int chunkSize,
         ObjectPool<HashSet<Vector2i>> indexPool,
         ObjectPool<Dictionary<NetEntity, HashSet<Vector2i>>> viewerPool,
-        float? viewEnlargement = null)
+        float? viewEnlargement = null
+    )
     {
         var chunks = viewerPool.Get();
         DebugTools.Assert(chunks.Count == 0);
 
-        if (session.Status != SessionStatus.InGame || session.AttachedEntity is not {} player)
+        if (session.Status != SessionStatus.InGame || session.AttachedEntity is not { } player)
             return chunks;
 
         var enlargement = viewEnlargement ?? chunkSize;
@@ -61,11 +67,13 @@ public sealed class ChunkingSystem : EntitySystem
         return chunks;
     }
 
-    private void AddViewerChunks(EntityUid viewer,
+    private void AddViewerChunks(
+        EntityUid viewer,
         Dictionary<NetEntity, HashSet<Vector2i>> chunks,
         ObjectPool<HashSet<Vector2i>> indexPool,
         int chunkSize,
-        float viewEnlargement)
+        float viewEnlargement
+    )
     {
         if (!_xformQuery.TryGetComponent(viewer, out var xform))
             return;
@@ -77,10 +85,7 @@ public sealed class ChunkingSystem : EntitySystem
         _mapManager.FindGridsIntersecting(xform.MapID, bounds, ref state, AddGridChunks, true);
     }
 
-    private static bool AddGridChunks(
-        EntityUid uid,
-        MapGridComponent grid,
-        ref QueryState state)
+    private static bool AddGridChunks(EntityUid uid, MapGridComponent grid, ref QueryState state)
     {
         var netGrid = state.EntityManager.GetNetEntity(uid);
         if (!state.Chunks.TryGetValue(netGrid, out var set))
@@ -114,7 +119,8 @@ public sealed class ChunkingSystem : EntitySystem
             int chunkSize,
             Box2 bounds,
             SharedTransformSystem transform,
-            EntityManager entityManager)
+            EntityManager entityManager
+        )
         {
             Chunks = chunks;
             Pool = pool;
@@ -125,4 +131,3 @@ public sealed class ChunkingSystem : EntitySystem
         }
     }
 }
-

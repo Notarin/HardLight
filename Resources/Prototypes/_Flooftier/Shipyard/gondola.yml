@@ -10,7 +10,7 @@
   id: gondola
   parent: BaseVessel
   name: ERP Gondola
-  description:  A luxury boat for a romantic getaway. It comes with a wall-to-wall swimming pool, sauna, a well-stocked bar and other amenities.
+  description: A luxury boat for a romantic getaway. It comes with a wall-to-wall swimming pool, sauna, a well-stocked bar and other amenities.
   price: 69500 # HL: Rebalancing ship prices
   category: Medium
   group: Shipyard
@@ -30,13 +30,12 @@
     gondola:
       stationProto: StandardFrontierVessel
       components:
-        - type: StationNameSetup
-          mapNameTemplate: 'ERP Gondola {1}'
-          nameGenerator:
-            !type:NanotrasenNameGenerator
-            prefixCreator: '14'
-        - type: StationJobs
-          availableJobs:
-            Contractor: [ 0, 0 ]
-            Pilot: [ 0, 0 ]
-            Mercenary: [ 0, 0 ]
+      - type: StationNameSetup
+        mapNameTemplate: 'ERP Gondola {1}'
+        nameGenerator: !type:NanotrasenNameGenerator
+          prefixCreator: '14'
+      - type: StationJobs
+        availableJobs:
+          Contractor: [0, 0]
+          Pilot: [0, 0]
+          Mercenary: [0, 0]

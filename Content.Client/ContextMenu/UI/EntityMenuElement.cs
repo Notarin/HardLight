@@ -11,9 +11,14 @@ namespace Content.Client.ContextMenu.UI
 {
     public sealed partial class EntityMenuElement : ContextMenuElement, IEntityControl
     {
-        [Dependency] private readonly IClientAdminManager _adminManager = default!;
-        [Dependency] private readonly IEntityManager _entityManager = default!;
-        [Dependency] private readonly IPlayerManager _playerManager = default!;
+        [Dependency]
+        private readonly IClientAdminManager _adminManager = default!;
+
+        [Dependency]
+        private readonly IEntityManager _entityManager = default!;
+
+        [Dependency]
+        private readonly IPlayerManager _playerManager = default!;
 
         private AdminSystem _adminSystem;
 

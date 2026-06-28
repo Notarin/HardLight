@@ -1,14 +1,14 @@
 using Content.Shared.Construction.Prototypes;
 using Content.Shared.DeviceLinking;
 using Content.Shared.Item;
+using Content.Shared.Kitchen; // Frontier
+using Content.Shared.Kitchen.Components; // Frontier
 using Robust.Shared.Audio;
 using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
-using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
-using Content.Shared.Kitchen; // Frontier
 using Robust.Shared.Serialization; // Frontier
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
-using Content.Shared.Kitchen.Components; // Frontier
+using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 
 namespace Content.Server.Kitchen.Components
 {
@@ -17,12 +17,16 @@ namespace Content.Server.Kitchen.Components
     {
         [DataField("cookTimeMultiplier"), ViewVariables(VVAccess.ReadWrite)]
         public float CookTimeMultiplier = 1;
+
         [DataField("machinePartCookTimeMultiplier")] // Frontier: machine parts
         public ProtoId<MachinePartPrototype> MachinePartCookTimeMultiplier = "Capacitor"; // Frontier: machine parts
+
         [ViewVariables(VVAccess.ReadOnly)]
         public float FinalCookTimeMultiplier = 1.0f; // Frontier: machine parts
+
         [DataField("cookTimeScalingConstant")]
         public float CookTimeScalingConstant = 0.5f;
+
         [DataField("baseHeatMultiplier"), ViewVariables(VVAccess.ReadWrite)]
         public float BaseHeatMultiplier = 100;
 
@@ -124,7 +128,10 @@ namespace Content.Server.Kitchen.Components
         /// <summary>
         /// the types of recipes that this "microwave" can handle.
         /// </summary>
-        [DataField(customTypeSerializer: typeof(FlagSerializer<MicrowaveRecipeTypeFlags>)), ViewVariables(VVAccess.ReadWrite)]
+        [
+            DataField(customTypeSerializer: typeof(FlagSerializer<MicrowaveRecipeTypeFlags>)),
+            ViewVariables(VVAccess.ReadWrite)
+        ]
         public int ValidRecipeTypes = (int)MicrowaveRecipeType.Microwave;
 
         /// <summary>
@@ -163,9 +170,11 @@ namespace Content.Server.Kitchen.Components
     {
         public EntityUid Microwave;
         public EntityUid? User;
+
         // Frontier: fields for whether or not the object is actually being heated or irradiated.
         public bool BeingHeated;
         public bool BeingIrradiated;
+
         // End Frontier
 
         public BeingMicrowavedEvent(EntityUid microwave, EntityUid? user, bool heating, bool irradiating) // Frontier: added heating, irradiating

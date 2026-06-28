@@ -11,9 +11,14 @@ namespace Content.Client.Administration.UI.PlayerPanel;
 [UsedImplicitly]
 public sealed class PlayerPanelEui : BaseEui
 {
-    [Dependency] private readonly IClientConsoleHost _console = default!;
-    [Dependency] private readonly IClientAdminManager _admin = default!;
-    [Dependency] private readonly IClipboardManager _clipboard = default!;
+    [Dependency]
+    private readonly IClientConsoleHost _console = default!;
+
+    [Dependency]
+    private readonly IClientAdminManager _admin = default!;
+
+    [Dependency]
+    private readonly IClipboardManager _clipboard = default!;
 
     private PlayerPanel PlayerPanel { get; }
 

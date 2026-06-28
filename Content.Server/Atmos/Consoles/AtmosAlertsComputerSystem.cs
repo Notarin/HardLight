@@ -1,7 +1,16 @@
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using Content.Server._NF.Atmos.Components; // Frontier
 using Content.Server.Atmos.Monitor.Components;
+using Content.Server.Atmos.Piping.Binary.EntitySystems; // Frontier
 using Content.Server.DeviceNetwork.Systems;
+using Content.Server.NodeContainer.EntitySystems; // Frontier
+using Content.Server.NodeContainer.Nodes; // Frontier
 using Content.Server.Pinpointer;
 using Content.Server.Power.Components;
+using Content.Server.Shuttles.Components; // Frontier
+using Content.Server.Shuttles.Systems;
+using Content.Shared._NF.Atmos.BUI; // Frontier
 using Content.Shared.Atmos;
 using Content.Shared.Atmos.Components;
 using Content.Shared.Atmos.Consoles;
@@ -9,36 +18,49 @@ using Content.Shared.Atmos.Monitor;
 using Content.Shared.Atmos.Monitor.Components;
 using Content.Shared.DeviceNetwork.Components;
 using Content.Shared.Pinpointer;
+using Content.Shared.Shuttles.Events; // Frontier
 using Robust.Server.GameObjects;
 using Robust.Shared.Map.Components;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using Content.Server._NF.Atmos.Components; // Frontier
-using Content.Server.Atmos.Piping.Binary.EntitySystems; // Frontier
-using Content.Server.NodeContainer.EntitySystems; // Frontier
-using Content.Server.NodeContainer.Nodes; // Frontier
-using Content.Shared._NF.Atmos.BUI; // Frontier
-using Content.Shared.Shuttles.Events; // Frontier
-using Content.Server.Shuttles.Systems;
-using Content.Server.Shuttles.Components; // Frontier
 
 namespace Content.Server.Atmos.Monitor.Systems;
 
 public sealed class AtmosAlertsComputerSystem : SharedAtmosAlertsComputerSystem
 {
-    [Dependency] private readonly UserInterfaceSystem _userInterfaceSystem = default!;
-    [Dependency] private readonly AirAlarmSystem _airAlarmSystem = default!;
-    [Dependency] private readonly AtmosDeviceNetworkSystem _atmosDevNet = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly MapSystem _mapSystem = default!;
-    [Dependency] private readonly TransformSystem _transformSystem = default!;
-    [Dependency] private readonly NavMapSystem _navMapSystem = default!;
-    [Dependency] private readonly DeviceListSystem _deviceListSystem = default!;
-    [Dependency] private readonly NodeContainerSystem _nodeContainer = default!; // Frontier
-    [Dependency] private readonly GasPressurePumpSystem _pressurePump = default!; // Frontier
-    [Dependency] private readonly DockingSystem _docking = default!; // Frontier
+    [Dependency]
+    private readonly UserInterfaceSystem _userInterfaceSystem = default!;
+
+    [Dependency]
+    private readonly AirAlarmSystem _airAlarmSystem = default!;
+
+    [Dependency]
+    private readonly AtmosDeviceNetworkSystem _atmosDevNet = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly MapSystem _mapSystem = default!;
+
+    [Dependency]
+    private readonly TransformSystem _transformSystem = default!;
+
+    [Dependency]
+    private readonly NavMapSystem _navMapSystem = default!;
+
+    [Dependency]
+    private readonly DeviceListSystem _deviceListSystem = default!;
+
+    [Dependency]
+    private readonly NodeContainerSystem _nodeContainer = default!; // Frontier
+
+    [Dependency]
+    private readonly GasPressurePumpSystem _pressurePump = default!; // Frontier
+
+    [Dependency]
+    private readonly DockingSystem _docking = default!; // Frontier
 
     private const float UpdateTime = 1.0f;
+
     // Limit how many tiles we collect as region seeds per alarm to avoid huge allocations on large maps
     private const int MaxRegionSeedsPerAlarm = 4096;
 
@@ -63,9 +85,15 @@ public sealed class AtmosAlertsComputerSystem : SharedAtmosAlertsComputerSystem
 
         // Frontier: gaslock event handlers
         SubscribeLocalEvent<AtmosAlertsComputerComponent, UndockRequestMessage>(OnUndockRequestMessage);
-        SubscribeLocalEvent<AtmosAlertsComputerComponent, RemoteGasPressurePumpChangePumpDirectionMessage>(OnPumpDirectionMessage);
-        SubscribeLocalEvent<AtmosAlertsComputerComponent, RemoteGasPressurePumpChangeOutputPressureMessage>(OnPumpPressureMessage);
-        SubscribeLocalEvent<AtmosAlertsComputerComponent, RemoteGasPressurePumpToggleStatusMessage>(OnPumpStatusMessage);
+        SubscribeLocalEvent<AtmosAlertsComputerComponent, RemoteGasPressurePumpChangePumpDirectionMessage>(
+            OnPumpDirectionMessage
+        );
+        SubscribeLocalEvent<AtmosAlertsComputerComponent, RemoteGasPressurePumpChangeOutputPressureMessage>(
+            OnPumpPressureMessage
+        );
+        SubscribeLocalEvent<AtmosAlertsComputerComponent, RemoteGasPressurePumpToggleStatusMessage>(
+            OnPumpStatusMessage
+        );
     }
 
     #region Event handling
@@ -75,12 +103,20 @@ public sealed class AtmosAlertsComputerSystem : SharedAtmosAlertsComputerSystem
         InitalizeConsole(uid, component);
     }
 
-    private void OnConsoleParentChanged(EntityUid uid, AtmosAlertsComputerComponent component, EntParentChangedMessage args)
+    private void OnConsoleParentChanged(
+        EntityUid uid,
+        AtmosAlertsComputerComponent component,
+        EntParentChangedMessage args
+    )
     {
         InitalizeConsole(uid, component);
     }
 
-    private void OnFocusChangedMessage(EntityUid uid, AtmosAlertsComputerComponent component, AtmosAlertsComputerFocusChangeMessage args)
+    private void OnFocusChangedMessage(
+        EntityUid uid,
+        AtmosAlertsComputerComponent component,
+        AtmosAlertsComputerFocusChangeMessage args
+    )
     {
         component.FocusDevice = args.FocusDevice;
     }
@@ -107,12 +143,20 @@ public sealed class AtmosAlertsComputerSystem : SharedAtmosAlertsComputerSystem
         }
     }
 
-    private void OnDeviceAnchorChanged(EntityUid uid, AtmosAlertsDeviceComponent component, AnchorStateChangedEvent args)
+    private void OnDeviceAnchorChanged(
+        EntityUid uid,
+        AtmosAlertsDeviceComponent component,
+        AnchorStateChangedEvent args
+    )
     {
         OnDeviceAdditionOrRemoval(uid, component, args.Anchored);
     }
 
-    private void OnDeviceTerminatingEvent(EntityUid uid, AtmosAlertsDeviceComponent component, ref EntityTerminatingEvent args)
+    private void OnDeviceTerminatingEvent(
+        EntityUid uid,
+        AtmosAlertsDeviceComponent component,
+        ref EntityTerminatingEvent args
+    )
     {
         OnDeviceAdditionOrRemoval(uid, component, false);
     }
@@ -143,7 +187,6 @@ public sealed class AtmosAlertsComputerSystem : SharedAtmosAlertsComputerSystem
             {
                 entConsole.AtmosDevices.Add(data.Value);
             }
-
             else
             {
                 entConsole.AtmosDevices.RemoveWhere(x => x.NetEntity == netEntity);
@@ -195,20 +238,35 @@ public sealed class AtmosAlertsComputerSystem : SharedAtmosAlertsComputerSystem
                 // Make a list of alarm state data for all the air and fire alarms on the grid
                 if (!airAlarmEntriesForEachGrid.TryGetValue(entXform.GridUid.Value, out var airAlarmEntries))
                 {
-                    airAlarmEntries = GetAlarmStateData(entXform.GridUid.Value, AtmosAlertsComputerGroup.AirAlarm, buildRegions).ToArray();
+                    airAlarmEntries = GetAlarmStateData(
+                            entXform.GridUid.Value,
+                            AtmosAlertsComputerGroup.AirAlarm,
+                            buildRegions
+                        )
+                        .ToArray();
                     airAlarmEntriesForEachGrid[entXform.GridUid.Value] = airAlarmEntries;
                 }
 
                 if (!fireAlarmEntriesForEachGrid.TryGetValue(entXform.GridUid.Value, out var fireAlarmEntries))
                 {
-                    fireAlarmEntries = GetAlarmStateData(entXform.GridUid.Value, AtmosAlertsComputerGroup.FireAlarm, buildRegions).ToArray();
+                    fireAlarmEntries = GetAlarmStateData(
+                            entXform.GridUid.Value,
+                            AtmosAlertsComputerGroup.FireAlarm,
+                            buildRegions
+                        )
+                        .ToArray();
                     fireAlarmEntriesForEachGrid[entXform.GridUid.Value] = fireAlarmEntries;
                 }
 
                 // Frontier: gaslocks (note: no alarm state)
                 if (!gaslockEntriesForEachGrid.TryGetValue(entXform.GridUid.Value, out var gaslockEntries))
                 {
-                    gaslockEntries = GetAlarmStateData(entXform.GridUid.Value, AtmosAlertsComputerGroup.Gaslock, buildRegions).ToArray();
+                    gaslockEntries = GetAlarmStateData(
+                            entXform.GridUid.Value,
+                            AtmosAlertsComputerGroup.Gaslock,
+                            buildRegions
+                        )
+                        .ToArray();
                     gaslockEntriesForEachGrid[entXform.GridUid.Value] = gaslockEntries;
                 }
                 // End Frontier
@@ -230,7 +288,12 @@ public sealed class AtmosAlertsComputerSystem : SharedAtmosAlertsComputerSystem
 
                 // Update the appearance of the console based on the highest recorded level of alert
                 if (TryComp<AppearanceComponent>(ent, out var entAppearance))
-                    _appearance.SetData(ent, AtmosAlertsComputerVisuals.ComputerLayerScreen, (int) highestAlert, entAppearance);
+                    _appearance.SetData(
+                        ent,
+                        AtmosAlertsComputerVisuals.ComputerLayerScreen,
+                        (int)highestAlert,
+                        entAppearance
+                    );
 
                 // If the console UI is open, send UI data to each subscribed session
                 UpdateUIState(ent, airAlarmEntries, fireAlarmEntries, gaslockEntries, entConsole, entXform); // Frontier: add gaslockEntries
@@ -238,13 +301,14 @@ public sealed class AtmosAlertsComputerSystem : SharedAtmosAlertsComputerSystem
         }
     }
 
-    public void UpdateUIState
-        (EntityUid uid,
+    public void UpdateUIState(
+        EntityUid uid,
         AtmosAlertsComputerEntry[] airAlarmStateData,
         AtmosAlertsComputerEntry[] fireAlarmStateData,
         AtmosAlertsComputerEntry[] gaslockStateData, // Frontier
         AtmosAlertsComputerComponent component,
-        TransformComponent xform)
+        TransformComponent xform
+    )
     {
         if (!_userInterfaceSystem.IsUiOpen(uid, AtmosAlertsComputerUiKey.Key))
             return;
@@ -262,16 +326,42 @@ public sealed class AtmosAlertsComputerSystem : SharedAtmosAlertsComputerSystem
         var focusGaslockData = GetFocusGaslockData(GetEntity(component.FocusDevice), gridUid); // Frontier
 
         // Set the UI state
-        _userInterfaceSystem.SetUiState(uid, AtmosAlertsComputerUiKey.Key,
-            new AtmosAlertsComputerBoundInterfaceState(airAlarmStateData, fireAlarmStateData, focusAlarmData, gaslockStateData, focusGaslockData)); // Frontier: add gaslockStateData, focusGaslockData
+        _userInterfaceSystem.SetUiState(
+            uid,
+            AtmosAlertsComputerUiKey.Key,
+            new AtmosAlertsComputerBoundInterfaceState(
+                airAlarmStateData,
+                fireAlarmStateData,
+                focusAlarmData,
+                gaslockStateData,
+                focusGaslockData
+            )
+        ); // Frontier: add gaslockStateData, focusGaslockData
     }
 
-    private List<AtmosAlertsComputerEntry> GetAlarmStateData(EntityUid gridUid, AtmosAlertsComputerGroup group, bool buildRegions)
+    private List<AtmosAlertsComputerEntry> GetAlarmStateData(
+        EntityUid gridUid,
+        AtmosAlertsComputerGroup group,
+        bool buildRegions
+    )
     {
         var alarmStateData = new List<AtmosAlertsComputerEntry>();
 
-        var queryAlarms = AllEntityQuery<AtmosAlertsDeviceComponent, AtmosAlarmableComponent, DeviceNetworkComponent, TransformComponent>();
-        while (queryAlarms.MoveNext(out var ent, out var entDevice, out var entAtmosAlarmable, out var entDeviceNetwork, out var entXform))
+        var queryAlarms = AllEntityQuery<
+            AtmosAlertsDeviceComponent,
+            AtmosAlarmableComponent,
+            DeviceNetworkComponent,
+            TransformComponent
+        >();
+        while (
+            queryAlarms.MoveNext(
+                out var ent,
+                out var entDevice,
+                out var entAtmosAlarmable,
+                out var entDeviceNetwork,
+                out var entXform
+            )
+        )
         {
             if (entXform.GridUid != gridUid)
                 continue;
@@ -289,7 +379,10 @@ public sealed class AtmosAlertsComputerSystem : SharedAtmosAlertsComputerSystem
                 continue;
 
             // If emagged, change the alarm type to normal
-            var alarmState = (entAtmosAlarmable.LastAlarmState == AtmosAlarmType.Emagged) ? AtmosAlarmType.Normal : entAtmosAlarmable.LastAlarmState;
+            var alarmState =
+                (entAtmosAlarmable.LastAlarmState == AtmosAlarmType.Emagged)
+                    ? AtmosAlarmType.Normal
+                    : entAtmosAlarmable.LastAlarmState;
 
             // Unpowered alarms can't sound
             if (TryComp<ApcPowerReceiverComponent>(ent, out var entAPCPower) && !entAPCPower.Powered)
@@ -298,16 +391,19 @@ public sealed class AtmosAlertsComputerSystem : SharedAtmosAlertsComputerSystem
             // Create entry
             var netEnt = GetNetEntity(ent);
 
-            var entry = new AtmosAlertsComputerEntry
-                (netEnt,
+            var entry = new AtmosAlertsComputerEntry(
+                netEnt,
                 GetNetCoordinates(entXform.Coordinates),
                 entDevice.Group,
                 alarmState,
                 MetaData(ent).EntityName,
-                entDeviceNetwork.Address);
+                entDeviceNetwork.Address
+            );
 
             // Get the list of sensors attached to the alarm
-            var sensorList = TryComp<DeviceListComponent>(ent, out var entDeviceList) ? _deviceListSystem.GetDeviceList(ent, entDeviceList) : null;
+            var sensorList = TryComp<DeviceListComponent>(ent, out var entDeviceList)
+                ? _deviceListSystem.GetDeviceList(ent, entDeviceList)
+                : null;
 
             if (buildRegions && sensorList?.Any() == true)
             {
@@ -323,16 +419,25 @@ public sealed class AtmosAlertsComputerSystem : SharedAtmosAlertsComputerSystem
 
                     if (sensorXform.Anchored && sensorXform.GridUid == entXform.GridUid)
                     {
-                        alarmRegionSeeds.Add(_mapSystem.CoordinatesToTile(entXform.GridUid.Value, mapGrid, _transformSystem.GetMapCoordinates(sensorEnt, sensorXform)));
+                        alarmRegionSeeds.Add(
+                            _mapSystem.CoordinatesToTile(
+                                entXform.GridUid.Value,
+                                mapGrid,
+                                _transformSystem.GetMapCoordinates(sensorEnt, sensorXform)
+                            )
+                        );
                         if (alarmRegionSeeds.Count >= MaxRegionSeedsPerAlarm)
                             break;
                     }
                 }
 
-                var regionProperties = new SharedNavMapSystem.NavMapRegionProperties(netEnt, AtmosAlertsComputerUiKey.Key, alarmRegionSeeds);
+                var regionProperties = new SharedNavMapSystem.NavMapRegionProperties(
+                    netEnt,
+                    AtmosAlertsComputerUiKey.Key,
+                    alarmRegionSeeds
+                );
                 _navMapSystem.AddOrUpdateNavMapRegion(gridUid, navMap, netEnt, regionProperties);
             }
-
             else
             {
                 _navMapSystem.RemoveNavMapRegion(entXform.GridUid.Value, navMap, netEnt);
@@ -351,9 +456,11 @@ public sealed class AtmosAlertsComputerSystem : SharedAtmosAlertsComputerSystem
 
         var focusDeviceXform = Transform(focusDevice.Value);
 
-        if (!focusDeviceXform.Anchored ||
-            focusDeviceXform.GridUid != gridUid ||
-            !TryComp<AirAlarmComponent>(focusDevice.Value, out var focusDeviceAirAlarm))
+        if (
+            !focusDeviceXform.Anchored
+            || focusDeviceXform.GridUid != gridUid
+            || !TryComp<AirAlarmComponent>(focusDevice.Value, out var focusDeviceAirAlarm)
+        )
         {
             return null;
         }
@@ -375,14 +482,18 @@ public sealed class AtmosAlertsComputerSystem : SharedAtmosAlertsComputerSystem
 
         foreach ((var address, var sensorData) in focusDeviceAirAlarm.SensorData)
         {
-            if (sensorData.TemperatureThreshold.CheckThreshold(sensorData.Temperature, out var temperatureState) &&
-                (int) temperatureState > (int) temperatureData.Item2)
+            if (
+                sensorData.TemperatureThreshold.CheckThreshold(sensorData.Temperature, out var temperatureState)
+                && (int)temperatureState > (int)temperatureData.Item2
+            )
             {
                 temperatureData = (temperatureData.Item1, temperatureState);
             }
 
-            if (sensorData.PressureThreshold.CheckThreshold(sensorData.Pressure, out var pressureState) &&
-                (int) pressureState > (int) pressureData.Item2)
+            if (
+                sensorData.PressureThreshold.CheckThreshold(sensorData.Pressure, out var pressureState)
+                && (int)pressureState > (int)pressureData.Item2
+            )
             {
                 pressureData = (pressureData.Item1, pressureState);
             }
@@ -393,7 +504,11 @@ public sealed class AtmosAlertsComputerSystem : SharedAtmosAlertsComputerSystem
                 {
                     if (!gasData.ContainsKey(gas))
                     {
-                        float mol = _airAlarmSystem.CalculateGasMolarConcentrationAverage(focusDeviceAirAlarm, gas, out var percentage);
+                        float mol = _airAlarmSystem.CalculateGasMolarConcentrationAverage(
+                            focusDeviceAirAlarm,
+                            gas,
+                            out var percentage
+                        );
 
                         if (mol < 1e-8)
                             continue;
@@ -401,8 +516,10 @@ public sealed class AtmosAlertsComputerSystem : SharedAtmosAlertsComputerSystem
                         gasData[gas] = (mol, percentage, AtmosAlarmType.Normal);
                     }
 
-                    if (threshold.CheckThreshold(gasData[gas].Item2, out var gasState) &&
-                        (int) gasState > (int) gasData[gas].Item3)
+                    if (
+                        threshold.CheckThreshold(gasData[gas].Item2, out var gasState)
+                        && (int)gasState > (int)gasData[gas].Item3
+                    )
                     {
                         gasData[gas] = (gasData[gas].Item1, gasData[gas].Item2, gasState);
                     }
@@ -430,18 +547,23 @@ public sealed class AtmosAlertsComputerSystem : SharedAtmosAlertsComputerSystem
         return atmosDeviceNavMapData;
     }
 
-    private bool TryGetAtmosDeviceNavMapData
-        (EntityUid uid,
+    private bool TryGetAtmosDeviceNavMapData(
+        EntityUid uid,
         AtmosAlertsDeviceComponent component,
         TransformComponent xform,
-        [NotNullWhen(true)] out AtmosAlertsDeviceNavMapData? output)
+        [NotNullWhen(true)] out AtmosAlertsDeviceNavMapData? output
+    )
     {
         output = null;
 
         if (!xform.Anchored)
             return false;
 
-        output = new AtmosAlertsDeviceNavMapData(GetNetEntity(uid), GetNetCoordinates(xform.Coordinates), component.Group);
+        output = new AtmosAlertsDeviceNavMapData(
+            GetNetEntity(uid),
+            GetNetCoordinates(xform.Coordinates),
+            component.Group
+        );
 
         return true;
     }
@@ -474,17 +596,21 @@ public sealed class AtmosAlertsComputerSystem : SharedAtmosAlertsComputerSystem
         var focusDeviceXform = Transform(focusDevice.Value);
 
         // Hack: assuming all pumps are dockable pumps, pressure pumps, and have one non-dockable node
-        if (!focusDeviceXform.Anchored ||
-            focusDeviceXform.GridUid != gridUid ||
-            !TryComp<GasPressurePumpComponent>(focusDevice.Value, out var pressurePump) ||
-            !TryComp<DockingComponent>(focusDevice.Value, out var docking))
+        if (
+            !focusDeviceXform.Anchored
+            || focusDeviceXform.GridUid != gridUid
+            || !TryComp<GasPressurePumpComponent>(focusDevice.Value, out var pressurePump)
+            || !TryComp<DockingComponent>(focusDevice.Value, out var docking)
+        )
         {
             return null;
         }
 
         var gasData = new Dictionary<Gas, (float, float)>();
-        if (TryComp<DockablePipeComponent>(focusDevice.Value, out var dockablePump) &&
-        _nodeContainer.TryGetNode(focusDevice.Value, dockablePump.InternalNodeName, out PipeNode? port))
+        if (
+            TryComp<DockablePipeComponent>(focusDevice.Value, out var dockablePump)
+            && _nodeContainer.TryGetNode(focusDevice.Value, dockablePump.InternalNodeName, out PipeNode? port)
+        )
         {
             if (port.Air.TotalMoles > 1e-8)
             {
@@ -502,26 +628,30 @@ public sealed class AtmosAlertsComputerSystem : SharedAtmosAlertsComputerSystem
         if (!TryGetNetEntity(docking.DockedWith, out var dockingNetEnt))
             dockingNetEnt = NetEntity.Invalid;
 
-        return new AtmosAlertsFocusGaslockData(GetNetEntity(focusDevice.Value),
-        pressurePump.TargetPressure, // float pressure,
-        pressurePump.PumpingInwards, // bool pumpingInwards,
-        pressurePump.Enabled, // bool enabled,
-        dockingNetEnt.Value, // NetEntity dockedEntity,
-        gasData); // Dictionary<Gas, (float, float)> gasData)
+        return new AtmosAlertsFocusGaslockData(
+            GetNetEntity(focusDevice.Value),
+            pressurePump.TargetPressure, // float pressure,
+            pressurePump.PumpingInwards, // bool pumpingInwards,
+            pressurePump.Enabled, // bool enabled,
+            dockingNetEnt.Value, // NetEntity dockedEntity,
+            gasData
+        ); // Dictionary<Gas, (float, float)> gasData)
     }
 
     // Frontier: message handlers for gaslock state
     private void OnUndockRequestMessage(Entity<AtmosAlertsComputerComponent> ent, ref UndockRequestMessage args)
     {
         var dockUid = GetEntity(args.DockEntity);
-        if (!HasComp<DockablePipeComponent>(dockUid) ||
-            !TryComp<DockingComponent>(dockUid, out var dockComp))
+        if (!HasComp<DockablePipeComponent>(dockUid) || !TryComp<DockingComponent>(dockUid, out var dockComp))
             return;
         _docking.Undock((dockUid, dockComp));
     }
 
     // We want this to be doing whatever the pressure pump is doing, so we're hijacking the GasPressurePumpSystem interface.
-    private void OnPumpDirectionMessage(Entity<AtmosAlertsComputerComponent> ent, ref RemoteGasPressurePumpChangePumpDirectionMessage args)
+    private void OnPumpDirectionMessage(
+        Entity<AtmosAlertsComputerComponent> ent,
+        ref RemoteGasPressurePumpChangePumpDirectionMessage args
+    )
     {
         var pumpUid = GetEntity(args.Pump);
         if (!TryComp<GasPressurePumpComponent>(pumpUid, out var pumpComp) || !pumpComp.SettableDirection)
@@ -529,7 +659,10 @@ public sealed class AtmosAlertsComputerSystem : SharedAtmosAlertsComputerSystem
         _pressurePump.SetPumpDirection((pumpUid, pumpComp), args.Inwards, args.Actor);
     }
 
-    private void OnPumpPressureMessage(Entity<AtmosAlertsComputerComponent> ent, ref RemoteGasPressurePumpChangeOutputPressureMessage args)
+    private void OnPumpPressureMessage(
+        Entity<AtmosAlertsComputerComponent> ent,
+        ref RemoteGasPressurePumpChangeOutputPressureMessage args
+    )
     {
         var pumpUid = GetEntity(args.Pump);
         if (!TryComp<GasPressurePumpComponent>(pumpUid, out var pumpComp))
@@ -537,7 +670,10 @@ public sealed class AtmosAlertsComputerSystem : SharedAtmosAlertsComputerSystem
         _pressurePump.SetPumpPressure((pumpUid, pumpComp), args.Pressure, args.Actor);
     }
 
-    private void OnPumpStatusMessage(Entity<AtmosAlertsComputerComponent> ent, ref RemoteGasPressurePumpToggleStatusMessage args)
+    private void OnPumpStatusMessage(
+        Entity<AtmosAlertsComputerComponent> ent,
+        ref RemoteGasPressurePumpToggleStatusMessage args
+    )
     {
         var pumpUid = GetEntity(args.Pump);
         if (!TryComp<GasPressurePumpComponent>(pumpUid, out var pumpComp))

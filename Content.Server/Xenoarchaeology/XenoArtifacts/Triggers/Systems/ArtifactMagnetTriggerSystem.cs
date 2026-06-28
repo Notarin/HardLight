@@ -11,7 +11,8 @@ namespace Content.Server.Xenoarchaeology.XenoArtifacts.Triggers.Systems;
 /// </summary>
 public sealed class ArtifactMagnetTriggerSystem : EntitySystem
 {
-    [Dependency] private readonly ArtifactSystem _artifact = default!;
+    [Dependency]
+    private readonly ArtifactSystem _artifact = default!;
 
     private readonly List<Entity<ArtifactMagnetTriggerComponent, TransformComponent>> _artifacts = new();
     private readonly HashSet<EntityUid> _toActivate = new();

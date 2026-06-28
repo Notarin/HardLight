@@ -1,14 +1,14 @@
+using System.Linq;
+using System.Numerics;
 using Content.Server.Administration.UI;
 using Content.Server.EUI;
 using Content.Server.Explosion.EntitySystems;
 using Content.Shared.Administration;
 using Content.Shared.Explosion;
+using Robust.Server.GameObjects;
 using Robust.Shared.Console;
 using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
-using System.Linq;
-using System.Numerics;
-using Robust.Server.GameObjects;
 
 namespace Content.Server.Administration.Commands;
 
@@ -72,11 +72,11 @@ public sealed class ExplosionCommand : IConsoleCommand
             return;
         }
 
-        float x = 0, y = 0;
+        float x = 0,
+            y = 0;
         if (args.Length > 4)
         {
-            if (!float.TryParse(args[3], out x) ||
-                !float.TryParse(args[4], out y))
+            if (!float.TryParse(args[3], out x) || !float.TryParse(args[4], out y))
             {
                 shell.WriteError($"Failed to parse coordinates: {(args[3], args[4])}");
                 return;
@@ -99,14 +99,18 @@ public sealed class ExplosionCommand : IConsoleCommand
             var entMan = IoCManager.Resolve<IEntityManager>();
             if (!entMan.TryGetComponent(shell.Player?.AttachedEntity, out TransformComponent? xform))
             {
-                shell.WriteError($"Failed get default coordinates/map via player's transform. Need to specify explicitly.");
+                shell.WriteError(
+                    $"Failed get default coordinates/map via player's transform. Need to specify explicitly."
+                );
                 return;
             }
 
             if (args.Length > 4)
                 coords = new MapCoordinates(new Vector2(x, y), xform.MapID);
             else
-                coords = entMan.System<TransformSystem>().GetMapCoordinates(shell.Player.AttachedEntity.Value, xform: xform);
+                coords = entMan
+                    .System<TransformSystem>()
+                    .GetMapCoordinates(shell.Player.AttachedEntity.Value, xform: xform);
         }
 
         ExplosionPrototype? type;

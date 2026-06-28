@@ -1,5 +1,4 @@
 using Content.Server._EinsteinEngines.Silicon.WeldingHealing;
-using Content.Shared.Tools.Components;
 using Content.Shared._EinsteinEngines.Silicon.WeldingHealing;
 using Content.Shared.Chemistry.Components.SolutionManager;
 using Content.Shared.Chemistry.EntitySystems;
@@ -7,16 +6,24 @@ using Content.Shared.Damage;
 using Content.Shared.Interaction;
 using Content.Shared.Popups;
 using Content.Shared.Tools;
+using Content.Shared.Tools.Components;
 using SharedToolSystem = Content.Shared.Tools.Systems.SharedToolSystem;
 
 namespace Content.Server._EinsteinEngines.Silicon.WeldingHealable;
 
 public sealed class WeldingHealableSystem : SharedWeldingHealableSystem
 {
-    [Dependency] private readonly SharedToolSystem _toolSystem = default!;
-    [Dependency] private readonly DamageableSystem _damageableSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainer = default!;
+    [Dependency]
+    private readonly SharedToolSystem _toolSystem = default!;
+
+    [Dependency]
+    private readonly DamageableSystem _damageableSystem = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SharedSolutionContainerSystem _solutionContainer = default!;
 
     public override void Initialize()
     {
@@ -24,9 +31,15 @@ public sealed class WeldingHealableSystem : SharedWeldingHealableSystem
         SubscribeLocalEvent<WeldingHealableComponent, SiliconRepairFinishedEvent>(OnRepairFinished);
     }
 
-    private void OnRepairFinished(EntityUid uid, WeldingHealableComponent healableComponent, SiliconRepairFinishedEvent args)
+    private void OnRepairFinished(
+        EntityUid uid,
+        WeldingHealableComponent healableComponent,
+        SiliconRepairFinishedEvent args
+    )
     {
-        if (args.Cancelled || args.Used == null
+        if (
+            args.Cancelled
+            || args.Used == null
             || !TryComp<DamageableComponent>(args.Target, out var damageable)
             || !TryComp<WeldingHealingComponent>(args.Used, out var component)
             || damageable.DamageContainerID is null
@@ -34,61 +47,62 @@ public sealed class WeldingHealableSystem : SharedWeldingHealableSystem
             || !HasDamage(damageable, component)
             || !TryComp<WelderComponent>(args.Used, out var welder)
             || !TryComp<SolutionContainerManagerComponent>(args.Used, out var solutionContainer)
-            || !_solutionContainer.TryGetSolution(((EntityUid) args.Used, solutionContainer), welder.FuelSolutionName, out var solution))
+            || !_solutionContainer.TryGetSolution(
+                ((EntityUid)args.Used, solutionContainer),
+                welder.FuelSolutionName,
+                out var solution
+            )
+        )
             return;
 
         _damageableSystem.TryChangeDamage(uid, component.Damage, true, false, origin: args.User);
 
         _solutionContainer.RemoveReagent(solution.Value, welder.FuelReagent, component.FuelCost);
 
-        var str = Loc.GetString("comp-repairable-repair",
-            ("target", uid),
-            ("tool", args.Used!));
+        var str = Loc.GetString("comp-repairable-repair", ("target", uid), ("tool", args.Used!));
         _popup.PopupEntity(str, uid, args.User);
 
         if (!args.Used.HasValue)
             return;
 
-        args.Handled = _toolSystem.UseTool
-            (args.Used.Value,
+        args.Handled = _toolSystem.UseTool(
+            args.Used.Value,
             args.User,
             uid,
             args.Delay,
             component.QualityNeeded,
-            new SiliconRepairFinishedEvent
-            {
-                Delay = args.Delay
-            });
+            new SiliconRepairFinishedEvent { Delay = args.Delay }
+        );
     }
+
     private async void Repair(EntityUid uid, WeldingHealableComponent healableComponent, InteractUsingEvent args)
     {
-        if (args.Handled
+        if (
+            args.Handled
             || !EntityManager.TryGetComponent(args.Used, out WeldingHealingComponent? component)
             || !EntityManager.TryGetComponent(args.Target, out DamageableComponent? damageable)
             || damageable.DamageContainerID is null
             || !component.DamageContainers.Contains(damageable.DamageContainerID)
             || !HasDamage(damageable, component)
             || !_toolSystem.HasQuality(args.Used, component.QualityNeeded)
-            || args.User == args.Target && !component.AllowSelfHeal)
+            || args.User == args.Target && !component.AllowSelfHeal
+        )
             return;
 
-        float delay = args.User == args.Target
-            ? component.DoAfterDelay * component.SelfHealPenalty
-            : component.DoAfterDelay;
+        float delay =
+            args.User == args.Target ? component.DoAfterDelay * component.SelfHealPenalty : component.DoAfterDelay;
 
-        args.Handled = _toolSystem.UseTool
-            (args.Used,
+        args.Handled = _toolSystem.UseTool(
+            args.Used,
             args.User,
             args.Target,
             delay,
             component.QualityNeeded,
-            new SiliconRepairFinishedEvent
-            {
-                Delay = delay,
-            });
+            new SiliconRepairFinishedEvent { Delay = delay }
+        );
     }
 
- private bool HasDamage(DamageableComponent component, WeldingHealingComponent healable)
+    private bool HasDamage(DamageableComponent component, WeldingHealingComponent healable)
     {
         if (healable.Damage.DamageDict is null)
             return false;
@@ -100,4 +114,3 @@ public sealed class WeldingHealableSystem : SharedWeldingHealableSystem
         return false;
     }
 }
-

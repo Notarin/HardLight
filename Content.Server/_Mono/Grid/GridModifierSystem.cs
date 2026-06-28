@@ -11,9 +11,14 @@ namespace Content.Server._Mono.Grid;
 // VRS: Ported from Triad_Sector — probabilistically replaces wall tiles at MapInit to simulate hull decay/upgrades.
 public sealed class GridModifierSystem : SharedGridModifierSystem
 {
-    [Dependency] private readonly IPrototypeManager _protoMan = default!;
-    [Dependency] private readonly IComponentFactory _factory = default!;
-    [Dependency] private readonly SharedShipRepairSystem _repair = default!;
+    [Dependency]
+    private readonly IPrototypeManager _protoMan = default!;
+
+    [Dependency]
+    private readonly IComponentFactory _factory = default!;
+
+    [Dependency]
+    private readonly SharedShipRepairSystem _repair = default!;
 
     private List<EntityUid> _snapQueue = [];
 

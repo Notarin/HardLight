@@ -4,5 +4,5 @@
   bodyPart: Hair
   markingCategory: Hair
   sprites:
-    - sprite: _HL/Mobs/Customization/Human/human_hair.rsi
-      state: ombre_alt
+  - sprite: _HL/Mobs/Customization/Human/human_hair.rsi
+    state: ombre_alt

@@ -12,9 +12,8 @@ public sealed class NameFilterBUI : BoundUserInterface
 {
     private NameFilterWindow? _window;
 
-    public NameFilterBUI(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-    }
+    public NameFilterBUI(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {

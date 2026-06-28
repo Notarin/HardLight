@@ -23,15 +23,32 @@ namespace Content.Client.Weapons.Melee;
 
 public sealed partial class MeleeWeaponSystem : SharedMeleeWeaponSystem
 {
-    [Dependency] private readonly IEyeManager _eyeManager = default!;
-    [Dependency] private readonly IInputManager _inputManager = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IStateManager _stateManager = default!;
-    [Dependency] private readonly AnimationPlayerSystem _animation = default!;
-    [Dependency] private readonly InputSystem _inputSystem = default!;
-    [Dependency] private readonly SharedColorFlashEffectSystem _color = default!;
-    [Dependency] private readonly MapSystem _map = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly IEyeManager _eyeManager = default!;
+
+    [Dependency]
+    private readonly IInputManager _inputManager = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly IStateManager _stateManager = default!;
+
+    [Dependency]
+    private readonly AnimationPlayerSystem _animation = default!;
+
+    [Dependency]
+    private readonly InputSystem _inputSystem = default!;
+
+    [Dependency]
+    private readonly SharedColorFlashEffectSystem _color = default!;
+
+    [Dependency]
+    private readonly MapSystem _map = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     private EntityQuery<TransformComponent> _xformQuery;
 
@@ -116,7 +133,7 @@ public sealed partial class MeleeWeaponSystem : SharedMeleeWeaponSystem
             if (!TryComp<AltFireMeleeComponent>(weaponUid, out var altFireComponent) || altDown != BoundKeyState.Down)
                 return;
 
-            switch(altFireComponent.AttackType)
+            switch (altFireComponent.AttackType)
             {
                 case AltFireAttackType.Light:
                     ClientLightAttack(entity, mousePos, coordinates, weaponUid, weapon);
@@ -153,8 +170,10 @@ public sealed partial class MeleeWeaponSystem : SharedMeleeWeaponSystem
         {
             var attackerPos = TransformSystem.GetMapCoordinates(entity);
 
-            if (mousePos.MapId != attackerPos.MapId ||
-                (attackerPos.Position - mousePos.Position).Length() > weapon.Range)
+            if (
+                mousePos.MapId != attackerPos.MapId
+                || (attackerPos.Position - mousePos.Position).Length() > weapon.Range
+            )
             {
                 return;
             }
@@ -170,7 +189,9 @@ public sealed partial class MeleeWeaponSystem : SharedMeleeWeaponSystem
             if (Interaction.CombatModeCanHandInteract(entity, target))
                 return;
 
-            RaisePredictiveEvent(new LightAttackEvent(GetNetEntity(target), GetNetEntity(weaponUid), GetNetCoordinates(coordinates)));
+            RaisePredictiveEvent(
+                new LightAttackEvent(GetNetEntity(target), GetNetEntity(weaponUid), GetNetCoordinates(coordinates))
+            );
         }
 
         if (useDown == BoundKeyState.Down)
@@ -183,7 +204,14 @@ public sealed partial class MeleeWeaponSystem : SharedMeleeWeaponSystem
         var targetCoordinates = xform.Coordinates;
         var targetLocalAngle = xform.LocalRotation;
 
-        return Interaction.InRangeUnobstructed(user, target, targetCoordinates, targetLocalAngle, range, overlapCheck: false);
+        return Interaction.InRangeUnobstructed(
+            user,
+            target,
+            targetCoordinates,
+            targetLocalAngle,
+            range,
+            overlapCheck: false
+        );
     }
 
     protected override void DoDamageEffect(List<EntityUid> targets, EntityUid? user, TransformComponent targetXform)
@@ -196,11 +224,15 @@ public sealed partial class MeleeWeaponSystem : SharedMeleeWeaponSystem
     /// Raises a heavy attack event with the relevant attacked entities.
     /// This is to avoid lag effecting the client's perspective too much.
     /// </summary>
-    private void ClientHeavyAttack(EntityUid user, EntityCoordinates coordinates, EntityUid meleeUid, MeleeWeaponComponent component)
+    private void ClientHeavyAttack(
+        EntityUid user,
+        EntityCoordinates coordinates,
+        EntityUid meleeUid,
+        MeleeWeaponComponent component
+    )
     {
         // Only run on first prediction to avoid the potential raycast entities changing.
-        if (!_xformQuery.TryGetComponent(user, out var userXform) ||
-            !Timing.IsFirstTimePredicted)
+        if (!_xformQuery.TryGetComponent(user, out var userXform) || !Timing.IsFirstTimePredicted)
         {
             return;
         }
@@ -225,8 +257,25 @@ public sealed partial class MeleeWeaponSystem : SharedMeleeWeaponSystem
             ignores.Insert(0, mp.Mech);
         }
 
-        var entities = GetNetEntityList(ArcRayCast(userPos, direction.ToWorldAngle(), component.Angle, distance, userXform.MapID, user, ignores.ToArray()).ToList());
-        RaisePredictiveEvent(new HeavyAttackEvent(GetNetEntity(meleeUid), entities.GetRange(0, Math.Min(MaxTargets, entities.Count)), GetNetCoordinates(coordinates)));
+        var entities = GetNetEntityList(
+            ArcRayCast(
+                    userPos,
+                    direction.ToWorldAngle(),
+                    component.Angle,
+                    distance,
+                    userXform.MapID,
+                    user,
+                    ignores.ToArray()
+                )
+                .ToList()
+        );
+        RaisePredictiveEvent(
+            new HeavyAttackEvent(
+                GetNetEntity(meleeUid),
+                entities.GetRange(0, Math.Min(MaxTargets, entities.Count)),
+                GetNetCoordinates(coordinates)
+            )
+        );
     }
 
     private void ClientDisarm(EntityUid attacker, MapCoordinates mousePos, EntityCoordinates coordinates)
@@ -239,11 +288,20 @@ public sealed partial class MeleeWeaponSystem : SharedMeleeWeaponSystem
         RaisePredictiveEvent(new DisarmAttackEvent(GetNetEntity(target), GetNetCoordinates(coordinates)));
     }
 
-    private void ClientLightAttack(EntityUid attacker, MapCoordinates mousePos, EntityCoordinates coordinates, EntityUid weaponUid, MeleeWeaponComponent meleeComponent)
+    private void ClientLightAttack(
+        EntityUid attacker,
+        MapCoordinates mousePos,
+        EntityCoordinates coordinates,
+        EntityUid weaponUid,
+        MeleeWeaponComponent meleeComponent
+    )
     {
         var attackerPos = TransformSystem.GetMapCoordinates(attacker);
 
-        if (mousePos.MapId != attackerPos.MapId || (attackerPos.Position - mousePos.Position).Length() > meleeComponent.Range)
+        if (
+            mousePos.MapId != attackerPos.MapId
+            || (attackerPos.Position - mousePos.Position).Length() > meleeComponent.Range
+        )
             return;
 
         EntityUid? target = null;
@@ -255,7 +313,9 @@ public sealed partial class MeleeWeaponSystem : SharedMeleeWeaponSystem
         if (Interaction.CombatModeCanHandInteract(attacker, target))
             return;
 
-        RaisePredictiveEvent(new LightAttackEvent(GetNetEntity(target), GetNetEntity(weaponUid), GetNetCoordinates(coordinates)));
+        RaisePredictiveEvent(
+            new LightAttackEvent(GetNetEntity(target), GetNetEntity(weaponUid), GetNetCoordinates(coordinates))
+        );
     }
 
     private void OnMeleeLunge(MeleeLungeEvent ev)

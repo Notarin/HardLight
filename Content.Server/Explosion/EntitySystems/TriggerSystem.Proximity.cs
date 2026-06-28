@@ -2,15 +2,18 @@ using Content.Server.Explosion.Components;
 using Content.Shared.Trigger;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Events;
-using Robust.Shared.Utility;
 using Robust.Shared.Timing;
+using Robust.Shared.Utility;
 
 namespace Content.Server.Explosion.EntitySystems;
 
 public sealed partial class TriggerSystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
 
     private void InitializeProximity()
     {
@@ -22,10 +25,13 @@ public sealed partial class TriggerSystem
         SubscribeLocalEvent<TriggerOnProximityComponent, AnchorStateChangedEvent>(OnProximityAnchor);
     }
 
-    private void OnProximityAnchor(EntityUid uid, TriggerOnProximityComponent component, ref AnchorStateChangedEvent args)
+    private void OnProximityAnchor(
+        EntityUid uid,
+        TriggerOnProximityComponent component,
+        ref AnchorStateChangedEvent args
+    )
     {
-        component.Enabled = !component.RequiresAnchored ||
-                            args.Anchored;
+        component.Enabled = !component.RequiresAnchored || args.Anchored;
 
         SetProximityAppearance(uid, component);
 
@@ -47,8 +53,7 @@ public sealed partial class TriggerSystem
 
     private void OnMapInit(EntityUid uid, TriggerOnProximityComponent component, MapInitEvent args)
     {
-        component.Enabled = !component.RequiresAnchored ||
-                            Transform(uid).Anchored;
+        component.Enabled = !component.RequiresAnchored || Transform(uid).Anchored;
 
         SetProximityAppearance(uid, component);
 
@@ -61,10 +66,15 @@ public sealed partial class TriggerSystem
             TriggerOnProximityComponent.FixtureID,
             hard: false,
             body: body,
-            collisionLayer: component.Layer);
+            collisionLayer: component.Layer
+        );
     }
 
-    private void OnProximityStartCollide(EntityUid uid, TriggerOnProximityComponent component, ref StartCollideEvent args)
+    private void OnProximityStartCollide(
+        EntityUid uid,
+        TriggerOnProximityComponent component,
+        ref StartCollideEvent args
+    )
     {
         if (args.OurFixtureId != TriggerOnProximityComponent.FixtureID)
             return;
@@ -75,7 +85,11 @@ public sealed partial class TriggerSystem
         component.Colliding[args.OtherEntity] = args.OtherBody;
     }
 
-    private static void OnProximityEndCollide(EntityUid uid, TriggerOnProximityComponent component, ref EndCollideEvent args)
+    private static void OnProximityEndCollide(
+        EntityUid uid,
+        TriggerOnProximityComponent component,
+        ref EndCollideEvent args
+    )
     {
         if (args.OurFixtureId != TriggerOnProximityComponent.FixtureID)
             return;
@@ -87,7 +101,12 @@ public sealed partial class TriggerSystem
     {
         if (EntityManager.TryGetComponent(uid, out AppearanceComponent? appearance))
         {
-            _appearance.SetData(uid, ProximityTriggerVisualState.State, component.Enabled ? ProximityTriggerVisuals.Inactive : ProximityTriggerVisuals.Off, appearance);
+            _appearance.SetData(
+                uid,
+                ProximityTriggerVisualState.State,
+                component.Enabled ? ProximityTriggerVisuals.Inactive : ProximityTriggerVisuals.Off,
+                appearance
+            );
         }
     }
 
@@ -160,9 +179,11 @@ public sealed partial class TriggerSystem
 
         foreach (var (triggerUid, userUid) in toActivate)
         {
-            if (!TryComp<TriggerOnProximityComponent>(triggerUid, out var trigger) ||
-                !trigger.Enabled ||
-                curTime < trigger.NextTrigger)
+            if (
+                !TryComp<TriggerOnProximityComponent>(triggerUid, out var trigger)
+                || !trigger.Enabled
+                || curTime < trigger.NextTrigger
+            )
                 continue;
 
             Activate(triggerUid, userUid, trigger);

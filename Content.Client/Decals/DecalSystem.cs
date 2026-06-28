@@ -10,8 +10,11 @@ namespace Content.Client.Decals
 {
     public sealed class DecalSystem : SharedDecalSystem
     {
-        [Dependency] private readonly IOverlayManager _overlayManager = default!;
-        [Dependency] private readonly SpriteSystem _sprites = default!;
+        [Dependency]
+        private readonly IOverlayManager _overlayManager = default!;
+
+        [Dependency]
+        private readonly SpriteSystem _sprites = default!;
 
         private DecalOverlay? _overlay;
 
@@ -54,7 +57,13 @@ namespace Content.Client.Decals
             _overlayManager.RemoveOverlay(_overlay);
         }
 
-        protected override void OnDecalRemoved(EntityUid gridId, uint decalId, DecalGridComponent component, Vector2i indices, DecalChunk chunk)
+        protected override void OnDecalRemoved(
+            EntityUid gridId,
+            uint decalId,
+            DecalGridComponent component,
+            Vector2i indices,
+            DecalChunk chunk
+        )
         {
             base.OnDecalRemoved(gridId, decalId, component, indices, chunk);
             DebugTools.Assert(chunk.Decals.ContainsKey(decalId));
@@ -113,7 +122,9 @@ namespace Content.Client.Decals
 
                 if (!TryComp(gridId, out DecalGridComponent? gridComp))
                 {
-                    Log.Error($"Received decal information for an entity without a decal component: {ToPrettyString(gridId)}");
+                    Log.Error(
+                        $"Received decal information for an entity without a decal component: {ToPrettyString(gridId)}"
+                    );
                     continue;
                 }
 
@@ -130,7 +141,9 @@ namespace Content.Client.Decals
 
                 if (!TryComp(gridId, out DecalGridComponent? gridComp))
                 {
-                    Log.Error($"Received decal information for an entity without a decal component: {ToPrettyString(gridId)}");
+                    Log.Error(
+                        $"Received decal information for an entity without a decal component: {ToPrettyString(gridId)}"
+                    );
                     continue;
                 }
 
@@ -138,7 +151,11 @@ namespace Content.Client.Decals
             }
         }
 
-        private void UpdateChunks(EntityUid gridId, DecalGridComponent gridComp, Dictionary<Vector2i, DecalChunk> updatedGridChunks)
+        private void UpdateChunks(
+            EntityUid gridId,
+            DecalGridComponent gridComp,
+            Dictionary<Vector2i, DecalChunk> updatedGridChunks
+        )
         {
             var chunkCollection = gridComp.ChunkCollection.ChunkCollection;
 
@@ -175,7 +192,7 @@ namespace Content.Client.Decals
                 if (!chunkCollection.TryGetValue(index, out var chunk))
                     continue;
 
-                foreach (var decalId  in chunk.Decals.Keys)
+                foreach (var decalId in chunk.Decals.Keys)
                 {
                     OnDecalRemoved(gridId, decalId, gridComp, index, chunk);
                     gridComp.DecalIndex.Remove(decalId);

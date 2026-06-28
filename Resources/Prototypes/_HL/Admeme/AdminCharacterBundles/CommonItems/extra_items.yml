@@ -11,7 +11,6 @@
     privilegedIdSlot:
       startingItem: UniversalIDCard
 
-
 # DoubleEmergencyOxygenTank Filled with Liquid Oxygen
 - type: entity
   id: DoubleEmergencyOxygenTankFilledLiquidOxygen
@@ -26,7 +25,7 @@
       # 78 min 33 sec
       volume: 2.5
       moles:
-        - 4.23154936696 # oxygen
+      - 4.23154936696 # oxygen
       temperature: 72
 
 # 5L OxygenTank Filled with Liquid Oxygen
@@ -43,7 +42,7 @@
       # 160 Min, 50 Sec
       volume: 5
       moles:
-        - 8.463098734 # oxygen
+      - 8.463098734 # oxygen
       temperature: 72
 
 # 10L OxygenTank Filled with Liquid Oxygen
@@ -60,9 +59,8 @@
       # 321 Min, 40 Sec
       volume: 10
       moles:
-        - 16.92619747 # oxygen
+      - 16.92619747 # oxygen
       temperature: 72
-
 
 # An Admin hand teleporter with instant portal creation
 - type: entity
@@ -75,7 +73,6 @@
     - Admin
   - type: HandTeleporter
     portalCreationDelay: 0
-
 
 # Medical hud that works for borgs!
 - type: entity
@@ -94,7 +91,6 @@
   - type: ShowMindShieldIcons
   - type: ShowCriminalRecordIcons
 
-
 # a bluespace jug of pure Nutriment and Saline, mixed to provide the best saturation to thirst ratio
 - type: entity
   id: FoodWaterJugBluespace
@@ -110,10 +106,10 @@
       beaker:
         maxVol: 1000
         reagents:
-          - ReagentId: Nutriment
-            Quantity: 400
-          - ReagentId: Saline
-            Quantity: 600
+        - ReagentId: Nutriment
+          Quantity: 400
+        - ReagentId: Saline
+          Quantity: 600
 
 # a bluespace beaker of pure Nutriment and Saline, mixed to provide the best saturation to thirst ratio
 - type: entity
@@ -130,11 +126,10 @@
       beaker:
         maxVol: 1000
         reagents:
-          - ReagentId: Nutriment
-            Quantity: 400
-          - ReagentId: Saline
-            Quantity: 600
-
+        - ReagentId: Nutriment
+          Quantity: 400
+        - ReagentId: Saline
+          Quantity: 600
 
 # bluespace box of throwing knifes
 - type: entity
@@ -152,8 +147,8 @@
     - 0,0,9,9
   - type: StorageFill
     contents:
-      - id: ThrowingKnife
-        amount: 50
+    - id: ThrowingKnife
+      amount: 50
   - type: Item
     size: Normal
     shape:

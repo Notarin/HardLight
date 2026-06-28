@@ -1,5 +1,5 @@
-using Robust.Shared.Serialization;
 using Robust.Shared.Map;
+using Robust.Shared.Serialization;
 
 namespace Content.Shared._Starlight.Actions.Stasis;
 
@@ -22,7 +22,7 @@ public enum StasisAnimationType
     /// <summary>
     /// Animation played when exiting stasis
     /// </summary>
-    Exit
+    Exit,
 }
 
 /// <summary>

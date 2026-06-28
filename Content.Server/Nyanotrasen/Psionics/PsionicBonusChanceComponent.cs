@@ -5,6 +5,7 @@ namespace Content.Server.Psionics
     {
         [DataField("multiplier")]
         public float Multiplier = 1f;
+
         [DataField("flatBonus")]
         public float FlatBonus = 0;
 

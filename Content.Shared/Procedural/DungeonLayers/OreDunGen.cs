@@ -24,6 +24,7 @@ public partial class OreDunGen : IDunGenLayer
     /// </summary>
     [DataField]
     public HashSet<ProtoId<ContentTileDefinition>>? TileMask;
+
     // End Upstream#33105: OreDunGen replacement (Thank you, TheShuEd!)
 
     /// <summary>

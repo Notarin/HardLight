@@ -59,16 +59,22 @@ namespace Content.IntegrationTests.Tests.Destructible
                     Assert.That(threshold.Behaviors, Has.Count.EqualTo(3));
                 });
 
-                var spawnEntitiesBehavior = (SpawnEntitiesBehavior) threshold.Behaviors.Single(b => b is SpawnEntitiesBehavior);
+                var spawnEntitiesBehavior = (SpawnEntitiesBehavior)
+                    threshold.Behaviors.Single(b => b is SpawnEntitiesBehavior);
 
                 Assert.Multiple(() =>
                 {
                     Assert.That(spawnEntitiesBehavior.Spawn, Has.Count.EqualTo(1));
                     Assert.That(spawnEntitiesBehavior.Spawn.Keys.Single(), Is.EqualTo(SpawnedEntityId));
-                    Assert.That(spawnEntitiesBehavior.Spawn.Values.Single(), Is.EqualTo(new MinMax { Min = 1, Max = 1 }));
+                    Assert.That(
+                        spawnEntitiesBehavior.Spawn.Values.Single(),
+                        Is.EqualTo(new MinMax { Min = 1, Max = 1 })
+                    );
                 });
 
-                var entitiesInRange = sEntityManager.System<EntityLookupSystem>().GetEntitiesInRange(coordinates, 3, LookupFlags.All | LookupFlags.Approximate);
+                var entitiesInRange = sEntityManager
+                    .System<EntityLookupSystem>()
+                    .GetEntitiesInRange(coordinates, 3, LookupFlags.All | LookupFlags.Approximate);
                 var found = false;
 
                 foreach (var entity in entitiesInRange)
@@ -87,7 +93,11 @@ namespace Content.IntegrationTests.Tests.Destructible
                     break;
                 }
 
-                Assert.That(found, Is.True, $"Unable to find {SpawnedEntityId} nearby for destructible test; found {entitiesInRange.Count} entities.");
+                Assert.That(
+                    found,
+                    Is.True,
+                    $"Unable to find {SpawnedEntityId} nearby for destructible test; found {entitiesInRange.Count} entities."
+                );
             });
             await pair.CleanReturnAsync();
         }

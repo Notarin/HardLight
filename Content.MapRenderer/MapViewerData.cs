@@ -48,30 +48,23 @@ public sealed class LayerGroup
         return new LayerGroup
         {
             Scale = new Position(0.1f, 0.1f),
-            Source = new GroupSource
-            {
-                Url = "https://i.imgur.com/3YO8KRd.png",
-                Extent = new Extent(6000, 4000)
-            },
+            Source = new GroupSource { Url = "https://i.imgur.com/3YO8KRd.png", Extent = new Extent(6000, 4000) },
             Layers = new List<Layer>
             {
+                new() { Url = "https://i.imgur.com/IannmmK.png" },
                 new()
                 {
-                    Url = "https://i.imgur.com/IannmmK.png"
+                    Url = "https://i.imgur.com/T3W6JsE.png",
+                    Composition = "lighter",
+                    ParallaxScale = new Position(0.2f, 0.2f),
                 },
                 new()
                 {
                     Url = "https://i.imgur.com/T3W6JsE.png",
                     Composition = "lighter",
-                    ParallaxScale = new Position(0.2f, 0.2f)
+                    ParallaxScale = new Position(0.3f, 0.3f),
                 },
-                new()
-                {
-                    Url = "https://i.imgur.com/T3W6JsE.png",
-                    Composition = "lighter",
-                    ParallaxScale = new Position(0.3f, 0.3f)
-                }
-            }
+            },
         };
     }
 }

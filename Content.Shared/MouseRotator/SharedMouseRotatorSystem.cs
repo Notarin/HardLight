@@ -8,7 +8,8 @@ namespace Content.Shared.MouseRotator;
 /// <see cref="MouseRotatorComponent"/>
 public abstract class SharedMouseRotatorSystem : EntitySystem
 {
-    [Dependency] private readonly RotateToFaceSystem _rotate = default!;
+    [Dependency]
+    private readonly RotateToFaceSystem _rotate = default!;
 
     public override void Initialize()
     {
@@ -30,13 +31,16 @@ public abstract class SharedMouseRotatorSystem : EntitySystem
             if (rotator.GoalRotation == null)
                 continue;
 
-            if (_rotate.TryRotateTo(
+            if (
+                _rotate.TryRotateTo(
                     uid,
                     rotator.GoalRotation.Value,
                     frameTime,
                     rotator.AngleTolerance,
                     MathHelper.DegreesToRadians(rotator.RotationSpeed),
-                    xform))
+                    xform
+                )
+            )
             {
                 // Stop rotating if we finished
                 rotator.GoalRotation = null;
@@ -47,8 +51,7 @@ public abstract class SharedMouseRotatorSystem : EntitySystem
 
     private void OnRequestRotation(RequestMouseRotatorRotationEvent msg, EntitySessionEventArgs args)
     {
-        if (args.SenderSession.AttachedEntity is not { } ent
-            || !TryComp<MouseRotatorComponent>(ent, out var rotator))
+        if (args.SenderSession.AttachedEntity is not { } ent || !TryComp<MouseRotatorComponent>(ent, out var rotator))
         {
             return;
         }

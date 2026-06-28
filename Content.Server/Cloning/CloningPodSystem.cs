@@ -41,25 +41,62 @@ namespace Content.Server.Cloning;
 
 public sealed class CloningPodSystem : EntitySystem
 {
-    [Dependency] private readonly DeviceLinkSystem _signalSystem = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = null!;
-    [Dependency] private readonly EuiManager _euiManager = null!;
-    [Dependency] private readonly CloningConsoleSystem _cloningConsoleSystem = default!;
-    [Dependency] private readonly ContainerSystem _containerSystem = default!;
-    [Dependency] private readonly PowerReceiverSystem _powerReceiverSystem = default!;
-    [Dependency] private readonly IRobustRandom _robustRandom = default!;
-    [Dependency] private readonly AtmosphereSystem _atmosphereSystem = default!;
-    [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly PuddleSystem _puddleSystem = default!;
-    [Dependency] private readonly ChatSystem _chatSystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly IConfigurationManager _configManager = default!;
-    [Dependency] private readonly MaterialStorageSystem _material = default!;
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedMindSystem _mindSystem = default!;
-    [Dependency] private readonly CloningSystem _cloning = default!;
-    [Dependency] private readonly EmagSystem _emag = default!;
+    [Dependency]
+    private readonly DeviceLinkSystem _signalSystem = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _playerManager = null!;
+
+    [Dependency]
+    private readonly EuiManager _euiManager = null!;
+
+    [Dependency]
+    private readonly CloningConsoleSystem _cloningConsoleSystem = default!;
+
+    [Dependency]
+    private readonly ContainerSystem _containerSystem = default!;
+
+    [Dependency]
+    private readonly PowerReceiverSystem _powerReceiverSystem = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _robustRandom = default!;
+
+    [Dependency]
+    private readonly AtmosphereSystem _atmosphereSystem = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transformSystem = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly PuddleSystem _puddleSystem = default!;
+
+    [Dependency]
+    private readonly ChatSystem _chatSystem = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _configManager = default!;
+
+    [Dependency]
+    private readonly MaterialStorageSystem _material = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly SharedMindSystem _mindSystem = default!;
+
+    [Dependency]
+    private readonly CloningSystem _cloning = default!;
+
+    [Dependency]
+    private readonly EmagSystem _emag = default!;
 
     public readonly Dictionary<MindComponent, EntityUid> ClonesWaitingForMind = new();
     public readonly ProtoId<CloningSettingsPrototype> SettingsId = "CloningPod";
@@ -111,16 +148,19 @@ public sealed class CloningPodSystem : EntitySystem
 
     private void HandleMindAdded(EntityUid uid, BeingClonedComponent clonedComponent, MindAddedMessage message)
     {
-        if (clonedComponent.Parent == EntityUid.Invalid ||
-            !EntityManager.EntityExists(clonedComponent.Parent) ||
-            !TryComp<CloningPodComponent>(clonedComponent.Parent, out var cloningPodComponent) ||
-            uid != cloningPodComponent.BodyContainer.ContainedEntity)
+        if (
+            clonedComponent.Parent == EntityUid.Invalid
+            || !EntityManager.EntityExists(clonedComponent.Parent)
+            || !TryComp<CloningPodComponent>(clonedComponent.Parent, out var cloningPodComponent)
+            || uid != cloningPodComponent.BodyContainer.ContainedEntity
+        )
         {
             EntityManager.RemoveComponent<BeingClonedComponent>(uid);
             return;
         }
         UpdateStatus(clonedComponent.Parent, CloningPodStatus.Cloning, cloningPodComponent);
     }
+
     private void OnPortDisconnected(Entity<CloningPodComponent> ent, ref PortDisconnectedEvent args)
     {
         ent.Comp.ConnectedConsole = null;
@@ -128,12 +168,20 @@ public sealed class CloningPodSystem : EntitySystem
 
     private void OnAnchor(Entity<CloningPodComponent> ent, ref AnchorStateChangedEvent args)
     {
-        if (ent.Comp.ConnectedConsole == null || !TryComp<CloningConsoleComponent>(ent.Comp.ConnectedConsole, out var console))
+        if (
+            ent.Comp.ConnectedConsole == null
+            || !TryComp<CloningConsoleComponent>(ent.Comp.ConnectedConsole, out var console)
+        )
             return;
 
         if (args.Anchored)
         {
-            _cloningConsoleSystem.RecheckConnections(ent.Comp.ConnectedConsole.Value, ent.Owner, console.GeneticScanner, console);
+            _cloningConsoleSystem.RecheckConnections(
+                ent.Comp.ConnectedConsole.Value,
+                ent.Owner,
+                console.GeneticScanner,
+                console
+            );
             return;
         }
         _cloningConsoleSystem.UpdateUserInterface(ent.Comp.ConnectedConsole.Value, console);
@@ -144,10 +192,21 @@ public sealed class CloningPodSystem : EntitySystem
         if (!args.IsInDetailsRange || !_powerReceiverSystem.IsPowered(ent.Owner))
             return;
 
-        args.PushMarkup(Loc.GetString("cloning-pod-biomass", ("number", _material.GetMaterialAmount(ent.Owner, ent.Comp.RequiredMaterial))));
+        args.PushMarkup(
+            Loc.GetString(
+                "cloning-pod-biomass",
+                ("number", _material.GetMaterialAmount(ent.Owner, ent.Comp.RequiredMaterial))
+            )
+        );
     }
 
-    public bool TryCloning(EntityUid uid, EntityUid bodyToClone, Entity<MindComponent> mindEnt, CloningPodComponent? clonePod, float failChanceModifier = 1)
+    public bool TryCloning(
+        EntityUid uid,
+        EntityUid bodyToClone,
+        Entity<MindComponent> mindEnt,
+        CloningPodComponent? clonePod,
+        float failChanceModifier = 1
+    )
     {
         if (!Resolve(uid, ref clonePod))
             return false;
@@ -194,21 +253,33 @@ public sealed class CloningPodSystem : EntitySystem
         if (biomassAmount < cloningCost)
         {
             if (clonePod.ConnectedConsole != null)
-                _chatSystem.TrySendInGameICMessage(clonePod.ConnectedConsole.Value, Loc.GetString("cloning-console-chat-error", ("units", cloningCost)), InGameICChatType.Speak, false);
+                _chatSystem.TrySendInGameICMessage(
+                    clonePod.ConnectedConsole.Value,
+                    Loc.GetString("cloning-console-chat-error", ("units", cloningCost)),
+                    InGameICChatType.Speak,
+                    false
+                );
             return false;
         }
 
         // end of biomass checks
 
         // genetic damage checks
-        if (TryComp<DamageableComponent>(bodyToClone, out var damageable) &&
-            damageable.Damage.DamageDict.TryGetValue("Cellular", out var cellularDmg))
+        if (
+            TryComp<DamageableComponent>(bodyToClone, out var damageable)
+            && damageable.Damage.DamageDict.TryGetValue("Cellular", out var cellularDmg)
+        )
         {
             var chance = Math.Clamp((float)(cellularDmg / 100), 0, 1);
             chance *= failChanceModifier;
 
             if (cellularDmg > 0 && clonePod.ConnectedConsole != null)
-                _chatSystem.TrySendInGameICMessage(clonePod.ConnectedConsole.Value, Loc.GetString("cloning-console-cellular-warning", ("percent", Math.Round(100 - chance * 100))), InGameICChatType.Speak, false);
+                _chatSystem.TrySendInGameICMessage(
+                    clonePod.ConnectedConsole.Value,
+                    Loc.GetString("cloning-console-cellular-warning", ("percent", Math.Round(100 - chance * 100))),
+                    InGameICChatType.Speak,
+                    false
+                );
 
             if (_robustRandom.Prob(chance))
             {
@@ -225,7 +296,12 @@ public sealed class CloningPodSystem : EntitySystem
         if (!_cloning.TryCloning(bodyToClone, _transformSystem.GetMapCoordinates(bodyToClone), SettingsId, out var mob)) // spawn a new body
         {
             if (clonePod.ConnectedConsole != null)
-                _chatSystem.TrySendInGameICMessage(clonePod.ConnectedConsole.Value, Loc.GetString("cloning-console-uncloneable-trait-error"), InGameICChatType.Speak, false);
+                _chatSystem.TrySendInGameICMessage(
+                    clonePod.ConnectedConsole.Value,
+                    Loc.GetString("cloning-console-uncloneable-trait-error"),
+                    InGameICChatType.Speak,
+                    false
+                );
             return false;
         }
 
@@ -294,7 +370,10 @@ public sealed class CloningPodSystem : EntitySystem
         if (!Resolve(uid, ref clonePod))
             return;
 
-        if (clonePod.BodyContainer.ContainedEntity is not { Valid: true } entity || clonePod.CloningProgress < clonePod.CloningTime)
+        if (
+            clonePod.BodyContainer.ContainedEntity is not { Valid: true } entity
+            || clonePod.CloningProgress < clonePod.CloningTime
+        )
             return;
 
         EntityManager.RemoveComponent<BeingClonedComponent>(entity);
@@ -334,7 +413,11 @@ public sealed class CloningPodSystem : EntitySystem
 
         if (!HasComp<EmaggedComponent>(uid))
         {
-            _material.SpawnMultipleFromMaterial(_robustRandom.Next(1, (int)(clonePod.UsedBiomass / 2.5)), clonePod.RequiredMaterial, Transform(uid).Coordinates);
+            _material.SpawnMultipleFromMaterial(
+                _robustRandom.Next(1, (int)(clonePod.UsedBiomass / 2.5)),
+                clonePod.RequiredMaterial,
+                Transform(uid).Coordinates
+            );
         }
 
         clonePod.UsedBiomass = 0;

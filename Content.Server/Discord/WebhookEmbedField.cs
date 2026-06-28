@@ -14,7 +14,5 @@ public struct WebhookEmbedField
     [JsonPropertyName("inline")]
     public bool Inline { get; set; } = true;
 
-    public WebhookEmbedField()
-    {
-    }
+    public WebhookEmbedField() { }
 }

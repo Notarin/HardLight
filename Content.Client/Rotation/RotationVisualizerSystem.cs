@@ -7,9 +7,11 @@ namespace Content.Client.Rotation;
 
 public sealed class RotationVisualizerSystem : SharedRotationVisualsSystem
 {
+    [Dependency]
+    private readonly AppearanceSystem _appearance = default!;
 
-    [Dependency] private readonly AppearanceSystem _appearance = default!;
-    [Dependency] private readonly AnimationPlayerSystem _animation = default!;
+    [Dependency]
+    private readonly AnimationPlayerSystem _animation = default!;
 
     public override void Initialize()
     {
@@ -68,10 +70,10 @@ public sealed class RotationVisualizerSystem : SharedRotationVisualsSystem
                     KeyFrames =
                     {
                         new AnimationTrackProperty.KeyFrame(spriteComp.Rotation, 0),
-                        new AnimationTrackProperty.KeyFrame(rotation, animationTime)
-                    }
-                }
-            }
+                        new AnimationTrackProperty.KeyFrame(rotation, animationTime),
+                    },
+                },
+            },
         };
 
         _animation.Play((uid, animationComp), animation, animationKey);

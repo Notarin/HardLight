@@ -1,7 +1,7 @@
-using Robust.Shared.Serialization;
 using System;
 using System.Collections.Generic;
 using Robust.Shared.GameObjects;
+using Robust.Shared.Serialization;
 
 namespace Content.Shared.Shuttles.Save
 {
@@ -60,9 +60,7 @@ namespace Content.Shared.Shuttles.Save
     }
 
     [Serializable, NetSerializable]
-    public sealed class RequestAvailableShipsMessage : EntityEventArgs
-    {
-    }
+    public sealed class RequestAvailableShipsMessage : EntityEventArgs { }
 
     [Serializable, NetSerializable]
     public sealed class SendAvailableShipsMessage : EntityEventArgs
@@ -94,7 +92,10 @@ namespace Content.Shared.Shuttles.Save
         public List<(string filename, string shipName, DateTime timestamp)> Ships { get; }
         public string AdminName { get; }
 
-        public AdminSendPlayerShipsMessage(List<(string filename, string shipName, DateTime timestamp)> ships, string adminName)
+        public AdminSendPlayerShipsMessage(
+            List<(string filename, string shipName, DateTime timestamp)> ships,
+            string adminName
+        )
         {
             Ships = ships;
             AdminName = adminName;
@@ -128,6 +129,4 @@ namespace Content.Shared.Shuttles.Save
             AdminName = adminName;
         }
     }
-
-
 }

@@ -1,5 +1,5 @@
-using Robust.Client.GameObjects;
 using Content.Shared.Speech.Components;
+using Robust.Client.GameObjects;
 using Robust.Client.UserInterface;
 
 namespace Content.Client.Weapons.Melee.UI;
@@ -12,9 +12,8 @@ public sealed class MeleeSpeechBoundUserInterface : BoundUserInterface
     [ViewVariables]
     private MeleeSpeechWindow? _window;
 
-    public MeleeSpeechBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-    }
+    public MeleeSpeechBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {

@@ -15,13 +15,12 @@ namespace Content.Server.Database
 {
     public sealed class SqliteServerDbContext : ServerDbContext
     {
-        public SqliteServerDbContext(DbContextOptions<SqliteServerDbContext> options) : base(options)
-        {
-        }
+        public SqliteServerDbContext(DbContextOptions<SqliteServerDbContext> options)
+            : base(options) { }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            ((IDbContextOptionsBuilderInfrastructure) options).AddOrUpdateExtension(new SnakeCaseExtension());
+            ((IDbContextOptionsBuilderInfrastructure)options).AddOrUpdateExtension(new SnakeCaseExtension());
 
             options.ConfigureWarnings(x =>
             {
@@ -42,13 +41,9 @@ namespace Content.Server.Database
         {
             base.OnModelCreating(modelBuilder);
 
-            var ipConverter = new ValueConverter<IPAddress, string>(
-                v => v.ToString(),
-                v => IPAddress.Parse(v));
+            var ipConverter = new ValueConverter<IPAddress, string>(v => v.ToString(), v => IPAddress.Parse(v));
 
-            modelBuilder.Entity<Player>()
-                .Property(p => p.LastSeenAddress)
-                .HasConversion(ipConverter);
+            modelBuilder.Entity<Player>().Property(p => p.LastSeenAddress).HasConversion(ipConverter);
 
             var ipMaskConverter = new ValueConverter<NpgsqlInet, string>(
                 v => InetToString(v.Address, v.Netmask),
@@ -63,24 +58,20 @@ namespace Content.Server.Database
 
             var jsonStringConverter = new ValueConverter<JsonDocument, string>(
                 v => JsonDocumentToString(v),
-                v => StringToJsonDocument(v));
+                v => StringToJsonDocument(v)
+            );
 
             var jsonByteArrayConverter = new ValueConverter<JsonDocument?, byte[]>(
                 v => JsonDocumentToByteArray(v),
-                v => ByteArrayToJsonDocument(v));
+                v => ByteArrayToJsonDocument(v)
+            );
 
-            modelBuilder.Entity<AdminLog>()
-                .Property(log => log.Json)
-                .HasConversion(jsonStringConverter);
+            modelBuilder.Entity<AdminLog>().Property(log => log.Json).HasConversion(jsonStringConverter);
 
-            modelBuilder.Entity<Profile>()
-                .Property(log => log.Markings)
-                .HasConversion(jsonByteArrayConverter);
+            modelBuilder.Entity<Profile>().Property(log => log.Markings).HasConversion(jsonByteArrayConverter);
 
             // EF core can make this automatically unique on sqlite but not psql.
-            modelBuilder.Entity<IPIntelCache>()
-                .HasIndex(p => p.Address)
-                .IsUnique();
+            modelBuilder.Entity<IPIntelCache>().HasIndex(p => p.Address).IsUnique();
         }
 
         public override int CountAdminLogs()
@@ -88,7 +79,8 @@ namespace Content.Server.Database
             return AdminLog.Count();
         }
 
-        private static string InetToString(IPAddress address, int mask) {
+        private static string InetToString(IPAddress address, int mask)
+        {
             if (address.IsIPv4MappedToIPv6)
             {
                 // Fix IPv6-mapped IPv4 addresses
@@ -99,7 +91,8 @@ namespace Content.Server.Database
             return $"{address}/{mask}";
         }
 
-        private static NpgsqlInet StringToInet(string inet) {
+        private static NpgsqlInet StringToInet(string inet)
+        {
             var idx = inet.IndexOf('/', StringComparison.Ordinal);
             return new NpgsqlInet(
                 IPAddress.Parse(inet.AsSpan(0, idx)),
@@ -110,7 +103,7 @@ namespace Content.Server.Database
         private static string JsonDocumentToString(JsonDocument document)
         {
             using var stream = new MemoryStream();
-            using var writer = new Utf8JsonWriter(stream, new JsonWriterOptions {Indented = false});
+            using var writer = new Utf8JsonWriter(stream, new JsonWriterOptions { Indented = false });
 
             document.WriteTo(writer);
             writer.Flush();
@@ -131,7 +124,7 @@ namespace Content.Server.Database
             }
 
             using var stream = new MemoryStream();
-            using var writer = new Utf8JsonWriter(stream, new JsonWriterOptions {Indented = false});
+            using var writer = new Utf8JsonWriter(stream, new JsonWriterOptions { Indented = false });
 
             document.WriteTo(writer);
             writer.Flush();

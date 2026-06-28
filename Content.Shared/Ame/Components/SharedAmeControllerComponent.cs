@@ -21,7 +21,17 @@ public sealed class AmeControllerBoundUserInterfaceState : BoundUserInterfaceSta
     public readonly float CurrentPowerSupply;
     public readonly float TargetedPowerSupply;
 
-    public AmeControllerBoundUserInterfaceState(bool hasPower, bool isMaster, bool injecting, bool hasFuelJar, int fuelAmount, int injectionAmount, int coreCount, float currentPowerSupply, float targetedPowerSupply)
+    public AmeControllerBoundUserInterfaceState(
+        bool hasPower,
+        bool isMaster,
+        bool injecting,
+        bool hasFuelJar,
+        int fuelAmount,
+        int injectionAmount,
+        int coreCount,
+        float currentPowerSupply,
+        float targetedPowerSupply
+    )
     {
         HasPower = hasPower;
         IsMaster = isMaster;
@@ -49,7 +59,7 @@ public sealed class UiButtonPressedMessage : BoundUserInterfaceMessage
 [Serializable, NetSerializable]
 public enum AmeControllerUiKey
 {
-    Key
+    Key,
 }
 
 public enum UiButton

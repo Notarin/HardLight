@@ -1,6 +1,6 @@
 using System.Linq;
-using Content.Shared.Chat.Prototypes;
 using Content.Shared.Chat;
+using Content.Shared.Chat.Prototypes;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
@@ -10,10 +10,17 @@ namespace Content.Server.Chat.Systems;
 
 public sealed class AutoEmoteSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly ChatSystem _chatSystem = default!;
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly ChatSystem _chatSystem = default!;
 
     public override void Initialize()
     {
@@ -47,7 +54,11 @@ public sealed class AutoEmoteSystem : EntitySystem
 
                 if (autoEmotePrototype.WithChat)
                 {
-                    _chatSystem.TryEmoteWithChat(uid, autoEmotePrototype.EmoteId, autoEmotePrototype.HiddenFromChatWindow ? ChatTransmitRange.HideChat : ChatTransmitRange.Normal);
+                    _chatSystem.TryEmoteWithChat(
+                        uid,
+                        autoEmotePrototype.EmoteId,
+                        autoEmotePrototype.HiddenFromChatWindow ? ChatTransmitRange.HideChat : ChatTransmitRange.Normal
+                    );
                 }
                 else
                 {
@@ -97,12 +108,20 @@ public sealed class AutoEmoteSystem : EntitySystem
     /// <summary>
     /// Stop preforming an emote. Note that by default this will queue empty components for removal.
     /// </summary>
-    public bool RemoveEmote(EntityUid uid, string autoEmotePrototypeId, AutoEmoteComponent? autoEmote = null, bool removeEmpty = true)
+    public bool RemoveEmote(
+        EntityUid uid,
+        string autoEmotePrototypeId,
+        AutoEmoteComponent? autoEmote = null,
+        bool removeEmpty = true
+    )
     {
         if (!Resolve(uid, ref autoEmote, logMissing: false))
             return false;
 
-        DebugTools.Assert(_prototypeManager.HasIndex<AutoEmotePrototype>(autoEmotePrototypeId), "Prototype not found. Did you make a typo?");
+        DebugTools.Assert(
+            _prototypeManager.HasIndex<AutoEmotePrototype>(autoEmotePrototypeId),
+            "Prototype not found. Did you make a typo?"
+        );
 
         if (!autoEmote.EmoteTimers.Remove(autoEmotePrototypeId))
             return false;
@@ -120,7 +139,12 @@ public sealed class AutoEmoteSystem : EntitySystem
     /// <summary>
     /// Reset the timer for a specific emote, or return false if it doesn't exist.
     /// </summary>
-    public bool ResetTimer(EntityUid uid, string autoEmotePrototypeId, AutoEmoteComponent? autoEmote = null, AutoEmotePrototype? autoEmotePrototype = null)
+    public bool ResetTimer(
+        EntityUid uid,
+        string autoEmotePrototypeId,
+        AutoEmoteComponent? autoEmote = null,
+        AutoEmotePrototype? autoEmotePrototype = null
+    )
     {
         if (!Resolve(uid, ref autoEmote))
             return false;

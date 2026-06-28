@@ -33,7 +33,7 @@
         priority: 1
         whitelist:
           tags:
-            - Cartridge9x19mm
+          - Cartridge9x19mm
   - type: Construction
     graph: MakeshiftPistolCraftedGraph
     node: shotgun
@@ -44,15 +44,15 @@
         Blunt: 6
         Heat: 6
     items:
-      - id: ModularBarrel
-        launchAngle: 0
-        prob: 1
-      - id: ModularReceiver
-        launchAngle: 90
-        prob: 0.10
-      - id: RifleStock
-        launchAngle: 180
-        prob: 0.80
+    - id: ModularBarrel
+      launchAngle: 0
+      prob: 1
+    - id: ModularReceiver
+      launchAngle: 90
+      prob: 0.10
+    - id: RifleStock
+      launchAngle: 180
+      prob: 0.80
 
 - type: entity
   name: improvised pistol
@@ -98,24 +98,24 @@
         Blunt: 6
         Heat: 6
     items:
-      - id: ModularBarrel
-        launchAngle: 0
-        prob: 1
-      - id: ModularReceiver
-        launchAngle: 90
-        prob: 0.10
-      - id: SheetSteel1
-        launchAngle: 67
-        prob: 0.20
-      - id: SheetSteel1
-        launchAngle: 87
-        prob: 0.20
-      - id: SheetSteel1
-        launchAngle: 270
-        prob: 0.20
-      - id: RifleStock
-        launchAngle: 180
-        prob: 0.80
+    - id: ModularBarrel
+      launchAngle: 0
+      prob: 1
+    - id: ModularReceiver
+      launchAngle: 90
+      prob: 0.10
+    - id: SheetSteel1
+      launchAngle: 67
+      prob: 0.20
+    - id: SheetSteel1
+      launchAngle: 87
+      prob: 0.20
+    - id: SheetSteel1
+      launchAngle: 270
+      prob: 0.20
+    - id: RifleStock
+      launchAngle: 180
+      prob: 0.80
   - type: StaticPrice
     price: 1000
 
@@ -160,7 +160,7 @@
         startingItem: null
         whitelist:
           tags:
-            - Magazine9x19mmImprovised
+          - Magazine9x19mmImprovised
         whitelistFailPopup: gun-magazine-whitelist-fail
       gun_chamber:
         name: Chamber
@@ -168,6 +168,6 @@
         priority: 1
         whitelist:
           tags:
-            - Cartridge9x19mm
+          - Cartridge9x19mm
   - type: StaticPrice
     price: 2500

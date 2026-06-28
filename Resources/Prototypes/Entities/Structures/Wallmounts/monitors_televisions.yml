@@ -19,10 +19,10 @@
     visuals:
       enum.EdgeConnectionVisuals.ConnectionMask:
         computerLayerBody:
-          None: { state: television, sprite: Structures/Machines/computers.rsi }
-          West: { state: television, sprite: Structures/Machines/computers.rsi }
-          East: { state: television, sprite: Structures/Machines/computers.rsi }
-          East, West: { state: television, sprite: Structures/Machines/computers.rsi }
+          None: {state: television, sprite: Structures/Machines/computers.rsi}
+          West: {state: television, sprite: Structures/Machines/computers.rsi}
+          East: {state: television, sprite: Structures/Machines/computers.rsi}
+          East, West: {state: television, sprite: Structures/Machines/computers.rsi}
   # HardLight end
   - type: PointLight
     radius: 1.5
@@ -31,14 +31,13 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.25,-0.25,0.25,0.25"
         density: 200
         mask:
-          - TabletopMachineMask
+        - TabletopMachineMask
         layer:
-          - TabletopMachineLayer
+        - TabletopMachineLayer
 
 - type: entity
   parent: [BaseStructureWallmount, BaseComputer] # Frontier: add BaseStructureWallmount
@@ -56,19 +55,19 @@
     drawdepth: WallMountedItems
     sprite: Structures/Machines/computers.rsi
     layers:
-      - map: ["computerLayerBody"]
-        state: telescreen_frame
-      - map: ["computerLayerScreen"]
-        state: telescreen
+    - map: ["computerLayerBody"]
+      state: telescreen_frame
+    - map: ["computerLayerScreen"]
+      state: telescreen
   # HardLight start
   - type: GenericVisualizer
     visuals:
       enum.EdgeConnectionVisuals.ConnectionMask:
         computerLayerBody:
-          None: { state: telescreen_frame, sprite: Structures/Machines/computers.rsi }
-          West: { state: telescreen_frame, sprite: Structures/Machines/computers.rsi }
-          East: { state: telescreen_frame, sprite: Structures/Machines/computers.rsi }
-          East, West: { state: telescreen_frame, sprite: Structures/Machines/computers.rsi }
+          None: {state: telescreen_frame, sprite: Structures/Machines/computers.rsi}
+          West: {state: telescreen_frame, sprite: Structures/Machines/computers.rsi}
+          East: {state: telescreen_frame, sprite: Structures/Machines/computers.rsi}
+          East, West: {state: telescreen_frame, sprite: Structures/Machines/computers.rsi}
   # HardLight end
   # Frontier: remove fixtures, it's a wallmount device
   # - type: Fixtures
@@ -90,14 +89,12 @@
     damageModifierSet: Metallic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 200
       behaviors: #excess damage, don't spawn entities.
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 50
       behaviors:
       - !type:SpawnEntitiesBehavior
@@ -106,7 +103,7 @@
             min: 1
             max: 1
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: Transform
     anchored: true
 
@@ -137,8 +134,8 @@
   - type: ActivatableUIRequiresVision
   - type: UserInterface
     interfaces:
-        enum.SurveillanceCameraMonitorUiKey.Key:
-          type: SurveillanceCameraMonitorBoundUserInterface
+      enum.SurveillanceCameraMonitorUiKey.Key:
+        type: SurveillanceCameraMonitorBoundUserInterface
 
 # Wall Televisions
 
@@ -168,20 +165,20 @@
     drawdepth: WallMountedItems
     sprite: Structures/Wallmounts/flatscreentv.rsi
     layers:
-      - map: ["computerLayerBody"]
-        state: television_wall
-      - map: ["computerLayerScreen"]
-        state: television_wallscreen
+    - map: ["computerLayerBody"]
+      state: television_wall
+    - map: ["computerLayerScreen"]
+      state: television_wallscreen
   # HardLight start
   - type: GenericVisualizer
     visuals:
       enum.EdgeConnectionVisuals.ConnectionMask:
         computerLayerBody:
-          None: { state: television_wall, sprite: Structures/Wallmounts/flatscreentv.rsi }
-          West: { state: television_wall, sprite: Structures/Wallmounts/flatscreentv.rsi }
-          East: { state: television_wall, sprite: Structures/Wallmounts/flatscreentv.rsi }
-          East, West: { state: television_wall, sprite: Structures/Wallmounts/flatscreentv.rsi }
-  # HardLight end
+          None: {state: television_wall, sprite: Structures/Wallmounts/flatscreentv.rsi}
+          West: {state: television_wall, sprite: Structures/Wallmounts/flatscreentv.rsi}
+          East: {state: television_wall, sprite: Structures/Wallmounts/flatscreentv.rsi}
+          East, West: {state: television_wall, sprite: Structures/Wallmounts/flatscreentv.rsi}
+          # HardLight end
 
 - type: entity
   parent: WallmountTelevisionFrame
@@ -197,8 +194,8 @@
     deviceNetId: Wireless
     receiveFrequencyId: SurveillanceCamera
     transmitFrequencyId: SurveillanceCamera
-#  - type: WirelessNetworkConnection
-#    range: 200
+    #  - type: WirelessNetworkConnection
+    #    range: 200
   - type: DeviceNetworkRequiresPower
   - type: Speech
   - type: SurveillanceCameraSpeaker
@@ -209,8 +206,8 @@
   - type: ActivatableUIRequiresVision
   - type: UserInterface
     interfaces:
-        enum.SurveillanceCameraMonitorUiKey.Key:
-          type: SurveillanceCameraMonitorBoundUserInterface
+      enum.SurveillanceCameraMonitorUiKey.Key:
+        type: SurveillanceCameraMonitorBoundUserInterface
   - type: PointLight
     radius: 1.5
     energy: 1.6

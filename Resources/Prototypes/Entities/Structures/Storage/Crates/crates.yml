@@ -161,8 +161,7 @@
     damageModifierSet: Web
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 50
       behaviors:
       - !type:DoActsBehavior
@@ -184,7 +183,7 @@
 # Secure Crates
 
 - type: entity
-  parent: [ CrateBaseSecure, BaseC3ContrabandUnredeemable ] # Frontier: BaseSecurityContraband<BaseC2ContrabandUnredeemable
+  parent: [CrateBaseSecure, BaseC3ContrabandUnredeemable] # Frontier: BaseSecurityContraband<BaseC2ContrabandUnredeemable
   id: CrateSecgear
   name: secgear crate
   components:
@@ -224,11 +223,11 @@
   id: CrateChemistrySecure
   name: secure chemistry crate
   components:
-    - type: Icon
-      sprite: Structures/Storage/Crates/chemcrate_secure.rsi
-    - type: Sprite
-      sprite: Structures/Storage/Crates/chemcrate_secure.rsi
-    - type: AccessReader
+  - type: Icon
+    sprite: Structures/Storage/Crates/chemcrate_secure.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/chemcrate_secure.rsi
+  - type: AccessReader
 #      access: [["Chemistry"]]
 
 - type: entity
@@ -270,10 +269,10 @@
   id: CrateSecure
   name: secure crate
   components:
-    - type: Icon
-      sprite: Structures/Storage/Crates/secure.rsi
-    - type: Sprite
-      sprite: Structures/Storage/Crates/secure.rsi
+  - type: Icon
+    sprite: Structures/Storage/Crates/secure.rsi
+  - type: Sprite
+    sprite: Structures/Storage/Crates/secure.rsi
 
 - type: entity
   parent: CrateBaseSecure
@@ -300,7 +299,7 @@
     access: [["Armory"]]
 
 - type: entity
-  parent: [ CrateBaseSecure, BaseC3ContrabandUnredeemable ] # Frontier: BaseSecurityContraband<BaseC2ContrabandUnredeemable
+  parent: [CrateBaseSecure, BaseC3ContrabandUnredeemable] # Frontier: BaseSecurityContraband<BaseC2ContrabandUnredeemable
   suffix: Armory, Secure
   id: CrateContrabandStorageSecure
   name: contraband storage crate
@@ -345,8 +344,7 @@
     state: base
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 15
       behaviors:
       - !type:PlaySoundBehavior
@@ -358,14 +356,13 @@
             min: 1
             max: 4
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: Physics
     bodyType: Dynamic
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.4,-0.4,0.4,0.29"
         density: 135
         mask:
@@ -399,8 +396,7 @@
     sprite: Structures/Storage/Crates/cage.rsi
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 15
       behaviors:
       - !type:PlaySoundBehavior
@@ -412,7 +408,7 @@
             min: 1
             max: 2
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: Physics
     bodyType: Dynamic
   - type: EntityStorage
@@ -421,8 +417,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.4,-0.4,0.4,0.29"
         density: 80
         mask:
@@ -445,24 +440,23 @@
     visuals:
       enum.PaperLabelVisuals.HasLabel:
         enum.PaperLabelVisuals.Layer:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
       enum.PaperLabelVisuals.LabelType:
         enum.PaperLabelVisuals.Layer:
-          Paper: { state: paper }
-          Bounty: { state: bounty }
-          CaptainsPaper: { state: captains_paper }
-          Invoice: { state: invoice }
+          Paper: {state: paper}
+          Bounty: {state: bounty}
+          CaptainsPaper: {state: captains_paper}
+          Invoice: {state: invoice}
       enum.StorageVisuals.Open:
         lid_overlay:
-          True: { visible: false }
-          False: { visible: true }
+          True: {visible: false}
+          False: {visible: true}
   - type: OverrideSell
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.3,-0.4,0.3,0.19"
         density: 50
         mask:
@@ -484,7 +478,7 @@
       map: ["enum.StorageVisualLayers.Door"]
     - state: overlay-closed
       color: "#ad8c27"
-      map: [ lid_overlay ]
+      map: [lid_overlay]
     - state: welded
       visible: false
       map: ["enum.WeldableLayers.BaseWelded"]
@@ -514,7 +508,7 @@
       map: ["enum.StorageVisualLayers.Door"]
     - state: overlay-closed
       color: "#92c7e8"
-      map: [ lid_overlay ]
+      map: [lid_overlay]
     - state: welded
       visible: false
       map: ["enum.WeldableLayers.BaseWelded"]
@@ -544,7 +538,7 @@
       map: ["enum.StorageVisualLayers.Door"]
     - state: overlay-closed
       color: "#ba4bf0"
-      map: [ lid_overlay ]
+      map: [lid_overlay]
     - state: welded
       visible: false
       map: ["enum.WeldableLayers.BaseWelded"]
@@ -574,7 +568,7 @@
       map: ["enum.StorageVisualLayers.Door"]
     - state: overlay-closed
       color: "#c12d30"
-      map: [ lid_overlay ]
+      map: [lid_overlay]
     - state: welded
       visible: false
       map: ["enum.WeldableLayers.BaseWelded"]
@@ -604,7 +598,7 @@
       map: ["enum.StorageVisualLayers.Door"]
     - state: overlay-closed
       color: "#53b723"
-      map: [ lid_overlay ]
+      map: [lid_overlay]
     - state: welded
       visible: false
       map: ["enum.WeldableLayers.BaseWelded"]
@@ -690,8 +684,7 @@
     state: base
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 15
       behaviors:
       - !type:PlaySoundBehavior
@@ -703,7 +696,7 @@
             min: 1
             max: 4
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: Construction
     graph: CrateCoffin
     node: cratecoffin
@@ -732,8 +725,7 @@
     state: base
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 200 # discourage just beating the grave to break it open
       behaviors:
       - !type:PlaySoundBehavior
@@ -745,7 +737,7 @@
             min: 1
             max: 4
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: Physics
     bodyType: Static
   - type: Grave
@@ -780,7 +772,7 @@
     state: base
 
 - type: entity
-  parent: [ BaseC3SyndicateContraband, CrateGenericSteel ] # Frontier: Added BaseC3SyndicateContraband
+  parent: [BaseC3SyndicateContraband, CrateGenericSteel] # Frontier: Added BaseC3SyndicateContraband
   id: CrateSyndicate
   name: Syndicate crate
   description: A dark steel crate with red bands and a letter S embossed on the front.
@@ -837,7 +829,7 @@
       offset: "0.0,0.03125"
       map: ["enum.PaperLabelVisuals.Layer"]
   - type: AccessReader
-#    access: [["Janitor"]]
+    #    access: [["Janitor"]]
   - type: Paintable
     group: null
 

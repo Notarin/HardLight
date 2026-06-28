@@ -1,16 +1,22 @@
-using Robust.Shared.Random;
 using Content.Server.GameTicking.Rules.Components;
 using Content.Server.Psionics.Glimmer;
 using Content.Server.StationEvents.Components;
 using Content.Shared.GameTicking.Components;
+using Robust.Shared.Random;
 
 namespace Content.Server.StationEvents.Events;
 
 internal sealed class GlimmerRevenantRule : StationEventSystem<GlimmerRevenantRuleComponent>
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
 
-    protected override void Started(EntityUid uid, GlimmerRevenantRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
+    protected override void Started(
+        EntityUid uid,
+        GlimmerRevenantRuleComponent component,
+        GameRuleComponent gameRule,
+        GameRuleStartedEvent args
+    )
     {
         base.Started(uid, component, gameRule, args);
 

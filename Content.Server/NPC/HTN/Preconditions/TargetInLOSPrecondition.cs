@@ -5,7 +5,8 @@ namespace Content.Server.NPC.HTN.Preconditions;
 
 public sealed partial class TargetInLOSPrecondition : HTNPrecondition
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
     private InteractionSystem _interaction = default!;
 
     [DataField("targetKey")]
@@ -31,7 +32,9 @@ public sealed partial class TargetInLOSPrecondition : HTNPrecondition
             return false;
 
         var range = blackboard.GetValueOrDefault<float>(RangeKey, _entManager);
-        var collisionGroup = UseOpaqueForLOSChecksKey ? CollisionGroup.Opaque : (CollisionGroup.Impassable | CollisionGroup.InteractImpassable);
+        var collisionGroup = UseOpaqueForLOSChecksKey
+            ? CollisionGroup.Opaque
+            : (CollisionGroup.Impassable | CollisionGroup.InteractImpassable);
 
         return _interaction.InRangeUnobstructed(owner, target, range, collisionGroup);
     }

@@ -7,9 +7,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_antennas.rsi
     state: aspen
@@ -22,9 +21,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_antennas.rsi
     state: brown
@@ -37,9 +35,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_antennas.rsi
     state: deathshead
@@ -52,9 +49,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_antennas.rsi
     state: feathery
@@ -67,9 +63,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_antennas.rsi
     state: firewatch
@@ -82,9 +77,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_antennas.rsi
     state: gothic
@@ -97,9 +91,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_antennas.rsi
     state: jungle
@@ -112,9 +105,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_antennas.rsi
     state: lovers
@@ -127,9 +119,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_antennas.rsi
     state: mint
@@ -142,9 +133,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_antennas.rsi
     state: moffra
@@ -157,9 +147,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_antennas.rsi
     state: moonfly
@@ -172,9 +161,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_antennas.rsi
     state: oakworm
@@ -187,9 +175,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_antennas.rsi
     state: plain
@@ -202,9 +189,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_antennas.rsi
     state: plasmafire
@@ -217,9 +203,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_antennas.rsi
     state: poison
@@ -232,9 +217,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_antennas.rsi
     state: reddish
@@ -247,9 +231,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_antennas.rsi
     state: regal
@@ -262,9 +245,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_antennas.rsi
     state: rosy
@@ -277,9 +259,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_antennas.rsi
     state: royal
@@ -292,9 +273,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_antennas.rsi
     state: snow
@@ -307,9 +287,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_antennas.rsi
     state: whitefly
@@ -322,9 +301,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_antennas.rsi
     state: witchking
@@ -338,9 +316,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_wings.rsi
     state: aspen
@@ -353,9 +330,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_wings.rsi
     state: atlas
@@ -368,9 +344,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_wings.rsi
     state: brown
@@ -383,9 +358,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_wings.rsi
     state: deathshead
@@ -398,9 +372,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_wings.rsi
     state: feathery
@@ -413,9 +386,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_wings.rsi
     state: firewatch
@@ -428,9 +400,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_wings.rsi
     state: gothic
@@ -443,9 +414,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_wings.rsi
     state: jungle
@@ -458,9 +428,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_wings.rsi
     state: lovers
@@ -473,9 +442,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_wings.rsi
     state: luna
@@ -488,9 +456,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_wings.rsi
     state: mint
@@ -503,9 +470,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_wings.rsi
     state: moffra
@@ -518,9 +484,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_wings.rsi
     state: monarch
@@ -533,9 +498,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_wings.rsi
     state: moonfly
@@ -548,9 +512,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_wings.rsi
     state: oakworm
@@ -563,9 +526,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_wings.rsi
     state: plain
@@ -578,9 +540,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_wings.rsi
     state: plasmafire
@@ -593,9 +554,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_wings.rsi
     state: poison
@@ -608,9 +568,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_wings.rsi
     state: ragged
@@ -623,9 +582,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_wings.rsi
     state: reddish
@@ -638,9 +596,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_wings.rsi
     state: rosy
@@ -653,9 +610,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_wings.rsi
     state: royal
@@ -668,9 +624,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_wings.rsi
     state: snow
@@ -683,9 +638,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_wings.rsi
     state: whitefly
@@ -698,9 +652,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_wings.rsi
     state: witchking
@@ -715,9 +668,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: deathshead-head
@@ -730,9 +682,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: deathshead-chest
@@ -745,9 +696,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: deathshead-leftarm
@@ -760,9 +710,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: deathshead-rightarm
@@ -775,9 +724,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: deathshead-leftleg
@@ -790,13 +738,11 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: deathshead-rightleg
-
 
 # Firewatch
 - type: marking
@@ -807,9 +753,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: firewatch-head
@@ -822,9 +767,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: firewatch-chest
@@ -837,9 +781,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: firewatch-leftarm
@@ -852,9 +795,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: firewatch-rightarm
@@ -867,9 +809,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: firewatch-leftleg
@@ -882,9 +823,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: firewatch-rightleg
@@ -898,9 +838,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: gothic-head
@@ -913,9 +852,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: gothic-chest
@@ -928,9 +866,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: gothic-leftarm
@@ -943,9 +880,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: gothic-rightarm
@@ -958,9 +894,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: gothic-leftleg
@@ -973,9 +908,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: gothic-rightleg
@@ -989,9 +923,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: jungle-head
@@ -1004,9 +937,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: jungle-chest
@@ -1019,9 +951,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: jungle-leftarm
@@ -1034,9 +965,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: jungle-rightarm
@@ -1049,9 +979,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: jungle-leftleg
@@ -1064,9 +993,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: jungle-rightleg
@@ -1080,9 +1008,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: lovers-head
@@ -1095,9 +1022,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: lovers-chest
@@ -1110,9 +1036,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: lovers-leftarm
@@ -1125,9 +1050,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: lovers-rightarm
@@ -1140,9 +1064,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: lovers-leftleg
@@ -1155,9 +1078,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: lovers-rightleg
@@ -1171,9 +1093,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: moonfly-head
@@ -1186,9 +1107,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: moonfly-chest
@@ -1201,9 +1121,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: moonfly-leftarm
@@ -1216,9 +1135,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: moonfly-rightarm
@@ -1231,9 +1149,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: moonfly-leftleg
@@ -1246,9 +1163,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: moonfly-rightleg
@@ -1262,9 +1178,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: oakworm-head
@@ -1277,9 +1192,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: oakworm-chest
@@ -1292,9 +1206,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: oakworm-leftarm
@@ -1307,9 +1220,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: oakworm-rightarm
@@ -1322,9 +1234,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: oakworm-leftleg
@@ -1337,9 +1248,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: oakworm-rightleg
@@ -1353,9 +1263,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: poison-head
@@ -1368,9 +1277,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: poison-chest
@@ -1383,9 +1291,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: poison-leftarm
@@ -1398,9 +1305,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: poison-rightarm
@@ -1413,9 +1319,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: poison-leftleg
@@ -1428,9 +1333,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: poison-rightleg
@@ -1444,9 +1348,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: ragged-head
@@ -1459,9 +1362,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: ragged-chest
@@ -1474,9 +1376,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: ragged-leftarm
@@ -1489,9 +1390,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: ragged-rightarm
@@ -1504,9 +1404,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: ragged-leftleg
@@ -1519,9 +1418,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: ragged-rightleg
@@ -1535,9 +1433,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: reddish-head
@@ -1550,9 +1447,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: reddish-chest
@@ -1565,9 +1461,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: reddish-leftarm
@@ -1580,9 +1475,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: reddish-rightarm
@@ -1595,9 +1489,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: reddish-leftleg
@@ -1610,9 +1503,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: reddish-rightleg
@@ -1626,9 +1518,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: royal-head
@@ -1641,9 +1532,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: royal-chest
@@ -1656,9 +1546,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: royal-leftarm
@@ -1671,9 +1560,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: royal-rightarm
@@ -1686,9 +1574,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: royal-leftleg
@@ -1701,9 +1588,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: royal-rightleg
@@ -1717,9 +1603,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: whitefly-head
@@ -1732,9 +1617,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: whitefly-chest
@@ -1747,9 +1631,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: whitefly-leftarm
@@ -1762,9 +1645,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: whitefly-rightarm
@@ -1777,9 +1659,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: whitefly-leftleg
@@ -1792,9 +1673,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: whitefly-rightleg
@@ -1808,9 +1688,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: witchking-head
@@ -1823,9 +1702,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: witchking-chest
@@ -1838,9 +1716,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: witchking-leftarm
@@ -1853,9 +1730,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: witchking-rightarm
@@ -1868,9 +1744,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: witchking-leftleg
@@ -1883,9 +1758,8 @@
   speciesRestriction: [Moth, ProtoMoth]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#FFFFFF"
+      type: !type:SimpleColoring
+        color: "#FFFFFF"
   sprites:
   - sprite: Nyanotrasen/Mobs/Customization/Moth/moth_markings.rsi
     state: witchking-rightleg

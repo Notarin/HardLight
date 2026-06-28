@@ -4,8 +4,8 @@ using Content.Server.Doors.Systems;
 using Content.Shared.DeviceLinking;
 using Content.Shared.DeviceLinking.Events;
 using Content.Shared.DeviceNetwork;
-using Content.Shared.Doors.Components;
 using Content.Shared.Doors;
+using Content.Shared.Doors.Components;
 using JetBrains.Annotations;
 
 namespace Content.Server.DeviceLinking.Systems
@@ -13,8 +13,11 @@ namespace Content.Server.DeviceLinking.Systems
     [UsedImplicitly]
     public sealed class DoorSignalControlSystem : EntitySystem
     {
-        [Dependency] private readonly DoorSystem _doorSystem = default!;
-        [Dependency] private readonly DeviceLinkSystem _signalSystem = default!;
+        [Dependency]
+        private readonly DoorSystem _doorSystem = default!;
+
+        [Dependency]
+        private readonly DeviceLinkSystem _signalSystem = default!;
 
         public override void Initialize()
         {
@@ -26,7 +29,6 @@ namespace Content.Server.DeviceLinking.Systems
 
         private void OnInit(EntityUid uid, DoorSignalControlComponent component, ComponentInit args)
         {
-
             _signalSystem.EnsureSinkPorts(uid, component.OpenPort, component.ClosePort, component.TogglePort);
             _signalSystem.EnsureSourcePorts(uid, component.OutOpen);
         }
@@ -38,7 +40,6 @@ namespace Content.Server.DeviceLinking.Systems
 
             var state = SignalState.Momentary;
             args.Data?.TryGetValue(DeviceNetworkConstants.LogicState, out state);
-
 
             if (args.Port == component.OpenPort)
             {
@@ -90,10 +91,12 @@ namespace Content.Server.DeviceLinking.Systems
                 // only ever say the door is closed when it is completely airtight
                 _signalSystem.SendSignal(uid, door.OutOpen, false);
             }
-            else if (args.State == DoorState.Open
-                  || args.State == DoorState.Opening
-                  || args.State == DoorState.Closing
-                  || args.State == DoorState.Emagging)
+            else if (
+                args.State == DoorState.Open
+                || args.State == DoorState.Opening
+                || args.State == DoorState.Closing
+                || args.State == DoorState.Emagging
+            )
             {
                 // say the door is open whenever it would be letting air pass
                 _signalSystem.SendSignal(uid, door.OutOpen, true);

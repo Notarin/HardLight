@@ -12,13 +12,22 @@ public sealed partial class Polymorph : EntityEffect
     /// <summary>
     ///     What polymorph prototype is used on effect
     /// </summary>
-    [DataField("prototype", customTypeSerializer:typeof(PrototypeIdSerializer<PolymorphPrototype>))]
+    [DataField("prototype", customTypeSerializer: typeof(PrototypeIdSerializer<PolymorphPrototype>))]
     public string PolymorphPrototype { get; set; }
 
-    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys)
-    => Loc.GetString("reagent-effect-guidebook-make-polymorph",
-            ("chance", Probability), ("entityname",
-                prototype.Index<EntityPrototype>(prototype.Index<PolymorphPrototype>(PolymorphPrototype).Configuration.Entity).Name));
+    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys) =>
+        Loc.GetString(
+            "reagent-effect-guidebook-make-polymorph",
+            ("chance", Probability),
+            (
+                "entityname",
+                prototype
+                    .Index<EntityPrototype>(
+                        prototype.Index<PolymorphPrototype>(PolymorphPrototype).Configuration.Entity
+                    )
+                    .Name
+            )
+        );
 
     public override void Effect(EntityEffectBaseArgs args)
     {

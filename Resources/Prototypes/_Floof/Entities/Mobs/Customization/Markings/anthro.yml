@@ -415,11 +415,11 @@
   speciesRestriction: [Skrell, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Tajaran]
   sprites:
   - sprite: _Floof/Mobs/Customization/skyratsnouts.rsi
-    state:  snout_wah_primary
+    state: snout_wah_primary
   - sprite: _Floof/Mobs/Customization/skyratsnouts.rsi
-    state:  snout_wah_secondary
+    state: snout_wah_secondary
   - sprite: _Floof/Mobs/Customization/skyratsnouts.rsi
-    state:  snout_wah_tertiary
+    state: snout_wah_tertiary
 
 #- type: marking
 #  id: SnoutFWahAlt
@@ -439,9 +439,9 @@
   speciesRestriction: [Skrell, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Tajaran]
   sprites:
   - sprite: _Floof/Mobs/Customization/skyratsnouts.rsi
-    state:  snout_wahalt_primary
+    state: snout_wahalt_primary
   - sprite: _Floof/Mobs/Customization/skyratsnouts.rsi
-    state:  snout_wahalt_secondary
+    state: snout_wahalt_secondary
 
 #- type: marking
 #  id: SnoutFOtie
@@ -461,9 +461,9 @@
   speciesRestriction: [Skrell, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Tajaran]
   sprites:
   - sprite: _Floof/Mobs/Customization/skyratsnouts.rsi
-    state:  snout_otie_primary
+    state: snout_otie_primary
   - sprite: _Floof/Mobs/Customization/skyratsnouts.rsi
-    state:  snout_otie_secondary
+    state: snout_otie_secondary
 
 #- type: marking
 #  id: SnoutFOtieSmile
@@ -483,9 +483,9 @@
   speciesRestriction: [Skrell, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Tajaran]
   sprites:
   - sprite: _Floof/Mobs/Customization/skyratsnouts.rsi
-    state:  snout_otiesmile_primary
+    state: snout_otiesmile_primary
   - sprite: _Floof/Mobs/Customization/skyratsnouts.rsi
-    state:  snout_otiesmile_secondary
+    state: snout_otiesmile_secondary
 
 #- type: marking
 #  id: SnoutFPede
@@ -505,9 +505,9 @@
   speciesRestriction: [Skrell, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Tajaran]
   sprites:
   - sprite: _Floof/Mobs/Customization/skyratsnouts.rsi
-    state:  snout_pede_primary
+    state: snout_pede_primary
   - sprite: _Floof/Mobs/Customization/skyratsnouts.rsi
-    state:  snout_pede_secondary
+    state: snout_pede_secondary
 
 #- type: marking
 #  id: SnoutFRodent
@@ -525,7 +525,7 @@
   speciesRestriction: [Skrell, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Tajaran]
   sprites:
   - sprite: _Floof/Mobs/Customization/skyratsnouts.rsi
-    state:  snout_rodent_primary
+    state: snout_rodent_primary
 
 #- type: marking
 #  id: SnoutFSergal
@@ -556,11 +556,11 @@
   speciesRestriction: [Skrell, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Tajaran]
   sprites:
   - sprite: _Floof/Mobs/Customization/skyratsnouts.rsi
-    state:  snout_rhino_primary
+    state: snout_rhino_primary
   - sprite: _Floof/Mobs/Customization/skyratsnouts.rsi
-    state:  snout_rhino_secondary
+    state: snout_rhino_secondary
   - sprite: _Floof/Mobs/Customization/skyratsnouts.rsi
-    state:  snout_rhino_tertiary
+    state: snout_rhino_tertiary
 
 #- type: marking
 #  id: SnoutFBovine
@@ -582,11 +582,11 @@
   speciesRestriction: [Skrell, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Tajaran]
   sprites:
   - sprite: _Floof/Mobs/Customization/skyratsnouts.rsi
-    state:  snout_bovine_primary
+    state: snout_bovine_primary
   - sprite: _Floof/Mobs/Customization/skyratsnouts.rsi
-    state:  snout_bovine_secondary
+    state: snout_bovine_secondary
   - sprite: _Floof/Mobs/Customization/skyratsnouts.rsi
-    state:  snout_bovine_tertiary
+    state: snout_bovine_tertiary
 
 #- type: marking
 #  id: SnoutFElephant
@@ -606,9 +606,9 @@
   speciesRestriction: [Skrell, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Tajaran]
   sprites:
   - sprite: _Floof/Mobs/Customization/skyratsnouts.rsi
-    state:  snout_elephant_primary
+    state: snout_elephant_primary
   - sprite: _Floof/Mobs/Customization/skyratsnouts.rsi
-    state:  snout_elephant_secondary
+    state: snout_elephant_secondary
 
 #- type: marking
 #  id: SnoutFRound
@@ -653,7 +653,7 @@
   speciesRestriction: [Skrell, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Tajaran]
   sprites:
   - sprite: _Floof/Mobs/Customization/skyratsnouts.rsi
-    state:  snout_shark_primary
+    state: snout_shark_primary
 
 - type: marking
   id: SnoutHShark
@@ -662,9 +662,9 @@
   speciesRestriction: [Skrell, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Tajaran]
   sprites:
   - sprite: _Floof/Mobs/Customization/skyratsnouts.rsi
-    state:  snout_hshark_primary
+    state: snout_hshark_primary
   - sprite: _Floof/Mobs/Customization/skyratsnouts.rsi
-    state:  snout_hshark_secondary
+    state: snout_hshark_secondary
 
 - type: marking
   id: SnoutHSharkEyes
@@ -673,9 +673,9 @@
   speciesRestriction: [Skrell, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Tajaran]
   sprites:
   - sprite: _Floof/Mobs/Customization/skyratsnouts.rsi
-    state:  snout_hshark_eyes_primary
+    state: snout_hshark_eyes_primary
   - sprite: _Floof/Mobs/Customization/skyratsnouts.rsi
-    state:  snout_hshark_eyes_secondary
+    state: snout_hshark_eyes_secondary
 
 #- type: marking
 #  id: SnoutFBug
@@ -699,9 +699,9 @@
   speciesRestriction: [Skrell, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Tajaran]
   sprites:
   - sprite: _Floof/Mobs/Customization/skyratsnouts.rsi
-    state:  snout_bug_primary
+    state: snout_bug_primary
   - sprite: _Floof/Mobs/Customization/skyratsnouts.rsi
-    state:  snout_bug_secondary
+    state: snout_bug_secondary
 
 - type: marking
   id: SnoutBugNoEyes
@@ -710,7 +710,7 @@
   speciesRestriction: [Skrell, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Tajaran]
   sprites:
   - sprite: _Floof/Mobs/Customization/skyratsnouts.rsi
-    state:  snout_bug_no_eyes
+    state: snout_bug_no_eyes
 
 - type: marking
   id: SnoutSergal
@@ -719,9 +719,9 @@
   speciesRestriction: [Skrell, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Tajaran]
   sprites:
   - sprite: _Floof/Mobs/Customization/skyratsnouts.rsi
-    state:  snout_sergal_primary
+    state: snout_sergal_primary
   - sprite: _Floof/Mobs/Customization/skyratsnouts.rsi
-    state:  snout_sergal_secondary
+    state: snout_sergal_secondary
 
 - type: marking
   id: SnoutHHorse
@@ -730,9 +730,9 @@
   speciesRestriction: [Skrell, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Tajaran]
   sprites:
   - sprite: _Floof/Mobs/Customization/skyratsnouts.rsi
-    state:  snout_hhorse_primary
+    state: snout_hhorse_primary
   - sprite: _Floof/Mobs/Customization/skyratsnouts.rsi
-    state:  snout_hhorse_secondary
+    state: snout_hhorse_secondary
 
 - type: marking
   id: SnoutHZebra
@@ -741,9 +741,9 @@
   speciesRestriction: [Skrell, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Tajaran]
   sprites:
   - sprite: _Floof/Mobs/Customization/skyratsnouts.rsi
-    state:  snout_hzebra_primary
+    state: snout_hzebra_primary
   - sprite: _Floof/Mobs/Customization/skyratsnouts.rsi
-    state:  snout_hzebra_secondary
+    state: snout_hzebra_secondary
 
 - type: marking
   id: SnoutHAnubus
@@ -752,9 +752,9 @@
   speciesRestriction: [Skrell, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Tajaran]
   sprites:
   - sprite: _Floof/Mobs/Customization/skyratsnouts.rsi
-    state:  snout_hanubus_primary
+    state: snout_hanubus_primary
   - sprite: _Floof/Mobs/Customization/skyratsnouts.rsi
-    state:  snout_hanubus_secondary
+    state: snout_hanubus_secondary
 
 - type: marking
   id: SnoutHPanda
@@ -763,9 +763,9 @@
   speciesRestriction: [Skrell, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Tajaran]
   sprites:
   - sprite: _Floof/Mobs/Customization/skyratsnouts.rsi
-    state:  snout_hpanda_primary
+    state: snout_hpanda_primary
   - sprite: _Floof/Mobs/Customization/skyratsnouts.rsi
-    state:  snout_hpanda_secondary
+    state: snout_hpanda_secondary
 
 - type: marking
   id: SnoutHJackal
@@ -774,9 +774,9 @@
   speciesRestriction: [Skrell, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Tajaran]
   sprites:
   - sprite: _Floof/Mobs/Customization/skyratsnouts.rsi
-    state:  snout_hjackal_primary
+    state: snout_hjackal_primary
   - sprite: _Floof/Mobs/Customization/skyratsnouts.rsi
-    state:  snout_hjackal_secondary
+    state: snout_hjackal_secondary
 
 - type: marking
   id: SnoutHSpots

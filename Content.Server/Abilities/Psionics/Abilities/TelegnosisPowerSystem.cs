@@ -1,7 +1,7 @@
 using Content.Shared.Abilities.Psionics;
-using Content.Shared.Nyanotrasen.Abilities.Psionics;
-using Content.Shared.Mind.Components;
 using Content.Shared.Actions.Events;
+using Content.Shared.Mind.Components;
+using Content.Shared.Nyanotrasen.Abilities.Psionics;
 using Robust.Server.GameObjects;
 using Robust.Shared.Timing;
 
@@ -11,9 +11,14 @@ namespace Content.Server.Abilities.Psionics
     {
         private static readonly TimeSpan ProjectionDuration = TimeSpan.FromSeconds(30);
 
-        [Dependency] private readonly MindSwapPowerSystem _mindSwap = default!;
-        [Dependency] private readonly SharedPsionicAbilitiesSystem _psionics = default!;
-        [Dependency] private readonly TransformSystem _transform = default!;
+        [Dependency]
+        private readonly MindSwapPowerSystem _mindSwap = default!;
+
+        [Dependency]
+        private readonly SharedPsionicAbilitiesSystem _psionics = default!;
+
+        [Dependency]
+        private readonly TransformSystem _transform = default!;
 
         public override void Initialize()
         {
@@ -42,10 +47,12 @@ namespace Content.Server.Abilities.Psionics
             if (Deleted(projection))
                 return;
 
-            if (TryComp<MindSwappedComponent>(projection, out var swapped)
+            if (
+                TryComp<MindSwappedComponent>(projection, out var swapped)
                 && swapped.OriginalEntity.IsValid()
                 && !Deleted(swapped.OriginalEntity)
-                && HasComp<MindSwappedComponent>(swapped.OriginalEntity))
+                && HasComp<MindSwappedComponent>(swapped.OriginalEntity)
+            )
             {
                 _mindSwap.Swap(projection, swapped.OriginalEntity, true);
                 return;

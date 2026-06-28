@@ -11,9 +11,11 @@ public sealed partial class NestedSelector : EntityTableSelector
     [DataField(required: true)]
     public ProtoId<EntityTablePrototype> TableId;
 
-    protected override IEnumerable<EntProtoId> GetSpawnsImplementation(System.Random rand,
+    protected override IEnumerable<EntProtoId> GetSpawnsImplementation(
+        System.Random rand,
         IEntityManager entMan,
-        IPrototypeManager proto)
+        IPrototypeManager proto
+    )
     {
         return proto.Index(TableId).Table.GetSpawns(rand, entMan, proto);
     }

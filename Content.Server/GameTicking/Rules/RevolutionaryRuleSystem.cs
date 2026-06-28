@@ -11,7 +11,10 @@ using Content.Server.Roles;
 using Content.Server.RoundEnd;
 using Content.Server.Shuttles.Systems;
 using Content.Server.Station.Systems;
+using Content.Shared._Starlight.Shadekin;
+using Content.Shared.Cuffs.Components;
 using Content.Shared.Database;
+using Content.Shared.GameTicking;
 using Content.Shared.GameTicking.Components;
 using Content.Shared.Humanoid;
 using Content.Shared.IdentityManagement;
@@ -25,12 +28,9 @@ using Content.Shared.NPC.Systems;
 using Content.Shared.Revolutionary.Components;
 using Content.Shared.Stunnable;
 using Content.Shared.Zombies;
+using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
-using Content.Shared.Cuffs.Components;
-using Robust.Shared.Player;
-using Content.Shared.GameTicking;
-using Content.Shared._Starlight.Shadekin;
 
 namespace Content.Server.GameTicking.Rules;
 
@@ -39,20 +39,47 @@ namespace Content.Server.GameTicking.Rules;
 /// </summary>
 public sealed class RevolutionaryRuleSystem : GameRuleSystem<RevolutionaryRuleComponent>
 {
-    [Dependency] private readonly AntagSelectionSystem _antag = default!;
-    [Dependency] private readonly EmergencyShuttleSystem _emergencyShuttle = default!;
-    [Dependency] private readonly EuiManager _euiMan = default!;
-    [Dependency] private readonly IAdminLogManager _adminLogManager = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly ISharedPlayerManager _player = default!;
-    [Dependency] private readonly MindSystem _mind = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly NpcFactionSystem _npcFaction = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly RoleSystem _role = default!;
-    [Dependency] private readonly RoundEndSystem _roundEnd = default!;
-    [Dependency] private readonly SharedStunSystem _stun = default!;
-    [Dependency] private readonly StationSystem _stationSystem = default!;
+    [Dependency]
+    private readonly AntagSelectionSystem _antag = default!;
+
+    [Dependency]
+    private readonly EmergencyShuttleSystem _emergencyShuttle = default!;
+
+    [Dependency]
+    private readonly EuiManager _euiMan = default!;
+
+    [Dependency]
+    private readonly IAdminLogManager _adminLogManager = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly ISharedPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly MindSystem _mind = default!;
+
+    [Dependency]
+    private readonly MobStateSystem _mobState = default!;
+
+    [Dependency]
+    private readonly NpcFactionSystem _npcFaction = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly RoleSystem _role = default!;
+
+    [Dependency]
+    private readonly RoundEndSystem _roundEnd = default!;
+
+    [Dependency]
+    private readonly SharedStunSystem _stun = default!;
+
+    [Dependency]
+    private readonly StationSystem _stationSystem = default!;
 
     //Used in OnPostFlash, no reference to the rule component is available
     public readonly ProtoId<NpcFactionPrototype> RevolutionaryNpcFaction = "Revolutionary";
@@ -68,16 +95,25 @@ public sealed class RevolutionaryRuleSystem : GameRuleSystem<RevolutionaryRuleCo
 
         SubscribeLocalEvent<RevolutionaryRoleComponent, GetBriefingEvent>(OnGetBriefing);
         SubscribeLocalEvent<RoundRestartCleanupEvent>(OnRoundRestartCleanup);
-
     }
 
-    protected override void Started(EntityUid uid, RevolutionaryRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
+    protected override void Started(
+        EntityUid uid,
+        RevolutionaryRuleComponent component,
+        GameRuleComponent gameRule,
+        GameRuleStartedEvent args
+    )
     {
         base.Started(uid, component, gameRule, args);
         component.CommandCheck = _timing.CurTime + component.TimerWait;
     }
 
-    protected override void ActiveTick(EntityUid uid, RevolutionaryRuleComponent component, GameRuleComponent gameRule, float frameTime)
+    protected override void ActiveTick(
+        EntityUid uid,
+        RevolutionaryRuleComponent component,
+        GameRuleComponent gameRule,
+        float frameTime
+    )
     {
         base.ActiveTick(uid, component, gameRule, frameTime);
         if (component.CommandCheck <= _timing.CurTime)
@@ -92,16 +128,23 @@ public sealed class RevolutionaryRuleSystem : GameRuleSystem<RevolutionaryRuleCo
         }
     }
 
-    protected override void Ended(EntityUid uid, RevolutionaryRuleComponent component, GameRuleComponent gameRule, GameRuleEndedEvent args)
+    protected override void Ended(
+        EntityUid uid,
+        RevolutionaryRuleComponent component,
+        GameRuleComponent gameRule,
+        GameRuleEndedEvent args
+    )
     {
         base.Ended(uid, component, gameRule, args);
         CleanupRevolutionaryEntities();
     }
 
-    protected override void AppendRoundEndText(EntityUid uid,
+    protected override void AppendRoundEndText(
+        EntityUid uid,
         RevolutionaryRuleComponent component,
         GameRuleComponent gameRule,
-        ref RoundEndTextAppendEvent args)
+        ref RoundEndTextAppendEvent args
+    )
     {
         base.AppendRoundEndText(uid, component, gameRule, ref args);
 
@@ -119,10 +162,9 @@ public sealed class RevolutionaryRuleSystem : GameRuleSystem<RevolutionaryRuleCo
             _role.MindHasRole<RevolutionaryRoleComponent>(mind, out var role);
             var count = CompOrNull<RevolutionaryRoleComponent>(role)?.ConvertedCount ?? 0;
 
-            args.AddLine(Loc.GetString("rev-headrev-name-user",
-                ("name", name),
-                ("username", data.UserName),
-                ("count", count)));
+            args.AddLine(
+                Loc.GetString("rev-headrev-name-user", ("name", name), ("username", data.UserName), ("count", count))
+            );
 
             // TODO: someone suggested listing all alive? revs maybe implement at some point
         }
@@ -145,13 +187,14 @@ public sealed class RevolutionaryRuleSystem : GameRuleSystem<RevolutionaryRuleCo
         if (!_mind.TryGetMind(ev.Target, out var mindId, out var mind) && !alwaysConvertible)
             return;
 
-        if (HasComp<RevolutionaryComponent>(ev.Target) ||
-            HasComp<BrighteyeComponent>(ev.Target) ||
-            HasComp<MindShieldComponent>(ev.Target) ||
-            !HasComp<HumanoidAppearanceComponent>(ev.Target) &&
-            !alwaysConvertible ||
-            !_mobState.IsAlive(ev.Target) ||
-            HasComp<ZombieComponent>(ev.Target))
+        if (
+            HasComp<RevolutionaryComponent>(ev.Target)
+            || HasComp<BrighteyeComponent>(ev.Target)
+            || HasComp<MindShieldComponent>(ev.Target)
+            || !HasComp<HumanoidAppearanceComponent>(ev.Target) && !alwaysConvertible
+            || !_mobState.IsAlive(ev.Target)
+            || HasComp<ZombieComponent>(ev.Target)
+        )
         {
             return;
         }
@@ -161,9 +204,11 @@ public sealed class RevolutionaryRuleSystem : GameRuleSystem<RevolutionaryRuleCo
 
         if (ev.User != null)
         {
-            _adminLogManager.Add(LogType.Mind,
+            _adminLogManager.Add(
+                LogType.Mind,
                 LogImpact.Medium,
-                $"{ToPrettyString(ev.User.Value)} converted {ToPrettyString(ev.Target)} into a Revolutionary");
+                $"{ToPrettyString(ev.User.Value)} converted {ToPrettyString(ev.Target)} into a Revolutionary"
+            );
 
             if (_mind.TryGetMind(ev.User.Value, out var revMindId, out _))
             {
@@ -260,8 +305,15 @@ public sealed class RevolutionaryRuleSystem : GameRuleSystem<RevolutionaryRuleCo
                 _npcFaction.RemoveFaction(uid, RevolutionaryNpcFaction);
                 _stun.TryParalyze(uid, stunTime, true);
                 RemCompDeferred<RevolutionaryComponent>(uid);
-                _popup.PopupEntity(Loc.GetString("rev-break-control", ("name", Identity.Entity(uid, EntityManager))), uid);
-                _adminLogManager.Add(LogType.Mind, LogImpact.Medium, $"{ToPrettyString(uid)} was deconverted due to all Head Revolutionaries dying.");
+                _popup.PopupEntity(
+                    Loc.GetString("rev-break-control", ("name", Identity.Entity(uid, EntityManager))),
+                    uid
+                );
+                _adminLogManager.Add(
+                    LogType.Mind,
+                    LogImpact.Medium,
+                    $"{ToPrettyString(uid)} was deconverted due to all Head Revolutionaries dying."
+                );
 
                 if (!_mind.TryGetMind(uid, out var mindId, out var mind, mc))
                     continue;
@@ -288,7 +340,12 @@ public sealed class RevolutionaryRuleSystem : GameRuleSystem<RevolutionaryRuleCo
     /// <param name="countCuffed">Bool for if you don't want to count cuffed entities.</param>
     /// <param name="countRevolutionaries">Bool for if you want to count revolutionaries.</param>
     /// <returns></returns>
-    private bool IsGroupDetainedOrDead(List<EntityUid> list, bool checkOffStation, bool countCuffed, bool countRevolutionaries)
+    private bool IsGroupDetainedOrDead(
+        List<EntityUid> list,
+        bool checkOffStation,
+        bool countCuffed,
+        bool countRevolutionaries
+    )
     {
         var gone = 0;
 
@@ -308,7 +365,11 @@ public sealed class RevolutionaryRuleSystem : GameRuleSystem<RevolutionaryRuleCo
                     continue;
                 }
 
-                if (checkOffStation && _stationSystem.GetOwningStation(entity) == null && !_emergencyShuttle.EmergencyShuttleArrived)
+                if (
+                    checkOffStation
+                    && _stationSystem.GetOwningStation(entity) == null
+                    && !_emergencyShuttle.EmergencyShuttleArrived
+                )
                 {
                     gone++;
                     continue;
@@ -321,7 +382,10 @@ public sealed class RevolutionaryRuleSystem : GameRuleSystem<RevolutionaryRuleCo
                 continue;
             }
 
-            if ((HasComp<RevolutionaryComponent>(entity) || HasComp<HeadRevolutionaryComponent>(entity)) && countRevolutionaries)
+            if (
+                (HasComp<RevolutionaryComponent>(entity) || HasComp<HeadRevolutionaryComponent>(entity))
+                && countRevolutionaries
+            )
             {
                 gone++;
                 continue;
@@ -340,6 +404,6 @@ public sealed class RevolutionaryRuleSystem : GameRuleSystem<RevolutionaryRuleCo
         // revs lost and heads survived
         "rev-lost",
         // revs lost and heads died
-        "rev-stalemate"
+        "rev-stalemate",
     };
 }

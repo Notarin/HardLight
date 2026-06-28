@@ -5,7 +5,6 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
 
-
 - type: reagent
   id: FeverDream
   name: reagent-name-feverdream
@@ -34,22 +33,22 @@
       - !type:GenericStatusEffect
         conditions:
         - !type:OrganType
-           type: Thaven
-           shouldHave: false
+          type: Thaven
+          shouldHave: false
         key: SeeingRainbows
         component: SeeingRainbows
         type: Add
         time: 5
         refresh: false
   plantMetabolism:
-    - !type:PlantAdjustNutrition
-      amount: 0.5
-    - !type:PlantAdjustWater
-      amount: 0.5
-    - !type:PlantAdjustToxins
-      amount: 1
-    - !type:PlantAdjustWeeds
-      amount: -1
-    - !type:PlantAdjustPests
-      amount: -1
+  - !type:PlantAdjustNutrition
+    amount: 0.5
+  - !type:PlantAdjustWater
+    amount: 0.5
+  - !type:PlantAdjustToxins
+    amount: 1
+  - !type:PlantAdjustWeeds
+    amount: -1
+  - !type:PlantAdjustPests
+    amount: -1
   fizziness: 0.1

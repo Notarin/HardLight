@@ -7,8 +7,11 @@ namespace Content.Server._Funkystation.Genetics.Mutations.Systems;
 
 public sealed class MutationTailSwapSystem : EntitySystem
 {
-    [Dependency] private readonly SharedHumanoidAppearanceSystem _humanoid = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
+    [Dependency]
+    private readonly SharedHumanoidAppearanceSystem _humanoid = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
 
     //public override void Initialize()
     //{
@@ -16,12 +19,12 @@ public sealed class MutationTailSwapSystem : EntitySystem
     //    SubscribeLocalEvent<MutationTailSwapComponent, ComponentStartup>(OnStartup);
     //    SubscribeLocalEvent<MutationTailSwapComponent, ComponentShutdown>(OnShutdown);
     //}
-//
+    //
     //private void OnStartup(EntityUid ent, MutationTailSwapComponent comp, ref ComponentStartup args)
     //{
     //    if (!TryComp<HumanoidAppearanceComponent>(ent, out var humanoid))
     //        return;
-//
+    //
     //    // Save all original tail markings and colors
     //    var originalTailMarkings = new List<(string, List<Color>)>();
     //    if (humanoid.MarkingSet.Markings.TryGetValue(MarkingCategories.Tail, out var currentTails))
@@ -37,27 +40,27 @@ public sealed class MutationTailSwapSystem : EntitySystem
     //        }
     //    }
     //    comp.OriginalTailMarkings = originalTailMarkings;
-//
+    //
     //    // Remove all existing tails
     //    humanoid.MarkingSet.RemoveCategory(MarkingCategories.Tail);
-//
+    //
     //    // Determine the color to use for the new tail
     //    Color tailColor;
     //    if (comp.TailColor is { } customColor)
     //        tailColor = customColor;
     //    else
     //        tailColor = humanoid.SkinColor;
-//
+    //
     //    if (_proto.TryIndex<MarkingPrototype>(comp.NewTailMarking, out var markingProto))
     //    {
     //        var spriteCount = markingProto.Sprites.Count;
     //        var colors = new List<Color>();
-//
+    //
     //        for (var i = 0; i < spriteCount; i++)
     //        {
     //            colors.Add(tailColor);
     //        }
-//
+    //
     //        // Add the new tail with the chosen color
     //        _humanoid.AddMarking(ent, comp.NewTailMarking, colors, forced: true);
     //    }
@@ -66,17 +69,17 @@ public sealed class MutationTailSwapSystem : EntitySystem
     //        // just add without color if prototype not found (should never happen)
     //        _humanoid.AddMarking(ent, comp.NewTailMarking, forced: true);
     //    }
-//
+    //
     //    Dirty(ent, humanoid);
     //}
-//
+    //
     //private void OnShutdown(EntityUid ent, MutationTailSwapComponent comp, ref ComponentShutdown args)
     //{
     //    if (!TryComp<HumanoidAppearanceComponent>(ent, out var humanoid))
     //        return;
-//
+    //
     //    humanoid.MarkingSet.Remove(MarkingCategories.Tail, comp.NewTailMarking);
-//
+    //
     //    if (comp.OriginalTailMarkings is { } originals)
     //    {
     //        foreach (var (markingId, colors) in originals)
@@ -84,7 +87,7 @@ public sealed class MutationTailSwapSystem : EntitySystem
     //            _humanoid.AddMarking(ent, markingId, colors, forced: true);
     //        }
     //    }
-//
+    //
     //    Dirty(ent, humanoid);
     //}
 }

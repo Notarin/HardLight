@@ -1,16 +1,19 @@
+using System.Linq;
 using Content.Server._NF.Traits.Assorted; // Frontier
 using Content.Server.Body.Components;
 using Content.Server.Medical.Components;
 using Content.Server.PowerCell;
 using Content.Server.Temperature.Components;
+using Content.Shared._DV.Traits.Assorted; // DeltaV
 using Content.Shared._Shitmed.Targeting;
 // Shitmed Change
 using Content.Shared.Body.Part;
 using Content.Shared.Body.Systems;
-using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Chat; // Starlight
+using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Damage;
 using Content.Shared.DoAfter;
+using Content.Shared.FixedPoint; // Starlight
 using Content.Shared.IdentityManagement;
 using Content.Shared.Interaction;
 using Content.Shared.Interaction.Events;
@@ -21,28 +24,42 @@ using Content.Shared.MedicalScanner;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Popups;
 using Content.Shared.Traits.Assorted;
-using Content.Shared._DV.Traits.Assorted; // DeltaV
 using Robust.Server.GameObjects;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
 using Robust.Shared.Timing;
-using System.Linq;
-using Content.Shared.FixedPoint; // Starlight
 using static Content.Server.Traits.Assorted.UnrevivableSystem;
 
 namespace Content.Server.Medical;
 
 public sealed class HealthAnalyzerSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly PowerCellSystem _cell = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
-    [Dependency] private readonly SharedBodySystem _bodySystem = default!; // Shitmed Change
-    [Dependency] private readonly ItemToggleSystem _toggle = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
-    [Dependency] private readonly UserInterfaceSystem _uiSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly PowerCellSystem _cell = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfterSystem = default!;
+
+    [Dependency]
+    private readonly SharedBodySystem _bodySystem = default!; // Shitmed Change
+
+    [Dependency]
+    private readonly ItemToggleSystem _toggle = default!;
+
+    [Dependency]
+    private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
+
+    [Dependency]
+    private readonly UserInterfaceSystem _uiSystem = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popupSystem = default!;
 
     public override void Initialize()
     {
@@ -52,10 +69,13 @@ public sealed class HealthAnalyzerSystem : EntitySystem
         SubscribeLocalEvent<HealthAnalyzerComponent, ItemToggledEvent>(OnToggled);
         SubscribeLocalEvent<HealthAnalyzerComponent, DroppedEvent>(OnDropped);
         // Shitmed Change Start
-        Subs.BuiEvents<HealthAnalyzerComponent>(HealthAnalyzerUiKey.Key, subs =>
-        {
-            subs.Event<HealthAnalyzerPartMessage>(OnHealthAnalyzerPartSelected);
-        });
+        Subs.BuiEvents<HealthAnalyzerComponent>(
+            HealthAnalyzerUiKey.Key,
+            subs =>
+            {
+                subs.Event<HealthAnalyzerPartMessage>(OnHealthAnalyzerPartSelected);
+            }
+        );
         // Shitmed Change End
     }
 
@@ -68,7 +88,7 @@ public sealed class HealthAnalyzerSystem : EntitySystem
             if (component.NextUpdate > _timing.CurTime)
                 continue;
 
-            if (component.ScannedEntity is not {} patient)
+            if (component.ScannedEntity is not { } patient)
                 continue;
 
             if (Deleted(patient))
@@ -78,10 +98,14 @@ public sealed class HealthAnalyzerSystem : EntitySystem
             }
 
             // Shitmed Change Start
-            if (component.CurrentBodyPart != null
-                && (Deleted(component.CurrentBodyPart)
+            if (
+                component.CurrentBodyPart != null
+                && (
+                    Deleted(component.CurrentBodyPart)
                     || TryComp(component.CurrentBodyPart, out BodyPartComponent? bodyPartComponent)
-                    && bodyPartComponent.Body is null))
+                        && bodyPartComponent.Body is null
+                )
+            )
             {
                 BeginAnalyzingEntity((uid, component), patient, null);
                 continue;
@@ -108,21 +132,39 @@ public sealed class HealthAnalyzerSystem : EntitySystem
     /// </summary>
     private void OnAfterInteract(Entity<HealthAnalyzerComponent> uid, ref AfterInteractEvent args)
     {
-        if (args.Target == null || !args.CanReach || !HasComp<MobStateComponent>(args.Target) || !_cell.HasDrawCharge(uid, user: args.User))
+        if (
+            args.Target == null
+            || !args.CanReach
+            || !HasComp<MobStateComponent>(args.Target)
+            || !_cell.HasDrawCharge(uid, user: args.User)
+        )
             return;
 
         _audio.PlayPvs(uid.Comp.ScanningBeginSound, uid);
 
-        var doAfterCancelled = !_doAfterSystem.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, uid.Comp.ScanDelay, new HealthAnalyzerDoAfterEvent(), uid, target: args.Target, used: uid)
-        {
-            NeedHand = true,
-            BreakOnMove = true,
-        });
+        var doAfterCancelled = !_doAfterSystem.TryStartDoAfter(
+            new DoAfterArgs(
+                EntityManager,
+                args.User,
+                uid.Comp.ScanDelay,
+                new HealthAnalyzerDoAfterEvent(),
+                uid,
+                target: args.Target,
+                used: uid
+            )
+            {
+                NeedHand = true,
+                BreakOnMove = true,
+            }
+        );
 
         if (args.Target == args.User || doAfterCancelled || uid.Comp.Silent)
             return;
 
-        var msg = Loc.GetString("health-analyzer-popup-scan-target", ("user", Identity.Entity(args.User, EntityManager)));
+        var msg = Loc.GetString(
+            "health-analyzer-popup-scan-target",
+            ("user", Identity.Entity(args.User, EntityManager))
+        );
         _popupSystem.PopupEntity(msg, args.Target.Value, args.Target.Value, PopupType.Medium);
     }
 
@@ -142,7 +184,10 @@ public sealed class HealthAnalyzerSystem : EntitySystem
     /// <summary>
     /// Turn off when placed into a storage item or moved between slots/hands
     /// </summary>
-    private void OnInsertedIntoContainer(Entity<HealthAnalyzerComponent> uid, ref EntGotInsertedIntoContainerMessage args)
+    private void OnInsertedIntoContainer(
+        Entity<HealthAnalyzerComponent> uid,
+        ref EntGotInsertedIntoContainerMessage args
+    )
     {
         if (uid.Comp.ScannedEntity is { } patient)
             _toggle.TryDeactivate(uid.Owner);
@@ -180,7 +225,11 @@ public sealed class HealthAnalyzerSystem : EntitySystem
     /// <param name="healthAnalyzer">The health analyzer that should receive the updates</param>
     /// <param name="target">The entity to start analyzing</param>
     /// <param name="part">Shitmed Change: The body part to analyze, if any</param>
-    private void BeginAnalyzingEntity(Entity<HealthAnalyzerComponent> healthAnalyzer, EntityUid target, EntityUid? part = null)
+    private void BeginAnalyzingEntity(
+        Entity<HealthAnalyzerComponent> healthAnalyzer,
+        EntityUid target,
+        EntityUid? part = null
+    )
     {
         //Link the health analyzer to the scanned entity
         healthAnalyzer.Comp.ScannedEntity = target;
@@ -213,7 +262,10 @@ public sealed class HealthAnalyzerSystem : EntitySystem
     /// </summary>
     /// <param name="healthAnalyzer">The health analyzer that's receiving the updates</param>
     /// <param name="args">The message containing the selected part</param>
-    private void OnHealthAnalyzerPartSelected(Entity<HealthAnalyzerComponent> healthAnalyzer, ref HealthAnalyzerPartMessage args)
+    private void OnHealthAnalyzerPartSelected(
+        Entity<HealthAnalyzerComponent> healthAnalyzer,
+        ref HealthAnalyzerPartMessage args
+    )
     {
         if (!TryGetEntity(args.Owner, out var owner))
             return;
@@ -229,6 +281,7 @@ public sealed class HealthAnalyzerSystem : EntitySystem
                 BeginAnalyzingEntity(healthAnalyzer, owner.Value, part.FirstOrDefault().Id);
         }
     }
+
     // Shitmed Change End
 
     /// <summary>
@@ -256,9 +309,15 @@ public sealed class HealthAnalyzerSystem : EntitySystem
         var unrevivable = false;
         var uncloneable = false; // DeltaV
 
-        if (TryComp<BloodstreamComponent>(target, out var bloodstream) &&
-            _solutionContainerSystem.ResolveSolution(target, bloodstream.BloodSolutionName,
-                ref bloodstream.BloodSolution, out var bloodSolution))
+        if (
+            TryComp<BloodstreamComponent>(target, out var bloodstream)
+            && _solutionContainerSystem.ResolveSolution(
+                target,
+                bloodstream.BloodSolutionName,
+                ref bloodstream.BloodSolution,
+                out var bloodSolution
+            )
+        )
         {
             bloodAmount = bloodSolution.FillFraction;
             bleeding = bloodstream.BleedAmount > 0;
@@ -281,13 +340,20 @@ public sealed class HealthAnalyzerSystem : EntitySystem
 
         // Starlight begin - Get a list of metabolizing chemicals
         List<(string ReagentId, FixedPoint2 Quantity)>? metabolizingReagents = null;
-        if (TryComp<BloodstreamComponent>(target, out var bloodstreamComp) &&
-            _solutionContainerSystem.TryGetSolution(target, BloodstreamComponent.DefaultChemicalsSolutionName, out _, out var chemicalsSolution))
+        if (
+            TryComp<BloodstreamComponent>(target, out var bloodstreamComp)
+            && _solutionContainerSystem.TryGetSolution(
+                target,
+                BloodstreamComponent.DefaultChemicalsSolutionName,
+                out _,
+                out var chemicalsSolution
+            )
+        )
         {
             metabolizingReagents = new List<(string, FixedPoint2)>();
             foreach (var (reagent, quantity) in chemicalsSolution.Contents)
             {
-               metabolizingReagents.Add((reagent.Prototype, quantity));
+                metabolizingReagents.Add((reagent.Prototype, quantity));
             }
         }
         // Starlight end
@@ -295,18 +361,22 @@ public sealed class HealthAnalyzerSystem : EntitySystem
         if (HasComp<UncloneableComponent>(target)) // DeltaV: Uncloneable
             uncloneable = true;
 
-        _uiSystem.ServerSendUiMessage(healthAnalyzer, HealthAnalyzerUiKey.Key, new HealthAnalyzerScannedUserMessage(
-            GetNetEntity(target),
-            bodyTemperature,
-            bloodAmount,
-            scanMode,
-            bleeding,
-            unrevivable,
-            uncloneable, // DeltaV: Uncloneable
-            // Shitmed Change
-            body,
-            part != null ? GetNetEntity(part) : null,
-            metabolizingReagents // Starlight
-        ));
+        _uiSystem.ServerSendUiMessage(
+            healthAnalyzer,
+            HealthAnalyzerUiKey.Key,
+            new HealthAnalyzerScannedUserMessage(
+                GetNetEntity(target),
+                bodyTemperature,
+                bloodAmount,
+                scanMode,
+                bleeding,
+                unrevivable,
+                uncloneable, // DeltaV: Uncloneable
+                // Shitmed Change
+                body,
+                part != null ? GetNetEntity(part) : null,
+                metabolizingReagents // Starlight
+            )
+        );
     }
 }

@@ -35,8 +35,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35
         density: 40
         mask:
@@ -45,17 +44,16 @@
     damageModifierSet: Inflatable
   - type: Destructible
     thresholds:
-      - trigger:
-          !type:DamageTrigger
-          damage: 50
-        behaviors:
-          - !type:DoActsBehavior
-            acts: ["Destruction"]
-          - !type:SpawnEntitiesBehavior
-            spawn:
-              MaterialCloth1:
-                min: 1
-                max: 2
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          MaterialCloth1:
+            min: 1
+            max: 2
   - type: Pullable
   - type: Strap
     position: Down
@@ -138,14 +136,14 @@
           False: {visible: true}
   - type: RandomSprite
     available:
-      - unfoldedLayer:
-          bedroll01: ""
-          bedroll02: ""
-        bedrollStain:
-          overlay_stain_01: LiquidsBiological
-          overlay_stain_02: LiquidsBiological
-          overlay_stain_03: LiquidsBiological
-          overlay_stain_04: LiquidsBiological
+    - unfoldedLayer:
+        bedroll01: ""
+        bedroll02: ""
+      bedrollStain:
+        overlay_stain_01: LiquidsBiological
+        overlay_stain_02: LiquidsBiological
+        overlay_stain_03: LiquidsBiological
+        overlay_stain_04: LiquidsBiological
 
 - type: entity # McHobo bed spawner
   id: McHoboBedsRandom
@@ -168,7 +166,7 @@
   parent: NFBedrollStained
   id: NFBedrollStainedFolded
   suffix: folded, stained
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Foldable
     folded: true

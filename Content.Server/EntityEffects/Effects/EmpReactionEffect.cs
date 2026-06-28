@@ -1,11 +1,10 @@
 using Content.Server.Emp;
-using Content.Shared.EntityEffects;
 using Content.Shared.Chemistry.Reagent;
+using Content.Shared.EntityEffects;
 using Robust.Server.GameObjects;
 using Robust.Shared.Prototypes;
 
 namespace Content.Server.EntityEffects.Effects;
-
 
 [DataDefinition]
 public sealed partial class EmpReactionEffect : EntityEffect
@@ -34,8 +33,8 @@ public sealed partial class EmpReactionEffect : EntityEffect
     [DataField("duration")]
     public float DisableDuration = 15;
 
-    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys)
-            => Loc.GetString("reagent-effect-guidebook-emp-reaction-effect", ("chance", Probability));
+    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys) =>
+        Loc.GetString("reagent-effect-guidebook-emp-reaction-effect", ("chance", Probability));
 
     public override void Effect(EntityEffectBaseArgs args)
     {
@@ -46,13 +45,15 @@ public sealed partial class EmpReactionEffect : EntityEffect
 
         if (args is EntityEffectReagentArgs reagentArgs)
         {
-            range = MathF.Min((float) (reagentArgs.Quantity * EmpRangePerUnit), EmpMaxRange);
+            range = MathF.Min((float)(reagentArgs.Quantity * EmpRangePerUnit), EmpMaxRange);
         }
 
         args.EntityManager.System<EmpSystem>()
-            .EmpPulse(tSys.GetMapCoordinates(args.TargetEntity, xform: transform),
-            range,
-            EnergyConsumption,
-            DisableDuration);
+            .EmpPulse(
+                tSys.GetMapCoordinates(args.TargetEntity, xform: transform),
+                range,
+                EnergyConsumption,
+                DisableDuration
+            );
     }
 }

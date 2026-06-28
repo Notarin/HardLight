@@ -52,7 +52,8 @@ public sealed partial class MaterialProperties()
     /// Creates a new <see cref="MaterialProperties"> with information from an existing one.
     /// </summary>
     /// <param name="source"></param>
-    public MaterialProperties(MaterialProperties source) : this()
+    public MaterialProperties(MaterialProperties source)
+        : this()
     {
         ElectricalConductivity = source.ElectricalConductivity;
         ThermalConductivity = source.ThermalConductivity;

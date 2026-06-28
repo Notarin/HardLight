@@ -7,10 +7,10 @@
   - type: Sprite
     sprite: Objects/Specific/Janitorial/mop.rsi
     layers:
-      - state: mop
-      - map: ["enum.SolutionContainerLayers.Fill"]
-        state: fill-3
-        visible: false
+    - state: mop
+    - map: ["enum.SolutionContainerLayers.Fill"]
+      state: fill-3
+      visible: false
   - type: Appearance
   - type: SolutionContainerVisuals
     maxFillLevels: 3
@@ -45,8 +45,8 @@
       Plastic: 50
   - type: Tag
     tags:
-      - Mop
-      - MopBasic
+    - Mop
+    - MopBasic
   - type: GuideHelp
     guides:
     - Janitorial
@@ -58,59 +58,59 @@
   id: AdvMopItem
   description: Motorized mop that has a bigger reservoir and quickly replaces reagents inside with water. Automatic Clown Countermeasure not included.
   components:
-    - type: Sprite
-      sprite: Objects/Specific/Janitorial/advmop.rsi
-      layers:
-      - state: advmop
-      - map: ["enum.SolutionContainerLayers.Fill"]
-        state: fill-2
-        visible: false
-    - type: Appearance
-    - type: SolutionContainerVisuals
-      maxFillLevels: 2
-      fillBaseName: fill-
-      inHandsFillBaseName: -fill-
-      inHandsMaxFillLevels: 2
-    - type: MeleeWeapon
-      damage:
-        types:
-          Blunt: 10
-      soundHit:
-         collection: MetalThud
-    - type: Spillable
-      solution: absorbed
-    - type: Wieldable
-    - type: IncreaseDamageOnWield
-      damage:
-        types:
-          Blunt: 5
-    - type: Item
-      size: Large
-      sprite: Objects/Specific/Janitorial/advmop.rsi
-    - type: Absorbent
-      pickupAmount: 100
-    - type: UseDelay
-      delay: 1.0
-    - type: SolutionRegeneration
-      solution: absorbed
-      generated:
-        reagents:
-        - ReagentId: Water
-          Quantity: 5
-    - type: SolutionPurge
-      solution: absorbed
-      preserve:
-      - Water
-      quantity: 10
-    - type: SolutionContainerManager
-      solutions:
-        absorbed:
-          maxVol: 100
-    - type: Tag
-      tags:
-        - Mop
-        - MopAdv
-    - type: DnaSubstanceTrace
+  - type: Sprite
+    sprite: Objects/Specific/Janitorial/advmop.rsi
+    layers:
+    - state: advmop
+    - map: ["enum.SolutionContainerLayers.Fill"]
+      state: fill-2
+      visible: false
+  - type: Appearance
+  - type: SolutionContainerVisuals
+    maxFillLevels: 2
+    fillBaseName: fill-
+    inHandsFillBaseName: -fill-
+    inHandsMaxFillLevels: 2
+  - type: MeleeWeapon
+    damage:
+      types:
+        Blunt: 10
+    soundHit:
+      collection: MetalThud
+  - type: Spillable
+    solution: absorbed
+  - type: Wieldable
+  - type: IncreaseDamageOnWield
+    damage:
+      types:
+        Blunt: 5
+  - type: Item
+    size: Large
+    sprite: Objects/Specific/Janitorial/advmop.rsi
+  - type: Absorbent
+    pickupAmount: 100
+  - type: UseDelay
+    delay: 1.0
+  - type: SolutionRegeneration
+    solution: absorbed
+    generated:
+      reagents:
+      - ReagentId: Water
+        Quantity: 5
+  - type: SolutionPurge
+    solution: absorbed
+    preserve:
+    - Water
+    quantity: 10
+  - type: SolutionContainerManager
+    solutions:
+      absorbed:
+        maxVol: 100
+  - type: Tag
+    tags:
+    - Mop
+    - MopAdv
+  - type: DnaSubstanceTrace
 
 - type: entity
   name: wet floor sign
@@ -133,9 +133,8 @@
       Plastic: 50
   - type: Tag
     tags:
-      - WetFloorSign
-      - WhitelistChameleon
-
+    - WetFloorSign
+    - WhitelistChameleon
 
 - type: entity
   suffix: Explosive
@@ -153,15 +152,13 @@
   - type: Fixtures
     fixtures:
       slips:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.2,-0.2,0.2,0.2"
         hard: false
         layer:
-          - LowImpassable
+        - LowImpassable
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.2,-0.2,0.2,0.2"
         density: 30
         mask:
@@ -173,7 +170,7 @@
         maxDistance: 10
   - type: ExplodeOnTrigger
   - type: Explosive
-    explosionType: HardBomb  # normally Default and max 5 total 60
+    explosionType: HardBomb # normally Default and max 5 total 60
     maxIntensity: 10 # about a ~67.5 total damage
     totalIntensity: 30 # about a ~3 tile radius
     canCreateVacuum: false
@@ -188,7 +185,7 @@
     examinable: false
   - type: Tag
     tags: # ignore "WhitelistChameleon" tag
-      - WetFloorSign
+    - WetFloorSign
 
 - type: entity
   name: plunger
@@ -198,8 +195,8 @@
   components:
   - type: Tag
     tags:
-       - Plunger
-       - WhitelistChameleon
+    - Plunger
+    - WhitelistChameleon
   - type: Sprite
     sprite: Objects/Specific/Janitorial/plunger.rsi
     state: plunger
@@ -212,11 +209,11 @@
   - type: Clothing
     sprite: Objects/Specific/Janitorial/plunger.rsi
     slots:
-      - HEAD
+    - HEAD
     clothingVisuals:
       head:
-        - state: equipped-HELMET
-          offset: "0, 0.15625"
+      - state: equipped-HELMET
+        offset: "0, 0.15625"
   - type: Fixtures
     fixtures:
       fix1:
@@ -228,8 +225,7 @@
         restitution: 0.3
         friction: 0.2
       projectile:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.1,-0.1,0.1,0.1"
         hard: false
         mask:
@@ -269,11 +265,11 @@
   - type: Clothing
     sprite: Objects/Specific/Janitorial/golden_plunger.rsi
     slots:
-      - HEAD
+    - HEAD
     clothingVisuals:
       head:
-        - state: equipped-HELMET
-          offset: "0, 0.15625"
+      - state: equipped-HELMET
+        offset: "0, 0.15625"
   - type: PointLight
     radius: 1.5
     energy: 0.75
@@ -298,46 +294,46 @@
   id: RagItem
   description: For cleaning up messes, you suppose.
   components:
-    - type: Sprite
-      sprite: Objects/Specific/Janitorial/rag.rsi
-      layers:
-      - state: rag
-      - map: ["enum.SolutionContainerLayers.Fill"]
-        state: fill-3
-        visible: false
-    - type: Appearance
-    - type: SolutionContainerVisuals
-      maxFillLevels: 3
-      fillBaseName: fill-
-    - type: Spillable
-      solution: absorbed
-    - type: MeleeWeapon
-      soundNoDamage:
-        path: "/Audio/Effects/Fluids/splat.ogg"
-      damage:
-        types:
-          Blunt: 0
-    - type: Item
-      size: Small
-      sprite: Objects/Specific/Janitorial/rag.rsi
-    - type: Absorbent
-      pickupAmount: 15
-    - type: Construction
-      graph: Rag
-      node: rag
-    - type: SolutionContainerManager
-      solutions:
-        absorbed:
-          maxVol: 30
-    - type: UseDelay
-      delay: 1.5
-    - type: Tag
-      tags:
-        - Mop
-    - type: CleansForensics
-    - type: Fiber
-      fiberColor: fibers-white
-    - type: DnaSubstanceTrace
+  - type: Sprite
+    sprite: Objects/Specific/Janitorial/rag.rsi
+    layers:
+    - state: rag
+    - map: ["enum.SolutionContainerLayers.Fill"]
+      state: fill-3
+      visible: false
+  - type: Appearance
+  - type: SolutionContainerVisuals
+    maxFillLevels: 3
+    fillBaseName: fill-
+  - type: Spillable
+    solution: absorbed
+  - type: MeleeWeapon
+    soundNoDamage:
+      path: "/Audio/Effects/Fluids/splat.ogg"
+    damage:
+      types:
+        Blunt: 0
+  - type: Item
+    size: Small
+    sprite: Objects/Specific/Janitorial/rag.rsi
+  - type: Absorbent
+    pickupAmount: 15
+  - type: Construction
+    graph: Rag
+    node: rag
+  - type: SolutionContainerManager
+    solutions:
+      absorbed:
+        maxVol: 30
+  - type: UseDelay
+    delay: 1.5
+  - type: Tag
+    tags:
+    - Mop
+  - type: CleansForensics
+  - type: Fiber
+    fiberColor: fibers-white
+  - type: DnaSubstanceTrace
 
 - type: entity
   parent: BaseItem

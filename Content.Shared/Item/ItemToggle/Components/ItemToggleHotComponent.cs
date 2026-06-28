@@ -6,6 +6,4 @@ namespace Content.Shared.Item.ItemToggle.Components;
 /// Handles whether the item is hot when toggled on.
 /// </summary>
 [RegisterComponent, NetworkedComponent]
-public sealed partial class ItemToggleHotComponent : Component
-{
-}
+public sealed partial class ItemToggleHotComponent : Component { }

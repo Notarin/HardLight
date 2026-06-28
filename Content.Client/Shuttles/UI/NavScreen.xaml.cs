@@ -16,8 +16,11 @@ namespace Content.Client.Shuttles.UI;
 [GenerateTypedNameReferences]
 public sealed partial class NavScreen : BoxContainer
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!; // HL
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
+
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!; // HL
     private SharedTransformSystem _xformSystem;
 
     private EntityUid? _consoleEntity; // Entity of controlling console
@@ -54,39 +57,45 @@ public sealed partial class NavScreen : BoxContainer
     {
         text = text.Trim();
 
-        NavRadar.IFFFilter = text.Length == 0
-            ? null // If empty, do not filter
-            : (entity, grid, iff) => // Otherwise use simple search criteria
-            {
-                // Check entity name
-                if (_entManager.TryGetComponent<MetaDataComponent>(entity, out var metadata) && 
-                    metadata.EntityName.Contains(text, StringComparison.OrdinalIgnoreCase))
+        NavRadar.IFFFilter =
+            text.Length == 0
+                ? null // If empty, do not filter
+                : (entity, grid, iff) => // Otherwise use simple search criteria
                 {
-                    return true;
-                }
-                
-                // Check company name
-                if (_entManager.TryGetComponent<CompanyComponent>(entity, out var companyComp) &&
-                    !string.IsNullOrEmpty(companyComp.CompanyName))
-                {
-                    // Try to match the company ID directly
-                    if (companyComp.CompanyName.Contains(text, StringComparison.OrdinalIgnoreCase))
+                    // Check entity name
+                    if (
+                        _entManager.TryGetComponent<MetaDataComponent>(entity, out var metadata)
+                        && metadata.EntityName.Contains(text, StringComparison.OrdinalIgnoreCase)
+                    )
                     {
                         return true;
                     }
-                    
-                    // Try to match company name from prototype
-                    var prototypeManager = IoCManager.Resolve<IPrototypeManager>();
-                    if (prototypeManager.TryIndex<CompanyPrototype>(
-                        companyComp.CompanyName, out var prototype) && 
-                        prototype.Name.Contains(text, StringComparison.OrdinalIgnoreCase))
+
+                    // Check company name
+                    if (
+                        _entManager.TryGetComponent<CompanyComponent>(entity, out var companyComp)
+                        && !string.IsNullOrEmpty(companyComp.CompanyName)
+                    )
                     {
-                        return true;
+                        // Try to match the company ID directly
+                        if (companyComp.CompanyName.Contains(text, StringComparison.OrdinalIgnoreCase))
+                        {
+                            return true;
+                        }
+
+                        // Try to match company name from prototype
+                        var prototypeManager = IoCManager.Resolve<IPrototypeManager>();
+                        if (
+                            prototypeManager.TryIndex<CompanyPrototype>(companyComp.CompanyName, out var prototype)
+                            && prototype.Name.Contains(text, StringComparison.OrdinalIgnoreCase)
+                        )
+                        {
+                            return true;
+                        }
                     }
-                }
-                
-                return false;
-            };
+
+                    return false;
+                };
     }
 
     public void SetShuttle(EntityUid? shuttle)
@@ -120,8 +129,12 @@ public sealed partial class NavScreen : BoxContainer
         args.Button.Pressed = NavRadar.ShowDocks;
     }
 
-    public void UpdateState(NavInterfaceState scc, ExpeditionDiskInterfaceState expeditionDiskState,
-        bool wepActive = false, TimeSpan wepCooldownExpiry = default) // HL
+    public void UpdateState(
+        NavInterfaceState scc,
+        ExpeditionDiskInterfaceState expeditionDiskState,
+        bool wepActive = false,
+        TimeSpan wepCooldownExpiry = default
+    ) // HL
     {
         NavRadar.UpdateState(scc);
         UpdateExpeditionDisk(expeditionDiskState);
@@ -150,6 +163,7 @@ public sealed partial class NavScreen : BoxContainer
             WEPButton.Text = Loc.GetString("shuttle-console-wep-activate");
         }
     }
+
     // End HL
 
     private void UpdateExpeditionDisk(ExpeditionDiskInterfaceState state)
@@ -163,15 +177,19 @@ public sealed partial class NavScreen : BoxContainer
             return;
         }
 
-        var details = Loc.GetString("shuttle-console-expedition-disk-details",
+        var details = Loc.GetString(
+            "shuttle-console-expedition-disk-details",
             ("planet", state.PlanetType),
             ("difficulty", state.Difficulty),
-            ("objective", state.Objective));
+            ("objective", state.Objective)
+        );
 
         if (state.OnCooldown)
         {
-            var cooldown = Loc.GetString("shuttle-console-expedition-disk-cooldown",
-                ("time", state.CooldownRemaining.ToString("hh\\:mm\\:ss")));
+            var cooldown = Loc.GetString(
+                "shuttle-console-expedition-disk-cooldown",
+                ("time", state.CooldownRemaining.ToString("hh\\:mm\\:ss"))
+            );
             details = $"{details}\n{cooldown}";
         }
 
@@ -191,8 +209,10 @@ public sealed partial class NavScreen : BoxContainer
     {
         base.Draw(handle);
 
-        if (!_entManager.TryGetComponent(_shuttleEntity, out TransformComponent? gridXform) ||
-            !_entManager.TryGetComponent(_shuttleEntity, out PhysicsComponent? gridBody))
+        if (
+            !_entManager.TryGetComponent(_shuttleEntity, out TransformComponent? gridXform)
+            || !_entManager.TryGetComponent(_shuttleEntity, out PhysicsComponent? gridBody)
+        )
         {
             return;
         }
@@ -204,19 +224,27 @@ public sealed partial class NavScreen : BoxContainer
         var displayRot = (-worldRot).Reduced();
         var displayRotDegrees = displayRot.FlipPositive().Degrees;
 
-        GridPosition.Text = Loc.GetString("shuttle-console-position-value",
+        GridPosition.Text = Loc.GetString(
+            "shuttle-console-position-value",
             ("X", $"{worldPos.X:0.0}"),
-            ("Y", $"{worldPos.Y:0.0}"));
-        GridOrientation.Text = Loc.GetString("shuttle-console-orientation-value",
-            ("angle", $"{displayRotDegrees:0.0}"));
+            ("Y", $"{worldPos.Y:0.0}")
+        );
+        GridOrientation.Text = Loc.GetString(
+            "shuttle-console-orientation-value",
+            ("angle", $"{displayRotDegrees:0.0}")
+        );
 
         var gridVelocity = gridBody.LinearVelocity;
         gridVelocity = displayRot.RotateVec(gridVelocity);
         // Get linear velocity relative to the console entity
-        GridLinearVelocity.Text = Loc.GetString("shuttle-console-linear-velocity-value",
+        GridLinearVelocity.Text = Loc.GetString(
+            "shuttle-console-linear-velocity-value",
             ("X", $"{gridVelocity.X + 10f * float.Epsilon:0.0}"),
-            ("Y", $"{gridVelocity.Y + 10f * float.Epsilon:0.0}"));
-        GridAngularVelocity.Text = Loc.GetString("shuttle-console-angular-velocity-value",
-            ("angularVelocity", $"{-MathHelper.RadiansToDegrees(gridBody.AngularVelocity) + 10f * float.Epsilon:0.0}"));
+            ("Y", $"{gridVelocity.Y + 10f * float.Epsilon:0.0}")
+        );
+        GridAngularVelocity.Text = Loc.GetString(
+            "shuttle-console-angular-velocity-value",
+            ("angularVelocity", $"{-MathHelper.RadiansToDegrees(gridBody.AngularVelocity) + 10f * float.Epsilon:0.0}")
+        );
     }
 }

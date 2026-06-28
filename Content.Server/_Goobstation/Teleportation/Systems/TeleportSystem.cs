@@ -10,21 +10,34 @@ using Content.Shared.Teleportation;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Map;
-using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics;
+using Robust.Shared.Physics.Components;
 using Robust.Shared.Random;
 
 namespace Content.Server.Teleportation;
 
 public sealed class TeleportSystem : EntitySystem
 {
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedTransformSystem _xform = default!;
-    [Dependency] private readonly PullingSystem _pullingSystem = default!;
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly StackSystem _stack = default!;
+    [Dependency]
+    private readonly IMapManager _mapManager = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _xform = default!;
+
+    [Dependency]
+    private readonly PullingSystem _pullingSystem = default!;
+
+    [Dependency]
+    private readonly IAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    private readonly StackSystem _stack = default!;
 
     private EntityQuery<PhysicsComponent> _physicsQuery;
 
@@ -45,7 +58,11 @@ public sealed class TeleportSystem : EntitySystem
         if (!TryComp<RandomTeleportComponent>(uid, out var teleport))
             return;
 
-        _adminLogger.Add(LogType.Action, LogImpact.Low, $"{ToPrettyString(args.User):actor} teleported with {ToPrettyString(uid)}");
+        _adminLogger.Add(
+            LogType.Action,
+            LogImpact.Low,
+            $"{ToPrettyString(args.User):actor} teleported with {ToPrettyString(uid)}"
+        );
 
         RandomTeleport(args.User, teleport);
 
@@ -107,9 +124,11 @@ public sealed class TeleportSystem : EntitySystem
                 if (!_physicsQuery.TryGetComponent(entity, out var body))
                     continue;
 
-                if (body.BodyType != BodyType.Static ||
-                    !body.Hard ||
-                    (body.CollisionLayer & (int) CollisionGroup.Impassable) == 0)
+                if (
+                    body.BodyType != BodyType.Static
+                    || !body.Hard
+                    || (body.CollisionLayer & (int)CollisionGroup.Impassable) == 0
+                )
                     continue;
 
                 valid = false;

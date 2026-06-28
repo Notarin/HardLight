@@ -4,7 +4,4 @@ namespace Content.Server._NF.Station.Components;
 /// Copy deep of a ship to a new card
 /// </summary>
 [RegisterComponent]
-public sealed partial class StationDeedSpawnerComponent : Component
-{
-
-}
+public sealed partial class StationDeedSpawnerComponent : Component { }

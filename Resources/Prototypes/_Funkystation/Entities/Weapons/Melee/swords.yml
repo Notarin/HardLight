@@ -15,7 +15,7 @@
     - state: icon-ON
       visible: false
       shader: unshaded
-      map: [ "blade" ]
+      map: ["blade"]
   - type: ToggleCellDraw
   - type: PowerCellDraw
     drawRate: 15

@@ -19,14 +19,29 @@ namespace Content.Server.Nutrition.EntitySystems;
 
 public sealed class FoodSequenceSystem : SharedFoodSequenceSystem
 {
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainer = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly MetaDataSystem _metaData = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly TagSystem _tag = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
+    [Dependency]
+    private readonly SharedSolutionContainerSystem _solutionContainer = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly MetaDataSystem _metaData = default!;
+
+    [Dependency]
+    private readonly MobStateSystem _mobState = default!;
+
+    [Dependency]
+    private readonly TagSystem _tag = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly TransformSystem _transform = default!;
 
     public override void Initialize()
     {
@@ -43,7 +58,10 @@ public sealed class FoodSequenceSystem : SharedFoodSequenceSystem
             args.Handled = TryAddFoodElement(ent, (args.Used, sequenceElement), args.User);
     }
 
-    private void OnIngredientAdded(Entity<FoodMetamorphableByAddingComponent> ent, ref FoodSequenceIngredientAddedEvent args)
+    private void OnIngredientAdded(
+        Entity<FoodMetamorphableByAddingComponent> ent,
+        ref FoodSequenceIngredientAddedEvent args
+    )
     {
         if (!TryComp<FoodSequenceStartPointComponent>(args.Start, out var start))
             return;
@@ -96,7 +114,14 @@ public sealed class FoodSequenceSystem : SharedFoodSequenceSystem
         if (!_solutionContainer.TryGetSolution(result, start.Comp.Solution, out var resultSoln, out var resultSolution))
             return;
 
-        if (!_solutionContainer.TryGetSolution(start.Owner, start.Comp.Solution, out var startSoln, out var startSolution))
+        if (
+            !_solutionContainer.TryGetSolution(
+                start.Owner,
+                start.Comp.Solution,
+                out var startSoln,
+                out var startSolution
+            )
+        )
             return;
 
         _solutionContainer.RemoveAllSolution(resultSoln.Value); //Remove all YML reagents
@@ -108,7 +133,11 @@ public sealed class FoodSequenceSystem : SharedFoodSequenceSystem
         MergeTags(start, result);
     }
 
-    private bool TryAddFoodElement(Entity<FoodSequenceStartPointComponent> start, Entity<FoodSequenceElementComponent> element, EntityUid? user = null)
+    private bool TryAddFoodElement(
+        Entity<FoodSequenceStartPointComponent> start,
+        Entity<FoodSequenceElementComponent> element,
+        EntityUid? user = null
+    )
     {
         // we can't add a live mouse to a burger.
         if (!TryComp<FoodComponent>(element, out var elementFood))
@@ -139,12 +168,14 @@ public sealed class FoodSequenceSystem : SharedFoodSequenceSystem
 
         //Generate new visual layer
         var flip = start.Comp.AllowHorizontalFlip && _random.Prob(0.5f);
-        var layer = new FoodSequenceVisualLayer(elementIndexed,
+        var layer = new FoodSequenceVisualLayer(
+            elementIndexed,
             _random.Pick(elementIndexed.Sprites),
             new Vector2(flip ? -elementIndexed.Scale.X : elementIndexed.Scale.X, elementIndexed.Scale.Y),
             new Vector2(
                 _random.NextFloat(start.Comp.MinLayerOffset.X, start.Comp.MaxLayerOffset.X),
-                _random.NextFloat(start.Comp.MinLayerOffset.Y, start.Comp.MaxLayerOffset.Y))
+                _random.NextFloat(start.Comp.MinLayerOffset.Y, start.Comp.MaxLayerOffset.Y)
+            )
         );
 
         start.Comp.FoodLayers.Add(layer);
@@ -199,10 +230,12 @@ public sealed class FoodSequenceSystem : SharedFoodSequenceSystem
             nameCounter++;
         }
 
-        var newName = Loc.GetString(start.Comp.NameGeneration.Value,
+        var newName = Loc.GetString(
+            start.Comp.NameGeneration.Value,
             ("prefix", start.Comp.NamePrefix is not null ? Loc.GetString(start.Comp.NamePrefix) : ""),
             ("content", content),
-            ("suffix", start.Comp.NameSuffix is not null ? Loc.GetString(start.Comp.NameSuffix) : ""));
+            ("suffix", start.Comp.NameSuffix is not null ? Loc.GetString(start.Comp.NameSuffix) : "")
+        );
 
         _metaData.SetEntityName(start, newName);
     }
@@ -215,7 +248,14 @@ public sealed class FoodSequenceSystem : SharedFoodSequenceSystem
         if (!TryComp<FoodComponent>(element, out var elementFood))
             return;
 
-        if (!_solutionContainer.TryGetSolution(start, startFood.Solution, out var startSolutionEntity, out var startSolution))
+        if (
+            !_solutionContainer.TryGetSolution(
+                start,
+                startFood.Solution,
+                out var startSolutionEntity,
+                out var startSolution
+            )
+        )
             return;
 
         if (!_solutionContainer.TryGetSolution(element, elementFood.Solution, out _, out var elementSolution))

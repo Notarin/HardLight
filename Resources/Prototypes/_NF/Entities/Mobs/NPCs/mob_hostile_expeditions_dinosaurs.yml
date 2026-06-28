@@ -1,7 +1,7 @@
 # Based on https://github.com/space-wizards/space-station-14/pull/26883 by @Vonsant, sprites by belay5 (discord)
 # BASE
 - type: entity
-  parent: [ MobNonHumanHostileBase, NFMobRestrictions ]
+  parent: [MobNonHumanHostileBase, NFMobRestrictions]
   id: BaseMobDinosaurExpeditions
   name: dinosaur
   description: Enigmatic behemoths from a bygone era, known for their imposing stature and formidable presence.
@@ -9,7 +9,7 @@
   components:
   - type: HTN
     rootTask:
-       task: SimpleHostileCompound
+      task: SimpleHostileCompound
     blackboard:
       NavClimb: true
       NavInteract: true
@@ -30,14 +30,13 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.40 # Lowered the value, to allow them to fit through the airlocks
         density: 1000
         mask:
-          - MobMask
+        - MobMask
         layer:
-          - MobLayer
+        - MobLayer
   - type: ReplacementAccent
     accent: genericAggressive
   - type: Bloodstream
@@ -45,12 +44,10 @@
     bloodMaxVolume: 250
     bloodlossDamage:
       types:
-        Bloodloss:
-          0.5
+        Bloodloss: 0.5
     bloodlossHealDamage:
       types:
-        Bloodloss:
-          -1
+        Bloodloss: -1
   - type: MobThresholds
     thresholds:
       0: Alive
@@ -67,8 +64,8 @@
     - FootstepSound
     - DoorBumpOpener
   - type: MovementSpeedModifier
-    baseWalkSpeed : 4.5
-    baseSprintSpeed : 4.5
+    baseWalkSpeed: 4.5
+    baseSprintSpeed: 4.5
 
 # MOBS
 # Sorted by health pool (less health ~= faster and harder hitting)
@@ -77,7 +74,7 @@
   id: MobDinosaurCompyExpeditions
   name: compsognathus
   description: Compsognathus is a genus of small, bipedal, carnivorous theropods. They have long hind legs and longer tails, which they used for balance during locomotion. Their forelimbs are small but beware of their claws.
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Butcherable
     spawned:
@@ -95,7 +92,7 @@
     drawdepth: Mobs
     sprite: _NF/Mobs/Dinosaurs/compy.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: compy
       scale: 0.4, 0.4
   - type: DamageStateVisuals
@@ -108,7 +105,7 @@
         Base: compy_dead
   - type: MeleeWeapon
     soundHit:
-        path: /Audio/Weapons/Xeno/alien_claw_flesh3.ogg
+      path: /Audio/Weapons/Xeno/alien_claw_flesh3.ogg
     angle: 0
     animation: WeaponArcClaw
     damage:
@@ -116,7 +113,7 @@
         Slash: 8
         Structural: 20
   - type: MovementSpeedModifier
-    baseSprintSpeed : 4.1
+    baseSprintSpeed: 4.1
     baseWalkSpeed: 4.1
   - type: FootstepModifier
     footstepSoundCollection:
@@ -127,7 +124,7 @@
   id: MobDinosaurDiloExpeditions
   name: dilophosaurus
   description: With a name meaning "two-crested lizard", these measure in at about 7 m in length and 400 kg in weight. Slender and lightly built, these are very agile.
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Butcherable
     spawned:
@@ -145,7 +142,7 @@
     drawdepth: Mobs
     sprite: _NF/Mobs/Dinosaurs/dilo.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: dilo
   - type: DamageStateVisuals
     states:
@@ -157,7 +154,7 @@
         Base: dilo_dead
   - type: MeleeWeapon
     soundHit:
-        path: /Audio/Weapons/Xeno/alien_claw_flesh3.ogg
+      path: /Audio/Weapons/Xeno/alien_claw_flesh3.ogg
     angle: 0
     animation: WeaponArcBite
     damage:
@@ -166,7 +163,7 @@
         Caustic: 2
         Structural: 25
   - type: MovementSpeedModifier
-    baseSprintSpeed : 4.3
+    baseSprintSpeed: 4.3
     baseWalkSpeed: 4.3
 
 - type: entity
@@ -174,7 +171,7 @@
   id: MobDinosaurRaptorExpeditions
   name: velociraptor
   description: A bipedal, featherless carnivore with a long tail. Each of its hindfeet has an enlarged sickle-shaped claw, which is used to tackle and restrain prey. Very fast, exercise caution.
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Butcherable
     spawned:
@@ -192,7 +189,7 @@
     drawdepth: Mobs
     sprite: _NF/Mobs/Dinosaurs/raptor.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: raptor
   - type: MobThresholds
     thresholds:
@@ -212,7 +209,7 @@
         Base: raptor_dead
   - type: MeleeWeapon
     soundHit:
-        path: /Audio/Weapons/Xeno/alien_claw_flesh3.ogg
+      path: /Audio/Weapons/Xeno/alien_claw_flesh3.ogg
     angle: 0
     animation: WeaponArcClaw
     damage:
@@ -220,7 +217,7 @@
         Slash: 18
         Structural: 30
   - type: MovementSpeedModifier
-    baseSprintSpeed : 4.5
+    baseSprintSpeed: 4.5
     baseWalkSpeed: 4.5
 
 - type: entity
@@ -228,7 +225,7 @@
   id: MobDinosaurParaExpeditions
   name: parasaurolophus
   description: A large carnivore that can reach over 9 metres (30 ft) long and weigh over 5 metric tons (5.5 short tons), these can move on two legs or four. Reasonably fast for its size, but comparatively fragile and weak.
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Butcherable
     spawned:
@@ -241,7 +238,7 @@
       prob: 0.3 # 0-2 legs randomly
     - id: FoodMeatOnBone
       amount: 1
-      prob: 0.3 
+      prob: 0.3
     - id: DinosaurFang
       amount: 1
       prob: 0.2
@@ -249,7 +246,7 @@
     drawdepth: Mobs
     sprite: _NF/Mobs/Dinosaurs/para.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: para
   - type: MobThresholds
     thresholds:
@@ -269,7 +266,7 @@
         Base: para_dead
   - type: MeleeWeapon
     soundHit:
-        path: /Audio/Weapons/Xeno/alien_claw_flesh3.ogg
+      path: /Audio/Weapons/Xeno/alien_claw_flesh3.ogg
     angle: 0
     animation: WeaponArcClaw
     damage:
@@ -277,7 +274,7 @@
         Blunt: 6
         Structural: 20
   - type: MovementSpeedModifier
-    baseSprintSpeed : 4
+    baseSprintSpeed: 4
     baseWalkSpeed: 4
 
 - type: entity
@@ -285,7 +282,7 @@
   id: MobDinosaurKentroExpeditions
   name: kentrosaurus
   description: On the smaller side of dinosaurs, Kentrosaurus generally measure around 4–4.5 m, and weigh about 700–1,600 kg. Its elongated head and beak are used to bite off plant material or tear off limbs.
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Butcherable
     spawned:
@@ -306,7 +303,7 @@
     drawdepth: Mobs
     sprite: _NF/Mobs/Dinosaurs/kentro.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: kentro
   - type: MobThresholds
     thresholds:
@@ -334,7 +331,7 @@
         Blunt: 10
         Structural: 20
   - type: MovementSpeedModifier
-    baseSprintSpeed : 2.5
+    baseSprintSpeed: 2.5
     baseWalkSpeed: 2.5
 
 - type: entity
@@ -342,7 +339,7 @@
   id: MobDinosaurTrikeExpeditions
   name: triceratops
   description: Bearing a large bony frill with three horns on its skull, this massive quadruped is one of the most recognizable of all dinosaurs and the best-known ceratopsian. Typically tries to gore whatever it attacks.
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Butcherable
     spawned:
@@ -363,7 +360,7 @@
     drawdepth: Mobs
     sprite: _NF/Mobs/Dinosaurs/trike.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: trike
   - type: MobThresholds
     thresholds:
@@ -383,7 +380,7 @@
         Base: trike_dead
   - type: MeleeWeapon
     soundHit:
-        path: /Audio/Weapons/Xeno/alien_claw_flesh3.ogg
+      path: /Audio/Weapons/Xeno/alien_claw_flesh3.ogg
     angle: 0
     animation: WeaponArcClaw
     damage:
@@ -391,7 +388,7 @@
         Piercing: 12
         Structural: 20
   - type: MovementSpeedModifier
-    baseSprintSpeed : 3
+    baseSprintSpeed: 3
     baseWalkSpeed: 3
 
 - type: entity
@@ -399,7 +396,7 @@
   id: MobDinosaurAnkiExpeditions
   name: ankylosaurus
   description: Typically between between 6 and 8 meters long and between 4.8 and 8 tons in weight, this lumbering beast shouldn't be underestimated. Its wide, low skull and robust body can take a beating and still survive, and the large club on the end of its tail can be used as a weapon.
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Butcherable
     spawned:
@@ -420,7 +417,7 @@
     drawdepth: Mobs
     sprite: _NF/Mobs/Dinosaurs/anki.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: anki
   - type: MobThresholds
     thresholds:
@@ -448,7 +445,7 @@
         Blunt: 12
         Structural: 20
   - type: MovementSpeedModifier
-    baseSprintSpeed : 2
+    baseSprintSpeed: 2
     baseWalkSpeed: 2
 
 - type: entity
@@ -456,7 +453,7 @@
   id: MobDinosaurSpinoExpeditions
   name: spinosaurus
   description: With a typical length of 14 m and a mass of 7.4 tons, Spinosaurus has large, robust forelimbs. Each of its hands has three-fingers, with an enlarged claw on the first digit. Surprisingly quick for its size, this giant can take a lot of punishment.
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Butcherable
     spawned:
@@ -476,7 +473,7 @@
     drawdepth: Mobs
     sprite: _NF/Mobs/Dinosaurs/spino.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: spino
   - type: MobThresholds
     thresholds:
@@ -496,7 +493,7 @@
         Base: spino_dead
   - type: MeleeWeapon
     soundHit:
-        path: /Audio/Weapons/Xeno/alien_claw_flesh3.ogg
+      path: /Audio/Weapons/Xeno/alien_claw_flesh3.ogg
     angle: 0
     animation: WeaponArcBite
     damage:
@@ -504,7 +501,7 @@
         Blunt: 12
         Structural: 20
   - type: MovementSpeedModifier
-    baseSprintSpeed : 4.5
+    baseSprintSpeed: 4.5
     baseWalkSpeed: 4.5
 
 - type: entity
@@ -512,7 +509,7 @@
   id: MobDinosaurStegoExpeditions
   name: stegosaurus
   description: Large and heavily built, these herbivorous quadrupeds have rounded backs, short fore limbs, long hind limbs, and tails held high in the air. Lumbering, but lethal up close.
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Butcherable
     spawned:
@@ -532,7 +529,7 @@
     drawdepth: Mobs
     sprite: _NF/Mobs/Dinosaurs/stego.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: stego
   - type: MobThresholds
     thresholds:
@@ -552,7 +549,7 @@
         Base: stego_dead
   - type: MeleeWeapon
     soundHit:
-        path: /Audio/Weapons/Xeno/alien_claw_flesh3.ogg
+      path: /Audio/Weapons/Xeno/alien_claw_flesh3.ogg
     angle: 0
     animation: WeaponArcClaw
     damage:
@@ -561,16 +558,16 @@
         Piercing: 8
         Structural: 20
   - type: MovementSpeedModifier
-    baseSprintSpeed : 3
+    baseSprintSpeed: 3
     baseWalkSpeed: 3
 
 # EXPEDITION BOSS
 - type: entity
-  parent: [ BaseMobDinosaurExpeditions, NFMobBossRestrictions ]
+  parent: [BaseMobDinosaurExpeditions, NFMobBossRestrictions]
   id: MobDinosaurTrexExpeditions
   name: tyrannosaurus
   description: A massive therapod, its giant thorax is balanced by a long, heavy tail. Relative to its large and powerful hind limbs, the forelimbs of Tyrannosaurus are short but incredible powerful for their size, and they have two clawed digits.
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Butcherable
     spawned:
@@ -588,7 +585,7 @@
     drawdepth: Mobs
     sprite: _NF/Mobs/Dinosaurs/trex.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: trex
   - type: MobThresholds
     thresholds:
@@ -608,7 +605,7 @@
         Base: trex_dead
   - type: MeleeWeapon
     soundHit:
-        path: /Audio/Weapons/Xeno/alien_claw_flesh3.ogg
+      path: /Audio/Weapons/Xeno/alien_claw_flesh3.ogg
     angle: 0
     animation: WeaponArcBite
     damage:
@@ -617,5 +614,5 @@
         Piercing: 10
         Structural: 20
   - type: MovementSpeedModifier
-    baseSprintSpeed : 4.5
+    baseSprintSpeed: 4.5
     baseWalkSpeed: 4.5

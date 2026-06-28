@@ -1,5 +1,5 @@
-using Robust.Shared.Map;
 using System.Numerics;
+using Robust.Shared.Map;
 
 namespace Content.Server._Mono.NPC.HTN;
 

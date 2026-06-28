@@ -17,6 +17,7 @@ public sealed partial class StationAnchorComponent : Component
 
     [DataField("togglePort", customTypeSerializer: typeof(PrototypeIdSerializer<SinkPortPrototype>))]
     public string TogglePort = "Toggle";
+
     // End Frontier
 
     [DataField("switchedOn")]

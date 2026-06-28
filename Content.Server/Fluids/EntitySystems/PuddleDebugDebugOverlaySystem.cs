@@ -10,11 +10,20 @@ namespace Content.Server.Fluids.EntitySystems;
 
 public sealed class PuddleDebugDebugOverlaySystem : SharedPuddleDebugOverlaySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly PuddleSystem _puddle = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IMapManager _mapManager = default!;
+
+    [Dependency]
+    private readonly PuddleSystem _puddle = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _map = default!;
 
     private readonly HashSet<ICommonSession> _playerObservers = [];
     private List<Entity<MapGridComponent>> _grids = [];
@@ -57,9 +66,10 @@ public sealed class PuddleDebugDebugOverlaySystem : SharedPuddleDebugOverlaySyst
 
             var transform = EntityManager.GetComponent<TransformComponent>(entity);
 
-
-            var worldBounds = Box2.CenteredAround(_transform.GetWorldPosition(transform),
-                new Vector2(LocalViewRange, LocalViewRange));
+            var worldBounds = Box2.CenteredAround(
+                _transform.GetWorldPosition(transform),
+                new Vector2(LocalViewRange, LocalViewRange)
+            );
 
             _grids.Clear();
             _mapManager.FindGridsIntersecting(transform.MapID, worldBounds, ref _grids);

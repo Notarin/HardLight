@@ -11,22 +11,22 @@ namespace Content.Server.Database.Migrations.Postgres
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "backpack",
-                table: "profile");
+            migrationBuilder.DropColumn(name: "backpack", table: "profile");
 
-            migrationBuilder.DropColumn(
-                name: "clothing",
-                table: "profile");
+            migrationBuilder.DropColumn(name: "clothing", table: "profile");
 
             migrationBuilder.CreateTable(
                 name: "profile_role_loadout",
                 columns: table => new
                 {
-                    profile_role_loadout_id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    profile_role_loadout_id = table
+                        .Column<int>(type: "integer", nullable: false)
+                        .Annotation(
+                            "Npgsql:ValueGenerationStrategy",
+                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
+                        ),
                     profile_id = table.Column<int>(type: "integer", nullable: false),
-                    role_name = table.Column<string>(type: "text", nullable: false)
+                    role_name = table.Column<string>(type: "text", nullable: false),
                 },
                 constraints: table =>
                 {
@@ -36,17 +36,23 @@ namespace Content.Server.Database.Migrations.Postgres
                         column: x => x.profile_id,
                         principalTable: "profile",
                         principalColumn: "profile_id",
-                        onDelete: ReferentialAction.Cascade);
-                });
+                        onDelete: ReferentialAction.Cascade
+                    );
+                }
+            );
 
             migrationBuilder.CreateTable(
                 name: "profile_loadout_group",
                 columns: table => new
                 {
-                    profile_loadout_group_id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    profile_loadout_group_id = table
+                        .Column<int>(type: "integer", nullable: false)
+                        .Annotation(
+                            "Npgsql:ValueGenerationStrategy",
+                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
+                        ),
                     profile_role_loadout_id = table.Column<int>(type: "integer", nullable: false),
-                    group_name = table.Column<string>(type: "text", nullable: false)
+                    group_name = table.Column<string>(type: "text", nullable: false),
                 },
                 constraints: table =>
                 {
@@ -56,17 +62,23 @@ namespace Content.Server.Database.Migrations.Postgres
                         column: x => x.profile_role_loadout_id,
                         principalTable: "profile_role_loadout",
                         principalColumn: "profile_role_loadout_id",
-                        onDelete: ReferentialAction.Cascade);
-                });
+                        onDelete: ReferentialAction.Cascade
+                    );
+                }
+            );
 
             migrationBuilder.CreateTable(
                 name: "profile_loadout",
                 columns: table => new
                 {
-                    profile_loadout_id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    profile_loadout_id = table
+                        .Column<int>(type: "integer", nullable: false)
+                        .Annotation(
+                            "Npgsql:ValueGenerationStrategy",
+                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
+                        ),
                     profile_loadout_group_id = table.Column<int>(type: "integer", nullable: false),
-                    loadout_name = table.Column<string>(type: "text", nullable: false)
+                    loadout_name = table.Column<string>(type: "text", nullable: false),
                 },
                 constraints: table =>
                 {
@@ -76,50 +88,54 @@ namespace Content.Server.Database.Migrations.Postgres
                         column: x => x.profile_loadout_group_id,
                         principalTable: "profile_loadout_group",
                         principalColumn: "profile_loadout_group_id",
-                        onDelete: ReferentialAction.Cascade);
-                });
+                        onDelete: ReferentialAction.Cascade
+                    );
+                }
+            );
 
             migrationBuilder.CreateIndex(
                 name: "IX_profile_loadout_profile_loadout_group_id",
                 table: "profile_loadout",
-                column: "profile_loadout_group_id");
+                column: "profile_loadout_group_id"
+            );
 
             migrationBuilder.CreateIndex(
                 name: "IX_profile_loadout_group_profile_role_loadout_id",
                 table: "profile_loadout_group",
-                column: "profile_role_loadout_id");
+                column: "profile_role_loadout_id"
+            );
 
             migrationBuilder.CreateIndex(
                 name: "IX_profile_role_loadout_profile_id",
                 table: "profile_role_loadout",
-                column: "profile_id");
+                column: "profile_id"
+            );
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "profile_loadout");
+            migrationBuilder.DropTable(name: "profile_loadout");
 
-            migrationBuilder.DropTable(
-                name: "profile_loadout_group");
+            migrationBuilder.DropTable(name: "profile_loadout_group");
 
-            migrationBuilder.DropTable(
-                name: "profile_role_loadout");
+            migrationBuilder.DropTable(name: "profile_role_loadout");
 
             migrationBuilder.AddColumn<string>(
                 name: "backpack",
                 table: "profile",
                 type: "text",
                 nullable: false,
-                defaultValue: "");
+                defaultValue: ""
+            );
 
             migrationBuilder.AddColumn<string>(
                 name: "clothing",
                 table: "profile",
                 type: "text",
                 nullable: false,
-                defaultValue: "");
+                defaultValue: ""
+            );
         }
     }
 }

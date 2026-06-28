@@ -17,7 +17,12 @@ public sealed class EntityCoordinatesConverter : AdminLogConverter<SerializableE
         _entityManager = new WeakReference<IEntityManager>(dependencies.Resolve<IEntityManager>());
     }
 
-    public void Write(Utf8JsonWriter writer, SerializableEntityCoordinates value, JsonSerializerOptions options, IEntityManager entities)
+    public void Write(
+        Utf8JsonWriter writer,
+        SerializableEntityCoordinates value,
+        JsonSerializerOptions options,
+        IEntityManager entities
+    )
     {
         writer.WriteStartObject();
         WriteEntityInfo(writer, value.EntityUid, entities, "parent");
@@ -30,7 +35,12 @@ public sealed class EntityCoordinatesConverter : AdminLogConverter<SerializableE
         writer.WriteEndObject();
     }
 
-    private static void WriteEntityInfo(Utf8JsonWriter writer, EntityUid value, IEntityManager entities, string rootName)
+    private static void WriteEntityInfo(
+        Utf8JsonWriter writer,
+        EntityUid value,
+        IEntityManager entities,
+        string rootName
+    )
     {
         writer.WriteStartObject(rootName);
         writer.WriteNumber("uid", value.GetHashCode());
@@ -51,7 +61,11 @@ public sealed class EntityCoordinatesConverter : AdminLogConverter<SerializableE
         writer.WriteEndObject();
     }
 
-    public override void Write(Utf8JsonWriter writer, SerializableEntityCoordinates value, JsonSerializerOptions options)
+    public override void Write(
+        Utf8JsonWriter writer,
+        SerializableEntityCoordinates value,
+        JsonSerializerOptions options
+    )
     {
         if (!_entityManager.TryGetTarget(out var entityManager))
             throw new InvalidOperationException("EntityManager got garbage collected!");

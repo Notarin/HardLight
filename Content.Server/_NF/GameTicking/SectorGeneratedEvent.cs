@@ -5,7 +5,5 @@ namespace Content.Server._NF.GameTicking.Events;
 /// </summary>
 public sealed class StationsGeneratedEvent : EntityEventArgs
 {
-    public StationsGeneratedEvent()
-    {
-    }
+    public StationsGeneratedEvent() { }
 }

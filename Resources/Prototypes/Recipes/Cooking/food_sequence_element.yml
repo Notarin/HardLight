@@ -565,7 +565,7 @@
   - sprite: Objects/Specific/Hydroponics/lemon.rsi
     state: produce
   tags:
-    - Fruit
+  - Fruit
 
 # Lemoon
 
@@ -576,7 +576,7 @@
   - sprite: Objects/Specific/Hydroponics/lemoon.rsi
     state: produce
   tags:
-    - Fruit
+  - Fruit
 
 # Lime
 
@@ -587,7 +587,7 @@
   - sprite: Objects/Specific/Hydroponics/lime.rsi
     state: produce
   tags:
-    - Fruit
+  - Fruit
 
 # Orange
 
@@ -598,7 +598,7 @@
   - sprite: Objects/Specific/Hydroponics/orange.rsi
     state: produce
   tags:
-    - Fruit
+  - Fruit
 
 # Extradimensional Orange
 
@@ -610,7 +610,7 @@
     state: produce
   scale: 0.5,0.5
   tags:
-    - Fruit
+  - Fruit
 
 - type: foodSequenceElement
   id: ExtradimensionalOrangeBurger
@@ -620,7 +620,7 @@
     state: produce
   scale: 0.5,0.5
   tags:
-    - Fruit
+  - Fruit
 
 # Potato
 
@@ -631,7 +631,7 @@
   - sprite: Objects/Specific/Hydroponics/potato.rsi
     state: produce
   tags:
-    - Vegetable
+  - Vegetable
 
 # Tomato
 
@@ -1201,7 +1201,6 @@
   sprites:
   - sprite: Objects/Consumable/Food/Baked/cake.rsi
     state: suppermatter-shard
-
 
 # Anomaly berries
 

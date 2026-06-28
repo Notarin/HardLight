@@ -9,8 +9,11 @@ public sealed class GrantConnectBypassCommand : LocalizedCommands
 {
     private static readonly TimeSpan DefaultDuration = TimeSpan.FromHours(1);
 
-    [Dependency] private readonly IPlayerLocator _playerLocator = default!;
-    [Dependency] private readonly IConnectionManager _connectionManager = default!;
+    [Dependency]
+    private readonly IPlayerLocator _playerLocator = default!;
+
+    [Dependency]
+    private readonly IConnectionManager _connectionManager = default!;
 
     public override string Command => "grant_connect_bypass";
 

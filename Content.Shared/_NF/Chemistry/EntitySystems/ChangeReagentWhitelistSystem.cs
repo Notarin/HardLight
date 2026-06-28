@@ -1,11 +1,9 @@
-
 using Content.Shared._NF.Chemistry.Components;
 using Content.Shared._NF.Chemistry.Events;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Verbs;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
-
 
 namespace Content.Shared._NF.Chemistry.EntitySystems;
 
@@ -14,14 +12,18 @@ namespace Content.Shared._NF.Chemistry.EntitySystems;
 /// </summary>
 public sealed class ReagentWhitelistChangeSystem : EntitySystem
 {
-    [Dependency] private readonly SharedUserInterfaceSystem _ui = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency]
+    private readonly SharedUserInterfaceSystem _ui = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
 
     [NetSerializable, Serializable]
     public enum ReagentWhitelistChangeUIKey : byte
     {
-        Key
+        Key,
     }
+
     public override void Initialize()
     {
         base.Initialize();
@@ -31,26 +33,34 @@ public sealed class ReagentWhitelistChangeSystem : EntitySystem
         SubscribeLocalEvent<ReagentWhitelistChangeComponent, ReagentWhitelistResetMessage>(OnReagentWhitelistReset);
     }
 
-    private void AddChangeFilterVerb(Entity<ReagentWhitelistChangeComponent> ent, ref GetVerbsEvent<InteractionVerb> args)
+    private void AddChangeFilterVerb(
+        Entity<ReagentWhitelistChangeComponent> ent,
+        ref GetVerbsEvent<InteractionVerb> args
+    )
     {
         var (uid, comp) = ent;
 
         if (!args.CanAccess || !args.CanInteract || args.Hands == null)
             return;
         var @event = args;
-        args.Verbs.Add(new InteractionVerb()
-        {
-            Text = Loc.GetString("comp-change-reagent-whitelist-verb-filter"),
-            //Icon = new SpriteSpecifier(),
-            Act = () =>
+        args.Verbs.Add(
+            new InteractionVerb()
             {
-                _ui.OpenUi(uid, ReagentWhitelistChangeUIKey.Key, @event.User);
-            },
-            Priority = 1
-        });
+                Text = Loc.GetString("comp-change-reagent-whitelist-verb-filter"),
+                //Icon = new SpriteSpecifier(),
+                Act = () =>
+                {
+                    _ui.OpenUi(uid, ReagentWhitelistChangeUIKey.Key, @event.User);
+                },
+                Priority = 1,
+            }
+        );
     }
 
-    private void OnReagentWhitelistChange(Entity<ReagentWhitelistChangeComponent> ent, ref ReagentWhitelistChangeMessage args)
+    private void OnReagentWhitelistChange(
+        Entity<ReagentWhitelistChangeComponent> ent,
+        ref ReagentWhitelistChangeMessage args
+    )
     {
         if (!TryComp<InjectorComponent>(ent.Owner, out var injectorComp))
         {
@@ -70,7 +80,10 @@ public sealed class ReagentWhitelistChangeSystem : EntitySystem
         injectorComp.ReagentWhitelist = new() { args.NewReagentProto };
     }
 
-    private void OnReagentWhitelistReset(Entity<ReagentWhitelistChangeComponent> ent, ref ReagentWhitelistResetMessage args)
+    private void OnReagentWhitelistReset(
+        Entity<ReagentWhitelistChangeComponent> ent,
+        ref ReagentWhitelistResetMessage args
+    )
     {
         if (!TryComp<InjectorComponent>(ent.Owner, out var injectorComp))
         {

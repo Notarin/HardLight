@@ -7,9 +7,14 @@ namespace Content.Server._Mono.Cleanup;
 public abstract class BaseCleanupSystem<TComp> : EntitySystem
     where TComp : IComponent
 {
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
 
     protected TimeSpan _cleanupInterval = TimeSpan.FromSeconds(300);
     protected TimeSpan _debugCleanupInterval = TimeSpan.FromSeconds(15);
@@ -20,6 +25,7 @@ public abstract class BaseCleanupSystem<TComp> : EntitySystem
 
     private TimeSpan _nextCleanup = TimeSpan.Zero;
     private int _delCount = 0;
+
     // used to track when we should be cleaning up the next entry in our queue
     private TimeSpan _cleanupAccumulator = TimeSpan.Zero;
     private TimeSpan _cleanupDeferDuration;

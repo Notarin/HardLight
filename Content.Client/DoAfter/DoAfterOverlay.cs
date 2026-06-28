@@ -1,14 +1,14 @@
 using System.Numerics;
-using Content.Shared.DoAfter;
 using Content.Client.UserInterface.Systems;
+using Content.Shared.DoAfter;
 using Robust.Client.GameObjects;
 using Robust.Client.Graphics;
-using Robust.Shared.Enums;
 using Robust.Client.Player;
+using Robust.Shared.Containers;
+using Robust.Shared.Enums;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
-using Robust.Shared.Containers;
 
 namespace Content.Client.DoAfter;
 
@@ -37,7 +37,12 @@ public sealed class DoAfterOverlay : Overlay
 
     public override OverlaySpace Space => OverlaySpace.WorldSpaceBelowFOV;
 
-    public DoAfterOverlay(IEntityManager entManager, IPrototypeManager protoManager, IGameTiming timing, IPlayerManager player)
+    public DoAfterOverlay(
+        IEntityManager entManager,
+        IPrototypeManager protoManager,
+        IGameTiming timing,
+        IPlayerManager player
+    )
     {
         _entManager = entManager;
         _timing = timing;
@@ -72,7 +77,12 @@ public sealed class DoAfterOverlay : Overlay
         var localEnt = _player.LocalSession?.AttachedEntity;
 
         var metaQuery = _entManager.GetEntityQuery<MetaDataComponent>();
-        var enumerator = _entManager.AllEntityQueryEnumerator<ActiveDoAfterComponent, DoAfterComponent, SpriteComponent, TransformComponent>();
+        var enumerator = _entManager.AllEntityQueryEnumerator<
+            ActiveDoAfterComponent,
+            DoAfterComponent,
+            SpriteComponent,
+            TransformComponent
+        >();
         while (enumerator.MoveNext(out var uid, out _, out var comp, out var sprite, out var xform))
         {
             if (xform.MapID != args.MapId)
@@ -94,9 +104,7 @@ public sealed class DoAfterOverlay : Overlay
 
             // If the entity is paused, we will draw the do-after as it was when the entity got paused.
             var meta = metaQuery.GetComponent(uid);
-            var time = meta.EntityPaused
-                ? curTime - _meta.GetPauseTime(uid, meta)
-                : curTime;
+            var time = meta.EntityPaused ? curTime - _meta.GetPauseTime(uid, meta) : curTime;
 
             var worldMatrix = Matrix3Helpers.CreateTranslation(worldPosition);
             var scaledWorld = Matrix3x2.Multiply(scaleMatrix, worldMatrix);
@@ -126,8 +134,10 @@ public sealed class DoAfterOverlay : Overlay
 
                 // Position above the entity (we've already applied the matrix transform to the entity itself)
                 // Offset by the texture size for every do_after we have.
-                var position = new Vector2(-_barTexture.Width / 2f / EyeManager.PixelsPerMeter,
-                    yOffset / scale + offset / EyeManager.PixelsPerMeter * scale);
+                var position = new Vector2(
+                    -_barTexture.Width / 2f / EyeManager.PixelsPerMeter,
+                    yOffset / scale + offset / EyeManager.PixelsPerMeter * scale
+                );
 
                 // Draw the underlying bar texture
                 handle.DrawTexture(_barTexture, position);
@@ -152,7 +162,10 @@ public sealed class DoAfterOverlay : Overlay
                 }
 
                 var xProgress = (EndX - StartX) * elapsedRatio + StartX;
-                var box = new Box2(new Vector2(StartX, 3f) / EyeManager.PixelsPerMeter, new Vector2(xProgress, 4f) / EyeManager.PixelsPerMeter);
+                var box = new Box2(
+                    new Vector2(StartX, 3f) / EyeManager.PixelsPerMeter,
+                    new Vector2(xProgress, 4f) / EyeManager.PixelsPerMeter
+                );
                 box = box.Translated(position);
                 handle.DrawRect(box, color);
                 offset += _barTexture.Height / scale;

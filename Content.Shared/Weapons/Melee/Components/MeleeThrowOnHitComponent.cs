@@ -1,8 +1,8 @@
 using System.Numerics;
+using Content.Shared.Whitelist; // Frontier
 using Robust.Shared.GameStates;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
-using Content.Shared.Whitelist; // Frontier
 
 namespace Content.Shared.Weapons.Melee.Components;
 
@@ -55,7 +55,12 @@ public sealed partial class MeleeThrowOnHitComponent : Component
 /// Raised a weapon entity with <see cref="MeleeThrowOnHitComponent"/> to see if a throw is allowed.
 /// </summary>
 [ByRefEvent]
-public record struct AttemptMeleeThrowOnHitEvent(EntityUid Target, EntityUid? User, bool Cancelled = false, bool Handled = false);
+public record struct AttemptMeleeThrowOnHitEvent(
+    EntityUid Target,
+    EntityUid? User,
+    bool Cancelled = false,
+    bool Handled = false
+);
 
 /// <summary>
 /// Raised a target entity before it is thrown by <see cref="MeleeThrowOnHitComponent"/>.

@@ -9,9 +9,14 @@ namespace Content.Shared.Whistle;
 
 public sealed class WhistleSystem : EntitySystem
 {
-    [Dependency] private readonly EntityLookupSystem _entityLookup = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency]
+    private readonly EntityLookupSystem _entityLookup = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
 
     public override void Initialize()
     {
@@ -46,8 +51,12 @@ public sealed class WhistleSystem : EntitySystem
     {
         StealthComponent? stealth = null;
 
-        foreach (var iterator in
-            _entityLookup.GetEntitiesInRange<HumanoidAppearanceComponent>(_transform.GetMapCoordinates(uid), component.Distance))
+        foreach (
+            var iterator in _entityLookup.GetEntitiesInRange<HumanoidAppearanceComponent>(
+                _transform.GetMapCoordinates(uid),
+                component.Distance
+            )
+        )
         {
             //Avoid pinging invisible entities
             if (TryComp(iterator, out stealth) && stealth.Enabled)

@@ -11,7 +11,8 @@ namespace Content.Server.NPC.HTN.PrimitiveTasks.Operators.Specific;
 
 public sealed partial class PickNearbyServicableHydroponicsTrayOperator : HTNOperator
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
 
     private EntityLookupSystem _lookup = default!;
     private PathfindingSystem _pathfinding = default!;
@@ -19,7 +20,8 @@ public sealed partial class PickNearbyServicableHydroponicsTrayOperator : HTNOpe
     /// <summary>
     /// Determines how close the bot needs to be to service a tray
     /// </summary>
-    [DataField] public string RangeKey = NPCBlackboard.PlantbotServiceRange;
+    [DataField]
+    public string RangeKey = NPCBlackboard.PlantbotServiceRange;
 
     /// <summary>
     /// Target entity to service
@@ -41,12 +43,17 @@ public sealed partial class PickNearbyServicableHydroponicsTrayOperator : HTNOpe
         _pathfinding = sysManager.GetEntitySystem<PathfindingSystem>();
     }
 
-    public override async Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(NPCBlackboard blackboard,
-        CancellationToken cancelToken)
+    public override async Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(
+        NPCBlackboard blackboard,
+        CancellationToken cancelToken
+    )
     {
         var owner = blackboard.GetValue<EntityUid>(NPCBlackboard.Owner);
 
-        if (!blackboard.TryGetValue<float>(RangeKey, out var range, _entManager) || !_entManager.TryGetComponent<PlantbotComponent>(owner, out _))
+        if (
+            !blackboard.TryGetValue<float>(RangeKey, out var range, _entManager)
+            || !_entManager.TryGetComponent<PlantbotComponent>(owner, out _)
+        )
             return (false, null);
 
         var entityQuery = _entManager.GetEntityQuery<PlantHolderComponent>();
@@ -57,7 +64,14 @@ public sealed partial class PickNearbyServicableHydroponicsTrayOperator : HTNOpe
             if (!entityQuery.TryGetComponent(target, out var plantHolderComponent))
                 continue;
 
-            if (plantHolderComponent is { WaterLevel: >= PlantbotServiceOperator.RequiredWaterLevelToService, WeedLevel: <= PlantbotServiceOperator.RequiredWeedsAmountToWeed } && (!emagged || plantHolderComponent.Dead || plantHolderComponent.WaterLevel <= 0f))
+            if (
+                plantHolderComponent
+                    is {
+                        WaterLevel: >= PlantbotServiceOperator.RequiredWaterLevelToService,
+                        WeedLevel: <= PlantbotServiceOperator.RequiredWeedsAmountToWeed
+                    }
+                && (!emagged || plantHolderComponent.Dead || plantHolderComponent.WaterLevel <= 0f)
+            )
                 continue;
 
             //Needed to make sure it doesn't sometimes stop right outside it's interaction range
@@ -67,12 +81,15 @@ public sealed partial class PickNearbyServicableHydroponicsTrayOperator : HTNOpe
             if (path.Result == PathResult.NoPath)
                 continue;
 
-            return (true, new Dictionary<string, object>()
-            {
-                {TargetKey, target},
-                {TargetMoveKey, _entManager.GetComponent<TransformComponent>(target).Coordinates},
-                {NPCBlackboard.PathfindKey, path},
-            });
+            return (
+                true,
+                new Dictionary<string, object>()
+                {
+                    { TargetKey, target },
+                    { TargetMoveKey, _entManager.GetComponent<TransformComponent>(target).Coordinates },
+                    { NPCBlackboard.PathfindKey, path },
+                }
+            );
         }
 
         return (false, null);

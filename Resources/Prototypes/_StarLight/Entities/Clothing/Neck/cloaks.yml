@@ -5,9 +5,9 @@
   description: a stylish poncho for a CC offical that prefers field-work to pushing papers.
   components:
   - type: Sprite
-    sprite:  _Starlight/Clothing/Neck/Cloaks/CC_poncho.rsi
+    sprite: _Starlight/Clothing/Neck/Cloaks/CC_poncho.rsi
   - type: Clothing
-    sprite:  _Starlight/Clothing/Neck/Cloaks/CC_poncho.rsi
+    sprite: _Starlight/Clothing/Neck/Cloaks/CC_poncho.rsi
 
 - type: entity
   parent: ClothingNeckBase
@@ -15,13 +15,13 @@
   name: black fur cloak
   description: Neat cloak with fur around the neck and hem.
   components:
-    - type: Sprite
-      sprite: _Starlight/Clothing/Neck/Cloaks/shuba.rsi
-    - type: Clothing
-      sprite: _Starlight/Clothing/Neck/Cloaks/shuba.rsi
+  - type: Sprite
+    sprite: _Starlight/Clothing/Neck/Cloaks/shuba.rsi
+  - type: Clothing
+    sprite: _Starlight/Clothing/Neck/Cloaks/shuba.rsi
 
 - type: entity
-  parent: [ ClothingNeckBase ]
+  parent: [ClothingNeckBase]
   id: ClothingNeckCloakBsoElite
   name: elite blueshield cloak
   description: An elite Blueshield Officer's cloak crafted from the latest composite glowing fabric. No true BSO is afraid of shining in the dark!
@@ -30,8 +30,8 @@
     sprite: _Starlight/Clothing/Neck/Cloaks/bso_elite.rsi
   - type: Tag
     tags:
-      - ClothMade
-      - WhitelistChameleon
+    - ClothMade
+    - WhitelistChameleon
   - type: PointLight
     radius: 2
     energy: 4
@@ -40,7 +40,7 @@
     price: 2000
 
 - type: entity
-  parent: [ ClothingNeckBase ]
+  parent: [ClothingNeckBase]
   id: ClothingNeckCloakBsoCape
   name: blueshield formal cloak
   description: An incredibly large coat, owned only by the most experienced Blueshield Officers. It's said the sleeves have never been worn.
@@ -49,14 +49,14 @@
     sprite: _Starlight/Clothing/Neck/Cloaks/bso_formal.rsi
   - type: Tag
     tags:
-      - ClothMade
-      - WhitelistChameleon
+    - ClothMade
+    - WhitelistChameleon
   - type: Clothing
     slots:
-      - neck
+    - neck
 
 - type: entity
-  parent: [ ClothingNeckBase ]
+  parent: [ClothingNeckBase]
   id: ClothingNeckCloakBsoPoncho
   name: blueshield poncho
   description: This type of poncho was the signature garment of a legendary BSO with no name, or so it is said.
@@ -65,8 +65,8 @@
     sprite: _Starlight/Clothing/Neck/Cloaks/bso_poncho
   - type: Tag
     tags:
-      - ClothMade
-      - WhitelistChameleon
+    - ClothMade
+    - WhitelistChameleon
   - type: Clothing
     slots:
-      - neck
+    - neck

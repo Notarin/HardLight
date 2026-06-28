@@ -10,10 +10,10 @@ using Robust.Shared.Map;
 namespace Content.Client.Shuttles.UI;
 
 [GenerateTypedNameReferences]
-public sealed partial class ShuttleConsoleWindow : FancyWindow,
-    IComputerWindow<ShuttleBoundUserInterfaceState>
+public sealed partial class ShuttleConsoleWindow : FancyWindow, IComputerWindow<ShuttleBoundUserInterfaceState>
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
 
     private ShuttleConsoleMode _mode = ShuttleConsoleMode.Nav;
 
@@ -163,7 +163,12 @@ public sealed partial class ShuttleConsoleWindow : FancyWindow,
         MapContainer.SetShuttle(coordinates?.EntityId);
         MapContainer.SetConsole(owner);
 
-        NavContainer.UpdateState(cState.NavState, cState.ExpeditionDiskState, cState.WepActive, cState.WepCooldownExpiry); // HL
+        NavContainer.UpdateState(
+            cState.NavState,
+            cState.ExpeditionDiskState,
+            cState.WepActive,
+            cState.WepCooldownExpiry
+        ); // HL
         MapContainer.UpdateState(cState.MapState);
         DockContainer.UpdateState(coordinates?.EntityId, cState.DockState);
     }

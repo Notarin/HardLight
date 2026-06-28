@@ -2,8 +2,8 @@ using Content.Server.EUI;
 using Content.Shared.HL.Silicons;
 using Content.Shared.HL.Silicons.Components;
 using Content.Shared.Inventory;
-using Content.Shared.Verbs;
 using Content.Shared.Silicons.Laws.Components;
+using Content.Shared.Verbs;
 using Content.Shared.Wires;
 using Robust.Server.Player;
 using Robust.Shared.Prototypes;
@@ -13,10 +13,17 @@ namespace Content.Server.HL.Silicons;
 
 public sealed class GovernorLawAccessSystem : EntitySystem
 {
-    [Dependency] private readonly InventorySystem _inventory = default!;
-    [Dependency] private readonly EuiManager _eui = default!;
-    [Dependency] private readonly IPlayerManager _players = default!;
-    [Dependency] private readonly Content.Server.Silicons.Laws.SiliconLawSystem _laws = default!;
+    [Dependency]
+    private readonly InventorySystem _inventory = default!;
+
+    [Dependency]
+    private readonly EuiManager _eui = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _players = default!;
+
+    [Dependency]
+    private readonly Content.Server.Silicons.Laws.SiliconLawSystem _laws = default!;
 
     public override void Initialize()
     {
@@ -49,12 +56,17 @@ public sealed class GovernorLawAccessSystem : EntitySystem
         var target = ent.Owner;
         var lawBound = ent.Comp;
 
-        args.Verbs.Add(new AlternativeVerb
-        {
-            Text = Loc.GetString(GovernorLawAccessShared.ManageLawsLocKey),
-            Icon = new SpriteSpecifier.Rsi(GovernorLawAccessShared.ManageLawsIconRsiPath, GovernorLawAccessShared.ManageLawsIconState),
-            Act = BuildOpenLawVerbAction(user, target, lawBound)
-        });
+        args.Verbs.Add(
+            new AlternativeVerb
+            {
+                Text = Loc.GetString(GovernorLawAccessShared.ManageLawsLocKey),
+                Icon = new SpriteSpecifier.Rsi(
+                    GovernorLawAccessShared.ManageLawsIconRsiPath,
+                    GovernorLawAccessShared.ManageLawsIconState
+                ),
+                Act = BuildOpenLawVerbAction(user, target, lawBound),
+            }
+        );
     }
 
     private Action BuildOpenLawVerbAction(EntityUid user, EntityUid target, SiliconLawBoundComponent lawBound)

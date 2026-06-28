@@ -7,7 +7,6 @@ namespace Content.Client.CartridgeLoader.Cartridges;
 [GenerateTypedNameReferences]
 public sealed partial class NotekeeperUiFragment : BoxContainer
 {
-
     public event Action<string>? OnNoteAdded;
     public event Action<string>? OnNoteRemoved;
 
@@ -34,7 +33,7 @@ public sealed partial class NotekeeperUiFragment : BoxContainer
 
         foreach (var note in notes)
         {
-           AddNote(note);
+            AddNote(note);
         }
     }
 

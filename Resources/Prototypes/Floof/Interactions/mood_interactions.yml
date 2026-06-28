@@ -8,8 +8,7 @@
   requiresUnblocked: false
   exemptFromInteractionBlocker: true
   hideByRequirement: true
-  requirement:
-    !type:ComplexRequirement
+  requirement: !type:ComplexRequirement
     requirements:
     - !type:SlotObstructionRequirement
       slot: mask
@@ -17,9 +16,8 @@
     - !type:EntityWhitelistRequirement
       whitelist:
         components: [MobState] # Don't go around kissing inanimate objects.
-  action:
-    !type:NoOpAction
-#    effect: BeingKissed | Moods not implemented
+  action: !type:NoOpAction
+  #    effect: BeingKissed | Moods not implemented
   effectSuccess:
     popup: Obvious
     sound: {path: /Audio/Floof/Lewd/kiss.ogg}
@@ -35,8 +33,7 @@
   requiresUnblocked: false
   exemptFromInteractionBlocker: true
   hideByRequirement: true
-  requirement:
-    !type:ComplexRequirement
+  requirement: !type:ComplexRequirement
     requirements:
     - !type:SlotObstructionRequirement
       slot: mask
@@ -45,9 +42,8 @@
       whitelist:
         components: [MobState, Anomaly, Food] # TODO check if can be metabolized
         tags: [Window] # yes.
-  action:
-    !type:NoOpAction
-#    effect: BeingLicked | Moods not implemented
+  action: !type:NoOpAction
+  #    effect: BeingLicked | Moods not implemented
   effectSuccess:
     popup: Obvious
     sound: {path: /Audio/Floof/Lewd/lick.ogg}

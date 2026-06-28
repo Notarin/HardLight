@@ -15,23 +15,23 @@
     Narcotic:
       metabolismRate: 0.3
       effects:
-      # Stronger than Dynamoxine alone (1.15 -> 1.2)
       - !type:MovespeedModifier
+        # Stronger than Dynamoxine alone (1.15 -> 1.2)
         walkSpeedModifier: 1.2
         sprintSpeedModifier: 1.2
-      # Anti-jitter from Diphenhydramine
       - !type:GenericStatusEffect
+        # Anti-jitter from Diphenhydramine
         key: Jitter
         time: 8.0
         type: Remove
-      # Enhanced stamina from stimulant combination
       - !type:GenericStatusEffect
+        # Enhanced stamina from stimulant combination
         key: StaminaModifier
         component: StaminaModifier
         time: 15
         type: Add
-      # Mild pain resistance from precursor effects
       - !type:GenericStatusEffect
+        # Mild pain resistance from precursor effects
         key: Adrenaline
         component: IgnoreSlowOnDamage
         time: 10
@@ -40,11 +40,11 @@
         type: Local
         visualType: Medium
         messages:
-          - "bite-effect-calm"
-          - "bite-effect-focused"
-          - "bite-effect-alert"
-          - "bite-effect-energy"
-          - "bite-effect-hunger"
+        - "bite-effect-calm"
+        - "bite-effect-focused"
+        - "bite-effect-alert"
+        - "bite-effect-energy"
+        - "bite-effect-hunger"
         probability: 0.2
 
 # Stage 2: Venom - Dangerous combat precursor
@@ -62,29 +62,29 @@
       effects:
       - !type:ChemRerollPsionic
         bonusMultiplier: 4
-      # Major speed boost combining all precursors
       - !type:MovespeedModifier
+        # Major speed boost combining all precursors
         walkSpeedModifier: 1.4
         sprintSpeedModifier: 1.4
-      # Superior stamina enhancement
       - !type:GenericStatusEffect
+        # Superior stamina enhancement
         key: StaminaModifier
         component: StaminaModifier
         time: 25
         type: Add
-      # Pain immunity from combat focus
       - !type:GenericStatusEffect
+        # Pain immunity from combat focus
         key: Adrenaline
         component: IgnoreSlowOnDamage
         time: 30
         type: Add
-      # Resistance to stuns (minor)
       - !type:GenericStatusEffect
+        # Resistance to stuns (minor)
         key: Stun
         time: 5
         type: Remove
-      # Resistance to knockdown
       - !type:GenericStatusEffect
+        # Resistance to knockdown
         key: KnockedDown
         time: 5
         type: Remove
@@ -92,12 +92,12 @@
         type: Local
         visualType: Large
         messages:
-          - "venom-effect-power"
-          - "venom-effect-invincible"
-          - "venom-effect-enhanced"
-          - "venom-effect-bloodlust"
-          - "venom-effect-rage"
-          - "venom-effect-lethal"
+        - "venom-effect-power"
+        - "venom-effect-invincible"
+        - "venom-effect-enhanced"
+        - "venom-effect-bloodlust"
+        - "venom-effect-rage"
+        - "venom-effect-lethal"
         probability: 0.25
       - !type:AdjustReagent
         conditions:
@@ -136,29 +136,29 @@
       effects:
       - !type:ChemRerollPsionic
         bonusMultiplier: 8
-      # Blood corruption effect
       - !type:ChangeBloodReagent
+        # Blood corruption effect
         bloodReagent: BloodBlack
         conditions:
         - !type:ReagentThreshold
           min: 1
-      # Performance benefits
       - !type:MovespeedModifier
+        # Performance benefits
         walkSpeedModifier: 1.5
         sprintSpeedModifier: 1.5
       - !type:PopupMessage
         type: Local
         visualType: Large
         messages:
-          - "widow-effect-predator"
-          - "widow-effect-coldblood"
-          - "widow-effect-hunter"
-          - "widow-effect-abyssal"
-          - "widow-effect-void"
-          - "widow-effect-darkness"
-          - "widow-effect-apex"
-          - "widow-effect-wraith"
-          - "widow-effect-demon"
+        - "widow-effect-predator"
+        - "widow-effect-coldblood"
+        - "widow-effect-hunter"
+        - "widow-effect-abyssal"
+        - "widow-effect-void"
+        - "widow-effect-darkness"
+        - "widow-effect-apex"
+        - "widow-effect-wraith"
+        - "widow-effect-demon"
         probability: 0.2
       - !type:ResetNarcolepsy
         conditions:
@@ -181,15 +181,15 @@
         key: Adrenaline
         component: IgnoreSlowOnDamage
         time: 25
-      # Treatment resistance
       - !type:AdjustReagent
+        # Treatment resistance
         reagent: Charcoal
         amount: -8.0
       - !type:AdjustReagent
         reagent: Ipecac
         amount: -8.0
-      #Sedation resistance
       - !type:AdjustReagent
+        #Sedation resistance
         conditions:
         - !type:ReagentThreshold
           reagent: ChloralHydrate
@@ -207,8 +207,8 @@
         key: ForcedSleep
         time: 5
         type: Remove
-      # Risky doses (5-9u) - mild side effects
       - !type:HealthChange
+        # Risky doses (5-9u) - mild side effects
         conditions:
         - !type:ReagentThreshold
           min: 5
@@ -226,8 +226,8 @@
         conditions:
         - !type:ReagentThreshold
           min: 9
-      # Overdose territory (10-14u)
       - !type:HealthChange
+        # Overdose territory (10-14u)
         conditions:
         - !type:ReagentThreshold
           min: 10
@@ -249,17 +249,17 @@
         type: Local
         visualType: LargeCaution
         messages:
-          - "widow-overdose-psychosis-1"
-          - "widow-overdose-psychosis-2"
-          - "widow-overdose-psychosis-3"
-          - "widow-overdose-hallucination-1"
-          - "widow-overdose-hallucination-2"
-          - "widow-overdose-hallucination-3"
-          - "widow-overdose-abyssal-1"
-          - "widow-overdose-abyssal-2"
+        - "widow-overdose-psychosis-1"
+        - "widow-overdose-psychosis-2"
+        - "widow-overdose-psychosis-3"
+        - "widow-overdose-hallucination-1"
+        - "widow-overdose-hallucination-2"
+        - "widow-overdose-hallucination-3"
+        - "widow-overdose-abyssal-1"
+        - "widow-overdose-abyssal-2"
         probability: 0.25
-      # Lethal territory (15u+)
       - !type:HealthChange
+        # Lethal territory (15u+)
         conditions:
         - !type:ReagentThreshold
           min: 15
@@ -272,22 +272,22 @@
         - !type:ReagentThreshold
           min: 15
         amount: -26250
-      # Addiction system
       - !type:AdjustReagent
+        # Addiction system
         conditions:
         - !type:ReagentThreshold
           reagent: WidowsCurse
           max: 50
         reagent: WidowsCurse
         amount: 0.3
-      # Abyssal whispers - atmospheric audio effect
       - !type:PopupMessage
+        # Abyssal whispers - atmospheric audio effect
         type: Local
         visualType: Small
         messages:
-          - "widow-whisper-1"
-          - "widow-whisper-2"
-          - "widow-whisper-3"
+        - "widow-whisper-1"
+        - "widow-whisper-2"
+        - "widow-whisper-3"
         probability: 0.02
 
 # Stage 3B: Ruin - Failed synthesis (extremely nasty poison)
@@ -304,8 +304,8 @@
     Poison:
       metabolismRate: 0.5
       effects:
-      # Convert any existing widow to ruin at 1:1 ratio, 0.5u per tick (seed crystal effect)
       - !type:AdjustReagent
+        # Convert any existing widow to ruin at 1:1 ratio, 0.5u per tick (seed crystal effect)
         conditions:
         - !type:ReagentThreshold
           reagent: Widow
@@ -319,45 +319,45 @@
           min: 0.1
         reagent: Ruin
         amount: 0.5
-      # Immediate devastating effects
       - !type:PopupMessage
+        # Immediate devastating effects
         type: Local
         visualType: LargeCaution
         messages:
-          - "ruin-effect-burning"
-          - "ruin-effect-agony"
-          - "ruin-effect-regret"
-          - "ruin-effect-freezing"
-          - "ruin-effect-confusion"
-          - "ruin-effect-nausea"
-          - "ruin-effect-corruption"
-          - "ruin-effect-madness"
-          - "ruin-effect-void"
-          - "ruin-effect-twisted"
+        - "ruin-effect-burning"
+        - "ruin-effect-agony"
+        - "ruin-effect-regret"
+        - "ruin-effect-freezing"
+        - "ruin-effect-confusion"
+        - "ruin-effect-nausea"
+        - "ruin-effect-corruption"
+        - "ruin-effect-madness"
+        - "ruin-effect-void"
+        - "ruin-effect-twisted"
         probability: 0.3
-      # Base toxic effects from failed synthesis
       - !type:HealthChange
+        # Base toxic effects from failed synthesis
         damage:
           types:
             Poison: 1.5
             Caustic: 1
             Asphyxiation: 1
             Cold: 1.5
-      # Corrupted Abyssal Blood - extreme hypothermia
       - !type:AdjustTemperature
+        # Corrupted Abyssal Blood - extreme hypothermia
         amount: -5000
-      # Corrupted Artifexium - reality distortion/confusion
       - !type:GenericStatusEffect
+        # Corrupted Artifexium - reality distortion/confusion
         key: Drunk
         component: Drunk
         time: 10
         type: Add
         probability: 0.4
-      # Corrupted Venom - uncontrolled jitters instead of enhancement
       - !type:Jitter
+        # Corrupted Venom - uncontrolled jitters instead of enhancement
         time: 15
-      # Progressive damage (4u+) - delayed onset
       - !type:HealthChange
+        # Progressive damage (4u+) - delayed onset
         conditions:
         - !type:ReagentThreshold
           min: 4
@@ -367,14 +367,14 @@
             Caustic: 1.5
             Cold: 2.5
             Cellular: 1
-      # Corrupted Leporazine - complete temperature regulation failure
       - !type:AdjustTemperature
+        # Corrupted Leporazine - complete temperature regulation failure
         conditions:
         - !type:ReagentThreshold
           min: 4
         amount: -7500
-      # Enhanced confusion from concentrated Artifexium corruption
       - !type:GenericStatusEffect
+        # Enhanced confusion from concentrated Artifexium corruption
         conditions:
         - !type:ReagentThreshold
           min: 4
@@ -382,8 +382,8 @@
         component: Drunk
         time: 15
         type: Add
-      # Catastrophic effects (9u+) - high threshold
       - !type:HealthChange
+        # Catastrophic effects (9u+) - high threshold
         conditions:
         - !type:ReagentThreshold
           min: 9
@@ -393,8 +393,8 @@
             Caustic: 2
             Asphyxiation: 1.5
             Cold: 3.5
-      # Complete system failure - paralysis from corrupted synthesis
       - !type:Paralyze
+        # Complete system failure - paralysis from corrupted synthesis
         conditions:
         - !type:ReagentThreshold
           min: 9
@@ -415,29 +415,29 @@
     Poison:
       metabolismRate: 0.015
       effects:
-      # Blood corruption effect - addiction keeps blood black
       - !type:ChangeBloodReagent
+        # Blood corruption effect - addiction keeps blood black
         bloodReagent: BloodBlack
         conditions:
         - !type:ReagentThreshold
           min: 1
-      # Enhanced withdrawal messages
       - !type:PopupMessage
+        # Enhanced withdrawal messages
         type: Local
         visualType: LargeCaution
         messages:
-          - "curse-withdrawal-1"
-          - "curse-withdrawal-2"
-          - "curse-withdrawal-3"
-          - "curse-withdrawal-4"
-          - "curse-withdrawal-5"
+        - "curse-withdrawal-1"
+        - "curse-withdrawal-2"
+        - "curse-withdrawal-3"
+        - "curse-withdrawal-4"
+        - "curse-withdrawal-5"
         probability: 0.22
         conditions:
         - !type:ReagentThreshold
           reagent: Widow
           max: 0.01
-      # Withdrawal blindness
       - !type:GenericStatusEffect
+        # Withdrawal blindness
         key: TemporaryBlindness
         component: TemporaryBlindness
         conditions:
@@ -447,8 +447,8 @@
           reagent: Widow
           max: 0.01
         time: 12
-      # Remove blindness when taking more Widow
       - !type:GenericStatusEffect
+        # Remove blindness when taking more Widow
         key: TemporaryBlindness
         component: TemporaryBlindness
         conditions:
@@ -457,8 +457,8 @@
           min: 1.0
         time: 1
         type: Remove
-      # Worse movement penalties than Addictine
       - !type:MovespeedModifier
+        # Worse movement penalties than Addictine
         walkSpeedModifier: 0.85
         sprintSpeedModifier: 0.5
         conditions:
@@ -467,15 +467,15 @@
         - !type:ReagentThreshold
           reagent: Widow
           max: 0.01
-      # Stronger treatment resistance than Addictine
       - !type:AdjustReagent
+        # Stronger treatment resistance than Addictine
         reagent: Charcoal
         amount: -12.0
       - !type:AdjustReagent
         reagent: Ipecac
         amount: -12.0
-      # Withdrawal physical damage - minimal damage at high curse levels
       - !type:HealthChange
+        # Withdrawal physical damage - minimal damage at high curse levels
         conditions:
         - !type:ReagentThreshold
           min: 19
@@ -501,8 +501,8 @@
     Medicine:
       metabolismRate: 0.05
       effects:
-      # Self-destruct if no widow or curse present - serum only works on abyssal corruption
       - !type:AdjustReagent
+        # Self-destruct if no widow or curse present - serum only works on abyssal corruption
         conditions:
         - !type:ReagentThreshold
           reagent: Widow
@@ -512,42 +512,42 @@
           max: 0.01
         reagent: AbyssalCleansingSerum
         amount: -10.0
-      # Accelerated WidowsCurse removal
       - !type:AdjustReagent
+        # Accelerated WidowsCurse removal
         reagent: WidowsCurse
         amount: -0.5
-      # Remove existing Widow from system - extremely dangerous purging process
       - !type:AdjustReagent
+        # Remove existing Widow from system - extremely dangerous purging process
         reagent: Widow
         amount: -0.5
-      # Blood purification - restore to original blood type
       - !type:RestoreBloodReagent
+        # Blood purification - restore to original blood type
         conditions:
         - !type:ReagentThreshold
           min: 1
-      # Remove withdrawal blindness
       - !type:GenericStatusEffect
+        # Remove withdrawal blindness
         key: TemporaryBlindness
         component: TemporaryBlindness
         time: 1
         type: Remove
-      # Improve withdrawal movement penalties
       - !type:MovespeedModifier
+        # Improve withdrawal movement penalties
         walkSpeedModifier: 1.1
         sprintSpeedModifier: 1.2
         conditions:
         - !type:ReagentThreshold
           min: 1
-      # Prevent new WidowsCurse accumulation temporarily
       - !type:AdjustReagent
+        # Prevent new WidowsCurse accumulation temporarily
         conditions:
         - !type:ReagentThreshold
           reagent: Widow
           min: 1
         reagent: WidowsCurse
         amount: -0.5
-      # Purification trauma - burning out the corruption causes physical stress
       - !type:HealthChange
+        # Purification trauma - burning out the corruption causes physical stress
         conditions:
         - !type:ReagentThreshold
           min: 1
@@ -555,8 +555,8 @@
           types:
             Heat: 2.25
             Poison: 1
-      # Widow purging trauma - extreme temperature spike and severe damage
       - !type:HealthChange
+        # Widow purging trauma - extreme temperature spike and severe damage
         conditions:
         - !type:ReagentThreshold
           reagent: Widow
@@ -568,8 +568,8 @@
             Heat: 7.5
             Poison: 4.0
             Caustic: 2.5
-      # Extreme temperature spike from widow purging process
       - !type:AdjustTemperature
+        # Extreme temperature spike from widow purging process
         conditions:
         - !type:ReagentThreshold
           reagent: Widow
@@ -577,19 +577,19 @@
         - !type:ReagentThreshold
           min: 1
         amount: 7000
-      # Temperature spike from purification process
       - !type:AdjustTemperature
+        # Temperature spike from purification process
         conditions:
         - !type:ReagentThreshold
           min: 1
         amount: 3500
-      # Purification jitters from trauma
       - !type:Jitter
+        # Purification jitters from trauma
         conditions:
         - !type:ReagentThreshold
           min: 1
-      # Widow purging messages - extreme pain from burning out the corruption
       - !type:PopupMessage
+        # Widow purging messages - extreme pain from burning out the corruption
         conditions:
         - !type:ReagentThreshold
           reagent: Widow
@@ -599,22 +599,22 @@
         type: Local
         visualType: LargeCaution
         messages:
-          - "abyssal-cleansing-widow-burning"
-          - "abyssal-cleansing-widow-agony"
-          - "abyssal-cleansing-widow-searing"
-          - "abyssal-cleansing-widow-purging"
+        - "abyssal-cleansing-widow-burning"
+        - "abyssal-cleansing-widow-agony"
+        - "abyssal-cleansing-widow-searing"
+        - "abyssal-cleansing-widow-purging"
         probability: 0.8
-      # Treatment progress messages
       - !type:PopupMessage
+        # Treatment progress messages
         type: Local
         visualType: Medium
         messages:
-          - "abyssal-cleansing-effect-purifying"
-          - "abyssal-cleansing-effect-clearing"
-          - "abyssal-cleansing-effect-stabilizing"
+        - "abyssal-cleansing-effect-purifying"
+        - "abyssal-cleansing-effect-clearing"
+        - "abyssal-cleansing-effect-stabilizing"
         probability: 0.15
-      # Paralysis during treatment - patient must remain still for purification
       - !type:Paralyze
+        # Paralysis during treatment - patient must remain still for purification
         conditions:
         - !type:ReagentThreshold
           min: 1

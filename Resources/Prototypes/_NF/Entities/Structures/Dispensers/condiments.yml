@@ -1,6 +1,6 @@
 - type: entity
   parent: ReagentDispenserBase
-  id: CondimentDispenser  
+  id: CondimentDispenser
   name: condiment dispenser
   suffix: Filled
   description: A condiment dispenser with a single slot for a condiment cup.
@@ -8,16 +8,15 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.3,-0.16,0.3,0.40"
         mask:
         - Impassable # Frontier
-#        - MidImpassable # Frontier - Do not add this, it will block shutters from closing on it.
+        #        - MidImpassable # Frontier - Do not add this, it will block shutters from closing on it.
         - LowImpassable # Frontier
-#        - MachineMask # Frontier
-#        layer: # Frontier
-#        - MachineLayer # Frontier
+        #        - MachineMask # Frontier
+        #        layer: # Frontier
+        #        - MachineLayer # Frontier
         density: 190
   - type: Rotatable
   - type: Sprite
@@ -26,7 +25,7 @@
     state: icon
   - type: ReagentDispenser
     storageWhitelist:
-     tags:
+      tags:
       - DrinkBottle
     pack: CondimentDispenserInventory
   - type: Transform

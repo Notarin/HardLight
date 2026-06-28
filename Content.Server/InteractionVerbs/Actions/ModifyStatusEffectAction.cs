@@ -24,7 +24,12 @@ public sealed partial class ModifyStatusEffectAction : InteractionAction
     [DataField]
     public TimeSpan TimeAdded = TimeSpan.FromSeconds(1);
 
-    public override bool CanPerform(InteractionArgs args, InteractionVerbPrototype proto, bool isBefore, VerbDependencies deps)
+    public override bool CanPerform(
+        InteractionArgs args,
+        InteractionVerbPrototype proto,
+        bool isBefore,
+        VerbDependencies deps
+    )
     {
         var statusEffects = deps.EntMan.System<StatusEffectsSystem>();
         if (!statusEffects.CanApplyEffect(args.Target, Effect))

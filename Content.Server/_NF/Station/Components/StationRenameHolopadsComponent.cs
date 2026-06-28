@@ -5,6 +5,4 @@ namespace Content.Server.Station.Components;
 /// Only holopads with "Ship or POI" will be affected.
 /// </summary>
 [RegisterComponent]
-public sealed partial class StationRenameHolopadsComponent : Component
-{
-}
+public sealed partial class StationRenameHolopadsComponent : Component { }

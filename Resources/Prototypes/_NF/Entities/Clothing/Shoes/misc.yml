@@ -8,14 +8,14 @@
     sprite: _NF/Clothing/Shoes/Boots/moonboots.rsi
     layers:
     - state: icon
-      map: [ "enum.ToggleVisuals.Layer" ]
+      map: ["enum.ToggleVisuals.Layer"]
   - type: Clothing
     sprite: _NF/Clothing/Shoes/Boots/moonboots.rsi
   - type: NFMoonBoots
   - type: StaticPrice
     price: 75
   - type: Tag
-    tags: [ ]
+    tags: []
   - type: ToggleClothing
     action: ActionToggleMoonBoots
   - type: Appearance

@@ -20,8 +20,14 @@ public sealed class ReagentDataTest : InteractionTest
         {
             foreach (var instance in reflection.GetAllChildren(typeof(ReagentData)))
             {
-                Assert.That(instance.HasCustomAttribute<NetSerializableAttribute>(), $"{instance} must have the NetSerializable attribute.");
-                Assert.That(instance.HasCustomAttribute<SerializableAttribute>(), $"{instance} must have the serializable attribute.");
+                Assert.That(
+                    instance.HasCustomAttribute<NetSerializableAttribute>(),
+                    $"{instance} must have the NetSerializable attribute."
+                );
+                Assert.That(
+                    instance.HasCustomAttribute<SerializableAttribute>(),
+                    $"{instance} must have the serializable attribute."
+                );
             }
         });
 

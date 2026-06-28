@@ -1,6 +1,6 @@
 using Content.Shared.Atmos;
-using Content.Shared.Guidebook;
 using Content.Shared.Construction.Prototypes; // Frontier
+using Content.Shared.Guidebook;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype; // Frontier
 
 namespace Content.Server.Atmos.Portable
@@ -31,7 +31,7 @@ namespace Content.Server.Atmos.Portable
             Gas.WaterVapor,
             Gas.Ammonia,
             Gas.NitrousOxide,
-            Gas.Frezon
+            Gas.Frezon,
         };
 
         [ViewVariables(VVAccess.ReadWrite)]
@@ -85,7 +85,10 @@ namespace Content.Server.Atmos.Portable
         /// <summary>
         /// The machine part which modifies the speed of <see cref="TransferRate"/>
         /// </summary>
-        [DataField("machinePartTransferRate", customTypeSerializer: typeof(PrototypeIdSerializer<MachinePartPrototype>))]
+        [DataField(
+            "machinePartTransferRate",
+            customTypeSerializer: typeof(PrototypeIdSerializer<MachinePartPrototype>)
+        )]
         public string MachinePartTransferRate = "Manipulator";
 
         /// <summary>

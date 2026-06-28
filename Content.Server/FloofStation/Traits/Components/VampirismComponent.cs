@@ -16,8 +16,8 @@ public sealed partial class VampirismComponent : Component
     public HashSet<ProtoId<MetabolizerTypePrototype>> MetabolizerPrototypes = new() { "Vampiric", "Animal" };
 
     [DataField]
-    public List<MetabolismGroupEntry> AddedMetabolismGroups = new(), RemovedMetabolismGroups = new();
-
+    public List<MetabolismGroupEntry> AddedMetabolismGroups = new(),
+        RemovedMetabolismGroups = new();
 
     /// <summary>
     ///     A whitelist for what special-digestible-required foods the vampire's stomach is capable of eating.

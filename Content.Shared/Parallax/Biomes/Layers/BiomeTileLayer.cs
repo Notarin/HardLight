@@ -9,14 +9,16 @@ namespace Content.Shared.Parallax.Biomes.Layers;
 [Serializable, NetSerializable]
 public sealed partial class BiomeTileLayer : IBiomeLayer
 {
-    [DataField] public FastNoiseLite Noise { get; private set; } = new(0);
+    [DataField]
+    public FastNoiseLite Noise { get; private set; } = new(0);
 
     /// <inheritdoc/>
     [DataField]
     public float Threshold { get; private set; } = 0.5f;
 
     /// <inheritdoc/>
-    [DataField] public bool Invert { get; private set; } = false;
+    [DataField]
+    public bool Invert { get; private set; } = false;
 
     /// <summary>
     /// Which tile variants to use for this layer. Uses all of the tile's variants if none specified

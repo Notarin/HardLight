@@ -17,7 +17,8 @@ namespace Content.Client.Cargo.UI
     [GenerateTypedNameReferences]
     public sealed partial class CargoConsoleMenu : FancyWindow
     {
-        [Dependency] private readonly IGameTiming _timing = default!;
+        [Dependency]
+        private readonly IGameTiming _timing = default!;
 
         private readonly IEntityManager _entityManager;
         private readonly IPrototypeManager _protoManager;
@@ -40,7 +41,12 @@ namespace Content.Client.Cargo.UI
         private readonly List<string> _categoryStrings = new();
         private string? _category;
 
-        public CargoConsoleMenu(EntityUid owner, IEntityManager entMan, IPrototypeManager protoManager, SpriteSystem spriteSystem)
+        public CargoConsoleMenu(
+            EntityUid owner,
+            IEntityManager entMan,
+            IPrototypeManager protoManager,
+            SpriteSystem spriteSystem
+        )
         {
             RobustXamlLoader.Load(this);
             IoCManager.InjectDependencies(this);
@@ -61,10 +67,12 @@ namespace Content.Client.Cargo.UI
             if (entMan.TryGetComponent<CargoOrderConsoleComponent>(owner, out var orderConsole))
             {
                 var accountProto = _protoManager.Index(orderConsole.Account);
-                AccountNameLabel.Text = Loc.GetString("cargo-console-menu-account-name-format",
+                AccountNameLabel.Text = Loc.GetString(
+                    "cargo-console-menu-account-name-format",
                     ("color", accountProto.Color),
                     ("name", Loc.GetString(accountProto.Name)),
-                    ("code", Loc.GetString(accountProto.Code)));
+                    ("code", Loc.GetString(accountProto.Code))
+                );
             }
 
             TabContainer.SetTabTitle(0, Loc.GetString("cargo-console-menu-tab-title-orders"));
@@ -77,16 +85,18 @@ namespace Content.Client.Cargo.UI
 
             TransferSpinBox.IsValid = val =>
             {
-                if (!_entityManager.TryGetComponent<CargoOrderConsoleComponent>(owner, out var console) ||
-                    !_entityManager.TryGetComponent<StationBankAccountComponent>(_station, out var bank))
+                if (
+                    !_entityManager.TryGetComponent<CargoOrderConsoleComponent>(owner, out var console)
+                    || !_entityManager.TryGetComponent<StationBankAccountComponent>(_station, out var bank)
+                )
                     return true;
 
-                return val >= 0 && val <= (int) (console.TransferLimit * bank.Accounts[console.Account]);
+                return val >= 0 && val <= (int)(console.TransferLimit * bank.Accounts[console.Account]);
             };
 
             AccountActionButton.OnPressed += _ =>
             {
-                var account = (ProtoId<CargoAccountPrototype>?) ActionOptions.SelectedMetadata;
+                var account = (ProtoId<CargoAccountPrototype>?)ActionOptions.SelectedMetadata;
                 OnAccountAction?.Invoke(account, TransferSpinBox.Value);
             };
 
@@ -117,7 +127,9 @@ namespace Content.Client.Cargo.UI
         {
             get
             {
-                var allowedGroups = _entityManager.GetComponentOrNull<CargoOrderConsoleComponent>(_owner)?.AllowedGroups;
+                var allowedGroups = _entityManager
+                    .GetComponentOrNull<CargoOrderConsoleComponent>(_owner)
+                    ?.AllowedGroups;
 
                 foreach (var cargoPrototype in _protoManager.EnumeratePrototypes<CargoProductPrototype>())
                 {
@@ -136,8 +148,7 @@ namespace Content.Client.Cargo.UI
         {
             Products.RemoveAllChildren();
             var products = ProductPrototypes.ToList();
-            products.Sort((x, y) =>
-                string.Compare(x.Name, y.Name, StringComparison.CurrentCultureIgnoreCase));
+            products.Sort((x, y) => string.Compare(x.Name, y.Name, StringComparison.CurrentCultureIgnoreCase));
 
             var search = SearchBar.Text.Trim().ToLowerInvariant();
             foreach (var prototype in products)
@@ -145,17 +156,25 @@ namespace Content.Client.Cargo.UI
                 // if no search or category
                 // else if search
                 // else if category and not search
-                if (search.Length == 0 && _category == null ||
-                    search.Length != 0 && prototype.Name.ToLowerInvariant().Contains(search) ||
-                    search.Length != 0 && prototype.Description.ToLowerInvariant().Contains(search) ||
-                    search.Length == 0 && _category != null && Loc.GetString(prototype.Category).Equals(_category))
+                if (
+                    search.Length == 0 && _category == null
+                    || search.Length != 0 && prototype.Name.ToLowerInvariant().Contains(search)
+                    || search.Length != 0 && prototype.Description.ToLowerInvariant().Contains(search)
+                    || search.Length == 0 && _category != null && Loc.GetString(prototype.Category).Equals(_category)
+                )
                 {
                     var button = new CargoProductRow
                     {
                         Product = prototype,
                         ProductName = { Text = prototype.Name },
                         MainButton = { ToolTip = prototype.Description },
-                        PointCost = { Text = Loc.GetString("cargo-console-menu-points-amount", ("amount", prototype.Cost.ToString())) },
+                        PointCost =
+                        {
+                            Text = Loc.GetString(
+                                "cargo-console-menu-points-amount",
+                                ("amount", prototype.Cost.ToString())
+                            ),
+                        },
                         Icon = { Texture = _spriteSystem.Frame0(prototype.Icon) },
                     };
                     button.MainButton.OnPressed += args =>
@@ -219,26 +238,34 @@ namespace Content.Client.Cargo.UI
                             "cargo-console-menu-populate-orders-cargo-order-row-product-name-text",
                             ("productName", productName),
                             ("orderAmount", order.OrderQuantity),
-                            ("orderRequester", order.Requester))
+                            ("orderRequester", order.Requester)
+                        ),
                     },
                     Description =
                     {
-                        Text = Loc.GetString("cargo-console-menu-order-reason-description",
-                                                        ("reason", order.Reason))
-                    }
+                        Text = Loc.GetString("cargo-console-menu-order-reason-description", ("reason", order.Reason)),
+                    },
                 };
-                row.Cancel.OnPressed += (args) => { OnOrderCanceled?.Invoke(args); };
+                row.Cancel.OnPressed += (args) =>
+                {
+                    OnOrderCanceled?.Invoke(args);
+                };
 
                 // TODO: Disable based on access.
-                row.Approve.OnPressed += (args) => { OnOrderApproved?.Invoke(args); };
+                row.Approve.OnPressed += (args) =>
+                {
+                    OnOrderApproved?.Invoke(args);
+                };
                 Requests.AddChild(row);
             }
         }
 
         public void PopulateAccountActions()
         {
-            if (!_entityManager.TryGetComponent<StationBankAccountComponent>(_station, out var bank) ||
-                !_entityManager.TryGetComponent<CargoOrderConsoleComponent>(_owner, out var console))
+            if (
+                !_entityManager.TryGetComponent<StationBankAccountComponent>(_station, out var bank)
+                || !_entityManager.TryGetComponent<CargoOrderConsoleComponent>(_owner, out var console)
+            )
                 return;
 
             var i = 0;
@@ -250,9 +277,13 @@ namespace Content.Client.Cargo.UI
                 if (account == console.Account)
                     continue;
                 var accountProto = _protoManager.Index(account);
-                ActionOptions.AddItem(Loc.GetString("cargo-console-menu-account-action-option-transfer",
-                    ("code", Loc.GetString(accountProto.Code))),
-                    i);
+                ActionOptions.AddItem(
+                    Loc.GetString(
+                        "cargo-console-menu-account-action-option-transfer",
+                        ("code", Loc.GetString(accountProto.Code))
+                    ),
+                    i
+                );
                 ActionOptions.SetItemMetadata(i, account);
                 i++;
             }
@@ -267,21 +298,26 @@ namespace Content.Client.Cargo.UI
         {
             base.FrameUpdate(args);
 
-            if (!_bankQuery.TryComp(_station, out var bankAccount) ||
-                !_orderConsoleQuery.TryComp(_owner, out var orderConsole))
+            if (
+                !_bankQuery.TryComp(_station, out var bankAccount)
+                || !_orderConsoleQuery.TryComp(_owner, out var orderConsole)
+            )
             {
                 return;
             }
 
             var balance = _cargoSystem.GetBalanceFromAccount((_station.Value, bankAccount), orderConsole.Account);
             PointsLabel.Text = Loc.GetString("cargo-console-menu-points-amount", ("amount", balance));
-            TransferLimitLabel.Text = Loc.GetString("cargo-console-menu-account-action-transfer-limit",
-                ("limit", (int) (balance * orderConsole.TransferLimit)));
+            TransferLimitLabel.Text = Loc.GetString(
+                "cargo-console-menu-account-action-transfer-limit",
+                ("limit", (int)(balance * orderConsole.TransferLimit))
+            );
 
             UnlimitedNotifier.Visible = orderConsole.TransferUnbounded;
-            AccountActionButton.Disabled = TransferSpinBox.Value <= 0 ||
-                                           TransferSpinBox.Value > bankAccount.Accounts[orderConsole.Account] * orderConsole.TransferLimit ||
-                                           _timing.CurTime < orderConsole.NextAccountActionTime;
+            AccountActionButton.Disabled =
+                TransferSpinBox.Value <= 0
+                || TransferSpinBox.Value > bankAccount.Accounts[orderConsole.Account] * orderConsole.TransferLimit
+                || _timing.CurTime < orderConsole.NextAccountActionTime;
         }
     }
 }

@@ -10,7 +10,8 @@ namespace Content.Server.Database.Migrations.Postgres
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql("""
+            migrationBuilder.Sql(
+                """
                 create or replace function send_server_ban_notification()
                     returns trigger as $$
                     declare
@@ -22,23 +23,28 @@ namespace Content.Server.Database.Migrations.Postgres
                         return NEW;
                     end;
                     $$ LANGUAGE plpgsql;
-                """);
+                """
+            );
 
-            migrationBuilder.Sql("""
+            migrationBuilder.Sql(
+                """
                     create or replace trigger notify_on_server_ban_insert
                         after insert on server_ban
                         for each row
                         execute function send_server_ban_notification();
-                """);
+                """
+            );
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql("""
-                drop trigger notify_on_server_ban_insert on server_ban;
-                drop function send_server_ban_notification;
-            """);
+            migrationBuilder.Sql(
+                """
+                    drop trigger notify_on_server_ban_insert on server_ban;
+                    drop function send_server_ban_notification;
+                """
+            );
         }
     }
 }

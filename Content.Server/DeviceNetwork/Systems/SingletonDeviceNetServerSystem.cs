@@ -2,8 +2,8 @@
 using Content.Server.DeviceNetwork.Components;
 using Content.Server.Medical.CrewMonitoring;
 using Content.Server.Station.Systems;
-using Content.Shared.Power;
 using Content.Shared.DeviceNetwork.Components;
+using Content.Shared.Power;
 using Robust.Shared.Map; // Frontier
 
 namespace Content.Server.DeviceNetwork.Systems;
@@ -14,7 +14,9 @@ namespace Content.Server.DeviceNetwork.Systems;
 /// </summary>
 public sealed class SingletonDeviceNetServerSystem : EntitySystem
 {
-    [Dependency] private readonly DeviceNetworkSystem _deviceNetworkSystem = default!;
+    [Dependency]
+    private readonly DeviceNetworkSystem _deviceNetworkSystem = default!;
+
     // [Dependency] private readonly StationSystem _stationSystem = default!; // Frontier: map-wide singletons
 
     public override void Initialize()
@@ -42,7 +44,8 @@ public sealed class SingletonDeviceNetServerSystem : EntitySystem
     /// <param name="address">The address of the active server if it exists</param>
     /// <typeparam name="TComp">The component type that determines what type of server you're getting the address of</typeparam>
     /// <returns>True if there is an active serve. False otherwise</returns>
-    public bool TryGetActiveServerAddress<TComp>(MapId map, [NotNullWhen(true)] out string? address) where TComp : IComponent
+    public bool TryGetActiveServerAddress<TComp>(MapId map, [NotNullWhen(true)] out string? address)
+        where TComp : IComponent
     {
         var servers = EntityQueryEnumerator<
             SingletonDeviceNetServerComponent,
@@ -62,7 +65,7 @@ public sealed class SingletonDeviceNetServerSystem : EntitySystem
 
             if (!server.Available)
             {
-                DisconnectServer(uid,server, device);
+                DisconnectServer(uid, server, device);
                 continue;
             }
 
@@ -86,6 +89,7 @@ public sealed class SingletonDeviceNetServerSystem : EntitySystem
         address = null;
         return address != null;
     }
+
     // End Frontier
 
     /// <summary>
@@ -99,7 +103,11 @@ public sealed class SingletonDeviceNetServerSystem : EntitySystem
             DisconnectServer(uid, component);
     }
 
-    private void ConnectServer(EntityUid uid, SingletonDeviceNetServerComponent? server = null, DeviceNetworkComponent? device = null)
+    private void ConnectServer(
+        EntityUid uid,
+        SingletonDeviceNetServerComponent? server = null,
+        DeviceNetworkComponent? device = null
+    )
     {
         if (!Resolve(uid, ref server, ref device))
             return;
@@ -118,7 +126,11 @@ public sealed class SingletonDeviceNetServerSystem : EntitySystem
     /// <summary>
     /// Disconnects a server from the device network and clears the currently active server
     /// </summary>
-    private void DisconnectServer(EntityUid uid, SingletonDeviceNetServerComponent? server = null, DeviceNetworkComponent? device = null)
+    private void DisconnectServer(
+        EntityUid uid,
+        SingletonDeviceNetServerComponent? server = null,
+        DeviceNetworkComponent? device = null
+    )
     {
         if (!Resolve(uid, ref server, ref device))
             return;

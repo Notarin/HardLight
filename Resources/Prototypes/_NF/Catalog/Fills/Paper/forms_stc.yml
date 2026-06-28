@@ -40,167 +40,45 @@
 - type: entity # Based on form made by DmitriTheDemon (Dustin)
   id: PaperWrittenStcFormCitationParking
   name: parking citation
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   parent: Paper
   components:
-    - type: Paper
-      content: >+
-        [color=#4f6e40]◥[bold]ColComm[/bold]◣ [bold]Colonial Command Traffic Department[/bold][/color]
-
-        [color=#4f6e40]‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾[/color]
-
-        [head=2]Parking Citation[/head]
-
-
-        [head=2]Vessel Name:[/head][form]
-
-        [head=2]Vessel Callsign:[/head][form]
-
-        [head=2]Owner (if known):[/head][form]
-
-        [head=2]Infraction:[/head] Dock Loitering
-
-        [head=2]Amount of Fine:[/head] 10,000 spesos
-
-
-        [bold]Notes:[/bold]
-
-        Exceeded docking time limit
-
-
-        [head=2]Issuing Agent[/head]
-
-        [bold]Authorizing Officer:[/bold][form]
-
-        [bold]Time of Authorization:[/bold][form]
-
-
-        [color=#AAAAAA]This citation is only valid when approved and signed by an agent representing the traffic control division of the corporation or by the authorized station representative. Additional fines may be issued for each 10 minutes over the maximum.  This citation is a result of a violation of Space Law Section Nine, Article Five, governing the docking rules in and around Frontier Station and the Trade Outpost.
-
-
-        Failure to pay outstanding citations in a timely fashion will result in unpaid citations being forwarded to the New Frontier Sheriff's Department for processing as a criminal offense.[/color]
-
+  - type: Paper
+    content: >
+      [color=#4f6e40]◥[bold]ColComm[/bold]◣ [bold]Colonial Command Traffic Department[/bold][/color] #magic___^_^___line [color=#4f6e40]‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾[/color] #magic___^_^___line [head=2]Parking Citation[/head] #magic___^_^___line [head=2]Vessel Name:[/head][form] #magic___^_^___line [head=2]Vessel Callsign:[/head][form] #magic___^_^___line [head=2]Owner (if known):[/head][form] #magic___^_^___line [head=2]Infraction:[/head] Dock Loitering #magic___^_^___line [head=2]Amount of Fine:[/head] 10,000 spesos #magic___^_^___line [bold]Notes:[/bold] #magic___^_^___line Exceeded docking time limit #magic___^_^___line [head=2]Issuing Agent[/head] #magic___^_^___line [bold]Authorizing Officer:[/bold][form] #magic___^_^___line [bold]Time of Authorization:[/bold][form] #magic___^_^___line [color=#AAAAAA]This citation is only valid when approved and signed by an agent representing the traffic control division of the corporation or by the authorized station representative. Additional fines may be issued for each 10 minutes over the maximum.  This citation is a result of a violation of Space Law Section Nine, Article Five, governing the docking rules in and around Frontier Station and the Trade Outpost. #magic___^_^___line Failure to pay outstanding citations in a timely fashion will result in unpaid citations being forwarded to the New Frontier Sheriff's Department for processing as a criminal offense.[/color] #magic___^_^___line
 - type: entity # Based on form made by DmitriTheDemon (Dustin)
   id: PaperWrittenStcFormCitationTraffic
   name: traffic citation
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   parent: Paper
   components:
-    - type: Paper
-      content: >+
-        [color=#4f6e40]◥[bold]ColComm[/bold]◣ [bold]Colonial Command Traffic Department[/bold][/color]
-
-        [color=#4f6e40]‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾[/color]
-
-        [head=2]Traffic Citation[/head]
-
-
-        [head=2]Time of Offense:[/head][form]
-
-        [head=2]Vessel Name:[/head][form]
-
-        [head=2]Vessel Callsign:[/head][form]
-
-        [head=2]Infraction:[/head] Reckless Operation
-
-        [head=2]Amount of Fine:[/head] 2,500 spesos
-
-
-        [bold]Notes:[/bold]
-
-        Failed to announce departure
-
-
-        [head=2]Issuing Agent[/head]
-
-        [bold]Authorizing Officer:[/bold][form]
-
-
-        [color=#AAAAAA]This citation is only valid when approved and signed by an agent representing the traffic control division of the corporation or by the authorized station representative. This citation is a result of a violation of Space Law Section Nine, Article Five, governing the docking rules in and around Frontier Station and the Trade Outpost.
-
-
-        Failure to pay outstanding citations in a timely fashion will result in unpaid citations being forwarded to the New Frontier Sheriff's Department for processing as a criminal offense.[/color]
-
+  - type: Paper
+    content: >
+      [color=#4f6e40]◥[bold]ColComm[/bold]◣ [bold]Colonial Command Traffic Department[/bold][/color] #magic___^_^___line [color=#4f6e40]‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾[/color] #magic___^_^___line [head=2]Traffic Citation[/head] #magic___^_^___line [head=2]Time of Offense:[/head][form] #magic___^_^___line [head=2]Vessel Name:[/head][form] #magic___^_^___line [head=2]Vessel Callsign:[/head][form] #magic___^_^___line [head=2]Infraction:[/head] Reckless Operation #magic___^_^___line [head=2]Amount of Fine:[/head] 2,500 spesos #magic___^_^___line [bold]Notes:[/bold] #magic___^_^___line Failed to announce departure #magic___^_^___line [head=2]Issuing Agent[/head] #magic___^_^___line [bold]Authorizing Officer:[/bold][form] #magic___^_^___line [color=#AAAAAA]This citation is only valid when approved and signed by an agent representing the traffic control division of the corporation or by the authorized station representative. This citation is a result of a violation of Space Law Section Nine, Article Five, governing the docking rules in and around Frontier Station and the Trade Outpost. #magic___^_^___line Failure to pay outstanding citations in a timely fashion will result in unpaid citations being forwarded to the New Frontier Sheriff's Department for processing as a criminal offense.[/color] #magic___^_^___line
 - type: entity # Based on form made by DmitriTheDemon (Dustin)
   id: PaperWrittenStcFormProsecutionRequest
   name: prosecution request
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   parent: Paper
   components:
-    - type: Paper
-      content: >-
-        [color=#4f6e40]◥[bold]CC[/bold]◣ [bold]Colonial Command Traffic Department[/bold][/color]
-
-        [color=#4f6e40]‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾[/color]
-
-        [head=2]Request for Prosecution[/head]
-
-
-        The below named vessel has been issued citations which have gone unpaid or have not received a response in a timely fashion.
-
-
-        [head=2]Vessel Name:[/head][form]
-
-        [head=2]Vessel Callsign:[/head][form]
-
-        [head=2]Captain Name: [/head][form]
-
-        [head=2]Infraction(s):[/head][form]
-
-        [head=2]Amount of Fine(s):[/head][form]
-
-
-        [color=#AAAAAA]This citation is only valid when approved and signed by an agent representing the traffic control division of the corporation or by the authorized station representative. This request is a result of a violation of Space Law Section Nine, Article Five, governing the docking rules in and around Frontier Station and the Trade Outpost.[/color]
-
+  - type: Paper
+    content: >-
+      [color=#4f6e40]◥[bold]CC[/bold]◣ [bold]Colonial Command Traffic Department[/bold][/color] #magic___^_^___line [color=#4f6e40]‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾[/color] #magic___^_^___line [head=2]Request for Prosecution[/head] #magic___^_^___line The below named vessel has been issued citations which have gone unpaid or have not received a response in a timely fashion. #magic___^_^___line [head=2]Vessel Name:[/head][form] #magic___^_^___line [head=2]Vessel Callsign:[/head][form] #magic___^_^___line [head=2]Captain Name: [/head][form] #magic___^_^___line [head=2]Infraction(s):[/head][form] #magic___^_^___line [head=2]Amount of Fine(s):[/head][form] #magic___^_^___line [color=#AAAAAA]This citation is only valid when approved and signed by an agent representing the traffic control division of the corporation or by the authorized station representative. This request is a result of a violation of Space Law Section Nine, Article Five, governing the docking rules in and around Frontier Station and the Trade Outpost.[/color] #magic___^_^___line
 - type: entity # Based on form made by TakuTaco
   id: PaperWrittenStcFormTrafficLog
   name: traffic log
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   parent: Paper
   components:
-    - type: Paper
-      content: >-
-        [color=#4f6e40]◥[bold]N[/bold]◣ [bold]New Frontier Traffic Department[/bold][/color]
-
-        [color=#4f6e40]‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾[/color]
-
-
-        [head=2]Hourly Traffic Log[/head]
-
-
-        [bold]Time | Ship designator | Known crew | Note[/bold]
-
-
-        [color=green]Docked[/color] | [bold][/bold] |  | [color=green][/color]
-
+  - type: Paper
+    content: >-
+      [color=#4f6e40]◥[bold]N[/bold]◣ [bold]New Frontier Traffic Department[/bold][/color] #magic___^_^___line [color=#4f6e40]‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾[/color] #magic___^_^___line [head=2]Hourly Traffic Log[/head] #magic___^_^___line [bold]Time | Ship designator | Known crew | Note[/bold] #magic___^_^___line [color=green]Docked[/color] | [bold][/bold] |  | [color=green][/color] #magic___^_^___line
 - type: entity # Based on form made by Shock (M. Bergman)
   id: PaperWrittenStcFormWellnessCheck
   name: wellness check
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   parent: Paper
   components:
-    - type: Paper
-      content: >+
-        [color=#2e9935ff]◥[bold]CC[/bold]◣ [bold]ColComm Outpost Command[/bold][/color]
-
-        [color=#2e9935ff]‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾[/color]
-
-        [head=2]Wellness Check[/head]
-
-
-
-        [bold]Vessel IFF:[/bold] [color=#2200BD][form][/color]
-
-        [bold]Shift Time:[/bold] [color=#2200BD][form][/color]
-
-
-
-        This constitutes a wellness check on the destionary vessel and its crew. You are required to contact the Station Traffic Controller within twenty (20) minutes of this notice being sent. If the vessel is unresponsive exceeding the time stated above, it will be declared salvage on account of Space Law §9.3.
-
-
-
-
-
-
-
-        [color=#AAAAAA]This Form is void without the signature and stamp of Station Command (Harbor Master or Station Representative)[/color]
+  - type: Paper
+    content: >
+      [color=#2e9935ff]◥[bold]CC[/bold]◣ [bold]ColComm Outpost Command[/bold][/color] #magic___^_^___line [color=#2e9935ff]‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾[/color] #magic___^_^___line [head=2]Wellness Check[/head] #magic___^_^___line [bold]Vessel IFF:[/bold] [color=#2200BD][form][/color] #magic___^_^___line [bold]Shift Time:[/bold] [color=#2200BD][form][/color] #magic___^_^___line This constitutes a wellness check on the destionary vessel and its crew. You are required to contact the Station Traffic Controller within twenty (20) minutes of this notice being sent. If the vessel is unresponsive exceeding the time stated above, it will be declared salvage on account of Space Law §9.3. #magic___^_^___line [color=#AAAAAA]This Form is void without the signature and stamp of Station Command (Harbor Master or Station Representative)[/color]

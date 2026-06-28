@@ -1,6 +1,7 @@
-using Content.Shared._Goobstation.MartialArts.Events; // Goobstation - Martial Arts
 using Content.Shared._EinsteinEngines.Contests; // Goobstation - Grab Intent
 using Content.Shared._Goobstation.MartialArts.Components; // Goobstation - Grab Intent
+using Content.Shared._Goobstation.MartialArts.Events; // Goobstation - Martial Arts
+using Content.Shared._Starlight.NullSpace;
 using Content.Shared._White.Grab; // Goobstation
 using Content.Shared.ActionBlocker;
 using Content.Shared.Administration.Logs;
@@ -47,7 +48,6 @@ using Robust.Shared.Physics.Systems;
 using Robust.Shared.Player;
 using Robust.Shared.Random; // Goobstation
 using Robust.Shared.Timing;
-using Content.Shared._Starlight.NullSpace;
 
 namespace Content.Shared.Movement.Pulling.Systems;
 
@@ -56,29 +56,73 @@ namespace Content.Shared.Movement.Pulling.Systems;
 /// </summary>
 public sealed class PullingSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly ActionBlockerSystem _blocker = default!;
-    [Dependency] private readonly AlertsSystem _alertsSystem = default!;
-    [Dependency] private readonly MovementSpeedModifierSystem _modifierSystem = default!;
-    [Dependency] private readonly SharedJointSystem _joints = default!;
-    [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
-    [Dependency] private readonly SharedHandsSystem _handsSystem = default!;
-    [Dependency] private readonly SharedInteractionSystem _interaction = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly HeldSpeedModifierSystem _clothingMoveSpeed = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly ISharedAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    private readonly ActionBlockerSystem _blocker = default!;
+
+    [Dependency]
+    private readonly AlertsSystem _alertsSystem = default!;
+
+    [Dependency]
+    private readonly MovementSpeedModifierSystem _modifierSystem = default!;
+
+    [Dependency]
+    private readonly SharedJointSystem _joints = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _containerSystem = default!;
+
+    [Dependency]
+    private readonly SharedHandsSystem _handsSystem = default!;
+
+    [Dependency]
+    private readonly SharedInteractionSystem _interaction = default!;
+
+    [Dependency]
+    private readonly SharedPhysicsSystem _physics = default!;
+
+    [Dependency]
+    private readonly HeldSpeedModifierSystem _clothingMoveSpeed = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
     // Goobstation start
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedStaminaSystem _stamina = default!; // HardLight: StaminSystem<SharedStaminaSystem
-    [Dependency] private readonly SharedColorFlashEffectSystem _color = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly INetManager _netManager = default!;
-    [Dependency] private readonly SharedVirtualItemSystem _virtualSystem = default!;
-    [Dependency] private readonly GrabThrownSystem _grabThrown = default!;
-    [Dependency] private readonly SharedCombatModeSystem _combatMode = default!;
-    [Dependency] private readonly ThrowingSystem _throwing = default!;
-    [Dependency] private readonly ContestsSystem _contests = default!; // Goobstation - Grab Intent
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly SharedStaminaSystem _stamina = default!; // HardLight: StaminSystem<SharedStaminaSystem
+
+    [Dependency]
+    private readonly SharedColorFlashEffectSystem _color = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly INetManager _netManager = default!;
+
+    [Dependency]
+    private readonly SharedVirtualItemSystem _virtualSystem = default!;
+
+    [Dependency]
+    private readonly GrabThrownSystem _grabThrown = default!;
+
+    [Dependency]
+    private readonly SharedCombatModeSystem _combatMode = default!;
+
+    [Dependency]
+    private readonly ThrowingSystem _throwing = default!;
+
+    [Dependency]
+    private readonly ContestsSystem _contests = default!; // Goobstation - Grab Intent
+
     // Goobstation end
 
     public override void Initialize()
@@ -112,8 +156,11 @@ public sealed class PullingSystem : EntitySystem
         SubscribeLocalEvent<PullableComponent, StrappedEvent>(OnBuckled);
         SubscribeLocalEvent<PullableComponent, BuckledEvent>(OnGotBuckled);
 
-        CommandBinds.Builder
-            .Bind(ContentKeyFunctions.ReleasePulledObject, InputCmdHandler.FromDelegate(OnReleasePulledObject, handle: false))
+        CommandBinds
+            .Builder.Bind(
+                ContentKeyFunctions.ReleasePulledObject,
+                InputCmdHandler.FromDelegate(OnReleasePulledObject, handle: false)
+            )
             .Register<PullingSystem>();
     }
 
@@ -123,14 +170,13 @@ public sealed class PullingSystem : EntitySystem
         if (args.Handled)
             return;
 
-        if (!args.Cancelled
-            && TryComp<PullableComponent>(ent.Comp.Pulling, out var comp)
-            && ent.Comp.Pulling != null)
+        if (!args.Cancelled && TryComp<PullableComponent>(ent.Comp.Pulling, out var comp) && ent.Comp.Pulling != null)
         {
-            if(_netManager.IsServer)
+            if (_netManager.IsServer)
                 StopPulling(ent.Comp.Pulling.Value, comp);
         }
     }
+
     // Goobstation
 
     private void OnStateChanged(EntityUid uid, PullerComponent component, ref UpdateMobStateEvent args)
@@ -138,7 +184,10 @@ public sealed class PullingSystem : EntitySystem
         if (component.Pulling == null)
             return;
 
-        if (TryComp<PullableComponent>(component.Pulling, out var comp) && (args.State == MobState.Critical || args.State == MobState.Dead))
+        if (
+            TryComp<PullableComponent>(component.Pulling, out var comp)
+            && (args.State == MobState.Critical || args.State == MobState.Dead)
+        )
         {
             TryStopPull(component.Pulling.Value, comp);
         }
@@ -253,27 +302,32 @@ public sealed class PullingSystem : EntitySystem
 
         foreach (var item in ent.Comp.GrabVirtualItems)
         {
-            if(TryComp<VirtualItemComponent>(ent, out var virtualItemComponent))
-                _virtualSystem.DeleteVirtualItem((item,virtualItemComponent), ent);
+            if (TryComp<VirtualItemComponent>(ent, out var virtualItemComponent))
+                _virtualSystem.DeleteVirtualItem((item, virtualItemComponent), ent);
         }
         ent.Comp.GrabVirtualItems.Clear();
     }
+
     // Goobstation - Grab Intent Refactor
 
     // Goobstation - Grab Intent
     private void OnVirtualItemThrown(EntityUid uid, PullerComponent component, VirtualItemThrownEvent args)
     {
-        if (!TryComp<PhysicsComponent>(uid, out var throwerPhysics)
+        if (
+            !TryComp<PhysicsComponent>(uid, out var throwerPhysics)
             || component.Pulling == null
-            || component.Pulling != args.BlockingEntity)
+            || component.Pulling != args.BlockingEntity
+        )
             return;
 
         if (!TryComp(args.BlockingEntity, out PullableComponent? comp))
             return;
 
-        if (!_combatMode.IsInCombatMode(uid)
+        if (
+            !_combatMode.IsInCombatMode(uid)
             || HasComp<GrabThrownComponent>(args.BlockingEntity)
-            || component.GrabStage <= GrabStage.Soft)
+            || component.GrabStage <= GrabStage.Soft
+        )
             return;
 
         var distanceToCursor = args.Direction.Length();
@@ -283,15 +337,18 @@ public sealed class PullingSystem : EntitySystem
         damage.DamageDict.Add("Blunt", 5);
 
         TryStopPull(args.BlockingEntity, comp, uid, true);
-        _grabThrown.Throw(args.BlockingEntity,
+        _grabThrown.Throw(
+            args.BlockingEntity,
             uid,
             direction,
             component.GrabThrownSpeed,
-            damage * component.GrabThrowDamageModifier); // Throwing the grabbed person
+            damage * component.GrabThrowDamageModifier
+        ); // Throwing the grabbed person
         _throwing.TryThrow(uid, -direction * throwerPhysics.InvMass); // Throws back the grabber
         _audio.PlayPvs(new SoundPathSpecifier("/Audio/Effects/thudswoosh.ogg"), uid);
         component.NextStageChange = _timing.CurTime.Add(TimeSpan.FromSeconds(3f)); // To avoid grab and throw spamming
     }
+
     // Goobstation
 
     private void AddPullVerbs(EntityUid uid, PullableComponent component, GetVerbsEvent<Verb> args)
@@ -310,7 +367,7 @@ public sealed class PullingSystem : EntitySystem
             {
                 Text = Loc.GetString("pulling-verb-get-data-text-stop-pulling"),
                 Act = () => TryStopPull(uid, component, user: args.User),
-                DoContactInteraction = false // pulling handle its own contact interaction.
+                DoContactInteraction = false, // pulling handle its own contact interaction.
             };
             args.Verbs.Add(verb);
         }
@@ -320,7 +377,7 @@ public sealed class PullingSystem : EntitySystem
             {
                 Text = Loc.GetString("pulling-verb-get-data-text"),
                 Act = () => TryStartPull(args.User, args.Target),
-                DoContactInteraction = false // pulling handle its own contact interaction.
+                DoContactInteraction = false, // pulling handle its own contact interaction.
             };
             args.Verbs.Add(verb);
         }
@@ -330,8 +387,10 @@ public sealed class PullingSystem : EntitySystem
     {
         if (TryComp<HeldSpeedModifierComponent>(component.Pulling, out var itemHeldSpeed) && component.Pulling.HasValue)
         {
-            var (walkMod, sprintMod) =
-                _clothingMoveSpeed.GetHeldMovementSpeedModifiers(component.Pulling.Value, itemHeldSpeed);
+            var (walkMod, sprintMod) = _clothingMoveSpeed.GetHeldMovementSpeedModifiers(
+                component.Pulling.Value,
+                itemHeldSpeed
+            );
             args.ModifySpeed(walkMod, sprintMod);
         }
 
@@ -371,15 +430,24 @@ public sealed class PullingSystem : EntitySystem
                 break;
             case GrabStage.Soft:
                 var softGrabSpeedMod = component.SoftGrabSpeedModifier;
-                args.ModifySpeed(component.WalkSpeedModifier * softGrabSpeedMod, component.SprintSpeedModifier * softGrabSpeedMod);
+                args.ModifySpeed(
+                    component.WalkSpeedModifier * softGrabSpeedMod,
+                    component.SprintSpeedModifier * softGrabSpeedMod
+                );
                 break;
             case GrabStage.Hard:
                 var hardGrabSpeedModifier = component.HardGrabSpeedModifier;
-                args.ModifySpeed(component.WalkSpeedModifier * hardGrabSpeedModifier, component.SprintSpeedModifier * hardGrabSpeedModifier);
+                args.ModifySpeed(
+                    component.WalkSpeedModifier * hardGrabSpeedModifier,
+                    component.SprintSpeedModifier * hardGrabSpeedModifier
+                );
                 break;
             case GrabStage.Suffocate:
                 var chokeSpeedMod = component.ChokeGrabSpeedModifier;
-                args.ModifySpeed(component.WalkSpeedModifier * chokeSpeedMod, component.SprintSpeedModifier * chokeSpeedMod);
+                args.ModifySpeed(
+                    component.WalkSpeedModifier * chokeSpeedMod,
+                    component.SprintSpeedModifier * chokeSpeedMod
+                );
                 break;
             default:
                 args.ModifySpeed(component.WalkSpeedModifier, component.SprintSpeedModifier);
@@ -410,6 +478,7 @@ public sealed class PullingSystem : EntitySystem
         if (ent.Comp.GrabStage == GrabStage.No)
             TryStopPull(ent, ent, user: ent);
     }
+
     // Goobstation
 
     private void OnPullableCollisionChange(EntityUid uid, PullableComponent component, ref CollisionChangeEvent args)
@@ -426,9 +495,7 @@ public sealed class PullingSystem : EntitySystem
         // Just handles the joint getting nuked without going through pulling system (valid behavior).
 
         // Not relevant / pullable state handle it.
-        if (component.Puller != args.OtherEntity ||
-            args.Joint.ID != component.PullJointId ||
-            _timing.ApplyingState)
+        if (component.Puller != args.OtherEntity || args.Joint.ID != component.PullJointId || _timing.ApplyingState)
         {
             return;
         }
@@ -492,7 +559,11 @@ public sealed class PullingSystem : EntitySystem
             // Messaging
             var message = new PullStoppedMessage(pullerUid, pullableUid);
             _modifierSystem.RefreshMovementSpeedModifiers(pullerUid);
-            _adminLogger.Add(LogType.Action, LogImpact.Low, $"{ToPrettyString(pullerUid):user} stopped pulling {ToPrettyString(pullableUid):target}");
+            _adminLogger.Add(
+                LogType.Action,
+                LogImpact.Low,
+                $"{ToPrettyString(pullerUid):user} stopped pulling {ToPrettyString(pullableUid):target}"
+            );
 
             RaiseLocalEvent(pullerUid, message);
             RaiseLocalEvent(pullableUid, message);
@@ -529,8 +600,10 @@ public sealed class PullingSystem : EntitySystem
             return;
         }
 
-        if (!TryComp(player, out PullerComponent? pullerComp) ||
-            !TryComp(pullerComp.Pulling, out PullableComponent? pullableComp))
+        if (
+            !TryComp(player, out PullerComponent? pullerComp)
+            || !TryComp(pullerComp.Pulling, out PullableComponent? pullableComp)
+        )
         {
             return;
         }
@@ -545,9 +618,7 @@ public sealed class PullingSystem : EntitySystem
             return false;
         }
 
-        if (pullerComp.NeedsHands
-            && !_handsSystem.TryGetEmptyHand(puller, out _)
-            && pullerComp.Pulling == null)
+        if (pullerComp.NeedsHands && !_handsSystem.TryGetEmptyHand(puller, out _) && pullerComp.Pulling == null)
         {
             return false;
         }
@@ -601,6 +672,7 @@ public sealed class PullingSystem : EntitySystem
 
         return false;
     }
+
     // Goobstation end
 
     public bool TogglePull(EntityUid pullerUid, PullerComponent puller)
@@ -611,11 +683,14 @@ public sealed class PullingSystem : EntitySystem
         return TogglePull((puller.Pulling.Value, pullable), pullerUid);
     }
 
-    public bool TryStartPull(EntityUid pullerUid, EntityUid pullableUid,
-        PullerComponent? pullerComp = null, PullableComponent? pullableComp = null)
+    public bool TryStartPull(
+        EntityUid pullerUid,
+        EntityUid pullableUid,
+        PullerComponent? pullerComp = null,
+        PullableComponent? pullableComp = null
+    )
     {
-        if (!Resolve(pullerUid, ref pullerComp, false) ||
-            !Resolve(pullableUid, ref pullableComp, false))
+        if (!Resolve(pullerUid, ref pullerComp, false) || !Resolve(pullableUid, ref pullableComp, false))
         {
             return false;
         }
@@ -626,12 +701,17 @@ public sealed class PullingSystem : EntitySystem
         if (!CanPull(pullerUid, pullableUid))
             return false;
 
-        if (!TryComp(pullerUid, out PhysicsComponent? pullerPhysics) || !TryComp(pullableUid, out PhysicsComponent? pullablePhysics))
+        if (
+            !TryComp(pullerUid, out PhysicsComponent? pullerPhysics)
+            || !TryComp(pullableUid, out PhysicsComponent? pullablePhysics)
+        )
             return false;
 
         // Ensure that the puller is not currently pulling anything.
-        if (TryComp<PullableComponent>(pullerComp.Pulling, out var oldPullable)
-            && !TryStopPull(pullerComp.Pulling.Value, oldPullable, pullerUid, true)) // Goobstation
+        if (
+            TryComp<PullableComponent>(pullerComp.Pulling, out var oldPullable)
+            && !TryStopPull(pullerComp.Pulling.Value, oldPullable, pullerUid, true)
+        ) // Goobstation
             return false;
 
         // Stop anyone else pulling the entity we want to pull
@@ -647,31 +727,54 @@ public sealed class PullingSystem : EntitySystem
                 // Not succeed to retake grabbed entity
                 if (_netManager.IsServer)
                 {
-                    _popup.PopupEntity(Loc.GetString("popup-grab-retake-fail",
+                    _popup.PopupEntity(
+                        Loc.GetString(
+                            "popup-grab-retake-fail",
                             ("puller", Identity.Entity(pullableComp.Puller.Value, EntityManager)),
-                            ("pulled", Identity.Entity(pullableUid, EntityManager))),
-                        pullerUid, pullerUid, PopupType.MediumCaution);
-                    _popup.PopupEntity(Loc.GetString("popup-grab-retake-fail-puller",
+                            ("pulled", Identity.Entity(pullableUid, EntityManager))
+                        ),
+                        pullerUid,
+                        pullerUid,
+                        PopupType.MediumCaution
+                    );
+                    _popup.PopupEntity(
+                        Loc.GetString(
+                            "popup-grab-retake-fail-puller",
                             ("puller", Identity.Entity(pullerUid, EntityManager)),
-                            ("pulled", Identity.Entity(pullableUid, EntityManager))),
-                        pullableComp.Puller.Value, pullableComp.Puller.Value, PopupType.MediumCaution);
+                            ("pulled", Identity.Entity(pullableUid, EntityManager))
+                        ),
+                        pullableComp.Puller.Value,
+                        pullableComp.Puller.Value,
+                        PopupType.MediumCaution
+                    );
                 }
                 return false;
             }
-
             else if (pullableComp.GrabStage != GrabStage.No)
             {
                 // Successful retake
                 if (_netManager.IsServer)
                 {
-                    _popup.PopupEntity(Loc.GetString("popup-grab-retake-success",
+                    _popup.PopupEntity(
+                        Loc.GetString(
+                            "popup-grab-retake-success",
                             ("puller", Identity.Entity(pullableComp.Puller.Value, EntityManager)),
-                            ("pulled", Identity.Entity(pullableUid, EntityManager))),
-                        pullerUid, pullerUid, PopupType.MediumCaution);
-                    _popup.PopupEntity(Loc.GetString("popup-grab-retake-success-puller",
+                            ("pulled", Identity.Entity(pullableUid, EntityManager))
+                        ),
+                        pullerUid,
+                        pullerUid,
+                        PopupType.MediumCaution
+                    );
+                    _popup.PopupEntity(
+                        Loc.GetString(
+                            "popup-grab-retake-success-puller",
                             ("puller", Identity.Entity(pullerUid, EntityManager)),
-                            ("pulled", Identity.Entity(pullableUid, EntityManager))),
-                        pullableComp.Puller.Value, pullableComp.Puller.Value, PopupType.MediumCaution);
+                            ("pulled", Identity.Entity(pullableUid, EntityManager))
+                        ),
+                        pullableComp.Puller.Value,
+                        pullableComp.Puller.Value,
+                        PopupType.MediumCaution
+                    );
                 }
             }
             // Goobstation end
@@ -705,9 +808,13 @@ public sealed class PullingSystem : EntitySystem
         // joint state handling will manage its own state
         if (!_timing.ApplyingState)
         {
-            var joint = _joints.CreateDistanceJoint(pullableUid, pullerUid,
-                    pullablePhysics.LocalCenter, pullerPhysics.LocalCenter,
-                    id: pullableComp.PullJointId);
+            var joint = _joints.CreateDistanceJoint(
+                pullableUid,
+                pullerUid,
+                pullablePhysics.LocalCenter,
+                pullerPhysics.LocalCenter,
+                id: pullableComp.PullJointId
+            );
             joint.CollideConnected = false;
             // This maximum has to be there because if the object is constrained too closely, the clamping goes backwards and asserts.
             // Internally, the joint length has been set to the distance between the pivots.
@@ -734,12 +841,17 @@ public sealed class PullingSystem : EntitySystem
         Dirty(pullerUid, pullerComp);
         Dirty(pullableUid, pullableComp);
 
-        var pullingMessage =
-            Loc.GetString("getting-pulled-popup", ("puller", Identity.Entity(pullerUid, EntityManager)));
+        var pullingMessage = Loc.GetString(
+            "getting-pulled-popup",
+            ("puller", Identity.Entity(pullerUid, EntityManager))
+        );
         _popup.PopupEntity(pullingMessage, pullableUid, pullableUid);
 
-        _adminLogger.Add(LogType.Action, LogImpact.Low,
-            $"{ToPrettyString(pullerUid):user} started pulling {ToPrettyString(pullableUid):target}");
+        _adminLogger.Add(
+            LogType.Action,
+            LogImpact.Low,
+            $"{ToPrettyString(pullerUid):user} started pulling {ToPrettyString(pullableUid):target}"
+        );
 
         if (_combatMode.IsInCombatMode(pullerUid)) // Goobstation
             TryGrab(pullableUid, pullerUid); // Goobstation
@@ -747,7 +859,12 @@ public sealed class PullingSystem : EntitySystem
         return true;
     }
 
-    public bool TryStopPull(EntityUid pullableUid, PullableComponent pullable, EntityUid? user = null, bool ignoreGrab = false)
+    public bool TryStopPull(
+        EntityUid pullableUid,
+        PullableComponent pullable,
+        EntityUid? user = null,
+        bool ignoreGrab = false
+    )
     {
         var pullerUidNull = pullable.Puller;
 
@@ -771,23 +888,30 @@ public sealed class PullingSystem : EntitySystem
                 var releaseAttempt = AttemptGrabRelease(pullableUid);
                 if (!releaseAttempt)
                 {
-                    _popup.PopupEntity(Loc.GetString("popup-grab-release-fail-self"),
+                    _popup.PopupEntity(
+                        Loc.GetString("popup-grab-release-fail-self"),
                         pullableUid,
                         pullableUid,
-                        PopupType.SmallCaution);
+                        PopupType.SmallCaution
+                    );
                     return false;
                 }
 
-                _popup.PopupEntity(Loc.GetString("popup-grab-release-success-self"),
-                    pullableUid,
-                    pullableUid,
-                    PopupType.SmallCaution);
                 _popup.PopupEntity(
-                    Loc.GetString("popup-grab-release-success-puller",
-                        ("target", Identity.Entity(pullableUid, EntityManager))),
+                    Loc.GetString("popup-grab-release-success-self"),
+                    pullableUid,
+                    pullableUid,
+                    PopupType.SmallCaution
+                );
+                _popup.PopupEntity(
+                    Loc.GetString(
+                        "popup-grab-release-success-puller",
+                        ("target", Identity.Entity(pullableUid, EntityManager))
+                    ),
                     pullerUidNull.Value,
                     pullerUidNull.Value,
-                    PopupType.MediumCaution);
+                    PopupType.MediumCaution
+                );
             }
         }
         // Goobstation end
@@ -801,8 +925,9 @@ public sealed class PullingSystem : EntitySystem
         if (TryComp<PullableComponent>(uid, out var pullable) && IsPulled(uid, pullable))
             TryStopPull(uid, pullable);
 
-        if (TryComp<PullerComponent>(uid, out var puller) &&
-            TryComp(puller.Pulling, out PullableComponent? pullableEnt))
+        if (
+            TryComp<PullerComponent>(uid, out var puller) && TryComp(puller.Pulling, out PullableComponent? pullableEnt)
+        )
             TryStopPull(puller.Pulling.Value, pullableEnt);
     }
 
@@ -815,7 +940,11 @@ public sealed class PullingSystem : EntitySystem
     /// <param name="ignoreCombatMode">If true, will ignore disabled combat mode</param>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
     /// <returns></returns>
-    public bool TryGrab(Entity<PullableComponent?> pullable, Entity<PullerComponent?> puller, bool ignoreCombatMode = false)
+    public bool TryGrab(
+        Entity<PullableComponent?> pullable,
+        Entity<PullerComponent?> puller,
+        bool ignoreCombatMode = false
+    )
     {
         if (!Resolve(pullable.Owner, ref pullable.Comp))
             return false;
@@ -830,8 +959,7 @@ public sealed class PullingSystem : EntitySystem
         if (HasComp<PacifiedComponent>(puller))
             return false;
 
-        if (pullable.Comp.Puller != puller ||
-            puller.Comp.Pulling != pullable)
+        if (pullable.Comp.Puller != puller || puller.Comp.Pulling != pullable)
             return false;
 
         if (puller.Comp.NextStageChange > _timing.CurTime)
@@ -849,7 +977,6 @@ public sealed class PullingSystem : EntitySystem
         if (!ignoreCombatMode)
             if (!_combatMode.IsInCombatMode(puller))
                 return false;
-
 
         // It's blocking stage update, maybe better UX?
         if (puller.Comp.GrabStage == GrabStage.Suffocate)
@@ -872,9 +999,11 @@ public sealed class PullingSystem : EntitySystem
 
         var newStage = puller.Comp.GrabStage + nextStageAddition;
 
-        if (HasComp<MartialArtsKnowledgeComponent>(puller)
+        if (
+            HasComp<MartialArtsKnowledgeComponent>(puller)
             && TryComp<RequireProjectileTargetComponent>(pullable, out var layingDown)
-            && layingDown.Active)
+            && layingDown.Active
+        )
         {
             var ev = new CheckGrabOverridesEvent(newStage);
             RaiseLocalEvent(puller, ev);
@@ -884,9 +1013,14 @@ public sealed class PullingSystem : EntitySystem
         if (!TrySetGrabStages((puller, puller.Comp), (pullable, pullable.Comp), newStage))
             return false;
 
-        _color.RaiseEffect(Color.Yellow, new List<EntityUid> { pullable }, Filter.Pvs(pullable, entityManager: EntityManager));
+        _color.RaiseEffect(
+            Color.Yellow,
+            new List<EntityUid> { pullable },
+            Filter.Pvs(pullable, entityManager: EntityManager)
+        );
         return true;
     }
+
     private bool TrySetGrabStages(Entity<PullerComponent> puller, Entity<PullableComponent> pullable, GrabStage stage)
     {
         puller.Comp.GrabStage = stage;
@@ -895,7 +1029,8 @@ public sealed class PullingSystem : EntitySystem
         if (!TryUpdateGrabVirtualItems(puller, pullable))
             return false;
 
-        var filter = Filter.Empty()
+        var filter = Filter
+            .Empty()
             .AddPlayersByPvs(Transform(puller).Coordinates)
             .RemovePlayerByAttachedEntity(puller.Owner)
             .RemovePlayerByAttachedEntity(pullable.Owner);
@@ -906,7 +1041,7 @@ public sealed class PullingSystem : EntitySystem
             GrabStage.Soft => PopupType.Small,
             GrabStage.Hard => PopupType.MediumCaution,
             GrabStage.Suffocate => PopupType.LargeCaution,
-            _ => throw new ArgumentOutOfRangeException()
+            _ => throw new ArgumentOutOfRangeException(),
         };
 
         var massModifier = _contests.MassContest(puller, pullable);
@@ -922,9 +1057,35 @@ public sealed class PullingSystem : EntitySystem
         if (!_netManager.IsServer)
             return true;
 
-        _popup.PopupEntity(Loc.GetString($"popup-grab-{puller.Comp.GrabStage.ToString().ToLower()}-target", ("puller", Identity.Entity(puller, EntityManager))), pullable, pullable, popupType);
-        _popup.PopupEntity(Loc.GetString($"popup-grab-{puller.Comp.GrabStage.ToString().ToLower()}-self", ("target", Identity.Entity(pullable, EntityManager))), pullable, puller, PopupType.Medium);
-        _popup.PopupEntity(Loc.GetString($"popup-grab-{puller.Comp.GrabStage.ToString().ToLower()}-others", ("target", Identity.Entity(pullable, EntityManager)), ("puller", Identity.Entity(puller, EntityManager))), pullable, filter, true, popupType);
+        _popup.PopupEntity(
+            Loc.GetString(
+                $"popup-grab-{puller.Comp.GrabStage.ToString().ToLower()}-target",
+                ("puller", Identity.Entity(puller, EntityManager))
+            ),
+            pullable,
+            pullable,
+            popupType
+        );
+        _popup.PopupEntity(
+            Loc.GetString(
+                $"popup-grab-{puller.Comp.GrabStage.ToString().ToLower()}-self",
+                ("target", Identity.Entity(pullable, EntityManager))
+            ),
+            pullable,
+            puller,
+            PopupType.Medium
+        );
+        _popup.PopupEntity(
+            Loc.GetString(
+                $"popup-grab-{puller.Comp.GrabStage.ToString().ToLower()}-others",
+                ("target", Identity.Entity(pullable, EntityManager)),
+                ("puller", Identity.Entity(puller, EntityManager))
+            ),
+            pullable,
+            filter,
+            true,
+            popupType
+        );
 
         _audio.PlayPvs(new SoundPathSpecifier("/Audio/Effects/thudswoosh.ogg"), pullable);
 
@@ -986,8 +1147,8 @@ public sealed class PullingSystem : EntitySystem
 
             var item = puller.Comp.GrabVirtualItems[i];
             puller.Comp.GrabVirtualItems.Remove(item);
-            if(TryComp<VirtualItemComponent>(item, out var virtualItemComponent))
-                _virtualSystem.DeleteVirtualItem((item,virtualItemComponent), puller);
+            if (TryComp<VirtualItemComponent>(item, out var virtualItemComponent))
+                _virtualSystem.DeleteVirtualItem((item, virtualItemComponent), puller);
         }
 
         return true;
@@ -1003,7 +1164,7 @@ public sealed class PullingSystem : EntitySystem
         if (!Resolve(pullable.Owner, ref pullable.Comp))
             return false;
 
-        if (_timing.CurTime < pullable.Comp.NextEscapeAttempt)  // No autoclickers! Mwa-ha-ha
+        if (_timing.CurTime < pullable.Comp.NextEscapeAttempt) // No autoclickers! Mwa-ha-ha
             return false;
 
         if (_random.Prob(pullable.Comp.GrabEscapeChance))
@@ -1020,7 +1181,6 @@ public sealed class PullingSystem : EntitySystem
             return;
 
         args.Cancel();
-
     }
 
     private void OnGrabbedSpeakAttempt(EntityUid uid, PullableComponent component, SpeakAttemptEvent args)
@@ -1028,7 +1188,7 @@ public sealed class PullingSystem : EntitySystem
         if (component.GrabStage != GrabStage.Suffocate)
             return;
 
-        _popup.PopupEntity(Loc.GetString("popup-grabbed-cant-speak"), uid, uid, PopupType.MediumCaution);   // You cant speak while someone is choking you
+        _popup.PopupEntity(Loc.GetString("popup-grabbed-cant-speak"), uid, uid, PopupType.MediumCaution); // You cant speak while someone is choking you
 
         args.Cancel();
     }
@@ -1040,7 +1200,11 @@ public sealed class PullingSystem : EntitySystem
     /// <param name="puller">Performer</param>
     /// <param name="ignoreCombatMode">If true, will NOT release target if combat mode is off</param>
     /// <returns></returns>
-    public bool TryLowerGrabStage(Entity<PullableComponent?> pullable, Entity<PullerComponent?> puller, bool ignoreCombatMode = false)
+    public bool TryLowerGrabStage(
+        Entity<PullableComponent?> pullable,
+        Entity<PullerComponent?> puller,
+        bool ignoreCombatMode = false
+    )
     {
         if (!Resolve(pullable.Owner, ref pullable.Comp))
             return false;
@@ -1048,8 +1212,7 @@ public sealed class PullingSystem : EntitySystem
         if (!Resolve(puller.Owner, ref puller.Comp))
             return false;
 
-        if (pullable.Comp.Puller != puller.Owner ||
-            puller.Comp.Pulling != pullable.Owner)
+        if (pullable.Comp.Puller != puller.Owner || puller.Comp.Pulling != pullable.Owner)
             return false;
 
         if (_timing.CurTime < puller.Comp.NextStageChange)

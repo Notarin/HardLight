@@ -32,7 +32,7 @@
     ClothingHeadHatSurgcapPurple: 4
     ClothingNeckCollarMed: 2 # Floofstation - Collar addition
     ClothingUniformJumpsuitCoroner: 2 # Hardlight
-# Paramed:
+    # Paramed:
     ClothingUniformJumpsuitParamedic: 4
     ClothingUniformJumpskirtParamedic: 4
     ClothingOuterWinterPara: 2
@@ -41,7 +41,7 @@
     ClothingHeadHatParamedicsoft: 2
     ClothingBeltMedicalEMT: 4 # Frontier, empty
     ClothingOuterHardsuitVoidParamed: 1
-# Virology:
+    # Virology:
     ClothingBackpackVirology: 2
     ClothingBackpackSatchelVirology: 2
     ClothingBackpackDuffelVirology: 2
@@ -54,7 +54,7 @@
     ClothingHeadHatHoodBioVirology: 2
     ClothingOuterBioVirology: 2
     ClothingShoesBootsWinterViro: 2 #Delta V: Add departmental winter boots
-# Chem:
+    # Chem:
     ClothingBackpackChemistry: 2
     ClothingBackpackSatchelChemistry: 2
     ClothingBackpackDuffelChemistry: 2
@@ -66,7 +66,7 @@
     ClothingOuterWinterChem: 2
     ClothingOuterCoatLabChem: 2
     ClothingShoesBootsWinterChem: 2 #Delta V: Add departmental winter boots
-# Genetics:
+    # Genetics:
     ClothingUniformJumpsuitGenetics: 2
     ClothingUniformJumpskirtGenetics: 2
     ClothingOuterCoatLabGene: 2
@@ -75,18 +75,18 @@
     ClothingBackpackSatchelGenetics: 2
     ClothingBackpackDuffelGenetics: 2
     ClothingShoesBootsWinterGenetics: 2 #Delta V: Add departmental winter boots
-# Physician:
+    # Physician:
     ClothingUniformJumpsuitSeniorPhysician: 1
     ClothingUniformJumpskirtSeniorPhysician: 1
     ClothingOuterCoatLabSeniorPhysician: 1
     ClothingHeadHatBeretBrigmedic: 1
-# Psychologist:
+    # Psychologist:
     ClothingUniformJumpsuitPsychologist: 1
     ClothingUniformJumpskirtPsychologist: 1
     ClothingEyesGlasses: 1
     ClothingShoesLeather: 1
     #RubberStampPsychologist: 1
-#Socks and things
+    #Socks and things
     ClothingHandsMedicWarmers: 3
     ClothingUnderSocksMedic: 3
     ClothingUniformMedicThong: 3
@@ -99,7 +99,7 @@
     ClothingHandsCMOWarmers: 3
     ClothingUnderSocksCMO: 3
     ClothingUniformCMOThong: 3
-# CMO:
+    # CMO:
   contrabandInventory: # Frontier - Hidden inventory
     ClothingUniformJumpskirtOfLife: 1
     ToyFigurineMedicalDoctor: 1

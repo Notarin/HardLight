@@ -8,8 +8,11 @@ namespace Content.Shared.Blocking;
 
 public sealed partial class BlockingSystem
 {
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency]
+    private readonly DamageableSystem _damageable = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
 
     private void InitializeUser()
     {
@@ -27,7 +30,11 @@ public sealed partial class BlockingSystem
         UserStopBlocking(uid, component);
     }
 
-    private void OnInsertAttempt(EntityUid uid, BlockingUserComponent component, ContainerGettingInsertedAttemptEvent args)
+    private void OnInsertAttempt(
+        EntityUid uid,
+        BlockingUserComponent component,
+        ContainerGettingInsertedAttemptEvent args
+    )
     {
         UserStopBlocking(uid, component);
     }
@@ -87,7 +94,6 @@ public sealed partial class BlockingSystem
             return;
 
         StopBlockingHelper(component.BlockingItem.Value, blockingComponent, uid);
-
     }
 
     /// <summary>

@@ -5,8 +5,8 @@
   setPreference: true # HardLight: false<true
   playTimeTracker: JobValet
   requirements:
-    - !type:OverallPlaytimeRequirement
-      time: 10800
+  - !type:OverallPlaytimeRequirement
+    time: 10800
   weight: -40 # HardLight
   startingGear: ValetGear
   alwaysUseSpawner: false # HardLight: true<false
@@ -20,13 +20,13 @@
   - Frontier # Frontier
   special:
   - !type:AddImplantSpecial
-    implants: [ MindShieldImplant ]
-  - !type:GiveItemOnHolidaySpecial # Frontier
+    implants: [MindShieldImplant]
+  - !type:GiveItemOnHolidaySpecial
     holiday: FrontierBirthday # Frontier
     prototype: FrontierBirthdayGift # Frontier
 
 # Frontier start: Valet loadout
-- type: startingGear
+- type: startingGear # Frontier
   id: ValetGear
   equipment:
     head: ClothingHeadHatBellhop

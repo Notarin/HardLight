@@ -24,48 +24,71 @@ namespace Content.Server.Administration.Logs;
 
 public sealed partial class AdminLogManager : SharedAdminLogManager, IAdminLogManager
 {
-    [Dependency] private readonly IConfigurationManager _configuration = default!;
-    [Dependency] private readonly IEntityManager _entityManager = default!;
-    [Dependency] private readonly ILogManager _logManager = default!;
-    [Dependency] private readonly IServerDbManager _db = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IDynamicTypeFactory _typeFactory = default!;
-    [Dependency] private readonly IReflectionManager _reflection = default!;
-    [Dependency] private readonly IDependencyCollection _dependencies = default!;
-    [Dependency] private readonly ISharedPlayerManager _player = default!;
-    [Dependency] private readonly ISharedPlaytimeManager _playtime = default!;
-    [Dependency] private readonly ISharedChatManager _chat = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
+    [Dependency]
+    private readonly IConfigurationManager _configuration = default!;
+
+    [Dependency]
+    private readonly IEntityManager _entityManager = default!;
+
+    [Dependency]
+    private readonly ILogManager _logManager = default!;
+
+    [Dependency]
+    private readonly IServerDbManager _db = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IDynamicTypeFactory _typeFactory = default!;
+
+    [Dependency]
+    private readonly IReflectionManager _reflection = default!;
+
+    [Dependency]
+    private readonly IDependencyCollection _dependencies = default!;
+
+    [Dependency]
+    private readonly ISharedPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly ISharedPlaytimeManager _playtime = default!;
+
+    [Dependency]
+    private readonly ISharedChatManager _chat = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
 
     public const string SawmillId = "admin.logs";
 
     private static readonly Histogram DatabaseUpdateTime = Metrics.CreateHistogram(
         "admin_logs_database_time",
         "Time used to send logs to the database in ms",
-        new HistogramConfiguration
-        {
-            Buckets = Histogram.LinearBuckets(0, 0.5, 20)
-        });
+        new HistogramConfiguration { Buckets = Histogram.LinearBuckets(0, 0.5, 20) }
+    );
 
-    private static readonly Gauge Queue = Metrics.CreateGauge(
-        "admin_logs_queue",
-        "How many logs are in the queue.");
+    private static readonly Gauge Queue = Metrics.CreateGauge("admin_logs_queue", "How many logs are in the queue.");
 
     private static readonly Gauge PreRoundQueue = Metrics.CreateGauge(
         "admin_logs_pre_round_queue",
-        "How many logs are in the pre-round queue.");
+        "How many logs are in the pre-round queue."
+    );
 
     private static readonly Gauge QueueCapReached = Metrics.CreateGauge(
         "admin_logs_queue_cap_reached",
-        "Number of times the log queue cap has been reached in a round.");
+        "Number of times the log queue cap has been reached in a round."
+    );
 
     private static readonly Gauge PreRoundQueueCapReached = Metrics.CreateGauge(
         "admin_logs_queue_cap_reached",
-        "Number of times the pre-round log queue cap has been reached in a round.");
+        "Number of times the pre-round log queue cap has been reached in a round."
+    );
 
     private static readonly Gauge LogsSent = Metrics.CreateGauge(
         "admin_logs_sent",
-        "Amount of logs sent to the database in a round.");
+        "Amount of logs sent to the database in a round."
+    );
 
     // Init only
     private ISawmill _sawmill = default!;
@@ -100,20 +123,17 @@ public sealed partial class AdminLogManager : SharedAdminLogManager, IAdminLogMa
 
         InitializeJson();
 
-        _configuration.OnValueChanged(CVars.MetricsEnabled,
-            value => _metricsEnabled = value, true);
-        _configuration.OnValueChanged(CCVars.AdminLogsEnabled,
-            value => _enabled = value, true);
-        _configuration.OnValueChanged(CCVars.AdminLogsQueueSendDelay,
-            value => _queueSendDelay = TimeSpan.FromSeconds(value), true);
-        _configuration.OnValueChanged(CCVars.AdminLogsQueueMax,
-            value => _queueMax = value, true);
-        _configuration.OnValueChanged(CCVars.AdminLogsPreRoundQueueMax,
-            value => _preRoundQueueMax = value, true);
-        _configuration.OnValueChanged(CCVars.AdminLogsDropThreshold,
-            value => _dropThreshold = value, true);
-        _configuration.OnValueChanged(CCVars.AdminLogsHighLogPlaytime,
-            value => _highImpactLogPlaytime = value, true);
+        _configuration.OnValueChanged(CVars.MetricsEnabled, value => _metricsEnabled = value, true);
+        _configuration.OnValueChanged(CCVars.AdminLogsEnabled, value => _enabled = value, true);
+        _configuration.OnValueChanged(
+            CCVars.AdminLogsQueueSendDelay,
+            value => _queueSendDelay = TimeSpan.FromSeconds(value),
+            true
+        );
+        _configuration.OnValueChanged(CCVars.AdminLogsQueueMax, value => _queueMax = value, true);
+        _configuration.OnValueChanged(CCVars.AdminLogsPreRoundQueueMax, value => _preRoundQueueMax = value, true);
+        _configuration.OnValueChanged(CCVars.AdminLogsDropThreshold, value => _dropThreshold = value, true);
+        _configuration.OnValueChanged(CCVars.AdminLogsHighLogPlaytime, value => _highImpactLogPlaytime = value, true);
 
         if (_metricsEnabled)
         {
@@ -311,7 +331,7 @@ public sealed partial class AdminLogManager : SharedAdminLogManager, IAdminLogMa
             Date = DateTime.UtcNow,
             Message = message,
             Json = json,
-            Players = new List<AdminLogPlayer>(players.Count)
+            Players = new List<AdminLogPlayer>(players.Count),
         };
 
         var adminLog = false;
@@ -320,11 +340,7 @@ public sealed partial class AdminLogManager : SharedAdminLogManager, IAdminLogMa
 
         foreach (var id in players)
         {
-            var player = new AdminLogPlayer
-            {
-                LogId = log.Id,
-                PlayerUserId = id
-            };
+            var player = new AdminLogPlayer { LogId = log.Id, PlayerUserId = id };
 
             log.Players.Add(player);
 
@@ -339,7 +355,8 @@ public sealed partial class AdminLogManager : SharedAdminLogManager, IAdminLogMa
                         "admin-alert-antag-label",
                         ("message", logMessage),
                         ("name", cachedInfo.CharacterName),
-                        ("subtype", subtype));
+                        ("subtype", subtype)
+                    );
                 }
             }
 
@@ -354,8 +371,10 @@ public sealed partial class AdminLogManager : SharedAdminLogManager, IAdminLogMa
                 if (_highImpactLogPlaytime >= 0 && _player.TryGetSessionById(new NetUserId(id), out var session))
                 {
                     var playtimes = _playtime.GetPlayTimes(session);
-                    if (playtimes.TryGetValue(PlayTimeTrackingShared.TrackerOverall, out var overallTime) &&
-                        overallTime <= TimeSpan.FromHours(_highImpactLogPlaytime))
+                    if (
+                        playtimes.TryGetValue(PlayTimeTrackingShared.TrackerOverall, out var overallTime)
+                        && overallTime <= TimeSpan.FromHours(_highImpactLogPlaytime)
+                    )
                     {
                         adminLog = true;
                     }
@@ -396,7 +415,10 @@ public sealed partial class AdminLogManager : SharedAdminLogManager, IAdminLogMa
         Add(type, LogImpact.Medium, ref handler);
     }
 
-    public async Task<List<SharedAdminLog>> All(LogFilter? filter = null, Func<List<SharedAdminLog>>? listProvider = null)
+    public async Task<List<SharedAdminLog>> All(
+        LogFilter? filter = null,
+        Func<List<SharedAdminLog>>? listProvider = null
+    )
     {
         if (TrySearchCache(filter, out var results))
         {

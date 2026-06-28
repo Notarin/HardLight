@@ -20,7 +20,6 @@ public sealed partial class ContrabandPalletMenu : FancyWindow
         RobustXamlLoader.Load(this);
         SellButton.OnPressed += OnSellPressed;
         AppraiseButton.OnPressed += OnAppraisePressed;
-
     }
 
     public void SetWindowText(string locPrefix)
@@ -43,13 +42,17 @@ public sealed partial class ContrabandPalletMenu : FancyWindow
     public void SetAppraisal(int amount)
     {
         // TODO: switch currency function by currency in component
-        AppraisalLabel.Text = Loc.GetString($"{_locPrefix}contraband-console-menu-points-amount", ("amount", BankSystemExtensions.ToIndependentString(amount)));
+        AppraisalLabel.Text = Loc.GetString(
+            $"{_locPrefix}contraband-console-menu-points-amount",
+            ("amount", BankSystemExtensions.ToIndependentString(amount))
+        );
     }
 
     public void SetCount(int count)
     {
         CountLabel.Text = count.ToString();
     }
+
     public void SetEnabled(bool enabled)
     {
         AppraiseButton.Disabled = !enabled;

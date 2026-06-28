@@ -75,10 +75,10 @@
   components:
   - type: Sprite
     layers:
-      - state: squeeze-bottle-clear
-      - state: squeeze-bottle-clear1
-        map: [ "enum.SolutionContainerLayers.Fill" ]
-        visible: false
+    - state: squeeze-bottle-clear
+    - state: squeeze-bottle-clear1
+      map: ["enum.SolutionContainerLayers.Fill"]
+      visible: false
     state: squeeze-bottle-clear
   - type: Icon
     state: squeeze-bottle-clear

@@ -8,7 +8,8 @@ namespace Content.Server.Power.EntitySystems;
 
 public sealed class ActivatableUIRequiresPowerSystem : SharedActivatableUIRequiresPowerSystem
 {
-    [Dependency] private readonly ActivatableUISystem _activatableUI = default!;
+    [Dependency]
+    private readonly ActivatableUISystem _activatableUI = default!;
 
     public override void Initialize()
     {
@@ -17,7 +18,10 @@ public sealed class ActivatableUIRequiresPowerSystem : SharedActivatableUIRequir
         SubscribeLocalEvent<ActivatableUIRequiresPowerComponent, PowerChangedEvent>(OnPowerChanged);
     }
 
-    protected override void OnActivate(Entity<ActivatableUIRequiresPowerComponent> ent, ref ActivatableUIOpenAttemptEvent args)
+    protected override void OnActivate(
+        Entity<ActivatableUIRequiresPowerComponent> ent,
+        ref ActivatableUIOpenAttemptEvent args
+    )
     {
         if (args.Cancelled || this.IsPowered(ent.Owner, EntityManager))
         {
@@ -27,7 +31,11 @@ public sealed class ActivatableUIRequiresPowerSystem : SharedActivatableUIRequir
         args.Cancel();
     }
 
-    private void OnPowerChanged(EntityUid uid, ActivatableUIRequiresPowerComponent component, ref PowerChangedEvent args)
+    private void OnPowerChanged(
+        EntityUid uid,
+        ActivatableUIRequiresPowerComponent component,
+        ref PowerChangedEvent args
+    )
     {
         if (!args.Powered)
             _activatableUI.CloseAll(uid);

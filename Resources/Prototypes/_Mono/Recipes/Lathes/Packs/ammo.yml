@@ -184,7 +184,7 @@
   - AmmoBoxLargeEmpty
   - AmmoBoxShotgunEmpty
 
-#Uranium recipes
+  #Uranium recipes
 
   - Magazine45_ACPPistolUranium
   - Magazine45_ACPSubMachineGunUranium
@@ -215,7 +215,7 @@
   - AmmoBox12_gaugeUranium
   - AmmoBox23x75mmUranium
 
-#Empty recipes
+  #Empty recipes
 
   - Magazine8x65mmEmpty
   - Magazine45_ACPPistolEmpty
@@ -241,7 +241,7 @@
   - Magazine57x28mmSubMachineGunTopMountedEmpty
   - Magazine46x30mmSubMachineGunTopMountedEmpty
 
-#Practice recipes
+  #Practice recipes
 
   - Magazine45_ACPPistolPractice
   - Magazine45_ACPSubMachineGunPractice
@@ -272,7 +272,7 @@
   - AmmoBox12_gaugePractice
   - AmmoBox23x75mmPractice
 
-#Incendiary recipes
+  #Incendiary recipes
 
   - Magazine45_ACPPistolIncendiary
   - Magazine45_ACPSubMachineGunIncendiary
@@ -304,7 +304,7 @@
   - AmmoBox23x75mmIncendiary
   - AmmoBox23x75mmFlashbang
 
-#Rubber recipes
+  #Rubber recipes
 
   - Magazine45_ACPPistolRubber
   - Magazine45_ACPSubMachineGunRubber
@@ -335,7 +335,7 @@
   - AmmoBox12_gaugeBeanbag
   - AmmoBox23x75mmBeanbag
 
-#FMJ recipes
+  #FMJ recipes
 
   - Magazine8x65mmSKR
   - AmmoBox8x65mmSKR
@@ -377,7 +377,7 @@
   - AmmoBox23x75mmBuckshot
   - AmmoBox23x75mmSlug
   - AmmoBox23x75mmDozd
-# HL
+  # HL
   - MagRailgun
   - AmmoBox46x30mmBig
   - AmmoBox556x45mmBigFMJ
@@ -440,7 +440,7 @@
   - AmmoBoxMediumEmpty
   - AmmoBoxLargeEmpty
   - AmmoBoxShotgunEmpty
-#FMJ>
+  #FMJ>
   - Magazine8x65mmSKR
   - AmmoBox8x65mmSKR
   - Magazine45_ACPPistolFMJ
@@ -481,7 +481,7 @@
   - AmmoBox23x75mmBuckshot
   - AmmoBox23x75mmSlug
   - AmmoBox23x75mmDozd
-#Practice>
+  #Practice>
   - Magazine45_ACPPistolPractice
   - Magazine45_ACPSubMachineGunPractice
   - AmmoBox45_ACPPractice
@@ -510,7 +510,7 @@
   - Magazine12_gaugePractice
   - AmmoBox12_gaugePractice
   - AmmoBox23x75mmPractice
-#Rubber>
+  #Rubber>
   - Magazine45_ACPPistolRubber
   - Magazine45_ACPSubMachineGunRubber
   - AmmoBox45_ACPRubber
@@ -538,7 +538,7 @@
   - AmmoBox762x51mmRubber
   - Magazine12_gaugeBeanbag
   - AmmoBox12_gaugeBeanbag
-#Parts
+  #Parts
   - BulletTip
   - BulletCasing9x19mm
   - BulletCasing45_ACP
@@ -553,7 +553,7 @@
   - BulletCasing23x75mm
   - BulletCasing12_gauge
   - BulletFlechette
-# big boxes
+  # big boxes
   - AmmoBox46x30mmBig
   - AmmoBox556x45mmBigFMJ
   - AmmoBox635x40mmCaselessBig
@@ -586,7 +586,7 @@
 - type: latheRecipePack
   id: AdvancedAmmoRecipePack
   recipes:
-#Incendiary>
+  #Incendiary>
   - Magazine45_ACPPistolIncendiary
   - Magazine45_ACPSubMachineGunIncendiary
   - AmmoBox45_ACPIncendiary
@@ -617,7 +617,7 @@
   - AmmoBox12_gaugeIncendiary
   - AmmoBox23x75mmIncendiary
   - AmmoBox23x75mmFlashbang
-#Uranium>
+  #Uranium>
   - Magazine45_ACPPistolUranium
   - Magazine45_ACPSubMachineGunUranium
   - AmmoBox45_ACPUranium
@@ -647,7 +647,7 @@
   - Magazine12_gaugeUranium
   - AmmoBox12_gaugeUranium
   - AmmoBox23x75mmUranium
-# HL
+  # HL
   - MagRailgun
   - MagazineNovaliteC1
   - MagazineNovaliteC1Empty

@@ -1,6 +1,6 @@
 # Altered Nyano mail tables
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailNFAlcohol
   suffix: alcohol, extended
@@ -8,7 +8,7 @@
   - type: Mail
     isFragile: true
     contents:
-      # 12.5 overall weight, 8% base chance
+    # 12.5 overall weight, 8% base chance
     - id: DrinkAbsintheBottleFull
       orGroup: Drink
     - id: DrinkBlueCuracaoBottleFull
@@ -44,7 +44,7 @@
       amount: 2
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMailLarge
   id: MailNFBible
   suffix: bible, extended
@@ -57,7 +57,7 @@
     - id: BibleUserImplanter
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMailLarge
   id: MailNFWeejurnum
   suffix: weejurnum
@@ -70,7 +70,7 @@
     - id: BibleUserImplanter
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailNFBikeHorn
   suffix: bike horn, random
@@ -85,7 +85,7 @@
       prob: 0.05
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMailLarge
   id: MailNFCake
   suffix: cake, extended
@@ -94,7 +94,7 @@
     isFragile: true
     isPriority: true
     contents:
-      # 14.8 total weight, ~6.8% base chance
+    # 14.8 total weight, ~6.8% base chance
     - id: FoodCakeApple
       orGroup: Cake
     - id: FoodCakeBirthday
@@ -147,7 +147,7 @@
       amount: 2
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMailLarge
   id: MailNFCosplayWizard
   suffix: cosplay-wizard, extended
@@ -172,36 +172,36 @@
       prob: 0.1
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMailLarge
   id: MailNFCosplayMaid
   suffix: cosplay-maid, extended
   components:
   - type: Mail
     contents:
-      - id: UniformMaid
-        orGroup: Uniform
-      - id: ClothingUniformJumpskirtJanimaid
-        orGroup: Uniform
-      - id: ClothingUniformJumpskirtJanimaidmini
-        orGroup: Uniform
-      - id: MegaSprayBottle
-      - id: ClothingHandsGlovesColorWhite
+    - id: UniformMaid
+      orGroup: Uniform
+    - id: ClothingUniformJumpskirtJanimaid
+      orGroup: Uniform
+    - id: ClothingUniformJumpskirtJanimaidmini
+      orGroup: Uniform
+    - id: MegaSprayBottle
+    - id: ClothingHandsGlovesColorWhite
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailNFCosplayNurse
   suffix: cosplay-nurse, extended
   components:
   - type: Mail
     contents:
-      - id: ClothingUniformJumpskirtNurse
-      - id: ClothingHeadNurseHat
-      - id: SyringeOpporozidone
+    - id: ClothingUniformJumpskirtNurse
+    - id: ClothingHeadNurseHat
+    - id: SyringeOpporozidone
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMailLarge
   id: MailNFPowerTool
   suffix: power tool
@@ -228,7 +228,7 @@
       prob: 0.04
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailNFCheese
   suffix: cheese, extended
@@ -246,7 +246,7 @@
     - id: KnifePlastic
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailNFCigarettes
   suffix: cigs, random
@@ -281,7 +281,7 @@
     - id: CheapLighter
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailNFGoldCigars
   suffix: cigars, premium
@@ -303,7 +303,7 @@
       prob: 0.05
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailNFCookies
   suffix: cookies, random
@@ -311,7 +311,7 @@
   - type: Mail
     isPriority: true
     contents:
-      # Cookie 1
+    # Cookie 1
     - id: FoodBakedCookie
       orGroup: Cookie1
     - id: FoodBakedCookieOatmeal
@@ -349,7 +349,7 @@
       orGroup: Cookie4
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailNFKnife
   suffix: knife, extended
@@ -366,7 +366,7 @@
       orGroup: Knife
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMailLarge
   id: MailNFSword
   suffix: sword
@@ -392,14 +392,14 @@
       prob: 0.1
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailNFMoney
   suffix: money, extended
   components:
   - type: Mail
     contents:
-      # Expected value: 5175 spesos
+    # Expected value: 5175 spesos
     - id: SpaceCash1000
       orGroup: Cash
       prob: 0.3
@@ -420,7 +420,7 @@
       prob: 0.025
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailNFMuffins
   suffix: muffins, random
@@ -428,7 +428,7 @@
   - type: Mail
     isPriority: true
     contents:
-      # Muffin 1
+    # Muffin 1
     - id: FoodBakedMuffinBerry
       orGroup: Muffin1
     - id: FoodBakedMuffinCherry
@@ -478,7 +478,7 @@
       prob: 0.5
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailNFPAI
   suffix: PAI, extended
@@ -494,16 +494,16 @@
       prob: 0.01
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailNFPlushie
   suffix: plushie, extended
   components:
   - type: Mail
     contents:
-      # Total weight: 13.15, ~7.60% base chance
-      # These are all grouped up now to guarantee at least one item received.
-      # The downside is you're not going to get half a dozen plushies anymore.
+    # Total weight: 13.15, ~7.60% base chance
+    # These are all grouped up now to guarantee at least one item received.
+    # The downside is you're not going to get half a dozen plushies anymore.
     - id: PlushieBee
       orGroup: Plushie
     - id: PlushieRGBee
@@ -553,7 +553,7 @@
       orGroup: Plushie
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailNFSkub
   suffix: skub, extended
@@ -566,7 +566,7 @@
 
 # Random snacks, replaces MailChocolate (lousy animal organs)
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailNFSnacks
   suffix: snacks, random
@@ -679,7 +679,7 @@
       prob: 0.5
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailNFVagueThreat
   suffix: vague-threat
@@ -726,7 +726,7 @@
       orGroup: ThreateningObject
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailSecurityNFSpaceLaw
   suffix: spacelaw, extended
@@ -739,7 +739,7 @@
 
 # Frontier Mail (Pony Express?)
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailNFSmoke
   suffix: smoke
@@ -749,7 +749,7 @@
     - id: DelayedSmoke
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailNFEMP
   suffix: emp
@@ -760,7 +760,7 @@
     - id: PaperMailNFEMPPreparedness
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailNFT2ComponentBox
   suffix: T2 components
@@ -770,7 +770,7 @@
     - id: BoxT2ComponentsAssorted
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailNFT3ComponentBox
   suffix: T3 components
@@ -780,7 +780,7 @@
     - id: BoxT3ComponentsAssorted
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailNFT4ComponentBox
   suffix: T4 components
@@ -790,7 +790,7 @@
     - id: BoxT4ComponentsAssorted
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailNFDonkPockets
   suffix: donk pockets, random
@@ -827,7 +827,7 @@
 
 # Needs a buff?
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailNFSodaPwrGame
   suffix: Pwrgame
@@ -840,7 +840,7 @@
 
 # Needs a buff?
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailNFSodaRedBool
   suffix: Red Bool
@@ -853,7 +853,7 @@
 
 # Needs a buff?
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailNFSodaSpaceCola
   suffix: Space Cola
@@ -865,7 +865,7 @@
 
 # Needs a buff?
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailNFSodaSpaceMountainWind
   suffix: Space Mountain Wind
@@ -877,7 +877,7 @@
 
 # Needs a buff?
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailNFSodaSpaceUp
   suffix: Space Up
@@ -888,7 +888,7 @@
     - id: PaperMailNFSpaceUpAd
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailNFJoints
   suffix: joints
@@ -939,7 +939,7 @@
 # Mmm, mail food
 # Needs a buff?
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailNFUnusualFood
   suffix: unusual food
@@ -1006,7 +1006,7 @@
 
 # Needs a buff?
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailNFBakedGoods
   suffix: baked goods
@@ -1078,7 +1078,7 @@
 
 # Needs a buff?
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailNFUnusualProduce
   suffix: unusual produce
@@ -1119,7 +1119,7 @@
       prob: 0.25
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailNFSoaps
   suffix: soap sampler
@@ -1133,7 +1133,7 @@
       orGroup: Ad
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailNFSoapsOmega
   suffix: soap sampler, omega
@@ -1147,7 +1147,7 @@
       orGroup: Ad
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMailLarge
   id: MailSecurityNFMusket
   suffix: musket
@@ -1161,7 +1161,7 @@
     - id: PaperMailNTMusket
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailSecurityNFHudNfsdMed
   suffix: nfsd med hud
@@ -1172,7 +1172,7 @@
 
 # Could add spessman battle rules here
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailNFFigurineBulk
   suffix: figurine, bulk
@@ -1182,7 +1182,7 @@
     - id: MysteryFigureBoxBulk
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailNFPen
   suffix: fancy pen
@@ -1208,7 +1208,7 @@
     - id: PaperMailNFPaperPusherAd
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMailLarge
   id: MailNFGladiator
   suffix: gladiator
@@ -1221,7 +1221,7 @@
     - id: ClothingUniformJumpsuitGladiator
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMailLarge
   id: MailNFConscript
   suffix: conscript
@@ -1234,7 +1234,7 @@
     - id: PaperMailNTConscript
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMailLarge
   id: MailNFBoxer
   suffix: boxer
@@ -1245,18 +1245,18 @@
     - id: ClothingBeltChampion
     - id: PaperMailNTBoxer
 
-# - type: entity
-  # categories: [ HideSpawnMenu ]
-  # parent: BaseMail
-  # id: MailNFIFFBoard
-  # suffix: IFF board
-  # components:
-  # - type: Mail
+    # - type: entity
+    # categories: [ HideSpawnMenu ]
+    # parent: BaseMail
+    # id: MailNFIFFBoard
+    # suffix: IFF board
+    # components:
+    # - type: Mail
     # contents:
     # - id: ComputerIFFCircuitboard
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMailLarge
   id: MailNFThrongler
   suffix: throngler
@@ -1266,7 +1266,7 @@
     - id: PlushieThrongler
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMailLarge
   id: MailNFEmotionalRPG
   suffix: RPG
@@ -1278,7 +1278,7 @@
       amount: 2
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMailLarge
   id: MailNFVulpCannon
   suffix: vulp cannon
@@ -1288,7 +1288,7 @@
     - id: WeaponVulpCannon
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMailLarge
   id: MailNFRGBBGun
   suffix: RGBB gun
@@ -1299,7 +1299,7 @@
     - id: BoxCartridgeRGBB
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMailLarge
   id: MailNFDAW
   suffix: DAW
@@ -1311,7 +1311,7 @@
     - id: Multitool
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailNFInstrumentSmall
   suffix: instrument, expanded
@@ -1358,7 +1358,7 @@
       prob: 0.01
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMailLarge
   id: MailNFInstrumentLarge
   suffix: instrument, large
@@ -1409,7 +1409,7 @@
       prob: 0.1
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMailLarge
   id: MailNFInstrumentFlatpack
   suffix: instrument, flatpack
@@ -1444,7 +1444,7 @@
     - id: Multitool # For the flatpack
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailNFCircuitboardIndustrial
   suffix: industrial circuitboard
@@ -1510,7 +1510,7 @@
       prob: 0.1
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailNFCircuitboardService
   suffix: service circuitboard
@@ -1552,58 +1552,58 @@
       prob: 0.1
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailNFUnusualClothing
   suffix: unusual clothing
   components:
   - type: Mail
     contents:
-      - id: ClothingUniformJumpsuitGalaxyBlue
-        orGroup: Clothes
-      - id: ClothingUniformJumpsuitGalaxyRed
-        orGroup: Clothes
-      - id: ClothingKimonoPink
-        orGroup: Clothes
-      - id: ClothingKimonoBlue
-        orGroup: Clothes
-      - id: ClothingUniformMartialGi
-        orGroup: Clothes
-      - id: ClothingNeckBling
-        orGroup: Clothes
-      - id: ClothingShoesBling
-        orGroup: Clothes
-      - id: ClothingNeckCloakAdmin
-        orGroup: Clothes
-      - id: ClothingHeadHatFancyCrown
-        orGroup: Clothes
-      - id: ClothingHeadHatRichard
-        orGroup: Clothes
-      - id: ClothingHeadHatAnimalHeadslime
-        orGroup: Clothes
-      - id: ClothingHeadHatDogEars
-        orGroup: Clothes
-      - id: ClothingHeadHatCatEars
-        orGroup: Clothes
-      - id: ClothingEyesGlassesOutlawGlasses
-        orGroup: Clothes
-      - id: ClothingOuterSuitCarp
-        orGroup: Clothes
-      - id: ClothingNeckCloakRosy
-        orGroup: Clothes
+    - id: ClothingUniformJumpsuitGalaxyBlue
+      orGroup: Clothes
+    - id: ClothingUniformJumpsuitGalaxyRed
+      orGroup: Clothes
+    - id: ClothingKimonoPink
+      orGroup: Clothes
+    - id: ClothingKimonoBlue
+      orGroup: Clothes
+    - id: ClothingUniformMartialGi
+      orGroup: Clothes
+    - id: ClothingNeckBling
+      orGroup: Clothes
+    - id: ClothingShoesBling
+      orGroup: Clothes
+    - id: ClothingNeckCloakAdmin
+      orGroup: Clothes
+    - id: ClothingHeadHatFancyCrown
+      orGroup: Clothes
+    - id: ClothingHeadHatRichard
+      orGroup: Clothes
+    - id: ClothingHeadHatAnimalHeadslime
+      orGroup: Clothes
+    - id: ClothingHeadHatDogEars
+      orGroup: Clothes
+    - id: ClothingHeadHatCatEars
+      orGroup: Clothes
+    - id: ClothingEyesGlassesOutlawGlasses
+      orGroup: Clothes
+    - id: ClothingOuterSuitCarp
+      orGroup: Clothes
+    - id: ClothingNeckCloakRosy
+      orGroup: Clothes
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMailLarge
   id: MailNFUnicycle
   suffix: unicycle
   components:
   - type: Mail
     contents:
-      - id: VehicleUnicycleFolded
+    - id: VehicleUnicycleFolded
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailNFCritter
   suffix: critter
@@ -1611,29 +1611,29 @@
   - type: Mail
     isFragile: true
     contents:
-      - id: DelayedNFRandomCritter
+    - id: DelayedNFRandomCritter
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailNFPowerCell
   suffix: power cell
   components:
   - type: Mail
     contents:
-      - id: PowerCellMicroreactor
-        orGroup: PowerCell
-        prob: 0.60
-      - id: PowerCellAntiqueProto
-        orGroup: PowerCell
-        prob: 0.20
-      - id: PowerCellHyper
-        orGroup: PowerCell
-        prob: 0.20
-        amount: 2
+    - id: PowerCellMicroreactor
+      orGroup: PowerCell
+      prob: 0.60
+    - id: PowerCellAntiqueProto
+      orGroup: PowerCell
+      prob: 0.20
+    - id: PowerCellHyper
+      orGroup: PowerCell
+      prob: 0.20
+      amount: 2
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMailLarge
   id: MailCommandNFStationPet
   suffix: station pet
@@ -1641,37 +1641,37 @@
   - type: Mail
     isFragile: true
     contents:
-      - id: PaperMailNFPetBedAssemblyManual
-      - id: MaterialWoodPlank10
-      - id: DelayedPetCarrierNPCEmotionalSupportSafe # Last item - issues with DelayedItemComponent and hand placement
+    - id: PaperMailNFPetBedAssemblyManual
+    - id: MaterialWoodPlank10
+    - id: DelayedPetCarrierNPCEmotionalSupportSafe # Last item - issues with DelayedItemComponent and hand placement
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMailLarge
   id: MailNFMedkit
   suffix: medkit
   components:
   - type: Mail
     contents:
-      - id: MedkitAdvancedFilled
-        orGroup: Medkit
-        prob: 0.75
-      - id: MedkitCombatFilled
-        orGroup: Medkit
-        prob: 0.25
+    - id: MedkitAdvancedFilled
+      orGroup: Medkit
+      prob: 0.75
+    - id: MedkitCombatFilled
+      orGroup: Medkit
+      prob: 0.25
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailNFCognizine
   suffix: cognizine syringe
   components:
   - type: Mail
     contents:
-      - id: SyringeCognizine # 15u cognizine, 3 friends should be enough.
+    - id: SyringeCognizine # 15u cognizine, 3 friends should be enough.
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailNFNecrosol # Not sure about keeping this, but its probably fine
   suffix: necrosol bottle
@@ -1679,11 +1679,11 @@
   - type: Mail
     isFragile: true
     contents:
-      - id: ChemistryBottleNecrosol
-      - id: Syringe
+    - id: ChemistryBottleNecrosol
+    - id: Syringe
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailNFOmnizine
   suffix: omnizine bottle
@@ -1691,11 +1691,11 @@
   - type: Mail
     isFragile: true
     contents:
-      - id: ChemistryBottleOmnizine
-      - id: Syringe
+    - id: ChemistryBottleOmnizine
+    - id: Syringe
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailCommandNFPipebombIntern
   suffix: pipe and bomb
@@ -1703,12 +1703,12 @@
   - type: Mail
     isFragile: true
     contents:
-      - id: SmokingPipeFilledTobacco
-      - id: DrinkAtomicBombGlass
-      - id: PaperMailNFPipebombIntern
+    - id: SmokingPipeFilledTobacco
+    - id: DrinkAtomicBombGlass
+    - id: PaperMailNFPipebombIntern
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailCommandNFWristwatchGold
   suffix: gold wristwatch
@@ -1716,10 +1716,10 @@
   - type: Mail
     isFragile: true
     contents:
-      - id: WristwatchGold
+    - id: WristwatchGold
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailStationRepNFNukeDisk
   suffix: nuke disk
@@ -1727,11 +1727,11 @@
   - type: Mail
     isFragile: true
     contents:
-      - id: NukeDiskFake
-      - id: PaperMailNFAntivirus
+    - id: NukeDiskFake
+    - id: PaperMailNFAntivirus
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMailLarge
   id: MailNFBuildABuddy
   suffix: Build-a-Buddy
@@ -1739,36 +1739,36 @@
   - type: Mail
     isFragile: true
     contents:
-      - id: BoxBuildABuddyGoblin
-        orGroup: Box
-      - id: BoxBuildABuddyHuman
-        orGroup: Box
-      - id: BoxBuildABuddyReptilian
-        orGroup: Box
-      - id: BoxBuildABuddySlime
-        orGroup: Box
-      - id: BoxBuildABuddyVulpkanin
-        orGroup: Box
-      - id: DrinkSpaceGlue
-      - id: PaperMailNFBuildABuddy
+    - id: BoxBuildABuddyGoblin
+      orGroup: Box
+    - id: BoxBuildABuddyHuman
+      orGroup: Box
+    - id: BoxBuildABuddyReptilian
+      orGroup: Box
+    - id: BoxBuildABuddySlime
+      orGroup: Box
+    - id: BoxBuildABuddyVulpkanin
+      orGroup: Box
+    - id: DrinkSpaceGlue
+    - id: PaperMailNFBuildABuddy
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMailLarge
   id: MailNFTacticalMaid
   suffix: tactical maid
   components:
   - type: Mail
     contents:
-      - id: ClothingUniformJumpskirtTacticalMaid
-      - id: ClothingHeadHatTacticalMaidHeadband
-      - id: MegaSprayBottle
-      - id: ClothingHandsTacticalMaidGloves
-      - id: ClothingOuterHardsuitTacticalMaid
+    - id: ClothingUniformJumpskirtTacticalMaid
+    - id: ClothingHeadHatTacticalMaidHeadband
+    - id: MegaSprayBottle
+    - id: ClothingHandsTacticalMaidGloves
+    - id: ClothingOuterHardsuitTacticalMaid
 
 # These could use separate sprites.  That would be a nice touch.
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailCommandNFPremiumAlcohol
   suffix: premium alcohol
@@ -1776,66 +1776,66 @@
   - type: Mail
     isFragile: true
     contents:
-      - id: DrinkPremiumVodkaBottleFull
-        orGroup: Bottle
-      - id: DrinkPremiumGinBottleFull
-        orGroup: Bottle
-      - id: DrinkPremiumTequilaBottleFull
-        orGroup: Bottle
-      - id: DrinkPremiumWhiskeyBottleFull
-        orGroup: Bottle
-      - id: DrinkPremiumRumBottleFull
-        orGroup: Bottle
-      - id: DrinkPremiumAbsintheBottleFull
-        orGroup: Bottle
-      - id: DrinkGlassCoupeShaped
-        amount: 2
+    - id: DrinkPremiumVodkaBottleFull
+      orGroup: Bottle
+    - id: DrinkPremiumGinBottleFull
+      orGroup: Bottle
+    - id: DrinkPremiumTequilaBottleFull
+      orGroup: Bottle
+    - id: DrinkPremiumWhiskeyBottleFull
+      orGroup: Bottle
+    - id: DrinkPremiumRumBottleFull
+      orGroup: Bottle
+    - id: DrinkPremiumAbsintheBottleFull
+      orGroup: Bottle
+    - id: DrinkGlassCoupeShaped
+      amount: 2
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailCommandNFPlatinumCigars
   suffix: cigars, ultra-premium
   components:
   - type: Mail
     contents:
-      - id: CigarPlatinumCase
-      - id: FlippoEngravedLighter
+    - id: CigarPlatinumCase
+    - id: FlippoEngravedLighter
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMailLarge
   id: MailNFATV
   suffix: ATV
   components:
   - type: Mail
     contents:
-      - id: NFVehicleATV
-      - id: VehicleKeyATV
+    - id: NFVehicleATV
+    - id: VehicleKeyATV
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMailLarge
   id: MailNFSkeletonMotorcycle
   suffix: Skeleton Motorcycle
   components:
   - type: Mail
     contents:
-      - id: NFVehicleSkeletonMotorcycle
-      - id: VehicleKeySkeleton
+    - id: NFVehicleSkeletonMotorcycle
+    - id: VehicleKeySkeleton
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMailLarge
   id: MailNFHoverchair
   suffix: Hoverchair
   components:
   - type: Mail
     contents:
-      - id: VehicleHoverchair
+    - id: VehicleHoverchair
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMailLarge
   id: MailNFKendoKit
   suffix: kendo kit
@@ -1852,7 +1852,7 @@
       amount: 2
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailStationRepNFClurger
   suffix: clurger
@@ -1865,29 +1865,29 @@
     - id: PaperMailNFClurger
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMailLarge
   id: MailNFMime
   suffix: mime
   components:
   - type: Mail
     contents:
-      - id: PaperMailNFMime
-      - id: ClothingHeadHatBeret
-      - id: ClothingNeckScarfStripedZebra
-      - id: ClothingUniformJumpsuitMime
-      - id: ClothingMaskMime
-        orGroup: Mask
-      - id: ClothingMaskSadMime
-        orGroup: Mask
-      - id: ClothingMaskScaredMime
-        orGroup: Mask
-      - id: MimePowersImplanter
+    - id: PaperMailNFMime
+    - id: ClothingHeadHatBeret
+    - id: ClothingNeckScarfStripedZebra
+    - id: ClothingUniformJumpsuitMime
+    - id: ClothingMaskMime
+      orGroup: Mask
+    - id: ClothingMaskSadMime
+      orGroup: Mask
+    - id: ClothingMaskScaredMime
+      orGroup: Mask
+    - id: MimePowersImplanter
 
 # Base Nyano mail
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailSake
   suffix: osake
@@ -1899,7 +1899,7 @@
     - id: DrinkTokkuri
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailBlockGameDIY
   suffix: blockgamediy
@@ -1909,7 +1909,7 @@
     - id: BlockGameArcadeComputerCircuitboard
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailCigars
   suffix: Cigars
@@ -1920,7 +1920,7 @@
     - id: Lighter
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailCosplayArc
   suffix: cosplay-arc
@@ -1931,20 +1931,20 @@
     - id: ClothingCostumeArcDress
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailCosplayGeisha
   suffix: cosplay-geisha
   components:
   - type: Mail
     contents:
-      - id: UniformGeisha
-      - id: DrinkTeapot
-      - id: DrinkTeacup
-        amount: 3
+    - id: UniformGeisha
+    - id: DrinkTeapot
+    - id: DrinkTeacup
+      amount: 3
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailCosplaySchoolgirl
   suffix: cosplay-schoolgirl
@@ -1969,7 +1969,7 @@
       orGroup: Color
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailFlowers
   suffix: flowers
@@ -1980,7 +1980,7 @@
     - id: ClothingHeadHatFlowerWreath
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailNoir
   suffix: noir
@@ -1993,7 +1993,7 @@
     - id: ClothingOuterCoatGentle
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailRestraints
   suffix: restraints
@@ -2005,7 +2005,7 @@
     - id: ClothingEyesBlindfold
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailSpaceVillainDIY
   suffix: spacevilliandiy
@@ -2015,7 +2015,7 @@
     - id: SpaceVillainArcadeComputerCircuitboard
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailSunglasses
   suffix: Sunglasses
@@ -2025,7 +2025,7 @@
     - id: ClothingEyesGlassesSunglasses
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailWinterCoat
   suffix: wintercoat
@@ -2040,7 +2040,7 @@
       orGroup: Coat
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailSecurityNonlethalsKit
   suffix: nonlethalskit
@@ -2055,19 +2055,19 @@
       maxAmount: 2
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailLizardWallet
   suffix: lizard wallet
   components:
   - type: Mail
     contents:
-      - id: ClothingWalletLeatherLizard
-        orGroup: Clothes
+    - id: ClothingWalletLeatherLizard
+      orGroup: Clothes
 
 # TODO: make this more interesting
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseMail
   id: MailSecurityDonuts
   suffix: donuts

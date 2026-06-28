@@ -34,10 +34,10 @@
   name: interdyne jumpsuit
   description: A high-quality jumpsuit designed for Interdyne personnel.
   components:
-    - type: Sprite
-      sprite: _HL/Clothing/Uniforms/interdynejumpsuit.rsi
-    - type: Clothing
-      sprite: _HL/Clothing/Uniforms/interdynejumpsuit.rsi
+  - type: Sprite
+    sprite: _HL/Clothing/Uniforms/interdynejumpsuit.rsi
+  - type: Clothing
+    sprite: _HL/Clothing/Uniforms/interdynejumpsuit.rsi
 
 - type: entity
   parent: ClothingUniformBase

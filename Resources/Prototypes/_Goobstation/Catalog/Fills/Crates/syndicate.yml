@@ -8,11 +8,11 @@
   components:
   - type: StorageFill
     contents:
-      - id: MechGygaxSyndieFilled
-      - id: DoubleEmergencyOxygenTankFilled
-      - id: DoubleEmergencyNitrogenTankFilled
-      - id: ToolboxSyndicateFilled
-      - id: PlushieNuke
+    - id: MechGygaxSyndieFilled
+    - id: DoubleEmergencyOxygenTankFilled
+    - id: DoubleEmergencyNitrogenTankFilled
+    - id: ToolboxSyndicateFilled
+    - id: PlushieNuke
 
 - type: entity
   id: CrateCybersunMaulerBundle
@@ -23,8 +23,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: MechMaulerSyndieFilled
-      - id: DoubleEmergencyOxygenTankFilled
-      - id: DoubleEmergencyNitrogenTankFilled
-      - id: ToolboxSyndicateFilled
-      - id: PlushieNuke
+    - id: MechMaulerSyndieFilled
+    - id: DoubleEmergencyOxygenTankFilled
+    - id: DoubleEmergencyNitrogenTankFilled
+    - id: ToolboxSyndicateFilled
+    - id: PlushieNuke

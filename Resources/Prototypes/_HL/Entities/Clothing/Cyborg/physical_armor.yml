@@ -11,7 +11,7 @@
   components:
   - type: Contraband
     severity: Class1
-    allowedDepartments: [ Civilian, Security, Command, Frontier, CentralCommand ]
+    allowedDepartments: [Civilian, Security, Command, Frontier, CentralCommand]
   - type: Sprite
     sprite: _HL/Objects/BorgArmor/physarmor/borglightarmor.rsi
   - type: ExplosionResistance
@@ -25,7 +25,7 @@
         Heat: 0.85
         Radiation: 0 # Ditto to below
         Caustic: 0 # Synths shouldnt be taking caustic damage. Untreatable
-  - type: ClothingSpeedModifier  # Stacks with other slowdowns. Be careful!
+  - type: ClothingSpeedModifier # Stacks with other slowdowns. Be careful!
     walkModifier: 1
     sprintModifier: 1.15 # So there's a bonus to wearing this over the medium armor
 
@@ -48,7 +48,7 @@
         Heat: 0.75
         Radiation: 0 # Ditto to below
         Caustic: 0 # Synths shouldnt be taking caustic damage. Untreatable
-  - type: ClothingSpeedModifier  # Stacks with other slowdowns. Be careful!
+  - type: ClothingSpeedModifier # Stacks with other slowdowns. Be careful!
     walkModifier: 0.65
     sprintModifier: 0.65 # We're already starting to get pretty slow.
 
@@ -71,7 +71,7 @@
         Heat: 0.6
         Radiation: 0 # Ditto to below
         Caustic: 0 # Synths shouldnt be taking caustic damage. Untreatable
-  - type: ClothingSpeedModifier  # Stacks with other slowdowns. Be careful!
+  - type: ClothingSpeedModifier # Stacks with other slowdowns. Be careful!
     walkModifier: 0.45 # OUCH
     sprintModifier: 0.45 # THEY BROKE HIS LEEEEEGS
 
@@ -97,6 +97,6 @@
         Heat: 0.1
         Radiation: 0 # Ditto to below
         Caustic: 0 # Synths shouldnt be taking caustic damage. Untreatable
-  - type: ClothingSpeedModifier  # Stacks with other slowdowns. Be careful!
+  - type: ClothingSpeedModifier # Stacks with other slowdowns. Be careful!
     walkModifier: 0.1 # You are the Persuer.
     sprintModifier: 0.1 # Ditto

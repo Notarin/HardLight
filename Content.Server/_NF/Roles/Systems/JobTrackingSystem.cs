@@ -1,14 +1,14 @@
-using Content.Server._NF.CryoSleep;
 using Content.Server._HL.ColComm; // HardLight
+using Content.Server._NF.CryoSleep;
+using Content.Server._NF.RoundNotifications.Events; // HardLight
 using Content.Server.Afk;
 using Content.Server.GameTicking;
-using Content.Server._NF.RoundNotifications.Events; // HardLight
 using Content.Server.Station.Components;
 using Content.Server.Station.Systems;
-using Content.Shared.GameTicking; // HardLight
-using Content.Shared.Mind; // HardLight
 using Content.Shared._NF.Roles.Components;
 using Content.Shared._NF.Roles.Systems;
+using Content.Shared.GameTicking; // HardLight
+using Content.Shared.Mind; // HardLight
 using Content.Shared.Mind.Components;
 using Content.Shared.Roles;
 using Robust.Server.Player;
@@ -28,11 +28,20 @@ namespace Content.Server._NF.Roles.Systems;
 // HardLight end
 public sealed class JobTrackingSystem : SharedJobTrackingSystem
 {
-    [Dependency] private readonly IAfkManager _afk = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly GameTicker _gameTicker = default!;
-    [Dependency] private readonly StationJobsSystem _stationJobs = default!;
-    [Dependency] private readonly ColcommJobSystem _colcommJobs = default!; // HardLight
+    [Dependency]
+    private readonly IAfkManager _afk = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly GameTicker _gameTicker = default!;
+
+    [Dependency]
+    private readonly StationJobsSystem _stationJobs = default!;
+
+    [Dependency]
+    private readonly ColcommJobSystem _colcommJobs = default!; // HardLight
 
     // HardLight: Round restart deletes all station entities as part of cleanup.
     // Those deletions should not be treated like a mid-round ship sale/destruction,
@@ -130,9 +139,11 @@ public sealed class JobTrackingSystem : SharedJobTrackingSystem
         var query = AllEntityQuery<JobTrackingComponent>();
         while (query.MoveNext(out var uid, out var tracking))
         {
-            if (!tracking.Active
+            if (
+                !tracking.Active
                 || tracking.Job is not { } job
-                || (!Deleted(tracking.SpawnStation) && HasComp<StationJobsComponent>(tracking.SpawnStation)))
+                || (!Deleted(tracking.SpawnStation) && HasComp<StationJobsComponent>(tracking.SpawnStation))
+            )
             {
                 continue;
             }
@@ -191,10 +202,7 @@ public sealed class JobTrackingSystem : SharedJobTrackingSystem
             fallbackStation = stationUid;
         }
 
-        return defaultMapStation
-            ?? nonShipStation
-            ?? fallbackStation
-            ?? spawnStation;
+        return defaultMapStation ?? nonShipStation ?? fallbackStation ?? spawnStation;
     }
 
     private bool IsStationOnDefaultMap(EntityUid stationUid) // HardLight
@@ -214,7 +222,11 @@ public sealed class JobTrackingSystem : SharedJobTrackingSystem
         return false;
     }
 
-    private List<(EntityUid Station, StationJobsComponent Jobs, ProtoId<JobPrototype> StationJob)> GetMatchingTrackedStations(ProtoId<JobPrototype> job) // HardLight
+    private List<(
+        EntityUid Station,
+        StationJobsComponent Jobs,
+        ProtoId<JobPrototype> StationJob
+    )> GetMatchingTrackedStations(ProtoId<JobPrototype> job) // HardLight
     {
         var stations = new List<(EntityUid, StationJobsComponent, ProtoId<JobPrototype>)>();
         var query = EntityQueryEnumerator<StationJobsComponent>();
@@ -255,7 +267,11 @@ public sealed class JobTrackingSystem : SharedJobTrackingSystem
 
     private void OnJobMindRemoved(Entity<JobTrackingComponent> ent, ref MindRemovedMessage ev)
     {
-        if (ent.Comp.Job == null || !ent.Comp.Active || !ShouldReopenTrackedJob(ent.Comp.SpawnStation, ent.Comp.Job.Value))
+        if (
+            ent.Comp.Job == null
+            || !ent.Comp.Active
+            || !ShouldReopenTrackedJob(ent.Comp.SpawnStation, ent.Comp.Job.Value)
+        )
             return;
 
         OpenJob(ent, ev.Mind.Comp.UserId); // HardLight: Added ev.Mind.Comp.UserId
@@ -263,7 +279,11 @@ public sealed class JobTrackingSystem : SharedJobTrackingSystem
 
     private void OnJobBeforeCryoEntered(Entity<JobTrackingComponent> ent, ref CryosleepBeforeMindRemovedEvent ev)
     {
-        if (ent.Comp.Job == null || !ent.Comp.Active || !ShouldReopenTrackedJob(ent.Comp.SpawnStation, ent.Comp.Job.Value))
+        if (
+            ent.Comp.Job == null
+            || !ent.Comp.Active
+            || !ShouldReopenTrackedJob(ent.Comp.SpawnStation, ent.Comp.Job.Value)
+        )
             return;
 
         OpenJob(ent, ev.User); // HardLight: Added ev.User
@@ -285,8 +305,8 @@ public sealed class JobTrackingSystem : SharedJobTrackingSystem
         // HardLight start
         var originalSpawnStation = ent.Comp.SpawnStation;
         StationJobsComponent? originalStationJobs = null;
-        var hadLiveSpawnStation = !Deleted(originalSpawnStation)
-            && TryComp(originalSpawnStation, out originalStationJobs);
+        var hadLiveSpawnStation =
+            !Deleted(originalSpawnStation) && TryComp(originalSpawnStation, out originalStationJobs);
 
         var spawnStation = ResolveTrackedStation(originalSpawnStation, job);
         if (spawnStation != ent.Comp.SpawnStation)
@@ -295,10 +315,17 @@ public sealed class JobTrackingSystem : SharedJobTrackingSystem
             Dirty(ent, ent.Comp);
         }
 
-        var stationTargets = new List<(EntityUid Station, StationJobsComponent Jobs, ProtoId<JobPrototype> StationJob)>();
+        var stationTargets =
+            new List<(EntityUid Station, StationJobsComponent Jobs, ProtoId<JobPrototype> StationJob)>();
         if (hadLiveSpawnStation)
         {
-            stationTargets.Add((originalSpawnStation, originalStationJobs!, _stationJobs.GetStationTrackingJobId(originalSpawnStation, job, originalStationJobs)));
+            stationTargets.Add(
+                (
+                    originalSpawnStation,
+                    originalStationJobs!,
+                    _stationJobs.GetStationTrackingJobId(originalSpawnStation, job, originalStationJobs)
+                )
+            );
         }
         else
         {
@@ -311,11 +338,13 @@ public sealed class JobTrackingSystem : SharedJobTrackingSystem
             trackedUserId = session.UserId;
 
         // HardLight start
-        if (trackedUserId == null
+        if (
+            trackedUserId == null
             && TryComp<MindContainerComponent>(ent, out var mindContainer)
             && mindContainer.Mind is { } mindUid
             && TryComp<MindComponent>(mindUid, out var mind)
-            && mind.UserId is { } mindUserId)
+            && mind.UserId is { } mindUserId
+        )
         {
             trackedUserId = mindUserId;
         }
@@ -331,12 +360,19 @@ public sealed class JobTrackingSystem : SharedJobTrackingSystem
 
         var colcommJob = _stationJobs.GetColcommJobId(job);
 
-        if (_colcommJobs.TryGetColcommRegistry(out var colcomm)
+        if (
+            _colcommJobs.TryGetColcommRegistry(out var colcomm)
             && _colcommJobs.TryGetJobSlot(colcomm, colcommJob, out var slots)
-            && slots != null)
+            && slots != null
+        )
         {
             // Only reopen the global pool if it has spare capacity for this role.
-            var occupiedJobs = GetNumberOfActiveColcommRoles(colcommJob, includeAfk: true, exclude: ent, includeOutsideDefaultMap: true);
+            var occupiedJobs = GetNumberOfActiveColcommRoles(
+                colcommJob,
+                includeAfk: true,
+                exclude: ent,
+                includeOutsideDefaultMap: true
+            );
             var midRoundMax = colcomm.Comp.MidRoundMaxSlots.GetValueOrDefault(colcommJob, 0);
 
             if (slots + occupiedJobs < midRoundMax)
@@ -380,8 +416,10 @@ public sealed class JobTrackingSystem : SharedJobTrackingSystem
 
         var stationJob = _stationJobs.GetStationTrackingJobId(spawnStation, job);
 
-        if (TryComp<StationJobsComponent>(spawnStation, out var stationJobs)
-            && !_stationJobs.IsPlayerJobTracked(spawnStation, userId, stationJob, stationJobs))
+        if (
+            TryComp<StationJobsComponent>(spawnStation, out var stationJobs)
+            && !_stationJobs.IsPlayerJobTracked(spawnStation, userId, stationJob, stationJobs)
+        )
         {
             if (_stationJobs.TryGetJobSlot(spawnStation, stationJob, out var localSlots) && localSlots > 0)
                 _stationJobs.TryAdjustJobSlot(spawnStation, stationJob, -1, clamp: true, stationJobs: stationJobs);
@@ -391,9 +429,11 @@ public sealed class JobTrackingSystem : SharedJobTrackingSystem
 
         var colcommJob = _stationJobs.GetColcommJobId(job);
 
-        if (!_colcommJobs.TryGetColcommRegistry(out var colcomm)
+        if (
+            !_colcommJobs.TryGetColcommRegistry(out var colcomm)
             || !_colcommJobs.TryGetJobSlot(colcomm, colcommJob, out var slots)
-            || _colcommJobs.IsPlayerJobTracked(colcomm, userId, colcommJob))
+            || _colcommJobs.IsPlayerJobTracked(colcomm, userId, colcommJob)
+        )
         {
             return;
         }
@@ -447,7 +487,8 @@ public sealed class JobTrackingSystem : SharedJobTrackingSystem
         ProtoId<JobPrototype> colcommJobId,
         bool includeAfk = true,
         EntityUid? exclude = null,
-        bool includeOutsideDefaultMap = false)
+        bool includeOutsideDefaultMap = false
+    )
     {
         var activeJobCount = 0;
         var jobQuery = AllEntityQuery<JobTrackingComponent, MindContainerComponent, TransformComponent>();
@@ -456,10 +497,12 @@ public sealed class JobTrackingSystem : SharedJobTrackingSystem
             if (exclude == uid)
                 continue;
 
-            if (!job.Active
+            if (
+                !job.Active
                 || job.Job is not { } trackedJob
                 || _stationJobs.GetColcommJobId(trackedJob) != colcommJobId
-                || (!includeOutsideDefaultMap && xform.MapID != _gameTicker.DefaultMap))
+                || (!includeOutsideDefaultMap && xform.MapID != _gameTicker.DefaultMap)
+            )
                 continue;
 
             if (_player.TryGetSessionByEntity(uid, out var session))
@@ -485,7 +528,8 @@ public sealed class JobTrackingSystem : SharedJobTrackingSystem
         ProtoId<JobPrototype> jobProtoId,
         bool includeAfk = true,
         EntityUid? exclude = null,
-        bool includeOutsideDefaultMap = false)
+        bool includeOutsideDefaultMap = false
+    )
     // HardLight end
     {
         var activeJobCount = 0;
@@ -495,9 +539,11 @@ public sealed class JobTrackingSystem : SharedJobTrackingSystem
             if (exclude == uid)
                 continue;
 
-            if (!job.Active
+            if (
+                !job.Active
                 || job.Job != jobProtoId
-                || (!includeOutsideDefaultMap && xform.MapID != _gameTicker.DefaultMap)) // Skip if they're in cryo or on expedition, // HardLight: Added !includeOutsideDefaultMap
+                || (!includeOutsideDefaultMap && xform.MapID != _gameTicker.DefaultMap)
+            ) // Skip if they're in cryo or on expedition, // HardLight: Added !includeOutsideDefaultMap
                 continue;
 
             if (_player.TryGetSessionByEntity(uid, out var session))
@@ -516,6 +562,4 @@ public sealed class JobTrackingSystem : SharedJobTrackingSystem
 }
 
 // HardLight: An event raised when a job tracking component's active state changes, used for dynamic job allocation rules.
-public sealed class JobTrackingStateChangedEvent : EntityEventArgs
-{
-}
+public sealed class JobTrackingStateChangedEvent : EntityEventArgs { }

@@ -14,8 +14,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.45,-0.45,0.45,0.45"
         density: 190
         mask:
@@ -27,14 +26,12 @@
     damageModifierSet: StructuralMetallic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 200
       behaviors:
-        - !type:DoActsBehavior
-          acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:DoActsBehavior
@@ -47,7 +44,7 @@
     - KnockOn
   - type: Tag
     tags:
-      - NoPaint
+    - NoPaint
   - type: Climbable # mono
   - type: FootstepModifier # mono
     footstepSoundCollection:
@@ -92,4 +89,4 @@
   parent: ConstructibleMachine
   id: SmallConstructibleMachine
   components:
-    - type: RequireProjectileTarget
+  - type: RequireProjectileTarget

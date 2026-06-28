@@ -12,9 +12,7 @@ public sealed partial class WireDoAfterEvent : DoAfterEvent
     [DataField("id", required: true)]
     public int Id;
 
-    private WireDoAfterEvent()
-    {
-    }
+    private WireDoAfterEvent() { }
 
     public WireDoAfterEvent(WiresAction action, int id)
     {

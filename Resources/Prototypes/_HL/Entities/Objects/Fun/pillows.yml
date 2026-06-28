@@ -8,9 +8,9 @@
     - 0,0,1,0
   - type: Tag
     tags:
-      - Payload
-      - ClothMade
-      - RoomSaveable
+    - Payload
+    - ClothMade
+    - RoomSaveable
   - type: EmitSoundOnCollide
     sound:
       collection: ToyFall
@@ -186,7 +186,6 @@
     sprite: _HL/Objects/Fun/pillows.rsi
     state: pillow_square_white
 
-
 - type: entity
   id: PillowTeal
   parent: BasePillow
@@ -198,8 +197,6 @@
   - type: Sprite
     sprite: _HL/Objects/Fun/pillows_special.rsi
     state: pillow_teal
-
-
 
 # special pillows
 
@@ -286,7 +283,6 @@
   - type: Sprite
     sprite: _HL/Objects/Fun/pillows_special.rsi
     state: pillow_lunar_nonanimated_newmoon
-
 
 - type: entity
   id: PillowNsfd
@@ -714,7 +710,6 @@
     sprite: _HL/Objects/Fun/pillows_special.rsi
     state: pillow_white_stiff_neat
 
-
 - type: entity
   id: PillowWeh
   parent: BasePillow
@@ -786,19 +781,18 @@
   parent: BasePillow
   abstract: true
   components:
-    - type: ItemToggle
-      predictable: false
-    - type: Appearance
-    - type: GenericVisualizer
-      visuals:
-        enum.ToggleVisuals.Toggled:
-         back:
-            True: { visible: true }
-            False: { visible: false }
-         base:
-            True: { visible: false }
-            False: { visible: true }
-
+  - type: ItemToggle
+    predictable: false
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.ToggleVisuals.Toggled:
+        back:
+          True: {visible: true}
+          False: {visible: false}
+        base:
+          True: {visible: false}
+          False: {visible: true}
 
 - type: entity
   id: PillowBodyWeh
@@ -828,7 +822,6 @@
     - state: pillow_body_urist_back
       map: ["back"]
 
-
 - type: entity
   id: PillowBodyMiku
   parent: PillowBodyBase
@@ -840,11 +833,10 @@
   - type: Sprite
     sprite: _HL/Objects/Fun/pillows_body.rsi
     layers:
-      - state: pillow_body_miku_front
-        map: ["base"]
-      - state: pillow_body_miku_back
-        map: ["back"]
-
+    - state: pillow_body_miku_front
+      map: ["base"]
+    - state: pillow_body_miku_back
+      map: ["back"]
 
 - type: entity
   id: PillowBodyNebula
@@ -890,9 +882,9 @@
     sprite: _HL/Objects/Fun/pillows_body.rsi
     layers:
     - state: pillow_body_pico_front
-      map: [ "base" ]
+      map: ["base"]
     - state: pillow_body_pico_back
-      map: [ "back" ]
+      map: ["back"]
 
 - type: entity
   id: PillowBodyAi

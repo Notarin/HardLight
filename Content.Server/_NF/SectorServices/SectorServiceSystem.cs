@@ -2,7 +2,6 @@ using Content.Shared._NF.SectorServices.Prototypes;
 using JetBrains.Annotations;
 using Robust.Shared.Prototypes;
 
-
 namespace Content.Server._NF.SectorServices;
 
 /// <summary>
@@ -12,8 +11,11 @@ namespace Content.Server._NF.SectorServices;
 [PublicAPI]
 public sealed class SectorServiceSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IEntityManager _entityManager = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly IEntityManager _entityManager = default!;
 
     [ViewVariables(VVAccess.ReadOnly)]
     private EntityUid _entity = EntityUid.Invalid; // The station entity that's storing our services.

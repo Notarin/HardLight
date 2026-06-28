@@ -28,16 +28,35 @@ namespace Content.Shared.Weapons.Reflect;
 /// </summary>
 public sealed class ReflectSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly INetManager _netManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly ItemToggleSystem _toggle = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly InventorySystem _inventorySystem = default!;
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
+
+    [Dependency]
+    private readonly INetManager _netManager = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly ISharedAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    private readonly ItemToggleSystem _toggle = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SharedPhysicsSystem _physics = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly InventorySystem _inventorySystem = default!;
 
     public override void Initialize()
     {
@@ -55,14 +74,28 @@ public sealed class ReflectSystem : EntitySystem
         SubscribeLocalEvent<ReflectUserComponent, HitScanReflectAttemptEvent>(OnReflectUserHitscan);
     }
 
-    private void OnReflectUserHitscan(EntityUid uid, ReflectUserComponent component, ref HitScanReflectAttemptEvent args)
+    private void OnReflectUserHitscan(
+        EntityUid uid,
+        ReflectUserComponent component,
+        ref HitScanReflectAttemptEvent args
+    )
     {
         if (args.Reflected)
             return;
 
         foreach (var ent in _inventorySystem.GetHandOrInventoryEntities(uid, SlotFlags.All & ~SlotFlags.POCKET))
         {
-            if (!TryReflectHitscan(uid, ent, args.Shooter, args.SourceItem, args.Direction, args.Reflective, out var dir))
+            if (
+                !TryReflectHitscan(
+                    uid,
+                    ent,
+                    args.Shooter,
+                    args.SourceItem,
+                    args.Direction,
+                    args.Reflective,
+                    out var dir
+                )
+            )
                 continue;
 
             args.Direction = dir.Value;
@@ -71,7 +104,11 @@ public sealed class ReflectSystem : EntitySystem
         }
     }
 
-    private void OnReflectUserCollide(EntityUid uid, ReflectUserComponent component, ref ProjectileReflectAttemptEvent args)
+    private void OnReflectUserCollide(
+        EntityUid uid,
+        ReflectUserComponent component,
+        ref ProjectileReflectAttemptEvent args
+    )
     {
         foreach (var ent in _inventorySystem.GetHandOrInventoryEntities(uid, SlotFlags.All & ~SlotFlags.POCKET))
         {
@@ -92,14 +129,22 @@ public sealed class ReflectSystem : EntitySystem
             args.Cancelled = true;
     }
 
-    private bool TryReflectProjectile(EntityUid user, EntityUid reflector, EntityUid projectile, ProjectileComponent? projectileComp = null, ReflectComponent? reflect = null)
+    private bool TryReflectProjectile(
+        EntityUid user,
+        EntityUid reflector,
+        EntityUid projectile,
+        ProjectileComponent? projectileComp = null,
+        ReflectComponent? reflect = null
+    )
     {
-        if (!Resolve(reflector, ref reflect, false) ||
-            !TryComp<ReflectiveComponent>(projectile, out var reflective) ||
-            (reflect.Reflects & reflective.Reflective) == 0x0 ||
-            !_toggle.IsActivated(reflector) ||
-            !_random.Prob(reflect.ReflectProb) ||
-            !TryComp<PhysicsComponent>(projectile, out var physics))
+        if (
+            !Resolve(reflector, ref reflect, false)
+            || !TryComp<ReflectiveComponent>(projectile, out var reflective)
+            || (reflect.Reflects & reflective.Reflective) == 0x0
+            || !_toggle.IsActivated(reflector)
+            || !_random.Prob(reflect.ReflectProb)
+            || !TryComp<PhysicsComponent>(projectile, out var physics)
+        )
         {
             return false;
         }
@@ -122,7 +167,11 @@ public sealed class ReflectSystem : EntitySystem
 
         if (Resolve(projectile, ref projectileComp, false))
         {
-            _adminLogger.Add(LogType.BulletHit, LogImpact.Medium, $"{ToPrettyString(user)} reflected {ToPrettyString(projectile)} from {ToPrettyString(projectileComp.Weapon)} shot by {projectileComp.Shooter}");
+            _adminLogger.Add(
+                LogType.BulletHit,
+                LogImpact.Medium,
+                $"{ToPrettyString(user)} reflected {ToPrettyString(projectile)} from {ToPrettyString(projectileComp.Weapon)} shot by {projectileComp.Shooter}"
+            );
 
             projectileComp.Shooter = user;
             projectileComp.Weapon = user;
@@ -130,7 +179,11 @@ public sealed class ReflectSystem : EntitySystem
         }
         else
         {
-            _adminLogger.Add(LogType.BulletHit, LogImpact.Medium, $"{ToPrettyString(user)} reflected {ToPrettyString(projectile)}");
+            _adminLogger.Add(
+                LogType.BulletHit,
+                LogImpact.Medium,
+                $"{ToPrettyString(user)} reflected {ToPrettyString(projectile)}"
+            );
         }
 
         return true;
@@ -167,12 +220,15 @@ public sealed class ReflectSystem : EntitySystem
         EntityUid shotSource,
         Vector2 direction,
         ReflectType hitscanReflectType,
-        [NotNullWhen(true)] out Vector2? newDirection)
+        [NotNullWhen(true)] out Vector2? newDirection
+    )
     {
-        if (!TryComp<ReflectComponent>(reflector, out var reflect) ||
-            (reflect.Reflects & hitscanReflectType) == 0x0 ||
-            !_toggle.IsActivated(reflector) ||
-            !_random.Prob(reflect.ReflectProb))
+        if (
+            !TryComp<ReflectComponent>(reflector, out var reflect)
+            || (reflect.Reflects & hitscanReflectType) == 0x0
+            || !_toggle.IsActivated(reflector)
+            || !_random.Prob(reflect.ReflectProb)
+        )
         {
             newDirection = null;
             return false;
@@ -184,9 +240,17 @@ public sealed class ReflectSystem : EntitySystem
         newDirection = -spread.RotateVec(direction);
 
         if (shooter != null)
-            _adminLogger.Add(LogType.HitScanHit, LogImpact.Medium, $"{ToPrettyString(user)} reflected hitscan from {ToPrettyString(shotSource)} shot by {ToPrettyString(shooter.Value)}");
+            _adminLogger.Add(
+                LogType.HitScanHit,
+                LogImpact.Medium,
+                $"{ToPrettyString(user)} reflected hitscan from {ToPrettyString(shotSource)} shot by {ToPrettyString(shooter.Value)}"
+            );
         else
-            _adminLogger.Add(LogType.HitScanHit, LogImpact.Medium, $"{ToPrettyString(user)} reflected hitscan from {ToPrettyString(shotSource)}");
+            _adminLogger.Add(
+                LogType.HitScanHit,
+                LogImpact.Medium,
+                $"{ToPrettyString(user)} reflected hitscan from {ToPrettyString(shotSource)}"
+            );
 
         return true;
     }
@@ -219,7 +283,7 @@ public sealed class ReflectSystem : EntitySystem
 
     private void OnToggleReflect(EntityUid uid, ReflectComponent comp, ref ItemToggledEvent args)
     {
-        if (args.User is {} user)
+        if (args.User is { } user)
             RefreshReflectUser(user);
     }
 

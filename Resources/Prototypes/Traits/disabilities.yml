@@ -9,9 +9,9 @@
   cost: -10
   whitelist:
     components:
-      - Blindable
+    - Blindable
   components:
-    - type: PermanentBlindness
+  - type: PermanentBlindness
 
 - type: trait
   id: PoorVision
@@ -22,11 +22,11 @@
   cost: -4
   whitelist:
     components:
-      - Blindable
+    - Blindable
   components:
-    - type: PermanentBlindness
-      blindness: 4
-      glassesFixable: true # Starlight-edit
+  - type: PermanentBlindness
+    blindness: 4
+    glassesFixable: true # Starlight-edit
 
 - type: trait
   id: Narcolepsy
@@ -35,9 +35,9 @@
   category: Physical
   cost: -2
   components:
-    - type: Narcolepsy
-      timeBetweenIncidents: 300, 600
-      durationOfIncident: 10, 30
+  - type: Narcolepsy
+    timeBetweenIncidents: 300, 600
+    durationOfIncident: 10, 30
 
 - type: trait
   id: Unrevivable
@@ -48,8 +48,8 @@
   speciesBlacklist: # HardLight
   - IPC
   components:
-    - type: Unrevivable
-      cloneable: true
+  - type: Unrevivable
+    cloneable: true
 
 - type: trait
   id: Muted
@@ -59,9 +59,9 @@
   cost: -5
   blacklist:
     components:
-      - BorgChassis
+    - BorgChassis
   components:
-    - type: Muted
+  - type: Muted
 
 - type: trait
   id: Paracusia
@@ -70,12 +70,12 @@
   category: Physical
   cost: -2
   components:
-    - type: Paracusia
-      minTimeBetweenIncidents: 0.1
-      maxTimeBetweenIncidents: 300
-      maxSoundDistance: 7
-      sounds:
-        collection: Paracusia
+  - type: Paracusia
+    minTimeBetweenIncidents: 0.1
+    maxTimeBetweenIncidents: 300
+    maxSoundDistance: 7
+    sounds:
+      collection: Paracusia
 
 - type: trait
   id: PainNumbness

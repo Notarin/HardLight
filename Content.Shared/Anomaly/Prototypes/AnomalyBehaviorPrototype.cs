@@ -5,7 +5,8 @@ namespace Content.Shared.Anomaly.Prototypes;
 [Prototype]
 public sealed partial class AnomalyBehaviorPrototype : IPrototype
 {
-    [IdDataField] public string ID { get; private set; } = default!;
+    [IdDataField]
+    public string ID { get; private set; } = default!;
 
     /// <summary>
     /// Description for anomaly scanner

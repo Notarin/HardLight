@@ -1,7 +1,6 @@
 using System.Numerics;
 using Content.Server._Mono.FireControl;
 using Content.Server._Mono.NPC.HTN;
-using Content.Shared.DeviceLinking.Events;
 using Content.Server.DeviceLinking.Systems;
 using Content.Server.Power.Components;
 using Content.Server.Power.EntitySystems;
@@ -10,6 +9,7 @@ using Content.Shared._Mono.ShipGuns;
 using Content.Shared._Mono.SpaceArtillery;
 using Content.Shared.Camera;
 using Content.Shared.DeviceLinking;
+using Content.Shared.DeviceLinking.Events;
 using Content.Shared.Examine;
 using Content.Shared.Power;
 using Content.Shared.Projectiles;
@@ -23,13 +23,26 @@ namespace Content.Server._Mono.SpaceArtillery;
 
 public sealed partial class SpaceArtillerySystem : EntitySystem
 {
-    [Dependency] private readonly GunSystem _gun = default!;
-    [Dependency] private readonly DeviceLinkSystem _deviceLink = default!;
-    [Dependency] private readonly BatterySystem _battery = default!;
-    [Dependency] private readonly SharedTransformSystem _xform = default!;
-    [Dependency] private readonly SharedCameraRecoilSystem _recoilSystem = default!;
-    [Dependency] private readonly FireControlSystem _fireControl = default!;
-    [Dependency] private readonly ShipAggroSystem _aggro = default!;
+    [Dependency]
+    private readonly GunSystem _gun = default!;
+
+    [Dependency]
+    private readonly DeviceLinkSystem _deviceLink = default!;
+
+    [Dependency]
+    private readonly BatterySystem _battery = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _xform = default!;
+
+    [Dependency]
+    private readonly SharedCameraRecoilSystem _recoilSystem = default!;
+
+    [Dependency]
+    private readonly FireControlSystem _fireControl = default!;
+
+    [Dependency]
+    private readonly ShipAggroSystem _aggro = default!;
 
     private const float DISTANCE = 100;
     private const float BIG_DAMAGE = 1000;
@@ -54,7 +67,11 @@ public sealed partial class SpaceArtillerySystem : EntitySystem
     /// Ship-gun projectiles spawn on the firing ship's grid; without this they can collide with
     /// the firing ship's own hull on the first physics step.
     /// </summary>
-    private void OnShipProjectilePreventCollide(EntityUid uid, ShipWeaponProjectileComponent component, ref PreventCollideEvent args)
+    private void OnShipProjectilePreventCollide(
+        EntityUid uid,
+        ShipWeaponProjectileComponent component,
+        ref PreventCollideEvent args
+    )
     {
         if (args.Cancelled)
             return;
@@ -69,7 +86,6 @@ public sealed partial class SpaceArtillerySystem : EntitySystem
         if (args.OtherEntity == weaponGrid.Value || _xform.GetGrid(args.OtherEntity) == weaponGrid)
             args.Cancelled = true;
     }
-
 
     private void OnSignalReceived(EntityUid uid, SpaceArtilleryComponent component, ref SignalReceivedEvent args)
     {
@@ -90,7 +106,6 @@ public sealed partial class SpaceArtillerySystem : EntitySystem
             OnMalfunction(uid, component);
     }
 
-
     private void OnApcChanged(EntityUid uid, SpaceArtilleryComponent component, ref PowerChangedEvent args)
     {
         if (TryComp<BatterySelfRechargerComponent>(uid, out var batteryCharger))
@@ -108,12 +123,17 @@ public sealed partial class SpaceArtillerySystem : EntitySystem
         }
     }
 
-
     private void OnBatteryChargeChanged(EntityUid uid, SpaceArtilleryComponent component, ref ChargeChangedEvent args)
     {
-        if (TryComp<ApcPowerReceiverComponent>(uid, out var apcPowerReceiver) && TryComp<BatteryComponent>(uid, out var battery))
+        if (
+            TryComp<ApcPowerReceiverComponent>(uid, out var apcPowerReceiver)
+            && TryComp<BatteryComponent>(uid, out var battery)
+        )
         {
-            apcPowerReceiver.Load = battery.CurrentCharge >= battery.MaxCharge * 0.99 ? component.PowerUsePassive : component.PowerUsePassive + component.PowerChargeRate;
+            apcPowerReceiver.Load =
+                battery.CurrentCharge >= battery.MaxCharge * 0.99
+                    ? component.PowerUsePassive
+                    : component.PowerUsePassive + component.PowerChargeRate;
         }
     }
 
@@ -141,7 +161,10 @@ public sealed partial class SpaceArtillerySystem : EntitySystem
         var worldPosX = _xform.GetWorldPosition(uid).X;
         var worldPosY = _xform.GetWorldPosition(uid).Y;
         var worldRot = _xform.GetWorldRotation(uid) + Math.PI;
-        var targetSpot = new Vector2(worldPosX - DISTANCE * (float)Math.Sin(worldRot), worldPosY + DISTANCE * (float)Math.Cos(worldRot));
+        var targetSpot = new Vector2(
+            worldPosX - DISTANCE * (float)Math.Sin(worldRot),
+            worldPosY + DISTANCE * (float)Math.Cos(worldRot)
+        );
 
         // Create coordinates for the target and source positions
         var sourceCoordinates = xform.Coordinates;
@@ -175,9 +198,7 @@ public sealed partial class SpaceArtillerySystem : EntitySystem
         OnMalfunction(uid, component);
     }
 
-    private void OnMalfunction(EntityUid uid, SpaceArtilleryComponent component)
-    {
-    }
+    private void OnMalfunction(EntityUid uid, SpaceArtilleryComponent component) { }
 
     private void OnProjectileHit(EntityUid uid, ShipWeaponProjectileComponent component, ProjectileHitEvent hitEvent)
     {
@@ -198,7 +219,10 @@ public sealed partial class SpaceArtillerySystem : EntitySystem
 
             var vector = _xform.GetWorldPosition(uid) - _xform.GetWorldPosition(playerEnt);
 
-            _recoilSystem.KickCamera(playerEnt, vector.Normalized() * (float)hitEvent.Damage.GetTotal() / BIG_DAMAGE * BIG_DAMGE_KICK);
+            _recoilSystem.KickCamera(
+                playerEnt,
+                vector.Normalized() * (float)hitEvent.Damage.GetTotal() / BIG_DAMAGE * BIG_DAMGE_KICK
+            );
         }
     }
 

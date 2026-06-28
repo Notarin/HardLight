@@ -7,10 +7,10 @@
   - type: Sprite
     sprite: _NF/Structures/Furniture/icebox.rsi
     layers:
-      - state: icebox
-      - map: [ "enum.SolutionContainerLayers.Fill" ]
-        state: icebox_fill-1
-        visible: false
+    - state: icebox
+    - map: ["enum.SolutionContainerLayers.Fill"]
+      state: icebox_fill-1
+      visible: false
   - type: Appearance
   - type: SolutionContainerVisuals
     maxFillLevels: 1

@@ -14,9 +14,14 @@ namespace Content.Server.Administration.BanList;
 
 public sealed class BanListEui : BaseEui
 {
-    [Dependency] private readonly IAdminManager _admins = default!;
-    [Dependency] private readonly IPlayerLocator _playerLocator = default!;
-    [Dependency] private readonly IServerDbManager _db = default!;
+    [Dependency]
+    private readonly IAdminManager _admins = default!;
+
+    [Dependency]
+    private readonly IPlayerLocator _playerLocator = default!;
+
+    [Dependency]
+    private readonly IServerDbManager _db = default!;
 
     public BanListEui()
     {
@@ -68,9 +73,10 @@ public sealed class BanListEui : BaseEui
             SharedUnban? unban = null;
             if (ban.Unban is { } unbanDef)
             {
-                var unbanningAdmin = unbanDef.UnbanningAdmin == null
-                    ? null
-                    : (await _playerLocator.LookupIdAsync(unbanDef.UnbanningAdmin.Value))?.Username;
+                var unbanningAdmin =
+                    unbanDef.UnbanningAdmin == null
+                        ? null
+                        : (await _playerLocator.LookupIdAsync(unbanDef.UnbanningAdmin.Value))?.Username;
                 unban = new SharedUnban(unbanningAdmin, ban.Unban.UnbanTime.UtcDateTime);
             }
 
@@ -79,25 +85,27 @@ public sealed class BanListEui : BaseEui
 
             if (_admins.HasAdminFlag(Player, AdminFlags.Pii))
             {
-                ips = [..ban.Addresses.Select(a => (a.address.ToString(), a.cidrMask))];
-                hwids = [..ban.HWIds.Select(h => h.ToString())];
+                ips = [.. ban.Addresses.Select(a => (a.address.ToString(), a.cidrMask))];
+                hwids = [.. ban.HWIds.Select(h => h.ToString())];
             }
 
-            list.Add(new SharedBan(
-                ban.Id,
-                ban.Type,
-                ban.UserIds,
-                ips,
-                hwids,
-                ban.BanTime.UtcDateTime,
-                ban.ExpirationTime?.UtcDateTime,
-                ban.Reason,
-                ban.BanningAdmin == null
-                    ? null
-                    : (await _playerLocator.LookupIdAsync(ban.BanningAdmin.Value))?.Username,
-                unban,
-                ban.Roles
-            ));
+            list.Add(
+                new SharedBan(
+                    ban.Id,
+                    ban.Type,
+                    ban.UserIds,
+                    ips,
+                    hwids,
+                    ban.BanTime.UtcDateTime,
+                    ban.ExpirationTime?.UtcDateTime,
+                    ban.Reason,
+                    ban.BanningAdmin == null
+                        ? null
+                        : (await _playerLocator.LookupIdAsync(ban.BanningAdmin.Value))?.Username,
+                    unban,
+                    ban.Roles
+                )
+            );
         }
     }
 
@@ -107,8 +115,7 @@ public sealed class BanListEui : BaseEui
         RoleBans.Clear();
 
         var userId = new NetUserId(BanListPlayer);
-        BanListPlayerName = (await _playerLocator.LookupIdAsync(userId))?.Username ??
-                            string.Empty;
+        BanListPlayerName = (await _playerLocator.LookupIdAsync(userId))?.Username ?? string.Empty;
 
         await LoadBans(userId);
 

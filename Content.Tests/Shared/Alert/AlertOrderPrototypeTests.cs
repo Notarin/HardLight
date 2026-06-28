@@ -12,7 +12,8 @@ namespace Content.Tests.Shared.Alert
     [TestFixture, TestOf(typeof(AlertOrderPrototype))]
     public sealed class AlertOrderPrototypeTests : ContentUnitTest
     {
-        const string PROTOTYPES = @"
+        const string PROTOTYPES =
+            @"
 - type: alertOrder
   id: testAlertOrder
   order:

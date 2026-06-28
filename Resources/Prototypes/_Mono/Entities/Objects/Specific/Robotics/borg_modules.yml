@@ -6,7 +6,7 @@
 
 - type: entity
   id: BorgModuleRedactedRCD
-  parent: [ BaseBorgModule, BaseProviderBorgModule ]
+  parent: [BaseBorgModule, BaseProviderBorgModule]
   name: pre-fracture RCD module
   components:
   - type: Sprite
@@ -18,4 +18,4 @@
     items:
     - RCDRecharging
   - type: BorgModuleIcon
-    icon: { sprite: Interface/Actions/actions_borg.rsi, state: rcd-module }
+    icon: {sprite: Interface/Actions/actions_borg.rsi, state: rcd-module}

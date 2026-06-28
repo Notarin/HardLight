@@ -3,17 +3,17 @@
 - type: entity
   id: NFBaseMagazinePistol45
   name: pistol magazine (.45 pistol)
-  parent: [ BaseC1Contraband, BaseMagazineMagnum, RecyclableItemSteelTiny ]
+  parent: [BaseC1Contraband, BaseMagazineMagnum, RecyclableItemSteelTiny]
   abstract: true
   components:
   - type: Tag
     tags:
-      - NFMagazinePistol45
+    - NFMagazinePistol45
   - type: BallisticAmmoProvider
     mayTransfer: true
     whitelist:
       tags:
-        - NFCartridgePistol45
+      - NFCartridgePistol45
     capacity: 8
   - type: Sprite
     sprite: _NF/Objects/Weapons/Guns/Ammunition/Magazine/Pistol35/pistol_mag.rsi
@@ -27,17 +27,17 @@
 - type: entity
   id: NFBaseMagazinePistolSubMachineGun45
   name: smg magazine (.45 pistol)
-  parent: [ BaseC1Contraband, BaseMagazineMagnumSubMachineGun, RecyclableItemSteelTiny ]
+  parent: [BaseC1Contraband, BaseMagazineMagnumSubMachineGun, RecyclableItemSteelTiny]
   abstract: true
   components:
   - type: Tag
     tags:
-      - NFMagazineSubMachineGunPistol45
+    - NFMagazineSubMachineGunPistol45
   - type: BallisticAmmoProvider
     mayTransfer: true
     whitelist:
       tags:
-        - NFCartridgePistol45
+      - NFCartridgePistol45
     capacity: 25
   - type: Sprite
     sprite: _NF/Objects/Weapons/Guns/Ammunition/Magazine/Pistol45/smg_mag.rsi

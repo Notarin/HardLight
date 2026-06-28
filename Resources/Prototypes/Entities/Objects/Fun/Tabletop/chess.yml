@@ -11,8 +11,7 @@
   - type: TabletopGame
     boardName: tabletop-chess-board-name
     size: 338, 274
-    setup:
-      !type:TabletopChessSetup
+    setup: !type:TabletopChessSetup
       boardPrototype: ChessBoardTabletop
 
 # Chessboard tabletop item (item only visible in tabletop game)
@@ -20,7 +19,7 @@
   id: ChessBoardTabletop
   name: chessboard
   parent: BaseBoardTabletop
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: Objects/Fun/Tabletop/chessboard_tabletop.rsi
@@ -41,45 +40,45 @@
   name: white queen
   parent: BaseTabletopPiece
   components:
-    - type: Sprite
-      sprite: Objects/Fun/Tabletop/chess_pieces.rsi
-      state: w_queen
+  - type: Sprite
+    sprite: Objects/Fun/Tabletop/chess_pieces.rsi
+    state: w_queen
 
 - type: entity
   id: WhiteRook
   name: white rook
   parent: BaseTabletopPiece
   components:
-    - type: Sprite
-      sprite: Objects/Fun/Tabletop/chess_pieces.rsi
-      state: w_rook
+  - type: Sprite
+    sprite: Objects/Fun/Tabletop/chess_pieces.rsi
+    state: w_rook
 
 - type: entity
   id: WhiteBishop
   name: white bishop
   parent: BaseTabletopPiece
   components:
-    - type: Sprite
-      sprite: Objects/Fun/Tabletop/chess_pieces.rsi
-      state: w_bishop
+  - type: Sprite
+    sprite: Objects/Fun/Tabletop/chess_pieces.rsi
+    state: w_bishop
 
 - type: entity
   id: WhiteKnight
   name: white knight
   parent: BaseTabletopPiece
   components:
-    - type: Sprite
-      sprite: Objects/Fun/Tabletop/chess_pieces.rsi
-      state: w_knight
+  - type: Sprite
+    sprite: Objects/Fun/Tabletop/chess_pieces.rsi
+    state: w_knight
 
 - type: entity
   id: WhitePawn
   name: white pawn
   parent: BaseTabletopPiece
   components:
-    - type: Sprite
-      sprite: Objects/Fun/Tabletop/chess_pieces.rsi
-      state: w_pawn
+  - type: Sprite
+    sprite: Objects/Fun/Tabletop/chess_pieces.rsi
+    state: w_pawn
 
 # Black pieces
 - type: entity
@@ -87,51 +86,51 @@
   name: black king
   parent: BaseTabletopPiece
   components:
-    - type: Sprite
-      sprite: Objects/Fun/Tabletop/chess_pieces.rsi
-      state: b_king
+  - type: Sprite
+    sprite: Objects/Fun/Tabletop/chess_pieces.rsi
+    state: b_king
 
 - type: entity
   id: BlackQueen
   name: black queen
   parent: BaseTabletopPiece
   components:
-    - type: Sprite
-      sprite: Objects/Fun/Tabletop/chess_pieces.rsi
-      state: b_queen
+  - type: Sprite
+    sprite: Objects/Fun/Tabletop/chess_pieces.rsi
+    state: b_queen
 
 - type: entity
   id: BlackRook
   name: black rook
   parent: BaseTabletopPiece
   components:
-    - type: Sprite
-      sprite: Objects/Fun/Tabletop/chess_pieces.rsi
-      state: b_rook
+  - type: Sprite
+    sprite: Objects/Fun/Tabletop/chess_pieces.rsi
+    state: b_rook
 
 - type: entity
   id: BlackBishop
   name: black bishop
   parent: BaseTabletopPiece
   components:
-    - type: Sprite
-      sprite: Objects/Fun/Tabletop/chess_pieces.rsi
-      state: b_bishop
+  - type: Sprite
+    sprite: Objects/Fun/Tabletop/chess_pieces.rsi
+    state: b_bishop
 
 - type: entity
   id: BlackKnight
   name: black knight
   parent: BaseTabletopPiece
   components:
-    - type: Sprite
-      sprite: Objects/Fun/Tabletop/chess_pieces.rsi
-      state: b_knight
+  - type: Sprite
+    sprite: Objects/Fun/Tabletop/chess_pieces.rsi
+    state: b_knight
 
 - type: entity
   id: BlackPawn
   name: black pawn
   parent: BaseTabletopPiece
   components:
-    - type: Sprite
-      sprite: Objects/Fun/Tabletop/chess_pieces.rsi
-      state: b_pawn
+  - type: Sprite
+    sprite: Objects/Fun/Tabletop/chess_pieces.rsi
+    state: b_pawn

@@ -51,9 +51,11 @@ public sealed partial class LandgrabUiFragment : BoxContainer
         }
         else
         {
-            LocationLabel.Text = Loc.GetString("landgrab-location",
+            LocationLabel.Text = Loc.GetString(
+                "landgrab-location",
                 ("x", state.WorldX.ToString("F0")),
-                ("y", state.WorldY.ToString("F0")));
+                ("y", state.WorldY.ToString("F0"))
+            );
             PlotSizeLabel.Text = Loc.GetString("landgrab-plot-size", ("size", state.PlotSize));
 
             if (state.OwnsPlot)
@@ -109,11 +111,7 @@ public sealed partial class LandgrabUiFragment : BoxContainer
 
         foreach (var save in state.SavedPlots)
         {
-            var row = new PanelContainer
-            {
-                StyleClasses = { "BackgroundPanel" },
-                Margin = new Thickness(0, 0, 0, 4),
-            };
+            var row = new PanelContainer { StyleClasses = { "BackgroundPanel" }, Margin = new Thickness(0, 0, 0, 4) };
             var box = new BoxContainer
             {
                 Orientation = LayoutOrientation.Vertical,
@@ -122,30 +120,33 @@ public sealed partial class LandgrabUiFragment : BoxContainer
             };
             row.AddChild(box);
 
-            box.AddChild(new Label
-            {
-                Text = save.SlotName,
-                StyleClasses = { "LabelKeyText" },
-            });
-            box.AddChild(new Label
-            {
-                Text = Loc.GetString("landgrab-save-meta",
-                    ("w", save.Width), ("h", save.Height), ("tiles", save.TileCount)),
-                StyleClasses = { "LabelSubText" },
-            });
-            box.AddChild(new Label
-            {
-                Text = Loc.GetString("landgrab-load-cost", ("cost", save.LoadCost)),
-                Margin = new Thickness(0, 2, 0, 4),
-            });
+            box.AddChild(new Label { Text = save.SlotName, StyleClasses = { "LabelKeyText" } });
+            box.AddChild(
+                new Label
+                {
+                    Text = Loc.GetString(
+                        "landgrab-save-meta",
+                        ("w", save.Width),
+                        ("h", save.Height),
+                        ("tiles", save.TileCount)
+                    ),
+                    StyleClasses = { "LabelSubText" },
+                }
+            );
+            box.AddChild(
+                new Label
+                {
+                    Text = Loc.GetString("landgrab-load-cost", ("cost", save.LoadCost)),
+                    Margin = new Thickness(0, 2, 0, 4),
+                }
+            );
 
             var btnRow = new BoxContainer { Orientation = LayoutOrientation.Horizontal };
             var loadBtn = new Button
             {
                 Text = Loc.GetString("landgrab-load"),
-                Disabled = !state.OnValidPlanet || state.OwnsPlot
-                                                || !state.LocationFree
-                                                || state.Balance < save.LoadCost,
+                Disabled =
+                    !state.OnValidPlanet || state.OwnsPlot || !state.LocationFree || state.Balance < save.LoadCost,
                 HorizontalExpand = true,
                 StyleClasses = { "ButtonColorGreen" },
             };

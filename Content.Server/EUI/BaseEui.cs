@@ -30,18 +30,12 @@ namespace Content.Server.EUI
         /// <summary>
         ///     Called when the UI has been opened. Do initializing logic here.
         /// </summary>
-        public virtual void Opened()
-        {
-
-        }
+        public virtual void Opened() { }
 
         /// <summary>
         ///     Called when the UI has been closed.
         /// </summary>
-        public virtual void Closed()
-        {
-
-        }
+        public virtual void Closed() { }
 
         /// <summary>
         ///     Called when a message comes in from the client.

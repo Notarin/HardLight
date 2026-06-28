@@ -1,7 +1,7 @@
-using Content.Shared._Goobstation.ItemMiner;
-using Content.Shared.Stacks;
 using Content.Server.Power.EntitySystems;
 using Content.Server.Stack;
+using Content.Shared._Goobstation.ItemMiner;
+using Content.Shared.Stacks;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
@@ -10,11 +10,20 @@ namespace Content.Server._Goobstation.ItemMiner;
 
 public sealed class ItemMinerSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IRobustRandom _gambling = default!;
-    [Dependency] private readonly PowerReceiverSystem _power = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly StackSystem _stack = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _gambling = default!;
+
+    [Dependency]
+    private readonly PowerReceiverSystem _power = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly StackSystem _stack = default!;
 
     public override void Initialize()
     {
@@ -40,9 +49,11 @@ public sealed class ItemMinerSystem : EntitySystem
 
             var xform = Transform(uid);
 
-            if (checkEv.Cancelled
+            if (
+                checkEv.Cancelled
                 || miner.NeedApcPower && !_power.IsPowered(uid)
-                || miner.NeedsAnchored && !xform.Anchored)
+                || miner.NeedsAnchored && !xform.Anchored
+            )
             {
                 miner.NextAt += TimeSpan.FromSeconds(frameTime);
                 QueueDel(miner.AudioUid);

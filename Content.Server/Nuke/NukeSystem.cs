@@ -27,23 +27,56 @@ namespace Content.Server.Nuke;
 
 public sealed class NukeSystem : EntitySystem
 {
-    [Dependency] private readonly AlertLevelSystem _alertLevel = default!;
-    [Dependency] private readonly ChatSystem _chatSystem = default!;
-    [Dependency] private readonly ExplosionSystem _explosions = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly ITileDefinitionManager _tileDefManager = default!;
-    [Dependency] private readonly ItemSlotsSystem _itemSlots = default!;
-    [Dependency] private readonly NavMapSystem _navMap = default!;
-    [Dependency] private readonly PointLightSystem _pointLight = default!;
-    [Dependency] private readonly PopupSystem _popups = default!;
-    [Dependency] private readonly ServerGlobalSoundSystem _sound = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
-    [Dependency] private readonly StationSystem _station = default!;
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
-    [Dependency] private readonly AppearanceSystem _appearance = default!;
+    [Dependency]
+    private readonly AlertLevelSystem _alertLevel = default!;
+
+    [Dependency]
+    private readonly ChatSystem _chatSystem = default!;
+
+    [Dependency]
+    private readonly ExplosionSystem _explosions = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly ITileDefinitionManager _tileDefManager = default!;
+
+    [Dependency]
+    private readonly ItemSlotsSystem _itemSlots = default!;
+
+    [Dependency]
+    private readonly NavMapSystem _navMap = default!;
+
+    [Dependency]
+    private readonly PointLightSystem _pointLight = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popups = default!;
+
+    [Dependency]
+    private readonly ServerGlobalSoundSystem _sound = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfter = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _map = default!;
+
+    [Dependency]
+    private readonly StationSystem _station = default!;
+
+    [Dependency]
+    private readonly UserInterfaceSystem _ui = default!;
+
+    [Dependency]
+    private readonly AppearanceSystem _appearance = default!;
 
     /// <summary>
     ///     Used to calculate when the nuke song should start playing for maximum kino with the nuke sfx
@@ -115,7 +148,6 @@ public sealed class NukeSystem : EntitySystem
 
         if (originStation != null)
             nuke.OriginStation = originStation;
-
         else
         {
             var transform = Transform(uid);
@@ -148,7 +180,11 @@ public sealed class NukeSystem : EntitySystem
     {
         UpdateUserInterface(uid, component);
 
-        if (args.Anchored == false && component.Status == NukeStatus.ARMED && component.RemainingTime > component.DisarmDoafterLength)
+        if (
+            args.Anchored == false
+            && component.Status == NukeStatus.ARMED
+            && component.RemainingTime > component.DisarmDoafterLength
+        )
         {
             // yes, this means technically if you can find a way to unanchor the nuke, you can disarm it
             // without the doafter. but that takes some effort, and it won't allow you to disarm a nuke that can't be disarmed by the doafter.
@@ -191,7 +227,14 @@ public sealed class NukeSystem : EntitySystem
 
             var worldPos = _transform.GetWorldPosition(xform);
 
-            foreach (var tile in _map.GetTilesIntersecting(xform.GridUid.Value, grid, new Circle(worldPos, component.RequiredFloorRadius), false))
+            foreach (
+                var tile in _map.GetTilesIntersecting(
+                    xform.GridUid.Value,
+                    grid,
+                    new Circle(worldPos, component.RequiredFloorRadius),
+                    false
+                )
+            )
             {
                 if (!tile.IsSpace(_tileDefManager))
                     continue;
@@ -251,7 +294,6 @@ public sealed class NukeSystem : EntitySystem
 
         if (component.Status == NukeStatus.AWAIT_ARM && Transform(uid).Anchored)
             ArmBomb(uid, component);
-
         else
         {
             DisarmBombDoafter(uid, args.Actor, component);
@@ -302,7 +344,11 @@ public sealed class NukeSystem : EntitySystem
 
         // Start playing the nuke event song so that it ends a couple seconds before the alert sound
         // should play
-        if (nuke.RemainingTime <= _nukeSongLength + nuke.AlertSoundTime + NukeSongBuffer && !nuke.PlayedNukeSong && !ResolvedSoundSpecifier.IsNullOrEmpty(_selectedNukeSong))
+        if (
+            nuke.RemainingTime <= _nukeSongLength + nuke.AlertSoundTime + NukeSongBuffer
+            && !nuke.PlayedNukeSong
+            && !ResolvedSoundSpecifier.IsNullOrEmpty(_selectedNukeSong)
+        )
         {
             _sound.DispatchStationEventMusic(uid, _selectedNukeSong, StationEventMusicType.Nuke);
             nuke.PlayedNukeSong = true;
@@ -311,7 +357,7 @@ public sealed class NukeSystem : EntitySystem
         // play alert sound if time is running out
         if (nuke.RemainingTime <= nuke.AlertSoundTime && !nuke.PlayedAlertSound)
         {
-            _sound.PlayGlobalOnStation(uid, _audio.ResolveSound(nuke.AlertSound), new AudioParams{Volume = -5f});
+            _sound.PlayGlobalOnStation(uid, _audio.ResolveSound(nuke.AlertSound), new AudioParams { Volume = -5f });
             _sound.StopStationEventMusic(uid, StationEventMusicType.Nuke);
             nuke.PlayedAlertSound = true;
             UpdateAppearance(uid, nuke);
@@ -322,7 +368,6 @@ public sealed class NukeSystem : EntitySystem
             nuke.RemainingTime = 0;
             ActivateBomb(uid, nuke);
         }
-
         else
             UpdateUserInterface(uid, nuke);
     }
@@ -379,20 +424,20 @@ public sealed class NukeSystem : EntitySystem
 
         var anchored = Transform(uid).Anchored;
 
-        var allowArm = component.DiskSlot.HasItem &&
-                       (component.Status == NukeStatus.AWAIT_ARM ||
-                        component.Status == NukeStatus.ARMED);
+        var allowArm =
+            component.DiskSlot.HasItem
+            && (component.Status == NukeStatus.AWAIT_ARM || component.Status == NukeStatus.ARMED);
 
         var state = new NukeUiState
         {
             Status = component.Status,
-            RemainingTime = (int) component.RemainingTime,
+            RemainingTime = (int)component.RemainingTime,
             DiskInserted = component.DiskSlot.HasItem,
             IsAnchored = anchored,
             AllowArm = allowArm,
             EnteredCodeLength = component.EnteredCode.Length,
             MaxCodeLength = component.CodeLength,
-            CooldownTime = (int) component.CooldownTime
+            CooldownTime = (int)component.CooldownTime,
         };
 
         _ui.SetUiState(uid, NukeUiKey.Key, state);
@@ -419,7 +464,7 @@ public sealed class NukeSystem : EntitySystem
             8 => 9,
             9 => 10,
             0 => component.LastPlayedKeypadSemitones + 12,
-            _ => 0
+            _ => 0,
         };
 
         // Don't double-dip on the octave shifting
@@ -435,7 +480,7 @@ public sealed class NukeSystem : EntitySystem
         var ret = "";
         for (var i = 0; i < length; i++)
         {
-            var c = (char) _random.Next('0', '9' + 1);
+            var c = (char)_random.Next('0', '9' + 1);
             ret += c;
         }
 
@@ -464,22 +509,24 @@ public sealed class NukeSystem : EntitySystem
             _alertLevel.SetLevel(stationUid.Value, component.AlertLevelOnActivate, true, true, true, true);
 
         var pos = _transform.GetMapCoordinates(uid, xform: nukeXform);
-        var x = (int) pos.X;
-        var y = (int) pos.Y;
+        var x = (int)pos.X;
+        var y = (int)pos.Y;
         var posText = $"({x}, {y})";
 
         // We are collapsing the randomness here, otherwise we would get separate random song picks for checking duration and when actually playing the song afterwards
         _selectedNukeSong = _audio.ResolveSound(component.ArmMusic);
 
         // warn a crew
-        var announcement = Loc.GetString("nuke-component-announcement-armed",
-            ("time", (int) component.RemainingTime),
-            ("location", FormattedMessage.RemoveMarkupOrThrow(_navMap.GetNearestBeaconString((uid, nukeXform)))));
+        var announcement = Loc.GetString(
+            "nuke-component-announcement-armed",
+            ("time", (int)component.RemainingTime),
+            ("location", FormattedMessage.RemoveMarkupOrThrow(_navMap.GetNearestBeaconString((uid, nukeXform))))
+        );
         var sender = Loc.GetString("nuke-component-announcement-sender");
         _chatSystem.DispatchStationAnnouncement(stationUid ?? uid, announcement, sender, false, null, Color.Red);
 
         _sound.PlayGlobalOnStation(uid, _audio.ResolveSound(component.ArmSound));
-        _nukeSongLength = (float) _audio.GetAudioLength(_selectedNukeSong).TotalSeconds;
+        _nukeSongLength = (float)_audio.GetAudioLength(_selectedNukeSong).TotalSeconds;
 
         // turn on the spinny light
         _pointLight.SetEnabled(uid, true);
@@ -560,8 +607,7 @@ public sealed class NukeSystem : EntitySystem
     /// <summary>
     ///     Force bomb to explode immediately
     /// </summary>
-    public void ActivateBomb(EntityUid uid, NukeComponent? component = null,
-        TransformComponent? transform = null)
+    public void ActivateBomb(EntityUid uid, NukeComponent? component = null, TransformComponent? transform = null)
     {
         if (!Resolve(uid, ref component, ref transform))
             return;
@@ -571,16 +617,15 @@ public sealed class NukeSystem : EntitySystem
 
         component.Exploded = true;
 
-        _explosions.QueueExplosion(uid,
+        _explosions.QueueExplosion(
+            uid,
             component.ExplosionType,
             component.TotalIntensity,
             component.IntensitySlope,
-            component.MaxIntensity);
+            component.MaxIntensity
+        );
 
-        RaiseLocalEvent(new NukeExplodedEvent()
-        {
-            OwningStation = transform.GridUid,
-        });
+        RaiseLocalEvent(new NukeExplodedEvent() { OwningStation = transform.GridUid });
 
         _sound.StopStationEventMusic(uid, StationEventMusicType.Nuke);
         Del(uid);
@@ -602,7 +647,14 @@ public sealed class NukeSystem : EntitySystem
 
     private void DisarmBombDoafter(EntityUid uid, EntityUid user, NukeComponent nuke)
     {
-        var doAfter = new DoAfterArgs(EntityManager, user, nuke.DisarmDoafterLength, new NukeDisarmDoAfterEvent(), uid, target: uid)
+        var doAfter = new DoAfterArgs(
+            EntityManager,
+            user,
+            nuke.DisarmDoafterLength,
+            new NukeDisarmDoAfterEvent(),
+            uid,
+            target: uid
+        )
         {
             BreakOnDamage = true,
             BreakOnMove = true,
@@ -612,8 +664,7 @@ public sealed class NukeSystem : EntitySystem
         if (!_doAfter.TryStartDoAfter(doAfter))
             return;
 
-        _popups.PopupEntity(Loc.GetString("nuke-component-doafter-warning"), user,
-            user, PopupType.LargeCaution);
+        _popups.PopupEntity(Loc.GetString("nuke-component-doafter-warning"), user, user, PopupType.LargeCaution);
     }
 
     private void UpdateAppearance(EntityUid uid, NukeComponent nuke)
@@ -656,8 +707,4 @@ public sealed class NukeExplodedEvent : EntityEventArgs
 ///     Raised directed on the nuke when its disarm doafter is successful.
 ///     So the game knows not to end.
 /// </summary>
-public sealed class NukeDisarmSuccessEvent : EntityEventArgs
-{
-
-}
-
+public sealed class NukeDisarmSuccessEvent : EntityEventArgs { }

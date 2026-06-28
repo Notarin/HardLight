@@ -11,13 +11,26 @@ namespace Content.Client.Sandbox
 {
     public sealed class SandboxSystem : SharedSandboxSystem
     {
-        [Dependency] private readonly IClientAdminManager _adminManager = default!;
-        [Dependency] private readonly IClientConsoleHost _consoleHost = default!;
-        [Dependency] private readonly IMapManager _map = default!;
-        [Dependency] private readonly IPlacementManager _placement = default!;
-        [Dependency] private readonly ContentEyeSystem _contentEye = default!;
-        [Dependency] private readonly SharedTransformSystem _transform = default!;
-        [Dependency] private readonly SharedMapSystem _mapSystem = default!;
+        [Dependency]
+        private readonly IClientAdminManager _adminManager = default!;
+
+        [Dependency]
+        private readonly IClientConsoleHost _consoleHost = default!;
+
+        [Dependency]
+        private readonly IMapManager _map = default!;
+
+        [Dependency]
+        private readonly IPlacementManager _placement = default!;
+
+        [Dependency]
+        private readonly ContentEyeSystem _contentEye = default!;
+
+        [Dependency]
+        private readonly SharedTransformSystem _transform = default!;
+
+        [Dependency]
+        private readonly SharedMapSystem _mapSystem = default!;
 
         private bool _sandboxEnabled;
         public bool SandboxAllowed { get; private set; }
@@ -89,9 +102,7 @@ namespace Content.Client.Sandbox
                 return false;
 
             // Try copy entity.
-            if (uid.IsValid()
-                && EntityManager.TryGetComponent(uid, out MetaDataComponent? comp)
-                && !comp.EntityDeleted)
+            if (uid.IsValid() && EntityManager.TryGetComponent(uid, out MetaDataComponent? comp) && !comp.EntityDeleted)
             {
                 if (comp.EntityPrototype == null || comp.EntityPrototype.HideSpawnMenu || comp.EntityPrototype.Abstract)
                     return false;
@@ -99,31 +110,38 @@ namespace Content.Client.Sandbox
                 if (_placement.Eraser)
                     _placement.ToggleEraser();
 
-                _placement.BeginPlacing(new()
-                {
-                    EntityType = comp.EntityPrototype.ID,
-                    IsTile = false,
-                    TileType = 0,
-                    PlacementOption = comp.EntityPrototype.PlacementMode
-                });
+                _placement.BeginPlacing(
+                    new()
+                    {
+                        EntityType = comp.EntityPrototype.ID,
+                        IsTile = false,
+                        TileType = 0,
+                        PlacementOption = comp.EntityPrototype.PlacementMode,
+                    }
+                );
                 return true;
             }
 
             // Try copy tile.
 
-            if (!_map.TryFindGridAt(_transform.ToMapCoordinates(coords), out var gridUid, out var grid) || !_mapSystem.TryGetTileRef(gridUid, grid, coords, out var tileRef))
+            if (
+                !_map.TryFindGridAt(_transform.ToMapCoordinates(coords), out var gridUid, out var grid)
+                || !_mapSystem.TryGetTileRef(gridUid, grid, coords, out var tileRef)
+            )
                 return false;
 
             if (_placement.Eraser)
                 _placement.ToggleEraser();
 
-            _placement.BeginPlacing(new()
-            {
-                EntityType = null,
-                IsTile = true,
-                TileType = tileRef.Tile.TypeId,
-                PlacementOption = nameof(AlignTileAny)
-            });
+            _placement.BeginPlacing(
+                new()
+                {
+                    EntityType = null,
+                    IsTile = true,
+                    TileType = tileRef.Tile.TypeId,
+                    PlacementOption = nameof(AlignTileAny),
+                }
+            );
             return true;
         }
 

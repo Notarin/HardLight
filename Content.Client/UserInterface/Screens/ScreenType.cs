@@ -6,8 +6,9 @@ public enum ScreenType
     ///     The modern SS14 user interface.
     /// </summary>
     Default,
+
     /// <summary>
     ///     The classic SS13 user interface.
     /// </summary>
-    Separated
+    Separated,
 }

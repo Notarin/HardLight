@@ -14,8 +14,11 @@ namespace Content.Server._Starlight.Plumbing.EntitySystems;
 [UsedImplicitly]
 public sealed class PlumbingDisposalSystem : EntitySystem
 {
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionSystem = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+    [Dependency]
+    private readonly SharedSolutionContainerSystem _solutionSystem = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
 
     public override void Initialize()
     {
@@ -26,7 +29,14 @@ public sealed class PlumbingDisposalSystem : EntitySystem
 
     private void OnDeviceUpdate(Entity<DrainComponent> ent, ref PlumbingDeviceUpdateEvent args)
     {
-        if (!_solutionSystem.ResolveSolution(ent.Owner, DrainComponent.SolutionName, ref ent.Comp.Solution, out var buffer))
+        if (
+            !_solutionSystem.ResolveSolution(
+                ent.Owner,
+                DrainComponent.SolutionName,
+                ref ent.Comp.Solution,
+                out var buffer
+            )
+        )
             return;
 
         _appearance.SetData(ent.Owner, PlumbingVisuals.Running, buffer.Volume > 0);

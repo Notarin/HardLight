@@ -49,12 +49,12 @@
 
 # region Uplinks
 - type: entity
-  parent: [ BaseItem, StorePresetPirateUplink ]
+  parent: [BaseItem, StorePresetPirateUplink]
   id: BasePirateUplink
   name: pirate uplink
   description: A coconut with an antenna?
   suffix: Empty
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     sprite: _NF/Objects/Devices/pirate_uplink.rsi
@@ -120,7 +120,7 @@
     layers:
     - state: base
     - state: charge-3
-      map: [ "enum.LimitedChargesVisualLayers.Charges" ]
+      map: ["enum.LimitedChargesVisualLayers.Charges"]
   - type: LimitedCharges
   - type: LimitedChargesVisuals
     chargeSteps: 4
@@ -137,31 +137,31 @@
   - type: Sprite
     sprite: _NF/Objects/Specific/Pirate/pinpointer_scanner.rsi
     layers:
-      - state: icon
-      - state: icon-on
-        visible: false
-        map: ["on"]
-      - state: icon-on-unlit
-        shader: unshaded
-        visible: false
-        map: ["on-unlit"]
-      - state: sweep-unlit
-        shader: unshaded
-        visible: false
-        map: ["sweep-unlit"]
+    - state: icon
+    - state: icon-on
+      visible: false
+      map: ["on"]
+    - state: icon-on-unlit
+      shader: unshaded
+      visible: false
+      map: ["on-unlit"]
+    - state: sweep-unlit
+      shader: unshaded
+      visible: false
+      map: ["sweep-unlit"]
   - type: Appearance
   - type: GenericVisualizer
     visuals:
       enum.ToggleVisuals.Toggled:
         on:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
         on-unlit:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
         sweep-unlit:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
   - type: ItemToggle
   - type: ProximityBeeper
     minRange: 3
@@ -182,7 +182,7 @@
 
 - type: entity
   id: PinpointerScanner
-  parent: [ PinpointerScannerUnpowered, PowerCellSlotSmallItem ]
+  parent: [PinpointerScannerUnpowered, PowerCellSlotSmallItem]
   suffix: Powered
   components:
   - type: PowerCellDraw

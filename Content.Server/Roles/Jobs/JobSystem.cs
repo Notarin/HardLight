@@ -12,9 +12,14 @@ namespace Content.Server.Roles.Jobs;
 /// </summary>
 public sealed class JobSystem : SharedJobSystem
 {
-    [Dependency] private readonly IChatManager _chat = default!;
-    [Dependency] private readonly ISharedPlayerManager _player = default!;
-    [Dependency] private readonly RoleSystem _roles = default!;
+    [Dependency]
+    private readonly IChatManager _chat = default!;
+
+    [Dependency]
+    private readonly ISharedPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly RoleSystem _roles = default!;
 
     public override void Initialize()
     {
@@ -48,13 +53,25 @@ public sealed class JobSystem : SharedJobSystem
         if (!MindTryGetJob(mindId, out var prototype))
             return;
 
-        _chat.DispatchServerMessage(session, Loc.GetString("job-greet-introduce-job-name",
-            ("jobName", CultureInfo.CurrentCulture.TextInfo.ToTitleCase(prototype.LocalizedName))));
+        _chat.DispatchServerMessage(
+            session,
+            Loc.GetString(
+                "job-greet-introduce-job-name",
+                ("jobName", CultureInfo.CurrentCulture.TextInfo.ToTitleCase(prototype.LocalizedName))
+            )
+        );
 
         if (prototype.RequireAdminNotify)
             _chat.DispatchServerMessage(session, Loc.GetString("job-greet-important-disconnect-admin-notify"));
 
-        _chat.DispatchServerMessage(session, Loc.GetString("job-greet-supervisors-warning", ("jobName", prototype.LocalizedName), ("supervisors", Loc.GetString(prototype.Supervisors))));
+        _chat.DispatchServerMessage(
+            session,
+            Loc.GetString(
+                "job-greet-supervisors-warning",
+                ("jobName", prototype.LocalizedName),
+                ("supervisors", Loc.GetString(prototype.Supervisors))
+            )
+        );
     }
 
     public void MindAddJob(EntityUid mindId, string jobPrototypeId)

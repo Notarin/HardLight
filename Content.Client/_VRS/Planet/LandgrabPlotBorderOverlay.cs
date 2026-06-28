@@ -22,9 +22,14 @@ public sealed class LandgrabPlotBorderOverlay : Overlay
     // hide the ghosted plot border.
     public override OverlaySpace Space => OverlaySpace.WorldSpace;
 
-    [Dependency] private readonly IEntityManager _entities = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entities = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly IMapManager _mapManager = default!;
 
     private readonly SharedTransformSystem _xform;
 

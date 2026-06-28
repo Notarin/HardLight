@@ -107,8 +107,7 @@
   speciesRestriction: [Skrell, Avali, Dwarf, Human, SlimePerson, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, Feroxi, Moth, Kitsune, Chitinid, Shadekin, Felinid, Tajaran]
   coloring:
     default:
-      type:
-        !type:EyeColoring
+      type: !type:EyeColoring
   sprites:
   - sprite: _HL/Mobs/Customization/Shadekin/shadekineyes.rsi
     state: shadekineye_r
@@ -120,12 +119,10 @@
   speciesRestriction: [Skrell, Avali, Dwarf, Human, SlimePerson, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, Feroxi, Moth, Kitsune, Chitinid, Shadekin, Felinid, Tajaran]
   coloring:
     default:
-      type:
-        !type:EyeColoring
+      type: !type:EyeColoring
   sprites:
   - sprite: _HL/Mobs/Customization/Shadekin/shadekineyes.rsi
     state: shadekineye_l
-
 
 # Lizard horns
 - type: marking

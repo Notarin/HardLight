@@ -9,8 +9,8 @@ namespace Content.Shared.Abilities.Psionics
     {
         [DataField("radius")]
         public float Radius = 3f;
-        [DataField("massSleepActionId",
-        customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
+
+        [DataField("massSleepActionId", customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
         public string? MassSleepActionId = "ActionMassSleep";
 
         [DataField("massSleepActionEntity")]

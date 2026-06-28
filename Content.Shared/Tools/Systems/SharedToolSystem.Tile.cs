@@ -13,7 +13,8 @@ namespace Content.Shared.Tools.Systems;
 
 public abstract partial class SharedToolSystem
 {
-    [Dependency] private readonly INetManager _net = default!;
+    [Dependency]
+    private readonly INetManager _net = default!;
 
     public void InitializeTile()
     {
@@ -56,11 +57,16 @@ public abstract partial class SharedToolSystem
         AdminLogger.Add(
             LogType.LatticeCut,
             LogImpact.Medium,
-            $"{ToPrettyString(args.User):player} used {ToPrettyString(ent)} to edit the tile at {coords}");
+            $"{ToPrettyString(args.User):player} used {ToPrettyString(ent)} to edit the tile at {coords}"
+        );
         args.Handled = true;
     }
 
-    private bool UseToolOnTile(Entity<ToolTileCompatibleComponent?, ToolComponent?> ent, EntityUid user, EntityCoordinates clickLocation)
+    private bool UseToolOnTile(
+        Entity<ToolTileCompatibleComponent?, ToolComponent?> ent,
+        EntityUid user,
+        EntityCoordinates clickLocation
+    )
     {
         if (!Resolve(ent, ref ent.Comp1, ref ent.Comp2, false))
             return false;
@@ -68,11 +74,17 @@ public abstract partial class SharedToolSystem
         var comp = ent.Comp1!;
         var tool = ent.Comp2!;
 
-        if (!_mapManager.TryFindGridAt(_transformSystem.ToMapCoordinates(clickLocation), out var gridUid, out var mapGrid))
+        if (
+            !_mapManager.TryFindGridAt(
+                _transformSystem.ToMapCoordinates(clickLocation),
+                out var gridUid,
+                out var mapGrid
+            )
+        )
             return false;
 
         var tileRef = _maps.GetTileRef(gridUid, mapGrid, clickLocation);
-        var tileDef = (ContentTileDefinition) _tileDefManager[tileRef.Tile.TypeId];
+        var tileDef = (ContentTileDefinition)_tileDefManager[tileRef.Tile.TypeId];
 
         if (!tool.Qualities.ContainsAny(tileDef.DeconstructTools))
             return false;
@@ -94,7 +106,7 @@ public abstract partial class SharedToolSystem
 
     public bool TryDeconstructWithToolQualities(TileRef tileRef, PrototypeFlags<ToolQualityPrototype> withToolQualities)
     {
-        var tileDef = (ContentTileDefinition) _tileDefManager[tileRef.Tile.TypeId];
+        var tileDef = (ContentTileDefinition)_tileDefManager[tileRef.Tile.TypeId];
         if (withToolQualities.ContainsAny(tileDef.DeconstructTools))
         {
             // don't do this on the client or else the tile entity spawn mispredicts and looks horrible

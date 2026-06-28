@@ -11,8 +11,11 @@ namespace Content.Server._NF.GameTicking.Rules;
 
 public sealed class NFPirateRuleSystem : GameRuleSystem<NFPirateRuleComponent>
 {
-    [Dependency] private readonly AntagSelectionSystem _antag = default!;
-    [Dependency] private readonly NpcFactionSystem _npcFaction = default!;
+    [Dependency]
+    private readonly AntagSelectionSystem _antag = default!;
+
+    [Dependency]
+    private readonly NpcFactionSystem _npcFaction = default!;
 
     public override void Initialize()
     {

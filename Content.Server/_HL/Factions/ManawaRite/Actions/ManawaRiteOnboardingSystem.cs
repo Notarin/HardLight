@@ -5,7 +5,8 @@ namespace Content.Server._HL.Factions.ManawaRite.Actions;
 
 public sealed class ManawaRiteOnboardingSystem : EntitySystem
 {
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
+    [Dependency]
+    private readonly SharedHandsSystem _hands = default!;
 
     public override void Initialize()
     {

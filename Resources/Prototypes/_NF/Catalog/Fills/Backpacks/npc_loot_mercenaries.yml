@@ -6,7 +6,7 @@
   name: mercanary gear bundle
   description: Loot boxes? Here?
   abstract: true
-##  categories: [ HideSpawnMenu ]
+  ##  categories: [ HideSpawnMenu ]
   suffix: NPC Loot
   components:
   - type: Sprite
@@ -70,7 +70,7 @@
   name: mercanary ammo bundle
   description: Loot boxes? Here?
   abstract: true
-##  categories: [ HideSpawnMenu ]
+  ##  categories: [ HideSpawnMenu ]
   suffix: NPC Loot
   components:
   - type: Sprite
@@ -88,7 +88,7 @@
 - type: entity
   parent: MercenaryDuffelGiftBox
   id: ClothingBackpackDuffelMecranaryTier1Pistol
-##  categories: [ HideSpawnMenu ]
+  ##  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:
@@ -121,7 +121,7 @@
 - type: entity
   parent: MercenaryWebbingBox
   id: ClothingBeltWebbingMecranaryTier1Pistol
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:
@@ -144,7 +144,7 @@
 - type: entity
   parent: MercenaryDuffelGiftBox
   id: ClothingBackpackDuffelMecranaryTier1Novalite
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:
@@ -188,7 +188,7 @@
 - type: entity
   parent: MercenaryWebbingBox
   id: ClothingBeltWebbingMecranaryTier1Novalite
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:
@@ -213,7 +213,7 @@
 - type: entity
   parent: MercenaryDuffelGiftBox
   id: ClothingBackpackDuffelMecranaryTier2Shotgun
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:
@@ -255,7 +255,7 @@
 - type: entity
   parent: MercenaryWebbingBox
   id: ClothingBeltWebbingMecranaryTier2Shotgun
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:
@@ -269,7 +269,7 @@
 - type: entity
   parent: MercenaryDuffelGiftBox
   id: ClothingBackpackDuffelMecranaryTier2Revolver
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:
@@ -315,7 +315,7 @@
 - type: entity
   parent: MercenaryWebbingBox
   id: ClothingBeltWebbingMecranaryTier2Revolver
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     sprite: Clothing/Belt/bandolier.rsi
@@ -341,7 +341,7 @@
 - type: entity
   parent: MercenaryDuffelGiftBox
   id: ClothingBackpackDuffelMecranaryTier3Medic
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:
@@ -387,7 +387,7 @@
 - type: entity
   parent: MercenaryWebbingBox
   id: ClothingBeltMecranaryTier3Medic
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     sprite: Clothing/Belt/emt.rsi
@@ -417,7 +417,7 @@
 - type: entity
   parent: MercenaryDuffelGiftBox
   id: ClothingBackpackDuffelMecranaryTier3Assault
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:
@@ -461,7 +461,7 @@
 - type: entity
   parent: MercenaryWebbingBox
   id: ClothingBeltMecranaryTier3Assault
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     sprite: Clothing/Belt/militarywebbing.rsi
@@ -491,7 +491,7 @@
 - type: entity
   parent: MercenaryDuffelGiftBox
   id: ClothingBackpackDuffelMecranaryTier4Captain
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     sprite: _NF/Clothing/Back/Messenger/color.rsi

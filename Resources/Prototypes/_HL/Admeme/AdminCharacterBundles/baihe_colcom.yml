@@ -26,8 +26,7 @@
   - type: Fixtures
     fixtures: # Taken from BaseMobSpecies to bypass parentage.
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35
         density: 185
         restitution: 0.0

@@ -24,14 +24,12 @@
   - type: Appearance
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 50
       behaviors:
       - !type:PlaySoundBehavior
@@ -45,7 +43,7 @@
             min: 1
             max: 1
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: SolutionContainerManager
     solutions:
       glass:
@@ -53,28 +51,28 @@
   # EE - IPC Healing
   - type: BlindHealing
     damageContainers:
-      - Silicon
+    - Silicon
   # FH Start - Protogen Healing
   - type: ConditionalHealing
     healingDefinitions:
-      - allowedTags: [Protogen, ProtoArachnid, ProtoAvali, ProtoDawi, ProtoDionae, ProtoFeline, ProtoHumie, ProtoMoth, ProtoReptile, ProtoResomi, ProtoSlimePerson, ProtoThaven, ProtoVox, ProtoVulp, ProtoKin]
-        healing:
-          damageContainers:
-            - Biological
-          damage: {}
-          delay: 2
-          adjustEyeDamage: -1 # 1 glass = 1 weld
-          healingBeginSound:
-            path: "/Audio/Items/Medical/ointment_begin.ogg"
-            params:
-              volume: 1.0
-              variation: 0.125
-          healingEndSound:
-            path: "/Audio/Items/Medical/ointment_end.ogg"
-            params:
-              volume: 1.0
-              variation: 0.125
-  # FH End - Protogen Healing
+    - allowedTags: [Protogen, ProtoArachnid, ProtoAvali, ProtoDawi, ProtoDionae, ProtoFeline, ProtoHumie, ProtoMoth, ProtoReptile, ProtoResomi, ProtoSlimePerson, ProtoThaven, ProtoVox, ProtoVulp, ProtoKin]
+      healing:
+        damageContainers:
+        - Biological
+        damage: {}
+        delay: 2
+        adjustEyeDamage: -1 # 1 glass = 1 weld
+        healingBeginSound:
+          path: "/Audio/Items/Medical/ointment_begin.ogg"
+          params:
+            volume: 1.0
+            variation: 0.125
+        healingEndSound:
+          path: "/Audio/Items/Medical/ointment_end.ogg"
+          params:
+            volume: 1.0
+            variation: 0.125
+            # FH End - Protogen Healing
 
 - type: entity
   parent: SheetGlassBase
@@ -176,14 +174,12 @@
     node: SheetRGlass
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 50
       behaviors:
       - !type:PlaySoundBehavior
@@ -197,7 +193,7 @@
             min: 1
             max: 1
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
 
 - type: entity
   parent: SheetRGlass
@@ -258,14 +254,12 @@
   # End Frontier
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 50
       behaviors:
       - !type:PlaySoundBehavior
@@ -279,7 +273,7 @@
             min: 1
             max: 1
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
 
 - type: entity
   parent: SheetPGlass
@@ -398,14 +392,12 @@
     node: SheetUGlass
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 50
       behaviors:
       - !type:PlaySoundBehavior
@@ -419,7 +411,7 @@
             min: 1
             max: 1
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: Extractable
     grindableSolutionName: uglass
   - type: SolutionContainerManager
@@ -532,14 +524,12 @@
     node: SheetClockworkGlass
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 50
       behaviors:
       - !type:PlaySoundBehavior
@@ -553,7 +543,7 @@
             min: 1
             max: 1
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: Extractable
     grindableSolutionName: brassglass
   - type: SolutionContainerManager

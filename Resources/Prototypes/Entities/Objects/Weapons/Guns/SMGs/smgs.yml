@@ -44,7 +44,7 @@
         priority: 2
         whitelist:
           tags:
-            - Magazine9x19mmSubMachineGunFMJ
+          - Magazine9x19mmSubMachineGunFMJ
         whitelistFailPopup: gun-magazine-whitelist-fail
       gun_chamber:
         name: Chamber
@@ -52,7 +52,7 @@
         priority: 1
         whitelist:
           tags:
-            - Cartridge9x19mmFMJ
+          - Cartridge9x19mmFMJ
   - type: ContainerContainer
     containers:
       gun_magazine: !type:ContainerSlot
@@ -87,23 +87,23 @@
     price: 2000
   - type: ItemSlots
     slots:
-       gun_magazine:
-          name: Magazine
-          startingItem: Magazine57x28mmSubMachineGunFMJ
-          insertSound: /Audio/Weapons/Guns/MagIn/smg_magin.ogg
-          ejectSound: /Audio/Weapons/Guns/MagOut/smg_magout.ogg
-          priority: 2
-          whitelist:
-            tags:
-              - Magazine57x28mmSubMachineGunFMJ
-          whitelistFailPopup: gun-magazine-whitelist-fail
-       gun_chamber:
-          name: Chamber
-          startingItem: Cartridge57x28mmFMJ
-          priority: 1
-          whitelist:
-            tags:
-              - Cartridge57x28mmFMJ
+      gun_magazine:
+        name: Magazine
+        startingItem: Magazine57x28mmSubMachineGunFMJ
+        insertSound: /Audio/Weapons/Guns/MagIn/smg_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/smg_magout.ogg
+        priority: 2
+        whitelist:
+          tags:
+          - Magazine57x28mmSubMachineGunFMJ
+        whitelistFailPopup: gun-magazine-whitelist-fail
+      gun_chamber:
+        name: Chamber
+        startingItem: Cartridge57x28mmFMJ
+        priority: 1
+        whitelist:
+          tags:
+          - Cartridge57x28mmFMJ
 
 - type: entity
   name: C-20r submachine gun (9x19mm)
@@ -149,57 +149,57 @@
   id: WeaponSubMachineGunDrozd
   description: An excellent fully automatic Heavy SMG. Uses .45 ACP ammo. An illegal firearm often used by Syndicate agents.
   components:
-    - type: Sprite
-      sprite: _NF/Objects/Weapons/Guns/SMGs/drozd.rsi # Frontier: add _NF prefix
-      layers:
-        - state: base
-          map: ["enum.GunVisualLayers.Base"]
-        - state: mag-0
-          map: ["enum.GunVisualLayers.Mag"]
-    - type: Clothing
-      sprite: _NF/Objects/Weapons/Guns/SMGs/drozd.rsi # Frontier: add _NF prefix
-    - type: Wieldable
-      unwieldOnUse: false
-    - type: GunWieldBonus
-      minAngle: -19
-      maxAngle: -16
-    - type: Gun
-      minAngle: 21
-      maxAngle: 32
-      fireRate: 6
-      burstFireRate: 12
-      soundGunshot:
-        path: /Audio/Weapons/Guns/Gunshots/atreides.ogg
-      availableModes:
-      - Burst
-      - FullAuto
-      - SemiAuto
-      shotsPerBurst: 3
-      burstCooldown: 0.25
-    - type: ItemSlots
-      slots:
-        gun_magazine:
-          name: Magazine
-          startingItem: Magazine45_ACPSubMachineGunFMJ
-          insertSound: /Audio/Weapons/Guns/MagIn/smg_magin.ogg
-          ejectSound: /Audio/Weapons/Guns/MagOut/smg_magout.ogg
-          priority: 2
-          whitelist:
-            tags:
-              - Magazine45_ACPSubMachineGunFMJ
-          whitelistFailPopup: gun-magazine-whitelist-fail
-        gun_chamber:
-          name: Chamber
-          startingItem: Cartridge45_ACPFMJ
-          priority: 1
-          whitelist:
-            tags:
-              - Cartridge45_ACPFMJ
-    - type: MagazineVisuals
-      magState: mag
-      steps: 1
-      zeroVisible: true
-    - type: Appearance
+  - type: Sprite
+    sprite: _NF/Objects/Weapons/Guns/SMGs/drozd.rsi # Frontier: add _NF prefix
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Clothing
+    sprite: _NF/Objects/Weapons/Guns/SMGs/drozd.rsi # Frontier: add _NF prefix
+  - type: Wieldable
+    unwieldOnUse: false
+  - type: GunWieldBonus
+    minAngle: -19
+    maxAngle: -16
+  - type: Gun
+    minAngle: 21
+    maxAngle: 32
+    fireRate: 6
+    burstFireRate: 12
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/atreides.ogg
+    availableModes:
+    - Burst
+    - FullAuto
+    - SemiAuto
+    shotsPerBurst: 3
+    burstCooldown: 0.25
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: Magazine45_ACPSubMachineGunFMJ
+        insertSound: /Audio/Weapons/Guns/MagIn/smg_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/smg_magout.ogg
+        priority: 2
+        whitelist:
+          tags:
+          - Magazine45_ACPSubMachineGunFMJ
+        whitelistFailPopup: gun-magazine-whitelist-fail
+      gun_chamber:
+        name: Chamber
+        startingItem: Cartridge45_ACPFMJ
+        priority: 1
+        whitelist:
+          tags:
+          - Cartridge45_ACPFMJ
+  - type: MagazineVisuals
+    magState: mag
+    steps: 1
+    zeroVisible: true
+  - type: Appearance
 
 - type: entity
   name: Surplus Drozd (.45 ACP)
@@ -207,28 +207,28 @@
   id: WeaponSubMachineGunSurpDrozd
   description: An excellent fully automatic Heavy SMG. Uses .45 ACP ammo. An illegal firearm often used by Syndicate agents.
   components:
-    - type: Sprite
-      sprite: _NF/Objects/Weapons/Guns/SMGs/surpdrozd.rsi # Frontier: add _NF prefix
+  - type: Sprite
+    sprite: _NF/Objects/Weapons/Guns/SMGs/surpdrozd.rsi # Frontier: add _NF prefix
 
 - type: entity
   name: WT550 (46x30mm)
-  parent: [ BaseWeaponSubMachineGun, BaseC2ContrabandUnredeemable ] # Frontier: BaseSecurityContraband<BaseC2ContrabandUnredeemable
+  parent: [BaseWeaponSubMachineGun, BaseC2ContrabandUnredeemable] # Frontier: BaseSecurityContraband<BaseC2ContrabandUnredeemable
   id: WeaponSubMachineGunWt550
   description: An excellent SMG, produced by NanoTrasen's Small Arms Division. Uses 46x30mm ammo. On the receiver is a label that says 'for authorized use only.'
   components:
   - type: Sprite
     sprite: Objects/Weapons/Guns/SMGs/wt550.rsi
     layers:
-      - state: base
-        map: ["enum.GunVisualLayers.Base"]
-      - state: base-unshaded
-        map: ["enum.GunVisualLayers.BaseUnshaded"]
-        shader: unshaded
-      - state: mag-0
-        map: ["enum.GunVisualLayers.Mag"]
-      - state: mag-unshaded-0
-        map: ["enum.GunVisualLayers.MagUnshaded"]
-        shader: unshaded
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: base-unshaded
+      map: ["enum.GunVisualLayers.BaseUnshaded"]
+      shader: unshaded
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
+    - state: mag-unshaded-0
+      map: ["enum.GunVisualLayers.MagUnshaded"]
+      shader: unshaded
   - type: Clothing
     sprite: Objects/Weapons/Guns/SMGs/wt550.rsi
   - type: ChamberMagazineAmmoProvider
@@ -257,10 +257,10 @@
         priority: 2
         whitelist:
           tags:
-            - Magazine46x30mmSubMachineGunTopMountedFMJ
-            - Magazine45_ACPSubMachineGunTopMountedFMJ
-            - Magazine9x19mmSubMachineGunTopMountedFMJ
-            - Magazine57x28mmSubMachineGunTopMountedFMJ
+          - Magazine46x30mmSubMachineGunTopMountedFMJ
+          - Magazine45_ACPSubMachineGunTopMountedFMJ
+          - Magazine9x19mmSubMachineGunTopMountedFMJ
+          - Magazine57x28mmSubMachineGunTopMountedFMJ
         whitelistFailPopup: gun-magazine-whitelist-fail
       gun_chamber:
         name: Chamber
@@ -268,10 +268,10 @@
         priority: 1
         whitelist:
           tags:
-            - Cartridge46x30mmFMJ
-            - Cartridge45_ACPFMJ
-            - Cartridge9x19mm
-            - Cartridge57x28mmFMJ
+          - Cartridge46x30mmFMJ
+          - Cartridge45_ACPFMJ
+          - Cartridge9x19mm
+          - Cartridge57x28mmFMJ
   - type: MagazineVisuals
     magState: mag
     steps: 6

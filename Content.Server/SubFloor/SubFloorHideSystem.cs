@@ -8,8 +8,11 @@ namespace Content.Server.SubFloor;
 
 public sealed class SubFloorHideSystem : SharedSubFloorHideSystem
 {
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly SharedEyeSystem _eye = default!;
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly SharedEyeSystem _eye = default!;
 
     private HashSet<ICommonSession> _showFloors = new();
 
@@ -63,9 +66,6 @@ public sealed class SubFloorHideSystem : SharedSubFloorHideSystem
 
         _eye.RefreshVisibilityMask((ent.Value, eyeComp));
 
-        RaiseNetworkEvent(new ShowSubfloorRequestEvent()
-        {
-            Value = ev.Value,
-        }, args.SenderSession);
+        RaiseNetworkEvent(new ShowSubfloorRequestEvent() { Value = ev.Value }, args.SenderSession);
     }
 }

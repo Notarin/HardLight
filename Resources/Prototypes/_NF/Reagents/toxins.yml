@@ -20,8 +20,8 @@
   metabolisms:
     Drink:
       effects:
-      # Shouldn't drink this.
       - !type:SatiateThirst
+        # Shouldn't drink this.
         factor: -0.2
       - !type:HealthChange
         damage:

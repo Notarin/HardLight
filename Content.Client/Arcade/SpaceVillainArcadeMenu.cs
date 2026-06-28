@@ -26,7 +26,9 @@ namespace Content.Client.Arcade
             var grid = new GridContainer { Columns = 1 };
 
             var infoGrid = new GridContainer { Columns = 3 };
-            infoGrid.AddChild(new Label { Text = Loc.GetString("spacevillain-menu-label-player"), Align = Label.AlignMode.Center });
+            infoGrid.AddChild(
+                new Label { Text = Loc.GetString("spacevillain-menu-label-player"), Align = Label.AlignMode.Center }
+            );
             infoGrid.AddChild(new Label { Text = "|", Align = Label.AlignMode.Center });
             _enemyNameLabel = new Label { Align = Label.AlignMode.Center };
             infoGrid.AddChild(_enemyNameLabel);
@@ -47,41 +49,29 @@ namespace Content.Client.Arcade
             grid.AddChild(_enemyActionLabel);
 
             var buttonGrid = new GridContainer { Columns = 3 };
-            _gameButtons[0] = new Button()
-            {
-                Text = Loc.GetString("spacevillain-menu-button-attack")
-            };
+            _gameButtons[0] = new Button() { Text = Loc.GetString("spacevillain-menu-button-attack") };
 
-            _gameButtons[0].OnPressed +=
-                _ => OnPlayerAction?.Invoke(SharedSpaceVillainArcadeComponent.PlayerAction.Attack);
+            _gameButtons[0].OnPressed += _ =>
+                OnPlayerAction?.Invoke(SharedSpaceVillainArcadeComponent.PlayerAction.Attack);
             buttonGrid.AddChild(_gameButtons[0]);
 
-            _gameButtons[1] = new Button()
-            {
-                Text = Loc.GetString("spacevillain-menu-button-heal")
-            };
+            _gameButtons[1] = new Button() { Text = Loc.GetString("spacevillain-menu-button-heal") };
 
-            _gameButtons[1].OnPressed +=
-                _ => OnPlayerAction?.Invoke(SharedSpaceVillainArcadeComponent.PlayerAction.Heal);
+            _gameButtons[1].OnPressed += _ =>
+                OnPlayerAction?.Invoke(SharedSpaceVillainArcadeComponent.PlayerAction.Heal);
             buttonGrid.AddChild(_gameButtons[1]);
 
-            _gameButtons[2] = new Button()
-            {
-                Text = Loc.GetString("spacevillain-menu-button-recharge")
-            };
+            _gameButtons[2] = new Button() { Text = Loc.GetString("spacevillain-menu-button-recharge") };
 
-            _gameButtons[2].OnPressed +=
-                _ => OnPlayerAction?.Invoke(SharedSpaceVillainArcadeComponent.PlayerAction.Recharge);
+            _gameButtons[2].OnPressed += _ =>
+                OnPlayerAction?.Invoke(SharedSpaceVillainArcadeComponent.PlayerAction.Recharge);
             buttonGrid.AddChild(_gameButtons[2]);
 
             centerContainer = new CenterContainer();
             centerContainer.AddChild(buttonGrid);
             grid.AddChild(centerContainer);
 
-            var newGame = new Button()
-            {
-                Text = Loc.GetString("spacevillain-menu-button-new-game")
-            };
+            var newGame = new Button() { Text = Loc.GetString("spacevillain-menu-button-new-game") };
 
             newGame.OnPressed += _ => OnPlayerAction?.Invoke(SharedSpaceVillainArcadeComponent.PlayerAction.NewGame);
             grid.AddChild(newGame);

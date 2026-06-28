@@ -20,14 +20,29 @@ namespace Content.Server.Tips;
 /// </summary>
 public sealed class TipsSystem : EntitySystem
 {
-    [Dependency] private readonly IChatManager _chat = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly GameTicker _ticker = default!;
-    [Dependency] private readonly IConsoleHost _conHost = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
+    [Dependency]
+    private readonly IChatManager _chat = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototype = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly GameTicker _ticker = default!;
+
+    [Dependency]
+    private readonly IConsoleHost _conHost = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
 
     private bool _tipsEnabled;
     private float _tipTimeOutOfRound;
@@ -60,7 +75,13 @@ public sealed class TipsSystem : EntitySystem
         Subs.CVar(_cfg, CCVars.TipsTippyChance, SetTippyChance, true);
 
         RecalculateNextTipTime();
-        _conHost.RegisterCommand("tippy", Loc.GetString("cmd-tippy-desc"), Loc.GetString("cmd-tippy-help"), SendTippy, SendTippyHelper);
+        _conHost.RegisterCommand(
+            "tippy",
+            Loc.GetString("cmd-tippy-desc"),
+            Loc.GetString("cmd-tippy-help"),
+            SendTippy,
+            SendTippyHelper
+        );
         _conHost.RegisterCommand("tip", Loc.GetString("cmd-tip-desc"), "tip", SendTip);
     }
 
@@ -70,11 +91,14 @@ public sealed class TipsSystem : EntitySystem
         {
             1 => CompletionResult.FromHintOptions(CompletionHelper.SessionNames(), Loc.GetString("cmd-tippy-auto-1")),
             2 => CompletionResult.FromHint(Loc.GetString("cmd-tippy-auto-2")),
-            3 => CompletionResult.FromHintOptions(CompletionHelper.PrototypeIDs<EntityPrototype>(), Loc.GetString("cmd-tippy-auto-3")),
+            3 => CompletionResult.FromHintOptions(
+                CompletionHelper.PrototypeIDs<EntityPrototype>(),
+                Loc.GetString("cmd-tippy-auto-3")
+            ),
             4 => CompletionResult.FromHint(Loc.GetString("cmd-tippy-auto-4")),
             5 => CompletionResult.FromHint(Loc.GetString("cmd-tippy-auto-5")),
             6 => CompletionResult.FromHint(Loc.GetString("cmd-tippy-auto-6")),
-            _ => CompletionResult.Empty
+            _ => CompletionResult.Empty,
         };
     }
 
@@ -152,7 +176,6 @@ public sealed class TipsSystem : EntitySystem
             RaiseNetworkEvent(ev);
     }
 
-
     public override void Update(float frameTime)
     {
         base.Update(frameTime);
@@ -214,10 +237,19 @@ public sealed class TipsSystem : EntitySystem
             var ev = new TippyEvent(msg);
             ev.SpeakTime = GetSpeechTime(msg);
             RaiseNetworkEvent(ev);
-        } else
+        }
+        else
         {
-            _chat.ChatMessageToManyFiltered(Filter.Broadcast(), ChatChannel.OOC, tip, msg,
-            EntityUid.Invalid, false, false, Color.MediumPurple);
+            _chat.ChatMessageToManyFiltered(
+                Filter.Broadcast(),
+                ChatChannel.OOC,
+                tip,
+                msg,
+                EntityUid.Invalid,
+                false,
+                false,
+                Color.MediumPurple
+            );
         }
     }
 

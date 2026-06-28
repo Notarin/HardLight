@@ -3,13 +3,11 @@
   id: SeniorOfficer
   effects:
   - !type:JobRequirementLoadoutEffect
-    requirement:
-      !type:RoleTimeRequirement
+    requirement: !type:RoleTimeRequirement
       role: JobWarden
       time: 21600 #6 hrs
   - !type:JobRequirementLoadoutEffect
-    requirement:
-      !type:DepartmentTimeRequirement
+    requirement: !type:DepartmentTimeRequirement
       department: Security
       time: 216000 # 60 hrs
 
@@ -17,11 +15,10 @@
 - type: loadoutEffectGroup
   id: SecurityStarWorthy
   effects:
-    - !type:JobRequirementLoadoutEffect
-      requirement:
-        !type:DepartmentTimeRequirement
-        department: Security
-        time: 360000 #100 hrs
+  - !type:JobRequirementLoadoutEffect
+    requirement: !type:DepartmentTimeRequirement
+      department: Security
+      time: 360000 #100 hrs
 
 # Head
 - type: loadout

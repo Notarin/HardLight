@@ -2,69 +2,69 @@
 - type: salvageLoot
   id: NFSalvageLootEasy
   loots:
-    - !type:RandomSpawnsLoot
-      entries:
-        - proto: SalvageSpawnerEquipmentValuable100
-          prob: 0.1
-        - proto: SalvageSpawnerEquipment100
-          prob: 0.2
-        - proto: SalvageSpawnerTreasureValuable100
-          prob: 0.4
-        - proto: SalvageSpawnerTreasure100
+  - !type:RandomSpawnsLoot
+    entries:
+    - proto: SalvageSpawnerEquipmentValuable100
+      prob: 0.1
+    - proto: SalvageSpawnerEquipment100
+      prob: 0.2
+    - proto: SalvageSpawnerTreasureValuable100
+      prob: 0.4
+    - proto: SalvageSpawnerTreasure100
 #        - proto: SalvageSpawnerScrapValuable100
 
 - type: salvageLoot
   id: NFSalvageLootModerate
   loots:
-    - !type:RandomSpawnsLoot
-      entries:
-        - proto: SalvageSpawnerEquipmentValuable100
-          prob: 0.1
-        - proto: SalvageSpawnerEquipment100
-          prob: 0.2
-        - proto: SalvageSpawnerTreasureValuable100
-          prob: 0.4
-        - proto: SalvageSpawnerTreasure100
+  - !type:RandomSpawnsLoot
+    entries:
+    - proto: SalvageSpawnerEquipmentValuable100
+      prob: 0.1
+    - proto: SalvageSpawnerEquipment100
+      prob: 0.2
+    - proto: SalvageSpawnerTreasureValuable100
+      prob: 0.4
+    - proto: SalvageSpawnerTreasure100
 #        - proto: SalvageSpawnerScrapValuable100
 
 - type: salvageLoot
   id: NFSalvageLootHazardous
   loots:
-    - !type:RandomSpawnsLoot
-      entries:
-        - proto: SalvageSpawnerEquipmentValuable100
-          prob: 0.2
-        - proto: SalvageSpawnerEquipment100
-          prob: 0.4
-        - proto: SalvageSpawnerTreasureValuable100
-          prob: 0.8
-        - proto: SalvageSpawnerTreasure100
+  - !type:RandomSpawnsLoot
+    entries:
+    - proto: SalvageSpawnerEquipmentValuable100
+      prob: 0.2
+    - proto: SalvageSpawnerEquipment100
+      prob: 0.4
+    - proto: SalvageSpawnerTreasureValuable100
+      prob: 0.8
+    - proto: SalvageSpawnerTreasure100
 #        - proto: SalvageSpawnerScrapValuable100
 
 - type: salvageLoot
   id: NFSalvageLootExtreme
   loots:
-    - !type:RandomSpawnsLoot
-      entries:
-        - proto: SalvageSpawnerEquipmentValuable100
-          prob: 0.3
-        - proto: SalvageSpawnerEquipment100
-          prob: 0.6
-        - proto: SalvageSpawnerTreasureValuable100
-        - proto: SalvageSpawnerTreasure100
+  - !type:RandomSpawnsLoot
+    entries:
+    - proto: SalvageSpawnerEquipmentValuable100
+      prob: 0.3
+    - proto: SalvageSpawnerEquipment100
+      prob: 0.6
+    - proto: SalvageSpawnerTreasureValuable100
+    - proto: SalvageSpawnerTreasure100
 #        - proto: SalvageSpawnerScrapValuable100
 
 - type: salvageLoot
   id: NFSalvageLootNightmare
   loots:
-    - !type:RandomSpawnsLoot
-      entries:
-        - proto: SalvageSpawnerEquipmentValuable100
-          prob: 0.3
-        - proto: SalvageSpawnerEquipment100
-          prob: 0.6
-        - proto: SalvageSpawnerTreasureValuable100
-        - proto: SalvageSpawnerTreasure100
+  - !type:RandomSpawnsLoot
+    entries:
+    - proto: SalvageSpawnerEquipmentValuable100
+      prob: 0.3
+    - proto: SalvageSpawnerEquipment100
+      prob: 0.6
+    - proto: SalvageSpawnerTreasureValuable100
+    - proto: SalvageSpawnerTreasure100
 #        - proto: SalvageSpawnerScrapValuable100
 
 # Ores - these are guaranteed
@@ -73,70 +73,70 @@
   id: OreIron
   guaranteed: true
   loots:
-    - !type:BiomeMarkerLoot
-      proto: OreIron
+  - !type:BiomeMarkerLoot
+    proto: OreIron
 
 - type: salvageLoot
   id: OreCoal
   guaranteed: true
   loots:
-    - !type:BiomeMarkerLoot
-      proto: OreCoal
+  - !type:BiomeMarkerLoot
+    proto: OreCoal
 
 - type: salvageLoot
   id: OreQuartz
   guaranteed: true
   loots:
-    - !type:BiomeMarkerLoot
-      proto: OreQuartz
+  - !type:BiomeMarkerLoot
+    proto: OreQuartz
 
 - type: salvageLoot
   id: OreSalt
   guaranteed: true
   loots:
-    - !type:BiomeMarkerLoot
-      proto: OreSalt
+  - !type:BiomeMarkerLoot
+    proto: OreSalt
 
 # - Medium value
 - type: salvageLoot
   id: OreGold
   guaranteed: true
   loots:
-    - !type:BiomeMarkerLoot
-      proto: OreGold
+  - !type:BiomeMarkerLoot
+    proto: OreGold
 
 - type: salvageLoot
   id: OreSilver
   guaranteed: true
   loots:
-    - !type:BiomeMarkerLoot
-      proto: OreSilver
+  - !type:BiomeMarkerLoot
+    proto: OreSilver
 
 # - High value
 - type: salvageLoot
   id: OrePlasma
   guaranteed: true
   loots:
-    - !type:BiomeMarkerLoot
-      proto: OrePlasma
+  - !type:BiomeMarkerLoot
+    proto: OrePlasma
 
 - type: salvageLoot
   id: OreUranium
   guaranteed: true
   loots:
-    - !type:BiomeMarkerLoot
-      proto: OreUranium
+  - !type:BiomeMarkerLoot
+    proto: OreUranium
 
 - type: salvageLoot
   id: OreDiamond
   guaranteed: true
   loots:
-    - !type:BiomeMarkerLoot
-      proto: OreDiamond
+  - !type:BiomeMarkerLoot
+    proto: OreDiamond
 
 - type: salvageLoot
   id: OreArtifactFragment
   guaranteed: true
   loots:
-    - !type:BiomeMarkerLoot
-      proto: OreArtifactFragment
+  - !type:BiomeMarkerLoot
+    proto: OreArtifactFragment

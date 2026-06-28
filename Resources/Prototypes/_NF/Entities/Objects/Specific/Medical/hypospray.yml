@@ -391,10 +391,10 @@
     sprite: _NF/Objects/Specific/Medical/borghypo.rsi
     layers:
     - state: borghypo
-      map: [ enum.SolutionContainerLayers.Base ]
+      map: [enum.SolutionContainerLayers.Base]
     - state: fill-1
       visible: false
-      map: [ enum.SolutionContainerLayers.Fill ]
+      map: [enum.SolutionContainerLayers.Fill]
   - type: Item
     sprite: Objects/Specific/Medical/hypospray.rsi
   - type: SolutionContainerManager
@@ -418,16 +418,16 @@
   id: BorgHypoTricordrazine
   description: A sterile injector for rapid administration of drugs to patients. This one synthesizes tricordrazine.
   name: tricordrazine hypo
-  categories: [ HideSpawnMenu ] # Hardlight change
+  categories: [HideSpawnMenu] # Hardlight change
   components:
   - type: Sprite
     sprite: _NF/Objects/Specific/Medical/borghypo.rsi
     layers:
     - state: hypocyan
-      map: [ enum.SolutionContainerLayers.Base ]
+      map: [enum.SolutionContainerLayers.Base]
     - state: fill-1
       visible: false
-      map: [ enum.SolutionContainerLayers.Fill ]
+      map: [enum.SolutionContainerLayers.Fill]
   - type: SolutionRegeneration
     solution: hypospray
     generated:
@@ -441,16 +441,16 @@
   id: BorgHypoInaprovaline
   description: A sterile injector for rapid administration of drugs to patients. This one synthesizes inaprovaline.
   name: inaprovaline hypo
-  categories: [ HideSpawnMenu ] # Hardlight change
+  categories: [HideSpawnMenu] # Hardlight change
   components:
   - type: Sprite
     sprite: _NF/Objects/Specific/Medical/borghypo.rsi
     layers:
     - state: hypomaroon
-      map: [ enum.SolutionContainerLayers.Base ]
+      map: [enum.SolutionContainerLayers.Base]
     - state: fill-1
       visible: false
-      map: [ enum.SolutionContainerLayers.Fill ]
+      map: [enum.SolutionContainerLayers.Fill]
   - type: SolutionRegeneration
     solution: hypospray
     generated:

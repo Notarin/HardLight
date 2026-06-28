@@ -1,8 +1,8 @@
+using System;
+using System.Collections.Generic;
 using Content.Server._Starlight.Plumbing.Components;
 using Content.Server._Starlight.Plumbing.Nodes;
 using Content.Shared.NodeContainer;
-using System;
-using System.Collections.Generic;
 
 namespace Content.Server._Starlight.Plumbing.EntitySystems;
 
@@ -20,16 +20,20 @@ public sealed class PlumbingManifoldSystem : EntitySystem
     /// <param name="nodeQuery">NodeContainer query cache from caller.</param>
     /// <param name="bridged">Resolved bridged sibling plumbing nodes.</param>
     /// <returns>True when one or more bridged siblings are found for <paramref name="nodeName"/>.</returns>
-    public bool TryGetBridgedNodes(EntityUid owner,
+    public bool TryGetBridgedNodes(
+        EntityUid owner,
         string nodeName,
         EntityQuery<NodeContainerComponent> nodeQuery,
-        out List<Node> bridged)
+        out List<Node> bridged
+    )
     {
         var bridgedSet = new HashSet<Node>();
         bridged = new();
 
-        if (!TryComp<PlumbingManifoldComponent>(owner, out var manifoldComp) ||
-            !nodeQuery.TryGetComponent(owner, out var manifoldContainer))
+        if (
+            !TryComp<PlumbingManifoldComponent>(owner, out var manifoldComp)
+            || !nodeQuery.TryGetComponent(owner, out var manifoldContainer)
+        )
             return false;
 
         var isSideA = IsConfiguredNode(nodeName, manifoldComp.SideANodeNames);

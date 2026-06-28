@@ -54,7 +54,8 @@ namespace Content.Shared.Damage
         ///     Groups which have no members that are supported by this component will not be present in this
         ///     dictionary.
         /// </remarks>
-        [ViewVariables] public Dictionary<string, FixedPoint2> DamagePerGroup = new();
+        [ViewVariables]
+        public Dictionary<string, FixedPoint2> DamagePerGroup = new();
 
         /// <summary>
         ///     The sum of all damages in the DamageableComponent.
@@ -99,7 +100,8 @@ namespace Content.Shared.Damage
             Dictionary<string, FixedPoint2> damageDict,
             string? damageContainerId,
             string? modifierSetId,
-            FixedPoint2? healthBarThreshold)
+            FixedPoint2? healthBarThreshold
+        )
         {
             DamageDict = damageDict;
             DamageContainerId = damageContainerId;

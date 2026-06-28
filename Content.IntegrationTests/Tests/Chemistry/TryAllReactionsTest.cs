@@ -1,13 +1,13 @@
-using Content.Shared.Chemistry.Reaction;
+using System.Collections.Generic;
+using System.Linq;
 using Content.Shared.Chemistry.Components;
+using Content.Shared.Chemistry.EntitySystems;
+using Content.Shared.Chemistry.Reaction;
+using Content.Shared.Chemistry.Reagent;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
-using System.Linq;
-using Content.Shared.Chemistry.EntitySystems;
-using Content.Shared.Chemistry.Reagent;
-using System.Collections.Generic;
 
 namespace Content.IntegrationTests.Tests.Chemistry
 {
@@ -16,8 +16,10 @@ namespace Content.IntegrationTests.Tests.Chemistry
     public sealed class TryAllReactionsTest
     {
         public List<string> ReactionWhitelist = ["InertNanites"]; // HL: Whitelist as some reactions require cryo beakers, but we don't have a good dynamic check for that yet
+
         [TestPrototypes]
-        private const string Prototypes = @"
+        private const string Prototypes =
+            @"
 - type: entity
   id: TestSolutionContainer
   components:
@@ -50,9 +52,10 @@ namespace Content.IntegrationTests.Tests.Chemistry
                 Console.WriteLine($"Testing {reactionPrototype.ID}");
 
                 // HL: Don't test anything that insta-spoils, might add a cryo-beaker test later on
-                var anySpoil = prototypeManager.EnumeratePrototypes<ReagentPrototype>()
-                .Where(p => reactionPrototype.Products.Keys.Contains(p.ID))
-                .Any(r => r.SpoilConditions != null && r.SpoilConditions.SpoilTime == TimeSpan.Zero);
+                var anySpoil = prototypeManager
+                    .EnumeratePrototypes<ReagentPrototype>()
+                    .Where(p => reactionPrototype.Products.Keys.Contains(p.ID))
+                    .Any(r => r.SpoilConditions != null && r.SpoilConditions.SpoilTime == TimeSpan.Zero);
 
                 if (anySpoil)
                     continue;
@@ -64,14 +67,21 @@ namespace Content.IntegrationTests.Tests.Chemistry
                 await server.WaitAssertion(() =>
                 {
                     beaker = entityManager.SpawnEntity("TestSolutionContainer", coordinates);
-                    Assert.That(solutionContainerSystem
-                        .TryGetSolution(beaker, "beaker", out solutionEnt, out solution));
+                    Assert.That(
+                        solutionContainerSystem.TryGetSolution(beaker, "beaker", out solutionEnt, out solution)
+                    );
                     solutionContainerSystem.SetTemperature(solutionEnt.Value, reactionPrototype.MinimumTemperature); // HL: Heat the container up FIRST, so we don't get weird mixing bullshit
                     foreach (var (id, reactant) in reactionPrototype.Reactants)
                     {
 #pragma warning disable NUnit2045
-                        Assert.That(solutionContainerSystem
-                            .TryAddReagent(solutionEnt.Value, id, reactant.Amount, out var quantity));
+                        Assert.That(
+                            solutionContainerSystem.TryAddReagent(
+                                solutionEnt.Value,
+                                id,
+                                reactant.Amount,
+                                out var quantity
+                            )
+                        );
                         Assert.That(reactant.Amount, Is.EqualTo(quantity));
 #pragma warning restore NUnit2045
                     }
@@ -91,22 +101,29 @@ namespace Content.IntegrationTests.Tests.Chemistry
                 {
                     //you just got linq'd fool
                     //(i'm sorry)
-                    var foundProductsMap = reactionPrototype.Products
-                        .Concat(reactionPrototype.Reactants.Where(x => x.Value.Catalyst).ToDictionary(x => x.Key, x => x.Value.Amount))
+                    var foundProductsMap = reactionPrototype
+                        .Products.Concat(
+                            reactionPrototype
+                                .Reactants.Where(x => x.Value.Catalyst)
+                                .ToDictionary(x => x.Key, x => x.Value.Amount)
+                        )
                         .ToDictionary(x => x, _ => false);
                     foreach (var (reagent, quantity) in solution.Contents)
                     {
-                        Assert.That(foundProductsMap.TryFirstOrNull(x => x.Key.Key == reagent.Prototype && x.Key.Value == quantity, out var foundProduct),
-                        $"Failed to make Reagent from Reaction: {reactionPrototype.ID}\nBut Got Reagents: {reagent.Prototype} in quantity: {quantity}");
+                        Assert.That(
+                            foundProductsMap.TryFirstOrNull(
+                                x => x.Key.Key == reagent.Prototype && x.Key.Value == quantity,
+                                out var foundProduct
+                            ),
+                            $"Failed to make Reagent from Reaction: {reactionPrototype.ID}\nBut Got Reagents: {reagent.Prototype} in quantity: {quantity}"
+                        );
                         foundProductsMap[foundProduct.Value.Key] = true;
                     }
 
                     Assert.That(foundProductsMap.All(x => x.Value));
                 });
-
             }
             await pair.CleanReturnAsync();
         }
     }
-
 }

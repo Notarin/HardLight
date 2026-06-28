@@ -12,7 +12,8 @@ namespace Content.IntegrationTests.Tests.Preferences;
 public sealed class LoadoutTests
 {
     [TestPrototypes]
-    private const string Prototypes = @"
+    private const string Prototypes =
+        @"
 - type: playTimeTracker
   id: PlayTimeLoadoutTester
 
@@ -39,7 +40,7 @@ public sealed class LoadoutTests
 
     private readonly Dictionary<string, EntProtoId> _expectedEquipment = new()
     {
-        ["jumpsuit"] = "ClothingUniformJumpsuitColorGrey"
+        ["jumpsuit"] = "ClothingUniformJumpsuitColorGrey",
     };
 
     /// <summary>
@@ -48,10 +49,7 @@ public sealed class LoadoutTests
     [Test]
     public async Task TestEmptyLoadout()
     {
-        var pair = await PoolManager.GetServerClient(new PoolSettings()
-        {
-            Dirty = true,
-        });
+        var pair = await PoolManager.GetServerClient(new PoolSettings() { Dirty = true });
         var server = pair.Server;
 
         var entManager = server.ResolveDependency<IEntityManager>();
@@ -74,11 +72,18 @@ public sealed class LoadoutTests
             while (slotQuery.NextItem(out var item, out var slot))
             {
                 // Make sure the slot is valid
-                Assert.That(_expectedEquipment.TryGetValue(slot.Name, out var expectedItem), $"Spawned item in unexpected slot: {slot.Name}");
+                Assert.That(
+                    _expectedEquipment.TryGetValue(slot.Name, out var expectedItem),
+                    $"Spawned item in unexpected slot: {slot.Name}"
+                );
 
                 // Make sure that the item is the right one
                 var meta = entManager.GetComponent<MetaDataComponent>(item);
-                Assert.That(meta.EntityPrototype.ID, Is.EqualTo(expectedItem.Id), $"Spawned wrong item in slot {slot.Name}!");
+                Assert.That(
+                    meta.EntityPrototype.ID,
+                    Is.EqualTo(expectedItem.Id),
+                    $"Spawned wrong item in slot {slot.Name}!"
+                );
 
                 checkedCount++;
             }

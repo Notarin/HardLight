@@ -147,8 +147,8 @@
   hideEffects:
   - !type:GroupLoadoutEffect
     proto: NFHeadwearCapable
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 250
   equipment:
     head: ClothingHeadHatHardhatYellow
@@ -158,8 +158,8 @@
   hideEffects:
   - !type:GroupLoadoutEffect
     proto: NFHeadwearCapable
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 250
   equipment:
     head: ClothingHeadHatChef
@@ -169,8 +169,8 @@
   hideEffects:
   - !type:GroupLoadoutEffect
     proto: NFHeadwearCapable
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 250
   equipment:
     head: ClothingHeadHatCargosoft
@@ -180,8 +180,8 @@
   hideEffects:
   - !type:GroupLoadoutEffect
     proto: NFHeadwearCapable
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 250
   equipment:
     head: ClothingHeadBandBotany
@@ -267,8 +267,8 @@
   hideEffects:
   - !type:GroupLoadoutEffect
     proto: NFHeadwearCapable
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 650
   equipment:
     head: ClothingHeadHatBowlerHat
@@ -305,8 +305,8 @@
   hideEffects:
   - !type:GroupLoadoutEffect
     proto: NFHeadwearCapable
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 650
   equipment:
     head: ClothingHeadHatParamedicsoft
@@ -319,8 +319,8 @@
   hideEffects:
   - !type:GroupLoadoutEffect
     proto: NFHeadwearCapable
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 650
   equipment:
     head: ClothingHeadNurseHat
@@ -333,8 +333,8 @@
   hideEffects:
   - !type:GroupLoadoutEffect
     proto: NFHeadwearCapable
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 650
   equipment:
     head: ClothingHeadHatBeretMedic
@@ -347,8 +347,8 @@
   hideEffects:
   - !type:GroupLoadoutEffect
     proto: NFHeadwearCapable
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 650
   equipment:
     head: ClothingHeadHatSurgcapGreen
@@ -361,8 +361,8 @@
   hideEffects:
   - !type:GroupLoadoutEffect
     proto: NFHeadwearCapable
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 650
   equipment:
     head: ClothingHeadHatSurgcapBlue
@@ -375,8 +375,8 @@
   hideEffects:
   - !type:GroupLoadoutEffect
     proto: NFHeadwearCapable
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 650
   equipment:
     head: ClothingHeadHatSurgcapPurple
@@ -389,8 +389,8 @@
   hideEffects:
   - !type:GroupLoadoutEffect
     proto: NFHeadwearCapable
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 650
   equipment:
     head: ClothingHeadHatFedoraGrey
@@ -403,12 +403,11 @@
   hideEffects:
   - !type:GroupLoadoutEffect
     proto: NFHeadwearCapable
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 650
   equipment:
     head: ClothingHeadHatFedoraBrown
-
 
 #T2
 - type: loadout
@@ -419,8 +418,8 @@
   hideEffects:
   - !type:GroupLoadoutEffect
     proto: NFHeadwearCapable
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 1250
   equipment:
     head: ClothingHeadHatCaptain
@@ -433,8 +432,8 @@
   hideEffects:
   - !type:GroupLoadoutEffect
     proto: NFHeadwearCapable
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 1250
   equipment:
     head: ClothingHeadHatCapcap
@@ -459,8 +458,8 @@
   hideEffects:
   - !type:GroupLoadoutEffect
     proto: NFHeadwearCapable
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 1250
   equipment:
     head: ClothingHeadHatBeretRND
@@ -473,8 +472,8 @@
   hideEffects:
   - !type:GroupLoadoutEffect
     proto: NFHeadwearCapable
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 1250
   equipment:
     head: ClothingHeadHatBeretEngineering
@@ -487,8 +486,8 @@
   hideEffects:
   - !type:GroupLoadoutEffect
     proto: NFHeadwearCapable
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 1250
   equipment:
     head: ClothingHeadHatBeretSeniorPhysician
@@ -501,8 +500,8 @@
   hideEffects:
   - !type:GroupLoadoutEffect
     proto: NFHeadwearCapable
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 1250
   equipment:
     head: ClothingHeadHatBeretCmo
@@ -515,8 +514,8 @@
   hideEffects:
   - !type:GroupLoadoutEffect
     proto: NFHeadwearCapable
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 1250
   equipment:
     head: ClothingHeadHatBeretQM
@@ -529,8 +528,8 @@
   hideEffects:
   - !type:GroupLoadoutEffect
     proto: NFHeadwearCapable
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 1250
   equipment:
     head: ClothingHeadHatQMsoft
@@ -543,8 +542,8 @@
   hideEffects:
   - !type:GroupLoadoutEffect
     proto: NFHeadwearCapable
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes TODO: Add to chaplain loadout.
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes TODO: Add to chaplain loadout.
   price: 1250
   equipment:
     head: ClothingHeadHatCardinal
@@ -557,8 +556,8 @@
   hideEffects:
   - !type:GroupLoadoutEffect
     proto: NFHeadwearCapable
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 1250
   equipment:
     head: ClothingHeadHatHoodNunHood
@@ -583,8 +582,8 @@
   hideEffects:
   - !type:GroupLoadoutEffect
     proto: NFHeadwearCapable
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 1250
   equipment:
     head: ClothingHeadHatJester
@@ -597,8 +596,8 @@
   hideEffects:
   - !type:GroupLoadoutEffect
     proto: NFHeadwearCapable
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 1250
   equipment:
     head: ClothingHeadHatJesterAlt
@@ -611,8 +610,8 @@
   hideEffects:
   - !type:GroupLoadoutEffect
     proto: NFHeadwearCapable
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 1250
   equipment:
     head: ClothingHeadHatBeret
@@ -625,8 +624,8 @@
   hideEffects:
   - !type:GroupLoadoutEffect
     proto: NFHeadwearCapable
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 1250
   equipment:
     head: ClothingHeadHatBeretFrench
@@ -639,8 +638,8 @@
   hideEffects:
   - !type:GroupLoadoutEffect
     proto: NFHeadwearCapable
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 1250
   equipment:
     head: ClothingHeadHatMimesoft
@@ -653,8 +652,8 @@
   hideEffects:
   - !type:GroupLoadoutEffect
     proto: NFHeadwearCapable
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes TODO: Add to chaplain loadout
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes TODO: Add to chaplain loadout
   price: 1250
   equipment:
     head: ClothingHeadHatPilgrim
@@ -727,8 +726,8 @@
   hideEffects:
   - !type:GroupLoadoutEffect
     proto: NFHeadwearCapable
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 1250
   equipment:
     head: ClothingHeadHatBH
@@ -777,8 +776,8 @@
   hideEffects:
   - !type:GroupLoadoutEffect
     proto: NFHeadwearCapable
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes TODO: Add to chaplain loadout
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes TODO: Add to chaplain loadout
   price: 1250
   equipment:
     head: ClothingHeadHatWitchhunter
@@ -791,8 +790,8 @@
   hideEffects:
   - !type:GroupLoadoutEffect
     proto: NFHeadwearCapable
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes TODO: Add to chaplain loadout
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes TODO: Add to chaplain loadout
   price: 1250
   equipment:
     head: ClothingHeadHatBishopMitre
@@ -805,8 +804,8 @@
   hideEffects:
   - !type:GroupLoadoutEffect
     proto: NFHeadwearCapable
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes TODO: Add to chaplain loadout
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes TODO: Add to chaplain loadout
   price: 1250
   equipment:
     head: ClothingHeadHatKippah
@@ -819,8 +818,8 @@
   hideEffects:
   - !type:GroupLoadoutEffect
     proto: NFHeadwearCapable
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 1250
   equipment:
     head: ClothingHeadHatPlaguedoctor
@@ -870,8 +869,8 @@
   hideEffects:
   - !type:GroupLoadoutEffect
     proto: NFHeadwearCapable
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 5000
   equipment:
     head: ClothingHeadHatTophat
@@ -884,8 +883,8 @@
   hideEffects:
   - !type:GroupLoadoutEffect
     proto: NFHeadwearCapable
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
+  - !type:GroupLoadoutEffect
+    proto: HLNotStation # HL - Station roles do not get wrong-departmental clothes
   price: 4000
   equipment:
     head: ClothingHeadHatChameleonCiv

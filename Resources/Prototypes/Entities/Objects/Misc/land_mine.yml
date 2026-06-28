@@ -13,12 +13,11 @@
   - type: Fixtures
     fixtures:
       slips:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.2,-0.2,0.2,0.2"
         hard: false
         layer:
-          - LowImpassable
+        - LowImpassable
   - type: Sprite
     drawdepth: Items
     sprite: Objects/Misc/landmine.rsi
@@ -27,18 +26,17 @@
     damageContainer: Inorganic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 50
       behaviors:
       - !type:TriggerBehavior
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: LandMine
     sound:
-        path: /Audio/Effects/beep_landmine.ogg
-        params:
-            maxDistance: 10
+      path: /Audio/Effects/beep_landmine.ogg
+      params:
+        maxDistance: 10
   - type: StepTrigger
     requiredTriggeredSpeed: 0
     stepOn: true

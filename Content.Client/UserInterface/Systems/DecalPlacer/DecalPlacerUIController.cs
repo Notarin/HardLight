@@ -10,10 +10,16 @@ using Robust.Shared.Utility;
 
 namespace Content.Client.UserInterface.Systems.DecalPlacer;
 
-public sealed class DecalPlacerUIController : UIController, IOnStateExited<GameplayState>, IOnSystemChanged<SandboxSystem>
+public sealed class DecalPlacerUIController
+    : UIController,
+        IOnStateExited<GameplayState>,
+        IOnSystemChanged<SandboxSystem>
 {
-    [Dependency] private readonly IPrototypeManager _prototypes = default!;
-    [UISystemDependency] private readonly SandboxSystem _sandbox = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototypes = default!;
+
+    [UISystemDependency]
+    private readonly SandboxSystem _sandbox = default!;
 
     private DecalPlacerWindow? _window;
 
@@ -25,7 +31,7 @@ public sealed class DecalPlacerUIController : UIController, IOnStateExited<Gamep
         {
             _window.Close();
         }
-        else if(_sandbox.SandboxAllowed)
+        else if (_sandbox.SandboxAllowed)
         {
             _window.Open();
         }

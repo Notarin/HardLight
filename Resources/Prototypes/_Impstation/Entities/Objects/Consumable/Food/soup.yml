@@ -6,7 +6,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - cigarettes
+    - cigarettes
   - type: Sprite
     sprite: _Impstation/Objects/Consumable/Food/bowl.rsi
     layers:

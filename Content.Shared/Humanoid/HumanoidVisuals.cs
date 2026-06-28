@@ -5,5 +5,5 @@ namespace Content.Shared.Humanoid;
 [Serializable, NetSerializable]
 public enum HumanoidVisuals : byte
 {
-    Scale
+    Scale,
 }

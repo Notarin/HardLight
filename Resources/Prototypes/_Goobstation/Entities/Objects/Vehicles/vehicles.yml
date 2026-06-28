@@ -2,7 +2,7 @@
   id: BaseVehicle
   abstract: true
   save: false
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Vehicle
     # renderOver: East, SouthEast, South, SouthWest, West # Frontier
@@ -26,14 +26,13 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.45
         density: 100
         mask:
-          - MobMask
+        - MobMask
         layer:
-          - MobLayer
+        - MobLayer
         hard: true
   - type: Pullable
   - type: Damageable
@@ -41,14 +40,12 @@
     damageModifierSet: Metallic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
-        - !type:DoActsBehavior
-          acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 50
       behaviors:
       - !type:DoActsBehavior
@@ -172,7 +169,7 @@
       collection: NFVehicleHorn # Frontier: BikeHorn<NFVehicleHorn
       params:
         variation: 0.125
-    # renderOver: North, NorthEast, East, SouthEast, South, SouthWest, West, NorthWest # Frontier
+        # renderOver: North, NorthEast, East, SouthEast, South, SouthWest, West, NorthWest # Frontier
   - type: ItemSlots
     slots:
       key_slot:
@@ -216,7 +213,7 @@
 
 - type: entity
   id: VehicleWheelchair
-  parent: [ BaseVehicle, BaseFoldable, BaseItem ]
+  parent: [BaseVehicle, BaseFoldable, BaseItem]
   name: wheelchair
   description: A chair with big wheels. It looks like you can move in these on your own.
   components:
@@ -245,19 +242,18 @@
     baseWalkSpeed: 2.5
   - type: StaticPrice
     price: 75
-  #- type: PhysicalComposition # Frontier
+    #- type: PhysicalComposition # Frontier
     #materialComposition: # Frontier
-      #Steel: 125 # Frontier
-      #Plastic: 125 # Frontier
+    #Steel: 125 # Frontier
+    #Plastic: 125 # Frontier
 
 - type: entity
   parent: VehicleWheelchair
   id: VehicleWheelchairFolded
   suffix: folded
   components:
-    - type: Foldable
-      folded: true
-
+  - type: Foldable
+    folded: true
 
 - type: entity
   id: VehicleHoverchair
@@ -289,8 +285,8 @@
   - type: StaticPrice
     price: 175
   #- type: PhysicalComposition # Frontier
-    #materialComposition: # Frontier
-      #Steel: 125 # Frontier
-      #Plastic: 125 # Frontier
+  #materialComposition: # Frontier
+  #Steel: 125 # Frontier
+  #Plastic: 125 # Frontier
   - type: ItemSlots # Frontier
     slots: {} # Frontier: no keys required

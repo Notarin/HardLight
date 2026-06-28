@@ -5,5 +5,4 @@
     color: "#fc7921"
     fontId: Scratch
     obfuscationFont: true
-  obfuscation:
-    !type:RandomObfuscation
+  obfuscation: !type:RandomObfuscation

@@ -20,13 +20,26 @@ namespace Content.Shared.Storage.EntitySystems;
 
 public sealed class DumpableSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedDisposalUnitSystem _disposalUnitSystem = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
-    [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
-    [Dependency] private readonly SmartFridgeSystem _fridge = default!; // DeltaV - ough why do you not use events for this
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedDisposalUnitSystem _disposalUnitSystem = default!;
+
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfterSystem = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transformSystem = default!;
+
+    [Dependency]
+    private readonly SmartFridgeSystem _fridge = default!; // DeltaV - ough why do you not use events for this
 
     private EntityQuery<ItemComponent> _itemQuery;
 
@@ -34,7 +47,10 @@ public sealed class DumpableSystem : EntitySystem
     {
         base.Initialize();
         _itemQuery = GetEntityQuery<ItemComponent>();
-        SubscribeLocalEvent<DumpableComponent, AfterInteractEvent>(OnAfterInteract, after: new[] { typeof(SharedEntityStorageSystem) });
+        SubscribeLocalEvent<DumpableComponent, AfterInteractEvent>(
+            OnAfterInteract,
+            after: new[] { typeof(SharedEntityStorageSystem) }
+        );
         SubscribeLocalEvent<DumpableComponent, GetVerbsEvent<AlternativeVerb>>(AddDumpVerb);
         SubscribeLocalEvent<DumpableComponent, GetVerbsEvent<UtilityVerb>>(AddUtilityVerbs);
         SubscribeLocalEvent<DumpableComponent, DumpableDoAfterEvent>(OnDoAfter);
@@ -70,7 +86,7 @@ public sealed class DumpableSystem : EntitySystem
         {
             Act = () =>
             {
-                StartDoAfter(uid, args.Target, args.User, dumpable);//Had multiplier of 0.6f
+                StartDoAfter(uid, args.Target, args.User, dumpable); //Had multiplier of 0.6f
             },
             Text = Loc.GetString("dump-verb-name"),
             Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/drop.svg.192dpi.png")),
@@ -95,7 +111,7 @@ public sealed class DumpableSystem : EntitySystem
                     StartDoAfter(uid, args.Target, args.User, dumpable);
                 },
                 Text = Loc.GetString("dump-disposal-verb-name", ("unit", args.Target)),
-                IconEntity = GetNetEntity(uid)
+                IconEntity = GetNetEntity(uid),
             };
             args.Verbs.Add(verb);
         }
@@ -109,7 +125,7 @@ public sealed class DumpableSystem : EntitySystem
                     StartDoAfter(uid, args.Target, args.User, dumpable);
                 },
                 Text = Loc.GetString("dump-placeable-verb-name", ("surface", args.Target)),
-                IconEntity = GetNetEntity(uid)
+                IconEntity = GetNetEntity(uid),
             };
             args.Verbs.Add(verb);
         }
@@ -124,8 +140,10 @@ public sealed class DumpableSystem : EntitySystem
 
         foreach (var entity in storage.Container.ContainedEntities)
         {
-            if (!_itemQuery.TryGetComponent(entity, out var itemComp) ||
-                !_prototypeManager.TryIndex(itemComp.Size, out var itemSize))
+            if (
+                !_itemQuery.TryGetComponent(entity, out var itemComp)
+                || !_prototypeManager.TryIndex(itemComp.Size, out var itemSize)
+            )
             {
                 continue;
             }
@@ -135,11 +153,21 @@ public sealed class DumpableSystem : EntitySystem
 
         delay *= (float)dumpable.DelayPerItem.TotalSeconds * dumpable.Multiplier;
 
-        _doAfterSystem.TryStartDoAfter(new DoAfterArgs(EntityManager, userUid, delay, new DumpableDoAfterEvent(), storageUid, target: targetUid, used: storageUid)
-        {
-            BreakOnMove = true,
-            NeedHand = true,
-        });
+        _doAfterSystem.TryStartDoAfter(
+            new DoAfterArgs(
+                EntityManager,
+                userUid,
+                delay,
+                new DumpableDoAfterEvent(),
+                storageUid,
+                target: targetUid,
+                used: storageUid
+            )
+            {
+                BreakOnMove = true,
+                NeedHand = true,
+            }
+        );
     }
 
     private void OnDoAfter(EntityUid uid, DumpableComponent component, DumpableDoAfterEvent args)
@@ -154,8 +182,7 @@ public sealed class DumpableSystem : EntitySystem
     [PublicAPI]
     public void DumpContents(EntityUid uid, EntityUid? target, EntityUid user, DumpableComponent? component = null)
     {
-        if (!TryComp<StorageComponent>(uid, out var storage)
-            || !Resolve(uid, ref component))
+        if (!TryComp<StorageComponent>(uid, out var storage) || !Resolve(uid, ref component))
             return;
 
         if (storage.Container.ContainedEntities.Count == 0)
@@ -199,7 +226,12 @@ public sealed class DumpableSystem : EntitySystem
             foreach (var entity in dumpQueue)
             {
                 var transform = Transform(entity);
-                _transformSystem.SetWorldPositionRotation(entity, targetPos + _random.NextVector2Box() / 4, _random.NextAngle(), transform);
+                _transformSystem.SetWorldPositionRotation(
+                    entity,
+                    targetPos + _random.NextVector2Box() / 4,
+                    _random.NextAngle(),
+                    transform
+                );
             }
         }
 

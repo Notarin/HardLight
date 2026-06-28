@@ -138,7 +138,7 @@
 
 - type: stationPay
   id: MedicalInternPay
-  payPerHour: 22000  # New Minimum
+  payPerHour: 22000 # New Minimum
   job: MedicalIntern
 
 - type: stationPay

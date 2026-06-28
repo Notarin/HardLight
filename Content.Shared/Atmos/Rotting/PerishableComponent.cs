@@ -53,6 +53,5 @@ public sealed partial class PerishableComponent : Component
     public bool ForceRotProgression;
 }
 
-
 [ByRefEvent]
 public record struct IsRottingEvent(bool Handled = false);

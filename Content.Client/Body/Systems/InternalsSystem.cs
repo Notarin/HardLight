@@ -6,7 +6,8 @@ namespace Content.Client.Body.Systems;
 
 public sealed class InternalsSystem : SharedInternalsSystem
 {
-    [Dependency] private readonly SharedUserInterfaceSystem _ui = default!;
+    [Dependency]
+    private readonly SharedUserInterfaceSystem _ui = default!;
 
     public override void Initialize()
     {
@@ -16,7 +17,10 @@ public sealed class InternalsSystem : SharedInternalsSystem
 
     private void OnInternalsAfterState(Entity<InternalsComponent> ent, ref AfterAutoHandleStateEvent args)
     {
-        if (ent.Comp.GasTankEntity != null && _ui.TryGetOpenUi(ent.Comp.GasTankEntity.Value, SharedGasTankUiKey.Key, out var bui))
+        if (
+            ent.Comp.GasTankEntity != null
+            && _ui.TryGetOpenUi(ent.Comp.GasTankEntity.Value, SharedGasTankUiKey.Key, out var bui)
+        )
         {
             bui.Update();
         }

@@ -17,7 +17,7 @@
     price: 100
   - type: Tag
     tags:
-      - Trash
+    - Trash
   # Shitmed Change Start
   - type: SurgeryTool
     startSound:
@@ -26,22 +26,19 @@
       path: /Audio/_Shitmed/Medical/Surgery/organ2.ogg
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTypeTrigger
-        damageType: Blunt   #Hardlight change Start from 250 to 300
+    - trigger: !type:DamageTypeTrigger
+        damageType: Blunt #Hardlight change Start from 250 to 300
         damage: 300
       behaviors:
-      - !type:GibPartBehavior { }
-    - trigger:
-        !type:DamageTypeTrigger
+      - !type:GibPartBehavior {}
+    - trigger: !type:DamageTypeTrigger
         damageType: Slash
         damage: 300
       behaviors:
-      - !type:GibPartBehavior { }
-    - trigger:
-        !type:DamageTypeTrigger
+      - !type:GibPartBehavior {}
+    - trigger: !type:DamageTypeTrigger
         damageType: Heat
-        damage: 300      # Hard Light change Stop from 250 to 300
+        damage: 300 # Hard Light change Stop from 250 to 300
       behaviors:
       - !type:SpawnEntitiesBehavior
         spawnInContainer: true
@@ -49,11 +46,11 @@
           Ash:
             min: 1
             max: 1
-      - !type:BurnBodyBehavior { }
+      - !type:BurnBodyBehavior {}
       - !type:PlaySoundBehavior
         sound:
           collection: MeatLaserImpact
-  # Shitmed Change End
+          # Shitmed Change End
 
 - type: entity
   id: BaseTorso
@@ -71,20 +68,17 @@
       torso_slot: !type:ContainerSlot {}
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTypeTrigger
+    - trigger: !type:DamageTypeTrigger
         damageType: Blunt
         damage: 400
       behaviors:
-      - !type:GibPartBehavior { }
-    - trigger:
-        !type:DamageTypeTrigger
+      - !type:GibPartBehavior {}
+    - trigger: !type:DamageTypeTrigger
         damageType: Slash
         damage: 400
       behaviors:
-      - !type:GibPartBehavior { }
-    - trigger:
-        !type:DamageTypeTrigger
+      - !type:GibPartBehavior {}
+    - trigger: !type:DamageTypeTrigger
         damageType: Heat
         damage: 400
       behaviors:
@@ -94,11 +88,11 @@
           Ash:
             min: 1
             max: 1
-      - !type:BurnBodyBehavior { }
+      - !type:BurnBodyBehavior {}
       - !type:PlaySoundBehavior
         sound:
           collection: MeatLaserImpact
-    # Shitmed Change End
+          # Shitmed Change End
 
 - type: entity
   id: BaseHead
@@ -115,7 +109,7 @@
     context: "ghost"
   - type: Tag
     tags:
-      - Head
+    - Head
 
 - type: entity
   id: BaseLeftArm

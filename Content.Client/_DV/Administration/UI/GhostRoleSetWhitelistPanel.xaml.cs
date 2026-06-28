@@ -12,7 +12,13 @@ public sealed partial class GhostRoleSetWhitelistPanel : PanelContainer
 {
     public Action<ProtoId<GhostRolePrototype>, bool>? OnSetGhostRole;
 
-    public GhostRoleSetWhitelistPanel(List<ProtoId<GhostRolePrototype>> ghostRoleList, string ghostRoleSetName, Color ghostRoleSetColor, IPrototypeManager proto, HashSet<ProtoId<GhostRolePrototype>> whitelists)
+    public GhostRoleSetWhitelistPanel(
+        List<ProtoId<GhostRolePrototype>> ghostRoleList,
+        string ghostRoleSetName,
+        Color ghostRoleSetColor,
+        IPrototypeManager proto,
+        HashSet<ProtoId<GhostRolePrototype>> whitelists
+    )
     {
         RobustXamlLoader.Load(this);
 
@@ -41,7 +47,10 @@ public sealed partial class GhostRoleSetWhitelistPanel : PanelContainer
         OnSetGhostRole?.Invoke(thisRole, button.Pressed);
     }
 
-    private void OnDepartmentPressed(List<ProtoId<GhostRolePrototype>> ghostRoleList, HashSet<ProtoId<GhostRolePrototype>> whitelists)
+    private void OnDepartmentPressed(
+        List<ProtoId<GhostRolePrototype>> ghostRoleList,
+        HashSet<ProtoId<GhostRolePrototype>> whitelists
+    )
     {
         foreach (var id in ghostRoleList)
         {
@@ -51,6 +60,5 @@ public sealed partial class GhostRoleSetWhitelistPanel : PanelContainer
         }
     }
     // End Frontier
-
 }
 // End Frontier

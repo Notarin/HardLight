@@ -1,13 +1,13 @@
 - type: entity
   id: BaseCartridge635x40mmCaseless
   name: cartridge (.25 rifle)
-  parent: [ BaseCartridge, BaseC3SyndicateContrabandNoValue ] # Frontier: BaseSecurityContraband<BaseC3SyndicateContraband
+  parent: [BaseCartridge, BaseC3SyndicateContrabandNoValue] # Frontier: BaseSecurityContraband<BaseC3SyndicateContraband
   abstract: true
   components:
   - type: Tag
     tags:
-      - Cartridge
-      - Cartridge635x40mmCaseless
+    - Cartridge
+    - Cartridge635x40mmCaseless
   - type: CartridgeAmmo
     deleteOnSpawn: true
   - type: Sprite
@@ -46,8 +46,8 @@
     proto: Bullet635x40mmCaselessPractice
   - type: Sprite
     layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
-      - state: tip
-        color: "#dbdbdb"
+    - state: base
+      map: ["enum.AmmoVisualLayers.Base"]
+    - state: tip
+      color: "#dbdbdb"
 

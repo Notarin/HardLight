@@ -1,5 +1,5 @@
 - type: entity
-  parent: [ BaseCartridge, BaseC2Contraband ]
+  parent: [BaseCartridge, BaseC2Contraband]
   id: CartridgeBoltBase
   name: Bolt cartridge (.75)
   components:
@@ -19,9 +19,8 @@
   - type: StaticPrice
     price: 20
 
-
 - type: entity
-  parent: [ BaseCartridge, BaseC2Contraband ]
+  parent: [BaseCartridge, BaseC2Contraband]
   id: CartridgeBoltExplosive
   name: Explosive bolt cartridge (.75)
   components:
@@ -42,7 +41,7 @@
     price: 20
 
 - type: entity
-  parent: [ BaseCartridge, BaseC2Contraband ]
+  parent: [BaseCartridge, BaseC2Contraband]
   id: CartridgeBoltIncendiary
   name: Incendiary bolt cartridge (.75)
   components:
@@ -63,7 +62,7 @@
     price: 20
 
 - type: entity
-  parent: [ BaseCartridge, BaseC2Contraband ]
+  parent: [BaseCartridge, BaseC2Contraband]
   id: CartridgeBoltCorrosive
   name: Corrosive bolt cartridge (.75)
   components:
@@ -84,7 +83,7 @@
     price: 20
 
 - type: entity
-  parent: [ BaseCartridge, BaseC2Contraband ]
+  parent: [BaseCartridge, BaseC2Contraband]
   id: CartridgeBoltTaser
   name: Taser bolt cartridge (.75)
   components:
@@ -105,7 +104,7 @@
     price: 20
 
 - type: entity
-  parent: [ BaseCartridge, BaseC2Contraband ]
+  parent: [BaseCartridge, BaseC2Contraband]
   id: CartridgeBoltCryogenic
   name: Cryogenic bolt cartridge (.75)
   components:
@@ -126,7 +125,7 @@
     price: 20
 
 - type: entity
-  parent: [ BaseCartridge, BaseC2Contraband ]
+  parent: [BaseCartridge, BaseC2Contraband]
   id: CartridgeBoltFusor
   name: Fusor bolt cartridge (.75)
   components:

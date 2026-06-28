@@ -637,7 +637,6 @@
   products:
     SlimesDelight: 3
 
-
 - type: reaction
   id: Snowball
   reactants:
@@ -833,7 +832,7 @@
     LotophagoiOil:
       amount: 1
   products:
-    Hallelujah : 6
+    Hallelujah: 6
 
 - type: reaction
   id: GinandPussy

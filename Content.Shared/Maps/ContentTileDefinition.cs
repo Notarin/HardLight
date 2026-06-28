@@ -1,3 +1,4 @@
+using System.Numerics; // Mono
 using Content.Shared.Atmos;
 using Content.Shared.Light.Components;
 using Content.Shared.Movement.Systems;
@@ -11,7 +12,6 @@ using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototy
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype.Array;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype.List;
 using Robust.Shared.Utility;
-using System.Numerics; // Mono
 
 namespace Content.Shared.Maps
 {
@@ -30,19 +30,25 @@ namespace Content.Shared.Maps
         [AbstractDataFieldAttribute]
         public bool Abstract { get; private set; }
 
-        [IdDataField] public string ID { get; private set; } = string.Empty;
+        [IdDataField]
+        public string ID { get; private set; } = string.Empty;
 
         public ushort TileId { get; private set; }
 
         [DataField("name")]
         public string Name { get; private set; } = "";
-        [DataField("sprite")] public ResPath? Sprite { get; private set; }
 
-        [DataField("edgeSprites")] public Dictionary<Direction, ResPath> EdgeSprites { get; private set; } = new();
+        [DataField("sprite")]
+        public ResPath? Sprite { get; private set; }
 
-        [DataField("edgeSpritePriority")] public int EdgeSpritePriority { get; private set; } = 0;
+        [DataField("edgeSprites")]
+        public Dictionary<Direction, ResPath> EdgeSprites { get; private set; } = new();
 
-        [DataField("isSubfloor")] public bool IsSubFloor { get; private set; }
+        [DataField("edgeSpritePriority")]
+        public int EdgeSpritePriority { get; private set; } = 0;
+
+        [DataField("isSubfloor")]
+        public bool IsSubFloor { get; private set; }
 
         [DataField("baseTurf")]
         public ProtoId<ContentTileDefinition>? BaseTurf { get; private set; }
@@ -65,38 +71,46 @@ namespace Content.Shared.Maps
         /// <summary>
         /// These play when the mob has shoes on.
         /// </summary>
-        [DataField("footstepSounds")] public SoundSpecifier? FootstepSounds { get; private set; }
+        [DataField("footstepSounds")]
+        public SoundSpecifier? FootstepSounds { get; private set; }
 
         /// <summary>
         /// These play when the mob has no shoes on.
         /// </summary>
-        [DataField("barestepSounds")] public SoundSpecifier? BarestepSounds { get; private set; } = new SoundCollectionSpecifier("BarestepHard");
+        [DataField("barestepSounds")]
+        public SoundSpecifier? BarestepSounds { get; private set; } = new SoundCollectionSpecifier("BarestepHard");
 
         /// <summary>
         /// Base friction modifier for this tile.
         /// </summary>
-        [DataField("friction")] public float Friction { get; set; } = 1f;
+        [DataField("friction")]
+        public float Friction { get; set; } = 1f;
 
-        [DataField("variants")] public byte Variants { get; set; } = 1;
+        [DataField("variants")]
+        public byte Variants { get; set; } = 1;
 
         /// <summary>
         /// This controls what variants the `variantize` command is allowed to use.
         /// </summary>
-        [DataField("placementVariants")] public float[] PlacementVariants { get; set; } = { 1f };
+        [DataField("placementVariants")]
+        public float[] PlacementVariants { get; set; } = { 1f };
 
-        [DataField("thermalConductivity")] public float ThermalConductivity = 0.04f;
+        [DataField("thermalConductivity")]
+        public float ThermalConductivity = 0.04f;
 
         // Heat capacity is opt-in, not opt-out.
-        [DataField("heatCapacity")] public float HeatCapacity = Atmospherics.MinimumHeatCapacity;
+        [DataField("heatCapacity")]
+        public float HeatCapacity = Atmospherics.MinimumHeatCapacity;
 
-        [DataField("itemDrop", customTypeSerializer:typeof(PrototypeIdSerializer<EntityPrototype>))]
+        [DataField("itemDrop", customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
         public string ItemDropPrototypeName { get; private set; } = "FloorTileItemSteel";
 
         // TODO rename data-field in yaml
         /// <summary>
         /// Whether or not the tile is exposed to the map's atmosphere.
         /// </summary>
-        [DataField("isSpace")] public bool MapAtmosphere { get; private set; }
+        [DataField("isSpace")]
+        public bool MapAtmosphere { get; private set; }
 
         /// <summary>
         ///     Friction override for mob mover in <see cref="SharedMoverController"/>
@@ -122,6 +136,7 @@ namespace Content.Shared.Maps
         /// </summary>
         [DataField]
         public List<Vector2> Vertices = new() { Vector2.Zero, new Vector2(0, 1), new Vector2(1, 1), new Vector2(1, 0) };
+
         // </Mono>
 
         /// <summary>
@@ -130,12 +145,14 @@ namespace Content.Shared.Maps
         [DataField("mobAcceleration")]
         public float? MobAcceleration { get; private set; }
 
-        [DataField("sturdy")] public bool Sturdy { get; private set; } = true;
+        [DataField("sturdy")]
+        public bool Sturdy { get; private set; } = true;
 
         /// <summary>
         /// Is this tile immune to RCD deconstruct.
         /// </summary>
-        [DataField("indestructible")] public bool Indestructible = false;
+        [DataField("indestructible")]
+        public bool Indestructible = false;
 
         public void AssignTileId(ushort id)
         {

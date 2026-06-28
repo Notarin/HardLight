@@ -11,7 +11,8 @@ namespace Content.Server.Atmos.Commands
     [AdminCommand(AdminFlags.Debug)]
     public sealed class AddGasCommand : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _entManager = default!;
+        [Dependency]
+        private readonly IEntityManager _entManager = default!;
 
         public string Command => "addgas";
         public string Description => "Adds gas at a certain position.";
@@ -22,12 +23,14 @@ namespace Content.Server.Atmos.Commands
             if (args.Length < 5)
                 return;
 
-            if (!int.TryParse(args[0], out var x)
+            if (
+                !int.TryParse(args[0], out var x)
                 || !int.TryParse(args[1], out var y)
                 || !NetEntity.TryParse(args[2], out var netEnt)
                 || !_entManager.TryGetEntity(netEnt, out var euid)
                 || !(AtmosCommandUtils.TryParseGasID(args[3], out var gasId))
-                || !float.TryParse(args[4], out var moles))
+                || !float.TryParse(args[4], out var moles)
+            )
             {
                 return;
             }

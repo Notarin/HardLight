@@ -15,11 +15,20 @@ namespace Content.Server.Afk;
 /// </summary>
 public sealed class AFKSystem : EntitySystem
 {
-    [Dependency] private readonly IAfkManager _afkManager = default!;
-    [Dependency] private readonly IConfigurationManager _configManager = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly GameTicker _ticker = default!;
+    [Dependency]
+    private readonly IAfkManager _afkManager = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _configManager = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly GameTicker _ticker = default!;
 
     private float _checkDelay;
     private TimeSpan _checkTime;
@@ -81,7 +90,8 @@ public sealed class AFKSystem : EntitySystem
 
         foreach (var pSession in Filter.GetAllPlayers())
         {
-            if (pSession.Status != SessionStatus.InGame) continue;
+            if (pSession.Status != SessionStatus.InGame)
+                continue;
             var isAfk = _afkManager.IsAfk(pSession);
 
             if (isAfk && _afkPlayers.Add(pSession))

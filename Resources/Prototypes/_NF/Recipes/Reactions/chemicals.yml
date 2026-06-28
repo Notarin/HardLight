@@ -1,5 +1,5 @@
 - type: reaction
-  id : SalicylicAcid
+  id: SalicylicAcid
   reactants:
     Phenol:
       amount: 1

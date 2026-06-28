@@ -20,10 +20,17 @@ namespace Content.Server.Power.Generator;
 /// <seealso cref="GeneratorSystem"/>
 public sealed class PowerSwitchableSystem : SharedPowerSwitchableSystem
 {
-    [Dependency] private readonly NodeGroupSystem _nodeGroup = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly UseDelaySystem _useDelay = default!;
+    [Dependency]
+    private readonly NodeGroupSystem _nodeGroup = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly UseDelaySystem _useDelay = default!;
 
     public override void Initialize()
     {
@@ -48,7 +55,7 @@ public sealed class PowerSwitchableSystem : SharedPowerSwitchableSystem
                 Cycle(uid, args.User, comp);
             },
             Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/zap.svg.192dpi.png")),
-            Text = msg
+            Text = msg,
         };
 
         var ev = new SwitchPowerCheckEvent();
@@ -101,7 +108,7 @@ public sealed class PowerSwitchableSystem : SharedPowerSwitchableSystem
         var nodeContainer = Comp<NodeContainerComponent>(uid);
         foreach (var cable in comp.Cables)
         {
-            var node = (CableDeviceNode) nodeContainer.Nodes[cable.Node];
+            var node = (CableDeviceNode)nodeContainer.Nodes[cable.Node];
             node.Enabled = cable.Voltage == voltage;
             _nodeGroup.QueueReflood(node);
         }

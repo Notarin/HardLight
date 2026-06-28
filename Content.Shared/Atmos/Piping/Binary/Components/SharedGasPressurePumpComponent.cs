@@ -6,7 +6,7 @@ namespace Content.Shared.Atmos.Piping.Binary.Components;
 public enum GasPressurePumpUiKey : byte
 {
     Key,
-    BidiKey // Frontier
+    BidiKey, // Frontier
 }
 
 [Serializable, NetSerializable]

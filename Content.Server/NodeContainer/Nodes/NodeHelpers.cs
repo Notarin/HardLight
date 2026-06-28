@@ -1,8 +1,8 @@
 using System.Diagnostics.CodeAnalysis;
 using Content.Shared.NodeContainer;
+using Robust.Shared.GameObjects;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
-using Robust.Shared.GameObjects;
 
 namespace Content.Server.NodeContainer.Nodes
 {
@@ -11,12 +11,16 @@ namespace Content.Server.NodeContainer.Nodes
     /// </summary>
     public static class NodeHelpers
     {
-        public static IEnumerable<Node> GetNodesInTile(EntityQuery<NodeContainerComponent> nodeQuery, MapGridComponent grid, Vector2i coords)
+        public static IEnumerable<Node> GetNodesInTile(
+            EntityQuery<NodeContainerComponent> nodeQuery,
+            MapGridComponent grid,
+            Vector2i coords
+        )
         {
             var mapSystem = EntitySystem.Get<SharedMapSystem>();
-            #pragma warning disable CS0618
+#pragma warning disable CS0618
             foreach (var entityUid in mapSystem.GetAnchoredEntities(grid.Owner, grid, coords))
-            #pragma warning restore CS0618
+#pragma warning restore CS0618
             {
                 if (!nodeQuery.TryGetComponent(entityUid, out var container))
                     continue;
@@ -32,7 +36,8 @@ namespace Content.Server.NodeContainer.Nodes
             EntityQuery<NodeContainerComponent> nodeQuery,
             MapGridComponent grid,
             Vector2i coords,
-            bool includeSameTile = true)
+            bool includeSameTile = true
+        )
         {
             foreach (var (dir, entityUid) in GetCardinalNeighborCells(grid, coords, includeSameTile))
             {
@@ -50,18 +55,19 @@ namespace Content.Server.NodeContainer.Nodes
         public static IEnumerable<(Direction dir, EntityUid entity)> GetCardinalNeighborCells(
             MapGridComponent grid,
             Vector2i coords,
-            bool includeSameTile = true)
+            bool includeSameTile = true
+        )
         {
             var mapSystem = EntitySystem.Get<SharedMapSystem>();
             if (includeSameTile)
             {
-                #pragma warning disable CS0618
+#pragma warning disable CS0618
                 foreach (var uid in mapSystem.GetAnchoredEntities(grid.Owner, grid, coords))
                     yield return (Direction.Invalid, uid);
-                #pragma warning restore CS0618
+#pragma warning restore CS0618
             }
 
-            #pragma warning disable CS0618
+#pragma warning disable CS0618
             foreach (var uid in mapSystem.GetAnchoredEntities(grid.Owner, grid, coords + (0, 1)))
                 yield return (Direction.North, uid);
 
@@ -73,7 +79,7 @@ namespace Content.Server.NodeContainer.Nodes
 
             foreach (var uid in mapSystem.GetAnchoredEntities(grid.Owner, grid, coords + (-1, 0)))
                 yield return (Direction.West, uid);
-            #pragma warning restore CS0618
+#pragma warning restore CS0618
         }
     }
 }

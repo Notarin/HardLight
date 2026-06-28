@@ -1,6 +1,6 @@
 // Cherry-picked from space-station-14#32938 courtesy of Ilya246
-using JetBrains.Annotations;
 using Content.Shared.Stacks;
+using JetBrains.Annotations;
 using Robust.Client.GameObjects;
 using Robust.Client.UserInterface;
 
@@ -11,10 +11,12 @@ namespace Content.Client.Stack
     {
         private IEntityManager _entManager;
         private EntityUid _owner;
+
         [ViewVariables]
         private StackCustomSplitWindow? _window;
 
-        public StackCustomSplitBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
+        public StackCustomSplitBoundUserInterface(EntityUid owner, Enum uiKey)
+            : base(owner, uiKey)
         {
             _owner = owner;
             _entManager = IoCManager.Resolve<IEntityManager>();

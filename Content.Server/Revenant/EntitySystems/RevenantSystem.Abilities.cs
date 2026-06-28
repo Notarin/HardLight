@@ -1,50 +1,67 @@
-using Content.Shared.Popups;
-using Content.Shared.Damage;
-using Content.Shared.Revenant;
-using Robust.Shared.Random;
-using Content.Shared.Tag;
-using Content.Server.Storage.Components;
-using Content.Server.Light.Components;
-using Content.Server.Ghost;
-using Robust.Shared.Physics;
-using Content.Shared.Throwing;
-using Content.Server.Storage.EntitySystems;
-using Content.Shared.Interaction;
-using Content.Shared.Item;
-using Content.Shared.Bed.Sleep;
 using System.Linq;
 using System.Numerics;
+using Content.Server.Ghost;
+using Content.Server.Light.Components;
 using Content.Server.Revenant.Components;
-using Content.Shared.Physics;
+using Content.Server.Storage.Components;
+using Content.Server.Storage.EntitySystems;
+using Content.Shared.Bed.Sleep;
+using Content.Shared.Damage;
 using Content.Shared.DoAfter;
 using Content.Shared.Emag.Systems;
 using Content.Shared.FixedPoint;
 using Content.Shared.Humanoid;
+using Content.Shared.Interaction;
+using Content.Shared.Item;
 using Content.Shared.Light.Components;
 using Content.Shared.Maps;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
+using Content.Shared.Physics;
+using Content.Shared.Popups;
+using Content.Shared.Revenant;
 using Content.Shared.Revenant.Components;
-using Robust.Shared.Physics.Components;
-using Robust.Shared.Utility;
-using Robust.Shared.Map.Components;
+using Content.Shared.Tag;
+using Content.Shared.Throwing;
 using Content.Shared.Whitelist;
+using Robust.Shared.Map.Components;
+using Robust.Shared.Physics;
+using Robust.Shared.Physics.Components;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Random;
+using Robust.Shared.Utility;
 
 namespace Content.Server.Revenant.EntitySystems;
 
 public sealed partial class RevenantSystem
 {
-    [Dependency] private readonly ThrowingSystem _throwing = default!;
-    [Dependency] private readonly EntityStorageSystem _entityStorage = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly MobThresholdSystem _mobThresholdSystem = default!;
-    [Dependency] private readonly GhostSystem _ghost = default!;
-    [Dependency] private readonly TileSystem _tile = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
-    [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
-    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
+    [Dependency]
+    private readonly ThrowingSystem _throwing = default!;
+
+    [Dependency]
+    private readonly EntityStorageSystem _entityStorage = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly MobThresholdSystem _mobThresholdSystem = default!;
+
+    [Dependency]
+    private readonly GhostSystem _ghost = default!;
+
+    [Dependency]
+    private readonly TileSystem _tile = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelistSystem = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transformSystem = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _mapSystem = default!;
 
     private static readonly ProtoId<TagPrototype> WindowTag = "Window";
 
@@ -75,7 +92,11 @@ public sealed partial class RevenantSystem
             return;
         }
 
-        if (!HasComp<MobStateComponent>(target) || !HasComp<HumanoidAppearanceComponent>(target) || HasComp<RevenantComponent>(target))
+        if (
+            !HasComp<MobStateComponent>(target)
+            || !HasComp<HumanoidAppearanceComponent>(target)
+            || HasComp<RevenantComponent>(target)
+        )
             return;
 
         args.Handled = true;
@@ -94,11 +115,18 @@ public sealed partial class RevenantSystem
 
     private void BeginSoulSearchDoAfter(EntityUid uid, EntityUid target, RevenantComponent revenant)
     {
-        var searchDoAfter = new DoAfterArgs(EntityManager, uid, revenant.SoulSearchDuration, new SoulEvent(), uid, target: target)
+        var searchDoAfter = new DoAfterArgs(
+            EntityManager,
+            uid,
+            revenant.SoulSearchDuration,
+            new SoulEvent(),
+            uid,
+            target: target
+        )
         {
             BreakOnMove = true,
             BreakOnDamage = true,
-            DistanceThreshold = 2
+            DistanceThreshold = 2,
         };
 
         if (!_doAfter.TryStartDoAfter(searchDoAfter))
@@ -129,12 +157,22 @@ public sealed partial class RevenantSystem
                 message = "revenant-soul-yield-average";
                 break;
         }
-        _popup.PopupEntity(Loc.GetString(message, ("target", args.Args.Target)), args.Args.Target.Value, uid, PopupType.Medium);
+        _popup.PopupEntity(
+            Loc.GetString(message, ("target", args.Args.Target)),
+            args.Args.Target.Value,
+            uid,
+            PopupType.Medium
+        );
 
         args.Handled = true;
     }
 
-    private void BeginHarvestDoAfter(EntityUid uid, EntityUid target, RevenantComponent revenant, EssenceComponent essence)
+    private void BeginHarvestDoAfter(
+        EntityUid uid,
+        EntityUid target,
+        RevenantComponent revenant,
+        EssenceComponent essence
+    )
     {
         if (essence.Harvested)
         {
@@ -142,19 +180,30 @@ public sealed partial class RevenantSystem
             return;
         }
 
-        if (TryComp<MobStateComponent>(target, out var mobstate) && mobstate.CurrentState == MobState.Alive && !HasComp<SleepingComponent>(target))
+        if (
+            TryComp<MobStateComponent>(target, out var mobstate)
+            && mobstate.CurrentState == MobState.Alive
+            && !HasComp<SleepingComponent>(target)
+        )
         {
             _popup.PopupEntity(Loc.GetString("revenant-soul-too-powerful"), target, uid);
             return;
         }
 
-        if(_physics.GetEntitiesIntersectingBody(uid, (int) CollisionGroup.Impassable).Count > 0)
+        if (_physics.GetEntitiesIntersectingBody(uid, (int)CollisionGroup.Impassable).Count > 0)
         {
             _popup.PopupEntity(Loc.GetString("revenant-in-solid"), uid, uid);
             return;
         }
 
-        var doAfter = new DoAfterArgs(EntityManager, uid, revenant.HarvestDebuffs.X, new HarvestEvent(), uid, target: target)
+        var doAfter = new DoAfterArgs(
+            EntityManager,
+            uid,
+            revenant.HarvestDebuffs.X,
+            new HarvestEvent(),
+            uid,
+            target: target
+        )
         {
             DistanceThreshold = 2,
             BreakOnMove = true,
@@ -167,8 +216,7 @@ public sealed partial class RevenantSystem
 
         _appearance.SetData(uid, RevenantVisuals.Harvesting, true);
 
-        _popup.PopupEntity(Loc.GetString("revenant-soul-begin-harvest", ("target", target)),
-            target, PopupType.Large);
+        _popup.PopupEntity(Loc.GetString("revenant-soul-begin-harvest", ("target", target)), target, PopupType.Large);
 
         TryUseAbility(uid, revenant, 0, revenant.HarvestDebuffs);
     }
@@ -189,13 +237,18 @@ public sealed partial class RevenantSystem
         if (!TryComp<EssenceComponent>(args.Args.Target, out var essence))
             return;
 
-        _popup.PopupEntity(Loc.GetString("revenant-soul-finish-harvest", ("target", args.Args.Target)),
-            args.Args.Target.Value, PopupType.LargeCaution);
+        _popup.PopupEntity(
+            Loc.GetString("revenant-soul-finish-harvest", ("target", args.Args.Target)),
+            args.Args.Target.Value,
+            PopupType.LargeCaution
+        );
 
         essence.Harvested = true;
         ChangeEssenceAmount(uid, essence.EssenceAmount, component);
-        _store.TryAddCurrency(new Dictionary<string, FixedPoint2>
-            { {component.StolenEssenceCurrencyPrototype, essence.EssenceAmount} }, uid);
+        _store.TryAddCurrency(
+            new Dictionary<string, FixedPoint2> { { component.StolenEssenceCurrencyPrototype, essence.EssenceAmount } },
+            uid
+        );
 
         if (!HasComp<MobStateComponent>(args.Args.Target))
             return;
@@ -232,11 +285,15 @@ public sealed partial class RevenantSystem
         var xform = Transform(uid);
         if (!TryComp<MapGridComponent>(xform.GridUid, out var map))
             return;
-        var tiles = _mapSystem.GetTilesIntersecting(
-            xform.GridUid.Value,
-            map,
-            Box2.CenteredAround(_transformSystem.GetWorldPosition(xform),
-            new Vector2(component.DefileRadius * 2, component.DefileRadius)))
+        var tiles = _mapSystem
+            .GetTilesIntersecting(
+                xform.GridUid.Value,
+                map,
+                Box2.CenteredAround(
+                    _transformSystem.GetWorldPosition(xform),
+                    new Vector2(component.DefileRadius * 2, component.DefileRadius)
+                )
+            )
             .ToArray();
 
         _random.Shuffle(tiles);
@@ -248,7 +305,11 @@ public sealed partial class RevenantSystem
             _tile.PryTile(value);
         }
 
-        var lookup = _lookup.GetEntitiesInRange(uid, component.DefileRadius, LookupFlags.Approximate | LookupFlags.Static);
+        var lookup = _lookup.GetEntitiesInRange(
+            uid,
+            component.DefileRadius,
+            LookupFlags.Approximate | LookupFlags.Static
+        );
         var tags = GetEntityQuery<TagComponent>();
         var entityStorage = GetEntityQuery<EntityStorageComponent>();
         var items = GetEntityQuery<ItemComponent>();
@@ -273,8 +334,11 @@ public sealed partial class RevenantSystem
                 _entityStorage.OpenStorage(ent, entstorecomp);
 
             //chucks shit
-            if (items.HasComponent(ent) &&
-                TryComp<PhysicsComponent>(ent, out var phys) && phys.BodyType != BodyType.Static)
+            if (
+                items.HasComponent(ent)
+                && TryComp<PhysicsComponent>(ent, out var phys)
+                && phys.BodyType != BodyType.Static
+            )
                 _throwing.TryThrow(ent, _random.NextAngle().ToWorldVec());
 
             //flicker lights
@@ -283,7 +347,11 @@ public sealed partial class RevenantSystem
         }
     }
 
-    private void OnOverloadLightsAction(EntityUid uid, RevenantComponent component, RevenantOverloadLightsActionEvent args)
+    private void OnOverloadLightsAction(
+        EntityUid uid,
+        RevenantComponent component,
+        RevenantOverloadLightsActionEvent args
+    )
     {
         if (args.Handled)
             return;
@@ -303,16 +371,24 @@ public sealed partial class RevenantSystem
             if (!mobState.HasComponent(ent) || !_mobState.IsAlive(ent))
                 continue;
 
-            var nearbyLights = _lookup.GetEntitiesInRange(ent, component.OverloadZapRadius)
-                .Where(e => poweredLights.HasComponent(e) && !HasComp<RevenantOverloadedLightsComponent>(e) &&
-                            _interact.InRangeUnobstructed(e, uid, -1)).ToArray();
+            var nearbyLights = _lookup
+                .GetEntitiesInRange(ent, component.OverloadZapRadius)
+                .Where(e =>
+                    poweredLights.HasComponent(e)
+                    && !HasComp<RevenantOverloadedLightsComponent>(e)
+                    && _interact.InRangeUnobstructed(e, uid, -1)
+                )
+                .ToArray();
 
             if (!nearbyLights.Any())
                 continue;
 
             //get the closest light
             var allLight = nearbyLights.OrderBy(e =>
-                Transform(e).Coordinates.TryDistance(EntityManager, xform.Coordinates, out var dist) ? component.OverloadZapRadius : dist);
+                Transform(e).Coordinates.TryDistance(EntityManager, xform.Coordinates, out var dist)
+                    ? component.OverloadZapRadius
+                    : dist
+            );
             var comp = EnsureComp<RevenantOverloadedLightsComponent>(allLight.First());
             comp.Target = ent; //who they gon fire at?
         }
@@ -342,8 +418,10 @@ public sealed partial class RevenantSystem
 
         foreach (var ent in _lookup.GetEntitiesInRange(uid, component.MalfunctionRadius))
         {
-            if (_whitelistSystem.IsWhitelistFail(component.MalfunctionWhitelist, ent) ||
-                _whitelistSystem.IsBlacklistPass(component.MalfunctionBlacklist, ent))
+            if (
+                _whitelistSystem.IsWhitelistFail(component.MalfunctionWhitelist, ent)
+                || _whitelistSystem.IsBlacklistPass(component.MalfunctionBlacklist, ent)
+            )
                 continue;
 
             var ev = new GotEmaggedEvent(uid, EmagType.Interaction | EmagType.Access);

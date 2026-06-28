@@ -13,9 +13,8 @@ namespace Content.Client.Disposal.Tube
         [ViewVariables]
         private DisposalRouterWindow? _window;
 
-        public DisposalRouterBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-        {
-        }
+        public DisposalRouterBoundUserInterface(EntityUid owner, Enum uiKey)
+            : base(owner, uiKey) { }
 
         protected override void Open()
         {

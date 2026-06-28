@@ -20,11 +20,11 @@
     Tail:
       points: 1
       required: true
-      defaultMarkings: [ FelinidTailBasic ]
+      defaultMarkings: [FelinidTailBasic]
     HeadTop:
       points: 1
       required: true
-      defaultMarkings: [ FelinidEarsBasic ]
+      defaultMarkings: [FelinidEarsBasic]
     Chest:
       points: 4 # Frontier 1<4
       required: false

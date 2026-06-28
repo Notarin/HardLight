@@ -5,19 +5,26 @@ using Content.Server.Power.EntitySystems;
 using Content.Server.Stack;
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Interaction;
+using Content.Shared.Stacks;
 using Content.Shared.Storage;
 using Content.Shared.Storage.Components;
-using Content.Shared.Stacks;
 using Robust.Server.Audio;
 
 namespace Content.Server.Materials;
 
 public sealed class ProduceMaterialExtractorSystem : EntitySystem
 {
-    [Dependency] private readonly AudioSystem _audio = default!;
-    [Dependency] private readonly MaterialStorageSystem _materialStorage = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainer = default!;
-    [Dependency] private readonly StackSystem _stackSystem = default!;
+    [Dependency]
+    private readonly AudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly MaterialStorageSystem _materialStorage = default!;
+
+    [Dependency]
+    private readonly SharedSolutionContainerSystem _solutionContainer = default!;
+
+    [Dependency]
+    private readonly StackSystem _stackSystem = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -67,10 +74,11 @@ public sealed class ProduceMaterialExtractorSystem : EntitySystem
         if (TryComp<StackComponent>(used, out var stack))
             stackCount = stack.Count;
 
-        var matAmount = solution.Value.Comp.Solution.Contents
-            .Where(r => ent.Comp.ExtractionReagents.Contains(r.Reagent.Prototype))
-            .Sum(r => r.Quantity.Float()) * stackCount;
-        _materialStorage.TryChangeMaterialAmount(ent, ent.Comp.ExtractedMaterial, (int) matAmount);
+        var matAmount =
+            solution
+                .Value.Comp.Solution.Contents.Where(r => ent.Comp.ExtractionReagents.Contains(r.Reagent.Prototype))
+                .Sum(r => r.Quantity.Float()) * stackCount;
+        _materialStorage.TryChangeMaterialAmount(ent, ent.Comp.ExtractedMaterial, (int)matAmount);
 
         if (stackCount > 1 && stack != null)
             _stackSystem.SetCount(used, stack.Count - stackCount, stack);

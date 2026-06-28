@@ -49,7 +49,9 @@ public sealed class DecalPainter
             Run(canvas, decal);
         }
 
-        Console.WriteLine($"{nameof(DecalPainter)} painted {decals.Length} decals in {(int) stopwatch.Elapsed.TotalMilliseconds} ms");
+        Console.WriteLine(
+            $"{nameof(DecalPainter)} painted {decals.Length} decals in {(int)stopwatch.Elapsed.TotalMilliseconds} ms"
+        );
     }
 
     private void Run(Image canvas, DecalData data)
@@ -84,18 +86,19 @@ public sealed class DecalPainter
 
         var image = Image.Load<Rgba32>(stream);
 
-        image.Mutate(o => o.Rotate((float) -decal.Angle.Degrees));
+        image.Mutate(o => o.Rotate((float)-decal.Angle.Degrees));
         var coloredImage = new Image<Rgba32>(image.Width, image.Height);
         Color color = decal.Color?.WithAlpha(byte.MaxValue).ConvertImgSharp() ?? Color.White; // remove the encoded color alpha here
         var alpha = decal.Color?.A ?? 1; // get the alpha separately so we can use it in DrawImage
         coloredImage.Mutate(o => o.BackgroundColor(color));
 
-        image.Mutate(o => o
-            .DrawImage(coloredImage, PixelColorBlendingMode.Multiply, PixelAlphaCompositionMode.SrcAtop, 1.0f)
-            .Flip(FlipMode.Vertical));
+        image.Mutate(o =>
+            o.DrawImage(coloredImage, PixelColorBlendingMode.Multiply, PixelAlphaCompositionMode.SrcAtop, 1.0f)
+                .Flip(FlipMode.Vertical)
+        );
 
         // Very unsure why the - 1 is needed in the first place but all decals are off by exactly one pixel otherwise
         // Woohoo!
-        canvas.Mutate(o => o.DrawImage(image, new Point((int) data.X, (int) data.Y - 1), alpha));
+        canvas.Mutate(o => o.DrawImage(image, new Point((int)data.X, (int)data.Y - 1), alpha));
     }
 }

@@ -26,7 +26,6 @@ namespace Content.Shared.Humanoid.Markings
         [DataField("followSkinColor")]
         public bool FollowSkinColor { get; private set; } = false;
 
-
         [DataField("RMCFollowSkinColor")]
         public bool RMCFollowSkinColor { get; private set; } = false;
 
@@ -77,8 +76,9 @@ namespace Content.Shared.Humanoid.Markings
         public Dictionary<string, string>? ColorLinks { get; private set; }
 
         // impstation edit - allow markings to support shaders
-		[DataField("shader")]
-		public string? Shader { get; private set; } = null;
+        [DataField("shader")]
+        public string? Shader { get; private set; } = null;
+
         // end impstation edit
         public Marking AsMarking()
         {

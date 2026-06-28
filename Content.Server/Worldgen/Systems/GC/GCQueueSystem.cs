@@ -15,19 +15,25 @@ namespace Content.Server.Worldgen.Systems.GC;
 /// </summary>
 public sealed class GCQueueSystem : EntitySystem
 {
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
 
-    [ViewVariables] private TimeSpan _maximumProcessTime = TimeSpan.Zero;
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
 
-    [ViewVariables] private readonly Dictionary<string, Queue<EntityUid>> _queues = new();
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [ViewVariables]
+    private TimeSpan _maximumProcessTime = TimeSpan.Zero;
+
+    [ViewVariables]
+    private readonly Dictionary<string, Queue<EntityUid>> _queues = new();
 
     /// <inheritdoc />
     public override void Initialize()
     {
-        _cfg.OnValueChanged(CCVars.GCMaximumTimeMs, s => _maximumProcessTime = TimeSpan.FromMilliseconds(s),
-            true);
+        _cfg.OnValueChanged(CCVars.GCMaximumTimeMs, s => _maximumProcessTime = TimeSpan.FromMilliseconds(s), true);
     }
 
     /// <inheritdoc />CCVars
@@ -48,8 +54,11 @@ public sealed class GCQueueSystem : EntitySystem
                 continue;
 
             queueWatch.Restart();
-            while (queueWatch.Elapsed < proto.MaximumTickTime && queue.Count >= proto.MinDepthToProcess &&
-                   overallWatch.Elapsed < _maximumProcessTime)
+            while (
+                queueWatch.Elapsed < proto.MaximumTickTime
+                && queue.Count >= proto.MinDepthToProcess
+                && overallWatch.Elapsed < _maximumProcessTime
+            )
             {
                 var e = queue.Dequeue();
                 if (!Deleted(e))
@@ -121,4 +130,3 @@ public record struct TryGCImmediately(bool Cancelled = false);
 [ByRefEvent]
 [PublicAPI]
 public record struct TryCancelGC(bool Cancelled = false);
-

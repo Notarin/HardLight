@@ -2,7 +2,7 @@
 - type: entity
   id: TobaccoPouchBrownFilled
   name: |-
-   "Galaxy Core Blend" pouch
+    "Galaxy Core Blend" pouch
   parent: NFTobaccoPouch
   description: A fiery collection of exotic tobaccos, each leaf coated with preserving agent. Should you wash it off before smoking?
   suffix: Filled
@@ -15,7 +15,7 @@
 - type: entity
   id: TobaccoPouchBlueFilled
   name: |-
-   "Stonecut Leaf" pouch
+    "Stonecut Leaf" pouch
   parent: NFTobaccoPouch
   description: A label on the packaging proudly declares that the pipe-weed is mixed with the finest dust of rarest minerals, the list of minerals occupies most of the label space.
   suffix: Filled
@@ -30,19 +30,19 @@
       map: ["openLayer"]
       visible: false
     - state: fill-tobacco-1
-      map: [ "pouchFill1" ]
+      map: ["pouchFill1"]
       color: "#5f4d2e"
       visible: false
     - state: fill-tobacco-2
-      map: [ "pouchFill2" ]
+      map: ["pouchFill2"]
       color: "#5f4d2e"
       visible: false
     - state: fill-tobacco-3
-      map: [ "pouchFill3" ]
+      map: ["pouchFill3"]
       color: "#5f4d2e"
       visible: false
     - state: fill-tobacco-4
-      map: [ "pouchFill4" ]
+      map: ["pouchFill4"]
       color: "#5f4d2e"
       visible: false
     - state: label
@@ -68,7 +68,7 @@
 - type: entity
   id: TobaccoPouchRedFilled
   name: |-
-   "Fungal Whiff" pouch
+    "Fungal Whiff" pouch
   parent: NFTobaccoPouch
   description: Grown deep within the mushroom forests, Fungal Whiff offers a mellow, earthy smoke that's perfect for those contemplative moments spent plotting the next heist.
   suffix: Filled
@@ -83,19 +83,19 @@
       map: ["openLayer"]
       visible: false
     - state: fill-tobacco-1
-      map: [ "pouchFill1" ]
+      map: ["pouchFill1"]
       color: "#b07265"
       visible: false
     - state: fill-tobacco-2
-      map: [ "pouchFill2" ]
+      map: ["pouchFill2"]
       color: "#b07265"
       visible: false
     - state: fill-tobacco-3
-      map: [ "pouchFill3" ]
+      map: ["pouchFill3"]
       color: "#b07265"
       visible: false
     - state: fill-tobacco-4
-      map: [ "pouchFill4" ]
+      map: ["pouchFill4"]
       color: "#b07265"
       visible: false
     - state: label
@@ -121,7 +121,7 @@
 - type: entity
   id: TobaccoPouchPurpleFilled
   name: |-
-   "Sweet Dreams" pouch
+    "Sweet Dreams" pouch
   parent: NFTobaccoPouch
   description: This tobacco pouch advertises its smokers being "blessed with cozy, restful sleeps", whatever that means.
   suffix: Filled
@@ -136,19 +136,19 @@
       map: ["openLayer"]
       visible: false
     - state: fill-tobacco-1
-      map: [ "pouchFill1" ]
+      map: ["pouchFill1"]
       color: "#a865a0"
       visible: false
     - state: fill-tobacco-2
-      map: [ "pouchFill2" ]
+      map: ["pouchFill2"]
       color: "#a865a0"
       visible: false
     - state: fill-tobacco-3
-      map: [ "pouchFill3" ]
+      map: ["pouchFill3"]
       color: "#a865a0"
       visible: false
     - state: fill-tobacco-4
-      map: [ "pouchFill4" ]
+      map: ["pouchFill4"]
       color: "#a865a0"
       visible: false
     - state: label

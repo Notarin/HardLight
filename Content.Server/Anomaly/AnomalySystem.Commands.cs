@@ -7,17 +7,26 @@ namespace Content.Server.Anomaly;
 
 public sealed partial class AnomalySystem
 {
-    [Dependency] private readonly IConsoleHost _consoleHost = default!;
+    [Dependency]
+    private readonly IConsoleHost _consoleHost = default!;
 
     public void InitializeCommands()
     {
-        _consoleHost.RegisterCommand("pulseanomaly", Loc.GetString("anomaly-command-pulse"), "pulseanomaly <uid>",
+        _consoleHost.RegisterCommand(
+            "pulseanomaly",
+            Loc.GetString("anomaly-command-pulse"),
+            "pulseanomaly <uid>",
             PulseAnomalyCommand,
-            GetAnomalyCompletion);
+            GetAnomalyCompletion
+        );
 
-        _consoleHost.RegisterCommand("supercriticalanomaly", Loc.GetString("anomaly-command-supercritical"), "supercriticalanomaly <uid>",
+        _consoleHost.RegisterCommand(
+            "supercriticalanomaly",
+            Loc.GetString("anomaly-command-supercritical"),
+            "supercriticalanomaly <uid>",
             SupercriticalAnomalyCommand,
-            GetAnomalyCompletion);
+            GetAnomalyCompletion
+        );
     }
 
     [AdminCommand(AdminFlags.Fun)]

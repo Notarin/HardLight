@@ -13,13 +13,26 @@ namespace Content.Server._FarHorizons.Power.Generation.FissionGenerator;
 
 public sealed partial class GasTurbineMonitorSystem : EntitySystem
 {
-    [Dependency] private readonly EntityManager _entityManager = default!;
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly TurbineSystem _turbineSystem = default!;
-    [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
-    [Dependency] private readonly DeviceLinkSystem _signal = default!;
-    [Dependency] private readonly UserInterfaceSystem _uiSystem = null!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
+    [Dependency]
+    private readonly EntityManager _entityManager = default!;
+
+    [Dependency]
+    private readonly IAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    private readonly TurbineSystem _turbineSystem = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transformSystem = default!;
+
+    [Dependency]
+    private readonly DeviceLinkSystem _signal = default!;
+
+    [Dependency]
+    private readonly UserInterfaceSystem _uiSystem = null!;
+
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
 
     private readonly float _threshold = 0.5f;
     private float _accumulator = 0f;
@@ -83,7 +96,10 @@ public sealed partial class GasTurbineMonitorSystem : EntitySystem
         Dirty(uid, comp);
     }
 
-    public bool TryGetTurbineComp(GasTurbineMonitorComponent turbineMonitor, [NotNullWhen(true)] out TurbineComponent? turbineComponent)
+    public bool TryGetTurbineComp(
+        GasTurbineMonitorComponent turbineMonitor,
+        [NotNullWhen(true)] out TurbineComponent? turbineComponent
+    )
     {
         turbineComponent = null;
         if (!_entityManager.TryGetEntity(turbineMonitor.turbine, out var turbineUid) || turbineUid == null)
@@ -112,17 +128,25 @@ public sealed partial class GasTurbineMonitorSystem : EntitySystem
         void UpdateLogs()
         {
             var toRemove = new List<KeyValuePair<EntityUid, EntityUid>>();
-            foreach (var log in _logQueue.Where(log => !((_gameTiming.RealTime - log.Value.CreationTime).TotalSeconds < 2)))
+            foreach (
+                var log in _logQueue.Where(log => !((_gameTiming.RealTime - log.Value.CreationTime).TotalSeconds < 2))
+            )
             {
                 toRemove.Add(log.Key);
 
                 if (log.Value.SetFlowRate != null)
-                    _adminLogger.Add(LogType.AtmosVolumeChanged, LogImpact.Medium,
-                        $"{ToPrettyString(log.Key.Key):player} set the flow rate on {ToPrettyString(log.Value.Turbine):device} to {log.Value.SetFlowRate} through {ToPrettyString(log.Key.Value):monitor}");
+                    _adminLogger.Add(
+                        LogType.AtmosVolumeChanged,
+                        LogImpact.Medium,
+                        $"{ToPrettyString(log.Key.Key):player} set the flow rate on {ToPrettyString(log.Value.Turbine):device} to {log.Value.SetFlowRate} through {ToPrettyString(log.Key.Value):monitor}"
+                    );
 
                 if (log.Value.SetStatorLoad != null)
-                    _adminLogger.Add(LogType.AtmosDeviceSetting, LogImpact.Medium,
-                        $"{ToPrettyString(log.Key.Key):player} set the stator load on {ToPrettyString(log.Value.Turbine):device} to {log.Value.SetStatorLoad} through {ToPrettyString(log.Key.Value):monitor}");
+                    _adminLogger.Add(
+                        LogType.AtmosDeviceSetting,
+                        LogImpact.Medium,
+                        $"{ToPrettyString(log.Key.Key):player} set the stator load on {ToPrettyString(log.Value.Turbine):device} to {log.Value.SetStatorLoad} through {ToPrettyString(log.Key.Value):monitor}"
+                    );
             }
 
             foreach (var kvp in toRemove)
@@ -144,26 +168,33 @@ public sealed partial class GasTurbineMonitorSystem : EntitySystem
         }
     }
 
-    private void OnTurbineFlowRateChanged(EntityUid uid, GasTurbineMonitorComponent comp, TurbineChangeFlowRateMessage args)
+    private void OnTurbineFlowRateChanged(
+        EntityUid uid,
+        GasTurbineMonitorComponent comp,
+        TurbineChangeFlowRateMessage args
+    )
     {
         if (!TryGetTurbineComp(comp, out var turbine))
             return;
 
-        if(TrySetFlowRate())
+        if (TrySetFlowRate())
         {
             // Data is sent to a log queue to avoid spamming the admin log when adjusting values rapidly
             var key = new KeyValuePair<EntityUid, EntityUid>(args.Actor, uid);
-            if(!_logQueue.TryGetValue(key, out var value))
-                _logQueue.Add(key, new LogData
-                {
-                    CreationTime = _gameTiming.RealTime,
-                    Turbine = comp.turbine!.Value,
-                    SetFlowRate = turbine.FlowRate
-                });
+            if (!_logQueue.TryGetValue(key, out var value))
+                _logQueue.Add(
+                    key,
+                    new LogData
+                    {
+                        CreationTime = _gameTiming.RealTime,
+                        Turbine = comp.turbine!.Value,
+                        SetFlowRate = turbine.FlowRate,
+                    }
+                );
             else
                 value.SetFlowRate = turbine.FlowRate;
         }
-            
+
         _turbineSystem.UpdateUI(uid, turbine);
 
         return;
@@ -176,26 +207,33 @@ public sealed partial class GasTurbineMonitorSystem : EntitySystem
                 turbine.FlowRate = newSet;
                 return true;
             }
-            return false; 
+            return false;
         }
     }
 
-    private void OnTurbineStatorLoadChanged(EntityUid uid, GasTurbineMonitorComponent comp, TurbineChangeStatorLoadMessage args)
+    private void OnTurbineStatorLoadChanged(
+        EntityUid uid,
+        GasTurbineMonitorComponent comp,
+        TurbineChangeStatorLoadMessage args
+    )
     {
         if (!TryGetTurbineComp(comp, out var turbine))
             return;
-        
+
         if (TrySetStatorLoad())
         {
             // Data is sent to a log queue to avoid spamming the admin log when adjusting values rapidly
             var key = new KeyValuePair<EntityUid, EntityUid>(args.Actor, uid);
             if (!_logQueue.TryGetValue(key, out var value))
-                _logQueue.Add(key, new LogData
-                {
-                    CreationTime = _gameTiming.RealTime,
-                    Turbine = comp.turbine!.Value,
-                    SetStatorLoad = turbine.StatorLoad
-                });
+                _logQueue.Add(
+                    key,
+                    new LogData
+                    {
+                        CreationTime = _gameTiming.RealTime,
+                        Turbine = comp.turbine!.Value,
+                        SetStatorLoad = turbine.StatorLoad,
+                    }
+                );
             else
                 value.SetStatorLoad = turbine.StatorLoad;
         }
@@ -212,7 +250,7 @@ public sealed partial class GasTurbineMonitorSystem : EntitySystem
                 turbine.StatorLoad = newSet;
                 return true;
             }
-            return false; 
+            return false;
         }
     }
     #endregion

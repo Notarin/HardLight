@@ -1,9 +1,9 @@
 using System.Linq;
-using Content.Shared.GameTicking;
+using System.Text;
 using Content.Server.Station.Components;
+using Content.Shared.GameTicking;
 using Robust.Shared.Network;
 using Robust.Shared.Player;
-using System.Text;
 
 namespace Content.Server.GameTicking
 {
@@ -52,8 +52,7 @@ namespace Content.Server.GameTicking
             var readyCount = _playerGameStatuses.Values.Count(x => x == PlayerGameStatus.ReadyToPlay);
 
             var stationNames = new StringBuilder();
-            var query =
-                EntityQueryEnumerator<StationJobsComponent, StationSpawningComponent, MetaDataComponent>();
+            var query = EntityQueryEnumerator<StationJobsComponent, StationSpawningComponent, MetaDataComponent>();
 
             var foundOne = false;
 
@@ -61,15 +60,16 @@ namespace Content.Server.GameTicking
             {
                 foundOne = true;
                 if (stationNames.Length > 0)
-                        stationNames.Append('\n');
+                    stationNames.Append('\n');
 
                 stationNames.Append(meta.EntityName);
             }
 
             if (!foundOne)
             {
-                stationNames.Append(_gameMapManager.GetSelectedMap()?.MapName ??
-                                    Loc.GetString("game-ticker-no-map-selected"));
+                stationNames.Append(
+                    _gameMapManager.GetSelectedMap()?.MapName ?? Loc.GetString("game-ticker-no-map-selected")
+                );
             }
 
             var gmTitle = Loc.GetString(preset.ModeTitle);
@@ -83,7 +83,8 @@ namespace Content.Server.GameTicking
                 ("readyCount", readyCount),
                 ("mapName", stationNames.ToString()),
                 ("gmTitle", gmTitle),
-                ("desc", desc));
+                ("desc", desc)
+            );
         }
 
         private TickerConnectionStatusEvent GetConnectionStatusMsg()
@@ -94,7 +95,15 @@ namespace Content.Server.GameTicking
         private TickerLobbyStatusEvent GetStatusMsg(ICommonSession session)
         {
             _playerGameStatuses.TryGetValue(session.UserId, out var status);
-            return new TickerLobbyStatusEvent(RunLevel != GameRunLevel.PreRoundLobby, LobbyBackground, status == PlayerGameStatus.ReadyToPlay, _roundStartTime, RoundPreloadTime, RoundStartTimeSpan, Paused);
+            return new TickerLobbyStatusEvent(
+                RunLevel != GameRunLevel.PreRoundLobby,
+                LobbyBackground,
+                status == PlayerGameStatus.ReadyToPlay,
+                _roundStartTime,
+                RoundPreloadTime,
+                RoundStartTimeSpan,
+                Paused
+            );
         }
 
         private void SendStatusToAll()
@@ -107,7 +116,7 @@ namespace Content.Server.GameTicking
 
         private TickerLobbyInfoEvent GetInfoMsg()
         {
-            return new (GetInfoText());
+            return new(GetInfoText());
         }
 
         private void UpdateLateJoinStatus()
@@ -135,9 +144,9 @@ namespace Content.Server.GameTicking
 
             RaiseNetworkEvent(new TickerLobbyCountdownEvent(_roundStartTime, Paused));
 
-            _chatManager.DispatchServerAnnouncement(Loc.GetString(Paused
-                ? "game-ticker-pause-start"
-                : "game-ticker-pause-start-resumed"));
+            _chatManager.DispatchServerAnnouncement(
+                Loc.GetString(Paused ? "game-ticker-pause-start" : "game-ticker-pause-start-resumed")
+            );
 
             return true;
         }
@@ -180,10 +189,9 @@ namespace Content.Server.GameTicking
             UpdateInfoText();
         }
 
-        public bool UserHasJoinedGame(ICommonSession session)
-            => UserHasJoinedGame(session.UserId);
+        public bool UserHasJoinedGame(ICommonSession session) => UserHasJoinedGame(session.UserId);
 
-        public bool UserHasJoinedGame(NetUserId userId)
-            => PlayerGameStatuses.TryGetValue(userId, out var status) && status == PlayerGameStatus.JoinedGame;
+        public bool UserHasJoinedGame(NetUserId userId) =>
+            PlayerGameStatuses.TryGetValue(userId, out var status) && status == PlayerGameStatus.JoinedGame;
     }
 }

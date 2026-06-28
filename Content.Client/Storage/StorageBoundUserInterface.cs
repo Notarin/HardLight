@@ -15,15 +15,15 @@ public sealed class StorageBoundUserInterface : BoundUserInterface
 
     public Vector2? Position => _window?.Position;
 
-    public StorageBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-    }
+    public StorageBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {
         base.Open();
 
-        _window = IoCManager.Resolve<IUserInterfaceManager>()
+        _window = IoCManager
+            .Resolve<IUserInterfaceManager>()
             .GetUIController<StorageUIController>()
             .CreateStorageWindow(this);
 

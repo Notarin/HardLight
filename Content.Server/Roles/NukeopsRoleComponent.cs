@@ -6,6 +6,4 @@ namespace Content.Server.Roles;
 ///     Added to mind role entities to tag that they are a nuke operative.
 /// </summary>
 [RegisterComponent]
-public sealed partial class NukeopsRoleComponent : BaseMindRoleComponent
-{
-}
+public sealed partial class NukeopsRoleComponent : BaseMindRoleComponent { }

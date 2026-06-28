@@ -8,7 +8,8 @@ namespace Content.Server._Funkystation.Genetics.Mutations.Systems;
 
 public sealed class CrawlSpeedBoostSystem : SharedCrawlSpeedBoostSystem
 {
-    [Dependency] private readonly MovementSpeedModifierSystem _movespeed = default!;
+    [Dependency]
+    private readonly MovementSpeedModifierSystem _movespeed = default!;
 
     public override void Initialize()
     {
@@ -24,9 +25,11 @@ public sealed class CrawlSpeedBoostSystem : SharedCrawlSpeedBoostSystem
 
     private void OnRefresh(EntityUid uid, CrawlSpeedBoostComponent comp, RefreshMovementSpeedModifiersEvent args)
     {
-        if (!TryComp<LayingDownComponent>(uid, out var laying) ||
-            !TryComp<StandingStateComponent>(uid, out var standing) ||
-            standing.CurrentState != StandingState.Lying)
+        if (
+            !TryComp<LayingDownComponent>(uid, out var laying)
+            || !TryComp<StandingStateComponent>(uid, out var standing)
+            || standing.CurrentState != StandingState.Lying
+        )
             return;
 
         float original = laying.LyingSpeedModifier;

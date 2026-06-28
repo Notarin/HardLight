@@ -19,8 +19,11 @@ public sealed partial class SimpleFloorPlanPopulatorComponent : Component
     /// <summary>
     ///     The prototype facing floor plan populator entries.
     /// </summary>
-    [DataField("entries", required: true,
-        customTypeSerializer: typeof(PrototypeIdDictionarySerializer<List<EntitySpawnEntry>, ContentTileDefinition>))]
+    [DataField(
+        "entries",
+        required: true,
+        customTypeSerializer: typeof(PrototypeIdDictionarySerializer<List<EntitySpawnEntry>, ContentTileDefinition>)
+    )]
     private Dictionary<string, List<EntitySpawnEntry>> _entries = default!;
 
     /// <summary>
@@ -34,9 +37,10 @@ public sealed partial class SimpleFloorPlanPopulatorComponent : Component
             if (_caches is null)
             {
                 _caches = _entries
-                    .Select(x =>
-                        new KeyValuePair<string, EntitySpawnCollectionCache>(x.Key,
-                            new EntitySpawnCollectionCache(x.Value)))
+                    .Select(x => new KeyValuePair<string, EntitySpawnCollectionCache>(
+                        x.Key,
+                        new EntitySpawnCollectionCache(x.Value)
+                    ))
                     .ToDictionary(x => x.Key, x => x.Value);
             }
 
@@ -44,4 +48,3 @@ public sealed partial class SimpleFloorPlanPopulatorComponent : Component
         }
     }
 }
-

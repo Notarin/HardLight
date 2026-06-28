@@ -9,9 +9,8 @@ public sealed class RoboticsConsoleBoundUserInterface : BoundUserInterface
     [ViewVariables]
     public RoboticsConsoleWindow _window = default!;
 
-    public RoboticsConsoleBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-    }
+    public RoboticsConsoleBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {

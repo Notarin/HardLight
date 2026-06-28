@@ -12,11 +12,12 @@ public sealed partial class WorldChunkComponent : Component
     /// <summary>
     ///     The coordinates of the chunk, in chunk space.
     /// </summary>
-    [DataField("coordinates")] public Vector2i Coordinates;
+    [DataField("coordinates")]
+    public Vector2i Coordinates;
 
     /// <summary>
     ///     The map this chunk belongs to.
     /// </summary>
-    [DataField("map")] public EntityUid Map;
+    [DataField("map")]
+    public EntityUid Map;
 }
-

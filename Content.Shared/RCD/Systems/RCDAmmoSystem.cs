@@ -11,10 +11,17 @@ namespace Content.Shared.RCD.Systems;
 
 public sealed class RCDAmmoSystem : EntitySystem
 {
-    [Dependency] private readonly SharedChargesSystem _sharedCharges = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly SharedChargesSystem _sharedCharges = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly INetManager _net = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     public override void Initialize()
     {
@@ -38,9 +45,11 @@ public sealed class RCDAmmoSystem : EntitySystem
         if (args.Handled || !args.CanReach || !_timing.IsFirstTimePredicted)
             return;
 
-        if (args.Target is not { Valid: true } target ||
-            !HasComp<RCDComponent>(target) ||
-            !TryComp<LimitedChargesComponent>(target, out var charges))
+        if (
+            args.Target is not { Valid: true } target
+            || !HasComp<RCDComponent>(target)
+            || !TryComp<LimitedChargesComponent>(target, out var charges)
+        )
             return;
 
         var current = _sharedCharges.GetCurrentCharges((target, charges));
@@ -49,7 +58,10 @@ public sealed class RCDAmmoSystem : EntitySystem
         // ## Frontier - Shipyard RCD ammo only fits in shipyard RCD.
         // At this point RCDComponent is guaranteed
         EnsureComp<RCDComponent>(target, out var rcdComponent);
-        if (rcdComponent.IsShipyardRCD && !comp.IsShipyardRCDAmmo || !rcdComponent.IsShipyardRCD && comp.IsShipyardRCDAmmo)
+        if (
+            rcdComponent.IsShipyardRCD && !comp.IsShipyardRCDAmmo
+            || !rcdComponent.IsShipyardRCD && comp.IsShipyardRCDAmmo
+        )
         {
             _popup.PopupClient(Loc.GetString("rcd-component-wrong-ammo-type"), target, user);
             return;

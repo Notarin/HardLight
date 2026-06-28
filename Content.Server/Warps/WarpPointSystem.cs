@@ -1,13 +1,15 @@
+using Content.Server.Station.Systems; // Frontier
 using Content.Shared.Examine;
 using Content.Shared.Ghost;
 using Content.Shared.Warps;
-using Content.Server.Station.Systems; // Frontier
 
 namespace Content.Server.Warps;
 
 public sealed class WarpPointSystem : EntitySystem
 {
-    [Dependency] private readonly StationSystem _station = default!; // Frontier
+    [Dependency]
+    private readonly StationSystem _station = default!; // Frontier
+
     public override void Initialize()
     {
         base.Initialize();
@@ -27,16 +29,20 @@ public sealed class WarpPointSystem : EntitySystem
     // Frontier
     private void OnStartup(EntityUid uid, WarpPointComponent component, ComponentStartup args)
     {
-        if (component.QueryStationName
+        if (
+            component.QueryStationName
             && _station.GetOwningStation(uid) is { Valid: true } station
-            && TryComp(station, out MetaDataComponent? stationMetadata))
+            && TryComp(station, out MetaDataComponent? stationMetadata)
+        )
         {
             component.Location = stationMetadata.EntityName;
         }
-        else if (component.QueryGridName
+        else if (
+            component.QueryGridName
             && TryComp(uid, out TransformComponent? xform)
             && xform.GridUid is { Valid: true } grid
-            && TryComp(grid, out MetaDataComponent? gridMetadata))
+            && TryComp(grid, out MetaDataComponent? gridMetadata)
+        )
         {
             component.Location = gridMetadata.EntityName;
         }

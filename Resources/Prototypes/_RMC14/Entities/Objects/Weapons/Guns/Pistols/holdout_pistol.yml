@@ -1,4 +1,4 @@
-﻿- type: entity
+- type: entity
   parent: CMWeaponPistolBase
   id: RMCWeaponPistolHoldout
   name: holdout pistol
@@ -8,10 +8,10 @@
   - type: Item
     size: Tiny
   # - type: RMCSelectiveFire
-    # scatterWielded: 10
-    # scatterUnwielded: 10
-    # baseFireRate: 4
-    # burstScatterMult: 10
+  # scatterWielded: 10
+  # scatterUnwielded: 10
+  # baseFireRate: 4
+  # burstScatterMult: 10
   - type: Sprite
     sprite: _RMC14/Objects/Weapons/Guns/Pistols/holdout.rsi
   - type: Clothing
@@ -30,28 +30,28 @@
         whitelist:
           tags:
           - RMCMagazinePistolHoldout
-  # - type: AttachableHolder
-    # slots:
-      # rmc-aslot-barrel:
+          # - type: AttachableHolder
+        # slots:
+        # rmc-aslot-barrel:
         # whitelist:
-          # tags:
-          # - RMCAttachmentBarrelCharger
-          # - RMCAttachmentSuppressor
-      # rmc-aslot-rail:
-        # whitelist:
-          # tags:
-          # - RMCAttachmentRailFlashlight
-      # rmc-aslot-underbarrel:
-        # whitelist:
-          # tags:
-          # - RMCAttachmentBurstFireAssembly
-          # - RMCAttachmentLaserSight
-  # - type: AttachableHolderVisuals
-    # offsets:
-      # rmc-aslot-barrel: 0.71, 0.095
-      # rmc-aslot-rail: -0.065, 0.125
-      # rmc-aslot-underbarrel: 0.312, -0.25
+        # tags:
+        # - RMCAttachmentBarrelCharger
+        # - RMCAttachmentSuppressor
   - type: Tag
+    # rmc-aslot-rail:
+    # whitelist:
+    # tags:
+    # - RMCAttachmentRailFlashlight
+    # rmc-aslot-underbarrel:
+    # whitelist:
+    # tags:
+    # - RMCAttachmentBurstFireAssembly
+    # - RMCAttachmentLaserSight
+    # - type: AttachableHolderVisuals
+    # offsets:
+    # rmc-aslot-barrel: 0.71, 0.095
+    # rmc-aslot-rail: -0.065, 0.125
+    # rmc-aslot-underbarrel: 0.312, -0.25
     tags:
     - Holdout
 
@@ -91,7 +91,7 @@
     damage:
       types:
         Piercing: 20
-  # - type: CMArmorPiercing
+        # - type: CMArmorPiercing
     # amount: 10
 
 - type: entity
@@ -105,7 +105,6 @@
     - CMCartridgePistol22mm
   - type: CartridgeAmmo
     proto: CMBulletPistol22mm
-
 
 - type: Tag
   id: RMCMagazinePistolHoldout

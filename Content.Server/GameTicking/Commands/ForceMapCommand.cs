@@ -12,7 +12,8 @@ namespace Content.Server.GameTicking.Commands
     [AdminCommand(AdminFlags.Round)]
     sealed class ForceMapCommand : IConsoleCommand
     {
-        [Dependency] private readonly IConfigurationManager _configurationManager = default!;
+        [Dependency]
+        private readonly IConfigurationManager _configurationManager = default!;
 
         public string Command => "forcemap";
         public string Description => Loc.GetString("forcemap-command-description");
@@ -48,7 +49,8 @@ namespace Content.Server.GameTicking.Commands
         {
             if (args.Length == 1)
             {
-                var options = IoCManager.Resolve<IPrototypeManager>()
+                var options = IoCManager
+                    .Resolve<IPrototypeManager>()
                     .EnumeratePrototypes<GameMapPrototype>()
                     .Select(p => new CompletionOption(p.ID, p.MapName))
                     .OrderBy(p => p.Value);

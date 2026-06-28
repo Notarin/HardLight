@@ -14,8 +14,10 @@ public sealed class AdminNotesEui : BaseEui
         NoteWindow = new AdminNotesWindow();
         NoteControl = NoteWindow.Notes;
 
-        NoteControl.NoteChanged += (id, type, text, severity, secret, expiryTime) => SendMessage(new EditNoteRequest(id, type, text, severity, secret, expiryTime));
-        NoteControl.NewNoteEntered += (type, text, severity, secret, expiryTime) => SendMessage(new CreateNoteRequest(type, text, severity, secret, expiryTime));
+        NoteControl.NoteChanged += (id, type, text, severity, secret, expiryTime) =>
+            SendMessage(new EditNoteRequest(id, type, text, severity, secret, expiryTime));
+        NoteControl.NewNoteEntered += (type, text, severity, secret, expiryTime) =>
+            SendMessage(new CreateNoteRequest(type, text, severity, secret, expiryTime));
         NoteControl.NoteDeleted += (id, type) => SendMessage(new DeleteNoteRequest(id, type));
         NoteWindow.OnClose += () => SendMessage(new CloseEuiMessage());
     }

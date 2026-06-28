@@ -1,27 +1,36 @@
 using System.Linq;
 using Content.Server.Administration.Logs;
-using Content.Shared.Chat; // For InGameICChatType
 using Content.Server.Chat.Systems;
 using Content.Server.Kitchen.Components;
+using Content.Server.Kitchen.EntitySystems;
 using Content.Server.Popups;
 using Content.Shared.Access;
 using Content.Shared.Access.Components;
 using Content.Shared.Access.Systems;
+using Content.Shared.Chat; // For InGameICChatType
 using Content.Shared.Database;
 using Content.Shared.Popups;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
-using Content.Server.Kitchen.EntitySystems;
 
 namespace Content.Server.Access.Systems;
 
 public sealed class IdCardSystem : SharedIdCardSystem
 {
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly ChatSystem _chat = default!;
-    [Dependency] private readonly MicrowaveSystem _microwave = default!;
+    [Dependency]
+    private readonly PopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly ChatSystem _chat = default!;
+
+    [Dependency]
+    private readonly MicrowaveSystem _microwave = default!;
 
     public override void Initialize()
     {
@@ -45,10 +54,12 @@ public sealed class IdCardSystem : SharedIdCardSystem
                 TryComp(uid, out TransformComponent? transformComponent);
                 if (transformComponent != null)
                 {
-                    _popupSystem.PopupCoordinates(Loc.GetString("id-card-component-microwave-burnt", ("id", uid)),
-                     transformComponent.Coordinates, PopupType.Medium);
-                    EntityManager.SpawnEntity("FoodBadRecipe",
-                        transformComponent.Coordinates);
+                    _popupSystem.PopupCoordinates(
+                        Loc.GetString("id-card-component-microwave-burnt", ("id", uid)),
+                        transformComponent.Coordinates,
+                        PopupType.Medium
+                    );
+                    EntityManager.SpawnEntity("FoodBadRecipe", transformComponent.Coordinates);
                 }
                 /* _adminLogger.Add(LogType.Action, LogImpact.Medium,
                     $"{ToPrettyString(args.Microwave)} burnt {ToPrettyString(uid):entity}"); */
@@ -83,11 +94,18 @@ public sealed class IdCardSystem : SharedIdCardSystem
             }
             else
             {
-                _popupSystem.PopupEntity(Loc.GetString("id-card-component-microwave-safe", ("id", uid)), uid, PopupType.Medium);
+                _popupSystem.PopupEntity(
+                    Loc.GetString("id-card-component-microwave-safe", ("id", uid)),
+                    uid,
+                    PopupType.Medium
+                );
             }
 
             // Give them a wonderful new access to compensate for everything
-            var ids = _prototypeManager.EnumeratePrototypes<AccessLevelPrototype>().Where(x => x.CanAddToIdCard).ToArray();
+            var ids = _prototypeManager
+                .EnumeratePrototypes<AccessLevelPrototype>()
+                .Where(x => x.CanAddToIdCard)
+                .ToArray();
 
             if (ids.Length == 0)
                 return;
@@ -99,7 +117,6 @@ public sealed class IdCardSystem : SharedIdCardSystem
 
             /* _adminLogger.Add(LogType.Action, LogImpact.High,
                     $"{ToPrettyString(args.Microwave)} added {random.ID} access to {ToPrettyString(uid):entity}"); */
-
         }
     }
 
@@ -117,7 +134,8 @@ public sealed class IdCardSystem : SharedIdCardSystem
                 Loc.GetString(ent.Comp.ExpireMessage),
                 InGameICChatType.Speak,
                 ChatTransmitRange.Normal,
-                true);
+                true
+            );
         }
     }
 }

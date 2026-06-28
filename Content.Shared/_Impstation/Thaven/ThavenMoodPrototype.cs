@@ -49,6 +49,7 @@ public partial class ThavenMood
     [DataField(serverOnly: true, customTypeSerializer: typeof(PrototypeIdHashSetSerializer<DepartmentPrototype>))]
     [ViewVariables(VVAccess.ReadWrite)]
     public HashSet<string> JobConflicts = new();
+
     // end funky
 
     public (string, object)[] GetLocArgs()
@@ -91,7 +92,10 @@ public sealed partial class ThavenMoodPrototype : IPrototype
     /// Extra mood variables that will be randomly chosen and provided
     /// to the <see cref="Loc.GetString"/> call on <see cref="ThavenMood.MoodDesc"/>.
     /// </summary>
-    [DataField("moodVars", customTypeSerializer: typeof(PrototypeIdValueDictionarySerializer<string, DatasetPrototype>))]
+    [DataField(
+        "moodVars",
+        customTypeSerializer: typeof(PrototypeIdValueDictionarySerializer<string, DatasetPrototype>)
+    )]
     public Dictionary<string, string> MoodVarDatasets = new();
 
     /// <summary>

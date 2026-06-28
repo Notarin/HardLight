@@ -19,50 +19,50 @@
   - type: PotentialPsionic #Nyano - Summary: makes potentially psionic.
   - type: Sprite
     layers:
-    - map: [ "enum.HumanoidVisualLayers.TailBehind" ]  # HL Modification
-    - map: [ "enum.HumanoidVisualLayers.Chest" ]
-    - map: [ "enum.HumanoidVisualLayers.Head" ]
-    - map: [ "enum.HumanoidVisualLayers.Snout" ]
-    - map: [ "enum.HumanoidVisualLayers.Eyes" ]
-    - map: [ "enum.HumanoidVisualLayers.RArm" ]
-    - map: [ "enum.HumanoidVisualLayers.LArm" ]
-    - map: [ "enum.HumanoidVisualLayers.RLeg" ]
-    - map: [ "enum.HumanoidVisualLayers.LLeg" ]
-    - map: [ "enum.HumanoidVisualLayers.Genital" ] # HL Modification
-    - map: [ "enum.HumanoidVisualLayers.Breasts" ] # HL Modification
-    - map: [ "enum.HumanoidVisualLayers.UndergarmentTop" ]
-    - map: [ "enum.HumanoidVisualLayers.Penis" ] # HL Modification
-    - map: [ "enum.HumanoidVisualLayers.UndergarmentBottom" ]
+    - map: ["enum.HumanoidVisualLayers.TailBehind"] # HL Modification
+    - map: ["enum.HumanoidVisualLayers.Chest"]
+    - map: ["enum.HumanoidVisualLayers.Head"]
+    - map: ["enum.HumanoidVisualLayers.Snout"]
+    - map: ["enum.HumanoidVisualLayers.Eyes"]
+    - map: ["enum.HumanoidVisualLayers.RArm"]
+    - map: ["enum.HumanoidVisualLayers.LArm"]
+    - map: ["enum.HumanoidVisualLayers.RLeg"]
+    - map: ["enum.HumanoidVisualLayers.LLeg"]
+    - map: ["enum.HumanoidVisualLayers.Genital"] # HL Modification
+    - map: ["enum.HumanoidVisualLayers.Breasts"] # HL Modification
+    - map: ["enum.HumanoidVisualLayers.UndergarmentTop"]
+    - map: ["enum.HumanoidVisualLayers.Penis"] # HL Modification
+    - map: ["enum.HumanoidVisualLayers.UndergarmentBottom"]
     - map: ["jumpsuit"]
     - map: ["enum.HumanoidVisualLayers.LFoot"]
     - map: ["enum.HumanoidVisualLayers.RFoot"]
     - map: ["enum.HumanoidVisualLayers.LHand"]
     - map: ["enum.HumanoidVisualLayers.RHand"]
-    - map: [ "gloves" ]
-    - map: [ "shoes" ]
-    - map: [ "ears" ]
-    - map: [ "eyes" ]
-    - map: [ "outerClothing" ]
-    - map: [ "belt" ]
-    - map: [ "id" ]
-    - map: [ "back" ]
-    - map: [ "enum.HumanoidVisualLayers.TailOversuit" ] # HL Modification
-    - map: [ "neck" ]
-    - map: [ "enum.HumanoidVisualLayers.FacialHair" ]
-    - map: [ "enum.HumanoidVisualLayers.Hair" ]
-    - map: [ "enum.HumanoidVisualLayers.HeadSide" ]
-    - map: [ "enum.HumanoidVisualLayers.HeadTop" ]
-    - map: [ "enum.HumanoidVisualLayers.Tail" ]
-    - map: [ "mask" ]
-    - map: [ "head" ]
-    - map: [ "pocket1" ]
-    - map: [ "pocket2" ]
+    - map: ["gloves"]
+    - map: ["shoes"]
+    - map: ["ears"]
+    - map: ["eyes"]
+    - map: ["outerClothing"]
+    - map: ["belt"]
+    - map: ["id"]
+    - map: ["back"]
+    - map: ["enum.HumanoidVisualLayers.TailOversuit"] # HL Modification
+    - map: ["neck"]
+    - map: ["enum.HumanoidVisualLayers.FacialHair"]
+    - map: ["enum.HumanoidVisualLayers.Hair"]
+    - map: ["enum.HumanoidVisualLayers.HeadSide"]
+    - map: ["enum.HumanoidVisualLayers.HeadTop"]
+    - map: ["enum.HumanoidVisualLayers.Tail"]
+    - map: ["mask"]
+    - map: ["head"]
+    - map: ["pocket1"]
+    - map: ["pocket2"]
     - map: ["enum.HumanoidVisualLayers.Handcuffs"]
       color: "#ffffff"
       sprite: Objects/Misc/handcuffs.rsi
       state: body-overlay-2
       visible: false
-    - map: [ "clownedon" ] # Dynamically generated
+    - map: ["clownedon"] # Dynamically generated
       sprite: "Effects/creampie.rsi"
       state: "creampie_human"
       visible: false
@@ -132,11 +132,11 @@
     requiredLegs: 2
   - type: Tag
     tags:
-      - CanPilot
-      - FootstepSound
-      - DoorBumpOpener
-      - AnomalyHost
-      - Protogen
+    - CanPilot
+    - FootstepSound
+    - DoorBumpOpener
+    - AnomalyHost
+    - Protogen
   - type: Temperature
     currentTemperature: 310.15
     specificHeat: 46
@@ -144,10 +144,10 @@
     coldDamageThreshold: 230
     coldDamage:
       types:
-        Cold : 0.1 #per second, scales with temperature & other constants
+        Cold: 0.1 #per second, scales with temperature & other constants
     heatDamage:
       types:
-        Heat : 1.5 #per second, scales with temperature & other constants
+        Heat: 1.5 #per second, scales with temperature & other constants
   - type: TemperatureSpeed
     thresholds:
       280: 0.9
@@ -182,7 +182,7 @@
     speechVerb: Robotic
     speechSounds: Borg
     # Starlight start: protogen recreated audio
-    allowedEmotes: ['Chirp', 'Squish', 'Purr', 'Growl', 'Trill', 'Scree', 'Call', 'Squawk', 'Bark', 'Snarl', 'Whine', 'Howl', 'Yip', 'Mew', 'Meow','Thump', "Marr", "Wurble", 'Chitter', 'Squeak', 'Click', 'Beep', 'Ping', 'Buzz', 'Buzz-Two', 'Chime', 'Honk']
+    allowedEmotes: ['Chirp', 'Squish', 'Purr', 'Growl', 'Trill', 'Scree', 'Call', 'Squawk', 'Bark', 'Snarl', 'Whine', 'Howl', 'Yip', 'Mew', 'Meow', 'Thump', "Marr", "Wurble", 'Chitter', 'Squeak', 'Click', 'Beep', 'Ping', 'Buzz', 'Buzz-Two', 'Chime', 'Honk']
     # Starlight end
   - type: Vocal # Starlight: protogen recreated audio
     sounds:
@@ -195,7 +195,7 @@
 - type: entity
   parent: BaseSpeciesDummy
   id: MobProtogenDummy
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Inventory
     speciesId: protogen #to be replaced with proto[species] when new sprites are made
@@ -285,17 +285,17 @@
       Unsexed: ProtoVulpMSounds
   - type: Tag
     tags:
-      - CanPilot
-      - FootstepSound
-      - DoorBumpOpener
-      - AnomalyHost
-      - Protogen
-      - Vulpkanin
+    - CanPilot
+    - FootstepSound
+    - DoorBumpOpener
+    - AnomalyHost
+    - Protogen
+    - Vulpkanin
 
 - type: entity
   parent: BaseSpeciesDummy
   id: MobProtoVulpDummy
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Inventory
     speciesId: protovulp #to be replaced with proto[species] when new sprites are made
@@ -360,51 +360,51 @@
     bloodReagent: AmmoniaBlood
   - type: Sprite # Need to redefine the whole order to draw the tail over their gas tank
     layers:
-    - map: [ "enum.HumanoidVisualLayers.TailBehind" ]  # HL Modification
-    - map: [ "enum.HumanoidVisualLayers.Chest" ]
-    - map: [ "enum.HumanoidVisualLayers.Head" ]
-    - map: [ "enum.HumanoidVisualLayers.Snout" ]
-    - map: [ "enum.HumanoidVisualLayers.Eyes" ]
-    - map: [ "enum.HumanoidVisualLayers.RArm" ]
-    - map: [ "enum.HumanoidVisualLayers.LArm" ]
-    - map: [ "enum.HumanoidVisualLayers.RLeg" ]
-    - map: [ "enum.HumanoidVisualLayers.LLeg" ]
-    - map: [ "enum.HumanoidVisualLayers.Genital" ] # HL Modification
-    - map: [ "enum.HumanoidVisualLayers.Breasts" ] # HL Modification
-    - map: [ "enum.HumanoidVisualLayers.UndergarmentTop" ]
-    - map: [ "enum.HumanoidVisualLayers.Penis" ] # HL Modification
-    - map: [ "enum.HumanoidVisualLayers.UndergarmentBottom" ]
-    - map: [ "jumpsuit" ]
-    - map: [ "enum.HumanoidVisualLayers.LFoot" ]
-    - map: [ "enum.HumanoidVisualLayers.RFoot" ]
-    - map: [ "enum.HumanoidVisualLayers.LHand" ]
-    - map: [ "enum.HumanoidVisualLayers.RHand" ]
-    - map: [ "gloves" ]
-    - map: [ "shoes" ]
-    - map: [ "ears" ]
-    - map: [ "eyes" ]
-    - map: [ "outerClothing" ]
-    - map: [ "belt" ]
-    - map: [ "id" ]
-    - map: [ "back" ]
-    - map: [ "enum.HumanoidVisualLayers.TailOversuit" ] # HL Modification
-    - map: [ "neck" ]
-    - map: [ "suitstorage" ]
-    - map: [ "enum.HumanoidVisualLayers.FacialHair" ]
-    - map: [ "enum.HumanoidVisualLayers.Hair" ]
-    - map: [ "enum.HumanoidVisualLayers.HeadSide" ]
-    - map: [ "enum.HumanoidVisualLayers.HeadTop" ]
-    - map: [ "enum.HumanoidVisualLayers.Tail" ]
-    - map: [ "mask" ]
-    - map: [ "head" ]
-    - map: [ "pocket1" ]
-    - map: [ "pocket2" ]
-    - map: [ "enum.HumanoidVisualLayers.Handcuffs" ]
+    - map: ["enum.HumanoidVisualLayers.TailBehind"] # HL Modification
+    - map: ["enum.HumanoidVisualLayers.Chest"]
+    - map: ["enum.HumanoidVisualLayers.Head"]
+    - map: ["enum.HumanoidVisualLayers.Snout"]
+    - map: ["enum.HumanoidVisualLayers.Eyes"]
+    - map: ["enum.HumanoidVisualLayers.RArm"]
+    - map: ["enum.HumanoidVisualLayers.LArm"]
+    - map: ["enum.HumanoidVisualLayers.RLeg"]
+    - map: ["enum.HumanoidVisualLayers.LLeg"]
+    - map: ["enum.HumanoidVisualLayers.Genital"] # HL Modification
+    - map: ["enum.HumanoidVisualLayers.Breasts"] # HL Modification
+    - map: ["enum.HumanoidVisualLayers.UndergarmentTop"]
+    - map: ["enum.HumanoidVisualLayers.Penis"] # HL Modification
+    - map: ["enum.HumanoidVisualLayers.UndergarmentBottom"]
+    - map: ["jumpsuit"]
+    - map: ["enum.HumanoidVisualLayers.LFoot"]
+    - map: ["enum.HumanoidVisualLayers.RFoot"]
+    - map: ["enum.HumanoidVisualLayers.LHand"]
+    - map: ["enum.HumanoidVisualLayers.RHand"]
+    - map: ["gloves"]
+    - map: ["shoes"]
+    - map: ["ears"]
+    - map: ["eyes"]
+    - map: ["outerClothing"]
+    - map: ["belt"]
+    - map: ["id"]
+    - map: ["back"]
+    - map: ["enum.HumanoidVisualLayers.TailOversuit"] # HL Modification
+    - map: ["neck"]
+    - map: ["suitstorage"]
+    - map: ["enum.HumanoidVisualLayers.FacialHair"]
+    - map: ["enum.HumanoidVisualLayers.Hair"]
+    - map: ["enum.HumanoidVisualLayers.HeadSide"]
+    - map: ["enum.HumanoidVisualLayers.HeadTop"]
+    - map: ["enum.HumanoidVisualLayers.Tail"]
+    - map: ["mask"]
+    - map: ["head"]
+    - map: ["pocket1"]
+    - map: ["pocket2"]
+    - map: ["enum.HumanoidVisualLayers.Handcuffs"]
       color: "#ffffff"
       sprite: Objects/Misc/handcuffs.rsi
       state: body-overlay-2
       visible: false
-    - map: [ "clownedon" ]
+    - map: ["clownedon"]
       sprite: "Effects/creampie.rsi"
       state: "creampie_vox" # Not default
       visible: false
@@ -480,17 +480,17 @@
           state: hand_r
   - type: Tag
     tags:
-      - CanPilot
-      - FootstepSound
-      - DoorBumpOpener
-      - AnomalyHost
-      - Protogen
-      - Vox
+    - CanPilot
+    - FootstepSound
+    - DoorBumpOpener
+    - AnomalyHost
+    - Protogen
+    - Vox
 
 - type: entity
   parent: BaseSpeciesDummy
   id: MobProtoVoxDummy
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: HumanoidAppearance
     species: ProtoVox #to be replaced with proto[species] when new sprites are made
@@ -592,8 +592,8 @@
   - type: Butcherable
     butcheringType: Spike
     spawned:
-      - id: FoodThavenMeat
-        amount: 5
+    - id: FoodThavenMeat
+      amount: 5
   - type: Damageable
     damageContainer: Biological
     damageModifierSet: ProtoThaven
@@ -642,18 +642,17 @@
             state: hands
   - type: Tag
     tags:
-      - CanPilot
-      - FootstepSound
-      - DoorBumpOpener
-      - AnomalyHost
-      - Protogen
-      - Thaven
-
+    - CanPilot
+    - FootstepSound
+    - DoorBumpOpener
+    - AnomalyHost
+    - Protogen
+    - Thaven
 
 - type: entity
   parent: BaseSpeciesDummy
   id: MobProtoThavenDummy
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     scale: 1, 1
@@ -780,21 +779,21 @@
         Blunt: 0.55
   - type: Reactive
     groups:
-      Flammable: [ Touch ]
-      Extinguish: [ Touch ]
+      Flammable: [Touch]
+      Extinguish: [Touch]
     reactions:
-    - reagents: [ Water ]
-      methods: [ Touch ]
+    - reagents: [Water]
+      methods: [Touch]
       effects:
       - !type:HealthChange
-#        scaleByQuantity: true
+        #        scaleByQuantity: true
         damage:
           types:
             Heat: 0.1
       - !type:PopupMessage
         type: Local
         visualType: Large
-        messages: [ "slime-hurt-by-water-popup" ]
+        messages: ["slime-hurt-by-water-popup"]
         probability: 0.25
   - type: Butcherable
     butcheringType: Spike
@@ -822,17 +821,17 @@
   - type: Wagging
   - type: Tag
     tags:
-      - CanPilot
-      - FootstepSound
-      - DoorBumpOpener
-      - AnomalyHost
-      - Protogen
-      - SlimePerson
+    - CanPilot
+    - FootstepSound
+    - DoorBumpOpener
+    - AnomalyHost
+    - Protogen
+    - SlimePerson
 
 - type: entity
   parent: MobHumanDummy
   id: MobProtoSlimePersonDummy
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: HumanoidAppearance
     species: ProtoSlimePerson
@@ -855,185 +854,185 @@
   id: BaseMobProtoKin
   abstract: true
   components:
-    - type: PotentialPsionic #Nyano - Summary: makes potentially psionic.
-    - type: Repairable # So welder is just a special little snowflake in the code. I tried making healing with welder work through ConditionalHealing component, but it would require too many changes in too many places. So we will keep on the trend and have brute healing defined here. /shrug
-      doAfterDelay: 1 # Faster than normal so using welding to heal isn't absolute ass for protogens
-      allowSelfRepair: true
-      fuelCost: 10
-      damage:
-        groups:
-          Brute: -30 # 5 for each type with reduction applied
-    - type: Hunger
-    - type: Thirst
-    - type: HumanoidAppearance
-      species: ProtoKin
-      hideLayersOnEquip:
-      - Hair
-      # HL start: Hide genital markings on equip
-      - Genital
-      - Penis
-      - Breasts
-      # HL end
-    - type: Icon
-      sprite: _FarHorizons/Mobs/Species/Proto-Kin/parts.rsi
-      state: full
-    - type: Body
-      prototype: ProtoKin
-      requiredLegs: 2
-    - type: HarpySinger # Closest EE equivalant to FH midi player on protogens.
-    - type: Instrument
-      allowPercussion: false
-      program: 52
-    - type: SwappableInstrument
-      instrumentList:
-        "Voice": {52: 0}
-        "Trumpet": {56: 0}
-        "Electric": {27: 0}
-        "Bass": {33: 0}
-        "Rock": {29: 0}
-        "Acoustic": {24: 0}
-        "Flute": {73: 0}
-        "Sax": {66: 0}
-        "Piano": {1: 0}
-        "Church Organ": {19: 0}
-        "Harp": {46: 0}
-    - type: UserInterface
-      interfaces:
-        enum.HumanoidMarkingModifierKey.Key:
-          type: HumanoidMarkingModifierBoundUserInterface
-        enum.StrippingUiKey.Key:
-          type: StrippableBoundUserInterface
-        enum.StoreUiKey.Key:
-          type: StoreBoundUserInterface
-        enum.SurgeryUIKey.Key:
-          type: SurgeryBui
-        enum.ThavenMoodsUiKey.Key: # impstation edit
-          type: ThavenMoodsBoundUserInterface
-          requireInputValidation: false
-        enum.InstrumentUiKey.Key:
-          type: InstrumentBoundUserInterface
-          requireInputValidation: false
-    - type: TypingIndicator
-      proto: robot
-    - type: Speech
-      speechVerb: Robotic
-      speechSounds: Borg
-      # Starlight start: protogen recreated audio
-      allowedEmotes: ['Chirp', 'Squish', 'Purr', 'Growl', 'Trill', 'Scree', 'Call', 'Squawk', 'Bark', 'Snarl', 'Whine', 'Howl', 'Yip', 'Mew', 'Meow','Thump', "Marr", "Wurble", 'Chitter', 'Squeak', 'Click', 'Beep', 'Ping', 'Buzz', 'Buzz-Two', 'Chime', 'Honk']
-      # Starlight end
-    - type: Vocal # Starlight: protogen recreated audio
-      sounds:
-        Male: ProtoShadekinMSounds
-        Female: ProtoShadekinFSounds
-        Unsexed: ProtoShadekinMSounds
-    - type: MeleeWeapon
-      soundHit:
-        collection: AlienClaw
-      angle: 30
-      animation: WeaponArcClaw
-      damage:
-        types:
-          Piercing: 2
-          Slash: 3
-    - type: Damageable
-      damageContainer: Biological
-      damageModifierSet: ProtoKin
-    - type: Bloodstream
-      bloodlossDamage:
-        types:
-          Bloodloss: 1
-      bloodlossHealDamage:
-        types:
-          Bloodloss: -0.25
-    - type: Flammable
-      damage:
-        types:
-          Heat: 1.5
-    - type: PassiveDamage
-      allowedStates:
-        - Alive
-      damageCap: 20
-      damage:
-        groups:
-          Brute: -0.07
-          Burn: -0.07
-    - type: Destructible
-      thresholds:
-        - trigger: !type:DamageTypeTrigger
-            damageType: Blunt
-            damage: 400
-          behaviors:
-            - !type:GibBehavior {}
-            - !type:SpawnEntitiesBehavior
-              spawn:
-                ShadekinShadow:
-                  min: 1
-                  max: 1
-        - trigger: !type:DamageTypeTrigger
-            damageType: Heat
-            damage: 1500
-          behaviors:
-            - !type:SpawnEntitiesBehavior
-              spawnInContainer: true
-              spawn:
-                Ash:
-                  min: 1
-                  max: 1
-                ShadekinShadow:
-                  min: 1
-                  max: 1
-            - !type:BurnBodyBehavior {}
+  - type: PotentialPsionic #Nyano - Summary: makes potentially psionic.
+  - type: Repairable # So welder is just a special little snowflake in the code. I tried making healing with welder work through ConditionalHealing component, but it would require too many changes in too many places. So we will keep on the trend and have brute healing defined here. /shrug
+    doAfterDelay: 1 # Faster than normal so using welding to heal isn't absolute ass for protogens
+    allowSelfRepair: true
+    fuelCost: 10
+    damage:
+      groups:
+        Brute: -30 # 5 for each type with reduction applied
+  - type: Hunger
+  - type: Thirst
+  - type: HumanoidAppearance
+    species: ProtoKin
+    hideLayersOnEquip:
+    - Hair
+    # HL start: Hide genital markings on equip
+    - Genital
+    - Penis
+    - Breasts
+    # HL end
+  - type: Icon
+    sprite: _FarHorizons/Mobs/Species/Proto-Kin/parts.rsi
+    state: full
+  - type: Body
+    prototype: ProtoKin
+    requiredLegs: 2
+  - type: HarpySinger # Closest EE equivalant to FH midi player on protogens.
+  - type: Instrument
+    allowPercussion: false
+    program: 52
+  - type: SwappableInstrument
+    instrumentList:
+      "Voice": {52: 0}
+      "Trumpet": {56: 0}
+      "Electric": {27: 0}
+      "Bass": {33: 0}
+      "Rock": {29: 0}
+      "Acoustic": {24: 0}
+      "Flute": {73: 0}
+      "Sax": {66: 0}
+      "Piano": {1: 0}
+      "Church Organ": {19: 0}
+      "Harp": {46: 0}
+  - type: UserInterface
+    interfaces:
+      enum.HumanoidMarkingModifierKey.Key:
+        type: HumanoidMarkingModifierBoundUserInterface
+      enum.StrippingUiKey.Key:
+        type: StrippableBoundUserInterface
+      enum.StoreUiKey.Key:
+        type: StoreBoundUserInterface
+      enum.SurgeryUIKey.Key:
+        type: SurgeryBui
+      enum.ThavenMoodsUiKey.Key: # impstation edit
+        type: ThavenMoodsBoundUserInterface
+        requireInputValidation: false
+      enum.InstrumentUiKey.Key:
+        type: InstrumentBoundUserInterface
+        requireInputValidation: false
+  - type: TypingIndicator
+    proto: robot
+  - type: Speech
+    speechVerb: Robotic
+    speechSounds: Borg
+    # Starlight start: protogen recreated audio
+    allowedEmotes: ['Chirp', 'Squish', 'Purr', 'Growl', 'Trill', 'Scree', 'Call', 'Squawk', 'Bark', 'Snarl', 'Whine', 'Howl', 'Yip', 'Mew', 'Meow', 'Thump', "Marr", "Wurble", 'Chitter', 'Squeak', 'Click', 'Beep', 'Ping', 'Buzz', 'Buzz-Two', 'Chime', 'Honk']
+    # Starlight end
+  - type: Vocal # Starlight: protogen recreated audio
+    sounds:
+      Male: ProtoShadekinMSounds
+      Female: ProtoShadekinFSounds
+      Unsexed: ProtoShadekinMSounds
+  - type: MeleeWeapon
+    soundHit:
+      collection: AlienClaw
+    angle: 30
+    animation: WeaponArcClaw
+    damage:
+      types:
+        Piercing: 2
+        Slash: 3
+  - type: Damageable
+    damageContainer: Biological
+    damageModifierSet: ProtoKin
+  - type: Bloodstream
+    bloodlossDamage:
+      types:
+        Bloodloss: 1
+    bloodlossHealDamage:
+      types:
+        Bloodloss: -0.25
+  - type: Flammable
+    damage:
+      types:
+        Heat: 1.5
+  - type: PassiveDamage
+    allowedStates:
+    - Alive
+    damageCap: 20
+    damage:
+      groups:
+        Brute: -0.07
+        Burn: -0.07
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTypeTrigger
+        damageType: Blunt
+        damage: 400
+      behaviors:
+      - !type:GibBehavior {}
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          ShadekinShadow:
+            min: 1
+            max: 1
+    - trigger: !type:DamageTypeTrigger
+        damageType: Heat
+        damage: 1500
+      behaviors:
+      - !type:SpawnEntitiesBehavior
+        spawnInContainer: true
+        spawn:
+          Ash:
+            min: 1
+            max: 1
+          ShadekinShadow:
+            min: 1
+            max: 1
+      - !type:BurnBodyBehavior {}
 
-    - type: Barotrauma
-      damage:
-        types:
-          Blunt: 0.25 #per second, halved compared to normal.
-          Heat: 0.1
-    - type: Fingerprint
-    - type: Blindable
-    # Other
-    - type: Temperature
-      currentTemperature: 310.15
-      specificHeat: 42
-      heatDamageThreshold: 325
-      coldDamageThreshold: 260
-      coldDamage:
-        types:
-          Cold: 0.1 #per second, scales with temperature & other constants
-      heatDamage:
-        types:
-          Heat: 1.5 #per second, scales with temperature & other constants
-    - type: TemperatureSpeed
-      thresholds:
-       280: 0.9
-       250: 0.8
-       230: 0.7
-    - type: ThermalRegulator
-      metabolismHeat: 800
-      radiatedHeat: 100
-      implicitHeatRegulation: 500
-      sweatHeatRegulation: 2000
-      shiveringHeatRegulation: 2000
-      normalBodyTemperature: 310.15
-      thermalRegulationTemperatureThreshold: 2
-    - type: Perishable
-    - type: Butcherable
-      butcheringType: Spike
-      spawned:
-        - id: FoodMeat
-          amount: 5
-    - type: FireVisuals
-      alternateState: Standing
-    - type: UniversalHealModifier
-      modifier: 0.5
-    - type: Tag
-      tags:
-        - CanPilot
-        - FootstepSound
-        - DoorBumpOpener
-        - AnomalyHost
-        - Protogen
-        - Shadekin
+  - type: Barotrauma
+    damage:
+      types:
+        Blunt: 0.25 #per second, halved compared to normal.
+        Heat: 0.1
+  - type: Fingerprint
+  - type: Blindable
+  # Other
+  - type: Temperature
+    currentTemperature: 310.15
+    specificHeat: 42
+    heatDamageThreshold: 325
+    coldDamageThreshold: 260
+    coldDamage:
+      types:
+        Cold: 0.1 #per second, scales with temperature & other constants
+    heatDamage:
+      types:
+        Heat: 1.5 #per second, scales with temperature & other constants
+  - type: TemperatureSpeed
+    thresholds:
+      280: 0.9
+      250: 0.8
+      230: 0.7
+  - type: ThermalRegulator
+    metabolismHeat: 800
+    radiatedHeat: 100
+    implicitHeatRegulation: 500
+    sweatHeatRegulation: 2000
+    shiveringHeatRegulation: 2000
+    normalBodyTemperature: 310.15
+    thermalRegulationTemperatureThreshold: 2
+  - type: Perishable
+  - type: Butcherable
+    butcheringType: Spike
+    spawned:
+    - id: FoodMeat
+      amount: 5
+  - type: FireVisuals
+    alternateState: Standing
+  - type: UniversalHealModifier
+    modifier: 0.5
+  - type: Tag
+    tags:
+    - CanPilot
+    - FootstepSound
+    - DoorBumpOpener
+    - AnomalyHost
+    - Protogen
+    - Shadekin
 
 - type: entity
   save: false
@@ -1042,8 +1041,8 @@
   categories: [HideSpawnMenu]
   description: A dummy protokin meant to be used in character setup.
   components:
-    - type: HumanoidAppearance
-      species: ProtoKin
+  - type: HumanoidAppearance
+    species: ProtoKin
 
 #region RESOMI ####
 
@@ -1065,56 +1064,56 @@
         variation: 0.05
   - type: Sprite # Need to redefine the whole order to draw the tail over their gas tank
     layers:
-    - map: [ "enum.HumanoidVisualLayers.TailBehind" ]  # HL Modification
-    - map: [ "enum.HumanoidVisualLayers.Chest" ]
-    - map: [ "enum.HumanoidVisualLayers.Head" ]
-    - map: [ "enum.HumanoidVisualLayers.Snout" ]
-    - map: [ "enum.HumanoidVisualLayers.Eyes" ]
-    - map: [ "enum.HumanoidVisualLayers.RArm" ]
-    - map: [ "enum.HumanoidVisualLayers.LArm" ]
-    - map: [ "enum.HumanoidVisualLayers.RLeg" ]
-    - map: [ "enum.HumanoidVisualLayers.LLeg" ]
-    - map: [ "enum.HumanoidVisualLayers.Genital" ] # HL Modification
-    - map: [ "enum.HumanoidVisualLayers.Breasts" ] # HL Modification
-    - map: [ "enum.HumanoidVisualLayers.UndergarmentTop" ]
-    - map: [ "enum.HumanoidVisualLayers.Penis" ] # HL Modification
-    - map: [ "enum.HumanoidVisualLayers.UndergarmentBottom" ]
-    - map: [ "jumpsuit" ]
-    - map: [ "enum.HumanoidVisualLayers.LFoot" ]
-    - map: [ "enum.HumanoidVisualLayers.RFoot" ]
-    - map: [ "enum.HumanoidVisualLayers.LHand" ]
-    - map: [ "enum.HumanoidVisualLayers.RHand" ]
-    - map: [ "gloves" ]
-    - map: [ "shoes" ]
-    - map: [ "ears" ]
-    - map: [ "eyes" ]
-    - map: [ "outerClothing" ]
-    - map: [ "belt" ]
-    - map: [ "id" ]
-    - map: [ "back" ]
-    - map: [ "enum.HumanoidVisualLayers.TailOversuit" ] # HL Modification
-    - map: [ "neck" ]
-    - map: [ "suitstorage" ]
-    - map: [ "enum.HumanoidVisualLayers.FacialHair" ]
-    - map: [ "enum.HumanoidVisualLayers.Hair" ]
-    - map: [ "enum.HumanoidVisualLayers.HeadSide" ]
-    - map: [ "enum.HumanoidVisualLayers.HeadTop" ]
-    - map: [ "enum.HumanoidVisualLayers.Tail" ]
-    - map: [ "mask" ]
-    - map: [ "head" ]
-    - map: [ "pocket1" ]
-    - map: [ "pocket2" ]
-    - map: [ "enum.HumanoidVisualLayers.Handcuffs" ]
+    - map: ["enum.HumanoidVisualLayers.TailBehind"] # HL Modification
+    - map: ["enum.HumanoidVisualLayers.Chest"]
+    - map: ["enum.HumanoidVisualLayers.Head"]
+    - map: ["enum.HumanoidVisualLayers.Snout"]
+    - map: ["enum.HumanoidVisualLayers.Eyes"]
+    - map: ["enum.HumanoidVisualLayers.RArm"]
+    - map: ["enum.HumanoidVisualLayers.LArm"]
+    - map: ["enum.HumanoidVisualLayers.RLeg"]
+    - map: ["enum.HumanoidVisualLayers.LLeg"]
+    - map: ["enum.HumanoidVisualLayers.Genital"] # HL Modification
+    - map: ["enum.HumanoidVisualLayers.Breasts"] # HL Modification
+    - map: ["enum.HumanoidVisualLayers.UndergarmentTop"]
+    - map: ["enum.HumanoidVisualLayers.Penis"] # HL Modification
+    - map: ["enum.HumanoidVisualLayers.UndergarmentBottom"]
+    - map: ["jumpsuit"]
+    - map: ["enum.HumanoidVisualLayers.LFoot"]
+    - map: ["enum.HumanoidVisualLayers.RFoot"]
+    - map: ["enum.HumanoidVisualLayers.LHand"]
+    - map: ["enum.HumanoidVisualLayers.RHand"]
+    - map: ["gloves"]
+    - map: ["shoes"]
+    - map: ["ears"]
+    - map: ["eyes"]
+    - map: ["outerClothing"]
+    - map: ["belt"]
+    - map: ["id"]
+    - map: ["back"]
+    - map: ["enum.HumanoidVisualLayers.TailOversuit"] # HL Modification
+    - map: ["neck"]
+    - map: ["suitstorage"]
+    - map: ["enum.HumanoidVisualLayers.FacialHair"]
+    - map: ["enum.HumanoidVisualLayers.Hair"]
+    - map: ["enum.HumanoidVisualLayers.HeadSide"]
+    - map: ["enum.HumanoidVisualLayers.HeadTop"]
+    - map: ["enum.HumanoidVisualLayers.Tail"]
+    - map: ["mask"]
+    - map: ["head"]
+    - map: ["pocket1"]
+    - map: ["pocket2"]
+    - map: ["enum.HumanoidVisualLayers.Handcuffs"]
       color: "#ffffff"
       sprite: Objects/Misc/handcuffs.rsi
       state: body-overlay-2
       visible: false
-    - map: [ "clownedon" ]
+    - map: ["clownedon"]
       sprite: "Effects/creampie.rsi"
       state: "creampie_vox" # Not default
       visible: false
   - type: DamageVisuals
-    thresholds: [ 10, 30, 50, 70]
+    thresholds: [10, 30, 50, 70]
     targetLayers:
     - "enum.HumanoidVisualLayers.Chest"
     - "enum.HumanoidVisualLayers.Head"
@@ -1158,8 +1157,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35
         density: 100
         restitution: 0.0
@@ -1343,7 +1341,7 @@
 - type: entity
   parent: BaseSpeciesDummy
   id: MobProtoResomiDummy
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   description: A dummy proto-resomi meant to be used in character setup.
   components:
   - type: HumanoidAppearance
@@ -1516,10 +1514,10 @@
     coldDamageThreshold: 285
     coldDamage:
       types:
-        Cold : 1.5 #per second, scales with temperature & other constants
+        Cold: 1.5 #per second, scales with temperature & other constants
     heatDamage: # Swaps heat for cold, lizards thrive in hot temps
       types:
-        Heat : 0.1 #per second, scales with temperature & other constants
+        Heat: 0.1 #per second, scales with temperature & other constants
   - type: TemperatureSpeed
     thresholds:
       301: 0.9
@@ -1562,17 +1560,17 @@
             state: mask
   - type: Tag
     tags:
-      - CanPilot
-      - FootstepSound
-      - DoorBumpOpener
-      - AnomalyHost
-      - Protogen
-      - Reptilian
+    - CanPilot
+    - FootstepSound
+    - DoorBumpOpener
+    - AnomalyHost
+    - Protogen
+    - Reptilian
 
 - type: entity
   parent: BaseSpeciesDummy
   id: MobProtoReptileDummy
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   description: A dummy proto-reptile meant to be used in character setup.
   components:
   - type: HumanoidAppearance
@@ -1667,10 +1665,10 @@
     coldDamageThreshold: 230
     coldDamage:
       types:
-        Cold : 0.05 #per second, scales with temperature & other constants
+        Cold: 0.05 #per second, scales with temperature & other constants
     heatDamage:
       types:
-        Heat : 3 #per second, scales with temperature & other constants
+        Heat: 3 #per second, scales with temperature & other constants
   - type: TemperatureSpeed
     thresholds:
       289: 0.9
@@ -1685,53 +1683,53 @@
     noRot: true
     drawdepth: Mobs
     layers:
-      - map: [ "enum.HumanoidVisualLayers.TailBehind" ]  # HL Modification
-      - map: [ "enum.HumanoidVisualLayers.Chest" ]
-      - map: [ "enum.HumanoidVisualLayers.Head" ]
-      - map: [ "enum.HumanoidVisualLayers.Snout" ]
-      - map: [ "enum.HumanoidVisualLayers.Eyes" ]
-      - map: [ "enum.HumanoidVisualLayers.RArm" ]
-      - map: [ "enum.HumanoidVisualLayers.LArm" ]
-      - map: [ "enum.HumanoidVisualLayers.RLeg" ]
-      - map: [ "enum.HumanoidVisualLayers.LLeg" ]
-      - map: [ "enum.HumanoidVisualLayers.Genital" ] # HL Modification
-      - map: [ "enum.HumanoidVisualLayers.Breasts" ] # HL Modification
-      - map: [ "enum.HumanoidVisualLayers.UndergarmentTop" ]
-      - map: [ "enum.HumanoidVisualLayers.Penis" ] # HL Modification
-      - map: [ "enum.HumanoidVisualLayers.UndergarmentBottom" ]
-      - map: [ "jumpsuit" ]
-      - map: [ "enum.HumanoidVisualLayers.LHand" ]
-      - map: [ "enum.HumanoidVisualLayers.RHand" ]
-      - map: [ "enum.HumanoidVisualLayers.LFoot" ]
-      - map: [ "enum.HumanoidVisualLayers.RFoot" ]
-      - map: [ "enum.HumanoidVisualLayers.Handcuffs" ]
-        color: "#ffffff"
-        sprite: Objects/Misc/handcuffs.rsi
-        state: body-overlay-2
-        visible: false
-      - map: [ "gloves" ]
-      - map: [ "shoes" ]
-      - map: [ "ears" ]
-      - map: [ "eyes" ]
-      - map: [ "outerClothing" ]
-      - map: [ "belt" ]
-      - map: [ "id" ]
-      - map: [ "enum.HumanoidVisualLayers.Tail" ]
-      - map: [ "back" ]
-      - map: [ "enum.HumanoidVisualLayers.TailOversuit" ] # HL Modification
-      - map: [ "neck" ]
-      - map: [ "enum.HumanoidVisualLayers.FacialHair" ]
-      - map: [ "enum.HumanoidVisualLayers.Hair" ]
-      - map: [ "enum.HumanoidVisualLayers.HeadSide" ]
-      - map: [ "enum.HumanoidVisualLayers.HeadTop" ]
-      - map: [ "mask" ]
-      - map: [ "head" ]
-      - map: [ "pocket1" ]
-      - map: [ "pocket2" ]
-      - map: [ "clownedon" ]
-        sprite: "Effects/creampie.rsi"
-        state: "creampie_moth"
-        visible: false
+    - map: ["enum.HumanoidVisualLayers.TailBehind"] # HL Modification
+    - map: ["enum.HumanoidVisualLayers.Chest"]
+    - map: ["enum.HumanoidVisualLayers.Head"]
+    - map: ["enum.HumanoidVisualLayers.Snout"]
+    - map: ["enum.HumanoidVisualLayers.Eyes"]
+    - map: ["enum.HumanoidVisualLayers.RArm"]
+    - map: ["enum.HumanoidVisualLayers.LArm"]
+    - map: ["enum.HumanoidVisualLayers.RLeg"]
+    - map: ["enum.HumanoidVisualLayers.LLeg"]
+    - map: ["enum.HumanoidVisualLayers.Genital"] # HL Modification
+    - map: ["enum.HumanoidVisualLayers.Breasts"] # HL Modification
+    - map: ["enum.HumanoidVisualLayers.UndergarmentTop"]
+    - map: ["enum.HumanoidVisualLayers.Penis"] # HL Modification
+    - map: ["enum.HumanoidVisualLayers.UndergarmentBottom"]
+    - map: ["jumpsuit"]
+    - map: ["enum.HumanoidVisualLayers.LHand"]
+    - map: ["enum.HumanoidVisualLayers.RHand"]
+    - map: ["enum.HumanoidVisualLayers.LFoot"]
+    - map: ["enum.HumanoidVisualLayers.RFoot"]
+    - map: ["enum.HumanoidVisualLayers.Handcuffs"]
+      color: "#ffffff"
+      sprite: Objects/Misc/handcuffs.rsi
+      state: body-overlay-2
+      visible: false
+    - map: ["gloves"]
+    - map: ["shoes"]
+    - map: ["ears"]
+    - map: ["eyes"]
+    - map: ["outerClothing"]
+    - map: ["belt"]
+    - map: ["id"]
+    - map: ["enum.HumanoidVisualLayers.Tail"]
+    - map: ["back"]
+    - map: ["enum.HumanoidVisualLayers.TailOversuit"] # HL Modification
+    - map: ["neck"]
+    - map: ["enum.HumanoidVisualLayers.FacialHair"]
+    - map: ["enum.HumanoidVisualLayers.Hair"]
+    - map: ["enum.HumanoidVisualLayers.HeadSide"]
+    - map: ["enum.HumanoidVisualLayers.HeadTop"]
+    - map: ["mask"]
+    - map: ["head"]
+    - map: ["pocket1"]
+    - map: ["pocket2"]
+    - map: ["clownedon"]
+      sprite: "Effects/creampie.rsi"
+      state: "creampie_moth"
+      visible: false
   - type: Inventory
     speciesId: moth
     templateId: protogen
@@ -1789,17 +1787,17 @@
             state: shoes
   - type: Tag
     tags:
-      - CanPilot
-      - FootstepSound
-      - DoorBumpOpener
-      - AnomalyHost
-      - Protogen
-      - Moth
+    - CanPilot
+    - FootstepSound
+    - DoorBumpOpener
+    - AnomalyHost
+    - Protogen
+    - Moth
 
 - type: entity
   parent: BaseSpeciesDummy
   id: MobProtoMothDummy
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: HumanoidAppearance
     species: ProtoMoth
@@ -1912,18 +1910,17 @@
   - type: Wagging
   - type: Tag
     tags:
-      - CanPilot
-      - FootstepSound
-      - DoorBumpOpener
-      - AnomalyHost
-      - Protogen
-      - Human
-
+    - CanPilot
+    - FootstepSound
+    - DoorBumpOpener
+    - AnomalyHost
+    - Protogen
+    - Human
 
 - type: entity
   parent: BaseSpeciesDummy
   id: MobProtoHumieDummy
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Inventory
     templateId: protogen
@@ -2005,8 +2002,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.30
         density: 110
         restitution: 0.0
@@ -2057,7 +2053,7 @@
 - type: entity
   parent: BaseSpeciesDummy
   id: MobProtoFelineDummy
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: HumanoidAppearance
     species: ProtoFeline
@@ -2133,8 +2129,7 @@
   - type: Fixtures
     fixtures: # TODO: This needs a second fixture just for mob collisions.
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35
         # they r smaller
         density: 120
@@ -2164,17 +2159,17 @@
             state: jumpsuit-female
   - type: Tag
     tags:
-      - CanPilot
-      - FootstepSound
-      - DoorBumpOpener
-      - AnomalyHost
-      - Protogen
-      - Dwarf
+    - CanPilot
+    - FootstepSound
+    - DoorBumpOpener
+    - AnomalyHost
+    - Protogen
+    - Dwarf
 
 - type: entity
   parent: BaseSpeciesDummy
   id: MobProtoDawiDummy
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Inventory
     templateId: protogen
@@ -2234,21 +2229,21 @@
   - type: Butcherable
     butcheringType: Spike
     spawned:
-      - id: FoodMeatPlant
-        amount: 5
+    - id: FoodMeatPlant
+      amount: 5
   - type: Bloodstream
     bloodReagent: Sap
   - type: Reactive
     groups:
-      Flammable: [ Touch ]
-      Extinguish: [ Touch ]
+      Flammable: [Touch]
+      Extinguish: [Touch]
       Acidic: [Touch, Ingestion]
     reactions:
-    - reagents: [ PlantBGone ]
-      methods: [ Touch ]
+    - reagents: [PlantBGone]
+      methods: [Touch]
       effects:
       - !type:HealthChange
-#        scaleByQuantity: true
+        #        scaleByQuantity: true
         damage:
           types:
             Blunt: 0.1
@@ -2257,33 +2252,32 @@
       - !type:PopupMessage
         type: Local
         visualType: Large
-        messages: [ "diona-hurt-by-herbicide-popup" ]
+        messages: ["diona-hurt-by-herbicide-popup"]
         probability: 0.66
-    - reagents: [ WeedKiller ]
-      methods: [ Touch ]
+    - reagents: [WeedKiller]
+      methods: [Touch]
       effects:
       - !type:HealthChange
-#        scaleByQuantity: true
+        #        scaleByQuantity: true
         damage:
           types:
             Poison: 0.25
       - !type:PopupMessage
         type: Local
         visualType: Large
-        messages: [ "diona-hurt-by-herbicide-popup" ]
+        messages: ["diona-hurt-by-herbicide-popup"]
         probability: 0.66
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35
         density: 300 #weighs more than humans because wood
         restitution: 0.0
         mask:
-          - MobMask
+        - MobMask
         layer:
-          - MobLayer
+        - MobLayer
   - type: IgnoreKudzu
   - type: IgniteOnHeatDamage
     fireStacks: 1
@@ -2309,7 +2303,7 @@
 - type: entity
   parent: BaseSpeciesDummy
   id: MobProtoDionaeDummy
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: HumanoidAppearance
     species: ProtoDionae
@@ -2331,215 +2325,214 @@
   id: BaseMobProtoAvali
   abstract: true
   components:
-    - type: Tag
-      tags:
-        - CanPilot
-        - FootstepSound
-        - DoorBumpOpener
-        - AnomalyHost
-        - Avali
-        - Protogen
-    - type: HumanoidAppearance
-      species: ProtoAvali
-      hideLayersOnEquip:
-      - Hair
-      # HL start: Hide genital markings on equip
-      - Genital
-      - Penis
-      - Breasts
-      # HL end
-    - type: Sprite
-      layers:
-      - map: [ "enum.HumanoidVisualLayers.TailBehind" ]  # HL Modification
-      - map: [ "enum.HumanoidVisualLayers.Chest" ]
-      - map: [ "enum.HumanoidVisualLayers.Head" ]
-      - map: [ "enum.HumanoidVisualLayers.Snout" ]
-      - map: [ "enum.HumanoidVisualLayers.Eyes" ]
-      - map: [ "enum.HumanoidVisualLayers.RArm" ]
-      - map: [ "enum.HumanoidVisualLayers.LArm" ]
-      - map: [ "enum.HumanoidVisualLayers.RLeg" ]
-      - map: [ "enum.HumanoidVisualLayers.LLeg" ]
-      - map: [ "enum.HumanoidVisualLayers.Genital" ] # HL Modification
-      - map: [ "enum.HumanoidVisualLayers.Breasts" ] # HL Modification
-      - map: [ "enum.HumanoidVisualLayers.UndergarmentTop" ]
-      - map: [ "enum.HumanoidVisualLayers.Penis" ] # HL Modification
-      - map: [ "enum.HumanoidVisualLayers.UndergarmentBottom" ]
-      - map: ["jumpsuit"]
-      - map: ["enum.HumanoidVisualLayers.LFoot"]
-      - map: ["enum.HumanoidVisualLayers.RFoot"]
-      - map: ["enum.HumanoidVisualLayers.LHand"]
-      - map: ["enum.HumanoidVisualLayers.RHand"]
-      - map: [ "gloves" ]
-      - map: [ "shoes" ]
-      - map: [ "outerClothing" ]
-      - map: [ "belt" ]
-      - map: [ "id" ]
-      - map: [ "enum.HumanoidVisualLayers.Tail" ]
-      - map: [ "back" ]
-      - map: [ "enum.HumanoidVisualLayers.TailOversuit" ] # HL Modification
-      - map: [ "neck" ]
-      - map: [ "enum.HumanoidVisualLayers.FacialHair" ]
-      - map: [ "enum.HumanoidVisualLayers.Hair" ]
-      - map: [ "enum.HumanoidVisualLayers.HeadSide" ]
-      - map: [ "ears" ]
-      - map: [ "eyes" ]
-      - map: [ "enum.HumanoidVisualLayers.HeadTop" ]
-      - map: [ "mask" ]
-      - map: [ "head" ]
-      - map: [ "pocket1" ]
-      - map: [ "pocket2" ]
-      - map: ["enum.HumanoidVisualLayers.Handcuffs"]
-        color: "#ffffff"
-        sprite: Objects/Misc/handcuffs.rsi
-        state: body-overlay-2
-        visible: false
-    - type: Hunger # on 2x more
-      thresholds:
-        Overfed: 250
-        Okay: 200
-        Peckish: 150
-        Starving: 100
-        Dead: 0
-      baseDecayRate: 0.03
-    - type: Icon
-      sprite: _FarHorizons/Mobs/Species/Proto-Avali/parts.rsi
-      state: full
-    - type: Body
-      prototype: ProtoAvali
-      requiredLegs: 2
-    - type: Inventory
-      speciesId: protoavali
-      templateId: protogen
-      displacements:
-        jumpsuit:
-          sizeMaps:
-            32:
-              sprite: _Starlight/Mobs/Species/Avali/displacement.rsi
-              state: jumpsuit
-        shoes:
-          sizeMaps:
-            32:
-              sprite: _Starlight/Mobs/Species/Avali/displacement.rsi
-              state: feet
-        head:
-          sizeMaps:
-            32:
-              sprite: _Starlight/Mobs/Species/Avali/displacement.rsi
-              state: head
-        hand:
-          sizeMaps:
-            32:
-              sprite: _Starlight/Mobs/Species/Avali/displacement.rsi
-              state: hand
-        back:
-          sizeMaps:
-            32:
-              sprite: _Starlight/Mobs/Species/Avali/displacement.rsi
-              state: back
-    - type: Butcherable
-      butcheringType: Spike
-      spawned:
-        - id: FoodMeatChicken
-          amount: 3
-    - type: MobThresholds
-      thresholds:
-        0: Alive
-        90: Critical
-        180: Dead
-    - type: TemperatureSpeed
-      thresholds:
-        250: 0.9
-        230: 0.8
-        223: 0.6
-    - type: Fixtures
-      fixtures:
-        fix1:
-          shape:
-            !type:PhysShapeCircle
-            radius: 0.35
-          density: 95 #tiny
-          restitution: 0.0
-          mask:
-            - MobMask
-          layer:
-            - MobLayer
-    - type: MovementSpeedModifier
-      weightlessAcceleration: 1.7 # Avalis are specifically built to fly in low-g environments
-      weightlessFriction: 1
-      weightlessModifier: 1
-    - type: Damageable
-      damageContainer: Biological
-      damageModifierSet: ProtoAvali
-    - type: DamageVisuals
-      damageOverlayGroups:
-        Brute:
-          sprite: Mobs/Effects/brute_damage.rsi
-          color: "#6C3BAA"
-    - type: Bloodstream
-      bloodReagent: AmmoniaBlood
-    - type: Temperature
-      currentTemperature: 261
-      specificHeat: 48
-      heatDamageThreshold: 310
-      coldDamageThreshold: 223
-    - type: ThermalRegulator
-      metabolismHeat: 400 # icebirb go brrr
-      radiatedHeat: 100
-      implicitHeatRegulation: 1500
-      sweatHeatRegulation: 2000
-      shiveringHeatRegulation: 2000
-      normalBodyTemperature: 261
-      thermalRegulationTemperatureThreshold: 1
-    - type: Vocal # Starlight: protogen recreated audio
-      sounds:
-        Male: ProtoAvaliMSounds
-        Female: ProtoAvaliFSounds
-        Unsexed: ProtoAvaliMSounds
-    - type: Stasis
-      enterStasisAction: ActionStasisEnter
-      exitStasisAction: ActionStasisExit
+  - type: Tag
+    tags:
+    - CanPilot
+    - FootstepSound
+    - DoorBumpOpener
+    - AnomalyHost
+    - Avali
+    - Protogen
+  - type: HumanoidAppearance
+    species: ProtoAvali
+    hideLayersOnEquip:
+    - Hair
+    # HL start: Hide genital markings on equip
+    - Genital
+    - Penis
+    - Breasts
+    # HL end
+  - type: Sprite
+    layers:
+    - map: ["enum.HumanoidVisualLayers.TailBehind"] # HL Modification
+    - map: ["enum.HumanoidVisualLayers.Chest"]
+    - map: ["enum.HumanoidVisualLayers.Head"]
+    - map: ["enum.HumanoidVisualLayers.Snout"]
+    - map: ["enum.HumanoidVisualLayers.Eyes"]
+    - map: ["enum.HumanoidVisualLayers.RArm"]
+    - map: ["enum.HumanoidVisualLayers.LArm"]
+    - map: ["enum.HumanoidVisualLayers.RLeg"]
+    - map: ["enum.HumanoidVisualLayers.LLeg"]
+    - map: ["enum.HumanoidVisualLayers.Genital"] # HL Modification
+    - map: ["enum.HumanoidVisualLayers.Breasts"] # HL Modification
+    - map: ["enum.HumanoidVisualLayers.UndergarmentTop"]
+    - map: ["enum.HumanoidVisualLayers.Penis"] # HL Modification
+    - map: ["enum.HumanoidVisualLayers.UndergarmentBottom"]
+    - map: ["jumpsuit"]
+    - map: ["enum.HumanoidVisualLayers.LFoot"]
+    - map: ["enum.HumanoidVisualLayers.RFoot"]
+    - map: ["enum.HumanoidVisualLayers.LHand"]
+    - map: ["enum.HumanoidVisualLayers.RHand"]
+    - map: ["gloves"]
+    - map: ["shoes"]
+    - map: ["outerClothing"]
+    - map: ["belt"]
+    - map: ["id"]
+    - map: ["enum.HumanoidVisualLayers.Tail"]
+    - map: ["back"]
+    - map: ["enum.HumanoidVisualLayers.TailOversuit"] # HL Modification
+    - map: ["neck"]
+    - map: ["enum.HumanoidVisualLayers.FacialHair"]
+    - map: ["enum.HumanoidVisualLayers.Hair"]
+    - map: ["enum.HumanoidVisualLayers.HeadSide"]
+    - map: ["ears"]
+    - map: ["eyes"]
+    - map: ["enum.HumanoidVisualLayers.HeadTop"]
+    - map: ["mask"]
+    - map: ["head"]
+    - map: ["pocket1"]
+    - map: ["pocket2"]
+    - map: ["enum.HumanoidVisualLayers.Handcuffs"]
+      color: "#ffffff"
+      sprite: Objects/Misc/handcuffs.rsi
+      state: body-overlay-2
+      visible: false
+  - type: Hunger # on 2x more
+    thresholds:
+      Overfed: 250
+      Okay: 200
+      Peckish: 150
+      Starving: 100
+      Dead: 0
+    baseDecayRate: 0.03
+  - type: Icon
+    sprite: _FarHorizons/Mobs/Species/Proto-Avali/parts.rsi
+    state: full
+  - type: Body
+    prototype: ProtoAvali
+    requiredLegs: 2
+  - type: Inventory
+    speciesId: protoavali
+    templateId: protogen
+    displacements:
+      jumpsuit:
+        sizeMaps:
+          32:
+            sprite: _Starlight/Mobs/Species/Avali/displacement.rsi
+            state: jumpsuit
+      shoes:
+        sizeMaps:
+          32:
+            sprite: _Starlight/Mobs/Species/Avali/displacement.rsi
+            state: feet
+      head:
+        sizeMaps:
+          32:
+            sprite: _Starlight/Mobs/Species/Avali/displacement.rsi
+            state: head
+      hand:
+        sizeMaps:
+          32:
+            sprite: _Starlight/Mobs/Species/Avali/displacement.rsi
+            state: hand
+      back:
+        sizeMaps:
+          32:
+            sprite: _Starlight/Mobs/Species/Avali/displacement.rsi
+            state: back
+  - type: Butcherable
+    butcheringType: Spike
+    spawned:
+    - id: FoodMeatChicken
+      amount: 3
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      90: Critical
+      180: Dead
+  - type: TemperatureSpeed
+    thresholds:
+      250: 0.9
+      230: 0.8
+      223: 0.6
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.35
+        density: 95 #tiny
+        restitution: 0.0
+        mask:
+        - MobMask
+        layer:
+        - MobLayer
+  - type: MovementSpeedModifier
+    weightlessAcceleration: 1.7 # Avalis are specifically built to fly in low-g environments
+    weightlessFriction: 1
+    weightlessModifier: 1
+  - type: Damageable
+    damageContainer: Biological
+    damageModifierSet: ProtoAvali
+  - type: DamageVisuals
+    damageOverlayGroups:
+      Brute:
+        sprite: Mobs/Effects/brute_damage.rsi
+        color: "#6C3BAA"
+  - type: Bloodstream
+    bloodReagent: AmmoniaBlood
+  - type: Temperature
+    currentTemperature: 261
+    specificHeat: 48
+    heatDamageThreshold: 310
+    coldDamageThreshold: 223
+  - type: ThermalRegulator
+    metabolismHeat: 400 # icebirb go brrr
+    radiatedHeat: 100
+    implicitHeatRegulation: 1500
+    sweatHeatRegulation: 2000
+    shiveringHeatRegulation: 2000
+    normalBodyTemperature: 261
+    thermalRegulationTemperatureThreshold: 1
+  - type: Vocal # Starlight: protogen recreated audio
+    sounds:
+      Male: ProtoAvaliMSounds
+      Female: ProtoAvaliFSounds
+      Unsexed: ProtoAvaliMSounds
+  - type: Stasis
+    enterStasisAction: ActionStasisEnter
+    exitStasisAction: ActionStasisExit
 
 - type: entity
   parent: BaseSpeciesDummy
   id: MobProtoAvaliDummy
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   description: A dummy proto-avali meant to be used in character setup.
   components:
-    - type: HumanoidAppearance
-      species: ProtoAvali
-    - type: Inventory
-      speciesId: avali
-      displacements:
-        jumpsuit:
-          sizeMaps:
-            32:
-              sprite: _Starlight/Mobs/Species/Avali/displacement.rsi
-              state: jumpsuit
-        shoes:
-          sizeMaps:
-            32:
-              sprite: _Starlight/Mobs/Species/Avali/displacement.rsi
-              state: feet
-        head:
-          sizeMaps:
-            32:
-              sprite: _Starlight/Mobs/Species/Avali/displacement.rsi
-              state: head
-        hand:
-          sizeMaps:
-            32:
-              sprite: _Starlight/Mobs/Species/Avali/displacement.rsi
-              state: hand
-        back:
-          sizeMaps:
-            32:
-              sprite: _Starlight/Mobs/Species/Avali/displacement.rsi
-              state: back
-        outerClothing:
-          sizeMaps:
-            32:
-              sprite: _Starlight/Mobs/Species/Avali/displacement.rsi
-              state: outerclothing
+  - type: HumanoidAppearance
+    species: ProtoAvali
+  - type: Inventory
+    speciesId: avali
+    displacements:
+      jumpsuit:
+        sizeMaps:
+          32:
+            sprite: _Starlight/Mobs/Species/Avali/displacement.rsi
+            state: jumpsuit
+      shoes:
+        sizeMaps:
+          32:
+            sprite: _Starlight/Mobs/Species/Avali/displacement.rsi
+            state: feet
+      head:
+        sizeMaps:
+          32:
+            sprite: _Starlight/Mobs/Species/Avali/displacement.rsi
+            state: head
+      hand:
+        sizeMaps:
+          32:
+            sprite: _Starlight/Mobs/Species/Avali/displacement.rsi
+            state: hand
+      back:
+        sizeMaps:
+          32:
+            sprite: _Starlight/Mobs/Species/Avali/displacement.rsi
+            state: back
+      outerClothing:
+        sizeMaps:
+          32:
+            sprite: _Starlight/Mobs/Species/Avali/displacement.rsi
+            state: outerclothing
 
 #region ARACHNID ####
 
@@ -2580,8 +2573,8 @@
   - type: Butcherable
     butcheringType: Spike
     spawned:
-      - id: FoodMeatSpider
-        amount: 5
+    - id: FoodMeatSpider
+      amount: 5
   - type: Reactive
     reactions:
   # Damage (Self)
@@ -2610,62 +2603,61 @@
       Unsexed: ProtoArachnidMSounds
   - type: Sprite
     layers:
-      - map: [ "enum.HumanoidVisualLayers.TailBehind" ]  # HL Modification
-      - map: [ "enum.HumanoidVisualLayers.Chest" ]
-      - map: [ "enum.HumanoidVisualLayers.Head" ]
-      - map: [ "enum.HumanoidVisualLayers.Snout" ]
-      - map: [ "enum.HumanoidVisualLayers.Eyes" ]
-      - map: [ "enum.HumanoidVisualLayers.RArm" ]
-      - map: [ "enum.HumanoidVisualLayers.LArm" ]
-      - map: [ "enum.HumanoidVisualLayers.RLeg" ]
-      - map: [ "enum.HumanoidVisualLayers.LLeg" ]
-      - map: [ "enum.HumanoidVisualLayers.Genital" ] # HL Modification
-      - map: [ "enum.HumanoidVisualLayers.Breasts" ] # HL Modification
-      - map: [ "enum.HumanoidVisualLayers.UndergarmentTop" ]
-      - map: [ "enum.HumanoidVisualLayers.Penis" ] # HL Modification
-      - map: [ "enum.HumanoidVisualLayers.UndergarmentBottom" ]
-      - map: ["jumpsuit"]
-      - map: ["enum.HumanoidVisualLayers.LFoot"]
-      - map: ["enum.HumanoidVisualLayers.RFoot"]
-      - map: ["enum.HumanoidVisualLayers.LHand"]
-      - map: ["enum.HumanoidVisualLayers.RHand"]
-      - map: [ "gloves" ]
-      - map: [ "shoes" ]
-      - map: [ "outerClothing" ]
-      - map: [ "belt" ]
-      - map: [ "id" ]
-      - map: [ "enum.HumanoidVisualLayers.Tail" ]
-      - map: [ "back" ]
-      - map: [ "enum.HumanoidVisualLayers.TailOversuit" ] # HL Modification
-      - map: [ "neck" ]
-      - map: [ "enum.HumanoidVisualLayers.FacialHair" ]
-      - map: [ "enum.HumanoidVisualLayers.Hair" ]
-      - map: [ "enum.HumanoidVisualLayers.HeadSide" ]
-      - map: [ "ears" ]
-      - map: [ "eyes" ]
-      - map: [ "enum.HumanoidVisualLayers.HeadTop" ]
-      - map: [ "mask" ]
-      - map: [ "head" ]
-      - map: [ "pocket1" ]
-      - map: [ "pocket2" ]
-      - map: ["enum.HumanoidVisualLayers.Handcuffs"]
-        color: "#ffffff"
-        sprite: Objects/Misc/handcuffs.rsi
-        state: body-overlay-2
-        visible: false
-      - map: [ "clownedon" ]
-        sprite: "Effects/creampie.rsi"
-        state: "creampie_arachnid"
-        visible: false
+    - map: ["enum.HumanoidVisualLayers.TailBehind"] # HL Modification
+    - map: ["enum.HumanoidVisualLayers.Chest"]
+    - map: ["enum.HumanoidVisualLayers.Head"]
+    - map: ["enum.HumanoidVisualLayers.Snout"]
+    - map: ["enum.HumanoidVisualLayers.Eyes"]
+    - map: ["enum.HumanoidVisualLayers.RArm"]
+    - map: ["enum.HumanoidVisualLayers.LArm"]
+    - map: ["enum.HumanoidVisualLayers.RLeg"]
+    - map: ["enum.HumanoidVisualLayers.LLeg"]
+    - map: ["enum.HumanoidVisualLayers.Genital"] # HL Modification
+    - map: ["enum.HumanoidVisualLayers.Breasts"] # HL Modification
+    - map: ["enum.HumanoidVisualLayers.UndergarmentTop"]
+    - map: ["enum.HumanoidVisualLayers.Penis"] # HL Modification
+    - map: ["enum.HumanoidVisualLayers.UndergarmentBottom"]
+    - map: ["jumpsuit"]
+    - map: ["enum.HumanoidVisualLayers.LFoot"]
+    - map: ["enum.HumanoidVisualLayers.RFoot"]
+    - map: ["enum.HumanoidVisualLayers.LHand"]
+    - map: ["enum.HumanoidVisualLayers.RHand"]
+    - map: ["gloves"]
+    - map: ["shoes"]
+    - map: ["outerClothing"]
+    - map: ["belt"]
+    - map: ["id"]
+    - map: ["enum.HumanoidVisualLayers.Tail"]
+    - map: ["back"]
+    - map: ["enum.HumanoidVisualLayers.TailOversuit"] # HL Modification
+    - map: ["neck"]
+    - map: ["enum.HumanoidVisualLayers.FacialHair"]
+    - map: ["enum.HumanoidVisualLayers.Hair"]
+    - map: ["enum.HumanoidVisualLayers.HeadSide"]
+    - map: ["ears"]
+    - map: ["eyes"]
+    - map: ["enum.HumanoidVisualLayers.HeadTop"]
+    - map: ["mask"]
+    - map: ["head"]
+    - map: ["pocket1"]
+    - map: ["pocket2"]
+    - map: ["enum.HumanoidVisualLayers.Handcuffs"]
+      color: "#ffffff"
+      sprite: Objects/Misc/handcuffs.rsi
+      state: body-overlay-2
+      visible: false
+    - map: ["clownedon"]
+      sprite: "Effects/creampie.rsi"
+      state: "creampie_arachnid"
+      visible: false
   - type: Inventory
     templateId: protoarachnid
     speciesId: arachnid
 
-
 - type: entity
   parent: BaseSpeciesDummy
   id: MobProtoArachnidDummy
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: HumanoidAppearance
     species: Arachnid

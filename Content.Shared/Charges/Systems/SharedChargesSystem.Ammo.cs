@@ -11,10 +11,17 @@ namespace Content.Shared.Charges.Systems;
 
 public abstract partial class SharedChargesSystem : EntitySystem
 {
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedStackSystem _stack = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
+    [Dependency]
+    private readonly INetManager _net = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SharedStackSystem _stack = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelist = default!;
 
     private void InitializeAmmo()
     {
@@ -27,7 +34,10 @@ public abstract partial class SharedChargesSystem : EntitySystem
         if (!args.IsInDetailsRange)
             return;
 
-        var examineMessage = Loc.GetString("limited-charges-ammo-component-on-examine", ("charges", GetAmmoCharges(ent)));
+        var examineMessage = Loc.GetString(
+            "limited-charges-ammo-component-on-examine",
+            ("charges", GetAmmoCharges(ent))
+        );
         args.PushText(examineMessage);
     }
 
@@ -36,7 +46,8 @@ public abstract partial class SharedChargesSystem : EntitySystem
         if (args.Handled || !args.CanReach || !_timing.IsFirstTimePredicted)
             return;
 
-        if (args.Target is not { Valid: true } target
+        if (
+            args.Target is not { Valid: true } target
             || !TryComp<LimitedChargesComponent>(target, out var charges)
             || _whitelist.IsWhitelistFail(ent.Comp.Whitelist, target)
         )

@@ -14,9 +14,14 @@ namespace Content.Server._NF.Medical.Systems;
 /// </summary>
 public sealed class MedicalBountyPriceGunSystem : EntitySystem
 {
-    [Dependency] private readonly UseDelaySystem _useDelay = default!;
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency]
+    private readonly UseDelaySystem _useDelay = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -44,7 +49,10 @@ public sealed class MedicalBountyPriceGunSystem : EntitySystem
                 _useDelay.TryResetDelay((entity, useDelay));
             },
             Text = Loc.GetString("medical-price-gun-verb-text"),
-            Message = Loc.GetString("medical-price-gun-verb-message", ("object", Identity.Entity(target, EntityManager)))
+            Message = Loc.GetString(
+                "medical-price-gun-verb-message",
+                ("object", Identity.Entity(target, EntityManager))
+            ),
         };
 
         args.Verbs.Add(verb);
@@ -68,11 +76,26 @@ public sealed class MedicalBountyPriceGunSystem : EntitySystem
     {
         if (TryComp<MedicalBountyComponent>(target, out var bounty))
         {
-            _popupSystem.PopupEntity(Loc.GetString("medical-price-gun-pricing-result", ("object", Identity.Entity(target, EntityManager)), ("price", BankSystemExtensions.ToSpesoString(bounty.MaxBountyValue))), user, user);
+            _popupSystem.PopupEntity(
+                Loc.GetString(
+                    "medical-price-gun-pricing-result",
+                    ("object", Identity.Entity(target, EntityManager)),
+                    ("price", BankSystemExtensions.ToSpesoString(bounty.MaxBountyValue))
+                ),
+                user,
+                user
+            );
         }
         else
         {
-            _popupSystem.PopupEntity(Loc.GetString("medical-price-gun-pricing-result-none", ("object", Identity.Entity(target, EntityManager))), user, user);
+            _popupSystem.PopupEntity(
+                Loc.GetString(
+                    "medical-price-gun-pricing-result-none",
+                    ("object", Identity.Entity(target, EntityManager))
+                ),
+                user,
+                user
+            );
         }
     }
 }

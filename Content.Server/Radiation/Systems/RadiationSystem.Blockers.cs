@@ -68,7 +68,11 @@ public partial class RadiationSystem
         }
     }
 
-    private void OnGridRemoved(EntityUid uid, RadiationGridResistanceComponent component, ref EntityTerminatingEvent args)
+    private void OnGridRemoved(
+        EntityUid uid,
+        RadiationGridResistanceComponent component,
+        ref EntityTerminatingEvent args
+    )
     {
         // grid is about to be removed - lets delete grid component first
         // this should save a bit performance when blockers will be deleted

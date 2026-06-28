@@ -66,7 +66,9 @@ public sealed class AStarPathRequest : PathRequest
         float distance,
         int layer,
         int mask,
-        CancellationToken cancelToken) : base(start, flags, layer, mask, cancelToken)
+        CancellationToken cancelToken
+    )
+        : base(start, flags, layer, mask, cancelToken)
     {
         Distance = distance;
         End = end;
@@ -92,11 +94,13 @@ public sealed class BFSPathRequest : PathRequest
         PathFlags flags,
         int layer,
         int mask,
-        CancellationToken cancelToken) : base(start, flags, layer, mask, cancelToken)
-        {
-            ExpansionRange = expansionRange;
-            ExpansionLimit = expansionLimit;
-        }
+        CancellationToken cancelToken
+    )
+        : base(start, flags, layer, mask, cancelToken)
+    {
+        ExpansionRange = expansionRange;
+        ExpansionLimit = expansionLimit;
+    }
 }
 
 /// <summary>

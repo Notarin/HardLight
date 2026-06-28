@@ -7,7 +7,7 @@
   components:
   - type: Tag
     tags:
-      - MagazineRailgunTag
+    - MagazineRailgunTag
   - type: Item
     size: Small
   - type: Battery
@@ -27,7 +27,7 @@
   components:
   - type: Tag
     tags:
-      - MagazineRailgunTag
+    - MagazineRailgunTag
   - type: Construction
     graph: MagazineRailgunImprovisedCraftingGraph
     node: mag

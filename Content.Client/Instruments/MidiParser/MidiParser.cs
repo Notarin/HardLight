@@ -10,7 +10,8 @@ public static class MidiParser
     public static bool TryGetMidiTracks(
         byte[] data,
         [NotNullWhen(true)] out MidiTrack[]? tracks,
-        [NotNullWhen(false)] out string? error)
+        [NotNullWhen(false)] out string? error
+    )
     {
         tracks = null;
         error = null;
@@ -129,7 +130,6 @@ public static class MidiParser
                         break;
                     }
 
-
                     default:
                         switch (eventType)
                         {
@@ -140,7 +140,9 @@ public static class MidiParser
                                 if (track.ProgramName == null)
                                 {
                                     if (programNumber < Enum.GetValues<MidiInstrument>().Length)
-                                        track.ProgramName = Loc.GetString($"instruments-component-menu-midi-channel-{((MidiInstrument)programNumber).GetStringRep()}");
+                                        track.ProgramName = Loc.GetString(
+                                            $"instruments-component-menu-midi-channel-{((MidiInstrument)programNumber).GetStringRep()}"
+                                        );
                                 }
                                 break;
                             }
@@ -171,7 +173,6 @@ public static class MidiParser
                         break;
                 }
             }
-
 
             if (hasMidiEvent)
                 parsedTracks.Add(track);

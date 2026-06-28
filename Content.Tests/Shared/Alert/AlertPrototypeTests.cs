@@ -13,7 +13,8 @@ namespace Content.Tests.Shared.Alert
     [TestFixture, TestOf(typeof(AlertPrototype))]
     public sealed class AlertPrototypeTests : ContentUnitTest
     {
-        private const string Prototypes = @"
+        private const string Prototypes =
+            @"
 - type: alert
   id: HumanHealth
   category: Health
@@ -50,7 +51,7 @@ namespace Content.Tests.Shared.Alert
         public void GetsIconPath(short? severity, string expected)
         {
             var alert = GetTestPrototype();
-            Assert.That(alert.GetIcon(severity), Is.EqualTo(new SpriteSpecifier.Texture(new (expected))));
+            Assert.That(alert.GetIcon(severity), Is.EqualTo(new SpriteSpecifier.Texture(new(expected))));
         }
 
         [TestCase(null, "/Textures/Interface/Alerts/Human/human.rsi/human0.png")]
@@ -81,8 +82,8 @@ namespace Content.Tests.Shared.Alert
             yamlStream.Load(stream);
 
             var document = yamlStream.Documents[0];
-            var rootNode = (YamlSequenceNode) document.RootNode;
-            var proto = (YamlMappingNode) rootNode[0];
+            var rootNode = (YamlSequenceNode)document.RootNode;
+            var proto = (YamlMappingNode)rootNode[0];
             var serMan = IoCManager.Resolve<ISerializationManager>();
 
             return serMan.Read<AlertPrototype>(new MappingDataNode(proto));

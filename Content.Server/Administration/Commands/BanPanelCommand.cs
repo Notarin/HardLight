@@ -1,15 +1,17 @@
+using Content.Server.EUI;
 using Content.Shared.Administration;
 using Robust.Shared.Console;
-using Content.Server.EUI;
 
 namespace Content.Server.Administration.Commands;
 
 [AdminCommand(AdminFlags.Ban)]
 public sealed class BanPanelCommand : LocalizedCommands
 {
+    [Dependency]
+    private readonly IPlayerLocator _locator = default!;
 
-    [Dependency] private readonly IPlayerLocator _locator = default!;
-    [Dependency] private readonly EuiManager _euis = default!;
+    [Dependency]
+    private readonly EuiManager _euis = default!;
 
     public override string Command => "banpanel";
 

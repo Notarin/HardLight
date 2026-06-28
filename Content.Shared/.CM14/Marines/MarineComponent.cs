@@ -7,6 +7,4 @@ namespace Content.Shared.CM14.Marines;
 /// This is a stub sufficient for Shared usage; server/client can extend if needed.
 /// </summary>
 [RegisterComponent, NetworkedComponent]
-public sealed partial class MarineComponent : Component
-{
-}
+public sealed partial class MarineComponent : Component { }

@@ -20,7 +20,8 @@ public sealed partial class NPCRangedCombatComponent : Component
     /// <summary>
     /// If null it will instantly turn.
     /// </summary>
-    [ViewVariables(VVAccess.ReadWrite)] public Angle? RotationSpeed;
+    [ViewVariables(VVAccess.ReadWrite)]
+    public Angle? RotationSpeed;
 
     /// <summary>
     /// Maximum distance, between our rotation and the target's, to consider shooting it.
@@ -68,6 +69,7 @@ public sealed partial class NPCRangedCombatComponent : Component
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite)]
     public float MissChance = 0.25f;
+
     // End Frontier
 
     // VRS (Triad #3732)

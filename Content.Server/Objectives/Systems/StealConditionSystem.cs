@@ -2,28 +2,41 @@ using Content.Server.Objectives.Components;
 using Content.Shared.CartridgeLoader;
 using Content.Shared.Interaction;
 using Content.Shared.Mind;
+using Content.Shared.Mind.Components;
+using Content.Shared.Mobs.Components;
+using Content.Shared.Mobs.Systems;
+using Content.Shared.Movement.Pulling.Components;
 using Content.Shared.Objectives.Components;
 using Content.Shared.Objectives.Systems;
+using Content.Shared.Stacks;
 using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
-using Content.Shared.Mind.Components;
-using Content.Shared.Mobs.Systems;
-using Content.Shared.Mobs.Components;
-using Content.Shared.Movement.Pulling.Components;
-using Content.Shared.Stacks;
 
 namespace Content.Server.Objectives.Systems;
 
 public sealed class StealConditionSystem : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly MetaDataSystem _metaData = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly SharedInteractionSystem _interaction = default!;
-    [Dependency] private readonly SharedObjectivesSystem _objectives = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly MetaDataSystem _metaData = default!;
+
+    [Dependency]
+    private readonly MobStateSystem _mobState = default!;
+
+    [Dependency]
+    private readonly SharedInteractionSystem _interaction = default!;
+
+    [Dependency]
+    private readonly SharedObjectivesSystem _objectives = default!;
+
+    [Dependency]
+    private readonly EntityLookupSystem _lookup = default!;
 
     private EntityQuery<ContainerManagerComponent> _containerQuery;
 
@@ -79,18 +92,29 @@ public sealed class StealConditionSystem : EntitySystem
         var group = _proto.Index(condition.Comp.StealGroup);
         string localizedName = Loc.GetString(group.Name);
 
-        var title =condition.Comp.OwnerText == null
-            ? Loc.GetString(condition.Comp.ObjectiveNoOwnerText, ("itemName", localizedName))
-            : Loc.GetString(condition.Comp.ObjectiveText, ("owner", Loc.GetString(condition.Comp.OwnerText)), ("itemName", localizedName));
+        var title =
+            condition.Comp.OwnerText == null
+                ? Loc.GetString(condition.Comp.ObjectiveNoOwnerText, ("itemName", localizedName))
+                : Loc.GetString(
+                    condition.Comp.ObjectiveText,
+                    ("owner", Loc.GetString(condition.Comp.OwnerText)),
+                    ("itemName", localizedName)
+                );
 
-        var description = condition.Comp.CollectionSize > 1
-            ? Loc.GetString(condition.Comp.DescriptionMultiplyText, ("itemName", localizedName), ("count", condition.Comp.CollectionSize))
-            : Loc.GetString(condition.Comp.DescriptionText, ("itemName", localizedName));
+        var description =
+            condition.Comp.CollectionSize > 1
+                ? Loc.GetString(
+                    condition.Comp.DescriptionMultiplyText,
+                    ("itemName", localizedName),
+                    ("count", condition.Comp.CollectionSize)
+                )
+                : Loc.GetString(condition.Comp.DescriptionText, ("itemName", localizedName));
 
         _metaData.SetEntityName(condition.Owner, title, args.Meta);
         _metaData.SetEntityDescription(condition.Owner, description, args.Meta);
         _objectives.SetIcon(condition.Owner, group.Sprite, args.Objective);
     }
+
     private void OnGetProgress(Entity<StealConditionComponent> condition, ref ObjectiveGetProgressEvent args)
     {
         args.Progress = GetProgress(args.Mind, condition);
@@ -155,12 +179,17 @@ public sealed class StealConditionSystem : EntitySystem
             }
         } while (containerStack.TryPop(out currentManager));
 
-        var result = count / (float) condition.CollectionSize;
+        var result = count / (float)condition.CollectionSize;
         result = Math.Clamp(result, 0, 1);
         return result;
     }
 
-    private void CheckEntity(EntityUid entity, StealConditionComponent condition, ref Stack<ContainerManagerComponent> containerStack, ref int counter)
+    private void CheckEntity(
+        EntityUid entity,
+        StealConditionComponent condition,
+        ref Stack<ContainerManagerComponent> containerStack,
+        ref int counter
+    )
     {
         // check if this is the item
         counter += CheckStealTarget(entity, condition);
@@ -187,8 +216,10 @@ public sealed class StealConditionSystem : EntitySystem
             return 0;
 
         // check if cartridge is installed
-        if (TryComp<CartridgeComponent>(entity, out var cartridge) &&
-            cartridge.InstallationStatus is not InstallationStatus.Cartridge)
+        if (
+            TryComp<CartridgeComponent>(entity, out var cartridge)
+            && cartridge.InstallationStatus is not InstallationStatus.Cartridge
+        )
             return 0;
 
         // check if needed target alive

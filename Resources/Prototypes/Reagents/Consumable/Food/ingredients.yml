@@ -120,22 +120,22 @@
       - !type:AdjustReagent
         reagent: Water
         amount: 0.4
-      # Frontier: no extra vitamin, but satiation instead
-#      - !type:AdjustReagent
-#        reagent: Vitamin
-#        amount: 0.1
+        # Frontier: no extra vitamin, but satiation instead
       - !type:SatiateHunger
         conditions:
         - !type:ReagentThreshold
           reagent: Nutriment
           min: 0.1
+        #      - !type:AdjustReagent
+        #        reagent: Vitamin
+        #        amount: 0.1
         factor: 0.2
-      # End Frontier: no extra nutriment, but satiation instead
       - !type:ChemVomit
+        # End Frontier: no extra nutriment, but satiation instead
         probability: 0.1
         conditions:
-        - !type:OrganType # HardLight: Prevents Synths vomiting
-          type: Synth
+        - !type:OrganType
+          type: Synth # HardLight: Prevents Synths vomiting
           shouldHave: false
         - !type:ReagentThreshold
           min: 6
@@ -174,17 +174,17 @@
   metabolisms:
     Food:
       effects:
-      # Frontier: no extra nutriment, but satiation instead
-#      - !type:AdjustReagent
-#        reagent: Nutriment
-#        amount: 0.75
       - !type:SatiateHunger
+        #      - !type:AdjustReagent
+        #        reagent: Nutriment
+        #        amount: 0.75
         conditions:
         - !type:ReagentThreshold
           reagent: Nutriment
           min: 0.1
+        # Frontier: no extra nutriment, but satiation instead
         factor: 1
-      # End Frontier: no extra nutriment, but satiation instead
+        # End Frontier: no extra nutriment, but satiation instead
 
 - type: reagent
   id: Oil
@@ -216,32 +216,32 @@
   metabolisms:
     Food:
       effects:
-      # Frontier: no extra nutriment, but satiation instead
-#      - !type:AdjustReagent
-#        reagent: Nutriment
-#        amount: 0.75
       - !type:SatiateHunger
+        #      - !type:AdjustReagent
+        #        reagent: Nutriment
+        #        amount: 0.75
         conditions:
         - !type:ReagentThreshold
           reagent: Nutriment
           min: 0.1
+        # Frontier: no extra nutriment, but satiation instead
         factor: 1
-      # End Frontier: no extra nutriment, but satiation instead
+        # End Frontier: no extra nutriment, but satiation instead
     Poison:
       effects:
-        - !type:AdjustTemperature
-          amount: 250 # thermal energy, not temp
-        - !type:HealthChange
-          conditions:
-            - !type:ReagentThreshold
-              min: 5
-          damage:
-            types:
-              Caustic: 1
-        - !type:PopupMessage
-          type: Local
-          messages: [ "capsaicin-effect-light-burn" ]
-          probability: 0.2
+      - !type:AdjustTemperature
+        amount: 250 # thermal energy, not temp
+      - !type:HealthChange
+        conditions:
+        - !type:ReagentThreshold
+          min: 5
+        damage:
+          types:
+            Caustic: 1
+      - !type:PopupMessage
+        type: Local
+        messages: ["capsaicin-effect-light-burn"]
+        probability: 0.2
 
 - type: reagent
   id: CocoaPowder #Candy and chocolate
@@ -257,8 +257,8 @@
       effects:
       - !type:SatiateHunger
         conditions:
-        - !type:ReagentThreshold #Only satiates when eaten with nutriment
-          reagent: Nutriment
+        - !type:ReagentThreshold
+          reagent: Nutriment #Only satiates when eaten with nutriment
           min: 0.1
         factor: 1
   plantMetabolism:
@@ -283,17 +283,17 @@
   metabolisms:
     Food:
       effects:
-      # Frontier: no extra nutriment, but satiation instead
-#      - !type:AdjustReagent
-#        reagent: Nutriment
-#        amount: 0.75
       - !type:SatiateHunger
+        #      - !type:AdjustReagent
+        #        reagent: Nutriment
+        #        amount: 0.75
         conditions:
         - !type:ReagentThreshold
           reagent: Nutriment
           min: 0.1
+        # Frontier: no extra nutriment, but satiation instead
         factor: 1
-      # End Frontier: no extra nutriment, but satiation instead
+        # End Frontier: no extra nutriment, but satiation instead
 
 - type: reagent
   id: TeaPowder
@@ -323,17 +323,17 @@
   metabolisms:
     Food:
       effects:
-      # Frontier: no extra nutriment, but satiation instead
-      # - !type:AdjustReagent
-      #   reagent: Nutriment #Oils enhance nutrition
-      #   amount: 0.75
       - !type:SatiateHunger
+        # Frontier: no extra nutriment, but satiation instead
+        # - !type:AdjustReagent
+        #   reagent: Nutriment #Oils enhance nutrition
+        #   amount: 0.75
         conditions:
         - !type:ReagentThreshold
           reagent: Nutriment
           min: 0.1
         factor: 1
-      # End Frontier
+        # End Frontier
     Poison:
       effects:
       - !type:AdjustTemperature
@@ -347,5 +347,5 @@
             Cold: 1
       - !type:PopupMessage
         type: Local
-        messages: [ "frost-oil-effect-light-cold" ]
+        messages: ["frost-oil-effect-light-cold"]
         probability: 0.2

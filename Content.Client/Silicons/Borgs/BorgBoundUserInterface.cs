@@ -11,9 +11,8 @@ public sealed class BorgBoundUserInterface : BoundUserInterface
     [ViewVariables]
     private BorgMenu? _menu;
 
-    public BorgBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-    }
+    public BorgBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {

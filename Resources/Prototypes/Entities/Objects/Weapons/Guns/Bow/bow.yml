@@ -12,8 +12,8 @@
   - type: Clothing
     quickEquip: false
     slots:
-      - Back
-      - suitStorage
+    - Back
+    - suitStorage
   - type: Wieldable
     wieldSound:
       path: /Audio/Items/bow_pull.ogg
@@ -48,12 +48,12 @@
   - type: Sprite
     layers:
     - state: unwielded
-      map: [ base ]
+      map: [base]
     - state: unwielded-arrow
-      map: [ arrow ]
+      map: [arrow]
       visible: false
     - state: unwielded-plunger
-      map: [ plunger ]
+      map: [plunger]
       visible: false
   # to elucidate whats intended here:
   # arrow is inserted -> ItemMapper sets layer with map `arrow` to visible
@@ -77,14 +77,14 @@
     visuals:
       enum.WieldableVisuals.Wielded:
         arrow:
-          True: { state: wielded-arrow }
-          False: { state: unwielded-arrow }
+          True: {state: wielded-arrow}
+          False: {state: unwielded-arrow}
         plunger:
-          True: { state: wielded-plunger }
-          False: { state: unwielded-plunger }
+          True: {state: wielded-plunger}
+          False: {state: unwielded-plunger}
         base:
-          True: { state: wielded }
-          False: { state: unwielded }
+          True: {state: wielded}
+          False: {state: unwielded}
   - type: Construction
     graph: ImprovisedBow
     node: ImprovisedBow
@@ -98,12 +98,12 @@
   - type: Sprite
     layers:
     - state: unwielded
-      map: [ base ]
+      map: [base]
     - state: unwielded-arrow
-      map: [ arrow ]
+      map: [arrow]
       visible: false
     - state: unwielded-plunger
-      map: [ plunger ]
+      map: [plunger]
       visible: false
     sprite: _HL/Objects/Weapons/Guns/Bow/compound.rsi
   - type: Appearance
@@ -124,14 +124,14 @@
     visuals:
       enum.WieldableVisuals.Wielded:
         arrow:
-          True: { state: wielded-arrow }
-          False: { state: unwielded-arrow }
+          True: {state: wielded-arrow}
+          False: {state: unwielded-arrow}
         plunger:
-          True: { state: wielded-plunger }
-          False: { state: unwielded-plunger }
+          True: {state: wielded-plunger}
+          False: {state: unwielded-plunger}
         base:
-          True: { state: wielded }
-          False: { state: unwielded }
+          True: {state: wielded}
+          False: {state: unwielded}
   - type: Gun
     fireRate: 1.5
     projectileSpeed: 30

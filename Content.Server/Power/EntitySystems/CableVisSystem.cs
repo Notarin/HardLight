@@ -11,9 +11,14 @@ namespace Content.Server.Power.EntitySystems
     [UsedImplicitly]
     public sealed class CableVisSystem : EntitySystem
     {
-        [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-        [Dependency] private readonly NodeContainerSystem _nodeContainer = default!;
-        [Dependency] private readonly SharedMapSystem _map = default!;
+        [Dependency]
+        private readonly SharedAppearanceSystem _appearance = default!;
+
+        [Dependency]
+        private readonly NodeContainerSystem _nodeContainer = default!;
+
+        [Dependency]
+        private readonly SharedMapSystem _map = default!;
 
         public override void Initialize()
         {
@@ -49,7 +54,7 @@ namespace Content.Server.Power.EntitySystems
                     (0, -1) => WireVisDirFlags.South,
                     (1, 0) => WireVisDirFlags.East,
                     (-1, 0) => WireVisDirFlags.West,
-                    _ => WireVisDirFlags.None
+                    _ => WireVisDirFlags.None,
                 };
             }
 

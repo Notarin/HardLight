@@ -1,7 +1,7 @@
 ﻿using System.Linq;
-using Content.Shared.Instruments;
 using Content.Server.Instruments;
 using Content.Server.Xenoarchaeology.XenoArtifacts.Triggers.Components;
+using Content.Shared.Instruments;
 
 namespace Content.Server.Xenoarchaeology.XenoArtifacts.Triggers.Systems;
 
@@ -10,7 +10,8 @@ namespace Content.Server.Xenoarchaeology.XenoArtifacts.Triggers.Systems;
 /// </summary>
 public sealed class ArtifactMusicTriggerSystem : EntitySystem
 {
-    [Dependency] private readonly ArtifactSystem _artifact = default!;
+    [Dependency]
+    private readonly ArtifactSystem _artifact = default!;
 
     private readonly List<Entity<ArtifactMusicTriggerComponent, TransformComponent>> _artifacts = new();
     private readonly HashSet<EntityUid> _toActivate = new();

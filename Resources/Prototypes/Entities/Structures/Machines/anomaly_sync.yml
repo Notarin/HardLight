@@ -1,9 +1,9 @@
 - type: entity
   id: MachineAnomalySynchronizer
-  parent: [ BaseMachinePowered, ConstructibleMachine ]
+  parent: [BaseMachinePowered, ConstructibleMachine]
   name: anomaly synchronizer
   description: A sophisticated device that reads changes in anomalous waves, and converts them into energy signals.
-  categories: [ HideSpawnMenu ] # Frontier: doesn't make much sense for Frontier
+  categories: [HideSpawnMenu] # Frontier: doesn't make much sense for Frontier
   components:
   - type: AnomalySynchronizer
   - type: Machine
@@ -15,11 +15,11 @@
   - type: DeviceNetworkRequiresPower
   - type: DeviceLinkSource
     ports:
-      - Decaying
-      - Stabilize
-      - Growing
-      - Pulse
-      - Supercritical
+    - Decaying
+    - Stabilize
+    - Growing
+    - Pulse
+    - Supercritical
   - type: Sprite
     noRot: true
     sprite: Structures/Machines/anomaly_sync.rsi
@@ -37,8 +37,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.35,-0.35,0.35,0.35"
         density: 100
         mask:
@@ -68,5 +67,5 @@
     visuals:
       enum.PowerDeviceVisuals.Powered:
         enum.PowerDeviceVisualLayers.Powered:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}

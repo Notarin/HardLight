@@ -65,17 +65,17 @@
     visuals:
       enum.SharedBagOpenVisuals.BagState:
         closeLayer:
-          Open: { visible: false }
-          Closed: { visible: true }
+          Open: {visible: false}
+          Closed: {visible: true}
         openLayer:
-          Open: { visible: true }
-          Closed: { visible: false }
+          Open: {visible: true}
+          Closed: {visible: false}
         closed-paper:
-          Open: { state: open-paper }
-          Closed: { state: closed-paper }
+          Open: {state: open-paper}
+          Closed: {state: closed-paper}
         closed-cash:
-          Open: { state: open-cash }
-          Closed: { state: closed-cash }
+          Open: {state: open-cash}
+          Closed: {state: closed-cash}
         closed-coin:
-          Open: { state: open-coin }
-          Closed: { state: closed-coin }
+          Open: {state: open-coin}
+          Closed: {state: closed-coin}

@@ -11,9 +11,7 @@ namespace Content.Server.Database.Migrations.Sqlite
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "last_read_rules",
-                table: "player");
+            migrationBuilder.DropColumn(name: "last_read_rules", table: "player");
         }
 
         /// <inheritdoc />
@@ -23,7 +21,8 @@ namespace Content.Server.Database.Migrations.Sqlite
                 name: "last_read_rules",
                 table: "player",
                 type: "TEXT",
-                nullable: true);
+                nullable: true
+            );
         }
     }
 }

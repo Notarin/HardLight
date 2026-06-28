@@ -10,8 +10,11 @@ namespace Content.Shared.StoryGen;
 /// </summary>
 public sealed partial class StoryGeneratorSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _protoMan = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency]
+    private readonly IPrototypeManager _protoMan = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
 
     /// <summary>
     /// Tries to generate a random story using the given template, picking a random word from the referenced
@@ -21,7 +24,11 @@ public sealed partial class StoryGeneratorSystem : EntitySystem
     /// Fails if the template prototype cannot be loaded.
     /// </summary>
     /// <returns>true if the template was loaded, otherwise false.</returns>
-    public bool TryGenerateStoryFromTemplate(ProtoId<StoryTemplatePrototype> template, [NotNullWhen(true)] out string? story, int? seed = null)
+    public bool TryGenerateStoryFromTemplate(
+        ProtoId<StoryTemplatePrototype> template,
+        [NotNullWhen(true)] out string? story,
+        int? seed = null
+    )
     {
         // Get the story template prototype from the ID
         if (!_protoMan.TryIndex(template, out var templateProto))

@@ -14,6 +14,6 @@
   description: action-description-hairball
   components:
   - type: InstantAction
-    icon: { sprite: Nyanotrasen/Objects/Specific/Species/felinid.rsi, state: icon }
+    icon: {sprite: Nyanotrasen/Objects/Specific/Species/felinid.rsi, state: icon}
     useDelay: 30
     event: !type:HairballActionEvent

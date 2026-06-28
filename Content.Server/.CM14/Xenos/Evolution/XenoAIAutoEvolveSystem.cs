@@ -16,8 +16,11 @@ namespace Content.Server.CM14.Xenos.Evolution;
 /// </summary>
 public sealed class XenoAIAutoEvolveSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly SharedActionsSystem _actions = default!;
 
     public override void Initialize()
     {
@@ -63,8 +66,10 @@ public sealed class XenoAIAutoEvolveSystem : EntitySystem
 
         foreach (var uid in toProcess)
         {
-            if (!TryComp<XenoAIAutoEvolveComponent>(uid, out var autoEvolve) ||
-                !TryComp<XenoComponent>(uid, out var xeno))
+            if (
+                !TryComp<XenoAIAutoEvolveComponent>(uid, out var autoEvolve)
+                || !TryComp<XenoComponent>(uid, out var xeno)
+            )
                 continue;
 
             // Skip player-controlled xenos - only AI xenos should auto-evolve
@@ -101,7 +106,9 @@ public sealed class XenoAIAutoEvolveSystem : EntitySystem
             if (_actions.IsCooldownActive(action, curTime))
             {
                 var timeRemaining = action.Cooldown!.Value.End - curTime;
-                Log.Debug($"[XenoAI] {ToPrettyString(uid)} - Action cooldown remaining: {timeRemaining.TotalSeconds:F1}s");
+                Log.Debug(
+                    $"[XenoAI] {ToPrettyString(uid)} - Action cooldown remaining: {timeRemaining.TotalSeconds:F1}s"
+                );
                 continue;
             }
 

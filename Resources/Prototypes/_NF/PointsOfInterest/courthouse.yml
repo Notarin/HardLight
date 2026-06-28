@@ -32,6 +32,6 @@
     Courthouse:
       stationProto: StandardFrontierOutpost
       components:
-        - type: StationNameSetup
-          mapNameTemplate: "Courthouse"
-        - type: StationDeadDropHintExempt
+      - type: StationNameSetup
+        mapNameTemplate: "Courthouse"
+      - type: StationDeadDropHintExempt

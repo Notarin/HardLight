@@ -1,4 +1,4 @@
-﻿- type: vendingMachineInventory
+- type: vendingMachineInventory
   id: UnmcDrobeInventory
   startingInventory:
     CMArmorHelmetM10Medic: 1

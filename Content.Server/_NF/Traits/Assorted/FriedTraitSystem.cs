@@ -8,7 +8,8 @@ namespace Content.Server._NF.Traits.Assorted;
 /// </summary>
 public sealed class FriedTraitSystem : EntitySystem
 {
-    [Dependency] private readonly DeepFryerSystem _deepFryerSystem = default!;
+    [Dependency]
+    private readonly DeepFryerSystem _deepFryerSystem = default!;
 
     /// <inheritdoc/>
     public override void Initialize()

@@ -17,10 +17,16 @@ public sealed class NFImplantSystem : EntitySystem
 
         SubscribeLocalEvent<BibleUserImplantComponent, ImplantImplantedEvent>(OnBibleInserted);
         // Need access to the implant, this has to run before the implant is removed.
-        SubscribeLocalEvent<BibleUserImplantComponent, EntGotRemovedFromContainerMessage>(OnBibleRemoved, before: [typeof(SubdermalImplantSystem)]);
+        SubscribeLocalEvent<BibleUserImplantComponent, EntGotRemovedFromContainerMessage>(
+            OnBibleRemoved,
+            before: [typeof(SubdermalImplantSystem)]
+        );
         SubscribeLocalEvent<MimePowersImplantComponent, ImplantImplantedEvent>(OnMimeInserted);
         // Need access to the implant, this has to run before the implant is removed.
-        SubscribeLocalEvent<MimePowersImplantComponent, EntGotRemovedFromContainerMessage>(OnMimeRemoved, before: [typeof(SubdermalImplantSystem)]);
+        SubscribeLocalEvent<MimePowersImplantComponent, EntGotRemovedFromContainerMessage>(
+            OnMimeRemoved,
+            before: [typeof(SubdermalImplantSystem)]
+        );
     }
 
     private void OnBibleInserted(EntityUid uid, BibleUserImplantComponent component, ImplantImplantedEvent args)
@@ -32,7 +38,11 @@ public sealed class NFImplantSystem : EntitySystem
     }
 
     // Currently permanent, but should support removal if/when a viable solution is found.
-    private void OnBibleRemoved(EntityUid uid, BibleUserImplantComponent component, EntGotRemovedFromContainerMessage args)
+    private void OnBibleRemoved(
+        EntityUid uid,
+        BibleUserImplantComponent component,
+        EntGotRemovedFromContainerMessage args
+    )
     {
         if (!TryComp<SubdermalImplantComponent>(uid, out var implanted) || implanted.ImplantedEntity == null)
             return;
@@ -49,7 +59,11 @@ public sealed class NFImplantSystem : EntitySystem
         mimeComp.PreventWriting = false; // Explicit in case upstream changes its mind on this.
     }
 
-    private void OnMimeRemoved(EntityUid uid, MimePowersImplantComponent component, EntGotRemovedFromContainerMessage args)
+    private void OnMimeRemoved(
+        EntityUid uid,
+        MimePowersImplantComponent component,
+        EntGotRemovedFromContainerMessage args
+    )
     {
         if (!TryComp<SubdermalImplantComponent>(uid, out var implanted) || implanted.ImplantedEntity == null)
             return;

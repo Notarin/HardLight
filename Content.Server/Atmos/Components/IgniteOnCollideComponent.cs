@@ -16,5 +16,4 @@ public sealed partial class IgniteOnCollideComponent : Component
 
     [ViewVariables(VVAccess.ReadWrite), DataField("fixtureId")]
     public string FixtureId = "ignition";
-
 }

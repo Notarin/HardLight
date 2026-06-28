@@ -13,7 +13,7 @@
       effects:
       - !type:SatiateHunger
         factor: 0.5
-  #Starlight end
+        #Starlight end
 
 - type: reagent
   id: BbqSauce
@@ -30,7 +30,7 @@
       effects:
       - !type:SatiateHunger
         factor: 0.5
-  #Starlight end
+        #Starlight end
 
 - type: reagent
   id: Coldsauce
@@ -46,7 +46,7 @@
       effects:
       - !type:SatiateHunger
         factor: 0.5
-  #Starlight end
+        #Starlight end
 
 - type: reagent
   id: Cornoil
@@ -63,7 +63,7 @@
       effects:
       - !type:SatiateHunger
         factor: 0.5
-  #Starlight end
+        #Starlight end
 
 - type: reagent
   id: HorseradishSauce
@@ -80,7 +80,7 @@
       effects:
       - !type:SatiateHunger
         factor: 0.5
-  #Starlight end
+        #Starlight end
 
 - type: reagent
   id: Hotsauce
@@ -97,7 +97,7 @@
       effects:
       - !type:SatiateHunger
         factor: 0.5
-  #Starlight end
+        #Starlight end
 
 - type: reagent
   id: Ketchup
@@ -114,7 +114,7 @@
       effects:
       - !type:SatiateHunger
         factor: 0.5
-  #Starlight end
+        #Starlight end
 
 - type: reagent
   id: Ketchunaise
@@ -131,7 +131,7 @@
       effects:
       - !type:SatiateHunger
         factor: 0.5
-  #Starlight end
+        #Starlight end
 
 - type: reagent
   id: LaughinSyrup
@@ -148,7 +148,7 @@
       effects:
       - !type:SatiateHunger
         factor: 0.5
-  #Starlight end
+        #Starlight end
 
 - type: reagent
   id: Mayo
@@ -165,7 +165,7 @@
       effects:
       - !type:SatiateHunger
         factor: 0.5
-  #Starlight end
+        #Starlight end
 
 - type: reagent
   id: Mustard
@@ -182,7 +182,7 @@
       effects:
       - !type:SatiateHunger
         factor: 0.5
-  #Starlight end
+        #Starlight end
 
 - type: reagent
   id: Vinaigrette
@@ -199,7 +199,7 @@
       effects:
       - !type:SatiateHunger
         factor: 0.5
-  #Starlight end
+        #Starlight end
 
 - type: reagent
   id: Soysauce
@@ -245,8 +245,8 @@
   metabolisms:
     Food:
       effects:
-      # eating salt on its own kinda sucks, kids
       - !type:SatiateThirst
+        # eating salt on its own kinda sucks, kids
         factor: -0.5
 
 - type: reagent
@@ -260,14 +260,14 @@
   physicalDesc: reagent-physical-desc-sticky
   viscosity: 0.55 #Start using syrup to attach your remote recievers to your microwaves!
   tileReactions:
-    - !type:SpillTileReaction
+  - !type:SpillTileReaction
   metabolisms: # Frontier
     Food: # Frontier
       # 12 diona blood for 1 unit of syrup, this stuff better be worthwhile. # Frontier
       effects: # Frontier
-      - !type:SatiateHunger # Frontier
+      - !type:SatiateHunger
         factor: 6.0 #Stronger than cookedramen # Frontier
-  footstepSound:
+  footstepSound: # Frontier
     collection: FootstepBlood
     params:
       volume: 6

@@ -6,7 +6,8 @@
 /// </summary>
 public sealed partial class KeyFloatGreaterPrecondition : HTNPrecondition
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
 
     [DataField(required: true), ViewVariables]
     public string Key = string.Empty;

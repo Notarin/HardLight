@@ -23,7 +23,7 @@
     price: 5 # Why will anyone pay big money for animal organs
   - type: Tag
     tags:
-      - Trash
+    - Trash
   - type: Gibbable
   - type: Extractable
     juiceSolution:
@@ -37,7 +37,7 @@
   id: HandsAnimal
   name: animal hands
   parent: PartAnimal
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     layers:
@@ -52,7 +52,7 @@
   id: LegsAnimal
   name: animal legs
   parent: PartAnimal
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     layers:
@@ -67,7 +67,7 @@
   id: FeetAnimal
   name: animal feet
   parent: PartAnimal
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     layers:
@@ -81,7 +81,7 @@
   id: TorsoAnimal
   name: animal torso
   parent: PartAnimal
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     layers:

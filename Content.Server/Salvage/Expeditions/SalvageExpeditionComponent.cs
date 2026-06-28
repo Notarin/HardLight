@@ -41,7 +41,8 @@ public sealed partial class SalvageExpeditionComponent : SharedSalvageExpedition
     [DataField("console")]
     public EntityUid? Console;
 
-    [ViewVariables] public bool Completed = false;
+    [ViewVariables]
+    public bool Completed = false;
 
     /// <summary>
     /// HardLight: True once expedition return flow has been triggered.

@@ -83,7 +83,13 @@ public sealed class DoAfterCancellationTests : InteractionTest
         await AssertTile(Floor);
 
         // Second DoAfter cancels the first.
-        await Server.WaitPost(() => InteractSys.UserInteraction(SEntMan.GetEntity(Player), SEntMan.GetCoordinates(TargetCoords), SEntMan.GetEntity(Target)));
+        await Server.WaitPost(() =>
+            InteractSys.UserInteraction(
+                SEntMan.GetEntity(Player),
+                SEntMan.GetCoordinates(TargetCoords),
+                SEntMan.GetEntity(Target)
+            )
+        );
         Assert.That(ActiveDoAfters.Count(), Is.EqualTo(0));
         await AssertTile(Floor);
 
@@ -111,7 +117,13 @@ public sealed class DoAfterCancellationTests : InteractionTest
 
         // Second DoAfter cancels the first.
         // Not using helper, because it runs too many ticks & causes the do-after to finish.
-        await Server.WaitPost(() => InteractSys.UserInteraction(SEntMan.GetEntity(Player), SEntMan.GetCoordinates(TargetCoords), SEntMan.GetEntity(Target)));
+        await Server.WaitPost(() =>
+            InteractSys.UserInteraction(
+                SEntMan.GetEntity(Player),
+                SEntMan.GetCoordinates(TargetCoords),
+                SEntMan.GetEntity(Target)
+            )
+        );
         Assert.Multiple(() =>
         {
             Assert.That(ActiveDoAfters.Count(), Is.EqualTo(0));
@@ -134,7 +146,13 @@ public sealed class DoAfterCancellationTests : InteractionTest
             Assert.That(ActiveDoAfters.Count(), Is.EqualTo(1));
             Assert.That(comp.IsWelded, Is.True);
         });
-        await Server.WaitPost(() => InteractSys.UserInteraction(SEntMan.GetEntity(Player), SEntMan.GetCoordinates(TargetCoords), SEntMan.GetEntity(Target)));
+        await Server.WaitPost(() =>
+            InteractSys.UserInteraction(
+                SEntMan.GetEntity(Player),
+                SEntMan.GetCoordinates(TargetCoords),
+                SEntMan.GetEntity(Target)
+            )
+        );
         Assert.Multiple(() =>
         {
             Assert.That(ActiveDoAfters.Count(), Is.EqualTo(0));

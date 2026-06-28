@@ -51,7 +51,7 @@
       shader: unshaded
     - state: icon-on-bluespace
       visible: false
-      map: [ "enum.ToggleVisuals.Layer" ]
+      map: ["enum.ToggleVisuals.Layer"]
   - type: Item
     size: Small
     inhandVisuals:

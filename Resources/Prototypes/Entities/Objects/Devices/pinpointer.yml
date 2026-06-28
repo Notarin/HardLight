@@ -28,21 +28,21 @@
     visuals:
       enum.PinpointerVisuals.IsActive:
         enum.PinpointerLayers.Screen:
-          True: { visible: True }
-          False: { visible: False }
+          True: {visible: True}
+          False: {visible: False}
       enum.PinpointerVisuals.TargetDistance:
         enum.PinpointerLayers.Screen:
-          Unknown: { state: pinonnull }
-          Reached: { state: pinondirect }
-          Close: { state: pinonclose }
-          Medium: { state: pinonmedium }
-          Far: { state: pinonfar }
+          Unknown: {state: pinonnull}
+          Reached: {state: pinondirect}
+          Close: {state: pinonclose}
+          Medium: {state: pinonmedium}
+          Far: {state: pinonfar}
   - type: AnimationPlayer
 
 - type: entity
   name: pinpointer
   id: PinpointerNuclear
-  parent: [ BaseC2ContrabandUnredeemable, PinpointerBase ] # Frontier: BaseCommandContraband<BaseC2ContrabandUnredeemable
+  parent: [BaseC2ContrabandUnredeemable, PinpointerBase] # Frontier: BaseCommandContraband<BaseC2ContrabandUnredeemable
   components:
   - type: Pinpointer
     component: NukeDisk
@@ -52,7 +52,7 @@
   name: syndicate pinpointer
   description: Produced specifically for nuclear operative missions, get that disk!
   id: PinpointerSyndicateNuclear
-  parent: [ BaseC3SyndicateContraband, PinpointerBase ] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  parent: [BaseC3SyndicateContraband, PinpointerBase] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
   components:
   - type: Sprite
     layers:
@@ -115,7 +115,7 @@
     targetName: the station
 
 - type: entity
-  parent: [ PinpointerBase, BaseXenoborgContraband ]
+  parent: [PinpointerBase, BaseXenoborgContraband]
   id: PinpointerMothership
   name: core pinpointer
   suffix: Mothership

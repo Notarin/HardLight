@@ -1,6 +1,6 @@
-using Robust.Client.UserInterface.Controls;
 using System.Linq;
 using System.Numerics;
+using Robust.Client.UserInterface.Controls;
 
 namespace Content.Client.UserInterface.Controls;
 
@@ -24,11 +24,7 @@ public class RadialContainer : LayoutContainer
     [ViewVariables(VVAccess.ReadWrite)]
     public Vector2 AngularRange
     {
-        get
-        {
-            return _angularRange;
-        }
-
+        get { return _angularRange; }
         set
         {
             var x = value.X;
@@ -87,17 +83,12 @@ public class RadialContainer : LayoutContainer
     /// <summary>
     /// This container arranges its children, evenly separated, in a radial pattern
     /// </summary>
-    public RadialContainer()
-    {
-
-    }
+    public RadialContainer() { }
 
     /// <inheritdoc />
     protected override Vector2 ArrangeOverride(Vector2 finalSize)
     {
-        var children = ReserveSpaceForHiddenChildren
-            ? Children
-            : Children.Where(x => x.Visible);
+        var children = ReserveSpaceForHiddenChildren ? Children : Children.Where(x => x.Visible);
 
         var childCount = children.Count();
 
@@ -108,23 +99,15 @@ public class RadialContainer : LayoutContainer
 
         // Determine the size of the arc, accounting for clockwise and anti-clockwise arrangements
         var arc = AngularRange.Y - AngularRange.X;
-        arc = arc < 0
-            ? MathF.Tau + arc
-            : arc;
-        arc = isAntiClockwise
-            ? MathF.Tau - arc
-            : arc;
+        arc = arc < 0 ? MathF.Tau + arc : arc;
+        arc = isAntiClockwise ? MathF.Tau - arc : arc;
 
         // Account for both circular arrangements and arc-based arrangements
-        var childMod = MathHelper.CloseTo(arc, MathF.Tau, 0.01f)
-            ? 0
-            : 1;
+        var childMod = MathHelper.CloseTo(arc, MathF.Tau, 0.01f) ? 0 : 1;
 
         // Determine the separation between child elements
         var sepAngle = arc / (childCount - childMod);
-        sepAngle *= isAntiClockwise
-            ? -1f
-            : 1f;
+        sepAngle *= isAntiClockwise ? -1f : 1f;
 
         var controlCenter = finalSize * 0.5f;
 
@@ -138,10 +121,14 @@ public class RadialContainer : LayoutContainer
 
             // flooring values for snapping float values to physical grid -
             // it prevents gaps and overlapping between different button segments
-            var position = new Vector2(
+            var position =
+                new Vector2(
                     MathF.Floor(CalculatedRadius * MathF.Cos(targetAngleOfChild)),
                     MathF.Floor(-CalculatedRadius * MathF.Sin(targetAngleOfChild))
-                ) + controlCenter - child.DesiredSize * 0.5f + Position;
+                )
+                + controlCenter
+                - child.DesiredSize * 0.5f
+                + Position;
 
             SetPosition(child, position);
 
@@ -170,5 +157,4 @@ public class RadialContainer : LayoutContainer
         Clockwise,
         AntiClockwise,
     }
-
 }

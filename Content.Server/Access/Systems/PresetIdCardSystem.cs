@@ -11,10 +11,17 @@ namespace Content.Server.Access.Systems;
 
 public sealed class PresetIdCardSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IdCardSystem _cardSystem = default!;
-    [Dependency] private readonly SharedAccessSystem _accessSystem = default!;
-    [Dependency] private readonly StationSystem _stationSystem = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly IdCardSystem _cardSystem = default!;
+
+    [Dependency]
+    private readonly SharedAccessSystem _accessSystem = default!;
+
+    [Dependency]
+    private readonly StationSystem _stationSystem = default!;
 
     public override void Initialize()
     {
@@ -33,7 +40,11 @@ public sealed class PresetIdCardSystem : EntitySystem
             var station = _stationSystem.GetOwningStation(uid);
 
             // If we're not on an extended access station, the ID is already configured correctly from MapInit.
-            if (station == null || !TryComp<StationJobsComponent>(station.Value, out var jobsComp) || !jobsComp.ExtendedAccess)
+            if (
+                station == null
+                || !TryComp<StationJobsComponent>(station.Value, out var jobsComp)
+                || !jobsComp.ExtendedAccess
+            )
                 continue;
 
             SetupIdAccess(uid, card, true);

@@ -168,9 +168,9 @@
     edges:
     - to: skeletonSilver
       completed:
-        - !type:SpawnPrototype
-          prototype: SheetRGlass1
-          amount: 2
+      - !type:SpawnPrototype
+        prototype: SheetRGlass1
+        amount: 2
       steps:
       - tool: Prying
         doAfter: 4
@@ -184,13 +184,13 @@
   - node: airlockGlass
     entity: AirlockGlassShuttle
     edges:
-      - to: skeletonGlass
-        conditions:
-          - !type:EntityAnchored {}
-          - !type:DoorWelded {}
-          - !type:DoorBolted
-            value: false
-          - !type:WirePanel {}
-        steps:
-          - tool: Prying
-            doAfter: 5
+    - to: skeletonGlass
+      conditions:
+      - !type:EntityAnchored {}
+      - !type:DoorWelded {}
+      - !type:DoorBolted
+        value: false
+      - !type:WirePanel {}
+      steps:
+      - tool: Prying
+        doAfter: 5

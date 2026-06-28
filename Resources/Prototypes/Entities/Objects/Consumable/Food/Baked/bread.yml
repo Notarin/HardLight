@@ -2,13 +2,13 @@
 # Base
 
 - type: entity
-  parent: [ FoodInjectableBase, LaunchableProjectileBase ] # Frontier: added LaunchableProjectileBase, located in \Resources\Prototypes\_NF\Entities\Objects\Weapons\Guns\Projectiles\base_projectiles.yml
+  parent: [FoodInjectableBase, LaunchableProjectileBase] # Frontier: added LaunchableProjectileBase, located in \Resources\Prototypes\_NF\Entities\Objects\Weapons\Guns\Projectiles\base_projectiles.yml
   id: FoodBreadBase
   abstract: true
   components:
   - type: FlavorProfile
     flavors:
-      - bread
+    - bread
   - type: Food
   - type: Sprite
     sprite: Objects/Consumable/Food/Baked/bread.rsi
@@ -34,7 +34,7 @@
     size: Tiny
   - type: FlavorProfile
     flavors:
-      - bread
+    - bread
   - type: Tag
     tags:
     - Bread
@@ -90,8 +90,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - banana
-      - bread
+    - banana
+    - bread
   - type: Food
   - type: Sprite
     layers:
@@ -112,8 +112,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - banana
-      - bread
+    - banana
+    - bread
   - type: Food
   - type: Sprite
     layers:
@@ -195,8 +195,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - bread
-      - corn
+    - bread
+    - corn
   - type: Food
   - type: Sprite
     layers:
@@ -222,8 +222,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - bread
-      - corn
+    - bread
+    - corn
   - type: Food
   - type: Sprite
     layers:
@@ -246,9 +246,9 @@
   components:
   - type: FlavorProfile
     flavors:
-      - cheesy
-      - creamy
-      - bread
+    - cheesy
+    - creamy
+    - bread
   - type: Food
   - type: Sprite
     layers:
@@ -276,9 +276,9 @@
   components:
   - type: FlavorProfile
     flavors:
-      - cheesy
-      - creamy
-      - bread
+    - cheesy
+    - creamy
+    - bread
   - type: Food
   - type: Sprite
     layers:
@@ -303,8 +303,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - meaty
-      - bread
+    - meaty
+    - bread
   - type: Food
   - type: Sprite
     layers:
@@ -336,8 +336,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - meaty
-      - bread
+    - meaty
+    - bread
   - type: Food
   - type: Sprite
     layers:
@@ -367,8 +367,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - nothing
-      - bread
+    - nothing
+    - bread
   - type: Food
   - type: Sprite
     layers:
@@ -400,8 +400,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - nothing
-      - bread
+    - nothing
+    - bread
   - type: Food
   - type: Sprite
     layers:
@@ -454,8 +454,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - meaty
-      - bread
+    - meaty
+    - bread
   - type: Food
   - type: Sprite
     layers:
@@ -488,8 +488,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - meaty
-      - bread
+    - meaty
+    - bread
   - type: Food
   - type: Sprite
     layers:
@@ -521,8 +521,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - cobwebs
-      - bread
+    - cobwebs
+    - bread
   - type: Food
   - type: Sprite
     layers:
@@ -556,8 +556,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - cobwebs
-      - bread
+    - cobwebs
+    - bread
   - type: Food
   - type: Sprite
     layers:
@@ -589,8 +589,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - tofu
-      - bread
+    - tofu
+    - bread
   - type: Food
   - type: Sprite
     layers:
@@ -618,8 +618,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - tofu
-      - bread
+    - tofu
+    - bread
   - type: Food
   - type: Sprite
     layers:
@@ -644,8 +644,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - acid
-      - bread
+    - acid
+    - bread
   - type: Food
   - type: Sprite
     layers:
@@ -677,8 +677,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - acid
-      - bread
+    - acid
+    - bread
   - type: Food
   - type: Sprite
     layers:
@@ -729,7 +729,7 @@
         - ReagentId: Flavorol # Frontier
           Quantity: 5 # Frontier
   - type: Clothing
-    slots: [ BELT ]
+    slots: [BELT]
     equippedPrefix: baguette
     quickEquip: false
   - type: Item
@@ -848,8 +848,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - butter
-      - bread
+    - butter
+    - bread
   - type: Sprite
     state: buttered-toast
   - type: SolutionContainerManager
@@ -873,8 +873,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - syrupy
-      - bread
+    - syrupy
+    - bread
   - type: Sprite
     state: french-toast
   - type: SolutionContainerManager
@@ -898,8 +898,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - bread
-      - garlic
+    - bread
+    - garlic
   - type: Sprite
     layers:
     - state: garlic-slice
@@ -924,8 +924,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - bread
-      - slimy
+    - bread
+    - slimy
   - type: Sprite
     layers:
     - state: jelly-toast
@@ -1020,8 +1020,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35
         density: 50
         mask:
@@ -1047,8 +1046,8 @@
     speechSounds: Dog
     speechVerb: SmallMob
   - type: MovementSpeedModifier
-    baseWalkSpeed : 5
-    baseSprintSpeed : 3
+    baseWalkSpeed: 5
+    baseSprintSpeed: 3
   - type: Tag
     tags:
     - VimPilot

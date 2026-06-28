@@ -14,6 +14,5 @@ namespace Content.Server.Damage.Components
         [DataField("damage", required: true)]
         [ViewVariables(VVAccess.ReadWrite)]
         public DamageSpecifier Damage = default!;
-
     }
 }

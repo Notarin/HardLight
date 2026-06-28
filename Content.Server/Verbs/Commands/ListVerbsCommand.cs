@@ -9,7 +9,8 @@ namespace Content.Server.Verbs.Commands
     [AdminCommand(AdminFlags.Moderator)]
     public sealed class ListVerbsCommand : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _entManager = default!;
+        [Dependency]
+        private readonly IEntityManager _entManager = default!;
 
         public string Command => "listverbs";
         public string Description => Loc.GetString("list-verbs-command-description");
@@ -70,7 +71,9 @@ namespace Content.Server.Verbs.Commands
 
             foreach (var verb in verbs)
             {
-                shell.WriteLine(Loc.GetString("list-verbs-verb-listing", ("type", verb.GetType().Name), ("verb", verb.Text)));
+                shell.WriteLine(
+                    Loc.GetString("list-verbs-verb-listing", ("type", verb.GetType().Name), ("verb", verb.Text))
+                );
             }
         }
     }

@@ -6,27 +6,26 @@
 
 using System.Numerics;
 using Content.Server.Mining;
+using Content.Server.Power.Components;
 using Content.Shared._Crescent.ShipShields;
+using Content.Shared._Mono.SpaceArtillery;
 using Content.Shared.Physics;
-using Robust.Shared.Physics.Systems;
-using Robust.Shared.Physics.Collision.Shapes;
-using Robust.Shared.Physics.Components;
+using Content.Shared.Projectiles;
+using Content.Shared.Weapons.Ranged;
+using Content.Shared.Weapons.Ranged.Components;
+using Content.Shared.Weapons.Ranged.Events;
 using Robust.Server.GameObjects;
+using Robust.Server.GameStates;
+using Robust.Shared.GameObjects;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
-using Robust.Shared.Physics.Events;
-using Robust.Server.GameStates;
-using Content.Server.Power.Components;
 using Robust.Shared.Physics;
-using Content.Shared._Mono.SpaceArtillery;
-using Content.Shared.Projectiles;
-using Content.Shared.Weapons.Ranged.Components;
-using Content.Shared.Weapons.Ranged;
+using Robust.Shared.Physics.Collision.Shapes;
+using Robust.Shared.Physics.Components;
+using Robust.Shared.Physics.Events;
+using Robust.Shared.Physics.Systems;
 using Robust.Shared.Prototypes;
-using Content.Shared.Weapons.Ranged.Events;
-using Robust.Shared.GameObjects;
 using SpaceArtilleryComponent = Content.Server._Mono.SpaceArtillery.Components.SpaceArtilleryComponent;
-
 
 namespace Content.Server._Crescent.ShipShields;
 
@@ -37,11 +36,20 @@ public sealed partial class ShipShieldsSystem : EntitySystem
     //private const float DeflectionSpread = 25f;
     private const float EmitterUpdateRate = 1.5f;
 
-    [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
-    [Dependency] private readonly FixtureSystem _fixtureSystem = default!;
-    [Dependency] private readonly PhysicsSystem _physicsSystem = default!;
-    [Dependency] private readonly PvsOverrideSystem _pvsSys = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
+    [Dependency]
+    private readonly SharedTransformSystem _transformSystem = default!;
+
+    [Dependency]
+    private readonly FixtureSystem _fixtureSystem = default!;
+
+    [Dependency]
+    private readonly PhysicsSystem _physicsSystem = default!;
+
+    [Dependency]
+    private readonly PvsOverrideSystem _pvsSys = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _map = default!;
 
     private EntityQuery<ProjectileComponent> _projectileQuery;
     private EntityQuery<ShipWeaponProjectileComponent> _shipWeaponProjectileQuery;
@@ -99,10 +107,12 @@ public sealed partial class ShipShieldsSystem : EntitySystem
 
             // A grid can only have one ShipShieldedComponent marker/source. If another valid
             // emitter already owns this grid's shield, do not let this emitter churn ownership.
-            if (TryComp<ShipShieldedComponent>(parent.Value, out var gridShielded)
+            if (
+                TryComp<ShipShieldedComponent>(parent.Value, out var gridShielded)
                 && gridShielded.Source is { } ownerEmitter
                 && ownerEmitter != uid
-                && IsValidShieldEntity(gridShielded.Shield, ownerEmitter, parent.Value))
+                && IsValidShieldEntity(gridShielded.Shield, ownerEmitter, parent.Value)
+            )
             {
                 emitter.Shield = null;
                 emitter.Shielded = null;
@@ -135,9 +145,9 @@ public sealed partial class ShipShieldsSystem : EntitySystem
                     _audio.PlayPvs(emitter.PowerDownSound, uid, emitter.PowerDownSound.Params);
             }
             // HardLight end
-
         }
     }
+
     public override void Initialize()
     {
         base.Initialize();
@@ -202,9 +212,11 @@ public sealed partial class ShipShieldsSystem : EntitySystem
         }
 
         // only handle ship weapons for now. engine update introduced physics regressions. Let's polish everything else and circle back yeah?
-        if (!_shipWeaponProjectileQuery.HasComponent(args.OtherEntity) ||
-        !_projectileQuery.TryGetComponent(args.OtherEntity, out var projectile) ||
-        projectile.ProjectileSpent)
+        if (
+            !_shipWeaponProjectileQuery.HasComponent(args.OtherEntity)
+            || !_projectileQuery.TryGetComponent(args.OtherEntity, out var projectile)
+            || projectile.ProjectileSpent
+        )
         {
             args.Cancelled = true;
             return;
@@ -221,11 +233,10 @@ public sealed partial class ShipShieldsSystem : EntitySystem
         //
         // Pass through projectiles fired by the same grid we are shielding. Use Weapon first,
         // then Shooter as fallback for projectiles that don't carry a weapon reference.
-        var firingGrid = projectile.Weapon is { } weaponUid
-            ? _transformSystem.GetGrid(weaponUid)
-            : projectile.Shooter is { } shooterUid
-                ? _transformSystem.GetGrid(shooterUid)
-                : null;
+        var firingGrid =
+            projectile.Weapon is { } weaponUid ? _transformSystem.GetGrid(weaponUid)
+            : projectile.Shooter is { } shooterUid ? _transformSystem.GetGrid(shooterUid)
+            : null;
 
         if (firingGrid == component.Shielded)
         {
@@ -369,11 +380,15 @@ public sealed partial class ShipShieldsSystem : EntitySystem
         var internalPoly = new PolygonShape();
         internalPoly.Set(roughPoly);
 
-        _fixtureSystem.TryCreateFixture(shield, internalPoly, "internalShield",
+        _fixtureSystem.TryCreateFixture(
+            shield,
+            internalPoly,
+            "internalShield",
             hard: true,
             // HardLight: also HitscanImpassable.
             collisionLayer: (int)(CollisionGroup.BulletImpassable | CollisionGroup.HitscanImpassable),
-            body: shieldPhysics);
+            body: shieldPhysics
+        );
 
         _physicsSystem.SetCanCollide(shield, true, body: shieldPhysics);
         _physicsSystem.WakeBody(shield, body: shieldPhysics);
@@ -413,9 +428,11 @@ public sealed partial class ShipShieldsSystem : EntitySystem
         emitter.Shield = null;
         emitter.Shielded = null;
 
-        if (TryComp<ShipShieldedComponent>(gridUid, out var shielded)
+        if (
+            TryComp<ShipShieldedComponent>(gridUid, out var shielded)
             && shielded.Source == emitterUid
-            && IsValidShieldEntity(shielded.Shield, emitterUid, gridUid))
+            && IsValidShieldEntity(shielded.Shield, emitterUid, gridUid)
+        )
         {
             emitter.Shield = shielded.Shield;
             emitter.Shielded = gridUid;
@@ -426,20 +443,30 @@ public sealed partial class ShipShieldsSystem : EntitySystem
         return false;
     }
 
-    private bool RemoveEmitterShield(EntityUid emitterUid, ShipShieldEmitterComponent emitter, EntityUid? gridUid = null)
+    private bool RemoveEmitterShield(
+        EntityUid emitterUid,
+        ShipShieldEmitterComponent emitter,
+        EntityUid? gridUid = null
+    )
     {
         var removed = false;
 
-        if (emitter.Shield != null
+        if (
+            emitter.Shield != null
             && Exists(emitter.Shield.Value)
             && TryComp<ShipShieldComponent>(emitter.Shield.Value, out var emitterShield)
-            && emitterShield.Source == emitterUid)
+            && emitterShield.Source == emitterUid
+        )
         {
             QueueDel(emitter.Shield.Value);
             removed = true;
         }
 
-        if (gridUid != null && TryComp<ShipShieldedComponent>(gridUid.Value, out var shielded) && shielded.Source == emitterUid)
+        if (
+            gridUid != null
+            && TryComp<ShipShieldedComponent>(gridUid.Value, out var shielded)
+            && shielded.Source == emitterUid
+        )
         {
             if (Exists(shielded.Shield))
             {
@@ -538,7 +565,11 @@ public sealed partial class ShipShieldsSystem : EntitySystem
         _transformSystem.SetWorldRotation(shieldUid, _transformSystem.GetWorldRotation(gridUid));
     }
 
-    private void OnShieldedGridShapeChanged(EntityUid uid, ShipShieldedComponent shielded, ref GridFixtureChangeEvent args)
+    private void OnShieldedGridShapeChanged(
+        EntityUid uid,
+        ShipShieldedComponent shielded,
+        ref GridFixtureChangeEvent args
+    )
     {
         if (!TryComp<MapGridComponent>(uid, out var component))
             return;
@@ -592,9 +623,11 @@ public sealed partial class ShipShieldsSystem : EntitySystem
 
     private void RefreshShieldForGrid(EntityUid gridUid, MapGridComponent mapGrid, ShipShieldedComponent shielded)
     {
-        if (!Exists(shielded.Shield)
+        if (
+            !Exists(shielded.Shield)
             || !TryComp<ShipShieldComponent>(shielded.Shield, out var shieldComp)
-            || shieldComp.Shielded != gridUid)
+            || shieldComp.Shielded != gridUid
+        )
         {
             if (shielded.Source is { } source && TryComp<ShipShieldEmitterComponent>(source, out var emitter))
             {
@@ -636,7 +669,12 @@ public sealed partial class ShipShieldsSystem : EntitySystem
         var padding = TryComp<ShipShieldVisualsComponent>(shieldUid, out var visuals) ? visuals.Padding : 50f;
         var expectedWidth = shieldBounds.Width + padding;
         var expectedHeight = shieldBounds.Height + padding;
-        var expectedBounds = new Box2(-expectedWidth / 2f, -expectedHeight / 2f, expectedWidth / 2f, expectedHeight / 2f);
+        var expectedBounds = new Box2(
+            -expectedWidth / 2f,
+            -expectedHeight / 2f,
+            expectedWidth / 2f,
+            expectedHeight / 2f
+        );
 
         return Math.Abs(actualBounds.Width - expectedBounds.Width) > 0.1f
             || Math.Abs(actualBounds.Height - expectedBounds.Height) > 0.1f;
@@ -644,8 +682,10 @@ public sealed partial class ShipShieldsSystem : EntitySystem
 
     private void RebuildShieldFixtures(EntityUid shieldUid, MapGridComponent mapGrid)
     {
-        if (!TryComp<PhysicsComponent>(shieldUid, out var physics)
-            || !TryComp<FixturesComponent>(shieldUid, out var fixtures))
+        if (
+            !TryComp<PhysicsComponent>(shieldUid, out var physics)
+            || !TryComp<FixturesComponent>(shieldUid, out var fixtures)
+        )
             return;
 
         var bounds = GetShieldBounds(Comp<ShipShieldComponent>(shieldUid).Shielded, mapGrid);
@@ -676,12 +716,16 @@ public sealed partial class ShipShieldsSystem : EntitySystem
         var internalPoly = new PolygonShape();
         internalPoly.Set(roughPoly);
 
-        _fixtureSystem.TryCreateFixture(shieldUid, internalPoly, "internalShield",
+        _fixtureSystem.TryCreateFixture(
+            shieldUid,
+            internalPoly,
+            "internalShield",
             hard: true,
             // HardLight: HitscanImpassable so rebuilt shields keep stopping energy beams (see ShieldEntity).
             collisionLayer: (int)(CollisionGroup.BulletImpassable | CollisionGroup.HitscanImpassable),
             updates: false,
-            body: shieldPhysics);
+            body: shieldPhysics
+        );
     }
 
     private static Box2 GetShapeBounds(IReadOnlyList<Vector2> vertices)
@@ -698,9 +742,16 @@ public sealed partial class ShipShieldsSystem : EntitySystem
 
         return new Box2(min, max);
     }
+
     // HardLight end
 
-    private ChainShape GenerateOvalFixture(EntityUid uid, string name, PhysicsComponent physics, Box2 shieldBounds, float padding)
+    private ChainShape GenerateOvalFixture(
+        EntityUid uid,
+        string name,
+        PhysicsComponent physics,
+        Box2 shieldBounds,
+        float padding
+    )
     {
         float radius;
         float scale;
@@ -737,26 +788,24 @@ public sealed partial class ShipShieldsSystem : EntitySystem
             }
         }
 
-        _fixtureSystem.TryCreateFixture(uid, chain, name,
+        _fixtureSystem.TryCreateFixture(
+            uid,
+            chain,
+            name,
             hard: false,
             collisionLayer: (int)(CollisionGroup.BulletImpassable | CollisionGroup.HitscanImpassable), // Mono - blocks both projectiles and hitscan (laser/energy) weapons
-            body: physics);
+            body: physics
+        );
 
         return chain;
     }
 
     [ByRefEvent]
-    public record struct ShieldDeflectedEvent(EntityUid Deflected, ProjectileComponent Projectile)
-    {
-
-    }
+    public record struct ShieldDeflectedEvent(EntityUid Deflected, ProjectileComponent Projectile) { }
 
     /// <summary>
     /// Raised on a shield emitter when a ship-weapon hitscan (laser/energy) beam is absorbed by the shield.
     /// </summary>
     [ByRefEvent]
-    public record struct ShieldHitscanDeflectedEvent(float Damage)
-    {
-
-    }
+    public record struct ShieldHitscanDeflectedEvent(float Damage) { }
 }

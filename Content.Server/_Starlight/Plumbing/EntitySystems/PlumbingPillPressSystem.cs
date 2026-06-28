@@ -28,14 +28,26 @@ namespace Content.Server._Starlight.Plumbing.EntitySystems;
 [UsedImplicitly]
 public sealed class PlumbingPillPressSystem : EntitySystem
 {
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionSystem = default!;
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly PlumbingPullSystem _pullSystem = default!;
-    [Dependency] private readonly LabelSystem _labelSystem = default!;
+    [Dependency]
+    private readonly SharedSolutionContainerSystem _solutionSystem = default!;
+
+    [Dependency]
+    private readonly UserInterfaceSystem _ui = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly PlumbingPullSystem _pullSystem = default!;
+
+    [Dependency]
+    private readonly LabelSystem _labelSystem = default!;
 
     private static readonly EntProtoId PillPrototypeId = "Pill";
+
     // private static readonly EntProtoId PatchPrototypeId = "Patch"; // HL: no patches
 
     /// <summary>Max dosage matches the ChemMaster limit.</summary>
@@ -70,7 +82,14 @@ public sealed class PlumbingPillPressSystem : EntitySystem
             HandleMixingPull(ent);
 
         // Pulling from the normal N inlet is handled by PlumbingInletSystem via PlumbingInletComponent.
-        if (!_solutionSystem.TryGetSolution(ent.Owner, ent.Comp.BufferSolutionName, out var solutionEnt, out var solution))
+        if (
+            !_solutionSystem.TryGetSolution(
+                ent.Owner,
+                ent.Comp.BufferSolutionName,
+                out var solutionEnt,
+                out var solution
+            )
+        )
             return;
 
         var dosage = FixedPoint2.New(ent.Comp.Dosage);
@@ -92,10 +111,12 @@ public sealed class PlumbingPillPressSystem : EntitySystem
             {
                 var item = Spawn(PillPrototypeId, spawnCoords);
                 _labelSystem.Label(item, ent.Comp.Label);
-                _solutionSystem.EnsureSolutionEntity(item,
+                _solutionSystem.EnsureSolutionEntity(
+                    item,
                     SharedChemMaster.PillSolutionName,
                     out var itemSolution,
-                    dosage);
+                    dosage
+                );
 
                 if (itemSolution.HasValue)
                     _solutionSystem.TryAddSolution(itemSolution.Value, withdrawal);
@@ -142,13 +163,27 @@ public sealed class PlumbingPillPressSystem : EntitySystem
             return;
 
         var eastFraction = ent.Comp.InletRatioEast / totalRatio;
-        var eastTarget = FixedPoint2.New((int) MathF.Round(eastFraction * (float) dosage));
+        var eastTarget = FixedPoint2.New((int)MathF.Round(eastFraction * (float)dosage));
         var westTarget = dosage - eastTarget; // Remainder goes to west to avoid rounding loss
 
-        if (!_solutionSystem.TryGetSolution(ent.Owner, ent.Comp.StagingEastSolutionName, out var stagingEastEnt, out var stagingEast))
+        if (
+            !_solutionSystem.TryGetSolution(
+                ent.Owner,
+                ent.Comp.StagingEastSolutionName,
+                out var stagingEastEnt,
+                out var stagingEast
+            )
+        )
             return;
 
-        if (!_solutionSystem.TryGetSolution(ent.Owner, ent.Comp.StagingWestSolutionName, out var stagingWestEnt, out var stagingWest))
+        if (
+            !_solutionSystem.TryGetSolution(
+                ent.Owner,
+                ent.Comp.StagingWestSolutionName,
+                out var stagingWestEnt,
+                out var stagingWest
+            )
+        )
             return;
 
         if (!TryComp<NodeContainerComponent>(ent.Owner, out var nodeContainer))
@@ -156,23 +191,39 @@ public sealed class PlumbingPillPressSystem : EntitySystem
 
         if (ent.Comp.InletRatioEast > 0 && stagingEast.Volume < eastTarget)
         {
-            if (nodeContainer.Nodes.TryGetValue(ent.Comp.InletEastNodeName, out var eastNode)
+            if (
+                nodeContainer.Nodes.TryGetValue(ent.Comp.InletEastNodeName, out var eastNode)
                 && eastNode is PlumbingNode eastPlumbingNode
-                && eastPlumbingNode.PlumbingNet != null)
+                && eastPlumbingNode.PlumbingNet != null
+            )
             {
                 var eastNeeded = eastTarget - stagingEast.Volume;
-                _pullSystem.PullFromNetwork(ent.Owner, eastPlumbingNode.PlumbingNet, stagingEastEnt.Value, eastNeeded, 0);
+                _pullSystem.PullFromNetwork(
+                    ent.Owner,
+                    eastPlumbingNode.PlumbingNet,
+                    stagingEastEnt.Value,
+                    eastNeeded,
+                    0
+                );
             }
         }
 
         if (ent.Comp.InletRatioWest > 0 && stagingWest.Volume < westTarget)
         {
-            if (nodeContainer.Nodes.TryGetValue(ent.Comp.InletWestNodeName, out var westNode)
+            if (
+                nodeContainer.Nodes.TryGetValue(ent.Comp.InletWestNodeName, out var westNode)
                 && westNode is PlumbingNode westPlumbingNode
-                && westPlumbingNode.PlumbingNet != null)
+                && westPlumbingNode.PlumbingNet != null
+            )
             {
                 var westNeeded = westTarget - stagingWest.Volume;
-                _pullSystem.PullFromNetwork(ent.Owner, westPlumbingNode.PlumbingNet, stagingWestEnt.Value, westNeeded, 0);
+                _pullSystem.PullFromNetwork(
+                    ent.Owner,
+                    westPlumbingNode.PlumbingNet,
+                    stagingWestEnt.Value,
+                    westNeeded,
+                    0
+                );
             }
         }
 
@@ -310,7 +361,8 @@ public sealed class PlumbingPillPressSystem : EntitySystem
             ent.Comp.InletRatioEast,
             ent.Comp.InletRatioWest,
             stagingEastVolume,
-            stagingWestVolume);
+            stagingWestVolume
+        );
 
         _ui.SetUiState(ent.Owner, PlumbingPillPressUiKey.Key, state);
     }

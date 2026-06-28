@@ -5,18 +5,18 @@
   description: A popular police firearm in the 20th century, often employed by hard-boiled cops while confronting terrorists. A classic of its time, chambered in 9mm. Normally found in the hands of Survivors and the Colony Liberation Front.
   components:
   # - type: RMCSelectiveFire
-    # scatterWielded: 8
-    # scatterUnwielded: 8
-    # baseFireRate: 10
+  # scatterWielded: 8
+  # scatterUnwielded: 8
+  # baseFireRate: 10
   - type: Sprite
     sprite: _RMC14/Objects/Weapons/Guns/Pistols/b92fs.rsi
     layers:
     - sprite: _RMC14/Objects/Weapons/Guns/Pistols/b92fs.rsi
       state: base
-      map: [ "enum.GunVisualLayers.Base" ]
+      map: ["enum.GunVisualLayers.Base"]
     - sprite: _RMC14/Objects/Weapons/Guns/Pistols/b92fs.rsi
       state: mag-0
-      map: [ "enum.GunVisualLayers.Mag" ]
+      map: ["enum.GunVisualLayers.Mag"]
   - type: Clothing
     sprite: _RMC14/Objects/Weapons/Guns/Pistols/b92fs.rsi
   - type: ItemSlots
@@ -32,33 +32,33 @@
           - RMCMagazinePistolB92FS
   - type: GunDamageModifier
     multiplier: 0.9
-  # - type: RMCWeaponAccuracy
+    # - type: RMCWeaponAccuracy
     # accuracyMultiplier: 1.25
-  # - type: AttachableHolder
+    # - type: AttachableHolder
     # slots:
-      # rmc-aslot-barrel:
-        # whitelist:
-          # tags:
-          # - RMCAttachmentBarrelCharger
-          # - RMCAttachmentExtendedBarrel
-          # - RMCAttachmentRecoilCompensator
-          # - RMCAttachmentSuppressor
-      # rmc-aslot-rail:
-        # whitelist:
-          # tags:
-          # - RMCAttachmentRailFlashlight
-          # - RMCAttachmentS5RedDotSight
-          # - RMCAttachmentS6ReflexSight
-      # rmc-aslot-underbarrel:
-        # whitelist:
-          # tags:
-          # - RMCAttachmentBurstFireAssembly
-          # - RMCAttachmentLaserSight
-  # - type: AttachableHolderVisuals
+    # rmc-aslot-barrel:
+    # whitelist:
+    # tags:
+    # - RMCAttachmentBarrelCharger
+    # - RMCAttachmentExtendedBarrel
+    # - RMCAttachmentRecoilCompensator
+    # - RMCAttachmentSuppressor
+    # rmc-aslot-rail:
+    # whitelist:
+    # tags:
+    # - RMCAttachmentRailFlashlight
+    # - RMCAttachmentS5RedDotSight
+    # - RMCAttachmentS6ReflexSight
+    # rmc-aslot-underbarrel:
+    # whitelist:
+    # tags:
+    # - RMCAttachmentBurstFireAssembly
+    # - RMCAttachmentLaserSight
+    # - type: AttachableHolderVisuals
     # offsets:
-      # rmc-aslot-barrel: 0.71, 0.095
-      # rmc-aslot-rail: -0.065, 0.125
-      # rmc-aslot-underbarrel: 0.312, -0.25
+    # rmc-aslot-barrel: 0.71, 0.095
+    # rmc-aslot-rail: -0.065, 0.125
+    # rmc-aslot-underbarrel: 0.312, -0.25
 
 - type: entity
   parent: CMBaseMagazinePistol

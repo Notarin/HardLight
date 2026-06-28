@@ -34,12 +34,12 @@ public sealed partial class ZombieComponent : Component
     /// </summary>
     public DamageSpecifier ResistanceEffectiveness = new()
     {
-        DamageDict = new ()
+        DamageDict = new()
         {
-            {"Slash", 0.5},
-            {"Piercing", 0.3},
-            {"Blunt", 0.1},
-        }
+            { "Slash", 0.5 },
+            { "Piercing", 0.3 },
+            { "Blunt", 0.1 },
+        },
     };
 
     [ViewVariables(VVAccess.ReadWrite)]
@@ -79,7 +79,7 @@ public sealed partial class ZombieComponent : Component
     /// The CustomBaseLayers of the humanoid to restore in case of cloning
     /// </summary>
     [DataField("beforeZombifiedCustomBaseLayers")]
-    public Dictionary<HumanoidVisualLayers, CustomBaseLayerInfo> BeforeZombifiedCustomBaseLayers = new ();
+    public Dictionary<HumanoidVisualLayers, CustomBaseLayerInfo> BeforeZombifiedCustomBaseLayers = new();
 
     /// <summary>
     /// The skin color of the humanoid to restore in case of cloning
@@ -96,7 +96,7 @@ public sealed partial class ZombieComponent : Component
     [DataField("emoteId")]
     public ProtoId<EmoteSoundsPrototype>? EmoteSoundsId = "Zombie";
 
-    [DataField("nextTick", customTypeSerializer:typeof(TimeOffsetSerializer))]
+    [DataField("nextTick", customTypeSerializer: typeof(TimeOffsetSerializer))]
     public TimeSpan NextTick;
 
     [DataField("zombieStatusIcon")]
@@ -108,14 +108,14 @@ public sealed partial class ZombieComponent : Component
     [DataField("passiveHealing")]
     public DamageSpecifier PassiveHealing = new()
     {
-        DamageDict = new ()
+        DamageDict = new()
         {
             { "Blunt", -1.2 },
             { "Slash", -0.6 },
             { "Piercing", -0.6 },
             { "Heat", -0.06 },
-            { "Shock", -0.06 }
-        }
+            { "Shock", -0.06 },
+        },
     };
 
     /// <summary>
@@ -134,8 +134,8 @@ public sealed partial class ZombieComponent : Component
         {
             { "Blunt", -6 },
             { "Slash", -6 },
-            { "Piercing", -6 }
-        }
+            { "Piercing", -6 },
+        },
     };
 
     /// <summary>
@@ -148,8 +148,8 @@ public sealed partial class ZombieComponent : Component
         {
             { "Slash", 13 },
             { "Piercing", 7 },
-            { "Structural", 10 }
-        }
+            { "Structural", 10 },
+        },
     };
 
     /// <summary>

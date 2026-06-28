@@ -5,6 +5,4 @@ namespace Content.Server.StationEvents.Events;
 /// <summary>
 /// Early anti-ramp event.
 /// </summary>
-internal sealed class MundaneDischargeRule : StationEventSystem<MundaneDischargeRuleComponent>
-{
-}
+internal sealed class MundaneDischargeRule : StationEventSystem<MundaneDischargeRuleComponent> { }

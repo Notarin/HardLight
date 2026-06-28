@@ -8,8 +8,8 @@
     state: tile_carpet_deco
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorCarpetDeco
+    - Plating
+    - FloorCarpetDeco
   - type: Stack
     stackType: FloorTileCarpetDeco
 
@@ -23,8 +23,8 @@
     state: tile_dark_bitile
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorDarkBitile
+    - Plating
+    - FloorDarkBitile
   - type: Stack
     stackType: FloorTileDarkBitile
 
@@ -38,8 +38,8 @@
     state: tile_steel_bitile
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorSteelBitile
+    - Plating
+    - FloorSteelBitile
   - type: Stack
     stackType: FloorTileSteelBitile
 
@@ -53,8 +53,8 @@
     state: tile_white_bitile
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorWhiteBitile
+    - Plating
+    - FloorWhiteBitile
   - type: Stack
     stackType: FloorTileWhiteBitile
 
@@ -68,8 +68,8 @@
     state: tile_hierophant
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorHierophant
+    - Plating
+    - FloorHierophant
   - type: Stack
     stackType: FloorTileHierophant
 
@@ -83,8 +83,8 @@
     state: tile_sepia
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorSepia
+    - Plating
+    - FloorSepia
   - type: Stack
     stackType: FloorTileSepia
 
@@ -98,8 +98,8 @@
     state: tile_terracotta
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorTerracotta
+    - Plating
+    - FloorTerracotta
   - type: Stack
     stackType: FloorTileTerracotta
 
@@ -113,8 +113,8 @@
     state: tile_terracotta_diagonal
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorTerracottaDiagonal
+    - Plating
+    - FloorTerracottaDiagonal
   - type: Stack
     stackType: FloorTileTerracottaDiagonal
 
@@ -128,8 +128,8 @@
     state: tile_terracotta_small
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorTerracottaSmall
+    - Plating
+    - FloorTerracottaSmall
   - type: Stack
     stackType: FloorTileTerracottaSmall
 
@@ -145,8 +145,8 @@
     heldPrefix: darkwood
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorDarkWood
+    - Plating
+    - FloorDarkWood
   - type: Stack
     stackType: FloorTileDarkWood
 
@@ -162,8 +162,8 @@
     heldPrefix: darkwood
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorDarkWoodTile
+    - Plating
+    - FloorDarkWoodTile
   - type: Stack
     stackType: FloorTileDarkWoodPattern
 
@@ -180,8 +180,8 @@
     heldPrefix: darkwood
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorBrokenDarkWood
+    - Plating
+    - FloorBrokenDarkWood
   - type: Stack
     stackType: FloorTileDarkWoodBroken
 
@@ -197,8 +197,8 @@
     heldPrefix: darkwood
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorDarkWoodLarge
+    - Plating
+    - FloorDarkWoodLarge
   - type: Stack
     stackType: FloorTileDarkWoodLarge
 
@@ -215,8 +215,8 @@
     heldPrefix: wood
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorWoodParquet
+    - Plating
+    - FloorWoodParquet
   - type: Stack
     stackType: FloorTileWoodParquet
 
@@ -233,8 +233,8 @@
     heldPrefix: wood-black
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorWoodBlack
+    - Plating
+    - FloorWoodBlack
   - type: Stack
     stackType: FloorTileItemWoodBlack
 
@@ -251,8 +251,8 @@
     heldPrefix: wood-dark
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorWoodDark
+    - Plating
+    - FloorWoodDark
   - type: Stack
     stackType: FloorTileItemWoodDark
 
@@ -269,8 +269,8 @@
     heldPrefix: wood-light
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorWoodLight
+    - Plating
+    - FloorWoodLight
   - type: Stack
     stackType: FloorTileItemWoodLight
 
@@ -287,8 +287,8 @@
     heldPrefix: wood-red
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorWoodRed
+    - Plating
+    - FloorWoodRed
   - type: Stack
     stackType: FloorTileItemWoodRed
 
@@ -305,8 +305,8 @@
     heldPrefix: wood-black
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorWoodLargeBlack
+    - Plating
+    - FloorWoodLargeBlack
   - type: Stack
     stackType: FloorTileItemWoodLargeBlack
 
@@ -323,8 +323,8 @@
     heldPrefix: wood-dark
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorWoodLargeDark
+    - Plating
+    - FloorWoodLargeDark
   - type: Stack
     stackType: FloorTileItemWoodLargeDark
 
@@ -341,8 +341,8 @@
     heldPrefix: wood-light
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorWoodLargeLight
+    - Plating
+    - FloorWoodLargeLight
   - type: Stack
     stackType: FloorTileItemWoodLargeLight
 
@@ -359,8 +359,8 @@
     heldPrefix: wood-red
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorWoodLargeRed
+    - Plating
+    - FloorWoodLargeRed
   - type: Stack
     stackType: FloorTileItemWoodLargeRed
 
@@ -377,8 +377,8 @@
     heldPrefix: wood-black
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorWoodParquetBlack
+    - Plating
+    - FloorWoodParquetBlack
   - type: Stack
     stackType: FloorTileItemWoodParquetBlack
 
@@ -395,8 +395,8 @@
     heldPrefix: wood-dark
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorWoodParquetDark
+    - Plating
+    - FloorWoodParquetDark
   - type: Stack
     stackType: FloorTileItemWoodParquetDark
 
@@ -413,8 +413,8 @@
     heldPrefix: wood-light
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorWoodParquetLight
+    - Plating
+    - FloorWoodParquetLight
   - type: Stack
     stackType: FloorTileItemWoodParquetLight
 
@@ -431,8 +431,8 @@
     heldPrefix: wood-red
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorWoodParquetRed
+    - Plating
+    - FloorWoodParquetRed
   - type: Stack
     stackType: FloorTileItemWoodParquetRed
 
@@ -449,8 +449,8 @@
     heldPrefix: wood
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorWoodChess
+    - Plating
+    - FloorWoodChess
   - type: Stack
     stackType: FloorTileItemWoodChess
 
@@ -467,8 +467,8 @@
     heldPrefix: wood-black
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorWoodChessBlack
+    - Plating
+    - FloorWoodChessBlack
   - type: Stack
     stackType: FloorTileItemWoodChessBlack
 
@@ -485,8 +485,8 @@
     heldPrefix: wood-dark
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorWoodChessDark
+    - Plating
+    - FloorWoodChessDark
   - type: Stack
     stackType: FloorTileItemWoodChessDark
 
@@ -503,8 +503,8 @@
     heldPrefix: wood-light
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorWoodChessLight
+    - Plating
+    - FloorWoodChessLight
   - type: Stack
     stackType: FloorTileItemWoodChessLight
 
@@ -521,8 +521,8 @@
     heldPrefix: wood-red
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorWoodChessRed
+    - Plating
+    - FloorWoodChessRed
   - type: Stack
     stackType: FloorTileItemWoodChessRed
 
@@ -538,8 +538,8 @@
     state: tile_metal_dark
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorMetalDark
+    - Plating
+    - FloorMetalDark
   - type: Stack
     stackType: FloorTileMetalDark
 
@@ -553,8 +553,8 @@
     state: tile_metal_engie
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorMetalBrown
+    - Plating
+    - FloorMetalBrown
   - type: Stack
     stackType: FloorTileMetalBrown
 
@@ -568,8 +568,8 @@
     state: tile_metal_med
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorMetalBlue
+    - Plating
+    - FloorMetalBlue
   - type: Stack
     stackType: FloorTileMetalBlue
 
@@ -583,8 +583,8 @@
     state: tile_metal_sci
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorMetalPurple
+    - Plating
+    - FloorMetalPurple
   - type: Stack
     stackType: FloorTileMetalPurple
 
@@ -598,8 +598,8 @@
     state: tile_metal_sec
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorMetalRed
+    - Plating
+    - FloorMetalRed
   - type: Stack
     stackType: FloorTileMetalRed
 
@@ -613,8 +613,8 @@
     state: tile_metal_service
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorMetalGreen
+    - Plating
+    - FloorMetalGreen
   - type: Stack
     stackType: FloorTileMetalGreen
 
@@ -630,8 +630,8 @@
     state: tile_astro_dirt
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorAstroDirt
+    - Plating
+    - FloorAstroDirt
   - type: Stack
     stackType: FloorTileAstroDirt
 
@@ -647,8 +647,8 @@
     state: tile_abyss_one
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorAbyss
+    - Plating
+    - FloorAbyss
   - type: Stack
     stackType: FloorTileAbyssOne
 
@@ -663,8 +663,8 @@
     state: tile_abyss_two
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorAbyss2
+    - Plating
+    - FloorAbyss2
   - type: Stack
     stackType: FloorTileAbyssTwo
 
@@ -679,8 +679,8 @@
     state: tile_abductor
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorAbductor
+    - Plating
+    - FloorAbductor
   - type: Stack
     stackType: FloorTileAbductor
 
@@ -696,8 +696,8 @@
     state: tile_cut_plasma
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorCutPlasmaGlass
+    - Plating
+    - FloorCutPlasmaGlass
   - type: Stack
     stackType: FloorTileCutPlasma
 
@@ -712,8 +712,8 @@
     state: tile_gem_plasma
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorGemCutPlasmaGlass
+    - Plating
+    - FloorGemCutPlasmaGlass
   - type: Stack
     stackType: FloorTileGemCutPlasma
 
@@ -728,8 +728,8 @@
     state: tile_cut_uranium
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorCutUraniumGlass
+    - Plating
+    - FloorCutUraniumGlass
   - type: Stack
     stackType: FloorTileCutUranium
 
@@ -744,8 +744,8 @@
     state: tile_gem_uranium
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorGemCutUraniumGlass
+    - Plating
+    - FloorGemCutUraniumGlass
   - type: Stack
     stackType: FloorTileGemCutUranium
 
@@ -760,8 +760,8 @@
     state: tile_cut_brass
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorCutBrassGlass
+    - Plating
+    - FloorCutBrassGlass
   - type: Stack
     stackType: FloorTileCutBrass
 

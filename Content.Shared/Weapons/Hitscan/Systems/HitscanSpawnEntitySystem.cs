@@ -9,7 +9,8 @@ namespace Content.Shared.Weapons.Hitscan.Systems;
 
 public sealed class HitscanSpawnEntitySystem : EntitySystem
 {
-    [Dependency] private readonly INetManager _net = default!;
+    [Dependency]
+    private readonly INetManager _net = default!;
 
     public override void Initialize()
     {
@@ -17,7 +18,8 @@ public sealed class HitscanSpawnEntitySystem : EntitySystem
 
         SubscribeLocalEvent<HitscanSpawnEntityComponent, HitscanRaycastFiredEvent>(
             OnHitscanHit,
-            after: new[] { typeof(ReflectSystem) });
+            after: new[] { typeof(ReflectSystem) }
+        );
     }
 
     private void OnHitscanHit(Entity<HitscanSpawnEntityComponent> ent, ref HitscanRaycastFiredEvent args)

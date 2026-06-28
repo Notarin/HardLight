@@ -5,9 +5,11 @@ namespace Content.Shared.Construction.Steps
 {
     public abstract partial class ArbitraryInsertConstructionGraphStep : EntityInsertConstructionGraphStep
     {
-        [DataField] public LocId Name { get; private set; } = string.Empty;
+        [DataField]
+        public LocId Name { get; private set; } = string.Empty;
 
-        [DataField] public SpriteSpecifier? Icon { get; private set; }
+        [DataField]
+        public SpriteSpecifier? Icon { get; private set; }
 
         public override void DoExamine(ExaminedEvent examinedEvent)
         {
@@ -24,7 +26,7 @@ namespace Content.Shared.Construction.Steps
             return new ConstructionGuideEntry
             {
                 Localization = "construction-presenter-arbitrary-step",
-                Arguments = new (string, object)[]{("name", stepName)},
+                Arguments = new (string, object)[] { ("name", stepName) },
                 Icon = Icon,
             };
         }

@@ -1,8 +1,8 @@
-using Robust.Client.UserInterface;
-using Robust.Shared.GameObjects;
 using Content.Shared._Funkystation.Genetics;
 using Content.Shared._Funkystation.Genetics.Components;
 using Content.Shared._Funkystation.Genetics.Events;
+using Robust.Client.UserInterface;
+using Robust.Shared.GameObjects;
 using Robust.Shared.Serialization;
 
 namespace Content.Client._Funkystation.Genetics.DnaScannerConsole.UI;
@@ -12,7 +12,8 @@ public sealed class GeneticistsConsoleBoundUserInterface : BoundUserInterface
     [ViewVariables]
     private GeneticistsConsoleWindow? _mainWindow;
 
-    public GeneticistsConsoleBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey) { }
+    public GeneticistsConsoleBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {
@@ -35,17 +36,14 @@ public sealed class GeneticistsConsoleBoundUserInterface : BoundUserInterface
         _mainWindow.OnPrintActivatorPressed += mutationId =>
             SendMessage(new DnaScannerPrintActivatorMessage(mutationId));
 
-        _mainWindow.OnPrintMutatorPressed += mutationId =>
-            SendMessage(new DnaScannerPrintMutatorMessage(mutationId));
+        _mainWindow.OnPrintMutatorPressed += mutationId => SendMessage(new DnaScannerPrintMutatorMessage(mutationId));
 
-        _mainWindow.OnScrambleDnaPressed += () =>
-            SendMessage(new DnaScannerScrambleDnaMessage());
+        _mainWindow.OnScrambleDnaPressed += () => SendMessage(new DnaScannerScrambleDnaMessage());
 
         _mainWindow.OnToggleResearchPressed += mutationId =>
             SendMessage(new DnaScannerToggleResearchMessage(mutationId));
 
-        _mainWindow.OnJokerUsed += () =>
-            SendMessage(new DnaScannerUseJokerMessage());
+        _mainWindow.OnJokerUsed += () => SendMessage(new DnaScannerUseJokerMessage());
     }
 
     protected override void UpdateState(BoundUserInterfaceState state)
@@ -61,13 +59,15 @@ public sealed class GeneticistsConsoleBoundUserInterface : BoundUserInterface
             scannerState.HealthStatus,
             scannerState.RadiationDamage,
             scannerState.SubjectGeneticInstability,
-            scannerState.ScrambleCooldownEnd);
+            scannerState.ScrambleCooldownEnd
+        );
 
         // Always update research data
         _mainWindow.UpdateResearchData(
             scannerState.ResearchRemaining,
             scannerState.ResearchOriginal,
-            scannerState.ActiveResearchMutationIds ?? new HashSet<string>());
+            scannerState.ActiveResearchMutationIds ?? new HashSet<string>()
+        );
 
         // Full update - refresh mutation lists
         if (scannerState.IsFullUpdate)

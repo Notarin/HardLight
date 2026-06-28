@@ -8,20 +8,31 @@ using Content.Shared.Interaction;
 using Content.Shared.Interaction.Events;
 using Content.Shared.Popups;
 using Content.Shared.Verbs;
-using Content.Shared.Wires; // HardLight
 using Content.Shared.Whitelist;
+using Content.Shared.Wires; // HardLight
 using Robust.Shared.Utility;
 
 namespace Content.Shared.UserInterface;
 
 public sealed partial class ActivatableUISystem : EntitySystem
 {
-    [Dependency] private readonly ISharedAdminManager _adminManager = default!;
-    [Dependency] private readonly ActionBlockerSystem _blockerSystem = default!;
-    [Dependency] private readonly SharedUserInterfaceSystem _uiSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
+    [Dependency]
+    private readonly ISharedAdminManager _adminManager = default!;
+
+    [Dependency]
+    private readonly ActionBlockerSystem _blockerSystem = default!;
+
+    [Dependency]
+    private readonly SharedUserInterfaceSystem _uiSystem = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly SharedHandsSystem _hands = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelistSystem = default!;
 
     public override void Initialize()
     {
@@ -65,19 +76,22 @@ public sealed partial class ActivatableUISystem : EntitySystem
         args.Handled = _uiSystem.TryToggleUi(uid, args.Key, args.Performer);
     }
 
-
     private void GetActivationVerb(EntityUid uid, ActivatableUIComponent component, GetVerbsEvent<ActivationVerb> args)
     {
         if (component.VerbOnly || !ShouldAddVerb(uid, component, args))
             return;
 
-        args.Verbs.Add(new ActivationVerb
-        {
-            Act = () => InteractUI(args.User, uid, component),
-            Text = Loc.GetString(component.VerbText),
-            // TODO VERB ICON find a better icon
-            Icon = new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/VerbIcons/settings.svg.192dpi.png")),
-        });
+        args.Verbs.Add(
+            new ActivationVerb
+            {
+                Act = () => InteractUI(args.User, uid, component),
+                Text = Loc.GetString(component.VerbText),
+                // TODO VERB ICON find a better icon
+                Icon = new SpriteSpecifier.Texture(
+                    new ResPath("/Textures/Interface/VerbIcons/settings.svg.192dpi.png")
+                ),
+            }
+        );
     }
 
     private void GetVerb(EntityUid uid, ActivatableUIComponent component, GetVerbsEvent<Verb> args)
@@ -85,24 +99,31 @@ public sealed partial class ActivatableUISystem : EntitySystem
         if (!component.VerbOnly || !ShouldAddVerb(uid, component, args))
             return;
 
-        args.Verbs.Add(new Verb
-        {
-            Act = () => InteractUI(args.User, uid, component),
-            Text = Loc.GetString(component.VerbText),
-            // TODO VERB ICON find a better icon
-            Icon = new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/VerbIcons/settings.svg.192dpi.png")),
-        });
+        args.Verbs.Add(
+            new Verb
+            {
+                Act = () => InteractUI(args.User, uid, component),
+                Text = Loc.GetString(component.VerbText),
+                // TODO VERB ICON find a better icon
+                Icon = new SpriteSpecifier.Texture(
+                    new ResPath("/Textures/Interface/VerbIcons/settings.svg.192dpi.png")
+                ),
+            }
+        );
     }
 
-    private bool ShouldAddVerb<T>(EntityUid uid, ActivatableUIComponent component, GetVerbsEvent<T> args) where T : Verb
+    private bool ShouldAddVerb<T>(EntityUid uid, ActivatableUIComponent component, GetVerbsEvent<T> args)
+        where T : Verb
     {
         if (!args.CanAccess)
             return false;
 
         // HardLight: Require the wires panel to be open if the component requires a wires panel.
-        if (TryComp<ActivatableUIRequiresPanelComponent>(uid, out _)
+        if (
+            TryComp<ActivatableUIRequiresPanelComponent>(uid, out _)
             && TryComp<WiresPanelComponent>(uid, out var panel)
-            && !panel.Open)
+            && !panel.Open
+        )
             return false;
 
         if (_whitelistSystem.IsWhitelistFail(component.RequiredItems, args.Using ?? default))
@@ -227,7 +248,9 @@ public sealed partial class ActivatableUISystem : EntitySystem
             if (_uiSystem.IsUiOpen(uiEntity, aui.Key))
                 return true;
 
-            Log.Error($"Activatable UI has user without being opened? Entity: {ToPrettyString(uiEntity)}. User: {aui.CurrentSingleUser}, Key: {aui.Key}");
+            Log.Error(
+                $"Activatable UI has user without being opened? Entity: {ToPrettyString(uiEntity)}. User: {aui.CurrentSingleUser}, Key: {aui.Key}"
+            );
         }
 
         // If we've gotten this far, fire a cancellable event that indicates someone is about to activate this.

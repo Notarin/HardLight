@@ -12,9 +12,14 @@ namespace Content.Client.Store.Ui;
 [GenerateTypedNameReferences]
 public sealed partial class StoreListingControl : Control
 {
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly IEntityManager _entity = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototype = default!;
+
+    [Dependency]
+    private readonly IEntityManager _entity = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
     private readonly ClientGameTicker _ticker;
 
     private readonly ListingDataWithCostModifiers _data;
@@ -22,7 +27,14 @@ public sealed partial class StoreListingControl : Control
     private readonly bool _hasBalance;
     private readonly string _price;
     private readonly string _discount;
-    public StoreListingControl(ListingDataWithCostModifiers data, string price, string discount, bool hasBalance, Texture? texture = null)
+
+    public StoreListingControl(
+        ListingDataWithCostModifiers data,
+        string price,
+        string discount,
+        bool hasBalance,
+        Texture? texture = null
+    )
     {
         IoCManager.InjectDependencies(this);
         RobustXamlLoader.Load(this);
@@ -35,7 +47,9 @@ public sealed partial class StoreListingControl : Control
         _discount = discount;
 
         StoreItemName.Text = ListingLocalisationHelpers.GetLocalisedNameOrEntityName(_data, _prototype);
-        StoreItemDescription.SetMessage(ListingLocalisationHelpers.GetLocalisedDescriptionOrEntityDescription(_data, _prototype));
+        StoreItemDescription.SetMessage(
+            ListingLocalisationHelpers.GetLocalisedDescriptionOrEntityDescription(_data, _prototype)
+        );
 
         UpdateBuyButtonText();
         StoreItemBuyButton.Disabled = !CanBuy();
@@ -61,7 +75,7 @@ public sealed partial class StoreListingControl : Control
         if (_data.RestockTime > stationTime)
         {
             var timeLeftToBuy = stationTime - _data.RestockTime;
-            StoreItemBuyButton.Text =  timeLeftToBuy.Duration().ToString(@"mm\:ss");
+            StoreItemBuyButton.Text = timeLeftToBuy.Duration().ToString(@"mm\:ss");
         }
         else
         {

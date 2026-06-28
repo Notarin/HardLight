@@ -5,7 +5,8 @@ namespace Content.Server.Movement;
 
 public sealed class StressTestMovementSystem : EntitySystem
 {
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
 
     public override void Initialize()
     {

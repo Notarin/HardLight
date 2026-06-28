@@ -36,9 +36,7 @@ public sealed partial class AutomatedContainer : AutomationSlot
 
     public override bool CanInsert(EntityUid item)
     {
-        return base.CanInsert(item)
-            && Container.Count < MaxItems
-            && _container.CanInsert(item, Container);
+        return base.CanInsert(item) && Container.Count < MaxItems && _container.CanInsert(item, Container);
     }
 
     public override EntityUid? GetItem(EntityUid? filter)

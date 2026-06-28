@@ -8,9 +8,14 @@ namespace Content.Client.Storage.Systems;
 /// <inheritdoc cref="StorageContainerVisualsComponent"/>
 public sealed class StorageContainerVisualsSystem : VisualizerSystem<StorageContainerVisualsComponent>
 {
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
-    protected override void OnAppearanceChange(EntityUid uid, StorageContainerVisualsComponent component, ref AppearanceChangeEvent args)
+    protected override void OnAppearanceChange(
+        EntityUid uid,
+        StorageContainerVisualsComponent component,
+        ref AppearanceChangeEvent args
+    )
     {
         if (args.Sprite == null)
             return;
@@ -26,8 +31,10 @@ public sealed class StorageContainerVisualsSystem : VisualizerSystem<StorageCont
         if (!_sprite.LayerMapTryGet((uid, args.Sprite), component.FillLayer, out var fillLayer, false))
             return;
 
-        var closestFillSprite = Math.Min(ContentHelpers.RoundToNearestLevels(fraction, 1, component.MaxFillLevels + 1),
-            component.MaxFillLevels);
+        var closestFillSprite = Math.Min(
+            ContentHelpers.RoundToNearestLevels(fraction, 1, component.MaxFillLevels + 1),
+            component.MaxFillLevels
+        );
 
         if (closestFillSprite > 0)
         {

@@ -1,7 +1,3 @@
-#if NETCOREAPP
-using System.Runtime.Intrinsics;
-using System.Runtime.Intrinsics.X86;
-#endif
 using System;
 using System.Runtime.CompilerServices;
 using BenchmarkDotNet.Attributes;
@@ -9,6 +5,10 @@ using Robust.Shared.Analyzers;
 using Robust.Shared.Maths;
 using Robust.Shared.Random;
 using SysVector4 = System.Numerics.Vector4;
+#if NETCOREAPP
+using System.Runtime.Intrinsics;
+using System.Runtime.Intrinsics.X86;
+#endif
 
 namespace Content.Benchmarks
 {
@@ -25,7 +25,8 @@ namespace Content.Benchmarks
         private (Color, Color)[] _colors;
         private Color[] _output;
 
-        [Params(100)] public int N { get; set; }
+        [Params(100)]
+        public int N { get; set; }
 
         [GlobalSetup]
         public void Setup()
@@ -60,7 +61,6 @@ namespace Content.Benchmarks
                 _output[i] = InterpolateSimple(tuple.Item1, tuple.Item2, 0.5f);
             }
         }
-
 
         [Benchmark]
         public void BenchSysVector4In()
@@ -116,8 +116,7 @@ namespace Content.Benchmarks
         }
 
         [MethodImpl(AggressiveOpt)]
-        public static Color InterpolateSysVector4(Color a, Color b,
-            float lambda)
+        public static Color InterpolateSysVector4(Color a, Color b, float lambda)
         {
             ref var sva = ref Unsafe.As<Color, SysVector4>(ref a);
             ref var svb = ref Unsafe.As<Color, SysVector4>(ref b);
@@ -128,8 +127,7 @@ namespace Content.Benchmarks
         }
 
         [MethodImpl(AggressiveOpt)]
-        public static Color InterpolateSysVector4In(in Color endPoint1, in Color endPoint2,
-            float lambda)
+        public static Color InterpolateSysVector4In(in Color endPoint1, in Color endPoint2, float lambda)
         {
             ref var sva = ref Unsafe.As<Color, SysVector4>(ref Unsafe.AsRef(in endPoint1));
             ref var svb = ref Unsafe.As<Color, SysVector4>(ref Unsafe.AsRef(in endPoint2));
@@ -141,8 +139,7 @@ namespace Content.Benchmarks
 
 #if NETCOREAPP
         [MethodImpl(AggressiveOpt)]
-        public static Color InterpolateSimd(Color a, Color b,
-            float lambda)
+        public static Color InterpolateSimd(Color a, Color b, float lambda)
         {
             var vecA = Unsafe.As<Color, Vector128<float>>(ref a);
             var vecB = Unsafe.As<Color, Vector128<float>>(ref b);
@@ -153,8 +150,7 @@ namespace Content.Benchmarks
         }
 
         [MethodImpl(AggressiveOpt)]
-        public static Color InterpolateSimdIn(in Color a, in Color b,
-            float lambda)
+        public static Color InterpolateSimdIn(in Color a, in Color b, float lambda)
         {
             var vecA = Unsafe.As<Color, Vector128<float>>(ref Unsafe.AsRef(in a));
             var vecB = Unsafe.As<Color, Vector128<float>>(ref Unsafe.AsRef(in b));

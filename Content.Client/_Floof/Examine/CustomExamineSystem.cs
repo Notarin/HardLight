@@ -7,14 +7,15 @@ using Robust.Client.Player;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
-
 namespace Content.Client._Floof.Examine;
-
 
 public sealed class CustomExamineSystem : SharedCustomExamineSystem
 {
-    [Dependency] private IPlayerManager _player = default!;
-    [Dependency] private IGameTiming _timing = default!;
+    [Dependency]
+    private IPlayerManager _player = default!;
+
+    [Dependency]
+    private IGameTiming _timing = default!;
 
     private CustomExamineSettingsWindow? _window = null;
 
@@ -32,14 +33,16 @@ public sealed class CustomExamineSystem : SharedCustomExamineSystem
             return;
 
         var target = args.Target;
-        args.Verbs.Add(new Verb
-        {
-            Act = () => OpenUi(target),
-            Text = Loc.GetString("custom-examine-verb"),
-            Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/edit.svg.png")),
-            ClientExclusive = true,
-            DoContactInteraction = false
-        });
+        args.Verbs.Add(
+            new Verb
+            {
+                Act = () => OpenUi(target),
+                Text = Loc.GetString("custom-examine-verb"),
+                Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/edit.svg.png")),
+                ClientExclusive = true,
+                DoContactInteraction = false,
+            }
+        );
     }
 
     private void OnActivateInWorld(ActivateInWorldEvent ev)
@@ -82,7 +85,7 @@ public sealed class CustomExamineSystem : SharedCustomExamineSystem
                 {
                     PublicData = data.publicData,
                     SubtleData = data.subtleData,
-                    Target = GetNetEntity(target)
+                    Target = GetNetEntity(target),
                 };
                 RaiseNetworkEvent(ev);
             };

@@ -8,7 +8,8 @@ namespace Content.Server.Administration.Commands
     [AdminCommand(AdminFlags.Admin)]
     public sealed class RemoveEntityStorageCommand : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _entManager = default!;
+        [Dependency]
+        private readonly IEntityManager _entManager = default!;
 
         public string Command => "rmstorage";
         public string Description => "Removes a given entity from it's containing storage, if any.";
@@ -22,7 +23,10 @@ namespace Content.Server.Administration.Commands
                 return;
             }
 
-            if (!NetEntity.TryParse(args[0], out var entityNet) || !_entManager.TryGetEntity(entityNet, out var entityUid))
+            if (
+                !NetEntity.TryParse(args[0], out var entityNet)
+                || !_entManager.TryGetEntity(entityNet, out var entityUid)
+            )
             {
                 shell.WriteError(Loc.GetString("shell-entity-uid-must-be-number"));
                 return;

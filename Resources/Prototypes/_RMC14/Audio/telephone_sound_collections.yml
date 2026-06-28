@@ -1,4 +1,4 @@
-﻿- type: soundCollection
+- type: soundCollection
   id: RMCPhoneSpeak
   files:
   - /Audio/_RMC14/Phone/talk_phone1.ogg

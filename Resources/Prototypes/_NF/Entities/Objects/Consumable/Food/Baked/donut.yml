@@ -6,8 +6,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - dough
-      - sweet
+    - dough
+    - sweet
   - type: Sprite
     sprite: _NF/Objects/Consumable/Food/Baked/donut.rsi
     state: uncooked
@@ -34,8 +34,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - dough
-      - sweet
+    - dough
+    - sweet
   - type: SolutionContainerManager
     solutions: *uncookedSolution
   - type: Sprite

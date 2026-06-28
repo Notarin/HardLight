@@ -12,7 +12,8 @@ public interface IItemslotUIContainer
 }
 
 [Virtual]
-public abstract class ItemSlotUIContainer<T> : GridContainer, IItemslotUIContainer where T : SlotControl
+public abstract class ItemSlotUIContainer<T> : GridContainer, IItemslotUIContainer
+    where T : SlotControl
 {
     protected readonly Dictionary<string, T> Buttons = new();
 

@@ -2,7 +2,7 @@
   id: ChronoPortal
   name: tachyon portal
   description: Looks futuristic.
-  parent: [ BasePortal, BaseShadow ]
+  parent: [BasePortal, BaseShadow]
   components:
   - type: Portal
     arrivalSound: /Audio/Items/hiss.ogg

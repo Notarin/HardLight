@@ -6,13 +6,13 @@
   components:
   - type: Item
     size: Large
-    sprite: _HL/Objects/Weapons/Guns/Rifles/aberrantguns.rsi 
+    sprite: _HL/Objects/Weapons/Guns/Rifles/aberrantguns.rsi
   - type: Sprite
-    sprite: _HL/Objects/Weapons/Guns/Rifles/aberrantguns.rsi 
+    sprite: _HL/Objects/Weapons/Guns/Rifles/aberrantguns.rsi
     layers:
-      - state: base
+    - state: base
   - type: Clothing
-    sprite: _HL/Objects/Weapons/Guns/Rifles/aberrantguns.rsi 
+    sprite: _HL/Objects/Weapons/Guns/Rifles/aberrantguns.rsi
     quickEquip: false
     slots:
     - Back
@@ -22,7 +22,7 @@
     rechargeSound:
       path: /Audio/Effects/Fluids/blood2.ogg
   - type: BasicEntityAmmoProvider
-    proto: HLDartAberrantBone 
+    proto: HLDartAberrantBone
     capacity: 30
     count: 30
   - type: Gun
@@ -31,8 +31,8 @@
     fireRate: 4
     selectedMode: FullAuto
     availableModes:
-      - FullAuto
-      - SemiAuto
+    - FullAuto
+    - SemiAuto
     soundGunshot:
       path: /Audio/Items/bow_pull.ogg
     soundEmpty: null
@@ -41,7 +41,7 @@
   - type: GunWieldBonus
     minAngle: -0
     maxAngle: -0
- 
+
 - type: entity
   name: aberrant spike shotgun
   parent: [BaseC3ExpeditionContraband, BaseGunWieldable, BaseItem]
@@ -50,13 +50,13 @@
   components:
   - type: Item
     size: Large
-    sprite: _HL/Objects/Weapons/Guns/Shotguns/aberrantshotgun.rsi 
+    sprite: _HL/Objects/Weapons/Guns/Shotguns/aberrantshotgun.rsi
   - type: Sprite
-    sprite: _HL/Objects/Weapons/Guns/Shotguns/aberrantshotgun.rsi 
+    sprite: _HL/Objects/Weapons/Guns/Shotguns/aberrantshotgun.rsi
     layers:
-      - state: icon
+    - state: icon
   - type: Clothing
-    sprite: _HL/Objects/Weapons/Guns/Shotguns/aberrantshotgun.rsi 
+    sprite: _HL/Objects/Weapons/Guns/Shotguns/aberrantshotgun.rsi
     quickEquip: false
     slots:
     - Back
@@ -66,7 +66,7 @@
     rechargeSound:
       path: /Audio/Effects/Fluids/blood2.ogg
   - type: BasicEntityAmmoProvider
-    proto: HLDartAberrantBonePelletSpread 
+    proto: HLDartAberrantBonePelletSpread
     capacity: 4
     count: 4
   - type: Gun
@@ -75,8 +75,8 @@
     fireRate: 2
     selectedMode: FullAuto
     availableModes:
-      - FullAuto
-      - SemiAuto
+    - FullAuto
+    - SemiAuto
     soundGunshot:
       path: /Audio/Items/bow_pull.ogg
     soundEmpty: null
@@ -85,7 +85,7 @@
   - type: GunWieldBonus
     minAngle: -0
     maxAngle: -0
-    
+
 - type: entity
   name: aberrant spike sniper rifle
   parent: [BaseC3ExpeditionContraband, BaseGunWieldable, BaseItem]
@@ -94,13 +94,13 @@
   components:
   - type: Item
     size: Large
-    sprite: _HL/Objects/Weapons/Guns/Rifles/aberrantsniper.rsi 
+    sprite: _HL/Objects/Weapons/Guns/Rifles/aberrantsniper.rsi
   - type: Sprite
-    sprite: _HL/Objects/Weapons/Guns/Rifles/aberrantsniper.rsi 
+    sprite: _HL/Objects/Weapons/Guns/Rifles/aberrantsniper.rsi
     layers:
-      - state: icon
+    - state: icon
   - type: Clothing
-    sprite: _HL/Objects/Weapons/Guns/Rifles/aberrantsniper.rsi 
+    sprite: _HL/Objects/Weapons/Guns/Rifles/aberrantsniper.rsi
     quickEquip: false
     slots:
     - Back
@@ -110,7 +110,7 @@
     rechargeSound:
       path: /Audio/Effects/Fluids/blood2.ogg
   - type: BasicEntityAmmoProvider
-    proto: HLDartAberrantBoneLong 
+    proto: HLDartAberrantBoneLong
     capacity: 5
     count: 5
   - type: Gun
@@ -119,7 +119,7 @@
     fireRate: 0.7
     selectedMode: SemiAuto
     availableModes:
-      - SemiAuto
+    - SemiAuto
     soundGunshot:
       path: /Audio/Items/bow_pull.ogg
     soundEmpty: null
@@ -135,4 +135,4 @@
   - type: GunWieldBonus
     minAngle: -0
     maxAngle: -0
-    
+

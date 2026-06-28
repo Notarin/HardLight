@@ -32,14 +32,29 @@ namespace Content.Goobstation.Shared.HoloCigar;
 /// </summary>
 public sealed class HoloCigarSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly ClothingSystem _clothing = default!;
-    [Dependency] private readonly SharedItemSystem _items = default!;
-    [Dependency] private readonly SharedGunSystem _gun = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!;
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly ClothingSystem _clothing = default!;
+
+    [Dependency]
+    private readonly SharedItemSystem _items = default!;
+
+    [Dependency]
+    private readonly SharedGunSystem _gun = default!;
+
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly INetManager _net = default!;
+
+    [Dependency]
+    private readonly InventorySystem _inventory = default!;
 
     private const string LitPrefix = "lit";
     private const string UnlitPrefix = "unlit";
@@ -112,8 +127,7 @@ public sealed class HoloCigarSystem : EntitySystem
     private void ShutDownEnumerateRemoval(Entity<TheManWhoSoldTheWorldComponent> ent)
     {
         var query = EntityQueryEnumerator<HoloCigarAffectedGunComponent>();
-        while
-            (query.MoveNext(out var gun, out var comp))
+        while (query.MoveNext(out var gun, out var comp))
         {
             if (comp.GunOwner != ent.Owner)
                 continue;
@@ -129,8 +143,10 @@ public sealed class HoloCigarSystem : EntitySystem
             ent.Comp.AddedNoWieldNeeded = true;
             AddComp<NoWieldNeededComponent>(ent);
         }
-        if (!_inventory.TryGetSlotEntity(ent, MaskSlot, out var cigarEntity) ||
-            !HasComp<HoloCigarComponent>(cigarEntity))
+        if (
+            !_inventory.TryGetSlotEntity(ent, MaskSlot, out var cigarEntity)
+            || !HasComp<HoloCigarComponent>(cigarEntity)
+        )
             return;
         ent.Comp.HoloCigarEntity = cigarEntity;
     }
@@ -168,12 +184,13 @@ public sealed class HoloCigarSystem : EntitySystem
         _gun.RefreshModifiers(args.Item);
     }
 
-    private void HandleToggle(Entity<HoloCigarComponent> ent,
+    private void HandleToggle(
+        Entity<HoloCigarComponent> ent,
         AppearanceComponent? appearance = null,
-        ClothingComponent? clothing = null)
+        ClothingComponent? clothing = null
+    )
     {
-        if (!Resolve(ent, ref appearance, ref clothing) ||
-            !_gameTiming.IsFirstTimePredicted) // fuck predicting this shit
+        if (!Resolve(ent, ref appearance, ref clothing) || !_gameTiming.IsFirstTimePredicted) // fuck predicting this shit
             return;
 
         var state = ent.Comp.Lit ? SmokableState.Unlit : SmokableState.Lit;
@@ -215,9 +232,11 @@ public sealed class HoloCigarSystem : EntitySystem
 
     #region Helper Methods
 
-    private void RestoreGun(EntityUid gun,
+    private void RestoreGun(
+        EntityUid gun,
         HoloCigarAffectedGunComponent? cigarAffectedGunComponent = null,
-        MultishotComponent? multiShotComp = null)
+        MultishotComponent? multiShotComp = null
+    )
     {
         if (!Resolve(gun, ref cigarAffectedGunComponent, ref multiShotComp))
             return;

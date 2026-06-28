@@ -1,11 +1,11 @@
 // SPDX-FileCopyrightText: Copyright (c) 2024-2025 Space Wizards Federation
 // SPDX-License-Identifier: MIT
 
+using System.Threading;
+using System.Threading.Tasks;
 using Content.Shared._Common.Consent;
 using Robust.Shared.Network;
 using Robust.Shared.Player;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Content.Server._Common.Consent;
 

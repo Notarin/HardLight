@@ -15,20 +15,12 @@ public sealed partial class ShuttleConsoleBoundUserInterface
 
         _window.OnInertiaDampeningModeChanged += (entity, mode) =>
         {
-            SendMessage(new SetInertiaDampeningRequest()
-            {
-                ShuttleEntityUid = entity,
-                Mode = mode
-            });
+            SendMessage(new SetInertiaDampeningRequest() { ShuttleEntityUid = entity, Mode = mode });
         };
 
         _window.OnServiceFlagsChanged += (entity, flags) =>
         {
-            SendMessage(new SetServiceFlagsRequest()
-            {
-                ShuttleEntityUid = entity,
-                ServiceFlags = flags
-            });
+            SendMessage(new SetServiceFlagsRequest() { ShuttleEntityUid = entity, ServiceFlags = flags });
         };
     }
 }

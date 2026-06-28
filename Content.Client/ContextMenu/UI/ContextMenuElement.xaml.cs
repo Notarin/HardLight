@@ -44,7 +44,10 @@ namespace Content.Client.ContextMenu.UI
         /// <summary>
         ///     Convenience property to set label text.
         /// </summary>
-        public virtual string Text { set => Label.SetMessage(FormattedMessage.FromMarkupPermissive(value.Trim())); }
+        public virtual string Text
+        {
+            set => Label.SetMessage(FormattedMessage.FromMarkupPermissive(value.Trim()));
+        }
 
         public ContextMenuElement(string? text = null)
         {

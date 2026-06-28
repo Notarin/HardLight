@@ -48,8 +48,11 @@ namespace Content.Client.Options.UI;
 [GenerateTypedNameReferences]
 public sealed partial class OptionsTabControlRow : Control
 {
-    [Dependency] private readonly ILocalizationManager _loc = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency]
+    private readonly ILocalizationManager _loc = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
 
     private ValueList<BaseOption> _options;
 
@@ -73,7 +76,8 @@ public sealed partial class OptionsTabControlRow : Control
     /// for easy chaining.
     /// </typeparam>
     /// <returns>The same <paramref name="option"/> as passed in, for easy chaining.</returns>
-    public T AddOption<T>(T option) where T : BaseOption
+    public T AddOption<T>(T option)
+        where T : BaseOption
     {
         _options.Add(option);
         return option;
@@ -116,7 +120,8 @@ public sealed partial class OptionsTabControlRow : Control
         OptionSlider slider,
         float min = 0,
         float max = 1,
-        float scale = 1)
+        float scale = 1
+    )
     {
         return AddOption(new OptionSliderFloatCVar(this, _cfg, cVar, slider, min, max, scale, FormatPercent));
     }
@@ -127,9 +132,7 @@ public sealed partial class OptionsTabControlRow : Control
     /// <param name="cVar">The CVar represented by the slider.</param>
     /// <param name="slider">The UI control for the option.</param>
     /// <returns>The option instance backing the added option.</returns>
-    public OptionColorSliderCVar AddOptionColorSlider(
-        CVarDef<string> cVar,
-        OptionColorSlider slider)
+    public OptionColorSliderCVar AddOptionColorSlider(CVarDef<string> cVar, OptionColorSlider slider)
     {
         return AddOption(new OptionColorSliderCVar(this, _cfg, cVar, slider));
     }
@@ -151,7 +154,8 @@ public sealed partial class OptionsTabControlRow : Control
         OptionSlider slider,
         int min,
         int max,
-        Func<OptionSliderIntCVar, int, string>? format = null)
+        Func<OptionSliderIntCVar, int, string>? format = null
+    )
     {
         return AddOption(new OptionSliderIntCVar(this, _cfg, cVar, slider, min, max, format ?? FormatInt));
     }
@@ -169,7 +173,8 @@ public sealed partial class OptionsTabControlRow : Control
     public OptionDropDownCVar<T> AddOptionDropDown<T>(
         CVarDef<T> cVar,
         OptionDropDown dropDown,
-        IReadOnlyCollection<OptionDropDownCVar<T>.ValueOption> options)
+        IReadOnlyCollection<OptionDropDownCVar<T>.ValueOption> options
+    )
         where T : notnull
     {
         return AddOption(new OptionDropDownCVar<T>(this, _cfg, cVar, dropDown, options));
@@ -348,10 +353,7 @@ public abstract class BaseOptionCVar<TValue> : BaseOption
     /// </remarks>
     protected abstract TValue Value { get; set; }
 
-    protected BaseOptionCVar(
-        OptionsTabControlRow controller,
-        IConfigurationManager cfg,
-        CVarDef<TValue> cVar)
+    protected BaseOptionCVar(OptionsTabControlRow controller, IConfigurationManager cfg, CVarDef<TValue> cVar)
         : base(controller)
     {
         _cfg = cfg;
@@ -388,7 +390,7 @@ public abstract class BaseOptionCVar<TValue> : BaseOption
         // Use different logic for floats so there's some error margin.
         // This check is handled cleanly at compile-time by the JIT.
         if (typeof(TValue) == typeof(float))
-            return MathHelper.CloseToPercent((float) (object) a, (float) (object) b);
+            return MathHelper.CloseToPercent((float)(object)a, (float)(object)b);
 
         return EqualityComparer<TValue>.Default.Equals(a, b);
     }
@@ -443,7 +445,8 @@ public sealed class OptionCheckboxCVar : BaseOptionCVar<bool>
         IConfigurationManager cfg,
         CVarDef<bool> cVar,
         CheckBox checkBox,
-        bool invert)
+        bool invert
+    )
         : base(controller, cfg, cVar)
     {
         _checkBox = checkBox;
@@ -509,7 +512,9 @@ public sealed class OptionSliderFloatCVar : BaseOptionCVar<float>
         float minValue,
         float maxValue,
         float scale,
-        Func<OptionSliderFloatCVar, float, string> format) : base(controller, cfg, cVar)
+        Func<OptionSliderFloatCVar, float, string> format
+    )
+        : base(controller, cfg, cVar)
     {
         Scale = scale;
         _slider = slider;
@@ -566,7 +571,9 @@ public sealed class OptionColorSliderCVar : BaseOptionCVar<string>
         OptionsTabControlRow controller,
         IConfigurationManager cfg,
         CVarDef<string> cVar,
-        OptionColorSlider slider) : base(controller, cfg, cVar)
+        OptionColorSlider slider
+    )
+        : base(controller, cfg, cVar)
     {
         _slider = slider;
 
@@ -594,7 +601,7 @@ public sealed class OptionSliderIntCVar : BaseOptionCVar<int>
 
     protected override int Value
     {
-        get => (int) _slider.Slider.Value;
+        get => (int)_slider.Slider.Value;
         set
         {
             _slider.Slider.Value = value;
@@ -625,7 +632,9 @@ public sealed class OptionSliderIntCVar : BaseOptionCVar<int>
         OptionSlider slider,
         int minValue,
         int maxValue,
-        Func<OptionSliderIntCVar, int, string> format) : base(controller, cfg, cVar)
+        Func<OptionSliderIntCVar, int, string> format
+    )
+        : base(controller, cfg, cVar)
     {
         _slider = slider;
         _format = format;
@@ -643,7 +652,7 @@ public sealed class OptionSliderIntCVar : BaseOptionCVar<int>
 
     private void UpdateLabelValue()
     {
-        _slider.ValueLabel.Text = _format(this, (int) _slider.Slider.Value);
+        _slider.ValueLabel.Text = _format(this, (int)_slider.Slider.Value);
     }
 }
 
@@ -651,14 +660,15 @@ public sealed class OptionSliderIntCVar : BaseOptionCVar<int>
 /// Implementation of a CVar option via a drop-down.
 /// </summary>
 /// <seealso cref="OptionsTabControlRow"/>
-public sealed class OptionDropDownCVar<T> : BaseOptionCVar<T> where T : notnull
+public sealed class OptionDropDownCVar<T> : BaseOptionCVar<T>
+    where T : notnull
 {
     private readonly OptionDropDown _dropDown;
     private readonly ItemEntry[] _entries;
 
     protected override T Value
     {
-        get => (T) _dropDown.Button.SelectedMetadata!;
+        get => (T)_dropDown.Button.SelectedMetadata!;
         set => _dropDown.Button.SelectId(FindValueId(value));
     }
 
@@ -681,7 +691,9 @@ public sealed class OptionDropDownCVar<T> : BaseOptionCVar<T> where T : notnull
         IConfigurationManager cfg,
         CVarDef<T> cVar,
         OptionDropDown dropDown,
-        IReadOnlyCollection<ValueOption> options) : base(controller, cfg, cVar)
+        IReadOnlyCollection<ValueOption> options
+    )
+        : base(controller, cfg, cVar)
     {
         if (options.Count == 0)
             throw new ArgumentException("Need at least one option!");
@@ -693,10 +705,7 @@ public sealed class OptionDropDownCVar<T> : BaseOptionCVar<T> where T : notnull
         var i = 0;
         foreach (var option in options)
         {
-            _entries[i] = new ItemEntry
-            {
-                Key = option.Key,
-            };
+            _entries[i] = new ItemEntry { Key = option.Key };
 
             button.AddItem(option.Label, i);
             button.SetItemMetadata(button.GetIdx(i), option.Key);

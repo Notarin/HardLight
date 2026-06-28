@@ -12,8 +12,11 @@ namespace Content.Server.Traitor.Uplink.Commands
     [AdminCommand(AdminFlags.Admin)]
     public sealed class AddUplinkCommand : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _entManager = default!;
-        [Dependency] private readonly IPlayerManager _playerManager = default!;
+        [Dependency]
+        private readonly IEntityManager _entManager = default!;
+
+        [Dependency]
+        private readonly IPlayerManager _playerManager = default!;
 
         public string Command => "adduplink";
 
@@ -21,15 +24,17 @@ namespace Content.Server.Traitor.Uplink.Commands
 
         public string Help => Loc.GetString("add-uplink-command-help");
 
-
         public CompletionResult GetCompletion(IConsoleShell shell, string[] args)
         {
             return args.Length switch
             {
-                1 => CompletionResult.FromHintOptions(CompletionHelper.SessionNames(), Loc.GetString("add-uplink-command-completion-1")),
+                1 => CompletionResult.FromHintOptions(
+                    CompletionHelper.SessionNames(),
+                    Loc.GetString("add-uplink-command-completion-1")
+                ),
                 2 => CompletionResult.FromHint(Loc.GetString("add-uplink-command-completion-2")),
                 3 => CompletionResult.FromHint(Loc.GetString("add-uplink-command-completion-3")),
-                _ => CompletionResult.Empty
+                _ => CompletionResult.Empty,
             };
         }
 

@@ -21,8 +21,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.4,-0.3,0.4,0.3"
         density: 190
         mask:
@@ -45,14 +44,12 @@
     damageModifierSet: Metallic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 400
       behaviors:
-        - !type:DoActsBehavior
-          acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 200
       behaviors:
       - !type:DoActsBehavior
@@ -82,20 +79,16 @@
     # Starlight-start: Plumbing outlet
   - type: NodeContainer
     nodes:
-      outletNorth:  # Provides reagents TO the network (all directions)
-        !type:PlumbingNode
+      outletNorth: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: North
-      outletEast:
-        !type:PlumbingNode
+      outletEast: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: East
-      outletSouth:
-        !type:PlumbingNode
+      outletSouth: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: South
-      outletWest:
-        !type:PlumbingNode
+      outletWest: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: West
   - type: PlumbingOutlet

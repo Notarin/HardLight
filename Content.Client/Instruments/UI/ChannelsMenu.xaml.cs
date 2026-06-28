@@ -11,11 +11,13 @@ namespace Content.Client.Instruments.UI;
 [GenerateTypedNameReferences]
 public sealed partial class ChannelsMenu : DefaultWindow
 {
-    [Dependency] private readonly IEntityManager _entityManager = null!;
+    [Dependency]
+    private readonly IEntityManager _entityManager = null!;
 
     private readonly InstrumentBoundUserInterface _owner;
 
-    public ChannelsMenu(InstrumentBoundUserInterface owner) : base()
+    public ChannelsMenu(InstrumentBoundUserInterface owner)
+        : base()
     {
         RobustXamlLoader.Load(this);
         IoCManager.InjectDependencies(this);
@@ -95,8 +97,10 @@ public sealed partial class ChannelsMenu : DefaultWindow
             if (instrument.Comp.Master == null)
                 break;
 
-            instrument = new Entity<InstrumentComponent>((EntityUid)instrument.Comp.Master,
-                _entityManager.GetComponent<InstrumentComponent>((EntityUid)instrument.Comp.Master));
+            instrument = new Entity<InstrumentComponent>(
+                (EntityUid)instrument.Comp.Master,
+                _entityManager.GetComponent<InstrumentComponent>((EntityUid)instrument.Comp.Master)
+            );
         }
 
         return _entityManager.GetComponent<ActiveInstrumentComponent>(instrument.Owner);
@@ -110,25 +114,28 @@ public sealed partial class ChannelsMenu : DefaultWindow
 
         for (int i = 0; i < RobustMidiEvent.MaxChannels; i++)
         {
-            var label = _owner.Loc.GetString("instrument-component-channel-name",
-                ("number", i));
-            if (activeInstrument != null
+            var label = _owner.Loc.GetString("instrument-component-channel-name", ("number", i));
+            if (
+                activeInstrument != null
                 && activeInstrument.Tracks.TryGetValue(i, out var resolvedMidiChannel)
-                && resolvedMidiChannel != null)
+                && resolvedMidiChannel != null
+            )
             {
                 if (DisplayTrackNames.Pressed)
                 {
                     label = resolvedMidiChannel switch
                     {
-                        { TrackName: not null, InstrumentName: not null } =>
-                            Loc.GetString("instruments-component-channels-multi",
-                                ("channel", i),
-                                ("name", resolvedMidiChannel.TrackName),
-                                ("other", resolvedMidiChannel.InstrumentName)),
-                        { TrackName: not null } =>
-                            Loc.GetString("instruments-component-channels-single",
+                        { TrackName: not null, InstrumentName: not null } => Loc.GetString(
+                            "instruments-component-channels-multi",
                             ("channel", i),
-                            ("name", resolvedMidiChannel.TrackName)),
+                            ("name", resolvedMidiChannel.TrackName),
+                            ("other", resolvedMidiChannel.InstrumentName)
+                        ),
+                        { TrackName: not null } => Loc.GetString(
+                            "instruments-component-channels-single",
+                            ("channel", i),
+                            ("name", resolvedMidiChannel.TrackName)
+                        ),
                         _ => label,
                     };
                 }
@@ -136,10 +143,11 @@ public sealed partial class ChannelsMenu : DefaultWindow
                 {
                     label = resolvedMidiChannel switch
                     {
-                        { ProgramName: not null } =>
-                            Loc.GetString("instruments-component-channels-single",
-                                ("channel", i),
-                                ("name", resolvedMidiChannel.ProgramName)),
+                        { ProgramName: not null } => Loc.GetString(
+                            "instruments-component-channels-single",
+                            ("channel", i),
+                            ("name", resolvedMidiChannel.ProgramName)
+                        ),
                         _ => label,
                     };
                 }

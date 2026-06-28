@@ -5,9 +5,9 @@
   playTimeTracker: JobBartender
   setPreference: true
   requirements:
-    - !type:DepartmentTimeRequirement
-      department: Service # Hardlight Civilian > Service
-      time: 1800 # 0.5 hrs
+  - !type:DepartmentTimeRequirement
+    department: Service # Hardlight Civilian > Service
+    time: 1800 # 0.5 hrs
   weight: 40 # HardLight
   startingGear: BartenderGear
   icon: "JobIconBartender"

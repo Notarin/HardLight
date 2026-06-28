@@ -5,7 +5,4 @@
 /// </summary>
 [RegisterComponent]
 [Access(typeof(RequiresGridSystem))]
-public sealed partial class RequiresGridComponent : Component
-{
-
-}
+public sealed partial class RequiresGridComponent : Component { }

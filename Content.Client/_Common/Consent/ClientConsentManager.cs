@@ -9,7 +9,8 @@ namespace Content.Client._Common.Consent;
 
 public sealed class ClientConsentManager : IClientConsentManager
 {
-    [Dependency] private readonly IClientNetManager _netManager = default!;
+    [Dependency]
+    private readonly IClientNetManager _netManager = default!;
 
     private PlayerConsentSettings? _consent;
 
@@ -24,10 +25,7 @@ public sealed class ClientConsentManager : IClientConsentManager
 
     public void UpdateConsent(PlayerConsentSettings consentSettings)
     {
-        var msg = new MsgUpdateConsent
-        {
-            Consent = consentSettings
-        };
+        var msg = new MsgUpdateConsent { Consent = consentSettings };
         _netManager.ClientSendMessage(msg);
     }
 

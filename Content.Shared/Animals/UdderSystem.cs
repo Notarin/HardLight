@@ -11,18 +11,30 @@ using Content.Shared.Verbs;
 using Robust.Shared.Timing;
 
 namespace Content.Shared.Animals;
+
 /// <summary>
 ///     Gives the ability to produce milkable reagents;
 ///     produces endlessly if the owner does not have a HungerComponent.
 /// </summary>
 public sealed class UdderSystem : EntitySystem
 {
-    [Dependency] private readonly HungerSystem _hunger = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
+    [Dependency]
+    private readonly HungerSystem _hunger = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly MobStateSystem _mobState = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfterSystem = default!;
+
+    [Dependency]
+    private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
 
     public override void Initialize()
     {
@@ -52,7 +64,9 @@ public sealed class UdderSystem : EntitySystem
             if (_mobState.IsDead(uid))
                 continue;
 
-            if (!_solutionContainerSystem.ResolveSolution(uid, udder.SolutionName, ref udder.Solution, out var solution))
+            if (
+                !_solutionContainerSystem.ResolveSolution(uid, udder.SolutionName, ref udder.Solution, out var solution)
+            )
                 continue;
 
             if (solution.AvailableVolume == 0)
@@ -69,7 +83,12 @@ public sealed class UdderSystem : EntitySystem
             }
 
             //TODO: toxins from bloodstream !?
-            _solutionContainerSystem.TryAddReagent(udder.Solution.Value, udder.ReagentId, udder.QuantityPerUpdate, out _);
+            _solutionContainerSystem.TryAddReagent(
+                udder.Solution.Value,
+                udder.ReagentId,
+                udder.QuantityPerUpdate,
+                out _
+            );
         }
     }
 
@@ -78,7 +97,15 @@ public sealed class UdderSystem : EntitySystem
         if (!Resolve(udder, ref udder.Comp))
             return;
 
-        var doargs = new DoAfterArgs(EntityManager, userUid, 5, new MilkingDoAfterEvent(), udder, udder, used: containerUid)
+        var doargs = new DoAfterArgs(
+            EntityManager,
+            userUid,
+            5,
+            new MilkingDoAfterEvent(),
+            udder,
+            udder,
+            used: containerUid
+        )
         {
             BreakOnMove = true,
             BreakOnDamage = true,
@@ -93,10 +120,23 @@ public sealed class UdderSystem : EntitySystem
         if (args.Cancelled || args.Handled || args.Args.Used == null)
             return;
 
-        if (!_solutionContainerSystem.ResolveSolution(entity.Owner, entity.Comp.SolutionName, ref entity.Comp.Solution, out var solution))
+        if (
+            !_solutionContainerSystem.ResolveSolution(
+                entity.Owner,
+                entity.Comp.SolutionName,
+                ref entity.Comp.Solution,
+                out var solution
+            )
+        )
             return;
 
-        if (!_solutionContainerSystem.TryGetRefillableSolution(args.Args.Used.Value, out var targetSoln, out var targetSolution))
+        if (
+            !_solutionContainerSystem.TryGetRefillableSolution(
+                args.Args.Used.Value,
+                out var targetSoln,
+                out var targetSolution
+            )
+        )
             return;
 
         args.Handled = true;
@@ -113,15 +153,25 @@ public sealed class UdderSystem : EntitySystem
         var split = _solutionContainerSystem.SplitSolution(entity.Comp.Solution.Value, quantity);
         _solutionContainerSystem.TryAddSolution(targetSoln.Value, split);
 
-        _popupSystem.PopupClient(Loc.GetString("udder-system-success", ("amount", quantity), ("target", Identity.Entity(args.Args.Used.Value, EntityManager))), entity.Owner,
-            args.Args.User, PopupType.Medium);
+        _popupSystem.PopupClient(
+            Loc.GetString(
+                "udder-system-success",
+                ("amount", quantity),
+                ("target", Identity.Entity(args.Args.Used.Value, EntityManager))
+            ),
+            entity.Owner,
+            args.Args.User,
+            PopupType.Medium
+        );
     }
 
     private void AddMilkVerb(Entity<UdderComponent> entity, ref GetVerbsEvent<AlternativeVerb> args)
     {
-        if (args.Using == null ||
-             !args.CanInteract ||
-             !EntityManager.HasComponent<RefillableSolutionComponent>(args.Using.Value))
+        if (
+            args.Using == null
+            || !args.CanInteract
+            || !EntityManager.HasComponent<RefillableSolutionComponent>(args.Using.Value)
+        )
             return;
 
         var uid = entity.Owner;
@@ -134,7 +184,7 @@ public sealed class UdderSystem : EntitySystem
                 AttemptMilk(uid, user, used);
             },
             Text = Loc.GetString("udder-system-verb-milk"),
-            Priority = 2
+            Priority = 2,
         };
         args.Verbs.Add(verb);
     }

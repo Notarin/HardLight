@@ -328,7 +328,6 @@
     song:
       path: /Audio/_HL/RadioStation/music/youngspirit.ogg
 
-
 - type: entity
   name: "vinyl disk: Aggressive Brazilian Phonk"
   id: VinylDiskBrazilianPhonk
@@ -350,7 +349,6 @@
   - type: Vinyl
     song:
       path: /Audio/_HL/RadioStation/music/humanstudioedm-cyberpunk-techno.ogg
-
 
 - type: entity
   name: "vinyl disk: SkubStep"

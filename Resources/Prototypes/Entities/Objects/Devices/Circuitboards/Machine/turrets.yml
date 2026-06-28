@@ -8,7 +8,7 @@
   - type: Sprite
     sprite: Objects/Misc/module.rsi
     state: security
-  - type: MachineBoard    # Hardlight change start
+  - type: MachineBoard # Hardlight change start
     prototype: WeaponEnergyTurretStation
     requirements:
       PowerCell: 1

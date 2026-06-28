@@ -33,5 +33,5 @@
     Tinnia:
       stationProto: DeadDropFrontierOutpost
       components:
-        - type: StationNameSetup
-          mapNameTemplate: "Tinnia's Rest"
+      - type: StationNameSetup
+        mapNameTemplate: "Tinnia's Rest"

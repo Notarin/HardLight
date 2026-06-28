@@ -1,6 +1,6 @@
 - type: entity
   id: CigPackBase
-  parent: [ BaseStorageItem, BaseBagOpenClose ]
+  parent: [BaseStorageItem, BaseBagOpenClose]
   name: cigarette pack
   abstract: true
   components:
@@ -70,7 +70,7 @@
 
 - type: entity
   id: CigPackMixedBase
-  parent: [ BaseStorageItem, BaseBagOpenClose ]
+  parent: [BaseStorageItem, BaseBagOpenClose]
   name: soaked cigarette pack
   abstract: true
   components:
@@ -223,7 +223,6 @@
       prob: 0.25
     - id: CigarettePax
       prob: 0.10
-
 
 - type: entity
   id: CigPackMixed

@@ -1,9 +1,9 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using NUnit.Framework;
 using Robust.Shared.CPUJob.JobQueues;
 using Robust.Shared.CPUJob.JobQueues.Queues;
-using NUnit.Framework;
 using Robust.Shared.Timing;
 using Robust.UnitTesting;
 
@@ -145,9 +145,8 @@ namespace Content.Tests.Server.Jobs
 
         private sealed class ImmediateJob : Job<string>
         {
-            public ImmediateJob() : base(0)
-            {
-            }
+            public ImmediateJob()
+                : base(0) { }
 
             protected override Task<string> Process()
             {
@@ -160,8 +159,8 @@ namespace Content.Tests.Server.Jobs
             private readonly DebugStopwatch _stopwatch;
             private readonly DebugStopwatch _stopwatchB;
 
-            public LongJob(DebugStopwatch stopwatchA, DebugStopwatch stopwatchB, CancellationToken cancel = default) :
-                base(0.95, stopwatchA, cancel)
+            public LongJob(DebugStopwatch stopwatchA, DebugStopwatch stopwatchB, CancellationToken cancel = default)
+                : base(0.95, stopwatchA, cancel)
             {
                 _stopwatch = stopwatchA;
                 _stopwatchB = stopwatchB;
@@ -189,9 +188,8 @@ namespace Content.Tests.Server.Jobs
 
         private sealed class LongJobQueue : JobQueue
         {
-            public LongJobQueue(IStopwatch swB) : base(swB)
-            {
-            }
+            public LongJobQueue(IStopwatch swB)
+                : base(swB) { }
 
             public override double MaxTime => 0.9;
         }
@@ -200,7 +198,8 @@ namespace Content.Tests.Server.Jobs
         {
             private readonly Task _t;
 
-            public WaitingJob(Task t) : base(0)
+            public WaitingJob(Task t)
+                : base(0)
             {
                 _t = t;
             }

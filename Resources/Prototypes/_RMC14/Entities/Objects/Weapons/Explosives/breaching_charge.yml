@@ -2,7 +2,7 @@
   id: RMCExplosiveBreachingCharge
 
 - type: entity
-  parent: [ BaseItem, BaseC3ExpeditionContraband ]
+  parent: [BaseItem, BaseC3ExpeditionContraband]
   id: RMCExplosiveBreachingCharge
   name: breaching charge # TODO RMC14 disable with multitool?
   description: An explosive device used to break into areas while protecting the user from the blast as well as deploying deadly shrapnel on the other side.
@@ -31,8 +31,8 @@
     visuals:
       enum.Trigger.TriggerVisuals.VisualState:
         base:
-          Primed: { state: active }
-          Unprimed: { state: icon }
+          Primed: {state: active}
+          Unprimed: {state: icon}
   - type: Tag
     tags:
     - RMCExplosiveBreachingCharge

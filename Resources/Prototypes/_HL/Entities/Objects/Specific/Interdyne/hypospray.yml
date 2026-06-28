@@ -1,4 +1,4 @@
-﻿- type: entity
+- type: entity
   name: interdyne hypospray
   parent: [BaseItem, BaseC2Contraband]
   description: Using reverse engineered designs from NT, Interdyne produced these in limited quantities for their doctors and heads of staff.

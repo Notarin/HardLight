@@ -25,14 +25,10 @@ public static class ServerPackaging
         new PlatformReg("freebsd-x64", "FreeBSD", false),
     };
 
-    private static List<string> PlatformRids => Platforms
-        .Select(o => o.Rid)
-        .ToList();
+    private static List<string> PlatformRids => Platforms.Select(o => o.Rid).ToList();
 
-    private static List<string> PlatformRidsDefault => Platforms
-        .Where(o => o.BuildByDefault)
-        .Select(o => o.Rid)
-        .ToList();
+    private static List<string> PlatformRidsDefault =>
+        Platforms.Where(o => o.BuildByDefault).Select(o => o.Rid).ToList();
 
     private static readonly List<string> ServerContentAssemblies = new()
     {
@@ -49,10 +45,7 @@ public static class ServerPackaging
         "Microsoft",
     };
 
-    private static readonly List<string> ServerNotExtraAssemblies = new()
-    {
-        "Microsoft.CodeAnalysis",
-    };
+    private static readonly List<string> ServerNotExtraAssemblies = new() { "Microsoft.CodeAnalysis" };
 
     private static readonly HashSet<string> BinSkipFolders = new()
     {
@@ -69,10 +62,16 @@ public static class ServerPackaging
         "ru",
         "tr",
         "zh-Hans",
-        "zh-Hant"
+        "zh-Hant",
     };
 
-    public static async Task PackageServer(bool skipBuild, bool hybridAcz, IPackageLogger logger, string configuration, List<string>? platforms = null)
+    public static async Task PackageServer(
+        bool skipBuild,
+        bool hybridAcz,
+        IPackageLogger logger,
+        string configuration,
+        List<string>? platforms = null
+    )
     {
         if (platforms == null)
         {
@@ -98,28 +97,37 @@ public static class ServerPackaging
         }
     }
 
-    private static async Task BuildPlatform(PlatformReg platform, bool skipBuild, bool hybridAcz, string configuration, IPackageLogger logger)
+    private static async Task BuildPlatform(
+        PlatformReg platform,
+        bool skipBuild,
+        bool hybridAcz,
+        string configuration,
+        IPackageLogger logger
+    )
     {
         logger.Info($"Building project for {platform.TargetOs}...");
 
         if (!skipBuild)
         {
-            await ProcessHelpers.RunCheck(new ProcessStartInfo
-            {
-                FileName = "dotnet",
-                ArgumentList =
+            await ProcessHelpers.RunCheck(
+                new ProcessStartInfo
                 {
-                    "build",
-                    Path.Combine("Content.Server", "Content.Server.csproj"),
-                    "-c", configuration,
-                    "--nologo",
-                    "/v:m",
-                    $"/p:TargetOs={platform.TargetOs}",
-                    "/t:Rebuild",
-                    "/p:FullRelease=true",
-                    "/m"
+                    FileName = "dotnet",
+                    ArgumentList =
+                    {
+                        "build",
+                        Path.Combine("Content.Server", "Content.Server.csproj"),
+                        "-c",
+                        configuration,
+                        "--nologo",
+                        "/v:m",
+                        $"/p:TargetOs={platform.TargetOs}",
+                        "/t:Rebuild",
+                        "/p:FullRelease=true",
+                        "/m",
+                    },
                 }
-            });
+            );
 
             await PublishClientServer(platform.Rid, platform.TargetOs, configuration);
         }
@@ -128,8 +136,11 @@ public static class ServerPackaging
 
         var sw = RStopwatch.StartNew();
         {
-            await using var zipFile =
-                File.Open(Path.Combine("release", $"SS14.Server_{platform.Rid}.zip"), FileMode.Create, FileAccess.ReadWrite);
+            await using var zipFile = File.Open(
+                Path.Combine("release", $"SS14.Server_{platform.Rid}.zip"),
+                FileMode.Create,
+                FileAccess.ReadWrite
+            );
             using var zip = new ZipArchive(zipFile, ZipArchiveMode.Update);
             var writer = new AssetPassZipWriter(zip);
 
@@ -142,21 +153,25 @@ public static class ServerPackaging
 
     private static async Task PublishClientServer(string runtime, string targetOs, string configuration)
     {
-        await ProcessHelpers.RunCheck(new ProcessStartInfo
-        {
-            FileName = "dotnet",
-            ArgumentList =
+        await ProcessHelpers.RunCheck(
+            new ProcessStartInfo
             {
-                "publish",
-                "--runtime", runtime,
-                "--no-self-contained",
-                "-c", configuration,
-                $"/p:TargetOs={targetOs}",
-                "/p:FullRelease=True",
-                "/m",
-                "RobustToolbox/Robust.Server/Robust.Server.csproj"
+                FileName = "dotnet",
+                ArgumentList =
+                {
+                    "publish",
+                    "--runtime",
+                    runtime,
+                    "--no-self-contained",
+                    "-c",
+                    configuration,
+                    $"/p:TargetOs={targetOs}",
+                    "/p:FullRelease=True",
+                    "/m",
+                    "RobustToolbox/Robust.Server/Robust.Server.csproj",
+                },
             }
-        });
+        );
     }
 
     private static async Task WriteServerResources(
@@ -165,7 +180,8 @@ public static class ServerPackaging
         AssetPass pass,
         IPackageLogger logger,
         bool hybridAcz,
-        CancellationToken cancel)
+        CancellationToken cancel
+    )
     {
         var graph = new RobustServerAssetGraph();
         var passes = graph.AllPasses.ToList();
@@ -189,26 +205,29 @@ public static class ServerPackaging
         {
             var fileName = Path.GetFileNameWithoutExtension(fullPath);
 
-            if (!ServerNotExtraAssemblies.Any(o => fileName.StartsWith(o)) && ServerExtraAssemblies.Any(o => fileName.StartsWith(o)))
+            if (
+                !ServerNotExtraAssemblies.Any(o => fileName.StartsWith(o))
+                && ServerExtraAssemblies.Any(o => fileName.StartsWith(o))
+            )
             {
                 contentAssemblies.Add(fileName);
             }
         }
 
         await RobustSharedPackaging.DoResourceCopy(
-            Path.Combine("RobustToolbox", "bin", "Server",
-            platform.Rid,
-            "publish"),
+            Path.Combine("RobustToolbox", "bin", "Server", platform.Rid, "publish"),
             inputPassCore,
             BinSkipFolders,
-            cancel: cancel);
+            cancel: cancel
+        );
 
         await RobustSharedPackaging.WriteContentAssemblies(
             inputPassResources,
             contentDir,
             "Content.Server",
             contentAssemblies,
-            cancel: cancel);
+            cancel: cancel
+        );
 
         await RobustServerPackaging.WriteServerResources(contentDir, inputPassResources, cancel);
 

@@ -17,12 +17,10 @@
     back: ClothingBackpackSatchelLeatherWinterFilled
     id: MercenaryPDAWinter
   inhand:
-    - NFClothingBackpackDuffelColorBrownWinterFilled
+  - NFClothingBackpackDuffelColorBrownWinterFilled
 
-
-
-# pocket1
-# - type: entity
+  # pocket1
+  # - type: entity
   # id:
   # parent:
   # name:
@@ -45,8 +43,6 @@
     angleDecay: 1
     fireRate: 8
 
-
-
 # head
 - type: entity
   id: ClothingHeadHatCowboyBountyHunterWinter
@@ -64,17 +60,8 @@
   - type: Clothing
     sprite: Clothing/Head/Hats/cowboyhatbountyhunter.rsi
 
-# neck
-# - type: entity
-  # id:
-  # parent:
-  # name:
-  # description:
-  # suffix:
-  # components:
-
-# mask
-# - type: entity
+  # neck
+  # - type: entity
   # id:
   # parent:
   # name:
@@ -84,6 +71,15 @@
 
 # eyes
 - type: entity
+  # mask
+  # - type: entity
+  # id:
+  # parent:
+  # name:
+  # description:
+  # suffix:
+  # components:
+
   id: ClothingEyesGlassesSunglassesWinter
   parent: ClothingEyesGlassesSunglasses
   name: experimental sun glasses
@@ -98,35 +94,8 @@
   - type: ShowHealthBars
   - type: ShowHealthIcons
 
-# ears
-# - type: entity
-  # id:
-  # parent:
-  # name:
-  # description:
-  # suffix:
-  # components:
-
-# gloves
-# - type: entity
-  # id:
-  # parent:
-  # name:
-  # description:
-  # suffix:
-  # components:
-
-# shoes
-# - type: entity
-  # id:
-  # parent:
-  # name:
-  # description:
-  # suffix:
-  # components:
-
-# suitstorage
-# - type: entity
+  # ears
+  # - type: entity
   # id:
   # parent:
   # name:
@@ -136,7 +105,34 @@
 
 # outerClothing
 - type: entity
-  id: ClothingOuterCoatBomberWinter   # this is a bulletproof vest shaped to look like a bomber jacket
+  # gloves
+  # - type: entity
+  # id:
+  # parent:
+  # name:
+  # description:
+  # suffix:
+  # components:
+
+  # shoes
+  # - type: entity
+  # id:
+  # parent:
+  # name:
+  # description:
+  # suffix:
+  # components:
+
+  # suitstorage
+  # - type: entity
+  # id:
+  # parent:
+  # name:
+  # description:
+  # suffix:
+  # components:
+
+  id: ClothingOuterCoatBomberWinter # this is a bulletproof vest shaped to look like a bomber jacket
   parent: ClothingOuterCoatBomber
   name: winter's jacket
   description: A thick, well-worn leather jacket. The seams are sewn with a type III heavy bulletproof vest that excels in protecting the wearer against traditional projectile weaponry and explosives to a minor extent.
@@ -145,7 +141,7 @@
   - type: Tag
     tags:
     - Admin
-  - type: Armor  # armor values copied from the bulletproof vest
+  - type: Armor # armor values copied from the bulletproof vest
     modifiers:
       coefficients:
         Blunt: 0.9
@@ -156,10 +152,10 @@
     damageCoefficient: 0.80
   - type: Contraband
     severity: Class1
-    allowedDepartments: [ Civilian, Security, Command, Frontier, CentralCommand ]
+    allowedDepartments: [Civilian, Security, Command, Frontier, CentralCommand]
 
-# jumpsuit
-# - type: entity
+  # jumpsuit
+  # - type: entity
   # id:
   # parent:
   # name:
@@ -167,8 +163,10 @@
   # suffix:
   # components:
 
-# wallet
-# - type: entity
+# belt
+- type: entity
+  # wallet
+  # - type: entity
   # id:
   # parent:
   # name:
@@ -176,12 +174,10 @@
   # suffix:
   # components:
   # - type: StorageFill
-    # contents:
-      # - id:
-        # amount: 1
+  # contents:
+  # - id:
+  # amount: 1
 
-# belt
-- type: entity
   id: ClothingBeltUtilityWinterFilled
   parent: ClothingBeltUtility
   # name:
@@ -193,8 +189,8 @@
     - Admin
   - type: StorageFill
     contents:
-      - id: SpeedLoader45_magnumFMJ
-        amount: 8
+    - id: SpeedLoader45_magnumFMJ
+      amount: 8
 
 # backpack
 - type: entity
@@ -208,17 +204,17 @@
     tags:
     - Admin
   # - type: ExplosionResistance
-    # damageCoefficient: 0.5
+  # damageCoefficient: 0.5
   - type: StorageFill
     contents:
-      - id: AmmoBox45_magnumFMJ
-        amount: 3
-      - id: AmmoBox45_magnumAP
-      - id: CrowbarRed
-      - id: FluteInstrumentWinter
-      - id: FoodWaterBluespaceBeaker
-      - id: ClothingWalletLeatherBlack
-      - id: MedicalTrackingImplanterDisposable
+    - id: AmmoBox45_magnumFMJ
+      amount: 3
+    - id: AmmoBox45_magnumAP
+    - id: CrowbarRed
+    - id: FluteInstrumentWinter
+    - id: FoodWaterBluespaceBeaker
+    - id: ClothingWalletLeatherBlack
+    - id: MedicalTrackingImplanterDisposable
 
 # pda
 - type: entity
@@ -233,19 +229,19 @@
     - Admin
   - type: CartridgeLoader
     preinstalled:
-      - CrewManifestCartridge
-      - NotekeeperCartridge
-      - NanoTaskCartridge
-      - NewsReaderCartridge
-      - BountyContractsCartridge
-      - AstroNavCartridge
-      - MedTekCartridge
-      - WantedListCartridge
+    - CrewManifestCartridge
+    - NotekeeperCartridge
+    - NanoTaskCartridge
+    - NewsReaderCartridge
+    - BountyContractsCartridge
+    - AstroNavCartridge
+    - MedTekCartridge
+    - WantedListCartridge
   - type: HealthAnalyzer
     scanDelay: 0.4
 
-# ID Card
-# - type: entity
+  # ID Card
+  # - type: entity
   # id:
   # parent: IDCardStandard
   # name:
@@ -253,13 +249,9 @@
   # suffix:
   # components:
   # - type: Access
-    # tags:
-    # - Maintenance
-    # - External
-
-
-
-
+  # tags:
+  # - Maintenance
+  # - External
 
 # Winter's Flute
 - type: entity
@@ -278,13 +270,12 @@
     inHandsOnly: false
     requireActiveHand: false
 
-
 - type: entity
   id: LewdFleshlightRedWinter
   parent: LewdFleshlightRed
   name: Winter
   suffix: Winter, Admin
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Tag
     tags:
@@ -294,9 +285,8 @@
       fleshlight:
         maxVol: 300
         reagents:
-          - ReagentId: Cum
-            Quantity: 300
-
+        - ReagentId: Cum
+          Quantity: 300
 
 # hand duffel
 - type: entity
@@ -311,12 +301,12 @@
     - Admin
   - type: StorageFill
     contents:
-      - id: AmmoBox45_magnumFMJ
-        amount: 8
-      - id: DrinkPomonadeGlass
-      - id: BoxDispenserFlare
-      - id: MedicatedSuture
-      - id: RegenerativeMesh
-      - id: DiphenhydramineVialBluespace
-      - id: Syringe
-      - id: LewdFleshlightRedWinter
+    - id: AmmoBox45_magnumFMJ
+      amount: 8
+    - id: DrinkPomonadeGlass
+    - id: BoxDispenserFlare
+    - id: MedicatedSuture
+    - id: RegenerativeMesh
+    - id: DiphenhydramineVialBluespace
+    - id: Syringe
+    - id: LewdFleshlightRedWinter

@@ -8,7 +8,8 @@ namespace Content.Client.NodeContainer
 {
     public sealed class NodeVisCommand : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _e = default!;
+        [Dependency]
+        private readonly IEntityManager _e = default!;
 
         public string Command => "nodevis";
         public string Description => "Toggles node group visualization";
@@ -30,7 +31,8 @@ namespace Content.Client.NodeContainer
 
     public sealed class NodeVisFilterCommand : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _e = default!;
+        [Dependency]
+        private readonly IEntityManager _e = default!;
 
         public string Command => "nodevisfilter";
         public string Description => "Toggles showing a specific group on nodevis";

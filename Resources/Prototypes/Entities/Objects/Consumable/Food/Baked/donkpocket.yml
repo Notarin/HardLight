@@ -35,9 +35,9 @@
   components:
   - type: FlavorProfile
     flavors:
-      - bread
-      - meaty
-      - cheap
+    - bread
+    - meaty
+    - cheap
   - type: Sprite
     state: plain
 
@@ -49,9 +49,9 @@
   components:
   - type: FlavorProfile
     flavors:
-      - bread
-      - meaty
-      - cheap
+    - bread
+    - meaty
+    - cheap
   - type: SolutionContainerManager
     solutions:
       food:
@@ -70,8 +70,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - leafy
-      - cheap
+    - leafy
+    - cheap
   - type: SolutionContainerManager
     solutions:
       food:
@@ -89,8 +89,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - leafy
-      - cheap
+    - leafy
+    - cheap
   - type: SolutionContainerManager
     solutions:
       food:
@@ -108,9 +108,9 @@
   components:
   - type: FlavorProfile
     flavors:
-      - spicy
-      - meaty
-      - cheap
+    - spicy
+    - meaty
+    - cheap
   - type: Sprite
     state: plain
 
@@ -122,9 +122,9 @@
   components:
   - type: FlavorProfile
     flavors:
-      - spicy
-      - meaty
-      - cheap
+    - spicy
+    - meaty
+    - cheap
   - type: SolutionContainerManager
     solutions:
       food:
@@ -144,9 +144,9 @@
   components:
   - type: FlavorProfile
     flavors:
-      - meaty
-      - sweet
-      - cheap
+    - meaty
+    - sweet
+    - cheap
   - type: Sprite
     state: teriyaki
 
@@ -158,9 +158,9 @@
   components:
   - type: FlavorProfile
     flavors:
-      - meaty
-      - sweet
-      - cheap
+    - meaty
+    - sweet
+    - cheap
   - type: SolutionContainerManager
     solutions:
       food:
@@ -178,10 +178,10 @@
   components:
   - type: FlavorProfile
     flavors:
-      - bread
-      - cheesy
-      - tomato
-      - cheap
+    - bread
+    - cheesy
+    - tomato
+    - cheap
   - type: SolutionContainerManager
     solutions:
       food:
@@ -199,10 +199,10 @@
   components:
   - type: FlavorProfile
     flavors:
-      - bread
-      - cheesy
-      - tomato
-      - cheap
+    - bread
+    - cheesy
+    - tomato
+    - cheap
   - type: SolutionContainerManager
     solutions:
       food:
@@ -220,8 +220,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - funny
-      - cheap
+    - funny
+    - cheap
   - type: SolutionContainerManager
     solutions:
       food:
@@ -241,8 +241,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - funny
-      - cheap
+    - funny
+    - cheap
   - type: SolutionContainerManager
     solutions:
       food:
@@ -260,8 +260,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - sweet
-      - cheap
+    - sweet
+    - cheap
   - type: SolutionContainerManager
     solutions:
       food:
@@ -279,8 +279,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - sweet
-      - cheap
+    - sweet
+    - cheap
   - type: SolutionContainerManager
     solutions:
       food:
@@ -300,8 +300,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - profits
-      - cheap
+    - profits
+    - cheap
   - type: SolutionContainerManager
     solutions:
       food:
@@ -318,8 +318,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - profits
-      - cheap
+    - profits
+    - cheap
   - type: SolutionContainerManager
     solutions:
       food:
@@ -374,8 +374,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - cold
-      - cheap
+    - cold
+    - cheap
   - type: SolutionContainerManager
     solutions:
       food:

@@ -25,14 +25,22 @@ namespace Content.IntegrationTests.Tests
             {
                 foreach (var proto in prototypeManager.EnumeratePrototypes<EntityPrototype>())
                 {
-                    if (proto.HideSpawnMenu || proto.Abstract || pair.IsTestPrototype(proto) || !proto.Components.ContainsKey("Sprite"))
+                    if (
+                        proto.HideSpawnMenu
+                        || proto.Abstract
+                        || pair.IsTestPrototype(proto)
+                        || !proto.Components.ContainsKey("Sprite")
+                    )
                         continue;
 
-                    Assert.DoesNotThrow(() =>
-                    {
-                        var _ = spriteSys.GetPrototypeTextures(proto).ToList(); // HL: Move to the proper usage of the SpriteSystem for getting sprites
-                    }, "Prototype {0} threw an exception when getting its textures.",
-                        proto.ID);
+                    Assert.DoesNotThrow(
+                        () =>
+                        {
+                            var _ = spriteSys.GetPrototypeTextures(proto).ToList(); // HL: Move to the proper usage of the SpriteSystem for getting sprites
+                        },
+                        "Prototype {0} threw an exception when getting its textures.",
+                        proto.ID
+                    );
                 }
             });
             await pair.CleanReturnAsync();

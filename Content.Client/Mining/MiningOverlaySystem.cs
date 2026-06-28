@@ -10,8 +10,11 @@ namespace Content.Client.Mining;
 /// </summary>
 public sealed class MiningOverlaySystem : EntitySystem
 {
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IOverlayManager _overlayMan = default!;
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly IOverlayManager _overlayMan = default!;
 
     private MiningOverlay _overlay = default!;
 

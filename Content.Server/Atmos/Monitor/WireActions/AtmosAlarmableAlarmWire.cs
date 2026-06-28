@@ -27,9 +27,7 @@ public sealed partial class AtmosMonitorDeviceNetWire : ComponentWireAction<Atmo
             alarm = AtmosAlarmType.Normal;
         }
 
-        return alarm == AtmosAlarmType.Danger
-            ? StatusLightState.BlinkingFast
-            : StatusLightState.On;
+        return alarm == AtmosAlarmType.Danger ? StatusLightState.BlinkingFast : StatusLightState.On;
     }
 
     public override void Initialize()

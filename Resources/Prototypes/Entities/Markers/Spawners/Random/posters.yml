@@ -5,17 +5,17 @@
   components:
   - type: Sprite
     layers:
-      - state: red
-      - sprite: Structures/Wallmounts/posters.rsi
-        state: random_anything
+    - state: red
+    - sprite: Structures/Wallmounts/posters.rsi
+      state: random_anything
   - type: RandomSpawner
     offset: 0
     prototypes:
-      - RandomPosterContraband
-      - RandomPosterLegit
+    - RandomPosterContraband
+    - RandomPosterLegit
     chance: 0.95
     rarePrototypes:
-      - PosterBroken
+    - PosterBroken
     rareChance: 0.05
 
 - type: entity
@@ -25,98 +25,98 @@
   components:
   - type: Sprite
     layers:
-      - state: red
-      - sprite: Structures/Wallmounts/posters.rsi
-        state: random_contraband
+    - state: red
+    - sprite: Structures/Wallmounts/posters.rsi
+      state: random_contraband
   - type: RandomSpawner
     offset: 0
     prototypes:
-      - PosterContrabandFreeTonto
-      - PosterContrabandAtmosiaDeclarationIndependence
-      - PosterContrabandFunPolice
-      - PosterContrabandLustyExomorph
-      - PosterContrabandSyndicateRecruitment
-      - PosterContrabandClown
-      - PosterContrabandSmoke
-      - PosterContrabandGreyTide
-      - PosterContrabandMissingGloves
-      - PosterContrabandHackingGuide
-      - PosterContrabandRIPBadger
-      - PosterContrabandAmbrosiaVulgaris
-      - PosterContrabandDonutCorp
-      - PosterContrabandEAT
-      - PosterContrabandTools
-      - PosterContrabandPower
-      - PosterContrabandSpaceCube
-      - PosterContrabandCommunistState
-      - PosterContrabandLamarr
-      - PosterContrabandBorgFancy
-      - PosterContrabandBorgFancyv2
-      - PosterContrabandKosmicheskayaStantsiya
-      - PosterContrabandRebelsUnite
-      - PosterContrabandC20r
-      - PosterContrabandHaveaPuff
-      - PosterContrabandRevolver
-      - PosterContrabandDDayPromo
-      - PosterContrabandSyndicatePistol
-      - PosterContrabandEnergySwords
-      - PosterContrabandRedRum
-      - PosterContrabandCC64KAd
-      - PosterContrabandPunchShit
-      - PosterContrabandTheGriffin
-      - PosterContrabandFreeDrone
-      - PosterContrabandBustyBackdoorExoBabes6
-      - PosterContrabandRobustSoftdrinks
-      - PosterContrabandShamblersJuice
-      - PosterContrabandPwrGame
-      - PosterContrabandSunkist
-      - PosterContrabandSpaceCola
-      - PosterContrabandSpaceUp
-      - PosterContrabandKudzu
-      - PosterContrabandMaskedMen
-      - PosterContrabandUnreadableAnnouncement
-      - PosterContrabandFreeSyndicateEncryptionKey
-      - PosterContrabandBountyHunters
-      - PosterContrabandTheBigGasTruth
-      - PosterContrabandWehWatches
-      - PosterContrabandVoteWeh
-      - PosterContrabandBeachStarYamamoto
-      - PosterContrabandHighEffectEngineering
-      - PosterContrabandNuclearDeviceInformational
-      - PosterContrabandRevolt
-      - PosterContrabandRise
-      - PosterContrabandMoth
-      - PosterContrabandCybersun600
-      - PosterContrabandDonk
-      - PosterContrabandEnlistGorlex
-      - PosterContrabandInterdyne
-      - PosterContrabandWaffleCorp
-      - PosterContrabandMissingSpacepen
-        # Frontier: Start
-      - NFPosterContrabandLvhiStation
-      - NFPosterContrabandLvhiShuttle
-      - NFPosterContrabandLvhiSpace
-      - NFPosterContrabandLvhiMountains
-      - NFPosterContrabandLvhiPlanetCore
-      - NFPosterContrabandLvhiLogo
-      - NFPosterContrabandFsbLogo
-      - NFPosterContrabandFsbStasis
-      - NFPosterContrabandFsbApothecary
-      - NFPosterContrabandEatShrooms
-      - NFPosterContrabandKillerFashion
-      - NFPosterContrabandGoblinFront
-      - NFPosterContrabandGoblinate
-      - NFPosterContrabandFsbRubicon
-      - NFPosterContrabandWyvernShipyards
-      - NFPosterContrabandRatvarLives
-      - NFPosterContrabandFsbCaladrius
-      - NFPosterContrabandFsbNightlight
-      - NFPosterContrabandFsbRetort
-      - NFPosterContrabandFscLogo
-      - NFPosterContrabandFscSurveyor
-      - NFPosterContrabandFscCourier
-      - NFPosterContrabandFsbDruid
-      # End Frontier
+    - PosterContrabandFreeTonto
+    - PosterContrabandAtmosiaDeclarationIndependence
+    - PosterContrabandFunPolice
+    - PosterContrabandLustyExomorph
+    - PosterContrabandSyndicateRecruitment
+    - PosterContrabandClown
+    - PosterContrabandSmoke
+    - PosterContrabandGreyTide
+    - PosterContrabandMissingGloves
+    - PosterContrabandHackingGuide
+    - PosterContrabandRIPBadger
+    - PosterContrabandAmbrosiaVulgaris
+    - PosterContrabandDonutCorp
+    - PosterContrabandEAT
+    - PosterContrabandTools
+    - PosterContrabandPower
+    - PosterContrabandSpaceCube
+    - PosterContrabandCommunistState
+    - PosterContrabandLamarr
+    - PosterContrabandBorgFancy
+    - PosterContrabandBorgFancyv2
+    - PosterContrabandKosmicheskayaStantsiya
+    - PosterContrabandRebelsUnite
+    - PosterContrabandC20r
+    - PosterContrabandHaveaPuff
+    - PosterContrabandRevolver
+    - PosterContrabandDDayPromo
+    - PosterContrabandSyndicatePistol
+    - PosterContrabandEnergySwords
+    - PosterContrabandRedRum
+    - PosterContrabandCC64KAd
+    - PosterContrabandPunchShit
+    - PosterContrabandTheGriffin
+    - PosterContrabandFreeDrone
+    - PosterContrabandBustyBackdoorExoBabes6
+    - PosterContrabandRobustSoftdrinks
+    - PosterContrabandShamblersJuice
+    - PosterContrabandPwrGame
+    - PosterContrabandSunkist
+    - PosterContrabandSpaceCola
+    - PosterContrabandSpaceUp
+    - PosterContrabandKudzu
+    - PosterContrabandMaskedMen
+    - PosterContrabandUnreadableAnnouncement
+    - PosterContrabandFreeSyndicateEncryptionKey
+    - PosterContrabandBountyHunters
+    - PosterContrabandTheBigGasTruth
+    - PosterContrabandWehWatches
+    - PosterContrabandVoteWeh
+    - PosterContrabandBeachStarYamamoto
+    - PosterContrabandHighEffectEngineering
+    - PosterContrabandNuclearDeviceInformational
+    - PosterContrabandRevolt
+    - PosterContrabandRise
+    - PosterContrabandMoth
+    - PosterContrabandCybersun600
+    - PosterContrabandDonk
+    - PosterContrabandEnlistGorlex
+    - PosterContrabandInterdyne
+    - PosterContrabandWaffleCorp
+    - PosterContrabandMissingSpacepen
+    # Frontier: Start
+    - NFPosterContrabandLvhiStation
+    - NFPosterContrabandLvhiShuttle
+    - NFPosterContrabandLvhiSpace
+    - NFPosterContrabandLvhiMountains
+    - NFPosterContrabandLvhiPlanetCore
+    - NFPosterContrabandLvhiLogo
+    - NFPosterContrabandFsbLogo
+    - NFPosterContrabandFsbStasis
+    - NFPosterContrabandFsbApothecary
+    - NFPosterContrabandEatShrooms
+    - NFPosterContrabandKillerFashion
+    - NFPosterContrabandGoblinFront
+    - NFPosterContrabandGoblinate
+    - NFPosterContrabandFsbRubicon
+    - NFPosterContrabandWyvernShipyards
+    - NFPosterContrabandRatvarLives
+    - NFPosterContrabandFsbCaladrius
+    - NFPosterContrabandFsbNightlight
+    - NFPosterContrabandFsbRetort
+    - NFPosterContrabandFscLogo
+    - NFPosterContrabandFscSurveyor
+    - NFPosterContrabandFscCourier
+    - NFPosterContrabandFsbDruid
+    # End Frontier
     chance: 1
 
 - type: entity
@@ -126,72 +126,72 @@
   components:
   - type: Sprite
     layers:
-      - state: red
-      - sprite: Structures/Wallmounts/posters.rsi
-        state: random_legit
+    - state: red
+    - sprite: Structures/Wallmounts/posters.rsi
+      state: random_legit
   - type: RandomSpawner
     offset: 0
     prototypes:
-      - PosterLegitHereForYourSafety
-      - PosterLegitNanotrasenLogo
-      - PosterLegitCleanliness
-      - PosterLegitHelpOthers
-      - PosterLegitBuild
-      - PosterLegitBlessThisSpess
-      - PosterLegitScience
-      - PosterLegitIan
-      - PosterLegitObey
-      - PosterLegitWalk
-      - PosterLegitStateLaws
-      - PosterLegitLoveIan
-      - PosterLegitSpaceCops
-      - PosterLegitUeNo
-      - PosterLegitGetYourLEGS
-      - PosterLegitDoNotQuestion
-      - PosterLegitWorkForAFuture
-      - PosterLegitSoftCapPopArt
-      - PosterLegitSafetyInternals
-      - PosterLegitSafetyEyeProtection
-      - PosterLegitSafetyReport
-      - PosterLegitReportCrimes
-      - PosterLegitIonRifle
-      - PosterLegitFoamForceAd
-      - PosterLegitCohibaRobustoAd
-      - PosterLegit50thAnniversaryVintageReprint
-      - PosterLegitFruitBowl
-      - PosterLegitPDAAd
-      - PosterLegitEnlist
-      - PosterLegitNanomichiAd
-      - PosterLegit12_gauge
-      - PosterLegitHighClassMartini
-      - PosterLegitTheOwl
-      - PosterLegitNoERP
-      - PosterLegitCarbonDioxide
-      - PosterLegitDickGumshue
-      - PosterLegitThereIsNoGasGiant
-      - PosterLegitJustAWeekAway
-      - PosterLegitSecWatch
-      - PosterLegitVacation
-      - PosterLegitRenault
-      - PosterLegitNTTGC
-      - PosterLegitSafetyMothDelam
-      - PosterLegitSafetyMothEpi
-      - PosterLegitSafetyMothPiping
-      - PosterLegitSafetyMothMeth
-      - PosterLegitSafetyMothHardhat
-      - PosterLegitSafetyMothSSD
-      - PosterLegitOppenhopper
-      - PosterLegitTyrone
-      - PosterLegitHelio
-      - PosterLegitYesERP # Hardlight
-        # Frontier
-      - NFPosterLegitMagnusWatching
-      - NFPosterLegitGoblinTinkerer
-      - NFPosterLegitBahamaMama
-      - NFPosterLegitWinnerWinner
-      - NFPosterLegitWantedClarpy
-      - NFPosterLegitMothPlease
-      - NFPosterLegitHaveYouSeenThisEgg
-      - NFPosterLegitGunTurnIn
-        # End Frontier
+    - PosterLegitHereForYourSafety
+    - PosterLegitNanotrasenLogo
+    - PosterLegitCleanliness
+    - PosterLegitHelpOthers
+    - PosterLegitBuild
+    - PosterLegitBlessThisSpess
+    - PosterLegitScience
+    - PosterLegitIan
+    - PosterLegitObey
+    - PosterLegitWalk
+    - PosterLegitStateLaws
+    - PosterLegitLoveIan
+    - PosterLegitSpaceCops
+    - PosterLegitUeNo
+    - PosterLegitGetYourLEGS
+    - PosterLegitDoNotQuestion
+    - PosterLegitWorkForAFuture
+    - PosterLegitSoftCapPopArt
+    - PosterLegitSafetyInternals
+    - PosterLegitSafetyEyeProtection
+    - PosterLegitSafetyReport
+    - PosterLegitReportCrimes
+    - PosterLegitIonRifle
+    - PosterLegitFoamForceAd
+    - PosterLegitCohibaRobustoAd
+    - PosterLegit50thAnniversaryVintageReprint
+    - PosterLegitFruitBowl
+    - PosterLegitPDAAd
+    - PosterLegitEnlist
+    - PosterLegitNanomichiAd
+    - PosterLegit12_gauge
+    - PosterLegitHighClassMartini
+    - PosterLegitTheOwl
+    - PosterLegitNoERP
+    - PosterLegitCarbonDioxide
+    - PosterLegitDickGumshue
+    - PosterLegitThereIsNoGasGiant
+    - PosterLegitJustAWeekAway
+    - PosterLegitSecWatch
+    - PosterLegitVacation
+    - PosterLegitRenault
+    - PosterLegitNTTGC
+    - PosterLegitSafetyMothDelam
+    - PosterLegitSafetyMothEpi
+    - PosterLegitSafetyMothPiping
+    - PosterLegitSafetyMothMeth
+    - PosterLegitSafetyMothHardhat
+    - PosterLegitSafetyMothSSD
+    - PosterLegitOppenhopper
+    - PosterLegitTyrone
+    - PosterLegitHelio
+    - PosterLegitYesERP # Hardlight
+    # Frontier
+    - NFPosterLegitMagnusWatching
+    - NFPosterLegitGoblinTinkerer
+    - NFPosterLegitBahamaMama
+    - NFPosterLegitWinnerWinner
+    - NFPosterLegitWantedClarpy
+    - NFPosterLegitMothPlease
+    - NFPosterLegitHaveYouSeenThisEgg
+    - NFPosterLegitGunTurnIn
+    # End Frontier
     chance: 1

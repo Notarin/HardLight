@@ -19,11 +19,13 @@ public sealed partial class SpeciesRequirement : JobRequirement
     [DataField(required: true)]
     public HashSet<ProtoId<SpeciesPrototype>> Species = new();
 
-    public override bool Check(IEntityManager entManager,
+    public override bool Check(
+        IEntityManager entManager,
         IPrototypeManager protoManager,
         HumanoidCharacterProfile? profile,
         IReadOnlyDictionary<string, TimeSpan> playTimes,
-        [NotNullWhen(false)] out FormattedMessage? reason)
+        [NotNullWhen(false)] out FormattedMessage? reason
+    )
     {
         reason = new FormattedMessage();
 

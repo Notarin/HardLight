@@ -20,8 +20,8 @@
           Quantity: 5
   - type: FlavorProfile
     flavors:
-      - ice
-      - cold
+    - ice
+    - cold
 #  - type: Tag
 #    tags:
 #      - Meat
@@ -37,9 +37,9 @@
   name: brain
   description: "The source of incredible, unending intelligence. Honk."
   components:
-#  - type: Tag
-#    tags:
-#      - Meat
+  #  - type: Tag
+  #    tags:
+  #      - Meat
   - type: SolutionContainerManager
     solutions:
       organ:
@@ -53,8 +53,8 @@
           Quantity: 5
   - type: FlavorProfile
     flavors:
-      - ice
-      - cold
+    - ice
+    - cold
 
 - type: entity
   id: OrganShelegEyes

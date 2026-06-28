@@ -28,7 +28,7 @@ public sealed partial class PressureFilterComponent : Component
 [Serializable, NetSerializable]
 public enum PressureFilterUiKey : byte
 {
-    Key
+    Key,
 }
 
 [Serializable, NetSerializable]

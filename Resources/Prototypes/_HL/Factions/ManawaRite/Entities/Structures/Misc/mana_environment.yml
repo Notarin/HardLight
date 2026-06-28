@@ -170,13 +170,12 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.5,-0.5,0.5,0.5"
         layer:
-          - SlipLayer
+        - SlipLayer
         mask:
-          - ItemMask
+        - ItemMask
         density: 1000
         hard: false
   - type: SpeedModifierContacts
@@ -187,7 +186,7 @@
     intersectRatio: 0.1
     blacklist:
       tags:
-        - Catwalk
+      - Catwalk
 
 # ---------- Mana pool (on-grid, passable, slowdown + water sounds) ----------
 
@@ -218,13 +217,12 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.5,-0.5,0.5,0.5"
         layer:
-          - SlipLayer
+        - SlipLayer
         mask:
-          - ItemMask
+        - ItemMask
         density: 1000
         hard: false
   - type: SpeedModifierContacts
@@ -240,10 +238,10 @@
     intersectRatio: 0.1
     blacklist:
       tags:
-        - Catwalk
+      - Catwalk
   - type: Tag
     tags:
-      - HideContextMenu
+    - HideContextMenu
   - type: PointLight
     radius: 1.5
     energy: 1.0
@@ -294,8 +292,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.35,-0.4,0.35,0.4"
         density: 1000
         layer:
@@ -309,8 +306,7 @@
     damageModifierSet: Wood
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:SpawnEntitiesBehavior
@@ -319,7 +315,7 @@
             min: 1
             max: 1
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
 
 # ---------- Large tree ----------
 
@@ -352,8 +348,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.18,-0.35,0.18,0.35"
         density: 1000
         layer:
@@ -367,8 +362,7 @@
     damageModifierSet: Wood
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:SpawnEntitiesBehavior
@@ -377,7 +371,7 @@
             min: 1
             max: 1
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
 
 # ---------- Glowing tree ----------
 
@@ -410,8 +404,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.35,-0.4,0.35,0.4"
         density: 1000
         layer:
@@ -425,8 +418,7 @@
     damageModifierSet: Wood
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:SpawnEntitiesBehavior
@@ -435,7 +427,7 @@
             min: 1
             max: 1
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
 
 # ---------- Boulder (on-grid, collidable, randomized) ----------
 
@@ -463,8 +455,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.4
         density: 1000
         layer:
@@ -475,8 +466,7 @@
     damageModifierSet: Metallic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:SpawnEntitiesBehavior
@@ -485,7 +475,7 @@
             min: 1
             max: 1
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
 
 # ---------- Crystals ----------
 
@@ -506,8 +496,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.45
         density: 60
         mask:
@@ -526,8 +515,7 @@
     damageModifierSet: Glass
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 20
       behaviors:
       - !type:PlaySoundBehavior
@@ -539,7 +527,7 @@
             min: 1
             max: 1
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
 
 - type: entity
   parent: ManaCrystalTealDeco
@@ -577,8 +565,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.5,-0.5,0.5,0.5"
         mask:
         - FullTileMask
@@ -591,8 +578,7 @@
     damageModifierSet: Metallic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 300
       behaviors:
       - !type:SpawnEntitiesBehavior
@@ -601,7 +587,7 @@
             min: 2
             max: 4
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
 
 - type: entity
   parent: ManaWallChromiteBase
@@ -616,13 +602,13 @@
     sprite: Structures/Walls/rock.rsi
     layers:
     - state: rock_chromite
-    - map: [ "enum.EdgeLayer.South" ]
+    - map: ["enum.EdgeLayer.South"]
       state: rock_chromite_south
-    - map: [ "enum.EdgeLayer.East" ]
+    - map: ["enum.EdgeLayer.East"]
       state: rock_chromite_east
-    - map: [ "enum.EdgeLayer.North" ]
+    - map: ["enum.EdgeLayer.North"]
       state: rock_chromite_north
-    - map: [ "enum.EdgeLayer.West" ]
+    - map: ["enum.EdgeLayer.West"]
       state: rock_chromite_west
   - type: Icon
     sprite: Structures/Walls/rock.rsi
@@ -645,13 +631,13 @@
     sprite: Structures/Walls/rock.rsi
     layers:
     - state: rock_chromite
-    - map: [ "enum.EdgeLayer.South" ]
+    - map: ["enum.EdgeLayer.South"]
       state: rock_chromite_south
-    - map: [ "enum.EdgeLayer.East" ]
+    - map: ["enum.EdgeLayer.East"]
       state: rock_chromite_east
-    - map: [ "enum.EdgeLayer.North" ]
+    - map: ["enum.EdgeLayer.North"]
       state: rock_chromite_north
-    - map: [ "enum.EdgeLayer.West" ]
+    - map: ["enum.EdgeLayer.West"]
       state: rock_chromite_west
     - state: rock_phoron
       color: "#cc00ff"
@@ -670,13 +656,13 @@
     sprite: Structures/Walls/rock.rsi
     layers:
     - state: rock_chromite
-    - map: [ "enum.EdgeLayer.South" ]
+    - map: ["enum.EdgeLayer.South"]
       state: rock_chromite_south
-    - map: [ "enum.EdgeLayer.East" ]
+    - map: ["enum.EdgeLayer.East"]
       state: rock_chromite_east
-    - map: [ "enum.EdgeLayer.North" ]
+    - map: ["enum.EdgeLayer.North"]
       state: rock_chromite_north
-    - map: [ "enum.EdgeLayer.West" ]
+    - map: ["enum.EdgeLayer.West"]
       state: rock_chromite_west
     - state: rock_artifact_fragment
       shader: unshaded
@@ -789,10 +775,5 @@
     radius: 3.5
     power: 1.0
 
-
-
 # ---------- Floor tiles (on-grid, LowFloors, 1 mana wood each) ----------
-
-
-
 

@@ -44,8 +44,11 @@ public sealed class GasPressureRegulatorBoundUserInterface(EntityUid owner, Enum
     {
         var sentThreshold = 0f;
 
-        if (UserInputParser.TryFloat(newThreshold, out var parsedNewThreshold) && parsedNewThreshold >= 0 &&
-            !float.IsInfinity(parsedNewThreshold))
+        if (
+            UserInputParser.TryFloat(newThreshold, out var parsedNewThreshold)
+            && parsedNewThreshold >= 0
+            && !float.IsInfinity(parsedNewThreshold)
+        )
         {
             sentThreshold = parsedNewThreshold;
         }

@@ -37,7 +37,7 @@
     damageModifierSet: StrongMetallic
   - type: ContainerFill
     containers:
-      board: [ DoorElectronics ]
+      board: [DoorElectronics]
   - type: Construction
     graph: BlastDoor
     node: blastdoor
@@ -86,8 +86,7 @@
     damageModifierSet: StructuralMetallicStrong
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 2500 # Default (300) / Monolith (1000) / CombatOverhaul (2500)
       behaviors:
       - !type:DoActsBehavior
@@ -97,8 +96,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.45,-0.45,0.45,0.45"
         density: 55
         mask:

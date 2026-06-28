@@ -23,7 +23,13 @@ public sealed class SurveillanceCameraMonitorUiState : BoundUserInterfaceState
     // Known cameras, by address and name.
     public Dictionary<string, string> Cameras { get; }
 
-    public SurveillanceCameraMonitorUiState(NetEntity? activeCamera, HashSet<string> subnets, string activeAddress, string activeSubnet, Dictionary<string, string> cameras)
+    public SurveillanceCameraMonitorUiState(
+        NetEntity? activeCamera,
+        HashSet<string> subnets,
+        string activeAddress,
+        string activeSubnet,
+        Dictionary<string, string> cameras
+    )
     {
         ActiveCamera = activeCamera;
         Subnets = subnets;
@@ -59,23 +65,20 @@ public sealed class SurveillanceCameraMonitorSubnetRequestMessage : BoundUserInt
 
 // Sent when the user requests that the cameras on the current subnet be refreshed.
 [Serializable, NetSerializable]
-public sealed class SurveillanceCameraRefreshCamerasMessage : BoundUserInterfaceMessage
-{}
+public sealed class SurveillanceCameraRefreshCamerasMessage : BoundUserInterfaceMessage { }
 
 // Sent when the user requests that the subnets known by the monitor be refreshed.
 [Serializable, NetSerializable]
-public sealed class SurveillanceCameraRefreshSubnetsMessage : BoundUserInterfaceMessage
-{}
+public sealed class SurveillanceCameraRefreshSubnetsMessage : BoundUserInterfaceMessage { }
 
 // Sent when the user wants to disconnect the monitor from the camera.
 [Serializable, NetSerializable]
-public sealed class SurveillanceCameraDisconnectMessage : BoundUserInterfaceMessage
-{}
+public sealed class SurveillanceCameraDisconnectMessage : BoundUserInterfaceMessage { }
 
 [Serializable, NetSerializable]
 public enum SurveillanceCameraMonitorUiKey : byte
 {
-    Key
+    Key,
 }
 
 // SETUP
@@ -89,7 +92,13 @@ public sealed class SurveillanceCameraSetupBoundUiState : BoundUserInterfaceStat
     public bool NameDisabled { get; }
     public bool NetworkDisabled { get; }
 
-    public SurveillanceCameraSetupBoundUiState(string name, uint network, List<string> networks, bool nameDisabled, bool networkDisabled)
+    public SurveillanceCameraSetupBoundUiState(
+        string name,
+        uint network,
+        List<string> networks,
+        bool nameDisabled,
+        bool networkDisabled
+    )
     {
         Name = name;
         Network = network;
@@ -121,10 +130,9 @@ public sealed class SurveillanceCameraSetupSetNetwork : BoundUserInterfaceMessag
     }
 }
 
-
 [Serializable, NetSerializable]
 public enum SurveillanceCameraSetupUiKey : byte
 {
     Camera,
-    Router
+    Router,
 }

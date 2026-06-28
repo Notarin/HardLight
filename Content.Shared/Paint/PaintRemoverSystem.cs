@@ -1,8 +1,8 @@
-using Content.Shared.Popups;
-using Content.Shared.Interaction;
 using Content.Shared.DoAfter;
-using Content.Shared.Verbs;
+using Content.Shared.Interaction;
+using Content.Shared.Popups;
 using Content.Shared.Sprite;
+using Content.Shared.Verbs;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Timing;
 
@@ -13,10 +13,17 @@ namespace Content.Shared.Paint;
 /// </summary>
 public sealed class PaintRemoverSystem : SharedPaintSystem
 {
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearanceSystem = default!;
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfter = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearanceSystem = default!;
 
     public override void Initialize()
     {
@@ -36,12 +43,22 @@ public sealed class PaintRemoverSystem : SharedPaintSystem
         if (!args.CanReach || args.Target is not { Valid: true } target || !HasComp<PaintedComponent>(target))
             return;
 
-        _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, component.CleanDelay, new PaintRemoverDoAfterEvent(), uid, args.Target, uid)
-        {
-            BreakOnMove = true,
-            BreakOnDamage = true,
-            MovementThreshold = 1.0f,
-        });
+        _doAfter.TryStartDoAfter(
+            new DoAfterArgs(
+                EntityManager,
+                args.User,
+                component.CleanDelay,
+                new PaintRemoverDoAfterEvent(),
+                uid,
+                args.Target,
+                uid
+            )
+            {
+                BreakOnMove = true,
+                BreakOnDamage = true,
+                MovementThreshold = 1.0f,
+            }
+        );
         args.Handled = true;
     }
 
@@ -75,17 +92,27 @@ public sealed class PaintRemoverSystem : SharedPaintSystem
 
         var verb = new UtilityVerb()
         {
-            Act = () => {
-
-                _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, component.CleanDelay, new PaintRemoverDoAfterEvent(), uid, args.Target, uid)
-                {
-                    BreakOnMove = true,
-                    BreakOnDamage = true,
-                    MovementThreshold = 1.0f,
-                });
+            Act = () =>
+            {
+                _doAfter.TryStartDoAfter(
+                    new DoAfterArgs(
+                        EntityManager,
+                        args.User,
+                        component.CleanDelay,
+                        new PaintRemoverDoAfterEvent(),
+                        uid,
+                        args.Target,
+                        uid
+                    )
+                    {
+                        BreakOnMove = true,
+                        BreakOnDamage = true,
+                        MovementThreshold = 1.0f,
+                    }
+                );
             },
 
-            Text = paintremovalText
+            Text = paintremovalText,
         };
 
         args.Verbs.Add(verb);

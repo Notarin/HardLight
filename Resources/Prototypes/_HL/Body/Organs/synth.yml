@@ -127,7 +127,7 @@
   - type: Metabolizer
     solutionOnBody: false
     solution: "Lung"
-    metabolizerTypes: [ Synth ]
+    metabolizerTypes: [Synth]
     groups:
     - id: Gas
       rateModifier: 100.0
@@ -156,7 +156,7 @@
   # The heart 'metabolizes' medicines and poisons that aren't filtered out by other organs.
   - type: Metabolizer
     maxReagents: 2
-    metabolizerTypes: [ Synth ]
+    metabolizerTypes: [Synth]
     groups:
     - id: Medicine
     - id: Poison
@@ -187,7 +187,7 @@
   # The stomach metabolizes stuff like foods and drinks.
   - type: Metabolizer
     maxReagents: 5
-    metabolizerTypes: [ Synth ]
+    metabolizerTypes: [Synth]
     groups:
     - id: Food
     - id: Drink
@@ -213,7 +213,7 @@
   # The liver metabolizes certain chemicals only, like alcohol.
   - type: Metabolizer
     maxReagents: 1
-    metabolizerTypes: [ Synth ]
+    metabolizerTypes: [Synth]
     groups:
     - id: Alcohol
       rateModifier: 0.3 # removes alcohol along with the stomach removing it as a drink
@@ -236,5 +236,5 @@
   # The kidneys just remove anything that doesn't currently have any metabolisms, as a stopgap.
   - type: Metabolizer
     maxReagents: 5
-    metabolizerTypes: [ Synth ]
+    metabolizerTypes: [Synth]
     removeEmpty: true

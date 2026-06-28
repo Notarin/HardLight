@@ -1,5 +1,6 @@
-using Content.Server.Cargo.Components;
+using System.Numerics;
 using Content.Server._NF.Cargo.Components;
+using Content.Server.Cargo.Components;
 using Content.Shared._NF.Bank.Components;
 using Content.Shared._NF.Cargo.BUI;
 using Content.Shared.Cargo;
@@ -9,7 +10,6 @@ using Content.Shared.Mobs;
 using Robust.Shared.Audio;
 using Robust.Shared.Log;
 using Robust.Shared.Map;
-using System.Numerics;
 
 namespace Content.Server._NF.Cargo.Systems;
 
@@ -39,8 +39,11 @@ public sealed partial class NFCargoSystem
     {
         if (Transform(ent).GridUid is not EntityUid gridUid)
         {
-            _ui.SetUiState(ent.Owner, CargoPalletConsoleUiKey.Sale,
-            new NFCargoPalletConsoleInterfaceState(0, 0, false));
+            _ui.SetUiState(
+                ent.Owner,
+                CargoPalletConsoleUiKey.Sale,
+                new NFCargoPalletConsoleInterfaceState(0, 0, false)
+            );
             return;
         }
 
@@ -52,8 +55,11 @@ public sealed partial class NFCargoSystem
         }
         amount += noModAmount;
 
-        _ui.SetUiState(ent.Owner, CargoPalletConsoleUiKey.Sale,
-            new NFCargoPalletConsoleInterfaceState((int)amount, toSell.Count, true));
+        _ui.SetUiState(
+            ent.Owner,
+            CargoPalletConsoleUiKey.Sale,
+            new NFCargoPalletConsoleInterfaceState((int)amount, toSell.Count, true)
+        );
     }
 
     private void OnPalletUIOpen(Entity<NFCargoPalletConsoleComponent> ent, ref BoundUIOpenedEvent args)
@@ -68,7 +74,6 @@ public sealed partial class NFCargoSystem
     /// I dont want it to explode if cargo uses a conveyor to move 8000 pineapple slices or whatever, they are
     /// known for their entity spam i wouldnt put it past them
     /// </summary>
-
     private void OnPalletAppraise(Entity<NFCargoPalletConsoleComponent> ent, ref CargoPalletAppraiseMessage args)
     {
         UpdatePalletConsoleInterface(ent);
@@ -95,7 +100,11 @@ public sealed partial class NFCargoSystem
 
     /// GetCargoPallets(gridUid, BuySellType.Sell) to return only Sell pads
     /// GetCargoPallets(gridUid, BuySellType.Buy) to return only Buy pads
-    private List<(EntityUid Entity, CargoPalletComponent Component, TransformComponent PalletXform)> GetCargoPallets(EntityUid consoleUid, EntityUid gridUid, BuySellType requestType = BuySellType.All)
+    private List<(EntityUid Entity, CargoPalletComponent Component, TransformComponent PalletXform)> GetCargoPallets(
+        EntityUid consoleUid,
+        EntityUid gridUid,
+        BuySellType requestType = BuySellType.All
+    )
     {
         _pads.Clear();
 
@@ -106,9 +115,7 @@ public sealed partial class NFCargoSystem
         while (query.MoveNext(out var uid, out var comp, out var compXform))
         {
             // Short-path easy checks
-            if (compXform.ParentUid != gridUid
-                || !compXform.Anchored
-                || (requestType & comp.PalletType) == 0)
+            if (compXform.ParentUid != gridUid || !compXform.Anchored || (requestType & comp.PalletType) == 0)
             {
                 continue;
             }
@@ -125,7 +132,6 @@ public sealed partial class NFCargoSystem
                 continue;
 
             _pads.Add((uid, comp, compXform));
-
         }
 
         return _pads;
@@ -134,7 +140,12 @@ public sealed partial class NFCargoSystem
 
     #region Station
 
-    private bool SellPallets(Entity<NFCargoPalletConsoleComponent> consoleUid, EntityUid gridUid, out double amount, out double noMultiplierAmount) // Frontier: first arg to Entity, add noMultiplierAmount
+    private bool SellPallets(
+        Entity<NFCargoPalletConsoleComponent> consoleUid,
+        EntityUid gridUid,
+        out double amount,
+        out double noMultiplierAmount
+    ) // Frontier: first arg to Entity, add noMultiplierAmount
     {
         GetPalletGoods(consoleUid, gridUid, out var toSell, out amount, out noMultiplierAmount);
 
@@ -154,7 +165,13 @@ public sealed partial class NFCargoSystem
         return true;
     }
 
-    private void GetPalletGoods(Entity<NFCargoPalletConsoleComponent> consoleUid, EntityUid gridUid, out HashSet<EntityUid> toSell, out double amount, out double noMultiplierAmount) // Frontier: first arg to Entity, add noMultiplierAmount
+    private void GetPalletGoods(
+        Entity<NFCargoPalletConsoleComponent> consoleUid,
+        EntityUid gridUid,
+        out HashSet<EntityUid> toSell,
+        out double amount,
+        out double noMultiplierAmount
+    ) // Frontier: first arg to Entity, add noMultiplierAmount
     {
         amount = 0;
         noMultiplierAmount = 0;
@@ -165,8 +182,7 @@ public sealed partial class NFCargoSystem
             // Containers should already get the sell price of their children so can skip those.
             _setEnts.Clear();
 
-            _lookup.GetEntitiesIntersecting(palletUid, _setEnts,
-                LookupFlags.Dynamic | LookupFlags.Sundries);
+            _lookup.GetEntitiesIntersecting(palletUid, _setEnts, LookupFlags.Dynamic | LookupFlags.Sundries);
 
             foreach (var ent in _setEnts)
             {
@@ -174,9 +190,10 @@ public sealed partial class NFCargoSystem
                 // - anything already being sold
                 // - anything anchored (e.g. light fixtures)
                 // - anything blacklisted (e.g. players).
-                if (toSell.Contains(ent) ||
-                    _xformQuery.TryGetComponent(ent, out var xform) &&
-                    (xform.Anchored || !CanSell(ent, xform)))
+                if (
+                    toSell.Contains(ent)
+                    || _xformQuery.TryGetComponent(ent, out var xform) && (xform.Anchored || !CanSell(ent, xform))
+                )
                 {
                     continue;
                 }
@@ -236,8 +253,11 @@ public sealed partial class NFCargoSystem
 
         if (xform.GridUid is not EntityUid gridUid)
         {
-            _ui.SetUiState(ent.Owner, CargoPalletConsoleUiKey.Sale,
-            new NFCargoPalletConsoleInterfaceState(0, 0, false));
+            _ui.SetUiState(
+                ent.Owner,
+                CargoPalletConsoleUiKey.Sale,
+                new NFCargoPalletConsoleInterfaceState(0, 0, false)
+            );
             return;
         }
 

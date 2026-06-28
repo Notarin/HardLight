@@ -7,7 +7,8 @@ namespace Content.Server.Radiation.Systems;
 
 public sealed class RadiationHealingSystem : EntitySystem
 {
-    [Dependency] private readonly DamageableSystem _damageable = default!;
+    [Dependency]
+    private readonly DamageableSystem _damageable = default!;
 
     public override void Initialize()
     {

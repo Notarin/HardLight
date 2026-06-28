@@ -10,9 +10,9 @@
     anchored: false
   - type: Sprite
     layers:
-      - state: green
-      - sprite: Objects/Consumable/Food/meat.rsi
-        state: plain
+    - state: green
+    - sprite: Objects/Consumable/Food/meat.rsi
+      state: plain
   - type: EntityTableSpawner
     table: !type:NestedSelector
       tableId: MeatTable
@@ -23,13 +23,13 @@
   id: MeatTable
   table: !type:GroupSelector
     children:
-    #Meat
     - !type:GroupSelector
+      #Meat
       weight: 10
       children:
       - id: FoodMeat
-    #Medium-Rare
     - !type:GroupSelector
+      #Medium-Rare
       weight: 7.5
       children:
       - id: FoodMeatFish
@@ -70,8 +70,8 @@
         - id: FoodMeatSalamiSlice
           amount: !type:RangeNumberSelector
             range: 1, 4
-    #Rotten
     - !type:GroupSelector
+      #Rotten
       weight: 2
       children:
       - id: FoodMeatRotten
@@ -84,8 +84,8 @@
       - id: FoodMeatSnake
         amount: !type:RangeNumberSelector
           range: 1, 6
-    #Rare
     - !type:GroupSelector
+      #Rare
       children:
       - !type:GroupSelector
         weight: 0.5
@@ -136,12 +136,12 @@
           range: 1, 4
       - !type:GroupSelector
         children:
-          - id: FoodMeatBearCutlet
-            amount: !type:RangeNumberSelector
-              range: 1, 4
-          - id: FoodMeatPenguinCutlet
-            amount: !type:RangeNumberSelector
-              range: 1, 4
-          - id: FoodMeatXenoCutlet
-            amount: !type:RangeNumberSelector
-              range: 1, 4
+        - id: FoodMeatBearCutlet
+          amount: !type:RangeNumberSelector
+            range: 1, 4
+        - id: FoodMeatPenguinCutlet
+          amount: !type:RangeNumberSelector
+            range: 1, 4
+        - id: FoodMeatXenoCutlet
+          amount: !type:RangeNumberSelector
+            range: 1, 4

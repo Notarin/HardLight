@@ -83,7 +83,7 @@
     edges:
     - to: wired
       conditions:
-      - !type:EntityAnchored { }
+      - !type:EntityAnchored {}
       steps:
       - material: Cable
         amount: 5
@@ -157,7 +157,7 @@
     edges:
     - to: pwired
       conditions:
-      - !type:EntityAnchored { }
+      - !type:EntityAnchored {}
       steps:
       - material: Cable
         amount: 5
@@ -231,7 +231,7 @@
     edges:
     - to: uwired
       conditions:
-      - !type:EntityAnchored { }
+      - !type:EntityAnchored {}
       steps:
       - material: Cable
         amount: 5
@@ -303,13 +303,13 @@
   - node: assemblySecure
     entity: WindoorAssemblySecure
     actions:
-    - !type:SnapToGrid { }
-    - !type:SetAnchor { }
+    - !type:SnapToGrid {}
+    - !type:SetAnchor {}
     edges:
     #to secure
     - to: glassSecure
       conditions:
-      - !type:EntityAnchored { }
+      - !type:EntityAnchored {}
       steps:
       - material: ReinforcedGlass
         amount: 5
@@ -318,7 +318,7 @@
     #to secure plasma
     - to: pglassSecure
       conditions:
-      - !type:EntityAnchored { }
+      - !type:EntityAnchored {}
       steps:
       - material: ReinforcedPlasmaGlass
         amount: 5
@@ -327,7 +327,7 @@
     #to secure uranium
     - to: uglassSecure
       conditions:
-      - !type:EntityAnchored { }
+      - !type:EntityAnchored {}
       steps:
       - material: ReinforcedUraniumGlass
         amount: 5
@@ -342,7 +342,7 @@
       - !type:SpawnPrototype
         prototype: SheetPlasteel1
         amount: 4
-      - !type:DeleteEntity { }
+      - !type:DeleteEntity {}
       steps:
       - tool: Welding
         doAfter: 10
@@ -353,7 +353,7 @@
     edges:
     - to: wiredSecure
       conditions:
-      - !type:EntityAnchored { }
+      - !type:EntityAnchored {}
       steps:
       - material: Cable
         amount: 5
@@ -375,7 +375,7 @@
     edges:
     - to: electronicsSecure
       conditions:
-      - !type:EntityAnchored { }
+      - !type:EntityAnchored {}
       steps:
       - component: DoorElectronics
         store: board
@@ -398,7 +398,7 @@
     edges:
     - to: windoorSecure
       conditions:
-      - !type:EntityAnchored { }
+      - !type:EntityAnchored {}
       steps:
       - tool: Screwing
         doAfter: 4
@@ -433,16 +433,16 @@
         amount: 2
         doAfter: 2
 
-#Clockwork
   - node: assemblyClockwork
+    #Clockwork
     entity: WindoorAssemblyClockwork
     actions:
-    - !type:SnapToGrid { }
-    - !type:SetAnchor { }
+    - !type:SnapToGrid {}
+    - !type:SetAnchor {}
     edges:
     - to: glassClockwork
       conditions:
-      - !type:EntityAnchored { }
+      - !type:EntityAnchored {}
       steps:
       - material: ClockworkGlass
         amount: 5
@@ -455,7 +455,7 @@
       - !type:SpawnPrototype
         prototype: SheetBrass1
         amount: 4
-      - !type:DeleteEntity { }
+      - !type:DeleteEntity {}
       steps:
       - tool: Welding
         doAfter: 10
@@ -465,7 +465,7 @@
     edges:
     - to: wiredClockwork
       conditions:
-      - !type:EntityAnchored { }
+      - !type:EntityAnchored {}
       steps:
       - material: Cable
         amount: 5
@@ -487,7 +487,7 @@
     edges:
     - to: electronicsClockwork
       conditions:
-      - !type:EntityAnchored { }
+      - !type:EntityAnchored {}
       steps:
       - tag: DoorElectronics
         store: board
@@ -510,7 +510,7 @@
     edges:
     - to: windoorClockwork
       conditions:
-      - !type:EntityAnchored { }
+      - !type:EntityAnchored {}
       steps:
       - tool: Screwing
         doAfter: 4
@@ -539,7 +539,7 @@
     edges:
     - to: pwiredSecure
       conditions:
-      - !type:EntityAnchored { }
+      - !type:EntityAnchored {}
       steps:
       - material: Cable
         amount: 5
@@ -562,7 +562,7 @@
     edges:
     - to: pelectronicsSecure
       conditions:
-      - !type:EntityAnchored { }
+      - !type:EntityAnchored {}
       steps:
       - tag: DoorElectronics
         store: board
@@ -585,7 +585,7 @@
     edges:
     - to: pwindoorSecure
       conditions:
-      - !type:EntityAnchored { }
+      - !type:EntityAnchored {}
       steps:
       - tool: Screwing
         doAfter: 4
@@ -618,7 +618,7 @@
     edges:
     - to: uwiredSecure
       conditions:
-      - !type:EntityAnchored { }
+      - !type:EntityAnchored {}
       steps:
       - material: Cable
         amount: 5
@@ -640,7 +640,7 @@
     edges:
     - to: uelectronicsSecure
       conditions:
-      - !type:EntityAnchored { }
+      - !type:EntityAnchored {}
       steps:
       - tag: DoorElectronics
         store: board
@@ -663,7 +663,7 @@
     edges:
     - to: uwindoorSecure
       conditions:
-      - !type:EntityAnchored { }
+      - !type:EntityAnchored {}
       steps:
       - tool: Screwing
         doAfter: 4
@@ -690,8 +690,8 @@
       - tool: Anchoring
         doAfter: 4
 
-#Security Panels
   - node: medSecurityUnfinished
+    #Security Panels
     actions:
     - !type:SetWiresPanelSecurity
       examine: wires-panel-component-on-examine-security-level1

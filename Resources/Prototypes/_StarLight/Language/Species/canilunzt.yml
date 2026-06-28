@@ -3,8 +3,7 @@
   icon: LanguageIconVulp
   speech:
     color: "#d69b3dcc"
-  obfuscation:
-    !type:SyllableObfuscation
+  obfuscation: !type:SyllableObfuscation
     minSyllables: 1
     maxSyllables: 4
     replacement:

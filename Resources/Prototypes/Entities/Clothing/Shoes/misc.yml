@@ -128,7 +128,7 @@
     sprite: Clothing/Shoes/Boots/speedboots.rsi
     layers:
     - state: icon
-      map: [ "enum.ToggleVisuals.Layer" ]
+      map: ["enum.ToggleVisuals.Layer"]
   - type: Clothing
     sprite: Clothing/Shoes/Boots/speedboots.rsi
   - type: ToggleClothing
@@ -171,7 +171,7 @@
   id: ClothingShoesBootsMoon
   name: moon boots
   description: Special anti-gravity boots developed with a speciality blend of lunar rock gel. Shipped from the Netherlands.
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   components:
   - type: Sprite
     sprite: Clothing/Shoes/Boots/moonboots.rsi

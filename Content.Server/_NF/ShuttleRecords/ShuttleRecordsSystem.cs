@@ -16,14 +16,26 @@ namespace Content.Server._NF.ShuttleRecords;
 
 public sealed partial class ShuttleRecordsSystem : SharedShuttleRecordsSystem
 {
-    [Dependency] private readonly IEntityManager _entityManager = default!;
-    [Dependency] private readonly SectorServiceSystem _sectorService = default!;
-    [Dependency] private readonly AccessReaderSystem _access = default!;
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly GameTicker _gameTicker = default!;
+    [Dependency]
+    private readonly IEntityManager _entityManager = default!;
 
+    [Dependency]
+    private readonly SectorServiceSystem _sectorService = default!;
+
+    [Dependency]
+    private readonly AccessReaderSystem _access = default!;
+
+    [Dependency]
+    private readonly UserInterfaceSystem _ui = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
+
+    [Dependency]
+    private readonly GameTicker _gameTicker = default!;
 
     public override void Initialize()
     {
@@ -89,9 +101,11 @@ public sealed partial class ShuttleRecordsSystem : SharedShuttleRecordsSystem
         var toRemove = new List<NetEntity>();
         foreach (var (netUid, _) in component.ShuttleRecords)
         {
-            if (!_entityManager.TryGetEntity(netUid, out var ent)
+            if (
+                !_entityManager.TryGetEntity(netUid, out var ent)
                 || !_entityManager.EntityExists(ent.Value)
-                || Terminating(ent.Value))
+                || Terminating(ent.Value)
+            )
             {
                 toRemove.Add(netUid);
             }
@@ -113,8 +127,7 @@ public sealed partial class ShuttleRecordsSystem : SharedShuttleRecordsSystem
      */
     public bool TryGetRecord(NetEntity uid, [NotNullWhen(true)] out ShuttleRecord? record)
     {
-        if (!TryGetShuttleRecordsDataComponent(out var component) ||
-            !component.ShuttleRecords.ContainsKey(uid))
+        if (!TryGetShuttleRecordsDataComponent(out var component) || !component.ShuttleRecords.ContainsKey(uid))
         {
             record = null;
             return false;
@@ -184,9 +197,9 @@ public sealed partial class ShuttleRecordsSystem : SharedShuttleRecordsSystem
             return false;
         }
 
-        if (_entityManager.EnsureComponent<SectorShuttleRecordsComponent>(
-                uid: service,
-                out var shuttleRecordsComponent))
+        if (
+            _entityManager.EnsureComponent<SectorShuttleRecordsComponent>(uid: service, out var shuttleRecordsComponent)
+        )
         {
             component = shuttleRecordsComponent;
             return true;

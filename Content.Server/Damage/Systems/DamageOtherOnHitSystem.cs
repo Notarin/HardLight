@@ -2,8 +2,8 @@ using Content.Server._NF.PacifiedZone;
 using Content.Server.Administration.Logs;
 using Content.Server.Damage.Components;
 using Content.Server.Weapons.Ranged.Systems;
-using Content.Shared.CombatMode.Pacification;
 using Content.Shared.Camera;
+using Content.Shared.CombatMode.Pacification;
 using Content.Shared.Damage;
 using Content.Shared.Damage.Events;
 using Content.Shared.Damage.Systems;
@@ -19,12 +19,23 @@ namespace Content.Server.Damage.Systems
 {
     public sealed class DamageOtherOnHitSystem : EntitySystem
     {
-        [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-        [Dependency] private readonly GunSystem _guns = default!;
-        [Dependency] private readonly DamageableSystem _damageable = default!;
-        [Dependency] private readonly DamageExamineSystem _damageExamine = default!;
-        [Dependency] private readonly SharedCameraRecoilSystem _sharedCameraRecoil = default!;
-        [Dependency] private readonly SharedColorFlashEffectSystem _color = default!;
+        [Dependency]
+        private readonly IAdminLogManager _adminLogger = default!;
+
+        [Dependency]
+        private readonly GunSystem _guns = default!;
+
+        [Dependency]
+        private readonly DamageableSystem _damageable = default!;
+
+        [Dependency]
+        private readonly DamageExamineSystem _damageExamine = default!;
+
+        [Dependency]
+        private readonly SharedCameraRecoilSystem _sharedCameraRecoil = default!;
+
+        [Dependency]
+        private readonly SharedColorFlashEffectSystem _color = default!;
 
         public override void Initialize()
         {
@@ -39,18 +50,33 @@ namespace Content.Server.Damage.Systems
                 return;
 
             // Hardlight: Pacifists can't hurt with throws
-            if (args.User != null && (TryComp<PacifiedComponent>(args.User, out _) || TryComp<PacifiedByZoneComponent>(args.User, out _)))
+            if (
+                args.User != null
+                && (TryComp<PacifiedComponent>(args.User, out _) || TryComp<PacifiedByZoneComponent>(args.User, out _))
+            )
                 return;
 
-            var dmg = _damageable.TryChangeDamage(args.Target, component.Damage * _damageable.UniversalThrownDamageModifier, component.IgnoreResistances, origin: args.Component.Thrower);
+            var dmg = _damageable.TryChangeDamage(
+                args.Target,
+                component.Damage * _damageable.UniversalThrownDamageModifier,
+                component.IgnoreResistances,
+                origin: args.Component.Thrower
+            );
 
             // Log damage only for mobs. Useful for when people throw spears at each other, but also avoids log-spam when explosions send glass shards flying.
             if (dmg != null && HasComp<MobStateComponent>(args.Target))
-                _adminLogger.Add(LogType.ThrowHit, $"{ToPrettyString(args.Target):target} received {dmg.GetTotal():damage} damage from collision");
+                _adminLogger.Add(
+                    LogType.ThrowHit,
+                    $"{ToPrettyString(args.Target):target} received {dmg.GetTotal():damage} damage from collision"
+                );
 
             if (dmg is { Empty: false })
             {
-                _color.RaiseEffect(Color.Red, new List<EntityUid>() { args.Target }, Filter.Pvs(args.Target, entityManager: EntityManager));
+                _color.RaiseEffect(
+                    Color.Red,
+                    new List<EntityUid>() { args.Target },
+                    Filter.Pvs(args.Target, entityManager: EntityManager)
+                );
             }
 
             _guns.PlayImpactSound(args.Target, dmg, null, false, null, null);
@@ -63,7 +89,11 @@ namespace Content.Server.Damage.Systems
 
         private void OnDamageExamine(EntityUid uid, DamageOtherOnHitComponent component, ref DamageExamineEvent args)
         {
-            _damageExamine.AddDamageExamine(args.Message, _damageable.ApplyUniversalAllModifiers(component.Damage * _damageable.UniversalThrownDamageModifier), Loc.GetString("damage-throw"));
+            _damageExamine.AddDamageExamine(
+                args.Message,
+                _damageable.ApplyUniversalAllModifiers(component.Damage * _damageable.UniversalThrownDamageModifier),
+                Loc.GetString("damage-throw")
+            );
         }
 
         /// <summary>

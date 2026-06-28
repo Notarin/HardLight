@@ -5,5 +5,4 @@
     color: "#2aca2add"
     fontId: Draconic
     obfuscationFont: true
-  obfuscation:
-    !type:RandomObfuscation
+  obfuscation: !type:RandomObfuscation

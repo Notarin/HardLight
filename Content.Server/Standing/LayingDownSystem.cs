@@ -1,8 +1,8 @@
-using Content.Shared.Standing;
 using Content.Shared.CCVar;
 using Content.Shared.Input;
 using Content.Shared.Movement.Systems;
 using Content.Shared.Popups;
+using Content.Shared.Standing;
 using Robust.Shared.Configuration;
 using Robust.Shared.Input.Binding;
 using Robust.Shared.Player;
@@ -11,7 +11,8 @@ namespace Content.Server.Standing;
 
 public sealed class LayingDownSystem : SharedLayingDownSystem
 {
-    [Dependency] private readonly INetConfigurationManager _cfg = default!;
+    [Dependency]
+    private readonly INetConfigurationManager _cfg = default!;
 
     public override void Initialize()
     {

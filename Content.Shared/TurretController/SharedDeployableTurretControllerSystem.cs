@@ -13,23 +13,41 @@ namespace Content.Shared.TurretController;
 /// </summary>
 public abstract partial class SharedDeployableTurretControllerSystem : EntitySystem
 {
-    [Dependency] private readonly AccessReaderSystem _accessreader = default!;
-    [Dependency] private readonly TurretTargetSettingsSystem _turretTargetingSettings = default!;
-    [Dependency] private readonly SharedUserInterfaceSystem _userInterfaceSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+    [Dependency]
+    private readonly AccessReaderSystem _accessreader = default!;
+
+    [Dependency]
+    private readonly TurretTargetSettingsSystem _turretTargetingSettings = default!;
+
+    [Dependency]
+    private readonly SharedUserInterfaceSystem _userInterfaceSystem = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
 
     public override void Initialize()
     {
         base.Initialize();
 
         // Handling of client messages
-        SubscribeLocalEvent<DeployableTurretControllerComponent, DeployableTurretArmamentSettingChangedMessage>(OnArmamentSettingChanged);
-        SubscribeLocalEvent<DeployableTurretControllerComponent, DeployableTurretExemptAccessLevelChangedMessage>(OnExemptAccessLevelsChanged);
+        SubscribeLocalEvent<DeployableTurretControllerComponent, DeployableTurretArmamentSettingChangedMessage>(
+            OnArmamentSettingChanged
+        );
+        SubscribeLocalEvent<DeployableTurretControllerComponent, DeployableTurretExemptAccessLevelChangedMessage>(
+            OnExemptAccessLevelsChanged
+        );
     }
 
-    private void OnArmamentSettingChanged(Entity<DeployableTurretControllerComponent> ent, ref DeployableTurretArmamentSettingChangedMessage args)
+    private void OnArmamentSettingChanged(
+        Entity<DeployableTurretControllerComponent> ent,
+        ref DeployableTurretArmamentSettingChangedMessage args
+    )
     {
         if (IsUserAllowedAccess(ent, args.Actor))
             ChangeArmamentSetting(ent, args.ArmamentState, args.Actor);
@@ -38,7 +56,10 @@ public abstract partial class SharedDeployableTurretControllerSystem : EntitySys
             bui.Update<DeployableTurretControllerBoundInterfaceState>();
     }
 
-    private void OnExemptAccessLevelsChanged(Entity<DeployableTurretControllerComponent> ent, ref DeployableTurretExemptAccessLevelChangedMessage args)
+    private void OnExemptAccessLevelsChanged(
+        Entity<DeployableTurretControllerComponent> ent,
+        ref DeployableTurretExemptAccessLevelChangedMessage args
+    )
     {
         if (IsUserAllowedAccess(ent, args.Actor))
             ChangeExemptAccessLevels(ent, args.AccessLevels, args.Enabled, args.Actor);
@@ -47,7 +68,11 @@ public abstract partial class SharedDeployableTurretControllerSystem : EntitySys
             bui.Update<DeployableTurretControllerBoundInterfaceState>();
     }
 
-    protected virtual void ChangeArmamentSetting(Entity<DeployableTurretControllerComponent> ent, int armamentState, EntityUid? user = null)
+    protected virtual void ChangeArmamentSetting(
+        Entity<DeployableTurretControllerComponent> ent,
+        int armamentState,
+        EntityUid? user = null
+    )
     {
         ent.Comp.ArmamentState = armamentState;
         Dirty(ent);

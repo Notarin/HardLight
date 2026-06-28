@@ -13,8 +13,11 @@ namespace Content.Server.Damage.Commands
     [AdminCommand(AdminFlags.Fun)]
     sealed class DamageCommand : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _entManager = default!;
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+        [Dependency]
+        private readonly IEntityManager _entManager = default!;
+
+        [Dependency]
+        private readonly IPrototypeManager _prototypeManager = default!;
 
         public string Command => "damage";
         public string Description => Loc.GetString("damage-command-description");
@@ -24,14 +27,18 @@ namespace Content.Server.Damage.Commands
         {
             if (args.Length == 1)
             {
-                var types = _prototypeManager.EnumeratePrototypes<DamageTypePrototype>()
+                var types = _prototypeManager
+                    .EnumeratePrototypes<DamageTypePrototype>()
                     .Select(p => new CompletionOption(p.ID));
 
-                var groups = _prototypeManager.EnumeratePrototypes<DamageGroupPrototype>()
+                var groups = _prototypeManager
+                    .EnumeratePrototypes<DamageGroupPrototype>()
                     .Select(p => new CompletionOption(p.ID));
 
-                return CompletionResult.FromHintOptions(types.Concat(groups).OrderBy(p => p.Value),
-                    Loc.GetString("damage-command-arg-type"));
+                return CompletionResult.FromHintOptions(
+                    types.Concat(groups).OrderBy(p => p.Value),
+                    Loc.GetString("damage-command-arg-type")
+                );
             }
 
             if (args.Length == 2)
@@ -59,7 +66,8 @@ namespace Content.Server.Damage.Commands
             IConsoleShell shell,
             EntityUid target,
             string[] args,
-            [NotNullWhen(true)] out Damage? func)
+            [NotNullWhen(true)] out Damage? func
+        )
         {
             if (!float.TryParse(args[1], out var amount))
             {
@@ -88,7 +96,6 @@ namespace Content.Server.Damage.Commands
                     _entManager.System<DamageableSystem>().TryChangeDamage(entity, damage, ignoreResistances);
                 };
                 return true;
-
             }
 
             shell.WriteLine(Loc.GetString("damage-command-error-type", ("arg", args[0])));

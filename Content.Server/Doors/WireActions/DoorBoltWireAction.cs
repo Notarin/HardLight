@@ -11,8 +11,8 @@ public sealed partial class DoorBoltWireAction : ComponentWireAction<DoorBoltCom
     public override Color Color { get; set; } = Color.Red;
     public override string Name { get; set; } = "wire-name-door-bolt";
 
-    public override StatusLightState? GetLightState(Wire wire, DoorBoltComponent comp)
-        => comp.BoltsDown ? StatusLightState.On : StatusLightState.Off;
+    public override StatusLightState? GetLightState(Wire wire, DoorBoltComponent comp) =>
+        comp.BoltsDown ? StatusLightState.On : StatusLightState.Off;
 
     public override object StatusKey { get; } = AirlockWireStatus.BoltIndicator;
 

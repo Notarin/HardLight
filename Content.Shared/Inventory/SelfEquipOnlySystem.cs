@@ -6,7 +6,8 @@ namespace Content.Shared.Inventory;
 
 public sealed class SelfEquipOnlySystem : EntitySystem
 {
-    [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
+    [Dependency]
+    private readonly ActionBlockerSystem _actionBlocker = default!;
 
     /// <inheritdoc/>
     public override void Initialize()

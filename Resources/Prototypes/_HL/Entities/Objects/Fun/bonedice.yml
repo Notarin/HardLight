@@ -32,7 +32,6 @@
     graph: BoneD12
     node: BoneD12
 
-
 - type: entity
   parent: BaseDice
   id: d10DiceBone
@@ -51,7 +50,6 @@
     graph: BoneD10
     node: BoneD10
 
-
 - type: entity
   parent: BaseDice
   id: d8DiceBone
@@ -69,7 +67,6 @@
     graph: BoneD8
     node: BoneD8
 
-
 - type: entity
   parent: BaseDice
   id: d6DiceBone
@@ -86,7 +83,6 @@
   - type: Construction
     graph: BoneD6
     node: BoneD6
-
 
 - type: entity
   parent: BaseDice
@@ -106,15 +102,13 @@
   - type: Fixtures
     fixtures:
       slips:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.2,-0.2,0.2,0.2"
         hard: false
         layer:
         - LowImpassable
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.2,-0.2,0.2,0.2"
         density: 30
         mask:

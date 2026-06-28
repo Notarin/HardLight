@@ -15,19 +15,23 @@ public sealed class EntityUidConverter : AdminLogConverter<EntityUid>
         _entityManager = new WeakReference<IEntityManager>(dependencies.Resolve<IEntityManager>());
     }
 
-    public static void Write(Utf8JsonWriter writer, EntityUid value, JsonSerializerOptions options, IEntityManager entities)
+    public static void Write(
+        Utf8JsonWriter writer,
+        EntityUid value,
+        JsonSerializerOptions options,
+        IEntityManager entities
+    )
     {
         writer.WriteStartObject();
 
-        writer.WriteNumber("id", (int) value);
+        writer.WriteNumber("id", (int)value);
 
         if (entities.TryGetComponent(value, out MetaDataComponent? metaData))
         {
             writer.WriteString("name", metaData.EntityName);
         }
 
-        if (entities.TryGetComponent(value, out ActorComponent? actor)
-            && actor.PlayerSession != null)
+        if (entities.TryGetComponent(value, out ActorComponent? actor) && actor.PlayerSession != null)
         {
             writer.WriteString("player", actor.PlayerSession.UserId.UserId);
         }

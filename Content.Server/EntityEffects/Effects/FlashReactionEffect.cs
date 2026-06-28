@@ -1,5 +1,5 @@
-using Content.Shared.EntityEffects;
 using Content.Server.Flash;
+using Content.Shared.EntityEffects;
 using Robust.Server.GameObjects;
 using Robust.Shared.Audio;
 using Robust.Shared.Prototypes;
@@ -46,8 +46,8 @@ public sealed partial class FlashReactionEffect : EntityEffect
     [DataField]
     public SoundSpecifier? Sound = new SoundPathSpecifier("/Audio/Weapons/flash.ogg");
 
-    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys)
-        => Loc.GetString("reagent-effect-guidebook-flash-reaction-effect", ("chance", Probability));
+    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys) =>
+        Loc.GetString("reagent-effect-guidebook-flash-reaction-effect", ("chance", Probability));
 
     public override void Effect(EntityEffectBaseArgs args)
     {
@@ -59,13 +59,8 @@ public sealed partial class FlashReactionEffect : EntityEffect
         if (args is EntityEffectReagentArgs reagentArgs)
             range = MathF.Min((float)(reagentArgs.Quantity * RangePerUnit), MaxRange);
 
-        args.EntityManager.System<FlashSystem>().FlashArea(
-            args.TargetEntity,
-            null,
-            range,
-            Duration * 1000,
-            slowTo: SlowTo,
-            sound: Sound);
+        args.EntityManager.System<FlashSystem>()
+            .FlashArea(args.TargetEntity, null, range, Duration * 1000, slowTo: SlowTo, sound: Sound);
 
         if (FlashEffectPrototype == null)
             return;

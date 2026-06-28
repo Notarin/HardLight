@@ -1,6 +1,6 @@
+using Content.Shared._NF.Atmos.BUI; // Frontier
 using Content.Shared.Atmos.Components;
 using Content.Shared.Shuttles.Events; // Frontier
-using Content.Shared._NF.Atmos.BUI; // Frontier
 
 namespace Content.Client.Atmos.Consoles;
 
@@ -9,7 +9,8 @@ public sealed class AtmosAlertsComputerBoundUserInterface : BoundUserInterface
     [ViewVariables]
     private AtmosAlertsComputerWindow? _menu;
 
-    public AtmosAlertsComputerBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey) { }
+    public AtmosAlertsComputerBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {
@@ -24,10 +25,17 @@ public sealed class AtmosAlertsComputerBoundUserInterface : BoundUserInterface
     {
         base.UpdateState(state);
 
-        var castState = (AtmosAlertsComputerBoundInterfaceState) state;
+        var castState = (AtmosAlertsComputerBoundInterfaceState)state;
 
         EntMan.TryGetComponent<TransformComponent>(Owner, out var xform);
-        _menu?.UpdateUI(xform?.Coordinates, castState.AirAlarms, castState.FireAlarms, castState.FocusData, castState.Gaslocks, castState.FocusGaslockData); // Frontier: add gaslocks, focusGaslockData
+        _menu?.UpdateUI(
+            xform?.Coordinates,
+            castState.AirAlarms,
+            castState.FireAlarms,
+            castState.FocusData,
+            castState.Gaslocks,
+            castState.FocusGaslockData
+        ); // Frontier: add gaslocks, focusGaslockData
     }
 
     public void SendFocusChangeMessage(NetEntity? netEntity)
@@ -60,6 +68,7 @@ public sealed class AtmosAlertsComputerBoundUserInterface : BoundUserInterface
     {
         SendMessage(new UndockRequestMessage { DockEntity = netEntity });
     }
+
     // End Frontier
 
     protected override void Dispose(bool disposing)

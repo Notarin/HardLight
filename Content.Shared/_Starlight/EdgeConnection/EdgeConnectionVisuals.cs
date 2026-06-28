@@ -5,7 +5,7 @@ namespace Content.Shared._Starlight.EdgeConnection;
 [Serializable, NetSerializable]
 public enum EdgeConnectionVisuals
 {
-    ConnectionMask
+    ConnectionMask,
 }
 
 /// <summary>
@@ -19,5 +19,5 @@ public enum EdgeConnectionFlags : byte
     North = 1,
     South = 2,
     East = 4,
-    West = 8
+    West = 8,
 }

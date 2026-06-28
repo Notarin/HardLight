@@ -34,8 +34,8 @@ namespace Content.Shared.Movement.Systems
             var moveRightCmdHandler = new MoverDirInputCmdHandler(this, Direction.East);
             var moveDownCmdHandler = new MoverDirInputCmdHandler(this, Direction.South);
 
-            CommandBinds.Builder
-                .Bind(EngineKeyFunctions.MoveUp, moveUpCmdHandler)
+            CommandBinds
+                .Builder.Bind(EngineKeyFunctions.MoveUp, moveUpCmdHandler)
                 .Bind(EngineKeyFunctions.MoveLeft, moveLeftCmdHandler)
                 .Bind(EngineKeyFunctions.MoveRight, moveRightCmdHandler)
                 .Bind(EngineKeyFunctions.MoveDown, moveDownCmdHandler)
@@ -46,11 +46,26 @@ namespace Content.Shared.Movement.Systems
                 // TODO: Relay
                 // Shuttle
                 .Bind(ContentKeyFunctions.ShuttleStrafeUp, new ShuttleInputCmdHandler(this, ShuttleButtons.StrafeUp))
-                .Bind(ContentKeyFunctions.ShuttleStrafeLeft, new ShuttleInputCmdHandler(this, ShuttleButtons.StrafeLeft))
-                .Bind(ContentKeyFunctions.ShuttleStrafeRight, new ShuttleInputCmdHandler(this, ShuttleButtons.StrafeRight))
-                .Bind(ContentKeyFunctions.ShuttleStrafeDown, new ShuttleInputCmdHandler(this, ShuttleButtons.StrafeDown))
-                .Bind(ContentKeyFunctions.ShuttleRotateLeft, new ShuttleInputCmdHandler(this, ShuttleButtons.RotateLeft))
-                .Bind(ContentKeyFunctions.ShuttleRotateRight, new ShuttleInputCmdHandler(this, ShuttleButtons.RotateRight))
+                .Bind(
+                    ContentKeyFunctions.ShuttleStrafeLeft,
+                    new ShuttleInputCmdHandler(this, ShuttleButtons.StrafeLeft)
+                )
+                .Bind(
+                    ContentKeyFunctions.ShuttleStrafeRight,
+                    new ShuttleInputCmdHandler(this, ShuttleButtons.StrafeRight)
+                )
+                .Bind(
+                    ContentKeyFunctions.ShuttleStrafeDown,
+                    new ShuttleInputCmdHandler(this, ShuttleButtons.StrafeDown)
+                )
+                .Bind(
+                    ContentKeyFunctions.ShuttleRotateLeft,
+                    new ShuttleInputCmdHandler(this, ShuttleButtons.RotateLeft)
+                )
+                .Bind(
+                    ContentKeyFunctions.ShuttleRotateRight,
+                    new ShuttleInputCmdHandler(this, ShuttleButtons.RotateRight)
+                )
                 .Bind(ContentKeyFunctions.ShuttleBrake, new ShuttleInputCmdHandler(this, ShuttleButtons.Brake))
                 .Bind(ContentKeyFunctions.ShuttleWEP, new ShuttleInputCmdHandler(this, ShuttleButtons.Wep))
                 .Register<SharedMoverController>();
@@ -153,7 +168,7 @@ namespace Content.Shared.Movement.Systems
 
         public bool DiagonalMovementEnabled { get; private set; }
 
-        protected virtual void HandleShuttleInput(EntityUid uid, ShuttleButtons button, ushort subTick, bool state) {}
+        protected virtual void HandleShuttleInput(EntityUid uid, ShuttleButtons button, ushort subTick, bool state) { }
 
         public void RotateCamera(EntityUid uid, Angle angle)
         {
@@ -190,7 +205,10 @@ namespace Content.Shared.Movement.Systems
             }
 
             // If we updated parent then cancel the accumulator and force it now.
-            if (!TryUpdateRelative(uid, mover, XformQuery.GetComponent(uid)) && mover.TargetRelativeRotation.Equals(Angle.Zero))
+            if (
+                !TryUpdateRelative(uid, mover, XformQuery.GetComponent(uid))
+                && mover.TargetRelativeRotation.Equals(Angle.Zero)
+            )
                 return;
 
             mover.LerpTarget = TimeSpan.Zero;
@@ -348,10 +366,12 @@ namespace Content.Shared.Movement.Systems
 
             // For stuff like "Moving out of locker" or the likes
             // We'll relay a movement input to the parent.
-            if (_container.IsEntityInContainer(entity) &&
-                TryComp(entity, out TransformComponent? xform) &&
-                xform.ParentUid.IsValid() &&
-                _mobState.IsAlive(entity))
+            if (
+                _container.IsEntityInContainer(entity)
+                && TryComp(entity, out TransformComponent? xform)
+                && xform.ParentUid.IsValid()
+                && _mobState.IsAlive(entity)
+            )
             {
                 var relayMoveEvent = new ContainerRelayMovementEntityEvent(entity);
                 RaiseLocalEvent(xform.ParentUid, ref relayMoveEvent);
@@ -387,7 +407,8 @@ namespace Content.Shared.Movement.Systems
                 return;
             }
 
-            if (moverComp == null) return;
+            if (moverComp == null)
+                return;
 
             SetSprinting((uid, moverComp), subTick, walking);
         }
@@ -417,7 +438,7 @@ namespace Content.Shared.Movement.Systems
             {
                 walk = mover.CurTickWalkMovement;
                 sprint = mover.CurTickSprintMovement;
-                remainingFraction = (ushort.MaxValue - mover.LastInputSubTick) / (float) ushort.MaxValue;
+                remainingFraction = (ushort.MaxValue - mover.LastInputSubTick) / (float)ushort.MaxValue;
             }
 
             var curDir = DirVecForButtons(mover.HeldMoveButtons) * remainingFraction;
@@ -440,7 +461,12 @@ namespace Content.Shared.Movement.Systems
         ///     composed into a single direction vector, <see cref="VelocityDir"/>. Enabling
         ///     opposite directions will cancel each other out, resulting in no direction.
         /// </summary>
-        public void SetVelocityDirection(Entity<InputMoverComponent> entity, Direction direction, ushort subTick, bool enabled)
+        public void SetVelocityDirection(
+            Entity<InputMoverComponent> entity,
+            Direction direction,
+            ushort subTick,
+            bool enabled
+        )
         {
             // Logger.GetSawmill(nameof(SharedMoverController)).($"[{_gameTiming.CurTick}/{subTick}] {direction}: {enabled}");
 
@@ -450,7 +476,7 @@ namespace Content.Shared.Movement.Systems
                 Direction.North => MoveButtons.Up,
                 Direction.West => MoveButtons.Left,
                 Direction.South => MoveButtons.Down,
-                _ => throw new ArgumentException(nameof(direction))
+                _ => throw new ArgumentException(nameof(direction)),
             };
 
             SetMoveInput(entity, subTick, enabled, bit);
@@ -463,9 +489,11 @@ namespace Content.Shared.Movement.Systems
 
             if (subTick >= entity.Comp.LastInputSubTick)
             {
-                var fraction = (subTick - entity.Comp.LastInputSubTick) / (float) ushort.MaxValue;
+                var fraction = (subTick - entity.Comp.LastInputSubTick) / (float)ushort.MaxValue;
 
-                ref var lastMoveAmount = ref entity.Comp.Sprinting ? ref entity.Comp.CurTickSprintMovement : ref entity.Comp.CurTickWalkMovement;
+                ref var lastMoveAmount = ref entity.Comp.Sprinting
+                    ? ref entity.Comp.CurTickSprintMovement
+                    : ref entity.Comp.CurTickWalkMovement;
 
                 lastMoveAmount += DirVecForButtons(entity.Comp.HeldMoveButtons) * fraction;
 
@@ -488,7 +516,8 @@ namespace Content.Shared.Movement.Systems
 
         private void ResetSubtick(InputMoverComponent component)
         {
-            if (Timing.CurTick <= component.LastInputTick) return;
+            if (Timing.CurTick <= component.LastInputTick)
+                return;
 
             component.CurTickWalkMovement = Vector2.Zero;
             component.CurTickSprintMovement = Vector2.Zero;
@@ -551,9 +580,14 @@ namespace Content.Shared.Movement.Systems
                 _angle = direction.ToAngle();
             }
 
-            public override bool HandleCmdMessage(IEntityManager entManager, ICommonSession? session, IFullInputCmdMessage message)
+            public override bool HandleCmdMessage(
+                IEntityManager entManager,
+                ICommonSession? session,
+                IFullInputCmdMessage message
+            )
             {
-                if (session?.AttachedEntity == null) return false;
+                if (session?.AttachedEntity == null)
+                    return false;
 
                 if (message.State != BoundKeyState.Up)
                     return false;
@@ -572,9 +606,14 @@ namespace Content.Shared.Movement.Systems
                 _controller = controller;
             }
 
-            public override bool HandleCmdMessage(IEntityManager entManager, ICommonSession? session, IFullInputCmdMessage message)
+            public override bool HandleCmdMessage(
+                IEntityManager entManager,
+                ICommonSession? session,
+                IFullInputCmdMessage message
+            )
             {
-                if (session?.AttachedEntity == null) return false;
+                if (session?.AttachedEntity == null)
+                    return false;
 
                 if (message.State != BoundKeyState.Up)
                     return false;
@@ -595,11 +634,21 @@ namespace Content.Shared.Movement.Systems
                 _dir = dir;
             }
 
-            public override bool HandleCmdMessage(IEntityManager entManager, ICommonSession? session, IFullInputCmdMessage message)
+            public override bool HandleCmdMessage(
+                IEntityManager entManager,
+                ICommonSession? session,
+                IFullInputCmdMessage message
+            )
             {
-                if (session?.AttachedEntity == null) return false;
+                if (session?.AttachedEntity == null)
+                    return false;
 
-                _controller.HandleDirChange(session.AttachedEntity.Value, _dir, message.SubTick, message.State == BoundKeyState.Down);
+                _controller.HandleDirChange(
+                    session.AttachedEntity.Value,
+                    _dir,
+                    message.SubTick,
+                    message.State == BoundKeyState.Down
+                );
                 return false;
             }
         }
@@ -613,11 +662,20 @@ namespace Content.Shared.Movement.Systems
                 _controller = controller;
             }
 
-            public override bool HandleCmdMessage(IEntityManager entManager, ICommonSession? session, IFullInputCmdMessage message)
+            public override bool HandleCmdMessage(
+                IEntityManager entManager,
+                ICommonSession? session,
+                IFullInputCmdMessage message
+            )
             {
-                if (session?.AttachedEntity == null) return false;
+                if (session?.AttachedEntity == null)
+                    return false;
 
-                _controller.HandleRunChange(session.AttachedEntity.Value, message.SubTick, message.State == BoundKeyState.Down);
+                _controller.HandleRunChange(
+                    session.AttachedEntity.Value,
+                    message.SubTick,
+                    message.State == BoundKeyState.Down
+                );
                 return false;
             }
         }
@@ -633,11 +691,21 @@ namespace Content.Shared.Movement.Systems
                 _button = button;
             }
 
-            public override bool HandleCmdMessage(IEntityManager entManager, ICommonSession? session, IFullInputCmdMessage message)
+            public override bool HandleCmdMessage(
+                IEntityManager entManager,
+                ICommonSession? session,
+                IFullInputCmdMessage message
+            )
             {
-                if (session?.AttachedEntity == null) return false;
+                if (session?.AttachedEntity == null)
+                    return false;
 
-                _controller.HandleShuttleInput(session.AttachedEntity.Value, _button, message.SubTick, message.State == BoundKeyState.Down);
+                _controller.HandleShuttleInput(
+                    session.AttachedEntity.Value,
+                    _button,
+                    message.SubTick,
+                    message.State == BoundKeyState.Down
+                );
                 return false;
             }
         }
@@ -669,6 +737,4 @@ namespace Content.Shared.Movement.Systems
         Brake = 1 << 6,
         Wep = 1 << 7,
     }
-
 }
-

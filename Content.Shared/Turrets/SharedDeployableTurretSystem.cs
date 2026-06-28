@@ -18,14 +18,29 @@ namespace Content.Shared.Turrets;
 
 public abstract partial class SharedDeployableTurretSystem : EntitySystem
 {
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly UseDelaySystem _useDelay = default!;
-    [Dependency] private readonly AccessReaderSystem _accessReader = default!;
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly SharedWiresSystem _wires = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly UseDelaySystem _useDelay = default!;
+
+    [Dependency]
+    private readonly AccessReaderSystem _accessReader = default!;
+
+    [Dependency]
+    private readonly DamageableSystem _damageable = default!;
+
+    [Dependency]
+    private readonly SharedPhysicsSystem _physics = default!;
+
+    [Dependency]
+    private readonly SharedWiresSystem _wires = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     public override void Initialize()
     {
@@ -49,11 +64,16 @@ public abstract partial class SharedDeployableTurretSystem : EntitySystem
         var verb = new Verb
         {
             Priority = 1,
-            Text = ent.Comp.Enabled ? Loc.GetString("deployable-turret-component-deactivate") : Loc.GetString("deployable-turret-component-activate"),
+            Text = ent.Comp.Enabled
+                ? Loc.GetString("deployable-turret-component-deactivate")
+                : Loc.GetString("deployable-turret-component-activate"),
             Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/Spare/poweronoff.svg.192dpi.png")),
             Disabled = !HasAmmo(ent),
             Impact = LogImpact.Low,
-            Act = () => { TryToggleState(ent, user); }
+            Act = () =>
+            {
+                TryToggleState(ent, user);
+            },
         };
 
         args.Verbs.Add(verb);
@@ -146,9 +166,11 @@ public abstract partial class SharedDeployableTurretSystem : EntitySystem
         }
 
         // Change the turret's fixtures
-        if (ent.Comp.DeployedFixture != null &&
-            TryComp(ent, out FixturesComponent? fixtures) &&
-            fixtures.Fixtures.TryGetValue(ent.Comp.DeployedFixture, out var fixture))
+        if (
+            ent.Comp.DeployedFixture != null
+            && TryComp(ent, out FixturesComponent? fixtures)
+            && fixtures.Fixtures.TryGetValue(ent.Comp.DeployedFixture, out var fixture)
+        )
         {
             _physics.SetHard(ent, fixture, enabled);
         }

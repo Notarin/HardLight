@@ -1,25 +1,32 @@
-using Content.Server.Popups;
+using System.Linq;
 using Content.Server._DV.Weapons.Ranged.Components;
+using Content.Server.Popups;
+using Content.Shared._DV.Weapons.Ranged;
 using Content.Shared.Database;
 using Content.Shared.Examine;
+using Content.Shared.Interaction.Events; // Frontier
+using Content.Shared.Item;
 // using Content.Shared.Interaction; // Frontier
 using Content.Shared.Verbs;
-using Content.Shared.Item;
-using Content.Shared._DV.Weapons.Ranged;
 using Content.Shared.Weapons.Ranged.Components;
-using Robust.Shared.Prototypes;
-using System.Linq;
-using Content.Shared.Interaction.Events; // Frontier
 using Content.Shared.Weapons.Ranged.Systems; // Frontier
+using Robust.Shared.Prototypes;
 
 namespace Content.Server._DV.Weapons.Ranged.Systems;
 
 public sealed class EnergyGunSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedItemSystem _item = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly SharedItemSystem _item = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
 
     public override void Initialize()
     {
@@ -46,7 +53,12 @@ public sealed class EnergyGunSystem : EntitySystem
         if (!_prototypeManager.TryIndex<EntityPrototype>(component.CurrentFireMode.Prototype, out var proto))
             return;
 
-        args.PushMarkup(Loc.GetString("energygun-examine-fire-mode", ("mode", component.CurrentFireMode.Name != string.Empty ? component.CurrentFireMode.Name : proto.Name)));
+        args.PushMarkup(
+            Loc.GetString(
+                "energygun-examine-fire-mode",
+                ("mode", component.CurrentFireMode.Name != string.Empty ? component.CurrentFireMode.Name : proto.Name)
+            )
+        );
     }
 
     private void OnGetVerb(EntityUid uid, EnergyGunComponent component, GetVerbsEvent<Verb> args)
@@ -77,7 +89,7 @@ public sealed class EnergyGunSystem : EntitySystem
                 Act = () =>
                 {
                     SetFireMode(uid, component, fireMode, args.User);
-                }
+                },
             };
 
             args.Verbs.Add(v);
@@ -97,8 +109,10 @@ public sealed class EnergyGunSystem : EntitySystem
 
     private void CycleFireMode(EntityUid uid, EnergyGunComponent component, EntityUid user)
     {
-        int index = (component.CurrentFireMode != null) ?
-            Math.Max(component.FireModes.IndexOf(component.CurrentFireMode), 0) + 1 : 1;
+        int index =
+            (component.CurrentFireMode != null)
+                ? Math.Max(component.FireModes.IndexOf(component.CurrentFireMode), 0) + 1
+                : 1;
 
         EnergyWeaponFireMode? fireMode;
 
@@ -106,7 +120,6 @@ public sealed class EnergyGunSystem : EntitySystem
         {
             fireMode = component.FireModes.FirstOrDefault();
         }
-
         else
         {
             fireMode = component.FireModes[index];
@@ -115,7 +128,12 @@ public sealed class EnergyGunSystem : EntitySystem
         SetFireMode(uid, component, fireMode, user);
     }
 
-    private void SetFireMode(EntityUid uid, EnergyGunComponent component, EnergyWeaponFireMode? fireMode, EntityUid? user = null)
+    private void SetFireMode(
+        EntityUid uid,
+        EnergyGunComponent component,
+        EnergyWeaponFireMode? fireMode,
+        EntityUid? user = null
+    )
     {
         if (fireMode?.Prototype == null)
             return;
@@ -132,7 +150,19 @@ public sealed class EnergyGunSystem : EntitySystem
 
             if (user != null)
             {
-                _popupSystem.PopupEntity(Loc.GetString("gun-set-fire-mode", ("mode", component.CurrentFireMode.Name != string.Empty ? component.CurrentFireMode.Name : prototype.Name)), uid, user.Value);
+                _popupSystem.PopupEntity(
+                    Loc.GetString(
+                        "gun-set-fire-mode",
+                        (
+                            "mode",
+                            component.CurrentFireMode.Name != string.Empty
+                                ? component.CurrentFireMode.Name
+                                : prototype.Name
+                        )
+                    ),
+                    uid,
+                    user.Value
+                );
             }
 
             if (component.CurrentFireMode.State == string.Empty)

@@ -45,10 +45,18 @@ public sealed partial class LanguageMenuWindow : DefaultWindow
         if (languageSpeaker == null)
             return;
 
-        UpdateState(languageSpeaker.CurrentLanguage, languageSpeaker.SpokenLanguages, languageSpeaker.UnderstoodLanguages);
+        UpdateState(
+            languageSpeaker.CurrentLanguage,
+            languageSpeaker.SpokenLanguages,
+            languageSpeaker.UnderstoodLanguages
+        );
     }
 
-    public void UpdateState(ProtoId<LanguagePrototype> currentLanguage, List<ProtoId<LanguagePrototype>> spokenLanguages, List<ProtoId<LanguagePrototype>> understoodLanguages)
+    public void UpdateState(
+        ProtoId<LanguagePrototype> currentLanguage,
+        List<ProtoId<LanguagePrototype>> spokenLanguages,
+        List<ProtoId<LanguagePrototype>> understoodLanguages
+    )
     {
         var langName = Loc.GetString($"language-{currentLanguage}-name");
         CurrentLanguageLabel.Text = Loc.GetString("language-menu-current-language", ("language", langName));
@@ -92,14 +100,14 @@ public sealed partial class LanguageMenuWindow : DefaultWindow
         {
             Orientation = BoxContainer.LayoutOrientation.Horizontal,
             HorizontalExpand = true,
-            SeparationOverride = 2
+            SeparationOverride = 2,
         };
 
         var name = new Label
         {
             Text = proto?.Name ?? Loc.GetString("generic-error"),
             MinWidth = 50,
-            HorizontalExpand = true
+            HorizontalExpand = true,
         };
 
         var button = new Button { Text = "Choose" };
@@ -114,11 +122,7 @@ public sealed partial class LanguageMenuWindow : DefaultWindow
         #endregion
 
         #region Collapsible description
-        var body = new CollapsibleBody
-        {
-            HorizontalExpand = true,
-            Margin = new Thickness(4f, 4f)
-        };
+        var body = new CollapsibleBody { HorizontalExpand = true, Margin = new Thickness(4f, 4f) };
 
         var description = new RichTextLabel { HorizontalExpand = true };
         description.SetMessage(proto?.Description ?? Loc.GetString("generic-error"));
@@ -127,7 +131,7 @@ public sealed partial class LanguageMenuWindow : DefaultWindow
         var collapser = new Collapsible(Loc.GetString("language-menu-description-header"), body)
         {
             Orientation = BoxContainer.LayoutOrientation.Vertical,
-            HorizontalExpand = true
+            HorizontalExpand = true,
         };
 
         container.AddChild(collapser);
@@ -148,8 +152,10 @@ public sealed partial class LanguageMenuWindow : DefaultWindow
         _clientLanguageSystem.RequestSetLanguage(id);
 
         // Predict the change
-        if (_clientLanguageSystem.GetLocalSpeaker()?.SpokenLanguages is { } languages &&
-            _clientLanguageSystem.GetLocalSpeaker()?.UnderstoodLanguages is { } understood)
+        if (
+            _clientLanguageSystem.GetLocalSpeaker()?.SpokenLanguages is { } languages
+            && _clientLanguageSystem.GetLocalSpeaker()?.UnderstoodLanguages is { } understood
+        )
             UpdateState(id, languages, understood);
     }
 

@@ -16,24 +16,18 @@ namespace Content.Server.Database.Migrations.Postgres
                 table: "round",
                 type: "timestamp with time zone",
                 nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+            );
 
-            migrationBuilder.CreateIndex(
-                name: "IX_round_start_date",
-                table: "round",
-                column: "start_date");
+            migrationBuilder.CreateIndex(name: "IX_round_start_date", table: "round", column: "start_date");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropIndex(
-                name: "IX_round_start_date",
-                table: "round");
+            migrationBuilder.DropIndex(name: "IX_round_start_date", table: "round");
 
-            migrationBuilder.DropColumn(
-                name: "start_date",
-                table: "round");
+            migrationBuilder.DropColumn(name: "start_date", table: "round");
         }
     }
 }

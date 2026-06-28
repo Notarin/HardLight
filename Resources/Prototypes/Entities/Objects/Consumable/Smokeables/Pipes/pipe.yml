@@ -9,7 +9,7 @@
     state: unlit-icon
   - type: Clothing
     sprite: Objects/Consumable/Smokeables/Pipes/pipe.rsi
-    slots: [ mask ]
+    slots: [mask]
     equippedPrefix: unlit
   - type: Item
     size: Tiny
@@ -35,7 +35,7 @@
       startingItem: GroundTobacco
       whitelist:
         tags:
-          - Smokable
+        - Smokable
       insertSound:
         path: /Audio/Weapons/Guns/Empty/empty.ogg
       ejectSound:
@@ -58,7 +58,7 @@
       startingItem: GroundCannabis
       whitelist:
         tags:
-          - Smokable
+        - Smokable
       insertSound:
         path: /Audio/Weapons/Guns/Empty/empty.ogg
       ejectSound:
@@ -81,7 +81,7 @@
       startingItem: GroundCannabisRainbow
       whitelist:
         tags:
-          - Smokable
+        - Smokable
       insertSound:
         path: /Audio/Weapons/Guns/Empty/empty.ogg
       ejectSound:

@@ -18,7 +18,11 @@ public sealed partial class ComplexRequirement : InteractionRequirement
     [DataField]
     public bool RequireAll = true;
 
-    public override bool IsMet(InteractionArgs args, InteractionVerbPrototype proto, InteractionAction.VerbDependencies deps)
+    public override bool IsMet(
+        InteractionArgs args,
+        InteractionVerbPrototype proto,
+        InteractionAction.VerbDependencies deps
+    )
     {
         return RequireAll
             ? Requirements.All(r => r.IsMet(args, proto, deps))

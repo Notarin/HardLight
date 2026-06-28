@@ -11,12 +11,23 @@ namespace Content.Shared.Magic;
 
 public sealed class SpellbookSystem : EntitySystem
 {
-    [Dependency] private readonly SharedChargesSystem _sharedCharges = default!;
-    [Dependency] private readonly SharedMindSystem _mind = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
-    [Dependency] private readonly ActionContainerSystem _actionContainer = default!;
-    [Dependency] private readonly INetManager _netManager = default!;
+    [Dependency]
+    private readonly SharedChargesSystem _sharedCharges = default!;
+
+    [Dependency]
+    private readonly SharedMindSystem _mind = default!;
+
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfter = default!;
+
+    [Dependency]
+    private readonly SharedActionsSystem _actions = default!;
+
+    [Dependency]
+    private readonly ActionContainerSystem _actionContainer = default!;
+
+    [Dependency]
+    private readonly INetManager _netManager = default!;
 
     public override void Initialize()
     {
@@ -55,7 +66,8 @@ public sealed class SpellbookSystem : EntitySystem
         args.Handled = true;
     }
 
-    private void OnDoAfter<T>(Entity<SpellbookComponent> ent, ref T args) where T : DoAfterEvent // Sometimes i despise this language
+    private void OnDoAfter<T>(Entity<SpellbookComponent> ent, ref T args)
+        where T : DoAfterEvent // Sometimes i despise this language
     {
         if (args.Handled || args.Cancelled)
             return;
@@ -73,16 +85,23 @@ public sealed class SpellbookSystem : EntitySystem
             var mindActionContainerComp = EnsureComp<ActionsContainerComponent>(mindId);
 
             if (_netManager.IsServer)
-                _actionContainer.TransferAllActionsWithNewAttached(ent, mindId, args.Args.User, newContainer: mindActionContainerComp);
+                _actionContainer.TransferAllActionsWithNewAttached(
+                    ent,
+                    mindId,
+                    args.Args.User,
+                    newContainer: mindActionContainerComp
+                );
         }
         else
         {
             foreach (var (id, charges) in ent.Comp.SpellActions)
             {
                 EntityUid? actionId = null;
-                if (!_actions.AddAction(args.Args.User, ref actionId, id)
+                if (
+                    !_actions.AddAction(args.Args.User, ref actionId, id)
                     || charges is not { } count // Null means infinite charges
-                    || !TryComp<LimitedChargesComponent>(actionId, out var chargeComp))
+                    || !TryComp<LimitedChargesComponent>(actionId, out var chargeComp)
+                )
                     continue;
 
                 _sharedCharges.SetMaxCharges((actionId.Value, chargeComp), count);
@@ -95,7 +114,14 @@ public sealed class SpellbookSystem : EntitySystem
 
     private void AttemptLearn(Entity<SpellbookComponent> ent, UseInHandEvent args)
     {
-        var doAfterEventArgs = new DoAfterArgs(EntityManager, args.User, ent.Comp.LearnTime, new SpellbookDoAfterEvent(), ent, target: ent)
+        var doAfterEventArgs = new DoAfterArgs(
+            EntityManager,
+            args.User,
+            ent.Comp.LearnTime,
+            new SpellbookDoAfterEvent(),
+            ent,
+            target: ent
+        )
         {
             BreakOnMove = true,
             BreakOnDamage = true,

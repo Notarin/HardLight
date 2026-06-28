@@ -2,7 +2,7 @@
   name: brass knuckles
   parent: ClothingHandsBase
   id: WeaponBrassKnuckles
-  description: When you need to punch just a little harder. Design by SESWC  #Hardlight
+  description: When you need to punch just a little harder. Design by SESWC #Hardlight
   components:
   - type: Sprite
     sprite: Clothing/Hands/Gloves/KnuckleDusters/brassknuckleduster.rsi
@@ -14,7 +14,7 @@
     attackRate: 2 # ~12 dps
     damage:
       types:
-       Blunt: 6
+        Blunt: 6
     soundHit:
       collection: Punch
     animation: WeaponArcFist
@@ -50,8 +50,8 @@
     attackRate: 2 # ~12 dps
     damage:
       types:
-       Blunt: 0 # ~0 dps :^)
-       Structural: 0
+        Blunt: 0 # ~0 dps :^)
+        Structural: 0
     soundHit:
       collection: Parp
     animation: WeaponArcFist

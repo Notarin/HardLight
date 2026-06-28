@@ -1,28 +1,40 @@
 using System.Diagnostics.CodeAnalysis;
+using System.Numerics;
+using Content.Server.GameTicking;
 using Content.Shared.CCVar;
+using Content.Shared.GameTicking;
 using Content.Shared.GridPreloader.Prototypes;
 using Content.Shared.GridPreloader.Systems;
+using JetBrains.Annotations;
 using Robust.Server.GameObjects;
 using Robust.Shared.Configuration;
+using Robust.Shared.EntitySerialization.Systems;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Prototypes;
-using System.Numerics;
-using Content.Server.GameTicking;
-using Content.Shared.GameTicking;
-using JetBrains.Annotations;
-using Robust.Shared.EntitySerialization.Systems;
 
 namespace Content.Server.GridPreloader;
+
 public sealed class GridPreloaderSystem : SharedGridPreloaderSystem
 {
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly MapSystem _map = default!;
-    [Dependency] private readonly MapLoaderSystem _mapLoader = default!;
-    [Dependency] private readonly MetaDataSystem _meta = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
+
+    [Dependency]
+    private readonly MapSystem _map = default!;
+
+    [Dependency]
+    private readonly MapLoaderSystem _mapLoader = default!;
+
+    [Dependency]
+    private readonly MetaDataSystem _meta = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototype = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
 
     /// <summary>
     /// Whether the preloading CVar is set or not.
@@ -39,14 +51,14 @@ public sealed class GridPreloaderSystem : SharedGridPreloaderSystem
         Subs.CVar(_cfg, CCVars.PreloadGrids, value => PreloadingEnabled = value, true);
     }
 
-/*     private void OnRoundRestart(RoundRestartCleanupEvent ev)
-    {
-        var ent = GetPreloaderEntity();
-        if (ent == null)
-            return;
-
-        Del(ent.Value.Owner);
-    } */
+    /*     private void OnRoundRestart(RoundRestartCleanupEvent ev)
+        {
+            var ent = GetPreloaderEntity();
+            if (ent == null)
+                return;
+    
+            Del(ent.Value.Owner);
+        } */
 
     private void OnPostGameMapLoad(PostGameMapLoad ev)
     {
@@ -119,7 +131,11 @@ public sealed class GridPreloaderSystem : SharedGridPreloaderSystem
     /// An attempt to get a certain preloaded shuttle. If there are no more such shuttles left, returns null
     /// </summary>
     [PublicAPI]
-    public bool TryGetPreloadedGrid(ProtoId<PreloadedGridPrototype> proto, [NotNullWhen(true)] out EntityUid? preloadedGrid, GridPreloaderComponent? preloader = null)
+    public bool TryGetPreloadedGrid(
+        ProtoId<PreloadedGridPrototype> proto,
+        [NotNullWhen(true)] out EntityUid? preloadedGrid,
+        GridPreloaderComponent? preloader = null
+    )
     {
         preloadedGrid = null;
 

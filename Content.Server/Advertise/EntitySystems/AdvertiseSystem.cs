@@ -12,10 +12,17 @@ namespace Content.Server.Advertise.EntitySystems;
 
 public sealed class AdvertiseSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly ChatSystem _chat = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
+
+    [Dependency]
+    private readonly ChatSystem _chat = default!;
 
     /// <summary>
     /// The maximum amount of time between checking if advertisements should be displayed
@@ -65,7 +72,12 @@ public sealed class AdvertiseSystem : EntitySystem
             return;
 
         if (_prototypeManager.TryIndex(advert.Pack, out var advertisements))
-            _chat.TrySendInGameICMessage(uid, Loc.GetString(_random.Pick(advertisements.Values)), InGameICChatType.Speak, hideChat: true);
+            _chat.TrySendInGameICMessage(
+                uid,
+                Loc.GetString(_random.Pick(advertisements.Values)),
+                InGameICChatType.Speak,
+                hideChat: true
+            );
     }
 
     public override void Update(float frameTime)
@@ -90,19 +102,30 @@ public sealed class AdvertiseSystem : EntitySystem
         }
     }
 
-
-    private static void OnPowerReceiverAttemptAdvertiseEvent(EntityUid uid, ApcPowerReceiverComponent powerReceiver, ref AttemptAdvertiseEvent args)
+    private static void OnPowerReceiverAttemptAdvertiseEvent(
+        EntityUid uid,
+        ApcPowerReceiverComponent powerReceiver,
+        ref AttemptAdvertiseEvent args
+    )
     {
         args.Cancelled |= !powerReceiver.Powered;
     }
 
-    private static void OnVendingAttemptAdvertiseEvent(EntityUid uid, VendingMachineComponent machine, ref AttemptAdvertiseEvent args)
+    private static void OnVendingAttemptAdvertiseEvent(
+        EntityUid uid,
+        VendingMachineComponent machine,
+        ref AttemptAdvertiseEvent args
+    )
     {
         args.Cancelled |= machine.Broken;
     }
 
     // Frontier: no player advertisements
-    private static void OnActorAttemptAdvertiseEvent(EntityUid uid, ActorComponent actor, ref AttemptAdvertiseEvent args)
+    private static void OnActorAttemptAdvertiseEvent(
+        EntityUid uid,
+        ActorComponent actor,
+        ref AttemptAdvertiseEvent args
+    )
     {
         args.Cancelled = true;
     }

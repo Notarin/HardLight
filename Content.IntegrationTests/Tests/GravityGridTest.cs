@@ -15,7 +15,8 @@ namespace Content.IntegrationTests.Tests
     public sealed class GravityGridTest
     {
         [TestPrototypes]
-        private const string Prototypes = @"
+        private const string Prototypes =
+            @"
 - type: entity
   name: GridGravityGeneratorDummy
   id: GridGravityGeneratorDummy
@@ -30,6 +31,7 @@ namespace Content.IntegrationTests.Tests
   - type: ApcPowerReceiver
   - type: UserInterface
 ";
+
         [Test]
         public async Task Test()
         {
@@ -56,7 +58,10 @@ namespace Content.IntegrationTests.Tests
                 mapSys.SetTile(grid1, grid1, Vector2i.Zero, new Tile(1));
                 mapSys.SetTile(grid2, grid2, Vector2i.Zero, new Tile(1));
 
-                generator = entityMan.SpawnEntity("GridGravityGeneratorDummy", new EntityCoordinates(grid1, 0.5f, 0.5f));
+                generator = entityMan.SpawnEntity(
+                    "GridGravityGeneratorDummy",
+                    new EntityCoordinates(grid1, 0.5f, 0.5f)
+                );
                 Assert.Multiple(() =>
                 {
                     Assert.That(entityMan.HasComponent<GravityGeneratorComponent>(generator));

@@ -9,8 +9,8 @@
   metabolisms:
     Narcotic:
       effects:
-      # Effects for non-dwarfs
       - !type:Emote
+        # Effects for non-dwarfs
         emote: Cough
         showInChat: true
         probability: 0.05
@@ -26,8 +26,8 @@
         - !type:OrganType
           type: Dwarf
           shouldHave: false
-      # Effects for dwarfs
       - !type:PopupMessage
+        # Effects for dwarfs
         type: Local
         visualType: Medium
         messages:
@@ -69,8 +69,8 @@
   metabolisms:
     Narcotic:
       effects:
-      # Effects for goblins
       - !type:GenericStatusEffect
+        # Effects for goblins
         key: SeeingRainbows
         component: SeeingRainbows
         type: Add
@@ -120,8 +120,8 @@
         - !type:OrganType
           type: Goblin
           shouldHave: true
-      # Effects for everyone
       - !type:Emote
+        # Effects for everyone
         emote: Scream
         showInChat: true
         probability: 0.01
@@ -129,8 +129,8 @@
         emote: Gasp
         showInChat: true
         probability: 0.03
-      # Effects for non-goblins
       - !type:Jitter
+        # Effects for non-goblins
         conditions:
         - !type:ReagentThreshold
           min: 1

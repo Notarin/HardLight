@@ -18,7 +18,7 @@
       - !type:PopupMessage
         type: Local
         visualType: MediumCaution
-        messages: [ "generic-reagent-effect-burning-insides" ]
+        messages: ["generic-reagent-effect-burning-insides"]
         probability: 0.33
       - !type:Emote
         emote: Scream
@@ -40,8 +40,8 @@
   boilingPoint: 147.0 # Made this up, loosely based on bleach
   meltingPoint: -11.0
   tileReactions:
-    - !type:CleanTileReaction {}
-    - !type:CleanDecalsReaction {}
+  - !type:CleanTileReaction {}
+  - !type:CleanDecalsReaction {}
 
 - type: reagent
   id: SoapReagent
@@ -58,8 +58,8 @@
       effects:
       - !type:ChemVomit
         conditions:
-        - !type:OrganType # HardLight: Prevents Synths vomiting
-          type: Synth
+        - !type:OrganType
+          type: Synth # HardLight: Prevents Synths vomiting
           shouldHave: false
         - !type:ReagentThreshold
           min: 6
@@ -68,8 +68,8 @@
       effects:
       - !type:ChemVomit
         conditions:
-        - !type:OrganType # HardLight: Prevents Synths vomiting
-          type: Synth
+        - !type:OrganType
+          type: Synth # HardLight: Prevents Synths vomiting
           shouldHave: false
         - !type:ReagentThreshold
           min: 6
@@ -106,10 +106,10 @@
   viscosity: 0.5
   reactiveEffects:
     Acidic:
-      methods: [ Touch ]
+      methods: [Touch]
       effects:
-      # pva glue? no, antibiotic glue for sealing wounds
       - !type:ModifyBleedAmount
+        # pva glue? no, antibiotic glue for sealing wounds
         amount: -1.5
   metabolisms:
     Narcotic:

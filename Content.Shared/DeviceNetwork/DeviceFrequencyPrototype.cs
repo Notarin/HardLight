@@ -21,5 +21,4 @@ public sealed partial class DeviceFrequencyPrototype : IPrototype
     /// </summary>
     [DataField("name")]
     public string? Name;
-
 }

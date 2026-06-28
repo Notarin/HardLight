@@ -6,13 +6,13 @@
   components:
   - type: Tag
     tags:
-      - SpeedLoader50Magnum
+    - SpeedLoader50Magnum
   - type: SpeedLoader
   - type: BallisticAmmoProvider
     mayTransfer: true
     whitelist:
       tags:
-        - Cartridge50_magnumFMJ
+      - Cartridge50_magnumFMJ
     capacity: 5
   - type: Sprite
   - type: ContainerContainer
@@ -31,10 +31,10 @@
   - type: Sprite
     sprite: _HL/Objects/Weapons/Guns/Ammunition/SpeedLoaders/50MagnumSpeedLoaders.rsi
     layers:
-      - state: base
-        map: ["enum.GunVisualLayers.Base"]
-      - state: base-5
-        map: ["enum.GunVisualLayers.Mag"]
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: base-5
+      map: ["enum.GunVisualLayers.Mag"]
   - type: MagazineVisuals
     magState: base
     steps: 6
@@ -52,10 +52,10 @@
   - type: Sprite
     sprite: _HL/Objects/Weapons/Guns/Ammunition/SpeedLoaders/50MagnumSpeedLoaders.rsi
     layers:
-      - state: base
-        map: ["enum.GunVisualLayers.Base"]
-      - state: base-5
-        map: ["enum.GunVisualLayers.Mag"]
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: base-5
+      map: ["enum.GunVisualLayers.Mag"]
 
 - type: entity
   id: SpeedLoader50MagnumPractice

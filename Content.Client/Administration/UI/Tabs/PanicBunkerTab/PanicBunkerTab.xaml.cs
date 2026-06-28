@@ -9,7 +9,8 @@ namespace Content.Client.Administration.UI.Tabs.PanicBunkerTab;
 [GenerateTypedNameReferences]
 public sealed partial class PanicBunkerTab : Control
 {
-    [Dependency] private readonly IConsoleHost _console = default!;
+    [Dependency]
+    private readonly IConsoleHost _console = default!;
 
     private string _minAccountAge;
     private string _minOverallMinutes;
@@ -32,9 +33,7 @@ public sealed partial class PanicBunkerTab : Control
 
     private void SendMinAccountAge(string text)
     {
-        if (string.IsNullOrWhiteSpace(text) ||
-            text == _minAccountAge ||
-            !int.TryParse(text, out var minutes))
+        if (string.IsNullOrWhiteSpace(text) || text == _minAccountAge || !int.TryParse(text, out var minutes))
         {
             return;
         }
@@ -44,9 +43,7 @@ public sealed partial class PanicBunkerTab : Control
 
     private void SendMinOverallMinutes(string text)
     {
-        if (string.IsNullOrWhiteSpace(text) ||
-            text == _minOverallMinutes ||
-            !int.TryParse(text, out var minutes))
+        if (string.IsNullOrWhiteSpace(text) || text == _minOverallMinutes || !int.TryParse(text, out var minutes))
         {
             return;
         }
@@ -57,9 +54,8 @@ public sealed partial class PanicBunkerTab : Control
     public void UpdateStatus(PanicBunkerStatus status)
     {
         EnabledButton.Pressed = status.Enabled;
-        EnabledButton.Text = Loc.GetString(status.Enabled
-            ? "admin-ui-panic-bunker-enabled"
-            : "admin-ui-panic-bunker-disabled"
+        EnabledButton.Text = Loc.GetString(
+            status.Enabled ? "admin-ui-panic-bunker-enabled" : "admin-ui-panic-bunker-disabled"
         );
         EnabledButton.ModulateSelfOverride = status.Enabled ? Color.Red : null;
 

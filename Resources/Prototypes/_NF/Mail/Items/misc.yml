@@ -22,7 +22,7 @@
 - type: entity
   id: DelayedSmoke
   parent: BaseDamageableDelayedItem
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   name: delayed smoke
   suffix: "(10s)"
   components:
@@ -31,7 +31,7 @@
 
 - type: entity
   id: AdminInstantEffectEMP7
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   suffix: EMP, 7 meters
   parent: AdminInstantEffectBase
   components:
@@ -42,7 +42,7 @@
 - type: entity
   id: DelayedEMP
   parent: BaseDamageableDelayedItem
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   name: delayed EMP (7 meters)
   components:
   - type: DelayedItem
@@ -54,7 +54,7 @@
 - type: entity
   id: DelayedPetCarrierNPCEmotionalSupportSafe
   parent: BaseDelayedItem # Do not spawn a ghost role when this takes damage.
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   name: delayed emotional support pet
   components:
   - type: DelayedItem
@@ -104,7 +104,7 @@
 
 - type: entity
   id: NFRandomCritter
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: EntityTableSpawner
     table: !type:NestedSelector
@@ -113,7 +113,7 @@
 - type: entity
   id: DelayedNFRandomCritter
   parent: BaseDelayedItem # Do not spawn a ghost role when this takes damage.
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   name: delayed random critter
   components:
   - type: DelayedItem
@@ -131,8 +131,8 @@
       injector:
         maxVol: 15
         reagents:
-          - ReagentId: Cognizine
-            Quantity: 15 # Surely three friends is enough.
+        - ReagentId: Cognizine
+          Quantity: 15 # Surely three friends is enough.
 
 - type: entity
   id: SyringeOpporozidone
@@ -146,8 +146,8 @@
       injector:
         maxVol: 15
         reagents:
-          - ReagentId: Opporozidone
-            Quantity: 15
+        - ReagentId: Opporozidone
+          Quantity: 15
 
 - type: entity
   id: ChemistryBottleNecrosol
@@ -273,7 +273,7 @@
     - 0,0,6,4
     whitelist:
       components:
-        - HumanoidAppearance
+      - HumanoidAppearance
   - type: PneumaticCannon
     throwItems: false # must be false to get the TOOMP
     baseProjectileSpeed: 25.0 # zoom

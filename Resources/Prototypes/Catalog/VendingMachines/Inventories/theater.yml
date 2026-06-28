@@ -252,7 +252,7 @@
     ClothingUniformJumpsuitClown: 2 # Frontier
     ClothingOuterWinterClown: 2 # Frontier
     ClothingOuterClownPriest: 1 # Frontier
-    ClothingShoesBootsWinterClown: 2  #Delta V: Add departmental winter boots
+    ClothingShoesBootsWinterClown: 2 #Delta V: Add departmental winter boots
     RubberStampClown: 1 # Frontier
     ClothingBackpackMime: 2 # Frontier
     ClothingBackpackSatchelMime: 2 # Frontier
@@ -267,7 +267,7 @@
     ClothingOuterWinterMime: 2 # Frontier
     ClothingBeltSuspendersBlack: 2 # Frontier
     ClothingBeltSuspendersRed: 2 # Frontier
-    ClothingShoesBootsWinterMime: 2  #Delta V: Add departmental winter boots
+    ClothingShoesBootsWinterMime: 2 #Delta V: Add departmental winter boots
     RubberStampMime: 1 # Frontier
     ClothingUniformMusicKing: 3
     ClothingUniformMusicKingBlack: 3

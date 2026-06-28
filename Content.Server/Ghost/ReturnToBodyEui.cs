@@ -24,8 +24,7 @@ public sealed class ReturnToBodyEui : BaseEui
     {
         base.HandleMessage(msg);
 
-        if (msg is not ReturnToBodyMessage choice ||
-            !choice.Accepted)
+        if (msg is not ReturnToBodyMessage choice || !choice.Accepted)
         {
             Close();
             return;

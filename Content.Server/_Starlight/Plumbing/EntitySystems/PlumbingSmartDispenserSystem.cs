@@ -24,10 +24,17 @@ namespace Content.Server._Starlight.Plumbing.EntitySystems;
 [UsedImplicitly]
 public sealed class PlumbingSmartDispenserSystem : EntitySystem
 {
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionSystem = default!;
-    [Dependency] private readonly UserInterfaceSystem _uiSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency]
+    private readonly SharedSolutionContainerSystem _solutionSystem = default!;
+
+    [Dependency]
+    private readonly UserInterfaceSystem _uiSystem = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
 
     /// <summary>
     /// Cached mapping of label prefix (lowercase) → reagent prototype ID.
@@ -108,16 +115,28 @@ public sealed class PlumbingSmartDispenserSystem : EntitySystem
             return;
         }
 
-        if (!_solutionSystem.TryGetSolution(ent.Owner, ent.Comp.SolutionName, out var fridgeSolnEnt, out var fridgeSolution))
+        if (
+            !_solutionSystem.TryGetSolution(
+                ent.Owner,
+                ent.Comp.SolutionName,
+                out var fridgeSolnEnt,
+                out var fridgeSolution
+            )
+        )
             return;
 
         var available = fridgeSolution.GetReagentQuantity(new ReagentId(reagentId, null));
 
         if (available <= FixedPoint2.Zero)
         {
-            _popup.PopupEntity(Loc.GetString("plumbing-smart-dispenser-not-in-stock",
-                ("reagent", _prototypeManager.Index<ReagentPrototype>(reagentId).LocalizedName)),
-                ent.Owner, args.User);
+            _popup.PopupEntity(
+                Loc.GetString(
+                    "plumbing-smart-dispenser-not-in-stock",
+                    ("reagent", _prototypeManager.Index<ReagentPrototype>(reagentId).LocalizedName)
+                ),
+                ent.Owner,
+                args.User
+            );
             return;
         }
 
@@ -132,17 +151,22 @@ public sealed class PlumbingSmartDispenserSystem : EntitySystem
         }
 
         var transferAmount = FixedPoint2.Min(available, jugAvailable);
-        var removed = _solutionSystem.RemoveReagentAndReturn(fridgeSolnEnt.Value, new ReagentId(reagentId, null), transferAmount);
+        var removed = _solutionSystem.RemoveReagentAndReturn(
+            fridgeSolnEnt.Value,
+            new ReagentId(reagentId, null),
+            transferAmount
+        );
 
         if (removed > FixedPoint2.Zero)
         {
             _solutionSystem.TryAddReagent(jugSolnEnt.Value, reagentId, removed, out _);
 
             var reagentName = _prototypeManager.Index<ReagentPrototype>(reagentId).LocalizedName;
-            _popup.PopupEntity(Loc.GetString("plumbing-smart-dispenser-filled",
-                ("reagent", reagentName),
-                ("amount", removed)),
-                ent.Owner, args.User);
+            _popup.PopupEntity(
+                Loc.GetString("plumbing-smart-dispenser-filled", ("reagent", reagentName), ("amount", removed)),
+                ent.Owner,
+                args.User
+            );
         }
 
         args.Handled = true;
@@ -184,9 +208,11 @@ public sealed class PlumbingSmartDispenserSystem : EntitySystem
 
         foreach (var (name, protoId) in _reagentNames)
         {
-            if (name.Length >= token.Length
+            if (
+                name.Length >= token.Length
                 && name.StartsWith(token, StringComparison.OrdinalIgnoreCase)
-                && name.Length < bestScore)
+                && name.Length < bestScore
+            )
             {
                 bestMatch = protoId;
                 bestScore = name.Length;
@@ -350,15 +376,20 @@ public sealed class PlumbingSmartDispenserSystem : EntitySystem
                 if (!_prototypeManager.TryIndex<ReagentPrototype>(reagent.Reagent.Prototype, out var proto))
                     continue;
 
-                entries.Add(new PlumbingSmartDispenserReagentEntry(
-                    proto.ID,
-                    proto.LocalizedName,
-                    reagent.Quantity,
-                    proto.SubstanceColor));
+                entries.Add(
+                    new PlumbingSmartDispenserReagentEntry(
+                        proto.ID,
+                        proto.LocalizedName,
+                        reagent.Quantity,
+                        proto.SubstanceColor
+                    )
+                );
             }
 
             // Sort alphabetically by localized name for consistent display
-            entries.Sort((a, b) => string.Compare(a.LocalizedName, b.LocalizedName, StringComparison.OrdinalIgnoreCase));
+            entries.Sort(
+                (a, b) => string.Compare(a.LocalizedName, b.LocalizedName, StringComparison.OrdinalIgnoreCase)
+            );
         }
 
         var state = new PlumbingSmartDispenserBuiState(entries, ent.Comp.MaxPerReagent.Float());

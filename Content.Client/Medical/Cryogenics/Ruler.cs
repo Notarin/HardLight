@@ -1,6 +1,7 @@
 using System.Numerics;
 using Robust.Client.Graphics;
 using Robust.Client.UserInterface;
+
 namespace Content.Client.Medical.Cryogenics;
 
 /// <summary>
@@ -25,9 +26,12 @@ public sealed class Ruler : Control
         for (int i = 0; i <= TotalNotches; i++)
         {
             var x = i * stepWidth;
-            var height = (i % BigNotchInterval    == 0 ? BigNotchHeight :
-                          i % MediumNotchInterval == 0 ? MediumNotchHeight :
-                                                         SmallNotchHeight) * PixelHeight;
+            var height =
+                (
+                    i % BigNotchInterval == 0 ? BigNotchHeight
+                    : i % MediumNotchInterval == 0 ? MediumNotchHeight
+                    : SmallNotchHeight
+                ) * PixelHeight;
             var start = new Vector2(x, PixelHeight);
             var end = new Vector2(x, PixelHeight - height);
             handle.DrawLine(start, end, Color);

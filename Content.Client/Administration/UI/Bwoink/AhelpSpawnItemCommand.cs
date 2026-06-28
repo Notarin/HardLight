@@ -37,12 +37,18 @@ public sealed class AhelpSpawnItemCommand : IConsoleCommand
 
         var target = new NetUserId(userGuid);
         var window = new TriageInfoWindow("Spawn Item Next To Player");
-        window.AddMarkup($"Spawn [color=goldenrod]{FormattedMessage.EscapeText(prototypeId)}[/color] on a floor tile next to [color=white]{FormattedMessage.EscapeText(target.ToString())}[/color]?");
-        window.AddActionButton("Spawn Item", () =>
-        {
-            var bwoink = IoCManager.Resolve<IEntityManager>().System<BwoinkSystem>();
-            bwoink.RequestSpawnAhelpItemNearPlayer(target, prototypeId);
-        }, closeOnPressed: true);
+        window.AddMarkup(
+            $"Spawn [color=goldenrod]{FormattedMessage.EscapeText(prototypeId)}[/color] on a floor tile next to [color=white]{FormattedMessage.EscapeText(target.ToString())}[/color]?"
+        );
+        window.AddActionButton(
+            "Spawn Item",
+            () =>
+            {
+                var bwoink = IoCManager.Resolve<IEntityManager>().System<BwoinkSystem>();
+                bwoink.RequestSpawnAhelpItemNearPlayer(target, prototypeId);
+            },
+            closeOnPressed: true
+        );
         window.OpenCentered();
     }
 }

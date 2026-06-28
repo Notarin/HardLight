@@ -1,13 +1,13 @@
-using Content.Shared.DeviceNetwork;
-using JetBrains.Annotations;
-using Robust.Shared.Prototypes;
-using Robust.Shared.Random;
 using System.Buffers;
 using System.Diagnostics.CodeAnalysis;
+using Content.Shared.DeviceNetwork;
 using Content.Shared.DeviceNetwork.Components;
 using Content.Shared.DeviceNetwork.Events;
 using Content.Shared.DeviceNetwork.Systems;
 using Content.Shared.Examine;
+using JetBrains.Annotations;
+using Robust.Shared.Prototypes;
+using Robust.Shared.Random;
 
 namespace Content.Server.DeviceNetwork.Systems
 {
@@ -18,11 +18,20 @@ namespace Content.Server.DeviceNetwork.Systems
     [UsedImplicitly]
     public sealed class DeviceNetworkSystem : SharedDeviceNetworkSystem
     {
-        [Dependency] private readonly IRobustRandom _random = default!;
-        [Dependency] private readonly IPrototypeManager _protoMan = default!;
-        [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
-        [Dependency] private readonly DeviceListSystem _deviceLists = default!;
-        [Dependency] private readonly NetworkConfiguratorSystem _configurator = default!;
+        [Dependency]
+        private readonly IRobustRandom _random = default!;
+
+        [Dependency]
+        private readonly IPrototypeManager _protoMan = default!;
+
+        [Dependency]
+        private readonly SharedTransformSystem _transformSystem = default!;
+
+        [Dependency]
+        private readonly DeviceListSystem _deviceLists = default!;
+
+        [Dependency]
+        private readonly NetworkConfiguratorSystem _configurator = default!;
 
         private readonly Dictionary<int, DeviceNet> _networks = new(4);
         private readonly Queue<DeviceNetworkPacketEvent> _queueA = new();
@@ -38,7 +47,6 @@ namespace Content.Server.DeviceNetwork.Systems
         /// </summary>
         private Queue<DeviceNetworkPacketEvent> _nextQueue = null!;
 
-
         public override void Initialize()
         {
             SubscribeLocalEvent<DeviceNetworkComponent, MapInitEvent>(OnMapInit);
@@ -51,7 +59,6 @@ namespace Content.Server.DeviceNetwork.Systems
 
         public override void Update(float frameTime)
         {
-
             while (_activeQueue.TryDequeue(out var packet))
             {
                 SendPacket(packet);
@@ -60,7 +67,14 @@ namespace Content.Server.DeviceNetwork.Systems
             SwapQueues();
         }
 
-        public override bool QueuePacket(EntityUid uid, string? address, NetworkPayload data, uint? frequency = null, int? network = null, DeviceNetworkComponent? device = null)
+        public override bool QueuePacket(
+            EntityUid uid,
+            string? address,
+            NetworkPayload data,
+            uint? frequency = null,
+            int? network = null,
+            DeviceNetworkComponent? device = null
+        )
         {
             if (!Resolve(uid, ref device, false))
                 return false;
@@ -75,7 +89,9 @@ namespace Content.Server.DeviceNetwork.Systems
 
             network ??= device.DeviceNetId;
 
-            _nextQueue.Enqueue(new DeviceNetworkPacketEvent(network.Value, address, frequency.Value, device.Address, uid, data));
+            _nextQueue.Enqueue(
+                new DeviceNetworkPacketEvent(network.Value, address, frequency.Value, device.Address, uid, data)
+            );
             return true;
         }
 
@@ -105,16 +121,20 @@ namespace Content.Server.DeviceNetwork.Systems
         /// </summary>
         private void OnMapInit(EntityUid uid, DeviceNetworkComponent device, MapInitEvent args)
         {
-            if (device.ReceiveFrequency == null
+            if (
+                device.ReceiveFrequency == null
                 && device.ReceiveFrequencyId != null
-                && _protoMan.TryIndex<DeviceFrequencyPrototype>(device.ReceiveFrequencyId, out var receive))
+                && _protoMan.TryIndex<DeviceFrequencyPrototype>(device.ReceiveFrequencyId, out var receive)
+            )
             {
                 device.ReceiveFrequency = receive.Frequency;
             }
 
-            if (device.TransmitFrequency == null
+            if (
+                device.TransmitFrequency == null
                 && device.TransmitFrequencyId != null
-                && _protoMan.TryIndex<DeviceFrequencyPrototype>(device.TransmitFrequencyId, out var xmit))
+                && _protoMan.TryIndex<DeviceFrequencyPrototype>(device.TransmitFrequencyId, out var xmit)
+            )
             {
                 device.TransmitFrequency = xmit.Frequency;
             }
@@ -208,7 +228,8 @@ namespace Content.Server.DeviceNetwork.Systems
             if (!Resolve(uid, ref device, false))
                 return;
 
-            if (device.ReceiveFrequency == frequency) return;
+            if (device.ReceiveFrequency == frequency)
+                return;
 
             var deviceNet = GetNetwork(device.DeviceNetId);
             deviceNet.Remove(device);
@@ -227,7 +248,8 @@ namespace Content.Server.DeviceNetwork.Systems
             if (!Resolve(uid, ref device, false))
                 return;
 
-            if (device.ReceiveAll == receiveAll) return;
+            if (device.ReceiveAll == receiveAll)
+                return;
 
             var deviceNet = GetNetwork(device.DeviceNetId);
             deviceNet.Remove(device);
@@ -240,7 +262,8 @@ namespace Content.Server.DeviceNetwork.Systems
             if (!Resolve(uid, ref device, false))
                 return;
 
-            if (device.Address == address && device.CustomAddress) return;
+            if (device.Address == address && device.CustomAddress)
+                return;
 
             var deviceNet = GetNetwork(device.DeviceNetId);
             deviceNet.Remove(device);
@@ -272,7 +295,10 @@ namespace Content.Server.DeviceNetwork.Systems
             if (packet.Address == null)
             {
                 // Broadcast to all listening devices
-                if (network.ListeningDevices.TryGetValue(packet.Frequency, out var devices) && CheckRecipientsList(packet, ref devices))
+                if (
+                    network.ListeningDevices.TryGetValue(packet.Frequency, out var devices)
+                    && CheckRecipientsList(packet, ref devices)
+                )
                 {
                     var deviceCopy = ArrayPool<DeviceNetworkComponent>.Shared.Rent(devices.Count);
                     devices.CopyTo(deviceCopy);
@@ -288,9 +314,11 @@ namespace Content.Server.DeviceNetwork.Systems
                 {
                     totalDevices += devices.Count;
                 }
-                if (TryGetDevice(packet.NetId, packet.Address, out var device) &&
-                    !device.ReceiveAll &&
-                    device.ReceiveFrequency == packet.Frequency)
+                if (
+                    TryGetDevice(packet.NetId, packet.Address, out var device)
+                    && !device.ReceiveAll
+                    && device.ReceiveFrequency == packet.Frequency
+                )
                 {
                     totalDevices += 1;
                     hasTargetedDevice = true;
@@ -314,9 +342,15 @@ namespace Content.Server.DeviceNetwork.Systems
         /// The recipients is set to the modified recipient list.
         /// </summary>
         /// <returns>false if the broadcast was canceled</returns>
-        private bool CheckRecipientsList(DeviceNetworkPacketEvent packet, ref HashSet<DeviceNetworkComponent> recipients)
+        private bool CheckRecipientsList(
+            DeviceNetworkPacketEvent packet,
+            ref HashSet<DeviceNetworkComponent> recipients
+        )
         {
-            if (!_networks.ContainsKey(packet.NetId) || !_networks[packet.NetId].Devices.ContainsKey(packet.SenderAddress))
+            if (
+                !_networks.ContainsKey(packet.NetId)
+                || !_networks[packet.NetId].Devices.ContainsKey(packet.SenderAddress)
+            )
                 return false;
 
             var sender = _networks[packet.NetId].Devices[packet.SenderAddress];
@@ -333,7 +367,10 @@ namespace Content.Server.DeviceNetwork.Systems
             return true;
         }
 
-        private void SendToConnections(ReadOnlySpan<DeviceNetworkComponent> connections, DeviceNetworkPacketEvent packet)
+        private void SendToConnections(
+            ReadOnlySpan<DeviceNetworkComponent> connections,
+            DeviceNetworkPacketEvent packet
+        )
         {
             if (Deleted(packet.Sender))
             {

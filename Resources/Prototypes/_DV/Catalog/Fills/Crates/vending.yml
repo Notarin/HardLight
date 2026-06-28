@@ -4,5 +4,5 @@
   components:
   - type: StorageFill
     contents:
-      - id: VendingMachineRestockPride
-        amount: 2
+    - id: VendingMachineRestockPride
+      amount: 2

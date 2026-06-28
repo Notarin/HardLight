@@ -4,12 +4,11 @@ namespace Content.Shared._NF.Bank;
 
 public static class BankSystemExtensions
 {
-
     public enum CurrencySymbolLocation
     {
         Default, // Dependent on local CultureInfo
         Prefix, // Currency symbol goes before the number
-        Suffix // Currency symbols goes after the number
+        Suffix, // Currency symbols goes after the number
     }
 
     const int PrefixCurrencyPositivePattern = 0; //$N
@@ -25,10 +24,16 @@ public static class BankSystemExtensions
     /// <param name="symbolOverride">Optionally override the symbol</param>
     /// <param name="separatorOverride">Optionally override the separator</param>
     /// <returns></returns>
-    public static string ToCurrencyString(int amount, CultureInfo? culture = null, string? symbolOverride = null, string? separatorOverride = null, CurrencySymbolLocation symbolLocation = CurrencySymbolLocation.Default)
+    public static string ToCurrencyString(
+        int amount,
+        CultureInfo? culture = null,
+        string? symbolOverride = null,
+        string? separatorOverride = null,
+        CurrencySymbolLocation symbolLocation = CurrencySymbolLocation.Default
+    )
     {
         culture ??= CultureInfo.CurrentCulture;
-        var numberFormat = (NumberFormatInfo) culture.NumberFormat.Clone();
+        var numberFormat = (NumberFormatInfo)culture.NumberFormat.Clone();
 
         if (symbolOverride != null)
         {
@@ -51,7 +56,6 @@ public static class BankSystemExtensions
                 numberFormat.CurrencyNegativePattern = SuffixCurrencyNegativePattern;
                 break;
         }
-
 
         return string.Format(numberFormat, "{0:C0}", amount);
     }
@@ -77,4 +81,3 @@ public static class BankSystemExtensions
         return ToCurrencyString(amount, culture, symbolOverride: "FUC", symbolLocation: CurrencySymbolLocation.Suffix);
     }
 }
-

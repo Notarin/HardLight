@@ -13,13 +13,12 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-
 # MARAUDER
 
 - type: entity
   id: WeaponTurretType35
   name: Type-35 MARAUDER-type plasma cannon
-  parent: [ BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband ]
+  parent: [BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband]
   description: Launches magnetically contained balls of plasma at targets. Can be remotely activated, or linked up to a GCS.
   components:
   - type: StaticPrice
@@ -59,18 +58,16 @@
     fireCost: 500
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 3000
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 2500
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:PlaySoundBehavior
         sound:
           collection: MetalBreak
@@ -134,18 +131,16 @@
     fireCost: 500
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 1600
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 1000
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:PlaySoundBehavior
         sound:
           collection: MetalBreak
@@ -162,7 +157,7 @@
 - type: entity
   id: WeaponTurretType54
   name: Type-54C plasma autopulser
-  parent: [ BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband ]
+  parent: [BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband]
   suffix: TSF ONLY, ADS ONLY
   description: A rapidly firing energy weapon, dealing a large amount of damage to its targets. Takes a long time to recharge.
   components:
@@ -203,18 +198,16 @@
     fireCost: 450
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 3000
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 2300
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:PlaySoundBehavior
         sound:
           collection: MetalBreak
@@ -232,7 +225,7 @@
 - type: entity
   id: WeaponTurretType241
   name: Type-241 plasma lance
-  parent: [ BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband ]
+  parent: [BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband]
   suffix: TSF ONLY, ADS ONLY
   description: A devastating weapon, usually used for large scale fire support and strategic destruction.
   components:
@@ -255,8 +248,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.75,-0.75,0.75,0.75"
         density: 1500
   - type: Gun
@@ -288,12 +280,11 @@
     fireCost: 300
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 14000
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:PlaySoundBehavior
         sound:
           collection: MetalBreak
@@ -306,12 +297,12 @@
   - type: ShipGunClass
     shipClass: Superheavy
 
- # M25
-
 - type: entity
+  # M25
+
   id: WeaponTurretM25
   name: M25 mining pulser
-  parent: [ BallisticArtilleryUnanchorable, BaseC2ContrabandUnredeemable ]
+  parent: [BallisticArtilleryUnanchorable, BaseC2ContrabandUnredeemable]
   description: Uses mechanisms to fire condensed energy. Destroys rock easily.
   components:
   - type: StaticPrice
@@ -357,18 +348,16 @@
     fireCost: 100
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 1600
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 1200
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:PlaySoundBehavior
         sound:
           collection: MetalBreak
@@ -387,7 +376,7 @@
 - type: entity
   id: WeaponTurretM220
   name: M220 RUBICON EMP launcher
-  parent: [ BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband ]
+  parent: [BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband]
   description: Launches EMP projectiles at ships, disabling systems with powerful electromagnetic pulses. Ideal for non-lethal engagements and can be remotely activated or linked to a GCS.
   components:
   - type: StaticPrice
@@ -425,12 +414,11 @@
     fireCost: 500
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 2400
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:PlaySoundBehavior
         sound:
           collection: MetalBreak
@@ -500,18 +488,16 @@
     fireCost: 200
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 1200
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 600
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:PlaySoundBehavior
         sound:
           collection: MetalBreak
@@ -527,7 +513,7 @@
 - type: entity
   id: WeaponTurretDymere
   name: ADEX-9 DYMERE Turbolaser
-  parent: [ BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband ]
+  parent: [BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband]
   suffix: TSF ONLY, ADS ONLY
   description: Aetherion Dynamics' most iconic supercapital battery. Fires enormous ionized gas projectiles that melt through the toughest ship armor. Can be remotely activated or linked to a GCS.
   components:
@@ -550,8 +536,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.75,-0.75,0.75,0.75"
         density: 1500
   - type: Gun
@@ -576,12 +561,11 @@
     fireCost: 2400
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 5000
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:PlaySoundBehavior
         sound:
           collection: MetalBreak
@@ -602,13 +586,13 @@
 - type: entity
   id: WeaponLaserTurretL1Phalanx
   name: L-1 Phalanx
-  parent: [ BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband ]
+  parent: [BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband]
   description: A light laser emplactment designed by the Pantheon Collective, used to shred threats of all types
   components:
   - type: StaticPrice
     price: 3000
   - type: Sprite
-    sprite:  _Mono/Objects/ShuttleWeapons/phalanx.rsi
+    sprite: _Mono/Objects/ShuttleWeapons/phalanx.rsi
     layers:
     - state: space_artillery
   - type: Appearance
@@ -641,18 +625,16 @@
     fireCost: 25
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 2500
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 2000
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:PlaySoundBehavior
         sound:
           collection: MetalBreak
@@ -680,7 +662,7 @@
   - type: StaticPrice
     price: 17500
   - type: Sprite
-    sprite:  _Mono/Objects/ShuttleWeapons/prometheus.rsi
+    sprite: _Mono/Objects/ShuttleWeapons/prometheus.rsi
     layers:
     - state: space_artillery
   - type: Appearance
@@ -715,18 +697,16 @@
     fireCost: 5000
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 1800
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 1000
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:PlaySoundBehavior
         sound:
           collection: MetalBreak
@@ -736,7 +716,7 @@
 
 - type: entity
   id: WeaponLaserTurretApollo
-  parent: [ WeaponLaserTurretL1Phalanx, BaseC3ExpeditionContraband ]
+  parent: [WeaponLaserTurretL1Phalanx, BaseC3ExpeditionContraband]
   name: L-20 Apollo Heavy Laser Cannon
   description: One of the Pantheon Collective's top weapons, the Apollo is aptly named for its beams heating surfaces to beyond the temperature of nearby stars.
   components:
@@ -767,18 +747,16 @@
     fireCost: 500
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 6000
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 5500
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:PlaySoundBehavior
         sound:
           collection: MetalBreak
@@ -825,8 +803,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.75,-0.75,0.75,0.75"
         density: 1500
   - type: Gun
@@ -860,12 +837,11 @@
     fireCost: 300
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 2000
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:PlaySoundBehavior
         sound:
           collection: MetalBreak
@@ -884,7 +860,7 @@
 - type: entity
   id: WeaponTurretReaper
   name: Curio-1089 tachyon lance "Reaper"
-  parent: [ BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband ]
+  parent: [BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband]
   suffix: ADS ONLY
   description: One of the most powerful EMP weapons in sector, its a sign of doom for its targets.
   components:
@@ -925,8 +901,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.5,-0.5,0.5,0.5"
         density: 1500
         mask:
@@ -935,12 +910,11 @@
         - MachineLayer
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 14000
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:PlaySoundBehavior
         sound:
           collection: MetalBreak
@@ -959,7 +933,7 @@
 - type: entity
   id: WeaponTurretHarbringer
   name: Curio-129 ion cannon "Harbringer"
-  parent: [ BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband ]
+  parent: [BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband]
   suffix: ADS ONLY
   description: One of the most powerful EMP weapons in sector, its a sign of doom for its targets.
   components:
@@ -1000,12 +974,11 @@
     fireCost: 5000
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 14000
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:PlaySoundBehavior
         sound:
           collection: MetalBreak
@@ -1063,18 +1036,16 @@
     fireCost: 5000
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 10000
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 8000
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:PlaySoundBehavior
         sound:
           collection: MetalBreak
@@ -1090,7 +1061,7 @@
 - type: entity
   id: WeaponTurretSunder
   name: Curio-1007 proton cannon "Sunder"
-  parent: [ BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband ]
+  parent: [BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband]
   suffix: ADS ONLY
   description: A potent proton cannon from before the Fracture, known for melting holes through both inorganic and organic matter with ease.
   components:
@@ -1130,18 +1101,16 @@
     fireCost: 500
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 5000
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 4000
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:PlaySoundBehavior
         sound:
           collection: MetalBreak
@@ -1159,7 +1128,7 @@
 - type: entity
   id: WeaponTurretScythe
   name: Curio-1008 neutron repeater "Scythe"
-  parent: [ BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband ]
+  parent: [BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband]
   suffix: ADS ONLY
   description: A steadily firing neutron repeater, dealing solid damage to most targets. A pre-fracture marvel of weapons technology
   components:
@@ -1200,18 +1169,16 @@
     fireCost: 300
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 3000
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 2300
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:PlaySoundBehavior
         sound:
           collection: MetalBreak
@@ -1229,14 +1196,14 @@
 - type: entity
   id: WeaponLaserTurretFlayer
   name: Curio-183 auto-coil "Flayer"
-  parent: [ BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband ]
+  parent: [BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband]
   suffix: ADS ONLY
   description: A unique pre-fracture weapon, the Flayer fires a storm of tungsten alloy darts at near the speed of light, barraging targets to pieces.
   components:
   - type: StaticPrice
     price: 25000
   - type: Sprite
-    sprite:  _Mono/Objects/ShuttleWeapons/flayer.rsi
+    sprite: _Mono/Objects/ShuttleWeapons/flayer.rsi
     layers:
     - state: space_artillery
   - type: Appearance
@@ -1273,18 +1240,16 @@
     visibleFromOtherGrids: true
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 5000
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 4000
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:PlaySoundBehavior
         sound:
           collection: MetalBreak

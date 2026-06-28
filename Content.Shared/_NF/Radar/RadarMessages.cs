@@ -12,18 +12,24 @@ public enum RadarBlipShape
 {
     /// <summary>Circle shape.</summary>
     Circle,
+
     /// <summary>Square shape.</summary>
     Square,
+
     /// <summary>Triangle shape.</summary>
     Triangle,
+
     /// <summary>Star shape.</summary>
     Star,
+
     /// <summary>Diamond shape.</summary>
     Diamond,
+
     /// <summary>Hexagon shape.</summary>
     Hexagon,
+
     /// <summary>Arrow shape.</summary>
-    Arrow
+    Arrow,
 }
 
 /// <summary>
@@ -52,7 +58,9 @@ public sealed class GiveBlipsEvent : EntityEventArgs
     /// Constructor for the full blip format.
     /// </summary>
     /// <param name="blips">List of blips as (grid, position, scale, color, shape).</param>
-    public GiveBlipsEvent(List<(NetEntity? Grid, Vector2 Position, float Scale, Color Color, RadarBlipShape Shape)> blips)
+    public GiveBlipsEvent(
+        List<(NetEntity? Grid, Vector2 Position, float Scale, Color Color, RadarBlipShape Shape)> blips
+    )
     {
         Blips = blips;
     }

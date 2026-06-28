@@ -1,7 +1,7 @@
 #region frame
 - type: entity
   id: NFBaseWeaponFramePistol
-  parent: [ NFBaseWeaponEncumbrancePistol, NFBaseItemWeaponGunMagazineFed ]
+  parent: [NFBaseWeaponEncumbrancePistol, NFBaseItemWeaponGunMagazineFed]
   name: pistol
   abstract: true
   components:
@@ -37,7 +37,7 @@
 
 - type: entity
   id: NFBaseWeaponFramePistolCybersun
-  parent: [ BaseC3SyndicateContraband, NFBaseWeaponFramePistol ]
+  parent: [BaseC3SyndicateContraband, NFBaseWeaponFramePistol]
   abstract: true
   components:
   - type: Gun
@@ -80,8 +80,8 @@
         priority: 2
         whitelist: &whitelist35
           tags:
-            - NFMagazinePistol35
-            - NFMagazineHighCapacityPistol35
+          - NFMagazinePistol35
+          - NFMagazineHighCapacityPistol35
         whitelistFailPopup: gun-magazine-whitelist-fail
       gun_chamber: &chamber35Standard
         name: Chamber
@@ -89,7 +89,7 @@
         priority: 1
         whitelist:
           tags:
-            - NFCartridgePistol35
+          - NFCartridgePistol35
 
 - type: entity
   id: NFBaseWeaponPistolChamber35HighCapacity
@@ -129,7 +129,7 @@
         priority: 1
         whitelist:
           tags:
-            - NFCartridgePistol35
+          - NFCartridgePistol35
 
 - type: entity
   id: NFBaseWeaponPistolChamber35HighCapacityRubber
@@ -152,7 +152,7 @@
         priority: 1
         whitelist:
           tags:
-            - NFCartridgePistol35
+          - NFCartridgePistol35
 
 - type: entity
   id: NFBaseWeaponPistolChamber45
@@ -173,7 +173,7 @@
         priority: 2
         whitelist:
           tags:
-            - NFMagazinePistol45
+          - NFMagazinePistol45
         whitelistFailPopup: gun-magazine-whitelist-fail
       gun_chamber:
         name: Chamber
@@ -181,7 +181,7 @@
         priority: 1
         whitelist:
           tags:
-            - NFCartridgePistol45
+          - NFCartridgePistol45
 
 - type: entity
   id: NFBaseWeaponPistolChamber25
@@ -202,7 +202,7 @@
         priority: 2
         whitelist:
           tags:
-            - HLMagazinePistolCaselessRifle
+          - HLMagazinePistolCaselessRifle
         whitelistFailPopup: gun-magazine-whitelist-fail
       gun_chamber:
         name: Chamber
@@ -210,4 +210,4 @@
         priority: 1
         whitelist:
           tags:
-            - NFCartridgeRifle25
+          - NFCartridgeRifle25

@@ -4,6 +4,4 @@ namespace Content.Server.Cloning.Components;
 /// Shrimply a tracking component for pods that are cloning.
 /// </summary>
 [RegisterComponent]
-public sealed partial class ActiveCloningPodComponent : Component
-{
-}
+public sealed partial class ActiveCloningPodComponent : Component { }

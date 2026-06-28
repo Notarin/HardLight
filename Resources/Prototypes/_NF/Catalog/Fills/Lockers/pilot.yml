@@ -5,8 +5,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: ClothingBeltPilotFilled
-      - id: ClothingHeadsetAltPilot
-      - id: ClothingEyesGlassesPilot
-      - id: ClothingNeckScarfPilot
-      - id: ClothingMaskPilot
+    - id: ClothingBeltPilotFilled
+    - id: ClothingHeadsetAltPilot
+    - id: ClothingEyesGlassesPilot
+    - id: ClothingNeckScarfPilot
+    - id: ClothingMaskPilot

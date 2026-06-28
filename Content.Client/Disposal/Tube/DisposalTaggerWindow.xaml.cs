@@ -19,7 +19,6 @@ namespace Content.Client.Disposal.Tube
             TagInput.IsValid = tag => TagRegex.IsMatch(tag);
         }
 
-
         public void UpdateState(DisposalTaggerUserInterfaceState state)
         {
             TagInput.Text = state.Tag;

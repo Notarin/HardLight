@@ -8,7 +8,8 @@ namespace Content.Shared.Storage.EntitySystems
     [UsedImplicitly]
     public abstract class SharedItemCounterSystem : EntitySystem
     {
-        [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+        [Dependency]
+        private readonly SharedAppearanceSystem _appearance = default!;
 
         /// <inheritdoc />
         public override void Initialize()
@@ -35,8 +36,11 @@ namespace Content.Shared.Storage.EntitySystems
                 _appearance.SetData(uid, StackVisuals.MaxCount, itemCounter.MaxAmount, appearanceComponent);
         }
 
-        private void CounterEntityInserted(EntityUid uid, ItemCounterComponent itemCounter,
-            EntInsertedIntoContainerMessage args)
+        private void CounterEntityInserted(
+            EntityUid uid,
+            ItemCounterComponent itemCounter,
+            EntInsertedIntoContainerMessage args
+        )
         {
             if (!EntityManager.TryGetComponent(uid, out AppearanceComponent? appearanceComponent))
                 return;
@@ -51,8 +55,11 @@ namespace Content.Shared.Storage.EntitySystems
                 _appearance.SetData(uid, StackVisuals.MaxCount, itemCounter.MaxAmount, appearanceComponent);
         }
 
-        private void CounterEntityRemoved(EntityUid uid, ItemCounterComponent itemCounter,
-            EntRemovedFromContainerMessage args)
+        private void CounterEntityRemoved(
+            EntityUid uid,
+            ItemCounterComponent itemCounter,
+            EntRemovedFromContainerMessage args
+        )
         {
             if (!EntityManager.TryGetComponent(uid, out AppearanceComponent? appearanceComponent))
                 return;

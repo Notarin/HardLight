@@ -7,10 +7,10 @@
   - type: Sprite
     sprite: _NF/Objects/Specific/Chemistry/dropper.rsi
     layers:
-      - state: dropper
-      - state: dropper1
-        map: ["enum.SolutionContainerLayers.Fill"]
-        visible: false
+    - state: dropper
+    - state: dropper1
+      map: ["enum.SolutionContainerLayers.Fill"]
+      visible: false
   - type: Item
     sprite: _NF/Objects/Specific/Chemistry/dropper.rsi
   - type: Injector
@@ -25,9 +25,9 @@
         type: ChangeReagentWhitelistBoundUserInterface
   - type: ReagentWhitelistChange
     allowedReagentGroup:
-      - Foods
-      - Botanical
-      - Drinks
+    - Foods
+    - Botanical
+    - Drinks
   - type: StaticPrice
     price: 30
 
@@ -43,10 +43,10 @@
   - type: Sprite
     sprite: _NF/Objects/Specific/Chemistry/vial_bluespace.rsi
     layers:
-      - state: vialbluespace
-      - state: vialbluespace-1
-        map: ["enum.SolutionContainerLayers.Fill"]
-        visible: false
+    - state: vialbluespace
+    - state: vialbluespace-1
+      map: ["enum.SolutionContainerLayers.Fill"]
+      visible: false
   - type: SolutionContainerVisuals
     maxFillLevels: 6
     fillBaseName: vial-1-

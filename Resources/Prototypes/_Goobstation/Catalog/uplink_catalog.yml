@@ -4,13 +4,13 @@
   id: UplinkHardsuitCybersunStealth
   name: uplink-hardsuit-cybersun-stealth-name
   description: uplink-hardsuit-cybersun-stealth-desc
-  icon: { sprite: /Textures/_Goobstation/Clothing/OuterClothing/Hardsuits/cybersunstealth.rsi, state: icon }
+  icon: {sprite: /Textures/_Goobstation/Clothing/OuterClothing/Hardsuits/cybersunstealth.rsi, state: icon}
   productEntity: ClothingBackpackDuffelSyndicateStealthHardsuitBundle
   cost:
     Telecrystal: 15 # Harmony: Modified since goob has different TC ratio.
   categories:
   - UplinkWearables
-# Harmony start: Yeah, let's not give this to Syndies.
+  # Harmony start: Yeah, let's not give this to Syndies.
   conditions:
   - !type:StoreWhitelistCondition
     whitelist:
@@ -24,7 +24,7 @@
   id: UplinkDualettaBundle
   name: uplink-dualetta-bundle-name
   description: uplink-dualetta-bundle-desc
-  icon: { sprite: /Textures/_Goobstation/Objects/Weapons/Guns/Pistols/dualetta.rsi, state: icon }
+  icon: {sprite: /Textures/_Goobstation/Objects/Weapons/Guns/Pistols/dualetta.rsi, state: icon}
   productEntity: BriefcaseSyndieDualettaBundleFilled
   cost:
     Telecrystal: 10 # HardLight: 50<10
@@ -35,7 +35,7 @@
   id: UplinkDualettaKit
   name: uplink-dualetta-kit-name
   description: uplink-dualetta-kit-desc
-  icon: { sprite: /Textures/_Goobstation/Objects/Weapons/Guns/Pistols/dualetta.rsi, state: icon }
+  icon: {sprite: /Textures/_Goobstation/Objects/Weapons/Guns/Pistols/dualetta.rsi, state: icon}
   productEntity: BoxDualettaKit
   cost:
     Telecrystal: 6 # HardLight: 30<6
@@ -48,7 +48,7 @@
   id: UplinkHighCapacityMagazinePistol
   name: uplink-highcap-pistol-mag-name
   description: uplink-highcap-pistol-mag-desc
-  icon: { sprite: /Textures/Objects/Weapons/Guns/Ammunition/Magazine/Pistol/pistol_high_capacity_mag.rsi, state: red }
+  icon: {sprite: /Textures/Objects/Weapons/Guns/Ammunition/Magazine/Pistol/pistol_high_capacity_mag.rsi, state: red}
   productEntity: MagazinePistolHighCapacity
   cost:
     Telecrystal: 3
@@ -61,7 +61,7 @@
   id: UplinkDarkGygax
   name: uplink-mech-teleporter-assault-name
   description: uplink-mech-teleporter-assault-desc
-  icon: { sprite: /Textures/Objects/Specific/Mech/mecha.rsi, state: darkgygax }
+  icon: {sprite: /Textures/Objects/Specific/Mech/mecha.rsi, state: darkgygax}
   productEntity: CrateCybersunDarkGygaxBundle
   cost:
     Telecrystal: 40
@@ -72,7 +72,7 @@
   id: UplinkMauler
   name: uplink-mech-teleporter-heavy-name
   description: uplink-mech-teleporter-heavy-desc
-  icon: { sprite: /Textures/Objects/Specific/Mech/mecha.rsi, state: mauler }
+  icon: {sprite: /Textures/Objects/Specific/Mech/mecha.rsi, state: mauler}
   productEntity: CrateCybersunMaulerBundle
   cost:
     Telecrystal: 60

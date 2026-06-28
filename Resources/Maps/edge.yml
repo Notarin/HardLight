@@ -1,4 +1,4 @@
-﻿meta:
+meta:
   format: 6
   postmapinit: false
 tilemap:
@@ -79109,9 +79109,7 @@ entities:
         As generations pass, the forest lasts
             to be enjoyed by another that day.
 
-
         Edge Station was made possible with the help of Scientist, Redsky, ps3moira, and contributors in the #mapping channel in the Delta V discord.
-
 
         Thank you for playing on Edge!
             - Colin_Tel
@@ -110411,4 +110409,3 @@ entities:
     - type: Transform
       pos: 4.4012365,-10.410826
       parent: 2
-...

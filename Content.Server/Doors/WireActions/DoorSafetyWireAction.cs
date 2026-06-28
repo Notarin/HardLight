@@ -11,12 +11,11 @@ public sealed partial class DoorSafetyWireAction : ComponentWireAction<AirlockCo
     public override Color Color { get; set; } = Color.Red;
     public override string Name { get; set; } = "wire-name-door-safety";
 
-
     [DataField("timeout")]
     private int _timeout = 30;
 
-    public override StatusLightState? GetLightState(Wire wire, AirlockComponent comp)
-        => comp.Safety ? StatusLightState.On : StatusLightState.Off;
+    public override StatusLightState? GetLightState(Wire wire, AirlockComponent comp) =>
+        comp.Safety ? StatusLightState.On : StatusLightState.Off;
 
     public override object StatusKey { get; } = AirlockWireStatus.SafetyIndicator;
 
@@ -36,7 +35,12 @@ public sealed partial class DoorSafetyWireAction : ComponentWireAction<AirlockCo
     public override void Pulse(EntityUid user, Wire wire, AirlockComponent door)
     {
         EntityManager.System<SharedAirlockSystem>().SetSafety(door, false);
-        WiresSystem.StartWireAction(wire.Owner, _timeout, PulseTimeoutKey.Key, new TimedWireEvent(AwaitSafetyTimerFinish, wire));
+        WiresSystem.StartWireAction(
+            wire.Owner,
+            _timeout,
+            PulseTimeoutKey.Key,
+            new TimedWireEvent(AwaitSafetyTimerFinish, wire)
+        );
     }
 
     public override void Update(Wire wire)
@@ -60,6 +64,6 @@ public sealed partial class DoorSafetyWireAction : ComponentWireAction<AirlockCo
 
     private enum PulseTimeoutKey : byte
     {
-        Key
+        Key,
     }
 }

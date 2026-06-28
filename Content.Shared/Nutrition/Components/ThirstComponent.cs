@@ -34,7 +34,10 @@ public sealed partial class ThirstComponent : Component
     /// <summary>
     /// The time when the hunger will update next.
     /// </summary>
-    [DataField("nextUpdateTime", customTypeSerializer: typeof(TimeOffsetSerializer)), ViewVariables(VVAccess.ReadWrite)]
+    [
+        DataField("nextUpdateTime", customTypeSerializer: typeof(TimeOffsetSerializer)),
+        ViewVariables(VVAccess.ReadWrite)
+    ]
     [AutoNetworkedField]
     [AutoPausedField]
     public TimeSpan NextUpdateTime;
@@ -50,11 +53,11 @@ public sealed partial class ThirstComponent : Component
     [AutoNetworkedField]
     public Dictionary<ThirstThreshold, float> ThirstThresholds = new()
     {
-        {ThirstThreshold.OverHydrated, 600.0f},
-        {ThirstThreshold.Okay, 450.0f},
-        {ThirstThreshold.Thirsty, 300.0f},
-        {ThirstThreshold.Parched, 150.0f},
-        {ThirstThreshold.Dead, 0.0f},
+        { ThirstThreshold.OverHydrated, 600.0f },
+        { ThirstThreshold.Okay, 450.0f },
+        { ThirstThreshold.Thirsty, 300.0f },
+        { ThirstThreshold.Parched, 150.0f },
+        { ThirstThreshold.Dead, 0.0f },
     };
 
     [DataField]
@@ -62,9 +65,9 @@ public sealed partial class ThirstComponent : Component
 
     public static readonly Dictionary<ThirstThreshold, ProtoId<AlertPrototype>> ThirstThresholdAlertTypes = new()
     {
-        {ThirstThreshold.Thirsty, "Thirsty"},
-        {ThirstThreshold.Parched, "Parched"},
-        {ThirstThreshold.Dead, "Parched"},
+        { ThirstThreshold.Thirsty, "Thirsty" },
+        { ThirstThreshold.Parched, "Parched" },
+        { ThirstThreshold.Dead, "Parched" },
     };
 }
 

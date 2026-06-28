@@ -1,17 +1,16 @@
 using Content.Server.StationEvents.Components;
 using Content.Shared.Access;
-using Content.Shared.Access.Systems;
 using Content.Shared.Access.Components;
+using Content.Shared.Access.Systems;
 using Content.Shared.Doors.Components;
 using Content.Shared.Doors.Systems;
-using Content.Shared.Lock;
 using Content.Shared.GameTicking.Components;
+using Content.Shared.Lock;
 using Content.Shared.Station.Components;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 
 namespace Content.Server.StationEvents.Events;
-
 
 /// <summary>
 ///     Greytide Virus event
@@ -19,13 +18,27 @@ namespace Content.Server.StationEvents.Events;
 /// </summary>
 public sealed class GreytideVirusRule : StationEventSystem<GreytideVirusRuleComponent>
 {
-    [Dependency] private readonly AccessReaderSystem _access = default!;
-    [Dependency] private readonly SharedDoorSystem _door = default!;
-    [Dependency] private readonly LockSystem _lock = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency]
+    private readonly AccessReaderSystem _access = default!;
 
-    protected override void Added(EntityUid uid, GreytideVirusRuleComponent virusComp, GameRuleComponent gameRule, GameRuleAddedEvent args)
+    [Dependency]
+    private readonly SharedDoorSystem _door = default!;
+
+    [Dependency]
+    private readonly LockSystem _lock = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototype = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    protected override void Added(
+        EntityUid uid,
+        GreytideVirusRuleComponent virusComp,
+        GameRuleComponent gameRule,
+        GameRuleAddedEvent args
+    )
     {
         if (!TryComp<StationEventComponent>(uid, out var stationEvent))
             return;
@@ -34,10 +47,19 @@ public sealed class GreytideVirusRule : StationEventSystem<GreytideVirusRuleComp
         virusComp.Severity ??= virusComp.SeverityRange.Next(_random);
         virusComp.Severity = Math.Min(virusComp.Severity.Value, virusComp.AccessGroups.Count);
 
-        stationEvent.StartAnnouncement = Loc.GetString("station-event-greytide-virus-start-announcement", ("severity", virusComp.Severity.Value));
+        stationEvent.StartAnnouncement = Loc.GetString(
+            "station-event-greytide-virus-start-announcement",
+            ("severity", virusComp.Severity.Value)
+        );
         base.Added(uid, virusComp, gameRule, args);
     }
-    protected override void Started(EntityUid uid, GreytideVirusRuleComponent virusComp, GameRuleComponent gameRule, GameRuleStartedEvent args)
+
+    protected override void Started(
+        EntityUid uid,
+        GreytideVirusRuleComponent virusComp,
+        GameRuleComponent gameRule,
+        GameRuleStartedEvent args
+    )
     {
         base.Started(uid, virusComp, gameRule, args);
 
@@ -75,7 +97,10 @@ public sealed class GreytideVirusRule : StationEventSystem<GreytideVirusRuleComp
             // the AreAccessTagsAllowed function is a little weird because it technically has support for certain tags to be locked out of opening something
             // which might have unintened side effects (see the comments in the function itself)
             // but no one uses that yet, so it is fine for now
-            if (!_access.AreAccessTagsAllowed(accessIds, accessComp) || _access.AreAccessTagsAllowed(virusComp.Blacklist, accessComp))
+            if (
+                !_access.AreAccessTagsAllowed(accessIds, accessComp)
+                || _access.AreAccessTagsAllowed(virusComp.Blacklist, accessComp)
+            )
                 continue;
 
             // open lockers
@@ -98,7 +123,10 @@ public sealed class GreytideVirusRule : StationEventSystem<GreytideVirusRuleComp
                 continue;
 
             // check access
-            if (!_access.AreAccessTagsAllowed(accessIds, accessEnt.Value.Comp) || _access.AreAccessTagsAllowed(virusComp.Blacklist, accessEnt.Value.Comp))
+            if (
+                !_access.AreAccessTagsAllowed(accessIds, accessEnt.Value.Comp)
+                || _access.AreAccessTagsAllowed(virusComp.Blacklist, accessEnt.Value.Comp)
+            )
                 continue;
 
             // open and bolt airlocks

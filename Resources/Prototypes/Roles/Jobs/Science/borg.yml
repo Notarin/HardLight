@@ -8,7 +8,7 @@
   requirements:
   - !type:RoleTimeRequirement
     role: JobBorg
-    time: 18000  # 5 hrs
+    time: 18000 # 5 hrs
   # canBeAntag: false
   weight: 10 # HardLight
   icon: JobIconStationAi
@@ -25,8 +25,8 @@
   playTimeTracker: JobBorg
   setPreference: true
   requirements:
-    - !type:OverallPlaytimeRequirement
-      time: 43200 # 12 hrs # Frontier: 10<12 hrs
+  - !type:OverallPlaytimeRequirement
+    time: 43200 # 12 hrs # Frontier: 10<12 hrs
   # canBeAntag: false
   # accessGroups:
   # - AllAccess

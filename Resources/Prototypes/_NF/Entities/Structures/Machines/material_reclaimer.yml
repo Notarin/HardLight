@@ -1,5 +1,5 @@
 - type: entity
-  parent: [ BaseMachinePowered, ConstructibleMachine ]
+  parent: [BaseMachinePowered, ConstructibleMachine]
   id: MaterialReclaimer
   name: material reclaimer
   description: Cannot reclaim immaterial things, like motivation.
@@ -29,11 +29,11 @@
     visuals:
       enum.PowerDeviceVisuals.Powered:
         enum.DamageStateVisualLayers.Base:
-          True: { state: gear-active}
-          False: { state: gear-idle }
+          True: {state: gear-active}
+          False: {state: gear-idle}
         enum.PowerDeviceVisualLayers.Powered:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
   - type: LitOnPowered
   - type: PointLight
     radius: 1.5
@@ -47,8 +47,7 @@
   - type: PowerSwitch
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:PlaySoundBehavior

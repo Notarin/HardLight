@@ -5,8 +5,8 @@
   playTimeTracker: JobClown
   setPreference: true
   requirements:
-    - !type:OverallPlaytimeRequirement
-      time: 10800
+  - !type:OverallPlaytimeRequirement
+    time: 10800
   weight: -40 # HardLight
   startingGear: ClownGear
   icon: "JobIconClown"
@@ -33,7 +33,7 @@
       snore: /Audio/Voice/Misc/silly_snore.ogg
       interval: 10
   - !type:AddImplantSpecial
-    implants: [ SadTromboneImplant ]
+    implants: [SadTromboneImplant]
 
 - type: startingGear
   id: ClownGear

@@ -37,7 +37,7 @@
     solution: food
   - type: Tag
     tags:
-      - Ingredient
+    - Ingredient
 
 - type: entity
   abstract: true
@@ -50,8 +50,7 @@
   # packet can be broken open
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 2
       behaviors:
       - !type:PlaySoundBehavior
@@ -60,7 +59,7 @@
       - !type:SpillBehavior
         solution: food
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   # packet contents can be splashed when open
   - type: MeleeWeapon
     soundNoDamage:
@@ -242,7 +241,7 @@
           Quantity: 50
   - type: Tag
     tags:
-      - Mayo
+    - Mayo
 
 # - type: entity
 #   parent: ReagentPacketBase
@@ -278,7 +277,7 @@
           Quantity: 15
   - type: Tag
     tags:
-      - Ingredient
+    - Ingredient
 
 - type: entity
   name: dough
@@ -288,7 +287,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - dough
+    - dough
   - type: Sprite
     state: dough
   - type: SliceableFood
@@ -306,7 +305,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - dough
+    - dough
   - type: Sprite
     state: dough-slice
   - type: Tag
@@ -331,7 +330,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - dough
+    - dough
   - type: Sprite
     state: dough-rope
   - type: Construction
@@ -353,8 +352,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - chalky
-      - dough
+    - chalky
+    - dough
   - type: Sprite
     state: cornmealdough
   - type: SliceableFood
@@ -369,8 +368,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - chalky
-      - dough
+    - chalky
+    - dough
   - type: Sprite
     state: cornmealdough-slice
   - type: Tag
@@ -385,8 +384,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - chalky
-      - dough
+    - chalky
+    - dough
   - type: Sprite
     state: tortilladough
   - type: SliceableFood
@@ -401,8 +400,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - chalky
-      - dough
+    - chalky
+    - dough
   - type: Sprite
     state: tortilladough-slice
   - type: Construction
@@ -420,8 +419,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - chalky
-      - dough
+    - chalky
+    - dough
   - type: Sprite
     state: tortilladough-flat
   - type: Construction
@@ -603,7 +602,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - sweetdough
+    - sweetdough
   - type: Sprite
     state: cakebatter
 
@@ -625,15 +624,13 @@
   - type: Fixtures
     fixtures:
       slips:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.3,-0.2,0.3,0.2"
         layer:
         - SlipLayer
         hard: false
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.3,-0.2,0.3,0.2"
         density: 10
         mask:
@@ -652,8 +649,8 @@
     grindableSolutionName: food # Frontier
   - type: Tag # Frontier
     tags: # Frontier
-      - Ingredient # Frontier
-      - NFButterStick # Frontier
+    - Ingredient # Frontier
+    - NFButterStick # Frontier
 
 - type: entity
   name: butter slice
@@ -707,7 +704,7 @@
     size: Normal
   - type: FlavorProfile
     flavors:
-      - cheesy
+    - cheesy
   - type: Sprite
     state: cheesewheel
   - type: SliceableFood
@@ -722,7 +719,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - cheesy
+    - cheesy
   - type: Sprite
     state: cheesewedge
   - type: SolutionContainerManager
@@ -743,7 +740,7 @@
   - type: SliceableFood
     count: 3
     slice: FoodSliceOfCheese
-  # Floofstation cheese slice addition end
+    # Floofstation cheese slice addition end
 
 - type: entity
   name: chèvre log
@@ -753,8 +750,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - nutty
-      - creamy
+    - nutty
+    - creamy
   - type: Sprite
     state: chevrelog
   - type: SliceableFood
@@ -778,8 +775,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - nutty
-      - creamy
+    - nutty
+    - creamy
   - type: Sprite
     state: chevredisk
   - type: SolutionContainerManager
@@ -803,7 +800,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - tofu
+    - tofu
   - type: Sprite
     state: tofu
   - type: SolutionContainerManager
@@ -827,7 +824,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - tofu
+    - tofu
   - type: Sprite
     state: tofu-slice
   - type: SolutionContainerManager
@@ -851,7 +848,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - terrible
+    - terrible
   - type: Sprite
     state: badrecipe
   - type: SolutionContainerManager
@@ -875,7 +872,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - chocolate
+    - chocolate
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/cocoa.rsi
     state: produce-beans
@@ -897,7 +894,7 @@
         Quantity: 2
   - type: Tag
     tags:
-      - Ingredient
+    - Ingredient
 
 - type: entity
   name: raw croissant
@@ -907,7 +904,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - dough
+    - dough
   - type: Sprite
     state: croissant-raw
   - type: SolutionContainerManager

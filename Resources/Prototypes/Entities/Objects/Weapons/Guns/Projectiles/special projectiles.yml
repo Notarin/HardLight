@@ -2,7 +2,7 @@
 - type: entity
   id: KnifeProjectileBase
   abstract: true
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Reflective
   - type: FlyBySound
@@ -20,8 +20,7 @@
   - type: Fixtures
     fixtures:
       projectile:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.1,-0.1,0.1,0.1"
         hard: false
         mask:
@@ -49,7 +48,7 @@
   id: KnifeProjectile
   name: fading knife
   parent: KnifeProjectileBase
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: Objects/Weapons/Melee/combat_knife.rsi

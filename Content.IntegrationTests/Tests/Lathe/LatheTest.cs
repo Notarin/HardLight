@@ -31,13 +31,15 @@ public sealed class LatheTest
         await server.WaitAssertion(() =>
         {
             // Find all the lathes
-            var latheProtos = protoMan.EnumeratePrototypes<EntityPrototype>()
+            var latheProtos = protoMan
+                .EnumeratePrototypes<EntityPrototype>()
                 .Where(p => !p.Abstract)
                 .Where(p => !pair.IsTestPrototype(p))
                 .Where(p => p.HasComponent<LatheComponent>());
 
             // Find every EntityPrototype that can be inserted into a MaterialStorage
-            var materialEntityProtos = protoMan.EnumeratePrototypes<EntityPrototype>()
+            var materialEntityProtos = protoMan
+                .EnumeratePrototypes<EntityPrototype>()
                 .Where(p => !p.Abstract)
                 .Where(p => !pair.IsTestPrototype(p))
                 .Where(p => p.HasComponent<PhysicalCompositionComponent>());
@@ -64,7 +66,12 @@ public sealed class LatheTest
                     var acceptedMaterials = new HashSet<ProtoId<MaterialPrototype>>();
                     foreach (var materialEntity in materialEntities)
                     {
-                        Assert.That(entMan.TryGetComponent<PhysicalCompositionComponent>(materialEntity, out var compositionComponent));
+                        Assert.That(
+                            entMan.TryGetComponent<PhysicalCompositionComponent>(
+                                materialEntity,
+                                out var compositionComponent
+                            )
+                        );
                         if (whitelistSystem.IsWhitelistFail(storageComp.Whitelist, materialEntity))
                             continue;
 
@@ -97,12 +104,20 @@ public sealed class LatheTest
                         {
                             Assert.That(protoMan.TryIndex(materialId, out var materialProto));
                             // Make sure the material is accepted by the lathe
-                            Assert.That(acceptedMaterials, Does.Contain(materialId), $"Lathe {latheProto.ID} has recipe {recipeId} but does not accept any materials containing {materialId}");
+                            Assert.That(
+                                acceptedMaterials,
+                                Does.Contain(materialId),
+                                $"Lathe {latheProto.ID} has recipe {recipeId} but does not accept any materials containing {materialId}"
+                            );
                             totalQuantity += quantity;
                         }
                         // Make sure the recipe doesn't call for more material than the lathe can hold
                         if (storageComp.StorageLimit != null)
-                            Assert.That(totalQuantity, Is.LessThanOrEqualTo(storageComp.StorageLimit), $"Lathe {latheProto.ID} has recipe {recipeId} which calls for {totalQuantity} units of materials but can only hold {storageComp.StorageLimit}");
+                            Assert.That(
+                                totalQuantity,
+                                Is.LessThanOrEqualTo(storageComp.StorageLimit),
+                                $"Lathe {latheProto.ID} has recipe {recipeId} which calls for {totalQuantity} units of materials but can only hold {storageComp.StorageLimit}"
+                            );
                     }
                 }
             });
@@ -124,7 +139,11 @@ public sealed class LatheTest
             foreach (var recipe in proto.EnumeratePrototypes<LatheRecipePrototype>())
             {
                 if (recipe.Result == null)
-                    Assert.That(recipe.ResultReagents, Is.Not.Null, $"Recipe '{recipe.ID}' has no result or result reagents.");
+                    Assert.That(
+                        recipe.ResultReagents,
+                        Is.Not.Null,
+                        $"Recipe '{recipe.ID}' has no result or result reagents."
+                    );
             }
         });
 

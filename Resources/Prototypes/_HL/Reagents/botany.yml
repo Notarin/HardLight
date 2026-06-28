@@ -7,10 +7,10 @@
   flavor: old-socks
   color: "#b3ffb3"
   plantMetabolism:
-    - !type:PlantPhalanximine
-      conditions:
-      - !type:ReagentThreshold
-        min: 4
+  - !type:PlantPhalanximine
+    conditions:
+    - !type:ReagentThreshold
+      min: 4
   metabolisms:
     Medicine:
       metabolismRate: 0.25
@@ -39,8 +39,8 @@
     Poison:
       metabolismRate: 0.5
       effects:
-      - !type:HealthChange # Not the nastiest thing out there, but deals Cellular damage.
-        damage:
+      - !type:HealthChange
+        damage: # Not the nastiest thing out there, but deals Cellular damage.
           types:
             Cellular: 1
       - !type:Emote
@@ -53,7 +53,7 @@
         sprintSpeedModifier: 0.5
       - !type:Jitter
       - !type:ChemRerollPsionic
-        bonusMultiplier: 10  # Better than Widow.  In nearly-lethal doses.
+        bonusMultiplier: 10 # Better than Widow.  In nearly-lethal doses.
         conditions:
         - !type:ReagentThreshold
           reagent: Havokanthine
@@ -64,9 +64,9 @@
       - !type:PopupMessage
         type: Local
         visualType: Large
-        messages: [ "barozine-effect-skin-burning", "barozine-effect-muscle-contract" ]
+        messages: ["barozine-effect-skin-burning", "barozine-effect-muscle-contract"]
         probability: 0.1
-      - !type:RandomMutation # Funkystation - genetics
+      - !type:RandomMutation
         probability: .05 # Higher chance because it doesn't cause rad damage.
-        minMutations: 1
+        minMutations: 1 # Funkystation - genetics
         maxMutations: 1

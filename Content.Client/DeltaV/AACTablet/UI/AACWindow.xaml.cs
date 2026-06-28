@@ -34,19 +34,19 @@ public sealed partial class AACWindow : FancyWindow
             .OrderBy(g => g.Key)
             .ToDictionary(
                 g => g.Key,
-                g => g.GroupBy(p => p.Group)
-                    .OrderBy(gg => gg.Key)
-                    .ToDictionary(
-                        gg => gg.Key,
-                        gg => gg.OrderBy(p => loc.GetString(p.Text)).ToList()
-                    )
+                g =>
+                    g.GroupBy(p => p.Group)
+                        .OrderBy(gg => gg.Key)
+                        .ToDictionary(gg => gg.Key, gg => gg.OrderBy(p => loc.GetString(p.Text)).ToList())
             );
 
         var tabContainer = CreateTabContainer(sortedTabs);
         WindowBody.AddChild(tabContainer);
     }
 
-    private TabContainer CreateTabContainer(Dictionary<string, Dictionary<string, List<QuickPhrasePrototype>>> sortedTabs)
+    private TabContainer CreateTabContainer(
+        Dictionary<string, Dictionary<string, List<QuickPhrasePrototype>>> sortedTabs
+    )
     {
         var tabContainer = new TabContainer();
         var loc = IoCManager.Resolve<ILocalizationManager>();
@@ -67,7 +67,7 @@ public sealed partial class AACWindow : FancyWindow
         var boxContainer = new BoxContainer()
         {
             HorizontalExpand = true,
-            Orientation = BoxContainer.LayoutOrientation.Vertical
+            Orientation = BoxContainer.LayoutOrientation.Vertical,
         };
 
         foreach (var group in groups)
@@ -95,11 +95,7 @@ public sealed partial class AACWindow : FancyWindow
 
     private static GridContainer CreateButtonContainer()
     {
-        var buttonContainer = new GridContainer
-        {
-            Margin = new Thickness(10),
-            Columns = 4
-        };
+        var buttonContainer = new GridContainer { Margin = new Thickness(10), Columns = 4 };
 
         return buttonContainer;
     }
@@ -113,14 +109,10 @@ public sealed partial class AACWindow : FancyWindow
             MaxSize = new Vector2(buttonWidth, buttonWidth),
             ClipText = false,
             HorizontalExpand = true,
-            StyleClasses = { styleClass }
+            StyleClasses = { styleClass },
         };
 
-        var buttonLabel = new RichTextLabel
-        {
-            Margin = new Thickness(0, 5),
-            StyleClasses = { "WhiteText" }
-        };
+        var buttonLabel = new RichTextLabel { Margin = new Thickness(0, 5), StyleClasses = { "WhiteText" } };
 
         buttonLabel.SetMessage(text);
         phraseButton.AddChild(buttonLabel);

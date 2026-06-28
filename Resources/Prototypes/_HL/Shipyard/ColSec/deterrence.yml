@@ -23,7 +23,6 @@
   engine:
   - AME
 
-
 - type: gameMap
   id: Deterrence
   mapName: 'AI Deterrence'
@@ -33,12 +32,10 @@
     Deterrence:
       stationProto: StandardFrontierSecurityVessel
       components:
-        - type: StationNameSetup
-          mapNameTemplate: 'Deterrence {1}'
-          nameGenerator:
-            !type:NanotrasenNameGenerator
-            prefixCreator: '14'
-        - type: StationJobs
-          availableJobs: {}
+      - type: StationNameSetup
+        mapNameTemplate: 'Deterrence {1}'
+        nameGenerator: !type:NanotrasenNameGenerator
+          prefixCreator: '14'
+      - type: StationJobs
+        availableJobs: {}
 
-          

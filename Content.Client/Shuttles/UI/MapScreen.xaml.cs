@@ -27,10 +27,17 @@ namespace Content.Client.Shuttles.UI;
 [GenerateTypedNameReferences]
 public sealed partial class MapScreen : BoxContainer
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IMapManager _mapManager = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
     private readonly SharedAudioSystem _audio;
     private readonly SharedMapSystem _maps;
     private readonly ShuttleSystem _shuttles;
@@ -124,14 +131,14 @@ public sealed partial class MapScreen : BoxContainer
         MapFTLState.Text = Loc.GetString($"shuttle-console-ftl-state-{_state.ToString()}");
 
         //frontier - we only allow pre-approved vessels to FTL
-    //    if (!_entManager.HasComponent<ShuttleFTLComponent>(_shuttleEntity))
-    //    {
-    //        MapFTLButton.Visible = false;
-    //    }
-    //    else
-    //    {
-    //        MapFTLButton.Visible = true;
-    //    }
+        //    if (!_entManager.HasComponent<ShuttleFTLComponent>(_shuttleEntity))
+        //    {
+        //        MapFTLButton.Visible = false;
+        //    }
+        //    else
+        //    {
+        //        MapFTLButton.Visible = true;
+        //    }
 
         switch (_state)
         {
@@ -237,7 +244,12 @@ public sealed partial class MapScreen : BoxContainer
     {
         if (_console != null)
         {
-            _audio.PlayEntity(new SoundPathSpecifier("/Audio/Effects/Shuttle/radar_ping.ogg"), Filter.Local(), _console.Value, true);
+            _audio.PlayEntity(
+                new SoundPathSpecifier("/Audio/Effects/Shuttle/radar_ping.ogg"),
+                Filter.Local(),
+                _console.Value,
+                true
+            );
         }
 
         RebuildMapObjects();
@@ -309,21 +321,14 @@ public sealed partial class MapScreen : BoxContainer
             heading.Label.HorizontalExpand = true;
             heading.HorizontalExpand = true;
 
-            var gridContents = new BoxContainer()
-            {
-                Orientation = LayoutOrientation.Vertical,
-                VerticalExpand = true,
-            };
+            var gridContents = new BoxContainer() { Orientation = LayoutOrientation.Vertical, VerticalExpand = true };
 
             var body = new CollapsibleBody()
             {
                 HorizontalAlignment = HAlignment.Stretch,
                 VerticalAlignment = VAlignment.Top,
                 HorizontalExpand = true,
-                Children =
-                {
-                    gridContents
-                }
+                Children = { gridContents },
             };
 
             var mapButton = new Collapsible(heading, body);
@@ -364,11 +369,13 @@ public sealed partial class MapScreen : BoxContainer
                 {
                     AddMapObject(mapComp.MapId, gridObj);
                 }
-
                 // If we can show it then add it to pending.
-                else if (!_shuttles.IsBeaconMap(mapUid) && (iffComp == null ||
-                         (iffComp.Flags & IFFFlags.Hide | iffComp.Flags & IFFFlags.HideLabel) == 0x0) && // Frontier: add HideLabel check
-                         !gridObj.HideButton)
+                else if (
+                    !_shuttles.IsBeaconMap(mapUid)
+                    && (iffComp == null || (iffComp.Flags & IFFFlags.Hide | iffComp.Flags & IFFFlags.HideLabel) == 0x0)
+                    && // Frontier: add HideLabel check
+                    !gridObj.HideButton
+                )
                 {
                     _pendingMapObjects.Add((mapComp.MapId, gridObj));
                 }
@@ -411,19 +418,21 @@ public sealed partial class MapScreen : BoxContainer
         // Also prioritise those on our map first.
         var shuttlePos = _xformSystem.GetWorldPosition(_shuttleEntity.Value);
 
-        _pendingMapObjects.Sort((x, y) =>
-        {
-            if (x.mapId == ourMap && y.mapId != ourMap)
-                return 1;
+        _pendingMapObjects.Sort(
+            (x, y) =>
+            {
+                if (x.mapId == ourMap && y.mapId != ourMap)
+                    return 1;
 
-            if (y.mapId == ourMap && x.mapId != ourMap)
-                return -1;
+                if (y.mapId == ourMap && x.mapId != ourMap)
+                    return -1;
 
-            var yMapPos = _shuttles.GetMapCoordinates(y.mapobj);
-            var xMapPos = _shuttles.GetMapCoordinates(x.mapobj);
+                var yMapPos = _shuttles.GetMapCoordinates(y.mapobj);
+                var xMapPos = _shuttles.GetMapCoordinates(x.mapobj);
 
-            return (yMapPos.Position - shuttlePos).Length().CompareTo((xMapPos.Position - shuttlePos).Length());
-        });
+                return (yMapPos.Position - shuttlePos).Length().CompareTo((xMapPos.Position - shuttlePos).Length());
+            }
+        );
     }
 
     /// <summary>
@@ -496,22 +505,15 @@ public sealed partial class MapScreen : BoxContainer
 
         var gridContents = _mapHeadings[mapId];
 
-        var gridButton = new Button()
-        {
-            Text = mapObj.Name,
-            HorizontalExpand = true,
-        };
+        var gridButton = new Button() { Text = mapObj.Name, HorizontalExpand = true };
 
         var gridContainer = new BoxContainer()
         {
             Children =
             {
-                new Control()
-                {
-                    MinWidth = 32f,
-                },
-                gridButton
-            }
+                new Control() { MinWidth = 32f },
+                gridButton,
+            },
         };
 
         _mapObjectControls.Add(gridContainer, mapObj.Name);
@@ -538,13 +540,15 @@ public sealed partial class MapScreen : BoxContainer
                 child.Orphan();
             }
 
-            _sortChildren.Sort((x, y) =>
-            {
-                var xText = _mapObjectControls[x];
-                var yText = _mapObjectControls[y];
+            _sortChildren.Sort(
+                (x, y) =>
+                {
+                    var xText = _mapObjectControls[x];
+                    var yText = _mapObjectControls[y];
 
-                return string.Compare(xText, yText, StringComparison.CurrentCultureIgnoreCase);
-            });
+                    return string.Compare(xText, yText, StringComparison.CurrentCultureIgnoreCase);
+                }
+            );
 
             foreach (var control in _sortChildren)
             {

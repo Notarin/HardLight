@@ -7,12 +7,19 @@ namespace Content.Client.Delivery;
 
 public sealed class DeliveryVisualizerSystem : VisualizerSystem<DeliveryComponent>
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototype = default!;
 
     private static readonly ProtoId<JobIconPrototype> UnknownIcon = "JobIconUnknown";
 
-    protected override void OnAppearanceChange(EntityUid uid, DeliveryComponent component, ref AppearanceChangeEvent args)
+    protected override void OnAppearanceChange(
+        EntityUid uid,
+        DeliveryComponent component,
+        ref AppearanceChangeEvent args
+    )
     {
         if (args.Sprite == null)
             return;
@@ -25,7 +32,11 @@ public sealed class DeliveryVisualizerSystem : VisualizerSystem<DeliveryComponen
         if (!_prototype.TryIndex<JobIconPrototype>(job, out var icon))
         {
             var fallback = _prototype.Index<JobIconPrototype>(UnknownIcon).Icon;
-            SpriteSystem.LayerSetTexture((uid, args.Sprite), DeliveryVisualLayers.JobStamp, SpriteSystem.Frame0(fallback));
+            SpriteSystem.LayerSetTexture(
+                (uid, args.Sprite),
+                DeliveryVisualLayers.JobStamp,
+                SpriteSystem.Frame0(fallback)
+            );
             return;
         }
 
@@ -48,4 +59,3 @@ public enum DeliverySpawnerVisualLayers : byte
 {
     Contents,
 }
-

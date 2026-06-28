@@ -7,7 +7,8 @@ namespace Content.Server._Mono.GridClaimer;
 // VRS: Ported from Triad_Sector — allows players to claim derelict/POI grids, preventing despawn.
 public sealed class GridClaimerSystem : EntitySystem
 {
-    [Dependency] private readonly PopupSystem _popup = default!;
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
 
     public override void Initialize()
     {
@@ -35,7 +36,7 @@ public sealed class GridClaimerSystem : EntitySystem
             {
                 Act = () => UnclaimGrid(ent, true),
                 Text = Loc.GetString("grid-claimer-verb-unclaim"),
-                Priority = 1
+                Priority = 1,
             };
             args.Verbs.Add(verb);
         }
@@ -45,7 +46,7 @@ public sealed class GridClaimerSystem : EntitySystem
             {
                 Act = () => ClaimGrid(xform.GridUid.Value, ent, true),
                 Text = Loc.GetString("grid-claimer-verb-claim"),
-                Priority = 1
+                Priority = 1,
             };
             args.Verbs.Add(verb);
         }
@@ -75,7 +76,10 @@ public sealed class GridClaimerSystem : EntitySystem
         var claimable = EnsureComp<ClaimableGridComponent>(gridUid);
 
         if (popup)
-            _popup.PopupEntity(Loc.GetString(claimable.Claimed ? "grid-claimer-claim-already" : "grid-claimer-claim"), with);
+            _popup.PopupEntity(
+                Loc.GetString(claimable.Claimed ? "grid-claimer-claim-already" : "grid-claimer-claim"),
+                with
+            );
 
         claimable.ClaimedBy.Add(with);
         if (!claimable.Claimed)
@@ -96,7 +100,10 @@ public sealed class GridClaimerSystem : EntitySystem
                 EnsureComp<OwnedDebrisComponent>(gridUid);
 
             if (popup)
-                _popup.PopupEntity(Loc.GetString(claimable.Claimed ? "grid-claimer-unclaim-fail" : "grid-claimer-unclaim"), from);
+                _popup.PopupEntity(
+                    Loc.GetString(claimable.Claimed ? "grid-claimer-unclaim-fail" : "grid-claimer-unclaim"),
+                    from
+                );
         }
     }
 

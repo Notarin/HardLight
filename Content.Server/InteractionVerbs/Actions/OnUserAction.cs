@@ -14,11 +14,7 @@ public sealed partial class OnUserAction : InteractionAction
 
     private InteractionArgs Swap(InteractionArgs args)
     {
-        return new InteractionArgs(args)
-        {
-            Target = args.User,
-            User = args.Target
-        };
+        return new InteractionArgs(args) { Target = args.User, User = args.Target };
     }
 
     public override bool IsAllowed(InteractionArgs args, InteractionVerbPrototype proto, VerbDependencies deps)
@@ -26,7 +22,12 @@ public sealed partial class OnUserAction : InteractionAction
         return Action.IsAllowed(Swap(args), proto, deps);
     }
 
-    public override bool CanPerform(InteractionArgs args, InteractionVerbPrototype proto, bool beforeDelay, VerbDependencies deps)
+    public override bool CanPerform(
+        InteractionArgs args,
+        InteractionVerbPrototype proto,
+        bool beforeDelay,
+        VerbDependencies deps
+    )
     {
         return Action.CanPerform(Swap(args), proto, beforeDelay, deps);
     }

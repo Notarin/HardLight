@@ -1,4 +1,6 @@
 using System.Numerics;
+using Content.Shared.Administration.Logs;
+using Content.Shared.Database;
 using Content.Shared.DoAfter;
 using Content.Shared.Examine;
 using Content.Shared.Foldable;
@@ -7,8 +9,6 @@ using Content.Shared.Popups;
 using Content.Shared.Stacks;
 using Content.Shared.Verbs;
 using Content.Shared.Whitelist;
-using Content.Shared.Administration.Logs;
-using Content.Shared.Database;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
@@ -24,17 +24,38 @@ namespace Content.Shared.Salvage.Fulton;
 /// </summary>
 public abstract partial class SharedFultonSystem : EntitySystem
 {
-    [Dependency] protected readonly IGameTiming Timing = default!;
-    [Dependency] private   readonly MetaDataSystem _metadata = default!;
-    [Dependency] protected readonly SharedAudioSystem Audio = default!;
-    [Dependency] private   readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private   readonly FoldableSystem _foldable = default!;
-    [Dependency] protected readonly SharedContainerSystem Container = default!;
-    [Dependency] private   readonly SharedPopupSystem _popup = default!;
-    [Dependency] private   readonly SharedStackSystem _stack = default!;
-    [Dependency] protected readonly SharedTransformSystem TransformSystem = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
-    [Dependency] protected readonly ISharedAdminLogManager _adminLogger = default!;
+    [Dependency]
+    protected readonly IGameTiming Timing = default!;
+
+    [Dependency]
+    private readonly MetaDataSystem _metadata = default!;
+
+    [Dependency]
+    protected readonly SharedAudioSystem Audio = default!;
+
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfter = default!;
+
+    [Dependency]
+    private readonly FoldableSystem _foldable = default!;
+
+    [Dependency]
+    protected readonly SharedContainerSystem Container = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SharedStackSystem _stack = default!;
+
+    [Dependency]
+    protected readonly SharedTransformSystem TransformSystem = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelistSystem = default!;
+
+    [Dependency]
+    protected readonly ISharedAdminLogManager _adminLogger = default!;
     public static readonly EntProtoId EffectProto = "FultonEffect";
     protected static readonly Vector2 EffectOffset = Vector2.Zero;
 
@@ -78,7 +99,11 @@ public abstract partial class SharedFultonSystem : EntitySystem
         }
     }
 
-    private void OnFultonContainerInserted(EntityUid uid, FultonedComponent component, EntGotInsertedIntoContainerMessage args)
+    private void OnFultonContainerInserted(
+        EntityUid uid,
+        FultonedComponent component,
+        EntGotInsertedIntoContainerMessage args
+    )
     {
         RemCompDeferred<FultonedComponent>(uid);
     }
@@ -96,15 +121,21 @@ public abstract partial class SharedFultonSystem : EntitySystem
         if (!args.CanAccess || !args.CanInteract)
             return;
 
-        args.Verbs.Add(new InteractionVerb()
-        {
-            Text = Loc.GetString("fulton-remove"),
-            Act = () =>
+        args.Verbs.Add(
+            new InteractionVerb()
             {
-                Unfulton(uid);
-                _adminLogger.Add(LogType.Unfulton, LogImpact.High, $"{ToPrettyString(args.User):player} unfultoned {ToPrettyString(uid):target}");
+                Text = Loc.GetString("fulton-remove"),
+                Act = () =>
+                {
+                    Unfulton(uid);
+                    _adminLogger.Add(
+                        LogType.Unfulton,
+                        LogImpact.High,
+                        $"{ToPrettyString(args.User):player} unfultoned {ToPrettyString(uid):target}"
+                    );
+                },
             }
-        });
+        );
     }
 
     private void Unfulton(EntityUid uid, FultonedComponent? component = null)
@@ -183,13 +214,22 @@ public abstract partial class SharedFultonSystem : EntitySystem
 
         var ev = new FultonedDoAfterEvent();
         _doAfter.TryStartDoAfter(
-            new DoAfterArgs(EntityManager, args.User, component.ApplyFultonDuration, ev, args.Target, args.Target, args.Used)
+            new DoAfterArgs(
+                EntityManager,
+                args.User,
+                component.ApplyFultonDuration,
+                ev,
+                args.Target,
+                args.Target,
+                args.Used
+            )
             {
                 MovementThreshold = 0.5f,
                 BreakOnMove = true,
                 Broadcast = true,
                 NeedHand = true,
-            });
+            }
+        );
     }
 
     private void OnFultonSplit(EntityUid uid, FultonComponent component, ref StackSplitEvent args)
@@ -231,9 +271,7 @@ public abstract partial class SharedFultonSystem : EntitySystem
     }
 
     [Serializable, NetSerializable]
-    private sealed partial class FultonedDoAfterEvent : SimpleDoAfterEvent
-    {
-    }
+    private sealed partial class FultonedDoAfterEvent : SimpleDoAfterEvent { }
 
     // Animations aren't really good for networking hence this.
     /// <summary>

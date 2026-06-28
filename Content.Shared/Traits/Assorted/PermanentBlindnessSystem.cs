@@ -11,7 +11,8 @@ namespace Content.Shared.Traits.Assorted;
 /// </summary>
 public sealed class PermanentBlindnessSystem : EntitySystem
 {
-    [Dependency] private readonly BlindableSystem _blinding = default!;
+    [Dependency]
+    private readonly BlindableSystem _blinding = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -25,7 +26,12 @@ public sealed class PermanentBlindnessSystem : EntitySystem
     {
         if (args.IsInDetailsRange && blindness.Comp.Blindness == 0)
         {
-            args.PushMarkup(Loc.GetString("permanent-blindness-trait-examined", ("target", Identity.Entity(blindness, EntityManager))));
+            args.PushMarkup(
+                Loc.GetString(
+                    "permanent-blindness-trait-examined",
+                    ("target", Identity.Entity(blindness, EntityManager))
+                )
+            );
         }
     }
 
@@ -42,7 +48,7 @@ public sealed class PermanentBlindnessSystem : EntitySystem
 
     private void OnMapInit(Entity<PermanentBlindnessComponent> blindness, ref MapInitEvent args)
     {
-        if(!TryComp<BlindableComponent>(blindness.Owner, out var blindable))
+        if (!TryComp<BlindableComponent>(blindness.Owner, out var blindable))
             return;
 
         blindable.GlassesFixable = blindness.Comp.GlassesFixable; // starlight
@@ -51,7 +57,7 @@ public sealed class PermanentBlindnessSystem : EntitySystem
             _blinding.SetMinDamage((blindness.Owner, blindable), blindness.Comp.Blindness);
         else
         {
-            var maxMagnitudeInt = (int) BlurryVisionComponent.MaxMagnitude;
+            var maxMagnitudeInt = (int)BlurryVisionComponent.MaxMagnitude;
             _blinding.SetMinDamage((blindness.Owner, blindable), maxMagnitudeInt);
         }
     }

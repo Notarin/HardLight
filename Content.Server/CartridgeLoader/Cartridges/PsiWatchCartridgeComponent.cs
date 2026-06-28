@@ -3,7 +3,6 @@ using Content.Shared.Psionics;
 /// <summary>
 /// ADAPTED FROM SECWATCH - DELTAV
 /// </summary>
-
 namespace Content.Server.CartridgeLoader.Cartridges;
 
 [RegisterComponent, Access(typeof(PsiWatchCartridgeSystem))]
@@ -17,7 +16,7 @@ public sealed partial class PsiWatchCartridgeComponent : Component
     {
         PsionicsStatus.Abusing,
         PsionicsStatus.Registered,
-        PsionicsStatus.Suspected
+        PsionicsStatus.Suspected,
     };
 
     /// <summary>

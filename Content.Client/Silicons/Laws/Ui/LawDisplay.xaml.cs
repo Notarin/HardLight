@@ -17,10 +17,17 @@ namespace Content.Client.Silicons.Laws.Ui;
 [GenerateTypedNameReferences]
 public sealed partial class LawDisplay : Control
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IChatManager _chatManager = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly EntityManager _entityManager = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly IChatManager _chatManager = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly EntityManager _entityManager = default!;
 
     private static readonly TimeSpan PressCooldown = TimeSpan.FromSeconds(3);
 
@@ -35,7 +42,11 @@ public sealed partial class LawDisplay : Control
         var lawIdentifier = Loc.GetString("laws-ui-law-header", ("id", identifier));
         var lawDescription = Loc.GetString(law.LawString);
         //var lawIdentifierPlaintext = FormattedMessage.RemoveMarkupPermissive(lawIdentifier); // Frontier
-        var lawIdentifierPlaintext = FormattedMessage.RemoveMarkupPermissive(law.LawPrintOverride != null ? Loc.GetString("laws-ui-law-header", ("id", law.LawPrintOverride)) : lawIdentifier); // Frontier
+        var lawIdentifierPlaintext = FormattedMessage.RemoveMarkupPermissive(
+            law.LawPrintOverride != null
+                ? Loc.GetString("laws-ui-law-header", ("id", law.LawPrintOverride))
+                : lawIdentifier
+        ); // Frontier
         var lawDescriptionPlaintext = FormattedMessage.RemoveMarkupPermissive(lawDescription);
 
         LawNumberLabel.SetMarkup(lawIdentifier);
@@ -87,11 +98,17 @@ public sealed partial class LawDisplay : Control
             {
                 if (radioChannel == SharedChatSystem.CommonChannel)
                 {
-                    _chatManager.SendMessage($"{SharedChatSystem.RadioCommonPrefix} {lawIdentifierPlaintext}: {lawDescriptionPlaintext}", ChatSelectChannel.Radio);
+                    _chatManager.SendMessage(
+                        $"{SharedChatSystem.RadioCommonPrefix} {lawIdentifierPlaintext}: {lawDescriptionPlaintext}",
+                        ChatSelectChannel.Radio
+                    );
                 }
                 else
                 {
-                    _chatManager.SendMessage($"{SharedChatSystem.RadioChannelPrefix}{radioChannelProto.KeyCode} {lawIdentifierPlaintext}: {lawDescriptionPlaintext}", ChatSelectChannel.Radio);
+                    _chatManager.SendMessage(
+                        $"{SharedChatSystem.RadioChannelPrefix}{radioChannelProto.KeyCode} {lawIdentifierPlaintext}: {lawDescriptionPlaintext}",
+                        ChatSelectChannel.Radio
+                    );
                 }
                 _nextAllowedPress[radioChannelButton] = _timing.CurTime + PressCooldown;
             };

@@ -10,23 +10,21 @@
     layoutId: SurveillanceCameraArmoured
   - type: Destructible
     thresholds:
-      - trigger:
-          !type:DamageTrigger
-          damage: 400
-        behaviors:
-          - !type:DoActsBehavior
-            acts: [ "Destruction" ]
-      - trigger:
-          !type:DamageTrigger
-          damage: 300
-        behaviors:
-          - !type:DoActsBehavior
-            acts: [ "Destruction" ]
-          - !type:PlaySoundBehavior
-            sound:
-              collection: MetalBreak
-              params:
-                volume: -8
+    - trigger: !type:DamageTrigger
+        damage: 400
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
+        damage: 300
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+          params:
+            volume: -8
   - type: StaticPrice
     price: 500
 
@@ -36,19 +34,19 @@
   name: armoured camera
   suffix: Constructed
   components:
-    - type: DeviceNetwork
-      deviceNetId: Wired
-      transmitFrequencyId: SurveillanceCamera
-    - type: SurveillanceCamera
-      setupAvailableNetworks:
-        - SurveillanceCameraEngineering
-        - SurveillanceCameraSecurity
-        - SurveillanceCameraService
-        - SurveillanceCameraSupply
-        - SurveillanceCameraScience
-        - SurveillanceCameraGeneral
-        - SurveillanceCameraMedical
-        - SurveillanceCameraCommand
+  - type: DeviceNetwork
+    deviceNetId: Wired
+    transmitFrequencyId: SurveillanceCamera
+  - type: SurveillanceCamera
+    setupAvailableNetworks:
+    - SurveillanceCameraEngineering
+    - SurveillanceCameraSecurity
+    - SurveillanceCameraService
+    - SurveillanceCameraSupply
+    - SurveillanceCameraScience
+    - SurveillanceCameraGeneral
+    - SurveillanceCameraMedical
+    - SurveillanceCameraCommand
 
 - type: entity
   parent: SurveillanceCameraArmouredBase

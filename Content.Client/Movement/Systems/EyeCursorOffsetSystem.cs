@@ -10,8 +10,11 @@ namespace Content.Client.Movement.Systems;
 
 public sealed partial class EyeCursorOffsetSystem : EntitySystem
 {
-    [Dependency] private readonly IEyeManager _eyeManager = default!;
-    [Dependency] private readonly IInputManager _inputManager = default!;
+    [Dependency]
+    private readonly IEyeManager _eyeManager = default!;
+
+    [Dependency]
+    private readonly IInputManager _inputManager = default!;
 
     // This value is here to make sure the user doesn't have to move their mouse
     // all the way out to the edge of the screen to get the full offset.
@@ -54,7 +57,10 @@ public sealed partial class EyeCursorOffsetSystem : EntitySystem
         var boundedMousePos = Vector2.Clamp(Vector2.Min(mouseCoords, mousePos), Vector2.Zero, visibleViewportSize); // Mouse position inside the visible game viewport's bounds.
 
         var offsetRadius = MathF.Min(visibleViewportSize.X / 2f, visibleViewportSize.Y / 2f) * _edgeOffset;
-        var mouseNormalizedPos = new Vector2(-(boundedMousePos.X - visibleViewportSize.X / 2f) / offsetRadius, (boundedMousePos.Y - visibleViewportSize.Y / 2f) / offsetRadius);
+        var mouseNormalizedPos = new Vector2(
+            -(boundedMousePos.X - visibleViewportSize.X / 2f) / offsetRadius,
+            (boundedMousePos.Y - visibleViewportSize.Y / 2f) / offsetRadius
+        );
 
         if (component == null)
             component = EnsureComp<EyeCursorOffsetComponent>(uid);
@@ -64,7 +70,13 @@ public sealed partial class EyeCursorOffsetSystem : EntitySystem
         {
             // The offset must account for the in-world rotation.
             var eyeRotation = _eyeManager.CurrentEye.Rotation;
-            var mouseActualRelativePos = Vector2.Transform(mouseNormalizedPos, System.Numerics.Quaternion.CreateFromAxisAngle(-System.Numerics.Vector3.UnitZ, (float)(eyeRotation.Opposite().Theta))); // I don't know, it just works.
+            var mouseActualRelativePos = Vector2.Transform(
+                mouseNormalizedPos,
+                System.Numerics.Quaternion.CreateFromAxisAngle(
+                    -System.Numerics.Vector3.UnitZ,
+                    (float)(eyeRotation.Opposite().Theta)
+                )
+            ); // I don't know, it just works.
 
             // Caps the offset into a circle around the player.
             mouseActualRelativePos *= component.MaxOffset;

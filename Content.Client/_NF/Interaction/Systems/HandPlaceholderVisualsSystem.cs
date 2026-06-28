@@ -13,8 +13,12 @@ namespace Content.Client._NF.Interaction.Systems;
 [UsedImplicitly]
 public sealed partial class HandPlaceholderVisualsSystem : EntitySystem
 {
-    [Dependency] ContainerSystem _container = default!;
-    [Dependency] ItemSystem _item = default!;
+    [Dependency]
+    ContainerSystem _container = default!;
+
+    [Dependency]
+    ItemSystem _item = default!;
+
     public override void Initialize()
     {
         base.Initialize();

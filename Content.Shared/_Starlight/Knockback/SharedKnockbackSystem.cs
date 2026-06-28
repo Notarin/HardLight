@@ -1,6 +1,9 @@
+//linq
+using System.Linq;
 using System.Numerics;
 using Content.Shared.Damage.Components;
 using Content.Shared.Damage.Systems;
+using Content.Shared.Examine;
 using Content.Shared.Inventory;
 using Content.Shared.Slippery;
 using Content.Shared.Tag;
@@ -9,19 +12,25 @@ using Content.Shared.Weapons.Ranged.Components;
 using Content.Shared.Weapons.Ranged.Systems;
 using Robust.Shared.Map;
 
-//linq
-using System.Linq;
-using Content.Shared.Examine;
-
 namespace Content.Shared.Starlight.Knockback;
 
 public abstract partial class SharedKnockbackSystem : EntitySystem
 {
-    [Dependency] private readonly TagSystem _tagSystem = default!;
-    [Dependency] protected readonly SharedTransformSystem _transformSystem = default!;
-    [Dependency] private readonly ThrowingSystem _throwing = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!;
-    [Dependency] private readonly SharedStaminaSystem _stamina = default!; // HardLight: StaminSystem<SharedStaminaSystem
+    [Dependency]
+    private readonly TagSystem _tagSystem = default!;
+
+    [Dependency]
+    protected readonly SharedTransformSystem _transformSystem = default!;
+
+    [Dependency]
+    private readonly ThrowingSystem _throwing = default!;
+
+    [Dependency]
+    private readonly InventorySystem _inventory = default!;
+
+    [Dependency]
+    private readonly SharedStaminaSystem _stamina = default!; // HardLight: StaminSystem<SharedStaminaSystem
+
     public override void Initialize()
     {
         SubscribeLocalEvent<KnockbackByUserTagComponent, GunShotEvent>(OnGunShot);
@@ -38,8 +47,19 @@ public abstract partial class SharedKnockbackSystem : EntitySystem
                 var knockback = CalculateKnockback(args.Examiner, data);
                 //figure out the forwards/backwards direction
                 var direction = knockback < 0 ? "forwards" : "backwards";
-                args.PushMarkup(Loc.GetString("knockback-by-user-tag-component-examine-distance", ("knockback", String.Format("{0:0.###}", MathF.Abs(knockback))), ("direction", direction)));
-                args.PushMarkup(Loc.GetString("knockback-by-user-tag-component-examine-stamina", ("stamina", String.Format("{0:0.###}", CalculateStaminaDamage(data, knockback)))));
+                args.PushMarkup(
+                    Loc.GetString(
+                        "knockback-by-user-tag-component-examine-distance",
+                        ("knockback", String.Format("{0:0.###}", MathF.Abs(knockback))),
+                        ("direction", direction)
+                    )
+                );
+                args.PushMarkup(
+                    Loc.GetString(
+                        "knockback-by-user-tag-component-examine-stamina",
+                        ("stamina", String.Format("{0:0.###}", CalculateStaminaDamage(data, knockback)))
+                    )
+                );
             }
         }
     }
@@ -92,7 +112,15 @@ public abstract partial class SharedKnockbackSystem : EntitySystem
                 //set the new coordinates
                 var flippedDirection = new EntityCoordinates(user, modifiedCoords);
 
-                _throwing.TryThrow(user, flippedDirection, knockback * 5, user, 0, doSpin: false, compensateFriction: true);
+                _throwing.TryThrow(
+                    user,
+                    flippedDirection,
+                    knockback * 5,
+                    user,
+                    0,
+                    doSpin: false,
+                    compensateFriction: true
+                );
 
                 //deal stamina damage
                 if (TryComp<StaminaComponent>(user, out var stamina))
@@ -136,8 +164,8 @@ public abstract partial class SharedKnockbackSystem : EntitySystem
         return knockback;
     }
 
-    private static float CalculateStaminaDamage(KnockbackData data, float knockback) => MathF.Abs(knockback) * data.StaminaMultiplier;
-
+    private static float CalculateStaminaDamage(KnockbackData data, float knockback) =>
+        MathF.Abs(knockback) * data.StaminaMultiplier;
 
     private bool CheckForNoSlips(EntityUid uid)
     {
@@ -152,7 +180,10 @@ public abstract partial class SharedKnockbackSystem : EntitySystem
             var slots = _inventory.GetSlotEnumerator((uid, inventoryComp), SlotFlags.WITHOUT_POCKET);
             while (slots.MoveNext(out var slot))
             {
-                if (slot.ContainedEntity != null && EntityManager.TryGetComponent(slot.ContainedEntity, out NoSlipComponent? wornNoSlipComponent))
+                if (
+                    slot.ContainedEntity != null
+                    && EntityManager.TryGetComponent(slot.ContainedEntity, out NoSlipComponent? wornNoSlipComponent)
+                )
                 {
                     return true;
                 }

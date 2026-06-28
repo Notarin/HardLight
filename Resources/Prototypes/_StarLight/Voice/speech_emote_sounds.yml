@@ -78,7 +78,7 @@
       collection: FelionoidPurrs
     Growl:
       collection: FelionoidGrowls
-      
+
 - type: emoteSounds
   id: MaleFelionoid
   params:

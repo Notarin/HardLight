@@ -4,16 +4,19 @@ using System.Threading;
 using System.Threading.Tasks;
 using Content.Client.Parallax.Data;
 using Content.Shared.CCVar;
-using Robust.Shared.Prototypes;
 using Robust.Shared.Configuration;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
 namespace Content.Client.Parallax.Managers;
 
 public sealed class ParallaxManager : IParallaxManager
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IConfigurationManager _configurationManager = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _configurationManager = default!;
 
     private ISawmill _sawmill = Logger.GetSawmill("parallax");
 
@@ -45,7 +48,8 @@ public sealed class ParallaxManager : IParallaxManager
             return;
         }
 
-        if (!_parallaxesLQ.ContainsKey(name)) return;
+        if (!_parallaxesLQ.ContainsKey(name))
+            return;
         _parallaxesLQ.Remove(name);
         _parallaxesHQ.Remove(name);
     }
@@ -58,7 +62,8 @@ public sealed class ParallaxManager : IParallaxManager
 
     public async Task LoadParallaxByName(string name)
     {
-        if (_parallaxesLQ.ContainsKey(name) || _loadingParallaxes.ContainsKey(name)) return;
+        if (_parallaxesLQ.ContainsKey(name) || _loadingParallaxes.ContainsKey(name))
+            return;
 
         // Cancel any existing load and setup the new cancellation token
         var token = new CancellationTokenSource();
@@ -81,20 +86,22 @@ public sealed class ParallaxManager : IParallaxManager
             }
             else
             {
-                layers = await Task.WhenAll(new[]
-                {
-                    LoadParallaxLayers(parallaxPrototype.Layers, cancel),
-                    LoadParallaxLayers(parallaxPrototype.LayersLQ, cancel),
-                });
+                layers = await Task.WhenAll(
+                    new[]
+                    {
+                        LoadParallaxLayers(parallaxPrototype.Layers, cancel),
+                        LoadParallaxLayers(parallaxPrototype.LayersLQ, cancel),
+                    }
+                );
             }
 
             _loadingParallaxes.Remove(name, out _);
 
-            if (token.Token.IsCancellationRequested) return;
+            if (token.Token.IsCancellationRequested)
+                return;
 
             _parallaxesLQ[name] = layers[1];
             _parallaxesHQ[name] = layers[0];
-
         }
         catch (Exception ex)
         {
@@ -102,7 +109,10 @@ public sealed class ParallaxManager : IParallaxManager
         }
     }
 
-    private async Task<ParallaxLayerPrepared[]> LoadParallaxLayers(List<ParallaxLayerConfig> layersIn, CancellationToken cancel = default)
+    private async Task<ParallaxLayerPrepared[]> LoadParallaxLayers(
+        List<ParallaxLayerConfig> layersIn,
+        CancellationToken cancel = default
+    )
     {
         // Because this is async, make sure it doesn't change (prototype reloads could muck this up)
         // Since the tasks aren't awaited until the end, this should be fine
@@ -114,13 +124,11 @@ public sealed class ParallaxManager : IParallaxManager
         return await Task.WhenAll(tasks);
     }
 
-    private async Task<ParallaxLayerPrepared> LoadParallaxLayer(ParallaxLayerConfig config, CancellationToken cancel = default)
+    private async Task<ParallaxLayerPrepared> LoadParallaxLayer(
+        ParallaxLayerConfig config,
+        CancellationToken cancel = default
+    )
     {
-        return new ParallaxLayerPrepared()
-        {
-            Texture = await config.Texture.GenerateTexture(cancel),
-            Config = config
-        };
+        return new ParallaxLayerPrepared() { Texture = await config.Texture.GenerateTexture(cancel), Config = config };
     }
 }
-

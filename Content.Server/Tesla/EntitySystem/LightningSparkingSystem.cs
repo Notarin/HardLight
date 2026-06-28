@@ -1,5 +1,5 @@
-using Content.Server.Tesla.Components;
 using Content.Server.Lightning;
+using Content.Server.Tesla.Components;
 using Content.Shared.Power;
 using Robust.Shared.Timing;
 
@@ -10,8 +10,11 @@ namespace Content.Server.Tesla.EntitySystems;
 /// </summary>
 public sealed class LightningSparkingSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
 
     public override void Initialize()
     {

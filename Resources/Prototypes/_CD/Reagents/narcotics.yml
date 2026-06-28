@@ -19,8 +19,8 @@
         sprintSpeedModifier: 1.15
       - !type:HealthChange
         conditions:
-          - !type:ReagentThreshold
-            min: 6.1 # Careful.
+        - !type:ReagentThreshold
+          min: 6.1 # Careful.
         damage:
           types:
             Bloodloss: 5
@@ -28,9 +28,9 @@
             Poison: 2
       - !type:HealthChange
         conditions:
-          - !type:ReagentThreshold
-            reagent: Epinephrine # DO NOT USE A FUCKING EPEN
-            min: 1
+        - !type:ReagentThreshold
+          reagent: Epinephrine # DO NOT USE A FUCKING EPEN
+          min: 1
         damage:
           types:
             Bloodloss: 5
@@ -46,7 +46,7 @@
       - !type:AdjustReagent
         conditions:
         - !type:ReagentThreshold
-          reagent: Epinephrine 
+          reagent: Epinephrine
           min: 1
         reagent: Epinephrine
         amount: -1
@@ -98,19 +98,19 @@
     Medicine:
       metabolismRate: 1.0
       effects:
-        - !type:ResetNarcolepsy
-        - !type:SatiateHunger
-          factor: 0.75
-        - !type:SatiateThirst
-          factor: 0.75
-        - !type:HealthChange
-          conditions:
-          - !type:TotalDamage
-            min: 65
-          damage:
-            groups:
-              Burn: -0.4
-              Brute: -0.4
+      - !type:ResetNarcolepsy
+      - !type:SatiateHunger
+        factor: 0.75
+      - !type:SatiateThirst
+        factor: 0.75
+      - !type:HealthChange
+        conditions:
+        - !type:TotalDamage
+          min: 65
+        damage:
+          groups:
+            Burn: -0.4
+            Brute: -0.4
 
 # Organic
 
@@ -173,20 +173,20 @@
       - !type:ChemRerollPsionic
         bonusMultiplier: 1.4
     Medicine:
-      metabolismRate : 0.04 # Technically a narcotic, it takes a while for the body to process the toxins.
+      metabolismRate: 0.04 # Technically a narcotic, it takes a while for the body to process the toxins.
       effects:
       - !type:PopupMessage
         type: Local
         visualType: Medium
         messages:
-          - "reagent-effect-antidepressant-mild1"
-          - "reagent-effect-antidepressant-mild2"
-          - "reagent-effect-antidepressant-mild3"
-          - "reagent-effect-antidepressant-mild4"
-          - "reagent-effect-painkiller-mild1"
-          - "reagent-effect-painkiller-mild2"
-          - "reagent-effect-painkiller-mild3"
-          - "reagent-effect-painkiller-mild4"
+        - "reagent-effect-antidepressant-mild1"
+        - "reagent-effect-antidepressant-mild2"
+        - "reagent-effect-antidepressant-mild3"
+        - "reagent-effect-antidepressant-mild4"
+        - "reagent-effect-painkiller-mild1"
+        - "reagent-effect-painkiller-mild2"
+        - "reagent-effect-painkiller-mild3"
+        - "reagent-effect-painkiller-mild4"
         probability: 0.1
       - !type:GenericStatusEffect
         key: SeeingRainbows
@@ -244,12 +244,12 @@
         type: Local
         visualType: LargeCaution
         messages:
-          - "reagent-effect-ragechem-intense1"
-          - "reagent-effect-ragechem-intense2"
-          - "reagent-effect-ragechem-intense3"
-          - "reagent-effect-ragechem-intense4"
-          - "reagent-effect-ragechem-intense5"
-          - "reagent-effect-ragechem-intense6"
+        - "reagent-effect-ragechem-intense1"
+        - "reagent-effect-ragechem-intense2"
+        - "reagent-effect-ragechem-intense3"
+        - "reagent-effect-ragechem-intense4"
+        - "reagent-effect-ragechem-intense5"
+        - "reagent-effect-ragechem-intense6"
         probability: 0.3
         conditions:
         - !type:ReagentThreshold
@@ -315,13 +315,13 @@
         type: Local
         visualType: Medium
         messages:
-          - "reagent-effect-anxietymed-strong1"
-          - "reagent-effect-antidepressant-mild2"
-          - "reagent-effect-antidepressant-normal3"
-          - "reagent-effect-antidepressant-normal4"
-          - "reagent-effect-painkiller-strong5"
-          - "reagent-effect-painkiller-strong6"
-          - "reagent-effect-anxietymed-strong7"
+        - "reagent-effect-anxietymed-strong1"
+        - "reagent-effect-antidepressant-mild2"
+        - "reagent-effect-antidepressant-normal3"
+        - "reagent-effect-antidepressant-normal4"
+        - "reagent-effect-painkiller-strong5"
+        - "reagent-effect-painkiller-strong6"
+        - "reagent-effect-anxietymed-strong7"
         probability: 0.1
         conditions:
         - !type:ReagentThreshold
@@ -367,7 +367,7 @@
   physicalDesc: reagent-physical-desc-powdery
   metabolisms:
     Medicine:
-      metabolismRate : 0.1
+      metabolismRate: 0.1
       effects:
       - !type:ChemRerollPsionic
         bonusMultiplier: 4
@@ -375,20 +375,20 @@
         type: Local
         visualType: Large
         messages:
-          - "reagent-effect-painkiller-strong1"
-          - "reagent-effect-painkiller-strong2"
-          - "reagent-effect-painkiller-strong3"
-          - "reagent-effect-painkiller-strong4"
-          - "reagent-effect-painkiller-strong5"
-          - "reagent-effect-painkiller-strong6"
+        - "reagent-effect-painkiller-strong1"
+        - "reagent-effect-painkiller-strong2"
+        - "reagent-effect-painkiller-strong3"
+        - "reagent-effect-painkiller-strong4"
+        - "reagent-effect-painkiller-strong5"
+        - "reagent-effect-painkiller-strong6"
         probability: 0.1
       - !type:MovespeedModifier
         walkSpeedModifier: 1.1
         sprintSpeedModifier: 1.1
       - !type:HealthChange
         conditions:
-          - !type:ReagentThreshold
-            min: 30
+        - !type:ReagentThreshold
+          min: 30
         damage:
           types:
             Asphyxiation: 10
@@ -429,24 +429,24 @@
         bonusMultiplier: 6
       - !type:HealthChange
         conditions:
-          - !type:ReagentThreshold
-            min: 1
-            max: 9
+        - !type:ReagentThreshold
+          min: 1
+          max: 9
         damage:
           types:
             Poison: 0.5
       - !type:HealthChange
         conditions:
-          - !type:ReagentThreshold
-            min: 10
-            max: 19
+        - !type:ReagentThreshold
+          min: 10
+          max: 19
         damage:
           types:
             Poison: 5
       - !type:HealthChange
         conditions:
-          - !type:ReagentThreshold
-            min: 20
+        - !type:ReagentThreshold
+          min: 20
         damage:
           types:
             Poison: 20 # Don't fucking macrodose
@@ -461,20 +461,20 @@
         type: Local
         visualType: LargeCaution
         messages:
-          - "reagent-effect-ragechem-intense1"
-          - "reagent-effect-ragechem-intense2"
-          - "reagent-effect-ragechem-intense3"
-          - "reagent-effect-ragechem-intense5"
-          - "reagent-effect-ragechem-intense6"
-          - "reagent-effect-motivate-intense1"
-          - "reagent-effect-motivate-intense2"
-          - "reagent-effect-motivate-intense3"
-          - "reagent-effect-motivate-intense4"
-          - "reagent-effect-motivate-intense5"
-          - "reagent-effect-euphoria-intense1"
-          - "reagent-effect-euphoria-intense2"
-          - "reagent-effect-euphoria-intense3"
-          - "reagent-effect-euphoria-intense4"
+        - "reagent-effect-ragechem-intense1"
+        - "reagent-effect-ragechem-intense2"
+        - "reagent-effect-ragechem-intense3"
+        - "reagent-effect-ragechem-intense5"
+        - "reagent-effect-ragechem-intense6"
+        - "reagent-effect-motivate-intense1"
+        - "reagent-effect-motivate-intense2"
+        - "reagent-effect-motivate-intense3"
+        - "reagent-effect-motivate-intense4"
+        - "reagent-effect-motivate-intense5"
+        - "reagent-effect-euphoria-intense1"
+        - "reagent-effect-euphoria-intense2"
+        - "reagent-effect-euphoria-intense3"
+        - "reagent-effect-euphoria-intense4"
         probability: 0.4
         conditions:
         - !type:ReagentThreshold
@@ -503,16 +503,16 @@
         key: ForcedSleep
         time: 3
         type: Remove
-#      - !type:ChemVomit #HL
-#        conditions:
-#        - !type:ReagentThreshold
-#          min: 1
-#        probability: 0.1
+        #      - !type:ChemVomit #HL
+        #        conditions:
+        #        - !type:ReagentThreshold
+        #          min: 1
+        #        probability: 0.1
       - !type:HealthChange
         conditions:
-          - !type:ReagentThreshold
-            reagent: MindleafSap 
-            min: 0.1
+        - !type:ReagentThreshold
+          reagent: MindleafSap
+          min: 0.1
         damage:
           types:
             Bloodloss: 2
@@ -525,9 +525,9 @@
         amount: 0.1
       - !type:HealthChange
         conditions:
-          - !type:ReagentThreshold
-            reagent: MindleafTea 
-            min: 0.1
+        - !type:ReagentThreshold
+          reagent: MindleafTea
+          min: 0.1
         damage:
           types:
             Bloodloss: 2
@@ -540,9 +540,9 @@
         amount: 0.1
       - !type:HealthChange
         conditions:
-          - !type:ReagentThreshold
-            reagent: Breakout 
-            min: 0.1
+        - !type:ReagentThreshold
+          reagent: Breakout
+          min: 0.1
         damage:
           types:
             Bloodloss: 3
@@ -555,9 +555,9 @@
         amount: 0.5
       - !type:HealthChange
         conditions:
-          - !type:ReagentThreshold
-            reagent: Rust 
-            min: 0.1
+        - !type:ReagentThreshold
+          reagent: Rust
+          min: 0.1
         damage:
           types:
             Bloodloss: 4
@@ -570,9 +570,9 @@
         amount: 0.6
       - !type:HealthChange
         conditions:
-          - !type:ReagentThreshold
-            reagent: Bake 
-            min: 0.1
+        - !type:ReagentThreshold
+          reagent: Bake
+          min: 0.1
         damage:
           types:
             Bloodloss: 5

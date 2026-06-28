@@ -5,18 +5,18 @@
   description: An updated, modular intercom that fits over the head. Takes encryption keys.
   suffix: Chameleon
   components:
-    - type: Tag
-      tags: [] # ignore "WhitelistChameleon" tag
-    - type: Sprite
-      sprite: Clothing/Ears/Headsets/base.rsi
-    - type: Clothing
-      sprite: Clothing/Ears/Headsets/base.rsi
-    - type: ChameleonClothing
-      slot: [ears]
-      default: ClothingHeadsetGrey
-    - type: UserInterface
-      interfaces:
-        enum.ChameleonUiKey.Key:
-          type: ChameleonBoundUserInterface
-    - type: Item
-      size: Small
+  - type: Tag
+    tags: [] # ignore "WhitelistChameleon" tag
+  - type: Sprite
+    sprite: Clothing/Ears/Headsets/base.rsi
+  - type: Clothing
+    sprite: Clothing/Ears/Headsets/base.rsi
+  - type: ChameleonClothing
+    slot: [ears]
+    default: ClothingHeadsetGrey
+  - type: UserInterface
+    interfaces:
+      enum.ChameleonUiKey.Key:
+        type: ChameleonBoundUserInterface
+  - type: Item
+    size: Small

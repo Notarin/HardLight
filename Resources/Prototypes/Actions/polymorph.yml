@@ -55,7 +55,7 @@
     icon:
       sprite: Objects/Magic/magicactions.rsi
       state: jaunt
-    # TODO: Effect ECS (from cardboard box)
+      # TODO: Effect ECS (from cardboard box)
   - type: ActionUpgrade
     effectedLevels:
       2: ActionPolymorphJauntII

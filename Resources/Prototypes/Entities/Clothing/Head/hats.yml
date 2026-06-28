@@ -79,10 +79,10 @@
   name: casa
   description: Cone-shaped hat.
   components:
-    - type: Sprite
-      sprite: Clothing/Head/Hats/casa.rsi
-    - type: Clothing
-      sprite: Clothing/Head/Hats/casa.rsi
+  - type: Sprite
+    sprite: Clothing/Head/Hats/casa.rsi
+  - type: Clothing
+    sprite: Clothing/Head/Hats/casa.rsi
 
 - type: entity
   parent: ClothingHeadBase
@@ -182,7 +182,7 @@
     sprite: Clothing/Head/Hats/beret_brigmedic.rsi
 
 - type: entity
-  parent: [ ClothingHeadBase ]
+  parent: [ClothingHeadBase]
   id: ClothingHeadHatBeretMercenary # Frontier: Merc to Mercenary
   name: mercenary beret
   description: Olive beret, the badge depicts a jackal on a rock.
@@ -251,7 +251,7 @@
   - type: IngestionBlocker
 
 - type: entity
-  parent: [ ClothingHeadBase, BaseColcommContraband ]
+  parent: [ClothingHeadBase, BaseColcommContraband]
   id: ClothingHeadHatCentcom
   name: ColComm brand hat
   description: "It's good to be the emperor."
@@ -284,7 +284,7 @@
   - type: PilotedClothing
     pilotWhitelist:
       tags:
-        - ChefPilot
+      - ChefPilot
   - type: Tag
     tags:
     - ClothMade
@@ -459,9 +459,8 @@
     - state: icon
       map: ["unfoldedLayer"]
     - state: icon-nobeard
-      map: [ "foldedLayer" ]
+      map: ["foldedLayer"]
       visible: true
-
 
 - type: entity
   parent: ClothingHeadBase
@@ -550,7 +549,7 @@
     sprite: Clothing/Head/Hats/ushanka.rsi
     layers:
     - state: icon
-      map: [ "unfoldedLayer" ]
+      map: ["unfoldedLayer"]
     - state: icon-up
       map: ["foldedLayer"]
       visible: false
@@ -649,7 +648,7 @@
 
 - type: entity
   abstract: true
-  parent: [ ClothingHeadBase, BaseC3WizardContraband ] # Frontier: BaseMagicalContraband<BaseC3WizardContraband
+  parent: [ClothingHeadBase, BaseC3WizardContraband] # Frontier: BaseMagicalContraband<BaseC3WizardContraband
   id: ClothingHeadHatWizardBase
   components:
   - type: WizardClothes
@@ -815,19 +814,19 @@
   name: jester hat
   description: A hat with bells, to add some merriness to the suit.
   components:
-    - type: Sprite
-      sprite: Clothing/Head/Hats/jester.rsi
-    - type: Clothing
-      sprite: Clothing/Head/Hats/jester.rsi
+  - type: Sprite
+    sprite: Clothing/Head/Hats/jester.rsi
+  - type: Clothing
+    sprite: Clothing/Head/Hats/jester.rsi
 
 - type: entity
   parent: ClothingHeadHatJester
   id: ClothingHeadHatJesterAlt
   components:
-    - type: Sprite
-      sprite: Clothing/Head/Hats/jester2.rsi
-    - type: Clothing
-      sprite: Clothing/Head/Hats/jester2.rsi
+  - type: Sprite
+    sprite: Clothing/Head/Hats/jester2.rsi
+  - type: Clothing
+    sprite: Clothing/Head/Hats/jester2.rsi
 
 - type: entity
   parent: ClothingHeadBase # Frontier: removed BaseCommandContraband
@@ -957,8 +956,8 @@
     - 0,0,0,0
   - type: UserInterface
     interfaces:
-        enum.StorageUiKey.Key:
-          type: StorageBoundUserInterface
+      enum.StorageUiKey.Key:
+        type: StorageBoundUserInterface
   - type: ContainerContainer
     containers:
       storagebase: !type:Container
@@ -987,7 +986,7 @@
   - type: BlockMovement
 
 - type: entity
-  parent: [ ClothingHeadBase, BaseColcommContraband ]
+  parent: [ClothingHeadBase, BaseColcommContraband]
   id: ClothingHeadHatCentcomcap
   name: ColComm cap
   description: An extravagant, fancy Colonial Commander cap.
@@ -1027,8 +1026,8 @@
     sprite: Clothing/Head/Hats/party_red.rsi
   - type: Tag
     tags:
-      - WhitelistChameleon
-      - HamsterWearable
+    - WhitelistChameleon
+    - HamsterWearable
 
 - type: entity
   parent: ClothingHeadHatPartyRed
@@ -1105,63 +1104,63 @@
   name: brown cowboy hat
   description: This hat ain't big enough for the both of us.
   components:
-    - type: Sprite
-      sprite: Clothing/Head/Hats/cowboyhatbrown.rsi
-    - type: Clothing
-      sprite: Clothing/Head/Hats/cowboyhatbrown.rsi
-    - type: AddAccentClothing
-      accent: ReplacementAccent
-      replacement: cowboy
+  - type: Sprite
+    sprite: Clothing/Head/Hats/cowboyhatbrown.rsi
+  - type: Clothing
+    sprite: Clothing/Head/Hats/cowboyhatbrown.rsi
+  - type: AddAccentClothing
+    accent: ReplacementAccent
+    replacement: cowboy
 
 - type: entity
   parent: ClothingHeadHatCowboyBrown
   id: ClothingHeadHatCowboyBlack
   name: black cowboy hat
   components:
-    - type: Sprite
-      sprite: Clothing/Head/Hats/cowboyhatblack.rsi
-    - type: Clothing
-      sprite: Clothing/Head/Hats/cowboyhatblack.rsi
+  - type: Sprite
+    sprite: Clothing/Head/Hats/cowboyhatblack.rsi
+  - type: Clothing
+    sprite: Clothing/Head/Hats/cowboyhatblack.rsi
 
 - type: entity
   parent: ClothingHeadHatCowboyBrown
   id: ClothingHeadHatCowboyGrey
   name: grey cowboy hat
   components:
-    - type: Sprite
-      sprite: Clothing/Head/Hats/cowboyhatgrey.rsi
-    - type: Clothing
-      sprite: Clothing/Head/Hats/cowboyhatgrey.rsi
+  - type: Sprite
+    sprite: Clothing/Head/Hats/cowboyhatgrey.rsi
+  - type: Clothing
+    sprite: Clothing/Head/Hats/cowboyhatgrey.rsi
 
 - type: entity
   parent: ClothingHeadHatCowboyBrown
   id: ClothingHeadHatCowboyRed
   name: red cowboy hat
   components:
-    - type: Sprite
-      sprite: Clothing/Head/Hats/cowboyhatred.rsi
-    - type: Clothing
-      sprite: Clothing/Head/Hats/cowboyhatred.rsi
+  - type: Sprite
+    sprite: Clothing/Head/Hats/cowboyhatred.rsi
+  - type: Clothing
+    sprite: Clothing/Head/Hats/cowboyhatred.rsi
 
 - type: entity
   parent: ClothingHeadHatCowboyBrown
   id: ClothingHeadHatCowboyWhite
   name: white cowboy hat
   components:
-    - type: Sprite
-      sprite: Clothing/Head/Hats/cowboyhatwhite.rsi
-    - type: Clothing
-      sprite: Clothing/Head/Hats/cowboyhatwhite.rsi
+  - type: Sprite
+    sprite: Clothing/Head/Hats/cowboyhatwhite.rsi
+  - type: Clothing
+    sprite: Clothing/Head/Hats/cowboyhatwhite.rsi
 
 - type: entity
   parent: ClothingHeadHatCowboyBrown
   id: ClothingHeadHatCowboyBountyHunter
   name: bounty hunter cowboy hat
   components:
-    - type: Sprite
-      sprite: Clothing/Head/Hats/cowboyhatbountyhunter.rsi
-    - type: Clothing
-      sprite: Clothing/Head/Hats/cowboyhatbountyhunter.rsi
+  - type: Sprite
+    sprite: Clothing/Head/Hats/cowboyhatbountyhunter.rsi
+  - type: Clothing
+    sprite: Clothing/Head/Hats/cowboyhatbountyhunter.rsi
 
 - type: entity
   parent: ClothingHeadBase
@@ -1195,17 +1194,16 @@
     normalState: fire
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 15
       behaviors:
       - !type:SpawnEntitiesBehavior
         spawn:
-            Ash:
-              min: 1
-              max: 1
+          Ash:
+            min: 1
+            max: 1
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
 
 - type: entity
   parent: ClothingHeadBase

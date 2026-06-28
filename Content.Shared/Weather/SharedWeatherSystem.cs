@@ -11,13 +11,26 @@ namespace Content.Shared.Weather;
 
 public abstract class SharedWeatherSystem : EntitySystem
 {
-    [Dependency] protected readonly IGameTiming Timing = default!;
-    [Dependency] protected readonly IMapManager MapManager = default!;
-    [Dependency] protected readonly IPrototypeManager ProtoMan = default!;
-    [Dependency] private readonly MetaDataSystem _metadata = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
-    [Dependency] private readonly SharedRoofSystem _roof = default!;
+    [Dependency]
+    protected readonly IGameTiming Timing = default!;
+
+    [Dependency]
+    protected readonly IMapManager MapManager = default!;
+
+    [Dependency]
+    protected readonly IPrototypeManager ProtoMan = default!;
+
+    [Dependency]
+    private readonly MetaDataSystem _metadata = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _mapSystem = default!;
+
+    [Dependency]
+    private readonly SharedRoofSystem _roof = default!;
 
     private EntityQuery<BlockWeatherComponent> _blockQuery;
 
@@ -59,7 +72,6 @@ public abstract class SharedWeatherSystem : EntitySystem
         }
 
         return true;
-
     }
 
     public float GetPercent(WeatherData component, EntityUid mapUid)
@@ -72,11 +84,11 @@ public abstract class SharedWeatherSystem : EntitySystem
 
         if (remaining < WeatherComponent.ShutdownTime)
         {
-            alpha = (float) (remaining / WeatherComponent.ShutdownTime);
+            alpha = (float)(remaining / WeatherComponent.ShutdownTime);
         }
         else if (elapsed < WeatherComponent.StartupTime)
         {
-            alpha = (float) (elapsed / WeatherComponent.StartupTime);
+            alpha = (float)(elapsed / WeatherComponent.StartupTime);
         }
         else
         {
@@ -85,7 +97,6 @@ public abstract class SharedWeatherSystem : EntitySystem
 
         return alpha;
     }
-
 
     public override void Update(float frameTime)
     {
@@ -197,11 +208,7 @@ public abstract class SharedWeatherSystem : EntitySystem
         if (component.Weather.ContainsKey(weather.ID))
             return;
 
-        var data = new WeatherData()
-        {
-            StartTime = Timing.CurTime,
-            EndTime = endTime,
-        };
+        var data = new WeatherData() { StartTime = Timing.CurTime, EndTime = endTime };
 
         component.Weather.Add(weather.ID, data);
         Dirty(uid, component);
@@ -218,7 +225,13 @@ public abstract class SharedWeatherSystem : EntitySystem
         Dirty(uid, component);
     }
 
-    protected virtual bool SetState(EntityUid uid, WeatherState state, WeatherComponent component, WeatherData weather, WeatherPrototype weatherProto)
+    protected virtual bool SetState(
+        EntityUid uid,
+        WeatherState state,
+        WeatherComponent component,
+        WeatherData weather,
+        WeatherPrototype weatherProto
+    )
     {
         if (weather.State.Equals(state))
             return false;

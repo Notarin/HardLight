@@ -1,6 +1,6 @@
 - type: entity
   name: bat
-  parent: [ SimpleMobBase, FlyingMobBase, MobCombat ]
+  parent: [SimpleMobBase, FlyingMobBase, MobCombat]
   id: MobBat
   description: Some cultures find them terrifying, others crunchy on the teeth.
   components:
@@ -14,8 +14,8 @@
     - GalacticCommon
   # Starlight-end
   - type: MovementSpeedModifier
-    baseWalkSpeed : 3
-    baseSprintSpeed : 6
+    baseWalkSpeed: 3
+    baseSprintSpeed: 6
   - type: Sprite
     drawdepth: Mobs
     layers:
@@ -30,8 +30,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.25
         density: 10
         mask:
@@ -79,14 +78,14 @@
 
 - type: entity
   name: bee
-  parent: [ SimpleMobBase, FlyingMobBase ]
+  parent: [SimpleMobBase, FlyingMobBase]
   id: MobBee
   description: Nice to have, but you can't build a civilization on a foundation of honey alone.
   components:
   - type: CombatMode
   - type: MovementSpeedModifier
-    baseWalkSpeed : 3
-    baseSprintSpeed : 7
+    baseWalkSpeed: 3
+    baseSprintSpeed: 7
   - type: Sprite
     drawdepth: Mobs
     layers:
@@ -96,8 +95,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.1
         density: 30
         mask:
@@ -158,7 +156,7 @@
 - type: entity
   name: bee
   suffix: Angry
-  parent: [ MobBee, MobCombat ]
+  parent: [MobBee, MobCombat]
   id: MobAngryBee
   description: How nice a bee. Oh no, it looks angry and wants my pizza.
   components:
@@ -181,7 +179,6 @@
   - type: Bloodstream
     bloodMaxVolume: 0.1
   - type: ZombieImmune
-
 
 - type: entity
   name: chicken
@@ -215,8 +212,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35
         density: 8
         mask:
@@ -373,8 +369,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.2
         density: 100
         mask:
@@ -387,8 +382,8 @@
       0: Alive
       1: Dead
   - type: MovementSpeedModifier
-    baseWalkSpeed : 2.5
-    baseSprintSpeed : 5
+    baseWalkSpeed: 2.5
+    baseSprintSpeed: 5
   - type: DamageStateVisuals
     states:
       Alive:
@@ -428,14 +423,13 @@
     - VimPilot
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTypeTrigger
+    - trigger: !type:DamageTypeTrigger
         damageType: Blunt
         damage: 10
       behaviors:
-      - !type:GibBehavior # Shitmed Change
+      - !type:GibBehavior
         gibContents: Skip # Shitmed Change
-  - type: NonSpreaderZombie
+  - type: NonSpreaderZombie # Shitmed Change
   - type: SentienceTarget
     flavorKind: station-event-random-sentience-flavor-organic
   - type: MeleeWeapon
@@ -517,8 +511,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.2
         density: 120
         mask:
@@ -568,8 +561,8 @@
       40: Critical
       60: Dead
   - type: MovementSpeedModifier
-    baseWalkSpeed : 2.5
-    baseSprintSpeed : 4
+    baseWalkSpeed: 2.5
+    baseSprintSpeed: 4
     weightlessAcceleration: 1.5
     weightlessFriction: 1
     baseWeightlessModifier: 1
@@ -624,12 +617,11 @@
     proto: moth
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTypeTrigger
+    - trigger: !type:DamageTypeTrigger
         damageType: Blunt
         damage: 60
       behaviors:
-      - !type:GibBehavior { }
+      - !type:GibBehavior {}
   - type: FireVisuals
     sprite: Mobs/Effects/onfire.rsi
     normalState: Mouse_burning
@@ -673,7 +665,6 @@
             state: neck
   - type: LeashAnchor # Floofstation - mothroach my beloved <3
 
-
 # Note that the mallard duck is actually a male drake mallard, with the brown duck being the female variant of the same species, however ss14 lacks sex specific textures
 # The white duck is more akin to a pekin or call duck.
 
@@ -700,8 +691,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35
         density: 5 #They actually are pretty light, I looked it up
         mask:
@@ -824,13 +814,13 @@
 
 - type: entity
   name: butterfly
-  parent: [ SimpleMobBase, FlyingMobBase ]
+  parent: [SimpleMobBase, FlyingMobBase]
   id: MobButterfly
   description: Despite popular misconceptions, it's not actually made of butter.
   components:
   - type: MovementSpeedModifier
-    baseWalkSpeed : 3
-    baseSprintSpeed : 6
+    baseWalkSpeed: 3
+    baseSprintSpeed: 6
   - type: Sprite
     drawdepth: Mobs
     layers:
@@ -840,8 +830,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.2
         density: 7.5
         mask:
@@ -914,8 +903,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.40
         density: 400
         mask:
@@ -1003,8 +991,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35
         density: 5
         mask:
@@ -1073,8 +1060,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35
         density: 150
         mask:
@@ -1185,8 +1171,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35
         density: 25
         mask:
@@ -1226,7 +1211,7 @@
 
 - type: entity
   name: gorilla
-  parent: [ SimpleMobBase, MobCombat ]
+  parent: [SimpleMobBase, MobCombat]
   id: MobGorilla
   description: Smashes, roars, looks cool. Don't stand near one.
   components:
@@ -1248,8 +1233,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.48
         density: 200
         mask:
@@ -1313,8 +1297,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35
         density: 130
         mask:
@@ -1392,7 +1375,7 @@
   id: MobBoxingKangaroo
   components:
   - type: Loadout
-    prototypes: [ BoxingKangarooGear ]
+    prototypes: [BoxingKangarooGear]
   - type: NpcFactionMember
     factions:
     - SimpleHostile
@@ -1427,8 +1410,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35
         density: 80
         mask:
@@ -1442,18 +1424,18 @@
     - map: ["enum.DamageStateVisualLayers.Base"]
       state: monkey
       sprite: Mobs/Animals/monkey.rsi
-    - map: [ "jumpsuit" ]
-    - map: [ "enum.HumanoidVisualLayers.Handcuffs" ]
+    - map: ["jumpsuit"]
+    - map: ["enum.HumanoidVisualLayers.Handcuffs"]
       color: "#ffffff"
       sprite: Objects/Misc/handcuffs.rsi
       state: body-overlay-2
       visible: false
-    - map: [ "ears" ]
-    - map: [ "id" ]
-    - map: [ "outerClothing" ]
-    - map: [ "mask" ]
-    - map: [ "head" ]
-    - map: [ "clownedon" ]
+    - map: ["ears"]
+    - map: ["id"]
+    - map: ["outerClothing"]
+    - map: ["mask"]
+    - map: ["head"]
+    - map: ["clownedon"]
       sprite: "Effects/creampie.rsi"
       state: "creampie_human"
       visible: false
@@ -1523,11 +1505,11 @@
     - AnomalyHost
   - type: Reactive
     groups:
-      Flammable: [ Touch ]
-      Extinguish: [ Touch ]
+      Flammable: [Touch]
+      Extinguish: [Touch]
     reactions:
-    - reagents: [ Water, SpaceCleaner ]
-      methods: [ Touch ]
+    - reagents: [Water, SpaceCleaner]
+      methods: [Touch]
       effects:
       - !type:WashCreamPieReaction
   - type: LabGrown # Frontier
@@ -1570,7 +1552,6 @@
         Blunt: 1
     clumsySound:
       path: /Audio/Animals/monkey_scream.ogg
-
 
 - type: entity
   name: monkey
@@ -1717,22 +1698,22 @@
     - map: ["enum.DamageStateVisualLayers.Base"]
       sprite: Mobs/Animals/kobold.rsi
       state: kobold
-    - map: [ "outline" ]
+    - map: ["outline"]
       sprite: Mobs/Animals/kobold.rsi
       state: outline
-    - map: [ "horns" ]
+    - map: ["horns"]
       sprite: Mobs/Customization/reptilian_parts.rsi
       state: horns_short
-    - map: [ "enum.HumanoidVisualLayers.Handcuffs" ]
+    - map: ["enum.HumanoidVisualLayers.Handcuffs"]
       color: "#ffffff"
       sprite: Objects/Misc/handcuffs.rsi
       state: body-overlay-2
       visible: false
-    - map: [ "ears" ]
-    - map: [ "id" ]
-    - map: [ "mask" ]
-    - map: [ "head" ]
-    - map: [ "clownedon" ]
+    - map: ["ears"]
+    - map: ["id"]
+    - map: ["mask"]
+    - map: ["head"]
+    - map: ["clownedon"]
       sprite: "Effects/creampie.rsi"
       state: "creampie_human"
       visible: false
@@ -1835,7 +1816,7 @@
 - type: entity
   name: guidebook monkey
   parent: MobMonkey
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   id: MobGuidebookMonkey
   description: A hopefully helpful monkey whose only purpose in life is for you to click on. Does this count as having a monkey give you a tutorial?
   components:
@@ -1911,8 +1892,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.2
         density: 100
         mask:
@@ -1933,8 +1913,8 @@
       10: Critical
       20: Dead
   - type: MovementSpeedModifier
-    baseWalkSpeed : 1.9  # DeltaV: Allows them to sneak over traps
-    baseSprintSpeed : 5
+    baseWalkSpeed: 1.9 # DeltaV: Allows them to sneak over traps
+    baseSprintSpeed: 5
   - type: DamageStateVisuals
     states:
       Alive:
@@ -1948,7 +1928,7 @@
     flavors:
     - meaty
   - type: Thirst
-    startingThirst: 25  # spawn with Okay thirst state
+    startingThirst: 25 # spawn with Okay thirst state
     thresholds:
       OverHydrated: 35
       Okay: 25
@@ -2196,8 +2176,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.2
         density: 50
         mask:
@@ -2238,7 +2217,6 @@
     - id: AdaptiveIridophores
       chance: 0.25
 
-
 - type: entity
   name: slug
   parent: SimpleMobBase
@@ -2246,8 +2224,8 @@
   description: And they called this a lizard?
   components:
   - type: MovementSpeedModifier
-    baseWalkSpeed : 2
-    baseSprintSpeed : 3
+    baseWalkSpeed: 2
+    baseSprintSpeed: 3
   - type: Sprite
     drawdepth: Mobs
     layers:
@@ -2260,8 +2238,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.2
         density: 5
         mask:
@@ -2317,8 +2294,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.2
         density: 5
         mask:
@@ -2353,14 +2329,14 @@
 # Would be cool to have some functionality for the parrot to be able to sit on stuff
 - type: entity
   name: parrot
-  parent: [ SimpleMobBase, FlyingMobBase ]
+  parent: [SimpleMobBase, FlyingMobBase]
   id: MobParrot
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   description: Infiltrates your domain, spies on you, and somehow still a cool pet.
   components:
   - type: MovementSpeedModifier
-    baseWalkSpeed : 2.5
-    baseSprintSpeed : 6
+    baseWalkSpeed: 2.5
+    baseSprintSpeed: 6
   - type: Sprite
     drawdepth: Mobs
     layers:
@@ -2372,8 +2348,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.25
         density: 10
         mask:
@@ -2442,8 +2417,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.25
         density: 100
         mask:
@@ -2482,10 +2456,10 @@
     specificHeat: 46
     coldDamage:
       types:
-        Cold : 0.05 #per second, scales with temperature & other constants
+        Cold: 0.05 #per second, scales with temperature & other constants
     heatDamage:
       types:
-        Heat : 0.2 #per second, scales with temperature & other constants
+        Heat: 0.2 #per second, scales with temperature & other constants
   - type: Genetics # Funkystation - Genetics
     baseMutations:
     - id: OvipositionGlands
@@ -2493,7 +2467,7 @@
 
 - type: entity
   name: grenade penguin
-  parent: [ MobPenguin, MobCombat, BaseC3SyndicateContraband ] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  parent: [MobPenguin, MobCombat, BaseC3SyndicateContraband] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
   id: MobGrenadePenguin
   description: A small penguin with a grenade strapped around its neck. Harvested by the Syndicate from icy shit-hole planets.
   components:
@@ -2517,8 +2491,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.25
         density: 25
         mask:
@@ -2556,8 +2529,7 @@
   - type: ExplodeOnTrigger
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 50
       behaviors:
       - !type:ExplodeBehavior
@@ -2580,8 +2552,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.25
         density: 10
         mask:
@@ -2620,7 +2591,7 @@
 # Code unique spider prototypes or combine them all into one spider and get a
 # random sprite state when you spawn it.
 - type: entity
-  parent: [ SimpleMobBase, MobCombat ]
+  parent: [SimpleMobBase, MobCombat]
   id: MobSpiderBase
   abstract: true
   components:
@@ -2637,8 +2608,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35
         density: 130
         mask:
@@ -2757,18 +2727,18 @@
   - type: OptionsVisualizer
     visuals:
       base:
-        - options: Default
-          data:
-            drawdepth: Mobs
-            sprite: Mobs/Animals/spider.rsi
-            map: ["enum.DamageStateVisualLayers.Base", "movement"]
-            state: tarantula
-        - options: Arachnophobia
-          data:
-            drawdepth: Mobs
-            sprite: _Starlight/Mobs/Animals/Spiders/Arachnophobia/spider.rsi
-            map: ["enum.DamageStateVisualLayers.Base", "movement"]
-            state: tarantula
+      - options: Default
+        data:
+          drawdepth: Mobs
+          sprite: Mobs/Animals/spider.rsi
+          map: ["enum.DamageStateVisualLayers.Base", "movement"]
+          state: tarantula
+      - options: Arachnophobia
+        data:
+          drawdepth: Mobs
+          sprite: _Starlight/Mobs/Animals/Spiders/Arachnophobia/spider.rsi
+          map: ["enum.DamageStateVisualLayers.Base", "movement"]
+          state: tarantula
   # Starlight end
   - type: SpriteMovement
     movementLayers:
@@ -2811,18 +2781,18 @@
   - type: OptionsVisualizer
     visuals:
       base:
-        - options: Default
-          data:
-            drawdepth: Mobs
-            sprite: Mobs/Animals/clownspider.rsi
-            map: ["enum.DamageStateVisualLayers.Base"]
-            state: clown
-        - options: Arachnophobia
-          data:
-            drawdepth: Mobs
-            sprite: _Starlight/Mobs/Animals/Spiders/Arachnophobia/clownspider.rsi
-            map: ["enum.DamageStateVisualLayers.Base"]
-            state: clown
+      - options: Default
+        data:
+          drawdepth: Mobs
+          sprite: Mobs/Animals/clownspider.rsi
+          map: ["enum.DamageStateVisualLayers.Base"]
+          state: clown
+      - options: Arachnophobia
+        data:
+          drawdepth: Mobs
+          sprite: _Starlight/Mobs/Animals/Spiders/Arachnophobia/clownspider.rsi
+          map: ["enum.DamageStateVisualLayers.Base"]
+          state: clown
   # Starlight end
   - type: Butcherable
     spawned:
@@ -2888,8 +2858,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35
         density: 50
         mask:
@@ -2936,7 +2905,7 @@
     drawdepth: Mobs
     sprite: Mobs/Animals/possum_old.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: possum_old
   - type: DamageStateVisuals
     states:
@@ -2964,8 +2933,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35
         density: 50
         mask:
@@ -3036,8 +3004,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35
         density: 50 #They actually are pretty light, I looked it up
         mask:
@@ -3122,8 +3089,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35
         density: 50
         mask:
@@ -3166,7 +3132,7 @@
 
 - type: entity
   name: corrupted corgi
-  parent: [ MobCorgi, MobCombat ]
+  parent: [MobCorgi, MobCombat]
   id: MobCorgiNarsi
   description: Ian! No!
   components:
@@ -3230,11 +3196,11 @@
     currentTemperature: 310.15
     coldDamage:
       types:
-        Cold : 1 #per second, scales with temperature & other constants
+        Cold: 1 #per second, scales with temperature & other constants
     specificHeat: 42
     heatDamage:
       types:
-        Heat : 1 #per second, scales with temperature & other constants
+        Heat: 1 #per second, scales with temperature & other constants
 
 - type: entity
   name: corgi puppy
@@ -3289,8 +3255,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35
         density: 15
         mask:
@@ -3351,7 +3316,7 @@
     - Cat
   - type: LeashAnchor # Floofstation
     kind: Intrinsic
-  # DeltaV end
+    # DeltaV end
 
 - type: entity
   name: calico cat
@@ -3529,8 +3494,8 @@
   description: Very slow animal. For people with low energy.
   components:
   - type: MovementSpeedModifier
-    baseWalkSpeed : 0.5
-    baseSprintSpeed : 1
+    baseWalkSpeed: 0.5
+    baseSprintSpeed: 1
   - type: Sprite
     drawdepth: Mobs
     sprite: Mobs/Pets/sloth.rsi
@@ -3542,8 +3507,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35
         density: 15
         mask:
@@ -3600,8 +3564,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35
         density: 5
         mask:
@@ -3646,7 +3609,7 @@
 
 - type: entity
   name: hamster
-  parent: [ SimpleMobBase, MobCombat, StripableInventoryBase]
+  parent: [SimpleMobBase, MobCombat, StripableInventoryBase]
   id: MobHamster
   description: A cute, fluffy, robust hamster.
   components:
@@ -3693,8 +3656,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.2
         density: 120
         mask:
@@ -3715,8 +3677,8 @@
       40: Critical
       60: Dead
   - type: MovementSpeedModifier
-    baseWalkSpeed : 1.9  # DeltaV: Allows them to sneak over traps
-    baseSprintSpeed : 4
+    baseWalkSpeed: 1.9 # DeltaV: Allows them to sneak over traps
+    baseSprintSpeed: 4
   - type: Inventory
     speciesId: hamster
     templateId: hamster
@@ -3825,8 +3787,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35
         density: 250
         mask:
@@ -3905,8 +3866,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35
         density: 100 # High, because wood is heavy.
         mask:
@@ -3943,8 +3903,8 @@
       30: Critical
       60: Dead
   - type: MovementSpeedModifier
-    baseWalkSpeed : 2.5
-    baseSprintSpeed : 4.5
+    baseWalkSpeed: 2.5
+    baseSprintSpeed: 4.5
   - type: Grammar
     attributes:
       gender: epicene
@@ -3982,11 +3942,11 @@
     understands:
     - Sylvan
     - GalacticCommon
-  # Starlight-end
+    # Starlight-end
 
 - type: entity
   name: reindeer buck
-  parent: [ SimpleMobBase, MobCombat ]
+  parent: [SimpleMobBase, MobCombat]
   id: MobReindeerBuck
   description: You think it can pull a sleigh?
   components:
@@ -4007,8 +3967,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.48
         density: 200
         mask:

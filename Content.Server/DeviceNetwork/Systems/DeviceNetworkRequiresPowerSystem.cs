@@ -12,8 +12,11 @@ public sealed class DeviceNetworkRequiresPowerSystem : EntitySystem
         SubscribeLocalEvent<DeviceNetworkRequiresPowerComponent, BeforePacketSentEvent>(OnBeforePacketSent);
     }
 
-    private void OnBeforePacketSent(EntityUid uid, DeviceNetworkRequiresPowerComponent component,
-        BeforePacketSentEvent args)
+    private void OnBeforePacketSent(
+        EntityUid uid,
+        DeviceNetworkRequiresPowerComponent component,
+        BeforePacketSentEvent args
+    )
     {
         if (!this.IsPowered(uid, EntityManager))
         {

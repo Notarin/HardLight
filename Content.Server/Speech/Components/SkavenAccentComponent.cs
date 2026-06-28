@@ -5,7 +5,4 @@
 ///     Etc etc.
 /// </summary>
 [RegisterComponent]
-public sealed partial class SkavenAccentComponent : Component
-{
-
-}
+public sealed partial class SkavenAccentComponent : Component { }

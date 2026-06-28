@@ -14,7 +14,8 @@ namespace Content.IntegrationTests.Tests.Body;
 public sealed class SaveLoadReparentTest
 {
     [TestPrototypes]
-    private const string Prototypes = @"
+    private const string Prototypes =
+        @"
 - type: entity
   name: HumanBodyDummy
   id: HumanBodyDummy
@@ -76,8 +77,10 @@ public sealed class SaveLoadReparentTest
                     Assert.Multiple(() =>
                     {
                         Assert.That(slot.Id, Is.EqualTo(slotId));
-                        var container =
-                            containerSystem.GetContainer(id, SharedBodySystem.GetPartSlotContainerId(slotId));
+                        var container = containerSystem.GetContainer(
+                            id,
+                            SharedBodySystem.GetPartSlotContainerId(slotId)
+                        );
                         Assert.That(container.ContainedEntities, Is.Not.Empty);
                     });
                 }
@@ -96,7 +99,9 @@ public sealed class SaveLoadReparentTest
             }
 
             // Converts an entity query enumerator to an enumerable.
-            static IEnumerable<(EntityUid Uid, TComp Comp)> EnumerateQueryEnumerator<TComp>(EntityQueryEnumerator<TComp> query)
+            static IEnumerable<(EntityUid Uid, TComp Comp)> EnumerateQueryEnumerator<TComp>(
+                EntityQueryEnumerator<TComp> query
+            )
                 where TComp : Component
             {
                 while (query.MoveNext(out var uid, out var comp))
@@ -104,11 +109,10 @@ public sealed class SaveLoadReparentTest
             }
 
             Assert.That(
-                EnumerateQueryEnumerator(
-                    entities.EntityQueryEnumerator<BodyComponent>()
-                ).Where((e) =>
-                    entities.GetComponent<MetaDataComponent>(e.Uid).EntityPrototype!.Name == "HumanBodyDummy"
-                ),
+                EnumerateQueryEnumerator(entities.EntityQueryEnumerator<BodyComponent>())
+                    .Where(
+                        (e) => entities.GetComponent<MetaDataComponent>(e.Uid).EntityPrototype!.Name == "HumanBodyDummy"
+                    ),
                 Is.Not.Empty
             );
 
@@ -119,11 +123,9 @@ public sealed class SaveLoadReparentTest
 
             Assert.That(mapLoader.TryLoadMap(mapPath, out var map, out _), Is.True);
 
-            var query = EnumerateQueryEnumerator(
-                    entities.EntityQueryEnumerator<BodyComponent>()
-                ).Where((e) =>
-                    entities.GetComponent<MetaDataComponent>(e.Uid).EntityPrototype!.Name == "HumanBodyDummy"
-                ).ToArray();
+            var query = EnumerateQueryEnumerator(entities.EntityQueryEnumerator<BodyComponent>())
+                .Where((e) => entities.GetComponent<MetaDataComponent>(e.Uid).EntityPrototype!.Name == "HumanBodyDummy")
+                .ToArray();
 
             Assert.That(query, Is.Not.Empty);
             foreach (var (uid, body) in query)
@@ -154,8 +156,10 @@ public sealed class SaveLoadReparentTest
                         Assert.Multiple(() =>
                         {
                             Assert.That(slot.Id, Is.EqualTo(slotId));
-                            var container =
-                                containerSystem.GetContainer(id, SharedBodySystem.GetPartSlotContainerId(slotId));
+                            var container = containerSystem.GetContainer(
+                                id,
+                                SharedBodySystem.GetPartSlotContainerId(slotId)
+                            );
                             Assert.That(container.ContainedEntities, Is.Not.Empty);
                         });
                     }

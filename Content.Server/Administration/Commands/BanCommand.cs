@@ -7,18 +7,25 @@ using Robust.Server.Player;
 using Robust.Shared.Configuration;
 using Robust.Shared.Console;
 
-
 namespace Content.Server.Administration.Commands;
 
 [AdminCommand(AdminFlags.Ban)]
 public sealed class BanCommand : LocalizedCommands
 {
+    [Dependency]
+    private readonly IPlayerLocator _locator = default!;
 
-    [Dependency] private readonly IPlayerLocator _locator = default!;
-    [Dependency] private readonly IBanManager _bans = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly ILogManager _logManager = default!;
+    [Dependency]
+    private readonly IBanManager _bans = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly ILogManager _logManager = default!;
 
     public override string Command => "ban";
 
@@ -29,7 +36,8 @@ public sealed class BanCommand : LocalizedCommands
         uint minutes;
         if (!Enum.TryParse(_cfg.GetCVar(CCVars.ServerBanDefaultSeverity), out NoteSeverity severity))
         {
-            _logManager.GetSawmill("admin.server_ban")
+            _logManager
+                .GetSawmill("admin.server_ban")
                 .Warning("Server ban severity could not be parsed from config! Defaulting to high.");
             severity = NoteSeverity.High;
         }

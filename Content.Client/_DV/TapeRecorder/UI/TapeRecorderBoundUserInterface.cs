@@ -30,10 +30,13 @@ public sealed class TapeRecorderBoundUserInterface(EntityUid owner, Enum uiKey) 
 
         _window?.UpdatePrint(true);
 
-        Timer.Spawn(_printCooldown, () =>
-        {
-            _window?.UpdatePrint(false);
-        });
+        Timer.Spawn(
+            _printCooldown,
+            () =>
+            {
+                _window?.UpdatePrint(false);
+            }
+        );
     }
 
     protected override void UpdateState(BoundUserInterfaceState state)

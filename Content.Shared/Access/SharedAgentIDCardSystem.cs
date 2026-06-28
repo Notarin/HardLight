@@ -30,7 +30,12 @@ namespace Content.Shared.Access.Systems
         public string CurrentJobIconId { get; }
         public uint? CurrentNumber { get; } // DeltaV
 
-        public AgentIDCardBoundUserInterfaceState(string currentName, string currentJob, string currentJobIconId, uint? currentNumber = null) // DeltaV - Added currentNumber
+        public AgentIDCardBoundUserInterfaceState(
+            string currentName,
+            string currentJob,
+            string currentJobIconId,
+            uint? currentNumber = null
+        ) // DeltaV - Added currentNumber
         {
             CurrentName = currentName;
             CurrentJob = currentJob;

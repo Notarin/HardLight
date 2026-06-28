@@ -1,20 +1,26 @@
+using System;
 using System.Linq;
 using System.Numerics;
 using Content.Server.Administration;
 using Content.Server.Construction.Conditions;
 using Content.Server.Popups;
+// using Content.Server._Crescent.Hardpoint;
+using Content.Server.Power.Components;
 using Content.Server.Shuttles.Systems;
 using Content.Server.Weapons.Ranged.Systems;
 using Content.Shared.Body.Components;
+// using Content.Shared._Crescent.Hardpoints;
+using Content.Shared.Communications;
 // using Content.Shared.Crescent.Radar;
 using Content.Shared.Interaction;
 using Content.Shared.Interaction.Events;
+using Content.Shared.Physics;
 using Content.Shared.PointCannons;
 using Content.Shared.Popups;
 using Content.Shared.Shuttles.BUIStates;
+using Content.Shared.Shuttles.Components;
 using Content.Shared.UserInterface;
 using Content.Shared.Weapons.Ranged.Components;
-using Content.Shared.Shuttles.Components;
 using Robust.Server.GameObjects;
 using Robust.Server.GameStates;
 using Robust.Shared.Containers;
@@ -23,28 +29,44 @@ using Robust.Shared.Map.Components;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Player;
-using System;
-// using Content.Server._Crescent.Hardpoint;
-using Content.Server.Power.Components;
-// using Content.Shared._Crescent.Hardpoints;
-using Content.Shared.Communications;
-using Content.Shared.Physics;
 
 namespace Content.Server.PointCannons;
 
 public class PointCannonSystem : EntitySystem
 {
-    [Dependency] private readonly ISharedPlayerManager _playerMan = default!;
-    [Dependency] private readonly TransformSystem _formSys = default!;
-    [Dependency] private readonly SharedUserInterfaceSystem _uiSys = default!;
-    [Dependency] private readonly PopupSystem _popSys = default!;
-    [Dependency] private readonly QuickDialogSystem _dialogSys = default!;
-    [Dependency] private readonly GunSystem _gunSys = default!;
-    [Dependency] private readonly ShuttleConsoleSystem _shuttleConSys = default!;
-    [Dependency] private readonly PvsOverrideSystem _pvsSys = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly MapSystem _maps = default!;
+    [Dependency]
+    private readonly ISharedPlayerManager _playerMan = default!;
+
+    [Dependency]
+    private readonly TransformSystem _formSys = default!;
+
+    [Dependency]
+    private readonly SharedUserInterfaceSystem _uiSys = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popSys = default!;
+
+    [Dependency]
+    private readonly QuickDialogSystem _dialogSys = default!;
+
+    [Dependency]
+    private readonly GunSystem _gunSys = default!;
+
+    [Dependency]
+    private readonly ShuttleConsoleSystem _shuttleConSys = default!;
+
+    [Dependency]
+    private readonly PvsOverrideSystem _pvsSys = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly EntityLookupSystem _lookup = default!;
+
+    [Dependency]
+    private readonly MapSystem _maps = default!;
+
     // [Dependency] private readonly HardpointSystem _hardpoint = default!;
 
     public override void Initialize()
@@ -68,6 +90,7 @@ public class PointCannonSystem : EntitySystem
         SubscribeLocalEvent<PointCannonLinkToolComponent, UseInHandEvent>(OnLinkToolHandUse);
         SubscribeLocalEvent<PointCannonComponent, InteractUsingEvent>(OnLinkToolUse);
     }
+
     public override void Update(float frameTime)
     {
         base.Update(frameTime);
@@ -155,6 +178,7 @@ public class PointCannonSystem : EntitySystem
             }
         }
     }
+
     private void OnConsoleDelete<T>(EntityUid console, TargetingConsoleComponent comp, ref T args)
     {
         UnlinkAllCannonsFromConsole(console, comp);
@@ -201,7 +225,11 @@ public class PointCannonSystem : EntitySystem
         }
     }
 
-    private void OnConsoleOpenAttempt(EntityUid uid, TargetingConsoleComponent component, ActivatableUIOpenAttemptEvent args)
+    private void OnConsoleOpenAttempt(
+        EntityUid uid,
+        TargetingConsoleComponent component,
+        ActivatableUIOpenAttemptEvent args
+    )
     {
         var uis = _uiSys.GetActorUis(args.User);
 
@@ -217,12 +245,21 @@ public class PointCannonSystem : EntitySystem
             if (key is ShuttleConsoleUiKey.Key)
             {
                 args.Cancel();
-                _popSys.PopupEntity(Loc.GetString("targeting-rejection-shuttle-console"), args.User, args.User, PopupType.LargeCaution);
+                _popSys.PopupEntity(
+                    Loc.GetString("targeting-rejection-shuttle-console"),
+                    args.User,
+                    args.User,
+                    PopupType.LargeCaution
+                );
             }
         }
     }
 
-    private void BUIValidation(EntityUid uid, TargetingConsoleComponent component, BoundUserInterfaceMessageAttempt args)
+    private void BUIValidation(
+        EntityUid uid,
+        TargetingConsoleComponent component,
+        BoundUserInterfaceMessageAttempt args
+    )
     {
         var uis = _uiSys.GetActorUis(args.Actor);
 
@@ -234,6 +271,7 @@ public class PointCannonSystem : EntitySystem
             }
         }
     }
+
     private void OnConsoleOpened(Entity<TargetingConsoleComponent> uid, ref BoundUIOpenedEvent args)
     {
         uid.Comp.RegenerateCannons = true;
@@ -248,12 +286,10 @@ public class PointCannonSystem : EntitySystem
             TogglePvsOverride(uid.Comp.CurrentGroup, [session], false);
     }
 
-    private void OnCannonDetach<T>(Entity<PointCannonComponent> uid,ref T args)
+    private void OnCannonDetach<T>(Entity<PointCannonComponent> uid, ref T args)
     {
         UnlinkCannon(uid);
     }
-
-
 
     private void OnLinkToolUse(Entity<PointCannonComponent> uid, ref InteractUsingEvent args)
     {
@@ -279,15 +315,20 @@ public class PointCannonSystem : EntitySystem
         if (!_playerMan.TryGetSessionByEntity(args.User, out var session))
             return;
 
-        _dialogSys.OpenDialog(session, "Group name", "Name (case insensitive)", (string name) =>
-        {
-            uid.Comp.GroupName = name == "" ? "all" : name.ToLower();
-        });
+        _dialogSys.OpenDialog(
+            session,
+            "Group name",
+            "Name (case insensitive)",
+            (string name) =>
+            {
+                uid.Comp.GroupName = name == "" ? "all" : name.ToLower();
+            }
+        );
     }
 
     public void LinkCannon(EntityUid cannonUid, EntityUid consoleUid, TargetingConsoleComponent console, string group)
     {
-        if(!TryComp<PointCannonComponent>(cannonUid, out var cannonComponent))
+        if (!TryComp<PointCannonComponent>(cannonUid, out var cannonComponent))
             return;
         if (!console.CannonGroups.ContainsKey(group))
             console.CannonGroups[group] = [];
@@ -307,7 +348,6 @@ public class PointCannonSystem : EntitySystem
         console.RegenerateCannons = true;
         cannonComponent.LinkedConsoleId = consoleUid;
         cannonComponent.LinkedConsoleIds.Add(consoleUid);
-
 
         if (group == console.CurrentGroupName)
             TogglePvsOverride([cannonUid], GetUiSessions(consoleUid, TargetingConsoleUiKey.Key), true);
@@ -348,7 +388,7 @@ public class PointCannonSystem : EntitySystem
         foreach (string group in console.CannonGroups.Keys.ToList())
         {
             console.CannonGroups[group].Remove(cannonUid);
-            if (console.CannonGroups[group].Count == 0  && group != "all")
+            if (console.CannonGroups[group].Count == 0 && group != "all")
             {
                 console.CannonGroups.Remove(group);
                 if (console.CurrentGroupName == group)
@@ -372,8 +412,11 @@ public class PointCannonSystem : EntitySystem
         TargetingConsoleBoundUserInterfaceState consoleState = new(
             navState,
             // iffState,
-            console.RegenerateCannons ? console.CannonGroups.Keys.ToList() : null,
-            GetNetEntityList(console.CurrentGroup));
+            console.RegenerateCannons
+                ? console.CannonGroups.Keys.ToList()
+                : null,
+            GetNetEntityList(console.CurrentGroup)
+        );
 
         console.RegenerateCannons = false;
         console.PrevState = consoleState;
@@ -382,7 +425,7 @@ public class PointCannonSystem : EntitySystem
 
     private void OnConsoleFire(EntityUid uid, TargetingConsoleComponent console, TargetingConsoleFireMessage ev)
     {
-        for (int i = 0; i < console.CurrentGroup.Count;)
+        for (int i = 0; i < console.CurrentGroup.Count; )
         {
             EntityUid cannonUid = console.CurrentGroup[i];
             if (Deleted(cannonUid))
@@ -396,7 +439,10 @@ public class PointCannonSystem : EntitySystem
         }
     }
 
-    private void OnConsoleGroupChanged(Entity<TargetingConsoleComponent> uid, ref TargetingConsoleGroupChangedMessage args)
+    private void OnConsoleGroupChanged(
+        Entity<TargetingConsoleComponent> uid,
+        ref TargetingConsoleGroupChangedMessage args
+    )
     {
         string prevGroup = uid.Comp.CurrentGroupName;
         uid.Comp.CurrentGroupName = args.GroupName;
@@ -412,7 +458,8 @@ public class PointCannonSystem : EntitySystem
         Vector2 pos,
         TransformComponent? form = null,
         GunComponent? gun = null,
-        PointCannonComponent? cannon = null)
+        PointCannonComponent? cannon = null
+    )
     {
         if (!Resolve(uid, ref form) || !Resolve(uid, ref gun) || !Resolve(uid, ref cannon))
             return false;
@@ -456,7 +503,13 @@ public class PointCannonSystem : EntitySystem
         return true;
     }
 
-    public void RefreshFiringRanges(EntityUid uid, TransformComponent? form = null, GunComponent? gun = null, PointCannonComponent? cannon = null, int? range = null)
+    public void RefreshFiringRanges(
+        EntityUid uid,
+        TransformComponent? form = null,
+        GunComponent? gun = null,
+        PointCannonComponent? cannon = null,
+        int? range = null
+    )
     {
         if (!Resolve(uid, ref form) || !Resolve(uid, ref gun) || !Resolve(uid, ref cannon))
             return;
@@ -467,14 +520,20 @@ public class PointCannonSystem : EntitySystem
         Dirty(uid, cannon);
     }
 
-    private List<(Angle, Angle)> CalculateFiringRanges(EntityUid uid, TransformComponent form, GunComponent gun, PointCannonComponent cannon, int range)
+    private List<(Angle, Angle)> CalculateFiringRanges(
+        EntityUid uid,
+        TransformComponent form,
+        GunComponent gun,
+        PointCannonComponent cannon,
+        int range
+    )
     {
         if (form.GridUid == null)
             return new();
 
         List<(Angle, Angle)> ranges = new();
-        HashSet<EntityUid> entities = _lookup.GetEntitiesInRange(uid, (float) range, LookupFlags.Static);
-        foreach(var childUid in entities)
+        HashSet<EntityUid> entities = _lookup.GetEntitiesInRange(uid, (float)range, LookupFlags.Static);
+        foreach (var childUid in entities)
         {
             //checking if obstacle is not too far/close to the cannon
             TransformComponent otherForm = Transform(childUid);
@@ -484,7 +543,12 @@ public class PointCannonSystem : EntitySystem
             Vector2 dir = otherForm.LocalPosition - form.LocalPosition;
 
             //checking that obstacle is anchored and solid
-            if (!otherForm.Anchored || !TryComp<PhysicsComponent>(childUid, out var body) ||  !body.Hard || (body.CollisionLayer & (int)CollisionGroup.BulletImpassable) == 0)
+            if (
+                !otherForm.Anchored
+                || !TryComp<PhysicsComponent>(childUid, out var body)
+                || !body.Hard
+                || (body.CollisionLayer & (int)CollisionGroup.BulletImpassable) == 0
+            )
                 continue;
 
             //calculating circular sector that obstacle occupies relative to the cannon
@@ -531,7 +595,8 @@ public class PointCannonSystem : EntitySystem
         // Commented out - missing CrescentHelpers
         // Angle dirAngle = CrescentHelpers.AngNormal(new Angle(delta));
         Angle dirAngle = new Angle(delta);
-        Vector2 a, b;
+        Vector2 a,
+            b;
 
         //this can be done without ugly conditional below, by rotating tile's square by delta's angle and finding left- and rightmost points,
         //but this certainly will be heavier and less clear

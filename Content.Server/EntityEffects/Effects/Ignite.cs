@@ -12,8 +12,8 @@ public sealed partial class Ignite : EntityEffect
 {
     public override bool ShouldLog => true;
 
-    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys)
-        => Loc.GetString("reagent-effect-guidebook-ignite", ("chance", Probability));
+    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys) =>
+        Loc.GetString("reagent-effect-guidebook-ignite", ("chance", Probability));
 
     public override LogImpact LogImpact => LogImpact.Medium;
 
@@ -23,7 +23,8 @@ public sealed partial class Ignite : EntityEffect
         if (args is EntityEffectReagentArgs reagentArgs)
         {
             flamSys.Ignite(reagentArgs.TargetEntity, reagentArgs.OrganEntity ?? reagentArgs.TargetEntity);
-        } else
+        }
+        else
         {
             flamSys.Ignite(args.TargetEntity, args.TargetEntity);
         }

@@ -43,9 +43,8 @@
   - type: Fixtures
     fixtures:
       EventHorizonCollider:
-        shape:
-          !type:PhysShapeCircle
-            radius: 0.55
+        shape: !type:PhysShapeCircle
+          radius: 0.55
         hard: true
         restitution: 0.8
         density: 99999
@@ -54,9 +53,8 @@
         layer:
         - GlassLayer
       EventHorizonConsumer:
-        shape:
-          !type:PhysShapeCircle
-            radius: 0.65
+        shape: !type:PhysShapeCircle
+          radius: 0.65
         hard: false
         mask:
         - Opaque
@@ -136,9 +134,8 @@
   - type: Fixtures
     fixtures:
       TeslaCollider:
-        shape:
-          !type:PhysShapeCircle
-            radius: 0.35
+        shape: !type:PhysShapeCircle
+          radius: 0.35
         hard: true
         restitution: 0.8
         density: 10

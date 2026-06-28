@@ -11,9 +11,9 @@ namespace Content.Client.Lathe.UI
     {
         [ViewVariables]
         private LatheMenu? _menu;
-        public LatheBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-        {
-        }
+
+        public LatheBoundUserInterface(EntityUid owner, Enum uiKey)
+            : base(owner, uiKey) { }
 
         protected override void Open()
         {

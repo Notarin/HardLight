@@ -1,32 +1,47 @@
 using System.Linq;
+using Content.Server._NF.Station.Components; // Frontier
+using Content.Server.Access.Systems;
+using Content.Server.Administration.Logs; // Frontier
+using Content.Server.Station.Components; // Frontier
 using Content.Server.Station.Systems;
 using Content.Server.StationRecords.Components;
-using Content.Server.Access.Systems;
-using Content.Shared.StationRecords;
-using Robust.Server.GameObjects;
-using Content.Shared.Roles; // Frontier
-using Robust.Shared.Prototypes; // Frontier
-using Content.Shared.Access.Systems; // Frontier
-using Content.Server.Station.Components; // Frontier
-using Content.Server._NF.Station.Components; // Frontier
-using Content.Server.Administration.Logs; // Frontier
-using Content.Shared.Database; // Frontier
-using Content.Shared._NF.StationRecords; // Frontier
 using Content.Shared._NF.Roles.Components;
 using Content.Shared._NF.Shipyard.Components;
+using Content.Shared._NF.StationRecords; // Frontier
+using Content.Shared.Access.Systems; // Frontier
+using Content.Shared.Database; // Frontier
+using Content.Shared.Roles; // Frontier
+using Content.Shared.StationRecords;
+using Robust.Server.GameObjects;
+using Robust.Shared.Prototypes; // Frontier
 
 namespace Content.Server.StationRecords.Systems;
 
 public sealed class GeneralStationRecordConsoleSystem : EntitySystem
 {
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
-    [Dependency] private readonly StationSystem _station = default!;
-    [Dependency] private readonly StationRecordsSystem _stationRecords = default!;
-    [Dependency] private readonly StationJobsSystem _stationJobsSystem = default!; // Frontier
-    [Dependency] private readonly IdCardSystem _idCard = default!;
-    [Dependency] private readonly AccessReaderSystem _access = default!; // Frontier
-    [Dependency] private readonly IPrototypeManager _proto = default!; // Frontier
-    [Dependency] private readonly IAdminLogManager _adminLog = default!; // Frontier
+    [Dependency]
+    private readonly UserInterfaceSystem _ui = default!;
+
+    [Dependency]
+    private readonly StationSystem _station = default!;
+
+    [Dependency]
+    private readonly StationRecordsSystem _stationRecords = default!;
+
+    [Dependency]
+    private readonly StationJobsSystem _stationJobsSystem = default!; // Frontier
+
+    [Dependency]
+    private readonly IdCardSystem _idCard = default!;
+
+    [Dependency]
+    private readonly AccessReaderSystem _access = default!; // Frontier
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!; // Frontier
+
+    [Dependency]
+    private readonly IAdminLogManager _adminLog = default!; // Frontier
 
     public override void Initialize()
     {
@@ -34,15 +49,18 @@ public sealed class GeneralStationRecordConsoleSystem : EntitySystem
         SubscribeLocalEvent<GeneralStationRecordConsoleComponent, AfterGeneralRecordCreatedEvent>(UpdateUserInterface);
         SubscribeLocalEvent<GeneralStationRecordConsoleComponent, RecordRemovedEvent>(UpdateUserInterface);
 
-        Subs.BuiEvents<GeneralStationRecordConsoleComponent>(GeneralStationRecordConsoleKey.Key, subs =>
-        {
-            subs.Event<BoundUIOpenedEvent>(UpdateUserInterface);
-            subs.Event<SelectStationRecord>(OnKeySelected);
-            subs.Event<SetStationRecordFilter>(OnFiltersChanged);
-            subs.Event<DeleteStationRecord>(OnRecordDelete);
-            subs.Event<AdjustStationJobMsg>(OnAdjustJob); // Frontier
-            subs.Event<SetStationAdvertisementMsg>(OnAdvertisementChanged); // Frontier
-        });
+        Subs.BuiEvents<GeneralStationRecordConsoleComponent>(
+            GeneralStationRecordConsoleKey.Key,
+            subs =>
+            {
+                subs.Event<BoundUIOpenedEvent>(UpdateUserInterface);
+                subs.Event<SelectStationRecord>(OnKeySelected);
+                subs.Event<SetStationRecordFilter>(OnFiltersChanged);
+                subs.Event<DeleteStationRecord>(OnRecordDelete);
+                subs.Event<AdjustStationJobMsg>(OnAdjustJob); // Frontier
+                subs.Event<SetStationAdvertisementMsg>(OnAdvertisementChanged); // Frontier
+            }
+        );
     }
 
     private void OnRecordDelete(Entity<GeneralStationRecordConsoleComponent> ent, ref DeleteStationRecord args)
@@ -100,22 +118,32 @@ public sealed class GeneralStationRecordConsoleSystem : EntitySystem
                 return;
             }
 
-            _stationJobsSystem.TryAdjustJobCapacity(station, msg.JobProto, msg.Amount, clamp: true, stationJobs: stationJobs);
+            _stationJobsSystem.TryAdjustJobCapacity(
+                station,
+                msg.JobProto,
+                msg.Amount,
+                clamp: true,
+                stationJobs: stationJobs
+            );
 
             UpdateUserInterface(ent);
         }
     }
+
     private void OnFiltersChanged(Entity<GeneralStationRecordConsoleComponent> ent, ref SetStationRecordFilter msg)
     {
-        if (ent.Comp.Filter == null ||
-            ent.Comp.Filter.Type != msg.Type || ent.Comp.Filter.Value != msg.Value)
+        if (ent.Comp.Filter == null || ent.Comp.Filter.Type != msg.Type || ent.Comp.Filter.Value != msg.Value)
         {
             ent.Comp.Filter = new StationRecordsFilter(msg.Type, msg.Value);
             UpdateUserInterface(ent);
         }
     }
 
-    public void SetTransientState(Entity<GeneralStationRecordConsoleComponent> ent, uint? activeKey, StationRecordsFilter? filter)
+    public void SetTransientState(
+        Entity<GeneralStationRecordConsoleComponent> ent,
+        uint? activeKey,
+        StationRecordsFilter? filter
+    )
     {
         ent.Comp.ActiveKey = activeKey;
         ent.Comp.Filter = filter;
@@ -134,11 +162,13 @@ public sealed class GeneralStationRecordConsoleSystem : EntitySystem
         }
     }
 
-    private void OnAdvertisementChanged(Entity<GeneralStationRecordConsoleComponent> ent, ref SetStationAdvertisementMsg msg)
+    private void OnAdvertisementChanged(
+        Entity<GeneralStationRecordConsoleComponent> ent,
+        ref SetStationAdvertisementMsg msg
+    )
     {
         var stationUid = _station.GetOwningStation(ent);
-        if (stationUid is EntityUid station
-            && TryComp<ExtraShuttleInformationComponent>(station, out var vesselInfo))
+        if (stationUid is EntityUid station && TryComp<ExtraShuttleInformationComponent>(station, out var vesselInfo))
         {
             if (!CanEditShipRecords(msg.Actor, ent.Owner))
             {
@@ -147,11 +177,15 @@ public sealed class GeneralStationRecordConsoleSystem : EntitySystem
             }
 
             vesselInfo.Advertisement = msg.Advertisement;
-            _adminLog.Add(LogType.ShuttleInfoChanged, $"{ToPrettyString(msg.Actor):actor} set their shuttle {ToPrettyString(station)}'s ad text to {vesselInfo.Advertisement}");
+            _adminLog.Add(
+                LogType.ShuttleInfoChanged,
+                $"{ToPrettyString(msg.Actor):actor} set their shuttle {ToPrettyString(station)}'s ad text to {vesselInfo.Advertisement}"
+            );
             UpdateUserInterface(ent);
             _stationJobsSystem.UpdateJobsAvailable(); // Nasty - ideally this sends out partial information - one ship changed its advertisement.
         }
     }
+
     // End Frontier: job counts, advertisements
 
     private void UpdateUserInterface(Entity<GeneralStationRecordConsoleComponent> ent)
@@ -165,8 +199,10 @@ public sealed class GeneralStationRecordConsoleSystem : EntitySystem
 
         if (owningStation != null)
         {
-            if (_stationJobsSystem.IsShipCrewHiringStation(owningStation.Value)
-                && TryComp<StationJobsComponent>(owningStation.Value, out var stationJobs))
+            if (
+                _stationJobsSystem.IsShipCrewHiringStation(owningStation.Value)
+                && TryComp<StationJobsComponent>(owningStation.Value, out var stationJobs)
+            )
                 jobList = _stationJobsSystem.GetJobs(owningStation.Value, stationJobs);
 
             if (TryComp<ExtraShuttleInformationComponent>(owningStation.Value, out var extraVessel))
@@ -177,9 +213,17 @@ public sealed class GeneralStationRecordConsoleSystem : EntitySystem
         StationRecordsComponent? stationRecords;
         Dictionary<uint, string> listing;
 
-        if (owningStation != null
+        if (
+            owningStation != null
             && TryComp<ExtraShuttleInformationComponent>(owningStation.Value, out _)
-            && TryBuildShipRecordListing(owningStation.Value, console.Filter, out stationUid, out stationRecords, out var shipListing))
+            && TryBuildShipRecordListing(
+                owningStation.Value,
+                console.Filter,
+                out stationUid,
+                out stationRecords,
+                out var shipListing
+            )
+        )
         {
             listing = shipListing;
         }
@@ -187,7 +231,19 @@ public sealed class GeneralStationRecordConsoleSystem : EntitySystem
         {
             if (!_stationRecords.TryGetAuthoritativeRecords(out stationUid, out stationRecords)) // HardLight: TryComp<StationRecordsComponent>(owningStation<_stationRecords.TryGetAuthoritativeRecords; added out var stationUid
             {
-                _ui.SetUiState(uid, GeneralStationRecordConsoleKey.Key, new GeneralStationRecordConsoleState(null, null, null, jobList, console.Filter, ent.Comp.CanDeleteEntries, advertisement)); // Frontier: add as many args as we can
+                _ui.SetUiState(
+                    uid,
+                    GeneralStationRecordConsoleKey.Key,
+                    new GeneralStationRecordConsoleState(
+                        null,
+                        null,
+                        null,
+                        jobList,
+                        console.Filter,
+                        ent.Comp.CanDeleteEntries,
+                        advertisement
+                    )
+                ); // Frontier: add as many args as we can
                 return;
             }
 
@@ -197,7 +253,15 @@ public sealed class GeneralStationRecordConsoleSystem : EntitySystem
         switch (listing.Count)
         {
             case 0:
-                var consoleState = new GeneralStationRecordConsoleState(null, null, null, jobList, console.Filter, ent.Comp.CanDeleteEntries, advertisement); // Frontier: add as many args as we can
+                var consoleState = new GeneralStationRecordConsoleState(
+                    null,
+                    null,
+                    null,
+                    jobList,
+                    console.Filter,
+                    ent.Comp.CanDeleteEntries,
+                    advertisement
+                ); // Frontier: add as many args as we can
                 _ui.SetUiState(uid, GeneralStationRecordConsoleKey.Key, consoleState);
                 return;
             default:
@@ -208,18 +272,42 @@ public sealed class GeneralStationRecordConsoleSystem : EntitySystem
 
         if (console.ActiveKey is not { } id)
         {
-            _ui.SetUiState(uid, GeneralStationRecordConsoleKey.Key, new GeneralStationRecordConsoleState(null, null, listing, jobList, console.Filter, ent.Comp.CanDeleteEntries, advertisement)); // Frontier: add as many args as we can
+            _ui.SetUiState(
+                uid,
+                GeneralStationRecordConsoleKey.Key,
+                new GeneralStationRecordConsoleState(
+                    null,
+                    null,
+                    listing,
+                    jobList,
+                    console.Filter,
+                    ent.Comp.CanDeleteEntries,
+                    advertisement
+                )
+            ); // Frontier: add as many args as we can
             return;
         }
 
         var key = new StationRecordKey(id, stationUid); // HardLight: owningStation.Value<stationUid
         _stationRecords.TryGetRecord<GeneralStationRecord>(key, out var record, stationRecords);
 
-        GeneralStationRecordConsoleState newState = new(id, record, listing, jobList, console.Filter, ent.Comp.CanDeleteEntries, advertisement);
+        GeneralStationRecordConsoleState newState = new(
+            id,
+            record,
+            listing,
+            jobList,
+            console.Filter,
+            ent.Comp.CanDeleteEntries,
+            advertisement
+        );
         _ui.SetUiState(uid, GeneralStationRecordConsoleKey.Key, newState);
     }
 
-    private bool TryBuildShipRecordListing(EntityUid station, StationRecordsFilter? filter, out Dictionary<uint, string> listing)
+    private bool TryBuildShipRecordListing(
+        EntityUid station,
+        StationRecordsFilter? filter,
+        out Dictionary<uint, string> listing
+    )
     {
         return TryBuildShipRecordListing(station, filter, out _, out _, out listing);
     }
@@ -229,7 +317,8 @@ public sealed class GeneralStationRecordConsoleSystem : EntitySystem
         StationRecordsFilter? filter,
         out EntityUid recordsStation,
         out StationRecordsComponent? stationRecords,
-        out Dictionary<uint, string> listing)
+        out Dictionary<uint, string> listing
+    )
     {
         recordsStation = EntityUid.Invalid;
         stationRecords = null;
@@ -247,9 +336,7 @@ public sealed class GeneralStationRecordConsoleSystem : EntitySystem
         var trackedCrew = EntityQueryEnumerator<JobTrackingComponent, StationRecordKeyStorageComponent>();
         while (trackedCrew.MoveNext(out _, out var jobTracking, out var keyStorage))
         {
-            if (jobTracking.SpawnStation != station
-                || !jobTracking.Active
-                || keyStorage.Key is not { } key)
+            if (jobTracking.SpawnStation != station || !jobTracking.Active || keyStorage.Key is not { } key)
             {
                 continue;
             }
@@ -260,10 +347,12 @@ public sealed class GeneralStationRecordConsoleSystem : EntitySystem
         var deedHolders = EntityQueryEnumerator<ShuttleDeedComponent, StationRecordKeyStorageComponent>();
         while (deedHolders.MoveNext(out _, out var shuttleDeed, out var keyStorage))
         {
-            if (shuttleDeed.ShuttleUid is not { } shuttleNetEntity
+            if (
+                shuttleDeed.ShuttleUid is not { } shuttleNetEntity
                 || !TryGetEntity(shuttleNetEntity, out var shuttleUid)
                 || _station.GetOwningStation(shuttleUid) != station
-                || keyStorage.Key is not { } key)
+                || keyStorage.Key is not { } key
+            )
             {
                 continue;
             }
@@ -279,11 +368,14 @@ public sealed class GeneralStationRecordConsoleSystem : EntitySystem
         StationRecordsFilter? filter,
         Dictionary<uint, string> listing,
         HashSet<uint> includedKeys,
-        StationRecordsComponent stationRecords)
+        StationRecordsComponent stationRecords
+    )
     {
-        if (!includedKeys.Add(key.Id)
+        if (
+            !includedKeys.Add(key.Id)
             || !_stationRecords.TryGetRecord<GeneralStationRecord>(key, out var record, stationRecords)
-            || _stationRecords.IsSkipped(filter, record))
+            || _stationRecords.IsSkipped(filter, record)
+        )
         {
             return;
         }
@@ -291,7 +383,12 @@ public sealed class GeneralStationRecordConsoleSystem : EntitySystem
         listing.Add(key.Id, record.Name);
     }
 
-    private bool CanEditStationJobs(EntityUid actor, EntityUid console, EntityUid station, StationJobsComponent stationJobs)
+    private bool CanEditStationJobs(
+        EntityUid actor,
+        EntityUid console,
+        EntityUid station,
+        StationJobsComponent stationJobs
+    )
     {
         if (_stationJobsSystem.IsShipCrewHiringStation(station))
             return CanEditShipRecords(actor, console);
@@ -319,10 +416,12 @@ public sealed class GeneralStationRecordConsoleSystem : EntitySystem
 
     private bool CanEditShipRecords(EntityUid actor, EntityUid target)
     {
-        if (!_idCard.TryFindIdCard(actor, out var idCard)
+        if (
+            !_idCard.TryFindIdCard(actor, out var idCard)
             || !TryComp(idCard, out ShuttleDeedComponent? shuttleDeed)
             || shuttleDeed.ShuttleUid == null
-            || !TryGetEntity(shuttleDeed.ShuttleUid.Value, out var shuttleUid))
+            || !TryGetEntity(shuttleDeed.ShuttleUid.Value, out var shuttleUid)
+        )
         {
             return false;
         }
@@ -333,7 +432,6 @@ public sealed class GeneralStationRecordConsoleSystem : EntitySystem
         if (shuttleStation != null && targetStation != null)
             return shuttleStation == targetStation;
 
-        return TryComp(target, out TransformComponent? targetXform)
-            && shuttleUid == targetXform.GridUid;
+        return TryComp(target, out TransformComponent? targetXform) && shuttleUid == targetXform.GridUid;
     }
 }

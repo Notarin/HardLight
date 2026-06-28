@@ -1,19 +1,22 @@
-using Content.Client.Gameplay;
-using Content.Client._Shitmed.UserInterface.Systems.PartStatus.Widgets;
-using Content.Shared._Shitmed.Targeting;
 using Content.Client._Shitmed.Targeting;
+using Content.Client._Shitmed.UserInterface.Systems.PartStatus.Widgets;
+using Content.Client.Gameplay;
+using Content.Shared._Shitmed.Targeting;
 using Robust.Client.GameObjects;
-using Robust.Client.UserInterface.Controllers;
-using Robust.Client.Player;
-using Robust.Shared.Utility;
 using Robust.Client.Graphics;
-
+using Robust.Client.Player;
+using Robust.Client.UserInterface.Controllers;
+using Robust.Shared.Utility;
 
 namespace Content.Client._Shitmed.UserInterface.Systems.PartStatus;
 
-public sealed class PartStatusUIController : UIController, IOnStateEntered<GameplayState>, IOnSystemChanged<TargetingSystem>
+public sealed class PartStatusUIController
+    : UIController,
+        IOnStateEntered<GameplayState>,
+        IOnSystemChanged<TargetingSystem>
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
     private SpriteSystem _spriteSystem = default!;
     private TargetingComponent? _targetingComponent;
     private PartStatusControl? PartStatusControl => UIManager.GetActiveUIWidgetOrNull<PartStatusControl>();
@@ -54,7 +57,6 @@ public sealed class PartStatusUIController : UIController, IOnStateEntered<Gamep
             if (_targetingComponent != null)
                 PartStatusControl.SetTextures(_targetingComponent.BodyStatus);
         }
-
     }
 
     public void RemovePartStatusControl()

@@ -2,8 +2,8 @@ using System.Numerics;
 using Content.Client.Viewport;
 using Content.Shared.CCVar;
 using Content.Shared.Floofstation;
-using Content.Shared.Telescope;
 using Content.Shared.Input;
+using Content.Shared.Telescope;
 using Robust.Client.GameObjects;
 using Robust.Client.Graphics;
 using Robust.Client.Input;
@@ -18,13 +18,26 @@ namespace Content.Client.Telescope;
 
 public sealed class TelescopeSystem : SharedTelescopeSystem
 {
-    [Dependency] private readonly InputSystem _inputSystem = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IInputManager _input = default!;
-    [Dependency] private readonly IEyeManager _eyeManager = default!;
-    [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency]
+    private readonly InputSystem _inputSystem = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly IInputManager _input = default!;
+
+    [Dependency]
+    private readonly IEyeManager _eyeManager = default!;
+
+    [Dependency]
+    private readonly IUserInterfaceManager _uiManager = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
 
     private ScalingViewport? _viewport;
     private bool _holdLookUp;
@@ -34,7 +47,8 @@ public sealed class TelescopeSystem : SharedTelescopeSystem
     {
         base.Initialize();
 
-        _cfg.OnValueChanged(FloofCCVars.HoldLookUp,
+        _cfg.OnValueChanged(
+            FloofCCVars.HoldLookUp,
             val =>
             {
                 var input = val ? null : InputCmdHandler.FromDelegate(_ => _toggled = !_toggled);
@@ -42,16 +56,15 @@ public sealed class TelescopeSystem : SharedTelescopeSystem
                 _holdLookUp = val;
                 _toggled = false;
             },
-            true);
+            true
+        );
     }
 
     public override void FrameUpdate(float frameTime)
     {
         base.FrameUpdate(frameTime);
 
-        if (_timing.ApplyingState
-            || !_timing.IsFirstTimePredicted
-            || !_input.MouseScreenPosition.IsValid)
+        if (_timing.ApplyingState || !_timing.IsFirstTimePredicted || !_input.MouseScreenPosition.IsValid)
             return;
 
         var player = _player.LocalEntity;
@@ -121,9 +134,6 @@ public sealed class TelescopeSystem : SharedTelescopeSystem
 
     private void RaiseEvent(Vector2 offset)
     {
-        RaisePredictiveEvent(new EyeOffsetChangedEvent
-        {
-            Offset = offset
-        });
+        RaisePredictiveEvent(new EyeOffsetChangedEvent { Offset = offset });
     }
 }

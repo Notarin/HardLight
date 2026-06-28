@@ -18,8 +18,8 @@ namespace Content.Client.Administration.UI.CustomControls
 
         protected virtual bool CanPress()
         {
-            return string.IsNullOrEmpty(Command) ||
-                   IoCManager.Resolve<IClientConGroupController>().CanCommand(Command.Split(' ')[0]);
+            return string.IsNullOrEmpty(Command)
+                || IoCManager.Resolve<IClientConGroupController>().CanCommand(Command.Split(' ')[0]);
         }
 
         protected override void EnteredTree()
@@ -39,7 +39,11 @@ namespace Content.Client.Administration.UI.CustomControls
 
         public bool TryParseTag(Dictionary<string, string> args, [NotNullWhen(true)] out Control? control)
         {
-            if (args.Count != 2 || !args.TryGetValue("Text", out var text) || !args.TryGetValue("Command", out var command))
+            if (
+                args.Count != 2
+                || !args.TryGetValue("Text", out var text)
+                || !args.TryGetValue("Command", out var command)
+            )
             {
                 Logger.Error($"Invalid arguments passed to {nameof(CommandButton)}");
                 control = null;

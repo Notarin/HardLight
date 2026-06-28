@@ -12,7 +12,7 @@
     tags:
     - SpiderCraft
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: TableWeb
@@ -28,7 +28,7 @@
     tags:
     - SpiderCraft
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: WebBed
@@ -44,7 +44,7 @@
     tags:
     - SpiderCraft
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: ChairWeb
@@ -86,4 +86,4 @@
     tags:
     - SpiderCraft
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked

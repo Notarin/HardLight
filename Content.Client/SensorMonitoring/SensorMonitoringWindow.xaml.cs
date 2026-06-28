@@ -19,8 +19,11 @@ namespace Content.Client.SensorMonitoring;
 [GenerateTypedNameReferences]
 public sealed partial class SensorMonitoringWindow : FancyWindow, IComputerWindow<ConsoleUIState>
 {
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly ILocalizationManager _loc = default!;
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
+
+    [Dependency]
+    private readonly ILocalizationManager _loc = default!;
 
     private TimeSpan _retentionTime;
     private readonly Dictionary<int, SensorData> _sensorData = new();
@@ -43,18 +46,14 @@ public sealed partial class SensorMonitoringWindow : FancyWindow, IComputerWindo
             {
                 Name = netSensor.Name,
                 Address = netSensor.Address,
-                DeviceType = netSensor.DeviceType
+                DeviceType = netSensor.DeviceType,
             };
 
             _sensorData.Add(netSensor.NetId, sensor);
 
             foreach (var netStream in netSensor.Streams)
             {
-                var stream = new SensorStream
-                {
-                    Name = netStream.Name,
-                    Unit = netStream.Unit
-                };
+                var stream = new SensorStream { Name = netStream.Name, Unit = netStream.Unit };
 
                 sensor.Streams.Add(netStream.NetId, stream);
 
@@ -116,17 +115,16 @@ public sealed partial class SensorMonitoringWindow : FancyWindow, IComputerWindo
                 Text = sensor.Address,
                 Margin = new Thickness(4, 0),
                 VerticalAlignment = VAlignment.Bottom,
-                StyleClasses = { StyleNano.StyleClassLabelSecondaryColor }
+                StyleClasses = { StyleNano.StyleClassLabelSecondaryColor },
             };
 
-            Asdf.AddChild(new BoxContainer
-            {
-                Orientation = BoxContainer.LayoutOrientation.Horizontal, Children =
+            Asdf.AddChild(
+                new BoxContainer
                 {
-                    labelName,
-                    labelAddress
+                    Orientation = BoxContainer.LayoutOrientation.Horizontal,
+                    Children = { labelName, labelAddress },
                 }
-            });
+            );
 
             foreach (var stream in sensor.Streams.Values)
             {
@@ -135,15 +133,22 @@ public sealed partial class SensorMonitoringWindow : FancyWindow, IComputerWindo
                 // TODO: Better way to do this?
                 var lastSample = stream.Samples.Last();
 
-                Asdf.AddChild(new BoxContainer
-                {
-                    Orientation = BoxContainer.LayoutOrientation.Horizontal,
-                    Children =
+                Asdf.AddChild(
+                    new BoxContainer
                     {
-                        new Label { Text = stream.Name, StyleClasses = { "monospace" }, HorizontalExpand = true },
-                        new Label { Text = FormatValue(stream.Unit, lastSample.Value) }
+                        Orientation = BoxContainer.LayoutOrientation.Horizontal,
+                        Children =
+                        {
+                            new Label
+                            {
+                                Text = stream.Name,
+                                StyleClasses = { "monospace" },
+                                HorizontalExpand = true,
+                            },
+                            new Label { Text = FormatValue(stream.Unit, lastSample.Value) },
+                        },
                     }
-                });
+                );
 
                 Asdf.AddChild(new GraphView(stream.Samples, startTime, curTime, maxValue * 1.1f) { MinHeight = 150 });
                 Asdf.AddChild(new PanelContainer { StyleClasses = { StyleBase.ClassLowDivider } });
@@ -153,10 +158,7 @@ public sealed partial class SensorMonitoringWindow : FancyWindow, IComputerWindo
 
     private string FormatValue(SensorUnit unit, float value)
     {
-        return _loc.GetString(
-            "sensor-monitoring-value-display",
-            ("unit", unit.ToString()),
-            ("value", value));
+        return _loc.GetString("sensor-monitoring-value-display", ("unit", unit.ToString()), ("value", value));
     }
 
     private void CullOldSamples()
@@ -211,7 +213,7 @@ public sealed partial class SensorMonitoringWindow : FancyWindow, IComputerWindo
         {
             base.Draw(handle);
 
-            var window = (float) (_curTime - _startTime).TotalSeconds;
+            var window = (float)(_curTime - _startTime).TotalSeconds;
 
             // TODO: omg this is terrible don't fucking hardcode this size to something uncached huge omfg.
             var vertices = new Vector2[25000];
@@ -221,7 +223,7 @@ public sealed partial class SensorMonitoringWindow : FancyWindow, IComputerWindo
 
             foreach (var (time, sample) in _samples)
             {
-                var relTime = (float) (time - _startTime).TotalSeconds;
+                var relTime = (float)(time - _startTime).TotalSeconds;
 
                 var posY = PixelHeight - (sample / _maxY) * PixelHeight;
                 var posX = (relTime / window) * PixelWidth;
@@ -243,16 +245,19 @@ public sealed partial class SensorMonitoringWindow : FancyWindow, IComputerWindo
                 lastPoint = newPoint;
             }
 
-            handle.DrawPrimitives(DrawPrimitiveTopology.TriangleList, vertices.AsSpan(0, countVtx), Color.White.WithAlpha(0.1f));
+            handle.DrawPrimitives(
+                DrawPrimitiveTopology.TriangleList,
+                vertices.AsSpan(0, countVtx),
+                Color.White.WithAlpha(0.1f)
+            );
         }
     }
 }
 
 [UsedImplicitly]
-public sealed class
-    SensorMonitoringConsoleBoundUserInterface : ComputerBoundUserInterface<SensorMonitoringWindow, ConsoleUIState>
+public sealed class SensorMonitoringConsoleBoundUserInterface
+    : ComputerBoundUserInterface<SensorMonitoringWindow, ConsoleUIState>
 {
-    public SensorMonitoringConsoleBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-    }
+    public SensorMonitoringConsoleBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 }

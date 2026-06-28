@@ -11,37 +11,33 @@
       state: base
     - sprite: _NF/Structures/Specific/Punks/partysupplies.rsi
       state: unshaded
-      map: [ "neon_bit" ]
+      map: ["neon_bit"]
       shader: unshaded
     - sprite: _NF/Structures/Holo/graffiti/simple.rsi
-      state:   holograffiti01
-      map: [ "graffiti" ]
+      state: holograffiti01
+      map: ["graffiti"]
       shader: unshaded
       scale: 0.5, 0.5
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 50
       behaviors:
-        - !type:DoActsBehavior
-          acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTypeTrigger
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+    - trigger: !type:DamageTypeTrigger
         damageType: Heat
         damage: 5
       behaviors:
       - !type:SolutionExplosionBehavior
         solution: tank
-    - trigger:
-        !type:DamageTypeTrigger
+    - trigger: !type:DamageTypeTrigger
         damageType: Piercing
         damage: 5
       behaviors:
       - !type:SolutionExplosionBehavior
         solution: tank
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 10
       behaviors:
       - !type:SpillBehavior

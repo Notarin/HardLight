@@ -1,6 +1,6 @@
 - type: entity
   id: BorgModuleAdvancedParamedic
-  parent: [ BaseBorgModuleMedical, BaseProviderBorgModule ]
+  parent: [BaseBorgModuleMedical, BaseProviderBorgModule]
   name: chemical recovery cyborg module
   components:
   - type: Sprite
@@ -15,11 +15,11 @@
     - BorgHypoTricordrazine
     - BorgHypoInaprovaline
   - type: BorgModuleIcon
-    icon: { sprite: _NF/Interface/Actions/actions_borg.rsi, state: adv-paramed-module }
+    icon: {sprite: _NF/Interface/Actions/actions_borg.rsi, state: adv-paramed-module}
 
 - type: entity
   id: BorgModuleJetpack
-  parent: [ BaseBorgModule, BaseProviderBorgModule ]
+  parent: [BaseBorgModule, BaseProviderBorgModule]
   name: Frontier cyborg module
   components:
   - type: Sprite
@@ -54,11 +54,11 @@
         - NFFuel
       displayName: borg-placeholder-display-name-fuel
   - type: BorgModuleIcon
-    icon: { sprite: _NF/Interface/Actions/actions_borg.rsi, state: jetpack-module }
+    icon: {sprite: _NF/Interface/Actions/actions_borg.rsi, state: jetpack-module}
 
 - type: entity
   id: BorgModuleRCDShipyard
-  parent: [ BaseBorgModuleEngineering, BaseProviderBorgModule ]
+  parent: [BaseBorgModuleEngineering, BaseProviderBorgModule]
   name: shipyard RCD cyborg module
   components:
   - type: Sprite
@@ -81,12 +81,12 @@
         - RCDAmmo
       displayName: borg-placeholder-display-name-compressed-matter
   - type: BorgModuleIcon
-    icon: { sprite: _NF/Interface/Actions/actions_borg.rsi, state: shipyard-rcd-module }
+    icon: {sprite: _NF/Interface/Actions/actions_borg.rsi, state: shipyard-rcd-module}
 
 # Service modules
 - type: entity
   id: BorgModuleNFService
-  parent: [ BaseBorgModuleService, BaseProviderBorgModule ]
+  parent: [BaseBorgModuleService, BaseProviderBorgModule]
   name: lounge cyborg module
   components:
   - type: Sprite
@@ -130,11 +130,11 @@
         - DrinkGlass
       displayName: borg-placeholder-display-name-glassware
   - type: BorgModuleIcon
-    icon: { sprite: Interface/Actions/actions_borg.rsi, state: service-module }
+    icon: {sprite: Interface/Actions/actions_borg.rsi, state: service-module}
 
 - type: entity
   id: BorgModuleBureaucracy
-  parent: [ BaseBorgModuleService, BaseProviderBorgModule ]
+  parent: [BaseBorgModuleService, BaseProviderBorgModule]
   name: bureaucracy cyborg module
   components:
   - type: Sprite
@@ -171,11 +171,11 @@
         - Stamp
       displayName: borg-placeholder-display-name-rubber-stamp
   - type: BorgModuleIcon
-    icon: { sprite: _NF/Interface/Actions/actions_borg.rsi, state: bureaucracy-module }
+    icon: {sprite: _NF/Interface/Actions/actions_borg.rsi, state: bureaucracy-module}
 
 - type: entity
   id: BorgModuleChef
-  parent: [ BaseBorgModuleService, BaseProviderBorgModule ]
+  parent: [BaseBorgModuleService, BaseProviderBorgModule]
   name: chef cyborg module
   components:
   - type: Sprite
@@ -229,4 +229,4 @@
         - Ingredient
       displayName: borg-placeholder-display-name-food-or-ingredients
   - type: BorgModuleIcon
-    icon: { sprite: _NF/Interface/Actions/actions_borg.rsi, state: chef-module }
+    icon: {sprite: _NF/Interface/Actions/actions_borg.rsi, state: chef-module}

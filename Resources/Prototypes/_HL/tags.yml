@@ -290,12 +290,10 @@
 - type: Tag
   id: Fungal
 
-
 # Vending machines
 
 - type: Tag
   id: SecurityVend
-
 
 # fun / plushies!
 - type: Tag

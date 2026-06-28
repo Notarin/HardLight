@@ -14,7 +14,11 @@ namespace Content.Server.Power.Components
         /// </summary>
         [DataField("drawRate")]
         [ViewVariables(VVAccess.ReadWrite)]
-        public float DrawRate { get => NetworkLoad.DesiredPower; set => NetworkLoad.DesiredPower = value; }
+        public float DrawRate
+        {
+            get => NetworkLoad.DesiredPower;
+            set => NetworkLoad.DesiredPower = value;
+        }
 
         [DataField("showInMonitor")]
         [ViewVariables(VVAccess.ReadWrite)]

@@ -24,27 +24,23 @@ public sealed partial class NetworkConfiguratorDeviceList : ScrollContainer
         var row = new BoxContainer()
         {
             Orientation = BoxContainer.LayoutOrientation.Horizontal,
-            Margin = new Thickness(8)
+            Margin = new Thickness(8),
         };
 
-        var name = new Label()
-        {
-            Text = savedDevice.name[..Math.Min(11, savedDevice.name.Length)],
-            SetWidth = 84
-        };
+        var name = new Label() { Text = savedDevice.name[..Math.Min(11, savedDevice.name.Length)], SetWidth = 84 };
 
         var address = new Label()
         {
             Text = savedDevice.address,
             HorizontalExpand = true,
-            Align = Label.AlignMode.Center
+            Align = Label.AlignMode.Center,
         };
 
         var removeButton = new TextureButton()
         {
             StyleClasses = { "CrossButtonRed" },
             VerticalAlignment = VAlignment.Center,
-            Scale = new Vector2(0.5f, 0.5f)
+            Scale = new Vector2(0.5f, 0.5f),
         };
 
         row.AddChild(name);

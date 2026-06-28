@@ -1,7 +1,7 @@
 #region frame
 - type: entity
   id: NFBaseWeaponFrameLauncher
-  parent: [ NFBaseWeaponEncumbranceLauncher, NFBaseItemWeaponGun ]
+  parent: [NFBaseWeaponEncumbranceLauncher, NFBaseItemWeaponGun]
   suffix: Frontier
   abstract: true
   components:
@@ -22,8 +22,8 @@
     - SemiAuto
   # - type: CursorOffsetRequiresWield
   # - type: EyeCursorOffset
-    # maxOffset: 10
-    # pvsIncrease: 1
+  # maxOffset: 10
+  # pvsIncrease: 1
   - type: StaticPrice
     price: 1500
   - type: NFWeaponDetails
@@ -46,7 +46,7 @@
 
 - type: entity
   id: NFBaseWeaponFrameLauncherGorlex
-  parent: [ BaseC3SyndicateContraband, NFBaseWeaponFrameLauncher ]
+  parent: [BaseC3SyndicateContraband, NFBaseWeaponFrameLauncher]
   abstract: true
   components:
   - type: Gun
@@ -59,7 +59,7 @@
 
 - type: entity
   id: NFBaseWeaponFrameLauncherSteelbolt
-  parent: [ BaseC3PirateContraband, NFBaseWeaponFrameLauncher ]
+  parent: [BaseC3PirateContraband, NFBaseWeaponFrameLauncher]
   abstract: true
   components:
   - type: Gun
@@ -96,7 +96,7 @@
   - type: BallisticAmmoProvider
     whitelist:
       tags:
-        - Grenade
+      - Grenade
     capacity: 3
     proto: NFGrenadeFrag
 
@@ -116,9 +116,9 @@
         priority: 1
         whitelist:
           tags:
-            - NFTrackingDart
-            - NFCartridgeGrenade40mmEmp
-            - NFCartridgeGrenade40mmFlash
+          - NFTrackingDart
+          - NFCartridgeGrenade40mmEmp
+          - NFCartridgeGrenade40mmFlash
   - type: ChamberMagazineAmmoProvider
     autoCycle: false
     boltClosed: false
@@ -142,7 +142,7 @@
   - type: BallisticAmmoProvider
     whitelist:
       tags:
-        - CartridgeRocket
+      - CartridgeRocket
     proto: NFCartridgeRocket
   - type: MagazineVisuals
     magState: mag

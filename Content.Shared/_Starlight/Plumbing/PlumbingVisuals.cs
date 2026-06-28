@@ -61,12 +61,12 @@ public enum PlumbingVisuals : byte
     ///     Packed connected slot bitmask per cardinal direction for manifold-mode connectors.
     ///     Uses 4-bit nibbles per direction, where each bit is a slot index (0-3).
     /// </summary>
-    ManifoldConnectedSlotsByDirection
+    ManifoldConnectedSlotsByDirection,
 }
 
 [Serializable, NetSerializable]
 public enum PlumbingVisualLayers : byte
 {
     Base,
-    Overlay
+    Overlay,
 }

@@ -24,13 +24,19 @@ namespace Content.Server.Maps;
 [AdminCommand(AdminFlags.Mapping)]
 public sealed class PlanetCommand : IConsoleCommand
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly IPrototypeManager _protoManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
+
+    [Dependency]
+    private readonly IMapManager _mapManager = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _protoManager = default!;
 
     public string Command => "planet";
     public string Description => Loc.GetString("cmd-planet-desc");
     public string Help => Loc.GetString("cmd-planet-help", ("command", Command));
+
     public void Execute(IConsoleShell shell, string argStr, string[] args)
     {
         if (args.Length != 2)
@@ -73,7 +79,8 @@ public sealed class PlanetCommand : IConsoleCommand
 
         if (args.Length == 2)
         {
-            var options = _protoManager.EnumeratePrototypes<BiomeTemplatePrototype>()
+            var options = _protoManager
+                .EnumeratePrototypes<BiomeTemplatePrototype>()
                 .Select(o => new CompletionOption(o.ID, "Biome"));
             return CompletionResult.FromOptions(options);
         }

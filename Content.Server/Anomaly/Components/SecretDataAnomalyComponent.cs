@@ -42,5 +42,5 @@ public enum AnomalySecretData : byte
     ParticleContainment,
     ParticleTransformation,
     Behavior,
-    Default
+    Default,
 }

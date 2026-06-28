@@ -4,9 +4,8 @@
 //
 // SPDX-License-Identifier: CC-BY-NC-SA-3.0
 
-
-using Content.Shared.Popups;
 using Content.Shared.Containers.ItemSlots;
+using Content.Shared.Popups;
 using Robust.Shared.Prototypes;
 
 namespace Content.Shared._FarHorizons.Power.Generation.FissionGenerator;
@@ -17,11 +16,20 @@ namespace Content.Shared._FarHorizons.Power.Generation.FissionGenerator;
 
 public abstract class SharedNuclearReactorSystem : EntitySystem
 {
-    [Dependency] private readonly ItemSlotsSystem _slotsSystem = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly EntityManager _entityManager = default!;
+    [Dependency]
+    private readonly ItemSlotsSystem _slotsSystem = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly EntityManager _entityManager = default!;
 
     public override void Initialize()
     {
@@ -39,7 +47,8 @@ public abstract class SharedNuclearReactorSystem : EntitySystem
         _slotsSystem.TryEjectToHands(uid, component.PartSlot, args.Actor);
     }
 
-    protected bool ReactorTryGetSlot(EntityUid uid, string slotID, out ItemSlot? itemSlot) => _slotsSystem.TryGetSlot(uid, slotID, out itemSlot);
+    protected bool ReactorTryGetSlot(EntityUid uid, string slotID, out ItemSlot? itemSlot) =>
+        _slotsSystem.TryGetSlot(uid, slotID, out itemSlot);
 
     public void UpdateGridVisual(Entity<NuclearReactorComponent> ent)
     {
@@ -62,7 +71,11 @@ public abstract class SharedNuclearReactorSystem : EntitySystem
                 }
                 else
                 {
-                    var data = new ReactorCapVisualData { cap = gridComp.IconStateCap, color = _proto.Index(gridComp.Material).Color };
+                    var data = new ReactorCapVisualData
+                    {
+                        cap = gridComp.IconStateCap,
+                        color = _proto.Index(gridComp.Material).Color,
+                    };
                     if (!comp.VisualData.TryAdd(vector, data))
                         comp.VisualData[vector] = data;
                 }
@@ -87,17 +100,25 @@ public abstract class SharedNuclearReactorSystem : EntitySystem
 
         if (comp.Temperature >= comp.ReactorOverheatTemp)
         {
-            if(!comp.IsSmoking)
+            if (!comp.IsSmoking)
             {
                 comp.IsSmoking = true;
                 _appearance.SetData(uid, ReactorVisuals.Smoke, true);
-                _popupSystem.PopupEntity(Loc.GetString("reactor-smoke-start", ("owner", uid)), uid, PopupType.MediumCaution);
+                _popupSystem.PopupEntity(
+                    Loc.GetString("reactor-smoke-start", ("owner", uid)),
+                    uid,
+                    PopupType.MediumCaution
+                );
             }
             if (comp.Temperature >= comp.ReactorFireTemp && !comp.IsBurning)
             {
                 comp.IsBurning = true;
                 _appearance.SetData(uid, ReactorVisuals.Fire, true);
-                _popupSystem.PopupEntity(Loc.GetString("reactor-fire-start", ("owner", uid)), uid, PopupType.MediumCaution);
+                _popupSystem.PopupEntity(
+                    Loc.GetString("reactor-fire-start", ("owner", uid)),
+                    uid,
+                    PopupType.MediumCaution
+                );
             }
             else if (comp.Temperature < comp.ReactorFireTemp && comp.IsBurning)
             {
@@ -108,7 +129,7 @@ public abstract class SharedNuclearReactorSystem : EntitySystem
         }
         else
         {
-            if(comp.IsSmoking)
+            if (comp.IsSmoking)
             {
                 comp.IsSmoking = false;
                 _appearance.SetData(uid, ReactorVisuals.Smoke, false);
@@ -117,7 +138,8 @@ public abstract class SharedNuclearReactorSystem : EntitySystem
         }
     }
 
-    public static bool AdjustControlRods(NuclearReactorComponent comp, float change) {
+    public static bool AdjustControlRods(NuclearReactorComponent comp, float change)
+    {
         var newSet = Math.Clamp(comp.ControlRodInsertion + change, 0, 2);
         if (comp.ControlRodInsertion != newSet)
         {

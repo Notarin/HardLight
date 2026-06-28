@@ -2,23 +2,23 @@
 
 - type: entityTable
   id: CalmPestEventsTable
-  table: !type:AllSelector # we need to pass a list of rules, since rules have further restrictions to consider via StationEventComp
-    children:
+  table: !type:AllSelector
+    children: # we need to pass a list of rules, since rules have further restrictions to consider via StationEventComp
     - id: SnailMigrationLowPop
     - id: CockroachMigration
     - id: MouseMigration
-    #- id: RandomCritterHorde
+      #- id: RandomCritterHorde
 
 - type: entityTable
   id: SpicyPestEventsTable
-  table: !type:AllSelector # we need to pass a list of rules, since rules have further restrictions to consider via StationEventComp
-    children:
+  table: !type:AllSelector
+    children: # we need to pass a list of rules, since rules have further restrictions to consider via StationEventComp
     - id: KingRatMigration
     - id: SnailMigration
 
-# events
-
 - type: entity
+  # events
+
   id: MouseMigration
   parent: BaseStationEventShortDelay
   components:

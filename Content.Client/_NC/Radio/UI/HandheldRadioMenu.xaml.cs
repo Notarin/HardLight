@@ -9,7 +9,6 @@ namespace Content.Client._NC.Radio.UI;
 [GenerateTypedNameReferences]
 public sealed partial class HandheldRadioMenu : FancyWindow
 {
-
     public event Action<bool>? OnMicPressed;
     public event Action<bool>? OnSpeakerPressed;
     public event Action<string>? OnFrequencyChanged;

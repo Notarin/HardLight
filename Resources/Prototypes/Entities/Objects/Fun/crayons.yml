@@ -31,8 +31,8 @@
     solutions:
       food:
         reagents:
-#        - ReagentId: Nutriment # Frontier
-#          Quantity: 3 # Frontier
+        #        - ReagentId: Nutriment # Frontier
+        #          Quantity: 3 # Frontier
         - ReagentId: MindbreakerToxin
           Quantity: 2
   - type: StaticPrice

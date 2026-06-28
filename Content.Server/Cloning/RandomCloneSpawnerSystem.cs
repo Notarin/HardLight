@@ -11,7 +11,6 @@ namespace Content.Server.Cloning;
 /// </summary>
 public sealed class RandomCloneSpawnerSystem : EntitySystem
 {
-
     public override void Initialize()
     {
         base.Initialize();

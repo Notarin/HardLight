@@ -6,13 +6,13 @@
   components:
   - type: StorageFill
     contents:
-      - id: Hemostat
-      - id: SawElectric # Shitmed Change
-      - id: Drill
-      - id: Cautery
-      - id: Retractor
-      - id: Scalpel
-      - id: BoneGel # Shitmed Change
+    - id: Hemostat
+    - id: SawElectric # Shitmed Change
+    - id: Drill
+    - id: Cautery
+    - id: Retractor
+    - id: Scalpel
+    - id: BoneGel # Shitmed Change
 
 - type: entity
   parent: ClothingBackpackDuffelSyndicateMedicalBundle
@@ -22,15 +22,15 @@
   components:
   - type: StorageFill
     contents:
-      - id: Hemostat
-      - id: SawAdvanced
-      - id: Drill
-      - id: Cautery
-      - id: Retractor
-      - id: ScalpelAdvanced
-      - id: ClothingHandsGlovesNitrile
-      - id: EmergencyRollerBedSpawnFolded
-      - id: BoneGel # Shitmed Change
+    - id: Hemostat
+    - id: SawAdvanced
+    - id: Drill
+    - id: Cautery
+    - id: Retractor
+    - id: ScalpelAdvanced
+    - id: ClothingHandsGlovesNitrile
+    - id: EmergencyRollerBedSpawnFolded
+    - id: BoneGel # Shitmed Change
 
 - type: entity
   parent: ClothingBackpackDuffelSyndicateBundle
@@ -40,11 +40,11 @@
   components:
   - type: StorageFill
     contents:
-      - id: WeaponShotgunBulldog
-      - id: Magazine12_gaugeBuckshot
-      - id: Magazine12_gaugeBuckshot
-      - id: Magazine12_gaugeBuckshot
-#     - id: ThermalImagingGoggles
+    - id: WeaponShotgunBulldog
+    - id: Magazine12_gaugeBuckshot
+    - id: Magazine12_gaugeBuckshot
+    - id: Magazine12_gaugeBuckshot
+      #     - id: ThermalImagingGoggles
 
 - type: entity
   parent: ClothingBackpackDuffelSyndicateBundle
@@ -54,9 +54,9 @@
   components:
   - type: StorageFill
     contents:
-      - id: WeaponSubMachineGunC20r
-      - id: Magazine9x19mmSubMachineGunFMJ
-        amount: 3
+    - id: WeaponSubMachineGunC20r
+    - id: Magazine9x19mmSubMachineGunFMJ
+      amount: 3
 #     - id: SMGSuppressor
 # Mono edit
 - type: entity
@@ -67,9 +67,9 @@
   components:
   - type: StorageFill
     contents:
-      - id: WeaponSubMachineGunAtreides
-      - id: Magazine9x19mmSubMachineGunFMJ
-        amount: 3
+    - id: WeaponSubMachineGunAtreides
+    - id: Magazine9x19mmSubMachineGunFMJ
+      amount: 3
 #     - id: SMGSuppressor
 # Mono edit end
 - type: entity
@@ -80,9 +80,9 @@
   components:
   - type: StorageFill
     contents:
-      - id: WeaponRevolverPythonAP
-      - id: SpeedLoader45_magnumAP
-        amount: 2
+    - id: WeaponRevolverPythonAP
+    - id: SpeedLoader45_magnumAP
+      amount: 2
 
 - type: entity
   parent: ClothingBackpackDuffelSyndicateBundle
@@ -92,8 +92,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: WeaponLightMachineGunL6
-      - id: Magazine762x39mmBox
+    - id: WeaponLightMachineGunL6
+    - id: Magazine762x39mmBox
 
 - type: entity
   parent: ClothingBackpackDuffelSyndicateBundle
@@ -103,11 +103,11 @@
   components:
   - type: StorageFill
     contents:
-      - id: WeaponLauncherChinaLake
-      - id: 40mmGrenadeThermobaric
-        amount: 4
-      - id: 40mmGrenadeFragmentation
-        amount: 4
+    - id: WeaponLauncherChinaLake
+    - id: 40mmGrenadeThermobaric
+      amount: 4
+    - id: 40mmGrenadeFragmentation
+      amount: 4
 
 - type: entity
   parent: ClothingBackpackDuffelSyndicateBundle
@@ -117,15 +117,15 @@
   components:
   - type: StorageFill
     contents:
-      - id: WeaponRifleM90GrenadeLauncher
-      - id: Magazine556x45mmFMJ
-        amount: 2
-      - id: 40mmGrenadeThermobaric
-        amount: 2
-      - id: 40mmGrenadeFlash
-        amount: 2
-      - id: 40mmGrenadeFragmentation
-        amount: 2
+    - id: WeaponRifleM90GrenadeLauncher
+    - id: Magazine556x45mmFMJ
+      amount: 2
+    - id: 40mmGrenadeThermobaric
+      amount: 2
+    - id: 40mmGrenadeFlash
+      amount: 2
+    - id: 40mmGrenadeFragmentation
+      amount: 2
 
 - type: entity
   parent: ClothingBackpackDuffelSyndicateAmmo
@@ -135,16 +135,15 @@
   components:
   - type: StorageFill
     contents:
-      - id: Magazine9x19mmSubMachineGunFMJ
-        amount: 4
-      - id: Magazine12_gaugeBuckshot
-        amount: 4
-      - id: Magazine762x39mmBox
-        amount: 2
-      - id: Magazine127x99mm # Goobstation - Burner Heavy Assault Rifle
-        amount: 1
-      - id: Magazine127x99mmExplosive # Goobstation - Burner Heavy Assault Rifle
-
+    - id: Magazine9x19mmSubMachineGunFMJ
+      amount: 4
+    - id: Magazine12_gaugeBuckshot
+      amount: 4
+    - id: Magazine762x39mmBox
+      amount: 2
+    - id: Magazine127x99mm # Goobstation - Burner Heavy Assault Rifle
+      amount: 1
+    - id: Magazine127x99mmExplosive # Goobstation - Burner Heavy Assault Rifle
 
 - type: entity
   parent: ClothingBackpackDuffelClown
@@ -155,11 +154,11 @@
     tags: [] # ignore "WhitelistChameleon" tag
   - type: StorageFill
     contents:
-      - id: ClothingUniformJumpsuitClown
-      - id: ClothingShoesClown
-      - id: ClothingMaskClown
-      - id: BikeHorn
-      - id: ClownPDA
+    - id: ClothingUniformJumpsuitClown
+    - id: ClothingShoesClown
+    - id: ClothingMaskClown
+    - id: BikeHorn
+    - id: ClownPDA
 #      - id: ClothingHeadsetService # Frontier
 
 - type: entity
@@ -185,20 +184,20 @@
     - 0,0,8,4
   - type: StorageFill
     contents:
-      - id: ClothingUniformJumpsuitPyjamaSyndicateRed
-      - id: ClothingUniformJumpsuitPyjamaSyndicateBlack
-      - id: ClothingUniformJumpsuitPyjamaSyndicatePink
-      - id: ClothingHeadPyjamaSyndicateRed
-      - id: ClothingHeadPyjamaSyndicateBlack
-      - id: ClothingHeadPyjamaSyndicatePink
-      - id: ClothingShoesSlippers
-        amount: 3
-      - id: BedsheetSyndie
-        amount: 3
-      - id: PlushieCarp
-      - id: PlushieNuke
-      - id: PlushieLizard
-      - id: PlushieSharkBlue
+    - id: ClothingUniformJumpsuitPyjamaSyndicateRed
+    - id: ClothingUniformJumpsuitPyjamaSyndicateBlack
+    - id: ClothingUniformJumpsuitPyjamaSyndicatePink
+    - id: ClothingHeadPyjamaSyndicateRed
+    - id: ClothingHeadPyjamaSyndicateBlack
+    - id: ClothingHeadPyjamaSyndicatePink
+    - id: ClothingShoesSlippers
+      amount: 3
+    - id: BedsheetSyndie
+      amount: 3
+    - id: PlushieCarp
+    - id: PlushieNuke
+    - id: PlushieLizard
+    - id: PlushieSharkBlue
 
 - type: entity
   parent: ClothingBackpackDuffelSyndicateBundle
@@ -206,29 +205,29 @@
   name: syndicate C-4 bundle
   description: "Contains a lot of C-4 charges."
   components:
-    - type: StorageFill
-      contents:
-        - id: C4
-          amount: 8
+  - type: StorageFill
+    contents:
+    - id: C4
+      amount: 8
 
 - type: entity
   parent: ClothingBackpackChameleon
   id: ClothingBackpackChameleonFill
   suffix: Fill, Chameleon
   components:
-    - type: StorageFill
-      contents:
-        - id: ChameleonPDA
-        - id: ClothingUniformJumpsuitChameleon
-        - id: ClothingOuterChameleon
-        - id: ClothingNeckChameleon
-        - id: ClothingMaskGasChameleon
-        - id: ClothingHeadHatChameleon
-        - id: ClothingHandsChameleon
-        - id: ClothingEyesChameleon
-        - id: ClothingHeadsetChameleon
-        - id: ClothingShoesChameleon
-        - id: BarberScissors
+  - type: StorageFill
+    contents:
+    - id: ChameleonPDA
+    - id: ClothingUniformJumpsuitChameleon
+    - id: ClothingOuterChameleon
+    - id: ClothingNeckChameleon
+    - id: ClothingMaskGasChameleon
+    - id: ClothingHeadHatChameleon
+    - id: ClothingHandsChameleon
+    - id: ClothingEyesChameleon
+    - id: ClothingHeadsetChameleon
+    - id: ClothingShoesChameleon
+    - id: BarberScissors
 
 - type: entity
   parent: ClothingBackpackDuffelSyndicateBundle
@@ -238,12 +237,12 @@
   components:
   - type: StorageFill
     contents:
-      - id: ClothingHeadHelmetSyndicate
-      - id: ClothingOuterEVASuitSyndicate
-      - id: ClothingMaskGasSyndicate
-      - id: ClothingHandsGlovesColorYellowBudget
-      - id: DoubleEmergencyOxygenTankFilled
-      - id: DoubleEmergencyNitrogenTankFilled
+    - id: ClothingHeadHelmetSyndicate
+    - id: ClothingOuterEVASuitSyndicate
+    - id: ClothingMaskGasSyndicate
+    - id: ClothingHandsGlovesColorYellowBudget
+    - id: DoubleEmergencyOxygenTankFilled
+    - id: DoubleEmergencyNitrogenTankFilled
 
 - type: entity
   parent: ClothingBackpackDuffelSyndicateBundle
@@ -253,11 +252,11 @@
   components:
   - type: StorageFill
     contents:
-      - id: ClothingOuterHardsuitSyndie
-      - id: ClothingMaskGasSyndicate
-      - id: ClothingHandsGlovesCombat
-      - id: DoubleEmergencyOxygenTankFilled
-      - id: DoubleEmergencyNitrogenTankFilled
+    - id: ClothingOuterHardsuitSyndie
+    - id: ClothingMaskGasSyndicate
+    - id: ClothingHandsGlovesCombat
+    - id: DoubleEmergencyOxygenTankFilled
+    - id: DoubleEmergencyNitrogenTankFilled
 
 - type: entity
   parent: ClothingBackpackDuffelSyndicateBundle
@@ -267,11 +266,11 @@
   components:
   - type: StorageFill
     contents:
-      - id: ClothingOuterHardsuitSyndieElite
-      - id: ClothingMaskGasSyndicate
-      - id: ClothingHandsGlovesCombat
-      - id: DoubleEmergencyOxygenTankFilled
-      - id: DoubleEmergencyNitrogenTankFilled
+    - id: ClothingOuterHardsuitSyndieElite
+    - id: ClothingMaskGasSyndicate
+    - id: ClothingHandsGlovesCombat
+    - id: DoubleEmergencyOxygenTankFilled
+    - id: DoubleEmergencyNitrogenTankFilled
 
 - type: entity
   parent: ClothingBackpackDuffelSyndicateBundle
@@ -281,10 +280,10 @@
   components:
   - type: StorageFill
     contents:
-      - id: ClothingMaskGasSyndicate
-      - id: ClothingHandsGlovesCombat
-      - id: DoubleEmergencyOxygenTankFilled
-      - id: DoubleEmergencyNitrogenTankFilled
+    - id: ClothingMaskGasSyndicate
+    - id: ClothingHandsGlovesCombat
+    - id: DoubleEmergencyOxygenTankFilled
+    - id: DoubleEmergencyNitrogenTankFilled
 
 - type: entity
   parent: ClothingBackpackDuffelSyndicateBundle
@@ -294,12 +293,12 @@
   components:
   - type: StorageFill
     contents:
-      - id: SyringeRomerol
-      - id: WeaponRevolverPython
-      - id: AmmoBox45_magnumIncendiary
-      - id: PillAmbuzolPlus
-      - id: PillAmbuzol
-        amount: 3
+    - id: SyringeRomerol
+    - id: WeaponRevolverPython
+    - id: AmmoBox45_magnumIncendiary
+    - id: PillAmbuzolPlus
+    - id: PillAmbuzol
+      amount: 3
 
 - type: entity
   parent: ClothingBackpackDuffelSyndicateMedicalBundle
@@ -309,19 +308,19 @@
   components:
   - type: StorageFill
     contents:
-      - id: DefibrillatorSyndicate
-      - id: MedkitCombatFilled
-        amount: 2 # Frontier: 4<2
-      - id: Tourniquet
-        amount: 3 # Frontier: 4<3
-      - id: CombatMedipen
-        amount: 3 # Frontier: 4<3
-      - id: PunctAutoInjector
-        amount: 4
-      - id: PyraAutoInjector
-        amount: 3 # Frontier: 4<3
-      - id: AirlossAutoInjector
-        amount: 3 # Frontier: 4<3
+    - id: DefibrillatorSyndicate
+    - id: MedkitCombatFilled
+      amount: 2 # Frontier: 4<2
+    - id: Tourniquet
+      amount: 3 # Frontier: 4<3
+    - id: CombatMedipen
+      amount: 3 # Frontier: 4<3
+    - id: PunctAutoInjector
+      amount: 4
+    - id: PyraAutoInjector
+      amount: 3 # Frontier: 4<3
+    - id: AirlossAutoInjector
+      amount: 3 # Frontier: 4<3
 
 - type: entity
   parent: ClothingBackpackDuffelSyndicateBundle
@@ -331,13 +330,13 @@
   components:
   - type: StorageFill
     contents:
-      - id: BalloonOperative
-      - id: BalloonAgent
-      - id: BalloonElite
-      - id: BalloonJuggernaut
-      - id: BalloonCommander
-      - id: SnapPopBox
-      - id: GrenadeDummy
-        amount: 2
-      - id: SyndieTrickyBomb
-        amount: 2
+    - id: BalloonOperative
+    - id: BalloonAgent
+    - id: BalloonElite
+    - id: BalloonJuggernaut
+    - id: BalloonCommander
+    - id: SnapPopBox
+    - id: GrenadeDummy
+      amount: 2
+    - id: SyndieTrickyBomb
+      amount: 2

@@ -15,15 +15,14 @@ namespace Content.Server.Database.Migrations.Sqlite
                 table: "profile",
                 type: "TEXT",
                 nullable: false,
-                defaultValue: "");
+                defaultValue: ""
+            );
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "company",
-                table: "profile");
+            migrationBuilder.DropColumn(name: "company", table: "profile");
         }
     }
 }

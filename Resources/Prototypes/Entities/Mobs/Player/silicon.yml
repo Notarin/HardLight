@@ -2,7 +2,7 @@
 - type: entity
   id: AiHeld
   description: Components added / removed from an entity that gets inserted into an AI core.
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: IntrinsicRadioReceiver
   - type: IntrinsicRadioTransmitter
@@ -93,7 +93,7 @@
 - type: entity
   id: AiHeldIntellicard
   description: Components added / removed from an entity that gets inserted into an Intellicard.
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: IntrinsicRadioReceiver
   - type: IntrinsicRadioTransmitter
@@ -192,15 +192,15 @@
     visuals:
       enum.StationAiVisualLayers.Icon:
         unshaded:
-          Empty: { state: empty }
-          Occupied: { state: full }
-          Rebooting: { state: dead }
-          Dead: { state: dead }
+          Empty: {state: empty}
+          Occupied: {state: full}
+          Rebooting: {state: dead}
+          Dead: {state: dead}
   - type: Intellicard
 
 - type: entity
   id: PlayerStationAiPreview
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: Mobs/Silicon/station_ai.rsi
@@ -230,8 +230,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.5,-0.5,0.5,0.5"
         mask:
         - MachineMask
@@ -248,17 +247,15 @@
     allowSelfRepair: false
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 400
       behaviors:
       - !type:PlaySoundBehavior
         sound:
           collection: MetalBreak
       - !type:DoActsBehavior
-        acts: [ "Breakage" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Breakage"]
+    - trigger: !type:DamageTrigger
         damage: 800
       behaviors:
       - !type:PlaySoundBehavior
@@ -313,12 +310,12 @@
     visuals:
       enum.PowerDeviceVisuals.Powered:
         enum.PowerDeviceVisualLayers.Powered:
-          False: { visible: true }
-          True: { visible: false }
+          False: {visible: true}
+          True: {visible: false}
       enum.StationAiVisuals.Broken:
         enum.StationAiVisualLayers.Base:
-          False: { state: ai_empty }
-          True: { state: ai_error }
+          False: {state: ai_empty}
+          True: {state: ai_error}
   - type: InteractionPopup
     interactSuccessString: petting-success-station-ai
     interactFailureString: petting-failure-station-ai
@@ -386,25 +383,24 @@
     sprite: Mobs/Silicon/station_ai.rsi
     layers:
     - state: frame_0
-      map: [ "enum.ConstructionVisuals.Layer" ]
+      map: ["enum.ConstructionVisuals.Layer"]
   - type: Appearance
   - type: GenericVisualizer
     visuals:
       enum.ConstructionVisuals.Key:
         enum.ConstructionVisuals.Layer:
-          frame: { state: frame_0 }
-          frameWithElectronics: { state: frame_1 }
-          frameWithSecuredElectronics: { state: frame_2 }
-          frameWithWires: { state: frame_3 }
-          frameWithBrain: { state: frame_3b }
-          frameWithBrainFinished: { state: frame_4 }
-          frameWithoutBrainFinished: { state: frame_4 }
+          frame: {state: frame_0}
+          frameWithElectronics: {state: frame_1}
+          frameWithSecuredElectronics: {state: frame_2}
+          frameWithWires: {state: frame_3}
+          frameWithBrain: {state: frame_3b}
+          frameWithBrainFinished: {state: frame_4}
+          frameWithoutBrainFinished: {state: frame_4}
   - type: InteractionOutline
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.5,-0.5,0.5,0.5"
         mask:
         - MachineMask
@@ -415,8 +411,7 @@
     damageModifierSet: StrongMetallic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 400
       behaviors:
       - !type:PlaySoundBehavior
@@ -444,8 +439,8 @@
 # The actual brain inside the core
 - type: entity
   id: StationAiBrain
-  parent: [ BaseSiliconLanguages, PositronicBrain ] # Starlight: Languages
-  categories: [ HideSpawnMenu, DoNotMap ]
+  parent: [BaseSiliconLanguages, PositronicBrain] # Starlight: Languages
+  categories: [HideSpawnMenu, DoNotMap]
   components:
   - type: Sprite
     # Once it's in a core it's pretty much an abstract entity at that point.
@@ -511,7 +506,7 @@
   id: StationAiHolo
   name: AI eye
   description: The AI's viewer.
-  categories: [ HideSpawnMenu, DoNotMap ]
+  categories: [HideSpawnMenu, DoNotMap]
   components:
   #- type: NoFTL Hardlight: Removed to stop eyes breaking when expeditions end
   - type: Tag
@@ -538,7 +533,7 @@
   id: StationAiHoloLocal
   name: AI hologram
   description: A holographic representation of an AI.
-  categories: [ HideSpawnMenu, DoNotMap ]
+  categories: [HideSpawnMenu, DoNotMap]
   components:
   - type: Transform
     anchored: true
@@ -588,11 +583,11 @@
   - type: ContainerFill
     containers:
       borg_brain:
-        - PositronicBrain
+      - PositronicBrain
       borg_module:
-        - BorgModuleOperative
-        - BorgModuleL6C
-        - BorgModuleEsword
+      - BorgModuleOperative
+      - BorgModuleL6C
+      - BorgModuleEsword
   - type: ItemSlots
     slots:
       cell_slot:
@@ -604,13 +599,13 @@
   parent: PlayerBorgSyndicateAssaultBattery
   suffix: Ghost role
   components:
-    - type: GhostRole
-      name: ghost-role-information-syndicate-cyborg-assault-name
-      description: ghost-role-information-syndicate-cyborg-description
-      rules: ghost-role-information-silicon-rules
-      raffle:
-        settings: default
-    - type: GhostTakeoverAvailable
+  - type: GhostRole
+    name: ghost-role-information-syndicate-cyborg-assault-name
+    description: ghost-role-information-syndicate-cyborg-description
+    rules: ghost-role-information-silicon-rules
+    raffle:
+      settings: default
+  - type: GhostTakeoverAvailable
 
 - type: entity
   id: PlayerBorgSyndicateSaboteurBattery
@@ -621,11 +616,11 @@
   - type: ContainerFill
     containers:
       borg_brain:
-        - PositronicBrain
+      - PositronicBrain
       borg_module:
-        - BorgModuleTool
-        - BorgModuleOperative
-        - BorgModuleSyndicateWeapon
+      - BorgModuleTool
+      - BorgModuleOperative
+      - BorgModuleSyndicateWeapon
   - type: ItemSlots
     slots:
       cell_slot:
@@ -637,13 +632,13 @@
   parent: PlayerBorgSyndicateSaboteurBattery
   suffix: Ghost role
   components:
-    - type: GhostRole
-      name: ghost-role-information-syndicate-cyborg-saboteur-name
-      description: ghost-role-information-syndicate-cyborg-description
-      rules: ghost-role-information-silicon-rules
-      raffle:
-        settings: default
-    - type: GhostTakeoverAvailable
+  - type: GhostRole
+    name: ghost-role-information-syndicate-cyborg-saboteur-name
+    description: ghost-role-information-syndicate-cyborg-description
+    rules: ghost-role-information-silicon-rules
+    raffle:
+      settings: default
+  - type: GhostTakeoverAvailable
 
 - type: entity
   name: syndicate invasion borg spawner
@@ -652,9 +647,9 @@
   components:
   - type: Sprite
     layers:
-      - state: red
-      - sprite: Structures/Decoration/banner.rsi
-        state: banner_syndicate
+    - state: red
+    - sprite: Structures/Decoration/banner.rsi
+      state: banner_syndicate
   - type: RandomSpawner
     prototypes:
     - PlayerBorgSyndicateAssaultGhostRole
@@ -669,12 +664,12 @@
   - type: ContainerFill
     containers:
       borg_brain:
-        - PositronicBrain
+      - PositronicBrain
       borg_module:
-        - BorgModuleTool
-        # - BorgModuleFireExtinguisher # Frontier: jetpack is superior
-        # - BorgModuleGPS # Frontier: useless
-        - BorgModuleJetpack # Frontier
+      - BorgModuleTool
+      # - BorgModuleFireExtinguisher # Frontier: jetpack is superior
+      # - BorgModuleGPS # Frontier: useless
+      - BorgModuleJetpack # Frontier
   - type: ItemSlots
     slots:
       cell_slot:
@@ -688,10 +683,10 @@
   parent: PlayerBorgDerelict
   suffix: Ghost role
   components:
-    - type: GhostRole
-      name: ghost-role-information-derelict-cyborg-name
-      description: nf-ghost-role-information-derelict-cyborg-description # Frontier
-      rules: ghost-role-information-silicon-rules
-      raffle:
-        settings: default
-    - type: GhostTakeoverAvailable
+  - type: GhostRole
+    name: ghost-role-information-derelict-cyborg-name
+    description: nf-ghost-role-information-derelict-cyborg-description # Frontier
+    rules: ghost-role-information-silicon-rules
+    raffle:
+      settings: default
+  - type: GhostTakeoverAvailable

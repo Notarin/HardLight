@@ -36,8 +36,8 @@
     Water:
       amount: 10
   effects:
-    - !type:CreateEntityReactionEffect
-      entity: Soap
+  - !type:CreateEntityReactionEffect
+    entity: Soap
 
 - type: reaction
   id: CreateSoapHomemade
@@ -51,8 +51,8 @@
     Blood:
       amount: 10
   effects:
-    - !type:CreateEntityReactionEffect
-      entity: SoapHomemade
+  - !type:CreateEntityReactionEffect
+    entity: SoapHomemade
 
 - type: reaction
   id: Meatification
@@ -68,8 +68,8 @@
     Carbon:
       amount: 10
   effects:
-    - !type:CreateEntityReactionEffect
-      entity: FoodMeat
+  - !type:CreateEntityReactionEffect
+    entity: FoodMeat
 
 - type: reaction
   id: SpaceGlue
@@ -105,8 +105,8 @@
     SulfuricAcid:
       amount: 2
   effects:
-    - !type:CreateEntityReactionEffect
-      entity: SheetPlastic5 # Frontier: SheetPlastic1<SheetPlastic5
+  - !type:CreateEntityReactionEffect
+    entity: SheetPlastic5 # Frontier: SheetPlastic1<SheetPlastic5
 
 - type: reaction
   id: FlashFreezeIce
@@ -183,8 +183,8 @@
     Ethanol:
       amount: 5
   effects:
-    - !type:CreateEntityReactionEffect
-      entity: ShardCrystalRandom
+  - !type:CreateEntityReactionEffect
+    entity: ShardCrystalRandom
 
 - type: reaction
   id: Gunpowder
@@ -199,8 +199,8 @@
     Charcoal:
       amount: 2
   effects:
-    - !type:CreateEntityReactionEffect
-      entity: MaterialGunpowder
+  - !type:CreateEntityReactionEffect
+    entity: MaterialGunpowder
 
 - type: reaction
   id: SolidifyGold

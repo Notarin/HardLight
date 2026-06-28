@@ -41,7 +41,12 @@ public sealed partial class IconSmoothSystem
         _sprite.LayerMapRemove((uid, sprite), EdgeLayer.West);
     }
 
-    private void CalculateEdge(EntityUid uid, DirectionFlag directions, SpriteComponent? sprite = null, SmoothEdgeComponent? component = null)
+    private void CalculateEdge(
+        EntityUid uid,
+        DirectionFlag directions,
+        SpriteComponent? sprite = null,
+        SmoothEdgeComponent? component = null
+    )
     {
         if (!Resolve(uid, ref sprite, ref component, false))
             return;
@@ -83,6 +88,6 @@ public sealed partial class IconSmoothSystem
         South,
         East,
         North,
-        West
+        West,
     }
 }

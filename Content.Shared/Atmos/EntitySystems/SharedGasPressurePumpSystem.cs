@@ -1,3 +1,4 @@
+using Content.Shared._NF.Atmos.Piping.Binary.Messages; // Frontier
 using Content.Shared.Administration.Logs;
 using Content.Shared.Atmos.Components;
 using Content.Shared.Atmos.Piping;
@@ -8,16 +9,22 @@ using Content.Shared.Examine;
 using Content.Shared.Power;
 using Content.Shared.Power.EntitySystems;
 using Content.Shared.UserInterface;
-using Content.Shared._NF.Atmos.Piping.Binary.Messages; // Frontier
 
 namespace Content.Shared.Atmos.EntitySystems;
 
 public abstract class SharedGasPressurePumpSystem : EntitySystem
 {
-    [Dependency] private   readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private   readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private   readonly SharedPowerReceiverSystem _receiver = default!;
-    [Dependency] protected readonly SharedUserInterfaceSystem UserInterfaceSystem = default!;
+    [Dependency]
+    private readonly ISharedAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SharedPowerReceiverSystem _receiver = default!;
+
+    [Dependency]
+    protected readonly SharedUserInterfaceSystem UserInterfaceSystem = default!;
 
     // TODO: Check enabled for activatableUI
     // TODO: Add activatableUI to it.
@@ -28,9 +35,13 @@ public abstract class SharedGasPressurePumpSystem : EntitySystem
         SubscribeLocalEvent<GasPressurePumpComponent, ComponentInit>(OnInit);
         SubscribeLocalEvent<GasPressurePumpComponent, PowerChangedEvent>(OnPowerChanged);
 
-        SubscribeLocalEvent<GasPressurePumpComponent, GasPressurePumpChangeOutputPressureMessage>(OnOutputPressureChangeMessage);
+        SubscribeLocalEvent<GasPressurePumpComponent, GasPressurePumpChangeOutputPressureMessage>(
+            OnOutputPressureChangeMessage
+        );
         SubscribeLocalEvent<GasPressurePumpComponent, GasPressurePumpToggleStatusMessage>(OnToggleStatusMessage);
-        SubscribeLocalEvent<GasPressurePumpComponent, GasPressurePumpChangePumpDirectionMessage>(OnPumpSetDirectionMessage); // Frontier
+        SubscribeLocalEvent<GasPressurePumpComponent, GasPressurePumpChangePumpDirectionMessage>(
+            OnPumpSetDirectionMessage
+        ); // Frontier
 
         SubscribeLocalEvent<GasPressurePumpComponent, AtmosDeviceDisabledEvent>(OnPumpLeaveAtmosphere);
         SubscribeLocalEvent<GasPressurePumpComponent, ExaminedEvent>(OnExamined);
@@ -42,11 +53,14 @@ public abstract class SharedGasPressurePumpSystem : EntitySystem
         if (!Transform(ent).Anchored)
             return;
 
-        if (Loc.TryGetString("gas-pressure-pump-system-examined",
+        if (
+            Loc.TryGetString(
+                "gas-pressure-pump-system-examined",
                 out var str,
                 ("statusColor", "lightblue"), // TODO: change with pressure?
                 ("pressure", ent.Comp.TargetPressure)
-            ))
+            )
+        )
         {
             args.PushMarkup(str);
         }
@@ -61,6 +75,7 @@ public abstract class SharedGasPressurePumpSystem : EntitySystem
         }
         UpdateAppearance(ent);
     }
+
     // End Frontier: run on start pumps
 
     private void OnInit(Entity<GasPressurePumpComponent> ent, ref ComponentInit args)
@@ -83,24 +98,34 @@ public abstract class SharedGasPressurePumpSystem : EntitySystem
         _appearance.SetData(ent, PumpVisuals.PumpingInwards, ent.Comp1.PumpingInwards); // Frontier
     }
 
-    private void OnToggleStatusMessage(Entity<GasPressurePumpComponent> ent, ref GasPressurePumpToggleStatusMessage args)
+    private void OnToggleStatusMessage(
+        Entity<GasPressurePumpComponent> ent,
+        ref GasPressurePumpToggleStatusMessage args
+    )
     {
         ent.Comp.Enabled = args.Enabled;
-        _adminLogger.Add(LogType.AtmosPowerChanged,
+        _adminLogger.Add(
+            LogType.AtmosPowerChanged,
             LogImpact.Medium,
-            $"{ToPrettyString(args.Actor):player} set the power on {ToPrettyString(ent):device} to {args.Enabled}");
+            $"{ToPrettyString(args.Actor):player} set the power on {ToPrettyString(ent):device} to {args.Enabled}"
+        );
         Dirty(ent);
         UpdateAppearance(ent);
         UpdateUi(ent);
     }
 
-    private void OnOutputPressureChangeMessage(Entity<GasPressurePumpComponent> ent, ref GasPressurePumpChangeOutputPressureMessage args)
+    private void OnOutputPressureChangeMessage(
+        Entity<GasPressurePumpComponent> ent,
+        ref GasPressurePumpChangeOutputPressureMessage args
+    )
     {
         var max = ent.Comp.HighFlow ? Atmospherics.MaxOutputPressure * 3f : Atmospherics.MaxOutputPressure;
         ent.Comp.TargetPressure = Math.Clamp(args.Pressure, 0f, max);
-        _adminLogger.Add(LogType.AtmosPressureChanged,
+        _adminLogger.Add(
+            LogType.AtmosPressureChanged,
             LogImpact.Medium,
-            $"{ToPrettyString(args.Actor):player} set the pressure on {ToPrettyString(ent):device} to {args.Pressure}kPa");
+            $"{ToPrettyString(args.Actor):player} set the pressure on {ToPrettyString(ent):device} to {args.Pressure}kPa"
+        );
         Dirty(ent);
         UpdateUi(ent);
     }
@@ -114,12 +139,13 @@ public abstract class SharedGasPressurePumpSystem : EntitySystem
         UserInterfaceSystem.CloseUi(ent.Owner, GasPressurePumpUiKey.Key);
     }
 
-    protected virtual void UpdateUi(Entity<GasPressurePumpComponent> ent)
-    {
-    }
+    protected virtual void UpdateUi(Entity<GasPressurePumpComponent> ent) { }
 
     // Frontier - bidirectional pumps
-    public void OnPumpSetDirectionMessage(Entity<GasPressurePumpComponent> ent, ref GasPressurePumpChangePumpDirectionMessage args)
+    public void OnPumpSetDirectionMessage(
+        Entity<GasPressurePumpComponent> ent,
+        ref GasPressurePumpChangePumpDirectionMessage args
+    )
     {
         if (!ent.Comp.SettableDirection || ent.Comp.PumpingInwards == args.Inwards)
             return;
@@ -129,8 +155,11 @@ public abstract class SharedGasPressurePumpSystem : EntitySystem
         ent.Comp.InletName = temp;
 
         ent.Comp.PumpingInwards = args.Inwards;
-        _adminLogger.Add(LogType.AtmosDirectionChanged, LogImpact.Medium,
-            $"{ToPrettyString(args.Actor):player} set the direction on {ToPrettyString(ent):device} to {(args.Inwards ? "in" : "out")}");
+        _adminLogger.Add(
+            LogType.AtmosDirectionChanged,
+            LogImpact.Medium,
+            $"{ToPrettyString(args.Actor):player} set the direction on {ToPrettyString(ent):device} to {(args.Inwards ? "in" : "out")}"
+        );
         Dirty(ent);
         UpdateAppearance(ent);
     }

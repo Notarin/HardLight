@@ -14,11 +14,20 @@ namespace Content.Shared.Movement.Systems;
 
 public abstract class SharedMobCollisionSystem : EntitySystem
 {
-    [Dependency] protected readonly IConfigurationManager CfgManager = default!;
-    [Dependency] private   readonly IRobustRandom _random = default!;
-    [Dependency] private   readonly MovementSpeedModifierSystem _moveMod = default!;
-    [Dependency] protected readonly SharedPhysicsSystem Physics = default!;
-    [Dependency] private   readonly SharedTransformSystem _xformSystem = default!;
+    [Dependency]
+    protected readonly IConfigurationManager CfgManager = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly MovementSpeedModifierSystem _moveMod = default!;
+
+    [Dependency]
+    protected readonly SharedPhysicsSystem Physics = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _xformSystem = default!;
 
     protected EntityQuery<MobCollisionComponent> MobQuery;
     protected EntityQuery<PhysicsComponent> PhysicsQuery;
@@ -57,11 +66,15 @@ public abstract class SharedMobCollisionSystem : EntitySystem
         Subs.CVar(CfgManager, CCVars.MovementMinimumPush, val => _minimumPushSquared = val * val, true);
         Subs.CVar(CfgManager, CCVars.MovementPenetrationCap, val => _penCap = val, true);
         Subs.CVar(CfgManager, CCVars.MovementPushingCap, _ => UpdatePushCap());
-        Subs.CVar(CfgManager, CCVars.MovementPushingVelocityProduct,
+        Subs.CVar(
+            CfgManager,
+            CCVars.MovementPushingVelocityProduct,
             value =>
             {
                 _pushingDotProduct = value;
-            }, true);
+            },
+            true
+        );
         Subs.CVar(CfgManager, CCVars.MovementPushMassCap, val => _massDiffCap = val, true);
 
         MobQuery = GetEntityQuery<MobCollisionComponent>();
@@ -276,17 +289,12 @@ public abstract class SharedMobCollisionSystem : EntitySystem
             // Big mob push smaller mob, needs fine-tuning and potentially another co-efficient.
             if (_massDiffCap > 0f)
             {
-                var modifier = Math.Clamp(
-                    otherPhysics.FixturesMass / ourMass,
-                    1f / _massDiffCap,
-                    _massDiffCap);
+                var modifier = Math.Clamp(otherPhysics.FixturesMass / ourMass, 1f / _massDiffCap, _massDiffCap);
 
                 mobMovement *= modifier;
 
                 var speedReduction = 1f - entity.Comp1.MinimumSpeedModifier;
-                var speedModifier = Math.Clamp(
-                    1f - speedReduction * modifier,
-                    entity.Comp1.MinimumSpeedModifier, 1f);
+                var speedModifier = Math.Clamp(1f - speedReduction * modifier, entity.Comp1.MinimumSpeedModifier, 1f);
 
                 speedMod = MathF.Min(speedModifier, 1f);
             }

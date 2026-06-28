@@ -30,12 +30,14 @@ namespace Content.IntegrationTests.Tests
         [Ignore("Concurrent rounds kinda break this")]
         public async Task RoundEndTestRun()
         {
-            await using var pair = await PoolManager.GetServerClient(new PoolSettings
-            {
-                DummyTicker = false,
-                Connected = true,
-                Dirty = true
-            });
+            await using var pair = await PoolManager.GetServerClient(
+                new PoolSettings
+                {
+                    DummyTicker = false,
+                    Connected = true,
+                    Dirty = true,
+                }
+            );
 
             var server = pair.Server;
 
@@ -59,17 +61,28 @@ namespace Content.IntegrationTests.Tests
 
             await server.WaitAssertion(() =>
             {
-
                 // Press the shuttle call button
                 roundEndSystem.RequestRoundEnd();
                 Assert.Multiple(() =>
                 {
-                    Assert.That(roundEndSystem.ExpectedCountdownEnd, Is.Not.Null, "Shuttle was called, but countdown time was not set");
-                    Assert.That(roundEndSystem.CanCallOrRecall(), Is.False, "Started the shuttle, but didn't have to wait cooldown to press cancel button");
+                    Assert.That(
+                        roundEndSystem.ExpectedCountdownEnd,
+                        Is.Not.Null,
+                        "Shuttle was called, but countdown time was not set"
+                    );
+                    Assert.That(
+                        roundEndSystem.CanCallOrRecall(),
+                        Is.False,
+                        "Started the shuttle, but didn't have to wait cooldown to press cancel button"
+                    );
                 });
                 // Check that we can't recall the shuttle yet
                 roundEndSystem.CancelRoundEndCountdown();
-                Assert.That(roundEndSystem.ExpectedCountdownEnd, Is.Not.Null, "Shuttle was cancelled, even though the button was on cooldown");
+                Assert.That(
+                    roundEndSystem.ExpectedCountdownEnd,
+                    Is.Not.Null,
+                    "Shuttle was cancelled, even though the button was on cooldown"
+                );
             });
 
             await WaitForEvent(); // Wait for Cooldown
@@ -78,15 +91,31 @@ namespace Content.IntegrationTests.Tests
             {
                 Assert.Multiple(() =>
                 {
-                    Assert.That(roundEndSystem.CanCallOrRecall(), Is.True, "We waited a while, but the cooldown is not expired");
-                    Assert.That(roundEndSystem.ExpectedCountdownEnd, Is.Not.Null, "We were waiting for the cooldown, but the round also ended");
+                    Assert.That(
+                        roundEndSystem.CanCallOrRecall(),
+                        Is.True,
+                        "We waited a while, but the cooldown is not expired"
+                    );
+                    Assert.That(
+                        roundEndSystem.ExpectedCountdownEnd,
+                        Is.Not.Null,
+                        "We were waiting for the cooldown, but the round also ended"
+                    );
                 });
                 // Recall the shuttle, which should trigger the cooldown again
                 roundEndSystem.CancelRoundEndCountdown();
                 Assert.Multiple(() =>
                 {
-                    Assert.That(roundEndSystem.ExpectedCountdownEnd, Is.Null, "Recalled shuttle, but countdown has not ended");
-                    Assert.That(roundEndSystem.CanCallOrRecall(), Is.False, "Recalled shuttle, but cooldown has not been enabled");
+                    Assert.That(
+                        roundEndSystem.ExpectedCountdownEnd,
+                        Is.Null,
+                        "Recalled shuttle, but countdown has not ended"
+                    );
+                    Assert.That(
+                        roundEndSystem.CanCallOrRecall(),
+                        Is.False,
+                        "Recalled shuttle, but cooldown has not been enabled"
+                    );
                 });
             });
 
@@ -94,7 +123,11 @@ namespace Content.IntegrationTests.Tests
 
             await server.WaitAssertion(() =>
             {
-                Assert.That(roundEndSystem.CanCallOrRecall(), Is.True, "We waited a while, but the cooldown is not expired");
+                Assert.That(
+                    roundEndSystem.CanCallOrRecall(),
+                    Is.True,
+                    "We waited a while, but the cooldown is not expired"
+                );
                 // Press the shuttle call button
                 roundEndSystem.RequestRoundEnd();
             });
@@ -105,8 +138,16 @@ namespace Content.IntegrationTests.Tests
             {
                 Assert.Multiple(() =>
                 {
-                    Assert.That(roundEndSystem.CanCallOrRecall(), Is.True, "We waited a while, but the cooldown is not expired");
-                    Assert.That(roundEndSystem.ExpectedCountdownEnd, Is.Not.Null, "The countdown ended, but we just wanted the cooldown to end");
+                    Assert.That(
+                        roundEndSystem.CanCallOrRecall(),
+                        Is.True,
+                        "We waited a while, but the cooldown is not expired"
+                    );
+                    Assert.That(
+                        roundEndSystem.ExpectedCountdownEnd,
+                        Is.Not.Null,
+                        "The countdown ended, but we just wanted the cooldown to end"
+                    );
                 });
             });
 
@@ -134,14 +175,18 @@ namespace Content.IntegrationTests.Tests
                 {
                     await pair.RunTicksSync(5);
                 }
-                if (timeout.IsCompleted) throw new TimeoutException("Event took too long to trigger");
+                if (timeout.IsCompleted)
+                    throw new TimeoutException("Event took too long to trigger");
             }
 
             // Need to clean self up
             await server.WaitAssertion(() =>
             {
                 config.SetCVar(CCVars.GameLobbyEnabled, false);
-                config.SetCVar(CCVars.EmergencyShuttleMinTransitTime, CCVars.EmergencyShuttleMinTransitTime.DefaultValue);
+                config.SetCVar(
+                    CCVars.EmergencyShuttleMinTransitTime,
+                    CCVars.EmergencyShuttleMinTransitTime.DefaultValue
+                );
                 config.SetCVar(CCVars.EmergencyShuttleDockTime, CCVars.EmergencyShuttleDockTime.DefaultValue);
                 config.SetCVar(CCVars.RoundRestartTime, CCVars.RoundRestartTime.DefaultValue);
 

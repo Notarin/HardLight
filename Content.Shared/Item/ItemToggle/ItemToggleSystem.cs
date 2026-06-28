@@ -12,6 +12,7 @@ using Robust.Shared.Network;
 using Robust.Shared.Timing;
 
 namespace Content.Shared.Item.ItemToggle;
+
 /// <summary>
 /// Handles generic item toggles, like a welder turning on and off, or an e-sword.
 /// </summary>
@@ -20,11 +21,20 @@ namespace Content.Shared.Item.ItemToggle;
 /// </remarks>
 public sealed class ItemToggleSystem : EntitySystem
 {
-    [Dependency] private readonly INetManager _netManager = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
+    [Dependency]
+    private readonly INetManager _netManager = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
 
     private EntityQuery<ItemToggleComponent> _query;
 
@@ -96,14 +106,18 @@ public sealed class ItemToggleSystem : EntitySystem
                 return;
         }
 
-        args.Verbs.Add(new ActivationVerb()
-        {
-            Text = !ent.Comp.Activated ? Loc.GetString(ent.Comp.VerbToggleOn) : Loc.GetString(ent.Comp.VerbToggleOff),
-            Act = () =>
+        args.Verbs.Add(
+            new ActivationVerb()
             {
-                Toggle((ent.Owner, ent.Comp), user, predicted: ent.Comp.Predictable);
+                Text = !ent.Comp.Activated
+                    ? Loc.GetString(ent.Comp.VerbToggleOn)
+                    : Loc.GetString(ent.Comp.VerbToggleOff),
+                Act = () =>
+                {
+                    Toggle((ent.Owner, ent.Comp), user, predicted: ent.Comp.Predictable);
+                },
             }
-        });
+        );
     }
 
     // Frontier: alt-verb toggle
@@ -114,16 +128,21 @@ public sealed class ItemToggleSystem : EntitySystem
 
         var user = args.User;
 
-        args.Verbs.Add(new AlternativeVerb()
-        {
-            Text = !ent.Comp.Activated ? Loc.GetString(ent.Comp.VerbToggleOn) : Loc.GetString(ent.Comp.VerbToggleOff),
-            Priority = ent.Comp.AltPriority,
-            Act = () =>
+        args.Verbs.Add(
+            new AlternativeVerb()
             {
-                Toggle((ent.Owner, ent.Comp), user, predicted: ent.Comp.Predictable);
+                Text = !ent.Comp.Activated
+                    ? Loc.GetString(ent.Comp.VerbToggleOn)
+                    : Loc.GetString(ent.Comp.VerbToggleOff),
+                Priority = ent.Comp.AltPriority,
+                Act = () =>
+                {
+                    Toggle((ent.Owner, ent.Comp), user, predicted: ent.Comp.Predictable);
+                },
             }
-        });
+        );
     }
+
     // End Frontier
 
     private void OnActivate(Entity<ItemToggleComponent> ent, ref ActivateInWorldEvent args)
@@ -152,7 +171,12 @@ public sealed class ItemToggleSystem : EntitySystem
     /// Tries to set the activated bool from a value.
     /// </summary>
     /// <returns>false if the attempt fails for any reason</returns>
-    public bool TrySetActive(Entity<ItemToggleComponent?> ent, bool active, EntityUid? user = null, bool predicted = true)
+    public bool TrySetActive(
+        Entity<ItemToggleComponent?> ent,
+        bool active,
+        EntityUid? user = null,
+        bool predicted = true
+    )
     {
         if (active)
             return TryActivate(ent, user, predicted: predicted);
@@ -347,7 +371,7 @@ public sealed class ItemToggleSystem : EntitySystem
             var stream = args.Predicted
                 ? _audio.PlayPredicted(comp.ActiveSound, uid, args.User, loop)
                 : _audio.PlayPvs(comp.ActiveSound, uid, loop);
-            if (stream?.Entity is {} entity)
+            if (stream?.Entity is { } entity)
                 comp.PlayingStream = entity;
         }
     }

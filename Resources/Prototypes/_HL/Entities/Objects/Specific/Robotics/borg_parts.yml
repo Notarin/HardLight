@@ -66,59 +66,59 @@
   parent: LeftLegBorg
   name: janitor quadborg left leg
   components:
-    - type: Sprite
-      state: janitor_l_leg
-    - type: Icon
-      state: janitor_l_leg
-    - type: Tag
-      tags:
-        - Trash
-        - BorgLeg
-        - BorgJanitorLLeg
+  - type: Sprite
+    state: janitor_l_leg
+  - type: Icon
+    state: janitor_l_leg
+  - type: Tag
+    tags:
+    - Trash
+    - BorgLeg
+    - BorgJanitorLLeg
 
 - type: entity
   id: RightLegBorgJanitor
   parent: RightLegBorg
   name: janitor quadborg right leg
   components:
-    - type: Sprite
-      state: janitor_r_leg
-    - type: Icon
-      state: janitor_r_leg
-    - type: Tag
-      tags:
-        - Trash
-        - BorgLeg
-        - BorgJanitorRLeg
+  - type: Sprite
+    state: janitor_r_leg
+  - type: Icon
+    state: janitor_r_leg
+  - type: Tag
+    tags:
+    - Trash
+    - BorgLeg
+    - BorgJanitorRLeg
 
 - type: entity
   id: HeadBorgJanitor
   parent: LightHeadBorg
   name: janitor quadborg head
   components:
-    - type: Sprite
-      state: janitor_head
-    - type: Icon
-      state: janitor_head
-    - type: Tag
-      tags:
-        - Trash
-        - BorgHead
-        - BorgJanitorHead
+  - type: Sprite
+    state: janitor_head
+  - type: Icon
+    state: janitor_head
+  - type: Tag
+    tags:
+    - Trash
+    - BorgHead
+    - BorgJanitorHead
 
 - type: entity
   id: TorsoBorgJanitor
   parent: TorsoBorg
   name: janitor quadborg torso
   components:
-    - type: Sprite
-      state: janitor_chest
-    - type: Icon
-      state: janitor_chest
-    - type: Tag
-      tags:
-        - Trash
-        - BorgJanitorTorso
+  - type: Sprite
+    state: janitor_chest
+  - type: Icon
+    state: janitor_chest
+  - type: Tag
+    tags:
+    - Trash
+    - BorgJanitorTorso
 
 # medical parts
 - type: entity
@@ -126,59 +126,59 @@
   parent: LeftLegBorg
   name: medical quadborg left leg
   components:
-    - type: Sprite
-      state: medical_l_leg
-    - type: Icon
-      state: medical_l_leg
-    - type: Tag
-      tags:
-        - Trash
-        - BorgLeg
-        - BorgMedicalLLeg
+  - type: Sprite
+    state: medical_l_leg
+  - type: Icon
+    state: medical_l_leg
+  - type: Tag
+    tags:
+    - Trash
+    - BorgLeg
+    - BorgMedicalLLeg
 
 - type: entity
   id: RightLegBorgMedical
   parent: RightLegBorg
   name: medical quadborg right leg
   components:
-    - type: Sprite
-      state: medical_r_leg
-    - type: Icon
-      state: medical_r_leg
-    - type: Tag
-      tags:
-        - Trash
-        - BorgLeg
-        - BorgMedicalRLeg
+  - type: Sprite
+    state: medical_r_leg
+  - type: Icon
+    state: medical_r_leg
+  - type: Tag
+    tags:
+    - Trash
+    - BorgLeg
+    - BorgMedicalRLeg
 
 - type: entity
   id: HeadBorgMedical
   parent: LightHeadBorg
   name: medical quadborg head
   components:
-    - type: Sprite
-      state: medical_head
-    - type: Icon
-      state: medical_head
-    - type: Tag
-      tags:
-        - Trash
-        - BorgHead
-        - BorgMedicalHead
+  - type: Sprite
+    state: medical_head
+  - type: Icon
+    state: medical_head
+  - type: Tag
+    tags:
+    - Trash
+    - BorgHead
+    - BorgMedicalHead
 
 - type: entity
   id: TorsoBorgMedical
   parent: TorsoBorg
   name: medical quadborg torso
   components:
-    - type: Sprite
-      state: medical_chest
-    - type: Icon
-      state: medical_chest
-    - type: Tag
-      tags:
-        - Trash
-        - BorgMedicalTorso
+  - type: Sprite
+    state: medical_chest
+  - type: Icon
+    state: medical_chest
+  - type: Tag
+    tags:
+    - Trash
+    - BorgMedicalTorso
 
 # mining parts
 - type: entity
@@ -186,59 +186,59 @@
   parent: LeftLegBorg
   name: mining quadborg left leg
   components:
-    - type: Sprite
-      state: mining_l_leg
-    - type: Icon
-      state: mining_l_leg
-    - type: Tag
-      tags:
-        - Trash
-        - BorgLeg
-        - BorgMiningLLeg
+  - type: Sprite
+    state: mining_l_leg
+  - type: Icon
+    state: mining_l_leg
+  - type: Tag
+    tags:
+    - Trash
+    - BorgLeg
+    - BorgMiningLLeg
 
 - type: entity
   id: RightLegBorgMining
   parent: RightLegBorg
   name: mining quadborg right leg
   components:
-    - type: Sprite
-      state: mining_r_leg
-    - type: Icon
-      state: mining_r_leg
-    - type: Tag
-      tags:
-        - Trash
-        - BorgLeg
-        - BorgMiningRLeg
+  - type: Sprite
+    state: mining_r_leg
+  - type: Icon
+    state: mining_r_leg
+  - type: Tag
+    tags:
+    - Trash
+    - BorgLeg
+    - BorgMiningRLeg
 
 - type: entity
   id: HeadBorgMining
   parent: LightHeadBorg
   name: mining quadborg head
   components:
-    - type: Sprite
-      state: mining_head
-    - type: Icon
-      state: mining_head
-    - type: Tag
-      tags:
-        - Trash
-        - BorgHead
-        - BorgMiningHead
+  - type: Sprite
+    state: mining_head
+  - type: Icon
+    state: mining_head
+  - type: Tag
+    tags:
+    - Trash
+    - BorgHead
+    - BorgMiningHead
 
 - type: entity
   id: TorsoBorgMining
   parent: TorsoBorg
   name: mining quadborg torso
   components:
-    - type: Sprite
-      state: mining_chest
-    - type: Icon
-      state: mining_chest
-    - type: Tag
-      tags:
-        - Trash
-        - BorgMiningTorso
+  - type: Sprite
+    state: mining_chest
+  - type: Icon
+    state: mining_chest
+  - type: Tag
+    tags:
+    - Trash
+    - BorgMiningTorso
 
 # service parts
 - type: entity

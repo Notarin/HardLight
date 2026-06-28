@@ -8,15 +8,15 @@
     attackRate: .85
     damage:
       types:
-       Slash: 10
-       Piercing: 5
+        Slash: 10
+        Piercing: 5
     angle: 0
     wideAnimationRotation: -135
     animation: WeaponArcThrust
     soundHit:
       path: /Audio/Weapons/bladeslice.ogg
- # - type: DisarmMalus  #HL
- #   malus: 0.225
+      # - type: DisarmMalus  #HL
+      #   malus: 0.225
 
 - type: entity #HL this is for nonbayonet weapons as it is a buttstock hit
   id: BaseGunMeleeBlunt
@@ -28,12 +28,12 @@
     attackRate: .85
     damage:
       types:
-       Blunt: 10
-       Slash: 5
+        Blunt: 10
+        Slash: 5
     angle: 0
     wideAnimationRotation: 90
     animation: WeaponArcThrust
     soundHit:
       collection: MetalThud
- # - type: DisarmMalus they can add it if they want
- #   malus: 0.225
+# - type: DisarmMalus they can add it if they want
+#   malus: 0.225

@@ -19,10 +19,17 @@ namespace Content.Shared._Hardlight.Drugs;
 /// </summary>
 public sealed class PacketSealingSystem : EntitySystem
 {
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solution = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfter = default!;
+
+    [Dependency]
+    private readonly SharedSolutionContainerSystem _solution = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
 
     public override void Initialize()
     {
@@ -54,12 +61,14 @@ public sealed class PacketSealingSystem : EntitySystem
 
         var user = args.User;
 
-        args.Verbs.Add(new AlternativeVerb()
-        {
-            Text = "Seal Packet",
-            Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/lock.svg.192dpi.png")),
-            Act = () => TryStartSealDoAfter(ent, user),
-        });
+        args.Verbs.Add(
+            new AlternativeVerb()
+            {
+                Text = "Seal Packet",
+                Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/lock.svg.192dpi.png")),
+                Act = () => TryStartSealDoAfter(ent, user),
+            }
+        );
     }
 
     private bool CanSealPacket(Entity<PacketSealingComponent> ent)
@@ -79,7 +88,10 @@ public sealed class PacketSealingSystem : EntitySystem
         if (solution.Volume < solution.MaxVolume)
         {
             var needed = solution.MaxVolume - solution.Volume;
-            return (false, $"Packet needs {needed}u more reagent to be full ({solution.Volume}/{solution.MaxVolume}u).");
+            return (
+                false,
+                $"Packet needs {needed}u more reagent to be full ({solution.Volume}/{solution.MaxVolume}u)."
+            );
         }
 
         // Check if it's empty
@@ -109,7 +121,13 @@ public sealed class PacketSealingSystem : EntitySystem
             return;
         }
 
-        var doAfterArgs = new DoAfterArgs(EntityManager, user, ent.Comp.SealDelay, new PacketSealDoAfterEvent(), ent.Owner)
+        var doAfterArgs = new DoAfterArgs(
+            EntityManager,
+            user,
+            ent.Comp.SealDelay,
+            new PacketSealDoAfterEvent(),
+            ent.Owner
+        )
         {
             BreakOnMove = true,
             NeedHand = true,
@@ -133,7 +151,6 @@ public sealed class PacketSealingSystem : EntitySystem
         args.Handled = true;
     }
 
-
     private string? GetWrappedPacketId(string reagentId)
     {
         return reagentId switch
@@ -143,12 +160,10 @@ public sealed class PacketSealingSystem : EntitySystem
             "Grit" => "WrappedGritPackage",
             "Breakout" => "WrappedBreakoutPackage",
             "Widow" => "WrappedWidowPackage",
-            _ => null
+            _ => null,
         };
     }
 }
 
 [Serializable, NetSerializable]
-public sealed partial class PacketSealDoAfterEvent : SimpleDoAfterEvent
-{
-}
+public sealed partial class PacketSealDoAfterEvent : SimpleDoAfterEvent { }

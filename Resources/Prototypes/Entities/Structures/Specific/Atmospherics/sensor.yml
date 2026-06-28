@@ -27,8 +27,8 @@
       Frezon: danger
   - type: Tag
     tags:
-      - AirSensor
-      - ForceFixRotations
+    - AirSensor
+    - ForceFixRotations
   - type: GuideHelp
     guides:
     - DeviceMonitoringAndControl
@@ -49,8 +49,7 @@
     damageModifierSet: Metallic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:DoActsBehavior
@@ -60,8 +59,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.25,-0.25,0.25,0.25"
         density: 20
         mask:
@@ -73,7 +71,7 @@
   - type: ApcPowerReceiver
   - type: ExtensionCableReceiver
   - type: AccessReader
-    access: [ [ "Atmospherics" ] ]
+    access: [["Atmospherics"]]
   - type: Construction
     graph: AirSensor
     node: sensor
@@ -83,13 +81,13 @@
     sprite: Structures/Specific/Atmospherics/sensor.rsi
     layers:
     - state: gsensor1
-      map: [ "enum.PowerDeviceVisualLayers.Powered" ]
+      map: ["enum.PowerDeviceVisualLayers.Powered"]
   - type: GenericVisualizer
     visuals:
       enum.PowerDeviceVisuals.Powered:
         enum.PowerDeviceVisualLayers.Powered:
-          True: { state: gsensor1 }
-          False: { state: gsensor0 }
+          True: {state: gsensor1}
+          False: {state: gsensor0}
 
 - type: entity
   parent: BaseItem

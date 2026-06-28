@@ -5,7 +5,8 @@ namespace Content.Shared.Shuttles.Systems;
 
 public abstract class SharedDockingSystem : EntitySystem
 {
-    [Dependency] protected readonly SharedTransformSystem XformSystem = default!;
+    [Dependency]
+    protected readonly SharedTransformSystem XformSystem = default!;
 
     public const float DockingHiglightRange = 4f;
     public const float DockRange = 1f + 0.2f;
@@ -27,8 +28,7 @@ public abstract class SharedDockingSystem : EntitySystem
         return !HasComp<PreventPilotComponent>(shuttle.Value);
     }
 
-    public bool CanDock(MapCoordinates mapPosA, Angle worldRotA,
-                        MapCoordinates mapPosB, Angle worldRotB)
+    public bool CanDock(MapCoordinates mapPosA, Angle worldRotA, MapCoordinates mapPosB, Angle worldRotB)
     {
         // Uh oh
         if (mapPosA.MapId != mapPosB.MapId)
@@ -60,8 +60,7 @@ public abstract class SharedDockingSystem : EntitySystem
         return true;
     }
 
-    public bool CanDock(NetCoordinates coordinatesOne, Angle angleOne,
-                        NetCoordinates coordinatesTwo, Angle angleTwo)
+    public bool CanDock(NetCoordinates coordinatesOne, Angle angleOne, NetCoordinates coordinatesTwo, Angle angleTwo)
     {
         // TODO: Dump the dock fixtures
         var coordsA = GetCoordinates(coordinatesOne);

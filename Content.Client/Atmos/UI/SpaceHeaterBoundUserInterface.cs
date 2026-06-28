@@ -14,9 +14,8 @@ public sealed class SpaceHeaterBoundUserInterface : BoundUserInterface
     [ViewVariables]
     private SpaceHeaterWindow? _window;
 
-    public SpaceHeaterBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-    }
+    public SpaceHeaterBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {

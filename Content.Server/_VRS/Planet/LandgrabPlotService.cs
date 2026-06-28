@@ -34,14 +34,29 @@ namespace Content.Server._VRS.Planet;
 /// </summary>
 public sealed class LandgrabPlotService : EntitySystem
 {
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly MapLoaderSystem _mapLoader = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedMapSystem _mapSys = default!;
-    [Dependency] private readonly MetaDataSystem _metaData = default!;
-    [Dependency] private readonly IResourceManager _resourceManager = default!;
-    [Dependency] private readonly BankSystem _bank = default!;
-    [Dependency] private readonly SharedPvsOverrideSystem _pvs = default!;
+    [Dependency]
+    private readonly IMapManager _mapManager = default!;
+
+    [Dependency]
+    private readonly MapLoaderSystem _mapLoader = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _mapSys = default!;
+
+    [Dependency]
+    private readonly MetaDataSystem _metaData = default!;
+
+    [Dependency]
+    private readonly IResourceManager _resourceManager = default!;
+
+    [Dependency]
+    private readonly BankSystem _bank = default!;
+
+    [Dependency]
+    private readonly SharedPvsOverrideSystem _pvs = default!;
 
     private ISawmill _sawmill = default!;
 
@@ -122,8 +137,14 @@ public sealed class LandgrabPlotService : EntitySystem
     /// Checks whether a plot of <paramref name="plotSize"/> centered at the given
     /// world position overlaps any existing plot. Excludes <paramref name="ignoreGrid"/> (e.g. when re-checking own grid).
     /// </summary>
-    public bool IsLocationFree(MapId mapId, Vector2 worldPos, int plotSize, int spacing,
-        out string? blockedReason, EntityUid? ignoreGrid = null)
+    public bool IsLocationFree(
+        MapId mapId,
+        Vector2 worldPos,
+        int plotSize,
+        int spacing,
+        out string? blockedReason,
+        EntityUid? ignoreGrid = null
+    )
     {
         blockedReason = null;
         var halfNew = (plotSize / 2f) + spacing;
@@ -139,7 +160,10 @@ public sealed class LandgrabPlotService : EntitySystem
 
             var center = _transform.GetWorldPosition(uid);
             var halfOther = (plot.PlotSize / 2f) + spacing;
-            var otherAabb = new Box2(center - new Vector2(halfOther, halfOther), center + new Vector2(halfOther, halfOther));
+            var otherAabb = new Box2(
+                center - new Vector2(halfOther, halfOther),
+                center + new Vector2(halfOther, halfOther)
+            );
 
             if (newAabb.Intersects(otherAabb))
             {
@@ -156,8 +180,14 @@ public sealed class LandgrabPlotService : EntitySystem
     /// Creates an empty plot grid centered at <paramref name="worldPos"/> on the
     /// given planet map and registers it to the player. Charges the registry's PurchaseCost.
     /// </summary>
-    public bool TryPurchasePlot(string ckey, string ownerName, EntityUid playerEntity,
-        MapId mapId, Vector2 worldPos, out string? failReason)
+    public bool TryPurchasePlot(
+        string ckey,
+        string ownerName,
+        EntityUid playerEntity,
+        MapId mapId,
+        Vector2 worldPos,
+        out string? failReason
+    )
     {
         failReason = null;
 
@@ -337,15 +367,23 @@ public sealed class LandgrabPlotService : EntitySystem
             while ((line = reader.ReadLine()) != null)
             {
                 var idx = line.IndexOf('=');
-                if (idx < 0) continue;
+                if (idx < 0)
+                    continue;
                 var key = line[..idx];
                 var val = line[(idx + 1)..];
-                if (!int.TryParse(val, out var n)) continue;
+                if (!int.TryParse(val, out var n))
+                    continue;
                 switch (key)
                 {
-                    case "width": info.Width = n; break;
-                    case "height": info.Height = n; break;
-                    case "tiles": info.TileCount = n; break;
+                    case "width":
+                        info.Width = n;
+                        break;
+                    case "height":
+                        info.Height = n;
+                        break;
+                    case "tiles":
+                        info.TileCount = n;
+                        break;
                 }
             }
         }
@@ -361,8 +399,16 @@ public sealed class LandgrabPlotService : EntitySystem
     /// Loads the named slot's YAML and places the grid centered at <paramref name="worldPos"/> on the planet.
     /// Charges <paramref name="loadCost"/> from the player. The player must NOT already own a plot.
     /// </summary>
-    public bool TryLoadPlot(string ckey, string ownerName, EntityUid playerEntity,
-        MapId mapId, Vector2 worldPos, string slotName, int loadCost, out string? failReason)
+    public bool TryLoadPlot(
+        string ckey,
+        string ownerName,
+        EntityUid playerEntity,
+        MapId mapId,
+        Vector2 worldPos,
+        string slotName,
+        int loadCost,
+        out string? failReason
+    )
     {
         failReason = null;
 

@@ -1,6 +1,7 @@
-using Content.Server._Starlight.Plumbing.NodeGroups;
-using Content.Server._Starlight.Plumbing.EntitySystems;
+using System.Collections.Concurrent;
 using Content.Server._Starlight.Plumbing.Components;
+using Content.Server._Starlight.Plumbing.EntitySystems;
+using Content.Server._Starlight.Plumbing.NodeGroups;
 using Content.Server.NodeContainer;
 using Content.Server.NodeContainer.Nodes;
 using Content.Shared._Starlight.Plumbing.Components;
@@ -9,9 +10,8 @@ using Content.Shared.Atmos.Components;
 using Content.Shared.NodeContainer;
 using Content.Shared.Tag;
 using Robust.Shared.Map;
-using Robust.Shared.Prototypes;
 using Robust.Shared.Map.Components;
-using System.Collections.Concurrent;
+using Robust.Shared.Prototypes;
 
 namespace Content.Server._Starlight.Plumbing.Nodes;
 
@@ -25,13 +25,16 @@ namespace Content.Server._Starlight.Plumbing.Nodes;
 public partial class PlumbingNode : PipeNode
 {
     private static readonly ProtoId<TagPrototype> PlumbingDuctTag = "PlumbingDuct";
-    private static readonly ConcurrentDictionary<(EntityUid Owner, string NodeName, PipeDirection Direction), EntityUid> SelectedDuctByMachineSide = new(); // HL: Make Concurrent for thread-safe operations
+    private static readonly ConcurrentDictionary<
+        (EntityUid Owner, string NodeName, PipeDirection Direction),
+        EntityUid
+    > SelectedDuctByMachineSide = new(); // HL: Make Concurrent for thread-safe operations
 
     /// <summary>
     ///     The <see cref="IPlumbingNet"/> this plumbing duct is part of.
     /// </summary>
     [ViewVariables]
-    public IPlumbingNet? PlumbingNet => (IPlumbingNet?) NodeGroup;
+    public IPlumbingNet? PlumbingNet => (IPlumbingNet?)NodeGroup;
 
     public override void Initialize(EntityUid owner, IEntityManager entMan)
     {
@@ -44,11 +47,13 @@ public partial class PlumbingNode : PipeNode
             CurrentPipeLayer = layers.CurrentPipeLayer;
     }
 
-    public override IEnumerable<Node> GetReachableNodes(TransformComponent xform,
+    public override IEnumerable<Node> GetReachableNodes(
+        TransformComponent xform,
         EntityQuery<NodeContainerComponent> nodeQuery,
         EntityQuery<TransformComponent> xformQuery,
         MapGridComponent? grid,
-        IEntityManager entMan)
+        IEntityManager entMan
+    )
     {
         var mapSystem = entMan.System<SharedMapSystem>();
         var tags = entMan.System<TagSystem>();
@@ -69,10 +74,7 @@ public partial class PlumbingNode : PipeNode
             }
         }
 
-        if (!isPlumbingDuct &&
-            xform.Anchored &&
-            grid != null &&
-            xform.GridUid != null)
+        if (!isPlumbingDuct && xform.Anchored && grid != null && xform.GridUid != null)
         {
             var position = mapSystem.TileIndicesFor(xform.GridUid.Value, grid, xform.Coordinates);
             var selectedByDirection = new Dictionary<PipeDirection, PipeNode>();
@@ -80,10 +82,12 @@ public partial class PlumbingNode : PipeNode
             // Optional internal outlet linking.
             // When enabled on PlumbingOutletComponent, all configured outlet nodes on the same
             // machine are connected together in the graph so attached duct networks bridge.
-            if (entMan.TryGetComponent<PlumbingOutletComponent>(Owner, out var outletComp) &&
-                outletComp.ConnectedOutlets &&
-                IsConfiguredOutletNode(nodeName, outletComp) &&
-                nodeQuery.TryGetComponent(Owner, out var ownerContainer))
+            if (
+                entMan.TryGetComponent<PlumbingOutletComponent>(Owner, out var outletComp)
+                && outletComp.ConnectedOutlets
+                && IsConfiguredOutletNode(nodeName, outletComp)
+                && nodeQuery.TryGetComponent(Owner, out var ownerContainer)
+            )
             {
                 foreach (var (siblingName, siblingNode) in ownerContainer.Nodes)
                 {
@@ -138,10 +142,7 @@ public partial class PlumbingNode : PipeNode
             yield break;
         }
 
-        if (isPlumbingDuct &&
-            xform.Anchored &&
-            grid != null &&
-            xform.GridUid != null)
+        if (isPlumbingDuct && xform.Anchored && grid != null && xform.GridUid != null)
         {
             var pos = mapSystem.TileIndicesFor(xform.GridUid.Value, grid, xform.Coordinates);
 
@@ -162,8 +163,10 @@ public partial class PlumbingNode : PipeNode
                     var machineNodeName = pipe.Name ?? "__unnamed";
                     var machineSide = direction.GetOpposite();
                     var machineSideKey = (pipe.Owner, machineNodeName, machineSide);
-                    if (SelectedDuctByMachineSide.TryGetValue(machineSideKey, out var selectedDuct) &&
-                        selectedDuct != Owner)
+                    if (
+                        SelectedDuctByMachineSide.TryGetValue(machineSideKey, out var selectedDuct)
+                        && selectedDuct != Owner
+                    )
                         continue;
 
                     if (yielded.Add(pipe))
@@ -201,5 +204,4 @@ public partial class PlumbingNode : PipeNode
 
         return false;
     }
-
 }

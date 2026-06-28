@@ -15,9 +15,14 @@ namespace Content.Server.Machines.EntitySystems;
 /// </summary>
 public sealed class MultipartMachineSystem : SharedMultipartMachineSystem
 {
-    [Dependency] private readonly IComponentFactory _factory = default!;
-    [Dependency] private readonly MapSystem _mapSystem = default!;
-    [Dependency] private readonly EntityLookupSystem _lookupSystem = default!;
+    [Dependency]
+    private readonly IComponentFactory _factory = default!;
+
+    [Dependency]
+    private readonly MapSystem _mapSystem = default!;
+
+    [Dependency]
+    private readonly EntityLookupSystem _lookupSystem = default!;
 
     // The largest size ANY machine can theoretically have.
     // Used to aid search for machines in range of parts that have been anchored/constructed.
@@ -32,7 +37,9 @@ public sealed class MultipartMachineSystem : SharedMultipartMachineSystem
 
         SubscribeLocalEvent<MultipartMachineComponent, AnchorStateChangedEvent>(OnMachineAnchorChanged);
 
-        SubscribeLocalEvent<MultipartMachinePartComponent, AfterConstructionChangeEntityEvent>(OnPartConstructionNodeChanged);
+        SubscribeLocalEvent<MultipartMachinePartComponent, AfterConstructionChangeEntityEvent>(
+            OnPartConstructionNodeChanged
+        );
         SubscribeLocalEvent<MultipartMachinePartComponent, AnchorStateChangedEvent>(OnPartAnchorChanged);
     }
 
@@ -188,13 +195,7 @@ public sealed class MultipartMachineSystem : SharedMultipartMachineSystem
 
         if (stateHasChanged)
         {
-            var ev = new MultipartMachineAssemblyStateChanged(
-                ent,
-                ent.Comp.IsAssembled,
-                null,
-                [],
-                clearedParts
-            );
+            var ev = new MultipartMachineAssemblyStateChanged(ent, ent.Comp.IsAssembled, null, [], clearedParts);
             RaiseLocalEvent(ent, ref ev);
 
             Dirty(ent);
@@ -221,8 +222,7 @@ public sealed class MultipartMachineSystem : SharedMultipartMachineSystem
     /// </summary>
     /// <param name="ent">Machine entity that has been anchored or unanchored.</param>
     /// <param name="args">Args for this event.</param>
-    private void OnMachineAnchorChanged(Entity<MultipartMachineComponent> ent,
-        ref AnchorStateChangedEvent args)
+    private void OnMachineAnchorChanged(Entity<MultipartMachineComponent> ent, ref AnchorStateChangedEvent args)
     {
         if (args.Anchored)
             Rescan(ent);
@@ -237,8 +237,10 @@ public sealed class MultipartMachineSystem : SharedMultipartMachineSystem
     /// </summary>
     /// <param name="ent">Machine part entity that has moved in a graph.</param>
     /// <param name="args">Args for this event.</param>
-    private void OnPartConstructionNodeChanged(Entity<MultipartMachinePartComponent> ent,
-        ref AfterConstructionChangeEntityEvent args)
+    private void OnPartConstructionNodeChanged(
+        Entity<MultipartMachinePartComponent> ent,
+        ref AfterConstructionChangeEntityEvent args
+    )
     {
         if (!XformQuery.TryGetComponent(ent.Owner, out var constructXform))
             return;
@@ -248,8 +250,10 @@ public sealed class MultipartMachineSystem : SharedMultipartMachineSystem
         {
             foreach (var part in machine.Comp.Parts.Values)
             {
-                if (args.Graph == part.Graph &&
-                    (args.PreviousNode == part.ExpectedNode || args.CurrentNode == part.ExpectedNode))
+                if (
+                    args.Graph == part.Graph
+                    && (args.PreviousNode == part.ExpectedNode || args.CurrentNode == part.ExpectedNode)
+                )
                 {
                     Rescan(machine);
                     break; // No need to scan the same machine again
@@ -311,7 +315,8 @@ public sealed class MultipartMachineSystem : SharedMultipartMachineSystem
         EntityQuery<IComponent> query,
         EntityUid gridUid,
         MapGridComponent grid,
-        MachinePart part)
+        MachinePart part
+    )
     {
         // Safety first, nuke any existing data
         part.Entity = null;
@@ -327,16 +332,20 @@ public sealed class MultipartMachineSystem : SharedMultipartMachineSystem
                 continue;
             }
 
-            if (!query.TryGetComponent(entity, out var comp) ||
-                !Transform(entity).LocalRotation.EqualsApprox(expectedRotation.Theta))
+            if (
+                !query.TryGetComponent(entity, out var comp)
+                || !Transform(entity).LocalRotation.EqualsApprox(expectedRotation.Theta)
+            )
             {
                 // Either has no transform, or doesn't match the rotation
                 continue;
             }
 
-            if (!TryComp<ConstructionComponent>(entity, out var construction) ||
-                construction.Graph != part.Graph ||
-                construction.Node != part.ExpectedNode)
+            if (
+                !TryComp<ConstructionComponent>(entity, out var construction)
+                || construction.Graph != part.Graph
+                || construction.Node != part.ExpectedNode
+            )
             {
                 // This constructable doesn't match the right graph we expect
                 continue;

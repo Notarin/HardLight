@@ -14,9 +14,14 @@ namespace Content.Client.Chemistry.Visualizers;
 
 public sealed class SolutionContainerVisualsSystem : VisualizerSystem<SolutionContainerVisualsComponent>
 {
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly ItemSystem _itemSystem = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototype = default!;
+
+    [Dependency]
+    private readonly ItemSystem _itemSystem = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     public override void Initialize()
     {
@@ -35,19 +40,37 @@ public sealed class SolutionContainerVisualsSystem : VisualizerSystem<SolutionCo
         component.InitialDescription = meta.EntityDescription;
     }
 
-    protected override void OnAppearanceChange(EntityUid uid, SolutionContainerVisualsComponent component, ref AppearanceChangeEvent args)
+    protected override void OnAppearanceChange(
+        EntityUid uid,
+        SolutionContainerVisualsComponent component,
+        ref AppearanceChangeEvent args
+    )
     {
         // Check if the solution that was updated is the one set as represented
         if (!string.IsNullOrEmpty(component.SolutionName))
         {
-            if (AppearanceSystem.TryGetData<string>(uid, SolutionContainerVisuals.SolutionName, out var name,
-                args.Component) && name != component.SolutionName)
+            if (
+                AppearanceSystem.TryGetData<string>(
+                    uid,
+                    SolutionContainerVisuals.SolutionName,
+                    out var name,
+                    args.Component
+                )
+                && name != component.SolutionName
+            )
             {
                 return;
             }
         }
 
-        if (!AppearanceSystem.TryGetData<float>(uid, SolutionContainerVisuals.FillFraction, out var fraction, args.Component))
+        if (
+            !AppearanceSystem.TryGetData<float>(
+                uid,
+                SolutionContainerVisuals.FillFraction,
+                out var fraction,
+                args.Component
+            )
+        )
             return;
 
         if (args.Sprite == null)
@@ -66,18 +89,32 @@ public sealed class SolutionContainerVisualsSystem : VisualizerSystem<SolutionCo
         // a giant error sign and error for debug.
         if (fraction > 1f)
         {
-            Log.Error("Attempted to set solution container visuals volume ratio on " + ToPrettyString(uid) + " to a value greater than 1. Volume should never be greater than max volume!");
+            Log.Error(
+                "Attempted to set solution container visuals volume ratio on "
+                    + ToPrettyString(uid)
+                    + " to a value greater than 1. Volume should never be greater than max volume!"
+            );
             fraction = 1f;
         }
         if (component.Metamorphic)
         {
             if (_sprite.LayerMapTryGet((uid, args.Sprite), component.BaseLayer, out var baseLayer, false))
             {
-                var hasOverlay = _sprite.LayerMapTryGet((uid, args.Sprite), component.OverlayLayer, out var overlayLayer, false);
+                var hasOverlay = _sprite.LayerMapTryGet(
+                    (uid, args.Sprite),
+                    component.OverlayLayer,
+                    out var overlayLayer,
+                    false
+                );
 
-                if (AppearanceSystem.TryGetData<string>(uid, SolutionContainerVisuals.BaseOverride,
+                if (
+                    AppearanceSystem.TryGetData<string>(
+                        uid,
+                        SolutionContainerVisuals.BaseOverride,
                         out var baseOverride,
-                        args.Component))
+                        args.Component
+                    )
+                )
                 {
                     _prototype.TryIndex<ReagentPrototype>(baseOverride, out var reagentProto);
 
@@ -126,7 +163,15 @@ public sealed class SolutionContainerVisualsSystem : VisualizerSystem<SolutionCo
                 _sprite.LayerSetSprite((uid, args.Sprite), fillLayer, fillSprite);
             _sprite.LayerSetRsiState((uid, args.Sprite), fillLayer, stateName);
 
-            if (changeColor && AppearanceSystem.TryGetData<Color>(uid, SolutionContainerVisuals.Color, out var color, args.Component))
+            if (
+                changeColor
+                && AppearanceSystem.TryGetData<Color>(
+                    uid,
+                    SolutionContainerVisuals.Color,
+                    out var color,
+                    args.Component
+                )
+            )
                 _sprite.LayerSetColor((uid, args.Sprite), fillLayer, color);
             else
                 _sprite.LayerSetColor((uid, args.Sprite), fillLayer, Color.White);
@@ -149,7 +194,11 @@ public sealed class SolutionContainerVisualsSystem : VisualizerSystem<SolutionCo
         _itemSystem.VisualsChanged(uid);
     }
 
-    private void OnGetHeldVisuals(EntityUid uid, SolutionContainerVisualsComponent component, GetInhandVisualsEvent args)
+    private void OnGetHeldVisuals(
+        EntityUid uid,
+        SolutionContainerVisualsComponent component,
+        GetInhandVisualsEvent args
+    )
     {
         if (component.InHandsFillBaseName == null)
             return;
@@ -160,7 +209,14 @@ public sealed class SolutionContainerVisualsSystem : VisualizerSystem<SolutionCo
         if (!TryComp<ItemComponent>(uid, out var item))
             return;
 
-        if (!AppearanceSystem.TryGetData<float>(uid, SolutionContainerVisuals.FillFraction, out var fraction, appearance))
+        if (
+            !AppearanceSystem.TryGetData<float>(
+                uid,
+                SolutionContainerVisuals.FillFraction,
+                out var fraction,
+                appearance
+            )
+        )
             return;
 
         var closestFillSprite = ContentHelpers.RoundToLevels(fraction, 1, component.InHandsMaxFillLevels + 1);
@@ -170,11 +226,18 @@ public sealed class SolutionContainerVisualsSystem : VisualizerSystem<SolutionCo
             var layer = new PrototypeLayerData();
 
             var heldPrefix = item.HeldPrefix == null ? "inhand-" : $"{item.HeldPrefix}-inhand-";
-            var key = heldPrefix + args.Location.ToString().ToLowerInvariant() + component.InHandsFillBaseName + closestFillSprite;
+            var key =
+                heldPrefix
+                + args.Location.ToString().ToLowerInvariant()
+                + component.InHandsFillBaseName
+                + closestFillSprite;
 
             layer.State = key;
 
-            if (component.ChangeColor && AppearanceSystem.TryGetData<Color>(uid, SolutionContainerVisuals.Color, out var color, appearance))
+            if (
+                component.ChangeColor
+                && AppearanceSystem.TryGetData<Color>(uid, SolutionContainerVisuals.Color, out var color, appearance)
+            )
                 layer.Color = color;
 
             args.Layers.Add((key, layer));
@@ -192,7 +255,14 @@ public sealed class SolutionContainerVisualsSystem : VisualizerSystem<SolutionCo
         if (!TryComp<ClothingComponent>(ent, out var clothing))
             return;
 
-        if (!AppearanceSystem.TryGetData<float>(ent, SolutionContainerVisuals.FillFraction, out var fraction, appearance))
+        if (
+            !AppearanceSystem.TryGetData<float>(
+                ent,
+                SolutionContainerVisuals.FillFraction,
+                out var fraction,
+                appearance
+            )
+        )
             return;
 
         var closestFillSprite = ContentHelpers.RoundToLevels(fraction, 1, ent.Comp.EquippedMaxFillLevels + 1);
@@ -201,17 +271,27 @@ public sealed class SolutionContainerVisualsSystem : VisualizerSystem<SolutionCo
         {
             var layer = new PrototypeLayerData();
 
-            var equippedPrefix = clothing.EquippedPrefix == null ? $"equipped-{args.Slot}" : $" {clothing.EquippedPrefix}-equipped-{args.Slot}";
+            var equippedPrefix =
+                clothing.EquippedPrefix == null
+                    ? $"equipped-{args.Slot}"
+                    : $" {clothing.EquippedPrefix}-equipped-{args.Slot}";
             var key = equippedPrefix + ent.Comp.EquippedFillBaseName + closestFillSprite;
 
             // Make sure the sprite state is valid so we don't show a big red error message
             // This saves us from having to make fill level sprites for every possible slot the item could be in (including pockets).
-            if (!TryComp<SpriteComponent>(ent, out var sprite) || sprite.BaseRSI == null || !sprite.BaseRSI.TryGetState(key, out _))
+            if (
+                !TryComp<SpriteComponent>(ent, out var sprite)
+                || sprite.BaseRSI == null
+                || !sprite.BaseRSI.TryGetState(key, out _)
+            )
                 return;
 
             layer.State = key;
 
-            if (ent.Comp.ChangeColor && AppearanceSystem.TryGetData<Color>(ent, SolutionContainerVisuals.Color, out var color, appearance))
+            if (
+                ent.Comp.ChangeColor
+                && AppearanceSystem.TryGetData<Color>(ent, SolutionContainerVisuals.Color, out var color, appearance)
+            )
                 layer.Color = color;
 
             args.Layers.Add((key, layer));

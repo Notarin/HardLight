@@ -23,7 +23,7 @@
       - state: mask_null
   - type: SpawnItemsOnUse
     items:
-      - id: SpaceCash10
+    - id: SpaceCash10
     sound:
       path: /Audio/Machines/windoor_open.ogg
 

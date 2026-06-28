@@ -5,29 +5,29 @@ using System.Numerics;
 using System.Reflection;
 using Content.IntegrationTests.Tests._NF;
 using Content.Server._HL.ColComm;
-using Content.Server.GameTicking;
 using Content.Server._NF.CryoSleep;
-using Content.Server._NF.RoundNotifications.Events;
 using Content.Server._NF.Roles.Systems;
+using Content.Server._NF.RoundNotifications.Events;
+using Content.Server.GameTicking;
 using Content.Server.Maps;
 using Content.Server.Station.Components;
 using Content.Server.Station.Systems;
 using Content.Shared.CCVar;
 using Content.Shared.GameTicking;
+using Content.Shared.HL.CCVar;
 using Content.Shared.Mind;
 using Content.Shared.Preferences;
 using Content.Shared.Roles;
 using Content.Shared.Station.Components;
 using Robust.Shared.Configuration;
+using Robust.Shared.EntitySerialization.Systems;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Log;
 using Robust.Shared.Map;
 using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
-using Robust.Shared.EntitySerialization.Systems;
 using Robust.Shared.Utility;
-using Content.Shared.HL.CCVar;
 
 namespace Content.IntegrationTests.Tests.Station;
 
@@ -36,9 +36,11 @@ namespace Content.IntegrationTests.Tests.Station;
 public sealed class StationJobsTest
 {
     [TestPrototypes]
-    private const string Prototypes = BasePrototypes + TrackedCrewPrototype + ShipJobPrototypes + DynamicAllocationPrototypes;
+    private const string Prototypes =
+        BasePrototypes + TrackedCrewPrototype + ShipJobPrototypes + DynamicAllocationPrototypes;
 
-    private const string BasePrototypes = @"
+    private const string BasePrototypes =
+        @"
 - type: playTimeTracker
   id: PlayTimeDummyAssistant
 
@@ -112,120 +114,120 @@ public sealed class StationJobsTest
         + "      0: Alive\n"
         + "      200: Dead\n";
 
-        private const string ShipJobPrototypes =
-                "- type: vessel\n"
-                + "  id: TestHiringVessel\n"
-                + "  parent: BaseVessel\n"
-                + "  name: Test Hiring Vessel\n"
-                + "  description: Test hiring vessel.\n"
-                + "  price: 1000\n"
-                + "  category: Small\n"
-                + "  group: Shipyard\n"
-                + "  shuttlePath: /Maps/Test/empty.yml\n"
-                + "  class:\n"
-                + "  - Civilian\n"
-                + "  engine:\n"
-                + "  - Uranium\n"
-                + "\n"
-                + "- type: vessel\n"
-                + "  id: TestCargoVessel\n"
-                + "  parent: BaseVessel\n"
-                + "  name: Test Cargo Vessel\n"
-                + "  description: Test cargo vessel.\n"
-                + "  price: 1000\n"
-                + "  category: Small\n"
-                + "  group: Shipyard\n"
-                + "  shuttlePath: /Maps/Test/empty.yml\n"
-                + "  class:\n"
-                + "  - Cargo\n"
-                + "  engine:\n"
-                + "  - Uranium\n"
-                + "\n"
-                + "- type: vessel\n"
-                + "  id: TestBusVessel\n"
-                + "  parent: BaseVesselBus\n"
-                + "  shuttlePath: /Maps/Test/empty.yml\n"
-                + "\n"
-                + "- type: gameMap\n"
-                + "  id: TestHiringShipStation\n"
-                + "  minPlayers: 0\n"
-                + "  mapName: TestHiringShipStation\n"
-                + "  mapPath: /Maps/Test/empty.yml\n"
-                + "  stations:\n"
-                + "    Station:\n"
-                + "      mapNameTemplate: TestHiringShipStation\n"
-                + "      stationProto: StandardFrontierVessel\n"
-                + "      components:\n"
-                + "        - type: ExtraShuttleInformation\n"
-                + "          vessel: TestHiringVessel\n"
-                + "        - type: StationJobs\n"
-                + "          availableJobs:\n"
-                + "            Mercenary: [0, 2]\n"
-                + "            ContractorInterview: [0, 1]\n"
-                + "            PilotInterview: [0, 1]\n"
-                + "\n"
-                + "- type: gameMap\n"
-                + "  id: TestCargoShipStation\n"
-                + "  minPlayers: 0\n"
-                + "  mapName: TestCargoShipStation\n"
-                + "  mapPath: /Maps/Test/empty.yml\n"
-                + "  stations:\n"
-                + "    Station:\n"
-                + "      mapNameTemplate: TestCargoShipStation\n"
-                + "      stationProto: StandardFrontierVessel\n"
-                + "      components:\n"
-                + "        - type: ExtraShuttleInformation\n"
-                + "          vessel: TestCargoVessel\n"
-                + "        - type: StationJobs\n"
-                + "          availableJobs:\n"
-                + "            MercenaryInterview: [0, 2]\n"
-                + "\n"
-                + "- type: gameMap\n"
-                + "  id: TestSingleSlotShipStation\n"
-                + "  minPlayers: 0\n"
-                + "  mapName: TestSingleSlotShipStation\n"
-                + "  mapPath: /Maps/Test/empty.yml\n"
-                + "  stations:\n"
-                + "    Station:\n"
-                + "      mapNameTemplate: TestSingleSlotShipStation\n"
-                + "      stationProto: StandardFrontierVessel\n"
-                + "      components:\n"
-                + "        - type: ExtraShuttleInformation\n"
-                + "          vessel: TestHiringVessel\n"
-                + "        - type: StationJobs\n"
-                + "          availableJobs:\n"
-                + "            Mercenary: [0, 1]\n"
-                + "\n"
-                + "- type: gameMap\n"
-                + "  id: TestBusShipStation\n"
-                + "  minPlayers: 0\n"
-                + "  mapName: TestBusShipStation\n"
-                + "  mapPath: /Maps/Test/empty.yml\n"
-                + "  stations:\n"
-                + "    Station:\n"
-                + "      mapNameTemplate: TestBusShipStation\n"
-                + "      stationProto: StandardFrontierBusVessel\n"
-                + "      components:\n"
-                + "        - type: ExtraShuttleInformation\n"
-                + "          vessel: TestBusVessel\n"
-                + "        - type: StationJobs\n"
-                + "          availableJobs:\n"
-                + "            MercenaryInterview: [0, 2]\n";
+    private const string ShipJobPrototypes =
+        "- type: vessel\n"
+        + "  id: TestHiringVessel\n"
+        + "  parent: BaseVessel\n"
+        + "  name: Test Hiring Vessel\n"
+        + "  description: Test hiring vessel.\n"
+        + "  price: 1000\n"
+        + "  category: Small\n"
+        + "  group: Shipyard\n"
+        + "  shuttlePath: /Maps/Test/empty.yml\n"
+        + "  class:\n"
+        + "  - Civilian\n"
+        + "  engine:\n"
+        + "  - Uranium\n"
+        + "\n"
+        + "- type: vessel\n"
+        + "  id: TestCargoVessel\n"
+        + "  parent: BaseVessel\n"
+        + "  name: Test Cargo Vessel\n"
+        + "  description: Test cargo vessel.\n"
+        + "  price: 1000\n"
+        + "  category: Small\n"
+        + "  group: Shipyard\n"
+        + "  shuttlePath: /Maps/Test/empty.yml\n"
+        + "  class:\n"
+        + "  - Cargo\n"
+        + "  engine:\n"
+        + "  - Uranium\n"
+        + "\n"
+        + "- type: vessel\n"
+        + "  id: TestBusVessel\n"
+        + "  parent: BaseVesselBus\n"
+        + "  shuttlePath: /Maps/Test/empty.yml\n"
+        + "\n"
+        + "- type: gameMap\n"
+        + "  id: TestHiringShipStation\n"
+        + "  minPlayers: 0\n"
+        + "  mapName: TestHiringShipStation\n"
+        + "  mapPath: /Maps/Test/empty.yml\n"
+        + "  stations:\n"
+        + "    Station:\n"
+        + "      mapNameTemplate: TestHiringShipStation\n"
+        + "      stationProto: StandardFrontierVessel\n"
+        + "      components:\n"
+        + "        - type: ExtraShuttleInformation\n"
+        + "          vessel: TestHiringVessel\n"
+        + "        - type: StationJobs\n"
+        + "          availableJobs:\n"
+        + "            Mercenary: [0, 2]\n"
+        + "            ContractorInterview: [0, 1]\n"
+        + "            PilotInterview: [0, 1]\n"
+        + "\n"
+        + "- type: gameMap\n"
+        + "  id: TestCargoShipStation\n"
+        + "  minPlayers: 0\n"
+        + "  mapName: TestCargoShipStation\n"
+        + "  mapPath: /Maps/Test/empty.yml\n"
+        + "  stations:\n"
+        + "    Station:\n"
+        + "      mapNameTemplate: TestCargoShipStation\n"
+        + "      stationProto: StandardFrontierVessel\n"
+        + "      components:\n"
+        + "        - type: ExtraShuttleInformation\n"
+        + "          vessel: TestCargoVessel\n"
+        + "        - type: StationJobs\n"
+        + "          availableJobs:\n"
+        + "            MercenaryInterview: [0, 2]\n"
+        + "\n"
+        + "- type: gameMap\n"
+        + "  id: TestSingleSlotShipStation\n"
+        + "  minPlayers: 0\n"
+        + "  mapName: TestSingleSlotShipStation\n"
+        + "  mapPath: /Maps/Test/empty.yml\n"
+        + "  stations:\n"
+        + "    Station:\n"
+        + "      mapNameTemplate: TestSingleSlotShipStation\n"
+        + "      stationProto: StandardFrontierVessel\n"
+        + "      components:\n"
+        + "        - type: ExtraShuttleInformation\n"
+        + "          vessel: TestHiringVessel\n"
+        + "        - type: StationJobs\n"
+        + "          availableJobs:\n"
+        + "            Mercenary: [0, 1]\n"
+        + "\n"
+        + "- type: gameMap\n"
+        + "  id: TestBusShipStation\n"
+        + "  minPlayers: 0\n"
+        + "  mapName: TestBusShipStation\n"
+        + "  mapPath: /Maps/Test/empty.yml\n"
+        + "  stations:\n"
+        + "    Station:\n"
+        + "      mapNameTemplate: TestBusShipStation\n"
+        + "      stationProto: StandardFrontierBusVessel\n"
+        + "      components:\n"
+        + "        - type: ExtraShuttleInformation\n"
+        + "          vessel: TestBusVessel\n"
+        + "        - type: StationJobs\n"
+        + "          availableJobs:\n"
+        + "            MercenaryInterview: [0, 2]\n";
 
     private const string DynamicAllocationPrototypes =
-                "- type: gameMap\n"
-                + "  id: TestDynamicAllocationStation\n"
-                + "  minPlayers: 0\n"
-                + "  mapName: TestDynamicAllocationStation\n"
-                + "  mapPath: /Maps/Test/empty.yml\n"
-                + "  stations:\n"
-                + "    Station:\n"
-                + "      mapNameTemplate: TestDynamicAllocationStation\n"
-                + "      stationProto: StandardNanotrasenStation\n"
-                + "      components:\n"
-                + "        - type: StationJobs\n"
-                + "          availableJobs:\n"
-                + "            Mercenary: [0, 40]\n";
+        "- type: gameMap\n"
+        + "  id: TestDynamicAllocationStation\n"
+        + "  minPlayers: 0\n"
+        + "  mapName: TestDynamicAllocationStation\n"
+        + "  mapPath: /Maps/Test/empty.yml\n"
+        + "  stations:\n"
+        + "    Station:\n"
+        + "      mapNameTemplate: TestDynamicAllocationStation\n"
+        + "      stationProto: StandardNanotrasenStation\n"
+        + "      components:\n"
+        + "        - type: StationJobs\n"
+        + "          availableJobs:\n"
+        + "            Mercenary: [0, 40]\n";
 
     private const int StationCount = 100;
     private const int CaptainCount = StationCount;
@@ -250,7 +252,9 @@ public sealed class StationJobsTest
         {
             for (var i = 0; i < StationCount; i++)
             {
-                stations.Add(stationSystem.InitializeNewStation(fooStationProto.Stations["Station"], null, $"Foo {StationCount}"));
+                stations.Add(
+                    stationSystem.InitializeNewStation(fooStationProto.Stations["Station"], null, $"Foo {StationCount}")
+                );
             }
         });
 
@@ -261,8 +265,11 @@ public sealed class StationJobsTest
                 .AddPreference("TClown", JobPriority.Low)
                 .AddPreference("TMime", JobPriority.High)
                 .WithPlayers(
-                    new Dictionary<NetUserId, HumanoidCharacterProfile>()
-                    .AddJob("TCaptain", JobPriority.High, CaptainCount)
+                    new Dictionary<NetUserId, HumanoidCharacterProfile>().AddJob(
+                        "TCaptain",
+                        JobPriority.High,
+                        CaptainCount
+                    )
                 );
             Assert.That(fakePlayers, Is.Not.Empty);
 
@@ -284,7 +291,11 @@ public sealed class StationJobsTest
                     // Each station should have SOME players.
                     Assert.That(assignedHere, Is.Not.Empty);
                     // And it should have at least the minimum players to be considered a "fair" share, as they're all the same.
-                    Assert.That(assignedHere, Has.Count.GreaterThanOrEqualTo(TotalPlayers / stations.Count), "Station has too few players.");
+                    Assert.That(
+                        assignedHere,
+                        Has.Count.GreaterThanOrEqualTo(TotalPlayers / stations.Count),
+                        "Station has too few players."
+                    );
                     // And it shouldn't have ALL the players, either.
                     Assert.That(assignedHere, Has.Count.LessThan(TotalPlayers), "Station has too many players.");
                     // And there should be *A* captain, as there's one player with captain enabled per station.
@@ -331,24 +342,48 @@ public sealed class StationJobsTest
             // Verify jobs are/are not unlimited.
             Assert.Multiple(() =>
             {
-                Assert.That(stationJobs.IsJobUnlimited(station, "TAssistant"), "TAssistant is expected to be unlimited.");
+                Assert.That(
+                    stationJobs.IsJobUnlimited(station, "TAssistant"),
+                    "TAssistant is expected to be unlimited."
+                );
                 Assert.That(stationJobs.IsJobUnlimited(station, "TMime"), "TMime is expected to be unlimited.");
-                Assert.That(!stationJobs.IsJobUnlimited(station, "TCaptain"), "TCaptain is expected to not be unlimited.");
+                Assert.That(
+                    !stationJobs.IsJobUnlimited(station, "TCaptain"),
+                    "TCaptain is expected to not be unlimited."
+                );
                 Assert.That(!stationJobs.IsJobUnlimited(station, "TClown"), "TClown is expected to not be unlimited.");
             });
             Assert.Multiple(() =>
             {
-                Assert.That(stationJobs.TrySetJobSlot(station, "TClown", 0), "Could not set TClown to have zero slots.");
-                Assert.That(stationJobs.TryGetJobSlot(station, "TClown", out var clownSlots), "Could not get the number of TClown slots.");
+                Assert.That(
+                    stationJobs.TrySetJobSlot(station, "TClown", 0),
+                    "Could not set TClown to have zero slots."
+                );
+                Assert.That(
+                    stationJobs.TryGetJobSlot(station, "TClown", out var clownSlots),
+                    "Could not get the number of TClown slots."
+                );
                 Assert.That(clownSlots, Is.EqualTo(0));
-                Assert.That(!stationJobs.TryAdjustJobSlot(station, "TCaptain", -9999), "Was able to adjust TCaptain by -9999 without clamping.");
-                Assert.That(stationJobs.TryAdjustJobSlot(station, "TCaptain", -9999, false, true), "Could not adjust TCaptain by -9999.");
-                Assert.That(stationJobs.TryGetJobSlot(station, "TCaptain", out var captainSlots), "Could not get the number of TCaptain slots.");
+                Assert.That(
+                    !stationJobs.TryAdjustJobSlot(station, "TCaptain", -9999),
+                    "Was able to adjust TCaptain by -9999 without clamping."
+                );
+                Assert.That(
+                    stationJobs.TryAdjustJobSlot(station, "TCaptain", -9999, false, true),
+                    "Could not adjust TCaptain by -9999."
+                );
+                Assert.That(
+                    stationJobs.TryGetJobSlot(station, "TCaptain", out var captainSlots),
+                    "Could not get the number of TCaptain slots."
+                );
                 Assert.That(captainSlots, Is.EqualTo(0));
             });
             Assert.Multiple(() =>
             {
-                Assert.That(stationJobs.TrySetJobSlot(station, "TChaplain", 10, true), "Could not create 10 TChaplain slots.");
+                Assert.That(
+                    stationJobs.TrySetJobSlot(station, "TChaplain", 10, true),
+                    "Could not create 10 TChaplain slots."
+                );
                 stationJobs.MakeJobUnlimited(station, "TChaplain");
                 Assert.That(stationJobs.IsJobUnlimited(station, "TChaplain"), "Could not make TChaplain unlimited.");
             });
@@ -378,7 +413,11 @@ public sealed class StationJobsTest
             var registry = entityManager.EnsureComponent<ColcommJobRegistryComponent>(registryUid);
             SeedColcommRegistry(registry);
 
-            station = stationSystem.InitializeNewStation(fooStationProto.Stations["Station"], null, "Foo Latejoin Station");
+            station = stationSystem.InitializeNewStation(
+                fooStationProto.Stations["Station"],
+                null,
+                "Foo Latejoin Station"
+            );
         });
 
         await server.WaitRunTicks(1);
@@ -430,7 +469,9 @@ public sealed class StationJobsTest
                     // Frontier: get prototype from proto ID
                     if (!prototypeManager.TryIndex<GameMapPrototype>(mapProto, out var gameMap))
                     {
-                        Assert.Fail($"Could not find GameMapPrototype with ID {mapProto}! Is FrontierConstants up to date?");
+                        Assert.Fail(
+                            $"Could not find GameMapPrototype with ID {mapProto}! Is FrontierConstants up to date?"
+                        );
                     }
                     // End Frontier
 
@@ -439,7 +480,7 @@ public sealed class StationJobsTest
                         if (!station.StationComponentOverrides.TryGetComponent(name, out var comp))
                             continue;
 
-                        foreach (var (job, array) in ((StationJobsComponent) comp).SetupAvailableJobs)
+                        foreach (var (job, array) in ((StationJobsComponent)comp).SetupAvailableJobs)
                         {
                             Assert.That(array.Length, Is.EqualTo(2));
                             Assert.That(array[0] is -1 or >= 0);
@@ -447,7 +488,11 @@ public sealed class StationJobsTest
 
                             if (invalidJobs.Contains(job))
                             {
-                                Assert.That(array[0], Is.EqualTo(0), $"Station {stationId} contains non-preference job prototype {job} with roundstart slots {array[0]}.");
+                                Assert.That(
+                                    array[0],
+                                    Is.EqualTo(0),
+                                    $"Station {stationId} contains non-preference job prototype {job} with roundstart slots {array[0]}."
+                                );
                             }
                         }
                     }
@@ -460,11 +505,7 @@ public sealed class StationJobsTest
     [Test]
     public async Task ShipCrewHiringEligibilityTest()
     {
-        await using var pair = await PoolManager.GetServerClient(new PoolSettings
-        {
-            Fresh = true,
-            Destructive = true
-        });
+        await using var pair = await PoolManager.GetServerClient(new PoolSettings { Fresh = true, Destructive = true });
         var server = pair.Server;
 
         var prototypeManager = server.ResolveDependency<IPrototypeManager>();
@@ -481,7 +522,11 @@ public sealed class StationJobsTest
 
         await server.WaitPost(() =>
         {
-            hiringStation = stationSystem.InitializeNewStation(hiringShipProto.Stations["Station"], null, "Hiring Ship");
+            hiringStation = stationSystem.InitializeNewStation(
+                hiringShipProto.Stations["Station"],
+                null,
+                "Hiring Ship"
+            );
             cargoStation = stationSystem.InitializeNewStation(cargoShipProto.Stations["Station"], null, "Cargo Ship");
             busStation = stationSystem.InitializeNewStation(busShipProto.Stations["Station"], null, "Bus Ship");
         });
@@ -512,9 +557,15 @@ public sealed class StationJobsTest
                 Assert.That(stationJobs.IsAdvertisedLateJoinJob(hiringStation, contractorInterview), Is.False);
                 Assert.That(stationJobs.IsAdvertisedLateJoinJob(hiringStation, mercenary), Is.False);
 
-                Assert.That(stationJobs.GetStationTrackingJobId(hiringStation, mercenary), Is.EqualTo(freelancerInterview));
+                Assert.That(
+                    stationJobs.GetStationTrackingJobId(hiringStation, mercenary),
+                    Is.EqualTo(freelancerInterview)
+                );
                 Assert.That(stationJobs.GetStationTrackingJobId(hiringStation, "Pilot"), Is.EqualTo(pilotInterview));
-                Assert.That(stationJobs.GetStationTrackingJobId(hiringStation, "Contractor"), Is.EqualTo(contractorInterview));
+                Assert.That(
+                    stationJobs.GetStationTrackingJobId(hiringStation, "Contractor"),
+                    Is.EqualTo(contractorInterview)
+                );
 
                 Assert.That(stationJobs.GetJobs(cargoStation), Is.Empty);
                 Assert.That(stationJobs.GetJobs(busStation), Is.Empty);
@@ -555,7 +606,11 @@ public sealed class StationJobsTest
 
         await server.WaitPost(() =>
         {
-            station = stationSystem.InitializeNewStation(singleSlotShipProto.Stations["Station"], null, "Single Slot Ship");
+            station = stationSystem.InitializeNewStation(
+                singleSlotShipProto.Stations["Station"],
+                null,
+                "Single Slot Ship"
+            );
             trackedCrew = entMan.SpawnEntity(null, MapCoordinates.Nullspace);
             jobTracking.EnsureTrackedJob(trackedCrew, "Mercenary", station);
         });
@@ -620,11 +675,21 @@ public sealed class StationJobsTest
             Assert.That(grids, Is.Not.Null);
 
             gridUid = grids!.First().Owner;
-            station = stationSystem.InitializeNewStation(stationProto.Stations["Station"], new[] { gridUid }, "Tracked Cryo Station");
+            station = stationSystem.InitializeNewStation(
+                stationProto.Stations["Station"],
+                new[] { gridUid },
+                "Tracked Cryo Station"
+            );
             entityManager.EnsureComponent<StationMemberComponent>(gridUid).Station = station;
 
-            trackedCrew = entityManager.SpawnEntity("TestTrackedCrewMob", new EntityCoordinates(gridUid, new Vector2(0.5f, 0.5f)));
-            cryopod = entityManager.SpawnEntity("MachineCryoSleepPod", new EntityCoordinates(gridUid, new Vector2(1.5f, 0.5f)));
+            trackedCrew = entityManager.SpawnEntity(
+                "TestTrackedCrewMob",
+                new EntityCoordinates(gridUid, new Vector2(0.5f, 0.5f))
+            );
+            cryopod = entityManager.SpawnEntity(
+                "MachineCryoSleepPod",
+                new EntityCoordinates(gridUid, new Vector2(1.5f, 0.5f))
+            );
 
             jobTracking.EnsureTrackedJob(trackedCrew, "TCaptain", station);
 
@@ -633,7 +698,14 @@ public sealed class StationJobsTest
             playerManager.SetAttachedEntity(serverSession, trackedCrew);
 
             Assert.That(stationJobs.TryAssignJob(station, "TCaptain", trackedUser), Is.True);
-            Assert.That(cryoSleep.InsertBody(trackedCrew, (cryopod, entityManager.GetComponent<CryoSleepComponent>(cryopod)), false), Is.True);
+            Assert.That(
+                cryoSleep.InsertBody(
+                    trackedCrew,
+                    (cryopod, entityManager.GetComponent<CryoSleepComponent>(cryopod)),
+                    false
+                ),
+                Is.True
+            );
 
             cryoSleep.CryoStoreBody(trackedCrew, cryopod);
         });
@@ -671,7 +743,11 @@ public sealed class StationJobsTest
 
         await server.WaitPost(() =>
         {
-            hiringStation = stationSystem.InitializeNewStation(hiringShipProto.Stations["Station"], null, "Hiring Ship");
+            hiringStation = stationSystem.InitializeNewStation(
+                hiringShipProto.Stations["Station"],
+                null,
+                "Hiring Ship"
+            );
             cargoStation = stationSystem.InitializeNewStation(cargoShipProto.Stations["Station"], null, "Cargo Ship");
         });
 
@@ -720,7 +796,11 @@ public sealed class StationJobsTest
             Assert.That(grids, Is.Not.Null);
 
             gridUid = grids!.First().Owner;
-            station = stationSystem.InitializeNewStation(shipProto.Stations["Station"], new[] { gridUid }, "Lobby Ship");
+            station = stationSystem.InitializeNewStation(
+                shipProto.Stations["Station"],
+                new[] { gridUid },
+                "Lobby Ship"
+            );
             entityManager.EnsureComponent<StationMemberComponent>(gridUid).Station = station;
         });
 
@@ -734,7 +814,10 @@ public sealed class StationJobsTest
 
         await server.WaitPost(() =>
         {
-            console = entityManager.SpawnEntity("ComputerStationRecords", new EntityCoordinates(gridUid, new Vector2(0.5f, 0.5f)));
+            console = entityManager.SpawnEntity(
+                "ComputerStationRecords",
+                new EntityCoordinates(gridUid, new Vector2(0.5f, 0.5f))
+            );
             ForceGridUid(entityManager.GetComponent<TransformComponent>(console), gridUid);
         });
 
@@ -752,13 +835,26 @@ public sealed class StationJobsTest
             var netStation = entityManager.GetNetEntity(station);
 
             Assert.That(jobsEvent.StationJobList.ContainsKey(netStation), Is.True);
-            Assert.That(jobsEvent.StationJobList[netStation].JobsAvailable.TryGetValue(StationJobsSystem.ShipFreelancerInterviewJobId, out var slots), Is.True);
+            Assert.That(
+                jobsEvent
+                    .StationJobList[netStation]
+                    .JobsAvailable.TryGetValue(StationJobsSystem.ShipFreelancerInterviewJobId, out var slots),
+                Is.True
+            );
             Assert.That(slots, Is.EqualTo(2));
         });
 
         await server.WaitPost(() =>
         {
-            Assert.That(stationJobs.TryAdjustJobCapacity(station, StationJobsSystem.ShipFreelancerInterviewJobId, -2, clamp: true), Is.True);
+            Assert.That(
+                stationJobs.TryAdjustJobCapacity(
+                    station,
+                    StationJobsSystem.ShipFreelancerInterviewJobId,
+                    -2,
+                    clamp: true
+                ),
+                Is.True
+            );
         });
 
         await server.WaitRunTicks(1);
@@ -793,7 +889,11 @@ public sealed class StationJobsTest
             configManager.SetCVar(HLCCVars.AutoSpawnColComm, true);
 
             var stationProto = prototypeManager.Index<GameMapPrototype>("TestDynamicAllocationStation");
-            station = stationSystem.InitializeNewStation(stationProto.Stations["Station"], null, "Dynamic Allocation Station");
+            station = stationSystem.InitializeNewStation(
+                stationProto.Stations["Station"],
+                null,
+                "Dynamic Allocation Station"
+            );
         });
 
         await server.WaitRunTicks(1);
@@ -836,11 +936,7 @@ public sealed class StationJobsTest
     [Test] // HardLight
     public async Task RoundRestartStationDeletionDoesNotOpenTrackedJobsTest()
     {
-        await using var pair = await PoolManager.GetServerClient(new PoolSettings
-        {
-            Fresh = true,
-            Destructive = true
-        });
+        await using var pair = await PoolManager.GetServerClient(new PoolSettings { Fresh = true, Destructive = true });
         var server = pair.Server;
 
         var prototypeManager = server.ResolveDependency<IPrototypeManager>();
@@ -858,11 +954,19 @@ public sealed class StationJobsTest
 
         await server.WaitPost(() =>
         {
-            regularDeletionStation = stationSystem.InitializeNewStation(stationProto.Stations["Station"], null, "Regular Delete Station");
+            regularDeletionStation = stationSystem.InitializeNewStation(
+                stationProto.Stations["Station"],
+                null,
+                "Regular Delete Station"
+            );
             regularDeletionCrew = entityManager.SpawnEntity(null, MapCoordinates.Nullspace);
             jobTracking.EnsureTrackedJob(regularDeletionCrew, "TCaptain", regularDeletionStation);
 
-            restartDeletionStation = stationSystem.InitializeNewStation(stationProto.Stations["Station"], null, "Restart Delete Station");
+            restartDeletionStation = stationSystem.InitializeNewStation(
+                stationProto.Stations["Station"],
+                null,
+                "Restart Delete Station"
+            );
             restartDeletionCrew = entityManager.SpawnEntity(null, MapCoordinates.Nullspace);
             jobTracking.EnsureTrackedJob(restartDeletionCrew, "TCaptain", restartDeletionStation);
         });
@@ -879,7 +983,12 @@ public sealed class StationJobsTest
         await server.WaitAssertion(() =>
         {
             Assert.That(entityManager.EntityExists(regularDeletionCrew), Is.True);
-            Assert.That(entityManager.GetComponent<Content.Shared._NF.Roles.Components.JobTrackingComponent>(regularDeletionCrew).Active, Is.False);
+            Assert.That(
+                entityManager
+                    .GetComponent<Content.Shared._NF.Roles.Components.JobTrackingComponent>(regularDeletionCrew)
+                    .Active,
+                Is.False
+            );
         });
 
         await server.WaitPost(() =>
@@ -893,7 +1002,12 @@ public sealed class StationJobsTest
         await server.WaitAssertion(() =>
         {
             Assert.That(entityManager.EntityExists(restartDeletionCrew), Is.True);
-            Assert.That(entityManager.GetComponent<Content.Shared._NF.Roles.Components.JobTrackingComponent>(restartDeletionCrew).Active, Is.True);
+            Assert.That(
+                entityManager
+                    .GetComponent<Content.Shared._NF.Roles.Components.JobTrackingComponent>(restartDeletionCrew)
+                    .Active,
+                Is.True
+            );
         });
         await pair.CleanReturnAsync();
     }
@@ -922,7 +1036,11 @@ public sealed class StationJobsTest
 
         await server.WaitPost(() =>
         {
-            station = stationSystem.InitializeNewStation(stationProto.Stations["Station"], null, "Delete Tracked Body Station");
+            station = stationSystem.InitializeNewStation(
+                stationProto.Stations["Station"],
+                null,
+                "Delete Tracked Body Station"
+            );
             trackedCrew = entityManager.SpawnEntity("TestTrackedCrewMob", MapCoordinates.Nullspace);
 
             jobTracking.EnsureTrackedJob(trackedCrew, "TCaptain", station);
@@ -957,53 +1075,62 @@ public sealed class StationJobsTest
     {
         var method = typeof(StationJobsSystem).GetMethod(
             "GenerateJobsAvailableEvent",
-            BindingFlags.Instance | BindingFlags.NonPublic);
+            BindingFlags.Instance | BindingFlags.NonPublic
+        );
 
         Assert.That(method, Is.Not.Null);
-        return (TickerJobsAvailableEvent) method!.Invoke(system, Array.Empty<object>())!;
+        return (TickerJobsAvailableEvent)method!.Invoke(system, Array.Empty<object>())!;
     }
 
     private static HashSet<EntityUid> InvokeGetStationsWithCrewRecordsConsole(StationJobsSystem system)
     {
         var method = typeof(StationJobsSystem).GetMethod(
             "GetStationsWithCrewRecordsConsole",
-            BindingFlags.Instance | BindingFlags.NonPublic);
+            BindingFlags.Instance | BindingFlags.NonPublic
+        );
 
         Assert.That(method, Is.Not.Null);
-        return (HashSet<EntityUid>) method!.Invoke(system, Array.Empty<object>())!;
+        return (HashSet<EntityUid>)method!.Invoke(system, Array.Empty<object>())!;
     }
 
     private static bool InvokeShouldReopenTrackedJob(JobTrackingSystem system, EntityUid station, string jobId)
     {
         var method = typeof(JobTrackingSystem).GetMethod(
             "ShouldReopenTrackedJob",
-            BindingFlags.Instance | BindingFlags.NonPublic);
+            BindingFlags.Instance | BindingFlags.NonPublic
+        );
 
         Assert.That(method, Is.Not.Null);
-        return (bool) method!.Invoke(system, new object[] { station, (ProtoId<JobPrototype>) jobId })!;
+        return (bool)method!.Invoke(system, new object[] { station, (ProtoId<JobPrototype>)jobId })!;
     }
 
     private static void SeedColcommRegistry(ColcommJobRegistryComponent registry, int mercenarySlots = 2)
     {
-        SetRegistryField(registry, "ConfiguredJobs", new Dictionary<ProtoId<JobPrototype>, int[]>
-        {
-            ["Mercenary"] = [0, mercenarySlots],
-        });
+        SetRegistryField(
+            registry,
+            "ConfiguredJobs",
+            new Dictionary<ProtoId<JobPrototype>, int[]> { ["Mercenary"] = [0, mercenarySlots] }
+        );
 
-        SetRegistryField(registry, "CurrentSlots", new Dictionary<ProtoId<JobPrototype>, int?>
-        {
-            ["Mercenary"] = mercenarySlots,
-        });
+        SetRegistryField(
+            registry,
+            "CurrentSlots",
+            new Dictionary<ProtoId<JobPrototype>, int?> { ["Mercenary"] = mercenarySlots }
+        );
 
-        SetRegistryField(registry, "MidRoundMaxSlots", new Dictionary<ProtoId<JobPrototype>, int>
-        {
-            ["Mercenary"] = mercenarySlots,
-        });
+        SetRegistryField(
+            registry,
+            "MidRoundMaxSlots",
+            new Dictionary<ProtoId<JobPrototype>, int> { ["Mercenary"] = mercenarySlots }
+        );
     }
 
     private static void SetRegistryField<TValue>(ColcommJobRegistryComponent registry, string fieldName, TValue value)
     {
-        var field = typeof(ColcommJobRegistryComponent).GetField(fieldName, BindingFlags.Instance | BindingFlags.Public);
+        var field = typeof(ColcommJobRegistryComponent).GetField(
+            fieldName,
+            BindingFlags.Instance | BindingFlags.Public
+        );
         Assert.That(field, Is.Not.Null);
         field!.SetValue(registry, value);
     }
@@ -1019,8 +1146,11 @@ public sealed class StationJobsTest
 internal static class JobExtensions
 {
     public static Dictionary<NetUserId, HumanoidCharacterProfile> AddJob(
-        this Dictionary<NetUserId, HumanoidCharacterProfile> inp, string jobId, JobPriority prio = JobPriority.Medium,
-        int amount = 1)
+        this Dictionary<NetUserId, HumanoidCharacterProfile> inp,
+        string jobId,
+        JobPriority prio = JobPriority.Medium,
+        int amount = 1
+    )
     {
         for (var i = 0; i < amount; i++)
         {
@@ -1031,14 +1161,18 @@ internal static class JobExtensions
     }
 
     public static Dictionary<NetUserId, HumanoidCharacterProfile> AddPreference(
-        this Dictionary<NetUserId, HumanoidCharacterProfile> inp, string jobId, JobPriority prio = JobPriority.Medium)
+        this Dictionary<NetUserId, HumanoidCharacterProfile> inp,
+        string jobId,
+        JobPriority prio = JobPriority.Medium
+    )
     {
         return inp.ToDictionary(x => x.Key, x => x.Value.WithJobPriority(jobId, prio));
     }
 
     public static Dictionary<NetUserId, HumanoidCharacterProfile> WithPlayers(
         this Dictionary<NetUserId, HumanoidCharacterProfile> inp,
-        Dictionary<NetUserId, HumanoidCharacterProfile> second)
+        Dictionary<NetUserId, HumanoidCharacterProfile> second
+    )
     {
         return new[] { inp, second }.SelectMany(x => x).ToDictionary(x => x.Key, x => x.Value);
     }

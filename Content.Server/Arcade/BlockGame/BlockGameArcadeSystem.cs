@@ -1,8 +1,8 @@
-using Content.Shared.UserInterface;
 using Content.Server.Advertise.EntitySystems;
 using Content.Shared.Advertise.Components;
 using Content.Shared.Arcade;
 using Content.Shared.Power;
+using Content.Shared.UserInterface;
 using Robust.Server.GameObjects;
 using Robust.Shared.Random; // Coyote
 
@@ -10,9 +10,14 @@ namespace Content.Server.Arcade.BlockGame;
 
 public sealed class BlockGameArcadeSystem : EntitySystem
 {
-    [Dependency] private readonly UserInterfaceSystem _uiSystem = default!;
-    [Dependency] private readonly SpeakOnUIClosedSystem _speakOnUIClosed = default!;
-    [Dependency] private readonly IRobustRandom _random = default!; // Coyote
+    [Dependency]
+    private readonly UserInterfaceSystem _uiSystem = default!;
+
+    [Dependency]
+    private readonly SpeakOnUIClosedSystem _speakOnUIClosed = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!; // Coyote
 
     public override void Initialize()
     {
@@ -22,15 +27,23 @@ public sealed class BlockGameArcadeSystem : EntitySystem
         SubscribeLocalEvent<BlockGameArcadeComponent, AfterActivatableUIOpenEvent>(OnAfterUIOpen);
         SubscribeLocalEvent<BlockGameArcadeComponent, PowerChangedEvent>(OnBlockPowerChanged);
 
-        Subs.BuiEvents<BlockGameArcadeComponent>(BlockGameUiKey.Key, subs =>
-        {
-            subs.Event<BoundUIClosedEvent>(OnAfterUiClose);
-            subs.Event<BlockGameMessages.BlockGamePlayerActionMessage>(OnPlayerAction);
-        });
+        Subs.BuiEvents<BlockGameArcadeComponent>(
+            BlockGameUiKey.Key,
+            subs =>
+            {
+                subs.Event<BoundUIClosedEvent>(OnAfterUiClose);
+                subs.Event<BlockGameMessages.BlockGamePlayerActionMessage>(OnPlayerAction);
+            }
+        );
     }
 
     // Coyote start
-    public void OnGameOver(EntityUid uid, BlockGameArcadeComponent? arcade = null, TransformComponent? xform = null, int points = 0)
+    public void OnGameOver(
+        EntityUid uid,
+        BlockGameArcadeComponent? arcade = null,
+        TransformComponent? xform = null,
+        int points = 0
+    )
     {
         if (!Resolve(uid, ref arcade, ref xform))
             return;
@@ -40,6 +53,7 @@ public sealed class BlockGameArcadeSystem : EntitySystem
             EntityManager.SpawnEntity(_random.Pick(arcade.PossibleRewards), xform.Coordinates);
         }
     }
+
     // Coyote end
 
     public override void Update(float frameTime)
@@ -56,7 +70,12 @@ public sealed class BlockGameArcadeSystem : EntitySystem
         if (!Resolve(uid, ref blockGame))
             return;
 
-        _uiSystem.ServerSendUiMessage(uid, BlockGameUiKey.Key, new BlockGameMessages.BlockGameUserStatusMessage(blockGame.Player == actor), actor);
+        _uiSystem.ServerSendUiMessage(
+            uid,
+            BlockGameUiKey.Key,
+            new BlockGameMessages.BlockGameUserStatusMessage(blockGame.Player == actor),
+            actor
+        );
     }
 
     private void OnComponentInit(EntityUid uid, BlockGameArcadeComponent component, ComponentInit args)
@@ -105,7 +124,11 @@ public sealed class BlockGameArcadeSystem : EntitySystem
         component.Spectators.Clear();
     }
 
-    private void OnPlayerAction(EntityUid uid, BlockGameArcadeComponent component, BlockGameMessages.BlockGamePlayerActionMessage msg)
+    private void OnPlayerAction(
+        EntityUid uid,
+        BlockGameArcadeComponent component,
+        BlockGameMessages.BlockGamePlayerActionMessage msg
+    )
     {
         if (component.Game == null)
             return;

@@ -4,12 +4,9 @@ using Robust.Shared.Serialization;
 namespace Content.Shared.FloofStation.Traits.Events;
 
 [Serializable, NetSerializable]
-public sealed partial class MilkingDoAfterEvent : SimpleDoAfterEvent
-{
-}
+public sealed partial class MilkingDoAfterEvent : SimpleDoAfterEvent { }
+
 // Hardlight Start
 [Serializable, NetSerializable]
-public sealed partial class DrinkMilkDoAfterEvent : SimpleDoAfterEvent
-{
-}
+public sealed partial class DrinkMilkDoAfterEvent : SimpleDoAfterEvent { }
 //Hardlight End

@@ -18,8 +18,11 @@ namespace Content.Client.Lathe.UI;
 [GenerateTypedNameReferences]
 public sealed partial class LatheMenu : DefaultWindow
 {
-    [Dependency] private readonly IEntityManager _entityManager = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entityManager = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
 
     private readonly SpriteSystem _spriteSystem;
     private readonly LatheSystem _lathe;
@@ -129,7 +132,13 @@ public sealed partial class LatheMenu : DefaultWindow
         {
             var canProduce = _lathe.CanProduce(Entity, prototype, quantity, component: lathe);
 
-            var control = new RecipeControl(_lathe, prototype, () => GenerateTooltipText(prototype), canProduce, GetRecipeDisplayControl(prototype));
+            var control = new RecipeControl(
+                _lathe,
+                prototype,
+                () => GenerateTooltipText(prototype),
+                canProduce,
+                GetRecipeDisplayControl(prototype)
+            );
             control.OnButtonPressed += s =>
             {
                 if (!int.TryParse(AmountLineEdit.Text, out var amount) || amount <= 0)
@@ -154,18 +163,24 @@ public sealed partial class LatheMenu : DefaultWindow
             var sheetVolume = _materialStorage.GetSheetVolume(proto);
 
             var unit = Loc.GetString(proto.Unit);
-            var sheets = adjustedAmount / (float) sheetVolume;
+            var sheets = adjustedAmount / (float)sheetVolume;
 
             var availableAmount = _materialStorage.GetMaterialAmount(Entity, id);
             var missingAmount = Math.Max(0, adjustedAmount - availableAmount);
-            var missingSheets = missingAmount / (float) sheetVolume;
+            var missingSheets = missingAmount / (float)sheetVolume;
 
             var name = Loc.GetString(proto.Name);
 
             string tooltipText;
             if (missingSheets > 0)
             {
-                tooltipText = Loc.GetString("lathe-menu-material-amount-missing", ("amount", sheets), ("missingAmount", missingSheets), ("unit", unit), ("material", name));
+                tooltipText = Loc.GetString(
+                    "lathe-menu-material-amount-missing",
+                    ("amount", sheets),
+                    ("missingAmount", missingSheets),
+                    ("unit", unit),
+                    ("material", name)
+                );
             }
             else
             {
@@ -207,7 +222,10 @@ public sealed partial class LatheMenu : DefaultWindow
             }
         }
 
-        if (Categories != null && (Categories.Count == currentCategories.Count || !Categories.All(currentCategories.Contains)))
+        if (
+            Categories != null
+            && (Categories.Count == currentCategories.Count || !Categories.All(currentCategories.Contains))
+        )
             return;
 
         Categories = currentCategories;
@@ -255,7 +273,8 @@ public sealed partial class LatheMenu : DefaultWindow
 
             string displayText;
             if (batch.ItemsRequested > 1)
-                displayText = $"{idx}. {_lathe.GetRecipeName(batch.Recipe)} ({batch.ItemsPrinted}/{batch.ItemsRequested})";
+                displayText =
+                    $"{idx}. {_lathe.GetRecipeName(batch.Recipe)} ({batch.ItemsPrinted}/{batch.ItemsRequested})";
             else
                 displayText = $"{idx}. {_lathe.GetRecipeName(batch.Recipe)}";
             var queuedRecipeBox = new QueuedRecipeControl(displayText, idx - 1, GetRecipeDisplayControl(batch.Recipe));

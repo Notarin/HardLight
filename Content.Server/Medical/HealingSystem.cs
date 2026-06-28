@@ -1,3 +1,5 @@
+using System.Linq;
+using Content.Server._FarHorizons.Medical.ConditionalHealing; // Far Horizons
 using Content.Server.Administration.Logs;
 using Content.Server.Body.Components;
 using Content.Server.Body.Systems;
@@ -5,10 +7,17 @@ using Content.Server.Medical.Components;
 using Content.Server.Mobs.Components; // HardLight
 using Content.Server.Popups;
 using Content.Server.Stack;
+using Content.Shared._FarHorizons.Medical.ConditionalHealing; // Far Horizons
+// Shitmed Change
+using Content.Shared._Shitmed.Targeting;
+using Content.Shared.Body.Components;
+using Content.Shared.Body.Systems; // Shitmed Change
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Damage;
 using Content.Shared.Database;
 using Content.Shared.DoAfter;
+using Content.Shared.Eye.Blinding.Components; // Far Horizons
+using Content.Shared.Eye.Blinding.Systems; // Far Horizons
 using Content.Shared.FixedPoint;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Interaction;
@@ -19,37 +28,52 @@ using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Popups;
 using Content.Shared.Stacks;
-using Content.Shared.Body.Systems; // Shitmed Change
-using Content.Server._FarHorizons.Medical.ConditionalHealing; // Far Horizons
-using Content.Shared._FarHorizons.Medical.ConditionalHealing; // Far Horizons
-using Content.Shared.Eye.Blinding.Components; // Far Horizons
-using Content.Shared.Eye.Blinding.Systems; // Far Horizons
+using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Random;
-using Robust.Shared.Audio;
-
-// Shitmed Change
-using Content.Shared._Shitmed.Targeting;
-using Content.Shared.Body.Components;
-using System.Linq;
 
 namespace Content.Server.Medical;
 
 public sealed class HealingSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly BloodstreamSystem _bloodstreamSystem = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly StackSystem _stacks = default!;
-    [Dependency] private readonly SharedInteractionSystem _interactionSystem = default!;
-    [Dependency] private readonly MobThresholdSystem _mobThresholdSystem = default!;
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
-    [Dependency] private readonly SharedBodySystem _bodySystem = default!; // Shitmed Change
-    [Dependency] private readonly ConditionalHealingSystem _conditionalHealing = default!; // Far Horizons
-    [Dependency] private readonly BlindableSystem _blindable = default!; // Far Horizons
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly IAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    private readonly DamageableSystem _damageable = default!;
+
+    [Dependency]
+    private readonly BloodstreamSystem _bloodstreamSystem = default!;
+
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfter = default!;
+
+    [Dependency]
+    private readonly StackSystem _stacks = default!;
+
+    [Dependency]
+    private readonly SharedInteractionSystem _interactionSystem = default!;
+
+    [Dependency]
+    private readonly MobThresholdSystem _mobThresholdSystem = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
+
+    [Dependency]
+    private readonly SharedBodySystem _bodySystem = default!; // Shitmed Change
+
+    [Dependency]
+    private readonly ConditionalHealingSystem _conditionalHealing = default!; // Far Horizons
+
+    [Dependency]
+    private readonly BlindableSystem _blindable = default!; // Far Horizons
 
     public override void Initialize()
     {
@@ -69,17 +93,27 @@ public sealed class HealingSystem : EntitySystem
         if (!TryComp(args.Used, out HealingComponent? healing))
         {
             // Far Horizons, handle fake components from conditional healing
-            if(args.Used is null || _conditionalHealing.SelectBestMatch(args.Used.Value, entity) is not ConditionalHealingData healingData)
+            if (
+                args.Used is null
+                || _conditionalHealing.SelectBestMatch(args.Used.Value, entity)
+                    is not ConditionalHealingData healingData
+            )
                 return;
             healing = ConditionalHealingSystem.MakeComponent(healingData);
         }
 
-        if (healing.DamageContainers is not null &&
-            entity.Comp.DamageContainerID is not null &&
-            !healing.DamageContainers.Contains(entity.Comp.DamageContainerID))
+        if (
+            healing.DamageContainers is not null
+            && entity.Comp.DamageContainerID is not null
+            && !healing.DamageContainers.Contains(entity.Comp.DamageContainerID)
+        )
         {
             // Far Horizons, handle fake components from conditional healing
-            if(args.Used is null || _conditionalHealing.SelectBestMatch(args.Used.Value, entity) is not ConditionalHealingData fallbackData)
+            if (
+                args.Used is null
+                || _conditionalHealing.SelectBestMatch(args.Used.Value, entity)
+                    is not ConditionalHealingData fallbackData
+            )
                 return;
             healing = ConditionalHealingSystem.MakeComponent(fallbackData);
         }
@@ -94,9 +128,13 @@ public sealed class HealingSystem : EntitySystem
             if (isBleeding != bloodstream.BleedAmount > 0)
             {
                 _popupSystem.PopupEntity(
-                    Loc.GetString("medical-item-stop-bleeding", ("target", Identity.Entity(entity.Owner, EntityManager))),
+                    Loc.GetString(
+                        "medical-item-stop-bleeding",
+                        ("target", Identity.Entity(entity.Owner, EntityManager))
+                    ),
                     entity,
-                    args.User);
+                    args.User
+                );
             }
         }
 
@@ -142,13 +180,17 @@ public sealed class HealingSystem : EntitySystem
 
         if (entity.Owner != args.User)
         {
-            _adminLogger.Add(LogType.Healed,
-                $"{EntityManager.ToPrettyString(args.User):user} healed {EntityManager.ToPrettyString(entity.Owner):target} for {total:damage} damage");
+            _adminLogger.Add(
+                LogType.Healed,
+                $"{EntityManager.ToPrettyString(args.User):user} healed {EntityManager.ToPrettyString(entity.Owner):target} for {total:damage} damage"
+            );
         }
         else
         {
-            _adminLogger.Add(LogType.Healed,
-                $"{EntityManager.ToPrettyString(args.User):user} healed themselves for {total:damage} damage");
+            _adminLogger.Add(
+                LogType.Healed,
+                $"{EntityManager.ToPrettyString(args.User):user} healed themselves for {total:damage} damage"
+            );
         }
 
         _audio.PlayPvs(healing.HealingEndSound, entity.Owner);
@@ -156,7 +198,11 @@ public sealed class HealingSystem : EntitySystem
         // Logic to determine the whether or not to repeat the healing action
         args.Repeat = HasDamage(entity.Comp, healing) && !dontRepeat || IsPartDamaged(args.User, entity); // Shitmed Change
         if (!args.Repeat && !dontRepeat)
-            _popupSystem.PopupEntity(Loc.GetString("medical-item-finished-using", ("item", args.Used)), entity.Owner, args.User);
+            _popupSystem.PopupEntity(
+                Loc.GetString("medical-item-finished-using", ("item", args.Used)),
+                entity.Owner,
+                args.User
+            );
         args.Handled = true;
     }
 
@@ -196,8 +242,10 @@ public sealed class HealingSystem : EntitySystem
 
         var (targetType, targetSymmetry) = _bodySystem.ConvertTargetBodyPart(targeting.Target);
         foreach (var part in _bodySystem.GetBodyChildrenOfType(target, targetType, symmetry: targetSymmetry))
-            if (TryComp<DamageableComponent>(part.Id, out var damageable)
-                && damageable.TotalDamage > part.Component.MinIntegrity)
+            if (
+                TryComp<DamageableComponent>(part.Id, out var damageable)
+                && damageable.TotalDamage > part.Component.MinIntegrity
+            )
                 return true;
 
         return false;
@@ -228,9 +276,11 @@ public sealed class HealingSystem : EntitySystem
         if (!TryComp<DamageableComponent>(target, out var targetDamage))
             return false;
 
-        if (component.DamageContainers is not null &&
-            targetDamage.DamageContainerID is not null &&
-            !component.DamageContainers.Contains(targetDamage.DamageContainerID))
+        if (
+            component.DamageContainers is not null
+            && targetDamage.DamageContainerID is not null
+            && !component.DamageContainers.Contains(targetDamage.DamageContainerID)
+        )
         {
             return false;
         }
@@ -242,11 +292,17 @@ public sealed class HealingSystem : EntitySystem
             return false;
 
         var anythingToDo =
-            HasDamage(targetDamage, component) ||
-            IsPartDamaged(user, target) || // Shitmed Change
+            HasDamage(targetDamage, component)
+            || IsPartDamaged(user, target)
+            || // Shitmed Change
             component.ModifyBloodLevel > 0 // Special case if healing item can restore lost blood...
                 && TryComp<BloodstreamComponent>(target, out var bloodstream)
-                && _solutionContainerSystem.ResolveSolution(target, bloodstream.BloodSolutionName, ref bloodstream.BloodSolution, out var bloodSolution)
+                && _solutionContainerSystem.ResolveSolution(
+                    target,
+                    bloodstream.BloodSolutionName,
+                    ref bloodstream.BloodSolution,
+                    out var bloodSolution
+                )
                 && bloodSolution.Volume < bloodSolution.MaxVolume; // ...and there is lost blood to restore.
 
         if (!anythingToDo)
@@ -261,23 +317,32 @@ public sealed class HealingSystem : EntitySystem
 
         if (isNotSelf)
         {
-            var msg = Loc.GetString("medical-item-popup-target", ("user", Identity.Entity(user, EntityManager)), ("item", uid));
+            var msg = Loc.GetString(
+                "medical-item-popup-target",
+                ("user", Identity.Entity(user, EntityManager)),
+                ("item", uid)
+            );
             _popupSystem.PopupEntity(msg, target, target, PopupType.Medium);
         }
 
-        var delay = isNotSelf
-            ? component.Delay
-            : component.Delay * GetScaledHealingPenalty(user, component);
+        var delay = isNotSelf ? component.Delay : component.Delay * GetScaledHealingPenalty(user, component);
 
-        var doAfterEventArgs =
-            new DoAfterArgs(EntityManager, user, delay, new HealingDoAfterEvent(), target, target: target, used: uid)
-            {
-                // Didn't break on damage as they may be trying to prevent it and
-                // not being able to heal your own ticking damage would be frustrating.
-                NeedHand = true,
-                BreakOnMove = true,
-                BreakOnWeightlessMove = false,
-            };
+        var doAfterEventArgs = new DoAfterArgs(
+            EntityManager,
+            user,
+            delay,
+            new HealingDoAfterEvent(),
+            target,
+            target: target,
+            used: uid
+        )
+        {
+            // Didn't break on damage as they may be trying to prevent it and
+            // not being able to heal your own ticking damage would be frustrating.
+            NeedHand = true,
+            BreakOnMove = true,
+            BreakOnWeightlessMove = false,
+        };
 
         _doAfter.TryStartDoAfter(doAfterEventArgs);
         return true;
@@ -292,13 +357,15 @@ public sealed class HealingSystem : EntitySystem
     public float GetScaledHealingPenalty(EntityUid uid, HealingComponent component)
     {
         var output = component.Delay;
-        if (!TryComp<MobThresholdsComponent>(uid, out var mobThreshold) ||
-            !TryComp<DamageableComponent>(uid, out var damageable))
+        if (
+            !TryComp<MobThresholdsComponent>(uid, out var mobThreshold)
+            || !TryComp<DamageableComponent>(uid, out var damageable)
+        )
             return output;
         if (!_mobThresholdSystem.TryGetThresholdForState(uid, MobState.Critical, out var amount, mobThreshold))
             return 1;
 
-        var percentDamage = (float) (damageable.TotalDamage / amount);
+        var percentDamage = (float)(damageable.TotalDamage / amount);
         //basically make it scale from 1 to the multiplier.
         var modifier = percentDamage * (component.SelfHealPenaltyMultiplier - 1) + 1;
         return Math.Max(modifier, 1);

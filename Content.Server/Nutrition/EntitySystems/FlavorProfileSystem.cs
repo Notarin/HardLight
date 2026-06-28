@@ -1,10 +1,10 @@
+using System.Linq;
 using Content.Server.Nutrition.Components;
 using Content.Shared.CCVar;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Nutrition;
 using Robust.Shared.Configuration;
 using Robust.Shared.Prototypes;
-using System.Linq;
 
 namespace Content.Server.Nutrition.EntitySystems;
 
@@ -13,15 +13,22 @@ namespace Content.Server.Nutrition.EntitySystems;
 /// </summary>
 public sealed class FlavorProfileSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IConfigurationManager _configManager = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _configManager = default!;
 
     private const string BackupFlavorMessage = "flavor-profile-unknown";
 
     private int FlavorLimit => _configManager.GetCVar(CCVars.FlavorLimit);
 
-    public string GetLocalizedFlavorsMessage(EntityUid uid, EntityUid user, Solution solution,
-        FlavorProfileComponent? flavorProfile = null)
+    public string GetLocalizedFlavorsMessage(
+        EntityUid uid,
+        EntityUid user,
+        Solution solution,
+        FlavorProfileComponent? flavorProfile = null
+    )
     {
         if (!Resolve(uid, ref flavorProfile, false))
         {
@@ -53,7 +60,10 @@ public sealed class FlavorProfileSystem : EntitySystem
         var flavors = new List<FlavorPrototype>();
         foreach (var flavor in flavorSet)
         {
-            if (string.IsNullOrEmpty(flavor) || !_prototypeManager.TryIndex<FlavorPrototype>(flavor, out var flavorPrototype))
+            if (
+                string.IsNullOrEmpty(flavor)
+                || !_prototypeManager.TryIndex<FlavorPrototype>(flavor, out var flavorPrototype)
+            )
             {
                 continue;
             }
@@ -71,14 +81,21 @@ public sealed class FlavorProfileSystem : EntitySystem
         if (flavors.Count > 1)
         {
             var lastFlavor = Loc.GetString(flavors[^1].FlavorDescription);
-            var allFlavors = string.Join(", ", flavors.GetRange(0, flavors.Count - 1).Select(i => Loc.GetString(i.FlavorDescription)));
+            var allFlavors = string.Join(
+                ", ",
+                flavors.GetRange(0, flavors.Count - 1).Select(i => Loc.GetString(i.FlavorDescription))
+            );
             return Loc.GetString("flavor-profile-multiple", ("flavors", allFlavors), ("lastFlavor", lastFlavor));
         }
 
         return Loc.GetString(BackupFlavorMessage);
     }
 
-    private HashSet<string> GetFlavorsFromReagents(Solution solution, int desiredAmount, HashSet<string>? toIgnore = null)
+    private HashSet<string> GetFlavorsFromReagents(
+        Solution solution,
+        int desiredAmount,
+        HashSet<string>? toIgnore = null
+    )
     {
         var flavors = new HashSet<string>();
         foreach (var (reagent, quantity) in solution.GetReagentPrototypes(_prototypeManager))

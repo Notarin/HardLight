@@ -5,7 +5,6 @@ using Robust.Shared.Threading;
 using Robust.UnitTesting;
 using static Content.Server.Power.Pow3r.PowerState;
 
-
 namespace Pow3r
 {
     internal sealed partial class Program
@@ -17,16 +16,9 @@ namespace Pow3r
         private int _tickDataIdx;
         private bool _paused;
 
-        private readonly string[] _solverNames =
-        {
-            nameof(BatteryRampPegSolver),
-            nameof(NoOpSolver)
-        };
+        private readonly string[] _solverNames = { nameof(BatteryRampPegSolver), nameof(NoOpSolver) };
 
-        private readonly IPowerSolver[] _solvers = {
-            new BatteryRampPegSolver(),
-            new NoOpSolver()
-        };
+        private readonly IPowerSolver[] _solvers = { new BatteryRampPegSolver(), new NoOpSolver() };
 
         private int _currentSolver;
 
@@ -72,12 +64,12 @@ namespace Pow3r
                 displayBattery.SuppliedPowerData[_tickDataIdx] = battery.CurrentSupply;
             }
 
-            _simTickTimes[_tickDataIdx] = (float) _simStopwatch.Elapsed.TotalMilliseconds;
+            _simTickTimes[_tickDataIdx] = (float)_simStopwatch.Elapsed.TotalMilliseconds;
         }
 
         private void RunSingleStep()
         {
-            RunSingleStep(1f/_tps);
+            RunSingleStep(1f / _tps);
         }
 
         // Link data is stored authoritatively on networks,
@@ -128,6 +120,5 @@ namespace Pow3r
                 }
             }
         }
-
     }
 }

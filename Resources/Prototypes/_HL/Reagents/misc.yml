@@ -8,7 +8,7 @@
   color: "#ae0072"
   metabolisms:
     Medicine:
-      metabolismRate : 0.02
+      metabolismRate: 0.02
       effects:
       - !type:Aphrodisiac
         aphrodisiacPower: 6
@@ -19,21 +19,21 @@
         type: Local
         visualType: Large
         messages:
-          - "reagent-effect-aphrodisiac-normal1"
-          - "reagent-effect-aphrodisiac-normal2"
-          - "reagent-effect-aphrodisiac-normal3"
-          - "reagent-effect-aphrodisiac-normal4"
-          - "reagent-effect-aphrodisiac-normal5"
-          - "reagent-effect-aphrodisiac-normal6"
-          - "reagent-effect-aphrodisiac-normal7"
-          - "reagent-effect-aphrodisiac-normal8"
-          - "reagent-effect-aphrodisiac-normal9"
-          - "reagent-effect-aphrodisiac-normal10"
-          - "reagent-effect-aphrodisiac-normal11"
-          - "reagent-effect-aphrodisiac-normal12"
-          - "reagent-effect-aphrodisiac-normal13"
-          - "reagent-effect-aphrodisiac-normal14"
-          - "reagent-effect-aphrodisiac-normal15"
+        - "reagent-effect-aphrodisiac-normal1"
+        - "reagent-effect-aphrodisiac-normal2"
+        - "reagent-effect-aphrodisiac-normal3"
+        - "reagent-effect-aphrodisiac-normal4"
+        - "reagent-effect-aphrodisiac-normal5"
+        - "reagent-effect-aphrodisiac-normal6"
+        - "reagent-effect-aphrodisiac-normal7"
+        - "reagent-effect-aphrodisiac-normal8"
+        - "reagent-effect-aphrodisiac-normal9"
+        - "reagent-effect-aphrodisiac-normal10"
+        - "reagent-effect-aphrodisiac-normal11"
+        - "reagent-effect-aphrodisiac-normal12"
+        - "reagent-effect-aphrodisiac-normal13"
+        - "reagent-effect-aphrodisiac-normal14"
+        - "reagent-effect-aphrodisiac-normal15"
         probability: 0.04
         conditions:
         - !type:ReagentThreshold
@@ -42,16 +42,16 @@
         type: Local
         visualType: MediumCaution
         messages:
-          - "reagent-effect-aphrodisiac-normaloverdose1" # overdose makes you tired and forgetful
-          - "reagent-effect-aphrodisiac-normaloverdose2"
-          - "reagent-effect-aphrodisiac-normaloverdose3"
-          - "reagent-effect-aphrodisiac-normaloverdose4"
-          - "reagent-effect-aphrodisiac-normaloverdose5"
-          - "reagent-effect-aphrodisiac-normaloverdose6"
-          - "reagent-effect-aphrodisiac-normaloverdose7"
-          - "reagent-effect-aphrodisiac-normaloverdose8"
-          - "reagent-effect-aphrodisiac-normaloverdose9"
-          - "reagent-effect-aphrodisiac-normaloverdose10"
+        - "reagent-effect-aphrodisiac-normaloverdose1" # overdose makes you tired and forgetful
+        - "reagent-effect-aphrodisiac-normaloverdose2"
+        - "reagent-effect-aphrodisiac-normaloverdose3"
+        - "reagent-effect-aphrodisiac-normaloverdose4"
+        - "reagent-effect-aphrodisiac-normaloverdose5"
+        - "reagent-effect-aphrodisiac-normaloverdose6"
+        - "reagent-effect-aphrodisiac-normaloverdose7"
+        - "reagent-effect-aphrodisiac-normaloverdose8"
+        - "reagent-effect-aphrodisiac-normaloverdose9"
+        - "reagent-effect-aphrodisiac-normaloverdose10"
         probability: 0.06
         conditions:
         - !type:ReagentThreshold
@@ -78,8 +78,8 @@
         refresh: false
         type: Add
         probability: 0.1
-      - !type:HealthChange # poisons you if you take way too much
-        conditions:
+      - !type:HealthChange
+        conditions: # poisons you if you take way too much
         - !type:ReagentThreshold
           min: 30
         damage:
@@ -89,8 +89,8 @@
         type: Local
         visualType: Small
         messages:
-          - "reagent-effect-aphrodisiac-fade" # A decent chance to notify the player when their meds run out, but could happen silently.
+        - "reagent-effect-aphrodisiac-fade" # A decent chance to notify the player when their meds run out, but could happen silently.
         probability: 0.32
         conditions:
-          - !type:ReagentThreshold
-            max: 0.1
+        - !type:ReagentThreshold
+          max: 0.1

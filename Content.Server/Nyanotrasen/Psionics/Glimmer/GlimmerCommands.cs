@@ -1,6 +1,6 @@
 using Content.Server.Administration;
-using Content.Shared.Psionics.Glimmer;
 using Content.Shared.Administration;
+using Content.Shared.Psionics.Glimmer;
 using Robust.Shared.Console;
 
 namespace Content.Server.Psionics.Glimmer;
@@ -11,6 +11,7 @@ public sealed class GlimmerShowCommand : IConsoleCommand
     public string Command => "glimmershow";
     public string Description => Loc.GetString("command-glimmershow-description");
     public string Help => Loc.GetString("command-glimmershow-help");
+
     public async void Execute(IConsoleShell shell, string argStr, string[] args)
     {
         var entMan = IoCManager.Resolve<IEntityManager>();

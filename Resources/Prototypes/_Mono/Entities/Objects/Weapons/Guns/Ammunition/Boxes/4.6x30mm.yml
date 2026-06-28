@@ -8,7 +8,7 @@
     mayTransfer: true
     whitelist:
       tags:
-        - Cartridge46x30mmFMJ
+      - Cartridge46x30mmFMJ
     proto: Cartridge46x30mmFMJ
     capacity: 70 # 60->70 Two mags per box
   - type: Item

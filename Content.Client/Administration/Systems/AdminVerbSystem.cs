@@ -12,14 +12,18 @@ namespace Content.Client.Administration.Systems
     /// </summary>
     sealed class AdminVerbSystem : EntitySystem
     {
-        [Dependency] private readonly IClientConGroupController _clientConGroupController = default!;
-        [Dependency] private readonly IClientConsoleHost _clientConsoleHost = default!;
-        [Dependency] private readonly ISharedAdminManager _admin = default!;
+        [Dependency]
+        private readonly IClientConGroupController _clientConGroupController = default!;
+
+        [Dependency]
+        private readonly IClientConsoleHost _clientConsoleHost = default!;
+
+        [Dependency]
+        private readonly ISharedAdminManager _admin = default!;
 
         public override void Initialize()
         {
             SubscribeLocalEvent<GetVerbsEvent<Verb>>(AddAdminVerbs);
-
         }
 
         private void AddAdminVerbs(GetVerbsEvent<Verb> args)
@@ -34,7 +38,7 @@ namespace Content.Client.Administration.Systems
                     Text = Loc.GetString("view-variables"),
                     Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/vv.svg.192dpi.png")),
                     Act = () => _clientConsoleHost.ExecuteCommand($"vv {GetNetEntity(args.Target)}"),
-                    ClientExclusive = true // opening VV window is client-side. Don't ask server to run this verb.
+                    ClientExclusive = true, // opening VV window is client-side. Don't ask server to run this verb.
                 };
                 args.Verbs.Add(verb);
             }

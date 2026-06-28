@@ -8,8 +8,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.45,-0.45,0.45,0.45"
         density: 190
         mask:
@@ -44,12 +43,12 @@
     visuals:
       enum.TimelineDisruptiorVisuals.Disrupting:
         pistonlayer:
-          True: { state: piston-push }
-          False: { state: piston }
+          True: {state: piston-push}
+          False: {state: piston}
       enum.TimelineDisruptiorVisuals.ContainerInserted:
         containerLayer:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
   - type: Appearance
   - type: TimelineDisruptor
   - type: ContainerContainer
@@ -62,6 +61,4 @@
     deconstructionTarget: null
     graph: TimelineDisruptor
     node: timelineDisruptor
-      
-  
-  
+

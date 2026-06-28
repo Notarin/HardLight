@@ -10,6 +10,9 @@ public sealed partial class CCVars
     ///     Controls if the game should run station events
     /// </summary>
     [CVarControl(AdminFlags.Server | AdminFlags.Mapping)]
-    public static readonly CVarDef<bool>
-        EventsEnabled = CVarDef.Create("events.enabled", true, CVar.ARCHIVE | CVar.SERVERONLY);
+    public static readonly CVarDef<bool> EventsEnabled = CVarDef.Create(
+        "events.enabled",
+        true,
+        CVar.ARCHIVE | CVar.SERVERONLY
+    );
 }

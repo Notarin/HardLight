@@ -11,8 +11,11 @@ namespace Content.Server.Nyanotrasen.Item.PseudoItem;
 
 public sealed class PseudoItemSystem : SharedPseudoItemSystem
 {
-    [Dependency] private readonly CarryingSystem _carrying = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
+    [Dependency]
+    private readonly CarryingSystem _carrying = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
 
     public override void Initialize()
     {
@@ -45,12 +48,16 @@ public sealed class PseudoItemSystem : SharedPseudoItemSystem
                 StartInsertDoAfter(args.User, uid, args.Hands.ActiveHandEntity.Value, component);
             },
             Text = Loc.GetString("action-name-insert-other", ("target", Identity.Entity(args.Target, EntityManager))),
-            Priority = 2
+            Priority = 2,
         };
         args.Verbs.Add(verb);
     }
 
-    protected override void OnGettingPickedUpAttempt(EntityUid uid, PseudoItemComponent component, GettingPickedUpAttemptEvent args)
+    protected override void OnGettingPickedUpAttempt(
+        EntityUid uid,
+        PseudoItemComponent component,
+        GettingPickedUpAttemptEvent args
+    )
     {
         // Try to pick the entity up instead first
         if (args.User != args.Item && _carrying.TryCarry(args.User, uid))
@@ -67,7 +74,11 @@ public sealed class PseudoItemSystem : SharedPseudoItemSystem
     private void OnTrySleeping(EntityUid uid, PseudoItemComponent component, TryingToSleepEvent args)
     {
         var parent = Transform(uid).ParentUid;
-        if (!HasComp<SleepingComponent>(uid) && parent is { Valid: true } && HasComp<AllowsSleepInsideComponent>(parent))
+        if (
+            !HasComp<SleepingComponent>(uid)
+            && parent is { Valid: true }
+            && HasComp<AllowsSleepInsideComponent>(parent)
+        )
             _popup.PopupEntity(Loc.GetString("popup-sleep-in-bag", ("entity", uid)), uid);
     }
 }

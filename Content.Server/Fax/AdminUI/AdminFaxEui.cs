@@ -1,19 +1,20 @@
 using Content.Server.Construction.Conditions;
 using Content.Server.DeviceNetwork.Components;
 using Content.Server.EUI;
+using Content.Shared.DeviceNetwork.Components;
 using Content.Shared.Eui;
-using Content.Shared.Fax.Components;
 using Content.Shared.Fax;
+using Content.Shared.Fax.Components;
 using Content.Shared.Follower;
 using Content.Shared.Ghost;
 using Content.Shared.Paper;
-using Content.Shared.DeviceNetwork.Components;
 
 namespace Content.Server.Fax.AdminUI;
 
 public sealed class AdminFaxEui : BaseEui
 {
-    [Dependency] private readonly IEntityManager _entityManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entityManager = default!;
     private readonly FaxSystem _faxSystem;
     private readonly FollowerSystem _followerSystem;
 
@@ -48,18 +49,33 @@ public sealed class AdminFaxEui : BaseEui
         {
             case AdminFaxEuiMsg.Follow followData:
             {
-                if (Player.AttachedEntity == null ||
-                    !_entityManager.HasComponent<GhostComponent>(Player.AttachedEntity.Value))
+                if (
+                    Player.AttachedEntity == null
+                    || !_entityManager.HasComponent<GhostComponent>(Player.AttachedEntity.Value)
+                )
                     return;
 
-                _followerSystem.StartFollowingEntity(Player.AttachedEntity.Value, _entityManager.GetEntity(followData.TargetFax));
+                _followerSystem.StartFollowingEntity(
+                    Player.AttachedEntity.Value,
+                    _entityManager.GetEntity(followData.TargetFax)
+                );
                 break;
             }
             case AdminFaxEuiMsg.Send sendData:
             {
-                var printout = new FaxPrintout(sendData.Content, sendData.Title, null, null, sendData.StampState,
-                        new() { new StampDisplayInfo { StampedName = sendData.From, StampedColor = sendData.StampColor } },
-                        locked: sendData.Locked, stampProtected: sendData.StampProtected); // Frontier: add StampProtected
+                var printout = new FaxPrintout(
+                    sendData.Content,
+                    sendData.Title,
+                    null,
+                    null,
+                    sendData.StampState,
+                    new()
+                    {
+                        new StampDisplayInfo { StampedName = sendData.From, StampedColor = sendData.StampColor },
+                    },
+                    locked: sendData.Locked,
+                    stampProtected: sendData.StampProtected
+                ); // Frontier: add StampProtected
                 _faxSystem.Receive(_entityManager.GetEntity(sendData.Target), printout);
                 break;
             }

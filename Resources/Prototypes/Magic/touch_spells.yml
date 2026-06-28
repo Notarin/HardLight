@@ -119,7 +119,6 @@
     baseWalkSpeed: 3.5
     baseSprintSpeed: 5.5
 
-
 - type: entity
   id: ActionArmourImbue
   name: Iron Bull

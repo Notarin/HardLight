@@ -1,3 +1,4 @@
+using System.Threading;
 using Content.Server.Atmos;
 using Content.Server.Atmos.EntitySystems;
 using Content.Server.Body.Components;
@@ -5,6 +6,7 @@ using Content.Server.DoAfter;
 using Content.Server.Explosion.EntitySystems;
 using Content.Server.Nutrition.Components;
 using Content.Server.Popups;
+using Content.Shared.Atmos;
 using Content.Shared.Damage;
 using Content.Shared.DoAfter;
 using Content.Shared.Emag.Components;
@@ -12,8 +14,6 @@ using Content.Shared.Emag.Systems;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Interaction;
 using Content.Shared.Nutrition;
-using System.Threading;
-using Content.Shared.Atmos;
 
 /// <summary>
 /// System for vapes
@@ -22,12 +22,23 @@ namespace Content.Server.Nutrition.EntitySystems
 {
     public sealed partial class SmokingSystem
     {
-        [Dependency] private readonly DoAfterSystem _doAfterSystem = default!;
-        [Dependency] private readonly DamageableSystem _damageableSystem = default!;
-        [Dependency] private readonly EmagSystem _emag = default!;
-        [Dependency] private readonly FoodSystem _foodSystem = default!;
-        [Dependency] private readonly ExplosionSystem _explosionSystem = default!;
-        [Dependency] private readonly PopupSystem _popupSystem = default!;
+        [Dependency]
+        private readonly DoAfterSystem _doAfterSystem = default!;
+
+        [Dependency]
+        private readonly DamageableSystem _damageableSystem = default!;
+
+        [Dependency]
+        private readonly EmagSystem _emag = default!;
+
+        [Dependency]
+        private readonly FoodSystem _foodSystem = default!;
+
+        [Dependency]
+        private readonly ExplosionSystem _explosionSystem = default!;
+
+        [Dependency]
+        private readonly PopupSystem _popupSystem = default!;
 
         private void InitializeVapes()
         {
@@ -43,19 +54,19 @@ namespace Content.Server.Nutrition.EntitySystems
             var forced = true;
             var exploded = false;
 
-            if (!args.CanReach
+            if (
+                !args.CanReach
                 || !_solutionContainerSystem.TryGetRefillableSolution(entity.Owner, out _, out var solution)
                 || !HasComp<BloodstreamComponent>(args.Target)
-                || _foodSystem.IsMouthBlocked(args.Target.Value, args.User))
+                || _foodSystem.IsMouthBlocked(args.Target.Value, args.User)
+            )
             {
                 return;
             }
 
             if (solution.Contents.Count == 0)
             {
-                _popupSystem.PopupEntity(
-                    Loc.GetString("vape-component-vape-empty"), args.Target.Value,
-                    args.User);
+                _popupSystem.PopupEntity(Loc.GetString("vape-component-vape-empty"), args.Target.Value, args.User);
                 return;
             }
 
@@ -67,7 +78,14 @@ namespace Content.Server.Nutrition.EntitySystems
 
             if (entity.Comp.ExplodeOnUse || _emag.CheckFlag(entity, EmagType.Interaction))
             {
-                _explosionSystem.QueueExplosion(entity.Owner, "Default", entity.Comp.ExplosionIntensity, 0.5f, 3, canCreateVacuum: false);
+                _explosionSystem.QueueExplosion(
+                    entity.Owner,
+                    "Default",
+                    entity.Comp.ExplosionIntensity,
+                    0.5f,
+                    3,
+                    canCreateVacuum: false
+                );
                 EntityManager.DeleteEntity(entity);
                 exploded = true;
             }
@@ -83,7 +101,14 @@ namespace Content.Server.Nutrition.EntitySystems
                     if (name.Reagent.Prototype != entity.Comp.SolutionNeeded)
                     {
                         exploded = true;
-                        _explosionSystem.QueueExplosion(entity.Owner, "Default", entity.Comp.ExplosionIntensity, 0.5f, 3, canCreateVacuum: false);
+                        _explosionSystem.QueueExplosion(
+                            entity.Owner,
+                            "Default",
+                            entity.Comp.ExplosionIntensity,
+                            0.5f,
+                            3,
+                            canCreateVacuum: false
+                        );
                         EntityManager.DeleteEntity(entity);
                         break;
                     }
@@ -96,28 +121,40 @@ namespace Content.Server.Nutrition.EntitySystems
                 var userName = Identity.Entity(args.User, EntityManager);
 
                 _popupSystem.PopupEntity(
-                    Loc.GetString("vape-component-try-use-vape-forced", ("user", userName)), args.Target.Value,
-                    args.Target.Value);
+                    Loc.GetString("vape-component-try-use-vape-forced", ("user", userName)),
+                    args.Target.Value,
+                    args.Target.Value
+                );
 
                 _popupSystem.PopupEntity(
-                    Loc.GetString("vape-component-try-use-vape-forced-user", ("target", targetName)), args.User,
-                    args.User);
+                    Loc.GetString("vape-component-try-use-vape-forced-user", ("target", targetName)),
+                    args.User,
+                    args.User
+                );
             }
             else
             {
-                _popupSystem.PopupEntity(
-                    Loc.GetString("vape-component-try-use-vape"), args.User,
-                    args.User);
+                _popupSystem.PopupEntity(Loc.GetString("vape-component-try-use-vape"), args.User, args.User);
             }
 
             if (!exploded)
             {
                 var vapeDoAfterEvent = new VapeDoAfterEvent(solution, forced);
-                _doAfterSystem.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, delay, vapeDoAfterEvent, entity.Owner, target: args.Target, used: entity.Owner)
-                {
-                    BreakOnMove = false,
-                    BreakOnDamage = true
-                });
+                _doAfterSystem.TryStartDoAfter(
+                    new DoAfterArgs(
+                        EntityManager,
+                        args.User,
+                        delay,
+                        vapeDoAfterEvent,
+                        entity.Owner,
+                        target: args.Target,
+                        used: entity.Owner
+                    )
+                    {
+                        BreakOnMove = false,
+                        BreakOnDamage = true,
+                    }
+                );
             }
             args.Handled = true;
         }
@@ -149,18 +186,24 @@ namespace Content.Server.Nutrition.EntitySystems
                 var userName = Identity.Entity(args.Args.User, EntityManager);
 
                 _popupSystem.PopupEntity(
-                    Loc.GetString("vape-component-vape-success-forced", ("user", userName)), args.Args.Target.Value,
-                    args.Args.Target.Value);
+                    Loc.GetString("vape-component-vape-success-forced", ("user", userName)),
+                    args.Args.Target.Value,
+                    args.Args.Target.Value
+                );
 
                 _popupSystem.PopupEntity(
-                    Loc.GetString("vape-component-vape-success-user-forced", ("target", targetName)), args.Args.User,
-                    args.Args.Target.Value);
+                    Loc.GetString("vape-component-vape-success-user-forced", ("target", targetName)),
+                    args.Args.User,
+                    args.Args.Target.Value
+                );
             }
             else
             {
                 _popupSystem.PopupEntity(
-                    Loc.GetString("vape-component-vape-success"), args.Args.Target.Value,
-                    args.Args.Target.Value);
+                    Loc.GetString("vape-component-vape-success"),
+                    args.Args.Target.Value,
+                    args.Args.Target.Value
+                );
             }
         }
 

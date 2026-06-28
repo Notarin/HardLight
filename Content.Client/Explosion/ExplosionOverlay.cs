@@ -13,9 +13,14 @@ namespace Content.Client.Explosion;
 [UsedImplicitly]
 public sealed class ExplosionOverlay : Overlay
 {
-    [Dependency] private readonly IRobustRandom _robustRandom = default!;
-    [Dependency] private readonly IEntityManager _entMan = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
+    [Dependency]
+    private readonly IRobustRandom _robustRandom = default!;
+
+    [Dependency]
+    private readonly IEntityManager _entMan = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
     private readonly SharedTransformSystem _transformSystem;
     private SharedAppearanceSystem _appearance;
 
@@ -63,7 +68,8 @@ public sealed class ExplosionOverlay : Overlay
         ExplosionVisualsComponent visuals,
         int index,
         EntityQuery<TransformComponent> xforms,
-        ExplosionVisualsTexturesComponent textures)
+        ExplosionVisualsTexturesComponent textures
+    )
     {
         Box2 gridBounds;
         foreach (var (gridId, tiles) in visuals.Tiles)
@@ -72,7 +78,10 @@ public sealed class ExplosionOverlay : Overlay
                 continue;
 
             var xform = xforms.GetComponent(gridId);
-            var (_, _, worldMatrix, invWorldMatrix) = _transformSystem.GetWorldPositionRotationMatrixWithInv(xform, xforms);
+            var (_, _, worldMatrix, invWorldMatrix) = _transformSystem.GetWorldPositionRotationMatrixWithInv(
+                xform,
+                xforms
+            );
 
             gridBounds = invWorldMatrix.TransformBox(worldBounds).Enlarged(grid.TileSize * 2);
             drawHandle.SetTransform(worldMatrix);
@@ -97,14 +106,16 @@ public sealed class ExplosionOverlay : Overlay
         Dictionary<int, List<Vector2i>> tileSets,
         ExplosionVisualsComponent visuals,
         ushort tileSize,
-        ExplosionVisualsTexturesComponent textures)
+        ExplosionVisualsTexturesComponent textures
+    )
     {
         for (var j = 0; j <= index; j++)
         {
             if (!tileSets.TryGetValue(j, out var tiles))
                 continue;
 
-            var frameIndex = (int) Math.Min(visuals.Intensity[j] / textures.IntensityPerState, textures.FireFrames.Count - 1);
+            var frameIndex = (int)
+                Math.Min(visuals.Intensity[j] / textures.IntensityPerState, textures.FireFrames.Count - 1);
             var frames = textures.FireFrames[frameIndex];
 
             foreach (var tile in tiles)
@@ -115,7 +126,11 @@ public sealed class ExplosionOverlay : Overlay
                     continue;
 
                 var texture = _robustRandom.Pick(frames);
-                drawHandle.DrawTextureRect(texture, Box2.CenteredAround(centre, new Vector2(tileSize, tileSize)), textures.FireColor);
+                drawHandle.DrawTextureRect(
+                    texture,
+                    Box2.CenteredAround(centre, new Vector2(tileSize, tileSize)),
+                    textures.FireColor
+                );
             }
         }
     }

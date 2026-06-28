@@ -1,11 +1,11 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using Content.Client.UserInterface.ControlExtensions;
 using JetBrains.Annotations;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.RichText;
 using Robust.Shared.Input;
 using Robust.Shared.Utility;
-using Content.Client.UserInterface.ControlExtensions;
 
 namespace Content.Client.Guidebook.RichText;
 
@@ -21,9 +21,11 @@ public sealed class TextLinkTag : IMarkupTag
     /// <inheritdoc/>
     public bool TryGetControl(MarkupNode node, [NotNullWhen(true)] out Control? control)
     {
-        if (!node.Value.TryGetString(out var text)
+        if (
+            !node.Value.TryGetString(out var text)
             || !node.Attributes.TryGetValue("link", out var linkParameter)
-            || !linkParameter.TryGetString(out var link))
+            || !linkParameter.TryGetString(out var link)
+        )
         {
             control = null;
             return false;

@@ -1,5 +1,4 @@
 
-
 - type: marking
   id: MothBodyClaw
   bodyPart: Chest
@@ -58,9 +57,8 @@
   followSkinColor: false
   coloring:
     default:
-      type:
-        !type:SkinColoring
-          negative: true
+      type: !type:SkinColoring
+        negative: true
   sprites:
   - sprite: _Impstation/Mobs/Customization/moth.rsi
     state: arm_l_chimera_moth
@@ -73,9 +71,8 @@
   followSkinColor: false
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#E4E4E4"
+      type: !type:SimpleColoring
+        color: "#E4E4E4"
   sprites:
   - sprite: _Impstation/Mobs/Customization/moth.rsi
     state: arm_l_prosthetic_moth
@@ -98,9 +95,8 @@
   followSkinColor: false
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#E4E4E4"
+      type: !type:SimpleColoring
+        color: "#E4E4E4"
   sprites:
   - sprite: _Impstation/Mobs/Customization/moth.rsi
     state: arm_r_prosthetic_moth
@@ -134,9 +130,8 @@
   followSkinColor: false
   coloring:
     default:
-      type:
-        !type:SkinColoring
-          negative: true
+      type: !type:SkinColoring
+        negative: true
   sprites:
   - sprite: _Impstation/Mobs/Customization/moth.rsi
     state: chest_chimera_f_moth
@@ -150,9 +145,8 @@
   followSkinColor: false
   coloring:
     default:
-      type:
-        !type:SkinColoring
-          negative: true
+      type: !type:SkinColoring
+        negative: true
   sprites:
   - sprite: _Impstation/Mobs/Customization/moth.rsi
     state: chest_chimera_m_moth
@@ -219,9 +213,8 @@
   followSkinColor: false
   coloring:
     default:
-      type:
-        !type:EyeColoring
-          negative: true
+      type: !type:EyeColoring
+        negative: true
   sprites:
   - sprite: _Impstation/Mobs/Customization/moth.rsi
     state: eyes_heterochromia_moth
@@ -234,9 +227,8 @@
   followSkinColor: false
   coloring:
     default:
-      type:
-        !type:SkinColoring
-          negative: true
+      type: !type:SkinColoring
+        negative: true
   sprites:
   - sprite: _Impstation/Mobs/Customization/moth.rsi
     state: foot_l_chimera_moth
@@ -249,9 +241,8 @@
   followSkinColor: false
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#E4E4E4"
+      type: !type:SimpleColoring
+        color: "#E4E4E4"
   sprites:
   - sprite: _Impstation/Mobs/Customization/moth.rsi
     state: foot_l_prosthetic_moth
@@ -264,9 +255,8 @@
   followSkinColor: false
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#E4E4E4"
+      type: !type:SimpleColoring
+        color: "#E4E4E4"
   sprites:
   - sprite: _Impstation/Mobs/Customization/moth.rsi
     state: foot_r_prosthetic_moth
@@ -279,9 +269,8 @@
   followSkinColor: false
   coloring:
     default:
-      type:
-        !type:SkinColoring
-          negative: true
+      type: !type:SkinColoring
+        negative: true
   sprites:
   - sprite: _Impstation/Mobs/Customization/moth.rsi
     state: hand_l_chimera_moth
@@ -294,9 +283,8 @@
   followSkinColor: false
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#E4E4E4"
+      type: !type:SimpleColoring
+        color: "#E4E4E4"
   sprites:
   - sprite: _Impstation/Mobs/Customization/moth.rsi
     state: hand_l_prosthetic_moth
@@ -319,9 +307,8 @@
   followSkinColor: false
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#E4E4E4"
+      type: !type:SimpleColoring
+        color: "#E4E4E4"
   sprites:
   - sprite: _Impstation/Mobs/Customization/moth.rsi
     state: hand_r_prosthetic_moth
@@ -354,9 +341,8 @@
   followSkinColor: false
   coloring:
     default:
-      type:
-        !type:SkinColoring
-          negative: true
+      type: !type:SkinColoring
+        negative: true
   sprites:
   - sprite: _Impstation/Mobs/Customization/moth.rsi
     state: head_chimera_moth
@@ -389,9 +375,8 @@
   followSkinColor: false
   coloring:
     default:
-      type:
-        !type:SkinColoring
-          negative: true
+      type: !type:SkinColoring
+        negative: true
   sprites:
   - sprite: _Impstation/Mobs/Customization/moth.rsi
     state: leg_l_chimera_moth
@@ -404,9 +389,8 @@
   followSkinColor: false
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#E4E4E4"
+      type: !type:SimpleColoring
+        color: "#E4E4E4"
   sprites:
   - sprite: _Impstation/Mobs/Customization/moth.rsi
     state: leg_l_prosthetic_moth
@@ -429,9 +413,8 @@
   followSkinColor: false
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#E4E4E4"
+      type: !type:SimpleColoring
+        color: "#E4E4E4"
   sprites:
   - sprite: _Impstation/Mobs/Customization/moth.rsi
     state: leg_r_prosthetic_moth

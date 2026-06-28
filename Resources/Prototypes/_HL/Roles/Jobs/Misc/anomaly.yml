@@ -11,18 +11,18 @@
   whitelisted: true
   setPreference: true
   requirements:
-    - !type:SpeciesRequirement
-      species:
-        - Shadekin
+  - !type:SpeciesRequirement
+    species:
+    - Shadekin
   access:
-    - Maintenance
+  - Maintenance
   accessGroups:
-    - GeneralAccess
+  - GeneralAccess
   special:
-    - !type:AddComponentSpecial
-      components:
-        - type: Brighteye
-        - type: NullSpace
-        - type: MailDisabled
-        - type: SpecialSectorStationRecord
-          recordGeneration: NoRecord
+  - !type:AddComponentSpecial
+    components:
+    - type: Brighteye
+    - type: NullSpace
+    - type: MailDisabled
+    - type: SpecialSectorStationRecord
+      recordGeneration: NoRecord

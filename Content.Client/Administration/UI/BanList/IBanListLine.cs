@@ -3,7 +3,8 @@ using Robust.Client.UserInterface.Controls;
 
 namespace Content.Client.Administration.UI.BanList;
 
-public interface IBanListLine<T> where T : SharedBan
+public interface IBanListLine<T>
+    where T : SharedBan
 {
     T Ban { get; }
     Label Reason { get; }

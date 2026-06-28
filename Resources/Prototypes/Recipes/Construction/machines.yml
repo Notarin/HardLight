@@ -1,4 +1,4 @@
-﻿- type: construction
+- type: construction
   id: Computer
   graph: Computer
   startNode: start
@@ -26,7 +26,7 @@
   objectType: Structure
   canBuildInImpassable: false
   conditions:
-    - !type:TileNotBlocked
+  - !type:TileNotBlocked
 
 - type: construction
   id: LightSwitchRecipe
@@ -39,7 +39,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignalSwitchRecipe
@@ -52,7 +52,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignalButtonRecipe
@@ -65,7 +65,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: LightSwitchDirectionalRecipe
@@ -79,7 +79,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignalSwitchDirectionalRecipe
@@ -93,7 +93,7 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition
 
 - type: construction
   id: SignalButtonDirectionalRecipe
@@ -107,4 +107,4 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-    - !type:WallmountCondition
+  - !type:WallmountCondition

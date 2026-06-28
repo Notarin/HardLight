@@ -4,12 +4,12 @@
   description: job-description-warden
   playTimeTracker: JobWarden
   requirements:
-    - !type:RoleTimeRequirement
-      role: JobSecurityOfficer
-      time: 18000 # 5 hrs
-    - !type:DepartmentTimeRequirement
-      department: Security
-      time: 36000 # 10 hrs
+  - !type:RoleTimeRequirement
+    role: JobSecurityOfficer
+    time: 18000 # 5 hrs
+  - !type:DepartmentTimeRequirement
+    department: Security
+    time: 36000 # 10 hrs
   weight: 50 # HardLight: 5<50
   startingGear: WardenGear
   icon: "JobIconWarden"
@@ -27,7 +27,7 @@
   - Cryogenics
   special:
   - !type:AddImplantSpecial
-    implants: [ MindShieldImplant ]
+    implants: [MindShieldImplant]
   ## End Frontier: commented out stuff above
   setPreference: true
   accessGroups: # Frontier
@@ -36,7 +36,7 @@
 - type: startingGear
   id: WardenGear
   equipment:
-#    eyes: ClothingEyesGlassesSecurity # HL - Add departmental NF-style loadouts
+    #    eyes: ClothingEyesGlassesSecurity # HL - Add departmental NF-style loadouts
     id: WardenPDA
     ears: ClothingHeadsetSecurity
     pocket1: NFWeaponPistolMk58 # Frontier: use NF variant

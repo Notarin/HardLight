@@ -7,7 +7,8 @@ namespace Content.Shared.Morgue;
 
 public sealed class EntityStorageLayingDownOverrideSystem : EntitySystem
 {
-    [Dependency] private readonly StandingStateSystem _standing = default!;
+    [Dependency]
+    private readonly StandingStateSystem _standing = default!;
 
     public override void Initialize()
     {
@@ -16,7 +17,11 @@ public sealed class EntityStorageLayingDownOverrideSystem : EntitySystem
         SubscribeLocalEvent<EntityStorageLayingDownOverrideComponent, StorageBeforeCloseEvent>(OnBeforeClose);
     }
 
-    private void OnBeforeClose(EntityUid uid, EntityStorageLayingDownOverrideComponent component, ref StorageBeforeCloseEvent args)
+    private void OnBeforeClose(
+        EntityUid uid,
+        EntityStorageLayingDownOverrideComponent component,
+        ref StorageBeforeCloseEvent args
+    )
     {
         foreach (var ent in args.Contents)
         {

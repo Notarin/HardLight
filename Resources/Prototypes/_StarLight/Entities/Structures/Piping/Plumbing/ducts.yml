@@ -57,14 +57,12 @@
     damageModifierSet: Metallic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 200
       behaviors:
       - !type:DoActsBehavior
         acts: ["Destruction"]
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:PlaySoundBehavior
@@ -100,14 +98,13 @@
   components:
   - type: NodeContainer
     nodes:
-      duct:
-        !type:PlumbingNode
+      duct: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: Longitudinal
   - type: Sprite
     layers:
     - state: ductStraight
-      map: [ "enum.PipeVisualLayers.Pipe" ]
+      map: ["enum.PipeVisualLayers.Pipe"]
   - type: PipeAppearance
     sprite:
     - sprite: _Starlight/Structures/Piping/Plumbing/fluid_ducts.rsi
@@ -141,14 +138,13 @@
   components:
   - type: NodeContainer
     nodes:
-      duct:
-        !type:PlumbingNode
+      duct: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: SWBend
   - type: Sprite
     layers:
     - state: ductBend
-      map: [ "enum.PipeVisualLayers.Pipe" ]
+      map: ["enum.PipeVisualLayers.Pipe"]
   - type: PipeAppearance
     sprite:
     - sprite: _Starlight/Structures/Piping/Plumbing/fluid_ducts.rsi
@@ -181,14 +177,13 @@
   components:
   - type: NodeContainer
     nodes:
-      duct:
-        !type:PlumbingNode
+      duct: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: TSouth
   - type: Sprite
     layers:
     - state: ductTJunction
-      map: [ "enum.PipeVisualLayers.Pipe" ]
+      map: ["enum.PipeVisualLayers.Pipe"]
   - type: PipeAppearance
     sprite:
     - sprite: _Starlight/Structures/Piping/Plumbing/fluid_ducts.rsi
@@ -220,14 +215,13 @@
   components:
   - type: NodeContainer
     nodes:
-      duct:
-        !type:PlumbingNode
+      duct: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: Fourway
   - type: Sprite
     layers:
     - state: ductFourway
-      map: [ "enum.PipeVisualLayers.Pipe" ]
+      map: ["enum.PipeVisualLayers.Pipe"]
   - type: PipeAppearance
     sprite:
     - sprite: _Starlight/Structures/Piping/Plumbing/fluid_ducts.rsi
@@ -262,7 +256,7 @@
     sprite: _Starlight/Structures/Piping/Plumbing/plumbing_manifold.rsi
     layers:
     - state: duct_manifold
-      map: [ "enum.PipeVisualLayers.Pipe" ]
+      map: ["enum.PipeVisualLayers.Pipe"]
   - type: PlumbingConnectorAppearance
     offset: 0.09375
   - type: PlumbingManifold
@@ -270,33 +264,27 @@
     sideB: [sideB0, sideB1, sideB2]
   - type: NodeContainer
     nodes:
-      sideA0:
-        !type:PlumbingNode
+      sideA0: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: North
         pipeLayer: 0
-      sideA1:
-        !type:PlumbingNode
+      sideA1: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: North
         pipeLayer: 1
-      sideA2:
-        !type:PlumbingNode
+      sideA2: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: North
         pipeLayer: 2
-      sideB0:
-        !type:PlumbingNode
+      sideB0: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: South
         pipeLayer: 0
-      sideB1:
-        !type:PlumbingNode
+      sideB1: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: South
         pipeLayer: 1
-      sideB2:
-        !type:PlumbingNode
+      sideB2: !type:PlumbingNode
         nodeGroupID: Plumbing
         pipeDirection: South
         pipeLayer: 2
@@ -337,7 +325,7 @@
 - type: entity
   parent: [PlumbingDuctLayerAlt1, PlumbingDuctStraight]
   id: PlumbingDuctStraightAlt1
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: ThinPipeAlt1
@@ -346,7 +334,7 @@
 - type: entity
   parent: [PlumbingDuctLayerAlt2, PlumbingDuctStraight]
   id: PlumbingDuctStraightAlt2
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: ThinPipeAlt2
@@ -355,7 +343,7 @@
 - type: entity
   parent: [PlumbingDuctLayerAlt1, PlumbingDuctBend]
   id: PlumbingDuctBendAlt1
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: ThinPipeAlt1
@@ -364,7 +352,7 @@
 - type: entity
   parent: [PlumbingDuctLayerAlt2, PlumbingDuctBend]
   id: PlumbingDuctBendAlt2
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: ThinPipeAlt2
@@ -373,7 +361,7 @@
 - type: entity
   parent: [PlumbingDuctLayerAlt1, PlumbingDuctTJunction]
   id: PlumbingDuctTJunctionAlt1
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: ThinPipeAlt1
@@ -382,7 +370,7 @@
 - type: entity
   parent: [PlumbingDuctLayerAlt2, PlumbingDuctTJunction]
   id: PlumbingDuctTJunctionAlt2
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: ThinPipeAlt2
@@ -391,7 +379,7 @@
 - type: entity
   parent: [PlumbingDuctLayerAlt1, PlumbingDuctFourway]
   id: PlumbingDuctFourwayAlt1
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: ThinPipeAlt1
@@ -400,7 +388,7 @@
 - type: entity
   parent: [PlumbingDuctLayerAlt2, PlumbingDuctFourway]
   id: PlumbingDuctFourwayAlt2
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: ThinPipeAlt2
@@ -409,7 +397,7 @@
 - type: entity
   parent: [PlumbingDuctLayerAlt1, PlumbingDuctManifold]
   id: PlumbingDuctManifoldAlt1
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: ThinPipeAlt1
@@ -418,7 +406,7 @@
 - type: entity
   parent: [PlumbingDuctLayerAlt2, PlumbingDuctManifold]
   id: PlumbingDuctManifoldAlt2
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: ThinPipeAlt2

@@ -10,8 +10,8 @@ public sealed partial class ChangeBloodReagent : EntityEffect
     [DataField(required: true)]
     public string bloodReagent = string.Empty;
 
-    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys)
-        => Loc.GetString("reagent-effect-guidebook-change-blood-reagent", ("reagent", bloodReagent));
+    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys) =>
+        Loc.GetString("reagent-effect-guidebook-change-blood-reagent", ("reagent", bloodReagent));
 
     public override void Effect(EntityEffectBaseArgs args)
     {
@@ -19,7 +19,7 @@ public sealed partial class ChangeBloodReagent : EntityEffect
         {
             var sys = args.EntityManager.System<BloodstreamSystem>();
             sys.ChangeBloodReagent(args.TargetEntity, bloodReagent, bloodstream);
-            
+
             // Add or increment blood modification tracker
             var tracker = args.EntityManager.EnsureComponent<BloodModificationTrackerComponent>(args.TargetEntity);
             tracker.ActiveEffects++;

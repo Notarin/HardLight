@@ -10,7 +10,7 @@ public sealed partial class DeadDropHintVariationPassComponent : Component
 {
     /// <summary>
     ///     Chance that a potential hint will be generated on a table.
-    ///     Remember, the average number 
+    ///     Remember, the average number
     /// </summary>
     [DataField]
     public float HintSpawnChance = 0.02f;

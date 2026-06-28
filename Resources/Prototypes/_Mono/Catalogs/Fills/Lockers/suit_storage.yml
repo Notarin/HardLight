@@ -5,11 +5,11 @@
   components:
   - type: StorageFill
     contents:
-        - id: OxygenTankFilled
-        - id: NitrogenTankFilled
-        - id: ClothingOuterHardsuitUsspL27
-        - id: ClothingMaskGasSecurity
-        - id: JetpackMiniFilled
-        - id: ClothingShoesBootsMagSecurity
+    - id: OxygenTankFilled
+    - id: NitrogenTankFilled
+    - id: ClothingOuterHardsuitUsspL27
+    - id: ClothingMaskGasSecurity
+    - id: JetpackMiniFilled
+    - id: ClothingShoesBootsMagSecurity
   - type: AccessReader
     access: [["USSP"]]

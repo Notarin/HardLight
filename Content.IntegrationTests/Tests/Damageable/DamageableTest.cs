@@ -15,7 +15,8 @@ namespace Content.IntegrationTests.Tests.Damageable
     public sealed class DamageableTest
     {
         [TestPrototypes]
-        private const string Prototypes = @"
+        private const string Prototypes =
+            @"
 # Define some damage groups
 - type: damageType
   id: TestDamage1
@@ -211,7 +212,8 @@ namespace Content.IntegrationTests.Tests.Damageable
                     // Test that unsupported groups return false when setting/getting damage (and don't change damage)
                     Assert.That(sDamageableComponent.TotalDamage, Is.EqualTo(FixedPoint2.Zero));
                 });
-                damage = new DamageSpecifier(group1, FixedPoint2.New(10)) + new DamageSpecifier(type2b, FixedPoint2.New(10));
+                damage =
+                    new DamageSpecifier(group1, FixedPoint2.New(10)) + new DamageSpecifier(type2b, FixedPoint2.New(10));
                 sDamageableSystem.TryChangeDamage(uid, damage, true);
 
                 Assert.Multiple(() =>
@@ -223,7 +225,10 @@ namespace Content.IntegrationTests.Tests.Damageable
 
                 // Test SetAll function
                 sDamageableSystem.SetAllDamage(sDamageableEntity, sDamageableComponent, 10);
-                Assert.That(sDamageableComponent.TotalDamage, Is.EqualTo(FixedPoint2.New(10 * sDamageableComponent.Damage.DamageDict.Count)));
+                Assert.That(
+                    sDamageableComponent.TotalDamage,
+                    Is.EqualTo(FixedPoint2.New(10 * sDamageableComponent.Damage.DamageDict.Count))
+                );
                 sDamageableSystem.SetAllDamage(sDamageableEntity, sDamageableComponent, 0);
                 Assert.That(sDamageableComponent.TotalDamage, Is.EqualTo(FixedPoint2.Zero));
 

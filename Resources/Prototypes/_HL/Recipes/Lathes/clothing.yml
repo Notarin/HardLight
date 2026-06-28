@@ -9,19 +9,19 @@
     Durathread: 750
     Plastic: 500
     Plasteel: 400
-    
+
 # Bags
-    
+
 - type: latheRecipe
   id: ClothingBackpackTactical
   parent: HLBaseUpgradedBackpacks
   result: ClothingBackpackTactical
-  
+
 - type: latheRecipe
   id: ClothingBackpackExplorer
   parent: HLBaseUpgradedBackpacks
   result: ClothingBackpackExplorer
-  
+
 - type: latheRecipe
   id: ClothingRucksack
   parent: HLBaseUpgradedBackpacks

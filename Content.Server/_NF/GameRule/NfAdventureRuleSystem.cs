@@ -31,19 +31,35 @@ namespace Content.Server._NF.GameRule;
 /// </summary>
 public sealed class NFAdventureRuleSystem : GameRuleSystem<NFAdventureRuleComponent>
 {
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly BankSystem _bank = default!;
-    [Dependency] private readonly GameTicker _ticker = default!;
-    [Dependency] private readonly PointOfInterestSystem _poi = default!;
-    [Dependency] private readonly IBaseServer _baseServer = default!;
-    [Dependency] private readonly IEntitySystemManager _entSys = default!;
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly BankSystem _bank = default!;
+
+    [Dependency]
+    private readonly GameTicker _ticker = default!;
+
+    [Dependency]
+    private readonly PointOfInterestSystem _poi = default!;
+
+    [Dependency]
+    private readonly IBaseServer _baseServer = default!;
+
+    [Dependency]
+    private readonly IEntitySystemManager _entSys = default!;
 
     private readonly HttpClient _httpClient = new();
 
     private readonly ProtoId<GamePresetPrototype> _fallbackPresetID = "NFPirates";
     private ISawmill _sawmill = default!;
+
     // Prevent duplicate end-of-round reporting across multiple triggers
     private int _lastReportedRoundId = -1;
 
@@ -51,10 +67,13 @@ public sealed class NFAdventureRuleSystem : GameRuleSystem<NFAdventureRuleCompon
     {
         // Initial balance, obtained on spawn
         public int StartBalance;
+
         // Ending balance, obtained on game end or detach (NOTE: multiple detaches possible), whichever happens first.
         public int EndBalance;
+
         // Entity name: used for display purposes ("The Feel of Fresh Bills earned 100,000 spesos")
         public string Name;
+
         // User ID: used to validate incoming information.
         // If, for whatever reason, another player takes over this character, their initial balance is inaccurate.
         public NetUserId UserId;
@@ -83,7 +102,12 @@ public sealed class NFAdventureRuleSystem : GameRuleSystem<NFAdventureRuleCompon
         _sawmill = Logger.GetSawmill("debris");
     }
 
-    protected override void AppendRoundEndText(EntityUid uid, NFAdventureRuleComponent component, GameRuleComponent gameRule, ref RoundEndTextAppendEvent ev)
+    protected override void AppendRoundEndText(
+        EntityUid uid,
+        NFAdventureRuleComponent component,
+        GameRuleComponent gameRule,
+        ref RoundEndTextAppendEvent ev
+    )
     {
         ev.AddLine(Loc.GetString("adventure-list-start"));
         var allScore = new List<Tuple<string, int>>();
@@ -94,10 +118,9 @@ public sealed class NFAdventureRuleSystem : GameRuleSystem<NFAdventureRuleCompon
         foreach (var (player, playerInfo) in sortedPlayers)
         {
             var endBalance = playerInfo.EndBalance;
-            
+
             // Only try to get live balance if entity exists and has an attached player session
-            if (EntityManager.EntityExists(player) && 
-                _player.TryGetSessionByEntity(player, out var session))
+            if (EntityManager.EntityExists(player) && _player.TryGetSessionByEntity(player, out var session))
             {
                 if (_bank.TryGetBalance(player, out var bankBalance))
                 {
@@ -113,11 +136,17 @@ public sealed class NFAdventureRuleSystem : GameRuleSystem<NFAdventureRuleCompon
             string summaryText;
             if (profit < 0)
             {
-                summaryText = Loc.GetString("adventure-list-loss", ("amount", BankSystemExtensions.ToSpesoString(-profit)));
+                summaryText = Loc.GetString(
+                    "adventure-list-loss",
+                    ("amount", BankSystemExtensions.ToSpesoString(-profit))
+                );
             }
             else
             {
-                summaryText = Loc.GetString("adventure-list-profit", ("amount", BankSystemExtensions.ToSpesoString(profit)));
+                summaryText = Loc.GetString(
+                    "adventure-list-profit",
+                    ("amount", BankSystemExtensions.ToSpesoString(profit))
+                );
             }
             ev.AddLine($"- {playerInfo.Name} {summaryText}");
             allScore.Add(new Tuple<string, int>(playerInfo.Name, profit));
@@ -134,7 +163,10 @@ public sealed class NFAdventureRuleSystem : GameRuleSystem<NFAdventureRuleCompon
         {
             if (highScore.First().Item2 < 0)
                 break;
-            var profitText = Loc.GetString("adventure-webhook-top-profit", ("amount", BankSystemExtensions.ToSpesoString(highScore.First().Item2)));
+            var profitText = Loc.GetString(
+                "adventure-webhook-top-profit",
+                ("amount", BankSystemExtensions.ToSpesoString(highScore.First().Item2))
+            );
             relayText += $"{highScore.First().Item1} {profitText}";
             relayText += '\n';
             highScore.RemoveAt(0);
@@ -147,7 +179,10 @@ public sealed class NFAdventureRuleSystem : GameRuleSystem<NFAdventureRuleCompon
         {
             if (highScore.First().Item2 > 0)
                 break;
-            var lossText = Loc.GetString("adventure-webhook-top-loss", ("amount", BankSystemExtensions.ToSpesoString(-highScore.First().Item2)));
+            var lossText = Loc.GetString(
+                "adventure-webhook-top-loss",
+                ("amount", BankSystemExtensions.ToSpesoString(-highScore.First().Item2))
+            );
             relayText += $"{highScore.First().Item1} {lossText}";
             relayText += '\n';
             highScore.RemoveAt(0);
@@ -169,10 +204,13 @@ public sealed class NFAdventureRuleSystem : GameRuleSystem<NFAdventureRuleCompon
             EnsureComp<CargoSellBlacklistComponent>(mobUid);
 
             // Store player info with the bank balance - we have it directly, and BankSystem won't have a cache yet.
-            if (!_players.ContainsKey(mobUid)
-                && HasComp<BankAccountComponent>(mobUid))
+            if (!_players.ContainsKey(mobUid) && HasComp<BankAccountComponent>(mobUid))
             {
-                _players[mobUid] = new PlayerRoundBankInformation(ev.Profile.BankBalance, MetaData(mobUid).EntityName, ev.Player.UserId);
+                _players[mobUid] = new PlayerRoundBankInformation(
+                    ev.Profile.BankBalance,
+                    MetaData(mobUid).EntityName,
+                    ev.Player.UserId
+                );
             }
         }
     }
@@ -184,8 +222,7 @@ public sealed class NFAdventureRuleSystem : GameRuleSystem<NFAdventureRuleCompon
 
         if (_players.ContainsKey(mobUid))
         {
-            if (_players[mobUid].UserId == ev.Player.UserId &&
-                _bank.TryGetBalance(ev.Player, out var bankBalance))
+            if (_players[mobUid].UserId == ev.Player.UserId && _bank.TryGetBalance(ev.Player, out var bankBalance))
             {
                 _players[mobUid].EndBalance = bankBalance;
             }
@@ -195,15 +232,13 @@ public sealed class NFAdventureRuleSystem : GameRuleSystem<NFAdventureRuleCompon
     private void PlayerManagerOnPlayerStatusChanged(object? _, SessionStatusEventArgs e)
     {
         // Treat all disconnections as being possibly final.
-        if (e.NewStatus != SessionStatus.Disconnected ||
-            e.Session.AttachedEntity == null)
+        if (e.NewStatus != SessionStatus.Disconnected || e.Session.AttachedEntity == null)
             return;
 
         var mobUid = e.Session.AttachedEntity.Value;
         if (_players.ContainsKey(mobUid))
         {
-            if (_players[mobUid].UserId == e.Session.UserId &&
-                _bank.TryGetBalance(e.Session, out var bankBalance))
+            if (_players[mobUid].UserId == e.Session.UserId && _bank.TryGetBalance(e.Session, out var bankBalance))
             {
                 _players[mobUid].EndBalance = bankBalance;
             }
@@ -236,7 +271,12 @@ public sealed class NFAdventureRuleSystem : GameRuleSystem<NFAdventureRuleCompon
         }
     }
 
-    protected override void Started(EntityUid uid, NFAdventureRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
+    protected override void Started(
+        EntityUid uid,
+        NFAdventureRuleComponent component,
+        GameRuleComponent gameRule,
+        GameRuleStartedEvent args
+    )
     {
         var mapUid = GameTicker.DefaultMap;
 
@@ -307,7 +347,8 @@ public sealed class NFAdventureRuleSystem : GameRuleSystem<NFAdventureRuleCompon
                         Text = Loc.GetString(
                             "adventure-webhook-footer",
                             ("serverName", serverName),
-                            ("roundId", runId)),
+                            ("roundId", runId)
+                        ),
                     },
                 },
             },
@@ -344,7 +385,8 @@ public sealed class NFAdventureRuleSystem : GameRuleSystem<NFAdventureRuleCompon
                         Text = Loc.GetString(
                             "adventure-webhook-footer",
                             ("serverName", serverName),
-                            ("roundId", runId)),
+                            ("roundId", runId)
+                        ),
                     },
                 },
             },
@@ -360,58 +402,61 @@ public sealed class NFAdventureRuleSystem : GameRuleSystem<NFAdventureRuleCompon
         var reply = await request.Content.ReadAsStringAsync();
         if (!request.IsSuccessStatusCode)
         {
-            _sawmill.Error($"Discord returned bad status code when posting message: {request.StatusCode}\nResponse: {reply}");
+            _sawmill.Error(
+                $"Discord returned bad status code when posting message: {request.StatusCode}\nResponse: {reply}"
+            );
         }
     }
 
     // https://discord.com/developers/docs/resources/channel#message-object-message-structure
     private struct WebhookPayload
     {
-        [JsonPropertyName("username")] public string? Username { get; set; } = null;
+        [JsonPropertyName("username")]
+        public string? Username { get; set; } = null;
 
-        [JsonPropertyName("avatar_url")] public string? AvatarUrl { get; set; } = null;
+        [JsonPropertyName("avatar_url")]
+        public string? AvatarUrl { get; set; } = null;
 
-        [JsonPropertyName("content")] public string Message { get; set; } = "";
+        [JsonPropertyName("content")]
+        public string Message { get; set; } = "";
 
-        [JsonPropertyName("embeds")] public List<Embed>? Embeds { get; set; } = null;
+        [JsonPropertyName("embeds")]
+        public List<Embed>? Embeds { get; set; } = null;
 
         [JsonPropertyName("allowed_mentions")]
         public Dictionary<string, string[]> AllowedMentions { get; set; } =
-            new()
-            {
-                { "parse", Array.Empty<string>() },
-            };
+            new() { { "parse", Array.Empty<string>() } };
 
-        public WebhookPayload()
-        {
-        }
+        public WebhookPayload() { }
     }
 
     // https://discord.com/developers/docs/resources/channel#embed-object-embed-structure
     private struct Embed
     {
-        [JsonPropertyName("title")] public string Title { get; set; } = "";
+        [JsonPropertyName("title")]
+        public string Title { get; set; } = "";
 
-        [JsonPropertyName("description")] public string Description { get; set; } = "";
+        [JsonPropertyName("description")]
+        public string Description { get; set; } = "";
 
-        [JsonPropertyName("color")] public int Color { get; set; } = 0;
+        [JsonPropertyName("color")]
+        public int Color { get; set; } = 0;
 
-        [JsonPropertyName("footer")] public EmbedFooter? Footer { get; set; } = null;
+        [JsonPropertyName("footer")]
+        public EmbedFooter? Footer { get; set; } = null;
 
-        public Embed()
-        {
-        }
+        public Embed() { }
     }
 
     // https://discord.com/developers/docs/resources/channel#embed-object-embed-footer-structure
     private struct EmbedFooter
     {
-        [JsonPropertyName("text")] public string Text { get; set; } = "";
+        [JsonPropertyName("text")]
+        public string Text { get; set; } = "";
 
-        [JsonPropertyName("icon_url")] public string? IconUrl { get; set; }
+        [JsonPropertyName("icon_url")]
+        public string? IconUrl { get; set; }
 
-        public EmbedFooter()
-        {
-        }
+        public EmbedFooter() { }
     }
 }

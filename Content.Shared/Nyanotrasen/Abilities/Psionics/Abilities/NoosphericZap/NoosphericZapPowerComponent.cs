@@ -7,8 +7,7 @@ namespace Content.Shared.Abilities.Psionics
     [RegisterComponent]
     public sealed partial class NoosphericZapPowerComponent : Component
     {
-        [DataField("noosphericZapActionId",
-        customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
+        [DataField("noosphericZapActionId", customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
         public string? NoosphericZapActionId = "ActionNoosphericZap";
 
         [DataField("noosphericZapActionEntity")]

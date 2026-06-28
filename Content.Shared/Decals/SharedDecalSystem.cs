@@ -11,15 +11,20 @@ namespace Content.Shared.Decals
 {
     public abstract class SharedDecalSystem : EntitySystem
     {
-        [Dependency] protected readonly IPrototypeManager PrototypeManager = default!;
-        [Dependency] protected readonly IMapManager MapManager = default!;
+        [Dependency]
+        protected readonly IPrototypeManager PrototypeManager = default!;
+
+        [Dependency]
+        protected readonly IMapManager MapManager = default!;
 
         protected bool PvsEnabled;
 
         // Note that this constant is effectively baked into all map files, because of how they save the grid decal component.
         // So if this ever needs changing, the maps need converting.
         public const int ChunkSize = 32;
-        public static Vector2i GetChunkIndices(Vector2 coordinates) => new ((int) Math.Floor(coordinates.X / ChunkSize), (int) Math.Floor(coordinates.Y / ChunkSize));
+
+        public static Vector2i GetChunkIndices(Vector2 coordinates) =>
+            new((int)Math.Floor(coordinates.X / ChunkSize), (int)Math.Floor(coordinates.Y / ChunkSize));
 
         public override void Initialize()
         {
@@ -80,18 +85,25 @@ namespace Content.Shared.Decals
             return comp.ChunkCollection.ChunkCollection;
         }
 
-        protected virtual void DirtyChunk(EntityUid id, Vector2i chunkIndices, DecalChunk chunk) {}
+        protected virtual void DirtyChunk(EntityUid id, Vector2i chunkIndices, DecalChunk chunk) { }
 
         // internal, so that client/predicted code doesn't accidentally remove decals. There is a public server-side function.
-        protected bool RemoveDecalInternal(EntityUid gridId, uint decalId, [NotNullWhen(true)] out Decal? removed, DecalGridComponent? component = null)
+        protected bool RemoveDecalInternal(
+            EntityUid gridId,
+            uint decalId,
+            [NotNullWhen(true)] out Decal? removed,
+            DecalGridComponent? component = null
+        )
         {
             removed = null;
             if (!Resolve(gridId, ref component))
                 return false;
 
-            if (!component.DecalIndex.Remove(decalId, out var indices)
+            if (
+                !component.DecalIndex.Remove(decalId, out var indices)
                 || !component.ChunkCollection.ChunkCollection.TryGetValue(indices, out var chunk)
-                || !chunk.Decals.Remove(decalId, out removed))
+                || !chunk.Decals.Remove(decalId, out removed)
+            )
             {
                 return false;
             }
@@ -104,12 +116,23 @@ namespace Content.Shared.Decals
             return true;
         }
 
-        protected virtual void OnDecalRemoved(EntityUid gridId, uint decalId, DecalGridComponent component, Vector2i indices, DecalChunk chunk)
+        protected virtual void OnDecalRemoved(
+            EntityUid gridId,
+            uint decalId,
+            DecalGridComponent component,
+            Vector2i indices,
+            DecalChunk chunk
+        )
         {
             // used by client-side overlay code
         }
 
-        public virtual HashSet<(uint Index, Decal Decal)> GetDecalsInRange(EntityUid gridId, Vector2 position, float distance = 0.75f, Func<Decal, bool>? validDelegate = null)
+        public virtual HashSet<(uint Index, Decal Decal)> GetDecalsInRange(
+            EntityUid gridId,
+            Vector2 position,
+            float distance = 0.75f,
+            Func<Decal, bool>? validDelegate = null
+        )
         {
             // NOOP on client atm.
             return new HashSet<(uint Index, Decal Decal)>();

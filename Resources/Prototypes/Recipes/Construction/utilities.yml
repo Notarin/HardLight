@@ -754,7 +754,7 @@
   placementMode: AlignAtmosPipeLayers
   canBuildInImpassable: false
   conditions:
-    - !type:NoUnstackableInTile
+  - !type:NoUnstackableInTile
   alternativePrototypes:
   - GasValve
   - GasValveAlt1
@@ -770,7 +770,7 @@
   placementMode: AlignAtmosPipeLayers
   canBuildInImpassable: false
   conditions:
-    - !type:NoUnstackableInTile
+  - !type:NoUnstackableInTile
   alternativePrototypes:
   - GasValve
   - GasValveAlt1
@@ -786,7 +786,7 @@
   placementMode: AlignAtmosPipeLayers
   canBuildInImpassable: false
   conditions:
-    - !type:NoUnstackableInTile
+  - !type:NoUnstackableInTile
   alternativePrototypes:
   - GasValve
   - GasValveAlt1
@@ -816,7 +816,7 @@
   placementMode: AlignAtmosPipeLayers
   canBuildInImpassable: false
   conditions:
-    - !type:NoUnstackableInTile
+  - !type:NoUnstackableInTile
   alternativePrototypes:
   - SignalControlledValve
   - SignalControlledValveAlt1
@@ -831,7 +831,7 @@
   placementMode: AlignAtmosPipeLayers
   canBuildInImpassable: false
   conditions:
-    - !type:NoUnstackableInTile
+  - !type:NoUnstackableInTile
   alternativePrototypes:
   - SignalControlledValve
   - SignalControlledValveAlt1
@@ -846,7 +846,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
-    - !type:NoUnstackableInTile
+  - !type:NoUnstackableInTile
 
 - type: construction
   id: GasDualPortVentPump
@@ -887,7 +887,7 @@
   canBuildInImpassable: false
   mirror: GasFilterFlipped
   conditions:
-    - !type:NoUnstackableInTile
+  - !type:NoUnstackableInTile
 
 - type: construction
   id: GasFilterFlipped
@@ -900,7 +900,7 @@
   canBuildInImpassable: false
   mirror: GasFilter
   conditions:
-    - !type:NoUnstackableInTile
+  - !type:NoUnstackableInTile
 
 - type: construction
   id: GasMixer
@@ -912,7 +912,7 @@
   canBuildInImpassable: false
   mirror: GasMixerFlipped
   conditions:
-    - !type:NoUnstackableInTile
+  - !type:NoUnstackableInTile
 
 - type: construction
   id: GasMixerFlipped
@@ -925,7 +925,7 @@
   canBuildInImpassable: false
   mirror: GasMixer
   conditions:
-    - !type:NoUnstackableInTile
+  - !type:NoUnstackableInTile
 
 - type: construction
   id: PressureControlledValve
@@ -936,7 +936,7 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
-    - !type:NoUnstackableInTile
+  - !type:NoUnstackableInTile
 
 # INTERCOM
 - type: construction

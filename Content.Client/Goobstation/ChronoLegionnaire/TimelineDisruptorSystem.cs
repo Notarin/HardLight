@@ -2,6 +2,4 @@ using Content.Shared.Goobstation.ChronoLegionnaire;
 
 namespace Content.Client.Goobstation.ChronoLegionnaire;
 
-public sealed class TimelineDisruptorSystem : SharedTimelineDisruptorSystem
-{
-}
+public sealed class TimelineDisruptorSystem : SharedTimelineDisruptorSystem { }

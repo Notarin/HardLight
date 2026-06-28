@@ -16,11 +16,7 @@ public abstract partial class InteractionAction
     ///     Invoked when the user wants to get the list of verbs that can be performed on the target, after all verb-specific checks have passed..
     ///     If this method returns false, it will not be shown to the user.
     /// </summary>
-    public virtual bool IsAllowed(
-        InteractionArgs args,
-        InteractionVerbPrototype proto,
-        VerbDependencies deps
-    ) => true;
+    public virtual bool IsAllowed(InteractionArgs args, InteractionVerbPrototype proto, VerbDependencies deps) => true;
 
     /// <summary>
     ///     Checks whether this verb can be performed at the current moment.
@@ -36,11 +32,7 @@ public abstract partial class InteractionAction
     /// <summary>
     ///     Performs the action and returns whether it was successful.
     /// </summary>
-    public abstract bool Perform(
-        InteractionArgs args,
-        InteractionVerbPrototype proto,
-        VerbDependencies deps
-    );
+    public abstract bool Perform(InteractionArgs args, InteractionVerbPrototype proto, VerbDependencies deps);
 
     /// <summary>
     ///     Provided to interaction verbs to avoid unnecessary dependency injection.
@@ -50,10 +42,19 @@ public abstract partial class InteractionAction
     /// </remarks>
     public sealed class VerbDependencies
     {
-        [Dependency] public readonly IEntityManager EntMan = default!;
-        [Dependency] public readonly IPrototypeManager ProtoMan = default!;
-        [Dependency] public readonly IRobustRandom Random = default!;
-        [Dependency] public readonly IGameTiming Timing = default!;
-        [Dependency] public readonly ISerializationManager Serialization = default!;
+        [Dependency]
+        public readonly IEntityManager EntMan = default!;
+
+        [Dependency]
+        public readonly IPrototypeManager ProtoMan = default!;
+
+        [Dependency]
+        public readonly IRobustRandom Random = default!;
+
+        [Dependency]
+        public readonly IGameTiming Timing = default!;
+
+        [Dependency]
+        public readonly ISerializationManager Serialization = default!;
     }
 }

@@ -6,22 +6,22 @@
 
 using System.Linq;
 using System.Numerics;
+using Content.Client._Mono.Radar;
 using Content.Client.Shuttles.UI;
+using Content.Shared._Crescent.ShipShields;
 using Content.Shared._Mono.FireControl;
+using Content.Shared._Mono.Radar;
 using Content.Shared.Physics;
 using Content.Shared.Shuttles.BUIStates;
 using Content.Shared.Shuttles.Components;
 using Content.Shared.Shuttles.Systems;
-using Content.Client._Mono.Radar;
-using Content.Shared._Mono.Radar;
-using Content.Shared._Crescent.ShipShields;
-using Robust.Shared.Physics.Collision.Shapes;
 using Robust.Client.Graphics;
 using Robust.Client.UserInterface;
 using Robust.Shared.Input;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Physics;
+using Robust.Shared.Physics.Collision.Shapes;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Timing;
@@ -30,7 +30,8 @@ namespace Content.Client._Mono.FireControl.UI;
 
 public sealed class FireControlNavControl : BaseShuttleControl
 {
-    [Dependency] private readonly IMapManager _mapManager = default!;
+    [Dependency]
+    private readonly IMapManager _mapManager = default!;
     private readonly SharedShuttleSystem _shuttles;
     private readonly SharedTransformSystem _transform;
     private readonly RadarBlipsSystem _blips;
@@ -49,7 +50,7 @@ public sealed class FireControlNavControl : BaseShuttleControl
 
     #region Mono
 
-    private static readonly float RadarRequestInterval = (float) RadarBlipsSystem.RequestThrottle.TotalSeconds;
+    private static readonly float RadarRequestInterval = (float)RadarBlipsSystem.RequestThrottle.TotalSeconds;
     private float _requestAccumulator = 0f;
     #endregion
 
@@ -68,7 +69,8 @@ public sealed class FireControlNavControl : BaseShuttleControl
     public Action<EntityCoordinates>? OnRadarClick;
     public bool ShowIFF { get; set; } = true;
 
-    public FireControlNavControl() : base(64f, 1500f, 512f)
+    public FireControlNavControl()
+        : base(64f, 1500f, 512f)
     {
         IoCManager.InjectDependencies(this);
         _shuttles = EntManager.System<SharedShuttleSystem>();
@@ -202,8 +204,7 @@ public sealed class FireControlNavControl : BaseShuttleControl
         var fixturesQuery = EntManager.GetEntityQuery<FixturesComponent>();
         var bodyQuery = EntManager.GetEntityQuery<PhysicsComponent>();
 
-        if (!xformQuery.TryGetComponent(_coordinates.Value.EntityId, out var xform)
-            || xform.MapID == MapId.Nullspace)
+        if (!xformQuery.TryGetComponent(_coordinates.Value.EntityId, out var xform) || xform.MapID == MapId.Nullspace)
         {
             return;
         }
@@ -217,15 +218,20 @@ public sealed class FireControlNavControl : BaseShuttleControl
 
         var mapPos = _transform.ToMapCoordinates(_coordinates.Value).Offset(_rotation.Value.RotateVec(Offset));
         var mapCoord = _transform.ToCoordinates(mapPos);
-        var worldToShuttle = Matrix3Helpers.CreateTranslation(-mapCoord.Position) * Matrix3Helpers.CreateRotation(-worldRot);
+        var worldToShuttle =
+            Matrix3Helpers.CreateTranslation(-mapCoord.Position) * Matrix3Helpers.CreateRotation(-worldRot);
         Matrix3x2.Invert(worldToShuttle, out var shuttleToWorld);
-        var shuttleToView = Matrix3x2.CreateScale(new Vector2(MinimapScale, -MinimapScale)) * Matrix3x2.CreateTranslation(MidPointVector);
+        var shuttleToView =
+            Matrix3x2.CreateScale(new Vector2(MinimapScale, -MinimapScale))
+            * Matrix3x2.CreateTranslation(MidPointVector);
         var worldToView = worldToShuttle * shuttleToView;
         Matrix3x2.Invert(worldToView, out var viewToWorld);
 
         var ourGridId = xform.GridUid;
-        if (EntManager.TryGetComponent<MapGridComponent>(ourGridId, out var ourGrid) &&
-            fixturesQuery.HasComponent(ourGridId.Value))
+        if (
+            EntManager.TryGetComponent<MapGridComponent>(ourGridId, out var ourGrid)
+            && fixturesQuery.HasComponent(ourGridId.Value)
+        )
         {
             var ourGridToWorld = _transform.GetWorldMatrix(ourGridId.Value);
             var ourGridToShuttle = Matrix3x2.Multiply(ourGridToWorld, worldToShuttle);
@@ -254,7 +260,13 @@ public sealed class FireControlNavControl : BaseShuttleControl
 
         _grids.Clear();
         var maxRange = new Vector2(WorldRange, WorldRange);
-        _mapManager.FindGridsIntersecting(xform.MapID, new Box2(mapPos.Position - maxRange, mapPos.Position + maxRange), ref _grids, approx: true, includeMap: false);
+        _mapManager.FindGridsIntersecting(
+            xform.MapID,
+            new Box2(mapPos.Position - maxRange, mapPos.Position + maxRange),
+            ref _grids,
+            approx: true,
+            includeMap: false
+        );
 
         foreach (var grid in _grids)
         {
@@ -285,8 +297,11 @@ public sealed class FireControlNavControl : BaseShuttleControl
                     var gridCentre = Vector2.Transform(gridBody.LocalCenter, curGridToView);
 
                     var distance = gridCentre.Length();
-                    var labelText = Loc.GetString("shuttle-console-iff-label", ("name", labelName),
-                        ("distance", $"{distance:0.0}"));
+                    var labelText = Loc.GetString(
+                        "shuttle-console-iff-label",
+                        ("name", labelName),
+                        ("distance", $"{distance:0.0}")
+                    );
 
                     var mapCoords = _transform.GetWorldPosition(gUid);
                     var coordsText = $"({mapCoords.X:0.0}, {mapCoords.Y:0.0})";
@@ -460,7 +475,11 @@ public sealed class FireControlNavControl : BaseShuttleControl
 
     private void DrawShields(DrawingHandleScreen handle, TransformComponent consoleXform, Matrix3x2 worldToShuttle)
     {
-        var shields = EntManager.AllEntityQueryEnumerator<ShipShieldVisualsComponent, FixturesComponent, TransformComponent>();
+        var shields = EntManager.AllEntityQueryEnumerator<
+            ShipShieldVisualsComponent,
+            FixturesComponent,
+            TransformComponent
+        >();
         while (shields.MoveNext(out _, out var visuals, out var fixtures, out var xform))
         {
             if (xform.GridUid == null || xform.MapID != consoleXform.MapID)
@@ -469,8 +488,10 @@ public sealed class FireControlNavControl : BaseShuttleControl
             if (EntManager.HasComponent<FTLComponent>(xform.GridUid.Value))
                 continue;
 
-            if (!fixtures.Fixtures.TryGetValue("shield", out var fixture)
-                && !fixtures.Fixtures.TryGetValue("internalShield", out fixture))
+            if (
+                !fixtures.Fixtures.TryGetValue("shield", out var fixture)
+                && !fixtures.Fixtures.TryGetValue("internalShield", out fixture)
+            )
                 continue;
 
             var center = xform.LocalPosition;
@@ -562,7 +583,13 @@ public sealed class FireControlNavControl : BaseShuttleControl
         return coords;
     }
 
-    private void DrawBlipShape(DrawingHandleScreen handle, Vector2 position, float size, Color color, RadarBlipShape shape)
+    private void DrawBlipShape(
+        DrawingHandleScreen handle,
+        Vector2 position,
+        float size,
+        Color color,
+        RadarBlipShape shape
+    )
     {
         switch (shape)
         {
@@ -584,7 +611,7 @@ public sealed class FireControlNavControl : BaseShuttleControl
                 {
                     position + new Vector2(0, -size),
                     position + new Vector2(-size * 0.866f, size * 0.5f),
-                    position + new Vector2(size * 0.866f, size * 0.5f)
+                    position + new Vector2(size * 0.866f, size * 0.5f),
                 };
                 handle.DrawPrimitives(DrawPrimitiveTopology.TriangleList, points, color);
                 break;
@@ -597,7 +624,7 @@ public sealed class FireControlNavControl : BaseShuttleControl
                     position + new Vector2(0, -size),
                     position + new Vector2(size, 0),
                     position + new Vector2(0, size),
-                    position + new Vector2(-size, 0)
+                    position + new Vector2(-size, 0),
                 };
                 handle.DrawPrimitives(DrawPrimitiveTopology.TriangleFan, diamondPoints, color);
                 break;
@@ -621,10 +648,7 @@ public sealed class FireControlNavControl : BaseShuttleControl
         {
             var angle = i * MathF.PI / 5;
             var radius = i % 2 == 0 ? outerRadius : innerRadius;
-            points.Add(position + new Vector2(
-                radius * MathF.Sin(angle),
-                -radius * MathF.Cos(angle)
-            ));
+            points.Add(position + new Vector2(radius * MathF.Sin(angle), -radius * MathF.Cos(angle)));
         }
 
         handle.DrawPrimitives(DrawPrimitiveTopology.TriangleFan, points.ToArray(), color);
@@ -637,10 +661,7 @@ public sealed class FireControlNavControl : BaseShuttleControl
         for (var i = 0; i < 6; i++)
         {
             var angle = i * MathF.PI / 3;
-            points.Add(position + new Vector2(
-                size * MathF.Cos(angle),
-                size * MathF.Sin(angle)
-            ));
+            points.Add(position + new Vector2(size * MathF.Cos(angle), size * MathF.Sin(angle)));
         }
 
         handle.DrawPrimitives(DrawPrimitiveTopology.TriangleFan, points.ToArray(), color);
@@ -653,7 +674,7 @@ public sealed class FireControlNavControl : BaseShuttleControl
             position + new Vector2(0, -size),
             position + new Vector2(size * 0.5f, 0),
             position + new Vector2(0, size),
-            position + new Vector2(-size * 0.5f, 0)
+            position + new Vector2(-size * 0.5f, 0),
         };
 
         handle.DrawPrimitives(DrawPrimitiveTopology.TriangleFan, points, color);
@@ -663,13 +684,13 @@ public sealed class FireControlNavControl : BaseShuttleControl
     {
         const float SafeZoneRadius = 5000f;
         var safeZoneColor = Color.LimeGreen.WithAlpha(0.8f);
-        
+
         // Calculate the center position
         var centerPos = ScalePosition(Vector2.Zero);
-        
+
         // Scale the radius according to the minimap scale
         var scaledRadius = SafeZoneRadius * MinimapScale;
-        
+
         // Draw the ring
         handle.DrawCircle(centerPos, scaledRadius, safeZoneColor, filled: false);
     }

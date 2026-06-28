@@ -2,6 +2,7 @@
 using Robust.Shared.Serialization;
 
 namespace Content.Shared.Beam.Components;
+
 /// <summary>
 /// Use this as a generic beam. Not for something like a laser gun, more for something continuous like lightning.
 /// </summary>
@@ -103,7 +104,13 @@ public sealed class BeamVisualizerEvent : EntityEventArgs
     public readonly string? BodyState;
     public readonly string Shader = "unshaded";
 
-    public BeamVisualizerEvent(NetEntity beam, float distanceLength, Angle userAngle, string? bodyState = null, string shader = "unshaded")
+    public BeamVisualizerEvent(
+        NetEntity beam,
+        float distanceLength,
+        Angle userAngle,
+        string? bodyState = null,
+        string shader = "unshaded"
+    )
     {
         Beam = beam;
         DistanceLength = distanceLength;

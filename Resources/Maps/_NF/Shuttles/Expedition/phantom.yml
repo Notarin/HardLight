@@ -4413,12 +4413,9 @@ entities:
       content: >-
         Congratulations on purchasing your very of Phantom-Class ship!
 
-
         Ninetails Corporation proudly presents you the first of it's kind omni-functional medium sized ship!
 
-
         You can find a chem lab in the southeast and engineering workshop at the southwest. You can find an IFF console near your seat for your shady business.
-
 
         Mercfab and IFF console etc. prices included in ship price.
 - proto: PlushieGhost
@@ -6119,4 +6116,3 @@ entities:
     - type: Transform
       pos: -2.5622644,-11.474328
       parent: 1
-...

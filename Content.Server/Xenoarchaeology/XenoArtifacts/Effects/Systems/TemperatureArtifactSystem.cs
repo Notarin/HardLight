@@ -9,8 +9,11 @@ namespace Content.Server.Xenoarchaeology.XenoArtifacts.Effects.Systems;
 
 public sealed class TemperatureArtifactSystem : EntitySystem
 {
-    [Dependency] private readonly AtmosphereSystem _atmosphereSystem = default!;
-    [Dependency] private readonly TransformSystem _transformSystem = default!;
+    [Dependency]
+    private readonly AtmosphereSystem _atmosphereSystem = default!;
+
+    [Dependency]
+    private readonly TransformSystem _transformSystem = default!;
 
     public override void Initialize()
     {
@@ -29,8 +32,11 @@ public sealed class TemperatureArtifactSystem : EntitySystem
 
         if (component.AffectAdjacentTiles && transform.GridUid != null)
         {
-            var enumerator = _atmosphereSystem.GetAdjacentTileMixtures(transform.GridUid.Value,
-                _transformSystem.GetGridOrMapTilePosition(uid, transform), excite: true);
+            var enumerator = _atmosphereSystem.GetAdjacentTileMixtures(
+                transform.GridUid.Value,
+                _transformSystem.GetGridOrMapTilePosition(uid, transform),
+                excite: true
+            );
 
             while (enumerator.MoveNext(out var mixture))
             {

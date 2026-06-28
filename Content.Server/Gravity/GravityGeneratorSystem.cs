@@ -7,8 +7,11 @@ namespace Content.Server.Gravity;
 
 public sealed class GravityGeneratorSystem : EntitySystem
 {
-    [Dependency] private readonly GravitySystem _gravitySystem = default!;
-    [Dependency] private readonly SharedPointLightSystem _lights = default!;
+    [Dependency]
+    private readonly GravitySystem _gravitySystem = default!;
+
+    [Dependency]
+    private readonly SharedPointLightSystem _lights = default!;
 
     public override void Initialize()
     {
@@ -30,8 +33,11 @@ public sealed class GravityGeneratorSystem : EntitySystem
                 continue;
 
             _lights.SetEnabled(uid, charge.Charge > 0, pointLight);
-            _lights.SetRadius(uid, MathHelper.Lerp(grav.LightRadiusMin, grav.LightRadiusMax, charge.Charge),
-                pointLight);
+            _lights.SetRadius(
+                uid,
+                MathHelper.Lerp(grav.LightRadiusMin, grav.LightRadiusMax, charge.Charge),
+                pointLight
+            );
         }
     }
 

@@ -27,6 +27,10 @@ public sealed partial class SatiateThirst : EntityEffect
             args.EntityManager.System<ThirstSystem>().ModifyThirst(uid, thirst, HydrationFactor);
     }
 
-    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys)
-        => Loc.GetString("reagent-effect-guidebook-satiate-thirst", ("chance", Probability), ("relative",  HydrationFactor / DefaultHydrationFactor));
+    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys) =>
+        Loc.GetString(
+            "reagent-effect-guidebook-satiate-thirst",
+            ("chance", Probability),
+            ("relative", HydrationFactor / DefaultHydrationFactor)
+        );
 }

@@ -21,7 +21,8 @@ public sealed class ThavenMoodsBoundUserInterface : BoundUserInterface
     private List<ThavenMood>? _moods;
     private List<ThavenMood>? _sharedMoods;
 
-    public ThavenMoodsBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
+    public ThavenMoodsBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey)
     {
         _owner = owner;
     }

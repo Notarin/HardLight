@@ -2,54 +2,54 @@
   abstract: true
   id: BaseStationNanotrasen
   components:
-    - type: NpcFactionMember
-      factions:
-        - NanoTrasen
+  - type: NpcFactionMember
+    factions:
+    - NanoTrasen
 
 - type: entity
   id: StandardNanotrasenStation
   parent:
-    - BaseStation
-    - BaseStationNews
-    - BaseStationCargo
-    - BaseStationJobsSpawning
-    - BaseStationRecords
-    # - BaseStationArrivals # Frontier: prevent test issues from non-Frontier maps
-    # - BaseStationGateway # Frontier: prevent test issues from non-Frontier maps
-    # - BaseStationShuttles # Frontier: prevent test issues from non-Frontier maps
-    - BaseStationColcomm # Frontier: prevent test issues from non-Frontier maps
-    - BaseStationTheDark # HL
-    - BaseStationEvacuation # Frontier: prevent test issues from non-Frontier maps
-    - BaseStationBusDepot
-    - BaseStationAlertLevels
-    - BaseStationMagnet
-    - BaseStationExpeditions
-    # - BaseStationSiliconLawCrewsimov
-    - BaseStationAllEventsEligible
-    - BaseStationNanotrasen
-    # - BaseStationDeliveries
-    - BaseStationSectorServices
-    - NFBaseStationCargo
-    - BaseStationSectorNews
-    - BaseStationSiliconLawFrontierStation
-    - BaseStationRenameWarpPoints
-    # - BaseStationMail
-    # - BaseStationCargoMarket # bugged
-    - BaseStationCryoTeleportation
-  categories: [ HideSpawnMenu ]
+  - BaseStation
+  - BaseStationNews
+  - BaseStationCargo
+  - BaseStationJobsSpawning
+  - BaseStationRecords
+  # - BaseStationArrivals # Frontier: prevent test issues from non-Frontier maps
+  # - BaseStationGateway # Frontier: prevent test issues from non-Frontier maps
+  # - BaseStationShuttles # Frontier: prevent test issues from non-Frontier maps
+  - BaseStationColcomm # Frontier: prevent test issues from non-Frontier maps
+  - BaseStationTheDark # HL
+  - BaseStationEvacuation # Frontier: prevent test issues from non-Frontier maps
+  - BaseStationBusDepot
+  - BaseStationAlertLevels
+  - BaseStationMagnet
+  - BaseStationExpeditions
+  # - BaseStationSiliconLawCrewsimov
+  - BaseStationAllEventsEligible
+  - BaseStationNanotrasen
+  # - BaseStationDeliveries
+  - BaseStationSectorServices
+  - NFBaseStationCargo
+  - BaseStationSectorNews
+  - BaseStationSiliconLawFrontierStation
+  - BaseStationRenameWarpPoints
+  # - BaseStationMail
+  # - BaseStationCargoMarket # bugged
+  - BaseStationCryoTeleportation
+  categories: [HideSpawnMenu]
   components:
-    - type: Transform
+  - type: Transform
 
 - type: entity
   id: NanotrasenCentralCommand
   parent:
-    - BaseStation
-    - BaseStationAlertLevels
-    - BaseStationNanotrasen
-    - BaseStationCryoTeleportation
-  categories: [ HideSpawnMenu ]
+  - BaseStation
+  - BaseStationAlertLevels
+  - BaseStationNanotrasen
+  - BaseStationCryoTeleportation
+  categories: [HideSpawnMenu]
   components:
-    - type: Transform
+  - type: Transform
 
 - type: entity
   id: StandardStationArena
@@ -58,9 +58,9 @@
   - BaseStationJobsSpawning
   - BaseStationRecords
   - BaseStationNanotrasen
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
-    - type: Transform
+  - type: Transform
 
 # region Frontier Outpost
 - type: entity
@@ -86,7 +86,7 @@
   - BaseStationExpeditions
   - BaseStationNanotrasen
   # - BaseStationDeliveries
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Transform
 
@@ -97,7 +97,7 @@
   parent:
   - StandardFrontierStation
   - MarketFrontierOutpost
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
 
 # region POIs
 - type: entity
@@ -107,7 +107,7 @@
   - BaseStationJobsSpawning
   - BaseStationSiliconLawFrontierShips
   - BaseStationDampening
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Transform
 
@@ -116,7 +116,7 @@
   parent:
   - StandardFrontierOutpost
   - BaseStationDeadDrops
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
 
 - type: entity
   id: MarketFrontierOutpost
@@ -124,7 +124,7 @@
   - NFBaseStationCargo
   - StandardFrontierOutpost
   - BaseStationCargoMarket
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
 
   # Station with records, for shuttle purchases and/or player spawning
 - type: entity
@@ -132,14 +132,14 @@
   parent:
   - StandardFrontierOutpost
   - BaseStationRecords
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
 
 - type: entity
   id: DeadDropRecordsFrontierOutpost
   parent:
   - StandardFrontierOutpost
   - BaseStationDeadDrops
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
 
 - type: entity
   id: SecurityFrontierOutpost
@@ -149,7 +149,7 @@
   - BaseStationRecords
   - BaseStationSiliconLawFrontierStation # No funny borg laws
   - BaseStationDampening
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Transform
 
@@ -165,7 +165,7 @@
   - BaseStationRenameWarpPoints
   - BaseStationSiliconLawFrontierShips
   - BaseStationDeadDropHintExempt # No hints on ship generation
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Transform
   - type: ExtraShuttleInformation
@@ -182,7 +182,7 @@
   - BaseStationSiliconLawFrontierShips
   - BaseStationExpeditions
   - BaseStationDeadDropHintExempt # No hints on ship generation
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Transform
   - type: ExtraShuttleInformation
@@ -191,7 +191,7 @@
   id: StandardFrontierAntagVessel
   parent:
   - StandardFrontierVessel
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Transform
   - type: ExtraShuttleInformation
@@ -201,7 +201,7 @@
   id: StandardFrontierSecurityVessel
   parent:
   - StandardFrontierVessel
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Transform
 
@@ -211,11 +211,11 @@
   parent:
   - StandardFrontierSecurityVessel
   - BaseStationExpeditions
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
 
 - type: entity
   id: StandardFrontierExpeditionVessel
   parent:
   - StandardFrontierVessel
   - BaseStationExpeditions
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]

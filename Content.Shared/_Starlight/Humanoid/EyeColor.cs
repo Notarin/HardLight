@@ -62,7 +62,7 @@ public static class EyeColor
         return type switch
         {
             HumanoidEyeColor.Shadekin => MakeShadekinValid(color),
-            _ => color
+            _ => color,
         };
     }
 }

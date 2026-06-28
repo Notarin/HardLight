@@ -9,9 +9,13 @@ namespace Content.Shared.Goobstation.ChronoLegionnaire.Components
     [RegisterComponent, NetworkedComponent, Access(typeof(SharedStasisSystem))]
     public sealed partial class InsideStasisComponent : Component
     {
-        public SoundSpecifier StasisSound = new SoundPathSpecifier("/Audio/Effects/Grenades/Supermatter/whitehole_start.ogg");
+        public SoundSpecifier StasisSound = new SoundPathSpecifier(
+            "/Audio/Effects/Grenades/Supermatter/whitehole_start.ogg"
+        );
 
-        public SoundSpecifier StasisEndSound = new SoundPathSpecifier("/Audio/Goobstation/Effects/ChronoLegionnaire/stasis_reversed.ogg");
+        public SoundSpecifier StasisEndSound = new SoundPathSpecifier(
+            "/Audio/Goobstation/Effects/ChronoLegionnaire/stasis_reversed.ogg"
+        );
 
         /// <summary>
         /// Stasis effect on contanmend player

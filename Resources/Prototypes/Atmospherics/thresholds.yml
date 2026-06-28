@@ -29,7 +29,6 @@
   lowerWarnAround: !type:AlarmThresholdSetting
     threshold: 1.1
 
-
 - type: alarmThreshold
   id: stationPressure
   upperBound: !type:AlarmThresholdSetting

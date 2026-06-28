@@ -51,8 +51,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.45,-0.45,0.45,0.45"
         mask:
         - MachineMask
@@ -64,14 +63,12 @@
   - type: InteractionOutline
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:DoActsBehavior
         acts: ["Breakage"]
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 200
       behaviors:
       - !type:SpawnEntitiesBehavior
@@ -80,7 +77,7 @@
             min: 1
             max: 1
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:PlaySoundBehavior
         sound:
           collection: MetalBreak
@@ -94,7 +91,7 @@
   id: DVSmartFridgeMedical
   name: Medical SmartFridge
   description: A refrigerated storage unit for keeping lifesaving medications cold and fresh.
-  categories: [ HideSpawnMenu ] # Frontier, hide this one as we don't use the access systems for it.
+  categories: [HideSpawnMenu] # Frontier, hide this one as we don't use the access systems for it.
   components:
   - type: AccessReader
     access: [["Medical"]]

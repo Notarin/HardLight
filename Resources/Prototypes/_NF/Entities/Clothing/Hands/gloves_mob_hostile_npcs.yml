@@ -5,7 +5,7 @@
   name: combat gloves
   suffix: smg
   description: Regular black gloves that do not keep you from frying.
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Unremoveable
   - type: Tag # HL
@@ -29,7 +29,7 @@
   id: ClothingHandsGlovesColorBlackAK
   name: combat gloves
   suffix: ak
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Clothing
     clothingVisuals:
@@ -45,7 +45,7 @@
   id: ClothingHandsGlovesColorBlackChinaLake
   name: combat gloves
   suffix: china lake
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Clothing
     clothingVisuals:
@@ -61,7 +61,7 @@
   id: ClothingHandsGlovesColorBlackPistol
   name: combat gloves
   suffix: pistol
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Clothing
     clothingVisuals:
@@ -77,7 +77,7 @@
   id: ClothingHandsGlovesColorMercPistol
   name: combat gloves
   suffix: pistol
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Clothing
     clothingVisuals:
@@ -92,7 +92,7 @@
   id: ClothingHandsGlovesColorMercRevolvers
   name: combat gloves
   suffix: double revolvers
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Clothing
     clothingVisuals:
@@ -109,7 +109,7 @@
   id: ClothingHandsGlovesColorMercShotgun
   name: combat gloves
   suffix: shotgun
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Clothing
     clothingVisuals:
@@ -124,7 +124,7 @@
   id: ClothingHandsGlovesColorMercMosin
   name: combat gloves
   suffix: mosin
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Clothing
     clothingVisuals:
@@ -139,7 +139,7 @@
   id: ClothingHandsGlovesColorMercRepeater
   name: combat gloves
   suffix: repeater
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Clothing
     clothingVisuals:
@@ -154,7 +154,7 @@
   id: ClothingHandsGlovesColorMercGestio
   name: combat gloves
   suffix: gestio
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Clothing
     clothingVisuals:
@@ -169,7 +169,7 @@
   id: ClothingHandsGlovesColorMercNovalite
   name: combat gloves
   suffix: novalite
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Clothing
     clothingVisuals:
@@ -184,7 +184,7 @@
   id: ClothingHandsGlovesColorMercHatchet
   name: combat gloves
   suffix: hatchet
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Clothing
     clothingVisuals:
@@ -201,7 +201,7 @@
   id: ClothingHandsGlovesColorMercMachete
   name: combat gloves
   suffix: hatchet
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Clothing
     clothingVisuals:
@@ -218,7 +218,7 @@
   id: ClothingHandsGlovesColorMercLaserNSaw
   name: combat gloves
   suffix: laser and saw
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Clothing
     clothingVisuals:
@@ -235,7 +235,7 @@
   id: ClothingHandsGlovesColorBlackPython
   name: combat gloves
   suffix: python
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Clothing
     clothingVisuals:
@@ -251,7 +251,7 @@
   id: ClothingHandsGlovesColorBlackShotgun
   name: combat gloves
   suffix: shotgun
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Clothing
     clothingVisuals:
@@ -267,7 +267,7 @@
   id: ClothingHandsGlovesColorBlackSprayNozzle
   name: combat gloves
   suffix: spray nozzle
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Clothing
     clothingVisuals:
@@ -283,7 +283,7 @@
   id: ClothingHandsGlovesColorBlackCrossbow
   name: combat gloves
   suffix: crossbow
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Clothing
     clothingVisuals:
@@ -299,7 +299,7 @@
   id: ClothingHandsGlovesColorBlackLaserPistol
   name: combat gloves
   suffix: laser pistol
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Clothing
     clothingVisuals:
@@ -317,7 +317,7 @@
   parent: ClothingNeckBase
   name: punk gloves
   description: Colorful gloves that do not keep you from frying.
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Unremoveable
   - type: Tag # HL
@@ -325,27 +325,27 @@
   - type: Sprite
     sprite: Clothing/Hands/Gloves/Color/color.rsi
     layers:
-      - state: icon
-        map: [ "gloves_decor" ]
+    - state: icon
+      map: ["gloves_decor"]
   - type: Clothing
     clothingVisuals:
       neck:
       # Gloves
       - sprite: Clothing/Hands/Gloves/Color/color.rsi
         state: equipped-HAND
-        map: [ "gloves_decor" ]
+        map: ["gloves_decor"]
       # Weapon
       - sprite: Objects/Weapons/Melee/baseball_bat.rsi
         state: wielded-inhand-right
   - type: RandomSprite
     available:
-      - gloves_decor:
-          equipped-HAND: CyberpunkNeon
+    - gloves_decor:
+        equipped-HAND: CyberpunkNeon
 
 - type: entity
   id: PunkHandsGlovesFireaxe
   parent: PunkHandsGlovesBaseballBat
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Clothing
     clothingVisuals:
@@ -353,7 +353,7 @@
       # Gloves
       - sprite: Clothing/Hands/Gloves/Color/color.rsi
         state: equipped-HAND
-        map: [ "gloves_decor" ]
+        map: ["gloves_decor"]
       # Weapon
       - sprite: Objects/Weapons/Melee/fireaxe.rsi
         state: wielded-inhand-right
@@ -361,7 +361,7 @@
 - type: entity
   id: PunkHandsGlovesSledgehammer
   parent: PunkHandsGlovesBaseballBat
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Clothing
     clothingVisuals:
@@ -369,7 +369,7 @@
       # Gloves
       - sprite: Clothing/Hands/Gloves/Color/color.rsi
         state: equipped-HAND
-        map: [ "gloves_decor" ]
+        map: ["gloves_decor"]
       # Weapon
       - sprite: Objects/Weapons/Melee/sledgehammer.rsi
         state: wielded-inhand-right
@@ -377,7 +377,7 @@
 - type: entity
   id: PunkHandsGlovesShotgun
   parent: PunkHandsGlovesBaseballBat
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Clothing
     clothingVisuals:
@@ -385,7 +385,7 @@
       # Gloves
       - sprite: Clothing/Hands/Gloves/Color/color.rsi
         state: equipped-HAND
-        map: [ "gloves_decor" ]
+        map: ["gloves_decor"]
       # Weapon
       - sprite: Objects/Weapons/Guns/Shotguns/pump_inhands_64x.rsi
         state: wielded-inhand-right
@@ -393,7 +393,7 @@
 - type: entity
   id: PunkHandsGlovesSmg
   parent: PunkHandsGlovesBaseballBat
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Clothing
     clothingVisuals:
@@ -401,7 +401,7 @@
       # Gloves
       - sprite: Clothing/Hands/Gloves/Color/color.rsi
         state: equipped-HAND
-        map: [ "gloves_decor" ]
+        map: ["gloves_decor"]
       # Weapon
       - sprite: Objects/Weapons/Guns/SMGs/drozd.rsi
         state: wielded-inhand-right
@@ -409,7 +409,7 @@
 - type: entity
   id: PunkHandsGlovesLaserGun
   parent: PunkHandsGlovesBaseballBat
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Clothing
     clothingVisuals:
@@ -417,7 +417,7 @@
       # Gloves
       - sprite: Clothing/Hands/Gloves/Color/color.rsi
         state: equipped-HAND
-        map: [ "gloves_decor" ]
+        map: ["gloves_decor"]
       # Weapon
       - sprite: Objects/Weapons/Guns/Battery/laser_gun.rsi
         state: wielded-inhand-right

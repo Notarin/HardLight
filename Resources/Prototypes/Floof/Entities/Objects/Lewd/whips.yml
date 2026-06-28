@@ -80,8 +80,8 @@
     damage:
       types:
         Blunt: 4
-    # Flooftier - removed as frontier doesn't have the EE combat system.
-    # heavyDamageBaseModifier: 1.25
+        # Flooftier - removed as frontier doesn't have the EE combat system.
+        # heavyDamageBaseModifier: 1.25
 
 - type: entity
   parent: BaseWhip

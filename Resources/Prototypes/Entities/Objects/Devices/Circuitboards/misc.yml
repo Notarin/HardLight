@@ -11,6 +11,6 @@
     state: airalarm_electronics
   - type: Tag
     tags:
-      - StationMapElectronics
+    - StationMapElectronics
   - type: StaticPrice
     price: 30 # HL: Price balancing

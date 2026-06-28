@@ -8,7 +8,7 @@
     sprite: _RMC14/Objects/Weapons/Guns/Pistols/mateba/jungle.rsi
     layers:
     - state: base
-      map: [ "enum.GunVisualLayers.Base" ]
+      map: ["enum.GunVisualLayers.Base"]
   - type: Clothing
     sprite: _RMC14/Objects/Weapons/Guns/Pistols/mateba/jungle.rsi
   - type: Gun
@@ -21,43 +21,43 @@
       - RMCCartridgeRevolverMateba
     proto: RMCCartridgeRevolverMateba
     capacity: 6
-    chambers: [ True, True, True, True, True, True ]
-    ammoSlots: [ null, null, null, null, null, null ]
+    chambers: [True, True, True, True, True, True]
+    ammoSlots: [null, null, null, null, null, null]
   - type: GunDamageModifier
     multiplier: 1.5
   # - type: RMCSelectiveFire
-    # baseFireRate: 1.111
-    # scatterWielded: 8
+  # baseFireRate: 1.111
+  # scatterWielded: 8
   # - type: RMCWeaponAccuracy
-    # accuracyMultiplier: 1.1
-    # accuracyMultiplierUnwielded: 0.75
+  # accuracyMultiplier: 1.1
+  # accuracyMultiplierUnwielded: 0.75
   - type: Appearance
-  # - type: AttachableHolder
+    # - type: AttachableHolder
     # slots:
-      # rmc-aslot-barrel:
-        # startingAttachable: RMCAttachmentMatebaStandard
-        # whitelist:
-          # tags:
-          # - RMCAttachmentRecoilCompensator
-          # - RMCAttachmentMatebaStandard
-          # - RMCAttachmentBarrelCharger
-      # rmc-aslot-rail:
-        # whitelist:
-          # tags:
-          # - RMCAttachmentRailFlashlight
-          # - RMCAttachmentS5RedDotSight
-          # - RMCAttachmentS6ReflexSight
-  # - type: AttachableHolderVisuals
+    # rmc-aslot-barrel:
+    # startingAttachable: RMCAttachmentMatebaStandard
+    # whitelist:
+    # tags:
+    # - RMCAttachmentRecoilCompensator
+    # - RMCAttachmentMatebaStandard
+    # - RMCAttachmentBarrelCharger
+    # rmc-aslot-rail:
+    # whitelist:
+    # tags:
+    # - RMCAttachmentRailFlashlight
+    # - RMCAttachmentS5RedDotSight
+    # - RMCAttachmentS6ReflexSight
+    # - type: AttachableHolderVisuals
     # offsets:
-      # rmc-aslot-barrel: 0.215, 0.19
-      # rmc-aslot-rail: -0.11, 0.22
-  # - type: ItemCamouflage
+    # rmc-aslot-barrel: 0.215, 0.19
+    # rmc-aslot-rail: -0.11, 0.22
+    # - type: ItemCamouflage
     # camouflageVariations:
-      # Jungle: _RMC14/Objects/Weapons/Guns/Pistols/mateba/jungle.rsi
-      # Desert: _RMC14/Objects/Weapons/Guns/Pistols/mateba/desert.rsi
-      # Snow: _RMC14/Objects/Weapons/Guns/Pistols/mateba/snow.rsi
-      # Classic: _RMC14/Objects/Weapons/Guns/Pistols/mateba/classic.rsi
-      # Urban: _RMC14/Objects/Weapons/Guns/Pistols/mateba/urban.rsi
+    # Jungle: _RMC14/Objects/Weapons/Guns/Pistols/mateba/jungle.rsi
+    # Desert: _RMC14/Objects/Weapons/Guns/Pistols/mateba/desert.rsi
+    # Snow: _RMC14/Objects/Weapons/Guns/Pistols/mateba/snow.rsi
+    # Classic: _RMC14/Objects/Weapons/Guns/Pistols/mateba/classic.rsi
+    # Urban: _RMC14/Objects/Weapons/Guns/Pistols/mateba/urban.rsi
 
 - type: entity
   id: RMCBaseSpeedLoaderMateba
@@ -92,9 +92,9 @@
     sprite: _RMC14/Objects/Weapons/Guns/Ammunition/SpeedLoaders/mateba.rsi
     layers:
     - state: base
-      map: [ "enum.GunVisualLayers.Base" ]
+      map: ["enum.GunVisualLayers.Base"]
     - state: base-5
-      map: [ "enum.GunVisualLayers.Mag" ]
+      map: ["enum.GunVisualLayers.Mag"]
   - type: MagazineVisuals
     magState: base
     steps: 6
@@ -125,15 +125,15 @@
     damage:
       types:
         Piercing: 50
-  # - type: CMArmorPiercing
+        # - type: CMArmorPiercing
     # amount: 20
-  # - type: RMCStunOnHit
-    # maxRange: 4.5
-    # stunTime: 1
-  # - type: RMCProjectileAccuracy
-    # accuracy: 90
-
 - type: Tag
+  # - type: RMCStunOnHit
+  # maxRange: 4.5
+  # stunTime: 1
+  # - type: RMCProjectileAccuracy
+  # accuracy: 90
+
   id: RMCSpeedLoaderMateba
 
 - type: Tag

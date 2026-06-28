@@ -11,8 +11,11 @@ namespace Content.Server._Starlight.EdgeConnection;
 /// </summary>
 public sealed class EdgeConnectionSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _map = default!;
 
     public override void Initialize()
     {
@@ -62,7 +65,7 @@ public sealed class EdgeConnectionSystem : EntitySystem
     private void UpdateConnections(Entity<EdgeConnectionComponent> ent)
     {
         var xform = Transform(ent);
-        
+
         if (!xform.Anchored || !TryComp<MapGridComponent>(xform.GridUid, out var grid))
         {
             _appearance.SetData(ent, EdgeConnectionVisuals.ConnectionMask, EdgeConnectionFlags.None);
@@ -80,25 +83,61 @@ public sealed class EdgeConnectionSystem : EntitySystem
         // Check each world direction if it's allowed after rotation
         if ((worldAllowed & EdgeConnectionFlags.East) != 0)
         {
-            if (HasMatchingNeighbor(ent, xform.GridUid.Value, grid, tile + new Vector2i(1, 0), ent.Comp.ConnectionKey, EdgeConnectionFlags.West))
+            if (
+                HasMatchingNeighbor(
+                    ent,
+                    xform.GridUid.Value,
+                    grid,
+                    tile + new Vector2i(1, 0),
+                    ent.Comp.ConnectionKey,
+                    EdgeConnectionFlags.West
+                )
+            )
                 mask |= EdgeConnectionFlags.East;
         }
 
         if ((worldAllowed & EdgeConnectionFlags.West) != 0)
         {
-            if (HasMatchingNeighbor(ent, xform.GridUid.Value, grid, tile + new Vector2i(-1, 0), ent.Comp.ConnectionKey, EdgeConnectionFlags.East))
+            if (
+                HasMatchingNeighbor(
+                    ent,
+                    xform.GridUid.Value,
+                    grid,
+                    tile + new Vector2i(-1, 0),
+                    ent.Comp.ConnectionKey,
+                    EdgeConnectionFlags.East
+                )
+            )
                 mask |= EdgeConnectionFlags.West;
         }
 
         if ((worldAllowed & EdgeConnectionFlags.North) != 0)
         {
-            if (HasMatchingNeighbor(ent, xform.GridUid.Value, grid, tile + new Vector2i(0, 1), ent.Comp.ConnectionKey, EdgeConnectionFlags.South))
+            if (
+                HasMatchingNeighbor(
+                    ent,
+                    xform.GridUid.Value,
+                    grid,
+                    tile + new Vector2i(0, 1),
+                    ent.Comp.ConnectionKey,
+                    EdgeConnectionFlags.South
+                )
+            )
                 mask |= EdgeConnectionFlags.North;
         }
 
         if ((worldAllowed & EdgeConnectionFlags.South) != 0)
         {
-            if (HasMatchingNeighbor(ent, xform.GridUid.Value, grid, tile + new Vector2i(0, -1), ent.Comp.ConnectionKey, EdgeConnectionFlags.North))
+            if (
+                HasMatchingNeighbor(
+                    ent,
+                    xform.GridUid.Value,
+                    grid,
+                    tile + new Vector2i(0, -1),
+                    ent.Comp.ConnectionKey,
+                    EdgeConnectionFlags.North
+                )
+            )
                 mask |= EdgeConnectionFlags.South;
         }
 
@@ -130,11 +169,12 @@ public sealed class EdgeConnectionSystem : EntitySystem
     {
         // Normalize angle to 0-360
         var degrees = (int)Math.Round(rotation.Degrees) % 360;
-        if (degrees < 0) degrees += 360;
+        if (degrees < 0)
+            degrees += 360;
 
         // Round to nearest 90 degrees
         var quarterTurns = (int)Math.Round(degrees / 90.0) % 4;
-        
+
         // Invert if counterclockwise
         if (!clockwise)
             quarterTurns = (4 - quarterTurns) % 4;
@@ -149,20 +189,28 @@ public sealed class EdgeConnectionSystem : EntitySystem
             if (clockwise)
             {
                 // Clockwise: North→East→South→West
-                if ((flags & EdgeConnectionFlags.North) != 0) rotated |= EdgeConnectionFlags.East;
-                if ((flags & EdgeConnectionFlags.East) != 0) rotated |= EdgeConnectionFlags.South;
-                if ((flags & EdgeConnectionFlags.South) != 0) rotated |= EdgeConnectionFlags.West;
-                if ((flags & EdgeConnectionFlags.West) != 0) rotated |= EdgeConnectionFlags.North;
+                if ((flags & EdgeConnectionFlags.North) != 0)
+                    rotated |= EdgeConnectionFlags.East;
+                if ((flags & EdgeConnectionFlags.East) != 0)
+                    rotated |= EdgeConnectionFlags.South;
+                if ((flags & EdgeConnectionFlags.South) != 0)
+                    rotated |= EdgeConnectionFlags.West;
+                if ((flags & EdgeConnectionFlags.West) != 0)
+                    rotated |= EdgeConnectionFlags.North;
             }
             else
             {
                 // Counterclockwise: North→West→South→East
-                if ((flags & EdgeConnectionFlags.North) != 0) rotated |= EdgeConnectionFlags.West;
-                if ((flags & EdgeConnectionFlags.West) != 0) rotated |= EdgeConnectionFlags.South;
-                if ((flags & EdgeConnectionFlags.South) != 0) rotated |= EdgeConnectionFlags.East;
-                if ((flags & EdgeConnectionFlags.East) != 0) rotated |= EdgeConnectionFlags.North;
+                if ((flags & EdgeConnectionFlags.North) != 0)
+                    rotated |= EdgeConnectionFlags.West;
+                if ((flags & EdgeConnectionFlags.West) != 0)
+                    rotated |= EdgeConnectionFlags.South;
+                if ((flags & EdgeConnectionFlags.South) != 0)
+                    rotated |= EdgeConnectionFlags.East;
+                if ((flags & EdgeConnectionFlags.East) != 0)
+                    rotated |= EdgeConnectionFlags.North;
             }
-            
+
             flags = rotated;
         }
 
@@ -174,11 +222,18 @@ public sealed class EdgeConnectionSystem : EntitySystem
     /// Neighbors must have matching connection keys, support the required direction,
     /// and have the same rotation as the source entity.
     /// </summary>
-    private bool HasMatchingNeighbor(EntityUid entity, EntityUid gridUid, MapGridComponent grid, Vector2i tile, string key, EdgeConnectionFlags requiredDirection)
+    private bool HasMatchingNeighbor(
+        EntityUid entity,
+        EntityUid gridUid,
+        MapGridComponent grid,
+        Vector2i tile,
+        string key,
+        EdgeConnectionFlags requiredDirection
+    )
     {
         var anchored = _map.GetAnchoredEntitiesEnumerator(gridUid, grid, tile);
         var entityXform = Transform(entity);
-        
+
         while (anchored.MoveNext(out var other))
         {
             if (other == entity)
@@ -199,7 +254,7 @@ public sealed class EdgeConnectionSystem : EntitySystem
             // Only connect if both entities have the same rotation
             var entityDegrees = ((int)Math.Round(entityXform.LocalRotation.Degrees) % 360 + 360) % 360;
             var otherDegrees = ((int)Math.Round(otherXform.LocalRotation.Degrees) % 360 + 360) % 360;
-            
+
             if (entityDegrees == otherDegrees)
                 return true;
         }
@@ -213,7 +268,7 @@ public sealed class EdgeConnectionSystem : EntitySystem
     private void UpdateNeighbors(Entity<EdgeConnectionComponent> ent)
     {
         var xform = Transform(ent);
-        
+
         if (!TryComp<MapGridComponent>(xform.GridUid, out var grid))
             return;
 
@@ -232,7 +287,7 @@ public sealed class EdgeConnectionSystem : EntitySystem
     private void UpdateNeighborsAtTile(EntityUid gridUid, MapGridComponent grid, Vector2i tile)
     {
         var anchored = _map.GetAnchoredEntitiesEnumerator(gridUid, grid, tile);
-        
+
         while (anchored.MoveNext(out var other))
         {
             if (TryComp<EdgeConnectionComponent>(other, out var comp))

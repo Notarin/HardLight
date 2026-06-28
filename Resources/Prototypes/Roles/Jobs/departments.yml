@@ -25,15 +25,15 @@
   color: "#334E6D"
   weight: 100
   roles:
-   - StationCaptain # HardLight
-   - HeadOfPersonnel
-   - HeadOfSecurity
-   - ChiefMedicalOfficer
-   - ChiefEngineer
-   - ResearchDirector
-   - Quartermaster
-   - StationTrafficController # Frontier
-   - StationRepresentative # HardLight: Harbor Master
+  - StationCaptain # HardLight
+  - HeadOfPersonnel
+  - HeadOfSecurity
+  - ChiefMedicalOfficer
+  - ChiefEngineer
+  - ResearchDirector
+  - Quartermaster
+  - StationTrafficController # Frontier
+  - StationRepresentative # HardLight: Harbor Master
   primary: false
   # editorHidden: true # Frontier
 
@@ -54,17 +54,17 @@
   color: "#9FED58"
   weight: 80
   roles:
-   - HeadOfPersonnel
-   - Chef
-   - Botanist
-   - Bartender
-   - Janitor
-   - ServiceWorker
-   - Chaplain
-   - Reporter # HardLight: Station Host
-   - Librarian
-   - Valet
-   - ServiceQuadBorg
+  - HeadOfPersonnel
+  - Chef
+  - Botanist
+  - Bartender
+  - Janitor
+  - ServiceWorker
+  - Chaplain
+  - Reporter # HardLight: Station Host
+  - Librarian
+  - Valet
+  - ServiceQuadBorg
 
 - type: department
   id: Security
@@ -141,14 +141,14 @@
   color: "#9FED58"
   weight: 10 # HardLight: -10<10
   roles:
-   - Lawyer
-   - Passenger
-   - Prisoner # HardLight
-   - Boxer
-   - Clown
-   - Mime
-   - Musician
-   - Visitor
+  - Lawyer
+  - Passenger
+  - Prisoner # HardLight
+  - Boxer
+  - Clown
+  - Mime
+  - Musician
+  - Visitor
 
 - type: department
   id: Specific

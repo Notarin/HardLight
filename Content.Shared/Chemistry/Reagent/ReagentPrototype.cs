@@ -1,14 +1,14 @@
 using System.Collections.Frozen;
 using System.Linq;
-using Content.Shared.FixedPoint;
 using System.Text.Json.Serialization;
 using Content.Shared.Administration.Logs;
 using Content.Shared.Body.Prototypes;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.Reaction;
 using Content.Shared.Contraband;
-using Content.Shared.EntityEffects;
 using Content.Shared.Database;
+using Content.Shared.EntityEffects;
+using Content.Shared.FixedPoint;
 using Content.Shared.Nutrition;
 using Content.Shared.Prototypes;
 using Content.Shared.Roles;
@@ -194,12 +194,20 @@ namespace Content.Shared.Chemistry.Reagent
         public float PricePerUnit;
 
         [DataField]
-        public SoundSpecifier FootstepSound = new SoundCollectionSpecifier("FootstepWater", AudioParams.Default.WithVolume(6));
+        public SoundSpecifier FootstepSound = new SoundCollectionSpecifier(
+            "FootstepWater",
+            AudioParams.Default.WithVolume(6)
+        );
 
         [DataField]
         public bool IsNourishing; // The Den
 
-        public FixedPoint2 ReactionTile(TileRef tile, FixedPoint2 reactVolume, IEntityManager entityManager, List<ReagentData>? data)
+        public FixedPoint2 ReactionTile(
+            TileRef tile,
+            FixedPoint2 reactVolume,
+            IEntityManager entityManager,
+            List<ReagentData>? data
+        )
         {
             var removed = FixedPoint2.Zero;
 
@@ -227,7 +235,16 @@ namespace Content.Shared.Chemistry.Reagent
 
             var entMan = IoCManager.Resolve<IEntityManager>();
             var random = IoCManager.Resolve<IRobustRandom>();
-            var args = new EntityEffectReagentArgs(plantHolder.Value, entMan, null, solution, amount.Quantity, this, null, 1f);
+            var args = new EntityEffectReagentArgs(
+                plantHolder.Value,
+                entMan,
+                null,
+                solution,
+                amount.Quantity,
+                this,
+                null,
+                1f
+            );
             foreach (var plantMetabolizable in PlantMetabolisms)
             {
                 if (!plantMetabolizable.ShouldApply(args, random))
@@ -236,8 +253,13 @@ namespace Content.Shared.Chemistry.Reagent
                 if (plantMetabolizable.ShouldLog)
                 {
                     var entity = args.TargetEntity;
-                    entMan.System<SharedAdminLogSystem>().Add(LogType.ReagentEffect, plantMetabolizable.LogImpact,
-                        $"Plant metabolism effect {plantMetabolizable.GetType().Name:effect} of reagent {ID:reagent} applied on entity {entMan.ToPrettyString(entity):entity} at {entMan.GetComponent<TransformComponent>(entity).Coordinates:coordinates}");
+                    entMan
+                        .System<SharedAdminLogSystem>()
+                        .Add(
+                            LogType.ReagentEffect,
+                            plantMetabolizable.LogImpact,
+                            $"Plant metabolism effect {plantMetabolizable.GetType().Name:effect} of reagent {ID:reagent} applied on entity {entMan.ToPrettyString(entity):entity} at {entMan.GetComponent<TransformComponent>(entity).Coordinates:coordinates}"
+                        );
                 }
 
                 plantMetabolizable.Effect(args);
@@ -290,6 +312,7 @@ namespace Content.Shared.Chemistry.Reagent
             return true;
         }
     }
+
     // Hardlight end
 
     [Serializable, NetSerializable]
@@ -304,20 +327,21 @@ namespace Content.Shared.Chemistry.Reagent
         public ReagentGuideEntry(ReagentPrototype proto, IPrototypeManager prototype, IEntitySystemManager entSys)
         {
             ReagentPrototype = proto.ID;
-            GuideEntries = proto.Metabolisms?
-                .Select(x => (x.Key, x.Value.MakeGuideEntry(prototype, entSys)))
+            GuideEntries = proto
+                .Metabolisms?.Select(x => (x.Key, x.Value.MakeGuideEntry(prototype, entSys)))
                 .ToDictionary(x => x.Key, x => x.Item2);
             if (proto.PlantMetabolisms.Count > 0)
             {
-                PlantMetabolisms = new List<string>(proto.PlantMetabolisms
-                    .Select(x => x.GuidebookEffectDescription(prototype, entSys))
-                    .Where(x => x is not null)
-                    .Select(x => x!)
-                    .ToArray());
+                PlantMetabolisms = new List<string>(
+                    proto
+                        .PlantMetabolisms.Select(x => x.GuidebookEffectDescription(prototype, entSys))
+                        .Where(x => x is not null)
+                        .Select(x => x!)
+                        .ToArray()
+                );
             }
         }
     }
-
 
     [DataDefinition]
     public sealed partial class ReagentEffectsEntry
@@ -338,12 +362,14 @@ namespace Content.Shared.Chemistry.Reagent
 
         public ReagentEffectsGuideEntry MakeGuideEntry(IPrototypeManager prototype, IEntitySystemManager entSys)
         {
-            return new ReagentEffectsGuideEntry(MetabolismRate,
+            return new ReagentEffectsGuideEntry(
+                MetabolismRate,
                 Effects
                     .Select(x => x.GuidebookEffectDescription(prototype, entSys)) // hate.
                     .Where(x => x is not null)
                     .Select(x => x!)
-                    .ToArray());
+                    .ToArray()
+            );
         }
     }
 

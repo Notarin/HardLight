@@ -22,9 +22,9 @@
         volume: 3
         variation: 0.250
     activatedDamage:
-        types:
-            Heat: 42
-            Structural: 50
+      types:
+        Heat: 42
+        Structural: 50
   - type: ItemToggleActiveSound
     activeSound:
       path: /Audio/Weapons/ebladehum.ogg
@@ -44,12 +44,12 @@
   - type: Sprite
     sprite: _HL/Objects/Weapons/Melee/e_halberd.rsi
     layers:
-      - state: e_halberd
-      - state: e_halberd_blade
-        color: "#9b0909"
-        visible: false
-        shader: unshaded
-        map: [ "blade" ]
+    - state: e_halberd
+    - state: e_halberd_blade
+      color: "#9b0909"
+      visible: false
+      shader: unshaded
+      map: ["blade"]
   - type: ToggleableLightVisuals
     spriteLayer: blade
     inhandVisuals:
@@ -73,17 +73,17 @@
   - type: Sprite
     sprite: _HL/Objects/Weapons/Melee/e_halberd.rsi
     layers:
-      - state: e_halberd
-      - state: e_halberd_blade
-        color: "#ffffff"
-        visible: false
-        shader: unshaded
-        map: [ "blade" ]
-  # - type: IgniteOnMeleeHit
-  #   fireStacks: 0
-  # - type: Reflect # placeholder until I give them a speical thing like Syndicates have and Cartels have
-  #   reflectProb: .1
-  #   spread: 75
+    - state: e_halberd
+    - state: e_halberd_blade
+      color: "#ffffff"
+      visible: false
+      shader: unshaded
+      map: ["blade"]
+      # - type: IgniteOnMeleeHit
+      #   fireStacks: 0
+      # - type: Reflect # placeholder until I give them a speical thing like Syndicates have and Cartels have
+      #   reflectProb: .1
+      #   spread: 75
 
 - type: entity
   name: cartel energy halberd
@@ -94,12 +94,12 @@
   - type: Sprite
     sprite: _HL/Objects/Weapons/Melee/e_halberd.rsi
     layers:
-      - state: e_halberd
-      - state: e_halberd_blade-P
-        color: "#140720"
-        visible: false
-        shader: unshaded
-        map: [ "blade" ]
+    - state: e_halberd
+    - state: e_halberd_blade-P
+      color: "#140720"
+      visible: false
+      shader: unshaded
+      map: ["blade"]
   - type: ToggleableLightVisuals
     spriteLayer: blade
     inhandVisuals:
@@ -127,6 +127,6 @@
         volume: 3
         variation: 0.250
     activatedDamage:
-        types:
-            Heat: 42
-            Structural: 50
+      types:
+        Heat: 42
+        Structural: 50

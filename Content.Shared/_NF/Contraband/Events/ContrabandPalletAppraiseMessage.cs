@@ -6,7 +6,4 @@ namespace Content.Shared._NF.Contraband.Events;
 /// Raised on a client request to refresh the pallet console
 /// </summary>
 [Serializable, NetSerializable]
-public sealed class ContrabandPalletAppraiseMessage : BoundUserInterfaceMessage
-{
-
-}
+public sealed class ContrabandPalletAppraiseMessage : BoundUserInterfaceMessage { }

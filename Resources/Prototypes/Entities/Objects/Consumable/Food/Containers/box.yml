@@ -6,7 +6,7 @@
 # an alpha color which -Y- said he would implement.
 
 - type: entity
-  parent: [ BoxCardboard, BaseBagOpenClose ]
+  parent: [BoxCardboard, BaseBagOpenClose]
   id: FoodBoxDonut
   name: donut box
   description: Mmm, Donuts.
@@ -71,7 +71,7 @@
 # Egg
 
 - type: entity
-  parent: [ BoxCardboard, BaseBagOpenClose ]
+  parent: [BoxCardboard, BaseBagOpenClose]
   id: FoodContainerEgg
   name: egg carton
   description: Don't drop 'em!
@@ -187,8 +187,7 @@
       amount: 12
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 10
 
 # Pizza
@@ -280,7 +279,7 @@
       prob: 0.05
       orGroup: Pizza
     - id: KnifePlastic
-  
+
 - type: entity
   name: pizza box
   parent: FoodBoxPizzaFilled
@@ -295,7 +294,7 @@
 # Nugget
 
 - type: entity
-  parent: [ BoxCardboard, BaseBagOpenClose ]
+  parent: [BoxCardboard, BaseBagOpenClose]
   id: FoodBoxNugget
   name: chicken nuggets
   description: You suddenly have an urge to trade on the intergalactic stock market.
@@ -505,7 +504,7 @@
 
 - type: entity
   id: HappyHonk
-  parent: [ BoxCardboard, BaseBagOpenClose ]
+  parent: [BoxCardboard, BaseBagOpenClose]
   name: happy honk meal
   suffix: Toy Safe
   description: The toy is more edible than the food.
@@ -531,66 +530,66 @@
     - HappyHonk
   - type: StorageFill
     contents:
-      - id: ToyMouse
-        orGroup: GiftPool
-      - id: ToyAi
-        orGroup: GiftPool
-      - id: ToyNuke
-        orGroup: GiftPool
-      - id: ToyFigurinePassenger
-        orGroup: GiftPool
-      - id: ToyGriffin
-        orGroup: GiftPool
-      - id: ToyHonk
-        orGroup: GiftPool
-      - id: ToyIan
-        orGroup: GiftPool
-      - id: ToyMarauder
-        orGroup: GiftPool
-      - id: ToyMauler
-        orGroup: GiftPool
-      - id: ToyGygax
-        orGroup: GiftPool
-      - id: ToyOdysseus
-        orGroup: GiftPool
-      - id: ToyOwlman
-        orGroup: GiftPool
-      - id: ToyDeathRipley
-        orGroup: GiftPool
-      - id: ToyPhazon
-        orGroup: GiftPool
-      - id: ToyFireRipley
-        orGroup: GiftPool
-      - id: ToyReticence
-        orGroup: GiftPool
-      - id: ToyRipley
-        orGroup: GiftPool
-      - id: ToySeraph
-        orGroup: GiftPool
-      - id: ToyDurand
-        orGroup: GiftPool
-      - id: ToySkeleton
-        orGroup: GiftPool
-      - id: FoamBlade
-        orGroup: GiftPool
-      - id: ClothingHeadHatBunny
-        orGroup: GiftPool
-      - id: PersonalAI
-        orGroup: GiftPool
-      - id: CrayonBox
-        orGroup: GiftPool
-      - id: ToySword
-        orGroup: GiftPool
-      - id: NFRevolverCapGun # Frontier: RevolverCapGun<NFRevolverCapGun
-        orGroup: GiftPool
-      - id: ToyRubberDuck
-        orGroup: GiftPool
-      - id: BikeHorn
-        prob: 0.5
-        orGroup: GiftPool
-      - id: GoldenBikeHorn
-        prob: 0.1
-        orGroup: GiftPool
+    - id: ToyMouse
+      orGroup: GiftPool
+    - id: ToyAi
+      orGroup: GiftPool
+    - id: ToyNuke
+      orGroup: GiftPool
+    - id: ToyFigurinePassenger
+      orGroup: GiftPool
+    - id: ToyGriffin
+      orGroup: GiftPool
+    - id: ToyHonk
+      orGroup: GiftPool
+    - id: ToyIan
+      orGroup: GiftPool
+    - id: ToyMarauder
+      orGroup: GiftPool
+    - id: ToyMauler
+      orGroup: GiftPool
+    - id: ToyGygax
+      orGroup: GiftPool
+    - id: ToyOdysseus
+      orGroup: GiftPool
+    - id: ToyOwlman
+      orGroup: GiftPool
+    - id: ToyDeathRipley
+      orGroup: GiftPool
+    - id: ToyPhazon
+      orGroup: GiftPool
+    - id: ToyFireRipley
+      orGroup: GiftPool
+    - id: ToyReticence
+      orGroup: GiftPool
+    - id: ToyRipley
+      orGroup: GiftPool
+    - id: ToySeraph
+      orGroup: GiftPool
+    - id: ToyDurand
+      orGroup: GiftPool
+    - id: ToySkeleton
+      orGroup: GiftPool
+    - id: FoamBlade
+      orGroup: GiftPool
+    - id: ClothingHeadHatBunny
+      orGroup: GiftPool
+    - id: PersonalAI
+      orGroup: GiftPool
+    - id: CrayonBox
+      orGroup: GiftPool
+    - id: ToySword
+      orGroup: GiftPool
+    - id: NFRevolverCapGun # Frontier: RevolverCapGun<NFRevolverCapGun
+      orGroup: GiftPool
+    - id: ToyRubberDuck
+      orGroup: GiftPool
+    - id: BikeHorn
+      prob: 0.5
+      orGroup: GiftPool
+    - id: GoldenBikeHorn
+      prob: 0.1
+      orGroup: GiftPool
   - type: NFIngredient # Frontier
 
 - type: entity
@@ -625,22 +624,22 @@
     heldPrefix: box
   - type: StorageFill
     contents:
-      - id: C4
-        prob: 0.02
-        orGroup: GiftPool
-      - id: ToyMarauder
-        orGroup: GiftPool
-      - id: ToyMauler
-        orGroup: GiftPool
-      - id: ToyNuke
-        orGroup: GiftPool
-      - id: ToySword
-        orGroup: GiftPool
-      - id: BalloonSyn
-        prob: 0.6
-        orGroup: GiftPool
-      - id: PlushieNuke
-        orGroup: GiftPool
+    - id: C4
+      prob: 0.02
+      orGroup: GiftPool
+    - id: ToyMarauder
+      orGroup: GiftPool
+    - id: ToyMauler
+      orGroup: GiftPool
+    - id: ToyNuke
+      orGroup: GiftPool
+    - id: ToySword
+      orGroup: GiftPool
+    - id: BalloonSyn
+      prob: 0.6
+      orGroup: GiftPool
+    - id: PlushieNuke
+      orGroup: GiftPool
 
 - type: entity
   parent: HappyHonkNukie
@@ -710,88 +709,88 @@
     heldPrefix: box
   - type: StorageFill
     contents:
-      - id: CluwneHorn
+    - id: CluwneHorn
 
 - type: entity
   id: FoodMealHappyHonkClown
   parent: HappyHonk
   suffix: random food spawner meal
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: StorageFill
     contents:
-      - id: FoodBurgerCrazy
-        orGroup: Burgers
-      - id: FoodBurgerCheese
-        orGroup: Burgers
-      - id: DrinkColaCan
-        orGroup: DrinkPool
-      - id: DrinkLemonLimeCan
-        orGroup: DrinkPool
-      - id: DrinkLemonLimeCranberryCan
-        orGroup: DrinkPool
-      - id: DrinkIcedTeaCan
-        orGroup: DrinkPool
-      - id: ToyMouse
-        orGroup: GiftPool
-      - id: ToyAi
-        orGroup: GiftPool
-      - id: ToyNuke
-        orGroup: GiftPool
-      - id: ToyFigurinePassenger
-        orGroup: GiftPool
-      - id: ToyGriffin
-        orGroup: GiftPool
-      - id: ToyHonk
-        orGroup: GiftPool
-      - id: ToyIan
-        orGroup: GiftPool
-      - id: ToyMarauder
-        orGroup: GiftPool
-      - id: ToyMauler
-        orGroup: GiftPool
-      - id: ToyGygax
-        orGroup: GiftPool
-      - id: ToyOdysseus
-        orGroup: GiftPool
-      - id: ToyOwlman
-        orGroup: GiftPool
-      - id: ToyDeathRipley
-        orGroup: GiftPool
-      - id: ToyPhazon
-        orGroup: GiftPool
-      - id: ToyFireRipley
-        orGroup: GiftPool
-      - id: ToyReticence
-        orGroup: GiftPool
-      - id: ToyRipley
-        orGroup: GiftPool
-      - id: ToySeraph
-        orGroup: GiftPool
-      - id: ToyDurand
-        orGroup: GiftPool
-      - id: ToySkeleton
-        orGroup: GiftPool
-      - id: FoamBlade
-        orGroup: GiftPool
-      - id: ClothingHeadHatBunny
-        orGroup: GiftPool
-      - id: PersonalAI
-        orGroup: GiftPool
-      - id: CrayonBox
-        orGroup: GiftPool
-      - id: ToySword
-        orGroup: GiftPool
-      - id: NFRevolverCapGun # Frontier: RevolverCapGun<NFRevolverCapGun
-        orGroup: GiftPool
-      - id: ToyRubberDuck
-        orGroup: GiftPool
-      - id: BikeHorn
-        prob: 0.5
-        orGroup: GiftPool
-      - id: GoldenBikeHorn
-        prob: 0.1
-        orGroup: GiftPool
+    - id: FoodBurgerCrazy
+      orGroup: Burgers
+    - id: FoodBurgerCheese
+      orGroup: Burgers
+    - id: DrinkColaCan
+      orGroup: DrinkPool
+    - id: DrinkLemonLimeCan
+      orGroup: DrinkPool
+    - id: DrinkLemonLimeCranberryCan
+      orGroup: DrinkPool
+    - id: DrinkIcedTeaCan
+      orGroup: DrinkPool
+    - id: ToyMouse
+      orGroup: GiftPool
+    - id: ToyAi
+      orGroup: GiftPool
+    - id: ToyNuke
+      orGroup: GiftPool
+    - id: ToyFigurinePassenger
+      orGroup: GiftPool
+    - id: ToyGriffin
+      orGroup: GiftPool
+    - id: ToyHonk
+      orGroup: GiftPool
+    - id: ToyIan
+      orGroup: GiftPool
+    - id: ToyMarauder
+      orGroup: GiftPool
+    - id: ToyMauler
+      orGroup: GiftPool
+    - id: ToyGygax
+      orGroup: GiftPool
+    - id: ToyOdysseus
+      orGroup: GiftPool
+    - id: ToyOwlman
+      orGroup: GiftPool
+    - id: ToyDeathRipley
+      orGroup: GiftPool
+    - id: ToyPhazon
+      orGroup: GiftPool
+    - id: ToyFireRipley
+      orGroup: GiftPool
+    - id: ToyReticence
+      orGroup: GiftPool
+    - id: ToyRipley
+      orGroup: GiftPool
+    - id: ToySeraph
+      orGroup: GiftPool
+    - id: ToyDurand
+      orGroup: GiftPool
+    - id: ToySkeleton
+      orGroup: GiftPool
+    - id: FoamBlade
+      orGroup: GiftPool
+    - id: ClothingHeadHatBunny
+      orGroup: GiftPool
+    - id: PersonalAI
+      orGroup: GiftPool
+    - id: CrayonBox
+      orGroup: GiftPool
+    - id: ToySword
+      orGroup: GiftPool
+    - id: NFRevolverCapGun # Frontier: RevolverCapGun<NFRevolverCapGun
+      orGroup: GiftPool
+    - id: ToyRubberDuck
+      orGroup: GiftPool
+    - id: BikeHorn
+      prob: 0.5
+      orGroup: GiftPool
+    - id: GoldenBikeHorn
+      prob: 0.1
+      orGroup: GiftPool
 
 - type: entity
   id: FoodMealHappyHonkBigBite
@@ -801,72 +800,72 @@
   components:
   - type: StorageFill
     contents:
-      - id: FoodBurgerBig
-        amount: 1
-      - id: FoodMealFriesCheesy
-        amount: 1
-      - id: DrinkColaBottleFull
-        amount: 1
-      - id: FoodPieAppleSlice
-        amount: 1
-      - id: ToyMouse
-        orGroup: GiftPool
-      - id: ToyAi
-        orGroup: GiftPool
-      - id: ToyNuke
-        orGroup: GiftPool
-      - id: ToyFigurinePassenger
-        orGroup: GiftPool
-      - id: ToyGriffin
-        orGroup: GiftPool
-      - id: ToyHonk
-        orGroup: GiftPool
-      - id: ToyIan
-        orGroup: GiftPool
-      - id: ToyMarauder
-        orGroup: GiftPool
-      - id: ToyMauler
-        orGroup: GiftPool
-      - id: ToyGygax
-        orGroup: GiftPool
-      - id: ToyOdysseus
-        orGroup: GiftPool
-      - id: ToyOwlman
-        orGroup: GiftPool
-      - id: ToyDeathRipley
-        orGroup: GiftPool
-      - id: ToyPhazon
-        orGroup: GiftPool
-      - id: ToyFireRipley
-        orGroup: GiftPool
-      - id: ToyReticence
-        orGroup: GiftPool
-      - id: ToyRipley
-        orGroup: GiftPool
-      - id: ToySeraph
-        orGroup: GiftPool
-      - id: ToyDurand
-        orGroup: GiftPool
-      - id: ToySkeleton
-        orGroup: GiftPool
-      - id: FoamBlade
-        orGroup: GiftPool
-      - id: ClothingHeadHatBunny
-        orGroup: GiftPool
-      - id: PersonalAI
-        orGroup: GiftPool
-      - id: ToySword
-        orGroup: GiftPool
-      - id: NFRevolverCapGun # Frontier: RevolverCapGun<NFRevolverCapGun
-        orGroup: GiftPool
-      - id: ToyRubberDuck
-        orGroup: GiftPool
-      - id: BikeHorn
-        prob: 0.5
-        orGroup: GiftPool
-      - id: GoldenBikeHorn
-        prob: 0.1
-        orGroup: GiftPool
+    - id: FoodBurgerBig
+      amount: 1
+    - id: FoodMealFriesCheesy
+      amount: 1
+    - id: DrinkColaBottleFull
+      amount: 1
+    - id: FoodPieAppleSlice
+      amount: 1
+    - id: ToyMouse
+      orGroup: GiftPool
+    - id: ToyAi
+      orGroup: GiftPool
+    - id: ToyNuke
+      orGroup: GiftPool
+    - id: ToyFigurinePassenger
+      orGroup: GiftPool
+    - id: ToyGriffin
+      orGroup: GiftPool
+    - id: ToyHonk
+      orGroup: GiftPool
+    - id: ToyIan
+      orGroup: GiftPool
+    - id: ToyMarauder
+      orGroup: GiftPool
+    - id: ToyMauler
+      orGroup: GiftPool
+    - id: ToyGygax
+      orGroup: GiftPool
+    - id: ToyOdysseus
+      orGroup: GiftPool
+    - id: ToyOwlman
+      orGroup: GiftPool
+    - id: ToyDeathRipley
+      orGroup: GiftPool
+    - id: ToyPhazon
+      orGroup: GiftPool
+    - id: ToyFireRipley
+      orGroup: GiftPool
+    - id: ToyReticence
+      orGroup: GiftPool
+    - id: ToyRipley
+      orGroup: GiftPool
+    - id: ToySeraph
+      orGroup: GiftPool
+    - id: ToyDurand
+      orGroup: GiftPool
+    - id: ToySkeleton
+      orGroup: GiftPool
+    - id: FoamBlade
+      orGroup: GiftPool
+    - id: ClothingHeadHatBunny
+      orGroup: GiftPool
+    - id: PersonalAI
+      orGroup: GiftPool
+    - id: ToySword
+      orGroup: GiftPool
+    - id: NFRevolverCapGun # Frontier: RevolverCapGun<NFRevolverCapGun
+      orGroup: GiftPool
+    - id: ToyRubberDuck
+      orGroup: GiftPool
+    - id: BikeHorn
+      prob: 0.5
+      orGroup: GiftPool
+    - id: GoldenBikeHorn
+      prob: 0.1
+      orGroup: GiftPool
 
 - type: entity
   parent: BoxCardboard

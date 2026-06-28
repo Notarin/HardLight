@@ -9,9 +9,13 @@ namespace Content.Server.GameTicking.Rules.VariationPass;
 /// <inheritdoc cref="PoweredLightVariationPassComponent"/>
 public sealed class PoweredLightVariationPassSystem : VariationPassSystem<PoweredLightVariationPassComponent>
 {
-    [Dependency] private readonly PoweredLightSystem _poweredLight = default!;
+    [Dependency]
+    private readonly PoweredLightSystem _poweredLight = default!;
 
-    protected override void ApplyVariation(Entity<PoweredLightVariationPassComponent> ent, ref StationVariationPassEvent args)
+    protected override void ApplyVariation(
+        Entity<PoweredLightVariationPassComponent> ent,
+        ref StationVariationPassEvent args
+    )
     {
         var query = AllEntityQuery<PoweredLightComponent, TransformComponent>();
         while (query.MoveNext(out var uid, out var comp, out var xform))

@@ -76,19 +76,18 @@
     sprite: _NF/Structures/Machines/memp_mini.rsi
     snapCardinals: true
     layers:
-      - state: on
-        map: ["enum.EmpGeneratorVisualLayers.Base"]
-      - sprite: _NF/Structures/Machines/memp_core.rsi
-        state: activated
-        shader: unshaded
-        map: ["enum.EmpGeneratorVisualLayers.Core"]
-        scale: "0.4,0.4"
-        offset: "0,0.2"
+    - state: on
+      map: ["enum.EmpGeneratorVisualLayers.Base"]
+    - sprite: _NF/Structures/Machines/memp_core.rsi
+      state: activated
+      shader: unshaded
+      map: ["enum.EmpGeneratorVisualLayers.Core"]
+      scale: "0.4,0.4"
+      offset: "0,0.2"
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.4,-0.4,0.4,0.4"
         density: 3125
         mask:
@@ -97,8 +96,7 @@
         - WallLayer
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 500
       behaviors:
       - !type:DoActsBehavior

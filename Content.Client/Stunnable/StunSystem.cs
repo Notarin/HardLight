@@ -12,8 +12,11 @@ namespace Content.Client.Stunnable;
 
 public sealed class StunSystem : SharedStunSystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SpriteSystem _spriteSystem = default!;
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _spriteSystem = default!;
 
     private readonly int[] _sign = [-1, 1];
 
@@ -79,14 +82,16 @@ public sealed class StunSystem : SharedStunSystem
     /// <param name="startOffset">Starting offset because we don't have adjustment layers</param>
     /// <param name="lastJitter">Last jitter so we don't jitter to the same quadrant</param>
     /// <returns></returns>
-    public Animation GetFatigueAnimation(SpriteComponent sprite,
+    public Animation GetFatigueAnimation(
+        SpriteComponent sprite,
         float frequency,
         int jitters,
         Vector2 minJitter,
         Vector2 maxJitter,
         float breathing,
         Vector2 startOffset,
-        ref Vector2 lastJitter)
+        ref Vector2 lastJitter
+    )
     {
         // avoid animations with negative length or infinite length
         if (frequency <= 0)
@@ -94,7 +99,7 @@ public sealed class StunSystem : SharedStunSystem
 
         var breaths = new Vector2(0, breathing * 2) / jitters;
 
-        var length =  1 / frequency;
+        var length = 1 / frequency;
         var frames = length / jitters;
 
         var keyFrames = new List<AnimationTrackProperty.KeyFrame> { new(sprite.Offset, 0f) };
@@ -102,13 +107,18 @@ public sealed class StunSystem : SharedStunSystem
         // Spits out a list of keyframes to feed to the AnimationPlayer based on the variables we've inputted
         for (var i = 1; i <= jitters; i++)
         {
-            var offset = new Vector2(_random.NextFloat(minJitter.X, maxJitter.X),
-                _random.NextFloat(minJitter.Y, maxJitter.Y));
+            var offset = new Vector2(
+                _random.NextFloat(minJitter.X, maxJitter.X),
+                _random.NextFloat(minJitter.Y, maxJitter.Y)
+            );
             offset.X *= _random.Pick(_sign);
             offset.Y *= _random.Pick(_sign);
 
-            if (i == 1 && Math.Sign(offset.X) == Math.Sign(lastJitter.X)
-                       && Math.Sign(offset.Y) == Math.Sign(lastJitter.Y))
+            if (
+                i == 1
+                && Math.Sign(offset.X) == Math.Sign(lastJitter.X)
+                && Math.Sign(offset.Y) == Math.Sign(lastJitter.Y)
+            )
             {
                 // If the sign is the same as last time on both axis we flip one randomly
                 // to avoid jitter staying in one quadrant too much.
@@ -130,13 +140,15 @@ public sealed class StunSystem : SharedStunSystem
             else if (i < jitters * 3 / 4)
             {
                 keyFrames.Add(
-                    new AnimationTrackProperty.KeyFrame(startOffset + breaths * ( jitters - i * 1.5f ) + offset, frames));
+                    new AnimationTrackProperty.KeyFrame(startOffset + breaths * (jitters - i * 1.5f) + offset, frames)
+                );
             }
             // Return to our starting position for breathing, jitter reaches its final position
             else
             {
                 keyFrames.Add(
-                    new AnimationTrackProperty.KeyFrame(startOffset + breaths * ( i - jitters ) + offset, frames));
+                    new AnimationTrackProperty.KeyFrame(startOffset + breaths * (i - jitters) + offset, frames)
+                );
             }
         }
 
@@ -153,7 +165,7 @@ public sealed class StunSystem : SharedStunSystem
                     InterpolationMode = AnimationInterpolationMode.Cubic,
                     KeyFrames = keyFrames,
                 },
-            }
+            },
         };
     }
 }

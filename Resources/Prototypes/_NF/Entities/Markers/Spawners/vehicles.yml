@@ -5,12 +5,12 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - sprite: Objects/Vehicles/secway.rsi
-        state: keys
+    - state: green
+    - sprite: Objects/Vehicles/secway.rsi
+      state: keys
   - type: ConditionalSpawner
     prototypes:
-      - VehicleSecway
+    - VehicleSecway
 
 - type: entity
   name: Janicart Spawner
@@ -19,12 +19,12 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - sprite: Objects/Vehicles/janicart.rsi
-        state: keys
+    - state: green
+    - sprite: Objects/Vehicles/janicart.rsi
+      state: keys
   - type: ConditionalSpawner
     prototypes:
-      - NFVehicleJanicart # Frontier: add NF prefix
+    - NFVehicleJanicart # Frontier: add NF prefix
 
 - type: entity
   name: ATV Spawner
@@ -33,12 +33,12 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - sprite: Objects/Vehicles/atv.rsi
-        state: keys
+    - state: green
+    - sprite: Objects/Vehicles/atv.rsi
+      state: keys
   - type: ConditionalSpawner
     prototypes:
-      - NFVehicleATV # Frontier: add NF suffix
+    - NFVehicleATV # Frontier: add NF suffix
 
 - type: entity
   name: Skeleton Motorcycle Spawner
@@ -47,12 +47,12 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - sprite: Objects/Vehicles/motorbike.rsi
-        state: keys
+    - state: green
+    - sprite: Objects/Vehicles/motorbike.rsi
+      state: keys
   - type: ConditionalSpawner
     prototypes:
-      - NFVehicleSkeletonMotorcycle # Frontier: add NF suffix
+    - NFVehicleSkeletonMotorcycle # Frontier: add NF suffix
 
 - type: entity
   name: hoverbike spawner

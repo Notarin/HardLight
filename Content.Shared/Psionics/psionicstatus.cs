@@ -1,7 +1,6 @@
 /// <summary>
 /// EVERYTHING HERE IS A MODIFIED VERSION OF CRIMINAL RECORDS
 /// </summary>
-
 namespace Content.Shared.Psionics;
 
 /// <summary>
@@ -17,5 +16,5 @@ public enum PsionicsStatus : byte
     None,
     Suspected,
     Registered,
-    Abusing
+    Abusing,
 }

@@ -1,4 +1,6 @@
+using System.Linq;
 using Content.Shared.Access.Systems;
+using Content.Shared.Atmos.Rotting;
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Interaction;
@@ -9,20 +11,31 @@ using Robust.Shared.Containers;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Map.Events;
 using Robust.Shared.Timing;
-using Content.Shared.Atmos.Rotting;
-using System.Linq;
 
 namespace Content.Shared._DV.SmartFridge;
 
 public sealed class SmartFridgeSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly AccessReaderSystem _accessReader = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly AccessReaderSystem _accessReader = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelist = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly SharedHandsSystem _hands = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
 
     public override void Initialize()
     {
@@ -34,12 +47,14 @@ public sealed class SmartFridgeSystem : EntitySystem
         SubscribeLocalEvent<BeforeSerializationEvent>(OnBeforeSave);
         SubscribeLocalEvent<SmartFridgeComponent, MapInitEvent>(OnMapInit);
 
-        Subs.BuiEvents<SmartFridgeComponent>(SmartFridgeUiKey.Key,
+        Subs.BuiEvents<SmartFridgeComponent>(
+            SmartFridgeUiKey.Key,
             sub =>
             {
                 sub.Event<SmartFridgeDispenseItemMessage>(OnDispenseItem);
                 sub.Event<SmartFridgeRemoveEntryMessage>(OnRemoveEntry);
-            });
+            }
+        );
     }
 
     private void OnMapInit(Entity<SmartFridgeComponent> ent, ref MapInitEvent args)
@@ -130,10 +145,12 @@ public sealed class SmartFridgeSystem : EntitySystem
     /// <param name="user">The user who should be access-checked</param>
     /// <param name="container">The SmartFridge's container if it's already known</param>
     /// <returns>Whether the insertion was successful</returns>
-    public bool TryAddItem(Entity<SmartFridgeComponent?> ent,
+    public bool TryAddItem(
+        Entity<SmartFridgeComponent?> ent,
         EntityUid item,
         EntityUid? user = null,
-        BaseContainer? container = null)
+        BaseContainer? container = null
+    )
     {
         if (!Resolve(ent.Owner, ref ent.Comp))
             return false;
@@ -165,10 +182,12 @@ public sealed class SmartFridgeSystem : EntitySystem
         return true;
     }
 
-    public void TryAddItem(Entity<SmartFridgeComponent?> ent,
+    public void TryAddItem(
+        Entity<SmartFridgeComponent?> ent,
         IEnumerable<EntityUid> items,
         EntityUid? user = null,
-        BaseContainer? container = null)
+        BaseContainer? container = null
+    )
     {
         if (!Resolve(ent, ref ent.Comp))
             return;
@@ -252,9 +271,10 @@ public sealed class SmartFridgeSystem : EntitySystem
         if (!_timing.IsFirstTimePredicted || !Allowed(ent, args.Actor))
             return;
 
-        if (ent.Comp.ContainedEntries.TryGetValue(args.Entry.Name, out var contained)
-            && contained.Count > 0
-            || !ent.Comp.Entries.Contains(args.Entry))
+        if (
+            ent.Comp.ContainedEntries.TryGetValue(args.Entry.Name, out var contained) && contained.Count > 0
+            || !ent.Comp.Entries.Contains(args.Entry)
+        )
             return;
 
         ent.Comp.Entries.Remove(args.Entry);

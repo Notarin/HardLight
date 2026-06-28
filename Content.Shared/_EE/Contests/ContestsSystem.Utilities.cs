@@ -3,6 +3,7 @@ using Robust.Shared.Serialization;
 using CCVars = Content.Shared._EE.CCVar.EECCVars; // Frontier
 
 namespace Content.Shared.Contests;
+
 public sealed partial class ContestsSystem
 {
     /// <summary>
@@ -31,49 +32,67 @@ public sealed partial class ContestsSystem
             return 1;
 
         if (!args.DoEveryInteraction)
-            return args.DoMassInteraction ? ((!args.MassDisadvantage
-                        ? MassContest(user, args.MassBypassClamp, args.MassRangeModifier)
-                        : 1 / MassContest(user, args.MassBypassClamp, args.MassRangeModifier))
-                            + args.MassOffset)
-                                : 1
-                    * (args.DoStaminaInteraction ? ((!args.StaminaDisadvantage
-                        ? StaminaContest(user, args.StaminaBypassClamp, args.StaminaRangeModifier)
-                        : 1 / StaminaContest(user, args.StaminaBypassClamp, args.StaminaRangeModifier))
-                            + args.StaminaOffset)
-                                : 1)
-                    * (args.DoHealthInteraction ? ((!args.HealthDisadvantage
-                        ? HealthContest(user, args.HealthBypassClamp, args.HealthRangeModifier)
-                        : 1 / HealthContest(user, args.HealthBypassClamp, args.HealthRangeModifier))
-                            + args.HealthOffset)
-                                : 1);
-                    //* (args.DoMindInteraction ? ((!args.MindDisadvantage
-                    //    ? MindContest(user, args.MindBypassClamp, args.MindRangeModifier)
-                    //    : 1 / MindContest(user, args.MindBypassClamp, args.MindRangeModifier))
-                    //        + args.MindOffset)
-                    //            : 1)
-                    //* (args.DoMoodInteraction ? ((!args.MoodDisadvantage
-                    //    ? MoodContest(user, args.MoodBypassClamp, args.MoodRangeModifier)
-                    //    : 1 / MoodContest(user, args.MoodBypassClamp, args.MoodRangeModifier))
-                    //        + args.MoodOffset)
-                    //            : 1);
+            return args.DoMassInteraction
+                ? (
+                    (
+                        !args.MassDisadvantage
+                            ? MassContest(user, args.MassBypassClamp, args.MassRangeModifier)
+                            : 1 / MassContest(user, args.MassBypassClamp, args.MassRangeModifier)
+                    ) + args.MassOffset
+                )
+                : 1
+                    * (
+                        args.DoStaminaInteraction
+                            ? (
+                                (
+                                    !args.StaminaDisadvantage
+                                        ? StaminaContest(user, args.StaminaBypassClamp, args.StaminaRangeModifier)
+                                        : 1 / StaminaContest(user, args.StaminaBypassClamp, args.StaminaRangeModifier)
+                                ) + args.StaminaOffset
+                            )
+                            : 1
+                    )
+                    * (
+                        args.DoHealthInteraction
+                            ? (
+                                (
+                                    !args.HealthDisadvantage
+                                        ? HealthContest(user, args.HealthBypassClamp, args.HealthRangeModifier)
+                                        : 1 / HealthContest(user, args.HealthBypassClamp, args.HealthRangeModifier)
+                                ) + args.HealthOffset
+                            )
+                            : 1
+                    );
+        //* (args.DoMindInteraction ? ((!args.MindDisadvantage
+        //    ? MindContest(user, args.MindBypassClamp, args.MindRangeModifier)
+        //    : 1 / MindContest(user, args.MindBypassClamp, args.MindRangeModifier))
+        //        + args.MindOffset)
+        //            : 1)
+        //* (args.DoMoodInteraction ? ((!args.MoodDisadvantage
+        //    ? MoodContest(user, args.MoodBypassClamp, args.MoodRangeModifier)
+        //    : 1 / MoodContest(user, args.MoodBypassClamp, args.MoodRangeModifier))
+        //        + args.MoodOffset)
+        //            : 1);
 
-        var everyContest = EveryContest(user,
-                    args.MassBypassClamp,
-                    args.StaminaBypassClamp,
-                    args.HealthBypassClamp,
-                    args.MindBypassClamp,
-                    args.MoodBypassClamp,
-                    args.MassRangeModifier,
-                    args.StaminaRangeModifier,
-                    args.HealthRangeModifier,
-                    args.MindRangeModifier,
-                    args.MoodRangeModifier,
-                    args.EveryMassWeight,
-                    args.EveryStaminaWeight,
-                    args.EveryHealthWeight,
-                    args.EveryMindWeight,
-                    args.EveryMoodWeight,
-                    args.EveryInteractionSumOrMultiply);
+        var everyContest = EveryContest(
+            user,
+            args.MassBypassClamp,
+            args.StaminaBypassClamp,
+            args.HealthBypassClamp,
+            args.MindBypassClamp,
+            args.MoodBypassClamp,
+            args.MassRangeModifier,
+            args.StaminaRangeModifier,
+            args.HealthRangeModifier,
+            args.MindRangeModifier,
+            args.MoodRangeModifier,
+            args.EveryMassWeight,
+            args.EveryStaminaWeight,
+            args.EveryHealthWeight,
+            args.EveryMindWeight,
+            args.EveryMoodWeight,
+            args.EveryInteractionSumOrMultiply
+        );
 
         return !args.EveryDisadvantage ? everyContest : 1 / everyContest;
     }

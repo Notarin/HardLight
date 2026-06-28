@@ -68,7 +68,7 @@
     removeEmpty: true
     solutionOnBody: false
     solution: "Lung"
-    metabolizerTypes: [ Human ]
+    metabolizerTypes: [Human]
     groups:
     - id: Gas
       rateModifier: 100.0
@@ -121,7 +121,7 @@
   parent: BaseHumanOrgan
   name: liver
   description: "Pairing suggestion: chianti and fava beans."
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Item
     size: Small
@@ -149,7 +149,7 @@
   parent: BaseHumanOrgan
   name: kidneys
   description: "Filters toxins from the bloodstream."
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Organ # Shitmed
     slotId: kidneys

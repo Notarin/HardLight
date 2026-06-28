@@ -1,31 +1,42 @@
 using System.Linq;
-using Content.Server.Power.Components;
-using Content.Shared.Containers.ItemSlots;
-using Content.Shared.DoAfter;
-using Content.Shared.PowerCell.Components;
-using Content.Shared._EinsteinEngines.Silicon;
-using Content.Shared.Verbs;
-using Robust.Shared.Utility;
-using Content.Server._EinsteinEngines.Silicon.Charge;
-using Content.Server.Power.EntitySystems;
-using Content.Server.Popups;
-using Content.Server.PowerCell;
-using Content.Shared.Popups;
-using Robust.Shared.Audio.Systems;
-using Robust.Shared.Containers;
 using Content.Server._EinsteinEngines.Power.Components;
 using Content.Server._EinsteinEngines.Silicon;
+using Content.Server._EinsteinEngines.Silicon.Charge;
+using Content.Server.Popups;
+using Content.Server.Power.Components;
+using Content.Server.Power.EntitySystems;
+using Content.Server.PowerCell;
+using Content.Shared._EinsteinEngines.Silicon;
+using Content.Shared.Containers.ItemSlots;
+using Content.Shared.DoAfter;
+using Content.Shared.Popups;
+using Content.Shared.PowerCell.Components;
+using Content.Shared.Verbs;
+using Robust.Shared.Audio.Systems;
+using Robust.Shared.Containers;
+using Robust.Shared.Utility;
 
 namespace Content.Server._EinsteinEngines.Power;
 
 public sealed class BatteryDrinkerSystem : EntitySystem
 {
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly BatterySystem _battery = default!;
-    [Dependency] private readonly SiliconChargeSystem _silicon = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfter = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly BatterySystem _battery = default!;
+
+    [Dependency]
+    private readonly SiliconChargeSystem _silicon = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
 
     public override void Initialize()
     {
@@ -41,9 +52,11 @@ public sealed class BatteryDrinkerSystem : EntitySystem
         if (!args.CanAccess || !args.CanInteract)
             return;
 
-        if (!TryComp<BatteryDrinkerComponent>(args.User, out var drinkerComp) ||
-            !TestDrinkableBattery(uid, drinkerComp) ||
-            !_silicon.TryGetSiliconBattery(args.User, out var drinkerBattery))
+        if (
+            !TryComp<BatteryDrinkerComponent>(args.User, out var drinkerComp)
+            || !TestDrinkableBattery(uid, drinkerComp)
+            || !_silicon.TryGetSiliconBattery(args.User, out var drinkerBattery)
+        )
             return;
 
         AlternativeVerb verb = new()
@@ -80,7 +93,7 @@ public sealed class BatteryDrinkerSystem : EntitySystem
             Broadcast = false,
             DistanceThreshold = 1.35f,
             RequireCanInteract = true,
-            CancelDuplicate = false
+            CancelDuplicate = false,
         };
 
         _doAfter.TryStartDoAfter(args);
@@ -113,10 +126,13 @@ public sealed class BatteryDrinkerSystem : EntitySystem
         var amountToDrink = drinkerComp.DrinkMultiplier * 1000;
 
         amountToDrink = MathF.Min(amountToDrink, sourceBattery.CurrentCharge);
-        amountToDrink = MathF.Min(amountToDrink, drinkerBatteryComponent!.MaxCharge - drinkerBatteryComponent.CurrentCharge);
+        amountToDrink = MathF.Min(
+            amountToDrink,
+            drinkerBatteryComponent!.MaxCharge - drinkerBatteryComponent.CurrentCharge
+        );
 
         if (sourceComp != null && sourceComp.MaxAmount > 0)
-            amountToDrink = MathF.Min(amountToDrink, (float) sourceComp.MaxAmount);
+            amountToDrink = MathF.Min(amountToDrink, (float)sourceComp.MaxAmount);
 
         if (amountToDrink <= 0)
         {
@@ -125,14 +141,23 @@ public sealed class BatteryDrinkerSystem : EntitySystem
         }
 
         if (_battery.TryUseCharge(source, amountToDrink))
-            _battery.SetCharge(drinkerBattery, drinkerBatteryComponent.CurrentCharge + amountToDrink, drinkerBatteryComponent);
+            _battery.SetCharge(
+                drinkerBattery,
+                drinkerBatteryComponent.CurrentCharge + amountToDrink,
+                drinkerBatteryComponent
+            );
         else
         {
-            _battery.SetCharge(drinkerBattery, sourceBattery.CurrentCharge + drinkerBatteryComponent.CurrentCharge, drinkerBatteryComponent);
+            _battery.SetCharge(
+                drinkerBattery,
+                sourceBattery.CurrentCharge + drinkerBatteryComponent.CurrentCharge,
+                drinkerBatteryComponent
+            );
             _battery.SetCharge(source, 0);
         }
 
-        if (sourceComp != null && sourceComp.DrinkSound != null){
+        if (sourceComp != null && sourceComp.DrinkSound != null)
+        {
             _popup.PopupEntity(Loc.GetString("ipc-recharge-tip"), drinker, drinker, PopupType.SmallCaution);
             _audio.PlayPvs(sourceComp.DrinkSound, source);
             Spawn("EffectSparks", Transform(source).Coordinates);

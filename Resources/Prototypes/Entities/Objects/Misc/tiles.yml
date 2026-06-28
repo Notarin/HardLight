@@ -1,5 +1,5 @@
 - type: entity
-  parent: [ BaseItem, RecyclableItemSteelTiny ] # Frontier: added RecyclableItemSteelTiny
+  parent: [BaseItem, RecyclableItemSteelTiny] # Frontier: added RecyclableItemSteelTiny
   id: FloorTileItemBase
   description: These could work as a pretty decent throwing weapon.
   abstract: true
@@ -17,19 +17,17 @@
     count: 1
   - type: Tag
     tags:
-      - NoPaint
+    - NoPaint
   - type: Damageable
     damageContainer: Inorganic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 30
       behaviors:
-        - !type:DoActsBehavior
-          acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 20
       behaviors:
       - !type:PlaySoundBehavior
@@ -38,7 +36,7 @@
           params:
             volume: -8
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: DamageOnLand
     damage:
       types:
@@ -57,8 +55,8 @@
     state: checker-dark
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorSteelCheckerDark
+    - Plating
+    - FloorSteelCheckerDark
   - type: Stack
     stackType: FloorTileSteelCheckerDark
 
@@ -71,8 +69,8 @@
     state: checker-light
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorSteelCheckerLight
+    - Plating
+    - FloorSteelCheckerLight
   - type: Stack
     stackType: FloorTileSteelCheckerLight
 
@@ -87,8 +85,8 @@
     heldPrefix: dark
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorDark
+    - Plating
+    - FloorDark
   - type: Stack
     stackType: FloorTileDark
   - type: Construction
@@ -104,8 +102,8 @@
     state: dark-diagonal-mini
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorDarkDiagonalMini
+    - Plating
+    - FloorDarkDiagonalMini
   - type: Stack
     stackType: FloorTileDarkDiagonalMini
 
@@ -118,8 +116,8 @@
     state: dark-diagonal
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorDarkDiagonal
+    - Plating
+    - FloorDarkDiagonal
   - type: Stack
     stackType: FloorTileDarkDiagonal
 
@@ -132,8 +130,8 @@
     state: dark-herringbone
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorDarkHerringbone
+    - Plating
+    - FloorDarkHerringbone
   - type: Stack
     stackType: FloorTileDarkHerringbone
 
@@ -146,8 +144,8 @@
     state: dark-mini
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorDarkMini
+    - Plating
+    - FloorDarkMini
   - type: Stack
     stackType: FloorTileDarkMini
 
@@ -160,8 +158,8 @@
     state: dark-mono
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorDarkMono
+    - Plating
+    - FloorDarkMono
   - type: Stack
     stackType: FloorTileDarkMono
 
@@ -174,8 +172,8 @@
     state: dark-pavement
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorDarkPavement
+    - Plating
+    - FloorDarkPavement
   - type: Stack
     stackType: FloorTileDarkPavement
 
@@ -188,8 +186,8 @@
     state: dark-pavement-vertical
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorDarkPavementVertical
+    - Plating
+    - FloorDarkPavementVertical
   - type: Stack
     stackType: FloorTileDarkPavementVertical
 
@@ -202,8 +200,8 @@
     state: dark-offset
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorDarkOffset
+    - Plating
+    - FloorDarkOffset
   - type: Stack
     stackType: FloorTileDarkOffset
 
@@ -218,8 +216,8 @@
     heldPrefix: steel
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorSteel
+    - Plating
+    - FloorSteel
   - type: Stack
     stackType: FloorTileSteel
   - type: Construction
@@ -235,8 +233,8 @@
     state: steel-offset
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorSteelOffset
+    - Plating
+    - FloorSteelOffset
   - type: Stack
     stackType: FloorTileSteelOffset
 
@@ -249,8 +247,8 @@
     state: steel-diagonal-mini
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorSteelDiagonalMini
+    - Plating
+    - FloorSteelDiagonalMini
   - type: Stack
     stackType: FloorTileSteelDiagonalMini
 
@@ -263,8 +261,8 @@
     state: steel-diagonal
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorSteelDiagonal
+    - Plating
+    - FloorSteelDiagonal
   - type: Stack
     stackType: FloorTileSteelDiagonal
 
@@ -277,8 +275,8 @@
     state: steel-herringbone
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorSteelHerringbone
+    - Plating
+    - FloorSteelHerringbone
   - type: Stack
     stackType: FloorTileSteelHerringbone
 
@@ -291,8 +289,8 @@
     state: steel-mini
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorSteelMini
+    - Plating
+    - FloorSteelMini
   - type: Stack
     stackType: FloorTileSteelMini
 
@@ -305,8 +303,8 @@
     state: steel-mono
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorSteelMono
+    - Plating
+    - FloorSteelMono
   - type: Stack
     stackType: FloorTileSteelMono
 
@@ -319,8 +317,8 @@
     state: steel-pavement
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorSteelPavement
+    - Plating
+    - FloorSteelPavement
   - type: Stack
     stackType: FloorTileSteelPavement
 
@@ -333,8 +331,8 @@
     state: steel-pavement-vertical
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorSteelPavementVertical
+    - Plating
+    - FloorSteelPavementVertical
   - type: Stack
     stackType: FloorTileSteelPavementVertical
 
@@ -349,8 +347,8 @@
     heldPrefix: white
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorWhite
+    - Plating
+    - FloorWhite
   - type: Stack
     stackType: FloorTileWhite
   - type: Construction
@@ -366,8 +364,8 @@
     state: white-offset
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorWhiteOffset
+    - Plating
+    - FloorWhiteOffset
   - type: Stack
     stackType: FloorTileWhiteOffset
 
@@ -380,8 +378,8 @@
     state: white-diagonal-mini
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorWhiteDiagonalMini
+    - Plating
+    - FloorWhiteDiagonalMini
   - type: Stack
     stackType: FloorTileWhiteDiagonalMini
 
@@ -394,8 +392,8 @@
     state: white-diagonal
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorWhiteDiagonal
+    - Plating
+    - FloorWhiteDiagonal
   - type: Stack
     stackType: FloorTileWhiteDiagonal
 
@@ -408,8 +406,8 @@
     state: white-herringbone
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorWhiteHerringbone
+    - Plating
+    - FloorWhiteHerringbone
   - type: Stack
     stackType: FloorTileWhiteHerringbone
 
@@ -422,8 +420,8 @@
     state: white-mini
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorWhiteMini
+    - Plating
+    - FloorWhiteMini
   - type: Stack
     stackType: FloorTileWhiteMini
 
@@ -436,8 +434,8 @@
     state: white-mono
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorWhiteMono
+    - Plating
+    - FloorWhiteMono
   - type: Stack
     stackType: FloorTileWhiteMono
 
@@ -450,8 +448,8 @@
     state: white-pavement
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorWhitePavement
+    - Plating
+    - FloorWhitePavement
   - type: Stack
     stackType: FloorTileWhitePavement
 
@@ -464,8 +462,8 @@
     state: white-pavement-vertical
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorWhitePavementVertical
+    - Plating
+    - FloorWhitePavementVertical
   - type: Stack
     stackType: FloorTileWhitePavementVertical
 
@@ -480,8 +478,8 @@
     heldPrefix: steel
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorMetalDiamond
+    - Plating
+    - FloorMetalDiamond
   - type: Stack
     stackType: FloorTileMetalDiamond
 #  - type: Construction
@@ -499,8 +497,8 @@
     heldPrefix: wood
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorWood
+    - Plating
+    - FloorWood
   - type: Stack
     stackType: FloorTileWood
   - type: Construction
@@ -518,8 +516,8 @@
     heldPrefix: dark
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorTechMaint
+    - Plating
+    - FloorTechMaint
   - type: Stack
     stackType: FloorTileTechmaint
 
@@ -536,8 +534,8 @@
     heldPrefix: steel
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorMono
+    - Plating
+    - FloorMono
   - type: Stack
     stackType: FloorTileMono
 
@@ -552,8 +550,8 @@
     heldPrefix: steel
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorLino
+    - Plating
+    - FloorLino
   - type: Stack
     stackType: FloorTileLino
 
@@ -568,8 +566,8 @@
     heldPrefix: brass
   - type: FloorTile
     outputs:
-      - PlatingBrass
-      - FloorBrassFilled
+    - PlatingBrass
+    - FloorBrassFilled
   - type: Stack
     stackType: FloorTileBrassFilled
   - type: Construction
@@ -587,8 +585,8 @@
     heldPrefix: brass
   - type: FloorTile
     outputs:
-      - PlatingBrass
-      - FloorBrassReebe
+    - PlatingBrass
+    - FloorBrassReebe
   - type: Stack
     stackType: FloorTileBrassReebe
   - type: Construction
@@ -606,8 +604,8 @@
     heldPrefix: dirty
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorSteelDirty
+    - Plating
+    - FloorSteelDirty
   - type: Stack
     stackType: FloorTileDirty
 
@@ -622,8 +620,8 @@
     heldPrefix: dark
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorElevatorShaft
+    - Plating
+    - FloorElevatorShaft
   - type: Stack
     stackType: FloorTileElevatorShaft
 
@@ -638,8 +636,8 @@
     heldPrefix: steel
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorRockVault
+    - Plating
+    - FloorRockVault
   - type: Stack
     stackType: FloorTileRockVault
 
@@ -654,8 +652,8 @@
     heldPrefix: carpet-blue
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorBlue
+    - Plating
+    - FloorBlue
   - type: Stack
     stackType: FloorTileBlue
 
@@ -670,8 +668,8 @@
     heldPrefix: steel
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorSteelLime
+    - Plating
+    - FloorSteelLime
   - type: Stack
     stackType: FloorTileLime
 
@@ -686,8 +684,8 @@
     heldPrefix: mining
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorMining
+    - Plating
+    - FloorMining
   - type: Stack
     stackType: FloorTileMining
 
@@ -702,8 +700,8 @@
     heldPrefix: miningdark
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorMiningDark
+    - Plating
+    - FloorMiningDark
   - type: Stack
     stackType: FloorTileMiningDark
 
@@ -718,8 +716,8 @@
     heldPrefix: mininglight
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorMiningLight
+    - Plating
+    - FloorMiningLight
   - type: Stack
     stackType: FloorTileMiningLight
 
@@ -735,8 +733,8 @@
     heldPrefix: showroom
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorFreezer
+    - Plating
+    - FloorFreezer
   - type: Stack
     stackType: FloorTileFreezer
 
@@ -751,8 +749,8 @@
     heldPrefix: showroom
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorShowroom
+    - Plating
+    - FloorShowroom
   - type: Stack
     stackType: FloorTileShowroom
 
@@ -767,8 +765,8 @@
     heldPrefix: hydro
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorHydro
+    - Plating
+    - FloorHydro
   - type: Stack
     stackType: FloorTileHydro
 
@@ -783,8 +781,8 @@
     heldPrefix: steel
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorBar
+    - Plating
+    - FloorBar
   - type: Stack
     stackType: FloorTileBar
 
@@ -799,8 +797,8 @@
     heldPrefix: steel
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorClown
+    - Plating
+    - FloorClown
   - type: Stack
     stackType: FloorTileClown
 
@@ -815,8 +813,8 @@
     heldPrefix: steel
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorMime
+    - Plating
+    - FloorMime
   - type: Stack
     stackType: FloorTileMime
 
@@ -831,8 +829,8 @@
     heldPrefix: dark
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorKitchen
+    - Plating
+    - FloorKitchen
   - type: Stack
     stackType: FloorTileKitchen
 
@@ -847,8 +845,8 @@
     heldPrefix: steel
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorLaundry
+    - Plating
+    - FloorLaundry
   - type: Stack
     stackType: FloorTileLaundry
 
@@ -878,8 +876,8 @@
     state: concrete-mono
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorConcreteMono
+    - Plating
+    - FloorConcreteMono
   - type: Stack
     stackType: FloorTileConcreteMono
 
@@ -892,8 +890,8 @@
     state: concrete-smooth
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorConcreteSmooth
+    - Plating
+    - FloorConcreteSmooth
   - type: Stack
     stackType: FloorTileConcreteSmooth
 
@@ -922,8 +920,8 @@
     state: grayconcrete-mono
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorGrayConcreteMono
+    - Plating
+    - FloorGrayConcreteMono
   - type: Stack
     stackType: FloorTileGrayConcreteMono
 
@@ -936,8 +934,8 @@
     state: grayconcrete-smooth
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorGrayConcreteSmooth
+    - Plating
+    - FloorGrayConcreteSmooth
   - type: Stack
     stackType: FloorTileGrayConcreteSmooth
 
@@ -966,8 +964,8 @@
     state: oldconcrete-mono
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorOldConcreteMono
+    - Plating
+    - FloorOldConcreteMono
   - type: Stack
     stackType: FloorTileOldConcreteMono
 
@@ -980,8 +978,8 @@
     state: oldconcrete-smooth
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorOldConcreteSmooth
+    - Plating
+    - FloorOldConcreteSmooth
   - type: Stack
     stackType: FloorTileOldConcreteSmooth
 
@@ -997,8 +995,8 @@
     heldPrefix: arcadeblue
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorArcadeBlue
+    - Plating
+    - FloorArcadeBlue
   - type: Stack
     stackType: FloorTileStackArcadeBlue
 
@@ -1013,8 +1011,8 @@
     heldPrefix: generic
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorArcadeBlue2
+    - Plating
+    - FloorArcadeBlue2
   - type: Stack
     stackType: FloorTileStackArcadeBlue2
 
@@ -1029,8 +1027,8 @@
     heldPrefix: arcadered
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorArcadeRed
+    - Plating
+    - FloorArcadeRed
   - type: Stack
     stackType: FloorTileStackArcadeRed
 
@@ -1045,8 +1043,8 @@
     heldPrefix: eighties
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorEighties
+    - Plating
+    - FloorEighties
   - type: Stack
     stackType: FloorTileStackEighties
 
@@ -1061,8 +1059,8 @@
     heldPrefix: generic
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorCarpetClown
+    - Plating
+    - FloorCarpetClown
   - type: Stack
     stackType: FloorTileStackCarpetClown
 
@@ -1077,8 +1075,8 @@
     heldPrefix: generic
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorCarpetOffice
+    - Plating
+    - FloorCarpetOffice
   - type: Stack
     stackType: FloorTileStackCarpetOffice
 
@@ -1093,8 +1091,8 @@
     heldPrefix: generic
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorBoxing
+    - Plating
+    - FloorBoxing
   - type: Stack
     stackType: FloorTileStackBoxing
 
@@ -1109,8 +1107,8 @@
     heldPrefix: generic
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorGym
+    - Plating
+    - FloorGym
   - type: Stack
     stackType: FloorTileStackGym
 
@@ -1126,8 +1124,8 @@
     heldPrefix: shuttlewhite
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorShuttleWhite
+    - Plating
+    - FloorShuttleWhite
   - type: Stack
     stackType: FloorTileStackShuttleWhite
 
@@ -1142,8 +1140,8 @@
     heldPrefix: shuttleblue
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorShuttleBlue
+    - Plating
+    - FloorShuttleBlue
   - type: Stack
     stackType: FloorTileStackShuttleBlue
 
@@ -1158,8 +1156,8 @@
     heldPrefix: shuttleorange
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorShuttleOrange
+    - Plating
+    - FloorShuttleOrange
   - type: Stack
     stackType: FloorTileStackShuttleOrange
 
@@ -1174,8 +1172,8 @@
     heldPrefix: shuttlepurple
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorShuttlePurple
+    - Plating
+    - FloorShuttlePurple
   - type: Stack
     stackType: FloorTileStackShuttlePurple
 
@@ -1190,8 +1188,8 @@
     heldPrefix: shuttlered
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorShuttleRed
+    - Plating
+    - FloorShuttleRed
   - type: Stack
     stackType: FloorTileStackShuttleRed
 
@@ -1206,8 +1204,8 @@
     heldPrefix: shuttlegrey
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorShuttleGrey
+    - Plating
+    - FloorShuttleGrey
   - type: Stack
     stackType: FloorTileStackShuttleGrey
 
@@ -1222,8 +1220,8 @@
     heldPrefix: shuttleblack
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorShuttleBlack
+    - Plating
+    - FloorShuttleBlack
   - type: Stack
     stackType: FloorTileStackShuttleBlack
 
@@ -1239,8 +1237,8 @@
     heldPrefix: gold
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorGold
+    - Plating
+    - FloorGold
   - type: Stack
     stackType: FloorTileGold
 
@@ -1255,8 +1253,8 @@
     heldPrefix: silver
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorSilver
+    - Plating
+    - FloorSilver
   - type: Stack
     stackType: FloorTileSilver
 
@@ -1272,8 +1270,8 @@
     heldPrefix: gcircuit
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorGreenCircuit
+    - Plating
+    - FloorGreenCircuit
   - type: Stack
     stackType: FloorTileGCircuit
 
@@ -1288,8 +1286,8 @@
     heldPrefix: bcircuit
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorBlueCircuit
+    - Plating
+    - FloorBlueCircuit
   - type: Stack
     stackType: FloorTileBCircuit
 
@@ -1304,8 +1302,8 @@
     heldPrefix: rcircuit
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorRedCircuit
+    - Plating
+    - FloorRedCircuit
   - type: Stack
     stackType: FloorTileRCircuit
 
@@ -1347,8 +1345,8 @@
     heldPrefix: grass
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorGrass
+    - Plating
+    - FloorGrass
   - type: Stack
     stackType: FloorTileGrass
 
@@ -1363,8 +1361,8 @@
     heldPrefix: grassjungle
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorGrassJungle
+    - Plating
+    - FloorGrassJungle
   - type: Stack
     stackType: FloorTileGrassJungle
 
@@ -1379,8 +1377,8 @@
     heldPrefix: snow
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorSnow
+    - Plating
+    - FloorSnow
   - type: Stack
     stackType: FloorTileSnow
 
@@ -1395,8 +1393,8 @@
     heldPrefix: wood
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorWoodTile
+    - Plating
+    - FloorWoodTile
   - type: Stack
     stackType: FloorTileWoodPattern
 
@@ -1430,8 +1428,8 @@
     heldPrefix: steel
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorTechMaint2
+    - Plating
+    - FloorTechMaint2
   - type: Stack
     stackType: FloorTileSteelMaint
 
@@ -1446,8 +1444,8 @@
     heldPrefix: steel
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorTechMaint3
+    - Plating
+    - FloorTechMaint3
   - type: Stack
     stackType: FloorTileGratingMaint
 
@@ -1461,7 +1459,7 @@
     state: icon
   - type: FloorTile
     outputs:
-      - FloorWebTile
+    - FloorWebTile
   - type: Stack
     stackType: FloorTileWeb
   - type: Construction
@@ -1583,8 +1581,8 @@
     heldPrefix: wood
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorWoodLarge
+    - Plating
+    - FloorWoodLarge
   - type: Stack
     stackType: FloorTileWoodLarge
   - type: Construction
@@ -1605,8 +1603,8 @@
     heldPrefix: white-marble
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorWhiteMarble
+    - Plating
+    - FloorWhiteMarble
   - type: Stack
     stackType: FloorTileWhiteMarble
 
@@ -1622,8 +1620,8 @@
     heldPrefix: dark-marble
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorDarkMarble
+    - Plating
+    - FloorDarkMarble
   - type: Stack
     stackType: FloorTileDarkMarble
 
@@ -1639,8 +1637,8 @@
     heldPrefix: plasmarble
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorPlasmaMarble
+    - Plating
+    - FloorPlasmaMarble
   - type: Stack
     stackType: FloorTilePlasmaMarble
   - type: DamageOtherOnHit
@@ -1660,8 +1658,8 @@
     heldPrefix: uranium-marble
   - type: FloorTile
     outputs:
-      - Plating
-      - FloorUraniumMarble
+    - Plating
+    - FloorUraniumMarble
   - type: Stack
     stackType: FloorTileUraniumMarble
   - type: DamageOtherOnHit

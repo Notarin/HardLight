@@ -4,13 +4,13 @@ using Content.Shared.Database;
 using Content.Shared.DoAfter;
 using Content.Shared.Doors.Components;
 using Content.Shared.Interaction;
+using Content.Shared.Interaction.Components; // HardLight
 using Content.Shared.Popups;
 using Content.Shared.Prying.Components;
 using Content.Shared.Verbs;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Serialization;
 using PryUnpoweredComponent = Content.Shared.Prying.Components.PryUnpoweredComponent;
-using Content.Shared.Interaction.Components; // HardLight
 
 namespace Content.Shared.Prying.Systems;
 
@@ -19,10 +19,17 @@ namespace Content.Shared.Prying.Systems;
 /// </summary>
 public sealed class PryingSystem : EntitySystem
 {
-    [Dependency] private readonly ISharedAdminLogManager _adminLog = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audioSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency]
+    private readonly ISharedAdminLogManager _adminLog = default!;
+
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfterSystem = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audioSystem = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
 
     public override void Initialize()
     {
@@ -74,16 +81,18 @@ public sealed class PryingSystem : EntitySystem
         }
 
         if (tool == null)
-        // HardLight end
+            // HardLight end
             return;
 
-        args.Verbs.Add(new AlternativeVerb()
-        {
-            Text = Loc.GetString("door-pry"),
-            Impact = LogImpact.Low,
-            Priority = 10, // HardLight
-            Act = () => TryPry(uid, args.User, out _, tool.Value), // HardLight: args.User<tool.Value
-        });
+        args.Verbs.Add(
+            new AlternativeVerb()
+            {
+                Text = Loc.GetString("door-pry"),
+                Impact = LogImpact.Low,
+                Priority = 10, // HardLight
+                Act = () => TryPry(uid, args.User, out _, tool.Value), // HardLight: args.User<tool.Value
+            }
+        );
     }
 
     /// <summary>
@@ -134,7 +143,10 @@ public sealed class PryingSystem : EntitySystem
         id = null;
 
         // We don't care about displaying a message if no tool was used.
-        if (!TryComp<PryUnpoweredComponent>(target, out var unpoweredComp) || !CanPry(target, user, out _, unpoweredComp: unpoweredComp))
+        if (
+            !TryComp<PryUnpoweredComponent>(target, out var unpoweredComp)
+            || !CanPry(target, user, out _, unpoweredComp: unpoweredComp)
+        )
             // If we have reached this point we want the event that caused this
             // to be marked as handled.
             return true;
@@ -144,7 +156,13 @@ public sealed class PryingSystem : EntitySystem
         return StartPry(target, user, null, modifier, out id);
     }
 
-    private bool CanPry(EntityUid target, EntityUid user, out string? message, PryingComponent? comp = null, PryUnpoweredComponent? unpoweredComp = null)
+    private bool CanPry(
+        EntityUid target,
+        EntityUid user,
+        out string? message,
+        PryingComponent? comp = null,
+        PryUnpoweredComponent? unpoweredComp = null
+    )
     {
         BeforePryEvent canev;
 
@@ -170,12 +188,26 @@ public sealed class PryingSystem : EntitySystem
         return !canev.Cancelled;
     }
 
-    private bool StartPry(EntityUid target, EntityUid user, EntityUid? tool, float toolModifier, [NotNullWhen(true)] out DoAfterId? id)
+    private bool StartPry(
+        EntityUid target,
+        EntityUid user,
+        EntityUid? tool,
+        float toolModifier,
+        [NotNullWhen(true)] out DoAfterId? id
+    )
     {
         var modEv = new GetPryTimeModifierEvent(user);
 
         RaiseLocalEvent(target, ref modEv);
-        var doAfterArgs = new DoAfterArgs(EntityManager, user, TimeSpan.FromSeconds(modEv.BaseTime * modEv.PryTimeModifier / toolModifier), new DoorPryDoAfterEvent(), target, target, tool)
+        var doAfterArgs = new DoAfterArgs(
+            EntityManager,
+            user,
+            TimeSpan.FromSeconds(modEv.BaseTime * modEv.PryTimeModifier / toolModifier),
+            new DoorPryDoAfterEvent(),
+            target,
+            target,
+            tool
+        )
         {
             BreakOnDamage = true,
             BreakOnMove = true,
@@ -184,7 +216,11 @@ public sealed class PryingSystem : EntitySystem
 
         if (tool != user && tool != null)
         {
-            _adminLog.Add(LogType.Action, LogImpact.Low, $"{ToPrettyString(user)} is using {ToPrettyString(tool.Value)} to pry {ToPrettyString(target)}");
+            _adminLog.Add(
+                LogType.Action,
+                LogImpact.Low,
+                $"{ToPrettyString(user)} is using {ToPrettyString(tool.Value)} to pry {ToPrettyString(target)}"
+            );
         }
         else
         {

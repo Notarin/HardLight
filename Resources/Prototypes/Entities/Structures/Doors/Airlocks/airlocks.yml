@@ -133,7 +133,7 @@
     sprite: Structures/Doors/Airlocks/Standard/syndicate.rsi
 
 - type: entity
-  parent: Airlock  # Reparented from AirlockCargo to use as the parent for Eidolon Doors
+  parent: Airlock # Reparented from AirlockCargo to use as the parent for Eidolon Doors
   id: AirlockMining
   suffix: Mining
   components:
@@ -160,7 +160,7 @@
   - type: Sprite
     sprite: Structures/Doors/Airlocks/Standard/hatch.rsi
   - type: Paintable
-    group: null 
+    group: null
 
 - type: entity
   parent: Airlock
@@ -180,7 +180,7 @@
   - type: Sprite
     sprite: Structures/Doors/Airlocks/Standard/hatch_maint.rsi
   - type: Paintable
-    group: null 
+    group: null
 
 # Glass
 - type: entity

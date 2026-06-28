@@ -23,19 +23,21 @@ public sealed partial class EntityWorldTargetActionComponent : BaseTargetActionC
     /// Determines which entities are valid targets for this action.
     /// </summary>
     /// <remarks>No whitelist check when null.</remarks>
-    [DataField] public EntityWhitelist? Whitelist;
+    [DataField]
+    public EntityWhitelist? Whitelist;
 
     /// <summary>
     /// Whether this action considers the user as a valid target entity when using this action.
     /// </summary>
-    [DataField] public bool CanTargetSelf = true;
+    [DataField]
+    public bool CanTargetSelf = true;
 }
 
 [Serializable, NetSerializable]
 public sealed class EntityWorldTargetActionComponentState(
     EntityWorldTargetActionComponent component,
-    IEntityManager entManager)
-    : BaseActionComponentState(component, entManager)
+    IEntityManager entManager
+) : BaseActionComponentState(component, entManager)
 {
     public EntityWhitelist? Whitelist = component.Whitelist;
     public bool CanTargetSelf = component.CanTargetSelf;

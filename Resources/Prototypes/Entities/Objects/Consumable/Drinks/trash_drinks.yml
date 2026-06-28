@@ -54,14 +54,13 @@
     damageContainer: Inorganic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 5
       behaviors:
       - !type:PlaySoundBehavior
         sound:
           collection: GlassBreak
-      - !type:SpillBehavior { }
+      - !type:SpillBehavior {}
       - !type:SpawnEntitiesBehavior
         spawn:
           BrokenBottle:
@@ -69,7 +68,7 @@
             max: 1
         transferForensics: true
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: Tag
     tags:
     - Trash
@@ -131,13 +130,12 @@
     damageContainer: Inorganic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 20
       behaviors:
-      - !type:SpillBehavior { }
+      - !type:SpillBehavior {}
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: Tag
     tags:
     - Trash
@@ -168,7 +166,6 @@
   - type: Sprite
     sprite: Objects/Consumable/TrashDrinks/absinthebottle_empty.rsi
 
-
 - type: entity
   name: alcohol bottle
   parent: DrinkBottleBaseEmpty
@@ -176,7 +173,6 @@
   components:
   - type: Sprite
     sprite: Objects/Consumable/TrashDrinks/alco-clear.rsi
-
 
 - type: entity
   name: ale bottle
@@ -186,7 +182,6 @@
   - type: Sprite
     sprite: Objects/Consumable/TrashDrinks/alebottle_empty.rsi
 
-
 - type: entity
   name: beer bottle
   parent: DrinkBottleBaseSmallEmpty
@@ -194,7 +189,6 @@
   components:
   - type: Sprite
     sprite: Objects/Consumable/TrashDrinks/beer_empty.rsi
-
 
 - type: entity
   name: cognac bottle
@@ -204,7 +198,6 @@
   - type: Sprite
     sprite: Objects/Consumable/TrashDrinks/cognacbottle_empty.rsi
 
-
 - type: entity
   name: Griffeater gin bottle
   parent: DrinkBottleBaseEmpty
@@ -212,7 +205,6 @@
   components:
   - type: Sprite
     sprite: Objects/Consumable/TrashDrinks/ginbottle_empty.rsi
-
 
 - type: entity
   name: gildlager bottle
@@ -222,7 +214,6 @@
   - type: Sprite
     sprite: Objects/Consumable/TrashDrinks/gildlagerbottle_empty.rsi
 
-
 - type: entity
   name: coffee liqueur bottle
   parent: DrinkBottleBaseEmpty
@@ -230,7 +221,6 @@
   components:
   - type: Sprite
     sprite: Objects/Consumable/TrashDrinks/coffeeliqueurbottle_empty.rsi
-
 
 - type: entity
   name: nt cahors bottle
@@ -240,7 +230,6 @@
   - type: Sprite
     sprite: Objects/Consumable/TrashDrinks/ntcahors_empty.rsi
 
-
 - type: entity
   name: patron bottle
   parent: DrinkBottleBaseEmpty
@@ -248,7 +237,6 @@
   components:
   - type: Sprite
     sprite: Objects/Consumable/TrashDrinks/patronbottle_empty.rsi
-
 
 - type: entity
   name: poison wine bottle
@@ -258,7 +246,6 @@
   - type: Sprite
     sprite: Objects/Consumable/TrashDrinks/pwinebottle_empty.rsi
 
-
 - type: entity
   name: rum bottle
   parent: DrinkBottleBaseEmpty
@@ -266,7 +253,6 @@
   components:
   - type: Sprite
     sprite: Objects/Consumable/TrashDrinks/rumbottle_empty.rsi
-
 
 - type: entity
   name: tequila bottle
@@ -276,7 +262,6 @@
   - type: Sprite
     sprite: Objects/Consumable/TrashDrinks/tequillabottle_empty.rsi
 
-
 - type: entity
   name: vermouth bottle
   parent: DrinkBottleBaseEmpty
@@ -284,7 +269,6 @@
   components:
   - type: Sprite
     sprite: Objects/Consumable/TrashDrinks/vermouthbottle_empty.rsi
-
 
 - type: entity
   name: vodka bottle
@@ -294,7 +278,6 @@
   - type: Sprite
     sprite: Objects/Consumable/TrashDrinks/vodkabottle_empty.rsi
 
-
 - type: entity
   name: whiskey bottle
   parent: DrinkBottleBaseEmpty
@@ -302,7 +285,6 @@
   components:
   - type: Sprite
     sprite: Objects/Consumable/TrashDrinks/whiskeybottle_empty.rsi
-
 
 - type: entity
   name: wine bottle
@@ -312,7 +294,6 @@
   - type: Sprite
     sprite: Objects/Consumable/TrashDrinks/winebottle_empty.rsi
 
-
 - type: entity
   name: lime juice carton
   parent: DrinkCartonBaseEmpty
@@ -320,7 +301,6 @@
   components:
   - type: Sprite
     sprite: Objects/Consumable/Drinks/limejuice.rsi
-
 
 - type: entity
   name: orange juice carton
@@ -330,7 +310,6 @@
   - type: Sprite
     sprite: Objects/Consumable/Drinks/orangejuice.rsi
 
-
 - type: entity
   name: tomato juice carton
   parent: DrinkCartonBaseEmpty
@@ -339,7 +318,6 @@
   - type: Sprite
     sprite: Objects/Consumable/Drinks/tomatojuice.rsi
 
-
 - type: entity
   name: milk cream carton
   parent: DrinkCartonBaseEmpty
@@ -347,7 +325,6 @@
   components:
   - type: Sprite
     sprite: Objects/Consumable/Drinks/cream.rsi
-
 
 - type: entity
   name: milk carton

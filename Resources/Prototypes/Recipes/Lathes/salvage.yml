@@ -69,7 +69,6 @@
     Silver: 200
     Diamond: 100
 
-
 - type: latheRecipe
   id: PKAUpgradeDamage
   result: PKAUpgradeDamage

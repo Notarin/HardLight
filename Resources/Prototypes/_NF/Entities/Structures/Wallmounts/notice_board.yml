@@ -25,8 +25,7 @@
     damageModifierSet: Wood
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 75
       behaviors:
       - !type:DoActsBehavior
@@ -46,7 +45,7 @@
     state: base
     layers:
     - state: base
-    - map: [ "enum.StorageContainerVisualLayers.Fill" ]
+    - map: ["enum.StorageContainerVisualLayers.Fill"]
       visible: false
   - type: Icon
     sprite: _NF/Structures/Wallmounts/notice_board.rsi

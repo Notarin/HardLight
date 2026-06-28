@@ -11,11 +11,20 @@ namespace Content.Server._CS.Traits.Abilities;
 
 public sealed class AphrodesiacBiteSystem : EntitySystem
 {
-    [Dependency] private readonly ConsentSystem _consent = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
-    [Dependency] private readonly BloodstreamSystem _bloodstream = default!;
+    [Dependency]
+    private readonly ConsentSystem _consent = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SharedActionsSystem _actions = default!;
+
+    [Dependency]
+    private readonly BloodstreamSystem _bloodstream = default!;
 
     public override void Initialize()
     {
@@ -48,7 +57,11 @@ public sealed class AphrodesiacBiteSystem : EntitySystem
 
         if (bite.RequiresConsent && !_consent.HasConsent(target, bite.ConsentToggleId))
         {
-            _popup.PopupEntity(Loc.GetString("aphrodesiac-no-consent", ("target", target)), user, PopupType.LargeCaution);
+            _popup.PopupEntity(
+                Loc.GetString("aphrodesiac-no-consent", ("target", target)),
+                user,
+                PopupType.LargeCaution
+            );
             return;
         }
 

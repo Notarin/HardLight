@@ -1,5 +1,5 @@
 - type: entity
-  parent: [ BaseMachinePowered ]
+  parent: [BaseMachinePowered]
   id: DroneController
   name: drone control server
   description: Pilots the drone it's on, if controlled by a drone control console.
@@ -18,8 +18,8 @@
     visuals:
       enum.PowerDeviceVisuals.Powered:
         enum.PowerDeviceVisualLayers.Powered:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
   - type: Appearance
   - type: WiresVisuals
   - type: Physics
@@ -27,8 +27,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.4,-0.4,0.4,0.4"
         density: 190
         mask:
@@ -37,8 +36,7 @@
         - MachineLayer
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:PlaySoundBehavior
@@ -122,8 +120,8 @@
   name: drone control console board
   description: A computer printed circuit board for a drone control console.
   components:
-    - type: ComputerBoard
-      prototype: ComputerDroneControl
+  - type: ComputerBoard
+    prototype: ComputerDroneControl
 
 - type: htnCompound
   id: DroneCompound

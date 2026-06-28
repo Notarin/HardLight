@@ -28,7 +28,6 @@
   - type: Clothing
     sprite: _HL/Clothing/Neck/Gaiter/charcoal.rsi
 
-
 - type: entity
   parent: ClothingGaiterBase
   id: ClothingGaiterRed

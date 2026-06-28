@@ -1,17 +1,17 @@
 - type: entity
   id: OrganReptilianStomach
   parent: OrganAnimalStomach
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Stomach
     # specialDigestible: # Frontier
-      # tags: # Frontier
-      # - Fruit # Frontier
-      # - ReptilianFood # Frontier
-      # - Meat # Frontier
-      # - Pill # Frontier
-      # - Crayon # Frontier
-      # - Paper # Frontier
+    # tags: # Frontier
+    # - Fruit # Frontier
+    # - ReptilianFood # Frontier
+    # - Meat # Frontier
+    # - Pill # Frontier
+    # - Crayon # Frontier
+    # - Paper # Frontier
   - type: SolutionContainerManager
     solutions:
       stomach:

@@ -12,7 +12,7 @@ public sealed partial class NPCJukeComponent : Component
     [DataField("jukeDuration")]
     public float JukeDuration = 0.5f;
 
-    [DataField("nextJuke", customTypeSerializer:typeof(TimeOffsetSerializer))]
+    [DataField("nextJuke", customTypeSerializer: typeof(TimeOffsetSerializer))]
     [AutoPausedField]
     public TimeSpan NextJuke;
 
@@ -30,5 +30,5 @@ public enum JukeType : byte
     /// <summary>
     /// Move to the adjacent tile for the specified duration.
     /// </summary>
-    AdjacentTile
+    AdjacentTile,
 }

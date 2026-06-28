@@ -116,4 +116,5 @@ public partial record struct EntityPaintedEvent(
     EntityUid? User,
     EntityUid Tool,
     EntProtoId Prototype,
-    ProtoId<PaintableGroupPrototype> Group);
+    ProtoId<PaintableGroupPrototype> Group
+);

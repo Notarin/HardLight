@@ -1,4 +1,3 @@
-﻿---
 # Base prototypes for CM14 xenos (abstract)
 - type: entity
   parent: MobXeno

@@ -1,27 +1,27 @@
-﻿- type: entity
+- type: entity
   parent: CMWeaponPistolBase
   id: CMWeaponPistolM1984
   name: M1984 service pistol
   description: An M1984 Service Pistol, once the standard issue sidearm of the Marines but has recently been replaced with the M77 combat pistol. Fires 9mm pistol rounds.
   components:
   # - type: RMCSelectiveFire
-    # scatterWielded: 10
-    # scatterUnwielded: 10
-    # baseFireRate: 10
-    # burstScatterMult: 5
+  # scatterWielded: 10
+  # scatterUnwielded: 10
+  # baseFireRate: 10
+  # burstScatterMult: 5
   - type: Sprite
     sprite: _RMC14/Objects/Weapons/Guns/Pistols/m1984.rsi
     layers:
     - sprite: _RMC14/Objects/Weapons/Guns/Pistols/m1984.rsi
       state: base
-      map: [ "enum.GunVisualLayers.Base" ]
+      map: ["enum.GunVisualLayers.Base"]
     - sprite: _RMC14/Objects/Weapons/Guns/Pistols/m1984.rsi
       state: mag-0
-      map: [ "enum.GunVisualLayers.Mag" ]
+      map: ["enum.GunVisualLayers.Mag"]
   - type: Clothing
     sprite: _RMC14/Objects/Weapons/Guns/Pistols/m1984.rsi
   # - type: RMCWeaponAccuracy
-    # accuracyMultiplier: 1.2
+  # accuracyMultiplier: 1.2
   - type: ItemSlots
     slots:
       gun_magazine:
@@ -34,33 +34,33 @@
           - CMMagazinePistolM1984
           - RMCMagazinePistolM1984Rubber
         startingItem: CMMagazinePistolM1984
-  # - type: AttachableHolder
-    # slots:
+        # - type: AttachableHolder
+      # slots:
       # rmc-aslot-barrel:
-        # whitelist:
-          # tags:
-          # - RMCAttachmentBarrelCharger
-          # - RMCAttachmentExtendedBarrel
-          # - RMCAttachmentRecoilCompensator
-          # - RMCAttachmentSuppressor
+      # whitelist:
+      # tags:
+      # - RMCAttachmentBarrelCharger
+      # - RMCAttachmentExtendedBarrel
+      # - RMCAttachmentRecoilCompensator
+      # - RMCAttachmentSuppressor
       # rmc-aslot-rail:
-        # whitelist:
-          # tags:
-          # - RMCAttachmentRailFlashlight
-          # - RMCAttachmentS5RedDotSight
-          # - RMCAttachmentS6ReflexSight
+      # whitelist:
+      # tags:
+      # - RMCAttachmentRailFlashlight
+      # - RMCAttachmentS5RedDotSight
+      # - RMCAttachmentS6ReflexSight
       # rmc-aslot-underbarrel:
-        # whitelist:
-          # tags:
-          # - RMCAttachmentBurstFireAssembly
-          # - RMCAttachmentLaserSight
-  # - type: AttachableHolderVisuals
-    # offsets:
-      # rmc-aslot-barrel: 0.71, 0.095
-      # rmc-aslot-rail: -0.065, 0.125
-      # rmc-aslot-underbarrel: 0.312, -0.25
-
+      # whitelist:
+      # tags:
+      # - RMCAttachmentBurstFireAssembly
+      # - RMCAttachmentLaserSight
 - type: entity
+  # - type: AttachableHolderVisuals
+  # offsets:
+  # rmc-aslot-barrel: 0.71, 0.095
+  # rmc-aslot-rail: -0.065, 0.125
+  # rmc-aslot-underbarrel: 0.312, -0.25
+
   parent: CMWeaponPistolM1984
   id: CMWeaponPistolM1984Empty
   suffix: Empty

@@ -15,8 +15,11 @@ namespace Content.Client.Materials.UI;
 [GenerateTypedNameReferences]
 public sealed partial class MaterialDisplay : PanelContainer
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IEntityManager _entityManager = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly IEntityManager _entityManager = default!;
 
     private readonly MaterialStorageSystem _materialStorage;
 
@@ -53,8 +56,8 @@ public sealed partial class MaterialDisplay : PanelContainer
         var matProto = _prototypeManager.Index<MaterialPrototype>(Material);
 
         var sheetVolume = _materialStorage.GetSheetVolume(matProto);
-        var sheets = (float) volume / sheetVolume;
-        var maxEjectableSheets = (int) MathF.Floor(sheets);
+        var sheets = (float)volume / sheetVolume;
+        var maxEjectableSheets = (int)MathF.Floor(sheets);
 
         var unit = Loc.GetString(matProto.Unit);
         var amountText = Loc.GetString("lathe-menu-material-amount", ("amount", sheets), ("unit", unit));
@@ -89,7 +92,7 @@ public sealed partial class MaterialDisplay : PanelContainer
                 Access = AccessLevel.Public,
                 Text = Loc.GetString($"{sheetsToEject}"),
                 MinWidth = 45,
-                StyleClasses = { styleClass }
+                StyleClasses = { styleClass },
             };
 
             button.OnPressed += _ =>
@@ -101,7 +104,11 @@ public sealed partial class MaterialDisplay : PanelContainer
 
             if (_prototypeManager.TryIndex<MaterialPrototype>(Material, out var proto))
             {
-                button.ToolTip = Loc.GetString("lathe-menu-tooltip-display", ("amount", sheetsToEject), ("material", Loc.GetString(proto.Name)));
+                button.ToolTip = Loc.GetString(
+                    "lathe-menu-tooltip-display",
+                    ("amount", sheetsToEject),
+                    ("material", Loc.GetString(proto.Name))
+                );
             }
 
             Content.AddChild(button);

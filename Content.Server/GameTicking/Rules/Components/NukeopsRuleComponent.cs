@@ -87,7 +87,7 @@ public sealed partial class NukeopsRuleComponent : Component
     public WinType WinType = WinType.Neutral;
 
     [DataField]
-    public List<WinCondition> WinConditions = new ();
+    public List<WinCondition> WinConditions = new();
 
     [DataField]
     public EntityUid? TargetStation;
@@ -108,25 +108,29 @@ public enum WinType : byte
     ///     Operative major win. This means they nuked the station.
     /// </summary>
     OpsMajor,
+
     /// <summary>
     ///     Minor win. All nukies were alive at the end of the round.
     ///     Alternatively, some nukies were alive, but the disk was left behind.
     /// </summary>
     OpsMinor,
+
     /// <summary>
     ///     Neutral win. The nuke exploded, but on the wrong station.
     /// </summary>
     Neutral,
+
     /// <summary>
     ///     Crew minor win. The nuclear authentication disk escaped on the shuttle,
     ///     but some nukies were alive.
     /// </summary>
     CrewMinor,
+
     /// <summary>
     ///     Crew major win. This means they either killed all nukies,
     ///     or the bomb exploded too far away from the station, or on the nukie moon.
     /// </summary>
-    CrewMajor
+    CrewMajor,
 }
 
 public enum WinCondition : byte
@@ -141,5 +145,5 @@ public enum WinCondition : byte
     NukiesAbandoned,
     AllNukiesDead,
     SomeNukiesAlive,
-    AllNukiesAlive
+    AllNukiesAlive,
 }

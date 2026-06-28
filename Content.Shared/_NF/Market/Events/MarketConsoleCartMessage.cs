@@ -19,4 +19,3 @@ public sealed class MarketConsoleCartMessage : BoundUserInterfaceMessage
         RemoveFromCart = removeFromCart;
     }
 }
-

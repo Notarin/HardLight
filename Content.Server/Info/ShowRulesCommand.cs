@@ -12,13 +12,19 @@ namespace Content.Server.Info;
 [AdminCommand(AdminFlags.Admin)]
 public sealed class ShowRulesCommand : IConsoleCommand
 {
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly IConfigurationManager _configuration = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
+    [Dependency]
+    private readonly INetManager _net = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _configuration = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
 
     public string Command => "showrules";
     public string Description => "Opens the rules popup for the specified player.";
     public string Help => "showrules <username> [seconds]";
+
     public async void Execute(IConsoleShell shell, string argStr, string[] args)
     {
         string target;
@@ -50,15 +56,19 @@ public sealed class ShowRulesCommand : IConsoleCommand
             }
         }
 
-
         if (!_player.TryGetSessionByUsername(target, out var player))
         {
             shell.WriteError("Unable to find a player with that name.");
-           return;
+            return;
         }
 
         var coreRules = _configuration.GetCVar(CCVars.RulesFile);
-        var message = new SendRulesInformationMessage { PopupTime = seconds, CoreRules = coreRules, ShouldShowRules = true};
+        var message = new SendRulesInformationMessage
+        {
+            PopupTime = seconds,
+            CoreRules = coreRules,
+            ShouldShowRules = true,
+        };
         _net.ServerSendMessage(message, player.Channel);
     }
 
@@ -68,7 +78,8 @@ public sealed class ShowRulesCommand : IConsoleCommand
         {
             return CompletionResult.FromHintOptions(
                 CompletionHelper.SessionNames(players: _player),
-                Loc.GetString("<username>"));
+                Loc.GetString("<username>")
+            );
         }
 
         if (args.Length == 2)

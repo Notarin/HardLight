@@ -9,7 +9,6 @@ namespace Content.Server.Database;
 
 /// Listens for ban_notification containing the player id and the banning server id using postgres listen/notify.
 /// Players a ban_notification got received for get banned, except when the current server id and the one in the notification payload match.
-
 public sealed partial class ServerDbPostgres
 {
     /// <summary>
@@ -106,11 +105,9 @@ public sealed partial class ServerDbPostgres
     private void OnNotification(object _, NpgsqlNotificationEventArgs notification)
     {
         _notifyLog.Verbose($"Received notification on channel {notification.Channel}");
-        NotificationReceived(new DatabaseNotification
-        {
-            Channel = notification.Channel,
-            Payload = notification.Payload,
-        });
+        NotificationReceived(
+            new DatabaseNotification { Channel = notification.Channel, Payload = notification.Payload }
+        );
     }
 
     public override async Task SendNotification(DatabaseNotification notification)
@@ -118,7 +115,8 @@ public sealed partial class ServerDbPostgres
         await using var db = await GetDbImpl();
 
         await db.PgDbContext.Database.ExecuteSqlAsync(
-            $"SELECT pg_notify({notification.Channel}, {notification.Payload})");
+            $"SELECT pg_notify({notification.Channel}, {notification.Payload})"
+        );
     }
 
     public override void Shutdown()

@@ -26,7 +26,10 @@ public static class ListingLocalisationHelpers
     /// This function gets a localised description from the localisation string if it exists, and if not, it gets the entity's description.
     /// If neither a localised string exists, or an associated entity description, it will return the value of the "Description" field.
     /// </summary>
-    public static string GetLocalisedDescriptionOrEntityDescription(ListingData listingData, IPrototypeManager prototypeManager)
+    public static string GetLocalisedDescriptionOrEntityDescription(
+        ListingData listingData,
+        IPrototypeManager prototypeManager
+    )
     {
         var desc = string.Empty;
 

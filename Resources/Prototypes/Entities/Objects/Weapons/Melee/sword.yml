@@ -14,14 +14,14 @@
     size: Normal
   - type: Utensil
     types:
-      - Knife
+    - Knife
   - type: Tool
     qualities:
     - Slicing
 
 - type: entity
   name: captain's sabre
-  parent: [ BaseSword, BaseC1Contraband ] # Frontier: BaseCommandContraband<BaseC1Contraband
+  parent: [BaseSword, BaseC1Contraband] # Frontier: BaseCommandContraband<BaseC1Contraband
   id: CaptainSabre
   description: A ceremonial weapon belonging to the captain of the station.
   components:
@@ -33,7 +33,7 @@
       types:
         Slash: 17 #cmon, it has to be at least BETTER than the rest.
     soundHit:
-        path: /Audio/Weapons/bladeslice.ogg
+      path: /Audio/Weapons/bladeslice.ogg
   - type: Reflect
     reflectProb: .1
     spread: 90
@@ -56,7 +56,7 @@
 
 - type: entity
   name: katana
-  parent: [ BaseSword, BaseC1Contraband ] # Frontier: BaseMajorContraband<BaseC1Contraband
+  parent: [BaseSword, BaseC1Contraband] # Frontier: BaseMajorContraband<BaseC1Contraband
   id: Katana
   description: Ancient craftwork made with not so ancient plasteel.
   components:
@@ -70,7 +70,7 @@
       types:
         Slash: 15
     soundHit:
-        path: /Audio/Weapons/bladeslice.ogg
+      path: /Audio/Weapons/bladeslice.ogg
   - type: Item
     sprite: Objects/Weapons/Melee/katana.rsi
   - type: DisarmMalus
@@ -110,7 +110,7 @@
 
 - type: entity
   name: machete
-  parent: [ BaseSword, BaseC1Contraband ] # Frontier: BaseMajorContraband<BaseC1Contraband
+  parent: [BaseSword, BaseC1Contraband] # Frontier: BaseMajorContraband<BaseC1Contraband
   id: Machete
   description: A large, vicious looking blade.
   components:
@@ -124,7 +124,7 @@
       types:
         Slash: 15
     soundHit:
-        path: /Audio/Weapons/bladeslice.ogg
+      path: /Audio/Weapons/bladeslice.ogg
   - type: Item
     sprite: Objects/Weapons/Melee/machete.rsi
   - type: DisarmMalus
@@ -136,7 +136,7 @@
 
 - type: entity
   name: claymore
-  parent: [ BaseSword, BaseC1Contraband ] # Frontier: BaseMajorContraband<BaseC1Contraband
+  parent: [BaseSword, BaseC1Contraband] # Frontier: BaseMajorContraband<BaseC1Contraband
   id: Claymore
   description: An ancient war blade.
   components:
@@ -148,7 +148,7 @@
       types:
         Slash: 20
     soundHit:
-        path: /Audio/Weapons/bladeslice.ogg
+      path: /Audio/Weapons/bladeslice.ogg
   - type: Item
   - type: Clothing
     sprite: Objects/Weapons/Melee/claymore.rsi
@@ -159,7 +159,7 @@
 
 - type: entity
   name: cutlass
-  parent: [ BaseSword, BaseC1Contraband ] # Frontier: BaseMajorContraband<BaseC1Contraband
+  parent: [BaseSword, BaseC1Contraband] # Frontier: BaseMajorContraband<BaseC1Contraband
   id: Cutlass
   description: A wickedly curved blade, often seen in the hands of space pirates.
   components:
@@ -173,7 +173,7 @@
       types:
         Slash: 16
     soundHit:
-        path: /Audio/Weapons/bladeslice.ogg
+      path: /Audio/Weapons/bladeslice.ogg
   - type: Item
     sprite: Objects/Weapons/Melee/cutlass.rsi
   - type: DisarmMalus
@@ -185,38 +185,38 @@
 
 - type: entity
   name: throngler
-  parent: [ BaseSword, BaseC3Contraband ] # Frontier: BaseMajorContraband<BaseC3Contraband
+  parent: [BaseSword, BaseC3Contraband] # Frontier: BaseMajorContraband<BaseC3Contraband
   id: Throngler
   description: Why would you make this?
   components:
-    - type: Sprite
-      sprite: Objects/Weapons/Melee/Throngler2.rsi
-    - type: MeleeWeapon
-      attackRate: 10
-      damage:
-        types:
-          Structural: 150
-          Slash: 20 #Horror
-          Blunt: 20
-          Heat: 20
-          Piercing: 20
-          Radiation: 10
-      soundHit:
-        path: /Audio/Effects/explosion_small1.ogg
-    - type: Reflect
-      reflectProb: .25
-      spread: 90
-    - type: Item
-      size: Ginormous
-      sprite: Objects/Weapons/Melee/Throngler-in-hand.rsi
-    - type: DisarmMalus
-    - type: Grammar
-      attributes:
-        proper: true
+  - type: Sprite
+    sprite: Objects/Weapons/Melee/Throngler2.rsi
+  - type: MeleeWeapon
+    attackRate: 10
+    damage:
+      types:
+        Structural: 150
+        Slash: 20 #Horror
+        Blunt: 20
+        Heat: 20
+        Piercing: 20
+        Radiation: 10
+    soundHit:
+      path: /Audio/Effects/explosion_small1.ogg
+  - type: Reflect
+    reflectProb: .25
+    spread: 90
+  - type: Item
+    size: Ginormous
+    sprite: Objects/Weapons/Melee/Throngler-in-hand.rsi
+  - type: DisarmMalus
+  - type: Grammar
+    attributes:
+      proper: true
 
 - type: entity
   name: sickle
-  parent: [ BaseSword, BaseC1Contraband ] # Frontier: BaseMajorContraband<BaseC1Contraband
+  parent: [BaseSword, BaseC1Contraband] # Frontier: BaseMajorContraband<BaseC1Contraband
   id: Sickle
   description: A wickedly curved blade, but not in the way a cutlass is.
   components:
@@ -231,7 +231,7 @@
         Slash: 16
     wideAnimationRotation: 135
     soundHit:
-        path: /Audio/Weapons/bladeslice.ogg
+      path: /Audio/Weapons/bladeslice.ogg
   - type: Item
     sprite: Objects/Weapons/Melee/sickle.rsi
   - type: DisarmMalus

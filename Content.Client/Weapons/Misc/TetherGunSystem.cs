@@ -10,14 +10,29 @@ namespace Content.Client.Weapons.Misc;
 
 public sealed class TetherGunSystem : SharedTetherGunSystem
 {
-    [Dependency] private readonly IEyeManager _eyeManager = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IInputManager _input = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly IOverlayManager _overlay = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly MapSystem _mapSystem = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly IEyeManager _eyeManager = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IInputManager _input = default!;
+
+    [Dependency]
+    private readonly IMapManager _mapManager = default!;
+
+    [Dependency]
+    private readonly IOverlayManager _overlay = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly MapSystem _mapSystem = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     public override void Initialize()
     {
@@ -58,9 +73,7 @@ public sealed class TetherGunSystem : SharedTetherGunSystem
 
         var player = _player.LocalEntity;
 
-        if (player == null ||
-            !TryGetTetherGun(player.Value, out _, out var gun) ||
-            gun.TetherEntity == null)
+        if (player == null || !TryGetTetherGun(player.Value, out _, out var gun) || gun.TetherEntity == null)
         {
             return;
         }
@@ -84,17 +97,16 @@ public sealed class TetherGunSystem : SharedTetherGunSystem
 
         const float bufferDistance = 0.1f;
 
-        if (TryComp(gun.TetherEntity, out TransformComponent? tetherXform) &&
-            tetherXform.Coordinates.TryDistance(EntityManager, TransformSystem, coords, out var distance) &&
-            distance < bufferDistance)
+        if (
+            TryComp(gun.TetherEntity, out TransformComponent? tetherXform)
+            && tetherXform.Coordinates.TryDistance(EntityManager, TransformSystem, coords, out var distance)
+            && distance < bufferDistance
+        )
         {
             return;
         }
 
-        RaisePredictiveEvent(new RequestTetherMoveEvent()
-        {
-            Coordinates = GetNetCoordinates(coords)
-        });
+        RaisePredictiveEvent(new RequestTetherMoveEvent() { Coordinates = GetNetCoordinates(coords) });
     }
 
     private void OnTetheredStartup(EntityUid uid, TetheredComponent component, ComponentStartup args)

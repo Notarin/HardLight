@@ -22,16 +22,35 @@ namespace Content.Server._Funkystation.Genetics.GeneticAnalyzer;
 
 public sealed class GeneticAnalyzerSystem : SharedGeneticAnalyzerSystem
 {
-    [Dependency] private readonly DoAfterSystem _doAfter = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
-    [Dependency] private readonly SharedMutationDiscoverySystem _mutationDiscovery = default!;
-    [Dependency] private readonly PowerCellSystem _cell = default!;
-    [Dependency] private readonly PaperSystem _paperSystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audioSystem = default!;
-    [Dependency] private readonly HandsSystem _handsSystem = default!;
-    [Dependency] private readonly MetaDataSystem _metaData = default!;
+    [Dependency]
+    private readonly DoAfterSystem _doAfter = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly UserInterfaceSystem _ui = default!;
+
+    [Dependency]
+    private readonly SharedMutationDiscoverySystem _mutationDiscovery = default!;
+
+    [Dependency]
+    private readonly PowerCellSystem _cell = default!;
+
+    [Dependency]
+    private readonly PaperSystem _paperSystem = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audioSystem = default!;
+
+    [Dependency]
+    private readonly HandsSystem _handsSystem = default!;
+
+    [Dependency]
+    private readonly MetaDataSystem _metaData = default!;
 
     public override void Initialize()
     {
@@ -61,9 +80,7 @@ public sealed class GeneticAnalyzerSystem : SharedGeneticAnalyzerSystem
 
         var sb = new StringBuilder();
         sb.AppendLine();
-        var sorted = component.Mutations
-            .Where(m => m.Block > 0)
-            .OrderBy(m => m.Block);
+        var sorted = component.Mutations.Where(m => m.Block > 0).OrderBy(m => m.Block);
 
         foreach (var mut in sorted)
         {
@@ -81,8 +98,11 @@ public sealed class GeneticAnalyzerSystem : SharedGeneticAnalyzerSystem
             _paperSystem.SetContent((printed, paper), sb.ToString().TrimEnd());
         }
 
-        _audioSystem.PlayPvs("/Audio/Machines/short_print_and_rip.ogg", uid,
-            AudioParams.Default.WithVariation(0.25f).WithVolume(3f).WithRolloffFactor(2.8f).WithMaxDistance(4.5f));
+        _audioSystem.PlayPvs(
+            "/Audio/Machines/short_print_and_rip.ogg",
+            uid,
+            AudioParams.Default.WithVariation(0.25f).WithVolume(3f).WithRolloffFactor(2.8f).WithMaxDistance(4.5f)
+        );
     }
 
     private static string FormatSequence(string seq)
@@ -117,13 +137,20 @@ public sealed class GeneticAnalyzerSystem : SharedGeneticAnalyzerSystem
 
         args.Handled = true;
 
-        var doAfter = new DoAfterArgs(EntityManager, args.User, TimeSpan.FromSeconds(1.5f), new GeneticAnalyzerDoAfterEvent(), uid, target)
+        var doAfter = new DoAfterArgs(
+            EntityManager,
+            args.User,
+            TimeSpan.FromSeconds(1.5f),
+            new GeneticAnalyzerDoAfterEvent(),
+            uid,
+            target
+        )
         {
             BreakOnDamage = true,
             BreakOnMove = true,
             BreakOnHandChange = true,
             NeedHand = true,
-            DuplicateCondition = DuplicateConditions.SameTarget
+            DuplicateCondition = DuplicateConditions.SameTarget,
         };
 
         _doAfter.TryStartDoAfter(doAfter);
@@ -131,7 +158,11 @@ public sealed class GeneticAnalyzerSystem : SharedGeneticAnalyzerSystem
 
     private void OnDoAfter(EntityUid uid, GeneticAnalyzerComponent component, GeneticAnalyzerDoAfterEvent args)
     {
-        if (args.Cancelled || args.Target is not { Valid: true } target || !TryComp<GeneticsComponent>(target, out var genetics))
+        if (
+            args.Cancelled
+            || args.Target is not { Valid: true } target
+            || !TryComp<GeneticsComponent>(target, out var genetics)
+        )
             return;
 
         if (!_cell.HasDrawCharge(uid))
@@ -142,9 +173,7 @@ public sealed class GeneticAnalyzerSystem : SharedGeneticAnalyzerSystem
 
         var patientMeta = MetaData(target);
 
-        var mutationData = genetics.Mutations
-            .Where(m => m.Block > 0)
-            .ToList();
+        var mutationData = genetics.Mutations.Where(m => m.Block > 0).ToList();
 
         var discoveredIds = _mutationDiscovery.GetGridDiscovered(uid);
 
@@ -152,12 +181,16 @@ public sealed class GeneticAnalyzerSystem : SharedGeneticAnalyzerSystem
 
         _audio.PlayPvs(component.ScanningEndSound, uid);
 
-        _ui.SetUiState(uid, GeneticAnalyzerUiKey.Key, new GeneticAnalyzerUiState(
-            patientName: patientMeta.EntityName,
-            patientInstability: genetics.GeneticInstability,
-            mutations: mutationData,
-            discoveredIds: discoveredIds
-        ));
+        _ui.SetUiState(
+            uid,
+            GeneticAnalyzerUiKey.Key,
+            new GeneticAnalyzerUiState(
+                patientName: patientMeta.EntityName,
+                patientInstability: genetics.GeneticInstability,
+                mutations: mutationData,
+                discoveredIds: discoveredIds
+            )
+        );
 
         _ui.OpenUi(uid, GeneticAnalyzerUiKey.Key, args.User);
     }

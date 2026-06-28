@@ -15,7 +15,13 @@ public sealed partial class JobRequirementLoadoutEffect : LoadoutEffect
     [DataField(required: true)]
     public JobRequirement Requirement = default!;
 
-    public override bool Validate(HumanoidCharacterProfile profile, RoleLoadout loadout, ICommonSession? session, IDependencyCollection collection, [NotNullWhen(false)] out FormattedMessage? reason)
+    public override bool Validate(
+        HumanoidCharacterProfile profile,
+        RoleLoadout loadout,
+        ICommonSession? session,
+        IDependencyCollection collection,
+        [NotNullWhen(false)] out FormattedMessage? reason
+    )
     {
         if (session == null)
         {
@@ -32,10 +38,12 @@ public sealed partial class JobRequirementLoadoutEffect : LoadoutEffect
             return true;
         }
 
-        return Requirement.Check(collection.Resolve<IEntityManager>(),
+        return Requirement.Check(
+            collection.Resolve<IEntityManager>(),
             collection.Resolve<IPrototypeManager>(),
             profile,
             playtimes,
-            out reason);
+            out reason
+        );
     }
 }

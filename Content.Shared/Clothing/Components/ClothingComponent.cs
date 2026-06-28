@@ -74,6 +74,7 @@ public sealed partial class ClothingComponent : Component
     /// </summary>
     [DataField]
     public string? InSlot;
+
     // TODO CLOTHING
     // Maybe keep this null unless its in a valid slot?
     // To lazy to figure out ATM if that would break anything.
@@ -84,6 +85,7 @@ public sealed partial class ClothingComponent : Component
     /// </summary>
     [DataField]
     public SlotFlags? InSlotFlag;
+
     // TODO CLOTHING
     // Maybe keep this null unless its in a valid slot?
     // And when doing this, combine InSlot and InSlotFlag, as it'd be a breaking change for downstreams anyway
@@ -117,7 +119,7 @@ public enum ClothingMask : byte
 {
     NoMask = 0,
     UniformFull,
-    UniformTop
+    UniformTop,
 }
 
 [Serializable, NetSerializable]

@@ -10,10 +10,17 @@ namespace Content.Shared.Foldable;
 
 public sealed class DeployFoldableSystem : EntitySystem
 {
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly FoldableSystem _foldable = default!;
-    [Dependency] private readonly AnchorableSystem _anchorable = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency]
+    private readonly SharedHandsSystem _hands = default!;
+
+    [Dependency]
+    private readonly FoldableSystem _foldable = default!;
+
+    [Dependency]
+    private readonly AnchorableSystem _anchorable = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
 
     public override void Initialize()
     {
@@ -36,8 +43,7 @@ public sealed class DeployFoldableSystem : EntitySystem
 
     private void OnDragDropDragged(Entity<DeployFoldableComponent> ent, ref DragDropDraggedEvent args)
     {
-        if (!TryComp<FoldableComponent>(ent, out var foldable)
-            || !_foldable.TrySetFolded(ent, foldable, true))
+        if (!TryComp<FoldableComponent>(ent, out var foldable) || !_foldable.TrySetFolded(ent, foldable, true))
             return;
 
         _hands.PickupOrDrop(args.User, ent.Owner);
@@ -47,8 +53,7 @@ public sealed class DeployFoldableSystem : EntitySystem
 
     private void OnCanDrag(Entity<DeployFoldableComponent> ent, ref CanDragEvent args)
     {
-        if (!TryComp<FoldableComponent>(ent, out var foldable)
-            || foldable.IsFolded)
+        if (!TryComp<FoldableComponent>(ent, out var foldable) || foldable.IsFolded)
             return;
 
         args.Handled = true;
@@ -62,15 +67,19 @@ public sealed class DeployFoldableSystem : EntitySystem
         if (!TryComp<FoldableComponent>(ent, out var foldable))
             return;
 
-        if (!TryComp(ent.Owner, out PhysicsComponent? anchorBody)
-            || !_anchorable.TileFree(args.ClickLocation, anchorBody))
+        if (
+            !TryComp(ent.Owner, out PhysicsComponent? anchorBody)
+            || !_anchorable.TileFree(args.ClickLocation, anchorBody)
+        )
         {
             _popup.PopupPredicted(Loc.GetString("foldable-deploy-fail", ("object", ent)), ent, args.User);
             return;
         }
 
-        if (!TryComp(args.User, out HandsComponent? hands)
-            || !_hands.TryDrop(args.User, args.Used, targetDropLocation: args.ClickLocation, handsComp: hands))
+        if (
+            !TryComp(args.User, out HandsComponent? hands)
+            || !_hands.TryDrop(args.User, args.Used, targetDropLocation: args.ClickLocation, handsComp: hands)
+        )
             return;
 
         if (!_foldable.TrySetFolded(ent, foldable, false))

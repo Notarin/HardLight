@@ -10,7 +10,8 @@ namespace Content.Server.Nuke.Commands;
 [AdminCommand(AdminFlags.Fun)]
 public sealed class ToggleNukeCommand : LocalizedCommands
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
 
     public override string Command => "nukearm";
 
@@ -69,7 +70,10 @@ public sealed class ToggleNukeCommand : LocalizedCommands
 
         if (args.Length == 2)
         {
-            return CompletionResult.FromHintOptions(CompletionHelper.Components<NukeComponent>(args[1]), Loc.GetString("cmd-nukearm-2-help"));
+            return CompletionResult.FromHintOptions(
+                CompletionHelper.Components<NukeComponent>(args[1]),
+                Loc.GetString("cmd-nukearm-2-help")
+            );
         }
 
         return CompletionResult.Empty;

@@ -10,12 +10,23 @@ namespace Content.Shared.CM14.Xenos.Rest;
 
 public sealed class XenoRestSystem : EntitySystem
 {
-    [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly ActionBlockerSystem _actionBlocker = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly DamageableSystem _damageable = default!;
+
+    [Dependency]
+    private readonly MobStateSystem _mobState = default!;
+
+    [Dependency]
+    private readonly INetManager _net = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     public override void Initialize()
     {
@@ -33,7 +44,12 @@ public sealed class XenoRestSystem : EntitySystem
             return;
 
         var curTime = _timing.CurTime;
-        var query = EntityQueryEnumerator<XenoComponent, XenoRestingComponent, DamageableComponent, MobStateComponent>();
+        var query = EntityQueryEnumerator<
+            XenoComponent,
+            XenoRestingComponent,
+            DamageableComponent,
+            MobStateComponent
+        >();
         while (query.MoveNext(out var uid, out var xeno, out var resting, out var damage, out var mob))
         {
             // throttle to once per second

@@ -15,12 +15,18 @@ namespace Content.Server._Mono.NPC.HTN;
 /// </summary>
 public sealed class ShipAggroSystem : EntitySystem
 {
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedTransformSystem _xform = default!;
+    [Dependency]
+    private readonly EntityLookupSystem _lookup = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _xform = default!;
 
     // Throttle proximity scans (cheap query but no need to do it every tick).
     private static readonly TimeSpan ProximityScanInterval = TimeSpan.FromSeconds(1);
+
     // Stations almost never move; cache their positions aggressively and
     // refresh infrequently.
     private static readonly TimeSpan StationCacheRefreshInterval = TimeSpan.FromSeconds(60);
@@ -214,9 +220,7 @@ public sealed class ShipAggroSystem : EntitySystem
             var awayDir = corePos - bestStationPos;
             var awayLen = awayDir.Length();
             // Degenerate: AI sitting on top of station; pick a stable arbitrary heading.
-            var unit = awayLen > 0.001f
-                ? awayDir / awayLen
-                : new Vector2(1f, 0f);
+            var unit = awayLen > 0.001f ? awayDir / awayLen : new Vector2(1f, 0f);
 
             var fleeOffset = aggro.AvoidStationRange + aggro.AvoidStationBuffer;
             var fleePos = bestStationPos + unit * fleeOffset;

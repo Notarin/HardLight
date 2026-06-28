@@ -7,7 +7,8 @@ namespace Content.Server.Holiday.Greet
     [DataDefinition]
     public sealed partial class Custom : IHolidayGreet
     {
-        [DataField("text")] private string _greet = string.Empty;
+        [DataField("text")]
+        private string _greet = string.Empty;
 
         public string Greet(HolidayPrototype holiday)
         {

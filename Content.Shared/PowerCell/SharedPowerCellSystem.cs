@@ -10,11 +10,20 @@ namespace Content.Shared.PowerCell;
 
 public abstract class SharedPowerCellSystem : EntitySystem
 {
-    [Dependency] protected readonly IGameTiming Timing = default!;
-    [Dependency] private readonly ItemSlotsSystem _itemSlots = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
-    [Dependency] private readonly TagSystem _tag = default!;
+    [Dependency]
+    protected readonly IGameTiming Timing = default!;
+
+    [Dependency]
+    private readonly ItemSlotsSystem _itemSlots = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelist = default!;
+
+    [Dependency]
+    private readonly TagSystem _tag = default!;
 
     public override void Initialize()
     {
@@ -42,7 +51,11 @@ public abstract class SharedPowerCellSystem : EntitySystem
         RaiseLocalEvent(itemSlot.Item.Value, args);
     }
 
-    private void OnCellInsertAttempt(EntityUid uid, PowerCellSlotComponent component, ContainerIsInsertingAttemptEvent args)
+    private void OnCellInsertAttempt(
+        EntityUid uid,
+        PowerCellSlotComponent component,
+        ContainerIsInsertingAttemptEvent args
+    )
     {
         if (!component.Initialized)
             return;
@@ -58,9 +71,13 @@ public abstract class SharedPowerCellSystem : EntitySystem
 
         // Special-case the NT-88 Peregrine magazine so it cannot be treated as a generic power cell.
         var magazineRailgunTag = "MagazineRailgunTag";
-        if (_tag.HasTag(args.EntityUid, magazineRailgunTag) &&
-            (!_itemSlots.TryGetSlot(uid, component.CellSlotId, out var itemSlot) ||
-             !_whitelist.IsWhitelistPass(itemSlot.Whitelist, args.EntityUid)))
+        if (
+            _tag.HasTag(args.EntityUid, magazineRailgunTag)
+            && (
+                !_itemSlots.TryGetSlot(uid, component.CellSlotId, out var itemSlot)
+                || !_whitelist.IsWhitelistPass(itemSlot.Whitelist, args.EntityUid)
+            )
+        )
         {
             args.Cancel();
         }
@@ -77,7 +94,11 @@ public abstract class SharedPowerCellSystem : EntitySystem
         RaiseLocalEvent(uid, new PowerCellChangedEvent(false), false);
     }
 
-    protected virtual void OnCellRemoved(EntityUid uid, PowerCellSlotComponent component, EntRemovedFromContainerMessage args)
+    protected virtual void OnCellRemoved(
+        EntityUid uid,
+        PowerCellSlotComponent component,
+        EntRemovedFromContainerMessage args
+    )
     {
         if (args.Container.ID != component.CellSlotId)
             return;
@@ -114,7 +135,8 @@ public abstract class SharedPowerCellSystem : EntitySystem
         EntityUid uid,
         PowerCellDrawComponent? battery = null,
         PowerCellSlotComponent? cell = null,
-        EntityUid? user = null);
+        EntityUid? user = null
+    );
 
     /// <summary>
     /// Whether the power cell has any power at all for the draw rate.
@@ -123,5 +145,6 @@ public abstract class SharedPowerCellSystem : EntitySystem
         EntityUid uid,
         PowerCellDrawComponent? battery = null,
         PowerCellSlotComponent? cell = null,
-        EntityUid? user = null);
+        EntityUid? user = null
+    );
 }

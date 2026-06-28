@@ -62,8 +62,7 @@ public sealed class MutationRadioSystem : EntitySystem
                 RemCompDeferred<IntrinsicRadioTransmitterComponent>(mob);
         }
 
-        if (TryComp<IntrinsicRadioReceiverComponent>(mob, out _) &&
-            !HasComp<ActiveRadioComponent>(mob))
+        if (TryComp<IntrinsicRadioReceiverComponent>(mob, out _) && !HasComp<ActiveRadioComponent>(mob))
         {
             RemCompDeferred<IntrinsicRadioReceiverComponent>(mob);
         }

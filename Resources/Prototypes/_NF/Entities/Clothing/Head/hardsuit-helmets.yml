@@ -7,7 +7,7 @@
 - type: entity
   parent: NFClothingHeadHardsuitWithLightBase
   id: ClothingHeadHelmetHardsuitMercenary
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   name: mercenary hardsuit helmet
   description: Lightly armored hardsuit helmet for mercenary needs.
   components:
@@ -48,7 +48,7 @@
 - type: entity
   parent: NFClothingHeadHardsuitWithLightBase
   id: ClothingHeadHelmetHardsuitPilot
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   name: pilot hardsuit helmet
   description: Light hardsuit helmet for pilots.
   components:
@@ -80,9 +80,9 @@
 
 # MAXIM helmet, but with light
 - type: entity
-  parent: [ ClothingHeadHelmetHardsuitMaxim, NFClothingHeadHardsuitWithLightBase ]
+  parent: [ClothingHeadHelmetHardsuitMaxim, NFClothingHeadHardsuitWithLightBase]
   id: ClothingHeadHelmetHardsuitMaximPrototype
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   name: experimental salvager helmet
   description: A predication of decay washes over your mind.
   components:
@@ -99,7 +99,7 @@
 - type: entity
   parent: NFClothingHeadHardsuitWithLightBaseNfsd
   id: ClothingHeadHelmetHardsuitNfsdBronze
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   name: ColSec M73 tacsuit helmet
   description: An armored tacsuit helmet used by ColSec.
   components:
@@ -120,7 +120,7 @@
 - type: entity
   parent: ClothingHeadHelmetHardsuitNfsdBronze
   id: ClothingHeadHelmetHardsuitNfsdSilver
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     sprite: _NF/Clothing/Head/Hardsuits/nfsd.rsi
@@ -130,7 +130,7 @@
 - type: entity
   parent: ClothingHeadHelmetHardsuitNfsdBronze
   id: ClothingHeadHelmetHardsuitNfsdGold
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     sprite: _NF/Clothing/Head/Hardsuits/nfsd.rsi
@@ -142,7 +142,7 @@
   id: ClothingHeadHelmetHardsuitNfsdBrigmedic
   name: ColSec M73-C tacsuit helmet
   description: An armored tacsuit helmet used by ColSec.
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Clothing/Head/Hardsuits/nfsd.rsi
@@ -154,7 +154,7 @@
   id: ClothingHeadHelmetHardsuitNfsdSheriff
   name: ColSec M92 tacsuit helmet
   description: An armored tacsuit helmet used by ColSec.
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Clothing/Head/Hardsuits/nfsd_sheriff.rsi
@@ -164,7 +164,7 @@
 - type: entity
   parent: NFClothingHeadHardsuitWithLightBaseNfsd
   id: ClothingHeadHelmetHardsuitNfsdExperimental
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   name: ColSec M92-X tacsuit helmet
   description: Heavily armored hardsuit helmet for ColSec raids.
   components:
@@ -187,7 +187,7 @@
 - type: entity
   parent: NFClothingHeadHardsuitWithLightBaseNfsd
   id: ClothingHeadHelmetHardsuitNfsdCombat
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   name: ColSec M93 tacsuit helmet
   description: Medium armored hardsuit helmet for ColSec raids.
   components:
@@ -212,7 +212,7 @@
 - type: entity
   parent: NFClothingHeadHardsuitWithLightBaseNfsd
   id: ClothingHeadHelmetHardsuitNfsdCommand
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   name: ColSec M93-C tacsuit helmet
   description: Medium armored hardsuit helmet for ColSec raids.
   components:
@@ -239,7 +239,7 @@
   id: ClothingHeadHelmetHardsuitScaf
   name: scaf hardsuit helmet
   description: A robust, strong helmet. On the inside smells of pent up anger.
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: BreathMask
   - type: Sprite
@@ -266,7 +266,7 @@
   id: ClothingHeadHelmetHardsuitTacticalMaid
   name: tactical maid hardsuit helmet
   description: Welded stainless steel alloy covered in multiple layers of anticorrosive materials, perfect for cleaning.
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: BreathMask
   - type: Sprite
@@ -286,7 +286,7 @@
 - type: entity
   parent: NFClothingHeadHardsuitWithLightBase
   id: ClothingHeadHelmetHardsuitPirateElite
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   name: elite pirate hardsuit helmet
   description: Elite armored hardsuit helmets for yo-hoers.
   components:

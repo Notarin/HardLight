@@ -5,31 +5,31 @@
   components:
   - type: StorageFill
     contents:
-#      - id: ClothingNeckCloakQm # Frontier
-#      - id: BoxFolderQmClipboard # Frontier - Moved to SR backpack
-#      - id: ClothingHeadsetCargo # Frontier
-#      - id: ClothingUniformJumpsuitQMTurtleneck # Frontier
-#      - id: ClothingUniformJumpskirtQMTurtleneck # Frontier
-#      - id: ClothingHandsGlovesColorBrown # Frontier
-#      - id: ClothingShoesColorBrown # Frontier
-#      - id: ClothingHeadHatQMsoft # Frontier
-#      - id: CargoRequestComputerCircuitboard # Frontier
-#      - id: CargoShuttleComputerCircuitboard # Frontier
-#      - id: CargoShuttleConsoleCircuitboard # Frontier
-#      - id: SalvageShuttleConsoleCircuitboard # Frontier
-#      - id: CargoBountyComputerCircuitboard # Frontier
-#      - id: CigPackGreen # Frontier
-#        prob: 0.50
-#      - id: DoorRemoteCargo # Frontier
-      # - id: RubberStampQm # HardLight
-      # - id: ClothingHeadsetAltCargo # HardLight
-#      - id: BoxEncryptionKeyCargo # Frontier
-      - id: ClothingBeltUtilityEngineering # Frontier
-#      - id: NitrogenTankFilled
-#      - id: OxygenTankFilled
-      - id: AirTankFilled
-      - id: ClothingMaskGasExplorer # Frontier
-      - id: ClothingOuterHardsuitLuxury # Frontier
+    #      - id: ClothingNeckCloakQm # Frontier
+    #      - id: BoxFolderQmClipboard # Frontier - Moved to SR backpack
+    #      - id: ClothingHeadsetCargo # Frontier
+    #      - id: ClothingUniformJumpsuitQMTurtleneck # Frontier
+    #      - id: ClothingUniformJumpskirtQMTurtleneck # Frontier
+    #      - id: ClothingHandsGlovesColorBrown # Frontier
+    #      - id: ClothingShoesColorBrown # Frontier
+    #      - id: ClothingHeadHatQMsoft # Frontier
+    #      - id: CargoRequestComputerCircuitboard # Frontier
+    #      - id: CargoShuttleComputerCircuitboard # Frontier
+    #      - id: CargoShuttleConsoleCircuitboard # Frontier
+    #      - id: SalvageShuttleConsoleCircuitboard # Frontier
+    #      - id: CargoBountyComputerCircuitboard # Frontier
+    #      - id: CigPackGreen # Frontier
+    #        prob: 0.50
+    #      - id: DoorRemoteCargo # Frontier
+    # - id: RubberStampQm # HardLight
+    # - id: ClothingHeadsetAltCargo # HardLight
+    #      - id: BoxEncryptionKeyCargo # Frontier
+    - id: ClothingBeltUtilityEngineering # Frontier
+      #      - id: NitrogenTankFilled
+      #      - id: OxygenTankFilled
+    - id: AirTankFilled
+    - id: ClothingMaskGasExplorer # Frontier
+    - id: ClothingOuterHardsuitLuxury # Frontier
 
 - type: entity
   id: LockerStationRepresentativeFilled
@@ -38,12 +38,12 @@
   components:
   - type: StorageFill
     contents:
-      - id: SrIDCard
-      - id: BoxHandcuff # Frontier
-      - id: IDComputerCircuitboard
-      - id: CommsComputerCircuitboard # Frontier
-      - id: MedalCase # Frontier
-      - id: Demag # Frontier
+    - id: SrIDCard
+    - id: BoxHandcuff # Frontier
+    - id: IDComputerCircuitboard
+    - id: CommsComputerCircuitboard # Frontier
+    - id: MedalCase # Frontier
+    - id: Demag # Frontier
 
 - type: entity
   id: LockerNfsdSheriffFilled
@@ -52,11 +52,11 @@
   components:
   - type: StorageFill
     contents:
-      - id: ShriffIDCard
-      - id: BoxHandcuff # Frontier
-      - id: CommsComputerCircuitboard # Frontier
-      - id: MedalCaseNfsd # Frontier
-      - id: Demag # Frontier
+    - id: ShriffIDCard
+    - id: BoxHandcuff # Frontier
+    - id: CommsComputerCircuitboard # Frontier
+    - id: MedalCaseNfsd # Frontier
+    - id: Demag # Frontier
 
 - type: entity
   parent: GunSafe

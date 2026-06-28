@@ -9,9 +9,9 @@ namespace Content.Client._NF.Chemistry.UI
     public sealed class ChangeReagentWhitelistBoundUserInterface : BoundUserInterface
     {
         private ChangeReagentWhitelistWindow? _window;
-        public ChangeReagentWhitelistBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-        {
-        }
+
+        public ChangeReagentWhitelistBoundUserInterface(EntityUid owner, Enum uiKey)
+            : base(owner, uiKey) { }
 
         protected override void Open()
         {
@@ -26,9 +26,11 @@ namespace Content.Client._NF.Chemistry.UI
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
-            if (!disposing) return;
+            if (!disposing)
+                return;
             _window?.Dispose();
         }
+
         public void ChangeReagentWhitelist(ProtoId<ReagentPrototype> newReagentProto)
         {
             SendMessage(new ReagentWhitelistChangeMessage(newReagentProto));

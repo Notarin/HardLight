@@ -17,4 +17,3 @@ public sealed partial class PlantAdjustToxins : PlantAdjustAttribute
         plantHolderComp.Toxins += Amount;
     }
 }
-

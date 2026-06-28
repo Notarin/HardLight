@@ -17,9 +17,8 @@ namespace Content.Shared.Chemistry
     ///     Message sent by the user interface to toggle the plumbing valve.
     /// </summary>
     [Serializable, NetSerializable]
-    public sealed class ReagentDispenserToggleValveMessage : BoundUserInterfaceMessage
-    {
-    }
+    public sealed class ReagentDispenserToggleValveMessage : BoundUserInterfaceMessage { }
+
     // Starlight-end
 
     [Serializable, NetSerializable]
@@ -68,7 +67,9 @@ namespace Content.Shared.Chemistry
                     ReagentDispenserDispenseAmount = ReagentDispenserDispenseAmount.U100;
                     break;
                 default:
-                    throw new Exception($"Cannot convert the string `{s}` into a valid ReagentDispenser DispenseAmount");
+                    throw new Exception(
+                        $"Cannot convert the string `{s}` into a valid ReagentDispenser DispenseAmount"
+                    );
             }
         }
     }
@@ -85,10 +86,7 @@ namespace Content.Shared.Chemistry
     }
 
     [Serializable, NetSerializable]
-    public sealed class ReagentDispenserClearContainerSolutionMessage : BoundUserInterfaceMessage
-    {
-
-    }
+    public sealed class ReagentDispenserClearContainerSolutionMessage : BoundUserInterfaceMessage { }
 
     public enum ReagentDispenserDispenseAmount
     {
@@ -104,7 +102,12 @@ namespace Content.Shared.Chemistry
     }
 
     [Serializable, NetSerializable]
-    public sealed class ReagentInventoryItem(string storageSlotId, string reagentLabel, FixedPoint2 quantity, Color reagentColor)
+    public sealed class ReagentInventoryItem(
+        string storageSlotId,
+        string reagentLabel,
+        FixedPoint2 quantity,
+        Color reagentColor
+    )
     {
         public string StorageSlotId = storageSlotId;
         public string ReagentLabel = reagentLabel;
@@ -128,7 +131,13 @@ namespace Content.Shared.Chemistry
 
         public readonly bool ValveOpen; // Starlight-edit: Plumbing valve
 
-        public ReagentDispenserBoundUserInterfaceState(ContainerInfo? outputContainer, NetEntity? outputContainerEntity, List<ReagentInventoryItem> inventory, ReagentDispenserDispenseAmount selectedDispenseAmount, bool valveOpen) // Starlight
+        public ReagentDispenserBoundUserInterfaceState(
+            ContainerInfo? outputContainer,
+            NetEntity? outputContainerEntity,
+            List<ReagentInventoryItem> inventory,
+            ReagentDispenserDispenseAmount selectedDispenseAmount,
+            bool valveOpen
+        ) // Starlight
         {
             OutputContainer = outputContainer;
             OutputContainerEntity = outputContainerEntity;
@@ -141,6 +150,6 @@ namespace Content.Shared.Chemistry
     [Serializable, NetSerializable]
     public enum ReagentDispenserUiKey
     {
-        Key
+        Key,
     }
 }

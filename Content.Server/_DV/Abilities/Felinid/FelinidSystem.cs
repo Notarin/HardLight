@@ -21,9 +21,14 @@ namespace Content.Server._DV.Abilities.Felinid;
 /// </remarks>
 public sealed class FelinidSystem : SharedFelinidSystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solution = default!;
-    [Dependency] private readonly VomitSystem _vomit = default!;
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly SharedSolutionContainerSystem _solution = default!;
+
+    [Dependency]
+    private readonly VomitSystem _vomit = default!;
 
     public override void Initialize()
     {
@@ -37,7 +42,7 @@ public sealed class FelinidSystem : SharedFelinidSystem
 
     private void OnItemCoughedUp(Entity<FelinidComponent> ent, ref ItemCoughedUpEvent args)
     {
-        if (!TryComp<BloodstreamComponent>(ent, out var blood) || blood.ChemicalSolution is not {} solution)
+        if (!TryComp<BloodstreamComponent>(ent, out var blood) || blood.ChemicalSolution is not { } solution)
             return;
 
         var item = args.Item;

@@ -20,13 +20,13 @@
     visuals:
       enum.RoomGridSpawnerVisuals.InUse:
         computerLayerScreen:
-          True: { state: shipyard_scrap }
-          False: { state: shipyard }
+          True: {state: shipyard_scrap}
+          False: {state: shipyard}
   - type: RoomGridSpawnerConsole
     area_group: RoomSpawnA
   - type: UseDelay
     delay: 1.5
-    
+
 - type: entity
   id: ComputerRoomGridSpawner
   parent: [BaseStructureComputerWallmount, ComputerRoomGridSpawnerBase]
@@ -45,5 +45,5 @@
     visuals:
       enum.RoomGridSpawnerVisuals.InUse:
         computerLayerScreen:
-          True: { state: screen_occupied }
-          False: { state: screen_vacant }
+          True: {state: screen_occupied}
+          False: {state: screen_vacant}

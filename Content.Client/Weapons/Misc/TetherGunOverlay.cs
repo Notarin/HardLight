@@ -28,8 +28,7 @@ public sealed class TetherGunOverlay : Overlay
         {
             var gun = tethered.Tetherer;
 
-            if (!xformQuery.TryGetComponent(gun, out var gunXform) ||
-                !xformQuery.TryGetComponent(uid, out var xform))
+            if (!xformQuery.TryGetComponent(gun, out var gunXform) || !xformQuery.TryGetComponent(uid, out var xform))
             {
                 continue;
             }

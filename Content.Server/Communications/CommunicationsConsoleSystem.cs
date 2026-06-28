@@ -1,3 +1,4 @@
+using Content.Server._NF.SectorServices; // Frontier
 using Content.Server.Administration.Logs;
 using Content.Server.AlertLevel;
 using Content.Server.Chat.Systems;
@@ -19,24 +20,46 @@ using Content.Shared.IdentityManagement;
 using Content.Shared.Popups;
 using Robust.Server.GameObjects;
 using Robust.Shared.Configuration;
-using Content.Server._NF.SectorServices; // Frontier
 
 namespace Content.Server.Communications
 {
     public sealed class CommunicationsConsoleSystem : EntitySystem
     {
-        [Dependency] private readonly AccessReaderSystem _accessReaderSystem = default!;
-        [Dependency] private readonly AlertLevelSystem _alertLevelSystem = default!;
-        [Dependency] private readonly ChatSystem _chatSystem = default!;
-        [Dependency] private readonly DeviceNetworkSystem _deviceNetworkSystem = default!;
-        [Dependency] private readonly EmergencyShuttleSystem _emergency = default!;
-        [Dependency] private readonly PopupSystem _popupSystem = default!;
-        [Dependency] private readonly RoundEndSystem _roundEndSystem = default!;
-        [Dependency] private readonly StationSystem _stationSystem = default!;
-        [Dependency] private readonly UserInterfaceSystem _uiSystem = default!;
-        [Dependency] private readonly IConfigurationManager _cfg = default!;
-        [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-        [Dependency] private readonly SectorServiceSystem _sectorService = default!; // Frontier: sector-wide alerts
+        [Dependency]
+        private readonly AccessReaderSystem _accessReaderSystem = default!;
+
+        [Dependency]
+        private readonly AlertLevelSystem _alertLevelSystem = default!;
+
+        [Dependency]
+        private readonly ChatSystem _chatSystem = default!;
+
+        [Dependency]
+        private readonly DeviceNetworkSystem _deviceNetworkSystem = default!;
+
+        [Dependency]
+        private readonly EmergencyShuttleSystem _emergency = default!;
+
+        [Dependency]
+        private readonly PopupSystem _popupSystem = default!;
+
+        [Dependency]
+        private readonly RoundEndSystem _roundEndSystem = default!;
+
+        [Dependency]
+        private readonly StationSystem _stationSystem = default!;
+
+        [Dependency]
+        private readonly UserInterfaceSystem _uiSystem = default!;
+
+        [Dependency]
+        private readonly IConfigurationManager _cfg = default!;
+
+        [Dependency]
+        private readonly IAdminLogManager _adminLogger = default!;
+
+        [Dependency]
+        private readonly SectorServiceSystem _sectorService = default!; // Frontier: sector-wide alerts
 
         private const float UIUpdateInterval = 5.0f;
 
@@ -44,16 +67,28 @@ namespace Content.Server.Communications
         {
             // All events that refresh the BUI
             SubscribeLocalEvent<AlertLevelChangedEvent>(OnAlertLevelChanged);
-            SubscribeLocalEvent<CommunicationsConsoleComponent, ComponentInit>((uid, comp, _) => UpdateCommsConsoleInterface(uid, comp));
+            SubscribeLocalEvent<CommunicationsConsoleComponent, ComponentInit>(
+                (uid, comp, _) => UpdateCommsConsoleInterface(uid, comp)
+            );
             SubscribeLocalEvent<RoundEndSystemChangedEvent>(_ => OnGenericBroadcastEvent());
             SubscribeLocalEvent<AlertLevelDelayFinishedEvent>(_ => OnGenericBroadcastEvent());
 
             // Messages from the BUI
-            SubscribeLocalEvent<CommunicationsConsoleComponent, CommunicationsConsoleSelectAlertLevelMessage>(OnSelectAlertLevelMessage);
-            SubscribeLocalEvent<CommunicationsConsoleComponent, CommunicationsConsoleAnnounceMessage>(OnAnnounceMessage);
-            SubscribeLocalEvent<CommunicationsConsoleComponent, CommunicationsConsoleBroadcastMessage>(OnBroadcastMessage);
-            SubscribeLocalEvent<CommunicationsConsoleComponent, CommunicationsConsoleCallEmergencyShuttleMessage>(OnCallShuttleMessage);
-            SubscribeLocalEvent<CommunicationsConsoleComponent, CommunicationsConsoleRecallEmergencyShuttleMessage>(OnRecallShuttleMessage);
+            SubscribeLocalEvent<CommunicationsConsoleComponent, CommunicationsConsoleSelectAlertLevelMessage>(
+                OnSelectAlertLevelMessage
+            );
+            SubscribeLocalEvent<CommunicationsConsoleComponent, CommunicationsConsoleAnnounceMessage>(
+                OnAnnounceMessage
+            );
+            SubscribeLocalEvent<CommunicationsConsoleComponent, CommunicationsConsoleBroadcastMessage>(
+                OnBroadcastMessage
+            );
+            SubscribeLocalEvent<CommunicationsConsoleComponent, CommunicationsConsoleCallEmergencyShuttleMessage>(
+                OnCallShuttleMessage
+            );
+            SubscribeLocalEvent<CommunicationsConsoleComponent, CommunicationsConsoleRecallEmergencyShuttleMessage>(
+                OnRecallShuttleMessage
+            );
 
             // On console init, set cooldown
             SubscribeLocalEvent<CommunicationsConsoleComponent, MapInitEvent>(OnCommunicationsConsoleMapInit);
@@ -84,7 +119,11 @@ namespace Content.Server.Communications
             base.Update(frameTime);
         }
 
-        public void OnCommunicationsConsoleMapInit(EntityUid uid, CommunicationsConsoleComponent comp, MapInitEvent args)
+        public void OnCommunicationsConsoleMapInit(
+            EntityUid uid,
+            CommunicationsConsoleComponent comp,
+            MapInitEvent args
+        )
         {
             comp.AnnouncementCooldownRemaining = comp.InitialDelay;
         }
@@ -141,8 +180,11 @@ namespace Content.Server.Communications
 
             if (stationUid.Valid) // Frontier: != null < .Valid
             {
-                if (TryComp(stationUid, out AlertLevelComponent? alertComp) && // Frontier: stationUid.Value<stationUid
-                    alertComp.AlertLevels != null)
+                if (
+                    TryComp(stationUid, out AlertLevelComponent? alertComp)
+                    && // Frontier: stationUid.Value<stationUid
+                    alertComp.AlertLevels != null
+                )
                 {
                     if (alertComp.IsSelectable)
                     {
@@ -161,14 +203,18 @@ namespace Content.Server.Communications
                 }
             }
 
-            _uiSystem.SetUiState(uid, CommunicationsConsoleUiKey.Key, new CommunicationsConsoleInterfaceState(
-                CanAnnounce(comp),
-                CanCallOrRecall(comp),
-                levels,
-                currentLevel,
-                currentDelay,
-                _roundEndSystem.ExpectedCountdownEnd
-            ));
+            _uiSystem.SetUiState(
+                uid,
+                CommunicationsConsoleUiKey.Key,
+                new CommunicationsConsoleInterfaceState(
+                    CanAnnounce(comp),
+                    CanCallOrRecall(comp),
+                    levels,
+                    currentLevel,
+                    currentDelay,
+                    _roundEndSystem.ExpectedCountdownEnd
+                )
+            );
         }
 
         private static bool CanAnnounce(CommunicationsConsoleComponent comp)
@@ -203,21 +249,31 @@ namespace Content.Server.Communications
             var recallThreshold = _cfg.GetCVar(CCVars.EmergencyRecallTurningPoint);
 
             // shouldn't really be happening if we got here
-            if (_roundEndSystem.ShuttleTimeLeft is not { } left
-                || _roundEndSystem.ExpectedShuttleLength is not { } expected)
+            if (
+                _roundEndSystem.ShuttleTimeLeft is not { } left
+                || _roundEndSystem.ExpectedShuttleLength is not { } expected
+            )
                 return false;
 
             return !(left.TotalSeconds / expected.TotalSeconds < recallThreshold);
         }
 
-        private void OnSelectAlertLevelMessage(EntityUid uid, CommunicationsConsoleComponent comp, CommunicationsConsoleSelectAlertLevelMessage message)
+        private void OnSelectAlertLevelMessage(
+            EntityUid uid,
+            CommunicationsConsoleComponent comp,
+            CommunicationsConsoleSelectAlertLevelMessage message
+        )
         {
             if (message.Actor is not { Valid: true } mob)
                 return;
 
             if (!CanUse(mob, uid))
             {
-                _popupSystem.PopupCursor(Loc.GetString("comms-console-permission-denied"), message.Actor, PopupType.Medium);
+                _popupSystem.PopupCursor(
+                    Loc.GetString("comms-console-permission-denied"),
+                    message.Actor,
+                    PopupType.Medium
+                );
                 return;
             }
 
@@ -228,8 +284,11 @@ namespace Content.Server.Communications
             }
         }
 
-        private void OnAnnounceMessage(EntityUid uid, CommunicationsConsoleComponent comp,
-            CommunicationsConsoleAnnounceMessage message)
+        private void OnAnnounceMessage(
+            EntityUid uid,
+            CommunicationsConsoleComponent comp,
+            CommunicationsConsoleAnnounceMessage message
+        )
         {
             var maxLength = _cfg.GetCVar(CCVars.ChatMaxAnnouncementLength);
             var msg = SharedChatSystem.SanitizeAnnouncement(message.Message, maxLength);
@@ -265,19 +324,35 @@ namespace Content.Server.Communications
             msg += "\n" + Loc.GetString("comms-console-announcement-sent-by") + " " + author;
             if (comp.Global)
             {
-                _chatSystem.DispatchGlobalAnnouncement(msg, title, announcementSound: comp.Sound, colorOverride: comp.Color);
+                _chatSystem.DispatchGlobalAnnouncement(
+                    msg,
+                    title,
+                    announcementSound: comp.Sound,
+                    colorOverride: comp.Color
+                );
 
-                _adminLogger.Add(LogType.Chat, LogImpact.Low, $"{ToPrettyString(message.Actor):player} has sent the following global announcement: {msg}");
+                _adminLogger.Add(
+                    LogType.Chat,
+                    LogImpact.Low,
+                    $"{ToPrettyString(message.Actor):player} has sent the following global announcement: {msg}"
+                );
                 return;
             }
 
             _chatSystem.DispatchStationAnnouncement(uid, msg, title, colorOverride: comp.Color);
 
-            _adminLogger.Add(LogType.Chat, LogImpact.Low, $"{ToPrettyString(message.Actor):player} has sent the following station announcement: {msg}");
-
+            _adminLogger.Add(
+                LogType.Chat,
+                LogImpact.Low,
+                $"{ToPrettyString(message.Actor):player} has sent the following station announcement: {msg}"
+            );
         }
 
-        private void OnBroadcastMessage(EntityUid uid, CommunicationsConsoleComponent component, CommunicationsConsoleBroadcastMessage message)
+        private void OnBroadcastMessage(
+            EntityUid uid,
+            CommunicationsConsoleComponent component,
+            CommunicationsConsoleBroadcastMessage message
+        )
         {
             if (!TryComp<DeviceNetworkComponent>(uid, out var net))
                 return;
@@ -293,17 +368,22 @@ namespace Content.Server.Communications
             }
             // End Frontier
 
-            var payload = new NetworkPayload
-            {
-                [ScreenMasks.Text] = message.Message
-            };
+            var payload = new NetworkPayload { [ScreenMasks.Text] = message.Message };
 
             _deviceNetworkSystem.QueuePacket(uid, null, payload, net.TransmitFrequency);
 
-            _adminLogger.Add(LogType.DeviceNetwork, LogImpact.Low, $"{ToPrettyString(message.Actor):player} has sent the following broadcast: {message.Message:msg}");
+            _adminLogger.Add(
+                LogType.DeviceNetwork,
+                LogImpact.Low,
+                $"{ToPrettyString(message.Actor):player} has sent the following broadcast: {message.Message:msg}"
+            );
         }
 
-        private void OnCallShuttleMessage(EntityUid uid, CommunicationsConsoleComponent comp, CommunicationsConsoleCallEmergencyShuttleMessage message)
+        private void OnCallShuttleMessage(
+            EntityUid uid,
+            CommunicationsConsoleComponent comp,
+            CommunicationsConsoleCallEmergencyShuttleMessage message
+        )
         {
             if (!CanCallOrRecall(comp))
                 return;
@@ -320,7 +400,11 @@ namespace Content.Server.Communications
             RaiseLocalEvent(ref ev);
             if (ev.Cancelled)
             {
-                _popupSystem.PopupEntity(ev.Reason ?? Loc.GetString("comms-console-shuttle-unavailable"), uid, message.Actor);
+                _popupSystem.PopupEntity(
+                    ev.Reason ?? Loc.GetString("comms-console-shuttle-unavailable"),
+                    uid,
+                    message.Actor
+                );
                 return;
             }
 
@@ -328,7 +412,11 @@ namespace Content.Server.Communications
             _adminLogger.Add(LogType.Action, LogImpact.High, $"{ToPrettyString(mob):player} has called the shuttle.");
         }
 
-        private void OnRecallShuttleMessage(EntityUid uid, CommunicationsConsoleComponent comp, CommunicationsConsoleRecallEmergencyShuttleMessage message)
+        private void OnRecallShuttleMessage(
+            EntityUid uid,
+            CommunicationsConsoleComponent comp,
+            CommunicationsConsoleRecallEmergencyShuttleMessage message
+        )
         {
             if (!CanCallOrRecall(comp))
                 return;
@@ -340,7 +428,11 @@ namespace Content.Server.Communications
             }
 
             _roundEndSystem.CancelRoundEndCountdown(uid);
-            _adminLogger.Add(LogType.Action, LogImpact.High, $"{ToPrettyString(message.Actor):player} has recalled the shuttle.");
+            _adminLogger.Add(
+                LogType.Action,
+                LogImpact.High,
+                $"{ToPrettyString(message.Actor):player} has recalled the shuttle."
+            );
         }
     }
 
@@ -348,7 +440,12 @@ namespace Content.Server.Communications
     /// Raised on announcement
     /// </summary>
     [ByRefEvent]
-    public record struct CommunicationConsoleAnnouncementEvent(EntityUid Uid, CommunicationsConsoleComponent Component, string Text, EntityUid? Sender)
+    public record struct CommunicationConsoleAnnouncementEvent(
+        EntityUid Uid,
+        CommunicationsConsoleComponent Component,
+        string Text,
+        EntityUid? Sender
+    )
     {
         public EntityUid Uid = Uid;
         public CommunicationsConsoleComponent Component = Component;
@@ -360,7 +457,11 @@ namespace Content.Server.Communications
     /// Raised on shuttle call attempt. Can be cancelled
     /// </summary>
     [ByRefEvent]
-    public record struct CommunicationConsoleCallShuttleAttemptEvent(EntityUid Uid, CommunicationsConsoleComponent Component, EntityUid? Sender)
+    public record struct CommunicationConsoleCallShuttleAttemptEvent(
+        EntityUid Uid,
+        CommunicationsConsoleComponent Component,
+        EntityUid? Sender
+    )
     {
         public bool Cancelled = false;
         public EntityUid Uid = Uid;

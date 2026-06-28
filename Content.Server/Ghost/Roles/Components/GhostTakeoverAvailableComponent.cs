@@ -5,7 +5,5 @@ namespace Content.Server.Ghost.Roles.Components
     /// </summary>
     [RegisterComponent]
     [Access(typeof(GhostRoleSystem))]
-    public sealed partial class GhostTakeoverAvailableComponent : Component
-    {
-    }
+    public sealed partial class GhostTakeoverAvailableComponent : Component { }
 }

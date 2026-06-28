@@ -14,9 +14,14 @@ namespace Content.Shared.Storage.EntitySystems;
 [UsedImplicitly]
 public abstract class SharedItemMapperSystem : EntitySystem
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelistSystem = default!;
 
     /// <inheritdoc />
     public override void Initialize()
@@ -52,9 +57,11 @@ public abstract class SharedItemMapperSystem : EntitySystem
         UpdateAppearance(uid, itemMapper);
     }
 
-    private void MapperEntityInserted(EntityUid uid,
+    private void MapperEntityInserted(
+        EntityUid uid,
         ItemMapperComponent itemMapper,
-        EntInsertedIntoContainerMessage args)
+        EntInsertedIntoContainerMessage args
+    )
     {
         if (itemMapper.ContainerWhitelist != null && !itemMapper.ContainerWhitelist.Contains(args.Container.ID))
             return;
@@ -67,13 +74,17 @@ public abstract class SharedItemMapperSystem : EntitySystem
         if (!Resolve(uid, ref itemMapper))
             return;
 
-        if (EntityManager.TryGetComponent(uid, out AppearanceComponent? appearanceComponent)
-            && TryGetLayers(uid, itemMapper, out var containedLayers))
+        if (
+            EntityManager.TryGetComponent(uid, out AppearanceComponent? appearanceComponent)
+            && TryGetLayers(uid, itemMapper, out var containedLayers)
+        )
         {
-            _appearance.SetData(uid,
+            _appearance.SetData(
+                uid,
                 StorageMapVisuals.LayerChanged,
                 new ShowLayerData(containedLayers),
-                appearanceComponent);
+                appearanceComponent
+            );
         }
     }
 
@@ -90,7 +101,8 @@ public abstract class SharedItemMapperSystem : EntitySystem
     /// <returns>false if <c>msg.Container.Owner</c> is not a storage, true otherwise.</returns>
     private bool TryGetLayers(EntityUid uid, ItemMapperComponent itemMapper, out List<string> showLayers)
     {
-        var containedLayers = _container.GetAllContainers(uid)
+        var containedLayers = _container
+            .GetAllContainers(uid)
             .Where(c => itemMapper.ContainerWhitelist?.Contains(c.ID) ?? true)
             .SelectMany(cont => cont.ContainedEntities)
             .ToArray();
@@ -98,8 +110,9 @@ public abstract class SharedItemMapperSystem : EntitySystem
         var list = new List<string>();
         foreach (var mapLayerData in itemMapper.MapLayers.Values)
         {
-            var count = containedLayers.Count(ent => _whitelistSystem.IsWhitelistPassOrNull(mapLayerData.Whitelist,
-                ent));
+            var count = containedLayers.Count(ent =>
+                _whitelistSystem.IsWhitelistPassOrNull(mapLayerData.Whitelist, ent)
+            );
             if (count >= mapLayerData.MinCount && count <= mapLayerData.MaxCount)
             {
                 list.Add(mapLayerData.Layer);

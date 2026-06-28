@@ -4,7 +4,4 @@
 /// This is used for event eligibility.
 /// </summary>
 [RegisterComponent]
-public sealed partial class StationEventEligibleComponent : Component
-{
-
-}
+public sealed partial class StationEventEligibleComponent : Component { }

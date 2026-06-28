@@ -16,10 +16,10 @@
   id: BaseSignDirectional
   abstract: true
   components:
-#  - type: Construction # HardLight
-#    graph: Sign
-#    node: BaseSignDirectional
-# HL: Node doesn't exist anyways so just delete it, it can't be crafted anyways
+  #  - type: Construction # HardLight
+  #    graph: Sign
+  #    node: BaseSignDirectional
+  # HL: Node doesn't exist anyways so just delete it, it can't be crafted anyways
   - type: Sprite
     snapCardinals: false
 
@@ -481,7 +481,7 @@
   - type: Sprite
     layers:
     - state: drama1
-      map: [ "base" ]
+      map: ["base"]
   - type: RandomSprite
     available:
     - base:
@@ -632,7 +632,6 @@
     node: SignCryo
   - type: Sprite
     state: cryo
-
 
 - type: entity
   parent: BaseSign

@@ -9,7 +9,8 @@ namespace Content.Server.Construction.Conditions
     [DataDefinition]
     public sealed partial class EntityAnchored : IGraphCondition
     {
-        [DataField("anchored")] public bool Anchored { get; private set; } = true;
+        [DataField("anchored")]
+        public bool Anchored { get; private set; } = true;
 
         public bool Condition(EntityUid uid, IEntityManager entityManager)
         {
@@ -43,7 +44,7 @@ namespace Content.Server.Construction.Conditions
                 Localization = Anchored
                     ? "construction-step-condition-entity-anchored"
                     : "construction-step-condition-entity-unanchored",
-                Icon = new SpriteSpecifier.Rsi(new ("Objects/Tools/wrench.rsi"), "icon"),
+                Icon = new SpriteSpecifier.Rsi(new("Objects/Tools/wrench.rsi"), "icon"),
             };
         }
     }

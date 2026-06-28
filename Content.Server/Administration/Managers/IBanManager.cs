@@ -31,14 +31,16 @@ public interface IBanManager
     /// <param name="severity">Severity of the resulting ban note</param>
     /// <param name="reason">Reason for the ban</param>
     [Obsolete("Use CreateServerBan(CreateBanInfo) instead")]
-    public void CreateServerBan(NetUserId? target,
+    public void CreateServerBan(
+        NetUserId? target,
         string? targetUsername,
         NetUserId? banningAdmin,
         (IPAddress, int)? addressRange,
         ImmutableTypedHwid? hwid,
         uint? minutes,
         NoteSeverity severity,
-        string reason)
+        string reason
+    )
     {
         var info = new CreateServerBanInfo(reason);
         if (target != null)
@@ -133,6 +135,7 @@ public abstract class CreateBanInfo
 {
     [Access(Other = AccessPermissions.Read)]
     public const int DefaultMaskIpv4 = 32;
+
     [Access(Other = AccessPermissions.Read)]
     public const int DefaultMaskIpv6 = 64;
 
@@ -182,7 +185,8 @@ public abstract class CreateBanInfo
 
         return AddAddressRange(
             address,
-            address.AddressFamily == AddressFamily.InterNetwork ? DefaultMaskIpv4 : DefaultMaskIpv6);
+            address.AddressFamily == AddressFamily.InterNetwork ? DefaultMaskIpv4 : DefaultMaskIpv6
+        );
     }
 
     /// <summary>
@@ -348,9 +352,8 @@ public abstract class CreateBanInfo
 public sealed class CreateServerBanInfo : CreateBanInfo
 {
     /// <param name="reason">The reason for the server ban.</param>
-    public CreateServerBanInfo(string reason) : base(reason)
-    {
-    }
+    public CreateServerBanInfo(string reason)
+        : base(reason) { }
 }
 
 /// <summary>
@@ -364,9 +367,8 @@ public sealed class CreateRoleBanInfo : CreateBanInfo
     internal readonly HashSet<ProtoId<JobPrototype>> JobPrototypes = [];
 
     /// <param name="reason">The reason for the role ban.</param>
-    public CreateRoleBanInfo(string reason) : base(reason)
-    {
-    }
+    public CreateRoleBanInfo(string reason)
+        : base(reason) { }
 
     /// <summary>
     /// Add an antag role that will be unavailable for banned players.

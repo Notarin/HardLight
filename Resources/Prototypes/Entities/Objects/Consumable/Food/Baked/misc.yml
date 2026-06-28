@@ -44,7 +44,7 @@
           Quantity: 2
   - type: FlavorProfile
     flavors:
-      - sweet
+    - sweet
   - type: Item
     size: Tiny
 
@@ -161,8 +161,8 @@
     state: bun-honey
   - type: FlavorProfile # Frontier
     flavors: # Frontier
-      - honey # Frontier
-      - bread # Frontier
+    - honey # Frontier
+    - bread # Frontier
 
 - type: entity
   name: hotcross bun
@@ -260,20 +260,20 @@
   components:
   - type: Tag
     tags:
-      - Nugget
-      - Meat
+    - Nugget
+    - Meat
   - type: Sprite
     sprite: Objects/Consumable/Food/Baked/nuggets.rsi
     layers:
-      - state: tendie
-        map: [ "enum.DamageStateVisualLayers.Base" ]
+    - state: tendie
+      map: ["enum.DamageStateVisualLayers.Base"]
   - type: RandomSprite
     available:
-      - enum.DamageStateVisualLayers.Base:
-          tendie: ""
-          lizard: ""
-          star: ""
-          corgi: ""
+    - enum.DamageStateVisualLayers.Base:
+        tendie: ""
+        lizard: ""
+        star: ""
+        corgi: ""
   - type: SolutionContainerManager
     solutions:
       food:
@@ -478,8 +478,8 @@
   components:
   - type: Sprite
     layers:
-      - state: tray
-      - state: waffles
+    - state: tray
+    - state: waffles
   - type: SolutionContainerManager
     solutions:
       food:
@@ -498,8 +498,8 @@
   components:
   - type: Sprite
     layers:
-      - state: tray
-      - state: waffles-soy
+    - state: tray
+    - state: waffles-soy
   - type: SolutionContainerManager
     solutions:
       food:
@@ -518,8 +518,8 @@
   components:
   - type: Sprite
     layers:
-      - state: tray
-      - state: waffles-soylent
+    - state: tray
+    - state: waffles-soylent
   - type: SolutionContainerManager
     solutions:
       food:
@@ -538,8 +538,8 @@
   components:
   - type: Sprite
     layers:
-      - state: tray
-      - state: waffles-roffle
+    - state: tray
+    - state: waffles-roffle
   - type: SolutionContainerManager
     solutions:
       food:
@@ -598,8 +598,8 @@
           Quantity: 2
   - type: FlavorProfile
     flavors:
-      - meaty
-      - bread
+    - meaty
+    - bread
   - type: Tag
     tags:
     - Meat
@@ -612,10 +612,10 @@
   components:
   - type: FlavorProfile
     flavors:
-      - bread
-      - nutty
-      - creamy
-      - smokey
+    - bread
+    - nutty
+    - creamy
+    - smokey
   - type: Sprite
     state: chevrechaud
   - type: SolutionContainerManager
@@ -669,8 +669,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - sweet
-      - chocolate
+    - sweet
+    - chocolate
   - type: Sprite
     sprite: Objects/Consumable/Food/Baked/brownie.rsi
     state: brownie-batch
@@ -696,8 +696,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - sweet
-      - chocolate
+    - sweet
+    - chocolate
   - type: Sprite
     sprite: Objects/Consumable/Food/snacks.rsi
     state: mre-brownie-open
@@ -722,9 +722,9 @@
   components:
   - type: FlavorProfile
     flavors:
-      - sweet
-      - magical
-      - chocolate
+    - sweet
+    - magical
+    - chocolate
   - type: Sprite
     sprite: Objects/Consumable/Food/Baked/brownie.rsi
     state: brownie-batch
@@ -751,9 +751,9 @@
   components:
   - type: FlavorProfile
     flavors:
-      - sweet
-      - magical
-      - chocolate
+    - sweet
+    - magical
+    - chocolate
   - type: Sprite
     sprite: Objects/Consumable/Food/snacks.rsi
     state: mre-brownie-open
@@ -778,23 +778,23 @@
   id: FoodOnionRings
   description: You can eat it or propose to your loved ones.
   components:
-    - type: FlavorProfile
-      flavors:
-        - onion
-        - oily
-    - type: Sprite
-      state: onionrings
-    - type: SolutionContainerManager
-      solutions:
-        food:
-          maxVol: 4
-          reagents:
-          - ReagentId: Nutriment
-            Quantity: 1
-          - ReagentId: Allicin
-            Quantity: 1
-          - ReagentId: Vitamin
-            Quantity: 1
+  - type: FlavorProfile
+    flavors:
+    - onion
+    - oily
+  - type: Sprite
+    state: onionrings
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 4
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 1
+        - ReagentId: Allicin
+          Quantity: 1
+        - ReagentId: Vitamin
+          Quantity: 1
 
 - type: entity
   name: croissant
@@ -804,8 +804,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - bread
-      - butter
+    - bread
+    - butter
   - type: Sprite
     state: croissant
   - type: SolutionContainerManager
@@ -865,8 +865,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - cheesy
-      - bread
+    - cheesy
+    - bread
   - type: Sprite
     sprite: Objects/Consumable/Food/Baked/misc.rsi
     state: grilled-cheese

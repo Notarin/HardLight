@@ -4,12 +4,12 @@
   name: atmospheric alerts desktop computer board
   description: A circuit board for an atmospheric alerts dekstop computer.
   components:
-    - type: ComputerBoard
-      prototype: ComputerAlertDesktop
-    - type: Construction
-      deconstructionTarget: null
-      graph: ComputerCircuitBoard
-      node: alertDesktop
+  - type: ComputerBoard
+    prototype: ComputerAlertDesktop
+  - type: Construction
+    deconstructionTarget: null
+    graph: ComputerCircuitBoard
+    node: alertDesktop
 
 - type: entity
   parent: AtmosMonitoringComputerCircuitboard
@@ -17,12 +17,12 @@
   name: desktop atmospheric network monitor board
   description: A circuit board for a desktop atmospheric network monitor.
   components:
-    - type: ComputerBoard
-      prototype: ComputerAtmosMonitoringDesktop
-    - type: Construction
-      deconstructionTarget: null
-      graph: ComputerCircuitBoard
-      node: tankDesktop
+  - type: ComputerBoard
+    prototype: ComputerAtmosMonitoringDesktop
+  - type: Construction
+    deconstructionTarget: null
+    graph: ComputerCircuitBoard
+    node: tankDesktop
 
 - type: entity
   parent: SurveillanceCameraMonitorCircuitboard
@@ -69,12 +69,12 @@
   name: criminal records desktop computer board
   description: A circuit board for a criminal records desktop computer.
   components:
-    - type: ComputerBoard
-      prototype: ComputerCriminalRecordsDesktop
-    - type: Construction
-      deconstructionTarget: null
-      graph: ComputerCircuitBoard
-      node: crimeDesktop
+  - type: ComputerBoard
+    prototype: ComputerCriminalRecordsDesktop
+  - type: Construction
+    deconstructionTarget: null
+    graph: ComputerCircuitBoard
+    node: crimeDesktop
 
 - type: entity
   parent: StationRecordsComputerCircuitboard
@@ -82,12 +82,12 @@
   name: employment records desktop computer board
   description: A circuit board for an employment records desktop computer.
   components:
-    - type: ComputerBoard
-      prototype: ComputerStationRecordsDesktop
-    - type: Construction
-      deconstructionTarget: null
-      graph: ComputerCircuitBoard
-      node: stationRecordsDesktop
+  - type: ComputerBoard
+    prototype: ComputerStationRecordsDesktop
+  - type: Construction
+    deconstructionTarget: null
+    graph: ComputerCircuitBoard
+    node: stationRecordsDesktop
 
 - type: entity
   parent: ComputerMassMediaCircuitboard
@@ -95,12 +95,12 @@
   name: news manager desktop computer board
   description: A circuit board for a news manager desktop computer.
   components:
-    - type: ComputerBoard
-      prototype: ComputerMassMediaDesktop
-    - type: Construction
-      deconstructionTarget: null
-      graph: ComputerCircuitBoard
-      node: newsDesktop
+  - type: ComputerBoard
+    prototype: ComputerMassMediaDesktop
+  - type: Construction
+    deconstructionTarget: null
+    graph: ComputerCircuitBoard
+    node: newsDesktop
 
 - type: entity
   parent: PowerComputerCircuitboard
@@ -108,12 +108,12 @@
   name: power monitoring desktop computer board
   description: A circuit board for a power monitoring desktop computer.
   components:
-    - type: ComputerBoard
-      prototype: ComputerPowerMonitoringDesktop
-    - type: Construction
-      deconstructionTarget: null
-      graph: ComputerCircuitBoard
-      node: powerDesktop
+  - type: ComputerBoard
+    prototype: ComputerPowerMonitoringDesktop
+  - type: Construction
+    deconstructionTarget: null
+    graph: ComputerCircuitBoard
+    node: powerDesktop
 
 #- type: entity
 #  parent: SalvageJobBoardComputerCircuitboard
@@ -134,12 +134,12 @@
   name: cargo request desktop computer board
   description: A circuit board for a cargo request desktop computer.
   components:
-    - type: ComputerBoard
-      prototype: ComputerCargoOrdersDesktop
-    - type: Construction
-      deconstructionTarget: null
-      graph: ComputerCircuitBoard
-      node: cargoRequestDesktop
+  - type: ComputerBoard
+    prototype: ComputerCargoOrdersDesktop
+  - type: Construction
+    deconstructionTarget: null
+    graph: ComputerCircuitBoard
+    node: cargoRequestDesktop
 
 - type: entity
   parent: CargoRequestEngineeringComputerCircuitboard
@@ -214,6 +214,6 @@
   name: personal desktop computer board
   description: A circuit board for a personal desktop computer.
   components:
-    - type: ComputerBoard
-      prototype: ComputerPersonalDesktop
+  - type: ComputerBoard
+    prototype: ComputerPersonalDesktop
 # endregion: Custom Computers

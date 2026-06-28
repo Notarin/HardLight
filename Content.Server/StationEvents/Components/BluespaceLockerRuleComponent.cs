@@ -3,7 +3,4 @@
 namespace Content.Server.StationEvents.Components;
 
 [RegisterComponent, Access(typeof(BluespaceLockerRule))]
-public sealed partial class BluespaceLockerRuleComponent : Component
-{
-
-}
+public sealed partial class BluespaceLockerRuleComponent : Component { }

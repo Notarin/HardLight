@@ -4,8 +4,8 @@
   description: job-description-pilot
   playTimeTracker: JobPilot
   requirements:
-    - !type:OverallPlaytimeRequirement
-      time: 43200
+  - !type:OverallPlaytimeRequirement
+    time: 43200
   icon: "JobIconPilot"
   supervisors: job-supervisors-hire
   weight: 2 # Prioritize station & department jobs
@@ -21,9 +21,8 @@
     prototype: FrontierBirthdayGift
   - !type:AddComponentSpecial
     components:
-      - type: SurgerySpeedModifier
-        SpeedModifier: 1.25
-
+    - type: SurgerySpeedModifier
+      SpeedModifier: 1.25
 
 - type: startingGear
   id: PilotGear
@@ -37,8 +36,8 @@
   description: job-description-pilot
   playTimeTracker: JobPilotInterview
   requirements:
-    - !type:OverallPlaytimeRequirement
-      time: 43200
+  - !type:OverallPlaytimeRequirement
+    time: 43200
   setPreference: false
   startingGear: PilotHologramGear
   icon: "JobIconPilot"

@@ -16,25 +16,19 @@
     count: 2
 
   - !type:RoomEntranceDunGen
-
   - !type:EntranceFlankDunGen
-
   - !type:ExternalWindowDunGen
-
   - !type:WallMountDunGen
-
   - !type:BoundaryWallDunGen
-
   - !type:JunctionDunGen
+
     width: 1
 
   - !type:JunctionDunGen
-
   - !type:AutoCablingDunGen
-
   - !type:CornerClutterDunGen
-
   - !type:CorridorDecalSkirtingDunGen
+
     cardinalDecals:
       South: BrickTileWhiteLineS
       East: BrickTileWhiteLineE
@@ -252,15 +246,15 @@
 - type: entitySpawnEntry
   id: NFCaveFactoryWallMounts
   entries:
-    # Posters
-    - id: RandomPosterLegit
-      orGroup: content
-    - id: ExtinguisherCabinetFilled
-      prob: 0.2
-      orGroup: content
-    - id: RandomPainting
-      prob: 0.05
-      orGroup: content
+  # Posters
+  - id: RandomPosterLegit
+    orGroup: content
+  - id: ExtinguisherCabinetFilled
+    prob: 0.2
+    orGroup: content
+  - id: RandomPainting
+    prob: 0.05
+    orGroup: content
 
 # MedSci prototypes
 - type: dungeonConfig
@@ -435,18 +429,18 @@
 - type: entitySpawnEntry
   id: NFBaseWallMounts
   entries:
-    # Posters
-    - id: RandomPosterLegit
-      orGroup: content
-    - id: ExtinguisherCabinetFilled
-      prob: 0.2
-      orGroup: content
-    - id: RandomPainting
-      prob: 0.05
-      orGroup: content
-    - id: DefibrillatorCabinetFilled
-      prob: 0.1
-      orGroup: content
+  # Posters
+  - id: RandomPosterLegit
+    orGroup: content
+  - id: ExtinguisherCabinetFilled
+    prob: 0.2
+    orGroup: content
+  - id: RandomPainting
+    prob: 0.05
+    orGroup: content
+  - id: DefibrillatorCabinetFilled
+    prob: 0.1
+    orGroup: content
 
 # Lava brig
 - type: entitySpawnEntry
@@ -493,54 +487,54 @@
 - type: entitySpawnEntry
   id: NFVirologyAirlock
   entries:
-    - id: CableApcExtension
-    - id: AirlockVirologyGlassDungeon
+  - id: CableApcExtension
+  - id: AirlockVirologyGlassDungeon
 
 # Mining
 - type: entitySpawnEntry
   id: NFMiningAirlock
   entries:
-    - id: CableApcExtension
-    - id: AirlockMiningGlassDungeon
+  - id: CableApcExtension
+  - id: AirlockMiningGlassDungeon
 
 - type: entitySpawnEntry
   id: NFMiningWindow
   entries:
-    - id: GrilleDungeon
-    - id: MiningWindowDungeon
+  - id: GrilleDungeon
+  - id: MiningWindowDungeon
 
 # Mercenary
 - type: entitySpawnEntry
   id: NFMercenaryAirlock
   entries:
-    - id: CableApcExtension
-    - id: AirlockMercenaryGlassDungeon
+  - id: CableApcExtension
+  - id: AirlockMercenaryGlassDungeon
 
 - type: entitySpawnEntry
   id: NFLavaMercenaryWallMounts
   entries:
-    # Posters
-    - id: RandomPosterContraband
-      orGroup: content
-    - id: ExtinguisherCabinetFilled
-      prob: 0.2
-      orGroup: content
-    - id: RandomPainting
-      prob: 0.05
-      orGroup: content
+  # Posters
+  - id: RandomPosterContraband
+    orGroup: content
+  - id: ExtinguisherCabinetFilled
+    prob: 0.2
+    orGroup: content
+  - id: RandomPainting
+    prob: 0.05
+    orGroup: content
 
 # MedSci
 - type: entitySpawnEntry
   id: NFMedSciWallMounts
   entries:
-    - id: RandomPosterLegit
-      orGroup: content
-    - id: ExtinguisherCabinetFilled
-      prob: 0.2
-      orGroup: content
-    - id: RandomPainting
-      prob: 0.05
-      orGroup: content
-    - id: DefibrillatorCabinetFilled
-      prob: 0.2
-      orGroup: content
+  - id: RandomPosterLegit
+    orGroup: content
+  - id: ExtinguisherCabinetFilled
+    prob: 0.2
+    orGroup: content
+  - id: RandomPainting
+    prob: 0.05
+    orGroup: content
+  - id: DefibrillatorCabinetFilled
+    prob: 0.2
+    orGroup: content

@@ -10,8 +10,8 @@
   - type: Damageable
     damageContainer: Inorganic
   - type: MovementSpeedModifier
-    baseWalkSpeed : 3
-    baseSprintSpeed : 4
+    baseWalkSpeed: 3
+    baseSprintSpeed: 4
   - type: NpcFactionMember
     factions:
     - SimpleNeutral
@@ -56,8 +56,8 @@
     - SiliconMob
   - type: MobState
     allowedStates:
-      - Alive
-      - Dead
+    - Alive
+    - Dead
   - type: MobThresholds
     thresholds:
       0: Alive
@@ -70,17 +70,15 @@
     critThreshold: 120
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:TriggerBehavior
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 120
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: Body
     prototype: Bot
   - type: GuideHelp
@@ -137,8 +135,8 @@
     solution: spray
     generated:
       reagents:
-        - ReagentId: Water
-          Quantity: 10
+      - ReagentId: Water
+        Quantity: 10
   - type: Spray
     transferAmount: 10
     pushbackAmount: 60
@@ -187,15 +185,13 @@
   - type: Fixtures
     fixtures:
       slips:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35
         hard: false
         layer:
-          - SlipLayer
+        - SlipLayer
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35
         density: 20
         mask:
@@ -282,12 +278,12 @@
     solution: absorbed
     generated:
       reagents:
-        - ReagentId: Water
-          Quantity: 10
+      - ReagentId: Water
+        Quantity: 10
   - type: SolutionPurge
     solution: absorbed
     preserve:
-      - Water
+    - Water
     quantity: 10
   - type: SolutionContainerManager
     solutions:

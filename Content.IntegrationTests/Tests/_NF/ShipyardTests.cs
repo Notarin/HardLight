@@ -53,12 +53,18 @@ public sealed class ShipyardTest
                     }
                     catch (Exception ex)
                     {
-                        Assert.Fail($"Failed to load shuttle {vessel} ({vessel.ShuttlePath}): TryLoadGrid threw exception {ex}");
+                        Assert.Fail(
+                            $"Failed to load shuttle {vessel} ({vessel.ShuttlePath}): TryLoadGrid threw exception {ex}"
+                        );
                         map.DeleteMap(mapId);
                         continue;
                     }
 
-                    Assert.That(mapLoaded, Is.True, $"Failed to load shuttle {vessel} ({vessel.ShuttlePath}): TryLoadGrid returned false.");
+                    Assert.That(
+                        mapLoaded,
+                        Is.True,
+                        $"Failed to load shuttle {vessel} ({vessel.ShuttlePath}): TryLoadGrid returned false."
+                    );
                     Assert.That(shuttle.HasValue, Is.True);
                     Assert.That(entManager.HasComponent<MapGridComponent>(shuttle.Value), Is.True);
 
@@ -111,28 +117,41 @@ public sealed class ShipyardTest
                     }
                     catch (Exception ex)
                     {
-                        Assert.Fail($"Failed to load shuttle {vessel} ({vessel.ShuttlePath}): TryLoadGrid threw exception {ex}");
+                        Assert.Fail(
+                            $"Failed to load shuttle {vessel} ({vessel.ShuttlePath}): TryLoadGrid threw exception {ex}"
+                        );
                         map.DeleteMap(mapId);
                         continue;
                     }
-                    Assert.That(mapLoaded, Is.True, $"Failed to load shuttle {vessel} ({vessel.ShuttlePath}): TryLoadGrid returned false.");
+                    Assert.That(
+                        mapLoaded,
+                        Is.True,
+                        $"Failed to load shuttle {vessel} ({vessel.ShuttlePath}): TryLoadGrid returned false."
+                    );
                     Assert.That(entManager.HasComponent<MapGridComponent>(shuttle.Value), Is.True);
 
                     // Grid failed to load, continue to the next map.
                     if (!mapLoaded)
                         continue;
 
-                    pricing.AppraiseGrid(shuttle.Value, null, (uid, price) =>
-                    {
-                        appraisePrice += price;
-                    });
+                    pricing.AppraiseGrid(
+                        shuttle.Value,
+                        null,
+                        (uid, price) =>
+                        {
+                            appraisePrice += price;
+                        }
+                    );
                     var salePrice = ShipyardSystemAccessors.CallAppraiseGridForShipyardSale(shipyard, shuttle.Value); // HL: using reflection so we can use the same method the game uses to calculate price
                     salePrice *= cfg.GetCVar(NFCCVars.ShipyardSellRate);
                     var idealMinPrice = appraisePrice * vessel.MinPriceMarkup;
                     var roundedMinPrice = Math.Ceiling(idealMinPrice / 500.0) * 500; // HL: Round up to the nearest 500
 
-                    Assert.That(vessel.Price, Is.AtLeast(salePrice),
-                        $"Arbitrage possible on {vessel.ID}. Sale price is be {Math.Round(salePrice)}, but buy price is {vessel.Price}. Purchase Price Should be at least: {roundedMinPrice}");
+                    Assert.That(
+                        vessel.Price,
+                        Is.AtLeast(salePrice),
+                        $"Arbitrage possible on {vessel.ID}. Sale price is be {Math.Round(salePrice)}, but buy price is {vessel.Price}. Purchase Price Should be at least: {roundedMinPrice}"
+                    );
 
                     map.DeleteMap(mapId);
                 }
@@ -150,7 +169,7 @@ public sealed class ShipyardTest
     [Explicit("This is just for generating the prices to feed into the ship price updater")]
     public async Task CalculateShipPrices()
     {
-        Func<double, double, double> calcSalePrice = delegate (double salePrice, double markup)
+        Func<double, double, double> calcSalePrice = delegate(double salePrice, double markup)
         {
             var markupPrice = salePrice * markup;
             var roundedPrice = Math.Ceiling(markupPrice / 500.0) * 500; // Round up to the nearest 500
@@ -188,7 +207,9 @@ public sealed class ShipyardTest
                     }
                     catch (Exception ex)
                     {
-                        Assert.Fail($"Failed to load shuttle {vessel} ({vessel.ShuttlePath}): TryLoadGrid threw exception {ex}");
+                        Assert.Fail(
+                            $"Failed to load shuttle {vessel} ({vessel.ShuttlePath}): TryLoadGrid threw exception {ex}"
+                        );
                         map.DeleteMap(mapId);
                         continue;
                     }
@@ -199,10 +220,14 @@ public sealed class ShipyardTest
                     if (!entManager.HasComponent<MapGridComponent>(shuttle.Value))
                         continue;
 
-                    pricing.AppraiseGrid(shuttle.Value, null, (uid, price) =>
-                    {
-                        appraisePrice += price;
-                    });
+                    pricing.AppraiseGrid(
+                        shuttle.Value,
+                        null,
+                        (uid, price) =>
+                        {
+                            appraisePrice += price;
+                        }
+                    );
                     var salePrice = ShipyardSystemAccessors.CallAppraiseGridForShipyardSale(shipyard, shuttle.Value); // HL: Use reflection to get the ship price from the system, it's a private function for reasons
                     salePrice *= cfg.GetCVar(NFCCVars.ShipyardSellRate);
                     var recSalePrice = calcSalePrice(salePrice, vessel.MinPriceMarkup);

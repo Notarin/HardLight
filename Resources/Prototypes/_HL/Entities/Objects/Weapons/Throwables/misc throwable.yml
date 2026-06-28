@@ -75,16 +75,16 @@
   - type: Construction
     graph: BoneDart
     node: BoneDart
- 
+
 - type: entity
-  name:  bone skewer
+  name: bone skewer
   parent: FoodKebabSkewer
   id: FoodKebabSkewerBone
   description: A thin piece of bone used to skewer just about anything and cook it.
   components:
   - type: Sprite
     sprite: _HL/Objects/Consumable/Food/boneskewer.rsi
-    state: 
+    state:
     layers:
     - state: skewer
     - map: ["foodSequenceLayers"]

@@ -1,6 +1,6 @@
 - type: quickPhrase
   id: BaseMedicalSubjectPhrase
-  parent: [ BaseSubjectPhrase, BaseMedicalPhrase ]
+  parent: [BaseSubjectPhrase, BaseMedicalPhrase]
   abstract: true
 
 - type: quickPhrase

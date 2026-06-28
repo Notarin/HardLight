@@ -13,14 +13,13 @@ namespace Content.Server.Database.Migrations.Sqlite
                 table: "admin_log",
                 type: "INTEGER",
                 nullable: false,
-                defaultValue: (sbyte)0);
+                defaultValue: (sbyte)0
+            );
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "impact",
-                table: "admin_log");
+            migrationBuilder.DropColumn(name: "impact", table: "admin_log");
         }
     }
 }

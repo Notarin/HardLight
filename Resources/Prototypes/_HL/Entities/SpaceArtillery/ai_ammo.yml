@@ -85,7 +85,7 @@
   id: AIAdderBullet
   name: AIAdderBullet
   parent: AdderBullet
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -95,7 +95,7 @@
 
 - type: entity
   id: AIAdderSpread
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: AIAdderBullet
   components:
   - type: ProjectileSpread
@@ -107,7 +107,7 @@
   id: AIShipMiniRailgunProjectile
   name: M194 CHARONETTE 280mm 10.25 kg slug
   parent: ShipMiniRailgunProjectile
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -120,7 +120,7 @@
   id: AIShipMediumPlasmaProjectile
   name: plasma projectile
   parent: ShipMediumPlasmaProjectile
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
@@ -134,7 +134,7 @@
   id: AIShipNeutronProjectile
   name: neutron projectile
   parent: ShipNeutronProjectile
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:

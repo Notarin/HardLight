@@ -1,20 +1,27 @@
 using Content.Server.Power.EntitySystems;
 using Content.Server.PowerCell;
 using Content.Shared.DeviceNetwork.Components;
+using Content.Shared.DeviceNetwork.Systems;
 using Content.Shared.Interaction;
 using Content.Shared.PowerCell.Components;
-using Content.Shared.Radio.EntitySystems;
 using Content.Shared.Radio.Components;
-using Content.Shared.DeviceNetwork.Systems;
+using Content.Shared.Radio.EntitySystems;
 
 namespace Content.Server.Radio.EntitySystems;
 
 public sealed class JammerSystem : SharedJammerSystem
 {
-    [Dependency] private readonly PowerCellSystem _powerCell = default!;
-    [Dependency] private readonly BatterySystem _battery = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedDeviceNetworkJammerSystem _jammer = default!;
+    [Dependency]
+    private readonly PowerCellSystem _powerCell = default!;
+
+    [Dependency]
+    private readonly BatterySystem _battery = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly SharedDeviceNetworkJammerSystem _jammer = default!;
 
     public override void Initialize()
     {
@@ -31,7 +38,6 @@ public sealed class JammerSystem : SharedJammerSystem
 
         while (query.MoveNext(out var uid, out var _, out var jam))
         {
-
             if (_powerCell.TryGetBatteryFromSlot(uid, out var batteryUid, out var battery))
             {
                 if (!_battery.TryUseCharge(batteryUid.Value, GetCurrentWattage((uid, jam)) * frameTime, battery))
@@ -51,9 +57,7 @@ public sealed class JammerSystem : SharedJammerSystem
                     };
                     ChangeChargeLevel(uid, chargeLevel);
                 }
-
             }
-
         }
     }
 
@@ -62,16 +66,20 @@ public sealed class JammerSystem : SharedJammerSystem
         if (args.Handled || !args.Complex)
             return;
 
-        var activated = !HasComp<ActiveRadioJammerComponent>(ent) &&
-            _powerCell.TryGetBatteryFromSlot(ent.Owner, out var battery) &&
-            battery.CurrentCharge > GetCurrentWattage(ent);
+        var activated =
+            !HasComp<ActiveRadioJammerComponent>(ent)
+            && _powerCell.TryGetBatteryFromSlot(ent.Owner, out var battery)
+            && battery.CurrentCharge > GetCurrentWattage(ent);
         if (activated)
         {
             ChangeLEDState(ent.Owner, true);
             EnsureComp<ActiveRadioJammerComponent>(ent);
             EnsureComp<DeviceNetworkJammerComponent>(ent, out var jammingComp);
             _jammer.SetRange((ent, jammingComp), GetCurrentRange(ent));
-            _jammer.AddJammableNetwork((ent, jammingComp), DeviceNetworkComponent.DeviceNetIdDefaults.Wireless.ToString());
+            _jammer.AddJammableNetwork(
+                (ent, jammingComp),
+                DeviceNetworkComponent.DeviceNetIdDefaults.Wireless.ToString()
+            );
         }
         else
         {

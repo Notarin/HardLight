@@ -39,13 +39,13 @@
         damage: 80
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
     - trigger: !type:DamageTrigger
         damage: 40
       behaviors:
       - !type:EmptyAllContainersBehaviour
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:PlaySoundBehavior
         sound:
           collection: MetalGlassBreak

@@ -9,7 +9,8 @@ namespace Content.Shared.Cargo;
 
 public abstract class SharedCargoSystem : EntitySystem
 {
-    [Dependency] protected readonly IGameTiming Timing = default!;
+    [Dependency]
+    protected readonly IGameTiming Timing = default!;
 
     public override void Initialize()
     {
@@ -27,7 +28,10 @@ public abstract class SharedCargoSystem : EntitySystem
     /// <summary>
     /// For a given station, retrieves the balance in a specific account.
     /// </summary>
-    public int GetBalanceFromAccount(Entity<StationBankAccountComponent?> station, ProtoId<CargoAccountPrototype> account)
+    public int GetBalanceFromAccount(
+        Entity<StationBankAccountComponent?> station,
+        ProtoId<CargoAccountPrototype> account
+    )
     {
         if (!Resolve(station, ref station.Comp))
             return 0;
@@ -40,11 +44,13 @@ public abstract class SharedCargoSystem : EntitySystem
     /// The primary account receives the majority percentage listed on the bank account, with the remaining
     /// funds distributed to all accounts based on <see cref="StationBankAccountComponent.RevenueDistribution"/>
     /// </summary>
-    public Dictionary<ProtoId<CargoAccountPrototype>, double> CreateAccountDistribution(Entity<StationBankAccountComponent> stationBank)
+    public Dictionary<ProtoId<CargoAccountPrototype>, double> CreateAccountDistribution(
+        Entity<StationBankAccountComponent> stationBank
+    )
     {
         var distribution = new Dictionary<ProtoId<CargoAccountPrototype>, double>
         {
-            { stationBank.Comp.PrimaryAccount, stationBank.Comp.PrimaryCut }
+            { stationBank.Comp.PrimaryAccount, stationBank.Comp.PrimaryCut },
         };
         var remaining = 1.0 - stationBank.Comp.PrimaryCut;
 
@@ -63,13 +69,13 @@ public enum CargoConsoleUiKey : byte
     Orders,
     Bounty,
     Shuttle,
-    Telepad
+    Telepad,
 }
 
 [NetSerializable, Serializable]
 public enum CargoPalletConsoleUiKey : byte
 {
-    Sale
+    Sale,
 }
 
 [Serializable, NetSerializable]

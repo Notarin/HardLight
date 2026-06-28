@@ -1,19 +1,19 @@
+using System;
+using System.Linq;
 using Content.Shared.DoAfter;
 using Content.Shared.Interaction;
+using Content.Shared.Interaction.Events;
 using Content.Shared.Verbs;
 using Content.Shared.Weapons.Ranged.Components;
 using Content.Shared.Weapons.Ranged.Events;
+using Content.Shared.Wieldable;
+using Content.Shared.Wieldable.Components;
+using JetBrains.Annotations;
 using Robust.Shared.Containers;
 using Robust.Shared.GameStates;
 using Robust.Shared.Map;
 using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
-using System;
-using System.Linq;
-using Content.Shared.Interaction.Events;
-using Content.Shared.Wieldable;
-using Content.Shared.Wieldable.Components;
-using JetBrains.Annotations;
 
 namespace Content.Shared.Weapons.Ranged.Systems;
 
@@ -51,13 +51,21 @@ public partial class SharedGunSystem
         Dirty(uid, component);
     }
 
-    private void OnRevolverGetAmmoCount(EntityUid uid, RevolverAmmoProviderComponent component, ref GetAmmoCountEvent args)
+    private void OnRevolverGetAmmoCount(
+        EntityUid uid,
+        RevolverAmmoProviderComponent component,
+        ref GetAmmoCountEvent args
+    )
     {
         args.Count += GetRevolverCount(component);
         args.Capacity += component.Capacity;
     }
 
-    private void OnRevolverInteractUsing(EntityUid uid, RevolverAmmoProviderComponent component, InteractUsingEvent args)
+    private void OnRevolverInteractUsing(
+        EntityUid uid,
+        RevolverAmmoProviderComponent component,
+        InteractUsingEvent args
+    )
     {
         if (args.Handled || _whitelistSystem.IsWhitelistFailOrNull(component.Whitelist, args.Used)) // Frontier: better revolver reloading
             return; // Frontier: better revolver reloading
@@ -67,25 +75,37 @@ public partial class SharedGunSystem
     }
 
     // Frontier: better revolver reloading
-    private void OnRevolverAfterInteract(EntityUid uid, RevolverAmmoProviderComponent component, AfterInteractEvent args)
+    private void OnRevolverAfterInteract(
+        EntityUid uid,
+        RevolverAmmoProviderComponent component,
+        AfterInteractEvent args
+    )
     {
-        if (args.Handled ||
-            !component.MayTransfer ||
-            !Timing.IsFirstTimePredicted ||
-            args.Target == null ||
-            args.Used == args.Target ||
-            Deleted(args.Target))
+        if (
+            args.Handled
+            || !component.MayTransfer
+            || !Timing.IsFirstTimePredicted
+            || args.Target == null
+            || args.Used == args.Target
+            || Deleted(args.Target)
+        )
             return;
 
         // Ensure the target of interaction has a valid component.
         var validComponent = false;
         TimeSpan fillDelay = component.FillDelay;
-        if (TryComp<BallisticAmmoProviderComponent>(args.Target, out var ballisticComponent) && ballisticComponent.Whitelist is not null)
+        if (
+            TryComp<BallisticAmmoProviderComponent>(args.Target, out var ballisticComponent)
+            && ballisticComponent.Whitelist is not null
+        )
         {
             validComponent = true;
             fillDelay = ballisticComponent.FillDelay;
         }
-        else if (TryComp<RevolverAmmoProviderComponent>(args.Target, out var revolverComponent) && revolverComponent.Whitelist is not null)
+        else if (
+            TryComp<RevolverAmmoProviderComponent>(args.Target, out var revolverComponent)
+            && revolverComponent.Whitelist is not null
+        )
         {
             validComponent = true;
             fillDelay = revolverComponent.FillDelay;
@@ -95,17 +115,31 @@ public partial class SharedGunSystem
         {
             args.Handled = true;
 
-            _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, fillDelay, new AmmoFillDoAfterEvent(), used: uid, target: args.Target, eventTarget: uid)
-            {
-                BreakOnMove = true,
-                BreakOnDamage = false,
-                NeedHand = true
-            });
+            _doAfter.TryStartDoAfter(
+                new DoAfterArgs(
+                    EntityManager,
+                    args.User,
+                    fillDelay,
+                    new AmmoFillDoAfterEvent(),
+                    used: uid,
+                    target: args.Target,
+                    eventTarget: uid
+                )
+                {
+                    BreakOnMove = true,
+                    BreakOnDamage = false,
+                    NeedHand = true,
+                }
+            );
         }
     }
 
     // NOTE: closely resembles OnBallisticAmmoFillDoAfter except for bullet count check - redundancy could be removed.
-    private void OnRevolverAmmoFillDoAfter(EntityUid uid, RevolverAmmoProviderComponent component, AmmoFillDoAfterEvent args)
+    private void OnRevolverAmmoFillDoAfter(
+        EntityUid uid,
+        RevolverAmmoProviderComponent component,
+        AmmoFillDoAfterEvent args
+    )
     {
         if (Deleted(args.Target))
             return;
@@ -116,32 +150,28 @@ public partial class SharedGunSystem
         {
             return;
         }
-        if ((ballisticTarget is null || ballisticTarget.Whitelist is null) &&
-            (revolverTarget is null || revolverTarget.Whitelist is null))
+        if (
+            (ballisticTarget is null || ballisticTarget.Whitelist is null)
+            && (revolverTarget is null || revolverTarget.Whitelist is null)
+        )
         {
             // No supported component type with valid whitelist.
             return;
         }
 
-        if (ballisticTarget is not null && GetBallisticShots(ballisticTarget) >= ballisticTarget.Capacity ||
-            revolverTarget is not null && GetRevolverCount(revolverTarget) >= revolverTarget.Capacity)
+        if (
+            ballisticTarget is not null && GetBallisticShots(ballisticTarget) >= ballisticTarget.Capacity
+            || revolverTarget is not null && GetRevolverCount(revolverTarget) >= revolverTarget.Capacity
+        )
         {
-            Popup(
-                Loc.GetString("gun-ballistic-transfer-target-full",
-                    ("entity", args.Target)),
-                args.Target,
-                args.User);
+            Popup(Loc.GetString("gun-ballistic-transfer-target-full", ("entity", args.Target)), args.Target, args.User);
             return;
         }
 
         if (GetRevolverUnspentCount(component) == 0)
         {
             // NOTE: the revolver hay be full of unspent cases.  Is this considered "empty", or do we need a new string?
-            Popup(
-                Loc.GetString("gun-ballistic-transfer-empty",
-                    ("entity", uid)),
-                uid,
-                args.User);
+            Popup(Loc.GetString("gun-ballistic-transfer-empty", ("entity", uid)), uid, args.User);
             return;
         }
 
@@ -162,15 +192,22 @@ public partial class SharedGunSystem
             if (ent == null)
                 continue;
 
-            if (ballisticTarget is not null && _whitelistSystem.IsWhitelistFailOrNull(ballisticTarget.Whitelist, ent.Value) ||
-                revolverTarget is not null && _whitelistSystem.IsWhitelistFailOrNull(revolverTarget.Whitelist, ent.Value))
+            if (
+                ballisticTarget is not null
+                    && _whitelistSystem.IsWhitelistFailOrNull(ballisticTarget.Whitelist, ent.Value)
+                || revolverTarget is not null
+                    && _whitelistSystem.IsWhitelistFailOrNull(revolverTarget.Whitelist, ent.Value)
+            )
             {
                 Popup(
-                    Loc.GetString("gun-ballistic-transfer-invalid",
+                    Loc.GetString(
+                        "gun-ballistic-transfer-invalid",
                         ("ammoEntity", ent.Value),
-                        ("targetEntity", args.Target.Value)),
+                        ("targetEntity", args.Target.Value)
+                    ),
                     uid,
-                    args.User);
+                    args.User
+                );
 
                 SimulateInsertAmmo(ent.Value, uid, Transform(uid).Coordinates);
 
@@ -196,6 +233,7 @@ public partial class SharedGunSystem
         var moreAmmo = GetRevolverUnspentCount(component) > 0;
         args.Repeat = moreSpace && moreAmmo && validAmmoType;
     }
+
     // End Frontier
 
     private void OnRevolverGetState(EntityUid uid, RevolverAmmoProviderComponent component, ref ComponentGetState args)
@@ -208,7 +246,11 @@ public partial class SharedGunSystem
         };
     }
 
-    private void OnRevolverHandleState(EntityUid uid, RevolverAmmoProviderComponent component, ref ComponentHandleState args)
+    private void OnRevolverHandleState(
+        EntityUid uid,
+        RevolverAmmoProviderComponent component,
+        ref ComponentHandleState args
+    )
     {
         if (args.Current is not RevolverAmmoProviderComponentState state)
             return;
@@ -231,7 +273,12 @@ public partial class SharedGunSystem
         }
     }
 
-    public bool TryRevolverInsert(EntityUid revolverUid, RevolverAmmoProviderComponent component, EntityUid uid, EntityUid? user)
+    public bool TryRevolverInsert(
+        EntityUid revolverUid,
+        RevolverAmmoProviderComponent component,
+        EntityUid uid,
+        EntityUid? user
+    )
     {
         if (_whitelistSystem.IsWhitelistFailOrNull(component.Whitelist, uid)) // Frontier: no null, consistency with BallisticAmmoProvider
             return false;
@@ -271,8 +318,7 @@ public partial class SharedGunSystem
             {
                 var index = (component.CurrentIndex + i) % component.Capacity;
 
-                if (component.AmmoSlots[index] != null ||
-                    component.Chambers[index] != null)
+                if (component.AmmoSlots[index] != null || component.Chambers[index] != null)
                 {
                     continue;
                 }
@@ -311,8 +357,7 @@ public partial class SharedGunSystem
         {
             var index = (component.CurrentIndex + i) % component.Capacity;
 
-            if (component.AmmoSlots[index] != null ||
-                component.Chambers[index] != null)
+            if (component.AmmoSlots[index] != null || component.Chambers[index] != null)
             {
                 continue;
             }
@@ -343,33 +388,40 @@ public partial class SharedGunSystem
         component.Chambers[index] = true;
     }
 
-    private void OnRevolverVerbs(EntityUid uid, RevolverAmmoProviderComponent component, GetVerbsEvent<AlternativeVerb> args)
+    private void OnRevolverVerbs(
+        EntityUid uid,
+        RevolverAmmoProviderComponent component,
+        GetVerbsEvent<AlternativeVerb> args
+    )
     {
         if (!args.CanAccess || !args.CanInteract || args.Hands == null)
             return;
 
-        args.Verbs.Add(new AlternativeVerb()
-        {
-            Text = Loc.GetString("gun-revolver-empty"),
-            Disabled = !AnyRevolverCartridges(component),
-            Act = () => EmptyRevolver(uid, component, args.User),
-            Priority = 1
-        });
+        args.Verbs.Add(
+            new AlternativeVerb()
+            {
+                Text = Loc.GetString("gun-revolver-empty"),
+                Disabled = !AnyRevolverCartridges(component),
+                Act = () => EmptyRevolver(uid, component, args.User),
+                Priority = 1,
+            }
+        );
 
-        args.Verbs.Add(new AlternativeVerb()
-        {
-            Text = Loc.GetString("gun-revolver-spin"),
-            // Category = VerbCategory.G,
-            Act = () => SpinRevolver(uid, component, args.User)
-        });
+        args.Verbs.Add(
+            new AlternativeVerb()
+            {
+                Text = Loc.GetString("gun-revolver-spin"),
+                // Category = VerbCategory.G,
+                Act = () => SpinRevolver(uid, component, args.User),
+            }
+        );
     }
 
     private bool AnyRevolverCartridges(RevolverAmmoProviderComponent component)
     {
         for (var i = 0; i < component.Capacity; i++)
         {
-            if (component.Chambers[i] != null ||
-                component.AmmoSlots[i] != null)
+            if (component.Chambers[i] != null || component.AmmoSlots[i] != null)
             {
                 return true;
             }
@@ -384,8 +436,7 @@ public partial class SharedGunSystem
 
         for (var i = 0; i < component.Capacity; i++)
         {
-            if (component.Chambers[i] != null ||
-                component.AmmoSlots[i] != null)
+            if (component.Chambers[i] != null || component.AmmoSlots[i] != null)
             {
                 count++;
             }
@@ -441,7 +492,7 @@ public partial class SharedGunSystem
                     var uid = Spawn(component.FillPrototype, mapCoordinates);
 
                     if (TryComp<CartridgeAmmoComponent>(uid, out var cartridge))
-                        SetCartridgeSpent(uid, cartridge, !(bool) chamber);
+                        SetCartridgeSpent(uid, cartridge, !(bool)chamber);
 
                     EjectCartridge(uid);
                 }
@@ -484,7 +535,11 @@ public partial class SharedGunSystem
         Appearance.SetData(uid, AmmoVisuals.AmmoMax, component.Capacity, appearance);
     }
 
-    protected virtual void SpinRevolver(EntityUid revolverUid, RevolverAmmoProviderComponent component, EntityUid? user = null)
+    protected virtual void SpinRevolver(
+        EntityUid revolverUid,
+        RevolverAmmoProviderComponent component,
+        EntityUid? user = null
+    )
     {
         Audio.PlayPredicted(component.SoundSpin, revolverUid, user);
         Popup(Loc.GetString("gun-revolver-spun"), revolverUid, user);
@@ -676,8 +731,5 @@ public partial class SharedGunSystem
         public bool?[] Chambers = default!;
     }
 
-    public sealed class RevolverSpinEvent : EntityEventArgs
-    {
-
-    }
+    public sealed class RevolverSpinEvent : EntityEventArgs { }
 }

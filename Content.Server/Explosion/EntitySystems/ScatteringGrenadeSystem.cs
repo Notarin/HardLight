@@ -1,20 +1,27 @@
-﻿using Content.Shared.Explosion.Components;
+﻿using System.Numerics;
+using Content.Shared.Explosion.Components;
+using Content.Shared.Explosion.EntitySystems;
 using Content.Shared.Throwing;
 using Robust.Server.GameObjects;
 using Robust.Shared.Containers;
 using Robust.Shared.Map;
 using Robust.Shared.Random;
-using System.Numerics;
-using Content.Shared.Explosion.EntitySystems;
 
 namespace Content.Server.Explosion.EntitySystems;
 
 public sealed class ScatteringGrenadeSystem : SharedScatteringGrenadeSystem
 {
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly ThrowingSystem _throwingSystem = default!;
-    [Dependency] private readonly TransformSystem _transformSystem = default!;
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly ThrowingSystem _throwingSystem = default!;
+
+    [Dependency]
+    private readonly TransformSystem _transformSystem = default!;
 
     public override void Initialize()
     {
@@ -70,7 +77,10 @@ public sealed class ScatteringGrenadeSystem : SharedScatteringGrenadeSystem
 
                     Vector2 direction = angle.ToVec().Normalized();
                     if (component.RandomDistance)
-                        direction *= _random.NextFloat(component.RandomThrowDistanceMin, component.RandomThrowDistanceMax);
+                        direction *= _random.NextFloat(
+                            component.RandomThrowDistanceMin,
+                            component.RandomThrowDistanceMax
+                        );
                     else
                         direction *= component.Distance;
 
@@ -78,7 +88,10 @@ public sealed class ScatteringGrenadeSystem : SharedScatteringGrenadeSystem
 
                     if (component.TriggerContents)
                     {
-                        additionalIntervalDelay += _random.NextFloat(component.IntervalBetweenTriggersMin, component.IntervalBetweenTriggersMax);
+                        additionalIntervalDelay += _random.NextFloat(
+                            component.IntervalBetweenTriggersMin,
+                            component.IntervalBetweenTriggersMax
+                        );
                         var contentTimer = EnsureComp<ActiveTimerTriggerComponent>(contentUid);
                         contentTimer.TimeRemaining = component.DelayBeforeTriggerContents + additionalIntervalDelay;
                         var ev = new ActiveTimerTriggerEvent(contentUid, uid);
@@ -96,7 +109,11 @@ public sealed class ScatteringGrenadeSystem : SharedScatteringGrenadeSystem
     /// <summary>
     /// Spawns one instance of the fill prototype or contained entity at the coordinate indicated
     /// </summary>
-    private bool TrySpawnContents(MapCoordinates spawnCoordinates, ScatteringGrenadeComponent component, out EntityUid contentUid)
+    private bool TrySpawnContents(
+        MapCoordinates spawnCoordinates,
+        ScatteringGrenadeComponent component,
+        out EntityUid contentUid
+    )
     {
         contentUid = default;
 

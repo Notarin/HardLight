@@ -4442,8 +4442,8 @@ entities:
       id: Frontier
     - type: StationTransit
     - type: ProtectedGrid
-#    - type: StationEmpImmune
-# HL: Removed Component
+      #    - type: StationEmpImmune
+      # HL: Removed Component
     - type: SpreaderGrid
     - type: IFF
   - uid: 5691
@@ -31718,11 +31718,9 @@ entities:
 
         [head=1][color=#1a6295]Nanotrasen[/color][/head]
 
-
         [bold]ATTN:[/bold]
 
         Frontier Station Staff
-
 
         [bold]FROM:[/bold]
 
@@ -31732,15 +31730,11 @@ entities:
 
         [bold][color=green]Colonial Command[/color][/bold]
 
-
         [bold]/MESSAGE/[/bold]
-
 
         We have been notified of wasteful behavior in the Frontier Staff break area. Please ensure you remove your food from the fridge before the end of shift, otherwise it will be removed and composted.
 
-
         Please join us in this effort to reduce food waste.
-
 
         [bold]/END FAX/[/bold]
     - type: Fixtures
@@ -31802,18 +31796,15 @@ entities:
 
         [head=1]Frontier Outpost Atmos[/head]
 
-
         Distro line setup:
 
         [bullet]Turn on the distro mixer. (22% primary/78% secondary)
 
         [bullet](Optional) Turn on the canister fill pump at maximum pressure to allow captains to refill their canisters with clean air.
 
-
         Waste line setup:
 
         [bullet]Turn on the waste pump.
-
 
         These are sensible default instructions, a proper atmospherics technician should be hired in the event you are uncertain about any of these.
     - type: Fixtures
@@ -42003,4 +41994,3 @@ entities:
     - type: Transform
       pos: 52.5,18.5
       parent: 2173
-...

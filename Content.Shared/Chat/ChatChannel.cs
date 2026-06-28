@@ -90,7 +90,6 @@ namespace Content.Shared.Chat
         /// </summary>
         Subtle = 1 << 15,
 
-
         /// <summary>
         ///     Nyano - Summary:: Telepathic channel for all psionic entities.
         /// </summary>

@@ -400,16 +400,16 @@
   name: Secbug
   spritePath: _HL/Mobs/Silicon/Borg/Security/secbug.rsi
   layerData:
-    - state: secbug
-      map: [ "enum.BorgVisualLayers.Body", "movement" ]
-    - state: secbug_e
-      map: [ "enum.BorgVisualLayers.Light" ]
-      shader: unshaded
-      visible: false
-    - state: secbug_l
-      shader: unshaded
-      map: [ "light", "enum.BorgVisualLayers.LightStatus" ]
-      visible: false
+  - state: secbug
+    map: ["enum.BorgVisualLayers.Body", "movement"]
+  - state: secbug_e
+    map: ["enum.BorgVisualLayers.Light"]
+    shader: unshaded
+    visible: false
+  - state: secbug_l
+    shader: unshaded
+    map: ["light", "enum.BorgVisualLayers.LightStatus"]
+    visible: false
   spriteBodyState: secbug
   spriteHasMindState: secbug_e
   spriteNoMindState: secbug_e_r
@@ -421,16 +421,16 @@
   name: Djbug
   spritePath: _HL/Mobs/Silicon/Borg/Service/bugdj.rsi
   layerData:
-    - state: service
-      map: [ "enum.BorgVisualLayers.Body", "movement" ]
-    - state: service_e
-      map: [ "enum.BorgVisualLayers.Light" ]
-      shader: unshaded
-      visible: false
-    - state: service_l
-      shader: unshaded
-      map: [ "light", "enum.BorgVisualLayers.LightStatus" ]
-      visible: false
+  - state: service
+    map: ["enum.BorgVisualLayers.Body", "movement"]
+  - state: service_e
+    map: ["enum.BorgVisualLayers.Light"]
+    shader: unshaded
+    visible: false
+  - state: service_l
+    shader: unshaded
+    map: ["light", "enum.BorgVisualLayers.LightStatus"]
+    visible: false
   spriteBodyState: service
   spriteHasMindState: service_e
   spriteNoMindState: service_e_r
@@ -442,16 +442,16 @@
   name: Engineerbug
   spritePath: _HL/Mobs/Silicon/Borg/Engineering/engineerbug.rsi
   layerData:
-    - state: engineer
-      map: [ "enum.BorgVisualLayers.Body", "movement" ]
-    - state: engineer_e
-      map: [ "enum.BorgVisualLayers.Light" ]
-      shader: unshaded
-      visible: false
-    - state: engineer_l
-      shader: unshaded
-      map: [ "light", "enum.BorgVisualLayers.LightStatus" ]
-      visible: false
+  - state: engineer
+    map: ["enum.BorgVisualLayers.Body", "movement"]
+  - state: engineer_e
+    map: ["enum.BorgVisualLayers.Light"]
+    shader: unshaded
+    visible: false
+  - state: engineer_l
+    shader: unshaded
+    map: ["light", "enum.BorgVisualLayers.LightStatus"]
+    visible: false
   spriteBodyState: engineer
   spriteHasMindState: engineer_e
   spriteNoMindState: engineer_e_r
@@ -463,16 +463,16 @@
   name: Minerbug
   spritePath: _HL/Mobs/Silicon/Borg/Mining/minerbug.rsi
   layerData:
-    - state: miner
-      map: [ "enum.BorgVisualLayers.Body", "movement" ]
-    - state: miner_e
-      map: [ "enum.BorgVisualLayers.Light" ]
-      shader: unshaded
-      visible: false
-    - state: miner_l
-      shader: unshaded
-      map: [ "light", "enum.BorgVisualLayers.LightStatus" ]
-      visible: false
+  - state: miner
+    map: ["enum.BorgVisualLayers.Body", "movement"]
+  - state: miner_e
+    map: ["enum.BorgVisualLayers.Light"]
+    shader: unshaded
+    visible: false
+  - state: miner_l
+    shader: unshaded
+    map: ["light", "enum.BorgVisualLayers.LightStatus"]
+    visible: false
   spriteBodyState: miner
   spriteHasMindState: miner_e
   spriteNoMindState: miner_e_r

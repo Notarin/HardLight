@@ -6,5 +6,4 @@ namespace Content.Client.Kudzu
         [DataField("layer")]
         public int Layer { get; private set; } = 0;
     }
-
 }

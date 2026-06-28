@@ -14,20 +14,29 @@ using Robust.Shared.Prototypes; // HardLight
 using Robust.Shared.Utility;
 using static Content.Shared._Floof.Lock.IdLockComponent.LockState;
 
-
 namespace Content.Shared._Floof.Lock;
-
 
 public sealed class IdLockSystem : EntitySystem
 {
     private static readonly ProtoId<AccessLevelPrototype> CentralCommandAccess = "CentralCommand";
 
-    [Dependency] private readonly AccessReaderSystem _access = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly LockSystem _locks = default!;
-    [Dependency] private readonly SharedIdCardSystem _idCards = default!;
-    [Dependency] private readonly SharedPopupSystem _popups = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
+    [Dependency]
+    private readonly AccessReaderSystem _access = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly LockSystem _locks = default!;
+
+    [Dependency]
+    private readonly SharedIdCardSystem _idCards = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popups = default!;
+
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfter = default!;
 
     public override void Initialize()
     {
@@ -48,7 +57,9 @@ public sealed class IdLockSystem : EntitySystem
     {
         // Sanity check: as of now, ID locks require a normal lock underneath to work
         if (!HasComp<LockComponent>(ent) || !HasComp<AccessReaderComponent>(ent))
-            Log.Warning($"Entity {ToPrettyString(ent)} has an IdLock, but no Lock + AccessReader. As of right now, standalone ID locks are not supported.");
+            Log.Warning(
+                $"Entity {ToPrettyString(ent)} has an IdLock, but no Lock + AccessReader. As of right now, standalone ID locks are not supported."
+            );
     }
 
     private void OnExamined(Entity<IdLockComponent> ent, ref ExaminedEvent args)
@@ -59,13 +70,17 @@ public sealed class IdLockSystem : EntitySystem
         using (args.PushGroup(nameof(IdLockComponent)))
         {
             var loc =
-                ent.Comp.State == Disengaged ? "id-lock-examined-unlocked" :
-                ent.Comp.RevealInfo ? "id-lock-examined-locked-revealing" :
-                "id-lock-examined-locked";
+                ent.Comp.State == Disengaged ? "id-lock-examined-unlocked"
+                : ent.Comp.RevealInfo ? "id-lock-examined-locked-revealing"
+                : "id-lock-examined-locked";
 
-            args.PushMarkup(Loc.GetString(loc,
-                ("ownerName", ent.Comp.Info.OwnerName ?? "unknown"),
-                ("ownerJob", ent.Comp.Info.OwnerJobTitle ?? "unknown")));
+            args.PushMarkup(
+                Loc.GetString(
+                    loc,
+                    ("ownerName", ent.Comp.Info.OwnerName ?? "unknown"),
+                    ("ownerJob", ent.Comp.Info.OwnerJobTitle ?? "unknown")
+                )
+            );
 
             args.PushMarkup(Loc.GetString("id-lock-examined-info"));
         }
@@ -84,13 +99,18 @@ public sealed class IdLockSystem : EntitySystem
 
         args.Handled = true;
     }
+
     // HardLight end
 
     private void OnToggleNormalLock(Entity<IdLockComponent> ent, ref LockToggleAttemptEvent args)
     {
         // We allow to toggle the normal lock on even if the ID lock is enabled, as a failsafe.
         // Ideally, if an ID lock is active, the underlying regular lock should always be active as well.
-        if (args.Cancelled || !ent.Comp.Enabled || TryComp<LockComponent>(ent, out var normalLock) && !normalLock.Locked)
+        if (
+            args.Cancelled
+            || !ent.Comp.Enabled
+            || TryComp<LockComponent>(ent, out var normalLock) && !normalLock.Locked
+        )
             return;
 
         // Allow toggling if it's disengaged (temporarily or not)
@@ -113,10 +133,14 @@ public sealed class IdLockSystem : EntitySystem
         {
             Act = locked ? () => TryUnlock(ent, id, user) : () => TryLock(ent, id, user),
             Text = Loc.GetString(locked ? "id-lock-verb-unlock" : "id-lock-verb-lock"),
-            Icon = new SpriteSpecifier.Texture(new(locked
-                ? "/Textures/Interface/VerbIcons/unlock.svg.192dpi.png"
-                : "/Textures/Interface/VerbIcons/lock.svg.192dpi.png")),
-            Priority = locked ? 1 : -1 // Higher priority than "toggle lock" if unlocking, but lower if locking, so alt-click works correctly.
+            Icon = new SpriteSpecifier.Texture(
+                new(
+                    locked
+                        ? "/Textures/Interface/VerbIcons/unlock.svg.192dpi.png"
+                        : "/Textures/Interface/VerbIcons/lock.svg.192dpi.png"
+                )
+            ),
+            Priority = locked ? 1 : -1, // Higher priority than "toggle lock" if unlocking, but lower if locking, so alt-click works correctly.
         };
         args.Verbs.Add(verb);
 
@@ -128,11 +152,10 @@ public sealed class IdLockSystem : EntitySystem
                 Act = () => TryReEngage(ent, id, user),
                 Text = Loc.GetString("id-lock-verb-reengage"),
                 Priority = -2,
-                Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/lock.svg.192dpi.png"))
+                Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/lock.svg.192dpi.png")),
             };
             args.Verbs.Add(verb2);
         }
-
     }
 
     private void OnSetIdLock(Entity<LockComponent> ent, ref IdLockSetEvent args)
@@ -152,7 +175,6 @@ public sealed class IdLockSystem : EntitySystem
 
         Dirty(ent, lockComp);
     }
-
 
     private void OnLockDoAfter(Entity<IdLockComponent> ent, ref IdLockActivateDoAfterEvent args)
     {
@@ -186,11 +208,19 @@ public sealed class IdLockSystem : EntitySystem
             return false;
         }
 
-        var args = new DoAfterArgs(EntityManager, user, ent.Comp.LockTime, new IdLockActivateDoAfterEvent(), ent, ent, id)
+        var args = new DoAfterArgs(
+            EntityManager,
+            user,
+            ent.Comp.LockTime,
+            new IdLockActivateDoAfterEvent(),
+            ent,
+            ent,
+            id
+        )
         {
             BreakOnDamage = true,
             BreakOnMove = true,
-            NeedHand = true
+            NeedHand = true,
         };
         return _doAfter.TryStartDoAfter(args);
     }
@@ -213,7 +243,7 @@ public sealed class IdLockSystem : EntitySystem
         {
             BreakOnDamage = true,
             BreakOnMove = true,
-            NeedHand = true
+            NeedHand = true,
         };
 
         return _doAfter.TryStartDoAfter(args);
@@ -331,7 +361,10 @@ public sealed class IdLockSystem : EntitySystem
 
         if (lockable.Comp.State is Engaged)
         {
-            if (lockable.Comp.Info.OwnerName == id.Comp.FullName && lockable.Comp.Info.OwnerJobTitle == id.Comp.LocalizedJobTitle)
+            if (
+                lockable.Comp.Info.OwnerName == id.Comp.FullName
+                && lockable.Comp.Info.OwnerJobTitle == id.Comp.LocalizedJobTitle
+            )
                 return AccessLevel.CanUnlock;
 
             if (hasCentcom || hasMasterAccess) // HardLight

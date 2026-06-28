@@ -17,7 +17,11 @@ namespace Content.Shared.Roles
         [IdDataField]
         public string ID { get; private set; } = default!;
 
-        [DataField("playTimeTracker", required: true, customTypeSerializer: typeof(PrototypeIdSerializer<PlayTimeTrackerPrototype>))]
+        [DataField(
+            "playTimeTracker",
+            required: true,
+            customTypeSerializer: typeof(PrototypeIdSerializer<PlayTimeTrackerPrototype>)
+        )]
         public string PlayTimeTracker { get; private set; } = string.Empty;
 
         /// <summary>
@@ -56,6 +60,7 @@ namespace Content.Shared.Roles
         /// </summary>
         [DataField, Access(typeof(SharedRoleSystem), Other = AccessPermissions.None)]
         public Dictionary<string, HashSet<JobRequirement>>? AlternateRequirementSets;
+
         // End Frontier: alternate requirement sets
 
         /// <summary>
@@ -154,16 +159,20 @@ namespace Content.Shared.Roles
         public JobSpecial[] Special { get; private set; } = Array.Empty<JobSpecial>();
 
         [DataField("access")]
-        public IReadOnlyCollection<ProtoId<AccessLevelPrototype>> Access { get; private set; } = Array.Empty<ProtoId<AccessLevelPrototype>>();
+        public IReadOnlyCollection<ProtoId<AccessLevelPrototype>> Access { get; private set; } =
+            Array.Empty<ProtoId<AccessLevelPrototype>>();
 
         [DataField("accessGroups")]
-        public IReadOnlyCollection<ProtoId<AccessGroupPrototype>> AccessGroups { get; private set; } = Array.Empty<ProtoId<AccessGroupPrototype>>();
+        public IReadOnlyCollection<ProtoId<AccessGroupPrototype>> AccessGroups { get; private set; } =
+            Array.Empty<ProtoId<AccessGroupPrototype>>();
 
         [DataField("extendedAccess")]
-        public IReadOnlyCollection<ProtoId<AccessLevelPrototype>> ExtendedAccess { get; private set; } = Array.Empty<ProtoId<AccessLevelPrototype>>();
+        public IReadOnlyCollection<ProtoId<AccessLevelPrototype>> ExtendedAccess { get; private set; } =
+            Array.Empty<ProtoId<AccessLevelPrototype>>();
 
         [DataField("extendedAccessGroups")]
-        public IReadOnlyCollection<ProtoId<AccessGroupPrototype>> ExtendedAccessGroups { get; private set; } = Array.Empty<ProtoId<AccessGroupPrototype>>();
+        public IReadOnlyCollection<ProtoId<AccessGroupPrototype>> ExtendedAccessGroups { get; private set; } =
+            Array.Empty<ProtoId<AccessGroupPrototype>>();
 
         [DataField]
         public bool Whitelisted;

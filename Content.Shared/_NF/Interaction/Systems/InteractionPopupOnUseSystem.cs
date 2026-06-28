@@ -1,19 +1,19 @@
+using Content.Shared._NF.Interaction.Components;
+using Content.Shared._NF.Interaction.Events;
+using Content.Shared.DoAfter;
+using Content.Shared.Explosion.EntitySystems;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Interaction;
 using Content.Shared.Interaction.Events;
+using Content.Shared.Popups;
 using Content.Shared.Verbs;
 using Content.Shared.Whitelist;
-using Content.Shared._NF.Interaction.Components;
-using Robust.Shared.Audio.Systems;
-using Content.Shared.Popups;
-using Content.Shared.Explosion.EntitySystems;
 using Robust.Shared.Audio;
+using Robust.Shared.Audio.Systems;
 using Robust.Shared.Network;
-using Robust.Shared.Random;
 using Robust.Shared.Player;
+using Robust.Shared.Random;
 using Robust.Shared.Timing;
-using Content.Shared.DoAfter;
-using Content.Shared._NF.Interaction.Events;
 
 namespace Content.Shared._NF.Interaction.Systems;
 
@@ -22,15 +22,32 @@ namespace Content.Shared._NF.Interaction.Systems;
 /// </summary>
 public sealed class InteractionPopupOnUseSystem : EntitySystem
 {
-    [Dependency] private readonly SharedInteractionSystem _interaction = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
+    [Dependency]
+    private readonly SharedInteractionSystem _interaction = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelist = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly INetManager _net = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
+
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfter = default!;
 
     public override void Initialize()
     {
@@ -114,11 +131,21 @@ public sealed class InteractionPopupOnUseSystem : EntitySystem
             if (_net.IsServer && data.Target.Start != null)
                 ShowPopupForTarget(user, target, data.Target.Start);
 
-            _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, user, data.Delay, new InteractionPopupOnUseDoAfterEvent(), item, target: target, used: item)
-            {
-                NeedHand = true,
-                BreakOnMove = true,
-            });
+            _doAfter.TryStartDoAfter(
+                new DoAfterArgs(
+                    EntityManager,
+                    user,
+                    data.Delay,
+                    new InteractionPopupOnUseDoAfterEvent(),
+                    item,
+                    target: target,
+                    used: item
+                )
+                {
+                    NeedHand = true,
+                    BreakOnMove = true,
+                }
+            );
         }
 
         return true;
@@ -145,9 +172,10 @@ public sealed class InteractionPopupOnUseSystem : EntitySystem
     /// </remarks>
     private void DoPopup(EntityUid user, EntityUid target, EntityUid item, InteractionPopupOnUseComponent comp)
     {
-        var predict = (comp.SuccessChance <= 0f || comp.SuccessChance >= 1f)
-                      && comp.InteractSuccessSpawn == null
-                      && comp.InteractFailureSpawn == null;
+        var predict =
+            (comp.SuccessChance <= 0f || comp.SuccessChance >= 1f)
+            && comp.InteractSuccessSpawn == null
+            && comp.InteractFailureSpawn == null;
 
         if (_net.IsClient && !predict)
             return;
@@ -237,26 +265,39 @@ public sealed class InteractionPopupOnUseSystem : EntitySystem
 
     private void ShowPopupForObservers(EntityUid user, EntityUid target, string msgLoc)
     {
-        var msgOthers = Loc.GetString(msgLoc,
-            ("user", Identity.Entity(user, EntityManager)), ("target", Identity.Entity(target, EntityManager)));
-        _popup.PopupEntity(msgOthers, user, Filter.PvsExcept(user, entityManager: EntityManager).RemovePlayerByAttachedEntity(target), true);
+        var msgOthers = Loc.GetString(
+            msgLoc,
+            ("user", Identity.Entity(user, EntityManager)),
+            ("target", Identity.Entity(target, EntityManager))
+        );
+        _popup.PopupEntity(
+            msgOthers,
+            user,
+            Filter.PvsExcept(user, entityManager: EntityManager).RemovePlayerByAttachedEntity(target),
+            true
+        );
     }
 
     private void ShowPopupForTarget(EntityUid user, EntityUid target, string msgLoc)
     {
-        var msgTarget = Loc.GetString(msgLoc,
-            ("user", Identity.Entity(user, EntityManager)), ("target", Identity.Entity(target, EntityManager)));
+        var msgTarget = Loc.GetString(
+            msgLoc,
+            ("user", Identity.Entity(user, EntityManager)),
+            ("target", Identity.Entity(target, EntityManager))
+        );
         _popup.PopupEntity(msgTarget, user, target);
     }
 
     private void AddVerb(Entity<InteractionPopupOnUseComponent> entity, ref GetVerbsEvent<UtilityVerb> ev)
     {
-        if (entity.Owner == ev.User ||
-            ev.Using == null ||
-            entity.Comp.VerbUse == null ||
-            !ev.CanInteract ||
-            !ev.CanAccess ||
-            _whitelist.IsWhitelistFail(entity.Comp.Whitelist, ev.Target))
+        if (
+            entity.Owner == ev.User
+            || ev.Using == null
+            || entity.Comp.VerbUse == null
+            || !ev.CanInteract
+            || !ev.CanAccess
+            || _whitelist.IsWhitelistFail(entity.Comp.Whitelist, ev.Target)
+        )
             return;
 
         var user = ev.User;
@@ -267,7 +308,7 @@ public sealed class InteractionPopupOnUseSystem : EntitySystem
                 Interact(user, user, entity, entity.Comp);
             },
             Text = Loc.GetString(entity.Comp.VerbUse.Value),
-            Priority = -1
+            Priority = -1,
         };
 
         ev.Verbs.Add(verb);

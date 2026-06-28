@@ -1,3 +1,5 @@
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using Content.Server.Atmos.Components;
 using Content.Server.Atmos.Piping.Components;
 using Content.Server.DeviceNetwork.Components;
@@ -9,24 +11,27 @@ using Content.Server.Power.Components;
 using Content.Shared.Atmos;
 using Content.Shared.Atmos.Components;
 using Content.Shared.Atmos.Consoles;
+using Content.Shared.DeviceNetwork.Components;
 using Content.Shared.Labels.Components;
+using Content.Shared.NodeContainer;
 using Content.Shared.Pinpointer;
 using Robust.Server.GameObjects;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Timing;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using Content.Shared.DeviceNetwork.Components;
-using Content.Shared.NodeContainer;
 
 namespace Content.Server.Atmos.Consoles;
 
 public sealed class AtmosMonitoringConsoleSystem : SharedAtmosMonitoringConsoleSystem
 {
-    [Dependency] private readonly UserInterfaceSystem _userInterfaceSystem = default!;
-    [Dependency] private readonly SharedMapSystem _sharedMapSystem = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
+    [Dependency]
+    private readonly UserInterfaceSystem _userInterfaceSystem = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _sharedMapSystem = default!;
+
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
 
     // Private variables
     // Note: this data does not need to be saved
@@ -53,7 +58,9 @@ public sealed class AtmosMonitoringConsoleSystem : SharedAtmosMonitoringConsoleS
 
         // Tracked device events
         SubscribeLocalEvent<AtmosMonitoringConsoleDeviceComponent, NodeGroupsRebuilt>(OnEntityNodeGroupsRebuilt);
-        SubscribeLocalEvent<AtmosMonitoringConsoleDeviceComponent, AtmosPipeColorChangedEvent>(OnEntityPipeColorChanged);
+        SubscribeLocalEvent<AtmosMonitoringConsoleDeviceComponent, AtmosPipeColorChangedEvent>(
+            OnEntityPipeColorChanged
+        );
         SubscribeLocalEvent<AtmosMonitoringConsoleDeviceComponent, EntityTerminatingEvent>(OnEntityShutdown);
 
         // Grid events
@@ -67,28 +74,48 @@ public sealed class AtmosMonitoringConsoleSystem : SharedAtmosMonitoringConsoleS
         InitializeAtmosMonitoringConsole(uid, component);
     }
 
-    private void OnConsoleAnchorChanged(EntityUid uid, AtmosMonitoringConsoleComponent component, AnchorStateChangedEvent args)
+    private void OnConsoleAnchorChanged(
+        EntityUid uid,
+        AtmosMonitoringConsoleComponent component,
+        AnchorStateChangedEvent args
+    )
     {
         InitializeAtmosMonitoringConsole(uid, component);
     }
 
-    private void OnConsoleParentChanged(EntityUid uid, AtmosMonitoringConsoleComponent component, EntParentChangedMessage args)
+    private void OnConsoleParentChanged(
+        EntityUid uid,
+        AtmosMonitoringConsoleComponent component,
+        EntParentChangedMessage args
+    )
     {
         component.ForceFullUpdate = true;
         InitializeAtmosMonitoringConsole(uid, component);
     }
 
-    private void OnEntityNodeGroupsRebuilt(EntityUid uid, AtmosMonitoringConsoleDeviceComponent component, NodeGroupsRebuilt args)
+    private void OnEntityNodeGroupsRebuilt(
+        EntityUid uid,
+        AtmosMonitoringConsoleDeviceComponent component,
+        NodeGroupsRebuilt args
+    )
     {
         InitializeAtmosMonitoringDevice(uid, component);
     }
 
-    private void OnEntityPipeColorChanged(EntityUid uid, AtmosMonitoringConsoleDeviceComponent component, AtmosPipeColorChangedEvent args)
+    private void OnEntityPipeColorChanged(
+        EntityUid uid,
+        AtmosMonitoringConsoleDeviceComponent component,
+        AtmosPipeColorChangedEvent args
+    )
     {
         InitializeAtmosMonitoringDevice(uid, component);
     }
 
-    private void OnEntityShutdown(EntityUid uid, AtmosMonitoringConsoleDeviceComponent component, EntityTerminatingEvent args)
+    private void OnEntityShutdown(
+        EntityUid uid,
+        AtmosMonitoringConsoleDeviceComponent component,
+        EntityTerminatingEvent args
+    )
     {
         ShutDownAtmosMonitoringEntity(uid, component);
     }
@@ -158,10 +185,7 @@ public sealed class AtmosMonitoringConsoleSystem : SharedAtmosMonitoringConsoleS
         }
     }
 
-    public void UpdateUIState
-        (EntityUid uid,
-        AtmosMonitoringConsoleComponent component,
-        TransformComponent xform)
+    public void UpdateUIState(EntityUid uid, AtmosMonitoringConsoleComponent component, TransformComponent xform)
     {
         if (!_userInterfaceSystem.IsUiOpen(uid, AtmosMonitoringConsoleUiKey.Key))
             return;
@@ -200,8 +224,11 @@ public sealed class AtmosMonitoringConsoleSystem : SharedAtmosMonitoringConsoleS
         }
 
         // Set the UI state
-        _userInterfaceSystem.SetUiState(uid, AtmosMonitoringConsoleUiKey.Key,
-            new AtmosMonitoringConsoleBoundInterfaceState(atmosNetworks.ToArray()));
+        _userInterfaceSystem.SetUiState(
+            uid,
+            AtmosMonitoringConsoleUiKey.Key,
+            new AtmosMonitoringConsoleBoundInterfaceState(atmosNetworks.ToArray())
+        );
     }
 
     private AtmosMonitoringConsoleEntry? CreateAtmosMonitoringConsoleEntry(EntityUid uid, TransformComponent xform)
@@ -215,17 +242,16 @@ public sealed class AtmosMonitoringConsoleSystem : SharedAtmosMonitoringConsoleS
         if (xform.GridUid == null)
             return null;
 
-        if (!TryGettingFirstPipeNode(uid, out var pipeNode, out var netId) ||
-            pipeNode == null ||
-            netId == null)
+        if (!TryGettingFirstPipeNode(uid, out var pipeNode, out var netId) || pipeNode == null || netId == null)
             return null;
 
-        var pipeColor = TryComp<AtmosPipeColorComponent>(uid, out var colorComponent) ? colorComponent.Color : Color.White;
+        var pipeColor = TryComp<AtmosPipeColorComponent>(uid, out var colorComponent)
+            ? colorComponent.Color
+            : Color.White;
 
         // Name the entity based on its label, if available
         if (TryComp<LabelComponent>(uid, out var label) && label.CurrentLabel != null)
             name = label.CurrentLabel;
-
         // Otherwise use its base name and network address
         else if (TryComp<DeviceNetworkComponent>(uid, out var deviceNet))
             address = deviceNet.Address;
@@ -233,10 +259,16 @@ public sealed class AtmosMonitoringConsoleSystem : SharedAtmosMonitoringConsoleS
         // Entry for unpowered devices
         if (TryComp<ApcPowerReceiverComponent>(uid, out var apcPowerReceiver) && !apcPowerReceiver.Powered)
         {
-            entry = new AtmosMonitoringConsoleEntry(netEnt, GetNetCoordinates(xform.Coordinates), netId.Value, name, address)
+            entry = new AtmosMonitoringConsoleEntry(
+                netEnt,
+                GetNetCoordinates(xform.Coordinates),
+                netId.Value,
+                name,
+                address
+            )
             {
                 IsPowered = false,
-                Color = pipeColor
+                Color = pipeColor,
             };
 
             return entry;
@@ -255,13 +287,19 @@ public sealed class AtmosMonitoringConsoleSystem : SharedAtmosMonitoringConsoleS
             }
         }
 
-        entry = new AtmosMonitoringConsoleEntry(netEnt, GetNetCoordinates(xform.Coordinates), netId.Value, name, address)
+        entry = new AtmosMonitoringConsoleEntry(
+            netEnt,
+            GetNetCoordinates(xform.Coordinates),
+            netId.Value,
+            name,
+            address
+        )
         {
             TemperatureData = isAirPresent ? pipeNode.Air.Temperature : 0f,
             PressureData = pipeNode.Air.Pressure,
             TotalMolData = pipeNode.Air.TotalMoles,
             GasData = gasData,
-            Color = pipeColor
+            Color = pipeColor,
         };
 
         return entry;
@@ -281,12 +319,13 @@ public sealed class AtmosMonitoringConsoleSystem : SharedAtmosMonitoringConsoleS
         return atmosDeviceNavMapData;
     }
 
-    private bool TryGetAtmosDeviceNavMapData
-        (EntityUid uid,
+    private bool TryGetAtmosDeviceNavMapData(
+        EntityUid uid,
         AtmosMonitoringConsoleDeviceComponent component,
         TransformComponent xform,
         EntityUid gridUid,
-        [NotNullWhen(true)] out AtmosDeviceNavMapData? device)
+        [NotNullWhen(true)] out AtmosDeviceNavMapData? device
+    )
     {
         device = null;
 
@@ -302,9 +341,19 @@ public sealed class AtmosMonitoringConsoleSystem : SharedAtmosMonitoringConsoleS
         var direction = xform.LocalRotation.GetCardinalDir();
         var netId = TryGettingFirstPipeNode(uid, out var _, out var firstNetId) ? firstNetId : -1;
         var color = TryComp<AtmosPipeColorComponent>(uid, out var atmosPipeColor) ? atmosPipeColor.Color : Color.White;
-        var layer = TryComp<AtmosPipeLayersComponent>(uid, out var atmosPipeLayers) ? atmosPipeLayers.CurrentPipeLayer : AtmosPipeLayer.Primary;
+        var layer = TryComp<AtmosPipeLayersComponent>(uid, out var atmosPipeLayers)
+            ? atmosPipeLayers.CurrentPipeLayer
+            : AtmosPipeLayer.Primary;
 
-        device = new AtmosDeviceNavMapData(GetNetEntity(uid), GetNetCoordinates(xform.Coordinates), netId.Value, component.NavMapBlip.Value, direction, color, layer);
+        device = new AtmosDeviceNavMapData(
+            GetNetEntity(uid),
+            GetNetCoordinates(xform.Coordinates),
+            netId.Value,
+            component.NavMapBlip.Value,
+            direction,
+            color,
+            layer
+        );
 
         return true;
     }
@@ -384,7 +433,9 @@ public sealed class AtmosMonitoringConsoleSystem : SharedAtmosMonitoringConsoleS
             if (!TryComp<NodeContainerComponent>(ent, out var entNodeContainer))
                 continue;
 
-            var showAbsentConnections = TryComp<AtmosMonitoringConsoleDeviceComponent>(ent, out var device) ? device.ShowAbsentConnections : true;
+            var showAbsentConnections = TryComp<AtmosMonitoringConsoleDeviceComponent>(ent, out var device)
+                ? device.ShowAbsentConnections
+                : true;
 
             UpdateAtmosPipeChunk(ent, entNodeContainer, entAtmosPipeColor, tileIdx, ref chunk, showAbsentConnections);
         }
@@ -408,13 +459,14 @@ public sealed class AtmosMonitoringConsoleSystem : SharedAtmosMonitoringConsoleS
         }
     }
 
-    private void UpdateAtmosPipeChunk
-        (EntityUid uid,
+    private void UpdateAtmosPipeChunk(
+        EntityUid uid,
         NodeContainerComponent nodeContainer,
         AtmosPipeColorComponent pipeColor,
         int tileIdx,
         ref AtmosPipeChunk chunk,
-        bool showAbsentConnections = true)
+        bool showAbsentConnections = true
+    )
     {
         // Entities that are actively being deleted are not to be drawn
         if (MetaData(uid).EntityLifeStage >= EntityLifeStage.Terminating)
@@ -438,7 +490,11 @@ public sealed class AtmosMonitoringConsoleSystem : SharedAtmosMonitoringConsoleS
         }
     }
 
-    private bool TryGettingFirstPipeNode(EntityUid uid, [NotNullWhen(true)] out PipeNode? pipeNode, [NotNullWhen(true)] out int? netId)
+    private bool TryGettingFirstPipeNode(
+        EntityUid uid,
+        [NotNullWhen(true)] out PipeNode? pipeNode,
+        [NotNullWhen(true)] out int? netId
+    )
     {
         pipeNode = null;
         netId = null;
@@ -498,7 +554,6 @@ public sealed class AtmosMonitoringConsoleSystem : SharedAtmosMonitoringConsoleS
         {
             RebuildAtmosPipeGrid(grid, map);
         }
-
         else
         {
             component.AtmosPipeChunks = chunks;
@@ -526,10 +581,12 @@ public sealed class AtmosMonitoringConsoleSystem : SharedAtmosMonitoringConsoleS
         {
             var isDirty = entConsole.AtmosDevices.Remove(netEntity);
 
-            if (gridUid != null &&
-                gridUid == entXform.GridUid &&
-                xform.Anchored &&
-                TryGetAtmosDeviceNavMapData(uid, component, xform, gridUid.Value, out var data))
+            if (
+                gridUid != null
+                && gridUid == entXform.GridUid
+                && xform.Anchored
+                && TryGetAtmosDeviceNavMapData(uid, component, xform, gridUid.Value, out var data)
+            )
             {
                 entConsole.AtmosDevices.Add(netEntity, data.Value);
                 isDirty = true;

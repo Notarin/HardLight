@@ -8,7 +8,8 @@ namespace Content.Client.BarSign.Ui;
 [UsedImplicitly]
 public sealed class BarSignBoundUserInterface(EntityUid owner, Enum uiKey) : BoundUserInterface(owner, uiKey)
 {
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototype = default!;
 
     private BarSignMenu? _menu;
 
@@ -19,7 +20,8 @@ public sealed class BarSignBoundUserInterface(EntityUid owner, Enum uiKey) : Bou
         var sign = EntMan.GetComponentOrNull<BarSignComponent>(Owner)?.Current is { } current
             ? _prototype.Index(current)
             : null;
-        var allSigns = Shared.BarSign.BarSignSystem.GetAllBarSigns(_prototype)
+        var allSigns = Shared
+            .BarSign.BarSignSystem.GetAllBarSigns(_prototype)
             .OrderBy(p => Loc.GetString(p.Name))
             .ToList();
         _menu = new(sign, allSigns);
@@ -47,4 +49,3 @@ public sealed class BarSignBoundUserInterface(EntityUid owner, Enum uiKey) : Bou
         _menu?.Dispose();
     }
 }
-

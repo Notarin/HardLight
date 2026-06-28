@@ -49,7 +49,11 @@ public sealed partial class StationCargoOrderDatabaseComponent : Component
 /// Event broadcast before a cargo order is fulfilled, allowing alternate systems to fulfill the order.
 /// </summary>
 [ByRefEvent]
-public record struct FulfillCargoOrderEvent(Entity<StationDataComponent> Station, CargoOrderData Order, Entity<CargoOrderConsoleComponent> OrderConsole)
+public record struct FulfillCargoOrderEvent(
+    Entity<StationDataComponent> Station,
+    CargoOrderData Order,
+    Entity<CargoOrderConsoleComponent> OrderConsole
+)
 {
     public Entity<CargoOrderConsoleComponent> OrderConsole = OrderConsole;
     public Entity<StationDataComponent> Station = Station;
@@ -58,4 +62,3 @@ public record struct FulfillCargoOrderEvent(Entity<StationDataComponent> Station
     public EntityUid? FulfillmentEntity;
     public bool Handled = false;
 }
-

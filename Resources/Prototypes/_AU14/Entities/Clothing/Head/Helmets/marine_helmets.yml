@@ -19,7 +19,7 @@
     sprite: _AU14/Clothing/DesertHats/m10helmet.rsi
   - type: Clothing
     sprite: _AU14/Clothing/DesertHats/m10helmet.rsi
-    
+
 - type: entity
   parent: RMCMarineHelmetBase
   id: AU14DesertM10MPHelmet
@@ -30,7 +30,7 @@
     sprite: _AU14/Clothing/DesertHats/m10mphelmet.rsi
   - type: Clothing
     sprite: _AU14/Clothing/DesertHats/m10mphelmet.rsi
-    
+
 - type: entity
   parent: RMCMarineHelmetBase
   id: AU14DesertM11Helmet
@@ -41,7 +41,7 @@
     sprite: _AU14/Clothing/DesertHats/m11helmet.rsi
   - type: Clothing
     sprite: _AU14/Clothing/DesertHats/m11helmet.rsi
-    
+
 - type: entity
   parent: RMCMarineHelmetBase
   id: AU14DesertM30Helmet
@@ -52,7 +52,7 @@
     sprite: _AU14/Clothing/DesertHats/m30pilothelmet.rsi
   - type: Clothing
     sprite: _AU14/Clothing/DesertHats/m30pilothelmet.rsi
-    
+
 - type: entity
   parent: RMCMarineHelmetBase
   id: AU14DesertM50Helmet #meant to have a built-in welding visor
@@ -85,7 +85,7 @@
     sprite: _AU14/Clothing/JungleHats/m10helmet.rsi
   - type: Clothing
     sprite: _AU14/Clothing/JungleHats/m10helmet.rsi
-    
+
 - type: entity
   parent: RMCMarineHelmetBase
   id: AU14JungleM11Helmet
@@ -96,7 +96,7 @@
     sprite: _AU14/Clothing/JungleHats/m11helmet.rsi
   - type: Clothing
     sprite: _AU14/Clothing/JungleHats/m11helmet.rsi
-    
+
 - type: entity
   parent: RMCMarineHelmetBase
   id: AU14JungleM30Helmet
@@ -107,7 +107,7 @@
     sprite: _AU14/Clothing/JungleHats/m30pilothelmet.rsi
   - type: Clothing
     sprite: _AU14/Clothing/JungleHats/m30pilothelmet.rsi
-    
+
 - type: entity
   parent: RMCMarineHelmetBase
   id: AU14JungleM50Helmet #meant to have a built-in welding visor

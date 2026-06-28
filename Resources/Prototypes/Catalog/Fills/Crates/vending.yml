@@ -6,8 +6,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: VendingMachineRestockBooze
-        amount: 2 # Frontier
+    - id: VendingMachineRestockBooze
+      amount: 2 # Frontier
 
 - type: entity
   id: CrateVendingMachineRestockChefvendFilled
@@ -17,8 +17,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: VendingMachineRestockChefvend
-        amount: 2 # Frontier
+    - id: VendingMachineRestockChefvend
+      amount: 2 # Frontier
 
 - type: entity
   id: CrateVendingMachineRestockClothesFilled
@@ -28,8 +28,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: VendingMachineRestockClothes
-        amount: 2 # Frontier
+    - id: VendingMachineRestockClothes
+      amount: 2 # Frontier
 
 - type: entity
   id: CrateVendingMachineRestockAutoDrobeFilled
@@ -39,8 +39,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: VendingMachineRestockCostumes
-        amount: 2 # Frontier
+    - id: VendingMachineRestockCostumes
+      amount: 2 # Frontier
 
 - type: entity
   id: CrateVendingMachineRestockCondimentStationFilled
@@ -50,8 +50,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: VendingMachineRestockCondimentStation
-        amount: 2 # Frontier
+    - id: VendingMachineRestockCondimentStation
+      amount: 2 # Frontier
 
 - type: entity
   id: CrateVendingMachineRestockDinnerwareFilled
@@ -61,8 +61,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: VendingMachineRestockDinnerware
-        amount: 2 # Frontier
+    - id: VendingMachineRestockDinnerware
+      amount: 2 # Frontier
 
 - type: entity
   id: CrateVendingMachineRestockEngineeringFilled
@@ -72,8 +72,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: VendingMachineRestockEngineering
-        amount: 2 # Frontier
+    - id: VendingMachineRestockEngineering
+      amount: 2 # Frontier
 
 - type: entity
   id: CrateVendingMachineRestockGamesFilled
@@ -83,8 +83,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: VendingMachineRestockGames
-        amount: 2 # Frontier
+    - id: VendingMachineRestockGames
+      amount: 2 # Frontier
 
 - type: entity
   id: CrateVendingMachineRestockHotDrinksFilled
@@ -94,8 +94,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: VendingMachineRestockHotDrinks
-        amount: 8 # Frontier
+    - id: VendingMachineRestockHotDrinks
+      amount: 8 # Frontier
 
 - type: entity
   id: CrateVendingMachineRestockMedicalFilled
@@ -105,8 +105,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: VendingMachineRestockMedical
-        amount: 2 # Frontier
+    - id: VendingMachineRestockMedical
+      amount: 2 # Frontier
 
 - type: entity
   id: CrateVendingMachineRestockChemVendFilled
@@ -116,8 +116,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: VendingMachineRestockChemVend
-        amount: 2 # Frontier
+    - id: VendingMachineRestockChemVend
+      amount: 2 # Frontier
 
 - type: entity
   id: CrateVendingMachineRestockNutriMaxFilled
@@ -127,8 +127,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: VendingMachineRestockNutriMax
-        amount: 2 # Frontier
+    - id: VendingMachineRestockNutriMax
+      amount: 2 # Frontier
 
 - type: entity
   id: CrateVendingMachineRestockPTechFilled
@@ -138,8 +138,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: VendingMachineRestockPTech
-        amount: 2 # Frontier
+    - id: VendingMachineRestockPTech
+      amount: 2 # Frontier
 
 - type: entity
   id: CrateVendingMachineRestockRobustSoftdrinksFilled
@@ -149,8 +149,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: VendingMachineRestockRobustSoftdrinks
-        amount: 8 # Frontier
+    - id: VendingMachineRestockRobustSoftdrinks
+      amount: 8 # Frontier
 
 - type: entity
   id: CrateVendingMachineRestockSalvageEquipmentFilled
@@ -160,8 +160,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: VendingMachineRestockSalvageEquipment
-        amount: 2 # Frontier
+    - id: VendingMachineRestockSalvageEquipment
+      amount: 2 # Frontier
 
 - type: entity
   id: CrateVendingMachineRestockSecTechFilled
@@ -171,8 +171,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: VendingMachineRestockSecTech
-        amount: 2 # Frontier
+    - id: VendingMachineRestockSecTech
+      amount: 2 # Frontier
 
 - type: entity
   id: CrateVendingMachineRestockSeedsFilled
@@ -182,8 +182,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: VendingMachineRestockSeeds
-        amount: 2 # Frontier
+    - id: VendingMachineRestockSeeds
+      amount: 2 # Frontier
 
 - type: entity
   id: CrateVendingMachineRestockSmokesFilled
@@ -193,8 +193,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: VendingMachineRestockSmokes
-        amount: 8 # Frontier
+    - id: VendingMachineRestockSmokes
+      amount: 8 # Frontier
 
 - type: entity
   id: CrateVendingMachineRestockVendomatFilled
@@ -204,8 +204,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: VendingMachineRestockVendomat
-        amount: 2 # Frontier
+    - id: VendingMachineRestockVendomat
+      amount: 2 # Frontier
 
 - type: entity
   id: CrateVendingMachineRestockRoboticsFilled
@@ -215,8 +215,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: VendingMachineRestockRobotics
-        amount: 2 # Frontier
+    - id: VendingMachineRestockRobotics
+      amount: 2 # Frontier
 
 - type: entity
   id: CrateVendingMachineRestockTankDispenserFilled
@@ -226,8 +226,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: VendingMachineRestockTankDispenser
-        amount: 2 # Frontier
+    - id: VendingMachineRestockTankDispenser
+      amount: 2 # Frontier
 
 - type: entity
   id: CrateVendingMachineRestockHappyHonkFilled
@@ -237,8 +237,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: VendingMachineRestockHappyHonk
-        amount: 8 # Frontier
+    - id: VendingMachineRestockHappyHonk
+      amount: 8 # Frontier
 
 - type: entity
   id: CrateVendingMachineRestockGetmoreChocolateCorpFilled
@@ -248,8 +248,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: VendingMachineRestockGetmoreChocolateCorp
-        amount: 8 # Frontier
+    - id: VendingMachineRestockGetmoreChocolateCorp
+      amount: 8 # Frontier
 
 - type: entity
   id: CrateVendingMachineRestockChangFilled
@@ -259,8 +259,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: VendingMachineRestockChang
-        amount: 8 # Frontier
+    - id: VendingMachineRestockChang
+      amount: 8 # Frontier
 
 - type: entity
   id: CrateVendingMachineRestockDiscountDansFilled
@@ -270,8 +270,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: VendingMachineRestockDiscountDans
-        amount: 8 # Frontier
+    - id: VendingMachineRestockDiscountDans
+      amount: 8 # Frontier
 
 - type: entity
   id: CrateVendingMachineRestockDonutFilled
@@ -281,5 +281,5 @@
   components:
   - type: StorageFill
     contents:
-      - id: VendingMachineRestockDonut
-        amount: 8 # Frontier
+    - id: VendingMachineRestockDonut
+      amount: 8 # Frontier

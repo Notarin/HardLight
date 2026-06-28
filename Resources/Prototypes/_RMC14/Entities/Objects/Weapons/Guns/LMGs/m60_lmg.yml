@@ -8,9 +8,9 @@
     sprite: _RMC14/Objects/Weapons/Guns/LMGs/m60.rsi
     layers:
     - state: base
-      map: [ "enum.GunVisualLayers.Base" ]
+      map: ["enum.GunVisualLayers.Base"]
     - state: mag-0
-      map: [ "enum.GunVisualLayers.Mag" ]
+      map: ["enum.GunVisualLayers.Mag"]
     - sprite: _RMC14/Objects/Weapons/Guns/LMGs/m60.rsi
       state: barrel
       offset: 0.525, 0.0925
@@ -38,7 +38,7 @@
       path: /Audio/_RMC14/Weapons/Guns/Gunshots/gun_m60.ogg
     soundEmpty:
       path: /Audio/Weapons/Guns/Empty/lmg_empty.ogg
-  # - type: RMCSelectiveFire
+      # - type: RMCSelectiveFire
     # baseFireModes:
     # - SemiAuto
     # - Burst
@@ -50,16 +50,16 @@
     # baseFireRate: 3.5
     # burstScatterMult: 3
     # modifiers:
-      # Burst:
-        # fireDelay: 0.1
-        # maxScatterModifier: 10
-        # useBurstScatterMult: true
-        # unwieldedScatterMultiplier: 0
-        # shotsToMaxScatter: 6
-      # FullAuto:
-        # fireDelay: 0.01
-        # maxScatterModifier: 4
-        # shotsToMaxScatter: 6
+    # Burst:
+    # fireDelay: 0.1
+    # maxScatterModifier: 10
+    # useBurstScatterMult: true
+    # unwieldedScatterMultiplier: 0
+    # shotsToMaxScatter: 6
+    # FullAuto:
+    # fireDelay: 0.01
+    # maxScatterModifier: 4
+    # shotsToMaxScatter: 6
   - type: ItemSlots
     slots:
       gun_magazine:
@@ -84,18 +84,17 @@
   #         True: { state: cover-open }
   #         False: { state: cover-closed }
   # - type: AttachableHolder
-    # slots:
-      # rmc-aslot-underbarrel:
-        # startingAttachable: RMCAttachmentBipod
-        # whitelist:
-          # tags:
-          # - RMCAttachmentBipod
+  # slots:
+  # rmc-aslot-underbarrel:
+  # startingAttachable: RMCAttachmentBipod
+  # whitelist:
+  # tags:
+  # - RMCAttachmentBipod
   # - type: AttachableHolderVisuals
-    # offsets:
-      # rmc-aslot-underbarrel: 0.618, -0.263
+  # offsets:
+  # rmc-aslot-underbarrel: 0.618, -0.263
   - type: Wieldable
   - type: GunRequiresWield
-
 
 - type: entity
   parent: RMCMagazineLMGBase
@@ -138,26 +137,26 @@
 - type: entity
   parent: RMCBaseBullet
   id: RMCBulletLMGM60
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
       types:
         Piercing: 12
-  # - type: RMCProjectileDamageFalloff
-    # thresholds:
-    # - range: 22
+        # - type: RMCProjectileDamageFalloff
+      # thresholds:
+      # - range: 22
       # falloff: 9999
       # ignoreModifiers: true
-  # - type: CMArmorPiercing
-    # amount: 30
-  # - type: RMCProjectileAccuracy
-    # accuracy: 95
-    # thresholds:
-    # - range: 12
-      # falloff: 10
-
 - type: Tag
+  # - type: CMArmorPiercing
+  # amount: 30
+  # - type: RMCProjectileAccuracy
+  # accuracy: 95
+  # thresholds:
+  # - range: 12
+  # falloff: 10
+
   id: RMCWeaponLMGM60
 
 - type: Tag

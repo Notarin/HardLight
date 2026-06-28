@@ -1,5 +1,5 @@
+using Content.Server._Starlight.Language; // Starlight-edit: Languages
 using Content.Server.Atmos.Components;
-using Content.Shared._HL.Body.Components;
 using Content.Server.Body.Components;
 using Content.Server.Chat;
 using Content.Server.Chat.Managers;
@@ -13,9 +13,12 @@ using Content.Server.NPC.HTN;
 using Content.Server.NPC.Systems;
 using Content.Server.Speech.Components;
 using Content.Server.Temperature.Components;
+using Content.Shared._HL.Body.Components;
+using Content.Shared._Starlight.Language.Components; // Starlight-edit: Languages
 using Content.Shared.CombatMode;
 using Content.Shared.CombatMode.Pacification;
 using Content.Shared.Damage;
+using Content.Shared.Ghost.Roles.Components;
 using Content.Shared.Hands.Components;
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Humanoid;
@@ -29,18 +32,15 @@ using Content.Shared.NPC.Systems;
 using Content.Shared.Nutrition.AnimalHusbandry;
 using Content.Shared.Nutrition.Components;
 using Content.Shared.Popups;
-using Content.Shared.Weapons.Melee;
-using Content.Shared.Zombies;
 using Content.Shared.Prying.Components;
-using Content.Shared.Traits.Assorted;
-using Robust.Shared.Audio.Systems;
-using Content.Shared.Ghost.Roles.Components;
 using Content.Shared.Roles;
 using Content.Shared.Tag;
+using Content.Shared.Traits.Assorted;
+using Content.Shared.Weapons.Melee;
+using Content.Shared.Zombies;
+using Robust.Shared.Audio.Systems;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
-using Content.Server._Starlight.Language; // Starlight-edit: Languages
-using Content.Shared._Starlight.Language.Components; // Starlight-edit: Languages
 
 namespace Content.Server.Zombies;
 
@@ -52,24 +52,54 @@ namespace Content.Server.Zombies;
 /// </remarks>
 public sealed partial class ZombieSystem
 {
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly IChatManager _chatMan = default!;
-    [Dependency] private readonly SharedCombatModeSystem _combat = default!;
-    [Dependency] private readonly NpcFactionSystem _faction = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly HumanoidAppearanceSystem _humanoidAppearance = default!;
-    [Dependency] private readonly IdentitySystem _identity = default!;
-    [Dependency] private readonly ServerInventorySystem _inventory = default!;
-    [Dependency] private readonly MindSystem _mind = default!;
-    [Dependency] private readonly MovementSpeedModifierSystem _movementSpeedModifier = default!;
-    [Dependency] private readonly NPCSystem _npc = default!;
-    [Dependency] private readonly TagSystem _tag = default!;
-    [Dependency] private readonly NameModifierSystem _nameMod = default!;
-    [Dependency] private readonly ISharedPlayerManager _player = default!;
-    [Dependency] private readonly LanguageSystem _language = default!; // Starlight-edit: Languages
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly IChatManager _chatMan = default!;
+
+    [Dependency]
+    private readonly SharedCombatModeSystem _combat = default!;
+
+    [Dependency]
+    private readonly NpcFactionSystem _faction = default!;
+
+    [Dependency]
+    private readonly SharedHandsSystem _hands = default!;
+
+    [Dependency]
+    private readonly HumanoidAppearanceSystem _humanoidAppearance = default!;
+
+    [Dependency]
+    private readonly IdentitySystem _identity = default!;
+
+    [Dependency]
+    private readonly ServerInventorySystem _inventory = default!;
+
+    [Dependency]
+    private readonly MindSystem _mind = default!;
+
+    [Dependency]
+    private readonly MovementSpeedModifierSystem _movementSpeedModifier = default!;
+
+    [Dependency]
+    private readonly NPCSystem _npc = default!;
+
+    [Dependency]
+    private readonly TagSystem _tag = default!;
+
+    [Dependency]
+    private readonly NameModifierSystem _nameMod = default!;
+
+    [Dependency]
+    private readonly ISharedPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly LanguageSystem _language = default!; // Starlight-edit: Languages
 
     private static readonly ProtoId<TagPrototype> InvalidForGlobalSpawnSpellTag = "InvalidForGlobalSpawnSpell";
     private static readonly ProtoId<TagPrototype> CannotSuicideTag = "CannotSuicide";
+
     /// <summary>
     /// Handles an entity turning into a zombie when they die or go into crit
     /// </summary>
@@ -150,15 +180,20 @@ public sealed partial class ZombieSystem
         melee.Angle = 0.0f;
         melee.HitSound = zombiecomp.BiteSound;
 
-        DirtyFields(target, melee, null, fields:
-        [
-            nameof(MeleeWeaponComponent.Animation),
-            nameof(MeleeWeaponComponent.WideAnimation),
-            nameof(MeleeWeaponComponent.AltDisarm),
-            nameof(MeleeWeaponComponent.Range),
-            nameof(MeleeWeaponComponent.Angle),
-            nameof(MeleeWeaponComponent.HitSound),
-        ]);
+        DirtyFields(
+            target,
+            melee,
+            null,
+            fields:
+            [
+                nameof(MeleeWeaponComponent.Animation),
+                nameof(MeleeWeaponComponent.WideAnimation),
+                nameof(MeleeWeaponComponent.AltDisarm),
+                nameof(MeleeWeaponComponent.Range),
+                nameof(MeleeWeaponComponent.Angle),
+                nameof(MeleeWeaponComponent.HitSound),
+            ]
+        );
 
         if (mobState.CurrentState == MobState.Alive)
         {
@@ -187,10 +222,30 @@ public sealed partial class ZombieSystem
             huApComp.EyeColor = zombiecomp.EyeColor;
 
             // this might not resync on clone?
-            _humanoidAppearance.SetBaseLayerId(target, HumanoidVisualLayers.Tail, zombiecomp.BaseLayerExternal, humanoid: huApComp);
-            _humanoidAppearance.SetBaseLayerId(target, HumanoidVisualLayers.HeadSide, zombiecomp.BaseLayerExternal, humanoid: huApComp);
-            _humanoidAppearance.SetBaseLayerId(target, HumanoidVisualLayers.HeadTop, zombiecomp.BaseLayerExternal, humanoid: huApComp);
-            _humanoidAppearance.SetBaseLayerId(target, HumanoidVisualLayers.Snout, zombiecomp.BaseLayerExternal, humanoid: huApComp);
+            _humanoidAppearance.SetBaseLayerId(
+                target,
+                HumanoidVisualLayers.Tail,
+                zombiecomp.BaseLayerExternal,
+                humanoid: huApComp
+            );
+            _humanoidAppearance.SetBaseLayerId(
+                target,
+                HumanoidVisualLayers.HeadSide,
+                zombiecomp.BaseLayerExternal,
+                humanoid: huApComp
+            );
+            _humanoidAppearance.SetBaseLayerId(
+                target,
+                HumanoidVisualLayers.HeadTop,
+                zombiecomp.BaseLayerExternal,
+                humanoid: huApComp
+            );
+            _humanoidAppearance.SetBaseLayerId(
+                target,
+                HumanoidVisualLayers.Snout,
+                zombiecomp.BaseLayerExternal,
+                humanoid: huApComp
+            );
 
             //This is done here because non-humanoids shouldn't get baller damage
             melee.Damage = zombiecomp.DamageOnBite;
@@ -217,7 +272,12 @@ public sealed partial class ZombieSystem
         // ClearExisting=true before we can configure it and wipes the bloodstream.
         if (TryComp<BloodstreamComponent>(target, out var zombieBloodstream))
         {
-            _bloodstream.ChangeBloodReagent(target, zombiecomp.NewBloodReagent, zombieBloodstream, storeOriginalBloodReagent: false);
+            _bloodstream.ChangeBloodReagent(
+                target,
+                zombiecomp.NewBloodReagent,
+                zombieBloodstream,
+                storeOriginalBloodReagent: false
+            );
         }
 
         RemComp<BloodSolutionModifierComponent>(target);

@@ -2,7 +2,7 @@
   parent: BaseItem
   id: Bezoar
   name: Xeno Bezoar
-  description: oh god- I think it ate someone. 
+  description: oh god- I think it ate someone.
   # abstract: true
   # categories: [ HideSpawnMenu ]
   suffix: NPC Loot
@@ -15,15 +15,15 @@
     size: Normal
   - type: SpawnItemsOnUse
     items:
-      - id: SpaceCash10
-      - id: SpawnDungeonLootSeed
-      - id: SpawnDungeonLootMaterialsBasicFull
-        prob: 0.7
-      - id: SpawnDungeonLootMaterialsValuableFull
-        prob: 0.7
-      - id: RMCLoot
-      - id: RMCLoot
-      - id: RMCLoot   
+    - id: SpaceCash10
+    - id: SpawnDungeonLootSeed
+    - id: SpawnDungeonLootMaterialsBasicFull
+      prob: 0.7
+    - id: SpawnDungeonLootMaterialsValuableFull
+      prob: 0.7
+    - id: RMCLoot
+    - id: RMCLoot
+    - id: RMCLoot
     sound:
       path: /Audio/Effects/desecration-01.ogg
 

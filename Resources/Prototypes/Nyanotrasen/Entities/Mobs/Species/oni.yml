@@ -42,8 +42,7 @@
   - type: Fixtures
     fixtures: # TODO: This needs a second fixture just for mob collisions.
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.42
         density: 220
         restitution: 0.0
@@ -62,5 +61,5 @@
   name: Urist McOni
   parent: MobHumanDummy
   id: MobOniDummy
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   description: A dummy oni meant to be used in character setup.

@@ -29,8 +29,7 @@
   - type: Fixtures
     fixtures: # TODO: This needs a second fixture just for mob collisions.
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.28
         density: 135
         restitution: 0.0
@@ -49,7 +48,7 @@
     damage:
       types:
         Slash: 3
-#        Poison: 1 # Too Stinky
+        #        Poison: 1 # Too Stinky
   - type: Speech
     speechSounds: Alto
     speechVerb: Goblin
@@ -65,10 +64,10 @@
   - type: Stamina
   - type: PseudoItem
     shape: # Parallelogram, 16 squares (vs. 26 for felinid bean) - TODO: fix odd rotation, swapped X/Y values.
-      - 0,0,0,3
-      - 1,1,1,4
-      - 2,2,2,5
-      - 3,3,3,6
+    - 0,0,0,3
+    - 1,1,1,4
+    - 2,2,2,5
+    - 3,3,3,6
     storedRotation: -67.5 # Bug: must be half the angle.
   - type: Vocal
     wilhelm: "/Audio/_NF/Voice/Goblin/goblin_cackle_5.ogg"
@@ -82,7 +81,7 @@
     - NanoTrasen
     - Goblin
   - type: DamageVisuals
-    thresholds: [ 10, 20, 30, 50, 70, 100 ]
+    thresholds: [10, 20, 30, 50, 70, 100]
     targetLayers:
     - "enum.HumanoidVisualLayers.Chest"
     - "enum.HumanoidVisualLayers.Head"
@@ -107,19 +106,19 @@
     proto: goblin
   - type: SlowOnDamage
     speedModifierThresholds:
-      60: 0.85  # 0.7 is base speed.
-      80: 0.75  # 0.5 is base speed.
+      60: 0.85 # 0.7 is base speed.
+      80: 0.75 # 0.5 is base speed.
   - type: Reactive
     groups:
-      Flammable: [ Touch ]
-      Extinguish: [ Touch ]
+      Flammable: [Touch]
+      Extinguish: [Touch]
     reactions:
-    - reagents: [ Water, SpaceCleaner, SoapReagent ]
-      methods: [ Touch ]
+    - reagents: [Water, SpaceCleaner, SoapReagent]
+      methods: [Touch]
       effects:
       - !type:WashCreamPieReaction
-    - reagents: [ Water, SpaceCleaner, SoapReagent ]
-      methods: [ Touch ]
+    - reagents: [Water, SpaceCleaner, SoapReagent]
+      methods: [Touch]
       effects:
       - !type:Emote
         emote: Scream
@@ -150,7 +149,7 @@
   name: Urist McGoblin
   parent: MobHumanDummy
   id: MobGoblinDummy
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   description: A dummy goblin meant to be used in character setup.
   components:
   - type: HumanoidAppearance

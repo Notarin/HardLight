@@ -20,7 +20,11 @@ public sealed partial class ShipyardSystem
         SubscribeLocalEvent<RoundStartedEvent>(OnRoundStartedPruneRecords);
     }
 
-    private void OnPurchasedShuttleTerminating(EntityUid uid, LinkedLifecycleGridParentComponent component, ref EntityTerminatingEvent args)
+    private void OnPurchasedShuttleTerminating(
+        EntityUid uid,
+        LinkedLifecycleGridParentComponent component,
+        ref EntityTerminatingEvent args
+    )
     {
         // Only act on actual grids - the marker can in principle exist on other entities.
         if (!HasComp<MapGridComponent>(uid))

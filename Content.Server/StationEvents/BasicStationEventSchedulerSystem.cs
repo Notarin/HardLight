@@ -22,22 +22,35 @@ namespace Content.Server.StationEvents
     [UsedImplicitly]
     public sealed class BasicStationEventSchedulerSystem : GameRuleSystem<BasicStationEventSchedulerComponent>
     {
-        [Dependency] private readonly IRobustRandom _random = default!;
-        [Dependency] private readonly EventManagerSystem _event = default!;
+        [Dependency]
+        private readonly IRobustRandom _random = default!;
 
-        protected override void Started(EntityUid uid, BasicStationEventSchedulerComponent component, GameRuleComponent gameRule,
-            GameRuleStartedEvent args)
+        [Dependency]
+        private readonly EventManagerSystem _event = default!;
+
+        protected override void Started(
+            EntityUid uid,
+            BasicStationEventSchedulerComponent component,
+            GameRuleComponent gameRule,
+            GameRuleStartedEvent args
+        )
         {
             // A little starting variance so schedulers dont all proc at once.
-            component.TimeUntilNextEvent = RobustRandom.NextFloat(component.MinimumTimeUntilFirstEvent, component.MinimumTimeUntilFirstEvent + 120);
+            component.TimeUntilNextEvent = RobustRandom.NextFloat(
+                component.MinimumTimeUntilFirstEvent,
+                component.MinimumTimeUntilFirstEvent + 120
+            );
         }
 
-        protected override void Ended(EntityUid uid, BasicStationEventSchedulerComponent component, GameRuleComponent gameRule,
-            GameRuleEndedEvent args)
+        protected override void Ended(
+            EntityUid uid,
+            BasicStationEventSchedulerComponent component,
+            GameRuleComponent gameRule,
+            GameRuleEndedEvent args
+        )
         {
             component.TimeUntilNextEvent = component.MinimumTimeUntilFirstEvent;
         }
-
 
         public override void Update(float frameTime)
         {
@@ -96,7 +109,13 @@ namespace Content.Server.StationEvents
         ///     to even exist) so I think it's fine.
         /// </remarks>
         [CommandImplementation("simulate")]
-        public IEnumerable<(string, float)> Simulate([CommandArgument] EntProtoId eventSchedulerProto, [CommandArgument] int rounds, [CommandArgument] int playerCount, [CommandArgument] float roundEndMean, [CommandArgument] float roundEndStdDev)
+        public IEnumerable<(string, float)> Simulate(
+            [CommandArgument] EntProtoId eventSchedulerProto,
+            [CommandArgument] int rounds,
+            [CommandArgument] int playerCount,
+            [CommandArgument] float roundEndMean,
+            [CommandArgument] float roundEndStdDev
+        )
         {
             _stationEvent ??= GetSys<EventManagerSystem>();
             _entityTable ??= GetSys<EntityTableSystem>();
@@ -133,7 +152,13 @@ namespace Content.Server.StationEvents
                     curTime += TimeSpan.FromSeconds(compMinMax.Next(_random));
 
                     var available = _stationEvent.AvailableEvents(false, playerCount, curTime);
-                    if (!_stationEvent.TryBuildLimitedEvents(basicScheduler.ScheduledGameRules, available, out var selectedEvents))
+                    if (
+                        !_stationEvent.TryBuildLimitedEvents(
+                            basicScheduler.ScheduledGameRules,
+                            available,
+                            out var selectedEvents
+                        )
+                    )
                     {
                         continue; // doesnt break because maybe the time is preventing events being available.
                     }
@@ -166,15 +191,19 @@ namespace Content.Server.StationEvents
                 yield break;
 
             var totalWeight = events.Sum(x => x.Value.Weight); // Well this shit definitely isnt correct now, and I see no way to make it correct.
-                                                               // Its probably *fine* but it wont be accurate if the EntityTableSelector does any subsetting.
-            foreach (var (proto, comp) in events)              // The only solution I see is to do a simulation, and we already have that, so...!
+            // Its probably *fine* but it wont be accurate if the EntityTableSelector does any subsetting.
+            foreach (var (proto, comp) in events) // The only solution I see is to do a simulation, and we already have that, so...!
             {
                 yield return (proto.ID, comp.Weight / totalWeight);
             }
         }
 
         [CommandImplementation("lsprobtheoretical")]
-        public IEnumerable<(string, float)> LsProbTime([CommandArgument] EntProtoId eventSchedulerProto, [CommandArgument] int playerCount, [CommandArgument] float time)
+        public IEnumerable<(string, float)> LsProbTime(
+            [CommandArgument] EntProtoId eventSchedulerProto,
+            [CommandArgument] int playerCount,
+            [CommandArgument] float time
+        )
         {
             _compFac ??= IoCManager.Resolve<IComponentFactory>();
             _stationEvent ??= GetSys<EventManagerSystem>();
@@ -188,7 +217,13 @@ namespace Content.Server.StationEvents
             var timemins = time * 60;
             var theoryTime = TimeSpan.Zero + TimeSpan.FromSeconds(timemins);
             var available = _stationEvent.AvailableEvents(false, playerCount, theoryTime);
-            if (!_stationEvent.TryBuildLimitedEvents(basicScheduler.ScheduledGameRules, available, out var untimedEvents))
+            if (
+                !_stationEvent.TryBuildLimitedEvents(
+                    basicScheduler.ScheduledGameRules,
+                    available,
+                    out var untimedEvents
+                )
+            )
                 yield break;
 
             var events = untimedEvents.Where(pair => pair.Value.EarliestStart <= timemins).ToList();

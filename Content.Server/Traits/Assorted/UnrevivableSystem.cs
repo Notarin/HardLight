@@ -13,7 +13,10 @@ public sealed class UnrevivableSystem : EntitySystem
 
         Subs.SubscribeWithRelay<UnrevivableComponent, CloningAttemptEvent>(OnCloningAttempt, held: false); //HL
         Subs.SubscribeWithRelay<UnrevivableComponent, DefibrillationAttemptEvent>(OnDefibrillationAttempt, held: false); //HL
-        Subs.SubscribeWithRelay<UnrevivableComponent, AnalyzeUnrevivableAttemptEvent>(OnAnalyzeUnrevivableAttempt, held: false); //HL
+        Subs.SubscribeWithRelay<UnrevivableComponent, AnalyzeUnrevivableAttemptEvent>(
+            OnAnalyzeUnrevivableAttempt,
+            held: false
+        ); //HL
     }
 
     private void OnCloningAttempt(Entity<UnrevivableComponent> ent, ref CloningAttemptEvent args)

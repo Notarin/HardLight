@@ -3,7 +3,7 @@
   parent: [PartAnimal, BaseHead]
   id: HeadAnimal
   name: animal head
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     layers:
@@ -18,7 +18,7 @@
     sprite: _Shitmed/Mobs/Aliens/Carps/carp_parts.rsi
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseCarpPart
   id: TailCarp
   name: carp tail
@@ -32,11 +32,11 @@
   - type: MovementBodyPart
     walkSpeed: 2.5
     sprintSpeed: 3.5
-  # TODO: Make it actually needed. Legs are hardcoded to be the only parts that matter for movement.
-  # TODO: space flight stuff
+    # TODO: Make it actually needed. Legs are hardcoded to be the only parts that matter for movement.
+    # TODO: space flight stuff
 
 - type: entity
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: BaseCarpPart
   id: TorsoCarp
   name: carp torso

@@ -8,6 +8,4 @@ namespace Content.Shared.CombatMode.Pacification;
 /// TODO ideally destructible is shared + converted to components so we can just check for a harmful damage trigger instead of this.
 /// </summary>
 [RegisterComponent, NetworkedComponent]
-public sealed partial class PacifismDangerousAttackComponent : Component
-{
-}
+public sealed partial class PacifismDangerousAttackComponent : Component { }

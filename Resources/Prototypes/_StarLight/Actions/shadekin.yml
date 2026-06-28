@@ -4,14 +4,14 @@
   description: Shift yourself out of alignment with realspace to travel quickly to different areas.
   categories: [HideSpawnMenu]
   components:
-    - type: InstantAction
-      useDelay: 1
-      icon:
-        sprite: _Starlight/Interface/Actions/shadekin32.rsi
-        state: phase_shift
-      checkCanInteract: false
-      itemIconStyle: BigItem
-      event: !type:NullPhaseActionEvent
+  - type: InstantAction
+    useDelay: 1
+    icon:
+      sprite: _Starlight/Interface/Actions/shadekin32.rsi
+      state: phase_shift
+    checkCanInteract: false
+    itemIconStyle: BigItem
+    event: !type:NullPhaseActionEvent
 
 - type: entity
   id: BrighteyePortalAction
@@ -19,14 +19,14 @@
   description: Create a portal to the dark at your current location.
   categories: [HideSpawnMenu]
   components:
-    - type: InstantAction
-      useDelay: 1
-      icon:
-        sprite: _Starlight/Structures/Specific/Anomalies/dark.rsi
-        state: portal
-      itemIconStyle: NoItem
-      checkCanInteract: false
-      event: !type:BrighteyePortalActionEvent
+  - type: InstantAction
+    useDelay: 1
+    icon:
+      sprite: _Starlight/Structures/Specific/Anomalies/dark.rsi
+      state: portal
+    itemIconStyle: NoItem
+    checkCanInteract: false
+    event: !type:BrighteyePortalActionEvent
 
 - type: entity
   id: BrighteyeCreateShadeAction
@@ -34,10 +34,10 @@
   description: Create a field of darkness that follows you.
   categories: [HideSpawnMenu]
   components:
-    - type: InstantAction
-      useDelay: 1
-      icon:
-        sprite: _Starlight/Interface/Actions/shadekin32.rsi
-        state: create_shade
-      itemIconStyle: NoItem
-      event: !type:BrighteyeCreateShadeActionEvent
+  - type: InstantAction
+    useDelay: 1
+    icon:
+      sprite: _Starlight/Interface/Actions/shadekin32.rsi
+      state: create_shade
+    itemIconStyle: NoItem
+    event: !type:BrighteyeCreateShadeActionEvent

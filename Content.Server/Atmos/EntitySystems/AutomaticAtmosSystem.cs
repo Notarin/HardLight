@@ -12,8 +12,11 @@ namespace Content.Server.Atmos.EntitySystems;
 /// </summary>
 public sealed class AutomaticAtmosSystem : EntitySystem
 {
-    [Dependency] private readonly ITileDefinitionManager _tileDefinitionManager = default!;
-    [Dependency] private readonly AtmosphereSystem _atmosphereSystem = default!;
+    [Dependency]
+    private readonly ITileDefinitionManager _tileDefinitionManager = default!;
+
+    [Dependency]
+    private readonly AtmosphereSystem _atmosphereSystem = default!;
 
     public override void Initialize()
     {

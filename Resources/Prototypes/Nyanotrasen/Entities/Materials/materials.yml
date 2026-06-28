@@ -7,8 +7,8 @@
   - type: Sprite
     sprite: Nyanotrasen/Objects/Materials/materials.rsi
     layers:
-      - state: bluespace_3
-        map: ["base"]
+    - state: bluespace_3
+      map: ["base"]
   - type: Appearance
   - type: Material
   - type: PhysicalComposition
@@ -16,8 +16,8 @@
       Bluespace: 100
   - type: Tag
     tags:
-      - BluespaceCrystal
-      - RawMaterial
+    - BluespaceCrystal
+    - RawMaterial
   - type: TriggerOnUse
   - type: TriggerOnActivate
   - type: EmitSoundOnTrigger
@@ -34,9 +34,9 @@
     stackType: Bluespace
     baseLayer: base
     layerStates:
-      - bluespace
-      - bluespace_2
-      - bluespace_3
+    - bluespace
+    - bluespace_2
+    - bluespace_3
     count: 5
   - type: Item
     size: Tiny
@@ -88,4 +88,4 @@
     state: mothroachhide
   - type: Tag
     tags:
-      - MothroachHide
+    - MothroachHide

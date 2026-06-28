@@ -19,7 +19,7 @@ public sealed partial class PointCannonComponent : Component
     /// <summary>
     ///  Yes this caused the entire server to black-out for everyone when multiple consoles had the same cannon that got deleted and wasn't properly removed
     /// </summary>
-    [DataField,ViewVariables(VVAccess.ReadOnly), Obsolete]
+    [DataField, ViewVariables(VVAccess.ReadOnly), Obsolete]
     public EntityUid? LinkedConsoleId;
 
     [DataField, ViewVariables(VVAccess.ReadOnly)]

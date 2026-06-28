@@ -2,7 +2,7 @@
   id: BaseStationTile
   abstract: true
   isSubfloor: false
-  deconstructTools: [ Prying ]
+  deconstructTools: [Prying]
   footstepSounds:
     collection: FootstepFloor
   heatCapacity: 10000
@@ -1043,7 +1043,6 @@
   - 1.0
   itemDrop: FloorTileItemShuttleRed
 
-
 # Materials
 - type: tile
   id: FloorGold
@@ -1162,7 +1161,7 @@
   name: tiles-planet-grass-floor
   sprite: /Textures/Tiles/grass.png
   baseTurf: FloorDirt
-  deconstructTools: [ Digging ] # Frontier
+  deconstructTools: [Digging] # Frontier
   isSubfloor: true
   footstepSounds:
     collection: FootstepGrass
@@ -1175,7 +1174,7 @@
   name: tiles-jungle-grass-floor
   sprite: /Textures/Tiles/grassjungle.png
   baseTurf: FloorDirt
-  deconstructTools: [ Digging ] # Frontier
+  deconstructTools: [Digging] # Frontier
   isSubfloor: true
   footstepSounds:
     collection: FootstepGrass
@@ -1194,7 +1193,7 @@
   - 1.0
   - 1.0
   baseTurf: FloorDirt
-  deconstructTools: [ Digging ] # Frontier
+  deconstructTools: [Digging] # Frontier
   isSubfloor: true
   footstepSounds:
     collection: FootstepGrass
@@ -1213,7 +1212,7 @@
   - 1.0
   - 1.0
   baseTurf: FloorDirt
-  deconstructTools: [ Digging ] # Frontier
+  deconstructTools: [Digging] # Frontier
   isSubfloor: true
   footstepSounds:
     collection: FootstepGrass
@@ -1231,7 +1230,7 @@
   - 1.0
   - 1.0
   baseTurf: FloorBedrock # Delta V: Plating<FloorBedrock
-  deconstructTools: [ Digging ] # Frontier
+  deconstructTools: [Digging] # Frontier
   isSubfloor: true
   footstepSounds:
     collection: FootstepAsteroid
@@ -1247,19 +1246,19 @@
   sprite: /Textures/Tiles/Asteroid/asteroid.png
   variants: 13
   placementVariants:
-    - 0.8
-    - 0.0166 #Should be roughly 20%.... I think??? I don't know dude, I'm just a YAML monkey.
-    - 0.0166
-    - 0.0166
-    - 0.0166
-    - 0.0166
-    - 0.0166
-    - 0.0166
-    - 0.0166
-    - 0.0166
-    - 0.0166
-    - 0.0116
-    - 0.0116
+  - 0.8
+  - 0.0166 #Should be roughly 20%.... I think??? I don't know dude, I'm just a YAML monkey.
+  - 0.0166
+  - 0.0166
+  - 0.0166
+  - 0.0166
+  - 0.0166
+  - 0.0166
+  - 0.0166
+  - 0.0166
+  - 0.0166
+  - 0.0116
+  - 0.0116
   baseTurf: Space
   isSubfloor: true
   footstepSounds:
@@ -1354,7 +1353,7 @@
   sprite: /Textures/Tiles/Asteroid/asteroid_tile.png
   baseTurf: Plating
   isSubfloor: false
-  deconstructTools: [ Prying ]
+  deconstructTools: [Prying]
   footstepSounds:
     collection: FootstepAsteroid
   heatCapacity: 10000
@@ -1644,25 +1643,25 @@
     East: /Textures/Tiles/Planet/Grass/double_edge.png
     North: /Textures/Tiles/Planet/Grass/double_edge.png
     West: /Textures/Tiles/Planet/Grass/double_edge.png
-  deconstructTools: [ Cutting ]
+  deconstructTools: [Cutting]
   footstepSounds:
     collection: FootstepGrass
   itemDrop: FloorTileItemAstroGrass
 
 - type: tile
   id: FloorMowedAstroGrass
-  parent: [ BaseStationTile, FloorGrass ]
+  parent: [BaseStationTile, FloorGrass]
   name: tiles-mowed-astro-grass
   isSubfloor: false
-  deconstructTools: [ Cutting ]
+  deconstructTools: [Cutting]
   itemDrop: FloorTileItemMowedAstroGrass
 
 - type: tile
   id: FloorJungleAstroGrass
-  parent: [ BaseStationTile, FloorGrassJungle ]
+  parent: [BaseStationTile, FloorGrassJungle]
   name: tiles-jungle-astro-grass
   isSubfloor: false
-  deconstructTools: [ Cutting ]
+  deconstructTools: [Cutting]
   itemDrop: FloorTileItemJungleAstroGrass
 
 - type: tile
@@ -1671,7 +1670,7 @@
   name: tiles-dark-astro-grass
   baseTurf: Plating
   isSubfloor: false
-  deconstructTools: [ Cutting ]
+  deconstructTools: [Cutting]
   itemDrop: FloorTileItemAstroGrass # HardLight: FloorTileItemDarkAstroGrass<FloorTileItemAstroGrass
 
 - type: tile
@@ -1680,7 +1679,7 @@
   name: tiles-light-astro-grass
   baseTurf: Plating
   isSubfloor: false
-  deconstructTools: [ Cutting ]
+  deconstructTools: [Cutting]
   itemDrop: FloorTileItemAstroGrass # HardLight: FloorTileItemLightAstroGrass<FloorTileItemAstroGrass
 
 # Ice
@@ -1696,28 +1695,28 @@
 
 - type: tile
   id: FloorAstroSnow
-  parent: [ BaseStationTile, FloorSnow ]
+  parent: [BaseStationTile, FloorSnow]
   name: tiles-astro-snow
   isSubfloor: false
-  deconstructTools: [ Prying ]
+  deconstructTools: [Prying]
   itemDrop: FloorTileItemAstroSnow
 
 # Asteroid Sand
 - type: tile
   id: FloorAstroAsteroidSand
-  parent: [ BaseStationTile, FloorAsteroidSand ]
+  parent: [BaseStationTile, FloorAsteroidSand]
   name: tiles-astro-asteroid-sand
   isSubfloor: false
-  deconstructTools: [ Prying ]
+  deconstructTools: [Prying]
   itemDrop: FloorTileItemAstroAsteroidSand
   # weather: false
 
 - type: tile
   id: FloorAstroAsteroidSandBorderless
-  parent: [ BaseStationTile, FloorAsteroidSandBorderless ]
+  parent: [BaseStationTile, FloorAsteroidSandBorderless]
   name: tiles-astro-asteroid-sand-borderless
   isSubfloor: false
-  deconstructTools: [ Prying ]
+  deconstructTools: [Prying]
   itemDrop: FloorTileItemAstroAsteroidSand
   # weather: false
 
@@ -1727,7 +1726,7 @@
   name: tiles-desert-astro-sand
   baseTurf: Plating
   isSubfloor: false
-  deconstructTools: [ Prying ]
+  deconstructTools: [Prying]
   itemDrop: FloorTileItemAstroAsteroidSand # HardLight: FloorTileItemDesertAstroSand<FloorTileItemAstroAsteroidSand
   # weather: false
 
@@ -1737,7 +1736,7 @@
   parent: FloorAsteroidIronsand
   baseTurf: Plating
   isSubfloor: false
-  deconstructTools: [ Prying ]
+  deconstructTools: [Prying]
   itemDrop: FloorTileItemAstroAsteroidSand # HardLight: FloorTileItemAstroIronsand<FloorTileItemAstroAsteroidSand
   # weather: false
 
@@ -1747,7 +1746,7 @@
   parent: FloorAsteroidIronsandBorderless
   baseTurf: Plating
   isSubfloor: false
-  deconstructTools: [ Prying ]
+  deconstructTools: [Prying]
   itemDrop: FloorTileItemAstroAsteroidSand # HardLight: FloorTileItemAstroIronsandBorderless<FloorTileItemAstroAsteroidSand
   # weather: false
 
@@ -1774,7 +1773,7 @@
   sprite: /Textures/Tiles/exoborg.png
   baseTurf: Plating
   isSubfloor: false
-  deconstructTools: [ Prying ]
+  deconstructTools: [Prying]
   footstepSounds:
     collection: FootstepHull
   itemDrop: FloorTileItemXenoborg

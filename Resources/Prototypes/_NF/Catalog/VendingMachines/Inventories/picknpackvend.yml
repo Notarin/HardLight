@@ -1,7 +1,7 @@
 - type: vendingMachineInventory
   id: PickNPackInventory
   startingInventory:
-  # Weapons
+    # Weapons
     NFWeaponPistolMk58: 6
     #Hardlight start
     WeaponPistolPollock: 6
@@ -9,12 +9,12 @@
     WeaponRifleGestio: 6
     WeaponShotgunKammerer: 6
     #Hardlight end
-  # Magazines
+    # Magazines
     Magazine9x19mmPistolFMJ: 6
     Magazine762x39mmLowCapacityFMJ: 6
     MagazineNovaliteC1: 6
     Magazine45_ACPPistolFMJ: 6
-  # Ammo boxes
+    # Ammo boxes
     AmmoBox9x19mmBigFMJ: 6
     AmmoBox556x45mmBigFMJ: 6
     AmmoBox762x39mmBigFMJ: 6
@@ -26,20 +26,20 @@
 - type: vendingMachineInventory
   id: PickNPackPOIInventory
   startingInventory:
-  # Weapons
+    # Weapons
     NFWeaponPistolMk58: 4294967295
     # Hardlight start
     WeaponPistolPollock: 4294967295
     WeaponRifleNovaliteC1: 4294967295
     WeaponRifleGestio: 4294967295
     WeaponShotgunKammerer: 4294967295
-  # Magazines
+    # Magazines
     Magazine9x19mmPistolFMJ: 4294967295
     MagazineNovaliteC1: 4294967295
     Magazine762x39mmLowCapacityFMJ: 4294967295
     Magazine45_ACPPistolFMJ: 4294967295
-  # Hardlight end
-  # Ammo boxes
+    # Hardlight end
+    # Ammo boxes
     AmmoBox9x19mmBigFMJ: 4294967295
     AmmoBox556x45mmBigFMJ: 4294967295
     AmmoBox762x39mmBigFMJ: 4294967295

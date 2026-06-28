@@ -1,7 +1,7 @@
 - type: entity
   name: fish
   id: BaseFish
-  parent: [ SimpleSpaceMobBase, FlyingMobBase, MobCombat ]
+  parent: [SimpleSpaceMobBase, FlyingMobBase, MobCombat]
   abstract: true
   components:
   # Starlight-start: Languages
@@ -39,15 +39,14 @@
     drawdepth: Mobs
     sprite: Mobs/Aliens/Carps/space.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: alive
   - type: CombatMode
   - type: Physics
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35 # Frontier 0.40<0.35 Lowered the value, to allow them to fit through the airlocks
         density: 80
         mask:
@@ -130,9 +129,9 @@
   - type: Sprite
     sprite: Mobs/Aliens/Carps/fry.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: alive
-    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+    - map: ["enum.DamageStateVisualLayers.BaseUnshaded"]
       state: mouth
       shader: unshaded
   - type: Xeno
@@ -157,9 +156,9 @@
   - type: Sprite
     sprite: Mobs/Aliens/Carps/holofry.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: alive
-    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+    - map: ["enum.DamageStateVisualLayers.BaseUnshaded"]
       state: mouth
       shader: unshaded
   - type: Xeno
@@ -172,8 +171,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35 # Frontier 0.40<0.35 Lowered the value, to allow them to fit through the airlocks
         density: 10
         mask:
@@ -192,9 +190,9 @@
   - type: Sprite
     sprite: Mobs/Aliens/Carps/magifry.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: alive
-    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+    - map: ["enum.DamageStateVisualLayers.BaseUnshaded"]
       state: mouth
       shader: unshaded
   - type: Xeno
@@ -214,7 +212,7 @@
     radius: 1.5
     energy: 0.5
   - type: RgbLightController
-    layers: [ 0 ]
+    layers: [0]
   - type: Xeno
     actionIds:
     - ActionXenoEvolve
@@ -226,7 +224,7 @@
   parent: BaseFish
   id: MobCarp
   description: It's a space carp.
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   components:
   - type: MobThresholds
     thresholds:
@@ -246,9 +244,9 @@
     critThreshold: 100
   - type: Sprite
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: alive
-    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+    - map: ["enum.DamageStateVisualLayers.BaseUnshaded"]
       state: mouth
       shader: unshaded
   - type: RandomSprite
@@ -263,7 +261,7 @@
   parent: BaseFish
   id: MobCarpMagic
   description: Looks like some kind of fish. Might be magical.
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   components:
   - type: MobThresholds
     thresholds:
@@ -297,14 +295,14 @@
   parent: MobShark
   id: MobSharkMagic
   description: Looks like some kind of fish. Might be magical.
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   components:
   - type: Sprite
     sprite: Mobs/Aliens/Carps/magisharkminnow.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: alive
-    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+    - map: ["enum.DamageStateVisualLayers.BaseUnshaded"]
       state: mouth
       shader: unshaded
   - type: TypingIndicator
@@ -315,7 +313,7 @@
   parent: BaseMobCarp
   id: MobCarpHolo
   description: Carp made out of holographic energies. Sadly for you, it is very much real.
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   components:
   - type: MobThresholds
     thresholds:
@@ -339,8 +337,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35 # Frontier 0.40<0.35 Lowered the value, to allow them to fit through the airlocks
         density: 10
         mask:
@@ -366,17 +363,16 @@
   - type: Sprite
     sprite: Mobs/Aliens/Carps/holosharkminnow.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: alive
-    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+    - map: ["enum.DamageStateVisualLayers.BaseUnshaded"]
       state: mouth
       shader: unshaded
   - type: Physics
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35 # Frontier 0.40<0.35 Lowered the value, to allow them to fit through the airlocks
         density: 10
         mask:
@@ -391,13 +387,13 @@
   id: MobCarpRainbow
   name: rainbow carp
   description: Wow such a shiny fishie!
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   components:
   - type: PointLight
     radius: 1.5
     energy: 0.5
   - type: RgbLightController
-    layers: [ 0 ]
+    layers: [0]
   - type: Xeno
     actionIds:
     - ActionXenoEvolve
@@ -410,19 +406,19 @@
   id: MobSharkRainbow
   name: rainbow carp
   description: Wow such a shiny fishie!
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   components:
   - type: PointLight
     radius: 1.5
     energy: 0.5
   - type: RgbLightController
-    layers: [ 0 ]
+    layers: [0]
 
 - type: entity
   id: MobCarpSalvage
   parent: MobCarp
   suffix: "Salvage Ruleset"
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   components:
   - type: NFSalvageMobRestrictions # Frontier: SalvageMobRestrictions<NFSalvageMobRestrictions
 
@@ -431,7 +427,7 @@
   id: MobCarpDragon
   suffix: DragonBrood
   parent: MobCarp
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   components:
   - type: HTN
     rootTask:
@@ -453,9 +449,9 @@
   - type: Sprite
     sprite: Mobs/Aliens/Carps/sharkminnow.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: alive
-    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+    - map: ["enum.DamageStateVisualLayers.BaseUnshaded"]
       state: mouth
       shader: unshaded
   - type: RandomSprite
@@ -469,7 +465,7 @@
   id: MobCarpDungeon
   parent: MobCarp
   suffix: Dungeon
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   components:
   - type: MobThresholds
     thresholds:
@@ -490,23 +486,22 @@
   parent: BaseMobCarp
   id: MobShark
   description: A dangerous shark from the blackness of endless space, who loves to drink blood.
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   components:
   - type: TimedDespawn
     lifetime: 1200
   - type: Sprite
     sprite: Mobs/Aliens/Carps/sharkminnow.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: alive
-    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+    - map: ["enum.DamageStateVisualLayers.BaseUnshaded"]
       state: mouth
       shader: unshaded
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35 # Frontier 0.40<0.35 Lowered the value, to allow them to fit through the airlocks
         density: 100
         mask:
@@ -552,6 +547,6 @@
   id: MobSharkSalvage
   parent: MobShark
   suffix: "Salvage Ruleset"
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   components:
   - type: NFSalvageMobRestrictions # Frontier: SalvageMobRestrictions<NFSalvageMobRestrictions

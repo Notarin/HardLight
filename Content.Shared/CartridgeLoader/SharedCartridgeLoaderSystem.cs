@@ -7,9 +7,14 @@ public abstract class SharedCartridgeLoaderSystem : EntitySystem
 {
     public const string InstalledContainerId = "program-container";
 
-    [Dependency] private readonly ItemSlotsSystem _itemSlotsSystem = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearanceSystem = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
+    [Dependency]
+    private readonly ItemSlotsSystem _itemSlotsSystem = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearanceSystem = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
 
     public override void Initialize()
     {
@@ -37,12 +42,20 @@ public abstract class SharedCartridgeLoaderSystem : EntitySystem
             _container.ShutdownContainer(cont);
     }
 
-    protected virtual void OnItemInserted(EntityUid uid, CartridgeLoaderComponent loader, EntInsertedIntoContainerMessage args)
+    protected virtual void OnItemInserted(
+        EntityUid uid,
+        CartridgeLoaderComponent loader,
+        EntInsertedIntoContainerMessage args
+    )
     {
         UpdateAppearanceData(uid, loader);
     }
 
-    protected virtual void OnItemRemoved(EntityUid uid, CartridgeLoaderComponent loader, EntRemovedFromContainerMessage args)
+    protected virtual void OnItemRemoved(
+        EntityUid uid,
+        CartridgeLoaderComponent loader,
+        EntRemovedFromContainerMessage args
+    )
     {
         UpdateAppearanceData(uid, loader);
     }

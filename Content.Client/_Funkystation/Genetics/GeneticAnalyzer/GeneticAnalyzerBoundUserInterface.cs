@@ -11,9 +11,8 @@ public sealed class GeneticAnalyzerBoundUserInterface : BoundUserInterface
     [ViewVariables]
     private GeneticAnalyzerWindow? _window;
 
-    public GeneticAnalyzerBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-    }
+    public GeneticAnalyzerBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {

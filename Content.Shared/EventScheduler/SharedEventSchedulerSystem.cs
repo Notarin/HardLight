@@ -1,6 +1,5 @@
 using Robust.Shared.Timing;
 
-
 namespace Content.Shared.EventScheduler;
 
 public abstract partial class SharedEventSchedulerSystem : EntitySystem
@@ -11,7 +10,9 @@ public abstract partial class SharedEventSchedulerSystem : EntitySystem
 // comparator function for priority queue, prefers the element that will occur earlier
 public sealed class EventSchedulerComparer : IComparer<TimeSpan>
 {
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
+
     public int Compare(TimeSpan a, TimeSpan b)
     {
         TimeSpan aDelay = a - _gameTiming.CurTime;
@@ -47,4 +48,3 @@ public sealed class DelayedEvent
         Cancelled = false;
     }
 }
-

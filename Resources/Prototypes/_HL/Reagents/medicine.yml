@@ -8,32 +8,32 @@
   color: "#ffc0cb"
   metabolisms:
     Medicine:
-      metabolismRate : 0.02
+      metabolismRate: 0.02
       effects:
       - !type:PopupMessage
         type: Local
         visualType: Medium
         messages:
-          - "reagent-effect-painkiller-strong1"
-          - "reagent-effect-painkiller-strong4"
-          - "reagent-effect-painkiller-strong5"
-          - "reagent-effect-painkiller-strong6"
+        - "reagent-effect-painkiller-strong1"
+        - "reagent-effect-painkiller-strong4"
+        - "reagent-effect-painkiller-strong5"
+        - "reagent-effect-painkiller-strong6"
         probability: 0.2
       - !type:PopupMessage
         type: Local
         visualType: Small
         messages:
-          - "reagent-effect-painkiller-fade"
+        - "reagent-effect-painkiller-fade"
         probability: 0.7
         conditions:
-          - !type:ReagentThreshold
-            max: 0.2
+        - !type:ReagentThreshold
+          max: 0.2
       - !type:Painkillers
       - !type:Painkillers
         type: Remove
         conditions:
-          - !type:ReagentThreshold
-            max: 0.2
+        - !type:ReagentThreshold
+          max: 0.2
 
 # Addictine curing chem
 - type: reagent
@@ -57,15 +57,15 @@
         reagent: Addictine
         amount: -0.5
       - !type:Jitter
-      # Low amount effects
       - !type:PopupMessage
+        # Low amount effects
         type: Local
         visualType: Medium
         messages:
-          - "efflumetonial-effects-low-1"
-          - "efflumetonial-effects-low-2"
-          - "efflumetonial-effects-low-3"
-          - "efflumetonial-effects-low-4"
+        - "efflumetonial-effects-low-1"
+        - "efflumetonial-effects-low-2"
+        - "efflumetonial-effects-low-3"
+        - "efflumetonial-effects-low-4"
         probability: 0.1
         conditions:
         - !type:ReagentThreshold
@@ -73,16 +73,16 @@
         - !type:ReagentThreshold
           reagent: Addictine
           min: 0.1
-      # Medium amount effects
       - !type:PopupMessage
+        # Medium amount effects
         type: Local
         visualType: Medium
         messages:
-          - "efflumetonial-effects-high-1"
-          - "efflumetonial-effects-high-2"
-          - "efflumetonial-effects-high-3"
-          - "efflumetonial-effects-high-4"
-          - "efflumetonial-effects-high-5"
+        - "efflumetonial-effects-high-1"
+        - "efflumetonial-effects-high-2"
+        - "efflumetonial-effects-high-3"
+        - "efflumetonial-effects-high-4"
+        - "efflumetonial-effects-high-5"
         probability: 0.1
         conditions:
         - !type:ReagentThreshold
@@ -97,17 +97,17 @@
         - !type:ReagentThreshold
           reagent: Addictine
           min: 0.1
-      # Overdose effects
       - !type:PopupMessage
+        # Overdose effects
         type: Local
         visualType: LargeCaution
         messages:
-          - "efflumetonial-effects-overdose-1"
-          - "efflumetonial-effects-overdose-2"
-          - "efflumetonial-effects-overdose-3"
-          - "efflumetonial-effects-overdose-4"
-          - "efflumetonial-effects-overdose-5"
-          - "efflumetonial-effects-overdose-6"
+        - "efflumetonial-effects-overdose-1"
+        - "efflumetonial-effects-overdose-2"
+        - "efflumetonial-effects-overdose-3"
+        - "efflumetonial-effects-overdose-4"
+        - "efflumetonial-effects-overdose-5"
+        - "efflumetonial-effects-overdose-6"
         probability: 0.1
         conditions:
         - !type:ReagentThreshold

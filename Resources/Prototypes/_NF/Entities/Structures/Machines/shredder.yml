@@ -1,5 +1,5 @@
 - type: entity
-  parent: [ BaseMachinePowered, ConstructibleMachine ]
+  parent: [BaseMachinePowered, ConstructibleMachine]
   id: Shredder
   name: shredder
   description: It shreds things. What more is there to say?
@@ -21,11 +21,11 @@
     visuals:
       enum.PowerDeviceVisuals.Powered:
         enum.DamageStateVisualLayers.Base:
-          True: { state: shredding-empty}
-          False: { state: off }
+          True: {state: shredding-empty}
+          False: {state: off}
         enum.PowerDeviceVisualLayers.Powered:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
   - type: LitOnPowered
   - type: PointLight
     radius: 1.5
@@ -39,8 +39,7 @@
   - type: PowerSwitch
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:PlaySoundBehavior
@@ -55,10 +54,10 @@
   - type: MaterialReclaimer
     whitelist:
       components:
-        - Currency
-        - Mail
+      - Currency
+      - Mail
       tags:
-        - Paper
+      - Paper
     soundCooldown: 0
     sound:
       path: /Audio/Ambience/Objects/crushing.ogg

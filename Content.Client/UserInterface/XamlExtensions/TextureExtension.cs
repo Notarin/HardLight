@@ -4,7 +4,6 @@ using Robust.Client.ResourceManagement;
 
 namespace Content.Client.UserInterface.XamlExtensions;
 
-
 [PublicAPI]
 public sealed class TexExtension
 {

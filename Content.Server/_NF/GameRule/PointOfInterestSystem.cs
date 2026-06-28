@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Numerics;
+using Content.Server._NF.Station.Systems;
 using Content.Server._NF.Trade;
 using Content.Server.GameTicking;
 using Content.Server.Maps;
@@ -7,11 +8,10 @@ using Content.Server.Station.Systems;
 using Content.Shared._NF.CCVar;
 using Content.Shared.GameTicking;
 using Robust.Shared.Configuration;
+using Robust.Shared.EntitySerialization.Systems;
 using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
-using Content.Server._NF.Station.Systems;
-using Robust.Shared.EntitySerialization.Systems;
 
 namespace Content.Server._NF.GameRule;
 
@@ -21,14 +21,29 @@ namespace Content.Server._NF.GameRule;
 //[Access(typeof(NfAdventureRuleSystem))]
 public sealed class PointOfInterestSystem : EntitySystem
 {
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly GameTicker _ticker = default!;
-    [Dependency] private readonly MapLoaderSystem _map = default!;
-    [Dependency] private readonly MetaDataSystem _meta = default!;
-    [Dependency] private readonly StationRenameWarpsSystems _renameWarps = default!;
-    [Dependency] private readonly StationSystem _station = default!;
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly GameTicker _ticker = default!;
+
+    [Dependency]
+    private readonly MapLoaderSystem _map = default!;
+
+    [Dependency]
+    private readonly MetaDataSystem _meta = default!;
+
+    [Dependency]
+    private readonly StationRenameWarpsSystems _renameWarps = default!;
+
+    [Dependency]
+    private readonly StationSystem _station = default!;
 
     private List<Vector2> _stationCoords = new();
 
@@ -41,15 +56,19 @@ public sealed class PointOfInterestSystem : EntitySystem
 
     private void OnRoundRestart(RoundRestartCleanupEvent ev)
     {
-       _stationCoords.Clear();
-    } 
+        _stationCoords.Clear();
+    }
 
     private void AddStationCoordsToSet(Vector2 coords)
     {
         _stationCoords.Add(coords);
     }
 
-    public void GenerateDepots(MapId mapUid, List<PointOfInterestPrototype> depotPrototypes, out List<EntityUid> depotStations)
+    public void GenerateDepots(
+        MapId mapUid,
+        List<PointOfInterestPrototype> depotPrototypes,
+        out List<EntityUid> depotStations
+    )
     {
         //For depots, we want them to fill a circular type dystance formula to try to keep them as far apart as possible
         //Therefore, we will be taking our range properties and treating them as magnitudes of a direction vector divided
@@ -83,7 +102,10 @@ public sealed class PointOfInterestSystem : EntitySystem
                 overrideName += $" {(char)('A' + i)}"; // " A" ... " Z"
             else
                 overrideName += $" {i + 1}"; // " 27", " 28"...
-            if (TrySpawnPoiGrid(mapUid, proto, offset, out var depotUid, overrideName: overrideName) && depotUid is { Valid: true } depot)
+            if (
+                TrySpawnPoiGrid(mapUid, proto, offset, out var depotUid, overrideName: overrideName)
+                && depotUid is { Valid: true } depot
+            )
             {
                 // Nasty jank: set up destination in the station.
                 var depotStation = _station.GetOwningStation(depot);
@@ -100,7 +122,11 @@ public sealed class PointOfInterestSystem : EntitySystem
         }
     }
 
-    public void GenerateMarkets(MapId mapUid, List<PointOfInterestPrototype> marketPrototypes, out List<EntityUid> marketStations)
+    public void GenerateMarkets(
+        MapId mapUid,
+        List<PointOfInterestPrototype> marketPrototypes,
+        out List<EntityUid> marketStations
+    )
     {
         //For market stations, we are going to allow for a bit of randomness and a different offset configuration. We dont
         //want copies of this one, since these can be more themed and duplicate names, for instance, can make for a less
@@ -135,7 +161,11 @@ public sealed class PointOfInterestSystem : EntitySystem
         }
     }
 
-    public void GenerateOptionals(MapId mapUid, List<PointOfInterestPrototype> optionalPrototypes, out List<EntityUid> optionalStations)
+    public void GenerateOptionals(
+        MapId mapUid,
+        List<PointOfInterestPrototype> optionalPrototypes,
+        out List<EntityUid> optionalStations
+    )
     {
         //Stations that do not have a defined grouping in their prototype get a default of "Optional" and get put into the
         //generic random rotation of POIs. This should include traditional places like Tinnia's rest, the Science Lab, The Pit,
@@ -169,7 +199,11 @@ public sealed class PointOfInterestSystem : EntitySystem
         }
     }
 
-    public void GenerateRequireds(MapId mapUid, List<PointOfInterestPrototype> requiredPrototypes, out List<EntityUid> requiredStations)
+    public void GenerateRequireds(
+        MapId mapUid,
+        List<PointOfInterestPrototype> requiredPrototypes,
+        out List<EntityUid> requiredStations
+    )
     {
         //Stations are required are ones that are vital to function but otherwise still follow a generic random spawn logic
         //Traditionally these would be stations like Expedition Lodge, NFSD station, Prison/Courthouse POI, etc.
@@ -198,7 +232,11 @@ public sealed class PointOfInterestSystem : EntitySystem
         }
     }
 
-    public void GenerateUniques(MapId mapUid, Dictionary<string, List<PointOfInterestPrototype>> uniquePrototypes, out List<EntityUid> uniqueStations)
+    public void GenerateUniques(
+        MapId mapUid,
+        Dictionary<string, List<PointOfInterestPrototype>> uniquePrototypes,
+        out List<EntityUid> uniqueStations
+    )
     {
         //Unique locations are semi-dynamic groupings of POIs that rely each independantly on the SpawnChance per POI prototype
         //Since these are the remainder, and logically must have custom-designated groupings, we can then know to subdivide
@@ -228,7 +266,10 @@ public sealed class PointOfInterestSystem : EntitySystem
                 {
                     var offset = GetRandomPOICoord(proto.MinimumDistance, proto.MaximumDistance);
 
-                    if (TrySpawnPoiGrid(mapUid, proto, offset, out var optionalUid) && optionalUid is { Valid: true } uid)
+                    if (
+                        TrySpawnPoiGrid(mapUid, proto, offset, out var optionalUid)
+                        && optionalUid is { Valid: true } uid
+                    )
                     {
                         uniqueStations.Add(uid);
                         AddStationCoordsToSet(offset);
@@ -239,7 +280,13 @@ public sealed class PointOfInterestSystem : EntitySystem
         }
     }
 
-    private bool TrySpawnPoiGrid(MapId mapUid, PointOfInterestPrototype proto, Vector2 offset, out EntityUid? gridUid, string? overrideName = null)
+    private bool TrySpawnPoiGrid(
+        MapId mapUid,
+        PointOfInterestPrototype proto,
+        Vector2 offset,
+        out EntityUid? gridUid,
+        string? overrideName = null
+    )
     {
         gridUid = null;
         if (!_map.TryLoadGrid(mapUid, proto.GridPath, out var loadedGrid, offset: offset, rot: _random.NextAngle()))

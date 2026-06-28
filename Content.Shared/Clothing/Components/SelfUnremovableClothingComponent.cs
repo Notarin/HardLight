@@ -12,7 +12,4 @@ namespace Content.Shared.Clothing.Components;
 [NetworkedComponent]
 [RegisterComponent]
 [Access(typeof(SelfUnremovableClothingSystem))]
-public sealed partial class SelfUnremovableClothingComponent : Component
-{
-
-}
+public sealed partial class SelfUnremovableClothingComponent : Component { }

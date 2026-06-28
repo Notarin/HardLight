@@ -6,7 +6,7 @@
   components:
   - type: Tag
     tags:
-      - SecBeltEquip
+    - SecBeltEquip
   - type: ItemSlots
     slots:
       cell_slot:
@@ -25,11 +25,11 @@
   - type: Sprite
     sprite: _NF/Objects/Tools/nfsdlite.rsi
     layers:
-      - state: nfsdlite
-      - state: nfsdlite-overlay
-        shader: unshaded
-        visible: false
-        map: [ "light" ]
+    - state: nfsdlite
+    - state: nfsdlite-overlay
+      shader: unshaded
+      visible: false
+      map: ["light"]
   - type: MeleeWeapon
     damage:
       types:
@@ -43,4 +43,4 @@
     sprite: _NF/Objects/Tools/nfsdlite.rsi
     quickEquip: false
     slots:
-      - Belt
+    - Belt

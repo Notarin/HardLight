@@ -2,8 +2,8 @@
   id: NFTableRandomConcealedMine
   table: !type:GroupSelector
     children:
-    # Explosive
     - !type:GroupSelector
+      # Explosive
       children:
       - id: NFToolboxMineExplosive
         weight: 1
@@ -17,8 +17,8 @@
         weight: 19
       - id: NFScrapMineExplosive
         weight: 25
-    # Cryo
     - !type:GroupSelector
+      # Cryo
       children:
       - id: NFToolboxMineCryo
         weight: 1
@@ -32,8 +32,8 @@
         weight: 19
       - id: NFScrapMineCryo
         weight: 25
-    # Fire
     - !type:GroupSelector
+      # Fire
       children:
       - id: NFToolboxMineFire
         weight: 1

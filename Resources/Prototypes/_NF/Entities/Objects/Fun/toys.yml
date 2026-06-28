@@ -117,15 +117,13 @@
   - type: Fixtures
     fixtures:
       slips:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.4,-0.3,0.4,0.3"
         layer:
         - SlipLayer
         hard: false
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.4,-0.3,0.4,0.3"
         density: 10
         mask:
@@ -145,15 +143,15 @@
     heldPrefix: box
   - type: StorageFill
     contents:
-      - id: PetRock
-        prob: 0.8
-        orGroup: Rock
-      - id: PetRockFred
-        prob: 0.1
-        orGroup: Rock
-      - id: PetRockRoxie
-        prob: 0.1
-        orGroup: Rock
+    - id: PetRock
+      prob: 0.8
+      orGroup: Rock
+    - id: PetRockFred
+      prob: 0.1
+      orGroup: Rock
+    - id: PetRockRoxie
+      prob: 0.1
+      orGroup: Rock
 
 - type: entity
   parent: [BaseItem, MrChips]
@@ -166,17 +164,17 @@
     price: 5
   - type: VentriloquistPuppet # Frontier
     removeHand:
-      - ventriloquist-rock-release-hand
+    - ventriloquist-rock-release-hand
     removedHand:
-      - ventriloquist-rock-released-hand
+    - ventriloquist-rock-released-hand
     insertHand:
-      - ventriloquist-rock-grasp-hand
+    - ventriloquist-rock-grasp-hand
     insertedHand:
-      - ventriloquist-rock-grasped-hand
+    - ventriloquist-rock-grasped-hand
     puppetRoleName:
-      - ventriloquist-rock-role-name
+    - ventriloquist-rock-role-name
     puppetRoleDescription:
-      - ventriloquist-rock-role-description
+    - ventriloquist-rock-role-description
   - type: DamageOnLand
     damage:
       types:
@@ -189,8 +187,7 @@
     damageContainer: Inorganic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 10
       behaviors:
       - !type:PlaySoundBehavior
@@ -202,7 +199,7 @@
             min: 1
             max: 1
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
 
 - type: entity
   parent: BasePetRock
@@ -556,15 +553,15 @@
   parent: [BaseClearContraband, NFWeaponLauncherRocket]
   id: WeaponLauncherRocketToy
   suffix: Toy
-  description: A plush toy, this launches foam "grenades". Design by SESWC  # Hardlight
+  description: A plush toy, this launches foam "grenades". Design by SESWC # Hardlight
   components:
   - type: Sprite
     sprite: _NF/Objects/Fun/emotional_support_rpg.rsi
     layers: # explicit just in case the base changes.
-      - state: base
-        map: ["enum.GunVisualLayers.Base"]
-      - state: mag-0
-        map: ["enum.GunVisualLayers.Mag"]
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
   - type: Clothing
     sprite: _NF/Objects/Fun/emotional_support_rpg.rsi
   - type: Gun
@@ -575,16 +572,16 @@
   - type: BallisticAmmoProvider
     whitelist:
       tags:
-        - NFFoamRPG
+      - NFFoamRPG
     proto: BulletFoamRPG
     soundInsert:
       collection: ToySqueak
   - type: EmitSoundOnCollide
     sound:
       collection: ToySqueak
-  - type: NFWeaponDetails  # Hardlight change
+  - type: NFWeaponDetails # Hardlight change
     manufacturer: weapon-details-manufacturer-SESWC-consortium
-  # - type: EyeCursorOffset # clear the offset
+    # - type: EyeCursorOffset # clear the offset
     # maxOffset: 0
     # pvsIncrease: 0
 
@@ -594,19 +591,19 @@
   name: foam RPG rocket
   parent: BaseItemHarmless
   components:
-    - type: Tag
-      tags:
-        - NFFoamRPG
-        - Trash
-    - type: Ammo
-    - type: Sprite
-      sprite: _NF/Objects/Fun/emotional_support_rocket.rsi
-      state: icon
-    - type: EmitSoundOnCollide
-      sound:
-       path: /Audio/Weapons/rubberhammer.ogg
-    - type: StaminaDamageOnCollide
-      damage: 20
+  - type: Tag
+    tags:
+    - NFFoamRPG
+    - Trash
+  - type: Ammo
+  - type: Sprite
+    sprite: _NF/Objects/Fun/emotional_support_rocket.rsi
+    state: icon
+  - type: EmitSoundOnCollide
+    sound:
+      path: /Audio/Weapons/rubberhammer.ogg
+  - type: StaminaDamageOnCollide
+    damage: 20
 
 - type: entity
   parent: [BaseClearContraband, NFBaseWeaponFrameRevolverFoamForce, NFBaseWeaponRevolverChamberCap]
@@ -645,7 +642,7 @@
 - type: entity
   parent: [BaseC3SyndicateContrabandNoValue, NFRevolverCapGunFake] # Frontier: added BaseC3SyndicateContraband
   id: NFRevolverCapGunFakeGrown
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   suffix: Fake, Grown
   components:
   - type: RevolverAmmoProvider

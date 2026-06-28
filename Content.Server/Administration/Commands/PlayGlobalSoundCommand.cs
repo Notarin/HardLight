@@ -13,10 +13,17 @@ namespace Content.Server.Administration.Commands;
 [AdminCommand(AdminFlags.Fun)]
 public sealed class PlayGlobalSoundCommand : IConsoleCommand
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IPrototypeManager _protoManager = default!;
-    [Dependency] private readonly IResourceManager _res = default!;
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _protoManager = default!;
+
+    [Dependency]
+    private readonly IResourceManager _res = default!;
 
     public string Command => "playglobalsound";
     public string Description => Loc.GetString("play-global-sound-command-description");
@@ -76,7 +83,9 @@ public sealed class PlayGlobalSoundCommand : IConsoleCommand
 
                         if (!_playerManager.TryGetSessionByUsername(username, out var session))
                         {
-                            shell.WriteError(Loc.GetString("play-global-sound-command-player-not-found", ("username", username)));
+                            shell.WriteError(
+                                Loc.GetString("play-global-sound-command-player-not-found", ("username", username))
+                            );
                             continue;
                         }
 
@@ -110,7 +119,8 @@ public sealed class PlayGlobalSoundCommand : IConsoleCommand
             var options = _playerManager.Sessions.Select<ICommonSession, string>(c => c.Name);
             return CompletionResult.FromHintOptions(
                 options,
-                Loc.GetString("play-global-sound-command-arg-usern", ("user", args.Length - 2)));
+                Loc.GetString("play-global-sound-command-arg-usern", ("user", args.Length - 2))
+            );
         }
 
         return CompletionResult.Empty;

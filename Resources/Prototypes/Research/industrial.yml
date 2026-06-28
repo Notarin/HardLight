@@ -3,7 +3,7 @@
 - type: technology
   id: SalvageEquipment
   technologyPrerequisites:
-    - BasicParts
+  - BasicParts
   name: research-technology-salvage-equipment
   icon:
     sprite: Objects/Tools/handdrill.rsi
@@ -26,7 +26,7 @@
 - type: technology
   id: SpaceScanning
   technologyPrerequisites:
-    - BasicParts
+  - BasicParts
   name: research-technology-space-scanning
   icon:
     sprite: Objects/Tools/handheld_mass_scanner.rsi
@@ -59,7 +59,7 @@
 - type: technology
   id: MechanicalCompression
   technologyPrerequisites:
-    - AdvancedParts
+  - AdvancedParts
   name: research-technology-mechanical-compression
   icon:
     sprite: Structures/Machines/flatpacker.rsi
@@ -75,7 +75,7 @@
 - type: technology
   id: IndustrialEngineering
   technologyPrerequisites:
-    - MechanicalCompression
+  - MechanicalCompression
   name: research-technology-industrial-engineering
   icon:
     sprite: Structures/Machines/protolathe_hypercon.rsi
@@ -109,7 +109,7 @@
 - type: technology
   id: PowerGeneration
   technologyPrerequisites:
-    - AdvancedParts
+  - AdvancedParts
   name: research-technology-power-generation
   icon:
     sprite: Structures/Power/Generation/portable_generator.rsi
@@ -130,7 +130,7 @@
 - type: technology
   id: AtmosphericTech
   technologyPrerequisites:
-    - BasicParts
+  - BasicParts
   name: research-technology-atmospheric-tech
   icon:
     sprite: Structures/Piping/Atmospherics/thermomachine.rsi
@@ -170,7 +170,7 @@
 - type: technology
   id: Shuttlecraft
   technologyPrerequisites:
-    - AdvancedParts
+  - AdvancedParts
   name: research-technology-shuttlecraft
   icon:
     sprite: _NF/Structures/Shuttles/gyroscope.rsi # Frontier: add _NF prefix
@@ -210,7 +210,7 @@
 - type: technology
   id: AdvancedToolsTechnology
   technologyPrerequisites:
-    - SuperParts
+  - SuperParts
   name: research-technology-advanced-tools
   icon:
     sprite: Objects/Tools/welder_experimental.rsi
@@ -221,24 +221,24 @@
   cost: 23500
 
   recipeUnlocks:
-    - WelderExperimental
-    - PowerDrill
-    - JawsOfLife
-    - UtilityBeltChiefEngineer
-    - BorgModuleAdvancedTool
-    - Fulton # Frontier
-    - FultonBeacon # Frontier
-    - NFBlueprintPowerDrill # Frontier
-    - NFBlueprintJawsOfLife # Frontier
-    - NFBlueprintWelderExperimental # Frontier
-    - OmniHandLeft # HardLight
-    - OmniHandRight # HardLight
+  - WelderExperimental
+  - PowerDrill
+  - JawsOfLife
+  - UtilityBeltChiefEngineer
+  - BorgModuleAdvancedTool
+  - Fulton # Frontier
+  - FultonBeacon # Frontier
+  - NFBlueprintPowerDrill # Frontier
+  - NFBlueprintJawsOfLife # Frontier
+  - NFBlueprintWelderExperimental # Frontier
+  - OmniHandLeft # HardLight
+  - OmniHandRight # HardLight
 
 - type: technology
   id: MassExcavation
   technologyPrerequisites:
-    - SalvageEquipment
-    - AdvancedParts
+  - SalvageEquipment
+  - AdvancedParts
   name: research-technology-excavation
   icon:
     sprite: Objects/Tools/handdrilldiamond.rsi

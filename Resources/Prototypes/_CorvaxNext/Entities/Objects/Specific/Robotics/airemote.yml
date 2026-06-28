@@ -4,16 +4,16 @@
   name: "B.O.R.I.S. AI-Cyborg Remote Control"
   description: Artificial Intelligence cyborg control board.
   components:
-    - type: Sprite
-      sprite: Objects/Misc/module.rsi
-      state: boris
-    - type: Examiner
-    - type: AiRemoteBrain
-    - type: BorgBrain
-    - type: Organ
-      slotId: brain
-    - type: Brain
-    - type: Actions
-    - type: Tag
-      tags:
-      - CannotSuicide
+  - type: Sprite
+    sprite: Objects/Misc/module.rsi
+    state: boris
+  - type: Examiner
+  - type: AiRemoteBrain
+  - type: BorgBrain
+  - type: Organ
+    slotId: brain
+  - type: Brain
+  - type: Actions
+  - type: Tag
+    tags:
+    - CannotSuicide

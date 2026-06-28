@@ -43,7 +43,7 @@
     coverage: MOUTH
 
 - type: entity
-  parent: [ BaseC3ContrabandUnredeemable, ClothingMaskGasSecurity ]
+  parent: [BaseC3ContrabandUnredeemable, ClothingMaskGasSecurity]
   id: ClothingMaskGasNfsd
   name: ColSec gas mask
   description: A standard issue ColSec gas mask.
@@ -55,7 +55,7 @@
   - type: CatWearable
 
 - type: entity
-  parent: [ BaseC3ContrabandUnredeemable, ClothingMaskGasSwat ]
+  parent: [BaseC3ContrabandUnredeemable, ClothingMaskGasSwat]
   id: ClothingMaskGasSheriff
   name: ColSec colonel gas mask
   description: A gas mask worthy of a colonel.
@@ -66,7 +66,7 @@
     sprite: _NF/Clothing/Mask/nfsd_sheriff.rsi
 
 - type: entity
-  parent: [ BaseC3CultContrabandUnredeemable, ContrabandClothing, ClothingMaskGasExplorer ]
+  parent: [BaseC3CultContrabandUnredeemable, ContrabandClothing, ClothingMaskGasExplorer]
   id: ClothingMaskCultJanitor
   name: cult janitor mask
   description: A close-fitting, imposing breath mask designed for accursed custodians who value style.
@@ -81,7 +81,7 @@
 
 - type: entity
   id: ClothingMaskPunkHalf
-  parent: [ ClothingMaskGasExplorer, RecyclableItemClothDevice ]
+  parent: [ClothingMaskGasExplorer, RecyclableItemClothDevice]
   name: punk halfmask
   description: A close-fitting breath mask with gamer lights!
   suffix: Random visuals
@@ -90,18 +90,18 @@
     sprite: _NF/Clothing/Mask/punkhalfmask.rsi
     layers:
     - state: icon-base-mask
-      map: [ "mask_main" ]
+      map: ["mask_main"]
     - state: icon-decor-mask
-      map: [ "mask_decor" ]
+      map: ["mask_decor"]
       shader: unshaded
   - type: Clothing
     sprite: _NF/Clothing/Mask/punkhalfmask.rsi
     clothingVisuals:
       mask:
       - state: equipped-MASK
-        map: [ "clothing_mask_main" ]
+        map: ["clothing_mask_main"]
       - state: decor-equipped-MASK
-        map: [ "clothing_mask_decor" ]
+        map: ["clothing_mask_decor"]
         shader: unshaded
   - type: RandomSprite
     available:
@@ -131,7 +131,7 @@
     sprite: _NF/Clothing/Mask/clown_bald.rsi
 
 - type: entity
-  parent: [ BaseC3WizardContraband, ContrabandClothing, ClothingMaskGasExplorer ]
+  parent: [BaseC3WizardContraband, ContrabandClothing, ClothingMaskGasExplorer]
   id: ClothingMaskAlchemist
   name: alchemist mask
   description: The beaked, leather mask of an alchemist. Even alone it provides ample protection to acids.

@@ -6,8 +6,11 @@ namespace Content.Client.Light.EntitySystems;
 
 public sealed class LightBulbSystem : SharedLightBulbSystem
 {
-    [Dependency] private readonly AppearanceSystem _appearance = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly AppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     public override void Initialize()
     {

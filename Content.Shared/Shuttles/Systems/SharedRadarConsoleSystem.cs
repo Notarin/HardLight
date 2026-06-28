@@ -6,9 +6,7 @@ public abstract class SharedRadarConsoleSystem : EntitySystem
 {
     public const float DefaultMaxRange = 256f;
 
-    protected virtual void UpdateState(EntityUid uid, RadarConsoleComponent component)
-    {
-    }
+    protected virtual void UpdateState(EntityUid uid, RadarConsoleComponent component) { }
 
     public void SetRange(EntityUid uid, float value, RadarConsoleComponent component)
     {

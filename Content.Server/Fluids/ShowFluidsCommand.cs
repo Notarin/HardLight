@@ -8,10 +8,12 @@ namespace Content.Server.Fluids;
 [AdminCommand(AdminFlags.Debug)]
 public sealed class ShowFluidsCommand : IConsoleCommand
 {
-    [Dependency] private readonly IEntitySystemManager _entitySystem = default!;
+    [Dependency]
+    private readonly IEntitySystemManager _entitySystem = default!;
     public string Command => "showfluids";
     public string Description => "Toggles seeing puddle debug overlay.";
     public string Help => $"Usage: {Command}";
+
     public void Execute(IConsoleShell shell, string argStr, string[] args)
     {
         var player = shell.Player;
@@ -24,8 +26,6 @@ public sealed class ShowFluidsCommand : IConsoleCommand
         var fluidDebug = _entitySystem.GetEntitySystem<PuddleDebugDebugOverlaySystem>();
         var enabled = fluidDebug.ToggleObserver(player);
 
-        shell.WriteLine(enabled
-            ? "Enabled the puddle debug overlay."
-            : "Disabled the puddle debug overlay.");
+        shell.WriteLine(enabled ? "Enabled the puddle debug overlay." : "Disabled the puddle debug overlay.");
     }
 }

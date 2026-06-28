@@ -6,7 +6,8 @@ namespace Content.Client.Sprite;
 
 public sealed class ScaleVisualsSystem : SharedScaleVisualsSystem
 {
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     public override void Initialize()
     {
@@ -17,8 +18,8 @@ public sealed class ScaleVisualsSystem : SharedScaleVisualsSystem
 
     private void OnChangeData(Entity<ScaleVisualsComponent> ent, ref AppearanceChangeEvent args)
     {
-        if (!args.AppearanceData.TryGetValue(ScaleVisuals.Scale, out var scale) ||
-            args.Sprite == null) return;
+        if (!args.AppearanceData.TryGetValue(ScaleVisuals.Scale, out var scale) || args.Sprite == null)
+            return;
 
         // save the original scale
         ent.Comp.OriginalScale ??= args.Sprite.Scale;

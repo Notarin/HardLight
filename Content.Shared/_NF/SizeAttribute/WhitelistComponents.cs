@@ -18,6 +18,7 @@ public sealed partial class TallWhitelistComponent : Component
 
     [DataField("borgFixtureRadius")]
     public float? BorgFixtureRadius;
+
     // HardLight end
 
     [DataField("density")]
@@ -58,6 +59,7 @@ public sealed partial class ShortWhitelistComponent : Component
 
     [DataField("borgFixtureRadius")]
     public float? BorgFixtureRadius;
+
     // HardLight end
 
     [DataField("density")]

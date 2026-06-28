@@ -1,15 +1,15 @@
+using Content.Server.Popups;
 using Content.Shared.Actions;
+using Content.Shared.Animals.Components;
+using Content.Shared.Animals.Systems;
 using Content.Shared.DoAfter;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Movement.Systems;
 using Content.Shared.Storage;
 using Content.Shared.Traits.Events;
-using Content.Server.Popups;
 using Robust.Server.Audio;
 using Robust.Shared.Player;
 using Robust.Shared.Random;
-using Content.Shared.Animals.Systems;
-using Content.Shared.Animals.Components;
 
 namespace Content.Server.Animals.Systems;
 
@@ -19,12 +19,23 @@ namespace Content.Server.Animals.Systems;
 /// </summary>
 public sealed class PrizeballLayingSystem : SharedPrizeballLayingSystem //  We've changed the base to SharedPrizeballLayingSystem so we can run the Verb drawing on the client.
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly AudioSystem _audio = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly MovementSpeedModifierSystem _movementSpeedModifier = default!;
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly SharedActionsSystem _actions = default!;
+
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfter = default!;
+
+    [Dependency]
+    private readonly AudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly MovementSpeedModifierSystem _movementSpeedModifier = default!;
 
     public override void Initialize()
     {
@@ -42,9 +53,16 @@ public sealed class PrizeballLayingSystem : SharedPrizeballLayingSystem //  We'v
         _actions.RemoveAction(user, pballLaying.Action);
     }
 
-   protected override void AttemptLayInside(Entity<PrizeballLayingComponent> user, EntityUid target)
+    protected override void AttemptLayInside(Entity<PrizeballLayingComponent> user, EntityUid target)
     {
-        var doargs = new DoAfterArgs(EntityManager, user.Owner, user.Comp.PballLayDelay, new PrizeballLayingInsideDoAfterEvent(), user.Owner, target)
+        var doargs = new DoAfterArgs(
+            EntityManager,
+            user.Owner,
+            user.Comp.PballLayDelay,
+            new PrizeballLayingInsideDoAfterEvent(),
+            user.Owner,
+            target
+        )
         {
             BreakOnMove = true,
             BlockDuplicate = true,
@@ -52,11 +70,22 @@ public sealed class PrizeballLayingSystem : SharedPrizeballLayingSystem //  We'v
             CancelDuplicate = true,
         };
 
-        _popup.PopupEntity(Loc.GetString("action-popup-lay-pball-inside-start", ("entity", Identity.Entity(user.Owner, EntityManager)), ("target", Identity.Entity(target, EntityManager))), user);
+        _popup.PopupEntity(
+            Loc.GetString(
+                "action-popup-lay-pball-inside-start",
+                ("entity", Identity.Entity(user.Owner, EntityManager)),
+                ("target", Identity.Entity(target, EntityManager))
+            ),
+            user
+        );
         _doAfter.TryStartDoAfter(doargs);
     }
 
-    private void OnRefreshMovespeed(EntityUid user, PrizeballLayingComponent pballLaying, RefreshMovementSpeedModifiersEvent args)
+    private void OnRefreshMovespeed(
+        EntityUid user,
+        PrizeballLayingComponent pballLaying,
+        RefreshMovementSpeedModifiersEvent args
+    )
     {
         if (pballLaying.isHeavyOfPballs())
         {
@@ -64,7 +93,11 @@ public sealed class PrizeballLayingSystem : SharedPrizeballLayingSystem //  We'v
         }
     }
 
-    private void OnPballLayingAction(EntityUid user, PrizeballLayingComponent pballLaying, PrizeballLayingActionEvent args)
+    private void OnPballLayingAction(
+        EntityUid user,
+        PrizeballLayingComponent pballLaying,
+        PrizeballLayingActionEvent args
+    )
     {
         if (!pballLaying.hasPballs())
         {
@@ -72,7 +105,13 @@ public sealed class PrizeballLayingSystem : SharedPrizeballLayingSystem //  We'v
             return;
         }
 
-        var doAfter = new DoAfterArgs(EntityManager, user, pballLaying.PballLayDelay, new PrizeballLayingDoAfterEvent(), user)
+        var doAfter = new DoAfterArgs(
+            EntityManager,
+            user,
+            pballLaying.PballLayDelay,
+            new PrizeballLayingDoAfterEvent(),
+            user
+        )
         {
             BreakOnMove = true,
             BlockDuplicate = true,
@@ -97,31 +136,35 @@ public sealed class PrizeballLayingSystem : SharedPrizeballLayingSystem //  We'v
 
         AddPballs(user, pballLaying, amount);
 
-        if(pballLaying.hasPballs() && !hasPballsBefore)
+        if (pballLaying.hasPballs() && !hasPballsBefore)
         {
             _popup.PopupEntity(Loc.GetString("action-popup-lay-pball-firstpball"), user, user);
             _actions.AddAction(user, ref pballLaying.Action, pballLaying.ActionPrototype);
         }
-        else if(pballLaying.isHeavyOfPballs() && !isHeavyBefore)
+        else if (pballLaying.isHeavyOfPballs() && !isHeavyBefore)
         {
             _movementSpeedModifier.RefreshMovementSpeedModifiers(user);
             _popup.PopupEntity(Loc.GetString("action-popup-lay-pball-heavypballs"), user, user);
         }
-        else if(pballLaying.isFullOfPballs() && !isFullBefore)
+        else if (pballLaying.isFullOfPballs() && !isFullBefore)
         {
             _popup.PopupEntity(Loc.GetString("action-popup-lay-pball-fullpballs"), user, user);
         }
-        else if(pballLaying.doFlavor())
+        else if (pballLaying.doFlavor())
         {
             _popup.PopupEntity(Loc.GetString(_random.Pick(pballLaying.FlavorMessages)), user, user);
         }
     }
 
-    private void OnPballLayingInsideDoAfter(EntityUid user, PrizeballLayingComponent myPballs, PrizeballLayingInsideDoAfterEvent args)
+    private void OnPballLayingInsideDoAfter(
+        EntityUid user,
+        PrizeballLayingComponent myPballs,
+        PrizeballLayingInsideDoAfterEvent args
+    )
     {
         if (args.Cancelled || args.Handled || args.Target == null)
             return;
-            
+
         args.Handled = true;
 
         if (myPballs.Deleted || !myPballs.hasPballs())
@@ -135,7 +178,8 @@ public sealed class PrizeballLayingSystem : SharedPrizeballLayingSystem //  We'v
 
         if (!TryComp<PrizeballLayingComponent>(target, out var theirPballs))
         {
-            theirPballs = (PrizeballLayingComponent)Factory.GetComponent(Factory.GetComponentName<PrizeballLayingComponent>());
+            theirPballs = (PrizeballLayingComponent)
+                Factory.GetComponent(Factory.GetComponentName<PrizeballLayingComponent>());
             EntityManager.AddComponent(target, theirPballs);
             theirPballs.makeTempFrom(myPballs);
             _actions.AddAction(target, ref theirPballs.Action, theirPballs.ActionPrototype);
@@ -148,29 +192,61 @@ public sealed class PrizeballLayingSystem : SharedPrizeballLayingSystem //  We'v
         _movementSpeedModifier.RefreshMovementSpeedModifiers(user);
         _movementSpeedModifier.RefreshMovementSpeedModifiers(target);
 
-        if(myPballs.hasPballs())
+        if (myPballs.hasPballs())
         {
-            _popup.PopupEntity(Loc.GetString("action-popup-lay-pball-inside-give-more", ("entity", Identity.Entity(target, EntityManager))), user, user);
-            _popup.PopupEntity(Loc.GetString("action-popup-lay-pball-inside-receive-more", ("entity", Identity.Entity(user, EntityManager))), target, target);
+            _popup.PopupEntity(
+                Loc.GetString(
+                    "action-popup-lay-pball-inside-give-more",
+                    ("entity", Identity.Entity(target, EntityManager))
+                ),
+                user,
+                user
+            );
+            _popup.PopupEntity(
+                Loc.GetString(
+                    "action-popup-lay-pball-inside-receive-more",
+                    ("entity", Identity.Entity(user, EntityManager))
+                ),
+                target,
+                target
+            );
             args.Repeat = true;
         }
         else
         {
-            _popup.PopupEntity(Loc.GetString("action-popup-lay-pball-inside-give-done", ("entity", Identity.Entity(target, EntityManager))), user, user);
-            _popup.PopupEntity(Loc.GetString("action-popup-lay-pball-inside-receive-done", ("entity", Identity.Entity(user, EntityManager))), target, target);
+            _popup.PopupEntity(
+                Loc.GetString(
+                    "action-popup-lay-pball-inside-give-done",
+                    ("entity", Identity.Entity(target, EntityManager))
+                ),
+                user,
+                user
+            );
+            _popup.PopupEntity(
+                Loc.GetString(
+                    "action-popup-lay-pball-inside-receive-done",
+                    ("entity", Identity.Entity(user, EntityManager))
+                ),
+                target,
+                target
+            );
 
-            if(myPballs.Temporary)
+            if (myPballs.Temporary)
                 RemComp<PrizeballLayingComponent>(user);
             else
                 _actions.RemoveAction(user, myPballs.Action);
         }
     }
 
-    private void OnPballLayingDoAfter(EntityUid user, PrizeballLayingComponent pballLaying, PrizeballLayingDoAfterEvent args)
+    private void OnPballLayingDoAfter(
+        EntityUid user,
+        PrizeballLayingComponent pballLaying,
+        PrizeballLayingDoAfterEvent args
+    )
     {
         if (args.Cancelled || args.Handled)
             return;
-            
+
         args.Handled = true;
 
         if (pballLaying.Deleted || !pballLaying.hasPballs())
@@ -189,7 +265,7 @@ public sealed class PrizeballLayingSystem : SharedPrizeballLayingSystem //  We'v
         AddPballs(user, pballLaying, -1.0f);
         _movementSpeedModifier.RefreshMovementSpeedModifiers(user);
 
-        if(pballLaying.hasPballs())
+        if (pballLaying.hasPballs())
         {
             _popup.PopupEntity(Loc.GetString("action-popup-lay-pball-user-more"), user, user);
             args.Repeat = true;
@@ -198,11 +274,16 @@ public sealed class PrizeballLayingSystem : SharedPrizeballLayingSystem //  We'v
         {
             _popup.PopupEntity(Loc.GetString("action-popup-lay-pball-user-done"), user, user);
 
-            if(pballLaying.Temporary)
+            if (pballLaying.Temporary)
                 EntityManager.RemoveComponent<PrizeballLayingComponent>(user);
             else
                 _actions.RemoveAction(user, pballLaying.Action);
         }
-        _popup.PopupEntity(Loc.GetString("action-popup-lay-pball-others", ("entity", user)), user, Filter.PvsExcept(user), true);
+        _popup.PopupEntity(
+            Loc.GetString("action-popup-lay-pball-others", ("entity", user)),
+            user,
+            Filter.PvsExcept(user),
+            true
+        );
     }
 }

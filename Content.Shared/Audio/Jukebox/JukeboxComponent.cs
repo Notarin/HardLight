@@ -22,6 +22,7 @@ public sealed partial class JukeboxComponent : Component
 
     [ViewVariables]
     public JukeboxPlaybackMode PlaybackMode = JukeboxPlaybackMode.Single;
+
     // End Frontier: Shuffle & Repeat
 
     public EntityUid? AudioStream;
@@ -91,12 +92,13 @@ public enum JukeboxPlaybackMode : byte
     Shuffle,
     Repeat,
 }
+
 // End Frontier: Shuffle & Repeat
 
 [Serializable, NetSerializable]
 public enum JukeboxVisuals : byte
 {
-    VisualState
+    VisualState,
 }
 
 [Serializable, NetSerializable]
@@ -109,5 +111,5 @@ public enum JukeboxVisualState : byte
 
 public enum JukeboxVisualLayers : byte
 {
-    Base
+    Base,
 }

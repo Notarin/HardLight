@@ -11,11 +11,20 @@ namespace Content.Server._White.Examine
 {
     public sealed class ExaminableCharacterSystem : EntitySystem
     {
-        [Dependency] private readonly InventorySystem _inventorySystem = default!;
-        [Dependency] private readonly IdentitySystem _identitySystem = default!;
-        [Dependency] private readonly EntityManager _entityManager = default!;
-        [Dependency] private readonly IChatManager _chatManager = default!;
-        [Dependency] private readonly INetConfigurationManager _netConfigManager = default!;
+        [Dependency]
+        private readonly InventorySystem _inventorySystem = default!;
+
+        [Dependency]
+        private readonly IdentitySystem _identitySystem = default!;
+
+        [Dependency]
+        private readonly EntityManager _entityManager = default!;
+
+        [Dependency]
+        private readonly IChatManager _chatManager = default!;
+
+        [Dependency]
+        private readonly INetConfigurationManager _netConfigManager = default!;
 
         public override void Initialize()
         {
@@ -57,7 +66,7 @@ namespace Content.Server._White.Examine
                 { "belt", "belt-" },
                 { "id", "id-" },
                 { "shoes", "shoes-" },
-                { "suitstorage", "suitstorage-" }
+                { "suitstorage", "suitstorage-" },
             };
 
             var priority = 13;
@@ -104,7 +113,15 @@ namespace Content.Server._White.Examine
             if (TryComp<ActorComponent>(args.Examiner, out var actorComponent))
             {
                 if (_netConfigManager.GetClientCVar(actorComponent.PlayerSession.Channel, CCVars.LogInChat))
-                    _chatManager.ChatMessageToOne(ChatChannel.Emotes, combinedLog, combinedLog, EntityUid.Invalid, false, actorComponent.PlayerSession.Channel, recordReplay: false);
+                    _chatManager.ChatMessageToOne(
+                        ChatChannel.Emotes,
+                        combinedLog,
+                        combinedLog,
+                        EntityUid.Invalid,
+                        false,
+                        actorComponent.PlayerSession.Channel,
+                        recordReplay: false
+                    );
             }
         }
     }

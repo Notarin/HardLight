@@ -26,7 +26,7 @@ namespace Content.Shared.Administration
             {
                 var active = buffer.ReadBoolean();
                 buffer.ReadPadBits();
-                var flags = (AdminFlags) buffer.ReadUInt32();
+                var flags = (AdminFlags)buffer.ReadUInt32();
                 var title = buffer.ReadString();
 
                 Admin = new AdminData
@@ -36,7 +36,6 @@ namespace Content.Shared.Administration
                     Flags = flags,
                 };
             }
-
         }
 
         public override void WriteToBuffer(NetOutgoingMessage buffer, IRobustSerializer serializer)
@@ -50,11 +49,12 @@ namespace Content.Shared.Administration
 
             buffer.Write(Admin != null);
 
-            if (Admin == null) return;
+            if (Admin == null)
+                return;
 
             buffer.Write(Admin.Active);
             buffer.WritePadBits();
-            buffer.Write((uint) Admin.Flags);
+            buffer.Write((uint)Admin.Flags);
             buffer.Write(Admin.Title);
         }
 

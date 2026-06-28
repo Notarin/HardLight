@@ -6,24 +6,24 @@
   components:
   - type: StorageFill
     contents:
-      - id: MopItem
-      - id: MopBucketCubeWrapped
-      - id: Bucket
-        amount: 1 # Frontier 3<1
-      - id: WetFloorSign
-        amount: 2
-      - id: Soap
-      - id: SprayBottleSpaceCleaner
-        amount: 2
-      - id: TrashBag
-        amount: 2
-      - id: Plunger
-        amount: 1 # Frontier: 2<1
-      - id: BoxCleanerGrenades
-      - id: WireBrush
-        amount: 2
-      - id: LightReplacer # Frontier
-        amount: 1
+    - id: MopItem
+    - id: MopBucketCubeWrapped
+    - id: Bucket
+      amount: 1 # Frontier 3<1
+    - id: WetFloorSign
+      amount: 2
+    - id: Soap
+    - id: SprayBottleSpaceCleaner
+      amount: 2
+    - id: TrashBag
+      amount: 2
+    - id: Plunger
+      amount: 1 # Frontier: 2<1
+    - id: BoxCleanerGrenades
+    - id: WireBrush
+      amount: 2
+    - id: LightReplacer # Frontier
+      amount: 1
 
 - type: entity
   id: CrateServiceReplacementLights
@@ -33,8 +33,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: BoxLighttube
-      - id: BoxLightbulb
+    - id: BoxLighttube
+    - id: BoxLightbulb
 
 - type: entity
   id: CrateServiceHolidayLights
@@ -44,8 +44,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: BoxLighttubeHoliday
-      - id: BoxLighttubeHoliday
+    - id: BoxLighttubeHoliday
+    - id: BoxLighttubeHoliday
 
 - type: entity
   id: CrateMousetrapBoxes
@@ -53,9 +53,9 @@
   name: mousetraps crate
   description: Mousetraps, for when all of service is being haunted by an entire horde of rats. Use sparingly... or not.
   components:
-    - type: StorageFill
-      contents:
-        - id: BoxMousetrap
+  - type: StorageFill
+    contents:
+    - id: BoxMousetrap
 
 - type: entity
   id: CrateServiceSmokeables
@@ -65,23 +65,23 @@
   components:
   - type: StorageFill
     contents:
-      - id: CigCartonGreen
-        prob: 0.50
-        orGroup: CigCarton1
-      - id: CigCartonRed
-        orGroup: CigCarton1
-      - id: CigCartonBlue
-        prob: 0.50
-        orGroup: CigCarton2
-      - id: CigCartonBlack
-        orGroup: CigCarton2
-      - id: CigarGoldCase
-        prob: 0.05
-        orGroup: Cigars
-      - id: CigarCase
-        orGroup: Cigars
-      - id: Matchbox
-        amount: 2
+    - id: CigCartonGreen
+      prob: 0.50
+      orGroup: CigCarton1
+    - id: CigCartonRed
+      orGroup: CigCarton1
+    - id: CigCartonBlue
+      prob: 0.50
+      orGroup: CigCarton2
+    - id: CigCartonBlack
+      orGroup: CigCarton2
+    - id: CigarGoldCase
+      prob: 0.05
+      orGroup: Cigars
+    - id: CigarCase
+      orGroup: Cigars
+    - id: Matchbox
+      amount: 2
 
 - type: entity
   id: CrateServiceTheatre
@@ -177,10 +177,10 @@
   name: books crate
   description: Contains 10 empty books of random appearance.
   components:
-    - type: StorageFill
-      contents:
-        - id: BookRandom
-          amount: 10
+  - type: StorageFill
+    contents:
+    - id: BookRandom
+      amount: 10
 
 - type: entity
   id: CrateServiceGuidebooks
@@ -188,22 +188,22 @@
   name: guidebooks crate
   description: Contains guidebooks.
   components:
-    - type: StorageFill
-      contents:
-      - id: BookSpaceEncyclopedia
-      - id: BookTheBookOfControl
-      - id: BookBartendersManual
-      - id: BookHowToCookForFortySpaceman
-      - id: BookLeafLoversSecret
-      - id: BookEngineersHandbook
-      - id: BookScientistsGuidebook
-      - id: BookSecurity
-      - id: BookHowToKeepStationClean
-      - id: BookHowToRockAndStone
-      - id: BookMedicalReferenceBook
-      - id: BookHowToSurvive
-      - id: BookChemicalCompendium
-      - id: NFHyperlinkBookSpaceLaw # Frontier: BookSpaceLaw<NFHyperlinkBookSpaceLaw
+  - type: StorageFill
+    contents:
+    - id: BookSpaceEncyclopedia
+    - id: BookTheBookOfControl
+    - id: BookBartendersManual
+    - id: BookHowToCookForFortySpaceman
+    - id: BookLeafLoversSecret
+    - id: BookEngineersHandbook
+    - id: BookScientistsGuidebook
+    - id: BookSecurity
+    - id: BookHowToKeepStationClean
+    - id: BookHowToRockAndStone
+    - id: BookMedicalReferenceBook
+    - id: BookHowToSurvive
+    - id: BookChemicalCompendium
+    - id: NFHyperlinkBookSpaceLaw # Frontier: BookSpaceLaw<NFHyperlinkBookSpaceLaw
 
 - type: entity
   id: CrateServiceSodaDispenser
@@ -211,26 +211,26 @@
   name: soda dispenser refill crate
   description: Contains refills for soda dispensers.
   components:
-    - type: StorageFill
-      contents:
-      - id: DrinkCoffeeJug
-      - id: DrinkColaBottleFull
-      - id: DrinkCreamCartonXL
-      - id: DrinkDrGibbJug
-      - id: DrinkEnergyDrinkJug
-      - id: DrinkGreenTeaJug
-      - id: DrinkIceJug
-      - id: DrinkJuiceLimeCartonXL
-      - id: DrinkJuiceOrangeCartonXL
-      - id: DrinkLemonLimeJug
-      - id: DrinkRootBeerJug
-      - id: DrinkSodaWaterBottleFull
-      - id: DrinkSpaceMountainWindBottleFull
-      - id: DrinkSpaceUpBottleFull
-      - id: DrinkSugarJug
-      - id: DrinkTeaJug
-      - id: DrinkTonicWaterBottleFull
-      - id: DrinkWaterMelonJuiceJug
+  - type: StorageFill
+    contents:
+    - id: DrinkCoffeeJug
+    - id: DrinkColaBottleFull
+    - id: DrinkCreamCartonXL
+    - id: DrinkDrGibbJug
+    - id: DrinkEnergyDrinkJug
+    - id: DrinkGreenTeaJug
+    - id: DrinkIceJug
+    - id: DrinkJuiceLimeCartonXL
+    - id: DrinkJuiceOrangeCartonXL
+    - id: DrinkLemonLimeJug
+    - id: DrinkRootBeerJug
+    - id: DrinkSodaWaterBottleFull
+    - id: DrinkSpaceMountainWindBottleFull
+    - id: DrinkSpaceUpBottleFull
+    - id: DrinkSugarJug
+    - id: DrinkTeaJug
+    - id: DrinkTonicWaterBottleFull
+    - id: DrinkWaterMelonJuiceJug
 
 - type: entity
   id: CrateServiceBoozeDispenser
@@ -238,21 +238,21 @@
   name: booze dispenser refill crate
   description: Contains refills for booze dispensers.
   components:
-    - type: StorageFill
-      contents:
-      - id: DrinkAleBottleFullGrowler
-      - id: DrinkBeerGrowler
-      - id: DrinkCoffeeLiqueurBottleFull
-      - id: DrinkCognacBottleFull
-      - id: DrinkGinBottleFull
-      - id: DrinkMeadJug
-      - id: DrinkRumBottleFull
-      - id: DrinkTequilaBottleFull
-      - id: DrinkVermouthBottleFull
-      - id: DrinkVodkaBottleFull
-      - id: DrinkWhiskeyBottleFull
-      - id: DrinkWineBottleFull
-      - id: DrinkJaegermisterBottleFull # Den - Jaegerminster
+  - type: StorageFill
+    contents:
+    - id: DrinkAleBottleFullGrowler
+    - id: DrinkBeerGrowler
+    - id: DrinkCoffeeLiqueurBottleFull
+    - id: DrinkCognacBottleFull
+    - id: DrinkGinBottleFull
+    - id: DrinkMeadJug
+    - id: DrinkRumBottleFull
+    - id: DrinkTequilaBottleFull
+    - id: DrinkVermouthBottleFull
+    - id: DrinkVodkaBottleFull
+    - id: DrinkWhiskeyBottleFull
+    - id: DrinkWineBottleFull
+    - id: DrinkJaegermisterBottleFull # Den - Jaegerminster
 
 - type: entity
   id: CrateServiceBox
@@ -260,10 +260,10 @@
   name: boxes crate
   description: Contains 6 empty multipurpose boxes.
   components:
-    - type: StorageFill
-      contents:
-        - id: BoxCardboard
-          amount: 6
+  - type: StorageFill
+    contents:
+    - id: BoxCardboard
+      amount: 6
 
 - type: entity
   id: CrateJanitorBiosuit
@@ -273,87 +273,87 @@
   components:
   - type: StorageFill
     contents:
-      - id: ClothingOuterBioJanitor
-        amount: 2
-      - id: ClothingHeadHatHoodBioJanitor
-        amount: 2
-      - id: ClothingMaskSterile
-        amount: 2
+    - id: ClothingOuterBioJanitor
+      amount: 2
+    - id: ClothingHeadHatHoodBioJanitor
+      amount: 2
+    - id: ClothingMaskSterile
+      amount: 2
 
 - type: entity
   id: CrateTrashCartFilled
   suffix: Filled
   parent: CrateTrashCart
   components:
-    - type: StorageFill
-      contents:
-          # Creatures
-#        - id: MobCockroach # Frontier
-#          prob: 0.05 # Frontier
-#        - id: MobMothroach # Frontier
-#          prob: 0.03 # Frontier
-#        - id: MobMouse # Frontier
-#          prob: 0.05 # Frontier
-          # Food Packaging
-        - id: FoodPacketBoritosTrash
-          prob: 0.1
-        - id: FoodPacketCheesieTrash
-          prob: 0.1
-        - id: FoodPacketChipsTrash
-          prob: 0.1
-        - id: FoodPacketSusTrash
-          prob: 0.1
-        - id: FoodPacketSyndiTrash
-          prob: 0.1
-        - id: FoodPacketChowMeinTrash
-          prob: 0.1
-        - id: FoodPacketDanDanTrash
-          prob: 0.1
-        - id: FoodPacketMRETrash
-          prob: 0.1
-        - id: FoodPacketPistachioTrash
-          prob: 0.1
-        - id: FoodPacketSemkiTrash
-          prob: 0.1
-        - id: FoodPacketRaisinsTrash
-          prob: 0.1
-          # Cans
-        - id: FoodTinBeansTrash
-          prob: 0.15
-        - id: FoodTinPeachesTrash
-          prob: 0.15
-        - id: FoodTinMRETrash
-          prob: 0.15
-          # Cigarette Stuff
-        - id: Ash
-          prob: 0.15
-        - id: CigaretteSpent
-          prob: 0.15
-          # Bacteria
-#        - id: FoodBreadMoldySlice # Frontier
-#          prob: 0.15 # Frontier
-#        - id: FoodPizzaMoldySlice # Frontier
-#          prob: 0.15 # Frontier
-          # Botanical Waste
-        - id: TrashBananaPeel
-          prob: 0.15
-        - id: FoodCornTrash
-          prob: 0.15
-          # Misc
-        - id: DrinkGlass
-          prob: 0.15
-        - id: BrokenBottle
-          prob: 0.15
-        - id: LightTubeBroken
-          prob: 0.15
-        - id: LightBulbBroken
-          prob: 0.15
-#        - id: MobMouseDead # Frontier
-#          prob: 0.1 # Frontier
-        - id: Syringe
-          prob: 0.1
-        - id: ShardGlassPlasma
-          prob: 0.1
+  - type: StorageFill
+    contents:
+    #        - id: MobCockroach # Frontier
+    #          prob: 0.05 # Frontier
+    #        - id: MobMothroach # Frontier
+    #          prob: 0.03 # Frontier
+    #        - id: MobMouse # Frontier
+    #          prob: 0.05 # Frontier
+    # Food Packaging
+    - id: FoodPacketBoritosTrash
+      # Creatures
+      prob: 0.1
+    - id: FoodPacketCheesieTrash
+      prob: 0.1
+    - id: FoodPacketChipsTrash
+      prob: 0.1
+    - id: FoodPacketSusTrash
+      prob: 0.1
+    - id: FoodPacketSyndiTrash
+      prob: 0.1
+    - id: FoodPacketChowMeinTrash
+      prob: 0.1
+    - id: FoodPacketDanDanTrash
+      prob: 0.1
+    - id: FoodPacketMRETrash
+      prob: 0.1
+    - id: FoodPacketPistachioTrash
+      prob: 0.1
+    - id: FoodPacketSemkiTrash
+      prob: 0.1
+    - id: FoodPacketRaisinsTrash
+      prob: 0.1
+      # Cans
+    - id: FoodTinBeansTrash
+      prob: 0.15
+    - id: FoodTinPeachesTrash
+      prob: 0.15
+    - id: FoodTinMRETrash
+      prob: 0.15
+      # Cigarette Stuff
+    - id: Ash
+      prob: 0.15
+    - id: CigaretteSpent
+      prob: 0.15
+      # Bacteria
+    - id: TrashBananaPeel
+      #        - id: FoodBreadMoldySlice # Frontier
+      #          prob: 0.15 # Frontier
+      #        - id: FoodPizzaMoldySlice # Frontier
+      #          prob: 0.15 # Frontier
+      # Botanical Waste
+      prob: 0.15
+    - id: FoodCornTrash
+      prob: 0.15
+      # Misc
+    - id: DrinkGlass
+      prob: 0.15
+    - id: BrokenBottle
+      prob: 0.15
+    - id: LightTubeBroken
+      prob: 0.15
+    - id: LightBulbBroken
+      prob: 0.15
+      #        - id: MobMouseDead # Frontier
+      #          prob: 0.1 # Frontier
+    - id: Syringe
+      prob: 0.1
+    - id: ShardGlassPlasma
+      prob: 0.1
 
 - type: entity
   id: CrateCandles
@@ -363,10 +363,10 @@
   components:
   - type: StorageFill
     contents:
-      - id: BoxCandle
-        amount: 2
-      - id: BoxCandleSmall
-        amount: 2
+    - id: BoxCandle
+      amount: 2
+    - id: BoxCandleSmall
+      amount: 2
 
 - type: entity
   parent: CrateGenericSteel

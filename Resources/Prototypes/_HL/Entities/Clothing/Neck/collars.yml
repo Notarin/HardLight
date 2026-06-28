@@ -50,7 +50,7 @@
         canReact: false
 
 - type: entity
-  parent: [ ClothingNeckCollarBase, BaseC2ContrabandUnredeemable ]
+  parent: [ClothingNeckCollarBase, BaseC2ContrabandUnredeemable]
   id: ClothingNeckGovernorCollar
   name: governor override collar
   description: A collar that allows for the manual override and application or removal of silicon lawsets.

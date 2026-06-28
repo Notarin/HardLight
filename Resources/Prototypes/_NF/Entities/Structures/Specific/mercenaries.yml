@@ -13,25 +13,21 @@
   - type: RangedDamageSound
     soundGroups:
       Brute:
-        collection:
-          MetalBulletImpact
+        collection: MetalBulletImpact
     soundTypes:
       Heat:
-        collection:
-          MetalLaserImpact
+        collection: MetalLaserImpact
   - type: Damageable
     damageContainer: Inorganic
     damageModifierSet: Metallic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 60
       behaviors:
-        - !type:DoActsBehavior
-          acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 30
       behaviors:
       - !type:DoActsBehavior

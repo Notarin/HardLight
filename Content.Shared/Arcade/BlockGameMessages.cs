@@ -8,6 +8,7 @@ namespace Content.Shared.Arcade
         public sealed class BlockGamePlayerActionMessage : BoundUserInterfaceMessage
         {
             public readonly BlockGamePlayerAction PlayerAction;
+
             public BlockGamePlayerActionMessage(BlockGamePlayerAction playerAction)
             {
                 PlayerAction = playerAction;
@@ -19,6 +20,7 @@ namespace Content.Shared.Arcade
         {
             public readonly BlockGameVisualType GameVisualType;
             public readonly BlockGameBlock[] Blocks;
+
             public BlockGameVisualUpdateMessage(BlockGameBlock[] blocks, BlockGameVisualType gameVisualType)
             {
                 Blocks = blocks;
@@ -30,13 +32,14 @@ namespace Content.Shared.Arcade
         {
             GameField,
             HoldBlock,
-            NextBlock
+            NextBlock,
         }
 
         [Serializable, NetSerializable]
         public sealed class BlockGameScoreUpdateMessage : BoundUserInterfaceMessage
         {
             public readonly int Points;
+
             public BlockGameScoreUpdateMessage(int points)
             {
                 Points = points;
@@ -59,6 +62,7 @@ namespace Content.Shared.Arcade
         {
             public readonly BlockGameScreen Screen;
             public readonly bool IsStarted;
+
             public BlockGameSetScreenMessage(BlockGameScreen screen, bool isStarted = true)
             {
                 Screen = screen;
@@ -72,7 +76,9 @@ namespace Content.Shared.Arcade
             public readonly int FinalScore;
             public readonly int? LocalPlacement;
             public readonly int? GlobalPlacement;
-            public BlockGameGameOverScreenMessage(int finalScore, int? localPlacement, int? globalPlacement) : base(BlockGameScreen.Gameover)
+
+            public BlockGameGameOverScreenMessage(int finalScore, int? localPlacement, int? globalPlacement)
+                : base(BlockGameScreen.Gameover)
             {
                 FinalScore = finalScore;
                 LocalPlacement = localPlacement;
@@ -86,7 +92,7 @@ namespace Content.Shared.Arcade
             Game,
             Pause,
             Gameover,
-            Highscores
+            Highscores,
         }
 
         [Serializable, NetSerializable]
@@ -95,7 +101,10 @@ namespace Content.Shared.Arcade
             public List<HighScoreEntry> LocalHighscores;
             public List<HighScoreEntry> GlobalHighscores;
 
-            public BlockGameHighScoreUpdateMessage(List<HighScoreEntry> localHighscores, List<HighScoreEntry> globalHighscores)
+            public BlockGameHighScoreUpdateMessage(
+                List<HighScoreEntry> localHighscores,
+                List<HighScoreEntry> globalHighscores
+            )
             {
                 LocalHighscores = localHighscores;
                 GlobalHighscores = globalHighscores;
@@ -116,7 +125,8 @@ namespace Content.Shared.Arcade
 
             public int CompareTo(object? obj)
             {
-                if (obj is not HighScoreEntry entry) return 0;
+                if (obj is not HighScoreEntry entry)
+                    return 0;
                 return Score.CompareTo(entry.Score);
             }
         }
@@ -125,6 +135,7 @@ namespace Content.Shared.Arcade
         public sealed class BlockGameLevelUpdateMessage : BoundUserInterfaceMessage
         {
             public readonly int Level;
+
             public BlockGameLevelUpdateMessage(int level)
             {
                 Level = level;

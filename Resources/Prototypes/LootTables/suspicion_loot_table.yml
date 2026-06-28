@@ -122,7 +122,6 @@
     amount: 0
     maxAmount: 3
 
-
     # Spawn a bunch of ammo around!
   - id: Magazine556x45mmFMJ
     maxAmount: 15

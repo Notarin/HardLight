@@ -15,7 +15,7 @@
     price: 400
     vendPrice: 2000
   - type: GuideHelp
-    guides: [ AME, Power ]
+    guides: [AME, Power]
   - type: Tag # Frontier
     tags: # Frontier
     - Recyclable # Frontier

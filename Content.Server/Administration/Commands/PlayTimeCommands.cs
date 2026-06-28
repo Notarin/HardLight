@@ -1,15 +1,16 @@
+using System.Text.RegularExpressions;
 using Content.Server.Players.PlayTimeTracking;
 using Content.Shared.Administration;
 using Content.Shared.Players.PlayTimeTracking;
 using Robust.Server.Player;
 using Robust.Shared.Console;
-using System.Text.RegularExpressions;
 
 namespace Content.Server.Administration.Commands;
 
 public sealed class PlayTimeCommandUtilities
 {
-    private readonly static Dictionary<string, int> Units = new() {
+    private static readonly Dictionary<string, int> Units = new()
+    {
         { "y", 525960 },
         { "mo", 43800 },
         { "w", 10080 },
@@ -34,6 +35,7 @@ public sealed class PlayTimeCommandUtilities
             TimeValue = timeValue;
             Unit = unit;
         }
+
         public int ToMinutes()
         {
             var unitExists = Units.TryGetValue(Unit, out int minutes);
@@ -90,12 +92,14 @@ public sealed class PlayTimeCommandUtilities
     }
 }
 
-
 [AdminCommand(AdminFlags.Moderator)]
 public sealed class PlayTimeAddOverallCommand : IConsoleCommand
 {
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly PlayTimeTrackingManager _playTimeTracking = default!;
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly PlayTimeTrackingManager _playTimeTracking = default!;
 
     public string Command => "playtime_addoverall";
     public string Description => Loc.GetString("cmd-playtime_addoverall-desc");
@@ -120,17 +124,16 @@ public sealed class PlayTimeAddOverallCommand : IConsoleCommand
         _playTimeTracking.AddTimeToOverallPlaytime(player, TimeSpan.FromMinutes(minutes));
         var overall = _playTimeTracking.GetOverallPlaytime(player);
 
-        shell.WriteLine(Loc.GetString(
-            "cmd-playtime_addoverall-succeed",
-            ("username", args[0]),
-            ("time", overall)));
+        shell.WriteLine(Loc.GetString("cmd-playtime_addoverall-succeed", ("username", args[0]), ("time", overall)));
     }
 
     public CompletionResult GetCompletion(IConsoleShell shell, string[] args)
     {
         if (args.Length == 1)
-            return CompletionResult.FromHintOptions(CompletionHelper.SessionNames(),
-                Loc.GetString("cmd-playtime_addoverall-arg-user"));
+            return CompletionResult.FromHintOptions(
+                CompletionHelper.SessionNames(),
+                Loc.GetString("cmd-playtime_addoverall-arg-user")
+            );
 
         if (args.Length == 2)
             return CompletionResult.FromHint(Loc.GetString("cmd-playtime_addoverall-arg-minutes"));
@@ -142,8 +145,11 @@ public sealed class PlayTimeAddOverallCommand : IConsoleCommand
 [AdminCommand(AdminFlags.Moderator)]
 public sealed class PlayTimeAddRoleCommand : IConsoleCommand
 {
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly PlayTimeTrackingManager _playTimeTracking = default!;
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly PlayTimeTrackingManager _playTimeTracking = default!;
 
     public string Command => "playtime_addrole";
     public string Description => Loc.GetString("cmd-playtime_addrole-desc");
@@ -170,10 +176,9 @@ public sealed class PlayTimeAddRoleCommand : IConsoleCommand
 
         _playTimeTracking.AddTimeToTracker(player, role, TimeSpan.FromMinutes(m));
         var time = _playTimeTracking.GetPlayTimeForTracker(player, role);
-        shell.WriteLine(Loc.GetString("cmd-playtime_addrole-succeed",
-            ("username", userName),
-            ("role", role),
-            ("time", time)));
+        shell.WriteLine(
+            Loc.GetString("cmd-playtime_addrole-succeed", ("username", userName), ("role", role), ("time", time))
+        );
     }
 
     public CompletionResult GetCompletion(IConsoleShell shell, string[] args)
@@ -182,14 +187,16 @@ public sealed class PlayTimeAddRoleCommand : IConsoleCommand
         {
             return CompletionResult.FromHintOptions(
                 CompletionHelper.SessionNames(players: _playerManager),
-                Loc.GetString("cmd-playtime_addrole-arg-user"));
+                Loc.GetString("cmd-playtime_addrole-arg-user")
+            );
         }
 
         if (args.Length == 2)
         {
             return CompletionResult.FromHintOptions(
                 CompletionHelper.PrototypeIDs<PlayTimeTrackerPrototype>(),
-                Loc.GetString("cmd-playtime_addrole-arg-role"));
+                Loc.GetString("cmd-playtime_addrole-arg-role")
+            );
         }
 
         if (args.Length == 3)
@@ -202,8 +209,11 @@ public sealed class PlayTimeAddRoleCommand : IConsoleCommand
 [AdminCommand(AdminFlags.Moderator)]
 public sealed class PlayTimeGetOverallCommand : IConsoleCommand
 {
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly PlayTimeTrackingManager _playTimeTracking = default!;
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly PlayTimeTrackingManager _playTimeTracking = default!;
 
     public string Command => "playtime_getoverall";
     public string Description => Loc.GetString("cmd-playtime_getoverall-desc");
@@ -225,10 +235,7 @@ public sealed class PlayTimeGetOverallCommand : IConsoleCommand
         }
 
         var value = _playTimeTracking.GetOverallPlaytime(player);
-        shell.WriteLine(Loc.GetString(
-            "cmd-playtime_getoverall-success",
-            ("username", userName),
-            ("time", value)));
+        shell.WriteLine(Loc.GetString("cmd-playtime_getoverall-success", ("username", userName), ("time", value)));
     }
 
     public CompletionResult GetCompletion(IConsoleShell shell, string[] args)
@@ -237,7 +244,8 @@ public sealed class PlayTimeGetOverallCommand : IConsoleCommand
         {
             return CompletionResult.FromHintOptions(
                 CompletionHelper.SessionNames(players: _playerManager),
-                Loc.GetString("cmd-playtime_getoverall-arg-user"));
+                Loc.GetString("cmd-playtime_getoverall-arg-user")
+            );
         }
 
         return CompletionResult.Empty;
@@ -247,8 +255,11 @@ public sealed class PlayTimeGetOverallCommand : IConsoleCommand
 [AdminCommand(AdminFlags.Moderator)]
 public sealed class PlayTimeGetRoleCommand : IConsoleCommand
 {
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly PlayTimeTrackingManager _playTimeTracking = default!;
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly PlayTimeTrackingManager _playTimeTracking = default!;
 
     public string Command => "playtime_getrole";
     public string Description => Loc.GetString("cmd-playtime_getrole-desc");
@@ -295,8 +306,7 @@ public sealed class PlayTimeGetRoleCommand : IConsoleCommand
             }
 
             var time = _playTimeTracking.GetPlayTimeForTracker(session, args[1]);
-            shell.WriteLine(Loc.GetString("cmd-playtime_getrole-succeed", ("username", session.Name),
-                ("time", time)));
+            shell.WriteLine(Loc.GetString("cmd-playtime_getrole-succeed", ("username", session.Name), ("time", time)));
         }
     }
 
@@ -306,14 +316,16 @@ public sealed class PlayTimeGetRoleCommand : IConsoleCommand
         {
             return CompletionResult.FromHintOptions(
                 CompletionHelper.SessionNames(players: _playerManager),
-                Loc.GetString("cmd-playtime_getrole-arg-user"));
+                Loc.GetString("cmd-playtime_getrole-arg-user")
+            );
         }
 
         if (args.Length == 2)
         {
             return CompletionResult.FromHintOptions(
                 CompletionHelper.PrototypeIDs<PlayTimeTrackerPrototype>(),
-                Loc.GetString("cmd-playtime_getrole-arg-role"));
+                Loc.GetString("cmd-playtime_getrole-arg-role")
+            );
         }
 
         return CompletionResult.Empty;
@@ -326,8 +338,11 @@ public sealed class PlayTimeGetRoleCommand : IConsoleCommand
 [AdminCommand(AdminFlags.Moderator)]
 public sealed class PlayTimeSaveCommand : IConsoleCommand
 {
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly PlayTimeTrackingManager _playTimeTracking = default!;
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly PlayTimeTrackingManager _playTimeTracking = default!;
 
     public string Command => "playtime_save";
     public string Description => Loc.GetString("cmd-playtime_save-desc");
@@ -358,7 +373,8 @@ public sealed class PlayTimeSaveCommand : IConsoleCommand
         {
             return CompletionResult.FromHintOptions(
                 CompletionHelper.SessionNames(players: _playerManager),
-                Loc.GetString("cmd-playtime_save-arg-user"));
+                Loc.GetString("cmd-playtime_save-arg-user")
+            );
         }
 
         return CompletionResult.Empty;
@@ -368,8 +384,11 @@ public sealed class PlayTimeSaveCommand : IConsoleCommand
 [AdminCommand(AdminFlags.Debug)]
 public sealed class PlayTimeFlushCommand : IConsoleCommand
 {
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly PlayTimeTrackingManager _playTimeTracking = default!;
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly PlayTimeTrackingManager _playTimeTracking = default!;
 
     public string Command => "playtime_flush";
     public string Description => Loc.GetString("cmd-playtime_flush-desc");
@@ -405,7 +424,8 @@ public sealed class PlayTimeFlushCommand : IConsoleCommand
         {
             return CompletionResult.FromHintOptions(
                 CompletionHelper.SessionNames(players: _playerManager),
-                Loc.GetString("cmd-playtime_flush-arg-user"));
+                Loc.GetString("cmd-playtime_flush-arg-user")
+            );
         }
 
         return CompletionResult.Empty;

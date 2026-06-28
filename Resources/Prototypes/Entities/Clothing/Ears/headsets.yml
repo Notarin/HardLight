@@ -99,7 +99,7 @@
     - Supply
     - Common
     - Faction
-  # HardLight end
+    # HardLight end
 
 - type: entity
   parent: [ClothingHeadset, BaseColcommContraband] # Hardlight Change from centcom to colcomm contra
@@ -221,7 +221,7 @@
     - Engineering
     - Common
     - Faction
-  # HardLight end
+    # HardLight end
 
 - type: entity
   parent: ClothingHeadset
@@ -265,7 +265,7 @@
     - Medical
     - Common
     - Faction
-  # HardLight end
+    # HardLight end
 
 - type: entity
   parent: ClothingHeadset
@@ -359,7 +359,7 @@
     - Science
     - Common
     - Faction
-  # HardLight end
+    # HardLight end
 
 - type: entity
   parent: [ClothingHeadset, BaseSecurityLawyerContraband]

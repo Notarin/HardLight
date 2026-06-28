@@ -18,18 +18,31 @@ namespace Content.Shared._NF.Interaction.Systems;
 /// </summary>
 public sealed partial class HandPlaceholderSystem : EntitySystem
 {
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly SharedInteractionSystem _interaction = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
-    [Dependency] private readonly MetaDataSystem _metadata = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly SharedHandsSystem _hands = default!;
+
+    [Dependency]
+    private readonly SharedInteractionSystem _interaction = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelist = default!;
+
+    [Dependency]
+    private readonly MetaDataSystem _metadata = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
 
     public readonly EntProtoId<HandPlaceholderComponent> Placeholder = "HandPlaceholder";
 
     public override void Initialize()
     {
-        SubscribeLocalEvent<HandPlaceholderRemoveableComponent, EntGotRemovedFromContainerMessage>(OnEntityRemovedFromContainer);
+        SubscribeLocalEvent<HandPlaceholderRemoveableComponent, EntGotRemovedFromContainerMessage>(
+            OnEntityRemovedFromContainer
+        );
 
         SubscribeLocalEvent<HandPlaceholderComponent, BeforeRangedInteractEvent>(BeforeRangedInteract);
         SubscribeLocalEvent<HandPlaceholderComponent, ContainerGettingRemovedAttemptEvent>(OnRemoveAttempt);
@@ -39,7 +52,13 @@ public sealed partial class HandPlaceholderSystem : EntitySystem
     /// Spawns a new placeholder and ties it to an item.
     /// When dropped the item will replace itself with the placeholder in its container.
     /// </summary>
-    public EntityUid SpawnPlaceholder(BaseContainer container, EntityUid item, EntProtoId id, EntityWhitelist whitelist, EntityWhitelist? blacklist)
+    public EntityUid SpawnPlaceholder(
+        BaseContainer container,
+        EntityUid item,
+        EntProtoId id,
+        EntityWhitelist whitelist,
+        EntityWhitelist? blacklist
+    )
     {
         var placeholder = Spawn(Placeholder);
         var proto = _proto.Index(id);
@@ -57,7 +76,10 @@ public sealed partial class HandPlaceholderSystem : EntitySystem
         SetPlaceholder(item, placeholder);
 
         var succeeded = _container.Insert(placeholder, container, force: true);
-        DebugTools.Assert(succeeded, $"Failed to insert placeholder {ToPrettyString(placeholder)} into {ToPrettyString(comp.Source)}");
+        DebugTools.Assert(
+            succeeded,
+            $"Failed to insert placeholder {ToPrettyString(placeholder)} into {ToPrettyString(comp.Source)}"
+        );
         return placeholder;
     }
 
@@ -106,11 +128,17 @@ public sealed partial class HandPlaceholderSystem : EntitySystem
 
         SetEnabled(placeholder, false);
         var succeeded = _container.Insert(placeholder, container, force: true);
-        DebugTools.Assert(succeeded, $"Failed to insert placeholder {ToPrettyString(placeholder)} of {ToPrettyString(ent)} into container of {ToPrettyString(owner)}");
+        DebugTools.Assert(
+            succeeded,
+            $"Failed to insert placeholder {ToPrettyString(placeholder)} of {ToPrettyString(ent)} into container of {ToPrettyString(owner)}"
+        );
         SetEnabled(placeholder, true); // prevent dropping it now that it's in hand
     }
 
-    private void OnEntityRemovedFromContainer(Entity<HandPlaceholderRemoveableComponent> ent, ref EntGotRemovedFromContainerMessage args)
+    private void OnEntityRemovedFromContainer(
+        Entity<HandPlaceholderRemoveableComponent> ent,
+        ref EntGotRemovedFromContainerMessage args
+    )
     {
         SwapPlaceholder(ent, args.Container);
     }
@@ -133,7 +161,11 @@ public sealed partial class HandPlaceholderSystem : EntitySystem
     private void TryToPickUpTarget(Entity<HandPlaceholderComponent> ent, EntityUid target, EntityUid user)
     {
         // require items regardless of the whitelist
-        if (!ent.Comp.AllowNonItems && !HasComp<ItemComponent>(target) || _whitelist.IsWhitelistFail(ent.Comp.Whitelist, target) || _whitelist.IsBlacklistPass(ent.Comp.Blacklist, target))
+        if (
+            !ent.Comp.AllowNonItems && !HasComp<ItemComponent>(target)
+            || _whitelist.IsWhitelistFail(ent.Comp.Whitelist, target)
+            || _whitelist.IsBlacklistPass(ent.Comp.Blacklist, target)
+        )
             return;
 
         if (!TryComp<HandsComponent>(user, out var hands))
@@ -149,7 +181,10 @@ public sealed partial class HandPlaceholderSystem : EntitySystem
         {
             var container = _container.GetContainer(source, ent.Comp.ContainerId);
             var succeeded = _container.Insert(ent.Owner, container, force: true);
-            DebugTools.Assert(succeeded, $"Failed to insert {ToPrettyString(ent)} into {container.ID} of {ToPrettyString(source)}");
+            DebugTools.Assert(
+                succeeded,
+                $"Failed to insert {ToPrettyString(ent)} into {container.ID} of {ToPrettyString(source)}"
+            );
         }
         else
         {

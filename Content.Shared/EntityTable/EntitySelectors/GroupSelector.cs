@@ -11,9 +11,11 @@ public sealed partial class GroupSelector : EntityTableSelector
     [DataField(required: true)]
     public List<EntityTableSelector> Children = new();
 
-    protected override IEnumerable<EntProtoId> GetSpawnsImplementation(System.Random rand,
+    protected override IEnumerable<EntProtoId> GetSpawnsImplementation(
+        System.Random rand,
         IEntityManager entMan,
-        IPrototypeManager proto)
+        IPrototypeManager proto
+    )
     {
         var children = new Dictionary<EntityTableSelector, float>(Children.Count);
         foreach (var child in Children)

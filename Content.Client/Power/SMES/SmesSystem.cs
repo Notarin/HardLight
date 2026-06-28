@@ -6,14 +6,18 @@ namespace Content.Client.Power.SMES;
 
 public sealed class SmesVisualizerSystem : VisualizerSystem<SmesComponent>
 {
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     protected override void OnAppearanceChange(EntityUid uid, SmesComponent comp, ref AppearanceChangeEvent args)
     {
         if (args.Sprite == null)
             return;
 
-        if (!AppearanceSystem.TryGetData<int>(uid, SmesVisuals.LastChargeLevel, out var level, args.Component) || level == 0)
+        if (
+            !AppearanceSystem.TryGetData<int>(uid, SmesVisuals.LastChargeLevel, out var level, args.Component)
+            || level == 0
+        )
         {
             _sprite.LayerSetVisible((uid, args.Sprite), SmesVisualLayers.Charge, false);
         }

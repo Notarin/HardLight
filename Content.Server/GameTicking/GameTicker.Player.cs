@@ -22,13 +22,15 @@ namespace Content.Server.GameTicking
     [UsedImplicitly]
     public sealed partial class GameTicker
     {
-        [Dependency] private readonly IPlayerManager _playerManager = default!;
+        [Dependency]
+        private readonly IPlayerManager _playerManager = default!;
 
         private readonly Dictionary<NetUserId, System.Threading.CancellationTokenSource> _pendingMindWipes = new();
 
         // HardLight: Per-player timers that release a tracked job slot after a short grace window
         // following disconnect, so the lobby does not advertise an occupied slot for the full mind-wipe delay.
-        private readonly Dictionary<NetUserId, System.Threading.CancellationTokenSource> _pendingJobSlotReleases = new();
+        private readonly Dictionary<NetUserId, System.Threading.CancellationTokenSource> _pendingJobSlotReleases =
+            new();
 
         private static readonly TimeSpan MindWipeDelay = TimeSpan.FromMinutes(30);
 
@@ -74,19 +76,24 @@ namespace Content.Server.GameTicking
                     global::Robust.Shared.Timing.Timer.Spawn(0, () => _playerManager.JoinGame(args.Session));
 
                     var record = await _db.GetPlayerRecordByUserId(args.Session.UserId);
-                    var firstConnection = record != null &&
-                                          Math.Abs((record.FirstSeenTime - record.LastSeenTime).TotalMinutes) < 1;
+                    var firstConnection =
+                        record != null && Math.Abs((record.FirstSeenTime - record.LastSeenTime).TotalMinutes) < 1;
 
-                    _chatManager.SendAdminAnnouncement(firstConnection
-                        ? Loc.GetString("player-first-join-message", ("name", args.Session.Name))
-                        : Loc.GetString("player-join-message", ("name", args.Session.Name)));
+                    _chatManager.SendAdminAnnouncement(
+                        firstConnection
+                            ? Loc.GetString("player-first-join-message", ("name", args.Session.Name))
+                            : Loc.GetString("player-join-message", ("name", args.Session.Name))
+                    );
 
                     RaiseNetworkEvent(GetConnectionStatusMsg(), session.Channel);
 
                     if (firstConnection && _cfg.GetCVar(CCVars.AdminNewPlayerJoinSound))
-                        _audio.PlayGlobal(new SoundPathSpecifier("/Audio/Effects/newplayerping.ogg"),
-                            Filter.Empty().AddPlayers(_adminManager.ActiveAdmins), false,
-                            audioParams: new AudioParams { Volume = -5f });
+                        _audio.PlayGlobal(
+                            new SoundPathSpecifier("/Audio/Effects/newplayerping.ogg"),
+                            Filter.Empty().AddPlayers(_adminManager.ActiveAdmins),
+                            false,
+                            audioParams: new AudioParams { Volume = -5f }
+                        );
 
                     if (LobbyEnabled && _roundStartCountdownHasNotStartedYetDueToNoPlayers)
                     {
@@ -116,7 +123,10 @@ namespace Content.Server.GameTicking
 
                     if (mind.CurrentEntity == null || !Exists(mind.CurrentEntity.Value) || Deleted(mind.CurrentEntity))
                     {
-                        DebugTools.Assert(mind.CurrentEntity == null, "a mind's current entity was deleted without updating the mind");
+                        DebugTools.Assert(
+                            mind.CurrentEntity == null,
+                            "a mind's current entity was deleted without updating the mind"
+                        );
 
                         // This player is joining the game with an existing mind, but the mind has no entity.
                         // Their entity was probably deleted sometime while they were disconnected, or they were an observer.
@@ -132,7 +142,8 @@ namespace Content.Server.GameTicking
                         else
                         {
                             Log.Error(
-                                $"Failed to attach player {session} with mind {ToPrettyString(mindId)} to its current entity {ToPrettyString(mind.CurrentEntity)}");
+                                $"Failed to attach player {session} with mind {ToPrettyString(mindId)} to its current entity {ToPrettyString(mind.CurrentEntity)}"
+                            );
                             SpawnObserverWaitDb();
                         }
                     }
@@ -142,7 +153,9 @@ namespace Content.Server.GameTicking
 
                 case SessionStatus.Disconnected:
                 {
-                    _chatManager.SendAdminAnnouncement(Loc.GetString("player-leave-message", ("name", args.Session.Name)));
+                    _chatManager.SendAdminAnnouncement(
+                        Loc.GetString("player-leave-message", ("name", args.Session.Name))
+                    );
                     if (mindId != null)
                     {
                         _pvsOverride.RemoveSessionOverride(mindId.Value, session);
@@ -211,25 +224,31 @@ namespace Content.Server.GameTicking
             var cts = new System.Threading.CancellationTokenSource();
             _pendingMindWipes[userId] = cts;
 
-            global::Robust.Shared.Timing.Timer.Spawn(MindWipeDelay, () =>
-            {
-                if (cts.IsCancellationRequested)
-                    return;
-
-                if (!_playerManager.TryGetSessionById(userId, out var session) ||
-                    session.State.Status != SessionStatus.Disconnected)
+            global::Robust.Shared.Timing.Timer.Spawn(
+                MindWipeDelay,
+                () =>
                 {
+                    if (cts.IsCancellationRequested)
+                        return;
+
+                    if (
+                        !_playerManager.TryGetSessionById(userId, out var session)
+                        || session.State.Status != SessionStatus.Disconnected
+                    )
+                    {
+                        CancelPendingMindWipe(userId);
+                        return;
+                    }
+
+                    if (_mind.TryGetMind(userId, out var currentMindId, out var currentMind) && currentMindId == mindId)
+                    {
+                        _mind.WipeMind(currentMindId.Value, currentMind);
+                    }
+
                     CancelPendingMindWipe(userId);
-                    return;
-                }
-
-                if (_mind.TryGetMind(userId, out var currentMindId, out var currentMind) && currentMindId == mindId)
-                {
-                    _mind.WipeMind(currentMindId.Value, currentMind);
-                }
-
-                CancelPendingMindWipe(userId);
-            }, cts.Token);
+                },
+                cts.Token
+            );
         }
 
         private void CancelPendingMindWipe(NetUserId userId)
@@ -258,30 +277,38 @@ namespace Content.Server.GameTicking
             var cts = new System.Threading.CancellationTokenSource();
             _pendingJobSlotReleases[userId] = cts;
 
-            global::Robust.Shared.Timing.Timer.Spawn(TimeSpan.FromSeconds(delaySeconds), () =>
-            {
-                if (cts.IsCancellationRequested)
-                    return;
-
-                // Only release if the player is still disconnected.
-                if (_playerManager.TryGetSessionById(userId, out var session) &&
-                    session.State.Status != SessionStatus.Disconnected)
+            global::Robust.Shared.Timing.Timer.Spawn(
+                TimeSpan.FromSeconds(delaySeconds),
+                () =>
                 {
+                    if (cts.IsCancellationRequested)
+                        return;
+
+                    // Only release if the player is still disconnected.
+                    if (
+                        _playerManager.TryGetSessionById(userId, out var session)
+                        && session.State.Status != SessionStatus.Disconnected
+                    )
+                    {
+                        CancelPendingJobSlotRelease(userId);
+                        return;
+                    }
+
+                    // Re-resolve the body and component in case the mind moved (cryo, gib, ghost) while disconnected;
+                    // those paths already invoke OpenJob themselves, so this would be a no-op.
+                    if (
+                        EntityManager.EntityExists(body)
+                        && EntityManager.TryGetComponent<JobTrackingComponent>(body, out var currentTracking)
+                        && currentTracking.Active
+                    )
+                    {
+                        EntityManager.System<JobTrackingSystem>().OpenJob((body, currentTracking), userId);
+                    }
+
                     CancelPendingJobSlotRelease(userId);
-                    return;
-                }
-
-                // Re-resolve the body and component in case the mind moved (cryo, gib, ghost) while disconnected;
-                // those paths already invoke OpenJob themselves, so this would be a no-op.
-                if (EntityManager.EntityExists(body)
-                    && EntityManager.TryGetComponent<JobTrackingComponent>(body, out var currentTracking)
-                    && currentTracking.Active)
-                {
-                    EntityManager.System<JobTrackingSystem>().OpenJob((body, currentTracking), userId);
-                }
-
-                CancelPendingJobSlotRelease(userId);
-            }, cts.Token);
+                },
+                cts.Token
+            );
         }
 
         private void CancelPendingJobSlotRelease(NetUserId userId)
@@ -293,11 +320,12 @@ namespace Content.Server.GameTicking
                 _pendingJobSlotReleases.Remove(userId);
             }
         }
+
         // HardLight end
 
         public HumanoidCharacterProfile GetPlayerProfile(ICommonSession p)
         {
-            return (HumanoidCharacterProfile) _prefsManager.GetPreferences(p.UserId).SelectedCharacter;
+            return (HumanoidCharacterProfile)_prefsManager.GetPreferences(p.UserId).SelectedCharacter;
         }
 
         public void PlayerJoinGame(ICommonSession session, bool silent = false)
@@ -313,7 +341,10 @@ namespace Content.Server.GameTicking
                 if (_allPreviousGameRules.Count > 0)
                 {
                     var rulesMessage = GetGameRulesListMessage(true);
-                    _chatManager.SendAdminAnnouncementMessage(session, Loc.GetString("starting-rule-selected-preset", ("preset", rulesMessage)));
+                    _chatManager.SendAdminAnnouncementMessage(
+                        session,
+                        Loc.GetString("starting-rule-selected-preset", ("preset", rulesMessage))
+                    );
                 }
             }
 
@@ -327,7 +358,9 @@ namespace Content.Server.GameTicking
 
         private void PlayerJoinLobby(ICommonSession session)
         {
-            _playerGameStatuses[session.UserId] = LobbyEnabled ? PlayerGameStatus.NotReadyToPlay : PlayerGameStatus.ReadyToPlay;
+            _playerGameStatuses[session.UserId] = LobbyEnabled
+                ? PlayerGameStatus.NotReadyToPlay
+                : PlayerGameStatus.ReadyToPlay;
             _db.AddRoundPlayers(RoundId, session.UserId);
 
             var client = session.Channel;

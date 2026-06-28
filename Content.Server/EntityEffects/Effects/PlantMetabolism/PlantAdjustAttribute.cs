@@ -1,8 +1,8 @@
+using System.Diagnostics.CodeAnalysis;
 using Content.Server.Botany.Components;
 using Content.Shared.EntityEffects;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Content.Server.EntityEffects.Effects.PlantMetabolism;
 
@@ -32,14 +32,19 @@ public abstract partial class PlantAdjustAttribute : EntityEffect
     /// <param name="entityManager">The entity manager</param>
     /// <param name="mustHaveAlivePlant">Whether to check if it has an alive plant or not</param>
     /// <returns></returns>
-    public bool CanMetabolize(EntityUid plantHolder, [NotNullWhen(true)] out PlantHolderComponent? plantHolderComponent,
+    public bool CanMetabolize(
+        EntityUid plantHolder,
+        [NotNullWhen(true)] out PlantHolderComponent? plantHolderComponent,
         IEntityManager entityManager,
-        bool mustHaveAlivePlant = true)
+        bool mustHaveAlivePlant = true
+    )
     {
         plantHolderComponent = null;
 
-        if (!entityManager.TryGetComponent(plantHolder, out plantHolderComponent)
-                                || mustHaveAlivePlant && (plantHolderComponent.Seed == null || plantHolderComponent.Dead))
+        if (
+            !entityManager.TryGetComponent(plantHolder, out plantHolderComponent)
+            || mustHaveAlivePlant && (plantHolderComponent.Seed == null || plantHolderComponent.Dead)
+        )
             return false;
 
         return true;
@@ -56,6 +61,12 @@ public abstract partial class PlantAdjustAttribute : EntityEffect
         {
             color = "red";
         }
-        return Loc.GetString("reagent-effect-guidebook-plant-attribute", ("attribute", Loc.GetString(GuidebookAttributeName)), ("amount", Amount.ToString("0.00")), ("colorName", color), ("chance", Probability));
+        return Loc.GetString(
+            "reagent-effect-guidebook-plant-attribute",
+            ("attribute", Loc.GetString(GuidebookAttributeName)),
+            ("amount", Amount.ToString("0.00")),
+            ("colorName", color),
+            ("chance", Probability)
+        );
     }
 }

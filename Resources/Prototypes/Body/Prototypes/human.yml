@@ -25,7 +25,7 @@
         lungs: OrganHumanLungs
         stomach: OrganHumanStomach
         liver: OrganHumanLiver
-        kidneys: OrganHumanKidneys    
+        kidneys: OrganHumanKidneys
         dermis: OrganCrescentDummy
     right arm:
       part: RightArmHuman

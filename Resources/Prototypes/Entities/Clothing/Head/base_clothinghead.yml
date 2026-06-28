@@ -22,8 +22,8 @@
           Quantity: 10
   - type: Tag
     tags:
-      - ClothMade
-      - WhitelistChameleon
+    - ClothMade
+    - WhitelistChameleon
 
 - type: entity
   abstract: true
@@ -37,22 +37,22 @@
       amount: 1
   - type: Tag
     tags:
-      - ClothMade
-      - WhitelistChameleon
+    - ClothMade
+    - WhitelistChameleon
 
 - type: entity
   abstract: true
   parent: ClothingHeadBase
   id: ClothingHeadLightBase
   name: base helmet with light
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     layers:
     - state: icon
     - state: icon-flash
       visible: false
-      map: [ "light" ]
+      map: ["light"]
   - type: Clothing
     equippedPrefix: off
   - type: Item
@@ -73,21 +73,21 @@
     radiatingBehaviourId: radiating
   - type: LightBehaviour
     behaviours:
-      - !type:FadeBehaviour
-        id: radiating
-        interpolate: Linear
-        maxDuration: 2.0
-        startValue: 3.0
-        endValue: 2.0
-        isLooped: true
-        reverseWhenFinished: true
-      - !type:PulseBehaviour
-        id: blinking
-        interpolate: Nearest
-        maxDuration: 1.0
-        minValue: 0.1
-        maxValue: 2.0
-        isLooped: true
+    - !type:FadeBehaviour
+      id: radiating
+      interpolate: Linear
+      maxDuration: 2.0
+      startValue: 3.0
+      endValue: 2.0
+      isLooped: true
+      reverseWhenFinished: true
+    - !type:PulseBehaviour
+      id: blinking
+      interpolate: Nearest
+      maxDuration: 1.0
+      minValue: 0.1
+      maxValue: 2.0
+      isLooped: true
   - type: PowerCellSlot
     cellSlotId: cell_slot
   - type: ItemSlots
@@ -138,7 +138,7 @@
   # No parent since we aren't actually an item.
   id: ClothingHeadHardsuitBase
   name: base hardsuit helmet
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: BreathMask
   - type: Sprite
@@ -150,7 +150,7 @@
     equipSound: /Audio/Mecha/mechmove03.ogg
     unequipSound: /Audio/Mecha/mechmove03.ogg
     quickEquip: false
-    slots: [ HEAD ]
+    slots: [HEAD]
   - type: PressureProtection
     highPressureMultiplier: 0.3
     lowPressureMultiplier: 1000
@@ -184,14 +184,14 @@
   # must parent both this and the desired helmet base when using
   id: ClothingHeadSuitWithLightBase
   name: base hardsuit helmet with light
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     layers:
     - state: icon
     - state: icon-flash
       visible: false
-      map: [ "light" ]
+      map: ["light"]
   - type: Clothing
     equippedPrefix: off
   - type: ToggleableLightVisuals
@@ -209,21 +209,21 @@
     radiatingBehaviourId: radiating
   - type: LightBehaviour
     behaviours:
-      - !type:FadeBehaviour
-        id: radiating
-        interpolate: Linear
-        maxDuration: 2.0
-        startValue: 3.0
-        endValue: 2.0
-        isLooped: true
-        reverseWhenFinished: true
-      - !type:PulseBehaviour
-        id: blinking
-        interpolate: Nearest
-        maxDuration: 1.0
-        minValue: 0.1
-        maxValue: 2.0
-        isLooped: true
+    - !type:FadeBehaviour
+      id: radiating
+      interpolate: Linear
+      maxDuration: 2.0
+      startValue: 3.0
+      endValue: 2.0
+      isLooped: true
+      reverseWhenFinished: true
+    - !type:PulseBehaviour
+      id: blinking
+      interpolate: Nearest
+      maxDuration: 1.0
+      minValue: 0.1
+      maxValue: 2.0
+      isLooped: true
   - type: Battery
     maxCharge: 600 #lights drain 3/s but recharge of 2 makes this 1/s. Therefore 600 is 10 minutes of light.
     startingCharge: 600
@@ -236,7 +236,7 @@
   id: ClothingHeadHatHoodWinterBase
   name: base winter coat hood
   description: A hood, made to keep your head warm.
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     state: icon
@@ -245,7 +245,7 @@
     equipSound: /Audio/Effects/rustle1.ogg
     unequipSound: /Audio/Effects/rustle2.ogg
     quickEquip: false
-    slots: [ HEAD ]
+    slots: [HEAD]
   - type: TemperatureProtection
     heatingCoefficient: 1.05
     coolingCoefficient: 0.7
@@ -253,7 +253,7 @@
     zombificationResistanceCoefficient: 0.90
   - type: Armor # so zombification resistance shows up
     modifiers:
-      coefficients: { }
+      coefficients: {}
   - type: GroupExamine
   - type: HideLayerClothing
     slots:

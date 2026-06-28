@@ -15,7 +15,7 @@
 
 - type: entity
   id: MechEquipmentGrabber
-  parent: [ BaseMechEquipment, IndustrialMechEquipment ] # Goobstation
+  parent: [BaseMechEquipment, IndustrialMechEquipment] # Goobstation
   name: hydraulic clamp
   description: Gives the mech the ability to grab things and drag them around.
   components:
@@ -24,10 +24,10 @@
   - type: MechGrabber
     blacklist: # Frontier
       components: # Frontier
-        - Anomaly # Frontier
-        - Mech # Frontier
-        - MindContainer # Frontier
-        - HumanoidAppearance # Frontier
+      - Anomaly # Frontier
+      - Mech # Frontier
+      - MindContainer # Frontier
+      - HumanoidAppearance # Frontier
     maxContents: 8
   - type: UIFragment
     ui: !type:MechGrabberUi
@@ -46,10 +46,10 @@
   - type: MechGrabber
     blacklist: # Frontier
       components: # Frontier
-        - Anomaly # Frontier
-        - Mech # Frontier
-        - MindContainer # Frontier
-        - HumanoidAppearance # Frontier
+      - Anomaly # Frontier
+      - Mech # Frontier
+      - MindContainer # Frontier
+      - HumanoidAppearance # Frontier
     maxContents: 4
     grabDelay: 3
     grabEnergyDelta: -20
@@ -65,7 +65,7 @@
 
 - type: entity
   id: MechEquipmentHorn
-  parent: [ BaseMechEquipment, SpecialMechEquipment ] # Goobstation
+  parent: [BaseMechEquipment, SpecialMechEquipment] # Goobstation
   name: mech horn
   description: An enhanced bike horn that plays a hilarious array of sounds for the enjoyment of the crew. HONK!
   components:

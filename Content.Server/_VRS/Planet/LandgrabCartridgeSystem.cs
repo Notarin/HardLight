@@ -21,13 +21,26 @@ namespace Content.Server._VRS.Planet;
 /// </summary>
 public sealed class LandgrabCartridgeSystem : EntitySystem
 {
-    [Dependency] private readonly CartridgeLoaderSystem? _cartridgeLoader = default!;
-    [Dependency] private readonly LandgrabPlotService _plots = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
+    [Dependency]
+    private readonly CartridgeLoaderSystem? _cartridgeLoader = default!;
+
+    [Dependency]
+    private readonly LandgrabPlotService _plots = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly SharedHandsSystem _hands = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly IMapManager _mapManager = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
 
     public override void Initialize()
     {
@@ -90,7 +103,12 @@ public sealed class LandgrabCartridgeSystem : EntitySystem
 
     // ── Action helpers ────────────────────────────────────────────────────────
 
-    private void HandlePurchase(Entity<LandgrabCartridgeComponent> ent, EntityUid actor, string ckey, ICommonSession session)
+    private void HandlePurchase(
+        Entity<LandgrabCartridgeComponent> ent,
+        EntityUid actor,
+        string ckey,
+        ICommonSession session
+    )
     {
         if (!TryGetPlanetLocation(actor, out var mapId, out var worldPos))
         {
@@ -126,8 +144,13 @@ public sealed class LandgrabCartridgeSystem : EntitySystem
         Popup(actor, Loc.GetString("landgrab-saved", ("slot", slotName)));
     }
 
-    private void HandleLoad(Entity<LandgrabCartridgeComponent> ent, EntityUid actor, string ckey,
-        ICommonSession session, string slotName)
+    private void HandleLoad(
+        Entity<LandgrabCartridgeComponent> ent,
+        EntityUid actor,
+        string ckey,
+        ICommonSession session,
+        string slotName
+    )
     {
         if (!TryGetPlanetLocation(actor, out var mapId, out var worldPos))
         {
@@ -169,8 +192,10 @@ public sealed class LandgrabCartridgeSystem : EntitySystem
     /// </summary>
     private void HandleWriteDisk(EntityUid actor, string requestedLabel)
     {
-        if (!TryGetPlanetLocation(actor, out var mapId, out var worldPos) ||
-            !_plots.TryGetRegistry(mapId, out var registry))
+        if (
+            !TryGetPlanetLocation(actor, out var mapId, out var worldPos)
+            || !_plots.TryGetRegistry(mapId, out var registry)
+        )
         {
             Popup(actor, Loc.GetString("landgrab-not-on-planet"));
             return;
@@ -229,8 +254,7 @@ public sealed class LandgrabCartridgeSystem : EntitySystem
         var state = new LandgrabUiState();
 
         // Find the player wielding the PDA (the parent of the loader, typically).
-        if (!TryGetWielder(loaderUid, out var actor) ||
-            !_playerManager.TryGetSessionByEntity(actor, out var session))
+        if (!TryGetWielder(loaderUid, out var actor) || !_playerManager.TryGetSessionByEntity(actor, out var session))
         {
             state.OnValidPlanet = false;
             state.PlanetName = Loc.GetString("landgrab-no-user");
@@ -245,8 +269,10 @@ public sealed class LandgrabCartridgeSystem : EntitySystem
         // Cheap lookup so the UI can disable the engrave button when the player has nothing to write to.
         state.HasBlankDisk = TryFindBlankDisk(actor, out _);
 
-        if (!TryGetPlanetLocation(actor, out var mapId, out var worldPos) ||
-            !_plots.TryGetRegistry(mapId, out var registry))
+        if (
+            !TryGetPlanetLocation(actor, out var mapId, out var worldPos)
+            || !_plots.TryGetRegistry(mapId, out var registry)
+        )
         {
             state.OnValidPlanet = false;
             state.PlanetName = Loc.GetString("landgrab-not-on-planet");
@@ -262,8 +288,13 @@ public sealed class LandgrabCartridgeSystem : EntitySystem
         state.PlotSize = registry.PlotSize;
         state.WorldX = worldPos.X;
         state.WorldY = worldPos.Y;
-        state.LocationFree = _plots.IsLocationFree(mapId, worldPos, registry.PlotSize, registry.MinPlotSpacing,
-            out var blockReason);
+        state.LocationFree = _plots.IsLocationFree(
+            mapId,
+            worldPos,
+            registry.PlotSize,
+            registry.MinPlotSpacing,
+            out var blockReason
+        );
         state.LocationBlockedReason = blockReason;
         state.OwnsPlot = _plots.TryGetPlayerPlot(ckey, out _, out _);
         state.SavedPlots = _plots.ListSavedPlots(ckey, registry.LoadCostBase, registry.LoadCostPerTile);

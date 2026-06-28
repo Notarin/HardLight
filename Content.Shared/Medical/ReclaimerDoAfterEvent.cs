@@ -4,6 +4,4 @@ using Robust.Shared.Serialization;
 namespace Content.Shared.Medical;
 
 [Serializable, NetSerializable]
-public sealed partial class ReclaimerDoAfterEvent : SimpleDoAfterEvent
-{
-}
+public sealed partial class ReclaimerDoAfterEvent : SimpleDoAfterEvent { }

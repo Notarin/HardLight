@@ -14,12 +14,16 @@ public sealed partial class SmesComponent : Component
 {
     [ViewVariables]
     public ChargeState LastChargeState;
+
     [ViewVariables]
     public TimeSpan LastChargeStateTime;
+
     [ViewVariables]
     public int LastChargeLevel;
+
     [ViewVariables]
     public TimeSpan LastChargeLevelTime;
+
     [ViewVariables]
     public TimeSpan VisualsChangeDelay = TimeSpan.FromSeconds(1);
 

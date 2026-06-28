@@ -1,8 +1,8 @@
 using Content.Server.DeviceLinking.Systems;
 using Content.Server.Materials;
 using Content.Shared.Conveyor;
-using Content.Shared.DeviceLinking.Events;
 using Content.Shared.Destructible;
+using Content.Shared.DeviceLinking.Events;
 using Content.Shared.Maps;
 using Content.Shared.Physics;
 using Content.Shared.Physics.Controllers;
@@ -15,10 +15,17 @@ namespace Content.Server.Physics.Controllers;
 
 public sealed class ConveyorController : SharedConveyorController
 {
-    [Dependency] private readonly FixtureSystem _fixtures = default!;
-    [Dependency] private readonly DeviceLinkSystem _signalSystem = default!;
-    [Dependency] private readonly MaterialReclaimerSystem _materialReclaimer = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+    [Dependency]
+    private readonly FixtureSystem _fixtures = default!;
+
+    [Dependency]
+    private readonly DeviceLinkSystem _signalSystem = default!;
+
+    [Dependency]
+    private readonly MaterialReclaimerSystem _materialReclaimer = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
 
     public override void Initialize()
     {
@@ -42,10 +49,16 @@ public sealed class ConveyorController : SharedConveyorController
             var shape = new PolygonShape();
             shape.SetAsBox(0.55f, 0.55f);
 
-            _fixtures.TryCreateFixture(uid, shape, ConveyorFixture,
-                collisionLayer: (int) (CollisionGroup.LowImpassable | CollisionGroup.MidImpassable |
-                                       CollisionGroup.Impassable), hard: false, body: physics);
-
+            _fixtures.TryCreateFixture(
+                uid,
+                shape,
+                ConveyorFixture,
+                collisionLayer: (int)(
+                    CollisionGroup.LowImpassable | CollisionGroup.MidImpassable | CollisionGroup.Impassable
+                ),
+                hard: false,
+                body: physics
+            );
         }
     }
 
@@ -81,12 +94,10 @@ public sealed class ConveyorController : SharedConveyorController
     {
         if (args.Port == component.OffPort)
             SetState(uid, ConveyorState.Off, component);
-
         else if (args.Port == component.ForwardPort)
         {
             SetState(uid, ConveyorState.Forward, component);
         }
-
         else if (args.Port == component.ReversePort)
         {
             SetState(uid, ConveyorState.Reverse, component);
@@ -128,7 +139,13 @@ public sealed class ConveyorController : SharedConveyorController
         if (beltTileRef != null)
         {
             Intersecting.Clear();
-            Lookup.GetLocalEntitiesIntersecting(beltTileRef.Value.GridUid, beltTileRef.Value.GridIndices, Intersecting, 0f, flags: LookupFlags.Dynamic | LookupFlags.Sundries | LookupFlags.Approximate);
+            Lookup.GetLocalEntitiesIntersecting(
+                beltTileRef.Value.GridUid,
+                beltTileRef.Value.GridIndices,
+                Intersecting,
+                0f,
+                flags: LookupFlags.Dynamic | LookupFlags.Sundries | LookupFlags.Approximate
+            );
 
             foreach (var entity in Intersecting)
             {

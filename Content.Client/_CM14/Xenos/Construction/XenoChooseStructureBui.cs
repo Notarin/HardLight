@@ -1,6 +1,6 @@
-﻿using Content.Shared.CM14.Xenos;
+﻿using Content.Client._Shitmed.Xenonids.UI; // XenoChoiceControl
+using Content.Shared.CM14.Xenos;
 using Content.Shared.CM14.Xenos.Construction;
-using Content.Client._Shitmed.Xenonids.UI; // XenoChoiceControl
 using JetBrains.Annotations;
 using Robust.Client.GameObjects;
 using Robust.Shared.Prototypes;
@@ -10,14 +10,16 @@ namespace Content.Client.CM14.Xenos.Construction;
 [UsedImplicitly]
 public sealed class XenoChooseStructureBui : BoundUserInterface
 {
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototype = default!;
 
     private readonly SpriteSystem _sprite;
 
     [ViewVariables]
     private XenoChooseStructureWindow? _window;
 
-    public XenoChooseStructureBui(EntityUid owner, Enum uiKey) : base(owner, uiKey)
+    public XenoChooseStructureBui(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey)
     {
         _sprite = EntMan.System<SpriteSystem>();
     }

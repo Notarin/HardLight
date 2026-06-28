@@ -38,7 +38,7 @@ public sealed partial class SmartFridgeComponent : Component
     [ViewVariables]
     public bool Ejecting => EjectEnd != null;
 
-    [DataField(customTypeSerializer:typeof(TimeOffsetSerializer)), AutoPausedField]
+    [DataField(customTypeSerializer: typeof(TimeOffsetSerializer)), AutoPausedField]
     public TimeSpan? EjectEnd;
 
     /// <summary>
@@ -47,11 +47,7 @@ public sealed partial class SmartFridgeComponent : Component
     [DataField]
     public SoundSpecifier SoundVend = new SoundPathSpecifier("/Audio/Machines/machine_vend.ogg")
     {
-        Params = new AudioParams
-        {
-            Volume = -4f,
-            Variation = 0.15f
-        }
+        Params = new AudioParams { Volume = -4f, Variation = 0.15f },
     };
 
     /// <summary>

@@ -13,9 +13,14 @@ namespace Content.Shared.Weapons.Hitscan.Systems;
 
 public sealed class BeamPrismSystem : EntitySystem
 {
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     public override void Initialize()
     {
@@ -40,14 +45,20 @@ public sealed class BeamPrismSystem : EntitySystem
         _appearance.SetData(uid, BeamPrismVisuals.FiringToken, ++component.NextFiringToken);
 
         component.FiringOverlayExpireTime = _timing.CurTime + TimeSpan.FromMilliseconds(300);
-        Timer.Spawn(TimeSpan.FromMilliseconds(300), () =>
-        {
-            if (!TryComp<BeamPrismComponent>(uid, out var latest) || _timing.CurTime < latest.FiringOverlayExpireTime)
-                return;
+        Timer.Spawn(
+            TimeSpan.FromMilliseconds(300),
+            () =>
+            {
+                if (
+                    !TryComp<BeamPrismComponent>(uid, out var latest)
+                    || _timing.CurTime < latest.FiringOverlayExpireTime
+                )
+                    return;
 
-            _appearance.RemoveData(uid, BeamPrismVisuals.FiringState);
-            _appearance.RemoveData(uid, BeamPrismVisuals.FiringToken);
-        });
+                _appearance.RemoveData(uid, BeamPrismVisuals.FiringState);
+                _appearance.RemoveData(uid, BeamPrismVisuals.FiringToken);
+            }
+        );
     }
 
     private string GetBeamPrismState(EntityUid sourceItem)

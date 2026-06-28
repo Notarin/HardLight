@@ -30,7 +30,12 @@ public partial class SharedStaminaSystem
     /// Change the stamina modifier for an entity.
     /// If it has <see cref="StaminaComponent"/> it will also be updated.
     /// </summary>
-    public void SetModifier(EntityUid uid, float modifier, StaminaComponent? stamina = null, StaminaModifierComponent? comp = null)
+    public void SetModifier(
+        EntityUid uid,
+        float modifier,
+        StaminaComponent? stamina = null,
+        StaminaModifierComponent? comp = null
+    )
     {
         if (!Resolve(uid, ref comp))
             return;

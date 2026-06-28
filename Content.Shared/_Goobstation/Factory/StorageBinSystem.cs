@@ -6,8 +6,11 @@ namespace Content.Shared._Goobstation.Factory;
 
 public sealed class StorageBinSystem : EntitySystem
 {
-    [Dependency] private readonly AutomationFilterSystem _filter = default!;
-    [Dependency] private readonly SharedDeviceLinkSystem _device = default!;
+    [Dependency]
+    private readonly AutomationFilterSystem _filter = default!;
+
+    [Dependency]
+    private readonly SharedDeviceLinkSystem _device = default!;
 
     public const string ContainerId = "storagebase";
 

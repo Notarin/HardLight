@@ -1,21 +1,24 @@
 using Content.Server.GameTicking.Rules.Components;
-using Content.Server.Radio;
-using Robust.Shared.Random;
-using Content.Server.Light.EntitySystems;
 using Content.Server.Light.Components;
+using Content.Server.Light.EntitySystems;
+using Content.Server.Radio;
 using Content.Server.StationEvents.Components;
-using Content.Shared.Radio.Components;
 using Content.Shared.Doors.Components;
 using Content.Shared.Doors.Systems;
 using Content.Shared.GameTicking.Components;
 using Content.Shared.Light.Components;
+using Content.Shared.Radio.Components;
+using Robust.Shared.Random;
 
 namespace Content.Server.StationEvents.Events;
 
 public sealed class SolarFlareRule : StationEventSystem<SolarFlareRuleComponent>
 {
-    [Dependency] private readonly PoweredLightSystem _poweredLight = default!;
-    [Dependency] private readonly SharedDoorSystem _door = default!;
+    [Dependency]
+    private readonly PoweredLightSystem _poweredLight = default!;
+
+    [Dependency]
+    private readonly SharedDoorSystem _door = default!;
 
     private float _effectTimer = 0;
 
@@ -25,7 +28,12 @@ public sealed class SolarFlareRule : StationEventSystem<SolarFlareRuleComponent>
         SubscribeLocalEvent<RadioReceiveAttemptEvent>(OnRadioReceiveAttempt);
     }
 
-    protected override void Started(EntityUid uid, SolarFlareRuleComponent comp, GameRuleComponent gameRule, GameRuleStartedEvent args)
+    protected override void Started(
+        EntityUid uid,
+        SolarFlareRuleComponent comp,
+        GameRuleComponent gameRule,
+        GameRuleStartedEvent args
+    )
     {
         base.Started(uid, comp, gameRule, args);
 
@@ -36,7 +44,12 @@ public sealed class SolarFlareRule : StationEventSystem<SolarFlareRuleComponent>
         }
     }
 
-    protected override void ActiveTick(EntityUid uid, SolarFlareRuleComponent component, GameRuleComponent gameRule, float frameTime)
+    protected override void ActiveTick(
+        EntityUid uid,
+        SolarFlareRuleComponent component,
+        GameRuleComponent gameRule,
+        float frameTime
+    )
     {
         base.ActiveTick(uid, component, gameRule, frameTime);
 
@@ -73,7 +86,10 @@ public sealed class SolarFlareRule : StationEventSystem<SolarFlareRuleComponent>
             if (!flare.AllChannels && !flare.AffectedChannels.Contains(args.Channel.ID)) // Frontier: add flare.AllChannels
                 continue;
 
-            if (!flare.OnlyJamHeadsets || (HasComp<HeadsetComponent>(args.RadioReceiver) || HasComp<HeadsetComponent>(args.RadioSource)))
+            if (
+                !flare.OnlyJamHeadsets
+                || (HasComp<HeadsetComponent>(args.RadioReceiver) || HasComp<HeadsetComponent>(args.RadioSource))
+            )
                 args.Cancelled = true;
         }
     }

@@ -8,12 +8,16 @@ using Robust.Shared.Serialization.TypeSerializers.Interfaces;
 
 namespace Content.Shared.Atmos;
 
-public sealed class GasArraySerializer : ITypeSerializer<float[], SequenceDataNode>, ITypeSerializer<float[], MappingDataNode>
+public sealed class GasArraySerializer
+    : ITypeSerializer<float[], SequenceDataNode>,
+        ITypeSerializer<float[], MappingDataNode>
 {
-    public ValidationNode Validate(ISerializationManager serializationManager,
+    public ValidationNode Validate(
+        ISerializationManager serializationManager,
         SequenceDataNode node,
         IDependencyCollection dependencies,
-        ISerializationContext? context = null)
+        ISerializationContext? context = null
+    )
     {
         var list = new List<ValidationNode>();
 
@@ -25,12 +29,14 @@ public sealed class GasArraySerializer : ITypeSerializer<float[], SequenceDataNo
         return new ValidatedSequenceNode(list);
     }
 
-    public float[] Read(ISerializationManager serializationManager,
+    public float[] Read(
+        ISerializationManager serializationManager,
         SequenceDataNode node,
         IDependencyCollection dependencies,
         SerializationHookContext hookCtx,
         ISerializationContext? context = null,
-        ISerializationManager.InstantiationDelegate<float[]>? instanceProvider = null)
+        ISerializationManager.InstantiationDelegate<float[]>? instanceProvider = null
+    )
     {
         var list = instanceProvider != null ? instanceProvider() : new float[Atmospherics.AdjustedNumberOfGases];
 
@@ -42,10 +48,12 @@ public sealed class GasArraySerializer : ITypeSerializer<float[], SequenceDataNo
         return list;
     }
 
-    public ValidationNode Validate(ISerializationManager serializationManager,
+    public ValidationNode Validate(
+        ISerializationManager serializationManager,
         MappingDataNode node,
         IDependencyCollection dependencies,
-        ISerializationContext? context = null)
+        ISerializationContext? context = null
+    )
     {
         var dict = new Dictionary<ValidationNode, ValidationNode>();
 
@@ -61,12 +69,14 @@ public sealed class GasArraySerializer : ITypeSerializer<float[], SequenceDataNo
         return new ValidatedMappingNode(dict);
     }
 
-    public float[] Read(ISerializationManager serializationManager,
+    public float[] Read(
+        ISerializationManager serializationManager,
         MappingDataNode node,
         IDependencyCollection dependencies,
         SerializationHookContext hookCtx,
         ISerializationContext? context = null,
-        ISerializationManager.InstantiationDelegate<float[]>? instanceProvider = null)
+        ISerializationManager.InstantiationDelegate<float[]>? instanceProvider = null
+    )
     {
         var list = instanceProvider != null ? instanceProvider() : new float[Atmospherics.AdjustedNumberOfGases];
 
@@ -84,11 +94,13 @@ public sealed class GasArraySerializer : ITypeSerializer<float[], SequenceDataNo
         return list;
     }
 
-    public DataNode Write(ISerializationManager serializationManager,
+    public DataNode Write(
+        ISerializationManager serializationManager,
         float[] value,
         IDependencyCollection dependencies,
         bool alwaysWrite = false,
-        ISerializationContext? context = null)
+        ISerializationContext? context = null
+    )
     {
         var mapping = new MappingDataNode();
 
@@ -97,7 +109,7 @@ public sealed class GasArraySerializer : ITypeSerializer<float[], SequenceDataNo
             if (value[i] <= 0)
                 continue;
 
-            mapping.Add(((Gas) i).ToString(), serializationManager.WriteValue(value[i], alwaysWrite, context));
+            mapping.Add(((Gas)i).ToString(), serializationManager.WriteValue(value[i], alwaysWrite, context));
         }
 
         return mapping;

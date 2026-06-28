@@ -21,14 +21,30 @@ public sealed class VentHordeRule : StationEventSystem<VentHordeRuleComponent>
      * USE THE PROTOTYPE.
      */
 
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly NavMapSystem _navMap = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly EntityTableSystem _table = default!;
-    [Dependency] private readonly VentHordeSystem _horde = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
 
-    protected override void Added(EntityUid uid, VentHordeRuleComponent component, GameRuleComponent gameRule, GameRuleAddedEvent args)
+    [Dependency]
+    private readonly NavMapSystem _navMap = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly EntityTableSystem _table = default!;
+
+    [Dependency]
+    private readonly VentHordeSystem _horde = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    protected override void Added(
+        EntityUid uid,
+        VentHordeRuleComponent component,
+        GameRuleComponent gameRule,
+        GameRuleAddedEvent args
+    )
     {
         // Choose location and make sure it's not null
         component.ChosenVent = ChooseVent();
@@ -50,15 +66,21 @@ public sealed class VentHordeRule : StationEventSystem<VentHordeRuleComponent>
             // Format the announcement with the location, if the string doesn't have them it'll still work fine
             // time is not said on purpose to keep the players on their toes.
             // also because we cannot tell the end time inside of Added().
-            stationEventComp.StartAnnouncement =
-                Loc.GetString(stationEventComp.StartAnnouncement,
-                    ("location", nearestBeacon));
+            stationEventComp.StartAnnouncement = Loc.GetString(
+                stationEventComp.StartAnnouncement,
+                ("location", nearestBeacon)
+            );
         }
 
         base.Added(uid, component, gameRule, args);
     }
 
-    protected override void Started(EntityUid uid, VentHordeRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
+    protected override void Started(
+        EntityUid uid,
+        VentHordeRuleComponent component,
+        GameRuleComponent gameRule,
+        GameRuleStartedEvent args
+    )
     {
         base.Started(uid, component, gameRule, args);
 

@@ -13,9 +13,14 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
     [UsedImplicitly]
     public sealed class GasOutletInjectorSystem : EntitySystem
     {
-        [Dependency] private readonly AtmosphereSystem _atmosphereSystem = default!;
-        [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-        [Dependency] private readonly NodeContainerSystem _nodeContainer = default!;
+        [Dependency]
+        private readonly AtmosphereSystem _atmosphereSystem = default!;
+
+        [Dependency]
+        private readonly SharedAppearanceSystem _appearance = default!;
+
+        [Dependency]
+        private readonly NodeContainerSystem _nodeContainer = default!;
 
         public override void Initialize()
         {
@@ -41,7 +46,11 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
             args.Handled = true;
         }
 
-        public void UpdateAppearance(EntityUid uid, GasOutletInjectorComponent component, AppearanceComponent? appearance = null)
+        public void UpdateAppearance(
+            EntityUid uid,
+            GasOutletInjectorComponent component,
+            AppearanceComponent? appearance = null
+        )
         {
             if (!Resolve(uid, ref appearance, false))
                 return;
@@ -49,7 +58,11 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
             _appearance.SetData(uid, OutletInjectorVisuals.Enabled, component.Enabled, appearance);
         }
 
-        private void OnOutletInjectorUpdated(EntityUid uid, GasOutletInjectorComponent injector, ref AtmosDeviceUpdateEvent args)
+        private void OnOutletInjectorUpdated(
+            EntityUid uid,
+            GasOutletInjectorComponent injector,
+            ref AtmosDeviceUpdateEvent args
+        )
         {
             if (!injector.Enabled)
                 return;
@@ -71,7 +84,10 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
             var timeDelta = args.dt;
 
             // TODO adjust ratio so that environment does not go above MaxPressure?
-            var ratio = MathF.Min(1f, timeDelta * injector.TransferRate * _atmosphereSystem.PumpSpeedup() / inlet.Air.Volume);
+            var ratio = MathF.Min(
+                1f,
+                timeDelta * injector.TransferRate * _atmosphereSystem.PumpSpeedup() / inlet.Air.Volume
+            );
             var removed = inlet.Air.RemoveRatio(ratio);
 
             _atmosphereSystem.Merge(environment, removed);

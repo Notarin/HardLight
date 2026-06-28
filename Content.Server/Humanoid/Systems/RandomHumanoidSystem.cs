@@ -13,24 +13,36 @@ namespace Content.Server.Humanoid.Systems;
 /// </summary>
 public sealed class RandomHumanoidSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly ISerializationManager _serialization = default!;
-    [Dependency] private readonly MetaDataSystem _metaData = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
 
-    [Dependency] private readonly HumanoidAppearanceSystem _humanoid = default!;
+    [Dependency]
+    private readonly ISerializationManager _serialization = default!;
+
+    [Dependency]
+    private readonly MetaDataSystem _metaData = default!;
+
+    [Dependency]
+    private readonly HumanoidAppearanceSystem _humanoid = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
     {
-        SubscribeLocalEvent<RandomHumanoidSpawnerComponent, MapInitEvent>(OnMapInit,
-            after: new []{ typeof(RandomMetadataSystem) });
+        SubscribeLocalEvent<RandomHumanoidSpawnerComponent, MapInitEvent>(
+            OnMapInit,
+            after: new[] { typeof(RandomMetadataSystem) }
+        );
     }
 
     private void OnMapInit(EntityUid uid, RandomHumanoidSpawnerComponent component, MapInitEvent args)
     {
         QueueDel(uid);
         if (component.SettingsPrototypeId != null)
-            component.SpawnedId = SpawnRandomHumanoid(component.SettingsPrototypeId, Transform(uid).Coordinates, MetaData(uid).EntityName); // Frontier: add "component.SpawnedId ="
+            component.SpawnedId = SpawnRandomHumanoid(
+                component.SettingsPrototypeId,
+                Transform(uid).Coordinates,
+                MetaData(uid).EntityName
+            ); // Frontier: add "component.SpawnedId ="
     }
 
     public EntityUid SpawnRandomHumanoid(string prototypeId, EntityCoordinates coordinates, string name)

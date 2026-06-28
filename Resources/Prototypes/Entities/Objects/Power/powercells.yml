@@ -77,11 +77,11 @@
   - type: Extractable
     juiceSolution:
       reagents:
-        - ReagentId: Zinc
-          Quantity: 5
+      - ReagentId: Zinc
+        Quantity: 5
   - type: Tag
     tags:
-      - PowerCell
+    - PowerCell
   - type: Appearance
   - type: PowerCellVisuals
   - type: Riggable
@@ -103,7 +103,7 @@
     startingCharge: 70
   - type: Tag
     tags:
-      - PotatoBattery
+    - PotatoBattery
   - type: Construction
     graph: PowerCellPotato
     node: potatobattery
@@ -120,9 +120,9 @@
   components:
   - type: Sprite
     layers:
-    - map: [ "enum.PowerCellVisualLayers.Base" ]
+    - map: ["enum.PowerCellVisualLayers.Base"]
       state: small
-    - map: [ "enum.PowerCellVisualLayers.Unshaded" ]
+    - map: ["enum.PowerCellVisualLayers.Unshaded"]
       state: o2
       shader: unshaded
   - type: Battery
@@ -130,7 +130,7 @@
     startingCharge: 360
   - type: Tag
     tags:
-      - PowerCellSmall
+    - PowerCellSmall
   - type: MachinePart # Frontier
     part: PowerCell # Frontier
     rating: 1 # Frontier
@@ -146,12 +146,12 @@
   components:
   - type: Sprite
     layers:
-      - map: [ "enum.PowerCellVisualLayers.Base" ]
-        state: small
-      - map: [ "enum.PowerCellVisualLayers.Unshaded" ]
-        state: o2
-        shader: unshaded
-        visible: false
+    - map: ["enum.PowerCellVisualLayers.Base"]
+      state: small
+    - map: ["enum.PowerCellVisualLayers.Unshaded"]
+      state: o2
+      shader: unshaded
+      visible: false
   - type: Battery
     maxCharge: 360
     startingCharge: 0
@@ -177,9 +177,9 @@
   components:
   - type: Sprite
     layers:
-    - map: [ "enum.PowerCellVisualLayers.Base" ]
+    - map: ["enum.PowerCellVisualLayers.Base"]
       state: medium
-    - map: [ "enum.PowerCellVisualLayers.Unshaded" ]
+    - map: ["enum.PowerCellVisualLayers.Unshaded"]
       state: o2
       shader: unshaded
   - type: Battery
@@ -196,12 +196,12 @@
   components:
   - type: Sprite
     layers:
-      - map: [ "enum.PowerCellVisualLayers.Base" ]
-        state: medium
-      - map: [ "enum.PowerCellVisualLayers.Unshaded" ]
-        state: o2
-        shader: unshaded
-        visible: false
+    - map: ["enum.PowerCellVisualLayers.Base"]
+      state: medium
+    - map: ["enum.PowerCellVisualLayers.Unshaded"]
+      state: o2
+      shader: unshaded
+      visible: false
   - type: Battery
     maxCharge: 720
     startingCharge: 0
@@ -215,9 +215,9 @@
   components:
   - type: Sprite
     layers:
-    - map: [ "enum.PowerCellVisualLayers.Base" ]
+    - map: ["enum.PowerCellVisualLayers.Base"]
       state: high
-    - map: [ "enum.PowerCellVisualLayers.Unshaded" ]
+    - map: ["enum.PowerCellVisualLayers.Unshaded"]
       state: o2
       shader: unshaded
   - type: Battery
@@ -234,12 +234,12 @@
   components:
   - type: Sprite
     layers:
-      - map: [ "enum.PowerCellVisualLayers.Base" ]
-        state: high
-      - map: [ "enum.PowerCellVisualLayers.Unshaded" ]
-        state: o2
-        shader: unshaded
-        visible: false
+    - map: ["enum.PowerCellVisualLayers.Base"]
+      state: high
+    - map: ["enum.PowerCellVisualLayers.Unshaded"]
+      state: o2
+      shader: unshaded
+      visible: false
   - type: Battery
     maxCharge: 1080
     startingCharge: 0
@@ -253,9 +253,9 @@
   components:
   - type: Sprite
     layers:
-    - map: [ "enum.PowerCellVisualLayers.Base" ]
+    - map: ["enum.PowerCellVisualLayers.Base"]
       state: hyper
-    - map: [ "enum.PowerCellVisualLayers.Unshaded" ]
+    - map: ["enum.PowerCellVisualLayers.Unshaded"]
       state: o2
       shader: unshaded
   - type: Battery
@@ -272,12 +272,12 @@
   components:
   - type: Sprite
     layers:
-      - map: [ "enum.PowerCellVisualLayers.Base" ]
-        state: hyper
-      - map: [ "enum.PowerCellVisualLayers.Unshaded" ]
-        state: o2
-        shader: unshaded
-        visible: false
+    - map: ["enum.PowerCellVisualLayers.Base"]
+      state: hyper
+    - map: ["enum.PowerCellVisualLayers.Unshaded"]
+      state: o2
+      shader: unshaded
+      visible: false
   - type: Battery
     maxCharge: 1800
     startingCharge: 0
@@ -291,9 +291,9 @@
   components:
   - type: Sprite
     layers:
-    - map: [ "enum.PowerCellVisualLayers.Base" ]
+    - map: ["enum.PowerCellVisualLayers.Base"]
       state: microreactor
-    - map: [ "enum.PowerCellVisualLayers.Unshaded" ]
+    - map: ["enum.PowerCellVisualLayers.Unshaded"]
       state: o2
       shader: unshaded
   - type: Battery
@@ -313,9 +313,9 @@
   components:
   - type: Sprite
     layers:
-    - map: [ "enum.PowerCellVisualLayers.Base" ]
+    - map: ["enum.PowerCellVisualLayers.Base"]
       state: microreactor
-    - map: [ "enum.PowerCellVisualLayers.Unshaded" ]
+    - map: ["enum.PowerCellVisualLayers.Unshaded"]
       state: o2
       shader: unshaded
       visible: false
@@ -328,22 +328,22 @@
   id: PowerCellAntiqueProto
   parent: BasePowerCell
   components:
-    - type: Sprite
-      layers:
-      - map: [ "enum.PowerCellVisualLayers.Base" ]
-        state: antique
-      - map: [ "enum.PowerCellVisualLayers.Unshaded" ]
-        state: o2
-        shader: unshaded
-    - type: Battery
-      maxCharge: 720
-      startingCharge: 0
-    - type: BatterySelfRecharger
-      autoRecharge: true
-      autoRechargeRate: 40
-    - type: MachinePart # Frontier
-      part: PowerCell # Frontier
-      rating: 4 # Frontier: tier of this is arguable
+  - type: Sprite
+    layers:
+    - map: ["enum.PowerCellVisualLayers.Base"]
+      state: antique
+    - map: ["enum.PowerCellVisualLayers.Unshaded"]
+      state: o2
+      shader: unshaded
+  - type: Battery
+    maxCharge: 720
+    startingCharge: 0
+  - type: BatterySelfRecharger
+    autoRecharge: true
+    autoRechargeRate: 40
+  - type: MachinePart # Frontier
+    part: PowerCell # Frontier
+    rating: 4 # Frontier: tier of this is arguable
 
 # Power cage (big heavy power cell for big devices)
 
@@ -362,11 +362,11 @@
   - type: Extractable
     juiceSolution:
       reagents:
-        - ReagentId: Zinc
-          Quantity: 15
+      - ReagentId: Zinc
+        Quantity: 15
   - type: Tag
     tags:
-      - PowerCage
+    - PowerCage
   - type: HitscanBatteryAmmoProvider
     proto: RedShuttleLaser
     fireCost: 150
@@ -384,9 +384,9 @@
   - type: Sprite
     sprite: Objects/Power/power_cages.rsi
     layers:
-    - map: [ "enum.PowerCellVisualLayers.Base" ]
+    - map: ["enum.PowerCellVisualLayers.Base"]
       state: small
-    - map: [ "enum.PowerCellVisualLayers.Unshaded" ]
+    - map: ["enum.PowerCellVisualLayers.Unshaded"]
       state: o2
       shader: unshaded
   - type: Battery
@@ -402,9 +402,9 @@
   - type: Sprite
     sprite: Objects/Power/power_cages.rsi
     layers:
-    - map: [ "enum.PowerCellVisualLayers.Base" ]
+    - map: ["enum.PowerCellVisualLayers.Base"]
       state: medium
-    - map: [ "enum.PowerCellVisualLayers.Unshaded" ]
+    - map: ["enum.PowerCellVisualLayers.Unshaded"]
       state: o2
       shader: unshaded
   - type: Battery
@@ -420,9 +420,9 @@
   - type: Sprite
     sprite: Objects/Power/power_cages.rsi
     layers:
-    - map: [ "enum.PowerCellVisualLayers.Base" ]
+    - map: ["enum.PowerCellVisualLayers.Base"]
       state: high
-    - map: [ "enum.PowerCellVisualLayers.Unshaded" ]
+    - map: ["enum.PowerCellVisualLayers.Unshaded"]
       state: o2
       shader: unshaded
   - type: Battery
@@ -438,9 +438,9 @@
   - type: Sprite
     sprite: Objects/Power/power_cages.rsi
     layers:
-    - map: [ "enum.PowerCellVisualLayers.Base" ]
+    - map: ["enum.PowerCellVisualLayers.Base"]
       state: high
-    - map: [ "enum.PowerCellVisualLayers.Unshaded" ]
+    - map: ["enum.PowerCellVisualLayers.Unshaded"]
       state: o2
       shader: unshaded
   - type: Battery
@@ -455,9 +455,9 @@
   - type: Sprite
     sprite: Objects/Power/power_cages.rsi
     layers:
-    - map: [ "enum.PowerCellVisualLayers.Base" ]
+    - map: ["enum.PowerCellVisualLayers.Base"]
       state: small
-    - map: [ "enum.PowerCellVisualLayers.Unshaded" ]
+    - map: ["enum.PowerCellVisualLayers.Unshaded"]
       state: o2
       shader: unshaded
       visible: false
@@ -473,9 +473,9 @@
   - type: Sprite
     sprite: Objects/Power/power_cages.rsi
     layers:
-    - map: [ "enum.PowerCellVisualLayers.Base" ]
+    - map: ["enum.PowerCellVisualLayers.Base"]
       state: small
-    - map: [ "enum.PowerCellVisualLayers.Unshaded" ]
+    - map: ["enum.PowerCellVisualLayers.Unshaded"]
       state: o2
       shader: unshaded
       visible: false
@@ -490,9 +490,9 @@
   - type: Sprite
     sprite: Objects/Power/power_cages.rsi
     layers:
-    - map: [ "enum.PowerCellVisualLayers.Base" ]
+    - map: ["enum.PowerCellVisualLayers.Base"]
       state: small
-    - map: [ "enum.PowerCellVisualLayers.Unshaded" ]
+    - map: ["enum.PowerCellVisualLayers.Unshaded"]
       state: o2
       shader: unshaded
       visible: false

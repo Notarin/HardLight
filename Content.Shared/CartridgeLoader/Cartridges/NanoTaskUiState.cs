@@ -51,6 +51,7 @@ public sealed partial class NanoTaskItem
         IsTaskDone = isTaskDone;
         Priority = priority;
     }
+
     public bool Validate()
     {
         return Description.Length <= MaximumStringLength && TaskIsFor.Length <= MaximumStringLength;

@@ -36,8 +36,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.25,-0.4,0.25,0.1"
         density: 20
         mask:
@@ -47,8 +46,8 @@
     isCollidableWhenOpen: true
     whitelist: # Use a tag whitelist rather than filtering for PerishableComponent to avoid chefs using body bags for food preservation
       tags:
-        - VimPilot # Pets
-        - CanPilot # People
+      - VimPilot # Pets
+      - CanPilot # People
     closeSound:
       path: /Audio/Misc/zip.ogg
     openSound:
@@ -75,10 +74,10 @@
           False: {visible: false}
       enum.PaperLabelVisuals.LabelType:
         enum.PaperLabelVisuals.Layer:
-          Paper: { state: paper }
-          Bounty: { state: bounty }
-          CaptainsPaper: { state: captains_paper }
-          Invoice: { state: invoice }
+          Paper: {state: paper}
+          Bounty: {state: bounty}
+          CaptainsPaper: {state: captains_paper}
+          Invoice: {state: invoice}
       enum.FoldedVisuals.State:
         foldedLayer:
           True: {visible: true}
@@ -149,22 +148,22 @@
   name: ectoplasm
   description: Much less deadly in this form.
   components:
-    - type: Sprite
-      sprite: Mobs/Ghosts/revenant.rsi
-      state: ectoplasm
-    - type: Tag
-      tags:
-        - Trash
-        - Ectoplasm
-    - type: SolutionContainerManager
-      solutions:
-        food:
-          maxVol: 50
-          reagents:
-            - ReagentId: Ash
-              Quantity: 25
-            - ReagentId: Necrosol
-              Quantity: 25
-    # - type: GuideHelp # Frontier: removed from guidebook
-    #   guides: # Frontier: removed from guidebook
-    #   - MinorAntagonists # Frontier: removed from guidebook
+  - type: Sprite
+    sprite: Mobs/Ghosts/revenant.rsi
+    state: ectoplasm
+  - type: Tag
+    tags:
+    - Trash
+    - Ectoplasm
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 50
+        reagents:
+        - ReagentId: Ash
+          Quantity: 25
+        - ReagentId: Necrosol
+          Quantity: 25
+  # - type: GuideHelp # Frontier: removed from guidebook
+  #   guides: # Frontier: removed from guidebook
+  #   - MinorAntagonists # Frontier: removed from guidebook

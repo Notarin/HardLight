@@ -4,8 +4,11 @@ namespace Content.Server.Traits.Assorted;
 
 public sealed class BuckleOnMapInitSystem : EntitySystem
 {
-    [Dependency] private readonly SharedBuckleSystem _buckleSystem = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!; // Goobstation
+    [Dependency]
+    private readonly SharedBuckleSystem _buckleSystem = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!; // Goobstation
 
     public override void Initialize()
     {

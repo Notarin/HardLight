@@ -4,14 +4,14 @@
   name: shredder machine board
   description: A machine printed circuit board for a shredder.
   components:
-    - type: Sprite
-      state: engineering
-    - type: MachineBoard
-      prototype: Shredder
-      requirements:
-        MatterBin: 1
-      stackRequirements:
-        Glass: 1
+  - type: Sprite
+    state: engineering
+  - type: MachineBoard
+    prototype: Shredder
+    requirements:
+      MatterBin: 1
+    stackRequirements:
+      Glass: 1
 
 - type: entity
   id: SalvageTechFabCircuitboardNF
@@ -19,17 +19,17 @@
   name: salvage techfab machine board
   description: A machine printed circuit board for a salvage techfab.
   components:
-    - type: Sprite
-      state: supply
-    - type: MachineBoard
-      prototype: SalvageTechfabNF
-      requirements:
-        MatterBin: 2
-        Manipulator: 2
-      tagRequirements:
-        GlassBeaker:
-          amount: 2
-          defaultPrototype: Beaker
+  - type: Sprite
+    state: supply
+  - type: MachineBoard
+    prototype: SalvageTechfabNF
+    requirements:
+      MatterBin: 2
+      Manipulator: 2
+    tagRequirements:
+      GlassBeaker:
+        amount: 2
+        defaultPrototype: Beaker
 
 - type: entity
   id: MercenaryTechFabCircuitboardNF
@@ -37,18 +37,18 @@
   name: mercenary techfab machine board
   description: A machine printed circuit board for a mercenary techfab.
   components:
-    - type: Sprite
-      sprite: _NF/Objects/Misc/module.rsi
-      state: nfsd # dumb, but we don't really have a merc module at the moment
-    - type: MachineBoard
-      prototype: MercenaryTechFab
-      requirements:
-        MatterBin: 2
-        Manipulator: 2
-      tagRequirements:
-        GlassBeaker:
-          amount: 2
-          defaultPrototype: Beaker
+  - type: Sprite
+    sprite: _NF/Objects/Misc/module.rsi
+    state: nfsd # dumb, but we don't really have a merc module at the moment
+  - type: MachineBoard
+    prototype: MercenaryTechFab
+    requirements:
+      MatterBin: 2
+      Manipulator: 2
+    tagRequirements:
+      GlassBeaker:
+        amount: 2
+        defaultPrototype: Beaker
 
 - type: entity
   id: MercenaryTechFabCircuitboardHackedNF
@@ -56,18 +56,18 @@
   name: hacked mercenary techfab machine board
   description: A spray painted circuit board for a mercenary techfab with some doodads attached to it. Don't worry 'bout it, choomba.
   components:
-    - type: Sprite
-      sprite: _NF/Objects/Misc/module.rsi
-      state: hacked-merc-fab-board
-    - type: MachineBoard
-      prototype: MercenaryTechFabHacked
-      requirements:
-        MatterBin: 2
-        Manipulator: 2
-      tagRequirements:
-        GlassBeaker:
-          amount: 2
-          defaultPrototype: Beaker
+  - type: Sprite
+    sprite: _NF/Objects/Misc/module.rsi
+    state: hacked-merc-fab-board
+  - type: MachineBoard
+    prototype: MercenaryTechFabHacked
+    requirements:
+      MatterBin: 2
+      Manipulator: 2
+    tagRequirements:
+      GlassBeaker:
+        amount: 2
+        defaultPrototype: Beaker
 
 - type: entity
   id: NFScrapProcessorCircuitboard
@@ -75,17 +75,17 @@
   name: scrap processor machine board
   description: A machine printed circuit board for a scrap processor.
   components:
-    - type: Sprite
-      state: supply
-    - type: MachineBoard
-      prototype: ScrapProcessor
-      requirements:
-        MatterBin: 2
-        Manipulator: 2
-      tagRequirements:
-        GlassBeaker:
-          amount: 2
-          defaultPrototype: Beaker
+  - type: Sprite
+    state: supply
+  - type: MachineBoard
+    prototype: ScrapProcessor
+    requirements:
+      MatterBin: 2
+      Manipulator: 2
+    tagRequirements:
+      GlassBeaker:
+        amount: 2
+        defaultPrototype: Beaker
 
 - type: entity
   id: GasMiningDrillMachineCircuitboard
@@ -93,15 +93,15 @@
   name: gas mining drill machine board
   description: A machine printed circuit board for a gas mining drill.
   components:
-    - type: Sprite
-      state: engineering
-    - type: MachineBoard
-      prototype: GasMiningDrill
-      requirements:
-        Manipulator: 3
-      stackRequirements:
-        Steel: 10
-    - type: BindToStationExemption # Frontier - we exempt this machine from binding to grids because the intention is for it to have that ability
+  - type: Sprite
+    state: engineering
+  - type: MachineBoard
+    prototype: GasMiningDrill
+    requirements:
+      Manipulator: 3
+    stackRequirements:
+      Steel: 10
+  - type: BindToStationExemption # Frontier - we exempt this machine from binding to grids because the intention is for it to have that ability
 
 - type: entity
   id: GaslockFrameMachineCircuitboard
@@ -109,19 +109,19 @@
   name: portable gaslock machine board
   description: A machine printed circuit board for a gas mining drill.
   components:
-    - type: Sprite
-      state: engineering
-    - type: MachineBoard
-      prototype: GaslockFrame
-      stackRequirements:
-        Steel: 10
-        Plasteel: 15
-        Gold: 1
-        Silver: 1
-    - type: BindToStationExemption # Frontier - we exempt this machine from binding to grids because the intention is for it to have that ability
-    - type: Tag
-      tags:
-        - GaslockFrameMachineCircuitBoard
+  - type: Sprite
+    state: engineering
+  - type: MachineBoard
+    prototype: GaslockFrame
+    stackRequirements:
+      Steel: 10
+      Plasteel: 15
+      Gold: 1
+      Silver: 1
+  - type: BindToStationExemption # Frontier - we exempt this machine from binding to grids because the intention is for it to have that ability
+  - type: Tag
+    tags:
+    - GaslockFrameMachineCircuitBoard
 
 # TechFab
 - type: entity
@@ -130,11 +130,11 @@
   name: ColSec techfab machine board
   description: A machine printed circuit board for an ColSec techfab.
   components:
-    - type: Sprite
-      sprite: _NF/Objects/Misc/module.rsi
-      state: nfsd
-    - type: MachineBoard
-      prototype: NfsdTechFab
+  - type: Sprite
+    sprite: _NF/Objects/Misc/module.rsi
+    state: nfsd
+  - type: MachineBoard
+    prototype: NfsdTechFab
 
 # Thrusters
 - type: entity
@@ -288,47 +288,47 @@
 
 - type: entity
   id: PortableGeneratorDKMachineCircuitboard
-  parent: [ BaseMachineCircuitboard, BaseC2ContrabandUnredeemable ]
+  parent: [BaseMachineCircuitboard, BaseC2ContrabandUnredeemable]
   name: D-K portable generator machine board
   description: A machine printed circuit board for a D-K-type portable generator.
   components:
-    - type: Sprite
-      state: engineering
-    - type: MachineBoard
-      prototype: PortableGeneratorDK
-      requirements:
-        Capacitor: 2
-      stackRequirements:
-        CableHV: 10
-    - type: PhysicalComposition
-      materialComposition:
-        Glass: 200
-      chemicalComposition:
-        Silicon: 20
-    - type: StaticPrice
-      price: 40
+  - type: Sprite
+    state: engineering
+  - type: MachineBoard
+    prototype: PortableGeneratorDK
+    requirements:
+      Capacitor: 2
+    stackRequirements:
+      CableHV: 10
+  - type: PhysicalComposition
+    materialComposition:
+      Glass: 200
+    chemicalComposition:
+      Silicon: 20
+  - type: StaticPrice
+    price: 40
 
 - type: entity
   id: PortableGeneratorDKJrMachineCircuitboard
-  parent: [ BaseMachineCircuitboard, BaseC1Contraband ]
+  parent: [BaseMachineCircuitboard, BaseC1Contraband]
   name: D-K Jr. portable generator machine board
   description: A machine printed circuit board for a D-K Jr.-type portable generator.
   components:
-    - type: Sprite
-      state: engineering
-    - type: MachineBoard
-      prototype: PortableGeneratorDKJr
-      requirements:
-        Capacitor: 2
-      stackRequirements:
-        CableHV: 10
-    - type: PhysicalComposition
-      materialComposition:
-        Glass: 200
-      chemicalComposition:
-        Silicon: 20
-    - type: StaticPrice
-      price: 40
+  - type: Sprite
+    state: engineering
+  - type: MachineBoard
+    prototype: PortableGeneratorDKJr
+    requirements:
+      Capacitor: 2
+    stackRequirements:
+      CableHV: 10
+  - type: PhysicalComposition
+    materialComposition:
+      Glass: 200
+    chemicalComposition:
+      Silicon: 20
+  - type: StaticPrice
+    price: 40
 
 - type: entity
   id: BlueprintLithographMachineCircuitboard
@@ -354,16 +354,16 @@
   name: electric range machine board
   description: A machine printed circuit board for an electric range.
   components:
-    - type: Sprite
-      state: service
-    - type: MachineBoard
-      prototype: KitchenElectricRange
-      requirements:
-        Capacitor: 3
-      stackRequirements:
-        Steel: 5
-        Glass: 2
-        Cable: 4
+  - type: Sprite
+    state: service
+  - type: MachineBoard
+    prototype: KitchenElectricRange
+    requirements:
+      Capacitor: 3
+    stackRequirements:
+      Steel: 5
+      Glass: 2
+      Cable: 4
 
 - type: entity
   id: SyndicateElectricRangeMachineCircuitboard
@@ -371,16 +371,16 @@
   name: syndicate electric range machine board
   description: A machine printed circuit board for an syndicate electric range.
   components:
-    - type: Sprite
-      state: service
-    - type: MachineBoard
-      prototype: SyndicateKitchenElectricRange
-      requirements:
-        Capacitor: 3
-      stackRequirements:
-        Steel: 5
-        Glass: 2
-        Cable: 4
+  - type: Sprite
+    state: service
+  - type: MachineBoard
+    prototype: SyndicateKitchenElectricRange
+    requirements:
+      Capacitor: 3
+    stackRequirements:
+      Steel: 5
+      Glass: 2
+      Cable: 4
 
 - type: entity
   id: KitchenAssemblerMachineCircuitboard
@@ -388,15 +388,15 @@
   name: food-o-mat machine board
   description: A machine printed circuit board for a Food-O-Mat, suitable for a kitchen.
   components:
-    - type: Sprite
-      state: service
-    - type: MachineBoard
-      prototype: KitchenAssembler
-      requirements:
-        Capacitor: 1
-      stackRequirements:
-        Glass: 2
-        Cable: 2
+  - type: Sprite
+    state: service
+  - type: MachineBoard
+    prototype: KitchenAssembler
+    requirements:
+      Capacitor: 1
+    stackRequirements:
+      Glass: 2
+      Cable: 2
 
 - type: entity
   id: MedicalAssemblerMachineCircuitboard
@@ -404,16 +404,16 @@
   name: medical assembler machine board
   description: A machine printed circuit board for a medical assembler.
   components:
-    - type: Sprite
-      state: medical
-    - type: MachineBoard
-      prototype: MedicalAssembler
-      requirements:
-        Capacitor: 3
-      stackRequirements:
-        Steel: 5
-        Glass: 2
-        Cable: 4
+  - type: Sprite
+    state: medical
+  - type: MachineBoard
+    prototype: MedicalAssembler
+    requirements:
+      Capacitor: 3
+    stackRequirements:
+      Steel: 5
+      Glass: 2
+      Cable: 4
 
 # Removed from upstream definitions
 - type: entity
@@ -422,15 +422,15 @@
   name: material reclaimer machine board
   description: A machine printed circuit board for a material reclaimer.
   components:
-    - type: Sprite
-      state: supply
-    - type: MachineBoard
-      prototype: MaterialReclaimer
-      requirements:
-        Manipulator: 2
-      stackRequirements:
-        Steel: 5
-        Plastic: 5
+  - type: Sprite
+    state: supply
+  - type: MachineBoard
+    prototype: MaterialReclaimer
+    requirements:
+      Manipulator: 2
+    stackRequirements:
+      Steel: 5
+      Plastic: 5
 
 - type: entity
   id: CondimentDispenserCircuitboard
@@ -438,18 +438,18 @@
   name: condiment dispenser machine board
   description: A machine printed circuit board for a condiment dispenser.
   components:
-    - type: Sprite
-      state: service
-    - type: MachineBoard
-      prototype: CondimentDispenserEmpty
-      requirements:
-        MatterBin: 1
-      stackRequirements:
-        Steel: 5
-      tagRequirements:
-          GlassBeaker:
-            amount: 1
-            defaultPrototype: Beaker
+  - type: Sprite
+    state: service
+  - type: MachineBoard
+    prototype: CondimentDispenserEmpty
+    requirements:
+      MatterBin: 1
+    stackRequirements:
+      Steel: 5
+    tagRequirements:
+      GlassBeaker:
+        amount: 1
+        defaultPrototype: Beaker
 
 - type: entity
   id: ImpCoffeeMachineCircuitboard
@@ -457,16 +457,16 @@
   name: spacepresso machine board
   description: A machine printed circuit board for a spacepresso machine.
   components:
-    - type: Sprite
-      state: service
-    - type: MachineBoard
-      prototype: ImpCoffeeMachineEmpty
-      stackRequirements:
-        Steel: 5
-      tagRequirements:
-          GlassBeaker:
-            amount: 1
-            defaultPrototype: Beaker
+  - type: Sprite
+    state: service
+  - type: MachineBoard
+    prototype: ImpCoffeeMachineEmpty
+    stackRequirements:
+      Steel: 5
+    tagRequirements:
+      GlassBeaker:
+        amount: 1
+        defaultPrototype: Beaker
 
 - type: entity
   parent: StationAnchorCircuitboard

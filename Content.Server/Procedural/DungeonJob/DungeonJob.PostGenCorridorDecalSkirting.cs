@@ -13,7 +13,13 @@ public sealed partial class DungeonJob
     /// <summary>
     /// <see cref="CorridorDecalSkirtingDunGen"/>
     /// </summary>
-    private async Task PostGen(CorridorDecalSkirtingDunGen decks, DungeonData data, Dungeon dungeon, HashSet<Vector2i> reservedTiles, Random random)
+    private async Task PostGen(
+        CorridorDecalSkirtingDunGen decks,
+        DungeonData data,
+        Dungeon dungeon,
+        HashSet<Vector2i> reservedTiles,
+        Random random
+    )
     {
         if (!data.Colors.TryGetValue(DungeonDataKey.Decals, out var color))
         {
@@ -36,17 +42,19 @@ public sealed partial class DungeonJob
             // Do corners the other step
             for (var i = 0; i < 4; i++)
             {
-                var dir = (DirectionFlag) Math.Pow(2, i);
+                var dir = (DirectionFlag)Math.Pow(2, i);
                 var neighbor = tile + dir.AsDir().ToIntVec();
 
                 var anc = _maps.GetAnchoredEntitiesEnumerator(_gridUid, _grid, neighbor);
 
                 while (anc.MoveNext(out var ent))
                 {
-                    if (!physicsQuery.TryGetComponent(ent, out var physics) ||
-                        !physics.CanCollide ||
-                        !physics.Hard ||
-                        doorQuery.HasComponent(ent.Value))
+                    if (
+                        !physicsQuery.TryGetComponent(ent, out var physics)
+                        || !physics.CanCollide
+                        || !physics.Hard
+                        || doorQuery.HasComponent(ent.Value)
+                    )
                     {
                         continue;
                     }
@@ -63,17 +71,19 @@ public sealed partial class DungeonJob
 
                 for (var i = 1; i < 5; i++)
                 {
-                    var dir = (Direction) (i * 2 - 1);
+                    var dir = (Direction)(i * 2 - 1);
                     var neighbor = tile + dir.ToIntVec();
 
                     var anc = _maps.GetAnchoredEntitiesEnumerator(_gridUid, _grid, neighbor);
 
                     while (anc.MoveNext(out var ent))
                     {
-                        if (!physicsQuery.TryGetComponent(ent, out var physics) ||
-                            !physics.CanCollide ||
-                            !physics.Hard ||
-                            doorQuery.HasComponent(ent.Value))
+                        if (
+                            !physicsQuery.TryGetComponent(ent, out var physics)
+                            || !physics.CanCollide
+                            || !physics.Hard
+                            || doorQuery.HasComponent(ent.Value)
+                        )
                         {
                             continue;
                         }

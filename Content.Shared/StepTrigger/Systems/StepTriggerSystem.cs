@@ -10,10 +10,17 @@ namespace Content.Shared.StepTrigger.Systems;
 
 public sealed class StepTriggerSystem : EntitySystem
 {
-    [Dependency] private readonly EntityLookupSystem _entityLookup = default!;
-    [Dependency] private readonly SharedGravitySystem _gravity = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
+    [Dependency]
+    private readonly EntityLookupSystem _entityLookup = default!;
+
+    [Dependency]
+    private readonly SharedGravitySystem _gravity = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _map = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelistSystem = default!;
 
     public override void Initialize()
     {
@@ -25,6 +32,7 @@ public sealed class StepTriggerSystem : EntitySystem
 #if DEBUG
         SubscribeLocalEvent<StepTriggerComponent, ComponentStartup>(OnStartup);
     }
+
     private void OnStartup(EntityUid uid, StepTriggerComponent component, ComponentStartup args)
     {
         if (!component.Active)
@@ -51,10 +59,14 @@ public sealed class StepTriggerSystem : EntitySystem
         }
     }
 
-    private bool Update(EntityUid uid, StepTriggerComponent component, TransformComponent transform, EntityQuery<PhysicsComponent> query)
+    private bool Update(
+        EntityUid uid,
+        StepTriggerComponent component,
+        TransformComponent transform,
+        EntityQuery<PhysicsComponent> query
+    )
     {
-        if (!component.Active ||
-            component.Colliding.Count == 0)
+        if (!component.Active || component.Colliding.Count == 0)
         {
             return true;
         }
@@ -84,7 +96,13 @@ public sealed class StepTriggerSystem : EntitySystem
         return false;
     }
 
-    private void UpdateColliding(EntityUid uid, StepTriggerComponent component, TransformComponent ownerXform, EntityUid otherUid, EntityQuery<PhysicsComponent> query)
+    private void UpdateColliding(
+        EntityUid uid,
+        StepTriggerComponent component,
+        TransformComponent ownerXform,
+        EntityUid otherUid,
+        EntityQuery<PhysicsComponent> query
+    )
     {
         if (!query.TryGetComponent(otherUid, out var otherPhysics))
             return;
@@ -107,10 +125,12 @@ public sealed class StepTriggerSystem : EntitySystem
         // this is hard to explain
         var intersect = Box2.Area(otherAabb.Intersect(ourAabb));
         var ratio = Math.Max(intersect / Box2.Area(otherAabb), intersect / Box2.Area(ourAabb));
-        if (otherPhysics.LinearVelocity.Length() < component.RequiredTriggeredSpeed
+        if (
+            otherPhysics.LinearVelocity.Length() < component.RequiredTriggeredSpeed
             || component.CurrentlySteppedOn.Contains(otherUid)
             || ratio < component.IntersectRatio
-            || !CanTrigger(uid, otherUid, component))
+            || !CanTrigger(uid, otherUid, component)
+        )
         {
             return;
         }
@@ -138,8 +158,11 @@ public sealed class StepTriggerSystem : EntitySystem
         // Can't trigger if we don't ignore weightless entities
         // and the entity is flying or currently weightless
         // Makes sense simulation wise to have this be part of steptrigger directly IMO
-        if (!component.IgnoreWeightless && TryComp<PhysicsComponent>(otherUid, out var physics) &&
-            (physics.BodyStatus == BodyStatus.InAir || _gravity.IsWeightless(otherUid, physics)))
+        if (
+            !component.IgnoreWeightless
+            && TryComp<PhysicsComponent>(otherUid, out var physics)
+            && (physics.BodyStatus == BodyStatus.InAir || _gravity.IsWeightless(otherUid, physics))
+        )
             return false;
 
         var msg = new StepTriggerAttemptEvent { Source = uid, Tripper = otherUid };
@@ -244,6 +267,7 @@ public struct StepTriggerAttemptEvent
     public EntityUid Source;
     public EntityUid Tripper;
     public bool Continue;
+
     /// <summary>
     ///     Set by systems which wish to cancel the step trigger event, regardless of event ordering.
     /// </summary>

@@ -73,8 +73,8 @@
   components:
   - type: EntityTargetAction
     range: 20
-#    sound: !type:SoundPathSpecifier
-#      path: /Audio/Magic/Eldritch/voidblink.ogg
+    #    sound: !type:SoundPathSpecifier
+    #      path: /Audio/Magic/Eldritch/voidblink.ogg
     itemIconStyle: BigAction
     whitelist:
       components:

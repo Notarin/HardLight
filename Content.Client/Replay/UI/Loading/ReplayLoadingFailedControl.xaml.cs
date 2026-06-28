@@ -21,7 +21,8 @@ public sealed partial class ReplayLoadingFailedControl : Control
     public void SetData(Exception exception, Action? cancelPressed, Action? retryPressed)
     {
         ReasonLabel.SetMessage(
-            FormattedMessage.FromUnformatted(Loc.GetString("replay-loading-failed", ("reason", exception))));
+            FormattedMessage.FromUnformatted(Loc.GetString("replay-loading-failed", ("reason", exception)))
+        );
 
         if (cancelPressed != null)
         {

@@ -30,8 +30,10 @@ namespace Content.Client.UserInterface.Systems.Ghost.Controls
             // Server COULD send these sorted but how about we just use the client to do it instead
             _warps = warps
                 .OrderBy(w => w.IsWarpPoint)
-                .ThenBy(w => w.DisplayName, Comparer<string>.Create(
-                    (x, y) => string.Compare(x, y, StringComparison.Ordinal)))
+                .ThenBy(
+                    w => w.DisplayName,
+                    Comparer<string>.Create((x, y) => string.Compare(x, y, StringComparison.Ordinal))
+                )
                 .Select(w =>
                 {
                     var name = w.IsWarpPoint
@@ -73,7 +75,9 @@ namespace Content.Client.UserInterface.Systems.Ghost.Controls
 
         private bool ButtonIsVisible(Button button)
         {
-            return string.IsNullOrEmpty(_searchText) || button.Text == null || button.Text.Contains(_searchText, StringComparison.OrdinalIgnoreCase);
+            return string.IsNullOrEmpty(_searchText)
+                || button.Text == null
+                || button.Text.Contains(_searchText, StringComparison.OrdinalIgnoreCase);
         }
 
         private void UpdateVisibleButtons()

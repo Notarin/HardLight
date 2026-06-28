@@ -11,7 +11,8 @@ namespace Content.Shared._Shitmed.Medical.Surgery.Tools;
 /// </summary>
 public sealed class SurgeryToolExamineSystem : EntitySystem
 {
-    [Dependency] private readonly ExamineSystemShared _examine = default!;
+    [Dependency]
+    private readonly ExamineSystemShared _examine = default!;
 
     public override void Initialize()
     {
@@ -41,9 +42,14 @@ public sealed class SurgeryToolExamineSystem : EntitySystem
         var ev = new SurgeryToolExaminedEvent(msg);
         RaiseLocalEvent(ent, ref ev);
 
-        _examine.AddDetailedExamineVerb(args, ent.Comp, ev.Message,
-            Loc.GetString("surgery-tool-examinable-verb-text"), "/Textures/Objects/Specific/Medical/Surgery/scalpel.rsi/scalpel.png",
-            Loc.GetString("surgery-tool-examinable-verb-message"));
+        _examine.AddDetailedExamineVerb(
+            args,
+            ent.Comp,
+            ev.Message,
+            Loc.GetString("surgery-tool-examinable-verb-text"),
+            "/Textures/Objects/Specific/Medical/Surgery/scalpel.rsi/scalpel.png",
+            Loc.GetString("surgery-tool-examinable-verb-message")
+        );
     }
 
     private void OnExamined(EntityUid uid, ISurgeryToolComponent comp, ref SurgeryToolExaminedEvent args)
@@ -53,7 +59,7 @@ public sealed class SurgeryToolExamineSystem : EntitySystem
         {
             < 1f => "red",
             > 1f => "green",
-            _ => "white"
+            _ => "white",
         };
         var key = "surgery-tool-" + (comp.Used == true ? "used" : "unlimited");
         var speed = comp.Speed.ToString("N2"); // 2 decimal places to not get trolled by float

@@ -6,7 +6,8 @@ using Content.Shared.Wires;
 
 namespace Content.Server.ParticleAccelerator.Wires;
 
-public sealed partial class ParticleAcceleratorKeyboardWireAction : ComponentWireAction<ParticleAcceleratorControlBoxComponent>
+public sealed partial class ParticleAcceleratorKeyboardWireAction
+    : ComponentWireAction<ParticleAcceleratorControlBoxComponent>
 {
     public override string Name { get; set; } = "wire-name-pa-keyboard";
     public override Color Color { get; set; } = Color.LimeGreen;

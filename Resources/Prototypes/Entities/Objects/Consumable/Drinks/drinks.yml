@@ -47,14 +47,13 @@
     damageModifierSet: Glass
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 5
       behaviors:
       - !type:PlaySoundBehavior
         sound:
           collection: GlassBreak
-      - !type:SpillBehavior { }
+      - !type:SpillBehavior {}
       - !type:SpawnEntitiesBehavior
         spawn:
           ShardGlass:
@@ -62,7 +61,7 @@
             max: 1
         transferForensics: true
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: DamageOnLand
     ignoreResistances: true
     damage:
@@ -81,7 +80,7 @@
     solution: drink
   - type: Tag
     tags:
-      - DrinkGlass
+    - DrinkGlass
 
 # Transformable container - normal glass
 - type: entity
@@ -93,13 +92,13 @@
   - type: Sprite
     sprite: Objects/Consumable/Drinks/glass_clear.rsi
     layers:
-      - state: icon
-        map: [ "enum.SolutionContainerLayers.Base" ]
-      - state: fill1
-        map: [ "enum.SolutionContainerLayers.Fill" ]
-        visible: false
-      - state: icon-front
-        map: [ "enum.SolutionContainerLayers.Overlay" ]
+    - state: icon
+      map: ["enum.SolutionContainerLayers.Base"]
+    - state: fill1
+      map: ["enum.SolutionContainerLayers.Fill"]
+      visible: false
+    - state: icon-front
+      map: ["enum.SolutionContainerLayers.Overlay"]
   - type: Appearance
   - type: SolutionContainerManager
     solutions:
@@ -120,24 +119,24 @@
   parent: DrinkGlassBase
   id: DrinkGlassCoupeShaped
   components:
-    - type: Sprite
-      sprite: Objects/Consumable/Drinks/glass_coupe_shape.rsi
-      layers:
-        - state: icon
-          map: [ "enum.SolutionContainerLayers.Base" ]
-        - state: fill1
-          map: [ "enum.SolutionContainerLayers.Fill" ]
-          visible: false
-        - state: icon-front
-          map: [ "enum.SolutionContainerLayers.Overlay" ]
-    - type: Appearance
-    - type: SolutionContainerManager
-      solutions:
-        drink:
-          maxVol: 30
-    - type: SolutionContainerVisuals
-      maxFillLevels: 5
-      fillBaseName: fill
+  - type: Sprite
+    sprite: Objects/Consumable/Drinks/glass_coupe_shape.rsi
+    layers:
+    - state: icon
+      map: ["enum.SolutionContainerLayers.Base"]
+    - state: fill1
+      map: ["enum.SolutionContainerLayers.Fill"]
+      visible: false
+    - state: icon-front
+      map: ["enum.SolutionContainerLayers.Overlay"]
+  - type: Appearance
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        maxVol: 30
+  - type: SolutionContainerVisuals
+    maxFillLevels: 5
+    fillBaseName: fill
 
 - type: entity
   parent: DrinkGlass
@@ -1337,7 +1336,6 @@
     sprite: Objects/Consumable/Drinks/kiraspecial.rsi
     state: icon
 
-
 - type: entity
   parent: DrinkGlass
   id: DrinkLemonadeGlass
@@ -1893,16 +1891,16 @@
   id: DrinkCogChampBase
   suffix: cogchamp
   components:
-    - type: SolutionContainerManager
-      solutions:
-        drink:
-          maxVol: 30
-          reagents:
-            - ReagentId: CogChamp
-              Quantity: 30
-    - type: Icon
-      sprite: Objects/Consumable/Drinks/cogchamp.rsi
-      state: icon
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        maxVol: 30
+        reagents:
+        - ReagentId: CogChamp
+          Quantity: 30
+  - type: Icon
+    sprite: Objects/Consumable/Drinks/cogchamp.rsi
+    state: icon
 
 - type: entity
   parent: DrinkGlass
@@ -2131,7 +2129,7 @@
 - type: entity
   parent: DrinkGlassBase
   id: DrinkTeapot
-  name: teapot  # short and stout
+  name: teapot # short and stout
   description: An elegant teapot. It simply oozes class.
   components:
   - type: SolutionContainerManager
@@ -2181,16 +2179,16 @@
   id: DrinkTheMartinez
   suffix: the martinez
   components:
-    - type: SolutionContainerManager
-      solutions:
-        drink:
-          maxVol: 30
-          reagents:
-            - ReagentId: TheMartinez
-              Quantity: 30
-    - type: Icon
-      sprite: Objects/Consumable/Drinks/the_martinez.rsi
-      state: icon
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        maxVol: 30
+        reagents:
+        - ReagentId: TheMartinez
+          Quantity: 30
+  - type: Icon
+    sprite: Objects/Consumable/Drinks/the_martinez.rsi
+    state: icon
 
 - type: entity
   parent: DrinkGlass
@@ -2725,16 +2723,16 @@
   id: DrinkBloodGlass
   suffix: blood
   components:
-    - type: SolutionContainerManager
-      solutions:
-        drink:
-          maxVol: 30
-          reagents:
-            - ReagentId: Blood
-              Quantity: 30
-    - type: Icon
-      sprite: Objects/Consumable/Drinks/bloodglass.rsi
-      state: icon
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        maxVol: 30
+        reagents:
+        - ReagentId: Blood
+          Quantity: 30
+  - type: Icon
+    sprite: Objects/Consumable/Drinks/bloodglass.rsi
+    state: icon
 
 - type: entity
   parent: DrinkGlass

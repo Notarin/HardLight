@@ -45,7 +45,7 @@
 - type: cargoProduct
   id: CargoConstructionBox
   icon:
-    sprite:  /Textures/_NF/Structures/Storage/magnetbox.rsi
+    sprite: /Textures/_NF/Structures/Storage/magnetbox.rsi
     state: constructionbox
   product: NFMagnetBoxConstruction
   cost: 1000
@@ -55,7 +55,7 @@
 - type: cargoProduct
   id: CargoRubbishBox
   icon:
-    sprite:  /Textures/_NF/Structures/Storage/magnetbox.rsi
+    sprite: /Textures/_NF/Structures/Storage/magnetbox.rsi
     state: rubbishbox
   product: NFMagnetBoxRubbish
   cost: 1000

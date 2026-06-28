@@ -27,7 +27,10 @@ public sealed partial class RatKingComponent : Component
     /// <summary>
     ///     The entity prototype of the mob that Raise Army summons
     /// </summary>
-    [ViewVariables(VVAccess.ReadWrite), DataField("armyMobSpawnId", customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
+    [
+        ViewVariables(VVAccess.ReadWrite),
+        DataField("armyMobSpawnId", customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))
+    ]
     public string ArmyMobSpawnId = "MobRatServant";
 
     [DataField("actionDomain", customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
@@ -97,7 +100,7 @@ public sealed partial class RatKingComponent : Component
         { RatKingOrderType.Stay, "RatKingCommandStay" },
         { RatKingOrderType.Follow, "RatKingCommandFollow" },
         { RatKingOrderType.CheeseEm, "RatKingCommandCheeseEm" },
-        { RatKingOrderType.Loose, "RatKingCommandLoose" }
+        { RatKingOrderType.Loose, "RatKingCommandLoose" },
     };
 }
 
@@ -107,5 +110,5 @@ public enum RatKingOrderType : byte
     Stay,
     Follow,
     CheeseEm,
-    Loose
+    Loose,
 }

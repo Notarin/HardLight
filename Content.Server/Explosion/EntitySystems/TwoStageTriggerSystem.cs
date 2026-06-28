@@ -1,15 +1,22 @@
-using Robust.Shared.Timing;
-using Robust.Shared.Serialization.Manager;
 using Content.Server.Explosion.Components.OnTrigger;
+using Robust.Shared.Serialization.Manager;
+using Robust.Shared.Timing;
 
 namespace Content.Server.Explosion.EntitySystems;
 
 public sealed class TwoStageTriggerSystem : EntitySystem
 {
-    [Dependency] private readonly IComponentFactory _factory = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly ISerializationManager _serializationManager = default!;
-    [Dependency] private readonly TriggerSystem _triggerSystem = default!;
+    [Dependency]
+    private readonly IComponentFactory _factory = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly ISerializationManager _serializationManager = default!;
+
+    [Dependency]
+    private readonly TriggerSystem _triggerSystem = default!;
 
     public override void Initialize()
     {

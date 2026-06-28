@@ -1,3 +1,6 @@
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Numerics;
 using Content.Client.Pinpointer.UI;
 using Content.Client.UserInterface.Controls;
 using Content.Shared.Atmos.Components;
@@ -11,9 +14,6 @@ using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Numerics;
 
 namespace Content.Client.Atmos.Consoles;
 
@@ -34,7 +34,12 @@ public sealed partial class AtmosMonitoringConsoleWindow : FancyWindow
     private ProtoId<NavMapBlipPrototype> _navMapConsoleProtoId = "NavMapConsole";
     private ProtoId<NavMapBlipPrototype> _gasPipeSensorProtoId = "GasPipeSensor";
 
-    private readonly Vector2[] _pipeLayerOffsets = { new Vector2(0f, 0f), new Vector2(0.25f, 0.25f), new Vector2(-0.25f, -0.25f) };
+    private readonly Vector2[] _pipeLayerOffsets =
+    {
+        new Vector2(0f, 0f),
+        new Vector2(0.25f, 0.25f),
+        new Vector2(-0.25f, -0.25f),
+    };
 
     public AtmosMonitoringConsoleWindow(AtmosMonitoringConsoleBoundUserInterface userInterface, EntityUid? owner)
     {
@@ -61,11 +66,13 @@ public sealed partial class AtmosMonitoringConsoleWindow : FancyWindow
                 stationName = stationMetaData.EntityName;
 
             var msg = new FormattedMessage();
-            msg.TryAddMarkup(Loc.GetString("atmos-monitoring-window-station-name", ("stationName", stationName)), out _);
+            msg.TryAddMarkup(
+                Loc.GetString("atmos-monitoring-window-station-name", ("stationName", stationName)),
+                out _
+            );
 
             StationName.SetMessage(msg);
         }
-
         else
         {
             StationName.SetMessage(stationName);
@@ -115,7 +122,6 @@ public sealed partial class AtmosMonitoringConsoleWindow : FancyWindow
 
             if (ShowPipeNetwork.Pressed)
                 AddTrackedEntityToNavMap(device);
-
             else
                 NavMap.TrackedEntities.Remove(netEnt);
         }
@@ -136,7 +142,6 @@ public sealed partial class AtmosMonitoringConsoleWindow : FancyWindow
 
             if (ShowGasPipeSensors.Pressed)
                 AddTrackedEntityToNavMap(device, true);
-
             else
                 NavMap.TrackedEntities.Remove(netEnt);
         }
@@ -144,9 +149,7 @@ public sealed partial class AtmosMonitoringConsoleWindow : FancyWindow
 
     #endregion
 
-    public void UpdateUI
-        (EntityCoordinates? consoleCoords,
-        AtmosMonitoringConsoleEntry[] atmosNetworks)
+    public void UpdateUI(EntityCoordinates? consoleCoords, AtmosMonitoringConsoleEntry[] atmosNetworks)
     {
         if (_owner == null)
             return;
@@ -196,7 +199,10 @@ public sealed partial class AtmosMonitoringConsoleWindow : FancyWindow
 
     private void UpdateNavMapBlips()
     {
-        if (_owner == null || !_entManager.TryGetComponent<AtmosMonitoringConsoleComponent>(_owner.Value, out var console))
+        if (
+            _owner == null
+            || !_entManager.TryGetComponent<AtmosMonitoringConsoleComponent>(_owner.Value, out var console)
+        )
             return;
 
         if (NavMap.Visible)
@@ -245,11 +251,23 @@ public sealed partial class AtmosMonitoringConsoleWindow : FancyWindow
         if (proto.Placement == NavMapBlipPlacement.Offset && metaData.PipeLayer > 0)
             coords = coords.Offset(_pipeLayerOffsets[(int)metaData.PipeLayer]);
 
-        var blip = new NavMapBlip(coords, _spriteSystem.Frame0(new SpriteSpecifier.Texture(texture)), color, blinks, proto.Selectable, proto.Scale);
+        var blip = new NavMapBlip(
+            coords,
+            _spriteSystem.Frame0(new SpriteSpecifier.Texture(texture)),
+            color,
+            blinks,
+            proto.Selectable,
+            proto.Scale
+        );
         NavMap.TrackedEntities[metaData.NetEntity] = blip;
     }
 
-    private void UpdateUIEntry(AtmosMonitoringConsoleEntry data, int index, Control table, AtmosMonitoringConsoleComponent console)
+    private void UpdateUIEntry(
+        AtmosMonitoringConsoleEntry data,
+        int index,
+        Control table,
+        AtmosMonitoringConsoleComponent console
+    )
     {
         // Make new UI entry if required
         if (index >= table.ChildCount)
@@ -263,7 +281,6 @@ public sealed partial class AtmosMonitoringConsoleWindow : FancyWindow
                 {
                     ClearFocus();
                 }
-
                 else
                 {
                     SetFocus(newEntryContainer.Data.NetEntity, newEntryContainer.Data.NetId);
@@ -295,7 +312,11 @@ public sealed partial class AtmosMonitoringConsoleWindow : FancyWindow
         entryContainer.UpdateEntry(data, data.NetEntity == _focusEntity);
     }
 
-    private void UpdateConsoleTable(AtmosMonitoringConsoleComponent console, Control table, NetEntity? currTrackedEntity)
+    private void UpdateConsoleTable(
+        AtmosMonitoringConsoleComponent console,
+        Control table,
+        NetEntity? currTrackedEntity
+    )
     {
         foreach (var tableChild in table.Children)
         {
@@ -306,7 +327,6 @@ public sealed partial class AtmosMonitoringConsoleWindow : FancyWindow
 
             if (entryContainer.NetEntity != currTrackedEntity)
                 entryContainer.RemoveAsFocus();
-
             else if (entryContainer.NetEntity == currTrackedEntity)
                 entryContainer.SetAsFocus();
         }

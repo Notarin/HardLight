@@ -13,7 +13,8 @@ namespace Content.Client.Popups;
 /// </summary>
 public sealed class PopupUIController : UIController, IOnStateEntered<GameplayState>, IOnStateExited<GameplayState>
 {
-    [UISystemDependency] private readonly PopupSystem? _popup = default!;
+    [UISystemDependency]
+    private readonly PopupSystem? _popup = default!;
 
     private Font _smallFont = default!;
     private Font _mediumFont = default!;
@@ -54,7 +55,8 @@ public sealed class PopupUIController : UIController, IOnStateEntered<GameplaySt
         // Keep alpha at 1 until TotalTime passes half its lifetime, then gradually decrease to 0.
         var alpha = MathF.Min(1f, 1f - MathF.Max(0f, popup.TotalTime - lifetime / 2) * 2 / lifetime);
 
-        var updatedPosition = position - new Vector2(0f, MathF.Min(8f, 12f * (popup.TotalTime * popup.TotalTime + popup.TotalTime)));
+        var updatedPosition =
+            position - new Vector2(0f, MathF.Min(8f, 12f * (popup.TotalTime * popup.TotalTime + popup.TotalTime)));
         var font = _smallFont;
         var color = Color.White.WithAlpha(alpha);
 
@@ -111,7 +113,8 @@ public sealed class PopupUIController : UIController, IOnStateEntered<GameplaySt
                 totalWidth += handle.GetDimensions(font, displayText[i].ToString(), customScale).X;
             }
 
-            var basePosition = position - new Vector2(0f, MathF.Min(8f, 12f * (popup.TotalTime * popup.TotalTime + popup.TotalTime)));
+            var basePosition =
+                position - new Vector2(0f, MathF.Min(8f, 12f * (popup.TotalTime * popup.TotalTime + popup.TotalTime)));
             var startX = basePosition.X - totalWidth / 2f;
 
             var currentX = startX;
@@ -164,8 +167,8 @@ public sealed class PopupUIController : UIController, IOnStateEntered<GameplaySt
                     continue;
 
                 // HardLight start: Calculate stacked position for cursor popups; prevents overlap when multiple popups spawn at the same position.
-                var stackX = (int) MathF.Round(popup.InitialPos.Position.X);
-                var stackY = (int) MathF.Round(popup.InitialPos.Position.Y);
+                var stackX = (int)MathF.Round(popup.InitialPos.Position.X);
+                var stackY = (int)MathF.Round(popup.InitialPos.Position.Y);
                 var stackKey = (stackX, stackY);
 
                 var stackLevel = 0;

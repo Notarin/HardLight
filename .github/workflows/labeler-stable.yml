@@ -8,9 +8,9 @@ concurrency:
 on:
   pull_request_target:
     types:
-      - opened
+    - opened
     branches:
-      - 'stable'
+    - 'stable'
 
 permissions:
   contents: read

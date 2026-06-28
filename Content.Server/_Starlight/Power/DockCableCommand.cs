@@ -14,7 +14,8 @@ public sealed class DockCableCommand : IConsoleCommand
 {
     public string Command => "dockcable";
     public string Description => "Inspect and manage docked cable connections between docks/grids.";
-    public string Help => @"
+    public string Help =>
+        @"
 dockcable info
     List all docked pairs and their cable connections.
 dockcable cable <entityId>

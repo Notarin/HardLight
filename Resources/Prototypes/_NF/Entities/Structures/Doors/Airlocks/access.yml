@@ -6,7 +6,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsFrontier ]
+      board: [DoorElectronicsFrontier]
 
 - type: entity
   parent: AirlockServiceLocked
@@ -15,7 +15,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsFrontier ]
+      board: [DoorElectronicsFrontier]
 
 - type: entity
   parent: AirlockCommandLocked
@@ -24,7 +24,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsFrontierBridge ]
+      board: [DoorElectronicsFrontierBridge]
 
 - type: entity
   parent: AirlockMaintCommandLocked
@@ -33,7 +33,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsFrontierBridge ]
+      board: [DoorElectronicsFrontierBridge]
 
 - type: entity
   parent: AirlockCommandLocked
@@ -42,16 +42,16 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsFrontierCommand ]
+      board: [DoorElectronicsFrontierCommand]
 
 - type: entity
-  parent: [ AirlockEngineering, AirlockFrontierCommandLocked]
+  parent: [AirlockEngineering, AirlockFrontierCommandLocked]
   id: AirlockFrontierCommandEngineeringLocked
   suffix: Frontier Command, Locked
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsFrontierCommand ]
+      board: [DoorElectronicsFrontierCommand]
 
 - type: entity
   parent: HighSecDoor
@@ -60,7 +60,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsFrontierCommand ]
+      board: [DoorElectronicsFrontierCommand]
 
 - type: entity
   parent: AirlockServiceLocked
@@ -69,7 +69,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsMailCarrier ]
+      board: [DoorElectronicsMailCarrier]
 
 - type: entity
   parent: AirlockMercenary
@@ -78,7 +78,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsMercenary ]
+      board: [DoorElectronicsMercenary]
 
 - type: entity
   parent: AirlockNfsdGlass
@@ -87,7 +87,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsSecurity ]
+      board: [DoorElectronicsSecurity]
 
 - type: entity
   parent: AirlockNfsd
@@ -96,7 +96,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsSecurity ]
+      board: [DoorElectronicsSecurity]
 
 - type: entity
   parent: AirlockNfsd
@@ -105,7 +105,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsBrig ]
+      board: [DoorElectronicsBrig]
 
 - type: entity
   parent: AirlockNfsdGlass
@@ -114,7 +114,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsBrig ]
+      board: [DoorElectronicsBrig]
 
 - type: entity
   parent: AirlockNfsd
@@ -123,7 +123,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsDetective ]
+      board: [DoorElectronicsDetective]
 
 - type: entity
   parent: AirlockNfsdGlass
@@ -132,7 +132,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsDetective ]
+      board: [DoorElectronicsDetective]
 
 - type: entity
   parent: AirlockNfsd
@@ -141,7 +141,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsSecurityLawyer ]
+      board: [DoorElectronicsSecurityLawyer]
 
 - type: entity
   parent: AirlockNfsdGlass
@@ -150,7 +150,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsSecurityLawyer ]
+      board: [DoorElectronicsSecurityLawyer]
 
 - type: entity
   parent: AirlockNfsd
@@ -159,7 +159,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsArmory ]
+      board: [DoorElectronicsArmory]
 
 - type: entity
   parent: AirlockNfsdGlass
@@ -168,7 +168,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsArmory ]
+      board: [DoorElectronicsArmory]
 
 - type: entity
   parent: AirlockExternal
@@ -177,7 +177,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsMailCarrier ]
+      board: [DoorElectronicsMailCarrier]
 
 # Glass Airlocks
 - type: entity
@@ -187,7 +187,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsFrontier ]
+      board: [DoorElectronicsFrontier]
 
 - type: entity
   parent: AirlockCommandGlassLocked
@@ -196,7 +196,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsFrontierBridge ]
+      board: [DoorElectronicsFrontierBridge]
 
 - type: entity
   parent: AirlockCommandGlassLocked
@@ -205,25 +205,25 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsFrontierCommand ]
+      board: [DoorElectronicsFrontierCommand]
 
 - type: entity
-  parent: [ AirlockEngineeringGlass, AirlockFrontierCommandGlassLocked]
+  parent: [AirlockEngineeringGlass, AirlockFrontierCommandGlassLocked]
   id: AirlockFrontierCommandEngineeringGlassLocked
   suffix: Frontier Command, Locked
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsFrontierCommand ]
+      board: [DoorElectronicsFrontierCommand]
 
 - type: entity
-  parent: [ AirlockAtmosphericsGlass, AirlockFrontierCommandGlassLocked]
+  parent: [AirlockAtmosphericsGlass, AirlockFrontierCommandGlassLocked]
   id: AirlockFrontierCommandAtmosphericsGlassLocked
   suffix: Frontier Command, Locked
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsFrontierCommand ]
+      board: [DoorElectronicsFrontierCommand]
 
 - type: entity
   parent: AirlockGlass
@@ -232,7 +232,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsMailCarrier ]
+      board: [DoorElectronicsMailCarrier]
 
 - type: entity
   parent: AirlockMercenaryGlass
@@ -241,7 +241,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsMercenary ]
+      board: [DoorElectronicsMercenary]
 
 - type: entity
   parent: AirlockExternalGlass
@@ -250,7 +250,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsMailCarrier ]
+      board: [DoorElectronicsMailCarrier]
 
 - type: entity
   parent: AirlockExternalGlassNfsd
@@ -259,7 +259,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsSecurity ]
+      board: [DoorElectronicsSecurity]
 
 - type: entity
   parent: AirlockShuttleNfsd
@@ -268,7 +268,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsSecurity ]
+      board: [DoorElectronicsSecurity]
 
 - type: entity
   parent: AirlockGlassShuttleNfsd
@@ -277,7 +277,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsSecurity ]
+      board: [DoorElectronicsSecurity]
 
 - type: entity
   parent: AirlockGlass
@@ -286,7 +286,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsPirate ]
+      board: [DoorElectronicsPirate]
 
 - type: entity
   parent: AirlockExternalGlass
@@ -295,7 +295,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsPirate ]
+      board: [DoorElectronicsPirate]
 
 - type: entity
   parent: AirlockMiningGlass
@@ -304,7 +304,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsPirate ]
+      board: [DoorElectronicsPirate]
 
 - type: entity
   parent: AirlockShuttleSyndicate
@@ -313,7 +313,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsPirate ]
+      board: [DoorElectronicsPirate]
 
 - type: entity
   parent: AirlockGlassShuttleSyndicate
@@ -322,7 +322,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsPirate ]
+      board: [DoorElectronicsPirate]
 
 # Airtight Hatch
 - type: entity
@@ -332,4 +332,4 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsPirate ]
+      board: [DoorElectronicsPirate]

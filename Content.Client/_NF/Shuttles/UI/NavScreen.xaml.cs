@@ -66,13 +66,12 @@ namespace Content.Client.Shuttles.UI
                 AnchorOn.Pressed = NavRadar.DampeningMode == InertiaDampeningMode.Anchor;
                 ToggleServiceFlags(NavRadar.ServiceFlags, updateButtonsOnly: true);
             }
-
         }
 
         // Frontier - Maximum IFF Distance
         private void OnRangeFilterChanged(int value)
         {
-            NavRadar.MaximumIFFDistance = (float) value;
+            NavRadar.MaximumIFFDistance = (float)value;
         }
 
         private void ToggleServiceFlags(ServiceFlags flags, bool updateButtonsOnly = false)
@@ -128,6 +127,5 @@ namespace Content.Client.Shuttles.UI
             }
             // End Frontier - PR #1284
         }
-
     }
 }

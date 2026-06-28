@@ -1,6 +1,6 @@
-using Content.Shared.DeviceLinking.Events;
 using Content.Shared.Construction.Components;
 using Content.Shared.DeviceLinking;
+using Content.Shared.DeviceLinking.Events;
 using Robust.Shared.Prototypes;
 
 namespace Content.Server._Goobstation.Construction;

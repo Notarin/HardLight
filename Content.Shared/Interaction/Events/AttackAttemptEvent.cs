@@ -21,7 +21,12 @@ namespace Content.Shared.Interaction.Events
         /// </summary>
         public bool Disarm { get; }
 
-        public AttackAttemptEvent(EntityUid uid, EntityUid? target = null, Entity<MeleeWeaponComponent>? weapon = null, bool disarm = false)
+        public AttackAttemptEvent(
+            EntityUid uid,
+            EntityUid? target = null,
+            Entity<MeleeWeaponComponent>? weapon = null,
+            bool disarm = false
+        )
         {
             Uid = uid;
             Target = target;

@@ -4,137 +4,133 @@
   id: ArgoShieldHeavy
   description: A rather large piece of heavy argocyte plating.
   components:
-    - type: Sprite
-      sprite: _HL/Objects/Weapons/Melee/shields.rsi
-      state: argoheavy-icon
-    - type: Item
-      sprite: _HL/Objects/Weapons/Melee/shields.rsi
-      heldPrefix: argoheavy
-    - type: Blocking
-      passiveBlockFraction: 0.65
-      passiveBlockModifier:
-        coefficients:
-          Blunt: 0.8 #Its basically organic metal. Or non-organic. What the fuck are argocytes???
-          Slash: 0.4 #Imagine trying to slice a smooth metal plate with a blade
-          Piercing: 0.6
-          Heat: 0.5 #it will take a while to burn through metal-chitin, even with a laser
-      activeBlockModifier:
-        coefficients:
-          Blunt: 0.6
-          Slash: 0.3
-          Piercing: 0.5
-          Heat: 0.5 #Doubt it would change much in regards of heating up
-        flatReductions:
-          Blunt: 1
-          Slash: 3
-          Piercing: 2
-          Heat: 2
-    - type: Construction
-      graph: ArgoShieldHeavyGraph
-      node: finish
-    - type: MeleeWeapon
-      damage:
-        types:
-          Blunt: 10 #Bonk!
-      soundHit:
-        path: "/Audio/Weapons/smash.ogg"
-    - type: Damageable
-      damageContainer: Shield
-    - type: Destructible
-      thresholds:
-        - trigger:
-            !type:DamageTrigger
-            damage: 320
-          behaviors:
-            - !type:DoActsBehavior
-              acts: [ "Destruction" ]
-        - trigger:
-            !type:DamageTrigger
-            damage: 240
-          behaviors:
-            - !type:DoActsBehavior
-              acts: [ "Destruction" ]
-            - !type:PlaySoundBehavior
-              sound:
-                collection: MetalBreak
-            - !type:SpawnEntitiesBehavior
-              spawn:
-                MaterialArgocytePlateHeavy:
-                  min: 5
-                  max: 10
-    - type: StaticPrice
-      price: 150
-    - type: ClothingSpeedModifier
-      walkModifier: 0.65
-      sprintModifier: 0.65
-    - type: HeldSpeedModifier
-      
+  - type: Sprite
+    sprite: _HL/Objects/Weapons/Melee/shields.rsi
+    state: argoheavy-icon
+  - type: Item
+    sprite: _HL/Objects/Weapons/Melee/shields.rsi
+    heldPrefix: argoheavy
+  - type: Blocking
+    passiveBlockFraction: 0.65
+    passiveBlockModifier:
+      coefficients:
+        Blunt: 0.8 #Its basically organic metal. Or non-organic. What the fuck are argocytes???
+        Slash: 0.4 #Imagine trying to slice a smooth metal plate with a blade
+        Piercing: 0.6
+        Heat: 0.5 #it will take a while to burn through metal-chitin, even with a laser
+    activeBlockModifier:
+      coefficients:
+        Blunt: 0.6
+        Slash: 0.3
+        Piercing: 0.5
+        Heat: 0.5 #Doubt it would change much in regards of heating up
+      flatReductions:
+        Blunt: 1
+        Slash: 3
+        Piercing: 2
+        Heat: 2
+  - type: Construction
+    graph: ArgoShieldHeavyGraph
+    node: finish
+  - type: MeleeWeapon
+    damage:
+      types:
+        Blunt: 10 #Bonk!
+    soundHit:
+      path: "/Audio/Weapons/smash.ogg"
+  - type: Damageable
+    damageContainer: Shield
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 320
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
+        damage: 240
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          MaterialArgocytePlateHeavy:
+            min: 5
+            max: 10
+  - type: StaticPrice
+    price: 150
+  - type: ClothingSpeedModifier
+    walkModifier: 0.65
+    sprintModifier: 0.65
+  - type: HeldSpeedModifier
+
 - type: entity
   name: light argocyte shield
   parent: BaseShield
   id: ArgoShieldLight
   description: A rather small piece of light argocyte plating.
   components:
-    - type: Sprite
-      state: argolight-icon
-      sprite: _HL/Objects/Weapons/Melee/shields.rsi
-    - type: Item
-      sprite: _HL/Objects/Weapons/Melee/shields.rsi
-      heldPrefix: argolight
-    - type: Blocking
-      passiveBlockModifier:
-        coefficients:
-          Blunt: 0.8 #I imagine bone plates are hard to crack
-          Slash: 0.7 #Imagine trying to slice a smooth bone plate with a blade
-          Piercing: 0.9 #Bad at stopping bullets
-          Heat: 0.7 #it will take a while to burn through thick bone, even with a laser
-      activeBlockModifier:
-        coefficients:
-          Blunt: 0.6
-          Slash: 0.6
-          Piercing: 0.8
-          Heat: 0.7 #Doubt it would change much in regards of heating up
-        flatReductions:
-          Blunt: 2
-          Slash: 1
-          Piercing: 1
-          Heat: 2
-    - type: Construction
-      graph: ArgoShieldLightGraph
-      node: finish
-    - type: MeleeWeapon
-      damage:
-        types:
-          Blunt: 3 #rather light
-      soundHit:
-        path: "/Audio/Weapons/smash.ogg"
-    - type: Damageable
-      damageContainer: Shield
-    - type: Destructible
-      thresholds:
-        - trigger:
-            !type:DamageTrigger
-            damage: 120
-          behaviors:
-            - !type:DoActsBehavior
-              acts: [ "Destruction" ]
-        - trigger:
-            !type:DamageTrigger
-            damage: 100
-          behaviors:
-            - !type:DoActsBehavior
-              acts: [ "Destruction" ]
-            - !type:PlaySoundBehavior
-              sound:
-                collection: MetalBreak
-            - !type:SpawnEntitiesBehavior
-              spawn:
-                MaterialArgocytePlateLight:
-                  min: 5
-                  max: 13
-    - type: StaticPrice
-      price: 150
-     
+  - type: Sprite
+    state: argolight-icon
+    sprite: _HL/Objects/Weapons/Melee/shields.rsi
+  - type: Item
+    sprite: _HL/Objects/Weapons/Melee/shields.rsi
+    heldPrefix: argolight
+  - type: Blocking
+    passiveBlockModifier:
+      coefficients:
+        Blunt: 0.8 #I imagine bone plates are hard to crack
+        Slash: 0.7 #Imagine trying to slice a smooth bone plate with a blade
+        Piercing: 0.9 #Bad at stopping bullets
+        Heat: 0.7 #it will take a while to burn through thick bone, even with a laser
+    activeBlockModifier:
+      coefficients:
+        Blunt: 0.6
+        Slash: 0.6
+        Piercing: 0.8
+        Heat: 0.7 #Doubt it would change much in regards of heating up
+      flatReductions:
+        Blunt: 2
+        Slash: 1
+        Piercing: 1
+        Heat: 2
+  - type: Construction
+    graph: ArgoShieldLightGraph
+    node: finish
+  - type: MeleeWeapon
+    damage:
+      types:
+        Blunt: 3 #rather light
+    soundHit:
+      path: "/Audio/Weapons/smash.ogg"
+  - type: Damageable
+    damageContainer: Shield
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 120
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
+        damage: 100
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          MaterialArgocytePlateLight:
+            min: 5
+            max: 13
+  - type: StaticPrice
+    price: 150
+
 - type: entity
   name: argocyte buster
   parent: [BaseItem, BaseC1Contraband]
@@ -161,37 +157,35 @@
         Blunt: 0.9
         Slash: 0.8
         Piercing: 0.9
-        Heat: 0.8 
+        Heat: 0.8
     activeBlockModifier:
       coefficients:
         Blunt: 0.7
         Slash: 0.6
         Piercing: 0.7
-        Heat: 0.6 
+        Heat: 0.6
   - type: Damageable
     damageContainer: Shield
   - type: Destructible
     thresholds:
-      - trigger:
-          !type:DamageTrigger
-          damage: 100
-        behaviors:
-          - !type:DoActsBehavior
-            acts: [ "Destruction" ]
-      - trigger:
-          !type:DamageTrigger
-          damage: 50 #Survives ~ 300 damage on the person while not grounded, after that it breaks
-        behaviors:
-          - !type:DoActsBehavior
-            acts: [ "Destruction" ]
-          - !type:PlaySoundBehavior
-            sound:
-              collection: MetalBreak
-          - !type:SpawnEntitiesBehavior
-            spawn:
-              MaterialArgocytePlateHeavy:
-                min: 10
-                max: 15
+    - trigger: !type:DamageTrigger
+        damage: 100
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
+        damage: 50 #Survives ~ 300 damage on the person while not grounded, after that it breaks
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          MaterialArgocytePlateHeavy:
+            min: 10
+            max: 15
   - type: Wieldable
   - type: IncreaseDamageOnWield
     damage:
@@ -208,7 +202,7 @@
   - type: Construction
     graph: ArgoHammerGraph
     node: finish
-   
+
 - type: entity
   name: pair of argocyte swords
   parent: [BaseItem, BaseC1Contraband]
@@ -218,7 +212,7 @@
   - type: Sharp
   - type: Utensil
     types:
-      - Knife
+    - Knife
   - type: Tool
     qualities:
     - Slicing
@@ -228,7 +222,7 @@
     sprite: _HL/Objects/Weapons/Melee/argocytetwinsword.rsi
     state: icon
   - type: ItemToggle
-    onUse: false 
+    onUse: false
     onActivate: false
     soundActivate:
       path: /Audio/Effects/thudswoosh.ogg

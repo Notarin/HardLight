@@ -8,7 +8,7 @@
 - type: reaction
   id: FeverDream
   requiredMixerCategories:
-    - Stir
+  - Stir
   reactants:
     ShimmeringBlood:
       amount: 2

@@ -11,9 +11,14 @@ namespace Content.Server.Administration.Systems;
 /// </summary>
 public sealed class AdminTestArenaSystem : EntitySystem
 {
-    [Dependency] private readonly MapLoaderSystem _loader = default!;
-    [Dependency] private readonly MetaDataSystem _metaDataSystem = default!;
-    [Dependency] private readonly SharedMapSystem _maps = default!;
+    [Dependency]
+    private readonly MapLoaderSystem _loader = default!;
+
+    [Dependency]
+    private readonly MetaDataSystem _metaDataSystem = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _maps = default!;
 
     private static readonly TimeSpan ArenaDespawnDelay = TimeSpan.FromMinutes(30);
 
@@ -26,11 +31,14 @@ public sealed class AdminTestArenaSystem : EntitySystem
     {
         if (ArenaMap.TryGetValue(admin.UserId, out var arenaMap) && !Deleted(arenaMap) && !Terminating(arenaMap))
         {
-            if (ArenaGrid.TryGetValue(admin.UserId, out var arenaGrid) && !Deleted(arenaGrid) && !Terminating(arenaGrid.Value))
+            if (
+                ArenaGrid.TryGetValue(admin.UserId, out var arenaGrid)
+                && !Deleted(arenaGrid)
+                && !Terminating(arenaGrid.Value)
+            )
             {
                 return (arenaMap, arenaGrid);
             }
-
 
             ArenaGrid[admin.UserId] = null;
             return (arenaMap, null);
@@ -49,13 +57,13 @@ public sealed class AdminTestArenaSystem : EntitySystem
         _metaDataSystem.SetEntityName(mapUid, $"ATAM-{admin.Name}");
 
         var mapDespawn = EnsureComp<TimedDespawnComponent>(mapUid);
-        mapDespawn.Lifetime = (float) ArenaDespawnDelay.TotalSeconds;
+        mapDespawn.Lifetime = (float)ArenaDespawnDelay.TotalSeconds;
 
         ArenaGrid[admin.UserId] = grid.Value.Owner;
         _metaDataSystem.SetEntityName(grid.Value.Owner, $"ATAG-{admin.Name}");
 
         var gridDespawn = EnsureComp<TimedDespawnComponent>(grid.Value.Owner);
-        gridDespawn.Lifetime = (float) ArenaDespawnDelay.TotalSeconds;
+        gridDespawn.Lifetime = (float)ArenaDespawnDelay.TotalSeconds;
 
         return (mapUid, grid.Value.Owner);
     }

@@ -9,8 +9,8 @@
   components:
   - type: DockingArmDestination
     gridPath: /Maps/Structures/dock.yml
-    locked: false  # Set to true to require unlocking
-    loaded: false  # Will be set to true after first spawn
+    locked: false # Set to true to require unlocking
+    loaded: false # Will be set to true after first spawn
     name: Example Docking Arm
   - type: Gateway
     enabled: true

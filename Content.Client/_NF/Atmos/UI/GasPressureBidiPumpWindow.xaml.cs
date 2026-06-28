@@ -64,16 +64,16 @@ public sealed partial class GasPressureBidiPumpWindow : FancyWindow
     public void SetPumpStatus(bool enabled)
     {
         PumpStatus = enabled;
-        ToggleStatusButton.Text = Loc.GetString(enabled
-            ? "comp-gas-pump-ui-status-enabled"
-            : "comp-gas-pump-ui-status-disabled");
+        ToggleStatusButton.Text = Loc.GetString(
+            enabled ? "comp-gas-pump-ui-status-enabled" : "comp-gas-pump-ui-status-disabled"
+        );
     }
 
     public void SetPumpDirection(bool inwards)
     {
         PumpInwards = inwards;
-        ToggleDirectionButton.Text = Loc.GetString(inwards
-            ? "comp-gas-pump-ui-direction-in"
-            : "comp-gas-pump-ui-direction-out");
+        ToggleDirectionButton.Text = Loc.GetString(
+            inwards ? "comp-gas-pump-ui-direction-in" : "comp-gas-pump-ui-direction-out"
+        );
     }
 }

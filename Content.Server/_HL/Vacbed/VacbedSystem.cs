@@ -1,22 +1,28 @@
 using Content.Server.Fluids.EntitySystems;
 using Content.Shared._HL.Vacbed;
+using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Climbing.Systems;
 using Content.Shared.DoAfter;
 using Content.Shared.DragDrop;
 using Content.Shared.Verbs;
 using Robust.Shared.GameObjects;
-using Content.Shared.Chemistry.Components;
-
 
 namespace Content.Server._HL.Vacbed;
 
 public sealed partial class VacbedSystem : SharedVacbedSystem
 {
-    [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
-    [Dependency] private readonly ClimbSystem _climbSystem = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
-    [Dependency] private readonly PuddleSystem _puddleSystem = default!;
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfterSystem = default!;
+
+    [Dependency]
+    private readonly ClimbSystem _climbSystem = default!;
+
+    [Dependency]
+    private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
+
+    [Dependency]
+    private readonly PuddleSystem _puddleSystem = default!;
 
     public override void Initialize()
     {
@@ -33,7 +39,15 @@ public sealed partial class VacbedSystem : SharedVacbedSystem
         if (entity.Comp.BodyContainer.ContainedEntity != null)
             return;
 
-        var doAfterArgs = new DoAfterArgs(EntityManager, args.User, entity.Comp.EntryDelay, new VacbedDragFinished(), entity, target: args.Dragged, used: entity)
+        var doAfterArgs = new DoAfterArgs(
+            EntityManager,
+            args.User,
+            entity.Comp.EntryDelay,
+            new VacbedDragFinished(),
+            entity,
+            target: args.Dragged,
+            used: entity
+        )
         {
             BreakOnDamage = true,
             BreakOnMove = true,
@@ -65,7 +79,9 @@ public sealed partial class VacbedSystem : SharedVacbedSystem
         _climbSystem.ForciblySetClimbing(contained, uid);
 
         //I AM A GOD IN HUMAN CLOTHING AND I MADE THIS WORK
-        if (_solutionContainerSystem.TryGetDrainableSolution(vacbedComponent.Owner, out var soln, out var solution) /*&& solution.Volume != 0*/)
+        if (
+            _solutionContainerSystem.TryGetDrainableSolution(vacbedComponent.Owner, out var soln, out var solution) /*&& solution.Volume != 0*/
+        )
         {
             //for the love of fuck execute
             var puddleSolution = _solutionContainerSystem.SplitSolution(soln.Value, solution.Volume);

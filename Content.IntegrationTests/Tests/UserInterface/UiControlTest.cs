@@ -1,10 +1,10 @@
 using System.Linq;
+using Content.Client._NF.CryoSleep; // Frontier
 using Content.Client.LateJoin;
 using Robust.Client.UserInterface.CustomControls;
 using Robust.Shared.ContentPack;
 using Robust.Shared.IoC;
 using Robust.Shared.Reflection;
-using Content.Client._NF.CryoSleep; // Frontier
 
 namespace Content.IntegrationTests.Tests.UserInterface;
 
@@ -24,10 +24,7 @@ public sealed class UiControlTest
     [Test]
     public async Task TestWindows()
     {
-        var pair = await PoolManager.GetServerClient(new PoolSettings()
-        {
-            Connected = true,
-        });
+        var pair = await PoolManager.GetServerClient(new PoolSettings() { Connected = true });
         var activator = pair.Client.ResolveDependency<IDynamicTypeFactory>();
         var refManager = pair.Client.ResolveDependency<IReflectionManager>();
         var loader = pair.Client.ResolveDependency<IModLoader>();

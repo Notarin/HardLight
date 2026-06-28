@@ -1,17 +1,21 @@
 using System.Diagnostics.CodeAnalysis;
 using Content.Server.Power.Components;
+using Content.Server.Station.Systems; // Frontier
+using Content.Shared._NF.BindToStation; // Frontier
 using Robust.Shared.Map.Components;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
-using Content.Server.Station.Systems; // Frontier
-using Content.Shared._NF.BindToStation; // Frontier
 
 namespace Content.Server.Power.EntitySystems
 {
     public sealed class ExtensionCableSystem : EntitySystem
     {
-        [Dependency] private readonly SharedMapSystem _map = default!;
-        [Dependency] private readonly StationSystem _station = default!; // Frontier
+        [Dependency]
+        private readonly SharedMapSystem _map = default!;
+
+        [Dependency]
+        private readonly StationSystem _station = default!; // Frontier
+
         public override void Initialize()
         {
             base.Initialize();
@@ -51,8 +55,10 @@ namespace Content.Server.Power.EntitySystems
             var xform = Transform(provider);
 
             // If grid deleting no need to update power.
-            if (HasComp<MapGridComponent>(xform.GridUid) &&
-                MetaData(xform.GridUid.Value).EntityLifeStage > EntityLifeStage.MapInitialized)
+            if (
+                HasComp<MapGridComponent>(xform.GridUid)
+                && MetaData(xform.GridUid.Value).EntityLifeStage > EntityLifeStage.MapInitialized
+            )
             {
                 return;
             }
@@ -60,7 +66,10 @@ namespace Content.Server.Power.EntitySystems
             Disconnect(provider);
         }
 
-        private void OnProviderAnchorStateChanged(Entity<ExtensionCableProviderComponent> provider, ref AnchorStateChangedEvent args)
+        private void OnProviderAnchorStateChanged(
+            Entity<ExtensionCableProviderComponent> provider,
+            ref AnchorStateChangedEvent args
+        )
         {
             if (args.Anchored)
                 Connect(provider);
@@ -114,15 +123,20 @@ namespace Content.Server.Power.EntitySystems
                 // No point resetting what the receiver is doing if it's deleting, plus significant perf savings
                 // in not doing needless lookups
                 var receiverId = receiver.Owner;
-                if (!EntityManager.IsQueuedForDeletion(receiverId)
-                    && MetaData(receiverId).EntityLifeStage <= EntityLifeStage.MapInitialized)
+                if (
+                    !EntityManager.IsQueuedForDeletion(receiverId)
+                    && MetaData(receiverId).EntityLifeStage <= EntityLifeStage.MapInitialized
+                )
                 {
                     TryFindAndSetProvider(receiver);
                 }
             }
         }
 
-        private IEnumerable<Entity<ExtensionCableReceiverComponent>> FindAvailableReceivers(EntityUid owner, float range)
+        private IEnumerable<Entity<ExtensionCableReceiverComponent>> FindAvailableReceivers(
+            EntityUid owner,
+            float range
+        )
         {
             var xform = Transform(owner);
             var coordinates = xform.Coordinates;
@@ -130,14 +144,22 @@ namespace Content.Server.Power.EntitySystems
             if (!TryComp(xform.GridUid, out MapGridComponent? grid))
                 yield break;
 
-            var nearbyEntities = _map.GetCellsInSquareArea(xform.GridUid.Value, grid, coordinates, (int)Math.Ceiling(range / grid.TileSize));
+            var nearbyEntities = _map.GetCellsInSquareArea(
+                xform.GridUid.Value,
+                grid,
+                coordinates,
+                (int)Math.Ceiling(range / grid.TileSize)
+            );
 
             foreach (var entity in nearbyEntities)
             {
                 if (entity == owner)
                     continue;
 
-                if (EntityManager.IsQueuedForDeletion(entity) || MetaData(entity).EntityLifeStage > EntityLifeStage.MapInitialized)
+                if (
+                    EntityManager.IsQueuedForDeletion(entity)
+                    || MetaData(entity).EntityLifeStage > EntityLifeStage.MapInitialized
+                )
                     continue;
 
                 if (!TryComp(entity, out ExtensionCableReceiverComponent? receiver))
@@ -146,7 +168,10 @@ namespace Content.Server.Power.EntitySystems
                 if (!receiver.Connectable || receiver.Provider != null)
                     continue;
 
-                if ((Transform(entity).LocalPosition - xform.LocalPosition).Length() <= Math.Min(range, receiver.ReceptionRange))
+                if (
+                    (Transform(entity).LocalPosition - xform.LocalPosition).Length()
+                    <= Math.Min(range, receiver.ReceptionRange)
+                )
                     yield return (entity, receiver);
             }
         }
@@ -155,7 +180,11 @@ namespace Content.Server.Power.EntitySystems
 
         #region Receiver
 
-        public void SetReceiverReceptionRange(EntityUid uid, int range, ExtensionCableReceiverComponent? receiver = null)
+        public void SetReceiverReceptionRange(
+            EntityUid uid,
+            int range,
+            ExtensionCableReceiverComponent? receiver = null
+        )
         {
             if (!Resolve(uid, ref receiver))
                 return;
@@ -192,13 +221,17 @@ namespace Content.Server.Power.EntitySystems
             Disconnect(receiver);
         }
 
-        private void OnReceiverAnchorStateChanged(Entity<ExtensionCableReceiverComponent> receiver, ref AnchorStateChangedEvent args)
+        private void OnReceiverAnchorStateChanged(
+            Entity<ExtensionCableReceiverComponent> receiver,
+            ref AnchorStateChangedEvent args
+        )
         {
             // Frontier - check for a grid bound lock on an entity, if it exists is not on the proper grid, don't connect
-            var gridBound = TryComp<BindToStationComponent>(receiver, out var binding) &&
-                            binding.Enabled &&
-                            binding.BoundStation != null &&
-                             _station.GetOwningStation(receiver) != binding.BoundStation;
+            var gridBound =
+                TryComp<BindToStationComponent>(receiver, out var binding)
+                && binding.Enabled
+                && binding.BoundStation != null
+                && _station.GetOwningStation(receiver) != binding.BoundStation;
 
             if (args.Anchored && !gridBound) //End Frontier
             {
@@ -231,14 +264,21 @@ namespace Content.Server.Power.EntitySystems
             RaiseLocalEvent(receiver, new ProviderDisconnectedEvent(receiver.Comp.Provider), broadcast: false);
             if (receiver.Comp.Provider != null)
             {
-                RaiseLocalEvent(receiver.Comp.Provider.Value, new ReceiverDisconnectedEvent(receiver), broadcast: false);
+                RaiseLocalEvent(
+                    receiver.Comp.Provider.Value,
+                    new ReceiverDisconnectedEvent(receiver),
+                    broadcast: false
+                );
                 receiver.Comp.Provider.Value.Comp.LinkedReceivers.Remove(receiver);
             }
 
             receiver.Comp.Provider = null;
         }
 
-        private void TryFindAndSetProvider(Entity<ExtensionCableReceiverComponent> receiver, TransformComponent? xform = null)
+        private void TryFindAndSetProvider(
+            Entity<ExtensionCableReceiverComponent> receiver,
+            TransformComponent? xform = null
+        )
         {
             var uid = receiver.Owner;
             if (!receiver.Comp.Connectable)
@@ -253,7 +293,12 @@ namespace Content.Server.Power.EntitySystems
             RaiseLocalEvent(provider.Value, new ReceiverConnectedEvent((uid, receiver)), broadcast: false);
         }
 
-        private bool TryFindAvailableProvider(EntityUid owner, float range, [NotNullWhen(true)] out Entity<ExtensionCableProviderComponent>? foundProvider, TransformComponent? xform = null)
+        private bool TryFindAvailableProvider(
+            EntityUid owner,
+            float range,
+            [NotNullWhen(true)] out Entity<ExtensionCableProviderComponent>? foundProvider,
+            TransformComponent? xform = null
+        )
         {
             if (!Resolve(owner, ref xform) || !TryComp(xform.GridUid, out MapGridComponent? grid))
             {
@@ -262,7 +307,12 @@ namespace Content.Server.Power.EntitySystems
             }
 
             var coordinates = xform.Coordinates;
-            var nearbyEntities = _map.GetCellsInSquareArea(xform.GridUid.Value, grid, coordinates, (int)Math.Ceiling(range / grid.TileSize));
+            var nearbyEntities = _map.GetCellsInSquareArea(
+                xform.GridUid.Value,
+                grid,
+                coordinates,
+                (int)Math.Ceiling(range / grid.TileSize)
+            );
             var cableQuery = GetEntityQuery<ExtensionCableProviderComponent>();
             var metaQuery = GetEntityQuery<MetaDataComponent>();
             var xformQuery = GetEntityQuery<TransformComponent>();
@@ -277,7 +327,10 @@ namespace Content.Server.Power.EntitySystems
                 if (EntityManager.IsQueuedForDeletion(entity))
                     continue;
 
-                if (!metaQuery.TryGetComponent(entity, out var meta) || meta.EntityLifeStage > EntityLifeStage.MapInitialized)
+                if (
+                    !metaQuery.TryGetComponent(entity, out var meta)
+                    || meta.EntityLifeStage > EntityLifeStage.MapInitialized
+                )
                     continue;
 
                 // Find the closest provider
@@ -292,7 +345,10 @@ namespace Content.Server.Power.EntitySystems
             }
 
             // Make sure the provider is in range before claiming success
-            if (closestCandidate != null && closestDistanceFound <= Math.Min(range, closestCandidate.Value.Comp.TransferRange))
+            if (
+                closestCandidate != null
+                && closestDistanceFound <= Math.Min(range, closestCandidate.Value.Comp.TransferRange)
+            )
             {
                 foundProvider = closestCandidate;
                 return true;
@@ -321,6 +377,7 @@ namespace Content.Server.Power.EntitySystems
                 Provider = provider;
             }
         }
+
         /// <summary>
         /// Sent when a <see cref="ExtensionCableProviderComponent"/> disconnects from a <see cref="ExtensionCableReceiverComponent"/>
         /// </summary>
@@ -336,6 +393,7 @@ namespace Content.Server.Power.EntitySystems
                 Provider = provider;
             }
         }
+
         /// <summary>
         /// Sent when a <see cref="ExtensionCableReceiverComponent"/> connects to a <see cref="ExtensionCableProviderComponent"/>
         /// </summary>
@@ -351,6 +409,7 @@ namespace Content.Server.Power.EntitySystems
                 Receiver = receiver;
             }
         }
+
         /// <summary>
         /// Sent when a <see cref="ExtensionCableReceiverComponent"/> disconnects from a <see cref="ExtensionCableProviderComponent"/>
         /// </summary>

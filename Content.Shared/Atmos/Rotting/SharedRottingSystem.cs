@@ -11,9 +11,14 @@ namespace Content.Shared.Atmos.Rotting;
 
 public abstract class SharedRottingSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] protected readonly MobStateSystem _mobState = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
+
+    [Dependency]
+    protected readonly MobStateSystem _mobState = default!;
 
     public const int MaxStages = 3;
 
@@ -89,7 +94,7 @@ public abstract class SharedRottingSystem : EntitySystem
         {
             >= 2 => "rotting-extremely-bloated",
             >= 1 => "rotting-bloated",
-            _ => "rotting-rotting"
+            _ => "rotting-rotting",
         };
 
         if (!HasComp<MobStateComponent>(uid))
@@ -106,7 +111,9 @@ public abstract class SharedRottingSystem : EntitySystem
     {
         if (perishable.Comp.RotAfter.TotalSeconds == 0 || perishable.Comp.RotAccumulator.TotalSeconds == 0)
             return 0;
-        return (int)(1 + maxStages * perishable.Comp.RotAccumulator.TotalSeconds / perishable.Comp.RotAfter.TotalSeconds);
+        return (int)(
+            1 + maxStages * perishable.Comp.RotAccumulator.TotalSeconds / perishable.Comp.RotAfter.TotalSeconds
+        );
     }
 
     public bool IsRotProgressing(EntityUid uid, PerishableComponent? perishable)
@@ -162,7 +169,6 @@ public abstract class SharedRottingSystem : EntitySystem
             RemCompDeferred(uid, rotting);
             perishable.RotAccumulator = total;
         }
-
         else
             rotting.TotalRotTime = total - perishable.RotAfter;
     }
@@ -175,6 +181,6 @@ public abstract class SharedRottingSystem : EntitySystem
         if (!Resolve(uid, ref comp, ref perishable))
             return 0;
 
-        return (int) (comp.TotalRotTime.TotalSeconds / perishable.RotAfter.TotalSeconds);
+        return (int)(comp.TotalRotTime.TotalSeconds / perishable.RotAfter.TotalSeconds);
     }
 }

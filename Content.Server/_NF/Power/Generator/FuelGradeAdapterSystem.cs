@@ -5,7 +5,8 @@ namespace Content.Server._NF.Power.Generator;
 
 public sealed class FuelGradeAdapterSystem : EntitySystem
 {
-    [Dependency] private readonly MaterialStorageSystem _materialStorage = default!;
+    [Dependency]
+    private readonly MaterialStorageSystem _materialStorage = default!;
 
     public override void Initialize()
     {
@@ -25,10 +26,21 @@ public sealed class FuelGradeAdapterSystem : EntitySystem
             var inputAmount = _materialStorage.GetMaterialAmount(entity.Owner, conversion.Input, materialStorage);
             if (inputAmount > 0)
             {
-                _materialStorage.TryChangeMaterialAmount(entity.Owner, conversion.Input, -inputAmount, materialStorage, dirty: false);
-                _materialStorage.TryChangeMaterialAmount(entity.Owner, conversion.Output, (int)(inputAmount * conversion.Rate), materialStorage, dirty: true);
+                _materialStorage.TryChangeMaterialAmount(
+                    entity.Owner,
+                    conversion.Input,
+                    -inputAmount,
+                    materialStorage,
+                    dirty: false
+                );
+                _materialStorage.TryChangeMaterialAmount(
+                    entity.Owner,
+                    conversion.Output,
+                    (int)(inputAmount * conversion.Rate),
+                    materialStorage,
+                    dirty: true
+                );
             }
         }
     }
 }
-

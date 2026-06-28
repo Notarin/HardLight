@@ -1,6 +1,6 @@
-using JetBrains.Annotations;
-using Content.Shared.MassMedia.Systems;
 using Content.Shared.MassMedia.Components;
+using Content.Shared.MassMedia.Systems;
+using JetBrains.Annotations;
 using Robust.Client.UserInterface;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
@@ -13,10 +13,8 @@ public sealed class NewsWriterBoundUserInterface : BoundUserInterface
     [ViewVariables]
     private NewsWriterMenu? _menu;
 
-    public NewsWriterBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-
-    }
+    public NewsWriterBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {
@@ -53,14 +51,15 @@ public sealed class NewsWriterBoundUserInterface : BoundUserInterface
         if (stringContent.Length == 0)
             return;
 
-        var name = title.Length <= SharedNewsSystem.MaxTitleLength
-            ? title
-            : $"{title[..(SharedNewsSystem.MaxTitleLength - 3)]}...";
+        var name =
+            title.Length <= SharedNewsSystem.MaxTitleLength
+                ? title
+                : $"{title[..(SharedNewsSystem.MaxTitleLength - 3)]}...";
 
-        var content = stringContent.Length <= SharedNewsSystem.MaxContentLength
-            ? stringContent
-            : $"{stringContent[..(SharedNewsSystem.MaxContentLength - 3)]}...";
-
+        var content =
+            stringContent.Length <= SharedNewsSystem.MaxContentLength
+                ? stringContent
+                : $"{stringContent[..(SharedNewsSystem.MaxContentLength - 3)]}...";
 
         SendMessage(new NewsWriterPublishMessage(name, content));
     }

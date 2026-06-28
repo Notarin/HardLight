@@ -37,6 +37,4 @@ public sealed partial class NanoTaskCartridgeComponent : Component
 ///     Component attached to the PDA a NanoTask cartridge is inserted into for interaction handling
 /// </summary>
 [RegisterComponent]
-public sealed partial class NanoTaskInteractionComponent : Component
-{
-}
+public sealed partial class NanoTaskInteractionComponent : Component { }

@@ -1,12 +1,15 @@
 using System.Diagnostics.CodeAnalysis;
+using Content.Server._NF.Bank;
 using Content.Server.Administration.Logs;
 using Content.Server.GameTicking;
-using Content.Shared.GameTicking;
+using Content.Server.KillTracking;
 using Content.Server.Popups;
-using Content.Server._NF.Bank;
+using Content.Server.Shuttles.Systems;
 using Content.Shared._NF.Bank.Components;
+using Content.Shared._NF.CCVar;
 using Content.Shared.Cuffs.Components;
 using Content.Shared.Database;
+using Content.Shared.GameTicking;
 using Content.Shared.Medical;
 using Content.Shared.Mind;
 using Content.Shared.Mobs;
@@ -16,13 +19,10 @@ using Content.Shared.NPC.Systems;
 using Content.Shared.Popups;
 using Content.Shared.Roles;
 using Content.Shared.Roles.Jobs;
-using Content.Shared._NF.CCVar;
 using Robust.Server.Player;
 using Robust.Shared.Configuration;
 using Robust.Shared.Player;
 using Robust.Shared.Timing;
-using Content.Server.KillTracking;
-using Content.Server.Shuttles.Systems;
 
 namespace Content.Server.Rewards;
 
@@ -34,19 +34,39 @@ namespace Content.Server.Rewards;
 /// </summary>
 public sealed class DutyRewardSystem : EntitySystem
 {
-    [Dependency] private readonly BankSystem _bank = default!;
-    [Dependency] private readonly SharedMindSystem _minds = default!;
-    [Dependency] private readonly SharedJobSystem _jobs = default!;
-    [Dependency] private readonly SharedRoleSystem _roles = default!;
-    [Dependency] private readonly NpcFactionSystem _factions = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly IAdminLogManager _admin = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly EmergencyShuttleSystem _emergencyShuttle = default!;
+    [Dependency]
+    private readonly BankSystem _bank = default!;
+
+    [Dependency]
+    private readonly SharedMindSystem _minds = default!;
+
+    [Dependency]
+    private readonly SharedJobSystem _jobs = default!;
+
+    [Dependency]
+    private readonly SharedRoleSystem _roles = default!;
+
+    [Dependency]
+    private readonly NpcFactionSystem _factions = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly IAdminLogManager _admin = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly EmergencyShuttleSystem _emergencyShuttle = default!;
 
     // Medical cooldown: last time this victim paid out for being rescued.
     private readonly Dictionary<EntityUid, TimeSpan> _medicalVictimLastPaid = new();
+
     // Optional defib attribution window: track last defib user for a target to fallback attribution when Origin is null.
     private readonly Dictionary<EntityUid, (EntityUid rescuer, TimeSpan time)> _recentDefibs = new();
 
@@ -70,10 +90,10 @@ public sealed class DutyRewardSystem : EntitySystem
         Subs.CVar(_cfg, NFCCVars.RewardsSecurityKillAntagAmount, _ => UpdateCvars(), true);
         Subs.CVar(_cfg, NFCCVars.RewardsSecurityCustodyPerAntagAmount, _ => UpdateCvars(), true);
 
-    // Medical: track defibs for attribution fallback.
-    SubscribeLocalEvent<MobStateComponent, TargetDefibrillatedEvent>(OnTargetDefibrillated);
+        // Medical: track defibs for attribution fallback.
+        SubscribeLocalEvent<MobStateComponent, TargetDefibrillatedEvent>(OnTargetDefibrillated);
         // Medical: pay when crit -> alive.
-    SubscribeLocalEvent<MobStateChangedEvent>(OnMobStateChanged);
+        SubscribeLocalEvent<MobStateChangedEvent>(OnMobStateChanged);
 
         // Security: kill payouts.
         SubscribeLocalEvent<KillReportedEvent>(OnKillReported);
@@ -138,10 +158,14 @@ public sealed class DutyRewardSystem : EntitySystem
         {
             _medicalVictimLastPaid[victim] = _timing.CurTime;
 
-            var msg = $"You saved {ToPrettyString(victim)}. You were paid {Content.Shared._NF.Bank.BankSystemExtensions.ToSpesoString(_medicalAmount)}.";
+            var msg =
+                $"You saved {ToPrettyString(victim)}. You were paid {Content.Shared._NF.Bank.BankSystemExtensions.ToSpesoString(_medicalAmount)}.";
             _popup.PopupEntity(msg, payTarget.Value, Filter.Entities(payTarget.Value), false, PopupType.Small);
-            _admin.Add(LogType.Action, LogImpact.Low,
-                $"DutyReward-Medical: Paid {_medicalAmount} to {ToPrettyString(payTarget.Value)} for rescuing {ToPrettyString(victim)} (crit->alive).");
+            _admin.Add(
+                LogType.Action,
+                LogImpact.Low,
+                $"DutyReward-Medical: Paid {_medicalAmount} to {ToPrettyString(payTarget.Value)} for rescuing {ToPrettyString(victim)} (crit->alive)."
+            );
         }
     }
 
@@ -181,10 +205,14 @@ public sealed class DutyRewardSystem : EntitySystem
         if (_bank.TryBankDeposit(payTarget.Value, amount))
         {
             var reason = amount == _secKillAntagAmount ? "killing an antagonist" : "killing a hostile";
-            var msg = $"Security payout: You were paid {Content.Shared._NF.Bank.BankSystemExtensions.ToSpesoString(amount)} for {reason}.";
+            var msg =
+                $"Security payout: You were paid {Content.Shared._NF.Bank.BankSystemExtensions.ToSpesoString(amount)} for {reason}.";
             _popup.PopupEntity(msg, payTarget.Value, Filter.Entities(payTarget.Value), false, PopupType.Small);
-            _admin.Add(LogType.Action, LogImpact.Low,
-                $"DutyReward-SecurityKill: Paid {amount} to {ToPrettyString(payTarget.Value)} for {reason} ({ToPrettyString(target)}).");
+            _admin.Add(
+                LogType.Action,
+                LogImpact.Low,
+                $"DutyReward-SecurityKill: Paid {amount} to {ToPrettyString(payTarget.Value)} for {reason} ({ToPrettyString(target)})."
+            );
         }
     }
 
@@ -236,17 +264,25 @@ public sealed class DutyRewardSystem : EntitySystem
 
             if (_bank.TryBankDeposit(payTarget.Value, payout))
             {
-                var msg = $"Round-end security payout: {antagInCustody} antagonist(s) in custody. You were paid {Content.Shared._NF.Bank.BankSystemExtensions.ToSpesoString(payout)}.";
+                var msg =
+                    $"Round-end security payout: {antagInCustody} antagonist(s) in custody. You were paid {Content.Shared._NF.Bank.BankSystemExtensions.ToSpesoString(payout)}.";
                 _popup.PopupEntity(msg, payTarget.Value, Filter.Entities(payTarget.Value), false, PopupType.Small);
-                _admin.Add(LogType.Action, LogImpact.Low,
-                    $"DutyReward-SecurityCustody: Paid {payout} to {ToPrettyString(payTarget.Value)} for {antagInCustody} antags in custody at round end.");
+                _admin.Add(
+                    LogType.Action,
+                    LogImpact.Low,
+                    $"DutyReward-SecurityCustody: Paid {payout} to {ToPrettyString(payTarget.Value)} for {antagInCustody} antags in custody at round end."
+                );
             }
         }
 
         _roundEndPaid = true;
     }
 
-    private bool TryGetKillerPlayer(KillSource source, [NotNullWhen(true)] out EntityUid? mindId, [NotNullWhen(true)] out MindComponent? mind)
+    private bool TryGetKillerPlayer(
+        KillSource source,
+        [NotNullWhen(true)] out EntityUid? mindId,
+        [NotNullWhen(true)] out MindComponent? mind
+    )
     {
         mindId = null;
         mind = null;
@@ -293,7 +329,11 @@ public sealed class DutyRewardSystem : EntitySystem
         }
 
         // Otherwise try their mind's currently owned entity.
-        if (_minds.TryGetMind(entity, out var mindId, out var mind) && mind.OwnedEntity is { } owned && HasComp<BankAccountComponent>(owned))
+        if (
+            _minds.TryGetMind(entity, out var mindId, out var mind)
+            && mind.OwnedEntity is { } owned
+            && HasComp<BankAccountComponent>(owned)
+        )
         {
             target = owned;
             return true;
@@ -334,11 +374,18 @@ public sealed class DutyRewardSystem : EntitySystem
         EntityUid? originalEntity = GetEntity(mind.Comp.OriginalOwnedEntity);
         if (originalEntity.HasValue && originalEntity != mind.Comp.OwnedEntity)
         {
-            originalEntityInCustody = TryComp<CuffableComponent>(originalEntity.Value, out var origCuffed) && origCuffed.CuffedHandCount > 0
-                   && _emergencyShuttle.IsTargetEscaping(originalEntity.Value);
+            originalEntityInCustody =
+                TryComp<CuffableComponent>(originalEntity.Value, out var origCuffed)
+                && origCuffed.CuffedHandCount > 0
+                && _emergencyShuttle.IsTargetEscaping(originalEntity.Value);
         }
 
-     return originalEntityInCustody || (mind.Comp.OwnedEntity is { } owned && TryComp<CuffableComponent>(owned, out var cuffed) && cuffed.CuffedHandCount > 0
-         && _emergencyShuttle.IsTargetEscaping(owned));
+        return originalEntityInCustody
+            || (
+                mind.Comp.OwnedEntity is { } owned
+                && TryComp<CuffableComponent>(owned, out var cuffed)
+                && cuffed.CuffedHandCount > 0
+                && _emergencyShuttle.IsTargetEscaping(owned)
+            );
     }
 }

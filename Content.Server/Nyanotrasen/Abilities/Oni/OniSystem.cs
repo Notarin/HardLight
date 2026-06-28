@@ -1,17 +1,18 @@
+using System.Linq;
 using Content.Server.Tools;
 using Content.Shared.Damage.Events;
 using Content.Shared.Weapons.Melee.Events;
 using Content.Shared.Weapons.Ranged.Components;
 using Content.Shared.Weapons.Ranged.Systems;
 using Content.Shared.Wieldable.Components;
-using System.Linq;
 using Robust.Shared.Containers;
 
 namespace Content.Server.Abilities.Oni
 {
     public sealed class OniSystem : EntitySystem
     {
-        [Dependency] private readonly SharedGunSystem _gunSystem = default!;
+        [Dependency]
+        private readonly SharedGunSystem _gunSystem = default!;
 
         private const double GunInaccuracyFactor = 17.0; // Frontier (20x<18x -> 10% buff)
 
@@ -38,7 +39,10 @@ namespace Content.Server.Abilities.Oni
             if (TryComp<GunComponent>(args.Entity, out var gun))
             {
                 // Frontier: adjust penalty for wielded malus (ensuring it's actually wieldable)
-                if (TryComp<GunWieldBonusComponent>(args.Entity, out var bonus) && HasComp<WieldableComponent>(args.Entity))
+                if (
+                    TryComp<GunWieldBonusComponent>(args.Entity, out var bonus)
+                    && HasComp<WieldableComponent>(args.Entity)
+                )
                 {
                     //GunWieldBonus values are stored as negative.
                     heldComp.minAngleAdded = (gun.MinAngle + bonus.MinAngle) * GunInaccuracyFactor;
@@ -74,7 +78,9 @@ namespace Content.Server.Abilities.Oni
                 return false;
             // Check inheritance chain for base bow/crossbow
             var parents = proto.Parents ?? Array.Empty<string>();
-            return proto.ID == "BaseBow" || proto.ID == "BaseCrossbow" || proto.ID == "BaseCrossbowWieldable"
+            return proto.ID == "BaseBow"
+                || proto.ID == "BaseCrossbow"
+                || proto.ID == "BaseCrossbowWieldable"
                 || parents.Any(x => x == "BaseBow")
                 || parents.Any(x => x == "BaseCrossbow")
                 || parents.Any(x => x == "BaseCrossbowWieldable");
@@ -83,8 +89,10 @@ namespace Content.Server.Abilities.Oni
         private void OnEntRemoved(EntityUid uid, OniComponent component, EntRemovedFromContainerMessage args)
         {
             // Frontier: angle manipulation stored in HeldByOniComponent
-            if (TryComp<GunComponent>(args.Entity, out var gun) &&
-                TryComp<HeldByOniComponent>(args.Entity, out var heldComp))
+            if (
+                TryComp<GunComponent>(args.Entity, out var gun)
+                && TryComp<HeldByOniComponent>(args.Entity, out var heldComp)
+            )
             {
                 gun.MinAngle -= heldComp.minAngleAdded;
                 gun.AngleIncrease -= heldComp.angleIncreaseAdded;

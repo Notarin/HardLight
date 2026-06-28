@@ -21,7 +21,7 @@
     # Frontier
     ClothingHeadHatHoodBioScientist: 1
     ClothingOuterBioScientist: 1
-# RoboDrobe:
+    # RoboDrobe:
     ClothingOuterCoatRobo: 2
     ClothingUniformJumpsuitRoboticist: 2
     ClothingUniformJumpskirtRoboticist: 2
@@ -32,11 +32,11 @@
     #ClothingHeadsetRobotics: 2
     ClothingOuterWinterRobo: 2
     ClothingShoesBootsWinterRobo: 2 #Delta V: Add departmental winter boots
-# Senior:
+    # Senior:
     ClothingUniformJumpsuitSeniorResearcher: 1
     ClothingUniformJumpskirtSeniorResearcher: 1
     ClothingOuterCoatLabSeniorResearcher: 1
-# RD:
+    # RD:
     ClothingUniformJumpsuitResearchDirector: 1
     ClothingUniformJumpskirtResearchDirector: 1
     ClothingOuterWinterRD: 1

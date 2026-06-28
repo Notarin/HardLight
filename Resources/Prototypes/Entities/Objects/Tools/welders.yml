@@ -22,8 +22,8 @@
     visuals:
       enum.ToggleVisuals.Toggled:
         enum.ToggleVisuals.Layer:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
   - type: Item
     size: Small
     sprite: Objects/Tools/welder.rsi
@@ -110,7 +110,7 @@
     temperature: 700
   - type: WeldingHealing # HardLight: Reduced to -10 (from -15) to match WizDen
     damageContainers:
-      - Silicon
+    - Silicon
     fuelCost: 5
     damage:
       types:
@@ -271,10 +271,10 @@
     color: orange
   - type: Tag
     tags:
-      - EmergencyWelder #Starlight, distinction needed for use in crafting recipies.
+    - EmergencyWelder #Starlight, distinction needed for use in crafting recipies.
 
 - type: entity
-  parent: [ Welder, BaseC3Contraband ]
+  parent: [Welder, BaseC3Contraband]
   id: RefuelingWelder
   name: refuling welding tool
   description: "An slow welder that can refuel itself over time."
@@ -292,7 +292,7 @@
         Quantity: 0.1
 
 - type: entity
-  parent: [ Welder, BaseXenoborgContraband ]
+  parent: [Welder, BaseXenoborgContraband]
   id: RefuelingWelderXenoborg
   name: refuling welding tool
   description: "An slow welder that can refuel itself over time."

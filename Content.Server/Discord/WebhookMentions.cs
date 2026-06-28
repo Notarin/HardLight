@@ -10,9 +10,7 @@ public struct WebhookMentions
     [JsonPropertyName("roles")] // Frontier: allow specific roles
     public HashSet<string> Roles { get; set; } = new(); // Frontier: allow specific roles
 
-    public WebhookMentions()
-    {
-    }
+    public WebhookMentions() { }
 
     public void AllowRoleMentions()
     {

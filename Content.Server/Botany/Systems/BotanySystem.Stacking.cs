@@ -24,7 +24,11 @@ public sealed partial class BotanySystem
         UpdateProduceStackSignature(uid, component, null);
     }
 
-    private void OnProduceSolutionChanged(EntityUid uid, ProduceComponent component, ref SolutionContainerChangedEvent args)
+    private void OnProduceSolutionChanged(
+        EntityUid uid,
+        ProduceComponent component,
+        ref SolutionContainerChangedEvent args
+    )
     {
         if (!string.Equals(args.SolutionId, component.SolutionName, StringComparison.Ordinal))
             return;
@@ -89,24 +93,14 @@ public sealed partial class BotanySystem
         if (TryComp<ExtractedSeedOwnerComponent>(uid, out var ownerComp))
             builder.Append("owner=").Append(ownerComp.OwnerId).Append(';');
 
-        builder.Append("pot=")
-            .Append(seed.Potency.ToString(CultureInfo.InvariantCulture))
-            .Append(';');
+        builder.Append("pot=").Append(seed.Potency.ToString(CultureInfo.InvariantCulture)).Append(';');
         builder.Append("yield=").Append(seed.Yield).Append(';');
-        builder.Append("endur=")
-            .Append(seed.Endurance.ToString(CultureInfo.InvariantCulture))
-            .Append(';');
-        builder.Append("life=")
-            .Append(seed.Lifespan.ToString(CultureInfo.InvariantCulture))
-            .Append(';');
-        builder.Append("mature=")
-            .Append(seed.Maturation.ToString(CultureInfo.InvariantCulture))
-            .Append(';');
-        builder.Append("prod=")
-            .Append(seed.Production.ToString(CultureInfo.InvariantCulture))
-            .Append(';');
+        builder.Append("endur=").Append(seed.Endurance.ToString(CultureInfo.InvariantCulture)).Append(';');
+        builder.Append("life=").Append(seed.Lifespan.ToString(CultureInfo.InvariantCulture)).Append(';');
+        builder.Append("mature=").Append(seed.Maturation.ToString(CultureInfo.InvariantCulture)).Append(';');
+        builder.Append("prod=").Append(seed.Production.ToString(CultureInfo.InvariantCulture)).Append(';');
         builder.Append("stages=").Append(seed.GrowthStages).Append(';');
-        builder.Append("harvest=").Append((int) seed.HarvestRepeat).Append(';');
+        builder.Append("harvest=").Append((int)seed.HarvestRepeat).Append(';');
         builder.Append("seedless=").Append(seed.Seedless ? '1' : '0').Append(';');
         builder.Append("viable=").Append(seed.Viable ? '1' : '0').Append(';');
         builder.Append("ligneous=").Append(seed.Ligneous ? '1' : '0').Append(';');
@@ -134,10 +128,7 @@ public sealed partial class BotanySystem
     {
         foreach (var reagent in solution.Contents.OrderBy(r => r.Reagent.Prototype, StringComparer.Ordinal))
         {
-            builder.Append(reagent.Reagent.Prototype)
-                .Append('=')
-                .Append(reagent.Quantity.Value)
-                .Append(';');
+            builder.Append(reagent.Reagent.Prototype).Append('=').Append(reagent.Quantity.Value).Append(';');
         }
     }
 }

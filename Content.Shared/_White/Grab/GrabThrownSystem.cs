@@ -1,24 +1,35 @@
-using Content.Shared.Damage.Systems;
+using System.Numerics;
 using Content.Shared.Damage;
+using Content.Shared.Damage.Systems;
 using Content.Shared.Effects;
+using Content.Shared.Standing;
 using Content.Shared.Throwing;
 using Robust.Shared.Network;
+using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Events;
 using Robust.Shared.Player;
-using System.Numerics;
-using Content.Shared.Standing;
-using Robust.Shared.Physics.Components;
 
 namespace Content.Shared._White.Grab;
 
 public sealed class GrabThrownSystem : EntitySystem
 {
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly SharedColorFlashEffectSystem _color = default!;
-    [Dependency] private readonly SharedStaminaSystem _stamina = default!; // HardLight: StaminSystem<SharedStaminaSystem
-    [Dependency] private readonly ThrowingSystem _throwing = default!;
-    [Dependency] private readonly INetManager _netMan = default!;
-    [Dependency] private readonly SharedLayingDownSystem _layingDown = default!;
+    [Dependency]
+    private readonly DamageableSystem _damageable = default!;
+
+    [Dependency]
+    private readonly SharedColorFlashEffectSystem _color = default!;
+
+    [Dependency]
+    private readonly SharedStaminaSystem _stamina = default!; // HardLight: StaminSystem<SharedStaminaSystem
+
+    [Dependency]
+    private readonly ThrowingSystem _throwing = default!;
+
+    [Dependency]
+    private readonly INetManager _netMan = default!;
+
+    [Dependency]
+    private readonly SharedLayingDownSystem _layingDown = default!;
 
     public override void Initialize()
     {
@@ -45,7 +56,7 @@ public sealed class GrabThrownSystem : EntitySystem
         if (!HasComp<DamageableComponent>(ent))
             RemComp<GrabThrownComponent>(ent);
 
-        if(!TryComp<PhysicsComponent>(ent, out var physicsComponent))
+        if (!TryComp<PhysicsComponent>(ent, out var physicsComponent))
             return;
 
         ent.Comp.IgnoreEntity.Add(args.OtherEntity);
@@ -59,7 +70,7 @@ public sealed class GrabThrownSystem : EntitySystem
         var modNumber = Math.Floor(kineticEnergy / 100);
         kineticEnergyDamage *= Math.Floor(modNumber / 3);
         _damageable.TryChangeDamage(args.OtherEntity, kineticEnergyDamage);
-        _stamina.TakeStaminaDamage(ent, (float) Math.Floor(modNumber / 2));
+        _stamina.TakeStaminaDamage(ent, (float)Math.Floor(modNumber / 2));
 
         _layingDown.TryLieDown(args.OtherEntity, behavior: DropHeldItemsBehavior.AlwaysDrop);
 
@@ -89,7 +100,8 @@ public sealed class GrabThrownSystem : EntitySystem
         EntityUid thrower,
         Vector2 vector,
         float grabThrownSpeed,
-        DamageSpecifier? damageToUid = null)
+        DamageSpecifier? damageToUid = null
+    )
     {
         var comp = EnsureComp<GrabThrownComponent>(uid);
         comp.IgnoreEntity.Add(thrower);

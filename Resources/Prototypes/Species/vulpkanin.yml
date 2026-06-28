@@ -52,7 +52,7 @@
     Snout:
       points: 1
       required: true
-      defaultMarkings: [ FoxSnout ] # Starlight
+      defaultMarkings: [FoxSnout] # Starlight
     # HardLight
     #SnoutCover:
     #  points: 3
@@ -60,14 +60,14 @@
     Tail:
       points: 1
       required: true
-      defaultMarkings: [ FoxTail ] # Starlight
+      defaultMarkings: [FoxTail] # Starlight
     Head:
       points: 3
       required: false
     HeadTop:
       points: 1
       required: true
-      defaultMarkings: [ FoxEar ] # Starlight
+      defaultMarkings: [FoxEar] # Starlight
     UndergarmentTop:
       points: 3
       required: false

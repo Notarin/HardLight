@@ -29,7 +29,6 @@
   petSuccessString: petting-success-generic-cyborg
   petFailureString: petting-failure-generic-cyborg
 
-
 # Engineering borg
 - type: borgType
   id: engineering
@@ -64,7 +63,6 @@
   # Pet
   petSuccessString: petting-success-engineer-cyborg
   petFailureString: petting-failure-engineer-cyborg
-
 
 # Salvage borg
 - type: borgType
@@ -102,7 +100,6 @@
   petSuccessString: petting-success-salvage-cyborg
   petFailureString: petting-failure-salvage-cyborg
 
-
 # Janitor borg
 - type: borgType
   id: janitor
@@ -137,7 +134,6 @@
   # Pet
   petSuccessString: petting-success-janitor-cyborg
   petFailureString: petting-failure-janitor-cyborg
-
 
 # Medical borg
 - type: borgType
@@ -193,7 +189,6 @@
   # Sounds
   footstepCollection:
     collection: FootstepHoverBorg
-
 
 # Service borg
 - type: borgType

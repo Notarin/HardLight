@@ -2,16 +2,19 @@ using Content.Shared.Access.Components;
 using Content.Shared.Containers.ItemSlots;
 using JetBrains.Annotations;
 using Robust.Shared.GameStates;
-using Robust.Shared.Serialization;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Serialization;
 
 namespace Content.Shared.Access.Systems
 {
     [UsedImplicitly]
     public abstract class SharedIdCardConsoleSystem : EntitySystem
     {
-        [Dependency] private readonly ItemSlotsSystem _itemSlotsSystem = default!;
-        [Dependency] private readonly ILogManager _log = default!;
+        [Dependency]
+        private readonly ItemSlotsSystem _itemSlotsSystem = default!;
+
+        [Dependency]
+        private readonly ILogManager _log = default!;
 
         public const string Sawmill = "idconsole";
         protected ISawmill _sawmill = default!;
@@ -27,7 +30,11 @@ namespace Content.Shared.Access.Systems
 
         private void OnComponentInit(EntityUid uid, IdCardConsoleComponent component, ComponentInit args)
         {
-            _itemSlotsSystem.AddItemSlot(uid, IdCardConsoleComponent.PrivilegedIdCardSlotId, component.PrivilegedIdSlot);
+            _itemSlotsSystem.AddItemSlot(
+                uid,
+                IdCardConsoleComponent.PrivilegedIdCardSlotId,
+                component.PrivilegedIdSlot
+            );
             _itemSlotsSystem.AddItemSlot(uid, IdCardConsoleComponent.TargetIdCardSlotId, component.TargetIdSlot);
         }
 

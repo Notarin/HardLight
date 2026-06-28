@@ -12,8 +12,11 @@ namespace Content.Server._NF.Cargo.Systems;
 
 public sealed partial class NFCargoSystem
 {
-    [Dependency] private GameTicker _gameTicker = default!;
-    [Dependency] private LabelSystem _label = default!;
+    [Dependency]
+    private GameTicker _gameTicker = default!;
+
+    [Dependency]
+    private LabelSystem _label = default!;
     private readonly List<EntityUid> _destinations = new();
 
     private void InitializeTradeCrates()
@@ -31,9 +34,9 @@ public sealed partial class NFCargoSystem
     private void OnTradeCrateGetPriceEvent(Entity<TradeCrateComponent> ent, ref PriceCalculationEvent ev)
     {
         var owningStation = _station.GetOwningStation(ent);
-        var atDestination = ent.Comp.DestinationStation != EntityUid.Invalid
-                           && owningStation == ent.Comp.DestinationStation
-                           || HasComp<TradeCrateWildcardDestinationComponent>(owningStation);
+        var atDestination =
+            ent.Comp.DestinationStation != EntityUid.Invalid && owningStation == ent.Comp.DestinationStation
+            || HasComp<TradeCrateWildcardDestinationComponent>(owningStation);
         ev.Price = atDestination ? ent.Comp.ValueAtDestination : ent.Comp.ValueElsewhere;
         if (ent.Comp.ExpressDeliveryTime != null)
         {
@@ -70,9 +73,11 @@ public sealed partial class NFCargoSystem
             _appearance.SetData(ent, TradeCrateVisuals.IsPriority, true);
 
             ent.Comp.ExpressCancelToken = new CancellationTokenSource();
-            Timer.Spawn((int)ent.Comp.ExpressDeliveryDuration.TotalMilliseconds,
+            Timer.Spawn(
+                (int)ent.Comp.ExpressDeliveryDuration.TotalMilliseconds,
                 () => DisableTradeCratePriority(ent),
-                ent.Comp.ExpressCancelToken.Token);
+                ent.Comp.ExpressCancelToken.Token
+            );
         }
     }
 
@@ -92,9 +97,11 @@ public sealed partial class NFCargoSystem
         if (ent.Comp.ExpressDeliveryTime == null)
             return;
 
-        ev.PushMarkup(ent.Comp.ExpressDeliveryTime >= _timing.CurTime ?
-            Loc.GetString("trade-crate-priority-active") :
-            Loc.GetString("trade-crate-priority-inactive"));
+        ev.PushMarkup(
+            ent.Comp.ExpressDeliveryTime >= _timing.CurTime
+                ? Loc.GetString("trade-crate-priority-active")
+                : Loc.GetString("trade-crate-priority-inactive")
+        );
 
         var shiftTime = ent.Comp.ExpressDeliveryTime - _gameTicker.RoundStartTimeSpan;
         ev.PushMarkup(Loc.GetString("trade-crate-priority-time", ("time", shiftTime.Value.ToString(@"hh\:mm\:ss"))));

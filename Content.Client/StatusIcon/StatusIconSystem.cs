@@ -16,10 +16,17 @@ namespace Content.Client.StatusIcon;
 /// </summary>
 public sealed class StatusIconSystem : SharedStatusIconSystem
 {
-    [Dependency] private readonly IConfigurationManager _configuration = default!;
-    [Dependency] private readonly IOverlayManager _overlay = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly EntityWhitelistSystem _entityWhitelist = default!;
+    [Dependency]
+    private readonly IConfigurationManager _configuration = default!;
+
+    [Dependency]
+    private readonly IOverlayManager _overlay = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _entityWhitelist = default!;
 
     private bool _globalEnabled;
     private bool _localEnabled;

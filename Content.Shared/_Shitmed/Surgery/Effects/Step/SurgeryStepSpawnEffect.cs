@@ -1,7 +1,7 @@
+using System.ComponentModel.DataAnnotations;
 using Content.Shared.Chat.Prototypes;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
-using System.ComponentModel.DataAnnotations;
 
 namespace Content.Shared._Shitmed.Medical.Surgery.Effects.Step;
 

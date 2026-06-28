@@ -1,12 +1,12 @@
-using Robust.Shared.Map;
-using Robust.Client.GameObjects;
-using Content.Shared.Repairable;
-using Content.Shared._FarHorizons.Power.Generation.FissionGenerator;
-using Content.Client.Popups;
 using Content.Client.Examine;
-using Robust.Client.Animations;
+using Content.Client.Popups;
+using Content.Shared._FarHorizons.Power.Generation.FissionGenerator;
 using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Popups;
+using Content.Shared.Repairable;
+using Robust.Client.Animations;
+using Robust.Client.GameObjects;
+using Robust.Shared.Map;
 
 namespace Content.Client._FarHorizons.Power.Generation.FissionGenerator;
 
@@ -16,9 +16,14 @@ namespace Content.Client._FarHorizons.Power.Generation.FissionGenerator;
 
 public sealed class TurbineSystem : SharedTurbineSystem
 {
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
-    [Dependency] private readonly AnimationPlayerSystem _animationPlayer = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly PopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly AnimationPlayerSystem _animationPlayer = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     private readonly float _threshold = 1f;
     private float _accumulator = 0;
@@ -40,13 +45,19 @@ public sealed class TurbineSystem : SharedTurbineSystem
         if (args.Cancelled)
             return;
 
-        _popupSystem.PopupClient(Loc.GetString("turbine-repair", ("target", uid), ("tool", args.Used!)), uid, args.User);
+        _popupSystem.PopupClient(
+            Loc.GetString("turbine-repair", ("target", uid), ("tool", args.Used!)),
+            uid,
+            args.User
+        );
     }
 
-    private void TurbineExamined(EntityUid uid, TurbineComponent comp, ClientExaminedEvent args) => Spawn(comp.ArrowPrototype, new EntityCoordinates(uid, 0, 0));
+    private void TurbineExamined(EntityUid uid, TurbineComponent comp, ClientExaminedEvent args) =>
+        Spawn(comp.ArrowPrototype, new EntityCoordinates(uid, 0, 0));
 
     #region Animation
-    private void OnAnimationCompleted(EntityUid uid, TurbineComponent comp, ref AnimationCompletedEvent args) => PlayAnimation(uid, comp);
+    private void OnAnimationCompleted(EntityUid uid, TurbineComponent comp, ref AnimationCompletedEvent args) =>
+        PlayAnimation(uid, comp);
 
     public override void FrameUpdate(float frameTime)
     {
@@ -70,7 +81,10 @@ public sealed class TurbineSystem : SharedTurbineSystem
 
     private void PlayAnimation(EntityUid uid, TurbineComponent comp)
     {
-        if (!TryComp<SpriteComponent>(uid, out var sprite) || !_sprite.TryGetLayer((uid,sprite), TurbineVisualLayers.TurbineSpeed, out var layer, false))
+        if (
+            !TryComp<SpriteComponent>(uid, out var sprite)
+            || !_sprite.TryGetLayer((uid, sprite), TurbineVisualLayers.TurbineSpeed, out var layer, false)
+        )
             return;
 
         var state = "speedanim";
@@ -113,10 +127,10 @@ public sealed class TurbineSystem : SharedTurbineSystem
                         new AnimationTrackSpriteFlick.KeyFrame("turbinerun_08", timestep),
                         new AnimationTrackSpriteFlick.KeyFrame("turbinerun_09", timestep),
                         new AnimationTrackSpriteFlick.KeyFrame("turbinerun_10", timestep),
-                        new AnimationTrackSpriteFlick.KeyFrame("turbinerun_11", timestep)
-                    }
-                }
-            }
+                        new AnimationTrackSpriteFlick.KeyFrame("turbinerun_11", timestep),
+                    },
+                },
+            },
         };
         _sprite.LayerSetVisible(layer, true);
         _animationPlayer.Play(uid, animation, state);

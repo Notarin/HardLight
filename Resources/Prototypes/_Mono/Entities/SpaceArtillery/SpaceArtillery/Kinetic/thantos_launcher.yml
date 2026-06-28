@@ -3,7 +3,7 @@
 - type: entity
   id: WeaponTurretThanatos
   name: THANATOS twin mass driver
-  parent: [ BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband ]
+  parent: [BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband]
   suffix: STATION ONLY, Recharging Ammo
   description: The charon's mean older brother, the Thanatos is a force to be reckoned with. It can be remotely activated or linked up to a GCS. This one feeds from an autoloader somewhere, and doesn't need manual reloads.
   components:
@@ -51,8 +51,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.5,-0.5,0.5,0.5"
         density: 1500
         mask:
@@ -61,12 +60,11 @@
         - MachineLayer
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 15000
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:PlaySoundBehavior
         sound:
           collection: MetalBreak
@@ -82,6 +80,5 @@
   - type: ShipRepairable
     repairTime: 60
     repairCost: 300
-
 
 # If someone wants to make a ship version go nuts, but be SURE it uses ammo

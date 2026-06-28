@@ -16,11 +16,20 @@ namespace Content.Server.Ninja.Systems;
 /// </summary>
 public sealed class NinjaSuitSystem : SharedNinjaSuitSystem
 {
-    [Dependency] private readonly EmpSystem _emp = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly SpaceNinjaSystem _ninja = default!;
-    [Dependency] private readonly PowerCellSystem _powerCell = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency]
+    private readonly EmpSystem _emp = default!;
+
+    [Dependency]
+    private readonly SharedHandsSystem _hands = default!;
+
+    [Dependency]
+    private readonly SpaceNinjaSystem _ninja = default!;
+
+    [Dependency]
+    private readonly PowerCellSystem _powerCell = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
 
     // How much the cell score should be increased per 1 AutoRechargeRate.
     private const int AutoRechargeValue = 100;
@@ -44,7 +53,7 @@ public sealed class NinjaSuitSystem : SharedNinjaSuitSystem
         // raise event to let ninja components get starting battery
         _ninja.GetNinjaBattery(user.Owner, out var uid, out var _);
 
-        if (uid is not {} battery_uid)
+        if (uid is not { } battery_uid)
             return;
 
         var ev = new NinjaBatteryChangedEvent(battery_uid, ent.Owner);
@@ -96,7 +105,7 @@ public sealed class NinjaSuitSystem : SharedNinjaSuitSystem
         // if a cell is able to automatically recharge, boost the score drastically depending on the recharge rate,
         // this is to ensure a ninja can still upgrade to a micro reactor cell even if they already have a medium or high.
         if (TryComp<BatterySelfRechargerComponent>(uid, out var selfcomp) && selfcomp.AutoRecharge)
-            return battcomp.MaxCharge + (selfcomp.AutoRechargeRate*AutoRechargeValue);
+            return battcomp.MaxCharge + (selfcomp.AutoRechargeRate * AutoRechargeValue);
         return battcomp.MaxCharge;
     }
 
@@ -138,9 +147,7 @@ public sealed class NinjaSuitSystem : SharedNinjaSuitSystem
             return;
 
         // TODO: teleporting into belt slot
-        var message = _hands.TryPickupAnyHand(user, katana)
-            ? "ninja-katana-recalled"
-            : "ninja-hands-full";
+        var message = _hands.TryPickupAnyHand(user, katana) ? "ninja-katana-recalled" : "ninja-hands-full";
         Popup.PopupEntity(Loc.GetString(message), user, user);
     }
 

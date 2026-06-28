@@ -16,8 +16,11 @@ namespace Content.Client.Decals.UI;
 [GenerateTypedNameReferences]
 public sealed partial class DecalPlacerWindow : DefaultWindow
 {
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly IEntityManager _e = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototype = default!;
+
+    [Dependency]
+    private readonly IEntityManager _e = default!;
 
     private readonly DecalPlacementSystem _decalPlacementSystem;
     private readonly SpriteSystem _sprite;
@@ -47,10 +50,7 @@ public sealed partial class DecalPlacerWindow : DefaultWindow
 
         // This needs to be done in C# so we can have custom stuff passed in the constructor
         // and thus have a proper step size
-        RotationSpinBox = new FloatSpinBox(90.0f, 0)
-        {
-            HorizontalExpand = true
-        };
+        RotationSpinBox = new FloatSpinBox(90.0f, 0) { HorizontalExpand = true };
         SpinBoxContainer.AddChild(RotationSpinBox);
 
         Search.OnTextChanged += _ => RefreshList();
@@ -150,21 +150,15 @@ public sealed partial class DecalPlacerWindow : DefaultWindow
                 TextureNormal = tex,
                 Name = decal,
                 ToolTip = decal,
-                Modulate = _useColor ? _color : Color.White
+                Modulate = _useColor ? _color : Color.White,
             };
             button.OnPressed += ButtonOnPressed;
             if (_selected == decal)
             {
                 var panelContainer = new PanelContainer
                 {
-                    PanelOverride = new StyleBoxFlat
-                    {
-                        BackgroundColor = StyleNano.ButtonColorDefault
-                    },
-                    Children =
-                    {
-                        button
-                    }
+                    PanelOverride = new StyleBoxFlat { BackgroundColor = StyleNano.ButtonColorDefault },
+                    Children = { button },
                 };
                 Grid.AddChild(panelContainer);
             }

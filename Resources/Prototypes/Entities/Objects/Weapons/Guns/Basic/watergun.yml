@@ -64,11 +64,11 @@
     layers:
     - state: detail
     - state: icon
-      map: [ "enum.DamageStateVisualLayers.Base" ]
+      map: ["enum.DamageStateVisualLayers.Base"]
   - type: RandomSprite
     available:
-      - enum.DamageStateVisualLayers.Base:
-          icon: Rainbow
+    - enum.DamageStateVisualLayers.Base:
+        icon: Rainbow
 
 - type: entity
   id: WeaponWaterBlaster
@@ -95,17 +95,17 @@
     - state: detail2
       map: ["enum.PowerDeviceVisualLayers.Powered"]
     - state: icon
-      map: [ "enum.DamageStateVisualLayers.Base" ]
+      map: ["enum.DamageStateVisualLayers.Base"]
   - type: Item
     sprite: Objects/Weapons/Guns/Pistols/soaker.rsi
     size: Normal
   - type: RandomSprite
     getAllGroups: true
     available:
-      - enum.DamageStateVisualLayers.Base:
-          icon: Rainbow
-      - enum.PowerDeviceVisualLayers.Powered:
-          detail2: Sixteen
+    - enum.DamageStateVisualLayers.Base:
+        icon: Rainbow
+    - enum.PowerDeviceVisualLayers.Powered:
+        detail2: Sixteen
 
 - type: entity
   id: WeaponWaterBlasterSuper
@@ -132,14 +132,14 @@
     - state: detail2
       map: ["enum.PowerDeviceVisualLayers.Powered"]
     - state: icon
-      map: [ "enum.DamageStateVisualLayers.Base" ]
+      map: ["enum.DamageStateVisualLayers.Base"]
   - type: Item
     sprite: Objects/Weapons/Guns/Pistols/soaker.rsi
     size: Normal
   - type: RandomSprite
     getAllGroups: true
     available:
-      - enum.DamageStateVisualLayers.Base:
-          icon: Rainbow
-      - enum.PowerDeviceVisualLayers.Powered:
-          detail2: Sixteen
+    - enum.DamageStateVisualLayers.Base:
+        icon: Rainbow
+    - enum.PowerDeviceVisualLayers.Powered:
+        detail2: Sixteen

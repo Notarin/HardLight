@@ -1,7 +1,7 @@
-using Robust.Shared.Serialization;
-using Robust.Shared.GameStates;
 using Content.Shared._Funkystation.Genetics.Systems;
 using Robust.Shared.Audio;
+using Robust.Shared.GameStates;
+using Robust.Shared.Serialization;
 
 namespace Content.Shared._Funkystation.Genetics.Components;
 
@@ -22,11 +22,10 @@ public sealed partial class GeneticAnalyzerComponent : Component
     public SoundSpecifier ScanningEndSound = new SoundPathSpecifier("/Audio/Items/Medical/healthscanner.ogg");
 }
 
-
 [Serializable, NetSerializable]
 public enum GeneticAnalyzerUiKey : byte
 {
-    Key
+    Key,
 }
 
 [NetSerializable, Serializable]
@@ -41,7 +40,8 @@ public sealed class GeneticAnalyzerUiState : BoundUserInterfaceState
         string? patientName,
         int patientInstability,
         List<MutationEntry> mutations,
-        HashSet<string> discoveredIds)
+        HashSet<string> discoveredIds
+    )
     {
         PatientName = patientName;
         PatientInstability = patientInstability;

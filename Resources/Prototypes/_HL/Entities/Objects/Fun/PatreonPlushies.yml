@@ -184,7 +184,7 @@
   - type: EmitSoundOnActivate
     sound:
       path: /Audio/_Starlight/Voice/Resomi/resomi_squawk_1.ogg
- 
+
 - type: entity
   parent: BasePlushie
   id: PlushieEinalia

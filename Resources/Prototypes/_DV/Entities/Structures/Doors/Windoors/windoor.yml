@@ -5,7 +5,7 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsMailCarrier ] # Frontier - Service<Mail
+      board: [DoorElectronicsMailCarrier] # Frontier - Service<Mail
 
 - type: entity
   parent: WindoorSecure
@@ -14,4 +14,4 @@
   components:
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsMailCarrier ] # Frontier - Service<Mail
+      board: [DoorElectronicsMailCarrier] # Frontier - Service<Mail

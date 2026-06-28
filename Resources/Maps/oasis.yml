@@ -82,7 +82,7 @@ entities:
       mapPaused: True
 
     - type: GridTree
-    
+
     - type: Broadphase
     - type: OccluderTree
   - uid: 2
@@ -38399,20 +38399,16 @@ entities:
     - type: Transform
       parent: 7896
     - type: Paper
-      content: >+
+      content: >
         [head=1][color=darkblue][bold]NanoTrasen Smart Dock Mk VII™ Official Guide[/bold][/color][/head]
-
 
         [head=2][color=darkgrey][bold]Welcome, Esteemed Employee![/bold][/color][/head]
 
         You are now the proud user of the state-of-the-art [color=darkblue][bolditalic]NanoTrasen Smart Dock Mk VII™[/bolditalic][/color], the most **overly** advanced docking system in the galaxy! Please read this manual carefully to avoid the usual docking-related incidents. Every successful dock means profit for [bolditalic]NanoTrasen™[/bolditalic] and, in theory, job security for you!
 
-
         [italic]Note: This dock is classified as "self-learning." What it's learning is still under investigation.[/italic]
 
-
         [head=2][color=darkgrey][bold]Docking Procedures[/bold][/color][/head]
-
 
         [bullet] [bold]Step 1:[/bold] Approach the dock with your shuttle’s [color=darkorange][bolditalic]Auto-Brake System™[/bolditalic][/color] engaged. If the brakes are non-functional, proceed to [italic]Step 7: Impact Damage Protocol[/bold].
 
@@ -38424,9 +38420,7 @@ entities:
 
         [bullet] [bold]Step 5:[/bold] Wait patiently as the dock "thinks" about attaching your shuttle. This process may take anywhere from 3 seconds to 3 hours, depending on how much the dock likes you.
 
-
         [head=2][color=darkgrey][bold]Troubleshooting[/bold][/color][/head]
-
 
         [bolditalic]Problem:
 
@@ -38434,13 +38428,11 @@ entities:
 
         Solution: It’s just being shy. Give it some encouragement by knocking lightly on the hull, or jostling the [color=darkorange][bolditalic]Aether Coil Modulator[/bolditalic][/color]. If no response, consult the  [color=blue][bold]Technical Support AI[/bold][/color] (usually known as "Door Stuck").
 
-
         [bolditalic]Problem:
 
         The shuttle is stuck halfway through the docking process.[/bolditalic]
 
         Solution: This is an unfortunate but expected outcome. Reboot the dock, reattempt the process, and pray. Alternatively, try "tugging" the shuttle out, but be prepared for the consequences.
-
 
         [bolditalic]Problem:
 
@@ -38448,9 +38440,7 @@ entities:
 
         Solution: This is a feature of the  [color=darkblue][bold]NanoTrasen Smart Dock Mk VII™[/bold][/color], called the  [color=darkorange][bolditalic]Premature Release Safety Protocol™[/bolditalic][/color]. It's designed to keep you on your toes. Simply re-dock and hope it doesn’t happen again (spoiler: it will).
 
-
         [head=2][color=darkgrey][bold]Emergency Procedures[/bold][/color][/head]
-
 
         [bullet] [bold]Step 1:[/bold] In the event of catastrophic failure, remain calm and activate the [color=darkorange][bolditalic]Emergency Detachment Lever™[/bolditalic][/color]. This will forcibly eject your shuttle—along with any unresolved docking issues—into deep space. Problem solved!
 
@@ -38458,12 +38448,9 @@ entities:
 
         [bullet] [bold]Step 3:[/bold] In case of a complete docking collapse (which occurs in *only* 23% of cases), fill out [color=darkblue][italic]Form D-7: Docking Disaster Report™[/italic][/color]. Your report will be reviewed within 3-5 business cycles, after which it will be safely ignored.
 
-
         [head=2][color=darkgrey][bold]Common Features[/bold][/color][/head]
 
-
         The  [color=darkblue][bolditalic]NanoTrasen Smart Dock Mk VII™[/bolditalic][/color] comes with a wide variety of [bold]exciting[/bold] and [bold]untested[/bold] features:
-
 
         [bullet] [bold]Auto-Align Mode™:[/bold] When this works, the dock aligns perfectly with your shuttle. When it doesn't, it aligns with... something else.
 
@@ -38471,30 +38458,23 @@ entities:
 
         [bullet] [bold]Friendly Docking Lights™:[/bold] These lights blink and flash to give the illusion that the dock is working, even when it’s not.
 
-
         [head=2][color=darkgrey][bold]FAQ: Frequently Avoided Questions[/bold][/color][/head]
-
 
         [bolditalic]Q: What do I do if the dock’s lights go out suddenly?[/bolditalic]
 
         A: Nothing. Just accept the darkness. The dock has either entered [color=darkorange][bolditalic]Sleep Mode™[/bolditalic][/color], or something unspeakable is about to happen.
 
-
         [bolditalic]Q: Why does the dock occasionally whisper my name?[/bolditalic]
 
         A: The dock is semi-sentient and enjoys toying with your mental state. We suggest playing along until it decides you’re no longer amusing.
-
 
         [bolditalic]Q: How do I know if the docking process is complete?[/bolditalic]
 
         A: You'll know it's done when your shuttle stops shaking violently and the alarms stop blaring. Or when you black out—whichever comes first.
 
-
         [head=3][color=darkblue][bold]Thank You for Choosing NanoTrasen™[/bold][/color][/head]
 
         At [color=darkblue][bolditalic]NanoTrasen™[/bolditalic][/color], we believe that every dock is an opportunity for improvement. Mostly yours. And remember, your [color=darkblue][italic]Corporate Loyalty Bonus™[/italic][/color] is tied directly to how many of these manuals you distribute.
-
-
 
     - type: Physics
       canCollide: False
@@ -38505,20 +38485,16 @@ entities:
     - type: Transform
       parent: 7898
     - type: Paper
-      content: >+
+      content: >
         [head=1][color=darkblue][bold]NanoTrasen Smart Dock Mk VII™ Official Guide[/bold][/color][/head]
-
 
         [head=2][color=darkgrey][bold]Welcome, Esteemed Employee![/bold][/color][/head]
 
         You are now the proud user of the state-of-the-art [color=darkblue][bolditalic]NanoTrasen Smart Dock Mk VII™[/bolditalic][/color], the most **overly** advanced docking system in the galaxy! Please read this manual carefully to avoid the usual docking-related incidents. Every successful dock means profit for [bolditalic]NanoTrasen™[/bolditalic] and, in theory, job security for you!
 
-
         [italic]Note: This dock is classified as "self-learning." What it's learning is still under investigation.[/italic]
 
-
         [head=2][color=darkgrey][bold]Docking Procedures[/bold][/color][/head]
-
 
         [bullet] [bold]Step 1:[/bold] Approach the dock with your shuttle’s [color=darkorange][bolditalic]Auto-Brake System™[/bolditalic][/color] engaged. If the brakes are non-functional, proceed to [italic]Step 7: Impact Damage Protocol[/bold].
 
@@ -38530,9 +38506,7 @@ entities:
 
         [bullet] [bold]Step 5:[/bold] Wait patiently as the dock "thinks" about attaching your shuttle. This process may take anywhere from 3 seconds to 3 hours, depending on how much the dock likes you.
 
-
         [head=2][color=darkgrey][bold]Troubleshooting[/bold][/color][/head]
-
 
         [bolditalic]Problem:
 
@@ -38540,13 +38514,11 @@ entities:
 
         Solution: It’s just being shy. Give it some encouragement by knocking lightly on the hull, or jostling the [color=darkorange][bolditalic]Aether Coil Modulator[/bolditalic][/color]. If no response, consult the  [color=blue][bold]Technical Support AI[/bold][/color] (usually known as "Door Stuck").
 
-
         [bolditalic]Problem:
 
         The shuttle is stuck halfway through the docking process.[/bolditalic]
 
         Solution: This is an unfortunate but expected outcome. Reboot the dock, reattempt the process, and pray. Alternatively, try "tugging" the shuttle out, but be prepared for the consequences.
-
 
         [bolditalic]Problem:
 
@@ -38554,9 +38526,7 @@ entities:
 
         Solution: This is a feature of the  [color=darkblue][bold]NanoTrasen Smart Dock Mk VII™[/bold][/color], called the  [color=darkorange][bolditalic]Premature Release Safety Protocol™[/bolditalic][/color]. It's designed to keep you on your toes. Simply re-dock and hope it doesn’t happen again (spoiler: it will).
 
-
         [head=2][color=darkgrey][bold]Emergency Procedures[/bold][/color][/head]
-
 
         [bullet] [bold]Step 1:[/bold] In the event of catastrophic failure, remain calm and activate the [color=darkorange][bolditalic]Emergency Detachment Lever™[/bolditalic][/color]. This will forcibly eject your shuttle—along with any unresolved docking issues—into deep space. Problem solved!
 
@@ -38564,12 +38534,9 @@ entities:
 
         [bullet] [bold]Step 3:[/bold] In case of a complete docking collapse (which occurs in *only* 23% of cases), fill out [color=darkblue][italic]Form D-7: Docking Disaster Report™[/italic][/color]. Your report will be reviewed within 3-5 business cycles, after which it will be safely ignored.
 
-
         [head=2][color=darkgrey][bold]Common Features[/bold][/color][/head]
 
-
         The  [color=darkblue][bolditalic]NanoTrasen Smart Dock Mk VII™[/bolditalic][/color] comes with a wide variety of [bold]exciting[/bold] and [bold]untested[/bold] features:
-
 
         [bullet] [bold]Auto-Align Mode™:[/bold] When this works, the dock aligns perfectly with your shuttle. When it doesn't, it aligns with... something else.
 
@@ -38577,30 +38544,23 @@ entities:
 
         [bullet] [bold]Friendly Docking Lights™:[/bold] These lights blink and flash to give the illusion that the dock is working, even when it’s not.
 
-
         [head=2][color=darkgrey][bold]FAQ: Frequently Avoided Questions[/bold][/color][/head]
-
 
         [bolditalic]Q: What do I do if the dock’s lights go out suddenly?[/bolditalic]
 
         A: Nothing. Just accept the darkness. The dock has either entered [color=darkorange][bolditalic]Sleep Mode™[/bolditalic][/color], or something unspeakable is about to happen.
 
-
         [bolditalic]Q: Why does the dock occasionally whisper my name?[/bolditalic]
 
         A: The dock is semi-sentient and enjoys toying with your mental state. We suggest playing along until it decides you’re no longer amusing.
-
 
         [bolditalic]Q: How do I know if the docking process is complete?[/bolditalic]
 
         A: You'll know it's done when your shuttle stops shaking violently and the alarms stop blaring. Or when you black out—whichever comes first.
 
-
         [head=3][color=darkblue][bold]Thank You for Choosing NanoTrasen™[/bold][/color][/head]
 
         At [color=darkblue][bolditalic]NanoTrasen™[/bolditalic][/color], we believe that every dock is an opportunity for improvement. Mostly yours. And remember, your [color=darkblue][italic]Corporate Loyalty Bonus™[/italic][/color] is tied directly to how many of these manuals you distribute.
-
-
 
     - type: Physics
       canCollide: False
@@ -38611,20 +38571,16 @@ entities:
     - type: Transform
       parent: 7899
     - type: Paper
-      content: >+
+      content: >
         [head=1][color=darkblue][bold]NanoTrasen Smart Dock Mk VII™ Official Guide[/bold][/color][/head]
-
 
         [head=2][color=darkgrey][bold]Welcome, Esteemed Employee![/bold][/color][/head]
 
         You are now the proud user of the state-of-the-art [color=darkblue][bolditalic]NanoTrasen Smart Dock Mk VII™[/bolditalic][/color], the most **overly** advanced docking system in the galaxy! Please read this manual carefully to avoid the usual docking-related incidents. Every successful dock means profit for [bolditalic]NanoTrasen™[/bolditalic] and, in theory, job security for you!
 
-
         [italic]Note: This dock is classified as "self-learning." What it's learning is still under investigation.[/italic]
 
-
         [head=2][color=darkgrey][bold]Docking Procedures[/bold][/color][/head]
-
 
         [bullet] [bold]Step 1:[/bold] Approach the dock with your shuttle’s [color=darkorange][bolditalic]Auto-Brake System™[/bolditalic][/color] engaged. If the brakes are non-functional, proceed to [italic]Step 7: Impact Damage Protocol[/bold].
 
@@ -38636,9 +38592,7 @@ entities:
 
         [bullet] [bold]Step 5:[/bold] Wait patiently as the dock "thinks" about attaching your shuttle. This process may take anywhere from 3 seconds to 3 hours, depending on how much the dock likes you.
 
-
         [head=2][color=darkgrey][bold]Troubleshooting[/bold][/color][/head]
-
 
         [bolditalic]Problem:
 
@@ -38646,13 +38600,11 @@ entities:
 
         Solution: It’s just being shy. Give it some encouragement by knocking lightly on the hull, or jostling the [color=darkorange][bolditalic]Aether Coil Modulator[/bolditalic][/color]. If no response, consult the  [color=blue][bold]Technical Support AI[/bold][/color] (usually known as "Door Stuck").
 
-
         [bolditalic]Problem:
 
         The shuttle is stuck halfway through the docking process.[/bolditalic]
 
         Solution: This is an unfortunate but expected outcome. Reboot the dock, reattempt the process, and pray. Alternatively, try "tugging" the shuttle out, but be prepared for the consequences.
-
 
         [bolditalic]Problem:
 
@@ -38660,9 +38612,7 @@ entities:
 
         Solution: This is a feature of the  [color=darkblue][bold]NanoTrasen Smart Dock Mk VII™[/bold][/color], called the  [color=darkorange][bolditalic]Premature Release Safety Protocol™[/bolditalic][/color]. It's designed to keep you on your toes. Simply re-dock and hope it doesn’t happen again (spoiler: it will).
 
-
         [head=2][color=darkgrey][bold]Emergency Procedures[/bold][/color][/head]
-
 
         [bullet] [bold]Step 1:[/bold] In the event of catastrophic failure, remain calm and activate the [color=darkorange][bolditalic]Emergency Detachment Lever™[/bolditalic][/color]. This will forcibly eject your shuttle—along with any unresolved docking issues—into deep space. Problem solved!
 
@@ -38670,12 +38620,9 @@ entities:
 
         [bullet] [bold]Step 3:[/bold] In case of a complete docking collapse (which occurs in *only* 23% of cases), fill out [color=darkblue][italic]Form D-7: Docking Disaster Report™[/italic][/color]. Your report will be reviewed within 3-5 business cycles, after which it will be safely ignored.
 
-
         [head=2][color=darkgrey][bold]Common Features[/bold][/color][/head]
 
-
         The  [color=darkblue][bolditalic]NanoTrasen Smart Dock Mk VII™[/bolditalic][/color] comes with a wide variety of [bold]exciting[/bold] and [bold]untested[/bold] features:
-
 
         [bullet] [bold]Auto-Align Mode™:[/bold] When this works, the dock aligns perfectly with your shuttle. When it doesn't, it aligns with... something else.
 
@@ -38683,30 +38630,23 @@ entities:
 
         [bullet] [bold]Friendly Docking Lights™:[/bold] These lights blink and flash to give the illusion that the dock is working, even when it’s not.
 
-
         [head=2][color=darkgrey][bold]FAQ: Frequently Avoided Questions[/bold][/color][/head]
-
 
         [bolditalic]Q: What do I do if the dock’s lights go out suddenly?[/bolditalic]
 
         A: Nothing. Just accept the darkness. The dock has either entered [color=darkorange][bolditalic]Sleep Mode™[/bolditalic][/color], or something unspeakable is about to happen.
 
-
         [bolditalic]Q: Why does the dock occasionally whisper my name?[/bolditalic]
 
         A: The dock is semi-sentient and enjoys toying with your mental state. We suggest playing along until it decides you’re no longer amusing.
-
 
         [bolditalic]Q: How do I know if the docking process is complete?[/bolditalic]
 
         A: You'll know it's done when your shuttle stops shaking violently and the alarms stop blaring. Or when you black out—whichever comes first.
 
-
         [head=3][color=darkblue][bold]Thank You for Choosing NanoTrasen™[/bold][/color][/head]
 
         At [color=darkblue][bolditalic]NanoTrasen™[/bolditalic][/color], we believe that every dock is an opportunity for improvement. Mostly yours. And remember, your [color=darkblue][italic]Corporate Loyalty Bonus™[/italic][/color] is tied directly to how many of these manuals you distribute.
-
-
 
     - type: Physics
       canCollide: False
@@ -38719,20 +38659,16 @@ entities:
       pos: -53.18508,9.538769
       parent: 2
     - type: Paper
-      content: >+
+      content: >
         [head=1][color=darkblue][bold]NanoTrasen Smart Dock Mk VII™ Official Guide[/bold][/color][/head]
-
 
         [head=2][color=darkgrey][bold]Welcome, Esteemed Employee![/bold][/color][/head]
 
         You are now the proud user of the state-of-the-art [color=darkblue][bolditalic]NanoTrasen Smart Dock Mk VII™[/bolditalic][/color], the most **overly** advanced docking system in the galaxy! Please read this manual carefully to avoid the usual docking-related incidents. Every successful dock means profit for [bolditalic]NanoTrasen™[/bolditalic] and, in theory, job security for you!
 
-
         [italic]Note: This dock is classified as "self-learning." What it's learning is still under investigation.[/italic]
 
-
         [head=2][color=darkgrey][bold]Docking Procedures[/bold][/color][/head]
-
 
         [bullet] [bold]Step 1:[/bold] Approach the dock with your shuttle’s [color=darkorange][bolditalic]Auto-Brake System™[/bolditalic][/color] engaged. If the brakes are non-functional, proceed to [italic]Step 7: Impact Damage Protocol[/bold].
 
@@ -38744,9 +38680,7 @@ entities:
 
         [bullet] [bold]Step 5:[/bold] Wait patiently as the dock "thinks" about attaching your shuttle. This process may take anywhere from 3 seconds to 3 hours, depending on how much the dock likes you.
 
-
         [head=2][color=darkgrey][bold]Troubleshooting[/bold][/color][/head]
-
 
         [bolditalic]Problem:
 
@@ -38754,13 +38688,11 @@ entities:
 
         Solution: It’s just being shy. Give it some encouragement by knocking lightly on the hull, or jostling the [color=darkorange][bolditalic]Aether Coil Modulator[/bolditalic][/color]. If no response, consult the  [color=blue][bold]Technical Support AI[/bold][/color] (usually known as "Door Stuck").
 
-
         [bolditalic]Problem:
 
         The shuttle is stuck halfway through the docking process.[/bolditalic]
 
         Solution: This is an unfortunate but expected outcome. Reboot the dock, reattempt the process, and pray. Alternatively, try "tugging" the shuttle out, but be prepared for the consequences.
-
 
         [bolditalic]Problem:
 
@@ -38768,9 +38700,7 @@ entities:
 
         Solution: This is a feature of the  [color=darkblue][bold]NanoTrasen Smart Dock Mk VII™[/bold][/color], called the  [color=darkorange][bolditalic]Premature Release Safety Protocol™[/bolditalic][/color]. It's designed to keep you on your toes. Simply re-dock and hope it doesn’t happen again (spoiler: it will).
 
-
         [head=2][color=darkgrey][bold]Emergency Procedures[/bold][/color][/head]
-
 
         [bullet] [bold]Step 1:[/bold] In the event of catastrophic failure, remain calm and activate the [color=darkorange][bolditalic]Emergency Detachment Lever™[/bolditalic][/color]. This will forcibly eject your shuttle—along with any unresolved docking issues—into deep space. Problem solved!
 
@@ -38778,12 +38708,9 @@ entities:
 
         [bullet] [bold]Step 3:[/bold] In case of a complete docking collapse (which occurs in *only* 23% of cases), fill out [color=darkblue][italic]Form D-7: Docking Disaster Report™[/italic][/color]. Your report will be reviewed within 3-5 business cycles, after which it will be safely ignored.
 
-
         [head=2][color=darkgrey][bold]Common Features[/bold][/color][/head]
 
-
         The  [color=darkblue][bolditalic]NanoTrasen Smart Dock Mk VII™[/bolditalic][/color] comes with a wide variety of [bold]exciting[/bold] and [bold]untested[/bold] features:
-
 
         [bullet] [bold]Auto-Align Mode™:[/bold] When this works, the dock aligns perfectly with your shuttle. When it doesn't, it aligns with... something else.
 
@@ -38791,30 +38718,23 @@ entities:
 
         [bullet] [bold]Friendly Docking Lights™:[/bold] These lights blink and flash to give the illusion that the dock is working, even when it’s not.
 
-
         [head=2][color=darkgrey][bold]FAQ: Frequently Avoided Questions[/bold][/color][/head]
-
 
         [bolditalic]Q: What do I do if the dock’s lights go out suddenly?[/bolditalic]
 
         A: Nothing. Just accept the darkness. The dock has either entered [color=darkorange][bolditalic]Sleep Mode™[/bolditalic][/color], or something unspeakable is about to happen.
 
-
         [bolditalic]Q: Why does the dock occasionally whisper my name?[/bolditalic]
 
         A: The dock is semi-sentient and enjoys toying with your mental state. We suggest playing along until it decides you’re no longer amusing.
-
 
         [bolditalic]Q: How do I know if the docking process is complete?[/bolditalic]
 
         A: You'll know it's done when your shuttle stops shaking violently and the alarms stop blaring. Or when you black out—whichever comes first.
 
-
         [head=3][color=darkblue][bold]Thank You for Choosing NanoTrasen™[/bold][/color][/head]
 
         At [color=darkblue][bolditalic]NanoTrasen™[/bolditalic][/color], we believe that every dock is an opportunity for improvement. Mostly yours. And remember, your [color=darkblue][italic]Corporate Loyalty Bonus™[/italic][/color] is tied directly to how many of these manuals you distribute.
-
-
 
 - proto: BookMedicalOfficer
   entities:
@@ -147355,19 +147275,16 @@ entities:
     - type: Transform
       parent: 3489
     - type: Paper
-      content: >+
+      content: >
         [bold]=====================================================[/bold]
-
 
         [head=1][bold][color=green]  SHUTTLE CONSTRUCTION
             AUTHORIZATION FORM[/color][/bold][/head]
         [bold]=====================================================[/bold]
 
-
         [bold]Authorizing Entity:[/bold]
 
         Name: ______________________ , Position: _______________________
-
 
         [bold]Approved Shipwright(s):[/bold]
 
@@ -147379,7 +147296,6 @@ entities:
 
         Name: ______________________ , Position: _______________________
 
-
         [bold]1. PROJECT DETAILS
 
         [/bold]
@@ -147390,13 +147306,11 @@ entities:
 
         Design Specifications: ______________________________
 
-
         [bold]2. AUTHORIZATION
 
         [/bold]
 
         The Authorizing Entity grants the Shipwright permission to commence construction of the specified shuttle. All designs and materials are to be approved by the Authorizing Entity before fabrication begins.
-
 
         [bold]3. TERMS OF CONSTRUCTION
 
@@ -147410,13 +147324,11 @@ entities:
 
         [bullet] [bold]Remittance:[/bold] As payment for authorization and support services the Shipwright agrees to provide the Authorizing Entity the sum of ___________ in either materials or speso equivalent.
 
-
         [bold]4. INSPECTION & TESTING
 
         [/bold]
 
         The Authorizing Entity reserves the right to inspect the vessel at any stage of construction. Upon completion, the Shipwright must conduct a series of spaceworthiness tests, overseen by the Authorizing Entity.
-
 
         [bold]5. WARRANTIES & LIABILITY
 
@@ -147424,13 +147336,11 @@ entities:
 
         The Shipwright guarantees the vessel will be constructed according to the highest standards of interstellar engineering. Any defects or malfunctions discovered within ______ minutes of delivery must be rectified at the Shipwright’s expense.
 
-
         [bold]6. DISPUTE RESOLUTION
 
         [/bold]
 
         Any disagreements will be resolved by the Station’s Resident Arbitrator.
-
 
         [bold]SIGNED:
 
@@ -147446,12 +147356,9 @@ entities:
 
         __________________________
 
-
         Authorizing Entity:
 
         __________________________ (Stamp)
-
-
 
     - type: Physics
       canCollide: False
@@ -147460,19 +147367,16 @@ entities:
     - type: Transform
       parent: 3489
     - type: Paper
-      content: >+
+      content: >
         [bold]=====================================================[/bold]
-
 
         [head=1][bold][color=green]  SHUTTLE CONSTRUCTION
             AUTHORIZATION FORM[/color][/bold][/head]
         [bold]=====================================================[/bold]
 
-
         [bold]Authorizing Entity:[/bold]
 
         Name: ______________________ , Position: _______________________
-
 
         [bold]Approved Shipwright(s):[/bold]
 
@@ -147484,7 +147388,6 @@ entities:
 
         Name: ______________________ , Position: _______________________
 
-
         [bold]1. PROJECT DETAILS
 
         [/bold]
@@ -147495,13 +147398,11 @@ entities:
 
         Design Specifications: ______________________________
 
-
         [bold]2. AUTHORIZATION
 
         [/bold]
 
         The Authorizing Entity grants the Shipwright permission to commence construction of the specified shuttle. All designs and materials are to be approved by the Authorizing Entity before fabrication begins.
-
 
         [bold]3. TERMS OF CONSTRUCTION
 
@@ -147515,13 +147416,11 @@ entities:
 
         [bullet] [bold]Remittance:[/bold] As payment for authorization and support services the Shipwright agrees to provide the Authorizing Entity the sum of ___________ in either materials or speso equivalent.
 
-
         [bold]4. INSPECTION & TESTING
 
         [/bold]
 
         The Authorizing Entity reserves the right to inspect the vessel at any stage of construction. Upon completion, the Shipwright must conduct a series of spaceworthiness tests, overseen by the Authorizing Entity.
-
 
         [bold]5. WARRANTIES & LIABILITY
 
@@ -147529,13 +147428,11 @@ entities:
 
         The Shipwright guarantees the vessel will be constructed according to the highest standards of interstellar engineering. Any defects or malfunctions discovered within ______ minutes of delivery must be rectified at the Shipwright’s expense.
 
-
         [bold]6. DISPUTE RESOLUTION
 
         [/bold]
 
         Any disagreements will be resolved by the Station’s Resident Arbitrator.
-
 
         [bold]SIGNED:
 
@@ -147551,12 +147448,9 @@ entities:
 
         __________________________
 
-
         Authorizing Entity:
 
         __________________________ (Stamp)
-
-
 
     - type: Physics
       canCollide: False
@@ -147662,19 +147556,16 @@ entities:
     - type: Transform
       parent: 4569
     - type: Paper
-      content: >+
+      content: >
         [bold]=====================================================[/bold]
-
 
         [head=1][bold][color=green]  SHUTTLE CONSTRUCTION
             AUTHORIZATION FORM[/color][/bold][/head]
         [bold]=====================================================[/bold]
 
-
         [bold]Authorizing Entity:[/bold]
 
         Name: ______________________ , Position: _______________________
-
 
         [bold]Approved Shipwright(s):[/bold]
 
@@ -147686,7 +147577,6 @@ entities:
 
         Name: ______________________ , Position: _______________________
 
-
         [bold]1. PROJECT DETAILS
 
         [/bold]
@@ -147697,13 +147587,11 @@ entities:
 
         Design Specifications: ______________________________
 
-
         [bold]2. AUTHORIZATION
 
         [/bold]
 
         The Authorizing Entity grants the Shipwright permission to commence construction of the specified shuttle. All designs and materials are to be approved by the Authorizing Entity before fabrication begins.
-
 
         [bold]3. TERMS OF CONSTRUCTION
 
@@ -147717,13 +147605,11 @@ entities:
 
         [bullet] [bold]Remittance:[/bold] As payment for authorization and support services the Shipwright agrees to provide the Authorizing Entity the sum of ___________ in either materials or speso equivalent.
 
-
         [bold]4. INSPECTION & TESTING
 
         [/bold]
 
         The Authorizing Entity reserves the right to inspect the vessel at any stage of construction. Upon completion, the Shipwright must conduct a series of spaceworthiness tests, overseen by the Authorizing Entity.
-
 
         [bold]5. WARRANTIES & LIABILITY
 
@@ -147731,13 +147617,11 @@ entities:
 
         The Shipwright guarantees the vessel will be constructed according to the highest standards of interstellar engineering. Any defects or malfunctions discovered within ______ minutes of delivery must be rectified at the Shipwright’s expense.
 
-
         [bold]6. DISPUTE RESOLUTION
 
         [/bold]
 
         Any disagreements will be resolved by the Station’s Resident Arbitrator.
-
 
         [bold]SIGNED:
 
@@ -147753,13 +147637,9 @@ entities:
 
         __________________________
 
-
         Authorizing Entity:
 
         __________________________ (Stamp)
-
-
-
 
     - type: Physics
       canCollide: False
@@ -147873,9 +147753,8 @@ entities:
     - type: Transform
       parent: 5843
     - type: Paper
-      content: >+
+      content: >
         [bold]=====================================================[/bold]
-
 
         [head=1][bold][color=green]  SHUTTLE CONSTRUCTION
             AUTHORIZATION
@@ -147883,11 +147762,9 @@ entities:
 
         [bold]=====================================================[/bold]
 
-
         [bold]Authorizing Entity:[/bold]
 
         Name: ______________________ , Position: _______________________
-
 
         [bold]Approved Shipwright(s):[/bold]
 
@@ -147899,7 +147776,6 @@ entities:
 
         Name: ______________________ , Position: _______________________
 
-
         [bold]1. PROJECT DETAILS
 
         [/bold]
@@ -147910,13 +147786,11 @@ entities:
 
         Design Specifications: ______________________________
 
-
         [bold]2. AUTHORIZATION
 
         [/bold]
 
         The Authorizing Entity grants the Shipwright permission to commence construction of the specified shuttle. All designs and materials are to be approved by the Authorizing Entity before fabrication begins.
-
 
         [bold]3. TERMS OF CONSTRUCTION
 
@@ -147930,13 +147804,11 @@ entities:
 
         [bullet] [bold]Remittance:[/bold] As payment for authorization and support services the Shipwright agrees to provide the Authorizing Entity the sum of ___________ in either materials or speso equivalent.
 
-
         [bold]4. INSPECTION & TESTING
 
         [/bold]
 
         The Authorizing Entity reserves the right to inspect the vessel at any stage of construction. Upon completion, the Shipwright must conduct a series of spaceworthiness tests, overseen by the Authorizing Entity.
-
 
         [bold]5. WARRANTIES & LIABILITY
 
@@ -147944,13 +147816,11 @@ entities:
 
         The Shipwright guarantees the vessel will be constructed according to the highest standards of interstellar engineering. Any defects or malfunctions discovered within ______ minutes of delivery must be rectified at the Shipwright’s expense.
 
-
         [bold]6. DISPUTE RESOLUTION
 
         [/bold]
 
         Any disagreements will be resolved by the Station’s Resident Arbitrator.
-
 
         [bold]SIGNED:
 
@@ -147966,11 +147836,9 @@ entities:
 
         __________________________
 
-
         Authorizing Entity:
 
         __________________________ (Stamp)
-
 
     - type: Physics
       canCollide: False
@@ -147980,19 +147848,16 @@ entities:
       pos: 3.6924446,44.678127
       parent: 2
     - type: Paper
-      content: >+
+      content: >
         [bold]=====================================================[/bold]
-
 
         [head=1][bold][color=green]  SHUTTLE CONSTRUCTION
             AUTHORIZATION FORM[/color][/bold][/head]
         [bold]=====================================================[/bold]
 
-
         [bold]Authorizing Entity:[/bold]
 
         Name: ______________________ , Position: _______________________
-
 
         [bold]Approved Shipwright(s):[/bold]
 
@@ -148004,7 +147869,6 @@ entities:
 
         Name: ______________________ , Position: _______________________
 
-
         [bold]1. PROJECT DETAILS
 
         [/bold]
@@ -148015,13 +147879,11 @@ entities:
 
         Design Specifications: ______________________________
 
-
         [bold]2. AUTHORIZATION
 
         [/bold]
 
         The Authorizing Entity grants the Shipwright permission to commence construction of the specified shuttle. All designs and materials are to be approved by the Authorizing Entity before fabrication begins.
-
 
         [bold]3. TERMS OF CONSTRUCTION
 
@@ -148035,13 +147897,11 @@ entities:
 
         [bullet] [bold]Remittance:[/bold] As payment for authorization and support services the Shipwright agrees to provide the Authorizing Entity the sum of ___________ in either materials or speso equivalent.
 
-
         [bold]4. INSPECTION & TESTING
 
         [/bold]
 
         The Authorizing Entity reserves the right to inspect the vessel at any stage of construction. Upon completion, the Shipwright must conduct a series of spaceworthiness tests, overseen by the Authorizing Entity.
-
 
         [bold]5. WARRANTIES & LIABILITY
 
@@ -148049,13 +147909,11 @@ entities:
 
         The Shipwright guarantees the vessel will be constructed according to the highest standards of interstellar engineering. Any defects or malfunctions discovered within ______ minutes of delivery must be rectified at the Shipwright’s expense.
 
-
         [bold]6. DISPUTE RESOLUTION
 
         [/bold]
 
         Any disagreements will be resolved by the Station’s Resident Arbitrator.
-
 
         [bold]SIGNED:
 
@@ -148071,31 +147929,25 @@ entities:
 
         __________________________
 
-
         Authorizing Entity:
 
         __________________________ (Stamp)
-
-
 
   - uid: 29262
     components:
     - type: Transform
       parent: 29261
     - type: Paper
-      content: >+
+      content: >
         [bold]=====================================================[/bold]
-
 
         [head=1][bold][color=green]  SHUTTLE CONSTRUCTION
             AUTHORIZATION FORM[/color][/bold][/head]
         [bold]=====================================================[/bold]
 
-
         [bold]Authorizing Entity:[/bold]
 
         Name: ______________________ , Position: _______________________
-
 
         [bold]Approved Shipwright(s):[/bold]
 
@@ -148107,7 +147959,6 @@ entities:
 
         Name: ______________________ , Position: _______________________
 
-
         [bold]1. PROJECT DETAILS
 
         [/bold]
@@ -148118,13 +147969,11 @@ entities:
 
         Design Specifications: ______________________________
 
-
         [bold]2. AUTHORIZATION
 
         [/bold]
 
         The Authorizing Entity grants the Shipwright permission to commence construction of the specified shuttle. All designs and materials are to be approved by the Authorizing Entity before fabrication begins.
-
 
         [bold]3. TERMS OF CONSTRUCTION
 
@@ -148138,13 +147987,11 @@ entities:
 
         [bullet] [bold]Remittance:[/bold] As payment for authorization and support services the Shipwright agrees to provide the Authorizing Entity the sum of ___________ in either materials or speso equivalent.
 
-
         [bold]4. INSPECTION & TESTING
 
         [/bold]
 
         The Authorizing Entity reserves the right to inspect the vessel at any stage of construction. Upon completion, the Shipwright must conduct a series of spaceworthiness tests, overseen by the Authorizing Entity.
-
 
         [bold]5. WARRANTIES & LIABILITY
 
@@ -148152,13 +147999,11 @@ entities:
 
         The Shipwright guarantees the vessel will be constructed according to the highest standards of interstellar engineering. Any defects or malfunctions discovered within ______ minutes of delivery must be rectified at the Shipwright’s expense.
 
-
         [bold]6. DISPUTE RESOLUTION
 
         [/bold]
 
         Any disagreements will be resolved by the Station’s Resident Arbitrator.
-
 
         [bold]SIGNED:
 
@@ -148174,12 +148019,9 @@ entities:
 
         __________________________
 
-
         Authorizing Entity:
 
         __________________________ (Stamp)
-
-
 
     - type: Physics
       canCollide: False
@@ -148188,19 +148030,16 @@ entities:
     - type: Transform
       parent: 29264
     - type: Paper
-      content: >+
+      content: >
         [bold]=====================================================[/bold]
-
 
         [head=1][bold][color=green]  SHUTTLE CONSTRUCTION
             AUTHORIZATION FORM[/color][/bold][/head]
         [bold]=====================================================[/bold]
 
-
         [bold]Authorizing Entity:[/bold]
 
         Name: ______________________ , Position: _______________________
-
 
         [bold]Approved Shipwright(s):[/bold]
 
@@ -148212,7 +148051,6 @@ entities:
 
         Name: ______________________ , Position: _______________________
 
-
         [bold]1. PROJECT DETAILS
 
         [/bold]
@@ -148223,13 +148061,11 @@ entities:
 
         Design Specifications: ______________________________
 
-
         [bold]2. AUTHORIZATION
 
         [/bold]
 
         The Authorizing Entity grants the Shipwright permission to commence construction of the specified shuttle. All designs and materials are to be approved by the Authorizing Entity before fabrication begins.
-
 
         [bold]3. TERMS OF CONSTRUCTION
 
@@ -148243,13 +148079,11 @@ entities:
 
         [bullet] [bold]Remittance:[/bold] As payment for authorization and support services the Shipwright agrees to provide the Authorizing Entity the sum of ___________ in either materials or speso equivalent.
 
-
         [bold]4. INSPECTION & TESTING
 
         [/bold]
 
         The Authorizing Entity reserves the right to inspect the vessel at any stage of construction. Upon completion, the Shipwright must conduct a series of spaceworthiness tests, overseen by the Authorizing Entity.
-
 
         [bold]5. WARRANTIES & LIABILITY
 
@@ -148257,13 +148091,11 @@ entities:
 
         The Shipwright guarantees the vessel will be constructed according to the highest standards of interstellar engineering. Any defects or malfunctions discovered within ______ minutes of delivery must be rectified at the Shipwright’s expense.
 
-
         [bold]6. DISPUTE RESOLUTION
 
         [/bold]
 
         Any disagreements will be resolved by the Station’s Resident Arbitrator.
-
 
         [bold]SIGNED:
 
@@ -148279,11 +148111,9 @@ entities:
 
         __________________________
 
-
         Authorizing Entity:
 
         __________________________ (Stamp)
-
 
     - type: Physics
       canCollide: False
@@ -148293,19 +148123,16 @@ entities:
       pos: 29.769129,21.041245
       parent: 2
     - type: Paper
-      content: >+
+      content: >
         [bold]=====================================================[/bold]
-
 
         [head=1][bold][color=green]  SHUTTLE CONSTRUCTION
             AUTHORIZATION FORM[/color][/bold][/head]
         [bold]=====================================================[/bold]
 
-
         [bold]Authorizing Entity:[/bold]
 
         Name: ______________________ , Position: _______________________
-
 
         [bold]Approved Shipwright(s):[/bold]
 
@@ -148317,7 +148144,6 @@ entities:
 
         Name: ______________________ , Position: _______________________
 
-
         [bold]1. PROJECT DETAILS
 
         [/bold]
@@ -148328,13 +148154,11 @@ entities:
 
         Design Specifications: ______________________________
 
-
         [bold]2. AUTHORIZATION
 
         [/bold]
 
         The Authorizing Entity grants the Shipwright permission to commence construction of the specified shuttle. All designs and materials are to be approved by the Authorizing Entity before fabrication begins.
-
 
         [bold]3. TERMS OF CONSTRUCTION
 
@@ -148348,13 +148172,11 @@ entities:
 
         [bullet] [bold]Remittance:[/bold] As payment for authorization and support services the Shipwright agrees to provide the Authorizing Entity the sum of ___________ in either materials or speso equivalent.
 
-
         [bold]4. INSPECTION & TESTING
 
         [/bold]
 
         The Authorizing Entity reserves the right to inspect the vessel at any stage of construction. Upon completion, the Shipwright must conduct a series of spaceworthiness tests, overseen by the Authorizing Entity.
-
 
         [bold]5. WARRANTIES & LIABILITY
 
@@ -148362,13 +148184,11 @@ entities:
 
         The Shipwright guarantees the vessel will be constructed according to the highest standards of interstellar engineering. Any defects or malfunctions discovered within ______ minutes of delivery must be rectified at the Shipwright’s expense.
 
-
         [bold]6. DISPUTE RESOLUTION
 
         [/bold]
 
         Any disagreements will be resolved by the Station’s Resident Arbitrator.
-
 
         [bold]SIGNED:
 
@@ -148384,12 +148204,9 @@ entities:
 
         __________________________
 
-
         Authorizing Entity:
 
         __________________________ (Stamp)
-
-
 
   - uid: 29267
     components:
@@ -148397,19 +148214,16 @@ entities:
       pos: -56.419086,9.493379
       parent: 2
     - type: Paper
-      content: >+
+      content: >
         [bold]=====================================================[/bold]
-
 
         [head=1][bold][color=green]  SHUTTLE CONSTRUCTION
             AUTHORIZATION FORM[/color][/bold][/head]
         [bold]=====================================================[/bold]
 
-
         [bold]Authorizing Entity:[/bold]
 
         Name: ______________________ , Position: _______________________
-
 
         [bold]Approved Shipwright(s):[/bold]
 
@@ -148421,7 +148235,6 @@ entities:
 
         Name: ______________________ , Position: _______________________
 
-
         [bold]1. PROJECT DETAILS
 
         [/bold]
@@ -148432,13 +148245,11 @@ entities:
 
         Design Specifications: ______________________________
 
-
         [bold]2. AUTHORIZATION
 
         [/bold]
 
         The Authorizing Entity grants the Shipwright permission to commence construction of the specified shuttle. All designs and materials are to be approved by the Authorizing Entity before fabrication begins.
-
 
         [bold]3. TERMS OF CONSTRUCTION
 
@@ -148452,13 +148263,11 @@ entities:
 
         [bullet] [bold]Remittance:[/bold] As payment for authorization and support services the Shipwright agrees to provide the Authorizing Entity the sum of ___________ in either materials or speso equivalent.
 
-
         [bold]4. INSPECTION & TESTING
 
         [/bold]
 
         The Authorizing Entity reserves the right to inspect the vessel at any stage of construction. Upon completion, the Shipwright must conduct a series of spaceworthiness tests, overseen by the Authorizing Entity.
-
 
         [bold]5. WARRANTIES & LIABILITY
 
@@ -148466,13 +148275,11 @@ entities:
 
         The Shipwright guarantees the vessel will be constructed according to the highest standards of interstellar engineering. Any defects or malfunctions discovered within ______ minutes of delivery must be rectified at the Shipwright’s expense.
 
-
         [bold]6. DISPUTE RESOLUTION
 
         [/bold]
 
         Any disagreements will be resolved by the Station’s Resident Arbitrator.
-
 
         [bold]SIGNED:
 
@@ -148488,12 +148295,9 @@ entities:
 
         __________________________
 
-
         Authorizing Entity:
 
         __________________________ (Stamp)
-
-
 
   - uid: 29656
     components:
@@ -196897,4 +196701,3 @@ entities:
     - type: Transform
       pos: 25.439621,-31.560535
       parent: 21002
-...

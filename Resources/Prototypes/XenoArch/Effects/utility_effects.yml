@@ -19,12 +19,12 @@
     supportedChannels:
     - Common
     - Traffic # Frontier
-#    - CentCom # Frontier
-#    - Command # Frontier
+    #    - CentCom # Frontier
+    #    - Command # Frontier
     - Engineering
     - Medical
     - Science
-#    - Security # Frontier
+    #    - Security # Frontier
     - Service
     - Supply
 
@@ -150,8 +150,7 @@
   - type: NodeContainer
     examinable: true
     nodes:
-      output_hv:
-        !type:CableDeviceNode
+      output_hv: !type:CableDeviceNode
         nodeGroupID: HVPower
 
 - type: artifactEffect
@@ -169,8 +168,8 @@
       - SpeedLoaderMagnum
     proto: CartridgeMagnum
     capacity: 7
-    chambers: [ True, True, True, True, True, True, True ]
-    ammoSlots: [ null, null, null, null, null, null, null ]
+    chambers: [True, True, True, True, True, True, True]
+    ammoSlots: [null, null, null, null, null, null, null]
     soundEject:
       path: /Audio/Weapons/Guns/MagOut/revolver_magout.ogg
     soundInsert:
@@ -210,8 +209,8 @@
   permanentComponents:
   - type: UserInterface
     interfaces:
-        enum.SignalLinkerUiKey.Key:
-          type: SignalPortSelectorBoundUserInterface
+      enum.SignalLinkerUiKey.Key:
+        type: SignalPortSelectorBoundUserInterface
   - type: ToolTileCompatible
   - type: Tool
     qualities:
@@ -220,7 +219,7 @@
     useSound: /Audio/Items/drill_use.ogg
   - type: Tag
     tags:
-      - Multitool
+    - Multitool
   - type: MultipleTool
     statusShowBehavior: true
     entries:

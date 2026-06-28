@@ -8,16 +8,16 @@
   - type: Sprite
     sprite: Objects/Weapons/Guns/Basic/syndie-flamer.rsi
     layers:
-      - state: base
-        map: ["enum.GunVisualLayers.Base"]
-      - state: mag-unshaded-4
-        map: ["enum.GunVisualLayers.MagUnshaded"]
-        shader: unshaded
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-unshaded-4
+      map: ["enum.GunVisualLayers.MagUnshaded"]
+      shader: unshaded
   - type: Clothing
     sprite: Objects/Weapons/Guns/Basic/syndie-flamer.rsi
     quickEquip: false
     slots:
-      - suitStorage
+    - suitStorage
   - type: Appearance
   - type: AmmoCounter
   - type: Item
@@ -51,7 +51,7 @@
 
 - type: entity
   name: FG-13 flamethrower
-  parent: [ WeaponFlamethrowerBase, BaseGunWieldable, BaseC3SyndicateContraband ]
+  parent: [WeaponFlamethrowerBase, BaseGunWieldable, BaseC3SyndicateContraband]
   id: WeaponFlamethrowerFG
   description: Simple as it is deadly, the FG-13 fulfills a long-standing craving of the Gorlex Marauders for Nanotrasen Barbeque. Uses welding fuel.
   components:

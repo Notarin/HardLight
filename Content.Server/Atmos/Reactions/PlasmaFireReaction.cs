@@ -9,7 +9,12 @@ namespace Content.Server.Atmos.Reactions
     [DataDefinition]
     public sealed partial class PlasmaFireReaction : IGasReactionEffect
     {
-        public ReactionResult React(GasMixture mixture, IGasMixtureHolder? holder, AtmosphereSystem atmosphereSystem, float heatScale)
+        public ReactionResult React(
+            GasMixture mixture,
+            IGasMixtureHolder? holder,
+            AtmosphereSystem atmosphereSystem,
+            float heatScale
+        )
         {
             var energyReleased = 0f;
             var oldHeatCapacity = atmosphereSystem.GetHeatCapacity(mixture, true);
@@ -24,8 +29,9 @@ namespace Content.Server.Atmos.Reactions
                 temperatureScale = 1f;
             else
             {
-                temperatureScale = (temperature - Atmospherics.PlasmaMinimumBurnTemperature) /
-                                   (Atmospherics.PlasmaUpperTemperature - Atmospherics.PlasmaMinimumBurnTemperature);
+                temperatureScale =
+                    (temperature - Atmospherics.PlasmaMinimumBurnTemperature)
+                    / (Atmospherics.PlasmaUpperTemperature - Atmospherics.PlasmaMinimumBurnTemperature);
             }
 
             if (temperatureScale > 0)
@@ -39,18 +45,27 @@ namespace Content.Server.Atmos.Reactions
                 // Supersaturation makes tritium.
                 var oxyRatio = initialOxygenMoles / initialPlasmaMoles;
                 // Efficiency of reaction decreases from 1% Plasma to 3% plasma:
-                var supersaturation = Math.Clamp((oxyRatio - Atmospherics.SuperSaturationEnds) /
-                                                 (Atmospherics.SuperSaturationThreshold -
-                                                  Atmospherics.SuperSaturationEnds), 0.0f, 1.0f);
+                var supersaturation = Math.Clamp(
+                    (oxyRatio - Atmospherics.SuperSaturationEnds)
+                        / (Atmospherics.SuperSaturationThreshold - Atmospherics.SuperSaturationEnds),
+                    0.0f,
+                    1.0f
+                );
 
                 if (initialOxygenMoles > initialPlasmaMoles * Atmospherics.PlasmaOxygenFullburn)
                     plasmaBurnRate = initialPlasmaMoles * temperatureScale / Atmospherics.PlasmaBurnRateDelta;
                 else
-                    plasmaBurnRate = temperatureScale * (initialOxygenMoles / Atmospherics.PlasmaOxygenFullburn) / Atmospherics.PlasmaBurnRateDelta;
+                    plasmaBurnRate =
+                        temperatureScale
+                        * (initialOxygenMoles / Atmospherics.PlasmaOxygenFullburn)
+                        / Atmospherics.PlasmaBurnRateDelta;
 
                 if (plasmaBurnRate > Atmospherics.MinimumHeatCapacity)
                 {
-                    plasmaBurnRate = MathF.Min(plasmaBurnRate, MathF.Min(initialPlasmaMoles, initialOxygenMoles / oxygenBurnRate));
+                    plasmaBurnRate = MathF.Min(
+                        plasmaBurnRate,
+                        MathF.Min(initialPlasmaMoles, initialOxygenMoles / oxygenBurnRate)
+                    );
                     mixture.SetMoles(Gas.Plasma, initialPlasmaMoles - plasmaBurnRate);
                     mixture.SetMoles(Gas.Oxygen, initialOxygenMoles - plasmaBurnRate * oxygenBurnRate);
 
@@ -80,7 +95,9 @@ namespace Content.Server.Atmos.Reactions
                 }
             }
 
-            return mixture.ReactionResults[(byte)GasReaction.Fire] != 0 ? ReactionResult.Reacting : ReactionResult.NoReaction;
+            return mixture.ReactionResults[(byte)GasReaction.Fire] != 0
+                ? ReactionResult.Reacting
+                : ReactionResult.NoReaction;
         }
     }
 }

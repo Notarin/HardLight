@@ -18,26 +18,49 @@ namespace Content.Shared._Goobstation.Clothing.Systems;
 
 public sealed class ClothingGrantingSystem : EntitySystem
 {
-    [Dependency] private readonly IComponentFactory _componentFactory = default!;
-    [Dependency] private readonly ISerializationManager _serializationManager = default!;
-    [Dependency] private readonly TagSystem _tagSystem = default!;
+    [Dependency]
+    private readonly IComponentFactory _componentFactory = default!;
+
+    [Dependency]
+    private readonly ISerializationManager _serializationManager = default!;
+
+    [Dependency]
+    private readonly TagSystem _tagSystem = default!;
 
     public override void Initialize()
     {
         base.Initialize();
 
-        SubscribeLocalEvent<Content.Shared._Goobstation.Clothing.Components.ClothingGrantComponentComponent, GotEquippedEvent>(OnCompEquip);
-        SubscribeLocalEvent<Content.Shared._Goobstation.Clothing.Components.ClothingGrantComponentComponent, GotUnequippedEvent>(OnCompUnequip);
+        SubscribeLocalEvent<
+            Content.Shared._Goobstation.Clothing.Components.ClothingGrantComponentComponent,
+            GotEquippedEvent
+        >(OnCompEquip);
+        SubscribeLocalEvent<
+            Content.Shared._Goobstation.Clothing.Components.ClothingGrantComponentComponent,
+            GotUnequippedEvent
+        >(OnCompUnequip);
 
-        SubscribeLocalEvent<Content.Shared._Goobstation.Clothing.Components.ClothingGrantTagComponent, GotEquippedEvent>(OnTagEquip);
-        SubscribeLocalEvent<Content.Shared._Goobstation.Clothing.Components.ClothingGrantTagComponent, GotUnequippedEvent>(OnTagUnequip);
+        SubscribeLocalEvent<
+            Content.Shared._Goobstation.Clothing.Components.ClothingGrantTagComponent,
+            GotEquippedEvent
+        >(OnTagEquip);
+        SubscribeLocalEvent<
+            Content.Shared._Goobstation.Clothing.Components.ClothingGrantTagComponent,
+            GotUnequippedEvent
+        >(OnTagUnequip);
     }
 
-    private void OnCompEquip(EntityUid uid, Content.Shared._Goobstation.Clothing.Components.ClothingGrantComponentComponent component, GotEquippedEvent args)
+    private void OnCompEquip(
+        EntityUid uid,
+        Content.Shared._Goobstation.Clothing.Components.ClothingGrantComponentComponent component,
+        GotEquippedEvent args
+    )
     {
-        if (!TryComp<ClothingComponent>(uid, out var clothing)) return;
+        if (!TryComp<ClothingComponent>(uid, out var clothing))
+            return;
 
-        if (!clothing.Slots.HasFlag(args.SlotFlags)) return;
+        if (!clothing.Slots.HasFlag(args.SlotFlags))
+            return;
 
         // Goobstation
         //if (component.Components.Count > 1)
@@ -48,14 +71,14 @@ public sealed class ClothingGrantingSystem : EntitySystem
 
         foreach (var (name, data) in component.Components)
         {
-            var newComp = (Component) _componentFactory.GetComponent(name);
+            var newComp = (Component)_componentFactory.GetComponent(name);
 
             if (HasComp(args.Equipee, newComp.GetType()))
                 continue;
 
             newComp.Owner = args.Equipee;
 
-            var temp = (object) newComp;
+            var temp = (object)newComp;
             _serializationManager.CopyTo(data.Component, ref temp);
             EntityManager.AddComponent(args.Equipee, (Component)temp!);
 
@@ -63,7 +86,11 @@ public sealed class ClothingGrantingSystem : EntitySystem
         }
     }
 
-    private void OnCompUnequip(EntityUid uid, Content.Shared._Goobstation.Clothing.Components.ClothingGrantComponentComponent component, GotUnequippedEvent args)
+    private void OnCompUnequip(
+        EntityUid uid,
+        Content.Shared._Goobstation.Clothing.Components.ClothingGrantComponentComponent component,
+        GotUnequippedEvent args
+    )
     {
         // Goobstation
         //if (!component.IsActive) return;
@@ -74,7 +101,7 @@ public sealed class ClothingGrantingSystem : EntitySystem
             if (!component.Active.ContainsKey(name) || !component.Active[name])
                 continue;
 
-            var newComp = (Component) _componentFactory.GetComponent(name);
+            var newComp = (Component)_componentFactory.GetComponent(name);
 
             RemComp(args.Equipee, newComp.GetType());
             component.Active[name] = false; // Goobstation
@@ -84,8 +111,11 @@ public sealed class ClothingGrantingSystem : EntitySystem
         //component.IsActive = false;
     }
 
-
-    private void OnTagEquip(EntityUid uid, Content.Shared._Goobstation.Clothing.Components.ClothingGrantTagComponent component, GotEquippedEvent args)
+    private void OnTagEquip(
+        EntityUid uid,
+        Content.Shared._Goobstation.Clothing.Components.ClothingGrantTagComponent component,
+        GotEquippedEvent args
+    )
     {
         if (!TryComp<ClothingComponent>(uid, out var clothing))
             return;
@@ -99,7 +129,11 @@ public sealed class ClothingGrantingSystem : EntitySystem
         component.IsActive = true;
     }
 
-    private void OnTagUnequip(EntityUid uid, Content.Shared._Goobstation.Clothing.Components.ClothingGrantTagComponent component, GotUnequippedEvent args)
+    private void OnTagUnequip(
+        EntityUid uid,
+        Content.Shared._Goobstation.Clothing.Components.ClothingGrantTagComponent component,
+        GotUnequippedEvent args
+    )
     {
         if (!component.IsActive)
             return;
@@ -109,4 +143,3 @@ public sealed class ClothingGrantingSystem : EntitySystem
         component.IsActive = false;
     }
 }
-

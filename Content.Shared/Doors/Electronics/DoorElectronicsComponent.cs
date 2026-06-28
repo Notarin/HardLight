@@ -1,7 +1,7 @@
-using Robust.Shared.GameStates;
-using Robust.Shared.Serialization;
-using Robust.Shared.Prototypes;
 using Content.Shared.Access;
+using Robust.Shared.GameStates;
+using Robust.Shared.Prototypes;
+using Robust.Shared.Serialization;
 
 namespace Content.Shared.Doors.Electronics;
 
@@ -9,9 +9,7 @@ namespace Content.Shared.Doors.Electronics;
 /// Allows an entity's AccessReader to be configured via UI.
 /// </summary>
 [RegisterComponent, NetworkedComponent]
-public sealed partial class DoorElectronicsComponent : Component
-{
-}
+public sealed partial class DoorElectronicsComponent : Component { }
 
 [Serializable, NetSerializable]
 public sealed class DoorElectronicsUpdateConfigurationMessage : BoundUserInterfaceMessage
@@ -38,5 +36,5 @@ public sealed class DoorElectronicsConfigurationState : BoundUserInterfaceState
 [Serializable, NetSerializable]
 public enum DoorElectronicsConfigurationUiKey : byte
 {
-    Key
+    Key,
 }

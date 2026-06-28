@@ -13,7 +13,7 @@
     shape:
     - 0,0,4,0
   - type: Gun
-    minAngle: 0  # HardLight: converted from spread: 15 to min/max angle system
+    minAngle: 0 # HardLight: converted from spread: 15 to min/max angle system
     maxAngle: 15
     fireRate: 3
   - type: Sprite
@@ -36,8 +36,8 @@
   - type: Sprite
     sprite: _Starlight/Objects/Weapons/Guns/Shotguns/makeshift_shotgun.rsi
     layers:
-      - state: base
-        map: ["enum.GunVisualLayers.Base"]
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
   - type: Item
     size: Small
     sprite: _Starlight/Objects/Weapons/Guns/Shotguns/makeshift_shotgun.rsi
@@ -51,12 +51,12 @@
         Blunt: 5
         Heat: 5
     items:
-      - id: ModularBarrel
-        launchAngle: 0
-        prob: 1
-      - id: ModularReceiver
-        launchAngle: 90
-        prob: 0.10
-      - id: RifleStock
-        launchAngle: 180
-        prob: 0.80
+    - id: ModularBarrel
+      launchAngle: 0
+      prob: 1
+    - id: ModularReceiver
+      launchAngle: 90
+      prob: 0.10
+    - id: RifleStock
+      launchAngle: 180
+      prob: 0.80

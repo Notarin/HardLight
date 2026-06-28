@@ -2,10 +2,6 @@
 
 namespace Content.Shared.Dragon;
 
-public sealed partial class DragonDevourActionEvent : EntityTargetActionEvent
-{
-}
+public sealed partial class DragonDevourActionEvent : EntityTargetActionEvent { }
 
-public sealed partial class DragonSpawnRiftActionEvent : InstantActionEvent
-{
-}
+public sealed partial class DragonSpawnRiftActionEvent : InstantActionEvent { }

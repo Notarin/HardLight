@@ -7,11 +7,11 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-        scale: 0.7, 0.7
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: red
+    - state: green
+      scale: 0.7, 0.7
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: red
   - type: RandomSpawner
     prototypes:
     - SpawnDungeonLootToolsSalvage
@@ -39,13 +39,13 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-        scale: 0.7, 0.7
-      - sprite: Objects/Weapons/Melee/crusher_dagger.rsi
-        state: icon
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: red
+    - state: green
+      scale: 0.7, 0.7
+    - sprite: Objects/Weapons/Melee/crusher_dagger.rsi
+      state: icon
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: red
   - type: RandomSpawner
     prototypes:
     - WeaponCrusherDagger
@@ -79,13 +79,13 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-        scale: 0.7, 0.7
-      - sprite: Clothing/Uniforms/Jumpsuit/salvage.rsi
-        state: icon
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: red
+    - state: green
+      scale: 0.7, 0.7
+    - sprite: Clothing/Uniforms/Jumpsuit/salvage.rsi
+      state: icon
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: red
   - type: RandomSpawner
     prototypes:
     - ClothingUniformJumpsuitSalvageSpecialist
@@ -113,13 +113,13 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-        scale: 0.7, 0.7
-      - sprite: Clothing/OuterClothing/Hardsuits/luxury.rsi
-        state: icon
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: red
+    - state: green
+      scale: 0.7, 0.7
+    - sprite: Clothing/OuterClothing/Hardsuits/luxury.rsi
+      state: icon
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: red
   - type: RandomSpawner
     prototypes:
     - ClothingOuterHardsuitSpatio
@@ -141,14 +141,14 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - sprite: Structures/Storage/closet.rsi
-        state: mining
-      - sprite: Structures/Storage/closet.rsi
-        state: mining_door
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: red
+    - state: green
+    - sprite: Structures/Storage/closet.rsi
+      state: mining
+    - sprite: Structures/Storage/closet.rsi
+      state: mining_door
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: red
   - type: RandomSpawner
     prototypes:
     - LockerSalvageSpecialist
@@ -171,14 +171,14 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - sprite: Structures/Storage/suit_storage.rsi
-        state: base
-      - sprite: Structures/Storage/suit_storage.rsi
-        state: door
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: red
+    - state: green
+    - sprite: Structures/Storage/suit_storage.rsi
+      state: base
+    - sprite: Structures/Storage/suit_storage.rsi
+      state: door
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: red
   - type: RandomSpawner
     prototypes:
     - SuitStorageBase
@@ -203,14 +203,14 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - sprite: Structures/Machines/techfab.rsi
-        state: icon
-      - sprite: Structures/Machines/techfab.rsi
-        state: cargo
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: red
+    - state: green
+    - sprite: Structures/Machines/techfab.rsi
+      state: icon
+    - sprite: Structures/Machines/techfab.rsi
+      state: cargo
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: red
   - type: RandomSpawner
     prototypes:
     - SalvageTechfabNF
@@ -234,12 +234,12 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - sprite: Structures/Machines/VendingMachines/youtool.rsi
-        state: off
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: red
+    - state: green
+    - sprite: Structures/Machines/VendingMachines/youtool.rsi
+      state: off
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: red
   - type: RandomSpawner
     prototypes:
     - VendingMachineYouTool
@@ -265,13 +265,13 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-        scale: 0.7, 0.7
-      - sprite: Objects/Misc/module.rsi
-        state: supply
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: red
+    - state: green
+      scale: 0.7, 0.7
+    - sprite: Objects/Misc/module.rsi
+      state: supply
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: red
   - type: RandomSpawner
     prototypes:
     # Computers
@@ -306,12 +306,12 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - sprite: _NF/Objects/Devices/flatpack.rsi
-        state: engineering_lathe
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: red
+    - state: green
+    - sprite: _NF/Objects/Devices/flatpack.rsi
+      state: engineering_lathe
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: red
   - type: RandomSpawner
     prototypes:
     - TelecomServerFlatpack

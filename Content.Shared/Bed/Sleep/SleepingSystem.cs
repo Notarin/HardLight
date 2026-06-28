@@ -1,3 +1,4 @@
+using Content.Shared._NF.Bed.Sleep; // Frontier
 using Content.Shared.Actions;
 using Content.Shared.Buckle.Components;
 using Content.Shared.Damage;
@@ -24,19 +25,31 @@ using Content.Shared.Verbs;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
-using Content.Shared._NF.Bed.Sleep; // Frontier
 
 namespace Content.Shared.Bed.Sleep;
 
 public sealed partial class SleepingSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly SharedActionsSystem _actionsSystem = default!;
-    [Dependency] private readonly BlindableSystem _blindableSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedEmitSoundSystem _emitSound = default!;
-    [Dependency] private readonly StatusEffectsSystem _statusEffectsSystem = default!;
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
+
+    [Dependency]
+    private readonly SharedActionsSystem _actionsSystem = default!;
+
+    [Dependency]
+    private readonly BlindableSystem _blindableSystem = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedEmitSoundSystem _emitSound = default!;
+
+    [Dependency]
+    private readonly StatusEffectsSystem _statusEffectsSystem = default!;
 
     public static readonly EntProtoId SleepActionId = "ActionSleep";
     public static readonly EntProtoId WakeActionId = "ActionWake";
@@ -67,7 +80,10 @@ public sealed partial class SleepingSystem : EntitySystem
         SubscribeLocalEvent<SleepingComponent, UnbuckleAttemptEvent>(OnUnbuckleAttempt);
         SubscribeLocalEvent<SleepingComponent, EmoteAttemptEvent>(OnEmoteAttempt);
 
-        SubscribeLocalEvent<SleepingComponent, BeforeForceSayEvent>(OnChangeForceSay, after: new []{typeof(PainNumbnessSystem)});
+        SubscribeLocalEvent<SleepingComponent, BeforeForceSayEvent>(
+            OnChangeForceSay,
+            after: new[] { typeof(PainNumbnessSystem) }
+        );
     }
 
     private void OnUnbuckleAttempt(Entity<SleepingComponent> ent, ref UnbuckleAttemptEvent args)
@@ -106,7 +122,7 @@ public sealed partial class SleepingSystem : EntitySystem
             _statusEffectsSystem.TryRemoveStatusEffect(ent.Owner, "KnockedDown");
 
             EnsureComp<StunnedComponent>(ent);
-            
+
             // The entity will not fall over  if they are buckled. I think this could be written better.
             if (!EntityManager.TryGetComponent(ent, out BuckleComponent? buckleComp) || !buckleComp.Buckled)
             {
@@ -197,7 +213,7 @@ public sealed partial class SleepingSystem : EntitySystem
                 TryWakeWithCooldown((ent, ent.Comp), user: user);
             },
             Text = Loc.GetString("action-name-wake"),
-            Priority = 2
+            Priority = 2,
         };
 
         args.Verbs.Add(verb);
@@ -224,8 +240,7 @@ public sealed partial class SleepingSystem : EntitySystem
         /* Shitmed Change Start - Surgery needs this, sorry! If the nocturine gamers get too feisty
         I'll probably just increase the threshold */
 
-        if (args.DamageDelta.GetTotal() >= ent.Comp.WakeThreshold
-            && !HasComp<ForcedSleepingComponent>(ent))
+        if (args.DamageDelta.GetTotal() >= ent.Comp.WakeThreshold && !HasComp<ForcedSleepingComponent>(ent))
             TryWaking((ent, ent.Comp));
 
         // Shitmed Change End
@@ -315,7 +330,12 @@ public sealed partial class SleepingSystem : EntitySystem
             if (user != null)
             {
                 _audio.PlayPredicted(ent.Comp.WakeAttemptSound, ent, user);
-                _popupSystem.PopupClient(Loc.GetString("wake-other-failure", ("target", Identity.Entity(ent, EntityManager))), ent, user, PopupType.SmallCaution);
+                _popupSystem.PopupClient(
+                    Loc.GetString("wake-other-failure", ("target", Identity.Entity(ent, EntityManager))),
+                    ent,
+                    user,
+                    PopupType.SmallCaution
+                );
             }
             return false;
         }
@@ -323,7 +343,11 @@ public sealed partial class SleepingSystem : EntitySystem
         if (user != null)
         {
             _audio.PlayPredicted(ent.Comp.WakeAttemptSound, ent, user);
-            _popupSystem.PopupClient(Loc.GetString("wake-other-success", ("target", Identity.Entity(ent, EntityManager))), ent, user);
+            _popupSystem.PopupClient(
+                Loc.GetString("wake-other-success", ("target", Identity.Entity(ent, EntityManager))),
+                ent,
+                user
+            );
         }
 
         Wake((ent, ent.Comp));
@@ -361,9 +385,7 @@ public sealed partial class SleepingSystem : EntitySystem
         }
     }
     // End Frontier: auto-wakeup
-
 }
-
 
 public sealed partial class SleepActionEvent : InstantActionEvent;
 

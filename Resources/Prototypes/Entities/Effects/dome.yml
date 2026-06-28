@@ -8,8 +8,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.8
         density: 0
         mask:
@@ -30,12 +29,12 @@
   - type: EnergyDome
   - type: Tag
     tags:
-      - HideContextMenu
+    - HideContextMenu
   - type: Dispellable
 
 - type: entity
   id: EnergyDomeSmallPink
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: EnergyDomeBase
   components:
   - type: Sprite
@@ -51,7 +50,7 @@
 
 - type: entity
   id: EnergyDomeSmallPurple
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: EnergyDomeBase
   components:
   - type: Sprite
@@ -69,7 +68,7 @@
 
 - type: entity
   id: EnergyDomeSmallRed
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: EnergyDomeBase
   components:
   - type: Sprite
@@ -87,7 +86,7 @@
 
 - type: entity
   id: EnergyDomeSmallBlue
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: EnergyDomeBase
   components:
   - type: Sprite
@@ -105,14 +104,13 @@
 
 - type: entity
   id: EnergyDomeMediumBlue
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: EnergyDomeBase
   components:
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 1.8
         density: 0
         mask:
@@ -133,14 +131,13 @@
 
 - type: entity
   id: EnergyDomeBigBlue
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: EnergyDomeBase
   components:
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 2.8
         density: 0
         mask:
@@ -161,14 +158,13 @@
 
 - type: entity
   id: EnergyDomeHealing #HL, EnergyDomeSlowing -> EnergyDomeHealing, better describes its function
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: EnergyDomeBase
   components:
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 2.8
         density: 0
         hard: false
@@ -195,14 +191,13 @@
 
 - type: entity
   id: EnergyDomeHarming #HL, Simple opposite to the healing dome
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: EnergyDomeBase
   components:
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 2.8
         density: 0
         hard: false

@@ -47,7 +47,12 @@ public sealed partial class ConditionalAction : InteractionAction
         return branch?.IsAllowed(args, proto, deps) ?? !FailWhenNoBranch;
     }
 
-    public override bool CanPerform(InteractionArgs args, InteractionVerbPrototype proto, bool beforeDelay, VerbDependencies deps)
+    public override bool CanPerform(
+        InteractionArgs args,
+        InteractionVerbPrototype proto,
+        bool beforeDelay,
+        VerbDependencies deps
+    )
     {
         if (beforeDelay && !BeforeDelay)
             return true;

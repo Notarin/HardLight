@@ -8,6 +8,4 @@ namespace Content.Shared._VRS.Planet;
 /// instances and is needed to wire up the UIFragment.
 /// </summary>
 [RegisterComponent]
-public sealed partial class LandgrabCartridgeComponent : Component
-{
-}
+public sealed partial class LandgrabCartridgeComponent : Component { }

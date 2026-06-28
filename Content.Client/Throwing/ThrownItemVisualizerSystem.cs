@@ -10,8 +10,11 @@ namespace Content.Client.Throwing;
 /// </summary>
 public sealed class ThrownItemVisualizerSystem : EntitySystem
 {
-    [Dependency] private readonly AnimationPlayerSystem _anim = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly AnimationPlayerSystem _anim = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     private const string AnimationKey = "thrown-item";
 
@@ -77,11 +80,11 @@ public sealed class ThrownItemVisualizerSystem : EntitySystem
                     {
                         new AnimationTrackProperty.KeyFrame(scale, 0.0f),
                         new AnimationTrackProperty.KeyFrame(scale * 1.4f, lenFloat * 0.25f),
-                        new AnimationTrackProperty.KeyFrame(scale, lenFloat * 0.75f)
+                        new AnimationTrackProperty.KeyFrame(scale, lenFloat * 0.75f),
                     },
-                    InterpolationMode = AnimationInterpolationMode.Linear
-                }
-            }
+                    InterpolationMode = AnimationInterpolationMode.Linear,
+                },
+            },
         };
     }
 }

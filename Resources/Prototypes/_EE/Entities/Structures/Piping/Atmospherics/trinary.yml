@@ -6,16 +6,16 @@
   placement:
     mode: SnapgridCenter
   components:
-    - type: GasFilter
-      enabled: false
-      transferRate: 3000
-      maxTransferRate: 3000
-      HighFlow: true
-    - type: Construction
-      graph: GasTrinaryHighFlow
-      node: filterHighFlow
-    - type: Flippable
-      mirrorEntity: GasFilterFlippedHighFlow
+  - type: GasFilter
+    enabled: false
+    transferRate: 3000
+    maxTransferRate: 3000
+    HighFlow: true
+  - type: Construction
+    graph: GasTrinaryHighFlow
+    node: filterHighFlow
+  - type: Flippable
+    mirrorEntity: GasFilterFlippedHighFlow
 
 - type: entity
   parent: GasFilterFlipped
@@ -25,16 +25,16 @@
   placement:
     mode: SnapgridCenter
   components:
-    - type: GasFilter
-      enabled: false
-      transferRate: 3000
-      maxTransferRate: 3000
-      HighFlow: true
-    - type: Construction
-      graph: GasTrinaryHighFlow
-      node: filterflippedHighFlow
-    - type: Flippable
-      mirrorEntity: GasFilterHighFlow
+  - type: GasFilter
+    enabled: false
+    transferRate: 3000
+    maxTransferRate: 3000
+    HighFlow: true
+  - type: Construction
+    graph: GasTrinaryHighFlow
+    node: filterflippedHighFlow
+  - type: Flippable
+    mirrorEntity: GasFilterHighFlow
 
 - type: entity
   parent: GasMixer
@@ -44,14 +44,14 @@
   placement:
     mode: SnapgridCenter
   components:
-    - type: GasMixer
-      maxTargetPressure: 13500
-      HighFlow: true
-    - type: Construction
-      graph: GasTrinaryHighFlow
-      node: mixerHighFlow
-    - type: Flippable
-      mirrorEntity: GasMixerFlippedHighFlow
+  - type: GasMixer
+    maxTargetPressure: 13500
+    HighFlow: true
+  - type: Construction
+    graph: GasTrinaryHighFlow
+    node: mixerHighFlow
+  - type: Flippable
+    mirrorEntity: GasMixerFlippedHighFlow
 
 - type: entity
   parent: GasMixerFlipped
@@ -61,14 +61,14 @@
   placement:
     mode: SnapgridCenter
   components:
-    - type: GasMixer
-      maxTargetPressure: 13500
-      HighFlow: true
-    - type: Construction
-      graph: GasTrinaryHighFlow
-      node: mixerflippedHighFlow
-    - type: Flippable
-      mirrorEntity: GasMixerHighFlow
+  - type: GasMixer
+    maxTargetPressure: 13500
+    HighFlow: true
+  - type: Construction
+    graph: GasTrinaryHighFlow
+    node: mixerflippedHighFlow
+  - type: Flippable
+    mirrorEntity: GasMixerHighFlow
 
 - type: entity
   parent: PressureControlledValve
@@ -78,9 +78,9 @@
   placement:
     mode: SnapgridCenter
   components:
-    - type: PressureControlledValve
-      maxTransferRate: 3000
-      HighFlow: true
-    - type: Construction
-      graph: GasTrinaryHighFlow
-      node: pneumaticvalveHighFlow
+  - type: PressureControlledValve
+    maxTransferRate: 3000
+    HighFlow: true
+  - type: Construction
+    graph: GasTrinaryHighFlow
+    node: pneumaticvalveHighFlow

@@ -1,13 +1,14 @@
 using System.Linq;
-using Content.Server.Actions;
 using Content.Server._HL.Body.Systems;
+using Content.Server.Actions;
 using Content.Server.Body.Systems;
 using Content.Server.Chat;
 using Content.Server.Chat.Systems;
 using Content.Server.Emoting.Systems;
-using Content.Server.Speech.EntitySystems;
 using Content.Server.Roles;
+using Content.Server.Speech.EntitySystems;
 using Content.Shared._HL.Body.Components;
+using Content.Shared._Starlight.Language.Components; // Starlight
 using Content.Shared.Anomaly.Components;
 using Content.Shared.Armor;
 using Content.Shared.Bed.Sleep;
@@ -27,41 +28,65 @@ using Content.Shared.Zombies;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
-using Content.Shared._Starlight.Language.Components; // Starlight
 
 namespace Content.Server.Zombies
 {
     public sealed partial class ZombieSystem : SharedZombieSystem
     {
-        [Dependency] private readonly IGameTiming _timing = default!;
-        [Dependency] private readonly IPrototypeManager _protoManager = default!;
-        [Dependency] private readonly IRobustRandom _random = default!;
-        [Dependency] private readonly BloodstreamSystem _bloodstream = default!;
-        [Dependency] private readonly DamageableSystem _damageable = default!;
-        [Dependency] private readonly ChatSystem _chat = default!;
-        [Dependency] private readonly ActionsSystem _actions = default!;
-        [Dependency] private readonly AutoEmoteSystem _autoEmote = default!;
-        [Dependency] private readonly EmoteOnDamageSystem _emoteOnDamage = default!;
-        [Dependency] private readonly MobStateSystem _mobState = default!;
-        [Dependency] private readonly SharedPopupSystem _popup = default!;
-        [Dependency] private readonly SharedRoleSystem _role = default!;
+        [Dependency]
+        private readonly IGameTiming _timing = default!;
+
+        [Dependency]
+        private readonly IPrototypeManager _protoManager = default!;
+
+        [Dependency]
+        private readonly IRobustRandom _random = default!;
+
+        [Dependency]
+        private readonly BloodstreamSystem _bloodstream = default!;
+
+        [Dependency]
+        private readonly DamageableSystem _damageable = default!;
+
+        [Dependency]
+        private readonly ChatSystem _chat = default!;
+
+        [Dependency]
+        private readonly ActionsSystem _actions = default!;
+
+        [Dependency]
+        private readonly AutoEmoteSystem _autoEmote = default!;
+
+        [Dependency]
+        private readonly EmoteOnDamageSystem _emoteOnDamage = default!;
+
+        [Dependency]
+        private readonly MobStateSystem _mobState = default!;
+
+        [Dependency]
+        private readonly SharedPopupSystem _popup = default!;
+
+        [Dependency]
+        private readonly SharedRoleSystem _role = default!;
 
         public const SlotFlags ProtectiveSlots =
-            SlotFlags.FEET |
-            SlotFlags.HEAD |
-            SlotFlags.EYES |
-            SlotFlags.GLOVES |
-            SlotFlags.MASK |
-            SlotFlags.NECK |
-            SlotFlags.INNERCLOTHING |
-            SlotFlags.OUTERCLOTHING;
+            SlotFlags.FEET
+            | SlotFlags.HEAD
+            | SlotFlags.EYES
+            | SlotFlags.GLOVES
+            | SlotFlags.MASK
+            | SlotFlags.NECK
+            | SlotFlags.INNERCLOTHING
+            | SlotFlags.OUTERCLOTHING;
 
         public override void Initialize()
         {
             base.Initialize();
 
-            SubscribeLocalEvent<ZombieComponent, EmoteEvent>(OnEmote, before:
-                new[] { typeof(VocalSystem), typeof(BodyEmotesSystem) });
+            SubscribeLocalEvent<ZombieComponent, EmoteEvent>(
+                OnEmote,
+                before: new[] { typeof(VocalSystem), typeof(BodyEmotesSystem) }
+            );
 
             SubscribeLocalEvent<ZombieComponent, MeleeHitEvent>(OnMeleeHit);
             SubscribeLocalEvent<ZombieComponent, MobStateChangedEvent>(OnMobState);
@@ -79,7 +104,10 @@ namespace Content.Server.Zombies
             SubscribeLocalEvent<ZombifyOnDeathComponent, MobStateChangedEvent>(OnDamageChanged);
         }
 
-        private void OnBeforeRemoveAnomalyOnDeath(Entity<PendingZombieComponent> ent, ref BeforeRemoveAnomalyOnDeathEvent args)
+        private void OnBeforeRemoveAnomalyOnDeath(
+            Entity<PendingZombieComponent> ent,
+            ref BeforeRemoveAnomalyOnDeathEvent args
+        )
         {
             // Pending zombies (e.g. infected non-zombies) do not remove their hosted anomaly on death.
             // Current zombies DO remove the anomaly on death.
@@ -95,7 +123,10 @@ namespace Content.Server.Zombies
 
             EnsureComp<PendingZombieComponent>(uid, out PendingZombieComponent pendingComp);
 
-            pendingComp.GracePeriod = _random.Next(pendingComp.MinInitialInfectedGrace, pendingComp.MaxInitialInfectedGrace);
+            pendingComp.GracePeriod = _random.Next(
+                pendingComp.MinInitialInfectedGrace,
+                pendingComp.MaxInitialInfectedGrace
+            );
         }
 
         private void OnPendingMapInit(EntityUid uid, PendingZombieComponent component, MapInitEvent args)
@@ -131,9 +162,7 @@ namespace Content.Server.Zombies
                 if (_random.Prob(comp.InfectionWarningChance))
                     _popup.PopupEntity(Loc.GetString(_random.Pick(comp.InfectionWarnings)), uid, uid);
 
-                var multiplier = _mobState.IsCritical(uid, mobState)
-                    ? comp.CritDamageMultiplier
-                    : 1f;
+                var multiplier = _mobState.IsCritical(uid, mobState) ? comp.CritDamageMultiplier : 1f;
 
                 _damageable.TryChangeDamage(uid, comp.Damage * multiplier, true, false, damage);
             }
@@ -151,9 +180,7 @@ namespace Content.Server.Zombies
                 if (_mobState.IsDead(uid, mobState))
                     continue;
 
-                var multiplier = _mobState.IsCritical(uid, mobState)
-                    ? comp.PassiveHealingCritMultiplier
-                    : 1f;
+                var multiplier = _mobState.IsCritical(uid, mobState) ? comp.PassiveHealingCritMultiplier : 1f;
 
                 // Gradual healing for living zombies.
                 _damageable.TryChangeDamage(uid, comp.PassiveHealing * multiplier, true, false, damage);
@@ -250,7 +277,11 @@ namespace Content.Server.Zombies
                 }
                 else
                 {
-                    if (!HasComp<ZombieImmuneComponent>(entity) && !HasComp<NonSpreaderZombieComponent>(args.User) && _random.Prob(GetZombieInfectionChance(entity, component)))
+                    if (
+                        !HasComp<ZombieImmuneComponent>(entity)
+                        && !HasComp<NonSpreaderZombieComponent>(args.User)
+                        && _random.Prob(GetZombieInfectionChance(entity, component))
+                    )
                     {
                         EnsureComp<PendingZombieComponent>(entity, out PendingZombieComponent pending);
                         pending.Infector = args.User;
@@ -259,7 +290,11 @@ namespace Content.Server.Zombies
                     }
                 }
 
-                if (_mobState.IsIncapacitated(entity, mobState) && !HasComp<ZombieComponent>(entity) && !HasComp<ZombieImmuneComponent>(entity))
+                if (
+                    _mobState.IsIncapacitated(entity, mobState)
+                    && !HasComp<ZombieComponent>(entity)
+                    && !HasComp<ZombieImmuneComponent>(entity)
+                )
                 {
                     // Track the infector for reward purposes before conversion
                     EnsureComp<PendingZombieComponent>(entity, out PendingZombieComponent pending);
@@ -301,7 +336,11 @@ namespace Content.Server.Zombies
             }
             _humanoidAppearance.SetSkinColor(target, zombiecomp.BeforeZombifiedSkinColor, false);
             RemComp<BloodSolutionModifierComponent>(target);
-            _bloodstream.ChangeBloodReagent(target, zombiecomp.BeforeZombifiedBloodReagent, storeOriginalBloodReagent: false);
+            _bloodstream.ChangeBloodReagent(
+                target,
+                zombiecomp.BeforeZombifiedBloodReagent,
+                storeOriginalBloodReagent: false
+            );
             _language.RestoreCache((target, EnsureComp<LanguageCacheComponent>(target))); // Starlight: UnZombiby fix
             return true;
         }

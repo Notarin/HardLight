@@ -9,10 +9,8 @@ public sealed class AnomalyScannerBoundUserInterface : BoundUserInterface
 {
     private AnomalyScannerMenu? _menu;
 
-    public AnomalyScannerBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-
-    }
+    public AnomalyScannerBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {
@@ -45,4 +43,3 @@ public sealed class AnomalyScannerBoundUserInterface : BoundUserInterface
         _menu?.Dispose();
     }
 }
-

@@ -42,7 +42,8 @@ public sealed class DeviceLinkUserInterfaceState : BoundUserInterfaceState
         HashSet<(ProtoId<SourcePortPrototype> source, ProtoId<SinkPortPrototype> sink)> links,
         string sourceAddress,
         string sinkAddress,
-        List<(string source, string sink)>? defaults = default)
+        List<(string source, string sink)>? defaults = default
+    )
     {
         Links = links;
         SourceAddress = sourceAddress;

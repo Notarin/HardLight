@@ -66,7 +66,14 @@ public sealed partial class DeepFryerSystem
 
             // Ensure it's Food here, so it passes the whitelist.
             var mobFoodComponent = EnsureComp<FoodComponent>(mob);
-            if (!_solutionContainerSystem.EnsureSolutionEntity(mob, mobFoodComponent.Solution, out var alreadyHadFood, out var mobFood))
+            if (
+                !_solutionContainerSystem.EnsureSolutionEntity(
+                    mob,
+                    mobFoodComponent.Solution,
+                    out var alreadyHadFood,
+                    out var mobFood
+                )
+            )
                 return false;
 
             var mobFoodSolution = mobFood.Value.Comp.Solution;
@@ -77,7 +84,10 @@ public sealed partial class DeepFryerSystem
             if (alreadyHadFood)
                 mobFoodSolution.RemoveAllSolution();
 
-            if (TryComp<BloodstreamComponent>(mob, out var bloodstreamComponent) && bloodstreamComponent.ChemicalSolution != null)
+            if (
+                TryComp<BloodstreamComponent>(mob, out var bloodstreamComponent)
+                && bloodstreamComponent.ChemicalSolution != null
+            )
             {
                 // Fry off any blood into protein.
                 var bloodSolution = bloodstreamComponent.BloodSolution;
@@ -94,9 +104,11 @@ public sealed partial class DeepFryerSystem
                     EnsureComp<FlavorProfileComponent>(mob).Flavors.Add(MobFlavorMeat);
 
                 // Bring in whatever chemicals they had in them too.
-                mobFoodSolution.MaxVolume +=
-                    bloodstreamComponent.ChemicalSolution.Value.Comp.Solution.Volume;
-                mobFoodSolution.AddSolution(bloodstreamComponent.ChemicalSolution.Value.Comp.Solution, _prototypeManager);
+                mobFoodSolution.MaxVolume += bloodstreamComponent.ChemicalSolution.Value.Comp.Solution.Volume;
+                mobFoodSolution.AddSolution(
+                    bloodstreamComponent.ChemicalSolution.Value.Comp.Solution,
+                    _prototypeManager
+                );
             }
             _solutionContainerSystem.UpdateChemicals(mobFood.Value);
 
@@ -147,10 +159,12 @@ public sealed partial class DeepFryerSystem
             HashSet<string> badFlavors = new(flavorProfileComponent.Flavors);
             badFlavors.IntersectWith(component.BadFlavors);
 
-            deepFriedComponent.PriceCoefficient = Math.Max(0.01f,
+            deepFriedComponent.PriceCoefficient = Math.Max(
+                0.01f,
                 1.0f
-                + goodFlavors.Count * component.GoodFlavorPriceBonus
-                - badFlavors.Count * component.BadFlavorPriceMalus);
+                    + goodFlavors.Count * component.GoodFlavorPriceBonus
+                    - badFlavors.Count * component.BadFlavorPriceMalus
+            );
 
             if (goodFlavors.Count > 0)
             {

@@ -13,11 +13,20 @@ namespace Content.Server.Administration.Commands;
 [AdminCommand(AdminFlags.Ban)]
 public sealed class GhostRoleWhitelistAddCommand : LocalizedCommands
 {
-    [Dependency] private readonly IServerDbManager _db = default!;
-    [Dependency] private readonly JobWhitelistManager _jobWhitelist = default!;
-    [Dependency] private readonly IPlayerLocator _playerLocator = default!;
-    [Dependency] private readonly IPlayerManager _players = default!;
-    [Dependency] private readonly IPrototypeManager _prototypes = default!;
+    [Dependency]
+    private readonly IServerDbManager _db = default!;
+
+    [Dependency]
+    private readonly JobWhitelistManager _jobWhitelist = default!;
+
+    [Dependency]
+    private readonly IPlayerLocator _playerLocator = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _players = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypes = default!;
 
     public override string Command => "ghostrolewhitelistadd";
 
@@ -25,9 +34,13 @@ public sealed class GhostRoleWhitelistAddCommand : LocalizedCommands
     {
         if (args.Length != 2)
         {
-            shell.WriteError(Loc.GetString("shell-wrong-arguments-number-need-specific",
-                ("properAmount", 2),
-                ("currentAmount", args.Length)));
+            shell.WriteError(
+                Loc.GetString(
+                    "shell-wrong-arguments-number-need-specific",
+                    ("properAmount", 2),
+                    ("currentAmount", args.Length)
+                )
+            );
             shell.WriteLine(Help);
             return;
         }
@@ -36,7 +49,9 @@ public sealed class GhostRoleWhitelistAddCommand : LocalizedCommands
         var ghostRole = new ProtoId<GhostRolePrototype>(args[1].Trim());
         if (!_prototypes.TryIndex(ghostRole, out var ghostRolePrototype))
         {
-            shell.WriteError(Loc.GetString("cmd-ghostrolewhitelist-ghost-role-does-not-exist", ("ghost-role", ghostRole.Id)));
+            shell.WriteError(
+                Loc.GetString("cmd-ghostrolewhitelist-ghost-role-does-not-exist", ("ghost-role", ghostRole.Id))
+            );
             shell.WriteLine(Help);
             return;
         }
@@ -48,18 +63,26 @@ public sealed class GhostRoleWhitelistAddCommand : LocalizedCommands
             var isWhitelisted = await _db.IsGhostRoleWhitelisted(guid, ghostRole);
             if (isWhitelisted)
             {
-                shell.WriteLine(Loc.GetString("cmd-ghostrolewhitelist-already-whitelisted",
-                    ("player", player),
-                    ("ghostRoleId", ghostRole.Id),
-                    ("ghostRoleName", ghostRolePrototype.Name)));
+                shell.WriteLine(
+                    Loc.GetString(
+                        "cmd-ghostrolewhitelist-already-whitelisted",
+                        ("player", player),
+                        ("ghostRoleId", ghostRole.Id),
+                        ("ghostRoleName", ghostRolePrototype.Name)
+                    )
+                );
                 return;
             }
 
             _jobWhitelist.AddWhitelist(guid, ghostRole);
-            shell.WriteLine(Loc.GetString("cmd-ghostrolewhitelistadd-added",
-                ("player", player),
-                ("ghostRoleId", ghostRole.Id),
-                ("ghostRoleName", ghostRolePrototype.Name)));
+            shell.WriteLine(
+                Loc.GetString(
+                    "cmd-ghostrolewhitelistadd-added",
+                    ("player", player),
+                    ("ghostRoleId", ghostRole.Id),
+                    ("ghostRoleName", ghostRolePrototype.Name)
+                )
+            );
             return;
         }
 
@@ -72,14 +95,16 @@ public sealed class GhostRoleWhitelistAddCommand : LocalizedCommands
         {
             return CompletionResult.FromHintOptions(
                 _players.Sessions.Select(s => s.Name),
-                Loc.GetString("cmd-ghostrolewhitelist-hint-player"));
+                Loc.GetString("cmd-ghostrolewhitelist-hint-player")
+            );
         }
 
         if (args.Length == 2)
         {
             return CompletionResult.FromHintOptions(
                 _prototypes.EnumeratePrototypes<GhostRolePrototype>().Select(p => p.ID),
-                Loc.GetString("cmd-ghostrolewhitelist-hint-job"));
+                Loc.GetString("cmd-ghostrolewhitelist-hint-job")
+            );
         }
 
         return CompletionResult.Empty;
@@ -89,9 +114,14 @@ public sealed class GhostRoleWhitelistAddCommand : LocalizedCommands
 [AdminCommand(AdminFlags.Ban)]
 public sealed class GetGhostRoleWhitelistCommand : LocalizedCommands
 {
-    [Dependency] private readonly IServerDbManager _db = default!;
-    [Dependency] private readonly IPlayerLocator _playerLocator = default!;
-    [Dependency] private readonly IPlayerManager _players = default!;
+    [Dependency]
+    private readonly IServerDbManager _db = default!;
+
+    [Dependency]
+    private readonly IPlayerLocator _playerLocator = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _players = default!;
 
     public override string Command => "ghostrolewhitelistget";
 
@@ -116,9 +146,13 @@ public sealed class GetGhostRoleWhitelistCommand : LocalizedCommands
                 return;
             }
 
-            shell.WriteLine(Loc.GetString("cmd-ghostrolewhitelistget-whitelisted-for",
-                ("player", player),
-                ("ghostRoles", string.Join(", ", whitelists))));
+            shell.WriteLine(
+                Loc.GetString(
+                    "cmd-ghostrolewhitelistget-whitelisted-for",
+                    ("player", player),
+                    ("ghostRoles", string.Join(", ", whitelists))
+                )
+            );
             return;
         }
 
@@ -131,7 +165,8 @@ public sealed class GetGhostRoleWhitelistCommand : LocalizedCommands
         {
             return CompletionResult.FromHintOptions(
                 _players.Sessions.Select(s => s.Name),
-                Loc.GetString("cmd-ghostrolewhitelist-hint-player"));
+                Loc.GetString("cmd-ghostrolewhitelist-hint-player")
+            );
         }
 
         return CompletionResult.Empty;
@@ -141,11 +176,20 @@ public sealed class GetGhostRoleWhitelistCommand : LocalizedCommands
 [AdminCommand(AdminFlags.Ban)]
 public sealed class RemoveGhostRoleWhitelistCommand : LocalizedCommands
 {
-    [Dependency] private readonly IServerDbManager _db = default!;
-    [Dependency] private readonly JobWhitelistManager _jobWhitelist = default!;
-    [Dependency] private readonly IPlayerLocator _playerLocator = default!;
-    [Dependency] private readonly IPlayerManager _players = default!;
-    [Dependency] private readonly IPrototypeManager _prototypes = default!;
+    [Dependency]
+    private readonly IServerDbManager _db = default!;
+
+    [Dependency]
+    private readonly JobWhitelistManager _jobWhitelist = default!;
+
+    [Dependency]
+    private readonly IPlayerLocator _playerLocator = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _players = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypes = default!;
 
     public override string Command => "ghostrolewhitelistremove";
 
@@ -153,9 +197,13 @@ public sealed class RemoveGhostRoleWhitelistCommand : LocalizedCommands
     {
         if (args.Length != 2)
         {
-            shell.WriteError(Loc.GetString("shell-wrong-arguments-number-need-specific",
-                ("properAmount", 2),
-                ("currentAmount", args.Length)));
+            shell.WriteError(
+                Loc.GetString(
+                    "shell-wrong-arguments-number-need-specific",
+                    ("properAmount", 2),
+                    ("currentAmount", args.Length)
+                )
+            );
             shell.WriteLine(Help);
             return;
         }
@@ -176,18 +224,26 @@ public sealed class RemoveGhostRoleWhitelistCommand : LocalizedCommands
             var isWhitelisted = await _db.IsGhostRoleWhitelisted(guid, ghostRole);
             if (!isWhitelisted)
             {
-                shell.WriteError(Loc.GetString("cmd-ghostrolewhitelistremove-was-not-whitelisted",
-                    ("player", player),
-                    ("ghostRoleId", ghostRole.Id),
-                    ("ghostRoleName", ghostRolePrototype.Name)));
+                shell.WriteError(
+                    Loc.GetString(
+                        "cmd-ghostrolewhitelistremove-was-not-whitelisted",
+                        ("player", player),
+                        ("ghostRoleId", ghostRole.Id),
+                        ("ghostRoleName", ghostRolePrototype.Name)
+                    )
+                );
                 return;
             }
 
             _jobWhitelist.RemoveWhitelist(guid, ghostRole);
-            shell.WriteLine(Loc.GetString("cmd-ghostrolewhitelistremove-removed",
-                ("player", player),
-                ("ghostRoleId", ghostRole.Id),
-                ("ghostRoleName", ghostRolePrototype.Name)));
+            shell.WriteLine(
+                Loc.GetString(
+                    "cmd-ghostrolewhitelistremove-removed",
+                    ("player", player),
+                    ("ghostRoleId", ghostRole.Id),
+                    ("ghostRoleName", ghostRolePrototype.Name)
+                )
+            );
             return;
         }
 
@@ -200,14 +256,16 @@ public sealed class RemoveGhostRoleWhitelistCommand : LocalizedCommands
         {
             return CompletionResult.FromHintOptions(
                 _players.Sessions.Select(s => s.Name),
-                Loc.GetString("cmd-ghostrolewhitelist-hint-player"));
+                Loc.GetString("cmd-ghostrolewhitelist-hint-player")
+            );
         }
 
         if (args.Length == 2)
         {
             return CompletionResult.FromHintOptions(
                 _prototypes.EnumeratePrototypes<GhostRolePrototype>().Select(p => p.ID),
-                Loc.GetString("cmd-ghostrolewhitelist-hint-ghostrole"));
+                Loc.GetString("cmd-ghostrolewhitelist-hint-ghostrole")
+            );
         }
 
         return CompletionResult.Empty;

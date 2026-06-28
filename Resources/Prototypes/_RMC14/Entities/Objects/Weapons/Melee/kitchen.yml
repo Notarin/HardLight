@@ -1,5 +1,5 @@
 - type: entity
-  parent: [ RMCBaseMeleeWeapon, BaseKnife ]
+  parent: [RMCBaseMeleeWeapon, BaseKnife]
   id: RMCKitchenKnife
   name: knife
   description: Can cut through any food.
@@ -24,12 +24,12 @@
     damage:
       types:
         Slash: 10
-  # - type: DisarmMalus
-    # malus: 0.225
-  # - type: UsableWhileDevoured
-    # damage:
+        # - type: DisarmMalus
+      # malus: 0.225
+      # - type: UsableWhileDevoured
+      # damage:
       # types:
-        # Slash: 10
+      # Slash: 10
   - type: Tag
     tags:
     - Knife

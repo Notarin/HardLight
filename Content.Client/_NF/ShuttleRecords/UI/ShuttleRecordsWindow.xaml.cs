@@ -12,9 +12,14 @@ namespace Content.Client._NF.ShuttleRecords.UI;
 [GenerateTypedNameReferences]
 public sealed partial class ShuttleRecordsWindow : FancyWindow
 {
-    [Dependency] private readonly ILocalizationManager _loc = default!;
-    [Dependency] private readonly IEntityManager _entityManager = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
+    [Dependency]
+    private readonly ILocalizationManager _loc = default!;
+
+    [Dependency]
+    private readonly IEntityManager _entityManager = default!;
+
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
 
     public Action<ShuttleRecord>? OnCopyDeed;
     public ShuttleRecord? SelectedShuttleRecord;
@@ -88,30 +93,33 @@ public sealed partial class ShuttleRecordsWindow : FancyWindow
             UpdateSelectedShuttleRecord(SelectedShuttleRecord);
     }
 
-    public record ShuttleRecordViewStatePair(
-        ShuttleRecord ShuttleRecord,
-        ShuttleRecordListItem.ViewState ViewState
-    );
+    public record ShuttleRecordViewStatePair(ShuttleRecord ShuttleRecord, ShuttleRecordListItem.ViewState ViewState);
 
     private List<ShuttleRecordViewStatePair> BuildShuttleRecordListItemViewStateList(
         List<ShuttleRecord> shuttleRecords,
-        bool onlyShowActive)
+        bool onlyShowActive
+    )
     {
         return shuttleRecords
-            .Where(shuttleRecord => string.IsNullOrEmpty(_searchText) ||
-                                    shuttleRecord.Name.Contains(_searchText, StringComparison.CurrentCultureIgnoreCase) ||
-                                    (shuttleRecord.Suffix != null && shuttleRecord.Suffix.Contains(_searchText, StringComparison.CurrentCultureIgnoreCase)) ||
-                                     shuttleRecord.OwnerName.Contains(_searchText, StringComparison.CurrentCultureIgnoreCase))
+            .Where(shuttleRecord =>
+                string.IsNullOrEmpty(_searchText)
+                || shuttleRecord.Name.Contains(_searchText, StringComparison.CurrentCultureIgnoreCase)
+                || (
+                    shuttleRecord.Suffix != null
+                    && shuttleRecord.Suffix.Contains(_searchText, StringComparison.CurrentCultureIgnoreCase)
+                )
+                || shuttleRecord.OwnerName.Contains(_searchText, StringComparison.CurrentCultureIgnoreCase)
+            )
             .Where(shuttleRecord => !onlyShowActive || ShuttleExists(netEntity: shuttleRecord.EntityUid))
-            .Select(shuttleRecord =>
-                new ShuttleRecordViewStatePair(
-                    shuttleRecord,
-                    new ShuttleRecordListItem.ViewState(
-                        shuttleRecord.Name + " " + shuttleRecord.Suffix,
-                        disabled: SelectedShuttleRecord != null && shuttleRecord.EntityUid == SelectedShuttleRecord.EntityUid,
-                        toolTip: ""
-                    )
-                ))
+            .Select(shuttleRecord => new ShuttleRecordViewStatePair(
+                shuttleRecord,
+                new ShuttleRecordListItem.ViewState(
+                    shuttleRecord.Name + " " + shuttleRecord.Suffix,
+                    disabled: SelectedShuttleRecord != null
+                        && shuttleRecord.EntityUid == SelectedShuttleRecord.EntityUid,
+                    toolTip: ""
+                )
+            ))
             .ToList();
     }
 
@@ -134,8 +142,10 @@ public sealed partial class ShuttleRecordsWindow : FancyWindow
         var timeOfPurchaseText = "N/A";
         if (shuttleRecord.TimeOfPurchase != null)
         {
-            timeOfPurchaseText = Loc.GetString("shuttle-records-time-of-purchase",
-                ("time", shuttleRecord.TimeOfPurchase.Value.ToString("hh\\:mm\\:ss")));
+            timeOfPurchaseText = Loc.GetString(
+                "shuttle-records-time-of-purchase",
+                ("time", shuttleRecord.TimeOfPurchase.Value.ToString("hh\\:mm\\:ss"))
+            );
         }
 
         var transactionPrice = SharedShuttleRecordsSystem.GetTransactionCost(
@@ -146,19 +156,29 @@ public sealed partial class ShuttleRecordsWindow : FancyWindow
             fixedPrice: _lastStateUpdate?.FixedTransactionPrice
         );
         var viewState = new ShuttleRecordDetailsControl.ViewState(
-            shuttleName: _loc.GetString(messageId: "shuttle-records-shuttle-name-label",
-                arg: ("name", shuttleRecord.Name + " " + shuttleRecord.Suffix)),
-            shuttleOwnerName: _loc.GetString(messageId: "shuttle-records-shuttle-owner-label",
-                arg: ("owner", shuttleRecord.OwnerName)),
-            shuttlePrice: _loc.GetString(messageId: "shuttle-records-shuttle-price-label",
-                arg: ("price", shuttleRecord.PurchasePrice)),
+            shuttleName: _loc.GetString(
+                messageId: "shuttle-records-shuttle-name-label",
+                arg: ("name", shuttleRecord.Name + " " + shuttleRecord.Suffix)
+            ),
+            shuttleOwnerName: _loc.GetString(
+                messageId: "shuttle-records-shuttle-owner-label",
+                arg: ("owner", shuttleRecord.OwnerName)
+            ),
+            shuttlePrice: _loc.GetString(
+                messageId: "shuttle-records-shuttle-price-label",
+                arg: ("price", shuttleRecord.PurchasePrice)
+            ),
             activity: _loc.GetString(messageId: "shuttle-records-shuttle-status", arg: ("status", shuttleStatus)),
             toolTip: "",
             timeOfPurchase: timeOfPurchaseText,
-            voucherStatus: shuttleRecord.PurchasedWithVoucher ? _loc.GetString(messageId: "shuttle-records-purchased-voucher") : "",
-            transactionCost: _loc.GetString(messageId: "shuttle-records-transaction-cost",
-                arg: ("cost", transactionPrice))
-            );
+            voucherStatus: shuttleRecord.PurchasedWithVoucher
+                ? _loc.GetString(messageId: "shuttle-records-purchased-voucher")
+                : "",
+            transactionCost: _loc.GetString(
+                messageId: "shuttle-records-transaction-cost",
+                arg: ("cost", transactionPrice)
+            )
+        );
         var control = new ShuttleRecordDetailsControl(state: viewState);
         control.CopyDeedButton.Disabled = !shuttleExists;
         control.CopyDeedButton.OnPressed += _ =>

@@ -31,7 +31,7 @@
   - Genetics # Funkystation: Add Genetics access
   special:
   - !type:AddImplantSpecial
-    implants: [ MindShieldImplant ]
+    implants: [MindShieldImplant]
   - !type:AddComponentSpecial
     components:
     - type: SurgerySpeedModifier

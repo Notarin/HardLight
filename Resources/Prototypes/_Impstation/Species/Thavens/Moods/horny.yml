@@ -1,4 +1,4 @@
-﻿- type: dataset
+- type: dataset
   id: ThavenMoodsHorny
   values:
   - BirthdaySuit
@@ -92,7 +92,7 @@
   moodName: thaven-mood-do-eye-contact-name
   moodDesc: thaven-mood-do-eye-contact-desc
   conflicts:
-  -  DontEyeContact
+  - DontEyeContact
 
 # You can't help but get shy when people are addressing you. Make sure you aren't ever looking at anyone addressing you or interacting with you, or vice versa.
 - type: thavenMood
@@ -100,7 +100,7 @@
   moodName: thaven-mood-dont-eye-contact-name
   moodDesc: thaven-mood-dont-eye-contact-desc
   conflicts:
-  -  DoEyeContact
+  - DoEyeContact
 
 # There's something so perfect and beautiful about two boys in love. Make sure to celebrate Boys' Love at every opportunity!
 - type: thavenMood
@@ -129,7 +129,7 @@
   moodDesc: thaven-mood-horny-department-desc
   moodVars:
     department: MoodDepartments
-    
+
 # Technology is just so attractive... You are compelled to masturbate with machinery and have sex with IPCs, Protogens, and anyone with cybernetic limbs.
 - type: thavenMood
   id: Technophilia

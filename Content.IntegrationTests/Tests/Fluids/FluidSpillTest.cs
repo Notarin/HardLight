@@ -16,12 +16,20 @@ namespace Content.IntegrationTests.Tests.Fluids;
 [TestOf(typeof(SpreaderSystem))]
 public sealed class FluidSpill
 {
-    private static PuddleComponent? GetPuddle(IEntityManager entityManager, Entity<MapGridComponent> mapGrid, Vector2i pos)
+    private static PuddleComponent? GetPuddle(
+        IEntityManager entityManager,
+        Entity<MapGridComponent> mapGrid,
+        Vector2i pos
+    )
     {
         return GetPuddleEntity(entityManager, mapGrid, pos)?.Comp;
     }
 
-    private static Entity<PuddleComponent>? GetPuddleEntity(IEntityManager entityManager, Entity<MapGridComponent> mapGrid, Vector2i pos)
+    private static Entity<PuddleComponent>? GetPuddleEntity(
+        IEntityManager entityManager,
+        Entity<MapGridComponent> mapGrid,
+        Vector2i pos
+    )
     {
         var mapSys = entityManager.System<SharedMapSystem>();
         foreach (var uid in mapSys.GetAnchoredEntities(mapGrid, mapGrid.Comp, pos))
@@ -74,7 +82,6 @@ public sealed class FluidSpill
             entityManager.SpawnEntity("WallReinforced", mapSystem.GridTileToLocal(grid, grid.Comp, new Vector2i(1, 0)));
         });
 
-
         var puddleOrigin = new Vector2i(0, 0);
         await server.WaitAssertion(() =>
         {
@@ -87,7 +94,7 @@ public sealed class FluidSpill
 #pragma warning restore NUnit2045
         });
 
-        var sTimeToWait = (int) Math.Ceiling(2f * gameTiming.TickRate);
+        var sTimeToWait = (int)Math.Ceiling(2f * gameTiming.TickRate);
         await server.WaitRunTicks(sTimeToWait);
 
         await server.WaitAssertion(() =>

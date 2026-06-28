@@ -48,10 +48,10 @@ namespace Content.Shared.Atmos
 
         private bool InBounds(Vector2i gridIndices)
         {
-            return gridIndices.X >= Origin.X &&
-                gridIndices.Y >= Origin.Y &&
-                gridIndices.X < Origin.X + ChunkSize &&
-                gridIndices.Y < Origin.Y + ChunkSize;
+            return gridIndices.X >= Origin.X
+                && gridIndices.Y >= Origin.Y
+                && gridIndices.X < Origin.X + ChunkSize
+                && gridIndices.Y < Origin.Y + ChunkSize;
         }
     }
 

@@ -3,8 +3,8 @@ using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Item;
 using Content.Shared.Storage.EntitySystems;
 using Content.Shared.Thief;
-using Robust.Server.GameObjects;
 using Robust.Server.Audio;
+using Robust.Server.GameObjects;
 using Robust.Shared.Prototypes;
 
 namespace Content.Server.Thief.Systems;
@@ -15,12 +15,23 @@ namespace Content.Server.Thief.Systems;
 /// </summary>
 public sealed class ThiefUndeterminedBackpackSystem : EntitySystem
 {
-    [Dependency] private readonly AudioSystem _audio = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
-    [Dependency] private readonly SharedStorageSystem _storage = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
+    [Dependency]
+    private readonly AudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly UserInterfaceSystem _ui = default!;
+
+    [Dependency]
+    private readonly SharedStorageSystem _storage = default!;
+
+    [Dependency]
+    private readonly SharedHandsSystem _hands = default!;
 
     public override void Initialize()
     {
@@ -68,7 +79,11 @@ public sealed class ThiefUndeterminedBackpackSystem : EntitySystem
         _audio.PlayPvs(backpack.Comp.ApproveSound, Transform(backpack.Owner).Coordinates);
         QueueDel(backpack);
     }
-    private void OnChangeSet(Entity<ThiefUndeterminedBackpackComponent> backpack, ref ThiefBackpackChangeSetMessage args)
+
+    private void OnChangeSet(
+        Entity<ThiefUndeterminedBackpackComponent> backpack,
+        ref ThiefBackpackChangeSetMessage args
+    )
     {
         //Swith selecting set
         if (!backpack.Comp.SelectedSets.Remove(args.SetNumber))
@@ -88,14 +103,14 @@ public sealed class ThiefUndeterminedBackpackSystem : EntitySystem
         {
             var set = _proto.Index(component.PossibleSets[i]);
             var selected = component.SelectedSets.Contains(i);
-            var info = new ThiefBackpackSetInfo(
-                set.Name,
-                set.Description,
-                set.Sprite,
-                selected);
+            var info = new ThiefBackpackSetInfo(set.Name, set.Description, set.Sprite, selected);
             data.Add(i, info);
         }
 
-        _ui.SetUiState(uid, ThiefBackpackUIKey.Key, new ThiefBackpackBoundUserInterfaceState(data, component.MaxSelectedSets));
+        _ui.SetUiState(
+            uid,
+            ThiefBackpackUIKey.Key,
+            new ThiefBackpackBoundUserInterfaceState(data, component.MaxSelectedSets)
+        );
     }
 }

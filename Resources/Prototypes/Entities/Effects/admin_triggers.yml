@@ -25,7 +25,7 @@
   suffix: BluespaceFlash
   parent: AdminInstantEffectBase
   components:
-  - type: SpawnOnTrigger 
+  - type: SpawnOnTrigger
     proto: EffectFlashBluespace
 
 - type: entity

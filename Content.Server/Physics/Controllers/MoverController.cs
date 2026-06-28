@@ -13,21 +13,33 @@ using Robust.Shared.Map.Components;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Events;
 using Robust.Shared.Player;
-using DroneConsoleComponent = Content.Server.Shuttles.DroneConsoleComponent;
-using DependencyAttribute = Robust.Shared.IoC.DependencyAttribute;
 using Robust.Shared.Timing;
+using DependencyAttribute = Robust.Shared.IoC.DependencyAttribute;
+using DroneConsoleComponent = Content.Server.Shuttles.DroneConsoleComponent;
 
 namespace Content.Server.Physics.Controllers;
 
 public sealed class MoverController : SharedMoverController
 {
-    [Dependency] private readonly ThrusterSystem _thruster = default!;
-    [Dependency] private readonly SharedTransformSystem _xformSystem = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
+    [Dependency]
+    private readonly ThrusterSystem _thruster = default!;
 
-    private Dictionary<EntityUid, (ShuttleComponent, List<(EntityUid, PilotComponent, InputMoverComponent, TransformComponent)>)> _shuttlePilots = new();
+    [Dependency]
+    private readonly SharedTransformSystem _xformSystem = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _mapSystem = default!;
+
+    private Dictionary<
+        EntityUid,
+        (ShuttleComponent, List<(EntityUid, PilotComponent, InputMoverComponent, TransformComponent)>)
+    > _shuttlePilots = new();
 
     public override void Initialize()
     {
@@ -147,8 +159,10 @@ public sealed class MoverController : SharedMoverController
             // Check if we should move the parent instead (for relays)
             if (RelayQuery.HasComponent(xform.ParentUid))
             {
-                if (!PhysicsQuery.TryGetComponent(xform.ParentUid, out body) ||
-                    !XformQuery.TryGetComponent(xform.ParentUid, out xformMover))
+                if (
+                    !PhysicsQuery.TryGetComponent(xform.ParentUid, out body)
+                    || !XformQuery.TryGetComponent(xform.ParentUid, out xformMover)
+                )
                 {
                     continue;
                 }
@@ -165,11 +179,13 @@ public sealed class MoverController : SharedMoverController
             // changes, no friction, no lerp progress). Any code that wakes the body earlier in
             // the same tick (damage, interactions, etc.) sets body.Awake = true before
             // UpdateBeforeSolve runs, so the guard won't fire for those cases.
-            if (!body.Awake
+            if (
+                !body.Awake
                 && mover.HeldMoveButtons == MoveButtons.None
                 && mover.CurTickWalkMovement.LengthSquared() == 0f
                 && mover.CurTickSprintMovement.LengthSquared() == 0f
-                && mover.TargetRelativeRotation == mover.RelativeRotation)
+                && mover.TargetRelativeRotation == mover.RelativeRotation
+            )
                 continue;
 
             HandleMobMovement((uid, mover), frameTime);
@@ -190,7 +206,11 @@ public sealed class MoverController : SharedMoverController
             // Physics system will have the correct time step anyways.
             ResetSubtick(component);
             ApplyTick(component, 1f);
-            return new ShuttleInput(component.CurTickStrafeMovement, component.CurTickRotationMovement, component.CurTickBraking);
+            return new ShuttleInput(
+                component.CurTickStrafeMovement,
+                component.CurTickRotationMovement,
+                component.CurTickBraking
+            );
         }
 
         float remainingFraction;
@@ -204,18 +224,23 @@ public sealed class MoverController : SharedMoverController
         }
         else
         {
-            remainingFraction = (ushort.MaxValue - component.LastInputSubTick) / (float) ushort.MaxValue;
+            remainingFraction = (ushort.MaxValue - component.LastInputSubTick) / (float)ushort.MaxValue;
         }
 
         ApplyTick(component, remainingFraction);
 
         // Logger.Info($"{curDir}{walk}{sprint}");
-        return new ShuttleInput(component.CurTickStrafeMovement, component.CurTickRotationMovement, component.CurTickBraking);
+        return new ShuttleInput(
+            component.CurTickStrafeMovement,
+            component.CurTickRotationMovement,
+            component.CurTickBraking
+        );
     }
 
     private void ResetSubtick(PilotComponent component)
     {
-        if (Timing.CurTick <= component.LastInputTick) return;
+        if (Timing.CurTick <= component.LastInputTick)
+            return;
 
         component.CurTickStrafeMovement = Vector2.Zero;
         component.CurTickRotationMovement = 0f;
@@ -242,7 +267,7 @@ public sealed class MoverController : SharedMoverController
 
         if (subTick >= pilot.LastInputSubTick)
         {
-            var fraction = (subTick - pilot.LastInputSubTick) / (float) ushort.MaxValue;
+            var fraction = (subTick - pilot.LastInputSubTick) / (float)ushort.MaxValue;
 
             ApplyTick(pilot, fraction);
             pilot.LastInputSubTick = subTick;
@@ -368,7 +393,11 @@ public sealed class MoverController : SharedMoverController
             tileCount = MathF.Max(1f, _mapSystem.GetAllTiles(gridUid, mapGrid).Count());
 
         var rawVel = ShuttleComponent.WepBaseVelocity - 25f * MathF.Log2(tileCount / ShuttleComponent.WepBaseGridSize);
-        shuttle.WepBoostMaxVelocity = Math.Clamp(rawVel, ShuttleComponent.WepLowerVelocity, ShuttleComponent.WepUpperVelocity);
+        shuttle.WepBoostMaxVelocity = Math.Clamp(
+            rawVel,
+            ShuttleComponent.WepLowerVelocity,
+            ShuttleComponent.WepUpperVelocity
+        );
 
         shuttle.WepBoostActive = true;
         shuttle.WepBoostExpiry = _timing.CurTime + TimeSpan.FromSeconds(ShuttleComponent.WepBoostDuration);
@@ -378,8 +407,13 @@ public sealed class MoverController : SharedMoverController
 
         // Play looping WEP audio on the grid.
         shuttle.WepAudioStream = _audio.Stop(shuttle.WepAudioStream);
-        var stream = _audio.PlayPvs(new SoundPathSpecifier("/Audio/_HL/Effects/wep_buzz.ogg")
-            { Params = AudioParams.Default.WithLoop(true).WithVolume(-3f) }, gridUid);
+        var stream = _audio.PlayPvs(
+            new SoundPathSpecifier("/Audio/_HL/Effects/wep_buzz.ogg")
+            {
+                Params = AudioParams.Default.WithLoop(true).WithVolume(-3f),
+            },
+            gridUid
+        );
         shuttle.WepAudioStream = stream?.Entity;
         _audio.SetGridAudio(stream);
 
@@ -390,9 +424,10 @@ public sealed class MoverController : SharedMoverController
     public Vector2 ObtainMaxVel(Vector2 vel, ShuttleComponent shuttle, PhysicsComponent body) // mono
     {
         vel.Normalize(); // Vector2 is a struct so this acts on a copy
-        var maxVel = (shuttle.WepBoostActive && _timing.CurTime < shuttle.WepBoostExpiry)
-            ? shuttle.WepBoostMaxVelocity
-            : shuttle.BaseMaxLinearVelocity;
+        var maxVel =
+            (shuttle.WepBoostActive && _timing.CurTime < shuttle.WepBoostExpiry)
+                ? shuttle.WepBoostMaxVelocity
+                : shuttle.BaseMaxLinearVelocity;
         return vel * maxVel;
     }
 
@@ -511,7 +546,6 @@ public sealed class MoverController : SharedMoverController
                         _thruster.DisableLinearThrustDirection(shuttle, DirectionFlag.North);
                         if (shuttleVelocity.Y > appearanceThreshold)
                             _thruster.EnableLinearThrustDirection(shuttle, DirectionFlag.South);
-
                     }
 
                     var impulse = force * brakeInput * ShuttleComponent.BrakeCoefficient;
@@ -533,7 +567,12 @@ public sealed class MoverController : SharedMoverController
 
                 if (body.AngularVelocity != 0f)
                 {
-                    var torque = shuttle.AngularThrust * shuttle.AngularMultiplier * brakeInput * (body.AngularVelocity > 0f ? -1f : 1f) * ShuttleComponent.BrakeCoefficient;
+                    var torque =
+                        shuttle.AngularThrust
+                        * shuttle.AngularMultiplier
+                        * brakeInput
+                        * (body.AngularVelocity > 0f ? -1f : 1f)
+                        * ShuttleComponent.BrakeCoefficient;
                     var torqueMul = body.InvI * frameTime;
 
                     if (body.AngularVelocity > 0f)
@@ -628,9 +667,11 @@ public sealed class MoverController : SharedMoverController
                 // edge onto the cap over and over.
                 var torqueMul = body.InvI * frameTime;
 
-                torque = Math.Clamp(torque,
+                torque = Math.Clamp(
+                    torque,
                     (-ShuttleComponent.MaxAngularVelocity - body.AngularVelocity) / torqueMul,
-                    (ShuttleComponent.MaxAngularVelocity - body.AngularVelocity) / torqueMul);
+                    (ShuttleComponent.MaxAngularVelocity - body.AngularVelocity) / torqueMul
+                );
 
                 if (!torque.Equals(0f))
                 {
@@ -643,7 +684,19 @@ public sealed class MoverController : SharedMoverController
 
     private void HandleShuttlePilot(float frameTime)
     {
-        var newPilots = new Dictionary<EntityUid, (ShuttleComponent Shuttle, List<(EntityUid PilotUid, PilotComponent Pilot, InputMoverComponent Mover, TransformComponent ConsoleXform)>)>();
+        var newPilots =
+            new Dictionary<
+                EntityUid,
+                (
+                    ShuttleComponent Shuttle,
+                    List<(
+                        EntityUid PilotUid,
+                        PilotComponent Pilot,
+                        InputMoverComponent Mover,
+                        TransformComponent ConsoleXform
+                    )>
+                )
+            >();
 
         // We just mark off their movement and the shuttle itself does its own movement
         var activePilotQuery = EntityQueryEnumerator<PilotComponent, InputMoverComponent>();
@@ -658,18 +711,24 @@ public sealed class MoverController : SharedMoverController
                 consoleEnt = cargoConsole.Entity;
             }
 
-            if (!TryComp(consoleEnt, out TransformComponent? xform)) continue;
+            if (!TryComp(consoleEnt, out TransformComponent? xform))
+                continue;
 
             var gridId = xform.GridUid;
             // This tries to see if the grid is a shuttle and if the console should work.
-            if (!TryComp<MapGridComponent>(gridId, out var _) ||
-                !shuttleQuery.TryGetComponent(gridId, out var shuttleComponent) ||
-                !shuttleComponent.Enabled)
+            if (
+                !TryComp<MapGridComponent>(gridId, out var _)
+                || !shuttleQuery.TryGetComponent(gridId, out var shuttleComponent)
+                || !shuttleComponent.Enabled
+            )
                 continue;
 
             if (!newPilots.TryGetValue(gridId!.Value, out var pilots))
             {
-                pilots = (shuttleComponent, new List<(EntityUid, PilotComponent, InputMoverComponent, TransformComponent)>());
+                pilots = (
+                    shuttleComponent,
+                    new List<(EntityUid, PilotComponent, InputMoverComponent, TransformComponent)>()
+                );
                 newPilots[gridId.Value] = pilots;
             }
 
@@ -677,7 +736,6 @@ public sealed class MoverController : SharedMoverController
         }
 
         _shuttlePilots = newPilots;
-
 
         // Collate all of the linear / angular velocites for a shuttle
         // then do the movement input once for it.
@@ -715,9 +773,7 @@ public sealed class MoverController : SharedMoverController
     private bool CanPilot(EntityUid shuttleUid)
     {
         return TryComp<FTLComponent>(shuttleUid, out var ftl)
-        && (ftl.State & (FTLState.Starting | FTLState.Travelling | FTLState.Arriving)) != 0x0
+                && (ftl.State & (FTLState.Starting | FTLState.Travelling | FTLState.Arriving)) != 0x0
             || HasComp<PreventPilotComponent>(shuttleUid);
     }
-
 }
-

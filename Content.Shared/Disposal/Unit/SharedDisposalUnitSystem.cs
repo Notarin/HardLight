@@ -29,38 +29,72 @@ using Robust.Shared.Map.Components;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Events;
 using Robust.Shared.Physics.Systems;
+using Robust.Shared.Prototypes; // Goobstation
 using Robust.Shared.Serialization;
 using Robust.Shared.Timing;
-using Robust.Shared.Prototypes; // Goobstation
 using Robust.Shared.Utility;
 
 namespace Content.Shared.Disposal.Unit;
 
 [Serializable, NetSerializable]
-public sealed partial class DisposalDoAfterEvent : SimpleDoAfterEvent
-{
-}
+public sealed partial class DisposalDoAfterEvent : SimpleDoAfterEvent { }
 
 public abstract class SharedDisposalUnitSystem : EntitySystem
 {
-    [Dependency] protected readonly ActionBlockerSystem ActionBlockerSystem = default!;
-    [Dependency] private   readonly EntityWhitelistSystem _whitelistSystem = default!;
-    [Dependency] protected readonly MetaDataSystem Metadata = default!;
-    [Dependency] private   readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] protected readonly SharedAudioSystem Audio = default!;
-    [Dependency] protected readonly IGameTiming GameTiming = default!;
-    [Dependency] private   readonly ISharedAdminLogManager _adminLog = default!;
-    [Dependency] private   readonly ClimbSystem _climb = default!;
-    [Dependency] protected readonly SharedContainerSystem Containers = default!;
-    [Dependency] protected readonly SharedJointSystem Joints = default!;
-    [Dependency] private   readonly SharedPowerReceiverSystem _power = default!;
-    [Dependency] private   readonly SharedDisposalTubeSystem _disposalTubeSystem = default!;
-    [Dependency] private   readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private   readonly SharedDoAfterSystem _doAfterSystem = default!;
-    [Dependency] private   readonly SharedHandsSystem _handsSystem = default!;
-    [Dependency] protected readonly SharedTransformSystem TransformSystem = default!;
-    [Dependency] private   readonly SharedUserInterfaceSystem _ui = default!;
-    [Dependency] private   readonly SharedMapSystem _map = default!;
+    [Dependency]
+    protected readonly ActionBlockerSystem ActionBlockerSystem = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelistSystem = default!;
+
+    [Dependency]
+    protected readonly MetaDataSystem Metadata = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    protected readonly SharedAudioSystem Audio = default!;
+
+    [Dependency]
+    protected readonly IGameTiming GameTiming = default!;
+
+    [Dependency]
+    private readonly ISharedAdminLogManager _adminLog = default!;
+
+    [Dependency]
+    private readonly ClimbSystem _climb = default!;
+
+    [Dependency]
+    protected readonly SharedContainerSystem Containers = default!;
+
+    [Dependency]
+    protected readonly SharedJointSystem Joints = default!;
+
+    [Dependency]
+    private readonly SharedPowerReceiverSystem _power = default!;
+
+    [Dependency]
+    private readonly SharedDisposalTubeSystem _disposalTubeSystem = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfterSystem = default!;
+
+    [Dependency]
+    private readonly SharedHandsSystem _handsSystem = default!;
+
+    [Dependency]
+    protected readonly SharedTransformSystem TransformSystem = default!;
+
+    [Dependency]
+    private readonly SharedUserInterfaceSystem _ui = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _map = default!;
+
     // public static readonly ProtoId<SourcePortPrototype> ReadyPort = "DisposalReady"; // Goobstation
 
     protected static TimeSpan ExitAttemptDelay = TimeSpan.FromSeconds(0.5);
@@ -111,7 +145,9 @@ public abstract class SharedDisposalUnitSystem : EntitySystem
             {
                 Act = () => ManualEngage(uid, component),
                 Text = Loc.GetString("disposal-flush-verb-get-data-text"),
-                Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/delete_transparent.svg.192dpi.png")),
+                Icon = new SpriteSpecifier.Texture(
+                    new("/Textures/Interface/VerbIcons/delete_transparent.svg.192dpi.png")
+                ),
                 Priority = 1,
             };
             args.Verbs.Add(flushVerb);
@@ -121,7 +157,7 @@ public abstract class SharedDisposalUnitSystem : EntitySystem
             {
                 Act = () => TryEjectContents(uid, component),
                 Category = VerbCategory.Eject,
-                Text = Loc.GetString("disposal-eject-verb-get-data-text")
+                Text = Loc.GetString("disposal-eject-verb-get-data-text"),
             };
             args.Verbs.Add(ejectVerb);
         }
@@ -144,10 +180,20 @@ public abstract class SharedDisposalUnitSystem : EntitySystem
             Category = VerbCategory.Insert,
             Act = () =>
             {
-                _handsSystem.TryDropIntoContainer(args.User, args.Using.Value, component.Container, checkActionBlocker: false, args.Hands);
-                _adminLog.Add(LogType.Action, LogImpact.Medium, $"{ToPrettyString(args.User):player} inserted {ToPrettyString(args.Using.Value)} into {ToPrettyString(uid)}");
+                _handsSystem.TryDropIntoContainer(
+                    args.User,
+                    args.Using.Value,
+                    component.Container,
+                    checkActionBlocker: false,
+                    args.Hands
+                );
+                _adminLog.Add(
+                    LogType.Action,
+                    LogImpact.Medium,
+                    $"{ToPrettyString(args.User):player} inserted {ToPrettyString(args.Using.Value)} into {ToPrettyString(uid)}"
+                );
                 AfterInsert(uid, component, args.Using.Value, args.User);
-            }
+            },
         };
 
         args.Verbs.Add(insertVerb);
@@ -188,9 +234,11 @@ public abstract class SharedDisposalUnitSystem : EntitySystem
         if (!ActionBlockerSystem.CanMove(args.Entity))
             return;
 
-        if (!TryComp(args.Entity, out HandsComponent? hands) ||
-            hands.Count == 0 ||
-            currentTime < component.LastExitAttempt + ExitAttemptDelay)
+        if (
+            !TryComp(args.Entity, out HandsComponent? hands)
+            || hands.Count == 0
+            || currentTime < component.LastExitAttempt + ExitAttemptDelay
+        )
             return;
 
         Dirty(uid, component);
@@ -218,12 +266,19 @@ public abstract class SharedDisposalUnitSystem : EntitySystem
             return;
         }
 
-        if (!CanInsert(uid, component, args.Used) || !_handsSystem.TryDropIntoContainer(args.User, args.Used, component.Container))
+        if (
+            !CanInsert(uid, component, args.Used)
+            || !_handsSystem.TryDropIntoContainer(args.User, args.Used, component.Container)
+        )
         {
             return;
         }
 
-        _adminLog.Add(LogType.Action, LogImpact.Medium, $"{ToPrettyString(args.User):player} inserted {ToPrettyString(args.Used)} into {ToPrettyString(uid)}");
+        _adminLog.Add(
+            LogType.Action,
+            LogImpact.Medium,
+            $"{ToPrettyString(args.User):player} inserted {ToPrettyString(args.Used)} into {ToPrettyString(uid)}"
+        );
         AfterInsert(uid, component, args.Used, args.User);
         args.Handled = true;
     }
@@ -270,10 +325,7 @@ public abstract class SharedDisposalUnitSystem : EntitySystem
         args.Handled = TryInsert(uid, args.Dragged, args.User);
     }
 
-    protected virtual void UpdateUI(Entity<DisposalUnitComponent> entity)
-    {
-
-    }
+    protected virtual void UpdateUI(Entity<DisposalUnitComponent> entity) { }
 
     /// <summary>
     /// Returns the estimated time when the disposal unit will be back to full pressure.
@@ -289,8 +341,8 @@ public abstract class SharedDisposalUnitSystem : EntitySystem
     public bool CanFlush(EntityUid unit, DisposalUnitComponent component)
     {
         return GetState(unit, component) == DisposalsPressureState.Ready
-               && _power.IsPowered(unit)
-               && Comp<TransformComponent>(unit).Anchored;
+            && _power.IsPowered(unit)
+            && Comp<TransformComponent>(unit).Anchored;
     }
 
     public void Remove(EntityUid uid, DisposalUnitComponent component, EntityUid toRemove)
@@ -326,9 +378,24 @@ public abstract class SharedDisposalUnitSystem : EntitySystem
 
         if (!Transform(uid).Anchored)
         {
-            _appearance.SetData(uid, DisposalUnitComponent.Visuals.VisualState, DisposalUnitComponent.VisualState.UnAnchored, appearance);
-            _appearance.SetData(uid, DisposalUnitComponent.Visuals.Handle, DisposalUnitComponent.HandleState.Normal, appearance);
-            _appearance.SetData(uid, DisposalUnitComponent.Visuals.Light, DisposalUnitComponent.LightStates.Off, appearance);
+            _appearance.SetData(
+                uid,
+                DisposalUnitComponent.Visuals.VisualState,
+                DisposalUnitComponent.VisualState.UnAnchored,
+                appearance
+            );
+            _appearance.SetData(
+                uid,
+                DisposalUnitComponent.Visuals.Handle,
+                DisposalUnitComponent.HandleState.Normal,
+                appearance
+            );
+            _appearance.SetData(
+                uid,
+                DisposalUnitComponent.Visuals.Light,
+                DisposalUnitComponent.LightStates.Off,
+                appearance
+            );
             return;
         }
 
@@ -337,23 +404,46 @@ public abstract class SharedDisposalUnitSystem : EntitySystem
         switch (state)
         {
             case DisposalsPressureState.Flushed:
-                _appearance.SetData(uid, DisposalUnitComponent.Visuals.VisualState, DisposalUnitComponent.VisualState.OverlayFlushing, appearance);
+                _appearance.SetData(
+                    uid,
+                    DisposalUnitComponent.Visuals.VisualState,
+                    DisposalUnitComponent.VisualState.OverlayFlushing,
+                    appearance
+                );
                 break;
             case DisposalsPressureState.Pressurizing:
-                _appearance.SetData(uid, DisposalUnitComponent.Visuals.VisualState, DisposalUnitComponent.VisualState.OverlayCharging, appearance);
+                _appearance.SetData(
+                    uid,
+                    DisposalUnitComponent.Visuals.VisualState,
+                    DisposalUnitComponent.VisualState.OverlayCharging,
+                    appearance
+                );
                 break;
             case DisposalsPressureState.Ready:
-                _appearance.SetData(uid, DisposalUnitComponent.Visuals.VisualState, DisposalUnitComponent.VisualState.Anchored, appearance);
+                _appearance.SetData(
+                    uid,
+                    DisposalUnitComponent.Visuals.VisualState,
+                    DisposalUnitComponent.VisualState.Anchored,
+                    appearance
+                );
                 break;
         }
 
-        _appearance.SetData(uid, DisposalUnitComponent.Visuals.Handle, component.Engaged
-            ? DisposalUnitComponent.HandleState.Engaged
-            : DisposalUnitComponent.HandleState.Normal, appearance);
+        _appearance.SetData(
+            uid,
+            DisposalUnitComponent.Visuals.Handle,
+            component.Engaged ? DisposalUnitComponent.HandleState.Engaged : DisposalUnitComponent.HandleState.Normal,
+            appearance
+        );
 
         if (!_power.IsPowered(uid))
         {
-            _appearance.SetData(uid, DisposalUnitComponent.Visuals.Light, DisposalUnitComponent.LightStates.Off, appearance);
+            _appearance.SetData(
+                uid,
+                DisposalUnitComponent.Visuals.Light,
+                DisposalUnitComponent.LightStates.Off,
+                appearance
+            );
             return;
         }
 
@@ -383,7 +473,11 @@ public abstract class SharedDisposalUnitSystem : EntitySystem
     /// <param name="component"></param>
     /// <param name="metadata"></param>
     /// <returns></returns>
-    public DisposalsPressureState GetState(EntityUid uid, DisposalUnitComponent component, MetaDataComponent? metadata = null)
+    public DisposalsPressureState GetState(
+        EntityUid uid,
+        DisposalUnitComponent component,
+        MetaDataComponent? metadata = null
+    )
     {
         var nextPressure = Metadata.GetPauseTime(uid, metadata) + component.NextPressurized - GameTiming.CurTime;
         var pressurizeTime = 1f / PressurePerSecond;
@@ -408,12 +502,13 @@ public abstract class SharedDisposalUnitSystem : EntitySystem
             return 0f;
 
         var pauseTime = Metadata.GetPauseTime(uid, metadata);
-        return MathF.Min(1f,
-            (float)(GameTiming.CurTime - pauseTime - component.NextPressurized).TotalSeconds / PressurePerSecond);
+        return MathF.Min(
+            1f,
+            (float)(GameTiming.CurTime - pauseTime - component.NextPressurized).TotalSeconds / PressurePerSecond
+        );
     }
 
-    protected void OnPreventCollide(EntityUid uid, DisposalUnitComponent component,
-        ref PreventCollideEvent args)
+    protected void OnPreventCollide(EntityUid uid, DisposalUnitComponent component, ref PreventCollideEvent args)
     {
         var otherBody = args.OtherEntity;
 
@@ -452,8 +547,10 @@ public abstract class SharedDisposalUnitSystem : EntitySystem
         if (!storable && !HasComp<BodyComponent>(entity))
             return false;
 
-        if (_whitelistSystem.IsBlacklistPass(component.Blacklist, entity) ||
-            _whitelistSystem.IsWhitelistFail(component.Whitelist, entity))
+        if (
+            _whitelistSystem.IsBlacklistPass(component.Blacklist, entity)
+            || _whitelistSystem.IsWhitelistFail(component.Whitelist, entity)
+        )
             return false;
 
         if (TryComp<PhysicsComponent>(entity, out var physics) && (physics.CanCollide) || storable)
@@ -462,10 +559,12 @@ public abstract class SharedDisposalUnitSystem : EntitySystem
             return false;
     }
 
-    public void DoInsertDisposalUnit(EntityUid uid,
+    public void DoInsertDisposalUnit(
+        EntityUid uid,
         EntityUid toInsert,
         EntityUid user,
-        DisposalUnitComponent? disposal = null)
+        DisposalUnitComponent? disposal = null
+    )
     {
         if (!Resolve(uid, ref disposal))
             return;
@@ -473,22 +572,32 @@ public abstract class SharedDisposalUnitSystem : EntitySystem
         if (!Containers.Insert(toInsert, disposal.Container))
             return;
 
-        _adminLog.Add(LogType.Action, LogImpact.Medium, $"{ToPrettyString(user):player} inserted {ToPrettyString(toInsert)} into {ToPrettyString(uid)}");
+        _adminLog.Add(
+            LogType.Action,
+            LogImpact.Medium,
+            $"{ToPrettyString(user):player} inserted {ToPrettyString(toInsert)} into {ToPrettyString(uid)}"
+        );
         AfterInsert(uid, disposal, toInsert, user);
     }
 
-    public virtual void AfterInsert(EntityUid uid,
+    public virtual void AfterInsert(
+        EntityUid uid,
         DisposalUnitComponent component,
         EntityUid inserted,
         EntityUid? user = null,
-        bool doInsert = false)
+        bool doInsert = false
+    )
     {
         Audio.PlayPredicted(component.InsertSound, uid, user: user);
         if (doInsert && !Containers.Insert(inserted, component.Container))
             return;
 
         if (user != inserted && user != null)
-            _adminLog.Add(LogType.Action, LogImpact.Medium, $"{ToPrettyString(user.Value):player} inserted {ToPrettyString(inserted)} into {ToPrettyString(uid)}");
+            _adminLog.Add(
+                LogType.Action,
+                LogImpact.Medium,
+                $"{ToPrettyString(user.Value):player} inserted {ToPrettyString(inserted)} into {ToPrettyString(uid)}"
+            );
 
         QueueAutomaticEngage(uid, component);
 
@@ -506,7 +615,12 @@ public abstract class SharedDisposalUnitSystem : EntitySystem
 
         if (userId.HasValue && !HasComp<HandsComponent>(userId) && toInsertId != userId) // Mobs like mouse can Jump inside even with no hands
         {
-            _popupSystem.PopupEntity(Loc.GetString("disposal-unit-no-hands"), userId.Value, userId.Value, PopupType.SmallCaution);
+            _popupSystem.PopupEntity(
+                Loc.GetString("disposal-unit-no-hands"),
+                userId.Value,
+                userId.Value,
+                PopupType.SmallCaution
+            );
             return false;
         }
 
@@ -518,7 +632,15 @@ public abstract class SharedDisposalUnitSystem : EntitySystem
         var delay = insertingSelf ? unit.EntryDelay : unit.DraggedEntryDelay;
 
         if (userId != null && !insertingSelf)
-            _popupSystem.PopupEntity(Loc.GetString("disposal-unit-being-inserted", ("user", Identity.Entity((EntityUid)userId, EntityManager))), toInsertId, toInsertId, PopupType.Large);
+            _popupSystem.PopupEntity(
+                Loc.GetString(
+                    "disposal-unit-being-inserted",
+                    ("user", Identity.Entity((EntityUid)userId, EntityManager))
+                ),
+                toInsertId,
+                toInsertId,
+                PopupType.Large
+            );
 
         if (delay <= 0 || userId == null)
         {
@@ -528,7 +650,15 @@ public abstract class SharedDisposalUnitSystem : EntitySystem
 
         // Can't check if our target AND disposals moves currently so we'll just check target.
         // if you really want to check if disposals moves then add a predicate.
-        var doAfterArgs = new DoAfterArgs(EntityManager, userId.Value, delay, new DisposalDoAfterEvent(), unitId, target: toInsertId, used: unitId)
+        var doAfterArgs = new DoAfterArgs(
+            EntityManager,
+            userId.Value,
+            delay,
+            new DisposalDoAfterEvent(),
+            unitId,
+            target: toInsertId,
+            used: unitId
+        )
         {
             BreakOnDamage = true,
             BreakOnMove = true,
@@ -539,7 +669,12 @@ public abstract class SharedDisposalUnitSystem : EntitySystem
         return true;
     }
 
-    private void UpdateState(EntityUid uid, DisposalsPressureState state, DisposalUnitComponent component, MetaDataComponent metadata)
+    private void UpdateState(
+        EntityUid uid,
+        DisposalsPressureState state,
+        DisposalUnitComponent component,
+        MetaDataComponent metadata
+    )
     {
         if (component.State == state)
             return;
@@ -648,10 +783,7 @@ public abstract class SharedDisposalUnitSystem : EntitySystem
         return true;
     }
 
-    protected virtual void HandleAir(EntityUid uid, DisposalUnitComponent component, TransformComponent xform)
-    {
-
-    }
+    protected virtual void HandleAir(EntityUid uid, DisposalUnitComponent component, TransformComponent xform) { }
 
     public void ManualEngage(EntityUid uid, DisposalUnitComponent component, MetaDataComponent? metadata = null)
     {
@@ -668,7 +800,9 @@ public abstract class SharedDisposalUnitSystem : EntitySystem
 
         var pauseTime = Metadata.GetPauseTime(uid, metadata);
         var nextEngage = GameTiming.CurTime - pauseTime + component.ManualFlushTime;
-        component.NextFlush = TimeSpan.FromSeconds(Math.Min((component.NextFlush ?? TimeSpan.MaxValue).TotalSeconds, nextEngage.TotalSeconds));
+        component.NextFlush = TimeSpan.FromSeconds(
+            Math.Min((component.NextFlush ?? TimeSpan.MaxValue).TotalSeconds, nextEngage.TotalSeconds)
+        );
     }
 
     public void Disengage(EntityUid uid, DisposalUnitComponent component)
@@ -708,21 +842,31 @@ public abstract class SharedDisposalUnitSystem : EntitySystem
     /// </summary>
     public void QueueAutomaticEngage(EntityUid uid, DisposalUnitComponent component, MetaDataComponent? metadata = null)
     {
-        if (component.Deleted || !component.AutomaticEngage || !_power.IsPowered(uid) && component.Container.ContainedEntities.Count == 0)
+        if (
+            component.Deleted
+            || !component.AutomaticEngage
+            || !_power.IsPowered(uid) && component.Container.ContainedEntities.Count == 0
+        )
         {
             return;
         }
 
         var pauseTime = Metadata.GetPauseTime(uid, metadata);
         var automaticTime = GameTiming.CurTime + component.AutomaticEngageTime - pauseTime;
-        var flushTime = TimeSpan.FromSeconds(Math.Min((component.NextFlush ?? TimeSpan.MaxValue).TotalSeconds, automaticTime.TotalSeconds));
+        var flushTime = TimeSpan.FromSeconds(
+            Math.Min((component.NextFlush ?? TimeSpan.MaxValue).TotalSeconds, automaticTime.TotalSeconds)
+        );
 
         component.NextFlush = flushTime;
         Dirty(uid, component);
         UpdateUI((uid, component));
     }
 
-    private void OnUiButtonPressed(EntityUid uid, DisposalUnitComponent component, DisposalUnitComponent.UiButtonPressedMessage args)
+    private void OnUiButtonPressed(
+        EntityUid uid,
+        DisposalUnitComponent component,
+        DisposalUnitComponent.UiButtonPressedMessage args
+    )
     {
         if (args.Actor is not { Valid: true } player)
         {
@@ -733,17 +877,27 @@ public abstract class SharedDisposalUnitSystem : EntitySystem
         {
             case DisposalUnitComponent.UiButton.Eject:
                 TryEjectContents(uid, component);
-                _adminLog.Add(LogType.Action, LogImpact.Low, $"{ToPrettyString(player):player} hit eject button on {ToPrettyString(uid)}");
+                _adminLog.Add(
+                    LogType.Action,
+                    LogImpact.Low,
+                    $"{ToPrettyString(player):player} hit eject button on {ToPrettyString(uid)}"
+                );
                 break;
             case DisposalUnitComponent.UiButton.Engage:
                 ToggleEngage(uid, component);
-                _adminLog.Add(LogType.Action, LogImpact.Low, $"{ToPrettyString(player):player} hit flush button on {ToPrettyString(uid)}, it's now {(component.Engaged ? "on" : "off")}");
+                _adminLog.Add(
+                    LogType.Action,
+                    LogImpact.Low,
+                    $"{ToPrettyString(player):player} hit flush button on {ToPrettyString(uid)}, it's now {(component.Engaged ? "on" : "off")}"
+                );
                 break;
             case DisposalUnitComponent.UiButton.Power:
                 _power.TogglePower(uid, user: args.Actor);
                 break;
             default:
-                throw new ArgumentOutOfRangeException($"{ToPrettyString(player):player} attempted to hit a nonexistant button on {ToPrettyString(uid)}");
+                throw new ArgumentOutOfRangeException(
+                    $"{ToPrettyString(player):player} attempted to hit a nonexistant button on {ToPrettyString(uid)}"
+                );
         }
     }
 
@@ -765,10 +919,12 @@ public abstract class SharedDisposalUnitSystem : EntitySystem
     {
         // This is not an interaction, activation, or alternative verb type because unfortunately most users are
         // unwilling to accept that this is where they belong and don't want to accidentally climb inside.
-        if (!args.CanAccess ||
-            !args.CanInteract ||
-            component.Container.ContainedEntities.Contains(args.User) ||
-            !ActionBlockerSystem.CanMove(args.User))
+        if (
+            !args.CanAccess
+            || !args.CanInteract
+            || component.Container.ContainedEntities.Contains(args.User)
+            || !ActionBlockerSystem.CanMove(args.User)
+        )
         {
             return;
         }
@@ -781,7 +937,7 @@ public abstract class SharedDisposalUnitSystem : EntitySystem
         {
             Act = () => TryInsert(uid, args.User, args.User),
             DoContactInteraction = true,
-            Text = Loc.GetString("disposal-self-insert-verb-get-data-text")
+            Text = Loc.GetString("disposal-self-insert-verb-get-data-text"),
         };
         // TODO VERB ICON
         // TODO VERB CATEGORY

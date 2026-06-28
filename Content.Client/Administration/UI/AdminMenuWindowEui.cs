@@ -19,14 +19,17 @@ namespace Content.Client.Administration.UI
 
         private void AnnounceButtonOnOnPressed(BaseButton.ButtonEventArgs obj)
         {
-            SendMessage(new AdminAnnounceEuiMsg.DoAnnounce
-            {
-                Announcement = Rope.Collapse(_window.Announcement.TextRope),
-                Announcer =  _window.Announcer.Text,
-                AnnounceType =  (AdminAnnounceType) (_window.AnnounceMethod.SelectedMetadata ?? AdminAnnounceType.Station),
-                CloseAfter = !_window.KeepWindowOpen.Pressed,
-            });
-
+            SendMessage(
+                new AdminAnnounceEuiMsg.DoAnnounce
+                {
+                    Announcement = Rope.Collapse(_window.Announcement.TextRope),
+                    Announcer = _window.Announcer.Text,
+                    AnnounceType = (AdminAnnounceType)(
+                        _window.AnnounceMethod.SelectedMetadata ?? AdminAnnounceType.Station
+                    ),
+                    CloseAfter = !_window.KeepWindowOpen.Pressed,
+                }
+            );
         }
 
         public override void Opened()

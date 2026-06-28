@@ -15,10 +15,17 @@ namespace Content.Server._NF.CrateMachine;
 /// </summary>
 public sealed partial class CrateMachineSystem : SharedCrateMachineSystem
 {
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly EntityStorageSystem _storage = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
+    [Dependency]
+    private readonly IMapManager _mapManager = default!;
+
+    [Dependency]
+    private readonly EntityLookupSystem _lookup = default!;
+
+    [Dependency]
+    private readonly EntityStorageSystem _storage = default!;
+
+    [Dependency]
+    private readonly TransformSystem _transform = default!;
 
     /// <summary>
     /// Checks if there is a crate on the crate machine.
@@ -39,9 +46,9 @@ public sealed partial class CrateMachineSystem : SharedCrateMachineSystem
             return true;
 
         // Finally check if there is a crate intersecting the crate machine.
-        return _lookup.GetLocalEntitiesIntersecting(tileRef.Value, flags: LookupFlags.All | LookupFlags.Approximate)
-            .Any(entity => MetaData(entity).EntityPrototype?.ID ==
-                           component.CratePrototype);
+        return _lookup
+            .GetLocalEntitiesIntersecting(tileRef.Value, flags: LookupFlags.All | LookupFlags.Approximate)
+            .Any(entity => MetaData(entity).EntityPrototype?.ID == component.CratePrototype);
     }
 
     /// <summary>
@@ -85,7 +92,6 @@ public sealed partial class CrateMachineSystem : SharedCrateMachineSystem
         }
         return false;
     }
-
 
     /// <summary>
     /// Convenience function that simply spawns a crate and returns the uid.

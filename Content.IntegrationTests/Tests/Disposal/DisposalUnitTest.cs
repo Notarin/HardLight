@@ -25,17 +25,26 @@ namespace Content.IntegrationTests.Tests.Disposal
             {
                 base.Initialize();
 
-                SubscribeLocalEvent<DoInsertDisposalUnitEvent>(ev =>
-                {
-                    var (_, toInsert, unit) = ev;
-                    var insertTransform = Comp<TransformComponent>(toInsert);
-                    // Not in a tube yet
-                    Assert.That(insertTransform.ParentUid, Is.EqualTo(unit));
-                }, after: new[] { typeof(SharedDisposalUnitSystem) });
+                SubscribeLocalEvent<DoInsertDisposalUnitEvent>(
+                    ev =>
+                    {
+                        var (_, toInsert, unit) = ev;
+                        var insertTransform = Comp<TransformComponent>(toInsert);
+                        // Not in a tube yet
+                        Assert.That(insertTransform.ParentUid, Is.EqualTo(unit));
+                    },
+                    after: new[] { typeof(SharedDisposalUnitSystem) }
+                );
             }
         }
 
-        private static void UnitInsert(EntityUid uid, DisposalUnitComponent unit, bool result, DisposalUnitSystem disposalSystem, params EntityUid[] entities)
+        private static void UnitInsert(
+            EntityUid uid,
+            DisposalUnitComponent unit,
+            bool result,
+            DisposalUnitSystem disposalSystem,
+            params EntityUid[] entities
+        )
         {
             foreach (var entity in entities)
             {
@@ -52,13 +61,25 @@ namespace Content.IntegrationTests.Tests.Disposal
             }
         }
 
-        private static void UnitInsertContains(EntityUid uid, DisposalUnitComponent unit, bool result, DisposalUnitSystem disposalSystem, params EntityUid[] entities)
+        private static void UnitInsertContains(
+            EntityUid uid,
+            DisposalUnitComponent unit,
+            bool result,
+            DisposalUnitSystem disposalSystem,
+            params EntityUid[] entities
+        )
         {
             UnitInsert(uid, unit, result, disposalSystem, entities);
             UnitContains(unit, result, entities);
         }
 
-        private static void Flush(EntityUid unitEntity, DisposalUnitComponent unit, bool result, DisposalUnitSystem disposalSystem, params EntityUid[] entities)
+        private static void Flush(
+            EntityUid unitEntity,
+            DisposalUnitComponent unit,
+            bool result,
+            DisposalUnitSystem disposalSystem,
+            params EntityUid[] entities
+        )
         {
             Assert.Multiple(() =>
             {
@@ -71,7 +92,8 @@ namespace Content.IntegrationTests.Tests.Disposal
         }
 
         [TestPrototypes]
-        private const string Prototypes = @"
+        private const string Prototypes =
+            @"
 - type: entity
   name: HumanDisposalDummy
   id: HumanDisposalDummy
@@ -182,7 +204,16 @@ namespace Content.IntegrationTests.Tests.Disposal
 
                 // Can't insert, unanchored and unpowered
                 xformSystem.Unanchor(unitUid, entityManager.GetComponent<TransformComponent>(unitUid));
-                UnitInsertContains(disposalUnit, unitComponent, false, disposalSystem, human, wrench, disposalUnit, disposalTrunk);
+                UnitInsertContains(
+                    disposalUnit,
+                    unitComponent,
+                    false,
+                    disposalSystem,
+                    human,
+                    wrench,
+                    disposalUnit,
+                    disposalTrunk
+                );
             });
 
             await server.WaitAssertion(() =>

@@ -24,8 +24,8 @@ public sealed partial class AmeControllerComponent : SharedAmeControllerComponen
     /// <summary>
     /// Whether or not the AME controller is currently injecting animatter into the reactor.
     /// </summary>
-// HardLight: This is runtime state and gets restored from WasInjecting after map load.
-//    [DataField("injecting")]
+    // HardLight: This is runtime state and gets restored from WasInjecting after map load.
+    //    [DataField("injecting")]
     [ViewVariables(VVAccess.ReadWrite)]
     public bool Injecting = false;
 

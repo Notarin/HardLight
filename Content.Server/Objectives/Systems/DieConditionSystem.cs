@@ -6,7 +6,8 @@ namespace Content.Server.Objectives.Systems;
 
 public sealed class DieConditionSystem : EntitySystem
 {
-    [Dependency] private readonly SharedMindSystem _mind = default!;
+    [Dependency]
+    private readonly SharedMindSystem _mind = default!;
 
     public override void Initialize()
     {

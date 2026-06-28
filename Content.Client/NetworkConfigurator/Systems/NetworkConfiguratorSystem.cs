@@ -18,10 +18,17 @@ namespace Content.Client.NetworkConfigurator.Systems;
 
 public sealed class NetworkConfiguratorSystem : SharedNetworkConfiguratorSystem
 {
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IOverlayManager _overlay = default!;
-    [Dependency] private readonly ActionsSystem _actions = default!;
-    [Dependency] private readonly IInputManager _inputManager = default!;
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly IOverlayManager _overlay = default!;
+
+    [Dependency]
+    private readonly ActionsSystem _actions = default!;
+
+    [Dependency]
+    private readonly IInputManager _inputManager = default!;
 
     [ValidatePrototypeId<EntityPrototype>]
     private const string Action = "ActionClearNetworkLinkOverlays";
@@ -43,8 +50,8 @@ public sealed class NetworkConfiguratorSystem : SharedNetworkConfiguratorSystem
     public bool ConfiguredListIsTracked(EntityUid uid, NetworkConfiguratorComponent? component = null)
     {
         return Resolve(uid, ref component)
-               && component.ActiveDeviceList != null
-               && HasComp<NetworkConfiguratorActiveLinkOverlayComponent>(component.ActiveDeviceList.Value);
+            && component.ActiveDeviceList != null
+            && HasComp<NetworkConfiguratorActiveLinkOverlayComponent>(component.ActiveDeviceList.Value);
     }
 
     /// <summary>
@@ -52,9 +59,7 @@ public sealed class NetworkConfiguratorSystem : SharedNetworkConfiguratorSystem
     /// </summary>
     public void ToggleVisualization(EntityUid uid, bool toggle, NetworkConfiguratorComponent? component = null)
     {
-        if (_playerManager.LocalEntity == null
-            || !Resolve(uid, ref component)
-            || component.ActiveDeviceList == null)
+        if (_playerManager.LocalEntity == null || !Resolve(uid, ref component) || component.ActiveDeviceList == null)
             return;
 
         if (!toggle)
@@ -126,24 +131,31 @@ public sealed class NetworkConfiguratorSystem : SharedNetworkConfiguratorSystem
 
             _linkModeActive = _configurator.LinkModeActive;
 
-            var modeLocString = _linkModeActive??false
-                ? "network-configurator-examine-mode-link"
-                : "network-configurator-examine-mode-list";
+            var modeLocString =
+                _linkModeActive ?? false
+                    ? "network-configurator-examine-mode-link"
+                    : "network-configurator-examine-mode-list";
 
-            _label.SetMarkup(Robust.Shared.Localization.Loc.GetString("network-configurator-item-status-label",
-                ("mode", Robust.Shared.Localization.Loc.GetString(modeLocString)),
-                ("keybinding", _keyBindingName)));
+            _label.SetMarkup(
+                Robust.Shared.Localization.Loc.GetString(
+                    "network-configurator-item-status-label",
+                    ("mode", Robust.Shared.Localization.Loc.GetString(modeLocString)),
+                    ("keybinding", _keyBindingName)
+                )
+            );
         }
     }
 }
 
 public sealed class ClearAllNetworkLinkOverlays : IConsoleCommand
 {
-    [Dependency] private readonly IEntityManager _e = default!;
+    [Dependency]
+    private readonly IEntityManager _e = default!;
 
     public string Command => "clearnetworklinkoverlays";
     public string Description => "Clear all network link overlays.";
     public string Help => Command;
+
     public void Execute(IConsoleShell shell, string argStr, string[] args)
     {
         _e.System<NetworkConfiguratorSystem>().ClearAllOverlays();

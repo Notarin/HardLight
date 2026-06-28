@@ -5,7 +5,8 @@ namespace Content.Client.Clock;
 
 public sealed class ClockSystem : SharedClockSystem
 {
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     public override void Update(float frameTime)
     {
@@ -14,8 +15,10 @@ public sealed class ClockSystem : SharedClockSystem
         var query = EntityQueryEnumerator<ClockComponent, SpriteComponent>();
         while (query.MoveNext(out var uid, out var comp, out var sprite))
         {
-            if (!_sprite.LayerMapTryGet((uid, sprite), ClockVisualLayers.HourHand, out var hourLayer, false) ||
-                !_sprite.LayerMapTryGet((uid, sprite), ClockVisualLayers.MinuteHand, out var minuteLayer, false))
+            if (
+                !_sprite.LayerMapTryGet((uid, sprite), ClockVisualLayers.HourHand, out var hourLayer, false)
+                || !_sprite.LayerMapTryGet((uid, sprite), ClockVisualLayers.MinuteHand, out var minuteLayer, false)
+            )
                 continue;
 
             var time = GetClockTime((uid, comp));

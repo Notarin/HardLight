@@ -8,7 +8,8 @@ namespace Content.Client.CombatMode
 {
     public sealed class ColoredScreenBorderOverlay : Overlay
     {
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+        [Dependency]
+        private readonly IPrototypeManager _prototypeManager = default!;
         private static readonly ProtoId<ShaderPrototype> ColoredScreenBorderShaderId = "ColoredScreenBorder";
 
         public override OverlaySpace Space => OverlaySpace.WorldSpace;

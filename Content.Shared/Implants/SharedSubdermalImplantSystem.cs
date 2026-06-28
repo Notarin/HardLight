@@ -1,3 +1,4 @@
+using System.Linq;
 using Content.Shared.Actions;
 using Content.Shared.Implants.Components;
 using Content.Shared.Interaction;
@@ -8,17 +9,25 @@ using JetBrains.Annotations;
 using Robust.Shared.Containers;
 using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
-using System.Linq;
 
 namespace Content.Shared.Implants;
 
 public abstract class SharedSubdermalImplantSystem : EntitySystem
 {
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly SharedActionsSystem _actionsSystem = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly TagSystem _tag = default!;
-    [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
+    [Dependency]
+    private readonly INetManager _net = default!;
+
+    [Dependency]
+    private readonly SharedActionsSystem _actionsSystem = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly TagSystem _tag = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transformSystem = default!;
 
     public const string BaseStorageId = "storagebase";
 
@@ -43,11 +52,22 @@ public abstract class SharedSubdermalImplantSystem : EntitySystem
 
         if (!string.IsNullOrWhiteSpace(component.ImplantAction))
         {
-            _actionsSystem.AddAction(component.ImplantedEntity.Value, ref component.Action, component.ImplantAction, uid);
+            _actionsSystem.AddAction(
+                component.ImplantedEntity.Value,
+                ref component.Action,
+                component.ImplantAction,
+                uid
+            );
         }
 
         //replace micro bomb with macro bomb
-        if (_container.TryGetContainer(component.ImplantedEntity.Value, ImplanterComponent.ImplantSlotId, out var implantContainer) && _tag.HasTag(uid, MacroBombTag))
+        if (
+            _container.TryGetContainer(
+                component.ImplantedEntity.Value,
+                ImplanterComponent.ImplantSlotId,
+                out var implantContainer
+            ) && _tag.HasTag(uid, MacroBombTag)
+        )
         {
             foreach (var implant in implantContainer.ContainedEntities)
             {
@@ -63,7 +83,11 @@ public abstract class SharedSubdermalImplantSystem : EntitySystem
         RaiseLocalEvent(uid, ref ev);
     }
 
-    private void OnRemoveAttempt(EntityUid uid, SubdermalImplantComponent component, ContainerGettingRemovedAttemptEvent args)
+    private void OnRemoveAttempt(
+        EntityUid uid,
+        SubdermalImplantComponent component,
+        ContainerGettingRemovedAttemptEvent args
+    )
     {
         if (component.Permanent && component.ImplantedEntity != null)
             args.Cancel();
@@ -176,7 +200,8 @@ public abstract class SharedSubdermalImplantSystem : EntitySystem
     }
 
     //Relays from the implanted to the implant
-    private void RelayToImplantEvent<T>(EntityUid uid, ImplantedComponent component, T args) where T : notnull
+    private void RelayToImplantEvent<T>(EntityUid uid, ImplantedComponent component, T args)
+        where T : notnull
     {
         if (!_container.TryGetContainer(uid, ImplanterComponent.ImplantSlotId, out var implantContainer))
             return;
@@ -184,7 +209,7 @@ public abstract class SharedSubdermalImplantSystem : EntitySystem
         var relayEv = new ImplantRelayEvent<T>(args);
         foreach (var implant in implantContainer.ContainedEntities)
         {
-            if (args is HandledEntityEventArgs { Handled : true })
+            if (args is HandledEntityEventArgs { Handled: true })
                 return;
 
             RaiseLocalEvent(implant, relayEv);
@@ -192,7 +217,8 @@ public abstract class SharedSubdermalImplantSystem : EntitySystem
     }
 }
 
-public sealed class ImplantRelayEvent<T> where T : notnull
+public sealed class ImplantRelayEvent<T>
+    where T : notnull
 {
     public readonly T Event;
 

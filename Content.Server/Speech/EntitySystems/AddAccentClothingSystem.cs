@@ -6,7 +6,8 @@ namespace Content.Server.Speech.EntitySystems;
 
 public sealed class AddAccentClothingSystem : EntitySystem
 {
-    [Dependency] private readonly IComponentFactory _componentFactory = default!;
+    [Dependency]
+    private readonly IComponentFactory _componentFactory = default!;
 
     public override void Initialize()
     {
@@ -16,8 +17,7 @@ public sealed class AddAccentClothingSystem : EntitySystem
         SubscribeLocalEvent<AddAccentClothingComponent, GetVerbsEvent<AlternativeVerb>>(OnGetAltVerbs); // Frontier
     }
 
-
-//  TODO: Turn this into a relay event.
+    //  TODO: Turn this into a relay event.
     private void OnGotEquipped(EntityUid uid, AddAccentClothingComponent component, ref ClothingGotEquippedEvent args)
     {
         // does the user already has this accent?
@@ -26,7 +26,7 @@ public sealed class AddAccentClothingSystem : EntitySystem
             return;
 
         // add accent to the user
-        var accentComponent = (Component) _componentFactory.GetComponent(componentType);
+        var accentComponent = (Component)_componentFactory.GetComponent(componentType);
         AddComp(args.Wearer, accentComponent);
 
         // snowflake case for replacement accent
@@ -37,7 +37,11 @@ public sealed class AddAccentClothingSystem : EntitySystem
         component.Wearer = args.Wearer; // Frontier
     }
 
-    private void OnGotUnequipped(EntityUid uid, AddAccentClothingComponent component, ref ClothingGotUnequippedEvent args)
+    private void OnGotUnequipped(
+        EntityUid uid,
+        AddAccentClothingComponent component,
+        ref ClothingGotUnequippedEvent args
+    )
     {
         component.Wearer = EntityUid.Invalid; // Frontier: prevent alt verb
         if (!component.IsActive)
@@ -65,7 +69,7 @@ public sealed class AddAccentClothingSystem : EntitySystem
         AlternativeVerb verb = new()
         {
             Text = Loc.GetString("accent-clothing-component-toggle"),
-            Act = () => ToggleAccent(uid, component)
+            Act = () => ToggleAccent(uid, component),
         };
         args.Verbs.Add(verb);
     }

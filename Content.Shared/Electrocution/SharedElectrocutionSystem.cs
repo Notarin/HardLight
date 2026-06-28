@@ -5,7 +5,8 @@ namespace Content.Shared.Electrocution
 {
     public abstract class SharedElectrocutionSystem : EntitySystem
     {
-        [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+        [Dependency]
+        private readonly SharedAppearanceSystem _appearance = default!;
 
         public override void Initialize()
         {
@@ -13,10 +14,16 @@ namespace Content.Shared.Electrocution
 
             SubscribeLocalEvent<InsulatedComponent, ElectrocutionAttemptEvent>(OnInsulatedElectrocutionAttempt);
             // as long as legally distinct electric-mice are never added, this should be fine (otherwise a mouse-hat will transfer it's power to the wearer).
-            SubscribeLocalEvent<InsulatedComponent, InventoryRelayedEvent<ElectrocutionAttemptEvent>>((e, c, ev) => OnInsulatedElectrocutionAttempt(e, c, ev.Args));
+            SubscribeLocalEvent<InsulatedComponent, InventoryRelayedEvent<ElectrocutionAttemptEvent>>(
+                (e, c, ev) => OnInsulatedElectrocutionAttempt(e, c, ev.Args)
+            );
         }
 
-        public void SetInsulatedSiemensCoefficient(EntityUid uid, float siemensCoefficient, InsulatedComponent? insulated = null)
+        public void SetInsulatedSiemensCoefficient(
+            EntityUid uid,
+            float siemensCoefficient,
+            InsulatedComponent? insulated = null
+        )
         {
             if (!Resolve(uid, ref insulated))
                 return;
@@ -62,14 +69,25 @@ namespace Content.Shared.Electrocution
         /// <param name="ignoreInsulation">Should the electrocution bypass the Insulated component?</param>
         /// <returns>Whether the entity <see cref="uid"/> was stunned by the shock.</returns>
         public virtual bool TryDoElectrocution(
-            EntityUid uid, EntityUid? sourceUid, int shockDamage, TimeSpan time, bool refresh, float siemensCoefficient = 1f,
-            StatusEffectsComponent? statusEffects = null, bool ignoreInsulation = false)
+            EntityUid uid,
+            EntityUid? sourceUid,
+            int shockDamage,
+            TimeSpan time,
+            bool refresh,
+            float siemensCoefficient = 1f,
+            StatusEffectsComponent? statusEffects = null,
+            bool ignoreInsulation = false
+        )
         {
             // only done serverside
             return false;
         }
 
-        private void OnInsulatedElectrocutionAttempt(EntityUid uid, InsulatedComponent insulated, ElectrocutionAttemptEvent args)
+        private void OnInsulatedElectrocutionAttempt(
+            EntityUid uid,
+            InsulatedComponent insulated,
+            ElectrocutionAttemptEvent args
+        )
         {
             args.SiemensCoefficient *= insulated.Coefficient;
         }

@@ -6,15 +6,15 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
-using Content.Server.Administration.Systems;
 using Content.Server.Administration.Managers;
+using Content.Server.Administration.Systems;
 using Content.Server.GameTicking;
 using Content.Server.GameTicking.Presets;
 using Content.Server.GameTicking.Rules.Components;
 using Content.Server.Maps;
 using Content.Server.RoundEnd;
-using Content.Shared.Administration.Managers;
 using Content.Shared.Administration;
+using Content.Shared.Administration.Managers;
 using Content.Shared.CCVar;
 using Content.Shared.GameTicking.Components;
 using Content.Shared.Prototypes;
@@ -47,19 +47,44 @@ public sealed partial class ServerApi : IPostInjectInit
         CCVars.PanicBunkerCustomReason.Name,
     ];
 
-    [Dependency] private readonly IStatusHost _statusHost = default!;
-    [Dependency] private readonly IConfigurationManager _config = default!;
-    [Dependency] private readonly ISharedPlayerManager _playerManager = default!;
-    [Dependency] private readonly IAdminManager _adminManager = default!; // Frontier: ISharedAdminManager<IAdminManager>
-    [Dependency] private readonly IGameMapManager _gameMapManager = default!;
-    [Dependency] private readonly IServerNetManager _netManager = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IComponentFactory _componentFactory = default!;
-    [Dependency] private readonly ITaskManager _taskManager = default!;
-    [Dependency] private readonly EntityManager _entityManager = default!;
-    [Dependency] private readonly ILogManager _logManager = default!;
-    [Dependency] private readonly IEntitySystemManager _entitySystemManager = default!;
-    [Dependency] private readonly ILocalizationManager _loc = default!;
+    [Dependency]
+    private readonly IStatusHost _statusHost = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _config = default!;
+
+    [Dependency]
+    private readonly ISharedPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly IAdminManager _adminManager = default!; // Frontier: ISharedAdminManager<IAdminManager>
+
+    [Dependency]
+    private readonly IGameMapManager _gameMapManager = default!;
+
+    [Dependency]
+    private readonly IServerNetManager _netManager = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly IComponentFactory _componentFactory = default!;
+
+    [Dependency]
+    private readonly ITaskManager _taskManager = default!;
+
+    [Dependency]
+    private readonly EntityManager _entityManager = default!;
+
+    [Dependency]
+    private readonly ILogManager _logManager = default!;
+
+    [Dependency]
+    private readonly IEntitySystemManager _entitySystemManager = default!;
+
+    [Dependency]
+    private readonly ILocalizationManager _loc = default!;
 
     private string _token = string.Empty;
     private ISawmill _sawmill = default!;
@@ -101,7 +126,6 @@ public sealed partial class ServerApi : IPostInjectInit
     {
         _token = token;
     }
-
 
     #region Actions
 
@@ -180,8 +204,7 @@ public sealed partial class ServerApi : IPostInjectInit
             foreach (var (cVar, value) in toSet)
             {
                 _config.SetCVar(cVar, value);
-                _sawmill.Info(
-                    $"Panic bunker property '{cVar}' changed to '{value}' by {FormatLogActor(actor)}.");
+                _sawmill.Info($"Panic bunker property '{cVar}' changed to '{value}' by {FormatLogActor(actor)}.");
             }
         });
 
@@ -222,7 +245,8 @@ public sealed partial class ServerApi : IPostInjectInit
                     context,
                     ErrorCode.InvalidRoundState,
                     HttpStatusCode.Conflict,
-                    "Game must be in pre-round lobby");
+                    "Game must be in pre-round lobby"
+                );
                 return;
             }
 
@@ -233,7 +257,8 @@ public sealed partial class ServerApi : IPostInjectInit
                     context,
                     ErrorCode.GameRuleNotFound,
                     HttpStatusCode.UnprocessableContent,
-                    $"Game rule '{body.PresetId}' doesn't exist");
+                    $"Game rule '{body.PresetId}' doesn't exist"
+                );
                 return;
             }
 
@@ -259,14 +284,17 @@ public sealed partial class ServerApi : IPostInjectInit
             var gameRule = ticker
                 .GetActiveGameRules()
                 .FirstOrNull(rule =>
-                    _entityManager.MetaQuery.GetComponent(rule).EntityPrototype?.ID == body.GameRuleId);
+                    _entityManager.MetaQuery.GetComponent(rule).EntityPrototype?.ID == body.GameRuleId
+                );
 
             if (gameRule == null)
             {
-                await RespondError(context,
+                await RespondError(
+                    context,
                     ErrorCode.GameRuleNotFound,
                     HttpStatusCode.UnprocessableContent,
-                    $"Game rule '{body.GameRuleId}' not found or not active");
+                    $"Game rule '{body.GameRuleId}' not found or not active"
+                );
 
                 return;
             }
@@ -292,10 +320,12 @@ public sealed partial class ServerApi : IPostInjectInit
             var ticker = _entitySystemManager.GetEntitySystem<GameTicker>();
             if (!_prototypeManager.HasIndex<EntityPrototype>(body.GameRuleId))
             {
-                await RespondError(context,
+                await RespondError(
+                    context,
                     ErrorCode.GameRuleNotFound,
                     HttpStatusCode.UnprocessableContent,
-                    $"Game rule '{body.GameRuleId}' not found or not active");
+                    $"Game rule '{body.GameRuleId}' not found or not active"
+                );
                 return;
             }
 
@@ -328,7 +358,8 @@ public sealed partial class ServerApi : IPostInjectInit
                     context,
                     ErrorCode.PlayerNotFound,
                     HttpStatusCode.UnprocessableContent,
-                    "Player not found");
+                    "Player not found"
+                );
                 return;
             }
 
@@ -354,7 +385,8 @@ public sealed partial class ServerApi : IPostInjectInit
                     context,
                     ErrorCode.InvalidRoundState,
                     HttpStatusCode.Conflict,
-                    "Round already started");
+                    "Round already started"
+                );
                 return;
             }
 
@@ -377,7 +409,8 @@ public sealed partial class ServerApi : IPostInjectInit
                     context,
                     ErrorCode.InvalidRoundState,
                     HttpStatusCode.Conflict,
-                    "Round is not active");
+                    "Round is not active"
+                );
                 return;
             }
 
@@ -410,27 +443,31 @@ public sealed partial class ServerApi : IPostInjectInit
             return;
 
         await RunOnMainThread(async () =>
-    {
-        // Player not online or wrong Guid
-        if (!_playerManager.TryGetSessionById(new NetUserId(body.Guid), out var player))
         {
-            await RespondError(
-                context,
-                ErrorCode.PlayerNotFound,
-                HttpStatusCode.UnprocessableContent,
-                "Player not found");
-            return;
-        }
+            // Player not online or wrong Guid
+            if (!_playerManager.TryGetSessionById(new NetUserId(body.Guid), out var player))
+            {
+                await RespondError(
+                    context,
+                    ErrorCode.PlayerNotFound,
+                    HttpStatusCode.UnprocessableContent,
+                    "Player not found"
+                );
+                return;
+            }
 
-        var serverBwoinkSystem = _entitySystemManager.GetEntitySystem<BwoinkSystem>();
-        var message = new SharedBwoinkSystem.BwoinkTextMessage(player.UserId, SharedBwoinkSystem.SystemUserId, body.Text, adminOnly: body.AdminOnly);
-        serverBwoinkSystem.OnWebhookBwoinkTextMessage(message, body);
+            var serverBwoinkSystem = _entitySystemManager.GetEntitySystem<BwoinkSystem>();
+            var message = new SharedBwoinkSystem.BwoinkTextMessage(
+                player.UserId,
+                SharedBwoinkSystem.SystemUserId,
+                body.Text,
+                adminOnly: body.AdminOnly
+            );
+            serverBwoinkSystem.OnWebhookBwoinkTextMessage(message, body);
 
-        // Respond with OK
-        await RespondOk(context);
-    });
-
-
+            // Respond with OK
+            await RespondOk(context);
+        });
     }
 
     #endregion
@@ -448,21 +485,20 @@ public sealed partial class ServerApi : IPostInjectInit
 
             foreach (var preset in _prototypeManager.EnumeratePrototypes<GamePresetPrototype>())
             {
-                presets.Add(new PresetResponse.Preset
-                {
-                    Id = preset.ID,
-                    ModeTitle = _loc.GetString(preset.ModeTitle),
-                    Description = _loc.GetString(preset.Description)
-                });
+                presets.Add(
+                    new PresetResponse.Preset
+                    {
+                        Id = preset.ID,
+                        ModeTitle = _loc.GetString(preset.ModeTitle),
+                        Description = _loc.GetString(preset.Description),
+                    }
+                );
             }
 
             return presets;
         });
 
-        await context.RespondJsonAsync(new PresetResponse
-        {
-            Presets = presets
-        });
+        await context.RespondJsonAsync(new PresetResponse { Presets = presets });
     }
 
     /// <summary>
@@ -480,12 +516,8 @@ public sealed partial class ServerApi : IPostInjectInit
                 gameRules.Add(gameRule.ID);
         }
 
-        await context.RespondJsonAsync(new GameruleResponse
-        {
-            GameRules = gameRules
-        });
+        await context.RespondJsonAsync(new GameruleResponse { GameRules = gameRules });
     }
-
 
     /// <summary>
     ///     Handles fetching information.
@@ -515,23 +547,21 @@ public sealed partial class ServerApi : IPostInjectInit
             {
                 var adminData = _adminManager.GetAdminData(player, true);
 
-                players.Add(new InfoResponse.Player
-                {
-                    UserId = player.UserId.UserId,
-                    Name = player.Name,
-                    IsAdmin = adminData != null,
-                    IsDeadminned = !adminData?.Active ?? false
-                });
+                players.Add(
+                    new InfoResponse.Player
+                    {
+                        UserId = player.UserId.UserId,
+                        Name = player.Name,
+                        IsAdmin = adminData != null,
+                        IsDeadminned = !adminData?.Active ?? false,
+                    }
+                );
             }
 
             InfoResponse.MapInfo? mapInfo = null;
             if (_gameMapManager.GetSelectedMap() is { } mapPrototype)
             {
-                mapInfo = new InfoResponse.MapInfo
-                {
-                    Id = mapPrototype.ID,
-                    Name = mapPrototype.MapName
-                };
+                mapInfo = new InfoResponse.MapInfo { Id = mapPrototype.ID, Name = mapPrototype.MapName };
             }
 
             var gameRules = new List<string>();
@@ -550,7 +580,7 @@ public sealed partial class ServerApi : IPostInjectInit
                 PanicBunker = panicBunkerCVars,
                 GamePreset = ticker.CurrentPreset?.ID,
                 GameRules = gameRules,
-                MOTD = _config.GetCVar(CCVars.MOTD)
+                MOTD = _config.GetCVar(CCVars.MOTD),
             };
         });
 
@@ -568,7 +598,8 @@ public sealed partial class ServerApi : IPostInjectInit
                 context,
                 ErrorCode.AuthenticationNeeded,
                 HttpStatusCode.Unauthorized,
-                "Authorization is required");
+                "Authorization is required"
+            );
             return false;
         }
 
@@ -593,9 +624,9 @@ public sealed partial class ServerApi : IPostInjectInit
         {
             _sawmill.Debug("No authorization token set for admin API");
         }
-        else if (CryptographicOperations.FixedTimeEquals(
-                Encoding.UTF8.GetBytes(authValue),
-                Encoding.UTF8.GetBytes(_token)))
+        else if (
+            CryptographicOperations.FixedTimeEquals(Encoding.UTF8.GetBytes(authValue), Encoding.UTF8.GetBytes(_token))
+        )
         {
             return true;
         }
@@ -604,7 +635,8 @@ public sealed partial class ServerApi : IPostInjectInit
             context,
             ErrorCode.AuthenticationInvalid,
             HttpStatusCode.Unauthorized,
-            "Authorization is invalid");
+            "Authorization is invalid"
+        );
 
         // Invalid auth header, no access
         _sawmill.Info($"Unauthorized access attempt to admin API from {context.RemoteEndPoint}");
@@ -683,10 +715,7 @@ public sealed partial class ServerApi : IPostInjectInit
 
     #region Responses
 
-    private record BaseResponse(
-        string Message,
-        ErrorCode ErrorCode = ErrorCode.None,
-        ExceptionData? Exception = null);
+    private record BaseResponse(string Message, ErrorCode ErrorCode = ErrorCode.None, ExceptionData? Exception = null);
 
     private record ExceptionData(string Message, string? StackTrace = null)
     {

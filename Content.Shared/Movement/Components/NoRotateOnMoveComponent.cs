@@ -7,6 +7,4 @@ namespace Content.Shared.Movement.Components;
 /// <see cref="MouseRotator"/> instead
 /// </summary>
 [RegisterComponent, NetworkedComponent]
-public sealed partial class NoRotateOnMoveComponent : Component
-{
-}
+public sealed partial class NoRotateOnMoveComponent : Component { }

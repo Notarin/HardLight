@@ -17,8 +17,8 @@ public sealed class OnRadiationOverlayUpdateEvent(
     double elapsedTimeMs,
     int sourcesCount,
     int receiversCount,
-    List<DebugRadiationRay> rays)
-    : EntityEventArgs
+    List<DebugRadiationRay> rays
+) : EntityEventArgs
 {
     /// <summary>
     ///     Total time in milliseconds that server took to do radiation processing.

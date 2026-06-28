@@ -1,27 +1,27 @@
 using System.Collections.Immutable;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
+using Content.Server._FS.DiscordAuth; // Floofstation
+using Content.Server._NF.Auth; // Frontier
 using Content.Server.Administration.Managers;
 using Content.Server.Chat.Managers;
 using Content.Server.Connection.IPIntel;
 using Content.Server.Database;
 using Content.Server.GameTicking;
 using Content.Server.Preferences.Managers;
-using Content.Shared.CCVar;
 using Content.Shared._FS.CCVar; // Floofstation
 using Content.Shared._NF.CCVar; // Frontier
+using Content.Shared.CCVar;
 using Content.Shared.GameTicking;
 using Content.Shared.Players.PlayTimeTracking;
 using Robust.Server.Player;
 using Robust.Shared.Configuration;
 using Robust.Shared.Enums;
 using Robust.Shared.Network;
-using Robust.Shared.Prototypes;
 using Robust.Shared.Player;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
-using Content.Server._NF.Auth; // Frontier
-using Content.Server._FS.DiscordAuth; // Floofstation
 
 /*
  * TODO: Remove baby jail code once a more mature gateway process is established. This code is only being issued as a stopgap to help with potential tiding in the immediate future.
@@ -54,20 +54,47 @@ namespace Content.Server.Connection
     /// </summary>
     public sealed partial class ConnectionManager : IConnectionManager
     {
-        [Dependency] private readonly IPlayerManager _plyMgr = default!;
-        [Dependency] private readonly IServerNetManager _netMgr = default!;
-        [Dependency] private readonly IServerDbManager _db = default!;
-        [Dependency] private readonly IConfigurationManager _cfg = default!;
-        [Dependency] private readonly ILocalizationManager _loc = default!;
-        [Dependency] private readonly ServerDbEntryManager _serverDbEntry = default!;
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly IGameTiming _gameTiming = default!;
-        [Dependency] private readonly ILogManager _logManager = default!;
-        [Dependency] private readonly IChatManager _chatManager = default!;
-        [Dependency] private readonly IHttpClientHolder _http = default!;
-        [Dependency] private readonly IAdminManager _adminManager = default!;
-        [Dependency] private readonly MiniAuthManager _authManager = default!; //Frontier
-        [Dependency] private readonly DiscordAuthManager _discordAuthManager = default!; // Floofstation
+        [Dependency]
+        private readonly IPlayerManager _plyMgr = default!;
+
+        [Dependency]
+        private readonly IServerNetManager _netMgr = default!;
+
+        [Dependency]
+        private readonly IServerDbManager _db = default!;
+
+        [Dependency]
+        private readonly IConfigurationManager _cfg = default!;
+
+        [Dependency]
+        private readonly ILocalizationManager _loc = default!;
+
+        [Dependency]
+        private readonly ServerDbEntryManager _serverDbEntry = default!;
+
+        [Dependency]
+        private readonly IPrototypeManager _prototypeManager = default!;
+
+        [Dependency]
+        private readonly IGameTiming _gameTiming = default!;
+
+        [Dependency]
+        private readonly ILogManager _logManager = default!;
+
+        [Dependency]
+        private readonly IChatManager _chatManager = default!;
+
+        [Dependency]
+        private readonly IHttpClientHolder _http = default!;
+
+        [Dependency]
+        private readonly IAdminManager _adminManager = default!;
+
+        [Dependency]
+        private readonly MiniAuthManager _authManager = default!; //Frontier
+
+        [Dependency]
+        private readonly DiscordAuthManager _discordAuthManager = default!; // Floofstation
 
         private ISawmill _sawmill = default!;
         private readonly Dictionary<NetUserId, TimeSpan> _temporaryBypasses = [];
@@ -82,7 +109,14 @@ namespace Content.Server.Connection
         {
             _sawmill = _logManager.GetSawmill("connections");
 
-            _ipintel = new IPIntel.IPIntel(new IPIntelApi(_http, _cfg), _db, _cfg, _logManager, _chatManager, _gameTiming);
+            _ipintel = new IPIntel.IPIntel(
+                new IPIntelApi(_http, _cfg),
+                _db,
+                _cfg,
+                _logManager,
+                _chatManager,
+                _gameTiming
+            );
 
             _netMgr.Connecting += NetMgrOnConnecting;
             _netMgr.AssignUserIdCallback = AssignUserIdCallback;
@@ -186,10 +220,12 @@ namespace Content.Server.Connection
 
             var addr = newSession.Channel.RemoteEndPoint.Address;
 
-            var otherConnectionsFromAddress = _plyMgr.Sessions.Where(session =>
+            var otherConnectionsFromAddress = _plyMgr
+                .Sessions.Where(session =>
                     session.Status is SessionStatus.Connected or SessionStatus.InGame
                     && session.Channel.RemoteEndPoint.Address.Equals(addr)
-                    && session.UserId != newSession.UserId)
+                    && session.UserId != newSession.UserId
+                )
                 .ToList();
 
             var otherConnectionCount = otherConnectionsFromAddress.Count;
@@ -197,21 +233,23 @@ namespace Content.Server.Connection
                 return;
 
             var username = newSession.Name;
-            var otherUsernames = string.Join(", ",
-                otherConnectionsFromAddress.Select(session => session.Name));
+            var otherUsernames = string.Join(", ", otherConnectionsFromAddress.Select(session => session.Name));
 
-            _chatManager.SendAdminAlert(Loc.GetString("admin-alert-shared-connection",
-                ("player", username),
-                ("otherCount", otherConnectionCount),
-                ("otherList", otherUsernames)));
+            _chatManager.SendAdminAlert(
+                Loc.GetString(
+                    "admin-alert-shared-connection",
+                    ("player", username),
+                    ("otherCount", otherConnectionCount),
+                    ("otherList", otherUsernames)
+                )
+            );
         }
 
         /*
          * TODO: Jesus H Christ what is this utter mess of a function
          * TODO: Break this apart into is constituent steps.
          */
-        private async Task<(ConnectionDenyReason, string, List<BanDef>? bansHit)?> ShouldDeny(
-            NetConnectingArgs e)
+        private async Task<(ConnectionDenyReason, string, List<BanDef>? bansHit)?> ShouldDeny(NetConnectingArgs e)
         {
             // Check if banned.
             var addr = e.IP.Address;
@@ -226,7 +264,11 @@ namespace Content.Server.Connection
 
             var modernHwid = e.UserData.ModernHWIds;
 
-            if (modernHwid.Length == 0 && e.AuthType == LoginType.LoggedIn && _cfg.GetCVar(CCVars.RequireModernHardwareId))
+            if (
+                modernHwid.Length == 0
+                && e.AuthType == LoginType.LoggedIn
+                && _cfg.GetCVar(CCVars.RequireModernHardwareId)
+            )
             {
                 return (ConnectionDenyReason.NoHwid, Loc.GetString("hwid-required"), null);
             }
@@ -248,8 +290,8 @@ namespace Content.Server.Connection
             var adminData = await _db.GetAdminDataForAsync(e.UserId);
             // New Frontiers - Session Respector - Checks that a player was connected before applying panic bunker/baby jail/no whitelist on low pop checks
             // This code is licensed under AGPLv3. See AGPLv3.txt
-            var wasInGame = EntitySystem.TryGet<GameTicker>(out var ticker) &&
-                            ticker.PlayerGameStatuses.ContainsKey(userId); // Frontier: remove status.JoinedGame check, TryGetValue<ContainsKey
+            var wasInGame =
+                EntitySystem.TryGet<GameTicker>(out var ticker) && ticker.PlayerGameStatuses.ContainsKey(userId); // Frontier: remove status.JoinedGame check, TryGetValue<ContainsKey
 
             if (_cfg.GetCVar(CCVars.PanicBunkerEnabled) && adminData == null && !wasInGame) // Frontier: allow users who joined before panic bunker was enforced to reconnect
             {
@@ -258,9 +300,11 @@ namespace Content.Server.Connection
 
                 var minMinutesAge = _cfg.GetCVar(CCVars.PanicBunkerMinAccountAge);
                 var record = await _db.GetPlayerRecordByUserId(userId);
-                var validAccountAge = record != null &&
-                                      record.FirstSeenTime.CompareTo(DateTimeOffset.UtcNow - TimeSpan.FromMinutes(minMinutesAge)) <= 0;
-                var bypassAllowed = _cfg.GetCVar(CCVars.BypassBunkerWhitelist) && await _db.GetWhitelistStatusAsync(userId);
+                var validAccountAge =
+                    record != null
+                    && record.FirstSeenTime.CompareTo(DateTimeOffset.UtcNow - TimeSpan.FromMinutes(minMinutesAge)) <= 0;
+                var bypassAllowed =
+                    _cfg.GetCVar(CCVars.BypassBunkerWhitelist) && await _db.GetWhitelistStatusAsync(userId);
 
                 // Use the custom reason if it exists & they don't have the minimum account age
                 if (customReason != string.Empty && !validAccountAge && !bypassAllowed)
@@ -270,13 +314,20 @@ namespace Content.Server.Connection
 
                 if (showReason && !validAccountAge && !bypassAllowed)
                 {
-                    return (ConnectionDenyReason.Panic,
-                        Loc.GetString("panic-bunker-account-denied-reason",
-                            ("reason", Loc.GetString("panic-bunker-account-reason-account", ("minutes", minMinutesAge)))), null);
+                    return (
+                        ConnectionDenyReason.Panic,
+                        Loc.GetString(
+                            "panic-bunker-account-denied-reason",
+                            ("reason", Loc.GetString("panic-bunker-account-reason-account", ("minutes", minMinutesAge)))
+                        ),
+                        null
+                    );
                 }
 
                 var minOverallMinutes = _cfg.GetCVar(CCVars.PanicBunkerMinOverallMinutes);
-                var overallTime = ( await _db.GetPlayTimes(e.UserId)).Find(p => p.Tracker == PlayTimeTrackingShared.TrackerOverall);
+                var overallTime = (await _db.GetPlayTimes(e.UserId)).Find(p =>
+                    p.Tracker == PlayTimeTrackingShared.TrackerOverall
+                );
                 var haveMinOverallTime = overallTime != null && overallTime.TimeSpent.TotalMinutes > minOverallMinutes;
 
                 // Use the custom reason if it exists & they don't have the minimum time
@@ -292,15 +343,25 @@ namespace Content.Server.Connection
                     string reason;
                     if (minutesNeeded > 60)
                     {
-                        reason = Loc.GetString("panic-bunker-account-reason-nf-overall-hours", ("hours", $"{minOverallMinutes / 60.0:F1}"), ("timeLeft", $"{minutesNeeded / 60.0:F1}"));
+                        reason = Loc.GetString(
+                            "panic-bunker-account-reason-nf-overall-hours",
+                            ("hours", $"{minOverallMinutes / 60.0:F1}"),
+                            ("timeLeft", $"{minutesNeeded / 60.0:F1}")
+                        );
                     }
                     else
                     {
-                        reason = Loc.GetString("panic-bunker-account-reason-nf-overall-minutes", ("hours", $"{minOverallMinutes / 60.0:F1}"), ("timeLeft", $"{minutesNeeded:F0}"));
+                        reason = Loc.GetString(
+                            "panic-bunker-account-reason-nf-overall-minutes",
+                            ("hours", $"{minOverallMinutes / 60.0:F1}"),
+                            ("timeLeft", $"{minutesNeeded:F0}")
+                        );
                     }
-                    return (ConnectionDenyReason.Panic,
-                        Loc.GetString("panic-bunker-account-denied-reason-nf",
-                            ("reason", reason)), null);
+                    return (
+                        ConnectionDenyReason.Panic,
+                        Loc.GetString("panic-bunker-account-denied-reason-nf", ("reason", reason)),
+                        null
+                    );
                     // End Frontier
                 }
 
@@ -325,18 +386,18 @@ namespace Content.Server.Connection
             }
 
             if (_cfg.GetCVar(FSCCVars.DiscordAuthEnabled) && _cfg.GetCVar(CCVars.WhitelistEnabled))
-             {
-                 if (await _discordAuthManager.IsVerified(userId) == false)
-                     return null;
+            {
+                if (await _discordAuthManager.IsVerified(userId) == false)
+                    return null;
 
-                 if (adminData is not null)
-                     return null;
+                if (adminData is not null)
+                    return null;
 
-                 if (await _discordAuthManager.IsWhitelisted(userId) || await _db.GetWhitelistStatusAsync(userId))
-                     return null;
+                if (await _discordAuthManager.IsWhitelisted(userId) || await _db.GetWhitelistStatusAsync(userId))
+                    return null;
 
-                 return (ConnectionDenyReason.Whitelist, Loc.GetString("not-whitelisted"), null);
-             }
+                return (ConnectionDenyReason.Whitelist, Loc.GetString("not-whitelisted"), null);
+            }
 
             // Checks for whitelist IF it's enabled AND the user isn't an admin. Admins are always allowed.
             if (_cfg.GetCVar(CCVars.WhitelistEnabled) && !wasInGame && adminData is null) // Frontier: allow users who joined before panic bunker was enforced to reconnect
@@ -360,7 +421,11 @@ namespace Content.Server.Connection
                     if (!whitelistStatus.isWhitelisted)
                     {
                         // Not whitelisted.
-                        return (ConnectionDenyReason.Whitelist, Loc.GetString("whitelist-fail-prefix", ("msg", whitelistStatus.denyMessage!)), null);
+                        return (
+                            ConnectionDenyReason.Whitelist,
+                            Loc.GetString("whitelist-fail-prefix", ("msg", whitelistStatus.denyMessage!)),
+                            null
+                        );
                     }
 
                     // Whitelisted, don't check any more.

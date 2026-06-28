@@ -11,8 +11,8 @@
         brain: OrganHumanBrain
         eyes: OrganFelionoidEyes
         tongue: OrganHumanTongue
-#        eye_implant: null
-#        brain_implant: null
+        #        eye_implant: null
+        #        brain_implant: null
     torso:
       part: TorsoFelionoid
       connections:
@@ -25,9 +25,9 @@
         heart: OrganAnimalHeart
         lungs: OrganHumanLungs
         stomach: OrganResomiStomach
-        liver:  OrganHumanLiver
+        liver: OrganHumanLiver
         kidneys: OrganHumanKidneys
-#       cavity: null
+        #       cavity: null
     right arm:
       part: RightArmFelionoid
       connections:
@@ -38,12 +38,12 @@
       - left hand
     right hand:
       part: RightHandFelionoid
-#      organs:
-#        hand_implant: null
+      #      organs:
+      #        hand_implant: null
     left hand:
       part: LeftHandFelionoid
-#      organs:
-#        hand_implant: null
+      #      organs:
+      #        hand_implant: null
     right leg:
       part: RightLegFelionoid
       connections:

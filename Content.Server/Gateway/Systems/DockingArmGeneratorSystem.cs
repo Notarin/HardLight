@@ -1,11 +1,11 @@
 using System.Linq;
 using System.Numerics;
 using Content.Server.Gateway.Components;
-using Content.Shared.Gateway.Components;
 using Content.Server.Parallax;
 using Content.Shared.CCVar;
 using Content.Shared.Dataset;
 using Content.Shared.Gateway;
+using Content.Shared.Gateway.Components;
 using Content.Shared.Maps;
 using Content.Shared.Popups;
 using Content.Shared.Shuttles.Components;
@@ -27,16 +27,35 @@ namespace Content.Server.Gateway.Systems;
 /// </summary>
 public sealed class DockingArmGeneratorSystem : EntitySystem
 {
-    [Dependency] private readonly IConfigurationManager _cfgManager = default!;
-    [Dependency] private readonly IPrototypeManager _protoManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly GatewaySystem _gateway = default!;
-    [Dependency] private readonly MetaDataSystem _metadata = default!;
-    [Dependency] private readonly MapLoaderSystem _loader = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly IConfigurationManager _cfgManager = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _protoManager = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly GatewaySystem _gateway = default!;
+
+    [Dependency]
+    private readonly MetaDataSystem _metadata = default!;
+
+    [Dependency]
+    private readonly MapLoaderSystem _loader = default!;
+
+    [Dependency]
+    private readonly IMapManager _mapManager = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     // Optional name dataset - will fall back to default names if not found
     private const string DockingArmNames = "names_borer";
@@ -105,7 +124,11 @@ public sealed class DockingArmGeneratorSystem : EntitySystem
 
         // Add a gateway component so it shows up in the gateway list
         var gatewayComp = EnsureComp<GatewayComponent>(destUid);
-        _gateway.SetDestinationName(destUid, FormattedMessage.FromMarkupOrThrow($"[color=#6495ED]Spawn New Dock[/color]"), gatewayComp);
+        _gateway.SetDestinationName(
+            destUid,
+            FormattedMessage.FromMarkupOrThrow($"[color=#6495ED]Spawn New Dock[/color]"),
+            gatewayComp
+        );
         _gateway.SetEnabled(destUid, true, gatewayComp);
 
         generator.Generated.Add(destUid);
@@ -125,7 +148,9 @@ public sealed class DockingArmGeneratorSystem : EntitySystem
 
     private void OnDockingArmAttemptOpen(Entity<DockingArmDestinationComponent> ent, ref AttemptGatewayOpenEvent args)
     {
-        Log.Info($"OnDockingArmAttemptOpen called for {ToPrettyString(ent)} - Locked: {ent.Comp.Locked}, Cancelled: {args.Cancelled}");
+        Log.Info(
+            $"OnDockingArmAttemptOpen called for {ToPrettyString(ent)} - Locked: {ent.Comp.Locked}, Cancelled: {args.Cancelled}"
+        );
 
         if (args.Cancelled)
         {
@@ -152,7 +177,9 @@ public sealed class DockingArmGeneratorSystem : EntitySystem
             var now = _timing.CurTime;
             if (now < genComp.NextSpawnAttempt)
             {
-                Log.Info($"Cancelling - spawn attempt cooldown active for {ToPrettyString(ent.Comp.Generator.Value)} ({(genComp.NextSpawnAttempt - now).TotalSeconds:0.0}s remaining)");
+                Log.Info(
+                    $"Cancelling - spawn attempt cooldown active for {ToPrettyString(ent.Comp.Generator.Value)} ({(genComp.NextSpawnAttempt - now).TotalSeconds:0.0}s remaining)"
+                );
                 _popup.PopupEntity(Loc.GetString("gateway-docking-arm-cooldown"), ent.Owner);
                 args.Cancelled = true;
                 return;
@@ -185,7 +212,11 @@ public sealed class DockingArmGeneratorSystem : EntitySystem
 
         // Select a random grid path if not specified
         string gridPath = ent.Comp.GridPath;
-        if (string.IsNullOrEmpty(gridPath) && ent.Comp.Generator != null && TryComp(ent.Comp.Generator, out DockingArmGeneratorComponent? generatorComp))
+        if (
+            string.IsNullOrEmpty(gridPath)
+            && ent.Comp.Generator != null
+            && TryComp(ent.Comp.Generator, out DockingArmGeneratorComponent? generatorComp)
+        )
         {
             if (generatorComp.DockingArmGrids.Count > 0)
             {
@@ -199,11 +230,19 @@ public sealed class DockingArmGeneratorSystem : EntitySystem
 
         // Load the docking arm grid
         SpawnDockingArmGrid(ent, args.MapUid, gridPath);
-    }    /// <summary>
+    }
+
+    /// <summary>
     /// Attempts to find a clear spawn location near the gateway.
     /// Checks multiple positions in a spiral pattern until a clear spot is found.
     /// </summary>
-    private bool TryFindClearSpawnLocation(MapId mapId, Vector2 preferredPosition, float gridRadius, out Vector2 clearPosition, int maxAttempts = 12)
+    private bool TryFindClearSpawnLocation(
+        MapId mapId,
+        Vector2 preferredPosition,
+        float gridRadius,
+        out Vector2 clearPosition,
+        int maxAttempts = 12
+    )
     {
         clearPosition = preferredPosition;
 
@@ -224,7 +263,9 @@ public sealed class DockingArmGeneratorSystem : EntitySystem
             if (IsSpawnLocationClear(mapId, testPosition, gridRadius))
             {
                 clearPosition = testPosition;
-                Log.Info($"Found clear spawn location at {testPosition} after {attempt} attempts (distance: {distance} tiles)");
+                Log.Info(
+                    $"Found clear spawn location at {testPosition} after {attempt} attempts (distance: {distance} tiles)"
+                );
                 return true;
             }
         }
@@ -251,9 +292,15 @@ public sealed class DockingArmGeneratorSystem : EntitySystem
         return true;
     }
 
-    private void SpawnDockingArmGrid(Entity<DockingArmDestinationComponent> ent, EntityUid? sourceGatewayUid, string gridPath)
+    private void SpawnDockingArmGrid(
+        Entity<DockingArmDestinationComponent> ent,
+        EntityUid? sourceGatewayUid,
+        string gridPath
+    )
     {
-        Log.Info($"SpawnDockingArmGrid called - GridPath: {gridPath}, SourceGateway: {ToPrettyString(sourceGatewayUid ?? EntityUid.Invalid)}");
+        Log.Info(
+            $"SpawnDockingArmGrid called - GridPath: {gridPath}, SourceGateway: {ToPrettyString(sourceGatewayUid ?? EntityUid.Invalid)}"
+        );
 
         if (string.IsNullOrEmpty(gridPath))
         {
@@ -275,7 +322,9 @@ public sealed class DockingArmGeneratorSystem : EntitySystem
             spawnAngle = random.NextAngle();
             preferredPosition = sourceXform.WorldPosition + spawnAngle.ToVec() * spawnDistance;
 
-            Log.Info($"Initial spawn position {preferredPosition} on map {targetMapId}, distance {spawnDistance} from gateway");
+            Log.Info(
+                $"Initial spawn position {preferredPosition} on map {targetMapId}, distance {spawnDistance} from gateway"
+            );
         }
         else
         {
@@ -294,7 +343,14 @@ public sealed class DockingArmGeneratorSystem : EntitySystem
 
         // Load the grid at the clear position
         Log.Info($"Attempting to load grid from {gridPath} at cleared position {spawnPosition}...");
-        if (_loader.TryLoadGrid(targetMapId, new ResPath(gridPath), out var dockingArmGrid, offset: spawnPosition.Floored()))
+        if (
+            _loader.TryLoadGrid(
+                targetMapId,
+                new ResPath(gridPath),
+                out var dockingArmGrid,
+                offset: spawnPosition.Floored()
+            )
+        )
         {
             // Get the generator component to access and increment the dock counter
             var dockNumber = 1;
@@ -325,13 +381,17 @@ public sealed class DockingArmGeneratorSystem : EntitySystem
                 var finalRotation = tangentialRotation - Angle.FromDegrees(-90);
                 _transform.SetWorldRotation(dockXform, finalRotation);
 
-                Log.Info($"Rotated dock to {finalRotation.Degrees}° (perpendicular to gateway direction, adjusted for dock orientation)");
+                Log.Info(
+                    $"Rotated dock to {finalRotation.Degrees}° (perpendicular to gateway direction, adjusted for dock orientation)"
+                );
             }
 
             // Update all gateway UIs so the new dock appears as a destination
             _gateway.UpdateAllGateways();
 
-            Log.Info($"Successfully spawned dock grid '{dockName}' (UID: {dockingArmGrid.Value}) from {gridPath} at {spawnPosition} on map {targetMapId}");
+            Log.Info(
+                $"Successfully spawned dock grid '{dockName}' (UID: {dockingArmGrid.Value}) from {gridPath} at {spawnPosition} on map {targetMapId}"
+            );
         }
         else
         {

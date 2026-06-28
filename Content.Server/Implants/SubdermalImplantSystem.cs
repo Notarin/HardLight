@@ -1,50 +1,75 @@
+using System.Numerics;
 using Content.Server.Cuffs;
 using Content.Server.Forensics;
 using Content.Server.Humanoid;
+using Content.Server.IdentityManagement;
 using Content.Server.Implants.Components;
 using Content.Server.Store.Components;
 using Content.Server.Store.Systems;
 using Content.Shared.Cuffs.Components;
+using Content.Shared.DetailExaminable;
 using Content.Shared.Forensics;
 using Content.Shared.Forensics.Components;
 using Content.Shared.Humanoid;
 using Content.Shared.Implants;
 using Content.Shared.Implants.Components;
 using Content.Shared.Interaction;
+using Content.Shared.Movement.Pulling.Components;
+using Content.Shared.Movement.Pulling.Systems;
 using Content.Shared.Physics;
 using Content.Shared.Popups;
 using Content.Shared.Preferences;
+using Content.Shared.Store.Components;
 using Robust.Shared.Audio.Systems;
+using Robust.Shared.Collections;
 using Robust.Shared.Map;
+using Robust.Shared.Map.Components;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Random;
-using System.Numerics;
-using Content.Shared.Movement.Pulling.Components;
-using Content.Shared.Movement.Pulling.Systems;
-using Content.Server.IdentityManagement;
-using Content.Shared.DetailExaminable;
-using Content.Shared.Store.Components;
-using Robust.Shared.Collections;
-using Robust.Shared.Map.Components;
 
 namespace Content.Server.Implants;
 
 public sealed class SubdermalImplantSystem : SharedSubdermalImplantSystem
 {
-    [Dependency] private readonly CuffableSystem _cuffable = default!;
-    [Dependency] private readonly HumanoidAppearanceSystem _humanoidAppearance = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly MetaDataSystem _metaData = default!;
-    [Dependency] private readonly StoreSystem _store = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedTransformSystem _xform = default!;
-    [Dependency] private readonly ForensicsSystem _forensicsSystem = default!;
-    [Dependency] private readonly PullingSystem _pullingSystem = default!;
-    [Dependency] private readonly EntityLookupSystem _lookupSystem = default!;
-    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
-    [Dependency] private readonly IdentitySystem _identity = default!;
+    [Dependency]
+    private readonly CuffableSystem _cuffable = default!;
+
+    [Dependency]
+    private readonly HumanoidAppearanceSystem _humanoidAppearance = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly MetaDataSystem _metaData = default!;
+
+    [Dependency]
+    private readonly StoreSystem _store = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _xform = default!;
+
+    [Dependency]
+    private readonly ForensicsSystem _forensicsSystem = default!;
+
+    [Dependency]
+    private readonly PullingSystem _pullingSystem = default!;
+
+    [Dependency]
+    private readonly EntityLookupSystem _lookupSystem = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _mapSystem = default!;
+
+    [Dependency]
+    private readonly IdentitySystem _identity = default!;
 
     private EntityQuery<PhysicsComponent> _physicsQuery;
     private HashSet<Entity<MapGridComponent>> _targetGrids = [];
@@ -60,10 +85,13 @@ public sealed class SubdermalImplantSystem : SharedSubdermalImplantSystem
         SubscribeLocalEvent<SubdermalImplantComponent, ActivateImplantEvent>(OnActivateImplantEvent);
         SubscribeLocalEvent<SubdermalImplantComponent, UseScramImplantEvent>(OnScramImplant);
         SubscribeLocalEvent<SubdermalImplantComponent, UseDnaScramblerImplantEvent>(OnDnaScramblerImplant);
-
     }
 
-    private void OnStoreRelay(EntityUid uid, StoreComponent store, ImplantRelayEvent<AfterInteractUsingEvent> implantRelay)
+    private void OnStoreRelay(
+        EntityUid uid,
+        StoreComponent store,
+        ImplantRelayEvent<AfterInteractUsingEvent> implantRelay
+    )
     {
         var args = implantRelay.Event;
 
@@ -88,7 +116,10 @@ public sealed class SubdermalImplantSystem : SharedSubdermalImplantSystem
 
     private void OnFreedomImplant(EntityUid uid, SubdermalImplantComponent component, UseFreedomImplantEvent args)
     {
-        if (!TryComp<CuffableComponent>(component.ImplantedEntity, out var cuffs) || cuffs.Container.ContainedEntities.Count < 1)
+        if (
+            !TryComp<CuffableComponent>(component.ImplantedEntity, out var cuffs)
+            || cuffs.Container.ContainedEntities.Count < 1
+        )
             return;
 
         _cuffable.Uncuff(component.ImplantedEntity.Value, cuffs.LastAddedCuffs, cuffs.LastAddedCuffs);
@@ -114,7 +145,10 @@ public sealed class SubdermalImplantSystem : SharedSubdermalImplantSystem
             _pullingSystem.TryStopPull(ent, pull);
 
         // Check if the user is pulling anything, and drop it if so
-        if (TryComp<PullerComponent>(ent, out var puller) && TryComp<PullableComponent>(puller.Pulling, out var pullable))
+        if (
+            TryComp<PullerComponent>(ent, out var puller)
+            && TryComp<PullableComponent>(puller.Pulling, out var pullable)
+        )
             _pullingSystem.TryStopPull(puller.Pulling.Value, pullable);
 
         var xform = Transform(ent);
@@ -160,7 +194,7 @@ public sealed class SubdermalImplantSystem : SharedSubdermalImplantSystem
         {
             var valid = false;
 
-            var range = (float) Math.Sqrt(radius);
+            var range = (float)Math.Sqrt(radius);
             var box = Box2.CenteredAround(userCoords.Position, new Vector2(range, range));
             var tilesInRange = _mapSystem.GetTilesEnumerator(targetGrid.Value.Owner, targetGrid.Value.Comp, box, false);
             var tileList = new ValueList<Vector2i>();
@@ -174,15 +208,18 @@ public sealed class SubdermalImplantSystem : SharedSubdermalImplantSystem
             {
                 var tile = tileList.RemoveSwap(_random.Next(tileList.Count));
                 valid = true;
-                foreach (var entity in _mapSystem.GetAnchoredEntities(targetGrid.Value.Owner, targetGrid.Value.Comp,
-                             tile))
+                foreach (
+                    var entity in _mapSystem.GetAnchoredEntities(targetGrid.Value.Owner, targetGrid.Value.Comp, tile)
+                )
                 {
                     if (!_physicsQuery.TryGetComponent(entity, out var body))
                         continue;
 
-                    if (body.BodyType != BodyType.Static ||
-                        !body.Hard ||
-                        (body.CollisionLayer & (int) CollisionGroup.MobMask) == 0)
+                    if (
+                        body.BodyType != BodyType.Static
+                        || !body.Hard
+                        || (body.CollisionLayer & (int)CollisionGroup.MobMask) == 0
+                    )
                         continue;
 
                     valid = false;
@@ -191,8 +228,10 @@ public sealed class SubdermalImplantSystem : SharedSubdermalImplantSystem
 
                 if (valid)
                 {
-                    targetCoords = new EntityCoordinates(targetGrid.Value.Owner,
-                        _mapSystem.TileCenterToVector(targetGrid.Value, tile));
+                    targetCoords = new EntityCoordinates(
+                        targetGrid.Value.Owner,
+                        _mapSystem.TileCenterToVector(targetGrid.Value, tile)
+                    );
                     break;
                 }
             }
@@ -206,7 +245,11 @@ public sealed class SubdermalImplantSystem : SharedSubdermalImplantSystem
         return targetCoords;
     }
 
-    private void OnDnaScramblerImplant(EntityUid uid, SubdermalImplantComponent component, UseDnaScramblerImplantEvent args)
+    private void OnDnaScramblerImplant(
+        EntityUid uid,
+        SubdermalImplantComponent component,
+        UseDnaScramblerImplantEvent args
+    )
     {
         if (component.ImplantedEntity is not { } ent)
             return;

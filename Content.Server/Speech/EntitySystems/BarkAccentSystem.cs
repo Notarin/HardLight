@@ -5,10 +5,14 @@ namespace Content.Server.Speech.EntitySystems
 {
     public sealed class BarkAccentSystem : EntitySystem
     {
-        [Dependency] private readonly IRobustRandom _random = default!;
+        [Dependency]
+        private readonly IRobustRandom _random = default!;
 
-        private static readonly IReadOnlyList<string> Barks = new List<string>{
-            " Woof!", " WOOF", " wof-wof"
+        private static readonly IReadOnlyList<string> Barks = new List<string>
+        {
+            " Woof!",
+            " WOOF",
+            " wof-wof",
         }.AsReadOnly();
 
         private static readonly IReadOnlyDictionary<string, string> SpecialWords = new Dictionary<string, string>()
@@ -31,8 +35,7 @@ namespace Content.Server.Speech.EntitySystems
                 message = message.Replace(word, repl);
             }
 
-            return message.Replace("!", _random.Pick(Barks))
-                .Replace("l", "r").Replace("L", "R");
+            return message.Replace("!", _random.Pick(Barks)).Replace("l", "r").Replace("L", "R");
         }
 
         private void OnAccent(EntityUid uid, BarkAccentComponent component, AccentGetEvent args)

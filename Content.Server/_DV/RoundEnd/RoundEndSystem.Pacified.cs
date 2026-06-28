@@ -1,8 +1,8 @@
 using Content.Server.Explosion.Components;
 using Content.Server.GameTicking;
+using Content.Shared._DV.CCVars;
 using Content.Shared.CombatMode;
 using Content.Shared.CombatMode.Pacification;
-using Content.Shared._DV.CCVars;
 using Content.Shared.Explosion.Components;
 using Content.Shared.Flash.Components;
 using Content.Shared.Store.Components;
@@ -12,7 +12,8 @@ namespace Content.Server._DV.RoundEnd;
 
 public sealed class PacifiedRoundEnd : EntitySystem
 {
-    [Dependency] private readonly IConfigurationManager _configurationManager = default!;
+    [Dependency]
+    private readonly IConfigurationManager _configurationManager = default!;
 
     private bool _enabled;
 

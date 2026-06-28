@@ -6,10 +6,10 @@
   components:
   - type: StorageFill
     contents:
-      - id: NFWeaponSubMachineGunWt550
-        amount: 2
-      - id: Magazine46x30mmSubMachineGunTopMountedFMJ
-        amount: 4
+    - id: NFWeaponSubMachineGunWt550
+      amount: 2
+    - id: Magazine46x30mmSubMachineGunTopMountedFMJ
+      amount: 4
 
 - type: entity
   id: CrateArmoryShotgunNfsd
@@ -19,10 +19,10 @@
   components:
   - type: StorageFill
     contents:
-      - id: NFWeaponShotgunEnforcer
-        amount: 2
-      - id: AmmoBox12_gaugeBuckshot
-        amount: 3
+    - id: NFWeaponShotgunEnforcer
+      amount: 2
+    - id: AmmoBox12_gaugeBuckshot
+      amount: 3
 
 - type: entity
   id: CrateTrackingImplantsNfsd
@@ -32,8 +32,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: TrackingImplanter
-        amount: 5
+    - id: TrackingImplanter
+      amount: 5
 
 - type: entity
   parent: CrateNfsdSecure2
@@ -54,8 +54,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: NFWeaponEnergyRifleCarbine
-        amount: 3
+    - id: NFWeaponEnergyRifleCarbine
+      amount: 3
 
 - type: entity
   id: CrateArmoryPistolsNfsd

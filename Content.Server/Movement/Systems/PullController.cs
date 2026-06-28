@@ -35,31 +35,45 @@ public sealed class PullController : VirtualController
     // Note that setting the speed too high results in overshoots (stabilized by drag, but bad)
     private const float AccelModifierHigh = 15f;
     private const float AccelModifierLow = 60.0f;
+
     // High/low-mass marks. Curve is constant-lerp-constant, i.e. if you can even pull an item,
     // you'll always get at least AccelModifierLow and no more than AccelModifierHigh.
     private const float AccelModifierHighMass = 70.0f; // roundstart saltern emergency closet
     private const float AccelModifierLowMass = 5.0f; // roundstart saltern emergency crowbar
+
     // Used to control settling (turns off pulling).
     private const float MaximumSettleVelocity = 0.1f;
     private const float MaximumSettleDistance = 0.1f;
+
     // Settle shutdown control.
     // Mustn't be too massive, as that causes severe mispredicts *and can prevent it ever resolving*.
     // Exists to bleed off "I pulled my crowbar" overshoots.
     // Minimum velocity for shutdown to be necessary. This prevents stuff getting stuck b/c too much shutdown.
     private const float SettleMinimumShutdownVelocity = 0.25f;
+
     // Distance in which settle shutdown multiplier is at 0. It then scales upwards linearly with closer distances.
     private const float SettleShutdownDistance = 1.0f;
+
     // Velocity change of -LinearVelocity * frameTime * this
     private const float SettleShutdownMultiplier = 20.0f;
 
     // How much you must move for the puller movement check to actually hit.
     private const float MinimumMovementDistance = 0.005f;
 
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly ActionBlockerSystem _actionBlockerSystem = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedGravitySystem _gravity = default!;
-    [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly ActionBlockerSystem _actionBlockerSystem = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly SharedGravitySystem _gravity = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transformSystem = default!;
 
     /// <summary>
     ///     If distance between puller and pulled entity lower that this threshold,
@@ -83,8 +97,8 @@ public sealed class PullController : VirtualController
 
     public override void Initialize()
     {
-        CommandBinds.Builder
-            .Bind(ContentKeyFunctions.MovePulledObject, new PointerInputCmdHandler(OnRequestMovePulledObject))
+        CommandBinds
+            .Builder.Bind(ContentKeyFunctions.MovePulledObject, new PointerInputCmdHandler(OnRequestMovePulledObject))
             .Register<PullController>();
 
         _physicsQuery = GetEntityQuery<PhysicsComponent>();
@@ -112,8 +126,7 @@ public sealed class PullController : VirtualController
 
     private bool OnRequestMovePulledObject(ICommonSession? session, EntityCoordinates coords, EntityUid uid)
     {
-        if (session?.AttachedEntity is not { } player ||
-            !player.IsValid())
+        if (session?.AttachedEntity is not { } player || !player.IsValid())
         {
             return false;
         }
@@ -148,10 +161,12 @@ public sealed class PullController : VirtualController
 
             // TODO: Joint API not ass
             // with that being said I think throwing is the way to go but.
-            if (pullable.PullJointId != null &&
-                TryComp(player, out JointComponent? joint) &&
-                joint.GetJoints.TryGetValue(pullable.PullJointId, out var pullJoint) &&
-                pullJoint is DistanceJoint distance)
+            if (
+                pullable.PullJointId != null
+                && TryComp(player, out JointComponent? joint)
+                && joint.GetJoints.TryGetValue(pullable.PullJointId, out var pullJoint)
+                && pullJoint is DistanceJoint distance
+            )
             {
                 range = MathF.Max(0.01f, distance.MaxLength - 0.01f);
             }
@@ -180,9 +195,11 @@ public sealed class PullController : VirtualController
         UpdatePulledRotation(uid, pullable);
 
         // WHY
-        if (args.NewPosition.EntityId == args.OldPosition.EntityId &&
-            (args.NewPosition.Position - args.OldPosition.Position).LengthSquared() <
-            MinimumMovementDistance * MinimumMovementDistance)
+        if (
+            args.NewPosition.EntityId == args.OldPosition.EntityId
+            && (args.NewPosition.Position - args.OldPosition.Position).LengthSquared()
+                < MinimumMovementDistance * MinimumMovementDistance
+        )
         {
             return;
         }
@@ -202,8 +219,10 @@ public sealed class PullController : VirtualController
         if (!rotatable.RotateWhilePulling)
             return;
 
-        if (!_xformQuery.TryGetComponent(pulled, out var pulledXform) ||
-            !_xformQuery.TryGetComponent(puller, out var pullerXform))
+        if (
+            !_xformQuery.TryGetComponent(pulled, out var pulledXform)
+            || !_xformQuery.TryGetComponent(puller, out var pullerXform)
+        )
         {
             return;
         }
@@ -226,7 +245,9 @@ public sealed class PullController : VirtualController
                 // So...
                 var baseRotation = pulledData.WorldRotation - pulledXform.LocalRotation;
                 var localRotation = newAngle - baseRotation;
-                var localRotationSnapped = Angle.FromDegrees(Math.Floor((localRotation.Degrees / ThresholdRotAngle) + 0.5f) * ThresholdRotAngle);
+                var localRotationSnapped = Angle.FromDegrees(
+                    Math.Floor((localRotation.Degrees / ThresholdRotAngle) + 0.5f) * ThresholdRotAngle
+                );
                 TransformSystem.SetLocalRotation(pulled, localRotationSnapped, pulledXform);
             }
         }
@@ -245,7 +266,7 @@ public sealed class PullController : VirtualController
                 continue;
             }
 
-            if (pullable.Puller is not {Valid: true} puller)
+            if (pullable.Puller is not { Valid: true } puller)
                 continue;
 
             if (!_xformQuery.TryGetComponent(puller, out var pullerXform))
@@ -264,9 +285,11 @@ public sealed class PullController : VirtualController
                 continue;
             }
 
-            if (!TryComp<PhysicsComponent>(pullableEnt, out var physics) ||
-                physics.BodyType == BodyType.Static ||
-                movingTo.MapId != pullableXform.MapID)
+            if (
+                !TryComp<PhysicsComponent>(pullableEnt, out var physics)
+                || physics.BodyType == BodyType.Static
+                || movingTo.MapId != pullableXform.MapID
+            )
             {
                 RemCompDeferred<PullMovingComponent>(pullableEnt);
                 continue;
@@ -292,7 +315,10 @@ public sealed class PullController : VirtualController
                 continue;
             }
 
-            var impulseModifierLerp = Math.Min(1.0f, Math.Max(0.0f, (physics.Mass - AccelModifierLowMass) / (AccelModifierHighMass - AccelModifierLowMass)));
+            var impulseModifierLerp = Math.Min(
+                1.0f,
+                Math.Max(0.0f, (physics.Mass - AccelModifierLowMass) / (AccelModifierHighMass - AccelModifierLowMass))
+            );
             var impulseModifier = MathHelper.Lerp(AccelModifierLow, AccelModifierHigh, impulseModifierLerp);
             var multiplier = diffLength < 1 ? impulseModifier * diffLength : impulseModifier;
             // Note the implication that the real rules of physics don't apply to pulling control.

@@ -10,9 +10,9 @@
     drawdepth: WallMountedItems
     sprite: Structures/Wallmounts/noticeboard.rsi
     layers:
-      - state: noticeboard
-      - state: notice-0
-      - map: ["enum.StorageFillLayers.Fill"]
+    - state: noticeboard
+    - state: notice-0
+    - map: ["enum.StorageFillLayers.Fill"]
   - type: StorageFillVisualizer
     maxFillLevels: 6
     fillBaseName: notice
@@ -26,8 +26,7 @@
     damageContainer: StructuralInorganic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 30
       behaviors:
       - !type:PlaySoundBehavior
@@ -46,9 +45,9 @@
     maxItemSize: Small
     whitelist:
       tags:
-        - Folder
-        - Document
-        - Write
+      - Folder
+      - Document
+      - Write
   - type: UserInterface
     interfaces:
       enum.StorageUiKey.Key:

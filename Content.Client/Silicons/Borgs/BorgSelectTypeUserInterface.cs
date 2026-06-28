@@ -18,9 +18,8 @@ public sealed class BorgSelectTypeUserInterface : BoundUserInterface
     [ViewVariables]
     private BorgSelectTypeMenu? _menu;
 
-    public BorgSelectTypeUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-    }
+    public BorgSelectTypeUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {
@@ -28,6 +27,7 @@ public sealed class BorgSelectTypeUserInterface : BoundUserInterface
 
         _menu = this.CreateWindow<BorgSelectTypeMenu>();
         _menu.ConfirmedBorgType += prototype => SendPredictedMessage(new BorgSelectTypeMessage(prototype));
-        _menu.ConfirmedBorgSubtype += subtypePrototype => SendPredictedMessage(new BorgSelectSubtypeMessage(subtypePrototype?.ID)); // CD - borg subtypes
+        _menu.ConfirmedBorgSubtype += subtypePrototype =>
+            SendPredictedMessage(new BorgSelectSubtypeMessage(subtypePrototype?.ID)); // CD - borg subtypes
     }
 }

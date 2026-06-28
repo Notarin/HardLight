@@ -14,14 +14,14 @@ public static class JobRequirements
         [NotNullWhen(false)] out FormattedMessage? reason,
         IEntityManager entManager,
         IPrototypeManager protoManager,
-        HumanoidCharacterProfile? profile)
+        HumanoidCharacterProfile? profile
+    )
     {
         var sys = entManager.System<SharedRoleSystem>();
         var requirements = sys.GetJobRequirement(job);
         reason = null;
         if (requirements == null)
             return true;
-
 
         // Frontier: add alternate requirement sets
         bool success = true;
@@ -59,7 +59,6 @@ public static class JobRequirements
 
         // Frontier: check alternate requirement times
         return false;
-
     }
 }
 
@@ -78,5 +77,6 @@ public abstract partial class JobRequirement
         IPrototypeManager protoManager,
         HumanoidCharacterProfile? profile,
         IReadOnlyDictionary<string, TimeSpan> playTimes,
-        [NotNullWhen(false)] out FormattedMessage? reason);
+        [NotNullWhen(false)] out FormattedMessage? reason
+    );
 }

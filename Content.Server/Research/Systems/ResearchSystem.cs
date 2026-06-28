@@ -1,8 +1,8 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Content.Server.Administration.Logs;
-using Content.Server.Station.Systems;
 using Content.Server.Radio.EntitySystems;
+using Content.Server.Station.Systems;
 using Content.Shared.Access.Systems;
 using Content.Shared.Popups;
 using Content.Shared.Research.Components;
@@ -16,13 +16,24 @@ namespace Content.Server.Research.Systems
     [UsedImplicitly]
     public sealed partial class ResearchSystem : SharedResearchSystem
     {
-        [Dependency] private readonly IAdminLogManager _adminLog = default!;
-        [Dependency] private readonly IGameTiming _timing = default!;
-        [Dependency] private readonly AccessReaderSystem _accessReader = default!;
-        [Dependency] private readonly UserInterfaceSystem _uiSystem = default!;
-        [Dependency] private readonly SharedPopupSystem _popup = default!;
+        [Dependency]
+        private readonly IAdminLogManager _adminLog = default!;
+
+        [Dependency]
+        private readonly IGameTiming _timing = default!;
+
+        [Dependency]
+        private readonly AccessReaderSystem _accessReader = default!;
+
+        [Dependency]
+        private readonly UserInterfaceSystem _uiSystem = default!;
+
+        [Dependency]
+        private readonly SharedPopupSystem _popup = default!;
+
         // [Dependency] private readonly RadioSystem _radio = default!; // Frontier
-        [Dependency] private readonly EntityLookupSystem _lookup = default!;
+        [Dependency]
+        private readonly EntityLookupSystem _lookup = default!;
 
         public override void Initialize()
         {
@@ -32,7 +43,9 @@ namespace Content.Server.Research.Systems
             InitializeSource();
             InitializeServer();
 
-            SubscribeLocalEvent<TechnologyDatabaseComponent, ResearchRegistrationChangedEvent>(OnDatabaseRegistrationChanged);
+            SubscribeLocalEvent<TechnologyDatabaseComponent, ResearchRegistrationChangedEvent>(
+                OnDatabaseRegistrationChanged
+            );
         }
 
         /// <summary>
@@ -42,7 +55,11 @@ namespace Content.Server.Research.Systems
         /// <param name="serverUid"></param>
         /// <param name="serverComponent"></param>
         /// <returns></returns>
-        public bool TryGetServerById(int id, [NotNullWhen(true)] out EntityUid? serverUid, [NotNullWhen(true)] out ResearchServerComponent? serverComponent)
+        public bool TryGetServerById(
+            int id,
+            [NotNullWhen(true)] out EntityUid? serverUid,
+            [NotNullWhen(true)] out ResearchServerComponent? serverComponent
+        )
         {
             serverUid = null;
             serverComponent = null;
@@ -108,7 +125,10 @@ namespace Content.Server.Research.Systems
             var targetGrid = gridXform.GridUid.Value;
             while (allServers.MoveNext(out var uid, out var comp))
             {
-                if (EntityManager.TryGetComponent(uid, out TransformComponent? serverXform) && serverXform.GridUid == targetGrid)
+                if (
+                    EntityManager.TryGetComponent(uid, out TransformComponent? serverXform)
+                    && serverXform.GridUid == targetGrid
+                )
                     list.Add(comp.ServerName);
             }
             return list.ToArray();
@@ -124,7 +144,10 @@ namespace Content.Server.Research.Systems
             var targetGrid = gridXform.GridUid.Value;
             while (allServers.MoveNext(out var uid, out var comp))
             {
-                if (EntityManager.TryGetComponent(uid, out TransformComponent? serverXform) && serverXform.GridUid == targetGrid)
+                if (
+                    EntityManager.TryGetComponent(uid, out TransformComponent? serverXform)
+                    && serverXform.GridUid == targetGrid
+                )
                     list.Add(comp.Id);
             }
             return list.ToArray();
@@ -139,7 +162,7 @@ namespace Content.Server.Research.Systems
                     continue;
                 server.NextUpdateTime = _timing.CurTime + server.ResearchConsoleUpdateTime;
 
-                UpdateServer(uid, (int) server.ResearchConsoleUpdateTime.TotalSeconds, server);
+                UpdateServer(uid, (int)server.ResearchConsoleUpdateTime.TotalSeconds, server);
             }
         }
     }

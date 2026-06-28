@@ -6,7 +6,4 @@ using Robust.Shared.GameStates;
 namespace Content.Server.Movement.Components;
 
 [RegisterComponent]
-public sealed partial class EyeCursorOffsetComponent : SharedEyeCursorOffsetComponent
-{
-
-}
+public sealed partial class EyeCursorOffsetComponent : SharedEyeCursorOffsetComponent { }

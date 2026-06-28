@@ -4,7 +4,6 @@ using Robust.Shared.Serialization;
 /// <summary>
 /// EVERYTHING HERE IS A MODIFIED VERSION OF CRIMINAL RECORDS
 /// </summary>
-
 namespace Content.Shared.PsionicsRecords;
 
 /// <summary>

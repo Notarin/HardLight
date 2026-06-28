@@ -1,7 +1,7 @@
 using Content.Server.Popups;
 using Content.Server.Singularity.Events;
-using Content.Shared.Shuttles.Components;
 using Content.Shared.Popups;
+using Content.Shared.Shuttles.Components;
 using Content.Shared.Singularity.Components;
 using Content.Shared.Throwing;
 using Robust.Shared.Physics.Components;
@@ -11,9 +11,14 @@ namespace Content.Server.Singularity.EntitySystems;
 
 public sealed class ContainmentFieldSystem : EntitySystem
 {
-    [Dependency] private readonly ThrowingSystem _throwing = default!;
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
+    [Dependency]
+    private readonly ThrowingSystem _throwing = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transformSystem = default!;
 
     public override void Initialize()
     {
@@ -29,7 +34,11 @@ public sealed class ContainmentFieldSystem : EntitySystem
 
         if (component.DestroyGarbage && HasComp<SpaceGarbageComponent>(otherBody))
         {
-            _popupSystem.PopupEntity(Loc.GetString("comp-field-vaporized", ("entity", otherBody)), uid, PopupType.LargeCaution);
+            _popupSystem.PopupEntity(
+                Loc.GetString("comp-field-vaporized", ("entity", otherBody)),
+                uid,
+                PopupType.LargeCaution
+            );
             QueueDel(otherBody);
         }
 
@@ -38,13 +47,17 @@ public sealed class ContainmentFieldSystem : EntitySystem
             var fieldDir = _transformSystem.GetWorldPosition(uid);
             var playerDir = _transformSystem.GetWorldPosition(otherBody);
 
-            _throwing.TryThrow(otherBody, playerDir-fieldDir, baseThrowSpeed: component.ThrowForce);
+            _throwing.TryThrow(otherBody, playerDir - fieldDir, baseThrowSpeed: component.ThrowForce);
         }
     }
 
-    private void HandleEventHorizon(EntityUid uid, ContainmentFieldComponent component, ref EventHorizonAttemptConsumeEntityEvent args)
+    private void HandleEventHorizon(
+        EntityUid uid,
+        ContainmentFieldComponent component,
+        ref EventHorizonAttemptConsumeEntityEvent args
+    )
     {
-        if(!args.Cancelled && !args.EventHorizon.CanBreachContainment)
+        if (!args.Cancelled && !args.EventHorizon.CanBreachContainment)
             args.Cancelled = true;
     }
 }

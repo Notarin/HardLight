@@ -218,7 +218,7 @@
     sprite: Clothing/Hands/Gloves/spaceninja.rsi
     layers:
     - state: icon
-      map: [ "enum.ToggleVisuals.Layer" ]
+      map: ["enum.ToggleVisuals.Layer"]
   - type: Clothing
     sprite: Clothing/Hands/Gloves/spaceninja.rsi
   - type: Appearance
@@ -263,7 +263,7 @@
       - type: CriminalRecordsHacker # Frontier
 
 - type: entity
-  parent: [ ClothingHandsGlovesColorBlack, BaseC1Contraband ] # BaseSecurityEngineeringContraband<BaseC1Contraband
+  parent: [ClothingHandsGlovesColorBlack, BaseC1Contraband] # BaseSecurityEngineeringContraband<BaseC1Contraband
   id: ClothingHandsGlovesCombat
   name: combat gloves
   description: These tactical gloves are fireproof and shock resistant.
@@ -382,7 +382,7 @@
   id: ClothingHandsGlovesCluwne
   name: cluwne hands
   suffix: Unremoveable
-  description:  A cursed pair of cluwne hands.
+  description: A cursed pair of cluwne hands.
   components:
   - type: Unremoveable
 
@@ -401,7 +401,7 @@
     attackRate: 4
     damage:
       types:
-       Blunt: 8
+        Blunt: 8
     soundHit:
       collection: Punch
     animation: WeaponArcFist
@@ -453,7 +453,6 @@
     fiberColor: fibers-yellow
   - type: FingerprintMask
 
-
 - type: entity
   parent: ClothingHandsButcherable
   id: ClothingHandsGlovesAlchemist
@@ -475,28 +474,28 @@
         Caustic: 5
 
 - type: entity
-  parent: [ ClothingHandsGlovesColorBlack, BaseC3WizardContraband ] # BaseSecurityEngineeringContraband<BaseC1Contraband
+  parent: [ClothingHandsGlovesColorBlack, BaseC3WizardContraband] # BaseSecurityEngineeringContraband<BaseC1Contraband
   id: ClothingHandsGlovesChameleon
   name: emperor's new gloves
   suffix: Chameleon
   components:
-    - type: Tag
-      tags: [] # ignore "WhitelistChameleon" tag
-    - type: Sprite
-      sprite: Clothing/Hands/Gloves/Color/black.rsi
-    - type: Clothing
-      sprite: Clothing/Hands/Gloves/Color/black.rsi
-    - type: ChameleonClothing
-      slot: [gloves]
-      default: DummyGloveInvisible
-    - type: Fiber
-      fiberMaterial: fibers-chameleon
-    - type: FingerprintMask
-    - type: Insulated
-    - type: UserInterface
-      interfaces:
-        enum.ChameleonUiKey.Key:
-          type: ChameleonBoundUserInterface
+  - type: Tag
+    tags: [] # ignore "WhitelistChameleon" tag
+  - type: Sprite
+    sprite: Clothing/Hands/Gloves/Color/black.rsi
+  - type: Clothing
+    sprite: Clothing/Hands/Gloves/Color/black.rsi
+  - type: ChameleonClothing
+    slot: [gloves]
+    default: DummyGloveInvisible
+  - type: Fiber
+    fiberMaterial: fibers-chameleon
+  - type: FingerprintMask
+  - type: Insulated
+  - type: UserInterface
+    interfaces:
+      enum.ChameleonUiKey.Key:
+        type: ChameleonBoundUserInterface
 #Knuckledusters
 
 - type: entity
@@ -606,7 +605,7 @@
     sprite: Clothing/Hands/Gloves/KnuckleDusters/electricknuckleduster.rsi
     layers:
     - state: knuckleduster_off
-      map: [ "enum.ToggleVisuals.Layer" ]
+      map: ["enum.ToggleVisuals.Layer"]
   - type: Clothing
     sprite: Clothing/Hands/Gloves/KnuckleDusters/electricknuckleduster.rsi
     equippedPrefix: on

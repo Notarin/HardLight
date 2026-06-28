@@ -18,9 +18,10 @@ public sealed class AntiRotOnBuckleSystem : EntitySystem
     {
         if (args.Handled)
             return;
-        args.Handled = buckle is { Buckled: true, BuckledTo: not null } &&
-                       TryComp<AntiRotOnBuckleComponent>(buckle.BuckledTo.Value, out var antiRot) &&
-                       antiRot.Enabled;
+        args.Handled =
+            buckle is { Buckled: true, BuckledTo: not null }
+            && TryComp<AntiRotOnBuckleComponent>(buckle.BuckledTo.Value, out var antiRot)
+            && antiRot.Enabled;
     }
 
     private void OnPowerChanged(EntityUid uid, AntiRotOnBuckleComponent component, ref PowerChangedEvent args)

@@ -1,16 +1,21 @@
 using System.Numerics;
+using Content.Server._NF.Medical.SuitSensors; // Frontier
 using Content.Server.Access.Systems;
 using Content.Server.DeviceNetwork.Systems;
 using Content.Server.Emp;
 using Content.Server.Medical.CrewMonitoring;
 using Content.Server.Popups;
+using Content.Server.Salvage.Expeditions; // Frontier
 using Content.Server.Station.Systems;
 using Content.Shared.ActionBlocker;
 using Content.Shared.Clothing;
 using Content.Shared.Damage;
 using Content.Shared.DeviceNetwork;
+using Content.Shared.DeviceNetwork.Components;
 using Content.Shared.DoAfter;
+using Content.Shared.Emp;
 using Content.Shared.Examine;
+using Content.Shared.FloofStation;
 using Content.Shared.GameTicking;
 using Content.Shared.Interaction;
 using Content.Shared.Inventory;
@@ -18,38 +23,60 @@ using Content.Shared.Medical.SuitSensor;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
+using Content.Shared.SSDIndicator; // Frontier
 using Content.Shared.Verbs;
 using Robust.Shared.Containers;
 using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
-using Content.Shared.DeviceNetwork.Components;
-using Content.Server.Salvage.Expeditions; // Frontier
-using Content.Server._NF.Medical.SuitSensors; // Frontier
-using Content.Shared.Emp;
-using Content.Shared.FloofStation;
-using Content.Shared.SSDIndicator; // Frontier
 
 namespace Content.Server.Medical.SuitSensors;
 
 public sealed class SuitSensorSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly DeviceNetworkSystem _deviceNetworkSystem = default!;
-    [Dependency] private readonly IdCardSystem _idCardSystem = default!;
-    [Dependency] private readonly MobStateSystem _mobStateSystem = default!;
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly DeviceNetworkSystem _deviceNetworkSystem = default!;
+
+    [Dependency]
+    private readonly IdCardSystem _idCardSystem = default!;
+
+    [Dependency]
+    private readonly MobStateSystem _mobStateSystem = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
     // [Dependency] private readonly StationSystem _stationSystem = default!; // Frontier
-    [Dependency] private readonly SingletonDeviceNetServerSystem _singletonServerSystem = default!;
-    [Dependency] private readonly MobThresholdSystem _mobThresholdSystem = default!;
-    [Dependency] private readonly SharedInteractionSystem _interactionSystem = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
-    [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!;
+    [Dependency]
+    private readonly SingletonDeviceNetServerSystem _singletonServerSystem = default!;
+
+    [Dependency]
+    private readonly MobThresholdSystem _mobThresholdSystem = default!;
+
+    [Dependency]
+    private readonly SharedInteractionSystem _interactionSystem = default!;
+
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfterSystem = default!;
+
+    [Dependency]
+    private readonly ActionBlockerSystem _actionBlocker = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly InventorySystem _inventory = default!;
 
     // VRS: cache transform query so the per-tick suit sensor loop does not allocate a fresh
     // EntityQuery<TransformComponent> on every active sensor in SensorCords mode.
@@ -80,11 +107,7 @@ public sealed class SuitSensorSystem : EntitySystem
         //var sensors = EntityManager.EntityQueryEnumerator<SuitSensorComponent, DeviceNetworkComponent>(); // Frontier modification
         var sensors = EntityQueryEnumerator<SuitSensorComponent, DeviceNetworkComponent, TransformComponent>(); // Frontier modification
 
-        while (sensors.MoveNext(
-                   out var uid,
-                   out var sensor,
-                   out var device,
-                   out var xform)) // Frontier modification
+        while (sensors.MoveNext(out var uid, out var sensor, out var device, out var xform)) // Frontier modification
         {
             if (device.TransmitFrequency is null)
                 continue;
@@ -113,7 +136,12 @@ public sealed class SuitSensorSystem : EntitySystem
 
             // HardLight: Always bind to the active server for the sensor's current map.
             // This keeps crew monitor data correct when players transfer between stations/maps.
-            if (!_singletonServerSystem.TryGetActiveServerAddress<CrewMonitoringServerComponent>(xform.MapID, out var address))
+            if (
+                !_singletonServerSystem.TryGetActiveServerAddress<CrewMonitoringServerComponent>(
+                    xform.MapID,
+                    out var address
+                )
+            )
             {
                 sensor.ConnectedServer = null;
                 continue;
@@ -192,15 +220,20 @@ public sealed class SuitSensorSystem : EntitySystem
             var modesDist = new[]
             {
                 SuitSensorMode.SensorOff,
-                SuitSensorMode.SensorBinary, SuitSensorMode.SensorBinary,
-                SuitSensorMode.SensorVitals, SuitSensorMode.SensorVitals, SuitSensorMode.SensorVitals,
-                SuitSensorMode.SensorCords, SuitSensorMode.SensorCords
+                SuitSensorMode.SensorBinary,
+                SuitSensorMode.SensorBinary,
+                SuitSensorMode.SensorVitals,
+                SuitSensorMode.SensorVitals,
+                SuitSensorMode.SensorVitals,
+                SuitSensorMode.SensorCords,
+                SuitSensorMode.SensorCords,
             };
             component.Mode = _random.Pick(modesDist);
         }
 
         if (component.UpdateRate > TimeSpan.Zero)
-            component.NextUpdate = _gameTiming.CurTime + TimeSpan.FromSeconds(_random.NextFloat((float) component.UpdateRate.TotalSeconds));
+            component.NextUpdate =
+                _gameTiming.CurTime + TimeSpan.FromSeconds(_random.NextFloat((float)component.UpdateRate.TotalSeconds));
     }
 
     private void OnEquipped(EntityUid uid, SuitSensorComponent component, ref ClothingGotEquippedEvent args)
@@ -257,16 +290,22 @@ public sealed class SuitSensorSystem : EntitySystem
             return;
 
         // check if target is incapacitated (cuffed, dead, etc)
-        if (component.User != null && args.User != component.User && _actionBlocker.CanInteract(component.User.Value, null))
+        if (
+            component.User != null
+            && args.User != component.User
+            && _actionBlocker.CanInteract(component.User.Value, null)
+        )
             return;
 
-        args.Verbs.UnionWith(new[]
-        {
-            CreateVerb(uid, component, args.User, SuitSensorMode.SensorOff),
-            CreateVerb(uid, component, args.User, SuitSensorMode.SensorBinary),
-            CreateVerb(uid, component, args.User, SuitSensorMode.SensorVitals),
-            CreateVerb(uid, component, args.User, SuitSensorMode.SensorCords)
-        });
+        args.Verbs.UnionWith(
+            new[]
+            {
+                CreateVerb(uid, component, args.User, SuitSensorMode.SensorOff),
+                CreateVerb(uid, component, args.User, SuitSensorMode.SensorBinary),
+                CreateVerb(uid, component, args.User, SuitSensorMode.SensorVitals),
+                CreateVerb(uid, component, args.User, SuitSensorMode.SensorCords),
+            }
+        );
     }
 
     private void OnInsert(EntityUid uid, SuitSensorComponent component, EntGotInsertedIntoContainerMessage args)
@@ -315,9 +354,9 @@ public sealed class SuitSensorSystem : EntitySystem
         {
             Text = GetModeName(mode),
             Disabled = component.Mode == mode,
-            Priority = -(int) mode, // sort them in descending order
+            Priority = -(int)mode, // sort them in descending order
             Category = VerbCategory.SetSensor,
-            Act = () => TrySetSensor((uid, component), mode, userUid)
+            Act = () => TrySetSensor((uid, component), mode, userUid),
         };
     }
 
@@ -360,7 +399,7 @@ public sealed class SuitSensorSystem : EntitySystem
             var doAfterArgs = new DoAfterArgs(EntityManager, userUid, comp.SensorsTime, doAfterEvent, sensors)
             {
                 BreakOnMove = true,
-                BreakOnDamage = true
+                BreakOnDamage = true,
             };
 
             _doAfterSystem.TryStartDoAfter(doAfterArgs);
@@ -391,7 +430,7 @@ public sealed class SuitSensorSystem : EntitySystem
     /// <summary>
     ///     Set all suit sensors on the equipment someone is wearing to the specified mode.
     /// </summary>
-    public void SetAllSensors(EntityUid target, SuitSensorMode mode, SlotFlags slots = SlotFlags.All )
+    public void SetAllSensors(EntityUid target, SuitSensorMode mode, SlotFlags slots = SlotFlags.All)
     {
         // iterate over all inventory slots
         var slotEnumerator = _inventory.GetSlotEnumerator(target, slots);
@@ -402,17 +441,23 @@ public sealed class SuitSensorSystem : EntitySystem
         }
     }
 
-    public SuitSensorStatus? GetSensorState(EntityUid uid, SuitSensorComponent? sensor = null, TransformComponent? transform = null)
+    public SuitSensorStatus? GetSensorState(
+        EntityUid uid,
+        SuitSensorComponent? sensor = null,
+        TransformComponent? transform = null
+    )
     {
         if (!Resolve(uid, ref sensor, ref transform))
             return null;
 
         // check if sensor is enabled and worn by user
         // Frontier: sensors work off grids
-        if (sensor.Mode == SuitSensorMode.SensorOff
+        if (
+            sensor.Mode == SuitSensorMode.SensorOff
             || sensor.User == null
             || !HasComp<MobStateComponent>(sensor.User) // vored? hide from pesky medics
-            || HasComp<VoredComponent>(sensor.User)) // || transform.GridUid == null
+            || HasComp<VoredComponent>(sensor.User)
+        ) // || transform.GridUid == null
             return null;
         // End Frontier
 
@@ -455,7 +500,15 @@ public sealed class SuitSensorSystem : EntitySystem
             totalDamageThreshold = critThreshold.Value.Int();
 
         // finally, form suit sensor status
-        var status = new SuitSensorStatus(GetNetEntity(sensor.User.Value), GetNetEntity(uid), userName, userJob, userJobIcon, userJobDepartments, userLocationName); // Frontier: add userLocationName
+        var status = new SuitSensorStatus(
+            GetNetEntity(sensor.User.Value),
+            GetNetEntity(uid),
+            userName,
+            userJob,
+            userJobIcon,
+            userJobDepartments,
+            userLocationName
+        ); // Frontier: add userLocationName
         switch (sensor.Mode)
         {
             case SuitSensorMode.SensorBinary:
@@ -476,10 +529,13 @@ public sealed class SuitSensorSystem : EntitySystem
 
                 if (transform.GridUid != null)
                 {
-
-                    coordinates = new EntityCoordinates(transform.GridUid.Value,
-                        Vector2.Transform(_transform.GetWorldPosition(transform, xformQuery),
-                            _transform.GetInvWorldMatrix(xformQuery.GetComponent(transform.GridUid.Value), xformQuery)));
+                    coordinates = new EntityCoordinates(
+                        transform.GridUid.Value,
+                        Vector2.Transform(
+                            _transform.GetWorldPosition(transform, xformQuery),
+                            _transform.GetInvWorldMatrix(xformQuery.GetComponent(transform.GridUid.Value), xformQuery)
+                        )
+                    );
 
                     // Frontier: check if sensor is on expedition
                     if (TryComp<SalvageExpeditionComponent>(transform.MapUid, out var salvageComp))
@@ -492,9 +548,10 @@ public sealed class SuitSensorSystem : EntitySystem
                 }
                 else if (transform.MapUid != null)
                 {
-
-                    coordinates = new EntityCoordinates(transform.MapUid.Value,
-                        _transform.GetWorldPosition(transform, xformQuery)); // Frontier
+                    coordinates = new EntityCoordinates(
+                        transform.MapUid.Value,
+                        _transform.GetWorldPosition(transform, xformQuery)
+                    ); // Frontier
 
                     locationName = Loc.GetString("suit-sensor-location-space"); // Frontier
                 }
@@ -554,14 +611,22 @@ public sealed class SuitSensorSystem : EntitySystem
             return null;
 
         // check name, job and alive
-        if (!payload.TryGetValue(SuitSensorConstants.NET_NAME, out string? name)) return null;
-        if (!payload.TryGetValue(SuitSensorConstants.NET_JOB, out string? job)) return null;
-        if (!payload.TryGetValue(SuitSensorConstants.NET_JOB_ICON, out string? jobIcon)) return null;
-        if (!payload.TryGetValue(SuitSensorConstants.NET_JOB_DEPARTMENTS, out List<string>? jobDepartments)) return null;
-        if (!payload.TryGetValue(SuitSensorConstants.NET_IS_ALIVE, out bool? isAlive)) return null;
-        if (!payload.TryGetValue(SuitSensorConstants.NET_SUIT_SENSOR_UID, out NetEntity suitSensorUid)) return null;
-        if (!payload.TryGetValue(SuitSensorConstants.NET_OWNER_UID, out NetEntity ownerUid)) return null;
-        if (!payload.TryGetValue(SuitSensorConstants.NET_LOCATION_NAME, out string? location)) return null; // Frontier
+        if (!payload.TryGetValue(SuitSensorConstants.NET_NAME, out string? name))
+            return null;
+        if (!payload.TryGetValue(SuitSensorConstants.NET_JOB, out string? job))
+            return null;
+        if (!payload.TryGetValue(SuitSensorConstants.NET_JOB_ICON, out string? jobIcon))
+            return null;
+        if (!payload.TryGetValue(SuitSensorConstants.NET_JOB_DEPARTMENTS, out List<string>? jobDepartments))
+            return null;
+        if (!payload.TryGetValue(SuitSensorConstants.NET_IS_ALIVE, out bool? isAlive))
+            return null;
+        if (!payload.TryGetValue(SuitSensorConstants.NET_SUIT_SENSOR_UID, out NetEntity suitSensorUid))
+            return null;
+        if (!payload.TryGetValue(SuitSensorConstants.NET_OWNER_UID, out NetEntity ownerUid))
+            return null;
+        if (!payload.TryGetValue(SuitSensorConstants.NET_LOCATION_NAME, out string? location))
+            return null; // Frontier
 
         // try get total damage and cords and location name (optionals)
         payload.TryGetValue(SuitSensorConstants.NET_TOTAL_DAMAGE, out int? totalDamage);

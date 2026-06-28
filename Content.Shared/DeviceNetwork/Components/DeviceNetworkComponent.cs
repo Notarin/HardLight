@@ -22,7 +22,7 @@ namespace Content.Shared.DeviceNetwork.Components
         [DataField("deviceNetId")]
         public DeviceNetIdDefaults NetIdEnum { get; set; }
 
-        public int DeviceNetId => (int) NetIdEnum;
+        public int DeviceNetId => (int)NetIdEnum;
 
         /// <summary>
         ///     The frequency that this device is listening on.
@@ -48,7 +48,10 @@ namespace Content.Shared.DeviceNetwork.Components
         ///     frequency prototype. Used to select a default frequency to transmit on. Used when the map is
         ///     initialized.
         /// </summary>
-        [DataField("transmitFrequencyId", customTypeSerializer: typeof(PrototypeIdSerializer<DeviceFrequencyPrototype>))]
+        [DataField(
+            "transmitFrequencyId",
+            customTypeSerializer: typeof(PrototypeIdSerializer<DeviceFrequencyPrototype>)
+        )]
         public string? TransmitFrequencyId;
 
         /// <summary>

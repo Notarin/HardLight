@@ -1,19 +1,22 @@
 // SPDX-FileCopyrightText: Copyright (c) 2025 Space Wizards Federation
 // SPDX-License-Identifier: MIT
 
-using Content.Shared._Common.Consent;
-using Content.Server.Database;
-using Robust.Shared.Prototypes;
 using System.Linq;
+using Content.Server.Database;
+using Content.Shared._Common.Consent;
+using Robust.Shared.Prototypes;
 
 public static class PlayerConsentSettinsExtensions
 {
     public static PlayerConsentSettings ToPlayerConsentSettings(this ConsentSettings dbConsentSettings)
     {
-        return new(dbConsentSettings.ConsentFreetext ?? "", (dbConsentSettings.ConsentToggles ?? new()).ToDictionary(
-            keySelector: t => new ProtoId<ConsentTogglePrototype>(t.ToggleProtoId),
-            elementSelector: t => t.ToggleProtoState
-        ));
+        return new(
+            dbConsentSettings.ConsentFreetext ?? "",
+            (dbConsentSettings.ConsentToggles ?? new()).ToDictionary(
+                keySelector: t => new ProtoId<ConsentTogglePrototype>(t.ToggleProtoId),
+                elementSelector: t => t.ToggleProtoState
+            )
+        );
     }
 
     public static ConsentSettings ToDbObject(this PlayerConsentSettings playerConsentSettings)
@@ -21,12 +24,9 @@ public static class PlayerConsentSettinsExtensions
         return new()
         {
             ConsentFreetext = playerConsentSettings.Freetext,
-            ConsentToggles = playerConsentSettings.Toggles
-                .Select(x => new ConsentToggle {
-                    ToggleProtoId = x.Key,
-                    ToggleProtoState = x.Value,
-                })
-                .ToList()
+            ConsentToggles = playerConsentSettings
+                .Toggles.Select(x => new ConsentToggle { ToggleProtoId = x.Key, ToggleProtoState = x.Value })
+                .ToList(),
         };
     }
 }

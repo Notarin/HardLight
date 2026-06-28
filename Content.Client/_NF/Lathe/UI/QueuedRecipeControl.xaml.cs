@@ -36,5 +36,4 @@ public sealed partial class QueuedRecipeControl : Control
         };
         Delete.AddStyleClass("OpenLeft");
     }
-
 }

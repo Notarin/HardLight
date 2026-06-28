@@ -90,12 +90,12 @@
   - type: EyeCursorOffset
     maxOffset: 3
     pvsIncrease: 0.3
-  # type: Telescope
+    # type: Telescope
 
 - type: entity
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   name: musket
-  parent: [ BaseWeaponSniper, BaseGunWieldable, BaseGunMelee, BaseC2Contraband ] # Frontier: BaseMajorContraband<BaseC2Contraband, add BaseGunMelee
+  parent: [BaseWeaponSniper, BaseGunWieldable, BaseGunMelee, BaseC2Contraband] # Frontier: BaseMajorContraband<BaseC2Contraband, add BaseGunMelee
   id: Musket
   description: This should've been in a museum long before you were born. Uses 145x114mm ammo.
   components:
@@ -134,7 +134,7 @@
     attackType: Light # Frontier
 
 - type: entity
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   name: flintlock pistol
   parent: [BaseWeaponSniper, BaseC3PirateContraband] # Frontier: BaseMajorContraband<BaseC3PirateContraband
   id: WeaponPistolFlintlock
@@ -159,7 +159,7 @@
   - type: BallisticAmmoProvider
     whitelist:
       tags:
-        - Cartridge145x114mm
+      - Cartridge145x114mm
     capacity: 1
     proto: Cartridge145x114mm
   - type: StaticPrice

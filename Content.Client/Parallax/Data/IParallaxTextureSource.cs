@@ -15,4 +15,3 @@ namespace Content.Client.Parallax.Data
         Task<Texture> GenerateTexture(CancellationToken cancel = default);
     }
 }
-

@@ -11,10 +11,10 @@
   - type: Organ # HardLight: FunctionalOrgan<Organ
     onAdd: # Shitmed
     - type: NightVision
-  # HardLight: Not something we have
-  #- type: OrganVisualization
-  #  layer: Eyes
-  #  prototype: CyberEyesNightVision
+      # HardLight: Not something we have
+      #- type: OrganVisualization
+      #  layer: Eyes
+      #  prototype: CyberEyesNightVision
 
 - type: entity
   id: EyeImplantThermalVision

@@ -190,7 +190,7 @@
     removeEmpty: true
     solutionOnBody: false
     solution: "Lung"
-    metabolizerTypes: [ Human ]
+    metabolizerTypes: [Human]
     groups:
     - id: Gas
       rateModifier: 100.0
@@ -334,8 +334,8 @@
           Quantity: 5
   - type: FlavorProfile
     flavors:
-      - people
+    - people
   - type: Tag
     tags:
-      - Meat
-      - Organ
+    - Meat
+    - Organ

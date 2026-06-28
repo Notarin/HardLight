@@ -8,12 +8,12 @@
   markingLimits: MobFeroxiMarkingLimits
   dollPrototype: MobFeroxiDummy
   skinColoration: AnyColour # Hardlight
-#  maleFirstNames: names_first_male
-#  femaleFirstNames: names_first_female
-#  lastNames: names_last
- # customName: true # Floof
-
+  #  maleFirstNames: names_first_male
+  #  femaleFirstNames: names_first_female
+  #  lastNames: names_last
 - type: speciesBaseSprites
+  # customName: true # Floof
+
   id: MobFeroxiSprites
   sprites:
     TailBehind: MobHumanoidAnyMarking
@@ -55,11 +55,11 @@
     HeadTop:
       points: 1
       required: true
-      defaultMarkings: [ FeroxiEars ]
+      defaultMarkings: [FeroxiEars]
     Snout:
       points: 1
       required: true
-      defaultMarkings: [ FeroxiSnout ]
+      defaultMarkings: [FeroxiSnout]
     Chest:
       points: 3
       required: false
@@ -72,7 +72,7 @@
     Tail:
       points: 1
       required: true
-      defaultMarkings: [ FeroxiTailAndDorsal ]
+      defaultMarkings: [FeroxiTailAndDorsal]
 
 - type: humanoidBaseSprite
   id: MobFeroxiHead

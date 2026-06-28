@@ -18,9 +18,8 @@ namespace Content.Client.Atmos.UI
         [ViewVariables]
         private GasMixerWindow? _window;
 
-        public GasMixerBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-        {
-        }
+        public GasMixerBoundUserInterface(EntityUid owner, Enum uiKey)
+            : base(owner, uiKey) { }
 
         protected override void Open()
         {
@@ -35,7 +34,8 @@ namespace Content.Client.Atmos.UI
 
         private void OnToggleStatusButtonPressed()
         {
-            if (_window is null) return;
+            if (_window is null)
+                return;
             SendMessage(new GasMixerToggleStatusMessage(_window.MixerStatus));
         }
 

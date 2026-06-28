@@ -17,9 +17,8 @@ namespace Content.Server.Database
 {
     public abstract class ServerDbContext : DbContext
     {
-        protected ServerDbContext(DbContextOptions options) : base(options)
-        {
-        }
+        protected ServerDbContext(DbContextOptions options)
+            : base(options) { }
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
         {
@@ -27,7 +26,10 @@ namespace Content.Server.Database
             return base.SaveChanges(acceptAllChangesOnSuccess);
         }
 
-        public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
+        public override Task<int> SaveChangesAsync(
+            bool acceptAllChangesOnSuccess,
+            CancellationToken cancellationToken = default
+        )
         {
             SanitizeTrackedValues();
             return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
@@ -69,157 +71,141 @@ namespace Content.Server.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Preference>()
-                .HasIndex(p => p.UserId)
-                .IsUnique();
+            modelBuilder.Entity<Preference>().HasIndex(p => p.UserId).IsUnique();
 
-            modelBuilder.Entity<Profile>()
-                .HasIndex(p => new {p.Slot, PrefsId = p.PreferenceId})
-                .IsUnique();
+            modelBuilder.Entity<Profile>().HasIndex(p => new { p.Slot, PrefsId = p.PreferenceId }).IsUnique();
 
             // Consent system start
-            modelBuilder.Entity<ConsentSettings>()
-                .HasIndex(c => new { c.UserId, c.ProfileId })
-                .IsUnique();
+            modelBuilder.Entity<ConsentSettings>().HasIndex(c => new { c.UserId, c.ProfileId }).IsUnique();
 
-            modelBuilder.Entity<ConsentSettings>()
+            modelBuilder
+                .Entity<ConsentSettings>()
                 .HasOne(c => c.Profile)
                 .WithOne(p => p.ConsentSettings)
                 .HasForeignKey<ConsentSettings>(c => c.ProfileId)
                 .IsRequired(false);
 
-            modelBuilder.Entity<ConsentToggle>()
-                .HasIndex(c => new { c.ConsentSettingsId, c.ToggleProtoId })
-                .IsUnique();
+            modelBuilder.Entity<ConsentToggle>().HasIndex(c => new { c.ConsentSettingsId, c.ToggleProtoId }).IsUnique();
 
-            modelBuilder.Entity<ConsentToggle>()
+            modelBuilder
+                .Entity<ConsentToggle>()
                 .HasOne(c => c.ConsentSettings)
                 .WithMany(c => c.ConsentToggles)
                 .HasForeignKey(c => c.ConsentSettingsId)
                 .IsRequired();
 
-            modelBuilder.Entity<ConsentFreetextReadReceipt>()
+            modelBuilder
+                .Entity<ConsentFreetextReadReceipt>()
                 .HasIndex(c => new { c.ReaderUserId, c.ReadConsentSettingsId })
                 .IsUnique();
 
-            modelBuilder.Entity<ConsentFreetextReadReceipt>()
+            modelBuilder
+                .Entity<ConsentFreetextReadReceipt>()
                 .HasOne(c => c.ReadConsentSettings)
                 .WithMany(c => c.ReadReceipts)
                 .HasForeignKey(c => c.ReadConsentSettingsId)
                 .IsRequired();
             // Consent system end
 
-            modelBuilder.Entity<Antag>()
-                .HasIndex(p => new {HumanoidProfileId = p.ProfileId, p.AntagName})
+            modelBuilder
+                .Entity<Antag>()
+                .HasIndex(p => new { HumanoidProfileId = p.ProfileId, p.AntagName })
                 .IsUnique();
 
-            modelBuilder.Entity<Trait>()
-                .HasIndex(p => new {HumanoidProfileId = p.ProfileId, p.TraitName})
-                .IsUnique();
+            modelBuilder.Entity<Trait>().HasIndex(p => new { HumanoidProfileId = p.ProfileId, p.TraitName }).IsUnique();
 
-            modelBuilder.Entity<ProfileRoleLoadout>()
+            modelBuilder
+                .Entity<ProfileRoleLoadout>()
                 .HasOne(e => e.Profile)
                 .WithMany(e => e.Loadouts)
                 .HasForeignKey(e => e.ProfileId)
                 .IsRequired();
 
-            modelBuilder.Entity<ProfileLoadoutGroup>()
+            modelBuilder
+                .Entity<ProfileLoadoutGroup>()
                 .HasOne(e => e.ProfileRoleLoadout)
                 .WithMany(e => e.Groups)
                 .HasForeignKey(e => e.ProfileRoleLoadoutId)
                 .IsRequired();
 
-            modelBuilder.Entity<ProfileLoadout>()
+            modelBuilder
+                .Entity<ProfileLoadout>()
                 .HasOne(e => e.ProfileLoadoutGroup)
                 .WithMany(e => e.Loadouts)
                 .HasForeignKey(e => e.ProfileLoadoutGroupId)
                 .IsRequired();
 
-            modelBuilder.Entity<Job>()
-                .HasIndex(j => j.ProfileId);
+            modelBuilder.Entity<Job>().HasIndex(j => j.ProfileId);
 
-            modelBuilder.Entity<Job>()
+            modelBuilder
+                .Entity<Job>()
                 .HasIndex(j => j.ProfileId, "IX_job_one_high_priority")
                 .IsUnique()
                 .HasFilter("priority = 3");
 
-            modelBuilder.Entity<Job>()
-                .HasIndex(j => new { j.ProfileId, j.JobName })
-                .IsUnique();
+            modelBuilder.Entity<Job>().HasIndex(j => new { j.ProfileId, j.JobName }).IsUnique();
 
-            modelBuilder.Entity<AssignedUserId>()
-                .HasIndex(p => p.UserName)
-                .IsUnique();
+            modelBuilder.Entity<AssignedUserId>().HasIndex(p => p.UserName).IsUnique();
 
             // Can't have two usernames with the same user ID.
-            modelBuilder.Entity<AssignedUserId>()
-                .HasIndex(p => p.UserId)
-                .IsUnique();
+            modelBuilder.Entity<AssignedUserId>().HasIndex(p => p.UserId).IsUnique();
 
-            modelBuilder.Entity<Admin>()
+            modelBuilder
+                .Entity<Admin>()
                 .HasOne(p => p.AdminRank)
                 .WithMany(p => p!.Admins)
                 .OnDelete(DeleteBehavior.SetNull);
 
-            modelBuilder.Entity<AdminFlag>()
-                .HasIndex(f => new {f.Flag, f.AdminId})
-                .IsUnique();
+            modelBuilder.Entity<AdminFlag>().HasIndex(f => new { f.Flag, f.AdminId }).IsUnique();
 
-            modelBuilder.Entity<AdminRankFlag>()
-                .HasIndex(f => new {f.Flag, f.AdminRankId})
-                .IsUnique();
+            modelBuilder.Entity<AdminRankFlag>().HasIndex(f => new { f.Flag, f.AdminRankId }).IsUnique();
 
-            modelBuilder.Entity<AdminLog>()
-                .HasKey(log => new {log.RoundId, log.Id});
+            modelBuilder.Entity<AdminLog>().HasKey(log => new { log.RoundId, log.Id });
 
-            modelBuilder.Entity<AdminLog>()
-                .Property(log => log.Id);
+            modelBuilder.Entity<AdminLog>().Property(log => log.Id);
 
-            modelBuilder.Entity<AdminLog>()
-                .HasIndex(log => log.Date);
+            modelBuilder.Entity<AdminLog>().HasIndex(log => log.Date);
 
-            modelBuilder.Entity<PlayTime>()
-                .HasIndex(v => new { v.PlayerId, Role = v.Tracker })
-                .IsUnique();
+            modelBuilder.Entity<PlayTime>().HasIndex(v => new { v.PlayerId, Role = v.Tracker }).IsUnique();
 
-            modelBuilder.Entity<AdminLogPlayer>()
+            modelBuilder
+                .Entity<AdminLogPlayer>()
                 .HasOne(player => player.Player)
                 .WithMany(player => player.AdminLogs)
                 .HasForeignKey(player => player.PlayerUserId)
                 .HasPrincipalKey(player => player.UserId);
 
-            modelBuilder.Entity<AdminLogPlayer>()
-                .HasIndex(p => p.PlayerUserId);
+            modelBuilder.Entity<AdminLogPlayer>().HasIndex(p => p.PlayerUserId);
 
-            modelBuilder.Entity<Round>()
-                .HasIndex(round => round.StartDate);
+            modelBuilder.Entity<Round>().HasIndex(round => round.StartDate);
 
-            modelBuilder.Entity<AdminLogPlayer>()
-                .HasKey(logPlayer => new {logPlayer.RoundId, logPlayer.LogId, logPlayer.PlayerUserId});
+            modelBuilder
+                .Entity<AdminLogPlayer>()
+                .HasKey(logPlayer => new
+                {
+                    logPlayer.RoundId,
+                    logPlayer.LogId,
+                    logPlayer.PlayerUserId,
+                });
 
             // Ban exemption can't have flags 0 since that wouldn't exempt anything.
             // The row should be removed if setting to 0.
-            modelBuilder.Entity<ServerBanExemption>().ToTable(t =>
-                t.HasCheckConstraint("FlagsNotZero", "flags != 0"));
+            modelBuilder
+                .Entity<ServerBanExemption>()
+                .ToTable(t => t.HasCheckConstraint("FlagsNotZero", "flags != 0"));
 
-            modelBuilder.Entity<Player>()
-                .HasIndex(p => p.UserId)
-                .IsUnique();
+            modelBuilder.Entity<Player>().HasIndex(p => p.UserId).IsUnique();
 
-            modelBuilder.Entity<Player>()
-                .HasIndex(p => p.LastSeenUserName);
+            modelBuilder.Entity<Player>().HasIndex(p => p.LastSeenUserName);
 
-            modelBuilder.Entity<ConnectionLog>()
-                .HasIndex(p => p.UserId);
+            modelBuilder.Entity<ConnectionLog>().HasIndex(p => p.UserId);
 
-            modelBuilder.Entity<ConnectionLog>()
-                .HasIndex(p => p.Time);
+            modelBuilder.Entity<ConnectionLog>().HasIndex(p => p.Time);
 
-            modelBuilder.Entity<ConnectionLog>()
-                .Property(p => p.ServerId)
-                .HasDefaultValue(0);
+            modelBuilder.Entity<ConnectionLog>().Property(p => p.ServerId).HasDefaultValue(0);
 
-            modelBuilder.Entity<ConnectionLog>()
+            modelBuilder
+                .Entity<ConnectionLog>()
                 .HasOne(p => p.Server)
                 .WithMany(p => p.ConnectionLogs)
                 .OnDelete(DeleteBehavior.SetNull);
@@ -227,84 +213,96 @@ namespace Content.Server.Database
             // SetNull is necessary for created by/edited by-s here,
             // so you can safely delete admins (GDPR right to erasure) while keeping the notes intact
 
-            modelBuilder.Entity<AdminNote>()
+            modelBuilder
+                .Entity<AdminNote>()
                 .HasOne(note => note.Player)
                 .WithMany(player => player.AdminNotesReceived)
                 .HasForeignKey(note => note.PlayerUserId)
                 .HasPrincipalKey(player => player.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<AdminNote>()
+            modelBuilder
+                .Entity<AdminNote>()
                 .HasOne(version => version.CreatedBy)
                 .WithMany(author => author.AdminNotesCreated)
                 .HasForeignKey(note => note.CreatedById)
                 .HasPrincipalKey(author => author.UserId)
                 .OnDelete(DeleteBehavior.SetNull);
 
-            modelBuilder.Entity<AdminNote>()
+            modelBuilder
+                .Entity<AdminNote>()
                 .HasOne(version => version.LastEditedBy)
                 .WithMany(author => author.AdminNotesLastEdited)
                 .HasForeignKey(note => note.LastEditedById)
                 .HasPrincipalKey(author => author.UserId)
                 .OnDelete(DeleteBehavior.SetNull);
 
-            modelBuilder.Entity<AdminNote>()
+            modelBuilder
+                .Entity<AdminNote>()
                 .HasOne(version => version.DeletedBy)
                 .WithMany(author => author.AdminNotesDeleted)
                 .HasForeignKey(note => note.DeletedById)
                 .HasPrincipalKey(author => author.UserId)
                 .OnDelete(DeleteBehavior.SetNull);
 
-            modelBuilder.Entity<AdminWatchlist>()
+            modelBuilder
+                .Entity<AdminWatchlist>()
                 .HasOne(note => note.Player)
                 .WithMany(player => player.AdminWatchlistsReceived)
                 .HasForeignKey(note => note.PlayerUserId)
                 .HasPrincipalKey(player => player.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<AdminWatchlist>()
+            modelBuilder
+                .Entity<AdminWatchlist>()
                 .HasOne(version => version.CreatedBy)
                 .WithMany(author => author.AdminWatchlistsCreated)
                 .HasForeignKey(note => note.CreatedById)
                 .HasPrincipalKey(author => author.UserId)
                 .OnDelete(DeleteBehavior.SetNull);
 
-            modelBuilder.Entity<AdminWatchlist>()
+            modelBuilder
+                .Entity<AdminWatchlist>()
                 .HasOne(version => version.LastEditedBy)
                 .WithMany(author => author.AdminWatchlistsLastEdited)
                 .HasForeignKey(note => note.LastEditedById)
                 .HasPrincipalKey(author => author.UserId)
                 .OnDelete(DeleteBehavior.SetNull);
 
-            modelBuilder.Entity<AdminWatchlist>()
+            modelBuilder
+                .Entity<AdminWatchlist>()
                 .HasOne(version => version.DeletedBy)
                 .WithMany(author => author.AdminWatchlistsDeleted)
                 .HasForeignKey(note => note.DeletedById)
                 .HasPrincipalKey(author => author.UserId)
                 .OnDelete(DeleteBehavior.SetNull);
 
-            modelBuilder.Entity<AdminMessage>()
+            modelBuilder
+                .Entity<AdminMessage>()
                 .HasOne(note => note.Player)
                 .WithMany(player => player.AdminMessagesReceived)
                 .HasForeignKey(note => note.PlayerUserId)
                 .HasPrincipalKey(player => player.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<AdminMessage>()
+            modelBuilder
+                .Entity<AdminMessage>()
                 .HasOne(version => version.CreatedBy)
                 .WithMany(author => author.AdminMessagesCreated)
                 .HasForeignKey(note => note.CreatedById)
                 .HasPrincipalKey(author => author.UserId)
                 .OnDelete(DeleteBehavior.SetNull);
 
-            modelBuilder.Entity<AdminMessage>()
+            modelBuilder
+                .Entity<AdminMessage>()
                 .HasOne(version => version.LastEditedBy)
                 .WithMany(author => author.AdminMessagesLastEdited)
                 .HasForeignKey(note => note.LastEditedById)
                 .HasPrincipalKey(author => author.UserId)
                 .OnDelete(DeleteBehavior.SetNull);
 
-            modelBuilder.Entity<AdminMessage>()
+            modelBuilder
+                .Entity<AdminMessage>()
                 .HasOne(version => version.DeletedBy)
                 .WithMany(author => author.AdminMessagesDeleted)
                 .HasForeignKey(note => note.DeletedById)
@@ -312,11 +310,12 @@ namespace Content.Server.Database
                 .OnDelete(DeleteBehavior.SetNull);
 
             // A message cannot be "dismissed" without also being "seen".
-            modelBuilder.Entity<AdminMessage>().ToTable(t =>
-                t.HasCheckConstraint("NotDismissedAndSeen",
-                    "NOT dismissed OR seen"));
+            modelBuilder
+                .Entity<AdminMessage>()
+                .ToTable(t => t.HasCheckConstraint("NotDismissedAndSeen", "NOT dismissed OR seen"));
 
-            modelBuilder.Entity<RoleWhitelist>()
+            modelBuilder
+                .Entity<RoleWhitelist>()
                 .HasOne(w => w.Player)
                 .WithMany(p => p.JobWhitelists)
                 .HasForeignKey(w => w.PlayerUserId)
@@ -324,22 +323,22 @@ namespace Content.Server.Database
                 .OnDelete(DeleteBehavior.Cascade);
 
             // Changes for modern HWID integration
-            modelBuilder.Entity<Player>()
+            modelBuilder
+                .Entity<Player>()
                 .OwnsOne(p => p.LastSeenHWId)
                 .Property(p => p.Hwid)
                 .HasColumnName("last_seen_hwid");
 
-            modelBuilder.Entity<Player>()
+            modelBuilder
+                .Entity<Player>()
                 .OwnsOne(p => p.LastSeenHWId)
                 .Property(p => p.Type)
                 .HasDefaultValue(HwidType.Legacy);
 
-            modelBuilder.Entity<ConnectionLog>()
-                .OwnsOne(p => p.HWId)
-                .Property(p => p.Hwid)
-                .HasColumnName("hwid");
+            modelBuilder.Entity<ConnectionLog>().OwnsOne(p => p.HWId).Property(p => p.Hwid).HasColumnName("hwid");
 
-            modelBuilder.Entity<ConnectionLog>()
+            modelBuilder
+                .Entity<ConnectionLog>()
                 .OwnsOne(p => p.HWId)
                 .Property(p => p.Type)
                 .HasDefaultValue(HwidType.Legacy);
@@ -469,7 +468,9 @@ namespace Content.Server.Database
     {
         public int Id { get; set; }
         public int Slot { get; set; }
-        [Column("char_name")] public string CharacterName { get; set; } = null!;
+
+        [Column("char_name")]
+        public string CharacterName { get; set; } = null!;
         public string FlavorText { get; set; } = null!;
         public int Age { get; set; }
         public int BankBalance { get; set; }
@@ -477,7 +478,9 @@ namespace Content.Server.Database
         public string Gender { get; set; } = null!;
         public string Species { get; set; } = null!;
         public string CustomSpecies { get; set; } = string.Empty;
-        [Column(TypeName = "jsonb")] public JsonDocument? Markings { get; set; } = null!;
+
+        [Column(TypeName = "jsonb")]
+        public JsonDocument? Markings { get; set; } = null!;
         public string HairName { get; set; } = null!;
         public string HairColor { get; set; } = null!;
         public bool HairGlowing { get; set; } = false; //starlight
@@ -485,7 +488,7 @@ namespace Content.Server.Database
         public string FacialHairColor { get; set; } = null!;
         public bool FacialHairGlowing { get; set; } = false; //starlight
         public string EyeColor { get; set; } = null!;
-        public bool EyeGlowing { get; set;} = false; //starlight
+        public bool EyeGlowing { get; set; } = false; //starlight
         public string SkinColor { get; set; } = null!;
         public float Height { get; set; } = 1.0f;
         public float Width { get; set; } = 1.0f;
@@ -496,7 +499,8 @@ namespace Content.Server.Database
 
         public List<ProfileRoleLoadout> Loadouts { get; } = new();
 
-        [Column("pref_unavailable")] public DbPreferenceUnavailableMode PreferenceUnavailable { get; set; }
+        [Column("pref_unavailable")]
+        public DbPreferenceUnavailableMode PreferenceUnavailable { get; set; }
 
         public string Company { get; set; } = "None";
 
@@ -581,7 +585,7 @@ namespace Content.Server.Database
         Never = 0,
         Low = 1,
         Medium = 2,
-        High = 3
+        High = 3,
     }
 
     public class Antag
@@ -737,7 +741,8 @@ namespace Content.Server.Database
     [Table("whitelist")]
     public class Whitelist
     {
-        [Required, Key] public Guid UserId { get; set; }
+        [Required, Key]
+        public Guid UserId { get; set; }
     }
 
     /// <summary>
@@ -746,12 +751,14 @@ namespace Content.Server.Database
     [Table("blacklist")]
     public class Blacklist
     {
-        [Required, Key] public Guid UserId { get; set; }
+        [Required, Key]
+        public Guid UserId { get; set; }
     }
 
     public class Admin
     {
-        [Key] public Guid UserId { get; set; }
+        [Key]
+        public Guid UserId { get; set; }
         public string? Title { get; set; }
 
         /// <summary>
@@ -808,7 +815,8 @@ namespace Content.Server.Database
 
         public List<AdminLog> AdminLogs { get; set; } = default!;
 
-        [ForeignKey("Server")] public int ServerId { get; set; }
+        [ForeignKey("Server")]
+        public int ServerId { get; set; }
         public Server Server { get; set; } = default!;
     }
 
@@ -829,35 +837,46 @@ namespace Content.Server.Database
     [Index(nameof(Type))]
     public class AdminLog
     {
-        [Key, ForeignKey("Round")] public int RoundId { get; set; }
+        [Key, ForeignKey("Round")]
+        public int RoundId { get; set; }
 
         [Key]
         public int Id { get; set; }
 
         public Round Round { get; set; } = default!;
 
-        [Required] public LogType Type { get; set; }
+        [Required]
+        public LogType Type { get; set; }
 
-        [Required] public LogImpact Impact { get; set; }
+        [Required]
+        public LogImpact Impact { get; set; }
 
-        [Required] public DateTime Date { get; set; }
+        [Required]
+        public DateTime Date { get; set; }
 
-        [Required] public string Message { get; set; } = default!;
+        [Required]
+        public string Message { get; set; } = default!;
 
-        [Required, Column(TypeName = "jsonb")] public JsonDocument Json { get; set; } = default!;
+        [Required, Column(TypeName = "jsonb")]
+        public JsonDocument Json { get; set; } = default!;
 
         public List<AdminLogPlayer> Players { get; set; } = default!;
     }
 
     public class AdminLogPlayer
     {
-        [Required, Key] public int RoundId { get; set; }
-        [Required, Key] public int LogId { get; set; }
+        [Required, Key]
+        public int RoundId { get; set; }
 
-        [Required, Key, ForeignKey("Player")] public Guid PlayerUserId { get; set; }
+        [Required, Key]
+        public int LogId { get; set; }
+
+        [Required, Key, ForeignKey("Player")]
+        public Guid PlayerUserId { get; set; }
         public Player Player { get; set; } = default!;
 
-        [ForeignKey("RoundId,LogId")] public AdminLog Log { get; set; } = default!;
+        [ForeignKey("RoundId,LogId")]
+        public AdminLog Log { get; set; } = default!;
     }
 
     /// <summary>
@@ -867,7 +886,7 @@ namespace Content.Server.Database
     public enum ServerBanExemptFlags
     {
         // @formatter:off
-        None       = 0,
+        None = 0,
 
         /// <summary>
         /// Ban is a datacenter range, connections usually imply usage of a VPN service.
@@ -961,6 +980,7 @@ namespace Content.Server.Database
         Full = 2,
         Panic = 3,
         Connected = 4, // Frontier
+
         /*
          * If baby jail is removed, please reserve this value for as long as can reasonably be done to prevent causing ambiguity in connection denial reasons.
          * Reservation by commenting out the value is likely sufficient for this purpose, but may impact projects which depend on SS14 like SS14.Admin.
@@ -968,10 +988,12 @@ namespace Content.Server.Database
          * Edit: It has
          */
         BabyJail = 5, // Frontier: 4<5
+
         /// Results from rejected connections with external API checking tools
         IPChecks = 6, // Frontier: 5<6
+
         /// Results from rejected connections who are authenticated but have no modern hwid associated with them.
-        NoHwid = 7 // Frontier: 6<7
+        NoHwid = 7, // Frontier: 6<7
     }
 
     public class ServerBanHit
@@ -1044,31 +1066,45 @@ namespace Content.Server.Database
     [Index(nameof(PlayerUserId))]
     public class AdminNote : IAdminRemarksCommon
     {
-        [Required, Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int Id { get; set; }
+        [Required, Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
 
-        [ForeignKey("Round")] public int? RoundId { get; set; }
+        [ForeignKey("Round")]
+        public int? RoundId { get; set; }
         public Round? Round { get; set; }
 
-        [ForeignKey("Player")] public Guid? PlayerUserId { get; set; }
+        [ForeignKey("Player")]
+        public Guid? PlayerUserId { get; set; }
         public Player? Player { get; set; }
-        [Required] public TimeSpan PlaytimeAtNote { get; set; }
 
-        [Required, MaxLength(4096)] public string Message { get; set; } = string.Empty;
-        [Required] public NoteSeverity Severity { get; set; }
+        [Required]
+        public TimeSpan PlaytimeAtNote { get; set; }
 
-        [ForeignKey("CreatedBy")] public Guid? CreatedById { get; set; }
+        [Required, MaxLength(4096)]
+        public string Message { get; set; } = string.Empty;
+
+        [Required]
+        public NoteSeverity Severity { get; set; }
+
+        [ForeignKey("CreatedBy")]
+        public Guid? CreatedById { get; set; }
         public Player? CreatedBy { get; set; }
 
-        [Required] public DateTime CreatedAt { get; set; }
+        [Required]
+        public DateTime CreatedAt { get; set; }
 
-        [ForeignKey("LastEditedBy")] public Guid? LastEditedById { get; set; }
+        [ForeignKey("LastEditedBy")]
+        public Guid? LastEditedById { get; set; }
         public Player? LastEditedBy { get; set; }
 
-        [Required] public DateTime? LastEditedAt { get; set; }
+        [Required]
+        public DateTime? LastEditedAt { get; set; }
         public DateTime? ExpirationTime { get; set; }
 
         public bool Deleted { get; set; }
-        [ForeignKey("DeletedBy")] public Guid? DeletedById { get; set; }
+
+        [ForeignKey("DeletedBy")]
+        public Guid? DeletedById { get; set; }
         public Player? DeletedBy { get; set; }
         public DateTime? DeletedAt { get; set; }
 
@@ -1078,30 +1114,42 @@ namespace Content.Server.Database
     [Index(nameof(PlayerUserId))]
     public class AdminWatchlist : IAdminRemarksCommon
     {
-        [Required, Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int Id { get; set; }
+        [Required, Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
 
-        [ForeignKey("Round")] public int? RoundId { get; set; }
+        [ForeignKey("Round")]
+        public int? RoundId { get; set; }
         public Round? Round { get; set; }
 
-        [ForeignKey("Player")] public Guid? PlayerUserId { get; set; }
+        [ForeignKey("Player")]
+        public Guid? PlayerUserId { get; set; }
         public Player? Player { get; set; }
-        [Required] public TimeSpan PlaytimeAtNote { get; set; }
 
-        [Required, MaxLength(4096)] public string Message { get; set; } = string.Empty;
+        [Required]
+        public TimeSpan PlaytimeAtNote { get; set; }
 
-        [ForeignKey("CreatedBy")] public Guid? CreatedById { get; set; }
+        [Required, MaxLength(4096)]
+        public string Message { get; set; } = string.Empty;
+
+        [ForeignKey("CreatedBy")]
+        public Guid? CreatedById { get; set; }
         public Player? CreatedBy { get; set; }
 
-        [Required] public DateTime CreatedAt { get; set; }
+        [Required]
+        public DateTime CreatedAt { get; set; }
 
-        [ForeignKey("LastEditedBy")] public Guid? LastEditedById { get; set; }
+        [ForeignKey("LastEditedBy")]
+        public Guid? LastEditedById { get; set; }
         public Player? LastEditedBy { get; set; }
 
-        [Required] public DateTime? LastEditedAt { get; set; }
+        [Required]
+        public DateTime? LastEditedAt { get; set; }
         public DateTime? ExpirationTime { get; set; }
 
         public bool Deleted { get; set; }
-        [ForeignKey("DeletedBy")] public Guid? DeletedById { get; set; }
+
+        [ForeignKey("DeletedBy")]
+        public Guid? DeletedById { get; set; }
         public Player? DeletedBy { get; set; }
         public DateTime? DeletedAt { get; set; }
     }
@@ -1109,31 +1157,41 @@ namespace Content.Server.Database
     [Index(nameof(PlayerUserId))]
     public class AdminMessage : IAdminRemarksCommon
     {
-        [Required, Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int Id { get; set; }
+        [Required, Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
 
-        [ForeignKey("Round")] public int? RoundId { get; set; }
+        [ForeignKey("Round")]
+        public int? RoundId { get; set; }
         public Round? Round { get; set; }
 
         [ForeignKey("Player")]
         public Guid? PlayerUserId { get; set; }
         public Player? Player { get; set; }
-        [Required] public TimeSpan PlaytimeAtNote { get; set; }
 
-        [Required, MaxLength(4096)] public string Message { get; set; } = string.Empty;
+        [Required]
+        public TimeSpan PlaytimeAtNote { get; set; }
 
-        [ForeignKey("CreatedBy")] public Guid? CreatedById { get; set; }
+        [Required, MaxLength(4096)]
+        public string Message { get; set; } = string.Empty;
+
+        [ForeignKey("CreatedBy")]
+        public Guid? CreatedById { get; set; }
         public Player? CreatedBy { get; set; }
 
-        [Required] public DateTime CreatedAt { get; set; }
+        [Required]
+        public DateTime CreatedAt { get; set; }
 
-        [ForeignKey("LastEditedBy")] public Guid? LastEditedById { get; set; }
+        [ForeignKey("LastEditedBy")]
+        public Guid? LastEditedById { get; set; }
         public Player? LastEditedBy { get; set; }
 
         public DateTime? LastEditedAt { get; set; }
         public DateTime? ExpirationTime { get; set; }
 
         public bool Deleted { get; set; }
-        [ForeignKey("DeletedBy")] public Guid? DeletedById { get; set; }
+
+        [ForeignKey("DeletedBy")]
+        public Guid? DeletedById { get; set; }
         public Player? DeletedBy { get; set; }
         public DateTime? DeletedAt { get; set; }
 
@@ -1228,11 +1286,7 @@ namespace Content.Server.Database
             if (immutable == null)
                 return null;
 
-            return new TypedHwid
-            {
-                Hwid = immutable.Hwid.ToArray(),
-                Type = immutable.Type,
-            };
+            return new TypedHwid { Hwid = immutable.Hwid.ToArray(), Type = immutable.Type };
         }
 
         [return: NotNullIfNotNull(nameof(hwid))]
@@ -1244,7 +1298,6 @@ namespace Content.Server.Database
             return new ImmutableTypedHwid(hwid.Hwid.ToImmutableArray(), hwid.Type);
         }
     }
-
 
     /// <summary>
     ///  Cache for the IPIntel system

@@ -25,14 +25,29 @@ namespace Content.Shared.Storage.EntitySystems;
 /// </summary>
 public sealed class SecretStashSystem : EntitySystem
 {
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedHandsSystem _handsSystem = default!;
-    [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
-    [Dependency] private readonly SharedItemSystem _item = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly ToolOpenableSystem _toolOpenableSystem = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
-    [Dependency] private readonly DamageableSystem _damageableSystem = default!;
+    [Dependency]
+    private readonly SharedPopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly SharedHandsSystem _handsSystem = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _containerSystem = default!;
+
+    [Dependency]
+    private readonly SharedItemSystem _item = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly ToolOpenableSystem _toolOpenableSystem = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelistSystem = default!;
+
+    [Dependency]
+    private readonly DamageableSystem _damageableSystem = default!;
 
     public override void Initialize()
     {
@@ -40,7 +55,10 @@ public sealed class SecretStashSystem : EntitySystem
         SubscribeLocalEvent<SecretStashComponent, ComponentInit>(OnInit);
         SubscribeLocalEvent<SecretStashComponent, DestructionEventArgs>(OnDestroyed);
         SubscribeLocalEvent<SecretStashComponent, GotReclaimedEvent>(OnReclaimed);
-        SubscribeLocalEvent<SecretStashComponent, InteractUsingEvent>(OnInteractUsing, after: new[] { typeof(ToolOpenableSystem), typeof(AnchorableSystem) });
+        SubscribeLocalEvent<SecretStashComponent, InteractUsingEvent>(
+            OnInteractUsing,
+            after: new[] { typeof(ToolOpenableSystem), typeof(AnchorableSystem) }
+        );
         SubscribeLocalEvent<SecretStashComponent, AfterFullyEatenEvent>(OnEaten);
         SubscribeLocalEvent<SecretStashComponent, InteractHandEvent>(OnInteractHand);
         SubscribeLocalEvent<SecretStashComponent, GetVerbsEvent<InteractionVerb>>(OnGetVerb);
@@ -106,11 +124,16 @@ public sealed class SecretStashSystem : EntitySystem
         }
 
         // check if item is too big to fit into secret stash or is in the blacklist
-        if (_item.GetSizePrototype(itemComp.Size) > _item.GetSizePrototype(entity.Comp.MaxItemSize) ||
-            _whitelistSystem.IsBlacklistPass(entity.Comp.Blacklist, itemToHideUid))
+        if (
+            _item.GetSizePrototype(itemComp.Size) > _item.GetSizePrototype(entity.Comp.MaxItemSize)
+            || _whitelistSystem.IsBlacklistPass(entity.Comp.Blacklist, itemToHideUid)
+        )
         {
-            var msg = Loc.GetString("comp-secret-stash-action-hide-item-too-big",
-                ("item", itemToHideUid), ("stashname", GetStashName(entity)));
+            var msg = Loc.GetString(
+                "comp-secret-stash-action-hide-item-too-big",
+                ("item", itemToHideUid),
+                ("stashname", GetStashName(entity))
+            );
             _popupSystem.PopupClient(msg, entity, userUid);
             return false;
         }
@@ -120,8 +143,11 @@ public sealed class SecretStashSystem : EntitySystem
             return false;
 
         // all done, show success message
-        var successMsg = Loc.GetString("comp-secret-stash-action-hide-success",
-            ("item", itemToHideUid), ("stashname", GetStashName(entity)));
+        var successMsg = Loc.GetString(
+            "comp-secret-stash-action-hide-success",
+            ("item", itemToHideUid),
+            ("stashname", GetStashName(entity))
+        );
         _popupSystem.PopupClient(successMsg, entity, userUid);
         return true;
     }
@@ -146,8 +172,10 @@ public sealed class SecretStashSystem : EntitySystem
         _handsSystem.PickupOrDrop(userUid, itemInStash.Value, handsComp: handsComp);
 
         // show success message
-        var successMsg = Loc.GetString("comp-secret-stash-action-get-item-found-something",
-            ("stashname", GetStashName(entity)));
+        var successMsg = Loc.GetString(
+            "comp-secret-stash-action-get-item-found-something",
+            ("stashname", GetStashName(entity))
+        );
         _popupSystem.PopupClient(successMsg, entity, userUid);
 
         return true;
@@ -173,11 +201,18 @@ public sealed class SecretStashSystem : EntitySystem
                 if (HasItemInside(entity))
                 {
                     itemVerb.Disabled = true;
-                    itemVerb.Message = Loc.GetString("comp-secret-stash-verb-insert-message-item-already-inside", ("stashname", stashName));
+                    itemVerb.Message = Loc.GetString(
+                        "comp-secret-stash-verb-insert-message-item-already-inside",
+                        ("stashname", stashName)
+                    );
                 }
                 else
                 {
-                    itemVerb.Message = Loc.GetString("comp-secret-stash-verb-insert-message-no-item", ("item", item), ("stashname", stashName));
+                    itemVerb.Message = Loc.GetString(
+                        "comp-secret-stash-verb-insert-message-no-item",
+                        ("item", item),
+                        ("stashname", stashName)
+                    );
                 }
 
                 itemVerb.Act = () => TryStashItem(entity, user, item.Value);
@@ -185,11 +220,17 @@ public sealed class SecretStashSystem : EntitySystem
             else
             {
                 itemVerb.Text = Loc.GetString("comp-secret-stash-verb-take-out-item");
-                itemVerb.Message = Loc.GetString("comp-secret-stash-verb-take-out-message-something", ("stashname", stashName));
+                itemVerb.Message = Loc.GetString(
+                    "comp-secret-stash-verb-take-out-message-something",
+                    ("stashname", stashName)
+                );
                 if (!HasItemInside(entity))
                 {
                     itemVerb.Disabled = true;
-                    itemVerb.Message = Loc.GetString("comp-secret-stash-verb-take-out-message-nothing", ("stashname", stashName));
+                    itemVerb.Message = Loc.GetString(
+                        "comp-secret-stash-verb-take-out-message-nothing",
+                        ("stashname", stashName)
+                    );
                 }
 
                 itemVerb.Act = () => TryGetItem(entity, user);

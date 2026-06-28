@@ -22,14 +22,29 @@ namespace Content.Shared._NF.Power.EntitySystems;
 /// </summary>
 public sealed partial class PowerTransmissionSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly AmbientSoundSystem _ambientSound = default!;
-    [Dependency] private readonly AppearanceSystem _appearance = default!;
-    [Dependency] private readonly BankSystem _bank = default!;
-    [Dependency] private readonly NodeContainerSystem _node = default!;
-    [Dependency] private readonly NodeGroupSystem _nodeGroup = default!;
-    [Dependency] private readonly PointLightSystem _pointLight = default!;
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly AmbientSoundSystem _ambientSound = default!;
+
+    [Dependency]
+    private readonly AppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly BankSystem _bank = default!;
+
+    [Dependency]
+    private readonly NodeContainerSystem _node = default!;
+
+    [Dependency]
+    private readonly NodeGroupSystem _nodeGroup = default!;
+
+    [Dependency]
+    private readonly PointLightSystem _pointLight = default!;
+
+    [Dependency]
+    private readonly UserInterfaceSystem _ui = default!;
 
     public override void Initialize()
     {
@@ -47,28 +62,45 @@ public sealed partial class PowerTransmissionSystem : EntitySystem
             {
                 subs.Event<AdjustablePowerDrawSetEnabledMessage>(HandleSetEnabled);
                 subs.Event<AdjustablePowerDrawSetLoadMessage>(HandleSetLoad);
-            });
+            }
+        );
     }
 
     private void OnMapInit(Entity<PowerTransmissionComponent> ent, ref MapInitEvent args)
     {
         ent.Comp.NextDeposit = _timing.CurTime + ent.Comp.DepositPeriod;
         if (TryComp(ent, out PowerConsumerComponent? power))
-            power.DrawRate = Math.Clamp(power.DrawRate, ent.Comp.MinimumRequestablePower, ent.Comp.MaximumRequestablePower);
+            power.DrawRate = Math.Clamp(
+                power.DrawRate,
+                ent.Comp.MinimumRequestablePower,
+                ent.Comp.MaximumRequestablePower
+            );
     }
 
     private void OnExamined(Entity<PowerTransmissionComponent> ent, ref ExaminedEvent args)
     {
         if (TryComp(ent, out PowerConsumerComponent? power))
         {
-            args.PushMarkup(Loc.GetString("power-transmission-examine", ("actual", power.ReceivedPower), ("requested", power.DrawRate)));
+            args.PushMarkup(
+                Loc.GetString(
+                    "power-transmission-examine",
+                    ("actual", power.ReceivedPower),
+                    ("requested", power.DrawRate)
+                )
+            );
 
             var powered = power.NetworkLoad.Enabled && power.NetworkLoad.ReceivingPower > 0;
             args.PushMarkup(
-                Loc.GetString("power-receiver-component-on-examine-main",
-                    ("stateText", Loc.GetString(powered
-                        ? "power-receiver-component-on-examine-powered"
-                        : "power-receiver-component-on-examine-unpowered"))
+                Loc.GetString(
+                    "power-receiver-component-on-examine-main",
+                    (
+                        "stateText",
+                        Loc.GetString(
+                            powered
+                                ? "power-receiver-component-on-examine-powered"
+                                : "power-receiver-component-on-examine-unpowered"
+                        )
+                    )
                 )
             );
         }
@@ -95,7 +127,8 @@ public sealed partial class PowerTransmissionSystem : EntitySystem
                 }
 
                 float totalPeriodSeconds = (float)xmit.DepositPeriod.TotalSeconds;
-                float depositValue = GetPowerPayRate((uid, xmit), xmit.AccumulatedEnergy / totalPeriodSeconds) * totalPeriodSeconds;
+                float depositValue =
+                    GetPowerPayRate((uid, xmit), xmit.AccumulatedEnergy / totalPeriodSeconds) * totalPeriodSeconds;
 
                 xmit.AccumulatedEnergy = 0.0f;
                 var depositSpesos = (int)depositValue;
@@ -130,7 +163,9 @@ public sealed partial class PowerTransmissionSystem : EntitySystem
         if (power <= ent.Comp.LinearMaxValue)
             depositValue = ent.Comp.LinearRate * power;
         else
-            depositValue = ent.Comp.LogarithmCoefficient * MathF.Pow(ent.Comp.LogarithmRateBase, MathF.Log10(power) - ent.Comp.LogarithmSubtrahend);
+            depositValue =
+                ent.Comp.LogarithmCoefficient
+                * MathF.Pow(ent.Comp.LogarithmRateBase, MathF.Log10(power) - ent.Comp.LogarithmSubtrahend);
 
         return MathF.Min(depositValue, ent.Comp.MaxValuePerSecond);
     }
@@ -143,8 +178,10 @@ public sealed partial class PowerTransmissionSystem : EntitySystem
 
     private void HandleSetEnabled(Entity<PowerTransmissionComponent> ent, ref AdjustablePowerDrawSetEnabledMessage args)
     {
-        if (TryComp(ent, out NodeContainerComponent? node) &&
-            _node.TryGetNode<CableDeviceNode>(node, ent.Comp.NodeName, out var deviceNode))
+        if (
+            TryComp(ent, out NodeContainerComponent? node)
+            && _node.TryGetNode<CableDeviceNode>(node, ent.Comp.NodeName, out var deviceNode)
+        )
         {
             deviceNode.Enabled = args.On;
             if (deviceNode.Enabled)
@@ -172,8 +209,10 @@ public sealed partial class PowerTransmissionSystem : EntitySystem
             return;
 
         bool nodeEnabled = false;
-        if (TryComp(ent, out NodeContainerComponent? node) &&
-            _node.TryGetNode<CableDeviceNode>(node, ent.Comp.NodeName, out var deviceNode))
+        if (
+            TryComp(ent, out NodeContainerComponent? node)
+            && _node.TryGetNode<CableDeviceNode>(node, ent.Comp.NodeName, out var deviceNode)
+        )
         {
             nodeEnabled = deviceNode.Enabled;
         }
@@ -185,7 +224,11 @@ public sealed partial class PowerTransmissionSystem : EntitySystem
             {
                 On = nodeEnabled,
                 Load = power.DrawRate,
-                Text = Loc.GetString("power-transmission-estimated-value", ("value", BankSystemExtensions.ToSpesoString((int)GetPowerPayRate(ent, power.DrawRate))))
-            });
+                Text = Loc.GetString(
+                    "power-transmission-estimated-value",
+                    ("value", BankSystemExtensions.ToSpesoString((int)GetPowerPayRate(ent, power.DrawRate)))
+                ),
+            }
+        );
     }
 }

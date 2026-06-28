@@ -145,12 +145,12 @@
   id: WardenIDCard
   name: warden ID card
   components:
-    - type: Sprite
-      layers:
-        - state: default
-        - state: idwarden
-    - type: PresetIdCard
-      job: Warden
+  - type: Sprite
+    layers:
+    - state: default
+    - state: idwarden
+  - type: PresetIdCard
+    job: Warden
 
 - type: entity
   parent: IDCardStandard
@@ -229,14 +229,14 @@
   id: QuartermasterIDCard
   name: quartermaster ID card
   components:
-    - type: Sprite
-      layers:
-        - state: silver
-        - state: idquartermaster
-    - type: Item
-      heldPrefix: silver
-    - type: PresetIdCard
-      job: Quartermaster
+  - type: Sprite
+    layers:
+    - state: silver
+    - state: idquartermaster
+  - type: Item
+    heldPrefix: silver
+  - type: PresetIdCard
+    job: Quartermaster
 
 - type: entity
   parent: IDCardStandard
@@ -279,18 +279,18 @@
   id: ChaplainIDCard
   name: chaplain ID card
   components:
-    - type: Sprite
-      layers:
-        - state: default
-        - state: idchaplain
-    - type: PresetIdCard
-      job: Chaplain
+  - type: Sprite
+    layers:
+    - state: default
+    - state: idchaplain
+  - type: PresetIdCard
+    job: Chaplain
 
 - type: entity
   parent: IDCardStandard
   id: JanitorIDCard
   name: janitor ID card
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   components:
   - type: Sprite
     layers:
@@ -316,16 +316,16 @@
   id: PunPunIDCard
   name: pun pun ID card
   components:
-    - type: Sprite
-      layers:
-        - state: default
-        - state: idbartender
-    - type: PresetIdCard
-      job: Bartender
-      name: Pun Pun
-    - type: Tag #  Ignore Chameleon tags
-      tags:
-      - DoorBumpOpener
+  - type: Sprite
+    layers:
+    - state: default
+    - state: idbartender
+  - type: PresetIdCard
+    job: Bartender
+    name: Pun Pun
+  - type: Tag #  Ignore Chameleon tags
+    tags:
+    - DoorBumpOpener
 
 - type: entity
   parent: IDCardStandard
@@ -344,36 +344,36 @@
   id: BotanistIDCard
   name: botanist ID card
   components:
-    - type: Sprite
-      layers:
-        - state: default
-        - state: idbotanist
-    - type: PresetIdCard
-      job: Botanist
+  - type: Sprite
+    layers:
+    - state: default
+    - state: idbotanist
+  - type: PresetIdCard
+    job: Botanist
 
 - type: entity
   parent: IDCardStandard
   id: LibrarianIDCard
   name: librarian ID card
   components:
-    - type: Sprite
-      layers:
-        - state: default
-        - state: idcurator
-    - type: PresetIdCard
-      job: Librarian
+  - type: Sprite
+    layers:
+    - state: default
+    - state: idcurator
+  - type: PresetIdCard
+    job: Librarian
 
 - type: entity
   parent: IDCardStandard
   id: LawyerIDCard
   name: lawyer ID card
   components:
-    - type: Sprite
-      layers:
-        - state: default
-        - state: idlawyer
-    - type: PresetIdCard
-      job: Lawyer
+  - type: Sprite
+    layers:
+    - state: default
+    - state: idlawyer
+  - type: PresetIdCard
+    job: Lawyer
 
 - type: entity
   parent: IDCardStandard
@@ -602,12 +602,12 @@
   id: MusicianIDCard
   name: musician ID card
   components:
-    - type: Sprite
-      layers:
-        - state: default
-        - state: idmusician
-    - type: PresetIdCard
-      job: Musician
+  - type: Sprite
+    layers:
+    - state: default
+    - state: idmusician
+  - type: PresetIdCard
+    job: Musician
 
 - type: entity
   parent: IDCardStandard
@@ -711,7 +711,7 @@
   parent: [IDCardStandard, BaseC3PirateContraband] # Frontier: added BaseC3PirateContraband
   id: PirateIDCard
   name: pirate ID card
-  categories: [ HideSpawnMenu ] # Frontier
+  categories: [HideSpawnMenu] # Frontier
   components:
   - type: Sprite
     layers:

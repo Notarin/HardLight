@@ -101,17 +101,17 @@
     title: objective-condition-maroon-person-title
   - type: PickRandomPerson
     filters: # Starlight
-    # Anomaly players cannot be targeted.
     - !type:JobMindFilter
+      # Anomaly players cannot be targeted.
       job: Anomaly
-    # HardLight start: Freelancers should not roll as personal targets, as it's consistently impossible to actually track them down.
     - !type:JobMindFilter
+      # HardLight start: Freelancers should not roll as personal targets, as it's consistently impossible to actually track them down.
       job: Mercenary
     - !type:JobMindFilter
       job: MercenaryInterview
-    # HardLight end
-    # Can't have multiple objectives to kill the same person.
     - !type:TargetObjectiveMindFilter
+      # HardLight end
+      # Can't have multiple objectives to kill the same person.
       blacklist:
         components:
         - KillPersonCondition
@@ -141,11 +141,11 @@
       whitelist:
         components:
         - CommandStaff
-    # Anomaly players cannot be targeted.
     - !type:JobMindFilter
+      # Anomaly players cannot be targeted.
       job: Anomaly
-    # Can't have multiple objectives to kill the same person.
     - !type:TargetObjectiveMindFilter
+      # Can't have multiple objectives to kill the same person.
       blacklist:
         components:
         - KillPersonCondition
@@ -177,8 +177,8 @@
       whitelist:
         components:
         - TraitorRole
-    # Can't have multiple objectives to help/save the same person
     - !type:TargetObjectiveMindFilter
+      # Can't have multiple objectives to help/save the same person
       blacklist:
         components:
         - KeepAliveCondition
@@ -204,15 +204,15 @@
       whitelist:
         components:
         - TraitorRole
-    # Can't help anyone who is tasked with helping:
-    # 1. thats boring
-    # 2. no cyclic progress dependencies!!!
     - !type:ObjectiveMindFilter
+      # Can't help anyone who is tasked with helping:
+      # 1. thats boring
+      # 2. no cyclic progress dependencies!!!
       blacklist:
         components:
         - HelpProgressCondition
-    # Can't have multiple objectives to help/save the same person
     - !type:TargetObjectiveMindFilter
+      # Can't have multiple objectives to help/save the same person
       blacklist:
         components:
         - KeepAliveCondition

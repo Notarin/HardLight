@@ -8,7 +8,8 @@ public sealed class DisarmAttackEvent : AttackEvent
 {
     public NetEntity? Target;
 
-    public DisarmAttackEvent(NetEntity? target, NetCoordinates coordinates) : base(coordinates)
+    public DisarmAttackEvent(NetEntity? target, NetCoordinates coordinates)
+        : base(coordinates)
     {
         Target = target;
     }

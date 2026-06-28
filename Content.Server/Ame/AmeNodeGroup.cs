@@ -8,8 +8,8 @@ using Content.Server.NodeContainer.Nodes;
 using Content.Shared.NodeContainer;
 using Content.Shared.NodeContainer.NodeGroups;
 using Robust.Server.GameObjects;
-using Robust.Shared.Map.Components;
 using Robust.Shared.Map;
+using Robust.Shared.Map.Components;
 using Robust.Shared.Random;
 
 namespace Content.Server.Ame;
@@ -20,9 +20,14 @@ namespace Content.Server.Ame;
 [NodeGroup(NodeGroupID.AMEngine)]
 public sealed class AmeNodeGroup : BaseNodeGroup
 {
-    [Dependency] private readonly IChatManager _chat = default!;
-    [Dependency] private readonly IEntityManager _entMan = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency]
+    private readonly IChatManager _chat = default!;
+
+    [Dependency]
+    private readonly IEntityManager _entMan = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
 
     /// <summary>
     /// The AME controller which is currently in control of this node group.
@@ -69,7 +74,8 @@ public sealed class AmeNodeGroup : BaseNodeGroup
             else if (gridEnt != xform.GridUid)
                 continue;
 
-            var nodeNeighbors = mapSystem.GetCellsInSquareArea(xform.GridUid.Value, grid, xform.Coordinates, 1)
+            var nodeNeighbors = mapSystem
+                .GetCellsInSquareArea(xform.GridUid.Value, grid, xform.Coordinates, 1)
                 .Where(entity => entity != nodeOwner && shieldQuery.HasComponent(entity));
 
             if (nodeNeighbors.Count() >= 8)
@@ -153,9 +159,7 @@ public sealed class AmeNodeGroup : BaseNodeGroup
             var oldIntegrity = core.CoreIntegrity;
             core.CoreIntegrity -= instability;
 
-            if (oldIntegrity > 95
-                && core.CoreIntegrity <= 95
-                && core.CoreIntegrity < integrityCheck)
+            if (oldIntegrity > 95 && core.CoreIntegrity <= 95 && core.CoreIntegrity < integrityCheck)
                 integrityCheck = core.CoreIntegrity;
         }
 
@@ -174,7 +178,7 @@ public sealed class AmeNodeGroup : BaseNodeGroup
         // Balanced around a single core AME with injection level 2 producing 120KW.
         // Two core with four injection is 150kW. Two core with two injection is 90kW.
 
-        // Increasing core count creates diminishing returns, increasing injection amount increases 
+        // Increasing core count creates diminishing returns, increasing injection amount increases
         // Unlike the previous solution, increasing fuel and cores always leads to an increase in power, even if by very small amounts.
         // Increasing core count without increasing fuel always leads to reduced power as well.
         // At 18+ cores and 2 inject, the power produced is less than 0, the Max ensures the AME can never produce "negative" power.
@@ -202,8 +206,7 @@ public sealed class AmeNodeGroup : BaseNodeGroup
 
     public void ExplodeCores()
     {
-        if (_cores.Count < 1
-        || !_entMan.TryGetComponent<AmeControllerComponent>(MasterController, out var controller))
+        if (_cores.Count < 1 || !_entMan.TryGetComponent<AmeControllerComponent>(MasterController, out var controller))
             return;
 
         /*

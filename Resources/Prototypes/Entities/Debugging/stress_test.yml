@@ -5,7 +5,7 @@
   components:
   - type: Tag
     tags:
-      - Debug
+    - Debug
   - type: Sprite
     sprite: Effects/explosion.rsi
     state: explosion

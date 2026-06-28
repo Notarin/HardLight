@@ -52,7 +52,7 @@
         Quantity: 10
       - ReagentId: Blood
         Quantity: 20
-  # End Frontier: consistency with upstream
+        # End Frontier: consistency with upstream
 
 - type: entity
   id: HeadHarpy
@@ -84,7 +84,7 @@
         Quantity: 5
       - ReagentId: Blood
         Quantity: 10
-  # End Frontier: consistency with upstream
+        # End Frontier: consistency with upstream
 
 - type: entity
   id: LeftArmHarpy
@@ -98,9 +98,9 @@
   - type: Icon
     sprite: _DV/Mobs/Species/Harpy/parts.rsi
     state: "l_arm"
-  # - type: BodyPart # Frontier: inherited from BaseLeftArm
-  #   partType: Arm # Frontier: inherited from BaseLeftArm
-  #   symmetry: Left # Frontier: inherited from BaseLeftArm
+    # - type: BodyPart # Frontier: inherited from BaseLeftArm
+    #   partType: Arm # Frontier: inherited from BaseLeftArm
+    #   symmetry: Left # Frontier: inherited from BaseLeftArm
 
 - type: entity
   id: RightArmHarpy
@@ -114,9 +114,9 @@
   - type: Icon
     sprite: _DV/Mobs/Species/Harpy/parts.rsi
     state: "r_arm"
-  # - type: BodyPart # Frontier: inherited from BaseRightArm
-  #   partType: Arm # Frontier: inherited from BaseRightArm
-  #   symmetry: Right # Frontier: inherited from BaseRightArm
+    # - type: BodyPart # Frontier: inherited from BaseRightArm
+    #   partType: Arm # Frontier: inherited from BaseRightArm
+    #   symmetry: Right # Frontier: inherited from BaseRightArm
 
 - type: entity
   id: LeftHandHarpy
@@ -130,9 +130,9 @@
   - type: Icon
     sprite: _DV/Mobs/Species/Harpy/parts.rsi
     state: "l_hand"
-  # - type: BodyPart # Frontier: inherited from BaseLeftHand
-  #   partType: Hand # Frontier: inherited from BaseLeftHand
-  #   symmetry: Left # Frontier: inherited from BaseLeftHand
+    # - type: BodyPart # Frontier: inherited from BaseLeftHand
+    #   partType: Hand # Frontier: inherited from BaseLeftHand
+    #   symmetry: Left # Frontier: inherited from BaseLeftHand
 
 - type: entity
   id: RightHandHarpy
@@ -146,9 +146,9 @@
   - type: Icon
     sprite: _DV/Mobs/Species/Harpy/parts.rsi
     state: "r_hand"
-  # - type: BodyPart # Frontier: inherited from BaseRightHand
-  #   partType: Hand # Frontier: inherited from BaseRightHand
-  #   symmetry: Right # Frontier: inherited from BaseRightHand
+    # - type: BodyPart # Frontier: inherited from BaseRightHand
+    #   partType: Hand # Frontier: inherited from BaseRightHand
+    #   symmetry: Right # Frontier: inherited from BaseRightHand
 
 - type: entity
   id: LeftLegHarpy
@@ -166,7 +166,7 @@
   #   partType: Leg # Frontier: inherited from BaseLeftLeg
   #   symmetry: Left # Frontier: inherited from BaseLeftLeg
   - type: MovementBodyPart # HL: Implemented here because we need to apply it to leg I guess
-    sprintSpeed : 5.0
+    sprintSpeed: 5.0
 
 - type: entity
   id: RightLegHarpy
@@ -184,7 +184,7 @@
   #   partType: Leg # Frontier: inherited from BaseRightLeg
   #   symmetry: Right # Frontier: inherited from BaseRightLeg
   - type: MovementBodyPart # HL: Implemented here because we need to apply it to leg I guess
-    sprintSpeed : 5.0
+    sprintSpeed: 5.0
 
 - type: entity
   id: LeftFootHarpy
@@ -198,9 +198,9 @@
   - type: Icon
     sprite: _DV/Mobs/Species/Harpy/parts.rsi
     state: "l_foot"
-  # - type: BodyPart # Frontier: inherited from BaseLeftFoot
-  #   partType: Foot # Frontier: inherited from BaseLeftFoot
-  #   symmetry: Left # Frontier: inherited from BaseLeftFoot
+    # - type: BodyPart # Frontier: inherited from BaseLeftFoot
+    #   partType: Foot # Frontier: inherited from BaseLeftFoot
+    #   symmetry: Left # Frontier: inherited from BaseLeftFoot
 
 - type: entity
   id: RightFootHarpy

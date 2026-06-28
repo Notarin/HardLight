@@ -3,13 +3,8 @@
 namespace Content.Shared.Eui
 {
     [Serializable]
-    public abstract class EuiMessageBase
-    {
-
-    }
+    public abstract class EuiMessageBase { }
 
     [Serializable, NetSerializable]
-    public sealed class CloseEuiMessage : EuiMessageBase
-    {
-    }
+    public sealed class CloseEuiMessage : EuiMessageBase { }
 }

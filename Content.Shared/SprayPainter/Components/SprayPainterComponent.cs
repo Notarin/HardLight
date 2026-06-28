@@ -103,7 +103,10 @@ public sealed partial class SprayPainterComponent : Component
     /// The sound to play when swapping between decal modes.
     /// </summary>
     [DataField]
-    public SoundSpecifier SoundSwitchDecalMode = new SoundPathSpecifier("/Audio/Machines/quickbeep.ogg", AudioParams.Default.WithVolume(1.5f));
+    public SoundSpecifier SoundSwitchDecalMode = new SoundPathSpecifier(
+        "/Audio/Machines/quickbeep.ogg",
+        AudioParams.Default.WithVolume(1.5f)
+    );
 }
 
 /// <summary>
@@ -115,10 +118,12 @@ public enum DecalPaintMode : byte
     /// Clicking on the floor does nothing.
     /// </summary>
     Off = 0,
+
     /// <summary>
     /// Clicking on the floor adds a decal at the requested spot (or snapped to the grid)
     /// </summary>
     Add = 1,
+
     /// <summary>
     /// Clicking on the floor removes all decals at the requested spot (or snapped to the grid)
     /// </summary>

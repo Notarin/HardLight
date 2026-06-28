@@ -10,112 +10,112 @@
 - type: dungeonConfig
   id: VGRoid
   layers:
-    - !type:PrototypeDunGen
-      proto: VGRoidBlob
-    - !type:PrototypeDunGen
-      proto: VGRoidExterior
-    - !type:EntityTableDunGen
-      minCount: 7
-      maxCount: 12
-      table:
-        id: VGRoidInteriorRoomMarker
-    - !type:PrototypeDunGen # HardLight: Relocated down
-      proto: VGRoidSmaller
-    - !type:PrototypeDunGen # HardLight: Relocated down
-      proto: VGRoidSmallPaths
+  - !type:PrototypeDunGen
+    proto: VGRoidBlob
+  - !type:PrototypeDunGen
+    proto: VGRoidExterior
+  - !type:EntityTableDunGen
+    minCount: 7
+    maxCount: 12
+    table:
+      id: VGRoidInteriorRoomMarker
+  - !type:PrototypeDunGen
+    proto: VGRoidSmaller # HardLight: Relocated down
+  - !type:PrototypeDunGen
+    proto: VGRoidSmallPaths # HardLight: Relocated down
+  - !type:PrototypeDunGen
     # Fill
-    - !type:PrototypeDunGen
-      proto: VGRoidFill
+    proto: VGRoidFill
+  - !type:OreDunGen
     # Ores
-    - !type:OreDunGen
-      # replacement: IronRock # upstream#33105
-      entityMask: # upstream#33105
-      - IronRock # upstream#33105
-      entity: IronRockIron
-      count: 50
-      minGroupSize: 10
-      maxGroupSize: 15
-    - !type:OreDunGen
-      # replacement: IronRock # upstream#33105
-      entityMask: # upstream#33105
-      - IronRock # upstream#33105
-      entity: IronRockCoal
-      count: 50
-      minGroupSize: 8
-      maxGroupSize: 12
-    - !type:OreDunGen
-      # replacement: IronRock # upstream#33105
-      entityMask: # upstream#33105
-      - IronRock # upstream#33105
-      entity: IronRockQuartz
-      count: 50
-      minGroupSize: 10
-      maxGroupSize: 15
-    - !type:OreDunGen
-      # replacement: IronRock # upstream#33105
-      entityMask: # upstream#33105
-      - IronRock # upstream#33105
-      entity: IronRockSalt
-      count: 50
-      minGroupSize: 8
-      maxGroupSize: 12
-    - !type:OreDunGen
-      # replacement: IronRock # upstream#33105
-      entityMask: # upstream#33105
-      - IronRock # upstream#33105
-      entity: IronRockGold
-      count: 40
-      minGroupSize: 8
-      maxGroupSize: 12
-    - !type:OreDunGen
-      # replacement: IronRock # upstream#33105
-      entityMask: # upstream#33105
-      - IronRock # upstream#33105
-      entity: IronRockSilver
-      count: 40
-      minGroupSize: 8
-      maxGroupSize: 12
-    - !type:OreDunGen
-      # replacement: IronRock # upstream#33105
-      entityMask: # upstream#33105
-      - IronRock # upstream#33105
-      entity: IronRockPlasma
-      count: 35
-      minGroupSize: 4
-      maxGroupSize: 8
-    - !type:OreDunGen
-      # replacement: IronRock # upstream#33105
-      entityMask: # upstream#33105
-      - IronRock # upstream#33105
-      entity: IronRockUranium
-      count: 35
-      minGroupSize: 4
-      maxGroupSize: 8
-    - !type:OreDunGen
-      # replacement: IronRock # upstream#33105
-      entityMask: # upstream#33105
-      - IronRock # upstream#33105
-      entity: IronRockArtifactFragment
-      count: 25
-      minGroupSize: 1
-      maxGroupSize: 3
-    - !type:OreDunGen
-      # replacement: IronRock # upstream#33105
-      entityMask: # upstream#33105
-      - IronRock # upstream#33105
-      entity: IronRockDiamond
-      count: 15
-      minGroupSize: 1
-      maxGroupSize: 2
+    # replacement: IronRock # upstream#33105
+    entityMask: # upstream#33105
+    - IronRock # upstream#33105
+    entity: IronRockIron
+    count: 50
+    minGroupSize: 10
+    maxGroupSize: 15
+  - !type:OreDunGen
+    # replacement: IronRock # upstream#33105
+    entityMask: # upstream#33105
+    - IronRock # upstream#33105
+    entity: IronRockCoal
+    count: 50
+    minGroupSize: 8
+    maxGroupSize: 12
+  - !type:OreDunGen
+    # replacement: IronRock # upstream#33105
+    entityMask: # upstream#33105
+    - IronRock # upstream#33105
+    entity: IronRockQuartz
+    count: 50
+    minGroupSize: 10
+    maxGroupSize: 15
+  - !type:OreDunGen
+    # replacement: IronRock # upstream#33105
+    entityMask: # upstream#33105
+    - IronRock # upstream#33105
+    entity: IronRockSalt
+    count: 50
+    minGroupSize: 8
+    maxGroupSize: 12
+  - !type:OreDunGen
+    # replacement: IronRock # upstream#33105
+    entityMask: # upstream#33105
+    - IronRock # upstream#33105
+    entity: IronRockGold
+    count: 40
+    minGroupSize: 8
+    maxGroupSize: 12
+  - !type:OreDunGen
+    # replacement: IronRock # upstream#33105
+    entityMask: # upstream#33105
+    - IronRock # upstream#33105
+    entity: IronRockSilver
+    count: 40
+    minGroupSize: 8
+    maxGroupSize: 12
+  - !type:OreDunGen
+    # replacement: IronRock # upstream#33105
+    entityMask: # upstream#33105
+    - IronRock # upstream#33105
+    entity: IronRockPlasma
+    count: 35
+    minGroupSize: 4
+    maxGroupSize: 8
+  - !type:OreDunGen
+    # replacement: IronRock # upstream#33105
+    entityMask: # upstream#33105
+    - IronRock # upstream#33105
+    entity: IronRockUranium
+    count: 35
+    minGroupSize: 4
+    maxGroupSize: 8
+  - !type:OreDunGen
+    # replacement: IronRock # upstream#33105
+    entityMask: # upstream#33105
+    - IronRock # upstream#33105
+    entity: IronRockArtifactFragment
+    count: 25
+    minGroupSize: 1
+    maxGroupSize: 3
+  - !type:OreDunGen
+    # replacement: IronRock # upstream#33105
+    entityMask: # upstream#33105
+    - IronRock # upstream#33105
+    entity: IronRockDiamond
+    count: 15
+    minGroupSize: 1
+    maxGroupSize: 2
+  - !type:OreDunGen
     # upstream#33105
     # Decoration
-    - !type:OreDunGen
-      tileMask:
-      - FloorAsteroidSand
-      entity: FloraRockSolid
-      count: 20
-      minGroupSize: 1
-      maxGroupSize: 2
+    tileMask:
+    - FloorAsteroidSand
+    entity: FloraRockSolid
+    count: 20
+    minGroupSize: 1
+    maxGroupSize: 2
     # end upstream#33105
 
 # Configs
@@ -234,9 +234,9 @@
         lacunarity: 1.5
         octaves: 2
         gain: 2.0
-  # Mobs
-  # If you want exterior dungeon mobs add them under the prototype.
   - !type:MobsDunGen
+    # Mobs
+    # If you want exterior dungeon mobs add them under the prototype.
     minCount: 25
     maxCount: 35
     groups:

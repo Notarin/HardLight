@@ -11,7 +11,8 @@ namespace Content.Client.UserInterface.Controls;
 
 public sealed class MenuButton : ContainerButton
 {
-    [Dependency] private readonly IInputManager _inputManager = default!;
+    [Dependency]
+    private readonly IInputManager _inputManager = default!;
     public const string StyleClassLabelTopButton = "topButtonLabel";
     public const string StyleClassRedTopButton = "topButtonLabel";
 
@@ -30,8 +31,15 @@ public sealed class MenuButton : ContainerButton
     private readonly TextureRect? _buttonIcon;
     private readonly Label? _buttonLabel;
 
-    public string AppendStyleClass { set => AddStyleClass(value); }
-    public Texture? Icon { get => _buttonIcon!.Texture; set => _buttonIcon!.Texture = value; }
+    public string AppendStyleClass
+    {
+        set => AddStyleClass(value);
+    }
+    public Texture? Icon
+    {
+        get => _buttonIcon!.Texture;
+        set => _buttonIcon!.Texture = value;
+    }
 
     public BoundKeyFunction BoundKey
     {
@@ -56,23 +64,19 @@ public sealed class MenuButton : ContainerButton
             VerticalExpand = true,
             Margin = new Thickness(0, VertPad),
             ModulateSelfOverride = NormalColor,
-            Stretch = TextureRect.StretchMode.KeepCentered
+            Stretch = TextureRect.StretchMode.KeepCentered,
         };
         _buttonLabel = new Label
         {
             Text = "",
             HorizontalAlignment = HAlignment.Center,
             ModulateSelfOverride = NormalColor,
-            StyleClasses = {StyleClassLabelTopButton}
+            StyleClasses = { StyleClassLabelTopButton },
         };
         _root = new BoxContainer
         {
             Orientation = BoxContainer.LayoutOrientation.Vertical,
-            Children =
-            {
-                _buttonIcon,
-                _buttonLabel
-            }
+            Children = { _buttonIcon, _buttonLabel },
         };
         AddChild(_root);
         ToggleMode = true;
@@ -91,7 +95,6 @@ public sealed class MenuButton : ContainerButton
         _inputManager.OnKeyBindingRemoved -= OnKeyBindingChanged;
         _inputManager.OnInputModeChanged -= OnKeyBindingChanged;
     }
-
 
     private void OnKeyBindingChanged(IKeyBinding obj)
     {
@@ -112,7 +115,8 @@ public sealed class MenuButton : ContainerButton
 
     private void UpdateChildColors()
     {
-        if (_buttonIcon == null || _buttonLabel == null) return;
+        if (_buttonIcon == null || _buttonLabel == null)
+            return;
         switch (DrawMode)
         {
             case DrawModeEnum.Normal:
@@ -134,7 +138,6 @@ public sealed class MenuButton : ContainerButton
                 break;
         }
     }
-
 
     protected override void DrawModeChanged()
     {

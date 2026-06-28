@@ -5,8 +5,8 @@
   playTimeTracker: JobLibrarian
   setPreference: true
   requirements:
-    - !type:OverallPlaytimeRequirement
-      time: 10800
+  - !type:OverallPlaytimeRequirement
+    time: 10800
   weight: -30 # HardLight
   startingGear: LibrarianGear
   icon: "JobIconLibrarian"
@@ -55,7 +55,7 @@
       - VoxPidgin
       - Sign
       - Tradeband # HL
-  # Starlight end
+      # Starlight end
 
 - type: startingGear
   id: LibrarianGear

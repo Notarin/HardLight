@@ -8,7 +8,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - sweet
+    - sweet
   - type: Food
   - type: Sprite
     sprite: Objects/Consumable/Food/Baked/cake.rsi
@@ -50,7 +50,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - sweet
+    - sweet
   - type: Food
   - type: SolutionContainerManager
     solutions:
@@ -344,8 +344,8 @@
     state: lemoon
   - type: FlavorProfile
     flavors:
-      - lemoon
-      - berry
+    - lemoon
+    - berry
   - type: SliceableFood
     slice: FoodCakeLemoonSlice
   - type: SolutionContainerManager
@@ -374,8 +374,8 @@
     state: lemoon-slice
   - type: FlavorProfile
     flavors:
-      - lemoon
-      - berry
+    - lemoon
+    - berry
   - type: SolutionContainerManager
     solutions:
       food:
@@ -770,8 +770,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35
         density: 50
         mask:
@@ -804,8 +803,8 @@
     speechSounds: Cat
     speechVerb: SmallMob
   - type: MovementSpeedModifier
-    baseWalkSpeed : 3
-    baseSprintSpeed : 5
+    baseWalkSpeed: 3
+    baseSprintSpeed: 5
   - type: Tag
     tags:
     - VimPilot

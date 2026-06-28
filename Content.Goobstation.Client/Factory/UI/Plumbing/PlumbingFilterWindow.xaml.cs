@@ -16,8 +16,11 @@ namespace Content.Goobstation.Client.Factory.UI.Plumbing;
 [GenerateTypedNameReferences]
 public sealed partial class PlumbingFilterWindow : FancyWindow
 {
-    [Dependency] private readonly EntityManager _entMan = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
+    [Dependency]
+    private readonly EntityManager _entMan = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
 
     public event Action<ProtoId<ReagentPrototype>?>? OnChange;
 
@@ -31,7 +34,7 @@ public sealed partial class PlumbingFilterWindow : FancyWindow
 
         ReagentList.OnItemSelected += args =>
         {
-            _selected = (ProtoId<ReagentPrototype>) args.ItemList[args.ItemIndex].Metadata!;
+            _selected = (ProtoId<ReagentPrototype>)args.ItemList[args.ItemIndex].Metadata!;
             UpdateSelectButton();
         };
         ReagentList.OnItemDeselected += _ =>
@@ -64,7 +67,7 @@ public sealed partial class PlumbingFilterWindow : FancyWindow
             return;
         }
 
-        SelectButton.Text = _selected is {} id
+        SelectButton.Text = _selected is { } id
             ? Loc.GetString("plumbing-filter-window-change", ("reagent", _proto.Index(id).LocalizedName))
             : Loc.GetString("plumbing-filter-window-remove");
     }
@@ -77,18 +80,16 @@ public sealed partial class PlumbingFilterWindow : FancyWindow
         foreach (var reagent in reagents)
         {
             var name = reagent.LocalizedName;
-            if (!string.IsNullOrEmpty(filter) &&
-               !reagent.ID.ToLowerInvariant().Contains(filter) &&
-               !name.ToLowerInvariant().Contains(filter))
+            if (
+                !string.IsNullOrEmpty(filter)
+                && !reagent.ID.ToLowerInvariant().Contains(filter)
+                && !name.ToLowerInvariant().Contains(filter)
+            )
             {
                 continue;
             }
 
-            var item = new ItemList.Item(ReagentList)
-            {
-                Metadata = (ProtoId<ReagentPrototype>) reagent.ID,
-                Text = name
-            };
+            var item = new ItemList.Item(ReagentList) { Metadata = (ProtoId<ReagentPrototype>)reagent.ID, Text = name };
 
             ReagentList.Add(item);
         }

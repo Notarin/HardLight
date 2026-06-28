@@ -1,7 +1,7 @@
 #region frame
 - type: entity
   id: NFBaseWeaponFrameSubMachineGun
-  parent: [ NFBaseWeaponEncumbranceSubMachineGun, NFBaseItemWeaponGunMagazineFed ]
+  parent: [NFBaseWeaponEncumbranceSubMachineGun, NFBaseItemWeaponGunMagazineFed]
   name: submachine gun
   abstract: true
   components:
@@ -46,7 +46,7 @@
 
 - type: entity
   id: NFBaseWeaponFrameSubMachineGunCybersun
-  parent: [ BaseC3SyndicateContraband, NFBaseWeaponFrameSubMachineGun ]
+  parent: [BaseC3SyndicateContraband, NFBaseWeaponFrameSubMachineGun]
   abstract: true
   components:
   - type: GunWieldBonus
@@ -69,7 +69,7 @@
 
 - type: entity
   id: NFBaseWeaponFrameSubMachineGunGorlex
-  parent: [ BaseC3SyndicateContraband, NFBaseWeaponFrameSubMachineGun ]
+  parent: [BaseC3SyndicateContraband, NFBaseWeaponFrameSubMachineGun]
   abstract: true
   components:
   - type: GunWieldBonus
@@ -87,7 +87,7 @@
 
 - type: entity
   id: NFBaseWeaponFrameSubMachineGunFrontierGunsmith
-  parent: [ NFBaseWeaponFrameSubMachineGun ]
+  parent: [NFBaseWeaponFrameSubMachineGun]
   abstract: true
   components:
   - type: GunWieldBonus
@@ -134,7 +134,7 @@
         priority: 2
         whitelist: &mag35Whitelist
           tags:
-            - NFMagazineSubMachineGunPistol35
+          - NFMagazineSubMachineGunPistol35
         whitelistFailPopup: gun-magazine-whitelist-fail
       gun_chamber: &chamber35Standard
         name: Chamber
@@ -142,7 +142,7 @@
         priority: 1
         whitelist:
           tags:
-            - NFCartridgePistol35
+          - NFCartridgePistol35
 
 - type: entity
   id: NFBaseWeaponSubMachineGunChamber35Rubber
@@ -165,7 +165,7 @@
         priority: 1
         whitelist:
           tags:
-            - NFCartridgePistol35
+          - NFCartridgePistol35
 
 - type: entity
   id: NFBaseWeaponSubMachineGunChamber35TopMounted
@@ -182,7 +182,7 @@
         priority: 2
         whitelist: &mag35TopMountedWhitelist
           tags:
-            - NFMagazineSubMachineGunTopMountedPistol35
+          - NFMagazineSubMachineGunTopMountedPistol35
       gun_chamber: *chamber35Standard
 
 - type: entity

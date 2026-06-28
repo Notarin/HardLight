@@ -9,12 +9,23 @@ namespace Content.Server.Pointing.EntitySystems
     [UsedImplicitly]
     internal sealed class RoguePointingSystem : EntitySystem
     {
-        [Dependency] private readonly IRobustRandom _random = default!;
-        [Dependency] private readonly ExplosionSystem _explosion = default!;
-        [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-        [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
+        [Dependency]
+        private readonly IRobustRandom _random = default!;
 
-        private EntityUid? RandomNearbyPlayer(EntityUid uid, RoguePointingArrowComponent? component = null, TransformComponent? transform = null)
+        [Dependency]
+        private readonly ExplosionSystem _explosion = default!;
+
+        [Dependency]
+        private readonly SharedAppearanceSystem _appearance = default!;
+
+        [Dependency]
+        private readonly SharedTransformSystem _transformSystem = default!;
+
+        private EntityUid? RandomNearbyPlayer(
+            EntityUid uid,
+            RoguePointingArrowComponent? component = null,
+            TransformComponent? transform = null
+        )
         {
             if (!Resolve(uid, ref component, ref transform))
                 return null;
@@ -37,7 +48,12 @@ namespace Content.Server.Pointing.EntitySystems
             return angering.Owner;
         }
 
-        private void UpdateAppearance(EntityUid uid, RoguePointingArrowComponent? component = null, TransformComponent? transform = null, AppearanceComponent? appearance = null)
+        private void UpdateAppearance(
+            EntityUid uid,
+            RoguePointingArrowComponent? component = null,
+            TransformComponent? transform = null,
+            AppearanceComponent? appearance = null
+        )
         {
             if (!Resolve(uid, ref component, ref transform, ref appearance) || component.Chasing == null)
                 return;
@@ -60,7 +76,7 @@ namespace Content.Server.Pointing.EntitySystems
             {
                 component.Chasing ??= RandomNearbyPlayer(uid, component, transform);
 
-                if (component.Chasing is not {Valid: true} chasing || Deleted(chasing))
+                if (component.Chasing is not { Valid: true } chasing || Deleted(chasing))
                 {
                     EntityManager.QueueDeleteEntity(uid);
                     continue;
@@ -88,7 +104,10 @@ namespace Content.Server.Pointing.EntitySystems
 
                 var toChased = _transformSystem.GetWorldPosition(chasing) - transformPos;
 
-                _transformSystem.SetWorldPosition((uid, transform), transformPos + (toChased * frameTime * component.ChasingSpeed));
+                _transformSystem.SetWorldPosition(
+                    (uid, transform),
+                    transformPos + (toChased * frameTime * component.ChasingSpeed)
+                );
 
                 component.ChasingTime -= frameTime;
 
@@ -96,7 +115,6 @@ namespace Content.Server.Pointing.EntitySystems
                 {
                     continue;
                 }
-
 
                 _explosion.QueueExplosion(uid, ExplosionSystem.DefaultExplosionPrototypeId, 50, 3, 10);
                 EntityManager.QueueDeleteEntity(uid);

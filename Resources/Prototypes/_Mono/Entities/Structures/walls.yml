@@ -16,17 +16,15 @@
     damageModifierSet: StructuralMetallic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 1100
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:PlaySoundBehavior
         sound:
           collection: MetalSlam
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 1000
       behaviors:
       - !type:PlaySoundBehavior
@@ -35,7 +33,7 @@
       - !type:ChangeConstructionNodeBehavior
         node: girder
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: StaticPrice
     price: 25
   - type: ArmorThickness
@@ -66,17 +64,15 @@
     damageModifierSet: StructuralMetallic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 2100
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:PlaySoundBehavior
         sound:
           collection: MetalSlam
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 2000
       behaviors:
       - !type:PlaySoundBehavior
@@ -85,7 +81,7 @@
       - !type:ChangeConstructionNodeBehavior
         node: girder
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: StaticPrice
     price: 25
   - type: ArmorThickness
@@ -116,17 +112,15 @@
     damageModifierSet: StructuralMetallic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 3600
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:PlaySoundBehavior
         sound:
           collection: MetalSlam
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 3500
       behaviors:
       - !type:PlaySoundBehavior
@@ -135,7 +129,7 @@
       - !type:ChangeConstructionNodeBehavior
         node: girder
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: StaticPrice
     price: 50
   - type: ArmorThickness
@@ -166,17 +160,15 @@
     damageModifierSet: StructuralMetallic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 5100
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:PlaySoundBehavior
         sound:
           collection: MetalSlam
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 5000
       behaviors:
       - !type:PlaySoundBehavior
@@ -185,7 +177,7 @@
       - !type:ChangeConstructionNodeBehavior
         node: girder
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: StaticPrice
     price: 125
   - type: ArmorThickness
@@ -217,17 +209,15 @@
     damageModifierSet: StructuralMetallic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 15100
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:PlaySoundBehavior
         sound:
           collection: MetalSlam
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 15000
       behaviors:
       - !type:PlaySoundBehavior
@@ -236,7 +226,7 @@
       - !type:ChangeConstructionNodeBehavior
         node: girder
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: StaticPrice
     price: 75
   - type: ArmorThickness
@@ -254,8 +244,7 @@
     base: reinf_over
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 15100 # Mono - wall buff
       behaviors:
       - !type:DoActsBehavior
@@ -263,8 +252,7 @@
       - !type:PlaySoundBehavior
         sound:
           collection: MetalSlam
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 15000 # Mono - wall buff
       behaviors:
       - !type:PlaySoundBehavior
@@ -294,17 +282,15 @@
     state: state0
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 10100 # Mono - wall buff
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:PlaySoundBehavior
         sound:
           collection: MetalSlam
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 10000 # Mono - wall buff
       behaviors:
       - !type:ChangeConstructionNodeBehavior
@@ -334,14 +320,12 @@
   components:
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 15100
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 15000
       behaviors:
       - !type:SpawnEntitiesBehavior
@@ -350,7 +334,7 @@
             min: 1
             max: 1
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: ShipRepairable
     repairTime: 12
     repairCost: 30
@@ -367,14 +351,12 @@
   components:
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 10100
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 10000
       behaviors:
       - !type:SpawnEntitiesBehavior
@@ -383,7 +365,7 @@
             min: 1
             max: 1
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: ShipRepairable
     repairTime: 10
     repairCost: 20
@@ -391,7 +373,7 @@
 # capital-only plastitainum
 
 - type: entity
-  parent: [ BaseWallTierFour, WallPlastitanium ]
+  parent: [BaseWallTierFour, WallPlastitanium]
   id: WallPlastitaniumCapital
   name: reinforced plastitanium wall
   suffix: CAPITAL ONLY
@@ -399,8 +381,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.5,-0.5,0.5,0.5"
         mask:
         - FullTileMask
@@ -428,14 +409,12 @@
     state: state0
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 2100
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
+        acts: ["Destruction"]
+    - trigger: !type:DamageTrigger
         damage: 2000
       behaviors:
       - !type:SpawnEntitiesBehavior
@@ -444,7 +423,7 @@
             min: 1
             max: 1
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
 
 # monolith asteroid walls
 
@@ -466,12 +445,11 @@
     base: solid
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 99999
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
 
 - type: entity
   parent: BaseWallOutpost # Mono
@@ -490,13 +468,13 @@
     visuals:
       enum.ReinforcedWallVisuals.DeconstructionStage:
         ReinforcedWallVisualLayers.Deconstruction:
-          -1: { visible: false }
-          0: { state: reinf_construct-0, visible: true }
-          1: { state: reinf_construct-1, visible: true }
-          2: { state: reinf_construct-2, visible: true }
-          3: { state: reinf_construct-3, visible: true }
-          4: { state: reinf_construct-4, visible: true }
-          5: { state: reinf_construct-5, visible: true }
+          -1: {visible: false}
+          0: {state: reinf_construct-0, visible: true}
+          1: {state: reinf_construct-1, visible: true}
+          2: {state: reinf_construct-2, visible: true}
+          3: {state: reinf_construct-3, visible: true}
+          4: {state: reinf_construct-4, visible: true}
+          5: {state: reinf_construct-5, visible: true}
   - type: Appearance
   - type: StaticPrice
     price: 250
@@ -504,9 +482,8 @@
     resistance: 5
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 99999
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]

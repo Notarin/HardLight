@@ -1,5 +1,7 @@
 using System.Linq;
 using System.Numerics;
+using Content.Server._NF.Shuttles.Components;
+using Content.Server._NF.Worldgen.Components.Debris; // Frontier
 using Content.Server.Worldgen.Components;
 using Content.Server.Worldgen.Components.Debris;
 using Content.Server.Worldgen.Systems.GC;
@@ -10,8 +12,6 @@ using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
-using Content.Server._NF.Shuttles.Components;
-using Content.Server._NF.Worldgen.Components.Debris; // Frontier
 
 namespace Content.Server.Worldgen.Systems.Debris;
 
@@ -20,12 +20,23 @@ namespace Content.Server.Worldgen.Systems.Debris;
 /// </summary>
 public sealed class DebrisFeaturePlacerSystem : BaseWorldSystem
 {
-    [Dependency] private readonly NoiseIndexSystem _noiseIndex = default!;
-    [Dependency] private readonly PoissonDiskSampler _sampler = default!;
-    [Dependency] private readonly TransformSystem _xformSys = default!;
-    [Dependency] private readonly ILogManager _logManager = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency]
+    private readonly NoiseIndexSystem _noiseIndex = default!;
+
+    [Dependency]
+    private readonly PoissonDiskSampler _sampler = default!;
+
+    [Dependency]
+    private readonly TransformSystem _xformSys = default!;
+
+    [Dependency]
+    private readonly ILogManager _logManager = default!;
+
+    [Dependency]
+    private readonly IMapManager _mapManager = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
 
     private ISawmill _sawmill = default!;
 
@@ -41,7 +52,8 @@ public sealed class DebrisFeaturePlacerSystem : BaseWorldSystem
         SubscribeLocalEvent<OwnedDebrisComponent, MoveEvent>(OnDebrisMove);
         SubscribeLocalEvent<OwnedDebrisComponent, TryCancelGC>(OnTryCancelGC);
         SubscribeLocalEvent<SimpleDebrisSelectorComponent, TryGetPlaceableDebrisFeatureEvent>(
-            OnTryGetPlacableDebrisEvent);
+            OnTryGetPlacableDebrisEvent
+        );
     }
 
     /// <summary>
@@ -51,6 +63,7 @@ public sealed class DebrisFeaturePlacerSystem : BaseWorldSystem
     {
         args.Cancelled |= HasComp<LoadedChunkComponent>(component.OwningController);
     }
+
     /// <summary>
     ///     Handles debris moving, and making sure it stays parented to a chunk for loading purposes.
     /// </summary>
@@ -102,8 +115,11 @@ public sealed class DebrisFeaturePlacerSystem : BaseWorldSystem
     /// <summary>
     ///     Queues all debris owned by the placer for garbage collection.
     /// </summary>
-    private void OnChunkUnloaded(EntityUid uid, DebrisFeaturePlacerControllerComponent component,
-        ref WorldChunkUnloadedEvent args)
+    private void OnChunkUnloaded(
+        EntityUid uid,
+        DebrisFeaturePlacerControllerComponent component,
+        ref WorldChunkUnloadedEvent args
+    )
     {
         component.DoSpawns = true;
     }
@@ -112,8 +128,11 @@ public sealed class DebrisFeaturePlacerSystem : BaseWorldSystem
     ///     Handles providing a debris type to place for SimpleDebrisSelectorComponent.
     ///     This randomly picks a debris type from the EntitySpawnCollectionCache.
     /// </summary>
-    private void OnTryGetPlacableDebrisEvent(EntityUid uid, SimpleDebrisSelectorComponent component,
-        ref TryGetPlaceableDebrisFeatureEvent args)
+    private void OnTryGetPlacableDebrisEvent(
+        EntityUid uid,
+        SimpleDebrisSelectorComponent component,
+        ref TryGetPlaceableDebrisFeatureEvent args
+    )
     {
         if (args.DebrisProto is not null)
             return;
@@ -144,8 +163,11 @@ public sealed class DebrisFeaturePlacerSystem : BaseWorldSystem
     ///         - Raises an event to get the debris type that should be used for generation.
     ///         - Spawns the given debris at the point, adding it to the placer's index.
     /// </summary>
-    private void OnChunkLoaded(EntityUid uid, DebrisFeaturePlacerControllerComponent component,
-        ref WorldChunkLoadedEvent args)
+    private void OnChunkLoaded(
+        EntityUid uid,
+        DebrisFeaturePlacerControllerComponent component,
+        ref WorldChunkLoadedEvent args
+    )
     {
         if (component.DoSpawns == false)
             return;
@@ -171,10 +193,7 @@ public sealed class DebrisFeaturePlacerSystem : BaseWorldSystem
         if (component.OwnedDebris.Count != 0)
         {
             //TODO: Remove LINQ.
-            points = component.OwnedDebris
-                .Where(x => !Deleted(x.Value))
-                .Select(static x => x.Key)
-                .ToList();
+            points = component.OwnedDebris.Where(x => !Deleted(x.Value)).Select(static x => x.Key).ToList();
         }
 
         points ??= GeneratePointsInChunk(args.Chunk, density, chunk.Coordinates, chunkMap);
@@ -192,7 +211,7 @@ public sealed class DebrisFeaturePlacerSystem : BaseWorldSystem
                 spawned++;
                 continue;
             }
-             // Check if we've reached the maximum debris count
+            // Check if we've reached the maximum debris count
             if (component.MaxDebrisCount.HasValue && spawned >= component.MaxDebrisCount.Value)
                 break;
 
@@ -265,7 +284,7 @@ public sealed class DebrisFeaturePlacerSystem : BaseWorldSystem
     /// </summary>
     private List<Vector2> GeneratePointsInChunk(EntityUid chunk, float density, Vector2 coords, EntityUid map)
     {
-        var offs = (int) ((WorldGen.ChunkSize - WorldGen.ChunkSize / 8.0f) / 2.0f);
+        var offs = (int)((WorldGen.ChunkSize - WorldGen.ChunkSize / 8.0f) / 2.0f);
         var topLeft = new Vector2(-offs, -offs);
         var lowerRight = new Vector2(offs, offs);
         var enumerator = _sampler.SampleRectangle(topLeft, lowerRight, density);
@@ -294,6 +313,8 @@ public record struct PrePlaceDebrisFeatureEvent(EntityCoordinates Coords, Entity
 /// </summary>
 [ByRefEvent]
 [PublicAPI]
-public record struct TryGetPlaceableDebrisFeatureEvent(EntityCoordinates Coords, EntityUid Chunk,
-    string? DebrisProto = null);
-
+public record struct TryGetPlaceableDebrisFeatureEvent(
+    EntityCoordinates Coords,
+    EntityUid Chunk,
+    string? DebrisProto = null
+);

@@ -13,12 +13,20 @@ namespace Content.Shared._Goobstation.Factory;
 
 public abstract class SharedInteractorSystem : EntitySystem
 {
+    [Dependency]
+    private readonly AutomationFilterSystem _filter = default!;
 
-    [Dependency] private readonly AutomationFilterSystem _filter = default!;
-    [Dependency] private readonly CollisionWakeSystem _wake = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedInteractionSystem _interaction = default!;
-    [Dependency] protected readonly StartableMachineSystem Machine = default!;
+    [Dependency]
+    private readonly CollisionWakeSystem _wake = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SharedInteractionSystem _interaction = default!;
+
+    [Dependency]
+    protected readonly StartableMachineSystem Machine = default!;
 
     private EntityQuery<ActiveDoAfterComponent> _doAfterQuery;
     private EntityQuery<HandsComponent> _handsQuery;
@@ -53,9 +61,11 @@ public abstract class SharedInteractorSystem : EntitySystem
         if (!args.IsInDetailsRange)
             return;
 
-        args.PushMarkup(_filter.GetSlot(ent) is {} filter
-            ? Loc.GetString("robotic-arm-examine-filter", ("filter", filter))
-            : Loc.GetString("robotic-arm-examine-no-filter"));
+        args.PushMarkup(
+            _filter.GetSlot(ent) is { } filter
+                ? Loc.GetString("robotic-arm-examine-filter", ("filter", filter))
+                : Loc.GetString("robotic-arm-examine-no-filter")
+        );
     }
 
     private void OnStartCollide(Entity<InteractorComponent> ent, ref StartCollideEvent args)
@@ -69,8 +79,10 @@ public abstract class SharedInteractorSystem : EntitySystem
 
     private void AddTarget(Entity<InteractorComponent> ent, EntityUid target)
     {
-        if (_thrownQuery.HasComp(target) // thrown items move too fast to be "clicked" on...
-            || _filter.IsBlocked(_filter.GetSlot(ent), target)) // ignore non-filtered entities
+        if (
+            _thrownQuery.HasComp(target) // thrown items move too fast to be "clicked" on...
+            || _filter.IsBlocked(_filter.GetSlot(ent), target)
+        ) // ignore non-filtered entities
             return;
 
         var wake = CompOrNull<CollisionWakeComponent>(target);
@@ -98,7 +110,8 @@ public abstract class SharedInteractorSystem : EntitySystem
         _wake.SetEnabled(args.OtherEntity, wake); // don't break conveyors for skipped entities
     }
 
-    private void OnItemModified<T>(Entity<InteractorComponent> ent, ref T args) where T: ContainerModifiedMessage
+    private void OnItemModified<T>(Entity<InteractorComponent> ent, ref T args)
+        where T : ContainerModifiedMessage
     {
         if (args.Container.ID != ent.Comp.ToolContainerId)
             return;
@@ -124,7 +137,7 @@ public abstract class SharedInteractorSystem : EntitySystem
 
     protected bool InteractWith(Entity<InteractorComponent> ent, EntityUid target)
     {
-        if (_handsQuery.CompOrNull(ent)?.ActiveHandEntity is not {} tool)
+        if (_handsQuery.CompOrNull(ent)?.ActiveHandEntity is not { } tool)
             return _interaction.InteractHand(ent, target);
 
         var coords = Transform(target).Coordinates;
@@ -134,8 +147,7 @@ public abstract class SharedInteractorSystem : EntitySystem
     protected void TryRemoveTarget(Entity<InteractorComponent> ent, EntityUid target)
     {
         // if it still exists and is still allowed by the filter keep it
-        if (!TerminatingOrDeleted(target)
-            && _filter.IsAllowed(_filter.GetSlot(ent), target))
+        if (!TerminatingOrDeleted(target) && _filter.IsAllowed(_filter.GetSlot(ent), target))
             return;
 
         RemoveTarget(ent, target);
@@ -162,9 +174,10 @@ public abstract class SharedInteractorSystem : EntitySystem
 
     private void UpdateToolAppearance(EntityUid uid)
     {
-        var state = _handsQuery.CompOrNull(uid)?.ActiveHand?.IsEmpty == false
-            ? InteractorState.Inactive
-            : InteractorState.Empty;
+        var state =
+            _handsQuery.CompOrNull(uid)?.ActiveHand?.IsEmpty == false
+                ? InteractorState.Inactive
+                : InteractorState.Empty;
         UpdateAppearance(uid, state);
     }
 

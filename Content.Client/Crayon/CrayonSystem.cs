@@ -24,7 +24,8 @@ public sealed class CrayonSystem : SharedCrayonSystem
 
     private void OnCrayonHandleState(EntityUid uid, CrayonComponent component, ref ComponentHandleState args) // Frontier: remove static
     {
-        if (args.Current is not CrayonComponentState state) return;
+        if (args.Current is not CrayonComponentState state)
+            return;
 
         component.Color = state.Color;
         component.SelectedState = state.State;
@@ -69,18 +70,26 @@ public sealed class CrayonSystem : SharedCrayonSystem
             // Frontier: unlimited crayon
             if (_parent.Capacity == int.MaxValue)
             {
-                _label.SetMarkup(Robust.Shared.Localization.Loc.GetString("crayon-drawing-label-unlimited",
-                    ("color", _parent.Color),
-                    ("state", _parent.SelectedState)));
+                _label.SetMarkup(
+                    Robust.Shared.Localization.Loc.GetString(
+                        "crayon-drawing-label-unlimited",
+                        ("color", _parent.Color),
+                        ("state", _parent.SelectedState)
+                    )
+                );
                 return;
             }
             // End Frontier
 
-            _label.SetMarkup(Robust.Shared.Localization.Loc.GetString("crayon-drawing-label",
-                ("color",_parent.Color),
-                ("state",_parent.SelectedState),
-                ("charges", _parent.Charges),
-                ("capacity",_parent.Capacity)));
+            _label.SetMarkup(
+                Robust.Shared.Localization.Loc.GetString(
+                    "crayon-drawing-label",
+                    ("color", _parent.Color),
+                    ("state", _parent.SelectedState),
+                    ("charges", _parent.Charges),
+                    ("capacity", _parent.Capacity)
+                )
+            );
         }
     }
 }

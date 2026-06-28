@@ -15,4 +15,3 @@ public sealed partial class HypnotizedPopup : FancyWindow
         AcknowledgeButton.OnPressed += _ => Close();
     }
 }
-

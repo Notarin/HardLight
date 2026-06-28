@@ -1,17 +1,17 @@
 - type: entity
   id: BaseMagazine635x40mmCaseless
   name: "magazine (635x40mm Caseless)"
-  parent: [ BaseCartridge, BaseC1Contraband, RecyclableItemSteelTiny ] # Hardlight: Made C1. It's Mags. WTF is someone going to do with them by themsevles?
+  parent: [BaseCartridge, BaseC1Contraband, RecyclableItemSteelTiny] # Hardlight: Made C1. It's Mags. WTF is someone going to do with them by themsevles?
   abstract: true
   components:
   - type: Tag
     tags:
-      - Magazine635x40mmCaseless
+    - Magazine635x40mmCaseless
   - type: BallisticAmmoProvider
     mayTransfer: true
     whitelist:
       tags:
-        - Cartridge635x40mmCaseless
+      - Cartridge635x40mmCaseless
     proto: Cartridge635x40mmCaseless
     capacity: 30
   - type: Item
@@ -59,11 +59,11 @@
   components:
   - type: Tag
     tags:
-      - Magazine635x40mmCaselessPistol
+    - Magazine635x40mmCaselessPistol
   - type: BallisticAmmoProvider
     whitelist:
       tags:
-        - Cartridge635x40mmCaseless
+      - Cartridge635x40mmCaseless
     proto: Cartridge635x40mmCaseless
     capacity: 10
   - type: Item

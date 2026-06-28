@@ -1,28 +1,40 @@
+using Content.Server.GameTicking.Rules.Components;
+using Content.Server.Power.Components;
+using Content.Server.Psionics.Glimmer;
+using Content.Server.Station.Systems;
+using Content.Server.StationEvents.Components;
+using Content.Shared.Construction.EntitySystems;
+using Content.Shared.GameTicking.Components;
+using Content.Shared.Psionics.Glimmer;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Random;
-using Content.Server.GameTicking.Rules.Components;
-using Content.Server.Power.Components;
-using Content.Server.Station.Systems;
-using Content.Server.StationEvents.Components;
-using Content.Server.Psionics.Glimmer;
-using Content.Shared.Construction.EntitySystems;
-using Content.Shared.Psionics.Glimmer;
-using Content.Shared.GameTicking.Components;
 
 namespace Content.Server.StationEvents.Events;
 
 internal sealed class FreeProberRule : StationEventSystem<FreeProberRuleComponent>
 {
-    [Dependency] private readonly IRobustRandom _robustRandom = default!;
-    [Dependency] private readonly AnchorableSystem _anchorable = default!;
-    [Dependency] private readonly GlimmerSystem _glimmerSystem = default!;
-    [Dependency] private readonly StationSystem _stationSystem = default!;
+    [Dependency]
+    private readonly IRobustRandom _robustRandom = default!;
+
+    [Dependency]
+    private readonly AnchorableSystem _anchorable = default!;
+
+    [Dependency]
+    private readonly GlimmerSystem _glimmerSystem = default!;
+
+    [Dependency]
+    private readonly StationSystem _stationSystem = default!;
 
     private static readonly string ProberPrototype = "GlimmerProber";
     private static readonly int SpawnDirections = 4;
 
-    protected override void Started(EntityUid uid, FreeProberRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
+    protected override void Started(
+        EntityUid uid,
+        FreeProberRuleComponent component,
+        GameRuleComponent gameRule,
+        GameRuleStartedEvent args
+    )
     {
         base.Started(uid, component, gameRule, args);
 
@@ -66,7 +78,7 @@ internal sealed class FreeProberRule : StationEventSystem<FreeProberRuleComponen
 
                 for (var i = 0; i < SpawnDirections; i++)
                 {
-                    var direction = (DirectionFlag) (1 << i);
+                    var direction = (DirectionFlag)(1 << i);
                     var offsetIndices = tileIndices.Offset(direction.AsDir());
 
                     // This doesn't check against the prober's mask/layer, because it hasn't spawned yet...

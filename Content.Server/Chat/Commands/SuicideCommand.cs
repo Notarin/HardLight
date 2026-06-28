@@ -11,7 +11,8 @@ namespace Content.Server.Chat.Commands
     [AnyCommand]
     internal sealed class SuicideCommand : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _e = default!;
+        [Dependency]
+        private readonly IEntityManager _e = default!;
 
         public string Command => "suicide";
 
@@ -33,8 +34,10 @@ namespace Content.Server.Chat.Commands
             var minds = _e.System<SharedMindSystem>();
 
             // This check also proves mind not-null for at the end when the mob is ghosted.
-            if (!minds.TryGetMind(player, out var mindId, out var mindComp) ||
-                mindComp.OwnedEntity is not { Valid: true } victim)
+            if (
+                !minds.TryGetMind(player, out var mindId, out var mindComp)
+                || mindComp.OwnedEntity is not { Valid: true } victim
+            )
             {
                 shell.WriteLine(Loc.GetString("suicide-command-no-mind"));
                 return;
@@ -46,8 +49,7 @@ namespace Content.Server.Chat.Commands
             {
                 var deniedMessage = Loc.GetString("suicide-command-denied");
                 shell.WriteLine(deniedMessage);
-                _e.System<PopupSystem>()
-                    .PopupEntity(deniedMessage, victim, victim);
+                _e.System<PopupSystem>().PopupEntity(deniedMessage, victim, victim);
                 return;
             }
 

@@ -1,5 +1,6 @@
-using Content.Server.Communications;
+using System.Diagnostics.CodeAnalysis;
 using Content.Server.Chat.Managers;
+using Content.Server.Communications;
 using Content.Server.CriminalRecords.Systems;
 using Content.Server.GameTicking.Rules.Components;
 using Content.Server.Objectives.Components;
@@ -18,9 +19,8 @@ using Content.Shared.Ninja.Systems;
 using Content.Shared.Popups;
 using Content.Shared.Rounding;
 using Robust.Shared.Audio;
-using Robust.Shared.Player;
-using System.Diagnostics.CodeAnalysis;
 using Robust.Shared.Audio.Systems;
+using Robust.Shared.Player;
 
 namespace Content.Server.Ninja.Systems;
 
@@ -29,11 +29,20 @@ namespace Content.Server.Ninja.Systems;
 /// </summary>
 public sealed class SpaceNinjaSystem : SharedSpaceNinjaSystem
 {
-    [Dependency] private readonly AlertsSystem _alerts = default!;
-    [Dependency] private readonly BatterySystem _battery = default!;
-    [Dependency] private readonly CodeConditionSystem _codeCondition = default!;
-    [Dependency] private readonly PowerCellSystem _powerCell = default!;
-    [Dependency] private readonly SharedMindSystem _mind = default!;
+    [Dependency]
+    private readonly AlertsSystem _alerts = default!;
+
+    [Dependency]
+    private readonly BatterySystem _battery = default!;
+
+    [Dependency]
+    private readonly CodeConditionSystem _codeCondition = default!;
+
+    [Dependency]
+    private readonly PowerCellSystem _powerCell = default!;
+
+    [Dependency]
+    private readonly SharedMindSystem _mind = default!;
 
     public override void Initialize()
     {
@@ -84,7 +93,7 @@ public sealed class SpaceNinjaSystem : SharedSpaceNinjaSystem
         if (GetNinjaBattery(uid, out _, out var battery))
         {
             var severity = ContentHelpers.RoundToLevels(MathF.Max(0f, battery.CurrentCharge), battery.MaxCharge, 8);
-            _alerts.ShowAlert(uid, comp.SuitPowerAlert, (short) severity);
+            _alerts.ShowAlert(uid, comp.SuitPowerAlert, (short)severity);
         }
         else
         {
@@ -95,11 +104,17 @@ public sealed class SpaceNinjaSystem : SharedSpaceNinjaSystem
     /// <summary>
     /// Get the battery component in a ninja's suit, if it's worn.
     /// </summary>
-    public bool GetNinjaBattery(EntityUid user, [NotNullWhen(true)] out EntityUid? uid, [NotNullWhen(true)] out BatteryComponent? battery)
+    public bool GetNinjaBattery(
+        EntityUid user,
+        [NotNullWhen(true)] out EntityUid? uid,
+        [NotNullWhen(true)] out BatteryComponent? battery
+    )
     {
-        if (TryComp<SpaceNinjaComponent>(user, out var ninja)
+        if (
+            TryComp<SpaceNinjaComponent>(user, out var ninja)
             && ninja.Suit != null
-            && _powerCell.TryGetBatteryFromSlot(ninja.Suit.Value, out uid, out battery))
+            && _powerCell.TryGetBatteryFromSlot(ninja.Suit.Value, out uid, out battery)
+        )
         {
             return true;
         }
@@ -125,7 +140,12 @@ public sealed class SpaceNinjaSystem : SharedSpaceNinjaSystem
             return;
 
         // this popup is serverside since door emag logic is serverside (power funnies)
-        Popup.PopupEntity(Loc.GetString("ninja-doorjack-success", ("target", Identity.Entity(args.Target, EntityManager))), uid, uid, PopupType.Medium);
+        Popup.PopupEntity(
+            Loc.GetString("ninja-doorjack-success", ("target", Identity.Entity(args.Target, EntityManager))),
+            uid,
+            uid,
+            PopupType.Medium
+        );
 
         // handle greentext
         if (_mind.TryGetObjectiveComp<DoorjackConditionComponent>(uid, out var obj))
@@ -138,9 +158,10 @@ public sealed class SpaceNinjaSystem : SharedSpaceNinjaSystem
     private void OnResearchStolen(EntityUid uid, SpaceNinjaComponent comp, ref ResearchStolenEvent args)
     {
         var gained = Download(uid, args.Techs);
-        var str = gained == 0
-            ? Loc.GetString("ninja-research-steal-fail")
-            : Loc.GetString("ninja-research-steal-success", ("count", gained), ("server", args.Target));
+        var str =
+            gained == 0
+                ? Loc.GetString("ninja-research-steal-fail")
+                : Loc.GetString("ninja-research-steal-success", ("count", gained), ("server", args.Target));
 
         Popup.PopupEntity(str, uid, uid, PopupType.Medium);
     }

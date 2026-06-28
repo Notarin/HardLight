@@ -1,7 +1,7 @@
 - type: entity
   parent: BaseStructureDynamic
   id: CrateGeneric
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   name: crate
   description: A large container for items.
   components:
@@ -30,8 +30,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.4,-0.4,0.4,0.29"
         density: 50
         mask:
@@ -46,8 +45,7 @@
     damageModifierSet: Metallic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 50
       behaviors:
       - !type:DoActsBehavior
@@ -63,14 +61,14 @@
     visuals:
       enum.PaperLabelVisuals.HasLabel:
         enum.PaperLabelVisuals.Layer:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
       enum.PaperLabelVisuals.LabelType:
         enum.PaperLabelVisuals.Layer:
-          Paper: { state: paper }
-          Bounty: { state: bounty }
-          CaptainsPaper: { state: captains_paper }
-          Invoice: { state: invoice }
+          Paper: {state: paper}
+          Bounty: {state: bounty}
+          CaptainsPaper: {state: captains_paper}
+          Invoice: {state: invoice}
   - type: PaperLabel
     labelSlot:
       insertVerbText: comp-paper-label-insert
@@ -94,14 +92,14 @@
     graph: CrateGenericSteel
     node: crategenericsteel
     containers:
-      - entity_storage
+    - entity_storage
   - type: RequireProjectileTarget
   - type: NFCrate # Frontier
 
 - type: entity
   parent: CrateGeneric
   id: CrateBaseWeldable
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Weldable
   - type: ResistLocker
@@ -138,8 +136,7 @@
     damageModifierSet: StructuralMetallic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 75
       behaviors:
       - !type:DoActsBehavior

@@ -7,9 +7,8 @@ namespace Content.Client.Placement.Modes
 {
     public sealed class WallmountLight : PlacementMode
     {
-        public WallmountLight(PlacementManager pMan) : base(pMan)
-        {
-        }
+        public WallmountLight(PlacementManager pMan)
+            : base(pMan) { }
 
         public override void AlignPlacementMode(ScreenCoordinates mouseScreen)
         {

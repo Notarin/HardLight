@@ -1,6 +1,6 @@
 - type: entity
   id: MobLivingLight
-  parent: [ BaseMob, MobCombat ]
+  parent: [BaseMob, MobCombat]
   abstract: true
   name: luminous person
   description: A blinding figure of pure light, seemingly intangible.
@@ -9,10 +9,8 @@
     rootTask:
       task: SimpleRangedHostileCompound
     blackboard:
-      NavClimb: !type:Bool
-        true
-      NavSmash: !type:Bool
-        true
+      NavClimb: !type:Bool true
+      NavSmash: !type:Bool true
   - type: NpcFactionMember
     factions:
     - SimpleHostile
@@ -29,9 +27,9 @@
     drawdepth: Mobs
     sprite: Mobs/Elemental/living_light/luminous_person.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: luminous_person
-    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+    - map: ["enum.DamageStateVisualLayers.BaseUnshaded"]
       state: glow
       shader: unshaded
   - type: MobState
@@ -55,14 +53,13 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.35
         density: 60
         mask:
-          - MobMask
+        - MobMask
         layer:
-          - Opaque
+        - Opaque
   - type: Damageable
     damageContainer: Inorganic
     damageModifierSet: LivingLight
@@ -90,18 +87,17 @@
     speechVerb: Ghost
   - type: Tag
     tags:
-      - FootstepSound
+    - FootstepSound
   - type: Destructible
     thresholds:
-      - trigger:
-          !type:DamageTrigger
-          damage: 25
-        behaviors:
-          - !type:DoActsBehavior
-            acts: [ "Destruction" ]
-          - !type:PlaySoundBehavior
-            sound:
-              collection: GlassBreak
+    - trigger: !type:DamageTrigger
+        damage: 25
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          collection: GlassBreak
 
 - type: entity
   id: MobLuminousPerson
@@ -124,9 +120,9 @@
   - type: Sprite
     sprite: Mobs/Elemental/living_light/luminous_object.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: luminous_object
-    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+    - map: ["enum.DamageStateVisualLayers.BaseUnshaded"]
       state: glow
       shader: unshaded
   - type: DamageStateVisuals
@@ -151,9 +147,9 @@
   - type: Sprite
     sprite: Mobs/Elemental/living_light/luminous_entity.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: luminous_entity
-    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+    - map: ["enum.DamageStateVisualLayers.BaseUnshaded"]
       state: glow
       shader: unshaded
   - type: DamageStateVisuals
@@ -183,7 +179,7 @@
     showExamineText: false
     selectedMode: SemiAuto
     availableModes:
-      - SemiAuto
+    - SemiAuto
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/laser3.ogg
     soundEmpty:

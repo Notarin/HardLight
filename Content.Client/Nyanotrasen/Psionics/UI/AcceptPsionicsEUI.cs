@@ -37,6 +37,5 @@ namespace Content.Client.Psionics.UI
         {
             _window.Close();
         }
-
     }
 }

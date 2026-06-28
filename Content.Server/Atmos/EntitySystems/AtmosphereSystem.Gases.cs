@@ -10,7 +10,8 @@ namespace Content.Server.Atmos.EntitySystems
 {
     public sealed partial class AtmosphereSystem
     {
-        [Dependency] private readonly IPrototypeManager _protoMan = default!;
+        [Dependency]
+        private readonly IPrototypeManager _protoMan = default!;
 
         private GasReactionPrototype[] _gasReactions = Array.Empty<GasReactionPrototype>();
         private float[] _gasSpecificHeats = new float[Atmospherics.TotalNumberOfGases];
@@ -57,8 +58,8 @@ namespace Content.Server.Atmos.EntitySystems
             return applyScaling ? scale : scale * HeatScale;
         }
 
-        private float GetHeatCapacity(GasMixture mixture)
-            =>  GetHeatCapacityCalculation(mixture.Moles, mixture.Immutable);
+        private float GetHeatCapacity(GasMixture mixture) =>
+            GetHeatCapacityCalculation(mixture.Moles, mixture.Immutable);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private float GetHeatCapacityCalculation(float[] moles, bool space)
@@ -116,7 +117,8 @@ namespace Content.Server.Atmos.EntitySystems
         /// </summary>
         public void Merge(GasMixture receiver, GasMixture giver)
         {
-            if (receiver.Immutable) return;
+            if (receiver.Immutable)
+                return;
 
             if (MathF.Abs(receiver.Temperature - giver.Temperature) > Atmospherics.MinimumTemperatureDeltaToConsider)
             {
@@ -125,7 +127,9 @@ namespace Content.Server.Atmos.EntitySystems
                 var combinedHeatCapacity = receiverHeatCapacity + giverHeatCapacity;
                 if (combinedHeatCapacity > Atmospherics.MinimumHeatCapacity)
                 {
-                    receiver.Temperature = (GetThermalEnergy(giver, giverHeatCapacity) + GetThermalEnergy(receiver, receiverHeatCapacity)) / combinedHeatCapacity;
+                    receiver.Temperature =
+                        (GetThermalEnergy(giver, giverHeatCapacity) + GetThermalEnergy(receiver, receiverHeatCapacity))
+                        / combinedHeatCapacity;
                 }
             }
 
@@ -157,7 +161,10 @@ namespace Content.Server.Atmos.EntitySystems
                 var fraction = receiver.Volume / totalVolume;
 
                 // Set temperature, if necessary.
-                if (MathF.Abs(receiver.Temperature - source.Temperature) > Atmospherics.MinimumTemperatureDeltaToConsider)
+                if (
+                    MathF.Abs(receiver.Temperature - source.Temperature)
+                    > Atmospherics.MinimumTemperatureDeltaToConsider
+                )
                 {
                     // Often this divides a pipe net into new and completely empty pipe nets
                     if (receiver.TotalMoles == 0)
@@ -168,7 +175,11 @@ namespace Content.Server.Atmos.EntitySystems
                         var receiverHeatCapacity = GetHeatCapacity(receiver);
                         var combinedHeatCapacity = receiverHeatCapacity + sourceHeatCapacity.Value * fraction;
                         if (combinedHeatCapacity > Atmospherics.MinimumHeatCapacity)
-                            receiver.Temperature = (GetThermalEnergy(source, sourceHeatCapacity.Value * fraction) + GetThermalEnergy(receiver, receiverHeatCapacity)) / combinedHeatCapacity;
+                            receiver.Temperature =
+                                (
+                                    GetThermalEnergy(source, sourceHeatCapacity.Value * fraction)
+                                    + GetThermalEnergy(receiver, receiverHeatCapacity)
+                                ) / combinedHeatCapacity;
                     }
                 }
 
@@ -193,16 +204,21 @@ namespace Content.Server.Atmos.EntitySystems
                 // Need at least 10 kPa difference to overcome friction in the mechanism.
                 return false;
 
-            if (!(mixture.TotalMoles > 0) || !(mixture.Temperature > 0)) return false;
+            if (!(mixture.TotalMoles > 0) || !(mixture.Temperature > 0))
+                return false;
 
             // We calculate the necessary moles to transfer with the ideal gas law.
-            var pressureDelta = MathF.Min(targetPressure - outputStartingPressure, (inputStartingPressure - outputStartingPressure) / 2f);
-            var transferMoles = pressureDelta * (output?.Volume ?? Atmospherics.CellVolume) / (mixture.Temperature * Atmospherics.R);
+            var pressureDelta = MathF.Min(
+                targetPressure - outputStartingPressure,
+                (inputStartingPressure - outputStartingPressure) / 2f
+            );
+            var transferMoles =
+                pressureDelta * (output?.Volume ?? Atmospherics.CellVolume) / (mixture.Temperature * Atmospherics.R);
 
             // And now we transfer the gas.
             var removed = mixture.Remove(transferMoles);
 
-            if(output != null)
+            if (output != null)
                 Merge(output, removed);
 
             return true;
@@ -225,7 +241,8 @@ namespace Content.Server.Atmos.EntitySystems
                 // No need to pump gas, we've reached the target.
                 return false;
 
-            if (!(mixture.TotalMoles > 0) || !(mixture.Temperature > 0)) return false;
+            if (!(mixture.TotalMoles > 0) || !(mixture.Temperature > 0))
+                return false;
 
             // We calculate the necessary moles to transfer with the ideal gas law.
             var transferMoles = pressureDelta * output.Volume / (mixture.Temperature * Atmospherics.R);
@@ -241,7 +258,7 @@ namespace Content.Server.Atmos.EntitySystems
         /// </summary>
         public void ScrubInto(GasMixture mixture, GasMixture destination, IReadOnlyCollection<Gas> filterGases)
         {
-            var buffer = new GasMixture(mixture.Volume){Temperature = mixture.Temperature};
+            var buffer = new GasMixture(mixture.Volume) { Temperature = mixture.Temperature };
 
             foreach (var gas in filterGases)
             {
@@ -370,8 +387,8 @@ namespace Content.Server.Atmos.EntitySystems
         public static float MolesToPressureThreshold(GasMixture gasMixture, float targetPressure)
         {
             // Kid named PV = nRT.
-            return gasMixture.TotalMoles -
-                   targetPressure * gasMixture.Volume / (Atmospherics.R * gasMixture.Temperature);
+            return gasMixture.TotalMoles
+                - targetPressure * gasMixture.Volume / (Atmospherics.R * gasMixture.Temperature);
         }
 
         /// <summary>
@@ -421,11 +438,14 @@ namespace Content.Server.Atmos.EntitySystems
         {
             var moles = 0f;
 
-            for(var i = 0; i < Atmospherics.TotalNumberOfGases; i++)
+            for (var i = 0; i < Atmospherics.TotalNumberOfGases; i++)
             {
                 var gasMoles = sample.Moles[i];
                 var delta = MathF.Abs(gasMoles - otherSample.Moles[i]);
-                if (delta > Atmospherics.MinimumMolesDeltaToMove && (delta > gasMoles * Atmospherics.MinimumAirRatioToMove))
+                if (
+                    delta > Atmospherics.MinimumMolesDeltaToMove
+                    && (delta > gasMoles * Atmospherics.MinimumAirRatioToMove)
+                )
                     return (GasCompareResult)i; // We can move gases!
                 moles += gasMoles;
             }
@@ -452,9 +472,11 @@ namespace Content.Server.Atmos.EntitySystems
 
             foreach (var prototype in GasReactions)
             {
-                if (energy < prototype.MinimumEnergyRequirement ||
-                    temperature < prototype.MinimumTemperatureRequirement ||
-                    temperature > prototype.MaximumTemperatureRequirement)
+                if (
+                    energy < prototype.MinimumEnergyRequirement
+                    || temperature < prototype.MinimumTemperatureRequirement
+                    || temperature > prototype.MaximumTemperatureRequirement
+                )
                     continue;
 
                 var doReaction = true;
@@ -473,7 +495,7 @@ namespace Content.Server.Atmos.EntitySystems
                     continue;
 
                 reaction = prototype.React(mixture, holder, this, HeatScale);
-                if(reaction.HasFlag(ReactionResult.StopReactions))
+                if (reaction.HasFlag(ReactionResult.StopReactions))
                     break;
             }
 

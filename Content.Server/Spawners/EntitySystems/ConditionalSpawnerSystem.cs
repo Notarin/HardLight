@@ -12,9 +12,14 @@ namespace Content.Server.Spawners.EntitySystems
     [UsedImplicitly]
     public sealed class ConditionalSpawnerSystem : EntitySystem
     {
-        [Dependency] private readonly IRobustRandom _robustRandom = default!;
-        [Dependency] private readonly GameTicker _ticker = default!;
-        [Dependency] private readonly EntityTableSystem _entityTable = default!;
+        [Dependency]
+        private readonly IRobustRandom _robustRandom = default!;
+
+        [Dependency]
+        private readonly GameTicker _ticker = default!;
+
+        [Dependency]
+        private readonly EntityTableSystem _entityTable = default!;
 
         public override void Initialize()
         {
@@ -94,7 +99,10 @@ namespace Content.Server.Spawners.EntitySystems
 
         private void Spawn(EntityUid uid, RandomSpawnerComponent component)
         {
-            if (component.RarePrototypes.Count > 0 && (component.RareChance == 1.0f || _robustRandom.Prob(component.RareChance)))
+            if (
+                component.RarePrototypes.Count > 0
+                && (component.RareChance == 1.0f || _robustRandom.Prob(component.RareChance))
+            )
             {
                 EntityManager.SpawnEntity(_robustRandom.Pick(component.RarePrototypes), Transform(uid).Coordinates);
                 return;

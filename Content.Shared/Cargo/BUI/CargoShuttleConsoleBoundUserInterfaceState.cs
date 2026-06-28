@@ -16,7 +16,8 @@ public sealed class CargoShuttleConsoleBoundUserInterfaceState : BoundUserInterf
     public CargoShuttleConsoleBoundUserInterfaceState(
         string accountName,
         string shuttleName,
-        List<CargoOrderData> orders)
+        List<CargoOrderData> orders
+    )
     {
         AccountName = accountName;
         ShuttleName = shuttleName;

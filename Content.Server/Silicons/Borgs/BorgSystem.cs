@@ -1,3 +1,5 @@
+using System.Linq;
+using Content.Server.Access.Systems; // Frontier
 using Content.Server.Actions;
 using Content.Server.Administration.Logs;
 using Content.Server.Administration.Managers;
@@ -6,7 +8,6 @@ using Content.Server.Explosion.EntitySystems;
 using Content.Server.Hands.Systems;
 using Content.Server.PowerCell;
 using Content.Server.Radio.Components;
-using Content.Shared.UserInterface;
 using Content.Shared.Access;
 using Content.Shared.Access.Components;
 using Content.Shared.Access.Systems;
@@ -27,43 +28,83 @@ using Content.Shared.Roles;
 using Content.Shared.Silicons.Borgs;
 using Content.Shared.Silicons.Borgs.Components;
 using Content.Shared.Throwing;
+using Content.Shared.UserInterface;
 using Content.Shared.Whitelist;
 using Content.Shared.Wires;
 using Robust.Server.GameObjects;
 using Robust.Shared.Containers;
 using Robust.Shared.Player;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
-using System.Linq;
-using Content.Server.Access.Systems; // Frontier
-using Robust.Shared.Prototypes;
 
 namespace Content.Server.Silicons.Borgs;
 
 /// <inheritdoc/>
 public sealed partial class BorgSystem : SharedBorgSystem
 {
-    [Dependency] private readonly IAdminLogManager _adminLog = default!;
-    [Dependency] private readonly IBanManager _banManager = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly ActionsSystem _actions = default!;
-    [Dependency] private readonly AlertsSystem _alerts = default!;
-    [Dependency] private readonly DeviceNetworkSystem _deviceNetwork = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly TriggerSystem _trigger = default!;
-    [Dependency] private readonly HandsSystem _hands = default!;
-    [Dependency] private readonly MetaDataSystem _metaData = default!;
-    [Dependency] private readonly SharedMindSystem _mind = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly MovementSpeedModifierSystem _movementSpeedModifier = default!;
-    [Dependency] private readonly PowerCellSystem _powerCell = default!;
-    [Dependency] private readonly ThrowingSystem _throwing = default!;
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
-    [Dependency] private readonly ISharedPlayerManager _player = default!;
-    [Dependency] private readonly AccessSystem _access = default!; // Frontier
+    [Dependency]
+    private readonly IAdminLogManager _adminLog = default!;
+
+    [Dependency]
+    private readonly IBanManager _banManager = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly ActionsSystem _actions = default!;
+
+    [Dependency]
+    private readonly AlertsSystem _alerts = default!;
+
+    [Dependency]
+    private readonly DeviceNetworkSystem _deviceNetwork = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly TriggerSystem _trigger = default!;
+
+    [Dependency]
+    private readonly HandsSystem _hands = default!;
+
+    [Dependency]
+    private readonly MetaDataSystem _metaData = default!;
+
+    [Dependency]
+    private readonly SharedMindSystem _mind = default!;
+
+    [Dependency]
+    private readonly MobStateSystem _mobState = default!;
+
+    [Dependency]
+    private readonly MovementSpeedModifierSystem _movementSpeedModifier = default!;
+
+    [Dependency]
+    private readonly PowerCellSystem _powerCell = default!;
+
+    [Dependency]
+    private readonly ThrowingSystem _throwing = default!;
+
+    [Dependency]
+    private readonly UserInterfaceSystem _ui = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelistSystem = default!;
+
+    [Dependency]
+    private readonly ISharedPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly AccessSystem _access = default!; // Frontier
 
     public static readonly ProtoId<JobPrototype> BorgJobId = new("Borg");
 
@@ -118,11 +159,13 @@ public sealed partial class BorgSystem : SharedBorgSystem
             return;
         }
 
-        if (component.BrainEntity == null && brain != null &&
-            _whitelistSystem.IsWhitelistPassOrNull(component.BrainWhitelist, used))
+        if (
+            component.BrainEntity == null
+            && brain != null
+            && _whitelistSystem.IsWhitelistPassOrNull(component.BrainWhitelist, used)
+        )
         {
-            if (_mind.TryGetMind(used, out _, out var mind) &&
-                _player.TryGetSessionById(mind.UserId, out var session))
+            if (_mind.TryGetMind(used, out _, out var mind) && _player.TryGetSessionById(mind.UserId, out var session))
             {
                 if (!CanPlayerBeBorged(session))
                 {
@@ -132,8 +175,11 @@ public sealed partial class BorgSystem : SharedBorgSystem
             }
 
             _container.Insert(used, component.BrainContainer);
-            _adminLog.Add(LogType.Action, LogImpact.Medium,
-                $"{ToPrettyString(args.User):player} installed brain {ToPrettyString(used)} into borg {ToPrettyString(uid)}");
+            _adminLog.Add(
+                LogType.Action,
+                LogImpact.Medium,
+                $"{ToPrettyString(args.User):player} installed brain {ToPrettyString(used)} into borg {ToPrettyString(uid)}"
+            );
             args.Handled = true;
             UpdateUI(uid, component);
         }
@@ -141,8 +187,11 @@ public sealed partial class BorgSystem : SharedBorgSystem
         if (module != null && CanInsertModule(uid, used, component, module, args.User))
         {
             InsertModule((uid, component), used);
-            _adminLog.Add(LogType.Action, LogImpact.Low,
-                $"{ToPrettyString(args.User):player} installed module {ToPrettyString(used)} into borg {ToPrettyString(uid)}");
+            _adminLog.Add(
+                LogType.Action,
+                LogImpact.Low,
+                $"{ToPrettyString(args.User):player} installed module {ToPrettyString(used)} into borg {ToPrettyString(uid)}"
+            );
             args.Handled = true;
             UpdateUI(uid, component);
         }
@@ -162,21 +211,37 @@ public sealed partial class BorgSystem : SharedBorgSystem
     }
 
     // todo: consider transferring over the ghost role? managing that might suck.
-    protected override void OnInserted(EntityUid uid, BorgChassisComponent component, EntInsertedIntoContainerMessage args)
+    protected override void OnInserted(
+        EntityUid uid,
+        BorgChassisComponent component,
+        EntInsertedIntoContainerMessage args
+    )
     {
         base.OnInserted(uid, component, args);
 
-        if (HasComp<BorgBrainComponent>(args.Entity) && _mind.TryGetMind(args.Entity, out var mindId, out var mind) && args.Container == component.BrainContainer)
+        if (
+            HasComp<BorgBrainComponent>(args.Entity)
+            && _mind.TryGetMind(args.Entity, out var mindId, out var mind)
+            && args.Container == component.BrainContainer
+        )
         {
             _mind.TransferTo(mindId, uid, mind: mind);
         }
     }
 
-    protected override void OnRemoved(EntityUid uid, BorgChassisComponent component, EntRemovedFromContainerMessage args)
+    protected override void OnRemoved(
+        EntityUid uid,
+        BorgChassisComponent component,
+        EntRemovedFromContainerMessage args
+    )
     {
         base.OnRemoved(uid, component, args);
 
-        if (HasComp<BorgBrainComponent>(args.Entity) && _mind.TryGetMind(uid, out var mindId, out var mind) && args.Container == component.BrainContainer)
+        if (
+            HasComp<BorgBrainComponent>(args.Entity)
+            && _mind.TryGetMind(uid, out var mindId, out var mind)
+            && args.Container == component.BrainContainer
+        )
         {
             _mind.TransferTo(mindId, args.Entity, mind: mind);
         }
@@ -253,12 +318,16 @@ public sealed partial class BorgSystem : SharedBorgSystem
 
         var containerEnt = container.Owner;
 
-        if (!TryComp<BorgChassisComponent>(containerEnt, out var chassisComponent) ||
-            container.ID != chassisComponent.BrainContainerId)
+        if (
+            !TryComp<BorgChassisComponent>(containerEnt, out var chassisComponent)
+            || container.ID != chassisComponent.BrainContainerId
+        )
             return;
 
-        if (!_mind.TryGetMind(uid, out var mindId, out var mind) ||
-            !_player.TryGetSessionById(mind.UserId, out var session))
+        if (
+            !_mind.TryGetMind(uid, out var mindId, out var mind)
+            || !_player.TryGetSessionById(mind.UserId, out var session)
+        )
             return;
 
         if (!CanPlayerBeBorged(session))
@@ -286,7 +355,7 @@ public sealed partial class BorgSystem : SharedBorgSystem
             return;
         }
 
-        var chargePercent = (short) MathF.Round(battery.CurrentCharge / battery.MaxCharge * 10f);
+        var chargePercent = (short)MathF.Round(battery.CurrentCharge / battery.MaxCharge * 10f);
 
         // we make sure 0 only shows if they have absolutely no battery.
         // also account for floating point imprecision

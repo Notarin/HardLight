@@ -9,7 +9,6 @@ namespace Content.Server.Animals.Components;
 ///     This component handles animals which lay eggs (or some other item) on a timer, using up hunger to do so.
 ///     It also grants an action to players who are controlling these entities, allowing them to do it manually.
 /// </summary>
-
 [RegisterComponent, Access(typeof(EggLayerSystem)), AutoGenerateComponentPause]
 public sealed partial class EggLayerComponent : Component
 {
@@ -46,7 +45,8 @@ public sealed partial class EggLayerComponent : Component
     [DataField]
     public float HungerUsage = 60f;
 
-    [DataField] public EntityUid? Action;
+    [DataField]
+    public EntityUid? Action;
 
     /// <summary>
     ///     When to next try to produce.

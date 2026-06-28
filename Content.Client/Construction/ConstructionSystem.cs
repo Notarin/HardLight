@@ -24,11 +24,20 @@ namespace Content.Client.Construction
     [UsedImplicitly]
     public sealed class ConstructionSystem : SharedConstructionSystem
     {
-        [Dependency] private readonly IPlayerManager _playerManager = default!;
-        [Dependency] private readonly ExamineSystemShared _examineSystem = default!;
-        [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
-        [Dependency] private readonly SpriteSystem _sprite = default!;
-        [Dependency] private readonly PopupSystem _popupSystem = default!;
+        [Dependency]
+        private readonly IPlayerManager _playerManager = default!;
+
+        [Dependency]
+        private readonly ExamineSystemShared _examineSystem = default!;
+
+        [Dependency]
+        private readonly SharedTransformSystem _transformSystem = default!;
+
+        [Dependency]
+        private readonly SpriteSystem _sprite = default!;
+
+        [Dependency]
+        private readonly PopupSystem _popupSystem = default!;
 
         private readonly Dictionary<int, EntityUid> _ghosts = new();
         private readonly Dictionary<string, ConstructionGuide> _guideCache = new();
@@ -49,20 +58,27 @@ namespace Content.Client.Construction
             SubscribeNetworkEvent<AckStructureConstructionMessage>(HandleAckStructure);
             SubscribeNetworkEvent<ResponseConstructionGuide>(OnConstructionGuideReceived);
 
-            CommandBinds.Builder
-                .Bind(ContentKeyFunctions.OpenCraftingMenu,
-                    new PointerInputCmdHandler(HandleOpenCraftingMenu, outsidePrediction: true))
-                .Bind(EngineKeyFunctions.Use,
-                    new PointerInputCmdHandler(HandleUse, outsidePrediction: true))
-                .Bind(ContentKeyFunctions.EditorFlipObject,
-                    new PointerInputCmdHandler(HandleFlip, outsidePrediction: true))
+            CommandBinds
+                .Builder.Bind(
+                    ContentKeyFunctions.OpenCraftingMenu,
+                    new PointerInputCmdHandler(HandleOpenCraftingMenu, outsidePrediction: true)
+                )
+                .Bind(EngineKeyFunctions.Use, new PointerInputCmdHandler(HandleUse, outsidePrediction: true))
+                .Bind(
+                    ContentKeyFunctions.EditorFlipObject,
+                    new PointerInputCmdHandler(HandleFlip, outsidePrediction: true)
+                )
                 .Register<ConstructionSystem>();
 
             SubscribeLocalEvent<ConstructionGhostComponent, ExaminedEvent>(HandleConstructionGhostExamined);
             SubscribeLocalEvent<ConstructionGhostComponent, ComponentShutdown>(HandleGhostComponentShutdown);
         }
 
-        private void HandleGhostComponentShutdown(EntityUid uid, ConstructionGhostComponent component, ComponentShutdown args)
+        private void HandleGhostComponentShutdown(
+            EntityUid uid,
+            ConstructionGhostComponent component,
+            ComponentShutdown args
+        )
         {
             ClearGhost(component.GhostId);
         }
@@ -128,7 +144,9 @@ namespace Content.Client.Construction
                         continue;
 
                     var name = recipe.SetName.HasValue ? Loc.GetString(recipe.SetName) : proto.Name;
-                    var desc = recipe.SetDescription.HasValue ? Loc.GetString(recipe.SetDescription) : proto.Description;
+                    var desc = recipe.SetDescription.HasValue
+                        ? Loc.GetString(recipe.SetDescription)
+                        : proto.Description;
 
                     recipe.Name = name;
                     recipe.Description = desc;
@@ -161,24 +179,30 @@ namespace Content.Client.Construction
             return null;
         }
 
-        private void HandleConstructionGhostExamined(EntityUid uid, ConstructionGhostComponent component, ExaminedEvent args)
+        private void HandleConstructionGhostExamined(
+            EntityUid uid,
+            ConstructionGhostComponent component,
+            ExaminedEvent args
+        )
         {
             if (component.Prototype?.Name is null)
                 return;
 
             using (args.PushGroup(nameof(ConstructionGhostComponent)))
             {
-                args.PushMarkup(Loc.GetString(
-                    "construction-ghost-examine-message",
-                    ("name", component.Prototype.Name)));
+                args.PushMarkup(
+                    Loc.GetString("construction-ghost-examine-message", ("name", component.Prototype.Name))
+                );
 
                 if (!PrototypeManager.TryIndex(component.Prototype.Graph, out var graph))
                     return;
 
                 var startNode = graph.Nodes[component.Prototype.StartNode];
 
-                if (!graph.TryPath(component.Prototype.StartNode, component.Prototype.TargetNode, out var path) ||
-                    !startNode.TryGetEdge(path[0].Name, out var edge))
+                if (
+                    !graph.TryPath(component.Prototype.StartNode, component.Prototype.TargetNode, out var path)
+                    || !startNode.TryGetEdge(path[0].Name, out var edge)
+                )
                 {
                     return;
                 }
@@ -254,8 +278,8 @@ namespace Content.Client.Construction
         /// <summary>
         /// Creates a construction ghost at the given location.
         /// </summary>
-        public void SpawnGhost(ConstructionPrototype prototype, EntityCoordinates loc, Direction dir)
-            => TrySpawnGhost(prototype, loc, dir, out _);
+        public void SpawnGhost(ConstructionPrototype prototype, EntityCoordinates loc, Direction dir) =>
+            TrySpawnGhost(prototype, loc, dir, out _);
 
         /// <summary>
         /// Creates a construction ghost at the given location.
@@ -264,16 +288,19 @@ namespace Content.Client.Construction
             ConstructionPrototype prototype,
             EntityCoordinates loc,
             Direction dir,
-            [NotNullWhen(true)] out EntityUid? ghost)
+            [NotNullWhen(true)] out EntityUid? ghost
+        )
         {
             ghost = null;
-            if (_playerManager.LocalEntity is not { } user ||
-                !user.IsValid())
+            if (_playerManager.LocalEntity is not { } user || !user.IsValid())
             {
                 return false;
             }
 
-            if (!TryGetRecipePrototype(prototype.ID, out var targetProtoId) || !PrototypeManager.TryIndex(targetProtoId, out EntityPrototype? targetProto))
+            if (
+                !TryGetRecipePrototype(prototype.ID, out var targetProtoId)
+                || !PrototypeManager.TryIndex(targetProtoId, out EntityPrototype? targetProto)
+            )
                 return false;
 
             if (GhostPresent(loc))
@@ -315,12 +342,19 @@ namespace Content.Client.Construction
                         continue;
 
                     var rsi = targetSprite[i].Rsi ?? targetSprite.BaseRSI;
-                    if (rsi is null || !rsi.TryGetState(targetSprite[i].RsiState, out var state) ||
-                        state.StateId.Name is null)
+                    if (
+                        rsi is null
+                        || !rsi.TryGetState(targetSprite[i].RsiState, out var state)
+                        || state.StateId.Name is null
+                    )
                         continue;
 
                     _sprite.AddBlankLayer((ghost.Value, sprite), i);
-                    _sprite.LayerSetSprite((ghost.Value, sprite), i, new SpriteSpecifier.Rsi(rsi.Path, state.StateId.Name));
+                    _sprite.LayerSetSprite(
+                        (ghost.Value, sprite),
+                        i,
+                        new SpriteSpecifier.Rsi(rsi.Path, state.StateId.Name)
+                    );
                     sprite.LayerSetShader(i, "unshaded");
                     _sprite.LayerSetVisible((ghost.Value, sprite), i, true);
                 }
@@ -336,8 +370,13 @@ namespace Content.Client.Construction
             return true;
         }
 
-        private bool CheckConstructionConditions(ConstructionPrototype prototype, EntityCoordinates loc, Direction dir,
-            EntityUid user, bool showPopup = false)
+        private bool CheckConstructionConditions(
+            ConstructionPrototype prototype,
+            EntityCoordinates loc,
+            Direction dir,
+            EntityUid user,
+            bool showPopup = false
+        )
         {
             foreach (var condition in prototype.Conditions)
             {
@@ -381,11 +420,18 @@ namespace Content.Client.Construction
 
             if (ghostComp.Prototype == null)
             {
-                throw new ArgumentException($"Can't start construction for a ghost with no prototype. Ghost id: {ghostId}");
+                throw new ArgumentException(
+                    $"Can't start construction for a ghost with no prototype. Ghost id: {ghostId}"
+                );
             }
 
             var transform = EntityManager.GetComponent<TransformComponent>(ghostId);
-            var msg = new TryStartStructureConstructionMessage(GetNetCoordinates(transform.Coordinates), ghostComp.Prototype.ID, transform.LocalRotation, ghostId.GetHashCode());
+            var msg = new TryStartStructureConstructionMessage(
+                GetNetCoordinates(transform.Coordinates),
+                ghostComp.Prototype.ID,
+                transform.LocalRotation,
+                ghostId.GetHashCode()
+            );
             RaiseNetworkEvent(msg);
         }
 

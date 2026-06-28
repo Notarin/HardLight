@@ -25,7 +25,7 @@
   - type: FoldableClothing
   - type: Sprite
     layers:
-    - map: [ "unfoldedLayer" ]
+    - map: ["unfoldedLayer"]
       state: icon
     - map: ["foldedLayer"]
       state: icon
@@ -42,7 +42,7 @@
     folded: true
   - type: Sprite
     layers:
-    - map: [ "unfoldedLayer" ]
+    - map: ["unfoldedLayer"]
       state: icon
       visible: false
     - map: ["foldedLayer"]

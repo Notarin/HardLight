@@ -30,12 +30,14 @@ public enum ConditionAction
     /// The player is allowed to join, and the next conditions will be skipped.
     /// </summary>
     Allow,
+
     /// <summary>
     /// The player is denied to join, and the next conditions will be skipped.
     /// </summary>
     Deny,
+
     /// <summary>
     /// The next condition should be checked.
     /// </summary>
-    Next
+    Next,
 }

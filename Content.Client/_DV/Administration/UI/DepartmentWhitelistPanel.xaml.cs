@@ -13,11 +13,15 @@ public sealed partial class DepartmentWhitelistPanel : PanelContainer
 {
     public Action<ProtoId<JobPrototype>, bool>? OnSetJob;
 
-    public DepartmentWhitelistPanel(DepartmentPrototype department, IPrototypeManager proto, HashSet<ProtoId<JobPrototype>> whitelists)
+    public DepartmentWhitelistPanel(
+        DepartmentPrototype department,
+        IPrototypeManager proto,
+        HashSet<ProtoId<JobPrototype>> whitelists
+    )
     {
         RobustXamlLoader.Load(this);
 
-        var anyValid = false;//
+        var anyValid = false; //
         var allWhitelisted = true;
         var grey = Color.FromHex("#ccc");
         foreach (var id in department.Roles)
@@ -44,7 +48,7 @@ public sealed partial class DepartmentWhitelistPanel : PanelContainer
         }
 
         if (!anyValid) // Frontier: hide checkbox set if no valid events
-            Visible = false;  // Frontier
+            Visible = false; // Frontier
 
         Department.Text = Loc.GetString(department.Name);
         Department.Modulate = department.Color;
@@ -58,7 +62,11 @@ public sealed partial class DepartmentWhitelistPanel : PanelContainer
         OnSetJob?.Invoke(thisJob, button.Pressed);
     }
 
-    private void OnDepartmentPressed(DepartmentPrototype department, IPrototypeManager proto, HashSet<ProtoId<JobPrototype>> whitelists)
+    private void OnDepartmentPressed(
+        DepartmentPrototype department,
+        IPrototypeManager proto,
+        HashSet<ProtoId<JobPrototype>> whitelists
+    )
     {
         foreach (var id in department.Roles)
         {

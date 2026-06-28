@@ -15,12 +15,23 @@ namespace Content.Client.Explosion;
 /// </summary>
 public sealed class ExplosionOverlaySystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _protoMan = default!;
-    [Dependency] private readonly IResourceCache _resCache = default!;
-    [Dependency] private readonly IOverlayManager _overlayMan = default!;
-    [Dependency] private readonly SharedPointLightSystem _lights = default!;
-    [Dependency] private readonly IMapManager _mapMan = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+    [Dependency]
+    private readonly IPrototypeManager _protoMan = default!;
+
+    [Dependency]
+    private readonly IResourceCache _resCache = default!;
+
+    [Dependency]
+    private readonly IOverlayManager _overlayMan = default!;
+
+    [Dependency]
+    private readonly SharedPointLightSystem _lights = default!;
+
+    [Dependency]
+    private readonly IMapManager _mapMan = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
 
     public override void Initialize()
     {
@@ -32,7 +43,11 @@ public sealed class ExplosionOverlaySystem : EntitySystem
         _overlayMan.AddOverlay(new ExplosionOverlay(_appearance));
     }
 
-    private void OnExplosionHandleState(EntityUid uid, ExplosionVisualsComponent component, ref ComponentHandleState args)
+    private void OnExplosionHandleState(
+        EntityUid uid,
+        ExplosionVisualsComponent component,
+        ref ComponentHandleState args
+    )
     {
         if (args.Current is not ExplosionVisualsState state)
             return;
@@ -62,8 +77,10 @@ public sealed class ExplosionOverlaySystem : EntitySystem
     {
         EnsureComp<ExplosionVisualsTexturesComponent>(uid);
 
-        if (!_protoMan.TryIndex(component.ExplosionType, out ExplosionPrototype? type) ||
-            !TryComp(uid, out ExplosionVisualsTexturesComponent? textures))
+        if (
+            !_protoMan.TryIndex(component.ExplosionType, out ExplosionPrototype? type)
+            || !TryComp(uid, out ExplosionVisualsTexturesComponent? textures)
+        )
         {
             return;
         }
@@ -80,7 +97,6 @@ public sealed class ExplosionOverlaySystem : EntitySystem
             _lights.SetColor(lightEntity, type.LightColor, light);
             textures.LightEntity = lightEntity;
         }
-
 
         textures.FireColor = type.FireColor;
         textures.IntensityPerState = type.IntensityPerState;

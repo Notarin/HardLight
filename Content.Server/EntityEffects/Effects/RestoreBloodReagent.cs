@@ -12,25 +12,32 @@ namespace Content.Server.EntityEffects.Effects;
 /// </summary>
 public sealed partial class RestoreBloodReagent : EntityEffect
 {
-    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys)
-        => Loc.GetString("reagent-effect-guidebook-restore-blood-reagent");
+    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys) =>
+        Loc.GetString("reagent-effect-guidebook-restore-blood-reagent");
 
     public override void Effect(EntityEffectBaseArgs args)
     {
         if (args.EntityManager.TryGetComponent<BloodstreamComponent>(args.TargetEntity, out var bloodstream))
         {
             // Only restore if there's an original blood type stored and it's different from current
-            if (bloodstream.OriginalBloodReagent != null && 
-                bloodstream.BloodReagent != bloodstream.OriginalBloodReagent)
+            if (
+                bloodstream.OriginalBloodReagent != null
+                && bloodstream.BloodReagent != bloodstream.OriginalBloodReagent
+            )
             {
                 var sys = args.EntityManager.System<BloodstreamSystem>();
                 sys.ChangeBloodReagent(args.TargetEntity, bloodstream.OriginalBloodReagent.Value, bloodstream);
-                
+
                 // Use system method to clear the original blood reagent
                 sys.ClearOriginalBloodReagent(args.TargetEntity, bloodstream);
-                
+
                 // Remove any blood modification tracker since we're actively purifying
-                if (args.EntityManager.TryGetComponent<BloodModificationTrackerComponent>(args.TargetEntity, out var tracker))
+                if (
+                    args.EntityManager.TryGetComponent<BloodModificationTrackerComponent>(
+                        args.TargetEntity,
+                        out var tracker
+                    )
+                )
                 {
                     args.EntityManager.RemoveComponent<BloodModificationTrackerComponent>(args.TargetEntity);
                 }

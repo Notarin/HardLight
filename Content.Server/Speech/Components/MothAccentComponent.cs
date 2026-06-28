@@ -4,7 +4,4 @@
 ///     Buzzz!
 /// </summary>
 [RegisterComponent]
-public sealed partial class MothAccentComponent : Component
-{
-
-}
+public sealed partial class MothAccentComponent : Component { }

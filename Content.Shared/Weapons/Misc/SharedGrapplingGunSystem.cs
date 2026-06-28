@@ -21,13 +21,26 @@ namespace Content.Shared.Weapons.Misc;
 
 public abstract class SharedGrapplingGunSystem : EntitySystem
 {
-    [Dependency] protected readonly IGameTiming Timing = default!;
-    [Dependency] private readonly INetManager _netManager = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedJointSystem _joints = default!;
-    [Dependency] private readonly SharedGunSystem _gun = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
+    [Dependency]
+    protected readonly IGameTiming Timing = default!;
+
+    [Dependency]
+    private readonly INetManager _netManager = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedJointSystem _joints = default!;
+
+    [Dependency]
+    private readonly SharedGunSystem _gun = default!;
+
+    [Dependency]
+    private readonly SharedPhysicsSystem _physics = default!;
 
     public const string GrapplingJoint = "grappling";
 
@@ -81,15 +94,15 @@ public abstract class SharedGrapplingGunSystem : EntitySystem
     private void OnGrapplingReel(RequestGrapplingReelMessage msg, EntitySessionEventArgs args)
     {
         var player = args.SenderSession.AttachedEntity;
-        if (!TryComp<HandsComponent>(player, out var hands) ||
-            !TryComp<GrapplingGunComponent>(hands.ActiveHandEntity, out var grappling))
+        if (
+            !TryComp<HandsComponent>(player, out var hands)
+            || !TryComp<GrapplingGunComponent>(hands.ActiveHandEntity, out var grappling)
+        )
         {
             return;
         }
 
-        if (msg.Reeling &&
-            (!TryComp<CombatModeComponent>(player, out var combatMode) ||
-             !combatMode.IsInCombatMode))
+        if (msg.Reeling && (!TryComp<CombatModeComponent>(player, out var combatMode) || !combatMode.IsInCombatMode))
         {
             return;
         }
@@ -114,7 +127,7 @@ public abstract class SharedGrapplingGunSystem : EntitySystem
 
     private void OnGunActivate(EntityUid uid, GrapplingGunComponent component, ActivateInWorldEvent args)
     {
-        if (!Timing.IsFirstTimePredicted || args.Handled || !args.Complex || component.Projectile is not {} projectile)
+        if (!Timing.IsFirstTimePredicted || args.Handled || !args.Complex || component.Projectile is not { } projectile)
             return;
 
         _audio.PlayPredicted(component.CycleSound, uid, args.User);
@@ -125,7 +138,7 @@ public abstract class SharedGrapplingGunSystem : EntitySystem
 
         component.Projectile = null;
         SetReeling(uid, component, false, args.User);
-        _gun.ChangeBasicEntityAmmoCount(uid,  1);
+        _gun.ChangeBasicEntityAmmoCount(uid, 1);
 
         args.Handled = true;
     }
@@ -171,9 +184,11 @@ public abstract class SharedGrapplingGunSystem : EntitySystem
                 continue;
             }
 
-            if (!TryComp<JointComponent>(uid, out var jointComp) ||
-                !jointComp.GetJoints.TryGetValue(GrapplingJoint, out var joint) ||
-                joint is not DistanceJoint distance)
+            if (
+                !TryComp<JointComponent>(uid, out var jointComp)
+                || !jointComp.GetJoints.TryGetValue(GrapplingJoint, out var joint)
+                || joint is not DistanceJoint distance
+            )
             {
                 SetReeling(uid, grappling, false, null);
                 continue;

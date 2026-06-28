@@ -20,12 +20,23 @@ namespace Content.Server._NF.Manufacturing.EntitySystems;
 /// <inheritdoc/>
 public sealed partial class EntitySpawnPowerConsumerSystem : SharedEntitySpawnPowerConsumerSystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly AppearanceSystem _appearance = default!;
-    [Dependency] private readonly MaterialStorageSystem _materialStorage = default!;
-    [Dependency] private readonly NodeContainerSystem _node = default!;
-    [Dependency] private readonly NodeGroupSystem _nodeGroup = default!;
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly AppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly MaterialStorageSystem _materialStorage = default!;
+
+    [Dependency]
+    private readonly NodeContainerSystem _node = default!;
+
+    [Dependency]
+    private readonly NodeGroupSystem _nodeGroup = default!;
+
+    [Dependency]
+    private readonly UserInterfaceSystem _ui = default!;
 
     private EntityQuery<AppearanceComponent> _appearanceQuery;
 
@@ -48,28 +59,45 @@ public sealed partial class EntitySpawnPowerConsumerSystem : SharedEntitySpawnPo
             {
                 subs.Event<AdjustablePowerDrawSetEnabledMessage>(HandleSetEnabled);
                 subs.Event<AdjustablePowerDrawSetLoadMessage>(HandleSetLoad);
-            });
+            }
+        );
     }
 
     private void OnMapInit(Entity<EntitySpawnPowerConsumerComponent> ent, ref MapInitEvent args)
     {
         ent.Comp.NextSpawnCheck = _timing.CurTime + ent.Comp.SpawnCheckPeriod;
         if (TryComp(ent, out PowerConsumerComponent? power))
-            power.DrawRate = Math.Clamp(power.DrawRate, ent.Comp.MinimumRequestablePower, ent.Comp.MaximumRequestablePower);
+            power.DrawRate = Math.Clamp(
+                power.DrawRate,
+                ent.Comp.MinimumRequestablePower,
+                ent.Comp.MaximumRequestablePower
+            );
     }
 
     private void OnExamined(Entity<EntitySpawnPowerConsumerComponent> ent, ref ExaminedEvent args)
     {
         if (TryComp(ent, out PowerConsumerComponent? power))
         {
-            args.PushMarkup(Loc.GetString("entity-spawn-power-consumer-examine", ("actual", power.ReceivedPower), ("requested", power.DrawRate)));
+            args.PushMarkup(
+                Loc.GetString(
+                    "entity-spawn-power-consumer-examine",
+                    ("actual", power.ReceivedPower),
+                    ("requested", power.DrawRate)
+                )
+            );
 
             var powered = power.NetworkLoad.Enabled && power.NetworkLoad.ReceivingPower > 0;
             args.PushMarkup(
-                Loc.GetString("power-receiver-component-on-examine-main",
-                    ("stateText", Loc.GetString(powered
-                        ? "power-receiver-component-on-examine-powered"
-                        : "power-receiver-component-on-examine-unpowered"))
+                Loc.GetString(
+                    "power-receiver-component-on-examine-main",
+                    (
+                        "stateText",
+                        Loc.GetString(
+                            powered
+                                ? "power-receiver-component-on-examine-powered"
+                                : "power-receiver-component-on-examine-unpowered"
+                        )
+                    )
                 )
             );
         }
@@ -85,9 +113,11 @@ public sealed partial class EntitySpawnPowerConsumerSystem : SharedEntitySpawnPo
 
     private void TryConsumeResources(Entity<EntitySpawnPowerConsumerComponent> ent)
     {
-        if (ent.Comp.Material == null
+        if (
+            ent.Comp.Material == null
             || ent.Comp.MaterialAmount <= 0
-            || _materialStorage.TryChangeMaterialAmount(ent, ent.Comp.Material, -ent.Comp.MaterialAmount))
+            || _materialStorage.TryChangeMaterialAmount(ent, ent.Comp.Material, -ent.Comp.MaterialAmount)
+        )
         {
             ent.Comp.Processing = true;
         }
@@ -112,10 +142,16 @@ public sealed partial class EntitySpawnPowerConsumerSystem : SharedEntitySpawnPo
                     spawn.AccumulatedEnergy = 0;
 
                 // Adjust spawn check energy
-                if (float.IsFinite(spawn.AccumulatedSpawnCheckEnergy) && float.IsPositive(spawn.AccumulatedSpawnCheckEnergy))
+                if (
+                    float.IsFinite(spawn.AccumulatedSpawnCheckEnergy)
+                    && float.IsPositive(spawn.AccumulatedSpawnCheckEnergy)
+                )
                 {
                     float totalPeriodSeconds = (float)spawn.SpawnCheckPeriod.TotalSeconds;
-                    var effectivePower = GetEffectivePower((uid, spawn), spawn.AccumulatedSpawnCheckEnergy / totalPeriodSeconds);
+                    var effectivePower = GetEffectivePower(
+                        (uid, spawn),
+                        spawn.AccumulatedSpawnCheckEnergy / totalPeriodSeconds
+                    );
                     spawn.AccumulatedEnergy += effectivePower * totalPeriodSeconds;
                 }
                 spawn.AccumulatedSpawnCheckEnergy = 0.0f;
@@ -148,7 +184,9 @@ public sealed partial class EntitySpawnPowerConsumerSystem : SharedEntitySpawnPo
         if (power <= ent.Comp.LinearMaxValue)
             actualPower = power;
         else
-            actualPower = ent.Comp.LogarithmCoefficient * MathF.Pow(ent.Comp.LogarithmRateBase, MathF.Log10(power) - ent.Comp.LogarithmSubtrahend);
+            actualPower =
+                ent.Comp.LogarithmCoefficient
+                * MathF.Pow(ent.Comp.LogarithmRateBase, MathF.Log10(power) - ent.Comp.LogarithmSubtrahend);
         return MathF.Min(actualPower, ent.Comp.MaxEffectivePower);
     }
 
@@ -174,10 +212,15 @@ public sealed partial class EntitySpawnPowerConsumerSystem : SharedEntitySpawnPo
             UpdateUI(ent, power);
     }
 
-    private void HandleSetEnabled(Entity<EntitySpawnPowerConsumerComponent> ent, ref AdjustablePowerDrawSetEnabledMessage args)
+    private void HandleSetEnabled(
+        Entity<EntitySpawnPowerConsumerComponent> ent,
+        ref AdjustablePowerDrawSetEnabledMessage args
+    )
     {
-        if (TryComp(ent, out NodeContainerComponent? node) &&
-            _node.TryGetNode<CableDeviceNode>(node, ent.Comp.NodeName, out var deviceNode))
+        if (
+            TryComp(ent, out NodeContainerComponent? node)
+            && _node.TryGetNode<CableDeviceNode>(node, ent.Comp.NodeName, out var deviceNode)
+        )
         {
             deviceNode.Enabled = args.On;
             if (deviceNode.Enabled)
@@ -190,7 +233,10 @@ public sealed partial class EntitySpawnPowerConsumerSystem : SharedEntitySpawnPo
         }
     }
 
-    private void HandleSetLoad(Entity<EntitySpawnPowerConsumerComponent> ent, ref AdjustablePowerDrawSetLoadMessage args)
+    private void HandleSetLoad(
+        Entity<EntitySpawnPowerConsumerComponent> ent,
+        ref AdjustablePowerDrawSetLoadMessage args
+    )
     {
         if (args.Load >= 0 && TryComp(ent, out PowerConsumerComponent? power))
         {
@@ -205,8 +251,10 @@ public sealed partial class EntitySpawnPowerConsumerSystem : SharedEntitySpawnPo
             return;
 
         bool nodeEnabled = false;
-        if (TryComp(ent, out NodeContainerComponent? node) &&
-            _node.TryGetNode<CableDeviceNode>(node, ent.Comp.NodeName, out var deviceNode))
+        if (
+            TryComp(ent, out NodeContainerComponent? node)
+            && _node.TryGetNode<CableDeviceNode>(node, ent.Comp.NodeName, out var deviceNode)
+        )
         {
             nodeEnabled = deviceNode.Enabled;
         }
@@ -218,15 +266,28 @@ public sealed partial class EntitySpawnPowerConsumerSystem : SharedEntitySpawnPo
             {
                 On = nodeEnabled,
                 Load = power.DrawRate,
-                Text = Loc.GetString("entity-spawn-power-consumer-estimated-time", ("time", GetGenerationTime(ent, power.DrawRate)))
-            });
+                Text = Loc.GetString(
+                    "entity-spawn-power-consumer-estimated-time",
+                    ("time", GetGenerationTime(ent, power.DrawRate))
+                ),
+            }
+        );
     }
 
-    private void UpdateAppearance(EntityUid uid, EntitySpawnPowerConsumerComponent spawner, PowerConsumerComponent power)
+    private void UpdateAppearance(
+        EntityUid uid,
+        EntitySpawnPowerConsumerComponent spawner,
+        PowerConsumerComponent power
+    )
     {
         if (_appearanceQuery.TryComp(uid, out var appearance))
         {
-            _appearance.SetData(uid, PowerDeviceVisuals.Powered, power.NetworkLoad.Enabled && power.NetworkLoad.ReceivingPower > 0, appearance);
+            _appearance.SetData(
+                uid,
+                PowerDeviceVisuals.Powered,
+                power.NetworkLoad.Enabled && power.NetworkLoad.ReceivingPower > 0,
+                appearance
+            );
             _appearance.SetData(uid, EntitySpawnMaterialVisuals.SufficientMaterial, spawner.Processing, appearance);
         }
     }

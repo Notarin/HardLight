@@ -1,4 +1,4 @@
-using  Content.Shared.Inventory;
+using Content.Shared.Inventory;
 
 namespace Content.Shared.Actions;
 
@@ -7,7 +7,8 @@ namespace Content.Shared.Actions;
 /// </summary>
 public sealed class ActionGrantSystem : EntitySystem
 {
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
+    [Dependency]
+    private readonly SharedActionsSystem _actions = default!;
 
     public override void Initialize()
     {
@@ -19,7 +20,6 @@ public sealed class ActionGrantSystem : EntitySystem
 
     private void OnItemGet(Entity<ItemActionGrantComponent> ent, ref GetItemActionsEvent args)
     {
-
         if (!TryComp(ent.Owner, out ActionGrantComponent? grant))
             return;
 

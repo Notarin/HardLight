@@ -6,14 +6,12 @@ using Robust.Shared.Serialization;
 namespace Content.Shared.Wires
 {
     [Serializable, NetSerializable]
-    public sealed partial class WirePanelDoAfterEvent : SimpleDoAfterEvent
-    {
-    }
+    public sealed partial class WirePanelDoAfterEvent : SimpleDoAfterEvent { }
 
     [Serializable, NetSerializable]
     public enum WiresVisuals : byte
     {
-        MaintenancePanelState
+        MaintenancePanelState,
     }
 
     [Serializable, NetSerializable]
@@ -36,7 +34,7 @@ namespace Content.Shared.Wires
         Off,
         On,
         BlinkingFast,
-        BlinkingSlow
+        BlinkingSlow,
     }
 
     [Serializable, NetSerializable]
@@ -80,7 +78,7 @@ namespace Content.Shared.Wires
         φ,
         χ,
         ψ,
-        ω
+        ω,
     }
 
     [PublicAPI]
@@ -98,7 +96,7 @@ namespace Content.Shared.Wires
         Navy,
         Purple,
         Pink,
-        Fuchsia
+        Fuchsia,
     }
 
     [Serializable, NetSerializable]
@@ -130,7 +128,13 @@ namespace Content.Shared.Wires
         public StatusEntry[] Statuses { get; }
         public int WireSeed { get; }
 
-        public WiresBoundUserInterfaceState(ClientWire[] wiresList, StatusEntry[] statuses, string boardName, string? serialNumber, int wireSeed)
+        public WiresBoundUserInterfaceState(
+            ClientWire[] wiresList,
+            StatusEntry[] statuses,
+            string boardName,
+            string? serialNumber,
+            int wireSeed
+        )
         {
             BoardName = boardName;
             SerialNumber = serialNumber;
@@ -166,7 +170,6 @@ namespace Content.Shared.Wires
             return $"{Key}, {Value}";
         }
     }
-
 
     /// <summary>
     ///     ClientWire, sent by the server so that the client knows
@@ -209,22 +212,24 @@ namespace Content.Shared.Wires
     {
         public static string Name(this WireColor color)
         {
-            return Loc.GetString(color switch
-            {
-                WireColor.Red => "Red",
-                WireColor.Blue => "Blue",
-                WireColor.Green => "Green",
-                WireColor.Orange => "Orange",
-                WireColor.Brown => "Brown",
-                WireColor.Gold => "Gold",
-                WireColor.Gray => "Gray",
-                WireColor.Cyan => "Cyan",
-                WireColor.Navy => "Navy",
-                WireColor.Purple => "Purple",
-                WireColor.Pink => "Pink",
-                WireColor.Fuchsia => "Fuchsia",
-                _ => throw new InvalidOperationException()
-            });
+            return Loc.GetString(
+                color switch
+                {
+                    WireColor.Red => "Red",
+                    WireColor.Blue => "Blue",
+                    WireColor.Green => "Green",
+                    WireColor.Orange => "Orange",
+                    WireColor.Brown => "Brown",
+                    WireColor.Gold => "Gold",
+                    WireColor.Gray => "Gray",
+                    WireColor.Cyan => "Cyan",
+                    WireColor.Navy => "Navy",
+                    WireColor.Purple => "Purple",
+                    WireColor.Pink => "Pink",
+                    WireColor.Fuchsia => "Fuchsia",
+                    _ => throw new InvalidOperationException(),
+                }
+            );
         }
 
         public static Color ColorValue(this WireColor color)
@@ -243,40 +248,42 @@ namespace Content.Shared.Wires
                 WireColor.Purple => Color.Purple,
                 WireColor.Pink => Color.Pink,
                 WireColor.Fuchsia => Color.Fuchsia,
-                _ => throw new InvalidOperationException()
+                _ => throw new InvalidOperationException(),
             };
         }
 
         public static string Name(this WireLetter letter)
         {
-            return Loc.GetString(letter switch
-            {
-                WireLetter.α => "Alpha",
-                WireLetter.β => "Beta",
-                WireLetter.γ => "Gamma",
-                WireLetter.δ => "Delta",
-                WireLetter.ε => "Epsilon",
-                WireLetter.ζ => "Zeta",
-                WireLetter.η => "Eta",
-                WireLetter.θ => "Theta",
-                WireLetter.ι => "Iota",
-                WireLetter.κ => "Kappa",
-                WireLetter.λ => "Lambda",
-                WireLetter.μ => "Mu",
-                WireLetter.ν => "Nu",
-                WireLetter.ξ => "Xi",
-                WireLetter.ο => "Omicron",
-                WireLetter.π => "Pi",
-                WireLetter.ρ => "Rho",
-                WireLetter.σ => "Sigma",
-                WireLetter.τ => "Tau",
-                WireLetter.υ => "Upsilon",
-                WireLetter.φ => "Phi",
-                WireLetter.χ => "Chi",
-                WireLetter.ψ => "Psi",
-                WireLetter.ω => "Omega",
-                _ => throw new InvalidOperationException()
-            });
+            return Loc.GetString(
+                letter switch
+                {
+                    WireLetter.α => "Alpha",
+                    WireLetter.β => "Beta",
+                    WireLetter.γ => "Gamma",
+                    WireLetter.δ => "Delta",
+                    WireLetter.ε => "Epsilon",
+                    WireLetter.ζ => "Zeta",
+                    WireLetter.η => "Eta",
+                    WireLetter.θ => "Theta",
+                    WireLetter.ι => "Iota",
+                    WireLetter.κ => "Kappa",
+                    WireLetter.λ => "Lambda",
+                    WireLetter.μ => "Mu",
+                    WireLetter.ν => "Nu",
+                    WireLetter.ξ => "Xi",
+                    WireLetter.ο => "Omicron",
+                    WireLetter.π => "Pi",
+                    WireLetter.ρ => "Rho",
+                    WireLetter.σ => "Sigma",
+                    WireLetter.τ => "Tau",
+                    WireLetter.υ => "Upsilon",
+                    WireLetter.φ => "Phi",
+                    WireLetter.χ => "Chi",
+                    WireLetter.ψ => "Psi",
+                    WireLetter.ω => "Omega",
+                    _ => throw new InvalidOperationException(),
+                }
+            );
         }
 
         public static char Letter(this WireLetter letter)
@@ -307,7 +314,7 @@ namespace Content.Shared.Wires
                 WireLetter.χ => 'χ',
                 WireLetter.ψ => 'ψ',
                 WireLetter.ω => 'ω',
-                _ => throw new InvalidOperationException()
+                _ => throw new InvalidOperationException(),
             };
         }
     }

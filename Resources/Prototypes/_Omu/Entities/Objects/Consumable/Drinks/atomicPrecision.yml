@@ -28,25 +28,25 @@
   name: reagent-name-atomicPrecision
   color: "#ff00ea"
   metamorphicSprite:
-   sprite: _Omu/Objects/Consumable/Drinks/atomicprecisionglass.rsi
-   state: icon_empty
+    sprite: _Omu/Objects/Consumable/Drinks/atomicprecisionglass.rsi
+    state: icon_empty
   metamorphicMaxFillLevels: 5
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
   metabolisms:
     Drink:
       effects:
-        - !type:GenericStatusEffect
-          key: ScrambleDnaEffect
-          component: ScrambleDnaEffect
-          conditions:
-          - !type:ReagentThreshold
-            min: 25
-        - !type:HealthChange
-          damage:
-            groups:
-              Genetic: 0.25
-        - !type:AdjustReagent
-          reagent: Ethanol
-          amount: .30 # HardLight - source has a different metabolistic rate for ethanol
+      - !type:GenericStatusEffect
+        key: ScrambleDnaEffect
+        component: ScrambleDnaEffect
+        conditions:
+        - !type:ReagentThreshold
+          min: 25
+      - !type:HealthChange
+        damage:
+          groups:
+            Genetic: 0.25
+      - !type:AdjustReagent
+        reagent: Ethanol
+        amount: .30 # HardLight - source has a different metabolistic rate for ethanol
 

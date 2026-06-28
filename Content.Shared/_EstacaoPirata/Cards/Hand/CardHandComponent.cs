@@ -24,11 +24,10 @@ public sealed partial class CardHandComponent : Component
     public bool Flipped = false;
 }
 
-
 [Serializable, NetSerializable]
 public enum CardUiKey : byte
 {
-    Key
+    Key,
 }
 
 [Serializable, NetSerializable]

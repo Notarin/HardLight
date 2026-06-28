@@ -10,12 +10,14 @@ namespace Content.Client.Labels.UI
     /// </summary>
     public sealed class HandLabelerBoundUserInterface : BoundUserInterface
     {
-        [Dependency] private readonly IEntityManager _entManager = default!;
+        [Dependency]
+        private readonly IEntityManager _entManager = default!;
 
         [ViewVariables]
         private HandLabelerWindow? _window;
 
-        public HandLabelerBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
+        public HandLabelerBoundUserInterface(EntityUid owner, Enum uiKey)
+            : base(owner, uiKey)
         {
             IoCManager.InjectDependencies(this);
         }
@@ -39,12 +41,15 @@ namespace Content.Client.Labels.UI
         private void OnLabelChanged(string newLabel)
         {
             // Focus moment
-            if (_entManager.TryGetComponent(Owner, out HandLabelerComponent? labeler) &&
-                labeler.AssignedLabel.Equals(newLabel))
+            if (
+                _entManager.TryGetComponent(Owner, out HandLabelerComponent? labeler)
+                && labeler.AssignedLabel.Equals(newLabel)
+            )
                 return;
 
             SendPredictedMessage(new HandLabelerLabelChangedMessage(newLabel));
         }
+
         // Starlight start
         private void OnLabelSelected(string label)
         {
@@ -55,6 +60,7 @@ namespace Content.Client.Labels.UI
             }
             SendPredictedMessage(new HandLabelerLabelChangedMessage(label));
         }
+
         // Starlight End
         public void Reload()
         {

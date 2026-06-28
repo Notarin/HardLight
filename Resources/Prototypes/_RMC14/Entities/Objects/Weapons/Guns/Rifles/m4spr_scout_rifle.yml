@@ -8,14 +8,14 @@
     sprite: _RMC14/Objects/Weapons/Guns/Rifles/m4spr_custom/desert.rsi
     layers:
     - state: bolt-open
-      map: [ "enum.GunVisualLayers.Base" ]
+      map: ["enum.GunVisualLayers.Base"]
     - sprite: _RMC14/Objects/Weapons/Guns/Attachments/barrel.rsi
       state: d_m4spr_custom_barrel
       offset: 0.65, 0
-      map: [ "barrel" ]
+      map: ["barrel"]
     - state: mag-0
-      map: [ "enum.GunVisualLayers.Mag" ]
-  # - type: RMCSelectiveFire
+      map: ["enum.GunVisualLayers.Mag"]
+      # - type: RMCSelectiveFire
     # baseFireModes:
     # - SemiAuto
     # recoilWielded: 1
@@ -23,16 +23,16 @@
     # scatterWielded: 2.5
     # scatterUnwielded: 8
     # baseFireRate: 1.8
-  # - type: RMCWeaponAccuracy
+  - type: Gun
+    # - type: RMCWeaponAccuracy
     # accuracyMultiplier: 1.1
-  # - type: GunDamageModifier
+    # - type: GunDamageModifier
     # multiplier: 1.1 # Lower to allow for normal M4SPR mags to have lower damage. A19 mags do more damage to compensate.
-  # - type: WieldableSpeedModifiers
+    # - type: WieldableSpeedModifiers
     # base: 0.725
     # light: 1
     # medium: 1
     # heavy: 1
-  - type: Gun
     shotsPerBurst: 2
     selectedMode: SemiAuto
     availableModes:
@@ -41,10 +41,10 @@
     projectileSpeed: 40
     soundGunshot:
       path: /Audio/_RMC14/Weapons/Guns/Gunshots/gun_m4spr.ogg
-  # - type: GunUserWhitelist
+      # - type: GunUserWhitelist
     # whitelist:
-      # components:
-      # - ScoutWhitelist
+    # components:
+    # - ScoutWhitelist
   - type: Corrodible
     isCorrodible: false
   - type: Clothing
@@ -54,31 +54,31 @@
     damage:
       types:
         Slash: 31 # Yes this does this much damage in 13. 51 with a bayonet attached.
-  # - type: AttachableHolder
-    # slots:
+        # - type: AttachableHolder
+      # slots:
       # rmc-aslot-barrel:
-        # whitelist:
-          # tags:
-          # - RMCAttachmentExtendedBarrel
-          # - RMCAttachmentSuppressor
-          # - RMCM5Bayonet
+      # whitelist:
+      # tags:
+      # - RMCAttachmentExtendedBarrel
+      # - RMCAttachmentSuppressor
+      # - RMCM5Bayonet
       # rmc-aslot-rail:
-        # whitelist:
-          # tags:
-          # - RMCAttachmentMagneticHarness
-          # - RMCAttachmentRailFlashlight
-          # - RMCAttachmentS42xTelescopicMiniscope
-          # - RMCAttachmentS5RedDotSight
-          # - RMCAttachmentS6ReflexSight
-          # - RMCAttachmentS84xTelescopicScope
+      # whitelist:
+      # tags:
+      # - RMCAttachmentMagneticHarness
+      # - RMCAttachmentRailFlashlight
+      # - RMCAttachmentS42xTelescopicMiniscope
+      # - RMCAttachmentS5RedDotSight
+      # - RMCAttachmentS6ReflexSight
+      # - RMCAttachmentS84xTelescopicScope
       # rmc-aslot-underbarrel:
-        # whitelist:
-          # tags:
-          # - RMCAttachmentAngledGrip
-          # - RMCAttachmentBipod
-          # - RMCAttachmentFlashlightGrip
-          # - RMCAttachmentLaserSight
-          # - RMCAttachmentVerticalGrip
+      # whitelist:
+      # tags:
+      # - RMCAttachmentAngledGrip
+      # - RMCAttachmentBipod
+      # - RMCAttachmentFlashlightGrip
+      # - RMCAttachmentLaserSight
+      # - RMCAttachmentVerticalGrip
   - type: ItemSlots
     slots:
       gun_magazine:
@@ -95,15 +95,15 @@
           - RMCMagazineRifleM4SPRA19
           - RMCMagazineRifleM4SPRA19Impact
           - RMCMagazineRifleM4SPRA19Incendiary
-  # - type: ItemCamouflage
-    # camouflageVariations:
-      # Jungle: _RMC14/Objects/Weapons/Guns/Rifles/m4spr_custom/jungle.rsi
-      # Desert: _RMC14/Objects/Weapons/Guns/Rifles/m4spr_custom/desert.rsi
-      # Snow: _RMC14/Objects/Weapons/Guns/Rifles/m4spr_custom/snow.rsi
-      # Classic: _RMC14/Objects/Weapons/Guns/Rifles/m4spr_custom/classic.rsi
-      # Urban: _RMC14/Objects/Weapons/Guns/Rifles/m4spr_custom/urban.rsi
-    # layers:
-      # barrel:
+          # - type: ItemCamouflage
+        # camouflageVariations:
+        # Jungle: _RMC14/Objects/Weapons/Guns/Rifles/m4spr_custom/jungle.rsi
+        # Desert: _RMC14/Objects/Weapons/Guns/Rifles/m4spr_custom/desert.rsi
+        # Snow: _RMC14/Objects/Weapons/Guns/Rifles/m4spr_custom/snow.rsi
+        # Classic: _RMC14/Objects/Weapons/Guns/Rifles/m4spr_custom/classic.rsi
+        # Urban: _RMC14/Objects/Weapons/Guns/Rifles/m4spr_custom/urban.rsi
+        # layers:
+        # barrel:
         # Jungle: m4spr_custom_barrel
         # Desert: d_m4spr_custom_barrel
         # Snow: s_m4spr_custom_barrel
@@ -227,63 +227,63 @@
 - type: entity
   parent: RMCBaseBullet
   id: BulletRifleM4SPRA19
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
       types:
         Piercing: 30
-  # - type: CMArmorPiercing
-    # amount: 35
-  # - type: RMCProjectileAccuracy
-    # accuracy: 105
-    # thresholds:
-    # - range: 16
+        # - type: CMArmorPiercing
+      # amount: 35
+      # - type: RMCProjectileAccuracy
+      # accuracy: 105
+      # thresholds:
+      # - range: 16
       # falloff: 10
-    # - range: 4
-      # falloff: 10
-      # buildup: true
-
 - type: entity
+  # - range: 4
+  # falloff: 10
+  # buildup: true
+
   parent: RMCBaseBullet
   id: BulletRifleM4SPRA19Impact
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
       types:
         Blunt: 40
-  # - type: CMArmorPiercing
-    # amount: 50
-  # - type: RMCStunOnHit
-    # maxRange: 32
-    # losesEffectWithRange: true
-    # stunTime: 1
-    # superSlowTime: 4
-    # slowTime: 10
-  # - type: RMCProjectileAccuracy
-    # accuracy: 75
-    # thresholds:
-    # - range: 16
+        # - type: CMArmorPiercing
+      # amount: 50
+      # - type: RMCStunOnHit
+      # maxRange: 32
+      # losesEffectWithRange: true
+      # stunTime: 1
+      # superSlowTime: 4
+      # slowTime: 10
+      # - type: RMCProjectileAccuracy
+      # accuracy: 75
+      # thresholds:
+      # - range: 16
       # falloff: 10
-    # - range: 4
-      # falloff: 10
-
 - type: entity
+  # - range: 4
+  # falloff: 10
+
   parent: RMCBaseBullet
   id: BulletRifleM4SPRA19Incendiary
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Projectile
     damage:
       types:
         Piercing: 35
-  # - type: CMArmorPiercing
+        # - type: CMArmorPiercing
     # amount: 25
-  # - type: RMCProjectileAccuracy
-    # accuracy: 95
   - type: IgniteOnProjectileHit
 
+    # - type: RMCProjectileAccuracy
+    # accuracy: 95
 - type: Tag
   id: RMCMagazineRifleM4SPRA19
 

@@ -6,18 +6,18 @@
   components:
   - type: StorageFill
     contents:
-      - id: WetFloorSign
-        amount: 6
+    - id: WetFloorSign
+      amount: 6
   - type: Storage
     maxItemSize: Normal
     grid:
     - 0,0,5,3
     whitelist:
       tags:
-        - WetFloorSign
+      - WetFloorSign
   - type: Sprite
     layers:
-      - state: box
+    - state: box
 #      - state: wet_floor_sign
 
 - type: entity
@@ -28,19 +28,19 @@
   components:
   - type: StorageFill
     contents:
-      - id: Paper
-        amount: 10
+    - id: Paper
+      amount: 10
   - type: Storage
     maxItemSize: Small
     grid:
     - 0,0,3,2
     whitelist:
       tags:
-        - Document
+      - Document
   - type: Sprite
     layers:
-      - state: box
-#      - state: paper
+    - state: box
+      #      - state: paper
   - type: StaticPrice
     price: 10
 
@@ -52,8 +52,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: PaperOffice
-        amount: 10
+    - id: PaperOffice
+      amount: 10
 
 - type: entity
   name: Captains thoughts paper box
@@ -63,8 +63,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: PaperCaptainsThoughts
-        amount: 10
+    - id: PaperCaptainsThoughts
+      amount: 10
 
 - type: entity
   name: mystery spacemen minifigure bulk box
@@ -74,18 +74,18 @@
   components:
   - type: StorageFill
     contents:
-      - id: MysteryFigureBox
-        amount: 6
+    - id: MysteryFigureBox
+      amount: 6
   - type: Storage
     maxItemSize: Small
     grid:
     - 0,0,2,3
     whitelist:
       tags:
-        - MysteryFigureBox
+      - MysteryFigureBox
   - type: Sprite
     layers:
-      - state: box
+    - state: box
   - type: StaticPrice
     vendPrice: 1200
 
@@ -97,18 +97,18 @@
   components:
   - type: StorageFill
     contents:
-      - id: SuperCapacitorStockPart
-        amount: 12
+    - id: SuperCapacitorStockPart
+      amount: 12
   - type: Storage
     maxItemSize: Normal
     grid:
     - 0,0,2,3
     whitelist:
       tags:
-        - CapacitorStockPart
+      - CapacitorStockPart
   - type: Sprite
     layers:
-      - state: box
+    - state: box
 #      - state: wet_floor_sign
 
 - type: entity
@@ -118,8 +118,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: EncryptionKeyNfsd
-        amount: 4
+    - id: EncryptionKeyNfsd
+      amount: 4
 
 - type: entity
   name: exterior lighttube box
@@ -129,13 +129,13 @@
   components:
   - type: StorageFill
     contents:
-      - id: ExteriorLightTube
-        amount: 4
+    - id: ExteriorLightTube
+      amount: 4
   - type: Sprite
     layers:
-      - state: box
-      - state: lighttube
-        color: "cyan"
+    - state: box
+    - state: lighttube
+      color: "cyan"
   - type: Storage
     grid:
     - 0,0,3,1
@@ -151,26 +151,26 @@
   components:
   - type: StorageFill
     contents:
-      - id: LightTubeCrystalCyan
-        amount: 2
-      - id: LightTubeCrystalBlue
-        amount: 2
-      - id: LightTubeCrystalPink
-        amount: 2
-      - id: LightTubeCrystalOrange
-        amount: 2
-      - id: LightTubeCrystalRed
-        amount: 2
-      - id: LightTubeCrystalGreen
-        amount: 2
-      - id: LightTubeCrystalYellow
-        amount: 2
-      - id: LightTubeCrystalBlack
-        amount: 2
+    - id: LightTubeCrystalCyan
+      amount: 2
+    - id: LightTubeCrystalBlue
+      amount: 2
+    - id: LightTubeCrystalPink
+      amount: 2
+    - id: LightTubeCrystalOrange
+      amount: 2
+    - id: LightTubeCrystalRed
+      amount: 2
+    - id: LightTubeCrystalGreen
+      amount: 2
+    - id: LightTubeCrystalYellow
+      amount: 2
+    - id: LightTubeCrystalBlack
+      amount: 2
   - type: Sprite
     layers:
-      - state: box
-      - state: lighttube
+    - state: box
+    - state: lighttube
   - type: Storage
     maxItemSize: Small
     grid:
@@ -187,27 +187,27 @@
   components:
   - type: StorageFill
     contents:
-      - id: LightBulbCrystalCyan
-        amount: 2
-      - id: LightBulbCrystalBlue
-        amount: 2
-      - id: LightBulbCrystalPink
-        amount: 2
-      - id: LightBulbCrystalOrange
-        amount: 2
-      - id: LightBulbCrystalRed
-        amount: 2
-      - id: LightBulbCrystalGreen
-        amount: 2
-      - id: LightBulbCrystalYellow
-        amount: 2
-      - id: LightBulbCrystalBlack
-        amount: 2
+    - id: LightBulbCrystalCyan
+      amount: 2
+    - id: LightBulbCrystalBlue
+      amount: 2
+    - id: LightBulbCrystalPink
+      amount: 2
+    - id: LightBulbCrystalOrange
+      amount: 2
+    - id: LightBulbCrystalRed
+      amount: 2
+    - id: LightBulbCrystalGreen
+      amount: 2
+    - id: LightBulbCrystalYellow
+      amount: 2
+    - id: LightBulbCrystalBlack
+      amount: 2
   - type: Sprite
     layers:
-      - state: box
-      - state: light
-        color: "cyan"
+    - state: box
+    - state: light
+      color: "cyan"
   - type: Storage
     maxItemSize: Small
     grid:
@@ -224,14 +224,14 @@
   components:
   - type: StorageFill
     contents:
-      - id: LightTubeCrystalRed
-        amount: 6
-      - id: LightTubeCrystalGreen
-        amount: 6
+    - id: LightTubeCrystalRed
+      amount: 6
+    - id: LightTubeCrystalGreen
+      amount: 6
   - type: Sprite
     layers:
-      - state: box
-      - state: lighttube
+    - state: box
+    - state: lighttube
   - type: Storage
     maxItemSize: Small
     grid:
@@ -241,4 +241,4 @@
       - LightBulb
   - type: Tag
     tags:
-      - DroneUsable
+    - DroneUsable

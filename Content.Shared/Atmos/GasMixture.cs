@@ -14,12 +14,26 @@ namespace Content.Shared.Atmos
     /// </summary>
     [Serializable]
     [DataDefinition]
-    public sealed partial class GasMixture : IEquatable<GasMixture>, ISerializationHooks, IEnumerable<(Gas gas, float moles)>
+    public sealed partial class GasMixture
+        : IEquatable<GasMixture>,
+            ISerializationHooks,
+            IEnumerable<(Gas gas, float moles)>
     {
-        public static GasMixture SpaceGas => new() {Volume = Atmospherics.CellVolume, Temperature = Atmospherics.TCMB, Immutable = true};
+        public static GasMixture SpaceGas =>
+            new()
+            {
+                Volume = Atmospherics.CellVolume,
+                Temperature = Atmospherics.TCMB,
+                Immutable = true,
+            };
 
         // No access, to ensure immutable mixtures are never accidentally mutated.
-        [Access(typeof(SharedAtmosphereSystem), typeof(SharedAtmosDebugOverlaySystem), typeof(GasEnumerator), Other = AccessPermissions.None)]
+        [Access(
+            typeof(SharedAtmosphereSystem),
+            typeof(SharedAtmosDebugOverlaySystem),
+            typeof(GasEnumerator),
+            Other = AccessPermissions.None
+        )]
         [DataField(customTypeSerializer: typeof(GasArraySerializer))]
         public float[] Moles = new float[Atmospherics.AdjustedNumberOfGases];
 
@@ -33,10 +47,7 @@ namespace Content.Shared.Atmos
         public bool Immutable { get; private set; }
 
         [ViewVariables]
-        public readonly float[] ReactionResults =
-        {
-            0f,
-        };
+        public readonly float[] ReactionResults = { 0f };
 
         [ViewVariables]
         public float TotalMoles
@@ -50,7 +61,8 @@ namespace Content.Shared.Atmos
         {
             get
             {
-                if (Volume <= 0) return 0f;
+                if (Volume <= 0)
+                    return 0f;
                 return TotalMoles * Atmospherics.R * Temperature / Volume;
             }
         }
@@ -71,9 +83,7 @@ namespace Content.Shared.Atmos
         [ViewVariables(VVAccess.ReadWrite)]
         public float Volume { get; set; }
 
-        public GasMixture()
-        {
-        }
+        public GasMixture() { }
 
         public GasMixture(float volume = 0f)
         {
@@ -168,7 +178,7 @@ namespace Content.Shared.Atmos
             switch (ratio)
             {
                 case <= 0:
-                    return new GasMixture(Volume){Temperature = Temperature};
+                    return new GasMixture(Volume) { Temperature = Temperature };
                 case > 1:
                     ratio = 1;
                     break;
@@ -215,14 +225,16 @@ namespace Content.Shared.Atmos
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Clear()
         {
-            if (Immutable) return;
+            if (Immutable)
+                return;
             Array.Clear(Moles, 0, Atmospherics.TotalNumberOfGases);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Multiply(float multiplier)
         {
-            if (Immutable) return;
+            if (Immutable)
+                return;
             NumericsHelpers.Multiply(Moles, multiplier);
         }
 
@@ -243,7 +255,7 @@ namespace Content.Shared.Atmos
                 if (Moles[i] == 0)
                     continue;
 
-                molesPerGas.Add(((Gas) i).ToString(), Moles[i]);
+                molesPerGas.Add(((Gas)i).ToString(), Moles[i]);
             }
 
             return new GasMixtureStringRepresentation(TotalMoles, Temperature, Pressure, molesPerGas);
@@ -275,10 +287,10 @@ namespace Content.Shared.Atmos
                 return false;
 
             return Moles.SequenceEqual(other.Moles)
-                   && _temperature.Equals(other._temperature)
-                   && ReactionResults.SequenceEqual(other.ReactionResults)
-                   && Immutable == other.Immutable
-                   && Volume.Equals(other.Volume);
+                && _temperature.Equals(other._temperature)
+                && ReactionResults.SequenceEqual(other.ReactionResults)
+                && Immutable == other.Immutable
+                && Volume.Equals(other.Volume);
         }
 
         [SuppressMessage("ReSharper", "NonReadonlyMemberInGetHashCode")]

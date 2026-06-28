@@ -7,12 +7,16 @@ namespace Content.Shared.Inventory;
 
 public partial class InventorySystem
 {
-    [Dependency] private readonly SharedStorageSystem _storageSystem = default!;
+    [Dependency]
+    private readonly SharedStorageSystem _storageSystem = default!;
 
     /// <summary>
     /// Yields all entities in hands or inventory slots with the specific flags.
     /// </summary>
-    public IEnumerable<EntityUid> GetHandOrInventoryEntities(Entity<HandsComponent?, InventoryComponent?> user, SlotFlags flags = SlotFlags.All)
+    public IEnumerable<EntityUid> GetHandOrInventoryEntities(
+        Entity<HandsComponent?, InventoryComponent?> user,
+        SlotFlags flags = SlotFlags.All
+    )
     {
         if (Resolve(user.Owner, ref user.Comp1, false))
         {
@@ -38,7 +42,10 @@ public partial class InventorySystem
     /// <summary>
     ///     Returns the definition of the inventory slot that the given entity is currently in..
     /// </summary>
-    public bool TryGetContainingSlot(Entity<TransformComponent?, MetaDataComponent?> entity, [NotNullWhen(true)] out SlotDefinition? slot)
+    public bool TryGetContainingSlot(
+        Entity<TransformComponent?, MetaDataComponent?> entity,
+        [NotNullWhen(true)] out SlotDefinition? slot
+    )
     {
         if (!_containerSystem.TryGetContainingContainer(entity, out var container))
         {
@@ -54,11 +61,17 @@ public partial class InventorySystem
     /// </summary>
     public bool InSlotWithFlags(Entity<TransformComponent?, MetaDataComponent?> entity, SlotFlags flags)
     {
-        return TryGetContainingSlot(entity, out var slot)
-               && (slot.SlotFlags & flags) == flags;
+        return TryGetContainingSlot(entity, out var slot) && (slot.SlotFlags & flags) == flags;
     }
 
-    public bool SpawnItemInSlot(EntityUid uid, string slot, string prototype, bool silent = false, bool force = false, InventoryComponent? inventory = null)
+    public bool SpawnItemInSlot(
+        EntityUid uid,
+        string slot,
+        string prototype,
+        bool silent = false,
+        bool force = false,
+        InventoryComponent? inventory = null
+    )
     {
         if (!Resolve(uid, ref inventory, false))
             return false;
@@ -119,21 +132,24 @@ public partial class InventorySystem
         var itemToSpawn = Spawn(item, mapCoords);
 
         //Try insert into the backpack
-        if (TryGetSlotContainer(entity, "back", out var backSlot, out _)
+        if (
+            TryGetSlotContainer(entity, "back", out var backSlot, out _)
             && backSlot.ContainedEntity.HasValue
             && _storageSystem.Insert(backSlot.ContainedEntity.Value, itemToSpawn, out _)
-            )
+        )
             return;
 
         //Try insert into pockets
-        if (TryGetSlotContainer(entity, "pocket1", out var pocket1, out _)
+        if (
+            TryGetSlotContainer(entity, "pocket1", out var pocket1, out _)
             && _containerSystem.Insert(itemToSpawn, pocket1)
-            )
+        )
             return;
 
-        if (TryGetSlotContainer(entity, "pocket2", out var pocket2, out _)
+        if (
+            TryGetSlotContainer(entity, "pocket2", out var pocket2, out _)
             && _containerSystem.Insert(itemToSpawn, pocket2)
-            )
+        )
             return;
 
         //Try insert into hands, or drop on the floor

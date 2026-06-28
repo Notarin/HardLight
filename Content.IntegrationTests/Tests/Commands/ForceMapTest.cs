@@ -14,7 +14,8 @@ public sealed class ForceMapTest
     private const string TestMapIneligibleName = "ForceMapTestIneligible";
 
     [TestPrototypes]
-    private static readonly string TestMaps = @$"
+    private static readonly string TestMaps =
+        @$"
 - type: gameMap
   id: {TestMapIneligibleName}
   mapName: {TestMapIneligibleName}
@@ -44,11 +45,13 @@ public sealed class ForceMapTest
     [Test]
     public async Task TestForceMapCommand()
     {
-        await using var pair = await PoolManager.GetServerClient(new PoolSettings
-        {
-            Fresh = true,
-            Destructive = true // HL: Messing with the round state breaks any future tests using this pool
-        });
+        await using var pair = await PoolManager.GetServerClient(
+            new PoolSettings
+            {
+                Fresh = true,
+                Destructive = true, // HL: Messing with the round state breaks any future tests using this pool
+            }
+        );
         var server = pair.Server;
 
         var entMan = server.EntMan;
@@ -59,29 +62,39 @@ public sealed class ForceMapTest
         await server.WaitAssertion(() =>
         {
             // Make sure we're set to the default map
-            Assert.That(gameMapMan.GetSelectedMap()?.ID, Is.EqualTo(DefaultMapName),
-                $"Test didn't start on expected map ({DefaultMapName})!");
+            Assert.That(
+                gameMapMan.GetSelectedMap()?.ID,
+                Is.EqualTo(DefaultMapName),
+                $"Test didn't start on expected map ({DefaultMapName})!"
+            );
 
             // Try changing to a map that doesn't exist
             consoleHost.ExecuteCommand($"forcemap {BadMapName}");
-            Assert.That(gameMapMan.GetSelectedMap()?.ID, Is.EqualTo(DefaultMapName),
-                $"Forcemap succeeded with a map that does not exist ({BadMapName})!");
+            Assert.That(
+                gameMapMan.GetSelectedMap()?.ID,
+                Is.EqualTo(DefaultMapName),
+                $"Forcemap succeeded with a map that does not exist ({BadMapName})!"
+            );
 
             // Try changing to a valid map
             consoleHost.ExecuteCommand($"forcemap {TestMapEligibleName}");
-            Assert.That(gameMapMan.GetSelectedMap()?.ID, Is.EqualTo(TestMapEligibleName),
-                $"Forcemap failed with a valid map ({TestMapEligibleName})");
+            Assert.That(
+                gameMapMan.GetSelectedMap()?.ID,
+                Is.EqualTo(TestMapEligibleName),
+                $"Forcemap failed with a valid map ({TestMapEligibleName})"
+            );
 
             // Try changing to a map that exists but is ineligible
             consoleHost.ExecuteCommand($"forcemap {TestMapIneligibleName}");
-            Assert.That(gameMapMan.GetSelectedMap()?.ID, Is.EqualTo(TestMapIneligibleName),
-                $"Forcemap failed with valid but ineligible map ({TestMapIneligibleName})!");
+            Assert.That(
+                gameMapMan.GetSelectedMap()?.ID,
+                Is.EqualTo(TestMapIneligibleName),
+                $"Forcemap failed with valid but ineligible map ({TestMapIneligibleName})!"
+            );
 
             // Try clearing the force-selected map
             consoleHost.ExecuteCommand("forcemap \"\"");
-            Assert.That(gameMapMan.GetSelectedMap(), Is.Null,
-                $"Running 'forcemap \"\"' did not clear the forced map!");
-
+            Assert.That(gameMapMan.GetSelectedMap(), Is.Null, $"Running 'forcemap \"\"' did not clear the forced map!");
         });
 
         // Cleanup

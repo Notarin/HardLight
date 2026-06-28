@@ -2,7 +2,7 @@
   parent: ClothingBackpackDeathSquad
   id: ClothingBackpackHardscale
   name: DS backpack
-  description: Holds the kit of Hardscale, the hell happened to it? 
+  description: Holds the kit of Hardscale, the hell happened to it?
   components:
   - type: Sprite
     sprite: Clothing/Back/Backpacks/hardscale.rsi
@@ -14,7 +14,7 @@
   parent: ClothingMaskGasDeathSquad
   id: ClothingMaskGasHardscale
   name: DS gas mask
-  description: A unique gas mask for Hardscale, what the hell happened to it? 
+  description: A unique gas mask for Hardscale, what the hell happened to it?
   components:
   - type: Sprite
     sprite: Clothing/Mask/hardscale.rsi
@@ -39,9 +39,7 @@
     id: CentcomIDCardDeathsquad
   - type: Appearance
     appearanceDataInit:
-     enum.PdaVisuals.PdaType:
-       !type:String
-       pda-hardscale
+      enum.PdaVisuals.PdaType: !type:String pda-hardscale
   - type: PdaBorderColor
     borderColor: "#A32D26"
   - type: Icon
@@ -62,9 +60,9 @@
     sprite: Clothing/Uniforms/Jumpsuit/hardscale.rsi
   - type: Clothing
     sprite: Clothing/Uniforms/Jumpsuit/hardscale.rsi
-    
+
 - type: entity
-  parent: [ ClothingOuterHardsuitDeathsquad ]
+  parent: [ClothingOuterHardsuitDeathsquad]
   id: ClothingOuterHardsuitHardscale
   name: hardscales hardsuit
   description: An advanced hardsuit favored by Hardscale, looks like it's been through hell.
@@ -86,9 +84,9 @@
     sprite: Clothing/Neck/mantles/hardscale.rsi
   - type: Clothing
     sprite: Clothing/Neck/mantles/hardscale.rsi
-    
+
 - type: entity
-  parent: [ ClothingHeadHelmetHardsuitDeathsquad ]
+  parent: [ClothingHeadHelmetHardsuitDeathsquad]
   id: ClothingHeadHelmetHardsuitHardscale
   name: hardscales hardsuit helmet
   description: A robust helmet for special operations.
@@ -98,8 +96,8 @@
     sprite: Clothing/Head/Hardsuits/hardscale.rsi
   - type: Clothing
     sprite: Clothing/Head/Hardsuits/hardscale.rsi
-    
-# - type: job
+
+  # - type: job
   # id: Hardscale
   # name: Hardscale
   # description: CC Head
@@ -115,7 +113,7 @@
   # - CentralCommand
   # special:
   # - !type:AddImplantSpecial
-    # implants: [ MindShieldImplant, DeathRattleImplantColcomm ]
+  # implants: [ MindShieldImplant, DeathRattleImplantColcomm ]
 
 - type: startingGear
   id: HardscaleGear

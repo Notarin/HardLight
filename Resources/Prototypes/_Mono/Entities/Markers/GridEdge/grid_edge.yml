@@ -7,8 +7,8 @@
   - type: Sprite
     sprite: _Mono/Markers/edge.rsi
     layers:
-      - state: label
-      - state: edge
+    - state: label
+    - state: edge
   - type: GridEdgeMarker
     begin: 1, 1
     end: 1, 0
@@ -27,11 +27,11 @@
   components:
   - type: Sprite
     layers:
-      - state: label
-      - state: edge
-        scale: 1, 1.414213562373095
-        offset: -0.3535533905932738, -0.3535533905932738
-        rotation: 45
+    - state: label
+    - state: edge
+      scale: 1, 1.414213562373095
+      offset: -0.3535533905932738, -0.3535533905932738
+      rotation: 45
   - type: GridEdgeMarker
     begin: 1, 0
     end: 0, 1
@@ -43,11 +43,11 @@
   components:
   - type: Sprite
     layers:
-      - state: label
-      - state: edge
-        scale: 1, 1.118033988749895
-        offset: -0.223606797749979, -0.19721359549995787
-        rotation: 63.43494882292201
+    - state: label
+    - state: edge
+      scale: 1, 1.118033988749895
+      offset: -0.223606797749979, -0.19721359549995787
+      rotation: 63.43494882292201
   - type: GridEdgeMarker
     begin: 0, 1
     end: 1, 0.5
@@ -59,15 +59,14 @@
   components:
   - type: Sprite
     layers:
-      - state: label
-      - state: edge
-        scale: 1, 1.118033988749895
-        offset: 0.2236067977499789, -0.19721359549995793
-        rotation: 116.5650511770780
+    - state: label
+    - state: edge
+      scale: 1, 1.118033988749895
+      offset: 0.2236067977499789, -0.19721359549995793
+      rotation: 116.5650511770780
   - type: GridEdgeMarker
     begin: 0, 0.5
     end: 1, 1
-
 
 - type: entity
   parent: RadarEdgeMarkerBase
@@ -76,9 +75,9 @@
   components:
   - type: Sprite
     layers:
-      - state: label
-      - state: edge
-        offset: -0.5, 0
+    - state: label
+    - state: edge
+      offset: -0.5, 0
   - type: GridEdgeMarker
     begin: 0, -0.5
     end: 0, 0.5

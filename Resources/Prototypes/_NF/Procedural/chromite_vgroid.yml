@@ -10,143 +10,143 @@
 - type: dungeonConfig
   id: NFVGRoidChromite
   layers:
-    - !type:PrototypeDunGen
-      proto: NFVGRoidBlobChromite
-    - !type:PrototypeDunGen
-      proto: NFVGRoidExteriorChromite
-#    - !type:PrototypeDunGen
-#      proto: NFVGRoidSmallerChromite
-    - !type:PrototypeDunGen
-      proto: NFVGRoidSmallPathsChromite
-    - !type:EntityTableDunGen
-      minCount: 7
-      maxCount: 12
-      table:
-        id: NFVGRoidInteriorRoomMarker
-    - !type:BiomeDunGen
-      biomeTemplate: NFVGRoidShadow
-      tileMask:
-      - FloorChromite
+  - !type:PrototypeDunGen
+    proto: NFVGRoidBlobChromite
+  - !type:PrototypeDunGen
+    proto: NFVGRoidExteriorChromite
+    #    - !type:PrototypeDunGen
+    #      proto: NFVGRoidSmallerChromite
+  - !type:PrototypeDunGen
+    proto: NFVGRoidSmallPathsChromite
+  - !type:EntityTableDunGen
+    minCount: 7
+    maxCount: 12
+    table:
+      id: NFVGRoidInteriorRoomMarker
+  - !type:BiomeDunGen
+    biomeTemplate: NFVGRoidShadow
+    tileMask:
+    - FloorChromite
+  - !type:OreDunGen
     # Fill
     # - !type:PrototypeDunGen
-      # proto: NFVGRoidFillChromite
+    # proto: NFVGRoidFillChromite
     # "WarpPoint"
-    - !type:OreDunGen
-      tileMask:
-      - FloorChromite
-      entity: WarpPointDungeon
-      count: 1
-      minGroupSize: 1
-      maxGroupSize: 1
+    tileMask:
+    - FloorChromite
+    entity: WarpPointDungeon
+    count: 1
+    minGroupSize: 1
+    maxGroupSize: 1
+  - !type:OreDunGen
     # "Ores"
-    - !type:OreDunGen
-      entityMask:
-      - WallRockChromite
-      entity: NFChromiteElementalSpawner
-      count: 100
-      minGroupSize: 1
-      maxGroupSize: 1
+    entityMask:
+    - WallRockChromite
+    entity: NFChromiteElementalSpawner
+    count: 100
+    minGroupSize: 1
+    maxGroupSize: 1
+  - !type:OreDunGen
     # Ores
-    - !type:OreDunGen
-      entityMask:
-      - WallRockChromite
-      entity: WallRockChromiteTin
-      count: 50
-      minGroupSize: 10
-      maxGroupSize: 15
-    - !type:OreDunGen
-      entityMask:
-      - WallRockChromite
-      entity: WallRockChromiteCoal
-      count: 50
-      minGroupSize: 8
-      maxGroupSize: 12
-    - !type:OreDunGen
-      entityMask:
-      - WallRockChromite
-      entity: WallRockChromiteQuartz
-      count: 50
-      minGroupSize: 10
-      maxGroupSize: 15
-    - !type:OreDunGen
-      entityMask:
-      - WallRockChromite
-      entity: WallRockChromiteSalt
-      count: 50
-      minGroupSize: 8
-      maxGroupSize: 12
-    - !type:OreDunGen
-      entityMask:
-      - WallRockChromite
-      entity: WallRockChromiteGold
-      count: 40
-      minGroupSize: 8
-      maxGroupSize: 12
-    - !type:OreDunGen
-      entityMask:
-      - WallRockChromite
-      entity: WallRockChromiteSilver
-      count: 40
-      minGroupSize: 8
-      maxGroupSize: 12
-    - !type:OreDunGen
-      entityMask:
-      - WallRockChromite
-      entity: WallRockChromitePlasma
-      count: 35
-      minGroupSize: 4
-      maxGroupSize: 8
-    - !type:OreDunGen
-      entityMask:
-      - WallRockChromite
-      entity: WallRockChromiteUranium
-      count: 35
-      minGroupSize: 4
-      maxGroupSize: 8
-    - !type:OreDunGen
-      entityMask:
-      - WallRockChromite
-      entity: NFWallChromiteCobblebrick
-      count: 100
-      minGroupSize: 6
-      maxGroupSize: 16
-    - !type:OreDunGen
-      entityMask:
-      - WallRockChromite
-      entity: WallRockChromiteArtifactFragment
-      count: 25
-      minGroupSize: 1
-      maxGroupSize: 3
-    - !type:OreDunGen
-      entityMask:
-      - WallRockChromite
-      entity: WallRockChromiteDiamond
-      count: 15
-      minGroupSize: 1
-      maxGroupSize: 2
-    - !type:OreDunGen
-      entityMask:
-      - WallRockChromite
-      entity: NFWallRockChromiteBluespace
-      count: 10
-      minGroupSize: 1
-      maxGroupSize: 1
+    entityMask:
+    - WallRockChromite
+    entity: WallRockChromiteTin
+    count: 50
+    minGroupSize: 10
+    maxGroupSize: 15
+  - !type:OreDunGen
+    entityMask:
+    - WallRockChromite
+    entity: WallRockChromiteCoal
+    count: 50
+    minGroupSize: 8
+    maxGroupSize: 12
+  - !type:OreDunGen
+    entityMask:
+    - WallRockChromite
+    entity: WallRockChromiteQuartz
+    count: 50
+    minGroupSize: 10
+    maxGroupSize: 15
+  - !type:OreDunGen
+    entityMask:
+    - WallRockChromite
+    entity: WallRockChromiteSalt
+    count: 50
+    minGroupSize: 8
+    maxGroupSize: 12
+  - !type:OreDunGen
+    entityMask:
+    - WallRockChromite
+    entity: WallRockChromiteGold
+    count: 40
+    minGroupSize: 8
+    maxGroupSize: 12
+  - !type:OreDunGen
+    entityMask:
+    - WallRockChromite
+    entity: WallRockChromiteSilver
+    count: 40
+    minGroupSize: 8
+    maxGroupSize: 12
+  - !type:OreDunGen
+    entityMask:
+    - WallRockChromite
+    entity: WallRockChromitePlasma
+    count: 35
+    minGroupSize: 4
+    maxGroupSize: 8
+  - !type:OreDunGen
+    entityMask:
+    - WallRockChromite
+    entity: WallRockChromiteUranium
+    count: 35
+    minGroupSize: 4
+    maxGroupSize: 8
+  - !type:OreDunGen
+    entityMask:
+    - WallRockChromite
+    entity: NFWallChromiteCobblebrick
+    count: 100
+    minGroupSize: 6
+    maxGroupSize: 16
+  - !type:OreDunGen
+    entityMask:
+    - WallRockChromite
+    entity: WallRockChromiteArtifactFragment
+    count: 25
+    minGroupSize: 1
+    maxGroupSize: 3
+  - !type:OreDunGen
+    entityMask:
+    - WallRockChromite
+    entity: WallRockChromiteDiamond
+    count: 15
+    minGroupSize: 1
+    maxGroupSize: 2
+  - !type:OreDunGen
+    entityMask:
+    - WallRockChromite
+    entity: NFWallRockChromiteBluespace
+    count: 10
+    minGroupSize: 1
+    maxGroupSize: 1
+  - !type:OreDunGen
     # Decoration
     # - !type:OreDunGen
-      # tileMask:
-      # - FloorChromite
-      # entity: FloraRockSolid
-      # count: 20
-      # minGroupSize: 1
-      # maxGroupSize: 1
+    # tileMask:
+    # - FloorChromite
+    # entity: FloraRockSolid
+    # count: 20
+    # minGroupSize: 1
+    # maxGroupSize: 1
     # Mobs
-    - !type:OreDunGen
-      tileMask:
-      - FloorChromite
-      entity: SpawnMobBloodCultLeech
-      count: 5
-      minGroupSize: 1
-      maxGroupSize: 1
+    tileMask:
+    - FloorChromite
+    entity: SpawnMobBloodCultLeech
+    count: 5
+    minGroupSize: 1
+    maxGroupSize: 1
 
 # Configs
 - type: dungeonConfig
@@ -272,12 +272,12 @@
     groups:
     - id: SpawnMobBloodCultistAscended # Boss
       amount: 1
-  # - !type:MobsDunGen # Dies to barotrauma - equip it for space if you want this restored
-  #   minCount: 1
-  #   maxCount: 1
-  #   groups:
-  #   - id: SpawnMobCatBloodCultLowChance
-  #     amount: 1
+      # - !type:MobsDunGen # Dies to barotrauma - equip it for space if you want this restored
+      #   minCount: 1
+      #   maxCount: 1
+      #   groups:
+      #   - id: SpawnMobCatBloodCultLowChance
+      #     amount: 1
 
 #- type: dungeonConfig
 #  id: NFVGRoidInteriorDungeonsChromite
@@ -305,57 +305,57 @@
 - type: biomeTemplate
   id: NFVGRoidShadow
   layers:
-    - !type:BiomeEntityLayer
-      threshold: 0.70
-      noise:
-        frequency: 1
-        seed: 3
-      allowedTiles:
-        - FloorChromite
-      entities:
-        - ShadowBasaltOne
-        - ShadowBasaltTwo
-        - ShadowBasaltThree
-        - ShadowBasaltFour
-        - ShadowBasaltFive
-    - !type:BiomeEntityLayer
-      threshold: 0.97
-      noise:
-        frequency: 1
-        seed: 2
-      allowedTiles:
-        - FloorChromite
-      entities:
-        - CrystalPink
-    - !type:BiomeEntityLayer
-      threshold: 0.97
-      noise:
-        seed: 1
-        noiseType: OpenSimplex2
-        frequency: 1
-      allowedTiles:
-        - FloorChromite
-      entities:
-        - ShadowTree
-        - CrystalPink
+  - !type:BiomeEntityLayer
+    threshold: 0.70
+    noise:
+      frequency: 1
+      seed: 3
+    allowedTiles:
+    - FloorChromite
+    entities:
+    - ShadowBasaltOne
+    - ShadowBasaltTwo
+    - ShadowBasaltThree
+    - ShadowBasaltFour
+    - ShadowBasaltFive
+  - !type:BiomeEntityLayer
+    threshold: 0.97
+    noise:
+      frequency: 1
+      seed: 2
+    allowedTiles:
+    - FloorChromite
+    entities:
+    - CrystalPink
+  - !type:BiomeEntityLayer
+    threshold: 0.97
+    noise:
+      seed: 1
+      noiseType: OpenSimplex2
+      frequency: 1
+    allowedTiles:
+    - FloorChromite
+    entities:
+    - ShadowTree
+    - CrystalPink
+  - !type:BiomeEntityLayer
     # Rock formations
-    - !type:BiomeEntityLayer
-      threshold: -0.2
-      invert: true
-      noise:
-        seed: 0
-        noiseType: Perlin
-        fractalType: FBm
-        octaves: 3
-        frequency: 0.3
-        gain: 0
-      allowedTiles:
-        - FloorChromite
-      entities:
-        - WallRockChromite
-    - !type:BiomeDummyLayer
-      id: Loot
+    threshold: -0.2
+    invert: true
+    noise:
+      seed: 0
+      noiseType: Perlin
+      fractalType: FBm
+      octaves: 3
+      frequency: 0.3
+      gain: 0
+    allowedTiles:
+    - FloorChromite
+    entities:
+    - WallRockChromite
+  - !type:BiomeDummyLayer
+    id: Loot
+  - !type:BiomeTileLayer
     # Fill chromite
-    - !type:BiomeTileLayer
-      threshold: -1
-      tile: FloorChromite
+    threshold: -1
+    tile: FloorChromite

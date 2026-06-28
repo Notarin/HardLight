@@ -10,12 +10,23 @@ namespace Content.Shared.DoAfter;
 
 public abstract partial class SharedDoAfterSystem : EntitySystem
 {
-    [Dependency] private readonly IDynamicTypeFactory _factory = default!;
-    [Dependency] private readonly INetManager _netManager = default!;
-    [Dependency] private readonly IRuntimeLog _runtimeLog = default!;
-    [Dependency] private readonly SharedGravitySystem _gravity = default!;
-    [Dependency] private readonly SharedInteractionSystem _interaction = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
+    [Dependency]
+    private readonly IDynamicTypeFactory _factory = default!;
+
+    [Dependency]
+    private readonly INetManager _netManager = default!;
+
+    [Dependency]
+    private readonly IRuntimeLog _runtimeLog = default!;
+
+    [Dependency]
+    private readonly SharedGravitySystem _gravity = default!;
+
+    [Dependency]
+    private readonly SharedInteractionSystem _interaction = default!;
+
+    [Dependency]
+    private readonly SharedHandsSystem _hands = default!;
 
     private DoAfter[] _doAfters = Array.Empty<DoAfter>();
 
@@ -25,7 +36,8 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
     // a doafter that ends another doafter via interaction), which invalidates the live
     // EntityQueryEnumerator and throws "Collection was modified" from the outer MoveNext call,
     // tearing down the entire DoAfter tick.
-    private readonly List<(EntityUid Uid, ActiveDoAfterComponent Active, DoAfterComponent Comp)> _updateSnapshot = new();
+    private readonly List<(EntityUid Uid, ActiveDoAfterComponent Active, DoAfterComponent Comp)> _updateSnapshot =
+        new();
 
     public override void Update(float frameTime)
     {
@@ -75,7 +87,10 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
                     }
                     catch (Exception e2)
                     {
-                        _runtimeLog.LogException(e2, $"{nameof(SharedDoAfterSystem)} failed to cleanup {doAfter} @ {key} while handling a failure.");
+                        _runtimeLog.LogException(
+                            e2,
+                            $"{nameof(SharedDoAfterSystem)} failed to cleanup {doAfter} @ {key} while handling a failure."
+                        );
                         // REMARK: As written, InternalCancel will always do the necessary side effect of
                         //         configuring the cancellation time. We need this side effect, so dear reader
                         //         if you ever make it so InternalCancel can throw an exception before that
@@ -93,7 +108,6 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
                 throw; // No tolerance, just rethrow.
 #endif
             }
-
         }
     }
 
@@ -103,7 +117,8 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
         DoAfterComponent comp,
         TimeSpan time,
         EntityQuery<TransformComponent> xformQuery,
-        EntityQuery<HandsComponent> handsQuery)
+        EntityQuery<HandsComponent> handsQuery
+    )
     {
         var dirty = false;
 
@@ -178,7 +193,7 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
         else
             RaiseLocalEvent(doAfter.AttemptEvent);
 
-        var ev = (CancellableEntityEventArgs) doAfter.AttemptEvent;
+        var ev = (CancellableEntityEventArgs)doAfter.AttemptEvent;
         if (!ev.Cancelled)
             return true;
 
@@ -192,8 +207,7 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
             return;
 
         // Perform final check (if required)
-        if (doAfter.Args.AttemptFrequency == AttemptFrequency.StartAndEnd
-            && !TryAttemptEvent(doAfter))
+        if (doAfter.Args.AttemptFrequency == AttemptFrequency.StartAndEnd && !TryAttemptEvent(doAfter))
         {
             InternalCancel(doAfter, component);
             return;
@@ -210,9 +224,11 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
         }
     }
 
-    private bool ShouldCancel(DoAfter doAfter,
+    private bool ShouldCancel(
+        DoAfter doAfter,
         EntityQuery<TransformComponent> xformQuery,
-        EntityQuery<HandsComponent> handsQuery)
+        EntityQuery<HandsComponent> handsQuery
+    )
     {
         var args = doAfter.Args;
 
@@ -220,7 +236,7 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
         if (args.Used is { } used && !xformQuery.HasComponent(used))
             return true;
 
-        if (args.EventTarget is {Valid: true} eventTarget && !xformQuery.HasComponent(eventTarget))
+        if (args.EventTarget is { Valid: true } eventTarget && !xformQuery.HasComponent(eventTarget))
             return true;
 
         if (!xformQuery.TryGetComponent(args.User, out var userXform))
@@ -242,8 +258,10 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
                 return true;
 
             // Whether the distance between the user and target(if any) has changed too much.
-            if (targetXform != null &&
-                targetXform.Coordinates.TryDistance(EntityManager, userXform.Coordinates, out var distance))
+            if (
+                targetXform != null
+                && targetXform.Coordinates.TryDistance(EntityManager, userXform.Coordinates, out var distance)
+            )
             {
                 if (Math.Abs(distance - doAfter.TargetDistance) > args.MovementThreshold)
                     return true;
@@ -269,14 +287,12 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
         {
             if (args.DistanceThreshold != null)
             {
-                if (!_interaction.InRangeUnobstructed(args.User,
-                        args.Used.Value,
-                        args.DistanceThreshold.Value))
+                if (!_interaction.InRangeUnobstructed(args.User, args.Used.Value, args.DistanceThreshold.Value))
                     return true;
             }
             else
             {
-                if (!_interaction.InRangeUnobstructed(args.User,args.Used.Value))
+                if (!_interaction.InRangeUnobstructed(args.User, args.Used.Value))
                     return true;
             }
         }
@@ -294,8 +310,12 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
 
             // If an item was in the user's hand to begin with,
             // check if the user is no longer holding the item.
-            if (args.BreakOnDropItem && doAfter.InitialItem != null && !_hands.IsHolding((args.User, hands), doAfter.InitialItem))
-                    return true;
+            if (
+                args.BreakOnDropItem
+                && doAfter.InitialItem != null
+                && !_hands.IsHolding((args.User, hands), doAfter.InitialItem)
+            )
+                return true;
 
             // If the user changes which hand is active at all, interrupt the do-after
             if (args.BreakOnHandChange && hands.ActiveHand?.Name != doAfter.InitialHand)
@@ -304,7 +324,6 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
 
         if (args.RequireCanInteract && !_actionBlocker.CanInteract(args.User, args.Target))
             return true;
-
 
         return false;
     }

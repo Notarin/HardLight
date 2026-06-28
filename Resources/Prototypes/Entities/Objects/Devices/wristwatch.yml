@@ -8,8 +8,8 @@
     sprite: Objects/Devices/wristwatch.rsi
     layers:
     - state: wristwatch
-    - map: [ "enum.ClockVisualLayers.MinuteHand"]
-    - map: [ "enum.ClockVisualLayers.HourHand"]
+    - map: ["enum.ClockVisualLayers.MinuteHand"]
+    - map: ["enum.ClockVisualLayers.HourHand"]
   - type: Clock
   - type: Item
     sprite: Objects/Devices/wristwatch.rsi
@@ -25,19 +25,17 @@
     price: 50
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageGroupTrigger
+        acts: ["Destruction"]
+    - trigger: !type:DamageGroupTrigger
         damageGroup: Brute
         damage: 25
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Breakage" ]
+        acts: ["Breakage"]
   - type: PhysicalComposition
     materialComposition:
       Steel: 300
@@ -52,8 +50,8 @@
     sprite: Objects/Devices/goldwatch.rsi
     layers:
     - state: goldwatch
-    - map: [ "enum.ClockVisualLayers.MinuteHand"]
-    - map: [ "enum.ClockVisualLayers.HourHand"]
+    - map: ["enum.ClockVisualLayers.MinuteHand"]
+    - map: ["enum.ClockVisualLayers.HourHand"]
   - type: Item
     sprite: Objects/Devices/goldwatch.rsi
   - type: Clothing

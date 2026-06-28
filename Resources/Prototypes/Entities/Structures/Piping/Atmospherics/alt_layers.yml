@@ -21,7 +21,7 @@
 - type: entity
   parent: GasPipeStraight
   id: GasPipeStraightAlt1
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: AtmosPipeLayers
     pipeLayer: 1
@@ -34,7 +34,7 @@
 - type: entity
   parent: GasPipeStraight
   id: GasPipeStraightAlt2
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: AtmosPipeLayers
     pipeLayer: 2
@@ -48,7 +48,7 @@
 - type: entity
   parent: GasPipeHalf
   id: GasPipeHalfAlt1
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: AtmosPipeLayers
     pipeLayer: 1
@@ -61,7 +61,7 @@
 - type: entity
   parent: GasPipeHalf
   id: GasPipeHalfAlt2
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: AtmosPipeLayers
     pipeLayer: 2
@@ -75,7 +75,7 @@
 - type: entity
   parent: GasPipeBend
   id: GasPipeBendAlt1
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: AtmosPipeLayers
     pipeLayer: 1
@@ -88,7 +88,7 @@
 - type: entity
   parent: GasPipeBend
   id: GasPipeBendAlt2
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: AtmosPipeLayers
     pipeLayer: 2
@@ -102,7 +102,7 @@
 - type: entity
   parent: GasPipeTJunction
   id: GasPipeTJunctionAlt1
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: AtmosPipeLayers
     pipeLayer: 1
@@ -115,7 +115,7 @@
 - type: entity
   parent: GasPipeTJunction
   id: GasPipeTJunctionAlt2
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: AtmosPipeLayers
     pipeLayer: 2
@@ -129,7 +129,7 @@
 - type: entity
   parent: GasPipeFourway
   id: GasPipeFourwayAlt1
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: AtmosPipeLayers
     pipeLayer: 1
@@ -142,7 +142,7 @@
 - type: entity
   parent: GasPipeFourway
   id: GasPipeFourwayAlt2
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: AtmosPipeLayers
     pipeLayer: 2
@@ -157,7 +157,7 @@
 - type: entity
   parent: GasPressurePump
   id: GasPressurePumpAlt1
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: AtmosPipeLayers
     pipeLayer: 1
@@ -166,16 +166,16 @@
     layers:
     - sprite: Structures/Piping/Atmospherics/pipe_alt1.rsi
       state: pipeStraight
-      map: [ "enum.PipeVisualLayers.Pipe" ]
+      map: ["enum.PipeVisualLayers.Pipe"]
     - state: pumpPressure
-      map: [ "enum.SubfloorLayers.FirstLayer", "enabled" ]
+      map: ["enum.SubfloorLayers.FirstLayer", "enabled"]
   - type: Construction
     node: pressurepumpAlt1
 
 - type: entity
   parent: GasPressurePump
   id: GasPressurePumpAlt2
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: AtmosPipeLayers
     pipeLayer: 2
@@ -184,16 +184,16 @@
     layers:
     - sprite: Structures/Piping/Atmospherics/pipe_alt2.rsi
       state: pipeStraight
-      map: [ "enum.PipeVisualLayers.Pipe" ]
+      map: ["enum.PipeVisualLayers.Pipe"]
     - state: pumpPressure
-      map: [ "enum.SubfloorLayers.FirstLayer", "enabled" ]
+      map: ["enum.SubfloorLayers.FirstLayer", "enabled"]
   - type: Construction
     node: pressurepumpAlt2
 
 - type: entity
   parent: GasPressurePumpHighFlow
   id: GasPressurePumpHighFlowAlt1
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: AtmosPipeLayers
     pipeLayer: 1
@@ -202,16 +202,16 @@
     layers:
     - sprite: Structures/Piping/Atmospherics/pipe_alt1.rsi
       state: pipeStraight
-      map: [ "enum.PipeVisualLayers.Pipe" ]
+      map: ["enum.PipeVisualLayers.Pipe"]
     - state: pumpPressure
-      map: [ "enum.SubfloorLayers.FirstLayer", "enabled" ]
+      map: ["enum.SubfloorLayers.FirstLayer", "enabled"]
   - type: Construction
     node: pressurepumpHighFlowAlt1
 
 - type: entity
   parent: GasPressurePumpHighFlow
   id: GasPressurePumpHighFlowAlt2
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: AtmosPipeLayers
     pipeLayer: 2
@@ -220,9 +220,9 @@
     layers:
     - sprite: Structures/Piping/Atmospherics/pipe_alt2.rsi
       state: pipeStraight
-      map: [ "enum.PipeVisualLayers.Pipe" ]
+      map: ["enum.PipeVisualLayers.Pipe"]
     - state: pumpPressure
-      map: [ "enum.SubfloorLayers.FirstLayer", "enabled" ]
+      map: ["enum.SubfloorLayers.FirstLayer", "enabled"]
   - type: Construction
     node: pressurepumpHighFlowAlt2
 
@@ -231,7 +231,7 @@
 - type: entity
   parent: GasVolumePump
   id: GasVolumePumpAlt1
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: AtmosPipeLayers
     pipeLayer: 1
@@ -240,16 +240,16 @@
     layers:
     - sprite: Structures/Piping/Atmospherics/pipe_alt1.rsi
       state: pipeStraight
-      map: [ "enum.PipeVisualLayers.Pipe" ]
+      map: ["enum.PipeVisualLayers.Pipe"]
     - state: pumpVolume
-      map: [ "enum.SubfloorLayers.FirstLayer", "enabled" ]
+      map: ["enum.SubfloorLayers.FirstLayer", "enabled"]
   - type: Construction
     node: volumepumpAlt1
 
 - type: entity
   parent: GasVolumePump
   id: GasVolumePumpAlt2
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: AtmosPipeLayers
     pipeLayer: 2
@@ -258,16 +258,16 @@
     layers:
     - sprite: Structures/Piping/Atmospherics/pipe_alt2.rsi
       state: pipeStraight
-      map: [ "enum.PipeVisualLayers.Pipe" ]
+      map: ["enum.PipeVisualLayers.Pipe"]
     - state: pumpVolume
-      map: [ "enum.SubfloorLayers.FirstLayer", "enabled" ]
+      map: ["enum.SubfloorLayers.FirstLayer", "enabled"]
   - type: Construction
     node: volumepumpAlt2
 
 - type: entity
   parent: GasVolumePumpHighFlow
   id: GasVolumePumpHighFlowAlt1
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: AtmosPipeLayers
     pipeLayer: 1
@@ -276,16 +276,16 @@
     layers:
     - sprite: Structures/Piping/Atmospherics/pipe_alt1.rsi
       state: pipeStraight
-      map: [ "enum.PipeVisualLayers.Pipe" ]
+      map: ["enum.PipeVisualLayers.Pipe"]
     - state: pumpVolume
-      map: [ "enum.SubfloorLayers.FirstLayer", "enabled" ]
+      map: ["enum.SubfloorLayers.FirstLayer", "enabled"]
   - type: Construction
     node: volumepumpHighFlowAlt1
 
 - type: entity
   parent: GasVolumePumpHighFlow
   id: GasVolumePumpHighFlowAlt2
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: AtmosPipeLayers
     pipeLayer: 2
@@ -294,9 +294,9 @@
     layers:
     - sprite: Structures/Piping/Atmospherics/pipe_alt2.rsi
       state: pipeStraight
-      map: [ "enum.PipeVisualLayers.Pipe" ]
+      map: ["enum.PipeVisualLayers.Pipe"]
     - state: pumpVolume
-      map: [ "enum.SubfloorLayers.FirstLayer", "enabled" ]
+      map: ["enum.SubfloorLayers.FirstLayer", "enabled"]
   - type: Construction
     node: volumepumpHighFlowAlt2
 
@@ -305,7 +305,7 @@
 - type: entity
   parent: GasPassiveGate
   id: GasPassiveGateAlt1
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: AtmosPipeLayers
     pipeLayer: 1
@@ -314,16 +314,16 @@
     layers:
     - sprite: Structures/Piping/Atmospherics/pipe_alt1.rsi
       state: pipeStraight
-      map: [ "enum.PipeVisualLayers.Pipe" ]
+      map: ["enum.PipeVisualLayers.Pipe"]
     - state: pumpPassiveGate
-      map: [ "enum.SubfloorLayers.FirstLayer" ]
+      map: ["enum.SubfloorLayers.FirstLayer"]
   - type: Construction
     node: passivegateAlt1
 
 - type: entity
   parent: GasPassiveGate
   id: GasPassiveGateAlt2
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: AtmosPipeLayers
     pipeLayer: 2
@@ -332,9 +332,9 @@
     layers:
     - sprite: Structures/Piping/Atmospherics/pipe_alt2.rsi
       state: pipeStraight
-      map: [ "enum.PipeVisualLayers.Pipe" ]
+      map: ["enum.PipeVisualLayers.Pipe"]
     - state: pumpPassiveGate
-      map: [ "enum.SubfloorLayers.FirstLayer" ]
+      map: ["enum.SubfloorLayers.FirstLayer"]
   - type: Construction
     node: passivegateAlt2
 
@@ -343,7 +343,7 @@
 - type: entity
   parent: GasValve
   id: GasValveAlt1
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: AtmosPipeLayers
     pipeLayer: 1
@@ -352,16 +352,16 @@
     layers:
     - sprite: Structures/Piping/Atmospherics/pipe_alt1.rsi
       state: pipeStraight
-      map: [ "enum.PipeVisualLayers.Pipe" ]
+      map: ["enum.PipeVisualLayers.Pipe"]
     - state: pumpManualValve
-      map: [ "enum.SubfloorLayers.FirstLayer", "enabled" ]
+      map: ["enum.SubfloorLayers.FirstLayer", "enabled"]
   - type: Construction
     node: valveAlt1
 
 - type: entity
   parent: GasValve
   id: GasValveAlt2
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: AtmosPipeLayers
     pipeLayer: 2
@@ -370,9 +370,9 @@
     layers:
     - sprite: Structures/Piping/Atmospherics/pipe_alt2.rsi
       state: pipeStraight
-      map: [ "enum.PipeVisualLayers.Pipe" ]
+      map: ["enum.PipeVisualLayers.Pipe"]
     - state: pumpManualValve
-      map: [ "enum.SubfloorLayers.FirstLayer", "enabled" ]
+      map: ["enum.SubfloorLayers.FirstLayer", "enabled"]
   - type: Construction
     node: valveAlt2
 
@@ -381,7 +381,7 @@
 - type: entity
   parent: SignalControlledValve
   id: SignalControlledValveAlt1
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: AtmosPipeLayers
     pipeLayer: 1
@@ -390,16 +390,16 @@
     layers:
     - sprite: Structures/Piping/Atmospherics/pipe_alt1.rsi
       state: pipeStraight
-      map: [ "enum.PipeVisualLayers.Pipe" ]
+      map: ["enum.PipeVisualLayers.Pipe"]
     - state: pumpSignalValve
-      map: [ "enum.SubfloorLayers.FirstLayer", "enabled" ]
+      map: ["enum.SubfloorLayers.FirstLayer", "enabled"]
   - type: Construction
     node: signalvalveAlt1
 
 - type: entity
   parent: SignalControlledValve
   id: SignalControlledValveAlt2
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: AtmosPipeLayers
     pipeLayer: 2
@@ -408,9 +408,9 @@
     layers:
     - sprite: Structures/Piping/Atmospherics/pipe_alt2.rsi
       state: pipeStraight
-      map: [ "enum.PipeVisualLayers.Pipe" ]
+      map: ["enum.PipeVisualLayers.Pipe"]
     - state: pumpSignalValve
-      map: [ "enum.SubfloorLayers.FirstLayer", "enabled" ]
+      map: ["enum.SubfloorLayers.FirstLayer", "enabled"]
   - type: Construction
     node: signalvalveAlt2
 
@@ -419,7 +419,7 @@
 - type: entity
   parent: GasPipeSensor
   id: GasPipeSensorAlt1
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: AtmosPipeLayers
     pipeLayer: 1
@@ -427,11 +427,11 @@
     sprite: Structures/Piping/Atmospherics/gas_pipe_sensor_alt1.rsi
     layers:
     - sprite: Structures/Piping/Atmospherics/pipe_alt1.rsi
-      map: [ "enum.PipeVisualLayers.Pipe" ]
+      map: ["enum.PipeVisualLayers.Pipe"]
       state: pipeStraight
     - map: ["base"]
       state: base
-    - map: [ "enum.PowerDeviceVisualLayers.Powered" ]
+    - map: ["enum.PowerDeviceVisualLayers.Powered"]
       state: lights
       shader: unshaded
   - type: Construction
@@ -440,7 +440,7 @@
 - type: entity
   parent: GasPipeSensor
   id: GasPipeSensorAlt2
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: AtmosPipeLayers
     pipeLayer: 2
@@ -448,11 +448,11 @@
     sprite: Structures/Piping/Atmospherics/gas_pipe_sensor_alt2.rsi
     layers:
     - sprite: Structures/Piping/Atmospherics/pipe_alt2.rsi
-      map: [ "enum.PipeVisualLayers.Pipe" ]
+      map: ["enum.PipeVisualLayers.Pipe"]
       state: pipeStraight
     - map: ["base"]
       state: base
-    - map: [ "enum.PowerDeviceVisualLayers.Powered" ]
+    - map: ["enum.PowerDeviceVisualLayers.Powered"]
       state: lights
       shader: unshaded
   - type: Construction
@@ -463,7 +463,7 @@
 - type: entity
   parent: GasPipeSensorDistribution
   id: GasPipeSensorDistributionAlt1
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: AtmosPipeLayers
     pipeLayer: 1
@@ -471,18 +471,18 @@
     sprite: Structures/Piping/Atmospherics/gas_pipe_sensor_alt1.rsi
     layers:
     - sprite: Structures/Piping/Atmospherics/pipe_alt1.rsi
-      map: [ "enum.PipeVisualLayers.Pipe" ]
+      map: ["enum.PipeVisualLayers.Pipe"]
       state: pipeStraight
     - map: ["base"]
       state: base
-    - map: [ "enum.PowerDeviceVisualLayers.Powered" ]
+    - map: ["enum.PowerDeviceVisualLayers.Powered"]
       state: lights
       shader: unshaded
 
 - type: entity
   parent: GasPipeSensorDistribution
   id: GasPipeSensorDistributionAlt2
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: AtmosPipeLayers
     pipeLayer: 2
@@ -490,11 +490,11 @@
     sprite: Structures/Piping/Atmospherics/gas_pipe_sensor_alt2.rsi
     layers:
     - sprite: Structures/Piping/Atmospherics/pipe_alt2.rsi
-      map: [ "enum.PipeVisualLayers.Pipe" ]
+      map: ["enum.PipeVisualLayers.Pipe"]
       state: pipeStraight
     - map: ["base"]
       state: base
-    - map: [ "enum.PowerDeviceVisualLayers.Powered" ]
+    - map: ["enum.PowerDeviceVisualLayers.Powered"]
       state: lights
       shader: unshaded
 
@@ -503,7 +503,7 @@
 - type: entity
   parent: GasPipeSensorWaste
   id: GasPipeSensorWasteAlt1
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: AtmosPipeLayers
     pipeLayer: 1
@@ -511,18 +511,18 @@
     sprite: Structures/Piping/Atmospherics/gas_pipe_sensor_alt1.rsi
     layers:
     - sprite: Structures/Piping/Atmospherics/pipe_alt1.rsi
-      map: [ "enum.PipeVisualLayers.Pipe" ]
+      map: ["enum.PipeVisualLayers.Pipe"]
       state: pipeStraight
     - map: ["base"]
       state: base
-    - map: [ "enum.PowerDeviceVisualLayers.Powered" ]
+    - map: ["enum.PowerDeviceVisualLayers.Powered"]
       state: lights
       shader: unshaded
 
 - type: entity
   parent: GasPipeSensorWaste
   id: GasPipeSensorWasteAlt2
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: AtmosPipeLayers
     pipeLayer: 2
@@ -530,11 +530,11 @@
     sprite: Structures/Piping/Atmospherics/gas_pipe_sensor_alt2.rsi
     layers:
     - sprite: Structures/Piping/Atmospherics/pipe_alt2.rsi
-      map: [ "enum.PipeVisualLayers.Pipe" ]
+      map: ["enum.PipeVisualLayers.Pipe"]
       state: pipeStraight
     - map: ["base"]
       state: base
-    - map: [ "enum.PowerDeviceVisualLayers.Powered" ]
+    - map: ["enum.PowerDeviceVisualLayers.Powered"]
       state: lights
       shader: unshaded
 
@@ -543,7 +543,7 @@
 - type: entity
   parent: GasPipeSensorMixedAir
   id: GasPipeSensorMixedAirAlt1
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: AtmosPipeLayers
     pipeLayer: 1
@@ -551,18 +551,18 @@
     sprite: Structures/Piping/Atmospherics/gas_pipe_sensor_alt1.rsi
     layers:
     - sprite: Structures/Piping/Atmospherics/pipe_alt1.rsi
-      map: [ "enum.PipeVisualLayers.Pipe" ]
+      map: ["enum.PipeVisualLayers.Pipe"]
       state: pipeStraight
     - map: ["base"]
       state: base
-    - map: [ "enum.PowerDeviceVisualLayers.Powered" ]
+    - map: ["enum.PowerDeviceVisualLayers.Powered"]
       state: lights
       shader: unshaded
 
 - type: entity
   parent: GasPipeSensorMixedAir
   id: GasPipeSensorMixedAirAlt2
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: AtmosPipeLayers
     pipeLayer: 2
@@ -570,11 +570,11 @@
     sprite: Structures/Piping/Atmospherics/gas_pipe_sensor_alt2.rsi
     layers:
     - sprite: Structures/Piping/Atmospherics/pipe_alt2.rsi
-      map: [ "enum.PipeVisualLayers.Pipe" ]
+      map: ["enum.PipeVisualLayers.Pipe"]
       state: pipeStraight
     - map: ["base"]
       state: base
-    - map: [ "enum.PowerDeviceVisualLayers.Powered" ]
+    - map: ["enum.PowerDeviceVisualLayers.Powered"]
       state: lights
       shader: unshaded
 
@@ -583,7 +583,7 @@
 - type: entity
   parent: GasPipeSensorTEGHot
   id: GasPipeSensorTEGHotAlt1
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: AtmosPipeLayers
     pipeLayer: 1
@@ -591,18 +591,18 @@
     sprite: Structures/Piping/Atmospherics/gas_pipe_sensor_alt1.rsi
     layers:
     - sprite: Structures/Piping/Atmospherics/pipe_alt1.rsi
-      map: [ "enum.PipeVisualLayers.Pipe" ]
+      map: ["enum.PipeVisualLayers.Pipe"]
       state: pipeStraight
     - map: ["base"]
       state: base
-    - map: [ "enum.PowerDeviceVisualLayers.Powered" ]
+    - map: ["enum.PowerDeviceVisualLayers.Powered"]
       state: lights
       shader: unshaded
 
 - type: entity
   parent: GasPipeSensorTEGHot
   id: GasPipeSensorTEGHotAlt2
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: AtmosPipeLayers
     pipeLayer: 2
@@ -610,11 +610,11 @@
     sprite: Structures/Piping/Atmospherics/gas_pipe_sensor_alt2.rsi
     layers:
     - sprite: Structures/Piping/Atmospherics/pipe_alt2.rsi
-      map: [ "enum.PipeVisualLayers.Pipe" ]
+      map: ["enum.PipeVisualLayers.Pipe"]
       state: pipeStraight
     - map: ["base"]
       state: base
-    - map: [ "enum.PowerDeviceVisualLayers.Powered" ]
+    - map: ["enum.PowerDeviceVisualLayers.Powered"]
       state: lights
       shader: unshaded
 
@@ -623,7 +623,7 @@
 - type: entity
   parent: GasPipeSensorTEGCold
   id: GasPipeSensorTEGColdAlt1
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: AtmosPipeLayers
     pipeLayer: 1
@@ -631,18 +631,18 @@
     sprite: Structures/Piping/Atmospherics/gas_pipe_sensor_alt1.rsi
     layers:
     - sprite: Structures/Piping/Atmospherics/pipe_alt1.rsi
-      map: [ "enum.PipeVisualLayers.Pipe" ]
+      map: ["enum.PipeVisualLayers.Pipe"]
       state: pipeStraight
     - map: ["base"]
       state: base
-    - map: [ "enum.PowerDeviceVisualLayers.Powered" ]
+    - map: ["enum.PowerDeviceVisualLayers.Powered"]
       state: lights
       shader: unshaded
 
 - type: entity
   parent: GasPipeSensorTEGCold
   id: GasPipeSensorTEGColdAlt2
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: AtmosPipeLayers
     pipeLayer: 2
@@ -650,11 +650,11 @@
     sprite: Structures/Piping/Atmospherics/gas_pipe_sensor_alt2.rsi
     layers:
     - sprite: Structures/Piping/Atmospherics/pipe_alt2.rsi
-      map: [ "enum.PipeVisualLayers.Pipe" ]
+      map: ["enum.PipeVisualLayers.Pipe"]
       state: pipeStraight
     - map: ["base"]
       state: base
-    - map: [ "enum.PowerDeviceVisualLayers.Powered" ]
+    - map: ["enum.PowerDeviceVisualLayers.Powered"]
       state: lights
       shader: unshaded
 
@@ -663,7 +663,7 @@
 - type: entity
   parent: GasPressureRegulator
   id: GasPressureRegulatorAlt1
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: AtmosPipeLayers
     pipeLayer: 1
@@ -672,16 +672,16 @@
     layers:
     - sprite: Structures/Piping/Atmospherics/pipe_alt1.rsi
       state: pipeStraight
-      map: [ "enum.PipeVisualLayers.Pipe" ]
+      map: ["enum.PipeVisualLayers.Pipe"]
     - state: pumpPressureRegulator
-      map: [ "enum.SubfloorLayers.FirstLayer", "enabled" ]
+      map: ["enum.SubfloorLayers.FirstLayer", "enabled"]
   - type: Construction
     node: pressureregulatorAlt1
 
 - type: entity
   parent: GasPressureRegulator
   id: GasPressureRegulatorAlt2
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: AtmosPipeLayers
     pipeLayer: 2
@@ -690,8 +690,8 @@
     layers:
     - sprite: Structures/Piping/Atmospherics/pipe_alt2.rsi
       state: pipeStraight
-      map: [ "enum.PipeVisualLayers.Pipe" ]
+      map: ["enum.PipeVisualLayers.Pipe"]
     - state: pumpPressureRegulator
-      map: [ "enum.SubfloorLayers.FirstLayer", "enabled" ]
+      map: ["enum.SubfloorLayers.FirstLayer", "enabled"]
   - type: Construction
     node: pressureregulatorAlt2

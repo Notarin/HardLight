@@ -1,16 +1,19 @@
-using Content.Shared.Implants.Components;
 using Content.Shared._Starlight.Language;
 using Content.Shared._Starlight.Language.Components;
 using Content.Shared._Starlight.Language.Events;
 using Content.Shared._Starlight.Language.Systems;
+using Content.Shared.Implants.Components;
 using Robust.Shared.Containers;
 
 namespace Content.Server._Starlight.Language;
 
 public sealed class TranslatorImplantSystem : EntitySystem
 {
-    [Dependency] private readonly LanguageSystem _language = default!;
-    [Dependency] private readonly TranslatorSystem _translator = default!;
+    [Dependency]
+    private readonly LanguageSystem _language = default!;
+
+    [Dependency]
+    private readonly TranslatorSystem _translator = default!;
 
     public override void Initialize()
     {
@@ -32,10 +35,16 @@ public sealed class TranslatorImplantSystem : EntitySystem
         // To operate an implant, you need to know its required language intrinsically, because like... it connects to your brain or something,
         // so external translators or other implants can't help you operate it.
         ent.Comp.SpokenRequirementSatisfied = _translator.CheckLanguagesMatch(
-            ent.Comp.Requires, knowledge.Speaks, ent.Comp.RequiresAll);
+            ent.Comp.Requires,
+            knowledge.Speaks,
+            ent.Comp.RequiresAll
+        );
 
         ent.Comp.UnderstoodRequirementSatisfied = _translator.CheckLanguagesMatch(
-            ent.Comp.Requires, knowledge.Understands, ent.Comp.RequiresAll);
+            ent.Comp.Requires,
+            knowledge.Understands,
+            ent.Comp.RequiresAll
+        );
         Dirty(ent);
 
         _language.UpdateEntityLanguages(implantee);
@@ -47,7 +56,10 @@ public sealed class TranslatorImplantSystem : EntitySystem
         ent.Comp.Enabled = ent.Comp.SpokenRequirementSatisfied = ent.Comp.UnderstoodRequirementSatisfied = false;
         Dirty(ent);
 
-        if (TryComp<SubdermalImplantComponent>(ent, out var subdermal) && subdermal.ImplantedEntity is { Valid: true} implantee)
+        if (
+            TryComp<SubdermalImplantComponent>(ent, out var subdermal)
+            && subdermal.ImplantedEntity is { Valid: true } implantee
+        )
             _language.UpdateEntityLanguages(implantee);
     }
 

@@ -3,8 +3,8 @@ using Content.Shared.Doors.Components;
 using Content.Shared.Movement.Pulling.Systems;
 using Content.Shared.Popups;
 using Content.Shared.Whitelist;
-using Robust.Shared.GameObjects;
 using Robust.Shared.Audio.Systems;
+using Robust.Shared.GameObjects;
 using Robust.Shared.Physics.Events;
 using Robust.Shared.Timing;
 
@@ -15,13 +15,26 @@ namespace Content.Shared.Doors.Systems;
 /// </summary>
 public abstract partial class SharedTurnstileSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly AccessReaderSystem _accessReader = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly EntityWhitelistSystem _entityWhitelist = default!;
-    [Dependency] private readonly PullingSystem _pulling = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly AccessReaderSystem _accessReader = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _entityWhitelist = default!;
+
+    [Dependency]
+    private readonly PullingSystem _pulling = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -76,7 +89,11 @@ public abstract partial class SharedTurnstileSystem : EntitySystem
         {
             if (_timing.CurTime >= ent.Comp.NextResistTime)
             {
-                _popup.PopupClient(Loc.GetString("turnstile-component-popup-resist", ("turnstile", ent.Owner)), ent, args.OtherEntity);
+                _popup.PopupClient(
+                    Loc.GetString("turnstile-component-popup-resist", ("turnstile", ent.Owner)),
+                    ent,
+                    args.OtherEntity
+                );
                 ent.Comp.NextResistTime = _timing.CurTime + TimeSpan.FromSeconds(0.1);
                 Dirty(ent);
             }
@@ -137,11 +154,9 @@ public abstract partial class SharedTurnstileSystem : EntitySystem
             !EntityManager.EntityExists(uid)
             || EntityManager.IsQueuedForDeletion(uid)
             || TerminatingOrDeleted(uid)
-            || !HasComp<MetaDataComponent>(uid));
+            || !HasComp<MetaDataComponent>(uid)
+        );
     }
 
-    protected virtual void PlayAnimation(EntityUid uid, string stateId)
-    {
-
-    }
+    protected virtual void PlayAnimation(EntityUid uid, string stateId) { }
 }

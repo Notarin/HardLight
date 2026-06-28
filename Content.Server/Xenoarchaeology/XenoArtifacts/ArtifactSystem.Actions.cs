@@ -7,8 +7,11 @@ namespace Content.Server.Xenoarchaeology.XenoArtifacts;
 
 public partial class ArtifactSystem
 {
-    [Dependency] private readonly ActionsSystem _actions = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
+    [Dependency]
+    private readonly ActionsSystem _actions = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
 
     private static readonly EntProtoId ArtifactActivateActionId = new("ActionArtifactActivate");
 

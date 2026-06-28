@@ -1,7 +1,7 @@
 using Content.Server.Polymorph.Systems;
 using Content.Server.Traits;
-using Content.Shared.GameTicking;
 using Content.Shared._HL.Spawning.Prototypes;
+using Content.Shared.GameTicking;
 using Content.Shared.Polymorph;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Player;
@@ -11,9 +11,14 @@ namespace Content.Server._HL.Spawning.Systems;
 
 public sealed class SpawnCharacterOverrideRuleSystem : EntitySystem
 {
-    [Dependency] private readonly PolymorphSystem _polymorph = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly TraitSystem _traits = default!;
+    [Dependency]
+    private readonly PolymorphSystem _polymorph = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototype = default!;
+
+    [Dependency]
+    private readonly TraitSystem _traits = default!;
 
     public override void Initialize()
     {
@@ -83,7 +88,13 @@ public sealed class SpawnCharacterOverrideRuleSystem : EntitySystem
         }
 
         if (didOverrideEntity)
-            _traits.ApplyProfileTraits(currentMob, args.Profile, args.Player.Name, addTraitGear: false, ignoreEntityRestrictions: true);
+            _traits.ApplyProfileTraits(
+                currentMob,
+                args.Profile,
+                args.Player.Name,
+                addTraitGear: false,
+                ignoreEntityRestrictions: true
+            );
     }
 
     private static bool IsMatch(string name, string match)

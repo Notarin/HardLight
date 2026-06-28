@@ -1,7 +1,7 @@
 - type: entity
   id: HoloFlareCyan
   name: cyan flare
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Physics
     bodyType: Dynamic
@@ -11,11 +11,10 @@
   - type: Fixtures
     fixtures:
       projectile:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.1,-0.1,0.1,0.1"
         mask:
-          - ItemMask # BulletImpassable
+        - ItemMask # BulletImpassable
   - type: Sprite
     sprite: Objects/Weapons/Guns/Projectiles/magic.rsi
     state: magicm_cyan
@@ -46,7 +45,7 @@
   id: HoloFlareRed
   name: red flare
   parent: HoloFlareCyan
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     state: magicm_red
@@ -58,7 +57,7 @@
   id: HoloFlareYellow
   name: yellow flare
   parent: HoloFlareCyan
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     state: magicm_yellow

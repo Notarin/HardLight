@@ -3,6 +3,7 @@ using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
 
 namespace Content.Server.Explosion.Components;
+
 /// <summary>
 /// Grenades that, when triggered, explode into projectiles
 /// </summary>

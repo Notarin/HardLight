@@ -10,7 +10,8 @@ namespace Content.Server.NPC.HTN.PrimitiveTasks.Operators;
 /// </summary>
 public sealed partial class PickAccessibleOperator : HTNOperator
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
     private PathfindingSystem _pathfinding = default!;
 
     [DataField("rangeKey", required: true)]
@@ -32,8 +33,10 @@ public sealed partial class PickAccessibleOperator : HTNOperator
     }
 
     /// <inheritdoc/>
-    public override async Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(NPCBlackboard blackboard,
-        CancellationToken cancelToken)
+    public override async Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(
+        NPCBlackboard blackboard,
+        CancellationToken cancelToken
+    )
     {
         // Very inefficient (should weight each region by its node count) but better than the old system
         var owner = blackboard.GetValue<EntityUid>(NPCBlackboard.Owner);
@@ -47,7 +50,8 @@ public sealed partial class PickAccessibleOperator : HTNOperator
             owner,
             maxRange,
             cancelToken,
-            flags: _pathfinding.GetFlags(blackboard));
+            flags: _pathfinding.GetFlags(blackboard)
+        );
 
         if (path.Result != PathResult.Path)
         {
@@ -56,10 +60,6 @@ public sealed partial class PickAccessibleOperator : HTNOperator
 
         var target = path.Path.Last().Coordinates;
 
-        return (true, new Dictionary<string, object>()
-        {
-            { TargetCoordinates, target },
-            { PathfindKey, path}
-        });
+        return (true, new Dictionary<string, object>() { { TargetCoordinates, target }, { PathfindKey, path } });
     }
 }

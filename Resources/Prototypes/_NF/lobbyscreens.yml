@@ -21,7 +21,7 @@
 - type: lobbyBackground
   id: HandsomeKiller
   background: /Textures/_NF/LobbyScreens/handsomekiller.webp
-  
+
 - type: lobbyBackground
   id: CaughtUp
   background: /Textures/_NF/LobbyScreens/caughtup.webp
@@ -43,9 +43,9 @@
   background: /Textures/_NF/LobbyScreens/paramedicrash.webp
 
 # - type: lobbyBackground
-  # id: StaresBlankly
-  # background: /Textures/_NF/LobbyScreens/staresblankly.webp
+# id: StaresBlankly
+# background: /Textures/_NF/LobbyScreens/staresblankly.webp
 
 # - type: lobbyBackground
-  # id: WyvernShipyards
-  # background: /Textures/_NF/LobbyScreens/wyvernshipyards.webp
+# id: WyvernShipyards
+# background: /Textures/_NF/LobbyScreens/wyvernshipyards.webp

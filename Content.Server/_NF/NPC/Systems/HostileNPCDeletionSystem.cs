@@ -13,10 +13,17 @@ namespace Content.Server._NF.NPC.Systems;
 /// </summary>
 public sealed partial class HostileNPCDeletionSystem : EntitySystem
 {
-    [Dependency] private readonly NpcFactionSystem _npcFaction = default!;
-    [Dependency] private readonly SharedBodySystem _sharedBodySystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency]
+    private readonly NpcFactionSystem _npcFaction = default!;
+
+    [Dependency]
+    private readonly SharedBodySystem _sharedBodySystem = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
 
     public override void Initialize()
     {
@@ -43,14 +50,20 @@ public sealed partial class HostileNPCDeletionSystem : EntitySystem
         var xform = Transform(uid);
         if (TryComp<ProtectedGridComponent>(xform.GridUid, out var protectedGrid))
         {
-            if (protectedGrid.KillHostileMobs
+            if (
+                protectedGrid.KillHostileMobs
                 && TryComp<NpcFactionMemberComponent>(uid, out var npcFactionMember)
-                && _npcFaction.IsFactionHostile("NanoTrasen", (uid, npcFactionMember)))
+                && _npcFaction.IsFactionHostile("NanoTrasen", (uid, npcFactionMember))
+            )
             {
                 _audio.PlayPredicted(protectedGrid.HostileMobKillSound, xform.Coordinates, null);
                 _sharedBodySystem.GibBody(uid);
                 Spawn("Ash", xform.Coordinates);
-                _popup.PopupCoordinates(Loc.GetString("admin-smite-turned-ash-other", ("name", uid)), xform.Coordinates, PopupType.LargeCaution);
+                _popup.PopupCoordinates(
+                    Loc.GetString("admin-smite-turned-ash-other", ("name", uid)),
+                    xform.Coordinates,
+                    PopupType.LargeCaution
+                );
                 QueueDel(uid);
             }
         }

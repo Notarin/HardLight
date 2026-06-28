@@ -12,9 +12,14 @@ namespace Content.Client._NF.Emp.Overlays
 {
     public sealed class EmpBlastOverlay : Overlay
     {
-        [Dependency] private readonly IEntityManager _entityManager = default!;
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly IGameTiming _gameTiming = default!;
+        [Dependency]
+        private readonly IEntityManager _entityManager = default!;
+
+        [Dependency]
+        private readonly IPrototypeManager _prototypeManager = default!;
+
+        [Dependency]
+        private readonly IGameTiming _gameTiming = default!;
         private TransformSystem? _transform;
 
         private const float PvsDist = 25.0f;
@@ -66,7 +71,13 @@ namespace Content.Client._NF.Emp.Overlays
                 shd?.SetParameter("SCREEN_TEXTURE", viewport.RenderTarget.Texture);
 
                 worldHandle.UseShader(shd);
-                worldHandle.DrawRect(Box2.CenteredAround(instance.CurrentMapCoords.Position, new Vector2(instance.Range, instance.Range) * 2f), Color.White);
+                worldHandle.DrawRect(
+                    Box2.CenteredAround(
+                        instance.CurrentMapCoords.Position,
+                        new Vector2(instance.Range, instance.Range) * 2f
+                    ),
+                    Color.White
+                );
             }
 
             worldHandle.UseShader(null);
@@ -92,16 +103,16 @@ namespace Content.Client._NF.Emp.Overlays
                 if (!_blasts.ContainsKey(blastEntity) && BlastQualifies(blastEntity, currentEyeLoc, blast))
                 {
                     _blasts.Add(
-                            blastEntity,
-                            (
-                                _baseShader.Duplicate(),
-                                new EmpShaderInstance(
-                                    _transform.GetMapCoordinates(blastEntity),
-                                    blast.VisualRange,
-                                    blast.StartTime,
-                                    blast.VisualDuration
-                                )
+                        blastEntity,
+                        (
+                            _baseShader.Duplicate(),
+                            new EmpShaderInstance(
+                                _transform.GetMapCoordinates(blastEntity),
+                                blast.VisualRange,
+                                blast.StartTime,
+                                blast.VisualDuration
                             )
+                        )
                     );
                 }
             }
@@ -109,9 +120,11 @@ namespace Content.Client._NF.Emp.Overlays
             var activeShaderIds = _blasts.Keys;
             foreach (var blastEntity in activeShaderIds) //Remove all blasts that are added and no longer qualify
             {
-                if (_entityManager.EntityExists(blastEntity) &&
-                    _entityManager.TryGetComponent(blastEntity, out EmpBlastComponent? blast) &&
-                    BlastQualifies(blastEntity, currentEyeLoc, blast))
+                if (
+                    _entityManager.EntityExists(blastEntity)
+                    && _entityManager.TryGetComponent(blastEntity, out EmpBlastComponent? blast)
+                    && BlastQualifies(blastEntity, currentEyeLoc, blast)
+                )
                 {
                     var shaderInstance = _blasts[blastEntity];
                     shaderInstance.instance.CurrentMapCoords = _transform.GetMapCoordinates(blastEntity);
@@ -123,7 +136,6 @@ namespace Content.Client._NF.Emp.Overlays
                     _blasts.Remove(blastEntity);
                 }
             }
-
         }
 
         private bool BlastQualifies(EntityUid blastEntity, MapCoordinates currentEyeLoc, EmpBlastComponent blast)
@@ -131,10 +143,19 @@ namespace Content.Client._NF.Emp.Overlays
             var transformComponent = _entityManager.GetComponent<TransformComponent>(blastEntity);
             var transformSystem = _entityManager.System<SharedTransformSystem>();
             return transformComponent.MapID == currentEyeLoc.MapId
-                && transformSystem.InRange(transformComponent.Coordinates, transformSystem.ToCoordinates(transformComponent.ParentUid, currentEyeLoc), PvsDist + blast.VisualRange);
+                && transformSystem.InRange(
+                    transformComponent.Coordinates,
+                    transformSystem.ToCoordinates(transformComponent.ParentUid, currentEyeLoc),
+                    PvsDist + blast.VisualRange
+                );
         }
 
-        private sealed record EmpShaderInstance(MapCoordinates CurrentMapCoords, float Range, TimeSpan Start, float Duration)
+        private sealed record EmpShaderInstance(
+            MapCoordinates CurrentMapCoords,
+            float Range,
+            TimeSpan Start,
+            float Duration
+        )
         {
             public MapCoordinates CurrentMapCoords = CurrentMapCoords;
             public float Range = Range;
@@ -143,4 +164,3 @@ namespace Content.Client._NF.Emp.Overlays
         };
     }
 }
-

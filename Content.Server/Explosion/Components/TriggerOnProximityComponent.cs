@@ -10,7 +10,6 @@ using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
 namespace Content.Server.Explosion.Components
 {
-
     /// <summary>
     /// Raises a <see cref="TriggerEvent"/> whenever an entity collides with a fixture attached to the owner of this component.
     /// </summary>
@@ -89,8 +88,10 @@ namespace Content.Server.Explosion.Components
         /// </summary>
         [ViewVariables]
         [DataField("layer", customTypeSerializer: typeof(FlagSerializer<CollisionLayer>))]
-        public int Layer = (int) (CollisionGroup.MidImpassable | CollisionGroup.LowImpassable | CollisionGroup.HighImpassable);
-        
+        public int Layer = (int)(
+            CollisionGroup.MidImpassable | CollisionGroup.LowImpassable | CollisionGroup.HighImpassable
+        );
+
         /// <summary>
         /// Frontier: Use Whitelist to trigger
         /// </summary>

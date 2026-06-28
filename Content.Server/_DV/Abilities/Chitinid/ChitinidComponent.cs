@@ -22,13 +22,7 @@ public sealed partial class ChitinidComponent : Component
     public FixedPoint2 AmountAbsorbed = 0f;
 
     [DataField]
-    public DamageSpecifier Healing = new()
-    {
-        DamageDict = new()
-        {
-            { "Radiation", -0.5 },
-        }
-    };
+    public DamageSpecifier Healing = new() { DamageDict = new() { { "Radiation", -0.5 } } };
 
     [DataField]
     public FixedPoint2 MaximumAbsorbed = 30f;

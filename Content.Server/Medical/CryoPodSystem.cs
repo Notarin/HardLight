@@ -9,12 +9,11 @@ using Content.Server.NodeContainer.EntitySystems;
 using Content.Server.NodeContainer.NodeGroups;
 using Content.Server.NodeContainer.Nodes;
 using Content.Server.Temperature.Components;
-using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Atmos;
-using Content.Shared.UserInterface;
 using Content.Shared.Chemistry;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.Components.SolutionManager;
+using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Climbing.Systems;
 using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Database;
@@ -26,6 +25,7 @@ using Content.Shared.Interaction;
 using Content.Shared.Medical.Cryogenics;
 using Content.Shared.MedicalScanner;
 using Content.Shared.Power;
+using Content.Shared.UserInterface;
 using Content.Shared.Verbs;
 using Robust.Server.GameObjects;
 using Robust.Shared.Containers;
@@ -36,23 +36,59 @@ namespace Content.Server.Medical;
 
 public sealed partial class CryoPodSystem : SharedCryoPodSystem
 {
-    [Dependency] private readonly AtmosphereSystem _atmosphereSystem = default!;
-    [Dependency] private readonly GasCanisterSystem _gasCanisterSystem = default!;
-    [Dependency] private readonly ClimbSystem _climbSystem = default!;
-    [Dependency] private readonly ItemSlotsSystem _itemSlotsSystem = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
-    [Dependency] private readonly BloodstreamSystem _bloodstreamSystem = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
-    [Dependency] private readonly UserInterfaceSystem _uiSystem = default!;
-    [Dependency] private readonly SharedToolSystem _toolSystem = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly MetaDataSystem _metaDataSystem = default!;
-    [Dependency] private readonly ReactiveSystem _reactiveSystem = default!;
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly NodeContainerSystem _nodeContainer = default!;
+    [Dependency]
+    private readonly AtmosphereSystem _atmosphereSystem = default!;
+
+    [Dependency]
+    private readonly GasCanisterSystem _gasCanisterSystem = default!;
+
+    [Dependency]
+    private readonly ClimbSystem _climbSystem = default!;
+
+    [Dependency]
+    private readonly ItemSlotsSystem _itemSlotsSystem = default!;
+
+    [Dependency]
+    private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
+
+    [Dependency]
+    private readonly BloodstreamSystem _bloodstreamSystem = default!;
+
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfterSystem = default!;
+
+    [Dependency]
+    private readonly UserInterfaceSystem _uiSystem = default!;
+
+    [Dependency]
+    private readonly SharedToolSystem _toolSystem = default!;
+
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
+
+    [Dependency]
+    private readonly MetaDataSystem _metaDataSystem = default!;
+
+    [Dependency]
+    private readonly ReactiveSystem _reactiveSystem = default!;
+
+    [Dependency]
+    private readonly IAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    private readonly NodeContainerSystem _nodeContainer = default!;
 
     // Frontier: keep a list of cryogenics reagents. The pod will only filter these out from the provided solution.
-    private static readonly string[] CryogenicsReagents = ["Cryoxadone", "Aloxadone", "Doxarubixadone", "Opporozidone", "Necrosol", "Traumoxadone", "Stelloxadone"];
+    private static readonly string[] CryogenicsReagents =
+    [
+        "Cryoxadone",
+        "Aloxadone",
+        "Doxarubixadone",
+        "Opporozidone",
+        "Necrosol",
+        "Traumoxadone",
+        "Stelloxadone",
+    ];
 
     public override void Initialize()
     {
@@ -101,24 +137,31 @@ public sealed partial class CryoPodSystem : SharedCryoPodSystem
             }
             var container = _itemSlotsSystem.GetItemOrNull(uid, cryoPod.SolutionContainerName, itemSlotsComponent);
             var patient = cryoPod.BodyContainer.ContainedEntity;
-            if (container != null
+            if (
+                container != null
                 && container.Value.Valid
                 && patient != null
                 && fitsInDispenserQuery.TryGetComponent(container, out var fitsInDispenserComponent)
-                && solutionContainerManagerQuery.TryGetComponent(container,
-                    out var solutionContainerManagerComponent)
-                && _solutionContainerSystem.TryGetFitsInDispenser((container.Value, fitsInDispenserComponent, solutionContainerManagerComponent),
-                    out var containerSolution, out _))
+                && solutionContainerManagerQuery.TryGetComponent(container, out var solutionContainerManagerComponent)
+                && _solutionContainerSystem.TryGetFitsInDispenser(
+                    (container.Value, fitsInDispenserComponent, solutionContainerManagerComponent),
+                    out var containerSolution,
+                    out _
+                )
+            )
             {
                 if (!bloodStreamQuery.TryGetComponent(patient, out var bloodstream))
                 {
                     continue;
                 }
 
-
                 // Frontier
                 // Filter out a fixed amount of each reagent from the cryo pod's beaker
-                var solutionToInject = _solutionContainerSystem.SplitSolutionPerReagentWithOnly(containerSolution.Value, cryoPod.BeakerTransferAmount, CryogenicsReagents);
+                var solutionToInject = _solutionContainerSystem.SplitSolutionPerReagentWithOnly(
+                    containerSolution.Value,
+                    cryoPod.BeakerTransferAmount,
+                    CryogenicsReagents
+                );
 
                 // For every .25 units used, .5 units per second are added to the body, making cryo-pod more efficient than injections.
                 solutionToInject.ScaleSolution(cryoPod.PotencyMultiplier);
@@ -148,7 +191,15 @@ public sealed partial class CryoPodSystem : SharedCryoPodSystem
         if (entity.Comp.BodyContainer.ContainedEntity != null)
             return;
 
-        var doAfterArgs = new DoAfterArgs(EntityManager, args.User, entity.Comp.EntryDelay, new CryoPodDragFinished(), entity, target: args.Dragged, used: entity)
+        var doAfterArgs = new DoAfterArgs(
+            EntityManager,
+            args.User,
+            entity.Comp.EntryDelay,
+            new CryoPodDragFinished(),
+            entity,
+            target: args.Dragged,
+            used: entity
+        )
         {
             BreakOnDamage = true,
             BreakOnMove = true,
@@ -166,11 +217,17 @@ public sealed partial class CryoPodSystem : SharedCryoPodSystem
         if (InsertBody(entity.Owner, args.Args.Target.Value, entity.Comp))
         {
             if (!TryComp(entity.Owner, out CryoPodAirComponent? cryoPodAir))
-                _adminLogger.Add(LogType.Action, LogImpact.Medium,
-                    $"{ToPrettyString(args.User)} inserted {ToPrettyString(args.Args.Target.Value)} into {ToPrettyString(entity.Owner)}");
+                _adminLogger.Add(
+                    LogType.Action,
+                    LogImpact.Medium,
+                    $"{ToPrettyString(args.User)} inserted {ToPrettyString(args.Args.Target.Value)} into {ToPrettyString(entity.Owner)}"
+                );
 
-            _adminLogger.Add(LogType.Action, LogImpact.Medium,
-                $"{ToPrettyString(args.User)} inserted {ToPrettyString(args.Args.Target.Value)} into {ToPrettyString(entity.Owner)} which contains gas: {cryoPodAir!.Air.ToPrettyString():gasMix}");
+            _adminLogger.Add(
+                LogType.Action,
+                LogImpact.Medium,
+                $"{ToPrettyString(args.User)} inserted {ToPrettyString(args.Args.Target.Value)} into {ToPrettyString(entity.Owner)} which contains gas: {cryoPodAir!.Air.ToPrettyString():gasMix}"
+            );
         }
         args.Handled = true;
     }
@@ -206,19 +263,28 @@ public sealed partial class CryoPodSystem : SharedCryoPodSystem
         _uiSystem.ServerSendUiMessage(
             entity.Owner,
             HealthAnalyzerUiKey.Key,
-            new HealthAnalyzerScannedUserMessage(GetNetEntity(entity.Comp.BodyContainer.ContainedEntity),
-            temp?.CurrentTemperature ?? 0,
-            (bloodstream != null && _solutionContainerSystem.ResolveSolution(entity.Comp.BodyContainer.ContainedEntity.Value,
-                bloodstream.BloodSolutionName, ref bloodstream.BloodSolution, out var bloodSolution))
-                ? bloodSolution.FillFraction
-                : 0,
-            null,
-            null,
-            null,
-            null, // DeltaV: Uncloneable
-            null, // Shitmed
-            null // Shitmed
-        ));
+            new HealthAnalyzerScannedUserMessage(
+                GetNetEntity(entity.Comp.BodyContainer.ContainedEntity),
+                temp?.CurrentTemperature ?? 0,
+                (
+                    bloodstream != null
+                    && _solutionContainerSystem.ResolveSolution(
+                        entity.Comp.BodyContainer.ContainedEntity.Value,
+                        bloodstream.BloodSolutionName,
+                        ref bloodstream.BloodSolution,
+                        out var bloodSolution
+                    )
+                )
+                    ? bloodSolution.FillFraction
+                    : 0,
+                null,
+                null,
+                null,
+                null, // DeltaV: Uncloneable
+                null, // Shitmed
+                null // Shitmed
+            )
+        );
     }
 
     private void OnInteractUsing(Entity<CryoPodComponent> entity, ref InteractUsingEvent args)
@@ -226,13 +292,24 @@ public sealed partial class CryoPodSystem : SharedCryoPodSystem
         if (args.Handled || !entity.Comp.Locked || entity.Comp.BodyContainer.ContainedEntity == null)
             return;
 
-        args.Handled = _toolSystem.UseTool(args.Used, args.User, entity.Owner, entity.Comp.PryDelay, "Prying", new CryoPodPryFinished());
+        args.Handled = _toolSystem.UseTool(
+            args.Used,
+            args.User,
+            entity.Owner,
+            entity.Comp.PryDelay,
+            "Prying",
+            new CryoPodPryFinished()
+        );
     }
 
     private void OnExamined(Entity<CryoPodComponent> entity, ref ExaminedEvent args)
     {
         var container = _itemSlotsSystem.GetItemOrNull(entity.Owner, entity.Comp.SolutionContainerName);
-        if (args.IsInDetailsRange && container != null && _solutionContainerSystem.TryGetFitsInDispenser(container.Value, out _, out var containerSolution))
+        if (
+            args.IsInDetailsRange
+            && container != null
+            && _solutionContainerSystem.TryGetFitsInDispenser(container.Value, out _, out var containerSolution)
+        )
         {
             using (args.PushGroup(nameof(CryoPodComponent)))
             {

@@ -18,16 +18,19 @@ public sealed class ChannelFilterButton : ChatPopupButton<ChannelFilterPopup>
     public ChannelFilterButton()
     {
         _chatUIController = UserInterfaceManager.GetUIController<ChatUIController>();
-        var filterTexture = IoCManager.Resolve<IResourceCache>()
+        var filterTexture = IoCManager
+            .Resolve<IResourceCache>()
             .GetTexture("/Textures/Interface/Nano/filter.svg.96dpi.png");
 
         AddChild(
-            (_textureRect = new TextureRect
-            {
-                Texture = filterTexture,
-                HorizontalAlignment = HAlignment.Center,
-                VerticalAlignment = VAlignment.Center
-            })
+            (
+                _textureRect = new TextureRect
+                {
+                    Texture = filterTexture,
+                    HorizontalAlignment = HAlignment.Center,
+                    VerticalAlignment = VAlignment.Center,
+                }
+            )
         );
 
         _chatUIController.FilterableChannelsChanged += Popup.SetChannels;
@@ -41,12 +44,14 @@ public sealed class ChannelFilterButton : ChatPopupButton<ChannelFilterPopup>
         var (minX, minY) = Popup.MinSize;
         return UIBox2.FromDimensions(
             globalPos - new Vector2(FilterDropdownOffset, 0),
-            new Vector2(Math.Max(minX, Popup.MinWidth), minY));
+            new Vector2(Math.Max(minX, Popup.MinWidth), minY)
+        );
     }
 
     private void UpdateChildColors()
     {
-        if (_textureRect == null) return;
+        if (_textureRect == null)
+            return;
         switch (DrawMode)
         {
             case DrawModeEnum.Normal:

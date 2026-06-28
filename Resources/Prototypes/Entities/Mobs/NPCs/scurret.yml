@@ -1,4 +1,4 @@
-﻿# Defines the scurret, a small, agile sapient species intended for players who want to play as something similar to an ewok.
+# Defines the scurret, a small, agile sapient species intended for players who want to play as something similar to an ewok.
 # Although based on MobBaseAncestor, this species does not have a "developed" playable species it is an ancestor to.
 
 - type: entity
@@ -21,7 +21,7 @@
     - map: ["enum.DamageStateVisualLayers.Base"]
       sprite: Mobs/Animals/scurret/scurret.rsi
       state: scurret
-    - map: [ "enum.HumanoidVisualLayers.Handcuffs" ]
+    - map: ["enum.HumanoidVisualLayers.Handcuffs"]
       color: "#ffffff"
       sprite: Objects/Misc/handcuffs.rsi
       state: body-overlay-2
@@ -206,19 +206,19 @@
   parent: MobBaseScurret
   abstract: true
   components:
-    - type: Loadout
-      prototypes: [ EmotionalSupportScurretGear ]
-    - type: NpcFactionMember
-      factions:
-      - Wawa
-    - type: GhostRole
-      makeSentient: true
-      name: ghost-role-information-emotional-support-scurret-name
-      description: ghost-role-information-emotional-support-scurret-description
-      rules: ghost-role-information-nonantagonist-rules
-      raffle:
-        settings: default
-    - type: GhostTakeoverAvailable
+  - type: Loadout
+    prototypes: [EmotionalSupportScurretGear]
+  - type: NpcFactionMember
+    factions:
+    - Wawa
+  - type: GhostRole
+    makeSentient: true
+    name: ghost-role-information-emotional-support-scurret-name
+    description: ghost-role-information-emotional-support-scurret-description
+    rules: ghost-role-information-nonantagonist-rules
+    raffle:
+      settings: default
+  - type: GhostTakeoverAvailable
 
 # Spawnable ESS have a ghost role, equipment, a random name and a random colour.
 

@@ -1,7 +1,7 @@
 using System.Linq;
+using Content.Shared._Floof.Lock; // HardLight
 using Content.Shared.Access.Components;
 using Content.Shared.Access.Systems;
-using Content.Shared._Floof.Lock; // HardLight
 using Content.Shared.Administration.Logs;
 using Content.Shared.Damage;
 using Content.Shared.Database;
@@ -19,39 +19,75 @@ using Content.Shared.Stunnable;
 using Content.Shared.Tag;
 using Content.Shared.Tools.Systems;
 using Robust.Shared.Audio;
+using Robust.Shared.Audio.Systems;
+using Robust.Shared.Map.Components;
+using Robust.Shared.Network;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Events;
 using Robust.Shared.Physics.Systems;
-using Robust.Shared.Timing;
-using Robust.Shared.Audio.Systems;
-using Robust.Shared.Network;
-using Robust.Shared.Map.Components;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Timing;
 
 namespace Content.Shared.Doors.Systems;
 
 public abstract partial class SharedDoorSystem : EntitySystem
 {
-    [Dependency] private readonly ISharedAdminLogManager _adminLog = default!;
-    [Dependency] protected readonly IGameTiming GameTiming = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] protected readonly SharedPhysicsSystem PhysicsSystem = default!;
-    [Dependency] private readonly DamageableSystem _damageableSystem = default!;
-    [Dependency] private readonly EmagSystem _emag = default!;
-    [Dependency] private readonly SharedStunSystem _stunSystem = default!;
-    [Dependency] protected readonly TagSystem Tags = default!;
-    [Dependency] protected readonly SharedAudioSystem Audio = default!;
-    [Dependency] private readonly EntityLookupSystem _entityLookup = default!;
-    [Dependency] protected readonly SharedAppearanceSystem AppearanceSystem = default!;
-    [Dependency] private readonly OccluderSystem _occluder = default!;
-    [Dependency] private readonly AccessReaderSystem _accessReaderSystem = default!;
-    [Dependency] private readonly SharedIdCardSystem _idCardSystem = default!; // HardLight
-    [Dependency] private readonly PryingSystem _pryingSystem = default!;
-    [Dependency] protected readonly SharedPopupSystem Popup = default!;
-    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
-    [Dependency] private readonly SharedPowerReceiverSystem _powerReceiver = default!;
-    [Dependency] private readonly SharedHandsSystem _handsSystem = default!; // HardLight
+    [Dependency]
+    private readonly ISharedAdminLogManager _adminLog = default!;
 
+    [Dependency]
+    protected readonly IGameTiming GameTiming = default!;
+
+    [Dependency]
+    private readonly INetManager _net = default!;
+
+    [Dependency]
+    protected readonly SharedPhysicsSystem PhysicsSystem = default!;
+
+    [Dependency]
+    private readonly DamageableSystem _damageableSystem = default!;
+
+    [Dependency]
+    private readonly EmagSystem _emag = default!;
+
+    [Dependency]
+    private readonly SharedStunSystem _stunSystem = default!;
+
+    [Dependency]
+    protected readonly TagSystem Tags = default!;
+
+    [Dependency]
+    protected readonly SharedAudioSystem Audio = default!;
+
+    [Dependency]
+    private readonly EntityLookupSystem _entityLookup = default!;
+
+    [Dependency]
+    protected readonly SharedAppearanceSystem AppearanceSystem = default!;
+
+    [Dependency]
+    private readonly OccluderSystem _occluder = default!;
+
+    [Dependency]
+    private readonly AccessReaderSystem _accessReaderSystem = default!;
+
+    [Dependency]
+    private readonly SharedIdCardSystem _idCardSystem = default!; // HardLight
+
+    [Dependency]
+    private readonly PryingSystem _pryingSystem = default!;
+
+    [Dependency]
+    protected readonly SharedPopupSystem Popup = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _mapSystem = default!;
+
+    [Dependency]
+    private readonly SharedPowerReceiverSystem _powerReceiver = default!;
+
+    [Dependency]
+    private readonly SharedHandsSystem _handsSystem = default!; // HardLight
 
     public static readonly ProtoId<TagPrototype> DoorBumpTag = "DoorBumpOpener";
 
@@ -110,7 +146,8 @@ public abstract partial class SharedDoorSystem : EntitySystem
         }
 
         // should this door have collision and the like enabled?
-        var collidable = door.State is DoorState.Closed or DoorState.Welded // HardLight: ==<is and added DoorState.Welded
+        var collidable =
+            door.State is DoorState.Closed or DoorState.Welded // HardLight: ==<is and added DoorState.Welded
             || door.State == DoorState.Closing && door.Partial
             || door.State == DoorState.Opening && !door.Partial;
 
@@ -158,8 +195,7 @@ public abstract partial class SharedDoorSystem : EntitySystem
         if (!_emag.CheckFlag(uid, EmagType.Access))
             return;
 
-        if (TryComp<DoorBoltComponent>(uid, out var doorBolt)
-            && IsBolted(uid, doorBolt))
+        if (TryComp<DoorBoltComponent>(uid, out var doorBolt) && IsBolted(uid, doorBolt))
         {
             SetBoltsDown((uid, doorBolt), false, args.UserUid, true);
         }
@@ -239,12 +275,13 @@ public abstract partial class SharedDoorSystem : EntitySystem
         if (args.Handled || !args.Complex || !door.ClickOpen)
             return;
 
-        if (!TryToggleDoor(uid, door, args.User, predicted: true)
-            && CanAttemptPryFallback(door.State)) // HardLight
+        if (!TryToggleDoor(uid, door, args.User, predicted: true) && CanAttemptPryFallback(door.State)) // HardLight
         // HardLight start
         {
-            if (_handsSystem.TryGetActiveItem(args.User, out var activeItem)
-                && TryComp<PryingComponent>(activeItem, out var activePry))
+            if (
+                _handsSystem.TryGetActiveItem(args.User, out var activeItem)
+                && TryComp<PryingComponent>(activeItem, out var activePry)
+            )
             {
                 _pryingSystem.TryPry(uid, args.User, out _, activeItem.Value, activePry!);
             }
@@ -281,12 +318,20 @@ public abstract partial class SharedDoorSystem : EntitySystem
     {
         if (door.State == DoorState.Closed)
         {
-            _adminLog.Add(LogType.Action, LogImpact.Medium, $"{ToPrettyString(args.User)} pried {ToPrettyString(uid)} open");
+            _adminLog.Add(
+                LogType.Action,
+                LogImpact.Medium,
+                $"{ToPrettyString(args.User)} pried {ToPrettyString(uid)} open"
+            );
             StartOpening(uid, door, args.User, true);
         }
         else if (door.State == DoorState.Open)
         {
-            _adminLog.Add(LogType.Action, LogImpact.Medium, $"{ToPrettyString(args.User)} pried {ToPrettyString(uid)} closed");
+            _adminLog.Add(
+                LogType.Action,
+                LogImpact.Medium,
+                $"{ToPrettyString(args.User)} pried {ToPrettyString(uid)} closed"
+            );
             StartClosing(uid, door, args.User, true);
         }
     }
@@ -322,6 +367,7 @@ public abstract partial class SharedDoorSystem : EntitySystem
         if (component.State != DoorState.Closed)
             args.Cancelled = true;
     }
+
     // HardLight end
 
     /// <summary>
@@ -371,7 +417,13 @@ public abstract partial class SharedDoorSystem : EntitySystem
     #endregion
 
     #region Opening
-    public bool TryOpen(EntityUid uid, DoorComponent? door = null, EntityUid? user = null, bool predicted = false, bool quiet = false)
+    public bool TryOpen(
+        EntityUid uid,
+        DoorComponent? door = null,
+        EntityUid? user = null,
+        bool predicted = false,
+        bool quiet = false
+    )
     {
         if (!Resolve(uid, ref door))
             return false;
@@ -447,7 +499,6 @@ public abstract partial class SharedDoorSystem : EntitySystem
         door.NextStateChange = GameTiming.CurTime + door.CloseTimeTwo;
         _activeDoors.Add((uid, door));
         Dirty(uid, door);
-
     }
 
     /// <summary>
@@ -563,7 +614,8 @@ public abstract partial class SharedDoorSystem : EntitySystem
         bool collidable,
         DoorComponent? door = null,
         PhysicsComponent? physics = null,
-        OccluderComponent? occluder = null)
+        OccluderComponent? occluder = null
+    )
     {
         if (!Resolve(uid, ref door))
             return;
@@ -624,7 +676,13 @@ public abstract partial class SharedDoorSystem : EntitySystem
         var tileRef = _mapSystem.GetTileRef(xform.GridUid.Value, mapGridComp, xform.Coordinates);
 
         _doorIntersecting.Clear();
-        _entityLookup.GetLocalEntitiesIntersecting(xform.GridUid.Value, tileRef.GridIndices, _doorIntersecting, gridComp: mapGridComp, flags: (LookupFlags.All & ~LookupFlags.Sensors));
+        _entityLookup.GetLocalEntitiesIntersecting(
+            xform.GridUid.Value,
+            tileRef.GridIndices,
+            _doorIntersecting,
+            gridComp: mapGridComp,
+            flags: (LookupFlags.All & ~LookupFlags.Sensors)
+        );
 
         // TODO SLOTH fix electro's code.
         // ReSharper disable once InconsistentNaming
@@ -639,7 +697,11 @@ public abstract partial class SharedDoorSystem : EntitySystem
 
             //TODO: Make only shutters ignore these objects upon colliding instead of all airlocks
             // Excludes Glasslayer for windows, GlassAirlockLayer for windoors, TableLayer for tables
-            if (otherPhysics.Comp.CollisionLayer == (int) CollisionGroup.GlassLayer || otherPhysics.Comp.CollisionLayer == (int) CollisionGroup.GlassAirlockLayer || otherPhysics.Comp.CollisionLayer == (int) CollisionGroup.TableLayer)
+            if (
+                otherPhysics.Comp.CollisionLayer == (int)CollisionGroup.GlassLayer
+                || otherPhysics.Comp.CollisionLayer == (int)CollisionGroup.GlassAirlockLayer
+                || otherPhysics.Comp.CollisionLayer == (int)CollisionGroup.TableLayer
+            )
                 continue;
 
             // Ignore low-passable entities.
@@ -647,10 +709,13 @@ public abstract partial class SharedDoorSystem : EntitySystem
                 continue;
 
             //For when doors need to close over conveyor belts
-            if (otherPhysics.Comp.CollisionLayer == (int) CollisionGroup.ConveyorMask)
+            if (otherPhysics.Comp.CollisionLayer == (int)CollisionGroup.ConveyorMask)
                 continue;
 
-            if ((physics.CollisionMask & otherPhysics.Comp.CollisionLayer) == 0 && (otherPhysics.Comp.CollisionMask & physics.CollisionLayer) == 0)
+            if (
+                (physics.CollisionMask & otherPhysics.Comp.CollisionLayer) == 0
+                && (otherPhysics.Comp.CollisionMask & physics.CollisionLayer) == 0
+            )
                 continue;
 
             yield return otherPhysics.Owner;
@@ -691,7 +756,12 @@ public abstract partial class SharedDoorSystem : EntitySystem
     /// <summary>
     ///     Does the user have the permissions required to open this door?
     /// </summary>
-    public bool HasAccess(EntityUid uid, EntityUid? user = null, DoorComponent? door = null, AccessReaderComponent? access = null)
+    public bool HasAccess(
+        EntityUid uid,
+        EntityUid? user = null,
+        DoorComponent? door = null,
+        AccessReaderComponent? access = null
+    )
     {
         // TODO network AccessComponent for predicting doors
 
@@ -704,8 +774,11 @@ public abstract partial class SharedDoorSystem : EntitySystem
             return true;
 
         // Anyone can click to open firelocks
-        if (Resolve(uid, ref door) && door.State == DoorState.Closed &&
-            TryComp<FirelockComponent>(uid, out var firelock))
+        if (
+            Resolve(uid, ref door)
+            && door.State == DoorState.Closed
+            && TryComp<FirelockComponent>(uid, out var firelock)
+        )
             return true;
 
         // HardLight start
@@ -715,19 +788,25 @@ public abstract partial class SharedDoorSystem : EntitySystem
 
         // ID-lock behaves like a normal access restriction gate: if engaged, the opener must match owner info
         // or have one of the configured master access tags.
-        if (TryComp<IdLockComponent>(uid, out var idLock)
+        if (
+            TryComp<IdLockComponent>(uid, out var idLock)
             && idLock.Enabled
-            && idLock.State == IdLockComponent.LockState.Engaged)
+            && idLock.State == IdLockComponent.LockState.Engaged
+        )
         {
             if (!_idCardSystem.TryFindIdCard(user.Value, out var idCard))
                 return false;
 
-            if (idLock.Info.OwnerName == idCard.Comp.FullName
-                && idLock.Info.OwnerJobTitle == idCard.Comp.LocalizedJobTitle)
+            if (
+                idLock.Info.OwnerName == idCard.Comp.FullName
+                && idLock.Info.OwnerJobTitle == idCard.Comp.LocalizedJobTitle
+            )
                 return true;
 
-            if (TryComp<AccessComponent>(idCard, out var idAccess)
-                && idLock.MasterAccesses.Any(tag => idAccess.Tags.Contains(tag)))
+            if (
+                TryComp<AccessComponent>(idCard, out var idAccess)
+                && idLock.MasterAccesses.Any(tag => idAccess.Tags.Contains(tag))
+            )
                 return true;
 
             return false;
@@ -744,7 +823,7 @@ public abstract partial class SharedDoorSystem : EntitySystem
             // Some game modes modify access rules.
             AccessTypes.AllowAllIdExternal => !isExternal || _accessReaderSystem.IsAllowed(user.Value, uid, access),
             AccessTypes.AllowAllNoExternal => !isExternal,
-            _ => _accessReaderSystem.IsAllowed(user.Value, uid, access)
+            _ => _accessReaderSystem.IsAllowed(user.Value, uid, access),
         };
     }
 
@@ -760,17 +839,20 @@ public abstract partial class SharedDoorSystem : EntitySystem
     {
         /// <summary> ID based door access. </summary>
         Id,
+
         /// <summary>
         /// Allows everyone to open doors, except external which airlocks are still handled with ID's
         /// </summary>
         AllowAllIdExternal,
+
         /// <summary>
         /// Allows everyone to open doors, except external airlocks which are never allowed, even if the user has
         /// ID access.
         /// </summary>
         AllowAllNoExternal,
+
         /// <summary> Allows everyone to open all doors. </summary>
-        AllowAll
+        AllowAll,
     }
     #endregion
 
@@ -840,8 +922,7 @@ public abstract partial class SharedDoorSystem : EntitySystem
             if (door.NextStateChange.Value < time)
                 NextState(ent, time);
 
-            if (door.State == DoorState.Closed &&
-                TryComp<PhysicsComponent>(ent, out var doorBody))
+            if (door.State == DoorState.Closed && TryComp<PhysicsComponent>(ent, out var doorBody))
             {
                 // If something bumped into us during closing then start to re-open, otherwise, remove it from active.
                 _activeDoors.Remove(ent);

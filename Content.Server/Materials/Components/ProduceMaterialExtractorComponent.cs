@@ -21,10 +21,7 @@ public sealed partial class ProduceMaterialExtractorComponent : Component
     /// List of reagents that determines how much material is yielded from a produce.
     /// </summary>
     [DataField]
-    public List<ProtoId<ReagentPrototype>> ExtractionReagents = new()
-    {
-        "Nutriment"
-    };
+    public List<ProtoId<ReagentPrototype>> ExtractionReagents = new() { "Nutriment" };
 
     [DataField]
     public SoundSpecifier? ExtractSound = new SoundPathSpecifier("/Audio/Effects/waterswirl.ogg");

@@ -424,7 +424,6 @@
   materials:
     Steel: 112
 
-
 - type: latheRecipe
   parent: BaseAmmoRecipe
   id: BaseAmmoUraniumPistolCaliberAmmoBoxRecipe

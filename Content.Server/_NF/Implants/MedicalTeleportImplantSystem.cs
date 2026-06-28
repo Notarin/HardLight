@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.Numerics;
+using System.Threading;
 using Content.Server.Implants;
 using Content.Server.Radio.EntitySystems;
 using Content.Server.Salvage.Expeditions;
@@ -15,9 +18,6 @@ using Robust.Shared.Containers;
 using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
-using System.Collections.Generic;
-using System.Numerics;
-using System.Threading;
 using YamlDotNet.Serialization;
 
 namespace Content.Server._NF.Implants;
@@ -31,21 +31,37 @@ namespace Content.Server._NF.Implants;
 /// </summary>
 public sealed class MedicalTeleportImplantSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedTransformSystem _xform = default!;
-    [Dependency] private readonly SharedContainerSystem _containers = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly RadioSystem _radio = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _xform = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _containers = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly RadioSystem _radio = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
 
     public override void Initialize()
     {
         base.Initialize();
 
         // Listen for mob state changes relayed from the implanted owner to the implant entity.
-        SubscribeLocalEvent<MedicalTeleportImplantComponent, ImplantRelayEvent<MobStateChangedEvent>>(OnMobStateChanged);
+        SubscribeLocalEvent<MedicalTeleportImplantComponent, ImplantRelayEvent<MobStateChangedEvent>>(
+            OnMobStateChanged
+        );
         // Cleanup: if the implant gets removed, ensure any pending extraction is canceled.
-        SubscribeLocalEvent<MedicalTeleportImplantComponent, EntGotRemovedFromContainerMessage>(OnImplantRemoved, before: [typeof(SubdermalImplantSystem)]);
+        SubscribeLocalEvent<MedicalTeleportImplantComponent, EntGotRemovedFromContainerMessage>(
+            OnImplantRemoved,
+            before: [typeof(SubdermalImplantSystem)]
+        );
 
         // Do not subscribe to FultonedComponent shutdown here; FultonSystem already does and directed
         // subscriptions must be unique per component/event. We'll schedule our own timer on fulton.
@@ -54,7 +70,11 @@ public sealed class MedicalTeleportImplantSystem : EntitySystem
     // Track pending teleports and arrival announcements so they can be canceled on revival/removal.
     private readonly Dictionary<EntityUid, CancellationTokenSource> _pendingActions = new();
 
-    private void OnImplantRemoved(EntityUid uid, MedicalTeleportImplantComponent comp, EntGotRemovedFromContainerMessage args)
+    private void OnImplantRemoved(
+        EntityUid uid,
+        MedicalTeleportImplantComponent comp,
+        EntGotRemovedFromContainerMessage args
+    )
     {
         // If the implant was removed from someone, cancel pending fulton on that person.
         if (!TryComp<SubdermalImplantComponent>(uid, out var implanted) || implanted.ImplantedEntity == null)
@@ -77,7 +97,11 @@ public sealed class MedicalTeleportImplantSystem : EntitySystem
             RemComp<FultonedComponent>(owner);
     }
 
-    private void OnMobStateChanged(EntityUid uid, MedicalTeleportImplantComponent comp, ImplantRelayEvent<MobStateChangedEvent> ev)
+    private void OnMobStateChanged(
+        EntityUid uid,
+        MedicalTeleportImplantComponent comp,
+        ImplantRelayEvent<MobStateChangedEvent> ev
+    )
     {
         // Identify implanted owner
         if (!TryComp<SubdermalImplantComponent>(uid, out var implanted) || implanted.ImplantedEntity == null)
@@ -130,24 +154,36 @@ public sealed class MedicalTeleportImplantSystem : EntitySystem
         var speciesText = $"";
         if (TryComp<HumanoidAppearanceComponent>(implanted.ImplantedEntity, out var species))
             speciesText = $" ({species!.Species})";
-        var deathMessage = Loc.GetString(comp.DeathMessage, ("user", owner), ("specie", speciesText), ("delaySeconds", comp.TeleportDelay.TotalSeconds));
+        var deathMessage = Loc.GetString(
+            comp.DeathMessage,
+            ("user", owner),
+            ("specie", speciesText),
+            ("delaySeconds", comp.TeleportDelay.TotalSeconds)
+        );
         _radio.SendRadioMessage(uid, deathMessage, _prototypeManager.Index(comp.RadioChannel), uid);
 
         // Schedule teleportation after delay.
         var newCts = new CancellationTokenSource();
         _pendingActions[owner] = newCts;
-        Robust.Shared.Timing.Timer.Spawn(comp.TeleportDelay, () =>
-        {
-            if (newCts.IsCancellationRequested || Deleted(owner))
-                return;
+        Robust.Shared.Timing.Timer.Spawn(
+            comp.TeleportDelay,
+            () =>
+            {
+                if (newCts.IsCancellationRequested || Deleted(owner))
+                    return;
 
-            MedicalTeleportSetFulton(uid, comp, implanted, owner);
-        });
+                MedicalTeleportSetFulton(uid, comp, implanted, owner);
+            }
+        );
     }
 
-    private void MedicalTeleportSetFulton(EntityUid uid, MedicalTeleportImplantComponent comp, SubdermalImplantComponent implanted, EntityUid owner)
+    private void MedicalTeleportSetFulton(
+        EntityUid uid,
+        MedicalTeleportImplantComponent comp,
+        SubdermalImplantComponent implanted,
+        EntityUid owner
+    )
     {
-
         // Respect teleport cooldown; if still cooling down, do nothing (no sound, no schedule)
         if (_timing.CurTime < comp.NextAllowedTeleport)
             return;
@@ -191,42 +227,51 @@ public sealed class MedicalTeleportImplantSystem : EntitySystem
         var newCts = new CancellationTokenSource();
         _pendingActions[owner] = newCts;
         var scheduledBeacon = beacon.Value;
-        Robust.Shared.Timing.Timer.Spawn(comp.TeleportDuration + TimeSpan.FromMilliseconds(50), () =>
-        {
-            if (newCts.IsCancellationRequested || Deleted(owner))
-                return;
-
-            // Only announce for rescue beacons.
-            if (!HasComp<RescueBeaconComponent>(scheduledBeacon))
-                return;
-
-            // Stop flatline sound if an implant is present on the owner.
-            if (_containers.TryGetContainer(owner, ImplanterComponent.ImplantSlotId, out var implantContainer))
+        Robust.Shared.Timing.Timer.Spawn(
+            comp.TeleportDuration + TimeSpan.FromMilliseconds(50),
+            () =>
             {
-                foreach (var implantEnt in implantContainer.ContainedEntities)
+                if (newCts.IsCancellationRequested || Deleted(owner))
+                    return;
+
+                // Only announce for rescue beacons.
+                if (!HasComp<RescueBeaconComponent>(scheduledBeacon))
+                    return;
+
+                // Stop flatline sound if an implant is present on the owner.
+                if (_containers.TryGetContainer(owner, ImplanterComponent.ImplantSlotId, out var implantContainer))
                 {
-                    if (!HasComp<MedicalTeleportImplantComponent>(implantEnt))
-                        continue;
-
-                    var med = Comp<MedicalTeleportImplantComponent>(implantEnt);
-                    if (med.FlatlineStream != null)
+                    foreach (var implantEnt in implantContainer.ContainedEntities)
                     {
-                        _audio.Stop(med.FlatlineStream);
-                        med.FlatlineStream = null;
+                        if (!HasComp<MedicalTeleportImplantComponent>(implantEnt))
+                            continue;
+
+                        var med = Comp<MedicalTeleportImplantComponent>(implantEnt);
+                        if (med.FlatlineStream != null)
+                        {
+                            _audio.Stop(med.FlatlineStream);
+                            med.FlatlineStream = null;
+                        }
+                        break;
                     }
-                    break;
                 }
-            }
 
-            var speciesText = $"";
-            if (TryComp<HumanoidAppearanceComponent>(implanted.ImplantedEntity, out var species))
-                speciesText = $" ({species!.Species})";
-            var teleportMessage = Loc.GetString(comp.TeleportMessage, ("user", owner), ("specie", speciesText), ("delaySeconds", comp.TeleportDelay.TotalSeconds));
-            _radio.SendRadioMessage(uid, teleportMessage, _prototypeManager.Index(comp.RadioChannel), uid);
+                var speciesText = $"";
+                if (TryComp<HumanoidAppearanceComponent>(implanted.ImplantedEntity, out var species))
+                    speciesText = $" ({species!.Species})";
+                var teleportMessage = Loc.GetString(
+                    comp.TeleportMessage,
+                    ("user", owner),
+                    ("specie", speciesText),
+                    ("delaySeconds", comp.TeleportDelay.TotalSeconds)
+                );
+                _radio.SendRadioMessage(uid, teleportMessage, _prototypeManager.Index(comp.RadioChannel), uid);
 
-            if (_pendingActions.Remove(owner, out var usedCts))
-                usedCts.Dispose();
-        }, newCts.Token);
+                if (_pendingActions.Remove(owner, out var usedCts))
+                    usedCts.Dispose();
+            },
+            newCts.Token
+        );
         return;
     }
 

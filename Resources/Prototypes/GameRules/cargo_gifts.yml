@@ -2,8 +2,8 @@
 
 - type: entityTable
   id: CargoGiftsTable
-  table: !type:GroupSelector # ~~we need to pass a list of rules, since rules have further restrictions to consider via StationEventComp~~ But we arent doing that shit yet, it picks a random one StationEventComp be damned.
-    children:
+  table: !type:GroupSelector
+    children: # ~~we need to pass a list of rules, since rules have further restrictions to consider via StationEventComp~~ But we arent doing that shit yet, it picks a random one StationEventComp be damned.
     - id: GiftsEngineering
     - id: GiftsFireProtection
     - id: GiftsJanitor
@@ -15,9 +15,9 @@
     - id: GiftsSpacingSupplies
     - id: GiftsVendingRestock
 
-# Game Rules
-
 - type: entity
+  # Game Rules
+
   id: CargoGiftsBase
   parent: BaseGameRule
   abstract: true

@@ -1,9 +1,11 @@
 ﻿using Content.Shared.Actions;
 
 namespace Content.Shared.Jaunt;
+
 public sealed class JauntSystem : EntitySystem
 {
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
+    [Dependency]
+    private readonly SharedActionsSystem _actions = default!;
 
     public override void Initialize()
     {
@@ -21,6 +23,4 @@ public sealed class JauntSystem : EntitySystem
     {
         _actions.RemoveAction(ent.Owner, ent.Comp.Action);
     }
-
 }
-

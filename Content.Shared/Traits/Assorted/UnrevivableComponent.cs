@@ -26,6 +26,7 @@ public sealed partial class UnrevivableComponent : Component
     /// </summary>
     [DataField, AutoNetworkedField]
     public bool Defibrillatable = false;
+
     //HL END
 
     /// <summary>

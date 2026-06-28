@@ -34,19 +34,18 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PolygonShape
-            vertices:
-            - "-0.5,-0.5"
-            - "0.5,0.5"
-            - "0.5,-0.5"
+        shape: !type:PolygonShape
+          vertices:
+          - "-0.5,-0.5"
+          - "0.5,0.5"
+          - "0.5,-0.5"
         mask:
         - FullTileMask
         layer:
         - WallLayer
 
 - type: entity
-  parent: [ WallWood, BaseWallDiagonal ]
+  parent: [WallWood, BaseWallDiagonal]
   id: WallWoodDiagonal
   name: wood wall
   placement:
@@ -68,12 +67,11 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PolygonShape
-            vertices:
-            - "-0.5,-0.5"
-            - "0.5,0.5"
-            - "0.5,-0.5"
+        shape: !type:PolygonShape
+          vertices:
+          - "-0.5,-0.5"
+          - "0.5,0.5"
+          - "0.5,-0.5"
         mask:
         - FullTileMask
         layer:
@@ -82,7 +80,7 @@
     enabled: false
 
 - type: entity
-  parent: [ WallUranium, BaseWallDiagonal ]
+  parent: [WallUranium, BaseWallDiagonal]
   id: WallUraniumDiagonal
   name: uranium wall
   placement:
@@ -104,12 +102,11 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PolygonShape
-            vertices:
-            - "-0.5,-0.5"
-            - "0.5,0.5"
-            - "0.5,-0.5"
+        shape: !type:PolygonShape
+          vertices:
+          - "-0.5,-0.5"
+          - "0.5,0.5"
+          - "0.5,-0.5"
         mask:
         - FullTileMask
         layer:

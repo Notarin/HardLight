@@ -40,7 +40,7 @@
         Piercing: 5
     soundHit:
       path: /Audio/Weapons/bladeslice.ogg
-      
+
 - type: entity
   parent: [Clothing, BaseC3ExpeditionContraband]
   id: AberrantTail
@@ -51,7 +51,7 @@
     sprite: _HL/Clothing/Back/aberrantback.rsi
     state: icon
   - type: Clothing
-    sprite: _HL/Clothing/Back/aberrantback.rsi          
+    sprite: _HL/Clothing/Back/aberrantback.rsi
     quickEquip: true
     slots:
     - back

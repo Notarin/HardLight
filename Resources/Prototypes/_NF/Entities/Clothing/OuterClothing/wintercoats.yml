@@ -7,7 +7,7 @@
   - type: Sprite
     sprite: _NF/Clothing/OuterClothing/WinterCoats/arcadia.rsi
     layers:
-      - state: icon
+    - state: icon
   - type: Item
     inhandVisuals:
       left:

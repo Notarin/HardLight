@@ -1,6 +1,6 @@
 - type: entity
   id: EffectNightVision
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   name: night vision
   components:
   - type: PointLight
@@ -12,7 +12,7 @@
 
 - type: entity
   id: EffectThermalVision
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   name: thermal vision
   components:
   - type: PointLight

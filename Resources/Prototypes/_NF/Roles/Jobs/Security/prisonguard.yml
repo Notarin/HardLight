@@ -5,11 +5,11 @@
   playTimeTracker: JobPrisonGuard
   setPreference: false # Frontier
   requirements:
-    - !type:DepartmentTimeRequirement
-      department: Security
-      time: 10800 # 3 hrs
-    - !type:OverallPlaytimeRequirement
-      time: 36000 # Frontier - 10 hrs
+  - !type:DepartmentTimeRequirement
+    department: Security
+    time: 10800 # 3 hrs
+  - !type:OverallPlaytimeRequirement
+    time: 36000 # Frontier - 10 hrs
   startingGear: PrisonGuardGear
   icon: "JobIconWarden"
   supervisors: job-supervisors-bailiff # Frontier
@@ -24,7 +24,7 @@
   - Captain # Frontier
   special:
   - !type:AddImplantSpecial
-    implants: [ MindShieldImplant, TrackingImplant ]
+    implants: [MindShieldImplant, TrackingImplant]
 
 - type: startingGear
   id: PrisonGuardGear

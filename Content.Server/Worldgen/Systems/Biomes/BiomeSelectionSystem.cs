@@ -11,9 +11,14 @@ namespace Content.Server.Worldgen.Systems.Biomes;
 /// </summary>
 public sealed class BiomeSelectionSystem : BaseWorldSystem
 {
-    [Dependency] private readonly NoiseIndexSystem _noiseIdx = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly ISerializationManager _ser = default!;
+    [Dependency]
+    private readonly NoiseIndexSystem _noiseIdx = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly ISerializationManager _ser = default!;
 
     /// <inheritdoc />
     public override void Initialize()
@@ -49,8 +54,8 @@ public sealed class BiomeSelectionSystem : BaseWorldSystem
     private void OnBiomeSelectionStartup(EntityUid uid, BiomeSelectionComponent component, ComponentStartup args)
     {
         // surely this can't be THAAAAAAAAAAAAAAAT bad right????
-        var sorted = component.Biomes
-            .Select(x => (Id: x, _proto.Index<BiomePrototype>(x).Priority))
+        var sorted = component
+            .Biomes.Select(x => (Id: x, _proto.Index<BiomePrototype>(x).Priority))
             .OrderByDescending(x => x.Priority)
             .Select(x => x.Id)
             .ToList();
@@ -67,6 +72,7 @@ public sealed class BiomeSelectionSystem : BaseWorldSystem
         return centerLengthSquared >= biome.DistanceRangeSquared.Value.X
             && centerLengthSquared <= biome.DistanceRangeSquared.Value.Y;
     }
+
     // End Frontier
 
     private bool CheckBiomeValidity(EntityUid chunk, BiomePrototype biome, Vector2i coords)
@@ -91,4 +97,3 @@ public sealed class BiomeSelectionSystem : BaseWorldSystem
         return true;
     }
 }
-

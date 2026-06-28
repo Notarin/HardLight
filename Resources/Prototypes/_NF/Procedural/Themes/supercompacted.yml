@@ -42,7 +42,7 @@
   offset: 24,0
   ignoreTile: FloorShuttleOrange
   tags:
-    - NFSuperCompactedChromite
+  - NFSuperCompactedChromite
 
 - type: dungeonRoom
   id: NFChromite5x5f
@@ -116,7 +116,7 @@
   offset: 24,6
   ignoreTile: FloorShuttleOrange
   tags:
-    - NFSuperCompactedSnow
+  - NFSuperCompactedSnow
 
 - type: dungeonRoom
   id: NFSnow5x5f
@@ -190,7 +190,7 @@
   offset: 24,12
   ignoreTile: FloorShuttleOrange
   tags:
-    - NFSuperCompactedAsteroid
+  - NFSuperCompactedAsteroid
 
 - type: dungeonRoom
   id: NFAsteroid5x5f
@@ -264,7 +264,7 @@
   offset: 24,18
   ignoreTile: FloorShuttleOrange
   tags:
-    - NFSuperCompactedAndesite
+  - NFSuperCompactedAndesite
 
 - type: dungeonRoom
   id: NFAndesite5x5f
@@ -338,7 +338,7 @@
   offset: 24,24
   ignoreTile: FloorShuttleOrange
   tags:
-    - NFSuperCompactedBasalt
+  - NFSuperCompactedBasalt
 
 - type: dungeonRoom
   id: NFBasalt5x5f
@@ -412,7 +412,7 @@
   offset: 24,30
   ignoreTile: FloorShuttleOrange
   tags:
-    - NFSuperCompactedSand
+  - NFSuperCompactedSand
 
 - type: dungeonRoom
   id: NFSand5x5f
@@ -486,7 +486,7 @@
   offset: 24,36
   ignoreTile: FloorShuttleOrange
   tags:
-    - NFSuperCompactedAsteroidRock
+  - NFSuperCompactedAsteroidRock
 
 - type: dungeonRoom
   id: NFAsteroidRock5x5f

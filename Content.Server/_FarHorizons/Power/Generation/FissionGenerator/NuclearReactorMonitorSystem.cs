@@ -13,13 +13,26 @@ namespace Content.Server._FarHorizons.Power.Generation.FissionGenerator;
 
 public sealed partial class NuclearReactorMonitorSystem : EntitySystem
 {
-    [Dependency] private readonly EntityManager _entityManager = default!;
-    [Dependency] private readonly IAdminLogManager _adminLog = default!;
-    [Dependency] private readonly NuclearReactorSystem _reactorSystem = default!;
-    [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
-    [Dependency] private readonly DeviceLinkSystem _signal = default!;
-    [Dependency] private readonly UserInterfaceSystem _uiSystem = null!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
+    [Dependency]
+    private readonly EntityManager _entityManager = default!;
+
+    [Dependency]
+    private readonly IAdminLogManager _adminLog = default!;
+
+    [Dependency]
+    private readonly NuclearReactorSystem _reactorSystem = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transformSystem = default!;
+
+    [Dependency]
+    private readonly DeviceLinkSystem _signal = default!;
+
+    [Dependency]
+    private readonly UserInterfaceSystem _uiSystem = null!;
+
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
 
     private readonly float _threshold = 0.5f;
     private float _accumulator = 0f;
@@ -51,8 +64,8 @@ public sealed partial class NuclearReactorMonitorSystem : EntitySystem
     {
         if (!_entityManager.TryGetComponent<DeviceLinkSinkComponent>(uid, out var sink))
             return;
-        
-        foreach(var source in sink.LinkedSources)
+
+        foreach (var source in sink.LinkedSources)
         {
             if (!HasComp<NuclearReactorComponent>(source))
                 continue;
@@ -81,7 +94,10 @@ public sealed partial class NuclearReactorMonitorSystem : EntitySystem
         Dirty(uid, comp);
     }
 
-    public bool TryGetReactorComp(NuclearReactorMonitorComponent reactorMonitor, [NotNullWhen(true)] out NuclearReactorComponent? reactorComponent)
+    public bool TryGetReactorComp(
+        NuclearReactorMonitorComponent reactorMonitor,
+        [NotNullWhen(true)] out NuclearReactorComponent? reactorComponent
+    )
     {
         reactorComponent = null;
         if (!_entityManager.TryGetEntity(reactorMonitor.reactor, out var reactorEnt) || reactorEnt == null)
@@ -110,12 +126,17 @@ public sealed partial class NuclearReactorMonitorSystem : EntitySystem
         void UpdateLogs()
         {
             var toRemove = new List<KeyValuePair<EntityUid, EntityUid>>();
-            foreach (var log in _logQueue.Where(log => !((_gameTiming.RealTime - log.Value.CreationTime).TotalSeconds < 2)))
+            foreach (
+                var log in _logQueue.Where(log => !((_gameTiming.RealTime - log.Value.CreationTime).TotalSeconds < 2))
+            )
             {
                 toRemove.Add(log.Key);
 
                 if (log.Value.SetControlRodInsertion != null)
-                    _adminLog.Add(LogType.Action, $"{ToPrettyString(log.Key.Key):actor} set control rod insertion of {ToPrettyString(log.Value.Reactor):target} to {log.Value.SetControlRodInsertion} through {ToPrettyString(log.Key.Value):monitor}");
+                    _adminLog.Add(
+                        LogType.Action,
+                        $"{ToPrettyString(log.Key.Key):actor} set control rod insertion of {ToPrettyString(log.Value.Reactor):target} to {log.Value.SetControlRodInsertion} through {ToPrettyString(log.Key.Value):monitor}"
+                    );
             }
 
             foreach (var kvp in toRemove)
@@ -137,21 +158,29 @@ public sealed partial class NuclearReactorMonitorSystem : EntitySystem
         }
     }
 
-    private void OnControlRodMessage(EntityUid uid, NuclearReactorMonitorComponent comp, ref ReactorControlRodModifyMessage args)
+    private void OnControlRodMessage(
+        EntityUid uid,
+        NuclearReactorMonitorComponent comp,
+        ref ReactorControlRodModifyMessage args
+    )
     {
         if (!TryGetReactorComp(comp, out var reactor))
             return;
 
-        if(SharedNuclearReactorSystem.AdjustControlRods(reactor, args.Change))
+        if (SharedNuclearReactorSystem.AdjustControlRods(reactor, args.Change))
         {
             // Data is sent to a log queue to avoid spamming the admin log when adjusting values rapidly
             var key = new KeyValuePair<EntityUid, EntityUid>(args.Actor, uid);
-            if(!_logQueue.TryGetValue(key, out var value))
-                _logQueue.Add(key, new LogData {
-                    CreationTime = _gameTiming.RealTime, 
-                    Reactor = comp.reactor!.Value,
-                    SetControlRodInsertion = reactor.ControlRodInsertion
-                });
+            if (!_logQueue.TryGetValue(key, out var value))
+                _logQueue.Add(
+                    key,
+                    new LogData
+                    {
+                        CreationTime = _gameTiming.RealTime,
+                        Reactor = comp.reactor!.Value,
+                        SetControlRodInsertion = reactor.ControlRodInsertion,
+                    }
+                );
             else
                 value.SetControlRodInsertion = reactor.ControlRodInsertion;
         }

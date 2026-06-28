@@ -14,10 +14,20 @@ public sealed partial class AdminFaxWindow : DefaultWindow
 {
     private const string StampsRsiPath = "/Textures/Objects/Misc/bureaucracy.rsi";
 
-    public Action<(NetEntity entity, string title, string stampedBy, string message, string stampSprite, Color stampColor, bool locked, bool stampProtected)>? OnMessageSend; // Frontier: add stampProtected
+    public Action<(
+        NetEntity entity,
+        string title,
+        string stampedBy,
+        string message,
+        string stampSprite,
+        Color stampColor,
+        bool locked,
+        bool stampProtected
+    )>? OnMessageSend; // Frontier: add stampProtected
     public Action<NetEntity>? OnFollowFax;
 
-    [Dependency] private readonly IResourceCache _resCache = default!;
+    [Dependency]
+    private readonly IResourceCache _resCache = default!;
 
     public AdminFaxWindow()
     {
@@ -33,7 +43,7 @@ public sealed partial class AdminFaxWindow : DefaultWindow
 
         // Don't use this, but ColorSelectorSliders requires it:
         // what the fok
-        StampColorSelector.OnColorChanged += (color) => {};
+        StampColorSelector.OnColorChanged += (color) => { };
 
         var loc = IoCManager.Resolve<ILocalizationManager>();
         MessageEdit.Placeholder = new Rope.Leaf(loc.GetString("admin-fax-message-placeholder")); // TextEdit work only with Nodes
@@ -71,7 +81,7 @@ public sealed partial class AdminFaxWindow : DefaultWindow
 
     private void FollowFax(BaseButton.ButtonEventArgs obj)
     {
-        var faxEntity = (NetEntity?) FaxSelector.SelectedMetadata;
+        var faxEntity = (NetEntity?)FaxSelector.SelectedMetadata;
         if (faxEntity == null)
             return;
 
@@ -80,11 +90,11 @@ public sealed partial class AdminFaxWindow : DefaultWindow
 
     private void SendMessage(BaseButton.ButtonEventArgs obj)
     {
-        var faxEntity = (NetEntity?) FaxSelector.SelectedMetadata;
+        var faxEntity = (NetEntity?)FaxSelector.SelectedMetadata;
         if (faxEntity == null)
             return;
 
-        var stamp = (string?) StampSelector.SelectedMetadata;
+        var stamp = (string?)StampSelector.SelectedMetadata;
         if (stamp == null)
             return;
 

@@ -5,9 +5,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Arachne, Tajaran]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#a12222"
+      type: !type:SimpleColoring
+        color: "#a12222"
   sprites:
   - sprite: Mobs/Customization/face.rsi
     state: bindi
@@ -19,9 +18,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Felinid, Oni, Harpy, Vulpkanin, Arachne, Tajaran]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#e07e7e"
+      type: !type:SimpleColoring
+        color: "#e07e7e"
   sprites:
   - sprite: Mobs/Customization/face.rsi
     state: fullblush
@@ -33,9 +31,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Arachne, Tajaran]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#ffffff"
+      type: !type:SimpleColoring
+        color: "#ffffff"
   sprites:
   - sprite: Mobs/Customization/face.rsi
     state: cheekspot_r
@@ -47,9 +44,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Arachne, Tajaran]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#ffffff"
+      type: !type:SimpleColoring
+        color: "#ffffff"
   sprites:
   - sprite: Mobs/Customization/face.rsi
     state: cheekspot_l
@@ -61,9 +57,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Felinid, Tajaran, Oni, Harpy, Arachne]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#ffffff"
+      type: !type:SimpleColoring
+        color: "#ffffff"
   sprites:
   - sprite: Mobs/Customization/face.rsi
     state: chesire_r
@@ -75,9 +70,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Felinid, Tajaran, Oni, Harpy, Arachne]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#ffffff"
+      type: !type:SimpleColoring
+        color: "#ffffff"
   sprites:
   - sprite: Mobs/Customization/face.rsi
     state: chesire_l
@@ -89,9 +83,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Arachne, Tajaran]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#242424"
+      type: !type:SimpleColoring
+        color: "#242424"
   sprites:
   - sprite: Mobs/Customization/face.rsi
     state: crow_r
@@ -103,9 +96,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Arachne, Tajaran]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#242424"
+      type: !type:SimpleColoring
+        color: "#242424"
   sprites:
   - sprite: Mobs/Customization/face.rsi
     state: crow_l
@@ -117,9 +109,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Felinid, Tajaran, Oni, Harpy, Arachne]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#ffffff"
+      type: !type:SimpleColoring
+        color: "#ffffff"
   sprites:
   - sprite: Mobs/Customization/face.rsi
     state: ear_r
@@ -131,9 +122,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Felinid, Tajaran, Oni, Harpy, Arachne]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#ffffff"
+      type: !type:SimpleColoring
+        color: "#ffffff"
   sprites:
   - sprite: Mobs/Customization/face.rsi
     state: ear_l
@@ -145,13 +135,11 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Arachne, Tajaran]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#242424"
+      type: !type:SimpleColoring
+        color: "#242424"
   sprites:
   - sprite: Mobs/Customization/face.rsi
     state: eyebrow_r
-
 
 - type: marking
   id: FaceEyebrowLeft
@@ -160,13 +148,11 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Arachne, Tajaran]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#242424"
+      type: !type:SimpleColoring
+        color: "#242424"
   sprites:
   - sprite: Mobs/Customization/face.rsi
     state: eyebrow_l
-
 
 - type: marking
   id: FaceEyebrows
@@ -175,9 +161,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Arachne, Tajaran]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#242424"
+      type: !type:SimpleColoring
+        color: "#242424"
   sprites:
   - sprite: Mobs/Customization/face.rsi
     state: eyebrows
@@ -189,9 +174,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Arachne, Tajaran]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#242424"
+      type: !type:SimpleColoring
+        color: "#242424"
   sprites:
   - sprite: Mobs/Customization/face.rsi
     state: eyecorner_r
@@ -203,9 +187,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Arachne, Tajaran]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#242424"
+      type: !type:SimpleColoring
+        color: "#242424"
   sprites:
   - sprite: Mobs/Customization/face.rsi
     state: eyecorner_l
@@ -217,9 +200,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Arachne, Tajaran]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#141414"
+      type: !type:SimpleColoring
+        color: "#141414"
   sprites:
   - sprite: Mobs/Customization/face.rsi
     state: eyelash_r
@@ -231,9 +213,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Arachne, Tajaran]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#141414"
+      type: !type:SimpleColoring
+        color: "#141414"
   sprites:
   - sprite: Mobs/Customization/face.rsi
     state: eyelash_l
@@ -245,9 +226,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Felinid, Tajaran, Oni, Harpy, Arachne]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#a1a1a1"
+      type: !type:SimpleColoring
+        color: "#a1a1a1"
   sprites:
   - sprite: Mobs/Customization/face.rsi
     state: eyestripe
@@ -259,9 +239,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Arachne, Tajaran]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#ffffff"
+      type: !type:SimpleColoring
+        color: "#ffffff"
   sprites:
   - sprite: Mobs/Customization/face.rsi
     state: lipcorner_r
@@ -273,9 +252,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Arachne, Tajaran]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#ffffff"
+      type: !type:SimpleColoring
+        color: "#ffffff"
   sprites:
   - sprite: Mobs/Customization/face.rsi
     state: lipcorner_l
@@ -287,9 +265,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Arachne, Tajaran]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#ffffff"
+      type: !type:SimpleColoring
+        color: "#ffffff"
   sprites:
   - sprite: Mobs/Customization/face.rsi
     state: glabella
@@ -301,9 +278,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Arachne, Tajaran]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#242424"
+      type: !type:SimpleColoring
+        color: "#242424"
   sprites:
   - sprite: Mobs/Customization/face.rsi
     state: lowercheek_r
@@ -315,9 +291,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Arachne, Tajaran]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#242424"
+      type: !type:SimpleColoring
+        color: "#242424"
   sprites:
   - sprite: Mobs/Customization/face.rsi
     state: lowercheek_l
@@ -329,9 +304,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Felinid, Tajaran, Oni, Harpy, Arachne, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#ffffff"
+      type: !type:SimpleColoring
+        color: "#ffffff"
   sprites:
   - sprite: Mobs/Customization/face.rsi
     state: nosetape
@@ -343,13 +317,11 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Felinid, Tajaran, Oni, Harpy, Arachne]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#ffffff"
+      type: !type:SimpleColoring
+        color: "#ffffff"
   sprites:
   - sprite: Mobs/Customization/face.rsi
     state: nosetip
-
 
 - type: marking
   id: FaceNosestripe
@@ -358,9 +330,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Felinid, Tajaran, Oni, Harpy, Arachne, Shadekin]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#ffffff"
+      type: !type:SimpleColoring
+        color: "#ffffff"
   sprites:
   - sprite: Mobs/Customization/face.rsi
     state: nosestripe
@@ -372,9 +343,8 @@
   speciesRestriction: [Dwarf, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Arachne, Tajaran]
   coloring:
     default:
-      type:
-        !type:SimpleColoring
-          color: "#242424"
+      type: !type:SimpleColoring
+        color: "#242424"
   sprites:
   - sprite: Mobs/Customization/face.rsi
     state: unibrow

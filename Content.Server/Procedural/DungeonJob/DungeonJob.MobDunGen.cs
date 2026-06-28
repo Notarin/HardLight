@@ -13,10 +13,7 @@ namespace Content.Server.Procedural.DungeonJob;
 
 public sealed partial class DungeonJob
 {
-    private async Task PostGen(
-        MobsDunGen gen,
-        Dungeon dungeon,
-        Random random)
+    private async Task PostGen(MobsDunGen gen, Dungeon dungeon, Random random)
     {
         var availableRooms = new ValueList<DungeonRoom>();
         availableRooms.AddRange(dungeon.Rooms);
@@ -32,8 +29,14 @@ public sealed partial class DungeonJob
             {
                 var tile = availableTiles.RemoveSwap(random.Next(availableTiles.Count));
 
-                if (!_anchorable.TileFree(_grid, tile, (int) CollisionGroup.MachineLayer,
-                        (int) CollisionGroup.MachineLayer))
+                if (
+                    !_anchorable.TileFree(
+                        _grid,
+                        tile,
+                        (int)CollisionGroup.MachineLayer,
+                        (int)CollisionGroup.MachineLayer
+                    )
+                )
                 {
                     continue;
                 }

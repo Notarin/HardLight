@@ -5,7 +5,7 @@
   name: uplink-nullspace-teleporter-name
   description: uplink-nullspace-teleporter-desc
   productEntity: ClothingNullSpaceTeleporter
-  icon: { sprite: /Textures/_Starlight/Clothing/Back/nullspaceteleporter.rsi, state: icon }
+  icon: {sprite: /Textures/_Starlight/Clothing/Back/nullspaceteleporter.rsi, state: icon}
   cost:
     Telecrystal: 20
   categories:
@@ -16,7 +16,7 @@
   name: uplink-nullspace-goggles-name
   description: uplink-nullspace-goggles-desc
   productEntity: ClothingEyesGlassesNullSpace
-  icon: { sprite: /Textures/_Starlight/Clothing/Eyes/Glasses/nullspacegoogles.rsi, state: icon }
+  icon: {sprite: /Textures/_Starlight/Clothing/Eyes/Glasses/nullspacegoogles.rsi, state: icon}
   cost:
     Telecrystal: 5
   categories:
@@ -28,7 +28,7 @@
   id: UplinkEyeImplantNightVision
   name: uplink-nightvision-eyes
   description: uplink-nightvision-eyes-desc
-  icon: { sprite: /Textures/_Starlight/Objects/Specific/Medical/implants.rsi, state: eyes_night }
+  icon: {sprite: /Textures/_Starlight/Objects/Specific/Medical/implants.rsi, state: eyes_night}
   productEntity: EyeImplantNightVision
   discountDownTo:
     Telecrystal: 2
@@ -41,7 +41,7 @@
   id: UplinkEyeImplantThermalVision
   name: uplink-thermalvision-eyes
   description: uplink-thermalvision-eyes-desc
-  icon: { sprite: /Textures/_Starlight/Objects/Specific/Medical/implants.rsi, state: eyes_thermal }
+  icon: {sprite: /Textures/_Starlight/Objects/Specific/Medical/implants.rsi, state: eyes_thermal}
   productEntity: EyeImplantThermalVision # HardLight: EyeImplantThermal<EyeImplantThermalVision
   discountDownTo:
     Telecrystal: 4
@@ -54,11 +54,7 @@
   id: UplinkMarriage
   name: uplink-marriage-axe-name
   description: uplink-marriage-axe-desc
-  icon:
-    {
-      sprite: /Textures/_Starlight/Objects/Weapons/Melee/marriage_axe.rsi,
-      state: icon,
-    }
+  icon: {sprite: /Textures/_Starlight/Objects/Weapons/Melee/marriage_axe.rsi, state: icon}
   discountCategory: veryRareDiscounts
   discountDownTo:
     Telecrystal: 16 # HL: 2 -> 4 discount, 2 isn't much.
@@ -66,7 +62,7 @@
   cost:
     Telecrystal: 20
   categories:
-    - UplinkWeaponry
+  - UplinkWeaponry
 
 - type: listing
   id: UplinkSatchelSyndicate
@@ -76,7 +72,7 @@
   cost:
     Telecrystal: 3
   categories:
-    - UplinkWearables
+  - UplinkWearables
 
 - type: listing
   id: UplinkDuffelSyndicate
@@ -86,7 +82,7 @@
   cost:
     Telecrystal: 4
   categories:
-    - UplinkWearables
+  - UplinkWearables
 
 - type: listing
   id: UplinkTrunkSyndicate
@@ -96,4 +92,4 @@
   cost:
     Telecrystal: 5
   categories:
-    - UplinkWearables
+  - UplinkWearables

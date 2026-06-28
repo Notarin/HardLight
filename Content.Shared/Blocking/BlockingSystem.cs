@@ -22,15 +22,32 @@ namespace Content.Shared.Blocking;
 
 public sealed partial class BlockingSystem : EntitySystem
 {
-    [Dependency] private readonly SharedActionsSystem _actionsSystem = default!;
-    [Dependency] private readonly ActionContainerSystem _actionContainer = default!;
-    [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
-    [Dependency] private readonly FixtureSystem _fixtureSystem = default!;
-    [Dependency] private readonly SharedHandsSystem _handsSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly ExamineSystemShared _examine = default!;
+    [Dependency]
+    private readonly SharedActionsSystem _actionsSystem = default!;
+
+    [Dependency]
+    private readonly ActionContainerSystem _actionContainer = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transformSystem = default!;
+
+    [Dependency]
+    private readonly FixtureSystem _fixtureSystem = default!;
+
+    [Dependency]
+    private readonly SharedHandsSystem _handsSystem = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly EntityLookupSystem _lookup = default!;
+
+    [Dependency]
+    private readonly SharedPhysicsSystem _physics = default!;
+
+    [Dependency]
+    private readonly ExamineSystemShared _examine = default!;
 
     public override void Initialize()
     {
@@ -62,7 +79,11 @@ public sealed partial class BlockingSystem : EntitySystem
         Dirty(uid, component);
 
         //To make sure that this bodytype doesn't get set as anything but the original
-        if (TryComp<PhysicsComponent>(args.User, out var physicsComponent) && physicsComponent.BodyType != BodyType.Static && !HasComp<BlockingUserComponent>(args.User))
+        if (
+            TryComp<PhysicsComponent>(args.User, out var physicsComponent)
+            && physicsComponent.BodyType != BodyType.Static
+            && !HasComp<BlockingUserComponent>(args.User)
+        )
         {
             var userComp = EnsureComp<BlockingUserComponent>(args.User);
             userComp.BlockingItem = uid;
@@ -148,7 +169,11 @@ public sealed partial class BlockingSystem : EntitySystem
 
         var blockerName = Identity.Entity(user, EntityManager);
         var msgUser = Loc.GetString("action-popup-blocking-user", ("shield", shieldName));
-        var msgOther = Loc.GetString("action-popup-blocking-other", ("blockerName", blockerName), ("shield", shieldName));
+        var msgOther = Loc.GetString(
+            "action-popup-blocking-other",
+            ("blockerName", blockerName),
+            ("shield", shieldName)
+        );
 
         //Don't allow someone to block if they're not parented to a grid
         if (xform.GridUid != xform.ParentUid)
@@ -192,12 +217,14 @@ public sealed partial class BlockingSystem : EntitySystem
 
         if (TryComp<PhysicsComponent>(user, out var physicsComponent))
         {
-            _fixtureSystem.TryCreateFixture(user,
+            _fixtureSystem.TryCreateFixture(
+                user,
                 component.Shape,
                 BlockingComponent.BlockFixtureID,
                 hard: false, // Frontier: true<false, mobs AI abuse.
                 collisionLayer: (int)CollisionGroup.WallLayer,
-                body: physicsComponent);
+                body: physicsComponent
+            );
         }
 
         component.IsBlocking = true;
@@ -236,12 +263,19 @@ public sealed partial class BlockingSystem : EntitySystem
 
         var blockerName = Identity.Entity(user, EntityManager);
         var msgUser = Loc.GetString("action-popup-blocking-disabling-user", ("shield", shieldName));
-        var msgOther = Loc.GetString("action-popup-blocking-disabling-other", ("blockerName", blockerName), ("shield", shieldName));
+        var msgOther = Loc.GetString(
+            "action-popup-blocking-disabling-other",
+            ("blockerName", blockerName),
+            ("shield", shieldName)
+        );
 
         //If the component blocking toggle isn't null, grab the users SharedBlockingUserComponent and PhysicsComponent
         //then toggle the action to false, unanchor the user, remove the hard fixture
         //and set the users bodytype back to their original type
-        if (TryComp<BlockingUserComponent>(user, out var blockingUserComponent) && TryComp<PhysicsComponent>(user, out var physicsComponent))
+        if (
+            TryComp<BlockingUserComponent>(user, out var blockingUserComponent)
+            && TryComp<PhysicsComponent>(user, out var physicsComponent)
+        )
         {
             if (xform.Anchored)
                 _transformSystem.Unanchor(user, xform);
@@ -304,7 +338,10 @@ public sealed partial class BlockingSystem : EntitySystem
 
         AppendCoefficients(modifier, msg);
 
-        _examine.AddDetailedExamineVerb(args, component, msg,
+        _examine.AddDetailedExamineVerb(
+            args,
+            component,
+            msg,
             Loc.GetString("blocking-examinable-verb-text"),
             "/Textures/Interface/VerbIcons/dot.svg.192dpi.png",
             Loc.GetString("blocking-examinable-verb-message")
@@ -316,19 +353,25 @@ public sealed partial class BlockingSystem : EntitySystem
         foreach (var coefficient in modifiers.Coefficients)
         {
             msg.PushNewline();
-            msg.AddMarkupOrThrow(Robust.Shared.Localization.Loc.GetString("blocking-coefficient-value",
-                ("type", coefficient.Key),
-                ("value", MathF.Round(coefficient.Value * 100, 1))
-            ));
+            msg.AddMarkupOrThrow(
+                Robust.Shared.Localization.Loc.GetString(
+                    "blocking-coefficient-value",
+                    ("type", coefficient.Key),
+                    ("value", MathF.Round(coefficient.Value * 100, 1))
+                )
+            );
         }
 
         foreach (var flat in modifiers.FlatReduction)
         {
             msg.PushNewline();
-            msg.AddMarkupOrThrow(Robust.Shared.Localization.Loc.GetString("blocking-reduction-value",
-                ("type", flat.Key),
-                ("value", flat.Value)
-            ));
+            msg.AddMarkupOrThrow(
+                Robust.Shared.Localization.Loc.GetString(
+                    "blocking-reduction-value",
+                    ("type", flat.Key),
+                    ("value", flat.Value)
+                )
+            );
         }
     }
 }

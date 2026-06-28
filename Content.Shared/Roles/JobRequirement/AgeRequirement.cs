@@ -17,11 +17,13 @@ public sealed partial class AgeRequirement : JobRequirement
     [DataField(required: true)]
     public int RequiredAge;
 
-    public override bool Check(IEntityManager entManager,
+    public override bool Check(
+        IEntityManager entManager,
         IPrototypeManager protoManager,
         HumanoidCharacterProfile? profile,
         IReadOnlyDictionary<string, TimeSpan> playTimes,
-        [NotNullWhen(false)] out FormattedMessage? reason)
+        [NotNullWhen(false)] out FormattedMessage? reason
+    )
     {
         reason = new FormattedMessage();
 
@@ -30,16 +32,18 @@ public sealed partial class AgeRequirement : JobRequirement
 
         if (!Inverted)
         {
-            reason = FormattedMessage.FromMarkupPermissive(Loc.GetString("role-timer-age-too-young",
-                ("age", RequiredAge)));
+            reason = FormattedMessage.FromMarkupPermissive(
+                Loc.GetString("role-timer-age-too-young", ("age", RequiredAge))
+            );
 
             if (profile.Age < RequiredAge)
                 return false;
         }
         else
         {
-            reason = FormattedMessage.FromMarkupPermissive(Loc.GetString("role-timer-age-too-old",
-                ("age", RequiredAge)));
+            reason = FormattedMessage.FromMarkupPermissive(
+                Loc.GetString("role-timer-age-too-old", ("age", RequiredAge))
+            );
 
             if (profile.Age > RequiredAge)
                 return false;

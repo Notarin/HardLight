@@ -59,6 +59,7 @@ public sealed partial class HumanoidMarkingModifierWindow : DefaultWindow
         string? state = _protoMan.HasIndex<HumanoidSpeciesSpriteLayer>(modifier.Text) ? modifier.Text : null;
         OnLayerInfoModified?.Invoke(layer, new CustomBaseLayerInfo(state, modifier.Color));
     }
+
     public void SetState(
         MarkingSet markings,
         string species,
@@ -104,30 +105,14 @@ public sealed partial class HumanoidMarkingModifierWindow : DefaultWindow
         {
             HorizontalExpand = true;
             Orientation = LayoutOrientation.Vertical;
-            var labelBox = new BoxContainer
-            {
-                MinWidth = 250,
-                HorizontalExpand = true
-            };
+            var labelBox = new BoxContainer { MinWidth = 250, HorizontalExpand = true };
             AddChild(labelBox);
 
-            labelBox.AddChild(new Label
-            {
-                HorizontalExpand = true,
-                Text = layer.ToString()
-            });
-            _enable = new CheckBox
-            {
-                Text = "Enable",
-                HorizontalAlignment = HAlignment.Right
-            };
+            labelBox.AddChild(new Label { HorizontalExpand = true, Text = layer.ToString() });
+            _enable = new CheckBox { Text = "Enable", HorizontalAlignment = HAlignment.Right };
 
             labelBox.AddChild(_enable);
-            _infoBox = new BoxContainer
-            {
-                Orientation = LayoutOrientation.Vertical,
-                Visible = false
-            };
+            _infoBox = new BoxContainer { Orientation = LayoutOrientation.Vertical, Visible = false };
             _enable.OnToggled += args =>
             {
                 _infoBox.Visible = args.Pressed;
@@ -135,7 +120,7 @@ public sealed partial class HumanoidMarkingModifierWindow : DefaultWindow
             };
 
             var lineEditBox = new BoxContainer();
-            lineEditBox.AddChild(new Label { Text = "Prototype id: "});
+            lineEditBox.AddChild(new Label { Text = "Prototype id: " });
 
             // TODO: This line edit should really be an options / dropdown selector, not text.
             _lineEdit = new() { MinWidth = 200 };

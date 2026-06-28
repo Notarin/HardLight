@@ -7,10 +7,10 @@
   - type: Sprite
     sprite: _DV/Objects/Weapons/Guns/Rifles/vulcan.rsi
     layers:
-      - state: base
-        map: ["enum.GunVisualLayers.Base"]
-      - state: mag-0
-        map: ["enum.GunVisualLayers.Mag"]
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
   - type: GunWieldBonus
     minAngle: -19
     maxAngle: -16
@@ -35,8 +35,8 @@
         priority: 2
         whitelist:
           tags:
-            - Magazine762x51mmFMJ
-            - Magazine762x51mmLowCapacityFMJ
+          - Magazine762x51mmFMJ
+          - Magazine762x51mmLowCapacityFMJ
         whitelistFailPopup: gun-magazine-whitelist-fail
       gun_chamber:
         name: Chamber
@@ -44,7 +44,7 @@
         priority: 1
         whitelist:
           tags:
-            - Cartridge762x51mmFMJ
+          - Cartridge762x51mmFMJ
   - type: ContainerContainer
     containers:
       gun_magazine: !type:ContainerSlot
@@ -58,8 +58,8 @@
     sprite: _DV/Objects/Weapons/Guns/Rifles/vulcan.rsi
   - type: PirateBountyItem # Mono
     id: StandardTSFLongarm
-  # - type: StaticPrice # Frontier: overvalued
-  #  price: 1300
+    # - type: StaticPrice # Frontier: overvalued
+    #  price: 1300
 
 - type: entity
   name: ceremonial rifle (762x51mm)
@@ -100,10 +100,10 @@
   - type: Sprite
     sprite: _DV/Objects/Weapons/Guns/Rifles/jackdaw.rsi
     layers:
-      - state: base
-        map: ["enum.GunVisualLayers.Base"]
-      - state: mag-0
-        map: ["enum.GunVisualLayers.Mag"]
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
   - type: Gun
     minAngle: 22
     maxAngle: 36
@@ -130,7 +130,7 @@
         priority: 2
         whitelist:
           tags:
-            - Magazine635x40mmCaseless
+          - Magazine635x40mmCaseless
         whitelistFailPopup: gun-magazine-whitelist-fail
       gun_chamber:
         name: Chamber
@@ -138,7 +138,7 @@
         priority: 1
         whitelist:
           tags:
-            - Cartridge635x40mmCaseless
+          - Cartridge635x40mmCaseless
   - type: ContainerContainer
     containers:
       gun_magazine: !type:ContainerSlot

@@ -12,15 +12,14 @@
     sprite: _Mono/Structures/Wallmounts/emblems.rsi
     snapCardinals: true
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 50
       behaviors:
       - !type:PlaySoundBehavior
         sound:
           collection: MetalSlam
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: StaticPrice
     price: 30 #when making your own, feel free to raise the price if it's made of rare stuff.
 
@@ -33,12 +32,11 @@
     sprite: _Mono/Structures/Wallmounts/emblems.rsi
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 10
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
   - type: StaticPrice
     price: 5
 
@@ -54,12 +52,11 @@
     state: Drake_Industries_Emblem
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 50
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:SpawnEntitiesBehavior
         spawn:
           EmblemBrokenDrakeIndustries:
@@ -68,7 +65,6 @@
         offset: 0
   - type: StaticPrice
     price: 150
-
 
 - type: entity
   parent: EmblemBroken
@@ -91,12 +87,11 @@
     state: Steel_Hammer_Emblem
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 50
       behaviors:
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
       - !type:SpawnEntitiesBehavior
         spawn:
           EmblemBrokenSteelHammer:

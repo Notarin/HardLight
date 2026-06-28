@@ -42,7 +42,7 @@
     Genital: MobHumanoidAnyMarking
     Penis: MobHumanoidAnyMarking
     Breasts: MobHumanoidAnyMarking
-  # Unsupported layers removed: UndershirtUnderclothes / UndershirtOverclothes
+    # Unsupported layers removed: UndershirtUnderclothes / UndershirtOverclothes
 
 - type: markingPoints
   id: MobResomiMarkingLimits
@@ -57,7 +57,7 @@
     Tail:
       points: 2
       required: true
-      defaultMarkings: [ ResomiTail, ResomiTailFeathers ]
+      defaultMarkings: [ResomiTail, ResomiTailFeathers]
     Legs:
       points: 2
       required: false

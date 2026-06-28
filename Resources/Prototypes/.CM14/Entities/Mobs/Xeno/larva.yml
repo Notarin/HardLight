@@ -1,16 +1,15 @@
-﻿---
 - type: entity # TODO CM14 description
   parent: CMXenoUndeveloped
   id: CMXenoLarva
   name: Larva
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     drawdepth: Mobs
     sprite: Mobs/Aliens/Xenos/larva.rsi
     offset: 0,0.4
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: alive
   - type: MobState
     allowedStates:

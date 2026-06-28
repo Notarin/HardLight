@@ -6,10 +6,10 @@
   components:
   - type: Sprite
     layers:
-      - state: red
-      - state: ai
-      - sprite: _NF/Mobs/Aliens/flesh.rsi
-        state: jared
+    - state: red
+    - state: ai
+    - sprite: _NF/Mobs/Aliens/flesh.rsi
+      state: jared
   - type: ConditionalSpawner
     prototypes:
     - MobFleshJaredExpeditions
@@ -23,10 +23,10 @@
   components:
   - type: Sprite
     layers:
-      - state: red
-      - state: ai
-      - sprite: _NF/Mobs/Aliens/flesh.rsi
-        state: golem
+    - state: red
+    - state: ai
+    - sprite: _NF/Mobs/Aliens/flesh.rsi
+      state: golem
   - type: ConditionalSpawner
     prototypes:
     - MobFleshGolemExpeditions
@@ -41,10 +41,10 @@
   components:
   - type: Sprite
     layers:
-      - state: red
-      - state: ai
-      - sprite: _NF/Mobs/Aliens/flesh_assimilated_miner.rsi
-        state: base
+    - state: red
+    - state: ai
+    - sprite: _NF/Mobs/Aliens/flesh_assimilated_miner.rsi
+      state: base
   - type: ConditionalSpawner
     prototypes:
     - MobFleshAssimilatedMiner
@@ -57,10 +57,10 @@
   components:
   - type: Sprite
     layers:
-      - state: red
-      - state: ai
-      - sprite: _NF/Mobs/Aliens/flesh.rsi
-        state: clamp
+    - state: red
+    - state: ai
+    - sprite: _NF/Mobs/Aliens/flesh.rsi
+      state: clamp
   - type: ConditionalSpawner
     prototypes:
     - MobFleshClampExpeditions
@@ -74,10 +74,10 @@
   components:
   - type: Sprite
     layers:
-      - state: red
-      - state: ai
-      - sprite: _NF/Mobs/Aliens/flesh.rsi
-        state: lover
+    - state: red
+    - state: ai
+    - sprite: _NF/Mobs/Aliens/flesh.rsi
+      state: lover
   - type: ConditionalSpawner
     prototypes:
     - MobFleshLoverExpeditions
@@ -90,10 +90,10 @@
   components:
   - type: Sprite
     layers:
-      - state: red
-      - state: ai
-      - sprite: _NF/Mobs/Aliens/flesh.rsi
-        state: horror
+    - state: red
+    - state: ai
+    - sprite: _NF/Mobs/Aliens/flesh.rsi
+      state: horror
   - type: ConditionalSpawner
     prototypes:
     - MobHorrorExpeditions

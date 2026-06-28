@@ -6,9 +6,11 @@ namespace Content.Server.Abilities.Borgs;
 
 public sealed partial class FabricateActionsSystem : EntitySystem
 {
-    [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
+    [Dependency]
+    private readonly ActionBlockerSystem _actionBlocker = default!;
 
+    [Dependency]
+    private readonly SharedActionsSystem _actions = default!;
 
     public override void Initialize()
     {
@@ -18,7 +20,6 @@ public sealed partial class FabricateActionsSystem : EntitySystem
         SubscribeLocalEvent<FabricateActionsComponent, ComponentShutdown>(OnShutdown);
         SubscribeLocalEvent<FabricateActionsComponent, FabricateActionEvent>(OnFabricate);
     }
-
 
     private void OnStartup(Entity<FabricateActionsComponent> entity, ref ComponentStartup args)
     {

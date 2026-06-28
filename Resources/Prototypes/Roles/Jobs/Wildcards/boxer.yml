@@ -5,8 +5,8 @@
   playTimeTracker: JobBoxer
   setPreference: true
   requirements:
-    - !type:OverallPlaytimeRequirement
-      time: 10800
+  - !type:OverallPlaytimeRequirement
+    time: 10800
   weight: -30 # HardLight
   startingGear: BoxerGear
   icon: "JobIconBoxer"

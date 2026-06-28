@@ -8,21 +8,20 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.3,-0.3,0.3,0.3"
         layer:
         - MidImpassable
   - type: Sprite
     drawdepth: WallMountedItems
     layers:
-      - state: atmosplaque
-        map: ["plaque"]
+    - state: atmosplaque
+      map: ["plaque"]
   - type: Appearance
   - type: GenericVisualizer
     visuals:
       enum.AtmosPlaqueVisuals.State:
         plaque:
-          zumosplaque: { state: zumosplaque }
-          atmosplaque: { state: atmosplaque }
+          zumosplaque: {state: zumosplaque}
+          atmosplaque: {state: atmosplaque}
   - type: AtmosPlaque

@@ -85,14 +85,11 @@ public sealed partial class ArtifactComponent : Component
     [DataField("activationSound")]
     public SoundSpecifier ActivationSound = new SoundCollectionSpecifier("ArtifactActivation")
     {
-        Params = new()
-        {
-            Variation = 0.1f,
-            Volume = 3f
-        }
+        Params = new() { Variation = 0.1f, Volume = 3f },
     };
 
-    [DataField("activateActionEntity")] public EntityUid? ActivateActionEntity;
+    [DataField("activateActionEntity")]
+    public EntityUid? ActivateActionEntity;
 
     /// <summary>
     /// Frontier: When set to true, any newly visited nodes contribute no new points.
@@ -140,7 +137,14 @@ public sealed partial class ArtifactNode : ICloneable
     /// <summary>
     /// The trigger for the node
     /// </summary>
-    [DataField("trigger", customTypeSerializer: typeof(PrototypeIdSerializer<ArtifactTriggerPrototype>), required: true), ViewVariables]
+    [
+        DataField(
+            "trigger",
+            customTypeSerializer: typeof(PrototypeIdSerializer<ArtifactTriggerPrototype>),
+            required: true
+        ),
+        ViewVariables
+    ]
     public string Trigger = default!;
 
     /// <summary>
@@ -152,7 +156,14 @@ public sealed partial class ArtifactNode : ICloneable
     /// <summary>
     /// The effect when the node is activated
     /// </summary>
-    [DataField("effect", customTypeSerializer: typeof(PrototypeIdSerializer<ArtifactEffectPrototype>), required: true), ViewVariables]
+    [
+        DataField(
+            "effect",
+            customTypeSerializer: typeof(PrototypeIdSerializer<ArtifactEffectPrototype>),
+            required: true
+        ),
+        ViewVariables
+    ]
     public string Effect = default!;
 
     /// <summary>
@@ -172,7 +183,7 @@ public sealed partial class ArtifactNode : ICloneable
             Trigger = Trigger,
             Triggered = Triggered,
             Effect = Effect,
-            NodeData = NodeData
+            NodeData = NodeData,
         };
     }
 }

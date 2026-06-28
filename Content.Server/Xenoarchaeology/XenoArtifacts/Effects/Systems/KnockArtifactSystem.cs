@@ -14,11 +14,7 @@ public sealed class KnockArtifactSystem : EntitySystem
 
     private void OnActivated(EntityUid uid, KnockArtifactComponent component, ArtifactActivatedEvent args)
     {
-        var ev = new KnockSpellEvent
-        {
-            Performer = uid,
-            Range = component.KnockRange
-        };
+        var ev = new KnockSpellEvent { Performer = uid, Range = component.KnockRange };
         RaiseLocalEvent(ev);
     }
 }

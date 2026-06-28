@@ -3,19 +3,22 @@ using Content.Server.Speech.Components;
 using Content.Shared.Drunk;
 using Content.Shared.Speech.EntitySystems;
 using Content.Shared.StatusEffect;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
-using Robust.Shared.Prototypes;
 
 namespace Content.Server.Speech.EntitySystems;
 
 public sealed class SlurredSystem : SharedSlurredSystem
 {
-    [Dependency] private readonly StatusEffectsSystem _statusEffectsSystem = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly StatusEffectsSystem _statusEffectsSystem = default!;
 
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
 
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     private static readonly ProtoId<StatusEffectPrototype> SlurKey = new("SlurredSpeech");
 
@@ -44,7 +47,7 @@ public sealed class SlurredSystem : SharedSlurredSystem
             return 0;
 
         var curTime = _timing.CurTime;
-        var timeLeft = (float) (time.Value.Item2 - curTime).TotalSeconds;
+        var timeLeft = (float)(time.Value.Item2 - curTime).TotalSeconds;
         return Math.Clamp((timeLeft - 80) / 1100, 0f, 1f);
     }
 
@@ -90,7 +93,7 @@ public sealed class SlurredSystem : SharedSlurredSystem
                 }
             }
 
-            if (!_random.Prob(scale * 3/20))
+            if (!_random.Prob(scale * 3 / 20))
             {
                 sb.Append(character);
                 continue;

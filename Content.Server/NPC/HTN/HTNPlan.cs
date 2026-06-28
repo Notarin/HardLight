@@ -25,7 +25,11 @@ public sealed class HTNPlan
     /// </summary>
     public int Index = 0;
 
-    public HTNPlan(List<HTNPrimitiveTask> tasks, List<int> branchTraversalRecord, List<Dictionary<string, object>?> effects)
+    public HTNPlan(
+        List<HTNPrimitiveTask> tasks,
+        List<int> branchTraversalRecord,
+        List<Dictionary<string, object>?> effects
+    )
     {
         Tasks = tasks;
         BranchTraversalRecord = branchTraversalRecord;

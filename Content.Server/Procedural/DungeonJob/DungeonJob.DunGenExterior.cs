@@ -15,7 +15,12 @@ public sealed partial class DungeonJob
     /// <summary>
     /// <see cref="ExteriorDunGen"/>
     /// </summary>
-    private async Task<List<Dungeon>> GenerateExteriorDungen(Vector2i position, ExteriorDunGen dungen, HashSet<Vector2i> reservedTiles, Random random)
+    private async Task<List<Dungeon>> GenerateExteriorDungen(
+        Vector2i position,
+        ExteriorDunGen dungen,
+        HashSet<Vector2i> reservedTiles,
+        Random random
+    )
     {
         DebugTools.Assert(_grid.ChunkCount > 0);
 
@@ -24,35 +29,46 @@ public sealed partial class DungeonJob
 
         var distance = Math.Max(aabb.Width / 2f + 1f, aabb.Height / 2f + 1f);
 
-        var startTile = new Vector2i(0, (int) distance).Rotate(angle);
+        var startTile = new Vector2i(0, (int)distance).Rotate(angle);
 
         Vector2i? dungeonSpawn = null;
         var pathfinder = _entManager.System<PathfindingSystem>();
 
         // Gridcast
-        SharedPathfindingSystem.GridCast(startTile, position, tile =>
-        {
-            if (!_maps.TryGetTileRef(_gridUid, _grid, tile, out var tileRef) ||
-                tileRef.Tile.IsSpace(_tileDefManager))
+        SharedPathfindingSystem.GridCast(
+            startTile,
+            position,
+            tile =>
             {
-                return true;
-            }
+                if (
+                    !_maps.TryGetTileRef(_gridUid, _grid, tile, out var tileRef)
+                    || tileRef.Tile.IsSpace(_tileDefManager)
+                )
+                {
+                    return true;
+                }
 
-            dungeonSpawn = tile;
-            return false;
-        });
+                dungeonSpawn = tile;
+                return false;
+            }
+        );
 
         if (dungeonSpawn == null)
         {
-            return new List<Dungeon>()
-            {
-                Dungeon.Empty
-            };
+            return new List<Dungeon>() { Dungeon.Empty };
         }
 
         var config = _prototype.Index(dungen.Proto);
         var nextSeed = random.Next();
-        var dungeons = await GetDungeons(dungeonSpawn.Value, config, config.Data, config.Layers, reservedTiles, nextSeed, new Random(nextSeed));
+        var dungeons = await GetDungeons(
+            dungeonSpawn.Value,
+            config,
+            config.Data,
+            config.Layers,
+            reservedTiles,
+            nextSeed,
+            new Random(nextSeed)
+        );
 
         return dungeons;
     }

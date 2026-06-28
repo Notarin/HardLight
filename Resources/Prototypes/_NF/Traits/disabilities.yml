@@ -7,7 +7,7 @@
   category: Physical
   cost: -2
   components:
-    - type: StinkyTrait
+  - type: StinkyTrait
 
 - type: trait
   id: Clumsy
@@ -16,13 +16,13 @@
   category: Physical
   cost: -5
   components:
-    - type: Clumsy
-      gunShootFailDamage:
-        types:
-          Blunt: 5
-          Piercing: 4
-        groups:
-          Burn: 3
+  - type: Clumsy
+    gunShootFailDamage:
+      types:
+        Blunt: 5
+        Piercing: 4
+      groups:
+        Burn: 3
 
 # Upstream
 - type: trait
@@ -33,12 +33,12 @@
   cost: -10
   blacklist:
     components:
-      - BorgChassis
+    - BorgChassis
   mutuallyExclusiveTraits:
-    - LegAmputeeL
-    - LegAmputeeR
-    - LegAmputeeBoth
+  - LegAmputeeL
+  - LegAmputeeR
+  - LegAmputeeBoth
   components:
-    - type: BuckleOnMapInit
-      prototype: VehicleWheelchair
-    - type: LegsParalyzed
+  - type: BuckleOnMapInit
+    prototype: VehicleWheelchair
+  - type: LegsParalyzed

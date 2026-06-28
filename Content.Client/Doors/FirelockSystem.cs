@@ -7,8 +7,11 @@ namespace Content.Client.Doors;
 
 public sealed class FirelockSystem : SharedFirelockSystem
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearanceSystem = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearanceSystem = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     public override void Initialize()
     {
@@ -25,14 +28,16 @@ public sealed class FirelockSystem : SharedFirelockSystem
         door.ClosedSpriteStates.Add((DoorVisualLayers.BaseUnlit, ent.Comp.WarningLightSpriteState));
         door.OpenSpriteStates.Add((DoorVisualLayers.BaseUnlit, ent.Comp.WarningLightSpriteState));
 
-        ((Animation)door.OpeningAnimation).AnimationTracks.Add(new AnimationTrackSpriteFlick()
+        ((Animation)door.OpeningAnimation).AnimationTracks.Add(
+            new AnimationTrackSpriteFlick()
             {
                 LayerKey = DoorVisualLayers.BaseUnlit,
                 KeyFrames = { new AnimationTrackSpriteFlick.KeyFrame(ent.Comp.OpeningLightSpriteState, 0f) },
             }
         );
 
-        ((Animation)door.ClosingAnimation).AnimationTracks.Add(new AnimationTrackSpriteFlick()
+        ((Animation)door.ClosingAnimation).AnimationTracks.Add(
+            new AnimationTrackSpriteFlick()
             {
                 LayerKey = DoorVisualLayers.BaseUnlit,
                 KeyFrames = { new AnimationTrackSpriteFlick.KeyFrame(ent.Comp.ClosingLightSpriteState, 0f) },
@@ -51,12 +56,16 @@ public sealed class FirelockSystem : SharedFirelockSystem
         if (!_appearanceSystem.TryGetData<DoorState>(uid, DoorVisuals.State, out var state, args.Component))
             state = DoorState.Closed;
 
-        boltedVisible = _appearanceSystem.TryGetData<bool>(uid, DoorVisuals.BoltLights, out var lights, args.Component) && lights;
+        boltedVisible =
+            _appearanceSystem.TryGetData<bool>(uid, DoorVisuals.BoltLights, out var lights, args.Component) && lights;
         unlitVisible =
             state == DoorState.Closing
-            ||  state == DoorState.Opening
-            ||  state == DoorState.Denying
-            || (_appearanceSystem.TryGetData<bool>(uid, DoorVisuals.ClosedLights, out var closedLights, args.Component) && closedLights);
+            || state == DoorState.Opening
+            || state == DoorState.Denying
+            || (
+                _appearanceSystem.TryGetData<bool>(uid, DoorVisuals.ClosedLights, out var closedLights, args.Component)
+                && closedLights
+            );
 
         _sprite.LayerSetVisible((uid, args.Sprite), DoorVisualLayers.BaseUnlit, unlitVisible && !boltedVisible);
         _sprite.LayerSetVisible((uid, args.Sprite), DoorVisualLayers.BaseBolted, boltedVisible);

@@ -1,8 +1,8 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Robust.Shared.CPUJob.JobQueues;
 using Content.Server.NPC.HTN.PrimitiveTasks;
+using Robust.Shared.CPUJob.JobQueues;
 using Robust.Shared.Prototypes;
 
 namespace Content.Server.NPC.HTN;
@@ -28,7 +28,9 @@ public sealed class HTNPlanJob : Job<HTNPlan>
         HTNTask rootTask,
         NPCBlackboard blackboard,
         List<int>? branchTraversal,
-        CancellationToken cancellationToken = default) : base(maxTime, cancellationToken)
+        CancellationToken cancellationToken = default
+    )
+        : base(maxTime, cancellationToken)
     {
         _protoManager = protoManager;
         _rootTask = rootTask;
@@ -81,13 +83,15 @@ public sealed class HTNPlanJob : Job<HTNPlan>
                         // Don't need to copy taskstoprocess as we can just clear it and set it to the compound task we roll back to.
                         // Don't need to copy finalplan as we can just count how many primitives we've added since last record
 
-                        decompHistory.Push(new DecompositionState()
-                        {
-                            Blackboard = _blackboard.ShallowClone(),
-                            CompoundTask = compound,
-                            BranchTraversal = btrIndex,
-                            PrimitiveCount = primitiveCount,
-                        });
+                        decompHistory.Push(
+                            new DecompositionState()
+                            {
+                                Blackboard = _blackboard.ShallowClone(),
+                                CompoundTask = compound,
+                                BranchTraversal = btrIndex,
+                                PrimitiveCount = primitiveCount,
+                            }
+                        );
 
                         // TODO: Early out if existing plan is better and save lots of time.
                         // my brain is not working rn AAA
@@ -98,7 +102,15 @@ public sealed class HTNPlanJob : Job<HTNPlan>
                     }
                     else
                     {
-                        RestoreTolastDecomposedTask(decompHistory, tasksToProcess, appliedStates, finalPlan, ref primitiveCount, ref _blackboard, ref btrIndex);
+                        RestoreTolastDecomposedTask(
+                            decompHistory,
+                            tasksToProcess,
+                            appliedStates,
+                            finalPlan,
+                            ref primitiveCount,
+                            ref _blackboard,
+                            ref btrIndex
+                        );
                     }
                     break;
                 case HTNPrimitiveTask primitive:
@@ -109,7 +121,15 @@ public sealed class HTNPlanJob : Job<HTNPlan>
                     }
                     else
                     {
-                        RestoreTolastDecomposedTask(decompHistory, tasksToProcess, appliedStates, finalPlan, ref primitiveCount, ref _blackboard, ref btrIndex);
+                        RestoreTolastDecomposedTask(
+                            decompHistory,
+                            tasksToProcess,
+                            appliedStates,
+                            finalPlan,
+                            ref primitiveCount,
+                            ref _blackboard,
+                            ref btrIndex
+                        );
                     }
 
                     break;
@@ -126,7 +146,11 @@ public sealed class HTNPlanJob : Job<HTNPlan>
         return new HTNPlan(finalPlan, branchTraversalRecord, appliedStates);
     }
 
-    private async Task<bool> PrimitiveConditionMet(HTNPrimitiveTask primitive, NPCBlackboard blackboard, List<Dictionary<string, object>?> appliedStates)
+    private async Task<bool> PrimitiveConditionMet(
+        HTNPrimitiveTask primitive,
+        NPCBlackboard blackboard,
+        List<Dictionary<string, object>?> appliedStates
+    )
     {
         blackboard.ReadOnly = true;
 
@@ -161,7 +185,12 @@ public sealed class HTNPlanJob : Job<HTNPlan>
     /// <summary>
     /// Goes through each compound task branch and tries to find an appropriate one.
     /// </summary>
-    private bool TryFindSatisfiedMethod(HTNCompoundTask compoundId, Stack<HTNTask> tasksToProcess, NPCBlackboard blackboard, ref int mtrIndex)
+    private bool TryFindSatisfiedMethod(
+        HTNCompoundTask compoundId,
+        Stack<HTNTask> tasksToProcess,
+        NPCBlackboard blackboard,
+        ref int mtrIndex
+    )
     {
         var compound = _protoManager.Index<HTNCompoundPrototype>(compoundId.Task);
 
@@ -203,7 +232,8 @@ public sealed class HTNPlanJob : Job<HTNPlan>
         List<HTNPrimitiveTask> finalPlan,
         ref int primitiveCount,
         ref NPCBlackboard blackboard,
-        ref int mtrIndex)
+        ref int mtrIndex
+    )
     {
         tasksToProcess.Clear();
 

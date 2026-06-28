@@ -9,7 +9,8 @@ namespace Content.Server.Administration.Logs;
 /// </summary>
 public sealed class AdminLogSystem : EntitySystem
 {
-    [Dependency] private readonly IAdminLogManager _adminLogs = default!;
+    [Dependency]
+    private readonly IAdminLogManager _adminLogs = default!;
 
     public override void Initialize()
     {

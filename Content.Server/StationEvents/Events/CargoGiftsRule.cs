@@ -11,17 +11,31 @@ namespace Content.Server.StationEvents.Events;
 
 public sealed class CargoGiftsRule : StationEventSystem<CargoGiftsRuleComponent>
 {
-    [Dependency] private readonly CargoSystem _cargoSystem = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly GameTicker _ticker = default!;
+    [Dependency]
+    private readonly CargoSystem _cargoSystem = default!;
 
-    protected override void Added(EntityUid uid, CargoGiftsRuleComponent component, GameRuleComponent gameRule, GameRuleAddedEvent args)
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly GameTicker _ticker = default!;
+
+    protected override void Added(
+        EntityUid uid,
+        CargoGiftsRuleComponent component,
+        GameRuleComponent gameRule,
+        GameRuleAddedEvent args
+    )
     {
         if (!TryComp<StationEventComponent>(uid, out var stationEvent))
             return;
 
-        var str = Loc.GetString(component.Announce,
-            ("sender", Loc.GetString(component.Sender)), ("description", Loc.GetString(component.Description)), ("dest", Loc.GetString(component.Dest)));
+        var str = Loc.GetString(
+            component.Announce,
+            ("sender", Loc.GetString(component.Sender)),
+            ("description", Loc.GetString(component.Description)),
+            ("dest", Loc.GetString(component.Dest))
+        );
         stationEvent.StartAnnouncement = str;
 
         base.Added(uid, component, gameRule, args);
@@ -30,7 +44,12 @@ public sealed class CargoGiftsRule : StationEventSystem<CargoGiftsRuleComponent>
     /// <summary>
     /// Called on an active gamerule entity in the Update function
     /// </summary>
-    protected override void ActiveTick(EntityUid uid, CargoGiftsRuleComponent component, GameRuleComponent gameRule, float frameTime)
+    protected override void ActiveTick(
+        EntityUid uid,
+        CargoGiftsRuleComponent component,
+        GameRuleComponent gameRule,
+        float frameTime
+    )
     {
         if (component.Gifts.Count == 0)
             return;
@@ -43,8 +62,10 @@ public sealed class CargoGiftsRule : StationEventSystem<CargoGiftsRuleComponent>
 
         component.TimeUntilNextGifts += 30f;
 
-        if (!TryGetRandomStation(out var station, HasComp<StationCargoOrderDatabaseComponent>) ||
-                !TryComp<StationDataComponent>(station, out var stationData))
+        if (
+            !TryGetRandomStation(out var station, HasComp<StationCargoOrderDatabaseComponent>)
+            || !TryComp<StationDataComponent>(station, out var stationData)
+        )
             return;
 
         if (!TryComp<StationCargoOrderDatabaseComponent>(station, out var cargoDb))
@@ -62,7 +83,8 @@ public sealed class CargoGiftsRule : StationEventSystem<CargoGiftsRuleComponent>
 
             var product = _prototypeManager.Index(productId);
 
-            if (!_cargoSystem.AddAndApproveOrder(
+            if (
+                !_cargoSystem.AddAndApproveOrder(
                     station!.Value,
                     product.Product,
                     product.Name,
@@ -74,7 +96,8 @@ public sealed class CargoGiftsRule : StationEventSystem<CargoGiftsRuleComponent>
                     cargoDb,
                     component.Account,
                     (station.Value, stationData)
-            ))
+                )
+            )
             {
                 break;
             }
@@ -86,5 +109,4 @@ public sealed class CargoGiftsRule : StationEventSystem<CargoGiftsRuleComponent>
             _ticker.EndGameRule(uid, gameRule);
         }
     }
-
 }

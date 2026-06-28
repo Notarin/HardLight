@@ -29,17 +29,16 @@
   mapName: 'SLI Bazaar'
   mapPath: /Maps/_NF/Shuttles/bazaar.yml
   minPlayers: 0
-  stations: 
+  stations:
     Bazaar:
       stationProto: StandardFrontierVessel
       components:
-        - type: StationNameSetup
-          mapNameTemplate: 'SLI Bazaar {1}'
-          nameGenerator:
-            !type:NanotrasenNameGenerator
-            prefixCreator: '14'
-        - type: StationJobs
-          availableJobs:
-            ContractorInterview: [ 0, 0 ]
-            PilotInterview: [ 0, 0 ]
-            MercenaryInterview: [ 0, 0 ]
+      - type: StationNameSetup
+        mapNameTemplate: 'SLI Bazaar {1}'
+        nameGenerator: !type:NanotrasenNameGenerator
+          prefixCreator: '14'
+      - type: StationJobs
+        availableJobs:
+          ContractorInterview: [0, 0]
+          PilotInterview: [0, 0]
+          MercenaryInterview: [0, 0]

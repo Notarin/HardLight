@@ -40,38 +40,101 @@ namespace Content.Server.Shuttles.Systems;
 [UsedImplicitly]
 public sealed partial class ShuttleSystem : SharedShuttleSystem
 {
-    [Dependency] private readonly IAdminLogManager _logger = default!;
-    [Dependency] private readonly IComponentFactory _factory = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly MapSystem _mapSystem = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly IPrototypeManager _protoManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly ITileDefinitionManager _tileDefManager = default!;
-    [Dependency] private readonly BiomeSystem _biomes = default!;
-    [Dependency] private readonly BodySystem _bobby = default!;
-    [Dependency] private readonly DockingSystem _dockSystem = default!;
-    [Dependency] private readonly DungeonSystem _dungeon = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly FixtureSystem _fixtures = default!;
-    [Dependency] private readonly MapLoaderSystem _loader = default!;
-    [Dependency] private readonly MetaDataSystem _metadata = default!;
-    [Dependency] private readonly PvsOverrideSystem _pvs = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedSalvageSystem _salvage = default!;
-    [Dependency] private readonly ShuttleConsoleSystem _console = default!;
-    [Dependency] private readonly StationSystem _station = default!;
-    [Dependency] private readonly StunSystem _stuns = default!;
-    [Dependency] private readonly ThrowingSystem _throwing = default!;
-    [Dependency] private readonly ThrusterSystem _thruster = default!;
-    [Dependency] private readonly UserInterfaceSystem _uiSystem = default!;
-    [Dependency] private readonly GameTicker _ticker = default!; //frontier edit to get the main map in FTL
-    [Dependency] private readonly StationAiSystem _stationAiSystem = default!;
-    [Dependency] private readonly Content.Shared.Inventory.InventorySystem _inventorySystem = default!;
-    [Dependency] private readonly Content.Shared.Damage.DamageableSystem _damageSys = default!;
+    [Dependency]
+    private readonly IAdminLogManager _logger = default!;
+
+    [Dependency]
+    private readonly IComponentFactory _factory = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
+
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
+
+    [Dependency]
+    private readonly MapSystem _mapSystem = default!;
+
+    [Dependency]
+    private readonly IMapManager _mapManager = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _protoManager = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly ITileDefinitionManager _tileDefManager = default!;
+
+    [Dependency]
+    private readonly BiomeSystem _biomes = default!;
+
+    [Dependency]
+    private readonly BodySystem _bobby = default!;
+
+    [Dependency]
+    private readonly DockingSystem _dockSystem = default!;
+
+    [Dependency]
+    private readonly DungeonSystem _dungeon = default!;
+
+    [Dependency]
+    private readonly EntityLookupSystem _lookup = default!;
+
+    [Dependency]
+    private readonly FixtureSystem _fixtures = default!;
+
+    [Dependency]
+    private readonly MapLoaderSystem _loader = default!;
+
+    [Dependency]
+    private readonly MetaDataSystem _metadata = default!;
+
+    [Dependency]
+    private readonly PvsOverrideSystem _pvs = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedPhysicsSystem _physics = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly SharedSalvageSystem _salvage = default!;
+
+    [Dependency]
+    private readonly ShuttleConsoleSystem _console = default!;
+
+    [Dependency]
+    private readonly StationSystem _station = default!;
+
+    [Dependency]
+    private readonly StunSystem _stuns = default!;
+
+    [Dependency]
+    private readonly ThrowingSystem _throwing = default!;
+
+    [Dependency]
+    private readonly ThrusterSystem _thruster = default!;
+
+    [Dependency]
+    private readonly UserInterfaceSystem _uiSystem = default!;
+
+    [Dependency]
+    private readonly GameTicker _ticker = default!; //frontier edit to get the main map in FTL
+
+    [Dependency]
+    private readonly StationAiSystem _stationAiSystem = default!;
+
+    [Dependency]
+    private readonly Content.Shared.Inventory.InventorySystem _inventorySystem = default!;
+
+    [Dependency]
+    private readonly Content.Shared.Damage.DamageableSystem _damageSys = default!;
 
     private EntityQuery<MapGridComponent> _gridQuery;
 
@@ -98,7 +161,6 @@ public sealed partial class ShuttleSystem : SharedShuttleSystem
         SubscribeLocalEvent<FixturesComponent, GridFixtureChangeEvent>(OnGridFixtureChange);
 
         NfInitialize(); // Frontier Initialization for the ShuttleSystem
-
     }
 
     public override void Update(float frameTime)
@@ -170,7 +232,12 @@ public sealed partial class ShuttleSystem : SharedShuttleSystem
         }
     }
 
-    public void Enable(EntityUid uid, FixturesComponent? manager = null, PhysicsComponent? component = null, ShuttleComponent? shuttle = null)
+    public void Enable(
+        EntityUid uid,
+        FixturesComponent? manager = null,
+        PhysicsComponent? component = null,
+        ShuttleComponent? shuttle = null
+    )
     {
         if (!Resolve(uid, ref manager, ref component, ref shuttle, false))
             return;

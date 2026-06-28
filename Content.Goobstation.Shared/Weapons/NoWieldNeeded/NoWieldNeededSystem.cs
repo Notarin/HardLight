@@ -13,7 +13,9 @@ namespace Content.Goobstation.Shared.Weapons.NoWieldNeeded;
 
 public sealed class NoWieldNeededSystem : EntitySystem
 {
-    [Dependency] private readonly SharedGunSystem _gun = default!;
+    [Dependency]
+    private readonly SharedGunSystem _gun = default!;
+
     public override void Initialize()
     {
         base.Initialize();
@@ -28,9 +30,14 @@ public sealed class NoWieldNeededSystem : EntitySystem
         if (TryComp<NoWieldNeededComponent>(args.User, out var noWieldNeeded) && noWieldNeeded.GetBonus)
             args.Cancel(); // cancel any attempts to wield weapons if you get no bonus from it
     }
+
     private void OnGunPickedUp(EntityUid uid, NoWieldNeededComponent comp, EntInsertedIntoContainerMessage args)
     {
-        if (!comp.GetBonus || !TryComp<GunComponent>(args.Entity, out var gun) || !TryComp<GunWieldBonusComponent>(args.Entity, out var bonus))
+        if (
+            !comp.GetBonus
+            || !TryComp<GunComponent>(args.Entity, out var gun)
+            || !TryComp<GunWieldBonusComponent>(args.Entity, out var bonus)
+        )
             return;
 
         gun.MinAngle += bonus.MinAngle;

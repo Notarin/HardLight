@@ -18,7 +18,8 @@ namespace Content.IntegrationTests.Tests.Power
     public sealed class PowerTest
     {
         [TestPrototypes]
-        private const string Prototypes = @"
+        private const string Prototypes =
+            @"
 - type: entity
   id: GeneratorDummy
   components:
@@ -157,6 +158,7 @@ namespace Content.IntegrationTests.Tests.Power
   - type: Transform
     anchored: true
 ";
+
         /// <summary>
         ///     Test small power net with a simple surplus of power over the loads.
         /// </summary>
@@ -217,7 +219,6 @@ namespace Content.IntegrationTests.Tests.Power
 
             await pair.CleanReturnAsync();
         }
-
 
         /// <summary>
         ///     Test small power net with a simple deficit of power over the loads.
@@ -318,7 +319,7 @@ namespace Content.IntegrationTests.Tests.Power
             });
 
             // Exact values can/will be off by a tick, add tolerance for that.
-            var tickPeriod = (float) gameTiming.TickPeriod.TotalSeconds;
+            var tickPeriod = (float)gameTiming.TickPeriod.TotalSeconds;
             var tickDev = 400 * tickPeriod * 1.1f;
 
             server.RunTicks(1);
@@ -334,7 +335,7 @@ namespace Content.IntegrationTests.Tests.Power
             });
 
             // run for 0.25 seconds (minus the previous tick)
-            var ticks = (int) Math.Round(0.25 * gameTiming.TickRate) - 1;
+            var ticks = (int)Math.Round(0.25 * gameTiming.TickRate) - 1;
             server.RunTicks(ticks);
 
             await server.WaitAssertion(() =>
@@ -348,10 +349,8 @@ namespace Content.IntegrationTests.Tests.Power
                 });
             });
 
-
-
             // run for 0.75 seconds
-            ticks = (int) Math.Round(0.75 * gameTiming.TickRate);
+            ticks = (int)Math.Round(0.75 * gameTiming.TickRate);
             server.RunTicks(ticks);
 
             await server.WaitAssertion(() =>
@@ -412,7 +411,7 @@ namespace Content.IntegrationTests.Tests.Power
             });
 
             // Exact values can/will be off by a tick, add tolerance for that.
-            var tickPeriod = (float) gameTiming.TickPeriod.TotalSeconds;
+            var tickPeriod = (float)gameTiming.TickPeriod.TotalSeconds;
             var tickDev = 400 * tickPeriod * 1.1f;
 
             server.RunTicks(1);
@@ -428,7 +427,7 @@ namespace Content.IntegrationTests.Tests.Power
             });
 
             // run for 0.25 seconds (minus the previous tick)
-            var ticks = (int) Math.Round(0.25 * gameTiming.TickRate) - 1;
+            var ticks = (int)Math.Round(0.25 * gameTiming.TickRate) - 1;
             server.RunTicks(ticks);
 
             await server.WaitAssertion(() =>
@@ -447,7 +446,7 @@ namespace Content.IntegrationTests.Tests.Power
             });
 
             // run for 0.75 seconds
-            ticks = (int) Math.Round(0.75 * gameTiming.TickRate);
+            ticks = (int)Math.Round(0.75 * gameTiming.TickRate);
             server.RunTicks(ticks);
 
             await server.WaitAssertion(() =>
@@ -607,7 +606,7 @@ namespace Content.IntegrationTests.Tests.Power
             });
 
             // run for 0.5 seconds
-            var ticks = (int) Math.Round(0.5 * gameTiming.TickRate);
+            var ticks = (int)Math.Round(0.5 * gameTiming.TickRate);
             server.RunTicks(ticks);
 
             await server.WaitAssertion(() =>
@@ -679,7 +678,7 @@ namespace Content.IntegrationTests.Tests.Power
             server.RunTicks(gameTiming.TickRate);
 
             // Exact values can/will be off by a tick, add tolerance for that.
-            var tickPeriod = (float) gameTiming.TickPeriod.TotalSeconds;
+            var tickPeriod = (float)gameTiming.TickPeriod.TotalSeconds;
             var tickDev = 400 * tickPeriod * 1.1f;
 
             await server.WaitAssertion(() =>
@@ -759,7 +758,7 @@ namespace Content.IntegrationTests.Tests.Power
             server.RunTicks(gameTiming.TickRate);
 
             // Exact values can/will be off by a tick, add tolerance for that.
-            var tickPeriod = (float) gameTiming.TickPeriod.TotalSeconds;
+            var tickPeriod = (float)gameTiming.TickPeriod.TotalSeconds;
             var tickDev = 400 * tickPeriod * 1.1f;
 
             await server.WaitAssertion(() =>
@@ -1185,11 +1184,21 @@ namespace Content.IntegrationTests.Tests.Power
                 var battery = entityManager.SpawnEntity("FullBatteryDummy", grid.Owner.ToCoordinates(0, 2));
                 var batteryNodeContainer = entityManager.GetComponent<NodeContainerComponent>(battery);
 
-                if (nodeContainer.TryGetNode<CableNode>(entityManager.GetComponent<NodeContainerComponent>(leftEnt),
-                        "power", out var leftN))
+                if (
+                    nodeContainer.TryGetNode<CableNode>(
+                        entityManager.GetComponent<NodeContainerComponent>(leftEnt),
+                        "power",
+                        out var leftN
+                    )
+                )
                     leftNode = leftN;
-                if (nodeContainer.TryGetNode<CableNode>(entityManager.GetComponent<NodeContainerComponent>(rightEnt),
-                        "power", out var rightN))
+                if (
+                    nodeContainer.TryGetNode<CableNode>(
+                        entityManager.GetComponent<NodeContainerComponent>(rightEnt),
+                        "power",
+                        out var rightN
+                    )
+                )
                     rightNode = rightN;
 
                 if (nodeContainer.TryGetNode<Node>(batteryNodeContainer, "input", out var nInput))
@@ -1302,11 +1311,17 @@ namespace Content.IntegrationTests.Tests.Power
                 var apcExtensionEnt = entityManager.SpawnEntity("CableApcExtension", grid.Owner.ToCoordinates(0, 0));
 
                 // Create a powered receiver in range (range is 0 indexed)
-                var powerReceiverEnt = entityManager.SpawnEntity("ApcPowerReceiverDummy", grid.Owner.ToCoordinates(0, range - 1));
+                var powerReceiverEnt = entityManager.SpawnEntity(
+                    "ApcPowerReceiverDummy",
+                    grid.Owner.ToCoordinates(0, range - 1)
+                );
                 receiver = entityManager.GetComponent<ApcPowerReceiverComponent>(powerReceiverEnt);
 
                 // Create an unpowered receiver outside range
-                var unpoweredReceiverEnt = entityManager.SpawnEntity("ApcPowerReceiverDummy", grid.Owner.ToCoordinates(0, range));
+                var unpoweredReceiverEnt = entityManager.SpawnEntity(
+                    "ApcPowerReceiverDummy",
+                    grid.Owner.ToCoordinates(0, range)
+                );
                 unpoweredReceiver = entityManager.GetComponent<ApcPowerReceiverComponent>(unpoweredReceiverEnt);
 
                 var battery = entityManager.GetComponent<BatteryComponent>(apcEnt);
@@ -1315,7 +1330,7 @@ namespace Content.IntegrationTests.Tests.Power
                 extensionCableSystem.SetProviderTransferRange(apcExtensionEnt, range);
                 extensionCableSystem.SetReceiverReceptionRange(powerReceiverEnt, range);
 
-                batterySys.SetMaxCharge(apcEnt, 10000, battery);  //arbitrary nonzero amount of charge
+                batterySys.SetMaxCharge(apcEnt, 10000, battery); //arbitrary nonzero amount of charge
                 batterySys.SetCharge(apcEnt, battery.MaxCharge, battery); //fill battery
 
                 receiver.Load = 1; //arbitrary small amount of power
@@ -1335,6 +1350,5 @@ namespace Content.IntegrationTests.Tests.Power
 
             await pair.CleanReturnAsync();
         }
-
     }
 }

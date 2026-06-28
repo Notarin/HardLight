@@ -8,7 +8,7 @@
   - type: BallisticAmmoProvider
     whitelist:
       tags:
-        - NFCartridgePistol35
+      - NFCartridgePistol35
     proto: NFCartridgePistol35
     capacity: 80
   - type: Sprite
@@ -23,7 +23,7 @@
   - type: BallisticAmmoProvider
     whitelist:
       tags:
-        - NFCartridgePistol45
+      - NFCartridgePistol45
     proto: NFCartridgePistol45
     capacity: 60
   - type: Sprite

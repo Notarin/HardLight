@@ -1,24 +1,36 @@
-
-using Robust.Shared.Console;
 using Content.Server.Administration;
-using Content.Shared.Administration;
 using Content.Server.Power.Components;
 using Content.Shared._Crescent.ShipShields;
-
+using Content.Shared.Administration;
+using Robust.Shared.Console;
 
 namespace Content.Server._Crescent.ShipShields;
+
 public partial class ShipShieldsSystem
 {
-    [Dependency] private readonly IConsoleHost _conHost = default!;
+    [Dependency]
+    private readonly IConsoleHost _conHost = default!;
 
     public void InitializeCommands()
     {
-        _conHost.RegisterCommand("shieldentity", "Create a shield around an entity", "shieldentity <uid>",
-            ShieldEntityCmd);
-        _conHost.RegisterCommand("unshieldentity", "Remove a shield from an entity", "unshieldentity <uid>",
-            UnshieldEntityCmd);
-        _conHost.RegisterCommand("shieldstatus", "Print shield emitter state", "shieldstatus <emitterUid>",
-            ShieldStatusCmd);
+        _conHost.RegisterCommand(
+            "shieldentity",
+            "Create a shield around an entity",
+            "shieldentity <uid>",
+            ShieldEntityCmd
+        );
+        _conHost.RegisterCommand(
+            "unshieldentity",
+            "Remove a shield from an entity",
+            "unshieldentity <uid>",
+            UnshieldEntityCmd
+        );
+        _conHost.RegisterCommand(
+            "shieldstatus",
+            "Print shield emitter state",
+            "shieldstatus <emitterUid>",
+            ShieldStatusCmd
+        );
     }
 
     [AdminCommand(AdminFlags.Debug)]
@@ -113,11 +125,17 @@ public partial class ShipShieldsSystem
             shell.WriteLine("Grid marker: <none>");
         }
 
-        if (emitter.Shield is { } shieldUid && Exists(shieldUid) && TryComp<ShipShieldComponent>(shieldUid, out var shieldComp))
+        if (
+            emitter.Shield is { } shieldUid
+            && Exists(shieldUid)
+            && TryComp<ShipShieldComponent>(shieldUid, out var shieldComp)
+        )
         {
             shell.WriteLine($"Shield.Source: {(shieldComp.Source?.ToString() ?? "<null>")}");
             shell.WriteLine($"Shield.Shielded: {shieldComp.Shielded}");
-            shell.WriteLine($"Shield valid for emitter/grid: {gridUid is { } g && IsValidShieldEntity(shieldUid, uid, g)}");
+            shell.WriteLine(
+                $"Shield valid for emitter/grid: {gridUid is { } g && IsValidShieldEntity(shieldUid, uid, g)}"
+            );
         }
     }
 }

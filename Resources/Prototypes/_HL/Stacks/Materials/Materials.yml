@@ -1,216 +1,216 @@
 - type: stack
   id: Resin
   name: stack-Resin
-  icon: { sprite: /Textures/_HL/Objects/Materials/resin.rsi, state: icon }
+  icon: {sprite: /Textures/_HL/Objects/Materials/resin.rsi, state: icon}
   spawn: MaterialResin
   maxCount: 50
 
 - type: stack
   id: RoyalResin
   name: stack-Royal-Resin
-  icon: { sprite: /Textures/_HL/Objects/Materials/royalresin.rsi, state: icon }
+  icon: {sprite: /Textures/_HL/Objects/Materials/royalresin.rsi, state: icon}
   spawn: MaterialRoyalResin
   maxCount: 50
 
 - type: stack
   id: LightShipWeaponFrame
   name: stack-Light-Frame
-  icon: { sprite: /Textures/_HL/Objects/Materials/royalresin.rsi, state: icon }
+  icon: {sprite: /Textures/_HL/Objects/Materials/royalresin.rsi, state: icon}
   spawn: MaterialLightShipWeaponFrame
   maxCount: 10
 
 - type: stack
   id: LightShipWeaponServo
   name: stack-Light-Servo
-  icon: { sprite: /Textures/_HL/Objects/Materials/royalresin.rsi, state: icon }
+  icon: {sprite: /Textures/_HL/Objects/Materials/royalresin.rsi, state: icon}
   spawn: MaterialLightShipWeaponServo
   maxCount: 10
 
 - type: stack
   id: LightShipWeaponInternal
   name: stack-Light-Internal
-  icon: { sprite: /Textures/_HL/Objects/Materials/royalresin.rsi, state: icon }
+  icon: {sprite: /Textures/_HL/Objects/Materials/royalresin.rsi, state: icon}
   spawn: MaterialLightShipWeaponInternal
   maxCount: 10
 
 - type: stack
   id: MediumShipWeaponFrame
   name: stack-Medium-Frame
-  icon: { sprite: /Textures/_HL/Objects/Materials/royalresin.rsi, state: icon }
+  icon: {sprite: /Textures/_HL/Objects/Materials/royalresin.rsi, state: icon}
   spawn: MaterialMediumShipWeaponFrame
   maxCount: 10
 
 - type: stack
   id: MediumShipWeaponServo
   name: stack-Medium-Servo
-  icon: { sprite: /Textures/_HL/Objects/Materials/royalresin.rsi, state: icon }
+  icon: {sprite: /Textures/_HL/Objects/Materials/royalresin.rsi, state: icon}
   spawn: MaterialMediumShipWeaponServo
   maxCount: 10
 
 - type: stack
   id: MediumShipWeaponInternal
   name: stack-Medium-Internal
-  icon: { sprite: /Textures/_HL/Objects/Materials/royalresin.rsi, state: icon }
+  icon: {sprite: /Textures/_HL/Objects/Materials/royalresin.rsi, state: icon}
   spawn: MaterialMediumShipWeaponInternal
   maxCount: 10
 
 - type: stack
   id: HeavyShipWeaponFrame
   name: stack-Heavy-Frame
-  icon: { sprite: /Textures/_HL/Objects/Materials/royalresin.rsi, state: icon }
+  icon: {sprite: /Textures/_HL/Objects/Materials/royalresin.rsi, state: icon}
   spawn: MaterialHeavyShipWeaponFrame
   maxCount: 10
 
 - type: stack
   id: HeavyShipWeaponServo
   name: stack-Heavy-Servo
-  icon: { sprite: /Textures/_HL/Objects/Materials/royalresin.rsi, state: icon }
+  icon: {sprite: /Textures/_HL/Objects/Materials/royalresin.rsi, state: icon}
   spawn: MaterialHeavyShipWeaponServo
   maxCount: 10
 
 - type: stack
   id: HeavyShipWeaponInternal
   name: stack-Heavy-Internal
-  icon: { sprite: /Textures/_HL/Objects/Materials/royalresin.rsi, state: icon }
+  icon: {sprite: /Textures/_HL/Objects/Materials/royalresin.rsi, state: icon}
   spawn: MaterialHeavyShipWeaponInternal
   maxCount: 10
 
 - type: stack
   id: CapitalShipWeaponFrame
   name: stack-Capital-Frame
-  icon: { sprite: /Textures/_HL/Objects/Materials/royalresin.rsi, state: icon }
+  icon: {sprite: /Textures/_HL/Objects/Materials/royalresin.rsi, state: icon}
   spawn: MaterialCapitalShipWeaponFrame
   maxCount: 10
 
 - type: stack
   id: CapitalShipWeaponServo
   name: stack-Capital-Servo
-  icon: { sprite: /Textures/_HL/Objects/Materials/royalresin.rsi, state: icon }
+  icon: {sprite: /Textures/_HL/Objects/Materials/royalresin.rsi, state: icon}
   spawn: MaterialCapitalShipWeaponServo
   maxCount: 10
 
 - type: stack
   id: CapitalShipWeaponInternal
   name: stack-Capital-Internal
-  icon: { sprite: /Textures/_HL/Objects/Materials/royalresin.rsi, state: icon }
+  icon: {sprite: /Textures/_HL/Objects/Materials/royalresin.rsi, state: icon}
   spawn: MaterialCapitalShipWeaponInternal
   maxCount: 10
 
 - type: stack
   id: HiPowerGunpowder
   name: stack-hi-power-gunpowder
-  icon: { sprite: /Textures/Objects/Misc/reagent_fillings.rsi, state: powderpile }
+  icon: {sprite: /Textures/Objects/Misc/reagent_fillings.rsi, state: powderpile}
   spawn: MaterialHiPowerGunpowder
   maxCount: 60
 
 - type: stack
   id: BulletCasing9x19mm
   name: stack-bullet-casing-9x19mm
-  icon: { sprite: /Textures/Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi, state: base-spent }
+  icon: {sprite: /Textures/Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi, state: base-spent}
   spawn: MaterialBulletCasing9x19mm
   maxCount: 60
 
 - type: stack
   id: BulletCasing45_ACP
   name: stack-bullet-casing-45_ACP
-  icon: { sprite: /Textures/Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi, state: base-spent }
+  icon: {sprite: /Textures/Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi, state: base-spent}
   spawn: MaterialBulletCasing45_ACP
   maxCount: 60
 
 - type: stack
   id: BulletCasing46x30mm
   name: stack-bullet-casing-46x30mm
-  icon: { sprite: /Textures/Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi, state: base-spent }
+  icon: {sprite: /Textures/Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi, state: base-spent}
   spawn: MaterialBulletCasing46x30mm
   maxCount: 60
 
 - type: stack
   id: BulletCasing45_magnum
   name: stack-bullet-casing-45_magnum
-  icon: { sprite: /Textures/Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi, state: base-spent }
+  icon: {sprite: /Textures/Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi, state: base-spent}
   spawn: MaterialBulletCasing45_magnum
   maxCount: 60
 
 - type: stack
   id: BulletCasing556x45mm
   name: stack-bullet-casing-556x45mm
-  icon: { sprite: /Textures/Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi, state: base-spent }
+  icon: {sprite: /Textures/Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi, state: base-spent}
   spawn: MaterialBulletCasing556x45mm
   maxCount: 60
 
 - type: stack
   id: BulletCasing57x28mm
   name: stack-bullet-casing-57x28mm
-  icon: { sprite: /Textures/Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi, state: base-spent }
+  icon: {sprite: /Textures/Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi, state: base-spent}
   spawn: MaterialBulletCasing57x28mm
   maxCount: 60
 
 - type: stack
   id: BulletCasing762x39mm
   name: stack-bullet-casing-762x39mm
-  icon: { sprite: /Textures/Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi, state: base-spent }
+  icon: {sprite: /Textures/Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi, state: base-spent}
   spawn: MaterialBulletCasing762x39mm
   maxCount: 60
 
 - type: stack
   id: BulletCasing762x51mm
   name: stack-bullet-casing-762x51mm
-  icon: { sprite: /Textures/Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi, state: base-spent }
+  icon: {sprite: /Textures/Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi, state: base-spent}
   spawn: MaterialBulletCasing762x51mm
   maxCount: 60
 
 - type: stack
   id: BulletCasing762x54mmR
   name: stack-bullet-casing-762x54mmR
-  icon: { sprite: /Textures/Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi, state: base-spent }
+  icon: {sprite: /Textures/Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi, state: base-spent}
   spawn: MaterialBulletCasing762x54mmR
   maxCount: 60
 
 - type: stack
   id: BulletCasing8x65mmSKR
   name: stack-bullet-casing-8x65mmSKR
-  icon: { sprite: /Textures/Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi, state: base-spent }
+  icon: {sprite: /Textures/Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi, state: base-spent}
   spawn: MaterialBulletCasing8x65mmSKR
   maxCount: 60
-  
+
 - type: stack
   id: BulletCasing23x75mm
   name: stack-bullet-casing-23x75mm
-  icon: { sprite: _Mono/Objects/Weapons/Guns/Ammunition/Casings/4_gauge_shell.rsi, state: blank-spent }
+  icon: {sprite: _Mono/Objects/Weapons/Guns/Ammunition/Casings/4_gauge_shell.rsi, state: blank-spent}
   spawn: MaterialBulletCasing23x75mm
   maxCount: 60
-  
+
 - type: stack
   id: BulletCasing12_gauge
   name: stack-bullet-casing-12_gauge
-  icon: { sprite: /Textures/Objects/Weapons/Guns/Ammunition/Casings/shotgun_shell.rsi, state: blank-spent }
+  icon: {sprite: /Textures/Objects/Weapons/Guns/Ammunition/Casings/shotgun_shell.rsi, state: blank-spent}
   spawn: MaterialBulletCasing12_gauge
   maxCount: 60
 
 - type: stack
   id: BulletTip
   name: stack-bullet-tip
-  icon: { sprite: /Textures/Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi, state: tip }
+  icon: {sprite: /Textures/Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi, state: tip}
   spawn: MaterialBulletTip
   maxCount: 60
 
 - type: stack
   id: BulletFlechette
   name: stack-bullet-flechette
-  icon: { sprite: /Textures/Objects/Fun/Darts/dart_red.rsi, state: icon }
+  icon: {sprite: /Textures/Objects/Fun/Darts/dart_red.rsi, state: icon}
   spawn: MaterialBulletFlechette
   maxCount: 60
 
 - type: stack
   id: ArgocytePlateHeavy
   name: stack-argocyte-plate-heavy
-  icon: { sprite: /Textures/Objects/Materials/Shards/piece.rsi, state: piecelarge }
+  icon: {sprite: /Textures/Objects/Materials/Shards/piece.rsi, state: piecelarge}
   spawn: MaterialArgocytePlateHeavy
   maxCount: 50
- 
+
 - type: stack
   id: ArgocytePlateLight
   name: stack-argocyte-plate-light
-  icon: { sprite: /Textures/Objects/Materials/Shards/piece.rsi, state: piecemedium }
+  icon: {sprite: /Textures/Objects/Materials/Shards/piece.rsi, state: piecemedium}
   spawn: MaterialArgocytePlateLight
   maxCount: 50

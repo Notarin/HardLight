@@ -19,4 +19,3 @@ namespace Content.Shared.Chemistry.Components
         public TimeSpan ModifierTimer { get; set; } = TimeSpan.Zero;
     }
 }
-

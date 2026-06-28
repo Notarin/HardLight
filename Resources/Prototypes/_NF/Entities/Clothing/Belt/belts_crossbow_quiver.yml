@@ -8,10 +8,10 @@
     sprite: _NF/Objects/Clothing/Belt/crossbow_quiver.rsi
     layers:
     - state: icon
-    - map: [ "enum.StorageContainerVisualLayers.Fill" ]
+    - map: ["enum.StorageContainerVisualLayers.Fill"]
       visible: false
   - type: Clothing
-    slots: [ Belt, POCKET ]
+    slots: [Belt, POCKET]
     equipSound:
       path: /Audio/Weapons/soup.ogg
   - type: BallisticAmmoProvider

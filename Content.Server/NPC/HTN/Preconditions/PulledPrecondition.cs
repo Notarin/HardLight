@@ -10,7 +10,9 @@ public sealed partial class PulledPrecondition : HTNPrecondition
 {
     private PullingSystem _pulling = default!;
 
-    [ViewVariables(VVAccess.ReadWrite)] [DataField("isPulled")] public bool IsPulled = true;
+    [ViewVariables(VVAccess.ReadWrite)]
+    [DataField("isPulled")]
+    public bool IsPulled = true;
 
     public override void Initialize(IEntitySystemManager sysManager)
     {
@@ -22,7 +24,6 @@ public sealed partial class PulledPrecondition : HTNPrecondition
     {
         var owner = blackboard.GetValue<EntityUid>(NPCBlackboard.Owner);
 
-        return IsPulled && _pulling.IsPulled(owner) ||
-               !IsPulled && !_pulling.IsPulled(owner);
+        return IsPulled && _pulling.IsPulled(owner) || !IsPulled && !_pulling.IsPulled(owner);
     }
 }

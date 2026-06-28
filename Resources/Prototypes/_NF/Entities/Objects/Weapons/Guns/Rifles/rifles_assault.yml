@@ -1,7 +1,7 @@
 #region WizDen
 - type: entity # TODO: switch to .25 rifle (caseless)
   id: NFWeaponRifleAssaultSm
-  parent: [ BaseWeaponRifle, BaseC2ContrabandMercenary, WeaponRifleAnnie ] # Hardlight: Made C2. Same as the AKM so also fits in the boat for a nice freelancer rifle.
+  parent: [BaseWeaponRifle, BaseC2ContrabandMercenary, WeaponRifleAnnie] # Hardlight: Made C2. Same as the AKM so also fits in the boat for a nice freelancer rifle.
   name: Soland-Moss # Renamed: real brand name
   description: |-
     A heavy assault rifle designed to provide suppressive fire to enemy positions. All serial numbers have been expertly removed, rendering this rifle extremely illegal. Uses 762x39 magazines.
@@ -17,7 +17,7 @@
 
 - type: entity # TODO: switch to .25 rifle (caseless)
   id: NFWeaponRifleAssaultM90GrenadeLauncher
-  parent: [ WeaponRifleM90GrenadeLauncher, NFBaseWeaponFrameRifleAssaultCybersun ]
+  parent: [WeaponRifleM90GrenadeLauncher, NFBaseWeaponFrameRifleAssaultCybersun]
   name: M-90gl
   description: |-
     An older bullpup carbine model, with an attached underbarrel grenade launcher. An illegal firearm often used by Syndicate agents. Sadly, this ones grenade launcher is rusted shut.
@@ -29,7 +29,7 @@
 
 - type: entity
   id: NFWeaponRifleAssaultLecter
-  parent: [ BaseC2ContrabandUnredeemable, WeaponRifleLecter, NFBaseWeaponFrameRifleAssaultNanotrasen ]
+  parent: [BaseC2ContrabandUnredeemable, WeaponRifleLecter, NFBaseWeaponFrameRifleAssaultNanotrasen]
   name: Lecter
   description: |-
     A medium end military grade assault rifle. On the receiver is a label that says 'for authorized use only.'
@@ -49,7 +49,7 @@
 #region WizDen: Rubber
 - type: entity
   id: NFWeaponRifleAssaultLecterLessLethal
-  parent: [ BaseC2ContrabandUnredeemable, WeaponRifleLecterRubber, NFBaseWeaponFrameRifleAssaultNanotrasen ]
+  parent: [BaseC2ContrabandUnredeemable, WeaponRifleLecterRubber, NFBaseWeaponFrameRifleAssaultNanotrasen]
   name: Lecter
   description: |-
     A medium end military grade assault rifle. On the receiver is a label that says 'for authorized use only.'
@@ -59,7 +59,7 @@
 #region DeltaV
 - type: entity
   id: NFWeaponRifleAssaultVulcan
-  parent: [ WeaponRifleVulcan, NFBaseWeaponFrameRifleAssaultFrontierGunsmith ]
+  parent: [WeaponRifleVulcan, NFBaseWeaponFrameRifleAssaultFrontierGunsmith]
   name: Vulcan
   description: |-
     One of the heaviest small arms to grace Security's armory, this rifle is a modern take on a classic, informally dubbed the "Right Arm of the Free World".
@@ -75,7 +75,7 @@
 
 - type: entity
   id: NFWeaponRifleAssaultJackdaw
-  parent: [ BaseC3Contraband, WeaponRifleJackdaw, NFBaseWeaponFrameRifleAssaultFrontierGunsmith ]
+  parent: [BaseC3Contraband, WeaponRifleJackdaw, NFBaseWeaponFrameRifleAssaultFrontierGunsmith]
   name: Jackdaw
   description: |-
     The beginning of the end is heralded by the song of a Jackdaw.
@@ -100,7 +100,7 @@
 #region DeltaV: Rubber
 - type: entity
   id: NFWeaponRifleAssaultVulcanLessLethal
-  parent: [ WeaponRifleVulcanRubber, NFBaseWeaponFrameRifleAssaultFrontierGunsmith ]
+  parent: [WeaponRifleVulcanRubber, NFBaseWeaponFrameRifleAssaultFrontierGunsmith]
   name: Vulcan
   description: |-
     One of the heaviest small arms to grace Security's armory, this rifle is a modern take on a classic, informally dubbed the "Right Arm of the Free World".
@@ -110,7 +110,7 @@
 #region Frontier
 - type: entity
   id: NFWeaponRifleAssaultGestio
-  parent: [ WeaponRifleGestio, NFBaseWeaponFrameRifleAssaultFrontierGunsmith ]
+  parent: [WeaponRifleGestio, NFBaseWeaponFrameRifleAssaultFrontierGunsmith]
   name: Gestio
   description: |-
     An old burst-fire rifle designed by Silver Industries that never left trials.
@@ -127,13 +127,13 @@
     burstCooldown: 0.6
     selectedMode: Burst
     availableModes:
-      - Burst
+    - Burst
     soundGunshot:
       path: /Audio/_NF/Weapons/Guns/Gunshots/rifle.ogg
 
 - type: entity
   id: NFWeaponRifleAssaultNovaliteC1
-  parent: [ WeaponRifleNovaliteC1, NFBaseWeaponFrameRifleAssaultFrontierGunsmith ]
+  parent: [WeaponRifleNovaliteC1, NFBaseWeaponFrameRifleAssaultFrontierGunsmith]
   name: Novalite C1
   description: |-
     A civilian grade semi-automatic rifle with an internal magazine.
@@ -146,7 +146,7 @@
     fireRate: 4
     selectedMode: SemiAuto
     availableModes:
-      - SemiAuto
+    - SemiAuto
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/ltrifle.ogg
 

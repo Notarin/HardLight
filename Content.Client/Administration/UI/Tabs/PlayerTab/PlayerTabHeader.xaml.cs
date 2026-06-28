@@ -33,7 +33,7 @@ public sealed partial class PlayerTabHeader : Control
             Header.RoleType => RoleTypeLabel,
             Header.Playtime => PlaytimeLabel,
             Header.Balance => BalanceLabel, // Frontier
-            _ => throw new ArgumentOutOfRangeException(nameof(header), header, null)
+            _ => throw new ArgumentOutOfRangeException(nameof(header), header, null),
         };
     }
 
@@ -110,6 +110,6 @@ public sealed partial class PlayerTabHeader : Control
         Job,
         RoleType,
         Playtime,
-        Balance // Frontier
+        Balance, // Frontier
     }
 }

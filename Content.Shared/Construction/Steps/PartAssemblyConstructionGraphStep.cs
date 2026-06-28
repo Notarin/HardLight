@@ -30,9 +30,6 @@ public sealed partial class PartAssemblyConstructionGraphStep : ConstructionGrap
 
     public override ConstructionGuideEntry GenerateGuideEntry()
     {
-        return new ConstructionGuideEntry
-        {
-            Localization = GuideString,
-        };
+        return new ConstructionGuideEntry { Localization = GuideString };
     }
 }

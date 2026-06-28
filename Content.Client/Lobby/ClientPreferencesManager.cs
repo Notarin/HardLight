@@ -4,8 +4,8 @@ using Content.Shared.Preferences;
 using Robust.Client;
 using Robust.Client.Player;
 using Robust.Shared.Network;
-using Robust.Shared.Utility;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Utility;
 
 namespace Content.Client.Lobby
 {
@@ -16,9 +16,14 @@ namespace Content.Client.Lobby
     /// </summary>
     public sealed class ClientPreferencesManager : IClientPreferencesManager
     {
-        [Dependency] private readonly IClientNetManager _netManager = default!;
-        [Dependency] private readonly IBaseClient _baseClient = default!;
-        [Dependency] private readonly IPlayerManager _playerManager = default!;
+        [Dependency]
+        private readonly IClientNetManager _netManager = default!;
+
+        [Dependency]
+        private readonly IBaseClient _baseClient = default!;
+
+        [Dependency]
+        private readonly IPlayerManager _playerManager = default!;
 
         public event Action? OnServerDataLoaded;
 
@@ -52,10 +57,7 @@ namespace Content.Client.Lobby
         public void SelectCharacter(int slot)
         {
             Preferences = new PlayerPreferences(Preferences.Characters, slot, Preferences.AdminOOCColor);
-            var msg = new MsgSelectCharacter
-            {
-                SelectedCharacterIndex = slot
-            };
+            var msg = new MsgSelectCharacter { SelectedCharacterIndex = slot };
             _netManager.ClientSendMessage(msg);
         }
 
@@ -67,31 +69,31 @@ namespace Content.Client.Lobby
             if (profile is HumanoidCharacterProfile humanoidProfile)
             {
                 var protoManager = IoCManager.Resolve<IPrototypeManager>();
-                if (!string.IsNullOrEmpty(humanoidProfile.Company) &&
-                    humanoidProfile.Company != "None" &&
-                    !protoManager.HasIndex<CompanyPrototype>(humanoidProfile.Company))
+                if (
+                    !string.IsNullOrEmpty(humanoidProfile.Company)
+                    && humanoidProfile.Company != "None"
+                    && !protoManager.HasIndex<CompanyPrototype>(humanoidProfile.Company)
+                )
                 {
                     profile = humanoidProfile.WithCompany("None");
                 }
             }
 
             profile.EnsureValid(_playerManager.LocalSession!, collection);
-            var characters = new Dictionary<int, ICharacterProfile>(Preferences.Characters) {[slot] = profile};
-            Preferences = new PlayerPreferences(characters, Preferences.SelectedCharacterIndex, Preferences.AdminOOCColor);
-            var msg = new MsgUpdateCharacter
-            {
-                Profile = profile,
-                Slot = slot
-            };
+            var characters = new Dictionary<int, ICharacterProfile>(Preferences.Characters) { [slot] = profile };
+            Preferences = new PlayerPreferences(
+                characters,
+                Preferences.SelectedCharacterIndex,
+                Preferences.AdminOOCColor
+            );
+            var msg = new MsgUpdateCharacter { Profile = profile, Slot = slot };
             _netManager.ClientSendMessage(msg);
         }
 
         public void CreateCharacter(ICharacterProfile profile)
         {
             var characters = new Dictionary<int, ICharacterProfile>(Preferences.Characters);
-            var lowest = Enumerable.Range(0, Settings.MaxCharacterSlots)
-                .Except(characters.Keys)
-                .FirstOrNull();
+            var lowest = Enumerable.Range(0, Settings.MaxCharacterSlots).Except(characters.Keys).FirstOrNull();
 
             if (lowest == null)
             {
@@ -100,7 +102,11 @@ namespace Content.Client.Lobby
 
             var l = lowest.Value;
             characters.Add(l, profile);
-            Preferences = new PlayerPreferences(characters, Preferences.SelectedCharacterIndex, Preferences.AdminOOCColor);
+            Preferences = new PlayerPreferences(
+                characters,
+                Preferences.SelectedCharacterIndex,
+                Preferences.AdminOOCColor
+            );
 
             UpdateCharacter(profile, l);
         }
@@ -113,11 +119,12 @@ namespace Content.Client.Lobby
         public void DeleteCharacter(int slot)
         {
             var characters = Preferences.Characters.Where(p => p.Key != slot);
-            Preferences = new PlayerPreferences(characters, Preferences.SelectedCharacterIndex, Preferences.AdminOOCColor);
-            var msg = new MsgDeleteCharacter
-            {
-                Slot = slot
-            };
+            Preferences = new PlayerPreferences(
+                characters,
+                Preferences.SelectedCharacterIndex,
+                Preferences.AdminOOCColor
+            );
+            var msg = new MsgDeleteCharacter { Slot = slot };
             _netManager.ClientSendMessage(msg);
         }
 
@@ -142,10 +149,12 @@ namespace Content.Client.Lobby
                     {
                         var updatedProfile = profile;
 
-                        if (profile is HumanoidCharacterProfile humanoidProfile &&
-                            !string.IsNullOrEmpty(humanoidProfile.Company) &&
-                            humanoidProfile.Company != "None" &&
-                            !protoManager.HasIndex<CompanyPrototype>(humanoidProfile.Company))
+                        if (
+                            profile is HumanoidCharacterProfile humanoidProfile
+                            && !string.IsNullOrEmpty(humanoidProfile.Company)
+                            && humanoidProfile.Company != "None"
+                            && !protoManager.HasIndex<CompanyPrototype>(humanoidProfile.Company)
+                        )
                         {
                             updatedProfile = humanoidProfile.WithCompany("None");
                             needsUpdate = true;
@@ -156,17 +165,27 @@ namespace Content.Client.Lobby
 
                     if (needsUpdate)
                     {
-                        Preferences = new PlayerPreferences(characters, Preferences.SelectedCharacterIndex, Preferences.AdminOOCColor);
+                        Preferences = new PlayerPreferences(
+                            characters,
+                            Preferences.SelectedCharacterIndex,
+                            Preferences.AdminOOCColor
+                        );
 
                         // Do not auto-write to the server on load. If the loaded profile set is a fallback,
                         // silently persisting here can overwrite valid server-side data.
-                        Logger.GetSawmill("preferences").Warning("Locally sanitized invalid company IDs in loaded preferences; skipping automatic server write.");
+                        Logger
+                            .GetSawmill("preferences")
+                            .Warning(
+                                "Locally sanitized invalid company IDs in loaded preferences; skipping automatic server write."
+                            );
                     }
                 }
             }
             catch (Exception e)
             {
-                Logger.GetSawmill("preferences").Error($"Error validating character companies on preferences load: {e}");
+                Logger
+                    .GetSawmill("preferences")
+                    .Error($"Error validating character companies on preferences load: {e}");
             }
 
             OnServerDataLoaded?.Invoke();

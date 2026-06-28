@@ -14,8 +14,12 @@ namespace Content.Server._NF.BountyContracts;
 
 public sealed partial class BountyContractSystem
 {
-    [Dependency] SectorServiceSystem _sectorService = default!;
-    [Dependency] IGameTiming _timing = default!;
+    [Dependency]
+    SectorServiceSystem _sectorService = default!;
+
+    [Dependency]
+    IGameTiming _timing = default!;
+
     private void InitializeUi()
     {
         SubscribeLocalEvent<BountyContractsCartridgeComponent, CartridgeUiReadyEvent>(OnUiReady);
@@ -25,7 +29,11 @@ public sealed partial class BountyContractSystem
     /// <summary>
     ///     Show create contract menu on ui cartridge.
     /// </summary>
-    private void CartridgeOpenCreateUi(Entity<BountyContractsCartridgeComponent> cartridge, EntityUid loaderUid, ProtoId<BountyContractCollectionPrototype> collection)
+    private void CartridgeOpenCreateUi(
+        Entity<BountyContractsCartridgeComponent> cartridge,
+        EntityUid loaderUid,
+        ProtoId<BountyContractCollectionPrototype> collection
+    )
     {
         var state = GetCreateState(cartridge, collection);
         _cartridgeLoader.UpdateCartridgeUiState(loaderUid, state);
@@ -34,7 +42,11 @@ public sealed partial class BountyContractSystem
     /// <summary>
     ///     Show list all contracts menu on ui cartridge.
     /// </summary>
-    private void CartridgeOpenListUi(Entity<BountyContractsCartridgeComponent> cartridge, EntityUid loaderUid, ProtoId<BountyContractCollectionPrototype>? collection = null)
+    private void CartridgeOpenListUi(
+        Entity<BountyContractsCartridgeComponent> cartridge,
+        EntityUid loaderUid,
+        ProtoId<BountyContractCollectionPrototype>? collection = null
+    )
     {
         var state = GetListState(cartridge, loaderUid, collection);
 
@@ -44,14 +56,22 @@ public sealed partial class BountyContractSystem
         _cartridgeLoader.UpdateCartridgeUiState(loaderUid, state);
     }
 
-    private void CartridgeRefreshListUi(Entity<BountyContractsCartridgeComponent> cartridge, EntityUid loaderUid, ProtoId<BountyContractCollectionPrototype>? collection = null)
+    private void CartridgeRefreshListUi(
+        Entity<BountyContractsCartridgeComponent> cartridge,
+        EntityUid loaderUid,
+        ProtoId<BountyContractCollectionPrototype>? collection = null
+    )
     {
         // this will technically refresh it
         // by sending list state again
         CartridgeOpenListUi(cartridge, loaderUid, collection);
     }
 
-    private BountyContractListUiState? GetListState(Entity<BountyContractsCartridgeComponent> cartridge, EntityUid loaderUid, ProtoId<BountyContractCollectionPrototype>? collection = null)
+    private BountyContractListUiState? GetListState(
+        Entity<BountyContractsCartridgeComponent> cartridge,
+        EntityUid loaderUid,
+        ProtoId<BountyContractCollectionPrototype>? collection = null
+    )
     {
         // Set the cartridge's collection if requested.
         if (collection != null)
@@ -67,10 +87,21 @@ public sealed partial class BountyContractSystem
         if (cartridge.Comp.Collection != newCollection)
             cartridge.Comp.Collection = newCollection;
 
-        return new BountyContractListUiState(newCollection.Value, GetReadableCollections(loaderUid), contracts, isAllowedCreate, isAllowedRemove, GetNetEntity(loaderUid), cartridge.Comp.NotificationsEnabled);
+        return new BountyContractListUiState(
+            newCollection.Value,
+            GetReadableCollections(loaderUid),
+            contracts,
+            isAllowedCreate,
+            isAllowedRemove,
+            GetNetEntity(loaderUid),
+            cartridge.Comp.NotificationsEnabled
+        );
     }
 
-    private BountyContractCreateUiState GetCreateState(Entity<BountyContractsCartridgeComponent> cartridge, ProtoId<BountyContractCollectionPrototype> collection)
+    private BountyContractCreateUiState GetCreateState(
+        Entity<BountyContractsCartridgeComponent> cartridge,
+        ProtoId<BountyContractCollectionPrototype> collection
+    )
     {
         var bountyTargets = new HashSet<BountyContractTargetInfo>();
         var vessels = new HashSet<string>();
@@ -88,11 +119,7 @@ public sealed partial class BountyContractSystem
             var icRecords = _records.GetRecordsOfType<GeneralStationRecord>(uid);
             foreach (var (_, icRecord) in icRecords)
             {
-                var target = new BountyContractTargetInfo
-                {
-                    Name = icRecord.Name,
-                    DNA = icRecord.DNA
-                };
+                var target = new BountyContractTargetInfo { Name = icRecord.Name, DNA = icRecord.DNA };
 
                 // hashset will check if record is unique based on DNA field
                 bountyTargets.Add(target);
@@ -117,7 +144,10 @@ public sealed partial class BountyContractSystem
             OnTryCreateMessage((uid, component), ref create);
     }
 
-    private void OnCommandMessage(Entity<BountyContractsCartridgeComponent> cartridge, ref BountyContractCommandMessageEvent args)
+    private void OnCommandMessage(
+        Entity<BountyContractsCartridgeComponent> cartridge,
+        ref BountyContractCommandMessageEvent args
+    )
     {
         switch (args.Command)
         {
@@ -139,7 +169,10 @@ public sealed partial class BountyContractSystem
         }
     }
 
-    private void OnTryRemoveMessage(Entity<BountyContractsCartridgeComponent> cartridge, ref BountyContractTryRemoveMessageEvent args)
+    private void OnTryRemoveMessage(
+        Entity<BountyContractsCartridgeComponent> cartridge,
+        ref BountyContractTryRemoveMessageEvent args
+    )
     {
         var loader = GetEntity(args.LoaderUid);
 
@@ -148,7 +181,10 @@ public sealed partial class BountyContractSystem
             CartridgeRefreshListUi(cartridge, loader);
     }
 
-    private void OnTryCreateMessage(Entity<BountyContractsCartridgeComponent> cartridge, ref BountyContractTryCreateMessageEvent args)
+    private void OnTryCreateMessage(
+        Entity<BountyContractsCartridgeComponent> cartridge,
+        ref BountyContractTryCreateMessageEvent args
+    )
     {
         var loader = GetEntity(args.LoaderUid);
 
@@ -159,7 +195,20 @@ public sealed partial class BountyContractSystem
         var author = Identity.Name(args.Actor, EntityManager);
 
         // Try to post a bounty. If it works, update the requester's UI.
-        if (TryCreateBountyContract(c.Collection, c.Category, c.Name, c.Reward, loader, args.Actor, c.Description, c.Vessel, c.DNA, author) != null)
+        if (
+            TryCreateBountyContract(
+                c.Collection,
+                c.Category,
+                c.Name,
+                c.Reward,
+                loader,
+                args.Actor,
+                c.Description,
+                c.Vessel,
+                c.DNA,
+                author
+            ) != null
+        )
         {
             cartridge.Comp.CreateEnabled = false;
             cartridge.Comp.NextCreate = _timing.CurTime + TimeSpan.FromSeconds(cartridge.Comp.CreateCooldown);

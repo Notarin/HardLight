@@ -5,12 +5,12 @@ namespace Content.Server.Tabletop
     [UsedImplicitly]
     public sealed partial class TabletopBackgammonSetup : TabletopSetup
     {
-
         [DataField("whitePiecePrototype")]
         public string WhitePiecePrototype { get; private set; } = "WhiteTabletopPiece";
 
         [DataField("blackPiecePrototype")]
         public string BlackPiecePrototype { get; private set; } = "BlackTabletopPiece";
+
         public override void SetupTabletop(TabletopSession session, IEntityManager entityManager)
         {
             var board = entityManager.SpawnEntity(BoardPrototype, session.Position);
@@ -33,16 +33,16 @@ namespace Content.Server.Tabletop
                 return isTop ? pos : -pos;
             }
 
-            void AddPieces(
-                float distanceFromSide,
-                int numberOfPieces,
-                bool isBlackPiece,
-                bool isTop,
-                bool isLeftSide)
+            void AddPieces(float distanceFromSide, int numberOfPieces, bool isBlackPiece, bool isTop, bool isLeftSide)
             {
                 for (int i = 0; i < numberOfPieces; i++)
                 {
-                    session.Entities.Add(entityManager.SpawnEntity(isBlackPiece ? BlackPiecePrototype : WhitePiecePrototype, session.Position.Offset(GetXPosition(distanceFromSide, isLeftSide), GetYPosition(i, isTop))));
+                    session.Entities.Add(
+                        entityManager.SpawnEntity(
+                            isBlackPiece ? BlackPiecePrototype : WhitePiecePrototype,
+                            session.Position.Offset(GetXPosition(distanceFromSide, isLeftSide), GetYPosition(i, isTop))
+                        )
+                    );
                 }
             }
 

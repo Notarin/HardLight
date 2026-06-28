@@ -12,7 +12,8 @@ namespace Content.Server.NPC.HTN.PrimitiveTasks.Operators.Combat.Melee;
 /// </summary>
 public sealed partial class MeleeOperator : HTNOperator, IHtnConditionalShutdown
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
 
     /// <summary>
     /// When to shut the task down.
@@ -37,13 +38,17 @@ public sealed partial class MeleeOperator : HTNOperator, IHtnConditionalShutdown
     public override void Startup(NPCBlackboard blackboard)
     {
         base.Startup(blackboard);
-        var melee = _entManager.EnsureComponent<NPCMeleeCombatComponent>(blackboard.GetValue<EntityUid>(NPCBlackboard.Owner));
+        var melee = _entManager.EnsureComponent<NPCMeleeCombatComponent>(
+            blackboard.GetValue<EntityUid>(NPCBlackboard.Owner)
+        );
         melee.MissChance = blackboard.GetValueOrDefault<float>(NPCBlackboard.MeleeMissChance, _entManager);
         melee.Target = blackboard.GetValue<EntityUid>(TargetKey);
     }
 
-    public override async Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(NPCBlackboard blackboard,
-        CancellationToken cancelToken)
+    public override async Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(
+        NPCBlackboard blackboard,
+        CancellationToken cancelToken
+    )
     {
         // Don't attack if they're already as wounded as we want them.
         if (!blackboard.TryGetValue<EntityUid>(TargetKey, out var target, _entManager))
@@ -51,8 +56,10 @@ public sealed partial class MeleeOperator : HTNOperator, IHtnConditionalShutdown
             return (false, null);
         }
 
-        if (_entManager.TryGetComponent<MobStateComponent>(target, out var mobState) &&
-            mobState.CurrentState > TargetState)
+        if (
+            _entManager.TryGetComponent<MobStateComponent>(target, out var mobState)
+            && mobState.CurrentState > TargetState
+        )
         {
             return (false, null);
         }
@@ -78,7 +85,7 @@ public sealed partial class MeleeOperator : HTNOperator, IHtnConditionalShutdown
     public override void PlanShutdown(NPCBlackboard blackboard)
     {
         base.PlanShutdown(blackboard);
-        
+
         ConditionalShutdown(blackboard);
     }
 
@@ -88,15 +95,19 @@ public sealed partial class MeleeOperator : HTNOperator, IHtnConditionalShutdown
         var owner = blackboard.GetValue<EntityUid>(NPCBlackboard.Owner);
         HTNOperatorStatus status;
 
-        if (_entManager.TryGetComponent<NPCMeleeCombatComponent>(owner, out var combat) &&
-            blackboard.TryGetValue<EntityUid>(TargetKey, out var target, _entManager) &&
-            target != EntityUid.Invalid)
+        if (
+            _entManager.TryGetComponent<NPCMeleeCombatComponent>(owner, out var combat)
+            && blackboard.TryGetValue<EntityUid>(TargetKey, out var target, _entManager)
+            && target != EntityUid.Invalid
+        )
         {
             combat.Target = target;
 
             // Success
-            if (_entManager.TryGetComponent<MobStateComponent>(target, out var mobState) &&
-                mobState.CurrentState > TargetState)
+            if (
+                _entManager.TryGetComponent<MobStateComponent>(target, out var mobState)
+                && mobState.CurrentState > TargetState
+            )
             {
                 status = HTNOperatorStatus.Finished;
             }

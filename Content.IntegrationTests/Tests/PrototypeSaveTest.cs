@@ -30,7 +30,9 @@ namespace Content.IntegrationTests.Tests;
 public sealed class PrototypeSaveTest
 {
     [Test]
-    [Ignore("This test appears to be passing, but we have WAY too much stuff in the server and it takes literal hours, so we'll just skip it.")]
+    [Ignore(
+        "This test appears to be passing, but we have WAY too much stuff in the server and it takes literal hours, so we'll just skip it."
+    )]
     public async Task UninitializedSaveTest()
     {
         await using var pair = await PoolManager.GetServerClient();
@@ -98,7 +100,15 @@ public sealed class PrototypeSaveTest
                         foreach (var (compType, comp) in prototype.Components)
                         {
                             context.WritingComponent = compType;
-                            protoData.Add(compType, seriMan.WriteValueAs<MappingDataNode>(comp.Component.GetType(), comp.Component, alwaysWrite: true, context: context));
+                            protoData.Add(
+                                compType,
+                                seriMan.WriteValueAs<MappingDataNode>(
+                                    comp.Component.GetType(),
+                                    comp.Component,
+                                    alwaysWrite: true,
+                                    context: context
+                                )
+                            );
                         }
 
                         context.WritingComponent = string.Empty;
@@ -118,18 +128,29 @@ public sealed class PrototypeSaveTest
                         var compName = compFact.GetComponentName(compType);
                         compNames.Add(compName);
 
-                        if (compType == typeof(MetaDataComponent) || compType == typeof(TransformComponent) || compType == typeof(FixturesComponent))
+                        if (
+                            compType == typeof(MetaDataComponent)
+                            || compType == typeof(TransformComponent)
+                            || compType == typeof(FixturesComponent)
+                        )
                             continue;
 
                         MappingDataNode compMapping;
                         try
                         {
                             context.WritingComponent = compName;
-                            compMapping = seriMan.WriteValueAs<MappingDataNode>(compType, component, alwaysWrite: true, context: context);
+                            compMapping = seriMan.WriteValueAs<MappingDataNode>(
+                                compType,
+                                component,
+                                alwaysWrite: true,
+                                context: context
+                            );
                         }
                         catch (Exception e)
                         {
-                            Assert.Fail($"Failed to serialize {compName} component of entity prototype {prototype.ID}. Exception: {e.Message}");
+                            Assert.Fail(
+                                $"Failed to serialize {compName} component of entity prototype {prototype.ID}. Exception: {e.Message}"
+                            );
                             continue;
                         }
 
@@ -138,7 +159,9 @@ public sealed class PrototypeSaveTest
                             var diff = compMapping.Except(protoMapping);
 
                             if (diff != null && diff.Children.Count != 0)
-                                Assert.Fail($"Prototype {prototype.ID} modifies component on spawn: {compName}. Modified yaml:\n{diff}");
+                                Assert.Fail(
+                                    $"Prototype {prototype.ID} modifies component on spawn: {compName}. Modified yaml:\n{diff}"
+                                );
                         }
                         else
                         {
@@ -149,7 +172,11 @@ public sealed class PrototypeSaveTest
                     // An entity may also remove components on init -> check no components are missing.
                     foreach (var (compType, comp) in prototype.Components)
                     {
-                        Assert.That(compNames, Does.Contain(compType), $"Prototype {prototype.ID} removes component {compType} on spawn.");
+                        Assert.That(
+                            compNames,
+                            Does.Contain(compType),
+                            $"Prototype {prototype.ID} removes component {compType} on spawn."
+                        );
                     }
 
                     if (!entityMan.Deleted(uid))
@@ -160,8 +187,7 @@ public sealed class PrototypeSaveTest
         await pair.CleanReturnAsync();
     }
 
-    public sealed class TestEntityUidContext : ISerializationContext,
-        ITypeSerializer<EntityUid, ValueDataNode>
+    public sealed class TestEntityUidContext : ISerializationContext, ITypeSerializer<EntityUid, ValueDataNode>
     {
         public SerializationManager.SerializerProvider SerializerProvider { get; }
         public bool WritingReadingPrototypes { get; set; }
@@ -175,32 +201,45 @@ public sealed class PrototypeSaveTest
             SerializerProvider.RegisterSerializer(this);
         }
 
-        ValidationNode ITypeValidator<EntityUid, ValueDataNode>.Validate(ISerializationManager serializationManager,
-                ValueDataNode node, IDependencyCollection dependencies, ISerializationContext? context)
+        ValidationNode ITypeValidator<EntityUid, ValueDataNode>.Validate(
+            ISerializationManager serializationManager,
+            ValueDataNode node,
+            IDependencyCollection dependencies,
+            ISerializationContext? context
+        )
         {
             return new ValidatedValueNode(node);
         }
 
-        public DataNode Write(ISerializationManager serializationManager, EntityUid value,
-            IDependencyCollection dependencies, bool alwaysWrite = false,
-            ISerializationContext? context = null)
+        public DataNode Write(
+            ISerializationManager serializationManager,
+            EntityUid value,
+            IDependencyCollection dependencies,
+            bool alwaysWrite = false,
+            ISerializationContext? context = null
+        )
         {
             if (WritingComponent != "Transform" && Prototype?.HideSpawnMenu == false)
             {
                 // Maybe this will be necessary in the future, but at the moment it just indicates that there is some
                 // issue, like a non-nullable entityUid data-field. If a component MUST have an entity uid to work with,
                 // then the prototype very likely has to be a no-spawn entity that is never meant to be directly spawned.
-                Assert.Fail($"Uninitialized entities should not be saving entity Uids. Component: {WritingComponent}. Prototype: {Prototype.ID}");
+                Assert.Fail(
+                    $"Uninitialized entities should not be saving entity Uids. Component: {WritingComponent}. Prototype: {Prototype.ID}"
+                );
             }
 
             return new ValueDataNode(value.ToString());
         }
 
-        EntityUid ITypeReader<EntityUid, ValueDataNode>.Read(ISerializationManager serializationManager,
+        EntityUid ITypeReader<EntityUid, ValueDataNode>.Read(
+            ISerializationManager serializationManager,
             ValueDataNode node,
             IDependencyCollection dependencies,
             SerializationHookContext hookCtx,
-            ISerializationContext? context, ISerializationManager.InstantiationDelegate<EntityUid>? instanceProvider)
+            ISerializationContext? context,
+            ISerializationManager.InstantiationDelegate<EntityUid>? instanceProvider
+        )
         {
             return EntityUid.Parse(node.Value);
         }

@@ -20,7 +20,7 @@
       types:
         Slash: 65
     soundHit:
-        path: /Audio/Weapons/bladeslice.ogg
+      path: /Audio/Weapons/bladeslice.ogg
   - type: Item
     size: Normal
     sprite: _Goobstation/Objects/Weapons/Melee/breverb.rsi

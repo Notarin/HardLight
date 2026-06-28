@@ -39,8 +39,8 @@
       amount: 1
       catalyst: true
   effects:
-    - !type:CreateEntityReactionEffect
-      entity: CrushedPhosphorus10
+  - !type:CreateEntityReactionEffect
+    entity: CrushedPhosphorus10
 
 - type: reaction
   id: CookNutribrick
@@ -54,8 +54,8 @@
     Water:
       amount: 5
   effects:
-    - !type:CreateEntityReactionEffect
-      entity: FoodSnackNutribrickOpen
+  - !type:CreateEntityReactionEffect
+    entity: FoodSnackNutribrickOpen
 
 - type: reaction
   id: SolidifyBrass

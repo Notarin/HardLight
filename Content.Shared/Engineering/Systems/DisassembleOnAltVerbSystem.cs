@@ -8,9 +8,14 @@ namespace Content.Shared.Engineering.Systems;
 
 public sealed partial class DisassembleOnAltVerbSystem : EntitySystem
 {
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedHandsSystem _handsSystem = default!;
-    [Dependency] private readonly INetManager _net = default!;
+    [Dependency]
+    private readonly SharedDoAfterSystem _doAfter = default!;
+
+    [Dependency]
+    private readonly SharedHandsSystem _handsSystem = default!;
+
+    [Dependency]
+    private readonly INetManager _net = default!;
 
     public override void Initialize()
     {
@@ -19,18 +24,24 @@ public sealed partial class DisassembleOnAltVerbSystem : EntitySystem
         SubscribeLocalEvent<DisassembleOnAltVerbComponent, GetVerbsEvent<AlternativeVerb>>(AddDisassembleVerb);
         SubscribeLocalEvent<DisassembleOnAltVerbComponent, DisassembleDoAfterEvent>(OnDisassembleDoAfter);
     }
-    private void AddDisassembleVerb(Entity<DisassembleOnAltVerbComponent> entity, ref GetVerbsEvent<AlternativeVerb> args)
+
+    private void AddDisassembleVerb(
+        Entity<DisassembleOnAltVerbComponent> entity,
+        ref GetVerbsEvent<AlternativeVerb> args
+    )
     {
         if (!args.CanInteract || !args.CanAccess || args.Hands == null)
             return;
 
         // Doafter setup
-        var doAfterArgs = new DoAfterArgs(EntityManager,
+        var doAfterArgs = new DoAfterArgs(
+            EntityManager,
             args.User,
             entity.Comp.DisassembleTime,
             new DisassembleDoAfterEvent(),
             entity,
-            entity)
+            entity
+        )
         {
             BreakOnMove = true,
         };
@@ -43,7 +54,7 @@ public sealed partial class DisassembleOnAltVerbSystem : EntitySystem
                 _doAfter.TryStartDoAfter(doAfterArgs);
             },
             Text = Loc.GetString("disassemble-system-verb-disassemble"),
-            Priority = 2
+            Priority = 2,
         };
         args.Verbs.Add(verb);
     }

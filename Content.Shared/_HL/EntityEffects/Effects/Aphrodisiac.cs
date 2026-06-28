@@ -12,8 +12,8 @@ public sealed partial class Aphrodisiac : EntityEffect
     [DataField]
     public TimeSpan AphrodisiacPower = TimeSpan.FromSeconds(3f);
 
-    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys)
-        => Loc.GetString("reagent-effect-guidebook-aphrodisiac", ("chance", Probability));
+    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys) =>
+        Loc.GetString("reagent-effect-guidebook-aphrodisiac", ("chance", Probability));
 
     public override void Effect(EntityEffectBaseArgs args)
     {

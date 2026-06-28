@@ -10,9 +10,14 @@ namespace Content.Client.Fluids;
 
 public sealed class PuddleOverlay : Overlay
 {
-    [Dependency] private readonly IEyeManager _eyeManager = default!;
-    [Dependency] private readonly IEntityManager _entityManager = default!;
-    [Dependency] private readonly IEntitySystemManager _entitySystemManager = default!;
+    [Dependency]
+    private readonly IEyeManager _eyeManager = default!;
+
+    [Dependency]
+    private readonly IEntityManager _entityManager = default!;
+
+    [Dependency]
+    private readonly IEntitySystemManager _entitySystemManager = default!;
     private readonly PuddleDebugOverlaySystem _debugOverlaySystem;
     private readonly SharedTransformSystem _transformSystem;
 
@@ -58,7 +63,10 @@ public sealed class PuddleOverlay : Overlay
                 continue;
 
             var gridXform = xformQuery.GetComponent(gridId);
-            var (_, _, worldMatrix, invWorldMatrix) = _transformSystem.GetWorldPositionRotationMatrixWithInv(gridXform, xformQuery);
+            var (_, _, worldMatrix, invWorldMatrix) = _transformSystem.GetWorldPositionRotationMatrixWithInv(
+                gridXform,
+                xformQuery
+            );
             gridBounds = invWorldMatrix.TransformBox(args.WorldBounds).Enlarged(mapGrid.TileSize * 2);
             drawHandle.SetTransform(worldMatrix);
 
@@ -84,14 +92,16 @@ public sealed class PuddleOverlay : Overlay
         var drawHandle = args.ScreenHandle;
         var xformQuery = _entityManager.GetEntityQuery<TransformComponent>();
 
-
         foreach (var gridId in _debugOverlaySystem.TileData.Keys)
         {
             if (!_entityManager.TryGetComponent(gridId, out MapGridComponent? mapGrid))
                 continue;
 
             var gridXform = xformQuery.GetComponent(gridId);
-            var (_, _, matrix, invMatrix) = _transformSystem.GetWorldPositionRotationMatrixWithInv(gridXform, xformQuery);
+            var (_, _, matrix, invMatrix) = _transformSystem.GetWorldPositionRotationMatrixWithInv(
+                gridXform,
+                xformQuery
+            );
             var gridBounds = invMatrix.TransformBox(args.WorldBounds).Enlarged(mapGrid.TileSize * 2);
 
             foreach (var debugOverlayData in _debugOverlaySystem.GetData(gridId))
@@ -112,9 +122,10 @@ public sealed class PuddleOverlay : Overlay
     private Color ColorMap(FixedPoint2 intensity)
     {
         var fraction = 1 - intensity / FixedPoint2.New(20f);
-        var result  = fraction < 0.5f
-            ? Color.InterpolateBetween(_mediumPuddle, _heavyPuddle, fraction.Float() * 2)
-            : Color.InterpolateBetween(_lightPuddle, _mediumPuddle, (fraction.Float() - 0.5f) * 2);
+        var result =
+            fraction < 0.5f
+                ? Color.InterpolateBetween(_mediumPuddle, _heavyPuddle, fraction.Float() * 2)
+                : Color.InterpolateBetween(_lightPuddle, _mediumPuddle, (fraction.Float() - 0.5f) * 2);
         return result;
     }
 }

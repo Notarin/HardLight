@@ -6,7 +6,8 @@ namespace Content.Shared.Radiation.Systems;
 
 public sealed class RadiationPulseSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     public override void Initialize()
     {

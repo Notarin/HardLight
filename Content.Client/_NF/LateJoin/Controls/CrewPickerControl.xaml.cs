@@ -18,11 +18,20 @@ namespace Content.Client._NF.LateJoin.Controls;
 [GenerateTypedNameReferences]
 public sealed partial class CrewPickerControl : PickerControl
 {
-    [Dependency] private readonly ILocalizationManager _loc = default!;
-    [Dependency] private readonly IEntitySystemManager _entitySystem = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly JobRequirementsManager _jobReqs = default!;
-    [Dependency] private readonly IClientPreferencesManager _preferencesManager = default!;
+    [Dependency]
+    private readonly ILocalizationManager _loc = default!;
+
+    [Dependency]
+    private readonly IEntitySystemManager _entitySystem = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly JobRequirementsManager _jobReqs = default!;
+
+    [Dependency]
+    private readonly IClientPreferencesManager _preferencesManager = default!;
     private readonly SpriteSystem _spriteSystem;
 
     private Dictionary<NetEntity, StationJobInformation> _lobbyJobs = new();
@@ -135,15 +144,15 @@ public sealed partial class CrewPickerControl : PickerControl
      * @return List of view states for each station.
      */
     private List<CrewListItem.ViewState> BuildStationViewStateList(
-        IReadOnlyDictionary<NetEntity, StationJobInformation> obj)
+        IReadOnlyDictionary<NetEntity, StationJobInformation> obj
+    )
     {
         var stationList = obj.Where(kvp => !kvp.Value.IsLateJoinStation).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
         var viewStateList = new List<CrewListItem.ViewState>();
 
         foreach (var (stationEntity, stationJobInformation) in stationList)
         {
-            if (_hideJoblessShips
-                && !stationJobInformation.JobsAvailable.Any(x => x.Value != 0))
+            if (_hideJoblessShips && !stationJobInformation.JobsAvailable.Any(x => x.Value != 0))
             {
                 continue;
             }
@@ -204,7 +213,12 @@ public sealed partial class CrewPickerControl : PickerControl
                 msg.PushNewline();
             }
 
-            msg.AddMarkupPermissive(Loc.GetString("frontier-lobby-crew-size", ("size", Loc.GetString($"shipyard-console-category-{proto.Category}"))));
+            msg.AddMarkupPermissive(
+                Loc.GetString(
+                    "frontier-lobby-crew-size",
+                    ("size", Loc.GetString($"shipyard-console-category-{proto.Category}"))
+                )
+            );
             msg.PushNewline();
             msg.PushNewline();
         }

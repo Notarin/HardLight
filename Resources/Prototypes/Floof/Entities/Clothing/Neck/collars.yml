@@ -5,13 +5,13 @@
   components:
   - type: Clothing
     # HardLight start
-    slots: [ neck, accessory, accessoryalt ]
+    slots: [neck, accessory, accessoryalt]
     clothingVisuals:
       neck:
       - state: equipped-NECK
       neck-quadborg:
       - state: equipped-NECK-quadborg
-    # HardLight end
+        # HardLight end
   - type: LeashAnchor
     offset: 0, 0.22
     kind: Clothing

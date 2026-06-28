@@ -1,39 +1,59 @@
-using Robust.Shared.Player;
+using Content.Server.Atmos.Rotting;
 using Content.Server.DoAfter;
 using Content.Shared.Abilities.Psionics;
-using Content.Shared.Nyanotrasen.Abilities.Psionics;
+using Content.Shared.Actions.Events;
 using Content.Shared.Damage;
 using Content.Shared.DoAfter;
-using Content.Shared.Popups;
-using Content.Shared.Psionics.Events;
 using Content.Shared.Examine;
-using static Content.Shared.Examine.ExamineSystemShared;
-using Robust.Shared.Timing;
-using Content.Shared.Actions.Events;
-using Robust.Server.Audio;
-using Content.Server.Atmos.Rotting;
-using Content.Shared.Mobs.Systems;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
+using Content.Shared.Mobs.Systems;
+using Content.Shared.Nyanotrasen.Abilities.Psionics;
+using Content.Shared.Popups;
+using Content.Shared.Psionics.Events;
 using Content.Shared.Psionics.Glimmer;
 using Content.Shared.Traits.Assorted;
-
+using Robust.Server.Audio;
+using Robust.Shared.Player;
+using Robust.Shared.Timing;
+using static Content.Shared.Examine.ExamineSystemShared;
 
 namespace Content.Server.Abilities.Psionics;
 
 public sealed class RevivifyPowerSystem : EntitySystem
 {
-    [Dependency] private readonly AudioSystem _audioSystem = default!;
-    [Dependency] private readonly DoAfterSystem _doAfterSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedPsionicAbilitiesSystem _psionics = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly ExamineSystemShared _examine = default!;
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly RottingSystem _rotting = default!;
-    [Dependency] private readonly MobThresholdSystem _mobThreshold = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly GlimmerSystem _glimmer = default!;
+    [Dependency]
+    private readonly AudioSystem _audioSystem = default!;
+
+    [Dependency]
+    private readonly DoAfterSystem _doAfterSystem = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly SharedPsionicAbilitiesSystem _psionics = default!;
+
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
+
+    [Dependency]
+    private readonly ExamineSystemShared _examine = default!;
+
+    [Dependency]
+    private readonly DamageableSystem _damageable = default!;
+
+    [Dependency]
+    private readonly RottingSystem _rotting = default!;
+
+    [Dependency]
+    private readonly MobThresholdSystem _mobThreshold = default!;
+
+    [Dependency]
+    private readonly MobStateSystem _mobState = default!;
+
+    [Dependency]
+    private readonly GlimmerSystem _glimmer = default!;
 
     public override void Initialize()
     {
@@ -43,7 +63,6 @@ public sealed class RevivifyPowerSystem : EntitySystem
         SubscribeLocalEvent<PsionicComponent, DispelledEvent>(OnDispelled);
         SubscribeLocalEvent<PsionicComponent, PsionicHealOtherDoAfterEvent>(OnDoAfter);
     }
-
 
     private void OnPowerUsed(EntityUid uid, PsionicComponent component, PsionicHealOtherPowerActionEvent args)
     {
@@ -55,24 +74,34 @@ public sealed class RevivifyPowerSystem : EntitySystem
 
         if (!args.Immediate)
             AttemptDoAfter(uid, component, args);
-        else ActivatePower(uid, component, args);
+        else
+            ActivatePower(uid, component, args);
 
-        if (args.PopupText is not null
-            && _glimmer.Glimmer > args.GlimmerPopupThreshold * args.ModifiedDampening)
-            _popupSystem.PopupEntity(Loc.GetString(args.PopupText, ("entity", uid)), uid,
-                Filter.Pvs(uid).RemoveWhereAttachedEntity(entity => !_examine.InRangeUnOccluded(uid, entity, ExamineRange, null)),
+        if (args.PopupText is not null && _glimmer.Glimmer > args.GlimmerPopupThreshold * args.ModifiedDampening)
+            _popupSystem.PopupEntity(
+                Loc.GetString(args.PopupText, ("entity", uid)),
+                uid,
+                Filter
+                    .Pvs(uid)
+                    .RemoveWhereAttachedEntity(entity => !_examine.InRangeUnOccluded(uid, entity, ExamineRange, null)),
                 true,
-                args.PopupType);
+                args.PopupType
+            );
 
-        if (args.PlaySound
-            && _glimmer.Glimmer > args.GlimmerSoundThreshold * args.ModifiedDampening)
+        if (args.PlaySound && _glimmer.Glimmer > args.GlimmerSoundThreshold * args.ModifiedDampening)
             _audioSystem.PlayPvs(args.SoundUse, uid, args.AudioParams);
 
         // Sanitize the Glimmer inputs because otherwise the game will crash if someone makes MaxGlimmer lower than MinGlimmer.
-        var minGlimmer = (int) Math.Round(MathF.MinMagnitude(args.MinGlimmer, args.MaxGlimmer)
-            * args.ModifiedAmplification - args.ModifiedDampening);
-        var maxGlimmer = (int) Math.Round(MathF.MaxMagnitude(args.MinGlimmer, args.MaxGlimmer)
-            * args.ModifiedAmplification - args.ModifiedDampening);
+        var minGlimmer = (int)
+            Math.Round(
+                MathF.MinMagnitude(args.MinGlimmer, args.MaxGlimmer) * args.ModifiedAmplification
+                    - args.ModifiedDampening
+            );
+        var maxGlimmer = (int)
+            Math.Round(
+                MathF.MaxMagnitude(args.MinGlimmer, args.MaxGlimmer) * args.ModifiedAmplification
+                    - args.ModifiedDampening
+            );
 
         _psionics.LogPowerUsed(uid, args.PowerName, minGlimmer, maxGlimmer);
         args.Handled = true;
@@ -120,26 +149,37 @@ public sealed class RevivifyPowerSystem : EntitySystem
 
         // The target can also cease existing mid-cast
         // Or the DoAfter is cancelled(such as if the caster moves).
-        if (args.Target is null
-            || args.Cancelled)
+        if (args.Target is null || args.Cancelled)
             return;
 
         if (args.RotReduction is not null)
-            _rotting.ReduceAccumulator(args.Target.Value, TimeSpan.FromSeconds(args.RotReduction.Value * args.ModifiedAmplification));
+            _rotting.ReduceAccumulator(
+                args.Target.Value,
+                TimeSpan.FromSeconds(args.RotReduction.Value * args.ModifiedAmplification)
+            );
 
         if (!TryComp<DamageableComponent>(args.Target.Value, out var damageableComponent))
             return;
 
         if (args.HealingAmount is not null)
-            _damageable.TryChangeDamage(args.Target.Value, args.HealingAmount * args.ModifiedAmplification, true, false, damageableComponent, uid);
+            _damageable.TryChangeDamage(
+                args.Target.Value,
+                args.HealingAmount * args.ModifiedAmplification,
+                true,
+                false,
+                damageableComponent,
+                uid
+            );
 
-        if (!args.DoRevive
+        if (
+            !args.DoRevive
             || HasComp<UnrevivableComponent>(args.Target.Value) // Floofstation - unrevivable
             || _rotting.IsRotten(args.Target.Value)
             || !TryComp<MobStateComponent>(args.Target.Value, out var mob)
             || !_mobState.IsDead(args.Target.Value, mob)
             || !_mobThreshold.TryGetThresholdForState(args.Target.Value, MobState.Dead, out var threshold)
-            || damageableComponent.TotalDamage > threshold)
+            || damageableComponent.TotalDamage > threshold
+        )
             return;
 
         _mobState.ChangeMobState(args.Target.Value, MobState.Critical, mob, uid);
@@ -152,20 +192,32 @@ public sealed class RevivifyPowerSystem : EntitySystem
             return;
 
         if (args.RotReduction is not null)
-            _rotting.ReduceAccumulator(args.Target, TimeSpan.FromSeconds(args.RotReduction.Value * args.ModifiedAmplification));
+            _rotting.ReduceAccumulator(
+                args.Target,
+                TimeSpan.FromSeconds(args.RotReduction.Value * args.ModifiedAmplification)
+            );
 
         if (!TryComp<DamageableComponent>(args.Target, out var damageableComponent))
             return;
 
         if (args.HealingAmount is not null)
-            _damageable.TryChangeDamage(args.Target, args.HealingAmount * args.ModifiedAmplification, true, false, damageableComponent, uid);
+            _damageable.TryChangeDamage(
+                args.Target,
+                args.HealingAmount * args.ModifiedAmplification,
+                true,
+                false,
+                damageableComponent,
+                uid
+            );
 
-        if (!args.DoRevive
+        if (
+            !args.DoRevive
             || _rotting.IsRotten(args.Target)
             || !TryComp<MobStateComponent>(args.Target, out var mob)
             || !_mobState.IsDead(args.Target, mob)
             || !_mobThreshold.TryGetThresholdForState(args.Target, MobState.Dead, out var threshold)
-            || damageableComponent.TotalDamage > threshold)
+            || damageableComponent.TotalDamage > threshold
+        )
             return;
 
         _mobState.ChangeMobState(args.Target, MobState.Critical, mob, uid);

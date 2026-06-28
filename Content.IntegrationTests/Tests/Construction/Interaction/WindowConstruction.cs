@@ -36,15 +36,8 @@ public sealed class WindowConstruction : InteractionTest
     public async Task DeonstructReinforcedWindow()
     {
         await StartDeconstruction(RWindow);
-        await Interact(
-            Weld,
-            Screw,
-            Pry,
-            Weld,
-            Screw,
-            Wrench);
+        await Interact(Weld, Screw, Pry, Weld, Screw, Wrench);
         AssertDeleted();
         await AssertEntityLookup((RGlass, 2));
     }
 }
-

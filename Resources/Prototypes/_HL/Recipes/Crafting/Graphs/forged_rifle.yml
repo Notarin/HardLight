@@ -34,27 +34,27 @@
   id: Improvised556/762x39MagazineGraph
   start: start
   graph:
-    - node: start
-      edges:
-        - to: shell
-          steps:
-            - material: Steel
-              amount: 5
-              doAfter: 2
-    - node: shell
-      entity: Magazine556/762x39Improvised
+  - node: start
+    edges:
+    - to: shell
+      steps:
+      - material: Steel
+        amount: 5
+        doAfter: 2
+  - node: shell
+    entity: Magazine556/762x39Improvised
 
 - type: constructionGraph
   id: Improvised635x44mm/762x54rMagazineGraph
   start: start
   graph:
-    - node: start
-      edges:
-        - to: shell
-          steps:
-            - material: Steel
-              amount: 8
-              doAfter: 2
-    - node: shell
-      entity: Magazine635x44mm/762x54rImprovised
+  - node: start
+    edges:
+    - to: shell
+      steps:
+      - material: Steel
+        amount: 8
+        doAfter: 2
+  - node: shell
+    entity: Magazine635x44mm/762x54rImprovised
 

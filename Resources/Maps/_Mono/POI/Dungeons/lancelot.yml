@@ -14450,7 +14450,6 @@ entities:
       parent: 1
     - type: DeviceNetwork
 
-
       deviceLists:
       - 2238
       - 6
@@ -14462,7 +14461,6 @@ entities:
       pos: 1.5,-3.5
       parent: 1
     - type: DeviceNetwork
-
 
       deviceLists:
       - 2238
@@ -14512,7 +14510,6 @@ entities:
       parent: 1
     - type: DeviceNetwork
 
-
       deviceLists:
       - 2241
       - 9
@@ -14547,7 +14544,6 @@ entities:
       parent: 1
     - type: DeviceNetwork
 
-
       deviceLists:
       - 2240
       - 7
@@ -14559,7 +14555,6 @@ entities:
       pos: 3.5,-1.5
       parent: 1
     - type: DeviceNetwork
-
 
       deviceLists:
       - 2240
@@ -14594,7 +14589,6 @@ entities:
       pos: -5.5,-55.5
       parent: 1
     - type: DeviceNetwork
-
 
       deviceLists:
       - 2245
@@ -17219,7 +17213,6 @@ entities:
       parent: 1
     - type: DeviceNetwork
 
-
       deviceLists:
       - 8
     - type: AtmosPipeColor
@@ -17296,7 +17289,6 @@ entities:
       pos: -4.5,-54.5
       parent: 1
     - type: DeviceNetwork
-
 
       deviceLists:
       - 15
@@ -17417,7 +17409,6 @@ entities:
       parent: 1
     - type: DeviceNetwork
 
-
       deviceLists:
       - 8
     - type: AtmosPipeColor
@@ -17493,7 +17484,6 @@ entities:
       pos: -4.5,-51.5
       parent: 1
     - type: DeviceNetwork
-
 
       deviceLists:
       - 15
@@ -36198,4 +36188,3 @@ entities:
         58:
         - - DoorStatus
           - DoorBolt
-...

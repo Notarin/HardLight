@@ -1,4 +1,4 @@
-﻿- type: entity
+- type: entity
   name: Urist McFelionoid
   parent: BaseMobHuman
   # removed BaseSpeciesPickupable, handled by another engine
@@ -30,8 +30,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.30
         density: 110
         restitution: 0.0
@@ -71,9 +70,9 @@
   - type: PseudoItem
     storedOffset: 0,17
     shape:
-      - 0,0,1,4
-      - 0,2,3,4
-      - 4,0,5,4
+    - 0,0,1,4
+    - 0,2,3,4
+    - 4,0,5,4
   - type: Vocal
     sounds:
       Male: MaleFelionoid
@@ -87,11 +86,11 @@
     - Felinid # Frontier
   - type: Reactive
     groups:
-      Flammable: [ Touch ]
-      Extinguish: [ Touch ]
+      Flammable: [Touch]
+      Extinguish: [Touch]
     reactions:
-    - reagents: [ Water, SpaceCleaner ]
-      methods: [ Touch ]
+    - reagents: [Water, SpaceCleaner]
+      methods: [Touch]
       effects:
       - !type:WashCreamPieReaction
       - !type:Emote
@@ -166,7 +165,7 @@
 - type: entity
   parent: BaseSpeciesDummy
   id: MobFelionoidDummy
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: HumanoidAppearance
     species: Felionoid

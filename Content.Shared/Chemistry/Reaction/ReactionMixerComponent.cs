@@ -43,6 +43,4 @@ public record struct MixingAttemptEvent(EntityUid Mixed, bool Cancelled = false)
 public readonly record struct AfterMixingEvent(EntityUid Mixed, EntityUid Mixer);
 
 [Serializable, NetSerializable]
-public sealed partial class ReactionMixDoAfterEvent : SimpleDoAfterEvent
-{
-}
+public sealed partial class ReactionMixDoAfterEvent : SimpleDoAfterEvent { }

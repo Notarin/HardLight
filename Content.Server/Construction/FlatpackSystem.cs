@@ -13,9 +13,14 @@ namespace Content.Server.Construction;
 /// <inheritdoc/>
 public sealed class FlatpackSystem : SharedFlatpackSystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly AmbientSoundSystem _ambientSound = default!;
-    [Dependency] private readonly ItemSlotsSystem _itemSlots = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly AmbientSoundSystem _ambientSound = default!;
+
+    [Dependency]
+    private readonly ItemSlotsSystem _itemSlots = default!;
 
     /// <inheritdoc/>
     public override void Initialize()

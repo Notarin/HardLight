@@ -12,10 +12,9 @@
   - type: Cartridge
     programName: notekeeper-program-name
     icon:
-      sprite:  Objects/Misc/books.rsi
+      sprite: Objects/Misc/books.rsi
       state: book_icon
   - type: NotekeeperCartridge
-
 
 - type: entity
   parent: BaseItem
@@ -59,17 +58,17 @@
   name: crew manifest cartridge
   description: A program for listing your fellow crewmembers.
   components:
-    - type: Sprite
-      sprite: Objects/Devices/cartridge.rsi
-      state: cart-y
-    - type: UIFragment
-      ui: !type:CrewManifestUi
-    - type: Cartridge
-      programName: crew-manifest-program-name
-      icon:
-        sprite: Interface/Misc/program_icons.rsi
-        state: crew_manifest
-    - type: CrewManifestCartridge
+  - type: Sprite
+    sprite: Objects/Devices/cartridge.rsi
+    state: cart-y
+  - type: UIFragment
+    ui: !type:CrewManifestUi
+  - type: Cartridge
+    programName: crew-manifest-program-name
+    icon:
+      sprite: Interface/Misc/program_icons.rsi
+      state: crew_manifest
+  - type: CrewManifestCartridge
 
 - type: entity
   parent: NFBasePDACartridge # Frontier: BaseItem<NFBasePDACartridge
@@ -77,17 +76,17 @@
   name: NetProbe cartridge
   description: A program for getting the address and frequency of network devices.
   components:
-    - type: Sprite
-      sprite: Objects/Devices/cartridge.rsi
-      state: cart-y
-    - type: UIFragment
-      ui: !type:NetProbeUi
-    - type: Cartridge
-      programName: net-probe-program-name
-      icon:
-        sprite: Structures/Machines/server.rsi
-        state: server
-    - type: NetProbeCartridge
+  - type: Sprite
+    sprite: Objects/Devices/cartridge.rsi
+    state: cart-y
+  - type: UIFragment
+    ui: !type:NetProbeUi
+  - type: Cartridge
+    programName: net-probe-program-name
+    icon:
+      sprite: Structures/Machines/server.rsi
+      state: server
+  - type: NetProbeCartridge
 
 - type: entity
   parent: NFBasePDACartridge # Frontier: BaseItem<NFBasePDACartridge
@@ -95,23 +94,23 @@
   name: LogProbe cartridge
   description: A program for getting access logs from devices.
   components:
-    - type: Sprite
-      sprite: Objects/Devices/cartridge.rsi
-      state: cart-log
-    - type: Icon
-      sprite: Objects/Devices/cartridge.rsi
-      state: cart-log
-    - type: UIFragment
-      ui: !type:LogProbeUi
-    - type: Cartridge
-      programName: log-probe-program-name
-      icon:
-        sprite: _NF/Structures/Doors/Airlocks/Standard/nfsd.rsi # Frontier: Swap security to NFSD
-        state: closed
-    - type: LogProbeCartridge
-    - type: GuideHelp
-      guides:
-      - Forensics
+  - type: Sprite
+    sprite: Objects/Devices/cartridge.rsi
+    state: cart-log
+  - type: Icon
+    sprite: Objects/Devices/cartridge.rsi
+    state: cart-log
+  - type: UIFragment
+    ui: !type:LogProbeUi
+  - type: Cartridge
+    programName: log-probe-program-name
+    icon:
+      sprite: _NF/Structures/Doors/Airlocks/Standard/nfsd.rsi # Frontier: Swap security to NFSD
+      state: closed
+  - type: LogProbeCartridge
+  - type: GuideHelp
+    guides:
+    - Forensics
 
 - type: entity
   parent: NFBasePDACartridge # Frontier: BaseItem<NFBasePDACartridge
@@ -143,18 +142,18 @@
   name: MedTek cartridge
   description: A program that provides medical diagnostic tools.
   components:
-    - type: Sprite
-      sprite: Objects/Devices/cartridge.rsi
-      state: cart-med
-    - type: Icon
-      sprite: Objects/Devices/cartridge.rsi
-      state: cart-med
-    - type: Cartridge
-      programName: med-tek-program-name
-      icon:
-        sprite: Objects/Specific/Medical/healthanalyzer.rsi
-        state: icon
-    - type: MedTekCartridge
+  - type: Sprite
+    sprite: Objects/Devices/cartridge.rsi
+    state: cart-med
+  - type: Icon
+    sprite: Objects/Devices/cartridge.rsi
+    state: cart-med
+  - type: Cartridge
+    programName: med-tek-program-name
+    icon:
+      sprite: Objects/Specific/Medical/healthanalyzer.rsi
+      state: icon
+  - type: MedTekCartridge
 
 - type: entity
   parent: NFBasePDACartridge # Frontier: BaseItem<NFBasePDACartridge
@@ -162,15 +161,15 @@
   name: AstroNav cartridge
   description: A program for navigation that provides GPS coordinates.
   components:
-    - type: Sprite
-      sprite: Objects/Devices/cartridge.rsi
-      state: cart-nav
-    - type: Icon
-      sprite: Objects/Devices/cartridge.rsi
-      state: cart-nav
-    - type: Cartridge
-      programName: astro-nav-program-name
-      icon:
-        sprite: Objects/Devices/gps.rsi
-        state: icon
-    - type: AstroNavCartridge
+  - type: Sprite
+    sprite: Objects/Devices/cartridge.rsi
+    state: cart-nav
+  - type: Icon
+    sprite: Objects/Devices/cartridge.rsi
+    state: cart-nav
+  - type: Cartridge
+    programName: astro-nav-program-name
+    icon:
+      sprite: Objects/Devices/gps.rsi
+      state: icon
+  - type: AstroNavCartridge

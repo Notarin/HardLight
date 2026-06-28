@@ -24,7 +24,13 @@ public sealed class DockTest : ContentUnitTest
 
     [Test]
     [TestCaseSource(nameof(TestSource))]
-    public async Task TestDockingConfig(Vector2 dock1Pos, Vector2 dock2Pos, Angle dock1Angle, Angle dock2Angle, bool result)
+    public async Task TestDockingConfig(
+        Vector2 dock1Pos,
+        Vector2 dock2Pos,
+        Angle dock1Angle,
+        Angle dock2Angle,
+        bool result
+    )
     {
         await using var pair = await PoolManager.GetServerClient();
         var server = pair.Server;
@@ -120,7 +126,10 @@ public sealed class DockTest : ContentUnitTest
         await server.WaitAssertion(() =>
         {
             mapSystem.SetTile(map.MapUid, mapGrid, Vector2i.Zero, new Tile(1));
-            var airlockEnt = entManager.SpawnEntity("AirlockShuttle", new EntityCoordinates(map.MapUid, Vector2.One / 2f));
+            var airlockEnt = entManager.SpawnEntity(
+                "AirlockShuttle",
+                new EntityCoordinates(map.MapUid, Vector2.One / 2f)
+            );
             Assert.That(entManager.GetComponent<TransformComponent>(airlockEnt).Anchored);
 
             var dockingConfig = dockingSystem.GetDockingConfig(shuttle, map.MapUid);

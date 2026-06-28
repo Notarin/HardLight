@@ -32,17 +32,16 @@
   mapName: 'Charon'
   mapPath: /Maps/_NF/Shuttles/Expedition/charon.yml
   minPlayers: 0
-  stations: 
+  stations:
     Charon:
       stationProto: StandardFrontierExpeditionVessel
       components:
-        - type: StationNameSetup
-          mapNameTemplate: 'Charon {1}'
-          nameGenerator:
-            !type:NanotrasenNameGenerator
-            prefixCreator: '14'
-        - type: StationJobs
-          availableJobs:
-            Contractor: [ 0, 0 ]
-            Pilot: [ 0, 0 ]
-            Mercenary: [ 0, 0 ]
+      - type: StationNameSetup
+        mapNameTemplate: 'Charon {1}'
+        nameGenerator: !type:NanotrasenNameGenerator
+          prefixCreator: '14'
+      - type: StationJobs
+        availableJobs:
+          Contractor: [0, 0]
+          Pilot: [0, 0]
+          Mercenary: [0, 0]

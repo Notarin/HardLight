@@ -13,8 +13,8 @@
   metabolisms:
     Drink:
       effects:
-      # Slight hydration, and only if the drinker consented to interacting with it.
       - !type:SatiateThirst
+        # Slight hydration, and only if the drinker consented to interacting with it.
         factor: 0.2
         conditions:
         - !type:ConsentCondition
@@ -30,10 +30,10 @@
   color: "#dddcce"
   recognizable: true
   plantMetabolism:
-    - !type:PlantAdjustNutrition
-      amount: 0.1
-    - !type:PlantAdjustWater
-      amount: 0.9
+  - !type:PlantAdjustNutrition
+    amount: 0.1
+  - !type:PlantAdjustWater
+    amount: 0.9
   metabolisms:
     Drink:
       effects:

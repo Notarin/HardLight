@@ -14,9 +14,14 @@ public sealed class ClientAlertsSystem : AlertsSystem
 {
     public AlertOrderPrototype? AlertOrder { get; set; }
 
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IUserInterfaceManager _ui = default!;
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly IUserInterfaceManager _ui = default!;
 
     public event EventHandler? ClearAlerts;
     public event EventHandler<IReadOnlyDictionary<AlertKey, AlertState>>? SyncAlerts;
@@ -49,9 +54,7 @@ public sealed class ClientAlertsSystem : AlertsSystem
         get
         {
             var ent = _playerManager.LocalEntity;
-            return ent is not null
-                ? GetActiveAlerts(ent.Value)
-                : null;
+            return ent is not null ? GetActiveAlerts(ent.Value) : null;
         }
     }
 

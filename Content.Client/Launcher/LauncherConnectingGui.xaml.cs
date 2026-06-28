@@ -8,10 +8,10 @@ using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.XAML;
 using Robust.Shared.Configuration;
 using Robust.Shared.IoC;
-using Robust.Shared.Timing;
 using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
+using Robust.Shared.Timing;
 
 namespace Content.Client.Launcher
 {
@@ -30,8 +30,13 @@ namespace Content.Client.Launcher
         private readonly IConfigurationManager _cfg;
         private readonly IClipboardManager _clipboard;
 
-        public LauncherConnectingGui(LauncherConnecting state, IRobustRandom random,
-            IPrototypeManager prototype, IConfigurationManager config, IClipboardManager clipboard)
+        public LauncherConnectingGui(
+            LauncherConnecting state,
+            IRobustRandom random,
+            IPrototypeManager prototype,
+            IConfigurationManager config,
+            IClipboardManager clipboard
+        )
         {
             _state = state;
             _random = random;
@@ -103,9 +108,9 @@ namespace Content.Client.Launcher
 
         private void ConnectFailReasonChanged(string? reason)
         {
-            ConnectFailReason.SetMessage(reason == null
-                ? ""
-                : Loc.GetString("connecting-fail-reason", ("reason", reason)));
+            ConnectFailReason.SetMessage(
+                reason == null ? "" : Loc.GetString("connecting-fail-reason", ("reason", reason))
+            );
         }
 
         private void LastNetDisconnectedArgsChanged(NetDisconnectedArgs? args)
@@ -132,7 +137,6 @@ namespace Content.Client.Launcher
                 {
                     _waitTime = RedialWaitTimeSeconds;
                 }
-
             }
         }
 
@@ -163,19 +167,16 @@ namespace Content.Client.Launcher
         {
             base.FrameUpdate(args);
 
-            var button = _state.CurrentPage == LauncherConnecting.Page.ConnectFailed
-                ? RetryButton
-                : ReconnectButton;
+            var button = _state.CurrentPage == LauncherConnecting.Page.ConnectFailed ? RetryButton : ReconnectButton;
 
             _waitTime -= args.DeltaSeconds;
             if (_waitTime <= 0)
             {
                 button.Disabled = false;
-                var key = _redial
-                    ? "connecting-redial"
-                    : _state.CurrentPage == LauncherConnecting.Page.ConnectFailed
-                        ? "connecting-reconnect"
-                        : "connecting-retry";
+                var key =
+                    _redial ? "connecting-redial"
+                    : _state.CurrentPage == LauncherConnecting.Page.ConnectFailed ? "connecting-reconnect"
+                    : "connecting-retry";
 
                 button.Text = Loc.GetString(key);
             }

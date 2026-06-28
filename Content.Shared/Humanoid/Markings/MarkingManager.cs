@@ -8,10 +8,12 @@ namespace Content.Shared.Humanoid.Markings
 {
     public sealed class MarkingManager
     {
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+        [Dependency]
+        private readonly IPrototypeManager _prototypeManager = default!;
 
         private readonly List<MarkingPrototype> _index = new();
-        public FrozenDictionary<MarkingCategories, FrozenDictionary<string, MarkingPrototype>> CategorizedMarkings = default!;
+        public FrozenDictionary<MarkingCategories, FrozenDictionary<string, MarkingPrototype>> CategorizedMarkings =
+            default!;
         public FrozenDictionary<string, MarkingPrototype> Markings = default!;
 
         public void Initialize()
@@ -36,11 +38,10 @@ namespace Content.Shared.Humanoid.Markings
                 markingDict[prototype.MarkingCategory].Add(prototype.ID, prototype);
             }
 
-    Markings = _prototypeManager.EnumeratePrototypes<MarkingPrototype>().ToFrozenDictionary(x => x.ID);
-    CategorizedMarkings = markingDict.ToFrozenDictionary(
-        x => x.Key,
-        x => x.Value.ToFrozenDictionary());
-}
+            Markings = _prototypeManager.EnumeratePrototypes<MarkingPrototype>().ToFrozenDictionary(x => x.ID);
+            CategorizedMarkings = markingDict.ToFrozenDictionary(x => x.Key, x => x.Value.ToFrozenDictionary());
+        }
+
         public FrozenDictionary<string, MarkingPrototype> MarkingsByCategory(MarkingCategories category)
         {
             // all marking categories are guaranteed to have a dict entry
@@ -57,8 +58,10 @@ namespace Content.Shared.Humanoid.Markings
         ///     Please make a pull request if you find a use case for that behavior.
         /// </remarks>
         /// <returns></returns>
-        public IReadOnlyDictionary<string, MarkingPrototype> MarkingsByCategoryAndSpecies(MarkingCategories category,
-            string species)
+        public IReadOnlyDictionary<string, MarkingPrototype> MarkingsByCategoryAndSpecies(
+            MarkingCategories category,
+            string species
+        )
         {
             var speciesProto = _prototypeManager.Index<SpeciesPrototype>(species);
             var markingPoints = _prototypeManager.Index(speciesProto.MarkingPoints);
@@ -66,7 +69,10 @@ namespace Content.Shared.Humanoid.Markings
 
             foreach (var (key, marking) in MarkingsByCategory(category))
             {
-                if ((markingPoints.OnlyWhitelisted || markingPoints.Points[category].OnlyWhitelisted) && marking.SpeciesRestrictions == null)
+                if (
+                    (markingPoints.OnlyWhitelisted || markingPoints.Points[category].OnlyWhitelisted)
+                    && marking.SpeciesRestrictions == null
+                )
                 {
                     continue;
                 }
@@ -91,8 +97,10 @@ namespace Content.Shared.Humanoid.Markings
         ///     Please make a pull request if you find a use case for that behavior.
         /// </remarks>
         /// <returns></returns>
-        public IReadOnlyDictionary<string, MarkingPrototype> MarkingsByCategoryAndSex(MarkingCategories category,
-            Sex sex)
+        public IReadOnlyDictionary<string, MarkingPrototype> MarkingsByCategoryAndSex(
+            MarkingCategories category,
+            Sex sex
+        )
         {
             var res = new Dictionary<string, MarkingPrototype>();
 
@@ -120,8 +128,11 @@ namespace Content.Shared.Humanoid.Markings
         ///     Please make a pull request if you find a use case for that behavior.
         /// </remarks>
         /// <returns></returns>
-        public IReadOnlyDictionary<string, MarkingPrototype> MarkingsByCategoryAndSpeciesAndSex(MarkingCategories category,
-            string species, Sex sex)
+        public IReadOnlyDictionary<string, MarkingPrototype> MarkingsByCategoryAndSpeciesAndSex(
+            MarkingCategories category,
+            string species,
+            Sex sex
+        )
         {
             var speciesProto = _prototypeManager.Index<SpeciesPrototype>(species);
             var onlyWhitelisted = _prototypeManager.Index(speciesProto.MarkingPoints).OnlyWhitelisted;
@@ -170,9 +181,11 @@ namespace Content.Shared.Humanoid.Markings
                 return false;
             }
 
-            if (proto.MarkingCategory != category ||
-                proto.SpeciesRestrictions != null && !proto.SpeciesRestrictions.Contains(species) ||
-                proto.SexRestriction != null && proto.SexRestriction != sex)
+            if (
+                proto.MarkingCategory != category
+                || proto.SpeciesRestrictions != null && !proto.SpeciesRestrictions.Contains(species)
+                || proto.SexRestriction != null && proto.SexRestriction != sex
+            )
             {
                 return false;
             }
@@ -208,8 +221,7 @@ namespace Content.Shared.Humanoid.Markings
                 return false;
             }
 
-            if (prototype.SpeciesRestrictions != null
-                && !prototype.SpeciesRestrictions.Contains(species))
+            if (prototype.SpeciesRestrictions != null && !prototype.SpeciesRestrictions.Contains(species))
             {
                 return false;
             }
@@ -222,7 +234,12 @@ namespace Content.Shared.Humanoid.Markings
             return true;
         }
 
-        public bool CanBeApplied(string species, Sex sex, MarkingPrototype prototype, IPrototypeManager? prototypeManager = null)
+        public bool CanBeApplied(
+            string species,
+            Sex sex,
+            MarkingPrototype prototype,
+            IPrototypeManager? prototypeManager = null
+        )
         {
             IoCManager.Resolve(ref prototypeManager);
 
@@ -234,8 +251,7 @@ namespace Content.Shared.Humanoid.Markings
                 return false;
             }
 
-            if (prototype.SpeciesRestrictions != null &&
-                !prototype.SpeciesRestrictions.Contains(species))
+            if (prototype.SpeciesRestrictions != null && !prototype.SpeciesRestrictions.Contains(species))
             {
                 return false;
             }
@@ -248,16 +264,21 @@ namespace Content.Shared.Humanoid.Markings
             return true;
         }
 
-        public bool MustMatchSkin(string species, HumanoidVisualLayers layer, out float alpha, IPrototypeManager? prototypeManager = null)
+        public bool MustMatchSkin(
+            string species,
+            HumanoidVisualLayers layer,
+            out float alpha,
+            IPrototypeManager? prototypeManager = null
+        )
         {
             IoCManager.Resolve(ref prototypeManager);
             var speciesProto = prototypeManager.Index<SpeciesPrototype>(species);
             if (
-                !prototypeManager.TryIndex(speciesProto.SpriteSet, out var baseSprites) ||
-                !baseSprites.Sprites.TryGetValue(layer, out var spriteName) ||
-                !prototypeManager.TryIndex(spriteName, out HumanoidSpeciesSpriteLayer? sprite) ||
-                sprite == null ||
-                !sprite.MarkingsMatchSkin
+                !prototypeManager.TryIndex(speciesProto.SpriteSet, out var baseSprites)
+                || !baseSprites.Sprites.TryGetValue(layer, out var spriteName)
+                || !prototypeManager.TryIndex(spriteName, out HumanoidSpeciesSpriteLayer? sprite)
+                || sprite == null
+                || !sprite.MarkingsMatchSkin
             )
             {
                 alpha = 1f;
@@ -269,16 +290,21 @@ namespace Content.Shared.Humanoid.Markings
         }
 
         // Frontier: allow markings to force a specific color
-        public Color? MustMatchColor(string species, HumanoidVisualLayers layer, out float alpha, IPrototypeManager? prototypeManager = null)
+        public Color? MustMatchColor(
+            string species,
+            HumanoidVisualLayers layer,
+            out float alpha,
+            IPrototypeManager? prototypeManager = null
+        )
         {
             IoCManager.Resolve(ref prototypeManager);
             var speciesProto = prototypeManager.Index<SpeciesPrototype>(species);
             if (
-                !prototypeManager.TryIndex(speciesProto.SpriteSet, out HumanoidSpeciesBaseSpritesPrototype? baseSprites) ||
-                !baseSprites.Sprites.TryGetValue(layer, out var spriteName) ||
-                !prototypeManager.TryIndex(spriteName, out HumanoidSpeciesSpriteLayer? sprite) ||
-                sprite == null ||
-                !sprite.ForcedColoring
+                !prototypeManager.TryIndex(speciesProto.SpriteSet, out HumanoidSpeciesBaseSpritesPrototype? baseSprites)
+                || !baseSprites.Sprites.TryGetValue(layer, out var spriteName)
+                || !prototypeManager.TryIndex(spriteName, out HumanoidSpeciesSpriteLayer? sprite)
+                || sprite == null
+                || !sprite.ForcedColoring
             )
             {
                 alpha = 1f;

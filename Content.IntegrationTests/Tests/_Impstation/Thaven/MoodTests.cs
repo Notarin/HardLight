@@ -9,8 +9,8 @@ using System.IO;
 using System.Linq;
 using Content.IntegrationTests;
 using Content.Server._Impstation.Thaven;
-using Content.Shared.Dataset;
 using Content.Shared._Impstation.Thaven;
+using Content.Shared.Dataset;
 using NUnit.Framework;
 using Robust.Shared.ContentPack;
 using Robust.Shared.GameObjects;
@@ -24,7 +24,8 @@ namespace Content.IntegrationTests.Tests._Impstation.Thaven;
 public sealed class ThavenMoodTests
 {
     [TestPrototypes]
-    const string PROTOTYPES = @"
+    const string PROTOTYPES =
+        @"
 - type: dataset
   id: ThreeValueSet
   values:

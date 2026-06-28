@@ -19,7 +19,7 @@
 # pocket1
 - type: entity
   id: PocketBluespaceTankStar
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: SmallBluespaceAirTank
   # name:
   # description:
@@ -34,125 +34,125 @@
       # 321 Min, 40 Sec
       volume: 10
       moles:
-        - 1203 # oxygen
+      - 1203 # oxygen
       temperature: 1
 
-# pocket2
-# - type: entity
-  #id: 
-  #categories: [ HideSpawnMenu ]
-  #parent: 
-  # name:
-  #description:
-  #components:
- 
-# head
-# - type: entity
-#   id:
-#   categories: [ HideSpawnMenu ]
-#   parent:
-#   name:
-#   description:
-#   suffix:
-#   components:
+    # pocket2
+    # - type: entity
+    #id: 
+    #categories: [ HideSpawnMenu ]
+    #parent: 
+    # name:
+    #description:
+    #components:
 
-# neck
-# - type: entity
-  # id:
-  # parent:
-  # name:
-  # description:
-  # suffix:
-  # components:
+    # head
+    # - type: entity
+    #   id:
+    #   categories: [ HideSpawnMenu ]
+    #   parent:
+    #   name:
+    #   description:
+    #   suffix:
+    #   components:
 
-# mask
-# - type: entity
-  # id:
-  # parent:
-  # name:
-  # description:
-  # suffix:
-  # components:
+    # neck
+    # - type: entity
+    # id:
+    # parent:
+    # name:
+    # description:
+    # suffix:
+    # components:
 
-# eyes
-# - type: entity
-#   id:
-#   parent:
-#   name:
-#   description:
-#   suffix:
-#   components:
+    # mask
+    # - type: entity
+    # id:
+    # parent:
+    # name:
+    # description:
+    # suffix:
+    # components:
 
-# ears
-# - type: entity
-  # id:
-  # parent:
-  # name:
-  # description:
-  # suffix:
-  # components:
+    # eyes
+    # - type: entity
+    #   id:
+    #   parent:
+    #   name:
+    #   description:
+    #   suffix:
+    #   components:
 
-# gloves
-# - type: entity
-  # id:
-  # parent:
-  # name:
-  # description:
-  # suffix:
-  # components:
+    # ears
+    # - type: entity
+    # id:
+    # parent:
+    # name:
+    # description:
+    # suffix:
+    # components:
 
-# shoes
-# - type: entity
-  # id:
-  # parent:
-  # name:
-  # description:
-  # suffix:
-  # components:
+    # gloves
+    # - type: entity
+    # id:
+    # parent:
+    # name:
+    # description:
+    # suffix:
+    # components:
 
-# suitstorage
-# - type: entity
-  # id:
-  # parent:
-  # name:
-  # description:
-  # suffix:
-  # components:
+    # shoes
+    # - type: entity
+    # id:
+    # parent:
+    # name:
+    # description:
+    # suffix:
+    # components:
 
-# outerClothing
-# - type: entity
- # id: 
-  #categories: [ HideSpawnMenu ]
-  #parent: 
-  #suffix: 
-  #components:
+    # suitstorage
+    # - type: entity
+    # id:
+    # parent:
+    # name:
+    # description:
+    # suffix:
+    # components:
 
-# jumpsuit
-# - type: entity
-  # id:
-  # parent:
-  # name:
-  # description:
-  # suffix:
-  # components:
+    # outerClothing
+    # - type: entity
+    # id: 
+    #categories: [ HideSpawnMenu ]
+    #parent: 
+    #suffix: 
+    #components:
 
-# wallet
-# - type: entity
-  # id:
-  # parent:
-  # name:
-  # description:
-  # suffix:
-  # components:
-  # - type: StorageFill
+    # jumpsuit
+    # - type: entity
+    # id:
+    # parent:
+    # name:
+    # description:
+    # suffix:
+    # components:
+
+    # wallet
+    # - type: entity
+    # id:
+    # parent:
+    # name:
+    # description:
+    # suffix:
+    # components:
+    # - type: StorageFill
     # contents:
-      # - id:
-        # amount: 1
+    # - id:
+    # amount: 1
 
 # belt
 - type: entity
   id: ClothingBeltHolsterStarFilled
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: ClothingBeltHolster
   # name:
   # description:
@@ -163,18 +163,18 @@
     - Admin
   - type: StorageFill
     contents:
-      - id: WeaponPistolBolter
-      - id: BaseMagazine75Bolt
-        amount: 2
-      - id: Magazine75BoltTaser
-        amount: 2
-      - id: Magazine75BoltIncendiary
-        amount: 2
+    - id: WeaponPistolBolter
+    - id: BaseMagazine75Bolt
+      amount: 2
+    - id: Magazine75BoltTaser
+      amount: 2
+    - id: Magazine75BoltIncendiary
+      amount: 2
 
 # backpack
 - type: entity
   id: ClothingBackpackSatchelHoldingStarFilled
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   parent: ClothingBackpackSatchelHolding
   # name:
   # description:
@@ -191,33 +191,32 @@
     - 0,0,20,10
   - type: StorageFill
     contents:
-      - id: Stunbaton
-      - id: Handcuffs
-        amount: 4
-      - id: Bola
-        amount: 2
-      - id: WeaponDisablerSMGRecharging
-      - id: Truncheon 
-      - id: Flash
-        amount: 2
-      - id: RubberStampCentcom
-      - id: MedicalTrackingImplanterDisposable
-      - id: RadioImplanterColcommDisposable
-      - id: DeathRattleImplanterColcommDisposable
-      - id: MindShieldImplanterDisposable
-      - id: StorageImplanterDisposable
-      - id: CQCManual #Will replace with the dragon defensive form, but we do not have that yet
-     
+    - id: Stunbaton
+    - id: Handcuffs
+      amount: 4
+    - id: Bola
+      amount: 2
+    - id: WeaponDisablerSMGRecharging
+    - id: Truncheon
+    - id: Flash
+      amount: 2
+    - id: RubberStampCentcom
+    - id: MedicalTrackingImplanterDisposable
+    - id: RadioImplanterColcommDisposable
+    - id: DeathRattleImplanterColcommDisposable
+    - id: MindShieldImplanterDisposable
+    - id: StorageImplanterDisposable
+    - id: CQCManual #Will replace with the dragon defensive form, but we do not have that yet
 
-# ID Card
-# - type: entity
-  # id:
-  # parent: IDCardStandard
-  # name:
-  # description:
-  # suffix:
-  # components:
-  # - type: Access
+    # ID Card
+    # - type: entity
+    # id:
+    # parent: IDCardStandard
+    # name:
+    # description:
+    # suffix:
+    # components:
+    # - type: Access
     # tags:
     # - Maintenance
     # - External

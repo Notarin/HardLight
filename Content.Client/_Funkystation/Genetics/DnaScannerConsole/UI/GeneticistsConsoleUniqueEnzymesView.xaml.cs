@@ -19,7 +19,8 @@ namespace Content.Client._Funkystation.Genetics.DnaScannerConsole.UI;
 [GenerateTypedNameReferences]
 public sealed partial class GeneticistsConsoleUniqueEnzymesView : Control
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     // Sequencer fields
     private readonly char[] _bases = { 'A', 'T', 'G', 'C' };
@@ -61,7 +62,8 @@ public sealed partial class GeneticistsConsoleUniqueEnzymesView : Control
         for (int i = 0; i < _sequencerButtons.Length; i++)
         {
             var button = _sequencerButtons[i];
-            if (button == null) continue;
+            if (button == null)
+                continue;
 
             int capturedIndex = i;
             button.OnPressed += _ => CycleBase(capturedIndex);
@@ -99,16 +101,45 @@ public sealed partial class GeneticistsConsoleUniqueEnzymesView : Control
     {
         var buttons = new[]
         {
-            Seq_1, Seq_2, Seq_3, Seq_4, Seq_5, Seq_6, Seq_7, Seq_8,
-            Seq_9, Seq_10, Seq_11, Seq_12, Seq_13, Seq_14, Seq_15, Seq_16,
-            Seq_17, Seq_18, Seq_19, Seq_20, Seq_21, Seq_22, Seq_23, Seq_24,
-            Seq_25, Seq_26, Seq_27, Seq_28, Seq_29, Seq_30, Seq_31, Seq_32
+            Seq_1,
+            Seq_2,
+            Seq_3,
+            Seq_4,
+            Seq_5,
+            Seq_6,
+            Seq_7,
+            Seq_8,
+            Seq_9,
+            Seq_10,
+            Seq_11,
+            Seq_12,
+            Seq_13,
+            Seq_14,
+            Seq_15,
+            Seq_16,
+            Seq_17,
+            Seq_18,
+            Seq_19,
+            Seq_20,
+            Seq_21,
+            Seq_22,
+            Seq_23,
+            Seq_24,
+            Seq_25,
+            Seq_26,
+            Seq_27,
+            Seq_28,
+            Seq_29,
+            Seq_30,
+            Seq_31,
+            Seq_32,
         };
 
         for (int i = 0; i < buttons.Length; i++)
         {
             var btn = buttons[i];
-            if (btn == null) continue;
+            if (btn == null)
+                continue;
 
             _sequencerButtons[i] = btn;
             btn.Index = i;
@@ -137,7 +168,7 @@ public sealed partial class GeneticistsConsoleUniqueEnzymesView : Control
             var button = new UniqueEnzymeButton
             {
                 Margin = new Thickness(1, 1, 1, 1),
-                StyleClasses = { "ButtonSquare" }
+                StyleClasses = { "ButtonSquare" },
             };
 
             button.UpdateIcon(isDiscovered, isBase);
@@ -195,7 +226,8 @@ public sealed partial class GeneticistsConsoleUniqueEnzymesView : Control
         for (int i = 0; i < 32; i++)
         {
             var c = sequence.Length > i ? sequence[i] : 'X';
-            if (!_bases.Contains(c)) c = 'X';
+            if (!_bases.Contains(c))
+                c = 'X';
 
             var button = _sequencerButtons[i];
             button.Text = c.ToString();
@@ -204,7 +236,7 @@ public sealed partial class GeneticistsConsoleUniqueEnzymesView : Control
             {
                 'A' or 'T' => ColorAT,
                 'G' or 'C' => ColorGC,
-                _ => Color.White
+                _ => Color.White,
             };
         }
     }
@@ -228,10 +260,16 @@ public sealed partial class GeneticistsConsoleUniqueEnzymesView : Control
             return;
         }
 
-        if (ParentWindow is not null && (ParentWindow.IsSubjectDead ||
-            _selectedMutationId is null ||
-            IoCManager.Resolve<IPrototypeManager>().TryIndex<GeneticMutationPrototype>(_selectedMutationId, out var proto) &&
-            proto.SequencerResistant))
+        if (
+            ParentWindow is not null
+            && (
+                ParentWindow.IsSubjectDead
+                || _selectedMutationId is null
+                || IoCManager
+                    .Resolve<IPrototypeManager>()
+                    .TryIndex<GeneticMutationPrototype>(_selectedMutationId, out var proto) && proto.SequencerResistant
+            )
+        )
         {
             if (_selectedMutationId != null)
                 OnSequencerButtonPressed?.Invoke(index, button.Text?[0] ?? 'X', _selectedMutationId);
@@ -239,11 +277,13 @@ public sealed partial class GeneticistsConsoleUniqueEnzymesView : Control
         }
 
         char currentChar = button.Text?.Length > 0 ? char.ToUpper(button.Text[0]) : 'X';
-        int currentIndex = currentChar == 'X' || !_bases.Contains(currentChar)
-            ? (reverse ? 0 : _bases.Length - 1)
-            : Array.IndexOf(_bases, currentChar);
+        int currentIndex =
+            currentChar == 'X' || !_bases.Contains(currentChar)
+                ? (reverse ? 0 : _bases.Length - 1)
+                : Array.IndexOf(_bases, currentChar);
 
-        if (currentIndex == -1) currentIndex = 0;
+        if (currentIndex == -1)
+            currentIndex = 0;
 
         int newIndex = reverse
             ? (currentIndex == 0 ? _bases.Length - 1 : currentIndex - 1)
@@ -256,7 +296,7 @@ public sealed partial class GeneticistsConsoleUniqueEnzymesView : Control
         {
             'A' or 'T' => ColorAT,
             'G' or 'C' => ColorGC,
-            _ => Color.White
+            _ => Color.White,
         };
 
         if (_selectedMutationId != null)
@@ -280,7 +320,8 @@ public sealed partial class GeneticistsConsoleUniqueEnzymesView : Control
             return;
 
         char correctBase = mutation.OriginalSequence[index];
-        if (!_bases.Contains(correctBase)) return;
+        if (!_bases.Contains(correctBase))
+            return;
 
         var button = _sequencerButtons[index];
         button.Text = correctBase.ToString();
@@ -288,7 +329,7 @@ public sealed partial class GeneticistsConsoleUniqueEnzymesView : Control
         {
             'A' or 'T' => ColorAT,
             'G' or 'C' => ColorGC,
-            _ => Color.White
+            _ => Color.White,
         };
 
         if (!_isSelectedMutationStored && _selectedMutationId != null)
@@ -298,10 +339,10 @@ public sealed partial class GeneticistsConsoleUniqueEnzymesView : Control
     public void UpdateSequencerButtonsState()
     {
         bool enabled =
-            ParentWindow != null &&
-            !ParentWindow.IsSubjectDead &&
-            _selectedMutationId != null &&
-            !_isSelectedMutationStored;
+            ParentWindow != null
+            && !ParentWindow.IsSubjectDead
+            && _selectedMutationId != null
+            && !_isSelectedMutationStored;
 
         foreach (var btn in _sequencerButtons)
             btn.Disabled = !enabled;
@@ -321,12 +362,14 @@ public sealed partial class GeneticistsConsoleUniqueEnzymesView : Control
 
     public void UpdateJokerButtonState(TimeSpan? cooldownEnd)
     {
-        if (JokerButton == null) return;
+        if (JokerButton == null)
+            return;
 
         if (!cooldownEnd.HasValue || cooldownEnd.Value <= _timing.CurTime)
         {
             JokerButton.Text = Loc.GetString("dna-scanner-sequencer-joker");
-            JokerButton.Disabled = ParentWindow?.IsSubjectDead ?? false || _selectedMutationId == null || _isSelectedMutationStored;
+            JokerButton.Disabled =
+                ParentWindow?.IsSubjectDead ?? false || _selectedMutationId == null || _isSelectedMutationStored;
             return;
         }
 
@@ -355,7 +398,11 @@ public sealed partial class GeneticistsConsoleUniqueEnzymesView : Control
         RefreshMutationIcons();
     }
 
-    public void UpdateResearchData(Dictionary<string, int> remaining, Dictionary<string, int> original, HashSet<string> activeIds)
+    public void UpdateResearchData(
+        Dictionary<string, int> remaining,
+        Dictionary<string, int> original,
+        HashSet<string> activeIds
+    )
     {
         if (ParentWindow == null)
             return;
@@ -390,7 +437,11 @@ public sealed partial class GeneticistsConsoleUniqueEnzymesView : Control
     {
         var isDiscovered = ParentWindow?.DiscoveredMutationIds?.Contains(mutation.Id) ?? false;
 
-        if (!isDiscovered || mutation.Conflicts is not { Count: > 0 } conflicts || ParentWindow?.DiscoveredMutationIds is null)
+        if (
+            !isDiscovered
+            || mutation.Conflicts is not { Count: > 0 } conflicts
+            || ParentWindow?.DiscoveredMutationIds is null
+        )
         {
             ConflictsLabelContainer.Visible = false;
             return;
@@ -403,8 +454,7 @@ public sealed partial class GeneticistsConsoleUniqueEnzymesView : Control
             if (!ParentWindow.DiscoveredMutationIds.Contains(conflictId))
                 continue;
 
-            if (IoCManager.Resolve<IPrototypeManager>()
-                .TryIndex<GeneticMutationPrototype>(conflictId, out var proto))
+            if (IoCManager.Resolve<IPrototypeManager>().TryIndex<GeneticMutationPrototype>(conflictId, out var proto))
             {
                 knownNames.Add(proto.Name);
             }
@@ -437,7 +487,11 @@ public sealed partial class GeneticistsConsoleUniqueEnzymesView : Control
             return;
         }
 
-        if (!IoCManager.Resolve<IPrototypeManager>().TryIndex<GeneticMutationPrototype>(_selectedMutationId, out var proto))
+        if (
+            !IoCManager
+                .Resolve<IPrototypeManager>()
+                .TryIndex<GeneticMutationPrototype>(_selectedMutationId, out var proto)
+        )
         {
             InfoResearchLabel.Text = "Unknown";
             return;
@@ -453,7 +507,11 @@ public sealed partial class GeneticistsConsoleUniqueEnzymesView : Control
 
         int completed = 0;
 
-        if (ParentWindow is not null && ParentWindow.ResearchOriginal.TryGetValue(_selectedMutationId, out var original) && original > 0)
+        if (
+            ParentWindow is not null
+            && ParentWindow.ResearchOriginal.TryGetValue(_selectedMutationId, out var original)
+            && original > 0
+        )
         {
             int remaining = ParentWindow.ResearchRemaining.TryGetValue(_selectedMutationId, out var rem)
                 ? Math.Max(0, rem)
@@ -524,7 +582,10 @@ public sealed partial class GeneticistsConsoleUniqueEnzymesView : Control
 
         bool isResearched = false;
 
-        if (ParentWindow is not null && ParentWindow.ResearchOriginal.TryGetValue(_selectedMutationId, out var original))
+        if (
+            ParentWindow is not null
+            && ParentWindow.ResearchOriginal.TryGetValue(_selectedMutationId, out var original)
+        )
         {
             if (original <= 0)
             {
@@ -565,7 +626,11 @@ public sealed partial class GeneticistsConsoleUniqueEnzymesView : Control
             return;
         }
 
-        if (ParentWindow == null || !ParentWindow.ResearchOriginal.TryGetValue(_selectedMutationId, out var original) || original <= 0)
+        if (
+            ParentWindow == null
+            || !ParentWindow.ResearchOriginal.TryGetValue(_selectedMutationId, out var original)
+            || original <= 0
+        )
         {
             ResearchMutationButton.Disabled = true;
             return;

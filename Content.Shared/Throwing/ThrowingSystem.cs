@@ -35,14 +35,29 @@ public sealed class ThrowingSystem : EntitySystem
     private float _frictionModifier;
     private float _airDamping;
 
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly SharedGravitySystem _gravity = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly ThrownItemSystem _thrownSystem = default!;
-    [Dependency] private readonly SharedCameraRecoilSystem _recoil = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly IConfigurationManager _configManager = default!;
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
+
+    [Dependency]
+    private readonly SharedGravitySystem _gravity = default!;
+
+    [Dependency]
+    private readonly SharedPhysicsSystem _physics = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly ThrownItemSystem _thrownSystem = default!;
+
+    [Dependency]
+    private readonly SharedCameraRecoilSystem _recoil = default!;
+
+    [Dependency]
+    private readonly ISharedAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _configManager = default!;
 
     public override void Initialize()
     {
@@ -64,7 +79,8 @@ public sealed class ThrowingSystem : EntitySystem
         bool animated = true,
         bool playSound = true,
         bool doSpin = true,
-        bool unanchor = false)
+        bool unanchor = false
+    )
     {
         var thrownPos = _transform.GetMapCoordinates(uid);
         var mapPos = _transform.ToMapCoordinates(coordinates);
@@ -72,7 +88,20 @@ public sealed class ThrowingSystem : EntitySystem
         if (mapPos.MapId != thrownPos.MapId)
             return;
 
-        TryThrow(uid, mapPos.Position - thrownPos.Position, baseThrowSpeed, user, pushbackRatio, friction, compensateFriction: compensateFriction, recoil: recoil, animated: animated, playSound: playSound, doSpin: doSpin, unanchor: unanchor);
+        TryThrow(
+            uid,
+            mapPos.Position - thrownPos.Position,
+            baseThrowSpeed,
+            user,
+            pushbackRatio,
+            friction,
+            compensateFriction: compensateFriction,
+            recoil: recoil,
+            animated: animated,
+            playSound: playSound,
+            doSpin: doSpin,
+            unanchor: unanchor
+        );
     }
 
     /// <summary>
@@ -86,7 +115,8 @@ public sealed class ThrowingSystem : EntitySystem
     /// <param name="compensateFriction">True will adjust the throw so the item stops at the target coordinates. False means it will land at the target and keep sliding.</param>
     /// <param name="doSpin">Whether spin will be applied to the thrown entity.</param>
     /// <param name="unanchor">If true and the thrown entity has <see cref="AnchorableComponent"/>, unanchor the thrown entity</param>
-    public void TryThrow(EntityUid uid,
+    public void TryThrow(
+        EntityUid uid,
         Vector2 direction,
         float baseThrowSpeed = 10.0f,
         EntityUid? user = null,
@@ -97,7 +127,8 @@ public sealed class ThrowingSystem : EntitySystem
         bool animated = true,
         bool playSound = true,
         bool doSpin = true,
-        bool unanchor = false)
+        bool unanchor = false
+    )
     {
         var physicsQuery = GetEntityQuery<PhysicsComponent>();
         if (!physicsQuery.TryGetComponent(uid, out var physics))
@@ -114,7 +145,14 @@ public sealed class ThrowingSystem : EntitySystem
             baseThrowSpeed,
             user,
             pushbackRatio,
-            friction, compensateFriction: compensateFriction, recoil: recoil, animated: animated, playSound: playSound, doSpin: doSpin, unanchor: unanchor);
+            friction,
+            compensateFriction: compensateFriction,
+            recoil: recoil,
+            animated: animated,
+            playSound: playSound,
+            doSpin: doSpin,
+            unanchor: unanchor
+        );
     }
 
     /// <summary>
@@ -128,7 +166,8 @@ public sealed class ThrowingSystem : EntitySystem
     /// <param name="compensateFriction">True will adjust the throw so the item stops at the target coordinates. False means it will land at the target and keep sliding.</param>
     /// <param name="doSpin">Whether spin will be applied to the thrown entity.</param>
     /// <param name="unanchor">If true and the thrown entity has <see cref="AnchorableComponent"/>, unanchor the thrown entity</param>
-    public void TryThrow(EntityUid uid,
+    public void TryThrow(
+        EntityUid uid,
         Vector2 direction,
         PhysicsComponent physics,
         TransformComponent transform,
@@ -142,16 +181,19 @@ public sealed class ThrowingSystem : EntitySystem
         bool animated = true,
         bool playSound = true,
         bool doSpin = true,
-        bool unanchor = false)
+        bool unanchor = false
+    )
     {
-        if (baseThrowSpeed <= 0
+        if (
+            baseThrowSpeed <= 0
             || !float.IsFinite(baseThrowSpeed)
             || direction == Vector2Helpers.Infinity
             || direction == Vector2Helpers.NaN
             || !float.IsFinite(direction.X)
             || !float.IsFinite(direction.Y)
             || direction == Vector2.Zero
-            || friction < 0)
+            || friction < 0
+        )
             return;
 
         if (unanchor && HasComp<AnchorableComponent>(uid))
@@ -164,11 +206,7 @@ public sealed class ThrowingSystem : EntitySystem
         if (projectileQuery.TryGetComponent(uid, out var proj) && !proj.OnlyCollideWhenShot)
             return;
 
-        var comp = new ThrownItemComponent
-        {
-            Thrower = user,
-            Animate = animated,
-        };
+        var comp = new ThrownItemComponent { Thrower = user, Animate = animated };
 
         // if not given, get the default friction value for distance calculation
         var tileFriction = friction ?? _frictionModifier * TileFrictionMod;
@@ -212,7 +250,11 @@ public sealed class ThrowingSystem : EntitySystem
         var throwEvent = new ThrownEvent(user, uid);
         RaiseLocalEvent(uid, ref throwEvent, true);
         if (user != null)
-            _adminLogger.Add(LogType.Throw, LogImpact.Low, $"{ToPrettyString(user.Value):user} threw {ToPrettyString(uid):entity}");
+            _adminLogger.Add(
+                LogType.Throw,
+                LogImpact.Low,
+                $"{ToPrettyString(user.Value):user} threw {ToPrettyString(uid):entity}"
+            );
 
         // if compensateFriction==true compensate for the distance the item will slide over the floor after landing by reducing the throw speed accordingly.
         // else let the item land on the cursor and from where it slides a little further.
@@ -239,29 +281,38 @@ public sealed class ThrowingSystem : EntitySystem
             _recoil.KickCamera(user.Value, -direction * 0.04f);
 
         // Give thrower an impulse in the other direction
-        if (pushbackRatio != 0.0f &&
-            physics.Mass > 0f &&
-            TryComp(user.Value, out PhysicsComponent? userPhysics) &&
-            _gravity.IsWeightless(user.Value, userPhysics))
+        if (
+            pushbackRatio != 0.0f
+            && physics.Mass > 0f
+            && TryComp(user.Value, out PhysicsComponent? userPhysics)
+            && _gravity.IsWeightless(user.Value, userPhysics)
+        )
         {
             var msg = new ThrowPushbackAttemptEvent();
             RaiseLocalEvent(uid, msg);
             const float massLimit = 5f;
 
             if (!msg.Cancelled)
-                
                 // Frontier: apply impulse to buckled object if buckled
                 if (TryComp<BuckleComponent>(user, out var buckle) && buckle.BuckledTo is not null)
                 {
-                    if(TryComp<PhysicsComponent>(buckle.BuckledTo, out var buckledPhys))
-                        _physics.ApplyLinearImpulse(buckle.BuckledTo.Value, -impulseVector / buckledPhys.Mass * pushbackRatio * MathF.Min(massLimit, physics.Mass), body: buckledPhys);
+                    if (TryComp<PhysicsComponent>(buckle.BuckledTo, out var buckledPhys))
+                        _physics.ApplyLinearImpulse(
+                            buckle.BuckledTo.Value,
+                            -impulseVector / buckledPhys.Mass * pushbackRatio * MathF.Min(massLimit, physics.Mass),
+                            body: buckledPhys
+                        );
                 }
                 else
                 {
-                    _physics.ApplyLinearImpulse(user.Value, -impulseVector / physics.Mass * pushbackRatio * MathF.Min(massLimit, physics.Mass), body: userPhysics);
+                    _physics.ApplyLinearImpulse(
+                        user.Value,
+                        -impulseVector / physics.Mass * pushbackRatio * MathF.Min(massLimit, physics.Mass),
+                        body: userPhysics
+                    );
                 }
-                // End Frontier
-                //_physics.ApplyLinearImpulse(user.Value, -impulseVector / physics.Mass * pushbackRatio * MathF.Min(massLimit, physics.Mass), body: userPhysics); // Frontier: old implementation
+            // End Frontier
+            //_physics.ApplyLinearImpulse(user.Value, -impulseVector / physics.Mass * pushbackRatio * MathF.Min(massLimit, physics.Mass), body: userPhysics); // Frontier: old implementation
         }
     }
 }

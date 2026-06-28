@@ -9,7 +9,8 @@ namespace Content.Server.Electrocution
     [AdminCommand(AdminFlags.Fun)]
     public sealed class ElectrocuteCommand : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _entManager = default!;
+        [Dependency]
+        private readonly IEntityManager _entManager = default!;
 
         public string Command => "electrocute";
         public string Description => Loc.GetString("electrocute-command-description");
@@ -26,15 +27,21 @@ namespace Content.Server.Electrocution
                 return;
             }
 
-            if (!NetEntity.TryParse(args[0], out var uidNet) ||
-                !_entManager.TryGetEntity(uidNet, out var uid) ||
-                !_entManager.EntityExists(uid))
+            if (
+                !NetEntity.TryParse(args[0], out var uidNet)
+                || !_entManager.TryGetEntity(uidNet, out var uid)
+                || !_entManager.EntityExists(uid)
+            )
             {
                 shell.WriteError($"Invalid entity specified!");
                 return;
             }
 
-            if (!_entManager.EntitySysManager.GetEntitySystem<StatusEffectsSystem>().CanApplyEffect(uid.Value, ElectrocutionStatusEffect))
+            if (
+                !_entManager
+                    .EntitySysManager.GetEntitySystem<StatusEffectsSystem>()
+                    .CanApplyEffect(uid.Value, ElectrocutionStatusEffect)
+            )
             {
                 shell.WriteError(Loc.GetString("electrocute-command-entity-cannot-be-electrocuted"));
                 return;
@@ -50,8 +57,16 @@ namespace Content.Server.Electrocution
                 damage = 10;
             }
 
-            _entManager.EntitySysManager.GetEntitySystem<ElectrocutionSystem>()
-                .TryDoElectrocution(uid.Value, null, damage, TimeSpan.FromSeconds(seconds), refresh: true, ignoreInsulation: true);
+            _entManager
+                .EntitySysManager.GetEntitySystem<ElectrocutionSystem>()
+                .TryDoElectrocution(
+                    uid.Value,
+                    null,
+                    damage,
+                    TimeSpan.FromSeconds(seconds),
+                    refresh: true,
+                    ignoreInsulation: true
+                );
         }
     }
 }

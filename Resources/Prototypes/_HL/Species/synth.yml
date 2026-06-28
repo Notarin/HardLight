@@ -49,11 +49,11 @@
     Snout:
       points: 2
       required: true
-      defaultMarkings: [ SynthVisor ]
+      defaultMarkings: [SynthVisor]
     Tail:
       points: 2 # I already know this will cause visual issues, but there's ways to circumvent this, so. I'm leaving it at 2 for now.
       required: true
-      defaultMarkings: [ SynthTail ]
+      defaultMarkings: [SynthTail]
     HeadTop:
       points: 3
       required: true

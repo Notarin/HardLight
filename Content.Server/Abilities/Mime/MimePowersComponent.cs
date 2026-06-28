@@ -26,7 +26,8 @@ namespace Content.Server.Abilities.Mime
         [DataField("invisibleWallAction", customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
         public string? InvisibleWallAction = "ActionMimeInvisibleWall";
 
-        [DataField("invisibleWallActionEntity")] public EntityUid? InvisibleWallActionEntity;
+        [DataField("invisibleWallActionEntity")]
+        public EntityUid? InvisibleWallActionEntity;
 
         // The vow zone lies below
         public bool VowBroken = false;

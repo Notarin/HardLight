@@ -22,5 +22,4 @@ public sealed partial class DeviceNetworkJammerComponent : Component
     /// </summary>
     [DataField, AutoNetworkedField]
     public HashSet<string> JammableNetworks = [];
-
 }

@@ -6,6 +6,4 @@ namespace Content.Shared._Mono.NoHack;
 /// Prevents wire interactions (cutting, mending, pulsing).
 /// </summary>
 [RegisterComponent, NetworkedComponent]
-public sealed partial class NoHackComponent : Component
-{
-}
+public sealed partial class NoHackComponent : Component { }

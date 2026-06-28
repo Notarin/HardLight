@@ -7,7 +7,8 @@ namespace Content.Shared.Atmos.Prototypes
     [Prototype]
     public sealed partial class GasPrototype : IPrototype
     {
-        [DataField("name")] public string Name { get; set; } = "";
+        [DataField("name")]
+        public string Name { get; set; } = "";
 
         // TODO: Control gas amount necessary for overlay to appear
         // TODO: Add interfaces for gas behaviours e.g. breathing, burning
@@ -33,7 +34,6 @@ namespace Content.Shared.Atmos.Prototypes
         /// </summary>
         [DataField("molarMass")]
         public float MolarMass { get; set; } = 1f;
-
 
         /// <summary>
         ///     Minimum amount of moles for this gas to be visible.
@@ -76,10 +76,11 @@ namespace Content.Shared.Atmos.Prototypes
         /// <summary>
         /// The reagent that this gas will turn into when inhaled.
         /// </summary>
-        [DataField("reagent", customTypeSerializer:typeof(PrototypeIdSerializer<ReagentPrototype>))]
+        [DataField("reagent", customTypeSerializer: typeof(PrototypeIdSerializer<ReagentPrototype>))]
         public string? Reagent { get; private set; } = default!;
 
-        [DataField("color")] public string Color { get; private set; } = string.Empty;
+        [DataField("color")]
+        public string Color { get; private set; } = string.Empty;
 
         [DataField("pricePerMole")]
         public float PricePerMole { get; set; } = 0;

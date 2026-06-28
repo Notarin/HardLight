@@ -15,15 +15,14 @@ namespace Content.Server.Database.Migrations.Postgres
                 table: "connection_log",
                 type: "real",
                 nullable: false,
-                defaultValue: 0f);
+                defaultValue: 0f
+            );
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "trust",
-                table: "connection_log");
+            migrationBuilder.DropColumn(name: "trust", table: "connection_log");
         }
     }
 }

@@ -15,12 +15,23 @@ namespace Content.Server.Chat.Systems;
 /// </summary>
 public sealed partial class ChatNotificationSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IChatManager _chats = default!;
-    [Dependency] private readonly SharedMindSystem _mind = default!;
-    [Dependency] private readonly SharedRoleSystem _roles = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly ILogManager _logManager = default!;
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
+
+    [Dependency]
+    private readonly IChatManager _chats = default!;
+
+    [Dependency]
+    private readonly SharedMindSystem _mind = default!;
+
+    [Dependency]
+    private readonly SharedRoleSystem _roles = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly ILogManager _logManager = default!;
 
     private ISawmill _sawmill = default!;
 
@@ -28,11 +39,15 @@ public sealed partial class ChatNotificationSystem : EntitySystem
 
     // Local cache for rate limiting chat notifications by source
     // (Recipient, ChatNotification) -> Dictionary<Source, next allowed TOA>
-    private readonly Dictionary<(EntityUid, ProtoId<ChatNotificationPrototype>), Dictionary<EntityUid, TimeSpan>> _chatNotificationsBySource = new();
+    private readonly Dictionary<
+        (EntityUid, ProtoId<ChatNotificationPrototype>),
+        Dictionary<EntityUid, TimeSpan>
+    > _chatNotificationsBySource = new();
 
     // Local cache for rate limiting chat notifications by type
     // (Recipient, ChatNotification) -> next allowed TOA
-    private readonly Dictionary<(EntityUid, ProtoId<ChatNotificationPrototype>), TimeSpan> _chatNotificationsByType = new();
+    private readonly Dictionary<(EntityUid, ProtoId<ChatNotificationPrototype>), TimeSpan> _chatNotificationsByType =
+        new();
     private TimeSpan _nextCacheSweep;
     private static readonly TimeSpan CacheSweepInterval = TimeSpan.FromMinutes(10);
 
@@ -56,7 +71,11 @@ public sealed partial class ChatNotificationSystem : EntitySystem
 
         if (!_proto.TryIndex(args.ChatNotification, out var chatNotification))
         {
-            _sawmill.Warning("Attempted to index ChatNotificationPrototype " + args.ChatNotification + " but the prototype does not exist.");
+            _sawmill.Warning(
+                "Attempted to index ChatNotificationPrototype "
+                    + args.ChatNotification
+                    + " but the prototype does not exist."
+            );
             return;
         }
 
@@ -91,7 +110,12 @@ public sealed partial class ChatNotificationSystem : EntitySystem
         var userName = args.UserNameOverride ?? (args.User.HasValue ? Name(args.User.Value) : string.Empty);
         var targetName = Name(ent);
 
-        var message = Loc.GetString(chatNotification.Message, ("source", sourceName), ("user", userName), ("target", targetName));
+        var message = Loc.GetString(
+            chatNotification.Message,
+            ("source", sourceName),
+            ("user", userName),
+            ("target", targetName)
+        );
         var wrappedMessage = Loc.GetString("chat-manager-server-wrap-message", ("message", message));
 
         _chats.ChatMessageToOne(

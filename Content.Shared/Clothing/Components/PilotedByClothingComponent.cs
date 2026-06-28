@@ -8,6 +8,4 @@ namespace Content.Shared.Clothing.Components;
 /// Without this, movement with <see cref="PilotedClothingSystem"/> is very rubberbandy.
 /// </summary>
 [RegisterComponent, NetworkedComponent]
-public sealed partial class PilotedByClothingComponent : Component
-{
-}
+public sealed partial class PilotedByClothingComponent : Component { }

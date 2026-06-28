@@ -8,7 +8,8 @@ namespace Content.Server.Administration.Commands
     [AdminCommand(AdminFlags.Admin)]
     public sealed class AddBodyPartCommand : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _entManager = default!;
+        [Dependency]
+        private readonly IEntityManager _entManager = default!;
 
         public string Command => "addbodypart";
         public string Description => "Adds a given entity to a containing body.";
@@ -38,10 +39,10 @@ namespace Content.Server.Administration.Commands
             var parentId = _entManager.GetEntity(parentNetId);
             var bodySystem = _entManager.System<BodySystem>();
 
-
-
-            if (Enum.TryParse<BodyPartType>(args[3], out var partType) &&
-                bodySystem.TryCreatePartSlotAndAttach(parentId, args[2], childId, partType))
+            if (
+                Enum.TryParse<BodyPartType>(args[3], out var partType)
+                && bodySystem.TryCreatePartSlotAndAttach(parentId, args[2], childId, partType)
+            )
             {
                 shell.WriteLine($@"Added {childId} to {parentId}.");
             }

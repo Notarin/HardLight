@@ -4,17 +4,17 @@
   description: job-description-sheriff
   playTimeTracker: JobHeadOfSecurityOld
   requirements:
-    - !type:OverallPlaytimeRequirement
-      time: 129600 # 36 hours
-    - !type:DepartmentTimeRequirement
-      department: Security
-      time: 86400 # 24 hours
-    - !type:RoleTimeRequirement
-      role: JobWarden
-      time: 21600 # 6 hours
-    - !type:RoleTimeRequirement
-      role: JobSeniorOfficer
-      time: 43200 # 12 hours
+  - !type:OverallPlaytimeRequirement
+    time: 129600 # 36 hours
+  - !type:DepartmentTimeRequirement
+    department: Security
+    time: 86400 # 24 hours
+  - !type:RoleTimeRequirement
+    role: JobWarden
+    time: 21600 # 6 hours
+  - !type:RoleTimeRequirement
+    role: JobSeniorOfficer
+    time: 43200 # 12 hours
   alternateRequirementSets:
     longerPlaytimeLessSec:
     - !type:OverallPlaytimeRequirement
@@ -39,7 +39,7 @@
   - AllAccess
   special:
   - !type:AddImplantSpecial
-    implants: [ MindShieldImplant, TrackingImplant ]
+    implants: [MindShieldImplant, TrackingImplant]
   - !type:AddComponentSpecial
     components:
     - type: CommandStaff

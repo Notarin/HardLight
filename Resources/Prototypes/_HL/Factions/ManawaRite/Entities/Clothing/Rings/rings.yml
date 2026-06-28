@@ -10,7 +10,7 @@
     state: icon
   - type: Clothing
     sprite: _Floof/Clothing/Under/Gloves/Rings/golddiamondring.rsi
-    slots: [ accessory, accessoryalt ]
+    slots: [accessory, accessoryalt]
   - type: Appearance
   - type: Item
     size: Tiny

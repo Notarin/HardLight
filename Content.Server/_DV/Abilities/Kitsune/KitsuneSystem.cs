@@ -16,13 +16,26 @@ namespace Content.Server._DV.Abilities.Kitsune;
 
 public sealed class KitsuneSystem : SharedKitsuneSystem
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly PolymorphSystem _polymorph = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly AccessSystem _access = default!;
-    [Dependency] private readonly AccessReaderSystem _reader = default!;
-    [Dependency] private readonly NpcFactionSystem _faction = default!;
-    [Dependency] private readonly SharedChargesSystem _charges = default!;
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly PolymorphSystem _polymorph = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly AccessSystem _access = default!;
+
+    [Dependency]
+    private readonly AccessReaderSystem _reader = default!;
+
+    [Dependency]
+    private readonly NpcFactionSystem _faction = default!;
+
+    [Dependency]
+    private readonly SharedChargesSystem _charges = default!;
 
     public override void Initialize()
     {
@@ -36,8 +49,10 @@ public sealed class KitsuneSystem : SharedKitsuneSystem
         _appearance.SetData(args.NewEntity, KitsuneColorVisuals.Color, ent.Comp.Color ?? Color.Orange);
 
         // Ensure that the fox fire action state is transferred properly.
-        if (!TryComp<KitsuneComponent>(args.NewEntity, out var newKitsune)
-            || !TryComp<KitsuneComponent>(ent, out var oldKitsune))
+        if (
+            !TryComp<KitsuneComponent>(args.NewEntity, out var newKitsune)
+            || !TryComp<KitsuneComponent>(ent, out var oldKitsune)
+        )
             return;
         newKitsune.ActiveFoxFires = oldKitsune.ActiveFoxFires;
 
@@ -47,13 +62,21 @@ public sealed class KitsuneSystem : SharedKitsuneSystem
             if (TryComp<LimitedChargesComponent>(oldAction, out var oldCharges))
             {
                 TryComp<AutoRechargeComponent>(oldAction, out var oldRecharge);
-                var oldChargesEntity = new Entity<LimitedChargesComponent?, AutoRechargeComponent?>(oldAction, oldCharges, oldRecharge);
+                var oldChargesEntity = new Entity<LimitedChargesComponent?, AutoRechargeComponent?>(
+                    oldAction,
+                    oldCharges,
+                    oldRecharge
+                );
                 var chargeCount = _charges.GetCurrentCharges(oldChargesEntity);
 
                 if (TryComp<LimitedChargesComponent>(newAction, out var newCharges))
                 {
                     TryComp<AutoRechargeComponent>(newAction, out var newRecharge);
-                    var newChargesEntity = new Entity<LimitedChargesComponent?, AutoRechargeComponent?>(newAction, newCharges, newRecharge);
+                    var newChargesEntity = new Entity<LimitedChargesComponent?, AutoRechargeComponent?>(
+                        newAction,
+                        newCharges,
+                        newRecharge
+                    );
                     _charges.SetCharges(newChargesEntity, chargeCount);
                 }
             }
@@ -80,7 +103,12 @@ public sealed class KitsuneSystem : SharedKitsuneSystem
             _faction.AddFactions(args.NewEntity, factions.Factions);
         }
 
-        _popup.PopupEntity(Loc.GetString("kitsune-popup-morph-message-others", ("entity", args.NewEntity)), args.NewEntity, Filter.PvsExcept(args.NewEntity), true);
+        _popup.PopupEntity(
+            Loc.GetString("kitsune-popup-morph-message-others", ("entity", args.NewEntity)),
+            args.NewEntity,
+            Filter.PvsExcept(args.NewEntity),
+            true
+        );
         _popup.PopupEntity(Loc.GetString("kitsune-popup-morph-message-user"), args.NewEntity, args.NewEntity);
     }
 

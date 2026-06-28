@@ -6,12 +6,12 @@
   components:
   - type: Tag
     tags:
-      - SpeedLoaderRifleHeavy
+    - SpeedLoaderRifleHeavy
   - type: SpeedLoader
   - type: BallisticAmmoProvider
     whitelist:
       tags:
-        - NFCartridgeRifle20
+      - NFCartridgeRifle20
     capacity: 8
   - type: Sprite
   - type: ContainerContainer
@@ -32,10 +32,10 @@
   - type: Sprite
     sprite: _NF/Objects/Weapons/Guns/Ammunition/SpeedLoaders/HeavyRifle/argenti_speed_loader.rsi
     layers:
-      - state: base
-        map: [ "enum.GunVisualLayers.Base" ]
-      - state: base-8
-        map: [ "enum.GunVisualLayers.Mag" ]
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: base-8
+      map: ["enum.GunVisualLayers.Mag"]
   - type: MagazineVisuals
     magState: base
     steps: 9
@@ -55,10 +55,10 @@
   - type: Sprite
     sprite: _NF/Objects/Weapons/Guns/Ammunition/SpeedLoaders/HeavyRifle/argenti_speed_loader.rsi
     layers:
-      - state: base
-        map: [ "enum.GunVisualLayers.Base" ]
-      - state: base-8
-        map: [ "enum.GunVisualLayers.Mag" ]
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: base-8
+      map: ["enum.GunVisualLayers.Mag"]
 
 - type: entity
   id: SpeedLoaderRifleHeavyIncendiary
@@ -70,10 +70,10 @@
   - type: Sprite
     sprite: _NF/Objects/Weapons/Guns/Ammunition/SpeedLoaders/HeavyRifle/argenti_speed_loader.rsi
     layers:
-      - state: base
-        map: [ "enum.GunVisualLayers.Base" ]
-      - state: base-8
-        map: [ "enum.GunVisualLayers.Mag" ]
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: base-8
+      map: ["enum.GunVisualLayers.Mag"]
   - type: MagazineVisuals
     magState: base
     steps: 9
@@ -93,10 +93,10 @@
   - type: Sprite
     sprite: _NF/Objects/Weapons/Guns/Ammunition/SpeedLoaders/HeavyRifle/argenti_speed_loader.rsi
     layers:
-      - state: base
-        map: [ "enum.GunVisualLayers.Base" ]
-      - state: practice-8
-        map: [ "enum.GunVisualLayers.Mag" ]
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: practice-8
+      map: ["enum.GunVisualLayers.Mag"]
   - type: MagazineVisuals
     magState: practice
     steps: 9
@@ -116,10 +116,10 @@
   - type: Sprite
     sprite: _NF/Objects/Weapons/Guns/Ammunition/SpeedLoaders/HeavyRifle/argenti_speed_loader.rsi
     layers:
-      - state: base
-        map: [ "enum.GunVisualLayers.Base" ]
-      - state: uranium-8
-        map: [ "enum.GunVisualLayers.Mag" ]
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: uranium-8
+      map: ["enum.GunVisualLayers.Mag"]
   - type: MagazineVisuals
     magState: uranium
     steps: 9
@@ -139,10 +139,10 @@
   - type: Sprite
     sprite: _NF/Objects/Weapons/Guns/Ammunition/SpeedLoaders/HeavyRifle/argenti_speed_loader.rsi
     layers:
-      - state: base
-        map: [ "enum.GunVisualLayers.Base" ]
-      - state: rubber-8
-        map: [ "enum.GunVisualLayers.Mag" ]
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: rubber-8
+      map: ["enum.GunVisualLayers.Mag"]
   - type: MagazineVisuals
     magState: rubber
     steps: 9

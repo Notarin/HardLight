@@ -18,7 +18,7 @@
   - type: BadFood
   - type: Tag
     tags:
-      - Meat
+    - Meat
 
 - type: entity
   parent: OrganHumanEyes
@@ -29,8 +29,8 @@
   - type: Sprite
     sprite: _NF/Mobs/Species/Goblin/organs.rsi
     layers:
-      - state: eyeball-l
-      - state: eyeball-r
+    - state: eyeball-l
+    - state: eyeball-r
 
 - type: entity
   parent: OrganHumanTongue
@@ -75,14 +75,14 @@
   - type: Sprite
     sprite: _NF/Mobs/Species/Goblin/organs.rsi
     layers:
-      - state: lung-l
-      - state: lung-r
+    - state: lung-l
+    - state: lung-r
   - type: Lung
   - type: Metabolizer
     removeEmpty: true
     solutionOnBody: false
     solution: "Lung"
-    metabolizerTypes: [ Animal ]
+    metabolizerTypes: [Animal]
     groups:
     - id: Gas
       rateModifier: 100.0
@@ -111,7 +111,7 @@
     sprite: _NF/Mobs/Species/Goblin/organs.rsi
     state: heart-on
   - type: Metabolizer
-    metabolizerTypes: [ Goblin ]
+    metabolizerTypes: [Goblin]
 
 - type: entity
   parent: OrganAnimalStomach
@@ -119,7 +119,7 @@
   name: stomach
   suffix: Goblin
   description: "Shrooms go in here."
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: Sprite
     sprite: _NF/Mobs/Species/Goblin/organs.rsi
@@ -136,7 +136,7 @@
   - type: Stomach
   - type: Metabolizer
     maxReagents: 3
-    metabolizerTypes: [ Animal ] # [ Goblin ]
+    metabolizerTypes: [Animal] # [ Goblin ]
     removeEmpty: true
     groups:
     - id: Food
@@ -158,7 +158,7 @@
     state: liver
   - type: Metabolizer # The liver metabolizes certain chemicals only, like alcohol.
     maxReagents: 1
-    metabolizerTypes: [ Goblin ]
+    metabolizerTypes: [Goblin]
     groups:
     - id: Alcohol
       rateModifier: 0.1 # removes alcohol very slowly along with the stomach removing it as a drink
@@ -172,10 +172,10 @@
   - type: Sprite
     sprite: _NF/Mobs/Species/Goblin/organs.rsi
     layers:
-      - state: kidney-l
-      - state: kidney-r
+    - state: kidney-l
+    - state: kidney-r
   # The kidneys just remove anything that doesn't currently have any metabolisms, as a stopgap.
   - type: Metabolizer
     maxReagents: 5
-    metabolizerTypes: [ Animal ]
+    metabolizerTypes: [Animal]
     removeEmpty: true

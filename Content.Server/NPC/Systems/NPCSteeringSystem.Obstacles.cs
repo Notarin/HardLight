@@ -36,7 +36,6 @@ public sealed partial class NPCSteeringSystem
      * Also need to make sure it picks nearest obstacle path so it starts smashing in front of it.
      */
 
-
     private SteeringObstacleStatus TryHandleFlags(EntityUid uid, NPCSteeringComponent component, PathPoly poly)
     {
         DebugTools.Assert(!poly.Data.IsFreeSpace);
@@ -57,8 +56,7 @@ public sealed partial class NPCSteeringSystem
 
         // TODO: Should cache the fact we're doing this somewhere.
         // See https://github.com/space-wizards/space-station-14/issues/11475
-        if ((poly.Data.CollisionLayer & mask) != 0x0 ||
-            (poly.Data.CollisionMask & layer) != 0x0)
+        if ((poly.Data.CollisionLayer & mask) != 0x0 || (poly.Data.CollisionMask & layer) != 0x0)
         {
             var id = component.DoAfterId;
 
@@ -143,9 +141,11 @@ public sealed partial class NPCSteeringSystem
                     // Get the relevant obstacle
                     foreach (var ent in obstacleEnts)
                     {
-                        if (climbableQuery.TryGetComponent(ent, out var table) &&
-                            _climb.CanVault(table, uid, uid, out _) &&
-                            _climb.TryClimb(uid, uid, ent, out id, table, climbing))
+                        if (
+                            climbableQuery.TryGetComponent(ent, out var table)
+                            && _climb.CanVault(table, uid, uid, out _)
+                            && _climb.TryClimb(uid, uid, ent, out id, table, climbing)
+                        )
                         {
                             component.DoAfterId = id;
                             return SteeringObstacleStatus.Continuing;
@@ -159,7 +159,11 @@ public sealed partial class NPCSteeringSystem
             // Try smashing obstacles.
             else if ((component.Flags & PathFlags.Smashing) != 0x0)
             {
-                if (_melee.TryGetWeapon(uid, out _, out var meleeWeapon) && meleeWeapon.NextAttack <= _timing.CurTime && TryComp<CombatModeComponent>(uid, out var combatMode))
+                if (
+                    _melee.TryGetWeapon(uid, out _, out var meleeWeapon)
+                    && meleeWeapon.NextAttack <= _timing.CurTime
+                    && TryComp<CombatModeComponent>(uid, out var combatMode)
+                )
                 {
                     _combat.SetInCombatMode(uid, true, combatMode);
                     var destructibleQuery = GetEntityQuery<DestructibleComponent>();
@@ -207,10 +211,12 @@ public sealed partial class NPCSteeringSystem
 
         foreach (var ent in _mapSystem.GetLocalAnchoredEntities(poly.GraphUid, grid, poly.Box))
         {
-            if (!_physicsQuery.TryGetComponent(ent, out var body) ||
-                !body.Hard ||
-                !body.CanCollide ||
-                (body.CollisionMask & layer) == 0x0 && (body.CollisionLayer & mask) == 0x0)
+            if (
+                !_physicsQuery.TryGetComponent(ent, out var body)
+                || !body.Hard
+                || !body.CanCollide
+                || (body.CollisionMask & layer) == 0x0 && (body.CollisionLayer & mask) == 0x0
+            )
             {
                 continue;
             }
@@ -223,6 +229,6 @@ public sealed partial class NPCSteeringSystem
     {
         Completed,
         Failed,
-        Continuing
+        Continuing,
     }
 }

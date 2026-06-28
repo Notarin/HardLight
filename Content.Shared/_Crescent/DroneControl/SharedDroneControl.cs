@@ -7,7 +7,7 @@ namespace Content.Shared._Crescent.DroneControl;
 [Serializable, NetSerializable]
 public enum DroneConsoleUiKey : byte
 {
-    Key
+    Key,
 }
 
 /// <summary>
@@ -46,9 +46,7 @@ public sealed class DroneConsoleBoundUserInterfaceState : BoundUserInterfaceStat
     // Key: NetEntity of the drone, Value: Name
     public List<(NetEntity Server, NetEntity Grid)> LinkedDrones;
 
-    public DroneConsoleBoundUserInterfaceState(
-        NavInterfaceState navState,
-        List<(NetEntity, NetEntity)> linkedDrones)
+    public DroneConsoleBoundUserInterfaceState(NavInterfaceState navState, List<(NetEntity, NetEntity)> linkedDrones)
     {
         NavState = navState;
         LinkedDrones = linkedDrones;
@@ -100,5 +98,5 @@ public static class DroneConsoleConstants
 public enum DroneOrderType
 {
     Move,
-    Target
+    Target,
 }

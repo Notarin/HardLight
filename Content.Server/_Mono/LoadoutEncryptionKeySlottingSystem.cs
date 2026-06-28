@@ -1,9 +1,9 @@
 using System.Linq;
-using Content.Shared.Roles;
-using Content.Shared.Radio.Components;
-using Content.Shared.Inventory;
-using Content.Shared.Storage;
 using Content.Shared.Humanoid;
+using Content.Shared.Inventory;
+using Content.Shared.Radio.Components;
+using Content.Shared.Roles;
+using Content.Shared.Storage;
 using Content.Shared.Storage.EntitySystems;
 using Robust.Shared.Containers;
 
@@ -14,9 +14,14 @@ namespace Content.Server._Mono;
 /// </summary>
 public sealed class LoadoutEncryptionKeySlottingSystem : EntitySystem
 {
-    [Dependency] private readonly InventorySystem _inventory = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedStorageSystem _storage = default!;
+    [Dependency]
+    private readonly InventorySystem _inventory = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly SharedStorageSystem _storage = default!;
 
     public override void Initialize()
     {
@@ -25,7 +30,11 @@ public sealed class LoadoutEncryptionKeySlottingSystem : EntitySystem
         SubscribeLocalEvent<HumanoidAppearanceComponent, StartingGearEquippedEvent>(OnStartingGearEquipped);
     }
 
-    private void OnStartingGearEquipped(EntityUid uid, HumanoidAppearanceComponent component, ref StartingGearEquippedEvent args)
+    private void OnStartingGearEquipped(
+        EntityUid uid,
+        HumanoidAppearanceComponent component,
+        ref StartingGearEquippedEvent args
+    )
     {
         // Find all encryption keys in the character's storage and slot them appropriately
         var encryptionKeys = FindEncryptionKeysInStorage(uid);
@@ -96,7 +105,9 @@ public sealed class LoadoutEncryptionKeySlottingSystem : EntitySystem
             // Remove from storage first
             if (!RemoveFromStorage(key))
             {
-                Log.Warning($"Failed to remove encryption key {ToPrettyString(key)} from storage for IPC {ToPrettyString(ipc)}");
+                Log.Warning(
+                    $"Failed to remove encryption key {ToPrettyString(key)} from storage for IPC {ToPrettyString(ipc)}"
+                );
                 continue;
             }
 
@@ -135,20 +146,26 @@ public sealed class LoadoutEncryptionKeySlottingSystem : EntitySystem
             // Remove from storage first
             if (!RemoveFromStorage(key))
             {
-                Log.Warning($"Failed to remove encryption key {ToPrettyString(key)} from storage for character {ToPrettyString(character)}");
+                Log.Warning(
+                    $"Failed to remove encryption key {ToPrettyString(key)} from storage for character {ToPrettyString(character)}"
+                );
                 continue;
             }
 
             // Insert into headset's key holder
             if (!_container.Insert(key, keyHolder.KeyContainer))
             {
-                Log.Warning($"Failed to insert encryption key {ToPrettyString(key)} into headset {ToPrettyString(headsetEntity.Value)} for character {ToPrettyString(character)}");
+                Log.Warning(
+                    $"Failed to insert encryption key {ToPrettyString(key)} into headset {ToPrettyString(headsetEntity.Value)} for character {ToPrettyString(character)}"
+                );
                 // Try to put it back in storage if insertion failed
                 // This is a best-effort cleanup
                 continue;
             }
 
-            Log.Debug($"Successfully slotted encryption key {ToPrettyString(key)} into headset {ToPrettyString(headsetEntity.Value)} for character {ToPrettyString(character)}");
+            Log.Debug(
+                $"Successfully slotted encryption key {ToPrettyString(key)} into headset {ToPrettyString(headsetEntity.Value)} for character {ToPrettyString(character)}"
+            );
         }
     }
 

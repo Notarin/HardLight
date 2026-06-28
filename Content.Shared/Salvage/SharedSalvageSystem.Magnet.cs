@@ -26,17 +26,14 @@ public abstract partial class SharedSalvageSystem
         "BlobAsteroid",
         "ClusterAsteroid",
         "SpindlyAsteroid",
-        "SwissCheeseAsteroid"
+        "SwissCheeseAsteroid",
     };
 
     private readonly ProtoId<WeightedRandomPrototype> _asteroidOreWeights = "AsteroidOre";
 
     private readonly MinMax _asteroidOreCount = new(5, 7);
 
-    private readonly List<ProtoId<DungeonConfigPrototype>> _debrisConfigs = new()
-    {
-        "ChunkDebris"
-    };
+    private readonly List<ProtoId<DungeonConfigPrototype>> _debrisConfigs = new() { "ChunkDebris" };
 
     public ISalvageMagnetOffering GetSalvageOffering(int seed)
     {
@@ -47,7 +44,7 @@ public abstract partial class SharedSalvageSystem
         {
             case AsteroidOffering:
                 var configId = _asteroidConfigs[rand.Next(_asteroidConfigs.Count)];
-                var configProto =_proto.Index(configId);
+                var configProto = _proto.Index(configId);
                 var layers = new Dictionary<string, int>();
 
                 var data = new DungeonData();
@@ -61,7 +58,7 @@ public abstract partial class SharedSalvageSystem
                     MaxOffset = configProto.MaxOffset,
                     MinCount = configProto.MinCount,
                     MinOffset = configProto.MinOffset,
-                    ReserveTiles = configProto.ReserveTiles
+                    ReserveTiles = configProto.ReserveTiles,
                 };
 
                 var count = _asteroidOreCount.Next(rand);
@@ -84,10 +81,7 @@ public abstract partial class SharedSalvageSystem
                 };
             case DebrisOffering:
                 var id = rand.Pick(_debrisConfigs);
-                return new DebrisOffering
-                {
-                    Id = id
-                };
+                return new DebrisOffering { Id = id };
             case SalvageOffering:
                 // Salvage map seed
                 _salvageMaps.Clear();
@@ -96,10 +90,7 @@ public abstract partial class SharedSalvageSystem
                 var mapIndex = rand.Next(_salvageMaps.Count);
                 var map = _salvageMaps[mapIndex];
 
-                return new SalvageOffering
-                {
-                    SalvageMap = map,
-                };
+                return new SalvageOffering { SalvageMap = map };
             default:
                 throw new NotImplementedException($"Salvage type {type} not implemented!");
         }

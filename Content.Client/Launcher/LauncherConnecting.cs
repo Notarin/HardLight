@@ -12,14 +12,29 @@ namespace Content.Client.Launcher
 {
     public sealed class LauncherConnecting : Robust.Client.State.State
     {
-        [Dependency] private readonly IUserInterfaceManager _userInterfaceManager = default!;
-        [Dependency] private readonly IClientNetManager _clientNetManager = default!;
-        [Dependency] private readonly IGameController _gameController = default!;
-        [Dependency] private readonly IBaseClient _baseClient = default!;
-        [Dependency] private readonly IRobustRandom _random = default!;
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly IConfigurationManager _cfg = default!;
-        [Dependency] private readonly IClipboardManager _clipboard = default!;
+        [Dependency]
+        private readonly IUserInterfaceManager _userInterfaceManager = default!;
+
+        [Dependency]
+        private readonly IClientNetManager _clientNetManager = default!;
+
+        [Dependency]
+        private readonly IGameController _gameController = default!;
+
+        [Dependency]
+        private readonly IBaseClient _baseClient = default!;
+
+        [Dependency]
+        private readonly IRobustRandom _random = default!;
+
+        [Dependency]
+        private readonly IPrototypeManager _prototypeManager = default!;
+
+        [Dependency]
+        private readonly IConfigurationManager _cfg = default!;
+
+        [Dependency]
+        private readonly IClipboardManager _clipboard = default!;
 
         private LauncherConnectingGui? _control;
 

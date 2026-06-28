@@ -13,9 +13,14 @@ namespace Content.Client._Emberfall.Weapons.Ranged.Systems;
 
 public sealed class TracerSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IOverlayManager _overlay = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IOverlayManager _overlay = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
 
     public override void Initialize()
     {
@@ -54,8 +59,7 @@ public sealed class TracerSystem : EntitySystem
             var currentPos = xform.Coordinates.Position; // HardLight: _transform.GetWorldPosition(xform)<xform.Coordinates.Position
             tracer.Data.PositionHistory.Add(currentPos);
 
-            while (tracer.Data.PositionHistory.Count > 2 &&
-                   GetTrailLength(tracer.Data.PositionHistory) > tracer.Length)
+            while (tracer.Data.PositionHistory.Count > 2 && GetTrailLength(tracer.Data.PositionHistory) > tracer.Length)
             {
                 tracer.Data.PositionHistory.RemoveAt(0);
             }

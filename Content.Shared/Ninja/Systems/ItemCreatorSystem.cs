@@ -8,7 +8,8 @@ namespace Content.Shared.Ninja.Systems;
 /// </summary>
 public abstract class SharedItemCreatorSystem : EntitySystem
 {
-    [Dependency] private readonly ActionContainerSystem _actionContainer = default!;
+    [Dependency]
+    private readonly ActionContainerSystem _actionContainer = default!;
 
     public override void Initialize()
     {

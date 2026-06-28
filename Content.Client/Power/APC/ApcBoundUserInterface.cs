@@ -13,9 +13,8 @@ namespace Content.Client.Power.APC
         [ViewVariables]
         private ApcMenu? _menu;
 
-        public ApcBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-        {
-        }
+        public ApcBoundUserInterface(EntityUid owner, Enum uiKey)
+            : base(owner, uiKey) { }
 
         protected override void Open()
         {
@@ -37,7 +36,7 @@ namespace Content.Client.Power.APC
         {
             base.UpdateState(state);
 
-            var castState = (ApcBoundInterfaceState) state;
+            var castState = (ApcBoundInterfaceState)state;
             _menu?.UpdateState(castState);
         }
 

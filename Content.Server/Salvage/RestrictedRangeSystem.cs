@@ -11,8 +11,11 @@ namespace Content.Server.Salvage;
 
 public sealed class RestrictedRangeSystem : SharedRestrictedRangeSystem
 {
-    [Dependency] private readonly FixtureSystem _fixtures = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
+    [Dependency]
+    private readonly FixtureSystem _fixtures = default!;
+
+    [Dependency]
+    private readonly SharedPhysicsSystem _physics = default!;
 
     public override void Initialize()
     {
@@ -36,8 +39,11 @@ public sealed class RestrictedRangeSystem : SharedRestrictedRangeSystem
             boundaryUid,
             cShape,
             "boundary",
-            collisionLayer: (int) (CollisionGroup.HighImpassable | CollisionGroup.Impassable | CollisionGroup.LowImpassable),
-            body: boundaryPhysics);
+            collisionLayer: (int)(
+                CollisionGroup.HighImpassable | CollisionGroup.Impassable | CollisionGroup.LowImpassable
+            ),
+            body: boundaryPhysics
+        );
         _physics.WakeBody(boundaryUid, body: boundaryPhysics);
         AddComp<BoundaryComponent>(boundaryUid);
         return boundaryUid;

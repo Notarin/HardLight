@@ -8,7 +8,7 @@
   - type: Item
     storedRotation: -90
   - type: Food
-    trash: 
+    trash:
     - FoodBowlBig
     utensil: Spoon
   - type: SolutionContainerManager
@@ -46,8 +46,7 @@
     - Soup
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 5
       behaviors:
       - !type:PlaySoundBehavior
@@ -55,14 +54,14 @@
           collection: GlassBreak
           params:
             volume: -8
-      - !type:SpillBehavior { }
+      - !type:SpillBehavior {}
       - !type:SpawnEntitiesBehavior
         spawn:
           FoodBowlBigTrash:
             min: 1
             max: 1
       - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+        acts: ["Destruction"]
 
 # Custom Soup Example
 
@@ -74,8 +73,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - creamy
-      - peas
+    - creamy
+    - peas
   - type: Sprite
     sprite: Objects/Consumable/Food/bowl.rsi
     layers:
@@ -103,7 +102,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - leafy
+    - leafy
   - type: Sprite
     layers:
     - state: bowl
@@ -134,8 +133,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - leafy
-      - apple
+    - leafy
+    - apple
   - type: Sprite
     layers:
     - state: bowl
@@ -164,10 +163,10 @@
   components:
   - type: FlavorProfile
     flavors:
-      - leafy
-      - meaty
-      - potatoes
-      - validhunting
+    - leafy
+    - meaty
+    - potatoes
+    - validhunting
   - type: Sprite
     layers:
     - state: bowl
@@ -199,9 +198,9 @@
   components:
   - type: FlavorProfile
     flavors:
-      - onion
-      - cabbage
-      - sour
+    - onion
+    - cabbage
+    - sour
   - type: Sprite
     layers:
     - state: bowl
@@ -228,10 +227,10 @@
   components:
   - type: FlavorProfile
     flavors:
-      - onion
-      - cabbage
-      - bread
-      - cheesy
+    - onion
+    - cabbage
+    - bread
+    - cheesy
   - type: Sprite
     layers:
     - state: bowl
@@ -256,9 +255,9 @@
   components:
   - type: FlavorProfile
     flavors:
-      - spicy
-      - cabbage
-      - carrot
+    - spicy
+    - cabbage
+    - carrot
   - type: Sprite
     layers:
     - state: bowl
@@ -285,7 +284,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - fruity
+    - fruity
   - type: Sprite
     layers:
     - state: bowl
@@ -314,8 +313,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - fruity
-      - jungle
+    - fruity
+    - jungle
   - type: Sprite
     layers:
     - state: bowl
@@ -344,8 +343,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - leafy
-      - sour
+    - leafy
+    - sour
   - type: Sprite
     layers:
     - state: bowl
@@ -374,8 +373,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - bitter
-      - hope
+    - bitter
+    - hope
   - type: Sprite
     layers:
     - state: bowl
@@ -403,7 +402,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - rice
+    - rice
   - type: Sprite
     layers:
     - state: bowl
@@ -417,8 +416,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - rice
-      - egg
+    - rice
+    - egg
   - type: Sprite
     layers:
     - state: bowl
@@ -445,8 +444,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - rice
-      - meaty
+    - rice
+    - meaty
   - type: Sprite
     layers:
     - state: bowl
@@ -479,8 +478,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - rice
-      - sweet
+    - rice
+    - sweet
   - type: Sprite
     layers:
     - state: bowl
@@ -509,10 +508,10 @@
   components:
   - type: FlavorProfile
     flavors:
-      - rice
-      - spicy
-      - meaty
-      - savory
+    - rice
+    - spicy
+    - meaty
+    - savory
   - type: Sprite
     layers:
     - state: bowl
@@ -545,8 +544,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - oats
-      - milk
+    - oats
+    - milk
   - type: Sprite
     layers:
     - state: bowl
@@ -573,8 +572,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - jelly
-      - mushrooms
+    - jelly
+    - mushrooms
   - type: Sprite
     layers:
     - state: bowl
@@ -588,8 +587,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - mushroom
-      - jelly
+    - mushroom
+    - jelly
   - type: Sprite
     sprite: Objects/Consumable/Food/meals.rsi
     state: amanita-jelly
@@ -614,7 +613,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - meatballs
+    - meatballs
   - type: Sprite
     layers:
     - state: bowl
@@ -645,7 +644,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - slimy
+    - slimy
   - type: Sprite
     layers:
     - state: bowl
@@ -672,8 +671,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - metallic
-      - tomato
+    - metallic
+    - tomato
   - type: Sprite
     layers:
     - state: bowl
@@ -704,8 +703,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - meaty
-      - salty
+    - meaty
+    - salty
   - type: Sprite
     layers:
     - state: bowl
@@ -732,7 +731,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - bad-joke
+    - bad-joke
   - type: Sprite
     layers:
     - state: bowl
@@ -759,8 +758,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - vegetables
-      - sadness
+    - vegetables
+    - sadness
   - type: Sprite
     layers:
     - state: bowl
@@ -789,7 +788,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - nettles
+    - nettles
   - type: Sprite
     layers:
     - state: bowl
@@ -820,7 +819,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - chaos
+    - chaos
   - type: Sprite
     layers:
     - state: bowl
@@ -834,7 +833,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - spicy
+    - spicy
   - type: Sprite
     layers:
     - state: bowl
@@ -844,20 +843,19 @@
       food:
         maxVol: 25
         reagents:
-          - ReagentId: Nutriment
-            Quantity: 8
-          - ReagentId: CapsaicinOil
-            Quantity: 5
-          - ReagentId: Vitamin
-            Quantity: 4
-          - ReagentId: Allicin
-            Quantity: 3
-          - ReagentId: Flavorol
-            Quantity: 5
+        - ReagentId: Nutriment
+          Quantity: 8
+        - ReagentId: CapsaicinOil
+          Quantity: 5
+        - ReagentId: Vitamin
+          Quantity: 4
+        - ReagentId: Allicin
+          Quantity: 3
+        - ReagentId: Flavorol
+          Quantity: 5
   - type: Tag
     tags:
     - ChiliBowl
-
 
 - type: entity
   name: cold chili
@@ -867,8 +865,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - minty
-      - tomato
+    - minty
+    - tomato
   - type: Sprite
     layers:
     - state: bowl
@@ -878,12 +876,12 @@
       food:
         maxVol: 20
         reagents:
-          - ReagentId: Nutriment
-            Quantity: 8
-          - ReagentId: Vitamin
-            Quantity: 4
-          - ReagentId: Flavorol
-            Quantity: 5
+        - ReagentId: Nutriment
+          Quantity: 8
+        - ReagentId: Vitamin
+          Quantity: 4
+        - ReagentId: Flavorol
+          Quantity: 5
   - type: Tag
     tags:
     - ChiliBowl
@@ -896,10 +894,10 @@
   components:
   - type: FlavorProfile
     flavors:
-      - spicy
-      - tomato
-      - bad-joke
-      - parents
+    - spicy
+    - tomato
+    - bad-joke
+    - parents
   - type: Sprite
     layers:
     - state: bowl
@@ -909,16 +907,16 @@
       food:
         maxVol: 25
         reagents:
-          - ReagentId: Nutriment
-            Quantity: 6
-          - ReagentId: CapsaicinOil
-            Quantity: 5
-          - ReagentId: Vitamin
-            Quantity: 4
-          - ReagentId: Allicin
-            Quantity: 3
-          - ReagentId: Flavorol
-            Quantity: 5
+        - ReagentId: Nutriment
+          Quantity: 6
+        - ReagentId: CapsaicinOil
+          Quantity: 5
+        - ReagentId: Vitamin
+          Quantity: 4
+        - ReagentId: Allicin
+          Quantity: 3
+        - ReagentId: Flavorol
+          Quantity: 5
   - type: Tag
     tags:
     - ChiliBowl
@@ -931,8 +929,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - jungle
-      - banana
+    - jungle
+    - banana
   - type: Sprite
     layers:
     - state: bowl
@@ -942,16 +940,16 @@
       food:
         maxVol: 25
         reagents:
-          - ReagentId: Nutriment
-            Quantity: 10
-          - ReagentId: Vitamin
-            Quantity: 5
-          - ReagentId: TableSalt
-            Quantity: 1
-          - ReagentId: Blackpepper
-            Quantity: 1
-          - ReagentId: Flavorol
-            Quantity: 5
+        - ReagentId: Nutriment
+          Quantity: 10
+        - ReagentId: Vitamin
+          Quantity: 5
+        - ReagentId: TableSalt
+          Quantity: 1
+        - ReagentId: Blackpepper
+          Quantity: 1
+        - ReagentId: Flavorol
+          Quantity: 5
   - type: Tag
     tags:
     - Meat
@@ -965,7 +963,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - tomato
+    - tomato
   - type: Sprite
     layers:
     - state: bowl
@@ -975,14 +973,14 @@
       food:
         maxVol: 22
         reagents:
-          - ReagentId: Nutriment
-            Quantity: 3
-          - ReagentId: Vitamin
-            Quantity: 5
-          - ReagentId: Water
-            Quantity: 5
-          - ReagentId: Flavorol
-            Quantity: 5
+        - ReagentId: Nutriment
+          Quantity: 3
+        - ReagentId: Vitamin
+          Quantity: 5
+        - ReagentId: Water
+          Quantity: 5
+        - ReagentId: Flavorol
+          Quantity: 5
   - type: Tag
     tags:
     - Fruit
@@ -996,8 +994,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - tomato
-      - squirming
+    - tomato
+    - squirming
   - type: Sprite
     layers:
     - state: bowl
@@ -1007,12 +1005,12 @@
       food:
         maxVol: 17
         reagents:
-          - ReagentId: Nutriment
-            Quantity: 5
-          - ReagentId: Vitamin
-            Quantity: 3
-          - ReagentId: Flavorol
-            Quantity: 5
+        - ReagentId: Nutriment
+          Quantity: 5
+        - ReagentId: Vitamin
+          Quantity: 3
+        - ReagentId: Flavorol
+          Quantity: 5
   - type: Tag
     tags:
     - Meat
@@ -1026,28 +1024,28 @@
   components:
   - type: FlavorProfile
     flavors:
-      - miso
+    - miso
   - type: Food
-    trash: 
+    trash:
     - FoodBowlFancy
   - type: Sprite
     layers:
     - state: bowl2
     - state: miso
-        #rip milo
+      #rip milo
   - type: SolutionContainerManager
     solutions:
       food:
         maxVol: 30
         reagents:
-          - ReagentId: Nutriment
-            Quantity: 9
-          - ReagentId: Vitamin
-            Quantity: 3
-          - ReagentId: Water
-            Quantity: 5
-          - ReagentId: Flavorol
-            Quantity: 5
+        - ReagentId: Nutriment
+          Quantity: 9
+        - ReagentId: Vitamin
+          Quantity: 3
+        - ReagentId: Water
+          Quantity: 5
+        - ReagentId: Flavorol
+          Quantity: 5
   - type: Tag
     tags:
     - Meat
@@ -1061,7 +1059,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - mushroom
+    - mushroom
   - type: Sprite
     layers:
     - state: bowl
@@ -1071,16 +1069,16 @@
       food:
         maxVol: 30
         reagents:
-          - ReagentId: Nutriment
-            Quantity: 2
-          - ReagentId: Vitamin
-            Quantity: 6
-          - ReagentId: Water
-            Quantity: 5
-          - ReagentId: Milk
-            Quantity: 5
-          - ReagentId: Flavorol
-            Quantity: 5
+        - ReagentId: Nutriment
+          Quantity: 2
+        - ReagentId: Vitamin
+          Quantity: 6
+        - ReagentId: Water
+          Quantity: 5
+        - ReagentId: Milk
+          Quantity: 5
+        - ReagentId: Flavorol
+          Quantity: 5
 
 - type: entity
   name: beet soup
@@ -1097,14 +1095,14 @@
       food:
         maxVol: 25
         reagents:
-          - ReagentId: Nutriment
-            Quantity: 3
-          - ReagentId: Vitamin
-            Quantity: 7
-          - ReagentId: Water
-            Quantity: 5
-          - ReagentId: Flavorol
-            Quantity: 5
+        - ReagentId: Nutriment
+          Quantity: 3
+        - ReagentId: Vitamin
+          Quantity: 7
+        - ReagentId: Water
+          Quantity: 5
+        - ReagentId: Flavorol
+          Quantity: 5
 # Tastes like borsch, bortsch, borstch, borsh, borshch, borscht.
 
 - type: entity
@@ -1122,12 +1120,12 @@
       food:
         maxVol: 20
         reagents:
-          - ReagentId: Nutriment
-            Quantity: 4
-          - ReagentId: Vitamin
-            Quantity: 6
-          - ReagentId: Flavorol
-            Quantity: 5
+        - ReagentId: Nutriment
+          Quantity: 4
+        - ReagentId: Vitamin
+          Quantity: 6
+        - ReagentId: Flavorol
+          Quantity: 5
 # Tastes like beet.
 
 - type: entity
@@ -1138,9 +1136,9 @@
   components:
   - type: FlavorProfile
     flavors:
-      - meaty
-      - tomato
-      - carrot
+    - meaty
+    - tomato
+    - carrot
   - type: Sprite
     layers:
     - state: bowl
@@ -1150,14 +1148,14 @@
       food:
         maxVol: 35 # Frontier: 25<35
         reagents:
-          - ReagentId: Nutriment
-            Quantity: 15
-          - ReagentId: Protein
-            Quantity: 5
-          - ReagentId: Vitamin
-            Quantity: 2
-          - ReagentId: Flavorol
-            Quantity: 10
+        - ReagentId: Nutriment
+          Quantity: 15
+        - ReagentId: Protein
+          Quantity: 5
+        - ReagentId: Vitamin
+          Quantity: 2
+        - ReagentId: Flavorol
+          Quantity: 10
   - type: Tag
     tags:
     - Meat
@@ -1172,7 +1170,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - sweet
+    - sweet
   - type: Sprite
     layers:
     - state: bowl
@@ -1182,12 +1180,12 @@
       food:
         maxVol: 17
         reagents:
-          - ReagentId: Nutriment
-            Quantity: 4
-          - ReagentId: Vitamin
-            Quantity: 5
-          - ReagentId: Flavorol
-            Quantity: 5
+        - ReagentId: Nutriment
+          Quantity: 4
+        - ReagentId: Vitamin
+          Quantity: 5
+        - ReagentId: Flavorol
+          Quantity: 5
 # Tastes like sweet potato.
 
 - type: entity
@@ -1198,7 +1196,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - onion
+    - onion
   - type: Sprite
     layers:
     - state: bowl
@@ -1208,14 +1206,14 @@
       food:
         maxVol: 20 # Frontier: 15<20
         reagents:
-          - ReagentId: Nutriment
-            Quantity: 1
-          - ReagentId: Vitamin
-            Quantity: 5
-          - ReagentId: Allicin
-            Quantity: 5
-          - ReagentId: Flavorol
-            Quantity: 5
+        - ReagentId: Nutriment
+          Quantity: 1
+        - ReagentId: Vitamin
+          Quantity: 5
+        - ReagentId: Allicin
+          Quantity: 5
+        - ReagentId: Flavorol
+          Quantity: 5
 
 - type: entity
   name: bisque
@@ -1225,7 +1223,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - creamy
+    - creamy
   - type: Sprite
     layers:
     - state: bowl
@@ -1235,16 +1233,16 @@
       food:
         maxVol: 35
         reagents:
-          - ReagentId: Nutriment
-            Quantity: 6
-          - ReagentId: Vitamin
-            Quantity: 6
-          - ReagentId: Protein
-            Quantity: 6
-          - ReagentId: Water
-            Quantity: 5
-          - ReagentId: Flavorol
-            Quantity: 5
+        - ReagentId: Nutriment
+          Quantity: 6
+        - ReagentId: Vitamin
+          Quantity: 6
+        - ReagentId: Protein
+          Quantity: 6
+        - ReagentId: Water
+          Quantity: 5
+        - ReagentId: Flavorol
+          Quantity: 5
 # Tastes like crab.
 
 - type: entity
@@ -1255,8 +1253,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - mushrooms
-      - electrons
+    - mushrooms
+    - electrons
   - type: Sprite
     layers:
     - state: bowl
@@ -1266,12 +1264,12 @@
       food:
         maxVol: 15
         reagents:
-          - ReagentId: Nutriment
-            Quantity: 3
-          - ReagentId: Licoxide
-            Quantity: 6
-          - ReagentId: Flavorol
-            Quantity: 5
+        - ReagentId: Nutriment
+          Quantity: 3
+        - ReagentId: Licoxide
+          Quantity: 6
+        - ReagentId: Flavorol
+          Quantity: 5
 
 - type: entity
   name: bungo curry
@@ -1281,7 +1279,7 @@
   components:
   - type: FlavorProfile
     flavors:
-      - jungle
+    - jungle
   - type: Sprite
     layers:
     - state: bowl
@@ -1291,14 +1289,14 @@
       food:
         maxVol: 35 # Frontier: 20<35
         reagents:
-          - ReagentId: Nutriment
-            Quantity: 6
-          - ReagentId: Vitamin
-            Quantity: 5
-          - ReagentId: CapsaicinOil
-            Quantity: 5
-          - ReagentId: Flavorol
-            Quantity: 15
+        - ReagentId: Nutriment
+          Quantity: 6
+        - ReagentId: Vitamin
+          Quantity: 5
+        - ReagentId: CapsaicinOil
+          Quantity: 5
+        - ReagentId: Flavorol
+          Quantity: 15
   - type: Tag
     tags:
     - Fruit
@@ -1313,8 +1311,8 @@
   components:
   - type: FlavorProfile
     flavors:
-      - creamy
-      - slimy
+    - creamy
+    - slimy
   - type: Sprite
     layers:
     - state: bowl
@@ -1324,12 +1322,12 @@
       food:
         maxVol: 20
         reagents:
-          - ReagentId: Nutriment
-            Quantity: 6
-          - ReagentId: Vitamin
-            Quantity: 6
-          - ReagentId: Allicin
-            Quantity: 3
+        - ReagentId: Nutriment
+          Quantity: 6
+        - ReagentId: Vitamin
+          Quantity: 6
+        - ReagentId: Allicin
+          Quantity: 3
   - type: Tag
     tags:
     - Meat

@@ -4,8 +4,8 @@
 - type: latheRecipePack
   id: NFMercenaryTechfabDeprecatedStatic
   recipes:
-# Shared lathe recipes
-## Basic tools
+  # Shared lathe recipes
+  ## Basic tools
   - Wirecutter
   - Screwdriver
   - Welder
@@ -17,12 +17,12 @@
   - HandLabeler
   - Signaller
   - ClothingMaskWeldingGas
-## Basic storage
+  ## Basic storage
   - ToolboxArtisticNF
   - ToolboxElectricalNF
   - ToolboxMechanicalNF
   - ToolboxEmergencyNF
-## Basic parts
+  ## Basic parts
   - CableStack
   - LightTube
   - LedLightTube
@@ -35,14 +35,14 @@
   - ConveyorBeltAssembly
   - PowerCellSmall
   - PowerCellMedium
-## Basic electronics
+  ## Basic electronics
   - SignalTimerElectronics
   - CellRechargerCircuitboard
   - BorgChargerCircuitboard
   - WeaponCapacitorRechargerCircuitboard
   - AirTank
-# Mercenary techfab
-## Clothing / Armor
+  # Mercenary techfab
+  ## Clothing / Armor
   - NFRiotShield
   - ClothingNeckIFFNeutral
   - ClothingNeckIFFGreen
@@ -67,17 +67,17 @@
   - ClothingMaskBreathMedicalSecurity
   - ClothingMaskGasSecurity
   - ClothingBeltBandolier
-## EVA / Hardsuits
+  ## EVA / Hardsuits
   - ClothingOuterEVASuitMercenary
   - ClothingOuterEVASuitPrivateSec
-## Storage
+  ## Storage
   - MedkitCombat
   - WeaponCaseShort
   - WeaponCaseLong
   - WeaponCaseHeavy
   - WeaponCaseShortAmmo
   - WeaponCaseShortExplosives
-## Weapons
+  ## Weapons
   - NFCombatKnife
   - NFWeaponEnergyPistolLaserSvalinn # After the changes made to windows shouldn't be that much of an issue now if it's widely available
   - NFWeaponEnergyPistolLaser # After the changes made to windows shouldn't be that much of an issue now if it's widely available
@@ -85,7 +85,7 @@
   - WeaponPistolMk58
   - WeaponShotgunDoubleBarreled # Hardlight change
   - WeaponRifleNovaliteC1 # Hardlight change
-  - WeaponRifleGestio   # Hardlight change
+  - WeaponRifleGestio # Hardlight change
   - BaseBallBatNF
   - CrossbowModern
   - WeaponPistolPollock
@@ -95,8 +95,8 @@
 - type: latheRecipePack
   id: NFMercenaryTechfabDynamicDeprecated
   recipes:
-# Shared lathe recipes
-## Advanced tools
+  # Shared lathe recipes
+  ## Advanced tools
   - WelderExperimental
   - JawsOfLife
   - PowerDrill
@@ -104,8 +104,8 @@
   - PowerCellHigh
   # - PowerCellHyperNF
   - PowerCellMicroreactor
-# Mercenary techfab
-## Armor
+  # Mercenary techfab
+  ## Armor
   - NFTelescopicShield
   - ClothingOuterArmorBulletproofNF
   - ClothingOuterCoatBHTrench
@@ -125,14 +125,14 @@
   - ClothingUniformRandomPunkCroptopShorts
   - ClothingOuterCoatLettermanRandomized
   - ClothingOuterCoatBomberRandomized
-## EVA / Hardsuits
+  ## EVA / Hardsuits
   - ClothingOuterHardsuitCap
   - ClothingOuterHardsuitMercenary
   - ClothingOuterHardsuitPrivateSecurity
   - ClothingOuterHardsuitScaf
   - ClothingShoesBootsMagSecurity
   - ClothingShoesBootsMagMercenary
-## Utilities
+  ## Utilities
   - NFForensicPad
   - ClothingEyesHudBountyHunter
   - ClothingEyesPunkInfoShades
@@ -151,7 +151,7 @@
   - ClothingBackpackTactical #HL
   - ClothingBackpackExplorer #HL
   - ClothingRucksack #HL
-## Weapons
+  ## Weapons
   - WeaponGrapplingGun
   - BolaNF
   - FlashPayload

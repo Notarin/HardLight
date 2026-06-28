@@ -2,8 +2,8 @@
 using Content.Server.Administration.Logs;
 using Content.Server.Popups;
 using Content.Shared.Database;
-using Content.Shared.Popups;
 using Content.Shared.Examine;
+using Content.Shared.Popups;
 using Content.Shared.Verbs;
 using Robust.Shared.Player;
 using Robust.Shared.Utility;
@@ -12,8 +12,11 @@ namespace Content.Server._CD.Engraving;
 
 public sealed class EngraveableSystem : EntitySystem
 {
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly QuickDialogSystem _dialog = default!;
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly QuickDialogSystem _dialog = default!;
 
     public override void Initialize()
     {
@@ -30,7 +33,9 @@ public sealed class EngraveableSystem : EntitySystem
         if (ent.Comp.EngravedMessage == string.Empty)
             msg.AddMarkupOrThrow(Loc.GetString(ent.Comp.NoEngravingText, ("object", ent)));
         else
-            msg.AddMarkupOrThrow(Loc.GetString(ent.Comp.HasEngravingText, ("object", ent), ("message", ent.Comp.EngravedMessage)));
+            msg.AddMarkupOrThrow(
+                Loc.GetString(ent.Comp.HasEngravingText, ("object", ent), ("message", ent.Comp.EngravedMessage))
+            );
         // End Frontier
 
         args.PushMessage(msg, 1);
@@ -55,7 +60,8 @@ public sealed class EngraveableSystem : EntitySystem
             Text = Loc.GetString("engraving-verb-engrave"),
             Act = () =>
             {
-                _dialog.OpenDialog(actor.PlayerSession,
+                _dialog.OpenDialog(
+                    actor.PlayerSession,
                     Loc.GetString("engraving-verb-engrave"),
                     Loc.GetString("engraving-popup-ui-message"),
                     (string message) =>
@@ -65,14 +71,17 @@ public sealed class EngraveableSystem : EntitySystem
                             return;
 
                         ent.Comp.EngravedMessage = message;
-                        _popup.PopupEntity(Loc.GetString(ent.Comp.EngraveSuccessMessage, ("object", ent)), // Frontier: add object argument
+                        _popup.PopupEntity(
+                            Loc.GetString(ent.Comp.EngraveSuccessMessage, ("object", ent)), // Frontier: add object argument
                             actor.PlayerSession.AttachedEntity.Value,
                             actor.PlayerSession,
-                            PopupType.Medium);
+                            PopupType.Medium
+                        );
                         /* _adminLogger.Add(LogType.Action,
                             LogImpact.Low,
                             $"{ToPrettyString(actor.PlayerSession.AttachedEntity):player} engraved an item with message: {message}"); */
-                    });
+                    }
+                );
             },
             Impact = LogImpact.Low,
         };

@@ -9,7 +9,8 @@ namespace Content.Server._Funkystation.Genetics.Mutations.Systems;
 /// </remarks>
 public sealed class MutationRadiationResistanceSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
 
     public override void Initialize()
     {

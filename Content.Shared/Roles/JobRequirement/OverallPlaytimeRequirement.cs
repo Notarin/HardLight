@@ -17,11 +17,13 @@ public sealed partial class OverallPlaytimeRequirement : JobRequirement
     [DataField(required: true)]
     public TimeSpan Time;
 
-    public override bool Check(IEntityManager entManager,
+    public override bool Check(
+        IEntityManager entManager,
         IPrototypeManager protoManager,
         HumanoidCharacterProfile? profile,
         IReadOnlyDictionary<string, TimeSpan> playTimes,
-        [NotNullWhen(false)] out FormattedMessage? reason)
+        [NotNullWhen(false)] out FormattedMessage? reason
+    )
     {
         reason = new FormattedMessage();
 
@@ -35,16 +37,17 @@ public sealed partial class OverallPlaytimeRequirement : JobRequirement
             if (overallDiff <= 0 || overallTime >= Time)
                 return true;
 
-            reason = FormattedMessage.FromMarkupPermissive(Loc.GetString(
-                "role-timer-overall-insufficient",
-                ("time", formattedOverallDiff)));
+            reason = FormattedMessage.FromMarkupPermissive(
+                Loc.GetString("role-timer-overall-insufficient", ("time", formattedOverallDiff))
+            );
             return false;
         }
 
         if (overallDiff <= 0 || overallTime >= Time)
         {
-            reason = FormattedMessage.FromMarkupPermissive(Loc.GetString("role-timer-overall-too-high",
-                ("time", formattedOverallDiff)));
+            reason = FormattedMessage.FromMarkupPermissive(
+                Loc.GetString("role-timer-overall-too-high", ("time", formattedOverallDiff))
+            );
             return false;
         }
 

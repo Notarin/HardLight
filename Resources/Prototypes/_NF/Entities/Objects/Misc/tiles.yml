@@ -11,7 +11,7 @@
     heldPrefix: grassdark
   - type: FloorTile
     outputs:
-      - FloorGrassDark
+    - FloorGrassDark
   - type: Stack
     stackType: FloorTileGrassDark
 
@@ -28,7 +28,7 @@
     heldPrefix: grasslight
   - type: FloorTile
     outputs:
-      - FloorGrassLight
+    - FloorGrassLight
   - type: Stack
     stackType: FloorTileGrassLight
 
@@ -45,7 +45,7 @@
     heldPrefix: dirt
   - type: FloorTile
     outputs:
-      - FloorDirt
+    - FloorDirt
   - type: Stack
     stackType: FloorTileDirt
 
@@ -62,7 +62,7 @@
     heldPrefix: bedrock
   - type: FloorTile
     outputs:
-      - FloorBedrock
+    - FloorBedrock
   - type: Stack
     stackType: FloorTileBedrock
 
@@ -79,7 +79,7 @@
     heldPrefix: gold-mono
   - type: FloorTile
     outputs:
-      - FloorGoldMono
+    - FloorGoldMono
   - type: Stack
     stackType: FloorGoldMono
 
@@ -96,7 +96,7 @@
     heldPrefix: silver-mono
   - type: FloorTile
     outputs:
-      - FloorSilverMono
+    - FloorSilverMono
   - type: Stack
     stackType: FloorSilverMono
 
@@ -112,14 +112,14 @@
     sprite: /Textures/_NF/Objects/Tiles/color_monotile.rsi
     inhandVisuals:
       left:
-        - state: mono-inhand-left
-          color: "#01810e"
+      - state: mono-inhand-left
+        color: "#01810e"
       right:
-        - state: mono-inhand-right
-          color: "#01810e"
+      - state: mono-inhand-right
+        color: "#01810e"
   - type: FloorTile
     outputs:
-      - FloorGreenMono
+    - FloorGreenMono
   - type: Stack
     stackType: FloorGreenMono
 
@@ -135,14 +135,14 @@
     sprite: /Textures/_NF/Objects/Tiles/color_monotile.rsi
     inhandVisuals:
       left:
-        - state: mono-inhand-left
-          color: "#69bce0"
+      - state: mono-inhand-left
+        color: "#69bce0"
       right:
-        - state: mono-inhand-right
-          color: "#69bce0"
+      - state: mono-inhand-right
+        color: "#69bce0"
   - type: FloorTile
     outputs:
-      - FloorLightBlueMono
+    - FloorLightBlueMono
   - type: Stack
     stackType: FloorLightBlueMono
 
@@ -158,14 +158,14 @@
     sprite: /Textures/_NF/Objects/Tiles/color_monotile.rsi
     inhandVisuals:
       left:
-        - state: mono-inhand-left
-          color: "#8ded69"
+      - state: mono-inhand-left
+        color: "#8ded69"
       right:
-        - state: mono-inhand-right
-          color: "#8ded69"
+      - state: mono-inhand-right
+        color: "#8ded69"
   - type: FloorTile
     outputs:
-      - FloorLightGreenMono
+    - FloorLightGreenMono
   - type: Stack
     stackType: FloorLightGreenMono
 
@@ -181,14 +181,14 @@
     sprite: /Textures/_NF/Objects/Tiles/color_monotile.rsi
     inhandVisuals:
       left:
-        - state: mono-inhand-left
-          color: "#fcc0fc"
+      - state: mono-inhand-left
+        color: "#fcc0fc"
       right:
-        - state: mono-inhand-right
-          color: "#fcc0fc"
+      - state: mono-inhand-right
+        color: "#fcc0fc"
   - type: FloorTile
     outputs:
-      - FloorLightPinkMono
+    - FloorLightPinkMono
   - type: Stack
     stackType: FloorLightPinkMono
 
@@ -204,14 +204,14 @@
     sprite: /Textures/_NF/Objects/Tiles/color_monotile.rsi
     inhandVisuals:
       left:
-        - state: mono-inhand-left
-          color: "#fcee89"
+      - state: mono-inhand-left
+        color: "#fcee89"
       right:
-        - state: mono-inhand-right
-          color: "#fcee89"
+      - state: mono-inhand-right
+        color: "#fcee89"
   - type: FloorTile
     outputs:
-      - FloorLightYellowMono
+    - FloorLightYellowMono
   - type: Stack
     stackType: FloorLightYellowMono
 
@@ -227,14 +227,14 @@
     sprite: /Textures/_NF/Objects/Tiles/color_monotile.rsi
     inhandVisuals:
       left:
-        - state: mono-inhand-left
-          color: "#d88102"
+      - state: mono-inhand-left
+        color: "#d88102"
       right:
-        - state: mono-inhand-right
-          color: "#d88102"
+      - state: mono-inhand-right
+        color: "#d88102"
   - type: FloorTile
     outputs:
-      - FloorOrangeMono
+    - FloorOrangeMono
   - type: Stack
     stackType: FloorOrangeMono
 
@@ -250,14 +250,14 @@
     sprite: /Textures/_NF/Objects/Tiles/color_monotile.rsi
     inhandVisuals:
       left:
-        - state: mono-inhand-left
-          color: "#b63448"
+      - state: mono-inhand-left
+        color: "#b63448"
       right:
-        - state: mono-inhand-right
-          color: "#b63448"
+      - state: mono-inhand-right
+        color: "#b63448"
   - type: FloorTile
     outputs:
-      - FloorLightRedMono
+    - FloorLightRedMono
   - type: Stack
     stackType: FloorLightRedMono
 
@@ -273,14 +273,14 @@
     sprite: /Textures/_NF/Objects/Tiles/color_monotile.rsi
     inhandVisuals:
       left:
-        - state: mono-inhand-left
-          color: "#8c0015"
+      - state: mono-inhand-left
+        color: "#8c0015"
       right:
-        - state: mono-inhand-right
-          color: "#8c0015"
+      - state: mono-inhand-right
+        color: "#8c0015"
   - type: FloorTile
     outputs:
-      - FloorRedMono
+    - FloorRedMono
   - type: Stack
     stackType: FloorRedMono
 
@@ -297,7 +297,7 @@
     heldPrefix: sus
   - type: FloorTile
     outputs:
-      - FloorSus
+    - FloorSus
   - type: Stack
     stackType: FloorSus
 
@@ -313,7 +313,7 @@
     sprite: /Textures/_NF/Objects/Tiles/woodtile.rsi
   - type: FloorTile
     outputs:
-      - FloorCheckerboardWood
+    - FloorCheckerboardWood
   - type: Stack
     stackType: FloorCheckerboardWood
 
@@ -329,7 +329,7 @@
     sprite: /Textures/_NF/Objects/Tiles/woodtile.rsi
   - type: FloorTile
     outputs:
-      - FloorLightMosaicWood
+    - FloorLightMosaicWood
   - type: Stack
     stackType: FloorLightMosaicWood
 
@@ -345,7 +345,7 @@
     sprite: /Textures/_NF/Objects/Tiles/woodtile.rsi
   - type: FloorTile
     outputs:
-      - FloorFancyWood
+    - FloorFancyWood
   - type: Stack
     stackType: FloorFancyWood
 
@@ -361,7 +361,7 @@
     sprite: /Textures/_NF/Objects/Tiles/woodtile.rsi
   - type: FloorTile
     outputs:
-      - FloorVersaillesWood
+    - FloorVersaillesWood
   - type: Stack
     stackType: FloorVersaillesWood
 
@@ -378,6 +378,6 @@
     heldPrefix: cheese
   - type: FloorTile
     outputs:
-      - FloorCheese
+    - FloorCheese
   - type: Stack
     stackType: FloorCheese

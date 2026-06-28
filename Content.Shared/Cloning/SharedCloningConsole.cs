@@ -19,7 +19,17 @@ namespace Content.Shared.Cloning.CloningConsole
         public readonly bool ScannerInRange;
         public readonly bool ClonerConnected;
         public readonly bool ClonerInRange;
-        public CloningConsoleBoundUserInterfaceState(string? scannerBodyInfo, string? cloningBodyInfo, bool mindPresent, ClonerStatus cloningStatus, bool scannerConnected, bool scannerInRange, bool clonerConnected, bool clonerInRange)
+
+        public CloningConsoleBoundUserInterfaceState(
+            string? scannerBodyInfo,
+            string? cloningBodyInfo,
+            bool mindPresent,
+            ClonerStatus cloningStatus,
+            bool scannerConnected,
+            bool scannerInRange,
+            bool clonerConnected,
+            bool clonerInRange
+        )
         {
             ScannerBodyInfo = scannerBodyInfo;
             ClonerBodyInfo = cloningBodyInfo;
@@ -41,20 +51,20 @@ namespace Content.Shared.Cloning.CloningConsole
         OccupantMetaphyiscal,
         ClonerOccupied,
         NoClonerDetected,
-        NoMindDetected
+        NoMindDetected,
     }
 
     [Serializable, NetSerializable]
     public enum CloningConsoleUiKey : byte
     {
-        Key
+        Key,
     }
 
     [Serializable, NetSerializable]
     public enum UiButton : byte
     {
         Clone,
-        Eject
+        Eject,
     }
 
     [Serializable, NetSerializable]

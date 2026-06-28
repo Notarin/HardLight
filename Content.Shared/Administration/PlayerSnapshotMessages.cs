@@ -61,7 +61,8 @@ public sealed class PlayerSnapshot
         bool detachedFromBody,
         Vector2 worldPosition,
         string mapName,
-        string[] roles)
+        string[] roles
+    )
     {
         Online = online;
         HasMind = hasMind;

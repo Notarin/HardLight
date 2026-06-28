@@ -28,7 +28,7 @@ namespace Content.Client.Administration.UI.Tabs.ObjectsTab
             {
                 Header.ObjectName => ObjectNameLabel,
                 Header.EntityID => EntityIDLabel,
-                _ => throw new ArgumentOutOfRangeException(nameof(header), header, null)
+                _ => throw new ArgumentOutOfRangeException(nameof(header), header, null),
             };
         }
 
@@ -80,7 +80,7 @@ namespace Content.Client.Administration.UI.Tabs.ObjectsTab
         public enum Header
         {
             ObjectName,
-            EntityID
+            EntityID,
         }
     }
 }

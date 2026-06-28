@@ -1,7 +1,7 @@
-using Robust.Client.UserInterface;
-using Robust.Shared.Input;
 using Content.Client.UserInterface.Controls;
 using Content.Shared._DV.SmartFridge;
+using Robust.Client.UserInterface;
+using Robust.Shared.Input;
 
 namespace Content.Client._DV.SmartFridge;
 
@@ -9,9 +9,8 @@ public sealed class SmartFridgeBoundUserInterface : BoundUserInterface
 {
     private SmartFridgeMenu? _menu;
 
-    public SmartFridgeBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
-    {
-    }
+    public SmartFridgeBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {
@@ -25,7 +24,7 @@ public sealed class SmartFridgeBoundUserInterface : BoundUserInterface
 
     public void Refresh()
     {
-        if (_menu is not {} menu || !EntMan.TryGetComponent(Owner, out SmartFridgeComponent? fridge))
+        if (_menu is not { } menu || !EntMan.TryGetComponent(Owner, out SmartFridgeComponent? fridge))
             return;
 
         menu.Populate((Owner, fridge));

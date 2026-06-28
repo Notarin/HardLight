@@ -9,7 +9,9 @@ public sealed partial class InContainerPrecondition : HTNPrecondition
 {
     private ContainerSystem _container = default!;
 
-    [ViewVariables(VVAccess.ReadWrite)] [DataField("isInContainer")] public bool IsInContainer = true;
+    [ViewVariables(VVAccess.ReadWrite)]
+    [DataField("isInContainer")]
+    public bool IsInContainer = true;
 
     public override void Initialize(IEntitySystemManager sysManager)
     {
@@ -21,7 +23,7 @@ public sealed partial class InContainerPrecondition : HTNPrecondition
     {
         var owner = blackboard.GetValue<EntityUid>(NPCBlackboard.Owner);
 
-        return IsInContainer && _container.IsEntityInContainer(owner) ||
-               !IsInContainer && !_container.IsEntityInContainer(owner);
+        return IsInContainer && _container.IsEntityInContainer(owner)
+            || !IsInContainer && !_container.IsEntityInContainer(owner);
     }
 }

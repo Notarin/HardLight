@@ -5,8 +5,8 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
 
 using Content.Client.Eui;
-using Content.Shared.Eui;
 using Content.Shared._Impstation.Thaven;
+using Content.Shared.Eui;
 
 namespace Content.Client._Impstation.Thaven.Eui;
 

@@ -1,21 +1,23 @@
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using Content.Server._Starlight.Language; // Starlight
 using Content.Server.Administration.Logs;
 using Content.Server.Administration.Managers;
 using Content.Server.Chat.Managers;
 using Content.Server.GameTicking;
+using Content.Server.Nyanotrasen.Chat;
+using Content.Server.Players;
 using Content.Server.Players.RateLimiting;
 using Content.Server.Radio.EntitySystems;
-using Content.Server.Speech.Prototypes;
 using Content.Server.Speech.EntitySystems;
-using Content.Server.Players;
-using Content.Server.Nyanotrasen.Chat;
+using Content.Server.Speech.Prototypes;
 using Content.Server.Station.Components;
 using Content.Server.Station.Systems;
+using Content.Shared._Starlight.Language; // Starlight
+using Content.Shared.Abilities.Psionics;
 using Content.Shared.ActionBlocker;
 using Content.Shared.Administration;
-using Content.Shared.Abilities.Psionics;
 using Content.Shared.CCVar;
 using Content.Shared.Chat;
 using Content.Shared.Database;
@@ -25,6 +27,7 @@ using Content.Shared.IdentityManagement;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Players;
 using Content.Shared.Players.RateLimiting;
+using Content.Shared.Popups; // Starlight
 using Content.Shared.Radio;
 using Content.Shared.Whitelist;
 using Robust.Server.Player;
@@ -38,9 +41,6 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Replays;
 using Robust.Shared.Utility;
-using Content.Server._Starlight.Language; // Starlight
-using Content.Shared._Starlight.Language; // Starlight
-using Content.Shared.Popups; // Starlight
 
 namespace Content.Server.Chat.Systems;
 
@@ -51,27 +51,63 @@ namespace Content.Server.Chat.Systems;
 /// </summary>
 public sealed partial class ChatSystem : SharedChatSystem
 {
-    [Dependency] private readonly IReplayRecordingManager _replay = default!;
-    [Dependency] private readonly IConfigurationManager _configurationManager = default!;
-    [Dependency] private readonly IChatManager _chatManager = default!;
-    [Dependency] private readonly IChatSanitizationManager _sanitizer = default!;
-    [Dependency] private readonly IAdminManager _adminManager = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
-    [Dependency] private readonly StationSystem _stationSystem = default!;
-    [Dependency] private readonly MobStateSystem _mobStateSystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly ReplacementAccentSystem _wordreplacement = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
-    [Dependency] private readonly ExamineSystemShared _examineSystem = default!;
-    [Dependency] private readonly LanguageSystem _language = default!; // Starlight
-    [Dependency] private readonly SharedPopupSystem _popups = default!; // Starlight
+    [Dependency]
+    private readonly IReplayRecordingManager _replay = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _configurationManager = default!;
+
+    [Dependency]
+    private readonly IChatManager _chatManager = default!;
+
+    [Dependency]
+    private readonly IChatSanitizationManager _sanitizer = default!;
+
+    [Dependency]
+    private readonly IAdminManager _adminManager = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _playerManager = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly IAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    private readonly ActionBlockerSystem _actionBlocker = default!;
+
+    [Dependency]
+    private readonly StationSystem _stationSystem = default!;
+
+    [Dependency]
+    private readonly MobStateSystem _mobStateSystem = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly ReplacementAccentSystem _wordreplacement = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelistSystem = default!;
+
+    [Dependency]
+    private readonly ExamineSystemShared _examineSystem = default!;
+
+    [Dependency]
+    private readonly LanguageSystem _language = default!; // Starlight
+
+    [Dependency]
+    private readonly SharedPopupSystem _popups = default!; // Starlight
 
     // Nyano - Summary: pulls in the nyano chat system for psionics.
-    [Dependency] private readonly NyanoChatSystem _nyanoChatSystem = default!;
+    [Dependency]
+    private readonly NyanoChatSystem _nyanoChatSystem = default!;
 
     public const int VoiceRange = 10; // how far voice goes in world units
     public const int WhisperClearRange = 2; // how far whisper goes while still being understandable, in world units
@@ -98,20 +134,26 @@ public sealed partial class ChatSystem : SharedChatSystem
 
     private void OnLoocEnabledChanged(bool val)
     {
-        if (_loocEnabled == val) return;
+        if (_loocEnabled == val)
+            return;
 
         _loocEnabled = val;
         _chatManager.DispatchServerAnnouncement(
-            Loc.GetString(val ? "chat-manager-looc-chat-enabled-message" : "chat-manager-looc-chat-disabled-message"));
+            Loc.GetString(val ? "chat-manager-looc-chat-enabled-message" : "chat-manager-looc-chat-disabled-message")
+        );
     }
 
     private void OnDeadLoocEnabledChanged(bool val)
     {
-        if (_deadLoocEnabled == val) return;
+        if (_deadLoocEnabled == val)
+            return;
 
         _deadLoocEnabled = val;
         _chatManager.DispatchServerAnnouncement(
-            Loc.GetString(val ? "chat-manager-dead-looc-chat-enabled-message" : "chat-manager-dead-looc-chat-disabled-message"));
+            Loc.GetString(
+                val ? "chat-manager-dead-looc-chat-enabled-message" : "chat-manager-dead-looc-chat-disabled-message"
+            )
+        );
     }
 
     private void OnCritLoocEnabledChanged(bool val)
@@ -121,7 +163,10 @@ public sealed partial class ChatSystem : SharedChatSystem
 
         _critLoocEnabled = val;
         _chatManager.DispatchServerAnnouncement(
-            Loc.GetString(val ? "chat-manager-crit-looc-chat-enabled-message" : "chat-manager-crit-looc-chat-disabled-message"));
+            Loc.GetString(
+                val ? "chat-manager-crit-looc-chat-enabled-message" : "chat-manager-crit-looc-chat-disabled-message"
+            )
+        );
     }
 
     private void OnGameChange(GameRunLevelChangedEvent ev)
@@ -155,13 +200,27 @@ public sealed partial class ChatSystem : SharedChatSystem
         EntityUid source,
         string message,
         InGameICChatType desiredType,
-        bool hideChat, bool hideLog = false,
+        bool hideChat,
+        bool hideLog = false,
         IConsoleShell? shell = null,
-        ICommonSession? player = null, string? nameOverride = null,
+        ICommonSession? player = null,
+        string? nameOverride = null,
         bool checkRadioPrefix = true,
-        bool ignoreActionBlocker = false)
+        bool ignoreActionBlocker = false
+    )
     {
-        TrySendInGameICMessage(source, message, desiredType, hideChat ? ChatTransmitRange.HideChat : ChatTransmitRange.Normal, hideLog, shell, player, nameOverride, checkRadioPrefix, ignoreActionBlocker);
+        TrySendInGameICMessage(
+            source,
+            message,
+            desiredType,
+            hideChat ? ChatTransmitRange.HideChat : ChatTransmitRange.Normal,
+            hideLog,
+            shell,
+            player,
+            nameOverride,
+            checkRadioPrefix,
+            ignoreActionBlocker
+        );
     }
 
     /// <summary>
@@ -188,12 +247,19 @@ public sealed partial class ChatSystem : SharedChatSystem
         bool ignoreActionBlocker = false,
         LanguagePrototype? languageOverride = null, // Starlight
         string? color = null
-        )
+    )
     {
         if (HasComp<GhostComponent>(source))
         {
             // Ghosts can only send dead chat messages, so we'll forward it to InGame OOC.
-            TrySendInGameOOCMessage(source, message, InGameOOCChatType.Dead, range == ChatTransmitRange.HideChat, shell, player);
+            TrySendInGameOOCMessage(
+                source,
+                message,
+                InGameOOCChatType.Dead,
+                range == ChatTransmitRange.HideChat,
+                shell,
+                player
+            );
             return;
         }
 
@@ -233,11 +299,11 @@ public sealed partial class ChatSystem : SharedChatSystem
 
         var language = languageOverride ?? _language.GetLanguage(source); // Starlight
 
-
         bool shouldCapitalize = (desiredType != InGameICChatType.Emote && desiredType != InGameICChatType.Subtle);
         bool shouldPunctuate = _configurationManager.GetCVar(CCVars.ChatPunctuation);
         // Capitalizing the word I only happens in English, so we check language here
-        bool shouldCapitalizeTheWordI = (!CultureInfo.CurrentCulture.IsNeutralCulture && CultureInfo.CurrentCulture.Parent.Name == "en")
+        bool shouldCapitalizeTheWordI =
+            (!CultureInfo.CurrentCulture.IsNeutralCulture && CultureInfo.CurrentCulture.Parent.Name == "en")
             || (CultureInfo.CurrentCulture.IsNeutralCulture && CultureInfo.CurrentCulture.Name == "en");
 
         // HardLight start: Corrected SubtleOOC performing IC emotes.
@@ -248,7 +314,14 @@ public sealed partial class ChatSystem : SharedChatSystem
         }
         else
         {
-            message = SanitizeInGameICMessage(source, message, out emoteStr, shouldCapitalize, shouldPunctuate, shouldCapitalizeTheWordI);
+            message = SanitizeInGameICMessage(
+                source,
+                message,
+                out emoteStr,
+                shouldCapitalize,
+                shouldPunctuate,
+                shouldCapitalizeTheWordI
+            );
 
             // Was there an emote in the message? If so, send it.
             if (player != null && emoteStr != message && emoteStr != null)
@@ -271,7 +344,16 @@ public sealed partial class ChatSystem : SharedChatSystem
         {
             if (TryProccessRadioMessage(source, message, out var modMessage, out var channel))
             {
-                SendEntityWhisper(source, modMessage, range, channel, nameOverride, language, hideLog, ignoreActionBlocker); // Starlight
+                SendEntityWhisper(
+                    source,
+                    modMessage,
+                    range,
+                    channel,
+                    nameOverride,
+                    language,
+                    hideLog,
+                    ignoreActionBlocker
+                ); // Starlight
                 return;
             }
         }
@@ -286,13 +368,39 @@ public sealed partial class ChatSystem : SharedChatSystem
                 SendEntityWhisper(source, message, range, null, nameOverride, language, hideLog, ignoreActionBlocker); // Starlight
                 break;
             case InGameICChatType.Emote:
-                SendEntityEmote(source, message, range, nameOverride, language, hideLog: hideLog, ignoreActionBlocker: ignoreActionBlocker); // Starlight
+                SendEntityEmote(
+                    source,
+                    message,
+                    range,
+                    nameOverride,
+                    language,
+                    hideLog: hideLog,
+                    ignoreActionBlocker: ignoreActionBlocker
+                ); // Starlight
                 break;
             case InGameICChatType.Subtle:
-                SendEntitySubtle(source, message, range, nameOverride, hideLog: hideLog, ignoreActionBlocker: true, color: color, channel: ChatChannel.Subtle);
+                SendEntitySubtle(
+                    source,
+                    message,
+                    range,
+                    nameOverride,
+                    hideLog: hideLog,
+                    ignoreActionBlocker: true,
+                    color: color,
+                    channel: ChatChannel.Subtle
+                );
                 break;
             case InGameICChatType.SubtleOOC:
-                SendEntitySubtle(source, $"OOC: {message}", range, nameOverride, hideLog: hideLog, ignoreActionBlocker: true, color: color, channel: ChatChannel.SubtleOOC); // HardLight: Capitalized OOC for consistency with other OOC chats.
+                SendEntitySubtle(
+                    source,
+                    $"OOC: {message}",
+                    range,
+                    nameOverride,
+                    hideLog: hideLog,
+                    ignoreActionBlocker: true,
+                    color: color,
+                    channel: ChatChannel.SubtleOOC
+                ); // HardLight: Capitalized OOC for consistency with other OOC chats.
                 break;
             //Nyano - Summary: case adds the telepathic chat sending ability.
             case InGameICChatType.Telepathic:
@@ -308,7 +416,7 @@ public sealed partial class ChatSystem : SharedChatSystem
         bool hideChat,
         IConsoleShell? shell = null,
         ICommonSession? player = null
-        )
+    )
     {
         if (!CanSendInGame(message, shell, player))
             return;
@@ -325,11 +433,12 @@ public sealed partial class ChatSystem : SharedChatSystem
 
         var sendType = type;
         // If dead player LOOC is disabled, unless you are an admin with Moderator perms, send dead messages to dead chat
-        if ((_adminManager.IsAdmin(player) && _adminManager.HasAdminFlag(player, AdminFlags.Moderator)) // Override if admin
+        if (
+            (_adminManager.IsAdmin(player) && _adminManager.HasAdminFlag(player, AdminFlags.Moderator)) // Override if admin
             || _deadLoocEnabled
-            || (!HasComp<GhostComponent>(source) && !_mobStateSystem.IsDead(source))) // Check that player is not dead
-        {
-        }
+            || (!HasComp<GhostComponent>(source) && !_mobStateSystem.IsDead(source))
+        ) // Check that player is not dead
+        { }
         else
             sendType = InGameOOCChatType.Dead;
 
@@ -363,15 +472,24 @@ public sealed partial class ChatSystem : SharedChatSystem
         bool playSound = true,
         SoundSpecifier? announcementSound = null,
         Color? colorOverride = null
-        )
+    )
     {
         sender ??= Loc.GetString("chat-manager-sender-announcement");
 
-        var wrappedMessage = Loc.GetString("chat-manager-sender-announcement-wrap-message", ("sender", sender), ("message", FormattedMessage.EscapeText(message)));
+        var wrappedMessage = Loc.GetString(
+            "chat-manager-sender-announcement-wrap-message",
+            ("sender", sender),
+            ("message", FormattedMessage.EscapeText(message))
+        );
         _chatManager.ChatMessageToAll(ChatChannel.Radio, message, wrappedMessage, default, false, true, colorOverride);
         if (playSound)
         {
-            _audio.PlayGlobal(announcementSound == null ? DefaultAnnouncementSound : _audio.ResolveSound(announcementSound), Filter.Broadcast(), true, AudioParams.Default.WithVolume(-2f));
+            _audio.PlayGlobal(
+                announcementSound == null ? DefaultAnnouncementSound : _audio.ResolveSound(announcementSound),
+                Filter.Broadcast(),
+                true,
+                AudioParams.Default.WithVolume(-2f)
+            );
         }
         _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Global station announcement from {sender}: {message}");
     }
@@ -393,15 +511,34 @@ public sealed partial class ChatSystem : SharedChatSystem
         string? sender = null,
         bool playSound = true,
         SoundSpecifier? announcementSound = null,
-        Color? colorOverride = null)
+        Color? colorOverride = null
+    )
     {
         sender ??= Loc.GetString("chat-manager-sender-announcement");
 
-        var wrappedMessage = Loc.GetString("chat-manager-sender-announcement-wrap-message", ("sender", sender), ("message", FormattedMessage.EscapeText(message)));
-        _chatManager.ChatMessageToManyFiltered(filter, ChatChannel.Radio, message, wrappedMessage, source ?? default, false, true, colorOverride);
+        var wrappedMessage = Loc.GetString(
+            "chat-manager-sender-announcement-wrap-message",
+            ("sender", sender),
+            ("message", FormattedMessage.EscapeText(message))
+        );
+        _chatManager.ChatMessageToManyFiltered(
+            filter,
+            ChatChannel.Radio,
+            message,
+            wrappedMessage,
+            source ?? default,
+            false,
+            true,
+            colorOverride
+        );
         if (playSound)
         {
-            _audio.PlayGlobal(announcementSound?.ToString() ?? DefaultAnnouncementSound, filter, true, AudioParams.Default.WithVolume(-2f));
+            _audio.PlayGlobal(
+                announcementSound?.ToString() ?? DefaultAnnouncementSound,
+                filter,
+                true,
+                AudioParams.Default.WithVolume(-2f)
+            );
         }
         _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Station Announcement from {sender}: {message}");
     }
@@ -420,11 +557,16 @@ public sealed partial class ChatSystem : SharedChatSystem
         string? sender = null,
         bool playDefaultSound = true,
         SoundSpecifier? announcementSound = null,
-        Color? colorOverride = null)
+        Color? colorOverride = null
+    )
     {
         sender ??= Loc.GetString("chat-manager-sender-announcement");
 
-        var wrappedMessage = Loc.GetString("chat-manager-sender-announcement-wrap-message", ("sender", sender), ("message", FormattedMessage.EscapeText(message)));
+        var wrappedMessage = Loc.GetString(
+            "chat-manager-sender-announcement-wrap-message",
+            ("sender", sender),
+            ("message", FormattedMessage.EscapeText(message))
+        );
         var station = _stationSystem.GetOwningStation(source);
 
         if (station == null)
@@ -433,15 +575,30 @@ public sealed partial class ChatSystem : SharedChatSystem
             return;
         }
 
-        if (!EntityManager.TryGetComponent<StationDataComponent>(station, out var stationDataComp)) return;
+        if (!EntityManager.TryGetComponent<StationDataComponent>(station, out var stationDataComp))
+            return;
 
         var filter = _stationSystem.GetInStation(stationDataComp);
 
-        _chatManager.ChatMessageToManyFiltered(filter, ChatChannel.Radio, message, wrappedMessage, source, false, true, colorOverride);
+        _chatManager.ChatMessageToManyFiltered(
+            filter,
+            ChatChannel.Radio,
+            message,
+            wrappedMessage,
+            source,
+            false,
+            true,
+            colorOverride
+        );
 
         if (playDefaultSound)
         {
-            _audio.PlayGlobal(announcementSound?.ToString() ?? DefaultAnnouncementSound, filter, true, AudioParams.Default.WithVolume(-2f));
+            _audio.PlayGlobal(
+                announcementSound?.ToString() ?? DefaultAnnouncementSound,
+                filter,
+                true,
+                AudioParams.Default.WithVolume(-2f)
+            );
         }
 
         _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Station Announcement on {station} from {sender}: {message}");
@@ -459,7 +616,7 @@ public sealed partial class ChatSystem : SharedChatSystem
         LanguagePrototype language, // Starlight
         bool hideLog = false,
         bool ignoreActionBlocker = false
-        )
+    )
     {
         if (!_actionBlocker.CanSpeak(source) && !ignoreActionBlocker)
             return;
@@ -492,18 +649,38 @@ public sealed partial class ChatSystem : SharedChatSystem
         // Starlight start
         var wrappedMessage = WrapPublicMessage(source, name, message, language: language);
         // The chat message obfuscated via language obfuscation.
-        var obfuscated = SanitizeInGameICMessage(source, _language.ObfuscateSpeech(message, language), out var emoteStr, true, _configurationManager.GetCVar(CCVars.ChatPunctuation),
-        (!CultureInfo.CurrentCulture.IsNeutralCulture && CultureInfo.CurrentCulture.Parent.Name == "en")
-        || (CultureInfo.CurrentCulture.IsNeutralCulture && CultureInfo.CurrentCulture.Name == "en"));
+        var obfuscated = SanitizeInGameICMessage(
+            source,
+            _language.ObfuscateSpeech(message, language),
+            out var emoteStr,
+            true,
+            _configurationManager.GetCVar(CCVars.ChatPunctuation),
+            (!CultureInfo.CurrentCulture.IsNeutralCulture && CultureInfo.CurrentCulture.Parent.Name == "en")
+                || (CultureInfo.CurrentCulture.IsNeutralCulture && CultureInfo.CurrentCulture.Name == "en")
+        );
         // The language-obfuscated message wrapped in a "x says y" string.
         var wrappedObfuscated = WrapPublicMessage(source, name, obfuscated, language: language, obfuscated: true);
         // Starlight end
 
-        var wrappedOriginalMessage = originalMessage == message
-            ? wrappedMessage
-            : WrapPublicMessage(source, name, originalMessage, language: language); // HardLight
+        var wrappedOriginalMessage =
+            originalMessage == message
+                ? wrappedMessage
+                : WrapPublicMessage(source, name, originalMessage, language: language); // HardLight
 
-        SendInVoiceRange(ChatChannel.Local, name, message, wrappedMessage, obfuscated, wrappedObfuscated, source, range, null, language, originalMessage, wrappedOriginalMessage); // HardLight
+        SendInVoiceRange(
+            ChatChannel.Local,
+            name,
+            message,
+            wrappedMessage,
+            obfuscated,
+            wrappedObfuscated,
+            source,
+            range,
+            null,
+            language,
+            originalMessage,
+            wrappedOriginalMessage
+        ); // HardLight
 
         var ev = new EntitySpokeEvent(source, message, originalMessage, null, null, null, false, language); // HardLight
         RaiseLocalEvent(source, ev, true);
@@ -516,18 +693,32 @@ public sealed partial class ChatSystem : SharedChatSystem
         if (originalMessage == message)
         {
             if (name != Name(source))
-                _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Say from {ToPrettyString(source):user} as {name}: {originalMessage}.");
+                _adminLogger.Add(
+                    LogType.Chat,
+                    LogImpact.Low,
+                    $"Say from {ToPrettyString(source):user} as {name}: {originalMessage}."
+                );
             else
-                _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Say from {ToPrettyString(source):user}: {originalMessage}.");
+                _adminLogger.Add(
+                    LogType.Chat,
+                    LogImpact.Low,
+                    $"Say from {ToPrettyString(source):user}: {originalMessage}."
+                );
         }
         else
         {
             if (name != Name(source))
-                _adminLogger.Add(LogType.Chat, LogImpact.Low,
-                    $"Say from {ToPrettyString(source):user} as {name}, original: {originalMessage}, transformed: {message}.");
+                _adminLogger.Add(
+                    LogType.Chat,
+                    LogImpact.Low,
+                    $"Say from {ToPrettyString(source):user} as {name}, original: {originalMessage}, transformed: {message}."
+                );
             else
-                _adminLogger.Add(LogType.Chat, LogImpact.Low,
-                    $"Say from {ToPrettyString(source):user}, original: {originalMessage}, transformed: {message}.");
+                _adminLogger.Add(
+                    LogType.Chat,
+                    LogImpact.Low,
+                    $"Say from {ToPrettyString(source):user}, original: {originalMessage}, transformed: {message}."
+                );
         }
     }
 
@@ -540,7 +731,7 @@ public sealed partial class ChatSystem : SharedChatSystem
         LanguagePrototype language, // Starlight
         bool hideLog = false,
         bool ignoreActionBlocker = false
-        )
+    )
     {
         if (!_actionBlocker.CanSpeak(source) && !ignoreActionBlocker)
             return;
@@ -565,20 +756,45 @@ public sealed partial class ChatSystem : SharedChatSystem
         }
         name = FormattedMessage.EscapeText(name);
 
-        var languageObfuscatedMessage = SanitizeInGameICMessage(source, _language.ObfuscateSpeech(message, language), out var emoteStr, true, _configurationManager.GetCVar(CCVars.ChatPunctuation),
-        (!CultureInfo.CurrentCulture.IsNeutralCulture && CultureInfo.CurrentCulture.Parent.Name == "en")
-        || (CultureInfo.CurrentCulture.IsNeutralCulture && CultureInfo.CurrentCulture.Name == "en")); // Starlight
+        var languageObfuscatedMessage = SanitizeInGameICMessage(
+            source,
+            _language.ObfuscateSpeech(message, language),
+            out var emoteStr,
+            true,
+            _configurationManager.GetCVar(CCVars.ChatPunctuation),
+            (!CultureInfo.CurrentCulture.IsNeutralCulture && CultureInfo.CurrentCulture.Parent.Name == "en")
+                || (CultureInfo.CurrentCulture.IsNeutralCulture && CultureInfo.CurrentCulture.Name == "en")
+        ); // Starlight
 
         // HardLight start
-        var wrappedClearMessage = WrapWhisperMessage(source, "chat-manager-entity-whisper-wrap-message", name, message, language);
-        var wrappedOriginalMessage = originalMessage == message
-            ? wrappedClearMessage
-            : WrapWhisperMessage(source, "chat-manager-entity-whisper-wrap-message", name, originalMessage, language);
-        var wrappedLanguageObfuscatedMessage = WrapWhisperMessage(source, "chat-manager-entity-whisper-wrap-message", name, languageObfuscatedMessage, language, true);
+        var wrappedClearMessage = WrapWhisperMessage(
+            source,
+            "chat-manager-entity-whisper-wrap-message",
+            name,
+            message,
+            language
+        );
+        var wrappedOriginalMessage =
+            originalMessage == message
+                ? wrappedClearMessage
+                : WrapWhisperMessage(
+                    source,
+                    "chat-manager-entity-whisper-wrap-message",
+                    name,
+                    originalMessage,
+                    language
+                );
+        var wrappedLanguageObfuscatedMessage = WrapWhisperMessage(
+            source,
+            "chat-manager-entity-whisper-wrap-message",
+            name,
+            languageObfuscatedMessage,
+            language,
+            true
+        );
         var obfuscatedMessage = ObfuscateMessageReadability(message);
-        var originalObfuscatedMessage = originalMessage == message
-            ? obfuscatedMessage
-            : ObfuscateMessageReadability(originalMessage);
+        var originalObfuscatedMessage =
+            originalMessage == message ? obfuscatedMessage : ObfuscateMessageReadability(originalMessage);
         // HardLight end
 
         foreach (var (session, data) in GetRecipients(source, WhisperMuffledRange))
@@ -594,71 +810,122 @@ public sealed partial class ChatSystem : SharedChatSystem
             var canUnderstandLanguage = hasXenoglossy || _language.CanUnderstand(listener, language.ID); // HardLight: Added hasXenoglossy
             // How the entity perceives the message depends on whether it can understand its language
             // HardLight-edit start
-            var perceivedMessage = hasXenoglossy
-                ? originalMessage
-                : canUnderstandLanguage
-                    ? message
-                    : languageObfuscatedMessage;
+            var perceivedMessage =
+                hasXenoglossy ? originalMessage
+                : canUnderstandLanguage ? message
+                : languageObfuscatedMessage;
             var obfuscated = !hasXenoglossy && !canUnderstandLanguage;
             // HardLight-edit end
 
             // Result is the intermediate message derived from the perceived one via obfuscation
             // Wrapped message is the result wrapped in an "x says y" string
-            string result, wrappedMessage;
+            string result,
+                wrappedMessage;
 
             if (data.Range <= WhisperClearRange || data.Observer != ObserverType.NoObserver)
             {
                 // Scenario 1: the listener can clearly understand the message
                 result = perceivedMessage;
-                wrappedMessage = hasXenoglossy // HardLight: Added hasXenoglossy
-                    // HardLight start
-                    ? wrappedOriginalMessage
-                    : canUnderstandLanguage
-                        ? wrappedClearMessage
-                        : wrappedLanguageObfuscatedMessage;
-                    // HardLight end
+                wrappedMessage =
+                    hasXenoglossy // HardLight: Added hasXenoglossy
+                        // HardLight start
+                        ? wrappedOriginalMessage
+                    : canUnderstandLanguage ? wrappedClearMessage
+                    : wrappedLanguageObfuscatedMessage;
+                // HardLight end
             }
             else if (_examineSystem.InRangeUnOccluded(source, listener, WhisperMuffledRange))
             {
                 // Scenario 2: if the listener is too far, they only hear fragments of the message
                 result = ObfuscateMessageReadability(perceivedMessage);
-                wrappedMessage = WrapWhisperMessage(source, "chat-manager-entity-whisper-wrap-message", nameIdentity, result, language, obfuscated);
+                wrappedMessage = WrapWhisperMessage(
+                    source,
+                    "chat-manager-entity-whisper-wrap-message",
+                    nameIdentity,
+                    result,
+                    language,
+                    obfuscated
+                );
             }
             else
             {
                 // Scenario 3: If listener is too far and has no line of sight, they can't identify the whisperer's identity
                 result = ObfuscateMessageReadability(perceivedMessage);
-                wrappedMessage = WrapWhisperMessage(source, "chat-manager-entity-whisper-unknown-wrap-message", string.Empty, result, language, obfuscated);
+                wrappedMessage = WrapWhisperMessage(
+                    source,
+                    "chat-manager-entity-whisper-unknown-wrap-message",
+                    string.Empty,
+                    result,
+                    language,
+                    obfuscated
+                );
             }
 
             _chatManager.ChatMessageToOne(ChatChannel.Whisper, result, wrappedMessage, source, false, session.Channel);
             // Starlight end
         }
 
-        var replayWrap = WrapWhisperMessage(source, "chat-manager-entity-whisper-wrap-message", name, message, language); // Starlight-edit: Languages
-        _replay.RecordServerMessage(new ChatMessage(ChatChannel.Whisper, message, replayWrap, GetNetEntity(source), null, MessageRangeHideChatForReplay(range))); // Starlight-edit: Languages
+        var replayWrap = WrapWhisperMessage(
+            source,
+            "chat-manager-entity-whisper-wrap-message",
+            name,
+            message,
+            language
+        ); // Starlight-edit: Languages
+        _replay.RecordServerMessage(
+            new ChatMessage(
+                ChatChannel.Whisper,
+                message,
+                replayWrap,
+                GetNetEntity(source),
+                null,
+                MessageRangeHideChatForReplay(range)
+            )
+        ); // Starlight-edit: Languages
 
-        var ev = new EntitySpokeEvent(source, message, originalMessage, channel, obfuscatedMessage, originalObfuscatedMessage, true, language); // HardLight
+        var ev = new EntitySpokeEvent(
+            source,
+            message,
+            originalMessage,
+            channel,
+            obfuscatedMessage,
+            originalObfuscatedMessage,
+            true,
+            language
+        ); // HardLight
         RaiseLocalEvent(source, ev, true);
         if (!hideLog)
             if (originalMessage == message)
             {
                 if (name != Name(source))
-                    _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Whisper from {ToPrettyString(source):user} as {name}: {originalMessage}.");
+                    _adminLogger.Add(
+                        LogType.Chat,
+                        LogImpact.Low,
+                        $"Whisper from {ToPrettyString(source):user} as {name}: {originalMessage}."
+                    );
                 else
-                    _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Whisper from {ToPrettyString(source):user}: {originalMessage}.");
+                    _adminLogger.Add(
+                        LogType.Chat,
+                        LogImpact.Low,
+                        $"Whisper from {ToPrettyString(source):user}: {originalMessage}."
+                    );
             }
             else
             {
                 if (name != Name(source))
-                    _adminLogger.Add(LogType.Chat, LogImpact.Low,
-                    $"Whisper from {ToPrettyString(source):user} as {name}, original: {originalMessage}, transformed: {message}.");
+                    _adminLogger.Add(
+                        LogType.Chat,
+                        LogImpact.Low,
+                        $"Whisper from {ToPrettyString(source):user} as {name}, original: {originalMessage}, transformed: {message}."
+                    );
                 else
-                    _adminLogger.Add(LogType.Chat, LogImpact.Low,
-                    $"Whisper from {ToPrettyString(source):user}, original: {originalMessage}, transformed: {message}.");
+                    _adminLogger.Add(
+                        LogType.Chat,
+                        LogImpact.Low,
+                        $"Whisper from {ToPrettyString(source):user}, original: {originalMessage}, transformed: {message}."
+                    );
             }
     }
-
 
     private void SendEntityEmote(
         EntityUid source,
@@ -670,7 +937,7 @@ public sealed partial class ChatSystem : SharedChatSystem
         bool checkEmote = true,
         bool ignoreActionBlocker = false,
         NetUserId? author = null
-        )
+    )
     {
         if (!_actionBlocker.CanEmote(source) && !ignoreActionBlocker)
             return;
@@ -680,10 +947,12 @@ public sealed partial class ChatSystem : SharedChatSystem
         string name = FormattedMessage.EscapeText(nameOverride ?? Name(ent));
 
         // Emotes use Identity.Name, since it doesn't actually involve your voice at all.
-        var wrappedMessage = Loc.GetString("chat-manager-entity-me-wrap-message",
+        var wrappedMessage = Loc.GetString(
+            "chat-manager-entity-me-wrap-message",
             ("entityName", name),
             ("entity", ent),
-            ("message", FormattedMessage.RemoveMarkupOrThrow(action)));
+            ("message", FormattedMessage.RemoveMarkupOrThrow(action))
+        );
 
         bool soundEmoteSent = true; // Frontier: if check emote is false, assume somebody's sending an emote
         if (checkEmote)
@@ -696,10 +965,24 @@ public sealed partial class ChatSystem : SharedChatSystem
             RaiseLocalEvent(source, ev, true);
         }
 
-        SendInVoiceRange(ChatChannel.Emotes, name, action, wrappedMessage, obfuscated: "", obfuscatedWrappedMessage: "", source, range, author); // Starlight
+        SendInVoiceRange(
+            ChatChannel.Emotes,
+            name,
+            action,
+            wrappedMessage,
+            obfuscated: "",
+            obfuscatedWrappedMessage: "",
+            source,
+            range,
+            author
+        ); // Starlight
         if (!hideLog)
             if (name != Name(source))
-                _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Emote from {ToPrettyString(source):user} as {name}: {action}");
+                _adminLogger.Add(
+                    LogType.Chat,
+                    LogImpact.Low,
+                    $"Emote from {ToPrettyString(source):user} as {name}: {action}"
+                );
             else
                 _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Emote from {ToPrettyString(source):user}: {action}");
     }
@@ -714,7 +997,7 @@ public sealed partial class ChatSystem : SharedChatSystem
         NetUserId? author = null,
         string? color = null,
         ChatChannel channel = ChatChannel.Subtle
-        )
+    )
     {
         if (!_actionBlocker.CanEmote(source) && !ignoreActionBlocker)
             return;
@@ -722,11 +1005,13 @@ public sealed partial class ChatSystem : SharedChatSystem
         var ent = Identity.Entity(source, EntityManager);
         string name = FormattedMessage.EscapeText(nameOverride ?? Name(ent));
         // Emotes use Identity.Name, since it doesn't actually involve your voice at all.
-        var wrappedMessage = Loc.GetString("chat-manager-entity-subtle-wrap-message",
+        var wrappedMessage = Loc.GetString(
+            "chat-manager-entity-subtle-wrap-message",
             ("entityName", name),
             ("entity", ent),
             ("color", color ?? Color.White.ToHex()),
-            ("message", FormattedMessage.RemoveMarkupPermissive(action)));
+            ("message", FormattedMessage.RemoveMarkupPermissive(action))
+        );
 
         foreach (var (session, data) in GetRecipients(source, WhisperClearRange))
         {
@@ -738,7 +1023,11 @@ public sealed partial class ChatSystem : SharedChatSystem
         }
         if (!hideLog)
             if (name != Name(source))
-                _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Subtle from {ToPrettyString(source):user} as {name}: {action}");
+                _adminLogger.Add(
+                    LogType.Chat,
+                    LogImpact.Low,
+                    $"Subtle from {ToPrettyString(source):user} as {name}: {action}"
+                );
             else
                 _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Subtle from {ToPrettyString(source):user}: {action}");
     }
@@ -750,25 +1039,34 @@ public sealed partial class ChatSystem : SharedChatSystem
 
         if (_adminManager.IsAdmin(player))
         {
-            if (!_adminLoocEnabled) return;
+            if (!_adminLoocEnabled)
+                return;
         }
-        else if (!_loocEnabled) return;
+        else if (!_loocEnabled)
+            return;
 
         // If crit player LOOC is disabled, don't send the message at all.
         if (!_critLoocEnabled && _mobStateSystem.IsCritical(source))
             return;
 
-        var wrappedMessage = Loc.GetString("chat-manager-entity-looc-wrap-message",
+        var wrappedMessage = Loc.GetString(
+            "chat-manager-entity-looc-wrap-message",
             ("entityName", name),
-            ("message", FormattedMessage.EscapeText(message)));
+            ("message", FormattedMessage.EscapeText(message))
+        );
 
-        SendInVoiceRange(ChatChannel.LOOC, name, message, wrappedMessage,
+        SendInVoiceRange(
+            ChatChannel.LOOC,
+            name,
+            message,
+            wrappedMessage,
             obfuscated: string.Empty,
             obfuscatedWrappedMessage: string.Empty, // will be skipped anyway
             source,
             hideChat ? ChatTransmitRange.HideChat : ChatTransmitRange.Normal,
             player.UserId,
-            languageOverride: LanguageSystem.Universal); // Starlight
+            languageOverride: LanguageSystem.Universal
+        ); // Starlight
         _adminLogger.Add(LogType.Chat, LogImpact.Low, $"LOOC from {player:Player}: {message}");
     }
 
@@ -779,22 +1077,35 @@ public sealed partial class ChatSystem : SharedChatSystem
         string wrappedMessage;
         if (_adminManager.IsAdmin(player))
         {
-            wrappedMessage = Loc.GetString("chat-manager-send-admin-dead-chat-wrap-message",
+            wrappedMessage = Loc.GetString(
+                "chat-manager-send-admin-dead-chat-wrap-message",
                 ("adminChannelName", Loc.GetString("chat-manager-admin-channel-name")),
                 ("userName", player.Channel.UserName),
-                ("message", FormattedMessage.EscapeText(message)));
+                ("message", FormattedMessage.EscapeText(message))
+            );
             _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Admin dead chat from {player:Player}: {message}");
         }
         else
         {
-            wrappedMessage = Loc.GetString("chat-manager-send-dead-chat-wrap-message",
+            wrappedMessage = Loc.GetString(
+                "chat-manager-send-dead-chat-wrap-message",
                 ("deadChannelName", Loc.GetString("chat-manager-dead-channel-name")),
                 ("playerName", (playerName)),
-                ("message", FormattedMessage.EscapeText(message)));
+                ("message", FormattedMessage.EscapeText(message))
+            );
             _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Dead chat from {player:Player}: {message}");
         }
 
-        _chatManager.ChatMessageToMany(ChatChannel.Dead, message, wrappedMessage, source, hideChat, true, clients.ToList(), author: player.UserId);
+        _chatManager.ChatMessageToMany(
+            ChatChannel.Dead,
+            message,
+            wrappedMessage,
+            source,
+            hideChat,
+            true,
+            clients.ToList(),
+            author: player.UserId
+        );
     }
     #endregion
 
@@ -804,7 +1115,7 @@ public sealed partial class ChatSystem : SharedChatSystem
     {
         Disallowed,
         HideChat,
-        Full
+        Full,
     }
 
     /// <summary>
@@ -819,7 +1130,11 @@ public sealed partial class ChatSystem : SharedChatSystem
     ///     Checks if a target as returned from GetRecipients should receive the message.
     ///     Keep in mind data.Range is -1 for out of range observers.
     /// </summary>
-    private MessageRangeCheckResult MessageRangeCheck(ICommonSession session, ICChatRecipientData data, ChatTransmitRange range)
+    private MessageRangeCheckResult MessageRangeCheck(
+        ICommonSession session,
+        ICChatRecipientData data,
+        ChatTransmitRange range
+    )
     {
         var initialResult = MessageRangeCheckResult.Full;
         switch (range)
@@ -828,16 +1143,35 @@ public sealed partial class ChatSystem : SharedChatSystem
                 initialResult = MessageRangeCheckResult.Full;
                 break;
             case ChatTransmitRange.GhostRangeLimit:
-                initialResult = ((data.Observer == ObserverType.Observer || data.Observer == ObserverType.ObserverNoGhostHearing) && data.Range < 0 && !_adminManager.IsAdmin(session)) ? MessageRangeCheckResult.HideChat : MessageRangeCheckResult.Full;
+                initialResult =
+                    (
+                        (data.Observer == ObserverType.Observer || data.Observer == ObserverType.ObserverNoGhostHearing)
+                        && data.Range < 0
+                        && !_adminManager.IsAdmin(session)
+                    )
+                        ? MessageRangeCheckResult.HideChat
+                        : MessageRangeCheckResult.Full;
                 break;
             case ChatTransmitRange.HideChat:
                 initialResult = MessageRangeCheckResult.HideChat;
                 break;
             case ChatTransmitRange.NoGhosts:
-                initialResult = ((data.Observer == ObserverType.Observer || data.Observer == ObserverType.ObserverNoGhostHearing) && !_adminManager.IsAdmin(session)) ? MessageRangeCheckResult.Disallowed : MessageRangeCheckResult.Full;
+                initialResult =
+                    (
+                        (data.Observer == ObserverType.Observer || data.Observer == ObserverType.ObserverNoGhostHearing)
+                        && !_adminManager.IsAdmin(session)
+                    )
+                        ? MessageRangeCheckResult.Disallowed
+                        : MessageRangeCheckResult.Full;
                 break;
             case ChatTransmitRange.GhostRangeLimitNoAdminCheck:
-                initialResult = ((data.Observer == ObserverType.Observer || data.Observer == ObserverType.ObserverNoGhostHearing) && data.Range < 0) ? MessageRangeCheckResult.HideChat : MessageRangeCheckResult.Full;
+                initialResult =
+                    (
+                        (data.Observer == ObserverType.Observer || data.Observer == ObserverType.ObserverNoGhostHearing)
+                        && data.Range < 0
+                    )
+                        ? MessageRangeCheckResult.HideChat
+                        : MessageRangeCheckResult.Full;
                 break;
         }
         var insistHideChat = data.HideChatOverride ?? false;
@@ -864,7 +1198,8 @@ public sealed partial class ChatSystem : SharedChatSystem
         NetUserId? author = null,
         LanguagePrototype? languageOverride = null, // Starlight
         string? originalMessage = null,
-        string? wrappedOriginalMessage = null)
+        string? wrappedOriginalMessage = null
+    )
     {
         // Starlight start
         var ignoreLanguage = channel.IsExemptFromLanguages();
@@ -889,15 +1224,48 @@ public sealed partial class ChatSystem : SharedChatSystem
 
             // If the channel does not support languages, or the entity can understand the message, send the original message, otherwise send the obfuscated version
             if (originalMessage != null && wrappedOriginalMessage != null && HasXenoglossy(listener)) // HardLight
-                _chatManager.ChatMessageToOne(channel, originalMessage, wrappedOriginalMessage, source, entHideChat, session.Channel, author: author);
+                _chatManager.ChatMessageToOne(
+                    channel,
+                    originalMessage,
+                    wrappedOriginalMessage,
+                    source,
+                    entHideChat,
+                    session.Channel,
+                    author: author
+                );
             else if (ignoreLanguage || _language.CanUnderstand(listener, language.ID)) // HardLight: Added else if
-                _chatManager.ChatMessageToOne(channel, message, wrappedMessage, source, entHideChat, session.Channel, author: author);
+                _chatManager.ChatMessageToOne(
+                    channel,
+                    message,
+                    wrappedMessage,
+                    source,
+                    entHideChat,
+                    session.Channel,
+                    author: author
+                );
             else
-                _chatManager.ChatMessageToOne(channel, obfuscated, obfuscatedWrappedMessage, source, entHideChat, session.Channel, author: author);
+                _chatManager.ChatMessageToOne(
+                    channel,
+                    obfuscated,
+                    obfuscatedWrappedMessage,
+                    source,
+                    entHideChat,
+                    session.Channel,
+                    author: author
+                );
             // Starlight end
         }
 
-        _replay.RecordServerMessage(new ChatMessage(channel, message, wrappedMessage, GetNetEntity(source), null, MessageRangeHideChatForReplay(range)));
+        _replay.RecordServerMessage(
+            new ChatMessage(
+                channel,
+                message,
+                wrappedMessage,
+                GetNetEntity(source),
+                null,
+                MessageRangeHideChatForReplay(range)
+            )
+        );
     }
 
     private bool HasXenoglossy(EntityUid uid)
@@ -932,7 +1300,14 @@ public sealed partial class ChatSystem : SharedChatSystem
     }
 
     // ReSharper disable once InconsistentNaming
-    private string SanitizeInGameICMessage(EntityUid source, string message, out string? emoteStr, bool capitalize = true, bool punctuate = false, bool capitalizeTheWordI = true)
+    private string SanitizeInGameICMessage(
+        EntityUid source,
+        string message,
+        out string? emoteStr,
+        bool capitalize = true,
+        bool punctuate = false,
+        bool capitalizeTheWordI = true
+    )
     {
         var newMessage = SanitizeMessageReplaceWords(message.Trim());
 
@@ -983,10 +1358,10 @@ public sealed partial class ChatSystem : SharedChatSystem
 
     private IEnumerable<INetChannel> GetDeadChatClients()
     {
-        return Filter.Empty()
+        return Filter
+            .Empty()
             .AddWhereAttachedEntity(HasComp<GhostComponent>)
-            .Recipients
-            .Union(_adminManager.ActiveAdmins)
+            .Recipients.Union(_adminManager.ActiveAdmins)
             .Select(p => p.Channel);
     }
 
@@ -1004,7 +1379,8 @@ public sealed partial class ChatSystem : SharedChatSystem
 
     public string SanitizeMessageReplaceWords(string message)
     {
-        if (string.IsNullOrEmpty(message)) return message;
+        if (string.IsNullOrEmpty(message))
+            return message;
 
         var msg = message;
 
@@ -1017,21 +1393,42 @@ public sealed partial class ChatSystem : SharedChatSystem
     /// <summary>
     ///     Wraps a message sent by the specified entity into an "x says y" string.
     /// </summary>
-    public string WrapPublicMessage(EntityUid source, string name, string message, LanguagePrototype? language = null, bool? obfuscated = false)
+    public string WrapPublicMessage(
+        EntityUid source,
+        string name,
+        string message,
+        LanguagePrototype? language = null,
+        bool? obfuscated = false
+    )
     {
-        if (obfuscated == true
-            && language is not null
-            && language.Speech.ObfuscationFont == true)
-            return WrapMessage("chat-manager-entity-say-wrap-message", InGameICChatType.Speak, source, name, message, language, obfuscated);
+        if (obfuscated == true && language is not null && language.Speech.ObfuscationFont == true)
+            return WrapMessage(
+                "chat-manager-entity-say-wrap-message",
+                InGameICChatType.Speak,
+                source,
+                name,
+                message,
+                language,
+                obfuscated
+            );
 
-        var wrapId = GetSpeechVerb(source, message).Bold ? "chat-manager-entity-say-bold-wrap-message" : "chat-manager-entity-say-wrap-message";
+        var wrapId = GetSpeechVerb(source, message).Bold
+            ? "chat-manager-entity-say-bold-wrap-message"
+            : "chat-manager-entity-say-wrap-message";
         return WrapMessage(wrapId, InGameICChatType.Speak, source, name, message, language, obfuscated);
     }
 
     /// <summary>
     ///     Wraps a message whispered by the specified entity into an "x whispers y" string.
     /// </summary>
-    public string WrapWhisperMessage(EntityUid source, LocId defaultWrap, string entityName, string message, LanguagePrototype? language = null, bool? obfuscated = false)
+    public string WrapWhisperMessage(
+        EntityUid source,
+        LocId defaultWrap,
+        string entityName,
+        string message,
+        LanguagePrototype? language = null,
+        bool? obfuscated = false
+    )
     {
         return WrapMessage(defaultWrap, InGameICChatType.Whisper, source, entityName, message, language, obfuscated);
     }
@@ -1039,7 +1436,15 @@ public sealed partial class ChatSystem : SharedChatSystem
     /// <summary>
     ///     Wraps a message sent by the specified entity into the specified wrap string.
     /// </summary>
-    public string WrapMessage(LocId wrapId, InGameICChatType chatType, EntityUid source, string entityName, string message, LanguagePrototype? language, bool? obfuscated = false)
+    public string WrapMessage(
+        LocId wrapId,
+        InGameICChatType chatType,
+        EntityUid source,
+        string entityName,
+        string message,
+        LanguagePrototype? language,
+        bool? obfuscated = false
+    )
     {
         language ??= _language.GetLanguage(source);
         if (language.Speech.MessageWrapOverrides.TryGetValue(chatType, out var wrapOverride))
@@ -1061,14 +1466,17 @@ public sealed partial class ChatSystem : SharedChatSystem
         if ((language.Speech.ObfuscationFont ?? false) && (!obfuscated ?? false))
             fonttype = speech.FontId;
 
-        return Loc.GetString(wrapId,
+        return Loc.GetString(
+            wrapId,
             ("color", color),
             ("entityName", namestring),
             ("verb", Loc.GetString(verbId)),
             ("fontType", fonttype),
             ("fontSize", language.Speech.FontSize ?? speech.FontSize),
-            ("message", message));
+            ("message", message)
+        );
     }
+
     // Starlight end
 
     /// <summary>
@@ -1110,7 +1518,10 @@ public sealed partial class ChatSystem : SharedChatSystem
             }
 
             // even if they are a ghost hearer, in some situations we still need the range
-            if (sourceCoords.TryDistance(EntityManager, transformEntity.Coordinates, out var distance) && distance < voiceGetRange)
+            if (
+                sourceCoords.TryDistance(EntityManager, transformEntity.Coordinates, out var distance)
+                && distance < voiceGetRange
+            )
             {
                 recipients.Add(player, new ICChatRecipientData(distance, observer));
                 continue;
@@ -1128,12 +1539,14 @@ public sealed partial class ChatSystem : SharedChatSystem
     {
         NoObserver,
         Observer,
-        ObserverNoGhostHearing
+        ObserverNoGhostHearing,
     }
 
-    public readonly record struct ICChatRecipientData(float Range, ObserverType Observer, bool? HideChatOverride = null)
-    {
-    }
+    public readonly record struct ICChatRecipientData(
+        float Range,
+        ObserverType Observer,
+        bool? HideChatOverride = null
+    ) { }
 
     public string ObfuscateMessageReadability(string message, float chance = DefaultObfuscationFactor) // Starlight
     {
@@ -1172,9 +1585,11 @@ public sealed partial class ChatSystem : SharedChatSystem
 ///     This event is raised before chat messages are sent out to clients. This enables some systems to send the chat
 ///     messages to otherwise out-of view entities (e.g. for multiple viewports from cameras).
 /// </summary>
-public record ExpandICChatRecipientsEvent(EntityUid Source, float VoiceRange, Dictionary<ICommonSession, ChatSystem.ICChatRecipientData> Recipients)
-{
-}
+public record ExpandICChatRecipientsEvent(
+    EntityUid Source,
+    float VoiceRange,
+    Dictionary<ICommonSession, ChatSystem.ICChatRecipientData> Recipients
+) { }
 
 /// <summary>
 ///     Raised broadcast in order to transform speech.transmit
@@ -1222,7 +1637,16 @@ public sealed class EntitySpokeEvent : EntityEventArgs
     /// </summary>
     public RadioChannelPrototype? Channel;
 
-    public EntitySpokeEvent(EntityUid source, string message, string? originalMessage, RadioChannelPrototype? channel, string? obfuscatedMessage, string? originalObfuscatedMessage, bool isWhisper, LanguagePrototype language)
+    public EntitySpokeEvent(
+        EntityUid source,
+        string message,
+        string? originalMessage,
+        RadioChannelPrototype? channel,
+        string? obfuscatedMessage,
+        string? originalObfuscatedMessage,
+        bool isWhisper,
+        LanguagePrototype language
+    )
     {
         Source = source;
         Message = message;

@@ -5,6 +5,4 @@ namespace Content.Server.Spreader;
 /// This needs to be manually added and removed.
 /// </summary>
 [RegisterComponent]
-public sealed partial class ActiveEdgeSpreaderComponent : Component
-{
-}
+public sealed partial class ActiveEdgeSpreaderComponent : Component { }

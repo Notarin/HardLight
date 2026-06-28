@@ -25,7 +25,9 @@ public sealed partial class MarkingPoints
     [DataField]
     public List<ProtoId<MarkingPrototype>> DefaultMarkings = new();
 
-    public static Dictionary<MarkingCategories, MarkingPoints> CloneMarkingPointDictionary(Dictionary<MarkingCategories, MarkingPoints> self)
+    public static Dictionary<MarkingCategories, MarkingPoints> CloneMarkingPointDictionary(
+        Dictionary<MarkingCategories, MarkingPoints> self
+    )
     {
         var clone = new Dictionary<MarkingCategories, MarkingPoints>();
 
@@ -36,7 +38,7 @@ public sealed partial class MarkingPoints
                 Points = points.Points,
                 Required = points.Required,
                 OnlyWhitelisted = points.OnlyWhitelisted,
-                DefaultMarkings = points.DefaultMarkings
+                DefaultMarkings = points.DefaultMarkings,
             };
         }
 
@@ -47,7 +49,8 @@ public sealed partial class MarkingPoints
 [Prototype]
 public sealed partial class MarkingPointsPrototype : IPrototype
 {
-    [IdDataField] public string ID { get; private set; } = default!;
+    [IdDataField]
+    public string ID { get; private set; } = default!;
 
     /// <summary>
     ///     If the user of this marking point set is only allowed to

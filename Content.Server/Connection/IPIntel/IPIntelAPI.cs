@@ -22,9 +22,7 @@ public sealed class IPIntelApi : IIPIntelApi
     private string? _baseUrl;
     private string? _flags;
 
-    public IPIntelApi(
-        IHttpClientHolder http,
-        IConfigurationManager cfg)
+    public IPIntelApi(IHttpClientHolder http, IConfigurationManager cfg)
     {
         _http = http;
 

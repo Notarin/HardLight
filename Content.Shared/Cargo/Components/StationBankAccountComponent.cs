@@ -1,5 +1,5 @@
-using Content.Shared.Cargo.Prototypes;
 using Content.Shared._NF.Bank.Components;
+using Content.Shared.Cargo.Prototypes;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
@@ -9,7 +9,13 @@ namespace Content.Shared.Cargo.Components;
 /// <summary>
 /// Added to the abstract representation of a station to track its money.
 /// </summary>
-[RegisterComponent, NetworkedComponent, Access(typeof(SharedCargoSystem), typeof(SectorBankAccountMapping)), AutoGenerateComponentPause, AutoGenerateComponentState]
+[
+    RegisterComponent,
+    NetworkedComponent,
+    Access(typeof(SharedCargoSystem), typeof(SectorBankAccountMapping)),
+    AutoGenerateComponentPause,
+    AutoGenerateComponentState
+]
 public sealed partial class StationBankAccountComponent : Component
 {
     /// <summary>
@@ -36,14 +42,14 @@ public sealed partial class StationBankAccountComponent : Component
     [DataField, AutoNetworkedField]
     public Dictionary<ProtoId<CargoAccountPrototype>, int> Accounts = new()
     {
-        { "Cargo",       2000 },
+        { "Cargo", 2000 },
         { "Engineering", 1000 },
-        { "Medical",     1000 },
-        { "Science",     1000 },
-        { "Security",    1000 },
-        { "Service",     1000 },
-        { "Frontier",    1000 },
-        { "Nfsd",        1000 },
+        { "Medical", 1000 },
+        { "Science", 1000 },
+        { "Security", 1000 },
+        { "Service", 1000 },
+        { "Frontier", 1000 },
+        { "Nfsd", 1000 },
     };
 
     /// <summary>
@@ -52,14 +58,14 @@ public sealed partial class StationBankAccountComponent : Component
     [DataField, AutoNetworkedField]
     public Dictionary<ProtoId<CargoAccountPrototype>, double> RevenueDistribution = new()
     {
-        { "Cargo",       0.00 },
+        { "Cargo", 0.00 },
         { "Engineering", 0.20 },
-        { "Medical",     0.20 },
-        { "Science",     0.20 },
-        { "Security",    0.20 },
-        { "Service",     0.20 },
-        { "Frontier",    0.00 },
-        { "Nfsd",        0.00 },
+        { "Medical", 0.20 },
+        { "Science", 0.20 },
+        { "Security", 0.20 },
+        { "Service", 0.20 },
+        { "Frontier", 0.00 },
+        { "Nfsd", 0.00 },
     };
 
     /// <summary>
@@ -85,4 +91,7 @@ public sealed partial class StationBankAccountComponent : Component
 /// Broadcast and raised on station ent whenever its balance is updated.
 /// </summary>
 [ByRefEvent]
-public readonly record struct BankBalanceUpdatedEvent(EntityUid Station, Dictionary<ProtoId<CargoAccountPrototype>, int> Balance);
+public readonly record struct BankBalanceUpdatedEvent(
+    EntityUid Station,
+    Dictionary<ProtoId<CargoAccountPrototype>, int> Balance
+);

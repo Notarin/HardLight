@@ -18,12 +18,23 @@ namespace Content.Shared.Weapons.Ranged.Upgrades;
 
 public sealed class GunUpgradeSystem : EntitySystem
 {
-    [Dependency] private readonly ISharedAdminLogManager _adminLog = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedGunSystem _gun = default!;
-    [Dependency] private readonly EntityWhitelistSystem _entityWhitelist = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency]
+    private readonly ISharedAdminLogManager _adminLog = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly SharedGunSystem _gun = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _entityWhitelist = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -40,7 +51,8 @@ public sealed class GunUpgradeSystem : EntitySystem
         SubscribeLocalEvent<GunUpgradeDamageComponent, GunShotEvent>(OnDamageGunShot);
     }
 
-    private void RelayEvent<T>(Entity<UpgradeableGunComponent> ent, ref T args) where T : notnull
+    private void RelayEvent<T>(Entity<UpgradeableGunComponent> ent, ref T args)
+        where T : notnull
     {
         foreach (var upgrade in GetCurrentUpgrades(ent))
         {
@@ -85,11 +97,18 @@ public sealed class GunUpgradeSystem : EntitySystem
         }
 
         _audio.PlayPredicted(ent.Comp.InsertSound, ent, args.User);
-        _popup.PopupClient(Loc.GetString("gun-upgrade-popup-insert", ("upgrade", args.Used),("gun", ent.Owner)), args.User);
+        _popup.PopupClient(
+            Loc.GetString("gun-upgrade-popup-insert", ("upgrade", args.Used), ("gun", ent.Owner)),
+            args.User
+        );
         _gun.RefreshModifiers(ent.Owner);
         args.Handled = _container.Insert(args.Used, _container.GetContainer(ent, ent.Comp.UpgradesContainerId));
 
-        _adminLog.Add(LogType.Action, LogImpact.Low, $"{ToPrettyString(args.User):player} inserted gun upgrade {ToPrettyString(args.Used)} into {ToPrettyString(ent.Owner)}.");
+        _adminLog.Add(
+            LogType.Action,
+            LogImpact.Low,
+            $"{ToPrettyString(args.User):player} inserted gun upgrade {ToPrettyString(args.Used)} into {ToPrettyString(ent.Owner)}."
+        );
     }
 
     private void OnFireRateRefresh(Entity<GunUpgradeFireRateComponent> ent, ref GunRefreshModifiersEvent args)

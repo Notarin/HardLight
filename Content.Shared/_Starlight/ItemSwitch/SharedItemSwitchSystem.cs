@@ -16,15 +16,29 @@ using Robust.Shared.Audio.Systems;
 using Robust.Shared.Network;
 
 namespace Content.Shared.Starlight.ItemSwitch;
+
 public abstract class SharedItemSwitchSystem : EntitySystem
 {
-    [Dependency] private readonly INetManager _netManager = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedItemSystem _item = default!;
-    [Dependency] private readonly ItemToggleSystem _itemToggle = default!;
-    [Dependency] private readonly ClothingSystem _clothing = default!;
+    [Dependency]
+    private readonly INetManager _netManager = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly SharedItemSystem _item = default!;
+
+    [Dependency]
+    private readonly ItemToggleSystem _itemToggle = default!;
+
+    [Dependency]
+    private readonly ClothingSystem _clothing = default!;
 
     private EntityQuery<ItemSwitchComponent> _query;
 
@@ -52,7 +66,8 @@ public abstract class SharedItemSwitchSystem : EntitySystem
 
     private void OnUseInHand(Entity<ItemSwitchComponent> ent, ref UseInHandEvent args)
     {
-        if (args.Handled || !ent.Comp.OnUse || ent.Comp.States.Count == 0) return;
+        if (args.Handled || !ent.Comp.OnUse || ent.Comp.States.Count == 0)
+            return;
         args.Handled = true;
 
         if (ent.Comp.States.TryGetValue(Next(ent), out var state) && state.Hiden)
@@ -63,7 +78,8 @@ public abstract class SharedItemSwitchSystem : EntitySystem
 
     private void OnActivateVerb(Entity<ItemSwitchComponent> ent, ref GetVerbsEvent<ActivationVerb> args)
     {
-        if (!args.CanAccess || !args.CanInteract || !ent.Comp.OnActivate || ent.Comp.States.Count == 0) return;
+        if (!args.CanAccess || !args.CanInteract || !ent.Comp.OnActivate || ent.Comp.States.Count == 0)
+            return;
 
         var user = args.User;
         int addedVerbs = 0;
@@ -72,12 +88,14 @@ public abstract class SharedItemSwitchSystem : EntitySystem
         {
             if (state.Value.Hiden)
                 continue;
-            args.Verbs.Add(new ActivationVerb()
-            {
-                Text = Loc.TryGetString(state.Value.Verb, out var title) ? title : state.Value.Verb,
-                Category = VerbCategory.Switch,
-                Act = () => Switch((ent.Owner, ent.Comp), state.Key, user, ent.Comp.Predictable)
-            });
+            args.Verbs.Add(
+                new ActivationVerb()
+                {
+                    Text = Loc.TryGetString(state.Value.Verb, out var title) ? title : state.Value.Verb,
+                    Category = VerbCategory.Switch,
+                    Act = () => Switch((ent.Owner, ent.Comp), state.Key, user, ent.Comp.Predictable),
+                }
+            );
             addedVerbs++;
         }
 
@@ -132,29 +150,32 @@ public abstract class SharedItemSwitchSystem : EntitySystem
         if (!comp.Predictable && _netManager.IsClient)
             return true;
 
-        var attempt = new ItemSwitchAttemptEvent
-        {
-            User = user,
-            State = key
-        };
+        var attempt = new ItemSwitchAttemptEvent { User = user, State = key };
         RaiseLocalEvent(uid, ref attempt);
 
-        if (ent.Comp.States.TryGetValue(ent.Comp.State, out var currentState)
+        if (
+            ent.Comp.States.TryGetValue(ent.Comp.State, out var currentState)
             && currentState.Components is not null
             && currentState.RemoveComponents
             && TryComp<ItemToggleComponent>(uid, out var itemToggle)
-            && itemToggle.Activated)
+            && itemToggle.Activated
+        )
         {
             _itemToggle.TryDeactivate((uid, itemToggle), user, predicted: comp.Predictable);
         }
 
-        if (ent.Comp.States.TryGetValue(ent.Comp.State, out var prevState) && prevState.RemoveComponents && prevState.Components is not null)
+        if (
+            ent.Comp.States.TryGetValue(ent.Comp.State, out var prevState)
+            && prevState.RemoveComponents
+            && prevState.Components is not null
+        )
             EntityManager.RemoveComponents(ent, prevState.Components);
 
         if (state.Components is not null)
             EntityManager.AddComponents(ent, state.Components);
 
-        if (!comp.Predictable) predicted = false;
+        if (!comp.Predictable)
+            predicted = false;
 
         if (attempt.Cancelled)
         {
@@ -181,15 +202,19 @@ public abstract class SharedItemSwitchSystem : EntitySystem
         UpdateVisuals((uid, comp), key);
         Dirty(uid, comp);
 
-        var switched = new ItemSwitchedEvent { Predicted = predicted, State = key, User = user };
+        var switched = new ItemSwitchedEvent
+        {
+            Predicted = predicted,
+            State = key,
+            User = user,
+        };
         RaiseLocalEvent(uid, ref switched);
 
         return true;
     }
-    public virtual void VisualsChanged(Entity<ItemSwitchComponent> ent, string key)
-    {
 
-    }
+    public virtual void VisualsChanged(Entity<ItemSwitchComponent> ent, string key) { }
+
     protected virtual void UpdateVisuals(Entity<ItemSwitchComponent> ent, string key)
     {
         if (TryComp(ent, out AppearanceComponent? appearance))
@@ -198,6 +223,7 @@ public abstract class SharedItemSwitchSystem : EntitySystem
 
         VisualsChanged(ent, key);
     }
-    private void UpdateClothingLayer(Entity<ClothingComponent> ent, ref ItemSwitchedEvent args)
-        => _clothing.SetEquippedPrefix(ent, args.State, ent.Comp);
+
+    private void UpdateClothingLayer(Entity<ClothingComponent> ent, ref ItemSwitchedEvent args) =>
+        _clothing.SetEquippedPrefix(ent, args.State, ent.Comp);
 }

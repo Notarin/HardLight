@@ -7,7 +7,8 @@ namespace Content.Server.Administration.Commands;
 [AdminCommand(AdminFlags.Fun)]
 public sealed class LinkBluespaceLocker : IConsoleCommand
 {
-    [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency]
+    private readonly IEntityManager _entManager = default!;
 
     public string Command => "linkbluespacelocker";
     public string Description => "Links an entity, the target, to another as a bluespace locker target.";
@@ -27,13 +28,19 @@ public sealed class LinkBluespaceLocker : IConsoleCommand
             return;
         }
 
-        if (!NetEntity.TryParse(args[1], out var originUidNet) || !_entManager.TryGetEntity(originUidNet, out var originUid))
+        if (
+            !NetEntity.TryParse(args[1], out var originUidNet)
+            || !_entManager.TryGetEntity(originUidNet, out var originUid)
+        )
         {
             shell.WriteError(Loc.GetString("shell-entity-uid-must-be-number"));
             return;
         }
 
-        if (!NetEntity.TryParse(args[2], out var targetUidNet) || !_entManager.TryGetEntity(targetUidNet, out var targetUid))
+        if (
+            !NetEntity.TryParse(args[2], out var targetUidNet)
+            || !_entManager.TryGetEntity(targetUidNet, out var targetUid)
+        )
         {
             shell.WriteError(Loc.GetString("shell-entity-uid-must-be-number"));
             return;
@@ -41,13 +48,25 @@ public sealed class LinkBluespaceLocker : IConsoleCommand
 
         if (!_entManager.HasComponent<EntityStorageComponent>(originUid))
         {
-            shell.WriteError(Loc.GetString("shell-entity-with-uid-lacks-component", ("uid", originUid), ("componentName", nameof(EntityStorageComponent))));
+            shell.WriteError(
+                Loc.GetString(
+                    "shell-entity-with-uid-lacks-component",
+                    ("uid", originUid),
+                    ("componentName", nameof(EntityStorageComponent))
+                )
+            );
             return;
         }
 
         if (!_entManager.HasComponent<EntityStorageComponent>(targetUid))
         {
-            shell.WriteError(Loc.GetString("shell-entity-with-uid-lacks-component", ("uid", targetUid), ("componentName", nameof(EntityStorageComponent))));
+            shell.WriteError(
+                Loc.GetString(
+                    "shell-entity-with-uid-lacks-component",
+                    ("uid", targetUid),
+                    ("componentName", nameof(EntityStorageComponent))
+                )
+            );
             return;
         }
 

@@ -22,7 +22,8 @@ namespace Content.Client.Silicons.Borgs;
 [GenerateTypedNameReferences]
 public sealed partial class BorgSelectTypeMenu : FancyWindow
 {
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
 
     private BorgTypePrototype? _selectedBorgType;
 
@@ -40,11 +41,7 @@ public sealed partial class BorgSelectTypeMenu : FancyWindow
         var group = new ButtonGroup();
         foreach (var borgType in _prototypeManager.EnumeratePrototypes<BorgTypePrototype>().OrderBy(PrototypeName))
         {
-            var button = new Button
-            {
-                Text = PrototypeName(borgType),
-                Group = group,
-            };
+            var button = new Button { Text = PrototypeName(borgType), Group = group };
             button.OnPressed += _ =>
             {
                 _selectedBorgType = borgType;

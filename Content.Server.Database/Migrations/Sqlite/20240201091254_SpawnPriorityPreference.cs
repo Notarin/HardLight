@@ -15,15 +15,14 @@ namespace Content.Server.Database.Migrations.Sqlite
                 table: "profile",
                 type: "INTEGER",
                 nullable: false,
-                defaultValue: 0);
+                defaultValue: 0
+            );
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "spawn_priority",
-                table: "profile");
+            migrationBuilder.DropColumn(name: "spawn_priority", table: "profile");
         }
     }
 }

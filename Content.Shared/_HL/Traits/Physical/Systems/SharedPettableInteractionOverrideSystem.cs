@@ -1,5 +1,5 @@
-using Content.Shared.Interaction.Components;
 using Content.Shared.Interaction;
+using Content.Shared.Interaction.Components;
 using Robust.Shared.Audio;
 
 namespace Content.Shared._HL.Traits.Physical.Systems;
@@ -10,7 +10,9 @@ namespace Content.Shared._HL.Traits.Physical.Systems;
 public sealed class SharedPettableInteractionOverrideSystem : EntitySystem
 {
     private static readonly SoundSpecifier PetSound = new SoundPathSpecifier("/Audio/Animals/fox_squeak.ogg");
-    [Dependency] private readonly InteractionPopupSystem _interactionPopup = default!;
+
+    [Dependency]
+    private readonly InteractionPopupSystem _interactionPopup = default!;
 
     public override void Initialize()
     {
@@ -32,6 +34,7 @@ public sealed class SharedPettableInteractionOverrideSystem : EntitySystem
             "EffectHearts",
             "EffectHearts",
             null,
-            true);
+            true
+        );
     }
 }

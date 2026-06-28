@@ -4,11 +4,11 @@
 #MARK: Implanters
 
 - type: entity
-  parent: [ BaseSubdermalImplant, StorePresetSpellbookFaith ]
+  parent: [BaseSubdermalImplant, StorePresetSpellbookFaith]
   id: UplinkImplantFaith
   name: faith exchange
   description: This implant lets the user access an exchange for the abilities of their particular faith at will.
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: SubdermalImplant
     implantAction: ActionOpenUplinkImplantChap
@@ -43,8 +43,8 @@
   name: implanter
   parent: BaseImplantOnlyImplanter
   components:
-    - type: Implanter
-      implant: UplinkImplantFaith
+  - type: Implanter
+    implant: UplinkImplantFaith
 
 #MARK: Mobs
 
@@ -68,14 +68,13 @@
     drawdepth: Mobs
     sprite: _HL/Objects/Magic/chaplainIcons.rsi
     layers:
-      - state: Shadowform
-      - state: chapshadow
-        shader: unshaded
+    - state: Shadowform
+    - state: chapshadow
+      shader: unshaded
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.4
         density: 10
         mask:
@@ -108,22 +107,19 @@
   - type: Ammo
     muzzleFlash: null
   - type: MovementSpeedModifier
-    baseWalkSpeed : 4.5
-    baseSprintSpeed : 4.5
+    baseWalkSpeed: 4.5
+    baseSprintSpeed: 4.5
   - type: NPCImprintingOnSpawnBehaviour
     whitelist:
       components:
       - BibleUser
   - type: HTN
     rootTask:
-       task: KillerTomatoCompound
+      task: KillerTomatoCompound
     blackboard:
-      NavClimb: !type:Bool
-        false
-      NavInteract: !type:Bool
-        true
-      NavPry: !type:Bool
-        true
+      NavClimb: !type:Bool false
+      NavInteract: !type:Bool true
+      NavPry: !type:Bool true
   - type: NpcFactionMember
     factions:
     - NanoTrasen
@@ -140,8 +136,8 @@
       1: Dead
   - type: MeleeWeapon
     damage:
-     groups:
-       Brute: 0
+      groups:
+        Brute: 0
   - type: SlowOnDamage
     speedModifierThresholds:
       1: 1
@@ -166,8 +162,8 @@
       1: Dead
   - type: MeleeWeapon
     damage:
-     groups:
-       Brute: 0
+      groups:
+        Brute: 0
   - type: SlowOnDamage
     speedModifierThresholds:
       1: 1
@@ -189,7 +185,7 @@
   - type: Sprite
     sprite: _HL/Objects/Magic/elementalBall.rsi
     layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
+    - map: ["enum.DamageStateVisualLayers.Base"]
       state: orb
   - type: DamageStateVisuals
     states:
@@ -203,8 +199,8 @@
       1: Dead
   - type: MeleeWeapon
     damage:
-     groups:
-       Brute: 0
+      groups:
+        Brute: 0
   - type: SlowOnDamage
     speedModifierThresholds:
       1: 1
@@ -221,7 +217,7 @@
     softness: 5
     autoRot: true
   - type: RgbLightController
-    layers: [ 0 ]
+    layers: [0]
   - type: TimedDespawn
     lifetime: 30
 
@@ -236,7 +232,7 @@
 
 - type: entity
   name: shadow
-  parent: [ MobElementalBase, MobCombat ]
+  parent: [MobElementalBase, MobCombat]
   id: MobChapShadowPolymorph
   description: Did it just move?
   components:
@@ -249,8 +245,8 @@
     - type: ReplacementAccent
       accent: xeno
   - type: MovementSpeedModifier
-    baseWalkSpeed : 4
-    baseSprintSpeed : 5
+    baseWalkSpeed: 4
+    baseSprintSpeed: 5
   - type: Damageable
     damageContainer: StructuralInorganic
   - type: Sprite
@@ -302,30 +298,30 @@
   id: inkrecipebull
   name: memory of iron
   description: The writing describes the exact procedure necessary to cleanse and ready the body to receive the blood and ink.
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
-    - type: SubdermalImplant
-      implantAction: ActionTogging
+  - type: SubdermalImplant
+    implantAction: ActionTogging
 
 - type: entity
   parent: BaseMagicAdder
   id: inkrecipewings
   name: memory of wings
   description: The writing describes the exact procedure necessary to cleanse and ready the body to receive the blood and ink.
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
-    - type: SubdermalImplant
-      implantAction: ActionSpeedImbue
+  - type: SubdermalImplant
+    implantAction: ActionSpeedImbue
 
 - type: entity
   parent: BaseMagicAdder
   id: inkrecipevines
   name: memory of languidity
   description: The writing describes the exact procedure necessary to cleanse and ready the body to receive the blood and ink.
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
-    - type: SubdermalImplant
-      implantAction: ActionPoisonImbue
+  - type: SubdermalImplant
+    implantAction: ActionPoisonImbue
 
 - type: entity
   id: bullimplant
@@ -333,8 +329,8 @@
   description: This parchment contains or contained directions for the ritual and marking process of a magic tattoo. Burn after reading.
   parent: BaseMagicPage
   components:
-    - type: Implanter
-      implant: inkrecipebull
+  - type: Implanter
+    implant: inkrecipebull
 
 - type: entity
   id: wingimplant
@@ -342,8 +338,8 @@
   description: This parchment contains or contained directions for the ritual and marking process of a magic tattoo. Burn after reading.
   parent: BaseMagicPage
   components:
-    - type: Implanter
-      implant: inkrecipewings
+  - type: Implanter
+    implant: inkrecipewings
 
 - type: entity
   id: poisonimplant
@@ -351,5 +347,5 @@
   description: This parchment contains or contained directions for the ritual and marking process of a magic tattoo. Burn after reading.
   parent: BaseMagicPage
   components:
-    - type: Implanter
-      implant: inkrecipevines
+  - type: Implanter
+    implant: inkrecipevines

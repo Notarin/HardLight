@@ -98,7 +98,7 @@ namespace Content.Client.Atmos.UI
                     Text = Loc.GetString(gas.Name),
                     ToggleMode = true,
                     HorizontalExpand = true,
-                    Pressed = _selectedGases.Contains((Gas)int.Parse(gas.ID))
+                    Pressed = _selectedGases.Contains((Gas)int.Parse(gas.ID)),
                 };
                 gasButton.OnToggled += args =>
                 {

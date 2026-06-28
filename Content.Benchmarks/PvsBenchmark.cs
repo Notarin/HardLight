@@ -68,13 +68,14 @@ public class PvsBenchmark
         await _pair.Server.WaitPost(() =>
         {
             var path = new ResPath(Map);
-            var opts = DeserializationOptions.Default with {InitializeMaps = true};
+            var opts = DeserializationOptions.Default with { InitializeMaps = true };
             if (!_entMan.System<MapLoaderSystem>().TryLoadMap(path, out _, out _, opts))
                 throw new Exception("Map load failed");
         });
 
         // Get list of ghost warp positions
-        _spawns = _entMan.AllComponentsList<WarpPointComponent>()
+        _spawns = _entMan
+            .AllComponentsList<WarpPointComponent>()
             .OrderBy(x => x.Component.Location)
             .Select(x => _entMan.GetComponent<TransformComponent>(x.Uid).Coordinates)
             .ToArray();
@@ -89,7 +90,7 @@ public class PvsBenchmark
             for (var i = 0; i < PlayerCount; i++)
             {
                 var pos = _spawns[i % _spawns.Length];
-                var uid =_entMan.SpawnEntity("MobHuman", pos);
+                var uid = _entMan.SpawnEntity("MobHuman", pos);
                 _pair.Server.ConsoleHost.ExecuteCommand($"setoutfit {_entMan.GetNetEntity(uid)} CaptainGear");
                 mind.ControlMob(_players[i].UserId, uid);
             }
@@ -132,13 +133,15 @@ public class PvsBenchmark
             (locations[k], locations[n]) = (locations[n], locations[k]);
         }
 
-        _pair.Server.WaitPost(() =>
-        {
-            for (var i = 0; i < PlayerCount; i++)
+        _pair
+            .Server.WaitPost(() =>
             {
-                _sys.SetCoordinates(ents[i], locations[i]);
-            }
-        }).Wait();
+                for (var i = 0; i < PlayerCount; i++)
+                {
+                    _sys.SetCoordinates(ents[i], locations[i]);
+                }
+            })
+            .Wait();
 
         _pair.Server.PvsTick(_players);
     }
@@ -166,13 +169,18 @@ public class PvsBenchmark
     public void CycleTick()
     {
         _cycleOffset = (_cycleOffset + 1) % _players.Length;
-        _pair.Server.WaitPost(() =>
-        {
-            for (var i = 0; i < PlayerCount; i++)
+        _pair
+            .Server.WaitPost(() =>
             {
-                _sys.SetCoordinates(_players[i].AttachedEntity!.Value, _locations[(i + _cycleOffset) % _players.Length]);
-            }
-        }).Wait();
+                for (var i = 0; i < PlayerCount; i++)
+                {
+                    _sys.SetCoordinates(
+                        _players[i].AttachedEntity!.Value,
+                        _locations[(i + _cycleOffset) % _players.Length]
+                    );
+                }
+            })
+            .Wait();
         _pair.Server.PvsTick(_players);
     }
 }

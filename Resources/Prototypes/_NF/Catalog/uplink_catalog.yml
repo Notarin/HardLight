@@ -50,7 +50,7 @@
   id: UplinkNFPistol9mmMagazine
   name: uplink-pistol-magazine-name
   description: uplink-pistol-magazine-desc
-  icon: { sprite: /Textures/Objects/Weapons/Guns/Ammunition/Magazine/Pistol/pistol_mag.rsi, state: red-icon }
+  icon: {sprite: /Textures/Objects/Weapons/Guns/Ammunition/Magazine/Pistol/pistol_mag.rsi, state: red-icon}
   productEntity: Magazine9x19mmPistolHighCapacityFMJ
   cost:
     Telecrystal: 1
@@ -61,7 +61,7 @@
   id: UplinkNFMagazinePistolSubMachineGun
   name: uplink-pistol-magazine-c20r-name
   description: uplink-pistol-magazine-c20r-desc
-  icon: { sprite: /Textures/Objects/Weapons/Guns/Ammunition/Magazine/Pistol/smg_mag.rsi, state: red-icon }
+  icon: {sprite: /Textures/Objects/Weapons/Guns/Ammunition/Magazine/Pistol/smg_mag.rsi, state: red-icon}
   productEntity: Magazine9x19mmSubMachineGunFMJ # changed to match the new ammo type
   cost:
     Telecrystal: 2
@@ -72,7 +72,7 @@
   id: UplinkNFMagazinePistolCaselessRifle
   name: uplink-pistol-magazine-cobra-name
   description: uplink-pistol-magazine-cobra-desc
-  icon: { sprite: /Textures/Objects/Weapons/Guns/Ammunition/Magazine/CaselessRifle/caseless_pistol_mag.rsi, state: red-icon }
+  icon: {sprite: /Textures/Objects/Weapons/Guns/Ammunition/Magazine/CaselessRifle/caseless_pistol_mag.rsi, state: red-icon}
   productEntity: HLMagazinePistolCaselessRifle
   cost:
     Telecrystal: 1
@@ -83,7 +83,7 @@
   id: UplinkNFSpeedLoaderMagnum
   name: uplink-speedloader-magnum-non-ap-name
   description: uplink-speedloader-magnum-non-ap-desc # Frontier: uplink-speedloader-magnu-desc<uplink-speedloader-magnum-non-ap-desc
-  icon: { sprite: /Textures/Objects/Weapons/Guns/Ammunition/SpeedLoaders/Magnum/magnum_speed_loader.rsi, state: icon }
+  icon: {sprite: /Textures/Objects/Weapons/Guns/Ammunition/SpeedLoaders/Magnum/magnum_speed_loader.rsi, state: icon}
   productEntity: NFSpeedLoaderPistol45
   cost:
     Telecrystal: 3
@@ -127,11 +127,11 @@
   name: uplink-spaceblade-syndicate-name
   description: uplink-spaceblade-syndicate-desc
   productEntity: SpaceBladeContra
-  icon: { sprite: _NF/Objects/Fun/spaceblade.rsi, state: contraband }
+  icon: {sprite: _NF/Objects/Fun/spaceblade.rsi, state: contraband}
   cost:
     Telecrystal: 1
   categories:
-    - UplinkPointless
+  - UplinkPointless
 
 #- type: listing # Hardlight, with demags abound and less PoIs this isn't needed
 #  id: UplinkEmagPass
@@ -151,8 +151,8 @@
   name: uplink-syndicate-segway-name
   description: uplink-syndicate-segway-desc
   productEntity: NFCrateFunSyndicateSegway
-  icon: { sprite: Objects/Vehicles/syndicatesegway.rsi, state: vehicle }
+  icon: {sprite: Objects/Vehicles/syndicatesegway.rsi, state: vehicle}
   cost:
     Telecrystal: 25
   categories:
-    - UplinkPointless
+  - UplinkPointless

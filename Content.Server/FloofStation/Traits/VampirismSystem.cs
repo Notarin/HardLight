@@ -16,8 +16,11 @@ namespace Content.Server.Floofstation.Traits;
 
 public sealed class VampirismSystem : EntitySystem
 {
-    [Dependency] private readonly SharedBodySystem _body = default!;
-    [Dependency] private readonly DamageableSystem _damageableSystem = default!;
+    [Dependency]
+    private readonly SharedBodySystem _body = default!;
+
+    [Dependency]
+    private readonly DamageableSystem _damageableSystem = default!;
 
     public override void Initialize()
     {
@@ -34,7 +37,13 @@ public sealed class VampirismSystem : EntitySystem
         var query = EntityQueryEnumerator<VampirismComponent, HungerComponent>();
         while (query.MoveNext(out var uid, out var vampComp, out var hunger))
         {
-            if (vampComp.OverfedRegenAmount <= 0 || (hunger.CurrentThreshold != HungerThreshold.Okay && hunger.CurrentThreshold != HungerThreshold.Overfed))
+            if (
+                vampComp.OverfedRegenAmount <= 0
+                || (
+                    hunger.CurrentThreshold != HungerThreshold.Okay
+                    && hunger.CurrentThreshold != HungerThreshold.Overfed
+                )
+            )
                 continue;
 
             var healAmount = FixedPoint2.New(-vampComp.OverfedRegenAmount * frameTime);
@@ -73,8 +82,10 @@ public sealed class VampirismSystem : EntitySystem
     {
         EnsureBloodSucker(ent);
 
-        if (!TryComp<BodyComponent>(ent, out var body)
-		    || !_body.TryGetBodyOrganEntityComps<MetabolizerComponent>((ent, body), out var comps))
+        if (
+            !TryComp<BodyComponent>(ent, out var body)
+            || !_body.TryGetBodyOrganEntityComps<MetabolizerComponent>((ent, body), out var comps)
+        )
             return;
 
         foreach (var (organUid, metabolizer, organ) in comps)
@@ -84,7 +95,7 @@ public sealed class VampirismSystem : EntitySystem
 
             metabolizer.MetabolizerTypes = ent.Comp.MetabolizerPrototypes;
 
-            if (ent.Comp.SpecialDigestible is {} whitelist)
+            if (ent.Comp.SpecialDigestible is { } whitelist)
                 stomach.SpecialDigestible = whitelist;
         }
     }
@@ -94,17 +105,21 @@ public sealed class VampirismSystem : EntitySystem
         if (HasComp<BloodSuckerComponent>(uid))
             return;
 
-        AddComp(uid, new BloodSuckerComponent
-        {
-            Delay = uid.Comp.SuccDelay,
-            UnitsToSucc = uid.Comp.UnitsToSucc,
-        });
+        AddComp(uid, new BloodSuckerComponent { Delay = uid.Comp.SuccDelay, UnitsToSucc = uid.Comp.UnitsToSucc });
     }
 
-    private void OnRefreshMovementSpeedModifiers(EntityUid uid, VampirismComponent component, RefreshMovementSpeedModifiersEvent args)
+    private void OnRefreshMovementSpeedModifiers(
+        EntityUid uid,
+        VampirismComponent component,
+        RefreshMovementSpeedModifiersEvent args
+    )
     {
-        if (component.PeckishWalkMultiplier >= 1f && component.PeckishSprintMultiplier >= 1f &&
-            component.StarvingWalkMultiplier >= 1f && component.StarvingSprintMultiplier >= 1f)
+        if (
+            component.PeckishWalkMultiplier >= 1f
+            && component.PeckishSprintMultiplier >= 1f
+            && component.StarvingWalkMultiplier >= 1f
+            && component.StarvingSprintMultiplier >= 1f
+        )
         {
             return;
         }

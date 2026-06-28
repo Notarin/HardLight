@@ -60,8 +60,12 @@ public sealed partial class ShuttleMapControl
     /// sand/desert → tan, lava → red, water → blue, asteroid/rock/floor →
     /// grey-brown; everything else → mid brown.
     /// </summary>
-    private void DrawPlanetBiomeOverlay(DrawingHandleScreen handle, EntityUid viewedMapUid,
-        Box2 viewBox, Matrix3x2 matty)
+    private void DrawPlanetBiomeOverlay(
+        DrawingHandleScreen handle,
+        EntityUid viewedMapUid,
+        Box2 viewBox,
+        Matrix3x2 matty
+    )
     {
         if (!EntManager.TryGetComponent(viewedMapUid, out BiomeComponent? biome))
             return;
@@ -99,16 +103,20 @@ public sealed partial class ShuttleMapControl
         // Cache key: any change in the visible region, stride, or biome seed
         // (e.g. admin re-rolls the planet) invalidates the sampled grid.
         var samples = _overlayCache;
-        if (samples == null
+        if (
+            samples == null
             || _overlayCacheMap != viewedMapUid
             || _overlayCacheMinX != minX
             || _overlayCacheMinY != minY
             || _overlayCacheMaxX != maxX
             || _overlayCacheMaxY != maxY
             || _overlayCacheStride != stride
-            || _overlayCacheSeed != biome.Seed)
+            || _overlayCacheSeed != biome.Seed
+        )
         {
-            samples = new List<OverlaySample>(Math.Min(MaxOverlayQuads, ((maxX - minX) / stride + 1) * ((maxY - minY) / stride + 1)));
+            samples = new List<OverlaySample>(
+                Math.Min(MaxOverlayQuads, ((maxX - minX) / stride + 1) * ((maxY - minY) / stride + 1))
+            );
             for (var y = minY; y < maxY; y += stride)
             {
                 for (var x = minX; x < maxX; x += stride)
@@ -117,11 +125,13 @@ public sealed partial class ShuttleMapControl
                         continue;
 
                     var def = _tileDefs[tile.Value.TypeId];
-                    samples.Add(new OverlaySample
-                    {
-                        WorldCenter = new Vector2(x + 0.5f * stride, y + 0.5f * stride),
-                        Color = ColorForTile(def),
-                    });
+                    samples.Add(
+                        new OverlaySample
+                        {
+                            WorldCenter = new Vector2(x + 0.5f * stride, y + 0.5f * stride),
+                            Color = ColorForTile(def),
+                        }
+                    );
                 }
             }
 
@@ -142,9 +152,7 @@ public sealed partial class ShuttleMapControl
             local = local with { Y = -local.Y };
             var screen = ScalePosition(local);
 
-            handle.DrawRect(
-                new UIBox2(screen - quadDrawSize / 2f, screen + quadDrawSize / 2f),
-                s.Color);
+            handle.DrawRect(new UIBox2(screen - quadDrawSize / 2f, screen + quadDrawSize / 2f), s.Color);
         }
     }
 
@@ -153,14 +161,20 @@ public sealed partial class ShuttleMapControl
         var id = def.ID;
         // Cheap substring routing — tile IDs in this codebase follow conventions
         // like "FloorAsteroid", "FloorSnow", "FloorGrass", "Plating", "Lava", etc.
-        if (Contains(id, "Snow") || Contains(id, "Ice")) return new Color(0.85f, 0.90f, 0.95f, 0.70f);
-        if (Contains(id, "Lava")) return new Color(0.85f, 0.25f, 0.10f, 0.70f);
-        if (Contains(id, "Water") || Contains(id, "Ocean")) return new Color(0.20f, 0.40f, 0.70f, 0.70f);
-        if (Contains(id, "Grass") || Contains(id, "Plant") || Contains(id, "Jungle")) return new Color(0.30f, 0.55f, 0.25f, 0.70f);
-        if (Contains(id, "Sand") || Contains(id, "Desert")) return new Color(0.80f, 0.70f, 0.45f, 0.70f);
+        if (Contains(id, "Snow") || Contains(id, "Ice"))
+            return new Color(0.85f, 0.90f, 0.95f, 0.70f);
+        if (Contains(id, "Lava"))
+            return new Color(0.85f, 0.25f, 0.10f, 0.70f);
+        if (Contains(id, "Water") || Contains(id, "Ocean"))
+            return new Color(0.20f, 0.40f, 0.70f, 0.70f);
+        if (Contains(id, "Grass") || Contains(id, "Plant") || Contains(id, "Jungle"))
+            return new Color(0.30f, 0.55f, 0.25f, 0.70f);
+        if (Contains(id, "Sand") || Contains(id, "Desert"))
+            return new Color(0.80f, 0.70f, 0.45f, 0.70f);
         if (Contains(id, "Asteroid") || Contains(id, "Rock") || Contains(id, "Stone") || Contains(id, "Cave"))
             return new Color(0.35f, 0.32f, 0.30f, 0.80f); // darker = "solid", visually reads as wall
-        if (Contains(id, "Plating") || Contains(id, "Steel")) return new Color(0.50f, 0.50f, 0.55f, 0.70f);
+        if (Contains(id, "Plating") || Contains(id, "Steel"))
+            return new Color(0.50f, 0.50f, 0.55f, 0.70f);
         return new Color(0.45f, 0.38f, 0.30f, 0.60f); // generic mid brown
     }
 
@@ -192,8 +206,7 @@ public sealed partial class ShuttleMapControl
 
             if (!string.IsNullOrEmpty(disk.Label))
             {
-                handle.DrawString(_font, screen + new Vector2(10f, -6f),
-                    disk.Label, new Color(1f, 0.85f, 0.20f));
+                handle.DrawString(_font, screen + new Vector2(10f, -6f), disk.Label, new Color(1f, 0.85f, 0.20f));
             }
         }
     }
@@ -209,7 +222,7 @@ public sealed partial class ShuttleMapControl
     private void DrawLandgrabPlotMarkers(DrawingHandleScreen handle, EntityUid viewedMapUid, Matrix3x2 matty)
     {
         var otherColor = new Color(0.30f, 0.85f, 0.95f, 0.85f);
-        var ownColor   = new Color(1.0f,  1.0f,  1.0f,  1.0f);
+        var ownColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
 
         var localCKey = _playerManager.LocalSession?.Name ?? string.Empty;
 
@@ -219,7 +232,8 @@ public sealed partial class ShuttleMapControl
             if (xform.MapUid != viewedMapUid)
                 continue;
 
-            var isOwn = !string.IsNullOrEmpty(localCKey)
+            var isOwn =
+                !string.IsNullOrEmpty(localCKey)
                 && string.Equals(plot.OwnerCKey, localCKey, StringComparison.OrdinalIgnoreCase);
 
             var color = isOwn ? ownColor : otherColor;
@@ -233,7 +247,9 @@ public sealed partial class ShuttleMapControl
             var halfSize = (plot.PlotSize / 2f) * MinimapScale;
             handle.DrawRect(
                 new UIBox2(screen - new Vector2(halfSize, halfSize), screen + new Vector2(halfSize, halfSize)),
-                color, filled: false);
+                color,
+                filled: false
+            );
 
             handle.DrawCircle(screen, 2.5f, color);
 

@@ -14,4 +14,3 @@ public sealed partial class PredictedProjectileHitComponent : Component
     [DataField, AutoNetworkedField]
     public float Distance;
 }
-

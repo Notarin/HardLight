@@ -1,5 +1,5 @@
-using Content.Shared.Humanoid;
 using Content.Shared.Body.Part;
+using Content.Shared.Humanoid;
 
 namespace Content.Shared._Shitmed.Body.Events;
 

@@ -1,7 +1,7 @@
 using System.Linq;
 using Content.Server.Chat.Systems;
-using Content.Shared.Chat; // For InGameICChatType
 using Content.Server.Speech.Components;
+using Content.Shared.Chat; // For InGameICChatType
 using Content.Shared.Mind.Components;
 using Content.Shared.Whitelist;
 using Robust.Shared.Random;
@@ -11,10 +11,17 @@ namespace Content.Server.Speech.EntitySystems;
 
 public sealed class ParrotSpeechSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
-    [Dependency] private readonly ChatSystem _chat = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly EntityWhitelistSystem _whitelistSystem = default!;
+
+    [Dependency]
+    private readonly ChatSystem _chat = default!;
 
     public override void Initialize()
     {
@@ -51,10 +58,12 @@ public sealed class ParrotSpeechSystem : EntitySystem
                     InGameICChatType.Speak,
                     hideChat: true, // Don't spam the chat with randomly generated messages
                     hideLog: true,
-                    checkRadioPrefix: false);
+                    checkRadioPrefix: false
+                );
             }
 
-            component.NextUtterance = _timing.CurTime + TimeSpan.FromSeconds(_random.Next(component.MinimumWait, component.MaximumWait));
+            component.NextUtterance =
+                _timing.CurTime + TimeSpan.FromSeconds(_random.Next(component.MinimumWait, component.MaximumWait));
         }
     }
 

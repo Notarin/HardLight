@@ -49,19 +49,19 @@
   name: Fireball III
   description: The fastest fireball in the west!
   components:
-    - type: WorldTargetAction
-      itemIconStyle: BigAction
-      checkCanAccess: false
-      raiseOnUser: true
-      range: 60
-      sound: !type:SoundPathSpecifier
-        path: /Audio/Magic/fireball.ogg
-      icon:
-        sprite: Objects/Magic/magicactions.rsi
-        state: fireball
-      event: !type:ProjectileSpellEvent
-        prototype: ProjectileFireball
-        speech: action-speech-spell-fireball
+  - type: WorldTargetAction
+    itemIconStyle: BigAction
+    checkCanAccess: false
+    raiseOnUser: true
+    range: 60
+    sound: !type:SoundPathSpecifier
+      path: /Audio/Magic/fireball.ogg
+    icon:
+      sprite: Objects/Magic/magicactions.rsi
+      state: fireball
+    event: !type:ProjectileSpellEvent
+      prototype: ProjectileFireball
+      speech: action-speech-spell-fireball
 
 # Used by the spell_pages entry for the fireball token spell.
 - type: entity

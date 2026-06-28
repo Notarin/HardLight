@@ -15,15 +15,18 @@ namespace Content.Client.Administration.UI.ManageSolutions
     [GenerateTypedNameReferences]
     public sealed partial class AddReagentWindow : DefaultWindow
     {
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly IClientConsoleHost _consoleHost = default!;
+        [Dependency]
+        private readonly IPrototypeManager _prototypeManager = default!;
+
+        [Dependency]
+        private readonly IClientConsoleHost _consoleHost = default!;
 
         private readonly NetEntity _targetEntity;
         private string _targetSolution;
         private ReagentPrototype? _selectedReagent;
 
         // FloatSpinBox does not (yet?) play nice with xaml
-        private FloatSpinBox _quantitySpin = new(1, 2) { Value = 10, HorizontalExpand = true};
+        private FloatSpinBox _quantitySpin = new(1, 2) { Value = 10, HorizontalExpand = true };
 
         public AddReagentWindow(NetEntity targetEntity, string targetSolution)
         {
@@ -62,7 +65,7 @@ namespace Content.Client.Administration.UI.ManageSolutions
 
         private void ReagentListSelected(ItemList.ItemListSelectedEventArgs obj)
         {
-            _selectedReagent = (ReagentPrototype) obj.ItemList[obj.ItemIndex].Metadata!;
+            _selectedReagent = (ReagentPrototype)obj.ItemList[obj.ItemIndex].Metadata!;
             UpdateAddButton();
         }
 
@@ -98,9 +101,11 @@ namespace Content.Client.Administration.UI.ManageSolutions
                 return;
             }
 
-            AddButton.Text = Loc.GetString("admin-add-reagent-window-add",
+            AddButton.Text = Loc.GetString(
+                "admin-add-reagent-window-add",
                 ("quantity", _quantitySpin.Value.ToString("F2")),
-                ("reagent", _selectedReagent.ID));
+                ("reagent", _selectedReagent.ID)
+            );
 
             AddButton.Disabled = false;
         }
@@ -113,17 +118,15 @@ namespace Content.Client.Administration.UI.ManageSolutions
             ReagentList.Clear();
             foreach (var reagent in _prototypeManager.EnumeratePrototypes<ReagentPrototype>())
             {
-                if (!string.IsNullOrEmpty(filter) &&
-                   !reagent.ID.ToLowerInvariant().Contains(filter.Trim().ToLowerInvariant()))
+                if (
+                    !string.IsNullOrEmpty(filter)
+                    && !reagent.ID.ToLowerInvariant().Contains(filter.Trim().ToLowerInvariant())
+                )
                 {
                     continue;
                 }
 
-                ItemList.Item regentItem = new(ReagentList)
-                {
-                    Metadata = reagent,
-                    Text = reagent.ID
-                };
+                ItemList.Item regentItem = new(ReagentList) { Metadata = reagent, Text = reagent.ID };
 
                 ReagentList.Add(regentItem);
             }

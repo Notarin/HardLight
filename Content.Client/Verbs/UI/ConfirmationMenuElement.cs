@@ -22,7 +22,8 @@ public sealed partial class ConfirmationMenuElement : ContextMenuElement
         }
     }
 
-    public ConfirmationMenuElement(Verb verb, string? text) : base(text)
+    public ConfirmationMenuElement(Verb verb, string? text)
+        : base(text)
     {
         Verb = verb;
         Icon.Visible = false;

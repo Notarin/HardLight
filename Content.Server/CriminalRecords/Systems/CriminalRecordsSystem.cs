@@ -1,16 +1,16 @@
 using System.Linq;
+using Content.Server._NF.SectorServices; // Frontier
 using Content.Server.CartridgeLoader;
 using Content.Server.CartridgeLoader.Cartridges;
+using Content.Server.GameTicking;
+using Content.Server.Station.Systems;
 using Content.Server.StationRecords.Systems;
+using Content.Shared.CartridgeLoader;
+using Content.Shared.CartridgeLoader.Cartridges;
 using Content.Shared.CriminalRecords;
 using Content.Shared.CriminalRecords.Systems;
 using Content.Shared.Security;
 using Content.Shared.StationRecords;
-using Content.Server.GameTicking;
-using Content.Server.Station.Systems;
-using Content.Shared.CartridgeLoader;
-using Content.Shared.CartridgeLoader.Cartridges;
-using Content.Server._NF.SectorServices; // Frontier
 
 namespace Content.Server.CriminalRecords.Systems;
 
@@ -24,11 +24,18 @@ namespace Content.Server.CriminalRecords.Systems;
 /// </summary>
 public sealed class CriminalRecordsSystem : SharedCriminalRecordsSystem
 {
-    [Dependency] private readonly GameTicker _ticker = default!;
-    [Dependency] private readonly StationRecordsSystem _records = default!;
+    [Dependency]
+    private readonly GameTicker _ticker = default!;
+
+    [Dependency]
+    private readonly StationRecordsSystem _records = default!;
+
     // [Dependency] private readonly StationSystem _station = default!; // Frontier
-    [Dependency] private readonly CartridgeLoaderSystem _cartridge = default!;
-    [Dependency] private readonly SectorServiceSystem _sectorService = default!; // Frontier
+    [Dependency]
+    private readonly CartridgeLoaderSystem _cartridge = default!;
+
+    [Dependency]
+    private readonly SectorServiceSystem _sectorService = default!; // Frontier
 
     public override void Initialize()
     {
@@ -52,11 +59,15 @@ public sealed class CriminalRecordsSystem : SharedCriminalRecordsSystem
     /// Reason should only be passed if status is Wanted, nullability isn't checked.
     /// </summary>
     /// <returns>True if the status is changed, false if not</returns>
-    public bool TryChangeStatus(StationRecordKey key, SecurityStatus status, string? reason, string? initiatorName = null)
+    public bool TryChangeStatus(
+        StationRecordKey key,
+        SecurityStatus status,
+        string? reason,
+        string? initiatorName = null
+    )
     {
         // don't do anything if its the same status
-        if (!_records.TryGetRecord<CriminalRecord>(key, out var record)
-            || status == record.Status)
+        if (!_records.TryGetRecord<CriminalRecord>(key, out var record) || status == record.Status)
             return false;
 
         OverwriteStatus(key, record, status, reason, initiatorName);
@@ -67,7 +78,13 @@ public sealed class CriminalRecordsSystem : SharedCriminalRecordsSystem
     /// <summary>
     /// Sets the status without checking previous status or reason nullability.
     /// </summary>
-    public void OverwriteStatus(StationRecordKey key, CriminalRecord record, SecurityStatus status, string? reason, string? initiatorName = null)
+    public void OverwriteStatus(
+        StationRecordKey key,
+        CriminalRecord record,
+        SecurityStatus status,
+        string? reason,
+        string? initiatorName = null
+    )
     {
         record.Status = status;
         record.Reason = reason;
@@ -130,7 +147,7 @@ public sealed class CriminalRecordsSystem : SharedCriminalRecordsSystem
             return false;
 
         var history = record.History[(int)index];
-        record.History.RemoveAt((int) index);
+        record.History.RemoveAt((int)index);
 
         var args = new CriminalHistoryRemovedEvent(history);
         var query = EntityQueryEnumerator<WantedListCartridgeComponent>();
@@ -174,7 +191,8 @@ public sealed class CriminalRecordsSystem : SharedCriminalRecordsSystem
             return;
         // End Frontier
 
-        var records = _records.GetRecordsOfType<CriminalRecord>(station)
+        var records = _records
+            .GetRecordsOfType<CriminalRecord>(station)
             .Where(cr => cr.Item2.Status is not SecurityStatus.None || cr.Item2.History.Count > 0)
             .Select(cr =>
             {

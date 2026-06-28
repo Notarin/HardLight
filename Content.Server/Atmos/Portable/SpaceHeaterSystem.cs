@@ -15,11 +15,20 @@ namespace Content.Server.Atmos.Portable;
 
 public sealed class SpaceHeaterSystem : EntitySystem
 {
-    [Dependency] private readonly AtmosphereSystem _atmosphereSystem = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly PowerReceiverSystem _power = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly UserInterfaceSystem _userInterfaceSystem = default!;
+    [Dependency]
+    private readonly AtmosphereSystem _atmosphereSystem = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly PowerReceiverSystem _power = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly UserInterfaceSystem _userInterfaceSystem = default!;
 
     public override void Initialize()
     {
@@ -52,19 +61,29 @@ public sealed class SpaceHeaterSystem : EntitySystem
         DirtyUI(uid, spaceHeater);
     }
 
-    private void OnUIActivationAttempt(EntityUid uid, SpaceHeaterComponent spaceHeater, ActivatableUIOpenAttemptEvent args)
+    private void OnUIActivationAttempt(
+        EntityUid uid,
+        SpaceHeaterComponent spaceHeater,
+        ActivatableUIOpenAttemptEvent args
+    )
     {
         if (!Comp<TransformComponent>(uid).Anchored)
         {
-            _popup.PopupEntity(Loc.GetString("comp-space-heater-unanchored", ("device", Loc.GetString("comp-space-heater-device-name"))), uid, args.User);
+            _popup.PopupEntity(
+                Loc.GetString(
+                    "comp-space-heater-unanchored",
+                    ("device", Loc.GetString("comp-space-heater-device-name"))
+                ),
+                uid,
+                args.User
+            );
             args.Cancel();
         }
     }
 
     private void OnDeviceUpdated(EntityUid uid, SpaceHeaterComponent spaceHeater, ref AtmosDeviceUpdateEvent args)
     {
-        if (!_power.IsPowered(uid)
-            || !TryComp<GasThermoMachineComponent>(uid, out var thermoMachine))
+        if (!_power.IsPowered(uid) || !TryComp<GasThermoMachineComponent>(uid, out var thermoMachine))
         {
             return;
         }
@@ -83,11 +102,19 @@ public sealed class SpaceHeaterSystem : EntitySystem
                 thermoMachine.Cp = 0;
             // End Frontier
 
-            if (environment.Temperature <= thermoMachine.TargetTemperature - (thermoMachine.TemperatureTolerance + spaceHeater.AutoModeSwitchThreshold))
+            if (
+                environment.Temperature
+                <= thermoMachine.TargetTemperature
+                    - (thermoMachine.TemperatureTolerance + spaceHeater.AutoModeSwitchThreshold)
+            )
             {
                 thermoMachine.Cp = spaceHeater.HeatingCp;
             }
-            else if (environment.Temperature >= thermoMachine.TargetTemperature + (thermoMachine.TemperatureTolerance + spaceHeater.AutoModeSwitchThreshold))
+            else if (
+                environment.Temperature
+                >= thermoMachine.TargetTemperature
+                    + (thermoMachine.TemperatureTolerance + spaceHeater.AutoModeSwitchThreshold)
+            )
             {
                 thermoMachine.Cp = spaceHeater.CoolingCp;
             }
@@ -112,12 +139,20 @@ public sealed class SpaceHeaterSystem : EntitySystem
         DirtyUI(uid, spaceHeater);
     }
 
-    private void OnTemperatureChanged(EntityUid uid, SpaceHeaterComponent spaceHeater, SpaceHeaterChangeTemperatureMessage args)
+    private void OnTemperatureChanged(
+        EntityUid uid,
+        SpaceHeaterComponent spaceHeater,
+        SpaceHeaterChangeTemperatureMessage args
+    )
     {
         if (!TryComp<GasThermoMachineComponent>(uid, out var thermoMachine))
             return;
 
-        thermoMachine.TargetTemperature = float.Clamp(thermoMachine.TargetTemperature + args.Temperature, thermoMachine.MinTemperature, thermoMachine.MaxTemperature);
+        thermoMachine.TargetTemperature = float.Clamp(
+            thermoMachine.TargetTemperature + args.Temperature,
+            thermoMachine.MinTemperature,
+            thermoMachine.MaxTemperature
+        );
 
         UpdateAppearance(uid);
         DirtyUI(uid, spaceHeater);
@@ -138,7 +173,11 @@ public sealed class SpaceHeaterSystem : EntitySystem
         DirtyUI(uid, spaceHeater);
     }
 
-    private void OnPowerLevelChanged(EntityUid uid, SpaceHeaterComponent spaceHeater, SpaceHeaterChangePowerLevelMessage args)
+    private void OnPowerLevelChanged(
+        EntityUid uid,
+        SpaceHeaterComponent spaceHeater,
+        SpaceHeaterChangePowerLevelMessage args
+    )
     {
         if (!TryComp<GasThermoMachineComponent>(uid, out var thermoMachine))
             return;
@@ -165,14 +204,26 @@ public sealed class SpaceHeaterSystem : EntitySystem
 
     private void DirtyUI(EntityUid uid, SpaceHeaterComponent? spaceHeater)
     {
-        if (!Resolve(uid, ref spaceHeater)
+        if (
+            !Resolve(uid, ref spaceHeater)
             || !TryComp<GasThermoMachineComponent>(uid, out var thermoMachine)
-            || !TryComp<ApcPowerReceiverComponent>(uid, out var powerReceiver))
+            || !TryComp<ApcPowerReceiverComponent>(uid, out var powerReceiver)
+        )
         {
             return;
         }
-        _userInterfaceSystem.SetUiState(uid, SpaceHeaterUiKey.Key,
-            new SpaceHeaterBoundUserInterfaceState(spaceHeater.MinTemperature, spaceHeater.MaxTemperature, thermoMachine.TargetTemperature, !powerReceiver.PowerDisabled, spaceHeater.Mode, spaceHeater.PowerLevel));
+        _userInterfaceSystem.SetUiState(
+            uid,
+            SpaceHeaterUiKey.Key,
+            new SpaceHeaterBoundUserInterfaceState(
+                spaceHeater.MinTemperature,
+                spaceHeater.MaxTemperature,
+                thermoMachine.TargetTemperature,
+                !powerReceiver.PowerDisabled,
+                spaceHeater.Mode,
+                spaceHeater.PowerLevel
+            )
+        );
     }
 
     private void UpdateAppearance(EntityUid uid)

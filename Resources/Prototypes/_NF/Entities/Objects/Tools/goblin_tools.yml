@@ -17,8 +17,7 @@
     damageModifierSet: Metallic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 25
       behaviors:
       - !type:DoActsBehavior
@@ -55,7 +54,7 @@
 - type: entity
   id: NFGoblinMadeToolMalfunctionEmp
   parent: NFBaseGoblinMadeToolsMalfunction
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: EmpOnTrigger
     range: 4
@@ -64,7 +63,7 @@
 - type: entity
   id: NFGoblinMadeToolMalfunctionFlash
   parent: NFBaseGoblinMadeToolsMalfunction
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: FlashOnTrigger
     range: 4
@@ -74,7 +73,7 @@
 - type: entity
   id: NFGoblinMadeToolMalfunctionSmoke
   parent: NFBaseGoblinMadeToolsMalfunction
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: SmokeOnTrigger
     duration: 3
@@ -88,7 +87,7 @@
 - type: entity
   id: NFGoblinMadeToolMalfunctionFireBomb
   parent: NFBaseGoblinMadeToolsMalfunction
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: ExplodeOnTrigger
   - type: Explosive
@@ -101,7 +100,7 @@
 - type: entity
   id: NFGoblinMadeToolMalfunctionExplosion
   parent: NFBaseGoblinMadeToolsMalfunction
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: ExplodeOnTrigger
   - type: Explosive
@@ -114,7 +113,7 @@
 - type: entity
   id: NFGoblinMadeToolMalfunctionCryo
   parent: NFBaseGoblinMadeToolsMalfunction
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: ExplodeOnTrigger
   - type: Explosive
@@ -148,9 +147,9 @@
   components:
   - type: Sprite
     layers:
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: red
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: red
   - type: EntityTableSpawner
     offset: 0.0
     table: !type:NestedSelector
@@ -162,7 +161,7 @@
 #region multitool
 - type: entity
   id: NFGoblinMadeMultitool
-  parent: [ NFBaseGoblinMadeTools, Multitool ]
+  parent: [NFBaseGoblinMadeTools, Multitool]
   name: hacking jig
   description: "An improvised multitool pieced together from faulty circuit board, broken display, bent antennae and stuffed into a discarded wrapper for additional protection against elements."
   components:
@@ -171,7 +170,7 @@
     layers:
     - sprite: Objects/Consumable/Food/snacks.rsi
       state: cheesiehonkers
-      map: [ "iconMultitoolWrapper" ]
+      map: ["iconMultitoolWrapper"]
     - state: icon
     - state: icon-unshaded
       shader: unshaded
@@ -197,19 +196,19 @@
     sprite: _NF/Objects/Tools/goblin_tools/multitool.rsi
   - type: RandomSprite
     available:
-      - iconMultitoolWrapper:
-          cheesiehonkers: ""
-          cnds: ""
-          chips: ""
-          boritos: ""
-          pistachio: ""
-          raisins: ""
-          semki: ""
-          susjerky: ""
-          chinese1: ""
-          chinese2: ""
-          chinese3: ""
-          chinese4: ""
+    - iconMultitoolWrapper:
+        cheesiehonkers: ""
+        cnds: ""
+        chips: ""
+        boritos: ""
+        pistachio: ""
+        raisins: ""
+        semki: ""
+        susjerky: ""
+        chinese1: ""
+        chinese2: ""
+        chinese3: ""
+        chinese4: ""
   - type: Construction
     graph: NFGoblinMadeMultitool
     node: NFGoblinMadeMultitool
@@ -218,7 +217,7 @@
 #region wirecutter
 - type: entity
   id: NFGoblinMadeWirecutter
-  parent: [ NFBaseGoblinMadeTools, Wirecutter ]
+  parent: [NFBaseGoblinMadeTools, Wirecutter]
   name: wiresnipper
   description: A wire cutter made out of glass shards, metal bits, cloth, and some wires. What's up with all the sparking, though?
   components:
@@ -227,14 +226,14 @@
     layers:
     - state: icon
     - state: icon-color
-      map: [ "enum.DamageStateVisualLayers.Base" ]
+      map: ["enum.DamageStateVisualLayers.Base"]
     - sprite: _NF/Objects/Tools/goblin_tools/overlay_sparks.rsi
       state: overlay-icon
       shader: unshaded
   - type: RandomSprite
     available:
-      - enum.DamageStateVisualLayers.Base:
-          icon-color: Rainbow
+    - enum.DamageStateVisualLayers.Base:
+        icon-color: Rainbow
   - type: Item
     sprite: _NF/Objects/Tools/goblin_tools/wirecutters.rsi
     inhandVisuals:
@@ -261,7 +260,7 @@
 #region screwdriver
 - type: entity
   id: NFGoblinMadeScrewdriver
-  parent: [ NFBaseGoblinMadeTools, Screwdriver ]
+  parent: [NFBaseGoblinMadeTools, Screwdriver]
   name: electro-driver
   description: An improvised electrical screwdriver, not much in terms of torque, but your wrists will be less sore.
   components:
@@ -270,7 +269,7 @@
     layers:
     - state: screwdriver-base
     - state: screwdriver-wires
-      map: [ "iconScrewdriverWires" ]
+      map: ["iconScrewdriverWires"]
     - state: screwdriver-unshaded
       shader: unshaded
     - sprite: _NF/Objects/Tools/goblin_tools/overlay_sparks.rsi
@@ -297,7 +296,7 @@
         screwdriver-wires: Rainbow
   - type: Tool
     qualities:
-      - Screwing
+    - Screwing
     useSound: /Audio/Items/drill_use.ogg
   - type: Construction
     graph: NFGoblinMadeScrewdriver
@@ -307,7 +306,7 @@
 #region crowbar
 - type: entity
   id: NFGoblinMadeCrowbar
-  parent: [ NFBaseGoblinMadeTools, Crowbar ]
+  parent: [NFBaseGoblinMadeTools, Crowbar]
   name: electro-jilt
   description: The next step in crowbar evolution - jack. Enhanced with an improvised electrical winch.
   components:
@@ -340,7 +339,7 @@
       state: storage
   - type: Tool
     qualities:
-      - Prying
+    - Prying
     useSound: /Audio/Items/drill_use.ogg
   - type: Construction
     graph: NFGoblinMadeCrowbar
@@ -350,7 +349,7 @@
 #region wrench
 - type: entity
   id: NFGoblinMadeWrench
-  parent: [ NFBaseGoblinMadeTools, Wrench ]
+  parent: [NFBaseGoblinMadeTools, Wrench]
   name: electro-spanner
   description: An improvised electrical wrench, not much in terms of torque, but your wrists will be less sore.
   components:
@@ -385,21 +384,21 @@
     sprite: _NF/Objects/Tools/goblin_tools/wrench.rsi
   - type: Tool
     qualities:
-      - Anchoring
+    - Anchoring
     useSound: /Audio/Items/drill_use.ogg
   - type: RandomSprite
     available:
-      - randomWrenchCan:
-          can1: ""
-          can2: ""
-          can3: ""
-          can4: ""
-          can5: ""
-          can6: ""
-          can7: ""
-          can8: ""
-          can9: ""
-          can10: ""
+    - randomWrenchCan:
+        can1: ""
+        can2: ""
+        can3: ""
+        can4: ""
+        can5: ""
+        can6: ""
+        can7: ""
+        can8: ""
+        can9: ""
+        can10: ""
   - type: Construction
     graph: NFGoblinMadeWrench
     node: NFGoblinMadeWrench
@@ -408,7 +407,7 @@
 #region welder
 - type: entity
   id: NFGoblinMadeWelder
-  parent: [ NFBaseGoblinMadeTools, Welder ]
+  parent: [NFBaseGoblinMadeTools, Welder]
   name: burner torch
   description: An improvised welding tool made out of a plastic bottle, an empty soda can, a spray nozzle, and a leaking battery.
   components:
@@ -431,8 +430,8 @@
     visuals:
       enum.ToggleVisuals.Toggled:
         enum.ToggleVisuals.Layer:
-          True: { visible: true }
-          False: { visible: false }
+          True: {visible: true}
+          False: {visible: false}
   - type: Item
     sprite: _NF/Objects/Tools/goblin_tools/welder.rsi
     inhandVisuals:
@@ -450,17 +449,17 @@
     sprite: _NF/Objects/Tools/goblin_tools/welder.rsi
   - type: RandomSprite
     available:
-      - randomWelderCan:
-          can1: ""
-          can2: ""
-          can3: ""
-          can4: ""
-          can5: ""
-          can6: ""
-          can7: ""
-          can8: ""
-          can9: ""
-          can10: ""
+    - randomWelderCan:
+        can1: ""
+        can2: ""
+        can3: ""
+        can4: ""
+        can5: ""
+        can6: ""
+        can7: ""
+        can8: ""
+        can9: ""
+        can10: ""
 # endregion
 
 - type: entity
@@ -481,7 +480,7 @@
 #region mini hoe
 - type: entity
   id: NFGoblinMadeMiniHoe
-  parent: [ NFBaseGoblinMadeTools, HydroponicsToolMiniHoe ]
+  parent: [NFBaseGoblinMadeTools, HydroponicsToolMiniHoe]
   name: electro-scratcher
   description: A small modification for the tried and true electrical screwdriver device. Weeds , your end is nigh.
   components:
@@ -493,7 +492,7 @@
     layers:
     - state: hoe-base
     - state: hoe-wires
-      map: [ "iconHoeWires" ]
+      map: ["iconHoeWires"]
     - state: hoe-unshaded
       shader: unshaded
     - sprite: _NF/Objects/Tools/goblin_tools/overlay_sparks.rsi
@@ -527,7 +526,7 @@
 #region minig drill
 - type: entity
   id: NFGoblinMadeMiningDrill
-  parent: [ NFBaseGoblinMadeTools, MiningDrill ]
+  parent: [NFBaseGoblinMadeTools, MiningDrill]
   name: pneumatic hammer
   description: The pickaxe is dead; hail the new king of manual mining - the improvised pneumatic hammer.
   components:
@@ -573,7 +572,7 @@
 #region tray scanner
 - type: entity
   id: NFGoblinMadeTrayScanner
-  parent: [ NFBaseGoblinMadeTools, trayScanner ]
+  parent: [NFBaseGoblinMadeTools, trayScanner]
   name: stash ogler
   description: With this tool you no longer have to memorise where you've hid you stash.
   components:
@@ -582,7 +581,7 @@
     layers:
     - sprite: Objects/Consumable/Food/snacks.rsi
       state: cheesiehonkers
-      map: [ "iconTrayWrapper" ]
+      map: ["iconTrayWrapper"]
     - state: icon
     - state: icon-unshaded
       shader: unshaded
@@ -596,8 +595,8 @@
     visuals:
       enum.TrayScannerVisual.Visual:
         baseTRay:
-          On: { state: tray-on }
-          Off: { state: tray-off }
+          On: {state: tray-on}
+          Off: {state: tray-off}
   - type: Item
     sprite: _NF/Objects/Tools/goblin_tools/tray.rsi
     inhandVisuals:
@@ -615,19 +614,19 @@
     sprite: _NF/Objects/Tools/goblin_tools/tray.rsi
   - type: RandomSprite
     available:
-      - iconTrayWrapper:
-          cheesiehonkers: ""
-          cnds: ""
-          chips: ""
-          boritos: ""
-          pistachio: ""
-          raisins: ""
-          semki: ""
-          susjerky: ""
-          chinese1: ""
-          chinese2: ""
-          chinese3: ""
-          chinese4: ""
+    - iconTrayWrapper:
+        cheesiehonkers: ""
+        cnds: ""
+        chips: ""
+        boritos: ""
+        pistachio: ""
+        raisins: ""
+        semki: ""
+        susjerky: ""
+        chinese1: ""
+        chinese2: ""
+        chinese3: ""
+        chinese4: ""
   - type: Construction
     graph: NFGoblinMadeTrayScanner
     node: NFGoblinMadeTrayScanner
@@ -636,7 +635,7 @@
 #region signaller
 - type: entity
   id: NFGoblinMadeRemoteSignaller
-  parent: [ NFBaseGoblinMadeTools, RemoteSignaller ]
+  parent: [NFBaseGoblinMadeTools, RemoteSignaller]
   name: remote winker
   description: An improvised remote signaller capable of sending signals to objects within a small radius of about 10 meters.
   components:
@@ -674,7 +673,7 @@
 #region lantern
 - type: entity
   id: NFGoblinMadeLantern
-  parent: [ NFBaseGoblinMadeTools, FlashlightLantern ]
+  parent: [NFBaseGoblinMadeTools, FlashlightLantern]
   name: glimmer
   description: An improvised lantern. How is it possible to put a power cell and a light bulb inside a glass bottle without breaking either of those items?
   components:
@@ -685,7 +684,7 @@
     - state: lantern-overlay
       shader: unshaded
       visible: false
-      map: [ "light" ]
+      map: ["light"]
     - sprite: _NF/Objects/Tools/goblin_tools/overlay_sparks.rsi
       state: overlay-icon
       shader: unshaded
@@ -725,7 +724,7 @@
 #region power cell
 - type: entity
   id: NFGoblinMadePowerCell
-  parent: [ NFBaseGoblinMadeTools, PowerCellSmall ]
+  parent: [NFBaseGoblinMadeTools, PowerCellSmall]
   name: power cell
   description: An improvised power cell. How long will you be able to resist the temptation to drink the electrolyte?
   suffix: Goblin Made, Full
@@ -733,10 +732,10 @@
   - type: Sprite
     sprite: _NF/Objects/Tools/goblin_tools/power_cell.rsi
     layers:
-    - map: [ "enum.PowerCellVisualLayers.Unshaded" ]
+    - map: ["enum.PowerCellVisualLayers.Unshaded"]
       state: o2
       color: "#0084ff"
-    - map: [ "enum.PowerCellVisualLayers.Base" ]
+    - map: ["enum.PowerCellVisualLayers.Base"]
       state: icon
     - sprite: _NF/Objects/Tools/goblin_tools/overlay_sparks.rsi
       state: overlay-icon

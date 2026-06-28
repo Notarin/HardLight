@@ -165,7 +165,7 @@
   id: NFPosterContrabandLvhiMountains
   name: "LVHI Mining"
   description: |-
-   This poster depicts a planetary crust with a mountain range and an upper layer of magma. The advertising slogan reads: "Langstad-Voigt Heavy Industries. Mining the Skies, Building New Horizons."
+    This poster depicts a planetary crust with a mountain range and an upper layer of magma. The advertising slogan reads: "Langstad-Voigt Heavy Industries. Mining the Skies, Building New Horizons."
   components:
   - type: Sprite
     sprite: _NF/Structures/Wallmounts/posters.rsi

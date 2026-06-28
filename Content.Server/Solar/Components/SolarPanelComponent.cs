@@ -3,7 +3,6 @@ using Content.Shared.Guidebook;
 
 namespace Content.Server.Solar.Components
 {
-
     /// <summary>
     ///     This is a solar panel.
     ///     It generates power from the sun based on coverage.

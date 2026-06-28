@@ -1,60 +1,82 @@
 using System.Linq;
-using Content.Server._NF.Bank;
 using System.Numerics;
-using Content.Server.Cargo.Systems;
+using Content.Server._NF.Bank;
+using Content.Server._NF.Contraband.Systems; // Frontier
+using Content.Server.Administration.Logs; // Frontier
 //using Content.Server.Emp; // Frontier: Upstream - #28984
 using Content.Server.Cargo.Components;
+using Content.Server.Cargo.Systems;
 using Content.Server.Popups;
 using Content.Server.Power.Components;
 using Content.Server.Power.EntitySystems;
+using Content.Server.Stack;
+// using Content.Server._Mono.VendingMachine; // Removed: namespace no longer exists in this branch
+using Content.Shared._Mono.Traits.Physical;
+using Content.Shared._NF.Bank.BUI; // Frontier
+using Content.Shared._NF.Bank.Components; // Frontier
+using Content.Shared.Access.Components;
+using Content.Shared.Access.Systems;
 using Content.Shared.Damage;
+using Content.Shared.Database; // Frontier
 using Content.Shared.Destructible;
 using Content.Shared.DoAfter;
 using Content.Shared.Emp;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Popups;
 using Content.Shared.Power;
+using Content.Shared.Stacks; // Frontier
 using Content.Shared.Throwing;
 using Content.Shared.UserInterface;
 using Content.Shared.VendingMachines;
 using Content.Shared.Wall;
 using Robust.Shared.Audio;
+using Robust.Shared.Audio.Systems;
+using Robust.Shared.Configuration; // HL: CVars
+using Robust.Shared.Containers; // Frontier
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
-using Robust.Shared.Audio.Systems;
-using Content.Server.Administration.Logs; // Frontier
-using Content.Shared.Database; // Frontier
-using Content.Shared._NF.Bank.BUI; // Frontier
-using Content.Server._NF.Contraband.Systems; // Frontier
-using Content.Shared.Stacks; // Frontier
-using Content.Server.Stack;
-// using Content.Server._Mono.VendingMachine; // Removed: namespace no longer exists in this branch
-using Content.Shared._Mono.Traits.Physical;
-using Robust.Shared.Containers; // Frontier
-using Content.Shared._NF.Bank.Components; // Frontier
-using Robust.Shared.Configuration; // HL: CVars
-using Content.Shared.Access.Components;
-using Content.Shared.Access.Systems;
 
 namespace Content.Server.VendingMachines
 {
     public sealed class VendingMachineSystem : SharedVendingMachineSystem
     {
-        [Dependency] private readonly IRobustRandom _random = default!;
-        [Dependency] private readonly PricingSystem _pricing = default!;
-        [Dependency] private readonly ThrowingSystem _throwingSystem = default!;
-        [Dependency] private readonly IGameTiming _timing = default!;
-        [Dependency] private readonly IConfigurationManager _cfg = default!; // HL: vending CVars
-        [Dependency] private readonly AccessReaderSystem _accessReader = default!;
+        [Dependency]
+        private readonly IRobustRandom _random = default!;
 
-        [Dependency] private readonly SharedAudioSystem _audioSystem = default!; // Frontier
-        [Dependency] private readonly BankSystem _bankSystem = default!; // Frontier
-        [Dependency] private readonly PopupSystem _popupSystem = default!; // Frontier
-        [Dependency] private readonly IAdminLogManager _adminLogger = default!; // Frontier
-        [Dependency] private readonly ContrabandTurnInSystem _contraband = default!; // Frontier
-        [Dependency] private readonly StackSystem _stack = default!; // Frontier
+        [Dependency]
+        private readonly PricingSystem _pricing = default!;
+
+        [Dependency]
+        private readonly ThrowingSystem _throwingSystem = default!;
+
+        [Dependency]
+        private readonly IGameTiming _timing = default!;
+
+        [Dependency]
+        private readonly IConfigurationManager _cfg = default!; // HL: vending CVars
+
+        [Dependency]
+        private readonly AccessReaderSystem _accessReader = default!;
+
+        [Dependency]
+        private readonly SharedAudioSystem _audioSystem = default!; // Frontier
+
+        [Dependency]
+        private readonly BankSystem _bankSystem = default!; // Frontier
+
+        [Dependency]
+        private readonly PopupSystem _popupSystem = default!; // Frontier
+
+        [Dependency]
+        private readonly IAdminLogManager _adminLogger = default!; // Frontier
+
+        [Dependency]
+        private readonly ContrabandTurnInSystem _contraband = default!; // Frontier
+
+        [Dependency]
+        private readonly StackSystem _stack = default!; // Frontier
 
         private const float WallVendEjectDistanceFromWall = 1f;
 
@@ -89,7 +111,9 @@ namespace Content.Server.VendingMachines
             if (_pendingRestock.Count > 0)
             {
                 var now = _timing.CurTime;
-                var interval = TimeSpan.FromMilliseconds(_cfg.GetCVar(Content.Shared.HL.CCVar.HLCCVars.VendingRestockTickMs));
+                var interval = TimeSpan.FromMilliseconds(
+                    _cfg.GetCVar(Content.Shared.HL.CCVar.HLCCVars.VendingRestockTickMs)
+                );
                 if (now >= _nextRestockTick)
                 {
                     _nextRestockTick = now + interval;
@@ -179,7 +203,11 @@ namespace Content.Server.VendingMachines
             }
         }
 
-        private void OnActivatableUIOpenAttempt(EntityUid uid, VendingMachineComponent component, ActivatableUIOpenAttemptEvent args)
+        private void OnActivatableUIOpenAttempt(
+            EntityUid uid,
+            VendingMachineComponent component,
+            ActivatableUIOpenAttemptEvent args
+        )
         {
             if (component.Broken)
                 args.Cancel();
@@ -205,12 +233,19 @@ namespace Content.Server.VendingMachines
                 return;
             }
 
-            if (component.Broken || component.DispenseOnHitCoolingDown ||
-                component.DispenseOnHitChance == null || args.DamageDelta == null)
+            if (
+                component.Broken
+                || component.DispenseOnHitCoolingDown
+                || component.DispenseOnHitChance == null
+                || args.DamageDelta == null
+            )
                 return;
 
-            if (args.DamageIncreased && args.DamageDelta.GetTotal() >= component.DispenseOnHitThreshold &&
-                _random.Prob(component.DispenseOnHitChance.Value))
+            if (
+                args.DamageIncreased
+                && args.DamageDelta.GetTotal() >= component.DispenseOnHitThreshold
+                && _random.Prob(component.DispenseOnHitChance.Value)
+            )
             {
                 if (component.DispenseOnHitCooldown != null)
                 {
@@ -221,7 +256,11 @@ namespace Content.Server.VendingMachines
             }
         }
 
-        private void OnSelfDispense(EntityUid uid, VendingMachineComponent component, VendingMachineSelfDispenseEvent args)
+        private void OnSelfDispense(
+            EntityUid uid,
+            VendingMachineComponent component,
+            VendingMachineSelfDispenseEvent args
+        )
         {
             if (args.Handled)
                 return;
@@ -237,17 +276,38 @@ namespace Content.Server.VendingMachines
 
             if (!TryComp<VendingMachineRestockComponent>(args.Args.Used, out var restockComponent))
             {
-                Log.Error($"{ToPrettyString(args.Args.User)} tried to restock {ToPrettyString(uid)} with {ToPrettyString(args.Args.Used.Value)} which did not have a VendingMachineRestockComponent.");
+                Log.Error(
+                    $"{ToPrettyString(args.Args.User)} tried to restock {ToPrettyString(uid)} with {ToPrettyString(args.Args.Used.Value)} which did not have a VendingMachineRestockComponent."
+                );
                 return;
             }
 
             TryRestockInventory(uid, component);
 
-            Popup.PopupEntity(Loc.GetString("vending-machine-restock-done-self", ("target", uid)), args.Args.User, args.Args.User, PopupType.Medium);
+            Popup.PopupEntity(
+                Loc.GetString("vending-machine-restock-done-self", ("target", uid)),
+                args.Args.User,
+                args.Args.User,
+                PopupType.Medium
+            );
             var othersFilter = Filter.PvsExcept(args.Args.User);
-            Popup.PopupEntity(Loc.GetString("vending-machine-restock-done-others", ("user", Identity.Entity(args.User, EntityManager)), ("target", uid)), args.Args.User, othersFilter, true, PopupType.Medium);
+            Popup.PopupEntity(
+                Loc.GetString(
+                    "vending-machine-restock-done-others",
+                    ("user", Identity.Entity(args.User, EntityManager)),
+                    ("target", uid)
+                ),
+                args.Args.User,
+                othersFilter,
+                true,
+                PopupType.Medium
+            );
 
-            Audio.PlayPvs(restockComponent.SoundRestockDone, uid, AudioParams.Default.WithVolume(-2f).WithVariation(0.2f));
+            Audio.PlayPvs(
+                restockComponent.SoundRestockDone,
+                uid,
+                AudioParams.Default.WithVolume(-2f).WithVariation(0.2f)
+            );
 
             Del(args.Args.Used.Value);
 
@@ -322,7 +382,13 @@ namespace Content.Server.VendingMachines
         /// <param name="itemId">The prototype ID of the item</param>
         /// <param name="throwItem">Whether the item should be thrown in a random direction after ejection</param>
         /// <param name="vendComponent"></param>
-        public bool TryEjectVendorItem(EntityUid uid, InventoryType type, string itemId, bool throwItem, VendingMachineComponent? vendComponent = null)
+        public bool TryEjectVendorItem(
+            EntityUid uid,
+            InventoryType type,
+            string itemId,
+            bool throwItem,
+            VendingMachineComponent? vendComponent = null
+        )
         {
             if (!Resolve(uid, ref vendComponent))
                 return false;
@@ -412,7 +478,12 @@ namespace Content.Server.VendingMachines
         /// <param name="throwItem">Whether to throw the item in a random direction after dispensing it.</param>
         /// <param name="forceEject">Whether to skip the regular ejection checks and immediately dispense the item without animation.</param>
         /// <param name="vendComponent"></param>
-        public void EjectRandom(EntityUid uid, bool throwItem, bool forceEject = false, VendingMachineComponent? vendComponent = null)
+        public void EjectRandom(
+            EntityUid uid,
+            bool throwItem,
+            bool forceEject = false,
+            VendingMachineComponent? vendComponent = null
+        )
         {
             if (!Resolve(uid, ref vendComponent))
                 return;
@@ -426,7 +497,11 @@ namespace Content.Server.VendingMachines
             if (vendComponent.EjectRandomCounter <= 0)
             {
                 _audioSystem.PlayPvs(_audioSystem.ResolveSound(vendComponent.SoundDeny), uid); // Frontier: ResolveSound, warning suppression
-                _popupSystem.PopupEntity(Loc.GetString("vending-machine-component-try-eject-access-abused"), uid, PopupType.MediumCaution);
+                _popupSystem.PopupEntity(
+                    Loc.GetString("vending-machine-component-try-eject-access-abused"),
+                    uid,
+                    PopupType.MediumCaution
+                );
                 return;
             }
 
@@ -462,9 +537,14 @@ namespace Content.Server.VendingMachines
             if (comp.EjectRandomCounter != old)
                 Dirty(uid, comp);
         }
+
         // End Frontier: finite random ejections
 
-        protected override void EjectItem(EntityUid uid, VendingMachineComponent? vendComponent = null, bool forceEject = false)
+        protected override void EjectItem(
+            EntityUid uid,
+            VendingMachineComponent? vendComponent = null,
+            bool forceEject = false
+        )
         {
             if (!Resolve(uid, ref vendComponent))
                 return;
@@ -486,7 +566,6 @@ namespace Content.Server.VendingMachines
 
             if (TryComp<WallMountComponent>(uid, out var wallMountComponent))
             {
-
                 var offset = wallMountComponent.Direction.ToWorldVec() * WallVendEjectDistanceFromWall;
                 spawnCoordinates = spawnCoordinates.Offset(offset);
             }
@@ -519,7 +598,11 @@ namespace Content.Server.VendingMachines
             TryUpdateVisualState((uid, vendComponent));
         }
 
-        private void OnPriceCalculation(EntityUid uid, VendingMachineRestockComponent component, ref PriceCalculationEvent args)
+        private void OnPriceCalculation(
+            EntityUid uid,
+            VendingMachineRestockComponent component,
+            ref PriceCalculationEvent args
+        )
         {
             // Frontier: respect cargo blacklist
             args.Price = 0;
@@ -565,7 +648,13 @@ namespace Content.Server.VendingMachines
         /// <param name="type">The type of inventory the item is from</param>
         /// <param name="itemId">The prototype ID of the item</param>
         /// <param name="component"></param>
-        public override void AuthorizedVend(EntityUid uid, EntityUid sender, InventoryType type, string itemId, VendingMachineComponent component)
+        public override void AuthorizedVend(
+            EntityUid uid,
+            EntityUid sender,
+            InventoryType type,
+            string itemId,
+            VendingMachineComponent component
+        )
         {
             if (!PrototypeManager.TryIndex<EntityPrototype>(itemId, out var proto))
                 return;
@@ -597,11 +686,13 @@ namespace Content.Server.VendingMachines
 
                 int cashSlotBalance = 0;
                 Entity<StackComponent>? cashEntity = null;
-                if (component.CashSlotName != null
+                if (
+                    component.CashSlotName != null
                     && component.CurrencyStackType != null
                     && ItemSlots.TryGetSlot(uid, component.CashSlotName, out var cashSlot)
                     && TryComp<StackComponent>(cashSlot?.ContainerSlot?.ContainedEntity, out var stackComp)
-                    && stackComp!.StackTypeId == component.CurrencyStackType)
+                    && stackComp!.StackTypeId == component.CurrencyStackType
+                )
                 {
                     cashSlotBalance = stackComp!.Count;
                     cashEntity = (cashSlot!.ContainerSlot!.ContainedEntity.Value, stackComp!);
@@ -644,8 +735,11 @@ namespace Content.Server.VendingMachines
                     // Something was ejected, update the vending component's state
                     Dirty(uid, component);
 
-                    _adminLogger.Add(LogType.Action, LogImpact.Low,
-                        $"{ToPrettyString(sender):user} bought from [vendingMachine:{ToPrettyString(uid)}, product:{proto.Name}, cost:{totalPrice},  with ${cashSlotBalance} in the cash slot and ${bankBalance} in the bank.");
+                    _adminLogger.Add(
+                        LogType.Action,
+                        LogImpact.Low,
+                        $"{ToPrettyString(sender):user} bought from [vendingMachine:{ToPrettyString(uid)}, product:{proto.Name}, cost:{totalPrice},  with ${cashSlotBalance} in the cash slot and ${bankBalance} in the bank."
+                    );
                 }
             }
         }

@@ -1,4 +1,3 @@
-
 // Overlaps with existing namespace.
 using System.Linq;
 using Content.Server.Kitchen.Components;
@@ -18,7 +17,11 @@ public sealed partial class MicrowaveSystem : EntitySystem
     /// </summary>
     public void TryStartAssembly(EntityUid uid, MicrowaveComponent component, AssemblerStartCookMessage args)
     {
-        if (!HasContents(component) || HasComp<ActiveMicrowaveComponent>(uid) || !(TryComp<ApcPowerReceiverComponent>(uid, out var apc) && apc.Powered))
+        if (
+            !HasContents(component)
+            || HasComp<ActiveMicrowaveComponent>(uid)
+            || !(TryComp<ApcPowerReceiverComponent>(uid, out var apc) && apc.Powered)
+        )
             return;
 
         var user = args.Actor;
@@ -66,7 +69,6 @@ public sealed partial class MicrowaveSystem : EntitySystem
                 continue;
             }
 
-
             if (solidsDict.ContainsKey(solidID))
             {
                 solidsDict[solidID] += amountToAdd;
@@ -98,8 +100,9 @@ public sealed partial class MicrowaveSystem : EntitySystem
 
         List<FoodRecipePrototype> recipes = getRecipesEv.Recipes;
         recipes.AddRange(_recipeManager.Recipes);
-        var portionedRecipe = recipes.Select(r =>
-            GetPortionsForRecipe(component, r, solidsDict, reagentDict)).FirstOrDefault(r => r.Item2 > 0);
+        var portionedRecipe = recipes
+            .Select(r => GetPortionsForRecipe(component, r, solidsDict, reagentDict))
+            .FirstOrDefault(r => r.Item2 > 0);
 
         if (portionedRecipe.Item2 <= 0)
         {
@@ -144,7 +147,9 @@ public sealed partial class MicrowaveSystem : EntitySystem
         activeComp.TotalTime = component.CurrentCookTimerTime; //this doesn't scale so that we can have the "actual" time
         activeComp.PortionedRecipe = portionedRecipe;
         //Scale times with cook times
-        component.CurrentCookTimeEnd = _gameTiming.CurTime + TimeSpan.FromSeconds(component.CurrentCookTimerTime * component.FinalCookTimeMultiplier); // Frontier: CookTimeMultiplier<FinalCookTimeMultiplier
+        component.CurrentCookTimeEnd =
+            _gameTiming.CurTime
+            + TimeSpan.FromSeconds(component.CurrentCookTimerTime * component.FinalCookTimeMultiplier); // Frontier: CookTimeMultiplier<FinalCookTimeMultiplier
         if (malfunctioning)
             activeComp.MalfunctionTime = _gameTiming.CurTime + TimeSpan.FromSeconds(component.MalfunctionInterval);
         UpdateUserInterfaceState(uid, component);
@@ -153,7 +158,12 @@ public sealed partial class MicrowaveSystem : EntitySystem
     /// <summary>
     /// Frontier: gets the largest number of portions
     /// </summary>
-    public static (FoodRecipePrototype, int) GetPortionsForRecipe(MicrowaveComponent component, FoodRecipePrototype recipe, Dictionary<string, int> solids, Dictionary<string, FixedPoint2> reagents)
+    public static (FoodRecipePrototype, int) GetPortionsForRecipe(
+        MicrowaveComponent component,
+        FoodRecipePrototype recipe,
+        Dictionary<string, int> solids,
+        Dictionary<string, FixedPoint2> reagents
+    )
     {
         var portions = 0;
 
@@ -172,9 +182,10 @@ public sealed partial class MicrowaveSystem : EntitySystem
             if (solids[solid.Key] < solid.Value)
                 return (recipe, 0);
 
-            portions = portions == 0
-                ? solids[solid.Key] / solid.Value.Int()
-                : Math.Min(portions, solids[solid.Key] / solid.Value.Int());
+            portions =
+                portions == 0
+                    ? solids[solid.Key] / solid.Value.Int()
+                    : Math.Min(portions, solids[solid.Key] / solid.Value.Int());
         }
 
         foreach (var reagent in recipe.IngredientsReagents)
@@ -186,9 +197,10 @@ public sealed partial class MicrowaveSystem : EntitySystem
             if (reagents[reagent.Key] < reagent.Value)
                 return (recipe, 0);
 
-            portions = portions == 0
-                ? reagents[reagent.Key].Int() / reagent.Value.Int()
-                : Math.Min(portions, reagents[reagent.Key].Int() / reagent.Value.Int());
+            portions =
+                portions == 0
+                    ? reagents[reagent.Key].Int() / reagent.Value.Int()
+                    : Math.Min(portions, reagents[reagent.Key].Int() / reagent.Value.Int());
         }
 
         //Return as many portions as we can assemble with the given materials

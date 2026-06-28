@@ -1,16 +1,17 @@
+using System;
+using System.Threading.Tasks;
 using Content.Shared._HL.Rooms;
 using Robust.Shared.ContentPack;
 using Robust.Shared.GameObjects;
 using Robust.Shared.IoC;
 using Robust.Shared.Log;
-using System;
-using System.Threading.Tasks;
 
 namespace Content.Client._HL.Rooms;
 
 public sealed class RoomGridFileManagementSystem : EntitySystem
 {
-    [Dependency] private readonly IResourceManager _resourceManager = default!;
+    [Dependency]
+    private readonly IResourceManager _resourceManager = default!;
 
     private const string ExportsRoot = "/Exports";
     private const string RoomGridsRoot = "/Exports/room_grids";
@@ -33,9 +34,7 @@ public sealed class RoomGridFileManagementSystem : EntitySystem
 
         try
         {
-            var readPath = _resourceManager.UserData.Exists(new(filePath))
-                ? filePath
-                : legacyPath;
+            var readPath = _resourceManager.UserData.Exists(new(filePath)) ? filePath : legacyPath;
 
             if (_resourceManager.UserData.Exists(new(readPath)))
             {

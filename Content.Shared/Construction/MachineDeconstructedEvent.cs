@@ -1,6 +1,4 @@
 ﻿namespace Content.Shared.Construction;
 
 [DataDefinition]
-public sealed partial class MachineDeconstructedEvent : EntityEventArgs
-{
-}
+public sealed partial class MachineDeconstructedEvent : EntityEventArgs { }

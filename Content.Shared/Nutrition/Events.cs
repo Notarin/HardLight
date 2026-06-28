@@ -19,9 +19,7 @@ public sealed partial class ConsumeDoAfterEvent : DoAfterEvent
     [DataField("flavorMessage", required: true)]
     public string FlavorMessage = default!;
 
-    private ConsumeDoAfterEvent()
-    {
-    }
+    private ConsumeDoAfterEvent() { }
 
     public ConsumeDoAfterEvent(string solution, string flavorMessage)
     {
@@ -44,9 +42,7 @@ public sealed partial class VapeDoAfterEvent : DoAfterEvent
     [DataField("forced", required: true)]
     public bool Forced = default!;
 
-    private VapeDoAfterEvent()
-    {
-    }
+    private VapeDoAfterEvent() { }
 
     public VapeDoAfterEvent(Solution solution, bool forced)
     {
@@ -67,11 +63,14 @@ public record struct SliceFoodEvent();
 /// is called after a successful attempt at slicing food.
 /// </summary>
 [Serializable, NetSerializable]
-public sealed partial class SliceFoodDoAfterEvent : SimpleDoAfterEvent
-{
-}
+public sealed partial class SliceFoodDoAfterEvent : SimpleDoAfterEvent { }
 
 /// <summary>
 ///    Raised on FoodSequence start element entity when new ingredient is added to FoodSequence
 /// </summary>
-public record struct FoodSequenceIngredientAddedEvent(EntityUid Start, EntityUid Element, ProtoId<FoodSequenceElementPrototype> Proto, EntityUid? User = null);
+public record struct FoodSequenceIngredientAddedEvent(
+    EntityUid Start,
+    EntityUid Element,
+    ProtoId<FoodSequenceElementPrototype> Proto,
+    EntityUid? User = null
+);

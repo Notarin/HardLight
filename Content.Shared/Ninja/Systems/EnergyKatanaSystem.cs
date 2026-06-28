@@ -8,7 +8,8 @@ namespace Content.Shared.Ninja.Systems;
 /// </summary>
 public sealed class EnergyKatanaSystem : EntitySystem
 {
-    [Dependency] private readonly SharedSpaceNinjaSystem _ninja = default!;
+    [Dependency]
+    private readonly SharedSpaceNinjaSystem _ninja = default!;
 
     public override void Initialize()
     {

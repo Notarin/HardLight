@@ -3,59 +3,93 @@ using Content.Server.Botany.Components;
 using Content.Server.Kitchen.Components;
 using Content.Server.Popups;
 using Content.Server.Stack;
-using Content.Shared.Chemistry.EntitySystems;
+using Content.Server.Station.Systems; // Frontier
+using Content.Shared._NF.BindToStation; // Frontier
+using Content.Shared.Administration.Logs;
 using Content.Shared.Atmos;
 using Content.Shared.Botany;
 using Content.Shared.Burial.Components;
+using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Chemistry.Reagent;
+using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Coordinates.Helpers;
+using Content.Shared.Database;
 using Content.Shared.Examine;
 using Content.Shared.FixedPoint;
 using Content.Shared.Hands.Components;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Interaction;
+using Content.Shared.Labels.Components;
 using Content.Shared.Popups;
 using Content.Shared.Random;
 using Content.Shared.Stacks;
 using Content.Shared.Tag;
 using Robust.Server.GameObjects;
+using Robust.Shared;
 using Robust.Shared.Audio.Systems;
+using Robust.Shared.Configuration;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
-using Content.Shared.Administration.Logs;
-using Content.Shared.Containers.ItemSlots;
-using Content.Shared.Database;
-using Content.Shared.Labels.Components;
-using Content.Shared._NF.BindToStation; // Frontier
-using Content.Server.Station.Systems; // Frontier
-using Robust.Shared.Configuration;
-using Robust.Shared;
 
 namespace Content.Server.Botany.Systems;
 
 public sealed class PlantHolderSystem : EntitySystem
 {
-    [Dependency] private readonly AtmosphereSystem _atmosphere = default!;
-    [Dependency] private readonly BotanySystem _botany = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly MutationSystem _mutation = default!;
-    [Dependency] private readonly AppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
-    [Dependency] private readonly TagSystem _tagSystem = default!;
-    [Dependency] private readonly RandomHelperSystem _randomHelper = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly ItemSlotsSystem _itemSlots = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly StationSystem _station = default!; // Frontier
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly StackSystem _stack = default!;
+    [Dependency]
+    private readonly AtmosphereSystem _atmosphere = default!;
 
+    [Dependency]
+    private readonly BotanySystem _botany = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototype = default!;
+
+    [Dependency]
+    private readonly MutationSystem _mutation = default!;
+
+    [Dependency]
+    private readonly AppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly IGameTiming _gameTiming = default!;
+
+    [Dependency]
+    private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
+
+    [Dependency]
+    private readonly TagSystem _tagSystem = default!;
+
+    [Dependency]
+    private readonly RandomHelperSystem _randomHelper = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly ItemSlotsSystem _itemSlots = default!;
+
+    [Dependency]
+    private readonly ISharedAdminLogManager _adminLogger = default!;
+
+    [Dependency]
+    private readonly StationSystem _station = default!; // Frontier
+
+    [Dependency]
+    private readonly EntityLookupSystem _lookup = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
+
+    [Dependency]
+    private readonly StackSystem _stack = default!;
 
     public const float HydroponicsSpeedMultiplier = 1f;
     public const float HydroponicsConsumptionMultiplier = 2f;
@@ -134,18 +168,29 @@ public sealed class PlantHolderSystem : EntitySystem
             else if (!component.Dead)
             {
                 var displayName = Loc.GetString(component.Seed.DisplayName);
-                args.PushMarkup(Loc.GetString("plant-holder-component-something-already-growing-message",
-                    ("seedName", displayName),
-                    ("toBeForm", displayName.EndsWith('s') ? "are" : "is")));
+                args.PushMarkup(
+                    Loc.GetString(
+                        "plant-holder-component-something-already-growing-message",
+                        ("seedName", displayName),
+                        ("toBeForm", displayName.EndsWith('s') ? "are" : "is")
+                    )
+                );
 
                 if (component.Health <= component.Seed.Endurance / 2)
                 {
-                    args.PushMarkup(Loc.GetString(
-                        "plant-holder-component-something-already-growing-low-health-message",
-                        ("healthState",
-                            Loc.GetString(component.Age > component.Seed.Lifespan
-                                ? "plant-holder-component-plant-old-adjective"
-                                : "plant-holder-component-plant-unhealthy-adjective"))));
+                    args.PushMarkup(
+                        Loc.GetString(
+                            "plant-holder-component-something-already-growing-low-health-message",
+                            (
+                                "healthState",
+                                Loc.GetString(
+                                    component.Age > component.Seed.Lifespan
+                                        ? "plant-holder-component-plant-old-adjective"
+                                        : "plant-holder-component-plant-unhealthy-adjective"
+                                )
+                            )
+                        )
+                    );
                 }
 
                 // For future reference, mutations should only appear on examine if they apply to a plant, not to produce.
@@ -173,10 +218,15 @@ public sealed class PlantHolderSystem : EntitySystem
             if (component.PestLevel >= 5)
                 args.PushMarkup(Loc.GetString("plant-holder-component-pest-high-level-message"));
 
-            args.PushMarkup(Loc.GetString($"plant-holder-component-water-level-message",
-                ("waterLevel", (int)component.WaterLevel)));
-            args.PushMarkup(Loc.GetString($"plant-holder-component-nutrient-level-message",
-                ("nutritionLevel", (int)component.NutritionLevel)));
+            args.PushMarkup(
+                Loc.GetString($"plant-holder-component-water-level-message", ("waterLevel", (int)component.WaterLevel))
+            );
+            args.PushMarkup(
+                Loc.GetString(
+                    $"plant-holder-component-nutrient-level-message",
+                    ("nutritionLevel", (int)component.NutritionLevel)
+                )
+            );
 
             if (component.DrawWarnings)
             {
@@ -210,22 +260,33 @@ public sealed class PlantHolderSystem : EntitySystem
                 if (TryComp(args.Used, out ExtractedSeedOwnerComponent? ownerComp))
                 {
                     // Compare the player's NetUserId from their ActorComponent with the stored owner
-                    if (!TryComp<Robust.Shared.Player.ActorComponent>(args.User, out var actor) || ownerComp.OwnerId != actor.PlayerSession.UserId)
+                    if (
+                        !TryComp<Robust.Shared.Player.ActorComponent>(args.User, out var actor)
+                        || ownerComp.OwnerId != actor.PlayerSession.UserId
+                    )
                     {
-                        _popup.PopupCursor(Loc.GetString("plant-holder-component-seed-not-yours"),
-                            args.User, PopupType.MediumCaution);
+                        _popup.PopupCursor(
+                            Loc.GetString("plant-holder-component-seed-not-yours"),
+                            args.User,
+                            PopupType.MediumCaution
+                        );
                         return;
                     }
                 }
 
                 // Frontier
-                if (TryComp<BindToStationComponent>(entity.Owner, out var bindToStation)
+                if (
+                    TryComp<BindToStationComponent>(entity.Owner, out var bindToStation)
                     && bindToStation.Enabled
                     && bindToStation.BoundStation != null
-                    && _station.GetOwningStation(entity.Owner) != bindToStation.BoundStation)
+                    && _station.GetOwningStation(entity.Owner) != bindToStation.BoundStation
+                )
                 {
-                    _popup.PopupCursor(Loc.GetString("plant-holder-component-bound-to-station"),
-                        args.User, PopupType.Medium);
+                    _popup.PopupCursor(
+                        Loc.GetString("plant-holder-component-bound-to-station"),
+                        args.User,
+                        PopupType.Medium
+                    );
                     return;
                 }
                 // End Frontier
@@ -236,9 +297,15 @@ public sealed class PlantHolderSystem : EntitySystem
                 args.Handled = true;
                 var name = Loc.GetString(seed.Name);
                 var noun = Loc.GetString(seed.Noun);
-                _popup.PopupCursor(Loc.GetString("plant-holder-component-plant-success-message",
-                    ("seedName", name),
-                    ("seedNoun", noun)), args.User, PopupType.Medium);
+                _popup.PopupCursor(
+                    Loc.GetString(
+                        "plant-holder-component-plant-success-message",
+                        ("seedName", name),
+                        ("seedNoun", noun)
+                    ),
+                    args.User,
+                    PopupType.Medium
+                );
 
                 component.Seed = seed;
                 component.Dead = false;
@@ -271,14 +338,24 @@ public sealed class PlantHolderSystem : EntitySystem
                 UpdateSprite(uid, component);
 
                 if (seed.PlantLogImpact != null)
-                    _adminLogger.Add(LogType.Botany, seed.PlantLogImpact.Value, $"{ToPrettyString(args.User):player} planted  {Loc.GetString(seed.Name):seed} at Pos:{Transform(uid).Coordinates}.");
+                    _adminLogger.Add(
+                        LogType.Botany,
+                        seed.PlantLogImpact.Value,
+                        $"{ToPrettyString(args.User):player} planted  {Loc.GetString(seed.Name):seed} at Pos:{Transform(uid).Coordinates}."
+                    );
 
                 return;
             }
 
             args.Handled = true;
-            _popup.PopupCursor(Loc.GetString("plant-holder-component-already-seeded-message",
-                ("name", Comp<MetaDataComponent>(uid).EntityName)), args.User, PopupType.Medium);
+            _popup.PopupCursor(
+                Loc.GetString(
+                    "plant-holder-component-already-seeded-message",
+                    ("name", Comp<MetaDataComponent>(uid).EntityName)
+                ),
+                args.User,
+                PopupType.Medium
+            );
             return;
         }
 
@@ -287,10 +364,23 @@ public sealed class PlantHolderSystem : EntitySystem
             args.Handled = true;
             if (component.WeedLevel > 0)
             {
-                _popup.PopupCursor(Loc.GetString("plant-holder-component-remove-weeds-message",
-                    ("name", Comp<MetaDataComponent>(uid).EntityName)), args.User, PopupType.Medium);
-                _popup.PopupEntity(Loc.GetString("plant-holder-component-remove-weeds-others-message",
-                    ("otherName", Comp<MetaDataComponent>(args.User).EntityName)), uid, Robust.Shared.Player.Filter.PvsExcept(args.User), true);
+                _popup.PopupCursor(
+                    Loc.GetString(
+                        "plant-holder-component-remove-weeds-message",
+                        ("name", Comp<MetaDataComponent>(uid).EntityName)
+                    ),
+                    args.User,
+                    PopupType.Medium
+                );
+                _popup.PopupEntity(
+                    Loc.GetString(
+                        "plant-holder-component-remove-weeds-others-message",
+                        ("otherName", Comp<MetaDataComponent>(args.User).EntityName)
+                    ),
+                    uid,
+                    Robust.Shared.Player.Filter.PvsExcept(args.User),
+                    true
+                );
                 component.WeedLevel = 0;
                 UpdateSprite(uid, component);
             }
@@ -307,16 +397,34 @@ public sealed class PlantHolderSystem : EntitySystem
             args.Handled = true;
             if (component.Seed != null)
             {
-                _popup.PopupCursor(Loc.GetString("plant-holder-component-remove-plant-message",
-                    ("name", Comp<MetaDataComponent>(uid).EntityName)), args.User, PopupType.Medium);
-                _popup.PopupEntity(Loc.GetString("plant-holder-component-remove-plant-others-message",
-                    ("name", Comp<MetaDataComponent>(args.User).EntityName)), uid, Robust.Shared.Player.Filter.PvsExcept(args.User), true);
+                _popup.PopupCursor(
+                    Loc.GetString(
+                        "plant-holder-component-remove-plant-message",
+                        ("name", Comp<MetaDataComponent>(uid).EntityName)
+                    ),
+                    args.User,
+                    PopupType.Medium
+                );
+                _popup.PopupEntity(
+                    Loc.GetString(
+                        "plant-holder-component-remove-plant-others-message",
+                        ("name", Comp<MetaDataComponent>(args.User).EntityName)
+                    ),
+                    uid,
+                    Robust.Shared.Player.Filter.PvsExcept(args.User),
+                    true
+                );
                 RemovePlant(uid, component);
             }
             else
             {
-                _popup.PopupCursor(Loc.GetString("plant-holder-component-no-plant-message",
-                    ("name", Comp<MetaDataComponent>(uid).EntityName)), args.User);
+                _popup.PopupCursor(
+                    Loc.GetString(
+                        "plant-holder-component-no-plant-message",
+                        ("name", Comp<MetaDataComponent>(uid).EntityName)
+                    ),
+                    args.User
+                );
             }
 
             return;
@@ -373,8 +481,10 @@ public sealed class PlantHolderSystem : EntitySystem
             var seed = _botany.SpawnSeedPacket(packetSeed, Transform(args.User).Coordinates, args.User, healthOverride);
             _randomHelper.RandomOffset(seed, 0.25f);
             var displayName = Loc.GetString(component.Seed.DisplayName);
-            _popup.PopupCursor(Loc.GetString("plant-holder-component-take-sample-message",
-                ("seedName", displayName)), args.User);
+            _popup.PopupCursor(
+                Loc.GetString("plant-holder-component-take-sample-message", ("seedName", displayName)),
+                args.User
+            );
 
             DoScream(entity.Owner, component.Seed);
 
@@ -398,13 +508,22 @@ public sealed class PlantHolderSystem : EntitySystem
         if (TryComp<ProduceComponent>(args.Used, out var produce))
         {
             args.Handled = true;
-            _popup.PopupCursor(Loc.GetString("plant-holder-component-compost-message",
-                ("owner", uid),
-                ("usingItem", args.Used)), args.User, PopupType.Medium);
-            _popup.PopupEntity(Loc.GetString("plant-holder-component-compost-others-message",
-                ("user", Identity.Entity(args.User, EntityManager)),
-                ("usingItem", args.Used),
-                ("owner", uid)), uid, Robust.Shared.Player.Filter.PvsExcept(args.User), true);
+            _popup.PopupCursor(
+                Loc.GetString("plant-holder-component-compost-message", ("owner", uid), ("usingItem", args.Used)),
+                args.User,
+                PopupType.Medium
+            );
+            _popup.PopupEntity(
+                Loc.GetString(
+                    "plant-holder-component-compost-others-message",
+                    ("user", Identity.Entity(args.User, EntityManager)),
+                    ("usingItem", args.Used),
+                    ("owner", uid)
+                ),
+                uid,
+                Robust.Shared.Player.Filter.PvsExcept(args.User),
+                true
+            );
 
             // If this is a stack with multiple items, split one item off and use that as the source
             // for solution transfer so that per-item solutions are preserved on the remaining stack.
@@ -417,13 +536,30 @@ public sealed class PlantHolderSystem : EntitySystem
                     sourceForTransfer = splitEntity.Value;
             }
 
-            if (_solutionContainerSystem.TryGetSolution(sourceForTransfer, produce.SolutionName, out var soln2, out var solution2))
+            if (
+                _solutionContainerSystem.TryGetSolution(
+                    sourceForTransfer,
+                    produce.SolutionName,
+                    out var soln2,
+                    out var solution2
+                )
+            )
             {
-                if (_solutionContainerSystem.ResolveSolution(uid, component.SoilSolutionName, ref component.SoilSolution, out var solution1))
+                if (
+                    _solutionContainerSystem.ResolveSolution(
+                        uid,
+                        component.SoilSolutionName,
+                        ref component.SoilSolution,
+                        out var solution1
+                    )
+                )
                 {
                     // Transfer as much solution as the tray can accept from the single-item source.
                     var fillAmount = FixedPoint2.Min(solution2.Volume, solution1.AvailableVolume);
-                    _solutionContainerSystem.TryAddSolution(component.SoilSolution.Value, _solutionContainerSystem.SplitSolution(soln2.Value, fillAmount));
+                    _solutionContainerSystem.TryAddSolution(
+                        component.SoilSolution.Value,
+                        _solutionContainerSystem.SplitSolution(soln2.Value, fillAmount)
+                    );
 
                     ForceUpdateByExternalCause(uid, component);
                 }
@@ -461,6 +597,7 @@ public sealed class PlantHolderSystem : EntitySystem
     {
         _audio.PlayPvs(ent.Comp.WateringSound, ent.Owner);
     }
+
     private void OnInteractHand(Entity<PlantHolderComponent> entity, ref InteractHandEvent args)
     {
         DoHarvest(entity, args.User, entity.Comp);
@@ -470,7 +607,6 @@ public sealed class PlantHolderSystem : EntitySystem
     {
         // TODO
     }
-
 
     public void Update(EntityUid uid, PlantHolderComponent? component = null)
     {
@@ -518,8 +654,11 @@ public sealed class PlantHolderSystem : EntitySystem
                 component.UpdateSpriteAfterUpdate = true;
         }
 
-        if (component.Seed != null && component.Seed.TurnIntoKudzu
-            && component.WeedLevel >= component.Seed.WeedHighLevelThreshold)
+        if (
+            component.Seed != null
+            && component.Seed.TurnIntoKudzu
+            && component.WeedLevel >= component.Seed.WeedHighLevelThreshold
+        )
         {
             Spawn(component.Seed.KudzuPrototype, Transform(uid).Coordinates.SnapToGrid(EntityManager));
             component.Seed.TurnIntoKudzu = false;
@@ -574,8 +713,10 @@ public sealed class PlantHolderSystem : EntitySystem
         // Water consumption.
         if (component.Seed.WaterConsumption > 0 && component.WaterLevel > 0 && _random.Prob(0.75f))
         {
-            component.WaterLevel -= MathF.Max(0f,
-                component.Seed.WaterConsumption * HydroponicsConsumptionMultiplier * HydroponicsSpeedMultiplier);
+            component.WaterLevel -= MathF.Max(
+                0f,
+                component.Seed.WaterConsumption * HydroponicsConsumptionMultiplier * HydroponicsSpeedMultiplier
+            );
             if (component.DrawWarnings)
                 component.UpdateSpriteAfterUpdate = true;
         }
@@ -676,8 +817,10 @@ public sealed class PlantHolderSystem : EntitySystem
         {
             foreach (var (gas, amount) in component.Seed.ExudeGasses)
             {
-                environment.AdjustMoles(gas,
-                    MathF.Max(1f, MathF.Round(amount * MathF.Round(component.Seed.Potency) / exudeCount)));
+                environment.AdjustMoles(
+                    gas,
+                    MathF.Max(1f, MathF.Round(amount * MathF.Round(component.Seed.Potency) / exudeCount))
+                );
             }
         }
 
@@ -802,7 +945,6 @@ public sealed class PlantHolderSystem : EntitySystem
 
         if (component.Seed == null || Deleted(user))
             return false;
-
 
         if (component.Harvest && !component.Dead)
         {
@@ -975,7 +1117,14 @@ public sealed class PlantHolderSystem : EntitySystem
         if (!Resolve(uid, ref component))
             return;
 
-        if (!_solutionContainerSystem.ResolveSolution(uid, component.SoilSolutionName, ref component.SoilSolution, out var solution))
+        if (
+            !_solutionContainerSystem.ResolveSolution(
+                uid,
+                component.SoilSolutionName,
+                ref component.SoilSolution,
+                out var solution
+            )
+        )
             return;
 
         if (solution.Volume > 0 && component.MutationLevel < 25)
@@ -1017,7 +1166,11 @@ public sealed class PlantHolderSystem : EntitySystem
         {
             if (component.DrawWarnings)
             {
-                _appearance.SetData(uid, PlantHolderVisuals.HealthLight, component.Health <= component.Seed.Endurance / 2f);
+                _appearance.SetData(
+                    uid,
+                    PlantHolderVisuals.HealthLight,
+                    component.Health <= component.Seed.Endurance / 2f
+                );
             }
 
             if (component.Dead)
@@ -1055,9 +1208,18 @@ public sealed class PlantHolderSystem : EntitySystem
 
         _appearance.SetData(uid, PlantHolderVisuals.WaterLight, component.WaterLevel <= 15, app);
         _appearance.SetData(uid, PlantHolderVisuals.NutritionLight, component.NutritionLevel <= 8, app);
-        _appearance.SetData(uid, PlantHolderVisuals.AlertLight,
-            component.WeedLevel >= 5 || component.PestLevel >= 5 || component.Toxins >= 40 || component.ImproperHeat ||
-            component.ImproperLight || component.ImproperPressure || component.MissingGas > 0, app);
+        _appearance.SetData(
+            uid,
+            PlantHolderVisuals.AlertLight,
+            component.WeedLevel >= 5
+                || component.PestLevel >= 5
+                || component.Toxins >= 40
+                || component.ImproperHeat
+                || component.ImproperLight
+                || component.ImproperPressure
+                || component.MissingGas > 0,
+            app
+        );
         _appearance.SetData(uid, PlantHolderVisuals.HarvestLight, component.Harvest, app);
     }
 

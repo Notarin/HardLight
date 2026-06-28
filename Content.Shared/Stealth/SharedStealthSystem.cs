@@ -9,7 +9,8 @@ namespace Content.Shared.Stealth;
 
 public abstract class SharedStealthSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
 
     public override void Initialize()
     {
@@ -40,8 +41,7 @@ public abstract class SharedStealthSystem : EntitySystem
             if (source == uid)
                 return;
             source = Transform(source).ParentUid;
-        }
-        while (source.IsValid());
+        } while (source.IsValid());
 
         args.Cancel();
     }
@@ -123,7 +123,11 @@ public abstract class SharedStealthSystem : EntitySystem
         ModifyVisibility(uid, delta);
     }
 
-    private void OnGetVisibilityModifiers(EntityUid uid, StealthOnMoveComponent component, GetVisibilityModifiersEvent args)
+    private void OnGetVisibilityModifiers(
+        EntityUid uid,
+        StealthOnMoveComponent component,
+        GetVisibilityModifiersEvent args
+    )
     {
         var mod = args.SecondsSinceUpdate * component.PassiveVisibilityRate;
         args.FlatModifier += mod;
@@ -144,7 +148,11 @@ public abstract class SharedStealthSystem : EntitySystem
             component.LastUpdated = _timing.CurTime;
         }
 
-        component.LastVisibility = Math.Clamp(component.LastVisibility + delta, component.MinVisibility, component.MaxVisibility);
+        component.LastVisibility = Math.Clamp(
+            component.LastVisibility + delta,
+            component.MinVisibility,
+            component.MaxVisibility
+        );
         Dirty(uid, component);
     }
 
@@ -181,7 +189,7 @@ public abstract class SharedStealthSystem : EntitySystem
 
         var deltaTime = _timing.CurTime - component.LastUpdated.Value;
 
-        var ev = new GetVisibilityModifiersEvent(uid, component, (float) deltaTime.TotalSeconds, 0f);
+        var ev = new GetVisibilityModifiersEvent(uid, component, (float)deltaTime.TotalSeconds, 0f);
         RaiseLocalEvent(uid, ev, false);
 
         return Math.Clamp(component.LastVisibility + ev.FlatModifier, component.MinVisibility, component.MaxVisibility);
@@ -201,7 +209,12 @@ public abstract class SharedStealthSystem : EntitySystem
         /// </summary>
         public float FlatModifier;
 
-        public GetVisibilityModifiersEvent(EntityUid uid, StealthComponent stealth, float secondsSinceUpdate, float flatModifier)
+        public GetVisibilityModifiersEvent(
+            EntityUid uid,
+            StealthComponent stealth,
+            float secondsSinceUpdate,
+            float flatModifier
+        )
         {
             Stealth = stealth;
             SecondsSinceUpdate = secondsSinceUpdate;

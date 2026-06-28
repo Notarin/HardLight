@@ -1,9 +1,11 @@
+using System.Linq;
 using Content.Server.Atmos.EntitySystems;
 using Content.Server.Body.Components;
 using Content.Server.Body.Systems;
-using Content.Shared.Chemistry.EntitySystems;
 using Content.Server.Forensics;
+using Content.Shared.Atmos;
 using Content.Shared.Chemistry;
+using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Chemistry.Reagent;
 using Content.Shared.Clothing.Components;
 using Content.Shared.Clothing.EntitySystems;
@@ -17,25 +19,46 @@ using Content.Shared.Temperature;
 using Robust.Server.GameObjects;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
-using System.Linq;
-using Content.Shared.Atmos;
 
 namespace Content.Server.Nutrition.EntitySystems
 {
     public sealed partial class SmokingSystem : EntitySystem
     {
-        [Dependency] private readonly ReactiveSystem _reactiveSystem = default!;
-        [Dependency] private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
-        [Dependency] private readonly BloodstreamSystem _bloodstreamSystem = default!;
-        [Dependency] private readonly AtmosphereSystem _atmos = default!;
-        [Dependency] private readonly TransformSystem _transformSystem = default!;
-        [Dependency] private readonly InventorySystem _inventorySystem = default!;
-        [Dependency] private readonly ClothingSystem _clothing = default!;
-        [Dependency] private readonly SharedAudioSystem _audio = default!;
-        [Dependency] private readonly SharedItemSystem _items = default!;
-        [Dependency] private readonly SharedContainerSystem _container = default!;
-        [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-        [Dependency] private readonly ForensicsSystem _forensics = default!;
+        [Dependency]
+        private readonly ReactiveSystem _reactiveSystem = default!;
+
+        [Dependency]
+        private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
+
+        [Dependency]
+        private readonly BloodstreamSystem _bloodstreamSystem = default!;
+
+        [Dependency]
+        private readonly AtmosphereSystem _atmos = default!;
+
+        [Dependency]
+        private readonly TransformSystem _transformSystem = default!;
+
+        [Dependency]
+        private readonly InventorySystem _inventorySystem = default!;
+
+        [Dependency]
+        private readonly ClothingSystem _clothing = default!;
+
+        [Dependency]
+        private readonly SharedAudioSystem _audio = default!;
+
+        [Dependency]
+        private readonly SharedItemSystem _items = default!;
+
+        [Dependency]
+        private readonly SharedContainerSystem _container = default!;
+
+        [Dependency]
+        private readonly SharedAppearanceSystem _appearance = default!;
+
+        [Dependency]
+        private readonly ForensicsSystem _forensics = default!;
 
         private const float UpdateTimer = 3f;
 
@@ -59,8 +82,13 @@ namespace Content.Server.Nutrition.EntitySystems
                 SetSmokableState(ent, SmokableState.Burnt, ent);
         }
 
-        public void SetSmokableState(EntityUid uid, SmokableState state, SmokableComponent? smokable = null,
-            AppearanceComponent? appearance = null, ClothingComponent? clothing = null)
+        public void SetSmokableState(
+            EntityUid uid,
+            SmokableState state,
+            SmokableComponent? smokable = null,
+            AppearanceComponent? appearance = null,
+            ClothingComponent? clothing = null
+        )
         {
             if (!Resolve(uid, ref smokable, ref appearance, ref clothing) || smokable.State == state)
                 return;
@@ -72,7 +100,7 @@ namespace Content.Server.Nutrition.EntitySystems
             {
                 SmokableState.Lit => smokable.LitPrefix,
                 SmokableState.Burnt => smokable.BurntPrefix,
-                _ => smokable.UnlitPrefix
+                _ => smokable.UnlitPrefix,
             };
 
             _clothing.SetEquippedPrefix(uid, newState, clothing);
@@ -135,11 +163,21 @@ namespace Content.Server.Nutrition.EntitySystems
                     if (transform.GridUid is { } gridUid)
                     {
                         var position = _transformSystem.GetGridOrMapTilePosition(uid, transform);
-                        _atmos.HotspotExpose(gridUid, position, smokable.ExposeTemperature, smokable.ExposeVolume, uid, true);
+                        _atmos.HotspotExpose(
+                            gridUid,
+                            position,
+                            smokable.ExposeTemperature,
+                            smokable.ExposeVolume,
+                            uid,
+                            true
+                        );
                     }
                 }
 
-                var inhaledSolution = _solutionContainerSystem.SplitSolution(soln.Value, smokable.InhaleAmount * _timer);
+                var inhaledSolution = _solutionContainerSystem.SplitSolution(
+                    soln.Value,
+                    smokable.InhaleAmount * _timer
+                );
 
                 if (solution.Volume == FixedPoint2.Zero)
                 {
@@ -151,9 +189,14 @@ namespace Content.Server.Nutrition.EntitySystems
 
                 // This is awful. I hate this so much.
                 // TODO: Please, someone refactor containers and free me from this bullshit.
-                if (!_container.TryGetContainingContainer((uid, null, null), out var containerManager) ||
-                    !(_inventorySystem.TryGetSlotEntity(containerManager.Owner, "mask", out var inMaskSlotUid) && inMaskSlotUid == uid) ||
-                    !TryComp(containerManager.Owner, out BloodstreamComponent? bloodstream))
+                if (
+                    !_container.TryGetContainingContainer((uid, null, null), out var containerManager)
+                    || !(
+                        _inventorySystem.TryGetSlotEntity(containerManager.Owner, "mask", out var inMaskSlotUid)
+                        && inMaskSlotUid == uid
+                    )
+                    || !TryComp(containerManager.Owner, out BloodstreamComponent? bloodstream)
+                )
                 {
                     continue;
                 }
@@ -169,7 +212,5 @@ namespace Content.Server.Nutrition.EntitySystems
     /// <summary>
     ///     Directed event raised when the smokable solution is empty.
     /// </summary>
-    public sealed class SmokableSolutionEmptyEvent : EntityEventArgs
-    {
-    }
+    public sealed class SmokableSolutionEmptyEvent : EntityEventArgs { }
 }

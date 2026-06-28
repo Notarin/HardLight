@@ -7,8 +7,11 @@ namespace Content.Shared.Chemistry
     // TODO CONVERT THIS TO A STATUS EFFECT!!!!!!!!!!!!!!!!!!!!!!!!
     public sealed class MetabolismMovespeedModifierSystem : EntitySystem
     {
-        [Dependency] private readonly IGameTiming _gameTiming = default!;
-        [Dependency] private readonly MovementSpeedModifierSystem _movespeed = default!;
+        [Dependency]
+        private readonly IGameTiming _gameTiming = default!;
+
+        [Dependency]
+        private readonly MovementSpeedModifierSystem _movespeed = default!;
 
         private readonly List<Entity<MovespeedModifierMetabolismComponent>> _components = new();
 
@@ -19,10 +22,16 @@ namespace Content.Shared.Chemistry
             UpdatesOutsidePrediction = true;
 
             SubscribeLocalEvent<MovespeedModifierMetabolismComponent, ComponentStartup>(AddComponent);
-            SubscribeLocalEvent<MovespeedModifierMetabolismComponent, RefreshMovementSpeedModifiersEvent>(OnRefreshMovespeed);
+            SubscribeLocalEvent<MovespeedModifierMetabolismComponent, RefreshMovementSpeedModifiersEvent>(
+                OnRefreshMovespeed
+            );
         }
 
-        private void OnRefreshMovespeed(EntityUid uid, MovespeedModifierMetabolismComponent component, RefreshMovementSpeedModifiersEvent args)
+        private void OnRefreshMovespeed(
+            EntityUid uid,
+            MovespeedModifierMetabolismComponent component,
+            RefreshMovementSpeedModifiersEvent args
+        )
         {
             args.ModifySpeed(component.WalkSpeedModifier, component.SprintSpeedModifier);
         }

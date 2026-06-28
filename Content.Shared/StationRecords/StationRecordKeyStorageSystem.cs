@@ -4,7 +4,8 @@ namespace Content.Shared.StationRecords;
 
 public sealed class StationRecordKeyStorageSystem : EntitySystem
 {
-    [Dependency] private readonly SharedStationRecordsSystem _records = default!;
+    [Dependency]
+    private readonly SharedStationRecordsSystem _records = default!;
 
     public override void Initialize()
     {

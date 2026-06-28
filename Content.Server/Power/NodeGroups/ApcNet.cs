@@ -26,11 +26,15 @@ namespace Content.Server.Power.NodeGroups
     [UsedImplicitly]
     public sealed partial class ApcNet : BasePowerNet<IApcNet>, IApcNet
     {
-        [ViewVariables] public readonly List<ApcComponent> Apcs = new();
-        [ViewVariables] public readonly List<ApcPowerProviderComponent> Providers = new();
+        [ViewVariables]
+        public readonly List<ApcComponent> Apcs = new();
+
+        [ViewVariables]
+        public readonly List<ApcPowerProviderComponent> Providers = new();
 
         //Debug property
-        [ViewVariables] private int TotalReceivers => Providers.Sum(provider => provider.LinkedReceivers.Count);
+        [ViewVariables]
+        private int TotalReceivers => Providers.Sum(provider => provider.LinkedReceivers.Count);
 
         [ViewVariables]
         private IEnumerable<ApcPowerReceiverComponent> AllReceivers =>

@@ -34,13 +34,20 @@ public sealed partial class BurnBodyBehavior : IThresholdBehavior
 
         if (system.EntityManager.TryGetComponent<BodyPartComponent>(bodyId, out var bodyPart))
         {
-            if (bodyPart.CanSever
-                && system.BodySystem.BurnPart(bodyId, bodyPart))
-                sharedPopupSystem.PopupCoordinates(Loc.GetString(PopupMessage, ("name", bodyId)), transformSystem.GetMoverCoordinates(bodyId), PopupType.LargeCaution);
+            if (bodyPart.CanSever && system.BodySystem.BurnPart(bodyId, bodyPart))
+                sharedPopupSystem.PopupCoordinates(
+                    Loc.GetString(PopupMessage, ("name", bodyId)),
+                    transformSystem.GetMoverCoordinates(bodyId),
+                    PopupType.LargeCaution
+                );
         }
         else
         {
-            sharedPopupSystem.PopupCoordinates(Loc.GetString(PopupMessage, ("name", bodyId)), transformSystem.GetMoverCoordinates(bodyId), PopupType.LargeCaution);
+            sharedPopupSystem.PopupCoordinates(
+                Loc.GetString(PopupMessage, ("name", bodyId)),
+                transformSystem.GetMoverCoordinates(bodyId),
+                PopupType.LargeCaution
+            );
             system.EntityManager.QueueDeleteEntity(bodyId);
         }
     }

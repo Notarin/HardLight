@@ -13,8 +13,11 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
     [UsedImplicitly]
     public sealed class GasPortableSystem : EntitySystem
     {
-        [Dependency] private readonly SharedMapSystem _mapSystem = default!;
-        [Dependency] private readonly NodeContainerSystem _nodeContainer = default!;
+        [Dependency]
+        private readonly SharedMapSystem _mapSystem = default!;
+
+        [Dependency]
+        private readonly NodeContainerSystem _nodeContainer = default!;
 
         public override void Initialize()
         {
@@ -43,7 +46,11 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
             portableNode.ConnectionsEnabled = args.Anchored;
         }
 
-        public bool FindGasPortIn(EntityUid? gridId, EntityCoordinates coordinates, [NotNullWhen(true)] out GasPortComponent? port)
+        public bool FindGasPortIn(
+            EntityUid? gridId,
+            EntityCoordinates coordinates,
+            [NotNullWhen(true)] out GasPortComponent? port
+        )
         {
             port = null;
 

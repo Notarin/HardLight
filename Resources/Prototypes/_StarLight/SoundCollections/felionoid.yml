@@ -44,7 +44,6 @@
   - /Audio/_Starlight/Voice/Felionoid/cat_growl1.ogg
   - /Audio/_Starlight/Voice/Felionoid/cat_growl2.ogg
 
-  
 - type: soundCollection
   id: FelionoidTrills
   files:

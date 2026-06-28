@@ -1,9 +1,9 @@
+using System.Diagnostics.CodeAnalysis;
 using Content.Shared.Clothing.Components;
 using Content.Shared.Ninja.Components;
+using Content.Shared.Popups;
 using Content.Shared.Weapons.Melee.Events;
 using Content.Shared.Weapons.Ranged.Events;
-using Content.Shared.Popups;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Content.Shared.Ninja.Systems;
 
@@ -12,8 +12,11 @@ namespace Content.Shared.Ninja.Systems;
 /// </summary>
 public abstract class SharedSpaceNinjaSystem : EntitySystem
 {
-    [Dependency] protected readonly SharedNinjaSuitSystem Suit = default!;
-    [Dependency] protected readonly SharedPopupSystem Popup = default!;
+    [Dependency]
+    protected readonly SharedNinjaSuitSystem Suit = default!;
+
+    [Dependency]
+    protected readonly SharedPopupSystem Popup = default!;
 
     public EntityQuery<SpaceNinjaComponent> NinjaQuery;
 
@@ -98,7 +101,7 @@ public abstract class SharedSpaceNinjaSystem : EntitySystem
 
     private void TryRevealNinja(Entity<SpaceNinjaComponent> ent, bool disable)
     {
-        if (ent.Comp.Suit is {} uid && TryComp<NinjaSuitComponent>(ent.Comp.Suit, out var suit))
+        if (ent.Comp.Suit is { } uid && TryComp<NinjaSuitComponent>(ent.Comp.Suit, out var suit))
             Suit.RevealNinja((uid, suit), ent, disable: disable);
     }
 

@@ -1,26 +1,33 @@
+using System.Linq;
+using System.Numerics;
 using Content.Server.Chat.Systems;
 using Content.Server.Movement.Systems;
+using Content.Shared._Goobstation.MartialArts.Events;
+using Content.Shared.Chat; // For InGameICChatType
 using Content.Shared.Damage.Events;
 using Content.Shared.Damage.Systems;
 using Content.Shared.Effects;
 using Content.Shared.Speech.Components;
 using Content.Shared.Weapons.Melee;
 using Content.Shared.Weapons.Melee.Events;
-using Content.Shared.Chat; // For InGameICChatType
 using Robust.Shared.Map;
 using Robust.Shared.Player;
-using System.Linq;
-using System.Numerics;
-using Content.Shared._Goobstation.MartialArts.Events;
 
 namespace Content.Server.Weapons.Melee;
 
 public sealed class MeleeWeaponSystem : SharedMeleeWeaponSystem
 {
-    [Dependency] private readonly ChatSystem _chat = default!;
-    [Dependency] private readonly DamageExamineSystem _damageExamine = default!;
-    [Dependency] private readonly LagCompensationSystem _lag = default!;
-    [Dependency] private readonly SharedColorFlashEffectSystem _color = default!;
+    [Dependency]
+    private readonly ChatSystem _chat = default!;
+
+    [Dependency]
+    private readonly DamageExamineSystem _damageExamine = default!;
+
+    [Dependency]
+    private readonly LagCompensationSystem _lag = default!;
+
+    [Dependency]
+    private readonly SharedColorFlashEffectSystem _color = default!;
 
     public override void Initialize()
     {
@@ -39,17 +46,23 @@ public sealed class MeleeWeaponSystem : SharedMeleeWeaponSystem
         if (damageSpec.Empty)
             return;
 
-        _damageExamine.AddDamageExamine(args.Message, Damageable.ApplyUniversalAllModifiers(damageSpec), Loc.GetString("damage-melee"));
+        _damageExamine.AddDamageExamine(
+            args.Message,
+            Damageable.ApplyUniversalAllModifiers(damageSpec),
+            Loc.GetString("damage-melee")
+        );
     }
 
-    protected override bool ArcRaySuccessful(EntityUid targetUid,
+    protected override bool ArcRaySuccessful(
+        EntityUid targetUid,
         Vector2 position,
         Angle angle,
         Angle arcWidth,
         float range,
         MapId mapId,
         EntityUid ignore,
-        ICommonSession? session)
+        ICommonSession? session
+    )
     {
         // Originally the client didn't predict damage effects so you'd intuit some level of how far
         // in the future you'd need to predict, but then there was a lot of complaining like "why would you add artifical delay" as if ping is a choice.
@@ -79,7 +92,14 @@ public sealed class MeleeWeaponSystem : SharedMeleeWeaponSystem
         if (session is { } pSession)
         {
             (targetCoordinates, targetLocalAngle) = _lag.GetCoordinatesAngle(target, pSession);
-            return Interaction.InRangeUnobstructed(user, target, targetCoordinates, targetLocalAngle, range, overlapCheck: false);
+            return Interaction.InRangeUnobstructed(
+                user,
+                target,
+                targetCoordinates,
+                targetLocalAngle,
+                range,
+                overlapCheck: false
+            );
         }
 
         return Interaction.InRangeUnobstructed(user, target, range);
@@ -107,7 +127,14 @@ public sealed class MeleeWeaponSystem : SharedMeleeWeaponSystem
         _color.RaiseEffect(Color.Red, validTargets, filter);
     }
 
-    public override void DoLunge(EntityUid user, EntityUid weapon, Angle angle, Vector2 localPos, string? animation, bool predicted = true)
+    public override void DoLunge(
+        EntityUid user,
+        EntityUid weapon,
+        Angle angle,
+        Vector2 localPos,
+        string? animation,
+        bool predicted = true
+    )
     {
         Filter filter;
 
@@ -120,21 +147,29 @@ public sealed class MeleeWeaponSystem : SharedMeleeWeaponSystem
             filter = Filter.Pvs(user, entityManager: EntityManager);
         }
 
-        RaiseNetworkEvent(new MeleeLungeEvent(GetNetEntity(user), GetNetEntity(weapon), angle, localPos, animation), filter);
+        RaiseNetworkEvent(
+            new MeleeLungeEvent(GetNetEntity(user), GetNetEntity(weapon), angle, localPos, animation),
+            filter
+        );
     }
 
     private void OnSpeechHit(EntityUid owner, MeleeSpeechComponent comp, MeleeHitEvent args)
     {
-        if (!args.IsHit ||
-        !args.HitEntities.Any())
+        if (!args.IsHit || !args.HitEntities.Any())
         {
             return;
         }
 
-        if (comp.Battlecry != null)//If the battlecry is set to empty, doesn't speak
+        if (comp.Battlecry != null) //If the battlecry is set to empty, doesn't speak
         {
-            _chat.TrySendInGameICMessage(args.User, comp.Battlecry, InGameICChatType.Speak, true, true, checkRadioPrefix: false);  //Speech that isn't sent to chat or adminlogs
+            _chat.TrySendInGameICMessage(
+                args.User,
+                comp.Battlecry,
+                InGameICChatType.Speak,
+                true,
+                true,
+                checkRadioPrefix: false
+            ); //Speech that isn't sent to chat or adminlogs
         }
-
     }
 }

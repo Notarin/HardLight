@@ -1,22 +1,21 @@
+using System.Diagnostics.CodeAnalysis;
 using Content.Server.Popups;
 using Content.Server.Radio.EntitySystems;
 using Content.Server.StationRecords;
 using Content.Server.StationRecords.Systems;
 using Content.Shared.Access.Systems;
+using Content.Shared.IdentityManagement;
+using Content.Shared.Psionics;
+using Content.Shared.Psionics.Components;
 using Content.Shared.PsionicsRecords;
 using Content.Shared.PsionicsRecords.Components;
 using Content.Shared.PsionicsRecords.Systems;
-using Content.Shared.Psionics;
 using Content.Shared.StationRecords;
 using Robust.Server.GameObjects;
-using System.Diagnostics.CodeAnalysis;
-using Content.Shared.IdentityManagement;
-using Content.Shared.Psionics.Components;
 
 /// <summary>
 /// EVERYTHING HERE IS A MODIFIED VERSION OF CRIMINAL RECORDS
 /// </summary>
-
 namespace Content.Server.PsionicsRecords.Systems;
 
 /// <summary>
@@ -24,25 +23,39 @@ namespace Content.Server.PsionicsRecords.Systems;
 /// </summary>
 public sealed class PsionicsRecordsConsoleSystem : SharedPsionicsRecordsConsoleSystem
 {
-    [Dependency] private readonly AccessReaderSystem _access = default!;
-    [Dependency] private readonly PsionicsRecordsSystem _psionicsRecords = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly RadioSystem _radio = default!;
-    [Dependency] private readonly StationRecordsSystem _stationRecords = default!;
-    [Dependency] private readonly UserInterfaceSystem _ui = default!;
+    [Dependency]
+    private readonly AccessReaderSystem _access = default!;
+
+    [Dependency]
+    private readonly PsionicsRecordsSystem _psionicsRecords = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popup = default!;
+
+    [Dependency]
+    private readonly RadioSystem _radio = default!;
+
+    [Dependency]
+    private readonly StationRecordsSystem _stationRecords = default!;
+
+    [Dependency]
+    private readonly UserInterfaceSystem _ui = default!;
 
     public override void Initialize()
     {
         SubscribeLocalEvent<PsionicsRecordsConsoleComponent, RecordModifiedEvent>(UpdateUserInterface);
         SubscribeLocalEvent<PsionicsRecordsConsoleComponent, AfterGeneralRecordCreatedEvent>(UpdateUserInterface);
 
-        Subs.BuiEvents<PsionicsRecordsConsoleComponent>(PsionicsRecordsConsoleKey.Key, subs =>
-        {
-            subs.Event<BoundUIOpenedEvent>(UpdateUserInterface);
-            subs.Event<SelectStationRecord>(OnKeySelected);
-            subs.Event<SetStationRecordFilter>(OnFiltersChanged);
-            subs.Event<PsionicsRecordChangeStatus>(OnChangeStatus);
-        });
+        Subs.BuiEvents<PsionicsRecordsConsoleComponent>(
+            PsionicsRecordsConsoleKey.Key,
+            subs =>
+            {
+                subs.Event<BoundUIOpenedEvent>(UpdateUserInterface);
+                subs.Event<SelectStationRecord>(OnKeySelected);
+                subs.Event<SetStationRecordFilter>(OnFiltersChanged);
+                subs.Event<PsionicsRecordChangeStatus>(OnChangeStatus);
+            }
+        );
     }
 
     private void UpdateUserInterface<T>(Entity<PsionicsRecordsConsoleComponent> ent, ref T args)
@@ -60,8 +73,7 @@ public sealed class PsionicsRecordsConsoleSystem : SharedPsionicsRecordsConsoleS
 
     private void OnFiltersChanged(Entity<PsionicsRecordsConsoleComponent> ent, ref SetStationRecordFilter msg)
     {
-        if (ent.Comp.Filter == null ||
-            ent.Comp.Filter.Type != msg.Type || ent.Comp.Filter.Value != msg.Value)
+        if (ent.Comp.Filter == null || ent.Comp.Filter.Type != msg.Type || ent.Comp.Filter.Value != msg.Value)
         {
             ent.Comp.Filter = new StationRecordsFilter(msg.Type, msg.Value);
             UpdateUserInterface(ent);
@@ -84,9 +96,11 @@ public sealed class PsionicsRecordsConsoleSystem : SharedPsionicsRecordsConsoleS
     private void OnChangeStatus(Entity<PsionicsRecordsConsoleComponent> ent, ref PsionicsRecordChangeStatus msg)
     {
         // prevent malf client violating registered/reason nullability
-        if (msg.Status == PsionicsStatus.Registered != (msg.Reason != null) &&
-            msg.Status == PsionicsStatus.Suspected != (msg.Reason != null) &&
-            msg.Status == PsionicsStatus.Abusing != (msg.Reason != null))
+        if (
+            msg.Status == PsionicsStatus.Registered != (msg.Reason != null)
+            && msg.Status == PsionicsStatus.Suspected != (msg.Reason != null)
+            && msg.Status == PsionicsStatus.Abusing != (msg.Reason != null)
+        )
             return;
 
         if (!CheckSelected(ent, msg.Actor, out var mob, out var key))
@@ -141,10 +155,14 @@ public sealed class PsionicsRecordsConsoleSystem : SharedPsionicsRecordsConsoleS
             // person is no longer abusing
             (PsionicsStatus.Abusing, PsionicsStatus.None) => "not-abusing",
             // this is impossible
-            _ => "not-wanted"
+            _ => "not-wanted",
         };
-        _radio.SendRadioMessage(ent, Loc.GetString($"psionics-records-console-{statusString}", args),
-            ent.Comp.RadioChannel, ent);
+        _radio.SendRadioMessage(
+            ent,
+            Loc.GetString($"psionics-records-console-{statusString}", args),
+            ent.Comp.RadioChannel,
+            ent
+        );
 
         UpdateUserInterface(ent);
         UpdatePsionicsIdentity(name, msg.Status);
@@ -178,8 +196,12 @@ public sealed class PsionicsRecordsConsoleSystem : SharedPsionicsRecordsConsoleS
     /// Boilerplate that most actions use, if they require that a record be selected.
     /// Obviously shouldn't be used for selecting records.
     /// </summary>
-    private bool CheckSelected(Entity<PsionicsRecordsConsoleComponent> ent, EntityUid user,
-        [NotNullWhen(true)] out EntityUid? mob, [NotNullWhen(true)] out StationRecordKey? key)
+    private bool CheckSelected(
+        Entity<PsionicsRecordsConsoleComponent> ent,
+        EntityUid user,
+        [NotNullWhen(true)] out EntityUid? mob,
+        [NotNullWhen(true)] out StationRecordKey? key
+    )
     {
         key = null;
         mob = null;
@@ -220,11 +242,17 @@ public sealed class PsionicsRecordsConsoleSystem : SharedPsionicsRecordsConsoleS
     {
         var name = Identity.Name(uid, EntityManager);
 
-        if (_stationRecords.TryGetAuthoritativeRecords(out var station, out _) // HardLight
-            && _stationRecords.GetRecordByName(station, name) is { } id)
+        if (
+            _stationRecords.TryGetAuthoritativeRecords(out var station, out _) // HardLight
+            && _stationRecords.GetRecordByName(station, name) is { } id
+        )
         {
-            if (_stationRecords.TryGetRecord<PsionicsRecord>(new StationRecordKey(id, station), // HardLight: station.Value<station
-                    out var record))
+            if (
+                _stationRecords.TryGetRecord<PsionicsRecord>(
+                    new StationRecordKey(id, station), // HardLight: station.Value<station
+                    out var record
+                )
+            )
             {
                 if (record.Status != PsionicsStatus.None)
                 {

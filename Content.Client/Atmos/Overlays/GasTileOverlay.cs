@@ -4,6 +4,8 @@ using Content.Client.Atmos.EntitySystems;
 using Content.Shared.Atmos;
 using Content.Shared.Atmos.Components;
 using Content.Shared.Atmos.Prototypes;
+using Content.Shared.Light.Components; // HardLight
+using Content.Shared.Light.EntitySystems; // HardLight
 using Robust.Client.GameObjects;
 using Robust.Client.Graphics;
 using Robust.Client.ResourceManagement;
@@ -14,8 +16,6 @@ using Robust.Shared.Map.Components;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
-using Content.Shared.Light.Components; // HardLight
-using Content.Shared.Light.EntitySystems; // HardLight
 
 namespace Content.Client.Atmos.Overlays
 {
@@ -24,11 +24,13 @@ namespace Content.Client.Atmos.Overlays
         private readonly IEntityManager _entManager;
         private readonly IMapManager _mapManager;
         private readonly SharedTransformSystem _xformSys;
+
         // HardLight start
         private readonly SharedMapSystem _mapSystem;
         private readonly SharedRoofSystem _roofSystem;
         private List<Entity<MapGridComponent>> _grids = new();
         private readonly HashSet<Vector2i> _occludedTiles = new();
+
         // HardLight end
 
         public override OverlaySpace Space => OverlaySpace.WorldSpaceEntities | OverlaySpace.WorldSpaceBelowWorld;
@@ -55,16 +57,23 @@ namespace Content.Client.Atmos.Overlays
 
         private static readonly ProtoId<ShaderPrototype> UnshadedShaderId = "unshaded";
 
-        public const int GasOverlayZIndex = (int) Shared.DrawDepth.DrawDepth.Effects; // Under ghosts, above mostly everything else
+        public const int GasOverlayZIndex = (int)Shared.DrawDepth.DrawDepth.Effects; // Under ghosts, above mostly everything else
 
-        public GasTileOverlay(GasTileOverlaySystem system, IEntityManager entManager, IResourceCache resourceCache, IPrototypeManager protoMan, SpriteSystem spriteSys, SharedTransformSystem xformSys)
+        public GasTileOverlay(
+            GasTileOverlaySystem system,
+            IEntityManager entManager,
+            IResourceCache resourceCache,
+            IPrototypeManager protoMan,
+            SpriteSystem spriteSys,
+            SharedTransformSystem xformSys
+        )
         {
             _entManager = entManager;
             _mapManager = IoCManager.Resolve<IMapManager>();
             _mapSystem = _entManager.System<SharedMapSystem>(); // HardLight
             _roofSystem = _entManager.System<SharedRoofSystem>(); // HardLight
             _xformSys = xformSys;
-                _shader = protoMan.Index(UnshadedShaderId).Instance();
+            _shader = protoMan.Index(UnshadedShaderId).Instance();
             ZIndex = GasOverlayZIndex;
 
             _gasCount = system.VisibleGasId.Length;
@@ -79,10 +88,13 @@ namespace Content.Client.Atmos.Overlays
 
                 SpriteSpecifier overlay;
 
-                if (!string.IsNullOrEmpty(gasPrototype.GasOverlaySprite) && !string.IsNullOrEmpty(gasPrototype.GasOverlayState))
-                    overlay = new SpriteSpecifier.Rsi(new (gasPrototype.GasOverlaySprite), gasPrototype.GasOverlayState);
+                if (
+                    !string.IsNullOrEmpty(gasPrototype.GasOverlaySprite)
+                    && !string.IsNullOrEmpty(gasPrototype.GasOverlayState)
+                )
+                    overlay = new SpriteSpecifier.Rsi(new(gasPrototype.GasOverlaySprite), gasPrototype.GasOverlayState);
                 else if (!string.IsNullOrEmpty(gasPrototype.GasOverlayTexture))
-                    overlay = new SpriteSpecifier.Texture(new (gasPrototype.GasOverlayTexture));
+                    overlay = new SpriteSpecifier.Texture(new(gasPrototype.GasOverlayTexture));
                 else
                     continue;
 
@@ -118,6 +130,7 @@ namespace Content.Client.Atmos.Overlays
                 _fireFrameCounter[i] = 0;
             }
         }
+
         protected override void FrameUpdate(FrameEventArgs args)
         {
             base.FrameUpdate(args);
@@ -149,7 +162,8 @@ namespace Content.Client.Atmos.Overlays
                 _fireTimer[i] += args.DeltaSeconds;
                 var time = delays[frameCount];
 
-                if (_fireTimer[i] < time) continue;
+                if (_fireTimer[i] < time)
+                    continue;
                 _fireTimer[i] -= time;
                 _fireFrameCounter[i] = (frameCount + 1) % _fireFrames[i].Length;
             }
@@ -163,7 +177,8 @@ namespace Content.Client.Atmos.Overlays
             var drawHandle = args.WorldHandle;
             var xformQuery = _entManager.GetEntityQuery<TransformComponent>();
             var overlayQuery = _entManager.GetEntityQuery<GasTileOverlayComponent>();
-            var gridState = (args.WorldBounds,
+            var gridState = (
+                args.WorldBounds,
                 args.WorldHandle,
                 _gasCount,
                 _frames,
@@ -173,7 +188,8 @@ namespace Content.Client.Atmos.Overlays
                 _shader,
                 overlayQuery,
                 xformQuery,
-                _xformSys);
+                _xformSys
+            );
 
             var mapUid = _mapSystem.GetMap(args.MapId); // HardLight: _mapManager.GetMapEntityId<_mapSystem.GetMap
 
@@ -184,9 +200,15 @@ namespace Content.Client.Atmos.Overlays
                 return;
 
             // TODO: WorldBounds callback.
-            _mapManager.FindGridsIntersecting(args.MapId, args.WorldAABB, ref gridState,
-                static (EntityUid uid, MapGridComponent grid,
-                    ref (Box2Rotated WorldBounds,
+            _mapManager.FindGridsIntersecting(
+                args.MapId,
+                args.WorldAABB,
+                ref gridState,
+                static (
+                    EntityUid uid,
+                    MapGridComponent grid,
+                    ref (
+                        Box2Rotated WorldBounds,
                         DrawingHandleWorld drawHandle,
                         int gasCount,
                         Texture[][] frames,
@@ -196,22 +218,29 @@ namespace Content.Client.Atmos.Overlays
                         ShaderInstance shader,
                         EntityQuery<GasTileOverlayComponent> overlayQuery,
                         EntityQuery<TransformComponent> xformQuery,
-                        SharedTransformSystem xformSys) state) =>
+                        SharedTransformSystem xformSys
+                    ) state
+                ) =>
                 {
-                    if (!state.overlayQuery.TryGetComponent(uid, out var comp) ||
-                        !state.xformQuery.TryGetComponent(uid, out var gridXform))
-                        {
-                            return true;
-                        }
+                    if (
+                        !state.overlayQuery.TryGetComponent(uid, out var comp)
+                        || !state.xformQuery.TryGetComponent(uid, out var gridXform)
+                    )
+                    {
+                        return true;
+                    }
 
-                    var (_, _, worldMatrix, invMatrix) = state.xformSys.GetWorldPositionRotationMatrixWithInv(gridXform);
+                    var (_, _, worldMatrix, invMatrix) = state.xformSys.GetWorldPositionRotationMatrixWithInv(
+                        gridXform
+                    );
                     state.drawHandle.SetTransform(worldMatrix);
                     var floatBounds = invMatrix.TransformBox(state.WorldBounds).Enlarged(grid.TileSize);
                     var localBounds = new Box2i(
-                        (int) MathF.Floor(floatBounds.Left),
-                        (int) MathF.Floor(floatBounds.Bottom),
-                        (int) MathF.Ceiling(floatBounds.Right),
-                        (int) MathF.Ceiling(floatBounds.Top));
+                        (int)MathF.Floor(floatBounds.Left),
+                        (int)MathF.Floor(floatBounds.Bottom),
+                        (int)MathF.Ceiling(floatBounds.Right),
+                        (int)MathF.Ceiling(floatBounds.Top)
+                    );
 
                     // Currently it would be faster to group drawing by gas rather than by chunk, but if the textures are
                     // ever moved to a single atlas, that should no longer be the case. So this is just grouping draw calls
@@ -235,7 +264,11 @@ namespace Content.Client.Atmos.Overlays
                             {
                                 var opacity = gas.Opacity[i];
                                 if (opacity > 0)
-                                    state.drawHandle.DrawTexture(state.frames[i][state.frameCounter[i]], tilePosition, Color.White.WithAlpha(opacity));
+                                    state.drawHandle.DrawTexture(
+                                        state.frames[i][state.frameCounter[i]],
+                                        tilePosition,
+                                        Color.White.WithAlpha(opacity)
+                                    );
                             }
                         }
                     }
@@ -262,7 +295,8 @@ namespace Content.Client.Atmos.Overlays
                     }
 
                     return true;
-                });
+                }
+            );
 
             drawHandle.UseShader(null);
             drawHandle.SetTransform(Matrix3x2.Identity);
@@ -272,7 +306,8 @@ namespace Content.Client.Atmos.Overlays
             DrawingHandleWorld handle,
             OverlayDrawArgs args,
             EntityUid map,
-            MapAtmosphereComponent atmos)
+            MapAtmosphereComponent atmos
+        )
         {
             var mapGrid = _entManager.HasComponent<MapGridComponent>(map);
 
@@ -304,7 +339,13 @@ namespace Content.Client.Atmos.Overlays
                     if (tileRef.Tile.IsEmpty)
                         continue;
 
-                    if (hasImplicitRoof || (roofComp != null && _roofSystem.IsWeatherOccluding((grid.Owner, grid.Comp, roofComp), tileRef.GridIndices)))
+                    if (
+                        hasImplicitRoof
+                        || (
+                            roofComp != null
+                            && _roofSystem.IsWeatherOccluding((grid.Owner, grid.Comp, roofComp), tileRef.GridIndices)
+                        )
+                    )
                     {
                         var worldPos = _mapSystem.GridTileToWorldPos(grid.Owner, grid.Comp, tileRef.GridIndices);
                         _occludedTiles.Add(worldPos.Floored());
@@ -330,7 +371,11 @@ namespace Content.Client.Atmos.Overlays
                         var opacity = atmos.OverlayData.Opacity[i];
 
                         if (opacity > 0)
-                            handle.DrawTexture(_frames[i][_frameCounter[i]], tilePosition, Color.White.WithAlpha(opacity));
+                            handle.DrawTexture(
+                                _frames[i][_frameCounter[i]],
+                                tilePosition,
+                                Color.White.WithAlpha(opacity)
+                            );
                     }
                 }
             }

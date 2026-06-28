@@ -1,18 +1,21 @@
-using Content.Shared.Interaction;
-using Content.Shared.Interaction.Events;
+using Content.Server.Body.Systems;
+using Content.Server.Body.Systems;
+using Content.Shared._HL.Body;
 using Content.Shared.Body.Components;
 using Content.Shared.Body.Part;
+using Content.Shared.Interaction;
+using Content.Shared.Interaction.Events;
 using Content.Shared.Popups;
-using Content.Shared._HL.Body;
-using Content.Server.Body.Systems;
-using Content.Server.Body.Systems;
 
 namespace Content.Server._HL.Body;
 
 public sealed class BionicPartReplacerSystem : EntitySystem
 {
-    [Dependency] private readonly BodySystem _bodySystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency]
+    private readonly BodySystem _bodySystem = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
 
     public override void Initialize()
     {
@@ -30,12 +33,14 @@ public sealed class BionicPartReplacerSystem : EntitySystem
             return;
 
         var comp = ent.Comp;
-        var ok = _bodySystem.ReplaceOrInsertBodyPart(target.Value,
+        var ok = _bodySystem.ReplaceOrInsertBodyPart(
+            target.Value,
             comp.TargetType,
             comp.Symmetry,
             comp.ReplacementProto,
             comp.ReplaceIfPresent,
-            body);
+            body
+        );
 
         if (ok)
         {

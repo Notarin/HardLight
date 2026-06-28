@@ -5,8 +5,11 @@ namespace Content.Server.Xenoarchaeology.XenoArtifacts.Triggers.Systems;
 
 public sealed class ArtifactTimerTriggerSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _time = default!;
-    [Dependency] private readonly ArtifactSystem _artifactSystem = default!;
+    [Dependency]
+    private readonly IGameTiming _time = default!;
+
+    [Dependency]
+    private readonly ArtifactSystem _artifactSystem = default!;
 
     public override void Initialize()
     {

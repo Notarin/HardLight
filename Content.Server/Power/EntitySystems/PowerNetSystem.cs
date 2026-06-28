@@ -20,11 +20,20 @@ namespace Content.Server.Power.EntitySystems
     [UsedImplicitly]
     public sealed class PowerNetSystem : SharedPowerNetSystem
     {
-        [Dependency] private readonly AppearanceSystem _appearance = default!;
-        [Dependency] private readonly PowerNetConnectorSystem _powerNetConnector = default!;
-        [Dependency] private readonly IConfigurationManager _cfg = default!;
-        [Dependency] private readonly IParallelManager _parMan = default!;
-        [Dependency] private readonly BatterySystem _battery = default!;
+        [Dependency]
+        private readonly AppearanceSystem _appearance = default!;
+
+        [Dependency]
+        private readonly PowerNetConnectorSystem _powerNetConnector = default!;
+
+        [Dependency]
+        private readonly IConfigurationManager _cfg = default!;
+
+        [Dependency]
+        private readonly IParallelManager _parMan = default!;
+
+        [Dependency]
+        private readonly BatterySystem _battery = default!;
 
         private readonly PowerState _powerState = new();
         private readonly HashSet<PowerNet> _powerNetReconnectQueue = new();
@@ -79,8 +88,11 @@ namespace Content.Server.Power.EntitySystems
             AllocLoad(component.NetworkLoad);
         }
 
-        private void ApcPowerReceiverShutdown(EntityUid uid, ApcPowerReceiverComponent component,
-            ComponentShutdown args)
+        private void ApcPowerReceiverShutdown(
+            EntityUid uid,
+            ApcPowerReceiverComponent component,
+            ComponentShutdown args
+        )
         {
             _powerState.Loads.Free(component.NetworkLoad.Id);
         }
@@ -93,7 +105,8 @@ namespace Content.Server.Power.EntitySystems
         private static void ApcPowerReceiverPaused(
             EntityUid uid,
             ApcPowerReceiverComponent component,
-            ref EntityPausedEvent args)
+            ref EntityPausedEvent args
+        )
         {
             component.NetworkLoad.Paused = true;
         }
@@ -101,7 +114,8 @@ namespace Content.Server.Power.EntitySystems
         private static void ApcPowerReceiverUnpaused(
             EntityUid uid,
             ApcPowerReceiverComponent component,
-            ref EntityUnpausedEvent args)
+            ref EntityUnpausedEvent args
+        )
         {
             component.NetworkLoad.Paused = false;
         }
@@ -116,12 +130,20 @@ namespace Content.Server.Power.EntitySystems
             _powerState.Batteries.Free(component.NetworkBattery.Id);
         }
 
-        private static void BatteryPaused(EntityUid uid, PowerNetworkBatteryComponent component, ref EntityPausedEvent args)
+        private static void BatteryPaused(
+            EntityUid uid,
+            PowerNetworkBatteryComponent component,
+            ref EntityPausedEvent args
+        )
         {
             component.NetworkBattery.Paused = true;
         }
 
-        private static void BatteryUnpaused(EntityUid uid, PowerNetworkBatteryComponent component, ref EntityUnpausedEvent args)
+        private static void BatteryUnpaused(
+            EntityUid uid,
+            PowerNetworkBatteryComponent component,
+            ref EntityUnpausedEvent args
+        )
         {
             component.NetworkBattery.Paused = false;
         }
@@ -137,12 +159,20 @@ namespace Content.Server.Power.EntitySystems
             _powerState.Loads.Free(component.NetworkLoad.Id);
         }
 
-        private static void PowerConsumerPaused(EntityUid uid, PowerConsumerComponent component, ref EntityPausedEvent args)
+        private static void PowerConsumerPaused(
+            EntityUid uid,
+            PowerConsumerComponent component,
+            ref EntityPausedEvent args
+        )
         {
             component.NetworkLoad.Paused = true;
         }
 
-        private static void PowerConsumerUnpaused(EntityUid uid, PowerConsumerComponent component, ref EntityUnpausedEvent args)
+        private static void PowerConsumerUnpaused(
+            EntityUid uid,
+            PowerConsumerComponent component,
+            ref EntityUnpausedEvent args
+        )
         {
             component.NetworkLoad.Paused = false;
         }
@@ -158,12 +188,20 @@ namespace Content.Server.Power.EntitySystems
             _powerState.Supplies.Free(component.NetworkSupply.Id);
         }
 
-        private static void PowerSupplierPaused(EntityUid uid, PowerSupplierComponent component, ref EntityPausedEvent args)
+        private static void PowerSupplierPaused(
+            EntityUid uid,
+            PowerSupplierComponent component,
+            ref EntityPausedEvent args
+        )
         {
             component.NetworkSupply.Paused = true;
         }
 
-        private static void PowerSupplierUnpaused(EntityUid uid, PowerSupplierComponent component, ref EntityUnpausedEvent args)
+        private static void PowerSupplierUnpaused(
+            EntityUid uid,
+            PowerSupplierComponent component,
+            ref EntityUnpausedEvent args
+        )
         {
             component.NetworkSupply.Paused = false;
         }
@@ -211,7 +249,7 @@ namespace Content.Server.Power.EntitySystems
                 CountBatteries = _powerState.Batteries.Count,
                 CountLoads = _powerState.Loads.Count,
                 CountNetworks = _powerState.Networks.Count,
-                CountSupplies = _powerState.Supplies.Count
+                CountSupplies = _powerState.Supplies.Count,
             };
         }
 
@@ -265,7 +303,7 @@ namespace Content.Server.Power.EntitySystems
                 InStorageCurrent = storageCurrentJ,
                 InStorageMax = storageMaxJ,
                 OutStorageCurrent = outStorageCurrentJ,
-                OutStorageMax = outStorageMaxJ
+                OutStorageMax = outStorageMaxJ,
             };
         }
 
@@ -323,9 +361,7 @@ namespace Content.Server.Power.EntitySystems
         private bool IsPoweredCalculate(ApcPowerReceiverComponent comp)
         {
             return !comp.PowerDisabled
-                   && (!comp.NeedsPower
-                       || MathHelper.CloseToPercent(comp.NetworkLoad.ReceivingPower,
-                           comp.Load));
+                && (!comp.NeedsPower || MathHelper.CloseToPercent(comp.NetworkLoad.ReceivingPower, comp.Load));
         }
 
         public override bool IsPoweredCalculate(SharedApcPowerReceiverComponent comp)
@@ -359,7 +395,11 @@ namespace Content.Server.Power.EntitySystems
                     else if (powered && !_battery.IsFull(uid, battery))
                     {
                         apcReceiver.Load += apcBattery.BatteryRechargeRate * apcBattery.BatteryRechargeEfficiency;
-                        _battery.SetCharge(uid, battery.CurrentCharge + apcBattery.BatteryRechargeRate * frameTime, battery);
+                        _battery.SetCharge(
+                            uid,
+                            battery.CurrentCharge + apcBattery.BatteryRechargeRate * frameTime,
+                            battery
+                        );
                     }
 
                     // Enable / disable the battery if the state changed
@@ -543,17 +583,13 @@ namespace Content.Server.Power.EntitySystems
     ///     Raised before power network simulation happens, to synchronize battery state from
     ///     components like <see cref="BatteryComponent"/> into <see cref="PowerNetworkBatteryComponent"/>.
     /// </summary>
-    public readonly struct NetworkBatteryPreSync
-    {
-    }
+    public readonly struct NetworkBatteryPreSync { }
 
     /// <summary>
     ///     Raised after power network simulation happens, to synchronize battery charge changes from
     ///     <see cref="PowerNetworkBatteryComponent"/> to components like <see cref="BatteryComponent"/>.
     /// </summary>
-    public readonly struct NetworkBatteryPostSync
-    {
-    }
+    public readonly struct NetworkBatteryPostSync { }
 
     /// <summary>
     ///     Raised when the amount of receiving power on a <see cref="PowerConsumerComponent"/> changes.
@@ -593,5 +629,4 @@ namespace Content.Server.Power.EntitySystems
         public float OutStorageCurrent;
         public float OutStorageMax;
     }
-
 }

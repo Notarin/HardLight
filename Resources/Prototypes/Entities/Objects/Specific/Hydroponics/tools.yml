@@ -157,8 +157,8 @@
     - state: icon
     - state: icon-on
       visible: False
-      map: [ "enum.ToggleVisuals.Layer" ]
-    # End Frontier
+      map: ["enum.ToggleVisuals.Layer"]
+      # End Frontier
   - type: Item
     storedRotation: -90
     size: Small # Frontier - NOT ANYMORE, this is again a pocket item! (Loki)
@@ -199,6 +199,6 @@
     visuals:
       enum.ToggleVisuals.Toggled:
         enum.ToggleVisuals.Layer:
-          True: { visible: True }
-          False: { visible: False }
+          True: {visible: True}
+          False: {visible: False}
   # End DeltaV Additions

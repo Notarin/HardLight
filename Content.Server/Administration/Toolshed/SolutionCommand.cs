@@ -1,14 +1,14 @@
-﻿using Content.Server.Chemistry.Containers.EntitySystems;
+﻿using System.Linq;
+using Content.Server.Chemistry.Containers.EntitySystems;
 using Content.Shared.Administration;
 using Content.Shared.Chemistry.Components;
+using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Chemistry.Reagent;
 using Content.Shared.FixedPoint;
-using Content.Shared.Chemistry.EntitySystems;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Toolshed;
 using Robust.Shared.Toolshed.Syntax;
 using Robust.Shared.Toolshed.TypeParsers;
-using System.Linq;
-using Robust.Shared.Prototypes;
 
 namespace Content.Server.Administration.Toolshed;
 
@@ -36,10 +36,10 @@ public sealed class SolutionCommand : ToolshedCommand
 
     [CommandImplementation("adjreagent")]
     public SolutionRef AdjReagent(
-            [PipedArgument] SolutionRef input,
-            ProtoId<ReagentPrototype> proto,
-            FixedPoint2 amount
-        )
+        [PipedArgument] SolutionRef input,
+        ProtoId<ReagentPrototype> proto,
+        FixedPoint2 amount
+    )
     {
         _solutionContainer ??= GetSys<SharedSolutionContainerSystem>();
 
@@ -57,11 +57,10 @@ public sealed class SolutionCommand : ToolshedCommand
 
     [CommandImplementation("adjreagent")]
     public IEnumerable<SolutionRef> AdjReagent(
-            [PipedArgument] IEnumerable<SolutionRef> input,
-            ProtoId<ReagentPrototype> name,
-            FixedPoint2 amount
-        )
-        => input.Select(x => AdjReagent(x, name, amount));
+        [PipedArgument] IEnumerable<SolutionRef> input,
+        ProtoId<ReagentPrototype> name,
+        FixedPoint2 amount
+    ) => input.Select(x => AdjReagent(x, name, amount));
 }
 
 public readonly record struct SolutionRef(Entity<SolutionComponent> Solution)

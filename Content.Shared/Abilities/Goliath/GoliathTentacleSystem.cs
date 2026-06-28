@@ -12,13 +12,26 @@ namespace Content.Shared.Abilities.Goliath;
 
 public sealed class GoliathTentacleSystem : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
-    [Dependency] private readonly SharedStunSystem _stun = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly TurfSystem _turf = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly INetManager _net = default!;
+
+    [Dependency]
+    private readonly SharedMapSystem _map = default!;
+
+    [Dependency]
+    private readonly SharedStunSystem _stun = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency]
+    private readonly TurfSystem _turf = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popup = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -33,7 +46,12 @@ public sealed class GoliathTentacleSystem : EntitySystem
 
         // TODO: animation
 
-        _popup.PopupPredicted(Loc.GetString("tentacle-ability-use-popup", ("entity", args.Performer)), args.Performer, args.Performer, type: PopupType.SmallCaution);
+        _popup.PopupPredicted(
+            Loc.GetString("tentacle-ability-use-popup", ("entity", args.Performer)),
+            args.Performer,
+            args.Performer,
+            type: PopupType.SmallCaution
+        );
         _stun.TryStun(args.Performer, TimeSpan.FromSeconds(0.8f), false);
 
         List<EntityCoordinates> spawnPos = new();
@@ -53,9 +71,11 @@ public sealed class GoliathTentacleSystem : EntitySystem
 
         foreach (var pos in spawnPos)
         {
-            if (!_map.TryGetTileRef(grid, gridComp, pos, out var tileRef) ||
-                tileRef.IsSpace() ||
-                _turf.IsTileBlocked(tileRef, CollisionGroup.Impassable))
+            if (
+                !_map.TryGetTileRef(grid, gridComp, pos, out var tileRef)
+                || tileRef.IsSpace()
+                || _turf.IsTileBlocked(tileRef, CollisionGroup.Impassable)
+            )
             {
                 continue;
             }

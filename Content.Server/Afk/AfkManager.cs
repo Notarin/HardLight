@@ -36,11 +36,20 @@ namespace Content.Server.Afk
     [UsedImplicitly]
     public sealed class AfkManager : IAfkManager
     {
-        [Dependency] private readonly IPlayerManager _playerManager = default!;
-        [Dependency] private readonly IGameTiming _gameTiming = default!;
-        [Dependency] private readonly IConfigurationManager _cfg = default!;
-        [Dependency] private readonly IConsoleHost _consoleHost = default!;
-        [Dependency] private readonly IAdminManager _adminManager = default!;
+        [Dependency]
+        private readonly IPlayerManager _playerManager = default!;
+
+        [Dependency]
+        private readonly IGameTiming _gameTiming = default!;
+
+        [Dependency]
+        private readonly IConfigurationManager _cfg = default!;
+
+        [Dependency]
+        private readonly IConsoleHost _consoleHost = default!;
+
+        [Dependency]
+        private readonly IAdminManager _adminManager = default!;
 
         private readonly Dictionary<ICommonSession, TimeSpan> _lastActionTimes = new();
 
@@ -87,7 +96,12 @@ namespace Content.Server.Afk
             PlayerDidAction(e.Session);
         }
 
-        private void ConsoleHostOnAnyCommandExecuted(IConsoleShell shell, string commandname, string argstr, string[] args)
+        private void ConsoleHostOnAnyCommandExecuted(
+            IConsoleShell shell,
+            string commandname,
+            string argstr,
+            string[] args
+        )
         {
             if (shell.Player is { } player)
                 PlayerDidAction(player);

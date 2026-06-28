@@ -27,7 +27,7 @@ namespace Pow3r
                 Networks = GenIdStorage.FromEnumerable(dat.Networks.Select(n => (n.Id, n))),
                 Supplies = GenIdStorage.FromEnumerable(dat.Supplies.Select(s => (s.Id, s))),
                 Loads = GenIdStorage.FromEnumerable(dat.Loads.Select(l => (l.Id, l))),
-                Batteries = GenIdStorage.FromEnumerable(dat.Batteries.Select(b => (b.Id, b)))
+                Batteries = GenIdStorage.FromEnumerable(dat.Batteries.Select(b => (b.Id, b))),
             };
 
             _displayLoads = dat.Loads.ToDictionary(n => n.Id, _ => new DisplayLoad());
@@ -48,7 +48,7 @@ namespace Pow3r
                 Loads = _state.Loads.Values.ToList(),
                 Batteries = _state.Batteries.Values.ToList(),
                 Networks = _state.Networks.Values.ToList(),
-                Supplies = _state.Supplies.Values.ToList()
+                Supplies = _state.Supplies.Values.ToList(),
             };
 
             File.WriteAllBytes("data.json", JsonSerializer.SerializeToUtf8Bytes(data, SerializerOptions));

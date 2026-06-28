@@ -9,7 +9,11 @@ public sealed partial class SpaceVillainGame
     /// </summary>
     private void UpdateUi(EntityUid uid, bool metadata = false)
     {
-        _uiSystem.ServerSendUiMessage(uid, SpaceVillainArcadeUiKey.Key, metadata ? GenerateMetaDataMessage() : GenerateUpdateMessage());
+        _uiSystem.ServerSendUiMessage(
+            uid,
+            SpaceVillainArcadeUiKey.Key,
+            metadata ? GenerateMetaDataMessage() : GenerateUpdateMessage()
+        );
     }
 
     private void UpdateUi(EntityUid uid, string message1, string message2, bool metadata = false)
@@ -26,8 +30,10 @@ public sealed partial class SpaceVillainGame
     public SpaceVillainArcadeMetaDataUpdateMessage GenerateMetaDataMessage()
     {
         return new(
-            PlayerChar.Hp, PlayerChar.Mp,
-            VillainChar.Hp, VillainChar.Mp,
+            PlayerChar.Hp,
+            PlayerChar.Mp,
+            VillainChar.Hp,
+            VillainChar.Mp,
             _latestPlayerActionMessage,
             _latestEnemyActionMessage,
             Name,
@@ -43,8 +49,10 @@ public sealed partial class SpaceVillainGame
     public SpaceVillainArcadeDataUpdateMessage GenerateUpdateMessage()
     {
         return new(
-            PlayerChar.Hp, PlayerChar.Mp,
-            VillainChar.Hp, VillainChar.Mp,
+            PlayerChar.Hp,
+            PlayerChar.Mp,
+            VillainChar.Hp,
+            VillainChar.Mp,
             _latestPlayerActionMessage,
             _latestEnemyActionMessage
         );

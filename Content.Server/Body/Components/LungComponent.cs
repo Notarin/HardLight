@@ -11,11 +11,7 @@ public sealed partial class LungComponent : Component
 {
     [DataField]
     [Access(typeof(LungSystem), Other = AccessPermissions.ReadExecute)] // FIXME Friends
-    public GasMixture Air = new()
-    {
-        Volume = 6,
-        Temperature = Atmospherics.NormalBodyTemperature
-    };
+    public GasMixture Air = new() { Volume = 6, Temperature = Atmospherics.NormalBodyTemperature };
 
     /// <summary>
     /// The name/key of the solution on this entity which these lungs act on.

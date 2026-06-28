@@ -87,8 +87,7 @@
     fixtures:
       fix1:
         density: 30
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.35,-0.2,0.25,0.1"
         mask:
         - ItemMask
@@ -100,13 +99,13 @@
   name: stack-counterfeit-credit
   unit: materials-unit-bill
   stackEntity: SpaceCashCounterfeit
-  icon: { sprite: _NF/Objects/Economy/counterfeit_cash.rsi, state: cash }
+  icon: {sprite: _NF/Objects/Economy/counterfeit_cash.rsi, state: cash}
   price: 0
 
 - type: stack
   id: CreditCounterfeit
   name: stack-spesso
-  icon: { sprite: _NF/Objects/Economy/counterfeit_cash.rsi, state: cash }
+  icon: {sprite: _NF/Objects/Economy/counterfeit_cash.rsi, state: cash}
   spawn: SpaceCashCounterfeit
 
 - type: currency
@@ -120,7 +119,7 @@
   parent: SpaceCashCounterfeit
   id: SpaceCashCounterfeit200000
   suffix: 200000
-#  categories: [ HideSpawnMenu ]
+  #  categories: [ HideSpawnMenu ]
   components:
   - type: Icon
     sprite: _NF/Objects/Economy/counterfeit_cash.rsi

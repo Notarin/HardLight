@@ -1,22 +1,29 @@
-﻿using Content.Server.Popups;
+﻿using Content.Server.DeviceLinking.Systems; // Frontier
+using Content.Server.Popups;
+using Content.Server.Power.Components; // Frontier
 using Content.Server.Power.EntitySystems;
 using Content.Server.Shuttles.Components;
 using Content.Shared.Construction.Components;
-using Content.Shared.Popups;
-using Content.Server.DeviceLinking.Systems; // Frontier
-using Content.Server.Power.Components; // Frontier
-using Content.Shared.DeviceNetwork; // Frontier
 using Content.Shared.DeviceLinking.Events; // Frontier
+using Content.Shared.DeviceNetwork; // Frontier
 using Content.Shared.DeviceNetwork.Events; // Frontier
+using Content.Shared.Popups;
 
 namespace Content.Server.Shuttles.Systems;
 
 public sealed class StationAnchorSystem : EntitySystem
 {
-    [Dependency] private readonly ShuttleSystem _shuttleSystem = default!;
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
-    [Dependency] private readonly DeviceLinkSystem _signalSystem = default!; // Frontier
-    [Dependency] private readonly PowerChargeSystem _chargeSystem = default!; // Frontier
+    [Dependency]
+    private readonly ShuttleSystem _shuttleSystem = default!;
+
+    [Dependency]
+    private readonly PopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly DeviceLinkSystem _signalSystem = default!; // Frontier
+
+    [Dependency]
+    private readonly PowerChargeSystem _chargeSystem = default!; // Frontier
 
     public override void Initialize()
     {
@@ -60,11 +67,7 @@ public sealed class StationAnchorSystem : EntitySystem
         if (!ent.Comp.SwitchedOn)
             return;
 
-        _popupSystem.PopupEntity(
-            Loc.GetString("station-anchor-unanchoring-failed"),
-            ent,
-            args.User,
-            PopupType.Medium);
+        _popupSystem.PopupEntity(Loc.GetString("station-anchor-unanchoring-failed"), ent, args.User, PopupType.Medium);
 
         args.Cancel();
     }
@@ -83,8 +86,10 @@ public sealed class StationAnchorSystem : EntitySystem
 
     private void OnPacketReceived(EntityUid uid, StationAnchorComponent component, DeviceNetworkPacketEvent args)
     {
-        if (!args.Data.TryGetValue(DeviceNetworkConstants.Command, out string? command) ||
-            command != DeviceNetworkConstants.CmdSetState)
+        if (
+            !args.Data.TryGetValue(DeviceNetworkConstants.Command, out string? command)
+            || command != DeviceNetworkConstants.CmdSetState
+        )
             return;
         if (!args.Data.TryGetValue(DeviceNetworkConstants.StateEnabled, out bool enabled))
             return;
@@ -113,9 +118,14 @@ public sealed class StationAnchorSystem : EntitySystem
         if (TryComp<PowerChargeComponent>(ent, out var entPowerHandler))
             _chargeSystem.SetSwitchedOn(ent, entPowerHandler, !entPowerHandler.SwitchedOn);
     }
+
     // End Frontier: anchor device linking
 
-    private void SetStatus(Entity<StationAnchorComponent> ent, bool enabled, ShuttleComponent? shuttleComponent = default)
+    private void SetStatus(
+        Entity<StationAnchorComponent> ent,
+        bool enabled,
+        ShuttleComponent? shuttleComponent = default
+    )
     {
         var transform = Transform(ent);
         var grid = transform.GridUid;

@@ -1,6 +1,6 @@
 using Content.Shared.Weapons.Melee.Events;
-using Robust.Shared.Random;
 using Robust.Shared.Audio.Systems;
+using Robust.Shared.Random;
 
 namespace Content.Server.Weapons.Melee.WeaponRandom;
 
@@ -9,8 +9,11 @@ namespace Content.Server.Weapons.Melee.WeaponRandom;
 /// </summary>
 public sealed class WeaponRandomSystem : EntitySystem
 {
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly SharedAudioSystem _audio = default!;
 
     public override void Initialize()
     {
@@ -18,6 +21,7 @@ public sealed class WeaponRandomSystem : EntitySystem
 
         SubscribeLocalEvent<WeaponRandomComponent, MeleeHitEvent>(OnMeleeHit);
     }
+
     /// <summary>
     /// On Melee hit there is a possible chance of additional bonus damage occuring.
     /// </summary>

@@ -9,8 +9,7 @@
   requiresUnblocked: false
   exemptFromInteractionBlocker: true
   hideByRequirement: true
-  requirement:
-    !type:ComplexRequirement
+  requirement: !type:ComplexRequirement
     requirements:
     - !type:SlotObstructionRequirement
       slot: mask
@@ -18,22 +17,21 @@
     - !type:EntityWhitelistRequirement
       whitelist:
         components: [MobState, Food] # Don't go around biting inanimate objects.
-  action:
-    !type:ComplexAction
+  action: !type:ComplexAction
     actions:
     - !type:ModifyHealthAction
-#      randomFactor: {min: 0.5, max: 1.5}
+      #      randomFactor: {min: 0.5, max: 1.5}
       damage:
         types: {Piercing: 5}
-    # TEMPLATE: in case someone decides to add a "masochist trait" or something like that
-    #- !type:ConditionalAction
-    #  condition:
-    #    !type:EntityWhitelistRequirement
-    #    whitelist:
-    #      components: [Masochist] # Just an example. Could be a tag or a different comp.
-    #  true:
-    #    !type:MoodAction
-    #    effect: ??? # Some positive mood effect here
+        # TEMPLATE: in case someone decides to add a "masochist trait" or something like that
+        #- !type:ConditionalAction
+        #  condition:
+        #    !type:EntityWhitelistRequirement
+        #    whitelist:
+        #      components: [Masochist] # Just an example. Could be a tag or a different comp.
+        #  true:
+        #    !type:MoodAction
+        #    effect: ??? # Some positive mood effect here
   effectSuccess:
     popup: Obvious
     sound:

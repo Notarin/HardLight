@@ -63,7 +63,7 @@
     rotation: -45
     layers:
     - state: icon
-      map: [ base ]
+      map: [base]
   - type: Fixtures
     fixtures:
       fix1:
@@ -75,8 +75,7 @@
         restitution: 0.3
         friction: 0.2
       projectile:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.2,-0.2,0.2,0.2"
         hard: false
         mask:
@@ -102,7 +101,7 @@
     rotation: -45
     layers:
     - state: cryo
-      map: [ base ]
+      map: [base]
   - type: SolutionContainerManager
     solutions:
       melee:
@@ -137,7 +136,7 @@
     rotation: -45
     layers:
     - state: icon
-      map: [ explosive ]
+      map: [explosive]
   - type: Fixtures
     fixtures:
       fix1:
@@ -149,8 +148,7 @@
         restitution: 0.3
         friction: 0.2
       projectile:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.2,-0.2,0.2,0.2"
         hard: false
         mask:

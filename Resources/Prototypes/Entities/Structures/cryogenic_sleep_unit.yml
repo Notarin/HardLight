@@ -4,9 +4,9 @@
   name: cryogenic sleep unit
   description: A super-cooled container that keeps crewmates safe during space travel.
   components:
-#  - type: Anchorable # HardLight
-#    flags:
-#    - Anchorable
+  #  - type: Anchorable # HardLight
+  #    flags:
+  #    - Anchorable
   - type: Transform
     noRot: false
   - type: Rotatable
@@ -46,8 +46,8 @@
     visuals:
       enum.CryostorageVisuals.Full:
         base:
-          True: { state: sleeper_1 }
-          False: { state: sleeper_0 }
+          True: {state: sleeper_1}
+          False: {state: sleeper_0}
 
 # This one handles all spawns, latejoin and roundstart.
 - type: entity
@@ -64,6 +64,6 @@
   id: CryogenicSleepUnitSpawnerLateJoin
   suffix: Spawner, LateJoin
   components:
-    - type: ContainerSpawnPoint
-      containerId: storage
-      spawnType: LateJoin
+  - type: ContainerSpawnPoint
+    containerId: storage
+    spawnType: LateJoin

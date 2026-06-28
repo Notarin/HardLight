@@ -73,6 +73,7 @@ public partial class SharedMartialArtsSystem
             comp.LastAttacks.Clear();
         }
     }
+
     private void OnComboBeingPerformed(Entity<CanPerformComboComponent> ent, ref ComboBeingPerformedEvent args)
     {
         ent.Comp.BeingPerformed = args.ProtoId;

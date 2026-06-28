@@ -20,11 +20,14 @@ public sealed partial class AbsorbantDoAfterEvent : DoAfterEvent
     [DataField("transferAmount", required: true)]
     public FixedPoint2 TransferAmount;
 
-    private AbsorbantDoAfterEvent()
-    {
-    }
+    private AbsorbantDoAfterEvent() { }
 
-    public AbsorbantDoAfterEvent(string targetSolution, string message, SoundSpecifier sound, FixedPoint2 transferAmount)
+    public AbsorbantDoAfterEvent(
+        string targetSolution,
+        string message,
+        SoundSpecifier sound,
+        FixedPoint2 transferAmount
+    )
     {
         TargetSolution = targetSolution;
         Message = message;

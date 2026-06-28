@@ -8,9 +8,14 @@ namespace Content.Shared._CorvaxNext.Silicons.Borgs;
 
 public abstract class SharedAiRemoteControlSystem : EntitySystem
 {
-    [Dependency] private readonly SharedStationAiSystem _stationAiSystem = default!;
-    [Dependency] private readonly SharedTransformSystem _xformSystem = default!;
-    [Dependency] private readonly SharedMindSystem _mind = default!;
+    [Dependency]
+    private readonly SharedStationAiSystem _stationAiSystem = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _xformSystem = default!;
+
+    [Dependency]
+    private readonly SharedMindSystem _mind = default!;
 
     public override void Initialize()
     {
@@ -22,9 +27,11 @@ public abstract class SharedAiRemoteControlSystem : EntitySystem
         if (!TryComp<AiRemoteControllerComponent>(entity, out var remoteComp))
             return;
 
-        if (remoteComp?.AiHolder == null
+        if (
+            remoteComp?.AiHolder == null
             || !_stationAiSystem.TryGetCore(remoteComp.AiHolder.Value, out var stationAiCore)
-            || stationAiCore.Comp?.RemoteEntity == null)
+            || stationAiCore.Comp?.RemoteEntity == null
+        )
             return;
 
         if (remoteComp.LinkedMind == null)
@@ -45,16 +52,12 @@ public abstract class SharedAiRemoteControlSystem : EntitySystem
     }
 }
 
-public sealed partial class ReturnMindIntoAiEvent : InstantActionEvent
-{
-}
+public sealed partial class ReturnMindIntoAiEvent : InstantActionEvent { }
 
-public sealed partial class ToggleRemoteDevicesScreenEvent : InstantActionEvent
-{
-}
+public sealed partial class ToggleRemoteDevicesScreenEvent : InstantActionEvent { }
 
 [Serializable, NetSerializable]
 public enum RemoteDeviceUiKey : byte
 {
-    Key
+    Key,
 }

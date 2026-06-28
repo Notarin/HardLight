@@ -12,10 +12,17 @@ namespace Content.Client.UserInterface.Systems.Viewport;
 
 public sealed class ViewportUIController : UIController
 {
-    [Dependency] private readonly IEyeManager _eyeManager = default!;
-    [Dependency] private readonly IPlayerManager _playerMan = default!;
-    [Dependency] private readonly IEntityManager _entMan = default!;
-    [Dependency] private readonly IConfigurationManager _configurationManager = default!;
+    [Dependency]
+    private readonly IEyeManager _eyeManager = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _playerMan = default!;
+
+    [Dependency]
+    private readonly IEntityManager _entMan = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _configurationManager = default!;
     public static readonly Vector2i ViewportSize = (EyeManager.PixelsPerMeter * 21, EyeManager.PixelsPerMeter * 15);
     public const int ViewportHeight = 15;
     private MainViewport? Viewport => UIManager.ActiveScreen?.GetWidget<MainViewport>();
@@ -46,7 +53,9 @@ public sealed class ViewportUIController : UIController
         var min = _configurationManager.GetCVar(CCVars.ViewportMinimumWidth);
         var max = _configurationManager.GetCVar(CCVars.ViewportMaximumWidth);
         var width = _configurationManager.GetCVar(CCVars.ViewportWidth);
-        var verticalfit = _configurationManager.GetCVar(CCVars.ViewportVerticalFit) && _configurationManager.GetCVar(CCVars.ViewportStretch);
+        var verticalfit =
+            _configurationManager.GetCVar(CCVars.ViewportVerticalFit)
+            && _configurationManager.GetCVar(CCVars.ViewportStretch);
 
         if (verticalfit)
         {
@@ -57,7 +66,10 @@ public sealed class ViewportUIController : UIController
             width = CCVars.ViewportWidth.DefaultValue;
         }
 
-        Viewport.Viewport.ViewportSize = (EyeManager.PixelsPerMeter * width, EyeManager.PixelsPerMeter * ViewportHeight);
+        Viewport.Viewport.ViewportSize = (
+            EyeManager.PixelsPerMeter * width,
+            EyeManager.PixelsPerMeter * ViewportHeight
+        );
         Viewport.UpdateCfg();
     }
 
@@ -93,8 +105,10 @@ public sealed class ViewportUIController : UIController
 
         _entMan.TryGetComponent(ent, out EyeComponent? eye);
 
-        if (eye?.Eye == _eyeManager.CurrentEye
-            && _entMan.GetComponent<TransformComponent>(ent.Value).MapID == MapId.Nullspace)
+        if (
+            eye?.Eye == _eyeManager.CurrentEye
+            && _entMan.GetComponent<TransformComponent>(ent.Value).MapID == MapId.Nullspace
+        )
         {
             // nothing to worry about, the player is just in null space... actually that is probably a problem?
             return;
@@ -102,6 +116,8 @@ public sealed class ViewportUIController : UIController
 
         // Currently, this shouldn't happen. This likely happened because the main eye was set to null. When this
         // does happen it can create hard to troubleshoot bugs, so lets print some helpful warnings:
-        Logger.Warning($"Main viewport's eye is in nullspace (main eye is null?). Attached entity: {_entMan.ToPrettyString(ent.Value)}. Entity has eye comp: {eye != null}");
+        Logger.Warning(
+            $"Main viewport's eye is in nullspace (main eye is null?). Attached entity: {_entMan.ToPrettyString(ent.Value)}. Entity has eye comp: {eye != null}"
+        );
     }
 }

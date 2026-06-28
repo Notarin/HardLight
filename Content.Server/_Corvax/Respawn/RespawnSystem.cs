@@ -1,30 +1,37 @@
 using System.Runtime.InteropServices;
+using Content.Server._NF.CryoSleep; // Frontier
+using Content.Server.Administration; // Frontier
+using Content.Server.Administration.Managers; // Frontier
 using Content.Server.Ghost.Roles.Components;
 using Content.Shared._Corvax.Respawn;
+using Content.Shared._NF.CCVar; // Frontier
+using Content.Shared._NF.Roles.Components; // Frontier
+using Content.Shared.GameTicking; // Frontier
+using Content.Shared.Ghost; // Frontier
 using Content.Shared.Mind.Components;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Robust.Server.Player;
-using Robust.Shared.Network;
-using Robust.Shared.Timing;
-using Content.Shared._NF.CCVar; // Frontier
 using Robust.Shared.Configuration; // Frontier
-using Content.Server._NF.CryoSleep; // Frontier
+using Robust.Shared.Network;
 using Robust.Shared.Player; // Frontier
-using Content.Shared.Ghost; // Frontier
-using Content.Server.Administration.Managers; // Frontier
-using Content.Server.Administration; // Frontier
-using Content.Shared.GameTicking; // Frontier
-using Content.Shared._NF.Roles.Components; // Frontier
+using Robust.Shared.Timing;
 
 namespace Content.Server._Corvax.Respawn;
 
 public sealed class RespawnSystem : EntitySystem
 {
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IAdminManager _admin = default!;
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IConfigurationManager _cfg = default!;
+
+    [Dependency]
+    private readonly IAdminManager _admin = default!;
 
     private float _respawnTimeOnFirstCryo = 0f; // Frontier: shorter time for cryo respawns
     private float _respawnTime = 0f;
@@ -36,10 +43,12 @@ public sealed class RespawnSystem : EntitySystem
         public TimeSpan? LastCryoSleep; // The last time the user entered cryosleep.
         public TimeSpan? LastRespawnFromCryosleep; // The last time the user respawned after entering cryosleep.
     }
+
     // End Frontier
 
     [ViewVariables]
     private Dictionary<NetUserId, RespawnData> _respawnInfo = new(); // Frontier: struct for complete respawn info
+
     public override void Initialize()
     {
         SubscribeLocalEvent<MindContainerComponent, MobStateChangedEvent>(OnMobStateChanged);
@@ -65,6 +74,7 @@ public sealed class RespawnSystem : EntitySystem
     {
         _respawnTime = value;
     }
+
     // End Frontier
 
     private void OnMobStateChanged(EntityUid entity, MindContainerComponent component, MobStateChangedEvent e)
@@ -91,8 +101,11 @@ public sealed class RespawnSystem : EntitySystem
             return;
 
         // Frontier: extra conditions for respawn lenience
-        if (HasComp<GhostRoleComponent>(entity) || // Don't penalize user for exiting ghost roles
-            HasComp<InterviewHologramComponent>(entity)) // Don't penalize user for leaving an interview
+        if (
+            HasComp<GhostRoleComponent>(entity)
+            || // Don't penalize user for exiting ghost roles
+            HasComp<InterviewHologramComponent>(entity)
+        ) // Don't penalize user for leaving an interview
             return; // Frontier: don't penalize user for exiting ghost roles
 
         if (HasComp<GhostComponent>(entity)) // Don't penalize user for reobserving
@@ -133,7 +146,11 @@ public sealed class RespawnSystem : EntitySystem
     }
 
     // Frontier: cryosleep handler
-    private void OnCryoBeforeMindRemoved(EntityUid entity, MindContainerComponent component, CryosleepBeforeMindRemovedEvent _)
+    private void OnCryoBeforeMindRemoved(
+        EntityUid entity,
+        MindContainerComponent component,
+        CryosleepBeforeMindRemovedEvent _
+    )
     {
         if (!_player.TryGetSessionByEntity(entity, out var session))
             return;
@@ -145,10 +162,17 @@ public sealed class RespawnSystem : EntitySystem
         double respawnTime = _respawnTimeOnFirstCryo; // Not previously respawned from cryo.
         if (respawnData.LastRespawnFromCryosleep is not null)
         {
-            double secondsSinceLastCryoRespawn = (_timing.CurTime - respawnData.LastRespawnFromCryosleep).Value.TotalSeconds;
+            double secondsSinceLastCryoRespawn = (_timing.CurTime - respawnData.LastRespawnFromCryosleep)
+                .Value
+                .TotalSeconds;
             respawnTime = double.Max(_respawnTimeOnFirstCryo, _respawnTime - secondsSinceLastCryoRespawn); // Respawn at lenient cryo time
         }
-        SetRespawnTime(session.UserId, ref respawnData, _timing.CurTime + TimeSpan.FromSeconds(respawnTime), _timing.CurTime);
+        SetRespawnTime(
+            session.UserId,
+            ref respawnData,
+            _timing.CurTime + TimeSpan.FromSeconds(respawnTime),
+            _timing.CurTime
+        );
     }
 
     private void OnCryoWakeUp(EntityUid entity, MindContainerComponent component, CryosleepWakeUpEvent _)
@@ -187,8 +211,7 @@ public sealed class RespawnSystem : EntitySystem
     {
         var session = args.Session;
 
-        if (args.NewStatus == Robust.Shared.Enums.SessionStatus.InGame &&
-            _respawnInfo.ContainsKey(session.UserId))
+        if (args.NewStatus == Robust.Shared.Enums.SessionStatus.InGame && _respawnInfo.ContainsKey(session.UserId))
         {
             RaiseNetworkEvent(new RespawnResetEvent(_respawnInfo[session.UserId].RespawnTime), session);
         }

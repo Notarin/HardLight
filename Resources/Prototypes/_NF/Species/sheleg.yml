@@ -78,9 +78,9 @@
       points: 8
       required: false
 
-# - type: humanoidBaseSprite
-  # id: MobShelegEyes
-  # baseSprite:
+    # - type: humanoidBaseSprite
+    # id: MobShelegEyes
+    # baseSprite:
     # sprite: _NF/Mobs/Species/Sheleg/parts.rsi
     # state: eyes
 

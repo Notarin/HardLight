@@ -14,8 +14,10 @@ public sealed partial class LeashedVisualsComponent : Component
     public SpriteSpecifier Sprite = default!;
 
     [DataField, AutoNetworkedField]
-    public EntityUid Source, Target;
+    public EntityUid Source,
+        Target;
 
     [DataField, AutoNetworkedField]
-    public Vector2 OffsetSource, OffsetTarget;
+    public Vector2 OffsetSource,
+        OffsetTarget;
 }

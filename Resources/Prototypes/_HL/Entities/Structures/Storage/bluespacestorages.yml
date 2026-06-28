@@ -19,8 +19,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.5,-0.5,0.5,0.5"
         density: 15
         layer:
@@ -53,7 +52,7 @@
 
 - type: entity
   id: BluespaceSafe
-  parent: [ GunSafe, BaseBluespaceStorage ]
+  parent: [GunSafe, BaseBluespaceStorage]
   name: bluespace safe
   description: A large safe, capable of holding your greatest treasures. Usage of bluespace crystals allows it to protect your posessions from dockyard workers.
   components:
@@ -124,7 +123,7 @@
 
 - type: entity
   id: ShelfWallFreezerBluespace
-  parent: [ ShelfBaseReinforced, BaseBluespaceStorage]
+  parent: [ShelfBaseReinforced, BaseBluespaceStorage]
   name: bluespace wall freezer
   description: A convenient place to store perishables. Dockyard workers will not touch its contents.
   suffix: Frontier, White
@@ -174,8 +173,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.10,-0.10,0.10,0.10"
         density: 500
         mask:
@@ -201,9 +199,9 @@
     sprite: _HL/Structures/Furniture/bluespacebookshelf.rsi
     snapCardinals: true
     layers:
-      - state: base
-      - state: book-0
-      - map: ["enum.StorageFillLayers.Fill"]
+    - state: base
+    - state: book-0
+    - map: ["enum.StorageFillLayers.Fill"]
   - type: Appearance
   - type: StorageFillVisualizer
     maxFillLevels: 21
@@ -213,8 +211,7 @@
     damageContainer: StructuralInorganic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 30
       behaviors:
       - !type:PlaySoundBehavior
@@ -244,13 +241,13 @@
     maxItemSize: Normal
     whitelist:
       tags:
-        - Document
-        - Folder
-        - Write
-        - Book
-        - Spellbook
-        - VinylSleeveFit
-        - VinylSleeve
+      - Document
+      - Folder
+      - Write
+      - Book
+      - Spellbook
+      - VinylSleeveFit
+      - VinylSleeve
   - type: StaticPrice
     price: 100000
   - type: CargoSellBlacklist

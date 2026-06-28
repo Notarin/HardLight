@@ -1,7 +1,7 @@
 using System.Linq;
 using Content.Shared._Mono;
-using Content.Shared._Mono.NoHack;
 using Content.Shared._Mono.NoDeconstruct;
+using Content.Shared._Mono.NoHack;
 using Content.Shared.Doors.Components;
 using Content.Shared.VendingMachines;
 using Robust.Shared.Containers;
@@ -16,8 +16,11 @@ namespace Content.Server._Mono;
 // VRS: Ported from Triad_Sector — prevents POI infrastructure griefing.
 public sealed class GridRaiderSystem : EntitySystem
 {
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
+    [Dependency]
+    private readonly EntityLookupSystem _lookup = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
 
     public override void Initialize()
     {
@@ -74,7 +77,12 @@ public sealed class GridRaiderSystem : EntitySystem
         }
     }
 
-    private void ApplyProtection(EntityUid entityUid, GridRaiderComponent component, bool hackProtect = true, bool deconProtect = true)
+    private void ApplyProtection(
+        EntityUid entityUid,
+        GridRaiderComponent component,
+        bool hackProtect = true,
+        bool deconProtect = true
+    )
     {
         if (component.ProtectedEntities.Contains(entityUid))
             return;

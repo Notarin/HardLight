@@ -1,6 +1,6 @@
 - type: entity
   save: false
-  parent: [ BaseSimpleMob, MobCombat ]
+  parent: [BaseSimpleMob, MobCombat]
   id: BaseMobArgocyte
   suffix: AI
   description: A dangerous alien found on the wrong side of planets, known for their propensity for munching on ruins.
@@ -22,12 +22,10 @@
     bloodMaxVolume: 75 #we don't want the map to become pools of blood
     bloodlossDamage:
       types:
-        Bloodloss:
-          0.5
+        Bloodloss: 0.5
     bloodlossHealDamage:
       types:
-        Bloodloss:
-          -1
+        Bloodloss: -1
   - type: Insulated
   - type: CombatMode
   - type: MeleeWeapon
@@ -79,8 +77,8 @@
     - id: FoodMeatXeno
       amount: 1
   - type: MovementSpeedModifier
-    baseSprintSpeed : 3.5
-    baseWalkSpeed : 3
+    baseSprintSpeed: 3.5
+    baseWalkSpeed: 3
   - type: MeleeWeapon
     damage:
       types:
@@ -115,8 +113,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.2
         density: 50
         mask:
@@ -155,8 +152,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeCircle
+        shape: !type:PhysShapeCircle
           radius: 0.2
         density: 50
         mask:
@@ -193,7 +189,7 @@
     - id: FoodMeatXeno
       amount: 2
   - type: MovementSpeedModifier
-    baseSprintSpeed : 5
+    baseSprintSpeed: 5
 
 - type: entity
   parent: BaseMobArgocyte
@@ -219,8 +215,8 @@
     - id: FoodMeatXeno
       amount: 2
   - type: MovementSpeedModifier
-    baseSprintSpeed : 4
-    baseWalkSpeed : 3.5
+    baseSprintSpeed: 4
+    baseWalkSpeed: 3.5
 
 - type: entity
   parent: BaseMobArgocyte
@@ -280,7 +276,7 @@
         Blunt: 3.5
         Slash: 3.5
   - type: MovementSpeedModifier
-    baseSprintSpeed : 5
+    baseSprintSpeed: 5
     baseWalkSpeed: 4.5
 
 - type: entity
@@ -321,8 +317,8 @@
   components:
   - type: Sprite
     layers:
-      - state: crawler
-        map: ["enum.DamageStateVisualLayers.Base"]
+    - state: crawler
+      map: ["enum.DamageStateVisualLayers.Base"]
   - type: DamageStateVisuals
     states:
       Alive:
@@ -344,7 +340,7 @@
         Slash: 5
         Structural: 5
   - type: MovementSpeedModifier
-    baseSprintSpeed : 6.5
+    baseSprintSpeed: 6.5
     baseWalkSpeed: 5
 
 - type: entity
@@ -354,8 +350,8 @@
   components:
   - type: Sprite
     layers:
-      - state: enforcer
-        map: ["enum.DamageStateVisualLayers.Base"]
+    - state: enforcer
+      map: ["enum.DamageStateVisualLayers.Base"]
   - type: DamageStateVisuals
     states:
       Alive:
@@ -377,7 +373,7 @@
         Slash: 15
         Structural: 10
   - type: MovementSpeedModifier
-    baseSprintSpeed : 3.5
+    baseSprintSpeed: 3.5
     baseWalkSpeed: 3
 
 - type: entity
@@ -388,8 +384,8 @@
   - type: Sprite
     sprite: Mobs/Aliens/Argocyte/argocyte_large.rsi
     layers:
-      - state: founder
-        map: ["enum.DamageStateVisualLayers.Base"]
+    - state: founder
+      map: ["enum.DamageStateVisualLayers.Base"]
   - type: DamageStateVisuals
     states:
       Alive:
@@ -404,15 +400,14 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
+        shape: !type:PhysShapeCircle
           # Circles, cuz rotation of rectangles looks very bad
-          !type:PhysShapeCircle
           radius: 0.75
         density: 300
         mask:
-          - MobMask
+        - MobMask
         layer:
-          - MobLayer
+        - MobLayer
   - type: MobThresholds
     thresholds:
       0: Alive
@@ -423,7 +418,7 @@
         Blunt: 25
         Structural: 25
   - type: MovementSpeedModifier
-    baseSprintSpeed : 3
+    baseSprintSpeed: 3
     baseWalkSpeed: 3
 
 - type: entity
@@ -434,8 +429,8 @@
   - type: Sprite
     sprite: Mobs/Aliens/Argocyte/argocyte_large.rsi
     layers:
-      - state: leviathing
-        map: ["enum.DamageStateVisualLayers.Base"]
+    - state: leviathing
+      map: ["enum.DamageStateVisualLayers.Base"]
   - type: DamageStateVisuals
     states:
       Alive:
@@ -450,9 +445,8 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
+        shape: !type:PhysShapeCircle
           # Circles, cuz rotation of rectangles looks very bad
-          !type:PhysShapeCircle
           radius: 0.75
         density: 300
         mask:

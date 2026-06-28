@@ -16,7 +16,8 @@ namespace Content.Shared.Movement.Systems;
 /// </summary>
 public abstract class SharedContentEyeSystem : EntitySystem
 {
-    [Dependency] private readonly ISharedAdminManager _admin = default!;
+    [Dependency]
+    private readonly ISharedAdminManager _admin = default!;
 
     // Admin flags required to ignore normal eye restrictions.
     public const AdminFlags EyeFlag = AdminFlags.Debug;
@@ -25,7 +26,8 @@ public abstract class SharedContentEyeSystem : EntitySystem
     public static readonly Vector2 DefaultZoom = Vector2.One;
     public static readonly Vector2 MinZoom = DefaultZoom * (float)Math.Pow(ZoomMod, -3);
 
-    [Dependency] private readonly SharedEyeSystem _eye = default!;
+    [Dependency]
+    private readonly SharedEyeSystem _eye = default!;
 
     public override void Initialize()
     {
@@ -35,10 +37,10 @@ public abstract class SharedContentEyeSystem : EntitySystem
         SubscribeAllEvent<RequestPvsScaleEvent>(OnPvsScale);
         SubscribeAllEvent<RequestEyeEvent>(OnRequestEye);
 
-        CommandBinds.Builder
-            .Bind(ContentKeyFunctions.ZoomIn, InputCmdHandler.FromDelegate(ZoomIn, handle:false))
-            .Bind(ContentKeyFunctions.ZoomOut, InputCmdHandler.FromDelegate(ZoomOut, handle:false))
-            .Bind(ContentKeyFunctions.ResetZoom, InputCmdHandler.FromDelegate(ResetZoom, handle:false))
+        CommandBinds
+            .Builder.Bind(ContentKeyFunctions.ZoomIn, InputCmdHandler.FromDelegate(ZoomIn, handle: false))
+            .Bind(ContentKeyFunctions.ZoomOut, InputCmdHandler.FromDelegate(ZoomOut, handle: false))
+            .Bind(ContentKeyFunctions.ResetZoom, InputCmdHandler.FromDelegate(ResetZoom, handle: false))
             .Register<SharedContentEyeSystem>();
 
         Log.Level = LogLevel.Info;
@@ -96,7 +98,7 @@ public abstract class SharedContentEyeSystem : EntitySystem
 
     private void OnPvsScale(RequestPvsScaleEvent ev, EntitySessionEventArgs args)
     {
-        if (args.SenderSession.AttachedEntity is {} uid && _admin.HasAdminFlag(args.SenderSession, EyeFlag))
+        if (args.SenderSession.AttachedEntity is { } uid && _admin.HasAdminFlag(args.SenderSession, EyeFlag))
             _eye.SetPvsScale(uid, ev.Scale);
     }
 

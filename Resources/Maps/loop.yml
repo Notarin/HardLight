@@ -78859,7 +78859,6 @@ entities:
       content: >-
         Murder is ok
 
-
         -John Cybersun
 - proto: ParticleAcceleratorControlBoxUnfinished
   entities:
@@ -112711,4 +112710,3 @@ entities:
     - type: Transform
       pos: -63.702835,43.846817
       parent: 2
-...

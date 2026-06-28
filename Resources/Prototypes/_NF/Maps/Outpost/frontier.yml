@@ -10,28 +10,28 @@
     Frontier:
       stationProto: StandardFrontierStation
       components:
-        - type: StationNameSetup
-          mapNameTemplate: 'Frontier Outpost'
-#          nameGenerator:
-#            !type:NanotrasenNameGenerator
-#            prefixCreator: '14'
-        - type: ExtraStationInformation
-          iconPath: /Textures/_NF/Logo/icon/icon-256x256.png # used the biggest one, looks better when downscaling than upscaling
-          stationSubtext: 'frontier-lobby-frontier-subtext'
-          stationDescription: 'frontier-lobby-frontier-description'
-          lobbySortOrder: 1
-        - type: StationJobs
-          availableJobs:
-            Contractor: [ 0, -1 ]
-            Pilot: [ 0, -1 ]
-            Mercenary: [ 0, -1 ]
-            Borg: [ -1, -1 ]
-            StationRepresentative: [ 0, 1 ]
-            StationTrafficController: [ 1, 1 ]
-            SecurityGuard: [ 0, 1 ]
-            Valet: [ 0, 1 ]
-            NFJanitor: [ 0, 1 ]
-            MailCarrier: [ 1, 1 ]
-          tags:
-          - HeadOfPersonnel
-          - HeadOfSecurity
+      - type: StationNameSetup
+        mapNameTemplate: 'Frontier Outpost'
+        #          nameGenerator:
+        #            !type:NanotrasenNameGenerator
+        #            prefixCreator: '14'
+      - type: ExtraStationInformation
+        iconPath: /Textures/_NF/Logo/icon/icon-256x256.png # used the biggest one, looks better when downscaling than upscaling
+        stationSubtext: 'frontier-lobby-frontier-subtext'
+        stationDescription: 'frontier-lobby-frontier-description'
+        lobbySortOrder: 1
+      - type: StationJobs
+        availableJobs:
+          Contractor: [0, -1]
+          Pilot: [0, -1]
+          Mercenary: [0, -1]
+          Borg: [-1, -1]
+          StationRepresentative: [0, 1]
+          StationTrafficController: [1, 1]
+          SecurityGuard: [0, 1]
+          Valet: [0, 1]
+          NFJanitor: [0, 1]
+          MailCarrier: [1, 1]
+        tags:
+        - HeadOfPersonnel
+        - HeadOfSecurity

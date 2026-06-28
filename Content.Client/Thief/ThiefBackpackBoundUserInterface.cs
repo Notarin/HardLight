@@ -10,7 +10,8 @@ public sealed class ThiefBackpackBoundUserInterface : BoundUserInterface
 {
     private ThiefBackpackMenu? _window;
 
-    public ThiefBackpackBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey) { }
+    public ThiefBackpackBoundUserInterface(EntityUid owner, Enum uiKey)
+        : base(owner, uiKey) { }
 
     protected override void Open()
     {

@@ -1,17 +1,17 @@
 - type: entity
   id: BaseSpeedLoader45_magnum
   name: "speed loader (.45 magnum)"
-  parent: [ BaseItem, BaseC1Contraband ] # Frontier: BaseSecurityContraband<BaseC1Contraband
+  parent: [BaseItem, BaseC1Contraband] # Frontier: BaseSecurityContraband<BaseC1Contraband
   abstract: true
   components:
   - type: Tag
     tags:
-      - SpeedLoader45_magnumFMJ
+    - SpeedLoader45_magnumFMJ
   - type: SpeedLoader
   - type: BallisticAmmoProvider
     whitelist:
       tags:
-        - Cartridge45_magnumFMJ
+      - Cartridge45_magnumFMJ
     capacity: 6
   - type: Sprite
   - type: ContainerContainer
@@ -29,10 +29,10 @@
   - type: Sprite
     sprite: _Mono/Objects/Weapons/Guns/Ammunition/SpeedLoaders/45_magnum/45_magnum_speed_loader.rsi
     layers:
-      - state: base
-        map: [ "enum.GunVisualLayers.Base" ]
-      - state: base-6
-        map: [ "enum.GunVisualLayers.Mag" ]
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: base-6
+      map: ["enum.GunVisualLayers.Mag"]
   - type: MagazineVisuals
     magState: base
     steps: 7
@@ -49,13 +49,13 @@
   - type: Sprite
     sprite: _Mono/Objects/Weapons/Guns/Ammunition/SpeedLoaders/45_magnum/45_magnum_speed_loader.rsi
     layers:
-      - state: base
-        map: [ "enum.GunVisualLayers.Base" ]
-      # TODO: This is actually a issue with all the speed loaders:
-      #       You can mix different ammo types, but it will always
-      #       use the one it was printed for.
-      - state: base-6
-        map: [ "enum.GunVisualLayers.Mag" ]
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    # TODO: This is actually a issue with all the speed loaders:
+    #       You can mix different ammo types, but it will always
+    #       use the one it was printed for.
+    - state: base-6
+      map: ["enum.GunVisualLayers.Mag"]
 
 - type: entity
   id: SpeedLoader45_magnumIncendiary
@@ -75,10 +75,10 @@
   - type: Sprite
     sprite: _Mono/Objects/Weapons/Guns/Ammunition/SpeedLoaders/45_magnum/45_magnum_speed_loader.rsi
     layers:
-      - state: base
-        map: [ "enum.GunVisualLayers.Base" ]
-      - state: practice-6
-        map: [ "enum.GunVisualLayers.Mag" ]
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: practice-6
+      map: ["enum.GunVisualLayers.Mag"]
   - type: MagazineVisuals
     magState: practice
     steps: 7
@@ -95,10 +95,10 @@
   - type: Sprite
     sprite: _Mono/Objects/Weapons/Guns/Ammunition/SpeedLoaders/45_magnum/45_magnum_speed_loader.rsi
     layers:
-      - state: base
-        map: [ "enum.GunVisualLayers.Base" ]
-      - state: piercing-6
-        map: [ "enum.GunVisualLayers.Mag" ]
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: piercing-6
+      map: ["enum.GunVisualLayers.Mag"]
   - type: MagazineVisuals
     magState: piercing
     steps: 7
@@ -115,10 +115,10 @@
   - type: Sprite
     sprite: _Mono/Objects/Weapons/Guns/Ammunition/SpeedLoaders/45_magnum/45_magnum_speed_loader.rsi
     layers:
-      - state: base
-        map: [ "enum.GunVisualLayers.Base" ]
-      - state: uranium-6
-        map: [ "enum.GunVisualLayers.Mag" ]
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: uranium-6
+      map: ["enum.GunVisualLayers.Mag"]
   - type: MagazineVisuals
     magState: uranium
     steps: 7
@@ -135,10 +135,10 @@
   - type: Sprite
     sprite: _Mono/Objects/Weapons/Guns/Ammunition/SpeedLoaders/45_magnum/45_magnum_rubber_speed_loader.rsi
     layers:
-      - state: base
-        map: [ "enum.GunVisualLayers.Base" ]
-      - state: rubber-6
-        map: [ "enum.GunVisualLayers.Mag" ]
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: rubber-6
+      map: ["enum.GunVisualLayers.Mag"]
   - type: MagazineVisuals
     magState: rubber
     steps: 7

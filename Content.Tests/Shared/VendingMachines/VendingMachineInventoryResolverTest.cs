@@ -23,7 +23,8 @@ public sealed class VendingMachineInventoryResolverTest : ContentUnitTest
         _prototypeManager.ResolveResults();
     }
 
-    private const string TestPrototypes = @"
+    private const string TestPrototypes =
+        @"
 - type: entity
   id: TestVendItemA
 
@@ -98,7 +99,11 @@ public sealed class VendingMachineInventoryResolverTest : ContentUnitTest
         Assert.That(result, Has.Count.EqualTo(3));
         Assert.That(result["TestVendItemA"], Is.EqualTo(uint.MaxValue));
         Assert.That(result["TestVendItemB"], Is.EqualTo(uint.MaxValue));
-        Assert.That(result["TestVendItemC"], Is.EqualTo((uint)2), "Local entries are not affected by inheritAsUnlimited.");
+        Assert.That(
+            result["TestVendItemC"],
+            Is.EqualTo((uint)2),
+            "Local entries are not affected by inheritAsUnlimited."
+        );
     }
 
     [Test]
@@ -106,7 +111,8 @@ public sealed class VendingMachineInventoryResolverTest : ContentUnitTest
     {
         var proto = _prototypeManager.Index<VendingMachineInventoryPrototype>("ResolverTestCycleA");
 
-        Assert.Throws<InvalidOperationException>(
-            () => VendingMachineInventoryResolver.ResolveRegular(_prototypeManager, proto));
+        Assert.Throws<InvalidOperationException>(() =>
+            VendingMachineInventoryResolver.ResolveRegular(_prototypeManager, proto)
+        );
     }
 }

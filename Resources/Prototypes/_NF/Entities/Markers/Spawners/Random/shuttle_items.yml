@@ -28,14 +28,14 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-        scale: 0.5, 0.5
-      - sprite: Objects/Consumable/Drinks/mug_moebius.rsi
-        state: icon-0
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: green
-        scale: 0.7, 0.7
+    - state: green
+      scale: 0.5, 0.5
+    - sprite: Objects/Consumable/Drinks/mug_moebius.rsi
+      state: icon-0
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: green
+      scale: 0.7, 0.7
   - type: EntityTableSpawner
     offset: 0.0
     table: !type:NestedSelector
@@ -89,15 +89,15 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-        scale: 0.5, 0.5
-      - sprite: Clothing/Multiple/towel.rsi
-        state: icon
-        color: "#EAE8E8"
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: green
-        scale: 0.7, 0.7
+    - state: green
+      scale: 0.5, 0.5
+    - sprite: Clothing/Multiple/towel.rsi
+      state: icon
+      color: "#EAE8E8"
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: green
+      scale: 0.7, 0.7
   - type: EntityTableSpawner
     offset: 0.0
     table: !type:NestedSelector
@@ -126,14 +126,14 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - sprite: Structures/Storage/suit_storage.rsi
-        state: base
-      - sprite: Structures/Storage/suit_storage.rsi
-        state: door
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: red
+    - state: green
+    - sprite: Structures/Storage/suit_storage.rsi
+      state: base
+    - sprite: Structures/Storage/suit_storage.rsi
+      state: door
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: red
   - type: EntityTableSpawner
     offset: 0.0
     table: !type:NestedSelector
@@ -145,8 +145,8 @@
   id: TableRandomVendomatClothing
   table: !type:GroupSelector
     children:
-    # Common
     - !type:GroupSelector
+      # Common
       weight: 95
       children:
       - id: VendingMachineClothing
@@ -169,8 +169,8 @@
       - id: VendingMachineGeneDrobe
       - id: VendingMachineViroDrobe
       - id: VendingMachinePride
-    # Uncommon
     - !type:GroupSelector
+      # Uncommon
       weight: 5
       children:
       - id: VendingMachineClothingPunk
@@ -184,12 +184,12 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-      - sprite: Structures/Machines/VendingMachines/winterdrobe.rsi
-        state: off
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: red
+    - state: green
+    - sprite: Structures/Machines/VendingMachines/winterdrobe.rsi
+      state: off
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: red
   - type: EntityTableSpawner
     offset: 0.0
     table: !type:NestedSelector
@@ -221,14 +221,14 @@
   components:
   - type: Sprite
     layers:
-      - state: green
-        scale: 0.5, 0.5
-      - sprite: Structures/Wallmounts/signs.rsi
-        state: five
-      - sprite: _NF/Markers/general.rsi
-        state: questionmark
-        color: green
-        scale: 0.6, 0.6
+    - state: green
+      scale: 0.5, 0.5
+    - sprite: Structures/Wallmounts/signs.rsi
+      state: five
+    - sprite: _NF/Markers/general.rsi
+      state: questionmark
+      color: green
+      scale: 0.6, 0.6
   - type: EntityTableSpawner
     offset: 0.0
     table: !type:NestedSelector

@@ -21,7 +21,7 @@
     - !type:SnapToGrid {}
     - !type:SetAnchor {}
     edges:
-# Toolbox
+    # Toolbox
     - to: AltarToolboxNode
       conditions:
       - !type:EntityAnchored {}
@@ -36,7 +36,7 @@
         store: altar_cloth
         amount: 3
         doAfter: 2
-# Blue
+        # Blue
     - to: AltarConvertBlueNode
       conditions:
       - !type:EntityAnchored {}
@@ -57,7 +57,7 @@
         store: altar_cloth
         amount: 3
         doAfter: 2
-# Red
+        # Red
     - to: AltarConvertRedNode
       conditions:
       - !type:EntityAnchored {}
@@ -84,7 +84,7 @@
         store: altar_cloth
         amount: 3
         doAfter: 2
-# Yellow
+        # Yellow
     - to: AltarConvertYellowNode
       conditions:
       - !type:EntityAnchored {}
@@ -111,7 +111,7 @@
         store: altar_cloth
         amount: 3
         doAfter: 2
-# Maint
+        # Maint
     - to: AltarConvertMaintNode
       conditions:
       - !type:EntityAnchored {}
@@ -138,7 +138,7 @@
         store: altar_cloth
         amount: 3
         doAfter: 2
-# Burden
+        # Burden
     - to: AltarConvertBurdenNode
       conditions:
       - !type:EntityAnchored {}
@@ -165,7 +165,7 @@
         store: altar_cloth
         amount: 3
         doAfter: 2
-# White
+        # White
     - to: AltarConvertWhiteNode
       conditions:
       - !type:EntityAnchored {}
@@ -192,7 +192,7 @@
         store: altar_cloth
         amount: 3
         doAfter: 2
-# Orange
+        # Orange
     - to: AltarConvertOrangeNode
       conditions:
       - !type:EntityAnchored {}
@@ -220,7 +220,7 @@
         store: altar_cloth
         amount: 3
         doAfter: 2
-# Technology
+        # Technology
     - to: AltarTechnologyNode
       conditions:
       - !type:EntityAnchored {}
@@ -235,7 +235,7 @@
         store: altar_cloth
         amount: 3
         doAfter: 2
-# Nanotrasen
+        # Nanotrasen
     - to: AltarNanotrasenNode
       conditions:
       - !type:EntityAnchored {}
@@ -250,7 +250,7 @@
         store: altar_cloth
         amount: 3
         doAfter: 2
-# Chaos
+        # Chaos
     - to: AltarChaosNode
       conditions:
       - !type:EntityAnchored {}
@@ -265,7 +265,7 @@
         store: altar_cloth
         amount: 3
         doAfter: 2
-# Druid
+        # Druid
     - to: AltarDruidNode
       conditions:
       - !type:EntityAnchored {}
@@ -280,7 +280,7 @@
         store: altar_cloth
         amount: 3
         doAfter: 2
-# Satana
+        # Satana
     - to: AltarSatanaNode
       conditions:
       - !type:EntityAnchored {}
@@ -295,7 +295,7 @@
         store: altar_cloth
         amount: 3
         doAfter: 2
-# Festival
+        # Festival
     - to: AltarConvertFestivalNode
       conditions:
       - !type:EntityAnchored {}
@@ -310,7 +310,7 @@
         store: altar_cloth
         amount: 3
         doAfter: 2
-# Mail
+        # Mail
     - to: AltarMailNode
       conditions:
       - !type:EntityAnchored {}
@@ -325,7 +325,7 @@
         store: altar_cloth
         amount: 3
         doAfter: 2
-# Space-Christian
+        # Space-Christian
     - to: AltarSpaceChristianNode
       conditions:
       - !type:EntityAnchored {}
@@ -352,7 +352,7 @@
         store: altar_cloth
         amount: 3
         doAfter: 2
-# Dismantle
+        # Dismantle
     - to: start
       conditions:
       - !type:EntityAnchored
@@ -368,7 +368,7 @@
       steps:
       - tool: Prying
         doAfter: 3
-# Final
+        # Final
   - node: AltarToolboxNode
     entity: AltarToolbox
     edges:

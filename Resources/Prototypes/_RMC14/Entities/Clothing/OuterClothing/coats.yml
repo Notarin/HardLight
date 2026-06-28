@@ -15,7 +15,7 @@
 
 - type: entity
   abstract: True
-  parent: [ RMCBaseJacket, BaseFoldable ]
+  parent: [RMCBaseJacket, BaseFoldable]
   id: RMCBaseJacketButtonable
   components:
   - type: Appearance
@@ -29,10 +29,10 @@
   - type: Sprite
     layers:
     - state: icon
-      map: [ "unfoldedLayer" ]
+      map: ["unfoldedLayer"]
       visible: true
     - state: icon-open
-      map: [ "foldedLayer" ]
+      map: ["foldedLayer"]
       visible: false
 
 - type: entity
@@ -50,12 +50,11 @@
   - type: Sprite
     layers:
     - state: icon
-      map: [ "unfoldedLayer" ]
+      map: ["unfoldedLayer"]
       visible: false
     - state: icon-open
-      map: [ "foldedLayer" ]
+      map: ["foldedLayer"]
       visible: true
-
 
 # Mess Seargeant/Tech
 - type: entity
@@ -103,9 +102,9 @@
     sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/pilot.rsi
     layers:
     - state: icon
-      map: [ "unfoldedLayer" ]
+      map: ["unfoldedLayer"]
     - state: jacket-icon
-      map: [ "foldedLayer" ]
+      map: ["foldedLayer"]
       visible: false
   - type: Clothing
     sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/pilot.rsi
@@ -300,7 +299,7 @@
     sprite: _RMC14/Objects/Clothing/OuterClothing/Coats/Windbreakers/windbreaker.rsi
     layers:
     - state: icon
-      map: [ "unfoldedLayer" ]
+      map: ["unfoldedLayer"]
       visible: true
     - state: jacket-icon
       map: ["foldedLayer"]

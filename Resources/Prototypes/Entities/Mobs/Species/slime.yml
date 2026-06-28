@@ -90,15 +90,15 @@
         Heat: 0.2 # 0.1 more than humans, i feel like low pressure would make slime boil more than blunt stretch them so i decided on this instead.
   - type: Reactive
     groups:
-      Flammable: [ Touch ]
-      Extinguish: [ Touch ]
+      Flammable: [Touch]
+      Extinguish: [Touch]
     reactions:
-    - reagents: [ Water, SpaceCleaner ]
-      methods: [ Touch ]
+    - reagents: [Water, SpaceCleaner]
+      methods: [Touch]
       effects:
       - !type:WashCreamPieReaction
-    - reagents: [ Water ]
-      methods: [ Touch ]
+    - reagents: [Water]
+      methods: [Touch]
       effects:
       - !type:HealthChange
         scaleByQuantity: true
@@ -108,7 +108,7 @@
       - !type:PopupMessage
         type: Local
         visualType: Large
-        messages: [ "slime-hurt-by-water-popup" ]
+        messages: ["slime-hurt-by-water-popup"]
         probability: 0.25
   - type: Butcherable
     butcheringType: Spike
@@ -144,7 +144,7 @@
 - type: entity
   parent: MobHumanDummy
   id: MobSlimePersonDummy
-  categories: [ HideSpawnMenu ]
+  categories: [HideSpawnMenu]
   components:
   - type: HumanoidAppearance
     species: SlimePerson

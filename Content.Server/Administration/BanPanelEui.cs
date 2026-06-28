@@ -6,8 +6,8 @@ using Content.Server.Chat.Managers;
 using Content.Server.EUI;
 using Content.Shared.Administration;
 using Content.Shared.Database;
-using Content.Shared.Roles;
 using Content.Shared.Eui;
+using Content.Shared.Roles;
 using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
 
@@ -15,13 +15,26 @@ namespace Content.Server.Administration;
 
 public sealed class BanPanelEui : BaseEui
 {
-    [Dependency] private readonly IBanManager _banManager = default!;
-    [Dependency] private readonly IEntityManager _entities = default!;
-    [Dependency] private readonly ILogManager _log = default!;
-    [Dependency] private readonly IPlayerLocator _playerLocator = default!;
-    [Dependency] private readonly IChatManager _chat = default!;
-    [Dependency] private readonly IAdminManager _admins = default!;
-    [Dependency] private readonly IPrototypeManager _prototypes = default!;
+    [Dependency]
+    private readonly IBanManager _banManager = default!;
+
+    [Dependency]
+    private readonly IEntityManager _entities = default!;
+
+    [Dependency]
+    private readonly ILogManager _log = default!;
+
+    [Dependency]
+    private readonly IPlayerLocator _playerLocator = default!;
+
+    [Dependency]
+    private readonly IChatManager _chat = default!;
+
+    [Dependency]
+    private readonly IAdminManager _admins = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypes = default!;
 
     private readonly ISawmill _sawmill;
 
@@ -52,7 +65,18 @@ public sealed class BanPanelEui : BaseEui
         switch (msg)
         {
             case BanPanelEuiStateMsg.CreateBanRequest r:
-                BanPlayer(r.Player, r.IpAddress, r.UseLastIp, r.Hwid, r.UseLastHwid, r.Minutes, r.Severity, r.Reason, r.Roles, r.Erase);
+                BanPlayer(
+                    r.Player,
+                    r.IpAddress,
+                    r.UseLastIp,
+                    r.Hwid,
+                    r.UseLastHwid,
+                    r.Minutes,
+                    r.Severity,
+                    r.Reason,
+                    r.Roles,
+                    r.Erase
+                );
                 break;
             case BanPanelEuiStateMsg.GetPlayerInfoRequest r:
                 ChangePlayer(r.PlayerUsername);
@@ -60,7 +84,18 @@ public sealed class BanPanelEui : BaseEui
         }
     }
 
-    private async void BanPlayer(string? target, string? ipAddressString, bool useLastIp, ImmutableTypedHwid? hwid, bool useLastHwid, uint minutes, NoteSeverity severity, string reason, IReadOnlyCollection<string>? roles, bool erase)
+    private async void BanPlayer(
+        string? target,
+        string? ipAddressString,
+        bool useLastIp,
+        ImmutableTypedHwid? hwid,
+        bool useLastHwid,
+        uint minutes,
+        NoteSeverity severity,
+        string reason,
+        IReadOnlyCollection<string>? roles,
+        bool erase
+    )
     {
         if (!_admins.HasAdminFlag(Player, AdminFlags.Ban))
         {
@@ -91,21 +126,29 @@ public sealed class BanPanelEui : BaseEui
             if (split.Length > 1)
                 hid = split[1];
 
-            if (!IPAddress.TryParse(ipAddressString, out var ipAddress) || !uint.TryParse(hid, out var hidInt) || hidInt > Ipv6_CIDR || hidInt > Ipv4_CIDR && ipAddress.AddressFamily == AddressFamily.InterNetwork)
+            if (
+                !IPAddress.TryParse(ipAddressString, out var ipAddress)
+                || !uint.TryParse(hid, out var hidInt)
+                || hidInt > Ipv6_CIDR
+                || hidInt > Ipv4_CIDR && ipAddress.AddressFamily == AddressFamily.InterNetwork
+            )
             {
                 _chat.DispatchServerMessage(Player, Loc.GetString("ban-panel-invalid-ip"));
                 return;
             }
 
             if (hidInt == 0)
-                hidInt = (uint) (ipAddress.AddressFamily == AddressFamily.InterNetworkV6 ? Ipv6_CIDR : Ipv4_CIDR);
+                hidInt = (uint)(ipAddress.AddressFamily == AddressFamily.InterNetworkV6 ? Ipv6_CIDR : Ipv4_CIDR);
 
-            addressRange = (ipAddress, (int) hidInt);
+            addressRange = (ipAddress, (int)hidInt);
         }
 
         var targetUid = target is not null ? PlayerId : null;
         var targetName = target is not null ? PlayerName : string.Empty;
-        addressRange = useLastIp && LastAddress is not null ? (LastAddress, LastAddress.AddressFamily == AddressFamily.InterNetworkV6 ? Ipv6_CIDR : Ipv4_CIDR) : addressRange;
+        addressRange =
+            useLastIp && LastAddress is not null
+                ? (LastAddress, LastAddress.AddressFamily == AddressFamily.InterNetworkV6 ? Ipv6_CIDR : Ipv4_CIDR)
+                : addressRange;
         var targetHWid = useLastHwid ? LastHwid : hwid;
         if (target != null && target != PlayerName || Guid.TryParse(target, out var parsed) && parsed != PlayerId)
         {
@@ -140,7 +183,7 @@ public sealed class BanPanelEui : BaseEui
 
         if (isRoleBan)
         {
-            var roleBanInfo = (CreateRoleBanInfo) banInfo;
+            var roleBanInfo = (CreateRoleBanInfo)banInfo;
             foreach (var role in roles!)
             {
                 if (_prototypes.HasIndex<JobPrototype>(role))
@@ -172,7 +215,7 @@ public sealed class BanPanelEui : BaseEui
             }
         }
 
-        _banManager.CreateServerBan((CreateServerBanInfo) banInfo);
+        _banManager.CreateServerBan((CreateServerBanInfo)banInfo);
 
         Close();
     }
@@ -183,7 +226,12 @@ public sealed class BanPanelEui : BaseEui
         ChangePlayer(located?.UserId, located?.Username ?? string.Empty, located?.LastAddress, located?.LastHWId);
     }
 
-    public void ChangePlayer(NetUserId? playerId, string playerName, IPAddress? lastAddress, ImmutableTypedHwid? lastHwid)
+    public void ChangePlayer(
+        NetUserId? playerId,
+        string playerName,
+        IPAddress? lastAddress,
+        ImmutableTypedHwid? lastHwid
+    )
     {
         PlayerId = playerId;
         PlayerName = playerName;

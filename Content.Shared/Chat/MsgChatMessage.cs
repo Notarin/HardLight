@@ -48,7 +48,17 @@ namespace Content.Shared.Chat
         [NonSerialized]
         public bool Read;
 
-        public ChatMessage(ChatChannel channel, string message, string wrappedMessage, NetEntity source, int? senderKey, bool hideChat = false, Color? colorOverride = null, string? audioPath = null, float audioVolume = 0)
+        public ChatMessage(
+            ChatChannel channel,
+            string message,
+            string wrappedMessage,
+            NetEntity source,
+            int? senderKey,
+            bool hideChat = false,
+            Color? colorOverride = null,
+            string? audioPath = null,
+            float audioVolume = 0
+        )
         {
             Channel = channel;
             Message = message;
@@ -84,7 +94,7 @@ namespace Content.Shared.Chat
         {
             var stream = new MemoryStream();
             serializer.SerializeDirect(stream, Message);
-            buffer.WriteVariableInt32((int) stream.Length);
+            buffer.WriteVariableInt32((int)stream.Length);
             buffer.Write(stream.AsSpan());
         }
     }

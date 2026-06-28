@@ -7,10 +7,13 @@ using DrawDepth = Content.Shared.DrawDepth.DrawDepth;
 
 namespace Content.Client.Medical.Cryogenics;
 
-public sealed class CryoPodSystem: SharedCryoPodSystem
+public sealed class CryoPodSystem : SharedCryoPodSystem
 {
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     public override void Initialize()
     {
@@ -55,8 +58,14 @@ public sealed class CryoPodSystem: SharedCryoPodSystem
             return;
         }
 
-        if (!_appearance.TryGetData<bool>(uid, CryoPodComponent.CryoPodVisuals.ContainsEntity, out var isOpen, args.Component)
-            || !_appearance.TryGetData<bool>(uid, CryoPodComponent.CryoPodVisuals.IsOn, out var isOn, args.Component))
+        if (
+            !_appearance.TryGetData<bool>(
+                uid,
+                CryoPodComponent.CryoPodVisuals.ContainsEntity,
+                out var isOpen,
+                args.Component
+            ) || !_appearance.TryGetData<bool>(uid, CryoPodComponent.CryoPodVisuals.IsOn, out var isOn, args.Component)
+        )
         {
             return;
         }
@@ -65,7 +74,7 @@ public sealed class CryoPodSystem: SharedCryoPodSystem
         {
             _sprite.LayerSetRsiState((uid, args.Sprite), CryoPodVisualLayers.Base, "pod-open");
             _sprite.LayerSetVisible((uid, args.Sprite), CryoPodVisualLayers.Cover, false);
-            args.Sprite.DrawDepth = (int) DrawDepth.Objects;
+            args.Sprite.DrawDepth = (int)DrawDepth.Objects;
         }
         else
         {

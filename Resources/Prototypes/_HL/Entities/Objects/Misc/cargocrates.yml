@@ -11,8 +11,7 @@
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.4,-0.4,0.4,0.29"
         density: 50
         mask:
@@ -26,8 +25,7 @@
     damageModifierSet: Metallic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
+    - trigger: !type:DamageTrigger
         damage: 50
       behaviors:
       - !type:DoActsBehavior
@@ -36,8 +34,8 @@
         sound:
           collection: MetalBreak
   - type: Pullable
-  # - type: Item
-  #   size: Ginormous # Hardlight: Used to test the crates in dev env
+    # - type: Item
+    #   size: Ginormous # Hardlight: Used to test the crates in dev env
 
 - type: entity
   parent: BaseTradeItem

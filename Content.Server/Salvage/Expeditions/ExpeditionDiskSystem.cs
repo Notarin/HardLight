@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using Content.Shared.Examine;
 using Content.Shared.Popups;
+using Content.Shared.Procedural;
 using Content.Shared.Salvage;
 using Content.Shared.Salvage.Expeditions;
-using Content.Shared.Procedural;
 using Content.Shared.Salvage.Expeditions.Modifiers;
 using Content.Shared.Shuttles.Components; // HardLight
 using Robust.Shared.Prototypes;
@@ -14,11 +14,20 @@ namespace Content.Server.Salvage.Expeditions;
 
 public sealed class ExpeditionDiskSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SalvageSystem _salvage = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
+
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly SalvageSystem _salvage = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popupSystem = default!;
 
     private static readonly Dictionary<string, int> DifficultyNumbers = new()
     {
@@ -49,7 +58,11 @@ public sealed class ExpeditionDiskSystem : EntitySystem
         }
     }
 
-    public bool TryActivateFromConsole(EntityUid consoleUid, EntityUid diskUid, ExpeditionDiskComponent? component = null)
+    public bool TryActivateFromConsole(
+        EntityUid consoleUid,
+        EntityUid diskUid,
+        ExpeditionDiskComponent? component = null
+    )
     {
         if (!Resolve(diskUid, ref component, false))
             return false;
@@ -57,7 +70,11 @@ public sealed class ExpeditionDiskSystem : EntitySystem
         if (_timing.CurTime < component.CooldownEnd)
         {
             var remaining = component.CooldownEnd - _timing.CurTime;
-            _popupSystem.PopupEntity(Loc.GetString("expedition-disk-cooldown", ("time", remaining.ToString("hh\\:mm\\:ss"))), consoleUid, PopupType.MediumCaution);
+            _popupSystem.PopupEntity(
+                Loc.GetString("expedition-disk-cooldown", ("time", remaining.ToString("hh\\:mm\\:ss"))),
+                consoleUid,
+                PopupType.MediumCaution
+            );
             return false;
         }
 
@@ -92,7 +109,12 @@ public sealed class ExpeditionDiskSystem : EntitySystem
 
     private void OnExamined(EntityUid uid, ExpeditionDiskComponent component, ExaminedEvent args)
     {
-        if (!_prototypeManager.TryIndex<Content.Shared.Procedural.SalvageDifficultyPrototype>(component.Difficulty, out var difficultyProto))
+        if (
+            !_prototypeManager.TryIndex<Content.Shared.Procedural.SalvageDifficultyPrototype>(
+                component.Difficulty,
+                out var difficultyProto
+            )
+        )
             return;
 
         var mission = _salvage.GetMission(component.MissionType, difficultyProto, component.Seed);
@@ -108,10 +130,14 @@ public sealed class ExpeditionDiskSystem : EntitySystem
         if (difficultyNumber <= 0 && DifficultyNumbers.TryGetValue(component.Difficulty, out var mapped))
             difficultyNumber = mapped;
 
-        args.PushMarkup(Loc.GetString("expedition-disk-details",
-            ("planet", planet),
-            ("difficulty", difficultyNumber),
-            ("objective", objective)));
+        args.PushMarkup(
+            Loc.GetString(
+                "expedition-disk-details",
+                ("planet", planet),
+                ("difficulty", difficultyNumber),
+                ("objective", objective)
+            )
+        );
 
         // Always derive enemy from the current mission so it matches the disk's actual seed/difficulty/type.
         try

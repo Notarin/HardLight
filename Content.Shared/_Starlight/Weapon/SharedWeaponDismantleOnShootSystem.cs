@@ -4,6 +4,7 @@ using Content.Shared.Weapons.Ranged.Systems;
 using Robust.Shared.Random;
 
 namespace Content.Shared.Starlight.Weapon.Systems;
+
 public abstract partial class SharedWeaponDismantleOnShootSystem : EntitySystem
 {
     public bool DismantleCheck(Entity<WeaponDismantleOnShootComponent> ent, ref AmmoShotEvent args)

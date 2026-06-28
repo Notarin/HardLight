@@ -9,22 +9,33 @@ using Robust.Client.Physics;
 using Robust.Client.Player;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Map;
-using Robust.Shared.Player;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Events;
 using Robust.Shared.Physics.Systems;
+using Robust.Shared.Player;
 using Robust.Shared.Timing;
 
 namespace Content.Client._RMC14.Weapons.Ranged.Prediction;
 
 public sealed class GunPredictionSystem : SharedGunPredictionSystem
 {
-    [Dependency] private readonly SharedGunSystem _gun = default!;
-    [Dependency] private readonly Robust.Client.Physics.PhysicsSystem _physics = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly ProjectileSystem _projectile = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency]
+    private readonly SharedGunSystem _gun = default!;
+
+    [Dependency]
+    private readonly Robust.Client.Physics.PhysicsSystem _physics = default!;
+
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
+
+    [Dependency]
+    private readonly ProjectileSystem _projectile = default!;
+
+    [Dependency]
+    private readonly IGameTiming _timing = default!;
+
+    [Dependency]
+    private readonly SharedTransformSystem _transform = default!;
 
     private EntityQuery<IgnorePredictionHideComponent> _ignorePredictionHideQuery;
     private EntityQuery<SpriteComponent> _spriteQuery;
@@ -40,7 +51,9 @@ public sealed class GunPredictionSystem : SharedGunPredictionSystem
         SubscribeLocalEvent<PhysicsUpdateAfterSolveEvent>(OnAfterSolve);
         SubscribeLocalEvent<RequestShootEvent>(OnShootRequest);
 
-        SubscribeLocalEvent<PredictedProjectileClientComponent, UpdateIsPredictedEvent>(OnClientProjectileUpdateIsPredicted);
+        SubscribeLocalEvent<PredictedProjectileClientComponent, UpdateIsPredictedEvent>(
+            OnClientProjectileUpdateIsPredicted
+        );
         SubscribeLocalEvent<PredictedProjectileClientComponent, ComponentStartup>(OnClientProjectileStartup);
         SubscribeLocalEvent<PredictedProjectileClientComponent, StartCollideEvent>(OnClientProjectileStartCollide);
 
@@ -81,7 +94,10 @@ public sealed class GunPredictionSystem : SharedGunPredictionSystem
         _gun.ShootRequested(ev.Gun, ev.Coordinates, ev.Target, null, args.SenderSession);
     }
 
-    private void OnClientProjectileUpdateIsPredicted(Entity<PredictedProjectileClientComponent> ent, ref UpdateIsPredictedEvent args)
+    private void OnClientProjectileUpdateIsPredicted(
+        Entity<PredictedProjectileClientComponent> ent,
+        ref UpdateIsPredictedEvent args
+    )
     {
         args.IsPredicted = true;
     }
@@ -93,13 +109,15 @@ public sealed class GunPredictionSystem : SharedGunPredictionSystem
             sprite.Visible = true;
     }
 
-    private void OnClientProjectileStartCollide(Entity<PredictedProjectileClientComponent> ent, ref StartCollideEvent args)
+    private void OnClientProjectileStartCollide(
+        Entity<PredictedProjectileClientComponent> ent,
+        ref StartCollideEvent args
+    )
     {
         if (ent.Comp.Hit)
             return;
 
-        if (!TryComp(ent, out ProjectileComponent? projectile) ||
-            !TryComp(ent, out PhysicsComponent? physics))
+        if (!TryComp(ent, out ProjectileComponent? projectile) || !TryComp(ent, out PhysicsComponent? physics))
         {
             return;
         }
@@ -142,7 +160,11 @@ public sealed class GunPredictionSystem : SharedGunPredictionSystem
         }
 
         // TODO gun prediction remove this once the client reliably detects collisions
-        var projectiles = EntityQueryEnumerator<PredictedProjectileClientComponent, ProjectileComponent, PhysicsComponent>();
+        var projectiles = EntityQueryEnumerator<
+            PredictedProjectileClientComponent,
+            ProjectileComponent,
+            PhysicsComponent
+        >();
         while (projectiles.MoveNext(out var uid, out var predicted, out var projectile, out var physics))
         {
             if (predicted.Hit)
@@ -167,13 +189,19 @@ public sealed class GunPredictionSystem : SharedGunPredictionSystem
             _projectile.ProjectileCollide((uid, projectile, physics), contacts.First(), null, true);
         }
 
-        var predictedQuery = EntityQueryEnumerator<PredictedProjectileHitComponent, SpriteComponent, TransformComponent>();
+        var predictedQuery = EntityQueryEnumerator<
+            PredictedProjectileHitComponent,
+            SpriteComponent,
+            TransformComponent
+        >();
         while (predictedQuery.MoveNext(out var hit, out var sprite, out var xform))
         {
             var origin = hit.Origin;
             var coordinates = xform.Coordinates;
-            if (!origin.TryDistance(EntityManager, _transform, coordinates, out var distance) ||
-                distance >= hit.Distance)
+            if (
+                !origin.TryDistance(EntityManager, _transform, coordinates, out var distance)
+                || distance >= hit.Distance
+            )
             {
                 sprite.Visible = false;
             }
@@ -192,4 +220,3 @@ public sealed class GunPredictionSystem : SharedGunPredictionSystem
         }
     }
 }
-

@@ -10,12 +10,18 @@ public sealed partial class JitterAction : InteractionAction
     public TimeSpan Time = TimeSpan.FromSeconds(1);
 
     [DataField]
-    public float Amplitude = 10f, Frequency = 4f;
+    public float Amplitude = 10f,
+        Frequency = 4f;
 
     [DataField]
     public bool Refresh = false;
 
-    public override bool CanPerform(InteractionArgs args, InteractionVerbPrototype proto, bool beforeDelay, VerbDependencies deps)
+    public override bool CanPerform(
+        InteractionArgs args,
+        InteractionVerbPrototype proto,
+        bool beforeDelay,
+        VerbDependencies deps
+    )
     {
         return true;
     }

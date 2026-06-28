@@ -82,7 +82,11 @@ public sealed partial class AdminNotesLine : BoxContainer
 
         if (Note.UnbannedTime is not null)
         {
-            ExtraLabel.Text = Loc.GetString("admin-notes-unbanned", ("admin", Note.UnbannedByName ?? "[error]"), ("date", Note.UnbannedTime));
+            ExtraLabel.Text = Loc.GetString(
+                "admin-notes-unbanned",
+                ("admin", Note.UnbannedByName ?? "[error]"),
+                ("date", Note.UnbannedTime)
+            );
             ExtraLabel.Visible = true;
         }
         else if (Note.ExpiryTime is not null)
@@ -90,9 +94,11 @@ public sealed partial class AdminNotesLine : BoxContainer
             // Notes should never be visible when expired, bans should
             if (Note.ExpiryTime.Value > DateTime.UtcNow)
             {
-                ExpiresLabel.Text = Loc.GetString("admin-note-editor-expiry-label-params",
+                ExpiresLabel.Text = Loc.GetString(
+                    "admin-note-editor-expiry-label-params",
                     ("date", Note.ExpiryTime.Value.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss")),
-                    ("expiresIn", (Note.ExpiryTime.Value - DateTime.UtcNow).ToString("d'd 'hh':'mm")));
+                    ("expiresIn", (Note.ExpiryTime.Value - DateTime.UtcNow).ToString("d'd 'hh':'mm"))
+                );
                 ExpiresLabel.Modulate = Color.FromHex("#86DC3D");
             }
             else
@@ -104,7 +110,11 @@ public sealed partial class AdminNotesLine : BoxContainer
 
         if (Note.LastEditedAt > Note.CreatedAt)
         {
-            EditedLabel.Text = Loc.GetString("admin-notes-edited", ("author", Note.EditedByName), ("date", Note.LastEditedAt.Value.ToLocalTime()));
+            EditedLabel.Text = Loc.GetString(
+                "admin-notes-edited",
+                ("author", Note.EditedByName),
+                ("date", Note.LastEditedAt.Value.ToLocalTime())
+            );
             EditedLabel.Visible = true;
         }
 
@@ -133,14 +143,16 @@ public sealed partial class AdminNotesLine : BoxContainer
 
     private string FormatBanMessage()
     {
-        var banMessage = new StringBuilder($"{Loc.GetString("admin-notes-banned-from")} {Loc.GetString("admin-notes-the-server")} ");
+        var banMessage = new StringBuilder(
+            $"{Loc.GetString("admin-notes-banned-from")} {Loc.GetString("admin-notes-the-server")} "
+        );
         return FormatBanMessageCommon(banMessage);
     }
 
     private string FormatRoleBanMessage()
     {
         var rolesText = Note.BannedRoles is { Length: > 0 }
-            ? string.Join(", ", (IEnumerable<BanRoleDef>) Note.BannedRoles)
+            ? string.Join(", ", (IEnumerable<BanRoleDef>)Note.BannedRoles)
             : "unknown";
 
         var banMessage = new StringBuilder($"{Loc.GetString("admin-notes-banned-from")} {rolesText} ");
@@ -174,8 +186,7 @@ public sealed partial class AdminNotesLine : BoxContainer
     {
         base.KeyBindDown(args);
 
-        if (args.Function != EngineKeyFunctions.UIRightClick &&
-            args.Function != EngineKeyFunctions.UIClick)
+        if (args.Function != EngineKeyFunctions.UIRightClick && args.Function != EngineKeyFunctions.UIClick)
         {
             return;
         }

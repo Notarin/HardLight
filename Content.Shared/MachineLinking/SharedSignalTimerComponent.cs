@@ -5,7 +5,7 @@ namespace Content.Shared.MachineLinking;
 [Serializable, NetSerializable]
 public enum SignalTimerUiKey : byte
 {
-    Key
+    Key,
 }
 
 /// <summary>
@@ -22,13 +22,15 @@ public sealed class SignalTimerBoundUserInterfaceState : BoundUserInterfaceState
     public bool TimerStarted;
     public bool HasAccess;
 
-    public SignalTimerBoundUserInterfaceState(string currentText,
+    public SignalTimerBoundUserInterfaceState(
+        string currentText,
         TimeSpan currentDelay, // Mono
         bool currentRepeat, //Frontier
         bool showText,
         TimeSpan triggerTime,
         bool timerStarted,
-        bool hasAccess)
+        bool hasAccess
+    )
     {
         CurrentText = currentText;
         CurrentDelay = currentDelay; // Mono
@@ -62,12 +64,14 @@ public sealed class SignalTimerRepeatToggled : BoundUserInterfaceMessage
         Repeat = repeat;
     }
 }
+
 //End Frontier
 
 [Serializable, NetSerializable]
 public sealed class SignalTimerDelayChangedMessage : BoundUserInterfaceMessage
 {
     public TimeSpan Delay { get; }
+
     public SignalTimerDelayChangedMessage(TimeSpan delay)
     {
         Delay = delay;
@@ -75,7 +79,4 @@ public sealed class SignalTimerDelayChangedMessage : BoundUserInterfaceMessage
 }
 
 [Serializable, NetSerializable]
-public sealed class SignalTimerStartMessage : BoundUserInterfaceMessage
-{
-
-}
+public sealed class SignalTimerStartMessage : BoundUserInterfaceMessage { }

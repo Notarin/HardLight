@@ -175,7 +175,11 @@ public partial class MobStateSystem
             CheckAct(target, component, args);
     }
 
-    private void OnCombatModeShouldHandInteract(EntityUid uid, MobStateComponent component, ref CombatModeShouldHandInteractEvent args)
+    private void OnCombatModeShouldHandInteract(
+        EntityUid uid,
+        MobStateComponent component,
+        ref CombatModeShouldHandInteractEvent args
+    )
     {
         // Disallow empty-hand-interacting in combat mode
         // for non-dead mobs

@@ -25,7 +25,8 @@ namespace Content.Client._FarHorizons.Power.UI;
 [GenerateTypedNameReferences]
 public sealed partial class NuclearReactorWindow : FancyWindow
 {
-    [Dependency] private readonly IEntityManager _entityManager = null!;
+    [Dependency]
+    private readonly IEntityManager _entityManager = null!;
     private readonly LockSystem _lock;
 
     private readonly Dictionary<Vector2i, StyleBoxFlat> _reactorGrid = [];
@@ -40,14 +41,14 @@ public sealed partial class NuclearReactorWindow : FancyWindow
     private int _gridWidth = 0;
     private int _gridHeight = 0;
 
-    private byte _displayMode = 1<<0;
+    private byte _displayMode = 1 << 0;
 
     private enum DisplayModes : byte
     {
         Temperature = 1 << 0,
         Neutron = 1 << 1,
         Target = 1 << 2,
-        Fuel = 1 << 3
+        Fuel = 1 << 3,
     }
 
     private byte _temperatureMode = 1 << 0;
@@ -121,13 +122,18 @@ public sealed partial class NuclearReactorWindow : FancyWindow
         ReactorTempBar.Value = msg.ReactorTemp;
         _temperatureBar.BackgroundColor = GetColor(Atmospherics.T20C, ReactorTempBar.MaxValue * 0.75, msg.ReactorTemp);
 
-        ReactorRadsValue.Text = msg.ReactorRads <= msg.ReactorRadsMax ? Math.Round(msg.ReactorRads, 1).ToString() : "OVERLOAD";
+        ReactorRadsValue.Text =
+            msg.ReactorRads <= msg.ReactorRadsMax ? Math.Round(msg.ReactorRads, 1).ToString() : "OVERLOAD";
         ReactorRadsBar.Value = msg.ReactorRads;
         _radiationBar.BackgroundColor = GetColor(0, ReactorRadsBar.MaxValue * 0.5, msg.ReactorRads);
 
         ReactorThermValue.Text = FormatPower(msg.ReactorTherm);
         ReactorThermBar.Value = msg.ReactorTherm;
-        _powerBar.BackgroundColor = GetSteppedColor(ReactorThermBar.MaxValue * 0.75, ReactorThermBar.MaxValue, msg.ReactorTherm);
+        _powerBar.BackgroundColor = GetSteppedColor(
+            ReactorThermBar.MaxValue * 0.75,
+            ReactorThermBar.MaxValue,
+            msg.ReactorTherm
+        );
 
         ControlRodsValue.Text = Math.Round(msg.ControlRodActual * 50, 1).ToString() + "%";
         ControlRodsActual.Value = msg.ControlRodActual;
@@ -183,14 +189,15 @@ public sealed partial class NuclearReactorWindow : FancyWindow
                 var icon = new TextureRect()
                 {
                     SetSize = new(32, 32),
-                    TexturePath = "/Textures/_FarHorizons/Structures/Power/Generation/FissionGenerator/reactor_part_inserted/base.png"
+                    TexturePath =
+                        "/Textures/_FarHorizons/Structures/Power/Generation/FissionGenerator/reactor_part_inserted/base.png",
                 };
                 var button = new Button
                 {
                     Margin = new(0),
                     StyleBoxOverride = new StyleBoxFlat(Color.Transparent),
                     ToolTip = "",
-                    TooltipDelay = 0.5f
+                    TooltipDelay = 0.5f,
                 };
 
                 var vect = new Vector2i(x, y);
@@ -241,17 +248,25 @@ public sealed partial class NuclearReactorWindow : FancyWindow
                         ViewLabel.Text = Loc.GetString("comp-nuclear-reactor-ui-view-target");
                         break;
                     case (byte)DisplayModes.Fuel:
-                        box.BackgroundColor = Color.InterpolateBetween(Color.Gray, Color.FromHex("#22bbff"), exists && _data[vect].SpentFuel > 0 ? (float)GetFuelLevel(_data[vect]) : 0);
+                        box.BackgroundColor = Color.InterpolateBetween(
+                            Color.Gray,
+                            Color.FromHex("#22bbff"),
+                            exists && _data[vect].SpentFuel > 0 ? (float)GetFuelLevel(_data[vect]) : 0
+                        );
                         ViewLabel.Text = Loc.GetString("comp-nuclear-reactor-ui-view-fuel");
                         break;
                 }
 
                 var icon = exists ? _data[vect].IconName : "base";
-                _reactorRect[vect].TexturePath = "/Textures/_FarHorizons/Structures/Power/Generation/FissionGenerator/reactor_part_inserted/" +  icon + ".png";
+                _reactorRect[vect].TexturePath =
+                    "/Textures/_FarHorizons/Structures/Power/Generation/FissionGenerator/reactor_part_inserted/"
+                    + icon
+                    + ".png";
 
-                _reactorButton[vect].ToolTip = exists && _data[vect].SpentFuel > 0
-                    ? "Fuel Level: " + (int)Math.Round(GetFuelLevel(_data[vect]) * 100) + "%"
-                    : "";
+                _reactorButton[vect].ToolTip =
+                    exists && _data[vect].SpentFuel > 0
+                        ? "Fuel Level: " + (int)Math.Round(GetFuelLevel(_data[vect]) * 100) + "%"
+                        : "";
             }
         }
 
@@ -259,9 +274,9 @@ public sealed partial class NuclearReactorWindow : FancyWindow
         UpdateItemAction();
 
         // Handle repeat buttons
-        foreach ( var kvp in _repeatQueue)
+        foreach (var kvp in _repeatQueue)
         {
-            if(kvp.Value > 0)
+            if (kvp.Value > 0)
             {
                 _repeatQueue[kvp.Key] -= args.DeltaSeconds;
                 continue;
@@ -287,17 +302,29 @@ public sealed partial class NuclearReactorWindow : FancyWindow
 
     private static Color GetColor(double pointA, double pointB, double value)
     {
-        var mid = pointA+((pointB-pointA) / 2);
+        var mid = pointA + ((pointB - pointA) / 2);
         Color result;
 
         if (value < pointA && pointA > 0)
             result = Color.InterpolateBetween(Color.DarkBlue, Color.FromHex("#31843E"), (float)(value / pointA));
         else if (value >= pointA && value < mid)
-            result = Color.InterpolateBetween(Color.FromHex("#31843E"), Color.FromHex("#BBBB00"), (float)((value - pointA) / (mid - pointA)));
+            result = Color.InterpolateBetween(
+                Color.FromHex("#31843E"),
+                Color.FromHex("#BBBB00"),
+                (float)((value - pointA) / (mid - pointA))
+            );
         else if (value >= mid && value < pointB)
-            result = Color.InterpolateBetween(Color.FromHex("#BBBB00"), Color.FromHex("#BB3232"), (float)((value - mid) / (pointB - mid)));
+            result = Color.InterpolateBetween(
+                Color.FromHex("#BBBB00"),
+                Color.FromHex("#BB3232"),
+                (float)((value - mid) / (pointB - mid))
+            );
         else if (value >= pointB && value < pointB * 1.4)
-            result = Color.InterpolateBetween(Color.FromHex("#BB3232"), Color.FromHex("#550000"), (float)((value - pointB) / ((pointB * 1.4) - pointB)));
+            result = Color.InterpolateBetween(
+                Color.FromHex("#BB3232"),
+                Color.FromHex("#550000"),
+                (float)((value - pointB) / ((pointB * 1.4) - pointB))
+            );
         else if (value >= pointB * 1.4)
             result = Color.FromHex("#550000"); // Death.
         else
@@ -335,21 +362,26 @@ public sealed partial class NuclearReactorWindow : FancyWindow
             _temperatureMode = 1 << 0;
     }
 
-    private string FormatTemperature(double temperature) => _temperatureMode switch
-    {
-        (byte)TemperatureModes.Celcius => Math.Round(temperature - Atmospherics.T0C, 1).ToString() + "C",
-        (byte)TemperatureModes.Kelvin => Math.Round(temperature, 1).ToString() + "K",
-        // (byte)TemperatureModes.Fahrenheit => Math.Round(((temperature - Atmospherics.T0C) * 9 / 5) + 32, 1).ToString() + "F",
-        _ => "NaN",
-    };
+    private string FormatTemperature(double temperature) =>
+        _temperatureMode switch
+        {
+            (byte)TemperatureModes.Celcius => Math.Round(temperature - Atmospherics.T0C, 1).ToString() + "C",
+            (byte)TemperatureModes.Kelvin => Math.Round(temperature, 1).ToString() + "K",
+            // (byte)TemperatureModes.Fahrenheit => Math.Round(((temperature - Atmospherics.T0C) * 9 / 5) + 32, 1).ToString() + "F",
+            _ => "NaN",
+        };
 
     private void UpdateTargetInfo()
     {
-        var vect = new Vector2i(_targetY,  _targetX);
-        if(!_data.TryGetValue(vect, out var value))
+        var vect = new Vector2i(_targetY, _targetX);
+        if (!_data.TryGetValue(vect, out var value))
         {
             TargetName.Text = "empty";
-            TargetTemperatureGrid.Visible = TargetNRadiationGrid.Visible = TargetRadiationGrid.Visible = TargetSpentGrid.Visible = false;
+            TargetTemperatureGrid.Visible =
+                TargetNRadiationGrid.Visible =
+                TargetRadiationGrid.Visible =
+                TargetSpentGrid.Visible =
+                    false;
             return;
         }
 
@@ -370,7 +402,7 @@ public sealed partial class NuclearReactorWindow : FancyWindow
 
     private void UpdateItemAction()
     {
-        if(ItemName.Text == "empty" == (TargetName.Text == "empty"))
+        if (ItemName.Text == "empty" == (TargetName.Text == "empty"))
         {
             ItemAction.Disabled = true;
             return;
@@ -378,9 +410,10 @@ public sealed partial class NuclearReactorWindow : FancyWindow
         else
             ItemAction.Disabled = false;
 
-        ItemAction.Text = TargetName.Text != "empty"
-            ? Loc.GetString("comp-nuclear-reactor-ui-remove-button")
-            : Loc.GetString("comp-nuclear-reactor-ui-insert-button");
+        ItemAction.Text =
+            TargetName.Text != "empty"
+                ? Loc.GetString("comp-nuclear-reactor-ui-remove-button")
+                : Loc.GetString("comp-nuclear-reactor-ui-insert-button");
     }
 
     private void MoveTarget(int x, int y) => SetTarget(_targetX + x, _targetY + y);
@@ -392,7 +425,7 @@ public sealed partial class NuclearReactorWindow : FancyWindow
         _targetX = Math.Clamp(x, 0, _gridWidth - 1);
         _targetY = Math.Clamp(y, 0, _gridHeight - 1);
 
-        TargetPos.Text = _targetX.ToString() +"," + _targetY.ToString();
+        TargetPos.Text = _targetX.ToString() + "," + _targetY.ToString();
 
         XIncrement.Disabled = _targetX >= _gridWidth - 1;
         XDecrement.Disabled = _targetX <= 0;
@@ -402,9 +435,14 @@ public sealed partial class NuclearReactorWindow : FancyWindow
 
     public void SetItemName(string? itemName) => ItemName.Text = itemName ?? "empty";
 
-    private static string FormatPower(float power) => Loc.GetString("comp-nuclear-reactor-ui-therm-format", ("power", power));
+    private static string FormatPower(float power) =>
+        Loc.GetString("comp-nuclear-reactor-ui-therm-format", ("power", power));
 
-    private static double GetFuelLevel(ReactorSlotBUIData data) => Math.Max(1 - (data.SpentFuel / (data.SpentFuel + (data.Radioactivity * 0.5) + (data.NeutronRadioactivity * 0.25))), 0);
+    private static double GetFuelLevel(ReactorSlotBUIData data) =>
+        Math.Max(
+            1 - (data.SpentFuel / (data.SpentFuel + (data.Radioactivity * 0.5) + (data.NeutronRadioactivity * 0.25))),
+            0
+        );
 
     private void AdjustControlRods(float amount) => ControlRodModify?.Invoke(amount);
 }

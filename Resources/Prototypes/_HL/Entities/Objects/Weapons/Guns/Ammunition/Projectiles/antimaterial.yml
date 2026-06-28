@@ -1,6 +1,6 @@
 - type: entity
- # categories: [ HideSpawnMenu ] # Frontier
-  parent: [ BaseCartridge, BaseC2Contraband ] # Frontier: BaseMajorContraband<BaseC2Contraband
+  # categories: [ HideSpawnMenu ] # Frontier
+  parent: [BaseCartridge, BaseC2Contraband] # Frontier: BaseMajorContraband<BaseC2Contraband
   id: CartridgeAntiMaterielBig
   name: shell (20x82mm)
   components:
@@ -22,8 +22,8 @@
     price: 20
 
 - type: entity
- # categories: [ HideSpawnMenu ] # Frontier
-  parent: [ BaseCartridge, BaseC2Contraband ] # Frontier: BaseMajorContraband<BaseC2Contraband
+  # categories: [ HideSpawnMenu ] # Frontier
+  parent: [BaseCartridge, BaseC2Contraband] # Frontier: BaseMajorContraband<BaseC2Contraband
   id: Cartridge25x59HE
   name: HE Shell (25x59mm)
   components:

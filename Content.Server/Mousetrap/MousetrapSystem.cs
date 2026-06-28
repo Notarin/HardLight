@@ -15,8 +15,11 @@ namespace Content.Server.Mousetrap;
 
 public sealed class MousetrapSystem : EntitySystem
 {
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+    [Dependency]
+    private readonly PopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly SharedAppearanceSystem _appearance = default!;
 
     public override void Initialize()
     {
@@ -32,11 +35,11 @@ public sealed class MousetrapSystem : EntitySystem
             return;
 
         component.IsActive = !component.IsActive;
-        _popupSystem.PopupEntity(component.IsActive
-            ? Loc.GetString("mousetrap-on-activate")
-            : Loc.GetString("mousetrap-on-deactivate"),
+        _popupSystem.PopupEntity(
+            component.IsActive ? Loc.GetString("mousetrap-on-activate") : Loc.GetString("mousetrap-on-deactivate"),
             uid,
-            args.User);
+            args.User
+        );
 
         UpdateVisuals(uid);
 
@@ -71,14 +74,22 @@ public sealed class MousetrapSystem : EntitySystem
         UpdateVisuals(uid);
     }
 
-    private void UpdateVisuals(EntityUid uid, MousetrapComponent? mousetrap = null, AppearanceComponent? appearance = null)
+    private void UpdateVisuals(
+        EntityUid uid,
+        MousetrapComponent? mousetrap = null,
+        AppearanceComponent? appearance = null
+    )
     {
         if (!Resolve(uid, ref mousetrap, ref appearance, false))
         {
             return;
         }
 
-        _appearance.SetData(uid, MousetrapVisuals.Visual,
-            mousetrap.IsActive ? MousetrapVisuals.Armed : MousetrapVisuals.Unarmed, appearance);
+        _appearance.SetData(
+            uid,
+            MousetrapVisuals.Visual,
+            mousetrap.IsActive ? MousetrapVisuals.Armed : MousetrapVisuals.Unarmed,
+            appearance
+        );
     }
 }

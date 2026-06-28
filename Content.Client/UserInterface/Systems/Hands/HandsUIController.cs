@@ -1,9 +1,10 @@
+using Content.Client._NF.Interaction.Systems;
 using Content.Client.Gameplay;
 using Content.Client.Hands.Systems;
-using Content.Client._NF.Interaction.Systems;
 using Content.Client.UserInterface.Controls;
 using Content.Client.UserInterface.Systems.Hands.Controls;
 using Content.Client.UserInterface.Systems.Hotbar.Widgets;
+using Content.Shared._NF.Interaction.Components;
 using Content.Shared.Hands.Components;
 using Content.Shared.Input;
 using Content.Shared.Inventory.VirtualItem;
@@ -14,17 +15,22 @@ using Robust.Client.UserInterface.Controllers;
 using Robust.Shared.Input;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
-using Content.Shared._NF.Interaction.Components;
 
 namespace Content.Client.UserInterface.Systems.Hands;
 
 public sealed class HandsUIController : UIController, IOnStateEntered<GameplayState>, IOnSystemChanged<HandsSystem>
 {
-    [Dependency] private readonly IEntityManager _entities = default!;
-    [Dependency] private readonly IPlayerManager _player = default!;
+    [Dependency]
+    private readonly IEntityManager _entities = default!;
 
-    [UISystemDependency] private readonly HandsSystem _handsSystem = default!;
-    [UISystemDependency] private readonly UseDelaySystem _useDelay = default!;
+    [Dependency]
+    private readonly IPlayerManager _player = default!;
+
+    [UISystemDependency]
+    private readonly HandsSystem _handsSystem = default!;
+
+    [UISystemDependency]
+    private readonly UseDelaySystem _useDelay = default!;
 
     private readonly List<HandsContainer> _handsContainers = new();
     private readonly Dictionary<string, int> _handContainerIndices = new();
@@ -145,8 +151,11 @@ public sealed class HandsUIController : UIController, IOnStateEntered<GameplaySt
             {
                 // HardLight #1236: dummy may not be spawned yet if the placeholder's
                 // state event hasn't fired by the time we load the hands; spawn it now.
-                handButton.SetEntity(_entities.System<HandPlaceholderVisualsSystem>()
-                    .EnsureDummy((hand.HeldEntity.Value, placeholder, null)));
+                handButton.SetEntity(
+                    _entities
+                        .System<HandPlaceholderVisualsSystem>()
+                        .EnsureDummy((hand.HeldEntity.Value, placeholder, null))
+                );
                 handButton.Blocked = true;
             }
             // Frontier end
@@ -209,8 +218,7 @@ public sealed class HandsUIController : UIController, IOnStateEntered<GameplaySt
             // hand. Spawn the dummy now if it isn't ready so the empty-hand icon
             // shows on the first open of a borg module instead of staying blank
             // until the module is closed and reopened.
-            hand.SetEntity(_entities.System<HandPlaceholderVisualsSystem>()
-                .EnsureDummy((entity, placeholder, null)));
+            hand.SetEntity(_entities.System<HandPlaceholderVisualsSystem>().EnsureDummy((entity, placeholder, null)));
             hand.Blocked = true;
         }
         // Frontier end
@@ -282,10 +290,12 @@ public sealed class HandsUIController : UIController, IOnStateEntered<GameplaySt
         handControl.Highlight = true;
         _activeHand = handControl;
 
-        if (HandsGui != null &&
-            _playerHandsComponent != null &&
-            _player.LocalSession?.AttachedEntity is { } playerEntity &&
-            _handsSystem.TryGetHand(playerEntity, handName, out var hand, _playerHandsComponent))
+        if (
+            HandsGui != null
+            && _playerHandsComponent != null
+            && _player.LocalSession?.AttachedEntity is { } playerEntity
+            && _handsSystem.TryGetHand(playerEntity, handName, out var hand, _playerHandsComponent)
+        )
         {
             var foldedLocation = hand.Location.GetUILocation();
             if (foldedLocation == HandUILocation.Left)
@@ -480,7 +490,6 @@ public sealed class HandsUIController : UIController, IOnStateEntered<GameplaySt
         {
             foreach (var hand in container.GetButtons())
             {
-
                 if (!_entities.TryGetComponent(hand.Entity, out UseDelayComponent? useDelay))
                 {
                     hand.CooldownDisplay.Visible = false;

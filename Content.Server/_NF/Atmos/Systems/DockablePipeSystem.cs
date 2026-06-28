@@ -10,9 +10,14 @@ namespace Content.Server._NF.Atmos.Systems;
 
 public sealed class DockablePipeSystem : EntitySystem
 {
-    [Dependency] private readonly AppearanceSystem _appearance = default!;
-    [Dependency] private readonly NodeContainerSystem _nodeContainer = default!;
-    [Dependency] private readonly NodeGroupSystem _nodeGroup = default!;
+    [Dependency]
+    private readonly AppearanceSystem _appearance = default!;
+
+    [Dependency]
+    private readonly NodeContainerSystem _nodeContainer = default!;
+
+    [Dependency]
+    private readonly NodeGroupSystem _nodeGroup = default!;
 
     public override void Initialize()
     {
@@ -25,9 +30,11 @@ public sealed class DockablePipeSystem : EntitySystem
     private void OnDock(Entity<DockablePipeComponent> ent, ref DockEvent args)
     {
         // Reflood node?
-        if (string.IsNullOrEmpty(ent.Comp.DockNodeName) ||
-            !TryComp(ent, out NodeContainerComponent? nodeContainer) ||
-            !_nodeContainer.TryGetNode(nodeContainer, ent.Comp.DockNodeName, out DockablePipeNode? dockablePipe))
+        if (
+            string.IsNullOrEmpty(ent.Comp.DockNodeName)
+            || !TryComp(ent, out NodeContainerComponent? nodeContainer)
+            || !_nodeContainer.TryGetNode(nodeContainer, ent.Comp.DockNodeName, out DockablePipeNode? dockablePipe)
+        )
             return;
 
         _nodeGroup.QueueReflood(dockablePipe);
@@ -37,9 +44,11 @@ public sealed class DockablePipeSystem : EntitySystem
     private void OnUndock(Entity<DockablePipeComponent> ent, ref UndockEvent args)
     {
         // Clean up node?
-        if (string.IsNullOrEmpty(ent.Comp.DockNodeName) ||
-            !TryComp(ent, out NodeContainerComponent? nodeContainer) ||
-            !_nodeContainer.TryGetNode(nodeContainer, ent.Comp.DockNodeName, out DockablePipeNode? dockablePipe))
+        if (
+            string.IsNullOrEmpty(ent.Comp.DockNodeName)
+            || !TryComp(ent, out NodeContainerComponent? nodeContainer)
+            || !_nodeContainer.TryGetNode(nodeContainer, ent.Comp.DockNodeName, out DockablePipeNode? dockablePipe)
+        )
             return;
 
         _nodeGroup.QueueNodeRemove(dockablePipe);

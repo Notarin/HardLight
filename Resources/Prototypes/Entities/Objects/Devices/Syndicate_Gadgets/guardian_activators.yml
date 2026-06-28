@@ -31,7 +31,7 @@
   - type: Sprite
     sprite: Objects/Misc/Lights/lamp.rsi
     layers:
-      - state: lamp
+    - state: lamp
   - type: GuardianCreator
     guardianProto: MobIfritGuardian
 
@@ -44,13 +44,13 @@
   components:
   - type: StorageFill
     contents:
-      - id: HoloparasiteInjector
-      - id: HoloparasiteInfo
-      - id: ClothingHeadHatBizarreSoft
+    - id: HoloparasiteInjector
+    - id: HoloparasiteInfo
+    - id: ClothingHeadHatBizarreSoft
   - type: Sprite
     layers:
-      - state: box
-      - state: holo
+    - state: box
+    - state: holo
 
 - type: entity
   name: holoclown box
@@ -61,13 +61,13 @@
   components:
   - type: StorageFill
     contents:
-      - id: HoloClownInjector
-      - id: ToyFigurineHoloClown
-      - id: ToyHammer
+    - id: HoloClownInjector
+    - id: ToyFigurineHoloClown
+    - id: ToyHammer
   - type: Sprite
     layers:
-      - state: box_hug
-      - state: holo
+    - state: box_hug
+    - state: holo
   - type: Tag
     tags:
-      - BoxHug
+    - BoxHug

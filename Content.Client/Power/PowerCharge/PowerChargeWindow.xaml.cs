@@ -42,33 +42,39 @@ public sealed partial class PowerChargeWindow : FancyWindow
         PowerLabel.Text = Loc.GetString(
             "power-charge-window-power-label",
             ("draw", state.PowerDraw),
-            ("max", state.PowerDrawMax));
+            ("max", state.PowerDrawMax)
+        );
 
         PowerLabel.SetOnlyStyleClass(MathHelper.CloseTo(state.PowerDraw, state.PowerDrawMax) ? "Good" : "Caution");
 
         ChargeBar.Value = state.Charge;
         ChargeText.Text = (state.Charge / 255f).ToString("P0");
-        StatusLabel.Text = Loc.GetString(state.PowerStatus switch
-        {
-            PowerChargePowerStatus.Off => "power-charge-window-status-off",
-            PowerChargePowerStatus.Discharging => "power-charge-window-status-discharging",
-            PowerChargePowerStatus.Charging => "power-charge-window-status-charging",
-            PowerChargePowerStatus.FullyCharged => "power-charge-window-status-fully-charged",
-            _ => throw new ArgumentOutOfRangeException()
-        });
+        StatusLabel.Text = Loc.GetString(
+            state.PowerStatus switch
+            {
+                PowerChargePowerStatus.Off => "power-charge-window-status-off",
+                PowerChargePowerStatus.Discharging => "power-charge-window-status-discharging",
+                PowerChargePowerStatus.Charging => "power-charge-window-status-charging",
+                PowerChargePowerStatus.FullyCharged => "power-charge-window-status-fully-charged",
+                _ => throw new ArgumentOutOfRangeException(),
+            }
+        );
 
-        StatusLabel.SetOnlyStyleClass(state.PowerStatus switch
-        {
-            PowerChargePowerStatus.Off => "Danger",
-            PowerChargePowerStatus.Discharging => "Caution",
-            PowerChargePowerStatus.Charging => "Caution",
-            PowerChargePowerStatus.FullyCharged => "Good",
-            _ => throw new ArgumentOutOfRangeException()
-        });
+        StatusLabel.SetOnlyStyleClass(
+            state.PowerStatus switch
+            {
+                PowerChargePowerStatus.Off => "Danger",
+                PowerChargePowerStatus.Discharging => "Caution",
+                PowerChargePowerStatus.Charging => "Caution",
+                PowerChargePowerStatus.FullyCharged => "Good",
+                _ => throw new ArgumentOutOfRangeException(),
+            }
+        );
 
-        EtaLabel.Text = state.EtaSeconds >= 0
-            ? Loc.GetString("power-charge-window-eta-value", ("left", TimeSpan.FromSeconds(state.EtaSeconds)))
-            : Loc.GetString("power-charge-window-eta-none");
+        EtaLabel.Text =
+            state.EtaSeconds >= 0
+                ? Loc.GetString("power-charge-window-eta-value", ("left", TimeSpan.FromSeconds(state.EtaSeconds)))
+                : Loc.GetString("power-charge-window-eta-none");
 
         EtaLabel.SetOnlyStyleClass(state.EtaSeconds >= 0 ? "Caution" : "Disabled");
     }

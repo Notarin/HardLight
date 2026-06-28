@@ -16,19 +16,31 @@ namespace Content.Shared._EstacaoPirata.Cards.Hand;
 /// <summary>
 /// This handles...
 /// </summary>
-
 public sealed class CardHandSystem : EntitySystem
 {
     public readonly EntProtoId CardHandBaseName = "CardHandBase";
     public readonly EntProtoId CardDeckBaseName = "CardDeckBase";
 
-    [Dependency] private readonly CardStackSystem _cardStack = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly SharedUserInterfaceSystem _ui = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedStorageSystem _storage = default!; // Frontier
+    [Dependency]
+    private readonly CardStackSystem _cardStack = default!;
+
+    [Dependency]
+    private readonly SharedHandsSystem _hands = default!;
+
+    [Dependency]
+    private readonly INetManager _net = default!;
+
+    [Dependency]
+    private readonly SharedUserInterfaceSystem _ui = default!;
+
+    [Dependency]
+    private readonly SharedPopupSystem _popupSystem = default!;
+
+    [Dependency]
+    private readonly SharedContainerSystem _container = default!;
+
+    [Dependency]
+    private readonly SharedStorageSystem _storage = default!; // Frontier
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -59,7 +71,7 @@ public sealed class CardHandSystem : EntitySystem
             StackQuantityChangeType.Removed => "cards-stackquantitychange-removed",
             StackQuantityChangeType.Joined => "cards-stackquantitychange-joined",
             StackQuantityChangeType.Split => "cards-stackquantitychange-split",
-            _ => "cards-stackquantitychange-unknown"
+            _ => "cards-stackquantitychange-unknown",
         };
 
         _popupSystem.PopupEntity(Loc.GetString(text, ("quantity", stack.Cards.Count)), uid);
@@ -98,7 +110,6 @@ public sealed class CardHandSystem : EntitySystem
             return;
 
         _ui.OpenUi(hand, CardUiKey.Key, actor.PlayerSession);
-
     }
 
     private void OnAlternativeVerb(EntityUid uid, CardHandComponent comp, GetVerbsEvent<AlternativeVerb> args)
@@ -106,34 +117,42 @@ public sealed class CardHandSystem : EntitySystem
         if (!args.CanAccess || !args.CanInteract || args.Hands == null)
             return;
 
-        args.Verbs.Add(new AlternativeVerb()
-        {
-            Act = () => OpenHandMenu(args.User, uid),
-            Text = Loc.GetString("cards-verb-pickcard"),
-            Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/die.svg.192dpi.png")),
-            Priority = 4
-        });
-        args.Verbs.Add(new AlternativeVerb()
-        {
-            Act = () => _cardStack.ShuffleCards(uid),
-            Text = Loc.GetString("cards-verb-shuffle"),
-            Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/die.svg.192dpi.png")),
-            Priority = 3
-        });
-        args.Verbs.Add(new AlternativeVerb()
-        {
-            Act = () => FlipCards(uid, comp),
-            Text = Loc.GetString("cards-verb-flip"),
-            Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/flip.svg.192dpi.png")),
-            Priority = 2
-        });
-        args.Verbs.Add(new AlternativeVerb()
-        {
-            Act = () => ConvertToDeck(args.User, uid),
-            Text = Loc.GetString("cards-verb-convert-to-deck"),
-            Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/rotate_cw.svg.192dpi.png")),
-            Priority = 1
-        });
+        args.Verbs.Add(
+            new AlternativeVerb()
+            {
+                Act = () => OpenHandMenu(args.User, uid),
+                Text = Loc.GetString("cards-verb-pickcard"),
+                Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/die.svg.192dpi.png")),
+                Priority = 4,
+            }
+        );
+        args.Verbs.Add(
+            new AlternativeVerb()
+            {
+                Act = () => _cardStack.ShuffleCards(uid),
+                Text = Loc.GetString("cards-verb-shuffle"),
+                Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/die.svg.192dpi.png")),
+                Priority = 3,
+            }
+        );
+        args.Verbs.Add(
+            new AlternativeVerb()
+            {
+                Act = () => FlipCards(uid, comp),
+                Text = Loc.GetString("cards-verb-flip"),
+                Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/flip.svg.192dpi.png")),
+                Priority = 2,
+            }
+        );
+        args.Verbs.Add(
+            new AlternativeVerb()
+            {
+                Act = () => ConvertToDeck(args.User, uid),
+                Text = Loc.GetString("cards-verb-convert-to-deck"),
+                Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/rotate_cw.svg.192dpi.png")),
+                Priority = 1,
+            }
+        );
     }
 
     private void OnInteractUsing(EntityUid uid, CardComponent comp, InteractUsingEvent args)
@@ -141,12 +160,10 @@ public sealed class CardHandSystem : EntitySystem
         if (args.Handled)
             return;
 
-        if (HasComp<CardStackComponent>(args.Used) ||
-                !TryComp(args.Used, out CardComponent? usedComp))
+        if (HasComp<CardStackComponent>(args.Used) || !TryComp(args.Used, out CardComponent? usedComp))
             return;
 
-        if (!HasComp<CardStackComponent>(args.Target) &&
-                TryComp(args.Target, out CardComponent? targetCardComp))
+        if (!HasComp<CardStackComponent>(args.Target) && TryComp(args.Target, out CardComponent? targetCardComp))
         {
             TrySetupHandOfCards(args.User, args.Used, usedComp, args.Target, targetCardComp, true);
             args.Handled = true;
@@ -169,7 +186,15 @@ public sealed class CardHandSystem : EntitySystem
         if (isHoldingCards)
             _hands.TryPickupAnyHand(user, cardDeck);
     }
-    public void TrySetupHandOfCards(EntityUid user, EntityUid card, CardComponent comp, EntityUid target, CardComponent targetComp, bool pickup)
+
+    public void TrySetupHandOfCards(
+        EntityUid user,
+        EntityUid card,
+        CardComponent comp,
+        EntityUid target,
+        CardComponent targetComp,
+        bool pickup
+    )
     {
         if (card == target || _net.IsClient)
             return;
@@ -187,7 +212,14 @@ public sealed class CardHandSystem : EntitySystem
         _cardStack.FlipAllCards(cardHand, stack, targetComp.Flipped);
     }
 
-    public void TrySetupHandFromStack(EntityUid user, EntityUid card, CardComponent comp, EntityUid target, CardStackComponent targetComp, bool pickup)
+    public void TrySetupHandFromStack(
+        EntityUid user,
+        EntityUid card,
+        CardComponent comp,
+        EntityUid target,
+        CardStackComponent targetComp,
+        bool pickup
+    )
     {
         if (_net.IsClient)
             return;
@@ -217,8 +249,10 @@ public sealed class CardHandSystem : EntitySystem
         if (prototype == default)
             throw new ArgumentException("Cannot spawn with null prototype", nameof(prototype));
 
-        if (_container.IsEntityOrParentInContainer(uid) &&
-            _container.TryGetOuterContainer(uid, Transform(uid), out var container))
+        if (
+            _container.IsEntityOrParentInContainer(uid)
+            && _container.TryGetOuterContainer(uid, Transform(uid), out var container)
+        )
         {
             var entity = SpawnInContainerOrDrop(prototype, container.Owner, container.ID);
             if (!Exists(entity))

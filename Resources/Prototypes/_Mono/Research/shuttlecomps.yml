@@ -72,7 +72,7 @@
   - AdvancedRadarConsoleCircuitboard
   - ComputerIFFCircuitboard
   - MachineDriveCTLA25Circuitboard
- # - LargeThrusterMachineCircuitboard HL: We use CivBigThrusterBoard instead
+  # - LargeThrusterMachineCircuitboard HL: We use CivBigThrusterBoard instead
   technologyPrerequisites:
   - Shuttlecraft
   - SuperParts

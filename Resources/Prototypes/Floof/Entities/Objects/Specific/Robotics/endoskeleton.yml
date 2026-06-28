@@ -38,7 +38,7 @@
         whitelist:
           tags:
           - BorgTorso
-# security parts
+          # security parts
       borg_l_secarm+o:
         whitelist:
           tags:
@@ -63,8 +63,8 @@
         whitelist:
           tags:
           - BorgSecurityTorso
-# Hardlight end
-# engineering parts
+          # Hardlight end
+          # engineering parts
       borg_l_engiarm+o:
         whitelist:
           tags:
@@ -89,81 +89,81 @@
         whitelist:
           tags:
           - BorgEngineerTorso
-    # mining parts
+          # mining parts
       borg_l_salvarm+o:
         whitelist:
           tags:
-            - BorgMiningLLeg
+          - BorgMiningLLeg
       borg_r_salvarm+o:
         whitelist:
           tags:
-            - BorgMiningRLeg
+          - BorgMiningRLeg
       borg_l_salvleg+o:
         whitelist:
           tags:
-            - BorgMiningLLeg
+          - BorgMiningLLeg
       borg_r_salvleg+o:
         whitelist:
           tags:
-            - BorgMiningRLeg
+          - BorgMiningRLeg
       borg_salvhead+o:
         whitelist:
           tags:
-            - BorgMiningHead
+          - BorgMiningHead
       borg_salvchest+o:
         whitelist:
           tags:
-            - BorgMiningTorso
-    # service parts
+          - BorgMiningTorso
+          # service parts
       borg_l_servarm+o:
         whitelist:
           tags:
-            - BorgServiceLLeg
+          - BorgServiceLLeg
       borg_r_servarm+o:
         whitelist:
           tags:
-            - BorgServiceRLeg
+          - BorgServiceRLeg
       borg_l_servleg+o:
         whitelist:
           tags:
-            - BorgServiceLLeg
+          - BorgServiceLLeg
       borg_r_servleg+o:
         whitelist:
           tags:
-            - BorgServiceRLeg
+          - BorgServiceRLeg
       borg_servhead+o:
         whitelist:
           tags:
-            - BorgServiceHead
+          - BorgServiceHead
       borg_servchest+o:
         whitelist:
           tags:
-            - BorgServiceTorso
-    # medical parts
+          - BorgServiceTorso
+          # medical parts
       borg_l_medarm+o:
         whitelist:
           tags:
-            - BorgMedicalLLeg
+          - BorgMedicalLLeg
       borg_r_medarm+o:
         whitelist:
           tags:
-            - BorgMedicalRLeg
+          - BorgMedicalRLeg
       borg_l_medleg+o:
         whitelist:
           tags:
-            - BorgMedicalLLeg
+          - BorgMedicalLLeg
       borg_r_medleg+o:
         whitelist:
           tags:
-            - BorgMedicalRLeg
+          - BorgMedicalRLeg
       borg_medhead+o:
         whitelist:
           tags:
-            - BorgMedicalHead
+          - BorgMedicalHead
       borg_medchest+o:
         whitelist:
           tags:
-            - BorgMedicalTorso
+          - BorgMedicalTorso
 
   - type: PartAssembly
     parts:

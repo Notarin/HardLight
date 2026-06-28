@@ -15,8 +15,7 @@ public sealed partial class ResearchSystem
 
     private void OnServerStartup(EntityUid uid, ResearchServerComponent component, ComponentStartup args)
     {
-        var unusedId = EntityQuery<ResearchServerComponent>(true)
-            .Max(s => s.Id) + 1;
+        var unusedId = EntityQuery<ResearchServerComponent>(true).Max(s => s.Id) + 1;
         component.Id = unusedId;
         Dirty(uid, component);
     }
@@ -29,7 +28,11 @@ public sealed partial class ResearchSystem
         }
     }
 
-    private void OnServerDatabaseModified(EntityUid uid, ResearchServerComponent component, ref TechnologyDatabaseModifiedEvent args)
+    private void OnServerDatabaseModified(
+        EntityUid uid,
+        ResearchServerComponent component,
+        ref TechnologyDatabaseModifiedEvent args
+    )
     {
         foreach (var client in component.Clients)
         {
@@ -60,8 +63,13 @@ public sealed partial class ResearchSystem
     /// <param name="clientComponent"></param>
     /// <param name="serverComponent"></param>
     /// <param name="dirtyServer">Whether or not to dirty the server component after registration</param>
-    public void RegisterClient(EntityUid client, EntityUid server, ResearchClientComponent? clientComponent = null,
-        ResearchServerComponent? serverComponent = null,  bool dirtyServer = true)
+    public void RegisterClient(
+        EntityUid client,
+        EntityUid server,
+        ResearchClientComponent? clientComponent = null,
+        ResearchServerComponent? serverComponent = null,
+        bool dirtyServer = true
+    )
     {
         if (!Resolve(client, ref clientComponent) || !Resolve(server, ref serverComponent))
             return;
@@ -86,7 +94,11 @@ public sealed partial class ResearchSystem
     /// <param name="client"></param>
     /// <param name="clientComponent"></param>
     /// <param name="dirtyServer"></param>
-    public void UnregisterClient(EntityUid client, ResearchClientComponent? clientComponent = null, bool dirtyServer = true)
+    public void UnregisterClient(
+        EntityUid client,
+        ResearchClientComponent? clientComponent = null,
+        bool dirtyServer = true
+    )
     {
         if (!Resolve(client, ref clientComponent))
             return;
@@ -105,8 +117,13 @@ public sealed partial class ResearchSystem
     /// <param name="clientComponent"></param>
     /// <param name="serverComponent"></param>
     /// <param name="dirtyServer"></param>
-    public void UnregisterClient(EntityUid client, EntityUid server, ResearchClientComponent? clientComponent = null,
-        ResearchServerComponent? serverComponent = null, bool dirtyServer = true)
+    public void UnregisterClient(
+        EntityUid client,
+        EntityUid server,
+        ResearchClientComponent? clientComponent = null,
+        ResearchServerComponent? serverComponent = null,
+        bool dirtyServer = true
+    )
     {
         if (!Resolve(client, ref clientComponent) || !Resolve(server, ref serverComponent))
             return;

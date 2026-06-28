@@ -11,9 +11,7 @@ namespace Content.Shared.Administration
     }
 
     [Serializable, NetSerializable]
-    public sealed class AdminAnnounceEuiState : EuiStateBase
-    {
-    }
+    public sealed class AdminAnnounceEuiState : EuiStateBase { }
 
     public static class AdminAnnounceEuiMsg
     {

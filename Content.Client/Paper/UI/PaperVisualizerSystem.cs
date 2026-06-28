@@ -1,20 +1,28 @@
 using Robust.Client.GameObjects;
-
 using static Content.Shared.Paper.PaperComponent;
 
 namespace Content.Client.Paper.UI;
 
 public sealed class PaperVisualizerSystem : VisualizerSystem<PaperVisualsComponent>
 {
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
-    protected override void OnAppearanceChange(EntityUid uid, PaperVisualsComponent component, ref AppearanceChangeEvent args)
+    protected override void OnAppearanceChange(
+        EntityUid uid,
+        PaperVisualsComponent component,
+        ref AppearanceChangeEvent args
+    )
     {
         if (args.Sprite == null)
             return;
 
         if (AppearanceSystem.TryGetData<PaperStatus>(uid, PaperVisuals.Status, out var writingStatus, args.Component))
-            _sprite.LayerSetVisible((uid, args.Sprite), PaperVisualLayers.Writing, writingStatus == PaperStatus.Written);
+            _sprite.LayerSetVisible(
+                (uid, args.Sprite),
+                PaperVisualLayers.Writing,
+                writingStatus == PaperStatus.Written
+            );
 
         if (AppearanceSystem.TryGetData<string>(uid, PaperVisuals.Stamp, out var stampState, args.Component))
         {
@@ -27,7 +35,6 @@ public sealed class PaperVisualizerSystem : VisualizerSystem<PaperVisualsCompone
             {
                 _sprite.LayerSetVisible((uid, args.Sprite), PaperVisualLayers.Stamp, false);
             }
-
         }
     }
 }
@@ -35,5 +42,5 @@ public sealed class PaperVisualizerSystem : VisualizerSystem<PaperVisualsCompone
 public enum PaperVisualLayers
 {
     Stamp,
-    Writing
+    Writing,
 }

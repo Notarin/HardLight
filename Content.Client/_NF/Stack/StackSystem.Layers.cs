@@ -1,5 +1,5 @@
-using Content.Shared.Stacks.Components;
 using Content.Shared.Stacks;
+using Content.Shared.Stacks.Components;
 
 namespace Content.Client.Stack
 {
@@ -38,7 +38,7 @@ namespace Content.Client.Stack
         /// </summary>
         private static void ApplyThreshold(StackLayerThresholdComponent comp, ref StackLayerData data)
         {
-            // We must stop before we run out of thresholds or layers, whichever's smaller. 
+            // We must stop before we run out of thresholds or layers, whichever's smaller.
             data.MaxCount = Math.Min(comp.Thresholds.Count + 1, data.MaxCount);
             int newActual = 0;
             foreach (var threshold in comp.Thresholds)

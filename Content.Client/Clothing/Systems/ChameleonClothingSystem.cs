@@ -11,19 +11,19 @@ namespace Content.Client.Clothing.Systems;
 // All valid items for chameleon are calculated on client startup and stored in dictionary.
 public sealed class ChameleonClothingSystem : SharedChameleonClothingSystem
 {
-    [Dependency] private readonly IPrototypeManager _proto = default!;
-    [Dependency] private readonly IComponentFactory _factory = default!;
+    [Dependency]
+    private readonly IPrototypeManager _proto = default!;
 
-    private static readonly SlotFlags[] IgnoredSlots =
-    {
-        SlotFlags.All,
-        SlotFlags.PREVENTEQUIP,
-        SlotFlags.NONE
-    };
+    [Dependency]
+    private readonly IComponentFactory _factory = default!;
+
+    private static readonly SlotFlags[] IgnoredSlots = { SlotFlags.All, SlotFlags.PREVENTEQUIP, SlotFlags.NONE };
     private static readonly SlotFlags[] Slots = Enum.GetValues<SlotFlags>().Except(IgnoredSlots).ToArray();
 
     private readonly Dictionary<SlotFlags, List<string>> _data = new();
-    [Dependency] private readonly SpriteSystem _sprite = default!;
+
+    [Dependency]
+    private readonly SpriteSystem _sprite = default!;
 
     public override void Initialize()
     {
@@ -48,15 +48,19 @@ public sealed class ChameleonClothingSystem : SharedChameleonClothingSystem
     protected override void UpdateSprite(EntityUid uid, EntityPrototype proto)
     {
         base.UpdateSprite(uid, proto);
-        if (TryComp(uid, out SpriteComponent? sprite)
-            && proto.TryGetComponent(out SpriteComponent? otherSprite, _factory))
+        if (
+            TryComp(uid, out SpriteComponent? sprite)
+            && proto.TryGetComponent(out SpriteComponent? otherSprite, _factory)
+        )
         {
             _sprite.CopySprite((otherSprite.Owner, otherSprite), (uid, sprite));
         }
 
         // Edgecase for PDAs to include visuals when UI is open
-        if (TryComp(uid, out PdaBorderColorComponent? borderColor)
-            && proto.TryGetComponent(out PdaBorderColorComponent? otherBorderColor, _factory))
+        if (
+            TryComp(uid, out PdaBorderColorComponent? borderColor)
+            && proto.TryGetComponent(out PdaBorderColorComponent? otherBorderColor, _factory)
+        )
         {
             borderColor.BorderColor = otherBorderColor.BorderColor;
             borderColor.AccentHColor = otherBorderColor.AccentHColor;

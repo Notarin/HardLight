@@ -12,7 +12,6 @@
     sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
     state: bullet
 
-
 - type: entity
   id: Bullet50_magnumRubber
   name: bullet (.50 magnum Rubber)
@@ -28,7 +27,6 @@
   - type: Sprite
     sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
     state: bullet
-
 
 - type: entity
   id: Bullet50_magnumPractice

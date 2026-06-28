@@ -23,7 +23,7 @@ public sealed partial class ConstructorComponent : Component
 [Serializable, NetSerializable]
 public enum ConstructorUiKey : byte
 {
-    Key
+    Key,
 }
 
 [Serializable, NetSerializable]

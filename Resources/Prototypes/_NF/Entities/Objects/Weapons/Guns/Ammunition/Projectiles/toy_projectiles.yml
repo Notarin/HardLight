@@ -5,28 +5,28 @@
   name: BB
   parent: BaseItem
   components:
-    - type: Item
-      size: Tiny
-    - type: Reflective
-    - type: Appearance
-    - type: Sprite
-      sprite: _DV/Objects/Weapons/Guns/Ammunition/Boxes/bbgun.rsi
-      layers:
-        - state: bbbullet
-    - type: Tag
-      tags:
-        - BulletBB
-        - Trash
-    - type: TileFrictionModifier
-      modifier: 0.01
-    - type: PhysicalComposition
-      materialComposition:
-        Steel: 1
-    - type: SpaceGarbage
-    - type: CartridgeAmmo
-      proto: BulletBBDamaged
-      deleteOnSpawn: true
-      muzzleFlash: null
+  - type: Item
+    size: Tiny
+  - type: Reflective
+  - type: Appearance
+  - type: Sprite
+    sprite: _DV/Objects/Weapons/Guns/Ammunition/Boxes/bbgun.rsi
+    layers:
+    - state: bbbullet
+  - type: Tag
+    tags:
+    - BulletBB
+    - Trash
+  - type: TileFrictionModifier
+    modifier: 0.01
+  - type: PhysicalComposition
+    materialComposition:
+      Steel: 1
+  - type: SpaceGarbage
+  - type: CartridgeAmmo
+    proto: BulletBBDamaged
+    deleteOnSpawn: true
+    muzzleFlash: null
 
 # separate BB "cartridge" and projectile
 - type: entity
@@ -68,8 +68,7 @@
         restitution: 0.3 #bounce
         friction: 0.2
       projectile:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.15,-0.15,0.15,0.15"
         hard: false
         mask:
@@ -115,7 +114,7 @@
     radius: 1.5
     energy: 2
   - type: RgbLightController
-    layers: [ 0 ]
+    layers: [0]
   - type: Sprite
     sprite: _DV/Objects/Weapons/Guns/Ammunition/Boxes/bbgun.rsi
     layers:

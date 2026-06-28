@@ -15,7 +15,8 @@ namespace Content.Client.Administration.UI.Voting;
 /// </summary>
 public sealed class VoteAuditWindow : DefaultWindow
 {
-    [Dependency] private readonly IVoteManager _voteManager = default!;
+    [Dependency]
+    private readonly IVoteManager _voteManager = default!;
 
     // Left panel – vote list
     private readonly ItemList _voteList;
@@ -24,7 +25,7 @@ public sealed class VoteAuditWindow : DefaultWindow
     // Right panel – inspect view
     private readonly Label _inspectTitle;
     private readonly Label _inspectMeta;
-    private readonly BoxContainer _optionButtons;   // one button per option
+    private readonly BoxContainer _optionButtons; // one button per option
     private readonly ItemList _playerList;
     private readonly Label _playerListLabel;
 
@@ -32,6 +33,7 @@ public sealed class VoteAuditWindow : DefaultWindow
     private readonly List<VoteAuditEntry> _entries = new();
     private VoteAuditOption[]? _currentOptions;
     private int _selectedOption = -1;
+
     // Latest inspect-request id; responses for older ids are ignored to avoid races.
     private int _pendingInspectId = -1;
 
@@ -60,11 +62,7 @@ public sealed class VoteAuditWindow : DefaultWindow
         _voteList.OnItemSelected += OnVoteSelected;
         _voteList.Visible = false;
 
-        var refreshButton = new Button
-        {
-            Text = "Refresh",
-            HorizontalAlignment = HAlignment.Right,
-        };
+        var refreshButton = new Button { Text = "Refresh", HorizontalAlignment = HAlignment.Right };
         refreshButton.OnPressed += _ => RequestList();
 
         var leftPanel = new BoxContainer
@@ -87,11 +85,7 @@ public sealed class VoteAuditWindow : DefaultWindow
             ClipText = true,
         };
 
-        _inspectMeta = new Label
-        {
-            StyleClasses = { "LabelSubText" },
-            ClipText = true,
-        };
+        _inspectMeta = new Label { StyleClasses = { "LabelSubText" }, ClipText = true };
 
         _optionButtons = new BoxContainer
         {
@@ -99,11 +93,7 @@ public sealed class VoteAuditWindow : DefaultWindow
             SeparationOverride = 4,
         };
 
-        _playerListLabel = new Label
-        {
-            Text = "Players",
-            StyleClasses = { "LabelSubText" },
-        };
+        _playerListLabel = new Label { Text = "Players", StyleClasses = { "LabelSubText" } };
 
         _playerList = new ItemList
         {
@@ -245,11 +235,7 @@ public sealed class VoteAuditWindow : DefaultWindow
         {
             var opt = msg.Options[i];
             var idx = i; // capture for closure
-            var btn = new Button
-            {
-                Text = $"{opt.Text} ({opt.Voters.Length})",
-                ToggleMode = true,
-            };
+            var btn = new Button { Text = $"{opt.Text} ({opt.Voters.Length})", ToggleMode = true };
             btn.OnToggled += args =>
             {
                 if (args.Pressed)

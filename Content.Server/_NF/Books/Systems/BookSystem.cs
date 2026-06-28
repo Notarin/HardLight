@@ -38,7 +38,7 @@ namespace Content.Server._NF.Books.Systems
                     OpenURL(actor.PlayerSession, component.URL);
                 },
                 Text = Loc.GetString("book-read-verb"),
-                Priority = -2
+                Priority = -2,
             };
             args.Verbs.Add(verb);
         }

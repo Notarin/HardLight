@@ -14,10 +14,15 @@ namespace Content.Server.StoreDiscount.Systems;
 /// </summary>
 public sealed class StoreDiscountSystem : EntitySystem
 {
-    private static readonly ProtoId<StoreCategoryPrototype> DiscountedStoreCategoryPrototypeKey = new("DiscountedItems");
+    private static readonly ProtoId<StoreCategoryPrototype> DiscountedStoreCategoryPrototypeKey = new(
+        "DiscountedItems"
+    );
 
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency]
+    private readonly IRobustRandom _random = default!;
+
+    [Dependency]
+    private readonly IPrototypeManager _prototypeManager = default!;
 
     /// <inheritdoc />
     public override void Initialize()
@@ -38,7 +43,10 @@ public sealed class StoreDiscountSystem : EntitySystem
         }
 
         // find and decrement discount count for item, if there is one.
-        if (!TryGetDiscountData(discountsComponent.Discounts, purchasedItem, out var discountData) || discountData.Count == 0)
+        if (
+            !TryGetDiscountData(discountsComponent.Discounts, purchasedItem, out var discountData)
+            || discountData.Count == 0
+        )
         {
             return;
         }
@@ -82,7 +90,10 @@ public sealed class StoreDiscountSystem : EntitySystem
 
         var prototypes = _prototypeManager.EnumeratePrototypes<DiscountCategoryPrototype>();
         var categoriesWithCumulativeWeight = new CategoriesWithCumulativeWeightMap(prototypes);
-        var uniqueListingItemCountByCategory = PickCategoriesToRoll(totalAvailableDiscounts, categoriesWithCumulativeWeight);
+        var uniqueListingItemCountByCategory = PickCategoriesToRoll(
+            totalAvailableDiscounts,
+            categoriesWithCumulativeWeight
+        );
 
         return RollItems(listings, uniqueListingItemCountByCategory);
     }
@@ -147,7 +158,10 @@ public sealed class StoreDiscountSystem : EntitySystem
     /// <param name="listings">List of all available listing items from which discounted ones could be selected.</param>
     /// <param name="chosenDiscounts"></param>
     /// <returns>Collection of containers with rolled discount data.</returns>
-    private IReadOnlyList<StoreDiscountData> RollItems(IEnumerable<ListingDataWithCostModifiers> listings, Dictionary<ProtoId<DiscountCategoryPrototype>, int> chosenDiscounts)
+    private IReadOnlyList<StoreDiscountData> RollItems(
+        IEnumerable<ListingDataWithCostModifiers> listings,
+        Dictionary<ProtoId<DiscountCategoryPrototype>, int> chosenDiscounts
+    )
     {
         // To roll for discounts on items we: pick listing items that have values inside 'DiscountDownTo'.
         // then we iterate over discount categories that were chosen on previous step and pick unique set
@@ -175,7 +189,7 @@ public sealed class StoreDiscountSystem : EntitySystem
                     ListingId = listingData.ID,
                     Count = 1,
                     DiscountCategory = listingData.DiscountCategory!.Value,
-                    DiscountAmountByCurrency = discountAmountByCurrencyId
+                    DiscountAmountByCurrency = discountAmountByCurrencyId,
                 };
                 list.Add(discountData);
             }
@@ -211,7 +225,10 @@ public sealed class StoreDiscountSystem : EntitySystem
         return discountAmountByCurrencyId;
     }
 
-    private void ApplyDiscounts(IReadOnlyList<ListingDataWithCostModifiers> listings, IReadOnlyCollection<StoreDiscountData> discounts)
+    private void ApplyDiscounts(
+        IReadOnlyList<ListingDataWithCostModifiers> listings,
+        IReadOnlyCollection<StoreDiscountData> discounts
+    )
     {
         foreach (var discountData in discounts)
         {
@@ -233,7 +250,9 @@ public sealed class StoreDiscountSystem : EntitySystem
 
             if (found == null)
             {
-                Log.Warning($"Attempted to apply discount to listing item with {discountData.ListingId}, but found no such listing item.");
+                Log.Warning(
+                    $"Attempted to apply discount to listing item with {discountData.ListingId}, but found no such listing item."
+                );
                 return;
             }
 
@@ -242,11 +261,13 @@ public sealed class StoreDiscountSystem : EntitySystem
         }
     }
 
-    private static Dictionary<ProtoId<DiscountCategoryPrototype>, List<ListingDataWithCostModifiers>> GroupDiscountableListingsByDiscountCategory(
-        IEnumerable<ListingDataWithCostModifiers> listings
-    )
+    private static Dictionary<
+        ProtoId<DiscountCategoryPrototype>,
+        List<ListingDataWithCostModifiers>
+    > GroupDiscountableListingsByDiscountCategory(IEnumerable<ListingDataWithCostModifiers> listings)
     {
-        var listingsByDiscountCategory = new Dictionary<ProtoId<DiscountCategoryPrototype>, List<ListingDataWithCostModifiers>>();
+        var listingsByDiscountCategory =
+            new Dictionary<ProtoId<DiscountCategoryPrototype>, List<ListingDataWithCostModifiers>>();
         foreach (var listing in listings)
         {
             var category = listing.DiscountCategory;
@@ -301,7 +322,7 @@ public sealed class StoreDiscountSystem : EntitySystem
         public CategoriesWithCumulativeWeightMap(IEnumerable<DiscountCategoryPrototype> prototypes)
         {
             var asArray = prototypes.ToArray();
-            _weights = new (asArray.Length);
+            _weights = new(asArray.Length);
             _categories = new(asArray.Length);
 
             var currentIndex = 0;
@@ -346,7 +367,7 @@ public sealed class StoreDiscountSystem : EntitySystem
 
             for (var i = indexToRemove + 1; i < _categories.Count; i++)
             {
-                _weights[i]-= discountCategory.Weight;
+                _weights[i] -= discountCategory.Weight;
             }
 
             _totalWeight -= discountCategory.Weight;

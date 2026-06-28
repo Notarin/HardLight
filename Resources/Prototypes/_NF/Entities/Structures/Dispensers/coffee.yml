@@ -10,9 +10,9 @@
     sprite: _NF/Structures/coffeemachine.rsi
     drawdepth: SmallObjects
     layers:
-      - state: coffeemachine
-      - state: unshaded
-        shader: unshaded
+    - state: coffeemachine
+    - state: unshaded
+      shader: unshaded
   - type: ReagentDispenser
     storageWhitelist:
       tags:

@@ -1,3 +1,4 @@
+using Content.Shared._HL.Interaction;
 using Content.Shared.Bed.Sleep;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Interaction.Components;
@@ -63,6 +64,9 @@ public sealed class InteractionPopupSystem : EntitySystem
 
         if (HasComp<SleepingComponent>(uid))
             return;
+
+        if (HasComp<UntouchableComponent>(uid))
+            return; // Hardlight: Untouchable Trait
 
         if (TryComp<MobStateComponent>(uid, out var state)
             && !_mobStateSystem.IsAlive(uid, state))

@@ -17,6 +17,8 @@
     - !type:EntityWhitelistRequirement
       whitelist:
         components: [MobState] # Don't go around kissing inanimate objects.
+      blacklist:
+        components: [Untouchable] # Hardlight: Untouchable Trait
   action:
     !type:NoOpAction
 #    effect: BeingKissed | Moods not implemented
@@ -45,6 +47,8 @@
       whitelist:
         components: [MobState, Anomaly, Food] # TODO check if can be metabolized
         tags: [Window] # yes.
+      blacklist:
+        components: [ Untouchable ] # Hardlight: Untouchable Trait
   action:
     !type:NoOpAction
 #    effect: BeingLicked | Moods not implemented

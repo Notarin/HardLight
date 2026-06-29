@@ -106,6 +106,9 @@ tiny-trait-requires-two-hands = You are too small to hold { THE($item) } with on
 pettable-name = Pettable
 pettable-text = You enjoy being pet on your soft floofy head!
 
+trait-untouchable-name = Untouchable
+trait-untouchable-desc = You tend to avoid the touch of others, leaning away from hugs, kisses, licks, pets, and bites.
+
 hl-trait-light-sensitivity-name = Light Sensitivity
 hl-trait-light-sensitivity-desc = Your physiology is especially vulnerable to light. You begin burning at HIGH light exposure.
 

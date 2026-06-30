@@ -19,8 +19,8 @@ public sealed class RCDMenuBoundUserInterface : BoundUserInterface
     private static readonly Dictionary<string, (string Tooltip, SpriteSpecifier Sprite)> PrototypesGroupingInfo
         = new Dictionary<string, (string Tooltip, SpriteSpecifier Sprite)>
         {
-            ["Floors"] = ("rcd-component-walls-and-flooring", new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/Radial/RCD/metal_tile.png"))),
-            ["Walls"] = ("rcd-component-walls-and-flooring", new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/Radial/RCD/solid_wall.png"))),
+            ["Floors"] = ("rcd-component-flooring", new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/Radial/RCD/metal_tile.png"))), // Hardlight: Unique names
+            ["Walls"] = ("rcd-component-walls", new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/Radial/RCD/solid_wall.png"))), // Hardlight: Unique names
             ["WindowsAndGrilles"] = ("rcd-component-windows-and-grilles", new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/Radial/RCD/windows_and_grilles.png"))),
             ["Airlocks"] = ("rcd-component-airlocks", new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/Radial/RCD/airlocks.png"))),
             ["Electrical"] = ("rcd-component-electrical", new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/Radial/RCD/multicoil.png"))),

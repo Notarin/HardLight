@@ -34,7 +34,10 @@ rcd-component-cannot-build-identical-entity = That already exists there!
 
 ### Category names
 
-rcd-component-walls-and-flooring = Walls and flooring
+# Hardlight: Split walls/flooring into unique names
+rcd-component-walls = Walls
+rcd-component-flooring = Floors
+
 rcd-component-latticetiles = Lattice tiles
 rcd-component-platingtiles = Plating tiles
 rcd-component-windows-and-grilles = Windows and grilles

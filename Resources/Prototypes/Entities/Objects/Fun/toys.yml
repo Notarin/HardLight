@@ -87,7 +87,9 @@
       wideAnimationRotation: -135
       attackRate: 10
     - type: Item
-      size: Ginormous
+      size: Large
+      shape:
+      - 0, 0, 3, 3
       sprite: Objects/Weapons/Melee/Throngler-in-hand.rsi
     - type: FoodSequenceElement
       entries:

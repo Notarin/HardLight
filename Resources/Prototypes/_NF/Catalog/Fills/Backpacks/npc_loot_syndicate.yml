@@ -95,6 +95,8 @@
         prob: 0.4
       - id: MercCoin1
         prob: 1
+      - id: MysteryVendBoosterPack
+        prob: 0.5
     sound:
       path: /Audio/Items/jumpsuit_equip.ogg
 
@@ -129,6 +131,8 @@
         prob: 1
       - id: ClothingNeckCloakSIN
         prob: 0.1
+      - id: MysteryVendBoosterPack
+        prob: 0.5
     sound:
       path: /Audio/Items/jumpsuit_equip.ogg
 
@@ -161,6 +165,8 @@
         prob: 1
       - id: ClothingNeckMantleSIN
         prob: 0.1
+      - id: MysteryVendBoosterPack
+        prob: 0.5
     sound:
       path: /Audio/Items/jumpsuit_equip.ogg
 
@@ -190,6 +196,8 @@
         prob: 0.4
       - id: MercCoin1
         prob: 1
+      - id: MysteryVendBoosterPack
+        prob: 0.5
     sound:
       path: /Audio/Items/jumpsuit_equip.ogg
 
@@ -343,6 +351,8 @@
         prob: 0.4
       - id: MercCoin1
         prob: 1
+      - id: MysteryVendBoosterPack
+        prob: 0.5
     sound:
       path: /Audio/Items/jumpsuit_equip.ogg
 
@@ -374,6 +384,8 @@
         prob: 0.4
       - id: MercCoin1
         prob: 1
+      - id: MysteryVendBoosterPack
+        prob: 0.5
     sound:
       path: /Audio/Items/jumpsuit_equip.ogg
 
@@ -404,6 +416,8 @@
         prob: 0.4
       - id: MercCoin1
         prob: 1
+      - id: MysteryVendBoosterPack
+        prob: 0.5
     sound:
       path: /Audio/Items/jumpsuit_equip.ogg
 
@@ -433,6 +447,8 @@
         prob: 0.4
       - id: MercCoin1
         prob: 1
+      - id: MysteryVendBoosterPack
+        prob: 0.5
     sound:
       path: /Audio/Items/jumpsuit_equip.ogg
 

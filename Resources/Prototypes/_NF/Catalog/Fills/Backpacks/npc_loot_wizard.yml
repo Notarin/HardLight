@@ -308,5 +308,7 @@
         prob: 0.3
       - id: turretpage
         prob: 0.2
+      - id: MysteryVendBoosterPack
+        prob: 0.5
     sound:
       path: /Audio/Items/jumpsuit_equip.ogg

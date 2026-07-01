@@ -200,6 +200,8 @@
       prob: 0.5
     - id: SpawnDungeonLootToolsAdvancedEngineering
       prob: 0.4
+    - id: MysteryVendBoosterPack
+      prob: 0.5
     sound:
       path: /Audio/Items/jumpsuit_equip.ogg
 

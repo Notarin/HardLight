@@ -8,6 +8,27 @@
     },
     "states": [
         {
+            "name": "deck_storage_box"
+        },
+        {
+            "name": "deck_storage_box_open"
+        },
+        {
+            "name": "bag-fill-1"
+        },
+        {
+            "name": "bag-fill-2"
+        },
+        {
+            "name": "bag-fill-3"
+        },
+        {
+            "name": "bag-fill-4"
+        },
+        {
+            "name": "bag-fill-5"
+        },
+        {
             "name": "normal_background_blue"
         },
         {
@@ -48,6 +69,24 @@
         },
         {
             "name": "a"
+        },
+        {
+            "name": "booster_pack"
+        },
+        {
+            "name": "booster_pack_overlay"
+        },
+        {
+            "name": "starter_booster_pack"
+        },
+        {
+            "name": "prize_booster_pack"
+        },
+        {
+            "name": "syndicate_booster_pack"
+        },
+        {
+            "name": "booster_pack_trash"
         }
     ]
 }

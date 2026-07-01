@@ -1,0 +1,297 @@
+# BASE
+- type: entity
+  parent: BaseItem
+  id: BaseBoosterPack
+  name: Booster Pack
+  description: A sealed foil pack of randomized Ratvar's Row cards.
+  abstract: true
+  #  categories: [ HideSpawnMenu ]
+  suffix: NPC Loot
+  components:
+  - type: Sprite
+    sprite: _HL/Objects/Fun/ratvar.rsi
+    state: booster_pack
+  - type: StaticPrice
+    price: 300
+  - type: Item
+    size: Normal
+
+- type: entity
+  id: BoosterPackTrash
+  categories: [ HideSpawnMenu ]
+  parent: BaseItem
+  name: ripped booster pack
+  description: Ceremoniously ripped apart and tossed on the floor.
+  components:
+  - type: Sprite
+    sprite: _HL/Objects/Fun/ratvar.rsi
+    state: booster_pack_trash
+  - type: Tag
+    tags:
+    - Trash
+  - type: SpaceGarbage
+
+## Starter Pack
+- type: entity
+  parent: BaseBoosterPack
+  id: StarterPack
+  name: Starter Pack
+  components:
+  - type: StaticPrice
+    price: 250
+  - type: Sprite
+    state: starter_booster_pack
+  - type: SpawnItemsOnUse
+    items:
+    - id: BoosterPackTrash
+    - id: Ratvar3123
+    - id: Ratvar3222
+    - id: Ratvar1414
+    - id: Ratvar2561
+    - id: Ratvar5545
+    - id: PaperRatvarRules
+    - id: RatvarBag
+    sound:
+      path: /Audio/_RMC14/Handling/paper_drop.ogg
+
+- type: entity
+  name: ratvar rules
+  parent: Paper
+  id: PaperRatvarRules # legally gray zone of using "D&D" and "DND"
+  description: 'All the rules you need to play Ratvar'
+  components:
+  - type: Paper
+    contentSize: 10000
+    content: ratvar-rules
+  - type: Sprite
+    layers:
+    - state: paper
+      color: "#cccccc"
+    - state: paper_words
+      map: ["enum.PaperVisualLayers.Writing"]
+      color: "#cccccc"
+      visible: false
+    - state: paper_stamp-generic
+      map: ["enum.PaperVisualLayers.Stamp"]
+      visible: false
+  - type: PaperVisuals
+    backgroundImagePath: "/Textures/Interface/Paper/paper_background_default.svg.96dpi.png"
+    contentImagePath: "/Textures/Interface/Paper/paper_content_lined.svg.96dpi.png"
+    backgroundModulate: "#cccccc"
+    contentImageModulate: "#cccccc"
+    backgroundPatchMargin: 16.0, 16.0, 16.0, 16.0
+    contentMargin: 16.0, 16.0, 16.0, 16.0
+
+## Booster Pack
+- type: entity
+  parent: BaseBoosterPack
+  id: FunVendBoosterPack
+  name: FunVend Booster Pack
+  components:
+  - type: Sprite
+    layers:
+    - state: booster_pack
+    - state: booster_pack_overlay
+      color: "#FFBF00"
+  - type: SpawnItemsOnUse
+    items:
+    - id: BoosterPackTrash
+    - id: Ratvar2322
+    - id: Ratvar3143
+    - id: Ratvar4434
+    sound:
+      path: /Audio/_RMC14/Handling/paper_drop.ogg
+
+# Medical
+- type: entity
+  parent: BaseBoosterPack
+  id: MedicalVendBoosterPack
+  name: Medical Booster Pack
+  components:
+  - type: Sprite
+    layers:
+    - state: booster_pack
+    - state: booster_pack_overlay
+      color: "#5B97BC"
+  - type: SpawnItemsOnUse
+    items:
+    - id: BoosterPackTrash
+    - id: Ratvar2223
+    - id: Ratvar1324
+    - id: Ratvar1256
+    sound:
+      path: /Audio/_RMC14/Handling/paper_drop.ogg
+
+# Security
+- type: entity
+  parent: BaseBoosterPack
+  id: SecurityVendBoosterPack
+  name: Security Booster Pack
+  components:
+  - type: Sprite
+    layers:
+    - state: booster_pack
+    - state: booster_pack_overlay
+      color: "#CB0000"
+  - type: SpawnItemsOnUse
+    items:
+    - id: BoosterPackTrash
+    - id: Ratvar1161
+    - id: Ratvar1233
+    - id: Ratvar2561
+    sound:
+      path: /Audio/_RMC14/Handling/paper_drop.ogg
+
+# Engineer
+- type: entity
+  parent: BaseBoosterPack
+  id: EngineerVendBoosterPack
+  name: Engineer Booster Pack
+  components:
+  - type: Sprite
+    layers:
+    - state: booster_pack
+    - state: booster_pack_overlay
+      color: "#f39f27"
+  - type: SpawnItemsOnUse
+    items:
+    - id: BoosterPackTrash
+    - id: Ratvar4141
+    - id: Ratvar4411
+    - id: Ratvar5612
+    sound:
+      path: /Audio/_RMC14/Handling/paper_drop.ogg
+
+# Science
+- type: entity
+  parent: BaseBoosterPack
+  id: ScienceVendBoosterPack
+  name: Science Booster Pack
+  components:
+  - type: Sprite
+    layers:
+    - state: booster_pack
+    - state: booster_pack_overlay
+      color: "#c96dbf"
+  - type: SpawnItemsOnUse
+    items:
+    - id: BoosterPackTrash
+    - id: Ratvar1441
+    - id: Ratvar2611
+    - id: Ratvar6215
+    sound:
+      path: /Audio/_RMC14/Handling/paper_drop.ogg
+
+# Cargo
+- type: entity
+  parent: BaseBoosterPack
+  id: CargoVendBoosterPack
+  name: Cargo Booster Pack
+  components:
+  - type: Sprite
+    layers:
+    - state: booster_pack
+    - state: booster_pack_overlay
+      color: "#b18644"
+  - type: SpawnItemsOnUse
+    items:
+    - id: BoosterPackTrash
+    - id: Ratvar1361
+    - id: Ratvar5123
+    - id: Ratvar6611
+    sound:
+      path: /Audio/_RMC14/Handling/paper_drop.ogg
+
+# Service
+- type: entity
+  parent: BaseBoosterPack
+  id: ServiceVendBoosterPack
+  name: Service Booster Pack
+  components:
+  - type: Sprite
+    layers:
+    - state: booster_pack
+    - state: booster_pack_overlay
+      color: "#9fed58"
+  - type: SpawnItemsOnUse
+    items:
+    - id: BoosterPackTrash
+    - id: Ratvar1343
+    - id: Ratvar1135
+    - id: Ratvar1166
+    sound:
+      path: /Audio/_RMC14/Handling/paper_drop.ogg
+
+# Command
+- type: entity
+  parent: BaseBoosterPack
+  id: CommandVendBoosterPack
+  name: Command Booster Pack
+  components:
+  - type: Sprite
+    layers:
+    - state: booster_pack
+    - state: booster_pack_overlay
+      color: "#1b67a5"
+  - type: SpawnItemsOnUse
+    items:
+    - id: BoosterPackTrash
+    - id: Ratvar3422
+    - id: Ratvar6121
+    - id: Ratvar5515
+    sound:
+      path: /Audio/_RMC14/Handling/paper_drop.ogg
+
+# Prize
+- type: entity
+  parent: BaseBoosterPack
+  id: PrizeVendBoosterPack
+  name: Prize Booster Pack
+  components:
+  - type: Sprite
+    state: prize_booster_pack
+  - type: SpawnItemsOnUse
+    items:
+    - id: BoosterPackTrash
+    - id: RareAndPrizeRatvarLoot
+    - id: CommonAndRareRatvarLoot
+    - id: CommonAndRareRatvarLoot
+    sound:
+      path: /Audio/_RMC14/Handling/paper_drop.ogg
+
+# Mystery
+- type: entity
+  parent: BaseBoosterPack
+  id: MysteryVendBoosterPack
+  name: Mystery Booster Pack
+  components:
+  - type: Sprite
+    layers:
+    - state: booster_pack
+    - state: booster_pack_overlay
+      color: "#ff0000"
+  - type: SpawnItemsOnUse
+    items:
+    - id: BoosterPackTrash
+    - id: MysteryUltraRareRatvarPool
+    - id: CommonAndRareRatvarLoot
+    - id: CommonAndRareRatvarLoot
+    sound:
+      path: /Audio/_RMC14/Handling/paper_drop.ogg
+
+# Syndicate
+- type: entity
+  parent: BaseBoosterPack
+  id: SyndicateVendBoosterPack
+  name: Syndicate Booster Pack
+  components:
+  - type: Sprite
+    state: syndicate_booster_pack
+  - type: SpawnItemsOnUse
+    items:
+    - id: BoosterPackTrash
+    - id: Ratvar3553
+    - id: Ratvar6261
+    - id: Ratvar5553
+    sound:
+      path: /Audio/_RMC14/Handling/paper_drop.ogg

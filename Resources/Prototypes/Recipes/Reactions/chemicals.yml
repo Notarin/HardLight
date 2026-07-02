@@ -413,11 +413,11 @@
   id: Diphenylmethylamine
   impact: Medium
   reactants:
-    Ethyloxyephedrine:
-      amount: 1
-    SodiumCarbonate:
-      amount: 1
-    Coffee:
+    Desoxyephedrine: #Coyote: changed to desoxyephedrine from ethyloxyephedrine because that is way too many steps for anti-narcolepsy meds that aren't socially crippling
+      amount: 2 #Coyote: added one unit to the recipe to require less sugar
+    # SodiumCarbonate: #Coyote: unecessary chem step
+      # amount: 1
+    Sugar: #Coyote: coffee -> sugar because this reaction does not already exist and coffee reagent is tedious to make
       amount: 1
   products:
     Diphenylmethylamine: 3

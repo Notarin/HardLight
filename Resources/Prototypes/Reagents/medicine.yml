@@ -1143,6 +1143,7 @@
   color: "#b0abaa"
   metabolisms:
     Medicine:
+      metabolismRate: 0.01 #Coyote add: narcoleptics only need a 15u injection every 25 minutes to maintain the effect, but they do block a reagent channel to treat their disability this way.
       effects:
       - !type:GenericStatusEffect
         key: Drowsiness
@@ -1152,11 +1153,15 @@
         conditions:
         - !type:ReagentThreshold
           min: 5
-      - !type:PopupMessage
-        visualType: Medium
-        messages: ["ethyloxyephedrine-effect-feeling-awake", "ethyloxyephedrine-effect-clear-mind"]
+      - !type:PopupMessage #Coyote change start: tell people when the reagent is leaving their body instead of spamming their screen while it's in effect
         type: Local
-        probability: 0.1
+        visualType: Small
+        probability: 1
+        messages:
+          - "ethyloxyephedrine-reagent-fade"
+        conditions:
+          - !type:ReagentThreshold
+            max: 0.01 #Coyote change end
 
 - type: reagent
   id: Sigynate

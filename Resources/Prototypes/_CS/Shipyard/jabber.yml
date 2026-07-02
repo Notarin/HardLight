@@ -9,6 +9,7 @@
 - type: vessel
   id: Jabber
   name: LRSI Jabber
+  parent: BaseVessel
   description: A cargo shuttle focusing on speed and comfort.
   price: 28500 # HL: Rebalancing ship prices to 5% more than sell price (or using the MinPriceMarkup field)
   category: Small

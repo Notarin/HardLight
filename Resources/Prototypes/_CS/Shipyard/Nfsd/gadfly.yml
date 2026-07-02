@@ -9,6 +9,7 @@
 - type: vessel
   id: Gadfly
   name: TSF Gadfly
+  parent: BaseVessel
   description: A ColSec medical ship meant for triage and limited patrol work. It comes with a full chemistry lab with a small botany setup, and a special cell for treating/storing injured prisoners. Not suitable for long-term prisoner holding.
   price: 70500 # HL: Rebalancing ship prices
   category: Medium

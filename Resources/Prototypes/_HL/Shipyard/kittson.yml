@@ -14,9 +14,10 @@
 # Turbine go wrrrrrr spinny :3
 - type: vessel
   id: Kittson
-  name: LRSI Kittson
-  description: An old navy cruiser retrofitted by Lumi-Raina Shipbuilding Incorporated to run on a nuclear reactor.
-  price: 460120 # Original price was 610000. I picked a random Steam game's app ID from my collection for this lmao
+  parent: BaseVessel
+  name: LRSI Kittson II
+  description: A retrofit and modernization upgrade of the Lumi Reind Stellar Initiative corporation's old Kittson vessel.
+  price: 210000 # ~150k appraisal + 30k reactor + ~15%
   category: Large
   group: Shipyard
   shuttlePath: /Maps/_HL/Shuttles/kittson.yml
@@ -25,7 +26,7 @@
   - Salvage
   - Kitchen
   engine:
-  - Uranium
+  - AME
   - Nuclear
 
 - type: gameMap

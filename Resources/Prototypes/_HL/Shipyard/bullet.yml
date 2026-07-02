@@ -8,9 +8,10 @@
 
 - type: vessel
   id: Bullet
+  parent: BaseVessel
   name: LRSI Bullet
-  description: An RD-GCP hull retrofitted by Lumi-Raina Shipbuilders Incorporated to function as a 'spacefaring RV'.
-  price: 23000 # HL: Rebalancing ship prices
+  description: An RD-GCP hull retrofitted by the Lumi Reind Stellar Initiative corporation to function as a 'spacefaring RV'.
+  price: 20000 # ~20k appraisal price
   category: Small
   group: Shipyard
   shuttlePath: /Maps/_HL/Shuttles/bullet.yml

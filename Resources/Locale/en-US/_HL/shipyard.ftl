@@ -1,1 +1,1 @@
-shipyard-console-engine-nuclear = Reactor/Turbine
+shipyard-console-engine-Nuclear = Reactor/Turbine

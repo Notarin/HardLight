@@ -1,6 +1,7 @@
 - type: vendingMachineInventory
   id: SciDrobeInventory
   startingInventory:
+    GlimmerMonitorCartridge: 3
     ClothingBackpackScience: 3
     ClothingBackpackSatchelScience: 3
     ClothingBackpackDuffelScience: 3

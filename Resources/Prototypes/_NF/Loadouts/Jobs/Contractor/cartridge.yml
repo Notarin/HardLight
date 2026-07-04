@@ -38,3 +38,13 @@
   storage:
     back:
     - LogProbeCartridge
+
+- type: loadout
+  id: ContractorGlimmerMonitorCartridge
+  effects:
+  - !type:GroupLoadoutEffect
+    proto: ContractorT1
+  price: 1000
+  storage:
+    back:
+    - GlimmerMonitorCartridge

@@ -201,6 +201,22 @@
       - AstroNavCartridge # HardLight
       - MedTekCartridge
       - NanoChatCartridge # DeltaV
+      
+- type: entity
+  parent: BasePDA
+  id: BaseSciencePDA #HardLight
+  abstract: true
+  components:
+  - type: CartridgeLoader
+    preinstalled:
+    - CrewManifestCartridge
+    - NotekeeperCartridge
+    - NanoTaskCartridge
+    - NewsReaderCartridge
+    - BountyContractsCartridge # Frontier
+    - AstroNavCartridge # Frontier
+    - NanoChatCartridge # DeltaV
+    - GlimmerMonitorCartridge #HardLight
 
 - type: entity
   parent: BasePDA
@@ -287,7 +303,7 @@
     state: pda-interncadet
 
 - type: entity
-  parent: BasePDA
+  parent: BaseSciencePDA
   id: ResearchAssistantPDA
   name: research assistant PDA
   description: Why isn't it purple?
@@ -889,7 +905,7 @@
     state: pda-chemistry
 
 - type: entity
-  parent: BasePDA
+  parent: BaseSciencePDA
   id: RnDPDA
   name: research director PDA
   description: It appears surprisingly ordinary.
@@ -909,7 +925,7 @@
     state: pda-rd
 
 - type: entity
-  parent: BasePDA
+  parent: BaseSciencePDA
   id: SciencePDA
   name: science PDA
   description: It's covered with an unknown gooey substance.
@@ -1472,7 +1488,7 @@
     state: pda-seniorengineer
 
 - type: entity
-  parent: BasePDA
+  parent: BaseSciencePDA
   id: SeniorResearcherPDA
   name: senior researcher PDA
   description: Looks like it's been through years of chemical burns and explosions.

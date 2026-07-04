@@ -1,5 +1,5 @@
 - type: entity
-  parent: BasePDA
+  parent: BaseMedicalPDA
   id: GeneticistPDA
   name: geneticist PDA
   description: Looks pretty dirty.

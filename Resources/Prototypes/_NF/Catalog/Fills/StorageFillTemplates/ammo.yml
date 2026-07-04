@@ -229,7 +229,7 @@
   components:
   - type: StorageFill
     contents:
-    - id: AmmoBox9x19mmRubber
+    - id: AmmoBox635x40mmCaselessRubber
       amount: 4
 
 - type: entity # Rubber
@@ -249,7 +249,7 @@
   components:
   - type: StorageFill
     contents:
-    - id: AmmoBox9x19mmPractice
+    - id: AmmoBox635x40mmCaselessPractice
       amount: 4
 
 #region Shotgun ammo

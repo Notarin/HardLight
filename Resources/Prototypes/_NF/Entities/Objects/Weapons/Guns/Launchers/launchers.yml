@@ -16,7 +16,7 @@
     - Back
     - suitStorage
   - type: BallisticAmmoProvider
-    proto: NFGrenadeFrag
+    proto: 40mmGrenadeFragmentation
   - type: NFWeaponDetails
     manufacturer: weapon-details-manufacturer-gorlex-steel-works
 

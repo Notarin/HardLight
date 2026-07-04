@@ -510,6 +510,27 @@ public sealed partial class ChatUIController : UIController
         if (EntityManager.GetComponent<TransformComponent>(entity).MapID != _eye.CurrentEye.Position.MapId)
             return;
 
+        // HL START: Don't queue speech bubbles for players out of LOS
+        // Stole this code from UpdateQueuedSpeechBubbles
+        if (_examine == null)
+        {
+            return;
+        }
+
+        var player = _player.LocalEntity;
+        var predicate = static (EntityUid uid, (EntityUid compOwner, EntityUid? attachedEntity) data)
+            => uid == data.compOwner || uid == data.attachedEntity;
+        var playerPos = player != null
+            ? _eye.CurrentEye.Position
+            : MapCoordinates.Nullspace;
+        var otherPos = _transform?.GetMapCoordinates(entity) ?? MapCoordinates.Nullspace;
+
+        if (!_examine.InRangeUnOccluded(playerPos, otherPos, 0f, (entity, player), predicate))
+        {
+            return;
+        }
+        // HL END
+
         if (!_queuedSpeechBubbles.TryGetValue(entity, out var queueData))
         {
             queueData = new SpeechBubbleQueueData();

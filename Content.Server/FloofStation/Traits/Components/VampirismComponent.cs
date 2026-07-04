@@ -69,4 +69,13 @@ public sealed partial class VampirismComponent : Component
     /// </summary>
     [DataField("starvingDamageMultiplier")]
     public float StarvingDamageMultiplier = 1.5f;
+
+    /// <summary>
+    /// Healing interval in seconds.
+    /// </summary>
+    [DataField]
+    public float Interval = 1.0f;
+
+    [ViewVariables]
+    public TimeSpan NextHeal;
 }

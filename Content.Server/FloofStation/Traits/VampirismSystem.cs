@@ -11,6 +11,7 @@ using Content.Shared.FixedPoint;
 using Content.Shared.Movement.Systems;
 using Content.Shared.Nutrition.Components;
 using Content.Shared.Weapons.Melee.Events;
+using Robust.Shared.Timing;
 
 namespace Content.Server.Floofstation.Traits;
 
@@ -18,6 +19,7 @@ public sealed class VampirismSystem : EntitySystem
 {
     [Dependency] private readonly SharedBodySystem _body = default!;
     [Dependency] private readonly DamageableSystem _damageableSystem = default!;
+    [Dependency] private readonly IGameTiming _timing = default!; // HL: Make the Update respect prediction
 
     public override void Initialize()
     {
@@ -25,6 +27,7 @@ public sealed class VampirismSystem : EntitySystem
         SubscribeLocalEvent<VampirismComponent, RefreshMovementSpeedModifiersEvent>(OnRefreshMovementSpeedModifiers);
         SubscribeLocalEvent<VampirismComponent, GetMeleeDamageEvent>(OnGetMeleeDamage);
         SubscribeLocalEvent<VampirismComponent, DamageModifyEvent>(OnDamageModify);
+        SubscribeLocalEvent<VampirismComponent, ComponentInit>(OnInitVampComp); // HL: Make the Update respect prediction
     }
 
     public override void Update(float frameTime)
@@ -34,10 +37,17 @@ public sealed class VampirismSystem : EntitySystem
         var query = EntityQueryEnumerator<VampirismComponent, HungerComponent>();
         while (query.MoveNext(out var uid, out var vampComp, out var hunger))
         {
+            // HL START: Make the Vamp component tick once per second (Interval) so it can respect predictions
+            if (_timing.CurTime < vampComp.NextHeal)
+                continue;
+
+            vampComp.NextHeal += TimeSpan.FromSeconds(vampComp.Interval);
+            // HL END
+
             if (vampComp.OverfedRegenAmount <= 0 || (hunger.CurrentThreshold != HungerThreshold.Okay && hunger.CurrentThreshold != HungerThreshold.Overfed))
                 continue;
 
-            var healAmount = FixedPoint2.New(-vampComp.OverfedRegenAmount * frameTime);
+            var healAmount = FixedPoint2.New(-vampComp.OverfedRegenAmount); // HL: Removed frameTime as we're ticking on an interval now
 
             if (TryComp<DamageableComponent>(uid, out var damageable))
             {
@@ -87,6 +97,12 @@ public sealed class VampirismSystem : EntitySystem
             if (ent.Comp.SpecialDigestible is {} whitelist)
                 stomach.SpecialDigestible = whitelist;
         }
+    }
+
+    // HL: Setup the next heal timer on component init so it's not trying to insta-heal when re-init.
+    private void OnInitVampComp(EntityUid ent, VampirismComponent comp, ComponentInit init)
+    {
+        comp.NextHeal = _timing.CurTime + TimeSpan.FromSeconds(comp.Interval);
     }
 
     private void EnsureBloodSucker(Entity<VampirismComponent> uid)

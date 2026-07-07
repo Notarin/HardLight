@@ -58,7 +58,7 @@
         welded: false
       completed:
       - !type:SpawnPrototype
-        prototype: SheetPlasteel
+        prototype: SheetSteel1
         amount: 30
       - !type:SpawnPrototype
         prototype: MaterialBluespace

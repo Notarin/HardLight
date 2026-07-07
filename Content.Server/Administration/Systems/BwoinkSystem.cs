@@ -1890,7 +1890,7 @@ namespace Content.Server.Administration.Systems
 
             var requestPrototypeId = message.PrototypeId ?? string.Empty;
 
-            if (!_adminManager.HasAdminFlag(session, AdminFlags.Adminhelp))
+            if (!_adminManager.HasAdminFlag(session, AdminFlags.Spawn))
             {
                 RaiseNetworkEvent(new SpawnAhelpItemResponseMessage(message.OwnerUserId, requestPrototypeId, false, "not-authorized"), session.Channel);
                 return;

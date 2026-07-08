@@ -2,7 +2,7 @@
   parent: CMBaseWeaponRifle
   id: WeaponRifleM16 # TODO: Make the M16 grenadier rifle when impact nades exist
   name: M16 rifle
-  description: An old, reliable design first adopted by the U.S. military in the 1960s. Something like this belongs in a museum of war history. It is chambered in 5.56x45mm.
+  description: An old, reliable design first adopted by the U.S. military in the 1960s. Something like this belongs in a museum of war history. It is chambered in .224 Valkyrie.
   suffix: Filled
   components:
   - type: Sprite
@@ -79,7 +79,7 @@
 - type: entity
   parent: CMMagazineRifleBase
   id: RMCMagazineRifleM16 # TODO RMC14 attachments
-  name: "M16 Magazine (5.56x45mm)"
+  name: "M16 Magazine (.224 Valkyrie)"
   components:
   - type: Tag
     tags:
@@ -104,8 +104,8 @@
 - type: entity
   parent: CMBaseCartridgeRifle
   id: RMCCartridgeRifleM16
-  name: Cartridge (5.56x45)
-  description: A 5.56x45 rifle cartridge
+  name: Cartridge (.224 Valkyrie)
+  description: A .224 Valkyrie rifle cartridge
   components:
   - type: Tag
     tags:

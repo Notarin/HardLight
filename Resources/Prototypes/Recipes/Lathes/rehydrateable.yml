@@ -108,6 +108,15 @@
   materials:
     Biomass: 10
 
+# HL START: Add Stomach to surgery
+- type: latheRecipe
+  id: SynthStomach
+  result: BioSynthStomach
+  completetime: 30
+  materials:
+    Biomass: 10
+# HL END
+
 - type: latheRecipe
   id: SynthEyes
   result: BioSynthEyes

@@ -1,0 +1,23 @@
+- type: entity
+  parent: [ClothingShoesBootsMagBase] # this is a comment
+  id: ClothingShoesBootsMagHydro
+  name: hydroponics magboots
+  description: Magnetic boots that keep your feet planted!
+  components:
+  - type: Sprite
+    sprite: Clothing/Shoes/Boots/magboots_hydro.rsi
+    state: icon
+  - type: Clothing
+    sprite: Clothing/Shoes/Boots/magboots_hydro.rsi
+
+- type: entity
+  parent: [ClothingShoesBootsMagBase]
+  id: ClothingShoesBootsMagCaptain
+  name: captain's magboots
+  description: Magnetic boots to ensure the Captain remains safely attached to the vehicle.
+  components:
+  - type: Sprite
+    sprite: Clothing/Shoes/Boots/magboots_captain.rsi
+    state: icon
+  - type: Clothing
+    sprite: Clothing/Shoes/Boots/magboots_captain.rsi

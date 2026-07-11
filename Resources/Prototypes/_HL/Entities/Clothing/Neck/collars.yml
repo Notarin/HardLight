@@ -13,6 +13,12 @@
     sprite: _HL/Clothing/Neck/Collars/injector.rsi
     equipDelay: 1
     unequipDelay: 10
+    slots: [ neck ]
+    clothingVisuals:
+      neck:
+      - state: equipped-NECK
+      neck-quadborg:
+      - state: equipped-NECK-quadborg
   - type: SolutionContainerManager
     solutions:
       internal:

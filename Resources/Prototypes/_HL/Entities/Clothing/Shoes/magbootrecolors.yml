@@ -5,10 +5,10 @@
   description: Magnetic boots that keep your feet planted!
   components:
   - type: Sprite
-    sprite: Clothing/Shoes/Boots/magboots_hydro.rsi
+    sprite: _HL/Clothing/Shoes/magboots_hydro.rsi
     state: icon
   - type: Clothing
-    sprite: Clothing/Shoes/Boots/magboots_hydro.rsi
+    sprite: _HL/Clothing/Shoes/magboots_hydro.rsi
 
 - type: entity
   parent: [ClothingShoesBootsMagBase]
@@ -17,7 +17,7 @@
   description: Magnetic boots to ensure the Captain remains safely attached to the vehicle.
   components:
   - type: Sprite
-    sprite: Clothing/Shoes/Boots/magboots_captain.rsi
+    sprite: _HL/Clothing/Shoes/magboots_captain.rsi
     state: icon
   - type: Clothing
-    sprite: Clothing/Shoes/Boots/magboots_captain.rsi
+    sprite: _HL/Clothing/Shoes/magboots_captain.rsi

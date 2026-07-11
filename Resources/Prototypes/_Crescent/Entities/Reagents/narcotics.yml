@@ -161,7 +161,7 @@
   worksOnTheDead: true # for thematic reasons
   metabolisms:
     Medicine:
-      metabolismRate: 0.1
+      metabolismRate: 0.5
       effects:
       - !type:ReduceRotting
           seconds: 5

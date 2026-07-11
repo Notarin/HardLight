@@ -4635,3 +4635,47 @@ Entries:
     message: Bounties Skippable For Quartermasters
   id: 587
   time: 2026-07-03T10:18:27-05:00
+- author: Mspaintwizard
+  changes:
+  - type: Tweak
+    message: Misc patches to core station
+  - type: Add
+    message: New maints area
+  id: 588
+  time: 2026-07-09T17:04:35-06:00
+- author: N9inB0x
+  changes:
+  - type: Fix
+    message: Box Station Sell Console
+  id: 589
+  time: 2026-07-03T09:02:20-05:00
+- author: DrekkCuga
+  changes:
+  - type: Tweak
+    message: Chem Goggles can now see inside bottles and cans
+  id: 590
+  time: 2026-07-05T01:03:36+10:00
+- author: DrekkCuga
+  changes:
+  - type: Fix
+    message: Fixed chat bubbles flooding your screen when entering a room!
+  id: 591
+  time: 2026-07-05T01:54:55+10:00
+- author: DrekkCuga
+  changes:
+  - type: Fix
+    message: Fixed Vampirism trait causing client-side delays.
+  id: 592
+  time: 2026-07-05T02:33:44+10:00
+- author: DrekkCuga
+  changes:
+  - type: Fix
+    message: Shooting carps with a disabler no longer breaks your screen
+  id: 593
+  time: 2026-07-02T19:43:31+10:00
+- author: DrekkCuga
+  changes:
+  - type: Add
+    message: Stomachs can now be replaced via surgery
+  id: 594
+  time: 2026-07-08T17:06:43+10:00

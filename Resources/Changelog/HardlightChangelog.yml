@@ -4679,3 +4679,33 @@ Entries:
     message: Stomachs can now be replaced via surgery
   id: 594
   time: 2026-07-08T17:06:43+10:00
+- author: Antelino
+  changes:
+  - type: Add
+    message: Added Neuroshock Gloves to the Mercenary Vending Machine.
+  id: 595
+  time: 2026-06-28T18:23:20+03:00
+- author: Iisazel
+  changes:
+  - type: Tweak
+    message: Medipens and some hyposprays can now pierce hardsuits
+  id: 596
+  time: 2026-06-24T21:28:58+03:00
+- author: Thedingus99
+  changes:
+  - type: Tweak
+    message: Removes Frezon,Tritium from Plant Mutations
+  id: 597
+  time: 2026-07-11T04:58:01-04:00
+- author: 3xecutie
+  changes:
+  - type: Add
+    message: Added captain's and hydroponics magboots.
+  id: 598
+  time: 2026-07-11T02:03:57-04:00
+- author: 3xecutie
+  changes:
+  - type: Tweak
+    message: Mapped the new magboots.
+  id: 599
+  time: 2026-07-11T02:04:49-04:00

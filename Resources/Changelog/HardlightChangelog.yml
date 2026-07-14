@@ -4709,3 +4709,39 @@ Entries:
     message: Mapped the new magboots.
   id: 599
   time: 2026-07-11T02:04:49-04:00
+- author: Slatebreaker
+  changes:
+  - type: Tweak
+    message: Cyborgs can now wear collars
+  id: 600
+  time: 2026-06-25T17:18:46+10:00
+- author: Slatebreaker
+  changes:
+  - type: Add
+    message: All cyborgs can now wear governor collars and medals
+  id: 601
+  time: 2026-06-25T17:19:38+10:00
+- author: Slatebreaker
+  changes:
+  - type: Tweak
+    message: Governor collar now slows down the wearer
+  id: 602
+  time: 2026-06-25T17:31:57+10:00
+- author: Slatebreaker
+  changes:
+  - type: Fix
+    message: Fix incorrect collar sprites on quadborgs
+  id: 603
+  time: 2026-06-25T17:32:23+10:00
+- author: Slatebreaker
+  changes:
+  - type: Fix
+    message: Fix governor collar corrupted laws showing placeholder string
+  id: 604
+  time: 2026-06-26T00:52:34+10:00
+- author: Lucca Boets
+  changes:
+  - type: Add
+    message: Basalt tile decals
+  id: 605
+  time: 2026-06-28T12:45:25+02:00

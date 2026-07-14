@@ -4,10 +4,10 @@
   roundStart: true
   prototype: MobSynth
   sprites: MobSynthSprites
-  defaultSkinTone: "#34a223"
+  defaultSkinTone: "#ffda93"
   markingLimits: MobSynthMarkingLimits
   dollPrototype: MobSynthDummy
-  skinColoration: AnyColour # Hardlight
+  skinColoration: AnyColour
 
 - type: speciesBaseSprites
   id: MobSynthSprites

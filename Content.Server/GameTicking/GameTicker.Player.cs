@@ -12,6 +12,7 @@ using Robust.Server.GameObjects;
 using Robust.Server.Player;
 using Robust.Shared.Audio;
 using Robust.Shared.Enums;
+using Robust.Shared.Map; // HardLight
 using Robust.Shared.Network;
 using Robust.Shared.Player;
 using Robust.Shared.Timing;
@@ -324,6 +325,43 @@ namespace Content.Server.GameTicking
         {
             PlayerJoinLobby(session);
         }
+
+        // HardLight start
+        public void ReturnPlayersToLobby()
+        {
+            foreach (var session in _playerManager.Sessions)
+            {
+                PlayerJoinLobby(session);
+            }
+        }
+
+        public void ReturnPlayersToLobby(IEnumerable<ICommonSession> sessions)
+        {
+            foreach (var session in sessions)
+            {
+                PlayerJoinLobby(session);
+            }
+        }
+
+        public List<ICommonSession> GetPlayersOnMap(MapId mapId)
+        {
+            var sessions = new List<ICommonSession>();
+
+            if (mapId == MapId.Nullspace)
+                return sessions;
+
+            foreach (var session in _playerManager.Sessions)
+            {
+                if (session.AttachedEntity is not { } attached || !Exists(attached))
+                    continue;
+
+                if (Transform(attached).MapID == mapId)
+                    sessions.Add(session);
+            }
+
+            return sessions;
+        }
+        // HardLight end
 
         private void PlayerJoinLobby(ICommonSession session)
         {

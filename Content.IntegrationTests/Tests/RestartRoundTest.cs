@@ -11,12 +11,9 @@ namespace Content.IntegrationTests.Tests
         {
             await using var pair = await PoolManager.GetServerClient(new PoolSettings
             {
-                DummyTicker = true,
+                DummyTicker = false,
                 Connected = true,
-                Dirty = true,
-                Map = "Empty",
-                Fresh = true,
-                Destructive = true //HL: Messing with round state breaks future tests
+                Dirty = true
             });
             var server = pair.Server;
             var sysManager = server.ResolveDependency<IEntitySystemManager>();

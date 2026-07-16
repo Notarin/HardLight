@@ -95,7 +95,7 @@ public sealed class CharacterOverrideRuleSystemTests
             DummyTicker = false,
             Connected = true,
             InLobby = true,
-            Dirty = true
+            Dirty = true // HL: Mark as dirty because we're changing with the player entity and it wasn't clearing properly
         });
 
         var server = pair.Server;
@@ -144,7 +144,7 @@ public sealed class CharacterOverrideRuleSystemTests
             DummyTicker = false,
             Connected = true,
             InLobby = true,
-            Dirty = true
+            Dirty = true // HL: Mark as dirty because we're changing with the player entity and it wasn't clearing properly
         });
 
         var server = pair.Server;

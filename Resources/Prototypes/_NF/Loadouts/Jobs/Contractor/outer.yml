@@ -3,9 +3,6 @@
   effects:
   - !type:GroupLoadoutEffect
     proto: NFOuterSuitRequired
-  hideEffects:
-  - !type:GroupLoadoutEffect # HL - Station roles do not get wrong-departmental clothes
-    proto: HLNotStation
   price: 0
   equipment:
     outerClothing: ClothingOuterEVASuitContractor

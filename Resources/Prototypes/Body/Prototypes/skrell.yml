@@ -9,17 +9,17 @@
       connections:
       - torso
       organs:
-        brain: OrganHumanBrain
-        eyes: OrganHumanEyes
+        brain: OrganSkrellBrain # Hardlight: Added due to organ recoloring to match server lore
+        eyes: OrganSkrellEyes # Hardlight: Added due to organ recoloring to match server lore
         cybernetic_anchor: OrganCrescentDummy
     torso:
       part: TorsoSkrell
       organs:
-        heart: OrganAnimalHeart
-        lungs: OrganHumanLungs
-        stomach: OrganHumanStomach
-        liver: OrganAnimalLiver
-        kidneys: OrganHumanKidneys
+        heart: OrganSkrellHeart # Hardlight (Start): Added due to organ recoloring to match server lore
+        lungs: OrganSkrellLungs
+        stomach: OrganSkrellStomach
+        liver: OrganSkrellLiver
+        kidneys: OrganSkrellKidneys # Hardlight (End)
         dermis: OrganCrescentDummy
       connections:
       - right arm

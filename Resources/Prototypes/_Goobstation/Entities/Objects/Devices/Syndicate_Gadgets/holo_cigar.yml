@@ -4,7 +4,7 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 - type: entity
-  parent: BaseItem
+  parent: [ BaseItem, BaseC3SyndicateContraband ] # HardLight: Added BaseC3SyndicateContraband
   id: HoloCigar
   name: holo-cigar
   description: A sleek electronic cigar imported straight from Sol. You feel badass merely glimpsing it...
@@ -27,3 +27,30 @@
   - type: ClothingGrantComponent
     component:
     - type: TheManWhoSoldTheWorld
+  - type: Tag # HardLight
+    tags:
+    - WhitelistChameleon
+
+- type: entity # HardLight
+  parent: BaseItem
+  id: HoloCigarLit
+  name: lit holo-cigar
+  description: A mostly non-functional replica of the Syndicate's stylish electronic holo-cigar. It can't be turned off, but you don't care about that, anyway.
+  suffix: Fake
+  components:
+  - type: Sprite
+    sprite: _Goobstation/Objects/Devices/holocigar.rsi
+    state: lit-icon
+    scale: 0.8, 0.8
+  - type: Clothing
+    sprite: Objects/Consumable/Smokeables/Cigars/cigar.rsi
+    slots: [ mask ]
+    equippedPrefix: lit
+  - type: Item
+    size: Tiny
+    sprite: Objects/Consumable/Smokeables/Cigars/cigar.rsi
+    heldPrefix: lit
+  - type: Appearance
+  - type: Tag
+    tags:
+    - WhitelistChameleon

@@ -59,7 +59,8 @@
       map: ["light"]
       visible: false
   - type: SpriteStateToggle
-    spriteLayer: movement
+    spriteLayer: enum.ToggleVisuals.Layer
+    VisibleWhenEnabled: true
     stateOff: XenoQuadfeathered
     stateOn: XenoQuadfeatheredballz
     movementStateOff: XenoQuadfeathered_moving

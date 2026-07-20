@@ -190,3 +190,9 @@
   - chat-speech-verb-wawa-2
   - chat-speech-verb-wawa-3
   - chat-speech-verb-wawa-4
+
+- type: speechVerb
+  id: Shadowkin
+  name: chat-speech-verb-name-shadowkin
+  speechVerbStrings:
+  - chat-speech-verb-shadowkin-1

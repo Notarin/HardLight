@@ -444,7 +444,7 @@
   components:
   - type: BlockInjection
     blockHypospray: true
-    blockInjectOnProjectile: true
+    blockInjectOnProjectile: false
     blockReason: hardskin
 
 - type: trait

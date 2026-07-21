@@ -4777,3 +4777,55 @@ Entries:
         message: fix noncon marker showing aggressor when nothing is selected
     id: 610
     time: 2026-07-18T01:24:16+07:00
+  - author: N9inB0x
+    changes:
+      - type: Tweak
+        message: Lore-Accurate Copper-Based Blood for Skrell (Use copper pills for bloodloss!)
+      - type: Tweak
+        message: Lore-Accurate Blue Skrell Organs
+    id: 611
+    time: 2026-07-18T07:28:41-05:00
+  - author: Antelino
+    changes:
+      - type: Add
+        message: New laugh, cry and speech for shadekin.
+    id: 612
+    time: 2026-07-20T21:25:56+03:00
+  - author: N9inB0x
+    changes:
+      - type: Fix
+        message: Untouchable Trait Global Hug Fix
+    id: 613
+    time: 2026-07-17T20:51:45-05:00
+  - author: UtriculariaCalycifida
+    changes:
+      - type: Tweak
+        message: Sheleg passengers and geneticists get suits on roundstart.
+    id: 614
+    time: 2026-07-16T20:38:42-04:00
+  - author: MizunoMX
+    changes:
+      - type: Tweak
+        message: Changes the company of the "Empire" to "HDS"
+    id: 615
+    time: 2026-07-19T12:00:17-06:00
+  - author: Khaomi
+    changes:
+      - type: Fix
+        message: Add missing localizations and fix Amoxla capitalization
+    id: 616
+    time: 2026-07-18T01:41:10+07:00
+  - author: Khaomi
+    changes:
+      - type: Fix
+        message: Add missing NanoChat localization
+    id: 617
+    time: 2026-07-18T01:47:09+07:00
+  - author: Livyathan
+    changes:
+      - type: Add
+        message: Added an unobtainable (and fake) lit holo-cigar.
+      - type: Tweak
+        message: Chameleon masks can now be disguised as lit and unlit holo-cigars.
+    id: 618
+    time: 2026-07-19T12:36:25-04:00

@@ -1,0 +1,33 @@
+name: "Labels: Review (Backend)"
+
+on:
+  workflow_run:
+    workflows: ["Labels: Approval"] # If the main Labels workflow is renamed, this has to match
+    types: [completed]
+
+jobs:
+  # Apply the label to the PR, this will error if the PR is from the local repo but it's fine
+  apply-review-backend:
+    if: github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    permissions:
+      pull-requests: write
+      actions: write
+    steps:
+      - name: Checkout Repository Code
+        uses: actions/checkout@v4
+
+      - name: Run Apply Label Action
+        id: applylabel
+        uses: ./.github/actions/apply-label
+
+      # If this errors we don't REALLY care, but I like not having label hell
+      - name: Remove Old Label
+        continue-on-error: true
+        env:
+          PR_NO: ${{ steps.applylabel.outputs.pr_num }}
+          OLD_LABEL: "S: Needs Review"
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        run: 'gh pr edit "$PR_NO" --repo "${{ github.repository }}" --remove-label "$OLD_LABEL"'

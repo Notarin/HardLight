@@ -27,7 +27,6 @@ public sealed class EventManagerSystem : EntitySystem
     [Dependency] private readonly RoundEndSystem _roundEnd = default!;
     [Dependency] private readonly JobTrackingSystem _jobs = default!; // Frontier
     [Dependency] private readonly GlimmerSystem _glimmerSystem = default!; //Nyano - Summary: pulls in the glimmer system.
-    [Dependency] private readonly StationHeatSystem _stationHeat = default!; // HardLight - event heat/chaos budget
 
 
     public bool EventsEnabled { get; private set; }
@@ -72,7 +71,7 @@ public sealed class EventManagerSystem : EntitySystem
             return;
         }
 
-        var randomLimitedEvent = FindEventWithHeat(limitedEvents); // HardLight: heat-aware pick (falls back to plain weighting when no heat data is present)
+        var randomLimitedEvent = FindEvent(limitedEvents); // this picks the event, It might be better to use the GetSpawns to do it, but that will be a major rebalancing fuck.
         if (randomLimitedEvent == null)
         {
             Log.Warning("The selected random event is null!");
@@ -182,88 +181,6 @@ public sealed class EventManagerSystem : EntitySystem
 
         Log.Error("Event was not found after weighted pick process!");
         return null;
-    }
-
-    /// <summary>
-    /// HardLight: Picks an event like <see cref="FindEvent"/>, but factors in the current station "heat"
-    /// (see <see cref="StationHeatSystem"/> and <see cref="Components.EventHeatComponent"/>):
-    /// Heat and weight are cleanly separated: <b>heat decides which events are valid</b>, <b>base weights decide the
-    /// relative distribution</b> among them. An event is valid only if its heat cost fits under both:
-    /// <list type="bullet">
-    ///     <item>the affordability ceiling (<c>cost &lt;= ceiling - currentHeat</c>) — stops new ongoing threats
-    ///           stacking on a crisis (no lone ops / dragons during nukies or xenoborgs);</item>
-    ///     <item>the time-gated danger cap (<c>cost &lt;= target + baseline</c>, target rises with the hour) — easy
-    ///           events early, hard events later. With no target heat ("relaxed") only the ceiling applies.</item>
-    /// </list>
-    /// Among the valid events the pick is by plain <see cref="StationEventComponent.Weight"/>, identical to
-    /// <see cref="FindEvent"/>.
-    /// </summary>
-    public string? FindEventWithHeat(Dictionary<EntityPrototype, StationEventComponent> availableEvents)
-    {
-        if (availableEvents.Count == 0)
-        {
-            Log.Warning("No events were available to run!");
-            return null;
-        }
-
-        // HardLight: the "Quiet before storm" event can suspend all scheduler picks for an eerie lull.
-        if (_stationHeat.EventsSuspended)
-            return null;
-
-        var ceiling = _configurationManager.GetCVar(CCVars.EventsHeatCeiling);
-        var baseline = _configurationManager.GetCVar(CCVars.EventsHeatBaseline);
-
-        var headroom = ceiling - _stationHeat.CurrentHeat;
-        var desired = _stationHeat.TargetHeat;
-        var dangerCap = desired > 0.0f ? desired + baseline : ceiling;
-
-        var weighted = new List<(string Id, float Weight)>();
-        var sumOfWeights = 0.0f;
-
-        foreach (var (proto, stationEvent) in availableEvents)
-        {
-            var cost = GetEventCost(proto);
-
-            // Heat gates VALIDITY only: fit under the affordability ceiling and the time-gated danger cap.
-            if (cost > headroom || cost > dangerCap)
-                continue;
-
-            // Base weight drives the DISTRIBUTION among valid events.
-            var weight = stationEvent.Weight;
-            if (weight <= 0.0f)
-                continue;
-
-            weighted.Add((proto.ID, weight));
-            sumOfWeights += weight;
-        }
-
-        // Everything was suppressed (station saturated) or nothing had weight: run nothing this cycle.
-        if (weighted.Count == 0 || sumOfWeights <= 0.0f)
-            return null;
-
-        sumOfWeights = _random.NextFloat(sumOfWeights);
-
-        foreach (var (id, weight) in weighted)
-        {
-            sumOfWeights -= weight;
-
-            if (sumOfWeights <= 0.0f)
-                return id;
-        }
-
-        return weighted[^1].Id;
-    }
-
-    /// <summary>
-    /// HardLight: Reads the heat cost off an event prototype. Events with no <see cref="Components.EventHeatComponent"/>
-    /// are treated as an average event (<c>events.heat_baseline</c>, default 50).
-    /// </summary>
-    private float GetEventCost(EntityPrototype proto)
-    {
-        if (proto.TryGetComponent<Components.EventHeatComponent>(out var heat, EntityManager.ComponentFactory))
-            return heat.Cost;
-
-        return _configurationManager.GetCVar(CCVars.EventsHeatBaseline);
     }
 
     /// <summary>

@@ -1,0 +1,45 @@
+name: 'Apply Label From Artifact'
+description: 'Applies the label based on an artifact, so we can label things from weird places'
+
+outputs:
+  pr_num:
+    description: "The PR Number"
+    value: ${{ steps.pr_data.outputs.pr_num }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Fetch Run Artifact
+      uses: actions/download-artifact@v4
+      with:
+        merge-multiple: true
+        github-token: ${{ github.token }}
+        run-id: ${{ github.event.workflow_run.id }}
+
+    - name: Parse and Apply Label
+      id: pr_data
+      shell: bash
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: |
+        if [ ! -f "NR" ]; then
+          echo "Missing Data"
+          exit 0
+        fi
+        PR_NUMBER=$(cat NR)
+        LABEL_NAME=$(cat LABEL)
+
+        gh pr edit "$PR_NUMBER" --repo "${{ github.repository }}" --add-label "$LABEL_NAME"
+        echo "pr_num=$PR_NUMBER" >> $GITHUB_OUTPUT
+
+    # Delete cuz disk space is expensive in this economy
+    - name: Delete Artifact
+      shell: bash
+      env:
+        GH_TOKEN: ${{ github.token }}
+        TARGET_NAME: pr-approval-${{ github.event.workflow_run.id }}
+      run: |
+        ID=$(gh api repos/${{ github.repository }}/actions/artifacts --jq ".artifacts[] | select(.name==\"$TARGET_NAME\") | .id" | head -n 1)
+        if [ ! -z "$ID" ]; then
+          gh api --method DELETE repos/${{ github.repository }}/actions/artifacts/$ID
+        fi

@@ -4999,3 +4999,267 @@ Entries:
       message: Size affects pitch of emotes
   id: 537
   time: '2026-06-19T10:12:35.0000000+00:00'
+- author: DrekkCuga
+  changes:
+    - type: Fix
+      message: Even more bug fixes for the automated tests!
+  id: 538
+  time: '2026-06-20T05:18:47.0000000+00:00'
+- author: DrekkCuga
+  changes:
+    - type: Fix
+      message: Fixed so many construction issues
+  id: 539
+  time: '2026-06-20T05:19:10.0000000+00:00'
+- author: DrekkCuga
+  changes:
+    - type: Fix
+      message: Fixed a bunch of maps and ships having invalid tiles.
+  id: 540
+  time: '2026-06-20T05:19:56.0000000+00:00'
+- author: DrekkCuga
+  changes:
+    - type: Tweak
+      message: >-
+        Balanced item prices so you can't get infinite money from buying/selling
+        anymore.
+  id: 541
+  time: '2026-06-20T05:21:14.0000000+00:00'
+- author: DrekkCuga
+  changes:
+    - type: Fix
+      message: Fixed some traits not having a proper name
+  id: 542
+  time: '2026-06-20T05:21:40.0000000+00:00'
+- author: IngvarJackal
+  changes:
+    - type: Add
+      message: Add 4 voice pitch traits
+    - type: Remove
+      message: Size dependent emote pitch
+  id: 543
+  time: '2026-06-20T09:49:19.0000000+00:00'
+- author: re-silvered
+  changes:
+    - type: Tweak
+      message: >-
+        Chemmasters are back to their old transfer values (1, 5, 10, 25, 50,
+        100)
+    - type: Tweak
+      message: >-
+        Reagent dispensers are back to their old transfer values (1, 5, 10, 15,
+        20, 25, 30, 50, 100)
+  id: 544
+  time: '2026-06-20T21:50:47.0000000+00:00'
+- author: DrekkCuga
+  changes:
+    - type: Fix
+      message: Fixed the automated tests!
+  id: 545
+  time: '2026-06-20T21:54:11.0000000+00:00'
+- author: Hammeredmantis
+  changes:
+    - type: Fix
+      message: Changed the limiter on asteroid spawns, space feels populated now
+  id: 546
+  time: '2026-06-21T04:50:51.0000000+00:00'
+- author: re-silvered
+  changes:
+    - type: Fix
+      message: >-
+        Fixed cnc ooc preference icons being visible when characters were
+        otherwise stealthed.
+  id: 547
+  time: '2026-06-21T04:56:04.0000000+00:00'
+- author: Typheus
+  changes:
+    - type: Fix
+      message: Fixed the AI Eye disappearing after returning from expedition
+  id: 548
+  time: '2026-06-21T04:57:05.0000000+00:00'
+- author: Typheus
+  changes:
+    - type: Fix
+      message: AI Eye no longer moves around while piloting a ship as an AI Core
+  id: 549
+  time: '2026-06-21T04:57:21.0000000+00:00'
+- author: Shades
+  changes:
+    - type: Add
+      message: >-
+        Phase-Barrier Cable, a new way to block shadekins able to be crafted in
+        protolathe or buy it from sec kit.
+    - type: Fix
+      message: Shadegen not working correctly with items in containers.
+    - type: Tweak
+      message: Bluespace Flashers Range from 12 to 6.2.
+    - type: Fix
+      message: HOPEFULLY... Fix The Dark Deleting Itself...
+    - type: Remove
+      message: The ability for Brighteyes to be Revolutionary.
+  id: 550
+  time: '2026-06-21T07:04:11.0000000+00:00'
+- author: re-silvered
+  changes:
+    - type: Fix
+      message: >-
+        Fixed harpies racial modifiers not correctly applying, they will now be
+        correctly poisoned by allicin and theobromine, and breathe twice as fast
+        compared to humans.
+  id: 551
+  time: '2026-06-21T07:05:04.0000000+00:00'
+- author: 2DSiggy
+  changes:
+    - type: Add
+      message: Vinyls can now be stored in bluespace bookshelves.
+  id: 552
+  time: '2026-06-21T07:07:11.0000000+00:00'
+- author: fenndragon
+  changes:
+    - type: Add
+      message: 'Added leap to speed legs '
+    - type: Tweak
+      message: Changed the way that Speed boots and legs function
+  id: 553
+  time: '2026-06-21T08:40:40.0000000+00:00'
+- author: re-silvered
+  changes:
+    - type: Fix
+      message: >-
+        Fixed some Felionoid species modifiers, meaning they will go into crit
+        at 85 and receive a speed boost when not wearing shoes, alongside silent
+        footsteps.
+    - type: Remove
+      message: >-
+        Removes Felionoids being able to drag without their hands as it's not
+        mentioned as something they should be receiving in the guidebook.
+  id: 554
+  time: '2026-06-21T08:41:03.0000000+00:00'
+- author: DrekkCuga
+  changes:
+    - type: Fix
+      message: Fixed some Pipes and Fire Locks on Amber
+  id: 555
+  time: '2026-06-22T04:38:44.0000000+00:00'
+- author: NatusExVacuo
+  changes:
+    - type: Fix
+      message: ColCom added the ordinance back to ship weapons.
+  id: 556
+  time: '2026-06-22T12:05:09.0000000+00:00'
+- author: Shades
+  changes:
+    - type: Fix
+      message: Fixed a collision issue withy the Phase Barrier Cable.
+  id: 557
+  time: '2026-06-23T08:08:18.0000000+00:00'
+- author: re-silvered
+  changes:
+    - type: Fix
+      message: Fixed Neuralyzers not saving added compulsions
+  id: 558
+  time: '2026-06-23T12:46:51.0000000+00:00'
+- author: Illumos
+  changes:
+    - type: Fix
+      message: Psychologists are now allowed to bring other shoes to work
+  id: 559
+  time: '2026-06-23T12:47:05.0000000+00:00'
+- author: Khaomi
+  changes:
+    - type: Add
+      message: Missing localizations
+  id: 560
+  time: '2026-06-23T12:57:38.0000000+00:00'
+- author: re-silvered
+  changes:
+    - type: Tweak
+      message: You can now lay eggs whilst interaction blocked (e.g handcuffed)
+  id: 561
+  time: '2026-06-23T12:58:08.0000000+00:00'
+- author: re-silvered
+  changes:
+    - type: Fix
+      message: >-
+        Fixed jet injectors pulling their max inject amount all the time, now
+        instead always 5u at a time draw
+  id: 562
+  time: '2026-06-23T12:59:00.0000000+00:00'
+- author: Typheus
+  changes:
+    - type: Add
+      message: Freelance Borg
+    - type: Add
+      message: Freelance Borg Role
+    - type: Tweak
+      message: Exosuit Fabricator speciality borg printing restricted to Research
+  id: 563
+  time: '2026-06-23T13:01:02.0000000+00:00'
+- author: Khaomi
+  changes:
+    - type: Remove
+      message: Removed Lone Digger by Caravan Palace from Jukebox for copyright reason
+  id: 564
+  time: '2026-06-23T22:21:15.0000000+00:00'
+- author: re-silvered
+  changes:
+    - type: Fix
+      message: Fixed church bells putting blank messages in chat
+  id: 565
+  time: '2026-06-24T04:36:50.0000000+00:00'
+- author: ATRAC
+  changes:
+    - type: Tweak
+      message: LRSI is now the Lumi Reind Stellar Initiative~
+  id: 566
+  time: '2026-06-24T05:02:31.0000000+00:00'
+- author: re-silvered
+  changes:
+    - type: Add
+      message: >-
+        Added robotic versions of nearly every emote in game for Protogens to
+        use.
+    - type: Add
+      message: Diona, Vox and Vulpkanins now have unique sneeze sounds.
+  id: 567
+  time: '2026-06-24T05:04:18.0000000+00:00'
+- author: re-silvered
+  changes:
+    - type: Tweak
+      message: Reenabled hostile and friendly slime mob ghostroles
+    - type: Fix
+      message: Fixed Smile the slime not being able to be taken over via ghost role
+  id: 568
+  time: '2026-06-24T05:05:00.0000000+00:00'
+- author: DrekkCuga
+  changes:
+    - type: Fix
+      message: Fixed some ships throwing errors or crashing the server when spawned.
+  id: 569
+  time: '2026-06-24T05:07:39.0000000+00:00'
+- author: DrekkCuga
+  changes:
+    - type: Tweak
+      message: Updated ship prices so they cost more to buy than sell.
+  id: 570
+  time: '2026-06-24T05:08:16.0000000+00:00'
+- author: re-silvered
+  changes:
+    - type: Add
+      message: Added spectral locators to the backpack items loadout options
+  id: 571
+  time: '2026-06-24T05:14:23.0000000+00:00'
+- author: re-silvered
+  changes:
+    - type: Fix
+      message: >-
+        You can now have multiple instances of passive damage / passive
+        regeneration
+  id: 572
+  time: '2026-06-27T07:54:23.0000000+00:00'
+- author: Sully669
+  changes:
+    - type: Add
+      message: Added contribution guidelines to github
+  id: 573
+  time: '2026-06-28T10:47:06.0000000+00:00'

@@ -356,6 +356,7 @@ namespace Content.Server.Explosion.EntitySystems
 
             // Check blacklist - if specified, entities on the blacklist cannot trigger
             if (component.Blacklist != null && _whitelist.IsBlacklistPass(component.Blacklist, args.OtherEntity))
+                return;
 
             Trigger(uid, args.OtherEntity);
         }

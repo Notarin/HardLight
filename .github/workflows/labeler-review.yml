@@ -1,30 +1,50 @@
-name: "Labels: Approved"
-
-concurrency:
-  group: labels
-  cancel-in-progress: false
-  queue: max
-
+name: "Labels: Approval"
+# If you change the name, make sure to update the labeler-review-backend file to match
 on:
   pull_request_review:
     types: [submitted]
+
+env:
+  LABEL: "S: Approved"
+  OLD_LABEL: "S: Needs Review"
+  PR_NO: ${{ github.event.pull_request.number }}
+
 jobs:
-  add_label:
-    # Change the repository name after you've made sure the team name is correct for your fork!
-    # Frontier: repo changed (space-wizards/space-station-14 < new-frontiers-14/frontier-station-14)
-    if: ${{ (github.repository == 'new-frontiers-14/frontier-station-14') && (github.event.review.state == 'APPROVED') }}
-    permissions:
-      contents: read
-      pull-requests: write
+  # We don't have permissions to add labels for PRs from a fork, so create the artifact and wait for the other flow to grab it
+  fork-approval:
+    if: github.event.review.state == 'approved' && github.event.pull_request.head.repo.full_name != github.repository
     runs-on: ubuntu-latest
     steps:
-    - uses: tspascoal/get-user-teams-membership@v3
-      id: checkUserMember
-      with:
-        username: ${{ github.actor }}
-        team: "content-maintainers,junior-maintainers"
-        GITHUB_TOKEN: ${{ secrets.LABELER_PAT }}
-    - if: ${{ steps.checkUserMember.outputs.isTeamMember == 'true' }}
-      uses: actions-ecosystem/action-add-labels@v1
-      with:
-        labels: "S: Approved"
+      - name: Save PR context
+        run: |
+          mkdir -p ./pr
+          echo "$PR_NO" > ./pr/NR
+          echo "$LABEL" > ./pr/LABEL
+
+      - name: Upload PR number
+        uses: actions/upload-artifact@v4
+        with:
+          name: pr-approval-${{ github.run_id }}
+          path: pr/
+          retention-days: 1
+
+  # For PRs from local branches, we don't need to do all that shit
+  branch-approval:
+    if: github.event.review.state == 'approved' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: write
+    steps:
+      - name: Add Label
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        run: gh pr edit "$PR_NO" --add-label "$LABEL"
+      - name: Remove Old Label
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        run: gh pr edit "$PR_NO" --repo "${{ github.repository }}" --remove-label "$OLD_LABEL"

@@ -3,8 +3,6 @@
   id: VentCrittersBase
   abstract: true
   components:
-  - type: EventHeat # HardLight: vent critter swarms add moderate, decaying chaos
-    cost: 50
   - type: VentCrittersRule
     crawlTime: 5, 6.5 # The audio itself is 6 seconds long, so we don't want it to be much shorter or longer
     popup: station-event-generic-vents-popup
@@ -98,6 +96,11 @@
     - id: LizardVents
     - id: WawaVents
     - id: IrradiatedPests
+    - id: XenoVentsLarva
+    - id: Abyssvents
+    - id: glimmervents
+    - id: HostileLizardVents
+    #- id: Lavavents
     # - id: GiftsEngineering
     # - id: GiftsFireProtection
     # - id: GiftsJanitor
@@ -128,29 +131,10 @@
     - id: SleeperRevolutionaries
     - id: ZombieOutbreak
     - id: LoneOpsSpawn
-    - id: QuietBeforeStorm
     #- id: WizardSpawn
     #- id: LoneOpsSpawn
     # - id: UnknownShuttleManOWar
     # - id: UnknownShuttleInstigator
-
-- type: entity # HardLight: late-round ominous lull, then a department-gated crisis (see QuietBeforeStormSystem)
-  id: QuietBeforeStorm
-  parent: BaseGameRule
-  components:
-  - type: StationEvent
-    startAnnouncement: quiet-before-storm-announcement
-    startAnnouncementColor: "#9a8fb0"
-    startAudio:
-      path: /Audio/Announcements/attention.ogg
-    weight: 3
-    earliestStart: 90
-    minimumPlayers: 20
-    maxOccurrences: 1
-    duration: null # the system ends the rule once the crisis resolves
-  - type: EventHeat
-    cost: 50
-  - type: QuietBeforeStormRule
 
 - type: entity
   id: BaseStationEvent
@@ -193,8 +177,6 @@
     weight: 8
     duration: 35
     reoccurrenceDelay: 60
-  - type: EventHeat # HardLight
-    cost: 30
   - type: AnomalySpawnRule
 
 - type: entity
@@ -212,8 +194,6 @@
     weight: 8
     duration: 35
     reoccurrenceDelay: 60
-  - type: EventHeat # HardLight
-    cost: 30
   - type: BluespaceArtifactRule
 
 - type: entity
@@ -225,8 +205,6 @@
     reoccurrenceDelay: 200
     earliestStart: 1
     duration: 1
-  - type: EventHeat # HardLight: loot event, low heat
-    cost: 15
   - type: BluespaceLockerRule
 
 - type: entity
@@ -238,8 +216,6 @@
     duration: 1
     minimumPlayers: 15
     reoccurrenceDelay: 240
-  - type: EventHeat # HardLight
-    cost: 30
   - type: BreakerFlipRule
 
 - type: entity
@@ -277,8 +253,6 @@
     duration: 1
     minimumPlayers: 10
     reoccurrenceDelay: 200
-  - type: EventHeat # HardLight
-    cost: 50
   - type: RandomEntityStorageSpawnRule
     prototype: MobSkeletonCloset
 
@@ -300,9 +274,6 @@
     spawnDistance: 0
   - type: AntagSpawner # Frontier
     prototype: MobDragon # Frontier
-  - type: EventHeat # HardLight: ongoing overt threat, keeps the station "hot" while alive
-    cost: 130
-    sustained: true
   - type: DragonRule
   - type: AntagObjectives
     objectives:
@@ -336,9 +307,6 @@
     spawnDistance: 0
   - type: AntagSpawner # Frontier
     prototype: MobRainbowDragon # Frontier
-  - type: EventHeat # HardLight
-    cost: 130
-    sustained: true
   - type: DragonRule
   - type: AntagObjectives
     objectives:
@@ -372,9 +340,6 @@
     spawnDistance: 0
   - type: AntagSpawner # Frontier
     prototype: MobMagicDragon # Frontier
-  - type: EventHeat # HardLight
-    cost: 130
-    sustained: true
   - type: DragonRule
   - type: AntagObjectives
     objectives:
@@ -408,9 +373,6 @@
     spawnDistance: 0
   - type: AntagSpawner # Frontier
     prototype: MobHoloDragon # Frontier
-  - type: EventHeat # HardLight
-    cost: 130
-    sustained: true
   - type: DragonRule
   - type: AntagObjectives
     objectives:
@@ -445,9 +407,6 @@
       Warden: 1
   - type: AntagSpawner
     prototype: MobXenoQueenNPC
-  - type: EventHeat # HardLight
-    cost: 130
-    sustained: true
   - type: AntagSelection
     definitions:
     - spawnerPrototype: SpawnPointGhostXenoQueen
@@ -476,9 +435,6 @@
       Warden: 1
   - type: AntagSpawner
     prototype: Fatkid
-  - type: EventHeat # HardLight
-    cost: 130
-    sustained: true
   - type: AntagSelection
     definitions:
     - spawnerPrototype: SpawnPointGhostFatkid
@@ -504,9 +460,6 @@
       Warden: 1
   - type: SpaceSpawnRule
   - type: AntagLoadProfileRule
-  - type: EventHeat # HardLight
-    cost: 130
-    sustained: true
   - type: AntagObjectives
     objectives:
     - StealResearchObjective
@@ -557,9 +510,6 @@
     minimumPlayers: 10
     requiredJobs:
       HeadOfSecurity: 1
-  - type: EventHeat # HardLight
-    cost: 120
-    sustained: true
   - type: ParadoxCloneRule
     objectiveBlacklist:
       tags:
@@ -658,8 +608,6 @@
     endAnnouncement: station-event-gas-leak-end-announcement
     weight: 8
     reoccurrenceDelay: 60
-  - type: EventHeat # HardLight
-    cost: 50
   - type: GasLeakRule
 
 - type: entity
@@ -672,8 +620,6 @@
     weight: 7
     duration: 240
     reoccurrenceDelay: 60
-  - type: EventHeat # HardLight
-    cost: 70
   - type: KudzuGrowthRule
 
 - type: entity
@@ -691,8 +637,6 @@
     duration: 60
     maxDuration: 120
     reoccurrenceDelay: 240
-  - type: EventHeat # HardLight
-    cost: 50
   - type: PowerGridCheckRule
 
 - type: entity
@@ -708,8 +652,6 @@
     duration: 120
     maxDuration: 240
     reoccurrenceDelay: 120
-  - type: EventHeat # HardLight
-    cost: 30
   - type: SolarFlareRule
     onlyJamHeadsets: true
     affectedChannels:
@@ -739,8 +681,6 @@
     weight: 5
     duration: 60
     reoccurrenceDelay: 60
-  - type: EventHeat # HardLight
-    cost: 50
   - type: VentClogRule
 
 - type: entity
@@ -758,8 +698,6 @@
     reoccurrenceDelay: 60
     requiredJobs:
       HeadOfSecurity: 1
-  - type: EventHeat # HardLight
-    cost: 70
   - type: VentHordeRule
     table: !type:GroupSelector
       rolls: !type:RangeNumberSelector
@@ -768,6 +706,7 @@
       - id: MobAdultSlimesBlueAngry
       - id: MobAdultSlimesGreenAngry
       - id: MobAdultSlimesYellowAngry
+      
 - type: entity
   id: SnakeSpawn
   parent: BaseStationEventShortDelay
@@ -783,8 +722,6 @@
     reoccurrenceDelay: 60
     requiredJobs:
       HeadOfSecurity: 1
-  - type: EventHeat # HardLight
-    cost: 70
   - type: VentHordeRule
     table: !type:GroupSelector
       rolls: !type:RangeNumberSelector
@@ -793,7 +730,8 @@
       - id: MobPurpleSnake
       - id: MobSmallPurpleSnake
       - id: MobCobraSpace
-
+      - id: NFMobSmallRainbowSnake
+      
 
 - type: entity
   id: SpiderSpawn
@@ -810,14 +748,13 @@
     reoccurrenceDelay: 60
     requiredJobs:
       HeadOfSecurity: 1
-  - type: EventHeat # HardLight
-    cost: 70
   - type: VentHordeRule
     table: !type:GroupSelector
       rolls: !type:RangeNumberSelector
         range: 1, 50
       children:
       - id: MobGiantSpiderAngry
+      - id: MobSpiderSpace
 
 - type: entity
   id: SpiderClownSpawn
@@ -836,8 +773,6 @@
       HeadOfSecurity: 1
       SecurityOfficer: 1
       Warden: 1
-  - type: EventHeat # HardLight
-    cost: 70
   - type: VentHordeRule
     table: !type:GroupSelector
       rolls: !type:RangeNumberSelector
@@ -859,8 +794,6 @@
       HeadOfSecurity: 1
       SecurityOfficer: 1
       Warden: 1
-  - type: EventHeat # HardLight: quick rule but a lasting outbreak; injected as a large decaying impulse
-    cost: 160
   - type: ZombieRule
   - type: AntagSelection
     definitions:
@@ -902,8 +835,6 @@
   - type: RuleGrids
   - type: LoadMapRule
     gridPath: /Maps/Shuttles/ShuttleEvent/striker.yml
-  - type: EventHeat # HardLight: lone ops; large decaying impulse keeps new threats off for a while
-    cost: 170
   - type: NukeopsRule
     roundEndBehavior: Nothing
   - type: AntagSelection
@@ -945,9 +876,6 @@
     requiredJobs:
       HeadOfSecurity: 1
       SecurityOfficer: 1
-  - type: EventHeat # HardLight
-    cost: 100
-    sustained: true
   - type: AlertLevelInterceptionRule
   - type: AntagSelection
     definitions:
@@ -981,9 +909,6 @@
       HeadOfSecurity: 1
       SecurityOfficer: 1
       Warden: 1
-  - type: EventHeat # HardLight
-    cost: 150
-    sustained: true
   - type: AlertLevelInterceptionRule
   - type: AntagSelection
     selectionTime: PostPlayerSpawn
@@ -1012,8 +937,6 @@
     duration: 150
     maxDuration: 300
     reoccurrenceDelay: 60
-  - type: EventHeat # HardLight
-    cost: 50
   - type: MassHallucinationsRule
     minTimeBetweenIncidents: 0.1
     maxTimeBetweenIncidents: 300
@@ -1029,8 +952,6 @@
     weight: 8
     reoccurrenceDelay: 200
     duration: 1
-  - type: EventHeat # HardLight
-    cost: 50
   - type: IonStormRule
 
 - type: entity
@@ -1055,8 +976,6 @@
     minimumPlayers: 25
     reoccurrenceDelay: 200
     maxOccurrences: 1
-  - type: EventHeat # HardLight
-    cost: 70
   - type: GreytideVirusRule
     accessGroups:
     - Cargo
@@ -1129,8 +1048,6 @@
     duration: 1
     reoccurrenceDelay: 200
     minimumPlayers: 15
-  - type: EventHeat # HardLight
-    cost: 30
   - type: BreakerFlipRule
 
 - type: entity
@@ -1145,8 +1062,6 @@
     weight: 8
     earliestStart: 15 # Frontier
     reoccurrenceDelay: 200
-  - type: EventHeat # HardLight
-    cost: 50
   - type: GasLeakRule
 
 - type: entity
@@ -1165,8 +1080,6 @@
         volume: -4
     duration: 60
     maxDuration: 120
-  - type: EventHeat # HardLight
-    cost: 50
   - type: PowerGridCheckRule
 
 - type: entity
@@ -1183,8 +1096,6 @@
       path: /Audio/Announcements/attention.ogg
     duration: 120
     maxDuration: 240
-  - type: EventHeat # HardLight
-    cost: 30
   - type: SolarFlareRule
     allChannels: true
     lightBreakChancePerSecond: 0.0003
@@ -1203,8 +1114,6 @@
     weight: 5
     duration: 60
     reoccurrenceDelay: 120
-  - type: EventHeat # HardLight
-    cost: 50
   - type: VentClogRule
 
 - type: entity
@@ -1216,8 +1125,6 @@
     weight: 8
     reoccurrenceDelay: 120 # Frontier: 20<120
     duration: 1
-  - type: EventHeat # HardLight
-    cost: 50
   - type: IonStormRule
 
 - type: entity
@@ -1239,8 +1146,6 @@
     weight: 5
     duration: 35
     reoccurrenceDelay: 120
-  - type: EventHeat # HardLight: loot event, low heat
-    cost: 15
   - type: BluespaceCargoRule
     spawnerPrototype: RandomCargoSpawner
     flashPrototype: EffectFlashBluespaceQuiet
@@ -1259,8 +1164,6 @@
     duration: 35
     maximumPlayers: 40
     reoccurrenceDelay: 180
-  - type: EventHeat # HardLight: loot event, low heat
-    cost: 15
   - type: BluespaceCargoRule
     spawnerPrototype: CrateFoodMcCargo
     flashPrototype: EffectFlashMcBluespace
@@ -1279,8 +1182,6 @@
     earliestStart: 90
     minimumPlayers: 10 # Floof - we ball
     reoccurrenceDelay: 180 # 3 hours
-  - type: EventHeat # HardLight: loot event, low heat
-    cost: 15
   - type: BluespaceCargoRule
     spawnerPrototype: CrateSyndicateSurplusBundle
     maximumSpawns: 1
@@ -1295,8 +1196,6 @@
     earliestStart: 15
     minimumPlayers: 2 # HL
     reoccurrenceDelay: 20
-  - type: EventHeat # HardLight: loot/flavor event, low heat
-    cost: 15
   - type: RandomFaxRule
     minFaxes: 1
     maxFaxes: 2
@@ -1318,8 +1217,6 @@
     weight: 100 # Fairly common.
     minimumPlayers: 10 # Floof - we ball
     duration: 35
-  - type: EventHeat # HardLight: loot/flavor event, low heat
-    cost: 15
   - type: RandomFaxRule
     minFaxes: 3
     maxFaxes: 4
@@ -1869,6 +1766,8 @@
         range: 1, 50
       children:
       - id: MobTick
+      - id: MobTickSalvage
+      - id: NFMobTick
 
 
 - type: entity
@@ -1885,8 +1784,6 @@
     minimumPlayers: 15
     weight: 5
     duration: 1
-  - type: EventHeat # HardLight: flavor event, low heat
-    cost: 15
   - type: MedicalBountyTargetsRule
     departmentId: Medical
     variance: 0.1
@@ -1937,6 +1834,9 @@
       - id: MobCarpRainbow
       - id: MobShark
       - id: MobCarpDragon
+      - id: NFMobRainbowWyvernIce
+      - id: NFMobRainbowWyvernFire
+      - id: NFMobRainbowWyvernCaustic
 
 - type: entity
   id: SpaceVents
@@ -2068,6 +1968,38 @@
       - id: MobXenoBloodyLarva
       - id: MobXenoLurker
       - id: MobXenoWarrior
+
+- type: entity
+  id: XenoVentsLarva
+  parent: BaseGameRule
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: StationEvent
+    startAnnouncement: station-event-vent-creatures-start-announcement
+    startAudio:
+      path: /Audio/Announcements/aliens.ogg
+    earliestStart: 30
+    reoccurrenceDelay: 200
+    minimumPlayers: 30
+    weight: 6 # Really weak compared to other critters
+    duration: 60
+    requiredJobs:
+      HeadOfSecurity: 1
+      SecurityOfficer: 1
+      Warden: 1
+  - type: VentHordeRule
+    table: !type:GroupSelector
+      rolls: !type:RangeNumberSelector
+        range: 1, 50
+      children:
+      - id: MobXenoSpitterLarva
+      - id: MobXenoSneakyLarva
+      - id: MobXenoMaleLarva
+      - id: MobXenoFemaleLarva
+      - id: MobXenoSpeedyLarva
+      - id: MobXenoLarva
+      - id: MobXenoParasite
+      - id: MobXenoBloodyLarva
 
 - type: entity
   id: AiVents
@@ -2370,7 +2302,7 @@
   - type: VentHordeRule
     table: !type:GroupSelector
       rolls: !type:RangeNumberSelector
-        range: 1, 50
+        range: 1, 12
       children:
       - id: BlueRainLizard
       - id: HostileBlueRainLizard
@@ -2385,6 +2317,35 @@
       - id: RedRainLizard
       - id: HostileRedRainLizard
       - id: TrainRainLizard
+      - id: HostileTrainRainLizard
+      
+- type: entity
+  id: HostileLizardVents
+  parent: BaseGameRule
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: StationEvent
+    startAnnouncement: station-event-vent-creatures-start-announcement
+    startAudio:
+      path: /Audio/Announcements/attention.ogg
+    earliestStart: 30
+    reoccurrenceDelay: 200
+    minimumPlayers: 10
+    weight: 6 # Really weak compared to other critters
+    duration: 60
+    requiredJobs:
+      HeadOfSecurity: 1
+  - type: VentHordeRule
+    table: !type:GroupSelector
+      rolls: !type:RangeNumberSelector
+        range: 1, 12
+      children:
+      - id: HostileBlueRainLizard
+      - id: HostileGreenRainLizard
+      - id: HostilePinkRainLizard
+      - id: HostileWhiteRainLizard
+      - id: HostileCyanRainLizard
+      - id: HostileRedRainLizard
       - id: HostileTrainRainLizard
 
 - type: entity
@@ -2409,7 +2370,7 @@
       - id: MobEmotionalSupportScurret
 
 - type: entity
-  id: Beehallucination
+  id: glimmervents
   parent: BaseGameRule
   categories: [ HideSpawnMenu ]
   components:
@@ -2422,6 +2383,84 @@
     minimumPlayers: 40
     weight: 6 # Really weak compared to other critters
     duration: 60
+  - type: VentHordeRule
+    table: !type:GroupSelector
+      rolls: !type:RangeNumberSelector
+        range: 1, 10
+      children:
+      - id: MobGlimmerMite
+
+- type: entity
+  id: Abyssvents
+  parent: BaseGameRule
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: StationEvent
+    startAnnouncement: station-event-vent-creatures-start-announcement
+    startAudio:
+      path: /Audio/Announcements/attention.ogg
+    earliestStart: 30
+    reoccurrenceDelay: 200
+    minimumPlayers: 40
+    weight: 6 # Really weak compared to other critters
+    duration: 60
+  - type: VentHordeRule
+    table: !type:GroupSelector
+      rolls: !type:RangeNumberSelector
+        range: 1, 10
+      children:
+      - id: PortalAbyssal
+      - id: PortalAbyssalGhost
+      
+# - type: entity
+  # id: Lavavents
+  # parent: BaseGameRule
+  # categories: [ HideSpawnMenu ]
+  # components:
+  # - type: StationEvent
+    # startAnnouncement: station-event-vent-creatures-start-announcement
+    # startAudio:
+      # path: /Audio/Announcements/attention.ogg
+    # earliestStart: 30
+    # reoccurrenceDelay: 200
+    # minimumPlayers: 40
+    # weight: 6 # Really weak compared to other critters
+    # duration: 60
+  # - type: VentHordeRule
+    # table: !type:GroupSelector
+      # rolls: !type:RangeNumberSelector
+        # range: 1, 5
+      # children:
+      # - id: MobWatcherLavaland
+      # - id: MobWatcherIcewing
+      # - id: MobWatcherMagmawing
+      # - id: MobWatcherPride
+      # - id: MobHellspawn
+      # - id: LavaTalon
+      # - id: MobGoliath
+      # - id: MobHivelord
+      # - id: MobLavalandGoliath
+      # - id: MobLavalandGoldgrub
+      # - id: MobLavalandLegion
+      # - id: MobLavalandHierophant
+      # - id: MobLavalandAshDrake
+      # - id: MobLavalandBubblegum
+
+
+- type: entity
+  id: Beehallucination
+  parent: BaseGameRule
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: StationEvent
+    startAnnouncement: station-event-vent-creatures-start-announcement
+    startAudio:
+      path: /Audio/Announcements/attention.ogg
+    earliestStart: 30
+    reoccurrenceDelay: 200
+    minimumPlayers: 40
+    weight: 6 # Really weak compared to other critters
+    duration: 10
   - type: VentHordeRule
     table: !type:GroupSelector
       rolls: !type:RangeNumberSelector
@@ -2442,6 +2481,3 @@
     checkInterval: 600  # Check every 10 minutes (600 seconds)
     mercenaryJob: Mercenary
     mercenaryCap: 40  # Maximum slots
-
-
-

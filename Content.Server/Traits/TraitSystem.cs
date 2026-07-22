@@ -7,9 +7,11 @@ using Content.Shared.Administration.Logs;
 using Content.Shared.CCVar;
 using Content.Shared.Chat;
 using Content.Shared.Database;
+using Content.Shared.Damage.Components;
 using Content.Shared.GameTicking;
-using Content.Shared.Hands.Components;
+using Content.Shared.Hands.Components; // Hardlight
 using Content.Shared.Hands.EntitySystems;
+using Content.Shared.Mobs; // Hardlight
 using Content.Shared.Movement.Systems; // HardLight
 using Content.Shared.Players;
 using Content.Shared.Preferences; // HardLight
@@ -175,7 +177,6 @@ public sealed class TraitSystem : EntitySystem
         // Hardlight start - Add ReplaceComponents
         var components = traitPrototype.Components;
         var tagEntry = components.FirstOrDefault(kv => kv.Value.Component is TagComponent);
-
         if (tagEntry.Value is { } tagEntryValue && tagEntryValue.Component is TagComponent tagEntryComp &&
             EntityManager.TryGetComponent<TagComponent>(uid, out var existingTags))
         {
@@ -183,28 +184,30 @@ public sealed class TraitSystem : EntitySystem
             components = new ComponentRegistry(components.Where(kv => kv.Key != tagEntry.Key).ToDictionary(kv => kv.Key, kv => kv.Value));
         }
 
-        EntityManager.AddComponents(uid, components, traitPrototype.ReplaceComponents); 
+        components = StackPassiveDamage(uid, components);
+
+        EntityManager.AddComponents(uid, components, traitPrototype.ReplaceComponents);
         // Hardlight end
 
-            // Starlight start
-            var language = EntityManager.System<LanguageSystem>();
+        // Starlight start
+        var language = EntityManager.System<LanguageSystem>();
 
-            if (traitPrototype.RemoveLanguagesSpoken is not null)
-                foreach (var lang in traitPrototype.RemoveLanguagesSpoken)
-                    language.RemoveLanguage(uid, lang, true, false); // HardLight: args.Mob<uid
+        if (traitPrototype.RemoveLanguagesSpoken is not null)
+            foreach (var lang in traitPrototype.RemoveLanguagesSpoken)
+                language.RemoveLanguage(uid, lang, true, false); // HardLight: args.Mob<uid
 
-            if (traitPrototype.RemoveLanguagesUnderstood is not null)
-                foreach (var lang in traitPrototype.RemoveLanguagesUnderstood)
-                    language.RemoveLanguage(uid, lang, false, true); // HardLight: args.Mob<uid
+        if (traitPrototype.RemoveLanguagesUnderstood is not null)
+            foreach (var lang in traitPrototype.RemoveLanguagesUnderstood)
+                language.RemoveLanguage(uid, lang, false, true); // HardLight: args.Mob<uid
 
-            if (traitPrototype.LanguagesSpoken is not null)
-                foreach (var lang in traitPrototype.LanguagesSpoken)
-                    language.AddLanguage(uid, lang, true, false); // HardLight: args.Mob<uid
+        if (traitPrototype.LanguagesSpoken is not null)
+            foreach (var lang in traitPrototype.LanguagesSpoken)
+                language.AddLanguage(uid, lang, true, false); // HardLight: args.Mob<uid
 
-            if (traitPrototype.LanguagesUnderstood is not null)
-                foreach (var lang in traitPrototype.LanguagesUnderstood)
-                    language.AddLanguage(uid, lang, false, true); // HardLight: args.Mob<uid
-            // Starlight end
+        if (traitPrototype.LanguagesUnderstood is not null)
+            foreach (var lang in traitPrototype.LanguagesUnderstood)
+                language.AddLanguage(uid, lang, false, true); // HardLight: args.Mob<uid
+        // Starlight end
 
         // HardLight: Force an immediate refresh so movement penalties/bonuses apply on spawn.
         _movementSpeed.RefreshMovementSpeedModifiers(uid);
@@ -219,6 +222,32 @@ public sealed class TraitSystem : EntitySystem
                 checkActionBlocker: false,
                 handsComp: handsComponent);
         }
+    }
+
+    /// <summary>
+    /// HardLight: If an entity has multiple traits that apply passive damage, we want to stack them instead of overwriting the component and losing the previous trait's damage.
+    /// </summary>
+    private ComponentRegistry StackPassiveDamage(EntityUid uid, ComponentRegistry components)
+    {
+        var componentName = EntityManager.ComponentFactory.GetComponentName<PassiveDamageComponent>();
+
+        if (!components.TryGetValue(componentName, out var incomingEntry) ||
+            incomingEntry.Component is not PassiveDamageComponent incoming ||
+            !TryComp<PassiveDamageComponent>(uid, out var existing))
+        {
+            return components;
+        }
+
+        existing.Stacks.Add(new PassiveDamageStackEntry
+        {
+            AllowedStates = new List<MobState>(incoming.AllowedStates),
+            Damage = new(incoming.Damage),
+            Interval = incoming.Interval,
+            DamageCap = incoming.DamageCap,
+        });
+
+        Dirty(uid, existing);
+        return new ComponentRegistry(components.Where(kv => kv.Key != componentName).ToDictionary(kv => kv.Key, kv => kv.Value));
     }
 
     /// <summary>

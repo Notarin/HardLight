@@ -71,7 +71,8 @@
     laws: Qborg
   - type: FlashImmunity
   - type: SpriteStateToggle
-    spriteLayer: movement
+    spriteLayer: enum.ToggleVisuals.Layer
+    VisibleWhenEnabled: true
     stateOff: glitz
     stateOn: glitzballz
     movementStateOff: glitzmoving

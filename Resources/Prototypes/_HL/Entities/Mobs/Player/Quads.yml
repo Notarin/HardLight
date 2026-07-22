@@ -178,7 +178,8 @@
     - Faction
   # HardLight end
   - type: SpriteStateToggle
-    spriteLayer: movement
+    spriteLayer: enum.ToggleVisuals.Layer
+    VisibleWhenEnabled: true
     stateOff: quadspritemoss
     stateOn: quadspritemossballz
     movementStateOff: quadspritemoss_moving
@@ -231,7 +232,8 @@
       state: engieservborg
     name: Verzical
   - type: SpriteStateToggle
-    spriteLayer: movement
+    spriteLayer: enum.ToggleVisuals.Layer
+    VisibleWhenEnabled: true
     stateOff: engieservborg
     stateOn: engieservborgballz
     movementStateOff: engieservborg_moving
@@ -284,7 +286,8 @@
       state: OrchidBase
     name: Verzical
   - type: SpriteStateToggle
-    spriteLayer: movement
+    spriteLayer: enum.ToggleVisuals.Layer
+    VisibleWhenEnabled: true
     stateOff: OrchidBase
     stateOn: OrchidBelly
     movementStateOff: orchid_moving
@@ -341,7 +344,8 @@
       state: abyssquad
     name: Verzical
   - type: SpriteStateToggle
-    spriteLayer: movement
+    spriteLayer: enum.ToggleVisuals.Layer
+    VisibleWhenEnabled: true
     stateOff: abyssquad
     stateOn: abyssquadballz
     movementStateOff: abyssquad_moving

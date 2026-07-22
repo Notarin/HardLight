@@ -74,8 +74,9 @@
     - ActionFabricateLollipop
     - ActionFabricateGumball
   - type: SpriteStateToggle
-    spriteLayer: movement
+    spriteLayer: enum.ToggleVisuals.Layer
     stateOff: petalborg
     stateOn: petalborgballz
+    VisibleWhenEnabled: true
     movementStateOff: petalborg_moving
     movementStateOn: petalborg_movingballz

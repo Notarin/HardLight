@@ -593,6 +593,25 @@
         sprite: Clothing/Uniforms/Jumpsuit/color.rsi
       - state: overlay-inhand-right
 
+# Hardlight Cadet
+- type: entity
+  parent: [ClothingUniformBase, BaseC2ContrabandUnredeemable, ClothingUniformFoldableBase] # Frontier: BaseSecurityContraband<BaseC2ContrabandUnredeemable
+  id: ClothingUniformJumpsuitCadet
+  name: cadet jumpsuit
+  description: A bright jumpsuit made of strong material, providing robust protection.
+  components:
+  - type: Sprite
+    sprite: Clothing/Uniforms/Jumpsuit/cadet.rsi
+  - type: Clothing
+    sprite: Clothing/Uniforms/Jumpsuit/cadet.rsi
+    inhandVisuals:
+      left:
+      - state: inhand-left
+        sprite: Clothing/Uniforms/Jumpsuit/cadet.rsi
+      right:
+      - state: inhand-right
+        sprite: Clothing/Uniforms/Jumpsuit/cadet.rsi
+
 - type: entity
   parent: ClothingUniformBase
   id: ClothingUniformJumpsuitSecBlue

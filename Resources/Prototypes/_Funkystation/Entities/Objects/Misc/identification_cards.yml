@@ -17,7 +17,6 @@
     layers:
     - state: default #base
     - sprite: Interface/Misc/job_icons.rsi #icon
-      offset: "-0.125, 0.09375"
       state: Geneticist
   - type: PresetIdCard
     job: Geneticist

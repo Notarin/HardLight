@@ -78,3 +78,9 @@
   parent: [ClothingHeadBandBase, ClothingMaskBandBrown]
   id: ClothingHeadBandBrown
   name: brown bandana
+
+# Hardlight
+- type: entity
+  parent: [ClothingHeadBandBase, ClothingMaskBandSecurity]
+  id: ClothingHeadBandSecurity
+  name: security bandana

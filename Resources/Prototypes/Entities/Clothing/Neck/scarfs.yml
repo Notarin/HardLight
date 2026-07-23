@@ -262,3 +262,15 @@
     sprite: Clothing/Neck/Scarfs/PrideScarfs/lesbian-long.rsi
   - type: Clothing
     sprite: Clothing/Neck/Scarfs/PrideScarfs/lesbian-long.rsi
+
+# Hardlight
+- type: entity
+  parent: ClothingScarfBase
+  id: ClothingNeckScarfStripedSecurity
+  name: striped security scarf
+  description: A stylish striped scarf in the security colors. The perfect winter accessory for those with a keen fashion sense, a passion for law, and those who just can't handle a cold breeze on their necks.
+  components:
+  - type: Sprite
+    sprite: Clothing/Neck/Scarfs/security.rsi
+  - type: Clothing
+    sprite: Clothing/Neck/Scarfs/security.rsi

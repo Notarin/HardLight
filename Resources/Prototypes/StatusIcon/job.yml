@@ -276,6 +276,7 @@
   jobName: job-name-hos
   allowSelection: false # Frontier
 
+# Hardlight
 - type: jobIcon
   parent: JobIcon
   id: JobIconBrigmedic
@@ -423,6 +424,7 @@
     state: SeniorPhysician
   allowSelection: false
 
+# Hardlight
 - type: jobIcon
   parent: JobIcon
   id: JobIconSeniorOfficer

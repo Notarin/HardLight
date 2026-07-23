@@ -1,4 +1,4 @@
-- type: job
+- type: job # Hardlight
   id: SeniorOfficer
   name: job-name-senior-officer
   description: job-description-senior-officer
@@ -20,31 +20,34 @@
       role: JobSecurityOfficer
       time: 21600 # 6 hours
   startingGear: SeniorOfficerGear
-  icon: JobIconSergeant
-  supervisors: job-supervisors-bailiff
+  icon: JobIconSeniorOfficer
+  supervisors: job-supervisors-hos
   weight: 140
   displayWeight: 50
   canBeAntag: false
-  setPreference: false # Frontier
   access:
-  - Sergeant
-  accessGroups:
-  - GeneralNfsdAccess
+  - Security
+  - Brig
+  - Maintenance
+  - Service
+  - External
+  - Cryogenics
   special:
   - !type:AddImplantSpecial
-    implants: [ MindShieldImplant, TrackingImplant ]
-  - !type:GiveItemOnHolidaySpecial
-    holiday: FrontierBirthday
-    prototype: FrontierBirthdayGift
+    implants: [ MindShieldImplant ]
+  setPreference: true
+  accessGroups: # Frontier
+  - GeneralAccess # Frontier
 
 - type: startingGear
   id: SeniorOfficerGear
   equipment:
-    pocket1: NFWeaponPistolUniversalNfsdLessLethal
+    id: SeniorOfficerPDA
+    # eyes: ClothingEyesGlassesSecurity # HardLight: Add departmental NF-style loadouts
+    ears: ClothingHeadsetSecurity
+    pocket1: NFWeaponPistolMk58 # Frontier: use NF variant
   storage:
     back:
     - Flash
-    - NFMagazineHighCapacityPistol35Overpressure
-    - NFMagazineHighCapacityPistol35Rubber
-    - BaseSecurityUplinkRadioOfficer
-    - ShipVoucherNfsdSergeant
+    - Magazine45_ACPPistolFMJ
+    - FrontierUplinkCoin15

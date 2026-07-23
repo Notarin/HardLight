@@ -149,3 +149,15 @@
     sprite: Clothing/Head/Bandanas/brown.rsi
   - type: Clothing
     sprite: Clothing/Head/Bandanas/brown.rsi
+
+# Hardlight
+- type: entity
+  parent: ClothingMaskBandanaBase
+  id: ClothingMaskBandSecurity
+  name: security bandana
+  description: A security bandana to make you look cool.
+  components:
+  - type: Sprite
+    sprite: Clothing/Head/Bandanas/security.rsi
+  - type: Clothing
+    sprite: Clothing/Head/Bandanas/security.rsi

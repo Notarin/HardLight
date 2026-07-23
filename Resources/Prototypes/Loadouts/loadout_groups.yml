@@ -1381,8 +1381,8 @@
   id: SecurityCadetJumpsuit
   name: loadout-group-security-cadet-jumpsuit
   loadouts:
-  - RedJumpsuit
-  - RedJumpskirt
+  - ClothingUniformJumpsuitCadet
+  - ClothingUniformJumpskirtCadet
   - SecurityClothingJumpsuitThong # HL - Add lingerie
   subgroups:
   - ContractorJumpsuit # HL - Add departmental NF-style loadouts

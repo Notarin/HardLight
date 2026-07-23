@@ -417,6 +417,24 @@
       - state: overlay-inhand-right
         sprite: Clothing/Uniforms/Jumpsuit/security.rsi
 
+# Hardlight Cadet
+- type: entity 
+  parent: [ClothingUniformSkirtBase, BaseC2ContrabandUnredeemable] # Frontier: BaseSecurityContraband<BaseC2ContrabandUnredeemable
+  id: ClothingUniformJumpskirtCadet
+  name: cadet jumpskirt
+  description: A bright jumpskirt made of strong material, providing robust protection.
+  components:
+  - type: Sprite
+    sprite: Clothing/Uniforms/Jumpskirt/cadet.rsi
+  - type: Clothing
+    sprite: Clothing/Uniforms/Jumpskirt/cadet.rsi
+    inhandVisuals:
+      left:
+      - state: inhand-left
+        sprite: Clothing/Uniforms/Jumpskirt/cadet.rsi
+      right:
+      - state: inhand-right
+        sprite: Clothing/Uniforms/Jumpskirt/cadet.rsi
 
 - type: entity
   parent: ClothingUniformSkirtBase # Frontier: BaseSecurityContraband<BaseC2ContrabandUnredeemable

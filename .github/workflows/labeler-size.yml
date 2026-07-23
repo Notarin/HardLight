@@ -3,14 +3,8 @@ name: "Labels: Size"
 concurrency:
   group: labels
   cancel-in-progress: false
-  queue: max
 
 on: pull_request_target
-
-permissions:
-  contents: write
-  pull-requests: write
-  issues: write
 
 
 jobs:
@@ -18,9 +12,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: size-label
-        uses: "pascalgn/size-label-action@v0.5.5"
+        uses: "https://github.com/pascalgn/size-label-action@v0.5.5"
         env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          GITHUB_TOKEN: "${{ env.FORGEJO_TOKEN }}"
         with:
           # Custom size configuration
           sizes: >

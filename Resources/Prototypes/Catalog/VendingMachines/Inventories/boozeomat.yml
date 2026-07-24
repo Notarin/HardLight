@@ -48,6 +48,7 @@
     DrinkWhiskeyBottleFull: 5
     DrinkJaegermisterBottleFull: 5 # Den - Jaegerminsteeeer!
     DrinkWineBottleFull: 5
+    DrinkKelpWineBottleFull: 1
     DrinkChampagneBottleFull: 2 #because the premium drink
     DrinkSakeBottleFull: 3
     DrinkBeerCan: 5

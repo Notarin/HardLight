@@ -125,3 +125,68 @@
         - !type:ReagentThreshold
           min: 15
         amount: -26250
+
+- type: reagent
+  id: kelpSap
+  name: reagent-name-kelpSap
+  group: Medicine
+  desc: reagent-desc-kelpsap
+  physicalDesc: reagent-physical-desc-slimy
+  flavor: medicine
+  color: "#9575e6"
+  metabolisms:
+    Medicine:
+      effects:
+      - !type:HealthChange
+        conditions:
+        - !type:OrganType
+          type: Thaven
+          shouldHave: True
+        damage:
+          types:
+            Poison: -0.3
+            Bloodloss: -0.3
+            Asphyxiation: -0.4
+            Cold: -0.1
+      - !type:GenericStatusEffect
+        conditions:
+        - !type:OrganType
+          type: Thaven
+          shouldHave: True
+        key: SeeingRainbows
+        component: SeeingRainbows
+        type: Add
+        time: 10
+        refresh: false
+      - !type:HealthChange
+        conditions:
+        - !type:OrganType
+          type: Thaven
+          shouldHave: False
+        - !type:ReagentThreshold
+          min: 30
+        damage:
+          types:
+            Asphyxiation: 3
+            Caustic: 1
+            Poison: 1
+    Narcotic:
+      effects:
+      - !type:GenericStatusEffect
+        key: SeeingRainbows
+        component: SeeingRainbows
+        type: Add
+        time: 25
+        refresh: false
+      - !type:HealthChange
+        conditions:
+        - !type:OrganType
+          type: Thaven
+          shouldHave: True
+        damage:
+          types:
+            Poison: -0.5
+            Blunt: -0.3
+            Bloodloss: -0.8
+            Asphyxiation: -1
+            Cold: -0.3

@@ -806,7 +806,7 @@
   id: SnoutSkulldog
   bodyPart: Snout
   markingCategory: Snout
-  speciesRestriction: [Skrell, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Tajaran]
+  speciesRestriction: [Skrell, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Tajaran, Shadekin]
   sprites:
   - sprite: _Floof/Mobs/Customization/skyratsnouts.rsi
     state: snout_skulldog_primary

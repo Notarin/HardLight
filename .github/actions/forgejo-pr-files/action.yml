@@ -1,0 +1,54 @@
+name: 'PR Files'
+author: 'Drekk'
+description: 'Gets the changed files in a PR, loosely based off https://github.com/Ana06/get-changed-files'
+
+inputs:
+  pr_no:
+    description: 'PR number to run on'
+    required: true
+  token:
+    description: 'Forgejo token to run with'
+    required: true
+  format:
+    description: 'Format of the output'
+    required: true
+    type: choice
+    options:
+      - space-delimited
+      - csv
+      - json
+  filter:
+    description: 'Filter to select files'
+    required: true
+    default: '*'
+
+outputs:
+  all:
+    description: 'Array of all changed files.'
+    value: ${{ steps.script.outputs.all }}
+  added:
+    description: 'Array of added files.'
+    value: ${{ steps.script.outputs.added }}
+  modified:
+    description: 'Array of modified files.'
+    value: ${{ steps.script.outputs.modified }}
+  removed:
+    description: 'Array of removed files.'
+    value: ${{ steps.script.outputs.removed }}
+  renamed:
+    description: 'Array of renamed files.'
+    value: ${{ steps.script.outputs.renamed }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Get Files
+      id: script
+      env:
+        FORMAT: ${{ inputs.format }}
+        FILTER: ${{ inputs.filter }}
+        FORGEJO_URL: ${{ forgejo.server_url }}
+        FORGEJO_REPO: ${{ forgejo.repository }}
+        PR: ${{ inputs.pr_no }}
+        TOKEN: ${{ inputs.token }}
+      run: python3 ./.github/actions/forgejo-pr-files/action.py

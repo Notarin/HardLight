@@ -3,17 +3,30 @@ name: "Labels: PR"
 concurrency:
   group: labels
   cancel-in-progress: false
-  queue: max
 
 on:
 - pull_request_target
 
 jobs:
   labeler:
-    if: github.actor != 'PJBot' && github.actor != 'xemeraldwingx-dot' # Hardlight
-    permissions:
-      contents: read
-      pull-requests: write
+    if: forgejo.actor != 'PJBot' && forgejo.actor != 'xemeraldwingx-dot' # Hardlight
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/labeler@v6.1.0
+      - name: Fetch Actions
+        # Needed because we aren't checking out the full repo, so just grab the bits we care about
+        shell: bash
+        run: |
+          mkdir actions && cd actions
+          git init
+          git remote add origin "${{ forgejo.server_url }}/${{ forgejo.repository }}.git"
+          git config core.sparseCheckout true
+          echo ".github/*" >> .git/info/sparse-checkout
+          git fetch --depth=1 --filter=blob:none origin master
+          git checkout master
+          cd ..
+          mv actions/.github .github
+
+      - uses: ./.github/actions/labeler
+        with:
+          pr_no: ${{ forgejo.event.issue.number || forgejo.event.pull_request.number }}
+          token: ${{ env.FORGEJO_TOKEN }}

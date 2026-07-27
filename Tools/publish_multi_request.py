@@ -7,7 +7,7 @@ import subprocess
 from typing import Iterable
 
 PUBLISH_TOKEN = os.environ["PUBLISH_TOKEN"]
-VERSION = os.environ["GITHUB_SHA"]
+VERSION = os.environ["FORGEJO_SHA"]
 
 RELEASE_DIR = "release"
 
@@ -16,7 +16,7 @@ RELEASE_DIR = "release"
 # Forks should change these to publish to their own infrastructure.
 #
 ROBUST_CDN_URL = "https://cdn.frontierstation14.com/"
-FORK_ID = "Frontier"
+FORK_ID = "HardLight"
 
 def main():
     parser = argparse.ArgumentParser()

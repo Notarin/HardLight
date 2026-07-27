@@ -1,0 +1,30 @@
+name: 'PR Labeler'
+author: 'Drekk'
+description: 'A really bad python clone of https://github.com/actions/labeler'
+
+inputs:
+  labeler_file:
+    description: 'Labeler file to parse'
+    default: './.github/labeler.yml'
+  pr_no:
+    description: 'PR number to run on'
+    required: true
+  token:
+    description: 'Forgejo token to run with'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Install Dependencies
+      run: |
+        apt update
+        apt install -y python3-yaml
+    - name: Run Labeler
+      env:
+        LABELER_FILE: ${{ inputs.labeler_file }}
+        FORGEJO_URL: ${{ forgejo.server_url }}
+        FORGEJO_REPO: ${{ forgejo.repository }}
+        PR: ${{ inputs.pr_no }}
+        TOKEN: ${{ inputs.token }}
+      run: python3 ./.github/actions/labeler/labeler.py

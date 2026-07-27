@@ -1,5 +1,6 @@
 name: Diff RSIs
 
+# WIP - This uses a bunch of custom actions that are static for github, need to re-do
 on:
   pull_request_target:
     paths:
@@ -10,60 +11,69 @@ jobs:
     name: Diff
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4.2.2
+      - name: Fetch Actions
+        # Needed because we aren't checking out the full repo, so just grab the bits we care about
+        shell: bash
+        run: |
+          mkdir actions && cd actions
+          git init
+          git remote add origin "${{ forgejo.server_url }}/${{ forgejo.repository }}.git"
+          git config core.sparseCheckout true
+          echo ".github/actions/*" >> .git/info/sparse-checkout
+          git fetch --depth=1 --filter=blob:none origin master
+          git checkout master
+          cd ..
+          mv actions/.github .github
 
       - name: Get changed files
         id: files
-        uses: Ana06/get-changed-files@v2.3.0
+        uses: ./.github/actions/forgejo-pr-files
         with:
           format: 'space-delimited'
+          pr_no: ${{ forgejo.event.issue.number || forgejo.event.pull_request.number }}
+          token: ${{ env.FORGEJO_TOKEN }}
           filter: |
             **.rsi
             **.png
 
       - name: Diff changed RSIs
         id: diff
-        uses: space-wizards/RSIDiffBot@v1.1
+        uses: ./.github/actions/rsi-diff
         with:
           modified: ${{ steps.files.outputs.modified }}
           removed: ${{ steps.files.outputs.removed }}
           added: ${{ steps.files.outputs.added }}
-          basename: ${{ github.event.pull_request.base.repo.full_name }}
-          basesha: ${{ github.event.pull_request.base.sha }}
-          headname: ${{ github.event.pull_request.head.repo.full_name }}
-          headsha: ${{ github.event.pull_request.head.sha }}
+          basename: ${{ forgejo.event.pull_request.base.repo.full_name }}
+          basesha: ${{ forgejo.event.pull_request.base.sha }}
+          headname: ${{ forgejo.event.pull_request.head.repo.full_name }}
+          headsha: ${{ forgejo.event.pull_request.head.sha }}
 
       - name: Potentially find comment
-        uses: peter-evans/find-comment@v1
+        uses: ./.github/actions/forgejo-pr-comment
         id: fc
         with:
-          issue-number: ${{ github.event.number }}
-          comment-author: 'github-actions[bot]'
-          body-includes: RSI Diff Bot
+          pr: ${{ forgejo.event.issue.number || forgejo.event.pull_request.number }}
+          token: ${{ env.FORGEJO_TOKEN }}
+          action: 'search'
+          searchBody: 'RSI Diff Bot'
 
       - name: Create comment if it doesn't exist
-        if: steps.fc.outputs.comment-id == ''
-        uses: peter-evans/create-or-update-comment@v1
+        if: steps.fc.outputs.searchID == ''
+        uses: ./.github/actions/forgejo-pr-comment
         with:
-          issue-number: ${{ github.event.number }}
-          body: |
-            ${{ steps.diff.outputs.summary-details }}
+          pr: ${{ forgejo.event.issue.number || forgejo.event.pull_request.number }}
+          token: ${{ env.FORGEJO_TOKEN }}
+          action: 'add'
+          body: ${{ steps.diff.outputs.summary-details }}
 
       - name: Update comment if it exists
-        if: steps.fc.outputs.comment-id != ''
-        uses: peter-evans/create-or-update-comment@v1
+        if: steps.fc.outputs.searchID != ''
+        uses: ./.github/actions/forgejo-pr-comment
         with:
-          comment-id: ${{ steps.fc.outputs.comment-id }}
-          edit-mode: replace
+          pr: ${{ forgejo.event.issue.number || forgejo.event.pull_request.number }}
+          commentID: ${{ steps.fc.outputs.searchID }}
+          token: ${{ env.FORGEJO_TOKEN }}
+          action: 'update'
           body: |
             ${{ steps.diff.outputs.summary-details }}
-
-      - name: Update comment to read that it has been edited
-        if: steps.fc.outputs.comment-id != ''
-        uses: peter-evans/create-or-update-comment@v1
-        with:
-          comment-id: ${{ steps.fc.outputs.comment-id }}
-          edit-mode: append
-          body: |
-            Edit: diff updated after ${{ github.event.pull_request.head.sha }}
+            Edit: diff updated after ${{ forgejo.event.pull_request.head.sha }}

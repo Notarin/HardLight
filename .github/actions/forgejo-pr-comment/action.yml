@@ -1,0 +1,83 @@
+name: 'Forgejo PR Comment'
+author: 'Drekk'
+description: 'Adds or removes comments to a PR/issue'
+
+inputs:
+  body:
+    description: 'Comment contents to add to PR'
+  pr:
+    description: 'PR number'
+    required: true
+  action:
+    description: 'What to do with the comment, currently only supports `add`'
+    required: true
+    type: choice
+    options:
+      - add
+      - search
+      - update
+  token:
+    description: 'Forgejo Token'
+    required: true
+  commentID:
+    description: 'Comment ID for updates or deletes'
+    default: ''
+  searchAuthor:
+    description: 'Search - Comment Author'
+    default: ''
+  searchBody:
+    description: 'Search - Comment Body'
+    default: ''
+
+outputs:
+  searchBody:
+    description: "Body of the found comment, is 'null' if empty"
+    value: ${{ steps.search.outputs.body }}
+  searchAuthor:
+    description: "Author of the found comment, is 'null' if empty"
+    value: ${{ steps.search.outputs.author }}
+  searchID:
+    description: "ID of the found comment, is 'null' if empty"
+    value: ${{ steps.search.outputs.commentid }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Add Comment
+      if: inputs.action == 'add'
+      run: |
+        curl -X POST \
+        -H "Authorization: token ${{ inputs.token }}" \
+        -H "Content-Type: application/json" \
+        -d '{"body": "${{ inputs.body }}"}' \
+        "${{ forgejo.server_url }}/api/v1/repos/${{ forgejo.repository }}/issues/${{ inputs.pr }}/comments"
+
+    - name: Search Comment
+      id: search
+      if: inputs.action == 'search'
+      env:
+        AUTHOR: ${{ inputs.searchAuthor }}
+        BODY: ${{ inputs.searchBody }}
+      run: |
+        apt update
+        apt install -y jq
+        COMMENTS=$(curl -X GET "${{ forgejo.server_url }}/api/v1/repos/${{ forgejo.repository }}/issues/${{ inputs.pr }}/comments")
+        [[ -n "$AUTHOR" ]] && COMMENTS=$(echo "$COMMENTS" | jq ". | select(.[].user.username == \"$AUTHOR\")")
+        [[ -n "$BODY" ]] && COMMENTS=$(echo "$COMMENTS" | jq ". | select(.[].body | contains(\"$BODY\"))")
+
+        FOUNDBODY=$(echo "$COMMENTS" | jq '.[0].body')
+        FOUNDAUTHOR=$(echo "$COMMENTS" | jq '.[0].user.username')
+        FOUNDID=$($(echo "$COMMENTS" | jq '.[0].id'))
+
+        echo "body=$FOUNDBODY" >> $FORGEJO_OUTPUT
+        echo "author=$FOUNDAUTHOR" >> $FORGEJO_OUTPUT
+        echo "commentid=$FOUNDID" >> $FORGEJO_OUTPUT
+
+    - name: Update Comment
+      if: inputs.action == 'update'
+      run: |
+        curl -X PATCH \
+        -H "Authorization: token ${{ inputs.token }}" \
+        -H "Content-Type: application/json" \
+        -d '{"body": "${{ inputs.body }}"}' \
+        "${{ forgejo.server_url }}/api/v1/repos/${{ forgejo.repository }}/issues/comments/${{ inputs.commentID }}"

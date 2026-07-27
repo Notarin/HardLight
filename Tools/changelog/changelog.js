@@ -4,8 +4,9 @@ const yaml = require("js-yaml");
 const axios = require("axios");
 const core = require('@actions/core');
 
-// Use GitHub token if available
-if (process.env.GITHUB_TOKEN) axios.defaults.headers.common["Authorization"] = `Bearer ${process.env.GITHUB_TOKEN}`;
+// Use Forgejo token if available
+if (process.env.FORGEJO_TOKEN) axios.defaults.headers.common["Authorization"] = `Bearer ${process.env.FORGEJO_TOKEN}`;
+const URL = process.env.FORGEJO_SERVER_URL ?? 'https://code.hardlight.space';
 
 // Regexes
 const HeaderRegex = /^\s*(?::cl:|🆑) *([a-z0-9_\- ]+)?\s+/im; // :cl: or 🆑 [0] followed by optional author name [1]
@@ -15,7 +16,7 @@ const CommentRegex = /<!--.*?-->/gs; // HTML comments
 // Main function
 async function main() {
     // Get PR details
-    const pr = await axios.get(`https://api.github.com/repos/${process.env.GITHUB_REPOSITORY}/pulls/${process.env.PR_NUMBER}`);
+    const pr = await axios.get(`${URL}/api/v1/repos/${process.env.FORGEJO_REPOSITORY}/pulls/${process.env.PR_NUMBER}`);
     const { merged_at, body, user } = pr.data;
 
     // Remove comments from the body

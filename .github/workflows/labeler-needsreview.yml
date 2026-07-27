@@ -3,28 +3,42 @@
 concurrency:
   group: labels
   cancel-in-progress: false
-  queue: max
 
 on:
   pull_request_target:
     types: [review_requested]
 
-permissions:
-  contents: read
-  issues: write
-  pull-requests: write
-
 jobs:
   add_label:
     runs-on: ubuntu-latest
     steps:
-    - name: Update review labels
-      env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        PR_NUMBER: ${{ github.event.pull_request.number }}
-        REPO: ${{ github.repository }}
-      run: |
-        gh api --method POST "repos/$REPO/issues/$PR_NUMBER/labels" \
-          --field labels[]="S: Needs Review"
+      - name: Fetch Actions
+        # Needed because we aren't checking out the full repo, so just grab the bits we care about
+        shell: bash
+        run: |
+          mkdir actions && cd actions
+          git init
+          git remote add origin "${{ forgejo.server_url }}/${{ forgejo.repository }}.git"
+          git config core.sparseCheckout true
+          echo ".github/actions/*" >> .git/info/sparse-checkout
+          git fetch --depth=1 --filter=blob:none origin master
+          git checkout master
+          cd ..
+          mv actions/.github .github
 
-        gh api --method DELETE "repos/$REPO/issues/$PR_NUMBER/labels/S%3A%20Awaiting%20Changes" || true
+      - name: Add Label
+        if: forgejo.event.pull_request.mergeable == false
+        uses: ./.github/actions/forgejo-pr-label
+        with:
+          pr: ${{ forgejo.event.issue.number || forgejo.event.pull_request.number }}
+          label: 'S: Needs Review'
+          action: 'add'
+          token: ${{ env.FORGEJO_TOKEN }}
+      - name: Del old label
+        if: forgejo.event.pull_request.mergeable == false
+        uses: ./.github/actions/forgejo-pr-label
+        with:
+          pr: ${{ forgejo.event.issue.number || forgejo.event.pull_request.number }}
+          label: 'S: Awaiting Changes'
+          action: 'add'
+          token: ${{ env.FORGEJO_TOKEN }}

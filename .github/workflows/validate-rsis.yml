@@ -1,5 +1,4 @@
 name: RSI Validator
-
 on:
   push:
     branches: [ master, staging, stable ]
@@ -12,19 +11,26 @@ jobs:
   validate_rsis:
     name: Validate RSIs
     runs-on: ubuntu-latest
+    container:
+      image: node:20-bookworm
     steps:
-      - uses: actions/checkout@v4.2.2
-      - name: Setup Submodule
-        run: git submodule update --init
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          submodules: recursive
+
       - name: Pull engine updates
-        uses: space-wizards/submodule-dependency@v0.1.5
-      - name: Set up Python 3.10 # Frontier
-        uses: actions/setup-python@v3 # Frontier
-        with: # Frontier
-          python-version: "3.10" # Frontier
+        uses: https://github.com/space-wizards/submodule-dependency@v0.1.5
+
+      - name: Set up Python 3.10
+        run: |
+          apt update
+          apt install -y python3-pip
+
       - name: Install Python dependencies
         run: |
-          pip3 install --ignore-installed --user pillow jsonschema
+          pip3 install --ignore-installed --break-system-packages --user pillow jsonschema
+
       - name: Validate RSIs
         run: |
           python3 RobustToolbox/Schemas/validate_rsis.py Resources/

@@ -1,0 +1,57 @@
+name: 'Forgejo PR Label Edit'
+author: 'Drekk'
+description: 'Modifies a PRs labels'
+
+inputs:
+  label:
+    description: 'Label to add to the PR'
+    required: true
+  pr:
+    description: 'PR number'
+    required: true
+  action:
+    description: 'What to do with the label (add, remove)'
+    required: true
+    type: choice
+    options:
+      - add
+      - remove
+      - count
+  token:
+    description: 'Forgejo Token'
+    required: true
+
+outputs:
+  count:
+    description: 'Count of labels on PR, when `count` used.'
+
+runs:
+  using: "composite"
+  steps:
+    - name: Add Label
+      if: inputs.action == 'add'
+      run: |
+        curl -X POST \
+        -H "Authorization: token ${{ inputs.token }}" \
+        -H "Content-Type: application/json" \
+        -d '{"labels": ["${{ inputs.label }}"]}' \
+        "${{ forgejo.server_url }}/api/v1/repos/${{ forgejo.repository }}/issues/${{ inputs.pr }}/labels"
+
+    - name: Remove Label
+      if: inputs.action == 'remove'
+      run: |
+        curl -X DELETE \
+        -H "Authorization: token ${{ inputs.token }}" \
+        -H "Content-Type: application/json" \
+        "${{ forgejo.server_url }}/api/v1/repos/${{ forgejo.repository }}/issues/${{ inputs.pr }}/labels/${{ inputs.label }}"
+
+    - name: Count Labels
+      if: inputs.action == 'count'
+      run: |
+        apt update
+        apt install -y jq
+        LABEL_COUNT=$(curl -s \
+          -H "Authorization: token ${{ inputs.token }}" \
+          "${{ forgejo.server_url }}/api/v1/repos/${{ forgejo.repository }}/issues/${{ inputs.pr }}/labels" \
+          | jq length)
+        echo "count=$LABEL_COUNT" >> $FORGEJO_OUTPUT

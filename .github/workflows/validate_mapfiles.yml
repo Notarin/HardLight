@@ -9,15 +9,19 @@ on:
 jobs:
   yaml-schema-validation:
     name: YAML map schema validator
-    if: github.event.pull_request.draft == false
+    if: forgejo.event.pull_request.draft == false
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@v4.2.2
-    - name: Setup Submodule
-      run: git submodule update --init
+    - name: Checkout Master
+      uses: actions/checkout@v4.2.2
+      with:
+        submodules: recursive
+
     - name: Pull engine updates
-      uses: space-wizards/submodule-dependency@v0.1.5
-    - uses: PaulRitter/yaml-schema-validator@v1
+      uses: https://github.com/space-wizards/submodule-dependency@v0.1.5
+
+    - uses: https://github.com/PaulRitter/yaml-schema-validator@v1
       with:
         schema: RobustToolbox/Schemas/mapfile.yml
         path_pattern: .*Resources/Maps/.*

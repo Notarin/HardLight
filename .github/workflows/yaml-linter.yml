@@ -1,5 +1,4 @@
 name: YAML Linter
-
 on:
   push:
     branches: [ master, staging, stable ]
@@ -10,26 +9,21 @@ on:
 jobs:
   build:
     name: YAML Linter
-    if: github.actor != 'PJBot' && github.event.pull_request.draft == false && github.actor != 'FrontierATC' # Frontier
+    if: forgejo.actor != 'PJBot' && forgejo.event.pull_request.draft == false && forgejo.actor != 'FrontierATC' # Frontier
     runs-on: ubuntu-latest
+    container:
+      image: node:20-bookworm
     steps:
-      - uses: actions/checkout@v4.2.2
-      - name: Setup submodule
-        run: |
-          git submodule update --init --recursive
-      - name: Pull engine updates
-        uses: space-wizards/submodule-dependency@v0.1.5
-      - name: Update Engine Submodules
-        run: |
-          cd RobustToolbox/
-          git submodule update --init --recursive
-      - name: Setup .NET Core
-        uses: actions/setup-dotnet@v4.1.0
+      - name: Checkout
+        uses: actions/checkout@v7
         with:
-          dotnet-version: 9.0.x
-      - name: Install dependencies
-        run: dotnet restore
+          submodules: recursive
+
+      - name: Setup SS14
+        uses: ./.github/actions/setup-ss14
+
       - name: Build
         run: dotnet build --configuration Release --no-restore /p:WarningsAsErrors= /m
+
       - name: Run Linter
         run: dotnet run --project Content.YAMLLinter/Content.YAMLLinter.csproj --no-build

@@ -1,29 +1,35 @@
 name: PR Changelogs
+# Required Vars:
+# Variables:
+#   CHANGELOG_DIR - changelog file path, for HL should be `Resources/Changelog/HardlightChangelog.yml`
+#   CHANGELOG_EMAIL - Email address to associate with the changelog commits
+#   CHANGELOG_USER - User to show as the author of the changelog commits
+#   CHANGELOG_MESSAGE - Message to show in the changelog commits
+# Secrets:
+#   BOT_TOKEN - token for bot that will be uploading the change
+#   CHANGELOG_DISCORD_WEBHOOK - Discord webhook for pushing the changelog to
 concurrency:
   group: commit_action
   cancel-in-progress: false
-  queue: max
 
 on:
-  pull_request_target:
+  pull_request:
     types: [closed]
 
 env:
-  GITHUB_TOKEN: ${{ secrets.BOT_TOKEN }}
+  FORGEJO_TOKEN: ${{ secrets.BOT_TOKEN }}
   CHANGELOG_DIR: ${{ vars.CHANGELOG_DIR }}
-  PR_NUMBER: ${{ github.event.number }}
+  PR_NUMBER: ${{ forgejo.event.number }}
 
 jobs:
   changelog:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == true
-    permissions:
-      contents: write
+    if: forgejo.event.pull_request.merged == true
     steps:
       - name: Checkout Master
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
         with:
-          token: ${{ secrets.BOT_TOKEN || secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.BOT_TOKEN || secrets.FORGEJO_TOKEN }}
           ref: master
 
       - name: Setup Git
@@ -33,7 +39,7 @@ jobs:
         shell: bash
 
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v7
         with:
           node-version: 18.x
 
@@ -58,7 +64,7 @@ jobs:
           git push
         shell: bash
         continue-on-error: true
-    
+
       - name: Publish changelog
         run: Tools/actions_changelog_publish_discord.py
         env:

@@ -3,7 +3,6 @@ name: Check Merge Conflicts
 concurrency:
   group: labels
   cancel-in-progress: false
-  queue: max
 
 on:
   pull_request_target:
@@ -11,20 +10,64 @@ on:
       - opened
       - synchronize
       - reopened
-      - ready_for_review
-
-permissions:
-  contents: write
-  pull-requests: write
 
 jobs:
-  Label:
-    if: ( github.event.pull_request.draft == false ) && ( github.actor != 'PJBot' ) && ( github.actor != 'xemeraldwingx-dot' ) # Hardlight
+  Add:
+    if: ( forgejo.event.pull_request.draft == false ) && ( forgejo.actor != 'PJBot' ) && ( forgejo.actor != 'xemeraldwingx-dot' ) # Hardlight
     runs-on: ubuntu-latest
     steps:
-      - name: Check for Merge Conflicts
-        uses: eps1lon/actions-label-merge-conflict@v3.0.0
+      - name: Fetch Actions
+        # Needed because we aren't checking out the full repo, so just grab the bits we care about
+        shell: bash
+        run: |
+          mkdir actions && cd actions
+          git init
+          git remote add origin "${{ forgejo.server_url }}/${{ forgejo.repository }}.git"
+          git config core.sparseCheckout true
+          echo ".github/actions/*" >> .git/info/sparse-checkout
+          git fetch --depth=1 --filter=blob:none origin master
+          git checkout master
+          cd ..
+          mv actions/.github .github
+
+      - name: Wait a moment and check PR mergeable status again
+        # Mergeable isn't calculated straight on PR update, so wait a few seconds for update and check again
+        shell: bash
+        id: mergeCheck
+        run: |
+          sleep 15
+          apt update
+          apt install -y jq
+          MERGE_VALID=$(curl -s \
+            -H "Authorization: token ${{ inputs.token }}" \
+            "${{ forgejo.server_url }}/api/v1/repos/${{ forgejo.repository }}/pulls/${{ forgejo.event.issue.number || forgejo.event.pull_request.number }}/" \
+            | jq '.mergeable')
+          echo "mergeable=$MERGE_VALID" >> $FORGEJO_OUTPUT
+
+      - name: Add Label
+        if: steps.mergeCheck.outputs.mergeable == false
+        uses: ./.github/actions/forgejo-pr-label
         with:
-          dirtyLabel: "S: Merge Conflict"
-          repoToken: "${{ secrets.GITHUB_TOKEN }}"
-          commentOnDirty: "This pull request has conflicts, please resolve those before we can evaluate the pull request."
+          pr: ${{ forgejo.event.issue.number || forgejo.event.pull_request.number }}
+          label: 'S: Merge Conflict'
+          action: 'add'
+          token: ${{ env.FORGEJO_TOKEN }}
+
+      - name: Add Comment
+        if: steps.mergeCheck.outputs.mergeable == false
+        uses: ./.github/actions/forgejo-pr-comment
+        with:
+          pr: ${{ forgejo.event.issue.number || forgejo.event.pull_request.number }}
+          body: "This pull request has conflicts, please resolve those before we can evaluate the pull request."
+          action: 'add'
+          token: ${{ env.FORGEJO_TOKEN }}
+
+      - name: Remove Label
+        if: steps.mergeCheck.outputs.mergeable == true
+        continue-on-error: true
+        uses: ./.github/actions/forgejo-pr-label
+        with:
+          pr: ${{ forgejo.event.issue.number || forgejo.event.pull_request.number }}
+          label: 'S: Merge Conflict'
+          action: 'remove'
+          token: ${{ env.FORGEJO_TOKEN }}

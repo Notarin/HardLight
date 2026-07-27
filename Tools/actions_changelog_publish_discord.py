@@ -4,10 +4,8 @@
 Sends updates to a Discord webhook for new changelog entry from the DISCORD_CHANGELOG environment var
 """
 
-import os
-import json
-
-import requests
+import os, json
+import urllib.request
 
 DEBUG = False
 DEBUG_CHANGELOG = '{"author": "TestAuthor","changes": [{"type": "Tweak", "message": "Test Tweak"},{"type": "Fix", "message": "Test Fix"}],"id": 123,"time": "2026-06-07T05:23:06.0000000+00:00"}'
@@ -51,14 +49,20 @@ def send_discord_webhook(lines: list[str]):
     content = "".join(lines)
     body = get_discord_body(content)
 
-    response = requests.post(DISCORD_WEBHOOK_URL, json=body)
-    response.raise_for_status()
+    payload = json.dumps(body).encode('utf-8')
+    headers = {
+        'Content-Type': 'Application/json',
+        'User-Agent': 'Python-URLLib'
+    }
+    req = urllib.request.Request(DISCORD_WEBHOOK_URL, data=payload, headers=headers, method='POST')
+    with urllib.request.urlopen(req):
+        pass
 
 
 def changelog_to_message_lines(newChangelog: dict) -> list[str]:
     """Process structured changelog entry into a list of lines making up a formatted message."""
     message_lines = []
-    
+
     contributor_name = newChangelog.get("author", "N/A")
 
     message_lines.append(f"**{contributor_name}** updated:\n")

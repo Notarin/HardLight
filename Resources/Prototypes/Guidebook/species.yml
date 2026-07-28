@@ -38,6 +38,7 @@
     - Avali
     - Kitsune # DeltaV
     - Skrell
+    - Synth # HardLight
     - Thaven # Impstation
     - Tajaran  # Floof - Tajaran Update b7660b9
 
@@ -139,13 +140,18 @@
   name: species-name-skrell
   text: "/ServerInfo/Guidebook/Mobs/Skrell.xml"
 
+- type: guideEntry # HardLight
+  id: Synth
+  name: species-name-synth
+  text: "/ServerInfo/_HL/Guidebook/Mobs/Synth.xml"
+
   # Impstation
 - type: guideEntry
   id: Thaven
   name: species-name-thaven
   text: "/ServerInfo/_Impstation/Guidebook/Mobs/Thaven.xml"
 
-  # Starlight 
+  # Starlight
 - type: guideEntry
   id: Felionoid
   name: species-name-felionoid

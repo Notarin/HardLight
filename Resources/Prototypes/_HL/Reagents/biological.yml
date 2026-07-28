@@ -1,27 +1,32 @@
 - type: reagent
+  parent: Blood
   id: SynthBlood
   name: reagent-name-synth-blood
   group: Biological
   desc: reagent-desc-synth-blood
   flavor: metallic
-  color: "#3f1b66cc" # HardLight: 00b8f5<3f1b66cc
+  color: "#3F1B66"
   recognizable: true
-  generateBloodData: false # Hardlight
   physicalDesc: reagent-physical-desc-reflective
   metabolisms:
     Drink:
+      metabolismRate: 1
       effects:
       - !type:SatiateThirst
-        factor: 0.25 # HardLight: 1.5<0.25
-      - !type:HealthChange # HardLight
+        factor: 0.25
+        conditions:
+        - !type:OrganType
+          type: Synth
+      - !type:HealthChange
         damage:
           types:
             Poison: 0.25
         conditions:
-        - !type:OrganType # HardLight
+        - !type:OrganType
           type: Synth
           shouldHave: false
-  footstepSound:
-    collection: FootstepBlood
-    params:
-      volume: 6
+      - !type:ModifyBloodLevel
+        amount: 1.5 # 0.45 after modifiers
+        conditions:
+        - !type:OrganType
+          type: Synth

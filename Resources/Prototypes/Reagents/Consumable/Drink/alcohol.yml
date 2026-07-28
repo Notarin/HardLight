@@ -147,6 +147,9 @@
         - !type:OrganType
           type: Dwarf
           shouldHave: false
+        - !type:OrganType # HardLight
+          type: Synth
+          shouldHave: false
         damage:
           types:
             Poison: 1
@@ -179,17 +182,11 @@
         - !type:OrganType
           type: Dwarf
           shouldHave: false
-        - !type:OrganType # HardLight: Prevents Synths vomiting
+        - !type:OrganType # HardLight
           type: Synth
           shouldHave: false
       - !type:Drunk
         boozePower: 2
-      - !type:AdjustReagent # HardLight: Allows Synths to convert ethanol to nutriment
-        conditions:
-        - !type:OrganType
-          type: Synth
-        reagent: Nutriment
-        amount: 0.75
 
 - type: reagent
   id: Gin

@@ -1132,3 +1132,45 @@
     wideAnimationRotation: 180
     soundHit:
       path: /Audio/_Starlight/Voice/Shadekin/scream_f1.ogg
+
+- type: entity
+  parent: BasePlushie
+  id: PlushieSynth
+  name: Synth Plushie
+  description: Marketable and stylish, with built-in speakers to remind everyone why people call Synths beepers.
+  components:
+  - type: Sprite
+    sprite: _HL/Objects/Fun/HLToys.rsi
+    state: synthplush
+  - type: Item
+    heldprefix: synthplush
+  - type: EmitSoundOnUse
+    sound: &PlushieSynthSound
+      path: /Audio/Machines/twobeep.ogg
+      params:
+        volume: 2
+  - type: EmitSoundOnLand
+    sound: *PlushieSynthSound
+  - type: EmitSoundOnActivate
+    sound: *PlushieSynthSound
+  - type: EmitSoundOnTrigger
+    sound: *PlushieSynthSound
+  - type: EmitSoundOnCollide
+    sound: *PlushieSynthSound
+  - type: Food
+    requiresSpecialDigestion: true
+    useSound: *PlushieSynthSound
+  - type: MeleeWeapon
+    soundHit: *PlushieSynthSound
+
+- type: entity
+  parent: PlushieSynth
+  id: PlushieNookie
+  name: Nookie Plushie
+  description: Self-proclaimed "Momma Synth," now as a marketable plushie. No less offensively pink than the real one.
+  components:
+  - type: Sprite
+    sprite: _HL/Objects/Fun/HLToys.rsi
+    state: nookieplush
+  - type: Item
+    heldprefix: nookieplush

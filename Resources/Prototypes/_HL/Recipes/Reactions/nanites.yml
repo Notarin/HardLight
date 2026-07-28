@@ -1,31 +1,20 @@
 - type: reaction
-  id: InertNanites
-  requiredMixerCategories:
-  - Electrolysis
-  quantized: true
-  reactants:
-    Water:
-      amount: 15
-    Silver:
-      amount: 5
-    Carbon:
-      amount: 5
-    Silicon:
-      amount: 5
-  products:
-    InertNanites: 15
-
-- type: reaction
   id: Nanites
   requiredMixerCategories:
   - Electrolysis
   quantized: true
   reactants:
-    Lipozine:
-      amount: 10
-    InertNanites:
+    Carbon:
       amount: 5
-    Necrosol:
+    Copper:
       amount: 5
+    Fersilicite:
+      amount: 5
+    Hydrogen:
+      amount: 2
+    Oxygen:
+      amount: 1
+    SulfuricAcid:
+      amount: 1
   products:
-    Nanites: 5
+    Nanites: 20

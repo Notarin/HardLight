@@ -10,7 +10,7 @@ using Content.Shared.EntityEffects;
 using Content.Shared.FixedPoint;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
-using Content.Server.Mobs.Components; // HardLight
+using Content.Shared._HL.Railroading.Events;
 using Robust.Shared.Collections;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
@@ -218,29 +218,24 @@ namespace Content.Server.Body.Systems
                     if (!float.IsFinite(scale) || scale <= 0f)
                         continue;
 
-                    // HardLight start: Check if the entity is a Synth and scale effects accordingly when dead
                     var actualEntity = ent.Comp2?.Body ?? solutionEntityUid.Value;
-                    var isSynth = HasComp<HLSynthComponent>(actualEntity);
 
                     // if it's possible for them to be dead, and they are,
-                    // then we shouldn't process any effects (unless they're a synth),
+                    // then we shouldn't process any effects,
                     // but should probably still remove reagents
-                    var isDead = false;
                     if (TryComp<MobStateComponent>(actualEntity, out var state))
                     {
-                        isDead = _mobStateSystem.IsDead(actualEntity, state);
-                        if (!proto.WorksOnTheDead && !isSynth && isDead)
+                        if (!proto.WorksOnTheDead && _mobStateSystem.IsDead(actualEntity, state))
                             continue;
                     }
 
-                    if (isSynth && isDead && !proto.WorksOnTheDead)
-                        scale *= 0.75f;
-
                     if (!float.IsFinite(scale) || scale <= 0f)
                         continue;
-                    // HardLight end
 
                     var args = new EntityEffectReagentArgs(actualEntity, EntityManager, ent, solution, mostToRemove, proto, null, scale);
+
+                    var metabolized = new RailroadingReagentMetabolizedEvent(new ReagentQuantity(reagent, mostToRemove));
+                    RaiseLocalEvent(actualEntity, ref metabolized);
 
                     // do all effects, if conditions apply
                     foreach (var effect in entry.Effects)

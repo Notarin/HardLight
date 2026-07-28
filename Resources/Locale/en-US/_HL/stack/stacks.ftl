@@ -15,6 +15,7 @@ stack-bullet-casings-12_gauge = brass shotgun shell(s) (12 gauge)
 stack-argocyte-plates-heavy = heavy argocyte plate(s)
 stack-argocyte-plates-light = light argocyte plate(s)
 stack-plastitanium = plastitanium
+stack-synthbloodpack = synth bloodpack
 
 stack-nullenforcer-cable = {$amount ->
     [1] phase-barrier cable

@@ -1,0 +1,183 @@
+using Content.Shared._HL.Silicons.Synths.Battery;
+using Content.Server.Body.Components;
+using Content.Shared.Mobs;
+using Content.Shared.Mobs.Components;
+using Content.Shared.Popups;
+using Content.Server.Power.Components;
+using Content.Server.Power.EntitySystems;
+using Robust.Server.Audio;
+using Robust.Shared.Audio;
+using Robust.Shared.Containers;
+using Robust.Shared.Timing;
+
+namespace Content.Server._HL.Silicons.Synths.Battery;
+
+public sealed partial class SynthBatteryPowerSystem : EntitySystem
+{
+    [Dependency] private SynthBatteryEffectsSystem _effects = default!;
+    [Dependency] private SynthBatterySystem _synthBattery = default!;
+    [Dependency] private AudioSystem _audio = default!;
+    [Dependency] private BatterySystem _battery = default!;
+    [Dependency] private SharedContainerSystem _container = default!;
+    [Dependency] private SharedPopupSystem _popup = default!;
+    [Dependency] private IGameTiming _timing = default!;
+
+    public override void Initialize()
+    {
+        SubscribeLocalEvent<SynthBatteryComponent, BeingGibbedEvent>(OnBeingGibbed);
+    }
+
+    public override void Update(float frameTime)
+    {
+        base.Update(frameTime);
+
+        var query = EntityQueryEnumerator<SynthBatteryComponent, MobStateComponent>();
+        while (query.MoveNext(out var uid, out var synthBattery, out var mobState))
+        {
+            if (mobState.CurrentState == MobState.Dead ||
+                _timing.CurTime < synthBattery.NextUpdate)
+                continue;
+
+            synthBattery.NextUpdate = _timing.CurTime + synthBattery.UpdateRate;
+            UpdatePower((uid, synthBattery, mobState), (float) synthBattery.UpdateRate.TotalSeconds);
+        }
+    }
+
+    private void UpdatePower(Entity<SynthBatteryComponent, MobStateComponent> ent, float delta)
+    {
+        EnsureStartingBattery(ent);
+
+        if (!_synthBattery.TryGetBattery(ent.Owner, out var battery, ent.Comp1))
+        {
+            SetUnpowered(ent, true);
+            return;
+        }
+
+        var charge = battery.Value.Comp.CurrentCharge;
+        if (charge <= 0f)
+        {
+            SetUnpowered(ent, true);
+            return;
+        }
+
+        SetUnpowered(ent, false);
+
+        if (ent.Comp1.DrawRate <= 0f)
+            return;
+
+        var oldPercent = GetChargeLevel(battery.Value) * 100f;
+        var changed = _battery.ChangeCharge(battery.Value.Owner, -ent.Comp1.DrawRate * delta, battery.Value.Comp);
+
+        if (changed < 0f)
+        {
+            var newPercent = GetChargeLevel(battery.Value) * 100f;
+            UpdateLowPowerWarning(ent, oldPercent, newPercent);
+
+            if (battery.Value.Comp.CurrentCharge <= 0f)
+                SetUnpowered(ent, true);
+        }
+    }
+
+    private void EnsureStartingBattery(Entity<SynthBatteryComponent, MobStateComponent> ent)
+    {
+        if (ent.Comp1.StartingBatteryInserted)
+            return;
+
+        if (_synthBattery.TryGetBattery(ent.Owner, out _, ent.Comp1))
+        {
+            ent.Comp1.StartingBatteryInserted = true;
+            return;
+        }
+
+        if (ent.Comp1.StartingBattery is not { } prototype)
+        {
+            ent.Comp1.StartingBatteryInserted = true;
+            return;
+        }
+
+        if (!_synthBattery.TryGetBatteryContainer(ent.Owner, ent.Comp1.OrganSlot, out _, out var container))
+            return;
+
+        var battery = Spawn(prototype, Transform(ent.Owner).Coordinates);
+        if (!HasComp<BatteryComponent>(battery) ||
+            !_container.Insert(battery, container))
+        {
+            QueueDel(battery);
+            return;
+        }
+
+        ent.Comp1.StartingBatteryInserted = true;
+    }
+
+    private void UpdateLowPowerWarning(Entity<SynthBatteryComponent> ent, float oldPercent, float newPercent)
+    {
+        var warn = false;
+        foreach (var threshold in ent.Comp.WarningPercentages)
+        {
+            if (oldPercent > threshold && newPercent <= threshold)
+            {
+                warn = true;
+                break;
+            }
+        }
+
+        if (!warn)
+            return;
+
+        if (ent.Comp.BatteryLowText != null)
+            _popup.PopupEntity(Loc.GetString(ent.Comp.BatteryLowText), ent, PopupType.LargeCaution);
+
+        PlaySound(ent, ent.Comp.BatteryLowSound);
+    }
+
+    private static float GetChargeLevel(Entity<BatteryComponent> battery)
+    {
+        if (battery.Comp.MaxCharge <= 0f)
+            return 0f;
+
+        return battery.Comp.CurrentCharge / battery.Comp.MaxCharge;
+    }
+
+    private void PlaySound(Entity<SynthBatteryComponent> ent, SoundSpecifier? sound)
+    {
+        if (sound == null)
+            return;
+
+        _audio.PlayPvs(sound, ent);
+    }
+
+    public void SetUnpowered(Entity<SynthBatteryComponent> ent, bool unpowered)
+    {
+        if (ent.Comp.Unpowered == unpowered)
+            return;
+
+        ent.Comp.Unpowered = unpowered;
+        Dirty(ent);
+        _effects.RefreshUnpoweredEffects(ent);
+
+        if (!unpowered)
+            return;
+
+        if (ent.Comp.BatteryDeadText != null)
+            _popup.PopupEntity(Loc.GetString(ent.Comp.BatteryDeadText), ent, PopupType.LargeCaution);
+
+        PlaySound(ent, ent.Comp.BatteryDeadSound);
+    }
+
+    private void OnBeingGibbed(Entity<SynthBatteryComponent> ent, ref BeingGibbedEvent args)
+    {
+        if (!_synthBattery.TryGetBatteryContainer(ent.Owner, ent.Comp.OrganSlot, out _, out var container))
+            return;
+
+        for (var i = container.ContainedEntities.Count - 1; i >= 0; i--)
+        {
+            var contained = container.ContainedEntities[i];
+
+            if (!HasComp<BatteryComponent>(contained))
+                continue;
+
+            if (_container.Remove(contained, container, destination: Transform(ent).Coordinates))
+                args.GibbedParts.Add(contained);
+        }
+    }
+}

@@ -1,103 +1,102 @@
 - type: reagent
-  id: InertNanites
-  name: reagent-name-inertnanites
-  group: Medicine
-  desc: reagent-desc-inertnanites
-  physicalDesc: reagent-physical-desc-shiny
-  flavor: metallic
-  color: "#79b5b4"
-  recognizable: true
-  generateBloodData: false
-  worksOnTheDead: false
-  metabolisms:
-    Medicine:
-      metabolismRate: 0.5
-      effects:
-      - !type:HealthChange
-        conditions:
-        - !type:OrganType
-          type: Synth
-        damage:
-          groups:
-            Brute: -1.5
-            Burn: -1.5
-          types:
-            Bloodloss: -0.5
-            Poison: -1
-            Radiation: -1
-      - !type:ModifyBleedAmount
-        conditions:
-        - !type:OrganType
-          type: Synth
-        amount: -0.15
-      - !type:ModifyBloodLevel
-        conditions:
-        - !type:OrganType
-          type: Synth
-        amount: 2.5
-      - !type:HealthChange
-        conditions:
-        - !type:OrganType
-          type: Synth
-          shouldHave: false
-        damage:
-          types:
-            Poison: 0.2
-  footstepSound:
-    collection: FootstepBlood
-    params:
-      volume: 6
-
-- type: reagent
   id: Nanites
   name: reagent-name-nanites
   group: Medicine
   desc: reagent-desc-nanites
   physicalDesc: reagent-physical-desc-glowing
+  contrabandSeverity: Minor
   flavor: metallic
-  color: "#8afffd"
+  color: "#8AFFFd"
   recognizable: true
-  generateBloodData: false
-  spoilConditions:
-    spoilsInto: InertNanites
-    bloodstreamPreserve: true
   worksOnTheDead: true
+  reactiveEffects:
+    Acidic:
+      methods: [ Touch ]
+      effects:
+      - !type:HealthChange
+        ignoreResistances: false
+        conditions:
+        - !type:HasTag
+          tag: Synth
+          invert: true
+        damage:
+          types:
+            Slash: 0.3
+            Piercing: 0.2
+            Blunt: 0.1
+      - !type:Emote
+        emote: Scream
+        probability: 0.1
   metabolisms:
     Medicine:
-      metabolismRate: 0.25
       effects:
       - !type:HealthChange
         conditions:
         - !type:OrganType
           type: Synth
+        - !type:ReagentThreshold
+          reagent: Nanites
+          max: 10
         damage:
           groups:
-            Brute: -3
-            Burn: -3
+            Brute: -10 # -3 after modifiers
+            Burn: -15 # -4 after modifiers
+            Toxin: -10 # -3 after modifiers
           types:
-            Bloodloss: -1
-            Poison: -2
-            Radiation: -2
+            Bloodloss: -3 # -0.9 after modifiers
+            Cellular: -5 # -1.5 after modifiers
       - !type:ModifyBleedAmount
         conditions:
         - !type:OrganType
           type: Synth
-        amount: -0.3
+        - !type:ReagentThreshold
+          reagent: Nanites
+          max: 10
+        amount: -1.25 # -0.375 after modifiers
       - !type:ModifyBloodLevel
         conditions:
         - !type:OrganType
           type: Synth
-        amount: 5
+        - !type:ReagentThreshold
+          reagent: Nanites
+          max: 10
+        amount: 5 # 1.5 after modifiers
+      # OD
+      - !type:HealthChange
+        conditions:
+        - !type:OrganType
+          type: Synth
+        - !type:ReagentThreshold
+          reagent: Nanites
+          min: 10
+        damage:
+          groups:
+            Brute: 5 # 1.5 after modifiers
+      - !type:ModifyBleedAmount
+        conditions:
+        - !type:ReagentThreshold
+          reagent: Nanites
+          min: 10
+        - !type:OrganType
+          type: Synth
+        amount: 0.5 # 0.15 after modifiers
+      - !type:Jitter
+        conditions:
+        - !type:OrganType
+          type: Synth
+        - !type:ReagentThreshold
+          reagent: Nanites
+          min: 10
+    Poison:
+      effects:
       - !type:HealthChange
         conditions:
         - !type:OrganType
           type: Synth
           shouldHave: false
         damage:
-          types:
-            Slash: 3
-            Piercing: 3
-            Blunt: 1
+          groups:
+            Brute: 6
       - !type:Emote
         conditions:
         - !type:OrganType

@@ -95,9 +95,6 @@
               Poison: 2
         - !type:ChemVomit
           conditions:
-          - !type:OrganType # HardLight: Prevents Synths vomiting
-            type: Synth
-            shouldHave: false
           - !type:ReagentThreshold
             min: 2
           probability: 0.2
@@ -534,7 +531,7 @@
           - !type:OrganType
             type: Vox
             shouldHave: false
-          - !type:OrganType # HardLight: Prevents Synths vomiting
+          - !type:OrganType # HardLight
             type: Synth
             shouldHave: false
       - !type:HealthChange
@@ -556,8 +553,6 @@
         - !type:OrganType
           type: Animal
           shouldHave: true
-        - !type:OrganType # HardLight
-          type: Synth
         reagent: Protein
         amount: 0.5
       - !type:AdjustReagent # Frontier: Goblin

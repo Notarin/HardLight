@@ -56,9 +56,6 @@
           min: 20
       - !type:PopupMessage
         conditions:
-        - !type:OrganType # HardLight: Prevents Synths becoming nauseous
-          type: Synth
-          shouldHave: false
         - !type:ReagentThreshold
           min: 20
         type: Local
@@ -67,9 +64,6 @@
         probability: 0.2
       - !type:ChemVomit
         conditions:
-        - !type:OrganType # HardLight: Prevents Synths vomiting
-          type: Synth
-          shouldHave: false
         - !type:ReagentThreshold
           min: 20
         probability: 0.02
@@ -178,9 +172,6 @@
             Poison: 1.5
       - !type:ChemVomit
         conditions:
-        - !type:OrganType # HardLight: Prevents Synths vomiting
-          type: Synth
-          shouldHave: false
         - !type:ReagentThreshold
           min: 30
         probability: 0.02
@@ -488,9 +479,6 @@
             Radiation: -1
       - !type:ChemVomit
         conditions:
-        - !type:OrganType # HardLight: Prevents Synths vomiting
-          type: Synth
-          shouldHave: false
         probability: 0.02
       - !type:HealthChange
         conditions:
@@ -517,9 +505,6 @@
       effects:
       - !type:ChemVomit
         conditions:
-        - !type:OrganType # HardLight: Prevents Synths vomiting
-          type: Synth
-          shouldHave: false
         - !type:ReagentThreshold
           min: 4
         probability: 0.3
@@ -639,9 +624,6 @@
       - !type:ChemVomit
         probability: 0.15
         conditions:
-        - !type:OrganType # HardLight: Prevents Synths vomiting
-          type: Synth
-          shouldHave: false
         - !type:ReagentThreshold
           min: 30
       - !type:GenericStatusEffect
@@ -821,10 +803,6 @@
             type: Feroxi
           factor: 2
         - !type:ModifyBloodLevel
-          conditions:
-          - !type:OrganType # HardLight
-           type: Synth
-           shouldHave: false
           amount: 6
     Medicine: #Starlight
       metabolismRate: 0.5
@@ -1194,17 +1172,11 @@
         probability: 0.2
       - !type:ChemVomit
         conditions:
-        - !type:OrganType # HardLight: Prevents Synths vomiting
-          type: Synth
-          shouldHave: false
         - !type:ReagentThreshold
           min: 30
         probability: 0.02
       - !type:ChemVomit
         conditions:
-        - !type:OrganType # HardLight: Prevents Synths vomiting
-          type: Synth
-          shouldHave: false
         - !type:ReagentThreshold
           reagent: Arithrazine
           min: 1
@@ -1362,9 +1334,6 @@
             Piercing: 0.5
       - !type:ChemVomit
         conditions:
-        - !type:OrganType # HardLight: Prevents Synths vomiting
-          type: Synth
-          shouldHave: false
         - !type:ReagentThreshold
           min: 15
         probability: 0.1

@@ -149,6 +149,7 @@
   parent: SurgeryAttachHeadSynth
   id: SurgeryAttachLeftArmSynth
   name: Attach Left Arm
+  categories: [ HideSpawnMenu ]
   components:
   - type: SurgeryPartRemovedCondition
     part: Arm
@@ -159,6 +160,7 @@
   parent: SurgeryAttachHeadSynth
   id: SurgeryAttachRightArmSynth
   name: Attach Right Arm
+  categories: [ HideSpawnMenu ]
   components:
   - type: SurgeryPartRemovedCondition
     part: Arm
@@ -169,6 +171,7 @@
   parent: SurgeryAttachHeadSynth
   id: SurgeryAttachLeftLegSynth
   name: Attach Left Leg
+  categories: [ HideSpawnMenu ]
   components:
   - type: SurgeryPartRemovedCondition
     part: Leg
@@ -179,6 +182,7 @@
   parent: SurgeryAttachHeadSynth
   id: SurgeryAttachRightLegSynth
   name: Attach Right Leg
+  categories: [ HideSpawnMenu ]
   components:
   - type: SurgeryPartRemovedCondition
     part: Leg
@@ -213,6 +217,7 @@
   parent: SurgeryAttachLeftHandSynth
   id: SurgeryAttachRightHandSynth
   name: Attach Right Hand
+  categories: [ HideSpawnMenu ]
   components:
   - type: SurgeryPartCondition
     part: Arm
@@ -250,6 +255,7 @@
   parent: SurgeryAttachLeftFootSynth
   id: SurgeryAttachRightFootSynth
   name: Attach Right Foot
+  categories: [ HideSpawnMenu ]
   components:
   - type: SurgeryPartCondition
     part: Leg

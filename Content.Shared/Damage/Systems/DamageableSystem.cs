@@ -17,6 +17,7 @@ using Robust.Shared.Utility;
 
 // Shitmed Change
 using Content.Shared.Body.Systems;
+using Content.Shared._FarHorizons.Damage; // HardLight
 using Content.Shared._Shitmed.Targeting;
 using Robust.Shared.Random;
 
@@ -246,6 +247,14 @@ namespace Content.Shared.Damage
                 {
                     return damage;
                 }
+            }
+
+            // HardLight: Allow direct healing to be adjusted even when resistances are ignored.
+            if (!ignoreGlobalModifiers && damage.GetTotal() < 0)
+            {
+                var ev = new HealModifyEvent(damage, origin);
+                RaiseLocalEvent(uid.Value, ev);
+                damage = ev.Damage;
             }
 
             if (!ignoreGlobalModifiers)

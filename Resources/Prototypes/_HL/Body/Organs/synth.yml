@@ -44,15 +44,14 @@
   - type: Brain
   - type: Input
     context: "ghost"
-  - type: InputMover
   - type: Examiner
+  - type: TypingIndicator
+    proto: robot
+  - type: Speech
+    speechSounds: Pai
   - type: BlockMovement
   - type: OrganBrainSynth
   - type: BorgBrain
-  - type: Tag
-    tags:
-    - MindTransferTarget
-    - CannotSuicide
 
 - type: entity
   id: OrganSynthEyes
@@ -177,6 +176,12 @@
         - ReagentId: Nanites
           Quantity: 10
   - type: Stomach
+    specialDigestible:
+      tags:
+      - RawMaterial
+      - ConstructionMaterial
+      - Ore
+    isSpecialDigestibleExclusive: false
   - type: Metabolizer
     maxReagents: 5
     metabolizerTypes: [ Synth ]

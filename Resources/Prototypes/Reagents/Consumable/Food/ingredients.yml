@@ -134,9 +134,6 @@
       - !type:ChemVomit
         probability: 0.1
         conditions:
-        - !type:OrganType # HardLight: Prevents Synths vomiting
-          type: Synth
-          shouldHave: false
         - !type:ReagentThreshold
           min: 6
 
@@ -168,8 +165,8 @@
   flavor: oily
   flavorMinimum: 0.05
   color: olive
-  meltingPoint: -6.0 #Nyano - Summary: Add melting point for fryer. 
-  boilingPoint: 299.0 #Nyano - Summary: Add boiling point for fryer. 
+  meltingPoint: -6.0 #Nyano - Summary: Add melting point for fryer.
+  boilingPoint: 299.0 #Nyano - Summary: Add boiling point for fryer.
   recognizable: true
   metabolisms:
     Food:

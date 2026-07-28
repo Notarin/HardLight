@@ -37,7 +37,7 @@
       Steel: 100
   - type: StaticPrice
     price: 30
-  
+
 - type: entity
   name: abductor's screwdriver
   parent: [ BaseItem, BaseC2Contraband ]
@@ -76,7 +76,7 @@
       Steel: 100
   - type: StaticPrice
     price: 30
-    
+
 - type: entity
   name: abductor's wrench
   parent: [ Wrench, BaseC2Contraband ]
@@ -97,7 +97,7 @@
       - Anchoring
     useSound:
       path: /Audio/Items/ratchet.ogg
-      
+
 - type: entity
   name: abductor's multitool
   parent: [ Multitool, BaseC2Contraband ]
@@ -119,7 +119,7 @@
   components:
   - type: EmitSoundOnLand
     sound:
-      path: /Audio/Items/crowbar_drop.ogg  
+      path: /Audio/Items/crowbar_drop.ogg
   - type: Sprite
     sprite: _Starlight/Objects/Tools/makeshift_omnitool.rsi
     state: wrench
@@ -127,13 +127,13 @@
     sprite: _Starlight/Objects/Tools/makeshift_omnitool.rsi
   - type: Prying
     enabled: false
-    speedModifier: 0.25 
+    speedModifier: 0.25
   - type: ToolTileCompatible
     delay: 4
   - type: Tool
     qualities:
       - Screwing
-    speedModifier: 0.25  
+    speedModifier: 0.25
   - type: MeleeWeapon
     wideAnimationRotation: -135
     damage:
@@ -308,7 +308,7 @@
         Slash: 2 #WHY IS WIZ SO OBSESSED WITH PIERCE
     soundHit:
       path: "/Audio/Items/wirecutter.ogg"
-    attackRate: 2 
+    attackRate: 2
   - type: Item
     sprite: _Starlight/Objects/Tools/improvised_wirecutters.rsi
     storedRotation: -90
@@ -405,7 +405,7 @@
   components:
   - type: EmitSoundOnLand
     sound:
-      path: /Audio/Items/crowbar_drop.ogg  
+      path: /Audio/Items/crowbar_drop.ogg
   - type: Sprite
     sprite: _Starlight/Objects/Tools/improvised_omnitool.rsi
     layers:
@@ -654,7 +654,7 @@
   components:
   - type: EmitSoundOnLand
     sound:
-      path: /Audio/Items/crowbar_drop.ogg  
+      path: /Audio/Items/crowbar_drop.ogg
   - type: Sprite
     sprite: _Starlight/Objects/Tools/forged_omnitool.rsi
     layers:
@@ -943,6 +943,80 @@
   suffix: Admeme
   name: experimental RPLD
   description: A bluespace-enhanced rapid plumbing device that passively generates its own compressed matter.
+  components:
+  - type: AutoRecharge
+    rechargeDuration: 1
+
+# RPD
+
+- type: entity
+  id: RPD
+  parent: RCD
+  name: RPD
+  description: A device used to rapidly pipe things.
+  components:
+  - type: RCD
+    isRPD: true
+    availablePrototypes:
+    - PipeFourway
+    - PipeStraight
+    - PipeBend
+    - PipeTJunction
+    - OutletInjector
+    - ManualValve
+    - VolumetricPump
+    - PressurePump
+    - VentScrubber
+    - PressureValve
+    - DualPortVent
+    - VentGas
+    - VentPassive
+    - MixerGas
+    - Radiator
+    - RadiatorBend
+    - SignalValve
+    - CanisterPort
+    - FilterGas
+    - PipeHalf
+    - PipeManifold
+    - PressureRegulator
+    - PassiveGate
+    - AirSensor
+    - AirAlarm
+    - SensorPipe
+    - PortStorage
+    - Deconstruct
+  - type: LimitedCharges
+    maxCharges: 90
+  - type: Sprite
+    sprite: _Starlight/Objects/Tools/rpd.rsi
+
+- type: entity
+  id: RPDEmpty
+  parent: RPD
+  suffix: Empty
+  components:
+  - type: LimitedCharges
+    lastCharges: -1
+
+- type: entity
+  id: RPDRecharging
+  parent: RPD
+  name: experimental RPD
+  description: Cyborg-mounted Rapid Piping Device which creates compressed matter on the fly using an internal fabricator.
+  suffix: AutoRecharge
+  components:
+  - type: LimitedCharges
+    maxCharges: 20
+  - type: AutoRecharge
+    rechargeDuration: 10
+
+- type: entity
+  id: RPDExperimental
+  parent: RPD
+  suffix: Admeme
+  name: experimental RPD
+  description: A bluespace-enhanced rapid piping device that passively generates its own compressed matter.
   components:
   - type: AutoRecharge
     rechargeDuration: 1

@@ -10,9 +10,9 @@
       visibleLayers:
       - enum.SubfloorLayers.FirstLayer
     - type: Sprite
-      sprite: Structures/Piping/Atmospherics/gascanisterport.rsi
+      sprite: Structures/Piping/Atmospherics/gasstorageport.rsi
       layers:
-        - state: gasCanisterPort
+        - state: gasStoragePort
           map: [ "enum.SubfloorLayers.FirstLayer", "enum.PipeVisualLayers.Pipe" ]
     - type: Appearance
     - type: AtmosPipeLayers

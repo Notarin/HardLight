@@ -22,6 +22,9 @@
     - type: Dermis
     inverse: true
     reattaching: true
+  - type: SurgerySpeciesCondition # HardLight
+    speciesBlacklist:
+    - Synth
 
 - type: entity
   parent: SurgeryBase
@@ -39,6 +42,9 @@
   - type: SurgeryOrganCondition
     organ:
     - type: Dermis
+  - type: SurgerySpeciesCondition # HardLight
+    speciesBlacklist:
+    - Synth
 
 - type: entity
   parent: SurgeryStepBase
@@ -74,6 +80,9 @@
     - type: CerebralImplant
     inverse: true
     reattaching: true
+  - type: SurgerySpeciesCondition # HardLight
+    speciesBlacklist:
+    - Synth
 
 - type: entity
   parent: SurgeryBase
@@ -93,3 +102,6 @@
   - type: SurgeryOrganCondition
     organ:
     - type: CerebralImplant
+  - type: SurgerySpeciesCondition # HardLight
+    speciesBlacklist:
+    - Synth

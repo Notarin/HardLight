@@ -16,6 +16,7 @@ using Content.Shared._Shitmed.Medical.Surgery.Effects.Step;
 using Content.Shared._Shitmed.Medical.Surgery.Steps;
 using Content.Shared._Shitmed.Medical.Surgery.Steps.Parts;
 using Content.Shared._Shitmed.Medical.Surgery.Tools;
+using Content.Shared._HL.Silicons.Synths.Surgery; // HardLight
 //using Content.Shared.Mood;
 using Content.Shared.Inventory;
 using Content.Shared.Item;
@@ -53,6 +54,7 @@ public abstract partial class SharedSurgerySystem
         SubSurgery<SurgeryAddOrganStepComponent>(OnAddOrganStep, OnAddOrganCheck);
         SubSurgery<SurgeryRemoveOrganStepComponent>(OnRemoveOrganStep, OnRemoveOrganCheck);
         SubSurgery<SurgeryAffixOrganStepComponent>(OnAffixOrganStep, OnAffixOrganCheck);
+        SubscribeLocalEvent<SurgeryAddOrganStepComponent, SurgeryCanPerformStepEvent>(OnAddOrganCanPerform); // HardLight
         SubSurgery<SurgeryAddMarkingStepComponent>(OnAddMarkingStep, OnAddMarkingCheck);
         SubSurgery<SurgeryRemoveMarkingStepComponent>(OnRemoveMarkingStep, OnRemoveMarkingCheck);
         Subs.BuiEvents<SurgeryTargetComponent>(SurgeryUIKey.Key, subs =>
@@ -442,7 +444,9 @@ public abstract partial class SharedSurgerySystem
 
         foreach (var tool in args.Tools)
         {
-            if (HasComp(tool, firstOrgan.Component.GetType())
+            // HardLight: Reject organs that do not match the target's body type.
+            if (IsOrganCompatibleWithBody(args.Body, tool)
+                && HasComp(tool, firstOrgan.Component.GetType())
                 && TryComp<OrganComponent>(tool, out var insertedOrgan))
             {
                 _body.TryCreateOrganSlot(args.Part, insertedOrgan.SlotId, out _, partComp);
@@ -461,6 +465,38 @@ public abstract partial class SharedSurgerySystem
             }
         }
     }
+
+    // HardLight start
+    private void OnAddOrganCanPerform(Entity<SurgeryAddOrganStepComponent> ent, ref SurgeryCanPerformStepEvent args)
+    {
+        if (args.Invalid != StepInvalidReason.None)
+            return;
+
+        var foundOrgan = false;
+        foreach (var tool in args.Tools)
+        {
+            if (!HasComp<OrganComponent>(tool))
+                continue;
+
+            foundOrgan = true;
+            if (IsOrganCompatibleWithBody(args.Body, tool))
+                return;
+        }
+
+        if (!foundOrgan)
+            return;
+
+        args.Invalid = StepInvalidReason.MissingTool;
+        args.Popup = "This organ is not compatible with the patient!";
+    }
+
+    private bool IsOrganCompatibleWithBody(EntityUid body, EntityUid organ)
+    {
+        var bodyIsSynth = TryComp<HumanoidAppearanceComponent>(body, out var humanoid)
+            && humanoid.Species == "Synth";
+        return bodyIsSynth == HasComp<SynthOrganComponent>(organ);
+    }
+    // HardLight end
 
     private void OnAddOrganCheck(Entity<SurgeryAddOrganStepComponent> ent, ref SurgeryStepCompleteCheckEvent args)
     {

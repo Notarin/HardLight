@@ -108,6 +108,12 @@ public sealed partial class StaminaSystem : SharedStaminaSystem
                               (entity.Comp1.CritThreshold - entity.Comp1.AnimationThreshold),
             0f,
             1f); // The things I do for project 0 warnings
+
+        if (float.IsNaN(step)) // HL: Fixing a crash when StaminaDamage and CritThreshold are the same, you can't stun entities that have these matching anyways.
+        {
+            step = 1f;
+        }
+
         var frequency = entity.Comp1.FrequencyMin + step * entity.Comp1.FrequencyMod;
         var jitter = entity.Comp1.JitterAmplitudeMin + step * entity.Comp1.JitterAmplitudeMod;
         var breathing = entity.Comp1.BreathingAmplitudeMin + step * entity.Comp1.BreathingAmplitudeMod;

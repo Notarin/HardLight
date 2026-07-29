@@ -96,9 +96,9 @@
   color: "#005DBF" # strong blue
 
 - type: company
-  id: HELGG
+  id: HDS
   form: Protagonist
-  name: Holy Empire of the Lords Golden Grace
+  name: Harpy Defense Systems
   color: "#C4A23C"
 
 - type: company

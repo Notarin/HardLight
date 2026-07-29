@@ -78,6 +78,6 @@
     spriteLayer: enum.ToggleVisuals.Layer
     stateOff: dogborg
     stateOn: dogborgballz
-    VisibleWhenEnabled: true
+    #VisibleWhenEnabled: true
     movementStateOff: dogborg_moving
     movementStateOn: dogborg_movingballz

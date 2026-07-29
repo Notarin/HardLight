@@ -72,7 +72,7 @@
   - type: FlashImmunity
   - type: SpriteStateToggle
     spriteLayer: enum.ToggleVisuals.Layer
-    VisibleWhenEnabled: true
+    #VisibleWhenEnabled: true
     stateOff: glitz
     stateOn: glitzballz
     movementStateOff: glitzmoving

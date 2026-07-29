@@ -77,6 +77,6 @@
     spriteLayer: enum.ToggleVisuals.Layer
     stateOff: petalborg
     stateOn: petalborgballz
-    VisibleWhenEnabled: true
+    #VisibleWhenEnabled: true
     movementStateOff: petalborg_moving
     movementStateOn: petalborg_movingballz

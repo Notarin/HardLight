@@ -126,7 +126,7 @@
     spriteLayer: enum.ToggleVisuals.Layer
     stateOff: quadsprite
     stateOn: quadspriteballz
-    VisibleWhenEnabled: true
+    #VisibleWhenEnabled: true
     movementStateOff: quadsprite_moving
     movementStateOn: quadsprite_movingballz
 
@@ -207,7 +207,7 @@
     spriteLayer: enum.ToggleVisuals.Layer
     stateOff: quadspritesec
     stateOn: quadspritesecballz
-    VisibleWhenEnabled: true
+    #VisibleWhenEnabled: true
     movementStateOff: quadspritesec_moving
     movementStateOn: quadspritesec_movingballz
 
@@ -292,7 +292,7 @@
     spriteLayer: enum.ToggleVisuals.Layer
     stateOff: SyndQuad
     stateOn: SyndQuadballz
-    VisibleWhenEnabled: true
+    #VisibleWhenEnabled: true
     movementStateOff: SyndQuad_moving
     movementStateOn: SyndQuad_movingballz
   # Note: No toggle added here; no provided SyndQuad ballz states.
@@ -344,7 +344,7 @@
     spriteLayer: enum.ToggleVisuals.Layer
     stateOff: assaultquad
     stateOn: assaultquadballz
-    VisibleWhenEnabled: true
+    #VisibleWhenEnabled: true
     movementStateOff: assaultquad_moving
     movementStateOn: assaultquad_movingballz
 
@@ -395,7 +395,7 @@
     spriteLayer: enum.ToggleVisuals.Layer
     stateOff: chews
     stateOn: chewsballz
-    VisibleWhenEnabled: true
+    #VisibleWhenEnabled: true
     movementStateOff: chews_moving
     movementStateOn: chews_movingballz
 
@@ -446,7 +446,7 @@
     spriteLayer: enum.ToggleVisuals.Layer
     stateOff: littlehelper
     stateOn: littlehelperballz
-    VisibleWhenEnabled: true
+    #VisibleWhenEnabled: true
     movementStateOff: littlehelper_moving
     movementStateOn: littlehelper_movingballz
 
@@ -497,7 +497,7 @@
     spriteLayer: enum.ToggleVisuals.Layer
     stateOff: wolfdog
     stateOn: wolfdogballz
-    VisibleWhenEnabled: true
+    #VisibleWhenEnabled: true
     movementStateOff: wolfdog_moving
     movementStateOn: wolfdog_movingballz
   - type: FootstepModifier
@@ -621,7 +621,7 @@
     spriteLayer: enum.ToggleVisuals.Layer
     stateOff: quadspriteCC
     stateOn: quadspriteCCballz
-    VisibleWhenEnabled: true
+    #VisibleWhenEnabled: true
     movementStateOff: quadspriteCC_moving
     movementStateOn: quadspriteCC_movingballz
 
@@ -698,7 +698,7 @@
     spriteLayer: enum.ToggleVisuals.Layer
     stateOff: quadspritesalv
     stateOn: quadspritesalvballz
-    VisibleWhenEnabled: true
+    #VisibleWhenEnabled: true
     movementStateOff: quadspritesalv_moving
     movementStateOn: quadspritesalv_movingballz
 
@@ -779,7 +779,7 @@
     spriteLayer: enum.ToggleVisuals.Layer
     stateOff: quadspriteserv
     stateOn: quadspriteservballz
-    VisibleWhenEnabled: true
+    #VisibleWhenEnabled: true
     movementStateOff: quadspriteserv_moving
     movementStateOn: quadspriteserv_movingballz
 
@@ -860,7 +860,7 @@
     spriteLayer: enum.ToggleVisuals.Layer
     stateOff: engieborg
     stateOn: engieborgballz
-    VisibleWhenEnabled: true
+    #VisibleWhenEnabled: true
     movementStateOff: engieborg_moving
     movementStateOn: engieborg_movingballz
   # Note: No toggle added here; no provided engieborg ballz states.
@@ -945,7 +945,7 @@
     spriteLayer: enum.ToggleVisuals.Layer
     stateOff: quadspritemed
     stateOn: quadspritemedballz
-    VisibleWhenEnabled: true
+    #VisibleWhenEnabled: true
     movementStateOff: quadspritemed_moving
     movementStateOn: quadspritemed_movingballz
   # - type: LanguageKnowledge
@@ -1068,7 +1068,7 @@
     spriteLayer: enum.ToggleVisuals.Layer
     stateOff: chip_quadsprite
     stateOn: chip_quadspriteballz
-    VisibleWhenEnabled: true
+    #VisibleWhenEnabled: true
     movementStateOff: chip_quadsprite
     movementStateOn: chip_quadsprite_movingballz
 
@@ -1143,7 +1143,7 @@
     spriteLayer: enum.ToggleVisuals.Layer
     stateOff: XenoQuad
     stateOn: XenoQuadballz
-    VisibleWhenEnabled: true
+    #VisibleWhenEnabled: true
     movementStateOff: XenoQuad_moving
     movementStateOn: XenoQuad_movingballz
   - type: SpriteMovement

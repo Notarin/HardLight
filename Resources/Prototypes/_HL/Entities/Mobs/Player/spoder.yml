@@ -150,7 +150,7 @@
         state: spider
   - type: SpriteStateToggle
     spriteLayer: enum.ToggleVisuals.Layer
-    VisibleWhenEnabled: true
+    #VisibleWhenEnabled: true
     stateOff: spider
     stateOn: spiderballz
     movementStateOff: spider_moving

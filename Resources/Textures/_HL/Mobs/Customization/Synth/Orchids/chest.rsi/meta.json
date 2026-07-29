@@ -8,27 +8,27 @@
   },
   "states": [
     {
-      "name": "synth_belly_scutes",
+      "name": "core",
       "directions": 4
     },
     {
-      "name": "synth_chest_core",
+      "name": "cross",
       "directions": 4
     },
     {
-      "name": "synth_chest_fracture",
+      "name": "fracture",
       "directions": 4
     },
     {
-      "name": "synth_chest_streak",
+      "name": "scutes",
       "directions": 4
     },
     {
-      "name": "synth_cross",
+      "name": "star",
       "directions": 4
     },
     {
-      "name": "synth_star",
+      "name": "streak",
       "directions": 4
     }
   ]

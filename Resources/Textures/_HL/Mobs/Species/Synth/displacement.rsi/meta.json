@@ -11,20 +11,11 @@
     },
     "states": [
         {
+            "name": "gloves",
+            "directions": 4
+        },
+        {
             "name": "head",
-            "directions": 4
-        },
-        {
-            "name": "mask",
-            "directions": 4
-        },
-        {
-
-            "name": "back",
-            "directions": 4
-        },
-        {
-            "name": "outerclothing",
             "directions": 4
         },
         {
@@ -32,7 +23,15 @@
             "directions": 4
         },
         {
-            "name": "hand",
+            "name": "mask",
+            "directions": 4
+        },
+        {
+            "name": "neck",
+            "directions": 4
+        },
+        {
+            "name": "outerclothing",
             "directions": 4
         },
         {

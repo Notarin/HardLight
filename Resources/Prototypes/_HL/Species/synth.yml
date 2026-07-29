@@ -4,10 +4,11 @@
   roundStart: true
   prototype: MobSynth
   sprites: MobSynthSprites
-  defaultSkinTone: "#ffda93"
+  defaultSkinTone: "#ffffff"
   markingLimits: MobSynthMarkingLimits
   dollPrototype: MobSynthDummy
-  skinColoration: AnyColour
+  skinColoration: Hues
+  customName: true
 
 - type: speciesBaseSprites
   id: MobSynthSprites
@@ -46,75 +47,85 @@
     FacialHair:
       points: 0
       required: false
-    Snout:
-      points: 2
-      required: true
-      defaultMarkings: [ SynthVisor ]
-    Tail:
-      points: 2 # I already know this will cause visual issues, but there's ways to circumvent this, so. I'm leaving it at 2 for now.
-      required: true
-      defaultMarkings: [ SynthTail ]
     HeadTop:
-      points: 3
-      required: true
-    Chest:
       points: 2
       required: false
-    Legs:
-      points: 8
+      defaultMarkings: [ SynthAntenna ]
+    HeadSide:
+      points: 2
+      required: false
+    Head:
+      points: 3
+      required: false
+      defaultMarkings: [ SynthVisor ]
+    Snout:
+      points: 1
+      required: true
+      defaultMarkings: [ SynthSnout ]
+    Chest:
+      points: 3
       required: false
     Arms:
-      points: 8
+      points: 4
       required: false
-
-- type: humanoidBaseSprite
-  id: MobSynthAnyMarking
-
-- type: humanoidBaseSprite
-  id: MobSynthMarkingMatchSkin
-  markingsMatchSkin: true
+    Legs:
+      points: 4
+      required: false
+    Tail:
+      points: 2
+      required: false
+      defaultMarkings: [ SynthTail ]
+    UndergarmentTop:
+      points: 3
+      required: false
+    UndergarmentBottom:
+      points: 3
+      required: false
+    Genital:
+      points: 35
+      required: false
 
 - type: humanoidBaseSprite
   id: MobSynthEyes
   baseSprite:
     sprite: _HL/Mobs/Species/Synth/parts.rsi
-    state: eyes_synth
+    state: eyes
 
 - type: humanoidBaseSprite
   id: MobSynthHead
   baseSprite:
     sprite: _HL/Mobs/Species/Synth/parts.rsi
-    state: head_m
+    state: head
 
 - type: humanoidBaseSprite
   id: MobSynthHeadMale
   baseSprite:
     sprite: _HL/Mobs/Species/Synth/parts.rsi
-    state: head_m
+    state: head
 
 - type: humanoidBaseSprite
   id: MobSynthHeadFemale
   baseSprite:
     sprite: _HL/Mobs/Species/Synth/parts.rsi
-    state: head_f
+    state: head
 
 - type: humanoidBaseSprite
   id: MobSynthTorso
   baseSprite:
     sprite: _HL/Mobs/Species/Synth/parts.rsi
-    state: torso_m
+    state: torso
 
 - type: humanoidBaseSprite
   id: MobSynthTorsoMale
   baseSprite:
     sprite: _HL/Mobs/Species/Synth/parts.rsi
-    state: torso_m
+    state: torso
 
 - type: humanoidBaseSprite
   id: MobSynthTorsoFemale
   baseSprite:
     sprite: _HL/Mobs/Species/Synth/parts.rsi
-    state: torso_f
+    state: torso
 
 - type: humanoidBaseSprite
   id: MobSynthLLeg

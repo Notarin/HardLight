@@ -286,10 +286,21 @@ public sealed partial class MarkingSet
                 continue;
             }
 
+            var defaultMarkings = new List<Marking>(); // HardLight
             var index = 0;
             while (points.Points > 0 && index < points.DefaultMarkings.Count)
             {
-                if (markingManager.Markings.TryGetValue(points.DefaultMarkings[index], out var prototype))
+                // HardLight-edit start
+                var defaultMarking = points.DefaultMarkings[index];
+                if (Markings.TryGetValue(category, out var existing)
+                    && existing.Any(marking => marking.MarkingId == defaultMarking))
+                {
+                    index++;
+                    continue;
+                }
+                // HardLight-edit end
+
+                if (markingManager.Markings.TryGetValue(defaultMarking, out var prototype)) // HardLight
                 {
                     var colors = MarkingColoring.GetMarkingLayerColors(
                             prototype,
@@ -298,12 +309,24 @@ public sealed partial class MarkingSet
                             this
                         );
                     // Coyote marking improvements
-                    var marking = new Marking(points.DefaultMarkings[index], colors, false, prototype.MarkingCategory); //starlight
+                    var marking = new Marking(defaultMarking, colors, false, prototype.MarkingCategory); //starlight, // HardLight: points.DefaultMarkings[index]>defaultMarking
 
-                    AddBack(category, marking);
+                    defaultMarkings.Add(marking); // HardLight: AddBack(category, marking)>defaultMarkings.Add(marking)
+                    points.Points--;
                 }
 
                 index++;
+            }
+
+            if (defaultMarkings.Count > 0) // HardLight
+            {
+                if (!Markings.TryGetValue(category, out var markings))
+                {
+                    markings = new();
+                    Markings[category] = markings;
+                }
+
+                markings.InsertRange(0, defaultMarkings);
             }
         }
     }

@@ -1140,8 +1140,11 @@
   description: Marketable and stylish, with built-in speakers to remind everyone why people call Synths beepers.
   components:
   - type: Sprite
-    sprite: _HL/Objects/Fun/HLToys.rsi
-    state: synthplush
+    sprite: _HL/Objects/Fun/HLtoys.rsi
+    layers:
+    - state: synthplush
+    - state: synthplush-unshaded
+      shader: unshaded
   - type: Item
     heldprefix: synthplush
   - type: EmitSoundOnUse
@@ -1170,7 +1173,10 @@
   description: Self-proclaimed "Momma Synth," now as a marketable plushie. No less offensively pink than the real one.
   components:
   - type: Sprite
-    sprite: _HL/Objects/Fun/HLToys.rsi
-    state: nookieplush
+    sprite: _HL/Objects/Fun/HLtoys.rsi
+    layers:
+    - state: nookieplush
+    - state: nookieplush-unshaded
+      shader: unshaded
   - type: Item
     heldprefix: nookieplush

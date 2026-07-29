@@ -294,7 +294,7 @@
     - FootstepSound
     - DoorBumpOpener
     - AnomalyHost
-  - type: LayingDown # WD EDIT
+  - type: Crawler # HardLight
   - type: Targeting # Shitmed Change
   - type: SurgeryTarget # Shitmed Change
   - type: CanEscapeInventory # GoobStation - Escape being picked up by players

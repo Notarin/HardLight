@@ -179,7 +179,7 @@
   # HardLight end
   - type: SpriteStateToggle
     spriteLayer: enum.ToggleVisuals.Layer
-    VisibleWhenEnabled: true
+    #VisibleWhenEnabled: true
     stateOff: quadspritemoss
     stateOn: quadspritemossballz
     movementStateOff: quadspritemoss_moving
@@ -233,7 +233,7 @@
     name: Verzical
   - type: SpriteStateToggle
     spriteLayer: enum.ToggleVisuals.Layer
-    VisibleWhenEnabled: true
+    #VisibleWhenEnabled: true
     stateOff: engieservborg
     stateOn: engieservborgballz
     movementStateOff: engieservborg_moving
@@ -287,7 +287,7 @@
     name: Verzical
   - type: SpriteStateToggle
     spriteLayer: enum.ToggleVisuals.Layer
-    VisibleWhenEnabled: true
+    #VisibleWhenEnabled: true
     stateOff: OrchidBase
     stateOn: OrchidBelly
     movementStateOff: orchid_moving
@@ -345,7 +345,7 @@
     name: Verzical
   - type: SpriteStateToggle
     spriteLayer: enum.ToggleVisuals.Layer
-    VisibleWhenEnabled: true
+    #VisibleWhenEnabled: true
     stateOff: abyssquad
     stateOn: abyssquadballz
     movementStateOff: abyssquad_moving

@@ -1015,7 +1015,7 @@
     spriteLayer: enum.ToggleVisuals.Layer
     stateOff: Apex
     stateOn: Apexballz
-    VisibleWhenEnabled: true
+    #VisibleWhenEnabled: true
     movementStateOff: Apex_moving
     movementStateOn: Apex_movingballz
 

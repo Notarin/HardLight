@@ -26,7 +26,8 @@ jobs:
           cd ..
           mv actions/.github .github
 
-      - uses: ./.github/actions/labeler
-        with:
-          pr_no: ${{ forgejo.event.issue.number || forgejo.event.pull_request.number }}
-          token: ${{ env.FORGEJO_TOKEN }}
+      - name: Run Labeler
+        env:
+          PR: ${{ forgejo.event.issue.number || forgejo.event.pull_request.number }}
+          TOKEN: ${{ env.FORGEJO_TOKEN }}
+        uses: ./.github/actions/labeler

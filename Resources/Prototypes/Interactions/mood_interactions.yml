@@ -8,8 +8,13 @@
   range: {max: 1}
   hideByRequirement: true
   requirement:
-    !type:MobStateRequirement
-    inverted: true
+    !type:ComplexRequirement # Hardlight: Untouchable Trait. Single requirement -> multiple requirements.
+    requirements:
+    - !type:MobStateRequirement
+      inverted: true
+    - !type:EntityWhitelistRequirement
+      blacklist:
+        components: [ Untouchable ] # Hardlight: Untouchable Trait
 # Flooftier doesn't have mood
   action:
     !type:NoOpAction
@@ -35,6 +40,8 @@
     - !type:EntityWhitelistRequirement
       whitelist:
         components: [HumanoidAppearance, BorgChassis ]  # Hardlight change by popular demand you can now PET BORGS BABY woooo
+      blacklist:
+        components: [ Untouchable ] # Hardlight Trait
 # Flooftier doesn't have mood
   action:
     !type:NoOpAction
@@ -53,7 +60,7 @@
       allowedStates: [Alive]
     - !type:EntityWhitelistRequirement
       blacklist:
-        components: [HumanoidAppearance]
+        components: [HumanoidAppearance, Untouchable] # Hardlight: Untouchable Trait
 # Flooftier doesn't have mood
   action:
     !type:NoOpAction

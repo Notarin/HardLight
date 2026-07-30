@@ -9,6 +9,7 @@ using Robust.Server.Player;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
+using Content.Server.Maps;
 
 namespace Content.IntegrationTests.Tests._HL;
 
@@ -44,9 +45,7 @@ public sealed class StationPaySystemTests
         {
             DummyTicker = false,
             Connected = true,
-            InLobby = true,
-            Fresh = true,
-            Destructive = true // Messing with the round state breaks the pair for future tests
+            InLobby = true
         });
 
         var server = pair.Server;
@@ -66,6 +65,7 @@ public sealed class StationPaySystemTests
 
         await server.WaitAssertion(() =>
         {
+            Assert.That(server.CfgMan.GetCVar(CCVars.GameMap), Is.EqualTo(TestMapId)); // HL: Make sure we're on the right map
             Assert.That(ticker.PlayerGameStatuses[userId], Is.EqualTo(PlayerGameStatus.JoinedGame));
 
             var session = playerMan.GetSessionById(userId);
@@ -89,5 +89,75 @@ public sealed class StationPaySystemTests
         await server.WaitPost(() => ticker.RestartRound());
         await pair.CleanReturnAsync();
 
+    }
+
+    /// <summary>
+    /// HardLight
+    /// Lets a round start with a player, then restarts the round. Once player is back in the round, run through and make sure they're getting paid.
+    /// </summary>
+    [Test]
+    public async Task StationJobPaysDuringRestartedRoundTest()
+    {
+        await using var pair = await PoolManager.GetServerClient(new PoolSettings
+        {
+            DummyTicker = false,
+            Connected = true,
+            InLobby = true
+        });
+
+        var server = pair.Server;
+        var ticker = server.System<GameTicker>();
+        var gameMapManager = server.Resolve<IGameMapManager>();
+        var playerMan = server.ResolveDependency<IPlayerManager>();
+        var userId = pair.Client.User!.Value;
+
+        server.CfgMan.SetCVar(CCVars.GameMap, TestMapId);
+        server.CfgMan.SetCVar(CCVars.GameStationPayoutDelay, TimeSpan.FromSeconds(1));
+
+        ticker.ToggleReadyAll(true);
+        await server.WaitPost(() => ticker.StartRound());
+        await pair.RunTicksSync(10);
+
+        // Setup the new round
+        gameMapManager.SelectMap(TestMapId);
+        await server.WaitPost(() => ticker.RestartRound());
+        gameMapManager.SelectMap(TestMapId);
+        ticker.ToggleReadyAll(true);
+        await pair.RunTicksSync(10);
+
+        // Start the new round
+        await server.WaitPost(() => ticker.StartRound());
+        await pair.RunTicksSync(10);
+
+        Assert.That(ticker.RunLevel, Is.EqualTo(GameRunLevel.InRound));
+
+        EntityUid attached = default;
+        int initialBalance = 0;
+
+        await server.WaitAssertion(() =>
+        {
+            Assert.That(server.CfgMan.GetCVar(CCVars.GameMap), Is.EqualTo(TestMapId));
+            Assert.That(ticker.PlayerGameStatuses[userId], Is.EqualTo(PlayerGameStatus.JoinedGame));
+
+            var session = playerMan.GetSessionById(userId);
+            Assert.That(session.AttachedEntity, Is.Not.Null);
+
+            attached = session.AttachedEntity!.Value;
+            Assert.That(server.EntMan.TryGetComponent<BankAccountComponent>(attached, out var account), Is.True);
+            initialBalance = account!.Balance;
+        });
+
+        await pair.RunTicksSync(180);
+
+        await server.WaitAssertion(() =>
+        {
+            Assert.That(ticker.RunLevel, Is.EqualTo(GameRunLevel.InRound));
+
+            var account = server.EntMan.GetComponent<BankAccountComponent>(attached);
+            Assert.That(account.Balance, Is.GreaterThan(initialBalance), "Expected station pay to deposit during the round once the payout delay elapsed.");
+        });
+
+        await server.WaitPost(() => ticker.RestartRound());
+        await pair.CleanReturnAsync();
     }
 }

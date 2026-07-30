@@ -46,6 +46,8 @@ public static partial class PoolManager
         (CCVars.VoteTimerPreset.Name, "120"),
         (CCVars.VoteTimerMap.Name, "120"),
         (CCVars.VoteTimerAlone.Name, "120"),
-        (CCVars.RoundRestartTime.Name, "1200")
+        (CCVars.RoundRestartTime.Name, "1200"),
+        (HLCCVars.VendingRestockTickMs.Name, "1"),
+        (CCVars.GameMapPool.Name, "EmptyMapPool") // HL: Rather than forcing the map vote system to pick the default, we just define a single map pool
     };
 }

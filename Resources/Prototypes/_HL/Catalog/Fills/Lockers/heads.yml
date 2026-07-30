@@ -72,6 +72,7 @@
     - id: ClothingMaskGasCaptain
     - id: JetpackCaptainFilled
     - id: NFTankO2N2EqualFilled # Frontier
+    - id: ClothingShoesBootsMagCaptain # Hardlight
 
 # No laser locker, used when the antique laser is placed in the special display crate
 - type: entity

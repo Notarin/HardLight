@@ -15,6 +15,7 @@
     whitelist:
       tags:
         - BorgWearable
+        - Medal
   - name: id
     slotTexture: id
     slotFlags: IDCARD
@@ -55,6 +56,17 @@
     whitelist:
       tags:
         - BorgWearable
+  - name: neck
+    slotTexture: neck
+    slotFlags: NECK
+    uiWindowPos: 0,2
+    strippingWindowPos: 0,1
+    displayName: Neck
+    offset: 0.02, -0.1
+    whitelist:
+      tags:
+        - BorgWearable
+        - Medal
 
 
 
@@ -79,6 +91,17 @@
     whitelist:
       tags:
         - BorgWearable
+  - name: neck
+    slotTexture: neck
+    slotFlags: NECK
+    uiWindowPos: 0,2
+    strippingWindowPos: 0,1
+    displayName: Neck
+    offset: 0.02, -0.1
+    whitelist:
+      tags:
+        - BorgWearable
+        - Medal
 
 
 
@@ -103,6 +126,17 @@
     whitelist:
       tags:
         - BorgWearable
+  - name: neck
+    slotTexture: neck
+    slotFlags: NECK
+    uiWindowPos: 0,2
+    strippingWindowPos: 0,1
+    displayName: Neck
+    offset: 0.02, -0.1
+    whitelist:
+      tags:
+        - BorgWearable
+        - Medal
 
 
 
@@ -127,3 +161,14 @@
     whitelist:
       tags:
         - BorgWearable
+  - name: neck
+    slotTexture: neck
+    slotFlags: NECK
+    uiWindowPos: 0,2
+    strippingWindowPos: 0,1
+    displayName: Neck
+    offset: 0.02, -0.1
+    whitelist:
+      tags:
+        - BorgWearable
+        - Medal

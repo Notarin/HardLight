@@ -21,3 +21,11 @@
   id: BioSynthEyes
   name: bio-synthetic eyes
   description: These eyes can be transplanted into any living organism and it will adapt to its recipient.
+
+# HL START: Add Stomach to surgery
+- type: entity
+  parent: OrganHumanStomach
+  id: BioSynthStomach
+  name: bio-synthetic stomach
+  description: This stomach can be transplanted into any living organism and it will adapt to its recipient.
+# HL END

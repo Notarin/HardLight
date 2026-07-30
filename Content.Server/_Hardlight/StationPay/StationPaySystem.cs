@@ -163,6 +163,8 @@ public sealed class StationPaySystem : EntitySystem
             if (!GetJobForEntity(uid, out _))
                 continue;
 
+            if (_scheduledPayouts.ContainsKey(uid)) // HL: Make sure we remove any old schedules because the timer has reset
+                _scheduledPayouts.Remove(uid);
             TrySchedulePayout(uid);
         }
     }

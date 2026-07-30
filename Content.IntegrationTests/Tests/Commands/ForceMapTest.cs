@@ -41,14 +41,11 @@ public sealed class ForceMapTest
           mapNameTemplate: ""Empty""
 ";
 
+    // HL: Swapped GetSelectedMap for GetCVar, as SelectedMap isn't always the map we're on, due to round persistence
     [Test]
     public async Task TestForceMapCommand()
     {
-        await using var pair = await PoolManager.GetServerClient(new PoolSettings
-        {
-            Fresh = true,
-            Destructive = true // HL: Messing with the round state breaks any future tests using this pool
-        });
+        await using var pair = await PoolManager.GetServerClient();
         var server = pair.Server;
 
         var entMan = server.EntMan;
@@ -59,27 +56,27 @@ public sealed class ForceMapTest
         await server.WaitAssertion(() =>
         {
             // Make sure we're set to the default map
-            Assert.That(gameMapMan.GetSelectedMap()?.ID, Is.EqualTo(DefaultMapName),
+            Assert.That(configManager.GetCVar(CCVars.GameMap), Is.EqualTo(DefaultMapName), // HL
                 $"Test didn't start on expected map ({DefaultMapName})!");
 
             // Try changing to a map that doesn't exist
             consoleHost.ExecuteCommand($"forcemap {BadMapName}");
-            Assert.That(gameMapMan.GetSelectedMap()?.ID, Is.EqualTo(DefaultMapName),
+            Assert.That(configManager.GetCVar(CCVars.GameMap), Is.EqualTo(DefaultMapName), // HL
                 $"Forcemap succeeded with a map that does not exist ({BadMapName})!");
 
             // Try changing to a valid map
             consoleHost.ExecuteCommand($"forcemap {TestMapEligibleName}");
-            Assert.That(gameMapMan.GetSelectedMap()?.ID, Is.EqualTo(TestMapEligibleName),
+            Assert.That(configManager.GetCVar(CCVars.GameMap), Is.EqualTo(TestMapEligibleName), // HL
                 $"Forcemap failed with a valid map ({TestMapEligibleName})");
 
             // Try changing to a map that exists but is ineligible
             consoleHost.ExecuteCommand($"forcemap {TestMapIneligibleName}");
-            Assert.That(gameMapMan.GetSelectedMap()?.ID, Is.EqualTo(TestMapIneligibleName),
+            Assert.That(configManager.GetCVar(CCVars.GameMap), Is.EqualTo(TestMapIneligibleName), // HL
                 $"Forcemap failed with valid but ineligible map ({TestMapIneligibleName})!");
 
             // Try clearing the force-selected map
             consoleHost.ExecuteCommand("forcemap \"\"");
-            Assert.That(gameMapMan.GetSelectedMap(), Is.Null,
+            Assert.That(configManager.GetCVar(CCVars.GameMap), Is.EqualTo(""), /// HL
                 $"Running 'forcemap \"\"' did not clear the forced map!");
 
         });
@@ -89,4 +86,5 @@ public sealed class ForceMapTest
 
         await pair.CleanReturnAsync();
     }
+
 }

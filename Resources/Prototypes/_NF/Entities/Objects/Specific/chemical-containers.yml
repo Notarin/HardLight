@@ -193,6 +193,8 @@
   - type: Tag
     tags:
     - Flammable
+  - type: ReagentTank
+    tankType: Fuel
 
 - type: entity
   parent: JerryCan

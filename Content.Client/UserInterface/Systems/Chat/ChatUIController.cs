@@ -42,6 +42,7 @@ using Robust.Shared.Replays;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 using Content.Client.Nyanotrasen.Chat; //Nyano - Summary: chat namespace.
+using Content.Shared.Examine; // HL:
 
 namespace Content.Client.UserInterface.Systems.Chat;
 
@@ -484,6 +485,15 @@ public sealed partial class ChatUIController : UIController
         else
         {
             existing = new List<SpeechBubble>();
+            // HL START: Stop bubbles above max distance, sometimes if an entity teleports between message and bubble it can try to draw off-screen bubbles
+            var sourceTrans = EntityManager.GetComponent<TransformComponent>(_ent.GetEntity(speechData.Message.SenderEntity));
+            var destTrans = EntityManager.GetComponent<TransformComponent>(entity);
+            if (sourceTrans.Coordinates.TryDistance(EntityManager, destTrans.Coordinates, out var dist))
+            {
+                if (dist > ExamineSystemShared.MaxRaycastRange) // Don't create the bubble if it's too far away
+                    return;
+            }
+            // HL End
             _activeSpeechBubbles.Add(entity, existing);
         }
 
@@ -509,6 +519,27 @@ public sealed partial class ChatUIController : UIController
         // Don't enqueue speech bubbles for other maps. TODO: Support multiple viewports/maps?
         if (EntityManager.GetComponent<TransformComponent>(entity).MapID != _eye.CurrentEye.Position.MapId)
             return;
+
+        // HL START: Don't queue speech bubbles for players out of LOS
+        // Stole this code from UpdateQueuedSpeechBubbles
+        if (_examine == null)
+        {
+            return;
+        }
+
+        var player = _player.LocalEntity;
+        var predicate = static (EntityUid uid, (EntityUid compOwner, EntityUid? attachedEntity) data)
+            => uid == data.compOwner || uid == data.attachedEntity;
+        var playerPos = player != null
+            ? _eye.CurrentEye.Position
+            : MapCoordinates.Nullspace;
+        var otherPos = _transform?.GetMapCoordinates(entity) ?? MapCoordinates.Nullspace;
+
+        if (!_examine.InRangeUnOccluded(playerPos, otherPos, 0f, (entity, player), predicate))
+        {
+            return;
+        }
+        // HL END
 
         if (!_queuedSpeechBubbles.TryGetValue(entity, out var queueData))
         {

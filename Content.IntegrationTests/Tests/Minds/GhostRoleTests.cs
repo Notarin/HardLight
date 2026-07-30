@@ -47,10 +47,7 @@ public sealed class GhostRoleTests
         {
             Dirty = true,
             DummyTicker = false,
-            Connected = true,
-            Map = "Empty",
-            Fresh = true,
-            Destructive = true // HL: Round states mess with the test pair
+            Connected = true
         });
         var server = pair.Server;
         var client = pair.Client;

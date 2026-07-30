@@ -27,7 +27,7 @@ public sealed partial class PlantMutateExudeGasses : EntityEffect
 
         // Frontier: List of gasses
         Gas[] gasList =
-        {
+        [
           Gas.Oxygen,
           Gas.Nitrogen,
           Gas.CarbonDioxide,
@@ -35,9 +35,7 @@ public sealed partial class PlantMutateExudeGasses : EntityEffect
           Gas.Ammonia,
           Gas.Plasma,
           Gas.WaterVapor,
-          Gas.Tritium,
-          Gas.Frezon,
-        };
+        ];
         // End Frontier: List of gasses
 
         var random = IoCManager.Resolve<IRobustRandom>();

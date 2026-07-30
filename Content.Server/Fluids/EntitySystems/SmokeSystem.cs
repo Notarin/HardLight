@@ -88,6 +88,9 @@ public sealed class SmokeSystem : EntitySystem
 
     private void OnStartCollide(Entity<SmokeComponent> entity, ref StartCollideEvent args)
     {
+        if (TerminatingOrDeleted(entity) || TerminatingOrDeleted(args.OtherEntity)) // HL: Make sure both entities are still valid
+            return;
+
         if (_smokeAffectedQuery.HasComponent(args.OtherEntity))
             return;
 
@@ -98,6 +101,9 @@ public sealed class SmokeSystem : EntitySystem
 
     private void OnEndCollide(Entity<SmokeComponent> entity, ref EndCollideEvent args)
     {
+        if (TerminatingOrDeleted(entity) || TerminatingOrDeleted(args.OtherEntity)) // HL: Make sure both entities are still valid, we'll check again later because this engine is weird
+            return;
+
         // if we are already in smoke, make sure the thing we are exiting is the current smoke we are in.
         if (_smokeAffectedQuery.TryGetComponent(args.OtherEntity, out var smokeAffectedComponent))
         {
@@ -115,7 +121,7 @@ public sealed class SmokeSystem : EntitySystem
             if (exists && ent == entity.Owner)
                 continue;
 
-            if (!_smokeQuery.HasComponent(ent))
+            if (!_smokeQuery.HasComponent(ent) || TerminatingOrDeleted(ent)) // HL: Make sure ent isn't about to be deleted
                 continue;
 
             smokeAffectedComponent ??= EnsureComp<SmokeAffectedComponent>(args.OtherEntity);
@@ -123,7 +129,7 @@ public sealed class SmokeSystem : EntitySystem
             return; // exit the function so we don't remove the component.
         }
 
-        if (smokeAffectedComponent != null)
+        if (smokeAffectedComponent != null && !TerminatingOrDeleted(args.OtherEntity)) // HL: Make sure ent isn't about to be deleted
             RemComp(args.OtherEntity, smokeAffectedComponent);
     }
 

@@ -174,7 +174,7 @@
   markingCategory: Chest
   speciesRestriction: [ Synth ]
   sprites:
-  - sprite: _HL/Mobs/Customization/Synth/ORchids/chest.rsi
+  - sprite: _HL/Mobs/Customization/Synth/Orchids/chest.rsi
     state: core
 
 - type: marking
@@ -183,7 +183,7 @@
   markingCategory: Chest
   speciesRestriction: [ Synth ]
   sprites:
-  - sprite: _HL/Mobs/Customization/Synth/ORchids/chest.rsi
+  - sprite: _HL/Mobs/Customization/Synth/Orchids/chest.rsi
     state: cross
 
 - type: marking
@@ -192,7 +192,7 @@
   markingCategory: Chest
   speciesRestriction: [ Synth ]
   sprites:
-  - sprite: _HL/Mobs/Customization/Synth/ORchids/chest.rsi
+  - sprite: _HL/Mobs/Customization/Synth/Orchids/chest.rsi
     state: fracture
 
 - type: marking
@@ -219,7 +219,7 @@
   markingCategory: Chest
   speciesRestriction: [ Synth ]
   sprites:
-  - sprite: _HL/Mobs/Customization/Synth/ORchids/chest.rsi
+  - sprite: _HL/Mobs/Customization/Synth/Orchids/chest.rsi
     state: star
 
 - type: marking
@@ -237,7 +237,7 @@
   markingCategory: Chest
   speciesRestriction: [ Synth ]
   sprites:
-  - sprite: _HL/Mobs/Customization/Synth/ORchids/chest.rsi
+  - sprite: _HL/Mobs/Customization/Synth/Orchids/chest.rsi
     state: streak
 
 # Eyes

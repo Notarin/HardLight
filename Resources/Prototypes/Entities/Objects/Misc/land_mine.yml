@@ -42,6 +42,7 @@
   - type: StepTrigger
     requiredTriggeredSpeed: 0
     stepOn: true
+  - type: AvoidableStepTrigger # HardLight
 
 - type: entity
   name: kick mine

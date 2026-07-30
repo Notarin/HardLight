@@ -2933,6 +2933,7 @@
         - ReagentId: Slime
           Quantity: 5
   - type: Produce
+    seedId: KelpSeed
   - type: Damageable
     damageContainer: Biological
   - type: DamageOnHighSpeedImpact

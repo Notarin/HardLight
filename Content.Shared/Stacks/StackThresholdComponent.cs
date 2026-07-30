@@ -1,6 +1,12 @@
-namespace Content.Shared.Stacks.Components;
+using Robust.Shared.GameStates;
 
-[RegisterComponent]
+namespace Content.Shared.Stacks;
+
+/// <summary>
+/// Denotes an item as having thresholded stack visuals.
+/// StackComponent.LayerFunction should be set to Threshold to use this in practice.
+/// </summary>
+[RegisterComponent, NetworkedComponent]
 public sealed partial class StackLayerThresholdComponent : Component
 {
     /// <summary>
@@ -9,5 +15,5 @@ public sealed partial class StackLayerThresholdComponent : Component
     /// Should be sorted in ascending order.
     /// </summary>
     [DataField(required: true)]
-    public List<int> Thresholds = new List<int>();
+    public List<int> Thresholds = new();
 }

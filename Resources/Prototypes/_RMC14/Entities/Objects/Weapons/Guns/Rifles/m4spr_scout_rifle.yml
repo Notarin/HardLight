@@ -37,7 +37,7 @@
     selectedMode: SemiAuto
     availableModes:
     - SemiAuto
-    fireRate: 3
+    fireRate: 2.5
     projectileSpeed: 40
     soundGunshot:
       path: /Audio/_RMC14/Weapons/Guns/Gunshots/gun_m4spr.ogg

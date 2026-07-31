@@ -56,7 +56,7 @@
           tags:
           - RMCMagazineRifleAR10
   - type: GunDamageModifier
-    multiplier: 1.4
+    multiplier: 1
   # - type: RMCWeaponAccuracy
     # accuracyMultiplier: 1.4
     # accuracyMultiplierUnwielded: 0.5

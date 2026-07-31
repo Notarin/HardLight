@@ -13,6 +13,7 @@ namespace Content.IntegrationTests.Tests.Doors
     [TestOf(typeof(AirlockComponent))]
     public sealed class AirlockTest
     {
+        // HL: Added Transform to both entities, it wasn't getting added sometimes, idk man I just work here
         [TestPrototypes]
         private const string Prototypes = @"
 - type: entity
@@ -21,6 +22,7 @@ namespace Content.IntegrationTests.Tests.Doors
   components:
   - type: Physics
     bodyType: Dynamic
+  - type: Transform
   - type: Fixtures
     fixtures:
       fix1:
@@ -36,6 +38,8 @@ namespace Content.IntegrationTests.Tests.Doors
   components:
   - type: Door
   - type: Airlock
+  - type: Transform
+    anchored: true
   - type: DoorBolt
   - type: ApcPowerReceiver
     needsPower: false
@@ -112,12 +116,11 @@ namespace Content.IntegrationTests.Tests.Doors
         [Test]
         public async Task AirlockBlockTest()
         {
-            await using var pair = await PoolManager.GetServerClient(new PoolSettings { Connected = false, DummyTicker = true });
+            await using var pair = await PoolManager.GetServerClient();
             var server = pair.Server;
 
             await server.WaitIdleAsync();
 
-            var mapManager = server.ResolveDependency<IMapManager>();
             var entityManager = server.ResolveDependency<IEntityManager>();
             var physicsSystem = entityManager.System<SharedPhysicsSystem>();
             var xformSystem = entityManager.System<SharedTransformSystem>();
@@ -130,6 +133,7 @@ namespace Content.IntegrationTests.Tests.Doors
             var airlockPhysicsDummyStartingX = -1;
 
             var map = await pair.CreateTestMap();
+            await server.WaitIdleAsync(); // HL: Make sure the map is ready
 
             await server.WaitAssertion(() =>
             {
@@ -174,6 +178,7 @@ namespace Content.IntegrationTests.Tests.Doors
             // _transform.GetMapCoordinates(UID HERE, xform: Assert.That(AirlockPhysicsDummy.Transform).X, Is.GreaterThan(AirlockPhysicsDummyStartingX));
 
             // Blocked by the airlock
+            Assert.That(entityManager.HasComponent<TransformComponent>(airlockPhysicsDummy), Is.True, "Dummy player doesn't have a transform component."); // HL: Add TransfomComp Test
             await server.WaitAssertion(() =>
             {
                 Assert.That(Math.Abs(xformSystem.GetWorldPosition(airlockPhysicsDummy).X - 1), Is.GreaterThan(0.01f));

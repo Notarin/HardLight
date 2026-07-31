@@ -2,7 +2,7 @@
   parent: CMWeaponPistolBase
   id: CMWeaponPistolM77
   name: M77 combat pistol # TODO RMC14 sounds
-  description: Standard issue Marine firearm. Also found in the hands of We-Ya PMC teams. Fires 9mm armor shredding rounds and is capable of 3-round burst.
+  description: Standard issue Marine firearm. Also found in the hands of We-Ya PMC teams. Fires 9x21 Largo armor shredding rounds and is capable of 3-round burst.
   components:
   - type: Sprite
     sprite: _RMC14/Objects/Weapons/Guns/Pistols/m77.rsi
@@ -103,7 +103,7 @@
 - type: entity
   parent: CMBaseMagazinePistol
   id: CMMagazinePistolM77AP
-  name: M77 AP magazine (9mm)
+  name: M77 AP magazine (9x21mm)
   components:
   - type: Tag
     tags:
@@ -128,7 +128,7 @@
 
 - type: entity
   id: CMCartridgePistolM77AP
-  name: cartridge (9mm AP)
+  name: cartridge (9x21mm AP)
   parent: CMCartridgePistolBase
   components:
   - type: Tag

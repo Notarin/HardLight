@@ -112,105 +112,105 @@ public sealed class StationJobsTest
         + "      0: Alive\n"
         + "      200: Dead\n";
 
-        private const string ShipJobPrototypes =
-                "- type: vessel\n"
-                + "  id: TestHiringVessel\n"
-                + "  parent: BaseVessel\n"
-                + "  name: Test Hiring Vessel\n"
-                + "  description: Test hiring vessel.\n"
-                + "  price: 1000\n"
-                + "  category: Small\n"
-                + "  group: Shipyard\n"
-                + "  shuttlePath: /Maps/Test/empty.yml\n"
-                + "  class:\n"
-                + "  - Civilian\n"
-                + "  engine:\n"
-                + "  - Uranium\n"
-                + "\n"
-                + "- type: vessel\n"
-                + "  id: TestCargoVessel\n"
-                + "  parent: BaseVessel\n"
-                + "  name: Test Cargo Vessel\n"
-                + "  description: Test cargo vessel.\n"
-                + "  price: 1000\n"
-                + "  category: Small\n"
-                + "  group: Shipyard\n"
-                + "  shuttlePath: /Maps/Test/empty.yml\n"
-                + "  class:\n"
-                + "  - Cargo\n"
-                + "  engine:\n"
-                + "  - Uranium\n"
-                + "\n"
-                + "- type: vessel\n"
-                + "  id: TestBusVessel\n"
-                + "  parent: BaseVesselBus\n"
-                + "  shuttlePath: /Maps/Test/empty.yml\n"
-                + "\n"
-                + "- type: gameMap\n"
-                + "  id: TestHiringShipStation\n"
-                + "  minPlayers: 0\n"
-                + "  mapName: TestHiringShipStation\n"
-                + "  mapPath: /Maps/Test/empty.yml\n"
-                + "  stations:\n"
-                + "    Station:\n"
-                + "      mapNameTemplate: TestHiringShipStation\n"
-                + "      stationProto: StandardFrontierVessel\n"
-                + "      components:\n"
-                + "        - type: ExtraShuttleInformation\n"
-                + "          vessel: TestHiringVessel\n"
-                + "        - type: StationJobs\n"
-                + "          availableJobs:\n"
-                + "            Mercenary: [0, 2]\n"
-                + "            ContractorInterview: [0, 1]\n"
-                + "            PilotInterview: [0, 1]\n"
-                + "\n"
-                + "- type: gameMap\n"
-                + "  id: TestCargoShipStation\n"
-                + "  minPlayers: 0\n"
-                + "  mapName: TestCargoShipStation\n"
-                + "  mapPath: /Maps/Test/empty.yml\n"
-                + "  stations:\n"
-                + "    Station:\n"
-                + "      mapNameTemplate: TestCargoShipStation\n"
-                + "      stationProto: StandardFrontierVessel\n"
-                + "      components:\n"
-                + "        - type: ExtraShuttleInformation\n"
-                + "          vessel: TestCargoVessel\n"
-                + "        - type: StationJobs\n"
-                + "          availableJobs:\n"
-                + "            MercenaryInterview: [0, 2]\n"
-                + "\n"
-                + "- type: gameMap\n"
-                + "  id: TestSingleSlotShipStation\n"
-                + "  minPlayers: 0\n"
-                + "  mapName: TestSingleSlotShipStation\n"
-                + "  mapPath: /Maps/Test/empty.yml\n"
-                + "  stations:\n"
-                + "    Station:\n"
-                + "      mapNameTemplate: TestSingleSlotShipStation\n"
-                + "      stationProto: StandardFrontierVessel\n"
-                + "      components:\n"
-                + "        - type: ExtraShuttleInformation\n"
-                + "          vessel: TestHiringVessel\n"
-                + "        - type: StationJobs\n"
-                + "          availableJobs:\n"
-                + "            Mercenary: [0, 1]\n"
-                + "\n"
-                + "- type: gameMap\n"
-                + "  id: TestBusShipStation\n"
-                + "  minPlayers: 0\n"
-                + "  mapName: TestBusShipStation\n"
-                + "  mapPath: /Maps/Test/empty.yml\n"
-                + "  stations:\n"
-                + "    Station:\n"
-                + "      mapNameTemplate: TestBusShipStation\n"
-                + "      stationProto: StandardFrontierBusVessel\n"
-                + "      components:\n"
-                + "        - type: ExtraShuttleInformation\n"
-                + "          vessel: TestBusVessel\n"
-                + "        - type: StationJobs\n"
-                + "          availableJobs:\n"
-                + "            MercenaryInterview: [0, 2]\n";
+    private const string ShipJobPrototypes =
+            "- type: vessel\n"
+            + "  id: TestHiringVessel\n"
+            + "  parent: BaseVessel\n"
+            + "  name: Test Hiring Vessel\n"
+            + "  description: Test hiring vessel.\n"
+            + "  price: 1000\n"
+            + "  category: Small\n"
+            + "  group: Shipyard\n"
+            + "  shuttlePath: /Maps/Test/empty.yml\n"
+            + "  class:\n"
+            + "  - Civilian\n"
+            + "  engine:\n"
+            + "  - Uranium\n"
+            + "\n"
+            + "- type: vessel\n"
+            + "  id: TestCargoVessel\n"
+            + "  parent: BaseVessel\n"
+            + "  name: Test Cargo Vessel\n"
+            + "  description: Test cargo vessel.\n"
+            + "  price: 1000\n"
+            + "  category: Small\n"
+            + "  group: Shipyard\n"
+            + "  shuttlePath: /Maps/Test/empty.yml\n"
+            + "  class:\n"
+            + "  - Cargo\n"
+            + "  engine:\n"
+            + "  - Uranium\n"
+            + "\n"
+            + "- type: vessel\n"
+            + "  id: TestBusVessel\n"
+            + "  parent: BaseVesselBus\n"
+            + "  shuttlePath: /Maps/Test/empty.yml\n"
+            + "\n"
+            + "- type: gameMap\n"
+            + "  id: TestHiringShipStation\n"
+            + "  minPlayers: 0\n"
+            + "  mapName: TestHiringShipStation\n"
+            + "  mapPath: /Maps/Test/empty.yml\n"
+            + "  stations:\n"
+            + "    Station:\n"
+            + "      mapNameTemplate: TestHiringShipStation\n"
+            + "      stationProto: StandardFrontierVessel\n"
+            + "      components:\n"
+            + "        - type: ExtraShuttleInformation\n"
+            + "          vessel: TestHiringVessel\n"
+            + "        - type: StationJobs\n"
+            + "          availableJobs:\n"
+            + "            Mercenary: [0, 2]\n"
+            + "            ContractorInterview: [0, 1]\n"
+            + "            PilotInterview: [0, 1]\n"
+            + "\n"
+            + "- type: gameMap\n"
+            + "  id: TestCargoShipStation\n"
+            + "  minPlayers: 0\n"
+            + "  mapName: TestCargoShipStation\n"
+            + "  mapPath: /Maps/Test/empty.yml\n"
+            + "  stations:\n"
+            + "    Station:\n"
+            + "      mapNameTemplate: TestCargoShipStation\n"
+            + "      stationProto: StandardFrontierVessel\n"
+            + "      components:\n"
+            + "        - type: ExtraShuttleInformation\n"
+            + "          vessel: TestCargoVessel\n"
+            + "        - type: StationJobs\n"
+            + "          availableJobs:\n"
+            + "            MercenaryInterview: [0, 2]\n"
+            + "\n"
+            + "- type: gameMap\n"
+            + "  id: TestSingleSlotShipStation\n"
+            + "  minPlayers: 0\n"
+            + "  mapName: TestSingleSlotShipStation\n"
+            + "  mapPath: /Maps/Test/empty.yml\n"
+            + "  stations:\n"
+            + "    Station:\n"
+            + "      mapNameTemplate: TestSingleSlotShipStation\n"
+            + "      stationProto: StandardFrontierVessel\n"
+            + "      components:\n"
+            + "        - type: ExtraShuttleInformation\n"
+            + "          vessel: TestHiringVessel\n"
+            + "        - type: StationJobs\n"
+            + "          availableJobs:\n"
+            + "            Mercenary: [0, 1]\n"
+            + "\n"
+            + "- type: gameMap\n"
+            + "  id: TestBusShipStation\n"
+            + "  minPlayers: 0\n"
+            + "  mapName: TestBusShipStation\n"
+            + "  mapPath: /Maps/Test/empty.yml\n"
+            + "  stations:\n"
+            + "    Station:\n"
+            + "      mapNameTemplate: TestBusShipStation\n"
+            + "      stationProto: StandardFrontierBusVessel\n"
+            + "      components:\n"
+            + "        - type: ExtraShuttleInformation\n"
+            + "          vessel: TestBusVessel\n"
+            + "        - type: StationJobs\n"
+            + "          availableJobs:\n"
+            + "            MercenaryInterview: [0, 2]\n";
 
     private const string DynamicAllocationPrototypes =
                 "- type: gameMap\n"
@@ -460,11 +460,7 @@ public sealed class StationJobsTest
     [Test]
     public async Task ShipCrewHiringEligibilityTest()
     {
-        await using var pair = await PoolManager.GetServerClient(new PoolSettings
-        {
-            Fresh = true,
-            Destructive = true
-        });
+        await using var pair = await PoolManager.GetServerClient(new PoolSettings() { Connected = true }); /// HL: Me need a connected client for this
         var server = pair.Server;
 
         var prototypeManager = server.ResolveDependency<IPrototypeManager>();
@@ -836,11 +832,8 @@ public sealed class StationJobsTest
     [Test] // HardLight
     public async Task RoundRestartStationDeletionDoesNotOpenTrackedJobsTest()
     {
-        await using var pair = await PoolManager.GetServerClient(new PoolSettings
-        {
-            Fresh = true,
-            Destructive = true
-        });
+        await using var pair = await PoolManager.GetServerClient(new PoolSettings() { Destructive = true, Fresh = true }); //This one needs a fresh pair because turning on persistence mid-session is a bit funky
+        // If we have too many of these, should maybe setup a seperate pair just for testing persistence
         var server = pair.Server;
 
         var prototypeManager = server.ResolveDependency<IPrototypeManager>();
@@ -848,6 +841,13 @@ public sealed class StationJobsTest
         var entitySystemManager = entityManager.EntitySysManager;
         var stationSystem = entitySystemManager.GetEntitySystem<StationSystem>();
         var jobTracking = entitySystemManager.GetEntitySystem<JobTrackingSystem>();
+        var configManager = server.ResolveDependency<IConfigurationManager>();
+
+        // HL: Set the pair up with persistence on
+        configManager.SetCVar(HLCCVars.RoundPersistenceEnabled, true, true);
+        configManager.SetCVar(HLCCVars.AutoSpawnColComm, true, true);
+        await server.WaitRunTicks(10);
+        // HL END
 
         var stationProto = prototypeManager.Index<GameMapPrototype>("FooStation");
 
@@ -895,6 +895,12 @@ public sealed class StationJobsTest
             Assert.That(entityManager.EntityExists(restartDeletionCrew), Is.True);
             Assert.That(entityManager.GetComponent<Content.Shared._NF.Roles.Components.JobTrackingComponent>(restartDeletionCrew).Active, Is.True);
         });
+
+        // HL: Turn persistence off now we're done
+        configManager.SetCVar(HLCCVars.RoundPersistenceEnabled, false, true);
+        configManager.SetCVar(HLCCVars.AutoSpawnColComm, false, true);
+        // HL END
+
         await pair.CleanReturnAsync();
     }
 

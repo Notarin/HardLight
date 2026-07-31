@@ -1923,6 +1923,20 @@
   - !type:ListingLimitedStockCondition
     stock: 3
 
+# HL
+- type: listing
+  id: UplinkSyndicateBoosterPack
+  name: Syndicate Booster Pack
+  description: A sealed foil pack of randomized Ratvar's Row cards.
+  productEntity: SyndicateVendBoosterPack
+  cost:
+    Telecrystal: 20
+  categories:
+  - UplinkPointless
+  conditions:
+  - !type:ListingLimitedStockCondition
+    stock: 1
+
 # Job Specific
 
 - type: listing

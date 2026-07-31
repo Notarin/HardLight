@@ -194,6 +194,9 @@ public abstract partial class SharedTetherGunSystem : EntitySystem
     protected virtual void StartTether(EntityUid gunUid, BaseForceGunComponent component, EntityUid target, EntityUid? user,
         PhysicsComponent? targetPhysics = null, TransformComponent? targetXform = null)
     {
+        if (TerminatingOrDeleted(gunUid) || TerminatingOrDeleted(target)) // HL: Make sure we're not about to delete either ent
+            return;
+
         if (!Resolve(target, ref targetPhysics, ref targetXform))
             return;
 
@@ -247,6 +250,14 @@ public abstract partial class SharedTetherGunSystem : EntitySystem
     {
         if (component.Tethered == null)
             return;
+
+        if (TerminatingOrDeleted(component.Tethered)) // HL: Check for Deleting the tethered entity
+        {
+            component.Tethered = null;
+            component.TetherEntity = null;
+            Dirty(gunUid, component);
+            return;
+        }
 
         if (component.TetherEntity != null)
         {

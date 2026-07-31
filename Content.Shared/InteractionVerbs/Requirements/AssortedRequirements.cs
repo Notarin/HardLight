@@ -15,7 +15,7 @@ namespace Content.Shared.InteractionVerbs.Requirements;
 [Serializable, NetSerializable]
 public sealed partial class EntityWhitelistRequirement : InteractionRequirement
 {
-    [DataField] public EntityWhitelist? Whitelist = new(), Blacklist = new();
+    [DataField] public EntityWhitelist? Whitelist = null, Blacklist = null; // Hardlight: Changed fields from new() to null due to certain interactions with Untouchable trait breaking.
 
     [NonSerialized] private EntityWhitelistSystem? _wlField; // Floofstation - wizden changed whitelists so we have to retrofit this
 

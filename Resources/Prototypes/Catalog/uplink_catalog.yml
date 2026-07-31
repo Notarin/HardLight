@@ -236,7 +236,7 @@
   id: uplinkFlamethrower
   name: uplink-flamethrower-name
   description: uplink-flamethrower-desc
-  productEntity: WeaponFlamethrowerFG
+  productEntity: SWeaponFlamethrowerFG
   discountCategory: veryRareDiscounts
   discountDownTo:
     Telecrystal: 14

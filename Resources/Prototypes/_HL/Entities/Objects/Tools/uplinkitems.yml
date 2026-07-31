@@ -182,27 +182,23 @@
     maxIntensity: 45
     canCreateVacuum: false
 
-- type: entity
-  id: SClothingBeltMilitaryWebbingGrenadeFilled
-  parent: ClothingBeltMilitaryWebbingGrenadeFilled
-  name: grenadier chest rig
-  components:
-  - type: Storage
-    maxItemSize: Normal
-    grid:
-    - 0,0,10,1
-  - type: EntityTableContainerFill
-    containers:
-      storagebase: !type:AllSelector
-        children:
-        - id: SExGrenade
-          amount: 2
-        - id: SSyndieMiniBomb
-          amount: 2
-        - id: EmpGrenade
-          amount: 2
-        - id: SC4
-          amount: 2
+# - type: entity
+  # id: SClothingBeltMilitaryWebbingGrenadeFilled
+  # parent: [ClothingBeltMilitaryWebbingGrenadeFilled]
+  # name: grenadier chest rig
+  # components:
+  # - type: EntityTableContainerFill
+    # containers:
+      # storagebase: !type:AllSelector
+        # children:
+        # - id: SExGrenade
+          # amount: 2
+        # - id: SSyndieMiniBomb
+          # amount: 2
+        # - id: EmpGrenade
+          # amount: 2
+        # - id: SC4
+          # amount: 2
 
 - type: entity
   parent: [PenExplodingBox] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband

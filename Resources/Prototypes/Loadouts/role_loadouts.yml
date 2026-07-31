@@ -673,6 +673,7 @@
   id: JobSecurityCadet
   groups:
   - GroupTankHarness
+  - SecurityHead  # Hardlight, moved above all other groups for loadout consistency ingame.
   - SecurityCadetJumpsuit
   - SecurityBackpack
   - SurvivalSecurity
@@ -680,10 +681,9 @@
   - SecurityForcedOuterClothing
   - SecurityCadetGloves
   - ContractorFace
-  - ContractorGlasses
-  - ContractorHead
+  - SecurityGlasses
   - ContractorNeck
-  - ContractorOuterClothing
+  - SecurityBelt
   - SecurityCadetShoes
   - ContractorWallet
   - ContractorImplanter

@@ -31,7 +31,7 @@
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant ]
-  setPreference: true
+  setPreference: false
   accessGroups: # Frontier
   - GeneralAccess # Frontier
 

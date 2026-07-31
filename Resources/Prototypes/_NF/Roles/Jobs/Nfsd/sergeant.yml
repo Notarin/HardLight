@@ -1,5 +1,5 @@
 - type: job
-  id: sergeant
+  id: Sergeant
   name: job-name-Sergeant
   description: job-description-Sergeant
   playTimeTracker: JobSergeant

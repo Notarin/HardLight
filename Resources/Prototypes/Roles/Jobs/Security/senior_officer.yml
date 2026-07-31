@@ -35,7 +35,7 @@
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant ]
-  setPreference: true
+  setPreference: false
   accessGroups: # Frontier
   - GeneralAccess # Frontier
 
@@ -50,4 +50,4 @@
     back:
     - Flash
     - Magazine45_ACPPistolFMJ
-    - FrontierUplinkCoin15
+    - FrontierUplinkCoin10

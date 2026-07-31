@@ -2,7 +2,7 @@
   id: nf-Brigmedic
   name: job-name-nf-brigmedic
   description: job-description-nf-brigmedic
-  playTimeTracker: JobNFBrigmedic
+  playTimeTracker: JobBrigmedicOld
   requirements:
     - !type:OverallPlaytimeRequirement
       time: 43200 # 12 hours

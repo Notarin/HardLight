@@ -23,7 +23,7 @@
   - type: ThermalVision # Starlight
   - type: Insulated
   - type: GunAccuracyModifier
-    spreadMultiplier: 3
+    spreadMultiplier: 5
   - type: CombatMode
     canDisarm: true
     disarmFailChance: 0.55

@@ -213,11 +213,8 @@ public static class SaveBanStore
         Entity("VendingMachineYouToolPOI", "Not intended for removal from station.", new TotalBan()),
 
         Entity("WeaponLauncherChinaLake", "Balance breaking.", new TotalBan()),
-        Entity("ClothingOuterHardsuitJuggernaut", "Balance breaking.", new TotalBan()),
         Entity("ClothingOuterHardsuitCybersunStealth", "Balance breaking.", new TotalBan()),
         Entity("ThievingGloves", "Balance breaking", new TotalBan()),
-        Entity("AntimovCircuitBoard", "Balance breaking", new TotalBan()),
-        Entity("CameraBug", "Balance breaking.", new TotalBan()),
         Entity("CQCManual", "Balance breaking.", new TotalBan()),
         Entity("ClothingOuterHardsuitNfsdExperimental", "Balance breaking.", new TotalBan()),
 

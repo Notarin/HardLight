@@ -4,8 +4,8 @@ meta:
   engineVersion: 274.0.0
   forkId: ""
   forkVersion: ""
-  time: 05/30/2026 15:59:49
-  entityCount: 29149
+  time: 07/03/2026 13:57:27
+  entityCount: 29150
 maps:
 - 1
 grids:
@@ -93104,7 +93104,7 @@ entities:
       rot: 3.141592653589793 rad
       pos: 28.5,-21.5
       parent: 2
-- proto: ComputerPalletConsole
+- proto: ComputerPalletConsoleNFNormalMarket
   entities:
   - uid: 11482
     components:

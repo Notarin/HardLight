@@ -390,8 +390,21 @@
   description: pettable-text
   category: Physical
   cost: 0
+  mutuallyExclusiveTraits:
+  - Untouchable
   components:
   - type: PettableInteractionOverride
+
+- type: trait
+  id: Untouchable
+  name: trait-untouchable-name
+  description: trait-untouchable-desc
+  category: Physical
+  cost: 0
+  mutuallyExclusiveTraits:
+  - Pettable
+  components:
+  - type: Untouchable
 
 - type: trait
   id: ArmAmputeeL

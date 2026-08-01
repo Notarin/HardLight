@@ -13,6 +13,12 @@
     sprite: _HL/Clothing/Neck/Collars/injector.rsi
     equipDelay: 1
     unequipDelay: 10
+    slots: [ neck ]
+    clothingVisuals:
+      neck:
+      - state: equipped-NECK
+      neck-quadborg:
+      - state: equipped-NECK-quadborg
   - type: SolutionContainerManager
     solutions:
       internal:
@@ -66,6 +72,9 @@
     equipDelay: 3
     unequipDelay: 10
   - type: GovernorLawAccess
+  - type: ClothingSpeedModifier  # Stacks with other slowdowns. Be careful!
+    walkModifier: 0.25
+    sprintModifier: 0.25 # So there's a bonus to wearing this over the medium armor
 
 - type: entity
   parent: ClothingNeckCollarBase

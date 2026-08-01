@@ -1,7 +1,3 @@
-using Content.Shared.Buckle;
-using Content.Shared.Buckle.Components;
-using Content.Shared.Climbing.Systems;
-using Content.Shared.Climbing.Components;
 using Content.Shared.Hands.Components;
 using Content.Shared.Movement.Systems;
 using Content.Shared.Physics;
@@ -9,7 +5,6 @@ using Content.Shared.Rotation;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Systems;
-using System.Linq;
 
 namespace Content.Shared.Standing;
 
@@ -19,8 +14,6 @@ public sealed class StandingStateSystem : EntitySystem
     [Dependency] private readonly SharedAudioSystem _audio = default!;
     [Dependency] private readonly SharedPhysicsSystem _physics = default!;
     [Dependency] private readonly MovementSpeedModifierSystem _movement = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly ClimbSystem _climb = default!;
 
     // If StandingCollisionLayer value is ever changed to more than one layer, the logic needs to be edited.
     private const int StandingCollisionLayer = (int) CollisionGroup.MidImpassable;
@@ -94,8 +87,6 @@ public sealed class StandingStateSystem : EntitySystem
 
         _movement.RefreshMovementSpeedModifiers(uid);
 
-        Climb(uid);
-
         return true;
     }
 
@@ -143,23 +134,7 @@ public sealed class StandingStateSystem : EntitySystem
         standingState.ChangedFixtures.Clear();
         _movement.RefreshMovementSpeedModifiers(uid);
 
-        Climb(uid);
-
         return true;
-    }
-
-    private void Climb(EntityUid uid)
-    {
-        _climb.ForciblyStopClimbing(uid);
-
-        var entityDistances = new Dictionary<EntityUid, float>();
-
-        foreach (var entity in _lookup.GetEntitiesIntersecting(uid)) // Floof - changed to GetEntitiesIntersecting to avoid climbing through walls
-            if (TryComp<ClimbableComponent>(entity, out var climb) && !climb.Disabled)
-                entityDistances[entity] = (Transform(uid).Coordinates.Position - Transform(entity).Coordinates.Position).LengthSquared();
-
-        if (entityDistances.Count > 0)
-            _climb.ForciblySetClimbing(uid, entityDistances.OrderBy(e => e.Value).First().Key);
     }
 }
 

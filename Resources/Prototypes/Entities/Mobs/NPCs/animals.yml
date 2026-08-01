@@ -1530,10 +1530,10 @@
       methods: [ Touch ]
       effects:
       - !type:WashCreamPieReaction
+  - type: Crawler
   - type: LabGrown # Frontier
   - type: LeashAnchor # Floofstation
     kind: Intrinsic
-  - type: LayingDown # HL  - type: Genetics # Funkystation - Genetics
   - type: Genetics # Funkystation - Genetics
     mutationSlots: 4
 

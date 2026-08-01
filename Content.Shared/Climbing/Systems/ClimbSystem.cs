@@ -180,7 +180,8 @@ public sealed partial class ClimbSystem : VirtualController
         args.Verbs.Add(new AlternativeVerb
         {
             Act = () => TryClimb(args.User, args.User, args.Target, out _, component),
-            Text = Loc.GetString("comp-climbable-verb-climb")
+            Text = Loc.GetString("comp-climbable-verb-climb"),
+            Priority = -1, // HardLight: Prioritize normal alt interactions over vaulting. e.g. eject the beaker instead of leaping on the damn table.
         });
     }
 

@@ -230,6 +230,7 @@ flavor-complex-ice = like ice
 flavor-complex-mopwata = like stagnant, dirty water
 flavor-complex-gin = like fermented grain with juniper berries
 flavor-complex-nikkonectar = like creamy blueberries
+flavor-complex-kelpwine = robust and jammy, with a strong floral backnote.
 
 ## Cocktails
 flavor-complex-arnold-palmer = like a hole-in-one

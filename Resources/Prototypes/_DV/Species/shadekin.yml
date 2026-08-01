@@ -24,7 +24,7 @@
     TailOversuit: MobHumanoidAnyMarking
     Head: MobShadekinHead
     Hair: MobHumanoidAnyMarking
-    Snout: MobShadekinAnyMarkingFollowSkin
+    Snout: MobShadekinAnyMarking
     UndergarmentTop: MobHumanoidAnyMarking
     UndergarmentBottom: MobHumanoidAnyMarking
     Genital: MobHumanoidAnyMarking
@@ -80,10 +80,6 @@
     Arms:
       points: 10
       required: false
-
-- type: humanoidBaseSprite
-  id: MobShadekinAnyMarkingFollowSkin
-  markingsMatchSkin: true
 
 - type: humanoidBaseSprite
   id: MobShadekinAnyMarking

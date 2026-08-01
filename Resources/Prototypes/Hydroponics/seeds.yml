@@ -2059,3 +2059,34 @@
       Min: 1
       Max: 10
       PotencyDivisor: 10
+
+- type: seed
+  id: Kelp
+  name: seeds-kelp-name
+  noun: seeds-noun-seeds
+  displayName: seeds-kelp-display-name
+  plantRsi: Objects/Specific/Hydroponics/kelppod.rsi
+  packetPrototype: KelpSeed
+  productPrototypes:
+    - Kelppod
+  harvestRepeat: Repeat
+  lifespan: 45
+  maturation: 10
+  production: 4
+  yield: 2
+  potency: 10
+  growthStages: 3
+  waterConsumption: 1.5
+  nutrientConsumption: 0.20
+  idealLight: 8
+  idealHeat: 298
+  splatPrototype: PuddleSplatter
+  chemicals:
+    kelpSap:
+      Min: 1
+      Max: 7
+      PotencyDivisor: 14
+    Slime:
+      Min: 1
+      Max: 4
+      PotencyDivisor: 25

@@ -15,7 +15,7 @@
   description: hl-trait-horny-desc
   category: Lewd
   cost: 0
-  speciesBlacklist: [Vox, Avali, Resomi, Chitinid, Protogen, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Synth] # HardLight
+  speciesBlacklist: [Vox, Avali, Resomi, Chitinid, Protogen, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Synth, Skrell] # HardLight
   components:
   - type: HornyMoodsTarget
 

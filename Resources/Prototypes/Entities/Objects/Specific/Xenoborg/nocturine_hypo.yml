@@ -4,6 +4,8 @@
   name: nocturine hypo
   description: A self-refilling injector for rapid administration of nocturine to victms.
   components:
+  - type: Hypospray
+    pierceArmor: true
   - type: SolutionContainerManager
     solutions:
       hypospray:

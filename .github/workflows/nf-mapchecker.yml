@@ -12,7 +12,7 @@ on:
     # Map pathspecs - If any maps are changed, this should run.
     - "Resources/Maps/**/*.yml"
     # Also the mapchecker itself
-    - "Tools/mapchecker/**"
+    - ".github/mapchecker/**"
 
 jobs:
   build:
@@ -32,4 +32,4 @@ jobs:
 
     - name: Run mapchecker
       run: |
-        python3 ./Tools/mapchecker/mapchecker.py
+        python3 ./github/mapchecker/mapchecker.py

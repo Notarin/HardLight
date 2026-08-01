@@ -134,13 +134,13 @@ public sealed class StationSystem : EntitySystem
         // HARDLIGHT: Check for duplicate stations and grids before spawning
         var existingStations = new HashSet<string>();
         var existingGridNames = new HashSet<string>();
-        
+
         // Collect existing station names
         var stationQuery = EntityQueryEnumerator<StationDataComponent, MetaDataComponent>();
         while (stationQuery.MoveNext(out var existingUid, out var existingData, out var existingMeta))
         {
             existingStations.Add(existingMeta.EntityName);
-            
+
             // Also collect grid names from existing stations
             foreach (var gridUid in existingData.Grids)
             {
@@ -155,7 +155,7 @@ public sealed class StationSystem : EntitySystem
         var duplicateGridDetected = false;
         foreach (var grid in ev.Grids)
         {
-            if (TryComp<MetaDataComponent>(grid, out var gridMeta) && 
+            if (TryComp<MetaDataComponent>(grid, out var gridMeta) &&
                 existingGridNames.Contains(gridMeta.EntityName))
             {
                 _sawmill.Error($"CRITICAL: Detected duplicate grid '{gridMeta.EntityName}' during round start!");
@@ -180,12 +180,18 @@ public sealed class StationSystem : EntitySystem
             if (existingStations.Contains(plannedStationName) || duplicateGridDetected)
             {
                 _sawmill.Error($"CRITICAL: Detected duplicate station '{plannedStationName}' during round start! Aborting round to prevent corruption.");
-                
+
                 // Delete all stations to clean up
                 var cleanupQuery = EntityQueryEnumerator<StationDataComponent>();
-                while (cleanupQuery.MoveNext(out var stationUid, out var stationData))
+                var stationsToDelete = new List<EntityUid>();
+
+                while (cleanupQuery.MoveNext(out var stationUid, out _)) // HL: Moved to a Enumerator to avoid .Owner deprication
                 {
-                    DeleteStation(stationUid, stationData);
+                    stationsToDelete.Add(stationUid);
+                }
+                foreach (var s in stationsToDelete) // HL: We use a List here so that we aren't destroying entities in the middle of the enumerator
+                {
+                    Del(s);
                 }
 
                 // Abort the round and return to lobby

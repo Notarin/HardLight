@@ -20,19 +20,19 @@ public sealed partial class CCVars
     ///     Link to GitHub page to show in the launcher.
     /// </summary>
     public static readonly CVarDef<string> InfoLinksGithub =
-        CVarDef.Create("infolinks.github", "https://github.com/HardLightSector/HardLight", CVar.SERVER | CVar.REPLICATED);
+        CVarDef.Create("infolinks.github", "https://code.hardlight.space/HardLight/HardLight", CVar.SERVER | CVar.REPLICATED);
 
     /// <summary>
     ///     Link to website to show in the launcher.
     /// </summary>
     public static readonly CVarDef<string> InfoLinksWebsite =
-        CVarDef.Create("infolinks.website", "", CVar.SERVER | CVar.REPLICATED);
+        CVarDef.Create("infolinks.website", "https://hardlight.space", CVar.SERVER | CVar.REPLICATED);
 
     /// <summary>
     ///     Link to wiki to show in the launcher.
     /// </summary>
     public static readonly CVarDef<string> InfoLinksWiki =
-        CVarDef.Create("infolinks.wiki", "", CVar.SERVER | CVar.REPLICATED);
+        CVarDef.Create("infolinks.wiki", "https://docs.hardlight.space", CVar.SERVER | CVar.REPLICATED);
 
     /// <summary>
     ///     Link to Patreon. Not shown in the launcher currently.
@@ -44,7 +44,7 @@ public sealed partial class CCVars
     ///     Link to the bug report form.
     /// </summary>
     public static readonly CVarDef<string> InfoLinksBugReport =
-        CVarDef.Create("infolinks.bug_report", "", CVar.SERVER | CVar.REPLICATED);
+        CVarDef.Create("infolinks.bug_report", "https://code.hardlight.space/HardLight/HardLight/issues/new/choose", CVar.SERVER | CVar.REPLICATED);
 
     /// <summary>
     ///     Link to site handling ban appeals. Shown in ban disconnect messages.

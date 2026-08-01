@@ -1,0 +1,92 @@
+{
+    "version": 1,
+    "license": "CC-BY-NC-SA-4.0",
+    "copyright": "Made by verbosemode",
+    "size": {
+        "x": 32,
+        "y": 32
+    },
+    "states": [
+        {
+            "name": "deck_storage_box"
+        },
+        {
+            "name": "deck_storage_box_open"
+        },
+        {
+            "name": "bag-fill-1"
+        },
+        {
+            "name": "bag-fill-2"
+        },
+        {
+            "name": "bag-fill-3"
+        },
+        {
+            "name": "bag-fill-4"
+        },
+        {
+            "name": "bag-fill-5"
+        },
+        {
+            "name": "normal_background_blue"
+        },
+        {
+            "name": "normal_background_red"
+        },
+        {
+            "name": "gold_background_blue"
+        },
+        {
+            "name": "gold_background_red"
+        },
+        {
+            "name": "crystal_background_blue"
+        },
+        {
+            "name": "crystal_background_red"
+        },
+        {
+            "name": "one"
+        },
+        {
+            "name": "two"
+        },
+        {
+            "name": "three"
+        },
+        {
+            "name": "four"
+        },
+        {
+            "name": "five"
+        },
+        {
+            "name": "six"
+        },
+        {
+            "name": "seven"
+        },
+        {
+            "name": "a"
+        },
+        {
+            "name": "booster_pack"
+        },
+        {
+            "name": "booster_pack_overlay"
+        },
+        {
+            "name": "starter_booster_pack"
+        },
+        {
+            "name": "prize_booster_pack"
+        },
+        {
+            "name": "syndicate_booster_pack"
+        },
+        {
+            "name": "booster_pack_trash"
+        }
+    ]
+}

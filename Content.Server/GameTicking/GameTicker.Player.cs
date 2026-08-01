@@ -328,6 +328,7 @@ namespace Content.Server.GameTicking
         private void PlayerJoinLobby(ICommonSession session)
         {
             _playerGameStatuses[session.UserId] = LobbyEnabled ? PlayerGameStatus.NotReadyToPlay : PlayerGameStatus.ReadyToPlay;
+            _playerManager.SetAttachedEntity(session, null); // HL: Make sure we're not still attached to an entity when we're in the lobby.
             _db.AddRoundPlayers(RoundId, session.UserId);
 
             var client = session.Channel;

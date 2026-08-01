@@ -61,6 +61,8 @@
     damageModifierSet: Skrell
   - type: TypingIndicator
     proto: feroxi
+  - type: Bloodstream # Hardlight: Added to match server lore
+    bloodReagent: CopperBlood # Hardlight: Added to match server lore
   - type: Internals
   - type: Respirator
     damage:

@@ -155,6 +155,8 @@
     - id: SpawnDungeonLootFlatpacks
       amount: 2
       prob: 0.3
+    - id: MysteryVendBoosterPack
+      prob: 0.5
     sound:
       path: /Audio/Machines/windoor_open.ogg
 
@@ -200,5 +202,7 @@
       prob: 0.8
     - id: MercCoin10
       prob: 1
+    - id: MysteryVendBoosterPack
+      prob: 0.5
     sound:
       path: /Audio/Machines/windoor_open.ogg

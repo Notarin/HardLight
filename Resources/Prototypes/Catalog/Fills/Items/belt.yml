@@ -155,9 +155,9 @@
     - 0,0,7,1
   - type: StorageFill
     contents:
-      - id: ExGrenade
+      - id: SExGrenade
         amount: 4
-      - id: SyndieMiniBomb
+      - id: SSyndieMiniBomb
         amount: 2
       - id: EmpGrenade
         amount: 2

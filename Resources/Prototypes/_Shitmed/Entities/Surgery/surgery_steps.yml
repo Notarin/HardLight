@@ -455,6 +455,14 @@
     sleepModifier: 1
     isConsumable: true
 
+# HL START: Add Stomach to surgery
+- type: entity
+  parent: SurgeryStepInsertOrgan
+  id: SurgeryStepInsertStomach
+  name: Add stomach
+  categories: [ HideSpawnMenu ]
+# HL End
+
 - type: entity
   parent: SurgeryStepInsertOrgan
   id: SurgeryStepInsertLiver

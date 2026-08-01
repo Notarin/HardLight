@@ -193,6 +193,12 @@ public sealed partial class RoleLoadout : IEquatable<RoleLoadout>
                         if (!IsValid(profile, session, defaultLoadout.Prototype, collection, out _))
                             continue;
 
+                        // Start Hardlight change - fix loadout duplicates
+                        // Prevention of duplicate prototypes being added to loadouts
+                        if (loadouts.Any(l => l.Prototype == defaultLoadout.Prototype))
+                            continue;
+                        // End Hardlight change
+
                         loadouts.Add(defaultLoadout);
                         Apply(loadoutProto);
                     }
@@ -215,6 +221,12 @@ public sealed partial class RoleLoadout : IEquatable<RoleLoadout>
                     // Not valid so don't default to it anyway.
                     if (!IsValid(profile, session, defaultLoadout.Prototype, collection, out _))
                         continue;
+
+                    // Start Hardlight change - fix loadout duplicates
+                    // Prevention of duplicate prototypes being added to loadouts
+                    if (loadouts.Any(l => l.Prototype == defaultLoadout.Prototype))
+                        continue;
+                    // End Hardlight change
 
                     loadouts.Add(defaultLoadout);
                     Apply(loadoutProto);
@@ -287,6 +299,12 @@ public sealed partial class RoleLoadout : IEquatable<RoleLoadout>
                     if (!IsValid(profile, session, defaultLoadout.Prototype, collection, out _))
                         continue;
 
+                    // Start Hardlight change - fix loadout duplicates
+                    // Prevention of duplicate prototypes being added to loadouts
+                    if (loadouts.Any(l => l.Prototype == defaultLoadout.Prototype))
+                        continue;
+                    // End Hardlight change
+
                     loadouts.Add(defaultLoadout);
                     Apply(loadoutProto);
                 }
@@ -313,6 +331,12 @@ public sealed partial class RoleLoadout : IEquatable<RoleLoadout>
                     // Not valid so don't default to it anyway.
                     if (!IsValid(profile, session, defaultLoadout.Prototype, collection, out _))
                         continue;
+
+                    // Start Hardlight change - fix loadout duplicates
+                    // Prevention of duplicate prototypes being added to loadouts
+                    if (loadouts.Any(l => l.Prototype == defaultLoadout.Prototype))
+                        continue;
+                    // End Hardlight change
 
                     loadouts.Add(defaultLoadout);
                     Apply(loadoutProto);

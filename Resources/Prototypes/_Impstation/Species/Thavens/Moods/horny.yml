@@ -22,6 +22,21 @@
   - Sexpert
   - FuckRock
   - AttractiveSpecies
+  - PublicMastication
+  - VictorianSensibilities
+  - Masochist
+  - ThatPenIsMine
+  - ThavenKiss
+  - SweetNothings
+  - PhiltreSommelier
+  - Succubus
+  - PrivateLife
+  - Wingthaven
+  - MasterOfTheUniverse
+  - LickLiker
+  - BagGoBrr
+  - OccupiedMouth
+  - MatingDance
 
 # Jumpsuits are uncomfortable, your skin needs to breathe. You should strive to be nude at all times.
 - type: thavenMood
@@ -129,7 +144,7 @@
   moodDesc: thaven-mood-horny-department-desc
   moodVars:
     department: MoodDepartments
-    
+
 # Technology is just so attractive... You are compelled to masturbate with machinery and have sex with IPCs, Protogens, and anyone with cybernetic limbs.
 - type: thavenMood
   id: Technophilia
@@ -163,3 +178,97 @@
   moodDesc: thaven-mood-attractive-species-desc
   moodVars:
     species: MoodSpecies
+
+# Harlight begins
+
+# You think eating and drinking in sight of others is extremely vulgar... Maybe even titillating.
+- type: thavenMood
+  id: PublicMastication
+  moodName: thaven-mood-public-mastication-name
+  moodDesc: thaven-mood-public-mastication-desc
+
+# Getting a glimpse of someone's ankle or shoulder gets you incredibly worked up. Less is more.
+- type: thavenMood
+  id: VictorianSensibilities
+  moodName: thaven-mood-victorian-sensibilities-name
+  moodDesc: thaven-mood-victorian-sensibilities-desc
+
+# Pain feels good to you, whether you try to hide it or not.
+- type: thavenMood
+  id: Masochist
+  moodName: thaven-mood-masochist-name
+  moodDesc: thaven-mood-masochist-desc
+
+# You're an avid collector of phallic, lewd or vaguely cylindrical objects, for no particular reason. Create a stash you can be proud of.
+- type: thavenMood
+  id: ThatPenIsMine
+  moodName: thaven-mood-that-pen-is-mine-name
+  moodDesc: thaven-mood-that-pen-is-mine-desc
+
+# The tips of your fingers are especially sensitive as a Thaven. Touching fingers with another person, shaking hands or holding hands all feels incredibly intimate to you.
+- type: thavenMood
+  id: ThavenKiss
+  moodName: thaven-mood-thaven-kiss-name
+  moodDesc: thaven-mood-thaven-kiss-desc
+
+# Put love out into the world. Slip affectionate compliments and cute nicknames into conversations with everyone you meet. Even enemies.
+- type: thavenMood
+  id: SweetNothings
+  moodName: thaven-mood-sweet-nothings-name
+  moodDesc: thaven-mood-sweet-nothings-desc
+
+# Aphrodisiacs are the best way to quench your thirst, not to mention their many health benefits. Prioritize drinking erotic drinks or chemicals. You'll still be able to work... Probably.
+- type: thavenMood
+  id: PhiltreSommelier
+  moodName: thaven-mood-philtre-sommelier-name
+  moodDesc: thaven-mood-philtre-sommelier-desc
+
+# Cum contains life-force, and you need it to function. Extracting it directly from someone is ideal, but bottled is fine.
+- type: thavenMood
+  id: Succubus
+  moodName: thaven-mood-succubus-name
+  moodDesc: thaven-mood-succubus-desc
+
+# You wish you didn't have to put up with onlookers. Strive to hold every in-person conversation in a low whispered tone in a private room, no matter what the conversation is about.
+- type: thavenMood
+  id: PrivateLife
+  moodName: thaven-mood-private-life-name
+  moodDesc: thaven-mood-private-life-desc
+
+# Setting people up for love is why you were put on this station. Encourage, or directly assist someone in getting together with a partner of their liking.
+- type: thavenMood
+  id: Wingthaven
+  moodName: thaven-mood-wingthaven-name
+  moodDesc: thaven-mood-wingthaven-desc
+
+# You're the one in control today. Find a submissive person, and see what they'll submit to just for you. Make them yours.
+- type: thavenMood
+  id: MasterOfTheUniverse
+  moodName: thaven-mood-master-of-the-universe-name
+  moodDesc: thaven-mood-master-of-the-universe-desc
+  conflicts:
+  - StationPet
+
+# Use your tongue to interact with everything around you, absolutely everything. Licking someone to learn their taste and texture is a friendly greeting.
+- type: thavenMood
+  id: LickLiker
+  moodName: thaven-mood-lick-liker-name
+  moodDesc: thaven-mood-lick-liker-desc
+
+# You like the sensation of buzzing, it keeps you focused. Keep a vibrator activated somewhere nearby or on your person at all times.
+- type: thavenMood
+  id: BagGoBrr
+  moodName: thaven-mood-bag-go-brr-name
+  moodDesc: thaven-mood-bag-go-brr-desc
+
+# You should be gagged, muzzled, or otherwise made unable to speak. You'll remove it to talk if you absolutely have to, but put it back just as quickly.
+- type: thavenMood
+  id: OccupiedMouth
+  moodName: thaven-mood-occupied-mouth-name
+  moodDesc: thaven-mood-occupied-mouth-desc
+
+# As is traditional for your people, any serious courtship must be combined with a performance. If you're interested in someone, dance for them.
+- type: thavenMood
+  id: MatingDance
+  moodName: thaven-mood-mating-dance-name
+  moodDesc: thaven-mood-mating-dance-desc

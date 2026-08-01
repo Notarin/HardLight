@@ -31,7 +31,7 @@ thaven-mood-in-heat-desc = It's mating season. Thaven all over the station are b
 thaven-mood-do-eye-contact-name = Look Them In The Eyes
 thaven-mood-do-eye-contact-desc = It feels wrong not to look people in the eyes. Always look directly at anyone addressing you or interacting with you, or vice versa.
 
-thaven-mood-dont-eye-contact-name = Lazy Eye
+thaven-mood-dont-eye-contact-name = Averted Gaze
 thaven-mood-dont-eye-contact-desc = You can't help but get shy when people are addressing you. Make sure you aren't ever looking at anyone addressing you or interacting with you, or vice versa.
 
 thaven-mood-fujoshi-name = Fujoshi
@@ -60,3 +60,50 @@ thaven-mood-fuck-rock-desc = One of your inanimate possessions is very dear to y
 
 thaven-mood-attractive-species-name = {$species} Infatuation
 thaven-mood-attractive-species-desc = {$species} are the most attractive species you've ever seen. You can't help but infatuated with them every time you see them.
+
+# Hardlight
+
+thaven-mood-public-mastication-name = Public Mastication
+thaven-mood-public-mastication-desc = You think eating and drinking in sight of others is extremely vulgar... Maybe even titillating.
+
+thaven-mood-victorian-sensibilities-name = Victorian Sensibilities
+thaven-mood-victorian-sensibilities-desc = Getting a glimpse of someone's ankle or shoulder gets you incredibly worked up. Less is more.
+
+thaven-mood-masochist-name = Masochist
+thaven-mood-masochist-desc = Pain feels good to you, whether you try to hide it or not.
+
+thaven-mood-that-pen-is-mine-name = That Pen Is Mine
+thaven-mood-that-pen-is-mine-desc = You're an avid collector of phallic, lewd or vaguely cylindrical objects, for no particular reason. Create a stash you can be proud of.
+
+thaven-mood-thaven-kiss-name = Thaven Kiss
+thaven-mood-thaven-kiss-desc = The tips of your fingers are especially sensitive as a Thaven. Touching fingers with another person, shaking hands or holding hands all feels incredibly intimate to you.
+
+thaven-mood-sweet-nothings-name = Sweet Nothings
+thaven-mood-sweet-nothings-desc = Put love out into the world. Slip affectionate compliments and cute nicknames into conversations with everyone you meet. Even enemies.
+
+thaven-mood-philtre-sommelier-name = Philtre Sommelier
+thaven-mood-philtre-sommelier-desc = Aphrodisiacs are the best way to quench your thirst, not to mention their many health benefits. Prioritize drinking erotic drinks or chemicals. You'll still be able to work... Probably.
+
+thaven-mood-succubus-name = Succubus
+thaven-mood-succubus-desc = Cum contains life-force, and you need it to function. Extracting it directly from someone is ideal, but bottled is fine.
+
+thaven-mood-private-life-name = Private Life
+thaven-mood-private-life-desc = You wish you didn't have to put up with onlookers. Strive to hold every in-person conversation in a low whispered tone in a private room, no matter what the conversation is about.
+
+thaven-mood-wingthaven-name = Wingthaven
+thaven-mood-wingthaven-desc = Setting people up for love is why you were put on this station. Encourage, or directly assist someone in getting together with a partner of their liking.
+
+thaven-mood-master-of-the-universe-name = Master of the Universe
+thaven-mood-master-of-the-universe-desc = You're the one in control today. Find a submissive person, and see what they'll submit to just for you. Make them yours.
+
+thaven-mood-lick-liker-name = Lick Liker
+thaven-mood-lick-liker-desc = Use your tongue to interact with everything around you, absolutely everything. Licking someone to learn their taste and texture is a friendly greeting.
+
+thaven-mood-bag-go-brr-name = Bag Go Brr
+thaven-mood-bag-go-brr-desc = You like the sensation of buzzing, it keeps you focused. Keep a vibrator activated somewhere nearby or on your person at all times.
+
+thaven-mood-occupied-mouth-name = Occupied Mouth
+thaven-mood-occupied-mouth-desc = You should be gagged, muzzled, or otherwise made unable to speak. You'll remove it to talk if you absolutely have to, but put it back just as quickly.
+
+thaven-mood-mating-dance-name = Mating Dance
+thaven-mood-mating-dance-desc = As is traditional for your people, any serious courtship must be combined with a performance. If you're interested in someone, dance for them.

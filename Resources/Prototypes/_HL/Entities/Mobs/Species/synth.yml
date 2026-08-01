@@ -172,11 +172,11 @@
     bleedReductionAmount: 0.25
     damage:
       groups:
-        Brute: -2.5 # -0.75 after modifiers
-        Burn: -3 # -0.9 after modifiers
+        Brute: -2.5 # -1.25 after modifiers
+        Burn: -3 # -1.5 after modifiers
       types:
-        Bloodloss: -0.2 # -0.06 after modifiers
-        Cellular: -0.1 # -0.03 after modifiers
+        Bloodloss: -0.2 # -0.1 after modifiers
+        Cellular: -0.07 # -0.035 after modifiers
     bloodRegeneration:
       targetBloodLevel: 1
       bloodRefreshAmount: 0.3
@@ -185,7 +185,7 @@
     organSlot: battery
     startingBattery: PowerCellMedium
     drawRate: 0.4
-    nutrimentChargeMultiplier: 5
+    nutrimentChargeMultiplier: 7.2
     batteryLowText: synth-battery-low
     batteryDeadText: synth-battery-dead
     warningPercentages: [20, 10]
@@ -198,13 +198,13 @@
         maxDistance: 5
       path: /Audio/Machines/buzz-two.ogg
   - type: SynthShock
-    batteryChargeMultiplier: 2
+    batteryChargeMultiplier: 10.8
     cellularDamageMultiplier: 0.2
   - type: BatteryAlert
-    batteryAlert: BorgBattery
-    noBatteryAlert: BorgBatteryNone
+    batteryAlert: SynthBattery
+    noBatteryAlert: SynthBatteryNone
   - type: UniversalHealModifier
-    modifier: 0.3 # reduces the effectiveness of most healing sources by 70%
+    modifier: 0.5 # reduces the effectiveness of most healing sources by 50%
   - type: ThermalRegulator
     metabolismHeat: 500
     radiatedHeat: 150

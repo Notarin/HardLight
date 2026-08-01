@@ -1,67 +1,74 @@
+using Content.Shared.Damage;
 using Content.Shared.Damage.Prototypes;
 using Content.Shared.FixedPoint;
+using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Serialization;
 
 namespace Content.Shared._HL.Silicons.Synths.Body;
 
-[RegisterComponent]
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
+[Access(Other = AccessPermissions.ReadWrite)]
 public sealed partial class SynthBloodstreamComponent : Component
 {
     /// <summary>
     /// Hunger level below which passive repair, bleed sealing, and blood regeneration stop.
     /// </summary>
-    [DataField]
+    [DataField, AutoNetworkedField]
     public float MinHunger = 50f;
 
     /// <summary>
     /// Blood level below which passive repair and bleed sealing stop.
     /// </summary>
-    [DataField]
+    [DataField, AutoNetworkedField]
     public float MinBloodLevel = 0.3f;
 
     /// <summary>
     /// Blood level at or above which passive repair and bleed sealing operate at full efficiency.
     /// </summary>
-    [DataField]
+    [DataField, AutoNetworkedField]
     public float FullEfficiencyBloodLevel = 0.9f;
 
     /// <summary>
     /// Passive repair and bleed sealing efficiency at minimum blood level.
     /// </summary>
-    [DataField]
+    [DataField, AutoNetworkedField]
     public float MinBloodEfficiency = 0.1f;
 
     /// <summary>
     /// Hunger spent per point of damage repaired.
     /// </summary>
-    [DataField]
+    [DataField, AutoNetworkedField]
     public float HungerCostPerRepair = 1.5f;
 
     /// <summary>
     /// Hunger spent per point of bleed amount sealed.
     /// </summary>
-    [DataField]
+    [DataField, AutoNetworkedField]
     public float HungerCostPerBleed = 1f;
 
     /// <summary>
     /// Passive repair applied each update. Negative damage values heal.
     /// </summary>
-    [DataField]
+    [DataField, AutoNetworkedField]
     public SynthBloodstreamDamageSpecifier Damage = new();
+
+    [ViewVariables]
+    public DamageSpecifier PassiveRepair = new();
 
     /// <summary>
     /// Bleed amount sealed each update before blood efficiency and hunger limits.
     /// </summary>
-    [DataField]
+    [DataField, AutoNetworkedField]
     public float BleedReductionAmount = 0.1f;
 
     /// <summary>
     /// Synth blood level regeneration settings, separate from passive repair.
     /// </summary>
-    [DataField]
+    [DataField, AutoNetworkedField]
     public SynthBloodstreamRegeneration BloodRegeneration = new();
 
-    [DataField]
+    [DataField, AutoNetworkedField]
     public TimeSpan UpdateRate = TimeSpan.FromSeconds(1);
 
     [ViewVariables]
@@ -69,6 +76,7 @@ public sealed partial class SynthBloodstreamComponent : Component
 }
 
 [DataDefinition]
+[Serializable, NetSerializable]
 public sealed partial class SynthBloodstreamDamageSpecifier
 {
     [DataField]
@@ -82,6 +90,7 @@ public sealed partial class SynthBloodstreamDamageSpecifier
 }
 
 [DataDefinition]
+[Serializable, NetSerializable]
 public sealed partial class SynthBloodstreamRegeneration
 {
     [DataField]

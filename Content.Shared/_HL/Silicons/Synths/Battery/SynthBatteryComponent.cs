@@ -5,6 +5,7 @@ using Robust.Shared.Prototypes;
 namespace Content.Shared._HL.Silicons.Synths.Battery;
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
+[Access(Other = AccessPermissions.ReadWrite)]
 public sealed partial class SynthBatteryComponent : Component
 {
     /// <summary>

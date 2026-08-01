@@ -1,5 +1,6 @@
 using Content.Shared._HL.Silicons.Synths.Battery;
 using Content.Server.Body.Components;
+using Content.Shared.Body.Part;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Popups;
@@ -14,6 +15,7 @@ namespace Content.Server._HL.Silicons.Synths.Battery;
 
 public sealed partial class SynthBatteryPowerSystem : EntitySystem
 {
+    [Dependency] private SharedSynthBatteryAlertSystem _alerts = default!;
     [Dependency] private SynthBatteryEffectsSystem _effects = default!;
     [Dependency] private SynthBatterySystem _synthBattery = default!;
     [Dependency] private AudioSystem _audio = default!;
@@ -24,6 +26,7 @@ public sealed partial class SynthBatteryPowerSystem : EntitySystem
 
     public override void Initialize()
     {
+        SubscribeLocalEvent<BatteryComponent, ChargeChangedEvent>(OnBatteryChargeChanged);
         SubscribeLocalEvent<SynthBatteryComponent, BeingGibbedEvent>(OnBeingGibbed);
     }
 
@@ -49,6 +52,7 @@ public sealed partial class SynthBatteryPowerSystem : EntitySystem
 
         if (!_synthBattery.TryGetBattery(ent.Owner, out var battery, ent.Comp1))
         {
+            _alerts.ShowNoBatteryAlert((ent.Owner, ent.Comp1));
             SetUnpowered(ent, true);
             return;
         }
@@ -56,6 +60,7 @@ public sealed partial class SynthBatteryPowerSystem : EntitySystem
         var charge = battery.Value.Comp.CurrentCharge;
         if (charge <= 0f)
         {
+            _alerts.ShowBatteryAlert((ent.Owner, ent.Comp1), charge, battery.Value.Comp.MaxCharge);
             SetUnpowered(ent, true);
             return;
         }
@@ -63,7 +68,10 @@ public sealed partial class SynthBatteryPowerSystem : EntitySystem
         SetUnpowered(ent, false);
 
         if (ent.Comp1.DrawRate <= 0f)
+        {
+            _alerts.ShowBatteryAlert((ent.Owner, ent.Comp1), charge, battery.Value.Comp.MaxCharge);
             return;
+        }
 
         var oldPercent = GetChargeLevel(battery.Value) * 100f;
         var changed = _battery.ChangeCharge(battery.Value.Owner, -ent.Comp1.DrawRate * delta, battery.Value.Comp);
@@ -72,9 +80,6 @@ public sealed partial class SynthBatteryPowerSystem : EntitySystem
         {
             var newPercent = GetChargeLevel(battery.Value) * 100f;
             UpdateLowPowerWarning(ent, oldPercent, newPercent);
-
-            if (battery.Value.Comp.CurrentCharge <= 0f)
-                SetUnpowered(ent, true);
         }
     }
 
@@ -162,6 +167,30 @@ public sealed partial class SynthBatteryPowerSystem : EntitySystem
             _popup.PopupEntity(Loc.GetString(ent.Comp.BatteryDeadText), ent, PopupType.LargeCaution);
 
         PlaySound(ent, ent.Comp.BatteryDeadSound);
+    }
+
+    private void OnBatteryChargeChanged(Entity<BatteryComponent> ent, ref ChargeChangedEvent args)
+    {
+        if (!TryGetSynthFromBattery(ent.Owner, out var synth) ||
+            TryComp(synth.Owner, out MobStateComponent? mobState) && mobState.CurrentState == MobState.Dead)
+            return;
+
+        SetUnpowered(synth, args.Charge <= 0f);
+        _alerts.ShowBatteryAlert(synth, args.Charge, args.MaxCharge);
+    }
+
+    private bool TryGetSynthFromBattery(EntityUid battery, out Entity<SynthBatteryComponent> synth)
+    {
+        synth = default;
+
+        if (!_container.TryGetContainingContainer(battery, out var container) ||
+            !TryComp(container.Owner, out BodyPartComponent? part) ||
+            part.Body is not { } body ||
+            !TryComp(body, out SynthBatteryComponent? synthBattery))
+            return false;
+
+        synth = (body, synthBattery);
+        return true;
     }
 
     private void OnBeingGibbed(Entity<SynthBatteryComponent> ent, ref BeingGibbedEvent args)

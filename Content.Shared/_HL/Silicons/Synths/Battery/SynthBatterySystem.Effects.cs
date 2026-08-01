@@ -25,6 +25,8 @@ public sealed partial class SynthBatteryEffectsSystem : EntitySystem
 
     private void OnShutdown(Entity<SynthBatteryComponent> ent, ref ComponentShutdown args)
     {
+        var ev = new SynthBatteryShutdownEvent();
+        RaiseLocalEvent(ent.Owner, ref ev);
         _movement.RefreshMovementSpeedModifiers(ent.Owner);
     }
 
@@ -36,3 +38,6 @@ public sealed partial class SynthBatteryEffectsSystem : EntitySystem
         args.ModifySpeed(ent.Comp.UnpoweredWalkSpeedModifier, ent.Comp.UnpoweredSprintSpeedModifier);
     }
 }
+
+[ByRefEvent]
+public readonly record struct SynthBatteryShutdownEvent;

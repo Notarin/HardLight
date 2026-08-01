@@ -5,8 +5,6 @@ using Content.Server.Power.EntitySystems;
 using Content.Shared.Damage;
 using Content.Shared.Damage.Systems;
 using Content.Shared.FixedPoint;
-using Content.Shared.Mobs;
-using Content.Shared.Mobs.Components;
 using Robust.Shared.Prototypes;
 
 namespace Content.Server._HL.Silicons.Synths;
@@ -16,7 +14,6 @@ public sealed partial class SynthShockSystem : EntitySystem
     [Dependency] private readonly DamageableSystem _damageable = default!;
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
     [Dependency] private readonly BatterySystem _battery = default!;
-    [Dependency] private readonly SynthBatteryPowerSystem _batteryPower = default!;
     [Dependency] private readonly SynthBatterySystem _synthBattery = default!;
 
     public override void Initialize()
@@ -44,14 +41,7 @@ public sealed partial class SynthShockSystem : EntitySystem
             return;
 
         var charge = shockDamage.Float() * ent.Comp.BatteryChargeMultiplier;
-        var changed = _battery.ChangeCharge(battery.Value.Owner, charge, battery.Value.Comp);
-
-        if (changed <= 0f ||
-            !TryComp(ent.Owner, out MobStateComponent? mobState) ||
-            mobState.CurrentState == MobState.Dead)
-            return;
-
-        _batteryPower.SetUnpowered((ent.Owner, synthBattery), false);
+        _battery.ChangeCharge(battery.Value.Owner, charge, battery.Value.Comp);
     }
 
     private void ApplyCellularDamage(Entity<SynthShockComponent> ent, FixedPoint2 shockDamage, EntityUid? origin)

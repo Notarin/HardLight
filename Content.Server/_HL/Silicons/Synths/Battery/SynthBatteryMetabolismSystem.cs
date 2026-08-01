@@ -8,7 +8,6 @@ public sealed partial class SynthBatteryMetabolismSystem : EntitySystem
 {
     private const string NutrimentReagent = "Nutriment";
 
-    [Dependency] private SynthBatteryEffectsSystem _effects = default!;
     [Dependency] private SynthBatterySystem _synthBattery = default!;
     [Dependency] private BatterySystem _battery = default!;
 
@@ -24,16 +23,9 @@ public sealed partial class SynthBatteryMetabolismSystem : EntitySystem
             !_synthBattery.TryGetBattery(ent.Owner, out var battery, ent.Comp))
             return;
 
-        var changed = _battery.ChangeCharge(
+        _battery.ChangeCharge(
             battery.Value.Owner,
             args.Reagent.Quantity.Float() * ent.Comp.NutrimentChargeMultiplier,
             battery.Value.Comp);
-
-        if (changed <= 0f || !ent.Comp.Unpowered)
-            return;
-
-        ent.Comp.Unpowered = false;
-        Dirty(ent);
-        _effects.RefreshUnpoweredEffects(ent);
     }
 }

@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server.Body.Components;
 using Content.Server.Body.Systems;
 using Content.Shared._HL.Silicons.Synths.Body;
@@ -133,7 +132,8 @@ public sealed partial class SynthBloodstreamSystem : EntitySystem
         DamageableComponent damageable,
         float bloodEfficiency)
     {
-        var repair = new DamageSpecifier();
+        var repair = component.PassiveRepair;
+        repair.DamageDict.Clear();
 
         foreach (var (type, amount) in component.Damage.Types)
         {
@@ -263,7 +263,7 @@ public sealed partial class SynthBloodstreamSystem : EntitySystem
             return;
 
         var scale = availableRepair / totalRepair;
-        foreach (var type in repair.DamageDict.Keys.ToArray())
+        foreach (var type in repair.DamageDict.Keys)
         {
             if (repair.DamageDict[type] < FixedPoint2.Zero)
                 repair.DamageDict[type] *= scale;

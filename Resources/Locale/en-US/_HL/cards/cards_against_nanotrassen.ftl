@@ -7,6 +7,9 @@ cards-against-nanotrassen-value-name = { $card ->
    *[other] {$card}
 }
 
+cards-against-nanotrassen-desc = A deck of cards for playing Cards Against Nanotrassen.
+cards-against-nanotrassen-suit-name = {$suit}
+
 cards-against-nanotrassen-name = {$card}
 cards-against-nanotrassen = Card Against Nanotrassen Card
 

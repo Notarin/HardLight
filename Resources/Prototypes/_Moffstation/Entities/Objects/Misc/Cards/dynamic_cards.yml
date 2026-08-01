@@ -64,3 +64,4 @@
         friction: 0.2
   # FLOOF ADD END
   - type: SavingContraband
+    examineText: ship-saving-contraband-3-text

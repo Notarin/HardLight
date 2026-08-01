@@ -11500,7 +11500,7 @@ entities:
     - type: Transform
       pos: 10.155526,5.515541
       parent: 1
-- proto: CardBoxNanotrasen
+- proto: PlayingCardDeckBoxColonialCommand
   entities:
   - uid: 1753
     components:

@@ -13,6 +13,7 @@ using Content.Server.Actions;
 using Content.Server.Chat.Managers;
 using Content.Server.GameTicking;
 using Content.Server.Roles.Jobs;
+using Content.Server.Traits;
 using Content.Shared.CCVar;
 using Content.Shared.Chat;
 using Content.Shared.Dataset;
@@ -77,8 +78,8 @@ public sealed partial class ThavenMoodsSystem : SharedThavenMoodSystem
         SubscribeLocalEvent<ThavenMoodsBoundComponent, ComponentShutdown>(OnThavenMoodShutdown);
         SubscribeLocalEvent<ThavenMoodsBoundComponent, ToggleMoodsScreenEvent>(OnToggleMoodsScreen);
         SubscribeLocalEvent<ThavenMoodsBoundComponent, BoundUIOpenedEvent>(OnBoundUIOpened);
-        SubscribeLocalEvent<PlayerSpawnCompleteEvent>(OnSpawnComplete); // funky
         SubscribeLocalEvent<RoundRestartCleanupEvent>((_) => NewSharedMoods());
+        SubscribeLocalEvent<PlayerSpawnCompleteEvent>(OnSpawnComplete, after: new[] { typeof(TraitSystem) }); // funky
     }
 
     private void NewSharedMoods()

@@ -24,6 +24,47 @@
             - material: Paper
               amount: 1
               doAfter: 1
+        # Furry Ture Posters
+        - to: PosterCatPictures
+          steps:
+            - material: Paper
+              amount: 1
+              doAfter: 1
+        - to: PosterCleaning
+          steps:
+            - material: Paper
+              amount: 1
+              doAfter: 1
+        - to: PosterInterdine
+          steps:
+            - material: Paper
+              amount: 1
+              doAfter: 1
+        - to: PosterMaybeERP
+          steps:
+            - material: Paper
+              amount: 1
+              doAfter: 1
+        - to: PosterNOnonvandalized
+          steps:
+            - material: Paper
+              amount: 1
+              doAfter: 1
+        - to: PosterRedSec
+          steps:
+            - material: Paper
+              amount: 1
+              doAfter: 1
+        - to: PosterSurvival
+          steps:
+            - material: Paper
+              amount: 1
+              doAfter: 1
+        - to: PosterUNSA
+          steps:
+            - material: Paper
+              amount: 1
+              doAfter: 1
         # Contraband Posters
         - to: PosterContrabandFreeTonto
           steps:
@@ -1983,6 +2024,94 @@
               doAfter: 1
     - node: PosterChudMeansLetsFuck
       entity: PosterChudMeansLetsFuck
+      edges:
+        - to: start
+          completed:
+            - !type:SpawnPrototype
+              prototype: SheetPaper
+              amount: 1
+          steps:
+            - tool: Prying
+              doAfter: 1
+    - node: PosterCatPictures
+      entity: PosterCatPictures
+      edges:
+        - to: start
+          completed:
+            - !type:SpawnPrototype
+              prototype: SheetPaper
+              amount: 1
+          steps:
+            - tool: Prying
+              doAfter: 1
+    - node: PosterCleaning
+      entity: PosterCleaning
+      edges:
+        - to: start
+          completed:
+            - !type:SpawnPrototype
+              prototype: SheetPaper
+              amount: 1
+          steps:
+            - tool: Prying
+              doAfter: 1
+    - node: PosterInterdine
+      entity: PosterInterdine
+      edges:
+        - to: start
+          completed:
+            - !type:SpawnPrototype
+              prototype: SheetPaper
+              amount: 1
+          steps:
+            - tool: Prying
+              doAfter: 1
+    - node: PosterMaybeERP
+      entity: PosterMaybeERP
+      edges:
+        - to: start
+          completed:
+            - !type:SpawnPrototype
+              prototype: SheetPaper
+              amount: 1
+          steps:
+            - tool: Prying
+              doAfter: 1
+    - node: PosterNOnonvandalized
+      entity: PosterNOnonvandalized
+      edges:
+        - to: start
+          completed:
+            - !type:SpawnPrototype
+              prototype: SheetPaper
+              amount: 1
+          steps:
+            - tool: Prying
+              doAfter: 1
+    - node: PosterRedSec
+      entity: PosterRedSec
+      edges:
+        - to: start
+          completed:
+            - !type:SpawnPrototype
+              prototype: SheetPaper
+              amount: 1
+          steps:
+            - tool: Prying
+              doAfter: 1
+    - node: PosterSurvival
+      entity: PosterSurvival
+      edges:
+        - to: start
+          completed:
+            - !type:SpawnPrototype
+              prototype: SheetPaper
+              amount: 1
+          steps:
+            - tool: Prying
+              doAfter: 1
+    - node: PosterUNSA
+      entity: PosterUNSA
       edges:
         - to: start
           completed:

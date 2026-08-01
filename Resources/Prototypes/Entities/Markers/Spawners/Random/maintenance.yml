@@ -173,6 +173,7 @@
       - id: ClothingUniformJumpsuitFamilyGuy
       - id: WristwatchGold
       - id: RubberStampGreytide
+      - id: PaintingMaintsaLivsa
 
 - type: entity
   name: Maint Loot Spawner

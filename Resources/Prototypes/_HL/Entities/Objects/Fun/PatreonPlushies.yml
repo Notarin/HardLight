@@ -181,10 +181,20 @@
   - type: EmitSoundOnUse
     sound:
       path: /Audio/_RMC14/Voice/Felinid/cat_purr1.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_Starlight/Voice/Resomi/resomi_cry_2.ogg
   - type: EmitSoundOnActivate
     sound:
       path: /Audio/_Starlight/Voice/Resomi/resomi_squawk_1.ogg
- 
+  - type: EmitSoundOnCollide
+    sound:
+      path: /Audio/_Starlight/Voice/Avali/avali_cry.ogg
+  - type: MeleeWeapon
+    wideAnimationRotation: 180
+    soundHit:
+      path: /Audio/_Starlight/Voice/Avali/avali_cry.ogg
+
 - type: entity
   parent: BasePlushie
   id: PlushieEinalia

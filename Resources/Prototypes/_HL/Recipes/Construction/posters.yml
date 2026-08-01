@@ -1738,3 +1738,107 @@
   canBuildInImpassable: true
   conditions:
     - !type:WallmountCondition
+
+- type: construction
+  id: PosterCatPictures
+  graph: Poster
+  startNode: start
+  targetNode: PosterCatPictures
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterCleaning
+  graph: Poster
+  startNode: start
+  targetNode: PosterCleaning
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterInterdine
+  graph: Poster
+  startNode: start
+  targetNode: PosterInterdine
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterMaybeERP
+  graph: Poster
+  startNode: start
+  targetNode: PosterMaybeERP
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterNOnonvandalized
+  graph: Poster
+  startNode: start
+  targetNode: PosterNOnonvandalized
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterRedSec
+  graph: Poster
+  startNode: start
+  targetNode: PosterRedSec
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterSurvival
+  graph: Poster
+  startNode: start
+  targetNode: PosterSurvival
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterUNNSA
+  graph: Poster
+  startNode: start
+  targetNode: PosterUNSA
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition

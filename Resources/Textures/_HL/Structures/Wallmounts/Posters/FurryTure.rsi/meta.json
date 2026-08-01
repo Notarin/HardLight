@@ -1,0 +1,35 @@
+{
+    "version": 1,
+    "license": "CC-BY-SA-3.0",
+    "copyright": "Hardlight",
+    "size": {
+        "x": 32,
+        "y": 32
+    },
+    "states": [
+        {
+            "name": "poster_cat_pictures"
+        },
+        {
+            "name": "poster_Cleaning_poster"
+        },
+        {
+            "name": "poster_Interdine_poster"
+        },
+        {
+            "name": "poster_maybe_erp"
+        },
+        {
+            "name": "poster_NO_nonvandalized"
+        },
+        {
+            "name": "poster_RedSec_poster"
+        },
+        {
+            "name": "poster_Survival_poster"
+        },
+        {
+            "name": "poster_UNSA_poster"
+        }
+    ]
+}

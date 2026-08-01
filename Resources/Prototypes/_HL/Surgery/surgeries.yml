@@ -307,7 +307,7 @@
     - type: OrganBrainSynth
   - type: Sprite
     sprite: _HL/Mobs/Species/Synth/organs.rsi
-    state: synth_ccu
+    state: brain
 
 - type: entity
   parent: SurgeryBase
@@ -333,7 +333,7 @@
     reattaching: true
   - type: Sprite
     sprite: _HL/Mobs/Species/Synth/organs.rsi
-    state: synth_ccu
+    state: brain
 
 - type: entity
   parent: SurgeryBase
@@ -355,7 +355,7 @@
     - type: OrganEyesSynth
   - type: Sprite
     sprite: _HL/Mobs/Species/Synth/organs.rsi
-    state: synth_camera_gimbal
+    state: eyes
 
 - type: entity
   parent: SurgeryBase
@@ -380,7 +380,7 @@
     reattaching: true
   - type: Sprite
     sprite: _HL/Mobs/Species/Synth/organs.rsi
-    state: synth_camera_gimbal
+    state: eyes
 
 - type: entity
   parent: SurgeryBase
@@ -402,7 +402,7 @@
     - type: OrganHeartSynth
   - type: Sprite
     sprite: _HL/Mobs/Species/Synth/organs.rsi
-    state: synth_heart
+    state: heart
 
 - type: entity
   parent: SurgeryBase
@@ -427,7 +427,7 @@
     reattaching: true
   - type: Sprite
     sprite: _HL/Mobs/Species/Synth/organs.rsi
-    state: synth_heart
+    state: heart
 
 - type: entity
   parent: SurgeryBase
@@ -449,7 +449,7 @@
     - type: OrganLungsSynth
   - type: Sprite
     sprite: _HL/Mobs/Species/Synth/organs.rsi
-    state: synth_lungs
+    state: lungs
 
 - type: entity
   parent: SurgeryBase
@@ -474,7 +474,7 @@
     reattaching: true
   - type: Sprite
     sprite: _HL/Mobs/Species/Synth/organs.rsi
-    state: synth_lungs
+    state: lungs
 
 - type: entity
   parent: SurgeryBase
@@ -496,7 +496,7 @@
     - type: OrganLiverSynth
   - type: Sprite
     sprite: _HL/Mobs/Species/Synth/organs.rsi
-    state: synth_liver
+    state: liver
 
 - type: entity
   parent: SurgeryBase
@@ -521,7 +521,7 @@
     reattaching: true
   - type: Sprite
     sprite: _HL/Mobs/Species/Synth/organs.rsi
-    state: synth_liver
+    state: liver
 
 - type: entity
   parent: SurgeryBase

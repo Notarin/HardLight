@@ -35,7 +35,7 @@
     - Machine
   - type: Sprite
     sprite: _HL/Mobs/Species/Synth/organs.rsi
-    state: synth_ccu
+    state: brain
     scale: 0.65, 0.65
   - type: Organ
   - type: SynthOrgan

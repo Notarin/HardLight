@@ -1,5 +1,5 @@
 - type: entity
-  parent: [ BaseMobSpecies, MobAtmosStandard, MobFlammable ]
+  parent: [ BaseMobSpecies, MobBloodstream, MobAtmosStandard, MobFlammable ]
   id: BaseMobSynth
   name: Urist McBeeper
   abstract: true
@@ -162,6 +162,10 @@
     bloodlossHealDamage:
       types:
         Bloodloss: -1
+  - type: BlockInjection
+    blockHypospray: true
+    blockInjectOnProjectile: true
+    blockReason: synth
   - type: SynthBloodstream
     minBloodLevel: 0.3
     fullEfficiencyBloodLevel: 0.9
@@ -201,8 +205,8 @@
     batteryChargeMultiplier: 10.8
     cellularDamageMultiplier: 0.2
   - type: BatteryAlert
-    batteryAlert: SynthBattery
-    noBatteryAlert: SynthBatteryNone
+    batteryAlert: BorgBattery
+    noBatteryAlert: BorgBatteryNone
   - type: UniversalHealModifier
     modifier: 0.5 # reduces the effectiveness of most healing sources by 50%
   - type: ThermalRegulator
@@ -237,7 +241,6 @@
   - type: FireVisuals
     alternateState: Standing
   - type: StunVisuals
-  - type: SolutionContainerManager
   - type: Crawler
   - type: OfferItem
   - type: Tag

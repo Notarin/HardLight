@@ -66,7 +66,7 @@ marking-SynthChestCross = Synth Chest (Cross)
 marking-SynthChestCross-cross = Chest
 
 marking-SynthChestFracture = Synth Chest (Fracture)
-marking-SynthChestFracture fracture = Chest
+marking-SynthChestFracture-fracture = Chest
 
 marking-SynthChestLight = Chest Light
 marking-SynthChestLight-chest_light = Light

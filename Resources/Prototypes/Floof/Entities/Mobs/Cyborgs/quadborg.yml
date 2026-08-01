@@ -1,4 +1,4 @@
-- type: entity
+﻿- type: entity
   id: BorgChassisQuad
   parent: BaseBorgChassisNT
   components:
@@ -29,6 +29,7 @@
     layers:
     - state: quadsprite
       map: ["movement"]
+    - map: ["enum.ToggleVisuals.Layer"]
     - state: quadspritel
       map: ["enum.BorgVisualLayers.Light"]
       shader: unshaded
@@ -106,7 +107,7 @@
     node: cyborg
   - type: Speech
     speechVerb: Robotic
-  - type: LayingDown
+  - type: Crawler # HardLight
   - type: CumProducer
     maxVol: 250
     reVol: 50
@@ -122,9 +123,10 @@
     interactSuccessSound:
       path: /Audio/Ambience/Objects/periodic_beep.ogg
   - type: SpriteStateToggle
-    spriteLayer: movement
+    spriteLayer: enum.ToggleVisuals.Layer
     stateOff: quadsprite
     stateOn: quadspriteballz
+    #VisibleWhenEnabled: true
     movementStateOff: quadsprite_moving
     movementStateOn: quadsprite_movingballz
 
@@ -138,6 +140,7 @@
     layers:
     - state: quadsprite
       map: ["movement"]
+    - map: ["enum.ToggleVisuals.Layer"]
     - state: quadspritel
       map: ["enum.BorgVisualLayers.Light"]
       shader: unshaded
@@ -201,9 +204,10 @@
     laws: Qborg
   - type: FlashImmunity
   - type: SpriteStateToggle
-    spriteLayer: movement
+    spriteLayer: enum.ToggleVisuals.Layer
     stateOff: quadspritesec
     stateOn: quadspritesecballz
+    #VisibleWhenEnabled: true
     movementStateOff: quadspritesec_moving
     movementStateOn: quadspritesec_movingballz
 
@@ -217,6 +221,7 @@
     layers:
     - state: SyndQuad
       map: ["movement"]
+    - map: ["enum.ToggleVisuals.Layer"]
     - state: SyndQuadl
       map: ["enum.BorgVisualLayers.Light"]
       shader: unshaded
@@ -284,9 +289,10 @@
       state: SyndQuad
     name: cyborg
   - type: SpriteStateToggle
-    spriteLayer: movement
+    spriteLayer: enum.ToggleVisuals.Layer
     stateOff: SyndQuad
     stateOn: SyndQuadballz
+    #VisibleWhenEnabled: true
     movementStateOff: SyndQuad_moving
     movementStateOn: SyndQuad_movingballz
   # Note: No toggle added here; no provided SyndQuad ballz states.
@@ -301,6 +307,7 @@
     layers:
     - state: assaultquad
       map: ["movement"]
+    - map: ["enum.ToggleVisuals.Layer"]
     - state: assaultquadr
       map: ["enum.BorgVisualLayers.Light"]
       shader: unshaded
@@ -334,9 +341,10 @@
       state: assaultquad
     name: cyborg
   - type: SpriteStateToggle
-    spriteLayer: movement
+    spriteLayer: enum.ToggleVisuals.Layer
     stateOff: assaultquad
     stateOn: assaultquadballz
+    #VisibleWhenEnabled: true
     movementStateOff: assaultquad_moving
     movementStateOn: assaultquad_movingballz
 
@@ -350,6 +358,7 @@
     layers:
     - state: chews
       map: ["movement"]
+    - map: ["enum.ToggleVisuals.Layer"]
     - state: chewsr
       map: ["enum.BorgVisualLayers.Light"]
       shader: unshaded
@@ -383,9 +392,10 @@
       state: chews
     name: cyborg
   - type: SpriteStateToggle
-    spriteLayer: movement
+    spriteLayer: enum.ToggleVisuals.Layer
     stateOff: chews
     stateOn: chewsballz
+    #VisibleWhenEnabled: true
     movementStateOff: chews_moving
     movementStateOn: chews_movingballz
 
@@ -399,6 +409,7 @@
     layers:
     - state: littlehelper
       map: ["movement"]
+    - map: ["enum.ToggleVisuals.Layer"]
     - state: littlehelperr
       map: ["enum.BorgVisualLayers.Light"]
       shader: unshaded
@@ -432,9 +443,10 @@
       state: littlehelper
     name: cyborg
   - type: SpriteStateToggle
-    spriteLayer: movement
+    spriteLayer: enum.ToggleVisuals.Layer
     stateOff: littlehelper
     stateOn: littlehelperballz
+    #VisibleWhenEnabled: true
     movementStateOff: littlehelper_moving
     movementStateOn: littlehelper_movingballz
 
@@ -448,6 +460,7 @@
     layers:
     - state: wolfdog
       map: ["movement"]
+    - map: ["enum.ToggleVisuals.Layer"]
     - state: wolfdogr
       map: ["enum.BorgVisualLayers.Light"]
       shader: unshaded
@@ -481,9 +494,10 @@
       state: wolfdog
     name: cyborg
   - type: SpriteStateToggle
-    spriteLayer: movement
+    spriteLayer: enum.ToggleVisuals.Layer
     stateOff: wolfdog
     stateOn: wolfdogballz
+    #VisibleWhenEnabled: true
     movementStateOff: wolfdog_moving
     movementStateOn: wolfdog_movingballz
   - type: FootstepModifier
@@ -516,6 +530,7 @@
     layers:
     - state: quadspriteCC
       map: ["movement"]
+    - map: ["enum.ToggleVisuals.Layer"]
     - state: quadspritel
       map: ["enum.BorgVisualLayers.Light"]
       shader: unshaded
@@ -603,9 +618,10 @@
   - type: SiliconLawProvider
     laws: ColComm
   - type: SpriteStateToggle
-    spriteLayer: movement
+    spriteLayer: enum.ToggleVisuals.Layer
     stateOff: quadspriteCC
     stateOn: quadspriteCCballz
+    #VisibleWhenEnabled: true
     movementStateOff: quadspriteCC_moving
     movementStateOn: quadspriteCC_movingballz
 
@@ -619,6 +635,7 @@
     layers:
     - state: quadspritesalv
       map: ["movement"]
+    - map: ["enum.ToggleVisuals.Layer"]
     - state: quadspritesalvl
       map: ["enum.BorgVisualLayers.Light"]
       shader: unshaded
@@ -678,9 +695,10 @@
   - type: SiliconLawProvider
     laws: Corporate
   - type: SpriteStateToggle
-    spriteLayer: movement
+    spriteLayer: enum.ToggleVisuals.Layer
     stateOff: quadspritesalv
     stateOn: quadspritesalvballz
+    #VisibleWhenEnabled: true
     movementStateOff: quadspritesalv_moving
     movementStateOn: quadspritesalv_movingballz
 
@@ -694,6 +712,7 @@
     layers:
     - state: quadspriteserv
       map: ["movement"]
+    - map: ["enum.ToggleVisuals.Layer"]
     - state: quadspriteservl
       map: ["enum.BorgVisualLayers.Light"]
       shader: unshaded
@@ -757,9 +776,10 @@
     actions:
     - ActionFabricatePaper
   - type: SpriteStateToggle
-    spriteLayer: movement
+    spriteLayer: enum.ToggleVisuals.Layer
     stateOff: quadspriteserv
     stateOn: quadspriteservballz
+    #VisibleWhenEnabled: true
     movementStateOff: quadspriteserv_moving
     movementStateOn: quadspriteserv_movingballz
 
@@ -773,6 +793,7 @@
     layers:
     - state: engieborg
       map: ["movement"]
+    - map: ["enum.ToggleVisuals.Layer"]
     - state: engieborgl
       map: ["enum.BorgVisualLayers.Light"]
       shader: unshaded
@@ -836,9 +857,10 @@
     - Inorganic
     - Silicon
   - type: SpriteStateToggle
-    spriteLayer: movement
+    spriteLayer: enum.ToggleVisuals.Layer
     stateOff: engieborg
     stateOn: engieborgballz
+    #VisibleWhenEnabled: true
     movementStateOff: engieborg_moving
     movementStateOn: engieborg_movingballz
   # Note: No toggle added here; no provided engieborg ballz states.
@@ -853,6 +875,7 @@
     layers:
     - state: quadspritemed
       map: ["movement"]
+    - map: ["enum.ToggleVisuals.Layer"]
     - state: quadspritemedl
       map: ["enum.BorgVisualLayers.Light"]
       shader: unshaded
@@ -919,9 +942,10 @@
     - ActionFabricateLollipop
     - ActionFabricateGumball
   - type: SpriteStateToggle
-    spriteLayer: movement
+    spriteLayer: enum.ToggleVisuals.Layer
     stateOff: quadspritemed
     stateOn: quadspritemedballz
+    #VisibleWhenEnabled: true
     movementStateOff: quadspritemed_moving
     movementStateOn: quadspritemed_movingballz
   # - type: LanguageKnowledge
@@ -952,6 +976,7 @@
     layers:
     - state: Apex
       map: ["movement"]
+    - map: ["enum.ToggleVisuals.Layer"]
     - state: quadspritel
       map: ["enum.BorgVisualLayers.Light"]
       shader: unshaded
@@ -987,9 +1012,10 @@
   - type: SiliconLawProvider
     laws: Qborg
   - type: SpriteStateToggle
-    spriteLayer: movement
+    spriteLayer: enum.ToggleVisuals.Layer
     stateOff: Apex
     stateOn: Apexballz
+    #VisibleWhenEnabled: true
     movementStateOff: Apex_moving
     movementStateOn: Apex_movingballz
 
@@ -1003,6 +1029,7 @@
     layers:
     - state: chip_quadsprite
       map: ["movement"]
+    - map: ["enum.ToggleVisuals.Layer"]
     - state: quadspritel
       map: ["enum.BorgVisualLayers.Light"]
       shader: unshaded
@@ -1038,9 +1065,10 @@
   - type: SiliconLawProvider
     laws: Qborg
   - type: SpriteStateToggle
-    spriteLayer: movement
+    spriteLayer: enum.ToggleVisuals.Layer
     stateOff: chip_quadsprite
     stateOn: chip_quadspriteballz
+    #VisibleWhenEnabled: true
     movementStateOff: chip_quadsprite
     movementStateOn: chip_quadsprite_movingballz
 
@@ -1102,6 +1130,7 @@
     layers:
     - state: XenoQuad
       map: ["movement"]
+    - map: ["enum.ToggleVisuals.Layer"]
     - state: XenoQuad_e
       map: ["enum.BorgVisualLayers.Light"]
       shader: unshaded
@@ -1111,9 +1140,10 @@
       map: ["light"]
       visible: false
   - type: SpriteStateToggle
-    spriteLayer: movement
+    spriteLayer: enum.ToggleVisuals.Layer
     stateOff: XenoQuad
     stateOn: XenoQuadballz
+    #VisibleWhenEnabled: true
     movementStateOff: XenoQuad_moving
     movementStateOn: XenoQuad_movingballz
   - type: SpriteMovement

@@ -21,3 +21,6 @@ efflumetonial-effects-overdose-3 = You can’t hold onto a single idea
 efflumetonial-effects-overdose-4 = Your vision fractures into disjointed fragments
 efflumetonial-effects-overdose-5 = Something is very, very wrong with your mind
 efflumetonial-effects-overdose-6 = You struggle to remember how to speak
+
+reagent-name-kelpSap = Kelp Sap
+reagent-desc-kelpsap = An odd thaven medicine derived from slimy kelp pods. The scent makes you feel lightheaded and woozy.

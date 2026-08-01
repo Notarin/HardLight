@@ -1007,3 +1007,20 @@
       drink:
         maxVol: 150
   - type: Drink
+
+- type: entity
+  parent: [DrinkBottleVisualsOpenable, DrinkBottleGlassBaseFull]
+  id: DrinkKelpWineBottleFull
+  name: kelp wine bottle
+  description: A strange wine inside an equally strange looking bottle, a true delicacay on thaven planets.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        maxVol: 100
+        reagents:
+        - ReagentId: kelpwine
+          Quantity: 100
+  - type: Sprite
+    sprite: Objects/Consumable/Drinks/kelpwinebottle.rsi
+  - type: Sealable

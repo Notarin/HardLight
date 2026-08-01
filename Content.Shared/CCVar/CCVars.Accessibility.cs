@@ -82,6 +82,12 @@ public sealed partial class CCVars
         CVarDef.Create("accessibility.arachnophobia", false, CVar.CLIENTONLY | CVar.ARCHIVE);
 
     /// <summary>
+    /// If enabled, censors quadborg balls
+    /// </summary>
+    public static readonly CVarDef<bool> AccessibilityNoballs =
+        CVarDef.Create("accessibility.noballs", false, CVar.CLIENTONLY | CVar.ARCHIVE);
+
+    /// <summary>
     /// If enabled, job icons in chat and status icons are not animated.
     /// </summary>
     public static readonly CVarDef<bool> DisableJobIconAnimation =

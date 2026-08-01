@@ -122,6 +122,7 @@
   - type: StepTrigger
     intersectRatio: 0.2
   - type: TriggerOnStepTrigger
+  - type: AvoidableStepTrigger # HardLight
   - type: PreventableStepTrigger
   - type: Slippery
     slipSound:

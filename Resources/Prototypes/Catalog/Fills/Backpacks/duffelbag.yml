@@ -40,7 +40,7 @@
   components:
   - type: StorageFill
     contents:
-      - id: WeaponShotgunBulldog
+      - id: SWeaponShotgunBulldog
       - id: Magazine12_gaugeBuckshot
       - id: Magazine12_gaugeBuckshot
       - id: Magazine12_gaugeBuckshot
@@ -54,7 +54,7 @@
   components:
   - type: StorageFill
     contents:
-      - id: WeaponSubMachineGunC20r
+      - id: SWeaponSubMachineGunC20r
       - id: Magazine9x19mmSubMachineGunFMJ
         amount: 3
 #     - id: SMGSuppressor
@@ -67,7 +67,7 @@
   components:
   - type: StorageFill
     contents:
-      - id: WeaponSubMachineGunAtreides
+      - id: SWeaponSubMachineGunAtreides
       - id: Magazine9x19mmSubMachineGunFMJ
         amount: 3
 #     - id: SMGSuppressor
@@ -80,7 +80,7 @@
   components:
   - type: StorageFill
     contents:
-      - id: WeaponRevolverPythonAP
+      - id: SWeaponRevolverPythonAP
       - id: SpeedLoader45_magnumAP
         amount: 2
 
@@ -92,7 +92,7 @@
   components:
   - type: StorageFill
     contents:
-      - id: WeaponLightMachineGunL6
+      - id: SWeaponLightMachineGunL6
       - id: Magazine762x39mmBox
 
 - type: entity
@@ -103,7 +103,7 @@
   components:
   - type: StorageFill
     contents:
-      - id: WeaponLauncherChinaLake
+      - id: SWeaponLauncherChinaLake
       - id: 40mmGrenadeThermobaric
         amount: 4
       - id: 40mmGrenadeFragmentation
@@ -117,7 +117,7 @@
   components:
   - type: StorageFill
     contents:
-      - id: WeaponRifleM90GrenadeLauncher
+      - id: SWeaponRifleM90GrenadeLauncher
       - id: Magazine556x45mmFMJ
         amount: 2
       - id: 40mmGrenadeThermobaric
@@ -208,7 +208,7 @@
   components:
     - type: StorageFill
       contents:
-        - id: C4
+        - id: SC4
           amount: 8
 
 - type: entity
@@ -253,7 +253,7 @@
   components:
   - type: StorageFill
     contents:
-      - id: ClothingOuterHardsuitSyndie
+      - id: SClothingOuterHardsuitSyndie
       - id: ClothingMaskGasSyndicate
       - id: ClothingHandsGlovesCombat
       - id: DoubleEmergencyOxygenTankFilled
@@ -267,7 +267,7 @@
   components:
   - type: StorageFill
     contents:
-      - id: ClothingOuterHardsuitSyndieElite
+      - id: SClothingOuterHardsuitSyndieElite
       - id: ClothingMaskGasSyndicate
       - id: ClothingHandsGlovesCombat
       - id: DoubleEmergencyOxygenTankFilled

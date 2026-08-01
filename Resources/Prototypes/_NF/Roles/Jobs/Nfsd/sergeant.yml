@@ -1,6 +1,6 @@
 - type: job
   id: Sergeant
-  name: job-name-Sergeant
+  name: job-name-sergeant
   description: job-description-Sergeant
   playTimeTracker: JobSergeant
   requirements:

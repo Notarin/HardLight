@@ -15,6 +15,7 @@
       requiredTriggeredSpeed: 2
     - type: Mousetrap
     - type: TriggerOnStepTrigger
+    - type: AvoidableStepTrigger # HardLight
     - type: PreventableStepTrigger
     - type: DamageUserOnTrigger
       damage:

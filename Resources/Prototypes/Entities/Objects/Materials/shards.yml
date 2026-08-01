@@ -66,6 +66,7 @@
         acts: [ "Destruction" ]
   - type: StepTrigger
     intersectRatio: 0.2
+  - type: AvoidableStepTrigger # HardLight
   - type: PreventableStepTrigger
   - type: Slippery
     slipSound:

@@ -1,0 +1,299 @@
+- type: entity
+  name: viper
+  parent: [WeaponPistolViper] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  id: SWeaponPistolViper
+  components:
+  - type: GunDamageModifier
+    multiplier: 1.5
+    
+- type: entity
+  name: Python
+  parent: [WeaponRevolverPythonAP] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  id: SWeaponRevolverPythonAP
+  components:
+  - type: GunDamageModifier
+    multiplier: 1.5
+    
+- type: entity
+  name: Cobra
+  parent: [WeaponPistolCobra] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  id: SWeaponPistolCobra
+  components:
+  - type: GunDamageModifier
+    multiplier: 1.5
+
+- type: entity
+  name: Mosin
+  parent: [WeaponSniperMosin] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  id: SWeaponSniperMosin
+  components:
+  - type: GunDamageModifier
+    multiplier: 1.5
+
+- type: entity
+  name: Hristov
+  parent: [WeaponSniperHristov] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  id: SWeaponSniperHristov
+  components:
+  - type: GunDamageModifier
+    multiplier: 1.5
+
+- type: entity
+  name: C20r
+  parent: [WeaponSubMachineGunC20r] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  id: SWeaponSubMachineGunC20r
+  components:
+  - type: GunDamageModifier
+    multiplier: 1.5
+
+- type: entity
+  name: Bulldog
+  parent: [WeaponShotgunBulldog] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  id: SWeaponShotgunBulldog
+  components:
+  - type: GunDamageModifier
+    multiplier: 1.5
+
+- type: entity
+  name: L6 Saw
+  parent: [WeaponLightMachineGunL6] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  id: SWeaponLightMachineGunL6
+  components:
+  - type: GunDamageModifier
+    multiplier: 1.5
+
+- type: entity
+  name: Atreides
+  parent: [WeaponSubMachineGunAtreides] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  id: SWeaponSubMachineGunAtreides
+  components:
+  - type: GunDamageModifier
+    multiplier: 1.5
+
+- type: entity
+  name: China lake
+  parent: [WeaponLauncherChinaLake] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  id: SWeaponLauncherChinaLake
+  components:
+  - type: GunDamageModifier
+    multiplier: 1.5
+    
+- type: entity
+  name: M90 GL
+  parent: [WeaponRifleM90GrenadeLauncher] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  id: SWeaponRifleM90GrenadeLauncher
+  components:
+  - type: GunDamageModifier
+    multiplier: 1.5
+    
+- type: entity
+  name: Flamethrower
+  parent: [WeaponFlamethrowerFG] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  id: SWeaponFlamethrowerFG
+  components:
+  - type: GunDamageModifier
+    multiplier: 1.5
+    
+- type: entity
+  name: Energy Sword
+  parent: [EnergySword] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  id: SEnergySword
+  components:
+  - type: MeleeDamageModifier
+    flatBonus: 12
+    damageType: Blunt
+    
+- type: entity
+  name: Energy Dagger
+  parent: [EnergyDagger] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  id: SEnergyDagger
+  components:
+  - type: MeleeDamageModifier
+    flatBonus: 8
+    damageType: Blunt
+    
+- type: entity
+  name: Gloves of the north star
+  parent: [ClothingHandsGlovesNorthStar] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  id: SClothingHandsGlovesNorthStar
+  components:
+  - type: MeleeWeapon
+    autoAttack: true
+    attackRate: 4
+    damage:
+      types:
+       Blunt: 15
+    soundHit:
+      collection: Punch
+    animation: WeaponArcFist
+    mustBeEquippedToUse: true
+    
+- type: entity
+  name: Knuckle dusters
+  parent: [ClothingHandsKnuckleDustersSyndicate] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  id: SClothingHandsKnuckleDustersSyndicate
+  components:
+  - type: MeleeWeapon
+    attackRate: 1.5
+    damage:
+      types:
+        Blunt: 12
+        Piercing: 10
+    soundHit:
+      collection: Punch
+    animation: WeaponArcFist
+    mustBeEquippedToUse: true
+    
+- type: entity
+  name: explosive grenade
+  description: Grenade that creates a small but devastating explosion.
+  parent: [ExGrenade] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  id: SExGrenade
+  components:
+  - type: Explosive
+    explosionType: Default
+    maxIntensity: 15
+    intensitySlope: 3
+    totalIntensity: 120 # about a ~4 tile radius
+    canCreateVacuum: false
+    
+- type: entity
+  name: syndicate minibomb
+  description: A syndicate-manufactured explosive used to stow destruction and cause chaos.
+  parent: [SyndieMiniBomb] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  id: SSyndieMiniBomb
+  components:
+  - type: Explosive
+    explosionType: Minibomb
+    totalIntensity: 200
+    intensitySlope: 30 #Will destroy the tile under it reliably, space 1-2 more to rods. Only does any significant damage in a 5-tile cross.
+    maxIntensity: 90
+    
+- type: entity
+  name: composition C-4
+  description: Used to put holes in specific areas without too much extra hole. A saboteur's favorite.
+  parent: [C4] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  id: SC4
+  components:
+  - type: Explosive # Powerful explosion in a very small radius. Doesn't break underplating.
+    explosionType: DemolitionCharge
+    totalIntensity: 60
+    intensitySlope: 5
+    maxIntensity: 45
+    canCreateVacuum: false
+
+- type: entity
+  parent: [PenExplodingBox] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  id: SPenExplodingBox
+  name: exploding pen box
+  description: A small box containing an exploding pen. Packaging disintegrates when opened, leaving no evidence behind.
+  components:
+  - type: SpawnItemsOnUse
+    items:
+    - id: SPenExploding
+    sound:
+      path: /Audio/Effects/unwrap.ogg
+
+- type: entity
+  name: pen
+  suffix: Exploding
+  parent: PenExploding
+  description: A dark ink pen.
+  id: SPenExploding
+  components:
+  - type: Explosive
+    explosionType: Default
+    maxIntensity: 12
+    intensitySlope: 5
+    totalIntensity: 20
+    canCreateVacuum: false
+    
+- type: entity
+  parent: [ClusterGrenade] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  id: SClusterGrenade
+  name: clustergrenade
+  description: Why use one grenade when you can use three at once!
+  components:
+  - type: ScatteringGrenade
+    fillPrototype: SExGrenade
+    distance: 4
+    
+- type: entity
+  parent: [GrenadeShrapnel] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  id: SGrenadeShrapnel
+  name: shrapnel grenade
+  description: Releases a deadly spray of shrapnel that causes severe bleeding.
+  components:
+  - type: ProjectileGrenade
+    fillPrototype: NFPelletClusterLethal # Frontier: use NF variant
+    capacity: 45
+    
+- type: entity
+  parent: [GrenadeIncendiary] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  id: SGrenadeIncendiary
+  name: incendiary grenade
+  description: Guaranteed to light up the mood.
+  components:
+  - type: ProjectileGrenade
+    fillPrototype: NFPelletClusterIncendiary # Frontier: use NF variant
+    capacity: 45
+    
+- type: entity
+  parent: [ClothingOuterHardsuitSyndie] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband, added ContrabandClothing as parent
+  id: SClothingOuterHardsuitSyndie
+  name: blood-red hardsuit
+  description: A heavily armored hardsuit designed for work in special operations. Property of Gorlex Marauders.
+  components:
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.4
+        Slash: 0.4
+        Piercing: 0.4
+        Heat: 0.4
+        Radiation: 0.4
+        Caustic: 0.4
+
+- type: entity
+  parent: [ClothingOuterHardsuitSyndieElite] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband, added ContrabandClothing as parent
+  id: SClothingOuterHardsuitSyndieElite
+  components:
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.5
+        Slash: 0.5
+        Piercing: 0.5
+        Heat: 0.18
+        Radiation: 0.01
+        Caustic: 0.4
+
+- type: entity
+  parent: [ClothingOuterHardsuitSyndieCommander] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband, added ContrabandClothing as parent
+  id: SClothingOuterHardsuitSyndieCommander
+  components:
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.3
+        Slash: 0.3
+        Piercing: 0.25
+        Heat: 0.4
+        Radiation: 0.2
+        Caustic: 0.3
+
+- type: entity
+  parent: [ClothingOuterHardsuitJuggernaut] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband, added ContrabandClothing as parent
+  id: SClothingOuterHardsuitJuggernaut
+  components:
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.18
+        Slash: 0.18
+        Piercing: 0.18
+        Heat: 0.18
+        Radiation: 0.18
+        Caustic: 0.18
+
+  

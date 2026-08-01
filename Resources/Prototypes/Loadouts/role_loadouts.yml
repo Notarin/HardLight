@@ -547,7 +547,6 @@
 - type: roleLoadout
   id: JobForensicMantis
   groups:
-  - GroupTankHarness
   - MantisHead
   - MantisJumpsuit # Hardlight
   - ScientistBackpack
@@ -590,7 +589,6 @@
   - ContractorImplanter
   - ContractorBackpackItems
   - ContractorHandItems
-  - ContractorBoxSurvival
 # HardLight end
 
 - type: roleLoadout
@@ -615,7 +613,6 @@
   - ContractorWallet
   - ContractorImplanter
   - ContractorHandItems
-  - ContractorBoxSurvival
 # HardLight end
 
 - type: roleLoadout
@@ -641,7 +638,6 @@
   - ContractorImplanter
   - ContractorBackpackItems
   - ContractorHandItems
-  - ContractorBoxSurvival
 # HardLight end
 
 - type: roleLoadout
@@ -666,7 +662,6 @@
   - ContractorImplanter
   - ContractorBackpackItems
   - ContractorHandItems
-  - ContractorBoxSurvival
 # HardLight end
 
 - type: roleLoadout
@@ -689,7 +684,6 @@
   - ContractorImplanter
   - ContractorBackpackItems
   - ContractorHandItems
-  - ContractorBoxSurvival
 # HardLight end
 
 # Medical

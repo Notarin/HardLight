@@ -18,6 +18,8 @@
     - !type:EntityWhitelistRequirement
       whitelist:
         components: [MobState, Food] # Don't go around biting inanimate objects.
+      blacklist:
+        components: [ Untouchable ] # Hardlight: Untouchable Trait
   action:
     !type:ComplexAction
     actions:

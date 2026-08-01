@@ -70,6 +70,12 @@ public sealed partial class SpriteStateToggleComponent : Component
     public bool Enabled;
 
     /// <summary>
+    /// Whether the layer should only be visible when the toggle is enabled.
+    /// </summary>
+    [DataField, AutoNetworkedField]
+    public bool? VisibleWhenEnabled = null;
+
+    /// <summary>
     /// Action prototype granted to toggle this component.
     /// </summary>
     [DataField]

@@ -154,6 +154,9 @@ public sealed class ThrowingSystem : EntitySystem
             || friction < 0)
             return;
 
+        if (TerminatingOrDeleted(uid) || user != null && TerminatingOrDeleted(user)) // HL: Make sure we're not trying to delete the ents
+            return;
+
         if (unanchor && HasComp<AnchorableComponent>(uid))
             _transform.Unanchor(uid);
 
@@ -249,11 +252,11 @@ public sealed class ThrowingSystem : EntitySystem
             const float massLimit = 5f;
 
             if (!msg.Cancelled)
-                
+            {
                 // Frontier: apply impulse to buckled object if buckled
                 if (TryComp<BuckleComponent>(user, out var buckle) && buckle.BuckledTo is not null)
                 {
-                    if(TryComp<PhysicsComponent>(buckle.BuckledTo, out var buckledPhys))
+                    if (TryComp<PhysicsComponent>(buckle.BuckledTo, out var buckledPhys))
                         _physics.ApplyLinearImpulse(buckle.BuckledTo.Value, -impulseVector / buckledPhys.Mass * pushbackRatio * MathF.Min(massLimit, physics.Mass), body: buckledPhys);
                 }
                 else
@@ -262,6 +265,7 @@ public sealed class ThrowingSystem : EntitySystem
                 }
                 // End Frontier
                 //_physics.ApplyLinearImpulse(user.Value, -impulseVector / physics.Mass * pushbackRatio * MathF.Min(massLimit, physics.Mass), body: userPhysics); // Frontier: old implementation
+            }
         }
     }
 }

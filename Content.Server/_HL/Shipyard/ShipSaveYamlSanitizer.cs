@@ -18,14 +18,6 @@ public static class ShipSaveYamlSanitizer
     /// </summary>
     public const string SanitizedMarkerComment = "# hl-sanitized: 4";
 
-    // Implants that should not persist when found inside implanters during ship save.
-    private static readonly HashSet<string> BlockedContainedImplantPrototypes = new(StringComparer.Ordinal)
-    {
-        "DeathRattleImplantColcomm",
-        "RadioImplantColcomm",
-        "UplinkImplant",
-    };
-
     // Components stripped from all entities during ship-save export.
     // Add new always-remove component types here.
     //
@@ -97,44 +89,6 @@ public static class ShipSaveYamlSanitizer
     // Add non-ship entities here to drop them entirely.
     private static readonly HashSet<string> FilteredPrototypes = new(StringComparer.OrdinalIgnoreCase)
     {
-        // Machines & circuitboards
-        "MachineFlatpacker",
-        "CommsComputerCircuitboard",
-        "ComputerDNAScanner",
-        "ComputerExpeditionDiskPrinter",
-        "ComputerFundingAllocation",
-        "ComputerPsionicsRecords",
-        "ComputerRoboticsControl",
-        "ComputerShuttleRecords",
-        "ComputerTabletopShuttleAntag",
-        "DnaScannerConsoleComputerCircuitboard",
-        "IDComputerCircuitboard",
-        "StationAiUploadComputer",
-        // Vending machines
-        "DEBUGVendingMachineAmmoBoxes",
-        "DEBUGVendingMachineMagazines",
-        "DEBUGVendingMachineRangedWeapons",
-        "VendingMachineAmmoPOI",
-        "VendingMachineAstroVendPOI",
-        "VendingMachineBoozePOI",
-        "VendingMachineBountyVendPOI",
-        "VendingMachineCigsPOI",
-        "VendingMachineEngivendPOI",
-        "VendingMachineExpeditionaryFlatpackVend",
-        "VendingMachineFlatpackVend",
-        "VendingMachineFuelVend",
-        "VendingMachineGamesPOI",
-        "LessLethalVendingMachinePOI",
-        "VendingMachineMediDrobePOI",
-        "VendingMachineMercVend",
-        "VendingMachinePickNPackPOI",
-        "VendingMachinePottedPlantVendPOI",
-        "VendingMachineSalvagePOI",
-        "VendingMachineSyndieContraband",
-        "VendingMachineTankDispenserEVAPOI",
-        "VendingMachineVendomatPOI",
-        "VendingMachineYouToolPOI",
-        // Everything else
         "ContainmentField",
         "PortalBlue",
         "PortalRed",
@@ -145,13 +99,6 @@ public static class ShipSaveYamlSanitizer
         // with unresolved MetaDataComponent errors. Exclude them from ship exports.
         "AnomalyCoreFlesh",
         "AnomalyCoreFleshInert",
-        // NullSpace items
-        "ClothingEyesGlassesNullSpace",
-        "BluespaceFlasher",
-        "ClothingNullHarness",
-        "ClothingNullSpaceTeleporter",
-        "GrenadeDePhase",
-        "BluespaceFlasherFlatpack"
     };
 
     // Entity-level exclusion by component signature.
@@ -159,24 +106,9 @@ public static class ShipSaveYamlSanitizer
     // unless allowed by ComponentExclusionExceptions below.
     private static readonly HashSet<string> FilteredEntityByComponentTypes = new(StringComparer.Ordinal)
     {
-        "CommunicationsConsole",
-        "ContrabandPalletConsole",
-        "CriminalRecordsConsole",
-        "DnaSequenceInjector",
-        "DoorRemote",
-        "EmergencyShuttleConsole",
-        "GeneralStationRecordConsole",
-        "GeneticAnalyzer",
         "Ghost",
         "GhostRole",
         "HumanoidAppearance",
-        "IdCard",
-        "IdCardConsole",
-        "MarketConsole",
-        "NFCargoOrderConsole",
-        "Pda",
-        "ShipyardConsole",
-        "Store",
     };
 
     private static readonly HashSet<string> ActionEntityComponentTypes = new(StringComparer.Ordinal)
@@ -210,7 +142,6 @@ public static class ShipSaveYamlSanitizer
 
         // Track entity UIDs removed during sanitation so we can prune stale container/storage references.
         var removedEntityUids = new HashSet<string>(StringComparer.Ordinal);
-        var blockedContainedImplantEntityUids = CollectBlockedContainedImplantEntityUids(protoSeq);
 
         foreach (var protoNode in protoSeq)
         {
@@ -293,18 +224,6 @@ public static class ShipSaveYamlSanitizer
                 }
 
                 if (HasActionEntityComponentNode(comps))
-                {
-                    if (entMap.TryGet("uid", out ValueDataNode? removedUidNode) && removedUidNode != null && !removedUidNode.IsNull)
-                        removedEntityUids.Add(removedUidNode.Value);
-
-                    entitiesSeq.RemoveAt(i);
-                    i--;
-                    continue;
-                }
-
-                // Remove implanters containing blocked implant entities.
-                var isImplanter = entityProto?.Components.ContainsKey("Implanter") == true || HasComponentNode(comps, "Implanter");
-                if (isImplanter && HasBlockedContainedImplant(entMap, blockedContainedImplantEntityUids))
                 {
                     if (entMap.TryGet("uid", out ValueDataNode? removedUidNode) && removedUidNode != null && !removedUidNode.IsNull)
                         removedEntityUids.Add(removedUidNode.Value);
@@ -777,84 +696,6 @@ public static class ShipSaveYamlSanitizer
         {
             compMap.Remove(key);
         }
-    }
-
-    private static HashSet<string> CollectBlockedContainedImplantEntityUids(SequenceDataNode protoSeq)
-    {
-        // Resolve concrete entity UIDs for blocked implant prototypes so implanter checks are cheap per entity.
-        var blockedImplantUids = new HashSet<string>(StringComparer.Ordinal);
-
-        foreach (var protoNode in protoSeq)
-        {
-            if (protoNode is not MappingDataNode protoMap)
-                continue;
-
-            if (!protoMap.TryGet("entities", out SequenceDataNode? entitiesSeq) || entitiesSeq == null)
-                continue;
-
-            var protoIsBlockedImplant = false;
-            if (protoMap.TryGet("proto", out ValueDataNode? protoIdNode)
-                && protoIdNode != null
-                && !protoIdNode.IsNull)
-            {
-                protoIsBlockedImplant = BlockedContainedImplantPrototypes.Contains(protoIdNode.Value);
-            }
-
-            foreach (var entityNode in entitiesSeq)
-            {
-                if (entityNode is not MappingDataNode entMap)
-                    continue;
-
-                if (!entMap.TryGet("uid", out ValueDataNode? uidNode) || uidNode == null || uidNode.IsNull)
-                    continue;
-
-                if (protoIsBlockedImplant)
-                    blockedImplantUids.Add(uidNode.Value);
-            }
-        }
-
-        return blockedImplantUids;
-    }
-
-    private static bool HasBlockedContainedImplant(MappingDataNode entMap, HashSet<string> blockedContainedImplantEntityUids)
-    {
-        if (blockedContainedImplantEntityUids.Count == 0)
-            return false;
-
-        if (!entMap.TryGet("components", out SequenceDataNode? components) || components == null)
-            return false;
-
-        foreach (var compNode in components)
-        {
-            if (compNode is not MappingDataNode compMap)
-                continue;
-
-            if (!compMap.TryGet("type", out ValueDataNode? typeNode) || typeNode == null || typeNode.Value != "ContainerContainer")
-                continue;
-
-            if (!compMap.TryGet("containers", out MappingDataNode? containersMap) || containersMap == null)
-                continue;
-
-            if (!containersMap.TryGet("implanter_slot", out MappingDataNode? slotMap) || slotMap == null)
-                continue;
-
-            if (slotMap.TryGet("ent", out ValueDataNode? entNode) && entNode != null && !entNode.IsNull && blockedContainedImplantEntityUids.Contains(entNode.Value))
-                return true;
-
-            if (!slotMap.TryGet("ents", out SequenceDataNode? entsNode) || entsNode == null)
-                continue;
-
-            foreach (var entry in entsNode)
-            {
-                if (entry is not ValueDataNode valueNode || valueNode.IsNull)
-                    continue;
-
-                if (blockedContainedImplantEntityUids.Contains(valueNode.Value))
-                    return true;
-            }
-        }
-
-        return false;
     }
 
     private static void PruneContainerReferencesToRemovedEntities(

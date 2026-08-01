@@ -88,4 +88,11 @@ public enum OptionVisualizerOptions
     /// </summary>
     Arachnophobia = 1 << 2,
     #endregion Starlight
+
+    #region HardLight
+    /// <summary>
+    /// Corresponds to the <see cref="CCVars.accessibilityNoballs"/> CVar being set.
+    /// </summary>
+    Noballs = 1 << 3,
+    #endregion HardLight
 }

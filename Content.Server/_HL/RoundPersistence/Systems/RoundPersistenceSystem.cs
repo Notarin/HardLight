@@ -137,6 +137,9 @@ public sealed class RoundPersistenceSystem : EntitySystem
     /// </summary>
     private void OnRoundEndMessage(RoundEndMessageEvent ev)
     {
+        if (!_cfg.GetCVar(HLCCVars.RoundPersistenceEnabled)) // HL: Only run if we've got persistence enabled
+            return;
+
         RunAntagCleanupIfNeeded();
     }
 
@@ -145,10 +148,10 @@ public sealed class RoundPersistenceSystem : EntitySystem
     /// </summary>
     private void OnRoundRestart(RoundRestartCleanupEvent ev)
     {
-        RunAntagCleanupIfNeeded();
-
-        if (!_cfg.GetCVar(HLCCVars.RoundPersistenceEnabled))
+        if (!_cfg.GetCVar(HLCCVars.RoundPersistenceEnabled)) // HL: Add CVar check
             return;
+
+        RunAntagCleanupIfNeeded(); // HL: Moved below CVar check
 
         //_sawmill.Info("Round restart detected, saving persistent data...");
 
@@ -329,12 +332,13 @@ public sealed class RoundPersistenceSystem : EntitySystem
     /// </summary>
     private void OnStationCreated(EntityUid uid, StationDataComponent component, ComponentInit args)
     {
+        if (!_cfg.GetCVar(HLCCVars.RoundPersistenceEnabled)) //HL: Move the CVar check outside of the timer so it saves some resources
+            return;
+
         // Small delay to ensure the station is fully initialized
         RobustTimer.Spawn(TimeSpan.FromSeconds(1), () =>
         {
             if (_timerCts.IsCancellationRequested)
-                return;
-            if (!_cfg.GetCVar(HLCCVars.RoundPersistenceEnabled))
                 return;
 
             // Guard: station may have been deleted during cleanup/restart
@@ -350,15 +354,15 @@ public sealed class RoundPersistenceSystem : EntitySystem
     /// </summary>
     private void OnShuttleCreated(EntityUid uid, ShuttleComponent component, ComponentInit args)
     {
+        if (!_cfg.GetCVar(HLCCVars.RoundPersistenceEnabled)) //HL: Don't run any of this if it's not enabled, rather than checking inside the timer
+            return;
         RobustTimer.Spawn(TimeSpan.FromSeconds(0.5f), () =>
         {
             if (_timerCts.IsCancellationRequested)
                 return;
-            if (!_cfg.GetCVar(HLCCVars.RoundPersistenceEnabled))
-                return;
 
             // Guard: shuttle may have been deleted by the time the timer fires
-            if (!EntityManager.EntityExists(uid) || TerminatingOrDeleted(uid) || !TryComp(uid, out ShuttleComponent? _))
+            if (!Exists(uid) || TerminatingOrDeleted(uid) || !TryComp(uid, out ShuttleComponent? _)) // HL: Use Exists proxy rather than EntityExists
                 return;
 
             RestoreShuttleData(uid, component);
@@ -371,7 +375,7 @@ public sealed class RoundPersistenceSystem : EntitySystem
     /// </summary>
     private void OnExpeditionConsoleMapInit(EntityUid uid, SalvageExpeditionConsoleComponent component, MapInitEvent args)
     {
-       // Log.Info($"OnExpeditionConsoleMapInit called for console {ToPrettyString(uid)}");
+        // Log.Info($"OnExpeditionConsoleMapInit called for console {ToPrettyString(uid)}");
 
         if (!_cfg.GetCVar(HLCCVars.RoundPersistenceEnabled) || !_cfg.GetCVar(HLCCVars.RoundPersistenceExpeditions))
         {
@@ -977,6 +981,9 @@ public sealed class RoundPersistenceSystem : EntitySystem
     /// </summary>
     private void OnExpeditionDataRemoved(EntityUid uid, SalvageExpeditionDataComponent component, ComponentShutdown args)
     {
+        if (!_cfg.GetCVar(HLCCVars.RoundPersistenceEnabled)) //HL: Don't run any of this if it's not enabled
+            return;
+
         // Save the data before it's lost
         if (_persistentEntity != null && TryComp<RoundPersistenceComponent>(_persistentEntity.Value, out var persistence))
         {

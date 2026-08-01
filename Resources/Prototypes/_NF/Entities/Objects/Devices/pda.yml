@@ -382,6 +382,7 @@
     - CrewManifestCartridge
     - NotekeeperCartridge
     - NanoTaskCartridge
+    - NanoChatCartridge
     - NewsReaderCartridge
     - BountyContractsCartridge
     - AstroNavCartridge

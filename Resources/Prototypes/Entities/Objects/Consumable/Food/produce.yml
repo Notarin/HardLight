@@ -2909,3 +2909,46 @@
         - MobMask
         layer:
         - MobLayer
+
+- type: entity
+  name: kelp pod
+  description: A green stalky plant with a purple sap pod at the end, a plant grown yearly across thaven homeworlds.
+  id: Kelppod
+  parent: [FoodProduceBase, ItemHeftyBase]
+  components:
+  - type: FlavorProfile
+    flavors:
+      - slimy exotic fruitiness with a floral aftertaste.
+  - type: Sprite
+    sprite: Objects/Specific/Hydroponics/kelppod.rsi
+  - type: Item
+    heldPrefix: produce
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 300
+        reagents:
+        - ReagentId: kelpSap
+          Quantity: 10
+        - ReagentId: Slime
+          Quantity: 5
+  - type: Produce
+  - type: Damageable
+    damageContainer: Biological
+  - type: DamageOnHighSpeedImpact
+    minimumSpeed: 0.1
+    damage:
+      types:
+        Blunt: 1
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 1
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: desecration
+      - !type:SpillBehavior
+        solution: food
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]

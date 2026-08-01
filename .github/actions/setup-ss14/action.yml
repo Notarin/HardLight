@@ -1,0 +1,16 @@
+runs:
+  using: "composite"
+  steps:
+    - name: Pull engine updates
+      uses: https://github.com/space-wizards/submodule-dependency@v0.1.5
+
+    - name: Update Engine Submodules
+      run: |
+        cd RobustToolbox/
+        git submodule update --init --recursive
+
+    - name: Setup .NET Core
+      uses: ./.github/actions/setup-dotnet
+
+    - name: Install dependencies
+      run: dotnet restore

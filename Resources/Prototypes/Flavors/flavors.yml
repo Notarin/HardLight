@@ -1,4 +1,3 @@
-
 - type: flavor
   id: savory
   flavorType: Base
@@ -1478,3 +1477,8 @@
   id: motivating
   flavorType: Base
   description: flavor-base-motivating
+
+- type: flavor
+  id: jammy
+  flavorType: Complex
+  description: flavor-complex-kelpwine

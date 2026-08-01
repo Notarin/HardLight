@@ -14,7 +14,7 @@
     sprite: _Goobstation/Objects/Misc/RadioStation/vinyls.rsi
     state: red-vinyl-disk
   product: CrateVinylsNulb
-  cost: 5000
+  cost: 8000
   category: cargoproduct-category-name-service
   group: market
 
@@ -24,7 +24,7 @@
     sprite: _Goobstation/Objects/Misc/RadioStation/vinyls.rsi
     state: blue-vinyl-disk
   product: CrateVinylsDeltarisk
-  cost: 5000
+  cost: 8000
   category: cargoproduct-category-name-service
   group: market
 
@@ -38,13 +38,12 @@
   category: cargoproduct-category-name-service
   group: market
 
-
 - type: cargoProduct
   id: VinylsTKJazz
   icon:
     sprite: _HL/Objects/Misc/RadioStation/vinylsleeves.rsi
     state: jazz-vinyl-sleeve
   product: CrateVinylsTKJazz
-  cost: 6250
+  cost: 10000
   category: cargoproduct-category-name-service
   group: market

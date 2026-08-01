@@ -21,7 +21,7 @@
     - 0,0,6,3
   - type: StorageFill
     contents:
-      - id: WeaponSniperHristov
+      - id: SWeaponSniperHristov
       - id: AmmoBox145x114mm
       - id: ClothingNeckTieRed
       - id: ClothingHandsGlovesLatex

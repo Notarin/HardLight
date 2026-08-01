@@ -1,0 +1,5 @@
+# HL: Empty Map pool for the Integration Tests to use so we don't try to load other maps during the round restart
+- type: gameMapPool
+  id: EmptyMapPool
+  maps:
+  - Empty

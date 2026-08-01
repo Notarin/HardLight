@@ -13,6 +13,7 @@
       map: [ "enum.DamageStateVisualLayers.BaseUnshaded", "enum.BorgVisualLayers.Light" ]
       shader: unshaded
       visible: false
+    - map: ["enum.ToggleVisuals.Layer"]
     - state: empty
       map: [ "light" ]
       shader: unshaded
@@ -149,7 +150,8 @@
       movement:
         state: spider
   - type: SpriteStateToggle
-    spriteLayer: movement
+    spriteLayer: enum.ToggleVisuals.Layer
+    #VisibleWhenEnabled: true
     stateOff: spider
     stateOn: spiderballz
     movementStateOff: spider_moving

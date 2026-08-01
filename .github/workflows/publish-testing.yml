@@ -1,5 +1,4 @@
 ﻿name: Publish Testing
-
 concurrency:
   group: publish-testing
 
@@ -13,13 +12,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3.6.0
+    - uses: actions/checkout@v7
       with:
-        submodules: 'recursive'
+        submodules: recursive
+
     - name: Setup .NET Core
-      uses: actions/setup-dotnet@v3.2.0
-      with:
-        dotnet-version: 9.0.x
+      uses: ./.github/actions/setup-dotnet
 
     - name: Get Engine Tag
       run: |
@@ -38,8 +36,14 @@ jobs:
     - name: Package client
       run: dotnet run --project Content.Packaging client --no-wipe-release
 
+    - name: Set up Python 3.10
+      run: |
+        apt update
+        apt install -y python3-pip
+        pip3 install --ignore-installed --user pillow requests
+
     - name: Publish version
       run: Tools/publish_multi_request.py --fork-id wizards-testing
       env:
         PUBLISH_TOKEN: ${{ secrets.PUBLISH_TOKEN }}
-        GITHUB_REPOSITORY: ${{ vars.GITHUB_REPOSITORY }}
+        FORGEJO_REPOSITORY: ${{ vars.FORGEJO_REPOSITORY }}

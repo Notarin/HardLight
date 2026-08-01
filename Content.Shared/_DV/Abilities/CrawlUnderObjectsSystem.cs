@@ -1,6 +1,8 @@
 using Content.Shared.Actions;
+using Content.Shared.ActionBlocker; // HardLight
 using Content.Shared.Climbing.Components;
 using Content.Shared.Climbing.Events;
+using Content.Shared.Input; // HardLight
 // using Content.Shared.Maps; // HardLight
 using Content.Shared.Mobs;
 using Content.Shared.Movement.Systems;
@@ -8,8 +10,10 @@ using Content.Shared.Movement.Systems;
 using Content.Shared.Popups;
 using Content.Shared.Standing;
 using Robust.Shared.Network; // HardLight
+using Robust.Shared.Input.Binding; // HardLight
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Systems;
+using Robust.Shared.Player; // HardLight
 using Robust.Shared.Timing; // HardLight
 
 namespace Content.Shared._DV.Abilities;
@@ -19,6 +23,7 @@ namespace Content.Shared._DV.Abilities;
 /// </summary>
 public sealed partial class CrawlUnderObjectsSystem : EntitySystem // HardLight: Added partial
 {
+    [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!; // HardLight
     [Dependency] private readonly MovementSpeedModifierSystem _moveSpeed = default!;
     [Dependency] private readonly SharedActionsSystem _actions = default!;
     [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
@@ -44,7 +49,36 @@ public sealed partial class CrawlUnderObjectsSystem : EntitySystem // HardLight:
         SubscribeLocalEvent<FixturesComponent, ComponentStartup>(OnFixturesStartup); // HardLight
 
         SubscribeLocalEvent<FixturesComponent, CrawlingUpdatedEvent>(OnCrawlingUpdated);
+
+        // HardLight start
+        CommandBinds.Builder
+            .Bind(ContentKeyFunctions.ToggleCrawlingUnder, InputCmdHandler.FromDelegate(HandleCrawlUnderRequest, handle: false))
+            .Register<CrawlUnderObjectsSystem>();
+        // HardLight end
     }
+
+    // HardLight start
+    public override void Shutdown()
+    {
+        base.Shutdown();
+
+        CommandBinds.Unregister<CrawlUnderObjectsSystem>();
+    }
+
+    private void HandleCrawlUnderRequest(ICommonSession? session)
+    {
+        if (_net.IsClient && !_timing.IsFirstTimePredicted)
+            return;
+
+        if (session?.AttachedEntity is not { } uid
+            || !_actionBlocker.CanConsciouslyPerformAction(uid)
+            || !HasComp<CrawlUnderObjectsComponent>(uid))
+            return;
+
+        var ev = new ToggleCrawlingStateEvent();
+        RaiseLocalEvent(uid, ev, true);
+    }
+    // HardLight end
 
     private void OnMapInit(Entity<CrawlUnderObjectsComponent> ent, ref MapInitEvent args)
     {
@@ -130,9 +164,6 @@ public sealed partial class CrawlUnderObjectsSystem : EntitySystem // HardLight:
         if (enabled)
         {
             EnsureBaselineInflation(ent);
-
-            if (_standing.IsDown(ent))
-                return false;
 
             if (TryComp<ClimbingComponent>(ent, out var climbing) && climbing.IsClimbing)
                 return false;

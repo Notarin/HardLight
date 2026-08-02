@@ -175,6 +175,12 @@ public static class SaveBanStore
         Entity("EnergyDomeGeneratorPersonalSyndie", "Antag equipment. Destructive to the intended game loop.", new TotalBan()),
         Entity("ClothingOuterArmorRaid", "Antag equipment. Destructive to the intended game loop.", new TotalBan()),
         Entity("ClothingHandsGlovesConducting", "Antag equipment. Destructive to the intended game loop.", new TotalBan()),
+        Entity("BorgModuleL6C", "Antag equipment. Destructive to the intended game loop.", new TotalBan()),
+        Entity("SWeaponLightMachineGunL6C", "Antag equipment. Destructive to the intended game loop.", new TotalBan()),
+        Entity("BorgModuleEsword", "Antag equipment. Destructive to the intended game loop.", new TotalBan()),
+        Entity("CyborgEnergySwordDouble", "Antag equipment. Destructive to the intended game loop.", new TotalBan()),
+        Entity("BorgModuleOperative", "Antag equipment. Destructive to the intended game loop.", new TotalBan()),
+        Entity("SWeaponPistolEchis", "Antag equipment. Destructive to the intended game loop.", new TotalBan()),
         Entity("CommsComputerCircuitboard", "Liable to be destructive to game enjoyment server-wide.", new TotalBan()),
 
         Entity("ComputerDNAScanner", "Not intended for removal from station.", new TotalBan()),
@@ -234,5 +240,6 @@ public static class SaveBanStore
         Component("ShipyardConsole", "Not intended for removal from station or docks.", new TotalBan()),
         Component("Store", "Balance breaking; Infinite resources.", new TotalBan()),
         Component("Emag", "Balance breaking.", new TotalBan()),
+        Component("MagicMirror", "unable to be saved.", new TotalBan()),
     ];
 }

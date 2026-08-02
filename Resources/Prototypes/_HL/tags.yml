@@ -393,3 +393,6 @@
 # Ratvar
 - type: Tag
   id: RatvarCard
+
+- type: Tag
+  id: Synth

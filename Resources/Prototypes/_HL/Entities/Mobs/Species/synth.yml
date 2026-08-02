@@ -144,12 +144,12 @@
   - type: Speech
     speechVerb: Robotic
     speechSounds: Borg
-    allowedEmotes: ['Chirp', 'Hisses', 'Squish', 'Purr', 'Growl', 'Trill', 'Scree', 'Call', 'Squawk', 'Bark', 'Snarl', 'Whine', 'Howl', 'Yip', 'Mew', 'Meow','Thump', 'Liss', 'Lurr', 'Rattle', "Marr", "Wurble", 'Chitter', 'Squeak', 'Click', 'Beep', 'Ping', 'Buzz', 'Buzz-Two', 'Chime', 'Honk']
+    allowedEmotes: ['Purr', 'Thump', 'Beep', 'Ping', 'Buzz', 'Buzz-Two', 'Chime', 'Honk', 'Whirr']
   - type: Vocal
     sounds:
-      Male: UnisexSilicon
-      Female: UnisexSilicon
-      Unsexed: UnisexSilicon
+      Male: UnisexSynth
+      Female: UnisexSynth
+      Unsexed: UnisexSynth
   - type: BodyEmotes
     soundsId: ReptilianBodyEmotes
   - type: Bloodstream

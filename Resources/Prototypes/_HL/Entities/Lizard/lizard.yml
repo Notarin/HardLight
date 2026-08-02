@@ -39,7 +39,7 @@
     baseSprintSpeed: 4.5
   - type: Stamina
     critThreshold: 100
-  - type: Crawler
+  - type: LayingDown
   - type: MeleeWeapon
     altDisarm: false
     angle: 0

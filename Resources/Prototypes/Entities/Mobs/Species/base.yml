@@ -193,7 +193,6 @@
   - type: SleepEmitSound
   - type: SSDIndicator
   - type: StandingState
-  - type: Crawler
   - type: Dna
   - type: MindContainer
     showExamineInfo: true
@@ -328,6 +327,7 @@
   - type: FireVisuals
     alternateState: Standing
   - type: StunVisuals
+  - type: LayingDown
   - type: OfferItem # _HL
   - type: StumbleOnMissingLeg # _HL: limp until you fall when missing legs
 

@@ -84,7 +84,7 @@ namespace Content.Client.Input
             human.AddFunction(ContentKeyFunctions.SmartEquipSuitStorage); // Hardlight
             human.AddFunction(ContentKeyFunctions.OpenBackpack);
             human.AddFunction(ContentKeyFunctions.OpenBelt);
-            human.AddFunction(ContentKeyFunctions.ToggleKnockdown);
+            human.AddFunction(ContentKeyFunctions.ToggleStanding); // EE
             human.AddFunction(ContentKeyFunctions.ToggleCrawlingUnder); // EE
             human.AddFunction(ContentKeyFunctions.OpenWallet); // Frontier
             human.AddFunction(ContentKeyFunctions.MouseMiddle);

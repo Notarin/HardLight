@@ -1,15 +1,9 @@
 using System.Numerics;
-using Content.Shared.CombatMode;
-using Content.Shared.Interaction;
 using Content.Shared.Mobs;
-using Content.Shared.Rotation;
 using Content.Shared.Stunnable;
 using Robust.Client.Animations;
 using Robust.Client.GameObjects;
-using Robust.Client.Graphics;
 using Robust.Shared.Animations;
-using Robust.Shared.Input;
-using Robust.Shared.Input.Binding;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
@@ -18,14 +12,7 @@ namespace Content.Client.Stunnable;
 
 public sealed class StunSystem : SharedStunSystem
 {
-    [Dependency] private readonly SharedCombatModeSystem _combat = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
-    #region Starlight
-    [Dependency] private IGameTiming _timing = default!;
-    [Dependency] private AnimationPlayerSystem _animation = default!;
-    [Dependency] private IEyeManager _eyeManager = default!;
-    [Dependency] private SharedTransformSystem _transformSystem = default!;
-    #endregion
     [Dependency] private readonly SpriteSystem _spriteSystem = default!;
 
     private readonly int[] _sign = [-1, 1];
@@ -36,23 +23,6 @@ public sealed class StunSystem : SharedStunSystem
 
         SubscribeLocalEvent<StunVisualsComponent, ComponentInit>(OnComponentInit);
         SubscribeLocalEvent<StunVisualsComponent, AppearanceChangeEvent>(OnAppearanceChanged);
-        SubscribeLocalEvent<KnockedDownComponent, MoveEvent>(OnMovementInput); //Starlight
-
-        CommandBinds.Builder
-            .BindAfter(EngineKeyFunctions.UseSecondary, new PointerInputCmdHandler(OnUseSecondary, true, true), typeof(SharedInteractionSystem))
-            .Register<StunSystem>();
-    }
-
-    private bool OnUseSecondary(in PointerInputCmdHandler.PointerInputCmdArgs args)
-    {
-        if (args.Session?.AttachedEntity is not { Valid: true } uid)
-            return false;
-
-        if (args.EntityUid != uid || !HasComp<KnockedDownComponent>(uid) || !_combat.IsInCombatMode(uid))
-            return false;
-
-        RaisePredictiveEvent(new ForceStandUpEvent());
-        return true;
     }
 
     /// <summary>
@@ -186,27 +156,6 @@ public sealed class StunSystem : SharedStunSystem
             }
         };
     }
-    #region Starlight
-
-    private void OnMovementInput(EntityUid uid, KnockedDownComponent component, MoveEvent args)
-    {
-        if (!_timing.IsFirstTimePredicted
-            || _animation.HasRunningAnimation(uid, "rotate")
-            || !TryComp<RotationVisualsComponent>(uid, out var rotationVisuals))
-            return;
-
-        var rotation = Transform(uid).LocalRotation + (_eyeManager.CurrentEye.Rotation - (Transform(uid).LocalRotation - _transformSystem.GetWorldRotation(uid)));
-        var targetRotation = rotation.GetDir() is Direction.SouthEast or Direction.East or Direction.NorthEast or Direction.North
-            ? Angle.FromDegrees(270)
-            : Angle.FromDegrees(90);
-
-        if (rotationVisuals.HorizontalRotation == targetRotation)
-            return;
-
-        rotationVisuals.HorizontalRotation = targetRotation;
-        _spriteSystem.SetRotation(uid, targetRotation);
-    }
-    #endregion
 }
 
 public enum StunVisualLayers : byte

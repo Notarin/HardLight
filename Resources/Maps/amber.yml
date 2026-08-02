@@ -4,8 +4,8 @@ meta:
   engineVersion: 274.0.0
   forkId: ""
   forkVersion: ""
-  time: 07/29/2026 14:35:15
-  entityCount: 25604
+  time: 08/02/2026 12:04:23
+  entityCount: 25613
 maps:
 - 1
 grids:
@@ -24564,6 +24564,38 @@ entities:
           Quantity: 3000
     - type: ContainedSolution
       containerName: tank
+  - uid: 25478
+    components:
+    - type: MetaData
+      name: solution - food
+    - type: Transform
+      parent: 24416
+    - type: Solution
+      solution:
+        maxVol: 20
+        name: food
+        reagents:
+        - data: []
+          ReagentId: SulfuricAcid
+          Quantity: 20
+    - type: ContainedSolution
+      containerName: food
+  - uid: 25480
+    components:
+    - type: MetaData
+      name: solution - food
+    - type: Transform
+      parent: 25479
+    - type: Solution
+      solution:
+        maxVol: 20
+        name: food
+        reagents:
+        - data: []
+          ReagentId: SulfuricAcid
+          Quantity: 20
+    - type: ContainedSolution
+      containerName: food
   - uid: 25504
     components:
     - type: MetaData
@@ -71496,6 +71528,51 @@ entities:
     - type: Transform
       pos: -22.5,30.5
       parent: 2
+  - uid: 25481
+    components:
+    - type: Transform
+      pos: -9.5,11.5
+      parent: 2
+  - uid: 25539
+    components:
+    - type: Transform
+      pos: -8.5,11.5
+      parent: 2
+  - uid: 25540
+    components:
+    - type: Transform
+      pos: -7.5,11.5
+      parent: 2
+  - uid: 25565
+    components:
+    - type: Transform
+      pos: -6.5,11.5
+      parent: 2
+  - uid: 25609
+    components:
+    - type: Transform
+      pos: -5.5,11.5
+      parent: 2
+  - uid: 25610
+    components:
+    - type: Transform
+      pos: -4.5,11.5
+      parent: 2
+  - uid: 25611
+    components:
+    - type: Transform
+      pos: -3.5,11.5
+      parent: 2
+  - uid: 25612
+    components:
+    - type: Transform
+      pos: -2.5,11.5
+      parent: 2
+  - uid: 25613
+    components:
+    - type: Transform
+      pos: -1.5,11.5
+      parent: 2
 - proto: CableMVStack
   entities:
   - uid: 7907
@@ -99875,6 +99952,46 @@ entities:
       containers:
         solution@food: !type:ContainerSlot
           ent: 23968
+- proto: FoodMeatXeno
+  entities:
+  - uid: 24416
+    components:
+    - type: Transform
+      pos: 58.815304,-48.528442
+      parent: 2
+    - type: SolutionContainerManager
+      solutions:
+        food:
+          temperature: 293.15
+          canReact: True
+          maxVol: 0
+          name: food
+          reagents: []
+      containers:
+      - food
+    - type: ContainerContainer
+      containers:
+        solution@food: !type:ContainerSlot
+          ent: 25478
+  - uid: 25479
+    components:
+    - type: Transform
+      pos: 57.70593,-48.090942
+      parent: 2
+    - type: SolutionContainerManager
+      solutions:
+        food:
+          temperature: 293.15
+          canReact: True
+          maxVol: 0
+          name: food
+          reagents: []
+      containers:
+      - food
+    - type: ContainerContainer
+      containers:
+        solution@food: !type:ContainerSlot
+          ent: 25480
 - proto: FoodNoodlesMeatballMoldy
   entities:
   - uid: 24589
@@ -187737,18 +187854,6 @@ entities:
     - type: Transform
       pos: -5.5532303,-15.463551
       parent: 2
-- proto: XenoEgg
-  entities:
-  - uid: 24416
-    components:
-    - type: Transform
-      pos: 57.5,-47.5
-      parent: 2
-  - uid: 25565
-    components:
-    - type: Transform
-      pos: 59.5,-46.5
-      parent: 2
 - proto: XenoWeedsEntity
   entities:
   - uid: 5490
@@ -187926,24 +188031,6 @@ entities:
     components:
     - type: Transform
       pos: 59.5,-46.5
-      parent: 2
-    - type: Physics
-      canCollide: False
-    - type: Fixtures
-      fixtures: {}
-  - uid: 25539
-    components:
-    - type: Transform
-      pos: 59.5,-47.5
-      parent: 2
-    - type: Physics
-      canCollide: False
-    - type: Fixtures
-      fixtures: {}
-  - uid: 25540
-    components:
-    - type: Transform
-      pos: 58.5,-47.5
       parent: 2
     - type: Physics
       canCollide: False

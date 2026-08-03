@@ -26,22 +26,27 @@ On Windows use the .NET 10 SDK installer from https://dotnet.microsoft.com/downl
 ## 3. Build
 
 ```sh
-dotnet build Content.Server/Content.Server.csproj
-dotnet build Content.Client/Content.Client.csproj
+dotnet build -c Release Content.Server/Content.Server.csproj
+dotnet build -c Release Content.Client/Content.Client.csproj
 ```
+
+Build in Release. A Debug build crashes on round start with a
+`DebugAssertException` in `DeployableBarrierSystem` anchoring a barrier during map init.
+That is a preexisting upstream bug (it also happens on `master` without the Drone trait);
+Release builds compile the assert out and start normally.
 
 ## 4. Run
 
 Server (first terminal):
 
 ```sh
-dotnet run --project Content.Server -- --cvar net.port=1212 --cvar auth.mode=0
+dotnet run -c Release --project Content.Server -- --cvar net.port=1212 --cvar auth.mode=0
 ```
 
 Client (second terminal):
 
 ```sh
-dotnet run --project Content.Client
+dotnet run -c Release --project Content.Client
 ```
 
 In the client, connect to `localhost:1212`. `auth.mode=0` disables account auth so any username works.
@@ -72,11 +77,11 @@ Pick **Drone** in character setup under the **Lewd** trait category, then join a
 If the client fails to start with an OpenAL/audio device error (common on headless Linux):
 
 ```sh
-ALSOFT_DRIVERS=null dotnet run --project Content.Client
+ALSOFT_DRIVERS=null dotnet run -c Release --project Content.Client
 ```
 
 If the client window renders incorrectly, try:
 
 ```sh
-dotnet run --project Content.Client -- --cvar display.compat=true
+dotnet run -c Release --project Content.Client -- --cvar display.compat=true
 ```

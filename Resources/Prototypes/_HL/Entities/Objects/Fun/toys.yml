@@ -1146,7 +1146,7 @@
     - state: synthplush-unshaded
       shader: unshaded
   - type: Item
-    heldprefix: synthplush
+    heldPrefix: synthplush
   - type: EmitSoundOnUse
     sound: &PlushieSynthSound
       path: /Audio/Machines/twobeep.ogg
@@ -1179,4 +1179,4 @@
     - state: nookieplush-unshaded
       shader: unshaded
   - type: Item
-    heldprefix: nookieplush
+    heldPrefix: nookieplush

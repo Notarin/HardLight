@@ -8,7 +8,6 @@
   markingLimits: MobSynthMarkingLimits
   dollPrototype: MobSynthDummy
   skinColoration: Hues
-  customName: true
 
 - type: speciesBaseSprites
   id: MobSynthSprites

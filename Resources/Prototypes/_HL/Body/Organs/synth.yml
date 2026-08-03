@@ -38,8 +38,8 @@
     state: brain
     scale: 0.65, 0.65
   - type: Organ
-  - type: SynthOrgan
     slotId: brain
+  - type: SynthOrgan
   - type: Brain
   - type: Input
     context: "ghost"
@@ -179,11 +179,11 @@
   components:
   - type: Sprite
     state: liver
+    scale: 0.8, 0.8
   - type: Organ
     slotId: liver
   - type: Liver
   - type: OrganLiverSynth
-    scale: 0.8, 0.8
   - type: Metabolizer
     maxReagents: 1
     metabolizerTypes: [ Synth ]

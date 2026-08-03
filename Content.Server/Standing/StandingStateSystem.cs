@@ -22,6 +22,10 @@ public sealed class StandingStateSystem : EntitySystem
         var fellEvent = new FellDownEvent(uid);
         RaiseLocalEvent(uid, fellEvent, false);
 
+        // Hardlight change: something is holding onto its items as it goes down.
+        if (args.Cancelled)
+            return;
+
         if (!TryComp(uid, out HandsComponent? handsComp))
             return;
 

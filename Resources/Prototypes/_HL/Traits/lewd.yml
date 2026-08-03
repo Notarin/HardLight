@@ -161,6 +161,8 @@
     sprintModifier: 0.85
   - type: HeavyFooting
     stumbleChance: 0.02
+  # Rubber palms don't let go of anything when the frame hits the floor.
+  - type: SteadyGrip
   # Hauling yourself upright in a rubber suit takes a while.
   - type: LayingDownModifier
     layingDownCooldownMultiplier: 3

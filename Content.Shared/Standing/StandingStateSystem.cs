@@ -139,7 +139,8 @@ public sealed class StandingStateSystem : EntitySystem
 }
 
 
-public sealed class DropHandItemsEvent : EventArgs { }
+// Hardlight change: cancellable so entities can be given a grip that survives going down.
+public sealed class DropHandItemsEvent : CancellableEntityEventArgs { }
 
 /// <summary>
 ///     Subscribe if you can potentially block a down attempt.

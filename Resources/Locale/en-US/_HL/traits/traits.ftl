@@ -161,3 +161,6 @@ trait-highest-voice-desc = Your emotes sound much higher than usual.
 
 trait-test-bionic-spinarette-name = Test Bionic Spinarette
 trait-test-bionic-spinarette-desc = Speeeeeeen
+
+hl-trait-drone-name = Drone
+hl-trait-drone-desc = Your body is sealed in a seamless layer of drone-grade latex. The rubber cushions impacts, dulls blades and insulates you against electrical shocks entirely. An integrated rebreather and air reservoir let you run internals without a mask or tank, filled with whatever gas your lungs actually want, and the frame slowly refills the reservoir whenever your internals are switched off. The frame also feeds you, so you never hunger or thirst. In exchange the heavy rubber weighs you down, slowing you by 10% at a walk and 15% at a sprint, occasionally dragging you off balance mid-step and taking four seconds of struggling to get back up, your mouth is sealed shut, leaving you unable to eat or drink anything, and the latex melts and dissolves with ease, leaving you far more vulnerable to heat and caustic chemicals.

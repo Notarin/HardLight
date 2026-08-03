@@ -134,3 +134,47 @@
   components:
     - type: NaturalLubricantProducer
       volume: 10
+
+- type: trait
+  id: Drone
+  name: hl-trait-drone-name
+  description: hl-trait-drone-desc
+  category: Lewd
+  speciesBlacklist:
+  - IPC
+  - Synth
+  blacklist:
+    components:
+    - BorgChassis
+  mutuallyExclusiveTraits:
+  - Insulated
+  - Heatresistant
+  - Vampirism
+  - LesserVampirism
+  replaceComponents: true
+  components:
+  - type: Insulated
+  - type: InnateInternals
+  - type: SealedMouth
+  - type: StaticSpeedModifier
+    walkModifier: 0.9
+    sprintModifier: 0.85
+  - type: HeavyFooting
+    stumbleChance: 0.02
+  # Hauling yourself upright in a rubber suit takes a while.
+  - type: LayingDownModifier
+    layingDownCooldownMultiplier: 2
+  # The frame feeds and waters its occupant, so a sealed mouth isn't a slow death sentence.
+  - type: Hunger
+    baseDecayRate: 0
+  - type: Thirst
+    baseDecayRate: 0
+  - type: DamageProtectionBuff
+    modifiers:
+      dermal:
+        id: DroneTrait
+        coefficients:
+          Blunt: 0.85
+          Slash: 0.85
+          Heat: 1.4
+          Caustic: 1.3

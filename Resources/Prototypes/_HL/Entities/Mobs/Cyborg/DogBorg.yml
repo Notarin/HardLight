@@ -8,7 +8,7 @@
     scale: 0.7, 0.7
     layers:
     - state: dogborg
-      map: ["movement"]
+      map: ["movement", "enum.ToggleVisuals.Layer"]
     - state: dogborgl
       map: ["enum.BorgVisualLayers.Light"]
       shader: unshaded

@@ -7,8 +7,7 @@
     scale: 0.7, 0.7
     layers:
     - state: glitz
-      map: ["movement"]
-    - map: ["enum.ToggleVisuals.Layer"]
+      map: ["movement", "enum.ToggleVisuals.Layer"]
     - state: glitzl
       map: ["enum.BorgVisualLayers.Light"]
       shader: unshaded

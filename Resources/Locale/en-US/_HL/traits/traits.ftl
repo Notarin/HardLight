@@ -161,3 +161,6 @@ trait-highest-voice-desc = Your emotes sound much higher than usual.
 
 trait-test-bionic-spinarette-name = Test Bionic Spinarette
 trait-test-bionic-spinarette-desc = Speeeeeeen
+
+hl-trait-drone-name = Drone
+hl-trait-drone-desc = Your body is sealed in a layer of heavy, but seamless drone-grade latex. The rubber cushions impacts, dulls blades and insulates you against electrical shocks. An integrated rebreather and air reservoir let you run internals without a mask or tank, and the frame feeds you, so you never hunger or thirst.

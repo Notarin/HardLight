@@ -127,7 +127,7 @@ public sealed class ServerCleanupSystem : EntitySystem
             if (EntityManager.IsQueuedForDeletion(uid) || !EntityManager.EntityExists(uid))
                 continue;
 
-            if (HasComp<GhostComponent>(uid))
+            if (!HasComp<GhostComponent>(uid))
                 continue;
 
             if (!_mindSystem.TryGetMind(uid, out var mindId, out var mind))

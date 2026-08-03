@@ -163,7 +163,7 @@
     stumbleChance: 0.02
   # Hauling yourself upright in a rubber suit takes a while.
   - type: LayingDownModifier
-    layingDownCooldownMultiplier: 2
+    layingDownCooldownMultiplier: 3
   # The frame feeds and waters its occupant, so a sealed mouth isn't a slow death sentence.
   - type: Hunger
     baseDecayRate: 0

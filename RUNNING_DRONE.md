@@ -64,7 +64,7 @@ Pick **Drone** in character setup under the **Lewd** trait category, then join a
 - The reservoir is filled with oxygen, or nitrogen if you are playing a Vox or Slime.
 - With internals switched off the reservoir refills itself (~5 minutes from empty).
 - Eating and drinking are blocked.
-- Walking occasionally makes you stumble and fall; standing back up takes ~4 seconds, and there
+- Walking occasionally makes you stumble and fall; standing back up takes ~6 seconds, and there
   is a 45 second grace period before you can stumble again.
 
 ## Troubleshooting

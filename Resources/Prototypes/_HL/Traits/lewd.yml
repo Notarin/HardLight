@@ -163,6 +163,8 @@
     stumbleChance: 0.02
   # Rubber palms don't let go of anything when the frame hits the floor.
   - type: SteadyGrip
+  # Anyone can reach over and switch the frame's voice down to a mumble.
+  - type: RemoteMuteable
   # Hauling yourself upright in a rubber suit takes a while.
   - type: LayingDownModifier
     layingDownCooldownMultiplier: 3

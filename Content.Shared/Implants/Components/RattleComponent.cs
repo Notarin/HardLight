@@ -34,6 +34,6 @@ public sealed partial class RattleComponent : Component
 
     // The duration of the trigger's delay.
     [DataField]
-    public TimeSpan RetriggerDelay = TimeSpan.FromMinutes(5);
+    public TimeSpan RetriggerDelay = TimeSpan.FromMinutes(10); // Hardlight: 5<10
     // End Triad
 }

@@ -70,21 +70,18 @@ public sealed class ShowNonconIconsSystem : EntitySystem
         //   Aggressor only  -> red    (default) / amber       (colorblind)
         //   Victim only     -> blue   (default) / teal-green  (colorblind)
         //   Both            -> purple (default) / lavender    (colorblind)
-        //   Neither         -> red    (default) / amber       (colorblind)
-        // The "neither" fallback intentionally maps to the Aggressor variant so
-        // existing players who only have NonconIcon set see no change in the
-        // default palette, while colorblind viewers still get a distinguishable
-        // marker (amber) for unflagged opted-in players.
+        //   Neither         -> show nothing
+
         var aggressor = targetToggles.ContainsKey(NonconAggressorToggle);
         var victim = targetToggles.ContainsKey(NonconVictimToggle);
 
         ProtoId<SecurityIconPrototype> iconId;
         if (aggressor && victim)
             iconId = _colorblindPalette ? NonconStatusIconEitherCb : NonconStatusIconEither;
+        else if (aggressor)
+            iconId = _colorblindPalette ? NonconStatusIconAggressorCb : NonconStatusIcon;
         else if (victim)
             iconId = _colorblindPalette ? NonconStatusIconVictimCb : NonconStatusIconVictim;
-        else
-            iconId = _colorblindPalette ? NonconStatusIconAggressorCb : NonconStatusIcon;
 
         if (_prototype.TryIndex<SecurityIconPrototype>(iconId, out var iconPrototype))
             ev.StatusIcons.Add(iconPrototype);

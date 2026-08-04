@@ -70,15 +70,14 @@
   abstract: true
   components:
   - type: Gun
-    examineCaliber: gun-examine-caliber-50
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/shotgun.ogg
   - type: BallisticAmmoProvider
     capacity: 7
-    proto: NFShellShotgunBuckshot
+    proto: ShellShotgun12_gauge
     whitelist:
       tags:
-      - ShellShotgun
+      - ShellShotgun12_gauge
   - type: ContainerContainer
     containers:
       ballistic-ammo: !type:Container
@@ -96,7 +95,6 @@
     - state: mag-0
       map: [ "enum.GunVisualLayers.Mag" ]
   - type: Gun
-    examineCaliber: gun-examine-caliber-50
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/shotgun.ogg
   - type: MagazineAmmoProvider
@@ -104,11 +102,11 @@
     slots:
       gun_magazine:
         name: Magazine
-        startingItem: NFMagazineShotgunDrum
+        startingItem: Magazine12_gaugeBuckshot
         priority: 2
         whitelist:
           tags:
-          - MagazineShotgun
+          - Magazine12_gaugeBuckshot
         whitelistFailPopup: gun-magazine-whitelist-fail
         insertSound: /Audio/Weapons/Guns/MagIn/smg_magin.ogg
         ejectSound: /Audio/Weapons/Guns/MagOut/smg_magout.ogg

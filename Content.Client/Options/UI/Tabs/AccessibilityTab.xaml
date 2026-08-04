@@ -24,6 +24,7 @@
                        StyleClasses="LabelKeyText"/>
                 <CheckBox Name="CensorNudityCheckBox" Text="{Loc 'ui-options-censor-nudity'}" />
                 <CheckBox Name="ArachnophobiaCheckBox" Text="{Loc 'ui-options-arachnophobia'}" /> <!-- Starlight -->
+                <CheckBox Name="NoballsCheckBox" Text="{Loc 'ui-options-Noballs'}" /> <!-- HardLight -->
                 <CheckBox Name="DisableJobIconAnimationCheckBox" Text="{Loc 'ui-options-disable-job-icon-animation'}" /> <!-- Starlight -->
                 <CheckBox Name="DisableLanguageIconsCheckBox" Text="{Loc 'ui-options-disable-language-icons'}" /> <!-- HardLight -->
             </BoxContainer>

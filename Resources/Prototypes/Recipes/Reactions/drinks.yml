@@ -1557,3 +1557,15 @@
       amount: 1
   products:
     BacchusBlessing: 4
+
+- type: reaction
+  id: kelpwine
+  reactants:
+    kelpSap:
+      amount: 2
+    Water:
+      amount: 3
+    Enzyme:
+      amount: 1
+  products:
+    kelpwine: 6

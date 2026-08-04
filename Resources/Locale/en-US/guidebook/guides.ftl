@@ -51,6 +51,7 @@ guide-entry-voltagenetworks = Voltage Networks
 guide-entry-generators = Generators
 guide-entry-portable-generator = Portable Generators
 guide-entry-ame = Antimatter Engine (AME)
+guide-entry-sm = Supermatter Engine (SM)
 guide-entry-singularityteslaengine = Singularity / Tesla
 guide-entry-singularityengine = Singularity Engine
 guide-entry-teslaengine = Tesla Engine

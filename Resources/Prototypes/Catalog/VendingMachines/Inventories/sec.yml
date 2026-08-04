@@ -34,12 +34,14 @@
     FoodBoxDonut: 2
     SecurityStimpack: 4 # _CD
     TrackingImplanter: 5
+    TapeRecorderFilled: 2
     # Nullspace
     ClothingEyesGlassesNullSpace: 2
     BluespaceFlasherFlatpack: 4
     ClothingNullHarness: 4
     NullspaceLocator: 4
     GrenadeDePhase: 4
+    SecurityVendBoosterPack: 2 # HL
   contrabandInventory:
     PinkFluffyHandcuffs: 1 # pretty funny
 

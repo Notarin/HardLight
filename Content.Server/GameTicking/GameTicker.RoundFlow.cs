@@ -19,6 +19,7 @@ using Content.Shared._NF.Shipyard.Components;
 using Content.Shared.CCVar;
 using Content.Shared.Database;
 using Content.Shared.GameTicking;
+using Content.Shared.HL.CCVar; // HL
 using Content.Shared.Mind;
 using Content.Shared.Players;
 using Content.Shared.Preferences;
@@ -394,7 +395,7 @@ namespace Content.Server.GameTicking
                 HumanoidCharacterProfile profile;
                 if (_prefsManager.TryGetCachedPreferences(userId, out var preferences))
                 {
-                    profile = (HumanoidCharacterProfile) preferences.SelectedCharacter;
+                    profile = (HumanoidCharacterProfile)preferences.SelectedCharacter;
                 }
                 else
                 {
@@ -597,7 +598,7 @@ namespace Content.Server.GameTicking
                     {
                         // Use chord distance so neighboring slots are at least inRingSpacing apart.
                         slotsInRing = Math.Max(1,
-                            (int) MathF.Floor(MathF.PI / MathF.Asin(inRingSpacing / (2f * ringRadius))));
+                            (int)MathF.Floor(MathF.PI / MathF.Asin(inRingSpacing / (2f * ringRadius))));
                     }
 
                     var shipsInRing = Math.Min(slotsInRing, shuttlesToMove.Count - shuttleIndex);
@@ -895,21 +896,37 @@ namespace Content.Server.GameTicking
         private void ResettingCleanup()
         {
             // Move everybody currently in the server to lobby.
-            //            foreach (var player in _playerManager.Sessions)
-            //            {
-            //                PlayerJoinLobby(player);
-            //            }
+            // HL: Only do this if we don't run persistant rounds...
+            if (!_cfg.GetCVar(HLCCVars.RoundPersistenceEnabled) && LobbyEnabled)
+            {
+                foreach (var player in _playerManager.Sessions)
+                {
+                    PlayerJoinLobby(player);
+                }
+            }
 
             // Round restart cleanup event, so entity systems can reset.
             var ev = new RoundRestartCleanupEvent();
             RaiseLocalEvent(ev);
 
             // Delete all stations at round cleanup
-            var stationSystem = EntitySystem.Get<Content.Server.Station.Systems.StationSystem>();
-            foreach (var station in EntityManager.EntityQuery<Content.Server.Station.Components.StationDataComponent>())
+            // HL START
+            // We've changed this to an Enumerator so we don't can avoid using .Owner as it's obsolete
+            // We're also storing the stations in a List before actually deleting so that the Enum doesn't change mid-run
+            // Changed the actual delete from DeleteStation to Del, as DeleteStation adds it to the queue, and we need it deleted NOW to avoid a race
+            var stationQuery = EntityQueryEnumerator<StationDataComponent>();
+            var stationsToDelete = new List<EntityUid>();
+
+            while (stationQuery.MoveNext(out var stationUid, out _))
             {
-                stationSystem.DeleteStation(station.Owner, station);
+                stationsToDelete.Add(stationUid);
             }
+            // HL: We use a List here so that we aren't destroying entities in the middle of the enumerator
+            foreach (var s in stationsToDelete)
+            {
+                Del(s);
+            }
+            // HL END
 
             // So clients' entity systems can clean up too...
             // RaiseNetworkEvent(ev);
@@ -946,7 +963,7 @@ namespace Content.Server.GameTicking
                 "ShadowKudzu",
                 "ShadowKudzuWeak",
                 "ShadowTree"
-                );
+            );
 
             // Clear up any game rules.
             ClearGameRules();
@@ -963,17 +980,22 @@ namespace Content.Server.GameTicking
             DefaultMap = MapId.Nullspace;
             RoundId = 0;
 
-            // Remove all job slots from every station
-            foreach (var station in EntityQuery<StationJobsComponent>())
+            // HL: We don't need to remove the jobs if persistence is disabled
+            if (!_cfg.GetCVar(HLCCVars.RoundPersistenceEnabled))
+                return;
+
+            //Remove all job slots from every station
+            stationQuery = EntityQueryEnumerator<StationDataComponent>();
+            while (stationQuery.MoveNext(out var stationUid, out _)) // HL: Moved to a Enumerator to avoid .Owner deprication
             {
-                var jobs = _stationJobs.GetJobs(station.Owner);
+                var jobs = _stationJobs.GetJobs(stationUid);
                 foreach (var job in jobs.Keys.ToList())
                 {
                     //if (!_stationJobs.IsJobUnlimited(station.Owner, job))
                     //{
-                        // Set slot count to zero if not already
+                    // Set slot count to zero if not already
                     if (jobs[job] != 0)
-                        _stationJobs.TrySetJobSlot(station.Owner, job, 0);
+                        _stationJobs.TrySetJobSlot(stationUid, job, 0); // HL: Moved from .Owner to stationUid
 
                     //}
                 }

@@ -29,6 +29,14 @@
   name: synth ccu
   description: "A Synth brain. You should really put it back."
   components:
+  - type: LanguageSpeaker
+  - type: LanguageKnowledge
+    speaks:
+    - GalacticCommon
+    - Machine
+    understands:
+    - GalacticCommon
+    - Machine
   - type: Sprite
     sprite: _HL/Mobs/Species/Synth/organs.rsi
     state: synth_ccu

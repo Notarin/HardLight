@@ -2034,6 +2034,18 @@ namespace Content.Client.Stylesheets
                         Modulate = ButtonColorGoodDefault
                     }),
 
+                // Add style rules for OpenBottom/OpenBottomSelected used by the trait selector.
+                Element<Button>().Class("OpenBottom")
+                    .Prop(ContainerButton.StylePropertyStyleBox, BaseButtonOpenBoth)
+                    .Prop(Control.StylePropertyModulateSelf, ButtonColorDefault),
+
+                Element<Button>().Class("OpenBottomSelected")
+                    .Prop(ContainerButton.StylePropertyStyleBox, new StyleBoxTexture(BaseButtonOpenBoth)
+                    {
+                        Modulate = NanoGold
+                    })
+                    .Prop(Control.StylePropertyModulateSelf, ButtonColorGoodHovered),
+
                 Element<PanelContainer>()
                     .Class(StyleClassInset)
                     .Prop(PanelContainer.StylePropertyPanel, insetBack),

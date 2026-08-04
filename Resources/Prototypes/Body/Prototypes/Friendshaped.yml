@@ -7,7 +7,7 @@
       part: TorsoAnimal
       connections:
       - right arm
-      - left arm
+      # - left arm
       - legs
       organs:
         lungs: OrganAnimalLungs
@@ -19,14 +19,14 @@
       part: RightArmHuman
       connections:
       - right hand
-    left arm:
-      part: LeftArmHuman
-      connections:
-      - left hand
+    # left arm:
+      # part: LeftArmHuman
+      # connections:
+      # - left hand
     right hand:
       part: RightHandHuman
-    left hand:
-      part: LeftHandHuman
+    # left hand:
+      # part: LeftHandHuman
     legs:
       part: LegsAnimal
       connections:

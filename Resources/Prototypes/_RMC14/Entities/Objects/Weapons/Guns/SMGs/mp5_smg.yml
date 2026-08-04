@@ -94,8 +94,8 @@
 - type: entity
   parent: BaseMagazineRifle
   id: CMMagazineSMGMP5
-  name: "MP5 magazine (9mm)"
-  description: "A 9mm magazine for the MP5."
+  name: "MP5 magazine (9x21mm)"
+  description: "A 9x21mm magazine for the MP5."
   components:
   - type: Tag
     tags:
@@ -125,7 +125,7 @@
 - type: entity
   parent: CMCartridge10x20mm
   id: CMCartridge9mmSMG
-  name: cartridge (9mm SMG)
+  name: cartridge (9x21mm SMG)
   description: A 9mm cartridge for the mp5 submachinegun.
   components:
   - type: Tag

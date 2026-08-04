@@ -85,6 +85,7 @@
   - PlushieCatTabbyRecipe
   - PlushieCatTuxedoRecipe
   - PlushieCatWhiteRecipe
+  - PrizeVendBoosterPackRecipe
 
 - type: latheRecipePack
   id: NFPrizeCounterEmag

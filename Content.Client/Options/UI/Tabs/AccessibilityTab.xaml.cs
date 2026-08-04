@@ -29,7 +29,7 @@ public sealed partial class AccessibilityTab : Control
 
         Control.AddOptionCheckBox(CCVars.AccessibilityClientCensorNudity, CensorNudityCheckBox);
         Control.AddOptionCheckBox(CCVars.AccessibilityArachnophobia, ArachnophobiaCheckBox); // Starlight
-
+        Control.AddOptionCheckBox(CCVars.AccessibilityNoballs, NoballsCheckBox); // HardLight
         Control.AddOptionCheckBox(CCVars.DisableJobIconAnimation, DisableJobIconAnimationCheckBox); // Starlight
         Control.AddOptionCheckBox(CCVars.DisableLanguageIcons, DisableLanguageIconsCheckBox); // HardLight
 

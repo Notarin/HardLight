@@ -276,10 +276,7 @@ namespace Content.IntegrationTests.Tests
         [Test]
         public async Task TestRestockBreaksOpen()
         {
-            await using var pair = await PoolManager.GetServerClient(new PoolSettings
-            {
-                DummyTicker = false
-            });
+            await using var pair = await PoolManager.GetServerClient(); // HL: Reverted DummyTicker settings as round persistence is fixed in the tests
             var server = pair.Server;
             await server.WaitIdleAsync();
 

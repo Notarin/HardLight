@@ -15,9 +15,8 @@
     - type: Carriable
     - type: Hunger
     - type: Thirst
-    - type: LayingDown
-    - type: Genetics # Funkystation - Genetics
-      mutationSlots: 8
+    #- type: Genetics # Funkystation - Genetics
+    #  mutationSlots: 8
     - type: Shadekin
       thresholds:
         0.8: Low
@@ -33,6 +32,8 @@
       prototype: Shadekin
       requiredLegs: 2
     - type: Speech
+      speechSounds: Shadowkin # HL: Added Shadekin speech - Antelino
+      speechVerb: Shadowkin # HL: Added Shadekin speech - Antelino
       allowedEmotes: ["Marr", "Wurble", "Hiss", "Purr", "Growl"]
     - type: Vocal
       sounds:

@@ -4,19 +4,19 @@ Entries:
     - message: added ERP?
       type: Add
   id: 1
-  time: '2025-12-23T17:10:16-07:00'
+  time: 2025-12-24T00:10:16.000Z
 - author: xemeraldwingx-dot
   changes:
     - type: Add
       message: Changelog test
   id: 2
-  time: '2025-12-25T01:59:27.0000000+00:00'
+  time: 2025-12-25T01:59:27.000Z
 - author: NotLivyathan
   changes:
     - type: Add
       message: Added a second tail point for moths and chitinids.
   id: 3
-  time: '2025-12-27T02:54:30.0000000+00:00'
+  time: 2025-12-27T02:54:30.000Z
 - author: fenndragon
   changes:
     - type: Add
@@ -24,13 +24,13 @@ Entries:
     - type: Add
       message: 'Added hostile Xenoborg drones to space '
   id: 4
-  time: '2025-12-27T08:30:59.0000000+00:00'
+  time: 2025-12-27T08:30:59.000Z
 - author: coolbloxxie
   changes:
     - type: Fix
       message: erect tentacle cocks no longer suffer from ED
   id: 5
-  time: '2025-12-27T08:31:44.0000000+00:00'
+  time: 2025-12-27T08:31:44.000Z
 - author: stickycheZ101
   changes:
     - type: Add
@@ -40,13 +40,13 @@ Entries:
     - type: Add
       message: added a mad max reference somewhere in the game
   id: 6
-  time: '2025-12-27T08:37:57.0000000+00:00'
+  time: 2025-12-27T08:37:57.000Z
 - author: TrylobyteWasTaken
   changes:
     - type: Fix
       message: High-Flow atmos devices now work properly.
   id: 7
-  time: '2025-12-27T08:38:40.0000000+00:00'
+  time: 2025-12-27T08:38:40.000Z
 - author: Durk
   changes:
     - type: Add
@@ -76,19 +76,19 @@ Entries:
     - type: Remove
       message: Removed the ability to cuff quadborgs
   id: 8
-  time: '2025-12-27T08:55:41.0000000+00:00'
+  time: 2025-12-27T08:55:41.000Z
 - author: fenndragon
   changes:
     - type: Add
       message: Added XenoQuadborg
   id: 9
-  time: '2025-12-29T07:01:00.0000000+00:00'
+  time: 2025-12-29T07:01:00.000Z
 - author: amareyeen
   changes:
     - type: Add
       message: Ability for Vulps and Shadekins to have psionics
   id: 10
-  time: '2025-12-29T08:22:29.0000000+00:00'
+  time: 2025-12-29T08:22:29.000Z
 - author: NotLivyathan
   changes:
     - type: Add
@@ -104,7 +104,7 @@ Entries:
     - type: Tweak
       message: Security quadborgs are now cyan like the rest of SEC.
   id: 11
-  time: '2025-12-29T09:12:46.0000000+00:00'
+  time: 2025-12-29T09:12:46.000Z
 - author: Serah64
   changes:
     - type: Tweak
@@ -112,7 +112,7 @@ Entries:
     - type: Fix
       message: Restored Maxim Hardsuit to Expedition loot tables
   id: 12
-  time: '2025-12-31T16:45:51.0000000+00:00'
+  time: 2025-12-31T16:45:51.000Z
 - author: Fenndragon
   changes:
     - type: Add
@@ -122,11 +122,11 @@ Entries:
     - type: Fix
       message: fixed round logic issues
   id: 13
-  time: '2026-01-02T23:01:27.0000000+00:00'
+  time: 2026-01-02T23:01:27.000Z
 - author: pankakakas
   changes: []
   id: 14
-  time: '2026-01-03T01:26:41.0000000+00:00'
+  time: 2026-01-03T01:26:41.000Z
 - author: TrylobyteWasTaken
   changes:
     - type: Add
@@ -138,31 +138,31 @@ Entries:
     - type: Fix
       message: Paramedic hoverbikes move again
   id: 15
-  time: '2026-01-03T01:30:45.0000000+00:00'
+  time: 2026-01-03T01:30:45.000Z
 - author: Mariiibo
   changes:
     - type: Fix
       message: Fixed a bunch of guidebook entry organization.
   id: 16
-  time: '2026-01-03T01:34:17.0000000+00:00'
+  time: 2026-01-03T01:34:17.000Z
 - author: carccborg
   changes:
     - type: Tweak
       message: Characters with the Numb trait no longer scream during surgery.
   id: 17
-  time: '2026-01-03T01:39:17.0000000+00:00'
+  time: 2026-01-03T01:39:17.000Z
 - author: carccborg
   changes:
     - type: Fix
       message: Falling asleep no longer makes you fall out of a chair or bed
   id: 18
-  time: '2026-01-03T01:40:59.0000000+00:00'
+  time: 2026-01-03T01:40:59.000Z
 - author: Mariiibo
   changes:
     - type: Fix
       message: Fixed the rest of the guidebook errors.
   id: 19
-  time: '2026-01-03T18:11:58.0000000+00:00'
+  time: 2026-01-03T18:11:58.000Z
 - author: carccborg
   changes:
     - type: Tweak
@@ -170,13 +170,13 @@ Entries:
         Reduced thruster plume damage from 1400 Heat per second to 140 Heat per
         second.
   id: 20
-  time: '2026-01-03T18:12:40.0000000+00:00'
+  time: 2026-01-03T18:12:40.000Z
 - author: pankakakas
   changes:
     - type: Fix
       message: Avali Genital Markings Render!
   id: 21
-  time: '2026-01-03T18:13:29.0000000+00:00'
+  time: 2026-01-03T18:13:29.000Z
 - author: warcrazed11
   changes:
     - type: Add
@@ -184,7 +184,7 @@ Entries:
     - type: Add
       message: Sensors to tracking implants
   id: 22
-  time: '2026-01-04T04:34:22.0000000+00:00'
+  time: 2026-01-04T04:34:22.000Z
 - author: carccborg
   changes:
     - type: Add
@@ -208,7 +208,7 @@ Entries:
     - type: Fix
       message: Item offsets now work properly on Thaven in the customization screen.
   id: 23
-  time: '2026-01-04T20:13:15.0000000+00:00'
+  time: 2026-01-04T20:13:15.000Z
 - author: warcrazed11
   changes:
     - type: Add
@@ -216,25 +216,25 @@ Entries:
     - type: Add
       message: Added medipen cases printable at medfabs and purchasable on uplinks.
   id: 24
-  time: '2026-01-04T22:53:16.0000000+00:00'
+  time: 2026-01-04T22:53:16.000Z
 - author: carccborg
   changes:
     - type: Tweak
       message: Adjusted shuttle walls' `reflectProb` to 0.2 (20%).
   id: 25
-  time: '2026-01-07T04:23:11.0000000+00:00'
+  time: 2026-01-07T04:23:11.000Z
 - author: carccborg
   changes:
     - type: Fix
       message: Fire spreading when entities are colliding now works properly.
   id: 26
-  time: '2026-01-07T04:28:11.0000000+00:00'
+  time: 2026-01-07T04:28:11.000Z
 - author: Wuffindy
   changes:
     - type: Fix
       message: upgraded backpacks grid should be fixed now
   id: 27
-  time: '2026-01-07T04:30:34.0000000+00:00'
+  time: 2026-01-07T04:30:34.000Z
 - author: TrylobyteWasTaken
   changes:
     - type: Fix
@@ -262,7 +262,7 @@ Entries:
         Mechs can now wide-swing melee weapons as the raycast no longer collides
         with the mech itself.
   id: 28
-  time: '2026-01-07T04:31:01.0000000+00:00'
+  time: 2026-01-07T04:31:01.000Z
 - author: Makeshift
   changes:
     - type: Tweak
@@ -270,19 +270,19 @@ Entries:
         Reported a more recent version of Elkridge, with a more thorough set of
         changes to fit Hardlight.
   id: 29
-  time: '2026-01-07T04:41:20.0000000+00:00'
+  time: 2026-01-07T04:41:20.000Z
 - author: fenndragon
   changes:
     - type: Add
       message: 'Adds new high tier traits as well as some bug fixes. '
   id: 30
-  time: '2026-01-07T06:45:36.0000000+00:00'
+  time: 2026-01-07T06:45:36.000Z
 - author: TrylobyteWasTaken
   changes:
     - type: Tweak
       message: Mech weapons can no longer be fired outside of a mech.
   id: 31
-  time: '2026-01-07T06:47:30.0000000+00:00'
+  time: 2026-01-07T06:47:30.000Z
 - author: warcrazed11
   changes:
     - type: Add
@@ -290,19 +290,19 @@ Entries:
         Added the ability to craft big ammo boxes for 3x the price of normal
         ammo boxes.
   id: 32
-  time: '2026-01-08T22:52:15.0000000+00:00'
+  time: 2026-01-08T22:52:15.000Z
 - author: warcrazed11
   changes:
     - type: Add
       message: Gave security roles roundstart FUCs
   id: 33
-  time: '2026-01-09T03:46:12.0000000+00:00'
+  time: 2026-01-09T03:46:12.000Z
 - author: TrylobyteWasTaken
   changes:
     - type: Add
       message: Mechs should now have flashlights so they can see.
   id: 34
-  time: '2026-01-10T12:44:06.0000000+00:00'
+  time: 2026-01-10T12:44:06.000Z
 - author: NotLivyathan
   changes:
     - type: Add
@@ -347,7 +347,7 @@ Entries:
         Fixed Scientists, Security Officers, and Station Engineers spawning with
         two PDAs.
   id: 35
-  time: '2026-01-10T12:49:09.0000000+00:00'
+  time: 2026-01-10T12:49:09.000Z
 - author: Makeshiftt
   changes:
     - type: Fix
@@ -357,13 +357,13 @@ Entries:
     - type: Fix
       message: (Elkridge) Misc. decal issues.
   id: 36
-  time: '2026-01-12T21:22:37.0000000+00:00'
+  time: 2026-01-12T21:22:37.000Z
 - author: Generic-Eagle
   changes:
     - type: Tweak
       message: Many minor changes to Eaglerock
   id: 37
-  time: '2026-01-12T21:24:29.0000000+00:00'
+  time: 2026-01-12T21:24:29.000Z
 - author: stickycheZ101
   changes:
     - type: Tweak
@@ -371,7 +371,7 @@ Entries:
         made the bluespace jug and syringe follow the same x10 capacity
         convention that the other bluespace glassware does
   id: 38
-  time: '2026-01-14T00:10:56.0000000+00:00'
+  time: 2026-01-14T00:10:56.000Z
 - author: NotLivyathan
   changes:
     - type: Add
@@ -410,7 +410,7 @@ Entries:
         Synths now correctly take barotrauma damage from unprotected exposure to
         space.
   id: 39
-  time: '2026-01-14T00:12:12.0000000+00:00'
+  time: 2026-01-14T00:12:12.000Z
 - author: fenndragon
   changes:
     - type: Add
@@ -418,31 +418,31 @@ Entries:
         added basic segmented entities and a couple rainlizards for testing
         purposes 
   id: 40
-  time: '2026-01-14T00:31:10.0000000+00:00'
+  time: 2026-01-14T00:31:10.000Z
 - author: Warcrazed
   changes:
     - type: Fix
       message: Fixed Deaddrop system to properly work
   id: 41
-  time: '2026-01-15T00:40:01.0000000+00:00'
+  time: 2026-01-15T00:40:01.000Z
 - author: Warcrazed
   changes:
     - type: Add
       message: Ported time transfer window.
   id: 42
-  time: '2026-01-15T04:23:28.0000000+00:00'
+  time: 2026-01-15T04:23:28.000Z
 - author: Warcrazed
   changes:
     - type: Add
       message: Added admin spawn chronolegionnares.
   id: 43
-  time: '2026-01-15T04:23:42.0000000+00:00'
+  time: 2026-01-15T04:23:42.000Z
 - author: Warcrazed
   changes:
     - type: Add
       message: Added Civilian Chameleon Clothes.
   id: 44
-  time: '2026-01-15T05:09:48.0000000+00:00'
+  time: 2026-01-15T05:09:48.000Z
 - author: NotLivyathan
   changes:
     - type: Add
@@ -454,13 +454,13 @@ Entries:
         Vox now have additional emote sounds; including coo, hiss, cough, sigh,
         gasp, and more.
   id: 45
-  time: '2026-01-15T18:11:58.0000000+00:00'
+  time: 2026-01-15T18:11:58.000Z
 - author: Warcrazed
   changes:
     - type: Add
       message: Added Genetics
   id: 46
-  time: '2026-01-15T19:01:40.0000000+00:00'
+  time: 2026-01-15T19:01:40.000Z
 - author: fenndragon
   changes:
     - type: Add
@@ -468,13 +468,13 @@ Entries:
     - type: Add
       message: added Rainlizard events
   id: 47
-  time: '2026-01-16T20:25:20.0000000+00:00'
+  time: 2026-01-16T20:25:20.000Z
 - author: NotLivyathan
   changes:
     - type: Add
       message: Avali, Resomi, and Vow will now turn into fried chicken when ashed.
   id: 48
-  time: '2026-01-16T20:25:45.0000000+00:00'
+  time: 2026-01-16T20:25:45.000Z
 - author: Generic_Eagle
   changes:
     - type: Add
@@ -484,7 +484,7 @@ Entries:
     - type: Add
       message: Eaglerock now has a Butlertron for the station chef
   id: 49
-  time: '2026-01-16T20:49:45.0000000+00:00'
+  time: 2026-01-16T20:49:45.000Z
 - author: Warcrazed
   changes:
     - type: Add
@@ -492,7 +492,7 @@ Entries:
     - type: Fix
       message: Fixed Cargo market system.
   id: 50
-  time: '2026-01-16T20:50:19.0000000+00:00'
+  time: 2026-01-16T20:50:19.000Z
 - author: fenndragon
   changes:
     - type: Add
@@ -500,13 +500,13 @@ Entries:
     - type: Tweak
       message: Changed shuttle AI behavior
   id: 51
-  time: '2026-01-17T01:12:12.0000000+00:00'
+  time: 2026-01-17T01:12:12.000Z
 - author: TrylobyteWasTaken
   changes:
     - type: Add
       message: Added custom species
   id: 52
-  time: '2026-01-17T01:17:21.0000000+00:00'
+  time: 2026-01-17T01:17:21.000Z
 - author: Generic_Eagle
   changes:
     - type: Fix
@@ -514,13 +514,13 @@ Entries:
     - type: Fix
       message: Eaglerock Become Station fixed for billionth time
   id: 53
-  time: '2026-01-17T01:43:11.0000000+00:00'
+  time: 2026-01-17T01:43:11.000Z
 - author: warcrazed11
   changes:
     - type: Remove
       message: Removes chameleon belt!
   id: 54
-  time: '2026-01-17T03:57:28.0000000+00:00'
+  time: 2026-01-17T03:57:28.000Z
 - author: warcrazed11
   changes:
     - type: Add
@@ -528,7 +528,7 @@ Entries:
     - type: Add
       message: Adds the coyote clothes to the loudout options.
   id: 55
-  time: '2026-01-17T19:20:23.0000000+00:00'
+  time: 2026-01-17T19:20:23.000Z
 - author: TrylobyteWasTaken
   changes:
     - type: Add
@@ -542,13 +542,13 @@ Entries:
     - type: Tweak
       message: Stellibinin now acts like Dylovene when given to plants.
   id: 56
-  time: '2026-01-19T01:41:13.0000000+00:00'
+  time: 2026-01-19T01:41:13.000Z
 - author: warcrazed11
   changes:
     - type: Fix
       message: Fixed vox breathing.
   id: 57
-  time: '2026-01-19T02:43:10.0000000+00:00'
+  time: 2026-01-19T02:43:10.000Z
 - author: warcrazed11
   changes:
     - type: Fix
@@ -556,7 +556,7 @@ Entries:
     - type: Tweak
       message: Make sec shipyards report to security comms instead of colsec.
   id: 58
-  time: '2026-01-19T03:53:29.0000000+00:00'
+  time: 2026-01-19T03:53:29.000Z
 - author: rtasva
   changes:
     - type: Add
@@ -564,37 +564,37 @@ Entries:
     - type: Tweak
       message: Added Silica to the map pool
   id: 59
-  time: '2026-01-19T04:07:57.0000000+00:00'
+  time: 2026-01-19T04:07:57.000Z
 - author: Tichi
   changes:
     - type: Add
       message: Egg laying trait
   id: 60
-  time: '2026-01-19T04:35:28.0000000+00:00'
+  time: 2026-01-19T04:35:28.000Z
 - author: Tichi
   changes:
     - type: Tweak
       message: Let Harpy species have colorful skin color
   id: 61
-  time: '2026-01-19T04:36:01.0000000+00:00'
+  time: 2026-01-19T04:36:01.000Z
 - author: warcrazed11
   changes:
     - type: Add
       message: Adds the Admin tag and tags admin items.
   id: 62
-  time: '2026-01-19T20:36:14.0000000+00:00'
+  time: 2026-01-19T20:36:14.000Z
 - author: Tichi
   changes:
     - type: Fix
       message: Leash fixes
   id: 63
-  time: '2026-01-22T04:37:24.0000000+00:00'
+  time: 2026-01-22T04:37:24.000Z
 - author: warcrazed11
   changes:
     - type: Add
       message: Added basic tag lock system for clothing.
   id: 64
-  time: '2026-01-22T04:37:59.0000000+00:00'
+  time: 2026-01-22T04:37:59.000Z
 - author: fenndragon
   changes:
     - type: Add
@@ -602,7 +602,7 @@ Entries:
         Added back the vore system, this time ported from Coyote and
         floof-station
   id: 65
-  time: '2026-01-22T04:38:15.0000000+00:00'
+  time: 2026-01-22T04:38:15.000Z
 - author: fenndragon
   changes:
     - type: Add
@@ -618,7 +618,7 @@ Entries:
     - type: Fix
       message: 'Fixed Atmos calculation and spacing. '
   id: 66
-  time: '2026-01-22T05:16:51.0000000+00:00'
+  time: 2026-01-22T05:16:51.000Z
 - author: warcrazed11
   changes:
     - type: Tweak
@@ -626,7 +626,7 @@ Entries:
     - type: Tweak
       message: Tweaked cache and vault map to add more danger and loot to them.
   id: 67
-  time: '2026-01-22T05:23:14.0000000+00:00'
+  time: 2026-01-22T05:23:14.000Z
 - author: rtasva
   changes:
     - type: Add
@@ -634,7 +634,7 @@ Entries:
     - type: Add
       message: Ported desktop PC consoles made by Citrea
   id: 68
-  time: '2026-01-22T06:25:01.0000000+00:00'
+  time: 2026-01-22T06:25:01.000Z
 - author: NotLivyathan
   changes:
     - type: Add
@@ -661,7 +661,7 @@ Entries:
     - type: Tweak
       message: Nanites have been rebalanced slightly to be less strong.
   id: 69
-  time: '2026-01-22T07:15:15.0000000+00:00'
+  time: 2026-01-22T07:15:15.000Z
 - author: NotLivyathan
   changes:
     - type: Add
@@ -669,7 +669,7 @@ Entries:
         Reptilians now have two additional snout markings: Eastern Dragon &
         Eastern Dragon (Usiki)
   id: 70
-  time: '2026-01-24T06:40:45.0000000+00:00'
+  time: 2026-01-24T06:40:45.000Z
 - author: NotLivyathan
   changes:
     - type: Add
@@ -677,7 +677,7 @@ Entries:
         Jump Boots are now able to be crafted at a protolathe after the
         appropriate research has been done.
   id: 71
-  time: '2026-01-24T07:00:22.0000000+00:00'
+  time: 2026-01-24T07:00:22.000Z
 - author: fenndragon
   changes:
     - type: Add
@@ -691,7 +691,7 @@ Entries:
     - type: Fix
       message: 'Fixed lingering maps and grids '
   id: 72
-  time: '2026-01-24T11:41:17.0000000+00:00'
+  time: 2026-01-24T11:41:17.000Z
 - author: TheRealMasterChief117
   changes:
     - type: Tweak
@@ -700,7 +700,7 @@ Entries:
         blood level dropping as they heal. As a result, their healing is more
         powerful that scales based on their blood amount.
   id: 73
-  time: '2026-01-25T06:52:35.0000000+00:00'
+  time: 2026-01-25T06:52:35.000Z
 - author: rtasva
   changes:
     - type: Add
@@ -712,19 +712,19 @@ Entries:
         Fixed warden locker & sec dock airlocks on Silica not being correct
         prototypes
   id: 74
-  time: '2026-01-25T09:27:27.0000000+00:00'
+  time: 2026-01-25T09:27:27.000Z
 - author: rtasva
   changes:
     - type: Add
       message: ported too many clothes to list here
   id: 75
-  time: '2026-01-25T09:27:51.0000000+00:00'
+  time: 2026-01-25T09:27:51.000Z
 - author: Generic_Eagle
   changes:
     - type: Fix
       message: More improvements on Eaglerock
   id: 76
-  time: '2026-01-25T09:29:37.0000000+00:00'
+  time: 2026-01-25T09:29:37.000Z
 - author: TrylobyteWasTaken
   changes:
     - type: Tweak
@@ -733,7 +733,7 @@ Entries:
         allow for the automated removal of liquid via liquid pump.  Don't let it
         eat your tools.
   id: 77
-  time: '2026-01-25T09:32:35.0000000+00:00'
+  time: 2026-01-25T09:32:35.000Z
 - author: fenndragon
   changes:
     - type: Add
@@ -745,7 +745,7 @@ Entries:
     - type: Add
       message: added new carp forms
   id: 78
-  time: '2026-01-25T09:41:33.0000000+00:00'
+  time: 2026-01-25T09:41:33.000Z
 - author: rtasva
   changes:
     - type: Add
@@ -753,13 +753,13 @@ Entries:
     - type: Tweak
       message: More Silica fixes
   id: 79
-  time: '2026-01-25T22:28:45.0000000+00:00'
+  time: 2026-01-25T22:28:45.000Z
 - author: fenndragon
   changes:
     - type: Fix
       message: 'Fixed produce stacks not functioning properly in relation to machines. '
   id: 80
-  time: '2026-01-28T04:43:46.0000000+00:00'
+  time: 2026-01-28T04:43:46.000Z
 - author: Generic_Eagle
   changes:
     - type: Add
@@ -767,13 +767,13 @@ Entries:
     - type: Tweak
       message: Eaglerock now has infinite contractor slots
   id: 81
-  time: '2026-01-28T04:44:12.0000000+00:00'
+  time: 2026-01-28T04:44:12.000Z
 - author: warcrazed11
   changes:
     - type: Add
       message: Added the ability to opt out of paradox clone targetting.
   id: 82
-  time: '2026-01-28T04:44:52.0000000+00:00'
+  time: 2026-01-28T04:44:52.000Z
 - author: NotLivyathan
   changes:
     - type: Add
@@ -787,7 +787,7 @@ Entries:
         Synths now metabolize all reagents at 75% efficiency when dead, except
         Nanites, which remain at 100% efficiency.
   id: 83
-  time: '2026-01-28T04:46:13.0000000+00:00'
+  time: 2026-01-28T04:46:13.000Z
 - author: warcrazed11
   changes:
     - type: Tweak
@@ -797,13 +797,13 @@ Entries:
     - type: Tweak
       message: Doubled Gas deposit size.
   id: 84
-  time: '2026-01-30T17:10:02.0000000+00:00'
+  time: 2026-01-30T17:10:02.000Z
 - author: warcrazed11
   changes:
     - type: Add
       message: Added AAC tablet!
   id: 85
-  time: '2026-01-30T17:10:26.0000000+00:00'
+  time: 2026-01-30T17:10:26.000Z
 - author: NotLivyathan
   changes:
     - type: Add
@@ -819,7 +819,7 @@ Entries:
     - type: Remove
       message: Synths and IPC can no longer be cloned.
   id: 86
-  time: '2026-01-30T17:11:20.0000000+00:00'
+  time: 2026-01-30T17:11:20.000Z
 - author: NotLivyathan
   changes:
     - type: Fix
@@ -827,7 +827,7 @@ Entries:
         Fixed audio lingering from energy melee weapons when no longer
         activated.
   id: 87
-  time: '2026-01-30T17:11:38.0000000+00:00'
+  time: 2026-01-30T17:11:38.000Z
 - author: fenndragon
   changes:
     - type: Add
@@ -837,7 +837,7 @@ Entries:
     - type: Remove
       message: 'removed the contractor and pilot roles from station selection. '
   id: 88
-  time: '2026-01-31T00:29:27.0000000+00:00'
+  time: 2026-01-31T00:29:27.000Z
 - author: TrylobyteWasTaken
   changes:
     - type: Tweak
@@ -847,19 +847,19 @@ Entries:
     - type: Fix
       message: You can cook food again.
   id: 89
-  time: '2026-01-31T00:33:21.0000000+00:00'
+  time: 2026-01-31T00:33:21.000Z
 - author: Generic_Eagle
   changes:
     - type: Tweak
       message: Eaglerock cargo can now sell exped disks
   id: 90
-  time: '2026-01-31T02:16:11.0000000+00:00'
+  time: 2026-01-31T02:16:11.000Z
 - author: rtasva
   changes:
     - type: Add
       message: added exped disk printer to every map
   id: 91
-  time: '2026-01-31T03:17:31.0000000+00:00'
+  time: 2026-01-31T03:17:31.000Z
 - author: TrylobyteWasTaken
   changes:
     - type: Tweak
@@ -875,13 +875,13 @@ Entries:
         Plant Analyzer UI now works properly when scanning an item without the
         window already open.
   id: 92
-  time: '2026-01-31T06:03:20.0000000+00:00'
+  time: 2026-01-31T06:03:20.000Z
 - author: warcrazed11
   changes:
     - type: Fix
       message: Fixed multiple bugs with shadekin.
   id: 93
-  time: '2026-02-02T17:26:45.0000000+00:00'
+  time: 2026-02-02T17:26:45.000Z
 - author: Suraru
   changes:
     - type: Fix
@@ -891,19 +891,19 @@ Entries:
     - type: Fix
       message: Fixed automatic spacer role allocation
   id: 94
-  time: '2026-02-03T19:31:57.0000000+00:00'
+  time: 2026-02-03T19:31:57.000Z
 - author: warcrazed11
   changes:
     - type: Fix
       message: Fixed turrets ignoring shielded entities
   id: 95
-  time: '2026-02-03T19:33:43.0000000+00:00'
+  time: 2026-02-03T19:33:43.000Z
 - author: warcrazed11
   changes:
     - type: Add
       message: Added Early launch back!
   id: 96
-  time: '2026-02-03T19:35:32.0000000+00:00'
+  time: 2026-02-03T19:35:32.000Z
 - author: Suraru
   changes:
     - type: Add
@@ -911,11 +911,11 @@ Entries:
         Added a ton of player companies, canon companies, a couple antag
         companies, and made USSP public
   id: 97
-  time: '2026-02-03T19:43:39.0000000+00:00'
+  time: 2026-02-03T19:43:39.000Z
 - author: Sully669
   changes: []
   id: 98
-  time: '2026-02-03T19:47:18.0000000+00:00'
+  time: 2026-02-03T19:47:18.000Z
 - author: NotLivyathan
   changes:
     - type: Add
@@ -931,7 +931,7 @@ Entries:
         Space Dragons, Rat Kings, and Xenos now have toggleable thermal vision,
         and Space Dragons now have working night vision, as well.
   id: 99
-  time: '2026-02-06T20:00:16.0000000+00:00'
+  time: 2026-02-06T20:00:16.000Z
 - author: warcrazed11
   changes:
     - type: Add
@@ -941,7 +941,7 @@ Entries:
     - type: Add
       message: Gives the freelancers their own comms.
   id: 100
-  time: '2026-02-06T21:02:55.0000000+00:00'
+  time: 2026-02-06T21:02:55.000Z
 - author: NotLivyathan
   changes:
     - type: Add
@@ -957,7 +957,7 @@ Entries:
     - type: Fix
       message: Toggleable glow markings no longer reset height sliders when selected.
   id: 101
-  time: '2026-02-06T21:05:22.0000000+00:00'
+  time: 2026-02-06T21:05:22.000Z
 - author: Sully669
   changes:
     - type: Add
@@ -965,7 +965,7 @@ Entries:
     - type: Add
       message: stamina damage for pillow fights
   id: 102
-  time: '2026-02-06T21:09:32.0000000+00:00'
+  time: 2026-02-06T21:09:32.000Z
 - author: fenndragon
   changes:
     - type: Add
@@ -985,7 +985,7 @@ Entries:
     - type: Fix
       message: 'Fixed depot spawn locations. '
   id: 103
-  time: '2026-02-06T21:11:17.0000000+00:00'
+  time: 2026-02-06T21:11:17.000Z
 - author: rtasva
   changes:
     - type: Add
@@ -1001,13 +1001,13 @@ Entries:
     - type: Tweak
       message: Shadekin performance fix
   id: 104
-  time: '2026-02-06T22:09:59.0000000+00:00'
+  time: 2026-02-06T22:09:59.000Z
 - author: TrylobyteWasTaken
   changes:
     - type: Add
       message: Bluespace Cryobeakers.  Like cryobeakers, but bluespace.  Per request.
   id: 105
-  time: '2026-02-06T22:10:11.0000000+00:00'
+  time: 2026-02-06T22:10:11.000Z
 - author: NotLivyathan
   changes:
     - type: Add
@@ -1017,7 +1017,7 @@ Entries:
         Synths now have access to two new tails inspired by Xenomorphs, as well
         as a set of lights for them.
   id: 106
-  time: '2026-02-09T23:08:59.0000000+00:00'
+  time: 2026-02-09T23:08:59.000Z
 - author: warcrazed11
   changes:
     - type: Fix
@@ -1025,7 +1025,7 @@ Entries:
     - type: Fix
       message: Fixed freelancer headsets not having freelance radio.
   id: 107
-  time: '2026-02-09T23:33:30.0000000+00:00'
+  time: 2026-02-09T23:33:30.000Z
 - author: NotLivyathan
   changes:
     - type: Tweak
@@ -1043,13 +1043,13 @@ Entries:
         ChemMasters should no longer mix solutions contained within their buffer
         when saved on a ship.
   id: 108
-  time: '2026-02-09T23:34:31.0000000+00:00'
+  time: 2026-02-09T23:34:31.000Z
 - author: NotLivyathan
   changes:
     - type: Add
       message: Ported Martial Arts from Goobstation.
   id: 109
-  time: '2026-02-09T23:35:33.0000000+00:00'
+  time: 2026-02-09T23:35:33.000Z
 - author: JenreyDominos
   changes:
     - type: Add
@@ -1063,13 +1063,13 @@ Entries:
     - type: Add
       message: Dominos Robotics to the Factions tab of the pallet menu
   id: 110
-  time: '2026-02-09T23:43:38.0000000+00:00'
+  time: 2026-02-09T23:43:38.000Z
 - author: re-silvered
   changes:
     - type: Add
       message: Biting and checking out as interaction options
   id: 111
-  time: '2026-02-09T23:47:00.0000000+00:00'
+  time: 2026-02-09T23:47:00.000Z
 - author: fenndragon
   changes:
     - type: Add
@@ -1083,13 +1083,13 @@ Entries:
     - type: Fix
       message: Fixed server side errors causing lag in two places
   id: 112
-  time: '2026-02-10T00:19:53.0000000+00:00'
+  time: 2026-02-10T00:19:53.000Z
 - author: fenndragon
   changes:
     - type: Fix
       message: Fixed xenoborg targeting
   id: 113
-  time: '2026-02-10T07:38:57.0000000+00:00'
+  time: 2026-02-10T07:38:57.000Z
 - author: Suraru
   changes:
     - type: Tweak
@@ -1111,13 +1111,13 @@ Entries:
         Checks payout every second now, instead of every tick. Reduces thousands
         of checks a second, to like, 80 tops. 
   id: 114
-  time: '2026-02-10T07:39:29.0000000+00:00'
+  time: 2026-02-10T07:39:29.000Z
 - author: warcrazed11
   changes:
     - type: Add
       message: Added pool toy trait!
   id: 115
-  time: '2026-02-13T09:17:55.0000000+00:00'
+  time: 2026-02-13T09:17:55.000Z
 - author: Generic_eagle
   changes:
     - type: Add
@@ -1125,19 +1125,19 @@ Entries:
     - type: Tweak
       message: Turned the vacant office near Bridge into a HM office on Eaglerock.
   id: 116
-  time: '2026-02-13T09:18:47.0000000+00:00'
+  time: 2026-02-13T09:18:47.000Z
 - author: Suraru
   changes:
     - type: Remove
       message: Removes the SS14 decal from all wizden maps since they were broken
   id: 117
-  time: '2026-02-13T09:20:10.0000000+00:00'
+  time: 2026-02-13T09:20:10.000Z
 - author: Suraru
   changes:
     - type: Add
       message: Pink Hoodies
   id: 118
-  time: '2026-02-13T09:22:21.0000000+00:00'
+  time: 2026-02-13T09:22:21.000Z
 - author: warcrazed11
   changes:
     - type: Add
@@ -1145,13 +1145,13 @@ Entries:
         Added document cases to printing in autolathes, and the ability for them
         to store disks.
   id: 119
-  time: '2026-02-14T00:43:41.0000000+00:00'
+  time: 2026-02-14T00:43:41.000Z
 - author: warcrazed11
   changes:
     - type: Add
       message: Added the volkite calvalier, Pistol, Charger, and Culverin
   id: 120
-  time: '2026-02-14T22:53:21.0000000+00:00'
+  time: 2026-02-14T22:53:21.000Z
 - author: TrylobyteWasTaken
   changes:
     - type: Fix
@@ -1159,7 +1159,7 @@ Entries:
     - type: Tweak
       message: Inflatable floors are now deconstructed with a screwdriver.
   id: 121
-  time: '2026-02-14T22:54:23.0000000+00:00'
+  time: 2026-02-14T22:54:23.000Z
 - author: rtasva
   changes:
     - type: Add
@@ -1167,7 +1167,7 @@ Entries:
     - type: Add
       message: Added a new UNMC vending machine to the exped spawn pool
   id: 122
-  time: '2026-02-17T23:53:16.0000000+00:00'
+  time: 2026-02-17T23:53:16.000Z
 - author: Suraru
   changes:
     - type: Add
@@ -1175,7 +1175,7 @@ Entries:
     - type: Add
       message: 'Added CC SOF Intelligence "LAMBA" operatives. '
   id: 123
-  time: '2026-02-17T23:54:02.0000000+00:00'
+  time: 2026-02-17T23:54:02.000Z
 - author: Suraru
   changes:
     - type: Add
@@ -1185,7 +1185,7 @@ Entries:
     - type: Tweak
       message: greatly increases dock spawning radius
   id: 124
-  time: '2026-02-17T23:54:23.0000000+00:00'
+  time: 2026-02-17T23:54:23.000Z
 - author: warcrazed11
   changes:
     - type: Add
@@ -1193,13 +1193,13 @@ Entries:
     - type: Tweak
       message: Changed the volkite damage and fire rate.
   id: 125
-  time: '2026-02-17T23:56:54.0000000+00:00'
+  time: 2026-02-17T23:56:54.000Z
 - author: fenndragon
   changes:
     - type: Add
       message: Added per character apartment system
   id: 126
-  time: '2026-02-18T00:02:16.0000000+00:00'
+  time: 2026-02-18T00:02:16.000Z
 - author: NotLivyathan
   changes:
     - type: Add
@@ -1223,7 +1223,7 @@ Entries:
     - type: Fix
       message: 'Custom lights no longer revert to default lights on save/load. '
   id: 127
-  time: '2026-02-19T04:58:43.0000000+00:00'
+  time: 2026-02-19T04:58:43.000Z
 - author: warcrazed11
   changes:
     - type: Tweak
@@ -1231,55 +1231,55 @@ Entries:
     - type: Tweak
       message: made genetic console undeconstructable.
   id: 128
-  time: '2026-02-19T04:59:03.0000000+00:00'
+  time: 2026-02-19T04:59:03.000Z
 - author: warcrazed11
   changes:
     - type: Add
       message: Adds the pissing trait. It... lets you piss...
   id: 129
-  time: '2026-02-19T05:01:15.0000000+00:00'
+  time: 2026-02-19T05:01:15.000Z
 - author: Suraru
   changes:
     - type: Tweak
       message: You can now eat money
   id: 130
-  time: '2026-02-19T05:03:00.0000000+00:00'
+  time: 2026-02-19T05:03:00.000Z
 - author: Notarin
   changes:
     - type: Add
       message: Added brainwashing/hypnotism/mind-control via the neuralyzer
   id: 131
-  time: '2026-02-19T05:02:04.0000000+00:00'
+  time: 2026-02-19T05:02:04.000Z
 - author: Generic-Eagle
   changes:
     - type: Add
       message: Added the Bumble Bee to the Security shipyard
   id: 132
-  time: '2026-02-19T05:02:28.0000000+00:00'
+  time: 2026-02-19T05:02:28.000Z
 - author: NotLivyathan
   changes:
     - type: Add
       message: Moths and Mothroaches are now able to flap their wings.
   id: 133
-  time: '2026-02-21T02:25:35.0000000+00:00'
+  time: 2026-02-21T02:25:35.000Z
 - author: Sully669
   changes:
     - type: Add
       message: more pillows!
   id: 134
-  time: '2026-02-21T02:33:51.0000000+00:00'
+  time: 2026-02-21T02:33:51.000Z
 - author: Notarin
   changes:
     - type: Tweak
       message: Neuralyzer no longer works on mindshielded people.
   id: 135
-  time: '2026-02-21T02:43:28.0000000+00:00'
+  time: 2026-02-21T02:43:28.000Z
 - author: TrylobyteWasTaken
   changes:
     - type: Fix
       message: Food-O-Mat works now.
   id: 136
-  time: '2026-02-21T02:44:20.0000000+00:00'
+  time: 2026-02-21T02:44:20.000Z
 - author: NotLivyathan
   changes:
     - type: Fix
@@ -1295,25 +1295,25 @@ Entries:
         Job data is now correctly displayed and should no longer give Unknowns
         outside of the Crew Monitor.
   id: 137
-  time: '2026-02-21T02:45:19.0000000+00:00'
+  time: 2026-02-21T02:45:19.000Z
 - author: NotLivyathan
   changes:
     - type: Add
       message: Synths now have unique insides.
   id: 138
-  time: '2026-02-21T02:56:52.0000000+00:00'
+  time: 2026-02-21T02:56:52.000Z
 - author: NotLivyathan
   changes:
     - type: Fix
       message: Harbor Masters now correctly spawn with a pre-installed mindshield.
   id: 139
-  time: '2026-02-21T03:16:29.0000000+00:00'
+  time: 2026-02-21T03:16:29.000Z
 - author: TrylobyteWasTaken
   changes:
     - type: Add
       message: Scurrets can now equip bags of holding.
   id: 140
-  time: '2026-02-21T03:19:40.0000000+00:00'
+  time: 2026-02-21T03:19:40.000Z
 - author: NotLivyathan
   changes:
     - type: Add
@@ -1331,13 +1331,13 @@ Entries:
         Consents will no longer be violated upon alt+click and will once again
         execute normal actions before lewd ones.
   id: 141
-  time: '2026-02-21T16:25:57.0000000+00:00'
+  time: 2026-02-21T16:25:57.000Z
 - author: TrylobyteWasTaken
   changes:
     - type: Add
       message: NanoChat!
   id: 142
-  time: '2026-02-24T02:45:15.0000000+00:00'
+  time: 2026-02-24T02:45:15.000Z
 - author: NotLivyathan
   changes:
     - type: Add
@@ -1353,13 +1353,13 @@ Entries:
         Entities with PryingComponent that aren't exclusively for prying will no
         longer attempt to pry outside of alt+click.
   id: 143
-  time: '2026-02-24T02:51:32.0000000+00:00'
+  time: 2026-02-24T02:51:32.000Z
 - author: Suraru
   changes:
     - type: Add
       message: Added Felionoids
   id: 144
-  time: '2026-02-24T03:14:11.0000000+00:00'
+  time: 2026-02-24T03:14:11.000Z
 - author: Suraru
   changes:
     - type: Add
@@ -1371,43 +1371,43 @@ Entries:
     - type: Fix
       message: Grids getting deleted also deleting players
   id: 145
-  time: '2026-02-24T03:14:56.0000000+00:00'
+  time: 2026-02-24T03:14:56.000Z
 - author: TrylobyteWasTaken
   changes:
     - type: Fix
       message: Pick-n-Pack machines now contain the correct ammunition types.
   id: 146
-  time: '2026-02-24T20:48:41.0000000+00:00'
+  time: 2026-02-24T20:48:41.000Z
 - author: warcrazed11
   changes:
     - type: Add
       message: Adds the explosive and cryostasis darts.
   id: 147
-  time: '2026-02-24T20:52:33.0000000+00:00'
+  time: 2026-02-24T20:52:33.000Z
 - author: fenndragon
   changes:
     - type: Add
       message: Added resomi changes per bounty request
   id: 148
-  time: '2026-02-24T20:52:52.0000000+00:00'
+  time: 2026-02-24T20:52:52.000Z
 - author: fenndragon
   changes:
     - type: Fix
       message: 'fixed the bounds for the apartment system '
   id: 149
-  time: '2026-02-24T21:02:32.0000000+00:00'
+  time: 2026-02-24T21:02:32.000Z
 - author: NotLivyathan
   changes:
     - type: Add
       message: Added a Livyathan plushie!
   id: 150
-  time: '2026-02-24T21:37:39.0000000+00:00'
+  time: 2026-02-24T21:37:39.000Z
 - author: Generic_Eagle
   changes:
     - type: Add
       message: Added Security and Command companies and applied them to said jobs.
   id: 151
-  time: '2026-02-26T05:33:32.0000000+00:00'
+  time: 2026-02-26T05:33:32.000Z
 - author: Aureuix
   changes:
     - type: Fix
@@ -1415,13 +1415,13 @@ Entries:
         Gave shadekin and avali the markings they should have had for ages. Go
         nuts. Add nuts to your shadekin. What the fuck ever.
   id: 152
-  time: '2026-02-28T23:01:04.0000000+00:00'
+  time: 2026-02-28T23:01:04.000Z
 - author: NotLivyathan
   changes:
     - type: Add
       message: Quadborgs are now able to wear collars!
   id: 153
-  time: '2026-02-28T23:01:24.0000000+00:00'
+  time: 2026-02-28T23:01:24.000Z
 - author: TrylobyteWasTaken
   changes:
     - type: Add
@@ -1466,7 +1466,7 @@ Entries:
     - type: Fix
       message: Protogen can now be psionic.
   id: 154
-  time: '2026-03-01T00:07:16.0000000+00:00'
+  time: 2026-03-01T00:07:16.000Z
 - author: NotLivyathan
   changes:
     - type: Tweak
@@ -1474,25 +1474,25 @@ Entries:
     - type: Tweak
       message: AFK auto cryo timer increase from 15 minutes to 2 hours.
   id: 155
-  time: '2026-03-01T06:15:52.0000000+00:00'
+  time: 2026-03-01T06:15:52.000Z
 - author: Generic_Eagle
   changes:
     - type: Tweak
       message: SecTech and drobe now fully replace NFSD counterparts.
   id: 156
-  time: '2026-03-01T06:16:13.0000000+00:00'
+  time: 2026-03-01T06:16:13.000Z
 - author: warcrazed11
   changes:
     - type: Tweak
       message: Removed the SM zap and instead raised radiation.
   id: 157
-  time: '2026-03-01T06:17:18.0000000+00:00'
+  time: 2026-03-01T06:17:18.000Z
 - author: warcrazed11
   changes:
     - type: Add
       message: Adds a new song to the jukebox!
   id: 158
-  time: '2026-03-01T06:21:06.0000000+00:00'
+  time: 2026-03-01T06:21:06.000Z
 - author: NotLivyathan
   changes:
     - type: Fix
@@ -1500,7 +1500,7 @@ Entries:
         Entities successfully sent to cryospace no longer do something until
         deletion.
   id: 159
-  time: '2026-03-01T07:04:57.0000000+00:00'
+  time: 2026-03-01T07:04:57.000Z
 - author: VoidedDevNull
   changes:
     - type: Tweak
@@ -1508,13 +1508,13 @@ Entries:
         Amber station has been tweaked to bring the map up to par with other
         maps.
   id: 160
-  time: '2026-03-01T07:12:24.0000000+00:00'
+  time: 2026-03-01T07:12:24.000Z
 - author: warcrazed11
   changes:
     - type: Fix
       message: Fixed contra levels on syndicate cosmetics.
   id: 161
-  time: '2026-03-01T21:56:59.0000000+00:00'
+  time: 2026-03-01T21:56:59.000Z
 - author: VoidedDevNull
   changes:
     - type: Add
@@ -1522,7 +1522,7 @@ Entries:
         Station AI now has access to the Freelancer, Traffic, and ColSec radio
         channels.
   id: 162
-  time: '2026-03-01T21:57:17.0000000+00:00'
+  time: 2026-03-01T21:57:17.000Z
 - author: IrkallaEpsilon
   changes:
     - type: Fix
@@ -1530,25 +1530,25 @@ Entries:
     - type: Fix
       message: Gatfruit to infinite FUCs to infinite money exploit
   id: 163
-  time: '2026-03-03T01:45:58.0000000+00:00'
+  time: 2026-03-03T01:45:58.000Z
 - author: warcrazed11
   changes:
     - type: Add
       message: Added the radio system from goob.
   id: 164
-  time: '2026-03-03T01:50:17.0000000+00:00'
+  time: 2026-03-03T01:50:17.000Z
 - author: fenndragon
   changes:
     - type: Fix
       message: Fixed a bunch of broken tests and the lag we've been experiencing
   id: 165
-  time: '2026-03-03T01:59:40.0000000+00:00'
+  time: 2026-03-03T01:59:40.000Z
 - author: VoidedDevNull
   changes:
     - type: Tweak
       message: Hyperlathes now only take 1.5x longer instead of 3x to craft.
   id: 166
-  time: '2026-03-03T02:00:12.0000000+00:00'
+  time: 2026-03-03T02:00:12.000Z
 - author: VoidedDevNull
   changes:
     - type: Tweak
@@ -1558,25 +1558,25 @@ Entries:
         Hardlight Core security dock has been slightly extended to accommodate
         ships better.
   id: 167
-  time: '2026-03-03T02:00:36.0000000+00:00'
+  time: 2026-03-03T02:00:36.000Z
 - author: ratkingnyxu-lgtm
   changes:
     - type: Add
       message: ADF-TALON comms key (spawn only)
   id: 168
-  time: '2026-03-03T02:04:04.0000000+00:00'
+  time: 2026-03-03T02:04:04.000Z
 - author: Sully669
   changes:
     - type: Add
       message: Added distinguishable YES ERP and NO ERP poster.
   id: 169
-  time: '2026-03-03T06:05:27.0000000+00:00'
+  time: 2026-03-03T06:05:27.000Z
 - author: rtasva
   changes:
     - type: Add
       message: more disks!
   id: 170
-  time: '2026-03-03T06:16:36.0000000+00:00'
+  time: 2026-03-03T06:16:36.000Z
 - author: Sully669
   changes:
     - type: Add
@@ -1584,13 +1584,13 @@ Entries:
     - type: Add
       message: 'term loose to hazard category in AAC tablet '
   id: 171
-  time: '2026-03-03T08:34:53.0000000+00:00'
+  time: 2026-03-03T08:34:53.000Z
 - author: NotLivyathan
   changes:
     - type: Add
       message: Added a placeholder system for Patreon supporter custom entities.
   id: 172
-  time: '2026-03-05T22:29:36.0000000+00:00'
+  time: 2026-03-05T22:29:36.000Z
 - author: Sully669
   changes:
     - type: Add
@@ -1600,7 +1600,7 @@ Entries:
     - type: Fix
       message: fixed contraband level on Interdyne hypospray to be C2
   id: 173
-  time: '2026-03-06T06:27:26.0000000+00:00'
+  time: 2026-03-06T06:27:26.000Z
 - author: Nikode16
   changes:
     - type: Add
@@ -1620,7 +1620,7 @@ Entries:
     - type: Add
       message: Eidolon Mercenary Airlock _(These weren't added by accident by Valor)_
   id: 174
-  time: '2026-03-06T06:28:04.0000000+00:00'
+  time: 2026-03-06T06:28:04.000Z
 - author: Nikode16
   changes:
     - type: Fix
@@ -1628,19 +1628,19 @@ Entries:
         Handheld Artifact Container now has AA instead of Sci & Cargo Access
         akin to the Big Version
   id: 175
-  time: '2026-03-06T06:31:12.0000000+00:00'
+  time: 2026-03-06T06:31:12.000Z
 - author: NotLivyathan
   changes:
     - type: Add
       message: Contraband detectors can now be constructed.
   id: 176
-  time: '2026-03-06T06:38:14.0000000+00:00'
+  time: 2026-03-06T06:38:14.000Z
 - author: Sully669
   changes:
     - type: Fix
       message: job role supervisors
   id: 177
-  time: '2026-03-06T22:19:45.0000000+00:00'
+  time: 2026-03-06T22:19:45.000Z
 - author: VoidedDevNull
   changes:
     - type: Add
@@ -1654,7 +1654,7 @@ Entries:
     - type: Add
       message: Added radio receiver flatpack to the entity spawn menu
   id: 178
-  time: '2026-03-06T22:20:20.0000000+00:00'
+  time: 2026-03-06T22:20:20.000Z
 - author: Nikode16
   changes:
     - type: Add
@@ -1662,7 +1662,7 @@ Entries:
     - type: Add
       message: New folder is buyable from Engivends and You-Tools.
   id: 179
-  time: '2026-03-09T01:33:27.0000000+00:00'
+  time: 2026-03-09T01:33:27.000Z
 - author: VoidedDevNull
   changes:
     - type: Add
@@ -1670,7 +1670,7 @@ Entries:
     - type: Fix
       message: Fixes Station Captain spawn on Fland
   id: 180
-  time: '2026-03-09T01:35:09.0000000+00:00'
+  time: 2026-03-09T01:35:09.000Z
 - author: fenndragon
   changes:
     - type: Add
@@ -1678,13 +1678,13 @@ Entries:
     - type: Fix
       message: 'Fixed radars. '
   id: 181
-  time: '2026-03-12T03:55:30.0000000+00:00'
+  time: 2026-03-12T03:55:30.000Z
 - author: Sully669
   changes:
     - type: Add
       message: more interdyne equipment
   id: 182
-  time: '2026-03-12T03:56:39.0000000+00:00'
+  time: 2026-03-12T03:56:39.000Z
 - author: NotLivyathan
   changes:
     - type: Add
@@ -1696,7 +1696,7 @@ Entries:
         Demags should no longer cause Cyborg panels to become permanently stuck
         open and now correctly remove emagged laws.
   id: 183
-  time: '2026-03-12T03:57:09.0000000+00:00'
+  time: 2026-03-12T03:57:09.000Z
 - author: Nikode16
   changes:
     - type: Add
@@ -1704,7 +1704,7 @@ Entries:
         Flowers that can be Chameleoned for a perfect, ever-long lasting head
         accessory that will never wilt.
   id: 184
-  time: '2026-03-12T04:11:20.0000000+00:00'
+  time: 2026-03-12T04:11:20.000Z
 - author: TrylobyteWasTaken
   changes:
     - type: Fix
@@ -1716,19 +1716,19 @@ Entries:
         Plumbing devices should now load properly when a ship is loaded.  The
         code is ugly but it works.
   id: 185
-  time: '2026-03-12T04:11:45.0000000+00:00'
+  time: 2026-03-12T04:11:45.000Z
 - author: warcrazed11
   changes:
     - type: Tweak
       message: Tweaked WT-550 top mags and ammo acceptance to take the mags.
   id: 186
-  time: '2026-03-12T04:14:00.0000000+00:00'
+  time: 2026-03-12T04:14:00.000Z
 - author: Nikode16
   changes:
     - type: Add
       message: Added the C.C.S Herzyn to Sec and ColSec Shipyards
   id: 187
-  time: '2026-03-14T00:55:57.0000000+00:00'
+  time: 2026-03-14T00:55:57.000Z
 - author: IrkallaEpsilon
   changes:
     - type: Fix
@@ -1736,13 +1736,13 @@ Entries:
     - type: Fix
       message: 5.7x28mm toploader mag capacity reduced to 26 as initially intended.
   id: 188
-  time: '2026-03-14T00:56:16.0000000+00:00'
+  time: 2026-03-14T00:56:16.000Z
 - author: Generic-Eagle
   changes:
     - type: Add
       message: Added a new maints hallway to Eaglerock, among other changes.
   id: 189
-  time: '2026-03-14T00:57:57.0000000+00:00'
+  time: 2026-03-14T00:57:57.000Z
 - author: TrylobyteWasTaken
   changes:
     - type: Tweak
@@ -1756,25 +1756,25 @@ Entries:
         Mining Pulser projectile speed has been increased so you can't shoot
         yourself with them.
   id: 190
-  time: '2026-03-15T18:56:45.0000000+00:00'
+  time: 2026-03-15T18:56:45.000Z
 - author: Sully669
   changes:
     - type: Fix
       message: Fixed interactions showing target/origin as their uid
   id: 191
-  time: '2026-03-15T18:57:20.0000000+00:00'
+  time: 2026-03-15T18:57:20.000Z
 - author: Sully669
   changes:
     - type: Fix
       message: fixed broken access for genetics and journalism
   id: 192
-  time: '2026-03-15T18:57:41.0000000+00:00'
+  time: 2026-03-15T18:57:41.000Z
 - author: VoidedDevNull
   changes:
     - type: Tweak
       message: Adjusted radio music volume
   id: 193
-  time: '2026-03-17T07:19:03.0000000+00:00'
+  time: 2026-03-17T07:19:03.000Z
 - author: TrylobyteWasTaken
   changes:
     - type: Tweak
@@ -1786,13 +1786,13 @@ Entries:
         The Small Nuclear Reactor, Small Turbine, and TEG can now be bought at
         Cargo.
   id: 194
-  time: '2026-03-17T07:19:38.0000000+00:00'
+  time: 2026-03-17T07:19:38.000Z
 - author: Toaster-Box
   changes:
     - type: Tweak
       message: Reprogrammed our medical Borgs to do surgery like doctors can
   id: 195
-  time: '2026-03-17T07:50:22.0000000+00:00'
+  time: 2026-03-17T07:50:22.000Z
 - author: TrylobyteWasTaken
   changes:
     - type: Add
@@ -1808,19 +1808,19 @@ Entries:
     - type: Add
       message: Other stuff I forget about, it's 4 AM, sue me.
   id: 196
-  time: '2026-03-17T07:58:00.0000000+00:00'
+  time: 2026-03-17T07:58:00.000Z
 - author: Notarin
   changes:
     - type: Add
       message: Added Andromeda Engineering & Development company.
   id: 197
-  time: '2026-03-17T07:19:20.0000000+00:00'
+  time: 2026-03-17T07:19:20.000Z
 - author: Generic_Eagle
   changes:
     - type: Add
       message: Added Edison equipment to Eaglerock
   id: 198
-  time: '2026-03-20T22:28:21.0000000+00:00'
+  time: 2026-03-20T22:28:21.000Z
 - author: Nikode16
   changes:
     - type: Add
@@ -1837,7 +1837,7 @@ Entries:
     - type: Fix
       message: Forktail to finally be admeme again. Rejoice admins.
   id: 199
-  time: '2026-03-20T22:29:09.0000000+00:00'
+  time: 2026-03-20T22:29:09.000Z
 - author: Nikode16
   changes:
     - type: Fix
@@ -1845,13 +1845,13 @@ Entries:
         Fixes the MagiVend so it never spawns on Expeds anymore. As the man
         above intended.
   id: 200
-  time: '2026-03-20T22:30:05.0000000+00:00'
+  time: 2026-03-20T22:30:05.000Z
 - author: leonon42
   changes:
     - type: Add
       message: The plant analyzer UI window can now scroll up and down
   id: 201
-  time: '2026-03-20T22:31:35.0000000+00:00'
+  time: 2026-03-20T22:31:35.000Z
 - author: leonon42
   changes:
     - type: Add
@@ -1859,7 +1859,7 @@ Entries:
         Plant analyzers can now show the maximum quantity of a reagent they can
         produce per fruit when using advanced scanning mode
   id: 202
-  time: '2026-03-20T22:38:01.0000000+00:00'
+  time: 2026-03-20T22:38:01.000Z
 - author: NotLivyathan
   changes:
     - type: Add
@@ -1869,7 +1869,7 @@ Entries:
     - type: Tweak
       message: Synth eye placement has been slightly adjusted.
   id: 203
-  time: '2026-03-20T22:42:35.0000000+00:00'
+  time: 2026-03-20T22:42:35.000Z
 - author: Generic_Eagle
   changes:
     - type: Fix
@@ -1877,19 +1877,19 @@ Entries:
         Fixes the SRD by adding the - type: InitRepairSnapshot component to
         ships
   id: 204
-  time: '2026-03-20T23:10:38.0000000+00:00'
+  time: 2026-03-20T23:10:38.000Z
 - author: fenndragon
   changes:
     - type: Tweak
       message: Pulled Changes and fixes from Sandwich
   id: 205
-  time: '2026-03-20T23:11:06.0000000+00:00'
+  time: 2026-03-20T23:11:06.000Z
 - author: LoboFrontale
   changes:
     - type: Fix
       message: Mantis now spawns with the proper loadout!
   id: 206
-  time: '2026-03-20T23:26:07.0000000+00:00'
+  time: 2026-03-20T23:26:07.000Z
 - author: Killer Tamashi
   changes:
     - type: Add
@@ -1905,13 +1905,13 @@ Entries:
     - type: Remove
       message: Removed Monolith's Protogens
   id: 207
-  time: '2026-03-21T22:34:56.0000000+00:00'
+  time: 2026-03-21T22:34:56.000Z
 - author: Iisazel
   changes:
     - type: Add
       message: Added more brass ammo calibers
   id: 208
-  time: '2026-03-23T18:17:11.0000000+00:00'
+  time: 2026-03-23T18:17:11.000Z
 - author: NotLivyathan
   changes:
     - type: Tweak
@@ -1919,13 +1919,13 @@ Entries:
         Passengers are no longer able to purchase or load ships from shipyard
         consoles.
   id: 209
-  time: '2026-03-23T18:17:57.0000000+00:00'
+  time: 2026-03-23T18:17:57.000Z
 - author: IrkallaEpsilon
   changes:
     - type: Fix
       message: Feroxi and Rodentia can be psykers
   id: 210
-  time: '2026-03-24T00:44:14.0000000+00:00'
+  time: 2026-03-24T00:44:14.000Z
 - author: TrylobyteWasTaken
   changes:
     - type: Add
@@ -1933,7 +1933,7 @@ Entries:
     - type: Add
       message: Syrup has had its nutritional value restored.
   id: 211
-  time: '2026-03-24T05:07:07.0000000+00:00'
+  time: 2026-03-24T05:07:07.000Z
 - author: VoidedDevNull
   changes:
     - type: Add
@@ -1943,13 +1943,13 @@ Entries:
     - type: Fix
       message: 'Fixes station captain spawn on  '
   id: 212
-  time: '2026-03-25T23:18:36.0000000+00:00'
+  time: 2026-03-25T23:18:36.000Z
 - author: IrkallaEpsilon
   changes:
     - type: Fix
       message: Tajara can be psychic now.
   id: 213
-  time: '2026-03-25T23:19:17.0000000+00:00'
+  time: 2026-03-25T23:19:17.000Z
 - author: warcrazed11
   changes:
     - type: Tweak
@@ -1959,7 +1959,7 @@ Entries:
         lowers peregrine's damage to 25 pierce, 5 heat, 5 shock, 50 structural,
         and 20 stamina
   id: 214
-  time: '2026-03-25T23:19:52.0000000+00:00'
+  time: 2026-03-25T23:19:52.000Z
 - author: NotLivyathan
   changes:
     - type: Fix
@@ -1967,7 +1967,7 @@ Entries:
         Space docks should no longer have the potential to vibrate into
         nullspace and crash the server.
   id: 215
-  time: '2026-03-25T23:21:19.0000000+00:00'
+  time: 2026-03-25T23:21:19.000Z
 - author: NotLivyathan
   changes:
     - type: Add
@@ -1975,25 +1975,25 @@ Entries:
         Galio plushies have been delivered via Nanotrasen mail services, which
         for some reason is a thing ColComm supports.
   id: 216
-  time: '2026-03-26T21:18:22.0000000+00:00'
+  time: 2026-03-26T21:18:22.000Z
 - author: NotLivyathan
   changes:
     - type: Add
       message: Chat text can now be highlighted for ease of readability.
   id: 217
-  time: '2026-03-26T21:19:09.0000000+00:00'
+  time: 2026-03-26T21:19:09.000Z
 - author: VoidedDevNull
   changes:
     - type: Tweak
       message: IPCs now have binary built in
   id: 218
-  time: '2026-03-26T21:19:27.0000000+00:00'
+  time: 2026-03-26T21:19:27.000Z
 - author: VoidedDevNull
   changes:
     - type: Fix
       message: .45 Magnum magazines properly reflect their ammo fill
   id: 219
-  time: '2026-03-26T21:21:13.0000000+00:00'
+  time: 2026-03-26T21:21:13.000Z
 - author: Nikode16
   changes:
     - type: Add
@@ -2003,7 +2003,7 @@ Entries:
     - type: Tweak
       message: Energy Shotguns Disabler Shot to **NOT** slowly kill people now.
   id: 220
-  time: '2026-03-27T16:45:40.0000000+00:00'
+  time: 2026-03-27T16:45:40.000Z
 - author: VoidedDevNull
   changes:
     - type: Add
@@ -2015,7 +2015,7 @@ Entries:
     - type: Tweak
       message: New docks! Now with 14.258 percent more dock!
   id: 221
-  time: '2026-03-28T18:26:55.0000000+00:00'
+  time: 2026-03-28T18:26:55.000Z
 - author: TrylobyteWasTaken
   changes:
     - type: Fix
@@ -2023,13 +2023,13 @@ Entries:
     - type: Fix
       message: The PTK can now break rocks again.
   id: 222
-  time: '2026-03-28T18:27:40.0000000+00:00'
+  time: 2026-03-28T18:27:40.000Z
 - author: re-silvered
   changes:
     - type: Tweak
       message: Can now use subtle OOC and subtle while unconscious
   id: 223
-  time: '2026-03-28T18:28:00.0000000+00:00'
+  time: 2026-03-28T18:28:00.000Z
 - author: Sully669
   changes:
     - type: Add
@@ -2039,7 +2039,7 @@ Entries:
     - type: Fix
       message: removed contraband level from interdyne uniforms
   id: 224
-  time: '2026-03-28T18:36:28.0000000+00:00'
+  time: 2026-03-28T18:36:28.000Z
 - author: NotLivyathan
   changes:
     - type: Tweak
@@ -2069,7 +2069,7 @@ Entries:
         Expedition maps should no longer delete on early departure until all
         ships that were on the map have left it.
   id: 225
-  time: '2026-03-28T19:03:35.0000000+00:00'
+  time: 2026-03-28T19:03:35.000Z
 - author: NotLivyathan
   changes:
     - type: Add
@@ -2083,7 +2083,7 @@ Entries:
         Certain prototypes that would normally cause ship load fails should no
         longer cause said fails.
   id: 226
-  time: '2026-03-29T19:41:16.0000000+00:00'
+  time: 2026-03-29T19:41:16.000Z
 - author: NotLivyathan
   changes:
     - type: Tweak
@@ -2097,13 +2097,13 @@ Entries:
         The crew manifest should correctly update throughout the round as
         players join and leave.
   id: 227
-  time: '2026-03-29T19:41:34.0000000+00:00'
+  time: 2026-03-29T19:41:34.000Z
 - author: Iisazel
   changes:
     - type: Add
       message: Added 4 gauge and 12 gauge brass ammunition
   id: 228
-  time: '2026-03-29T22:59:12.0000000+00:00'
+  time: 2026-03-29T22:59:12.000Z
 - author: NotLivyathan
   changes:
     - type: Add
@@ -2143,7 +2143,7 @@ Entries:
     - type: Fix
       message: Added exception tolerance handling in SharedDoAfterSystem.
   id: 229
-  time: '2026-03-30T22:33:55.0000000+00:00'
+  time: 2026-03-30T22:33:55.000Z
 - author: SquishyEmmaaaa
   changes:
     - type: Fix
@@ -2151,19 +2151,19 @@ Entries:
         Making Cream of Coconut works now, and does not leave you with Cream and
         Coconut Water.
   id: 230
-  time: '2026-03-30T22:34:22.0000000+00:00'
+  time: 2026-03-30T22:34:22.000Z
 - author: NotLivyathan
   changes:
     - type: Add
       message: Dread Talons now appear as available ghost roles.
   id: 231
-  time: '2026-03-30T22:37:18.0000000+00:00'
+  time: 2026-03-30T22:37:18.000Z
 - author: Illumos
   changes:
     - type: Add
       message: Many, MANY fashion items from Coyote Sector.
   id: 232
-  time: '2026-03-30T23:25:59.0000000+00:00'
+  time: 2026-03-30T23:25:59.000Z
 - author: NotLivyathan
   changes:
     - type: Fix
@@ -2171,7 +2171,7 @@ Entries:
     - type: Fix
       message: Affected substations should no longer start in dysfunctional states.
   id: 233
-  time: '2026-03-31T19:26:38.0000000+00:00'
+  time: 2026-03-31T19:26:38.000Z
 - author: rtasva
   changes:
     - type: Add
@@ -2181,43 +2181,43 @@ Entries:
     - type: Add
       message: New barsign
   id: 234
-  time: '2026-03-31T19:30:33.0000000+00:00'
+  time: 2026-03-31T19:30:33.000Z
 - author: rtasva
   changes:
     - type: Add
       message: rules 2.5 and 11.5
   id: 235
-  time: '2026-03-31T22:24:30.0000000+00:00'
+  time: 2026-03-31T22:24:30.000Z
 - author: Illumos
   changes:
     - type: Tweak
       message: Bluespace lockers no longer silently delete materials on deconstruction.
   id: 236
-  time: '2026-04-02T03:50:57.0000000+00:00'
+  time: 2026-04-02T03:50:57.000Z
 - author: Illumos
   changes:
     - type: Tweak
       message: Synthetic trait is now free
   id: 237
-  time: '2026-04-02T03:51:27.0000000+00:00'
+  time: 2026-04-02T03:51:27.000Z
 - author: re-silvered
   changes:
     - type: Add
       message: Bogan Accent
   id: 238
-  time: '2026-04-02T03:52:17.0000000+00:00'
+  time: 2026-04-02T03:52:17.000Z
 - author: Generic_Eagle
   changes:
     - type: Add
       message: Added the ESAR-550, a replacement for the HoS's energy shotgun and WT
   id: 239
-  time: '2026-04-02T19:14:48.0000000+00:00'
+  time: 2026-04-02T19:14:48.000Z
 - author: Iisazel
   changes:
     - type: Add
       message: Wizards now use their magic to enchant blades! Go rob them!
   id: 240
-  time: '2026-04-02T19:19:35.0000000+00:00'
+  time: 2026-04-02T19:19:35.000Z
 - author: R3v3l4t1on
   changes:
     - type: Fix
@@ -2225,7 +2225,7 @@ Entries:
         Fixed a BUNCH of invalid entity references which should mean the
         integration tests are actually usable again.
   id: 241
-  time: '2026-04-02T19:45:53.0000000+00:00'
+  time: 2026-04-02T19:45:53.000Z
 - author: R3v3l4t1on
   changes:
     - type: Add
@@ -2247,25 +2247,25 @@ Entries:
         Removed a bunch of modules from being craftable as these are now
         available to cyborgs on roundstart.
   id: 242
-  time: '2026-04-02T20:09:09.0000000+00:00'
+  time: 2026-04-02T20:09:09.000Z
 - author: Illumos
   changes:
     - type: Add
       message: Aphrodesiac Bite Trait~!
   id: 243
-  time: '2026-04-03T21:10:50.0000000+00:00'
+  time: 2026-04-03T21:10:50.000Z
 - author: Sully669
   changes:
     - type: Fix
       message: Fixed a bug where succumbing to your fate deleted your character
   id: 244
-  time: '2026-04-03T21:12:13.0000000+00:00'
+  time: 2026-04-03T21:12:13.000Z
 - author: rtasva
   changes:
     - type: Add
       message: New Epsilon alert sound
   id: 245
-  time: '2026-04-03T21:12:55.0000000+00:00'
+  time: 2026-04-03T21:12:55.000Z
 - author: re-silvered
   changes:
     - type: Tweak
@@ -2273,7 +2273,7 @@ Entries:
         Changed some interaction verbs to function/not function depending on if
         you are restrained or if you're wearing a mask.
   id: 246
-  time: '2026-04-03T21:15:13.0000000+00:00'
+  time: 2026-04-03T21:15:13.000Z
 - author: Illumos
   changes:
     - type: Add
@@ -2281,7 +2281,7 @@ Entries:
     - type: Add
       message: Condiments now restore some small hunger.
   id: 247
-  time: '2026-04-04T01:39:48.0000000+00:00'
+  time: 2026-04-04T01:39:48.000Z
 - author: Nikode16
   changes:
     - type: Add
@@ -2291,31 +2291,31 @@ Entries:
     - type: Tweak
       message: CYNs Outfit to reflect the new changes and also hyper-organizes her bag.
   id: 248
-  time: '2026-04-04T01:40:25.0000000+00:00'
+  time: 2026-04-04T01:40:25.000Z
 - author: Sully669
   changes:
     - type: Fix
       message: Fixed a bug that failed to populate the character fields in lobby
   id: 249
-  time: '2026-04-04T01:41:52.0000000+00:00'
+  time: 2026-04-04T01:41:52.000Z
 - author: ishkab
   changes:
     - type: Add
       message: Microwaves can now be used as bludgeoning weapons
   id: 250
-  time: '2026-04-04T19:51:55.0000000+00:00'
+  time: 2026-04-04T19:51:55.000Z
 - author: Iisazel
   changes:
     - type: Fix
       message: Shadekin now have correct amount of starting genes
   id: 251
-  time: '2026-04-04T19:52:28.0000000+00:00'
+  time: 2026-04-04T19:52:28.000Z
 - author: Illumos
   changes:
     - type: Fix
       message: Aphrodesiac bite now has a cooldown.
   id: 252
-  time: '2026-04-04T19:55:06.0000000+00:00'
+  time: 2026-04-04T19:55:06.000Z
 - author: Magniras
   changes:
     - type: Add
@@ -2323,19 +2323,19 @@ Entries:
     - type: Remove
       message: Removed boring smelly thieving gloves
   id: 253
-  time: '2026-04-08T21:36:19.0000000+00:00'
+  time: 2026-04-08T21:36:19.000Z
 - author: Generic_Eagle
   changes:
     - type: Tweak
       message: ESAR now fully replaces the WT and Energy shotgun for HoS.
   id: 254
-  time: '2026-04-08T22:49:24.0000000+00:00'
+  time: 2026-04-08T22:49:24.000Z
 - author: TrylobyteWasTaken
   changes:
     - type: Fix
       message: Plating and Lattice can now be traversed at normal speed again.
   id: 255
-  time: '2026-04-08T22:49:44.0000000+00:00'
+  time: 2026-04-08T22:49:44.000Z
 - author: Iisazel
   changes:
     - type: Add
@@ -2343,7 +2343,7 @@ Entries:
         Flesh expeditions now have improved loot! Time to break some
         assimilation sacks!
   id: 256
-  time: '2026-04-08T22:50:36.0000000+00:00'
+  time: 2026-04-08T22:50:36.000Z
 - author: Nikode16
   changes:
     - type: Add
@@ -2351,13 +2351,13 @@ Entries:
         Freezer Pouch so now you can live out your space warlord organ trading
         simulator fantasy.
   id: 257
-  time: '2026-04-08T22:56:36.0000000+00:00'
+  time: 2026-04-08T22:56:36.000Z
 - author: Iisazel
   changes:
     - type: Fix
       message: Avalis can now use cryopods correctly
   id: 258
-  time: '2026-04-08T22:59:33.0000000+00:00'
+  time: 2026-04-08T22:59:33.000Z
 - author: Illumos
   changes:
     - type: Add
@@ -2365,19 +2365,19 @@ Entries:
     - type: Tweak
       message: Gunnery servers now require increasingly expensive amounts of materials.
   id: 259
-  time: '2026-04-08T23:01:16.0000000+00:00'
+  time: 2026-04-08T23:01:16.000Z
 - author: VoidedDevNull
   changes:
     - type: Tweak
       message: Newly bought ships do not include a latejoin spot anymore.
   id: 260
-  time: '2026-04-08T23:11:01.0000000+00:00'
+  time: 2026-04-08T23:11:01.000Z
 - author: IngvarJackal
   changes:
     - type: Add
       message: More aphro descriptions
   id: 261
-  time: '2026-04-08T23:35:11.0000000+00:00'
+  time: 2026-04-08T23:35:11.000Z
 - author: fenndragon
   changes:
     - type: Add
@@ -2385,19 +2385,19 @@ Entries:
     - type: Add
       message: Added other tweaks and fixes
   id: 262
-  time: '2026-04-09T01:14:42.0000000+00:00'
+  time: 2026-04-09T01:14:42.000Z
 - author: IngvarJackal
   changes:
     - type: Add
       message: More aphrodesiac bites
   id: 263
-  time: '2026-04-09T01:17:51.0000000+00:00'
+  time: 2026-04-09T01:17:51.000Z
 - author: Jerulean
   changes:
     - type: Add
       message: Two recipes for Tiramisu.
   id: 264
-  time: '2026-04-09T01:18:43.0000000+00:00'
+  time: 2026-04-09T01:18:43.000Z
 - author: NotLivyathan
   changes:
     - type: Tweak
@@ -2417,19 +2417,19 @@ Entries:
         Ending an expedition early from the shuttle console once again announces
         that the expedition is ending.
   id: 265
-  time: '2026-04-09T19:46:36.0000000+00:00'
+  time: 2026-04-09T19:46:36.000Z
 - author: Iisazel
   changes:
     - type: Add
       message: Added new craftable bone items and some interesting drops from dinosaurs
   id: 266
-  time: '2026-04-09T20:47:48.0000000+00:00'
+  time: 2026-04-09T20:47:48.000Z
 - author: Illumos
   changes:
     - type: Tweak
       message: Wagging has been improved!
   id: 267
-  time: '2026-04-09T21:19:47.0000000+00:00'
+  time: 2026-04-09T21:19:47.000Z
 - author: rtasva
   changes:
     - type: Add
@@ -2437,7 +2437,7 @@ Entries:
     - type: Tweak
       message: Reduced frequency of RR kill objective
   id: 268
-  time: '2026-04-09T21:20:03.0000000+00:00'
+  time: 2026-04-09T21:20:03.000Z
 - author: re-silvered
   changes:
     - type: Tweak
@@ -2445,25 +2445,25 @@ Entries:
     - type: Fix
       message: Peregrine mags being general use batteries
   id: 269
-  time: '2026-04-09T21:27:02.0000000+00:00'
+  time: 2026-04-09T21:27:02.000Z
 - author: Illumos
   changes:
     - type: Add
       message: Pettable trait!
   id: 270
-  time: '2026-04-13T01:01:47.0000000+00:00'
+  time: 2026-04-13T01:01:47.000Z
 - author: VoidedDevNull
   changes:
     - type: Tweak
       message: Rev sponsorship change
   id: 271
-  time: '2026-04-13T01:02:44.0000000+00:00'
+  time: 2026-04-13T01:02:44.000Z
 - author: SeaborneProto
   changes:
     - type: Add
       message: Adds the ability for ties to restrain humanoids
   id: 272
-  time: '2026-04-13T01:03:08.0000000+00:00'
+  time: 2026-04-13T01:03:08.000Z
 - author: SquishyEmmaaaa
   changes:
     - type: Fix
@@ -2475,7 +2475,7 @@ Entries:
         Freezers and Medical Pods can now be carried and stored in mechs without
         rotting.
   id: 273
-  time: '2026-04-13T01:04:51.0000000+00:00'
+  time: 2026-04-13T01:04:51.000Z
 - author: fenndragon
   changes:
     - type: Add
@@ -2485,7 +2485,7 @@ Entries:
         Added Positronic jumps so borgs aren't stuck in one body and neither is
         the AI 
   id: 274
-  time: '2026-04-13T01:11:08.0000000+00:00'
+  time: 2026-04-13T01:11:08.000Z
 - author: R3v3l4t1on
   changes:
     - type: Add
@@ -2511,7 +2511,7 @@ Entries:
         Engineering borgs get an RCD module instead of a Shipyard RCD module
         (because they literally could not use that one)
   id: 275
-  time: '2026-04-13T01:11:35.0000000+00:00'
+  time: 2026-04-13T01:11:35.000Z
 - author: NotLivyathan
   changes:
     - type: Add
@@ -2609,7 +2609,7 @@ Entries:
     - type: Fix
       message: Ghosts should now correctly state time since death.
   id: 276
-  time: '2026-04-13T03:25:01.0000000+00:00'
+  time: 2026-04-13T03:25:01.000Z
 - author: VoidedDevNull
   changes:
     - type: Add
@@ -2619,7 +2619,7 @@ Entries:
     - type: Fix
       message: Tabletop computers are now craftable
   id: 277
-  time: '2026-04-13T03:25:39.0000000+00:00'
+  time: 2026-04-13T03:25:39.000Z
 - author: TrylobyteWasTaken
   changes:
     - type: Fix
@@ -2627,7 +2627,7 @@ Entries:
         The holopickaxe is no longer worth FUCs due to it being craftable.  No
         more using a lathe as a FUC printer.
   id: 278
-  time: '2026-04-13T03:26:05.0000000+00:00'
+  time: 2026-04-13T03:26:05.000Z
 - author: R3v3l4t1on
   changes:
     - type: Add
@@ -2652,7 +2652,7 @@ Entries:
         Fixed secborg missing locales and appropriate sprites for the default
         borg
   id: 279
-  time: '2026-04-13T17:55:24.0000000+00:00'
+  time: 2026-04-13T17:55:24.000Z
 - author: TrylobyteWasTaken
   changes:
     - type: Tweak
@@ -2660,13 +2660,13 @@ Entries:
         Biogenerator now requires and contains a Manipulator so you can speed it
         up by upgrading it.
   id: 280
-  time: '2026-04-13T17:56:16.0000000+00:00'
+  time: 2026-04-13T17:56:16.000Z
 - author: IngvarJackal
   changes:
     - type: Add
       message: More marrkings for shadekin
   id: 281
-  time: '2026-04-13T18:27:20.0000000+00:00'
+  time: 2026-04-13T18:27:20.000Z
 - author: R3v3l4t1on
   changes:
     - type: Remove
@@ -2674,19 +2674,19 @@ Entries:
         Removed duplicated files meaning the content should be quicker to
         download.
   id: 282
-  time: '2026-04-14T18:51:56.0000000+00:00'
+  time: 2026-04-14T18:51:56.000Z
 - author: Magniras
   changes:
     - type: Add
       message: Added name and description to the syndicate uplink for chameleon gloves.
   id: 283
-  time: '2026-04-14T18:52:18.0000000+00:00'
+  time: 2026-04-14T18:52:18.000Z
 - author: Magniras
   changes:
     - type: Tweak
       message: changed shadekin damagemodifierset coefficients
   id: 284
-  time: '2026-04-14T18:52:51.0000000+00:00'
+  time: 2026-04-14T18:52:51.000Z
 - author: R3v3l4t1on
   changes:
     - type: Add
@@ -2694,7 +2694,7 @@ Entries:
         Moths get their own displacements cause I am tired of the linter
         bricking on them sometimes.
   id: 285
-  time: '2026-04-14T18:56:14.0000000+00:00'
+  time: 2026-04-14T18:56:14.000Z
 - author: Illumos
   changes:
     - type: Add
@@ -2702,7 +2702,7 @@ Entries:
         Added Starlight power & gas transfer while docked. Gas transfer is
         disabled by default; HV power transfer is enabled.
   id: 286
-  time: '2026-04-14T18:58:08.0000000+00:00'
+  time: 2026-04-14T18:58:08.000Z
 - author: TrylobyteWasTaken
   changes:
     - type: Fix
@@ -2710,19 +2710,19 @@ Entries:
     - type: Tweak
       message: Slimepeople can now also eat trash.  Bon appetit or something.
   id: 287
-  time: '2026-04-14T19:05:23.0000000+00:00'
+  time: 2026-04-14T19:05:23.000Z
 - author: Illumos
   changes:
     - type: Tweak
       message: The AME now generates 180kW per core, instead of 8MW.
   id: 288
-  time: '2026-04-16T09:21:19.0000000+00:00'
+  time: 2026-04-16T09:21:19.000Z
 - author: IngvarJackal
   changes:
     - type: Tweak
       message: Reduce ship gun HP 5 times
   id: 289
-  time: '2026-04-16T09:21:57.0000000+00:00'
+  time: 2026-04-16T09:21:57.000Z
 - author: NotLivyathan
   changes:
     - type: Tweak
@@ -2737,13 +2737,13 @@ Entries:
         crew positions, nor should it exceed the cap of 40 that was originally
         placed on it.
   id: 290
-  time: '2026-04-16T09:23:51.0000000+00:00'
+  time: 2026-04-16T09:23:51.000Z
 - author: MallowSune
   changes:
     - type: Add
       message: Interdyne Jet Injector
   id: 291
-  time: '2026-04-16T20:38:21.0000000+00:00'
+  time: 2026-04-16T20:38:21.000Z
 - author: Illumos
   changes:
     - type: Add
@@ -2751,7 +2751,7 @@ Entries:
     - type: Add
       message: Normal shuttle windows to the RCD
   id: 292
-  time: '2026-04-16T20:46:03.0000000+00:00'
+  time: 2026-04-16T20:46:03.000Z
 - author: R3v3l4t1on
   changes:
     - type: Fix
@@ -2759,7 +2759,7 @@ Entries:
     - type: Fix
       message: MapChecker works again after someone broke it.
   id: 293
-  time: '2026-04-16T20:46:41.0000000+00:00'
+  time: 2026-04-16T20:46:41.000Z
 - author: R3v3l4t1on
   changes:
     - type: Fix
@@ -2767,13 +2767,13 @@ Entries:
         Fixed all xenoborgs cosplaying as engineers. Now you can actually tell
         if you're fighting an engi or a fridge.
   id: 294
-  time: '2026-04-16T20:47:04.0000000+00:00'
+  time: 2026-04-16T20:47:04.000Z
 - author: Khaomi
   changes:
     - type: Fix
       message: icon and localization for Nanochat
   id: 295
-  time: '2026-04-16T21:05:29.0000000+00:00'
+  time: 2026-04-16T21:05:29.000Z
 - author: fenndragon
   changes:
     - type: Remove
@@ -2781,49 +2781,49 @@ Entries:
     - type: Fix
       message: Fixed a number of major errors and crashes
   id: 296
-  time: '2026-04-17T20:43:12.0000000+00:00'
+  time: 2026-04-17T20:43:12.000Z
 - author: Illumos
   changes:
     - type: Add
       message: New wallets & Arcadiawear!
   id: 297
-  time: '2026-04-18T22:48:49.0000000+00:00'
+  time: 2026-04-18T22:48:49.000Z
 - author: Illumos
   changes:
     - type: Add
       message: Tactical Pack of Holding
   id: 298
-  time: '2026-04-18T22:58:56.0000000+00:00'
+  time: 2026-04-18T22:58:56.000Z
 - author: MsEpic59
   changes:
     - type: Fix
       message: Made XenoWeeds killable again!
   id: 299
-  time: '2026-04-18T23:18:58.0000000+00:00'
+  time: 2026-04-18T23:18:58.000Z
 - author: TrylobyteWasTaken
   changes:
     - type: Tweak
       message: Expedition Disks now show the type of enemy that's on them.
   id: 300
-  time: '2026-04-19T05:52:17.0000000+00:00'
+  time: 2026-04-19T05:52:17.000Z
 - author: IngvarJackal
   changes:
     - type: Tweak
       message: Bluespace bags are now chameleon
   id: 301
-  time: '2026-04-19T22:44:39.0000000+00:00'
+  time: 2026-04-19T22:44:39.000Z
 - author: Illumos
   changes:
     - type: Add
       message: THIRTY SEVEN new wing markings!
   id: 302
-  time: '2026-04-20T04:00:17.0000000+00:00'
+  time: 2026-04-20T04:00:17.000Z
 - author: Kronyxxx
   changes:
     - type: Fix
       message: Reduced NPC pathfinding stalls when targets or routes change rapidly.
   id: 303
-  time: '2026-04-20T20:41:11.0000000+00:00'
+  time: 2026-04-20T20:41:11.000Z
 - author: Kronyxxx
   changes:
     - type: Fix
@@ -2831,7 +2831,7 @@ Entries:
         Improved NanoChat server performance during message delivery and group
         chat updates.
   id: 304
-  time: '2026-04-20T20:41:43.0000000+00:00'
+  time: 2026-04-20T20:41:43.000Z
 - author: Kronyxxx
   changes:
     - type: Fix
@@ -2841,7 +2841,7 @@ Entries:
         Made shipyard appraisal safer by avoiding stateful pricing hooks while
         still counting normal ship contents.
   id: 305
-  time: '2026-04-20T20:42:27.0000000+00:00'
+  time: 2026-04-20T20:42:27.000Z
 - author: Kronyxxx
   changes:
     - type: Fix
@@ -2849,7 +2849,7 @@ Entries:
         Fixed ship saves deleting the live ship before the save file was
         actually written.
   id: 306
-  time: '2026-04-20T21:05:15.0000000+00:00'
+  time: 2026-04-20T21:05:15.000Z
 - author: Kronyxxx
   changes:
     - type: Fix
@@ -2857,7 +2857,7 @@ Entries:
         Advanced radar and gunnery consoles now display radar blips and related
         line effects out to their configured range instead of stopping at 256m.
   id: 307
-  time: '2026-04-20T21:12:56.0000000+00:00'
+  time: 2026-04-20T21:12:56.000Z
 - author: Kronyxxx
   changes:
     - type: Fix
@@ -2867,31 +2867,31 @@ Entries:
         Fixed saved solution containers loading with empty fill visuals until
         their contents changed.
   id: 308
-  time: '2026-04-20T21:24:25.0000000+00:00'
+  time: 2026-04-20T21:24:25.000Z
 - author: Kronyxxx
   changes:
     - type: Fix
       message: Reduced lag caused by nuclear reactor simulation under heavy load.
   id: 309
-  time: '2026-04-20T21:41:09.0000000+00:00'
+  time: 2026-04-20T21:41:09.000Z
 - author: fenndragon
   changes:
     - type: Add
       message: Added hotfixes to previous issues
   id: 310
-  time: '2026-04-20T22:14:57.0000000+00:00'
+  time: 2026-04-20T22:14:57.000Z
 - author: Illumos
   changes:
     - type: Add
       message: Futuristic gasmasks now actually work as voice masks.
   id: 311
-  time: '2026-04-20T22:37:00.0000000+00:00'
+  time: 2026-04-20T22:37:00.000Z
 - author: re-silvered
   changes:
     - type: Fix
       message: Gamemaster lawset
   id: 312
-  time: '2026-04-20T22:37:28.0000000+00:00'
+  time: 2026-04-20T22:37:28.000Z
 - author: TrylobyteWasTaken
   changes:
     - type: Add
@@ -2902,19 +2902,19 @@ Entries:
     - type: Add
       message: You can now build plastitanium walls and windows.
   id: 313
-  time: '2026-04-20T22:44:14.0000000+00:00'
+  time: 2026-04-20T22:44:14.000Z
 - author: fenndragon
   changes:
     - type: Add
       message: Added Nonconsent Toggle
   id: 314
-  time: '2026-04-20T22:54:47.0000000+00:00'
+  time: 2026-04-20T22:54:47.000Z
 - author: TrylobyteWasTaken
   changes:
     - type: Tweak
       message: Plastitanium walls now build off girders.
   id: 315
-  time: '2026-04-20T23:05:01.0000000+00:00'
+  time: 2026-04-20T23:05:01.000Z
 - author: fenndragon
   changes:
     - type: Add
@@ -2926,13 +2926,13 @@ Entries:
     - type: Fix
       message: Fixed serverside issues with bodies and organs
   id: 316
-  time: '2026-04-22T06:01:27.0000000+00:00'
+  time: 2026-04-22T06:01:27.000Z
 - author: IngvarJackal
   changes:
     - type: Add
       message: Added War Emergency Power to shuttle consoles
   id: 317
-  time: '2026-04-22T06:01:49.0000000+00:00'
+  time: 2026-04-22T06:01:49.000Z
 - author: Illumos
   changes:
     - type: Remove
@@ -2942,7 +2942,7 @@ Entries:
     - type: Add
       message: Synthetic trait now gives you access to Trinary.
   id: 318
-  time: '2026-04-22T06:05:45.0000000+00:00'
+  time: 2026-04-22T06:05:45.000Z
 - author: R3v3l4t1on
   changes:
     - type: Add
@@ -2950,7 +2950,7 @@ Entries:
     - type: Remove
       message: 'Removed the salvage expedition computer from every single map. '
   id: 319
-  time: '2026-04-22T20:54:06.0000000+00:00'
+  time: 2026-04-22T20:54:06.000Z
 - author: Kronyxxx
   changes:
     - type: Fix
@@ -2962,7 +2962,7 @@ Entries:
         Stopped tracked cryo entities from being force-deleted just to reopen
         their job slot.
   id: 320
-  time: '2026-04-22T21:06:55.0000000+00:00'
+  time: 2026-04-22T21:06:55.000Z
 - author: TrylobyteWasTaken
   changes:
     - type: Fix
@@ -2970,13 +2970,13 @@ Entries:
     - type: Fix
       message: SmartFridges should no longer block ships from saving.
   id: 321
-  time: '2026-04-22T21:08:13.0000000+00:00'
+  time: 2026-04-22T21:08:13.000Z
 - author: Sully669
   changes:
     - type: Add
       message: more vinyls
   id: 322
-  time: '2026-04-22T21:23:53.0000000+00:00'
+  time: 2026-04-22T21:23:53.000Z
 - author: Kronyxxx
   changes:
     - type: Fix
@@ -2986,7 +2986,7 @@ Entries:
         Kept hitscan radar updates on the normal radar reply path to avoid
         duplicate client updates.
   id: 323
-  time: '2026-04-23T00:48:24.0000000+00:00'
+  time: 2026-04-23T00:48:24.000Z
 - author: Kronyxxx
   changes:
     - type: Fix
@@ -2998,7 +2998,7 @@ Entries:
         Sensor monitoring consoles now refresh immediately on open without
         polling every frame.
   id: 324
-  time: '2026-04-23T02:07:50.0000000+00:00'
+  time: 2026-04-23T02:07:50.000Z
 - author: Kronyxxx
   changes:
     - type: Fix
@@ -3006,7 +3006,7 @@ Entries:
         Reduced redundant server-side work in several hot atmos processing
         paths.
   id: 325
-  time: '2026-04-23T02:09:28.0000000+00:00'
+  time: 2026-04-23T02:09:28.000Z
 - author: Kronyxxx
   changes:
     - type: Tweak
@@ -3018,13 +3018,13 @@ Entries:
         Reduced client hitching when using repair-tool ghost previews around
         multiple grids.
   id: 326
-  time: '2026-04-23T23:33:27.0000000+00:00'
+  time: 2026-04-23T23:33:27.000Z
 - author: Illumos
   changes:
     - type: Tweak
       message: Glasses now properly fix short-sightedness.
   id: 327
-  time: '2026-04-23T23:34:43.0000000+00:00'
+  time: 2026-04-23T23:34:43.000Z
 - author: Illumos
   changes:
     - type: Tweak
@@ -3048,7 +3048,7 @@ Entries:
         Private security pouches are now a generous 4x6, but can only fit
         magazines.
   id: 328
-  time: '2026-04-23T23:43:31.0000000+00:00'
+  time: 2026-04-23T23:43:31.000Z
 - author: Kronyxxx
   changes:
     - type: Fix
@@ -3058,7 +3058,7 @@ Entries:
         by round persistence are pruned at round start if their grid no longer
         exists.
   id: 329
-  time: '2026-04-23T23:49:42.0000000+00:00'
+  time: 2026-04-23T23:49:42.000Z
 - author: Kronyxxx
   changes:
     - type: Fix
@@ -3071,13 +3071,13 @@ Entries:
         Late-join lobby now shows the same job slot counts that the join check
         actually enforces, so jobs that look open really are open.
   id: 330
-  time: '2026-04-24T00:16:07.0000000+00:00'
+  time: 2026-04-24T00:16:07.000Z
 - author: re-silvered
   changes:
     - type: Add
       message: Vampirism trait!
   id: 331
-  time: '2026-04-24T01:27:23.0000000+00:00'
+  time: 2026-04-24T01:27:23.000Z
 - author: Kronyxxx
   changes:
     - type: Fix
@@ -3085,7 +3085,7 @@ Entries:
         Fixed character editor sometimes showing an empty slot list on connect,
         requiring a client restart.
   id: 332
-  time: '2026-04-24T01:31:45.0000000+00:00'
+  time: 2026-04-24T01:31:45.000Z
 - author: Kronyxxx
   changes:
     - type: Fix
@@ -3093,7 +3093,7 @@ Entries:
         Fixed character editor only showing the first character when any other
         saved profile referenced a missing prototype.
   id: 333
-  time: '2026-04-24T19:12:28.0000000+00:00'
+  time: 2026-04-24T19:12:28.000Z
 - author: Kronyxxx
   changes:
     - type: Fix
@@ -3102,7 +3102,7 @@ Entries:
         load, eliminating the entity-lookup log spam and missing-component
         issues that affected ships saved before the ship-save sanitizer existed.
   id: 334
-  time: '2026-04-24T19:12:46.0000000+00:00'
+  time: 2026-04-24T19:12:46.000Z
 - author: Kronyxxx
   changes:
     - type: Fix
@@ -3110,7 +3110,7 @@ Entries:
         Loading an apartment/room save no longer leaves furniture, walls and
         other
   id: 335
-  time: '2026-04-24T20:42:39.0000000+00:00'
+  time: 2026-04-24T20:42:39.000Z
 - author: Kronyxxx
   changes:
     - type: Fix
@@ -3119,13 +3119,13 @@ Entries:
         server on startup, so ship weapons can fire without needing a later
         power cycle.
   id: 336
-  time: '2026-04-24T21:04:55.0000000+00:00'
+  time: 2026-04-24T21:04:55.000Z
 - author: Sully669
   changes:
     - type: Fix
       message: Ghost hearing not properly filtering chat messages by distances
   id: 337
-  time: '2026-04-24T21:37:53.0000000+00:00'
+  time: 2026-04-24T21:37:53.000Z
 - author: IngvarJackal
   changes:
     - type: Add
@@ -3133,7 +3133,7 @@ Entries:
     - type: Add
       message: Shadekin-exclusive dark regeneration traits
   id: 338
-  time: '2026-04-24T21:39:01.0000000+00:00'
+  time: 2026-04-24T21:39:01.000Z
 - author: Kronyxxx
   changes:
     - type: Fix
@@ -3153,7 +3153,7 @@ Entries:
         `ArgumentException: An item with the same key has already been added.
         Key: invalid`.
   id: 339
-  time: '2026-04-24T22:12:52.0000000+00:00'
+  time: 2026-04-24T22:12:52.000Z
 - author: Kronyxxx
   changes:
     - type: Fix
@@ -3162,7 +3162,7 @@ Entries:
         clicks no longer flood the server log when no clear spawn space is
         available.
   id: 340
-  time: '2026-04-25T05:03:31.0000000+00:00'
+  time: 2026-04-25T05:03:31.000Z
 - author: Kronyxxx
   changes:
     - type: Tweak
@@ -3173,19 +3173,19 @@ Entries:
         `hardlight.radar.min_request_ms` / `hardlight.radar.cache_ttl_ms` if
         they want a different refresh cadence.
   id: 341
-  time: '2026-04-25T05:08:32.0000000+00:00'
+  time: 2026-04-25T05:08:32.000Z
 - author: fenndragon
   changes:
     - type: Add
       message: Added mono upstream features for shields and AI
   id: 342
-  time: '2026-04-25T05:29:14.0000000+00:00'
+  time: 2026-04-25T05:29:14.000Z
 - author: DDoubleDee
   changes:
     - type: Add
       message: Added snack vending machines back to the expedition spawn pool!
   id: 343
-  time: '2026-04-25T05:29:25.0000000+00:00'
+  time: 2026-04-25T05:29:25.000Z
 - author: re-silvered
   changes:
     - type: Tweak
@@ -3197,13 +3197,13 @@ Entries:
     - type: Fix
       message: fixed injector deny popup localization not working
   id: 344
-  time: '2026-04-25T21:13:56.0000000+00:00'
+  time: 2026-04-25T21:13:56.000Z
 - author: VoidedDevNull
   changes:
     - type: Add
       message: New Starlight Tiles Ported
   id: 345
-  time: '2026-04-25T21:15:17.0000000+00:00'
+  time: 2026-04-25T21:15:17.000Z
 - author: Kronyxxx
   changes:
     - type: Fix
@@ -3215,7 +3215,7 @@ Entries:
         Fixed solution containers spamming stack traces every tick after
         FTL/shipyard moves, a major source of recent server lag.
   id: 346
-  time: '2026-04-25T21:16:48.0000000+00:00'
+  time: 2026-04-25T21:16:48.000Z
 - author: Kronyxxx
   changes:
     - type: Add
@@ -3230,7 +3230,7 @@ Entries:
         AI ship-mounted turrets no longer fight the AI core for steering;
         mounted turrets only fire, the core does the flying.
   id: 347
-  time: '2026-04-25T22:05:54.0000000+00:00'
+  time: 2026-04-25T22:05:54.000Z
 - author: GravastarDragon
   changes:
     - type: Add
@@ -3238,7 +3238,7 @@ Entries:
         Added four new borg chassis options. one in sec, service, engineering,
         and salvage.
   id: 348
-  time: '2026-04-25T22:17:40.0000000+00:00'
+  time: 2026-04-25T22:17:40.000Z
 - author: Kronyxxx
   changes:
     - type: Fix
@@ -3246,7 +3246,7 @@ Entries:
         Fixed ship gun projectiles colliding with the firing ship and appearing
         to hit the center of the ship.
   id: 349
-  time: '2026-04-25T22:39:32.0000000+00:00'
+  time: 2026-04-25T22:39:32.000Z
 - author: Kronyxxx
   changes:
     - type: Tweak
@@ -3258,7 +3258,7 @@ Entries:
         Gunnery console radar can now scroll out to 1500m for better situational
         awareness.
   id: 350
-  time: '2026-04-25T22:39:44.0000000+00:00'
+  time: 2026-04-25T22:39:44.000Z
 - author: Kronyx
   changes:
     - type: Fix
@@ -3276,7 +3276,7 @@ Entries:
         Byte AI now scales by rank (small/medium/large) for speed, aim quality,
         disengage behavior, and spawn distance.
   id: 351
-  time: '2026-04-26T21:39:37.0000000+00:00'
+  time: 2026-04-26T21:39:37.000Z
 - author: Kronyxxx
   changes:
     - type: Fix
@@ -3284,7 +3284,7 @@ Entries:
         Secbug, Djbug, Engineerbug, and Minerbug borg chassis now display their
         correct sprites instead of flashing error signs.
   id: 352
-  time: '2026-04-26T21:39:51.0000000+00:00'
+  time: 2026-04-26T21:39:51.000Z
 - author: Kronyxxx
   changes:
     - type: Fix
@@ -3292,13 +3292,13 @@ Entries:
         Fixed flatpacks incorrectly saying "No room to unpack!" on valid station
         tiles.
   id: 353
-  time: '2026-04-26T21:40:39.0000000+00:00'
+  time: 2026-04-26T21:40:39.000Z
 - author: R3v3l4t1on
   changes:
     - type: Fix
       message: Fixed all xenoborgs apart from the quad looking like engis
   id: 354
-  time: '2026-04-26T21:42:08.0000000+00:00'
+  time: 2026-04-26T21:42:08.000Z
 - author: Kronyxxx
   changes:
     - type: Fix
@@ -3307,7 +3307,7 @@ Entries:
         collection exceptions when multiple LOS/range checks run in the same
         tick.
   id: 355
-  time: '2026-04-26T21:43:56.0000000+00:00'
+  time: 2026-04-26T21:43:56.000Z
 - author: R3v3l4t1on
   changes:
     - type: Tweak
@@ -3317,7 +3317,7 @@ Entries:
     - type: Fix
       message: Fixed sec borg locales
   id: 356
-  time: '2026-04-28T07:36:16.0000000+00:00'
+  time: 2026-04-28T07:36:16.000Z
 - author: Illumos
   changes:
     - type: Add
@@ -3327,31 +3327,31 @@ Entries:
     - type: Add
       message: BSO magboots
   id: 357
-  time: '2026-04-28T07:37:31.0000000+00:00'
+  time: 2026-04-28T07:37:31.000Z
 - author: fenndragon
   changes:
     - type: Fix
       message: 'caseless ammo no longer hallucinates casings '
   id: 358
-  time: '2026-04-28T10:04:52.0000000+00:00'
+  time: 2026-04-28T10:04:52.000Z
 - author: Jerulean
   changes:
     - type: Add
       message: Added about 45 new foods and 40 new drinks.
   id: 359
-  time: '2026-04-29T20:19:46.0000000+00:00'
+  time: 2026-04-29T20:19:46.000Z
 - author: re-silvered
   changes:
     - type: Fix
       message: Fixed bluespace syringe draw amount.
   id: 360
-  time: '2026-04-29T23:43:35.0000000+00:00'
+  time: 2026-04-29T23:43:35.000Z
 - author: NotLivyathan
   changes:
     - type: Add
       message: Icon smoothing can now be toggled in user graphics settings.
   id: 361
-  time: '2026-04-29T23:44:47.0000000+00:00'
+  time: 2026-04-29T23:44:47.000Z
 - author: NotLivyathan
   changes:
     - type: Add
@@ -3377,7 +3377,7 @@ Entries:
         Two empty categories have been removed from the loadout menu to reduce
         clutter.
   id: 362
-  time: '2026-04-29T23:47:07.0000000+00:00'
+  time: 2026-04-29T23:47:07.000Z
 - author: NotLivyathan
   changes:
     - type: Add
@@ -3389,7 +3389,7 @@ Entries:
     - type: Fix
       message: Mantis should no longer spawn duplicate equipment on spawn.
   id: 363
-  time: '2026-04-30T00:14:18.0000000+00:00'
+  time: 2026-04-30T00:14:18.000Z
 - author: Kronyxxx
   changes:
     - type: Fix
@@ -3419,7 +3419,7 @@ Entries:
         Advanced Jet Injector is now researchable via Advanced Treatment
         (CivilianServices tier 2).
   id: 364
-  time: '2026-04-30T20:20:54.0000000+00:00'
+  time: 2026-04-30T20:20:54.000Z
 - author: Kronyxxx
   changes:
     - type: Fix
@@ -3427,7 +3427,7 @@ Entries:
         Medicated sutures and regenerative meshes can again be crafted in the
         medical assembler using lathe-produced bruise packs and ointments.
   id: 365
-  time: '2026-04-30T20:31:44.0000000+00:00'
+  time: 2026-04-30T20:31:44.000Z
 - author: Kronyxxx
   changes:
     - type: Fix
@@ -3436,7 +3436,7 @@ Entries:
         built-in department radio channel when an encryption key is added to or
         removed from them.
   id: 366
-  time: '2026-04-30T20:35:57.0000000+00:00'
+  time: 2026-04-30T20:35:57.000Z
 - author: IngvarJackal
   changes:
     - type: Tweak
@@ -3444,7 +3444,7 @@ Entries:
     - type: Tweak
       message: gunnery console has shield status and draws shields
   id: 367
-  time: '2026-04-30T20:59:38.0000000+00:00'
+  time: 2026-04-30T20:59:38.000Z
 - author: NotLivyathan
   changes:
     - type: Add
@@ -3458,7 +3458,7 @@ Entries:
     - type: Tweak
       message: Fax machine UI has received minor improvements for better clarity.
   id: 368
-  time: '2026-05-01T00:19:28.0000000+00:00'
+  time: 2026-05-01T00:19:28.000Z
 - author: Eb-
   changes:
     - type: Tweak
@@ -3466,13 +3466,13 @@ Entries:
         Bags of Holding now have a 25% move speed penalty, to encourage use of
         other bags such as: tactical pack, rucksack, explorer pack
   id: 369
-  time: '2026-05-01T03:49:15.0000000+00:00'
+  time: 2026-05-01T03:49:15.000Z
 - author: fenndragon
   changes:
     - type: Add
       message: 'Added new world generation system '
   id: 370
-  time: '2026-05-01T03:50:13.0000000+00:00'
+  time: 2026-05-01T03:50:13.000Z
 - author: Illumos
   changes:
     - type: Add
@@ -3480,7 +3480,7 @@ Entries:
     - type: Add
       message: Added the bloodstained aristocrat suit to clothesmate
   id: 371
-  time: '2026-05-02T06:14:37.0000000+00:00'
+  time: 2026-05-02T06:14:37.000Z
 - author: Kronyxxx
   changes:
     - type: Fix
@@ -3492,7 +3492,7 @@ Entries:
         Jet injector now plays its unique injection sound when used on humanoid
         mobs.
   id: 372
-  time: '2026-05-02T06:45:36.0000000+00:00'
+  time: 2026-05-02T06:45:36.000Z
 - author: Kronyxxx
   changes:
     - type: Fix
@@ -3500,13 +3500,13 @@ Entries:
         Full-reservoir injector modes now clear stale transfer amount state, so
         Advanced Jet Injectors correctly inject their full contents.
   id: 373
-  time: '2026-05-02T07:50:25.0000000+00:00'
+  time: 2026-05-02T07:50:25.000Z
 - author: R3v3l4t1on
   changes:
     - type: Fix
       message: Fixed a test
   id: 374
-  time: '2026-05-02T07:51:13.0000000+00:00'
+  time: 2026-05-02T07:51:13.000Z
 - author: TrylobyteWasTaken
   changes:
     - type: Tweak
@@ -3514,43 +3514,43 @@ Entries:
         The Ionizing Radiation Resistance mutation is now actually able to be
         researched instead of taunting the geneticist all shift.
   id: 375
-  time: '2026-05-02T19:05:16.0000000+00:00'
+  time: 2026-05-02T19:05:16.000Z
 - author: IngvarJackal
   changes:
     - type: Add
       message: Return anaconda to the exped T2 loot table
   id: 376
-  time: '2026-05-02T23:21:56.0000000+00:00'
+  time: 2026-05-02T23:21:56.000Z
 - author: re-silvered
   changes:
     - type: Add
       message: Added even more vampirism.
   id: 377
-  time: '2026-05-05T03:30:26.0000000+00:00'
+  time: 2026-05-05T03:30:26.000Z
 - author: Shades
   changes:
     - type: Fix
       message: Fixed The Dark getting deleted.
   id: 378
-  time: '2026-05-05T03:35:40.0000000+00:00'
+  time: 2026-05-05T03:35:40.000Z
 - author: re-silvered
   changes:
     - type: Remove
       message: Removed pirate rules since we lack pirates
   id: 379
-  time: '2026-05-05T03:39:51.0000000+00:00'
+  time: 2026-05-05T03:39:51.000Z
 - author: NotLivyathan
   changes:
     - type: Add
       message: Computer consoles now dynamically blend edges when placed side-by-side.
   id: 380
-  time: '2026-05-05T03:42:12.0000000+00:00'
+  time: 2026-05-05T03:42:12.000Z
 - author: Aureuix
   changes:
     - type: Add
       message: Added an amputee trait. one for both arms
   id: 381
-  time: '2026-05-05T05:16:21.0000000+00:00'
+  time: 2026-05-05T05:16:21.000Z
 - author: Shades
   changes:
     - type: Add
@@ -3560,43 +3560,43 @@ Entries:
     - type: Tweak
       message: Update ClothWarps, they can now go in hands slots too.
   id: 382
-  time: '2026-05-05T18:48:05.0000000+00:00'
+  time: 2026-05-05T18:48:05.000Z
 - author: Mysterious Bunnyfactor
   changes:
     - type: Add
       message: Bunnysuits!
   id: 383
-  time: '2026-05-05T18:48:31.0000000+00:00'
+  time: 2026-05-05T18:48:31.000Z
 - author: R3v3l4t1on
   changes:
     - type: Fix
       message: Fixed invalid entries in cyborg guidebook
   id: 384
-  time: '2026-05-05T18:50:31.0000000+00:00'
+  time: 2026-05-05T18:50:31.000Z
 - author: Illumos
   changes:
     - type: Add
       message: Some hardsuits are now taser-immune.
   id: 385
-  time: '2026-05-05T21:52:03.0000000+00:00'
+  time: 2026-05-05T21:52:03.000Z
 - author: R3v3l4t1on
   changes:
     - type: Fix
       message: Knocks another test off the list of failing tests
   id: 386
-  time: '2026-05-05T21:52:51.0000000+00:00'
+  time: 2026-05-05T21:52:51.000Z
 - author: Illumos
   changes:
     - type: Add
       message: More lewd clothings~
   id: 387
-  time: '2026-05-05T21:53:43.0000000+00:00'
+  time: 2026-05-05T21:53:43.000Z
 - author: NotLivyathan
   changes:
     - type: Fix
       message: Fixed expedition disk printer sprite.
   id: 388
-  time: '2026-05-05T21:55:09.0000000+00:00'
+  time: 2026-05-05T21:55:09.000Z
 - author: fenndragon
   changes:
     - type: Add
@@ -3608,13 +3608,13 @@ Entries:
     - type: Fix
       message: other general bugfixes
   id: 389
-  time: '2026-05-05T22:29:15.0000000+00:00'
+  time: 2026-05-05T22:29:15.000Z
 - author: Fasuh
   changes:
     - type: Fix
       message: Fixed Avali displacement maps.
   id: 390
-  time: '2026-05-05T22:30:02.0000000+00:00'
+  time: 2026-05-05T22:30:02.000Z
 - author: Kronyxxx
   changes:
     - type: Fix
@@ -3623,7 +3623,7 @@ Entries:
         again load correctly. The HL prototype migration table is now honored at
         map load time.
   id: 391
-  time: '2026-05-06T02:41:00.0000000+00:00'
+  time: 2026-05-06T02:41:00.000Z
 - author: Shades
   changes:
     - type: Remove
@@ -3631,25 +3631,25 @@ Entries:
         Removed whitelist for: BabyDragon, EmotionalSupportPet, CatCappy and
         others FN Pets.
   id: 392
-  time: '2026-05-07T04:50:53.0000000+00:00'
+  time: 2026-05-07T04:50:53.000Z
 - author: re-silvered
   changes:
     - type: Fix
       message: Fixed surgery limb application forcing every marking to glow
   id: 393
-  time: '2026-05-07T04:54:13.0000000+00:00'
+  time: 2026-05-07T04:54:13.000Z
 - author: Shades
   changes:
     - type: Fix
       message: Fixed where Clothwarp could not be crafted.
   id: 394
-  time: '2026-05-07T05:08:03.0000000+00:00'
+  time: 2026-05-07T05:08:03.000Z
 - author: Sully669
   changes:
     - type: Fix
       message: jet injectors now fit in medical bags
   id: 395
-  time: '2026-05-07T05:08:28.0000000+00:00'
+  time: 2026-05-07T05:08:28.000Z
 - author: fenndragon
   changes:
     - type: Add
@@ -3659,7 +3659,7 @@ Entries:
     - type: Tweak
       message: tweaked roundstart values
   id: 396
-  time: '2026-05-07T05:09:54.0000000+00:00'
+  time: 2026-05-07T05:09:54.000Z
 - author: NotLivyathan
   changes:
     - type: Tweak
@@ -3715,37 +3715,37 @@ Entries:
         PMC C-20r and PMC Vipers are no longer incorrectly labeled C3 and no
         longer give FUCs on exchange.
   id: 397
-  time: '2026-05-07T05:19:53.0000000+00:00'
+  time: 2026-05-07T05:19:53.000Z
 - author: NotLivyathan
   changes:
     - type: Tweak
       message: Migrated StaminaSystem to SharedStaminaSystem.
   id: 398
-  time: '2026-05-07T05:21:43.0000000+00:00'
+  time: 2026-05-07T05:21:43.000Z
 - author: Aureuix
   changes:
     - type: Fix
       message: Fixed Kitsune using the wrong emote sound for squeak.
   id: 399
-  time: '2026-05-08T06:45:13.0000000+00:00'
+  time: 2026-05-08T06:45:13.000Z
 - author: NotLivyathan
   changes:
     - type: Fix
       message: Directional wall ambient occlusion now makes sense.
   id: 400
-  time: '2026-05-08T06:45:51.0000000+00:00'
+  time: 2026-05-08T06:45:51.000Z
 - author: fenndragon
   changes:
     - type: Tweak
       message: Updates engine to latest from upstream
   id: 401
-  time: '2026-05-10T10:48:59.0000000+00:00'
+  time: 2026-05-10T10:48:59.000Z
 - author: DDoubleDee
   changes:
     - type: Tweak
       message: Proto-Avali/Resomi now make emote sounds like normal avali/resomi
   id: 402
-  time: '2026-05-10T10:49:58.0000000+00:00'
+  time: 2026-05-10T10:49:58.000Z
 - author: NotLivyathan
   changes:
     - type: Add
@@ -3753,7 +3753,7 @@ Entries:
         Skilled individiuals now have the possibility to catch specific items
         thrown at them.
   id: 403
-  time: '2026-05-10T10:50:33.0000000+00:00'
+  time: 2026-05-10T10:50:33.000Z
 - author: NotLivyathan
   changes:
     - type: Fix
@@ -3761,13 +3761,13 @@ Entries:
         Characters with the Trap Avoider trait should no longer have seizures
         when walking on surfaces that would otherwise slip them.
   id: 404
-  time: '2026-05-10T10:56:07.0000000+00:00'
+  time: 2026-05-10T10:56:07.000Z
 - author: okdamsam
   changes:
     - type: Fix
       message: 'Fixed Warden duplicate "backpack items" loadout category. '
   id: 405
-  time: '2026-05-10T11:02:52.0000000+00:00'
+  time: 2026-05-10T11:02:52.000Z
 - author: Illumos
   changes:
     - type: Remove
@@ -3775,13 +3775,13 @@ Entries:
     - type: Remove
       message: DNR mutation is now disabled.
   id: 406
-  time: '2026-05-10T11:07:15.0000000+00:00'
+  time: 2026-05-10T11:07:15.000Z
 - author: NotLivyathan
   changes:
     - type: Add
       message: All members of Command can now issue command bounties.
   id: 407
-  time: '2026-05-12T21:56:31.0000000+00:00'
+  time: 2026-05-12T21:56:31.000Z
 - author: IngvarJackal
   changes:
     - type: Fix
@@ -3814,13 +3814,13 @@ Entries:
         `RoomSaveable` tag — add to any prototype to preserve it when unanchored
         in a room save
   id: 408
-  time: '2026-05-13T06:42:35.0000000+00:00'
+  time: 2026-05-13T06:42:35.000Z
 - author: IngvarJackal
   changes:
     - type: Tweak
       message: Shadekin don't inhale foam any more
   id: 409
-  time: '2026-05-13T06:54:37.0000000+00:00'
+  time: 2026-05-13T06:54:37.000Z
 - author: NotLivyathan
   changes:
     - type: Add
@@ -3830,13 +3830,13 @@ Entries:
     - type: Fix
       message: The STC now correctly has access to traffic control consoles.
   id: 410
-  time: '2026-05-13T06:55:08.0000000+00:00'
+  time: 2026-05-13T06:55:08.000Z
 - author: Illumos
   changes:
     - type: Add
       message: Marriage Axe from Starlight
   id: 411
-  time: '2026-05-13T06:58:04.0000000+00:00'
+  time: 2026-05-13T06:58:04.000Z
 - author: NotLivyathan
   changes:
     - type: Fix
@@ -3844,7 +3844,7 @@ Entries:
         Wooden televisions should no longer incorrectly use modular console
         sprites.
   id: 412
-  time: '2026-05-13T09:16:55.0000000+00:00'
+  time: 2026-05-13T09:16:55.000Z
 - author: Kronyxxx
   changes:
     - type: Add
@@ -3861,13 +3861,13 @@ Entries:
         colorblind-safe amber/teal-green/lavender palette instead of
         red/blue/purple. Affects only the local viewer.
   id: 413
-  time: '2026-05-13T09:18:30.0000000+00:00'
+  time: 2026-05-13T09:18:30.000Z
 - author: Illumos
   changes:
     - type: Fix
       message: Maybe hopefully fix the manifest
   id: 414
-  time: '2026-05-13T09:28:12.0000000+00:00'
+  time: 2026-05-13T09:28:12.000Z
 - author: fenndragon
   changes:
     - type: Remove
@@ -3875,7 +3875,7 @@ Entries:
     - type: Remove
       message: 'temporarily removed the Anomaly job role '
   id: 415
-  time: '2026-05-13T09:29:56.0000000+00:00'
+  time: 2026-05-13T09:29:56.000Z
 - author: fenndragon
   changes:
     - type: Add
@@ -3887,25 +3887,25 @@ Entries:
     - type: Tweak
       message: CDets now go offline during Red alert or higher
   id: 416
-  time: '2026-05-13T10:10:27.0000000+00:00'
+  time: 2026-05-13T10:10:27.000Z
 - author: re-silvered
   changes:
     - type: Fix
       message: Fixed context menu incorrect display
   id: 417
-  time: '2026-05-13T23:13:35.0000000+00:00'
+  time: 2026-05-13T23:13:35.000Z
 - author: Sully669
   changes:
     - type: Fix
       message: Fixed plastitanium structure cost to 250
   id: 418
-  time: '2026-05-13T23:14:36.0000000+00:00'
+  time: 2026-05-13T23:14:36.000Z
 - author: re-silvered
   changes:
     - type: Fix
       message: Fixed some service roles not recording playtime
   id: 419
-  time: '2026-05-13T23:16:21.0000000+00:00'
+  time: 2026-05-13T23:16:21.000Z
 - author: NotLivyathan
   changes:
     - type: Add
@@ -3929,13 +3929,13 @@ Entries:
         Nanites now spoil into InertNanites unless store in cryostasis beakers,
         cryostasis syringes, or Synths.
   id: 420
-  time: '2026-05-13T23:17:53.0000000+00:00'
+  time: 2026-05-13T23:17:53.000Z
 - author: Magniras
   changes:
     - type: Remove
       message: Removed ambuzol syringes from FUC vendor
   id: 421
-  time: '2026-05-15T00:46:13.0000000+00:00'
+  time: 2026-05-15T00:46:13.000Z
 - author: NotLivyathan
   changes:
     - type: Add
@@ -3947,37 +3947,37 @@ Entries:
         Wallmount station maps, mass scanners, and advanced radars now correctly
         reflect state when unpowered.
   id: 422
-  time: '2026-05-15T00:46:48.0000000+00:00'
+  time: 2026-05-15T00:46:48.000Z
 - author: re-silvered
   changes:
     - type: Tweak
       message: Made it so that old redundant rescue beacons are deleted on roundend
   id: 423
-  time: '2026-05-16T08:08:58.0000000+00:00'
+  time: 2026-05-16T08:08:58.000Z
 - author: re-silvered
   changes:
     - type: Fix
       message: Fixed expeditions refusing to leave if attempted to end too early.
   id: 424
-  time: '2026-05-16T08:09:20.0000000+00:00'
+  time: 2026-05-16T08:09:20.000Z
 - author: re-silvered
   changes:
     - type: Fix
       message: Fixed rule links not appearing
   id: 425
-  time: '2026-05-16T08:09:53.0000000+00:00'
+  time: 2026-05-16T08:09:53.000Z
 - author: re-silvered
   changes:
     - type: Fix
       message: Fixed ghosts seeing whisper obfuscation
   id: 426
-  time: '2026-05-16T08:16:14.0000000+00:00'
+  time: 2026-05-16T08:16:14.000Z
 - author: IngvarJackal
   changes:
     - type: Tweak
       message: Nullspace fixes, part 2
   id: 427
-  time: '2026-05-16T08:17:27.0000000+00:00'
+  time: 2026-05-16T08:17:27.000Z
 - author: NotLivyathan
   changes:
     - type: Fix
@@ -3989,7 +3989,7 @@ Entries:
         Spawning characters through the admin action now respects character
         traits and custom height settings.
   id: 428
-  time: '2026-05-16T17:09:25.0000000+00:00'
+  time: 2026-05-16T17:09:25.000Z
 - author: Illumos
   changes:
     - type: Add
@@ -3997,7 +3997,7 @@ Entries:
     - type: Add
       message: Health analyzers now show metabolizing chemicals.
   id: 429
-  time: '2026-05-16T17:09:49.0000000+00:00'
+  time: 2026-05-16T17:09:49.000Z
 - author: Fasuh
   changes:
     - type: Add
@@ -4005,13 +4005,13 @@ Entries:
     - type: Add
       message: Added option in settings to disable aphrodisiac visual effects.
   id: 430
-  time: '2026-05-18T06:29:59.0000000+00:00'
+  time: 2026-05-18T06:29:59.000Z
 - author: SeaborneProto
   changes:
     - type: Add
       message: 'Added pregnancy markings! '
   id: 431
-  time: '2026-05-18T06:32:44.0000000+00:00'
+  time: 2026-05-18T06:32:44.000Z
 - author: NotLivyathan
   changes:
     - type: Add
@@ -4019,7 +4019,7 @@ Entries:
     - type: Add
       message: Added stripper poles.
   id: 432
-  time: '2026-05-18T06:40:43.0000000+00:00'
+  time: 2026-05-18T06:40:43.000Z
 - author: biteymcstabface
   changes:
     - type: Tweak
@@ -4031,13 +4031,13 @@ Entries:
         Makes shadekin regeneration traits mutually exclusive with all other
         regen traits, not just platelets
   id: 433
-  time: '2026-05-18T18:13:56.0000000+00:00'
+  time: 2026-05-18T18:13:56.000Z
 - author: biteymcstabface
   changes:
     - type: Tweak
       message: Reduced range of phase shift light flickering by 40%
   id: 434
-  time: '2026-05-18T18:23:02.0000000+00:00'
+  time: 2026-05-18T18:23:02.000Z
 - author: Typheus
   changes:
     - type: Fix
@@ -4045,7 +4045,7 @@ Entries:
         High Security Door/Glass Airlock deconstruction instructions now show
         proper steps
   id: 435
-  time: '2026-05-18T18:23:43.0000000+00:00'
+  time: 2026-05-18T18:23:43.000Z
 - author: Illumos
   changes:
     - type: Add
@@ -4053,7 +4053,7 @@ Entries:
     - type: Add
       message: Beak Bonemask marking
   id: 436
-  time: '2026-05-18T18:24:43.0000000+00:00'
+  time: 2026-05-18T18:24:43.000Z
 - author: NotLivyathan
   changes:
     - type: Tweak
@@ -4063,7 +4063,7 @@ Entries:
         meaning the evac shuttle is no longer the only official way to arrive at
         ColComm.
   id: 437
-  time: '2026-05-18T18:31:59.0000000+00:00'
+  time: 2026-05-18T18:31:59.000Z
 - author: re-silvered
   changes:
     - type: Fix
@@ -4071,7 +4071,7 @@ Entries:
     - type: Tweak
       message: Lowered prisoner station pay 20k -> 5k
   id: 438
-  time: '2026-05-18T18:35:49.0000000+00:00'
+  time: 2026-05-18T18:35:49.000Z
 - author: NotLivyathan
   changes:
     - type: Tweak
@@ -4079,7 +4079,7 @@ Entries:
         Medical tracking implants now only execute emergency extractions when
         the target is located on an expedition map.
   id: 439
-  time: '2026-05-18T18:41:50.0000000+00:00'
+  time: 2026-05-18T18:41:50.000Z
 - author: NotLivyathan
   changes:
     - type: Remove
@@ -4089,7 +4089,7 @@ Entries:
     - type: Remove
       message: Freelancers can no longer be targeted for antagonist roles.
   id: 440
-  time: '2026-05-18T18:48:07.0000000+00:00'
+  time: 2026-05-18T18:48:07.000Z
 - author: IngvarJackal
   changes:
     - type: Add
@@ -4099,31 +4099,31 @@ Entries:
         Tape recorder has limit on words and notifies when recording time/limit
         is reached
   id: 441
-  time: '2026-05-18T22:04:37.0000000+00:00'
+  time: 2026-05-18T22:04:37.000Z
 - author: re-silvered
   changes:
     - type: Fix
       message: Damaged RTGs no longer duplicate with the SRD
   id: 442
-  time: '2026-05-18T22:05:52.0000000+00:00'
+  time: 2026-05-18T22:05:52.000Z
 - author: IngvarJackal
   changes:
     - type: Tweak
       message: Nullspace dephasing is now safer
   id: 443
-  time: '2026-05-20T08:34:34.0000000+00:00'
+  time: 2026-05-20T08:34:34.000Z
 - author: Illumos
   changes:
     - type: Add
       message: Removed colour limits across all species.
   id: 444
-  time: '2026-05-20T08:35:02.0000000+00:00'
+  time: 2026-05-20T08:35:02.000Z
 - author: NotLivyathan
   changes:
     - type: Add
       message: Select species now have the ability to speak in their native tongue.
   id: 445
-  time: '2026-05-20T08:35:53.0000000+00:00'
+  time: 2026-05-20T08:35:53.000Z
 - author: stickycheZ101
   changes:
     - type: Add
@@ -4139,13 +4139,13 @@ Entries:
         added the nullspace deterrence kit to the cargo market, that contains
         basic nullspace detection and deterrence gear
   id: 446
-  time: '2026-05-20T08:37:06.0000000+00:00'
+  time: 2026-05-20T08:37:06.000Z
 - author: Illumos
   changes:
     - type: Fix
       message: Pettable trait is now a 100% chance to be pet :3
   id: 447
-  time: '2026-05-20T18:51:48.0000000+00:00'
+  time: 2026-05-20T18:51:48.000Z
 - author: Fasuh
   changes:
     - type: Fix
@@ -4153,31 +4153,31 @@ Entries:
     - type: Fix
       message: Fixed Cryogenics not working for Protogens
   id: 448
-  time: '2026-05-21T08:15:47.0000000+00:00'
+  time: 2026-05-21T08:15:47.000Z
 - author: Illumos
   changes:
     - type: Add
       message: Ported the Jabber from Coyote.
   id: 449
-  time: '2026-05-21T10:40:00.0000000+00:00'
+  time: 2026-05-21T10:40:00.000Z
 - author: Illumos
   changes:
     - type: Add
       message: Synthetic trait now gives you EAL
   id: 450
-  time: '2026-05-21T10:40:37.0000000+00:00'
+  time: 2026-05-21T10:40:37.000Z
 - author: TrylobyteWasTaken
   changes:
     - type: Fix
       message: (Admin) The h-series of scale commands now work as intended.
   id: 451
-  time: '2026-05-21T10:42:30.0000000+00:00'
+  time: 2026-05-21T10:42:30.000Z
 - author: re-silvered
   changes:
     - type: Fix
       message: Fixed M90 GL not having a wielded sprite
   id: 452
-  time: '2026-05-21T11:04:07.0000000+00:00'
+  time: 2026-05-21T11:04:07.000Z
 - author: SquishyEmmaaaa
   changes:
     - type: Add
@@ -4189,7 +4189,7 @@ Entries:
     - type: Fix
       message: The HoS cloak definitely wasn't red.
   id: 453
-  time: '2026-05-21T11:06:42.0000000+00:00'
+  time: 2026-05-21T11:06:42.000Z
 - author: fenndragon
   changes:
     - type: Add
@@ -4199,7 +4199,7 @@ Entries:
     - type: Add
       message: 'Added damage modifier system '
   id: 454
-  time: '2026-05-21T19:32:39.0000000+00:00'
+  time: 2026-05-21T19:32:39.000Z
 - author: Illumos
   changes:
     - type: Add
@@ -4211,7 +4211,7 @@ Entries:
     - type: Add
       message: Katana sheaths to MercVend.
   id: 455
-  time: '2026-05-21T19:52:25.0000000+00:00'
+  time: 2026-05-21T19:52:25.000Z
 - author: SquishyEmmaaaa
   changes:
     - type: Add
@@ -4223,17 +4223,17 @@ Entries:
     - type: Tweak
       message: Moves the medipen tag to the correct file location
   id: 456
-  time: '2026-05-24T00:02:17.0000000+00:00'
+  time: 2026-05-24T00:02:17.000Z
 - author: NotLivyathan
   changes:
     - type: Remove
       message: Livyathan was ejected. Livyathan was not The Imposter.
   id: 457
-  time: '2026-05-24T00:03:33.0000000+00:00'
+  time: 2026-05-24T00:03:33.000Z
 - author: Typheus
   changes: []
   id: 458
-  time: '2026-05-24T00:03:59.0000000+00:00'
+  time: 2026-05-24T00:03:59.000Z
 - author: SquishyEmmaaaa
   changes:
     - type: Remove
@@ -4241,31 +4241,31 @@ Entries:
     - type: Tweak
       message: MRE crates are now findable on expeditions.
   id: 459
-  time: '2026-05-24T00:08:27.0000000+00:00'
+  time: 2026-05-24T00:08:27.000Z
 - author: re-silvered
   changes:
     - type: Tweak
       message: Snake eaten
   id: 460
-  time: '2026-05-24T00:09:44.0000000+00:00'
+  time: 2026-05-24T00:09:44.000Z
 - author: IngvarJackal
   changes:
     - type: Add
       message: Add suitstorage shortcut
   id: 461
-  time: '2026-05-24T00:12:43.0000000+00:00'
+  time: 2026-05-24T00:12:43.000Z
 - author: Illumos
   changes:
     - type: Add
       message: Plumbing.
   id: 462
-  time: '2026-05-27T02:45:55.0000000+00:00'
+  time: 2026-05-27T02:45:55.000Z
 - author: fenndragon
   changes:
     - type: Add
       message: Added unified faction comms
   id: 463
-  time: '2026-05-27T02:51:45.0000000+00:00'
+  time: 2026-05-27T02:51:45.000Z
 - author: fenndragon
   changes:
     - type: Add
@@ -4399,13 +4399,13 @@ Entries:
         interaction, EMP scaling resistance, random teleport overload support,
         and various construction/wiring/deconstruction protection checks.
   id: 464
-  time: '2026-05-28T01:38:54.0000000+00:00'
+  time: 2026-05-28T01:38:54.000Z
 - author: SeaborneProto
   changes:
     - type: Add
       message: Added Korpus Novy Mir company!
   id: 465
-  time: '2026-05-28T21:55:17.0000000+00:00'
+  time: 2026-05-28T21:55:17.000Z
 - author: Sully669
   changes:
     - type: Fix
@@ -4413,31 +4413,31 @@ Entries:
     - type: Add
       message: Document paper can fill printers
   id: 466
-  time: '2026-05-28T21:55:35.0000000+00:00'
+  time: 2026-05-28T21:55:35.000Z
 - author: Fasuh
   changes:
     - type: Fix
       message: Fixed Anaconda gun needing ammo and not self recharging.
   id: 467
-  time: '2026-05-29T03:05:57.0000000+00:00'
+  time: 2026-05-29T03:05:57.000Z
 - author: Illumos
   changes:
     - type: Tweak
       message: Skates are now 40% faster!
   id: 468
-  time: '2026-05-29T03:09:30.0000000+00:00'
+  time: 2026-05-29T03:09:30.000Z
 - author: Illumos
   changes:
     - type: Add
       message: Painkillers!
   id: 469
-  time: '2026-05-29T18:53:06.0000000+00:00'
+  time: 2026-05-29T18:53:06.000Z
 - author: Typheus
   changes:
     - type: Tweak
       message: Rain lizard code optimized and trimmed.
   id: 470
-  time: '2026-05-29T18:53:26.0000000+00:00'
+  time: 2026-05-29T18:53:26.000Z
 - author: fenndragon
   changes:
     - type: Fix
@@ -4445,7 +4445,7 @@ Entries:
         Fixed issues that were preventing round from continuing, research
         issues, and station pay
   id: 471
-  time: '2026-05-29T19:08:08.0000000+00:00'
+  time: 2026-05-29T19:08:08.000Z
 - author: fenndragon
   changes:
     - type: Fix
@@ -4473,25 +4473,25 @@ Entries:
     - type: Add
       message: 'Added faction comms to everyone '
   id: 472
-  time: '2026-06-01T01:36:59.0000000+00:00'
+  time: 2026-06-01T01:36:59.000Z
 - author: Illumos
   changes:
     - type: Add
       message: Over fifteen new vinyl tracks!
   id: 473
-  time: '2026-06-01T01:37:36.0000000+00:00'
+  time: 2026-06-01T01:37:36.000Z
 - author: oksam
   changes:
     - type: Add
       message: New links for Sec SOP/Space law
   id: 474
-  time: '2026-06-01T01:40:16.0000000+00:00'
+  time: 2026-06-01T01:40:16.000Z
 - author: IngvarJackal
   changes:
     - type: Tweak
       message: cryoed traitor objectives now reroll
   id: 475
-  time: '2026-06-02T18:45:19.0000000+00:00'
+  time: 2026-06-02T18:45:19.000Z
 - author: fenndragon
   changes:
     - type: Add
@@ -4505,19 +4505,19 @@ Entries:
     - type: Fix
       message: Fixed component saving in apartments
   id: 476
-  time: '2026-06-04T04:07:32.0000000+00:00'
+  time: 2026-06-04T04:07:32.000Z
 - author: Illumos
   changes:
     - type: Add
       message: Technical backing for engraving tools.
   id: 477
-  time: '2026-06-04T04:14:33.0000000+00:00'
+  time: 2026-06-04T04:14:33.000Z
 - author: Typheus
   changes:
     - type: Tweak
       message: AI Remote Devices now incorporates shuntable borgs
   id: 478
-  time: '2026-06-07T05:23:06.0000000+00:00'
+  time: 2026-06-07T05:23:06.000Z
 - author: Drekk
   changes:
     - type: Fix
@@ -4525,7 +4525,7 @@ Entries:
     - type: Fix
       message: Fixed Changelog not showing in Discord
   id: 479
-  time: '2026-06-09T10:40:08.0000000+00:00'
+  time: 2026-06-09T10:40:08.000Z
 - author: Vonte
   changes:
     - type: Add
@@ -4535,19 +4535,19 @@ Entries:
         changed leftover security gear that still was red from before the
         palette change (For full list check the PR).
   id: 480
-  time: '2026-06-09T10:44:47.0000000+00:00'
+  time: 2026-06-09T10:44:47.000Z
 - author: Illumos
   changes:
     - type: Add
       message: Pacifists can now throw things without hurting people.
   id: 481
-  time: '2026-06-09T10:45:17.0000000+00:00'
+  time: 2026-06-09T10:45:17.000Z
 - author: Typheus
   changes:
     - type: Fix
       message: More entities, including scurrets, are now pacified at CC.
   id: 482
-  time: '2026-06-09T10:51:11.0000000+00:00'
+  time: 2026-06-09T10:51:11.000Z
 - author: SeaborneProto
   changes:
     - type: Add
@@ -4555,7 +4555,7 @@ Entries:
     - type: Tweak
       message: Milkable traits now use Breast Milk!
   id: 483
-  time: '2026-06-09T10:55:03.0000000+00:00'
+  time: 2026-06-09T10:55:03.000Z
 - author: rtasva
   changes:
     - type: Add
@@ -4567,7 +4567,7 @@ Entries:
     - type: Fix
       message: Lights on CC now won't be all broken after the 24 hours or so
   id: 484
-  time: '2026-06-09T10:58:44.0000000+00:00'
+  time: 2026-06-09T10:58:44.000Z
 - author: DrekkCuga
   changes:
     - type: Tweak
@@ -4575,7 +4575,7 @@ Entries:
     - type: Fix
       message: Discord should no longer get spammed when PRs are merged, my bad :3
   id: 485
-  time: '2026-06-09T17:57:38.0000000+00:00'
+  time: 2026-06-09T17:57:38.000Z
 - author: DrekkCuga
   changes:
     - type: Fix
@@ -4583,7 +4583,7 @@ Entries:
         Fixed some actions in the right-click menu on a player showing up with a
         delay.
   id: 486
-  time: '2026-06-09T17:59:12.0000000+00:00'
+  time: 2026-06-09T17:59:12.000Z
 - author: bendonji
   changes:
     - type: Add
@@ -4593,13 +4593,13 @@ Entries:
     - type: Fix
       message: Resomi can now sound like sad little birds when they die. Less exciting.
   id: 487
-  time: '2026-06-09T17:59:30.0000000+00:00'
+  time: 2026-06-09T17:59:30.000Z
 - author: re-silvered
   changes:
     - type: Fix
       message: Fixed ghosts blocking ships from saving
   id: 488
-  time: '2026-06-09T18:00:02.0000000+00:00'
+  time: 2026-06-09T18:00:02.000Z
 - author: FieryTech
   changes:
     - type: Fix
@@ -4607,23 +4607,23 @@ Entries:
     - type: Fix
       message: (Amber Station) Medical bay lights switched from LED to normal lights.
   id: 489
-  time: '2026-06-09T18:00:24.0000000+00:00'
+  time: 2026-06-09T18:00:24.000Z
 - author: Adds Einalia Plushie - Cargoheads rejoice
   changes: []
   id: 490
-  time: '2026-06-09T20:13:06.0000000+00:00'
+  time: 2026-06-09T20:13:06.000Z
 - author: Fardoche0
   changes:
     - type: Fix
       message: 'Breaching Hammer can now be used to pry. '
   id: 491
-  time: '2026-06-09T20:19:53.0000000+00:00'
+  time: 2026-06-09T20:19:53.000Z
 - author: Fardoche0
   changes:
     - type: Fix
       message: Fixed the options to weave and spin with the Bionic Spinarette trait.
   id: 492
-  time: '2026-06-12T22:11:18.0000000+00:00'
+  time: 2026-06-12T22:11:18.000Z
 - author: Typheus
   changes:
     - type: Add
@@ -4631,7 +4631,7 @@ Entries:
     - type: Tweak
       message: AI Remote Devices and Shunt Control now requires AI Shunt Receiver
   id: 493
-  time: '2026-06-12T22:12:36.0000000+00:00'
+  time: 2026-06-12T22:12:36.000Z
 - author: Vonte
   changes:
     - type: Fix
@@ -4647,7 +4647,7 @@ Entries:
         the dynamoxine medpen from the sec vendor will no longer display a large
         ERROR instead of a sprite inhand
   id: 494
-  time: '2026-06-12T22:13:02.0000000+00:00'
+  time: 2026-06-12T22:13:02.000Z
 - author: re-silvered
   changes:
     - type: Add
@@ -4655,7 +4655,7 @@ Entries:
         Added some differentiation to PDA ringers so you you can tell who
         exactly next to you is receiving all those nanochats~
   id: 495
-  time: '2026-06-12T22:13:51.0000000+00:00'
+  time: 2026-06-12T22:13:51.000Z
 - author: re-silvered
   changes:
     - type: Fix
@@ -4665,7 +4665,7 @@ Entries:
     - type: Fix
       message: Fixed widow packets not having a recipe.
   id: 496
-  time: '2026-06-12T22:14:44.0000000+00:00'
+  time: 2026-06-12T22:14:44.000Z
 - author: TrylobyteWasTaken
   changes:
     - type: Tweak
@@ -4675,13 +4675,13 @@ Entries:
     - type: Fix
       message: Plumbing Filters now work.
   id: 497
-  time: '2026-06-12T22:15:25.0000000+00:00'
+  time: 2026-06-12T22:15:25.000Z
 - author: Iisazel
   changes:
     - type: Tweak
       message: Updated texture for rambler
   id: 498
-  time: '2026-06-12T22:15:45.0000000+00:00'
+  time: 2026-06-12T22:15:45.000Z
 - author: re-silvered
   changes:
     - type: Tweak
@@ -4689,23 +4689,23 @@ Entries:
         Some round-specific items are now cleaned up and deleted automatically
         after getting to ColComm
   id: 499
-  time: '2026-06-12T22:16:07.0000000+00:00'
+  time: 2026-06-12T22:16:07.000Z
 - author: Iisazel
   changes:
     - type: Fix
       message: Active nanites now process properly and do not fill up stomaches
   id: 500
-  time: '2026-06-12T22:17:50.0000000+00:00'
+  time: 2026-06-12T22:17:50.000Z
 - author: MothHours
   changes: []
   id: 501
-  time: '2026-06-12T22:18:46.0000000+00:00'
+  time: 2026-06-12T22:18:46.000Z
 - author: Illumos
   changes:
     - type: Add
       message: FTL-less shuttle console, for use by mappers.
   id: 502
-  time: '2026-06-12T22:20:38.0000000+00:00'
+  time: 2026-06-12T22:20:38.000Z
 - author: CaptainComedii
   changes:
     - type: Add
@@ -4713,13 +4713,13 @@ Entries:
     - type: Add
       message: Cybersun R&D Cloak
   id: 503
-  time: '2026-06-12T22:21:31.0000000+00:00'
+  time: 2026-06-12T22:21:31.000Z
 - author: fenndragon
   changes:
     - type: Fix
       message: Fixed dragon breath
   id: 504
-  time: '2026-06-12T22:21:49.0000000+00:00'
+  time: 2026-06-12T22:21:49.000Z
 - author: re-silvered
   changes:
     - type: Tweak
@@ -4729,13 +4729,13 @@ Entries:
         Adjusted the tintreach's structural damage from 300 -> 200 when wielded,
         a 33% reduction
   id: 505
-  time: '2026-06-12T22:45:42.0000000+00:00'
+  time: 2026-06-12T22:45:42.000Z
 - author: re-silvered
   changes:
     - type: Tweak
       message: Syndicate expedition npcs no longer death rattle alert.
   id: 506
-  time: '2026-06-15T23:25:22.0000000+00:00'
+  time: 2026-06-15T23:25:22.000Z
 - author: Slatebreaker
   changes:
     - type: Tweak
@@ -4743,13 +4743,13 @@ Entries:
     - type: Tweak
       message: QuadBorg IDs now have their respective job icons
   id: 507
-  time: '2026-06-15T23:26:05.0000000+00:00'
+  time: 2026-06-15T23:26:05.000Z
 - author: Iisazel
   changes:
     - type: Tweak
       message: Argocyte blades are no longer the strongest weapon in the game
   id: 508
-  time: '2026-06-15T23:30:26.0000000+00:00'
+  time: 2026-06-15T23:30:26.000Z
 - author: Typheus
   changes:
     - type: Tweak
@@ -4757,19 +4757,19 @@ Entries:
         Station AI name changes to character name if positronic brain is
         inserted during construction
   id: 509
-  time: '2026-06-15T23:31:59.0000000+00:00'
+  time: 2026-06-15T23:31:59.000Z
 - author: FieryTech
   changes:
     - type: Tweak
       message: New xenoborg mothership mapping, for all your assimilation needs.
   id: 510
-  time: '2026-06-15T23:33:45.0000000+00:00'
+  time: 2026-06-15T23:33:45.000Z
 - author: Typheus
   changes:
     - type: Tweak
       message: Ship AIs have comms restricted from Command and Security
   id: 511
-  time: '2026-06-15T23:34:19.0000000+00:00'
+  time: 2026-06-15T23:34:19.000Z
 - author: IngvarJackal
   changes:
     - type: Add
@@ -4786,19 +4786,19 @@ Entries:
         with other big events, and Central Command's threat detection will hint
         at their presence after 60 minutes.
   id: 512
-  time: '2026-06-15T23:35:14.0000000+00:00'
+  time: 2026-06-15T23:35:14.000Z
 - author: BackeTako
   changes:
     - type: Add
       message: Added a Scandinavian Accent
   id: 513
-  time: '2026-06-15T23:35:47.0000000+00:00'
+  time: 2026-06-15T23:35:47.000Z
 - author: okdamsam
   changes:
     - type: Add
       message: Slow ooc admin command
   id: 514
-  time: '2026-06-15T23:36:15.0000000+00:00'
+  time: 2026-06-15T23:36:15.000Z
 - author: re-silvered
   changes:
     - type: Add
@@ -4815,7 +4815,7 @@ Entries:
         synth's. They will now appropriately maul anyone that gets it inside of
         them
   id: 515
-  time: '2026-06-16T00:12:26.0000000+00:00'
+  time: 2026-06-16T00:12:26.000Z
 - author: Shades
   changes:
     - type: Add
@@ -4829,25 +4829,25 @@ Entries:
     - type: Add
       message: Added back PhaseNoms, The Dark, ShadeGen.
   id: 516
-  time: '2026-06-16T01:49:01.0000000+00:00'
+  time: 2026-06-16T01:49:01.000Z
 - author: fenndragon
   changes:
     - type: Tweak
       message: Vent critters now organize to fuck up one person
   id: 517
-  time: '2026-06-16T02:06:14.0000000+00:00'
+  time: 2026-06-16T02:06:14.000Z
 - author: Hammeredmantis
   changes:
     - type: Add
       message: 'Added the spark of hatred to AI '
   id: 518
-  time: '2026-06-16T02:06:42.0000000+00:00'
+  time: 2026-06-16T02:06:42.000Z
 - author: Iisazel
   changes:
     - type: Add
       message: Added alot more ship storage options
   id: 519
-  time: '2026-06-18T06:37:05.0000000+00:00'
+  time: 2026-06-18T06:37:05.000Z
 - author: fenndragon
   changes:
     - type: Add
@@ -4855,7 +4855,7 @@ Entries:
     - type: Remove
       message: Reduced the bluespace stash max size capacity from Ginormous to Huge
   id: 520
-  time: '2026-06-18T09:51:38.0000000+00:00'
+  time: 2026-06-18T09:51:38.000Z
 - author: Shades
   changes:
     - type: Fix
@@ -4869,13 +4869,13 @@ Entries:
     - type: Fix
       message: NullSpacePuller not stopping the pulling action correctly.
   id: 521
-  time: '2026-06-18T10:54:54.0000000+00:00'
+  time: 2026-06-18T10:54:54.000Z
 - author: ScolarVisari
   changes:
     - type: Add
       message: Added Tradeband language
   id: 522
-  time: '2026-06-18T10:55:22.0000000+00:00'
+  time: 2026-06-18T10:55:22.000Z
 - author: Iisazel
   changes:
     - type: Add
@@ -4883,7 +4883,7 @@ Entries:
         Figurines (And sex toys) now save when left on the floor! Please dont
         explode the server with this power
   id: 523
-  time: '2026-06-18T10:57:25.0000000+00:00'
+  time: 2026-06-18T10:57:25.000Z
 - author: Notarin
   changes:
     - type: Add
@@ -4891,7 +4891,7 @@ Entries:
     - type: Tweak
       message: Gave the mantis the addressed telepathy psionic power
   id: 524
-  time: '2026-06-18T10:57:46.0000000+00:00'
+  time: 2026-06-18T10:57:46.000Z
 - author: Slatebreaker
   changes:
     - type: Tweak
@@ -4899,11 +4899,11 @@ Entries:
         Document cases can now hold clipboards and casettes, and show their 100%
         explosion resistance
   id: 525
-  time: '2026-06-18T10:59:39.0000000+00:00'
+  time: 2026-06-18T10:59:39.000Z
 - author: '-'
   changes: []
   id: 526
-  time: '2026-06-18T11:02:09.0000000+00:00'
+  time: 2026-06-18T11:02:09.000Z
 - author: fenndragon
   changes:
     - type: Tweak
@@ -4911,7 +4911,7 @@ Entries:
     - type: Tweak
       message: syndicate equipment no longer saves
   id: 527
-  time: '2026-06-18T11:27:33.0000000+00:00'
+  time: 2026-06-18T11:27:33.000Z
 - author: IngvarJackal
   changes:
     - type: Fix
@@ -4919,7 +4919,7 @@ Entries:
         Fixed saved ships losing their consoles and air vents/scrubbers when
         loaded. Previously-saved ships are repaired automatically on load.
   id: 528
-  time: '2026-06-19T09:44:29.0000000+00:00'
+  time: 2026-06-19T09:44:29.000Z
 - author: IngvarJackal
   changes:
     - type: Fix
@@ -4927,7 +4927,7 @@ Entries:
         Light sensitivity traits no longer burn you in light levels they
         shouldn't.
   id: 529
-  time: '2026-06-19T09:44:43.0000000+00:00'
+  time: 2026-06-19T09:44:43.000Z
 - author: re-silvered
   changes:
     - type: Add
@@ -4936,7 +4936,7 @@ Entries:
         toggle it on/off in Accessibility settings or adjust the volume in Audio
         settings.)
   id: 530
-  time: '2026-06-19T09:45:38.0000000+00:00'
+  time: 2026-06-19T09:45:38.000Z
 - author: re-silvered
   changes:
     - type: Add
@@ -4944,7 +4944,7 @@ Entries:
         Added an undock all button, no longer will you have to iterate through
         all of your docks manually
   id: 531
-  time: '2026-06-19T09:46:49.0000000+00:00'
+  time: 2026-06-19T09:46:49.000Z
 - author: Petalpool
   changes:
     - type: Add
@@ -4956,7 +4956,7 @@ Entries:
         (Elkridge Depot) Cargo is no longer all access, and is instead, cargo
         access.
   id: 532
-  time: '2026-06-19T10:04:23.0000000+00:00'
+  time: 2026-06-19T10:04:23.000Z
 - author: re-silvered
   changes:
     - type: Add
@@ -4964,13 +4964,13 @@ Entries:
         Added arachnophobia mode! No longer will you have to see the spiders if
         you don't want to.
   id: 533
-  time: '2026-06-19T10:05:34.0000000+00:00'
+  time: 2026-06-19T10:05:34.000Z
 - author: re-silvered
   changes:
     - type: Fix
       message: Fixed finished votes being left on screen
   id: 534
-  time: '2026-06-19T10:05:55.0000000+00:00'
+  time: 2026-06-19T10:05:55.000Z
 - author: fenndragon
   changes:
     - type: Remove
@@ -4982,7 +4982,7 @@ Entries:
     - type: Remove
       message: minor cleanup of broken assets from previous PR
   id: 535
-  time: '2026-06-19T10:11:35.0000000+00:00'
+  time: 2026-06-19T10:11:35.000Z
 - author: re-silvered
   changes:
     - type: Add
@@ -4992,31 +4992,31 @@ Entries:
     - type: Fix
       message: Fixed felionoids not getting any NSFW marking options
   id: 536
-  time: '2026-06-19T10:12:16.0000000+00:00'
+  time: 2026-06-19T10:12:16.000Z
 - author: IngvarJackal
   changes:
     - type: Tweak
       message: Size affects pitch of emotes
   id: 537
-  time: '2026-06-19T10:12:35.0000000+00:00'
+  time: 2026-06-19T10:12:35.000Z
 - author: DrekkCuga
   changes:
     - type: Fix
       message: Even more bug fixes for the automated tests!
   id: 538
-  time: '2026-06-20T05:18:47.0000000+00:00'
+  time: 2026-06-20T05:18:47.000Z
 - author: DrekkCuga
   changes:
     - type: Fix
       message: Fixed so many construction issues
   id: 539
-  time: '2026-06-20T05:19:10.0000000+00:00'
+  time: 2026-06-20T05:19:10.000Z
 - author: DrekkCuga
   changes:
     - type: Fix
       message: Fixed a bunch of maps and ships having invalid tiles.
   id: 540
-  time: '2026-06-20T05:19:56.0000000+00:00'
+  time: 2026-06-20T05:19:56.000Z
 - author: DrekkCuga
   changes:
     - type: Tweak
@@ -5024,13 +5024,13 @@ Entries:
         Balanced item prices so you can't get infinite money from buying/selling
         anymore.
   id: 541
-  time: '2026-06-20T05:21:14.0000000+00:00'
+  time: 2026-06-20T05:21:14.000Z
 - author: DrekkCuga
   changes:
     - type: Fix
       message: Fixed some traits not having a proper name
   id: 542
-  time: '2026-06-20T05:21:40.0000000+00:00'
+  time: 2026-06-20T05:21:40.000Z
 - author: IngvarJackal
   changes:
     - type: Add
@@ -5038,7 +5038,7 @@ Entries:
     - type: Remove
       message: Size dependent emote pitch
   id: 543
-  time: '2026-06-20T09:49:19.0000000+00:00'
+  time: 2026-06-20T09:49:19.000Z
 - author: re-silvered
   changes:
     - type: Tweak
@@ -5050,19 +5050,19 @@ Entries:
         Reagent dispensers are back to their old transfer values (1, 5, 10, 15,
         20, 25, 30, 50, 100)
   id: 544
-  time: '2026-06-20T21:50:47.0000000+00:00'
+  time: 2026-06-20T21:50:47.000Z
 - author: DrekkCuga
   changes:
     - type: Fix
       message: Fixed the automated tests!
   id: 545
-  time: '2026-06-20T21:54:11.0000000+00:00'
+  time: 2026-06-20T21:54:11.000Z
 - author: Hammeredmantis
   changes:
     - type: Fix
       message: Changed the limiter on asteroid spawns, space feels populated now
   id: 546
-  time: '2026-06-21T04:50:51.0000000+00:00'
+  time: 2026-06-21T04:50:51.000Z
 - author: re-silvered
   changes:
     - type: Fix
@@ -5070,19 +5070,19 @@ Entries:
         Fixed cnc ooc preference icons being visible when characters were
         otherwise stealthed.
   id: 547
-  time: '2026-06-21T04:56:04.0000000+00:00'
+  time: 2026-06-21T04:56:04.000Z
 - author: Typheus
   changes:
     - type: Fix
       message: Fixed the AI Eye disappearing after returning from expedition
   id: 548
-  time: '2026-06-21T04:57:05.0000000+00:00'
+  time: 2026-06-21T04:57:05.000Z
 - author: Typheus
   changes:
     - type: Fix
       message: AI Eye no longer moves around while piloting a ship as an AI Core
   id: 549
-  time: '2026-06-21T04:57:21.0000000+00:00'
+  time: 2026-06-21T04:57:21.000Z
 - author: Shades
   changes:
     - type: Add
@@ -5098,7 +5098,7 @@ Entries:
     - type: Remove
       message: The ability for Brighteyes to be Revolutionary.
   id: 550
-  time: '2026-06-21T07:04:11.0000000+00:00'
+  time: 2026-06-21T07:04:11.000Z
 - author: re-silvered
   changes:
     - type: Fix
@@ -5107,13 +5107,13 @@ Entries:
         correctly poisoned by allicin and theobromine, and breathe twice as fast
         compared to humans.
   id: 551
-  time: '2026-06-21T07:05:04.0000000+00:00'
+  time: 2026-06-21T07:05:04.000Z
 - author: 2DSiggy
   changes:
     - type: Add
       message: Vinyls can now be stored in bluespace bookshelves.
   id: 552
-  time: '2026-06-21T07:07:11.0000000+00:00'
+  time: 2026-06-21T07:07:11.000Z
 - author: fenndragon
   changes:
     - type: Add
@@ -5121,7 +5121,7 @@ Entries:
     - type: Tweak
       message: Changed the way that Speed boots and legs function
   id: 553
-  time: '2026-06-21T08:40:40.0000000+00:00'
+  time: 2026-06-21T08:40:40.000Z
 - author: re-silvered
   changes:
     - type: Fix
@@ -5134,49 +5134,49 @@ Entries:
         Removes Felionoids being able to drag without their hands as it's not
         mentioned as something they should be receiving in the guidebook.
   id: 554
-  time: '2026-06-21T08:41:03.0000000+00:00'
+  time: 2026-06-21T08:41:03.000Z
 - author: DrekkCuga
   changes:
     - type: Fix
       message: Fixed some Pipes and Fire Locks on Amber
   id: 555
-  time: '2026-06-22T04:38:44.0000000+00:00'
+  time: 2026-06-22T04:38:44.000Z
 - author: NatusExVacuo
   changes:
     - type: Fix
       message: ColCom added the ordinance back to ship weapons.
   id: 556
-  time: '2026-06-22T12:05:09.0000000+00:00'
+  time: 2026-06-22T12:05:09.000Z
 - author: Shades
   changes:
     - type: Fix
       message: Fixed a collision issue withy the Phase Barrier Cable.
   id: 557
-  time: '2026-06-23T08:08:18.0000000+00:00'
+  time: 2026-06-23T08:08:18.000Z
 - author: re-silvered
   changes:
     - type: Fix
       message: Fixed Neuralyzers not saving added compulsions
   id: 558
-  time: '2026-06-23T12:46:51.0000000+00:00'
+  time: 2026-06-23T12:46:51.000Z
 - author: Illumos
   changes:
     - type: Fix
       message: Psychologists are now allowed to bring other shoes to work
   id: 559
-  time: '2026-06-23T12:47:05.0000000+00:00'
+  time: 2026-06-23T12:47:05.000Z
 - author: Khaomi
   changes:
     - type: Add
       message: Missing localizations
   id: 560
-  time: '2026-06-23T12:57:38.0000000+00:00'
+  time: 2026-06-23T12:57:38.000Z
 - author: re-silvered
   changes:
     - type: Tweak
       message: You can now lay eggs whilst interaction blocked (e.g handcuffed)
   id: 561
-  time: '2026-06-23T12:58:08.0000000+00:00'
+  time: 2026-06-23T12:58:08.000Z
 - author: re-silvered
   changes:
     - type: Fix
@@ -5184,7 +5184,7 @@ Entries:
         Fixed jet injectors pulling their max inject amount all the time, now
         instead always 5u at a time draw
   id: 562
-  time: '2026-06-23T12:59:00.0000000+00:00'
+  time: 2026-06-23T12:59:00.000Z
 - author: Typheus
   changes:
     - type: Add
@@ -5194,25 +5194,25 @@ Entries:
     - type: Tweak
       message: Exosuit Fabricator speciality borg printing restricted to Research
   id: 563
-  time: '2026-06-23T13:01:02.0000000+00:00'
+  time: 2026-06-23T13:01:02.000Z
 - author: Khaomi
   changes:
     - type: Remove
       message: Removed Lone Digger by Caravan Palace from Jukebox for copyright reason
   id: 564
-  time: '2026-06-23T22:21:15.0000000+00:00'
+  time: 2026-06-23T22:21:15.000Z
 - author: re-silvered
   changes:
     - type: Fix
       message: Fixed church bells putting blank messages in chat
   id: 565
-  time: '2026-06-24T04:36:50.0000000+00:00'
+  time: 2026-06-24T04:36:50.000Z
 - author: ATRAC
   changes:
     - type: Tweak
       message: LRSI is now the Lumi Reind Stellar Initiative~
   id: 566
-  time: '2026-06-24T05:02:31.0000000+00:00'
+  time: 2026-06-24T05:02:31.000Z
 - author: re-silvered
   changes:
     - type: Add
@@ -5222,7 +5222,7 @@ Entries:
     - type: Add
       message: Diona, Vox and Vulpkanins now have unique sneeze sounds.
   id: 567
-  time: '2026-06-24T05:04:18.0000000+00:00'
+  time: 2026-06-24T05:04:18.000Z
 - author: re-silvered
   changes:
     - type: Tweak
@@ -5230,25 +5230,25 @@ Entries:
     - type: Fix
       message: Fixed Smile the slime not being able to be taken over via ghost role
   id: 568
-  time: '2026-06-24T05:05:00.0000000+00:00'
+  time: 2026-06-24T05:05:00.000Z
 - author: DrekkCuga
   changes:
     - type: Fix
       message: Fixed some ships throwing errors or crashing the server when spawned.
   id: 569
-  time: '2026-06-24T05:07:39.0000000+00:00'
+  time: 2026-06-24T05:07:39.000Z
 - author: DrekkCuga
   changes:
     - type: Tweak
       message: Updated ship prices so they cost more to buy than sell.
   id: 570
-  time: '2026-06-24T05:08:16.0000000+00:00'
+  time: 2026-06-24T05:08:16.000Z
 - author: re-silvered
   changes:
     - type: Add
       message: Added spectral locators to the backpack items loadout options
   id: 571
-  time: '2026-06-24T05:14:23.0000000+00:00'
+  time: 2026-06-24T05:14:23.000Z
 - author: re-silvered
   changes:
     - type: Fix
@@ -5256,10 +5256,282 @@ Entries:
         You can now have multiple instances of passive damage / passive
         regeneration
   id: 572
-  time: '2026-06-27T07:54:23.0000000+00:00'
+  time: 2026-06-27T07:54:23.000Z
 - author: Sully669
   changes:
     - type: Add
       message: Added contribution guidelines to github
   id: 573
-  time: '2026-06-28T10:47:06.0000000+00:00'
+  time: 2026-06-28T10:47:06.000Z
+- author: Notarin Steele
+  changes:
+    - type: Fix
+      message: Fixed vaulting on machines taking priority.
+  id: 574
+  time: 2026-06-30T19:37:06.000Z
+- author: Notarin Steele
+  changes:
+    - type: Tweak
+      message: Resized throngler plushie to be 4x4
+  id: 575
+  time: 2026-06-30T18:20:47.000Z
+- author: Iisazel
+  changes:
+    - type: Fix
+      message: Minilockers no longer give plasteel
+  id: 578
+  time: 2026-07-07T20:49:11.000Z
+- author: Iisazel
+  changes:
+    - type: Tweak
+      message: Jerry cans now act as a fuel source for flamethrowers
+  id: 579
+  time: 2026-07-07T21:51:38.000Z
+- author: Iisazel
+  changes:
+    - type: Add
+      message: Papers and playing cards now slide under the airlocks
+  id: 580
+  time: 2026-07-04T14:48:23.000Z
+- author: Iisazel
+  changes:
+    - type: Tweak
+      message: Added missing cartridges to some jobs
+  id: 581
+  time: 2026-07-04T18:19:48.000Z
+- author: Iisazel
+  changes:
+    - type: Tweak
+      message: RMC ammo was renamed to avoid confusion
+  id: 582
+  time: 2026-07-08T12:41:50.000Z
+- author: N9inB0x
+  changes:
+    - type: Add
+      message: Untouchable Trait
+  id: 583
+  time: 2026-06-29T04:57:57.000Z
+- author: Iisazel
+  changes:
+    - type: Fix
+      message: Fixed some guns spawning with old calibers
+  id: 585
+  time: 2026-07-04T22:44:53.000Z
+- author: N9inB0x
+  changes:
+    - type: Fix
+      message: Increased Hardlight Core Max Player Count
+  id: 586
+  time: 2026-07-03T14:42:46.000Z
+- author: N9inB0x
+  changes:
+    - type: Fix
+      message: Bounties Skippable For Quartermasters
+  id: 587
+  time: 2026-07-03T15:18:27.000Z
+- author: Mspaintwizard
+  changes:
+    - type: Tweak
+      message: Misc patches to core station
+    - type: Add
+      message: New maints area
+  id: 588
+  time: 2026-07-09T23:04:35.000Z
+- author: N9inB0x
+  changes:
+    - type: Fix
+      message: Box Station Sell Console
+  id: 589
+  time: 2026-07-03T14:02:20.000Z
+- author: DrekkCuga
+  changes:
+    - type: Tweak
+      message: Chem Goggles can now see inside bottles and cans
+  id: 590
+  time: 2026-07-04T15:03:36.000Z
+- author: DrekkCuga
+  changes:
+    - type: Fix
+      message: Fixed chat bubbles flooding your screen when entering a room!
+  id: 591
+  time: 2026-07-04T15:54:55.000Z
+- author: DrekkCuga
+  changes:
+    - type: Fix
+      message: Fixed Vampirism trait causing client-side delays.
+  id: 592
+  time: 2026-07-04T16:33:44.000Z
+- author: DrekkCuga
+  changes:
+    - type: Fix
+      message: Shooting carps with a disabler no longer breaks your screen
+  id: 593
+  time: 2026-07-02T09:43:31.000Z
+- author: DrekkCuga
+  changes:
+    - type: Add
+      message: Stomachs can now be replaced via surgery
+  id: 594
+  time: 2026-07-08T07:06:43.000Z
+- author: Antelino
+  changes:
+    - type: Add
+      message: Added Neuroshock Gloves to the Mercenary Vending Machine.
+  id: 595
+  time: 2026-06-28T15:23:20.000Z
+- author: Iisazel
+  changes:
+    - type: Tweak
+      message: Medipens and some hyposprays can now pierce hardsuits
+  id: 596
+  time: 2026-06-24T18:28:58.000Z
+- author: Thedingus99
+  changes:
+    - type: Tweak
+      message: Removes Frezon,Tritium from Plant Mutations
+  id: 597
+  time: 2026-07-11T08:58:01.000Z
+- author: 3xecutie
+  changes:
+    - type: Add
+      message: Added captain's and hydroponics magboots.
+  id: 598
+  time: 2026-07-11T06:03:57.000Z
+- author: 3xecutie
+  changes:
+    - type: Tweak
+      message: Mapped the new magboots.
+  id: 599
+  time: 2026-07-11T06:04:49.000Z
+- author: Slatebreaker
+  changes:
+    - type: Tweak
+      message: Cyborgs can now wear collars
+  id: 600
+  time: 2026-06-25T07:18:46.000Z
+- author: Slatebreaker
+  changes:
+    - type: Add
+      message: All cyborgs can now wear governor collars and medals
+  id: 601
+  time: 2026-06-25T07:19:38.000Z
+- author: Slatebreaker
+  changes:
+    - type: Tweak
+      message: Governor collar now slows down the wearer
+  id: 602
+  time: 2026-06-25T07:31:57.000Z
+- author: Slatebreaker
+  changes:
+    - type: Fix
+      message: Fix incorrect collar sprites on quadborgs
+  id: 603
+  time: 2026-06-25T07:32:23.000Z
+- author: Slatebreaker
+  changes:
+    - type: Fix
+      message: Fix governor collar corrupted laws showing placeholder string
+  id: 604
+  time: 2026-06-25T14:52:34.000Z
+- author: Lucca Boets
+  changes:
+    - type: Add
+      message: Basalt tile decals
+  id: 605
+  time: 2026-06-28T10:45:25.000Z
+- author: Livyathan
+  changes:
+    - type: Tweak
+      message: Changes synth default skin tone from green to Urist beige.
+  id: 606
+  time: 2026-07-14T00:58:56.000Z
+- author: Livyathan
+  changes:
+    - type: Fix
+      message: >-
+        Fixed Synth CCU entities not having the correct languages, Sol Common
+        and EAL.
+  id: 607
+  time: 2026-07-14T18:05:26.000Z
+- author: Lucca Boets
+  changes:
+    - type: Add
+      message: Add Ratvar's rows cards
+  id: 608
+  time: 2026-07-01T15:09:40.000Z
+- author: Lucca Boets
+  changes:
+    - type: Add
+      message: ratvar's rows card box
+    - type: Add
+      message: ratvar's rows booster packs
+  id: 609
+  time: 2026-07-01T16:06:07.000Z
+- author: Khaomi
+  changes:
+    - type: Fix
+      message: fix noncon marker showing aggressor when nothing is selected
+  id: 610
+  time: 2026-07-17T18:24:16.000Z
+- author: N9inB0x
+  changes:
+    - type: Tweak
+      message: >-
+        Lore-Accurate Copper-Based Blood for Skrell (Use copper pills for
+        bloodloss!)
+    - type: Tweak
+      message: Lore-Accurate Blue Skrell Organs
+  id: 611
+  time: 2026-07-18T12:28:41.000Z
+- author: Antelino
+  changes:
+    - type: Add
+      message: New laugh, cry and speech for shadekin.
+  id: 612
+  time: 2026-07-20T18:25:56.000Z
+- author: N9inB0x
+  changes:
+    - type: Fix
+      message: Untouchable Trait Global Hug Fix
+  id: 613
+  time: 2026-07-18T01:51:45.000Z
+- author: UtriculariaCalycifida
+  changes:
+    - type: Tweak
+      message: Sheleg passengers and geneticists get suits on roundstart.
+  id: 614
+  time: 2026-07-17T00:38:42.000Z
+- author: MizunoMX
+  changes:
+    - type: Tweak
+      message: Changes the company of the "Empire" to "HDS"
+  id: 615
+  time: 2026-07-19T18:00:17.000Z
+- author: Khaomi
+  changes:
+    - type: Fix
+      message: Add missing localizations and fix Amoxla capitalization
+  id: 616
+  time: 2026-07-17T18:41:10.000Z
+- author: Khaomi
+  changes:
+    - type: Fix
+      message: Add missing NanoChat localization
+  id: 617
+  time: 2026-07-17T18:47:09.000Z
+- author: Livyathan
+  changes:
+    - type: Add
+      message: Added an unobtainable (and fake) lit holo-cigar.
+    - type: Tweak
+      message: Chameleon masks can now be disguised as lit and unlit holo-cigars.
+  id: 618
+  time: 2026-07-19T16:36:25.000Z
+- author: Fenn
+  changes:
+    - type: Remove
+      message: Temporarily disabled genetics
+    - type: Remove
+      message: Temporarily disabled Revs
+  id: 619
+  time: '2026-08-04T02:09:55-07:00'

@@ -58,7 +58,7 @@
           tags:
           - RMCMagazineSMGNailgun
   - type: GunDamageModifier
-    multiplier: 1.2
+    multiplier: 1
   # - type: Nailgun
 
 - type: entity

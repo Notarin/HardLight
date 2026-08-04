@@ -9,17 +9,20 @@ on:
 jobs:
   yaml-schema-validation:
     name: YAML RGA schema validator
-    if: github.actor != 'PJBot' && github.event.pull_request.draft == false && github.actor != 'FrontierATC' # Frontier
+    if: forgejo.actor != 'PJBot' && forgejo.event.pull_request.draft == false && forgejo.actor != 'FrontierATC' # Frontier
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4.2.2
-    - name: Setup Submodule
-      run: git submodule update --init
-    - name: Pull engine updates
-      uses: space-wizards/submodule-dependency@v0.1.5
-    - uses: PaulRitter/yaml-schema-validator@v1
-      with:
-        schema: RobustToolbox/Schemas/rga.yml
-        path_pattern: .*attributions.ya?ml$
-        validators_path: RobustToolbox/Schemas/rga_validators.py
-        validators_requirements: RobustToolbox/Schemas/rga_requirements.txt
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          submodules: recursive
+
+      - name: Pull engine updates
+        uses: https://github.com/space-wizards/submodule-dependency@v0.1.5
+
+      - uses: https://github.com/PaulRitter/yaml-schema-validator@v1
+        with:
+          schema: RobustToolbox/Schemas/rga.yml
+          path_pattern: .*attributions.ya?ml$
+          validators_path: RobustToolbox/Schemas/rga_validators.py
+          validators_requirements: RobustToolbox/Schemas/rga_requirements.txt

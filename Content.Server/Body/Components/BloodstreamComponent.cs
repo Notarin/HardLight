@@ -195,6 +195,7 @@ namespace Content.Server.Body.Components
         /// EE: If this is true, the entity will not passively regenerate blood,
         /// and instead will slowly lose blood.
         /// </summary>
+        [DataField]
         public bool HasBloodDeficiency = false;
 
         /// <summary>

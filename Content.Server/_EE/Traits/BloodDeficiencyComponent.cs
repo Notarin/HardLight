@@ -6,9 +6,9 @@ namespace Content.Server.Traits.Assorted;
 [RegisterComponent]
 public sealed partial class BloodDeficiencyComponent : Component
 {
-    // <summary>
-    //     How much reagent of blood should be removed in each update interval?
-    // </summary>
+    /// <summary>
+    ///     How much percentage of max blood volume should be removed in each update interval?
+    /// </summary>
     [DataField(required: true)]
-    public float BloodLossAmount;
+    public float BloodLossPercentage;
 }

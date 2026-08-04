@@ -829,9 +829,9 @@
   name: reinforced wall
   components:
   - type: Sprite
-    sprite: _NF/Structures/Walls/solid.rsi # Frontier
+    sprite: Structures/Walls/solid.rsi
   - type: Icon
-    sprite: _NF/Structures/Walls/solid.rsi # Frontier
+    sprite: Structures/Walls/solid.rsi
     state: rgeneric
   - type: Construction
     graph: Girder
@@ -953,14 +953,14 @@
     - Diagonal
   - type: Sprite
     drawdepth: Walls
-    sprite: _NF/Structures/Walls/reinforced_diagonal.rsi # Frontier: _NF folder
+    sprite: Structures/Walls/reinforced_diagonal.rsi
     state: state0
   - type: IconSmooth
-    mode: DiagonalNF # Frontier: Diagonal<DiagonalNF
+    mode: Diagonal
     key: walls
     base: state
   - type: Icon
-    sprite: _NF/Structures/Walls/reinforced_diagonal.rsi # Frontier: _NF folder
+    sprite: Structures/Walls/reinforced_diagonal.rsi
     state: state0
   - type: Destructible # Mono - override HP stats from parent: WallDiagonal, matches reinforced wall
     thresholds:
@@ -1333,13 +1333,13 @@
     tags:
       - Wall
   - type: Sprite
-    sprite: _NF/Structures/Walls/solid.rsi # Frontier
+    sprite: Structures/Walls/solid.rsi
   - type: WallReplacementMarker
   - type: Construction
     graph: Girder
     node: wall
   - type: Icon
-    sprite: _NF/Structures/Walls/solid.rsi # Frontier
+    sprite: Structures/Walls/solid.rsi
   - type: RCDDeconstructable
     cost: 6
     delay: 8

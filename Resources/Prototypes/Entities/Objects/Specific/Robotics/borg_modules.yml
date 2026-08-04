@@ -1283,8 +1283,8 @@
   - type: ItemBorgModule
     moduleId: Weapons # Frontier
     items:
-    - NFWeaponPistolEchis # Frontier: WeaponPistolEchis<WeaponPistolEchis
-    - EnergyDaggerLoud
+    - SWeaponPistolEchis # Frontier: WeaponPistolEchis<WeaponPistolEchis
+    - SEnergyDagger
   - type: BorgModuleIcon
     icon: { sprite: Interface/Actions/actions_borg.rsi, state: syndicate-weapon-module }
   - type: Item
@@ -1357,7 +1357,7 @@
     - type: ItemBorgModule
       moduleId: L6CROW # Frontier
       items:
-        - WeaponLightMachineGunL6C # Frontier: WeaponLightMachineGunL6C<NFWeaponLightMachineGunL6C
+        - SWeaponLightMachineGunL6C # Frontier: WeaponLightMachineGunL6C<NFWeaponLightMachineGunL6C
         - PinpointerSyndicateNuclear
     - type: BorgModuleIcon
       icon: { sprite: Interface/Actions/actions_borg.rsi, state: syndicate-l6c-module }

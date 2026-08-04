@@ -1,0 +1,96 @@
+# SPDX-FileCopyrightText: 2024 BombasterDS <115770678+BombasterDS@users.noreply.github.com>
+# SPDX-FileCopyrightText: 2024 DevilishMilk <bluscout78@yahoo.com>
+# SPDX-FileCopyrightText: 2024 Piras314 <p1r4s@proton.me>
+# SPDX-FileCopyrightText: 2024 Tadeo <td12233a@gmail.com>
+# SPDX-FileCopyrightText: 2024 yglop <95057024+yglop@users.noreply.github.com>
+# SPDX-FileCopyrightText: 2025 taydeo <td12233a@gmail.com>
+# SPDX-FileCopyrightText: 2026 Xcybitt <197952719+Xcybitt@users.noreply.github.com>
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+
+- type: entity
+  name: Plasma Cutter
+  parent: [ BaseWeaponBatterySmall, Welder]
+  id: WeaponPlasmaCutter
+  description: A weapon that shoots out bolts of plasma (plasma not included). Able to rip up hull platings beneath tiles.
+  components:
+  - type: Sprite
+    sprite: _Goobstation/Objects/Weapons/Guns/Battery/cutter.rsi
+    layers:
+    - state: icon
+    - state: plasma-cutter-activate-icon
+      visible: false
+      shader: unshaded
+      map: ["enum.ToggleVisuals.Layer"]
+  - type: PointLight
+    enabled: false
+    radius: 1.5
+    color: lightblue
+  - type: Item
+    size: Large
+    sprite: _Goobstation/Objects/Weapons/Guns/Battery/cutter.rsi
+    shape:
+    - 0,0,1,1
+  - type: ToggleableLightVisuals
+    spriteLayer: plasma-cutter-activate-icon
+    inhandVisuals:
+      left:
+      - state: cutter-glow-inhand-left
+        shader: unshaded
+      right:
+      - state: cutter-glow-inhand-right
+        shader: unshaded
+  - type: Gun
+    fireRate: 1
+    soundGunshot:
+      path: /Audio/_Goobstation/Weapons/Guns/Gunshots/plasma_cutter.ogg
+  - type: Battery
+    maxCharge: 500
+    startingCharge: 500
+  - type: BatterySelfRecharger
+    autoRecharge: true
+    autoRechargeRate: 40
+  - type: ProjectileBatteryAmmoProvider
+    proto: BulletPlasmaCutter
+    fireCost: 100
+  - type: Appearance
+  - type: Multishot
+    spreadMultiplier: 1.2
+  - type: MeleeWeapon
+    damage:
+      types:
+        Blunt: 8
+    soundHit:
+      collection: MetalThud
+  - type: AltFireMelee
+    attackType: Light
+  - type: Scalpel # Shitmed - Since in Dead Space 2 it's used as a scalpel. Kinda.
+    speed: 0.7
+  - type: SurgeryTool # Shitmed
+    startSound:
+      collection: Welder
+    endSound:
+      collection: WelderOff
+  - type: SolutionContainerManager #Stolen from the industrial welding tool. Completely.
+    solutions:
+      Welder:
+        reagents:
+        - ReagentId: WeldingFuel
+          Quantity: 200
+        maxVol: 200
+  - type: RequiresEyeProtection
+    statusEffectTime: 5 # less harmful; sunglasses can block it
+  - type: Tool #Might make it able to rip up tiles
+    qualities:
+      - Axing
+      - Welding
+  - type: ToolTileCompatible
+
+- type: entity
+  parent: WeaponPlasmaCutter
+  id: WeaponPlasmaCutterEmpty
+  suffix: Empty
+  components:
+  - type: Battery
+    maxCharge: 500
+    startingCharge: 0

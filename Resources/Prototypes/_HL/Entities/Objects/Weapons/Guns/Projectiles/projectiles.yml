@@ -213,3 +213,46 @@
       - ContainmentFieldGenerator
       tags:
       - Wall
+
+# Adapted from the plasma cutter projectile.
+- type: entity
+  id: BulletLineGun
+  name: line shot
+  parent: BaseBullet
+  categories: [ HideSpawnMenu ]
+  description: It's a line of plasma. For mining. Exclusively.
+  components:
+  - type: Reflective
+    reflective:
+      - NonEnergy
+  - type: Sprite
+    noRot: false
+    sprite: _HL/Objects/Weapons/Guns/Ammunition/Projectiles/linegun.rsi
+    layers:
+    - state: icon
+      shader: unshaded
+  - type: GatheringProjectile
+    deleteOnCollide: false
+    damage:
+      types:
+        Heat: 20
+        Structural: 180
+  - type: TimedDespawn
+    lifetime: 0.2
+  - type: PointLight
+    radius: 3
+    color: purple
+    energy: 2
+
+# Adapted from the plasma cutter projectile.
+- type: entity
+  id: LineGunShot
+  name: line shot full
+  categories: [ HideSpawnMenu ]
+  description: It's a line of plasma. For mining. Exclusively.
+  parent: BulletLineGun
+  components:
+  - type: ProjectileSpread
+    proto: BulletLineGun
+    count: 3 #60 heat damage if you hit all your shots
+    spread: 10

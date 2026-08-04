@@ -99,6 +99,7 @@
   - type: ToggleableClothing
     clothingPrototype: ClothingHeadHelmetHardsuitEngineering
 
+
 #Spationaut Hardsuit
 - type: entity
   parent: ClothingOuterHardsuitBase # Removed BaseCargoContraband

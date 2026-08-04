@@ -1,7 +1,9 @@
 - type: trait
   id: BloodDeficiency
   category: Physical
-  cost: 6 # HardLight: points>cost
+  cost: 4 # HardLight: points>cost
+  mutuallyExclusiveTraits:
+  - PlateletFactories
   speciesBlacklist: # HardLight
   - IPC
   blacklist:

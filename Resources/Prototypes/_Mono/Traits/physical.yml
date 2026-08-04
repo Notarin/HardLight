@@ -379,9 +379,9 @@
   - NaturalRegen
   - ShadekinRegeneration
   - ExtremeShadekinRegeneration
+  - BloodDeficiency # EE
   speciesBlacklist:
   - IPC
-  - Avali
   - Synth # HardLight
   blacklist:
     components:
@@ -389,5 +389,13 @@
   components:
   - type: PlateletFactories
     intervalSeconds: 1
-    healPerSecond: .3
-    critMultiplier: .25
+    healPerSecond: 0.5 # HardLight: ?>0.5
+    critMultiplier: 0.25
+    excludedDamageTypes: # HardLight
+    - Asphyxiation
+    - Bloodloss
+    - Poison
+    - Radiation
+    - Cellular
+  - type: BloodDeficiency # EE: Incredibly actually works
+    bloodLossPercentage: -0.025

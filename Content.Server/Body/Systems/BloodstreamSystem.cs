@@ -697,7 +697,7 @@ public sealed class BloodstreamSystem : EntitySystem
         // First, check if the entity has enough hunger/thirst
         var hungerComp = CompOrNull<HungerComponent>(ent);
         var thirstComp = CompOrNull<ThirstComponent>(ent);
-        if (usedHunger > 0 && hungerComp is not null && (hungerComp.CurrentHunger < usedHunger || hungerComp.CurrentThreshold <= HungerThreshold.Starving)
+        if (usedHunger > 0 && hungerComp is not null && (_hunger.GetHunger(hungerComp) < usedHunger || hungerComp.CurrentThreshold <= HungerThreshold.Starving) // HardLight: hungerComp.CurrentHunger>_hunger.GetHunger(hungerComp)
             ||  usedThirst > 0 && thirstComp is not null && (thirstComp.CurrentThirst < usedThirst || thirstComp.CurrentThirstThreshold <= ThirstThreshold.Parched))
             return false;
 

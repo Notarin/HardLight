@@ -76,10 +76,6 @@
   - type: FootstepModifier
     footstepSoundCollection:
       collection: FootstepSmallThud
-  - type: PlateletFactories
-    intervalSeconds: 1
-    healPerSecond: .1
-    critMultiplier: .01
   - type: Damageable
     damageContainer: Biological
     damageModifierSet: Dreadtalon

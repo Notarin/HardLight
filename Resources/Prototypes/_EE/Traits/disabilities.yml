@@ -1,13 +1,12 @@
 - type: trait
   id: BloodDeficiency
   category: Physical
-  points: 2
-  requirements:
-    - !type:CharacterJobRequirement
-      inverted: true
-      jobs:
-        - Borg
-        - MedicalBorg
+  cost: 6 # HardLight: points>cost
+  speciesBlacklist: # HardLight
+  - IPC
+  blacklist:
+    components:
+      - BorgChassis
   components:
     - type: BloodDeficiency # by default, start taking bloodloss damage at around ~21.4 minutes,
       bloodLossPercentage: 0.0002333333 # then become crit ~10 minutes

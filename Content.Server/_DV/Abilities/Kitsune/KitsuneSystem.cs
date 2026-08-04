@@ -80,7 +80,7 @@ public sealed class KitsuneSystem : SharedKitsuneSystem
             _faction.AddFactions(args.NewEntity, factions.Factions);
         }
 
-        _popup.PopupEntity(Loc.GetString("kitsune-popup-morph-message-others", ("entity", args.NewEntity)), args.NewEntity, Filter.PvsExcept(args.NewEntity), true);
+        _popup.PopupEntity(Loc.GetString("kitsune-popup-morph-message-others", ("target", args.NewEntity)), args.NewEntity, Filter.PvsExcept(args.NewEntity), true); // Hardlight: entity<target
         _popup.PopupEntity(Loc.GetString("kitsune-popup-morph-message-user"), args.NewEntity, args.NewEntity);
     }
 

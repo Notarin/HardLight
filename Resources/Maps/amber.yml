@@ -4,8 +4,8 @@ meta:
   engineVersion: 274.0.0
   forkId: ""
   forkVersion: ""
-  time: 08/02/2026 12:04:23
-  entityCount: 25613
+  time: 08/04/2026 12:23:19
+  entityCount: 25618
 maps:
 - 1
 grids:
@@ -37029,6 +37029,12 @@ entities:
     - type: Transform
       rot: 1.5707963267948966 rad
       pos: 53.5,-54.5
+      parent: 2
+  - uid: 16610
+    components:
+    - type: Transform
+      rot: 3.141592653589793 rad
+      pos: 58.5,-50.5
       parent: 2
 - proto: BarSignTheLightbulb
   entities:
@@ -86915,18 +86921,6 @@ entities:
     - type: Transform
       pos: -30.5,-1.5
       parent: 2
-  - uid: 25566
-    components:
-    - type: Transform
-      anchored: True
-      pos: 58.5,-50.5
-      parent: 2
-    - type: Physics
-      bodyType: Static
-    - type: Lock
-      locked: True
-    - type: PointLight
-      enabled: True
 - proto: DeskBell
   entities:
   - uid: 9821
@@ -99960,13 +99954,7 @@ entities:
       pos: 58.815304,-48.528442
       parent: 2
     - type: SolutionContainerManager
-      solutions:
-        food:
-          temperature: 293.15
-          canReact: True
-          maxVol: 0
-          name: food
-          reagents: []
+      solutions: null
       containers:
       - food
     - type: ContainerContainer
@@ -99979,13 +99967,7 @@ entities:
       pos: 57.70593,-48.090942
       parent: 2
     - type: SolutionContainerManager
-      solutions:
-        food:
-          temperature: 293.15
-          canReact: True
-          maxVol: 0
-          name: food
-          reagents: []
+      solutions: null
       containers:
       - food
     - type: ContainerContainer
@@ -140806,13 +140788,6 @@ entities:
       parent: 2
 - proto: MouseTimedSpawner
   entities:
-  - uid: 16610
-    components:
-    - type: Transform
-      pos: 45.5,-51.5
-      parent: 2
-    - type: TimedSpawner
-      intervalSeconds: 720
   - uid: 16611
     components:
     - type: Transform
@@ -140851,6 +140826,11 @@ entities:
     components:
     - type: Transform
       pos: -36.5,-8.5
+      parent: 2
+  - uid: 25614
+    components:
+    - type: Transform
+      pos: 48.5,-37.5
       parent: 2
 - proto: Multitool
   entities:
@@ -165879,6 +165859,60 @@ entities:
       parent: 2
     - type: SurveillanceCamera
       id: Atmos Burn Chamber
+  - uid: 25566
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: -14.5,24.5
+      parent: 2
+    - type: SurveillanceCamera
+      setupAvailableNetworks:
+      - SurveillanceCameraEngineering
+      nameSet: True
+      id: Nuclear Reactor - Entrance
+  - uid: 25615
+    components:
+    - type: Transform
+      rot: 1.5707963267948966 rad
+      pos: -17.5,27.5
+      parent: 2
+    - type: SurveillanceCamera
+      setupAvailableNetworks:
+      - SurveillanceCameraEngineering
+      nameSet: True
+      id: Nuclear Reactor - Control Room
+  - uid: 25616
+    components:
+    - type: Transform
+      rot: 3.141592653589793 rad
+      pos: -22.5,38.5
+      parent: 2
+    - type: SurveillanceCamera
+      setupAvailableNetworks:
+      - SurveillanceCameraEngineering
+      nameSet: True
+      id: Nuclear Reactor - Reactor 1
+  - uid: 25617
+    components:
+    - type: Transform
+      pos: -22.5,31.5
+      parent: 2
+    - type: SurveillanceCamera
+      setupAvailableNetworks:
+      - SurveillanceCameraEngineering
+      nameSet: True
+      id: Nuclear Reactor - Reactor 2
+  - uid: 25618
+    components:
+    - type: Transform
+      rot: 3.141592653589793 rad
+      pos: -12.5,35.5
+      parent: 2
+    - type: SurveillanceCamera
+      setupAvailableNetworks:
+      - SurveillanceCameraEngineering
+      nameSet: True
+      id: Nuclear Reactor - Storage
 - proto: SurveillanceCameraGeneral
   entities:
   - uid: 19878

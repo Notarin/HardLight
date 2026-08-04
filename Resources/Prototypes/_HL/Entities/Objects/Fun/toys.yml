@@ -1135,6 +1135,23 @@
 
 - type: entity
   parent: BasePlushie
+  id: PlushieSebastion
+  name: Sebastion Plushie
+  description: An adorable stuffed toy that resembles a Sebastian Sabotage; the Syndicates stealthy mascot!
+  components:
+  - type: Sprite
+    sprite: _HL/Objects/Fun/HLtoys.rsi
+    state: Sebastion_plushie
+    scale: 0.8, 0.8
+  - type: Clothing
+    quickEquip: false
+    sprite: _HL/Objects/Fun/HLtoys.rsi
+    equippedPrefix: Sebastion
+    slots:
+    - HEAD
+
+- type: entity
+  parent: BasePlushie
   id: PlushieSynth
   name: Synth Plushie
   description: Marketable and stylish, with built-in speakers to remind everyone why people call Synths beepers.

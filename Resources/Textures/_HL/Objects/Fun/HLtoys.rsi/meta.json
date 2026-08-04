@@ -119,6 +119,21 @@
             "name": "naked-maints-plush"
         },
         {
+            "name": "Sebastion_plushie"
+        },
+        {
+            "name": "Sebastion-equipped-HELMET",
+            "directions": 4
+        },
+        {
+            "name": "Sebastion-inhand-left",
+            "directions": 4
+        },
+        {
+            "name": "Sebastion-inhand-right",
+            "directions": 4
+        },
+        {
             "name": "synthplush"
         },
         {

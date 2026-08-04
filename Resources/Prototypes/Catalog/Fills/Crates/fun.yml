@@ -108,7 +108,8 @@
     - id: PlushieKinetic
     - id: PlushieKabuki
     - id: PlushieNova
-
+    - id: PlushiePetal
+    - id: PlushieRosemane
 - type: entity
   id: CrateFunPlushie
   parent: CrateGenericSteel

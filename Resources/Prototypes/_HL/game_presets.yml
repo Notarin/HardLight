@@ -32,7 +32,7 @@
   rules:
     - Nukeops
     - Traitor
-    - Revolutionary
+    #- Revolutionary
     - Zombie
     - Xenoborgs
     #- Wizard
@@ -52,7 +52,7 @@
   rules:
     - Nukeops
     - Traitor
-    - Revolutionary
+    #- Revolutionary
     - Zombie
     - Xenoborgs
     - Wizard
@@ -182,7 +182,7 @@
   showInVote: false
   rules:
     - DummyNonAntagChance
-    - Revolutionary
+    #- Revolutionary
     - SubGamemodesRule
     - BasicStationEventScheduler
     - MeteorSwarmScheduler

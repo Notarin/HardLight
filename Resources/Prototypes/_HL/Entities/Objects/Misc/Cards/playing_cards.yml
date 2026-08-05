@@ -1,0 +1,27 @@
+﻿# Colonial Command cards
+- type: entity
+  parent: BasePlayingCardDeckBox
+  id: PlayingCardDeckBoxColonialCommand
+  name: box of colonial command playing cards
+  suffix: colonialCommand
+  components:
+  - type: Sprite
+    sprite: _HL/Objects/Misc/Cards/card_colonialcommand.rsi
+  - type: ContainerFill
+    containers:
+      storagebase:
+      - PlayingCardDeckColonialCommand
+
+- type: entity
+  parent: BasePlayingCardDeck
+  id: PlayingCardDeckColonialCommand
+  name: deck of cards
+  suffix: colonialCommand
+  components:
+  - type: PlayingCardDeck
+    prototype: ColonialCommandCards
+
+- type: playingCardDeck
+  parent: BasePlayingCardDeck
+  id: ColonialCommandCards
+  sprite: _HL/Objects/Misc/Cards/card_colonialcommand.rsi

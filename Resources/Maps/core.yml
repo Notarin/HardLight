@@ -70089,14 +70089,14 @@ entities:
     - type: Transform
       pos: 92.5,-22.5
       parent: 2
-- proto: CardBoxBlack
+- proto: PlayingCardDeckBoxBlack
   entities:
   - uid: 9136
     components:
     - type: Transform
       pos: 48.61065,30.525715
       parent: 2
-- proto: CardBoxNanotrasen
+- proto: PlayingCardDeckBoxColonialCommand
   entities:
   - uid: 9137
     components:
@@ -148350,7 +148350,7 @@ entities:
       parent: 2
     - type: Paper
       content: >-
-        Notice; 
+        Notice;
 
         This window is a error in the engineering IPC's room creation protocalls, and will be removed in the future. please pay no mind to it.
 
@@ -148428,7 +148428,7 @@ entities:
 
         Project 'RESPAWN' is to be ABANDONED IMMEDENTLY
 
-        If i, or anoter secof catches you idiots in here again i WILL see to it personally that your medical liscences are revoked 
+        If i, or anoter secof catches you idiots in here again i WILL see to it personally that your medical liscences are revoked
 
 
         I dont know what were doing with this room in the future, but we are NOT CLONING MUTANT CLUWN SPIDERS!!!!!
@@ -148675,7 +148675,7 @@ entities:
       parent: 2
     - type: Paper
       content: >-
-        Do i look like a nice, peace of marketplace to you? If so; contact your local quartermaster today, as this shop-space is 
+        Do i look like a nice, peace of marketplace to you? If so; contact your local quartermaster today, as this shop-space is
 
          FOR RENT!!!
 

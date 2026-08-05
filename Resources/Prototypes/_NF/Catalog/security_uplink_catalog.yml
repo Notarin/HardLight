@@ -1141,7 +1141,7 @@
   name: uplink-security-shotlethal4-name
   description: uplink-security-shotlethal4-desc
   productEntity: AmmoBox23x75mmBuckshot
-  icon: { sprite: _Mono/Objects/Weapons/Guns/Ammunition/boxes/4_gauge.rsi, state: lethal }
+  icon: { sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/4_gauge.rsi, state: lethal }
   cost:
     FrontierUplinkCoin: 1
   categories:
@@ -1157,7 +1157,7 @@
   name: uplink-security-shotbeanbag4-name
   description: uplink-security-shotbeanbag4-desc
   productEntity: AmmoBox23x75mmBeanbag
-  icon: { sprite: _Mono/Objects/Weapons/Guns/Ammunition/boxes/4_gauge.rsi, state: beanbag }
+  icon: { sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/4_gauge.rsi, state: beanbag }
   cost:
     FrontierUplinkCoin: 1
   categories:
@@ -1173,7 +1173,7 @@
   name: uplink-security-shotincend4-name
   description: uplink-security-shotincend4-desc
   productEntity: AmmoBox23x75mmIncendiary
-  icon: { sprite: _Mono/Objects/Weapons/Guns/Ammunition/boxes/4_gauge.rsi, state: incendiary }
+  icon: { sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/4_gauge.rsi, state: incendiary }
   cost:
     FrontierUplinkCoin: 2
   categories:
@@ -1183,13 +1183,13 @@
       whitelist:
         tags:
           - SecurityUplink
-          
+
 - type: listing
   id: UplinkSecurityShotSlug4
   name: uplink-security-shotslug4-name
   description: uplink-security-shotslug4-desc
   productEntity: AmmoBox23x75mmSlug
-  icon: { sprite: _Mono/Objects/Weapons/Guns/Ammunition/boxes/4_gauge.rsi, state: slug }
+  icon: { sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/4_gauge.rsi, state: slug }
   cost:
     FrontierUplinkCoin: 1
   categories:
@@ -1205,7 +1205,7 @@
   name: uplink-security-RailgunMag-name
   description: uplink-security-RailgunMag-desc
   productEntity: MagazineRailgun
-  icon: { sprite: _HL/Objects/Weapons/Guns/Ammunition/Magazine/railgun/railgun_mag.rsi, state: base }
+  icon: { sprite: _HL/Objects/Weapons/Guns/Ammunition/Magazine/Railgun/railgun_mag.rsi, state: base }
   cost:
     FrontierUplinkCoin: 5
   categories:

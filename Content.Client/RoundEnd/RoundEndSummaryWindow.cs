@@ -150,8 +150,11 @@ namespace Content.Client.RoundEnd
         {
             if (string.IsNullOrWhiteSpace(searchTerm))
             {
-                // If no search term, show all text
-                label.SetMarkup(fullText);
+                // If no search term, show all text with sanitized tags
+                label.SetMessage(
+                    FormattedMessage.FromMarkupPermissive(fullText),
+                    UserFormattableTags.BaseAllowedTags
+                );
                 return false;
             }
 
@@ -170,12 +173,16 @@ namespace Content.Client.RoundEnd
             if (string.IsNullOrEmpty(filteredText))
             {
                 // If no matches found, don't show anything
-                label.SetMarkup("");
+                label.SetMessage(FormattedMessage.FromMarkupPermissive(""), []);
                 return true;
             }
             else
             {
-                label.SetMarkup(filteredText);
+                // Sanitize filtered text
+                label.SetMessage(
+                    FormattedMessage.FromMarkupPermissive(filteredText),
+                    UserFormattableTags.BaseAllowedTags
+                );
                 return true;
             }
         }

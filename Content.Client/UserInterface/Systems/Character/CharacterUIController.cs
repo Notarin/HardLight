@@ -197,7 +197,7 @@ public sealed class CharacterUIController : UIController, IOnStateEntered<Gamepl
             };
             button.OnPressed += _ => _objective.OpenWindow();
 
-            _window.CharacterInfo.Objectives.AddChild(button);
+            _window.Objectives.AddChild(button); // HardLight: _window.CharacterInfo.Objectives>_window.Objectives; revert if we port Starlight's reworked character info window
         }
         // Starlight End
 

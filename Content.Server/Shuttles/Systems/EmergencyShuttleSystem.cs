@@ -18,6 +18,7 @@ using Content.Server.Shuttles.Events;
 using Content.Server.Station.Components;
 using Content.Server.Station.Events;
 using Content.Server.Station.Systems;
+using Content.Shared._Starlight.CustomObjectiveSummary; // Starlight
 using Content.Shared.Access.Systems;
 using Content.Shared.CCVar;
 using Content.Shared.Database;
@@ -41,11 +42,6 @@ using Content.Shared.DeviceNetwork.Components;
 using Robust.Shared.Prototypes;
 using Content.Shared.HL.CCVar; // HardLight
 using System.Diagnostics.CodeAnalysis; // HardLight
-// Starlight Start
-using Content.Server._Starlight.Station;
-using Content.Shared._Starlight.CustomObjectiveSummary;
-using Content.Shared.Station.Components;
-// Starlight End
 
 namespace Content.Server.Shuttles.Systems;
 

@@ -166,7 +166,7 @@ public sealed partial class GatewayWindow : FancyWindow,
 
             if (Pressable())
             {
-                openButton.AddStyleClass(StyleBase.ButtonCaution);
+                openButton.AddStyleClass(StyleClass.Negative);
             }
 
             var buttonContainer = new BoxContainer()
@@ -224,7 +224,7 @@ public sealed partial class GatewayWindow : FancyWindow,
             }
             else
             {
-                NextUnlockBar.Value = 1f - (float) (remaining.TotalSeconds / _unlockTime.TotalSeconds);
+                NextUnlockBar.Value = 1f - (float)(remaining.TotalSeconds / _unlockTime.TotalSeconds);
                 NextUnlockText.Text = $"{remaining.Minutes:00}:{remaining.Seconds:00}";
             }
         }
@@ -251,7 +251,7 @@ public sealed partial class GatewayWindow : FancyWindow,
             }
             else
             {
-                NextReadyBar.Value = 1f - (float) (remaining.TotalSeconds / _cooldown.TotalSeconds);
+                NextReadyBar.Value = 1f - (float)(remaining.TotalSeconds / _cooldown.TotalSeconds);
                 NextCloseText.Text = $"{remaining.Minutes:00}:{remaining.Seconds:00}";
             }
         }

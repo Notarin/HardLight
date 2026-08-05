@@ -27,7 +27,7 @@ namespace Content.Client.Voting.UI
             IoCManager.InjectDependencies(this);
             RobustXamlLoader.Load(this);
 
-            Stylesheet = IoCManager.Resolve<IStylesheetManager>().SheetSpace;
+            Stylesheet = IoCManager.Resolve<IStylesheetManager>().SheetSystem;
 
             if (_vote.TargetEntity != null && _vote.TargetEntity != 0)
             {
@@ -97,7 +97,7 @@ namespace Content.Client.Voting.UI
             // Round up a second.
             timeLeft = TimeSpan.FromSeconds(Math.Ceiling(timeLeft.TotalSeconds));
 
-            TimeLeftBar.Value = Math.Min(1, (float) ((curTime.TotalSeconds - _vote.StartTime.TotalSeconds) /
+            TimeLeftBar.Value = Math.Min(1, (float)((curTime.TotalSeconds - _vote.StartTime.TotalSeconds) /
                                                      (_vote.EndTime.TotalSeconds - _vote.StartTime.TotalSeconds)));
 
             TimeLeftText.Text = $"{timeLeft:m\\:ss}";

@@ -61,7 +61,7 @@ public sealed partial class RoboticsConsoleWindow : FancyWindow
         };
 
         // cant put multiple styles in xaml for some reason
-        DestroyButton.StyleClasses.Add(StyleBase.ButtonCaution);
+        DestroyButton.StyleClasses.Add(StyleClass.Negative);
     }
 
     public void SetEntity(EntityUid uid)
@@ -74,7 +74,7 @@ public sealed partial class RoboticsConsoleWindow : FancyWindow
         _cyborgs = state.Cyborgs;
 
         // clear invalid selection
-        if (_selected is {} selected && !_cyborgs.ContainsKey(selected))
+        if (_selected is { } selected && !_cyborgs.ContainsKey(selected))
             _selected = null;
 
         var hasCyborgs = _cyborgs.Count > 0;
@@ -104,7 +104,7 @@ public sealed partial class RoboticsConsoleWindow : FancyWindow
 
     private void PopulateData()
     {
-        if (_selected is not {} selected)
+        if (_selected is not { } selected)
         {
             SelectCyborg.Visible = true;
             BorgContainer.Visible = false;
@@ -119,7 +119,8 @@ public sealed partial class RoboticsConsoleWindow : FancyWindow
 
         BorgSprite.Texture = _sprite.Frame0(data.ChassisSprite!);
 
-        var batteryColor = data.Charge switch {
+        var batteryColor = data.Charge switch
+        {
             < 0.2f => "red",
             < 0.4f => "orange",
             < 0.6f => "yellow",

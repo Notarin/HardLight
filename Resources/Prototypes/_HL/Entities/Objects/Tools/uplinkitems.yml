@@ -61,6 +61,14 @@
   components:
   - type: GunDamageModifier
     multiplier: 1.5
+    
+- type: entity
+  name: L6 Saw
+  parent: [WeaponLightMachineGunL6C] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  id: SWeaponLightMachineGunL6C
+  components:
+  - type: GunDamageModifier
+    multiplier: 1.5
 
 - type: entity
   name: Atreides
@@ -85,6 +93,14 @@
   components:
   - type: GunDamageModifier
     multiplier: 1.5
+
+- type: entity
+  name: Echis
+  parent: [NFWeaponPistolEchis] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  id: SWeaponPistolEchis
+  components:
+  - type: GunDamageModifier
+    multiplier: 1.5
     
 - type: entity
   name: Flamethrower
@@ -102,6 +118,16 @@
   - type: MeleeDamageModifier
     flatBonus: 12
     damageType: Blunt
+  - type: ItemToggleMeleeWeapon
+    activatedSoundOnSwing:
+      path: /Audio/Weapons/eblademiss.ogg
+      params:
+        variation: 0.125
+    activatedDamage:
+      types:
+        Slash: 18
+        Heat: 20
+        Structural: 20
     
 - type: entity
   name: Energy Dagger
@@ -111,6 +137,16 @@
   - type: MeleeDamageModifier
     flatBonus: 8
     damageType: Blunt
+  - type: ItemToggleMeleeWeapon
+    activatedSoundOnSwing:
+      path: /Audio/Weapons/eblademiss.ogg
+      params:
+        volume: -3
+        variation: 0.250
+    activatedDamage:
+      types:
+        Slash: 12
+        Heat: 12
     
 - type: entity
   name: Gloves of the north star

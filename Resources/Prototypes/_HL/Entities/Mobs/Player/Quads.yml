@@ -134,6 +134,7 @@
     layers:
     - state: quadspritemoss
       map: ["movement"]
+    - map: ["enum.ToggleVisuals.Layer"]
     - state: quadspriteservl
       map: ["enum.BorgVisualLayers.Light"]
       shader: unshaded
@@ -195,6 +196,7 @@
     layers:
     - state: engieservborg
       map: ["movement"]
+    - map: ["enum.ToggleVisuals.Layer"]
     - state: engieborgl
       map: ["enum.BorgVisualLayers.Light"]
       shader: unshaded
@@ -249,6 +251,7 @@
     layers:
     - state: OrchidBase
       map: ["movement"]
+    - map: ["enum.ToggleVisuals.Layer"]
     - state: OrchidFlashlight
       map: ["enum.BorgVisualLayers.Light"]
       shader: unshaded
@@ -303,6 +306,7 @@
     layers:
     - state: abyssquad
       map: ["movement"]
+    - map: ["enum.ToggleVisuals.Layer"]
     - state: abyssquadr
       map: ["enum.BorgVisualLayers.Light"]
       shader: unshaded

@@ -32,4 +32,4 @@ jobs:
 
     - name: Run mapchecker
       run: |
-        python3 ./github/mapchecker/mapchecker.py
+        python3 .github/mapchecker/mapchecker.py

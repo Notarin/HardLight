@@ -8,6 +8,7 @@
     layers:
     - state: petalborg
       map: ["movement"]
+    - map: ["enum.ToggleVisuals.Layer"]
     - state: petalborgl
       map: ["enum.BorgVisualLayers.Light"]
       shader: unshaded

@@ -1020,6 +1020,7 @@
   color: "#fcf7f9"
   metabolisms:
     Medicine:
+      metabolismRate: 1
       effects:
       - !type:HealthChange
         damage:

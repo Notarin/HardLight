@@ -96,7 +96,7 @@ public sealed class TranslatorSystem : EntitySystem
 
     private void OnPowerCellSlotEmpty(Entity<HandheldTranslatorComponent> translator, ref PowerCellSlotEmptyEvent args)
     {
-        _itemToggle.TrySetActive(translator.Owner, false);
+//        _itemToggle.TrySetActive(translator.Owner, false); //Hardlight: Deferred to the ToggleCellDraw
     }
 
     private void OnPowerCellChanged(Entity<HandheldTranslatorComponent> translator, ref PowerCellChangedEvent args)
@@ -111,8 +111,8 @@ public sealed class TranslatorSystem : EntitySystem
         translator.Comp.Enabled = isEnabled;
         Dirty(translator);
 
-        _powerCell.SetDrawEnabled(translator.Owner, isEnabled);
-        _appearance.SetData(translator, ToggleableLightVisuals.Enabled, translator.Comp.Enabled); // HardLight: ToggleableVisuals<ToggleableLightVisuals
+//        _powerCell.SetDrawEnabled(translator.Owner, isEnabled); //Hardlight: Deferred to the ToggleCellDraw
+//        _appearance.SetData(translator, ToggleableLightVisuals.Enabled, translator.Comp.Enabled); // HardLight: deferred to the GenericVisualizer
 
         if (_containers.TryGetContainingContainer(translator.Owner, out var holderCont)
             && TryComp<LanguageSpeakerComponent>(holderCont.Owner, out var languageComp))

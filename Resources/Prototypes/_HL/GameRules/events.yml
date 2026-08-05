@@ -128,7 +128,7 @@
     - id: ParadoxCloneSpawn
     #- id: RevenantSpawn
     - id: SleeperAgents
-    - id: SleeperRevolutionaries
+    #- id: SleeperRevolutionaries
     - id: ZombieOutbreak
     - id: LoneOpsSpawn
     #- id: WizardSpawn

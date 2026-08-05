@@ -136,6 +136,11 @@
   equipment:
     outerClothing: ClothingOuterWinterMed
 
+- type: loadout # Starlight
+  id: WindbreakerMedical
+  equipment:
+    outerClothing: ClothingOuterWindbreakerMedical
+
 - type: loadout
   id: SeniorPhysicianLabCoat
   effects:

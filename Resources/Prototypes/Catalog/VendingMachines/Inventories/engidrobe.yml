@@ -18,6 +18,7 @@
     #EncryptionKeyEngineering: 10
     ClothingMaskGas: 3
     ClothingOuterWinterEngi: 2
+    ClothingOuterWindbreakerEngineering: 2 # Starlight
     ClothingNeckScarfStripedOrange: 3
     ClothingShoesBootsWinterEngi: 2
     ClothingNeckCollarEngi: 2 # Floofstation - Collar addition

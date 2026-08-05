@@ -22,6 +22,7 @@
     ClothingUniformJumpsuitBrigmedic: 3
     ClothingUniformJumpskirtBrigmedic: 3
     ClothingOuterWinterSec: 2
+    ClothingOuterWindbreakerSecurity: 2 # Starlight
     ClothingOuterEVASuitHLSec: 3 #HL - HLSec-colored EVA suit meant for Shelegs, accessible to all.
     ClothingHeadHelmetBasic: 2 # Frontier
     ClothingOuterArmorBasic: 2

@@ -575,7 +575,7 @@ namespace Content.Client.Options.UI.Tabs
 
                 BindButton1 = new BindButton(parent, this, StyleClass.ButtonOpenRight);
                 BindButton2 = new BindButton(parent, this, StyleClass.ButtonOpenLeft);
-                ResetButton = new Button { Text = Loc.GetString("ui-options-bind-reset"), StyleClasses = { StyleClass.ButtonCaution } };
+                ResetButton = new Button { Text = Loc.GetString("ui-options-bind-reset"), StyleClasses = { StyleClass.Negative } }; // HardLight: StyleClass.ButtonCaution>StyleClass.Negative
 
                 var hBox = new BoxContainer
                 {

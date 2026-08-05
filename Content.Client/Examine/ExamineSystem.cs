@@ -1,3 +1,4 @@
+using System.IO;
 using System.Linq;
 using System.Numerics;
 using System.Threading;
@@ -52,6 +53,7 @@ namespace Content.Client.Examine
             SubscribeLocalEvent<GetVerbsEvent<ExamineVerb>>(AddExamineVerb);
 
             SubscribeNetworkEvent<ExamineSystemMessages.ExamineInfoResponseMessage>(OnExamineInfoResponse);
+            SubscribeNetworkEvent<ExamineSystemMessages.ImageInfoResponseMessage>(OnImageInfoResponse);
 
             SubscribeLocalEvent<ItemComponent, DroppedEvent>(OnExaminedItemDropped);
 
@@ -169,6 +171,34 @@ namespace Content.Client.Examine
             UpdateTooltipInfo(player, target, message, getVerbs: getVerbs);
         }
 
+        public override void SendImageTooltip(EntityUid player, EntityUid target, string? imageStream, bool getVerbs, bool centerAtCursor)
+        {
+            OpenTooltip(player, target, centerAtCursor);
+
+            var markup = new FormattedMessage();
+            markup.AddMarkupPermissive("Image loading");
+            UpdateTooltipInfo(player, target, markup, getVerbs: getVerbs);
+        }
+
+        private void OnImageInfoResponse(ExamineSystemMessages.ImageInfoResponseMessage ev)
+        {
+            var player = _playerManager.LocalEntity;
+            if (player == null)
+                return;
+
+            // Prevent updating a new tooltip.
+            if (ev.Id != 0 && ev.Id != _idCounter)
+                return;
+
+            // Tooltips coming in from the server generally prioritize
+            // opening at the old tooltip rather than the cursor/another entity,
+            // since there's probably one open already if it's coming in from the server.
+            var entity = GetEntity(ev.EntityUid);
+
+            OpenTooltip(player.Value, entity, ev.CenterAtCursor, ev.OpenAtOldTooltip, ev.KnowTarget);
+            UpdateImageTooltipInfo(player.Value, entity, ev.StreamImage, ev.Verbs, getVerbs: false);
+        }
+
         /// <summary>
         ///     Opens the tooltip window and sets spriteview/name/etc, but does
         ///     not fill it with information. This is done when the server sends examine info/verbs,
@@ -283,6 +313,90 @@ namespace Content.Client.Examine
                 richLabel.SetMessage(message);
                 vBox.AddChild(richLabel);
                 break;
+            }
+
+            var totalVerbs = _verbSystem.GetLocalVerbs(target, player, typeof(ExamineVerb));
+
+            // We still need client-exclusive verbs even when the server sends its data in so if that's the case
+            // we remove any non-client-exclusive verbs.
+            if (!getVerbs)
+            {
+                _verbList.AddRange(totalVerbs);
+
+                foreach (var verb in _verbList)
+                {
+                    if (!verb.ClientExclusive)
+                    {
+                        totalVerbs.Remove(verb);
+                    }
+                }
+
+                _verbList.Clear();
+            }
+
+            if (verbs != null)
+            {
+                totalVerbs.UnionWith(verbs);
+            }
+
+            AddVerbsToTooltip(totalVerbs);
+        }
+
+        /// <summary>
+        ///     Fills the examine tooltip with a message and buttons if applicable.
+        /// </summary>
+        public async void UpdateImageTooltipInfo(EntityUid player, EntityUid target, byte[] imageStream, List<Verb>? verbs=null, bool getVerbs = true)
+        {
+            var vBox = _examineTooltipOpen?.GetChild(0).GetChild(0);
+            if (vBox == null)
+            {
+                return;
+            }
+
+            Texture? image = null;
+
+            if (imageStream.Length != 0)
+            {
+                try
+                {
+                    using var stream = new MemoryStream(imageStream);
+                    image = Texture.LoadFromPNGStream(stream, "character-portrait");
+                }
+                catch (Exception ex)
+                {
+                    // Malformed/non-PNG data — log and fall back to no image rather than crashing
+                    Logger.Warning($"Failed to load portrait image for {target}: {ex.Message}");
+                }
+            }
+
+            if (image == null)
+            {
+                var richLabel = new RichTextLabel() { Margin = new Thickness(4, 4, 0, 4)};
+                richLabel.SetMessage("No valid URL");
+                vBox.AddChild(richLabel);
+            }
+            else
+            {
+                vBox.VerticalExpand = true;
+                vBox.HorizontalExpand = true;
+                vBox.VerticalAlignment = Control.VAlignment.Top;
+                vBox.HorizontalAlignment = Control.HAlignment.Left;
+                vBox.MaxWidth = 470;
+                vBox.MaxHeight = 480;
+                vBox.SetSize = new Vector2(470, 480);
+
+                var textureRect = new TextureRect();
+                textureRect.Margin = new Thickness(5, 5);
+                textureRect.MaxWidth = 450;
+                textureRect.MaxHeight = 450;
+                textureRect.Stretch = TextureRect.StretchMode.KeepAspect;
+                textureRect.VerticalExpand = true;
+                textureRect.HorizontalExpand = true;
+
+                textureRect.SetSize = new Vector2(450, 450);
+
+                textureRect.Texture = image;
+                vBox.AddChild(textureRect);
             }
 
             var totalVerbs = _verbSystem.GetLocalVerbs(target, player, typeof(ExamineVerb));

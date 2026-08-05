@@ -1,8 +1,11 @@
+using System.IO;
 using System.Linq;
+using Content.Server._HL.CharacterPortrait;
 using Content.Server.Verbs;
 using Content.Shared.Examine;
 using Content.Shared.Verbs;
 using JetBrains.Annotations;
+using Robust.Shared.Network;
 using Robust.Shared.Player;
 using Robust.Shared.Utility;
 
@@ -12,6 +15,7 @@ namespace Content.Server.Examine
     public sealed class ExamineSystem : ExamineSystemShared
     {
         [Dependency] private readonly VerbSystem _verbSystem = default!;
+        [Dependency] private readonly IHttpClientHolder _http = default!;
 
         private readonly FormattedMessage _entityNotFoundMessage = new();
         private readonly FormattedMessage _entityOutOfRangeMessage = new();
@@ -41,6 +45,29 @@ namespace Content.Server.Examine
             );
 
             RaiseNetworkEvent(ev, session.Channel);
+        }
+
+        public async override void SendImageTooltip(EntityUid player, EntityUid target, string url, bool getVerbs, bool centerAtCursor)
+        {
+            if (!TryComp<ActorComponent>(player, out var actor))
+                return;
+
+            var session = actor.PlayerSession;
+
+            SortedSet<Verb>? verbs = null;
+            if (getVerbs)
+                verbs = _verbSystem.GetLocalVerbs(target, player, typeof(ExamineVerb));
+
+            var buffer = await CharacterPortrait.GetImageDataFromUrl(url, _http);
+
+            if (buffer != null)
+            {
+                var ev = new ExamineSystemMessages.ImageInfoResponseMessage(
+                    GetNetEntity(target), 0, buffer, verbs?.ToList(), centerAtCursor
+                );
+
+                RaiseNetworkEvent(ev, session.Channel);
+            }
         }
 
         private void ExamineInfoRequest(ExamineSystemMessages.RequestExamineInfoMessage request, EntitySessionEventArgs eventArgs)

@@ -1,3 +1,4 @@
+using System.IO;
 using Content.Shared.Verbs;
 using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
@@ -43,6 +44,33 @@ namespace Content.Shared.Examine
                 EntityUid = entityUid;
                 Id = id;
                 Message = message;
+                Verbs = verbs;
+                CenterAtCursor = centerAtCursor;
+                OpenAtOldTooltip = openAtOldTooltip;
+                KnowTarget = knowTarget;
+            }
+        }
+
+        [Serializable, NetSerializable]
+        public sealed class ImageInfoResponseMessage : EntityEventArgs
+        {
+            public readonly NetEntity EntityUid;
+            public readonly int Id;
+            public readonly byte[] StreamImage;
+
+            public List<Verb>? Verbs;
+
+            public readonly bool CenterAtCursor;
+            public readonly bool OpenAtOldTooltip;
+
+            public readonly bool KnowTarget;
+
+            public ImageInfoResponseMessage(NetEntity entityUid, int id, byte[] streamImage, List<Verb>? verbs=null,
+                bool centerAtCursor=true, bool openAtOldTooltip=true, bool knowTarget = true)
+            {
+                EntityUid = entityUid;
+                Id = id;
+                StreamImage = streamImage;
                 Verbs = verbs;
                 CenterAtCursor = centerAtCursor;
                 OpenAtOldTooltip = openAtOldTooltip;

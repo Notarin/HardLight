@@ -1,3 +1,5 @@
+using System.IO;
+using System.Threading.Tasks;
 using Content.Shared.Examine;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Verbs;
@@ -41,5 +43,21 @@ public sealed class DetailExaminableSystem : EntitySystem
         };
 
         args.Verbs.Add(verb);
+
+
+        var verb1 = new ExamineVerb
+        {
+            Act = () =>
+            {
+                _examine.SendImageTooltip(user, ent, ent.Comp.CharacterPortraitUrl, false, false);
+            },
+            Text = "Image",
+            Category = VerbCategory.Examine,
+            Disabled = !detailsRange,
+            Message = detailsRange ? null : Loc.GetString("detail-examinable-verb-disabled"),
+            Icon = new SpriteSpecifier.Texture(new ("/Textures/Interface/VerbIcons/vv.svg.192dpi.png"))
+        };
+
+        args.Verbs.Add(verb1);
     }
 }

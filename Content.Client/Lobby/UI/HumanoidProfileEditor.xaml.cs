@@ -57,6 +57,7 @@ namespace Content.Client.Lobby.UI
 
         private FlavorText.FlavorText? _flavorText;
         private TextEdit? _flavorTextEdit;
+        private LineEdit? _characterPortraitTextEdit;
 
         // One at a time.
         private LoadoutWindow? _loadoutWindow;
@@ -601,11 +602,42 @@ namespace Content.Client.Lobby.UI
                     return;
 
                 _flavorText = new FlavorText.FlavorText();
-                TabContainer.AddChild(_flavorText);
-                TabContainer.SetTabTitle(TabContainer.ChildCount - 1, Loc.GetString("humanoid-profile-editor-flavortext-tab"));
                 _flavorTextEdit = _flavorText.CFlavorTextInput;
-
                 _flavorText.OnFlavorTextChanged += OnFlavorTextChange;
+                _flavorText.HorizontalExpand = true;
+                _flavorText.VerticalExpand = true;
+
+                // HL
+                _characterPortraitTextEdit = new LineEdit();
+                _characterPortraitTextEdit.Margin = new Thickness(5, 10);
+                _characterPortraitTextEdit.OnTextChanged += args =>
+                {
+                    if (Profile is null)
+                        return;
+
+                    Profile = Profile.WithcharacterPortraitUrl(args.Text);
+                    SetDirty();
+                };
+
+                // <BoxContainer Orientation="Vertical" HorizontalExpand="True">
+                //     <TextEdit Name="CFlavorTextInput" Access="Public" MinSize="220 100" Margin="10" HorizontalExpand="True" VerticalExpand="True" />
+                // </BoxContainer>
+
+                var innerBox = new BoxContainer() { Orientation = LayoutOrientation.Vertical, HorizontalExpand = true};
+                innerBox.AddChild(new Label(){ Text = "Character portrait url: "});
+                innerBox.AddChild(_characterPortraitTextEdit);
+
+                var flavorBox = new BoxContainer() { Orientation = LayoutOrientation.Vertical, VerticalExpand = true, HorizontalExpand = true};
+                flavorBox.AddChild(new Label(){ Text = "Character description: "});
+                flavorBox.AddChild(_flavorText);
+
+                var box = new BoxContainer();
+                box.Orientation = LayoutOrientation.Vertical;
+                box.AddChild(innerBox);
+                box.AddChild(flavorBox);
+
+                TabContainer.AddChild(box);
+                TabContainer.SetTabTitle(TabContainer.ChildCount - 1, Loc.GetString("humanoid-profile-editor-flavortext-tab"));
             }
             else
             {
@@ -618,6 +650,9 @@ namespace Content.Client.Lobby.UI
                 _flavorTextEdit?.Dispose();
                 _flavorTextEdit = null;
                 _flavorText = null;
+
+                // HL
+                _characterPortraitTextEdit = null;
             }
         }
 
@@ -2006,6 +2041,11 @@ namespace Content.Client.Lobby.UI
             if (_flavorTextEdit != null)
             {
                 _flavorTextEdit.TextRope = new Rope.Leaf(Profile?.FlavorText ?? "");
+            }
+
+            if (_characterPortraitTextEdit != null)
+            {
+                _characterPortraitTextEdit.Text = Profile?.CharacterPortraitUrl ?? "";
             }
         }
 

@@ -1,3 +1,4 @@
+using System.IO;
 using System.Linq;
 using Content.Shared.Eye.Blinding.Components;
 using Content.Shared.Ghost;
@@ -49,6 +50,9 @@ namespace Content.Shared.Examine
         ///     Creates a new examine tooltip with arbitrary info.
         /// </summary>
         public abstract void SendExamineTooltip(EntityUid player, EntityUid target, FormattedMessage message, bool getVerbs, bool centerAtCursor);
+
+        public abstract void SendImageTooltip(EntityUid player, EntityUid target, string image, bool getVerbs, bool centerAtCursor);
+
 
         public bool IsInDetailsRange(EntityUid examiner, EntityUid entity)
         {

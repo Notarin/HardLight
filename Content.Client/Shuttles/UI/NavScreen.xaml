@@ -12,13 +12,17 @@
                                      HorizontalExpand="True"/>
                 </controls:LayoutContainer>
                 <!-- Nav controls -->
-                <controls:BoxContainer Name="RightDisplayNav"
-                      VerticalAlignment="Top"
+                <controls:ScrollContainer Name="RightDisplayNavScroll"
+                      VerticalAlignment="Stretch"
                       HorizontalAlignment="Right"
                       VerticalExpand="True"
+                      HScrollEnabled="False"
+                      VScrollEnabled="True"
                       MinWidth="256"
                       MaxWidth="256"
-                      Margin="5 0 5 5"
+                      Margin="5 0 5 5">
+                <controls:BoxContainer Name="RightDisplayNav"
+                      HorizontalExpand="True"
                       Orientation="Vertical">
                     <controls1:StripeBack
                         MinSize="48 48">
@@ -64,24 +68,6 @@
                                VerticalExpand="True"
                                HorizontalAlignment="Center"/>
                     </controls1:StripeBack>
-                    <controls1:StripeBack
-                        MinSize="48 48">
-                        <controls:Label Name="ExpeditionDiskLabel" Text="{controls:Loc 'shuttle-console-expedition-disk-label'}"
-                               VerticalExpand="True"
-                               HorizontalAlignment="Center"/>
-                    </controls1:StripeBack>
-                    <controls:Label Name="ExpeditionDiskDetails"
-                           Text="{controls:Loc 'shuttle-console-expedition-disk-none'}"
-                           HorizontalAlignment="Left"
-                           Margin="4 2 4 6"/>
-                    <controls:Button Name="ExpeditionDiskActivate"
-                            Text="{controls:Loc 'shuttle-console-expedition-disk-activate'}"
-                            TextAlign="Center"
-                            Disabled="True"/>
-                  <controls:Button Name="ExpeditionEnd"
-                         Text="{controls:Loc 'shuttle-console-expedition-end'}"
-                         TextAlign="Center"
-                         Disabled="True"/>
                     <!-- HL - WEP / IFF / Dampener 3x3 grid -->
                     <controls:GridContainer Columns="3"
                                            HorizontalAlignment="Stretch"
@@ -144,6 +130,44 @@
                                 Margin="0"/>
                     </controls:GridContainer>
                     <!-- End HL - WEP / IFF / Dampener 3x3 grid -->
+                    <!-- HL - Console navigation orientation -->
+                    <controls:BoxContainer Orientation="Vertical" HorizontalExpand="True" Name="NavigationAngleBox">
+                        <controls:Label Text="{controls:Loc 'shuttle-console-navigation-angle'}"/>
+                        <controls:GridContainer Columns="3"
+                                                HorizontalAlignment="Stretch"
+                                                HorizontalExpand="True">
+                            <controls:Control HorizontalExpand="True"/>
+                            <controls:Button Name="NavigationAngleNorth"
+                                             Text="{controls:Loc 'shuttle-console-navigation-angle-north'}"
+                                             TextAlign="Center"
+                                             ToggleMode="True"
+                                             HorizontalExpand="True"
+                                             Margin="0"/>
+                            <controls:Control HorizontalExpand="True"/>
+                            <controls:Button Name="NavigationAngleWest"
+                                             Text="{controls:Loc 'shuttle-console-navigation-angle-west'}"
+                                             TextAlign="Center"
+                                             ToggleMode="True"
+                                             HorizontalExpand="True"
+                                             Margin="0"/>
+                            <controls:Control HorizontalExpand="True"/>
+                            <controls:Button Name="NavigationAngleEast"
+                                             Text="{controls:Loc 'shuttle-console-navigation-angle-east'}"
+                                             TextAlign="Center"
+                                             ToggleMode="True"
+                                             HorizontalExpand="True"
+                                             Margin="0"/>
+                            <controls:Control HorizontalExpand="True"/>
+                            <controls:Button Name="NavigationAngleSouth"
+                                             Text="{controls:Loc 'shuttle-console-navigation-angle-south'}"
+                                             TextAlign="Center"
+                                             ToggleMode="True"
+                                             HorizontalExpand="True"
+                                             Margin="0"/>
+                            <controls:Control HorizontalExpand="True"/>
+                        </controls:GridContainer>
+                    </controls:BoxContainer>
+                    <!-- End HL - Console navigation orientation -->
                     <!-- Frontier - IFF search -->
                     <controls:BoxContainer Orientation="Vertical" HorizontalExpand="True" Name="IffSearchBox">
                         <controls:Label Text="{controls:Loc 'shuttle-console-iff-search'}"/>
@@ -208,5 +232,24 @@
                                                  Value="140"
                                                  HorizontalExpand="True"/>
                     </controls:BoxContainer>
+                    <controls1:StripeBack
+                        MinSize="48 48">
+                        <controls:Label Name="ExpeditionDiskLabel" Text="{controls:Loc 'shuttle-console-expedition-disk-label'}"
+                               VerticalExpand="True"
+                               HorizontalAlignment="Center"/>
+                    </controls1:StripeBack>
+                    <controls:Label Name="ExpeditionDiskDetails"
+                           Text="{controls:Loc 'shuttle-console-expedition-disk-none'}"
+                           HorizontalAlignment="Left"
+                           Margin="4 2 4 6"/>
+                    <controls:Button Name="ExpeditionDiskActivate"
+                            Text="{controls:Loc 'shuttle-console-expedition-disk-activate'}"
+                            TextAlign="Center"
+                            Disabled="True"/>
+                    <controls:Button Name="ExpeditionEnd"
+                            Text="{controls:Loc 'shuttle-console-expedition-end'}"
+                            TextAlign="Center"
+                            Disabled="True"/>
                 </controls:BoxContainer>
+                </controls:ScrollContainer>
 </controls:BoxContainer>

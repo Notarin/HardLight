@@ -72,6 +72,15 @@ public sealed class MoverController : SharedMoverController
         if (input.Brakes == 0f && input.Rotation == 0f && input.Strafe.LengthSquared() == 0f)
             return;
 
+        // HardLight start
+        if (entity.Comp.Console is { } console &&
+            TryComp(console, out TransformComponent? consoleXform) &&
+            TryComp(console, out ShuttleConsoleComponent? consoleComp))
+        {
+            input = input with { MovementAngle = _xformSystem.GetWorldRotation(consoleXform) + consoleComp.ConsoleNavigationAngleOffset };
+        }
+        // HardLight end
+
         args.Input = input;
     }
 
@@ -459,9 +468,16 @@ public sealed class MoverController : SharedMoverController
             var linearInput = Vector2.Zero;
             var angularInput = 0f;
             var brakeInput = 0f;
+            var shuttleNorthAngle = _xformSystem.GetWorldRotation(uid); // HardLight
             foreach (var inp in inputs)
             {
-                linearInput += inp.Strafe.LengthSquared() > 1 ? inp.Strafe.Normalized() : inp.Strafe;
+                // HardLight-edit start
+                var strafe = inp.Strafe.LengthSquared() > 1 ? inp.Strafe.Normalized() : inp.Strafe;
+                if (inp.MovementAngle is { } movementAngle)
+                    strafe = (-shuttleNorthAngle).RotateVec(movementAngle.RotateVec(strafe));
+
+                linearInput += strafe;
+                // HardLight-edit end
                 angularInput += MathHelper.Clamp(inp.Rotation, -1f, 1f);
                 brakeInput += MathF.Min(inp.Brakes, 1f);
             }
@@ -472,8 +488,6 @@ public sealed class MoverController : SharedMoverController
             // Mono: per-pilot angular/accel multipliers, averaged across active pilots.
             shuttle.AngularMultiplier = angularMul / count;
             shuttle.AccelerationMultiplier = accelMul / count;
-
-            var shuttleNorthAngle = _xformSystem.GetWorldRotation(uid);
 
             // handle movement: brake
             if (brakeInput > 0f)

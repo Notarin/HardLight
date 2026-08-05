@@ -33,6 +33,11 @@ shuttle-console-wep-activate = WEP
 shuttle-console-wep-active = !!WEP!!
 shuttle-console-wep-cooldown = WEP
 shuttle-console-wep-tooltip = War Emergency Power (Z key), consumes a lot of power to recharge
+shuttle-console-navigation-angle = Rotation
+shuttle-console-navigation-angle-north = N
+shuttle-console-navigation-angle-east = E
+shuttle-console-navigation-angle-south = S
+shuttle-console-navigation-angle-west = W
 
 # MAP
 

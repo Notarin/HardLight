@@ -75,7 +75,7 @@ public sealed class ShowNonconIconsSystem : EntitySystem
         var aggressor = targetToggles.ContainsKey(NonconAggressorToggle);
         var victim = targetToggles.ContainsKey(NonconVictimToggle);
 
-        ProtoId<SecurityIconPrototype> iconId;
+        ProtoId<SecurityIconPrototype>? iconId = null;
         if (aggressor && victim)
             iconId = _colorblindPalette ? NonconStatusIconEitherCb : NonconStatusIconEither;
         else if (aggressor)
@@ -83,7 +83,7 @@ public sealed class ShowNonconIconsSystem : EntitySystem
         else if (victim)
             iconId = _colorblindPalette ? NonconStatusIconVictimCb : NonconStatusIconVictim;
 
-        if (_prototype.TryIndex<SecurityIconPrototype>(iconId, out var iconPrototype))
+        if (iconId is not null && _prototype.TryIndex<SecurityIconPrototype>(iconId, out var iconPrototype))
             ev.StatusIcons.Add(iconPrototype);
     }
 

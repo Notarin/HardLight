@@ -32,7 +32,8 @@
   components:
   - type: ItemToggle
   - type: PowerCellDraw
-    drawRate: 0.2
+    drawRate: 1
+  - type: ToggleCellDraw 
   - type: ItemSlots
     slots:
       cell_slot:

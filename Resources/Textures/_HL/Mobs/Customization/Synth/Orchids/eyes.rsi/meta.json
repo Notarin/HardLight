@@ -8,11 +8,11 @@
   },
   "states": [
     {
-      "name": "synth_heterochromia_left",
+      "name": "heterochromia_l",
       "directions": 4
     },
     {
-      "name": "synth_heterochromia_right",
+      "name": "heterochromia_r",
       "directions": 4
     }
   ]

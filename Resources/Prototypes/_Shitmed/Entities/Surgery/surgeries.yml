@@ -14,6 +14,9 @@
     - SurgeryStepRetractSkin
     - SurgeryStepClampBleeders
   - type: SurgeryPartPresentCondition
+  - type: SurgerySpeciesCondition # HardLight
+    speciesBlacklist:
+    - Synth
 
 - type: entity
   parent: SurgeryBase
@@ -28,6 +31,9 @@
     - SurgeryStepMendRibcage
     - SurgeryStepCloseIncision
   - type: SurgeryPartPresentCondition
+  - type: SurgerySpeciesCondition # HardLight
+    speciesBlacklist:
+    - Synth
 
 - type: entity
   parent: SurgeryBase
@@ -42,6 +48,9 @@
     - SurgeryStepPriseOpenBones
   - type: SurgeryPartCondition
     part: Torso
+  - type: SurgerySpeciesCondition # HardLight
+    speciesBlacklist:
+    - Synth
 
 - type: entity
   parent: SurgeryBase
@@ -58,6 +67,9 @@
   - type: SurgeryPartCondition
     part: Torso
     inverse: true
+  - type: SurgerySpeciesCondition # HardLight
+    speciesBlacklist:
+    - Synth
 
 # I fucking hate hardcoding all of this shit to accomodate for surgery BUI.
 # If anyone can give me pointers on how to make it better I'd be incredibly grateful.
@@ -78,6 +90,9 @@
   - type: SurgeryPartRemovedCondition
     part: Head
     connection: head
+  - type: SurgerySpeciesCondition # HardLight
+    speciesBlacklist:
+    - Synth
 
 - type: entity
   parent: SurgeryBase
@@ -96,6 +111,9 @@
     part: Arm
     symmetry: Left
     connection: left arm
+  - type: SurgerySpeciesCondition # HardLight
+    speciesBlacklist:
+    - Synth
 
 - type: entity
   parent: SurgeryBase
@@ -114,6 +132,9 @@
     part: Arm
     symmetry: Right
     connection: right arm
+  - type: SurgerySpeciesCondition # HardLight
+    speciesBlacklist:
+    - Synth
 
 - type: entity
   parent: SurgeryBase
@@ -132,6 +153,9 @@
     part: Leg
     symmetry: Left
     connection: left leg
+  - type: SurgerySpeciesCondition # HardLight
+    speciesBlacklist:
+    - Synth
 
 - type: entity
   parent: SurgeryBase
@@ -150,6 +174,9 @@
     part: Leg
     symmetry: Right
     connection: right leg
+  - type: SurgerySpeciesCondition # HardLight
+    speciesBlacklist:
+    - Synth
 
 - type: entity
   parent: SurgeryBase
@@ -167,6 +194,9 @@
   - type: SurgeryPartRemovedCondition
     connection: hands
     part: Hand
+  - type: SurgerySpeciesCondition # HardLight
+    speciesBlacklist:
+    - Synth
 
 - type: entity
   parent: SurgeryBase
@@ -186,6 +216,9 @@
     part: Hand
     symmetry: Left
     connection: left hand
+  - type: SurgerySpeciesCondition # HardLight
+    speciesBlacklist:
+    - Synth
 
 - type: entity
   parent: SurgeryBase
@@ -205,6 +238,9 @@
     part: Hand
     symmetry: Right
     connection: right hand
+  - type: SurgerySpeciesCondition # HardLight
+    speciesBlacklist:
+    - Synth
 
 - type: entity
   parent: SurgeryBase
@@ -224,6 +260,9 @@
     part: Foot
     symmetry: Left
     connection: left foot
+  - type: SurgerySpeciesCondition # HardLight
+    speciesBlacklist:
+    - Synth
 
 - type: entity
   parent: SurgeryBase
@@ -243,6 +282,9 @@
     part: Foot
     symmetry: Right
     connection: right foot
+  - type: SurgerySpeciesCondition # HardLight
+    speciesBlacklist:
+    - Synth
 
 #- type: entity
 #  parent: SurgeryBase
@@ -300,6 +342,9 @@
     - SurgeryStepRemoveItem
   - type: SurgeryPartCondition
     part: Torso
+  - type: SurgerySpeciesCondition # HardLight
+    speciesBlacklist:
+    - Synth
 
 # Note for any Organ manipulation surgeries. Most of the organs are only defined on the server.
 # I added some of them to the client too, but we should probably move them to a shared
@@ -322,6 +367,9 @@
   - type: SurgeryOrganCondition
     organ:
     - type: Brain
+  - type: SurgerySpeciesCondition # HardLight
+    speciesBlacklist:
+    - Synth
 
 - type: entity
   parent: SurgeryBase
@@ -342,6 +390,9 @@
     - type: Brain
     inverse: true
     reattaching: true
+  - type: SurgerySpeciesCondition # HardLight
+    speciesBlacklist:
+    - Synth
 
 - type: entity
   parent: SurgeryBase
@@ -360,6 +411,9 @@
   - type: SurgeryOrganCondition
     organ:
     - type: Heart
+  - type: SurgerySpeciesCondition # HardLight
+    speciesBlacklist:
+    - Synth
 
 - type: entity
   parent: SurgeryBase
@@ -380,6 +434,9 @@
     - type: Heart
     inverse: true
     reattaching: true
+  - type: SurgerySpeciesCondition # HardLight
+    speciesBlacklist:
+    - Synth
 
 - type: entity
   parent: SurgeryBase
@@ -398,6 +455,9 @@
   - type: SurgeryOrganCondition
     organ:
     - type: Liver
+  - type: SurgerySpeciesCondition # HardLight
+    speciesBlacklist:
+    - Synth
 
 - type: entity
   parent: SurgeryBase
@@ -418,6 +478,9 @@
     - type: Liver
     inverse: true
     reattaching: true
+  - type: SurgerySpeciesCondition # HardLight
+    speciesBlacklist:
+    - Synth
 
 - type: entity
   parent: SurgeryBase
@@ -436,6 +499,9 @@
   - type: SurgeryOrganCondition
     organ:
     - type: Lung
+  - type: SurgerySpeciesCondition # HardLight
+    speciesBlacklist:
+    - Synth
 
 - type: entity
   parent: SurgeryBase
@@ -456,6 +522,9 @@
     - type: Lung
     inverse: true
     reattaching: true
+  - type: SurgerySpeciesCondition # HardLight
+    speciesBlacklist:
+    - Synth
 
 - type: entity
   parent: SurgeryBase
@@ -474,6 +543,9 @@
   - type: SurgeryOrganCondition
     organ:
     - type: Eyes
+  - type: SurgerySpeciesCondition # HardLight
+    speciesBlacklist:
+    - Synth
 
 - type: entity
   parent: SurgeryBase
@@ -494,6 +566,9 @@
     - type: Eyes
     inverse: true
     reattaching: true
+  - type: SurgerySpeciesCondition # HardLight
+    speciesBlacklist:
+    - Synth
 
 # HL START: Add Stomach to surgery
 

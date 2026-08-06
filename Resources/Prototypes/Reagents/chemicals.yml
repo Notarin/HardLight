@@ -95,6 +95,12 @@
     Poison:
       effects:
       - !type:HealthChange
+        # HardLight start
+        conditions:
+        - !type:OrganType
+          type: Synth
+          shouldHave: false
+        # HardLight end
         damage:
           types:
             Cellular: 1 #it's a carcinogen, reckon this is fine

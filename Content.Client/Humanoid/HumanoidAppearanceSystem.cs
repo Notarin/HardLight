@@ -285,13 +285,14 @@ public sealed class HumanoidAppearanceSystem : SharedHumanoidAppearanceSystem
         // Really, markings should probably be a separate component altogether.
         ClearAllMarkings(uid, humanoid, sprite);
 
+        var layerIndices = new Dictionary<HumanoidVisualLayers, int>(); // HardLight
         foreach (var markingList in humanoid.MarkingSet.Markings.Values)
         {
             foreach (var marking in markingList)
             {
                 if (_markingManager.TryGetMarking(marking, out var markingPrototype))
                 {
-                    ApplyMarking(uid, markingPrototype, marking.MarkingColors, marking.IsGlowing, marking.Visible, humanoid, sprite); //starlight, glowing
+                    ApplyMarking(uid, markingPrototype, marking.MarkingColors, marking.IsGlowing, marking.Visible, humanoid, sprite, layerIndices); //starlight, glowing, // HardLight: added layerIndices
                 }
             }
         }
@@ -349,22 +350,24 @@ public sealed class HumanoidAppearanceSystem : SharedHumanoidAppearanceSystem
     {
         if (undergarmentTop && humanoid.UndergarmentTop != null)
         {
+            var layerIndices = new Dictionary<HumanoidVisualLayers, int>(); // HardLight
             var marking = new Marking(humanoid.UndergarmentTop, new List<Color> { new Color() }, false); //starlight, glowing
             if (_markingManager.TryGetMarking(marking, out var prototype))
             {
                 // Markings are added to ClientOldMarkings because otherwise it causes issues when toggling the feature on/off.
                 humanoid.ClientOldMarkings.Markings.Add(MarkingCategories.UndergarmentTop, new List<Marking>{ marking });
-                ApplyMarking(uid, prototype, null, false, true, humanoid, sprite); //starlight, glowing
+                ApplyMarking(uid, prototype, null, false, true, humanoid, sprite, layerIndices); //starlight, glowing, // HardLight: added layerIndices
             }
         }
 
         if (undergarmentBottom && humanoid.UndergarmentBottom != null)
         {
+            var layerIndices = new Dictionary<HumanoidVisualLayers, int>(); // HardLight
             var marking = new Marking(humanoid.UndergarmentBottom, new List<Color> { new Color() }, false); //starlight, glowing
             if (_markingManager.TryGetMarking(marking, out var prototype))
             {
                 humanoid.ClientOldMarkings.Markings.Add(MarkingCategories.UndergarmentBottom, new List<Marking>{ marking });
-                ApplyMarking(uid, prototype, null, false, true, humanoid, sprite); //starlight, glowing
+                ApplyMarking(uid, prototype, null, false, true, humanoid, sprite, layerIndices); //starlight, glowing, // HardLight: added layerIndices
             }
         }
     }
@@ -374,7 +377,8 @@ public sealed class HumanoidAppearanceSystem : SharedHumanoidAppearanceSystem
         bool isGlowing, //starlight
         bool visible,
         HumanoidAppearanceComponent humanoid,
-        SpriteComponent sprite)
+        SpriteComponent sprite,
+        Dictionary<HumanoidVisualLayers, int> layerIndices) // HardLight
     {
         // FLOOF ADD START
         // make a handy dict of filename -> colors
@@ -410,11 +414,6 @@ public sealed class HumanoidAppearanceSystem : SharedHumanoidAppearanceSystem
                 }
             }
         }
-        // and, since we can't rely on the iterator knowing where the heck to put
-        // each sprite when we have one marking setting multiple layers,
-        // lets just kinda sorta do that ourselves
-        var layerDict = new Dictionary<string, int>();
-
         visible &= !humanoid.HiddenMarkings.Contains(markingPrototype.ID); // FLOOF ADD
         // FLOOF ADD END
 
@@ -444,16 +443,16 @@ public sealed class HumanoidAppearanceSystem : SharedHumanoidAppearanceSystem
                     layerSlot = Enum.Parse<HumanoidVisualLayers>(layerName);
                 }
             }
-            // update the layerDict
-            // if it doesnt have this, add it at 0, otherwise increment it
-            if (layerDict.TryGetValue(layerSlot.ToString(), out var layerIndex))
+            // HardLight-edit start: Track offsets across the whole marking pass so later markings layer over earlier/default markings.
+            if (layerIndices.TryGetValue(layerSlot, out var layerIndex))
             {
-                layerDict[layerSlot.ToString()] = layerIndex + 1;
+                layerIndices[layerSlot] = layerIndex + 1;
             }
             else
             {
-                layerDict.Add(layerSlot.ToString(), 0);
+                layerIndices.Add(layerSlot, 0);
             }
+            // HardLight-edit end
 
             if (!_sprite.LayerMapTryGet((uid, sprite), layerSlot, out var targetLayer, false)) // HardcLight: Added uid, sprite and false
             {
@@ -473,7 +472,7 @@ public sealed class HumanoidAppearanceSystem : SharedHumanoidAppearanceSystem
                 // adding 1 to the layer index makes it not be behind
                 // everything. fun! FLOOF ADD =3
                 // var targLayerAdj = targetLayer == 0 ? 0 + j : targetLayer + j + 1;
-                var targLayerAdj = targetLayer + layerDict[layerSlot.ToString()] + 1;
+                var targLayerAdj = targetLayer + layerIndices[layerSlot] + 1; // HardLight: layerDict[layerSlot.ToString()]>layerIndices[layerSlot]
                 var layer = _sprite.AddLayer((uid, sprite), markingSprite, targLayerAdj);
                 _sprite.LayerMapSet((uid, sprite), layerId, layer);
                 _sprite.LayerSetSprite((uid, sprite), layerId, rsi);
@@ -575,12 +574,13 @@ public sealed class HumanoidAppearanceSystem : SharedHumanoidAppearanceSystem
         // I fucking hate this. I'll get around to refactoring sprite layers eventually I swear
         // Just a week away...
 
+        var layerIndices = new Dictionary<HumanoidVisualLayers, int>(); // HardLight
         foreach (var markingList in ent.Comp.MarkingSet.Markings.Values)
         {
             foreach (var marking in markingList)
             {
                 if (_markingManager.TryGetMarking(marking, out var markingPrototype) && markingPrototype.BodyPart == layer)
-                    ApplyMarking(ent.Owner, markingPrototype, marking.MarkingColors, marking.IsGlowing, marking.Visible, ent.Comp, sprite); //starlight, glowing
+                    ApplyMarking(ent.Owner, markingPrototype, marking.MarkingColors, marking.IsGlowing, marking.Visible, ent.Comp, sprite, layerIndices); //starlight, glowing, // HardLight: added layerIndices
             }
         }
     }

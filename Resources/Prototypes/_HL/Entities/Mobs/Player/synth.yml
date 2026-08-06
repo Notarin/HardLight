@@ -1,6 +1,6 @@
 - type: entity
   save: false
-  name: Urist McSynth
+  name: Urist McBeeper
   parent: BaseMobSynth
   id: MobSynth
   components:

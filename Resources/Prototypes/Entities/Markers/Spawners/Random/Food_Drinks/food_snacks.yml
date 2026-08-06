@@ -40,6 +40,7 @@
     - id: FoodSnackChocolate
     - id: FoodSnackChocolateBar
     - id: FoodSnackChowMein
+    - id: FoodSnackCoalCrunch # HardLight
     - id: FoodSnackCookieFortune
     - id: FoodSnackDanDanNoodles
     - id: FoodSnackEnergy

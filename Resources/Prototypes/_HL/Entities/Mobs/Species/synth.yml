@@ -1,8 +1,7 @@
 - type: entity
-  parent: [ BaseMobSpecies, MobBloodstream, MobAtmosExposed, MobFlammable ]
+  parent: [ BaseMobSpecies, MobBloodstream, MobAtmosStandard, MobFlammable ]
   id: BaseMobSynth
-  name: Urist McSynth
-  save: false
+  name: Urist McBeeper
   abstract: true
   components:
   - type: LanguageKnowledge
@@ -12,15 +11,62 @@
     understands:
     - GalacticCommon
     - Machine
-  - type: Sprite
   - type: Icon # It will not have an icon in the adminspawn menu without this. Body parts seem fine for whatever reason.
     sprite: _HL/Mobs/Species/Synth/parts.rsi
     state: full
+  - type: Sprite
+    layers:
+    - map: [ "enum.HumanoidVisualLayers.Chest" ]
+    - map: [ "enum.HumanoidVisualLayers.Head" ]
+    - map: [ "enum.HumanoidVisualLayers.Snout" ]
+    - map: [ "enum.HumanoidVisualLayers.Eyes" ]
+    - map: [ "enum.HumanoidVisualLayers.RArm" ]
+    - map: [ "enum.HumanoidVisualLayers.LArm" ]
+    - map: [ "enum.HumanoidVisualLayers.RLeg" ]
+    - map: [ "enum.HumanoidVisualLayers.LLeg" ]
+    - map: [ "enum.HumanoidVisualLayers.UndergarmentBottom" ]
+    - map: [ "enum.HumanoidVisualLayers.UndergarmentTop" ]
+    - map: [ "jumpsuit" ]
+    - map: [ "enum.HumanoidVisualLayers.LFoot" ]
+    - map: [ "enum.HumanoidVisualLayers.RFoot" ]
+    - map: [ "enum.HumanoidVisualLayers.LHand" ]
+    - map: [ "enum.HumanoidVisualLayers.RHand" ]
+    - map: [ "gloves" ]
+    - map: [ "shoes" ]
+    - map: [ "ears" ]
+    - map: [ "eyes" ]
+    - map: [ "outerClothing" ]
+    - map: [ "belt" ]
+    - map: [ "id" ]
+    - map: [ "back" ]
+    - map: [ "neck" ]
+    - map: [ "misc" ]
+    - map: [ "enum.HumanoidVisualLayers.FacialHair" ]
+    - map: [ "enum.HumanoidVisualLayers.Hair" ]
+    - map: [ "enum.HumanoidVisualLayers.HeadSide" ]
+    - map: [ "enum.HumanoidVisualLayers.HeadTop" ]
+    - map: [ "enum.HumanoidVisualLayers.TailBehind" ]
+    - map: [ "enum.HumanoidVisualLayers.TailOversuit" ]
+    - map: [ "enum.HumanoidVisualLayers.Tail" ]
+    - map: [ "enum.HumanoidVisualLayers.Genital" ]
+    - map: [ "enum.HumanoidVisualLayers.Penis" ]
+    - map: [ "enum.HumanoidVisualLayers.Breasts" ]
+    - map: [ "mask" ]
+    - map: [ "head" ]
+    - map: [ "pocket1" ]
+    - map: [ "pocket2" ]
+    - map: [ "enum.HumanoidVisualLayers.Handcuffs" ]
+      color: "#ffffff"
+      sprite: Objects/Misc/handcuffs.rsi
+      state: body-overlay-2
+      visible: false
+    - map: [ "clownedon" ]
+      sprite: "Effects/creampie.rsi"
+      state: "creampie_human"
+      visible: false
   - type: Damageable
     damageModifierSet: Synth
     damageContainer: Synth
-  - type: HLSynth
-  - type: Thirst
   - type: DamageVisuals
     damageOverlayGroups:
       Brute:
@@ -29,23 +75,49 @@
   - type: ZombieImmune
   - type: Sanitized
   - type: Uncloneable
-  - type: Puller
-    needsHands: false
   - type: HumanoidAppearance
     species: Synth
+    hideLayersOnEquip:
+    - Hair
+  - type: Hunger
+    baseDecayRate: 0.0085
+    starvingSlowdownModifier: 0.75
+  - type: Puller
+    needsHands: false
+  - type: Thirst
   - type: Body
     prototype: Synth
+    requiredLegs: 2
+  - type: Butcherable
+    butcheringType: Spike
+    spawned:
+    - id: OrganSynthAppendix
+      amount: 5
   - type: MeleeWeapon
     soundHit:
       collection: Punch
-    angle: 30
     animation: WeaponArcFist
     damage:
       types:
-        Blunt: 8 # Synths hit hard.
+        Blunt: 6
   - type: Inventory
     speciesId: synth
     displacements:
+      jumpsuit:
+        sizeMaps:
+          32:
+            sprite: _HL/Mobs/Species/Synth/displacement.rsi
+            state: jumpsuit
+      outerClothing:
+        sizeMaps:
+          32:
+            sprite: _HL/Mobs/Species/Synth/displacement.rsi
+            state: outerclothing
+      shoes:
+        sizeMaps:
+          32:
+            sprite: _HL/Mobs/Species/Synth/displacement.rsi
+            state: shoes
       head:
         sizeMaps:
           32:
@@ -56,74 +128,100 @@
           32:
             sprite: _HL/Mobs/Species/Synth/displacement.rsi
             state: mask
-      back:
+      neck:
         sizeMaps:
           32:
             sprite: _HL/Mobs/Species/Synth/displacement.rsi
-            state: back
-      outerClothing:
+            state: neck
+      gloves:
         sizeMaps:
           32:
             sprite: _HL/Mobs/Species/Synth/displacement.rsi
-            state: outerclothing
-      jumpsuit:
-        sizeMaps:
-          32:
-            sprite: _HL/Mobs/Species/Synth/displacement.rsi
-            state: jumpsuit
-      hand:
-        sizeMaps:
-          32:
-            sprite: _HL/Mobs/Species/Synth/displacement.rsi
-            state: hand
-      shoes:
-        sizeMaps:
-          32:
-            sprite: _HL/Mobs/Species/Synth/displacement.rsi
-            state: shoes
+            state: gloves
   - type: Carriable
   - type: TypingIndicator
     proto: robot
   - type: Speech
     speechVerb: Robotic
     speechSounds: Borg
-    allowedEmotes: [ 'Thump', 'Purr', 'Beep', 'Ping', 'Buzz' ]
+    allowedEmotes: ['Purr', 'Thump', 'Beep', 'Ping', 'Buzz', 'Buzz-Two', 'Chime', 'Honk', 'Whirr']
   - type: Vocal
     sounds:
-      Male: UnisexSilicon
-      Female: UnisexSilicon
-      Unsexed: UnisexSilicon
+      Male: UnisexSynth
+      Female: UnisexSynth
+      Unsexed: UnisexSynth
   - type: BodyEmotes
     soundsId: ReptilianBodyEmotes
-  - type: WiresPanel
-    openingTool: Operating
-  - type: ContainerContainer
-    containers:
-      key_slots: !type:Container
-  - type: EncryptionKeyHolder
-    keySlots: 10
-    examineWhileLocked: false
-    preserveExistingChannels: true
-    intrinsicChannels:
-    - Trinary
-  - type: IntrinsicRadioReceiver
-  - type: IntrinsicRadioTransmitter
-    intrinsicChannels:
-    - Trinary
-  - type: ActiveRadio
-    intrinsicChannels:
-    - Trinary
   - type: Bloodstream
     bloodReagent: SynthBlood
-    bloodMaxVolume: 270
+    bloodMaxVolume: 300
     bloodRefreshAmount: 0.0
+    bloodlossDamage:
+      types:
+        Bloodloss: 0.5
+    bloodlossHealDamage:
+      types:
+        Bloodloss: -1
   - type: BlockInjection
     blockHypospray: true
     blockInjectOnProjectile: true
     blockReason: synth
+  - type: SynthBloodstream
+    minBloodLevel: 0.3
+    fullEfficiencyBloodLevel: 0.9
+    minBloodEfficiency: 0.1
+    minHunger: 50
+    hungerCostPerRepair: 1.5
+    hungerCostPerBleed: 2
+    bleedReductionAmount: 0.25
+    damage:
+      groups:
+        Brute: -2.5 # -1.25 after modifiers
+        Burn: -3 # -1.5 after modifiers
+      types:
+        Bloodloss: -0.2 # -0.1 after modifiers
+        Cellular: -0.07 # -0.035 after modifiers
+    bloodRegeneration:
+      targetBloodLevel: 1
+      bloodRefreshAmount: 0.3
+      hungerCostPerUnit: 0.5
+  - type: SynthBattery
+    organSlot: battery
+    startingBattery: PowerCellMedium
+    drawRate: 0.4
+    nutrimentChargeMultiplier: 7.2
+    batteryLowText: synth-battery-low
+    batteryDeadText: synth-battery-dead
+    warningPercentages: [20, 10]
+    batteryLowSound:
+      params:
+        maxDistance: 5
+      path: /Audio/Machines/twobeep.ogg
+    batteryDeadSound:
+      params:
+        maxDistance: 5
+      path: /Audio/Machines/buzz-two.ogg
+  - type: SynthShock
+    batteryChargeMultiplier: 10.8
+    cellularDamageMultiplier: 0.2
+  - type: BatteryAlert
+    batteryAlert: BorgBattery
+    noBatteryAlert: BorgBatteryNone
+  - type: UniversalHealModifier
+    modifier: 0.5 # reduces the effectiveness of most healing sources by 50%
+  - type: ThermalRegulator
+    metabolismHeat: 500
+    radiatedHeat: 150
+    implicitHeatRegulation: 700
+    sweatHeatRegulation: 1200
+    shiveringHeatRegulation: 400
+    normalBodyTemperature: 310.15
+    thermalRegulationTemperatureThreshold: 4
   - type: Temperature
-    heatDamageThreshold: 475
-    coldDamageThreshold: 55
+    currentTemperature: 310.15
+    specificHeat: 30
+    heatDamageThreshold: 360
+    coldDamageThreshold: 220
     coldDamage:
       types:
         Cold: 0.1 # per second, scales with temperature & other constants
@@ -133,14 +231,25 @@
   - type: Barotrauma
     damage:
       types:
-        Blunt: 0.3 # per second, scales with pressure and other constants.
+        Blunt: 0.7 # per second, halved compared to normal
   - type: TemperatureSpeed
     thresholds:
-      100: 0.7
-      75: 0.4
-      55: 0.2
+      260: 0.9
+      240: 0.8
+      220: 0.7
+  - type: Blindable
+  - type: FireVisuals
+    alternateState: Standing
+  - type: StunVisuals
   - type: Crawler
   - type: OfferItem
+  - type: Tag
+    tags:
+    - CanPilot
+    - FootstepSound
+    - DoorBumpOpener
+    - AnomalyHost
+    - Synth
 
 - type: entity
   parent: BaseSpeciesDummy
@@ -151,6 +260,21 @@
   - type: Inventory
     speciesId: synth
     displacements:
+      jumpsuit:
+        sizeMaps:
+          32:
+            sprite: _HL/Mobs/Species/Synth/displacement.rsi
+            state: jumpsuit
+      outerClothing:
+        sizeMaps:
+          32:
+            sprite: _HL/Mobs/Species/Synth/displacement.rsi
+            state: outerclothing
+      shoes:
+        sizeMaps:
+          32:
+            sprite: _HL/Mobs/Species/Synth/displacement.rsi
+            state: shoes
       head:
         sizeMaps:
           32:
@@ -161,28 +285,13 @@
           32:
             sprite: _HL/Mobs/Species/Synth/displacement.rsi
             state: mask
-      back:
+      neck:
         sizeMaps:
           32:
             sprite: _HL/Mobs/Species/Synth/displacement.rsi
-            state: back
-      outerClothing:
+            state: neck
+      gloves:
         sizeMaps:
           32:
             sprite: _HL/Mobs/Species/Synth/displacement.rsi
-            state: outerclothing
-      jumpsuit:
-        sizeMaps:
-          32:
-            sprite: _HL/Mobs/Species/Synth/displacement.rsi
-            state: jumpsuit
-      hand:
-        sizeMaps:
-          32:
-            sprite: _HL/Mobs/Species/Synth/displacement.rsi
-            state: hand
-      shoes:
-        sizeMaps:
-          32:
-            sprite: _HL/Mobs/Species/Synth/displacement.rsi
-            state: shoes
+            state: gloves

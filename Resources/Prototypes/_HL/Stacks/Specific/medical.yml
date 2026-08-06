@@ -1,0 +1,6 @@
+- type: stack
+  id: SynthBloodpack
+  name: stack-synthbloodpack
+  icon: { sprite: "_HL/Objects/Specific/Medical/medical.rsi", state: synthpack }
+  spawn: SynthBloodpack
+  maxCount: 50

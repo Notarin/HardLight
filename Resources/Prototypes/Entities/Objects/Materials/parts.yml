@@ -60,6 +60,15 @@
     price: 7.5 # HL: Price balancing
   - type: Extractable
     grindableSolutionName: rod
+  # HardLight start
+  - type: Food
+    requiresSpecialDigestion: true
+    solution: rod
+  - type: FlavorProfile
+    flavors:
+    - metallic
+  - type: BadFood
+  # HardLight end
   - type: SolutionContainerManager
     solutions:
       rod:

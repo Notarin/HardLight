@@ -15,7 +15,7 @@ namespace Content.IntegrationTests.Tests.Chemistry
     [TestOf(typeof(ReactionPrototype))]
     public sealed class TryAllReactionsTest
     {
-        public List<string> ReactionWhitelist = ["InertNanites"]; // HL: Whitelist as some reactions require cryo beakers, but we don't have a good dynamic check for that yet
+        public List<string> ReactionWhitelist = []; // HL: Whitelist as some reactions require cryo beakers, but we don't have a good dynamic check for that yet
         [TestPrototypes]
         private const string Prototypes = @"
 - type: entity

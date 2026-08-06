@@ -303,6 +303,22 @@
   suffix: Full
   components:
   - type: Material
+  # HardLight start
+  - type: Food
+    requiresSpecialDigestion: true
+  - type: FlavorProfile
+    flavors:
+    - meaty
+    - oily
+    - chalky
+  - type: BadFood
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 10
+  # HardLight end
   - type: PhysicalComposition
     materialComposition:
       Biomass: 1
@@ -396,6 +412,15 @@
     heldPrefix: diamond
   - type: Extractable
     grindableSolutionName: diamond
+  # HardLight start
+  - type: Food
+    requiresSpecialDigestion: true
+    solution: diamond
+  - type: FlavorProfile
+    flavors:
+    - nothing
+  - type: BadFood
+  # HardLight end
   - type: SolutionContainerManager
     solutions:
       diamond:

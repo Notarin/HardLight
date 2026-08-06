@@ -60,6 +60,7 @@ public abstract partial class SharedSurgerySystem : EntitySystem
         //SubscribeLocalEvent<SurgeryLarvaConditionComponent, SurgeryValidEvent>(OnLarvaValid);
         SubscribeLocalEvent<SurgeryComponentConditionComponent, SurgeryValidEvent>(OnComponentConditionValid);
         SubscribeLocalEvent<SurgeryPartConditionComponent, SurgeryValidEvent>(OnPartConditionValid);
+        SubscribeLocalEvent<SurgerySpeciesConditionComponent, SurgeryValidEvent>(OnSpeciesConditionValid); // HardLight
         SubscribeLocalEvent<SurgeryOrganConditionComponent, SurgeryValidEvent>(OnOrganConditionValid);
         SubscribeLocalEvent<SurgeryWoundedConditionComponent, SurgeryValidEvent>(OnWoundedValid);
         SubscribeLocalEvent<SurgeryPartRemovedConditionComponent, SurgeryValidEvent>(OnPartRemovedConditionValid);
@@ -169,6 +170,25 @@ public abstract partial class SharedSurgerySystem : EntitySystem
         }
     }
 
+    // HardLight: Gate surgeries by species.
+    private void OnSpeciesConditionValid(Entity<SurgerySpeciesConditionComponent> ent, ref SurgeryValidEvent args)
+    {
+        if (!TryComp<HumanoidAppearanceComponent>(args.Body, out var humanoid))
+        {
+            args.Cancelled = true;
+            return;
+        }
+
+        if (ent.Comp.SpeciesBlacklist.Contains(humanoid.Species))
+        {
+            args.Cancelled = true;
+            return;
+        }
+
+        if (ent.Comp.SpeciesWhitelist.Count > 0 && !ent.Comp.SpeciesWhitelist.Contains(humanoid.Species))
+            args.Cancelled = true;
+    }
+
     private void OnPartRemovedConditionValid(Entity<SurgeryPartRemovedConditionComponent> ent, ref SurgeryValidEvent args)
     {
         // First check if the part can have a slot for attachment
@@ -180,7 +200,7 @@ public abstract partial class SharedSurgerySystem : EntitySystem
 
         // Get any existing body parts of the specified type/symmetry
         var results = _body.GetBodyChildrenOfType(args.Body, ent.Comp.Part, symmetry: ent.Comp.Symmetry);
-        
+
         // If there are no existing parts of this type, allow the surgery (return without cancelling)
         if (results is not { } || !results.Any())
             return;

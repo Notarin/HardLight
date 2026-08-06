@@ -7,12 +7,12 @@
     neck: ClothingNeckCloakCentcom
     # mask:
     eyes: ClothingEyesGlassesCommand
-    ears: ClothingHeadsetColCom
+    ears: JaxColComHeadset
     gloves: ClothingHandsGlovesSr
-    shoes: ClothingShoesBootsSpeedAntiqueProto
+    shoes: JaxColComSpeedBoots
     # suitstorage:
     # outerClothing:
-    jumpsuit: CoolCoyoteClothesSunSkirt
+    jumpsuit: ClothingUniformSunSkirtJax
     #belt:
     back: ClothingBackpackSatchelHoldingJaxFilled
     id: CentcomPDAJax
@@ -101,7 +101,7 @@
   # - type: FlashImmunity
 
 # ears
-  type: entity
+- type: entity
   id: JaxColComHeadset
   parent: ClothingHeadsetAltColCom
   name: Jax's ColCom Headset
@@ -216,12 +216,12 @@
         amount: 2
       - id: DoorRemoteAll
       - id: AccessConfiguratorUniversalUniversalIDCard
-      - id: AdminHypo
+      - id: JaxAdminHypo
       - id: PowerCellMicroreactor
         amount: 2
       - id: DrinkLithiumFlaskJax
       - id: BoxFolderColComClipboardJax
-      - id: SmallBlueSpaceAirTank
+      - id: SmallBluespaceAirTank
       - id: PowerDrill
       - id: JawsOfLife
       - id: CleanerGrenade
@@ -252,7 +252,7 @@
     tags:
     - Admin
   - type: Pda
-    id: CentcomIDCard # ID Card
+    id: JaxColComIDCard # ID Card
     penSlot:
       startingItem: PenCentcom
      #whitelist:
@@ -270,7 +270,7 @@
 # ID Card
 - type: entity
   id: JaxColComIDCard
-  parent: centcomIDCard
+  parent: CentcomIDCard
   name: Jax's ColCom ID Card
   description: An ID card used by ColCom officers to access restricted areas and systems.
   suffix: Jax, Admin

@@ -137,7 +137,7 @@
   parent: [ BaseBorgModuleService, BaseProviderBorgModule ]
   name: bureaucracy cyborg module
   components:
-  - type: Tag
+  - type: Tag #HardLight
     tags:
     - BorgModuleGeneric
   - type: Sprite
@@ -155,7 +155,7 @@
     - id: WeaponCaseShortDocuments #HardLight
       whitelist:
         components:
-        - HLDocumentCase
+        - HLDocumentCase #HardLight
     - id: Pen
       whitelist:
         tags:

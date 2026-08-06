@@ -107,8 +107,8 @@
   components:
   - type: HLDocumentCase #HardLight
   - type: ExplosionResistance
-  - type: Lock
-  - type: AccessReader
+  - type: Lock #HardLight
+  - type: AccessReader #HardLight
     damageCoefficient: 0
   - type: Sprite
     sprite: _NF/Objects/Storage/Cases/documentcaseshort.rsi

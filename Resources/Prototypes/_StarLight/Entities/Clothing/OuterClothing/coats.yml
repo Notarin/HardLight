@@ -81,7 +81,7 @@
     reflectProb: 0.02
     reflects:
     - Energy
-    reflectingInHands: false
+    # reflectingInHands: false # HardLight: not currently supported
   - type: Tag
     tags:
     - HiViz

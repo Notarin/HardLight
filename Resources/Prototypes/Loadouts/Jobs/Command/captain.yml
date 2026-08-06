@@ -100,3 +100,13 @@
   id: CapTurtleneckJumpskirt
   equipment:
     jumpsuit: ClothingUniformJumpskirtCapTurtleneck
+
+- type: loadout
+  id: CaptainArmoredWintercoat
+  equipment:
+    outerClothing: ClothingOuterWinterCapArmored
+
+- type: loadout
+  id: CaptainArmoredJacket
+  equipment:
+    outerClothing: ClothingOuterCapJacket

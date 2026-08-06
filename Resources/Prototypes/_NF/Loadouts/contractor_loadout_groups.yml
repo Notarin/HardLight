@@ -854,6 +854,7 @@
   - MaidGloves # Hardlight
   - MaidGlovesLatex # Hardlight
   - RedRegaliaGloves
+  - GlovesGoldenTrim
 
 - type: loadoutGroup
   id: ContractorNeck

@@ -160,6 +160,8 @@
   - CaptainOuterClothing
   - CaptainWintercoat
   - WindbreakerCargo # Starlight
+  - CaptainArmoredWintercoat
+  - CaptainArmoredJacket
   subgroups:
   - ContractorOuterClothing # HL - Add departmental NF-style loadouts
 

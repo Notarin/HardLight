@@ -21,7 +21,6 @@ using Robust.Shared.Prototypes;
 using System.Linq;
 using Content.Shared.Damage;
 using Content.Shared.Gibbing.Events;
-using Content.Shared._HL.Fire;
 
 namespace Content.Server.Body.Systems;
 
@@ -278,10 +277,6 @@ public sealed class BodySystem : SharedBodySystem
         if (!Resolve(partId, ref part, logMissing: false)
             || TerminatingOrDeleted(partId)
             || EntityManager.IsQueuedForDeletion(partId))
-            return false;
-
-        // Fireproof trait: prevent body parts from burning off while on fire.
-        if (part.Body is { } bodyEnt && HasComp<FireproofBodyPartsComponent>(bodyEnt))
             return false;
 
         return base.BurnPart(partId, part);

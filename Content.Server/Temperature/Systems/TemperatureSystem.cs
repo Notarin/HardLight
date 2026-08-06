@@ -3,6 +3,7 @@ using Content.Server.Administration.Logs;
 using Content.Server.Atmos.EntitySystems;
 using Content.Server.Body.Components;
 using Content.Server.Temperature.Components;
+using Content.Server._HL.Traits.Physical; // HardLight
 using Content.Shared.Alert;
 using Content.Shared.Atmos;
 using Content.Shared.Damage;
@@ -200,26 +201,32 @@ public sealed class TemperatureSystem : EntitySystem
             return;
         }
 
+        // HardLight start
+        var heatDamageThreshold = temperature.ParentHeatDamageThreshold ?? temperature.HeatDamageThreshold;
+        var coldDamageThreshold = temperature.ParentColdDamageThreshold ?? temperature.ColdDamageThreshold;
+        ApplyTemperatureTolerance(uid, ref heatDamageThreshold, ref coldDamageThreshold);
+        // HardLight end
+
         if (TryComp<ThermalRegulatorComponent>(uid, out var regulator) &&
-            regulator.NormalBodyTemperature > temperature.ColdDamageThreshold &&
-            regulator.NormalBodyTemperature < temperature.HeatDamageThreshold)
+            regulator.NormalBodyTemperature > coldDamageThreshold && // HardLight: temperature.ColdDamageThreshold>coldDamageThreshold
+            regulator.NormalBodyTemperature < heatDamageThreshold) // HardLight: temperature.HeatDamageThreshold>heatDamageThreshold
         {
             idealTemp = regulator.NormalBodyTemperature;
         }
         else
         {
-            idealTemp = (temperature.ColdDamageThreshold + temperature.HeatDamageThreshold) / 2;
+            idealTemp = (coldDamageThreshold + heatDamageThreshold) / 2; // HardLight-edit
         }
 
         if (args.CurrentTemperature <= idealTemp)
         {
             type = temperature.ColdAlert;
-            threshold = temperature.ColdDamageThreshold;
+            threshold = coldDamageThreshold; // HardLight: temperature.ColdDamageThreshold>coldDamageThreshold
         }
         else
         {
             type = temperature.HotAlert;
-            threshold = temperature.HeatDamageThreshold;
+            threshold = heatDamageThreshold; // HardLight: temperature.HeatDamageThreshold>heatDamageThreshold
         }
 
         // Calculates a scale where 1.0 is the ideal temperature and 0.0 is where temperature damage begins
@@ -265,6 +272,7 @@ public sealed class TemperatureSystem : EntitySystem
 
         var heatDamageThreshold = temperature.ParentHeatDamageThreshold ?? temperature.HeatDamageThreshold;
         var coldDamageThreshold = temperature.ParentColdDamageThreshold ?? temperature.ColdDamageThreshold;
+        ApplyTemperatureTolerance(uid, ref heatDamageThreshold, ref coldDamageThreshold); // HardLight
 
         if (temperature.CurrentTemperature >= heatDamageThreshold)
         {
@@ -296,6 +304,15 @@ public sealed class TemperatureSystem : EntitySystem
             _adminLogger.Add(LogType.Temperature, $"{ToPrettyString(uid):entity} stopped taking temperature damage");
             temperature.TakingDamage = false;
         }
+    }
+
+    private void ApplyTemperatureTolerance(EntityUid uid, ref float heatDamageThreshold, ref float coldDamageThreshold) // HardLight
+    {
+        if (!TryComp<TemperatureToleranceComponent>(uid, out var tolerance))
+            return;
+
+        heatDamageThreshold += tolerance.HeatDamageThresholdModifier;
+        coldDamageThreshold -= tolerance.ColdDamageThresholdModifier;
     }
 
     private void OnTemperatureChangeAttempt(EntityUid uid, TemperatureProtectionComponent component,

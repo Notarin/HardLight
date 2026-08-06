@@ -164,7 +164,8 @@
     #- id: ClothingHeadsetAltEngineering
     #    - id: DoorRemoteEngineering # Frontier
     #    - id: RCD # Frontier
-    #    - id: RCDAmmo # Frontier
+    - id: RPD
+    - id: RCDAmmo # Frontier
     - id: RubberStampCE
     - id: ShipyardRCD # Frontier
     - id: ShipyardRCDAmmo # Frontier

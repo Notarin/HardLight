@@ -1,5 +1,6 @@
 using Content.Server.NodeContainer.EntitySystems;
 using Content.Server.NodeContainer.NodeGroups;
+using Content.Shared._Starlight.Atmos;
 using Content.Shared.Atmos;
 using Content.Shared.Atmos.Components;
 using Content.Shared.NodeContainer;
@@ -14,7 +15,7 @@ namespace Content.Server.NodeContainer.Nodes
     /// </summary>
     [DataDefinition]
     [Virtual]
-    public partial class PipeNode : Node, IGasMixtureHolder, IRotatableNode
+    public partial class PipeNode : Node, IGasMixtureHolder, IRotatableNode, IPipeNode // Starlight Edit: Added IPipeNode
     {
         /// <summary>
         ///     The directions in which this pipe can connect to other pipes around it.
@@ -247,5 +248,9 @@ namespace Content.Server.NodeContainer.Nodes
             }
         }
         public HashSet<PipeNode>? GetAlwaysReachable() => _alwaysReachable; // Starlight: DockPipeSystem
+        // Starlight Start: RPD
+        PipeDirection IPipeNode.Direction => OriginalPipeDirection;
+        AtmosPipeLayer IPipeNode.Layer => CurrentPipeLayer;
+        // Starlight End: RPD
     }
 }

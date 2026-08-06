@@ -326,6 +326,18 @@ namespace Content.Server.Explosion.EntitySystems
             var critMessage = Loc.GetString(component.CritMessage, ("user", implanted.ImplantedEntity.Value), ("specie", speciesText), ("grid", stationText!), ("position", posText));
             var deathMessage = Loc.GetString(component.DeathMessage, ("user", implanted.ImplantedEntity.Value), ("specie", speciesText), ("grid", stationText!), ("position", posText));
 
+            // Triad: Add time since death
+            var deathTime = "";
+
+            if (component.DeathTime != TimeSpan.Zero)
+            {
+                var deltaTime = _timing.CurTime - component.DeathTime;
+                deathTime = deltaTime.ToString("%m' minutes'");
+            }
+
+            var stillDeathMessage = Loc.GetString(component.StillDeadMessage, ("user", implanted.ImplantedEntity.Value), ("specie", speciesText), ("grid", stationText!), ("position", posText), ("deathTime", deathTime)); // Hardlight: gridText<stationText!
+            // End Triad
+
             if (!TryComp<MobStateComponent>(implanted.ImplantedEntity, out var mobstate))
                 return;
 
@@ -334,8 +346,17 @@ namespace Content.Server.Explosion.EntitySystems
                 // Sends a message to the radio channel specified by the implant
                 if (mobstate.CurrentState == MobState.Critical)
                     _radioSystem.SendRadioMessage(uid, critMessage, _prototypeManager.Index<RadioChannelPrototype>(component.RadioChannel), uid);
+                // Hardlight: Move triad code into here
                 if (mobstate.CurrentState == MobState.Dead)
-                    _radioSystem.SendRadioMessage(uid, deathMessage, _prototypeManager.Index<RadioChannelPrototype>(component.RadioChannel), uid);
+                {
+                    _radioSystem.SendRadioMessage(uid, component.DeathTime != TimeSpan.Zero ? stillDeathMessage : deathMessage, _prototypeManager.Index<RadioChannelPrototype>(component.RadioChannel), uid); // Hardlight
+                    // Triad: Set information on initial rattle
+                    component.NextTrigger = _timing.CurTime + component.RetriggerDelay;
+                    if (component.DeathTime == TimeSpan.Zero)
+                        component.DeathTime = _timing.CurTime;
+                    // End Triad
+                }
+                // End Hardlight
             }
 
             args.Handled = true;
@@ -509,6 +530,7 @@ namespace Content.Server.Explosion.EntitySystems
             UpdateTimer(frameTime);
             UpdateTimedCollide(frameTime);
             UpdateRepeat();
+            UpdateRattleTimer(); // Triad
         }
 
         private void UpdateTimer(float frameTime)

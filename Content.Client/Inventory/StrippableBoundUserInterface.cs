@@ -181,6 +181,7 @@ namespace Content.Client.Inventory
                 var button = new Button()
                 {
                     Text = Loc.GetString("strippable-bound-user-interface-stripping-menu-ensnare-button"),
+                    // StyleClasses = { StyleClass.ButtonOpenRight }
                 };
 
                 button.OnPressed += (_) => SendPredictedMessage(new StrippingEnsnareButtonPressed());

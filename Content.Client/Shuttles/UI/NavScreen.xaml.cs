@@ -22,10 +22,12 @@ public sealed partial class NavScreen : BoxContainer
 
     private EntityUid? _consoleEntity; // Entity of controlling console
     private EntityUid? _shuttleEntity;
+    private readonly ButtonGroup _navigationAngleButtonGroup = new(); // HardLight
 
     public event Action? ActivateExpeditionDisk;
     public event Action? EndExpedition;
     public event Action? ActivateWEP; // HL
+    public event Action<Angle>? ConsoleNavigationAngleOffsetChanged; // HardLight
 
     public NavScreen()
     {
@@ -44,7 +46,18 @@ public sealed partial class NavScreen : BoxContainer
 
         ExpeditionDiskActivate.OnPressed += _ => ActivateExpeditionDisk?.Invoke();
         ExpeditionEnd.OnPressed += _ => EndExpedition?.Invoke();
-        WEPButton.OnPressed += _ => ActivateWEP?.Invoke(); // HL
+        // HardLight start
+        WEPButton.OnPressed += _ => ActivateWEP?.Invoke();
+        NavigationAngleNorth.OnPressed += _ => SetConsoleNavigationAngleOffset(Angle.Zero);
+        NavigationAngleEast.OnPressed += _ => SetConsoleNavigationAngleOffset(Angle.FromDegrees(90));
+        NavigationAngleSouth.OnPressed += _ => SetConsoleNavigationAngleOffset(Angle.FromDegrees(180));
+        NavigationAngleWest.OnPressed += _ => SetConsoleNavigationAngleOffset(Angle.FromDegrees(270));
+
+        NavigationAngleNorth.Group = _navigationAngleButtonGroup;
+        NavigationAngleEast.Group = _navigationAngleButtonGroup;
+        NavigationAngleSouth.Group = _navigationAngleButtonGroup;
+        NavigationAngleWest.Group = _navigationAngleButtonGroup;
+        // HardLight end
 
         NfInitialize(); // Frontier Initialization for the NavScreen
     }
@@ -59,12 +72,12 @@ public sealed partial class NavScreen : BoxContainer
             : (entity, grid, iff) => // Otherwise use simple search criteria
             {
                 // Check entity name
-                if (_entManager.TryGetComponent<MetaDataComponent>(entity, out var metadata) && 
+                if (_entManager.TryGetComponent<MetaDataComponent>(entity, out var metadata) &&
                     metadata.EntityName.Contains(text, StringComparison.OrdinalIgnoreCase))
                 {
                     return true;
                 }
-                
+
                 // Check company name
                 if (_entManager.TryGetComponent<CompanyComponent>(entity, out var companyComp) &&
                     !string.IsNullOrEmpty(companyComp.CompanyName))
@@ -74,17 +87,17 @@ public sealed partial class NavScreen : BoxContainer
                     {
                         return true;
                     }
-                    
+
                     // Try to match company name from prototype
                     var prototypeManager = IoCManager.Resolve<IPrototypeManager>();
                     if (prototypeManager.TryIndex<CompanyPrototype>(
-                        companyComp.CompanyName, out var prototype) && 
+                        companyComp.CompanyName, out var prototype) &&
                         prototype.Name.Contains(text, StringComparison.OrdinalIgnoreCase))
                     {
                         return true;
                     }
                 }
-                
+
                 return false;
             };
     }
@@ -126,10 +139,42 @@ public sealed partial class NavScreen : BoxContainer
         NavRadar.UpdateState(scc);
         UpdateExpeditionDisk(expeditionDiskState);
         UpdateWEPButton(wepActive, wepCooldownExpiry); // HL
+        UpdateNavigationAngleButtons(scc.ConsoleNavigationAngleOffset);
         NfUpdateState(); // Frontier Update State
     }
 
-    // HL
+    // HardLight start
+    private void SetConsoleNavigationAngleOffset(Angle angle)
+    {
+        UpdateNavigationAngleButtons(angle);
+        ConsoleNavigationAngleOffsetChanged?.Invoke(angle);
+    }
+
+    private void UpdateNavigationAngleButtons(Angle angle)
+    {
+        switch (GetQuarterTurns(angle))
+        {
+            case 0:
+                NavigationAngleNorth.Pressed = true;
+                break;
+            case 1:
+                NavigationAngleEast.Pressed = true;
+                break;
+            case 2:
+                NavigationAngleSouth.Pressed = true;
+                break;
+            case 3:
+                NavigationAngleWest.Pressed = true;
+                break;
+        }
+    }
+
+    private static int GetQuarterTurns(Angle angle)
+    {
+        var quarterTurns = (int) MathF.Round((float) (angle.Reduced().Theta / Math.PI * 2f));
+        return (quarterTurns % 4 + 4) % 4;
+    }
+
     private void UpdateWEPButton(bool wepActive, TimeSpan wepCooldownExpiry)
     {
         var now = _gameTiming.CurTime;
@@ -150,7 +195,7 @@ public sealed partial class NavScreen : BoxContainer
             WEPButton.Text = Loc.GetString("shuttle-console-wep-activate");
         }
     }
-    // End HL
+    // HardLight end
 
     private void UpdateExpeditionDisk(ExpeditionDiskInterfaceState state)
     {

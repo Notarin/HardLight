@@ -51,7 +51,12 @@ namespace Content.Server.Shuttles.Components
         [AutoPausedField]
         public TimeSpan ExpeditionCooldownEnd = TimeSpan.Zero;
 
-        [DataField] // Hardlight
+        // HardLight start
+        [DataField, ViewVariables(VVAccess.ReadWrite)]
+        public Angle ConsoleNavigationAngleOffset = Angle.Zero;
+
+        [DataField]
         public bool CanFTL = true;
+        // HardLight end
     }
 }

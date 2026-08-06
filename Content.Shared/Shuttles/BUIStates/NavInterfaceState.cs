@@ -20,6 +20,8 @@ public sealed class NavInterfaceState
     /// </summary>
     public Angle? Angle;
 
+    public Angle ConsoleNavigationAngleOffset; // HardLight
+
     public Dictionary<NetEntity, List<DockingPortState>> Docks;
 
     // Frontier fields
@@ -47,6 +49,7 @@ public sealed class NavInterfaceState
         float maxRange,
         NetCoordinates? coordinates,
         Angle? angle,
+        Angle consoleNavigationAngleOffset, // HardLight
         Dictionary<NetEntity, List<DockingPortState>> docks,
         InertiaDampeningMode dampeningMode, // Frontier
         ServiceFlags serviceFlags) // Frontier
@@ -54,6 +57,7 @@ public sealed class NavInterfaceState
         MaxRange = maxRange;
         Coordinates = coordinates;
         Angle = angle;
+        ConsoleNavigationAngleOffset = consoleNavigationAngleOffset; // HardLight
         Docks = docks;
         DampeningMode = dampeningMode; // Frontier
         ServiceFlags = serviceFlags; // Frontier

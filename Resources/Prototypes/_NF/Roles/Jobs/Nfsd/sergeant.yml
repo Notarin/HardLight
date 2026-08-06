@@ -1,8 +1,8 @@
 - type: job
-  id: SeniorOfficer
-  name: job-name-senior-officer
-  description: job-description-senior-officer
-  playTimeTracker: JobSeniorOfficer
+  id: Sergeant
+  name: job-name-sergeant
+  description: job-description-Sergeant
+  playTimeTracker: JobSergeant
   requirements:
     - !type:OverallPlaytimeRequirement
       time: 108000 # 30 hours
@@ -19,7 +19,7 @@
     - !type:RoleTimeRequirement
       role: JobSecurityOfficer
       time: 21600 # 6 hours
-  startingGear: SeniorOfficerGear
+  startingGear: SergeantGear
   icon: JobIconSergeant
   supervisors: job-supervisors-bailiff
   weight: 140
@@ -38,7 +38,7 @@
     prototype: FrontierBirthdayGift
 
 - type: startingGear
-  id: SeniorOfficerGear
+  id: SergeantGear
   equipment:
     pocket1: NFWeaponPistolUniversalNfsdLessLethal
   storage:

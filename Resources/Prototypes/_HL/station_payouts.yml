@@ -112,6 +112,16 @@
   job: SecurityOfficer
 
 - type: stationPay
+  id: SeniorOfficerPay
+  payPerHour: 28000 # Danger x2
+  job: SeniorOfficer
+
+- type: stationPay
+  id: BrigmedicPay
+  payPerHour: 38000 # Specialisation + Danger x2
+  job: Brigmedic
+
+- type: stationPay
   id: ResearchAssistantPay
   payPerHour: 24000 # New Minimum
   job: ResearchAssistant

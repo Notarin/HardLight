@@ -1,8 +1,8 @@
 - type: job
-  id: Brigmedic
-  name: job-name-brigmedic
-  description: job-description-brigmedic-nf
-  playTimeTracker: JobBrigmedic
+  id: nf-Brigmedic
+  name: job-name-nf-brigmedic
+  description: job-description-nf-brigmedic
+  playTimeTracker: JobBrigmedicOld
   requirements:
     - !type:OverallPlaytimeRequirement
       time: 43200 # 12 hours
@@ -13,8 +13,8 @@
     longerPlaytimeLessSec:
     - !type:OverallPlaytimeRequirement
       time: 360000 # 100 hours
-  startingGear: BrigmedicGear
-  icon: JobIconBrigmedicNF
+  startingGear: NFBrigmedicGear
+  icon: JobIconNFBrigmedic
   supervisors: job-supervisors-bailiff
   weight: 125
   displayWeight: 35
@@ -31,7 +31,7 @@
     prototype: FrontierBirthdayGift
 
 - type: startingGear
-  id: BrigmedicGear
+  id: NFBrigmedicGear
   equipment:
     pocket1: NFWeaponPistolUniversalNfsdLessLethal
   storage:

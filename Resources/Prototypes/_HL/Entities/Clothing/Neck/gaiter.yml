@@ -116,3 +116,14 @@
     state: icon
   - type: Clothing
     sprite: _HL/Clothing/Neck/Gaiter/snow.rsi
+
+- type: entity
+  parent: ClothingGaiterBase
+  id: ClothingGaiterSecurity
+  name: security neck gaiter
+  components:
+  - type: Sprite
+    sprite: _HL/Clothing/Neck/Gaiter/security.rsi
+    state: icon
+  - type: Clothing
+    sprite: _HL/Clothing/Neck/Gaiter/security.rsi

@@ -1,6 +1,6 @@
 # Frontier
 job-name-bailiff = Bailiff
-job-name-brigmedic = Brigmedic
+job-name-nf-brigmedic = Brigmedic
 job-name-cadet-nf = Cadet
 job-name-contractor = Contractor
 job-name-contractor-interview = Contractor Applicant
@@ -45,9 +45,9 @@ JobSTC = Station Traffic Controller
 job-name-senior-engineer = Senior Engineer
 job-name-senior-researcher = Senior Researcher
 job-name-senior-physician = Senior Physician
-job-name-senior-officer = Sergeant
+job-name-sergeant = Sergeant
 
 JobSeniorEngineer = Senior Engineer
-JobSeniorOfficer = Sergeant
+JobSergeant = Sergeant
 JobSeniorPhysician = Senior Physician
 JobSeniorResearcher = Senior Researcher

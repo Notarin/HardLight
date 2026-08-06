@@ -1657,6 +1657,16 @@
   - type: Sprite
     state: security
 
+# Hardlight Brigmedic
+- type: entity
+  parent: SignSecurity
+  id: SignBrigmedic
+  name: brigmedic sign
+  description: A sign indicating the brigmedic area.
+  components:
+  - type: Sprite
+    state: brigmed
+
 - type: entity
   parent: BaseSign
   id: SignPlaque

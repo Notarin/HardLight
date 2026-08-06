@@ -7,7 +7,6 @@ using Content.Server.Destructible.Thresholds.Behaviors;
 using Content.Server.Destructible.Thresholds.Triggers;
 using Content.Server.Destructible.Thresholds;
 using Content.Server.Destructible;
-using Content.Server.Mind;
 using Content.Server.Popups;
 using Content.Server.Spawners.EntitySystems;
 using Content.Server.Station.Systems;
@@ -18,6 +17,7 @@ using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Damage;
 using Content.Shared._DV.Mail;
 using Content.Shared.Destructible;
+using Content.Shared.Delivery;
 using Content.Shared.Emag.Components;
 using Content.Shared.Emag.Systems;
 using Content.Shared.Examine;
@@ -64,7 +64,6 @@ namespace Content.Server._DV.Mail.EntitySystems
         [Dependency] private readonly IRobustRandom _random = default!;
         [Dependency] private readonly IdCardSystem _idCardSystem = default!;
         [Dependency] private readonly MetaDataSystem _metaDataSystem = default!;
-        // [Dependency] private readonly MindSystem _mindSystem = default!; // Frontier: warning suppression
         [Dependency] private readonly OpenableSystem _openable = default!;
         [Dependency] private readonly PopupSystem _popupSystem = default!;
         [Dependency] private readonly SharedAppearanceSystem _appearanceSystem = default!;
@@ -85,6 +84,8 @@ namespace Content.Server._DV.Mail.EntitySystems
         private static readonly ProtoId<TagPrototype> MailTag = "Mail"; // Frontier
         private static readonly ProtoId<TagPrototype> TrashTag = "Trash"; // Frontier
         private static readonly ProtoId<TagPrototype> RecyclableTag = "Recyclable"; // Frontier
+        private bool _loggedNoValidTeleporters; // HardLight
+        private bool _loggedNoCandidates; // HardLight
 
         public override void Initialize()
         {
@@ -461,6 +462,34 @@ namespace Content.Server._DV.Mail.EntitySystems
             return jobPrototype != null;
         }
 
+        // HardLight start
+        private static void MergeParcelWeights(Dictionary<string, float> target, IReadOnlyDictionary<string, float> source)
+        {
+            foreach (var (key, value) in source)
+            {
+                target[key] = value;
+            }
+        }
+
+        private void LogNoValidTeleportersOnce()
+        {
+            if (_loggedNoValidTeleporters)
+                return;
+
+            _loggedNoValidTeleporters = true;
+            _sawmill.Info("List of valid mail teleporters was empty!");
+        }
+
+        private void LogNoCandidatesOnce()
+        {
+            if (_loggedNoCandidates)
+                return;
+
+            _loggedNoCandidates = true;
+            _sawmill.Info("List of mail candidates was empty!");
+        }
+        // HardLight end
+
         /// <summary>
         /// Handle all the gritty details particular to a new mail entity.
         /// </summary>
@@ -554,30 +583,45 @@ namespace Content.Server._DV.Mail.EntitySystems
         }
 
         /// <summary>
-        /// Return the parcels waiting for delivery.
+        /// Return how many parcels are waiting for delivery on this teleporter's tile. // HardLight: Rephrased
         /// </summary>
-        /// <param name="uid">The mail teleporter to check.</param>
-        private List<EntityUid> GetUndeliveredParcels(EntityUid uid)
+        private int GetUndeliveredParcelCount(EntityUid uid) // HardLight
         {
             // An alternative solution would be to keep a list of the unopened
             // parcels spawned by the teleporter and see if they're not carried
             // by someone, but this is simple, and simple is good.
             var coordinates = Transform(uid).Coordinates;
             const LookupFlags lookupFlags = LookupFlags.Dynamic | LookupFlags.Sundries;
-
             var entitiesInTile = _lookup.GetEntitiesIntersecting(coordinates, lookupFlags);
 
-            return entitiesInTile.Where(HasComp<MailComponent>).ToList();
+            // HardLight start
+            var count = CompOrNull<DeliverySpawnerComponent>(uid)?.StoredDeliveryAmount ?? 0;
+            foreach (var entity in entitiesInTile)
+            {
+                if (HasComp<MailComponent>(entity))
+                    count++;
+            }
+
+            return count;
+            // HardLight end
         }
 
-        /// <summary>
-        /// Return how many parcels are waiting for delivery.
-        /// </summary>
-        /// <param name="uid">The mail teleporter to check.</param>
-        private uint GetUndeliveredParcelCount(EntityUid uid)
+        // HardLight start
+        private bool TryStoreMailInDeliverySpawner(EntityUid spawnerUid, EntityUid mailUid)
         {
-            return (uint)GetUndeliveredParcels(uid).Count;
+            if (!TryComp<DeliverySpawnerComponent>(spawnerUid, out var deliverySpawner))
+                return false;
+
+            var storedDeliveries = _containerSystem.EnsureContainer<Container>(spawnerUid, deliverySpawner.StoredDeliveryContainer);
+            if (!_containerSystem.Insert(mailUid, storedDeliveries))
+                return false;
+
+            deliverySpawner.StoredDeliveryAmount++;
+            _appearanceSystem.SetData(spawnerUid, DeliverySpawnerVisuals.Contents, deliverySpawner.TotalDeliveryAmount > 0);
+            Dirty(spawnerUid, deliverySpawner);
+            return true;
         }
+        // HardLight end
 
         /// <summary>
         /// Try to match a mail receiver to a mail teleporter.
@@ -642,7 +686,6 @@ namespace Content.Server._DV.Mail.EntitySystems
                 // End Frontier
 
                 var accessTags = access.Tags;
-                //var mayReceivePriorityMail = !(_mindSystem.GetMind(receiverUid) == null);
 
                 recipient = new MailRecipient(
                     idCard.Comp.FullName,
@@ -665,25 +708,12 @@ namespace Content.Server._DV.Mail.EntitySystems
         {
             var candidateList = new List<MailRecipient>();
             var query = EntityQueryEnumerator<MailReceiverComponent>();
-            //var teleporterStation = _stationSystem.GetOwningStation(uid); // Frontier: unnecessary
 
             while (query.MoveNext(out var receiverUid, out _))
             {
-                var location = Transform(receiverUid);
-
-                // Frontier: sector-wide mail
-                // var receiverStation = _stationSystem.GetOwningStation(receiverUid);
-                // if (receiverStation != teleporterStation)
-                //     continue;
-
-                // Are you on expedition or in FTL? No mail for you.
-                if (location.MapID != Transform(receiverUid).MapID)
-                    continue;
-
                 // Is this player displaying as SSD? If so, skip 'em.
                 if (TryComp(receiverUid, out SSDIndicatorComponent? ssd) && ssd.IsSSD)
                     continue;
-                // End Frontier
 
                 // Skip ghosts and adminghosts
                 if (HasComp<GhostComponent>(receiverUid) || HasComp<GhostRoleComponent>(receiverUid))
@@ -701,6 +731,7 @@ namespace Content.Server._DV.Mail.EntitySystems
         {
             public Entity<MailTeleporterComponent> Entity = entity;
             public bool HadMail = false;
+            public int RemainingCapacity; // HardLight
         }
 
         /// <summary>
@@ -713,27 +744,35 @@ namespace Content.Server._DV.Mail.EntitySystems
             var teleporterQuery = EntityQueryEnumerator<MailTeleporterComponent>();
             while (teleporterQuery.MoveNext(out var uid, out var mailTeleporter))
             {
+                // HardLight-edit start
+                var remainingCapacity = mailTeleporter.MaximumUndeliveredParcels - GetUndeliveredParcelCount(uid);
                 if (_powerReceiver.IsPowered(uid)
-                    && GetUndeliveredParcelCount(uid) < mailTeleporter.MaximumUndeliveredParcels)
+                    && remainingCapacity > 0)
                 {
-                    validTeleporters.Add(new MailTeleporterSpawnData((uid, mailTeleporter)));
+                    validTeleporters.Add(new MailTeleporterSpawnData((uid, mailTeleporter))
+                    {
+                        RemainingCapacity = remainingCapacity,
+                    });
                 }
+                // HardLight-edit end
             }
 
             // If list of teleporters is empty, return.
             if (validTeleporters.Count <= 0)
             {
-                _sawmill.Info("List of valid mail teleporters was empty!");
+                LogNoValidTeleportersOnce(); // HardLight
                 return;
             }
+            _loggedNoValidTeleporters = false; // HardLight
 
             var candidateList = GetMailRecipientCandidates();
 
             if (candidateList.Count <= 0)
             {
-                _sawmill.Info("List of mail candidates was empty!");
+                LogNoCandidatesOnce(); // HardLight
                 return;
             }
+            _loggedNoCandidates = false; // HardLight
 
             if (!_prototypeManager.TryIndex<MailDeliveryPoolPrototype>(component.MailPool, out var pool))
             {
@@ -742,28 +781,34 @@ namespace Content.Server._DV.Mail.EntitySystems
             }
 
             var deliveryCount = component.MinimumDeliveriesPerTeleport + candidateList.Count / component.CandidatesPerDelivery;
+            var remainingCandidates = new List<MailRecipient>(candidateList); // HardLight
+            _random.Shuffle(remainingCandidates); // HardLight
+            var spawnTeleporters = new List<MailTeleporterSpawnData>(validTeleporters); // HardLight
 
-            for (var i = 0; i < deliveryCount; i++)
+            for (var i = 0; i < deliveryCount && spawnTeleporters.Count > 0; i++) // HardLight: added spawnTeleporters.Count > 0
             {
-                var candidate = _random.Pick(candidateList);
+                // HardLight start
+                if (remainingCandidates.Count == 0)
+                {
+                    remainingCandidates = new List<MailRecipient>(candidateList);
+                    _random.Shuffle(remainingCandidates);
+                }
+
+                var candidate = remainingCandidates[^1];
+                remainingCandidates.RemoveAt(remainingCandidates.Count - 1);
+                // HardLight end
                 var possibleParcels = new Dictionary<string, float>(pool.Everyone);
 
                 if (TryMatchJobTitleToPrototype(candidate.Job, out var jobPrototype)
                     && pool.Jobs.TryGetValue(jobPrototype.ID, out var jobParcels))
                 {
-                    possibleParcels = possibleParcels
-                        .Concat(jobParcels)
-                        .GroupBy(g => g.Key)
-                        .ToDictionary(pair => pair.Key, pair => pair.First().Value);
+                    MergeParcelWeights(possibleParcels, jobParcels); // HardLight
                 }
 
                 if (TryMatchJobTitleToDepartment(candidate.Job, out var department)
                     && pool.Departments.TryGetValue(department, out var departmentParcels))
                 {
-                    possibleParcels = possibleParcels
-                        .Concat(departmentParcels)
-                        .GroupBy(g => g.Key)
-                        .ToDictionary(pair => pair.Key, pair => pair.First().Value);
+                    MergeParcelWeights(possibleParcels, departmentParcels); // HardLight
                 }
 
                 var accumulated = 0f;
@@ -785,12 +830,18 @@ namespace Content.Server._DV.Mail.EntitySystems
                     return;
                 }
 
-                var index = _random.Next(validTeleporters.Count);
+                // HardLight-edit start
+                var index = _random.Next(spawnTeleporters.Count);
 
-                var coordinates = Transform(validTeleporters[index].Entity).Coordinates;
+                var coordinates = Transform(spawnTeleporters[index].Entity).Coordinates;
                 var mail = EntityManager.SpawnEntity(chosenParcel, coordinates);
                 SetupMail(mail, component, candidate);
-                validTeleporters[index].HadMail = true;
+                TryStoreMailInDeliverySpawner(spawnTeleporters[index].Entity, mail); // HardLight
+                spawnTeleporters[index].HadMail = true;
+                spawnTeleporters[index].RemainingCapacity--;
+                if (spawnTeleporters[index].RemainingCapacity <= 0)
+                    spawnTeleporters.RemoveAt(index);
+                // HardLight-edit end
 
                 _tagSystem.AddTag(mail, MailTag); // Frontier
             }

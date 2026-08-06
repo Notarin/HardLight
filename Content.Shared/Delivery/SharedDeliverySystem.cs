@@ -64,7 +64,7 @@ public abstract class SharedDeliverySystem : EntitySystem
 
     private void OnSpawnerExamine(Entity<DeliverySpawnerComponent> ent, ref ExaminedEvent args)
     {
-        args.PushMarkup(Loc.GetString("delivery-teleporter-amount-examine", ("amount", ent.Comp.ContainedDeliveryAmount)), 50);
+        args.PushMarkup(Loc.GetString("delivery-teleporter-amount-examine", ("amount", ent.Comp.TotalDeliveryAmount)), 50); // HardLight: ContainedDeliveryAmount>TotalDeliveryAmount
     }
 
     private void OnUseInHand(Entity<DeliveryComponent> ent, ref UseInHandEvent args)
@@ -134,7 +134,7 @@ public abstract class SharedDeliverySystem : EntitySystem
             {
                 _audio.PlayPredicted(ent.Comp.OpenSound, ent.Owner, user);
 
-                if(ent.Comp.ContainedDeliveryAmount == 0)
+                if (ent.Comp.TotalDeliveryAmount == 0) // HardLight: ContainedDeliveryAmount>TotalDeliveryAmount
                 {
                     _popup.PopupPredicted(Loc.GetString("delivery-teleporter-empty", ("entity", ent)), null, ent, user);
                     return;
@@ -142,7 +142,7 @@ public abstract class SharedDeliverySystem : EntitySystem
 
                 SpawnDeliveries(ent.Owner);
 
-                UpdateDeliverySpawnerVisuals(ent, ent.Comp.ContainedDeliveryAmount);
+                UpdateDeliverySpawnerVisuals(ent, ent.Comp.TotalDeliveryAmount); // HardLight: ContainedDeliveryAmount>TotalDeliveryAmount
             },
             Text = Loc.GetString("delivery-teleporter-empty-verb"),
         });

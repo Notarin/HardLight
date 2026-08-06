@@ -36,6 +36,12 @@ public sealed partial class DeliverySystem
 
         var coords = Transform(ent).Coordinates;
 
+        if (_container.TryGetContainer(ent, ent.Comp.StoredDeliveryContainer, out var storedDeliveries)) // HardLight
+        {
+            _container.EmptyContainer(storedDeliveries, true, coords);
+            ent.Comp.StoredDeliveryAmount = 0;
+        }
+
         for (int i = 0; i < ent.Comp.ContainedDeliveryAmount; i++)
         {
             var spawns = _entityTable.GetSpawns(ent.Comp.Table);
@@ -131,7 +137,7 @@ public sealed partial class DeliverySystem
     {
         ent.Comp.ContainedDeliveryAmount += Math.Clamp(amount, 0, ent.Comp.MaxContainedDeliveryAmount - ent.Comp.ContainedDeliveryAmount);
         _audio.PlayPvs(ent.Comp.SpawnSound, ent.Owner);
-        UpdateDeliverySpawnerVisuals(ent, ent.Comp.ContainedDeliveryAmount);
+        UpdateDeliverySpawnerVisuals(ent, ent.Comp.TotalDeliveryAmount); // HardLight: ContainedDeliveryAmount>TotalDeliveryAmount
         Dirty(ent);
     }
 

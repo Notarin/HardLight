@@ -52,3 +52,5 @@
   - type: DeliverySpawner
     table: !type:NestedSelector
       tableId: RandomDeliveryBasic
+  - type: MailTeleporter # HardLight
+    maximumUndeliveredParcels: 20

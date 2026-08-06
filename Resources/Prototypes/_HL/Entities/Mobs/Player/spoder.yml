@@ -10,48 +10,27 @@
     scale: 1, 1
     layers:
     - state: empty
-      map: [ "enum.DamageStateVisualLayers.BaseUnshaded", "enum.BorgVisualLayers.Light" ]
+      map: [ "enum.DamageStateVisualLayers.BaseUnshaded", "enum.ToggleVisuals.Layer" ]
       shader: unshaded
-      visible: false
-    - map: ["enum.ToggleVisuals.Layer"]
     - state: empty
-      map: [ "light" ]
+      map: [ "light", "enum.BorgVisualLayers.Light" ]
       shader: unshaded
       visible: false
   - type: OptionsVisualizer
     visuals:
-      base:
-      - options: Default
-        data:
-          drawdepth: Mobs
-          sprite: _HL/Mobs/Player/Spiders/spoder.rsi
-          scale: 0.7, 0.7
-          map: [ "enum.DamageStateVisualLayers.Base", "movement" ]
-          state: spider
-      - options: Arachnophobia
-        data:
-          drawdepth: Mobs
-          sprite: _HL/Mobs/Player/Spiders/Arachnophobia/spoder.rsi
-          scale: 0.7, 0.7
-          map: [ "enum.DamageStateVisualLayers.Base", "movement" ]
-          state: spider
       enum.DamageStateVisualLayers.BaseUnshaded:
       - options: Default
         data:
           sprite: _HL/Mobs/Player/Spiders/spoder.rsi
           scale: 0.7, 0.7
-          map: [ "enum.DamageStateVisualLayers.BaseUnshaded", "enum.BorgVisualLayers.Light" ]
-          state: glow
-          shader: unshaded
-          visible: false
+          map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+          state: spider
       - options: Arachnophobia
         data:
           sprite: _HL/Mobs/Player/Spiders/Arachnophobia/spoder.rsi
           scale: 0.7, 0.7
-          map: [ "enum.DamageStateVisualLayers.BaseUnshaded", "enum.BorgVisualLayers.Light" ]
-          state: glow
-          shader: unshaded
-          visible: false
+          map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+          state: spider
       light:
       - options: Default
         data:
@@ -59,16 +38,12 @@
           scale: 0.7, 0.7
           map: [ "light" ]
           state: glow
-          shader: unshaded
-          visible: false
       - options: Arachnophobia
         data:
           sprite: _HL/Mobs/Player/Spiders/Arachnophobia/spoder.rsi
           scale: 0.7, 0.7
           map: [ "light" ]
           state: glow
-          shader: unshaded
-          visible: false
   - type: Bloodstream
     bloodMaxVolume: 250
     bloodReagent: UnstableMutagen

@@ -247,8 +247,8 @@
 
 - type: latheRecipe
   parent: [ BaseCircuitboardRecipe, BaseResearchMachineRecipeCategory ]
-  id: AiCoreElectronics
-  result: AiCoreElectronics
+  id: StationAiCoreElectronics # Hardlight: changed from AiCoreElectronics which doesn't slot into an AI frame
+  result: StationAiCoreElectronics # Hardlight: changed from AiCoreElectronics which doesn't slot into an AI frame
 
 ## Service
 

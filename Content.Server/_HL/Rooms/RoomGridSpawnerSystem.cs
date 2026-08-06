@@ -24,6 +24,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using Content.Server._HL.RoundPersistence.SaveBans;
+using Content.Shared._HL.Shipyard;
 using Robust.Server.GameObjects;
 
 namespace Content.Server._HL.Rooms;
@@ -41,6 +43,7 @@ public sealed class RoomGridSpawnerSystem : EntitySystem
     [Dependency] private readonly ITileDefinitionManager _tileDefManager = default!;
     [Dependency] private readonly AppearanceSystem _appearance = default!;
     [Dependency] private readonly DecalSystem _decal = default!;
+    [Dependency] private readonly SaveBanApi _saveBanApi = default!;
 
     private readonly Dictionary<NetUserId, PendingRoomLoad> _pendingLoads = new();
     private readonly Dictionary<NetUserId, ActiveRoomSession> _activeSessions = new();
@@ -284,6 +287,7 @@ public sealed class RoomGridSpawnerSystem : EntitySystem
 
         var excluded = new HashSet<EntityUid> { session.ConsoleUid, session.MarkerUid };
         StampSprayPaintedInBounds(session.GridUid, session.Bounds);
+        ExcludeSaveBannedItems(session.GridUid, excluded);
         var shipData = _shipSerialization.SerializeShipArea(session.GridUid, userId, $"Room_{session.CharacterKey}", session.Bounds, excluded, includeVendors: true);
         NormalizeRoomDataToAnchor(shipData, session.AnchorTile, session.AnchorPosition, session.AnchorRotation);
         var yaml = _shipSerialization.SerializeShipGridDataToYaml(shipData);
@@ -294,6 +298,44 @@ public sealed class RoomGridSpawnerSystem : EntitySystem
         }
 
         return true;
+    }
+
+    /// <summary>
+    /// Adds save banned items to the list to be excluded from saving.
+    /// </summary>
+    private void ExcludeSaveBannedItems(EntityUid gridUid, HashSet<EntityUid> excluded)
+    {
+        var excludeFromCheckingBans = new HashSet<EntityUid>();
+
+        // Collect every entity that should never be checked.
+        var childEnumerator = Transform(gridUid).ChildEnumerator;
+        while (childEnumerator.MoveNext(out var child))
+        {
+            if (!HasComp<HLPersistOnShipSaveComponent>(child))
+                continue;
+
+            excludeFromCheckingBans.Add(child);
+
+            var descendants = Transform(child).ChildEnumerator;
+            while (descendants.MoveNext(out var descendant))
+            {
+                excludeFromCheckingBans.Add(descendant);
+            }
+        }
+
+        // Add everything save banned to the list to exclude from saving
+        childEnumerator = Transform(gridUid).ChildEnumerator;
+        while (childEnumerator.MoveNext(out var child))
+        {
+            if (excludeFromCheckingBans.Contains(child))
+                continue;
+            var isBanned = _saveBanApi.CheckForRestrictions(child) is SaveBanApi.SaveBanResult.IsSaveRestricted
+            {
+                Ban.Strictness: SaveBanStore.SaveRestrictionStrictness.TotalBan,
+            };
+            if (isBanned)
+                excluded.Add(child);
+        }
     }
 
     private void ResetRoom(NetUserId userId, ActiveRoomSession session)

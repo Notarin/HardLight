@@ -62,7 +62,7 @@
       # components:
       # - SniperWhitelist
   - type: GunDamageModifier
-    multiplier: 1.455
+    multiplier: 1
   - type: GunRequiresWield
   - type: Corrodible
     isCorrodible: false

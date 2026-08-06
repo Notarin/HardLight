@@ -85,13 +85,13 @@
   name: speso
   unit: materials-unit-bill
   stackEntity: SpaceCash
-  icon: { sprite: /Textures/_NF/Objects/Economy/cash.rsi, state: cash }
+  icon: { sprite: /Textures/Objects/Economy/cash.rsi, state: cash }
   price: 1
 
 - type: stack
   id: Credit
   name: stack-credit
-  icon: { sprite: /Textures/_NF/Objects/Economy/cash.rsi, state: cash }
+  icon: { sprite: /Textures/Objects/Economy/cash.rsi, state: cash }
   spawn: SpaceCash
 
 - type: entity
@@ -100,7 +100,7 @@
   suffix: 10
   components:
   - type: Icon
-    sprite: /Textures/_NF/Objects/Economy/cash.rsi
+    sprite: /Textures/Objects/Economy/cash.rsi
     state: cash_10
   - type: Stack
     count: 10
@@ -111,7 +111,7 @@
   suffix: 100
   components:
   - type: Icon
-    sprite: /Textures/_NF/Objects/Economy/cash.rsi
+    sprite: /Textures/Objects/Economy/cash.rsi
     state: cash_100
   - type: Stack
     count: 100
@@ -122,7 +122,7 @@
   suffix: 500
   components:
   - type: Icon
-    sprite: /Textures/_NF/Objects/Economy/cash.rsi
+    sprite: /Textures/Objects/Economy/cash.rsi
     state: cash_500
   - type: Stack
     count: 500
@@ -133,7 +133,7 @@
   suffix: 1000
   components:
   - type: Icon
-    sprite: /Textures/_NF/Objects/Economy/cash.rsi
+    sprite: /Textures/Objects/Economy/cash.rsi
     state: cash_1000
   - type: Stack
     count: 1000
@@ -144,7 +144,7 @@
   suffix: 2500
   components:
   - type: Icon
-    sprite: /Textures/_NF/Objects/Economy/cash.rsi
+    sprite: /Textures/Objects/Economy/cash.rsi
     state: cash_1000
   - type: Stack
     count: 2500
@@ -155,7 +155,7 @@
   suffix: 5000
   components:
   - type: Icon
-    sprite: /Textures/_NF/Objects/Economy/cash.rsi
+    sprite: /Textures/Objects/Economy/cash.rsi
     state: cash_5000
   - type: Stack
     count: 5000
@@ -166,7 +166,7 @@
   suffix: 10000
   components:
   - type: Icon
-    sprite: /Textures/_NF/Objects/Economy/cash.rsi
+    sprite: /Textures/Objects/Economy/cash.rsi
     state: cash_10000
   - type: Stack
     count: 10000
@@ -177,7 +177,7 @@
   suffix: 20000
   components:
   - type: Icon
-    sprite: /Textures/_NF/Objects/Economy/cash.rsi
+    sprite: /Textures/Objects/Economy/cash.rsi
     state: cash_10000
   - type: Stack
     count: 20000
@@ -188,7 +188,7 @@
   suffix: 30000
   components:
   - type: Icon
-    sprite: /Textures/_NF/Objects/Economy/cash.rsi
+    sprite: /Textures/Objects/Economy/cash.rsi
     state: cash_25000
   - type: Stack
     count: 30000
@@ -199,7 +199,7 @@
   suffix: 1000000
   components:
   - type: Icon
-    sprite: /Textures/_NF/Objects/Economy/cash.rsi
+    sprite: /Textures/Objects/Economy/cash.rsi
     state: cash_250000
   - type: Stack
     count: 1000000

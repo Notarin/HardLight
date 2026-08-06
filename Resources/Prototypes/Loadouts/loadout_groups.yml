@@ -578,12 +578,11 @@
 - type: loadoutGroup
   id: SurvivalClown
   name: loadout-group-survival-clown
-  minLimit: 2
+  minLimit: 1 # HL - reduce minLimit from 2 to 1 as vox loadout was removed from this loadout group
   hidden: true
   loadouts:
   - EmergencyNitrogenClown
   - EmergencyOxygenClown
-  - LoadoutSpeciesVoxNitrogen
 
 - type: loadoutGroup
   id: MimeHead
@@ -645,12 +644,11 @@
 - type: loadoutGroup
   id: SurvivalMime
   name: loadout-group-survival-mime
-  minLimit: 2
+  minLimit: 1 # HL - reduce minLimit from 2 to 1 as vox loadout was removed from this loadout group
   hidden: true
   loadouts:
   - EmergencyNitrogenMime
   - EmergencyOxygenMime
-  - LoadoutSpeciesVoxNitrogen
 
 - type: loadoutGroup
   id: MusicianJumpsuit
@@ -1021,12 +1019,11 @@
 - type: loadoutGroup
   id: SurvivalExtended
   name: loadout-group-survival-extended
-  minLimit: 2
+  minLimit: 1 # HL - reduce minLimit from 2 to 1 as vox loadout was removed from this loadout group
   hidden: true
   loadouts:
   - EmergencyNitrogenExtended
   - EmergencyOxygenExtended
-  - LoadoutSpeciesVoxNitrogen
 
 # Science
 - type: loadoutGroup
@@ -1658,12 +1655,11 @@
 - type: loadoutGroup
   id: SurvivalMedical
   name: loadout-group-survival-medical
-  minLimit: 2
+  minLimit: 1 # HL - reduce minLimit from 2 to 1 as vox loadout was removed from this loadout group
   hidden: true
   loadouts:
   - EmergencyNitrogenMedical
   - EmergencyOxygenMedical
-  - LoadoutSpeciesVoxNitrogen
 
 # Wildcards
 - type: loadoutGroup

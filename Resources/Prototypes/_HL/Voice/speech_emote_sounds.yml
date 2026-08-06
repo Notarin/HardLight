@@ -186,13 +186,13 @@
     variation: 0.125
   sounds:
     Scream:
-      collection: ShadekinMaleScreams
+      collection: ShadowkinMaleScreams
     Yip:
       path: /Audio/_Starlight/Effects/yip.ogg
     Snore:
       collection: Snores
     Crying:
-      collection: ResomiCry
+      path: /Audio/Voice/Shadekin/shadekin_cry.ogg
     Whistle:
       collection: Whistles
     Weh:
@@ -221,7 +221,7 @@
     Scream:
       collection: ShadekinMaleScreams
     Laugh:
-      collection: MaleLaugh
+      collection: ShadowkinMaleLaughs
     Sneeze:
       collection: MaleSneezes
     Cough:
@@ -244,7 +244,7 @@
     Scream:
       collection: ShadekinFemaleScreams
     Laugh:
-      collection: FemaleLaugh
+      collection: ShadowkinFemaleLaughs
     Sneeze:
       collection: FemaleSneezes
     Cough:

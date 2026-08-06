@@ -114,6 +114,7 @@
     solutionName: pen
     onlyAffectsMobs: false
     injectOnly: true
+    pierceArmor: true
     transferAmount: 15 # Explicitly redefined in case parent changes
   - type: Tag
     tags: [Medipen]

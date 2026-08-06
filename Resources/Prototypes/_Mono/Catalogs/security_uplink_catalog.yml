@@ -70,7 +70,7 @@
   name: uplink-security-cash45000-name
   description: uplink-security-cash45000-desc
   productEntity: SpaceCashExpeditionT5 # HL ends
-  icon: { sprite: _NF/Objects/Economy/cash.rsi, state: cash_100000 }
+  icon: { sprite: Objects/Economy/cash.rsi, state: cash_100000 } # HardLight: removed _NF; upstream rebase
   cost:
     FrontierUplinkCoin: 10
   categories:

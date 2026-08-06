@@ -126,7 +126,7 @@
   - type: Bloodstream
     bloodReagent: UnstableMutagen
     bloodMaxVolume: 650
-  - type: LayingDown
+  - type: Crawler
   - type: Hands
   - type: Body
     prototype: Dreadtalon

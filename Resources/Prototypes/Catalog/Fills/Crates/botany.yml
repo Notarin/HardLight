@@ -20,7 +20,8 @@
         amount: 2
       - id: BungoSeeds
         amount: 2
-
+      - id: KelpSeed
+        amount: 2
 - type: entity
   id: CrateHydroponicsSeedsMedicinal
   parent: CrateHydroSecure

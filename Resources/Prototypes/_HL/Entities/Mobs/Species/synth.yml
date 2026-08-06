@@ -139,7 +139,7 @@
       100: 0.7
       75: 0.4
       55: 0.2
-  - type: LayingDown
+  - type: Crawler
   - type: OfferItem
 
 - type: entity

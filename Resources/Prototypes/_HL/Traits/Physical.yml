@@ -108,7 +108,7 @@
           Poison: 0.01
 
 - type: trait
-  id: coldresistant
+  id: Coldresistant
   name: cold-resistant-name
   description: cold-resistant-text
   category: Physical

@@ -153,7 +153,7 @@
   - type: Gun
     fireRate: 1
     soundGunshot:
-      path: /Audio/_Goobstation/Weapons/Guns/Gunshots/plasma_cutter.ogg
+      path:  /Audio/_HL/Weapons/Guns/Shotguns/line_gun.ogg
   - type: Battery
     maxCharge: 300
     startingCharge: 300

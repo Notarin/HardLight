@@ -236,13 +236,13 @@
     damage:
       types:
         Heat: 20
-        Structural: 180
+        Structural: 185
   - type: TimedDespawn
-    lifetime: 0.2
+    lifetime: 0.15
   - type: PointLight
     radius: 3
     color: purple
-    energy: 2
+    energy: 3
 
 # Adapted from the plasma cutter projectile.
 - type: entity

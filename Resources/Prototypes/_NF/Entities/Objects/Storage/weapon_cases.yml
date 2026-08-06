@@ -105,7 +105,10 @@
   description: A reinforced casing for storing important documents.
   suffix: Short
   components:
+  - type: HLDocumentCase #HardLight
   - type: ExplosionResistance
+  - type: Lock
+  - type: AccessReader
     damageCoefficient: 0
   - type: Sprite
     sprite: _NF/Objects/Storage/Cases/documentcaseshort.rsi
@@ -123,6 +126,11 @@
       - CoordinatesDisk
       - Folder #HardLight
       - CassetteTape #HardLight
+      - Write #HardLight
+      components:
+      - Stamp #HardLight
+      - TapeRecorder #HardLight
+      - HandLabeler #HardLight
 
 - type: entity
   name: weapon case

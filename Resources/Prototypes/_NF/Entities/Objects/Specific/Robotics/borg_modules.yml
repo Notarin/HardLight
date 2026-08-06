@@ -149,10 +149,10 @@
   - type: DroppableBorgModule
     moduleId: Bureaucracy
     items:
-    - id: BooksBag
+    - id: WeaponCaseShortDocuments #HardLight
       whitelist:
         components:
-        - NFBookBag
+        - HLDocumentCase
     - id: Pen
       whitelist:
         tags:

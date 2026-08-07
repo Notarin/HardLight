@@ -187,6 +187,12 @@
   - type: EmitSoundOnActivate
     sound:
       path: /Audio/_Starlight/Voice/Resomi/resomi_squawk_1.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_Starlight/Voice/Resomi/resomi_cry_2.ogg
+  - type: EmitSoundOnTrigger
+    sound:
+      path: /Audio/_Starlight/Voice/Resomi/resomi_squawk_1.ogg
   - type: EmitSoundOnCollide
     sound:
       path: /Audio/_Starlight/Voice/Avali/avali_cry.ogg
@@ -240,3 +246,57 @@
   - type: EmitSoundOnActivate
     sound:
       path: /Audio/Voice/Skeleton/skeleton_scream.ogg
+
+- type: entity
+  parent: BasePlushie
+  id: PlushiePetal
+  name: Krapari Plushie
+  description:
+  components:
+  - type: Sprite
+    sprite: _HL/Objects/Fun/patreon_plushies.rsi
+    state: PetalPlush
+    scale: 0.8, 0.8
+  - type: EmitSoundOnUse
+    sound:
+      path: /Audio/_Impstation/Voice/Vox/voxcoo2.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_Impstation/Voice/Vox/voxhiss.ogg
+  - type: EmitSoundOnActivate
+    sound:
+      path: /Audio/Voice/Vox/vox_chitter.ogg
+  - type: EmitSoundOnCollide
+    sound:
+      path: /Audio/Voice/Vox/shriek1.ogg
+  - type: MeleeWeapon
+    wideAnimationRotation: 180
+    soundHit:
+      path: /Audio/Voice/Vox/shriek1.ogg
+
+- type: entity
+  parent: BasePlushie
+  id: PlushieRosemane
+  name: Rosemane Plushie
+  description:
+  components:
+  - type: Sprite
+    sprite: _HL/Objects/Fun/patreon_plushies.rsi
+    state: RosemanePlush
+    scale: 0.8, 0.8
+  - type: EmitSoundOnUse
+    sound:
+      path: /Audio/_Starlight/Voice/Felionoid/cat_trill2.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_RMC14/Voice/Avali/avali_scream.ogg
+  - type: EmitSoundOnActivate
+    sound:
+      path: /Audio/_Starlight/Voice/Felionoid/cat_trill2.ogg
+  - type: EmitSoundOnCollide
+    sound:
+      path: /Audio/_Starlight/Voice/Avali/avali_cry.ogg
+  - type: MeleeWeapon
+    wideAnimationRotation: 180
+    soundHit:
+      path: /Audio/_RMC14/Voice/Avali/avali_scream.ogg

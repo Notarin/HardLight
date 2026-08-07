@@ -5535,3 +5535,13 @@ Entries:
       message: Temporarily disabled Revs
   id: 619
   time: '2026-08-04T02:09:55-07:00'
+- author: Fenn
+  changes:
+    - type: Add
+      message: Added Shiro
+    - type: Add
+      message: Added Queenie
+    - type: Fix
+      message: 'fixed other patreon characters '
+  id: 620
+  time: '2026-08-06T23:35:39-07:00'

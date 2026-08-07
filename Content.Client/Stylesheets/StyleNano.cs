@@ -67,7 +67,6 @@ namespace Content.Client.Stylesheets
         public const string StyleClassChatChannelSelectorButton = "chatSelectorOptionButton";
         public const string StyleClassChatFilterOptionButton = "chatFilterOptionButton";
         public const string StyleClassStorageButton = "storageButton";
-        public const string StyleClassInset = "Inset";
 
         public const string StyleClassConsoleHeading = "ConsoleHeading";
         public const string StyleClassConsoleSubHeading = "ConsoleSubHeading";
@@ -567,13 +566,6 @@ namespace Content.Client.Stylesheets
             var sliderFillWhite = new StyleBoxTexture(sliderFillBox) { Modulate = Color.White };
 
             var boxFont13 = resCache.GetFont("/Fonts/Boxfont-round/Boxfont Round.ttf", 13);
-
-            var insetBack = new StyleBoxTexture
-            {
-                Texture = buttonTex,
-                Modulate = Color.FromHex("#202023"),
-            };
-            insetBack.SetPatchMargin(StyleBox.Margin.All, 10);
 
             // Default paper background:
             var paperBackground = new StyleBoxTexture
@@ -1825,10 +1817,6 @@ namespace Content.Client.Stylesheets
                         Modulate = NanoGold
                     })
                     .Prop(Control.StylePropertyModulateSelf, ButtonColorGoodHovered),
-
-                Element<PanelContainer>()
-                    .Class(StyleClassInset)
-                    .Prop(PanelContainer.StylePropertyPanel, insetBack),
             }).ToList());
         }
     }

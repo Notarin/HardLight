@@ -187,9 +187,6 @@
   - type: EmitSoundOnActivate
     sound:
       path: /Audio/_Starlight/Voice/Resomi/resomi_squawk_1.ogg
-  - type: EmitSoundOnLand
-    sound:
-      path: /Audio/_Starlight/Voice/Resomi/resomi_cry_2.ogg
   - type: EmitSoundOnTrigger
     sound:
       path: /Audio/_Starlight/Voice/Resomi/resomi_squawk_1.ogg

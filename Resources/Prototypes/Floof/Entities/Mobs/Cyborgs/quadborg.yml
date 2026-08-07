@@ -453,8 +453,15 @@
     scale: 0.5, 0.5
     layers:
     - state: shiba
-      map: ["movement"]
-    - map: ["enum.ToggleVisuals.Layer"]
+      map: ["movement", "enum.ToggleVisuals.Layer"]
+    - state: wolfdogr
+      map: ["enum.BorgVisualLayers.Light"]
+      shader: unshaded
+      visible: false
+    - state: wolfdogl
+      shader: unshaded
+      map: ["light"]
+      visible: false
   - type: SpriteMovement
     movementLayers:
       movement:
@@ -479,7 +486,7 @@
     #VisibleWhenEnabled: true
     movementStateOff: shiba_moving
     movementStateOn: shiba_movingballz
-    
+
 - type: entity
   id: wolfborg
   parent: [BorgChassisApex]

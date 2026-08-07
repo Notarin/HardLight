@@ -153,6 +153,7 @@
   - LesserVampirism
   replaceComponents: true
   components:
+  - type: Pacified
   - type: Insulated
   - type: InnateInternals
   - type: SealedMouth

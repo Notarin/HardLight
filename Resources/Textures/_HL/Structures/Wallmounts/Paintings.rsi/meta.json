@@ -26,7 +26,21 @@
             "name": "Shitshitshitfuckfuckfuck"
         },
         {
-            "name": "Smok'n_that_moon_leaf"
+            "name": "Smok'n_that_moon_leaf",
+            "delays": [
+                [
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.1
+                ]
+            ]
         },
         {
             "name": "Titans_among_giants"

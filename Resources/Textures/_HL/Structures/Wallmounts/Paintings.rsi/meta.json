@@ -1,4 +1,5 @@
 {
+    "version": 1,
     "license": "CC-BY-SA-3.0",
     "copyright": "Made by themageofmicrosoftpaints",
     "size": {
@@ -23,6 +24,23 @@
         },
         {
             "name": "Shitshitshitfuckfuckfuck"
+        },
+        {
+            "name": "Smok'n_that_moon_leaf",
+            "delays": [
+                [
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.1
+                ]
+            ]
         },
         {
             "name": "Titans_among_giants"

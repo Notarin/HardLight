@@ -71,7 +71,7 @@ namespace Content.Shared.Input
         public static readonly BoundKeyFunction ZoomOut = "ZoomOut";
         public static readonly BoundKeyFunction ZoomIn = "ZoomIn";
         public static readonly BoundKeyFunction ResetZoom = "ResetZoom";
-        public static readonly BoundKeyFunction ToggleKnockdown = "ToggleKnockdown";
+        public static readonly BoundKeyFunction ToggleStanding = "ToggleStanding"; // EE
         public static readonly BoundKeyFunction ToggleCrawlingUnder = "ToggleCrawlingUnder"; // EE
         public static readonly BoundKeyFunction LookUp = "LookUp"; // EE
         public static readonly BoundKeyFunction OfferItem = "OfferItem"; // EE

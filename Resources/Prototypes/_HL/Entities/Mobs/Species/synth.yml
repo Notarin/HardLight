@@ -241,7 +241,7 @@
   - type: FireVisuals
     alternateState: Standing
   - type: StunVisuals
-  - type: Crawler
+  - type: LayingDown
   - type: OfferItem
   - type: Tag
     tags:

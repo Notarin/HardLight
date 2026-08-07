@@ -6,7 +6,7 @@ using Robust.Shared.Network;
 using Robust.Shared.Physics.Events;
 using Robust.Shared.Player;
 using System.Numerics;
-using Content.Shared.Stunnable; // HardLight: .Standing>.Stunnable
+using Content.Shared.Standing;
 using Robust.Shared.Physics.Components;
 
 namespace Content.Shared._White.Grab;
@@ -18,7 +18,7 @@ public sealed class GrabThrownSystem : EntitySystem
     [Dependency] private readonly SharedStaminaSystem _stamina = default!; // HardLight: StaminSystem<SharedStaminaSystem
     [Dependency] private readonly ThrowingSystem _throwing = default!;
     [Dependency] private readonly INetManager _netMan = default!;
-    [Dependency] private readonly SharedStunSystem _stuns = default!; // HardLight
+    [Dependency] private readonly SharedLayingDownSystem _layingDown = default!;
 
     public override void Initialize()
     {
@@ -61,7 +61,7 @@ public sealed class GrabThrownSystem : EntitySystem
         _damageable.TryChangeDamage(args.OtherEntity, kineticEnergyDamage);
         _stamina.TakeStaminaDamage(ent, (float) Math.Floor(modNumber / 2));
 
-        TryKnockDown(args.OtherEntity); // HardLight
+        _layingDown.TryLieDown(args.OtherEntity, behavior: DropHeldItemsBehavior.AlwaysDrop);
 
         _color.RaiseEffect(Color.Red, new List<EntityUid>() { ent }, Filter.Pvs(ent, entityManager: EntityManager));
     }
@@ -95,13 +95,7 @@ public sealed class GrabThrownSystem : EntitySystem
         comp.IgnoreEntity.Add(thrower);
         comp.DamageOnCollide = damageToUid;
 
-        TryKnockDown(uid); // HardLight
+        _layingDown.TryLieDown(uid, behavior: DropHeldItemsBehavior.AlwaysDrop);
         _throwing.TryThrow(uid, vector, grabThrownSpeed, animated: false);
-    }
-
-    private void TryKnockDown(EntityUid uid) // HardLight
-    {
-        if (TryComp<CrawlerComponent>(uid, out var crawler))
-            _stuns.TryCrawling((uid, crawler), crawler.DefaultKnockedDuration, drop: true);
     }
 }

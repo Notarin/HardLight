@@ -156,7 +156,7 @@
   - type: Bloodstream
     bloodReagent: DinoBlood
     bloodMaxVolume: 250
-  - type: Crawler
+  - type: LayingDown
   - type: Hands
   - type: Body
     prototype: Dreadtalon

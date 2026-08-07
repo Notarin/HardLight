@@ -101,6 +101,7 @@
   equipment:
     jumpsuit: ClothingUniformJumpskirtCapTurtleneck
 
+# HardLight
 - type: loadout
   id: CaptainArmoredWintercoat
   equipment:

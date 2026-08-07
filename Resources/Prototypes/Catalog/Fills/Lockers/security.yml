@@ -138,6 +138,8 @@
     - id: ClothingUniformJumpsuitBrigmedic
     - id: ClothingUniformJumpskirtBrigmedic
     - id: ClothingUniformJumpskirtOfLife
+    - id: ClothingHeadsetBrigmedic
+    - id: ClothingEyesHudNfsdMed
       prob: 0.1
     - id: MedkitFilled
     - !type:GroupSelector

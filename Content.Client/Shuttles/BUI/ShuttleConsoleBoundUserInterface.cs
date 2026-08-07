@@ -31,6 +31,7 @@ public sealed partial class ShuttleConsoleBoundUserInterface : BoundUserInterfac
         _window.ActivateExpeditionDisk += OnActivateExpeditionDisk;
         _window.EndExpedition += OnEndExpedition;
         _window.ActivateWEP += OnActivateWEP; // HL
+        _window.ConsoleNavigationAngleOffsetChanged += OnConsoleNavigationAngleOffsetChanged; // HardLight
         NfOpen(); // Frontier
     }
 
@@ -97,6 +98,14 @@ public sealed partial class ShuttleConsoleBoundUserInterface : BoundUserInterfac
     private void OnActivateWEP()
     {
         SendMessage(new ShuttleConsoleWEPMessage());
+    }
+
+    private void OnConsoleNavigationAngleOffsetChanged(Angle angle)
+    {
+        SendMessage(new ShuttleConsoleNavigationAngleMessage
+        {
+            Offset = angle,
+        });
     }
     // End HL
 

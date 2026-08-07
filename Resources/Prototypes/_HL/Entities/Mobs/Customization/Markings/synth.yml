@@ -1,253 +1,172 @@
-# Synth markings
-
-# tail
+# Antennas
 
 - type: marking
-  id: SynthTail
-  bodyPart: Tail
-  markingCategory: Tail
+  id: SynthAntenna
+  bodyPart: HeadTop
+  markingCategory: HeadTop
   speciesRestriction: [ Synth ]
   sprites:
-  - sprite: _HL/Mobs/Customization/Synth/tails.rsi
-    state: synth_tail
-
-- type: marking
-  id: SynthTailXenoCurl
-  bodyPart: Tail
-  markingCategory: Tail
-  speciesRestriction: [ Synth ]
-  sprites:
-  - sprite: _HL/Mobs/Customization/Synth/tails.rsi
-    state: synth_tail_xeno_curl
-
-- type: marking
-  id: SynthTailXenoSpike
-  bodyPart: Tail
-  markingCategory: Tail
-  speciesRestriction: [ Synth ]
-  sprites:
-  - sprite: _HL/Mobs/Customization/Synth/tails.rsi
-    state: synth_tail_xeno_spike
-
-- type: marking
-  id: SynthTailCore
-  bodyPart: Tail
-  markingCategory: Tail
-  speciesRestriction: [ Synth ]
-  sprites:
-  - sprite: _HL/Mobs/Customization/Synth/Orchids/tails.rsi
-    state: synth_tail_core
-
-# tail lights
-
-- type: marking
-  id: SynthTailXenoLight
-  bodyPart: Tail
-  markingCategory: Tail
-  speciesRestriction: [ Synth ]
-  sprites:
-  - sprite: _HL/Mobs/Customization/Synth/tails.rsi
-    state: synth_tail_xeno_light
-
-# snout
-
-- type: marking
-  id: SynthVisor
-  bodyPart: Snout
-  markingCategory: Snout
-  speciesRestriction: [ Synth ]
-  sprites:
-  - sprite: _HL/Mobs/Customization/Synth/snouts.rsi
-    state: synth_frame
-  - sprite: _HL/Mobs/Customization/Synth/snouts.rsi
-    state: synth_jaw
-  - sprite: _HL/Mobs/Customization/Synth/snouts.rsi
-    state: synth_nose
-  - sprite: _HL/Mobs/Customization/Synth/snouts.rsi
-    state: synth_visor
-
-- type: marking
-  id: SynthVisorBand
-  bodyPart: Snout
-  markingCategory: Snout
-  speciesRestriction: [ Synth ]
-  sprites:
-  - sprite: _HL/Mobs/Customization/Synth/Orchids/snouts.rsi
-    state: synth_visor_band
-
-# eyes
-
-- type: marking
-  id: SynthHeterochromiaLeft
-  bodyPart: Eyes
-  markingCategory: Head
-  speciesRestriction: [ Synth ]
-  sprites:
-  - sprite: _HL/Mobs/Customization/Synth/Orchids/eyes.rsi
-    state: synth_heterochromia_left
-
-- type: marking
-  id: SynthHeterochromiaRight
-  bodyPart: Eyes
-  markingCategory: Head
-  speciesRestriction: [ Synth ]
-  sprites:
-  - sprite: _HL/Mobs/Customization/Synth/Orchids/eyes.rsi
-    state: synth_heterochromia_right
-
-# head
-
-- type: marking
-  id: SynthSolarFans
-  bodyPart: Head
-  markingCategory: Head
-  speciesRestriction: [ Synth ]
-  sprites:
-  - sprite: _HL/Mobs/Customization/Synth/head.rsi
-    state: synth_solar_fans
-
-- type: marking
-  id: SynthHeadCore
-  bodyPart: Head
-  markingCategory: Head
-  speciesRestriction: [ Synth ]
-  sprites:
-  - sprite: _HL/Mobs/Customization/Synth/Orchids/head.rsi
-    state: synth_head_core
-
-- type: marking
-  id: SynthHeadFracture
-  bodyPart: Head
-  markingCategory: Head
-  speciesRestriction: [ Synth ]
-  sprites:
-  - sprite: _HL/Mobs/Customization/Synth/Orchids/head.rsi
-    state: synth_head_fracture
-
-- type: marking
-  id: SynthHeadStreak
-  bodyPart: Head
-  markingCategory: Head
-  speciesRestriction: [ Synth ]
-  sprites:
-  - sprite: _HL/Mobs/Customization/Synth/Orchids/head.rsi
-    state: synth_head_streak
-
-# head lights
-
-- type: marking
-  id: SynthSolarFansLight
-  bodyPart: Head
-  markingCategory: Head
-  speciesRestriction: [ Synth ]
-  sprites:
-  - sprite: _HL/Mobs/Customization/Synth/head.rsi
-    state: synth_solar_fans_light
-
-# antennae
+  - sprite: _HL/Mobs/Customization/Synth/antenna.rsi
+    state: antenna_synth
 
 - type: marking
   id: SynthAntennaCurl
   bodyPart: HeadTop
   markingCategory: HeadTop
-  speciesRestriction: [ Synth, Skrell, Thaven,Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid ]
+  speciesRestriction: [ Synth ]
   sprites:
-  - sprite: _HL/Mobs/Customization/Synth/antennae.rsi
-    state: synth_antenna_curl
+  - sprite: _HL/Mobs/Customization/Synth/antenna.rsi
+    state: antenna_curl
+
+- type: marking
+  id: SynthAntennaCurlSoft
+  bodyPart: HeadTop
+  markingCategory: HeadTop
+  speciesRestriction: [ Synth ]
+  sprites:
+  - sprite: _HL/Mobs/Customization/Synth/antenna.rsi
+    state: antenna_curl_soft
+
+- type: marking
+  id: SynthAntennaLight
+  bodyPart: HeadTop
+  markingCategory: HeadTop
+  speciesRestriction: [ Synth ]
+  sprites:
+  - sprite: _HL/Mobs/Customization/Synth/antenna.rsi
+    state: antenna_light
+
+- type: marking
+  id: SynthAntennaMajestic
+  bodyPart: HeadTop
+  markingCategory: HeadTop
+  speciesRestriction: [ Synth ]
+  sprites:
+  - sprite: _HL/Mobs/Customization/Synth/antenna.rsi
+    state: antenna_majestic
+
 - type: marking
   id: SynthAntennaSharp
   bodyPart: HeadTop
   markingCategory: HeadTop
-  speciesRestriction: [ Synth, Skrell, Thaven,Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid ]
+  speciesRestriction: [ Synth ]
   sprites:
-  - sprite: _HL/Mobs/Customization/Synth/antennae.rsi
-    state: synth_antenna_sharp
-- type: marking
-  id: SynthAntennaShort
-  bodyPart: HeadTop
-  markingCategory: HeadTop
-  speciesRestriction: [ Synth, Skrell, Thaven,Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid ]
-  sprites:
-  - sprite: _HL/Mobs/Customization/Synth/antennae.rsi
-    state: synth_antenna_short
+  - sprite: _HL/Mobs/Customization/Synth/antenna.rsi
+    state: antenna_sharp
+
 - type: marking
   id: SynthAntennaSlash
   bodyPart: HeadTop
   markingCategory: HeadTop
-  speciesRestriction: [ Synth, Skrell, Thaven,Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid ]
+  speciesRestriction: [ Synth ]
   sprites:
-  - sprite: _HL/Mobs/Customization/Synth/antennae.rsi
-    state: synth_antenna_slash
+  - sprite: _HL/Mobs/Customization/Synth/antenna.rsi
+    state: antenna_slash
+
 - type: marking
   id: SynthAntennaThick
   bodyPart: HeadTop
   markingCategory: HeadTop
-  speciesRestriction: [ Synth, Skrell, Thaven,Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid ]
+  speciesRestriction: [ Synth ]
   sprites:
-  - sprite: _HL/Mobs/Customization/Synth/antennae.rsi
-    state: synth_antenna_thick
+  - sprite: _HL/Mobs/Customization/Synth/antenna.rsi
+    state: antenna_thick
+
 - type: marking
   id: SynthAntennaTwin
   bodyPart: HeadTop
   markingCategory: HeadTop
-  speciesRestriction: [ Synth, Skrell, Thaven,Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid ]
-  sprites:
-  - sprite: _HL/Mobs/Customization/Synth/antennae.rsi
-    state: synth_antenna_twin
-- type: marking
-  id: SynthAntennaSoftCurl
-  bodyPart: HeadTop
-  markingCategory: HeadTop
-  speciesRestriction: [ Synth, Skrell, Thaven,Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid ]
-  sprites:
-  - sprite: _HL/Mobs/Customization/Synth/antennae.rsi
-    state: synth_antenna_soft_curl
-
-# antennae lights
-
-- type: marking
-  id: SynthAntennaSharpLight
-  bodyPart: HeadTop
-  markingCategory: HeadTop
   speciesRestriction: [ Synth ]
   sprites:
-  - sprite: _HL/Mobs/Customization/Synth/antennae.rsi
-    state: synth_antenna_sharp_light
-- type: marking
-  id: SynthAntennaThickLight
-  bodyPart: HeadTop
-  markingCategory: HeadTop
-  speciesRestriction: [ Synth ]
-  sprites:
-  - sprite: _HL/Mobs/Customization/Synth/antennae.rsi
-    state: synth_antenna_thick_light
-- type: marking
-  id: SynthAntennaTwinLight
-  bodyPart: HeadTop
-  markingCategory: HeadTop
-  speciesRestriction: [ Synth ]
-  sprites:
-  - sprite: _HL/Mobs/Customization/Synth/antennae.rsi
-    state: synth_antenna_twin_light
-- type: marking
-  id: SynthAntennaSoftCurlLight
-  bodyPart: HeadTop
-  markingCategory: HeadTop
-  speciesRestriction: [ Synth ]
-  sprites:
-  - sprite: _HL/Mobs/Customization/Synth/antennae.rsi
-    state: synth_antenna_soft_curl_light
+  - sprite: _HL/Mobs/Customization/Synth/antenna.rsi
+    state: antenna_twin
 
-# chest
+# Arms
 
 - type: marking
-  id: SynthBellyScutes
+  id: SynthLArmCore
+  bodyPart: LArm
+  markingCategory: Arms
+  speciesRestriction: [ Synth ]
+  sprites:
+  - sprite: _HL/Mobs/Customization/Synth/Orchids/arms.rsi
+    state: arm_core_l
+
+- type: marking
+  id: SynthRArmCore
+  bodyPart: RArm
+  markingCategory: Arms
+  speciesRestriction: [ Synth ]
+  sprites:
+  - sprite: _HL/Mobs/Customization/Synth/Orchids/arms.rsi
+    state: arm_core_r
+
+- type: marking
+  id: SynthLArmLight
+  bodyPart: LArm
+  markingCategory: Arms
+  speciesRestriction: [ Synth ]
+  sprites:
+  - sprite: _HL/Mobs/Customization/Synth/arms.rsi
+    state: arm_light_l
+
+- type: marking
+  id: SynthRArmLight
+  bodyPart: RArm
+  markingCategory: Arms
+  speciesRestriction: [ Synth ]
+  sprites:
+  - sprite: _HL/Mobs/Customization/Synth/arms.rsi
+    state: arm_light_r
+
+- type: marking
+  id: SynthLArmStarPauldron
+  bodyPart: LArm
+  markingCategory: Arms
+  speciesRestriction: [ Synth ]
+  sprites:
+  - sprite: _HL/Mobs/Customization/Synth/arms.rsi
+    state: star_pauldron_l
+
+- type: marking
+  id: SynthRArmStarPauldron
+  bodyPart: RArm
+  markingCategory: Arms
+  speciesRestriction: [ Synth ]
+  sprites:
+  - sprite: _HL/Mobs/Customization/Synth/arms.rsi
+    state: star_pauldron_r
+
+- type: marking
+  id: SynthLArmStreak
+  bodyPart: LArm
+  markingCategory: Arms
+  speciesRestriction: [ Synth ]
+  sprites:
+  - sprite: _HL/Mobs/Customization/Synth/Orchids/arms.rsi
+    state: arm_streak_l
+
+- type: marking
+  id: SynthRArmStreak
+  bodyPart: RArm
+  markingCategory: Arms
+  speciesRestriction: [ Synth ]
+  sprites:
+  - sprite: _HL/Mobs/Customization/Synth/Orchids/arms.rsi
+    state: arm_streak_r
+
+# Chest
+
+- type: marking
+  id: SynthChestComposite
   bodyPart: Chest
   markingCategory: Chest
   speciesRestriction: [ Synth ]
   sprites:
-  - sprite: _HL/Mobs/Customization/Synth/Orchids/chest.rsi
-    state: synth_belly_scutes
+  - sprite: _HL/Mobs/Customization/Synth/chest.rsi
+    state: composite
+  - sprite: _HL/Mobs/Customization/Synth/chest.rsi
+    state: composite_frame
 
 - type: marking
   id: SynthChestCore
@@ -256,7 +175,16 @@
   speciesRestriction: [ Synth ]
   sprites:
   - sprite: _HL/Mobs/Customization/Synth/Orchids/chest.rsi
-    state: synth_chest_core
+    state: core
+
+- type: marking
+  id: SynthChestCross
+  bodyPart: Chest
+  markingCategory: Chest
+  speciesRestriction: [ Synth ]
+  sprites:
+  - sprite: _HL/Mobs/Customization/Synth/Orchids/chest.rsi
+    state: cross
 
 - type: marking
   id: SynthChestFracture
@@ -265,7 +193,43 @@
   speciesRestriction: [ Synth ]
   sprites:
   - sprite: _HL/Mobs/Customization/Synth/Orchids/chest.rsi
-    state: synth_chest_fracture
+    state: fracture
+
+- type: marking
+  id: SynthChestLight
+  bodyPart: Chest
+  markingCategory: Chest
+  speciesRestriction: [ Synth ]
+  sprites:
+  - sprite: _HL/Mobs/Customization/Synth/chest.rsi
+    state: chest_light
+
+- type: marking
+  id: SynthChestScutes
+  bodyPart: Chest
+  markingCategory: Chest
+  speciesRestriction: [ Synth ]
+  sprites:
+  - sprite: _HL/Mobs/Customization/Synth/Orchids/chest.rsi
+    state: scutes
+
+- type: marking
+  id: SynthChestStar
+  bodyPart: Chest
+  markingCategory: Chest
+  speciesRestriction: [ Synth ]
+  sprites:
+  - sprite: _HL/Mobs/Customization/Synth/Orchids/chest.rsi
+    state: star
+
+- type: marking
+  id: SynthChestStarCross
+  bodyPart: Chest
+  markingCategory: Chest
+  speciesRestriction: [ Synth ]
+  sprites:
+  - sprite: _HL/Mobs/Customization/Synth/chest.rsi
+    state: star_cross
 
 - type: marking
   id: SynthChestStreak
@@ -274,122 +238,295 @@
   speciesRestriction: [ Synth ]
   sprites:
   - sprite: _HL/Mobs/Customization/Synth/Orchids/chest.rsi
-    state: synth_chest_streak
+    state: streak
+
+# Eyes
 
 - type: marking
-  id: SynthCross
-  bodyPart: Chest
-  markingCategory: Chest
+  id: SynthEyesHeterochromia
+  bodyPart: Eyes
+  markingCategory: Head
   speciesRestriction: [ Synth ]
   sprites:
-  - sprite: _HL/Mobs/Customization/Synth/Orchids/chest.rsi
-    state: synth_cross
+  - sprite: _HL/Mobs/Customization/Synth/Orchids/eyes.rsi
+    state: heterochromia_l
+  - sprite: _HL/Mobs/Customization/Synth/Orchids/eyes.rsi
+    state: heterochromia_r
+
+# Head
 
 - type: marking
-  id: SynthStar
-  bodyPart: Chest
-  markingCategory: Chest
+  id: SynthHeadCore
+  bodyPart: Head
+  markingCategory: Head
   speciesRestriction: [ Synth ]
   sprites:
-  - sprite: _HL/Mobs/Customization/Synth/Orchids/chest.rsi
-    state: synth_star
-
-# chest lights
-
-# arms
+  - sprite: _HL/Mobs/Customization/Synth/Orchids/head.rsi
+    state: core
 
 - type: marking
-  id: SynthArmLeftCore
-  bodyPart: LArm
-  markingCategory: Arms
+  id: SynthHeadFracture
+  bodyPart: Head
+  markingCategory: Head
   speciesRestriction: [ Synth ]
   sprites:
-  - sprite: _HL/Mobs/Customization/Synth/Orchids/arms.rsi
-    state: synth_arm_left_core
+  - sprite: _HL/Mobs/Customization/Synth/Orchids/head.rsi
+    state: fracture
 
 - type: marking
-  id: SynthArmLeftStreak
-  bodyPart: LArm
-  markingCategory: Arms
+  id: SynthHeadStreak
+  bodyPart: Head
+  markingCategory: Head
   speciesRestriction: [ Synth ]
   sprites:
-  - sprite: _HL/Mobs/Customization/Synth/Orchids/arms.rsi
-    state: synth_arm_left_streak
+  - sprite: _HL/Mobs/Customization/Synth/Orchids/head.rsi
+    state: streak
 
 - type: marking
-  id: SynthArmRightCore
-  bodyPart: RArm
-  markingCategory: Arms
+  id: SynthJawComposite
+  bodyPart: Head
+  markingCategory: Head
   speciesRestriction: [ Synth ]
   sprites:
-  - sprite: _HL/Mobs/Customization/Synth/Orchids/arms.rsi
-    state: synth_arm_right_core
+  - sprite: _HL/Mobs/Customization/Synth/head.rsi
+    state: jaw_composite
 
 - type: marking
-  id: SynthArmRightStreak
-  bodyPart: RArm
-  markingCategory: Arms
+  id: SynthVisor
+  bodyPart: Head
+  markingCategory: Head
   speciesRestriction: [ Synth ]
   sprites:
-  - sprite: _HL/Mobs/Customization/Synth/Orchids/arms.rsi
-    state: synth_arm_right_streak
-
-# legs
+  - sprite: _HL/Mobs/Customization/Synth/head.rsi
+    state: visor
+  - sprite: _HL/Mobs/Customization/Synth/head.rsi
+    state: visor_frame
+  - sprite: _HL/Mobs/Customization/Synth/head.rsi
+    state: visor_plate
 
 - type: marking
-  id: SynthLegLeftCore
+  id: SynthVisorStarCross
+  bodyPart: Head
+  markingCategory: Head
+  speciesRestriction: [ Synth ]
+  sprites:
+  - sprite: _HL/Mobs/Customization/Synth/head.rsi
+    state: visor
+  - sprite: _HL/Mobs/Customization/Synth/head.rsi
+    state: visor_frame
+  - sprite: _HL/Mobs/Customization/Synth/head.rsi
+    state: visor_plate_star_cross
+
+# Head Side
+
+- type: marking
+  id: SynthCompositeHood
+  bodyPart: HeadSide
+  markingCategory: HeadSide
+  speciesRestriction: [ Synth ]
+  sprites:
+  - sprite: _HL/Mobs/Customization/Synth/headside.rsi
+    state: composite_hood
+
+- type: marking
+  id: SynthCompositeHoodLight
+  bodyPart: HeadSide
+  markingCategory: HeadSide
+  speciesRestriction: [ Synth ]
+  sprites:
+  - sprite: _HL/Mobs/Customization/Synth/headside.rsi
+    state: composite_hood_light
+
+- type: marking
+  id: SynthSolarFans
+  bodyPart: HeadSide
+  markingCategory: HeadSide
+  speciesRestriction: [ Synth ]
+  sprites:
+  - sprite: _HL/Mobs/Customization/Synth/headside.rsi
+    state: solar_fans
+
+# Legs
+
+- type: marking
+  id: SynthLFootToes
+  bodyPart: LFoot
+  markingCategory: Legs
+  speciesRestriction: [ Synth ]
+  sprites:
+  - sprite: _HL/Mobs/Customization/Synth/feet.rsi
+    state: toes_l
+
+- type: marking
+  id: SynthLLegCore
   bodyPart: LLeg
   markingCategory: Legs
   speciesRestriction: [ Synth ]
   sprites:
   - sprite: _HL/Mobs/Customization/Synth/Orchids/legs.rsi
-    state: synth_leg_left_core
+    state: leg_core_l
 
 - type: marking
-  id: SynthLegLeftStreak
+  id: SynthLLegLight
+  bodyPart: LLeg
+  markingCategory: Legs
+  speciesRestriction: [ Synth ]
+  sprites:
+  - sprite: _HL/Mobs/Customization/Synth/legs.rsi
+    state: leg_light_l
+
+- type: marking
+  id: SynthLLegStreak
   bodyPart: LLeg
   markingCategory: Legs
   speciesRestriction: [ Synth ]
   sprites:
   - sprite: _HL/Mobs/Customization/Synth/Orchids/legs.rsi
-    state: synth_leg_left_streak
+    state: leg_streak_l
 
 - type: marking
-  id: SynthLegRightCore
+  id: SynthRFootToes
+  bodyPart: RFoot
+  markingCategory: Legs
+  speciesRestriction: [ Synth ]
+  sprites:
+  - sprite: _HL/Mobs/Customization/Synth/feet.rsi
+    state: toes_r
+
+- type: marking
+  id: SynthRLegCore
   bodyPart: RLeg
   markingCategory: Legs
   speciesRestriction: [ Synth ]
   sprites:
   - sprite: _HL/Mobs/Customization/Synth/Orchids/legs.rsi
-    state: synth_leg_right_core
+    state: leg_core_r
 
 - type: marking
-  id: SynthLegRightStreak
+  id: SynthRLegLight
+  bodyPart: RLeg
+  markingCategory: Legs
+  speciesRestriction: [ Synth ]
+  sprites:
+  - sprite: _HL/Mobs/Customization/Synth/legs.rsi
+    state: leg_light_r
+
+- type: marking
+  id: SynthRLegStreak
   bodyPart: RLeg
   markingCategory: Legs
   speciesRestriction: [ Synth ]
   sprites:
   - sprite: _HL/Mobs/Customization/Synth/Orchids/legs.rsi
-    state: synth_leg_right_streak
+    state: leg_streak_r
 
-# wings
+# Snout
 
 - type: marking
-  id: SynthWings
+  id: SynthSnout
+  bodyPart: Snout
+  markingCategory: Snout
+  speciesRestriction: [ Synth ]
+  sprites:
+  - sprite: _HL/Mobs/Customization/Synth/snout.rsi
+    state: nose
+  - sprite: _HL/Mobs/Customization/Synth/snout.rsi
+    state: chin
+
+- type: marking
+  id: SynthSnoutBox
+  bodyPart: Snout
+  markingCategory: Snout
+  speciesRestriction: [ Synth ]
+  sprites:
+  - sprite: _HL/Mobs/Customization/Synth/snout.rsi
+    state: nose_box
+  - sprite: _HL/Mobs/Customization/Synth/snout.rsi
+    state: chin
+
+# Tails
+
+- type: marking
+  id: SynthTail
+  bodyPart: Tail
+  markingCategory: Tail
+  speciesRestriction: [ Synth ]
+  sprites:
+  - sprite: _HL/Mobs/Customization/Synth/tail.rsi
+    state: factory
+
+- type: marking
+  id: SynthTailComposite
+  bodyPart: Tail
+  markingCategory: Tail
+  speciesRestriction: [ Synth ]
+  sprites:
+  - sprite: _HL/Mobs/Customization/Synth/tail.rsi
+    state: factory_composite
+
+- type: marking
+  id: SynthTailCore
+  bodyPart: Tail
+  markingCategory: Tail
+  speciesRestriction: [ Synth ]
+  sprites:
+  - sprite: _HL/Mobs/Customization/Synth/Orchids/tail.rsi
+    state: core
+
+- type: marking
+  id: SynthTailLarge
+  bodyPart: Tail
+  markingCategory: Tail
+  speciesRestriction: [ Synth ]
+  sprites:
+  - sprite: _HL/Mobs/Customization/Synth/tail.rsi
+    state: large
+  - sprite: _HL/Mobs/Customization/Synth/tail.rsi
+    state: large_composite
+
+- type: marking
+  id: SynthTailXenoCurl
+  bodyPart: Tail
+  markingCategory: Tail
+  speciesRestriction: [ Synth ]
+  sprites:
+  - sprite: _HL/Mobs/Customization/Synth/tail.rsi
+    state: xeno_curl
+
+- type: marking
+  id: SynthTailXenoLight
+  bodyPart: Tail
+  markingCategory: Tail
+  speciesRestriction: [ Synth ]
+  sprites:
+  - sprite: _HL/Mobs/Customization/Synth/tail.rsi
+    state: xeno_light
+
+- type: marking
+  id: SynthTailXenoSpike
+  bodyPart: Tail
+  markingCategory: Tail
+  speciesRestriction: [ Synth ]
+  sprites:
+  - sprite: _HL/Mobs/Customization/Synth/tail.rsi
+    state: xeno_spike
+
+# Wings
+
+- type: marking
+  id: SynthWingsDragon
   bodyPart: Tail
   markingCategory: Chest
   speciesRestriction: [Synth, Skrell, Thaven,Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Shadekin ]
   sprites:
   - sprite: _HL/Mobs/Customization/Synth/wings.rsi
-    state: synth_wings
-
-# wing lights
+    state: dragon
 
 - type: marking
-  id: SynthWingsLight
+  id: SynthWingsDragonLight
   bodyPart: Tail
   markingCategory: Chest
   speciesRestriction: [ Synth ]
   sprites:
   - sprite: _HL/Mobs/Customization/Synth/wings.rsi
-    state: synth_wings_light
+    state: dragon_light

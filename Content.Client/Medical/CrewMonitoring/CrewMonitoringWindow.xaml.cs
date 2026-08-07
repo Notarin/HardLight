@@ -130,7 +130,7 @@ public sealed partial class CrewMonitoringWindow : FancyWindow
             };
 
             deparmentLabel.SetMessage(department);
-            deparmentLabel.StyleClasses.Add(StyleNano.StyleClassTooltipActionDescription);
+            deparmentLabel.StyleClasses.Add("font-large");
 
             SensorsTable.AddChild(deparmentLabel);
 
@@ -156,7 +156,6 @@ public sealed partial class CrewMonitoringWindow : FancyWindow
             };
 
             deparmentLabel.SetMessage(Loc.GetString("crew-monitoring-user-interface-no-department"));
-            deparmentLabel.StyleClasses.Add(StyleNano.StyleClassTooltipActionDescription);
 
             SensorsTable.AddChild(deparmentLabel);
 
@@ -166,7 +165,7 @@ public sealed partial class CrewMonitoringWindow : FancyWindow
         // Show monitor on nav map
         if (monitorCoords != null && _blipTexture != null)
         {
-             NavMap.TrackedEntities[_entManager.GetNetEntity(monitor)] = new NavMapBlip(monitorCoords.Value, _blipTexture, Color.Cyan, true, false); // Frontier modification
+            NavMap.TrackedEntities[_entManager.GetNetEntity(monitor)] = new NavMapBlip(monitorCoords.Value, _blipTexture, Color.Cyan, true, false); // Frontier modification
         }
     }
 
@@ -194,7 +193,7 @@ public sealed partial class CrewMonitoringWindow : FancyWindow
             };
 
             if (sensor.SuitSensorUid == _trackedEntity)
-                sensorButton.AddStyleClass(StyleNano.StyleClassButtonColorGreen);
+                sensorButton.AddStyleClass(StyleClass.Positive);
 
             SensorsTable.AddChild(sensorButton);
 
@@ -362,13 +361,13 @@ public sealed partial class CrewMonitoringWindow : FancyWindow
             if (sensor is not CrewMonitoringButton)
                 continue;
 
-            var castSensor = (CrewMonitoringButton) sensor;
+            var castSensor = (CrewMonitoringButton)sensor;
 
             if (castSensor.SuitSensorUid == prevTrackedEntity)
-                castSensor.RemoveStyleClass(StyleNano.StyleClassButtonColorGreen);
+                castSensor.RemoveStyleClass(StyleClass.Positive);
 
             else if (castSensor.SuitSensorUid == currTrackedEntity)
-                castSensor.AddStyleClass(StyleNano.StyleClassButtonColorGreen);
+                castSensor.AddStyleClass(StyleClass.Positive);
 
             if (castSensor?.Coordinates == null)
                 continue;
@@ -410,7 +409,7 @@ public sealed partial class CrewMonitoringWindow : FancyWindow
         foreach (var sensor in SensorsTable.Children)
         {
             if (sensor is CrewMonitoringButton &&
-                ((CrewMonitoringButton) sensor).SuitSensorUid == _trackedEntity)
+                ((CrewMonitoringButton)sensor).SuitSensorUid == _trackedEntity)
                 return true;
 
             nextScrollPosition += sensor.Height;
@@ -424,7 +423,7 @@ public sealed partial class CrewMonitoringWindow : FancyWindow
 
     // Frontier: all crew monitoring happens in map coords.
     /// <summary>
-    /// report all 
+    /// report all
     /// </summary>
     private EntityCoordinates CoordinatesToMap(EntityCoordinates refCoords)
     {

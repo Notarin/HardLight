@@ -146,12 +146,13 @@
     - id: GasAnalyzer
     - id: MedkitOxygenFilled
     - id: HolofanProjector
-#    - id: DoorRemoteFirefight
+    - id: RPD
+    #    - id: DoorRemoteFirefight
     - id: ClothingHandsGlovesColorYellow # Frontier
     - id: trayScanner # Frontier
     - id: ClothingBeltUtilityEngineering # Frontier
 #    - id: RCD
-#    - id: RCDAmmo
+    - id: RCDAmmo
     - id: AirGrenade
 
 - type: entityTable

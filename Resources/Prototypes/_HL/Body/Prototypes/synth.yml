@@ -8,9 +8,10 @@
       connections:
       - torso
       organs:
-        eyes: SynthCameraGimbal
-        brain: SynthCCU
-        ears: SynthAudioPack
+        brain: OrganSynthBrain
+        eyes: OrganSynthEyes
+        tongue: OrganSynthTongue
+        ears: OrganSynthEars
     torso:
       part: TorsoSynth
       connections:
@@ -24,8 +25,8 @@
         lungs: OrganSynthLungs
         stomach: OrganSynthStomach
         liver: OrganSynthLiver
-        kidneys: SynthEnergyCoil
-        appendix: SynthRedBrick
+        kidneys: OrganSynthKidneys
+        appendix: OrganSynthAppendix
     right arm:
       part: RightArmSynth
       connections:

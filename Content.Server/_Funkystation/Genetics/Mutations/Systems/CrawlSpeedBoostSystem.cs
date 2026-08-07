@@ -1,7 +1,8 @@
 using Content.Shared._Funkystation.Genetics.Mutations.Components;
 using Content.Shared._Funkystation.Genetics.Mutations.Systems;
 using Content.Shared.Movement.Systems;
-using Content.Shared.Stunnable; // HardLight
+using Content.Shared.Standing;
+using Content.Shared.Standing;
 
 namespace Content.Server._Funkystation.Genetics.Mutations.Systems;
 
@@ -12,7 +13,7 @@ public sealed class CrawlSpeedBoostSystem : SharedCrawlSpeedBoostSystem
     public override void Initialize()
     {
         base.Initialize();
-        SubscribeLocalEvent<CrawlSpeedBoostComponent, KnockedDownRefreshEvent>(OnRefresh); // HardLight
+        SubscribeLocalEvent<CrawlSpeedBoostComponent, RefreshMovementSpeedModifiersEvent>(OnRefresh);
         SubscribeLocalEvent<CrawlSpeedBoostComponent, ComponentInit>(OnInit);
     }
 
@@ -21,11 +22,16 @@ public sealed class CrawlSpeedBoostSystem : SharedCrawlSpeedBoostSystem
         _movespeed.RefreshMovementSpeedModifiers(uid);
     }
 
-    private void OnRefresh(EntityUid uid, CrawlSpeedBoostComponent comp, ref KnockedDownRefreshEvent args) // HardLight: RefreshMovementSpeedModifiersEvent>ref KnockedDownRefreshEvent
+    private void OnRefresh(EntityUid uid, CrawlSpeedBoostComponent comp, RefreshMovementSpeedModifiersEvent args)
     {
-        if (!TryComp<CrawlerComponent>(uid, out var crawler)) // HardLight
+        if (!TryComp<LayingDownComponent>(uid, out var laying) ||
+            !TryComp<StandingStateComponent>(uid, out var standing) ||
+            standing.CurrentState != StandingState.Lying)
             return;
 
-        args.SpeedModifier *= comp.TargetSpeedMult / crawler.SpeedModifier; // HardLight
+        float original = laying.LyingSpeedModifier;
+        float boost = comp.TargetSpeedMult / original;
+
+        args.ModifySpeed(boost, boost);
     }
 }

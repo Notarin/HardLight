@@ -1,0 +1,50 @@
+- type: job
+  id: Sergeant
+  name: job-name-sergeant
+  description: job-description-Sergeant
+  playTimeTracker: JobSergeant
+  requirements:
+    - !type:OverallPlaytimeRequirement
+      time: 108000 # 30 hours
+    - !type:DepartmentTimeRequirement
+      department: Security
+      time: 64800 # 18 hours
+    - !type:RoleTimeRequirement
+      role: JobSecurityOfficer
+      time: 43200 # 12 hours
+  alternateRequirementSets:
+    longerPlaytimeLessSec:
+    - !type:OverallPlaytimeRequirement
+      time: 540000 # 150 hours
+    - !type:RoleTimeRequirement
+      role: JobSecurityOfficer
+      time: 21600 # 6 hours
+  startingGear: SergeantGear
+  icon: JobIconSergeant
+  supervisors: job-supervisors-bailiff
+  weight: 140
+  displayWeight: 50
+  canBeAntag: false
+  setPreference: false # Frontier
+  access:
+  - Sergeant
+  accessGroups:
+  - GeneralNfsdAccess
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant, TrackingImplant ]
+  - !type:GiveItemOnHolidaySpecial
+    holiday: FrontierBirthday
+    prototype: FrontierBirthdayGift
+
+- type: startingGear
+  id: SergeantGear
+  equipment:
+    pocket1: NFWeaponPistolUniversalNfsdLessLethal
+  storage:
+    back:
+    - Flash
+    - NFMagazineHighCapacityPistol35Overpressure
+    - NFMagazineHighCapacityPistol35Rubber
+    - BaseSecurityUplinkRadioOfficer
+    - ShipVoucherNfsdSergeant

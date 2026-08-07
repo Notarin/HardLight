@@ -6251,7 +6251,7 @@ entities:
     - type: Transform
       pos: -16.5,-6.5
       parent: 2
-- proto: NFSpawnPointSeniorOfficer
+- proto: NFSpawnPointSergeant
   entities:
   - uid: 847
     components:

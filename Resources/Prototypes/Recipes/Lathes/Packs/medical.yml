@@ -6,6 +6,7 @@
   - Brutepack
   - Ointment
   - Gauze
+  - SynthBloodpack # HardLight
 
 - type: latheRecipePack
   id: BasicChemistryStatic

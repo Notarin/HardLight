@@ -1,10 +1,11 @@
 using System.Numerics;
+using Robust.Shared.Maths; // HardLight
 
 // Mono - whole file
 
 namespace Content.Server.Physics.Controllers;
 
-public record struct ShuttleInput(Vector2 Strafe, float Rotation, float Brakes);
+public record struct ShuttleInput(Vector2 Strafe, float Rotation, float Brakes, Angle? MovementAngle = null); // HardLight: added Angle? MovementAngle = null
 
 /// <summary>
 ///     Raised on pilots to get inputs given to a shuttle.

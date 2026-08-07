@@ -83,3 +83,115 @@
   - type: Construction
     graph: Poster
     node: PosterChudMeansLetsFuck
+
+- type: entity
+  parent: PosterBase
+  id: PosterCatPictures
+  name: Cat Pictures poster
+  description: "Cat Pictures are the best pictures."
+  components:
+  - type: Sprite
+    sprite: _HL/Structures/Wallmounts/Posters/FurryTure.rsi
+    state: poster_cat_pictures
+    scale: 0.9, 0.9
+  - type: Construction
+    graph: Poster
+    node: PosterCatPictures
+
+- type: entity
+  parent: PosterBase
+  id: PosterCleaning
+  name: Cleaning poster
+  description: "Keeping it clean!"
+  components:
+  - type: Sprite
+    sprite: _HL/Structures/Wallmounts/Posters/FurryTure.rsi
+    state: poster_Cleaning_poster
+    scale: 0.9, 0.9
+  - type: Construction
+    graph: Poster
+    node: PosterCleaning
+
+- type: entity
+  parent: PosterBase
+  id: PosterInterdine
+  name: Interdine poster
+  description: "Interdine for all your medical needs!"
+  components:
+  - type: Sprite
+    sprite: _HL/Structures/Wallmounts/Posters/FurryTure.rsi
+    state: poster_Interdine_poster
+    scale: 0.9, 0.9
+  - type: Construction
+    graph: Poster
+    node: PosterInterdine
+
+- type: entity
+  parent: PosterBase
+  id: PosterMaybeERP
+  name: Maybe ERP poster
+  description: "Maybe ERP is a real thing. Maybe it's not. Maybe you should ask your doctor about it."
+  components:
+  - type: Sprite
+    sprite: _HL/Structures/Wallmounts/Posters/FurryTure.rsi
+    state: poster_maybe_erp
+    scale: 0.9, 0.9
+  - type: Construction
+    graph: Poster
+    node: PosterMaybeERP
+
+- type: entity
+  parent: PosterBase
+  id: PosterNOnonvandalized
+  name: NO-nonvandalized poster
+  description: "A perfectly non-vandalized poster. QUICK VANDALIZE IT!"
+  components:
+  - type: Sprite
+    sprite: _HL/Structures/Wallmounts/Posters/FurryTure.rsi
+    state: poster_NO_nonvandalized
+    scale: 0.9, 0.9
+  - type: Construction
+    graph: Poster
+    node: PosterNOnonvandalized
+
+- type: entity
+  parent: PosterBase
+  id: PosterRedSec
+  name: RedSec poster
+  description: "RedSec, trust us with your assets."
+  components:
+  - type: Sprite
+    sprite: _HL/Structures/Wallmounts/Posters/FurryTure.rsi
+    state: poster_RedSec_poster
+    scale: 0.9, 0.9
+  - type: Construction
+    graph: Poster
+    node: PosterRedSec
+
+- type: entity
+  parent: PosterBase
+  id: PosterSurvival
+  name: Survival poster
+  description: "Survival is key!"
+  components:
+  - type: Sprite
+    sprite: _HL/Structures/Wallmounts/Posters/FurryTure.rsi
+    state: poster_Survival_poster
+    scale: 0.9, 0.9
+  - type: Construction
+    graph: Poster
+    node: PosterSurvival
+
+- type: entity
+  parent: PosterBase
+  id: PosterUNSA
+  name: UNSA poster
+  description: "UNSA needs you!"
+  components:
+  - type: Sprite
+    sprite: _HL/Structures/Wallmounts/Posters/FurryTure.rsi
+    state: poster_UNSA_poster
+    scale: 0.9, 0.9
+  - type: Construction
+    graph: Poster
+    node: PosterUNSA

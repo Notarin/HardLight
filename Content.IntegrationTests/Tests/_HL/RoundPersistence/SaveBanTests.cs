@@ -8,6 +8,8 @@ using Content.Shared.Item;
 using Content.Shared.Prototypes;
 using Content.Shared.Storage;
 using Content.Shared.Timing;
+using Robust.Shared.GameObjects;
+using Robust.Shared.Physics.Components;
 using Robust.Shared.Prototypes;
 
 namespace Content.IntegrationTests.Tests.RoundPersistence;
@@ -22,6 +24,7 @@ public sealed class SaveBanTests : InteractionTest
     public async Task TestInsertBannedItemToStash()
     {
         var sys = Server.System<StorageSystem>();
+        var compFact = Server.ResolveDependency<IComponentFactory>();
 
         await SpawnTarget(BluespaceStashProtoId);
         var entId = ToServer(Target.Value);
@@ -43,10 +46,27 @@ public sealed class SaveBanTests : InteractionTest
                 var protoId = banFlag.Prototype;
 
                 //Ignore non-items for this test.
-                var isItem = false;
+                var isItem = true;
                 await Server.WaitPost(() =>
                 {
-                    isItem = ProtoMan.EnumeratePrototypes<EntityPrototype>().Where(p => p.ID == protoId).Any(p => p.HasComponent<ItemComponent>());
+                    var protos = ProtoMan.EnumeratePrototypes<EntityPrototype>().Where(p => p.ID == protoId && p.HasComponent<ItemComponent>());
+                    if (protos.Count() < 1)
+                    {
+                        isItem = false;
+                        return;
+                    }
+                    var proto = protos.First();
+                    // Some items don't start life as one, so ignore em
+                    if (proto.TryGetComponent<PhysicsComponent>(out var phys, compFact) && phys.BodyType == Robust.Shared.Physics.BodyType.Static)
+                    {
+                        isItem = false;
+                        return;
+                    }
+                    if (proto.TryGetComponent<TransformComponent>(out var trans, compFact) && trans.Anchored)
+                    {
+                        isItem = false;
+                        return;
+                    }
                 });
                 if (!isItem)
                 {

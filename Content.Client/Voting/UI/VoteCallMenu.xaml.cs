@@ -60,7 +60,7 @@ namespace Content.Client.Voting.UI
             RobustXamlLoader.Load(this);
             _votingSystem = _entityManager.System<VotingSystem>();
 
-            Stylesheet = IoCManager.Resolve<IStylesheetManager>().SheetSpace;
+            Stylesheet = IoCManager.Resolve<IStylesheetManager>().SheetSystem;
             CloseButton.OnPressed += _ => Close();
             VoteNotTrustedLabel.Text = Loc.GetString("ui-vote-trusted-users-notice", ("timeReq", _cfg.GetCVar(CCVars.VotekickEligibleVoterDeathtime)));
 
@@ -151,7 +151,7 @@ namespace Content.Client.Voting.UI
             else
             {
                 int i = 0;
-                foreach(var dropdowns in VoteOptionsButtonContainer.Children)
+                foreach (var dropdowns in VoteOptionsButtonContainer.Children)
                 {
                     if (dropdowns is OptionButton optionButton && AvailableVoteOptions[(StandardVoteType)typeId].Dropdowns != null)
                     {

@@ -44,10 +44,10 @@
   id: JobSecurityGuard
 
 - type: playTimeTracker
-  id: JobSeniorOfficer
-
-- type: playTimeTracker
   id: JobStc
 
 - type: playTimeTracker
   id: JobValet
+
+- type: playTimeTracker
+  id: JobSergeant

@@ -130,11 +130,12 @@
 
 - type: jobIcon
   parent: JobIcon
-  id: JobIconBrigmedicNF
+  id: JobIconNFBrigmedic
   icon:
     sprite: /Textures/_NF/Interface/Misc/job_icons.rsi
     state: nfsdbrigmed
-  jobName: job-name-brigmedic
+  jobName: job-name-nf-brigmedic
+  allowSelection: false 
 
 - type: jobIcon
   parent: JobIcon
@@ -142,7 +143,8 @@
   icon:
     sprite: /Textures/_NF/Interface/Misc/job_icons.rsi
     state: nfsdsergeant
-  jobName: job-name-senior-officer
+  jobName: job-name-sergeant
+  allowSelection: false
 
 - type: jobIcon
   parent: JobIcon

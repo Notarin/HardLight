@@ -1,0 +1,49 @@
+- type: job # Hardlight
+  id: Brigmedic
+  name: job-name-brigmedic
+  description: job-description-brigmedic
+  playTimeTracker: JobBrigmedic
+  requirements:
+    - !type:OverallPlaytimeRequirement
+      time: 43200 # 12 hours
+    - !type:DepartmentTimeRequirement
+      department: Security
+      time: 21600 # 6 hours
+  alternateRequirementSets:
+    longerPlaytimeLessSec:
+    - !type:OverallPlaytimeRequirement
+      time: 360000 # 100 hours
+  startingGear: brigmedicGear
+  icon: JobIconBrigmedic
+  supervisors: job-supervisors-hos
+  weight: 125
+  displayWeight: 35
+  canBeAntag: false
+  access:
+  - Security
+  - Brig
+  - Maintenance
+  - Service
+  - External
+  - Cryogenics
+  - Medical
+  - Chemistry
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant ]
+  setPreference: false
+  accessGroups: # Frontier
+  - GeneralAccess # Frontier
+
+- type: startingGear
+  id: brigmedicGear
+  equipment:
+    id: BrigmedicPDA
+    # eyes: ClothingEyesGlassesSecurity # HardLight: Add departmental NF-style loadouts
+    ears: ClothingHeadsetBrigmedic
+    pocket1: NFWeaponPistolMk58 # Frontier: use NF variant
+  storage:
+    back:
+    - Flash
+    - Magazine45_ACPPistolFMJ
+    - FrontierUplinkCoin10

@@ -70,7 +70,7 @@
             SecurityCadet: [ 1, 4 ]
             Brigmedic: [ 1, 1 ]
             Prisoner: [ 2, 3 ]
-            SeniorOfficer: [ 1, 1 ]
+            Sergeant: [ 1, 1 ] # HL: Senior Officer swapped with Sergeant
           #supply
             Quartermaster: [ 1, 1 ]
             # MISSING JOB PROTOTYPE

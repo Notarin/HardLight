@@ -1,5 +1,5 @@
 using Content.Server.Traits.Assorted;
-using Content.Shared.Stunnable; // HardLight
+using Content.Shared.Standing;
 
 namespace Content.Shared.Traits.Assorted.Systems;
 
@@ -8,19 +8,15 @@ public sealed class LayingDownModifierSystem : EntitySystem
     public override void Initialize()
     {
         base.Initialize();
-        SubscribeLocalEvent<LayingDownModifierComponent, GetStandUpTimeEvent>(OnGetStandUpTime); // HardLight
-        SubscribeLocalEvent<LayingDownModifierComponent, KnockedDownRefreshEvent>(OnKnockedDownRefresh); // HardLight
+        SubscribeLocalEvent<LayingDownModifierComponent, ComponentStartup>(OnStartup);
     }
 
-    // HardLight-edit start
-    private void OnGetStandUpTime(EntityUid uid, LayingDownModifierComponent component, ref GetStandUpTimeEvent args)
+    private void OnStartup(EntityUid uid, LayingDownModifierComponent component, ComponentStartup args)
     {
-        args.DoAfterTime *= component.LayingDownCooldownMultiplier;
-    }
+        if (!TryComp<LayingDownComponent>(uid, out var layingDown))
+            return;
 
-    private void OnKnockedDownRefresh(EntityUid uid, LayingDownModifierComponent component, ref KnockedDownRefreshEvent args)
-    {
-        args.SpeedModifier *= component.DownedSpeedMultiplierMultiplier;
+        layingDown.StandingUpTime *= component.LayingDownCooldownMultiplier;
+        layingDown.LyingSpeedModifier *= component.DownedSpeedMultiplierMultiplier;
     }
-    // HardLight-edit end
 }

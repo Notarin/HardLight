@@ -35,9 +35,9 @@ public sealed class CompanySystem : EntitySystem
         "SecurityOfficer",
         "SecurityQuadBorg",
         "Detective",
-        "Warden",
-        "BrigMedic",
-        "SecurityCadet"
+        "Brigmedic",
+        "SecurityCadet",
+        "SeniorOfficer"
     };
 // Hardlight end
     private readonly HashSet<string> _rogueJobs = new()

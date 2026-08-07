@@ -1,7 +1,7 @@
 using System.Linq;
 using Content.Server.Body.Components;
-using Content.Server.Mobs.Components;
 using Content.Shared._HL.Chemistry.Components;
+using Content.Shared._HL.Silicons.Synths.Body;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.Components.SolutionManager;
 using Content.Shared.Chemistry.EntitySystems;
@@ -136,7 +136,7 @@ public sealed class ReagentSpoilageSystem : EntitySystem
 
     private bool IsValidSpoilageContext(EntityUid owner, ReagentPrototype proto)
     {
-        if (HasComp<HLSynthComponent>(owner))
+        if (HasComp<SynthBloodstreamComponent>(owner))
             return true;
 
         if ((proto.SpoilConditions?.PreservedBySpoilageContainers ?? true) && HasComp<PreservesSpoilageComponent>(owner))

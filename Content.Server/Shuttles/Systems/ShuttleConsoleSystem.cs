@@ -89,6 +89,7 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
             subs.Event<ShuttleConsoleExpeditionDiskActivateMessage>(OnExpeditionDiskActivateMessage);
             subs.Event<ShuttleConsoleExpeditionEndMessage>(OnExpeditionEndMessage);
             subs.Event<ShuttleConsoleWEPMessage>(OnWEPMessage); // HL
+            subs.Event<ShuttleConsoleNavigationAngleMessage>(OnNavigationAngleMessage); // HardLight
             subs.Event<BoundUIClosedEvent>(OnConsoleUIClose);
         });
 
@@ -389,7 +390,7 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
         }
         else
         {
-            navState = new NavInterfaceState(0f, null, null, new Dictionary<NetEntity, List<DockingPortState>>(), InertiaDampeningMode.Dampen, ServiceFlags.None); // Frontier: inertia dampening);
+            navState = new NavInterfaceState(0f, null, null, Angle.Zero, new Dictionary<NetEntity, List<DockingPortState>>(), InertiaDampeningMode.Dampen, ServiceFlags.None); // Frontier: added inertia dampening, // HardLight: added Angle.Zero
             mapState = new ShuttleMapInterfaceState(
                 FTLState.Invalid,
                 default,
@@ -481,6 +482,25 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
         var mover = EntityManager.System<Content.Server.Physics.Controllers.MoverController>();
         mover.ActivateWEP(gridUid, shuttle);
         // Note: OnWEPActivated is called by ActivateWEP on success.
+    }
+
+    private void OnNavigationAngleMessage(Entity<ShuttleConsoleComponent> ent, ref ShuttleConsoleNavigationAngleMessage args)
+    {
+        var offset = GetCardinalAngle(args.Offset);
+        if (ent.Comp.ConsoleNavigationAngleOffset.Equals(offset))
+            return;
+
+        ent.Comp.ConsoleNavigationAngleOffset = offset;
+
+        DockingInterfaceState? dockState = null;
+        UpdateState(ent.Owner, ref dockState);
+    }
+
+    private static Angle GetCardinalAngle(Angle angle)
+    {
+        var quarterTurns = (int) MathF.Round((float) (angle.Reduced().Theta / Math.PI * 2f));
+        quarterTurns = (quarterTurns % 4 + 4) % 4;
+        return Angle.FromDegrees(quarterTurns * 90);
     }
 
     private const float WepPowerDraw = 150_000f; // 150 kW peak recharge draw
@@ -691,7 +711,7 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
     public NavInterfaceState GetNavState(Entity<RadarConsoleComponent?, TransformComponent?> entity, Dictionary<NetEntity, List<DockingPortState>> docks)
     {
         if (!Resolve(entity, ref entity.Comp1, ref entity.Comp2))
-            return new NavInterfaceState(SharedRadarConsoleSystem.DefaultMaxRange, null, null, docks, Shared._NF.Shuttles.Events.InertiaDampeningMode.Dampen, ServiceFlags.None); // Frontier: add inertia dampening
+            return new NavInterfaceState(SharedRadarConsoleSystem.DefaultMaxRange, null, null, Angle.Zero, docks, Shared._NF.Shuttles.Events.InertiaDampeningMode.Dampen, ServiceFlags.None); // Frontier: added inertia dampening, // HardLight: added Angle.Zero
 
         return GetNavState(
             entity,
@@ -707,12 +727,17 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
         Angle angle)
     {
         if (!Resolve(entity, ref entity.Comp1, ref entity.Comp2))
-            return new NavInterfaceState(SharedRadarConsoleSystem.DefaultMaxRange, GetNetCoordinates(coordinates), angle, docks, InertiaDampeningMode.Dampen, ServiceFlags.None); // Frontier: add inertial dampening
+            return new NavInterfaceState(SharedRadarConsoleSystem.DefaultMaxRange, GetNetCoordinates(coordinates), angle, Angle.Zero, docks, InertiaDampeningMode.Dampen, ServiceFlags.None); // Frontier: added inertial dampening, // HardLight: added Angle.Zero
+
+        var consoleNavigationAngleOffset = Angle.Zero; // HardLight
+        if (TryComp(entity.Owner, out ShuttleConsoleComponent? shuttleConsole)) // HardLight
+            consoleNavigationAngleOffset = shuttleConsole.ConsoleNavigationAngleOffset;
 
         return new NavInterfaceState(
             entity.Comp1.MaxRange,
             GetNetCoordinates(coordinates),
-            angle,
+            angle + consoleNavigationAngleOffset, // HardLight: added consoleNavigationAngleOffset
+            consoleNavigationAngleOffset, // HardLight
             docks,
             _shuttle.NfGetInertiaDampeningMode(entity), // Frontier
             _shuttle.NfGetServiceFlags(entity)); // Frontier

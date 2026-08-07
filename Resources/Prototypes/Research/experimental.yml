@@ -178,7 +178,7 @@
   tier: 2
   cost: 20000
   recipeUnlocks:
-  - AiCoreElectronics
+  - StationAiCoreElectronics # Hardlight: changed from CoreElectronics which doesn't slot into a AI frame
   technologyPrerequisites:
   - SuperParts
   position: -4, 18

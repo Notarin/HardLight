@@ -8,15 +8,15 @@
   },
   "states": [
     {
-      "name": "synth_head_core",
+      "name": "core",
       "directions": 4
     },
     {
-      "name": "synth_head_fracture",
+      "name": "fracture",
       "directions": 4
     },
     {
-      "name": "synth_head_streak",
+      "name": "streak",
       "directions": 4
     }
   ]

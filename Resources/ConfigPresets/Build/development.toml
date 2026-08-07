@@ -16,7 +16,8 @@ quick_lottery = true
 generator_enabled = false
 
 [movement]
-mob_pushing = true
+# HardLight: true -> false; Shits annoying to devs.
+mob_pushing = false
 
 [physics]
 # Makes mapping annoying
@@ -47,3 +48,9 @@ expedition_failed_cooldown = 10.0
 expedition_travel_time = 5.0
 expedition_proximity_check = false
 # End Frontier: expedition params
+
+# HL START: Round Persistence params
+[hardlight.round_persistence]
+enabled = false
+
+# HL END

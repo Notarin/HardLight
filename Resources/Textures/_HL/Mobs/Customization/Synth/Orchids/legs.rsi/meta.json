@@ -8,19 +8,19 @@
   },
   "states": [
     {
-      "name": "synth_leg_left_core",
+      "name": "leg_core_l",
       "directions": 4
     },
     {
-      "name": "synth_leg_left_streak",
+      "name": "leg_core_r",
       "directions": 4
     },
     {
-      "name": "synth_leg_right_core",
+      "name": "leg_streak_l",
       "directions": 4
     },
     {
-      "name": "synth_leg_right_streak",
+      "name": "leg_streak_r",
       "directions": 4
     }
   ]

@@ -84,6 +84,15 @@
   suffix: Full
   components:
   - type: Material
+  # HardLight start
+  - type: Food
+    requiresSpecialDigestion: true
+    solution: plasma
+  - type: FlavorProfile
+    flavors:
+    - sour
+  - type: BadFood
+  # HardLight end
   - type: PhysicalComposition
     materialComposition:
       Plasma: 100
@@ -172,6 +181,15 @@
     - NoPaint
     - TiderAnvilParts
   - type: Material
+  # HardLight start
+  - type: Food
+    requiresSpecialDigestion: true
+    solution: plastic
+  - type: FlavorProfile
+    flavors:
+    - bitter
+  - type: BadFood
+  # HardLight end
   - type: PhysicalComposition
     materialComposition:
       Plastic: 100

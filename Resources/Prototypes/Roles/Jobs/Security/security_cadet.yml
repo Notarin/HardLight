@@ -30,7 +30,6 @@
     outerClothing: ClothingOuterArmorBasic
     id: SecurityCadetPDA
     ears: ClothingHeadsetSecurity
-    belt: ClothingBeltSecurityFilled
     pocket1: NFWeaponPistolMk58 # Frontier: use NF variant
     pocket2: BookSecurity
   storage:

@@ -63,6 +63,15 @@
   - type: Appearance
   - type: Extractable
     grindableSolutionName: steel
+  # HardLight start
+  - type: Food
+    requiresSpecialDigestion: true
+    solution: steel
+  - type: FlavorProfile
+    flavors:
+    - metallic
+  - type: BadFood
+  # HardLight end
   - type: SolutionContainerManager
     solutions:
       steel:
@@ -136,6 +145,13 @@
     - PlatingBrass
   - type: Extractable
     grindableSolutionName: brass
+  - type: Food
+    requiresSpecialDigestion: true
+    solution: brass
+  - type: FlavorProfile
+    flavors:
+    - metallic
+  - type: BadFood
   - type: SolutionContainerManager
     solutions:
       brass:

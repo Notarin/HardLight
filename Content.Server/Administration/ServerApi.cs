@@ -392,8 +392,10 @@ public sealed partial class ServerApi : IPostInjectInit
         await RunOnMainThread(async () =>
         {
             var ticker = _entitySystemManager.GetEntitySystem<GameTicker>();
+            var defaultMapPlayers = ticker.GetPlayersOnMap(ticker.DefaultMap); // HardLight
 
             ticker.RestartRound();
+            ticker.ReturnPlayersToLobby(defaultMapPlayers); // HardLight
             _sawmill.Info($"Forced instant round restart by {FormatLogActor(actor)}");
             await RespondOk(context);
         });

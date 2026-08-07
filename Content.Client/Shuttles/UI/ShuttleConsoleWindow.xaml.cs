@@ -23,6 +23,7 @@ public sealed partial class ShuttleConsoleWindow : FancyWindow,
     public event Action? ActivateExpeditionDisk;
     public event Action? EndExpedition;
     public event Action? ActivateWEP; // HL
+    public event Action<Angle>? ConsoleNavigationAngleOffsetChanged; // HardLight
 
     public event Action<NetEntity, NetEntity>? DockRequest;
     public event Action<NetEntity>? UndockRequest;
@@ -81,6 +82,7 @@ public sealed partial class ShuttleConsoleWindow : FancyWindow,
         NavContainer.ActivateExpeditionDisk += () => ActivateExpeditionDisk?.Invoke();
         NavContainer.EndExpedition += () => EndExpedition?.Invoke();
         NavContainer.ActivateWEP += () => ActivateWEP?.Invoke(); // HL
+        NavContainer.ConsoleNavigationAngleOffsetChanged += angle => ConsoleNavigationAngleOffsetChanged?.Invoke(angle); // HardLight
 
         NfInitialize(); // Frontier Initialization for the ShuttleConsoleWindow
     }

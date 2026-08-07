@@ -15,8 +15,9 @@
     - type: Carriable
     - type: Hunger
     - type: Thirst
-    #- type: Genetics # Funkystation - Genetics
-    #  mutationSlots: 8
+    - type: LayingDown
+    # - type: Genetics # Funkystation - Genetics
+    #   mutationSlots: 8
     - type: Shadekin
       thresholds:
         0.8: Low

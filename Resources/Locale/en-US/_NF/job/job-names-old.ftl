@@ -5,3 +5,4 @@ JobHeadOfSecurityOld = Head of Security
 JobWardenOld = Warden
 JobDetectiveOld = Detective
 JobHeadOfPersonnelOld = Head of Personnel
+JobNFBrigmedic = Brigmedic

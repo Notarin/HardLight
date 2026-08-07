@@ -28,8 +28,7 @@
     scale: 0.7, 0.7
     layers:
     - state: quadsprite
-      map: ["movement"]
-    - map: ["enum.ToggleVisuals.Layer"]
+      map: ["movement", "enum.ToggleVisuals.Layer"]
     - state: quadspritel
       map: ["enum.BorgVisualLayers.Light"]
       shader: unshaded
@@ -107,7 +106,7 @@
     node: cyborg
   - type: Speech
     speechVerb: Robotic
-  - type: Crawler # HardLight
+  - type: LayingDown
   - type: CumProducer
     maxVol: 250
     reVol: 50
@@ -139,8 +138,7 @@
     scale: 0.7, 0.7
     layers:
     - state: quadsprite
-      map: ["movement"]
-    - map: ["enum.ToggleVisuals.Layer"]
+      map: ["movement", "enum.ToggleVisuals.Layer"]
     - state: quadspritel
       map: ["enum.BorgVisualLayers.Light"]
       shader: unshaded
@@ -220,8 +218,7 @@
     scale: 0.7, 0.7
     layers:
     - state: SyndQuad
-      map: ["movement"]
-    - map: ["enum.ToggleVisuals.Layer"]
+      map: ["movement", "enum.ToggleVisuals.Layer"]
     - state: SyndQuadl
       map: ["enum.BorgVisualLayers.Light"]
       shader: unshaded
@@ -306,8 +303,7 @@
     scale: 0.7, 0.7
     layers:
     - state: assaultquad
-      map: ["movement"]
-    - map: ["enum.ToggleVisuals.Layer"]
+      map: ["movement", "enum.ToggleVisuals.Layer"]
     - state: assaultquadr
       map: ["enum.BorgVisualLayers.Light"]
       shader: unshaded
@@ -357,8 +353,7 @@
     scale: 0.7, 0.7
     layers:
     - state: chews
-      map: ["movement"]
-    - map: ["enum.ToggleVisuals.Layer"]
+      map: ["movement", "enum.ToggleVisuals.Layer"]
     - state: chewsr
       map: ["enum.BorgVisualLayers.Light"]
       shader: unshaded
@@ -408,8 +403,7 @@
     scale: 0.7, 0.7
     layers:
     - state: littlehelper
-      map: ["movement"]
-    - map: ["enum.ToggleVisuals.Layer"]
+      map: ["movement", "enum.ToggleVisuals.Layer"]
     - state: littlehelperr
       map: ["enum.BorgVisualLayers.Light"]
       shader: unshaded
@@ -451,6 +445,42 @@
     movementStateOn: littlehelper_movingballz
 
 - type: entity
+  id: Shibaborg
+  parent: [wolfborg]
+  components:
+  - type: Sprite
+    sprite: _HL/Mobs/Player/borgs/quads.rsi
+    scale: 0.5, 0.5
+    layers:
+    - state: shiba
+      map: ["movement"]
+    - map: ["enum.ToggleVisuals.Layer"]
+  - type: SpriteMovement
+    movementLayers:
+      movement:
+        state: shiba_moving
+    noMovementLayers:
+      movement:
+        state: shiba
+  - type: ItemSlots
+    slots:
+      cell_slot:
+        name: power-cell-slot-component-slot-name-default
+        startingItem: PowerCellAntiqueProto
+  - type: BorgTransponder
+    sprite:
+      sprite: _HL/Mobs/Player/borgs/quads.rsi
+      state: shiba
+    name: cyborg
+  - type: SpriteStateToggle
+    spriteLayer: enum.ToggleVisuals.Layer
+    stateOff: shiba
+    stateOn: shibaballz
+    #VisibleWhenEnabled: true
+    movementStateOff: shiba_moving
+    movementStateOn: shiba_movingballz
+    
+- type: entity
   id: wolfborg
   parent: [BorgChassisApex]
   components:
@@ -459,8 +489,7 @@
     scale: 0.7, 0.7
     layers:
     - state: wolfdog
-      map: ["movement"]
-    - map: ["enum.ToggleVisuals.Layer"]
+      map: ["movement", "enum.ToggleVisuals.Layer"]
     - state: wolfdogr
       map: ["enum.BorgVisualLayers.Light"]
       shader: unshaded
@@ -529,8 +558,7 @@
     scale: 0.7, 0.7
     layers:
     - state: quadspriteCC
-      map: ["movement"]
-    - map: ["enum.ToggleVisuals.Layer"]
+      map: ["movement", "enum.ToggleVisuals.Layer"]
     - state: quadspritel
       map: ["enum.BorgVisualLayers.Light"]
       shader: unshaded
@@ -634,8 +662,7 @@
     scale: 0.7, 0.7
     layers:
     - state: quadspritesalv
-      map: ["movement"]
-    - map: ["enum.ToggleVisuals.Layer"]
+      map: ["movement", "enum.ToggleVisuals.Layer"]
     - state: quadspritesalvl
       map: ["enum.BorgVisualLayers.Light"]
       shader: unshaded
@@ -711,8 +738,7 @@
     scale: 0.7, 0.7
     layers:
     - state: quadspriteserv
-      map: ["movement"]
-    - map: ["enum.ToggleVisuals.Layer"]
+      map: ["movement", "enum.ToggleVisuals.Layer"]
     - state: quadspriteservl
       map: ["enum.BorgVisualLayers.Light"]
       shader: unshaded
@@ -792,8 +818,7 @@
     scale: 0.7, 0.7
     layers:
     - state: engieborg
-      map: ["movement"]
-    - map: ["enum.ToggleVisuals.Layer"]
+      map: ["movement", "enum.ToggleVisuals.Layer"]
     - state: engieborgl
       map: ["enum.BorgVisualLayers.Light"]
       shader: unshaded
@@ -874,8 +899,7 @@
     scale: 0.7, 0.7
     layers:
     - state: quadspritemed
-      map: ["movement"]
-    - map: ["enum.ToggleVisuals.Layer"]
+      map: ["movement", "enum.ToggleVisuals.Layer"]
     - state: quadspritemedl
       map: ["enum.BorgVisualLayers.Light"]
       shader: unshaded
@@ -975,8 +999,7 @@
     scale: 0.7, 0.7
     layers:
     - state: Apex
-      map: ["movement"]
-    - map: ["enum.ToggleVisuals.Layer"]
+      map: ["movement", "enum.ToggleVisuals.Layer"]
     - state: quadspritel
       map: ["enum.BorgVisualLayers.Light"]
       shader: unshaded
@@ -1028,8 +1051,7 @@
     scale: 0.7, 0.7
     layers:
     - state: chip_quadsprite
-      map: ["movement"]
-    - map: ["enum.ToggleVisuals.Layer"]
+      map: ["movement", "enum.ToggleVisuals.Layer"]
     - state: quadspritel
       map: ["enum.BorgVisualLayers.Light"]
       shader: unshaded
@@ -1129,8 +1151,7 @@
     scale: 0.7, 0.7
     layers:
     - state: XenoQuad
-      map: ["movement"]
-    - map: ["enum.ToggleVisuals.Layer"]
+      map: ["movement", "enum.ToggleVisuals.Layer"]
     - state: XenoQuad_e
       map: ["enum.BorgVisualLayers.Light"]
       shader: unshaded

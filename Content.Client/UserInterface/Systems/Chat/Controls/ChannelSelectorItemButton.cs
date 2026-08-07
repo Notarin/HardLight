@@ -6,6 +6,8 @@ namespace Content.Client.UserInterface.Systems.Chat.Controls;
 
 public sealed class ChannelSelectorItemButton : Button
 {
+    public const string StyleClassChatSelectorOptionButton = "ChatSelectorOptionButton";
+
     public readonly ChatSelectChannel Channel;
 
     public bool IsHidden => Parent == null;
@@ -13,7 +15,7 @@ public sealed class ChannelSelectorItemButton : Button
     public ChannelSelectorItemButton(ChatSelectChannel selector)
     {
         Channel = selector;
-        AddStyleClass(StyleNano.StyleClassChatChannelSelectorButton);
+        AddStyleClass(StyleClassChatSelectorOptionButton);
 
         Text = ChannelSelectorButton.ChannelSelectorName(selector);
 

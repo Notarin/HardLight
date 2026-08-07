@@ -62,7 +62,7 @@
           SecurityCadet: [ 1, 3 ]
           Brigmedic: [ 1, 1 ]
           Prisoner: [ 2, 2 ]
-          SeniorOfficer: [ 1, 1 ]
+          Sergeant: [ 1, 1 ] # HL: Senior Officer swapped with Sergeant
           #Science
           ResearchDirector: [ 1, 1 ]
           Scientist: [ 2, 4 ]

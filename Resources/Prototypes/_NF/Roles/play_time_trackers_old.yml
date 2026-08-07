@@ -21,3 +21,6 @@
 
 - type: playTimeTracker
   id: JobJanitorOld
+
+- type: playTimeTracker
+  id: JobBrigmedicOld

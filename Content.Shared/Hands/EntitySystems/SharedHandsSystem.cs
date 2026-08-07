@@ -33,7 +33,6 @@ public abstract partial class SharedHandsSystem
 
         InitializeInteractions();
         InitializeDrop();
-        InitializeEventListeners();
         InitializePickup();
         InitializeRelay();
     }

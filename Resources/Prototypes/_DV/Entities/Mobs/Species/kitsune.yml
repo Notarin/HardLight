@@ -16,6 +16,8 @@
     - Fox
     - Dog # "vaguely canidae"
   # HardLight end
+  - type: MovementSpeedModifier
+    maxSprintSpeed: 6.5 # Hardlight
   - type: Physics
   - type: Fixtures
     fixtures:

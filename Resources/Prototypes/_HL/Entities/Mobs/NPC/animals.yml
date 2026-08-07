@@ -109,6 +109,10 @@
   - type: FootstepModifier
     footstepSoundCollection:
       collection: FootstepAsteroid
+  - type: PlateletFactories
+    intervalSeconds: 1
+    healPerSecond: .1
+    critMultiplier: .01
   - type: Damageable
     damageContainer: Biological
     damageModifierSet: Scale

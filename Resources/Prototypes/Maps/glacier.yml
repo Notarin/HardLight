@@ -86,7 +86,7 @@
           SecurityCadet: [ 1, 2 ]
           Brigmedic: [ 1, 1 ]
           Prisoner: [ 2, 3 ]
-          SeniorOfficer: [ 1, 1 ]
+          Sergeant: [ 1, 1 ] # HL: Senior Officer swapped with Sergeant
 #         Lawyer: [ 2, 2 ]
         #logistics
           Quartermaster: [ 1, 1 ]

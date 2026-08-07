@@ -23,8 +23,8 @@
             MailCarrier: [ -1, -1 ]
             Sheriff: [ 0, -1]
             Bailiff: [ 0, -1]
-            SeniorOfficer: [ 0, -1]
-            Brigmedic: [ -1, -1]
+            Sergeant: [ 0, -1] # HL: Senior Officer swapped with Sergeant
+            Brigmedic: [ 0, -1] # HL: Brigmedic doesn't have a preference so no slots available on round start
             NFDetective: [ 0, -1]
             Deputy: [ 0, -1]
             Cadet: [ 0, -1]

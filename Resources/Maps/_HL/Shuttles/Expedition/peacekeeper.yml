@@ -1821,7 +1821,7 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -6.5,-10.5
       parent: 1
-- proto: CardDeckBlack
+- proto: PlayingCardDeckBlack
   entities:
   - uid: 87
     components:

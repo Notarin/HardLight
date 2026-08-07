@@ -67,7 +67,7 @@
             PrisonGuard: [ 2, 3 ]
             Detective: [ 1, 1 ]
             SecurityCadet: [ 2, 2 ]
-            SeniorOfficer: [ 1, 1 ]
+            Sergeant: [ 1, 1 ] # HL: Senior Officer swapped with Sergeant
             #supply
             Quartermaster: [ 1, 1 ]
             # MISSING JOB PROTOTYPE

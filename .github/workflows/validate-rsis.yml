@@ -9,6 +9,7 @@ on:
 
 jobs:
   validate_rsis:
+    if: forgejo.event.pull_request.draft == false && forgejo.actor != 'HardLight-Auto-Changelog'
     name: Validate RSIs
     runs-on: ubuntu-latest
     container:

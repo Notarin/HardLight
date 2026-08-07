@@ -9,7 +9,7 @@ on:
 
 jobs:
   labeler:
-    if: forgejo.actor != 'PJBot' && forgejo.actor != 'xemeraldwingx-dot' # Hardlight
+    if: forgejo.actor != 'HardLight-Auto-Changelog'
     runs-on: ubuntu-latest
     steps:
       - name: Fetch Actions
@@ -27,7 +27,8 @@ jobs:
           mv actions/.github .github
 
       - name: Run Labeler
-        env:
-          PR: ${{ forgejo.event.issue.number || forgejo.event.pull_request.number }}
-          TOKEN: ${{ env.FORGEJO_TOKEN }}
         uses: ./.github/actions/labeler
+        with:
+          pr_no: ${{ forgejo.event.issue.number || forgejo.event.pull_request.number }}
+          token: ${{ secrets.BOT_TOKEN || secrets.FORGEJO_TOKEN }}
+          repo: ${{ forgejo.event.pull_request.base.repo.full_name || forgejo.repository }}

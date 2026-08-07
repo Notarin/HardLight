@@ -9,7 +9,7 @@ inputs:
     description: 'PR number'
     required: true
   action:
-    description: 'What to do with the comment, currently only supports `add`'
+    description: 'What to do with the comment'
     required: true
     type: choice
     options:
@@ -45,11 +45,15 @@ runs:
   steps:
     - name: Add Comment
       if: inputs.action == 'add'
+      env:
+        IN_BODY: ${{ inputs.body }}
       run: |
-        curl -X POST \
+        apt update
+        apt install -y jq
+        jq -n --arg msg "$IN_BODY" '{body: $msg}' | curl -X POST \
         -H "Authorization: token ${{ inputs.token }}" \
         -H "Content-Type: application/json" \
-        -d '{"body": "${{ inputs.body }}"}' \
+        -d @- \
         "${{ forgejo.server_url }}/api/v1/repos/${{ forgejo.repository }}/issues/${{ inputs.pr }}/comments"
 
     - name: Search Comment

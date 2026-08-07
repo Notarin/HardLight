@@ -34,7 +34,7 @@ jobs:
         with:
           pr: ${{ forgejo.event.issue.number || forgejo.event.pull_request.number }}
           action: 'count'
-          token: ${{ env.FORGEJO_TOKEN }}
+          token: ${{ secrets.BOT_TOKEN || secrets.FORGEJO_TOKEN }}
 
       - name: Add untriaged label
         if: steps.label_count.outputs.count == '0'
@@ -43,4 +43,4 @@ jobs:
           pr: ${{ forgejo.event.issue.number || forgejo.event.pull_request.number }}
           label: 'S: Untriaged'
           action: 'add'
-          token: ${{ env.FORGEJO_TOKEN }}
+          token: ${{ secrets.BOT_TOKEN || secrets.FORGEJO_TOKEN }}

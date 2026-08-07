@@ -445,6 +445,42 @@
     movementStateOn: littlehelper_movingballz
 
 - type: entity
+  id: Shibaborg
+  parent: [wolfborg]
+  components:
+  - type: Sprite
+    sprite: _HL/Mobs/Player/borgs/quads.rsi
+    scale: 0.5, 0.5
+    layers:
+    - state: shiba
+      map: ["movement"]
+    - map: ["enum.ToggleVisuals.Layer"]
+  - type: SpriteMovement
+    movementLayers:
+      movement:
+        state: shiba_moving
+    noMovementLayers:
+      movement:
+        state: shiba
+  - type: ItemSlots
+    slots:
+      cell_slot:
+        name: power-cell-slot-component-slot-name-default
+        startingItem: PowerCellAntiqueProto
+  - type: BorgTransponder
+    sprite:
+      sprite: _HL/Mobs/Player/borgs/quads.rsi
+      state: shiba
+    name: cyborg
+  - type: SpriteStateToggle
+    spriteLayer: enum.ToggleVisuals.Layer
+    stateOff: shiba
+    stateOn: shibaballz
+    #VisibleWhenEnabled: true
+    movementStateOff: shiba_moving
+    movementStateOn: shiba_movingballz
+    
+- type: entity
   id: wolfborg
   parent: [BorgChassisApex]
   components:

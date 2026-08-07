@@ -138,6 +138,24 @@
   entity: Spoder
   
 - type: spawnCharacterOverrideRule
+  id: Shibaspawn
+  match: Hiro
+  checkProfileName: true
+  checkEntityName: true
+  logins:
+  - Antelino
+  entity: Shibaborg
+  
+- type: spawnCharacterOverrideRule
+  id: Queeniespawn
+  match: Queenie
+  checkProfileName: true
+  checkEntityName: true
+  logins:
+  - Atali
+  entity: Queenie
+  
+- type: spawnCharacterOverrideRule
   id: LittleHelperspawn
   match: Little Helper
   checkProfileName: true

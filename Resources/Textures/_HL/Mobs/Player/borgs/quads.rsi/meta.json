@@ -176,6 +176,74 @@
       ]
     },
 	{
+      "name": "shiba",
+      "directions": 4
+    },
+	{
+      "name": "shibaballz",
+      "directions": 4
+    },
+	{
+      "name": "shiba_moving",
+      "directions": 4,
+      "delays": [
+        [
+          0.2,
+          0.2,
+          0.2,
+          0.2
+        ],
+        [
+          0.2,
+          0.2,
+          0.2,
+          0.2
+        ],
+        [
+          0.2,
+          0.2,
+          0.2,
+          0.2
+        ],
+        [
+          0.2,
+          0.2,
+          0.2,
+          0.2
+        ]
+      ]
+    },
+	{
+      "name": "shiba_movingballz",
+      "directions": 4,
+      "delays": [
+        [
+          0.2,
+          0.2,
+          0.2,
+          0.2
+        ],
+        [
+          0.2,
+          0.2,
+          0.2,
+          0.2
+        ],
+        [
+          0.2,
+          0.2,
+          0.2,
+          0.2
+        ],
+        [
+          0.2,
+          0.2,
+          0.2,
+          0.2
+        ]
+      ]
+    },
+	{
       "name": "wolfdog_movingballz",
       "directions": 4,
       "delays": [

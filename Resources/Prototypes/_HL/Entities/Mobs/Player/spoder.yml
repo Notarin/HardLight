@@ -92,7 +92,18 @@
     solution: melee
     transferAmount: 4
   - type: NoSlip
+  - type: ComplexInteraction
   - type: IgnoreSpiderWeb
+  - type: Inventory
+    templateId: friendxeno
+  - type: IdExaminable
+  - type: InventorySlots
+  - type: Stripping
+  - type: Strippable
+  - type: UserInterface
+    interfaces:
+      enum.StrippingUiKey.Key:
+        type: StrippableBoundUserInterface
   - type: Speech
     speechVerb: Arachnid
     speechSounds: Arachnid
@@ -124,6 +135,12 @@
     noMovementLayers:
       movement:
         state: spider
+  - type: Tag
+    tags:
+    - CanPilot
+    - FootstepSound
+    - DoorBumpOpener
+    - CannotSuicide
   - type: SpriteStateToggle
     spriteLayer: enum.ToggleVisuals.Layer
     #VisibleWhenEnabled: true

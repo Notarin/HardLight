@@ -53,7 +53,7 @@
             SecurityOfficer: [ 3, 5 ]
             SecurityCadet: [ 1, 2 ]
             Warden: [ 1, 1 ]
-            SeniorOfficer: [ 0, 1 ]
+            Sergeant: [ 0, 1 ] # HL: Senior Officer swapped with Sergeant
           #service
             Bartender: [ 1, 2 ]
             Botanist: [ 2, 2 ]

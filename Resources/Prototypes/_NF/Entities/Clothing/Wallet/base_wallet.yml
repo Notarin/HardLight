@@ -31,7 +31,7 @@
       - Paper
       - NFCoin
       - NFShipyardVoucher
-      - Card # single cards
+      - PlayingCard # single cards
       - NFEmagPass
     blacklist:
       tags:
@@ -51,7 +51,7 @@
           components:
           - Paper
           - NFShipyardVoucher
-          - Card
+          - PlayingCard
           - NFEmagPass
       closed-cash:
         whitelist:

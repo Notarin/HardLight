@@ -485,15 +485,13 @@
   components:
   - type: ContainerFill
     containers:
-      borg_brain:
-        - PositronicBrain
       borg_module:
         - BorgModuleTool
   - type: ItemSlots
     slots:
       cell_slot:
         name: power-cell-slot-component-slot-name-default
-        startingItem: PowerCellMedium
+        startingItem: PowerCellAntiqueProto
 
 - type: entity
   id: PlayerBorgQuadPetal

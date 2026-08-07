@@ -167,11 +167,6 @@
     - DoorBumpOpener
   - type: Puller
     needsHands: false
-  - type: RandomMetadata
-    nameSegments:
-    - NamesDragon
-    - NamesDragonTitle
-    nameFormat: name-format-dragon
   - type: Prying
     pryPowered: true
     force: true
@@ -187,6 +182,11 @@
   description: A flying leviathan, loosely related to space carps.
   abstract: true
   components:
+  - type: RandomMetadata
+    nameSegments:
+    - NamesDragon
+    - NamesDragonTitle
+    nameFormat: name-format-dragon
   - type: RandomSprite
     available:
     - enum.DamageStateVisualLayers.Base:
@@ -214,6 +214,11 @@
   id: MobHoloDragon
   # abstract: true # Frontier: use NF variants
   components:
+  - type: RandomMetadata
+    nameSegments:
+    - NamesDragon
+    - NamesDragonTitle
+    nameFormat: name-format-dragon
   - type: Dragon
     spawnRiftAction: ActionSpawnRift
     riftPrototype: HoloCarpRift
@@ -252,6 +257,11 @@
   id: MobRainbowDragon
   # abstract: true # Frontier: use NF variants
   components:
+  - type: RandomMetadata
+    nameSegments:
+    - NamesDragon
+    - NamesDragonTitle
+    nameFormat: name-format-dragon
   - type: Dragon
     spawnRiftAction: ActionSpawnRift
     riftPrototype: RainbowCarpRift
@@ -281,6 +291,11 @@
   id: MobMagicDragon
   # abstract: true # Frontier: use NF variants
   components:
+  - type: RandomMetadata
+    nameSegments:
+    - NamesDragon
+    - NamesDragonTitle
+    nameFormat: name-format-dragon
   - type: Dragon
     spawnRiftAction: ActionSpawnRift
     riftPrototype: MagiCarpRift

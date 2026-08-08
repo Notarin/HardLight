@@ -1,0 +1,48 @@
+- type: entity
+  parent: [ BaseMachinePowered, ConstructibleMachine ]
+  id: MachineParadoxGenerator
+  name: paradox generator
+  description: An unstable insurance terminal that records valuable items and resolves claims from their stored timeline image.
+  components:
+  - type: Sprite
+    sprite: _NF/Structures/Machines/Anomaly/mini_anomaly_generator.rsi
+    offset: 0,0.5
+    noRot: true
+    layers:
+    - state: base
+    - state: unshaded
+      shader: unshaded
+  - type: ApcPowerReceiver
+    powerLoad: 500
+  - type: StaticPrice
+    price: 3500
+  - type: ParadoxGenerator
+    itemSlot:
+      name: paradox-generator-item-slot-name
+      insertVerbText: paradox-generator-insert-verb
+      ejectVerbText: paradox-generator-eject-verb
+      insertSound:
+        path: /Audio/Machines/terminal_insert_disc.ogg
+      ejectSound:
+        path: /Audio/Machines/terminal_insert_disc.ogg
+      ejectOnDeconstruct: true
+      ejectOnBreak: true
+    premiumItemValueMultiplier: 0.10
+    claimItemValueMultiplier: 0.40
+    premiumWealthTaxMultiplier: 0.50
+    claimWealthTaxMultiplier: 2.00
+    wealthTaxThreshold: 100000000
+    wealthTaxBaseRate: 0.01
+    wealthTaxExcessRate: 0.10
+    minPremium: 500
+    minClaim: 1000
+  - type: ActivatableUI
+    key: enum.ParadoxGeneratorUiKey.Key
+  - type: ActivatableUIRequiresPower
+  - type: UserInterface
+    interfaces:
+      enum.ParadoxGeneratorUiKey.Key:
+        type: ParadoxGeneratorBoundUserInterface
+  - type: EmptyOnMachineDeconstruct
+    containers:
+    - paradox-generator-item

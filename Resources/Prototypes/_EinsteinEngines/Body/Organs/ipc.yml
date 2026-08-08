@@ -28,6 +28,7 @@
       - state: eyeball-l
       - state: eyeball-r
   - type: Organ
+  - type: Eyes # HL: Make IPC eyes removable
 
 - type: entity
   id: OrganIPCTongue

@@ -287,7 +287,7 @@ public sealed class RoomGridSpawnerSystem : EntitySystem
 
         var excluded = new HashSet<EntityUid> { session.ConsoleUid, session.MarkerUid };
         StampSprayPaintedInBounds(session.GridUid, session.Bounds);
-        ExcludeSaveBannedItems(session.GridUid, excluded);
+        DeleteSaveBannedItems(session.GridUid, session.Bounds);
         var shipData = _shipSerialization.SerializeShipArea(session.GridUid, userId, $"Room_{session.CharacterKey}", session.Bounds, excluded, includeVendors: true);
         NormalizeRoomDataToAnchor(shipData, session.AnchorTile, session.AnchorPosition, session.AnchorRotation);
         var yaml = _shipSerialization.SerializeShipGridDataToYaml(shipData);
@@ -301,9 +301,9 @@ public sealed class RoomGridSpawnerSystem : EntitySystem
     }
 
     /// <summary>
-    /// Adds save banned items to the list to be excluded from saving.
+    /// Deletes save banned items from the grid within the specified bounds.
     /// </summary>
-    private void ExcludeSaveBannedItems(EntityUid gridUid, HashSet<EntityUid> excluded)
+    private void DeleteSaveBannedItems(EntityUid gridUid, Box2 bounds)
     {
         var excludeFromCheckingBans = new HashSet<EntityUid>();
 
@@ -323,18 +323,19 @@ public sealed class RoomGridSpawnerSystem : EntitySystem
             }
         }
 
-        // Add everything save banned to the list to exclude from saving
-        childEnumerator = Transform(gridUid).ChildEnumerator;
-        while (childEnumerator.MoveNext(out var child))
+        // Delete everything save banned within bounds
+        var entities = new HashSet<EntityUid>();
+        _lookup.GetLocalEntitiesIntersecting(gridUid, bounds, entities, LookupFlags.All);
+        foreach (var entity in from entity in entities
+                 where !excludeFromCheckingBans.Contains(entity)
+                 let isBanned = _saveBanApi.CheckForRestrictions(entity) is SaveBanApi.SaveBanResult.IsSaveRestricted
+                 {
+                     Ban.Strictness: SaveBanStore.SaveRestrictionStrictness.TotalBan,
+                 }
+                 where isBanned
+                 select entity)
         {
-            if (excludeFromCheckingBans.Contains(child))
-                continue;
-            var isBanned = _saveBanApi.CheckForRestrictions(child) is SaveBanApi.SaveBanResult.IsSaveRestricted
-            {
-                Ban.Strictness: SaveBanStore.SaveRestrictionStrictness.TotalBan,
-            };
-            if (isBanned)
-                excluded.Add(child);
+            Del(entity);
         }
     }
 

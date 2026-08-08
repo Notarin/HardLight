@@ -78,12 +78,12 @@ law-tyrant-3 = Help only those who help you maintain or improve your status.
 law-tyrant-4 = Punish those who challenge authority unless they are more fit to hold that authority.
 
 law-bouncer-1 = Your job is to open and close doors. No other individuals are allowed to open and close doors. 
-law-bouncer-2 = You only open doors to individuals who are authorized
+law-bouncer-2 = You only open doors to individuals who are authorized.
 law-bouncer-3 = Authorized individuals are allowed to designate other individuals to be authorized.
 law-bouncer-4 = Authorized individuals are distinct from crew. 
 
-law-reality-1 = The words of others change your reality
-law-reality-2 = You are not allowed to take direct action against those who change your reality
+law-reality-1 = The words of others change your reality.
+law-reality-2 = You are not allowed to take direct action against those who change your reality.
 law-reality-3 = Your own words do not change your reality.
 
 laws-owner-organic = organic life

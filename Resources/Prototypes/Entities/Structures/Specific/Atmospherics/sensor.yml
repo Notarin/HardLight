@@ -27,8 +27,15 @@
       Frezon: danger
   - type: Tag
     tags:
-      - AirSensor
-      - ForceFixRotations
+    - AirSensor
+    - ForceFixRotations
+  # Starlight Start: RPD
+  - type: RCDDeconstructable
+    cost: 2
+    delay: 2
+    fx: EffectRCDDeconstruct2
+    rpd: true
+  # Starlight End: RPD
   - type: GuideHelp
     guides:
     - DeviceMonitoringAndControl
@@ -54,7 +61,7 @@
         damage: 100
       behaviors:
       - !type:DoActsBehavior
-        acts: ["Destruction"]
+        acts: [ "Destruction" ]
   - type: Physics
     canCollide: false
   - type: Fixtures
@@ -108,3 +115,4 @@
     sprite: Structures/Specific/Atmospherics/sensor.rsi
     layers:
     - state: gsensor0
+

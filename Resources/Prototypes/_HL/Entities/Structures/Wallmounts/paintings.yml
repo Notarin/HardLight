@@ -1,0 +1,79 @@
+- type: entity
+  parent: PaintingBase
+  id: PaintingMaintsaLivsa
+  name: Maintsa Livsa
+  description:
+  components:
+  - type: Sprite
+    sprite: _HL/Structures/Wallmounts/Paintings.rsi
+    state: Maintsa-Livsa
+
+- type: entity
+  parent: PaintingBase
+  id: PaintingArcameDuelAtDusk
+  name: Arcame Duel At Dusk
+  description:
+  components:
+  - type: Sprite
+    sprite: _HL/Structures/Wallmounts/Paintings.rsi
+    state: Arcame_duel_at_dusk
+
+- type: entity
+  parent: PaintingBase
+  id: PaintingDrDinoGothic
+  name: Dr. Dino Gothic
+  description: I fail to see what's gothic about this.
+  components:
+  - type: Sprite
+    sprite: _HL/Structures/Wallmounts/Paintings.rsi
+    state: Dr.dino_gothic
+
+- type: entity
+  parent: PaintingBase
+  id: PaintingFihSpecimine
+  name: Fih Specimine
+  description: A fossil of a specimen of the Honkleosties! I jest, you don't know what creature that skull belonged to.
+  components:
+  - type: Sprite
+    sprite: _HL/Structures/Wallmounts/Paintings.rsi
+    state: Fih_specimine
+
+- type: entity
+  parent: PaintingBase
+  id: PaintingQuietShift
+  name: Quiet Shift
+  description: Man, i really wish there was a tesloose right about now.
+  components:
+  - type: Sprite
+    sprite: _HL/Structures/Wallmounts/Paintings.rsi
+    state: Quiet_shift
+
+- type: entity
+  parent: PaintingBase
+  id: PaintingShitshitshitfuckfuckfuck
+  name: Shit Shit Shit Fuck Fuck Fuck
+  description: OH GOD OH FUCK RUN FOR YOUR LIFE IT'S LADY TESLA!!
+  components:
+  - type: Sprite
+    sprite: _HL/Structures/Wallmounts/Paintings.rsi
+    state: Shitshitshitfuckfuckfuck
+
+- type: entity
+  parent: PaintingBase
+  id: PaintingTitansAmongGiants
+  name: Titans Among Giants
+  description: It looks like its from 10,000 BCE, but you made it with a bucket of paint, a welder, and a cave painting from 40,000 BCE.
+  components:
+  - type: Sprite
+    sprite: _HL/Structures/Wallmounts/Paintings.rsi
+    state: Titans_among_giants
+
+- type: entity
+  parent: PaintingBase
+  id: PaintingUristesque
+  name: Uristesque
+  description:
+  components:
+  - type: Sprite
+    sprite: _HL/Structures/Wallmounts/Paintings.rsi
+    state: Uristesque

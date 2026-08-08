@@ -74,8 +74,8 @@ public sealed partial class GeneratorWindow : FancyWindow
         Eta.Text = Loc.GetString(
             "portable-generator-ui-eta",
             ("minutes", Math.Ceiling(left / 60.0)));
-        FuelFraction.Value = state.RemainingFuel - (int) state.RemainingFuel;
-        FuelLeft.Text = ((int) MathF.Floor(state.RemainingFuel)).ToString();
+        FuelFraction.Value = state.RemainingFuel - (int)state.RemainingFuel;
+        FuelLeft.Text = ((int)MathF.Floor(state.RemainingFuel)).ToString();
 
         var progress = 0f;
 
@@ -92,19 +92,19 @@ public sealed partial class GeneratorWindow : FancyWindow
         if (starting)
         {
             StatusLabel.Text = _loc.GetString("portable-generator-ui-status-starting");
-            StatusLabel.SetOnlyStyleClass("Caution");
+            StatusLabel.SetOnlyStyleClass("negative");
 
             StartProgress.Value = progress;
         }
         else if (on)
         {
             StatusLabel.Text = _loc.GetString("portable-generator-ui-status-running");
-            StatusLabel.SetOnlyStyleClass("Good");
+            StatusLabel.SetOnlyStyleClass("positive");
         }
         else
         {
             StatusLabel.Text = _loc.GetString("portable-generator-ui-status-stopped");
-            StatusLabel.SetOnlyStyleClass("Danger");
+            StatusLabel.SetOnlyStyleClass("highlight");
         }
 
         var canSwitch = _entityManager.TryGetComponent(_entity, out PowerSwitchableComponent? switchable);
@@ -131,7 +131,7 @@ public sealed partial class GeneratorWindow : FancyWindow
                 ("supply", netStats.Supply));
 
             var good = netStats.Load <= netStats.Supply;
-            NetworkStats.SetOnlyStyleClass(good ? "Good" : "Caution");
+            NetworkStats.SetOnlyStyleClass(good ? "positive" : "highlight");
         }
         else
         {
@@ -146,7 +146,7 @@ public sealed partial class GeneratorWindow : FancyWindow
         if (_entityManager.TryGetComponent<ActiveGeneratorRevvingComponent>(_entity, out var activeGeneratorRevvingComponent) && _entityManager.TryGetComponent<PortableGeneratorComponent>(_entity, out var portableGeneratorComponent))
         {
             var calculatedProgress = activeGeneratorRevvingComponent.CurrentTime / portableGeneratorComponent.StartTime;
-            progress = (float) calculatedProgress;
+            progress = (float)calculatedProgress;
             return true;
         }
 

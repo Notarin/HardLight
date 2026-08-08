@@ -39,7 +39,13 @@ namespace Content.Server.GameTicking.Commands
 
         public void Execute(IConsoleShell shell, string argStr, string[] args)
         {
-            _e.System<GameTicker>().RestartRound();
+            // HardLight start
+            var ticker = _e.System<GameTicker>();
+            var defaultMapPlayers = ticker.GetPlayersOnMap(ticker.DefaultMap);
+
+            ticker.RestartRound();
+            ticker.ReturnPlayersToLobby(defaultMapPlayers);
+            // HardLight end
         }
     }
 }

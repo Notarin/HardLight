@@ -153,14 +153,27 @@ uplink-security-speedloader-desc = A revolver speed loader that comes pre-loaded
 uplink-security-speedloaderrubber-name = .45 magnum Rubber Speed Loader
 uplink-security-speedloaderrubber-desc = A revolver speed loader that comes pre-loaded with .45 rubber cartridges.
 
-uplink-security-shotlethal-name = Lethal Shotgun Shells
-uplink-security-shotlethal-desc = A box of lethal 12 gauge buckshot shotgun shells.
-uplink-security-shotbeanbag-name = Beanbag Shotgun Shells
-uplink-security-shotbeanbag-desc = A box of non-lethal 12 gauge beanbag shotgun shells.
-uplink-security-shotincend-name = Incendiary Shotgun Shells
-uplink-security-shotincend-desc = A box of lethal 12 gauge incendiary shotgun shells.
-uplink-security-shotslug-name = Lethal Shotgun Slug Shells
-uplink-security-shotslug-desc = A box of lethal 12 gauge slug shotgun shells.
+uplink-security-shotlethal12-name = 12 Gauge Buckshot Shells
+uplink-security-shotlethal12-desc = A box of lethal 12 gauge buckshot shotgun shells.
+uplink-security-shotbeanbag12-name = 12 Gauge Beanbag Shells
+uplink-security-shotbeanbag12-desc = A box of non-lethal 12 gauge beanbag shotgun shells.
+uplink-security-shotincend12-name = 12 Gauge Incendiary Shells
+uplink-security-shotincend12-desc = A box of lethal 12 gauge incendiary shotgun shells.
+uplink-security-shotslug12-name = 12 Gauge Slug Shells
+uplink-security-shotslug12-desc = A box of lethal 12 gauge slug shotgun shells.
+
+uplink-security-shotlethal4-name = 4 Gauge buckshot Shells
+uplink-security-shotlethal4-desc = A box of lethal 4 gauge buckshot shotgun shells.
+uplink-security-shotbeanbag4-name = 4 Gauge Beanbag Shells
+uplink-security-shotbeanbag4-desc = A box of non-lethal 4 gauge beanbag shotgun shells.
+uplink-security-shotincend4-name = 4 Gauge Incendiary Shells
+uplink-security-shotincend4-desc = A box of lethal 4 gauge incendiary shotgun shells.
+uplink-security-shotslug4-name = 4 Gauge Slug Shells
+uplink-security-shotslug4-desc = A box of lethal 4 gauge slug shotgun shells.
+
+uplink-security-RailgunMag-name = Peregrine Magazine
+uplink-security-RailgunMag-desc = fit for use inside an NT-88 Peregrine
+
 uplink-security-empgrenade-box-name = EMP Grenade Box
 uplink-security-empgrenade-box-desc = A box containing 4 EMP grenades.
 

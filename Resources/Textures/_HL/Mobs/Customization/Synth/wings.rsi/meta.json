@@ -8,11 +8,11 @@
   },
   "states": [
     {
-      "name": "synth_wings",
+      "name": "dragon",
       "directions": 4
     },
     {
-      "name": "synth_wings_light",
+      "name": "dragon_light",
       "directions": 4
     }
   ]

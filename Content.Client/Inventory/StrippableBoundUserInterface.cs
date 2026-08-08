@@ -66,6 +66,8 @@ namespace Content.Client.Inventory
         [ViewVariables]
         private const int ButtonSeparation = 4;
 
+        private const int OffScreenSlotBounds = 20; // Hardlight
+
         [ViewVariables]
         public const string HiddenPocketEntityId = "StrippingHiddenEntity";
 
@@ -179,6 +181,7 @@ namespace Content.Client.Inventory
                 var button = new Button()
                 {
                     Text = Loc.GetString("strippable-bound-user-interface-stripping-menu-ensnare-button"),
+                    // StyleClasses = { StyleClass.ButtonOpenRight }
                 };
 
                 button.OnPressed += (_) => SendPredictedMessage(new StrippingEnsnareButtonPressed());
@@ -295,11 +298,20 @@ namespace Content.Client.Inventory
 
             UpdateEntityIcon(button, entity);
 
-            LayoutContainer.SetPosition(button, slotDef.StrippingWindowPos * (SlotControl.DefaultButtonSize + ButtonSeparation));
-            if (slotDef.StrippingWindowPos.X > _inventoryDimensions.X)
-                _inventoryDimensions = new Vector2i(slotDef.StrippingWindowPos.X, _inventoryDimensions.Y);
-            if (slotDef.StrippingWindowPos.Y > _inventoryDimensions.Y)
-                _inventoryDimensions = new Vector2i(_inventoryDimensions.X, slotDef.StrippingWindowPos.Y);
+            // Hardlight start
+            var position = slotDef.StrippingWindowPos;
+            LayoutContainer.SetPosition(button, position * (SlotControl.DefaultButtonSize + ButtonSeparation));
+
+            // Some NPC templates park non-strippable slots far off-screen. We mustn't let those positions
+            // expand the dynamically-sized stripping window.
+            if (position.X >= OffScreenSlotBounds || position.Y >= OffScreenSlotBounds)
+                return;
+            // Hardlight end
+
+            if (position.X > _inventoryDimensions.X)
+                _inventoryDimensions = new Vector2i(position.X, _inventoryDimensions.Y);
+            if (position.Y > _inventoryDimensions.Y)
+                _inventoryDimensions = new Vector2i(_inventoryDimensions.X, position.Y);
         }
 
         private void UpdateEntityIcon(SlotControl button, EntityUid? entity)

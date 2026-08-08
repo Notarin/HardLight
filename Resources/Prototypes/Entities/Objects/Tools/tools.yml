@@ -47,6 +47,7 @@
     speed: 0.35
   - type: Hemostat # Shitmed
     speed: 0.6
+  - type: WirecutterSurgery # HardLight
   - type: SurgeryTool # Shitmed
     startSound:
       path: /Audio/Items/wirecutter.ogg
@@ -105,6 +106,7 @@
     speed: 0.45
   - type: Tending # Shitmed
     speed: 0.65
+  - type: ScrewdriverSurgery # HardLight
   - type: SurgeryTool # Shitmed
     startSound:
       collection: Screwdriver
@@ -200,6 +202,10 @@
       Plastic: 100
   - type: StaticPrice
     price: 28 # Frontier 56<28
+  - type: MultitoolSurgery # HardLight
+  - type: SurgeryTool # HardLight
+    startSound: /Audio/Items/multitool_drop.ogg
+    endSound: /Audio/Items/multitool_drop.ogg
   - type: GuideHelp
     guides:
     - Networking
@@ -405,6 +411,10 @@
       Plastic: 100
   - type: StaticPrice
     price: 28 # Frontier 56<28
+  - type: MultitoolSurgery # HardLight
+  - type: SurgeryTool # HardLight
+    startSound: /Audio/Items/multitool_drop.ogg
+    endSound: /Audio/Items/multitool_drop.ogg
   - type: GuideHelp
     guides:
     - Networking

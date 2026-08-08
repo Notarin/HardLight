@@ -1,0 +1,53 @@
+- type: job # Hardlight
+  id: SeniorOfficer
+  name: job-name-senior-officer
+  description: job-description-senior-officer
+  playTimeTracker: JobSeniorOfficer
+  requirements:
+    - !type:OverallPlaytimeRequirement
+      time: 108000 # 30 hours
+    - !type:DepartmentTimeRequirement
+      department: Security
+      time: 64800 # 18 hours
+    - !type:RoleTimeRequirement
+      role: JobSecurityOfficer
+      time: 43200 # 12 hours
+  alternateRequirementSets:
+    longerPlaytimeLessSec:
+    - !type:OverallPlaytimeRequirement
+      time: 540000 # 150 hours
+    - !type:RoleTimeRequirement
+      role: JobSecurityOfficer
+      time: 21600 # 6 hours
+  startingGear: SeniorOfficerGear
+  icon: JobIconSeniorOfficer
+  supervisors: job-supervisors-hos
+  weight: 140
+  displayWeight: 50
+  canBeAntag: false
+  access:
+  - Security
+  - Brig
+  - Maintenance
+  - Service
+  - External
+  - Cryogenics
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant ]
+  setPreference: false
+  accessGroups: # Frontier
+  - GeneralAccess # Frontier
+
+- type: startingGear
+  id: SeniorOfficerGear
+  equipment:
+    id: SeniorOfficerPDA
+    # eyes: ClothingEyesGlassesSecurity # HardLight: Add departmental NF-style loadouts
+    ears: ClothingHeadsetSecurity
+    pocket1: NFWeaponPistolMk58 # Frontier: use NF variant
+  storage:
+    back:
+    - Flash
+    - Magazine45_ACPPistolFMJ
+    - FrontierUplinkCoin10

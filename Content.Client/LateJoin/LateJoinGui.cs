@@ -59,7 +59,7 @@ namespace Content.Client.LateJoin
                 VerticalExpand = true,
             };
 
-            Contents.AddChild(_base);
+            ContentsContainer.AddChild(_base);
 
             _jobRequirements.Updated += RebuildUI;
             RebuildUI();
@@ -273,7 +273,7 @@ namespace Content.Client.LateJoin
                             {
                                 TextureScale = new Vector2(0.4f, 0.4f),
                                 Stretch = TextureRect.StretchMode.KeepCentered,
-                                Texture = _sprites.Frame0(new SpriteSpecifier.Texture(new ("/Textures/Interface/Nano/lock.svg.192dpi.png"))),
+                                Texture = _sprites.Frame0(new SpriteSpecifier.Texture(new("/Textures/Interface/Nano/lock.svg.192dpi.png"))),
                                 HorizontalExpand = true,
                                 HorizontalAlignment = HAlignment.Right,
                             });

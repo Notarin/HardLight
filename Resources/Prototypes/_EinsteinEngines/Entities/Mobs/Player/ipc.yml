@@ -97,7 +97,7 @@
   - type: NpcFactionMember
     factions:
       - NanoTrasen
-  - type: Crawler # HardLight
+  - type: LayingDown
   - type: StandingState
   - type: MobState
     allowedStates:

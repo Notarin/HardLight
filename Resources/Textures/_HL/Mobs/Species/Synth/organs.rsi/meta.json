@@ -7,35 +7,35 @@
     "y": 32
   },
     "states": [
+        {
+            "name": "appendix"
+        },
+        {
+            "name": "brain"
+        },
 		{
-            "name": "synth_audio_pack"
+            "name": "ears"
         },
         {
-            "name": "synth_camera_gimbal"
+            "name": "eyes"
         },
         {
-            "name": "synth_ccu"
+            "name": "heart"
         },
         {
-            "name": "synth_energy_coil"
+            "name": "kidneys"
         },
         {
-            "name": "synth_heart"
+            "name": "liver"
         },
         {
-            "name": "synth_liver"
+            "name": "lungs"
         },
         {
-            "name": "synth_lungs"
+            "name": "stomach"
         },
         {
-            "name": "synth_red_brick"
-        },
-        {
-            "name": "synth_stomach"
-        },
-        {
-            "name": "synth_tongue"
+            "name": "tongue"
         }
     ]
 }

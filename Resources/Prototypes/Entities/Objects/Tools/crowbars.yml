@@ -43,6 +43,7 @@
     - 0,0,0,1
   - type: Tweezers # Shitmed
     speed: 0.55
+  - type: CrowbarSurgery # HardLight
   - type: SurgeryTool # Shitmed
     startSound: /Audio/Items/crowbar.ogg
 

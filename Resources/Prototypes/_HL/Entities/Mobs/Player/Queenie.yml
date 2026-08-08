@@ -1,0 +1,176 @@
+- type: entity
+  name: Queenie
+  id: Queenie
+  parent: [MobHumanoidHostileAIComplex, MobSpaceBasic]
+  description: She might look scary, but those armbands and her silly designation tell you she might be friendlier than she looks.
+#  categories: [ HideSpawnMenu ] # Frontier
+  components:
+  - type: Sprite
+    drawdepth: Mobs
+    sprite: _HL/Mobs/Characters/Queenie.rsi
+    scale: 0.8, 0.8
+    layers:
+    - map: ["enum.DamageStateVisualLayers.Base"]
+      state: alive
+  - type: CombatMode
+    canDisarm: false
+  - type: InputMover
+  - type: ComplexInteraction
+  - type: MobMover
+  - type: Inventory
+    templateId: friendxeno
+  - type: IdExaminable
+  - type: InventorySlots
+  - type: Stripping
+  - type: Strippable
+  - type: UserInterface
+    interfaces:
+      enum.StrippingUiKey.Key:
+        type: StrippableBoundUserInterface
+  - type: TypingIndicator
+    proto: alien
+  - type: NoSlip
+  - type: Emoting
+  - type: Vocal
+    sounds:
+      Unsexed: XenoVocal
+  - type: LanguageSpeaker
+  - type: LanguageKnowledge
+    speaks:
+    - GalacticCommon
+    - Xeno
+    understands:
+    - GalacticCommon
+    - Xeno
+  - type: Sericulture
+    action: ActionSericulture
+    productionLength: 2
+    entityProduced: MaterialRoyalResin1
+    hungerCost: 0.1
+  - type: DamageStateVisuals
+    states:
+      Alive:
+        Base: alive
+      Critical:
+        Base: crit
+      Dead:
+        Base: dead
+  - type: InteractionPopup
+    successChance: 0.25
+    interactSuccessString: petting-success-bear
+    interactFailureString: petting-failure-bear
+    interactSuccessSound:
+      path: /Audio/Animals/sloth_squeak.ogg
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.25
+        density: 1000
+        mask:
+        - MobMask
+        layer:
+        - MobLayer
+  - type: FootstepModifier
+    footstepSoundCollection:
+      collection: FootstepSmallThud
+  - type: PlateletFactories
+    intervalSeconds: 1
+    healPerSecond: .1
+    critMultiplier: .01
+  - type: Tool
+    speedModifier: 5
+    qualities:
+      - Prying
+  - type: Prying
+    pryPowered: true
+    force: true
+    useSound:
+      path: /Audio/Items/crowbar.ogg
+  - type: Reactive
+    groups:
+      Flammable: [Touch]
+      Extinguish: [Touch]
+  - type: MobState
+  - type: Deathgasp
+  - type: MobStateActions
+    actions:
+      Critical:
+      - ActionCritSuccumb
+      - ActionCritFakeDeath
+      - ActionCritLastWords
+  - type: BankAccount
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 4
+    baseSprintSpeed: 5
+  - type: Physics
+    bodyType: KinematicController
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      200: Critical
+      320: Dead
+  - type: SlowOnDamage
+    speedModifierThresholds:
+      150: 0.5
+  - type: Stamina
+    critThreshold: 200
+  - type: Bloodstream
+    bloodReagent: FluorosulfuricAcid
+    bloodMaxVolume: 650
+  - type: LayingDown
+  - type: Hands
+  - type: Body
+    prototype: Dragon
+  - type: ThermalVision # Starlight
+  - type: Vore
+  - type: TrapAvoider
+  - type: NpcFactionMember
+    factions:
+    - PetsNT
+  - type: Insulated
+  - type: Access
+  - type: Puller
+    needsHands: false
+  - type: MeleeWeapon
+    altDisarm: false
+    angle: 0
+    soundHit:
+     collection: AlienClaw
+    animation: WeaponArcBite
+    wideAnimation: WeaponArcClaw
+    damage:
+      types:
+        Slash: 33
+  - type: CumProducer
+    maxVol: 250
+    reagentId: Cum
+    reVol: 50
+    reHunger: 1
+  - type: JumpAbility
+    action: ActionVulpkaninGravityJump
+    canCollide: true
+    jumpDistance: 6
+    jumpSound:
+      path: /Audio/Weapons/punchmiss.ogg
+      params:
+        pitch: 1.33
+        volume: -5
+        variation: 0.05
+  - type: Psionic
+    removable: false
+  - type: InnatePsionicPowers
+    powersToAdd:
+      - TelepathyPower
+  - type: PotentialPsionic # Nyano - Summary: makes potentially psionic.
+    chance: -2
+  - type: Tag
+    tags:
+    - CanPilot
+    - FootstepSound
+    - DoorBumpOpener
+    - CannotSuicide
+    - ResinStructures
+  - type: JumpCollisionKnockback
+    throwForce: 50

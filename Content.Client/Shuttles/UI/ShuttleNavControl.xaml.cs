@@ -54,6 +54,7 @@ public partial class ShuttleNavControl : BaseShuttleControl // Mono
 
     // Mono - is world rotation of the view.
     protected Angle? _rotation;
+    private Angle? _consoleRotation; // HardLight
 
     private Dictionary<NetEntity, List<DockingPortState>> _docks = new();
 
@@ -158,6 +159,7 @@ public partial class ShuttleNavControl : BaseShuttleControl // Mono
             return;
 
         _coordinates = coordinates;
+        _consoleRotation = angle; // HardLight
         _rotation = angle;
     }
 
@@ -182,8 +184,7 @@ public partial class ShuttleNavControl : BaseShuttleControl // Mono
     {
         if (!_angleFollow || _coordinates is not { } cord)
             return;
-        var coordEntRot = _transform.GetWorldRotation(cord.EntityId);
-        Offset = coordEntRot.RotateVec(Offset);
+        Offset = GetViewRotation(cord.EntityId).RotateVec(Offset); // HardLight-edit
     }
 
     // converts world-relative Offset to relative to current view
@@ -192,8 +193,15 @@ public partial class ShuttleNavControl : BaseShuttleControl // Mono
     {
         if (!_angleFollow || _coordinates is not { } cord)
             return;
-        var coordEntRot = _transform.GetWorldRotation(cord.EntityId);
-        Offset = (-coordEntRot).RotateVec(Offset);
+        Offset = (-GetViewRotation(cord.EntityId)).RotateVec(Offset); // HardLight-edit
+    }
+
+    private Angle GetViewRotation(EntityUid coordinateEntity) // HardLight
+    {
+        if (!_angleFollow)
+            return Angle.Zero;
+
+        return _transform.GetWorldRotation(coordinateEntity) + (_consoleRotation ?? Angle.Zero);
     }
 
     // reanchor our view to console or grid
@@ -598,10 +606,7 @@ public partial class ShuttleNavControl : BaseShuttleControl // Mono
         }
         var coordEnt = _coordinates.Value.EntityId;
         var coordEntRot = _transform.GetWorldRotation(coordEnt);
-        if (_angleFollow && EntManager.TryGetComponent<TransformComponent>(coordEnt, out var coordXform))
-            _rotation = coordEntRot;
-        else
-            _rotation = Angle.Zero;
+        _rotation = GetViewRotation(coordEnt); // HardLight-edit
 
         var worldRot = _rotation.Value;
 

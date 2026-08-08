@@ -44,6 +44,7 @@
     - type: MovementSpeedModifier
       baseWalkSpeed: 4
       baseSprintSpeed: 3
+      maxSprintSpeed: 6.5 # Hardlight
     - type: ZombieImmune
     - type: Uncloneable
     - type: DoAfter

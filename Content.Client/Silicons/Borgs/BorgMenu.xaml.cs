@@ -72,7 +72,7 @@ public sealed partial class BorgMenu : FancyWindow
         base.FrameUpdate(args);
 
         AccumulatedTime += args.DeltaSeconds;
-        BorgSprite.OverrideDirection = (Direction) ((int) AccumulatedTime % 4 * 2);
+        BorgSprite.OverrideDirection = (Direction)((int)AccumulatedTime % 4 * 2);
     }
 
     public void UpdateState(BorgBuiState state)
@@ -80,7 +80,7 @@ public sealed partial class BorgMenu : FancyWindow
         EjectBatteryButton.Disabled = !state.HasBattery;
         ChargeBar.Value = state.ChargePercent;
         ChargeLabel.Text = Loc.GetString("borg-ui-charge-label",
-            ("charge", (int) MathF.Round(state.ChargePercent * 100)));
+            ("charge", (int)MathF.Round(state.ChargePercent * 100)));
 
         UpdateBrainButton();
         UpdateModulePanel();
@@ -94,14 +94,14 @@ public sealed partial class BorgMenu : FancyWindow
             BrainView.Visible = true;
             BrainView.SetEntity(brain);
             BrainButton.Disabled = false;
-            BrainButton.AddStyleClass(StyleBase.ButtonOpenLeft);
+            BrainButton.AddStyleClass(StyleClass.ButtonOpenLeft);
         }
         else
         {
             BrainButton.Text = Loc.GetString("borg-ui-no-brain");
             BrainButton.Disabled = true;
             BrainView.Visible = false;
-            BrainButton.RemoveStyleClass(StyleBase.ButtonOpenLeft);
+            BrainButton.RemoveStyleClass(StyleClass.ButtonOpenLeft);
         }
     }
 

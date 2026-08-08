@@ -159,6 +159,7 @@
   loadouts:
   - CaptainOuterClothing
   - CaptainWintercoat
+  - WindbreakerCargo # Starlight
   subgroups:
   - ContractorOuterClothing # HL - Add departmental NF-style loadouts
 
@@ -954,6 +955,7 @@
   loadouts:
   - StationEngineerOuterVest
   - StationEngineerWintercoat
+  - WindbreakerEngineering # Starlight
   subgroups:
   - ContractorOuterClothing # HL - Add departmental NF-style loadouts
 
@@ -1133,6 +1135,7 @@
   - RoboticistLabCoat
   - RoboticistWintercoat
   - SeniorResearcherLabCoat
+  - WindbreakerScience # Starlight
   subgroups:
   - ContractorOuterClothing # HL - Add departmental NF-style loadouts
 
@@ -1310,6 +1313,7 @@
   - ArmorVest
   - ArmorVestSlim
   - SecurityOfficerWintercoat
+  - WindbreakerSecurity # Starlight
   - SecurityClothingOuterFullCoat # HL - Add more loadout options
   subgroups:
   - ContractorOuterClothing # HL - Add departmental NF-style loadouts
@@ -1378,8 +1382,8 @@
   id: SecurityCadetJumpsuit
   name: loadout-group-security-cadet-jumpsuit
   loadouts:
-  - RedJumpsuit
-  - RedJumpskirt
+  - SecurityCadetJumpsuit
+  - SecurityCadetJumpskirt
   - SecurityClothingJumpsuitThong # HL - Add lingerie
   subgroups:
   - ContractorJumpsuit # HL - Add departmental NF-style loadouts
@@ -1494,6 +1498,7 @@
   - RegularLabCoat
   - MedicalDoctorWintercoat
   - SeniorPhysicianLabCoat
+  - WindbreakerMedical # Starlight
   subgroups:
   - ContractorOuterClothing # HL - Add departmental NF-style loadouts
 

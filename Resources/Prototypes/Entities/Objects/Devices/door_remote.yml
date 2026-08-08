@@ -102,9 +102,9 @@
     layers:
     - state: door_remotebase
     - state: door_remotelightscolour
-      color: "#cb0000"
+      color: "#00cbbb" # Hardlight security blue
     - state: door_remotescreencolour
-      color: "#830000"
+      color: "#00837f" # Hardlight security blue
   - type: Access
     groups:
     - Security
@@ -118,9 +118,9 @@
     layers:
     - state: door_remotebase
     - state: door_remotelightscolour
-      color: "#e80000"
+      color: "#00d1e8" # Hardlight security blue
     - state: door_remotescreencolour
-      color: "#a80000"
+      color: "#0097a8" # Hardlight security blue
   - type: Access
     groups:
     - Armory

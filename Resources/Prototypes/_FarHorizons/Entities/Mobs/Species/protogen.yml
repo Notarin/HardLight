@@ -2285,6 +2285,8 @@
         layer:
           - MobLayer
   - type: IgnoreKudzu
+  - type: ProtectedFromStepTriggers # Frontier cross port from the base species
+  - type: FTLKnockdownImmune # Frontier cross port from the base species
   - type: IgniteOnHeatDamage
     fireStacks: 1
     threshold: 12

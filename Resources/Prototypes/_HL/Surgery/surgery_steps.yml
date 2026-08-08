@@ -1,0 +1,355 @@
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepOpenIncisionScalpelSynth
+  name: Cut with a scalpel
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SurgeryStep
+    tool:
+    - type: Scalpel
+    add:
+    - type: IncisionOpen
+    duration: 2
+  - type: Sprite
+    sprite: _Shitmed/Objects/Specific/Medical/Surgery/scalpel.rsi
+    state: scalpel
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepExposePneumaticMuscle
+  name: Expose pneumatic muscle
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SurgeryStep
+    duration: 4
+    tool:
+    - type: Scalpel
+    add:
+    - type: SynthPneumaticMuscleExposed
+  - type: Sprite
+    sprite: _Shitmed/Objects/Specific/Medical/Surgery/scalpel.rsi
+    state: scalpel
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepRemoveJointScrews
+  name: Remove joint screws
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SurgeryStep
+    duration: 4
+    tool:
+    - type: ScrewdriverSurgery
+    add:
+    - type: SynthJointScrewsRemoved
+  - type: Sprite
+    sprite: Objects/Tools/screwdriver.rsi
+    state: screwdriver-map
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryAmputationStepSynth
+  name: Remove limb
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SurgeryStep
+    duration: 8
+    tool:
+    - type: CrowbarSurgery
+    remove:
+    - type: SynthPneumaticMuscleExposed
+    - type: SynthJointScrewsRemoved
+    - type: SkinRetracted
+    - type: IncisionOpen
+  - type: SurgeryRemovePartStep
+  - type: Sprite
+    sprite: Objects/Tools/crowbar.rsi
+    state: icon
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepSecureJointScrews
+  name: Secure joint screws
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SurgeryStep
+    duration: 4
+    tool:
+    - type: ScrewdriverSurgery
+    add:
+    - type: SynthJointScrewsSecured
+  - type: Sprite
+    sprite: Objects/Tools/screwdriver.rsi
+    state: screwdriver-map
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepRejoinPneumaticMuscle
+  name: Rejoin pneumatic muscle
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SurgeryStep
+    duration: 5
+    tool:
+    - type: Hemostat
+    remove:
+    - type: SynthPneumaticMuscleExposed
+    - type: SynthJointScrewsSecured
+  - type: SurgeryAffixPartStep
+  - type: Sprite
+    sprite: _Shitmed/Objects/Specific/Medical/Surgery/hemostat.rsi
+    state: hemostat
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepDisengageVacuumSeal
+  name: Disengage vacuum seal
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SurgeryStep
+    duration: 5
+    tool:
+    - type: MultitoolSurgery
+    add:
+    - type: SynthVacuumSealDisengaged
+  - type: Sprite
+    sprite: Objects/Tools/multitool.rsi
+    state: icon
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepReengageVacuumSeal
+  name: Re-engage vacuum seal
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SurgeryStep
+    duration: 5
+    tool:
+    - type: MultitoolSurgery
+    remove:
+    - type: SynthVacuumSealDisengaged
+  - type: Sprite
+    sprite: Objects/Tools/multitool.rsi
+    state: icon
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepReengageVisorSeal
+  name: Re-engage vacuum seal
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SurgeryStep
+    duration: 5
+    tool:
+    - type: MultitoolSurgery
+    remove:
+    - type: SynthVacuumSealDisengaged
+    - type: SynthVisorRemoved
+    - type: SynthVisorSecured
+  - type: Sprite
+    sprite: Objects/Tools/multitool.rsi
+    state: icon
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepDisengageCcuSeal
+  name: Disengage CCU seal
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SurgeryStep
+    duration: 5
+    tool:
+    - type: MultitoolSurgery
+    add:
+    - type: SynthCcuSealDisengaged
+  - type: Sprite
+    sprite: Objects/Tools/multitool.rsi
+    state: icon
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepReengageCcuSeal
+  name: Re-engage CCU seal
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SurgeryStep
+    duration: 5
+    tool:
+    - type: MultitoolSurgery
+    remove:
+    - type: SynthCcuSealDisengaged
+  - type: Sprite
+    sprite: Objects/Tools/multitool.rsi
+    state: icon
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepRemoveVisor
+  name: Remove visor
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SurgeryStep
+    duration: 5
+    tool:
+    - type: Scalpel
+    add:
+    - type: SynthVisorRemoved
+  - type: Sprite
+    sprite: _Shitmed/Objects/Specific/Medical/Surgery/scalpel.rsi
+    state: scalpel
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepSecureVisor
+  name: Secure visor
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SurgeryStep
+    duration: 5
+    add:
+    - type: SynthVisorSecured
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepPriseOpenEndoskeleton
+  name: Prise endoskeleton open
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SurgeryStep
+    duration: 2
+    tool:
+    - type: CrowbarSurgery
+    add:
+    - type: SynthEndoskeletonOpen
+  - type: Sprite
+    sprite: Objects/Tools/crowbar.rsi
+    state: icon
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepSecureEndoskeleton
+  name: Secure endoskeleton
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SurgeryStep
+    duration: 2
+    tool:
+    - type: CrowbarSurgery
+    add:
+    - type: SynthEndoskeletonSecured
+  - type: Sprite
+    sprite: Objects/Tools/crowbar.rsi
+    state: icon
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepReengageEndoskeletonSeal
+  name: Re-engage vacuum seal
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SurgeryStep
+    duration: 5
+    tool:
+    - type: MultitoolSurgery
+    remove:
+    - type: SynthVacuumSealDisengaged
+    - type: SynthEndoskeletonOpen
+    - type: SynthEndoskeletonSecured
+  - type: Sprite
+    sprite: Objects/Tools/multitool.rsi
+    state: icon
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SynthSurgeryStepSecureImplant
+  name: Secure implant
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SurgeryStep
+    duration: 2
+    tool:
+    - type: Cautery
+  - type: SurgeryAffixOrganStep
+  - type: Sprite
+    sprite: _Shitmed/Objects/Specific/Medical/Surgery/cautery.rsi
+    state: cautery
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SynthSurgeryStepLocatePowerCell
+  name: Locate Power Cell
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SurgeryStep
+    duration: 3
+    add:
+    - type: SynthPowerCellLocated
+  - type: Sprite
+    sprite: Objects/Power/power_cells.rsi
+    state: medium
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SynthSurgeryStepDisconnectPowerCell
+  name: Disconnect Power Cell
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SurgeryStep
+    duration: 5
+    tool:
+    - type: WirecutterSurgery
+    add:
+    - type: SynthPowerCellDisconnected
+  - type: Sprite
+    sprite: Objects/Tools/wirecutters.rsi
+    state: cutters-map
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SynthSurgeryStepExtractPowerCell
+  name: Extract Power Cell
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SurgeryStep
+    duration: 5
+    remove:
+    - type: SynthPowerCellLocated
+    - type: SynthPowerCellDisconnected
+    - type: SynthPowerCellInserted
+  - type: SynthSurgeryStepBatteryExtract
+    slot: battery
+  - type: Sprite
+    sprite: Objects/Power/power_cells.rsi
+    state: medium
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SynthSurgeryStepInsertPowerCell
+  name: Insert Power Cell
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SurgeryStep
+    duration: 5
+    add:
+    - type: SynthPowerCellInserted
+  - type: SynthSurgeryStepBatteryInsert
+    slot: battery
+  - type: Sprite
+    sprite: Objects/Power/power_cells.rsi
+    state: medium
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SynthSurgeryStepConnectPowerCell
+  name: Connect Power Cell
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SurgeryStep
+    duration: 5
+    tool:
+    - type: Cautery
+    remove:
+    - type: SynthPowerCellInserted
+  - type: Sprite
+    sprite: _Shitmed/Objects/Specific/Medical/Surgery/cautery.rsi
+    state: cautery

@@ -1071,9 +1071,9 @@
           - SecurityUplink
 
 - type: listing
-  id: UplinkSecurityShotLethal
-  name: uplink-security-shotlethal-name
-  description: uplink-security-shotlethal-desc
+  id: UplinkSecurityShotLethal12
+  name: uplink-security-shotlethal12-name
+  description: uplink-security-shotlethal12-desc
   productEntity: AmmoBox12_gaugeBuckshot
   icon: { sprite: Objects/Storage/boxes.rsi, state: box }
   cost:
@@ -1087,9 +1087,9 @@
           - SecurityUplink
 
 - type: listing
-  id: UplinkSecurityShotBeanbag
-  name: uplink-security-shotbeanbag-name
-  description: uplink-security-shotbeanbag-desc
+  id: UplinkSecurityShotBeanbag12
+  name: uplink-security-shotbeanbag12-name
+  description: uplink-security-shotbeanbag12-desc
   productEntity: AmmoBox12_gaugeBeanbag
   icon: { sprite: Objects/Storage/boxes.rsi, state: box }
   cost:
@@ -1103,9 +1103,9 @@
           - SecurityUplink
 
 - type: listing
-  id: UplinkSecurityShotIncend
-  name: uplink-security-shotincend-name
-  description: uplink-security-shotincend-desc
+  id: UplinkSecurityShotIncend12
+  name: uplink-security-shotincend12-name
+  description: uplink-security-shotincend12-desc
   productEntity: AmmoBox12_gaugeIncendiary
   icon: { sprite: Objects/Storage/boxes.rsi, state: box }
   cost:
@@ -1119,9 +1119,9 @@
           - SecurityUplink
 
 - type: listing
-  id: UplinkSecurityShotSlug
-  name: uplink-security-shotslug-name
-  description: uplink-security-shotslug-desc
+  id: UplinkSecurityShotSlug12
+  name: uplink-security-shotslug12-name
+  description: uplink-security-shotslug12-desc
   productEntity: AmmoBox12_gaugeSlug
   icon: { sprite: Objects/Storage/boxes.rsi, state: box }
   cost:
@@ -1133,6 +1133,90 @@
       whitelist:
         tags:
           - SecurityUplink
+
+# Hardlight ammo addition start
+
+- type: listing
+  id: UplinkSecurityShotLethal4
+  name: uplink-security-shotlethal4-name
+  description: uplink-security-shotlethal4-desc
+  productEntity: AmmoBox23x75mmBuckshot
+  icon: { sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/4_gauge.rsi, state: lethal }
+  cost:
+    FrontierUplinkCoin: 1
+  categories:
+    - UplinkSecurityAmmo
+  conditions:
+    - !type:StoreWhitelistCondition
+      whitelist:
+        tags:
+          - SecurityUplink
+
+- type: listing
+  id: UplinkSecurityShotBeanbag4
+  name: uplink-security-shotbeanbag4-name
+  description: uplink-security-shotbeanbag4-desc
+  productEntity: AmmoBox23x75mmBeanbag
+  icon: { sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/4_gauge.rsi, state: beanbag }
+  cost:
+    FrontierUplinkCoin: 1
+  categories:
+    - UplinkSecurityAmmo
+  conditions:
+    - !type:StoreWhitelistCondition
+      whitelist:
+        tags:
+          - SecurityUplink
+
+- type: listing
+  id: UplinkSecurityShotIncend4
+  name: uplink-security-shotincend4-name
+  description: uplink-security-shotincend4-desc
+  productEntity: AmmoBox23x75mmIncendiary
+  icon: { sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/4_gauge.rsi, state: incendiary }
+  cost:
+    FrontierUplinkCoin: 2
+  categories:
+    - UplinkSecurityAmmo
+  conditions:
+    - !type:StoreWhitelistCondition
+      whitelist:
+        tags:
+          - SecurityUplink
+
+- type: listing
+  id: UplinkSecurityShotSlug4
+  name: uplink-security-shotslug4-name
+  description: uplink-security-shotslug4-desc
+  productEntity: AmmoBox23x75mmSlug
+  icon: { sprite: _Mono/Objects/Weapons/Guns/Ammunition/Boxes/4_gauge.rsi, state: slug }
+  cost:
+    FrontierUplinkCoin: 1
+  categories:
+    - UplinkSecurityAmmo
+  conditions:
+    - !type:StoreWhitelistCondition
+      whitelist:
+        tags:
+          - SecurityUplink
+
+- type: listing
+  id: UplinkSecurityRailgunMag
+  name: uplink-security-RailgunMag-name
+  description: uplink-security-RailgunMag-desc
+  productEntity: MagazineRailgun
+  icon: { sprite: _HL/Objects/Weapons/Guns/Ammunition/Magazine/Railgun/railgun_mag.rsi, state: base }
+  cost:
+    FrontierUplinkCoin: 5
+  categories:
+    - UplinkSecurityAmmo
+  conditions:
+    - !type:StoreWhitelistCondition
+      whitelist:
+        tags:
+          - SecurityUplink
+
+# Hardlight ammo addition end
 
 - type: listing
   id: UplinkSecurityCash1000

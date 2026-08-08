@@ -13,7 +13,7 @@ public sealed class UniversalHealModifierSystem : EntitySystem
 
     private void OnHealModify(Entity<UniversalHealModifierComponent> ent, ref HealModifyEvent args)
     {
-        DamageSpecifier damage = new();
+        var damage = new DamageSpecifier(args.Damage); // HardLight
         foreach (var (key, value) in args.Damage.DamageDict)
             if (value < 0)
                 damage.DamageDict[key] = value * ent.Comp.Modifier;

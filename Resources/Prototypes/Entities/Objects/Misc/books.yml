@@ -223,9 +223,9 @@
     layers:
     - state: paper
     - state: cover_base
-      color: "#ab1515"
+      color: "#159cab" # Hardlight security blue
     - state: decor_wingette
-      color: "#e05334"
+      color: "#349ae0" # Hardlight security blue
     - state: icon_stunbaton
   - type: MeleeWeapon
     wideAnimationRotation: 180
@@ -344,9 +344,9 @@
     layers:
     - state: paper
     - state: cover_strong
-      color: "#87011c"
+      color: "#018087" # Hardlight security blue
     - state: icon_law
-      color: "#f7d61a"
+      color: "#f7d61a" # Hardlight security blue
   # - type: GuideHelp # Frontier
   #   guides: # Frontier
   #   - SpaceLaw # Frontier

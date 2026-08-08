@@ -19,6 +19,15 @@
   color: "#22282b"
   boilingPoint: 4200.0
   meltingPoint: 3550.0
+  metabolisms: # HardLight
+    Food:
+      metabolismRate: 0.1
+      effects:
+      - !type:ModifyBloodLevel
+        conditions:
+        - !type:OrganType
+          type: Synth
+        amount: 1.35 # 0.405 after modifiers
 
 - type: reagent
   id: Chlorine
@@ -175,8 +184,19 @@
         - !type:OrganType
           type: Arachnid
           shouldHave: false
+        - !type:OrganType # HardLight
+          type: Synth
+          shouldHave: false
         amount: 0.4
-  
+    Food: # HardLight
+      effects:
+      - !type:AdjustReagent
+        reagent: Nutriment
+        conditions:
+        - !type:OrganType
+          type: Synth
+        amount: 0.2
+
 - type: reagent
   id: Lithium
   name: reagent-name-lithium
@@ -236,7 +256,7 @@
   meltingPoint: 65.5
   boilingPoint: 759.0
   # Frontier: Sheleg
-  metabolisms: 
+  metabolisms:
     Food:
       effects:
       - !type:AdjustTemperature

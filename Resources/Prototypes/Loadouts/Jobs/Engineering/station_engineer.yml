@@ -105,6 +105,11 @@
   equipment:
     outerClothing: ClothingOuterWinterEngi
 
+- type: loadout # Starlight
+  id: WindbreakerEngineering
+  equipment:
+    outerClothing: ClothingOuterWindbreakerEngineering
+
 # Shoes
 - type: loadout
   id: WorkBoots

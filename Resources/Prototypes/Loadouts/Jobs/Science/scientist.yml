@@ -113,6 +113,11 @@
   equipment:
     outerClothing: ClothingOuterCoatRnd
 
+- type: loadout # Starlight
+  id: WindbreakerScience
+  equipment:
+    outerClothing: ClothingOuterWindbreakerScience
+
 - type: loadout
   id: ScienceWintercoat
   equipment:

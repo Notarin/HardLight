@@ -1530,12 +1530,12 @@
       methods: [ Touch ]
       effects:
       - !type:WashCreamPieReaction
-  - type: Crawler
   - type: LabGrown # Frontier
   - type: LeashAnchor # Floofstation
     kind: Intrinsic
-  #- type: Genetics # Funkystation - Genetics
-  #  mutationSlots: 4
+  - type: LayingDown
+  # - type: Genetics # Funkystation - Genetics
+  #   mutationSlots: 4
 
 - type: entity
   name: monkey

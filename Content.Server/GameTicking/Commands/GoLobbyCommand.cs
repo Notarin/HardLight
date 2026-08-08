@@ -35,6 +35,7 @@ namespace Content.Server.GameTicking.Commands
             config.SetCVar(CCVars.GameLobbyEnabled, true);
 
             ticker.RestartRound();
+            ticker.ReturnPlayersToLobby(); // HardLight
 
             if (preset != null)
             {

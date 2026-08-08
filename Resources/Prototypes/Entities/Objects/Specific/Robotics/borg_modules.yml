@@ -610,7 +610,7 @@
       whitelist:
         tags:
         - Ore
-    
+
   # End Frontier: droppable borg items
   - type: BorgModuleIcon
     icon: { sprite: Interface/Actions/actions_borg.rsi, state: mining-module }
@@ -636,7 +636,7 @@
   - type: DroppableBorgModule # Starlight
     moduleId: AdvancedMining
     items: []
-    placeholders: 
+    placeholders:
     - id: GoldOre
       whitelist:
         tags:
@@ -664,7 +664,7 @@
     - RadioHandheldNF
   - type: DroppableBorgModule # Hardlight
     moduleId: GrapplingGun
-    items: 
+    items:
     - id: JetpackMiniFilled
       whitelist:
         components:
@@ -749,7 +749,7 @@
         components:
         - GasTank
         - AmeFuelContainer
-        - NFFuel 
+        - NFFuel
         - ReactorPart # FH edit
       displayName: borg-slot-fuel-empty
     # End Frontier
@@ -769,6 +769,7 @@
     moduleId: RCD # Frontier
     items:
     - RCDRecharging
+    - RPDRecharging
     - ShipRepairDeviceRecharging # Mono
     - BorgFireExtinguisher
     - BorgHandheldGPSBasic
@@ -979,7 +980,7 @@
     - BorgHandheldGPSBasic
     - HandLabeler
   - type: BorgModuleIcon
-    icon: { sprite: Interface/Actions/actions_borg.rsi, state: defib-module } 
+    icon: { sprite: Interface/Actions/actions_borg.rsi, state: defib-module }
 
 - type: entity
   id: BorgModuleChemical

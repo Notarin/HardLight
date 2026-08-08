@@ -4,8 +4,8 @@ meta:
   engineVersion: 274.0.0
   forkId: ""
   forkVersion: ""
-  time: 07/29/2026 14:35:15
-  entityCount: 25604
+  time: 08/04/2026 12:23:19
+  entityCount: 25618
 maps:
 - 1
 grids:
@@ -24564,6 +24564,38 @@ entities:
           Quantity: 3000
     - type: ContainedSolution
       containerName: tank
+  - uid: 25478
+    components:
+    - type: MetaData
+      name: solution - food
+    - type: Transform
+      parent: 24416
+    - type: Solution
+      solution:
+        maxVol: 20
+        name: food
+        reagents:
+        - data: []
+          ReagentId: SulfuricAcid
+          Quantity: 20
+    - type: ContainedSolution
+      containerName: food
+  - uid: 25480
+    components:
+    - type: MetaData
+      name: solution - food
+    - type: Transform
+      parent: 25479
+    - type: Solution
+      solution:
+        maxVol: 20
+        name: food
+        reagents:
+        - data: []
+          ReagentId: SulfuricAcid
+          Quantity: 20
+    - type: ContainedSolution
+      containerName: food
   - uid: 25504
     components:
     - type: MetaData
@@ -36997,6 +37029,12 @@ entities:
     - type: Transform
       rot: 1.5707963267948966 rad
       pos: 53.5,-54.5
+      parent: 2
+  - uid: 16610
+    components:
+    - type: Transform
+      rot: 3.141592653589793 rad
+      pos: 58.5,-50.5
       parent: 2
 - proto: BarSignTheLightbulb
   entities:
@@ -71496,6 +71534,51 @@ entities:
     - type: Transform
       pos: -22.5,30.5
       parent: 2
+  - uid: 25481
+    components:
+    - type: Transform
+      pos: -9.5,11.5
+      parent: 2
+  - uid: 25539
+    components:
+    - type: Transform
+      pos: -8.5,11.5
+      parent: 2
+  - uid: 25540
+    components:
+    - type: Transform
+      pos: -7.5,11.5
+      parent: 2
+  - uid: 25565
+    components:
+    - type: Transform
+      pos: -6.5,11.5
+      parent: 2
+  - uid: 25609
+    components:
+    - type: Transform
+      pos: -5.5,11.5
+      parent: 2
+  - uid: 25610
+    components:
+    - type: Transform
+      pos: -4.5,11.5
+      parent: 2
+  - uid: 25611
+    components:
+    - type: Transform
+      pos: -3.5,11.5
+      parent: 2
+  - uid: 25612
+    components:
+    - type: Transform
+      pos: -2.5,11.5
+      parent: 2
+  - uid: 25613
+    components:
+    - type: Transform
+      pos: -1.5,11.5
+      parent: 2
 - proto: CableMVStack
   entities:
   - uid: 7907
@@ -86838,18 +86921,6 @@ entities:
     - type: Transform
       pos: -30.5,-1.5
       parent: 2
-  - uid: 25566
-    components:
-    - type: Transform
-      anchored: True
-      pos: 58.5,-50.5
-      parent: 2
-    - type: Physics
-      bodyType: Static
-    - type: Lock
-      locked: True
-    - type: PointLight
-      enabled: True
 - proto: DeskBell
   entities:
   - uid: 9821
@@ -99875,6 +99946,34 @@ entities:
       containers:
         solution@food: !type:ContainerSlot
           ent: 23968
+- proto: FoodMeatXeno
+  entities:
+  - uid: 24416
+    components:
+    - type: Transform
+      pos: 58.815304,-48.528442
+      parent: 2
+    - type: SolutionContainerManager
+      solutions: null
+      containers:
+      - food
+    - type: ContainerContainer
+      containers:
+        solution@food: !type:ContainerSlot
+          ent: 25478
+  - uid: 25479
+    components:
+    - type: Transform
+      pos: 57.70593,-48.090942
+      parent: 2
+    - type: SolutionContainerManager
+      solutions: null
+      containers:
+      - food
+    - type: ContainerContainer
+      containers:
+        solution@food: !type:ContainerSlot
+          ent: 25480
 - proto: FoodNoodlesMeatballMoldy
   entities:
   - uid: 24589
@@ -140689,13 +140788,6 @@ entities:
       parent: 2
 - proto: MouseTimedSpawner
   entities:
-  - uid: 16610
-    components:
-    - type: Transform
-      pos: 45.5,-51.5
-      parent: 2
-    - type: TimedSpawner
-      intervalSeconds: 720
   - uid: 16611
     components:
     - type: Transform
@@ -140734,6 +140826,11 @@ entities:
     components:
     - type: Transform
       pos: -36.5,-8.5
+      parent: 2
+  - uid: 25614
+    components:
+    - type: Transform
+      pos: 48.5,-37.5
       parent: 2
 - proto: Multitool
   entities:
@@ -165762,6 +165859,60 @@ entities:
       parent: 2
     - type: SurveillanceCamera
       id: Atmos Burn Chamber
+  - uid: 25566
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: -14.5,24.5
+      parent: 2
+    - type: SurveillanceCamera
+      setupAvailableNetworks:
+      - SurveillanceCameraEngineering
+      nameSet: True
+      id: Nuclear Reactor - Entrance
+  - uid: 25615
+    components:
+    - type: Transform
+      rot: 1.5707963267948966 rad
+      pos: -17.5,27.5
+      parent: 2
+    - type: SurveillanceCamera
+      setupAvailableNetworks:
+      - SurveillanceCameraEngineering
+      nameSet: True
+      id: Nuclear Reactor - Control Room
+  - uid: 25616
+    components:
+    - type: Transform
+      rot: 3.141592653589793 rad
+      pos: -22.5,38.5
+      parent: 2
+    - type: SurveillanceCamera
+      setupAvailableNetworks:
+      - SurveillanceCameraEngineering
+      nameSet: True
+      id: Nuclear Reactor - Reactor 1
+  - uid: 25617
+    components:
+    - type: Transform
+      pos: -22.5,31.5
+      parent: 2
+    - type: SurveillanceCamera
+      setupAvailableNetworks:
+      - SurveillanceCameraEngineering
+      nameSet: True
+      id: Nuclear Reactor - Reactor 2
+  - uid: 25618
+    components:
+    - type: Transform
+      rot: 3.141592653589793 rad
+      pos: -12.5,35.5
+      parent: 2
+    - type: SurveillanceCamera
+      setupAvailableNetworks:
+      - SurveillanceCameraEngineering
+      nameSet: True
+      id: Nuclear Reactor - Storage
 - proto: SurveillanceCameraGeneral
   entities:
   - uid: 19878
@@ -187737,18 +187888,6 @@ entities:
     - type: Transform
       pos: -5.5532303,-15.463551
       parent: 2
-- proto: XenoEgg
-  entities:
-  - uid: 24416
-    components:
-    - type: Transform
-      pos: 57.5,-47.5
-      parent: 2
-  - uid: 25565
-    components:
-    - type: Transform
-      pos: 59.5,-46.5
-      parent: 2
 - proto: XenoWeedsEntity
   entities:
   - uid: 5490
@@ -187926,24 +188065,6 @@ entities:
     components:
     - type: Transform
       pos: 59.5,-46.5
-      parent: 2
-    - type: Physics
-      canCollide: False
-    - type: Fixtures
-      fixtures: {}
-  - uid: 25539
-    components:
-    - type: Transform
-      pos: 59.5,-47.5
-      parent: 2
-    - type: Physics
-      canCollide: False
-    - type: Fixtures
-      fixtures: {}
-  - uid: 25540
-    components:
-    - type: Transform
-      pos: 58.5,-47.5
       parent: 2
     - type: Physics
       canCollide: False

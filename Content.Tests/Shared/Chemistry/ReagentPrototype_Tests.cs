@@ -52,7 +52,7 @@ namespace Content.Tests.Shared.Chemistry
   spoilConditions:
     bloodstreamPreserve: true
     spoilTime: 300
-    spoilsInto: InertNanites
+    spoilsInto: Nanites
     allowedBloodTypes:
       - Blood
       - CopperBlood
@@ -71,7 +71,7 @@ namespace Content.Tests.Shared.Chemistry
 
             Assert.That(newReagent.ID, Is.EqualTo("TestSpoil"));
             Assert.That(newReagent.SpoilConditions, Is.Not.Null);
-            Assert.That(newReagent.SpoilConditions!.SpoilsInto?.ToString(), Is.EqualTo("InertNanites"));
+            Assert.That(newReagent.SpoilConditions!.SpoilsInto?.ToString(), Is.EqualTo("Nanites"));
             Assert.That(newReagent.SpoilConditions.SpoilTime, Is.EqualTo(TimeSpan.FromMinutes(5)));
             Assert.That(newReagent.SpoilConditions.BloodstreamPreserve, Is.True);
             Assert.That(newReagent.SpoilConditions.AllowedBloodTypes, Is.EquivalentTo(new[] { "Blood", "CopperBlood" }));

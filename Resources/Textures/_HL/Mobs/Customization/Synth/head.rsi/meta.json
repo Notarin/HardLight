@@ -8,11 +8,23 @@
   },
   "states": [
     {
-      "name": "synth_solar_fans",
+      "name": "jaw_composite",
       "directions": 4
     },
     {
-      "name": "synth_solar_fans_light",
+      "name": "visor",
+      "directions": 4
+    },
+    {
+      "name": "visor_frame",
+      "directions": 4
+    },
+    {
+      "name": "visor_plate",
+      "directions": 4
+    },
+    {
+      "name": "visor_plate_star_cross",
       "directions": 4
     }
   ]

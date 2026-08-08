@@ -30,6 +30,17 @@ public sealed partial class DeliverySpawnerComponent : Component
     public int ContainedDeliveryAmount;
 
     /// <summary>
+    /// HardLight: Container used for real delivery entities that need to preserve per-entity data.
+    /// </summary>
+    [DataField]
+    public string StoredDeliveryContainer = "stored-deliveries";
+
+    [DataField, AutoNetworkedField]
+    public int StoredDeliveryAmount;
+
+    public int TotalDeliveryAmount => ContainedDeliveryAmount + StoredDeliveryAmount;
+
+    /// <summary>
     /// The sound to play when the spawner spawns a delivery.
     /// </summary>
     [DataField]

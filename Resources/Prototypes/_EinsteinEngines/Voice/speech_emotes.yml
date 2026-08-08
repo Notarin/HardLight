@@ -14,21 +14,23 @@
   id: Boop
   name: chat-emote-name-boop
   category: Vocal
-  chatMessages: [ boops ]
+  chatMessages: ["chat-emote-msg-boop"] # HardLight
   whitelist: # Hardlight
     tags:
     - SiliconMob
     - SiliconEmotes
+    - Synth
   chatTriggers:
     - boops
 
 - type: emote
   id: Whirr # uncategorized as it is generic
   name: chat-emote-name-whirr
-  chatMessages: [ whirrs ]
+  chatMessages: ["chat-emote-msg-whirr"] # HardLight
   whitelist: # Hardlight
     tags:
     - SiliconMob
     - SiliconEmotes
+    - Synth
   chatTriggers:
     - whirrs

@@ -14,8 +14,14 @@ public sealed class FireProtectionSystem : EntitySystem
     {
         base.Initialize();
 
+        SubscribeLocalEvent<FireProtectionComponent, GetFireProtectionEvent>(OnGetDirectProtection); // HardLight
         SubscribeLocalEvent<FireProtectionComponent, InventoryRelayedEvent<GetFireProtectionEvent>>(OnGetProtection);
         SubscribeLocalEvent<FireProtectionComponent, ArmorExamineEvent>(OnArmorExamine);
+    }
+
+    private void OnGetDirectProtection(Entity<FireProtectionComponent> ent, ref GetFireProtectionEvent args) // HardLight
+    {
+        args.Reduce(ent.Comp.Reduction);
     }
 
     private void OnGetProtection(Entity<FireProtectionComponent> ent, ref InventoryRelayedEvent<GetFireProtectionEvent> args)

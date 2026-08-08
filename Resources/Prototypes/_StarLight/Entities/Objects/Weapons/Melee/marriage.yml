@@ -65,7 +65,7 @@
     singleUser: true
     verbOnly: true
   - type: Reflect
-    reflectProb: 0.75 # surpise get tasered
+    reflectProb: 0.6 # HardLight:  0.75 > 0.6
     spread: 75
   - type: MeleeWeapon
     wideAnimationRotation: 180

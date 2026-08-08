@@ -1,5 +1,5 @@
 job-description-bailiff = Patrol your assigned vessel, ensure that no one is stealing from the armory, and make sure that all prisoners are processed and let out when their time is up.
-job-description-brigmedic-nf = Fight in the rear of the sheriff's service, for the lives of your comrades! You are the first and last hope of your squad. Hippocrates bless you.
+job-description-nf-brigmedic = Fight in the rear of the sheriff's service, for the lives of your comrades! You are the first and last hope of your squad. Hippocrates bless you.
 job-description-cadet-nf = Learn the basics of arresting criminals and managing the brig. Listen to your supervisors and feel free to ask them for any help.
 job-description-contractor = Fulfill any profitable contracts out on the frontier of NT space.
 job-description-deputy = Catch criminals and enemies of the corporation, enforce the law, and ensure that the sector does not fall into disarray.
@@ -16,7 +16,7 @@ job-description-nf-pirate-first-mate = Assist your captain in any hijinks you fi
 job-description-prisoner = Sit in prison. Gamble with your cellmates. Talk to the bailiff. Write your memoirs.
 job-description-public-affairs-liaison = Interface with the public, hand out and fill out forms and assist the Colsec chain of command with administrative tasks.
 job-description-security-guard = Patrol the empty halls, whistle simple tunes you heard on radio, jingle your keychain and scurry away at the sight of danger.
-job-description-senior-officer = Teach new deputies the basics of searches, preforming arrests, prison times and how to properly shoot a firearm.
+job-description-sergeant = Teach new deputies the basics of searches, preforming arrests, prison times and how to properly shoot a firearm.
 job-description-sheriff = Manage your department and keep them efficient, quell dissent, and keep the sector safe.
 job-description-stc = Handle the freelancers, Place bounties, Coordinate between Freelancers and the Station. Send CC faxes on egregious crimes commited by Freelancers.
 job-description-sr = Handle access reassignment fairly using your ID console, manage Frontier outpost, coordinate station administration, and keep Clippy safe.

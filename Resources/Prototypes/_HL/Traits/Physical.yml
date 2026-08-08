@@ -36,7 +36,7 @@
   - Heatresistant
   - Radproof
   - SnakeEater
-  - Cryoresistant
+  - Coldresistant
   - PoolToy
   components:
   - type: Insulated
@@ -46,25 +46,22 @@
   name: heat-resistant-name
   description: heat-resistant-text
   category: Physical
-  cost: 10
+  cost: 5
   speciesBlacklist:
+  - Moth
+  - Avali
   - IPC
   mutuallyExclusiveTraits:
   - Insulated
   - Radproof
   - SnakeEater
-  - Cryoresistant
+  - Coldresistant
   - PoolToy
   components:
-  - type: FireproofBodyParts
-  - type: DamageProtectionBuff
-    modifiers:
-      dermal:
-        id: heatresistantTrait
-        coefficients:
-          Heat: 0.1
   - type: FireProtection
-    reduction: 0
+    reduction: 0.5
+  - type: TemperatureTolerance
+    heatDamageThresholdModifier: 25
 
 - type: trait
   id: Radproof
@@ -78,7 +75,7 @@
   - Insulated
   - Heatresistant
   - SnakeEater
-  - Cryoresistant
+  - Coldresistant
   - PoolToy
   components:
   - type: DamageProtectionBuff
@@ -100,7 +97,7 @@
   - Insulated
   - Heatresistant
   - Radproof
-  - Cryoresistant
+  - Coldresistant
   - PoolToy
   components:
   - type: DamageProtectionBuff
@@ -111,12 +108,13 @@
           Poison: 0.01
 
 - type: trait
-  id: Cryoresistant
-  name: cryo-resistant-name
-  description: cryo-resistant-text
+  id: Coldresistant
+  name: cold-resistant-name
+  description: cold-resistant-text
   category: Physical
-  cost: 8
+  cost: 3
   speciesBlacklist:
+  - Reptilian
   - IPC
   mutuallyExclusiveTraits:
   - Heatresistant
@@ -125,12 +123,8 @@
   - Radproof
   - PoolToy
   components:
-  - type: DamageProtectionBuff
-    modifiers:
-      dermal:
-        id: cryoresistantTrait
-        coefficients:
-          Cold: 0.1
+  - type: TemperatureTolerance
+    coldDamageThresholdModifier: 25
 
 - type: trait
   id: NaturalRegen
@@ -444,7 +438,7 @@
   components:
   - type: BlockInjection
     blockHypospray: true
-    blockInjectOnProjectile: true
+    blockInjectOnProjectile: false
     blockReason: hardskin
 
 - type: trait

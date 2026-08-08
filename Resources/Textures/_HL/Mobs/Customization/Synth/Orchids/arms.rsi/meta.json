@@ -8,19 +8,19 @@
   },
   "states": [
     {
-      "name": "synth_arm_left_core",
+      "name": "arm_core_l",
       "directions": 4
     },
     {
-      "name": "synth_arm_left_streak",
+      "name": "arm_core_r",
       "directions": 4
     },
     {
-      "name": "synth_arm_right_core",
+      "name": "arm_streak_l",
       "directions": 4
     },
     {
-      "name": "synth_arm_right_streak",
+      "name": "arm_streak_r",
       "directions": 4
     }
   ]

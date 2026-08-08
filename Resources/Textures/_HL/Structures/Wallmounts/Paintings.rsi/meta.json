@@ -1,0 +1,52 @@
+{
+    "version": 1,
+    "license": "CC-BY-SA-3.0",
+    "copyright": "Made by themageofmicrosoftpaints",
+    "size": {
+        "x": 32,
+        "y": 32
+    },
+    "states": [
+        {
+            "name": "Maintsa-Livsa"
+        },
+        {
+            "name": "Arcame_duel_at_dusk"
+        },
+        {
+            "name": "Dr.dino_gothic"
+        },
+        {
+            "name": "Fih_specimine"
+        },
+        {
+            "name": "Quiet_shift"
+        },
+        {
+            "name": "Shitshitshitfuckfuckfuck"
+        },
+        {
+            "name": "Smok'n_that_moon_leaf",
+            "delays": [
+                [
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.1
+                ]
+            ]
+        },
+        {
+            "name": "Titans_among_giants"
+        },
+        {
+            "name": "Uristesque"
+        }
+    ]
+}

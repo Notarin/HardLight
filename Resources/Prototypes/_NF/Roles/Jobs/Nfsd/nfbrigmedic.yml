@@ -1,0 +1,43 @@
+- type: job
+  id: nf-Brigmedic
+  name: job-name-nf-brigmedic
+  description: job-description-nf-brigmedic
+  playTimeTracker: JobBrigmedicOld
+  requirements:
+    - !type:OverallPlaytimeRequirement
+      time: 43200 # 12 hours
+    - !type:DepartmentTimeRequirement
+      department: Security
+      time: 21600 # 6 hours
+  alternateRequirementSets:
+    longerPlaytimeLessSec:
+    - !type:OverallPlaytimeRequirement
+      time: 360000 # 100 hours
+  startingGear: NFBrigmedicGear
+  icon: JobIconNFBrigmedic
+  supervisors: job-supervisors-bailiff
+  weight: 125
+  displayWeight: 35
+  canBeAntag: false
+  access:
+  - Brigmedic
+  accessGroups:
+  - GeneralNfsdAccess
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant, TrackingImplant ]
+  - !type:GiveItemOnHolidaySpecial
+    holiday: FrontierBirthday
+    prototype: FrontierBirthdayGift
+
+- type: startingGear
+  id: NFBrigmedicGear
+  equipment:
+    pocket1: NFWeaponPistolUniversalNfsdLessLethal
+  storage:
+    back:
+    - EncryptionKeyMedical
+    - Flash
+    - NFMagazineHighCapacityPistol35Overpressure
+    - NFMagazineHighCapacityPistol35Rubber
+    - FrontierUplinkCoin10

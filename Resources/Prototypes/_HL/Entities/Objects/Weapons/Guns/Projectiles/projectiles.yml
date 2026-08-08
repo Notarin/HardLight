@@ -231,20 +231,22 @@
     layers:
     - state: icon
       shader: unshaded
-  - type: GatheringProjectile
+  - type: Projectile
     deleteOnCollide: false
     damage:
       types:
-        Heat: 20
-        Structural: 185
+        Heat: 17
+        Structural: 40
+  - type: GatheringProjectile
+  - type: MiningGatheringHard
   - type: TimedDespawn
-    lifetime: 0.15
+    lifetime: 0.12
   - type: PointLight
     radius: 3
     color: purple
     energy: 3
 
-# Adapted from the plasma cutter projectile.
+# What the Line Gun fires, permits a three-shot shotgun shot. Shot.
 - type: entity
   id: LineGunShot
   name: line shot full
@@ -254,5 +256,5 @@
   components:
   - type: ProjectileSpread
     proto: BulletLineGun
-    count: 3 #60 heat damage if you hit all your shots
+    count: 3 #51 heat damage if you hit all your shots
     spread: 10

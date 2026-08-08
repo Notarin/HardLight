@@ -41,7 +41,7 @@
       - state: cutter-glow-inhand-right
         shader: unshaded
   - type: Gun
-    fireRate: 1
+    fireRate: 1.2
     soundGunshot:
       path: /Audio/_Goobstation/Weapons/Guns/Gunshots/plasma_cutter.ogg
   - type: Battery
@@ -49,21 +49,12 @@
     startingCharge: 500
   - type: BatterySelfRecharger
     autoRecharge: true
-    autoRechargeRate: 40
+    autoRechargeRate: 50
   - type: ProjectileBatteryAmmoProvider
     proto: BulletPlasmaCutter
     fireCost: 100
-  - type: Appearance
   - type: Multishot
     spreadMultiplier: 1.2
-  - type: MeleeWeapon
-    damage:
-      types:
-        Blunt: 8
-    soundHit:
-      collection: MetalThud
-  - type: AltFireMelee
-    attackType: Light
   - type: Scalpel # Shitmed - Since in Dead Space 2 it's used as a scalpel. Kinda.
     speed: 0.7
   - type: SurgeryTool # Shitmed
@@ -78,19 +69,8 @@
         - ReagentId: WeldingFuel
           Quantity: 200
         maxVol: 200
-  - type: RequiresEyeProtection
-    statusEffectTime: 5 # less harmful; sunglasses can block it
   - type: Tool #Might make it able to rip up tiles
     qualities:
       - Axing
       - Welding
   - type: ToolTileCompatible
-
-- type: entity
-  parent: WeaponPlasmaCutter
-  id: WeaponPlasmaCutterEmpty
-  suffix: Empty
-  components:
-  - type: Battery
-    maxCharge: 500
-    startingCharge: 0

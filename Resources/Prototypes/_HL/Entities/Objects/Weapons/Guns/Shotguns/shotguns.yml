@@ -125,7 +125,7 @@
   components:
   - type: Sprite
     sprite: _HL/Objects/Weapons/Guns/Shotguns/linegun.rsi
-    scale: 1.2, 1.2
+    scale: 1.1, 1.1
     layers:
     - state: icon
     - state: line-gun-activate-icon
@@ -163,14 +163,8 @@
   - type: ProjectileBatteryAmmoProvider
     proto: LineGunShot
     fireCost: 100
-  - type: Appearance
   - type: Multishot
     spreadMultiplier: 1.0
-  - type: SurgeryTool # Shitmed
-    startSound:
-      collection: Welder
-    endSound:
-      collection: WelderOff
   - type: SolutionContainerManager
     solutions:
       Welder:

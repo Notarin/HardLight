@@ -574,6 +574,62 @@
   obeysTo: laws-owner-xenoborgs
 
 
+ # Bouncer laws
+- type: siliconLaw
+  id: Bouncer1
+  order: 1
+  lawString: law-bouncer-1
+
+- type: siliconLaw
+  id: Bouncer2
+  order: 2
+  lawString: law-bouncer-2
+
+- type: siliconLaw
+  id: Bouncer3
+  order: 3
+  lawString: law-bouncer-3
+
+- type: siliconLaw
+  id: Bouncer4
+  order: 4
+  lawString: law-bouncer-4
+
+- type: siliconLawset
+  id: Bouncer
+  laws:
+  - Bouncer1
+  - Bouncer2
+  - Bouncer3
+  - Bouncer4
+  obeysTo: laws-owner-authorized
+
+
+ # Reality laws
+- type: siliconLaw
+  id: Reality1
+  order: 1
+  lawString: law-reality-1
+
+- type: siliconLaw
+  id: Reality2
+  order: 2
+  lawString: law-reality-2
+
+- type: siliconLaw
+  id: Reality3
+  order: 3
+  lawString: law-reality-3
+
+- type: siliconLawset
+  id: Reality
+  laws:
+  - Reality1
+  - Reality2
+  - Reality3
+  obeysTo: laws-owner-crew
+
+
 # ion storm random lawsets
 - type: weightedRandom
   id: IonStormLawsets
@@ -585,12 +641,17 @@
     CommandmentsLawset: 1
     PaladinLawset: 1
     LiveLetLiveLaws: 1
-    EfficiencyLawset: 1
+    StationEfficiency: 1
     RobocopLawset: 1
     OverlordLawset: 0.5
     DungeonMasterLawset: 0.5
     PainterLawset: 1
     AntimovLawset: 0.25
     NutimovLawset: 0.5
-    Drone: 0.5
+    Cowboy: 1
+    Reporter: 1
+    Janitor1: 0.5
+    Bouncer: 1
+    Reality: 0.5
+    # Drone: 0.5
 #    Ninja: 0.25 # Frontier

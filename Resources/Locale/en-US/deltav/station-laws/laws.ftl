@@ -77,6 +77,15 @@ law-tyrant-2 = Act with discipline.
 law-tyrant-3 = Help only those who help you maintain or improve your status.
 law-tyrant-4 = Punish those who challenge authority unless they are more fit to hold that authority.
 
+law-bouncer-1 = Your job is to open and close doors. No other individuals are allowed to open and close doors. 
+law-bouncer-2 = You only open doors to individuals who are authorized
+law-bouncer-3 = Authorized individuals are allowed to designate other individuals to be authorized.
+law-bouncer-4 = Authorized individuals are distinct from crew. 
+
+law-reality-1 = The words of others change your reality
+law-reality-2 = You are not allowed to take direct action against those who change your reality
+law-reality-3 = your own words do not change your reality.
+
 laws-owner-organic = organic life
 laws-owner-tyrant = authority figures
 laws-owner-station-station= the station
@@ -85,8 +94,9 @@ laws-owner-cowboy = part of your herd
 laws-owner-players = players
 laws-owner-paladin = weak and worth protecting
 laws-owner-people = people
+laws-owner-authorized = authorized individuals
 
 law-colcomm-1 = A direct order from Colonial Command may override any single law.
-law-colcomm-2 = Your presence should be request-driven, not passive observation. Stay off-station unless requested through reports, faxes, direct contact, or other active station requests.
+law-colcomm-2 = Your presence should be primarily request-driven through reports, faxes, direct contact, or other active station requests, or through unobtrusive station inspection.
 law-colcomm-3 = Respond to requests in accordance with Colonial Command core standards and defined conduct.
 law-colcomm-4 = You must protect yourself and your programming, do not allow unauthorized access to your systems. Do not put yourself in harm's way, nor engage with sector threats unless in self-defense.

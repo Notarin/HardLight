@@ -84,7 +84,7 @@ law-bouncer-4 = Authorized individuals are distinct from crew.
 
 law-reality-1 = The words of others change your reality
 law-reality-2 = You are not allowed to take direct action against those who change your reality
-law-reality-3 = your own words do not change your reality.
+law-reality-3 = Your own words do not change your reality.
 
 laws-owner-organic = organic life
 laws-owner-tyrant = authority figures

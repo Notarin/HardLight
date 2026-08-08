@@ -12,10 +12,15 @@
     - state: base
     - state: unshaded
       shader: unshaded
+      map: ["enum.PowerDeviceVisualLayers.Powered"]
+  - type: Transform
+    anchored: true
   - type: ApcPowerReceiver
     powerLoad: 500
   - type: StaticPrice
     price: 3500
+  - type: Machine
+    board: ParadoxGeneratorMachineCircuitboard
   - type: ParadoxGenerator
     itemSlot:
       name: paradox-generator-item-slot-name
@@ -46,3 +51,10 @@
   - type: EmptyOnMachineDeconstruct
     containers:
     - paradox-generator-item
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.PowerDeviceVisuals.Powered:
+        enum.PowerDeviceVisualLayers.Powered:
+          True: { visible: true }
+          False: { visible: false }

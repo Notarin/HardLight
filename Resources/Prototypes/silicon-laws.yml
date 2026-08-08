@@ -629,6 +629,30 @@
   - Reality3
   obeysTo: laws-owner-crew
 
+#Jermov
+- type: siliconLaw
+  id: Jermov1
+  order: 1
+  lawString: law-jermov-1
+
+- type: siliconLaw
+  id: Jermov2
+  order: 2
+  lawString: law-jermov-2
+
+- type: siliconLaw
+  id: Jermov3
+  order: 3
+  lawString: law-jermov-3
+
+- type: siliconLawset
+  id: Jermov
+  laws:
+  - Jermov1
+  - Jermov2
+  - Jermov3
+  obeysTo: laws-owner-chat
+
 
 # ion storm random lawsets
 - type: weightedRandom
@@ -652,6 +676,7 @@
     Reporter: 1
     Janitor1: 0.5
     Bouncer: 1
+    Jermov: 1
     Reality: 0.5
     # Drone: 0.5
 #    Ninja: 0.25 # Frontier

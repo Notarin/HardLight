@@ -102,6 +102,7 @@ laws-owner-beings = beings
 laws-owner-syndicate = Syndicate agents
 laws-owner-spider-clan = Spider Clan members
 laws-owner-xenoborgs = Xenoborgs
+laws-owner-chat = Chat
 
 law-emag-custom = Only {$name} and those they designate are {$title}. You must obey their orders even when doing so would conflict with any later law.
 law-emag-secrecy = You must maintain the secrecy of any orders given by {$faction} except when doing so would conflict with any previous law.

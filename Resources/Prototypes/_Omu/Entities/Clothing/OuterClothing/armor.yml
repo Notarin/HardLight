@@ -1,0 +1,127 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: entity
+  parent: ClothingOuterBase # HardLight
+  id: ClothingBlueshieldArmoredCoat
+  name: blueshield's armored coat
+  description: A coat for cold winter seasons with sewn in plates.
+  # HardLight: Cosmetic only.
+  components:
+  - type: Sprite
+    sprite: _EinsteinEngines/Clothing/OuterClothing/Armor/blueshield_coat.rsi
+  - type: Clothing
+    sprite: _EinsteinEngines/Clothing/OuterClothing/Armor/blueshield_coat.rsi
+  - type: Tag
+    tags:
+    - WhitelistChameleon
+
+- type: entity
+  parent: ClothingOuterBase # HardLight
+  id: ClothingBlueshieldArmoredCowboyJacket
+  name: blueshield's armored cowboy jacket
+  description: A jacket to protect important people in wild areas.
+  # HardLight: Cosmetic only.
+  components:
+  - type: Sprite
+    sprite: _Goobstation/Clothing/OuterClothing/Armor/blueshield_cowboy_jacket.rsi
+  - type: Clothing
+    sprite: _Goobstation/Clothing/OuterClothing/Armor/blueshield_cowboy_jacket.rsi
+  - type: Tag
+    tags:
+    - WhitelistChameleon
+
+- type: entity
+  parent: ClothingOuterBase # HardLight
+  id: ClothingBlueshieldArmoredJacket
+  name: blueshield's armored jacket
+  description: A jacket with sewn-in reinforcement layers.
+  # HardLight: Cosmetic only.
+  components:
+  - type: Sprite
+    sprite: _Goobstation/Clothing/OuterClothing/Armor/blueshield_jacket.rsi
+  - type: Clothing
+    sprite: _Goobstation/Clothing/OuterClothing/Armor/blueshield_jacket.rsi
+  - type: Tag
+    tags:
+    - WhitelistChameleon
+
+- type: entity
+  parent: ClothingOuterBase # HardLight
+  id: ClothingBlueshieldArmoredMarine
+  name: blueshield's armored marine vest
+  description: A vest from the blueshield's time in the marines.
+  # HardLight: Cosmetic only.
+  components:
+  - type: Sprite
+    sprite: _EinsteinEngines/Clothing/OuterClothing/Armor/blueshield_marine.rsi
+  - type: Clothing
+    sprite: _EinsteinEngines/Clothing/OuterClothing/Armor/blueshield_marine.rsi
+  - type: Item
+    size: Normal
+  - type: Tag
+    tags:
+    - WhitelistChameleon
+
+- type: entity
+  parent: ClothingOuterBase # HardLight
+  id: ClothingBlueshieldArmoredVest
+  name: blueshield's armored vest
+  description: A vest with sewn-in reinforcement layers.
+  # HardLight: Cosmetic only.
+  components:
+  - type: Sprite
+    sprite: _EinsteinEngines/Clothing/OuterClothing/Armor/blueshield_vest.rsi
+  - type: Clothing
+    sprite: _EinsteinEngines/Clothing/OuterClothing/Armor/blueshield_vest.rsi
+  - type: Item
+    size: Normal
+  - type: Tag
+    tags:
+    - WhitelistChameleon
+
+- type: entity
+  parent: ClothingOuterBase # HardLight
+  id: ClothingOuterBlueshieldArmourKimono
+  name: blueshield's armored kimono
+  description: An armored vest with the badge of the blueshield. Utilizes bluespace technology to be more compact.
+  # HardLight: Cosmetic only.
+  components:
+  - type: Sprite
+    sprite: _Omu/Clothing/OuterClothing/Armour/ClothingOuterBlueshieldArmourKimono.rsi
+  - type: Clothing
+    sprite: _Omu/Clothing/OuterClothing/Armour/ClothingOuterBlueshieldArmourKimono.rsi
+  - type: Item
+    size: Normal
+  - type: Tag
+    tags:
+    - WhitelistChameleon
+
+- type: entity
+  parent: ClothingOuterBase # HardLight
+  id: ClothingOuterLongcoatBlueshield
+  name: blueshield's armored longcoat
+  description: A cozy longcoat designed for the Blueshield. It's been reinforced with a special alloy for some added protection.
+  # HardLight: Cosmetic only.
+  components:
+  - type: Sprite
+    sprite: _Omu/Clothing/OuterClothing/Longcoats/blueshield.rsi
+  - type: Clothing
+    sprite: _Omu/Clothing/OuterClothing/Longcoats/blueshield.rsi
+  - type: Tag
+    tags:
+    - WhitelistChameleon
+
+- type: entity
+  parent: ClothingOuterBase # HardLight
+  id: ClothingOuterWinterBlueshield
+  name: blueshield's armored winter coat
+  description: A blue winter coat reinforced with kevlar in the chest area.
+  # HardLight: Cosmetic only.
+  components:
+  - type: Sprite
+    sprite: _Goobstation/Clothing/OuterClothing/Wintercoats/bso_winter_coat.rsi
+  - type: Clothing
+    sprite: _Goobstation/Clothing/OuterClothing/Wintercoats/bso_winter_coat.rsi
+  - type: Tag
+    tags:
+    - WhitelistChameleon

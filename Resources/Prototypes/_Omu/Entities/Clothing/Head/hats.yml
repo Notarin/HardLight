@@ -1,0 +1,58 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: entity
+  parent: ClothingHeadBase # HardLight
+  id: ClothingHeadHatCowboyBlueshield
+  name: blueshield's armored cowboy hat
+  description: Sheriff's back in town, kids.
+  # HardLight: Cosmetic only.
+  components:
+  - type: Sprite
+    sprite: _Goobstation/Clothing/Head/Hats/cowboyhatbso.rsi
+  - type: Clothing
+    sprite: _Goobstation/Clothing/Head/Hats/cowboyhatbso.rsi
+  - type: Tag
+    tags:
+    - WhitelistChameleon
+
+- type: entity
+  parent: ClothingHeadBase # HardLight
+  id: ClothingHeadHatFedoraBlueshield
+  name: blueshield officer's armored fedora
+  description: A padded fedora meant to aid your goons in battle whilst maintaining their class.
+  # HardLight: Cosmetic only.
+  components:
+  - type: Sprite
+    sprite: _Omu/Clothing/Hats/blueshield_mafia_fedora.rsi
+  - type: Clothing
+    sprite: _Omu/Clothing/Hats/blueshield_mafia_fedora.rsi
+  - type: Tag
+    tags:
+    - WhitelistChameleon
+
+- type: entity
+  parent: ClothingHeadBase # HardLight
+  id: ClothingHeadHatUshankaBlueshield
+  name: blueshield's armored ushanka
+  description: Perfect for saving heads in Siberia, da?
+  # HardLight: Cosmetic only.
+  components:
+  - type: Clothing
+    sprite: _Goobstation/Clothing/Head/Hats/blueshield_ushanka.rsi
+  - type: Appearance
+  - type: Foldable
+    canFoldInsideContainer: true
+  - type: FoldableClothing
+    foldedEquippedPrefix: up
+    foldedHeldPrefix: up
+  - type: Sprite
+    sprite: _Goobstation/Clothing/Head/Hats/blueshield_ushanka.rsi
+    layers:
+    - state: icon
+      map: [ "unfoldedLayer" ]
+    - state: icon-up
+      map: ["foldedLayer"]
+      visible: false
+  - type: Tag
+    tags:
+    - WhitelistChameleon

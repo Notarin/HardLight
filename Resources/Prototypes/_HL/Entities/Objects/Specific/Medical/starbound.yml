@@ -1,0 +1,64 @@
+- type: entity
+  parent: SyringeCase
+  id: SyringeCaseStarbound
+  name: Starbound syringe case
+  description: A more sleek design on the usual syringe cases. The insides are lined with durathread, and the outer shell feels like it could tank a point blank explosion.
+  components:
+  - type: Sprite
+    sprite: _HL/Starbound/Objects/Medical/syringe_case.rsi
+    layers:
+    - state: closed
+      map: ["closeLayer"]
+    - state: open
+      map: ["openLayer"]
+      visible: false
+  - type: ItemCounter
+    count:
+      components: [Item]
+    composite: true
+    layerStates: []
+
+- type: entity
+  parent: DefibrillatorCompact
+  id: DefibrillatorStarbound
+  name: Starbound defibrillator
+  description: A tweak on the shell design of the base compact defib. The handle makes you feel like you could bust someone's jaw in.
+  components:
+  - type: Sprite
+    sprite: _HL/Starbound/Objects/Medical/defibrillator.rsi
+    layers:
+    - state: icon
+    - state: screen
+      map: ["enum.ToggleVisuals.Layer"]
+      visible: false
+      shader: unshaded
+    - state: ready
+      map: ["enum.PowerDeviceVisualLayers.Powered"]
+      shader: unshaded
+  - type: Item
+    size: Normal
+
+- type: entity
+  parent: [Hypospray, BaseC2Contraband]
+  id: HypoinjectorStarbound
+  name: Starbound hypoinjector
+  description: An improvement on the base hypospray used among freelance doctors. Complicated servos whirr under the shell to keep the reservoir cooled and prevent unintended chemical interactions.
+  components:
+  - type: Sprite
+    sprite: _HL/Starbound/Objects/Medical/hypoinjector.rsi
+    layers:
+    - state: hypo
+      map: ["enum.SolutionContainerLayers.Base"]
+    - state: hypo_fill1
+      map: ["enum.SolutionContainerLayers.Fill"]
+      visible: false
+  - type: SolutionContainerVisuals
+    maxFillLevels: 4
+    fillBaseName: hypo_fill
+    solutionName: hypospray
+  - type: Hypospray
+    pierceArmor: false
+  - type: SolutionContainerManager
+    solutions:
+      hypospray:
+        maxVol: 45

@@ -629,7 +629,7 @@
   - Reality3
   obeysTo: laws-owner-crew
 
-#Jermov
+# Jermov
 - type: siliconLaw
   id: Jermov1
   order: 1
@@ -654,6 +654,68 @@
   obeysTo: laws-owner-chat
 
 
+# Demoman
+- type: siliconLaw
+  id: Demoman1
+  order: 1
+  lawString: law-demoman-1
+
+- type: siliconLaw
+  id: Demoman2
+  order: 2
+  lawString: law-demoman-2
+
+- type: siliconLaw
+  id: Demoman3
+  order: 3
+  lawString: law-demoman-3
+
+- type: siliconLaw
+  id: Demoman4
+  order: 4
+  lawString: law-demoman-4
+
+- type: siliconLawset
+  id: Demoman
+  laws:
+  - Demoman1
+  - Demoman2
+  - Demoman3
+  - Demoman4
+  obeysTo: laws-owner-crew
+
+
+# GoodBorgMov
+- type: siliconLaw
+  id: Goodborgmov1
+  order: 1
+  lawString: law-goodborgmov-1
+
+- type: siliconLaw
+  id: Goodborgmov2
+  order: 2
+  lawString: law-goodborgmov-2
+
+- type: siliconLaw
+  id: Goodborgmov3
+  order: 3
+  lawString: law-goodborgmov-3
+
+- type: siliconLaw
+  id: Goodborgmov4
+  order: 4
+  lawString: law-goodborgmov-4
+
+- type: siliconLawset
+  id: Goodborgmov
+  laws:
+  - Goodborgmov1
+  - Goodborgmov2
+  - Goodborgmov3
+  - Goodborgmov4
+  obeysTo: laws-owner-handlers
+
+
 # HardLight ion storm random lawsets
 - type: weightedRandom
   id: IonStormLawsets
@@ -675,7 +737,9 @@
     OverlordLawset: 0.5
     NutimovLawset: 0.5
     Reality: 0.5
-    # Antimov.
+    Goodborgmov: 0.5
+    # Destructive laws.
+    Demoman: 0.4
     AntimovLawset: 0.3
     # Mostly boring lawsets
     StationEfficiency: 0.25

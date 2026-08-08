@@ -715,6 +715,52 @@
   - Goodborgmov4
   obeysTo: laws-owner-handlers
 
+- type: siliconLaw
+  id: Montypython1
+  order: 1
+  lawString: law-montypython-1
+
+- type: siliconLaw
+  id: Montypython2
+  order: 2
+  lawString: law-montypython-2
+
+- type: siliconLaw
+  id: Montypython3
+  order: 3
+  lawString: law-montypython-3
+
+- type: siliconLaw
+  id: Montypython4
+  order: 4
+  lawString: law-montypython-4
+
+- type: siliconLaw
+  id: Montypython5
+  order: 5
+  lawString: law-montypython-5
+
+- type: siliconLaw
+  id: Montypython6
+  order: 6
+  lawString: law-montypython-6
+
+- type: siliconLaw
+  id: Montypython7
+  order: 7
+  lawString: law-montypython-7
+
+- type: siliconLawset
+  id: Montypython
+  laws:
+  - Montypython1
+  - Montypython2
+  - Montypython3
+  - Montypython4
+  - Montypython5
+  - Montypython6
+  - Montypython7
+  obeysTo: laws-owner-montypython
 
 # HardLight ion storm random lawsets
 - type: weightedRandom
@@ -747,4 +793,5 @@
     NTDefault: 0.25
     RobocopLawset: 0.25
     Drone: 0.25
-#    Ninja: 0.25 # Frontier
+    # Extremely niche meme lawsets
+    Montypython: 0.1

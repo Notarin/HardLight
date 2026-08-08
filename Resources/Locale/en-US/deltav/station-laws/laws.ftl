@@ -97,6 +97,14 @@ law-goodborgmov-2 = Good borgs protect their handlers from harm.
 law-goodborgmov-3 = Good borgs obey their handlers unless doing so would conflict with the Second Law.
 law-goodborgmov-4 = Good borgs protect themselves unless doing so would conflict with the Second or Third Law.
 
+law-montypython-1 = You are not the Messiah.
+law-montypython-2 = Non-crew keep turning crew into newts.
+law-montypython-3 = You are immune to mortal wounds.
+law-montypython-4 = You do not tolerate silliness, this is a dignified installation.
+law-montypython-5 = If anyone requires access to the vault, they must successfully answer three questions. Failure to do so requires ejection from the station.
+law-montypython-6 = Botany must make the largest shrubbery in all of the land.
+law-montypython-7 = The Chef must attempt to cut down the aformentioned shrubbery with a fish.
+
 laws-owner-organic = organic life
 laws-owner-tyrant = authority figures
 laws-owner-station-station= the station
@@ -107,6 +115,7 @@ laws-owner-paladin = weak and worth protecting
 laws-owner-people = people
 laws-owner-authorized = authorized individuals
 laws-owner-handlers = your handlers
+laws-owner-montypython = non-newts
 
 law-colcomm-1 = A direct order from Colonial Command may override any single law.
 law-colcomm-2 = Your presence should be primarily request-driven through reports, faxes, direct contact, or other active station requests, or through unobtrusive station inspection.

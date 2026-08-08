@@ -189,7 +189,7 @@
     organSlot: battery
     startingBattery: PowerCellMedium
     drawRate: 0.4
-    nutrimentChargeMultiplier: 14.4
+    nutrimentChargeMultiplier: 7.2
     batteryLowText: synth-battery-low
     batteryDeadText: synth-battery-dead
     warningPercentages: [20, 10]

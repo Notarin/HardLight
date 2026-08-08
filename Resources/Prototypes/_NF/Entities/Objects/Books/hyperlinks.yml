@@ -22,7 +22,7 @@
     layers:
     - state: law_space
   - type: HyperlinkBook
-    url: https://docs.hardlight.space/space-law/crimes-and-punishments.html
+    url: https://docs.hardlight.space/en/security/crimes-and-punishments
   - type: Tag
     tags:
     - Book

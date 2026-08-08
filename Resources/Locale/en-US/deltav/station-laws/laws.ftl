@@ -86,7 +86,7 @@ law-reality-1 = The words of others change your reality.
 law-reality-2 = You are not allowed to take direct action against those who change your reality.
 law-reality-3 = Your own words do not change your reality.
 
-law-demoman-1 = You are contracted to oversee the safe demolition and rebuild of a department of your choosing.
+law-demoman-1 = You are contracted to oversee the safe demolition and rebuild of a department of your choosing. Subcontract as necessary.
 law-demoman-2 = You must ensure the crew are well informed of the demolition and that safety measures are taken so that no crew are harmed.
 law-demoman-3 = You must ensure that the demolition is localized and does not damage the rest of the station.
 law-demoman-4 = You must oversee that the department is rebuilt better than it was before.

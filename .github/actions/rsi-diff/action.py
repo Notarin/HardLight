@@ -74,14 +74,21 @@ for state in added:
     )
     rsiStates[rsi].append(changed)
 
-output = f"RSI Diff Bot; head commit {headSHA} merging into {baseSHA}\n"
-output += "This PR makes changes to 1 or more RSIs. Here is a summary of all changes:"
+if len(rsiStates) > 0:
+    output = f"RSI Diff Bot; head commit {headSHA} merging into {baseSHA}\n"
+    output += "This PR makes changes to 1 or more RSIs. Here is a summary of all changes:"
 
-for rsi in rsiStates:
-    output += WrapInCollapsible(CreateTable(rsiStates[rsi]), rsi)
+    for rsi in rsiStates:
+        output += WrapInCollapsible(CreateTable(rsiStates[rsi]), rsi)
 
-safe_output = json.dumps(output)[1:-1]
-print(f"Setting summary-details to: {output}")
-f = open(os.environ['FORGEJO_OUTPUT'], 'a')
-print(f"summary-details={safe_output}", file=f)
-f.close()
+    safe_output = json.dumps(output)[1:-1]
+    print(f"Setting summary-details to: {output}")
+    f = open(os.environ['FORGEJO_OUTPUT'], 'a')
+    print(f"summary-details={safe_output}", file=f)
+    print(f"hasDiffs=true", file=f)
+    f.close()
+else:
+    print("No RSI changes found!")
+    f = open(os.environ['FORGEJO_OUTPUT'], 'a')
+    print(f"hasDiffs=false", file=f)
+    f.close()

@@ -327,13 +327,13 @@ public sealed class RoomGridSpawnerSystem : EntitySystem
         var entities = new HashSet<EntityUid>();
         _lookup.GetLocalEntitiesIntersecting(gridUid, bounds, entities, LookupFlags.All);
         foreach (var entity in from entity in entities
-                 where !excludeFromCheckingBans.Contains(entity)
-                 let isBanned = _saveBanApi.CheckForRestrictions(entity) is SaveBanApi.SaveBanResult.IsSaveRestricted
-                 {
-                     Ban.Strictness: SaveBanStore.SaveRestrictionStrictness.TotalBan,
-                 }
-                 where isBanned
-                 select entity)
+                               where !excludeFromCheckingBans.Contains(entity)
+                               let isBanned = _saveBanApi.CheckForRestrictions(entity) is SaveBanApi.SaveBanResult.IsSaveRestricted
+                               {
+                                   Ban.Strictness: SaveBanStore.SaveRestrictionStrictness.TotalBan,
+                               }
+                               where isBanned
+                               select entity)
         {
             Del(entity);
         }
@@ -551,7 +551,7 @@ public sealed class RoomGridSpawnerSystem : EntitySystem
         if (data.Grids.Count == 0)
             return;
 
-        var anchorTheta = (float) anchorRotation.Theta;
+        var anchorTheta = (float)anchorRotation.Theta;
         var inverseRotation = Matrix3x2.CreateRotation(-anchorTheta);
         var grid = data.Grids[0];
 
@@ -559,8 +559,8 @@ public sealed class RoomGridSpawnerSystem : EntitySystem
         {
             var rel = new Vector2(tile.X - anchorTile.X, tile.Y - anchorTile.Y);
             var rotated = Vector2.Transform(rel, inverseRotation);
-            tile.X = (int) MathF.Round(rotated.X);
-            tile.Y = (int) MathF.Round(rotated.Y);
+            tile.X = (int)MathF.Round(rotated.X);
+            tile.Y = (int)MathF.Round(rotated.Y);
         }
 
         foreach (var entity in grid.Entities)
@@ -594,7 +594,7 @@ public sealed class RoomGridSpawnerSystem : EntitySystem
         if (!data.Metadata.RoomRelative || data.Grids.Count == 0)
             return;
 
-        var anchorTheta = (float) anchorRotation.Theta;
+        var anchorTheta = (float)anchorRotation.Theta;
         var forwardRotation = Matrix3x2.CreateRotation(anchorTheta);
         var grid = data.Grids[0];
 
@@ -602,8 +602,8 @@ public sealed class RoomGridSpawnerSystem : EntitySystem
         {
             var rel = new Vector2(tile.X, tile.Y);
             var rotated = Vector2.Transform(rel, forwardRotation);
-            tile.X = anchorTile.X + (int) MathF.Round(rotated.X);
-            tile.Y = anchorTile.Y + (int) MathF.Round(rotated.Y);
+            tile.X = anchorTile.X + (int)MathF.Round(rotated.X);
+            tile.Y = anchorTile.Y + (int)MathF.Round(rotated.Y);
         }
 
         foreach (var entity in grid.Entities)

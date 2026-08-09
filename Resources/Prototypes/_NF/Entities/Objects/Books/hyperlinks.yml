@@ -44,3 +44,20 @@
     tags:
     - Book
     - BookNfsdSop
+
+- type: entity
+  parent: BaseHyperlinkBook
+  id: NFHyperlinkBookCommandSOP
+  name: space law
+  description: A big book of standard command operating procedures.
+  components:
+  - type: Sprite
+    sprite: _NF/Objects/Misc/books.rsi
+    layers:
+    - state: command_sop
+  - type: HyperlinkBook
+    url: https://docs.hardlight.space/en/departments/command
+  - type: Tag
+    tags:
+    - Book
+    - BookCommandSOP

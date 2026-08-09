@@ -41,6 +41,7 @@
   equipment:
     id: RnDPDA
     ears: ClothingHeadsetRD
+    pocket2: NFHyperlinkBookCommandSOP
   storage:
     back:
     - Flash

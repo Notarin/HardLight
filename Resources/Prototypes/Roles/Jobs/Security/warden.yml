@@ -40,6 +40,7 @@
     id: WardenPDA
     ears: ClothingHeadsetSecurity
     pocket1: NFWeaponPistolMk58 # Frontier: use NF variant
+    pocket2: NFHyperlinkBookCommandSOP
   storage:
     back:
     - Flash

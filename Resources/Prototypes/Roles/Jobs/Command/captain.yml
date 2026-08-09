@@ -49,7 +49,10 @@
 # HL end
     id: StationCaptainPDA
     ears: ClothingHeadsetAltCommand
+    pocket2: NFHyperlinkBookCommandSOP
   storage:
     back:
     - Flash
+    - NFHyperlinkBookCommandSOP
+
     # - StationCharter Frontier::

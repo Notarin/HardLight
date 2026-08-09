@@ -87,6 +87,7 @@
   id: SrGear
   equipment:
     pocket1: WeaponRevolverLucky
+    pocket2: NFHyperlinkBookCommandSOP
   storage:
     back:
     - Flash

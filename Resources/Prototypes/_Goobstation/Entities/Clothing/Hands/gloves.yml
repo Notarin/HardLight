@@ -9,5 +9,5 @@
   - type: Clothing
     sprite: _Goobstation/Clothing/Hands/Gloves/goldtrim.rsi
   - type: Fiber
-    fiberMaterial: fibers-classified
+    fiberMaterial: fibers-durathread
     fiberColor: fibers-white

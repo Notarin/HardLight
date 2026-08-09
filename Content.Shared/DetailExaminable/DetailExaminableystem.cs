@@ -49,7 +49,8 @@ public sealed class DetailExaminableSystem : EntitySystem
         {
             Act = () =>
             {
-                _examine.SendImageTooltip(user, ent, ent.Comp.CharacterPortraitUrl, false, false);
+                var imageFetchResult = new ImageFetchResult(ImageFetchStatus.Loading, [], ent.Comp.CharacterPortraitUrl);
+                _examine.SendImageTooltip(user, ent, imageFetchResult, false, false);
             },
             Text = "Image",
             Category = VerbCategory.Examine,

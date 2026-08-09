@@ -47,7 +47,7 @@ namespace Content.Server.Examine
             RaiseNetworkEvent(ev, session.Channel);
         }
 
-        public async override void SendImageTooltip(EntityUid player, EntityUid target, string url, bool getVerbs, bool centerAtCursor)
+        public async override void SendImageTooltip(EntityUid player, EntityUid target, ImageFetchResult imageFetchResult, bool getVerbs, bool centerAtCursor)
         {
             if (!TryComp<ActorComponent>(player, out var actor))
                 return;
@@ -58,16 +58,13 @@ namespace Content.Server.Examine
             if (getVerbs)
                 verbs = _verbSystem.GetLocalVerbs(target, player, typeof(ExamineVerb));
 
-            var buffer = await CharacterPortrait.GetImageDataFromUrl(url, _http);
+            imageFetchResult = await CharacterPortrait.GetImageDataFromUrl(imageFetchResult.Url, _http);
 
-            if (buffer != null)
-            {
-                var ev = new ExamineSystemMessages.ImageInfoResponseMessage(
-                    GetNetEntity(target), 0, buffer, verbs?.ToList(), centerAtCursor
-                );
+            var ev = new ExamineSystemMessages.ImageInfoResponseMessage(
+                GetNetEntity(target), 0, imageFetchResult, verbs?.ToList(), centerAtCursor
+            );
 
-                RaiseNetworkEvent(ev, session.Channel);
-            }
+            RaiseNetworkEvent(ev, session.Channel);
         }
 
         private void ExamineInfoRequest(ExamineSystemMessages.RequestExamineInfoMessage request, EntitySessionEventArgs eventArgs)

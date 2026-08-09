@@ -171,13 +171,20 @@ namespace Content.Client.Examine
             UpdateTooltipInfo(player, target, message, getVerbs: getVerbs);
         }
 
-        public override void SendImageTooltip(EntityUid player, EntityUid target, string? imageStream, bool getVerbs, bool centerAtCursor)
+        public override void SendImageTooltip(EntityUid player, EntityUid target, ImageFetchResult imageFetchResult, bool getVerbs, bool centerAtCursor)
         {
             OpenTooltip(player, target, centerAtCursor);
 
-            var markup = new FormattedMessage();
-            markup.AddMarkupPermissive("Image loading");
-            UpdateTooltipInfo(player, target, markup, getVerbs: getVerbs);
+            if (imageFetchResult.Status == ImageFetchStatus.Success)
+            {
+                UpdateImageTooltipInfo(player, target, imageFetchResult, getVerbs: getVerbs);
+            }
+            else
+            {
+                var markup = new FormattedMessage();
+                markup.AddMarkupPermissive("Image loading");
+                UpdateTooltipInfo(player, target, markup, getVerbs: getVerbs);
+            }
         }
 
         private void OnImageInfoResponse(ExamineSystemMessages.ImageInfoResponseMessage ev)
@@ -196,7 +203,7 @@ namespace Content.Client.Examine
             var entity = GetEntity(ev.EntityUid);
 
             OpenTooltip(player.Value, entity, ev.CenterAtCursor, ev.OpenAtOldTooltip, ev.KnowTarget);
-            UpdateImageTooltipInfo(player.Value, entity, ev.StreamImage, ev.Verbs, getVerbs: false);
+            UpdateImageTooltipInfo(player.Value, entity, ev.ImageResult, ev.Verbs, getVerbs: false);
         }
 
         /// <summary>
@@ -345,7 +352,7 @@ namespace Content.Client.Examine
         /// <summary>
         ///     Fills the examine tooltip with a message and buttons if applicable.
         /// </summary>
-        public async void UpdateImageTooltipInfo(EntityUid player, EntityUid target, byte[] imageStream, List<Verb>? verbs=null, bool getVerbs = true)
+        public async void UpdateImageTooltipInfo(EntityUid player, EntityUid target, ImageFetchResult imageFetchResult, List<Verb>? verbs=null, bool getVerbs = true)
         {
             var vBox = _examineTooltipOpen?.GetChild(0).GetChild(0);
             if (vBox == null)
@@ -353,13 +360,13 @@ namespace Content.Client.Examine
                 return;
             }
 
-            Texture? image = null;
-
-            if (imageStream.Length != 0)
+            if (imageFetchResult.Status == ImageFetchStatus.Success)
             {
+                Texture? image = null;
+
                 try
                 {
-                    using var stream = new MemoryStream(imageStream);
+                    using var stream = new MemoryStream(imageFetchResult.Data);
                     image = Texture.LoadFromPNGStream(stream, "character-portrait");
                 }
                 catch (Exception ex)
@@ -367,16 +374,7 @@ namespace Content.Client.Examine
                     // Malformed/non-PNG data — log and fall back to no image rather than crashing
                     Logger.Warning($"Failed to load portrait image for {target}: {ex.Message}");
                 }
-            }
 
-            if (image == null)
-            {
-                var richLabel = new RichTextLabel() { Margin = new Thickness(4, 4, 0, 4)};
-                richLabel.SetMessage("No valid URL");
-                vBox.AddChild(richLabel);
-            }
-            else
-            {
                 vBox.VerticalExpand = true;
                 vBox.HorizontalExpand = true;
                 vBox.VerticalAlignment = Control.VAlignment.Top;
@@ -397,6 +395,21 @@ namespace Content.Client.Examine
 
                 textureRect.Texture = image;
                 vBox.AddChild(textureRect);
+            }
+            else
+            {
+                var richLabel = new RichTextLabel() { Margin = new Thickness(4, 4, 0, 4)};
+
+                if (imageFetchResult.Error != null)
+                {
+                    richLabel.SetMessage(imageFetchResult.Error);
+                }
+                else
+                {
+                    richLabel.SetMessage("Unknown image loading problem");
+                }
+
+                vBox.AddChild(richLabel);
             }
 
             var totalVerbs = _verbSystem.GetLocalVerbs(target, player, typeof(ExamineVerb));

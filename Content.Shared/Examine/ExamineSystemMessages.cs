@@ -56,7 +56,7 @@ namespace Content.Shared.Examine
         {
             public readonly NetEntity EntityUid;
             public readonly int Id;
-            public readonly byte[] StreamImage;
+            public readonly ImageFetchResult ImageResult;
 
             public List<Verb>? Verbs;
 
@@ -65,12 +65,12 @@ namespace Content.Shared.Examine
 
             public readonly bool KnowTarget;
 
-            public ImageInfoResponseMessage(NetEntity entityUid, int id, byte[] streamImage, List<Verb>? verbs=null,
+            public ImageInfoResponseMessage(NetEntity entityUid, int id, ImageFetchResult imageResult, List<Verb>? verbs=null,
                 bool centerAtCursor=true, bool openAtOldTooltip=true, bool knowTarget = true)
             {
                 EntityUid = entityUid;
                 Id = id;
-                StreamImage = streamImage;
+                ImageResult = imageResult;
                 Verbs = verbs;
                 CenterAtCursor = centerAtCursor;
                 OpenAtOldTooltip = openAtOldTooltip;
@@ -78,4 +78,24 @@ namespace Content.Shared.Examine
             }
         }
     }
+
+    [Serializable]
+    public enum ImageFetchStatus
+    {
+        Loading,
+        Success,
+        HttpError,        // non-2xx status code
+        NotImage,          // content-type wasn't an image
+        NetworkError,      // exception during request (timeout, DNS, etc.)
+        TooLarge,          // optional: exceeded a size limit
+        InvalidUrl,
+        Canceled
+    }
+
+    [Serializable]
+    public readonly record struct ImageFetchResult(
+        ImageFetchStatus Status,
+        byte[] Data,
+        string Url,
+        string? Error = null);
 }

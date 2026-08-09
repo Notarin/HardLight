@@ -15,6 +15,9 @@
         },
         {
             "name" : "law_trial"
+        },
+        {
+            "name" : "command_sop"
         }
     ]
 }

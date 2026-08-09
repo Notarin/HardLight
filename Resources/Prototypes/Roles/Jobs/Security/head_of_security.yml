@@ -54,7 +54,7 @@
     # gloves: ClothingHandsGlovesCombat # HardLight: Add departmental NF-style loadouts
     ears: ClothingHeadsetAltSecurity
     pocket1: NFWeaponPistolMk58 # Frontier: use NF version
-    pocket2: NFHyperlinkBookCommandSOP
+    pocket2: NFHyperlinkBookCommandSOP # HardLight
   storage:
     back:
     - Flash

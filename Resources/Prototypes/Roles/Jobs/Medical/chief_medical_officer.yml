@@ -48,7 +48,7 @@
     id: CMOPDA
     ears: ClothingHeadsetCMO
     belt: ClothingBeltMedicalFilled
-    pocket2: NFHyperlinkBookCommandSOP
+    pocket2: NFHyperlinkBookCommandSOP # HardLight
   storage:
     back:
     - Flash

@@ -72,7 +72,7 @@
       # gloves: ClothingHandsGlovesHop # HardLight: Add NF-style departmental loadouts
       ears: ClothingHeadsetAltCommand
       belt: BoxFolderClipboard
-      pocket2: NFHyperlinkBookCommandSOP
+      pocket2: NFHyperlinkBookCommandSOP # HardLight
     storage:
       back:
       - Flash

@@ -45,6 +45,7 @@
     - Book
     - BookNfsdSop
 
+# HardLight Command SOP
 - type: entity
   parent: BaseHyperlinkBook
   id: NFHyperlinkBookCommandSOP

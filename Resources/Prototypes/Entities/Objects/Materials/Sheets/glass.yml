@@ -17,6 +17,7 @@
     - Sheet
     - NoPaint
     - TiderAnvilParts
+    - ConstructionMaterial
   - type: Material
   - type: Damageable
     damageContainer: Inorganic

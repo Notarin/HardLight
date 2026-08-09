@@ -16,7 +16,8 @@
     - Sheet
     - Metal
     - NoPaint
-    - TiderAnvilParts
+    - TiderAnvilParts # Starlight
+    - ConstructionMaterial
   - type: Damageable
     damageContainer: Inorganic
     damageModifierSet: Metallic

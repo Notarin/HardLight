@@ -48,7 +48,7 @@
 - type: entity
   parent: BaseHyperlinkBook
   id: NFHyperlinkBookCommandSOP
-  name: space law
+  name: command SOP
   description: A big book of standard command operating procedures.
   components:
   - type: Sprite
@@ -60,4 +60,3 @@
   - type: Tag
     tags:
     - Book
-    - BookCommandSOP

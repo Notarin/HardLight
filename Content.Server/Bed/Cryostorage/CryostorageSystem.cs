@@ -170,11 +170,16 @@ public sealed class CryostorageSystem : SharedCryostorageSystem
         var comp = ent.Comp;
         var cryostorageEnt = ent.Comp.Cryostorage;
 
-        var station = _station.GetOwningStation(ent);
+        EntityUid? stationUid = _station.GetOwningStation(ent); // HardLight-edit
         var name = Name(ent.Owner);
 
-        if (station is not { } stationUid) // HardLight
+        // HardLight-edit start
+        if (stationUid == null && cryostorageEnt is { } cryostorageUid)
+            stationUid = _station.GetOwningStation(cryostorageUid);
+
+        if (stationUid is not { } stationUidValue)
             return;
+        // HardLight-edit end
 
         if (!TryComp<CryostorageComponent>(cryostorageEnt, out var cryostorageComponent))
             return;
@@ -225,17 +230,17 @@ public sealed class CryostorageSystem : SharedCryostorageSystem
         AdminLog.Add(LogType.Action, LogImpact.High, $"{ToPrettyString(ent):player} was entered into cryostorage inside of {ToPrettyString(cryostorageEnt.Value)}");
 
         var jobName = Loc.GetString("earlyleave-cryo-job-unknown");
-        var recordId = _stationRecords.GetRecordByName(stationUid, name); // HardLight: station.Value<stationUid
+        var recordId = _stationRecords.GetRecordByName(stationUidValue, name); // HardLight: station.Value<stationUidValue
         if (recordId != null)
         {
-            var key = new StationRecordKey(recordId.Value, stationUid); // HardLight: station.Value<stationUid
+            var key = new StationRecordKey(recordId.Value, stationUidValue); // HardLight: station.Value<stationUidValue
             if (_stationRecords.TryGetRecord<GeneralStationRecord>(key, out var entry)) // HardLight: Removed stationRecords
                 jobName = entry.JobTitle;
 
             _stationRecords.RemoveRecord(key); // HardLight: Removed stationRecords
         }
 
-        _chatSystem.DispatchStationAnnouncement(stationUid, // HardLight: station.Value<stationUid
+        _chatSystem.DispatchStationAnnouncement(stationUidValue, // HardLight: station.Value<stationUidValue
             Loc.GetString(
                 "earlyleave-cryo-announcement",
                 ("character", name),

@@ -70,6 +70,7 @@ using Content.Shared.Clothing.EntitySystems;
 using Content.Server.Clothing.Systems;
 using Content.Server.Paint;
 using static Content.Shared.Paper.PaperComponent;
+using Content.Server._CD.Engraving;
 
 namespace Content.Server.Shuttles.Save
 {
@@ -101,6 +102,7 @@ namespace Content.Server.Shuttles.Save
         [Dependency] private readonly ToggleableClothingSystem _toggleableClothingSystem = default!;
         [Dependency] private readonly PaintSystem _paintSystem = default!;
         [Dependency] private readonly PaperSystem _paperSystem = default!;
+        [Dependency] private readonly EngraveableSystem _engraveableSystem = default!;
         // Note: For EntityDeserializer we use IoCManager.Instance directly to avoid extra injected fields.
 
         private ISawmill _sawmill = default!;
@@ -2181,6 +2183,11 @@ namespace Content.Server.Shuttles.Save
                 var d = SerializeChameleonClothingComponent(chameleon);
                 if (d != null) entityData.Components.Add(d);
             }
+            if (_entityManager.TryGetComponent<EngraveableComponent>(uid, out var engraveable))
+            {
+                var d = SerializeEngraveableComponent(engraveable);
+                if (d != null) entityData.Components.Add(d);
+            }
         }
 
         private void RestoreRoomComponents(EntityUid uid, EntityData entityData)
@@ -2203,6 +2210,8 @@ namespace Content.Server.Shuttles.Save
                     RestoreRandomSpriteComponent(uid, componentData);
                 else if (componentData.Type == "ChameleonClothingComponent" && componentData.Properties.Any())
                     RestoreChameleonClothingComponent(uid, componentData);
+                else if (componentData.Type == "EngraveableComponent" && componentData.Properties.Any())
+                    RestoreEngraveableComponent(uid, componentData);
                 // StorageComponent locations handled in RestoreStorageLocations post-pass
             }
         }
@@ -2540,6 +2549,26 @@ namespace Content.Server.Shuttles.Save
             var protoId = protoObj?.ToString();
             if (!string.IsNullOrEmpty(protoId))
                 _chameleonSystem.SetSelectedPrototype(uid, protoId, forceUpdate: true);
+        }
+
+        private ComponentData? SerializeEngraveableComponent(EngraveableComponent comp)
+        {
+            if (string.IsNullOrEmpty(comp.EngravedMessage))
+                return null;
+            return new ComponentData
+            {
+                Type = "EngraveableComponent",
+                Properties = new Dictionary<string, object> { ["EngravedMessage"] = comp.EngravedMessage }
+            };
+        }
+
+        private void RestoreEngraveableComponent(EntityUid uid, ComponentData componentData)
+        {
+            if (!componentData.Properties.TryGetValue("EngravedMessage", out var rawEngravedMessage))
+                return;
+            var engravedMessage = rawEngravedMessage.ToString();
+            if (!string.IsNullOrEmpty(engravedMessage))
+                _engraveableSystem.SetEngravedMessage(uid, engravedMessage);
         }
 
         private ComponentData? SerializeStorageLocationsComponent(EntityUid entityUid, StorageComponent storage)

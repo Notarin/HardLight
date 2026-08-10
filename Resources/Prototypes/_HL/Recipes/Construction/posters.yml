@@ -4,7 +4,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandFreeTonto
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -17,7 +17,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandAtmosiaDeclarationIndependence
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -30,7 +30,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandFunPolice
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -43,7 +43,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandLustyExomorph
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -56,7 +56,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandSyndicateRecruitment
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -69,7 +69,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandClown
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -82,7 +82,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandSmoke
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -95,7 +95,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandGreyTide
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -108,7 +108,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandMissingGloves
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -121,7 +121,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandHackingGuide
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -134,7 +134,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandRIPBadger
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -147,7 +147,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandAmbrosiaVulgaris
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -160,7 +160,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandDonutCorp
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -173,7 +173,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandEAT
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -186,7 +186,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandTools
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -199,7 +199,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandPower
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -212,7 +212,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandSpaceCube
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -225,7 +225,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandCommunistState
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -238,7 +238,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandLamarr
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -251,7 +251,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandBorgFancy
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -264,7 +264,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandBorgFancyv2
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -277,7 +277,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandKosmicheskayaStantsiya
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -290,7 +290,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandRebelsUnite
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -303,7 +303,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandC20r
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -316,7 +316,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandHaveaPuff
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -329,7 +329,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandRevolver
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -342,7 +342,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandDDayPromo
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -355,7 +355,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandSyndicatePistol
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -368,7 +368,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandEnergySwords
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -381,7 +381,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandRedRum
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -394,7 +394,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandCC64KAd
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -407,7 +407,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandPunchShit
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -420,7 +420,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandTheGriffin
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -433,7 +433,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandFreeDrone
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -446,7 +446,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandBustyBackdoorExoBabes6
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -459,7 +459,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandRobustSoftdrinks
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -472,7 +472,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandShamblersJuice
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -485,7 +485,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandPwrGame
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -498,7 +498,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandSunkist
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -511,7 +511,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandSpaceCola
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -524,7 +524,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandSpaceUp
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -537,7 +537,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandKudzu
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -550,7 +550,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandMaskedMen
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -563,7 +563,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandUnreadableAnnouncement
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -576,7 +576,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandFreeSyndicateEncryptionKey
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -589,7 +589,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandBountyHunters
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -602,7 +602,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandTheBigGasTruth
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -615,7 +615,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandWehWatches
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -628,7 +628,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandVoteWeh
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -641,7 +641,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandBeachStarYamamoto
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -654,7 +654,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandHighEffectEngineering
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -667,7 +667,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandNuclearDeviceInformational
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -680,7 +680,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandRise
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -693,7 +693,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandRevolt
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -706,7 +706,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandMoth
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -719,7 +719,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandCybersun600
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -732,7 +732,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandDonk
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -745,7 +745,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandEnlistGorlex
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -758,7 +758,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandInterdyne
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -771,7 +771,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandWaffleCorp
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -784,7 +784,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterContrabandMissingSpacepen
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -798,7 +798,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitHereForYourSafety
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -811,7 +811,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitNanotrasenLogo
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -824,7 +824,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitCleanliness
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -837,7 +837,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitHelpOthers
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -850,7 +850,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitBuild
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -863,7 +863,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitBlessThisSpess
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -876,7 +876,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitScience
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -889,7 +889,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitIan
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -902,7 +902,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitObey
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -915,7 +915,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitWalk
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -928,7 +928,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitStateLaws
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -941,7 +941,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitLoveIan
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -954,7 +954,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitSpaceCops
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -967,7 +967,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitUeNo
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -980,7 +980,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitGetYourLEGS
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -993,7 +993,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitDoNotQuestion
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1006,7 +1006,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitWorkForAFuture
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1019,7 +1019,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitSoftCapPopArt
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1032,7 +1032,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitSafetyInternals
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1046,7 +1046,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitSafetyEyeProtection
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1060,7 +1060,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitSafetyReport
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1074,7 +1074,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitReportCrimes
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1088,7 +1088,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitIonRifle
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1102,7 +1102,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitFoamForceAd
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1116,7 +1116,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitCohibaRobustoAd
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1130,7 +1130,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegit50thAnniversaryVintageReprint
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1144,7 +1144,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitFruitBowl
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1158,7 +1158,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitPDAAd
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1172,7 +1172,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitEnlist
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1186,7 +1186,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitNanomichiAd
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1200,7 +1200,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegit12_gauge
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1214,7 +1214,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitHighClassMartini
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1228,7 +1228,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitTheOwl
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1242,7 +1242,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitNoERP
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1255,7 +1255,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitYesERP
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1269,7 +1269,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitCarbonDioxide
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1283,7 +1283,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitDickGumshue
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1297,7 +1297,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitThereIsNoGasGiant
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1311,7 +1311,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitJustAWeekAway
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1325,7 +1325,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitSecWatch
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1339,7 +1339,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitAnatomyPoster
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1353,7 +1353,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitMime
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1367,7 +1367,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitCarpMount
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1381,7 +1381,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitSafetyMothDelam
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1395,7 +1395,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitSafetyMothEpi
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1409,7 +1409,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitSafetyMothPiping
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1423,7 +1423,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitSafetyMothMeth
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1437,7 +1437,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitSafetyMothHardhat
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1451,7 +1451,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitVacation
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1465,7 +1465,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitPeriodicTable
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1479,7 +1479,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitRenault
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1493,7 +1493,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitNTTGC
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1507,7 +1507,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitSafetyMothSSD
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1521,7 +1521,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitOppenhopper
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1535,7 +1535,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitTyrone
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1549,7 +1549,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterLegitHelio
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1562,7 +1562,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterDuskEnclave
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1575,7 +1575,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterMapBagel
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1588,7 +1588,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterMapDelta
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1601,7 +1601,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterMapMarathon
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1614,7 +1614,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterMapMoose
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1627,7 +1627,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterMapPacked
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1640,7 +1640,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterMapPillar
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1653,7 +1653,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterMapSaltern
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1666,7 +1666,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterMapSplit
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1679,7 +1679,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterMapLighthouse
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1692,7 +1692,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterMapWaystation
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1705,7 +1705,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterMapOrigin
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1718,7 +1718,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterChudMeansFrend
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1731,7 +1731,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterChudMeansLetsFuck
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1744,7 +1744,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterCatPictures
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1757,7 +1757,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterCleaning
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1770,7 +1770,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterInterdine
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1783,7 +1783,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterMaybeERP
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1796,7 +1796,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterNOnonvandalized
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1809,7 +1809,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterRedSec
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1822,7 +1822,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterSurvival
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -1835,7 +1835,7 @@
   graph: Poster
   startNode: start
   targetNode: PosterUNSA
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true

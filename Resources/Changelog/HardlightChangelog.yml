@@ -5601,3 +5601,11 @@ Entries:
         players.
   id: 626
   time: '2026-08-09T23:11:53-07:00'
+- author: Cheep
+  changes:
+    - type: Tweak
+      message: Made R&D server unwrenchable
+    - type: Tweak
+      message: Made expedition disk printer unwrenchable
+  id: 627
+  time: '2026-08-09T23:16:59-07:00'

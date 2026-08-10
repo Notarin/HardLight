@@ -24,7 +24,7 @@ public sealed class InsuredItemExamineSystem : EntitySystem
             Text = Loc.GetString("insured-item-examine-verb"),
             Message = Loc.GetString("insured-item-examine-text"),
             Category = VerbCategory.Examine,
-            Icon = new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/VerbIcons/information.svg.192dpi.png")),
+            Icon = new SpriteSpecifier.Texture(new ResPath("/Textures/_NF/Interface/VerbIcons/check.png")),
             HoverVerb = true,
             Priority = -1,
         });

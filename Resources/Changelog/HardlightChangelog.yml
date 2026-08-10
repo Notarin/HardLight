@@ -5577,3 +5577,15 @@ Entries:
       message: Expedition events should once again spawn naturally.
   id: 624
   time: '2026-08-09T20:24:21-07:00'
+- author: AlphonsedeV
+  changes:
+    - type: Fix
+      message: Fixed translator drawing a power 'debt' while turned off.
+    - type: Fix
+      message: Fixed translator being able to light up its sprite with no power cell.
+    - type: Tweak
+      message: >-
+        Translators now draw less power, a high cap should last around 25 to 30
+        minutes.
+  id: 625
+  time: '2026-08-09T23:11:27-07:00'

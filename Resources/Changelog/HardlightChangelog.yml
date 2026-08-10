@@ -5688,3 +5688,19 @@ Entries:
       message: Fixed cryochem not metabolizing on Resomi and Cybernetic organs
   id: 634
   time: '2026-08-10T09:55:16-07:00'
+- author: NotLivyathan
+  changes:
+    - type: Add
+      message: Added Blood Deficiency, a new negative trait.
+    - type: Remove
+      message: >-
+        Platelet Factories no longer heals: Airloss, Bloodloss, Poison,
+        Radiation, and Cellular.
+    - type: Remove
+      message: Xenos, dinos, and dreadtalons no longer have Platelet Factories.
+    - type: Tweak
+      message: Natural blood regeneration now uses hunger.
+    - type: Tweak
+      message: Avali can once again select Platelet Factories as a trait.
+  id: 635
+  time: '2026-08-10T10:01:48-07:00'

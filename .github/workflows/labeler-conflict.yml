@@ -13,7 +13,7 @@ on:
 
 jobs:
   Add:
-    if: ( forgejo.event.pull_request.draft == false ) && ( forgejo.actor != 'PJBot' ) && ( forgejo.actor != 'xemeraldwingx-dot' ) # Hardlight
+    if: forgejo.event.pull_request.draft == false && forgejo.actor != 'HardLight-Auto-Changelog'
     runs-on: ubuntu-latest
     steps:
       - name: Fetch Actions

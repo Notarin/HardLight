@@ -9,7 +9,7 @@ on:
 jobs:
   build:
     name: YAML Linter
-    if: forgejo.actor != 'PJBot' && forgejo.event.pull_request.draft == false && forgejo.actor != 'FrontierATC' # Frontier
+    if: forgejo.event.pull_request.draft == false && forgejo.actor != 'HardLight-Auto-Changelog'
     runs-on: ubuntu-latest
     container:
       image: node:20-bookworm

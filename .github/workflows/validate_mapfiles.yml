@@ -9,7 +9,7 @@ on:
 jobs:
   yaml-schema-validation:
     name: YAML map schema validator
-    if: forgejo.event.pull_request.draft == false
+    if: forgejo.event.pull_request.draft == false && forgejo.actor != 'HardLight-Auto-Changelog'
     runs-on: ubuntu-latest
 
     steps:

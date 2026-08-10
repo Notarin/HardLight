@@ -46,7 +46,8 @@
     - type: ShowHealthBars
       damageContainers:
       - Biological
-      - Synth #HL
+      - Synth # HardLight
     - type: ShowHealthIcons
       damageContainers:
       - Biological
+      - Synth # HardLight

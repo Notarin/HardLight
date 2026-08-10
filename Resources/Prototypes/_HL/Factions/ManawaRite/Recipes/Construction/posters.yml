@@ -3,7 +3,7 @@
   graph: ManawaRitePosterGraph
   startNode: start
   targetNode: PosterManawaRite
-  category: construction-category-Poster
+  category: construction-category-poster
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true

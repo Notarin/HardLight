@@ -7,6 +7,9 @@
     tags:
     - SiliconMob
     - SiliconEmotes
+  blacklist: # HardLight
+    tags:
+    - Synth
   chatTriggers:
   - sdeathgasp
 
@@ -19,7 +22,6 @@
     tags:
     - SiliconMob
     - SiliconEmotes
-    - Synth
   chatTriggers:
     - boops
 
@@ -31,6 +33,5 @@
     tags:
     - SiliconMob
     - SiliconEmotes
-    - Synth
   chatTriggers:
     - whirrs

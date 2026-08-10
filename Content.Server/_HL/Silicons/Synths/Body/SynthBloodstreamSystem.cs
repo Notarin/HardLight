@@ -17,24 +17,28 @@ namespace Content.Server._HL.Silicons.Synths.Body;
 
 public sealed partial class SynthBloodstreamSystem : EntitySystem
 {
+    private static readonly TimeSpan UpdateRate = TimeSpan.FromSeconds(1);
+
     [Dependency] private BloodstreamSystem _bloodstream = default!;
     [Dependency] private DamageableSystem _damageable = default!;
     [Dependency] private HungerSystem _hunger = default!;
     [Dependency] private IPrototypeManager _prototype = default!;
     [Dependency] private IGameTiming _timing = default!;
 
+    private TimeSpan _nextUpdate;
+
     public override void Update(float frameTime)
     {
         base.Update(frameTime);
 
+        if (_timing.CurTime < _nextUpdate)
+            return;
+
+        _nextUpdate = _timing.CurTime + UpdateRate;
+
         var query = EntityQueryEnumerator<SynthBloodstreamComponent, HungerComponent, BloodstreamComponent>();
         while (query.MoveNext(out var uid, out var synthBloodstream, out var hunger, out var bloodstream))
         {
-            if (_timing.CurTime < synthBloodstream.NextUpdate)
-                continue;
-
-            synthBloodstream.NextUpdate = _timing.CurTime + synthBloodstream.UpdateRate;
-
             if (!TryComp(uid, out DamageableComponent? damageable) ||
                 !TryComp(uid, out MobStateComponent? mobState) ||
                 mobState.CurrentState == MobState.Dead)

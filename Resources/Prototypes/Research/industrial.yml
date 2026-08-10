@@ -233,6 +233,7 @@
     - NFBlueprintWelderExperimental # Frontier
     - OmniHandLeft # HardLight
     - OmniHandRight # HardLight
+    - WeaponPlasmaCutter #HL
 
 - type: technology
   id: MassExcavation

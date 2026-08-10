@@ -54,6 +54,7 @@
     - HolofanProjector
     - FireExtinguisher
     - GasDepositLocator
+    - WeaponPlasmaCutter #HL
   ## Parts
     - MicroManipulatorStockPart
     - MatterBinStockPart
@@ -95,6 +96,7 @@
   ## EVA
     - ClothingOuterEVASuitEngineer
     - ClothingOuterEVASuitAtmosTech
+    - ClothingOuterHardsuitTerrestrialEngineering #HL
   ## Materials
     - Durathread
     - NFSheetRGlassProcessed

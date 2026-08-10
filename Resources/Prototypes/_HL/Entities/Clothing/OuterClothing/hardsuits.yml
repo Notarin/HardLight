@@ -590,4 +590,151 @@
         Blunt: 0.85
         Slash: 0.85
         Piercing: 0.85
+
+#Terrestrial Engineering Hardsuit
+- type: entity
+  parent: ClothingOuterHardsuitBase # Removed BaseEngineeringContraband
+  id: ClothingOuterHardsuitTerrestrialEngineering
+  name: terrestrial engineering hardsuit
+  description: A variant of the beloved engineering hardsuit used in the Sol system for all terrestrial engineering operations! Why are you wearing it in space? Lightweight and compact, but its internals only accept low-capacity air tanks.
+  components:
+  - type: Sprite
+    sprite: _HL/Clothing/OuterClothing/Hardsuits/engineering-terrestrial.rsi
+  - type: Clothing
+    sprite: _HL/Clothing/OuterClothing/Hardsuits/engineering-terrestrial.rsi
+  - type: PressureProtection
+    highPressureMultiplier: 0.01
+    lowPressureMultiplier: 10
+  - type: ExplosionResistance
+    damageCoefficient: 0.6
+  - type: FireProtection
+    reduction: 0.9
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.9
+        Slash: 0.9
+        Piercing: 0.9
+        Shock: 0.9
+        Caustic: 0.8
+        Radiation: 0.3
+  - type: AllowSuitStorage
+    whitelist:
+      tags:
+      - TinyGasTank
+  - type: Item
+    size: Large
+  - type: ClothingSpeedModifier
+    walkModifier: 0.92
+    sprintModifier: 0.92
+  - type: HeldSpeedModifier
+  - type: ToggleableClothing
+    clothingPrototype: ClothingHeadHelmetHardsuitTerrestrial
+
+#Terrestrial Engineering Hardsuit Helmet
+- type: entity
+  parent: [ ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase ]
+  id: ClothingHeadHelmetHardsuitTerrestrial
+  name: terrestrial engineering hardsuit helmet
+  description: An engineering hardsuit helmet not rated for vacuous environments.
+  components:
+  - type: Sprite
+    sprite: _HL/Clothing/OuterClothing/Hardsuits/engineering-terrestrial-helmet.rsi
+    layers:
+    - state: icon
+    - state: icon-unshaded
+      shader: unshaded
+    - state: light-overlay
+      visible: false
+      shader: unshaded
+      map: [ "light" ]
+  - type: HandheldLight
+    addPrefix: false
+  - type: ToggleableLightVisuals
+    spriteLayer: light
+    clothingVisuals:
+      head:
+      - state: equipped-head-light
+        shader: unshaded
+      head-resomi:
+      - state: equipped-head-light
+        shader: unshaded
+      head-thaven:
+      - state: equipped-head-light
+        shader: unshaded
+      head-vox:
+      - state: equipped-head-light-vox
+        shader: unshaded
+      head-reptilian:
+      - state: equipped-head-light-reptilian
+        shader: unshaded
+      head-vulpkanin:
+      - state: equipped-head-light-vulpkanin
+        shader: unshaded
+      head-feroxi:
+      - state: equipped-head-light-feroxi
+        shader: unshaded
+      head-felionoid:
+      - state: equipped-head-light-feroxi
+        shader: unshaded
+      head-synth:
+      - state: equipped-head-light-synth
+        shader: unshaded
+      head-avali:
+      - state: equipped-head-light-avali
+        shader: unshaded
+  - type: Clothing
+    clothingVisuals:
+      head:
+      - state: equipped-head
+      - state: equipped-head-unshaded
+        shader: unshaded
+      head-thaven:
+      - state: equipped-head
+      - state: equipped-head-unshaded
+        shader: unshaded
+      head-resomi:
+      - state: equipped-head
+      - state: equipped-head-unshaded
+        shader: unshaded
+      head-vox:
+      - state: equipped-head-vox
+      - state: equipped-head-unshaded-vox
+        shader: unshaded
+      head-reptilian:
+      - state: equipped-head-reptilian
+      - state: equipped-head-unshaded-reptilian
+        shader: unshaded
+      head-vulpkanin:
+      - state: equipped-head-vulpkanin
+      - state: equipped-head-unshaded-vulpkanin
+        shader: unshaded
+      head-feroxi:
+      - state: equipped-head-feroxi
+      - state: equipped-head-unshaded-feroxi
+        shader: unshaded
+      head-felionoid:
+      - state: equipped-head-feroxi
+      - state: equipped-head-unshaded-feroxi
+        shader: unshaded
+      head-synth:
+      - state: equipped-head-synth
+      - state: equipped-head-unshaded-synth
+        shader: unshaded
+      head-avali:
+      - state: equipped-head-avali
+      - state: equipped-head-unshaded-avali
+        shader: unshaded
+  - type: HideLayerClothing
+    slots:
+    - Hair
+    - Snout
+    - HeadTop
+    - HeadSide
+  - type: PointLight
+    color: "#ffdbad"
+  - type: PressureProtection
+    highPressureMultiplier: 0.01
+    lowPressureMultiplier: 10
+
         

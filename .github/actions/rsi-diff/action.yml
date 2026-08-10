@@ -20,6 +20,9 @@ outputs:
   summary-details:
     description: 'A detailed summary of all the states that changed in Markdown.'
     value: ${{ steps.diff.outputs.summary-details }}
+  hasDiffs:
+    description: '`true` or `false` depending on if there are any RSI changes'
+    value: ${{ steps.diff.outputs.hasDiffs }}
 
 runs:
   using: "composite"

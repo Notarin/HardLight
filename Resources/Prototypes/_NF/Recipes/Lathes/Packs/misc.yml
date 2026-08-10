@@ -23,6 +23,7 @@
   - ClothingOuterHardsuitScaf
   - ClothingOuterHardsuitPilot
   - ClothingOuterHardsuitMaximPrototype
+  - ClothingOuterHardsuitTerrestrialEngineering #HL
 
 - type: latheRecipePack
   id: NFPouches

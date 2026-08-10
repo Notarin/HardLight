@@ -55,3 +55,23 @@
       Silver: 10
       Diamond: 5
       Bluespace: 5
+
+- type: entity
+  id: ParadoxGeneratorMachineCircuitboard
+  parent: BaseMachineCircuitboard
+  name: paradox generator machine board
+  description: A machine printed circuit board for a paradox generator.
+  components:
+  - type: Sprite
+    state: science
+  - type: MachineBoard
+    prototype: MachineParadoxGenerator
+    requirements:
+      Manipulator: 3
+      Capacitor: 2
+    stackRequirements:
+      Steel: 5
+      PlasmaGlass: 2
+      Gold: 5
+      Diamond: 3
+      Bluespace: 5

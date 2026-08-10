@@ -2537,7 +2537,7 @@ namespace Content.Server.Shuttles.Save
         {
             if (!componentData.Properties.TryGetValue("Default", out var protoObj))
                 return;
-            var protoId = protoObj?.ToString();
+            var protoId = ((Dictionary<object, object>?)protoObj)?["id"].ToString();
             if (!string.IsNullOrEmpty(protoId))
                 _chameleonSystem.SetSelectedPrototype(uid, protoId, forceUpdate: true);
         }

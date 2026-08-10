@@ -106,9 +106,9 @@
   suffix: Short
   components:
   - type: HLDocumentCase #HardLight
-  - type: ExplosionResistance
   - type: Lock #HardLight
   - type: AccessReader #HardLight
+  - type: ExplosionResistance
     damageCoefficient: 0
   - type: Sprite
     sprite: _NF/Objects/Storage/Cases/documentcaseshort.rsi

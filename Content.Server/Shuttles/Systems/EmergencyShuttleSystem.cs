@@ -18,6 +18,7 @@ using Content.Server.Shuttles.Events;
 using Content.Server.Station.Components;
 using Content.Server.Station.Events;
 using Content.Server.Station.Systems;
+using Content.Shared._Starlight.CustomObjectiveSummary; // Starlight
 using Content.Shared.Access.Systems;
 using Content.Shared.CCVar;
 using Content.Shared.Database;
@@ -124,10 +125,10 @@ public sealed partial class EmergencyShuttleSystem : EntitySystem
 
     private void ClearColcomm(StationColcommComponent component)
     {
-    // QueueDel(component.Entity);      // REMOVE THIS LINE
-    // QueueDel(component.MapEntity);   // REMOVE THIS LINE
-    // component.Entity = null;         // REMOVE THIS LINE
-    // component.MapEntity = null;      // REMOVE THIS LINE
+        // QueueDel(component.Entity);      // REMOVE THIS LINE
+        // QueueDel(component.MapEntity);   // REMOVE THIS LINE
+        // component.Entity = null;         // REMOVE THIS LINE
+        // component.MapEntity = null;      // REMOVE THIS LINE
     }
 
     /// <summary>
@@ -296,6 +297,7 @@ public sealed partial class EmergencyShuttleSystem : EntitySystem
             };
             _deviceNetworkSystem.QueuePacket(uid, null, payload, netComp.TransmitFrequency);
         }
+        RaiseLocalEvent(new EvacShuttleLeftEvent()); // Starlight
     }
 
     /// <summary>

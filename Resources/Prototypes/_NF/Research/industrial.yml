@@ -43,6 +43,7 @@
   recipeUnlocks:
   - ClothingOuterHardsuitAtmos
   - ClothingOuterHardsuitEngineering
+  - ClothingOuterHardsuitTerrestrialEngineering #HL
   - ClothingOuterHardsuitSpatio
   - ClothingOuterHardsuitSalvage
   - ClothingOuterHardsuitClown

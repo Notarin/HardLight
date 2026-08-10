@@ -114,6 +114,9 @@
   - type: PhysicalComposition
     materialComposition:
       Steel: 100
+  - type: Tag
+    tags:
+    - TinyGasTank
 
 - type: entity
   parent: EmergencyOxygenTank
@@ -127,6 +130,9 @@
     sprite: Objects/Tanks/emergency_red.rsi
   - type: Clothing
     sprite: Objects/Tanks/emergency_red.rsi
+  - type: Tag
+    tags:
+    - TinyGasTank
 
 - type: entity
   parent: EmergencyOxygenTank
@@ -144,6 +150,9 @@
       temperature: 293.15
   - type: Clothing
     sprite: Objects/Tanks/emergency_extended.rsi
+  - type: Tag
+    tags:
+    - TinyGasTank
 
 - type: entity
   parent: ExtendedEmergencyOxygenTank
@@ -157,6 +166,9 @@
     sprite: Objects/Tanks/emergency_extended_red.rsi
   - type: Clothing
     sprite: Objects/Tanks/emergency_extended_red.rsi
+  - type: Tag
+    tags:
+    - TinyGasTank
 
 - type: entity
   parent: ExtendedEmergencyOxygenTank
@@ -179,6 +191,9 @@
     damage:
       types:
         Blunt: 7.5
+  - type: Tag
+    tags:
+    - TinyGasTank
 
 - type: entity
   parent: DoubleEmergencyOxygenTank
@@ -192,6 +207,9 @@
     sprite: Objects/Tanks/emergency_double_red.rsi
   - type: Clothing
     sprite: Objects/Tanks/emergency_double_red.rsi
+  - type: Tag
+    tags:
+    - TinyGasTank
 
 - type: entity
   parent: EmergencyOxygenTank
@@ -205,6 +223,9 @@
     sprite: Objects/Tanks/emergency_clown.rsi
   - type: Clothing
     sprite: Objects/Tanks/emergency_clown.rsi
+  - type: Tag
+    tags:
+    - TinyGasTank
 
 - type: entity
   parent: GasTankRoundBase

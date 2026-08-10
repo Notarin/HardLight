@@ -324,6 +324,7 @@
   - type: EmagLatheRecipes
     emagStaticPacks:
     - CivilianAmmoRecipePack
+    - WeaponLineGun #HL
   #  - MonoRestraintsStatic # Mono
   - type: BlueprintReceiver
     whitelist:
@@ -437,6 +438,7 @@
     - HLIndustrialImplants # HL
     emagStaticPacks:
     - CivilianAmmoRecipePack
+    - WeaponLineGun #HL
   - type: DeviceLinkSink
     ports:
       - FillbotAnyItem

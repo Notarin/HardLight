@@ -1426,6 +1426,9 @@
   id: Taser
 
 - type: Tag
+  id: TinyGasTank
+
+- type: Tag
   id: TimerBrigElectronics
 
 - type: Tag

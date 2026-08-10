@@ -291,7 +291,7 @@ public sealed class ParadoxGeneratorWindow : FancyWindow
     private static string GetCannotInsureReason(string? reason)
     {
         return string.IsNullOrEmpty(reason)
-            ? Loc.GetString("paradox-generator-insure-tooltip-invalid-item")
+            ? Loc.GetString("paradox-generator-popup-not-insurable")
             : Loc.GetString(reason);
     }
 }

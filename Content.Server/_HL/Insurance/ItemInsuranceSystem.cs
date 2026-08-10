@@ -5,14 +5,17 @@ using System.Text.Json;
 using Content.Server._HL.RoundPersistence.SaveBans;
 using Content.Server._NF.Bank;
 using Content.Server.Cargo.Systems;
+using Content.Server.Nutrition.Components;
 using Content.Server.Popups;
 using Content.Server.Power.EntitySystems;
 using Content.Shared._HL.Insurance;
 using Content.Shared._HL.Insurance.Components;
 using Content.Shared._NF.Bank.Components;
+using Content.Shared.Chemistry.Components;
 using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Mind;
 using Content.Shared.Mind.Components;
+using Content.Shared.Nutrition.Components;
 using Content.Shared.Storage;
 using Robust.Server.GameObjects;
 using Robust.Server.Player;
@@ -20,7 +23,6 @@ using Robust.Shared.Containers;
 using Robust.Shared.ContentPack;
 using Robust.Shared.EntitySerialization;
 using Robust.Shared.EntitySerialization.Systems;
-using Robust.Shared.Map.Components;
 using Robust.Shared.Network;
 using Robust.Shared.Player;
 using Robust.Shared.Serialization;
@@ -122,19 +124,19 @@ public sealed class ItemInsuranceSystem : EntitySystem
 
         if (!TryGetSession(actor, out var session))
         {
-            Popup(actor, "paradox-generator-popup-no-account");
+            Popup(actor, "paradox-generator-popup-unavailable");
             return;
         }
 
         if (!TryGetCharacterKey(actor, session, out var characterKey))
         {
-            Popup(actor, "paradox-generator-popup-no-character");
+            Popup(actor, "paradox-generator-popup-unavailable");
             return;
         }
 
         if (ent.Comp.ItemSlot.ContainerSlot?.ContainedEntity is not { } item)
         {
-            Popup(actor, "paradox-generator-popup-insert-item");
+            Popup(actor, "paradox-generator-insure-tooltip-no-item");
             SendUiState(ent.Owner, ent.Comp, actor);
             return;
         }
@@ -148,7 +150,7 @@ public sealed class ItemInsuranceSystem : EntitySystem
 
         if (!_bank.TryGetBalance(actor, out var balance))
         {
-            Popup(actor, "paradox-generator-popup-no-balance");
+            Popup(actor, "paradox-generator-popup-unavailable");
             SendUiState(ent.Owner, ent.Comp, actor);
             return;
         }
@@ -236,13 +238,13 @@ public sealed class ItemInsuranceSystem : EntitySystem
 
         if (!TryGetSession(actor, out var session))
         {
-            Popup(actor, "paradox-generator-popup-no-account");
+            Popup(actor, "paradox-generator-popup-unavailable");
             return;
         }
 
         if (!TryGetCharacterKey(actor, session, out var characterKey))
         {
-            Popup(actor, "paradox-generator-popup-no-character");
+            Popup(actor, "paradox-generator-popup-unavailable");
             return;
         }
 
@@ -271,7 +273,7 @@ public sealed class ItemInsuranceSystem : EntitySystem
 
         if (!_bank.TryGetBalance(actor, out var balance))
         {
-            Popup(actor, "paradox-generator-popup-no-balance");
+            Popup(actor, "paradox-generator-popup-unavailable");
             SendUiState(ent.Owner, ent.Comp, actor);
             return;
         }
@@ -327,13 +329,13 @@ public sealed class ItemInsuranceSystem : EntitySystem
 
         if (!TryGetSession(actor, out var session))
         {
-            Popup(actor, "paradox-generator-popup-no-account");
+            Popup(actor, "paradox-generator-popup-unavailable");
             return;
         }
 
         if (!TryGetCharacterKey(actor, session, out var characterKey))
         {
-            Popup(actor, "paradox-generator-popup-no-character");
+            Popup(actor, "paradox-generator-popup-unavailable");
             return;
         }
 
@@ -444,14 +446,15 @@ public sealed class ItemInsuranceSystem : EntitySystem
             reason = "paradox-generator-popup-not-insurable";
         else if (HasTotalSaveBan(item))
             reason = "paradox-generator-popup-not-insurable";
-        else if (HasComp<ParadoxGeneratorComponent>(item))
-            reason = "paradox-generator-popup-self-insure";
         else if (HasComp<InsuredItemComponent>(item))
             reason = "paradox-generator-popup-already-insured";
-        else if (HasComp<MapGridComponent>(item) || HasComp<MapComponent>(item))
-            reason = "paradox-generator-popup-only-items";
+        else if (HasComp<FoodComponent>(item) ||
+                 HasComp<DrinkComponent>(item) ||
+                 HasComp<PillComponent>(item) ||
+                 HasComp<SmokableComponent>(item))
+            reason = "paradox-generator-popup-not-insurable";
         else if (HasComp<ActorComponent>(item) || HasComp<MindContainerComponent>(item))
-            reason = "paradox-generator-popup-living-being";
+            reason = "paradox-generator-popup-not-insurable";
 
         return reason == null;
     }

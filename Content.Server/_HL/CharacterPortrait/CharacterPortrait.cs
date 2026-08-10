@@ -14,6 +14,7 @@ public sealed class CharacterPortrait
     {
         "image/png",
         "image/jpeg",
+        "image/webp",
     };
 
     public static async Task<ImageFetchResult> GetImageDataFromUrl(string url, IHttpClientHolder _http)
@@ -41,7 +42,7 @@ public sealed class CharacterPortrait
                     ImageFetchStatus.NotImage,
                     [],
                     url,
-                    $"Not a png and jpg image (Unexpected content-type: {contentType ?? "none"})");
+                    $"Not a png, jpg or webp image (Unexpected content-type: {contentType ?? "none"})");
             }
 
             // Max byte size

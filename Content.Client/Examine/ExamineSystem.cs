@@ -375,25 +375,16 @@ namespace Content.Client.Examine
                     Logger.Warning($"Failed to load portrait image for {target}: {ex.Message}");
                 }
 
-                vBox.VerticalExpand = true;
-                vBox.HorizontalExpand = true;
-                vBox.VerticalAlignment = Control.VAlignment.Top;
-                vBox.HorizontalAlignment = Control.HAlignment.Left;
-                vBox.MaxWidth = 470;
-                vBox.MaxHeight = 480;
-                vBox.SetSize = new Vector2(470, 480);
-
                 var textureRect = new TextureRect();
+                textureRect.Texture = image;
+
                 textureRect.Margin = new Thickness(5, 5);
                 textureRect.MaxWidth = 450;
                 textureRect.MaxHeight = 450;
                 textureRect.Stretch = TextureRect.StretchMode.KeepAspect;
-                textureRect.VerticalExpand = true;
-                textureRect.HorizontalExpand = true;
+                textureRect.HorizontalAlignment = Control.HAlignment.Left;
 
                 textureRect.SetSize = new Vector2(450, 450);
-
-                textureRect.Texture = image;
                 vBox.AddChild(textureRect);
             }
             else

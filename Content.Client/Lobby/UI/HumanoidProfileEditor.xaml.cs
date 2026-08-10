@@ -624,11 +624,27 @@ namespace Content.Client.Lobby.UI
                 // </BoxContainer>
 
                 var innerBox = new BoxContainer() { Orientation = LayoutOrientation.Vertical, HorizontalExpand = true};
-                innerBox.AddChild(new Label(){ Text = "Character portrait url: "});
+                //     <TextureButton Name="SpeciesInfoButton" Scale="0.3 0.3"
+                // VerticalAlignment="Center"
+                // ToolTip="{Loc 'humanoid-profile-editor-guidebook-button-tooltip'}"/>
+
+                var textBox = new BoxContainer() { Orientation = LayoutOrientation.Horizontal, VerticalExpand = true};
+                textBox.AddChild(new Label(){ Text = "Character portrait url: ", Margin = new Thickness(10, 0)});
+                textBox.AddChild(new TextureButton()
+                {
+                    Name="CharacterPortraitInfoButton",
+                    VerticalAlignment=VAlignment.Center,
+                    HorizontalAlignment = HAlignment.Center,
+                    ToolTip="Url must be of a png, jpg or webp. Image must be smaller than 2 MB.",
+                    Scale= new Vector2(0.3f, 0.3f),
+                    TexturePath = "/Textures/Interface/VerbIcons/information.svg.192dpi.png"
+                });
+
+                innerBox.AddChild(textBox);
                 innerBox.AddChild(_characterPortraitTextEdit);
 
                 var flavorBox = new BoxContainer() { Orientation = LayoutOrientation.Vertical, VerticalExpand = true, HorizontalExpand = true};
-                flavorBox.AddChild(new Label(){ Text = "Character description: "});
+                flavorBox.AddChild(new Label(){ Text = "Character description: ", Margin = new Thickness(10, 0)});
                 flavorBox.AddChild(_flavorText);
 
                 var box = new BoxContainer();

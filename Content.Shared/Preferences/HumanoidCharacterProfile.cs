@@ -643,7 +643,16 @@ namespace Content.Shared.Preferences
                 flavortext = FormattedMessage.RemoveMarkupOrThrow(FlavorText);
             }
 
-            // TODO: HL character portrait, ensure its a url
+            Regex absoluteUrlRegex = new(@"^https?:\/\/[^\s\/$.?#].[^\s]*$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            string characterPortraitUrl;
+            if (absoluteUrlRegex.IsMatch(CharacterPortraitUrl))
+            {
+                characterPortraitUrl = CharacterPortraitUrl;
+            }
+            else
+            {
+                characterPortraitUrl = "";
+            }
 
             // Frontier
             //make sure theres no funny bank stuff going on
@@ -702,6 +711,7 @@ namespace Content.Shared.Preferences
 
             Name = name;
             FlavorText = flavortext;
+            CharacterPortraitUrl = characterPortraitUrl;
             Age = age;
             Sex = sex;
             Gender = gender;

@@ -560,7 +560,7 @@ namespace Content.Client.Lobby.UI
 
             #endregion Markings
 
-            RefreshFlavorText();
+            RefreshDescriptionTab();
 
             #region Dummy
 
@@ -594,7 +594,7 @@ namespace Content.Client.Lobby.UI
         /// <summary>
         /// Refreshes the flavor text editor status.
         /// </summary>
-        public void RefreshFlavorText()
+        public void RefreshDescriptionTab()
         {
             if (_cfgManager.GetCVar(CCVars.FlavorText))
             {
@@ -619,23 +619,16 @@ namespace Content.Client.Lobby.UI
                     SetDirty();
                 };
 
-                // <BoxContainer Orientation="Vertical" HorizontalExpand="True">
-                //     <TextEdit Name="CFlavorTextInput" Access="Public" MinSize="220 100" Margin="10" HorizontalExpand="True" VerticalExpand="True" />
-                // </BoxContainer>
-
                 var innerBox = new BoxContainer() { Orientation = LayoutOrientation.Vertical, HorizontalExpand = true};
-                //     <TextureButton Name="SpeciesInfoButton" Scale="0.3 0.3"
-                // VerticalAlignment="Center"
-                // ToolTip="{Loc 'humanoid-profile-editor-guidebook-button-tooltip'}"/>
 
                 var textBox = new BoxContainer() { Orientation = LayoutOrientation.Horizontal, VerticalExpand = true};
-                textBox.AddChild(new Label(){ Text = "Character portrait url: ", Margin = new Thickness(10, 0)});
+                textBox.AddChild(new Label(){ Text = Loc.GetString("humanoid-profile-editor-character-portrait-label"), Margin = new Thickness(10, 0)});
                 textBox.AddChild(new TextureButton()
                 {
                     Name="CharacterPortraitInfoButton",
                     VerticalAlignment=VAlignment.Center,
                     HorizontalAlignment = HAlignment.Center,
-                    ToolTip="Url must be of a png, jpg or webp. Image must be smaller than 2 MB.",
+                    ToolTip= Loc.GetString("humanoid-profile-editor-character-portrait-detail"),
                     Scale= new Vector2(0.3f, 0.3f),
                     TexturePath = "/Textures/Interface/VerbIcons/information.svg.192dpi.png"
                 });
@@ -644,7 +637,7 @@ namespace Content.Client.Lobby.UI
                 innerBox.AddChild(_characterPortraitTextEdit);
 
                 var flavorBox = new BoxContainer() { Orientation = LayoutOrientation.Vertical, VerticalExpand = true, HorizontalExpand = true};
-                flavorBox.AddChild(new Label(){ Text = "Character description: ", Margin = new Thickness(10, 0)});
+                flavorBox.AddChild(new Label(){ Text = Loc.GetString("humanoid-profile-editor-flavor-text-label"), Margin = new Thickness(10, 0)});
                 flavorBox.AddChild(_flavorText);
 
                 var box = new BoxContainer();
@@ -668,6 +661,7 @@ namespace Content.Client.Lobby.UI
                 _flavorText = null;
 
                 // HL
+                _characterPortraitTextEdit?.Dispose();
                 _characterPortraitTextEdit = null;
             }
         }
@@ -1193,7 +1187,7 @@ namespace Content.Client.Lobby.UI
 
                     profile = profile.WithoutTraitPreference(traitId, _prototypeManager);
                     anyRemoved = true;
-                    break; // restart — TraitPreferences snapshot is stale
+                    break; // restart - TraitPreferences snapshot is stale
                 }
             } while (anyRemoved);
 
@@ -1433,6 +1427,7 @@ namespace Content.Client.Lobby.UI
             UpdateSpeciesLoadout(); // Far Horizons
             UpdateCustomSpeciesEdit();
             UpdateFlavorTextEdit();
+            UpdateCharacterPortraitTextEdit();
             UpdateSexControls();
             UpdateGenderControls();
             UpdateSkinColor();
@@ -1453,7 +1448,7 @@ namespace Content.Client.Lobby.UI
             RefreshLoadouts();
             RefreshSpecies();
             RefreshTraits();
-            RefreshFlavorText();
+            RefreshDescriptionTab();
             ReloadPreview();
 
             if (Profile != null)
@@ -2058,7 +2053,10 @@ namespace Content.Client.Lobby.UI
             {
                 _flavorTextEdit.TextRope = new Rope.Leaf(Profile?.FlavorText ?? "");
             }
+        }
 
+        private void UpdateCharacterPortraitTextEdit()
+        {
             if (_characterPortraitTextEdit != null)
             {
                 _characterPortraitTextEdit.Text = Profile?.CharacterPortraitUrl ?? "";

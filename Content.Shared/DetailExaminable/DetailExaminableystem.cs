@@ -43,20 +43,20 @@ public sealed class DetailExaminableSystem : EntitySystem
         args.Verbs.Add(verb);
 
 
-        var verb1 = new ExamineVerb
+        var portraitVerb = new ExamineVerb
         {
             Act = () =>
             {
                 var imageFetchResult = new ImageFetchResult(ImageFetchStatus.Loading, [], ent.Comp.CharacterPortraitUrl);
                 _examine.SendImageTooltip(user, ent, imageFetchResult, false, false);
             },
-            Text = "Image",
+            Text = Loc.GetString("image-examinable-verb-text"),
             Category = VerbCategory.Examine,
             Disabled = !detailsRange,
             Message = detailsRange ? null : Loc.GetString("detail-examinable-verb-disabled"),
             Icon = new SpriteSpecifier.Texture(new ("/Textures/Interface/VerbIcons/vv.svg.192dpi.png"))
         };
 
-        args.Verbs.Add(verb1);
+        args.Verbs.Add(portraitVerb);
     }
 }

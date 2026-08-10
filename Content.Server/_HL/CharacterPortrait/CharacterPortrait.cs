@@ -8,8 +8,9 @@ namespace Content.Server._HL.CharacterPortrait;
 
 public sealed class CharacterPortrait
 {
-    private const long MaxImageSizeBytes = 2 * 1024 * 1024; // 5 MB cap
+    private const long MaxImageSizeBytes = 2 * 1024 * 1024; // 2 MB cap
 
+    // Allowed content types
     private static readonly HashSet<string> AllowedContentTypes = new(StringComparer.OrdinalIgnoreCase)
     {
         "image/png",
@@ -17,14 +18,16 @@ public sealed class CharacterPortrait
         "image/webp",
     };
 
-    public static async Task<ImageFetchResult> GetImageDataFromUrl(string url, IHttpClientHolder _http)
+    public static async Task<ImageFetchResult> GetImageDataFromUrl(string url, IHttpClientHolder http)
     {
+        // Check if valid url
         if (!Uri.TryCreate(url, UriKind.Absolute, out var uri))
             return new ImageFetchResult(ImageFetchStatus.InvalidUrl, [], url, "Not a valid url");
 
         try
         {
-            var response = await _http.Client.GetAsync(uri);
+            var response = await http.Client.GetAsync(uri);
+            // Checks network code
             if (!response.IsSuccessStatusCode)
             {
                 return new ImageFetchResult(
@@ -34,7 +37,7 @@ public sealed class CharacterPortrait
                     $"Network problem (HTTP {(int)response.StatusCode} {response.ReasonPhrase})");
             }
 
-            // Must be png or jpg
+            // Must be png, jpg or webp
             var contentType = response.Content.Headers.ContentType?.MediaType;
             if (contentType is null || contentType is [] || !AllowedContentTypes.Contains(contentType))
             {
@@ -45,7 +48,7 @@ public sealed class CharacterPortrait
                     $"Not a png, jpg or webp image (Unexpected content-type: {contentType ?? "none"})");
             }
 
-            // Max byte size
+            // Max byte size check, 2 MB
             if (response.Content.Headers.ContentLength is { } declaredLength &&
                 declaredLength > MaxImageSizeBytes)
             {
@@ -56,6 +59,7 @@ public sealed class CharacterPortrait
                     $"Image size exceeded limit {MaxImageSizeBytes / 1024 / 1024} MB");
             }
 
+            // Check real file size
             await using var responseStream = await response.Content.ReadAsStreamAsync();
             var buffer = new MemoryStream();
             var chunk = new byte[8192]; // 8 KB read buffer
@@ -64,10 +68,12 @@ public sealed class CharacterPortrait
             int bytesRead;
             while ((bytesRead = await responseStream.ReadAsync(chunk)) > 0)
             {
+                // Count total size
                 totalRead += bytesRead;
+
+                // If over the limit stop the check
                 if (totalRead > MaxImageSizeBytes)
                 {
-                    // Bail out immediately — don't keep draining an oversized/malicious response
                     return new ImageFetchResult(
                         ImageFetchStatus.TooLarge,
                         [],
@@ -75,6 +81,7 @@ public sealed class CharacterPortrait
                         $"Image size exceeded limit {MaxImageSizeBytes / 1024 / 1024} MB");
                 }
 
+                // Write it back to the stream
                 await buffer.WriteAsync(chunk.AsMemory(0, bytesRead));
             }
 
@@ -83,11 +90,11 @@ public sealed class CharacterPortrait
             return new ImageFetchResult(ImageFetchStatus.Success, buffer.ToArray(), url);
 
         }
-        catch (TaskCanceledException)
+        catch (TaskCanceledException) // Communication errors
         {
             return new ImageFetchResult(ImageFetchStatus.Canceled, [], url, "Request timed out or was canceled");
         }
-        catch (HttpRequestException ex)
+        catch (HttpRequestException ex) // Network errors
         {
             return new ImageFetchResult(ImageFetchStatus.NetworkError, [], url, ex.Message);
         }

@@ -360,6 +360,7 @@ namespace Content.Client.Examine
                 return;
             }
 
+            // Image was successfully loaded and data is in bytes
             if (imageFetchResult.Status == ImageFetchStatus.Success)
             {
                 Texture? image = null;
@@ -371,7 +372,6 @@ namespace Content.Client.Examine
                 }
                 catch (Exception ex)
                 {
-                    // Malformed/non-PNG data — log and fall back to no image rather than crashing
                     Logger.Warning($"Failed to load portrait image for {target}: {ex.Message}");
                 }
 
@@ -387,7 +387,7 @@ namespace Content.Client.Examine
                 textureRect.SetSize = new Vector2(450, 450);
                 vBox.AddChild(textureRect);
             }
-            else
+            else // Error showing
             {
                 var richLabel = new RichTextLabel() { Margin = new Thickness(4, 4, 0, 4)};
 

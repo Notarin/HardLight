@@ -287,7 +287,7 @@ public sealed class RoomGridSpawnerSystem : EntitySystem
 
         var excluded = new HashSet<EntityUid> { session.ConsoleUid, session.MarkerUid };
         StampSprayPaintedInBounds(session.GridUid, session.Bounds);
-        ExcludeSaveBannedItems(session.GridUid, excluded);
+        DeleteSaveBannedItems(session.GridUid, session.Bounds);
         var shipData = _shipSerialization.SerializeShipArea(session.GridUid, userId, $"Room_{session.CharacterKey}", session.Bounds, excluded, includeVendors: true);
         NormalizeRoomDataToAnchor(shipData, session.AnchorTile, session.AnchorPosition, session.AnchorRotation);
         var yaml = _shipSerialization.SerializeShipGridDataToYaml(shipData);
@@ -301,9 +301,9 @@ public sealed class RoomGridSpawnerSystem : EntitySystem
     }
 
     /// <summary>
-    /// Adds save banned items to the list to be excluded from saving.
+    /// Deletes save banned items from the grid within the specified bounds.
     /// </summary>
-    private void ExcludeSaveBannedItems(EntityUid gridUid, HashSet<EntityUid> excluded)
+    private void DeleteSaveBannedItems(EntityUid gridUid, Box2 bounds)
     {
         var excludeFromCheckingBans = new HashSet<EntityUid>();
 
@@ -323,18 +323,19 @@ public sealed class RoomGridSpawnerSystem : EntitySystem
             }
         }
 
-        // Add everything save banned to the list to exclude from saving
-        childEnumerator = Transform(gridUid).ChildEnumerator;
-        while (childEnumerator.MoveNext(out var child))
+        // Delete everything save banned within bounds
+        var entities = new HashSet<EntityUid>();
+        _lookup.GetLocalEntitiesIntersecting(gridUid, bounds, entities, LookupFlags.All);
+        foreach (var entity in from entity in entities
+                               where !excludeFromCheckingBans.Contains(entity)
+                               let isBanned = _saveBanApi.CheckForRestrictions(entity) is SaveBanApi.SaveBanResult.IsSaveRestricted
+                               {
+                                   Ban.Strictness: SaveBanStore.SaveRestrictionStrictness.TotalBan,
+                               }
+                               where isBanned
+                               select entity)
         {
-            if (excludeFromCheckingBans.Contains(child))
-                continue;
-            var isBanned = _saveBanApi.CheckForRestrictions(child) is SaveBanApi.SaveBanResult.IsSaveRestricted
-            {
-                Ban.Strictness: SaveBanStore.SaveRestrictionStrictness.TotalBan,
-            };
-            if (isBanned)
-                excluded.Add(child);
+            Del(entity);
         }
     }
 
@@ -550,7 +551,7 @@ public sealed class RoomGridSpawnerSystem : EntitySystem
         if (data.Grids.Count == 0)
             return;
 
-        var anchorTheta = (float) anchorRotation.Theta;
+        var anchorTheta = (float)anchorRotation.Theta;
         var inverseRotation = Matrix3x2.CreateRotation(-anchorTheta);
         var grid = data.Grids[0];
 
@@ -558,8 +559,8 @@ public sealed class RoomGridSpawnerSystem : EntitySystem
         {
             var rel = new Vector2(tile.X - anchorTile.X, tile.Y - anchorTile.Y);
             var rotated = Vector2.Transform(rel, inverseRotation);
-            tile.X = (int) MathF.Round(rotated.X);
-            tile.Y = (int) MathF.Round(rotated.Y);
+            tile.X = (int)MathF.Round(rotated.X);
+            tile.Y = (int)MathF.Round(rotated.Y);
         }
 
         foreach (var entity in grid.Entities)
@@ -593,7 +594,7 @@ public sealed class RoomGridSpawnerSystem : EntitySystem
         if (!data.Metadata.RoomRelative || data.Grids.Count == 0)
             return;
 
-        var anchorTheta = (float) anchorRotation.Theta;
+        var anchorTheta = (float)anchorRotation.Theta;
         var forwardRotation = Matrix3x2.CreateRotation(anchorTheta);
         var grid = data.Grids[0];
 
@@ -601,8 +602,8 @@ public sealed class RoomGridSpawnerSystem : EntitySystem
         {
             var rel = new Vector2(tile.X, tile.Y);
             var rotated = Vector2.Transform(rel, forwardRotation);
-            tile.X = anchorTile.X + (int) MathF.Round(rotated.X);
-            tile.Y = anchorTile.Y + (int) MathF.Round(rotated.Y);
+            tile.X = anchorTile.X + (int)MathF.Round(rotated.X);
+            tile.Y = anchorTile.Y + (int)MathF.Round(rotated.Y);
         }
 
         foreach (var entity in grid.Entities)

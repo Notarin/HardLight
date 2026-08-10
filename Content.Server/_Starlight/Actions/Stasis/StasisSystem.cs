@@ -7,6 +7,7 @@ using Robust.Shared.Timing;
 using Content.Shared.FixedPoint;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
+using Content.Shared.Mobs.Systems; // HardLight
 using Content.Shared._Starlight.Actions.Stasis;
 using Robust.Shared.Player;
 
@@ -17,6 +18,7 @@ public sealed class StasisSystem : SharedStasisSystem
     [Dependency] private readonly DamageableSystem _damageableSystem = default!;
     [Dependency] private readonly BloodstreamSystem _bloodstreamSystem = default!;
     [Dependency] private readonly SharedActionsSystem _actionsSystem = default!;
+    [Dependency] private readonly MobStateSystem _mobState = default!; // HardLight
 
     public override void Initialize()
     {
@@ -31,6 +33,12 @@ public sealed class StasisSystem : SharedStasisSystem
         // If the entity has a stasis component, and the new mob state is dead, exit stasis.
         if (TryComp<StasisComponent>(args.Target, out var comp))
         {
+            if (args.NewMobState == MobState.Critical && (comp.IsInStasis || HasComp<StasisFrozenComponent>(args.Target)))
+            {
+                RaiseLocalEvent(args.Target, new ExitStasisActionEvent());
+                return;
+            }
+
             if (args.NewMobState == MobState.Dead && comp.IsInStasis)
             {
                 RaiseLocalEvent(args.Target, new ExitStasisActionEvent());
@@ -55,6 +63,14 @@ public sealed class StasisSystem : SharedStasisSystem
     protected override void OnPrepareStasisStart(EntityUid uid, StasisComponent comp,
         PrepareStasisActionEvent args)
     {
+        // HardLight start
+        if (_mobState.IsCritical(uid))
+        {
+            args.Handled = true;
+            return;
+        }
+        // HardLight end
+
         Dirty(uid, comp);
 
         EnsureComp<StasisFrozenComponent>(uid);
@@ -72,8 +88,17 @@ public sealed class StasisSystem : SharedStasisSystem
         // Schedule the enter stasis event after delay
         Timer.Spawn(TimeSpan.FromSeconds(comp.StasisEnterEffectLifetime), () =>
         {
-            if (!TryComp<StasisComponent>(uid, out var stasisComp))
+            if (!TryComp<StasisComponent>(uid, out _)) // HardLight: var stasisComp>_
                 return;
+
+            // HardLight start
+            if (_mobState.IsCritical(uid))
+            {
+                var exitEv = new ExitStasisActionEvent();
+                RaiseLocalEvent(uid, exitEv);
+                return;
+            }
+            // HardLight end
 
             var enterEv = new EnterStasisActionEvent();
             RaiseLocalEvent(uid, enterEv);
@@ -83,6 +108,18 @@ public sealed class StasisSystem : SharedStasisSystem
     protected override void OnEnterStasisStart(EntityUid uid, StasisComponent comp,
         EnterStasisActionEvent args)
     {
+        // HardLight start
+        if (_mobState.IsCritical(uid))
+        {
+            args.Handled = true;
+
+            if (comp.IsInStasis || HasComp<StasisFrozenComponent>(uid))
+                RaiseLocalEvent(uid, new ExitStasisActionEvent());
+
+            return;
+        }
+        // HardLight
+
         comp.IsInStasis = true;
         comp.IsVisible = false; // Entity becomes invisible when entering stasis to better show the effect
 

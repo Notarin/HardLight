@@ -241,7 +241,7 @@
   - type: Storage
     grid:
     - 0,0,15,3
-    maxItemSize: Normal
+    maxItemSize: Large
     whitelist:
       tags:
         - Document
@@ -251,6 +251,8 @@
         - Spellbook
         - VinylSleeveFit
         - VinylSleeve
+      components:
+        - HLDocumentCase
   - type: StaticPrice
     price: 100000
   - type: CargoSellBlacklist

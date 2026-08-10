@@ -5,6 +5,12 @@
     gloves: RedRegaliaGloves
 
 - type: loadout
+  id: GlovesGoldenTrim
+  price: 1500
+  equipment:
+    gloves: ClothingHandsGlovesGoldenTrim
+
+- type: loadout
   id: PawsWhite
   price: 600
   equipment:

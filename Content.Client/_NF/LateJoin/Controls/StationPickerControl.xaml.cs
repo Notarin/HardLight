@@ -83,7 +83,7 @@ public sealed partial class StationPickerControl : PickerControl
             }
 
             var prototype = _prototypeManager.Index(jobPrototype);
-            var jobName = prototype.LocalizedName + jobCount.WrapJobCountInParentheses();
+            var jobName = prototype.LocalizedName + jobCount.WrapJobCountInParentheses(jobInformation.MaxAvailable.GetValueOrDefault(jobPrototype)); // HardLight: add maxCount
             Texture? texture = null;
 
             if (_prototypeManager.TryIndex(prototype.Icon, out var jobIcon))

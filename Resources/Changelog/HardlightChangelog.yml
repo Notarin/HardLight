@@ -5667,3 +5667,60 @@ Entries:
       message: Synths should now show up on med/diagnostic huds.
   id: 631
   time: '2026-08-09T23:13:18-07:00'
+- author: Khaomi
+  changes:
+    - type: Add
+      message: Added max job slot count to the job picker ui
+  id: 632
+  time: '2026-08-09T23:59:55-07:00'
+- author: NotLivyathan
+  changes:
+    - type: Add
+      message: >-
+        Added the Paradox Generator, a new science machine capable of generating
+        duplicates of insured items! It can be researched with Bluespace Time
+        Manipulation.
+  id: 633
+  time: '2026-08-10T09:54:55-07:00'
+- author: Khaomi
+  changes:
+    - type: Fix
+      message: Fixed cryochem not metabolizing on Resomi and Cybernetic organs
+  id: 634
+  time: '2026-08-10T09:55:16-07:00'
+- author: NotLivyathan
+  changes:
+    - type: Add
+      message: Added Blood Deficiency, a new negative trait.
+    - type: Remove
+      message: >-
+        Platelet Factories no longer heals: Airloss, Bloodloss, Poison,
+        Radiation, and Cellular.
+    - type: Remove
+      message: Xenos, dinos, and dreadtalons no longer have Platelet Factories.
+    - type: Tweak
+      message: Natural blood regeneration now uses hunger.
+    - type: Tweak
+      message: Avali can once again select Platelet Factories as a trait.
+  id: 635
+  time: '2026-08-10T10:01:48-07:00'
+- author: Slatebreaker
+  changes:
+    - type: Tweak
+      message: >-
+        Document case can now hold more items and be stored in bluespace
+        bookshelves
+    - type: Tweak
+      message: Document case can now be locked, access configured, and access broken
+    - type: Tweak
+      message: >-
+        Bureaucracy cyborg module can now be used by all borgs and comes with a
+        document case
+  id: 636
+  time: '2026-08-10T10:02:44-07:00'
+- author: Fenn
+  changes:
+    - type: Fix
+      message: Fixed glacier for testing
+  id: 637
+  time: '2026-08-10T10:08:24-07:00'

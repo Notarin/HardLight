@@ -2,6 +2,7 @@ using Content.Server.Shuttles.Systems;
 using Content.Server.Shuttles.Components;
 using Content.Shared.Station.Components;
 using Content.Server.Cargo.Systems;
+using Content.Server._HL.Insurance;
 using Content.Server._HL.Shipyard; // HardLight
 using Content.Server.Shuttles.Save; // HardLight
 using Robust.Shared.Timing; // For IGameTiming
@@ -45,6 +46,7 @@ using Robust.Shared.Prototypes;
 using Content.Server.Cargo.Components;
 using Content.Server.Storage.Components;
 using Content.Shared.Storage;
+using Content.Shared._HL.Insurance.Components;
 using YamlDotNet.Core; // HardLight
 using YamlDotNet.RepresentationModel; // HardLight
 
@@ -86,6 +88,7 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
     [Dependency] private readonly UseDelaySystem _useDelay = default!;
     [Dependency] private readonly IGameTiming _timing = default!; // For cooldown timing
     [Dependency] private readonly ShipSerializationSystem _shipSerialization = default!; // HardLight
+    [Dependency] private readonly ItemInsuranceSystem _itemInsurance = default!; // HardLight
 
     private EntityQuery<TransformComponent> _transformQuery;
     // HardLight: cache queries hit per-entity by SanitizeLoadedShuttle so the post-load tree walk
@@ -94,6 +97,7 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
     private EntityQuery<DockingComponent> _dockingQuery;
     private EntityQuery<UseDelayComponent> _useDelayQuery;
     private EntityQuery<MetaDataComponent> _metaQuery;
+    private EntityQuery<InsuredItemComponent> _insuredItemQuery; // HardLight
 
     public MapId? ShipyardMap { get; private set; }
     private float _shuttleIndex;
@@ -142,6 +146,7 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
         _dockingQuery = GetEntityQuery<DockingComponent>();
         _useDelayQuery = GetEntityQuery<UseDelayComponent>();
         _metaQuery = GetEntityQuery<MetaDataComponent>();
+        _insuredItemQuery = GetEntityQuery<InsuredItemComponent>();
 
         // FIXME: Load-bearing jank - game doesn't want to create a shipyard map at this point.
         _enabled = _configManager.GetCVar(NFCCVars.Shipyard);
@@ -1332,6 +1337,9 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
         VisitEntityAndDescendants(gridUid, uid =>
         {
             RemComp<JointComponent>(uid);
+
+            if (_insuredItemQuery.TryComp(uid, out var insured))
+                _itemInsurance.PruneLoadedInsuredItem(uid, insured);
 
             if (_containerManagerQuery.TryComp(uid, out var manager))
                 prunedContainers += PruneInvalidContainerContents(uid, manager);

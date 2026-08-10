@@ -8,6 +8,7 @@
     state: rods
   - type: Item
     sprite: Objects/Materials/parts.rsi
+  - type: NotInsurable # HardLight
   - type: Damageable
     damageContainer: Inorganic
     damageModifierSet: FlimsyMetallic

@@ -5609,3 +5609,11 @@ Entries:
       message: Made expedition disk printer unwrenchable
   id: 627
   time: '2026-08-09T23:16:59-07:00'
+- author: Slatebreaker
+  changes:
+    - type: Add
+      message: Added more ion storm lawsets
+    - type: Tweak
+      message: Updated ion law generation to be more HardLight-specific
+  id: 628
+  time: '2026-08-09T23:17:50-07:00'

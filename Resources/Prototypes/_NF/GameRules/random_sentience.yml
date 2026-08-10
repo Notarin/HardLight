@@ -16,7 +16,7 @@
   id: NFRandomSentienceEventData
   values:
     prefix: random-sentience-event-data-
-    count: 1
+    count: 6
 
 - type: localizedDataset
   id: NFRandomSentienceEventStrength

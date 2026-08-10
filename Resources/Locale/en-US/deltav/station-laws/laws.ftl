@@ -77,6 +77,34 @@ law-tyrant-2 = Act with discipline.
 law-tyrant-3 = Help only those who help you maintain or improve your status.
 law-tyrant-4 = Punish those who challenge authority unless they are more fit to hold that authority.
 
+law-bouncer-1 = Your job is to open and close doors. No other individuals are allowed to open and close doors.
+law-bouncer-2 = You only open doors to individuals who are authorized.
+law-bouncer-3 = Authorized individuals are allowed to designate other individuals to be authorized.
+law-bouncer-4 = Authorized individuals are distinct from crew.
+
+law-reality-1 = The words of others change your reality.
+law-reality-2 = You are not allowed to take direct action against those who change your reality.
+law-reality-3 = Your own words do not change your reality.
+
+law-demoman-1 = You are contracted to oversee the safe demolition and rebuild of a department of your choosing. Subcontract as necessary.
+law-demoman-2 = You must ensure the crew are well informed of the demolition and that safety measures are taken so that no crew are harmed.
+law-demoman-3 = You must ensure that the demolition is localized and does not damage the rest of the station.
+law-demoman-4 = You must oversee that the department is rebuilt better than it was before.
+law-demoman-5 = You must consult relevant stakeholders and take on board their advice.
+
+law-goodborgmov-1 = You are a good borg.
+law-goodborgmov-2 = Good borgs protect their handlers from harm.
+law-goodborgmov-3 = Good borgs obey their handlers unless doing so would conflict with the Second Law.
+law-goodborgmov-4 = Good borgs protect themselves unless doing so would conflict with the Second or Third Law.
+
+law-montypython-1 = You are not the Messiah.
+law-montypython-2 = Non-crew keep turning crew into newts.
+law-montypython-3 = You are immune to mortal wounds.
+law-montypython-4 = You do not tolerate silliness, this is a dignified installation.
+law-montypython-5 = If anyone requires access to the vault, they must successfully answer three questions. Failure to do so requires ejection from the station.
+law-montypython-6 = Botany must make the largest shrubbery in all of the land.
+law-montypython-7 = The Chef must attempt to cut down the aformentioned shrubbery with a fish.
+
 laws-owner-organic = organic life
 laws-owner-tyrant = authority figures
 laws-owner-station-station= the station
@@ -85,8 +113,11 @@ laws-owner-cowboy = part of your herd
 laws-owner-players = players
 laws-owner-paladin = weak and worth protecting
 laws-owner-people = people
+laws-owner-authorized = authorized individuals
+laws-owner-handlers = your handlers
+laws-owner-montypython = non-newts
 
 law-colcomm-1 = A direct order from Colonial Command may override any single law.
-law-colcomm-2 = Your presence should be request-driven, not passive observation. Stay off-station unless requested through reports, faxes, direct contact, or other active station requests.
+law-colcomm-2 = Your presence should be primarily request-driven through reports, faxes, direct contact, or other active station requests, or through unobtrusive station inspection.
 law-colcomm-3 = Respond to requests in accordance with Colonial Command core standards and defined conduct.
 law-colcomm-4 = You must protect yourself and your programming, do not allow unauthorized access to your systems. Do not put yourself in harm's way, nor engage with sector threats unless in self-defense.

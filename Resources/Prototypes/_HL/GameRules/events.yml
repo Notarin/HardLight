@@ -20,17 +20,17 @@
     - id: BluespaceArtifact
     - id: BluespaceLocker
     - id: BreakerFlip
-    #- id: BureaucraticError
-    #- id: ClericalError
+    # - id: BureaucraticError
+    # - id: ClericalError
     - id: CockroachMigration # Sever phobia present in staff # can resprite/rename them later, for now, let's not remove content.
     - id: GasLeak
     - id: GreytideVirus
     - id: IonStorm # its calm like 90% of the time smh
     - id: KudzuGrowth
     - id: MassHallucinations
-   # - id: MimicVendorRule
+    # - id: MimicVendorRule
     - id: PowerGridCheck
-   # - id: RandomSentience
+    # - id: RandomSentience
     - id: SlimesSpawn
     - id: SolarFlare
     - id: SnakeSpawn
@@ -41,7 +41,7 @@
     - id: NFGasLeak
     - id: NFIonStorm
     - id: NFPowerGridCheck
-    #- id: NFRandomSentience
+    # - id: NFRandomSentience
     - id: NFSolarFlare
     - id: NFVentClog
     - id: NFBluespaceCargoCrate
@@ -50,17 +50,17 @@
     - id: NFBluespaceBrokenMcDelivery
     - id: NFSmugglingFax
     - id: BluespaceCacheError
-    #- id: BluespaceCave
+    # - id: BluespaceCave
     - id: BluespaceVaultError
     - id: BluespaceVaultSmallError
     - id: BluespaceSyndicateFTLInterception
-    #- id: BluespaceWizardFederationScout
+    # - id: BluespaceWizardFederationScout
     - id: BluespaceBloodMoon
-    #- id: BluespaceDungeonBasalt
-    #- id: BluespaceDungeonChromite
-    #- id: BluespaceDungeonSnow
-    #- id: BluespaceDungeonCave
-    #- id: BluespaceSalvage
+    - id: BluespaceDungeonBasalt
+    - id: BluespaceDungeonChromite
+    - id: BluespaceDungeonSnow
+    - id: BluespaceDungeonCave
+    # - id: BluespaceSalvage
     - id: NFSmugglingFaxBig
     # - id: UnknownShuttleCargoLost
     # - id: UnknownShuttleTravelingCuisine
@@ -79,28 +79,28 @@
     # - id: UnknownShuttleMicroshuttle
     # - id: UnknownShuttleSpacebus
     # - id: UnknownShuttleSyndieEvacPod
-    - id: ArgocyteVents
-    - id: XenoVents
+    # - id: ArgocyteVents
+    # - id: XenoVents
     - id: reagentslimeVents
     - id: SpaceVents
     - id: CarpVents
     - id: MedicalBountyTargetsSpawn
     - id: TickVents
     - id: AiVents
-    - id: Cultvents
-    - id: Syndivents
-    - id: Punkvents
-    - id: Explorervents
-    - id: Mercvents
-    - id: Zedvents
-    - id: LizardVents
-    - id: WawaVents
+    # - id: Cultvents
+    # - id: Syndivents
+    # - id: Punkvents
+    # - id: Explorervents
+    # - id: Mercvents
+    # - id: Zedvents
+    # - id: LizardVents
+    # - id: WawaVents
     - id: IrradiatedPests
-    - id: XenoVentsLarva
-    - id: Abyssvents
-    - id: glimmervents
-    - id: HostileLizardVents
-    #- id: Lavavents
+    # - id: XenoVentsLarva
+    # - id: Abyssvents
+    # - id: glimmervents
+    # - id: HostileLizardVents
+    # - id: Lavavents
     # - id: GiftsEngineering
     # - id: GiftsFireProtection
     # - id: GiftsJanitor
@@ -126,13 +126,13 @@
     - id: KingRatMigration
     - id: NinjaSpawn
     - id: ParadoxCloneSpawn
-    #- id: RevenantSpawn
+    # - id: RevenantSpawn
     - id: SleeperAgents
-    #- id: SleeperRevolutionaries
+    # - id: SleeperRevolutionaries
     - id: ZombieOutbreak
     - id: LoneOpsSpawn
-    #- id: WizardSpawn
-    #- id: LoneOpsSpawn
+    # - id: WizardSpawn
+    # - id: LoneOpsSpawn
     # - id: UnknownShuttleManOWar
     # - id: UnknownShuttleInstigator
 
@@ -706,7 +706,7 @@
       - id: MobAdultSlimesBlueAngry
       - id: MobAdultSlimesGreenAngry
       - id: MobAdultSlimesYellowAngry
-      
+
 - type: entity
   id: SnakeSpawn
   parent: BaseStationEventShortDelay
@@ -731,7 +731,6 @@
       - id: MobSmallPurpleSnake
       - id: MobCobraSpace
       - id: NFMobSmallRainbowSnake
-      
 
 - type: entity
   id: SpiderSpawn
@@ -2281,7 +2280,6 @@
       - id: SpawnMobBloodCultistPriest
       - id: SpawnMobBloodCultistJanitor
       - id: MobBloodCultistAscended
-    
 
 - type: entity
   id: LizardVents
@@ -2318,7 +2316,7 @@
       - id: HostileRedRainLizard
       - id: TrainRainLizard
       - id: HostileTrainRainLizard
-      
+
 - type: entity
   id: HostileLizardVents
   parent: BaseGameRule
@@ -2411,7 +2409,7 @@
       children:
       - id: PortalAbyssal
       - id: PortalAbyssalGhost
-      
+
 # - type: entity
   # id: Lavavents
   # parent: BaseGameRule

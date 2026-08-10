@@ -10,6 +10,9 @@
     sprite: _NF/Objects/Tanks/emergency_double_air.rsi
   - type: Clothing
     sprite: _NF/Objects/Tanks/emergency_double_air.rsi
+  - type: Tag
+    tags:
+    - TinyGasTank
 
 - type: entity
   id: NFTankO2N2Equal
@@ -37,6 +40,9 @@
     sprite: _NF/Objects/Tanks/emergency_double_o2n2equal.rsi
   - type: Clothing
     sprite: _NF/Objects/Tanks/emergency_double_o2n2equal.rsi
+  - type: Tag
+    tags:
+    - TinyGasTank
 
 - type: entity
   parent: GasTankBase

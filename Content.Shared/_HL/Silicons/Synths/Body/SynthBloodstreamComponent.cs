@@ -68,11 +68,6 @@ public sealed partial class SynthBloodstreamComponent : Component
     [DataField, AutoNetworkedField]
     public SynthBloodstreamRegeneration BloodRegeneration = new();
 
-    [DataField, AutoNetworkedField]
-    public TimeSpan UpdateRate = TimeSpan.FromSeconds(1);
-
-    [ViewVariables]
-    public TimeSpan NextUpdate;
 }
 
 [DataDefinition]

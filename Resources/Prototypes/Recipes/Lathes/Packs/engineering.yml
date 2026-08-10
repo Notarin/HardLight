@@ -62,6 +62,7 @@
   - JawsOfLife
   - Fulton # Frontier
   - FultonBeacon # Frontier
+  - WeaponPlasmaCutter # HL
 
 - type: latheRecipePack
   id: AtmosTools
@@ -75,7 +76,7 @@
 
 
 # Frontier: no engineering weapons to unlock
-# HL:  Oh yeah?
+# HL:  Oh yeah? - btw the plasma cutter is an engineering weapon. not in the engineering weapons section. lol.
 
 - type: latheRecipePack
   id: EngineeringWeapons

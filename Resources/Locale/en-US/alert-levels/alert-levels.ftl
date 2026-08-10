@@ -61,3 +61,7 @@ alert-level-omicron-instructions = Await further orders.
 alert-level-white = White - MIND FLAYER
 alert-level-white-announcement = The station is suffering dangerously high levels of glimmer, there are several active psionic threats, or there is another significant epistemic emergency. Turn off all glimmer probers. Seek psionic insulation. Psychics should report for mindbreaking.
 alert-level-white-instructions = Crewmembers are advised to seek psionic insulation. Psychics should report for mindbreaking or golemization.
+
+alert-level-black = Black - ALL HELL
+alert-level-black-announcement = ALL HELL has broken loose. The station is facing an impeding threat. All personnel shall obey all commands from Security and Command. Disobedience is punishable by death.
+alert-level-black-instructions = Crew arm, full defensive mobilization. Obey command. Class 3 contraband is permitted on the station in cooperation with station authorities.

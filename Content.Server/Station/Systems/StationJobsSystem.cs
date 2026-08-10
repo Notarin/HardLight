@@ -970,6 +970,21 @@ public sealed partial class StationJobsSystem : EntitySystem
             var stationNetEntity = GetNetEntity(station);
             var list = GetJobs(station, comp).ToDictionary(x => x.Key, x => x.Value); // HardLight: Editted
 
+            // Hardlight
+            var maxList = new Dictionary<ProtoId<JobPrototype>, int?>();
+            foreach (var job in list.Keys)
+            {
+                if (TryGetJobMidRoundMax(station, job, out var maxAmount, comp))
+                {
+                    maxList[job] = maxAmount;
+                }
+                else
+                {
+                    maxList[job] = list[job];
+                }
+            }
+            // End Hardlight
+
             // Frontier: overwrite station/vessel information generation
             var isLateJoinStation = false;
             VesselDisplayInformation? vesselDisplay = null;
@@ -1005,6 +1020,7 @@ public sealed partial class StationJobsSystem : EntitySystem
             var stationJobInformation = new StationJobInformation(
                 stationName: Name(station),
                 jobsAvailable: list,
+                maxAvailable: maxList, // HardLight
                 isLateJoinStation: isLateJoinStation,
                 stationDisplayInfo: stationDisplay,
                 vesselDisplayInfo: vesselDisplay

@@ -11,7 +11,7 @@ concurrency:
 
 jobs:
   build:
-    if: forgejo.actor != 'PJBot' && forgejo.event.pull_request.draft == false && forgejo.actor != 'FrontierATC' # Frontier
+    if: forgejo.event.pull_request.draft == false && forgejo.actor != 'HardLight-Auto-Changelog'
     runs-on: ubuntu-latest
     name: Build Client & Server
 

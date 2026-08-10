@@ -209,7 +209,7 @@ namespace Content.Server.Power.EntitySystems
             if (!Resolve(uid, ref battery))
                 return 0;
 
-            var newValue = Math.Clamp(0, battery.CurrentCharge + value, battery.MaxCharge);
+            var newValue = Math.Clamp(battery.CurrentCharge + value, 0, battery.MaxCharge); // HardLight: moved 0
             var delta = newValue - battery.CurrentCharge;
             battery.CurrentCharge = newValue;
 

@@ -29,6 +29,7 @@
     damageContainers:
     - Inorganic
     - Silicon
+    - Synth # HardLight
 
 - type: entity
   parent: [ClothingEyesBase, ShowMedicalIcons]
@@ -177,7 +178,7 @@
     damageContainers:
     - Biological
     - Inorganic
-    - Synth #HL
+    - Synth # HardLight
   - type: ShowSyndicateIcons
 
 - type: entity
@@ -194,7 +195,7 @@
     damageContainers:
     - Biological
     - Inorganic
-    - Synth #HL
+    - Synth # HardLight
   - type: ShowHungerIcons
   - type: ShowThirstIcons
   - type: ShowSyndicateIcons

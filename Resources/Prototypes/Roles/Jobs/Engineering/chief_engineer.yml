@@ -48,6 +48,7 @@
     # eyes: ClothingEyesGlassesMeson # HardLight: Add departmental NF-style loadouts
     ears: ClothingHeadsetCE
     belt: ClothingBeltUtilityEngineering
+    pocket2: NFHyperlinkBookCommandSOP # HardLight
   storage:
     back:
     - Flash

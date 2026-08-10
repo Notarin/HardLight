@@ -37,3 +37,15 @@
     Durathread: 2000
     Plasteel: 800
     Bluespace: 325
+
+# Terrestrial Engineering Hardsuit
+
+- type: latheRecipe
+  id: ClothingOuterHardsuitTerrestrialEngineering
+  result: ClothingOuterHardsuitTerrestrialEngineering
+  completetime: 5
+  materials:
+    Steel: 2000
+    Plastic: 2000
+    Durathread: 2000
+    Glass: 500

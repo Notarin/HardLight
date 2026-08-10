@@ -27,6 +27,8 @@
   - type: ExtensionCableReceiver
   - type: WiresPanel
   - type: WiresVisuals
+  - type: Anchorable # HL make R&D server unwrenchable
+    flags: 0
   - type: Machine
     board: ResearchAndDevelopmentServerMachineCircuitboard
   - type: Destructible

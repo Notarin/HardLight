@@ -5667,3 +5667,9 @@ Entries:
       message: Synths should now show up on med/diagnostic huds.
   id: 631
   time: '2026-08-09T23:13:18-07:00'
+- author: Khaomi
+  changes:
+    - type: Add
+      message: Added max job slot count to the job picker ui
+  id: 632
+  time: '2026-08-09T23:59:55-07:00'

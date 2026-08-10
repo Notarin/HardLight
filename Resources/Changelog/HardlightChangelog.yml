@@ -5545,3 +5545,9 @@ Entries:
       message: 'fixed other patreon characters '
   id: 620
   time: '2026-08-06T23:35:39-07:00'
+- author: Drekk
+  changes:
+    - type: Fix
+      message: Fixed the changelog!
+  id: 621
+  time: '2026-08-09T17:43:10-07:00'

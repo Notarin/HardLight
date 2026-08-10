@@ -5545,3 +5545,35 @@ Entries:
       message: 'fixed other patreon characters '
   id: 620
   time: '2026-08-06T23:35:39-07:00'
+- author: Drekk
+  changes:
+    - type: Fix
+      message: Fixed the changelog!
+  id: 621
+  time: '2026-08-09T17:43:10-07:00'
+- author: Cheep
+  changes:
+    - type: Fix
+      message: Fixed IPC eye surgery
+  id: 622
+  time: '2026-08-09T20:23:39-07:00'
+- author: Drekk
+  changes:
+    - type: Fix
+      message: Fixed "You Crouch Down." when anyone nearby crouches or stands up.
+  id: 623
+  time: '2026-08-09T20:23:49-07:00'
+- author: NotLivyathan
+  changes:
+    - type: Tweak
+      message: >-
+        Exped enemies, including xenos, should no longer have a chance to appear
+        from vents.
+    - type: Tweak
+      message: >-
+        Scurrets and their predatory lizard counterparts should no longer have a
+        chance to appear from vents.
+    - type: Tweak
+      message: Expedition events should once again spawn naturally.
+  id: 624
+  time: '2026-08-09T20:24:21-07:00'

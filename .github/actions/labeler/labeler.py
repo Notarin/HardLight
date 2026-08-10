@@ -5,7 +5,7 @@ import urllib.request
 # Env Vars
 labeler_file = os.getenv('LABELER_FILE', './labeler.yml')
 url = os.getenv('FORGEJO_URL', 'https://code.hardlight.space')
-repo = os.getenv('FORGEJO_REPO', 'Drekk/HardLight')
+repo = os.getenv('REPO', os.getenv('FORGEJO_REPOSITORY', 'HardLight/HardLight'))
 pr_index = os.getenv('PR', '1')
 token = os.getenv('TOKEN', None)
 
@@ -87,7 +87,7 @@ try:
 			else:
 				sys.exit(f"Failed to get files with status code: {response.status}")
 except urllib.error.HTTPError as e:
-	sys.exit(f"HTTP Error: {e.code} - {e.reason}")
+	sys.exit(f"HTTP Error: URL: '{api_url + '?' + params}' {e.code} - {e.reason}")
 
 print(f"Got {len(files)} files, processing tags")
 

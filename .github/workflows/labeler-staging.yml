@@ -37,4 +37,4 @@ jobs:
           pr: ${{ forgejo.event.issue.number || forgejo.event.pull_request.number }}
           label: 'Branch: Staging'
           action: 'add'
-          token: ${{ env.FORGEJO_TOKEN }}
+          token: ${{ secrets.BOT_TOKEN || secrets.FORGEJO_TOKEN }}

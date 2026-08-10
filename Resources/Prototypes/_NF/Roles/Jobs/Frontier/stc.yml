@@ -36,6 +36,7 @@
   id: StcGear
   equipment:
     id: StcPDA
+    pocket2: NFHyperlinkBookCommandSOP # HardLight
   storage:
     back:
     - Flash

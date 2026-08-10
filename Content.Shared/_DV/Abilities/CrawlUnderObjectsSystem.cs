@@ -11,6 +11,7 @@ using Robust.Shared.Network; // HardLight
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Timing; // HardLight
+using Content.Shared.IdentityManagement; // HardLight
 
 namespace Content.Shared._DV.Abilities;
 
@@ -140,9 +141,12 @@ public sealed partial class CrawlUnderObjectsSystem : EntitySystem // HardLight:
         // HardLight end
 
         SetEnabled(ent, enabled);
-
-        var msg = Loc.GetString("crawl-under-objects-toggle-" + (enabled ? "on" : "off"));
-        _popup.PopupPredicted(msg, ent, ent);
+        // HL START: Show other player in popup message
+        var msgTemplate = "crawl-under-objects-toggle-" + (enabled ? "on" : "off");
+        var msgLocal = Loc.GetString(msgTemplate);
+        var msgOther = Loc.GetString(msgTemplate + "-other", ("person", Identity.Entity(ent, EntityManager)));
+        _popup.PopupPredicted(msgLocal, msgOther, ent, ent);
+        // HL END
 
         return true;
     }

@@ -12,6 +12,9 @@ inputs:
   token:
     description: 'Forgejo token to run with'
     required: true
+  repo:
+    description: 'Repository to run on'
+    required: true
 
 runs:
   using: "composite"
@@ -24,7 +27,7 @@ runs:
       env:
         LABELER_FILE: ${{ inputs.labeler_file }}
         FORGEJO_URL: ${{ forgejo.server_url }}
-        FORGEJO_REPO: ${{ forgejo.repository }}
+        REPO: ${{ inputs.repo }}
         PR: ${{ inputs.pr_no }}
         TOKEN: ${{ inputs.token }}
       run: python3 ./.github/actions/labeler/labeler.py

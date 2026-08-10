@@ -22,7 +22,7 @@
     layers:
     - state: law_space
   - type: HyperlinkBook
-    url: https://docs.hardlight.space/space-law/crimes-and-punishments.html
+    url: https://docs.hardlight.space/en/security/crimes-and-punishments
   - type: Tag
     tags:
     - Book
@@ -44,3 +44,20 @@
     tags:
     - Book
     - BookNfsdSop
+
+# HardLight Command SOP
+- type: entity
+  parent: BaseHyperlinkBook
+  id: NFHyperlinkBookCommandSOP
+  name: command SOP
+  description: A big book of standard command operating procedures.
+  components:
+  - type: Sprite
+    sprite: _NF/Objects/Misc/books.rsi
+    layers:
+    - state: command_sop
+  - type: HyperlinkBook
+    url: https://docs.hardlight.space/en/departments/command
+  - type: Tag
+    tags:
+    - Book

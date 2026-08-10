@@ -5746,3 +5746,9 @@ Entries:
         the literal item)
   id: 640
   time: '2026-08-10T10:29:58-07:00'
+- author: Drekk
+  changes:
+    - type: Fix
+      message: Fixed projectiles not working properly after first use.
+  id: 641
+  time: '2026-08-10T10:30:25-07:00'

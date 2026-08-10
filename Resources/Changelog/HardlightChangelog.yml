@@ -5673,3 +5673,12 @@ Entries:
       message: Added max job slot count to the job picker ui
   id: 632
   time: '2026-08-09T23:59:55-07:00'
+- author: NotLivyathan
+  changes:
+    - type: Add
+      message: >-
+        Added the Paradox Generator, a new science machine capable of generating
+        duplicates of insured items! It can be researched with Bluespace Time
+        Manipulation.
+  id: 633
+  time: '2026-08-10T09:54:55-07:00'

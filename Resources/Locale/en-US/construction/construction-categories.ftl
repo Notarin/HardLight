@@ -15,7 +15,6 @@ construction-add-favorite-button = Add to favorites
 construction-remove-from-favorite-button = Remove from favorites
 # Hardlight
 construction-category-signs = Signs
-# Hardlight
 construction-category-poster = Posters
-# Hardlight
 construction-category-xeno = Resin
+# End Hardlight

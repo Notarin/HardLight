@@ -403,6 +403,12 @@
     Poison:
       effects:
       - !type:HealthChange
+        # HardLight start
+        conditions:
+        - !type:OrganType
+          type: Synth
+          shouldHave: false
+        # HardLight end
         damage:
           types:
             Caustic: 0.1

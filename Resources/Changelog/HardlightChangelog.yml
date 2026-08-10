@@ -5563,3 +5563,17 @@ Entries:
       message: Fixed "You Crouch Down." when anyone nearby crouches or stands up.
   id: 623
   time: '2026-08-09T20:23:49-07:00'
+- author: NotLivyathan
+  changes:
+    - type: Tweak
+      message: >-
+        Exped enemies, including xenos, should no longer have a chance to appear
+        from vents.
+    - type: Tweak
+      message: >-
+        Scurrets and their predatory lizard counterparts should no longer have a
+        chance to appear from vents.
+    - type: Tweak
+      message: Expedition events should once again spawn naturally.
+  id: 624
+  time: '2026-08-09T20:24:21-07:00'

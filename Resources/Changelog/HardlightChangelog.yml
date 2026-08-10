@@ -5682,3 +5682,9 @@ Entries:
         Manipulation.
   id: 633
   time: '2026-08-10T09:54:55-07:00'
+- author: Khaomi
+  changes:
+    - type: Fix
+      message: Fixed cryochem not metabolizing on Resomi and Cybernetic organs
+  id: 634
+  time: '2026-08-10T09:55:16-07:00'

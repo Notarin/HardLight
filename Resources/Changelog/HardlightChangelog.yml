@@ -5629,3 +5629,41 @@ Entries:
       message: Black Alert
   id: 630
   time: '2026-08-09T23:20:19-07:00'
+- author: NotLivyathan
+  changes:
+    - type: Remove
+      message: Synths can no longer select vampirism traits.
+    - type: Tweak
+      message: Height traits no longer come with extreme speed penalties.
+    - type: Tweak
+      message: Synths should once again metabolize nutriment correctly.
+    - type: Fix
+      message: Non-silicon mobs should no longer have silicon-based emotes.
+    - type: Fix
+      message: Fax machine refresh buttons should once again render correctly.
+    - type: Fix
+      message: Synth guidebook now correctly states galactic common, instead of sol.
+    - type: Fix
+      message: Ahelp pin buttons should once again render correctly.
+    - type: Fix
+      message: AI turret control UI buttons should once again render correctly.
+    - type: Fix
+      message: >-
+        Missing backgrounds for various equipment UIs should once again render
+        correctly.
+    - type: Fix
+      message: Antag additional info buttons should once again render correctly.
+    - type: Fix
+      message: >-
+        Big/Very Big characters should no longer deal damage in situations that
+        wouldn't normally do damage.
+    - type: Fix
+      message: Synths should once again be revivable with defibrillators.
+    - type: Fix
+      message: Synths should no longer have two updates every tick.
+    - type: Fix
+      message: Synths should now be able to eat various materials as intended.
+    - type: Fix
+      message: Synths should now show up on med/diagnostic huds.
+  id: 631
+  time: '2026-08-09T23:13:18-07:00'

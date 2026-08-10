@@ -5589,3 +5589,15 @@ Entries:
         minutes.
   id: 625
   time: '2026-08-09T23:11:27-07:00'
+- author: NotLivyathan
+  changes:
+    - type: Add
+      message: >-
+        Antagonists can now add custom summaries from the character info window
+        to explain what they did to complete their objectives.
+    - type: Add
+      message: >-
+        Added a searchbox to the round-end summary for searching for specific
+        players.
+  id: 626
+  time: '2026-08-09T23:11:53-07:00'

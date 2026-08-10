@@ -5551,3 +5551,9 @@ Entries:
       message: Fixed the changelog!
   id: 621
   time: '2026-08-09T17:43:10-07:00'
+- author: Cheep
+  changes:
+    - type: Fix
+      message: Fixed IPC eye surgery
+  id: 622
+  time: '2026-08-09T20:23:39-07:00'

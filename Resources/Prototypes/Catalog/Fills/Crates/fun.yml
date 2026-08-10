@@ -110,7 +110,7 @@
     - id: PlushieNova
     - id: PlushiePetal
     - id: PlushieRosemane
-    - id: PlushieSrag
+    - id: PlushieSkrag
 
 - type: entity
   id: CrateFunPlushie

@@ -5704,3 +5704,17 @@ Entries:
       message: Avali can once again select Platelet Factories as a trait.
   id: 635
   time: '2026-08-10T10:01:48-07:00'
+- author: Slatebreaker
+  changes:
+    - type: Tweak
+      message: >-
+        Document case can now hold more items and be stored in bluespace
+        bookshelves
+    - type: Tweak
+      message: Document case can now be locked, access configured, and access broken
+    - type: Tweak
+      message: >-
+        Bureaucracy cyborg module can now be used by all borgs and comes with a
+        document case
+  id: 636
+  time: '2026-08-10T10:02:44-07:00'

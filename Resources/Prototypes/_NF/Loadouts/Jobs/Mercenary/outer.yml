@@ -70,3 +70,21 @@
   price: 1000
   equipment:
     outerClothing: ClothingOuterArmorCaptainCarapace
+
+- type: loadout
+  id: MercenaryClothingOuterWinterCapArmored
+  hideEffects:
+  - !type:GroupLoadoutEffect
+    proto: NFCoatCapable
+  price: 800
+  equipment:
+    outerClothing: ClothingOuterWinterCapArmored
+
+- type: loadout
+  id: MercenaryClothingOuterCapJacket
+  hideEffects:
+  - !type:GroupLoadoutEffect
+    proto: NFCoatCapable
+  price: 1000
+  equipment:
+    outerClothing: ClothingOuterCapJacket

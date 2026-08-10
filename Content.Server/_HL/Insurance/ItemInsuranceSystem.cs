@@ -2,6 +2,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
+using Content.Server._HL.RoundPersistence.SaveBans;
 using Content.Server._NF.Bank;
 using Content.Server.Cargo.Systems;
 using Content.Server.Popups;
@@ -12,15 +13,23 @@ using Content.Shared._NF.Bank.Components;
 using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Mind;
 using Content.Shared.Mind.Components;
+using Content.Shared.Storage;
 using Robust.Server.GameObjects;
 using Robust.Server.Player;
 using Robust.Shared.Containers;
 using Robust.Shared.ContentPack;
+using Robust.Shared.EntitySerialization;
 using Robust.Shared.EntitySerialization.Systems;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Network;
 using Robust.Shared.Player;
+using Robust.Shared.Serialization;
+using Robust.Shared.Serialization.Markdown.Mapping;
+using Robust.Shared.Serialization.Markdown.Sequence;
+using Robust.Shared.Serialization.Markdown.Value;
 using Robust.Shared.Utility;
+using YamlDotNet.Core;
+using YamlDotNet.RepresentationModel;
 
 namespace Content.Server._HL.Insurance;
 
@@ -34,12 +43,18 @@ public sealed class ItemInsuranceSystem : EntitySystem
     [Dependency] private readonly PricingSystem _pricing = default!;
     [Dependency] private readonly IPlayerManager _player = default!;
     [Dependency] private readonly IResourceManager _resource = default!;
+    [Dependency] private readonly SaveBanApi _saveBanApi = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly UserInterfaceSystem _ui = default!;
 
     public const string SaveRoot = "/item_insurance";
     private const string PolicyExtension = ".json";
     private const string EntityExtension = ".yml";
+    private const string ComponentTypeKey = "type";
+    private const string ContainerManagerComponentName = "ContainerContainer";
+    private const string EntitiesKey = "entities";
+    private const string StorageComponentName = "Storage";
+    private const string TransformComponentName = "Transform";
 
     public override void Initialize()
     {
@@ -54,6 +69,7 @@ public sealed class ItemInsuranceSystem : EntitySystem
         SubscribeLocalEvent<ParadoxGeneratorComponent, ParadoxGeneratorRefreshMessage>(OnRefresh);
         SubscribeLocalEvent<ParadoxGeneratorComponent, ParadoxGeneratorInsureMessage>(OnInsure);
         SubscribeLocalEvent<ParadoxGeneratorComponent, ParadoxGeneratorClaimMessage>(OnClaim);
+        SubscribeLocalEvent<ParadoxGeneratorComponent, ParadoxGeneratorUninsureMessage>(OnUninsure);
     }
 
     private void OnGeneratorInit(Entity<ParadoxGeneratorComponent> ent, ref ComponentInit args)
@@ -68,7 +84,7 @@ public sealed class ItemInsuranceSystem : EntitySystem
 
     private void OnGeneratorUiOpened(Entity<ParadoxGeneratorComponent> ent, ref BoundUIOpenedEvent args)
     {
-        UpdateUi(ent.Owner, ent.Comp, args.Actor);
+        SendUiState(ent.Owner, ent.Comp, args.Actor);
     }
 
     private void OnGeneratorSlotChanged(Entity<ParadoxGeneratorComponent> ent, ref EntInsertedIntoContainerMessage args)
@@ -87,7 +103,7 @@ public sealed class ItemInsuranceSystem : EntitySystem
             return;
 
         foreach (var actor in _ui.GetActors(ent.Owner, ParadoxGeneratorUiKey.Key))
-            UpdateUi(ent.Owner, ent.Comp, actor);
+            SendUiState(ent.Owner, ent.Comp, actor);
     }
 
     private void OnRefresh(Entity<ParadoxGeneratorComponent> ent, ref ParadoxGeneratorRefreshMessage args)
@@ -95,7 +111,7 @@ public sealed class ItemInsuranceSystem : EntitySystem
         if (!CanUseGenerator(ent.Owner, args.Actor))
             return;
 
-        UpdateUi(ent.Owner, ent.Comp, args.Actor);
+        SendUiState(ent.Owner, ent.Comp, args.Actor);
     }
 
     private void OnInsure(Entity<ParadoxGeneratorComponent> ent, ref ParadoxGeneratorInsureMessage args)
@@ -106,40 +122,47 @@ public sealed class ItemInsuranceSystem : EntitySystem
 
         if (!TryGetSession(actor, out var session))
         {
-            Popup(actor, "Unable to identify account.");
+            Popup(actor, "paradox-generator-popup-no-account");
             return;
         }
 
         if (!TryGetCharacterKey(actor, session, out var characterKey))
         {
-            Popup(actor, "Unable to identify character.");
+            Popup(actor, "paradox-generator-popup-no-character");
             return;
         }
 
         if (ent.Comp.ItemSlot.ContainerSlot?.ContainedEntity is not { } item)
         {
-            Popup(actor, "Insert an item first.");
-            UpdateUi(ent.Owner, ent.Comp, actor);
+            Popup(actor, "paradox-generator-popup-insert-item");
+            SendUiState(ent.Owner, ent.Comp, actor);
             return;
         }
 
         if (!CanInsureItem(item, out var reason))
         {
             Popup(actor, reason);
-            UpdateUi(ent.Owner, ent.Comp, actor);
+            SendUiState(ent.Owner, ent.Comp, actor);
             return;
         }
 
         if (!_bank.TryGetBalance(actor, out var balance))
         {
-            Popup(actor, "Unable to read bank balance.");
-            UpdateUi(ent.Owner, ent.Comp, actor);
+            Popup(actor, "paradox-generator-popup-no-balance");
+            SendUiState(ent.Owner, ent.Comp, actor);
             return;
         }
 
         var value = GetInsuredValue(item);
         var premium = CalculatePremium(ent.Comp, value, balance);
         var claimCost = CalculateClaimCost(ent.Comp, value, balance);
+
+        if (balance < premium)
+        {
+            Popup(actor, "paradox-generator-popup-insufficient-premium", ("premium", premium));
+            SendUiState(ent.Owner, ent.Comp, actor);
+            return;
+        }
 
         var hadInsurance = TryComp<InsuredItemComponent>(item, out var previousInsurance);
         var previousPolicyId = previousInsurance?.PolicyId ?? string.Empty;
@@ -165,8 +188,8 @@ public sealed class ItemInsuranceSystem : EntitySystem
         if (!TrySerializeItem(item, out var yaml))
         {
             RestoreInsuranceComponent(item, hadInsurance, previousPolicyId, previousOwnerUserId, previousOwnerCharacterKey, previousGeneration);
-            Popup(actor, "The item resisted paradox encoding.");
-            UpdateUi(ent.Owner, ent.Comp, actor);
+            Popup(actor, "paradox-generator-popup-serialize-failed");
+            SendUiState(ent.Owner, ent.Comp, actor);
             return;
         }
 
@@ -187,8 +210,8 @@ public sealed class ItemInsuranceSystem : EntitySystem
         if (!_bank.TryBankWithdraw(actor, premium))
         {
             RestoreInsuranceComponent(item, hadInsurance, previousPolicyId, previousOwnerUserId, previousOwnerCharacterKey, previousGeneration);
-            Popup(actor, $"Insufficient funds. Premium: {premium} spesos.");
-            UpdateUi(ent.Owner, ent.Comp, actor);
+            Popup(actor, "paradox-generator-popup-insufficient-premium", ("premium", premium));
+            SendUiState(ent.Owner, ent.Comp, actor);
             return;
         }
 
@@ -196,13 +219,13 @@ public sealed class ItemInsuranceSystem : EntitySystem
         {
             _bank.TryBankDeposit(actor, premium);
             RestoreInsuranceComponent(item, hadInsurance, previousPolicyId, previousOwnerUserId, previousOwnerCharacterKey, previousGeneration);
-            Popup(actor, "The policy failed to write.");
-            UpdateUi(ent.Owner, ent.Comp, actor);
+            Popup(actor, "paradox-generator-popup-policy-write-failed");
+            SendUiState(ent.Owner, ent.Comp, actor);
             return;
         }
 
-        Popup(actor, $"Insured {policy.Name} for {premium} spesos.");
-        UpdateUi(ent.Owner, ent.Comp, actor);
+        Popup(actor, "paradox-generator-popup-insured", ("item", policy.Name), ("premium", premium));
+        SendUiState(ent.Owner, ent.Comp, actor);
     }
 
     private void OnClaim(Entity<ParadoxGeneratorComponent> ent, ref ParadoxGeneratorClaimMessage args)
@@ -213,60 +236,59 @@ public sealed class ItemInsuranceSystem : EntitySystem
 
         if (!TryGetSession(actor, out var session))
         {
-            Popup(actor, "Unable to identify account.");
+            Popup(actor, "paradox-generator-popup-no-account");
             return;
         }
 
         if (!TryGetCharacterKey(actor, session, out var characterKey))
         {
-            Popup(actor, "Unable to identify character.");
+            Popup(actor, "paradox-generator-popup-no-character");
             return;
         }
 
         if (!Guid.TryParse(args.PolicyId, out var policyId) ||
             !TryReadPolicy(characterKey, policyId, out var policy))
         {
-            Popup(actor, "Policy not found.");
-            UpdateUi(ent.Owner, ent.Comp, actor);
+            Popup(actor, "paradox-generator-popup-policy-not-found");
+            SendUiState(ent.Owner, ent.Comp, actor);
             return;
         }
 
         PruneStaleLiveCopies(policy);
         if (LiveCurrentCopyExists(policy))
         {
-            Popup(actor, "That item already exists in this timeline.");
-            UpdateUi(ent.Owner, ent.Comp, actor);
+            Popup(actor, "paradox-generator-popup-live-copy");
+            SendUiState(ent.Owner, ent.Comp, actor);
             return;
         }
 
         if (!TryReadItemYaml(policy, out var yaml))
         {
-            Popup(actor, "The saved item image is missing.");
-            UpdateUi(ent.Owner, ent.Comp, actor);
-            return;
-        }
-
-        if (!TryLoadItem(yaml, policy, out var loaded))
-        {
-            Popup(actor, "The saved item image failed to resolve.");
-            UpdateUi(ent.Owner, ent.Comp, actor);
+            Popup(actor, "paradox-generator-popup-insured-record-missing");
+            SendUiState(ent.Owner, ent.Comp, actor);
             return;
         }
 
         if (!_bank.TryGetBalance(actor, out var balance))
         {
-            QueueDel(loaded.Value.Owner);
-            Popup(actor, "Unable to read bank balance.");
-            UpdateUi(ent.Owner, ent.Comp, actor);
+            Popup(actor, "paradox-generator-popup-no-balance");
+            SendUiState(ent.Owner, ent.Comp, actor);
             return;
         }
 
         var claimCost = CalculateClaimCost(ent.Comp, policy.Value, balance);
         if (!_bank.TryBankWithdraw(actor, claimCost))
         {
-            QueueDel(loaded.Value.Owner);
-            Popup(actor, $"Insufficient funds. Claim cost: {claimCost} spesos.");
-            UpdateUi(ent.Owner, ent.Comp, actor);
+            Popup(actor, "paradox-generator-popup-insufficient-claim", ("claimCost", claimCost));
+            SendUiState(ent.Owner, ent.Comp, actor);
+            return;
+        }
+
+        if (!TryLoadItem(yaml, policy, out var loaded))
+        {
+            _bank.TryBankDeposit(actor, claimCost);
+            Popup(actor, "paradox-generator-popup-insured-record-load-failed");
+            SendUiState(ent.Owner, ent.Comp, actor);
             return;
         }
 
@@ -278,13 +300,14 @@ public sealed class ItemInsuranceSystem : EntitySystem
         insured.OwnerUserId = policy.OwnerUserId;
         insured.OwnerCharacterKey = GetPolicyStorageKey(policy);
         Dirty(loaded.Value.Owner, insured);
+        DeleteLoadedStorageContents(loaded.Value.Owner);
 
         if (!TryWritePolicy(policy, yaml))
         {
             _bank.TryBankDeposit(actor, claimCost);
             QueueDel(loaded.Value.Owner);
-            Popup(actor, "The policy failed to update.");
-            UpdateUi(ent.Owner, ent.Comp, actor);
+            Popup(actor, "paradox-generator-popup-policy-update-failed");
+            SendUiState(ent.Owner, ent.Comp, actor);
             return;
         }
 
@@ -292,17 +315,51 @@ public sealed class ItemInsuranceSystem : EntitySystem
         _transform.AttachToGridOrMap(loaded.Value.Owner, loaded.Value.Comp);
         _transform.DropNextTo(loaded.Value.Owner, ent.Owner);
 
-        Popup(actor, $"Claimed {policy.Name} for {claimCost} spesos.");
-        UpdateUi(ent.Owner, ent.Comp, actor);
+        Popup(actor, "paradox-generator-popup-claimed", ("item", policy.Name), ("claimCost", claimCost));
+        SendUiState(ent.Owner, ent.Comp, actor);
+    }
+
+    private void OnUninsure(Entity<ParadoxGeneratorComponent> ent, ref ParadoxGeneratorUninsureMessage args)
+    {
+        var actor = args.Actor;
+        if (!CanUseGenerator(ent.Owner, actor))
+            return;
+
+        if (!TryGetSession(actor, out var session))
+        {
+            Popup(actor, "paradox-generator-popup-no-account");
+            return;
+        }
+
+        if (!TryGetCharacterKey(actor, session, out var characterKey))
+        {
+            Popup(actor, "paradox-generator-popup-no-character");
+            return;
+        }
+
+        if (!Guid.TryParse(args.PolicyId, out var policyId) ||
+            !TryReadPolicy(characterKey, policyId, out var policy))
+        {
+            Popup(actor, "paradox-generator-popup-policy-not-found");
+            SendUiState(ent.Owner, ent.Comp, actor);
+            return;
+        }
+
+        if (!TryDeletePolicy(policy))
+        {
+            Popup(actor, "paradox-generator-popup-uninsure-failed");
+            SendUiState(ent.Owner, ent.Comp, actor);
+            return;
+        }
+
+        RemoveInsuranceMarkers(policy);
+        Popup(actor, "paradox-generator-popup-uninsured", ("item", policy.Name));
+        SendUiState(ent.Owner, ent.Comp, actor);
     }
 
     public bool ShouldPruneLoadedInsuredItem(EntityUid uid, InsuredItemComponent insured)
     {
-        var ownerKey = GetPolicyStorageKey(insured);
-        if (string.IsNullOrEmpty(ownerKey) || !TryGetPolicyId(insured, out var policyId))
-            return false;
-
-        if (!TryReadPolicy(ownerKey, policyId, out var policy))
+        if (!TryGetPolicyForMarker(insured, out var policy))
             return false;
 
         if (insured.Generation < policy.Generation)
@@ -313,6 +370,12 @@ public sealed class ItemInsuranceSystem : EntitySystem
 
     public void PruneLoadedInsuredItem(EntityUid uid, InsuredItemComponent insured)
     {
+        if (!TryGetPolicyForMarker(insured, out _))
+        {
+            RemComp<InsuredItemComponent>(uid);
+            return;
+        }
+
         if (!ShouldPruneLoadedInsuredItem(uid, insured))
             return;
 
@@ -347,20 +410,64 @@ public sealed class ItemInsuranceSystem : EntitySystem
         return false;
     }
 
+    private bool TryGetPolicyForMarker(
+        InsuredItemComponent insured,
+        [NotNullWhen(true)] out ItemInsurancePolicyRecord? policy)
+    {
+        policy = null;
+        var ownerKey = GetPolicyStorageKey(insured);
+        return !string.IsNullOrEmpty(ownerKey) &&
+               TryGetPolicyId(insured, out var policyId) &&
+               TryReadPolicy(ownerKey, policyId, out policy);
+    }
+
+    private void RemoveInsuranceMarkers(ItemInsurancePolicyRecord policy)
+    {
+        var toRemove = new List<EntityUid>();
+        var ownerKey = GetPolicyStorageKey(policy);
+        var query = EntityQueryEnumerator<InsuredItemComponent>();
+        while (query.MoveNext(out var uid, out var insured))
+        {
+            if (GetPolicyStorageKey(insured) == ownerKey && PolicyMatches(insured, policy))
+                toRemove.Add(uid);
+        }
+
+        foreach (var uid in toRemove)
+            RemComp<InsuredItemComponent>(uid);
+    }
+
     private bool CanInsureItem(EntityUid item, [NotNullWhen(false)] out string? reason)
     {
         reason = null;
 
         if (HasComp<NotInsurableComponent>(item))
-            reason = "That item cannot be insured.";
+            reason = "paradox-generator-popup-not-insurable";
+        else if (HasTotalSaveBan(item))
+            reason = "paradox-generator-popup-not-insurable";
         else if (HasComp<ParadoxGeneratorComponent>(item))
-            reason = "The generator refuses to insure itself.";
+            reason = "paradox-generator-popup-self-insure";
+        else if (HasComp<InsuredItemComponent>(item))
+            reason = "paradox-generator-popup-already-insured";
         else if (HasComp<MapGridComponent>(item) || HasComp<MapComponent>(item))
-            reason = "Only items can be insured.";
+            reason = "paradox-generator-popup-only-items";
         else if (HasComp<ActorComponent>(item) || HasComp<MindContainerComponent>(item))
-            reason = "Living beings cannot be insured here.";
+            reason = "paradox-generator-popup-living-being";
 
         return reason == null;
+    }
+
+    private bool HasTotalSaveBan(EntityUid item)
+    {
+        var restriction = _saveBanApi.CheckForRestrictions(item);
+        return restriction switch
+        {
+            SaveBanApi.SaveBanResult.IsSaveRestricted restricted =>
+                restricted.Ban.Strictness is SaveBanStore.SaveRestrictionStrictness.TotalBan,
+            SaveBanApi.SaveBanResult.ContainsSaveRestricted contains =>
+                SaveBanApi.FlattenRestrictions(contains)
+                    .Any(restricted => restricted.Ban.Strictness is SaveBanStore.SaveRestrictionStrictness.TotalBan),
+            _ => false,
+        };
     }
 
     private int GetInsuredValue(EntityUid item)
@@ -432,11 +539,20 @@ public sealed class ItemInsuranceSystem : EntitySystem
 
         try
         {
-            using var writer = new StringWriter();
-            if (!_mapLoader.TrySaveEntity(item, writer))
+            var options = SerializationOptions.Default with
+            {
+                MissingEntityBehaviour = MissingEntityBehaviour.Ignore,
+                ErrorOnOrphan = false,
+                LogAutoInclude = null,
+                Category = FileCategory.Entity,
+            };
+
+            var (node, category) = _mapLoader.SerializeEntitiesRecursive([item], options);
+            if (category != FileCategory.Entity)
                 return false;
 
-            yaml = writer.ToString();
+            StripStorageContentsFromSnapshot(node);
+            yaml = WriteNodeToString(node);
             return !string.IsNullOrWhiteSpace(yaml);
         }
         catch
@@ -463,7 +579,264 @@ public sealed class ItemInsuranceSystem : EntitySystem
         }
     }
 
-    private void UpdateUi(EntityUid uid, ParadoxGeneratorComponent generator, EntityUid actor)
+    private static void StripStorageContentsFromSnapshot(MappingDataNode node)
+    {
+        var entitiesById = GetSerializedEntities(node);
+        if (entitiesById.Count == 0)
+            return;
+
+        var childrenByParent = new Dictionary<string, List<string>>();
+        var storageIds = new HashSet<string>();
+
+        foreach (var (id, entity) in entitiesById)
+        {
+            if (TryGetComponents(entity, out var components) &&
+                HasComponentNode(components, StorageComponentName))
+            {
+                storageIds.Add(id);
+            }
+
+            var parentId = GetSerializedParentId(entity);
+            if (parentId == null)
+                continue;
+
+            if (!childrenByParent.TryGetValue(parentId, out var children))
+            {
+                children = new List<string>();
+                childrenByParent[parentId] = children;
+            }
+
+            children.Add(id);
+        }
+
+        var removeIds = new HashSet<string>();
+        foreach (var storageId in storageIds)
+        {
+            CollectSerializedDescendants(storageId, childrenByParent, removeIds);
+        }
+
+        RemoveSerializedEntities(node, removeIds);
+        ClearSerializedStorageState(entitiesById, removeIds);
+        UpdateSerializedEntityCount(node, entitiesById.Count - removeIds.Count);
+    }
+
+    private static Dictionary<string, MappingDataNode> GetSerializedEntities(MappingDataNode node)
+    {
+        var entitiesById = new Dictionary<string, MappingDataNode>();
+        if (!node.TryGet(EntitiesKey, out SequenceDataNode? groups))
+            return entitiesById;
+
+        foreach (var groupNode in groups)
+        {
+            if (groupNode is not MappingDataNode group ||
+                !group.TryGet(EntitiesKey, out SequenceDataNode? entities))
+                continue;
+
+            foreach (var entityNode in entities)
+            {
+                if (entityNode is not MappingDataNode entity ||
+                    !TryGetSerializedUid(entity, out var id))
+                    continue;
+
+                entitiesById[id] = entity;
+            }
+        }
+
+        return entitiesById;
+    }
+
+    private static void CollectSerializedDescendants(
+        string parentId,
+        IReadOnlyDictionary<string, List<string>> childrenByParent,
+        HashSet<string> removeIds)
+    {
+        if (!childrenByParent.TryGetValue(parentId, out var children))
+            return;
+
+        foreach (var child in children)
+        {
+            if (!removeIds.Add(child))
+                continue;
+
+            CollectSerializedDescendants(child, childrenByParent, removeIds);
+        }
+    }
+
+    private static void RemoveSerializedEntities(MappingDataNode node, HashSet<string> removeIds)
+    {
+        if (removeIds.Count == 0)
+            return;
+
+        if (!node.TryGet(EntitiesKey, out SequenceDataNode? groups))
+            return;
+
+        for (var groupIndex = groups.Count - 1; groupIndex >= 0; groupIndex--)
+        {
+            if (groups[groupIndex] is not MappingDataNode group ||
+                !group.TryGet(EntitiesKey, out SequenceDataNode? entities))
+                continue;
+
+            for (var entityIndex = entities.Count - 1; entityIndex >= 0; entityIndex--)
+            {
+                if (entities[entityIndex] is not MappingDataNode entity ||
+                    !TryGetSerializedUid(entity, out var id) ||
+                    !removeIds.Contains(id))
+                    continue;
+
+                entities.RemoveAt(entityIndex);
+            }
+
+            if (entities.Count == 0)
+                groups.RemoveAt(groupIndex);
+        }
+
+        RemoveSerializedIds(node, "maps", removeIds);
+        RemoveSerializedIds(node, "grids", removeIds);
+        RemoveSerializedIds(node, "orphans", removeIds);
+        RemoveSerializedIds(node, "nullspace", removeIds);
+    }
+
+    private static void RemoveSerializedIds(MappingDataNode node, string key, HashSet<string> removeIds)
+    {
+        if (!node.TryGet(key, out SequenceDataNode? ids))
+            return;
+
+        for (var i = ids.Count - 1; i >= 0; i--)
+        {
+            if (ids[i] is ValueDataNode id && removeIds.Contains(id.Value))
+                ids.RemoveAt(i);
+        }
+    }
+
+    private static void ClearSerializedStorageState(
+        Dictionary<string, MappingDataNode> entitiesById,
+        HashSet<string> removedIds)
+    {
+        foreach (var (id, entity) in entitiesById)
+        {
+            if (removedIds.Contains(id) || !TryGetComponents(entity, out var components))
+                continue;
+
+            var hasStorage = HasComponentNode(components, StorageComponentName);
+            foreach (var componentNode in components)
+            {
+                if (componentNode is not MappingDataNode component)
+                    continue;
+
+                if (IsComponentNode(component, StorageComponentName))
+                {
+                    component.Remove("storedItems");
+                    component.Remove("savedLocations");
+                }
+                else if (hasStorage && IsComponentNode(component, ContainerManagerComponentName))
+                {
+                    RemoveStorageContainer(component);
+                }
+            }
+        }
+    }
+
+    private static void RemoveStorageContainer(MappingDataNode containerManager)
+    {
+        if (!containerManager.TryGet("containers", out MappingDataNode? containers))
+            return;
+
+        containers.Remove(StorageComponent.ContainerId);
+        if (containers.Count == 0)
+            containerManager.Remove("containers");
+    }
+
+    private static void UpdateSerializedEntityCount(MappingDataNode node, int entityCount)
+    {
+        if (node.TryGet("meta", out MappingDataNode? meta))
+            meta["entityCount"] = new ValueDataNode(entityCount.ToString());
+    }
+
+    private static bool TryGetSerializedUid(MappingDataNode entity, [NotNullWhen(true)] out string? id)
+    {
+        id = null;
+        if (!entity.TryGet("uid", out ValueDataNode? uid) || string.IsNullOrEmpty(uid.Value))
+            return false;
+
+        id = uid.Value;
+        return true;
+    }
+
+    private static string? GetSerializedParentId(MappingDataNode entity)
+    {
+        if (!TryGetComponents(entity, out var components))
+            return null;
+
+        foreach (var componentNode in components)
+        {
+            if (componentNode is not MappingDataNode component ||
+                !IsComponentNode(component, TransformComponentName) ||
+                !component.TryGet("parent", out ValueDataNode? parent) ||
+                string.IsNullOrEmpty(parent.Value))
+                continue;
+
+            return parent.Value;
+        }
+
+        return null;
+    }
+
+    private static bool TryGetComponents(MappingDataNode entity, [NotNullWhen(true)] out SequenceDataNode? components)
+    {
+        return entity.TryGet("components", out components);
+    }
+
+    private static bool HasComponentNode(SequenceDataNode components, string componentType)
+    {
+        foreach (var componentNode in components)
+        {
+            if (componentNode is MappingDataNode component && IsComponentNode(component, componentType))
+                return true;
+        }
+
+        return false;
+    }
+
+    private static bool IsComponentNode(MappingDataNode component, string componentType)
+    {
+        return component.TryGet(ComponentTypeKey, out ValueDataNode? typeNode) &&
+               typeNode.Value == componentType;
+    }
+
+    private static string WriteNodeToString(MappingDataNode node)
+    {
+        var document = new YamlDocument(node.ToYaml());
+        using var writer = new StringWriter();
+        var stream = new YamlStream { document };
+        stream.Save(new YamlMappingFix(new Emitter(writer)), false);
+        return writer.ToString();
+    }
+
+    private void DeleteLoadedStorageContents(EntityUid root)
+    {
+        var stack = new Stack<EntityUid>();
+        stack.Push(root);
+
+        while (stack.TryPop(out var uid))
+        {
+            if (!TryComp(uid, out TransformComponent? xform))
+                continue;
+
+            var childEnumerator = xform.ChildEnumerator;
+            while (childEnumerator.MoveNext(out var child))
+            {
+                if (HasComp<StorageComponent>(uid))
+                {
+                    QueueDel(child);
+                    continue;
+                }
+
+                stack.Push(child);
+            }
+        }
+    }
+
+    private void SendUiState(EntityUid uid, ParadoxGeneratorComponent generator, EntityUid actor)
     {
         if (!TryGetSession(actor, out var session))
             return;
@@ -474,7 +847,8 @@ public sealed class ItemInsuranceSystem : EntitySystem
         var inserted = generator.ItemSlot.ContainerSlot?.ContainedEntity;
         var hasInserted = inserted != null;
         var insertedName = inserted != null ? Name(inserted.Value) : null;
-        var value = inserted != null && CanInsureItem(inserted.Value, out _) ? GetInsuredValue(inserted.Value) : 0;
+        var cannotInsureReason = inserted != null && !CanInsureItem(inserted.Value, out var reason) ? reason : null;
+        var value = inserted != null ? GetInsuredValue(inserted.Value) : 0;
         _bank.TryGetBalance(actor, out var balance);
         var premium = inserted != null && value > 0 ? CalculatePremium(generator, value, balance) : 0;
 
@@ -490,13 +864,16 @@ public sealed class ItemInsuranceSystem : EntitySystem
                 LiveCurrentCopyExists(policy)));
         }
 
-        _ui.SetUiState(uid, ParadoxGeneratorUiKey.Key, new ParadoxGeneratorBoundUserInterfaceState(
+        var state = new ParadoxGeneratorBoundUserInterfaceState(
             balance,
             hasInserted,
             insertedName,
             value,
             premium,
-            listings));
+            cannotInsureReason,
+            listings);
+
+        RaiseNetworkEvent(new ParadoxGeneratorUiStateMessage(GetNetEntity(uid), state), session);
     }
 
     private bool TryGetSession(EntityUid actor, [NotNullWhen(true)] out ICommonSession? session)
@@ -515,9 +892,9 @@ public sealed class ItemInsuranceSystem : EntitySystem
         return true;
     }
 
-    private void Popup(EntityUid actor, string message)
+    private void Popup(EntityUid actor, string message, params (string, object)[] args)
     {
-        _popup.PopupCursor(message, actor);
+        _popup.PopupCursor(Loc.GetString(message, args), actor);
     }
 
     private bool CanUseGenerator(EntityUid uid, EntityUid actor)
@@ -525,7 +902,7 @@ public sealed class ItemInsuranceSystem : EntitySystem
         if (this.IsPowered(uid, EntityManager))
             return true;
 
-        Popup(actor, "The paradox generator is unpowered.");
+        Popup(actor, "paradox-generator-popup-unpowered");
         return false;
     }
 
@@ -588,6 +965,29 @@ public sealed class ItemInsuranceSystem : EntitySystem
             {
                 writer.Write(yaml);
             }
+
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    private bool TryDeletePolicy(ItemInsurancePolicyRecord policy)
+    {
+        try
+        {
+            var ud = _resource.UserData;
+            var ownerKey = GetPolicyStorageKey(policy);
+            var policyPath = GetPolicyPath(ownerKey, policy.PolicyId);
+            var entityPath = GetEntityPath(ownerKey, policy.PolicyId);
+
+            if (ud.Exists(policyPath))
+                ud.Delete(policyPath);
+
+            if (ud.Exists(entityPath))
+                ud.Delete(entityPath);
 
             return true;
         }

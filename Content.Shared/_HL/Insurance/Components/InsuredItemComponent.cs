@@ -1,4 +1,5 @@
 using Robust.Shared.Serialization.Manager.Attributes;
+using Robust.Shared.GameStates;
 
 namespace Content.Shared._HL.Insurance.Components;
 
@@ -6,7 +7,7 @@ namespace Content.Shared._HL.Insurance.Components;
 /// Marks an item as belonging to a server-side insurance policy.
 /// The generation lets ship loads discard stale copies after a policy has been claimed.
 /// </summary>
-[RegisterComponent]
+[RegisterComponent, NetworkedComponent]
 public sealed partial class InsuredItemComponent : Component
 {
     [DataField]

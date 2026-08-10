@@ -16,6 +16,7 @@ public sealed class ParadoxGeneratorBoundUserInterfaceState : BoundUserInterface
     public readonly string? InsertedItemName;
     public readonly int InsertedItemValue;
     public readonly int InsertedItemPremium;
+    public readonly string? InsertedItemCannotInsureReason;
     public readonly List<InsuranceListingState> Listings;
 
     public ParadoxGeneratorBoundUserInterfaceState(
@@ -24,6 +25,7 @@ public sealed class ParadoxGeneratorBoundUserInterfaceState : BoundUserInterface
         string? insertedItemName,
         int insertedItemValue,
         int insertedItemPremium,
+        string? insertedItemCannotInsureReason,
         List<InsuranceListingState> listings)
     {
         Balance = balance;
@@ -31,7 +33,21 @@ public sealed class ParadoxGeneratorBoundUserInterfaceState : BoundUserInterface
         InsertedItemName = insertedItemName;
         InsertedItemValue = insertedItemValue;
         InsertedItemPremium = insertedItemPremium;
+        InsertedItemCannotInsureReason = insertedItemCannotInsureReason;
         Listings = listings;
+    }
+}
+
+[Serializable, NetSerializable]
+public sealed class ParadoxGeneratorUiStateMessage : EntityEventArgs
+{
+    public readonly NetEntity Generator;
+    public readonly ParadoxGeneratorBoundUserInterfaceState State;
+
+    public ParadoxGeneratorUiStateMessage(NetEntity generator, ParadoxGeneratorBoundUserInterfaceState state)
+    {
+        Generator = generator;
+        State = state;
     }
 }
 
@@ -78,6 +94,17 @@ public sealed class ParadoxGeneratorClaimMessage : BoundUserInterfaceMessage
     public readonly string PolicyId;
 
     public ParadoxGeneratorClaimMessage(string policyId)
+    {
+        PolicyId = policyId;
+    }
+}
+
+[Serializable, NetSerializable]
+public sealed class ParadoxGeneratorUninsureMessage : BoundUserInterfaceMessage
+{
+    public readonly string PolicyId;
+
+    public ParadoxGeneratorUninsureMessage(string policyId)
     {
         PolicyId = policyId;
     }

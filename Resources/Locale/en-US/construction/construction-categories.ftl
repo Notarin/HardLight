@@ -1,6 +1,4 @@
 ﻿construction-category-all = All
-construction-category-signs = Signs
-construction-category-poster = Posters
 construction-category-furniture = Furniture
 construction-category-storage = Storage
 construction-category-tools = Tools
@@ -15,4 +13,8 @@ construction-category-clothing = Clothing
 construction-category-favorites = Favorites
 construction-add-favorite-button = Add to favorites
 construction-remove-from-favorite-button = Remove from favorites
-construction-category-Xeno = Resin
+# Hardlight
+construction-category-signs = Signs
+construction-category-poster = Posters
+construction-category-xeno = Resin
+# End Hardlight

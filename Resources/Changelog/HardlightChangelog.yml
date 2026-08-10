@@ -5617,3 +5617,9 @@ Entries:
       message: Updated ion law generation to be more HardLight-specific
   id: 628
   time: '2026-08-09T23:17:50-07:00'
+- author: Desilvered
+  changes:
+    - type: Fix
+      message: Fixed whoopie cushions launching people
+  id: 629
+  time: '2026-08-09T23:19:57-07:00'

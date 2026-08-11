@@ -9,6 +9,8 @@
   - type: Speech
     speechSounds: Pai
     speechVerb: Robotic
+    allowedEmotes: ['Chirp', 'Squish', 'Purr', 'Growl', 'Trill', 'Scree', 'Call', 'Squawk', 'Bark', 'Snarl', 'Whine', 'Howl', 'Yip', 'Mew', 'Meow','Thump', "Marr", "Wurble", 'Chitter', 'Squeak', 'Click', 'Beep', 'Ping', 'Buzz', 'Buzz-Two', 'Chime', 'Honk']
+    # giving it the proto treatment since it's reproduced sounds
 
 - type: trait
   id: HLBorgVoice
@@ -21,6 +23,9 @@
   - type: Speech
     speechSounds: Borg
     speechVerb: Robotic
+    allowedEmotes: ['Chirp', 'Squish', 'Purr', 'Growl', 'Trill', 'Scree', 'Call', 'Squawk', 'Bark', 'Snarl', 'Whine', 'Howl', 'Yip', 'Mew', 'Meow','Thump', "Marr", "Wurble", 'Chitter', 'Squeak', 'Click', 'Beep', 'Ping', 'Buzz', 'Buzz-Two', 'Chime', 'Honk']
+    # giving it the proto treatment since it's reproduced sounds
+
 
 - type: trait
   id: HLVoiceAvali
@@ -33,6 +38,7 @@
   - type: Speech
     speechSounds: MaleAvali
     speechVerb: Parrot
+    allowedEmotes: ['Chirp', 'Hiss', 'Purr', 'Growl', 'Trill', 'Scree', 'Call', 'Squawk'] # copied from the species
 
 - type: trait
   id: HLVoiceSyndieborg
@@ -45,6 +51,9 @@
   - type: Speech
     speechSounds: SyndieBorg
     speechVerb: Robotic
+    allowedEmotes: ['Chirp', 'Squish', 'Purr', 'Growl', 'Trill', 'Scree', 'Call', 'Squawk', 'Bark', 'Snarl', 'Whine', 'Howl', 'Yip', 'Mew', 'Meow','Thump', "Marr", "Wurble", 'Chitter', 'Squeak', 'Click', 'Beep', 'Ping', 'Buzz', 'Buzz-Two', 'Chime', 'Honk']
+    # giving it the proto treatment since it's reproduced sounds
+
 
 - type: trait
   id: HLVoiceXenoborg
@@ -57,8 +66,11 @@
   - type: Speech
     speechSounds: Xenoborg
     speechVerb: Robotic
+    allowedEmotes: ['Chirp', 'Squish', 'Purr', 'Growl', 'Trill', 'Scree', 'Call', 'Squawk', 'Bark', 'Snarl', 'Whine', 'Howl', 'Yip', 'Mew', 'Meow','Thump', "Marr", "Wurble", 'Chitter', 'Squeak', 'Click', 'Beep', 'Ping', 'Buzz', 'Buzz-Two', 'Chime', 'Honk']
+    # giving it the proto treatment since it's reproduced sounds
   - type: TypingIndicator
     proto: xenoborg
+    
 
 - type: trait
   id: HLVoiceVulpkanin
@@ -71,6 +83,7 @@
   - type: Speech
     speechSounds: Vulpkanin
     speechVerb: Vulpkanin
+    allowedEmotes: [ 'Bark', 'Snarl', 'Whine', 'Pout', 'Howl', 'Growl', 'Yip', 'Awoo', 'Yap', 'Gekker', 'Purr' ] # copied from the species
 
 - type: trait
   id: HLVoiceLizard
@@ -83,6 +96,7 @@
   - type: Speech
     speechSounds: Lizard
     speechVerb: Reptilian
+    allowedEmotes: [ 'Hiss', 'Purr', 'RMCReptileRattle'] # copied from the species
   - type: TypingIndicator
     proto: lizard
 
@@ -97,6 +111,7 @@
   - type: Speech
     speechSounds: Slime
     speechVerb: Slime
+    allowedEmotes: ['Squish', 'Bubble', 'Pop'] # copied from the species
   - type: TypingIndicator
     proto: slime
 
@@ -111,6 +126,7 @@
   - type: Speech
     speechSounds: Fox
     speechVerb: Canine
+    allowedEmotes: ['Growl', 'Squeak', 'Yip', 'Whine', 'Pout', 'Yap', 'Howl', 'Purr', 'Gekker'] # taken from the kitsune list
 
 - type: trait
   id: HLVoiceDog
@@ -123,6 +139,7 @@
   - type: Speech
     speechSounds: Dog
     speechVerb: Canine
+    allowedEmotes: [ 'Bark', 'Snarl', 'Whine', 'Pout', 'Howl', 'Growl', 'Yip', 'Awoo', 'Yap', 'Gekker', 'Purr' ] # copied from vulp
 
 - type: trait
   id: HLVoiceMoth
@@ -135,6 +152,7 @@
   - type: Speech
     speechVerb: Moth
     speechSounds: Moth
+    allowedEmotes: ['Chitter', 'Squeak'] # copied from the species
   - type: TypingIndicator
     proto: moth
 
@@ -149,6 +167,7 @@
   - type: Speech
     speechSounds: Cat
     speechVerb: Felinid
+    allowedEmotes: ['Hiss','Meow','Mew','Growl','Purr','Trill'] # copied from the species
   - type: TypingIndicator
     proto: felinid
 
@@ -163,6 +182,7 @@
   - type: Speech
     speechVerb: Parrot
     speechSounds: UnisexResomi
+    allowedEmotes: ['Chirp', 'Hiss', 'Purr', 'Growl', 'Trill', 'Wurble', 'Scree', 'Call', 'Squawk'] # copied from the species
 
 - type: trait
   id: ScandinavianAccent

@@ -18,7 +18,7 @@ public sealed class AlertLevelSystem : EntitySystem
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
     [Dependency] private readonly ChatSystem _chatSystem = default!;
     [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly StationSystem _stationSystem = default!; // Frontier: sector-wide alerts // HardLight: change back to station wide
+    [Dependency] private readonly StationSystem _stationSystem = default!;
     [Dependency] private readonly GameTicker _ticker = default!; // Frontier
     [Dependency] private readonly SectorServiceSystem _sectorService = default!;
 
@@ -234,9 +234,7 @@ public sealed class AlertLevelSystem : EntitySystem
         {
             if (detail.Sound != null)
             {
-                var filter = _stationSystem.GetInOwningStation(station); // Frontier: global alerts // HardLight: change back to station wide
-                // var filter = Filter.Empty(); // Frontier // HardLight: change back to station wide
-                // filter.AddInMap(_ticker.DefaultMap, EntityManager); // Frontier // HardLight: change back to station wide
+                var filter = _stationSystem.GetInOwningStation(station);
                 _audio.PlayGlobal(detail.Sound, filter, true, detail.Sound.Params);
             }
             else

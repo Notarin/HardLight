@@ -5,6 +5,20 @@
   replaceComponents: true
   cost: 1
   category: SpeechTraits
+  mutuallyExclusiveTraits:
+   - HLBorgVoice
+   - HLVoiceAvali
+   - HLVoiceSyndieborg
+   - HLVoiceXenoborg
+   - HLVoiceVulpkanin
+   - HLVoiceLizard
+   - HLVoiceSlime
+   - HLVoiceFox
+   - HLVoiceDog
+   - HLVoiceMoth
+   - HLVoiceCat
+   - HLVoiceResomi
+   - HLVoiceWawa
   components:
   - type: Speech
     speechSounds: Pai
@@ -21,6 +35,20 @@
   replaceComponents: true
   cost: 1
   category: SpeechTraits
+  mutuallyExclusiveTraits:
+   - HLRoboticVoice
+   - HLVoiceAvali
+   - HLVoiceSyndieborg
+   - HLVoiceXenoborg
+   - HLVoiceVulpkanin
+   - HLVoiceLizard
+   - HLVoiceSlime
+   - HLVoiceFox
+   - HLVoiceDog
+   - HLVoiceMoth
+   - HLVoiceCat
+   - HLVoiceResomi
+   - HLVoiceWawa
   components:
   - type: Speech
     speechSounds: Borg
@@ -37,6 +65,20 @@
   replaceComponents: true
   cost: 1
   category: SpeechTraits
+  mutuallyExclusiveTraits:
+   - HLRoboticVoice
+   - HLBorgVoice
+   - HLVoiceSyndieborg
+   - HLVoiceXenoborg
+   - HLVoiceVulpkanin
+   - HLVoiceLizard
+   - HLVoiceSlime
+   - HLVoiceFox
+   - HLVoiceDog
+   - HLVoiceMoth
+   - HLVoiceCat
+   - HLVoiceResomi
+   - HLVoiceWawa
   components:
   - type: Speech
     speechSounds: MaleAvali
@@ -55,6 +97,20 @@
   replaceComponents: true
   cost: 1
   category: SpeechTraits
+  mutuallyExclusiveTraits:
+   - HLRoboticVoice
+   - HLBorgVoice
+   - HLVoiceAvali
+   - HLVoiceXenoborg
+   - HLVoiceVulpkanin
+   - HLVoiceLizard
+   - HLVoiceSlime
+   - HLVoiceFox
+   - HLVoiceDog
+   - HLVoiceMoth
+   - HLVoiceCat
+   - HLVoiceResomi
+   - HLVoiceWawa
   components:
   - type: Speech
     speechSounds: SyndieBorg
@@ -72,6 +128,20 @@
   replaceComponents: true
   cost: 1
   category: SpeechTraits
+  mutuallyExclusiveTraits:
+   - HLRoboticVoice
+   - HLBorgVoice
+   - HLVoiceAvali
+   - HLVoiceSyndieborg
+   - HLVoiceVulpkanin
+   - HLVoiceLizard
+   - HLVoiceSlime
+   - HLVoiceFox
+   - HLVoiceDog
+   - HLVoiceMoth
+   - HLVoiceCat
+   - HLVoiceResomi
+   - HLVoiceWawa
   components:
   - type: Speech
     speechSounds: Xenoborg
@@ -91,6 +161,20 @@
   replaceComponents: true
   cost: 1
   category: SpeechTraits
+  mutuallyExclusiveTraits:
+   - HLRoboticVoice
+   - HLBorgVoice
+   - HLVoiceAvali
+   - HLVoiceSyndieborg
+   - HLVoiceXenoborg
+   - HLVoiceLizard
+   - HLVoiceSlime
+   - HLVoiceFox
+   - HLVoiceDog
+   - HLVoiceMoth
+   - HLVoiceCat
+   - HLVoiceResomi
+   - HLVoiceWawa
   components:
   - type: Speech
     speechSounds: Vulpkanin
@@ -109,6 +193,20 @@
   replaceComponents: true
   cost: 1
   category: SpeechTraits
+  mutuallyExclusiveTraits:
+   - HLRoboticVoice
+   - HLBorgVoice
+   - HLVoiceAvali
+   - HLVoiceSyndieborg
+   - HLVoiceXenoborg
+   - HLVoiceVulpkanin
+   - HLVoiceSlime
+   - HLVoiceFox
+   - HLVoiceDog
+   - HLVoiceMoth
+   - HLVoiceCat
+   - HLVoiceResomi
+   - HLVoiceWawa
   components:
   - type: Speech
     speechSounds: Lizard
@@ -129,6 +227,20 @@
   replaceComponents: true
   cost: 1
   category: SpeechTraits
+  mutuallyExclusiveTraits:
+   - HLRoboticVoice
+   - HLBorgVoice
+   - HLVoiceAvali
+   - HLVoiceSyndieborg
+   - HLVoiceXenoborg
+   - HLVoiceVulpkanin
+   - HLVoiceLizard
+   - HLVoiceFox
+   - HLVoiceDog
+   - HLVoiceMoth
+   - HLVoiceCat
+   - HLVoiceResomi
+   - HLVoiceWawa
   components:
   - type: Speech
     speechSounds: Slime
@@ -149,6 +261,20 @@
   replaceComponents: true
   cost: 1
   category: SpeechTraits
+  mutuallyExclusiveTraits:
+   - HLRoboticVoice
+   - HLBorgVoice
+   - HLVoiceAvali
+   - HLVoiceSyndieborg
+   - HLVoiceXenoborg
+   - HLVoiceVulpkanin
+   - HLVoiceLizard
+   - HLVoiceSlime
+   - HLVoiceDog
+   - HLVoiceMoth
+   - HLVoiceCat
+   - HLVoiceResomi
+   - HLVoiceWawa
   components:
   - type: Speech
     speechSounds: Fox
@@ -167,6 +293,20 @@
   replaceComponents: true
   cost: 1
   category: SpeechTraits
+  mutuallyExclusiveTraits:
+   - HLRoboticVoice
+   - HLBorgVoice
+   - HLVoiceAvali
+   - HLVoiceSyndieborg
+   - HLVoiceXenoborg
+   - HLVoiceVulpkanin
+   - HLVoiceLizard
+   - HLVoiceSlime
+   - HLVoiceFox
+   - HLVoiceMoth
+   - HLVoiceCat
+   - HLVoiceResomi
+   - HLVoiceWawa
   components:
   - type: Speech
     speechSounds: Dog
@@ -186,6 +326,20 @@
   replaceComponents: true
   cost: 1
   category: SpeechTraits
+  mutuallyExclusiveTraits:
+   - HLRoboticVoice
+   - HLBorgVoice
+   - HLVoiceAvali
+   - HLVoiceSyndieborg
+   - HLVoiceXenoborg
+   - HLVoiceVulpkanin
+   - HLVoiceLizard
+   - HLVoiceSlime
+   - HLVoiceFox
+   - HLVoiceDog
+   - HLVoiceCat
+   - HLVoiceResomi
+   - HLVoiceWawa
   components:
   - type: Speech
     speechVerb: Moth
@@ -207,6 +361,20 @@
   replaceComponents: true
   cost: 1
   category: SpeechTraits
+  mutuallyExclusiveTraits:
+   - HLRoboticVoice
+   - HLBorgVoice
+   - HLVoiceAvali
+   - HLVoiceSyndieborg
+   - HLVoiceXenoborg
+   - HLVoiceVulpkanin
+   - HLVoiceLizard
+   - HLVoiceSlime
+   - HLVoiceFox
+   - HLVoiceDog
+   - HLVoiceMoth
+   - HLVoiceResomi
+   - HLVoiceWawa
   components:
   - type: Speech
     speechSounds: Cat
@@ -228,6 +396,20 @@
   replaceComponents: true
   cost: 1
   category: SpeechTraits
+  mutuallyExclusiveTraits:
+   - HLRoboticVoice
+   - HLBorgVoice
+   - HLVoiceAvali
+   - HLVoiceSyndieborg
+   - HLVoiceXenoborg
+   - HLVoiceVulpkanin
+   - HLVoiceLizard
+   - HLVoiceSlime
+   - HLVoiceFox
+   - HLVoiceDog
+   - HLVoiceMoth
+   - HLVoiceCat
+   - HLVoiceWawa
   components:
   - type: Speech
     speechVerb: Parrot
@@ -255,6 +437,20 @@
   replaceComponents: true
   cost: 1
   category: SpeechTraits
+  mutuallyExclusiveTraits:
+   - HLRoboticVoice
+   - HLBorgVoice
+   - HLVoiceAvali
+   - HLVoiceSyndieborg
+   - HLVoiceXenoborg
+   - HLVoiceVulpkanin
+   - HLVoiceLizard
+   - HLVoiceSlime
+   - HLVoiceFox
+   - HLVoiceDog
+   - HLVoiceMoth
+   - HLVoiceCat
+   - HLVoiceResomi
   components:
   - type: Speech
     speechVerb: Wawa

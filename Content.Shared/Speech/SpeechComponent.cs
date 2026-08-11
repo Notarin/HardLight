@@ -17,21 +17,21 @@ namespace Content.Shared.Speech
         public bool Enabled = true;
 
         [ViewVariables(VVAccess.ReadWrite)]
-        [DataField]
+        [DataField, AutoNetworkedField] // HardLight: adding AutoNetworkedField since voice traits can replace those values
         public ProtoId<SpeechSoundsPrototype>? SpeechSounds;
 
         /// <summary>
         ///     What speech verb prototype should be used by default for displaying this entity's messages?
         /// </summary>
         [ViewVariables(VVAccess.ReadWrite)]
-        [DataField]
+        [DataField, AutoNetworkedField] // HardLight: adding AutoNetworkedField since voice traits can replace those values
         public ProtoId<SpeechVerbPrototype> SpeechVerb = "Default";
 
         /// <summary>
         ///     What emotes allowed to use event if emote <see cref="EmotePrototype.Available"/> is false
         /// </summary>
         [ViewVariables(VVAccess.ReadWrite)]
-        [DataField]
+        [DataField, AutoNetworkedField] // HardLight: adding AutoNetworkedField since voice traits can replace those values
         public List<ProtoId<EmotePrototype>> AllowedEmotes = new();
 
         /// <summary>

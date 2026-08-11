@@ -10,7 +10,6 @@
     speechSounds: Pai
     speechVerb: Robotic
     allowedEmotes: ['Beep', 'Ping', 'Buzz', 'Buzz-Two', 'Chime', 'Honk']
-    # giving it the proto treatment since it's reproduced sounds
   - type: Vocal
     sounds:
       Unsexed: UnisexSilicon
@@ -27,8 +26,6 @@
     speechSounds: Borg
     speechVerb: Robotic
     allowedEmotes: ['Beep', 'Ping', 'Buzz', 'Buzz-Two', 'Chime', 'Honk']
-    # giving it the proto treatment since it's reproduced sounds
-  - type: Vocal
     sounds:
       Unsexed: UnisexSilicon
 
@@ -63,7 +60,6 @@
     speechSounds: SyndieBorg
     speechVerb: Robotic
     allowedEmotes: ['Beep', 'Ping', 'Buzz', 'Buzz-Two', 'Chime', 'Honk']
-    # giving it the proto treatment since it's reproduced sounds
   - type: Vocal
     sounds:
       Unsexed: UnisexSiliconSyndicate
@@ -81,7 +77,6 @@
     speechSounds: Xenoborg
     speechVerb: Robotic
     allowedEmotes: ['Beep', 'Ping', 'Buzz', 'Buzz-Two', 'Chime', 'Honk']
-    # giving it the proto treatment since it's reproduced sounds
   - type: TypingIndicator
     proto: xenoborg
   - type: Vocal

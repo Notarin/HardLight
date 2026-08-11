@@ -63,7 +63,7 @@
     # Pretty much everyone.
     allowedDepartments: [ Civilian, Security, Command, Frontier, CentralCommand ]  #IF we had a merc department we can expand on it
   #- type: ChamberMagazineAmmoProvider
-  #  autoEject: true  
+  #  autoEject: true
 
 - type: entity
   name: Forged Rambler Shotgun
@@ -84,10 +84,10 @@
     size: Large
     shape:
     - 0,0,5,2
-    sprite: _HL/Objects/Weapons/Guns/Shotguns/forgedrambler_inhand.rsi 
+    sprite: _HL/Objects/Weapons/Guns/Shotguns/forgedrambler_inhand.rsi
   - type: Clothing
     sprite: _HL/Objects/Weapons/Guns/Shotguns/forgedrambler.rsi
-    quickEquip: false 
+    quickEquip: false
     slots:
     - Back
     - suitStorage
@@ -95,7 +95,7 @@
   - type: Gun
     fireRate: 2
     selectedMode: SemiAuto
-    availableModes: 
+    availableModes:
     - SemiAuto
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/shotgun.ogg
@@ -119,13 +119,12 @@
 # Line Gun
 - type: entity
   name: Line Gun
-  parent: [BaseWeaponBattery, Welder, BaseC3Contraband]
+  parent: [BaseGunWieldable, BaseWeaponBattery, Welder, BaseC3Contraband]
   id: WeaponLineGun
   description: When Donk first designed the Plasma Cutter, it was intended for heating up food. When they realized it'd be a kick-ass hand-held semi-shotgun, they made this.
   components:
   - type: Sprite
     sprite: _HL/Objects/Weapons/Guns/Shotguns/linegun.rsi
-    scale: 1.1, 1.1
     layers:
     - state: icon
     - state: line-gun-activate-icon
@@ -140,7 +139,7 @@
     size: Large
     sprite: _HL/Objects/Weapons/Guns/Shotguns/linegun.rsi
     shape:
-    - 0,0,2,1
+    - 0,0,3,1
   - type: ToggleableLightVisuals
     spriteLayer: line-gun-activate-icon
     inhandVisuals:
@@ -150,6 +149,13 @@
       right:
       - state: line-glow-inhand-right
         shader: unshaded
+  - type: ItemToggle
+    onUse: false
+    autoToggleOnWield: false
+  - type: Wieldable
+    unwieldOnUse: false
+    wieldedInhandPrefix: null
+  - type: GunRequiresWield
   - type: Gun
     fireRate: 1
     soundGunshot:
@@ -163,8 +169,6 @@
   - type: ProjectileBatteryAmmoProvider
     proto: LineGunShot
     fireCost: 100
-  - type: Multishot
-    spreadMultiplier: 1.0
   - type: SolutionContainerManager
     solutions:
       Welder:

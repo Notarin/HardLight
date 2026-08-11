@@ -16,6 +16,7 @@
   components:
   - type: Sprite
     sprite: _Goobstation/Objects/Weapons/Guns/Battery/cutter.rsi
+    scale: 0.8, 0.8
     layers:
     - state: icon
     - state: plasma-cutter-activate-icon

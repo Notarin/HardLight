@@ -4,12 +4,12 @@ using static Content.Server._HL.RoundPersistence.SaveBans.SaveBanStore.SaveRestr
 namespace Content.Server._HL.RoundPersistence.SaveBans;
 
 /// <summary>
-/// This is the class which holds a collection of all the items in the game with some form of save ban or save restriction.
+/// This is the class that holds a collection of all the items in the game with some form of save ban or save restriction.
 /// </summary>
 public static class SaveBanStore
 {
     /// <summary>
-    /// Flags are the specific identities of what are banned. It's inheritors each define a specific type of identifier.
+    /// Flags are the specific identities of what are banned. Its inheritors each define a specific type of identifier.
     /// </summary>
     public abstract record SaveBanFlag
     {
@@ -26,7 +26,7 @@ public static class SaveBanStore
     }
 
     /// <summary>
-    /// This type represents the strictness of the ban on said item.
+    /// This type represents the strictness of the ban on the said item.
     /// The strictness represents what course of action will be taken on an item should someone try to save it.
     /// </summary>
     public abstract record SaveRestrictionStrictness
@@ -37,8 +37,8 @@ public static class SaveBanStore
         public sealed record TotalBan : SaveRestrictionStrictness;
         /// <summary>
         /// A lighter form of restriction.
-        /// When an item with this strictness is saved, during the check, it's associated handler will be executed on the item.
-        /// This will usually mean wiping or reverting some data stored on said item.
+        /// When an item with this strictness is saved, during the check, its associated handler will be executed on the item.
+        /// This will usually mean wiping or reverting some data stored on the said item.
         /// </summary>
         /// <param name="Handle">A function that takes an entity manager, and the entity uid, and performs an arbitrary action.</param>
         public abstract record PartialBan(Action<EntityManager, EntityUid> Handle) : SaveRestrictionStrictness;

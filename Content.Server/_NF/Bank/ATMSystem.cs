@@ -13,10 +13,12 @@ using Content.Shared.Coordinates;
 using Content.Shared.Database;
 using Content.Shared.Stacks;
 using Content.Shared.UserInterface;
+using Content.Shared.HL.CCVar; // Hardight
 using Robust.Server.GameObjects;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Configuration; // Hardlight
 
 namespace Content.Server._NF.Bank;
 
@@ -29,7 +31,8 @@ public sealed partial class BankSystem
     [Dependency] private readonly UserInterfaceSystem _uiSystem = default!;
     [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
     [Dependency] private readonly IAdminLogManager _adminLogger = default!;
-    private const int AlertOver = 10000000; // Hardlight: High admin alert over this amount being deposited/withdrawn
+    [Dependency] private readonly IConfigurationManager _cfg = default!; // Hardlight
+    private int _alertOver; // Hardlight
 
     private void InitializeATM()
     {
@@ -38,6 +41,8 @@ public sealed partial class BankSystem
         SubscribeLocalEvent<BankATMComponent, BoundUIOpenedEvent>(OnATMUIOpen);
         SubscribeLocalEvent<BankATMComponent, EntInsertedIntoContainerMessage>(OnCashSlotChanged);
         SubscribeLocalEvent<BankATMComponent, EntRemovedFromContainerMessage>(OnCashSlotChanged);
+
+        Subs.CVar(_cfg, HLCCVars.ATMTransactionAlertThreshold, value => _alertOver = value, true); // Hardlight
     }
 
     private void OnWithdraw(EntityUid uid, BankATMComponent component, BankWithdrawMessage args)
@@ -81,8 +86,8 @@ public sealed partial class BankSystem
 
         ConsolePopup(args.Actor, Loc.GetString("bank-atm-menu-withdraw-successful"));
         PlayConfirmSound(uid, component);
-        if (args.Amount >= AlertOver) // Hardlight: High admin alert over this amount
-            _adminLogger.Add(LogType.ATMUsage, LogImpact.High, $"{ToPrettyString(player):actor} withdrew {args.Amount} from {ToPrettyString(uid)}");
+        if (args.Amount >= _alertOver) // Hardlight: Extreme admin alert over this amount
+            _adminLogger.Add(LogType.ATMUsage, LogImpact.Extreme, $"{ToPrettyString(player):actor} withdrew {args.Amount} from {ToPrettyString(uid)}");
         else
             _adminLogger.Add(LogType.ATMUsage, LogImpact.Low, $"{ToPrettyString(player):actor} withdrew {args.Amount} from {ToPrettyString(uid)}");
 
@@ -171,8 +176,8 @@ public sealed partial class BankSystem
 
         ConsolePopup(args.Actor, Loc.GetString("bank-atm-menu-deposit-successful"));
         PlayConfirmSound(uid, component);
-        if (deposit >= AlertOver) // Hardlight: High admin alert over this amount
-            _adminLogger.Add(LogType.ATMUsage, LogImpact.High, $"{ToPrettyString(player):actor} deposited {deposit} into {ToPrettyString(uid)}");
+        if (deposit >= _alertOver) // Hardlight: Extreme admin alert over this amount
+            _adminLogger.Add(LogType.ATMUsage, LogImpact.Extreme, $"{ToPrettyString(player):actor} deposited {deposit} into {ToPrettyString(uid)}");
         else
             _adminLogger.Add(LogType.ATMUsage, LogImpact.Low, $"{ToPrettyString(player):actor} deposited {deposit} into {ToPrettyString(uid)}");
 

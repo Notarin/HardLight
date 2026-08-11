@@ -84,6 +84,12 @@ public sealed partial class ItemToggleComponent : Component
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite), DataField, AutoNetworkedField]
     public SoundSpecifier? SoundFailToActivate;
+
+    /// <summary>
+    ///     HardLight: If this is set to false, wielding and unwielding will not toggle the item.
+    /// </summary>
+    [DataField]
+    public bool AutoToggleOnWield = true;
 }
 
 /// <summary>

@@ -26,6 +26,8 @@
     allowedEmotes: ['Beep', 'Ping', 'Buzz', 'Buzz-Two', 'Chime', 'Honk']
   - type: Vocal
     sounds:
+      Male: UnisexSilicon
+      Female: UnisexSilicon
       Unsexed: UnisexSilicon
 
 - type: trait
@@ -54,7 +56,10 @@
     speechSounds: Borg
     speechVerb: Robotic
     allowedEmotes: ['Beep', 'Ping', 'Buzz', 'Buzz-Two', 'Chime', 'Honk']
+  - type: Vocal
     sounds:
+      Male: UnisexSilicon
+      Female: UnisexSilicon
       Unsexed: UnisexSilicon
 
 
@@ -118,6 +123,8 @@
     allowedEmotes: ['Beep', 'Ping', 'Buzz', 'Buzz-Two', 'Chime', 'Honk']
   - type: Vocal
     sounds:
+      Male: UnisexSiliconSyndicate
+      Female: UnisexSiliconSyndicate
       Unsexed: UnisexSiliconSyndicate
 
 
@@ -151,6 +158,8 @@
     proto: xenoborg
   - type: Vocal
     sounds:
+      Male: UnisexSiliconSyndicate
+      Female: UnisexSiliconSyndicate
       Unsexed: UnisexSiliconSyndicate
     
 

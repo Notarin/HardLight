@@ -24,6 +24,7 @@ paradox-generator-insure-tooltip-no-item = Insert an item first.
 paradox-generator-insure-tooltip-insufficient-funds = You cannot afford the insurance premium.
 paradox-generator-claim-tooltip-live-copy = This insured item already exists.
 paradox-generator-claim-tooltip-insufficient-funds = You cannot afford the claim cost.
+paradox-generator-claim-tooltip-not-insurable = This item can no longer be insured.
 paradox-generator-remove-policy-tooltip = Remove this insurance policy.
 paradox-generator-popup-unavailable = The paradox generator cannot process that request.
 paradox-generator-popup-serialize-failed = The item resisted paradox encoding.

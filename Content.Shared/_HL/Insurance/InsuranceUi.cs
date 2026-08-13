@@ -60,6 +60,7 @@ public sealed class InsuranceListingState
     public readonly int ClaimCost;
     public readonly long Generation;
     public readonly bool LiveCurrentCopyExists;
+    public readonly string? CannotClaimReason;
 
     public InsuranceListingState(
         string policyId,
@@ -67,7 +68,8 @@ public sealed class InsuranceListingState
         int insuredValue,
         int claimCost,
         long generation,
-        bool liveCurrentCopyExists)
+        bool liveCurrentCopyExists,
+        string? cannotClaimReason)
     {
         PolicyId = policyId;
         Name = name;
@@ -75,6 +77,7 @@ public sealed class InsuranceListingState
         ClaimCost = claimCost;
         Generation = generation;
         LiveCurrentCopyExists = liveCurrentCopyExists;
+        CannotClaimReason = cannotClaimReason;
     }
 }
 

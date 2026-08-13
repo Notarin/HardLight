@@ -1,16 +1,20 @@
 using System.Numerics;
-using Content.Server.Medical;
+using Content.Server.Body.Components;
+using Content.Server.Body.Systems;
 using Content.Server.Medical.Components;
 using Content.Server.Popups;
+using Content.Server.Stack;
 using Content.Shared._HL.PoolToy;
 using Content.Shared.Damage;
+using Content.Shared.DoAfter;
 using Content.Shared.FixedPoint;
-using Content.Shared.Medical;
+using Content.Shared.Interaction;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Popups;
 using Content.Shared.Sprite;
+using Content.Shared.Stacks;
 using Robust.Server.Audio;
 using Robust.Shared.Player;
 using Robust.Shared.Timing;
@@ -18,16 +22,19 @@ using Robust.Shared.Timing;
 namespace Content.Server._HL.PoolToy;
 
 /// <summary>
-/// Lets air out of inflatable bodies that get cut or punctured until the breach is treated.
+/// Lets air out of inflatable bodies that get cut or punctured until the breach is patched up.
 /// </summary>
 public sealed class PoolToyInflationSystem : EntitySystem
 {
     [Dependency] private readonly AudioSystem _audio = default!;
+    [Dependency] private readonly BloodstreamSystem _bloodstream = default!;
     [Dependency] private readonly DamageableSystem _damageable = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly MobThresholdSystem _thresholds = default!;
     [Dependency] private readonly PopupSystem _popup = default!;
+    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
     [Dependency] private readonly SharedScaleVisualsSystem _scale = default!;
+    [Dependency] private readonly StackSystem _stacks = default!;
 
     public override void Initialize()
     {
@@ -35,8 +42,8 @@ public sealed class PoolToyInflationSystem : EntitySystem
 
         SubscribeLocalEvent<PoolToyInflationComponent, DamageChangedEvent>(OnDamageChanged);
         SubscribeLocalEvent<PoolToyInflationComponent, MobStateChangedEvent>(OnMobStateChanged);
-        SubscribeLocalEvent<PoolToyInflationComponent, HealingDoAfterEvent>(OnHealed,
-            after: new[] { typeof(HealingSystem) });
+        SubscribeLocalEvent<PoolToyInflationComponent, InteractUsingEvent>(OnInteractUsing);
+        SubscribeLocalEvent<PoolToyInflationComponent, PoolToySealDoAfterEvent>(OnSealDoAfter);
     }
 
     public override void Update(float frameTime)
@@ -46,13 +53,12 @@ public sealed class PoolToyInflationSystem : EntitySystem
         var query = EntityQueryEnumerator<PoolToyInflationComponent>();
         while (query.MoveNext(out var uid, out var comp))
         {
-            if (!comp.Breached)
+            StopBleeding(uid);
+
+            if (!comp.Breached || _timing.CurTime < comp.NextDeflate)
                 continue;
 
-            if (_timing.CurTime < comp.NextDeflate)
-                continue;
-
-            var elapsed = (float) (comp.DeflateInterval.TotalSeconds);
+            var elapsed = (float) comp.DeflateInterval.TotalSeconds;
             comp.NextDeflate = _timing.CurTime + comp.DeflateInterval;
 
             // Nothing left to lose once they are flat.
@@ -64,6 +70,8 @@ public sealed class PoolToyInflationSystem : EntitySystem
                 ignoreResistances: true,
                 interruptsDoAfters: false);
 
+            UpdateScale((uid, comp));
+
             if (_timing.CurTime < comp.NextWarning)
                 continue;
 
@@ -71,6 +79,17 @@ public sealed class PoolToyInflationSystem : EntitySystem
             _popup.PopupEntity(Loc.GetString(comp.DeflatingPopup), uid, uid, PopupType.MediumCaution);
             _audio.PlayPvs(comp.DeflatingSound, uid);
         }
+    }
+
+    /// <summary>
+    /// Air, not blood, is what an inflatable body is full of, so it leaks the former and never the latter.
+    /// </summary>
+    private void StopBleeding(EntityUid uid)
+    {
+        if (!TryComp<BloodstreamComponent>(uid, out var bloodstream) || bloodstream.BleedAmount <= 0f)
+            return;
+
+        _bloodstream.TryModifyBleedAmount(uid, -bloodstream.BleedAmount, bloodstream);
     }
 
     private void OnDamageChanged(Entity<PoolToyInflationComponent> ent, ref DamageChangedEvent args)
@@ -105,14 +124,45 @@ public sealed class PoolToyInflationSystem : EntitySystem
         _audio.PlayPvs(ent.Comp.FlatSound, ent);
     }
 
-    private void OnHealed(Entity<PoolToyInflationComponent> ent, ref HealingDoAfterEvent args)
+    /// <summary>
+    /// Patching a breach is handled here rather than through healing, since the escaping air leaves no wound
+    /// for a bandage to actually heal.
+    /// </summary>
+    private void OnInteractUsing(Entity<PoolToyInflationComponent> ent, ref InteractUsingEvent args)
     {
-        if (args.Cancelled || !ent.Comp.Breached)
+        if (args.Handled || !ent.Comp.Breached)
             return;
 
-        // Only patches that close wounds - bandages, gauze, ointments - can seal a breach.
         if (!TryComp<HealingComponent>(args.Used, out var healing) || !SealsBreaches(healing))
             return;
+
+        args.Handled = _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager,
+            args.User,
+            ent.Comp.SealDelay,
+            new PoolToySealDoAfterEvent(),
+            ent.Owner,
+            target: ent.Owner,
+            used: args.Used)
+        {
+            NeedHand = true,
+            BreakOnMove = true,
+        });
+    }
+
+    private void OnSealDoAfter(Entity<PoolToyInflationComponent> ent, ref PoolToySealDoAfterEvent args)
+    {
+        if (args.Handled || args.Cancelled || !ent.Comp.Breached)
+            return;
+
+        args.Handled = true;
+
+        if (args.Used is { } used)
+        {
+            if (TryComp<StackComponent>(used, out var stack))
+                _stacks.Use(used, 1, stack);
+            else
+                QueueDel(used);
+        }
 
         ent.Comp.Breached = false;
         Dirty(ent);
@@ -122,6 +172,9 @@ public sealed class PoolToyInflationSystem : EntitySystem
         UpdateScale(ent);
     }
 
+    /// <summary>
+    /// Whether an item is the sort of patch - bandage, gauze, ointment - that can close a breach.
+    /// </summary>
     private static bool SealsBreaches(HealingComponent healing)
     {
         if (healing.BloodlossModifier < 0)

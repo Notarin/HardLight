@@ -33,10 +33,17 @@ public sealed partial class PoolToyInflationComponent : Component
     public ProtoId<DamageTypePrototype> AirlossDamageType = "Asphyxiation";
 
     /// <summary>
-    /// Airloss dealt per second while a breach is open.
+    /// Airloss dealt per second while a breach is open. This has to outpace the respirator, which heals
+    /// asphyxiation while the entity is still breathing.
     /// </summary>
     [DataField]
-    public FixedPoint2 AirlossPerSecond = FixedPoint2.New(0.5);
+    public FixedPoint2 AirlossPerSecond = FixedPoint2.New(2);
+
+    /// <summary>
+    /// How long sealing a breach takes.
+    /// </summary>
+    [DataField]
+    public TimeSpan SealDelay = TimeSpan.FromSeconds(3);
 
     [DataField]
     public TimeSpan DeflateInterval = TimeSpan.FromSeconds(1);
@@ -60,13 +67,13 @@ public sealed partial class PoolToyInflationComponent : Component
     /// Sprite scale reached as damage approaches the crit threshold.
     /// </summary>
     [DataField]
-    public Vector2 DeflatedScale = new(0.9f, 0.9f);
+    public Vector2 DeflatedScale = new(0.85f, 0.8f);
 
     /// <summary>
     /// Sprite scale once fully airless, i.e. in crit.
     /// </summary>
     [DataField]
-    public Vector2 FlatScale = new(1.1f, 0.5f);
+    public Vector2 FlatScale = new(1.15f, 0.45f);
 
     /// <summary>
     /// How often the leaking entity gets reminded that it is losing air.
@@ -93,13 +100,15 @@ public sealed partial class PoolToyInflationComponent : Component
     public LocId SealPopup = "pooltoy-sealed";
 
     [DataField]
-    public SoundSpecifier? BreachSound = new SoundPathSpecifier("/Audio/Items/hiss.ogg");
+    public SoundSpecifier? BreachSound = new SoundPathSpecifier("/Audio/Items/hiss.ogg",
+        AudioParams.Default.WithVolume(-4f));
 
     /// <summary>
     /// Played every <see cref="WarningInterval"/> while air is escaping.
     /// </summary>
     [DataField]
-    public SoundSpecifier? DeflatingSound = new SoundPathSpecifier("/Audio/Effects/spray.ogg");
+    public SoundSpecifier? DeflatingSound = new SoundPathSpecifier("/Audio/Items/smoke_grenade_smoke.ogg",
+        AudioParams.Default.WithVolume(-10f));
 
     [DataField]
     public SoundSpecifier? FlatSound = new SoundPathSpecifier("/Audio/Effects/balloon-pop.ogg");

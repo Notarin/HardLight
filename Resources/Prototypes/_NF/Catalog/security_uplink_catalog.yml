@@ -5,7 +5,7 @@
   id: UplinkSecurityHardsuit
   name: uplink-security-hardsuit-name
   description: uplink-security-hardsuit-desc
-  productEntity: ClothingOuterHardsuitNfsdBronze
+  productEntity: CSClothingOuterHardsuitNfsdBronze
   icon: { sprite: _NF/Clothing/OuterClothing/Hardsuits/nfsd_bronze.rsi, state: icon }
   cost:
     FrontierUplinkCoin: 2
@@ -21,7 +21,7 @@
   id: UplinkSecurityHardsuitPatrol
   name: uplink-security-hardsuit-patrol-name
   description: uplink-security-hardsuit-patrol-desc
-  productEntity: ClothingOuterHardsuitNfsdSilver
+  productEntity: CSClothingOuterHardsuitNfsdSilver
   icon: { sprite: _NF/Clothing/OuterClothing/Hardsuits/nfsd_silver.rsi, state: icon }
   cost:
     FrontierUplinkCoin: 2
@@ -37,7 +37,7 @@
   id: UplinkSecurityHardsuitBrigmedic
   name: uplink-security-hardsuit-brigmedic-name
   description: uplink-security-hardsuit-brigmedic-desc
-  productEntity: ClothingOuterHardsuitNfsdBrigmedic
+  productEntity: CSClothingOuterHardsuitNfsdBrigmedic
   icon: { sprite: _NF/Clothing/OuterClothing/Hardsuits/nfsd_brigmed.rsi, state: icon }
   cost:
     FrontierUplinkCoin: 2
@@ -53,7 +53,7 @@
   id: UplinkSecurityHardsuitWarden
   name: uplink-security-hardsuit-warden-name
   description: uplink-security-hardsuit-warden-desc
-  productEntity: ClothingOuterHardsuitNfsdGold
+  productEntity: CSClothingOuterHardsuitNfsdGold
   icon: { sprite: _NF/Clothing/OuterClothing/Hardsuits/nfsd_gold.rsi, state: icon }
   cost:
     FrontierUplinkCoin: 3
@@ -74,7 +74,7 @@
   id: UplinkSecurityCombatHardsuit
   name: uplink-security-hardsuit-combat-name
   description: uplink-security-hardsuit-combat-desc
-  productEntity: ClothingOuterHardsuitNfsdCombat
+  productEntity: CSClothingOuterHardsuitNfsdCombat
   icon: { sprite: _NF/Clothing/OuterClothing/Hardsuits/nfsd_combat.rsi, state: icon }
   cost:
     FrontierUplinkCoin: 10
@@ -90,7 +90,7 @@
   id: UplinkSecurityCommandHardsuit
   name: uplink-security-hardsuit-command-name
   description: uplink-security-hardsuit-command-desc
-  productEntity: ClothingOuterHardsuitNfsdCommand
+  productEntity: CSClothingOuterHardsuitNfsdCommand
   icon: { sprite: _NF/Clothing/OuterClothing/Hardsuits/nfsd_command.rsi, state: icon }
   cost:
     FrontierUplinkCoin: 10
@@ -111,7 +111,7 @@
   id: UplinkSecurityHardsuitSheriff
   name: uplink-security-hardsuit-sheriff-name
   description: uplink-security-hardsuit-sheriff-desc
-  productEntity: ClothingOuterHardsuitNfsdSheriff
+  productEntity: CSClothingOuterHardsuitNfsdSheriff
   icon: { sprite: _NF/Clothing/OuterClothing/Hardsuits/nfsd_sheriff.rsi, state: icon }
   cost:
     FrontierUplinkCoin: 3
@@ -130,7 +130,7 @@
   id: UplinkSecurityHardsuitSyndieReverseEngineered
   name: uplink-security-hardsuit-experimental-name
   description: uplink-security-hardsuit-experimental-desc
-  productEntity: ClothingOuterHardsuitNfsdExperimental
+  productEntity: CSClothingOuterHardsuitNfsdExperimental
   icon: { sprite: _NF/Clothing/OuterClothing/Hardsuits/nfsd_experimental.rsi, state: icon }
   cost:
     FrontierUplinkCoin: 20
@@ -150,7 +150,7 @@
   id: UplinkSecurityMk32
   name: uplink-security-mk32-name
   description: uplink-security-mk32-desc
-  productEntity: WeaponPistolMk32
+  productEntity: CSWeaponPistolMk32
   icon: { sprite: _DV/Objects/Weapons/Guns/Pistols/universal.rsi, state: icon }
   cost:
     FrontierUplinkCoin: 2
@@ -214,7 +214,7 @@
   id: UplinkSecurityEnforcer
   name: uplink-security-enforcer-name
   description: uplink-security-enforcer-desc
-  productEntity: WeaponShotgunEnforcer  # Hardlight
+  productEntity: CSWeaponShotgunEnforcer  # Hardlight
   icon: { sprite: Objects/Weapons/Guns/Shotguns/enforcer.rsi, state: icon }
   cost:
     FrontierUplinkCoin: 3
@@ -235,7 +235,7 @@
   id: UplinkSecurityLecter
   name: uplink-security-lecter-name
   description: uplink-security-lecter-desc
-  productEntity: NFWeaponRifleAssaultLecter
+  productEntity: CSNFWeaponRifleAssaultLecter
   icon: { sprite: Objects/Weapons/Guns/Rifles/lecter.rsi, state: icon }
   cost:
     FrontierUplinkCoin: 3
@@ -256,7 +256,7 @@
   id: UplinkSecurityVulcan
   name: uplink-security-vulcan-name
   description: uplink-security-vulcan-desc
-  productEntity: NFWeaponRifleAssaultVulcan
+  productEntity: CSNFWeaponRifleAssaultVulcan
   icon: { sprite: _DV/Objects/Weapons/Guns/Rifles/vulcan.rsi, state: icon }
   cost:
     FrontierUplinkCoin: 4
@@ -898,6 +898,86 @@
   icon: { sprite: Objects/Weapons/Guns/Revolvers/inspector.rsi, state: icon }
   cost:
     FrontierUplinkCoin: 1
+  categories:
+    - UplinkSecurityWeapons
+  conditions:
+    - !type:StoreWhitelistCondition
+      whitelist:
+        tags:
+          - SecurityUplink
+          
+- type: listing
+  id: UplinkvolkitePowerPack
+  name: uplink-security-volkitePowerPack-name
+  description: uplink-security-volkitePowerPack-desc
+  productEntity: volkitePowerPack
+  icon: { sprite: _TGMC/Objects/Weapons/Guns/Volkite/powerpack.rsi, state: icon }
+  cost:
+    FrontierUplinkCoin: 1
+  categories:
+    - UplinkSecurityWeapons
+  conditions:
+    - !type:StoreWhitelistCondition
+      whitelist:
+        tags:
+          - SecurityUplink
+          
+- type: listing
+  id: UplinkSerpentia
+  name: uplink-security-Serpenta-name
+  description: uplink-security-Serpenta-desc
+  productEntity: CSWeaponVolkitePistol
+  icon: { sprite: _TGMC/Objects/Weapons/Guns/Volkite/vx12.rsi, state: base }
+  cost:
+    FrontierUplinkCoin: 3
+  categories:
+    - UplinkSecurityWeapons
+  conditions:
+    - !type:StoreWhitelistCondition
+      whitelist:
+        tags:
+          - SecurityUplink
+          
+- type: listing
+  id: UplinkvolkiteCharger
+  name: uplink-security-Charger-name
+  description: uplink-security-Charger-desc
+  productEntity: CSWeaponVolkiteCharger
+  icon: { sprite: _TGMC/Objects/Weapons/Guns/Volkite/charger.rsi, state: base }
+  cost:
+    FrontierUplinkCoin: 5
+  categories:
+    - UplinkSecurityWeapons
+  conditions:
+    - !type:StoreWhitelistCondition
+      whitelist:
+        tags:
+          - SecurityUplink
+          
+- type: listing
+  id: UplinkCaliver
+  name: uplink-security-Caliver-name
+  description: uplink-security-Caliver-desc
+  productEntity: CSWeaponVolkiteCaliver
+  icon: { sprite: _TGMC/Objects/Weapons/Guns/Volkite/caliver.rsi, state: base }
+  cost:
+    FrontierUplinkCoin: 6
+  categories:
+    - UplinkSecurityWeapons
+  conditions:
+    - !type:StoreWhitelistCondition
+      whitelist:
+        tags:
+          - SecurityUplink
+          
+- type: listing
+  id: UplinkCulverin
+  name: uplink-security-Culverin-name
+  description: uplink-security-Culverin-desc
+  productEntity: CSWeaponVolkiteCulverin
+  icon: { sprite: _TGMC/Objects/Weapons/Guns/Volkite/culverin.rsi, state: base }
+  cost:
+    FrontierUplinkCoin: 8
   categories:
     - UplinkSecurityWeapons
   conditions:

@@ -30,7 +30,7 @@
     children:
     - id: FlashlightSeclite
 #    - id: WeaponDisabler # Frontier
-    - id: WeaponEnergyRevolver # HL
+    - id: CSWeaponEnergyRevolver # HL
     - id: NFWeaponEnergySubMachineGunDisabler # HL
     - id: WeaponEnergyShotgun
     - id: ClothingBeltSecurityFilled
@@ -88,7 +88,7 @@
     - id: FlashlightSeclite
       prob: 0.8
 #    - id: WeaponDisabler # Frontier
-    - id: WeaponEnergyRevolver # HL
+    - id: CSWeaponEnergyRevolver # HL
     - id: NFWeaponEnergySubMachineGunDisabler # HL
     - id: Bola
     - id: ClothingUniformJumpsuitSecGrey
@@ -126,7 +126,7 @@
     children:
     - id: ClothingEyesGlassesSecurity
 #    - id: WeaponDisabler # Frontier
-    - id: WeaponEnergyRevolver # HL
+    - id: CSWeaponEnergyRevolver # HL
     - id: NFWeaponEnergySubMachineGunDisabler # HL
     - id: Bola
     - id: TrackingImplanter
@@ -177,7 +177,7 @@
     - id: ClothingEyesGlassesSecurity
       prob: 0.3
     - id: ClothingHeadHatDetGadget
-    - id: WeaponEnergyRevolver # HL
+    - id: CSWeaponEnergyRevolver # HL
     - id: ClothingNeckTieDet
     - id: ClothingOuterVestDetective
     - id: ClothingOuterCoatDetectiveLoadout
@@ -247,7 +247,7 @@
     rolls: !type:ConstantNumberSelector
       value: 4
     children:
-    - id: WeaponPistolMk58
+    - id: CSWeaponPistolMk58
     - id: Magazine45_ACPPistolFMJ #HL
     - id: Magazine45_ACPPistolFMJ #HL
 
@@ -268,7 +268,7 @@
     rolls: !type:ConstantNumberSelector
       value: 2
     children:
-    - id: WeaponRifleLecter
+    - id: CSNFWeaponRifleAssaultLecter
     - id: Magazine556x45mmFMJ # HL
     - id: Magazine556x45mmFMJ # HL
 
@@ -289,7 +289,7 @@
     rolls: !type:ConstantNumberSelector
       value: 2
     children:
-    - id: NFWeaponSubMachineGunDrozd # Frontier: WeaponSubMachineGunDrozd<NFWeaponSubMachineGunDrozd
+    - id: CSNFWeaponSubMachineGunDrozd # Frontier: WeaponSubMachineGunDrozd<NFWeaponSubMachineGunDrozd
     - id: Magazine9x19mmSubMachineGunFMJ # HL
     - id: Magazine9x19mmSubMachineGunFMJ # HL
 
@@ -310,7 +310,7 @@
     rolls: !type:ConstantNumberSelector
       value: 2
     children:
-    - id: NFWeaponShotgunEnforcer # Frontier: WeaponShotgunEnforcer<NFWeaponShotgunEnforcer
+    - id: CSWeaponShotgunEnforcer # Frontier: WeaponShotgunEnforcer<NFWeaponShotgunEnforcer
     - id: AmmoBox12_gaugeBuckshot #HL
     - id: AmmoBox12_gaugeBuckshot #HL
 
@@ -352,7 +352,7 @@
     rolls: !type:ConstantNumberSelector
       value: 2
     children:
-    - id: NFWeaponSubMachineGunWt550 # Frontier: WeaponSubMachineGunWt550<NFWeaponSubMachineGunWt550
+    - id: CSNFWeaponSubMachineGunWt550 # Frontier: WeaponSubMachineGunWt550<NFWeaponSubMachineGunWt550
     - id: Magazine46x30mmSubMachineGunTopMountedFMJ #HL
     - id: Magazine46x30mmSubMachineGunTopMountedFMJ #HL
 
@@ -373,4 +373,4 @@
     rolls: !type:ConstantNumberSelector
       value: 3
     children:
-    - id: NFWeaponEnergyRifleCarbine # Frontier: WeaponLaserCarbine<NFWeaponEnergyRifleCarbine
+    - id: CSNFWeaponEnergyRifleCarbine # Frontier: WeaponLaserCarbine<NFWeaponEnergyRifleCarbine

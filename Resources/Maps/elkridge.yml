@@ -112763,7 +112763,7 @@ entities:
     - type: Transform
       pos: -14.5,-12.5
       parent: 2
-- proto: PoweredlightBlue
+- proto: Ash
   entities:
   - uid: 13645
     components:
@@ -129913,7 +129913,7 @@ entities:
     - type: Transform
       pos: -17.5,-43.5
       parent: 2
-- proto: VendingMachineMailDrobe
+- proto: VendingMachineAsh
   entities:
   - uid: 15985
     components:

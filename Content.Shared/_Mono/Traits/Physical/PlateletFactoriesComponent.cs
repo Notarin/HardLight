@@ -1,3 +1,5 @@
+using Content.Shared.Damage.Prototypes; // HardLight
+using Robust.Shared.Prototypes; // HardLight
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
 namespace Content.Shared._Mono.Traits.Physical;
@@ -25,6 +27,12 @@ public sealed partial class PlateletFactoriesComponent : Component
     /// </summary>
     [DataField]
     public float CritMultiplier = 2f;
+
+    /// <summary>
+    /// HardLight: Damage types this component will not heal.
+    /// </summary>
+    [DataField]
+    public HashSet<ProtoId<DamageTypePrototype>> ExcludedDamageTypes = new();
 
     /// <summary>
     /// The server time at which the next regeneration tick will occur.

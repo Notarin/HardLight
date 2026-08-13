@@ -1,5 +1,6 @@
 using System.Linq;
 using Content.Server.Body.Components;
+using Content.Server.Body.Events; // EE
 using Content.Server.EntityEffects.Effects;
 using Content.Server.Fluids.EntitySystems;
 using Content.Server.Popups;
@@ -16,6 +17,8 @@ using Content.Shared.Forensics;
 using Content.Shared.Forensics.Components;
 using Content.Shared.HealthExaminable;
 using Content.Shared.Mobs.Systems;
+using Content.Shared.Nutrition.Components; // EE
+using Content.Shared.Nutrition.EntitySystems; // EE
 using Content.Shared.Popups;
 using Content.Shared.Rejuvenate;
 using Content.Shared.Speech.EntitySystems;
@@ -40,6 +43,8 @@ public sealed class BloodstreamSystem : EntitySystem
     [Dependency] private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
     [Dependency] private readonly SharedStutteringSystem _stutteringSystem = default!;
     [Dependency] private readonly AlertsSystem _alertsSystem = default!;
+    [Dependency] private readonly HungerSystem _hunger = default!; // EE
+    [Dependency] private readonly ThirstSystem _thirst = default!; // EE
 
     /// <summary>
     /// Cache of reagent IDs that have ChangeBloodReagent effects.
@@ -138,11 +143,15 @@ public sealed class BloodstreamSystem : EntitySystem
             if (!_solutionContainerSystem.ResolveSolution(uid, bloodstream.BloodSolutionName, ref bloodstream.BloodSolution, out var bloodSolution))
                 continue;
 
-            // Adds blood to their blood level if it is below the maximum; Blood regeneration. Must be alive.
-            if (bloodSolution.Volume < bloodSolution.MaxVolume && !_mobStateSystem.IsDead(uid))
-            {
-                TryModifyBloodLevel(uid, bloodstream.BloodRefreshAmount, bloodstream);
-            }
+            // // Adds blood to their blood level if it is below the maximum; Blood regeneration. Must be alive.
+            // if (bloodSolution.Volume < bloodSolution.MaxVolume && !_mobStateSystem.IsDead(uid))
+            // {
+            //     TryModifyBloodLevel(uid, bloodstream.BloodRefreshAmount, bloodstream);
+            // }
+
+            // EE: Try to apply natural blood regeneration/bloodloss
+            if (!_mobStateSystem.IsDead(uid))
+                TryDoNaturalRegeneration((uid, bloodstream), bloodSolution);
 
             // Removes blood from the bloodstream based on bleed amount (bleed rate)
             // as well as stop their bleeding to a certain extent.
@@ -450,6 +459,14 @@ public sealed class BloodstreamSystem : EntitySystem
         comp.BloodlossThreshold = threshold;
     }
 
+    public void SetBloodMaxVolume(EntityUid uid, FixedPoint2 volume, BloodstreamComponent? comp = null) // EE
+    {
+        if (!Resolve(uid, ref comp))
+            return;
+
+        comp.BloodMaxVolume = volume;
+    }
+
     /// <summary>
     ///     Attempts to modify the blood level of this entity directly.
     /// </summary>
@@ -649,5 +666,48 @@ public sealed class BloodstreamSystem : EntitySystem
 
         bloodstream.OriginalBloodReagent = null;
         // No need to dirty - BloodstreamComponent is server-only and not networked
+    }
+
+    /// <summary>
+    /// EE: Remove blood from an entity, without spilling it.
+    /// </summary>
+    private void RemoveBlood(EntityUid uid, FixedPoint2 amount, BloodstreamComponent? component = null)
+    {
+        if (!Resolve(uid, ref component, logMissing: false)
+            || !_solutionContainerSystem.ResolveSolution(uid, component.BloodSolutionName, ref component.BloodSolution, out var bloodSolution))
+            return;
+
+        bloodSolution.RemoveReagent(component.BloodReagent, amount);
+    }
+
+    /// <summary>
+    /// EE: Tries to apply natural blood regeneration/loss to the entity. Returns true if succesful.
+    /// </summary>
+    private bool TryDoNaturalRegeneration(Entity<BloodstreamComponent> ent, Solution bloodSolution)
+    {
+        var ev = new NaturalBloodRegenerationAttemptEvent { Amount = ent.Comp.BloodRefreshAmount };
+        RaiseLocalEvent(ent, ref ev);
+
+        if (ev.Cancelled || (ev.Amount > 0 && bloodSolution.Volume >= bloodSolution.MaxVolume))
+            return false;
+
+        var usedHunger = ev.Amount * ent.Comp.BloodRegenerationHunger;
+        var usedThirst = ev.Amount * ent.Comp.BloodRegenerationThirst;
+
+        // First, check if the entity has enough hunger/thirst
+        var hungerComp = CompOrNull<HungerComponent>(ent);
+        var thirstComp = CompOrNull<ThirstComponent>(ent);
+        if (usedHunger > 0 && hungerComp is not null && (_hunger.GetHunger(hungerComp) < usedHunger || hungerComp.CurrentThreshold <= HungerThreshold.Starving) // HardLight: hungerComp.CurrentHunger>_hunger.GetHunger(hungerComp)
+            ||  usedThirst > 0 && thirstComp is not null && (thirstComp.CurrentThirst < usedThirst || thirstComp.CurrentThirstThreshold <= ThirstThreshold.Parched))
+            return false;
+
+        // Then actually expend hunger and thirst (if necessary) and regenerate blood.
+        if (usedHunger > 0 && hungerComp is not null)
+            _hunger.ModifyHunger(ent, (float) -usedHunger, hungerComp);
+
+        if (usedThirst > 0 && thirstComp is not null)
+            _thirst.ModifyThirst(ent, thirstComp, (float) -usedThirst);
+
+        return TryModifyBloodLevel(ent, ev.Amount, ent.Comp);
     }
 }

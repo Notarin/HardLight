@@ -12,6 +12,7 @@
   - type: Tag
     tags:
     - Ore
+  - type: NotInsurable # HardLight
   - type: Fixtures
     fixtures:
       fix1:

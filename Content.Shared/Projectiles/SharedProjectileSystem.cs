@@ -456,6 +456,7 @@ public abstract partial class SharedProjectileSystem : EntitySystem
             projectile.Shooter = null;
             projectile.Weapon = null;
             projectile.ProjectileSpent = false;
+            projectile.DamagedEntity = false; // HL: Allow projectiles to be-used
 
             Dirty(uid, projectile);
         }

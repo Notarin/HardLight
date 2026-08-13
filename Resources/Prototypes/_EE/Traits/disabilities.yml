@@ -1,0 +1,16 @@
+- type: trait
+  id: BloodDeficiency
+  name: trait-name-BloodDeficiency # HardLight
+  description: trait-description-BloodDeficiency # HardLight
+  category: Physical
+  cost: 4 # HardLight: points>cost
+  mutuallyExclusiveTraits:
+  - PlateletFactories
+  speciesBlacklist: # HardLight
+  - IPC
+  blacklist:
+    components:
+      - BorgChassis
+  components:
+    - type: BloodDeficiency # by default, start taking bloodloss damage at around ~21.4 minutes,
+      bloodLossPercentage: 0.0002333333 # then become crit ~10 minutes

@@ -192,6 +192,8 @@ public static class SaveBanStore
         Entity("DnaScannerConsoleComputerCircuitboard", "Not intended for removal from station.", new TotalBan()),
         Entity("IDComputerCircuitboard", "Not intended for removal from station.", new TotalBan()),
         Entity("StationAiUploadComputer", "Not intended for removal from station.", new TotalBan()),
+        Entity("MachineParadoxGenerator", "Not intended for removal from station.", new TotalBan()),
+        Entity("ParadoxGeneratorMachineCircuitboard", "Not intended for removal from station.", new TotalBan()),
 
         Entity("DEBUGVendingMachineAmmoBoxes", "Explicitly unobtainable.", new TotalBan()),
         Entity("DEBUGVendingMachineMagazines", "Explicitly unobtainable.", new TotalBan()),

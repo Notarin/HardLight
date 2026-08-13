@@ -671,13 +671,14 @@ public sealed class BloodstreamSystem : EntitySystem
     /// <summary>
     /// EE: Remove blood from an entity, without spilling it.
     /// </summary>
-    private void RemoveBlood(EntityUid uid, FixedPoint2 amount, BloodstreamComponent? component = null)
+    private bool RemoveBlood(EntityUid uid, FixedPoint2 amount, BloodstreamComponent? component = null)
     {
         if (!Resolve(uid, ref component, logMissing: false)
             || !_solutionContainerSystem.ResolveSolution(uid, component.BloodSolutionName, ref component.BloodSolution, out var bloodSolution))
-            return;
+            return false;
 
         bloodSolution.RemoveReagent(component.BloodReagent, amount);
+        return true;
     }
 
     /// <summary>

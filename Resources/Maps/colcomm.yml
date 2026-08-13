@@ -14797,7 +14797,7 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -6.5,-32.5
       parent: 1
-- proto: AlwaysAsh
+- proto: AlwaysPoweredLightLED
   entities:
   - uid: 977
     components:
@@ -128974,7 +128974,7 @@ entities:
       rot: 3.141592653589793 rad
       pos: 85.5,-1.5
       parent: 1
-- proto: Ash
+- proto: PoweredLightBlue
   entities:
   - uid: 18060
     components:

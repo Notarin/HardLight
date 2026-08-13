@@ -3418,6 +3418,13 @@ namespace Content.Server.Shuttles.Save
                     RestoreEntityComponents(newEntity, entityData.Components);
                 }
 
+                // HL START: Re-Attach or re-create toggleable clothing components
+                if (_entityManager.TryGetComponent<ToggleableClothingComponent>(newEntity, out var toggleComp))
+                {
+                    _toggleableClothingSystem.RestoreAttachedEntity(newEntity, toggleComp);
+                }
+                // HL END
+
                 // Restore custom entity name
                 if (!string.IsNullOrEmpty(entityData.EntityName))
                 {

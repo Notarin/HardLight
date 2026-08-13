@@ -147657,7 +147657,7 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 6.5,23.5
       parent: 2
-- proto: NFAsh
+- proto: NFRandomBook
   entities:
   - uid: 18821
     components:
@@ -154829,7 +154829,7 @@ entities:
     - type: Transform
       pos: -26.5,-51.5
       parent: 2
-- proto: Ash
+- proto: PoweredlightBlue
   entities:
   - uid: 19522
     components:

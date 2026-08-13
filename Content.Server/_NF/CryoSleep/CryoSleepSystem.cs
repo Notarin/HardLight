@@ -278,8 +278,8 @@ public sealed partial class CryoSleepSystem : EntitySystem
             cryopod
         )
         {
-            BreakOnMove = true,
-            BreakOnWeightlessMove = true
+            BreakOnMove = false, // HardLight: true>false; SSD sleep knocks the occupant down before cryospace transfer can finish, canceling the doafter.
+            BreakOnWeightlessMove = false // HardLight: true>false
         };
 
         if (_doAfter.TryStartDoAfter(args, out var doAfterId)) // HardLight: Added out var doAfterId

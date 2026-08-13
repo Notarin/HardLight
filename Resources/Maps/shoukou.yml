@@ -65909,7 +65909,7 @@ entities:
     - type: Transform
       pos: -47.5,0.5
       parent: 2
-- proto: PosterMapShoukou
+- proto: Ash
   entities:
   - uid: 9807
     components:

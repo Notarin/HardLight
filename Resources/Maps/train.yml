@@ -61,8 +61,8 @@ tilemap:
   120: FloorWood
   5: FloorWood
   3: FloorWoodLarge
-  6: FloorWoodMaple
-  122: FloorWoodTile
+  6: FloorWood
+  122: FloorWood
   123: Lattice
   124: Plating
   126: PlatingBurnt

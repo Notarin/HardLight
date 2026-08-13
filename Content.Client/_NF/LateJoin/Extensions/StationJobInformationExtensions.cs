@@ -38,7 +38,7 @@ public static class StationJobInformationExtensions
     {
         var jobCount = stationJobInformation.GetJobCount();
         var hasUnlimitedJobs = stationJobInformation.HasUnlimitedJobs();
-        return jobCount.WrapJobCountInParentheses(hasUnlimitedJobs);
+        return jobCount.WrapJobCountInParentheses(null, hasUnlimitedJobs); // Hardlight
     }
 
     /**
@@ -50,7 +50,7 @@ public static class StationJobInformationExtensions
     {
         var jobCount = obj.Values.Sum(stationJobInformation => stationJobInformation.GetJobCount());
         var hasUnlimitedJobs = obj.Values.Any(stationJobInformation => stationJobInformation.HasUnlimitedJobs());
-        return jobCount.WrapJobCountInParentheses(hasUnlimitedJobs);
+        return jobCount.WrapJobCountInParentheses(null, hasUnlimitedJobs); // Hardlight
     }
 
     /**
@@ -67,7 +67,7 @@ public static class StationJobInformationExtensions
         return stationJobInformation.JobsAvailable.Values.Sum();
     }
 
-    public static string WrapJobCountInParentheses(this int? jobCount, bool hasUnlimitedJobs = false)
+    public static string WrapJobCountInParentheses(this int? jobCount, int? maxJobCount = null, bool hasUnlimitedJobs = false) // HardLight: Add MaxJobCount
     {
         if (jobCount is 0 or null)
         {
@@ -79,7 +79,7 @@ public static class StationJobInformationExtensions
         {
             jobCountString += "+";
         }
-        return $" ({jobCountString})";
+        return $" ({jobCountString}" + (maxJobCount is not null ? $"/{maxJobCount}" : "") + ")"; // HardLight: Add MaxJobCount
     }
 
 }

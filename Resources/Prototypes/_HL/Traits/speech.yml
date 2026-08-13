@@ -245,3 +245,12 @@
   - type: EmotePitch
     semitones: 9
 
+
+- type: trait
+  id: RussianAccent
+  name: hl-trait-russian-name
+  description: hl-trait-russian-desc
+  category: SpeechTraits
+  cost: 1
+  components:
+  - type: RussianAccent

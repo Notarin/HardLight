@@ -95,6 +95,43 @@
     - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
       state: alive-unshaded
       shader: unshaded
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      100: Critical
+      200: Dead
+  - type: CumProducer
+    maxVol: 15000
+    reVol: 3750
+    reHunger: 1
+  - type: Tag
+    tags:
+    - CanPilot
+    - FootstepSound
+    - DoorBumpOpener
+    - CannotSuicide
+    - ResinStructures
+  - type: ThermalVision # Starlight
+  - type: Vore
+  - type: TrapAvoider
+  - type: NpcFactionMember
+    factions:
+    - PetsNT
+  - type: Insulated
+  - type: Access
+  - type: ComplexInteraction
+  - type: Inventory
+    templateId: friendxeno
+  - type: IdExaminable
+  - type: InventorySlots
+  - type: Stripping
+  - type: Strippable
+  - type: UserInterface
+    interfaces:
+      enum.StrippingUiKey.Key:
+        type: StrippableBoundUserInterface
+  - type: Puller
+    needsHands: false
   - type: ActionGun
     action: ActionDragonsBreath
     gunProto: DragonsBreathGun

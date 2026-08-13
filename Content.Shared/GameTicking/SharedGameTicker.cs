@@ -152,6 +152,7 @@ namespace Content.Shared.GameTicking
     public sealed class StationJobInformation(
         string stationName,
         Dictionary<ProtoId<JobPrototype>, int?> jobsAvailable,
+        Dictionary<ProtoId<JobPrototype>, int?> maxAvailable, // Hardlight
         bool isLateJoinStation,
         StationDisplayInformation? stationDisplayInfo,
         VesselDisplayInformation? vesselDisplayInfo
@@ -159,6 +160,7 @@ namespace Content.Shared.GameTicking
     {
         public string StationName { get; } = stationName;
         public Dictionary<ProtoId<JobPrototype>, int?> JobsAvailable { get; } = jobsAvailable;
+        public Dictionary<ProtoId<JobPrototype>, int?> MaxAvailable { get; } = maxAvailable; // Hardlight
         public bool IsLateJoinStation { get; } = isLateJoinStation;
         public StationDisplayInformation? StationDisplayInfo { get; } = stationDisplayInfo;
         public VesselDisplayInformation? VesselDisplayInformation { get; } = vesselDisplayInfo;

@@ -29,6 +29,7 @@ public sealed partial class BankSystem
     [Dependency] private readonly UserInterfaceSystem _uiSystem = default!;
     [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
     [Dependency] private readonly IAdminLogManager _adminLogger = default!;
+    private const int AlertOver = 10000000; // Hardlight: High admin alert over this amount being deposited/withdrawn
 
     private void InitializeATM()
     {
@@ -80,7 +81,10 @@ public sealed partial class BankSystem
 
         ConsolePopup(args.Actor, Loc.GetString("bank-atm-menu-withdraw-successful"));
         PlayConfirmSound(uid, component);
-        _adminLogger.Add(LogType.ATMUsage, LogImpact.Low, $"{ToPrettyString(player):actor} withdrew {args.Amount} from {ToPrettyString(uid)}");
+        if (args.Amount >= AlertOver) // Hardlight: High admin alert over this amount
+            _adminLogger.Add(LogType.ATMUsage, LogImpact.High, $"{ToPrettyString(player):actor} withdrew {args.Amount} from {ToPrettyString(uid)}");
+        else
+            _adminLogger.Add(LogType.ATMUsage, LogImpact.Low, $"{ToPrettyString(player):actor} withdrew {args.Amount} from {ToPrettyString(uid)}");
 
         //spawn the cash stack of whatever cash type the ATM is configured to.
         var stackPrototype = _prototypeManager.Index<StackPrototype>(component.CashType);
@@ -167,7 +171,10 @@ public sealed partial class BankSystem
 
         ConsolePopup(args.Actor, Loc.GetString("bank-atm-menu-deposit-successful"));
         PlayConfirmSound(uid, component);
-        _adminLogger.Add(LogType.ATMUsage, LogImpact.Low, $"{ToPrettyString(player):actor} deposited {deposit} into {ToPrettyString(uid)}");
+        if (deposit >= AlertOver) // Hardlight: High admin alert over this amount
+            _adminLogger.Add(LogType.ATMUsage, LogImpact.High, $"{ToPrettyString(player):actor} deposited {deposit} into {ToPrettyString(uid)}");
+        else
+            _adminLogger.Add(LogType.ATMUsage, LogImpact.Low, $"{ToPrettyString(player):actor} deposited {deposit} into {ToPrettyString(uid)}");
 
         // yeet and delete the stack in the cash slot after success
         _containerSystem.CleanContainer(cashSlot);

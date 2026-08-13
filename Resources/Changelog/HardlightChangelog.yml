@@ -5629,3 +5629,126 @@ Entries:
       message: Black Alert
   id: 630
   time: '2026-08-09T23:20:19-07:00'
+- author: NotLivyathan
+  changes:
+    - type: Remove
+      message: Synths can no longer select vampirism traits.
+    - type: Tweak
+      message: Height traits no longer come with extreme speed penalties.
+    - type: Tweak
+      message: Synths should once again metabolize nutriment correctly.
+    - type: Fix
+      message: Non-silicon mobs should no longer have silicon-based emotes.
+    - type: Fix
+      message: Fax machine refresh buttons should once again render correctly.
+    - type: Fix
+      message: Synth guidebook now correctly states galactic common, instead of sol.
+    - type: Fix
+      message: Ahelp pin buttons should once again render correctly.
+    - type: Fix
+      message: AI turret control UI buttons should once again render correctly.
+    - type: Fix
+      message: >-
+        Missing backgrounds for various equipment UIs should once again render
+        correctly.
+    - type: Fix
+      message: Antag additional info buttons should once again render correctly.
+    - type: Fix
+      message: >-
+        Big/Very Big characters should no longer deal damage in situations that
+        wouldn't normally do damage.
+    - type: Fix
+      message: Synths should once again be revivable with defibrillators.
+    - type: Fix
+      message: Synths should no longer have two updates every tick.
+    - type: Fix
+      message: Synths should now be able to eat various materials as intended.
+    - type: Fix
+      message: Synths should now show up on med/diagnostic huds.
+  id: 631
+  time: '2026-08-09T23:13:18-07:00'
+- author: Khaomi
+  changes:
+    - type: Add
+      message: Added max job slot count to the job picker ui
+  id: 632
+  time: '2026-08-09T23:59:55-07:00'
+- author: NotLivyathan
+  changes:
+    - type: Add
+      message: >-
+        Added the Paradox Generator, a new science machine capable of generating
+        duplicates of insured items! It can be researched with Bluespace Time
+        Manipulation.
+  id: 633
+  time: '2026-08-10T09:54:55-07:00'
+- author: Khaomi
+  changes:
+    - type: Fix
+      message: Fixed cryochem not metabolizing on Resomi and Cybernetic organs
+  id: 634
+  time: '2026-08-10T09:55:16-07:00'
+- author: NotLivyathan
+  changes:
+    - type: Add
+      message: Added Blood Deficiency, a new negative trait.
+    - type: Remove
+      message: >-
+        Platelet Factories no longer heals: Airloss, Bloodloss, Poison,
+        Radiation, and Cellular.
+    - type: Remove
+      message: Xenos, dinos, and dreadtalons no longer have Platelet Factories.
+    - type: Tweak
+      message: Natural blood regeneration now uses hunger.
+    - type: Tweak
+      message: Avali can once again select Platelet Factories as a trait.
+  id: 635
+  time: '2026-08-10T10:01:48-07:00'
+- author: Slatebreaker
+  changes:
+    - type: Tweak
+      message: >-
+        Document case can now hold more items and be stored in bluespace
+        bookshelves
+    - type: Tweak
+      message: Document case can now be locked, access configured, and access broken
+    - type: Tweak
+      message: >-
+        Bureaucracy cyborg module can now be used by all borgs and comes with a
+        document case
+  id: 636
+  time: '2026-08-10T10:02:44-07:00'
+- author: Fenn
+  changes:
+    - type: Fix
+      message: Fixed glacier for testing
+  id: 637
+  time: '2026-08-10T10:08:24-07:00'
+- author: Jayty
+  changes:
+    - type: Add
+      message: Added Russian Accent trait.
+  id: 638
+  time: '2026-08-10T10:29:22-07:00'
+- author: NotLivyathan
+  changes:
+    - type: Fix
+      message: >-
+        Entities in cryopods should no longer fail to correctly be moved to
+        cryospace for cleanup.
+  id: 639
+  time: '2026-08-10T10:29:39-07:00'
+- author: Drekk
+  changes:
+    - type: Remove
+      message: >-
+        Removed Plasma Cutter from the Blueprint Lithograph (not the blueprint,
+        the literal item)
+  id: 640
+  time: '2026-08-10T10:29:58-07:00'
+- author: Drekk
+  changes:
+    - type: Fix
+      message: Fixed projectiles not working properly after first use.
+  id: 641
+  time: '2026-08-10T10:30:25-07:00'

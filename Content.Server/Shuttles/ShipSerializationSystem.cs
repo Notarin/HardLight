@@ -70,6 +70,8 @@ using Content.Shared.Clothing.EntitySystems;
 using Content.Server.Clothing.Systems;
 using Content.Server.Paint;
 using static Content.Shared.Paper.PaperComponent;
+using Content.Shared.Atmos.Components;
+using Content.Shared.Atmos.EntitySystems;
 
 namespace Content.Server.Shuttles.Save
 {
@@ -98,6 +100,7 @@ namespace Content.Server.Shuttles.Save
         [Dependency] private readonly LabelSystem _labelSystem = default!;
         [Dependency] private readonly TagSystem _tagSystem = default!;
         [Dependency] private readonly ChameleonClothingSystem _chameleonSystem = default!;
+        [Dependency] private readonly SharedAtmosPipeLayersSystem _pipeLayersSystem = default!;
         [Dependency] private readonly ToggleableClothingSystem _toggleableClothingSystem = default!;
         [Dependency] private readonly PaintSystem _paintSystem = default!;
         [Dependency] private readonly PaperSystem _paperSystem = default!;
@@ -2181,6 +2184,11 @@ namespace Content.Server.Shuttles.Save
                 var d = SerializeChameleonClothingComponent(chameleon);
                 if (d != null) entityData.Components.Add(d);
             }
+            if (_entityManager.TryGetComponent<AtmosPipeLayersComponent>(uid, out var layer))
+            {
+                var d = SerializeAtmosPipeLayersComponent(layer);
+                if (d != null) entityData.Components.Add(d);
+            }
         }
 
         private void RestoreRoomComponents(EntityUid uid, EntityData entityData)
@@ -2203,6 +2211,8 @@ namespace Content.Server.Shuttles.Save
                     RestoreRandomSpriteComponent(uid, componentData);
                 else if (componentData.Type == "ChameleonClothingComponent" && componentData.Properties.Any())
                     RestoreChameleonClothingComponent(uid, componentData);
+                else if (componentData.Type == "AtmosPipeLayersComponent" && componentData.Properties.Any())
+                    RestoreAtmosPipeLayersComponent(uid, componentData);
                 // StorageComponent locations handled in RestoreStorageLocations post-pass
             }
         }
@@ -2540,6 +2550,28 @@ namespace Content.Server.Shuttles.Save
             var protoId = protoObj?.ToString();
             if (!string.IsNullOrEmpty(protoId))
                 _chameleonSystem.SetSelectedPrototype(uid, protoId, forceUpdate: true);
+        }
+
+        private ComponentData? SerializeAtmosPipeLayersComponent(AtmosPipeLayersComponent comp)
+        {
+            if (comp.CurrentPipeLayer == AtmosPipeLayer.Primary)
+                return null;
+
+            return new ComponentData
+            {
+                Type = "AtmosPipeLayersComponent",
+                Properties = new Dictionary<string, object> { ["CurrentPipeLayer"] = comp.CurrentPipeLayer }
+            };
+        }
+
+        private void RestoreAtmosPipeLayersComponent(EntityUid uid, ComponentData componentData)
+        {
+            if (!componentData.Properties.TryGetValue("CurrentPipeLayer", out var currentPipeLayerObj))
+                return;
+            var layer = Enum.TryParse((string)currentPipeLayerObj, out AtmosPipeLayer result) ? result : AtmosPipeLayer.Primary;
+            var comp = EnsureComp<AtmosPipeLayersComponent>(uid);
+            Entity<AtmosPipeLayersComponent> ent = (uid, comp);
+            _pipeLayersSystem.SetPipeLayer(ent, layer);
         }
 
         private ComponentData? SerializeStorageLocationsComponent(EntityUid entityUid, StorageComponent storage)

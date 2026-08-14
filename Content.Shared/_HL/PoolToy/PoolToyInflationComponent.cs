@@ -33,6 +33,26 @@ public sealed partial class PoolToyInflationComponent : Component
     public ProtoId<DamageTypePrototype> AirlossDamageType = "Asphyxiation";
 
     /// <summary>
+    /// Used in order when the body cannot take <see cref="AirlossDamageType"/> at all, as is the case for
+    /// synthetic and shadekin damage containers.
+    /// </summary>
+    [DataField]
+    public List<ProtoId<DamageTypePrototype>> AirlossFallbackDamageTypes = new() { "Blunt", "Bloodloss" };
+
+    /// <summary>
+    /// Applied to the airloss rate when a fallback type is used, since nothing heals those back the way a
+    /// respirator undoes asphyxiation, and they would otherwise deflate twice as fast.
+    /// </summary>
+    [DataField]
+    public float FallbackAirlossMultiplier = 0.5f;
+
+    /// <summary>
+    /// Damage dealt by escaping air so far, so refilling only undoes that and not unrelated injuries.
+    /// </summary>
+    [DataField]
+    public FixedPoint2 AirLost;
+
+    /// <summary>
     /// Airloss dealt per second while a breach is open. This has to outpace the respirator, which heals
     /// asphyxiation while the entity is still breathing.
     /// </summary>

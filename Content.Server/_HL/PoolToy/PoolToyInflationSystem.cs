@@ -10,6 +10,7 @@ using Content.Shared._Shitmed.Body.Components;
 using Content.Shared.Atmos.Components;
 using Content.Shared.Humanoid;
 using Content.Shared.Damage;
+using Content.Shared.Damage.Prototypes;
 using Content.Shared.DoAfter;
 using Content.Shared.FixedPoint;
 using Content.Shared.Interaction;
@@ -22,6 +23,7 @@ using Content.Shared.Sprite;
 using Content.Shared.Stacks;
 using Robust.Server.Audio;
 using Robust.Shared.Player;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 
 namespace Content.Server._HL.PoolToy;
@@ -74,10 +76,20 @@ public sealed class PoolToyInflationSystem : EntitySystem
             if (IsIncapacitated(uid))
                 continue;
 
-            _damageable.TryChangeDamage(uid,
-                new DamageSpecifier { DamageDict = { [comp.AirlossDamageType] = comp.AirlossPerSecond * elapsed } },
-                ignoreResistances: true,
-                interruptsDoAfters: false);
+            if (ResolveAirlossType((uid, comp)) is { } airlossType)
+            {
+                var rate = airlossType == comp.AirlossDamageType
+                    ? comp.AirlossPerSecond
+                    : comp.AirlossPerSecond * comp.FallbackAirlossMultiplier;
+
+                var amount = rate * elapsed;
+                comp.AirLost += amount;
+
+                _damageable.TryChangeDamage(uid,
+                    new DamageSpecifier { DamageDict = { [airlossType] = amount } },
+                    ignoreResistances: true,
+                    interruptsDoAfters: false);
+            }
 
             UpdateScale((uid, comp));
 
@@ -216,6 +228,27 @@ public sealed class PoolToyInflationSystem : EntitySystem
     }
 
     /// <summary>
+    /// Which damage type escaping air can actually be dealt as. Synthetic and shadekin bodies have no airloss
+    /// in their damage containers, so damage of that type would be dropped and they would never deflate.
+    /// </summary>
+    private ProtoId<DamageTypePrototype>? ResolveAirlossType(Entity<PoolToyInflationComponent> ent)
+    {
+        if (!TryComp<DamageableComponent>(ent, out var damageable))
+            return null;
+
+        if (damageable.Damage.DamageDict.ContainsKey(ent.Comp.AirlossDamageType))
+            return ent.Comp.AirlossDamageType;
+
+        foreach (var fallback in ent.Comp.AirlossFallbackDamageTypes)
+        {
+            if (damageable.Damage.DamageDict.ContainsKey(fallback))
+                return fallback;
+        }
+
+        return null;
+    }
+
+    /// <summary>
     /// Inflatable bodies can be topped back up straight from a gas tank, so long as the air has somewhere to
     /// stay. Nothing here runs for entities without the trait, so tanks behave as usual on everyone else.
     /// </summary>
@@ -233,9 +266,7 @@ public sealed class PoolToyInflationSystem : EntitySystem
             return false;
         }
 
-        if (!TryComp<DamageableComponent>(ent, out var damageable) ||
-            !damageable.Damage.DamageDict.TryGetValue(ent.Comp.AirlossDamageType, out var airloss) ||
-            airloss <= FixedPoint2.Zero)
+        if (ent.Comp.AirLost <= FixedPoint2.Zero)
         {
             _popup.PopupEntity(Loc.GetString(ent.Comp.RefillFullPopup, ("target", ent.Owner)), ent, user);
             return false;
@@ -274,23 +305,35 @@ public sealed class PoolToyInflationSystem : EntitySystem
         if (!TryComp<GasTankComponent>(used, out var tank) || tank.Air.TotalMoles < ent.Comp.MinRefillMoles)
             return;
 
-        if (!TryComp<DamageableComponent>(ent, out var damageable) ||
-            !damageable.Damage.DamageDict.TryGetValue(ent.Comp.AirlossDamageType, out var airloss) ||
-            airloss <= FixedPoint2.Zero)
+        if (ent.Comp.AirLost <= FixedPoint2.Zero || ResolveAirlossType(ent) is not { } airlossType)
             return;
 
         args.Handled = true;
 
+        // Anything already patched up by other means is no longer theirs to reinflate.
+        if (TryComp<DamageableComponent>(ent, out var damageable) &&
+            damageable.Damage.DamageDict.TryGetValue(airlossType, out var current))
+        {
+            ent.Comp.AirLost = FixedPoint2.Min(ent.Comp.AirLost, current);
+        }
+
+        if (ent.Comp.AirLost <= FixedPoint2.Zero)
+        {
+            _popup.PopupEntity(Loc.GetString(ent.Comp.RefillFullPopup, ("target", ent.Owner)), ent, args.User);
+            return;
+        }
+
         // Only as much air as the body has room for, so a full tank tops them right up while leaving the rest
         // of the tank for later.
-        var wanted = (float) (airloss / ent.Comp.AirlossHealedPerMole);
+        var wanted = (float) (ent.Comp.AirLost / ent.Comp.AirlossHealedPerMole);
         var moles = Math.Min(wanted, tank.Air.TotalMoles);
         _gasTank.RemoveAir((used, tank), moles);
 
-        var healed = FixedPoint2.Min(airloss, ent.Comp.AirlossHealedPerMole * moles);
+        var healed = FixedPoint2.Min(ent.Comp.AirLost, ent.Comp.AirlossHealedPerMole * moles);
+        ent.Comp.AirLost -= healed;
 
         _damageable.TryChangeDamage(ent.Owner,
-            new DamageSpecifier { DamageDict = { [ent.Comp.AirlossDamageType] = -healed } },
+            new DamageSpecifier { DamageDict = { [airlossType] = -healed } },
             ignoreResistances: true,
             interruptsDoAfters: false);
 

@@ -1,11 +1,13 @@
 using System.Numerics;
 using Content.Server.Body.Components;
+using Content.Server.Atmos.EntitySystems;
 using Content.Server.Body.Systems;
 using Content.Server.Medical.Components;
 using Content.Server.Popups;
 using Content.Server.Stack;
 using Content.Shared._HL.PoolToy;
 using Content.Shared._Shitmed.Body.Components;
+using Content.Shared.Atmos.Components;
 using Content.Shared.Humanoid;
 using Content.Shared.Damage;
 using Content.Shared.DoAfter;
@@ -33,6 +35,7 @@ public sealed class PoolToyInflationSystem : EntitySystem
     [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
     [Dependency] private readonly BloodstreamSystem _bloodstream = default!;
     [Dependency] private readonly DamageableSystem _damageable = default!;
+    [Dependency] private readonly GasTankSystem _gasTank = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly MobThresholdSystem _thresholds = default!;
     [Dependency] private readonly PopupSystem _popup = default!;
@@ -49,6 +52,7 @@ public sealed class PoolToyInflationSystem : EntitySystem
         SubscribeLocalEvent<PoolToyInflationComponent, InteractUsingEvent>(OnInteractUsing);
         SubscribeLocalEvent<PoolToyInflationComponent, PoolToySealDoAfterEvent>(OnSealDoAfter);
         SubscribeLocalEvent<PoolToyInflationComponent, HealingDoAfterEvent>(OnHealed);
+        SubscribeLocalEvent<PoolToyInflationComponent, PoolToyRefillDoAfterEvent>(OnRefillDoAfter);
     }
 
     public override void Update(float frameTime)
@@ -146,7 +150,16 @@ public sealed class PoolToyInflationSystem : EntitySystem
     /// </summary>
     private void OnInteractUsing(Entity<PoolToyInflationComponent> ent, ref InteractUsingEvent args)
     {
-        if (args.Handled || !ent.Comp.Breached)
+        if (args.Handled)
+            return;
+
+        if (TryComp<GasTankComponent>(args.Used, out var tank))
+        {
+            args.Handled = TryStartRefill(ent, args.User, (args.Used, tank));
+            return;
+        }
+
+        if (!ent.Comp.Breached)
             return;
 
         if (!TryComp<HealingComponent>(args.Used, out var healing) || !SealsBreaches(healing))
@@ -199,6 +212,95 @@ public sealed class PoolToyInflationSystem : EntitySystem
             Filter.PvsExcept(ent.Owner),
             true);
         _audio.PlayPvs(ent.Comp.SealSound, ent);
+        UpdateScale(ent);
+    }
+
+    /// <summary>
+    /// Inflatable bodies can be topped back up straight from a gas tank, so long as the air has somewhere to
+    /// stay. Nothing here runs for entities without the trait, so tanks behave as usual on everyone else.
+    /// </summary>
+    private bool TryStartRefill(Entity<PoolToyInflationComponent> ent, EntityUid user, Entity<GasTankComponent> tank)
+    {
+        if (ent.Comp.Breached)
+        {
+            _popup.PopupEntity(Loc.GetString(ent.Comp.RefillBreachedPopup), ent, user);
+            return false;
+        }
+
+        if (tank.Comp.Air.TotalMoles < ent.Comp.RefillMoles)
+        {
+            _popup.PopupEntity(Loc.GetString(ent.Comp.RefillEmptyPopup, ("used", tank.Owner)), ent, user);
+            return false;
+        }
+
+        if (!TryComp<DamageableComponent>(ent, out var damageable) ||
+            !damageable.Damage.DamageDict.TryGetValue(ent.Comp.AirlossDamageType, out var airloss) ||
+            airloss <= FixedPoint2.Zero)
+        {
+            _popup.PopupEntity(Loc.GetString(ent.Comp.RefillFullPopup, ("target", ent.Owner)), ent, user);
+            return false;
+        }
+
+        if (user != ent.Owner)
+        {
+            _popup.PopupEntity(
+                Loc.GetString(ent.Comp.RefillingPopupOthers,
+                    ("user", user),
+                    ("used", tank.Owner),
+                    ("target", ent.Owner)),
+                ent,
+                Filter.PvsExcept(user),
+                true);
+        }
+
+        return _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager,
+            user,
+            ent.Comp.RefillDelay,
+            new PoolToyRefillDoAfterEvent(),
+            ent.Owner,
+            target: ent.Owner,
+            used: tank.Owner)
+        {
+            NeedHand = true,
+            BreakOnMove = true,
+        });
+    }
+
+    private void OnRefillDoAfter(Entity<PoolToyInflationComponent> ent, ref PoolToyRefillDoAfterEvent args)
+    {
+        if (args.Handled || args.Cancelled || args.Used is not { } used)
+            return;
+
+        if (!TryComp<GasTankComponent>(used, out var tank) || tank.Air.TotalMoles < ent.Comp.RefillMoles)
+            return;
+
+        args.Handled = true;
+
+        _gasTank.RemoveAir((used, tank), ent.Comp.RefillMoles);
+
+        _damageable.TryChangeDamage(ent.Owner,
+            new DamageSpecifier
+                { DamageDict = { [ent.Comp.AirlossDamageType] = -ent.Comp.AirlossHealedPerRefill } },
+            ignoreResistances: true,
+            interruptsDoAfters: false);
+
+        _popup.PopupEntity(Loc.GetString(ent.Comp.RefillPopup, ("used", used)), ent, ent);
+
+        if (args.User != ent.Owner)
+        {
+            _popup.PopupEntity(
+                Loc.GetString(ent.Comp.RefillPopupUser, ("used", used), ("target", ent.Owner)),
+                ent,
+                args.User);
+        }
+
+        _popup.PopupEntity(
+            Loc.GetString(ent.Comp.RefillPopupOthers, ("target", ent.Owner), ("used", used)),
+            ent,
+            Filter.PvsExcept(ent.Owner).RemovePlayerByAttachedEntity(args.User),
+            true);
+        _audio.PlayPvs(ent.Comp.RefillSound, ent);
+
         UpdateScale(ent);
     }
 

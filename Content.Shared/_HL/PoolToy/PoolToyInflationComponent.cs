@@ -67,13 +67,32 @@ public sealed partial class PoolToyInflationComponent : Component
     /// Sprite scale reached as damage approaches the crit threshold.
     /// </summary>
     [DataField]
-    public Vector2 DeflatedScale = new(0.85f, 0.8f);
+    public Vector2 DeflatedScale = new(0.85f, 0.55f);
 
     /// <summary>
-    /// Sprite scale once fully airless, i.e. in crit.
+    /// Sprite scale once fully airless, i.e. in crit. Squashed along the other axis, since a crit body is
+    /// lying down and its sprite is turned on its side.
     /// </summary>
     [DataField]
-    public Vector2 FlatScale = new(1.15f, 0.45f);
+    public Vector2 FlatScale = new(0.45f, 1.15f);
+
+    /// <summary>
+    /// How long topping an inflatable body up from a gas tank takes.
+    /// </summary>
+    [DataField]
+    public TimeSpan RefillDelay = TimeSpan.FromSeconds(4);
+
+    /// <summary>
+    /// Moles drawn out of the tank per refill.
+    /// </summary>
+    [DataField]
+    public float RefillMoles = 2f;
+
+    /// <summary>
+    /// Airloss healed per refill.
+    /// </summary>
+    [DataField]
+    public FixedPoint2 AirlossHealedPerRefill = FixedPoint2.New(25);
 
     /// <summary>
     /// How often the leaking entity gets reminded that it is losing air.
@@ -114,6 +133,27 @@ public sealed partial class PoolToyInflationComponent : Component
     [DataField]
     public LocId HealedPopupOthers = "pooltoy-healed-others";
 
+    [DataField]
+    public LocId RefillPopup = "pooltoy-refilled";
+
+    [DataField]
+    public LocId RefillPopupOthers = "pooltoy-refilled-others";
+
+    [DataField]
+    public LocId RefillPopupUser = "pooltoy-refilled-user";
+
+    [DataField]
+    public LocId RefillingPopupOthers = "pooltoy-refilling-others";
+
+    [DataField]
+    public LocId RefillBreachedPopup = "pooltoy-refill-breached";
+
+    [DataField]
+    public LocId RefillEmptyPopup = "pooltoy-refill-empty";
+
+    [DataField]
+    public LocId RefillFullPopup = "pooltoy-refill-full";
+
     /// <summary>
     /// Neither axis of the sprite is ever scaled below this.
     /// </summary>
@@ -142,4 +182,8 @@ public sealed partial class PoolToyInflationComponent : Component
 
     [DataField]
     public SoundSpecifier? SealSound = new SoundPathSpecifier("/Audio/Items/Medical/ointment_end.ogg");
+
+    [DataField]
+    public SoundSpecifier? RefillSound = new SoundPathSpecifier("/Audio/Effects/spray.ogg",
+        AudioParams.Default.WithVolume(-6f));
 }

@@ -70,11 +70,11 @@ public sealed partial class PoolToyInflationComponent : Component
     public Vector2 DeflatedScale = new(0.85f, 0.55f);
 
     /// <summary>
-    /// Sprite scale once fully airless, i.e. in crit. Squashed along the other axis, since a crit body is
-    /// lying down and its sprite is turned on its side.
+    /// Sprite scale once out of air, i.e. in crit. Squashed along the other axis, since a crit body is lying
+    /// down and its sprite is turned on its side.
     /// </summary>
     [DataField]
-    public Vector2 FlatScale = new(0.45f, 1.15f);
+    public Vector2 FlatScale = new(0.7f, 1.1f);
 
     /// <summary>
     /// How long topping an inflatable body up from a gas tank takes.
@@ -83,16 +83,17 @@ public sealed partial class PoolToyInflationComponent : Component
     public TimeSpan RefillDelay = TimeSpan.FromSeconds(4);
 
     /// <summary>
-    /// Moles drawn out of the tank per refill.
+    /// Airloss healed per mole taken out of the tank. A regular tank holds a couple of moles, which is
+    /// enough to clear all of it in one go; emergency tanks only get part of the way.
     /// </summary>
     [DataField]
-    public float RefillMoles = 2f;
+    public FixedPoint2 AirlossHealedPerMole = FixedPoint2.New(100);
 
     /// <summary>
-    /// Airloss healed per refill.
+    /// A tank with less than this left in it is too empty to bother with.
     /// </summary>
     [DataField]
-    public FixedPoint2 AirlossHealedPerRefill = FixedPoint2.New(25);
+    public float MinRefillMoles = 0.02f;
 
     /// <summary>
     /// How often the leaking entity gets reminded that it is losing air.

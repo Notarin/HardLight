@@ -227,7 +227,7 @@ public sealed class PoolToyInflationSystem : EntitySystem
             return false;
         }
 
-        if (tank.Comp.Air.TotalMoles < ent.Comp.RefillMoles)
+        if (tank.Comp.Air.TotalMoles < ent.Comp.MinRefillMoles)
         {
             _popup.PopupEntity(Loc.GetString(ent.Comp.RefillEmptyPopup, ("used", tank.Owner)), ent, user);
             return false;
@@ -271,16 +271,26 @@ public sealed class PoolToyInflationSystem : EntitySystem
         if (args.Handled || args.Cancelled || args.Used is not { } used)
             return;
 
-        if (!TryComp<GasTankComponent>(used, out var tank) || tank.Air.TotalMoles < ent.Comp.RefillMoles)
+        if (!TryComp<GasTankComponent>(used, out var tank) || tank.Air.TotalMoles < ent.Comp.MinRefillMoles)
+            return;
+
+        if (!TryComp<DamageableComponent>(ent, out var damageable) ||
+            !damageable.Damage.DamageDict.TryGetValue(ent.Comp.AirlossDamageType, out var airloss) ||
+            airloss <= FixedPoint2.Zero)
             return;
 
         args.Handled = true;
 
-        _gasTank.RemoveAir((used, tank), ent.Comp.RefillMoles);
+        // Only as much air as the body has room for, so a full tank tops them right up while leaving the rest
+        // of the tank for later.
+        var wanted = (float) (airloss / ent.Comp.AirlossHealedPerMole);
+        var moles = Math.Min(wanted, tank.Air.TotalMoles);
+        _gasTank.RemoveAir((used, tank), moles);
+
+        var healed = FixedPoint2.Min(airloss, ent.Comp.AirlossHealedPerMole * moles);
 
         _damageable.TryChangeDamage(ent.Owner,
-            new DamageSpecifier
-                { DamageDict = { [ent.Comp.AirlossDamageType] = -ent.Comp.AirlossHealedPerRefill } },
+            new DamageSpecifier { DamageDict = { [ent.Comp.AirlossDamageType] = -healed } },
             ignoreResistances: true,
             interruptsDoAfters: false);
 
@@ -377,18 +387,20 @@ public sealed class PoolToyInflationSystem : EntitySystem
 
         factor = new Vector2(Math.Max(factor.X, ent.Comp.MinScale), Math.Max(factor.Y, ent.Comp.MinScale));
 
-        // Humanoids get their sprite scale rewritten from their own width and height whenever their appearance
-        // updates, so scaling them has to go through that instead of the generic sprite scale.
-        if (TryComp<HumanoidAppearanceComponent>(ent, out var humanoid))
+        // Humanoids get their sprite scale rewritten from HumanoidVisuals.Scale whenever their appearance
+        // updates, so scaling them has to go through that instead of the generic sprite scale. The size that
+        // is already there is the baseline, which is what keeps the size traits' own scaling intact.
+        if (HasComp<HumanoidAppearanceComponent>(ent))
         {
-            ent.Comp.BaseSize ??= new Vector2(humanoid.Width, humanoid.Height);
-            var b = ent.Comp.BaseSize.Value;
-            var size = new Vector2(b.X * factor.X, b.Y * factor.Y);
+            if (ent.Comp.BaseSize == null)
+            {
+                ent.Comp.BaseSize = _appearance.TryGetData<Vector2>(ent, HumanoidVisuals.Scale, out var current)
+                    ? current
+                    : Vector2.One;
+            }
 
-            humanoid.Width = size.X;
-            humanoid.Height = size.Y;
-            Dirty(ent.Owner, humanoid);
-            _appearance.SetData(ent, HumanoidVisuals.Scale, size);
+            var b = ent.Comp.BaseSize.Value;
+            _appearance.SetData(ent, HumanoidVisuals.Scale, new Vector2(b.X * factor.X, b.Y * factor.Y));
             return;
         }
 

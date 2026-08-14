@@ -29,9 +29,10 @@
     deleteOnCollide: false
     damage:
       types:
-        Heat: 5
-        Structural: 10
+        Heat: 10
+        Structural: 20
   - type: GatheringProjectile
+    amount: 2
   - type: MiningGatheringHard
   - type: TimedDespawn
     lifetime: 0.2

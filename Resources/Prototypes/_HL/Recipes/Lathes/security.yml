@@ -38,30 +38,3 @@
   parent: BaseBorgLimbRecipe
   id: TorsoBorgSecurity
   result: TorsoBorgSecurity
-
-# Plasma Cutter
-
-- type: latheRecipe
-  id: WeaponPlasmaCutter
-  result: WeaponPlasmaCutter
-  completetime: 5
-  materials:
-    Steel: 3000
-    Plasteel: 3000
-    Glass: 500
-    Gold: 1000
-    Plasma: 1000
-
-# Line Gun
-
-- type: latheRecipe
-  id: WeaponLineGunRecipe
-  result: WeaponLineGun
-  completetime: 7
-  materials:
-    Steel: 8000
-    Plasteel: 8000
-    Glass: 3000
-    Gold: 2500
-    Plasma: 2500
-    Diamond: 100

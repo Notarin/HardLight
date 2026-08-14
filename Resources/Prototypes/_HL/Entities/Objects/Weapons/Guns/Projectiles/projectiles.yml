@@ -238,6 +238,7 @@
         Heat: 15
         Structural: 30
   - type: GatheringProjectile
+    amount: 3
   - type: MiningGatheringHard
   - type: TimedDespawn
     lifetime: 0.12

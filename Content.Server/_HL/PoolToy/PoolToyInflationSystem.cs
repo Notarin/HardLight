@@ -5,10 +5,13 @@ using Content.Server.Medical.Components;
 using Content.Server.Popups;
 using Content.Server.Stack;
 using Content.Shared._HL.PoolToy;
+using Content.Shared._Shitmed.Body.Components;
+using Content.Shared.Humanoid;
 using Content.Shared.Damage;
 using Content.Shared.DoAfter;
 using Content.Shared.FixedPoint;
 using Content.Shared.Interaction;
+using Content.Shared.Medical;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
@@ -27,6 +30,7 @@ namespace Content.Server._HL.PoolToy;
 public sealed class PoolToyInflationSystem : EntitySystem
 {
     [Dependency] private readonly AudioSystem _audio = default!;
+    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
     [Dependency] private readonly BloodstreamSystem _bloodstream = default!;
     [Dependency] private readonly DamageableSystem _damageable = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
@@ -44,6 +48,7 @@ public sealed class PoolToyInflationSystem : EntitySystem
         SubscribeLocalEvent<PoolToyInflationComponent, MobStateChangedEvent>(OnMobStateChanged);
         SubscribeLocalEvent<PoolToyInflationComponent, InteractUsingEvent>(OnInteractUsing);
         SubscribeLocalEvent<PoolToyInflationComponent, PoolToySealDoAfterEvent>(OnSealDoAfter);
+        SubscribeLocalEvent<PoolToyInflationComponent, HealingDoAfterEvent>(OnHealed);
     }
 
     public override void Update(float frameTime)
@@ -77,6 +82,8 @@ public sealed class PoolToyInflationSystem : EntitySystem
 
             comp.NextWarning = _timing.CurTime + comp.WarningInterval;
             _popup.PopupEntity(Loc.GetString(comp.DeflatingPopup), uid, uid, PopupType.MediumCaution);
+            _popup.PopupEntity(Loc.GetString(comp.DeflatingPopupOthers, ("target", uid)), uid,
+                Filter.PvsExcept(uid), true);
             _audio.PlayPvs(comp.DeflatingSound, uid);
         }
     }
@@ -116,11 +123,20 @@ public sealed class PoolToyInflationSystem : EntitySystem
     {
         UpdateScale(ent);
 
+        // An airless body has no breath left to gasp with, and nothing left to suffocate on either, so it
+        // holds wherever it ended up instead of decaying towards death.
+        if (args.NewMobState == MobState.Alive)
+            RemComp<BreathingImmunityComponent>(ent);
+        else
+            EnsureComp<BreathingImmunityComponent>(ent);
+
         if (!ent.Comp.Breached || args.NewMobState == MobState.Alive)
             return;
 
         // All the way flat: nothing left to leak.
         _popup.PopupEntity(Loc.GetString(ent.Comp.FlatPopup), ent, ent, PopupType.LargeCaution);
+        _popup.PopupEntity(Loc.GetString(ent.Comp.FlatPopupOthers, ("target", ent.Owner)), ent,
+            Filter.PvsExcept(ent.Owner), true);
         _audio.PlayPvs(ent.Comp.FlatSound, ent);
     }
 
@@ -135,6 +151,15 @@ public sealed class PoolToyInflationSystem : EntitySystem
 
         if (!TryComp<HealingComponent>(args.Used, out var healing) || !SealsBreaches(healing))
             return;
+
+        _popup.PopupEntity(
+            Loc.GetString(ent.Comp.SealingPopupOthers,
+                ("user", args.User),
+                ("used", args.Used),
+                ("target", ent.Owner)),
+            ent,
+            Filter.PvsExcept(args.User),
+            true);
 
         args.Handled = _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager,
             args.User,
@@ -168,8 +193,32 @@ public sealed class PoolToyInflationSystem : EntitySystem
         Dirty(ent);
 
         _popup.PopupEntity(Loc.GetString(ent.Comp.SealPopup), ent, ent);
+        _popup.PopupEntity(
+            Loc.GetString(ent.Comp.SealPopupOthers, ("user", args.User), ("target", ent.Owner)),
+            ent,
+            Filter.PvsExcept(ent.Owner),
+            true);
         _audio.PlayPvs(ent.Comp.SealSound, ent);
         UpdateScale(ent);
+    }
+
+    /// <summary>
+    /// Ordinary healing only tells the patient about it, which leaves bystanders guessing whether the leak
+    /// has been dealt with.
+    /// </summary>
+    private void OnHealed(Entity<PoolToyInflationComponent> ent, ref HealingDoAfterEvent args)
+    {
+        if (args.Cancelled || args.Used is not { } used || args.User == ent.Owner)
+            return;
+
+        _popup.PopupEntity(
+            Loc.GetString(ent.Comp.HealedPopupOthers,
+                ("user", args.User),
+                ("used", used),
+                ("target", ent.Owner)),
+            ent,
+            Filter.PvsExcept(args.User),
+            true);
     }
 
     /// <summary>
@@ -206,21 +255,42 @@ public sealed class PoolToyInflationSystem : EntitySystem
     /// </summary>
     private void UpdateScale(Entity<PoolToyInflationComponent> ent)
     {
+        Vector2 factor;
         if (IsIncapacitated(ent))
         {
-            _scale.SetSpriteScale(ent, ent.Comp.FlatScale);
+            factor = ent.Comp.FlatScale;
+        }
+        else
+        {
+            var progress = 0f;
+            if (TryComp<DamageableComponent>(ent, out var damageable) &&
+                _thresholds.TryGetIncapThreshold(ent, out var threshold) &&
+                threshold > FixedPoint2.Zero)
+            {
+                progress = Math.Clamp((float) (damageable.TotalDamage / threshold.Value), 0f, 1f);
+            }
+
+            factor = Vector2.Lerp(ent.Comp.InflatedScale, ent.Comp.DeflatedScale, progress);
+        }
+
+        factor = new Vector2(Math.Max(factor.X, ent.Comp.MinScale), Math.Max(factor.Y, ent.Comp.MinScale));
+
+        // Humanoids get their sprite scale rewritten from their own width and height whenever their appearance
+        // updates, so scaling them has to go through that instead of the generic sprite scale.
+        if (TryComp<HumanoidAppearanceComponent>(ent, out var humanoid))
+        {
+            ent.Comp.BaseSize ??= new Vector2(humanoid.Width, humanoid.Height);
+            var b = ent.Comp.BaseSize.Value;
+            var size = new Vector2(b.X * factor.X, b.Y * factor.Y);
+
+            humanoid.Width = size.X;
+            humanoid.Height = size.Y;
+            Dirty(ent.Owner, humanoid);
+            _appearance.SetData(ent, HumanoidVisuals.Scale, size);
             return;
         }
 
-        var progress = 0f;
-        if (TryComp<DamageableComponent>(ent, out var damageable) &&
-            _thresholds.TryGetIncapThreshold(ent, out var threshold) &&
-            threshold > FixedPoint2.Zero)
-        {
-            progress = Math.Clamp((float) (damageable.TotalDamage / threshold.Value), 0f, 1f);
-        }
-
-        _scale.SetSpriteScale(ent, Vector2.Lerp(ent.Comp.InflatedScale, ent.Comp.DeflatedScale, progress));
+        _scale.SetSpriteScale(ent, factor);
     }
 
     private bool IsIncapacitated(EntityUid uid)

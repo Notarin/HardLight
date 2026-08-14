@@ -94,10 +94,37 @@ public sealed partial class PoolToyInflationComponent : Component
     public LocId DeflatingPopup = "pooltoy-deflating";
 
     [DataField]
+    public LocId DeflatingPopupOthers = "pooltoy-deflating-others";
+
+    [DataField]
     public LocId FlatPopup = "pooltoy-flat";
 
     [DataField]
+    public LocId FlatPopupOthers = "pooltoy-flat-others";
+
+    [DataField]
     public LocId SealPopup = "pooltoy-sealed";
+
+    [DataField]
+    public LocId SealPopupOthers = "pooltoy-sealed-others";
+
+    [DataField]
+    public LocId SealingPopupOthers = "pooltoy-sealing-others";
+
+    [DataField]
+    public LocId HealedPopupOthers = "pooltoy-healed-others";
+
+    /// <summary>
+    /// Neither axis of the sprite is ever scaled below this.
+    /// </summary>
+    [DataField]
+    public float MinScale = 0.3f;
+
+    /// <summary>
+    /// Humanoid width and height before any deflation, so the shrink can be undone.
+    /// </summary>
+    [ViewVariables]
+    public Vector2? BaseSize;
 
     [DataField]
     public SoundSpecifier? BreachSound = new SoundPathSpecifier("/Audio/Items/hiss.ogg",

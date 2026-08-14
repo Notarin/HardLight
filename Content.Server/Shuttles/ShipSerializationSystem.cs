@@ -2603,9 +2603,9 @@ namespace Content.Server.Shuttles.Save
         {
             var comp = EnsureComp<MetaDataComponent>(uid);
             if (componentData.Properties.TryGetValue("EntityName", out var nameObj))
-                _metaData.SetEntityName(uid, nameObj?.ToString() ?? string.Empty);
+                _metaData.SetEntityName(uid, nameObj?.ToString() ?? comp.EntityPrototype?.Name ?? string.Empty);
             if (componentData.Properties.TryGetValue("EntityDescription", out var descObj))
-                _metaData.SetEntityDescription(uid, descObj?.ToString() ?? string.Empty);
+                _metaData.SetEntityDescription(uid, descObj?.ToString() ?? comp.EntityPrototype?.Description ?? string.Empty);
         }
 
         private ComponentData? SerializeStorageLocationsComponent(EntityUid entityUid, StorageComponent storage)

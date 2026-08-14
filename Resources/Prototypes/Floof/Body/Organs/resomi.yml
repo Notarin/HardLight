@@ -26,6 +26,7 @@
     - id: Medicine
     - id: Poison
     - id: Narcotic
+    - id: Cryogenic # HardLight
 
 - type: entity
   id: OrganResomiLiver

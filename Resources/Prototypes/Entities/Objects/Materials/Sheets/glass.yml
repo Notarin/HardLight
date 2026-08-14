@@ -17,7 +17,9 @@
     - Sheet
     - NoPaint
     - TiderAnvilParts
+    - ConstructionMaterial
   - type: Material
+  - type: NotInsurable # HardLight
   - type: Damageable
     damageContainer: Inorganic
     damageModifierSet: Glass

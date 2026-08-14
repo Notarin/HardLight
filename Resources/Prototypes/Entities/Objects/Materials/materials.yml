@@ -14,6 +14,7 @@
       - DroneUsable
       - RawMaterial
       - NoPaint
+  - type: NotInsurable # HardLight
   - type: Damageable
     damageContainer: Inorganic
   - type: Destructible
@@ -152,6 +153,7 @@
       - Gauze
       - RawMaterial
       - TiderAnvilParts
+      - ConstructionMaterial
   - type: Construction
     graph: WebObjects # not sure if I should either keep this here or just make another prototype. Will keep it here just in case.
     node: cloth
@@ -219,6 +221,7 @@
       - ClothMade
       - DroneUsable
       - RawMaterial
+      - ConstructionMaterial
   - type: Item
     heldPrefix: durathread
 
@@ -271,6 +274,7 @@
     - DroneUsable
     - RawMaterial
     - TiderAnvilParts
+    - ConstructionMaterial
   - type: Extractable
     grindableSolutionName: wood
   - type: SolutionContainerManager

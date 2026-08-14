@@ -18,7 +18,7 @@ public sealed class SharedMeleeDamageModifierSystem : EntitySystem
 
     private void OnMeleeHit(Entity<MeleeWeaponComponent> ent, ref MeleeHitEvent args)
     {
-        if (!args.IsHit)
+        if (!args.IsHit || !args.BaseDamage.AnyPositive())
             return;
 
         if (!TryComp<MeleeDamageModifierComponent>(args.User, out var modifier)

@@ -8,6 +8,7 @@
     state: rods
   - type: Item
     sprite: Objects/Materials/parts.rsi
+  - type: NotInsurable # HardLight
   - type: Damageable
     damageContainer: Inorganic
     damageModifierSet: FlimsyMetallic
@@ -19,6 +20,9 @@
       behaviors:
       - !type:DoActsBehavior
         acts: [ "Destruction" ]
+  - type: Tag
+    tags:
+    - ConstructionMaterial
 
 - type: entity
   parent: PartBase
@@ -91,6 +95,7 @@
   - type: Tag
     tags:
     - RodMetal1
+    - ConstructionMaterial
   - type: Sprite
     state: rods
   - type: Stack
@@ -105,6 +110,7 @@
   - type: Tag
     tags:
     - RodMetal1
+    - ConstructionMaterial
   - type: Sprite
     state: rods
   - type: Stack

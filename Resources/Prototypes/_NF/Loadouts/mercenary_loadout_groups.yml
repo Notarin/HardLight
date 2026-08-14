@@ -53,6 +53,8 @@
   - MercenaryClothingOuterArmoredJacketPMCGreen # HL - added PMC armored jacket
   - MercenaryClothingOuterArmoredJacketPMCOlive # HL - added PMC armored jacket
   - MercenaryClothingOuterArmorCaptainCarapace
+  - MercenaryClothingOuterWinterCapArmored
+  - MercenaryClothingOuterCapJacket
   - LoadoutClothingOuterMarsHoodie
   subgroups:
   - PilotOuterClothing

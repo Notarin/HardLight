@@ -122264,7 +122264,7 @@ entities:
         - 0
         - 0
         - 0
-- proto: MountainRock
+- proto: AsteroidRock
   entities:
   - uid: 3
     components:
@@ -123411,7 +123411,7 @@ entities:
     - type: Transform
       pos: -26.5,11.5
       parent: 6747
-- proto: MountainRockMining
+- proto: AsteroidRockMining
   entities:
   - uid: 92
     components:

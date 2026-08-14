@@ -13,6 +13,8 @@
     tags:
     - Sheet
     - NoPaint
+    - ConstructionMaterial
+  - type: NotInsurable # HardLight
   - type: Damageable
     damageContainer: Inorganic
   - type: Destructible
@@ -123,6 +125,7 @@
   - type: Tag
     tags:
     - Sheet
+    - ConstructionMaterial
   - type: NFFuel # Frontier
   # FH Start - Protogen Healing
   - type: ConditionalHealing
@@ -180,6 +183,7 @@
     - Sheet
     - NoPaint
     - TiderAnvilParts
+    - ConstructionMaterial
   - type: Material
   # HardLight start
   - type: Food

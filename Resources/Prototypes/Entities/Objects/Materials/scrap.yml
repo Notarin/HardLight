@@ -12,6 +12,7 @@
   - type: Item
     sprite: Objects/Materials/Scrap/generic.rsi
     size: Normal
+  - type: NotInsurable # HardLight
   - type: Damageable
     damageContainer: Inorganic
     damageModifierSet: FlimsyMetallic

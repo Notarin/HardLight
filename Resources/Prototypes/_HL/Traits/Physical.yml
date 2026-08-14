@@ -241,9 +241,9 @@
     multiplier: 1.35
   - type: TraitZoomModifier
     multiplier: 1.15
-  - type: TraitMovementSpeedModifier
-    walkMultiplier: 0.7
-    sprintMultiplier: 0.75
+  # - type: TraitMovementSpeedModifier
+  #   walkMultiplier: 0.7
+  #   sprintMultiplier: 0.75
   - type: TraitCyborgPowerDrawModifier
     multiplier: 3
   - type: CrawlUnderObjects
@@ -281,9 +281,9 @@
     multiplier: 1.35
   - type: TraitZoomModifier
     multiplier: 1.15
-  - type: TraitMovementSpeedModifier
-    walkMultiplier: 0.7
-    sprintMultiplier: 0.75
+  # - type: TraitMovementSpeedModifier
+  #   walkMultiplier: 0.7
+  #   sprintMultiplier: 0.75
   - type: TraitCyborgPowerDrawModifier
     multiplier: 3
   - type: CrawlUnderObjects
@@ -326,9 +326,9 @@
     multiplier: 0.8
   - type: TraitZoomModifier
     multiplier: 0.9
-  - type: TraitMovementSpeedModifier
-    walkMultiplier: 0.75
-    sprintMultiplier: 0.8
+  # - type: TraitMovementSpeedModifier
+  #   walkMultiplier: 0.75
+  #   sprintMultiplier: 0.8
   - type: TraitCyborgPowerDrawModifier
     multiplier: 0.75
 
@@ -372,9 +372,9 @@
     multiplier: 0.6
   - type: TraitZoomModifier
     multiplier: 0.8
-  - type: TraitMovementSpeedModifier
-    walkMultiplier: 0.5
-    sprintMultiplier: 0.55
+  # - type: TraitMovementSpeedModifier
+  #   walkMultiplier: 0.5
+  #   sprintMultiplier: 0.55
   - type: TraitCyborgPowerDrawModifier
     multiplier: 0.5
 

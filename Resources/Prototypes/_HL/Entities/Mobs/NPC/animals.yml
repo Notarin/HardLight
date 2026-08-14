@@ -17,7 +17,7 @@
     speciesId: fox
   - type: Puller
     needsHands: false
-     
+
 - type: entity
   name: Large compsognathus
   id: MobDinosaurCompyFriendly

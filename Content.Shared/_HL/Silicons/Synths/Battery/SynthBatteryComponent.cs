@@ -56,14 +56,9 @@ public sealed partial class SynthBatteryComponent : Component
     [DataField]
     public float UnpoweredSprintSpeedModifier = 0.5f;
 
-    [DataField]
-    public TimeSpan UpdateRate = TimeSpan.FromSeconds(1);
-
     [DataField, AutoNetworkedField]
     public bool Unpowered;
 
     [ViewVariables(VVAccess.ReadWrite)]
     public bool StartingBatteryInserted;
-
-    public TimeSpan NextUpdate;
 }

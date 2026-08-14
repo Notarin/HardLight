@@ -108,6 +108,7 @@
   - ArtifactCrusherMachineCircuitboard
   - ResearchComputerCircuitboard # Frontier: add research computer
   - StationAiCoreElectronics # HardLight
+  - ParadoxGeneratorMachineCircuitboard # HardLight
 
 - type: latheRecipePack
   id: CameraBoards

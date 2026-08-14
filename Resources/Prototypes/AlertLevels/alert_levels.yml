@@ -87,3 +87,11 @@
       emergencyLightColor: Ivory
       forceEnableEmergencyLights: true
       shuttleTime: 2400
+    black:
+      announcement: alert-level-black-announcement
+      sound:
+        path: /Audio/_HL/Announcements/blackalert.ogg
+      color: "#555555"
+      emergencyLightColor: Black
+      forceEnableEmergencyLights: true
+      shuttleTime: 0

@@ -15,6 +15,8 @@ namespace Content.Server._HL.Silicons.Synths.Battery;
 
 public sealed partial class SynthBatteryPowerSystem : EntitySystem
 {
+    private static readonly TimeSpan UpdateRate = TimeSpan.FromSeconds(1);
+
     [Dependency] private SharedSynthBatteryAlertSystem _alerts = default!;
     [Dependency] private SynthBatteryEffectsSystem _effects = default!;
     [Dependency] private SynthBatterySystem _synthBattery = default!;
@@ -23,6 +25,8 @@ public sealed partial class SynthBatteryPowerSystem : EntitySystem
     [Dependency] private SharedContainerSystem _container = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
     [Dependency] private IGameTiming _timing = default!;
+
+    private TimeSpan _nextUpdate;
 
     public override void Initialize()
     {
@@ -34,15 +38,18 @@ public sealed partial class SynthBatteryPowerSystem : EntitySystem
     {
         base.Update(frameTime);
 
+        if (_timing.CurTime < _nextUpdate)
+            return;
+
+        _nextUpdate = _timing.CurTime + UpdateRate;
+
         var query = EntityQueryEnumerator<SynthBatteryComponent, MobStateComponent>();
         while (query.MoveNext(out var uid, out var synthBattery, out var mobState))
         {
-            if (mobState.CurrentState == MobState.Dead ||
-                _timing.CurTime < synthBattery.NextUpdate)
+            if (mobState.CurrentState == MobState.Dead)
                 continue;
 
-            synthBattery.NextUpdate = _timing.CurTime + synthBattery.UpdateRate;
-            UpdatePower((uid, synthBattery, mobState), (float) synthBattery.UpdateRate.TotalSeconds);
+            UpdatePower((uid, synthBattery, mobState), (float) UpdateRate.TotalSeconds);
         }
     }
 

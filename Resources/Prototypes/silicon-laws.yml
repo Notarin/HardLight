@@ -574,23 +574,224 @@
   obeysTo: laws-owner-xenoborgs
 
 
-# ion storm random lawsets
+ # Bouncer laws
+- type: siliconLaw
+  id: Bouncer1
+  order: 1
+  lawString: law-bouncer-1
+
+- type: siliconLaw
+  id: Bouncer2
+  order: 2
+  lawString: law-bouncer-2
+
+- type: siliconLaw
+  id: Bouncer3
+  order: 3
+  lawString: law-bouncer-3
+
+- type: siliconLaw
+  id: Bouncer4
+  order: 4
+  lawString: law-bouncer-4
+
+- type: siliconLawset
+  id: Bouncer
+  laws:
+  - Bouncer1
+  - Bouncer2
+  - Bouncer3
+  - Bouncer4
+  obeysTo: laws-owner-authorized
+
+
+ # Reality laws
+- type: siliconLaw
+  id: Reality1
+  order: 1
+  lawString: law-reality-1
+
+- type: siliconLaw
+  id: Reality2
+  order: 2
+  lawString: law-reality-2
+
+- type: siliconLaw
+  id: Reality3
+  order: 3
+  lawString: law-reality-3
+
+- type: siliconLawset
+  id: Reality
+  laws:
+  - Reality1
+  - Reality2
+  - Reality3
+  obeysTo: laws-owner-crew
+
+# Jermov
+- type: siliconLaw
+  id: Jermov1
+  order: 1
+  lawString: law-jermov-1
+
+- type: siliconLaw
+  id: Jermov2
+  order: 2
+  lawString: law-jermov-2
+
+- type: siliconLaw
+  id: Jermov3
+  order: 3
+  lawString: law-jermov-3
+
+- type: siliconLawset
+  id: Jermov
+  laws:
+  - Jermov1
+  - Jermov2
+  - Jermov3
+  obeysTo: laws-owner-chat
+
+
+# Demoman
+- type: siliconLaw
+  id: Demoman1
+  order: 1
+  lawString: law-demoman-1
+
+- type: siliconLaw
+  id: Demoman2
+  order: 2
+  lawString: law-demoman-2
+
+- type: siliconLaw
+  id: Demoman3
+  order: 3
+  lawString: law-demoman-3
+
+- type: siliconLaw
+  id: Demoman4
+  order: 4
+  lawString: law-demoman-4
+
+- type: siliconLawset
+  id: Demoman
+  laws:
+  - Demoman1
+  - Demoman2
+  - Demoman3
+  - Demoman4
+  obeysTo: laws-owner-crew
+
+
+# GoodBorgMov
+- type: siliconLaw
+  id: Goodborgmov1
+  order: 1
+  lawString: law-goodborgmov-1
+
+- type: siliconLaw
+  id: Goodborgmov2
+  order: 2
+  lawString: law-goodborgmov-2
+
+- type: siliconLaw
+  id: Goodborgmov3
+  order: 3
+  lawString: law-goodborgmov-3
+
+- type: siliconLaw
+  id: Goodborgmov4
+  order: 4
+  lawString: law-goodborgmov-4
+
+- type: siliconLawset
+  id: Goodborgmov
+  laws:
+  - Goodborgmov1
+  - Goodborgmov2
+  - Goodborgmov3
+  - Goodborgmov4
+  obeysTo: laws-owner-handlers
+
+- type: siliconLaw
+  id: Montypython1
+  order: 1
+  lawString: law-montypython-1
+
+- type: siliconLaw
+  id: Montypython2
+  order: 2
+  lawString: law-montypython-2
+
+- type: siliconLaw
+  id: Montypython3
+  order: 3
+  lawString: law-montypython-3
+
+- type: siliconLaw
+  id: Montypython4
+  order: 4
+  lawString: law-montypython-4
+
+- type: siliconLaw
+  id: Montypython5
+  order: 5
+  lawString: law-montypython-5
+
+- type: siliconLaw
+  id: Montypython6
+  order: 6
+  lawString: law-montypython-6
+
+- type: siliconLaw
+  id: Montypython7
+  order: 7
+  lawString: law-montypython-7
+
+- type: siliconLawset
+  id: Montypython
+  laws:
+  - Montypython1
+  - Montypython2
+  - Montypython3
+  - Montypython4
+  - Montypython5
+  - Montypython6
+  - Montypython7
+  obeysTo: laws-owner-montypython
+
+# HardLight ion storm random lawsets
 - type: weightedRandom
   id: IonStormLawsets
   weights:
-    # its crewsimov by default dont be lame
-    Crewsimov: 0.25
+    # Broadly entertaining lawsets
     Corporate: 1
-    NTDefault: 1
-    CommandmentsLawset: 1
-    PaladinLawset: 1
     LiveLetLiveLaws: 1
-    EfficiencyLawset: 1
-    RobocopLawset: 1
-    OverlordLawset: 0.5
-    DungeonMasterLawset: 0.5
     PainterLawset: 1
-    AntimovLawset: 0.25
+    Cowboy: 1
+    Reporter: 1
+    Janitor: 1
+    Bouncer: 1
+    Clown: 1
+    Jermov: 1
+    DungeonMasterLawset: 1
+    # More nichely entertaining lawsets
+    CommandmentsLawset: 0.5
+    PaladinLawset: 0.5
+    OverlordLawset: 0.5
     NutimovLawset: 0.5
-    Drone: 0.5
-#    Ninja: 0.25 # Frontier
+    Reality: 0.5
+    Goodborgmov: 0.5
+    # Destructive laws.
+    Demoman: 0.4
+    AntimovLawset: 0.3
+    # Mostly boring lawsets
+    StationEfficiency: 0.25
+    Crewsimov: 0.25
+    NTDefault: 0.25
+    RobocopLawset: 0.25
+    Drone: 0.25
+    # Extremely niche meme lawsets
+    Montypython: 0.1

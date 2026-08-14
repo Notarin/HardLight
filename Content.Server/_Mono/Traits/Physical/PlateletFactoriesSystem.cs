@@ -75,6 +75,9 @@ public sealed class PlateletFactoriesSystem : EntitySystem
             if (amount <= 0)
                 continue;
 
+            if (comp.ExcludedDamageTypes.Contains(type)) // HardLight
+                continue;
+
             var healAmt = FixedPoint2.New(-Math.Min(amount.Float(), amountPerTick * multiplier));
             if (healAmt == FixedPoint2.Zero)
                 continue;

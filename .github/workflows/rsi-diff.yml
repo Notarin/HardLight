@@ -49,6 +49,7 @@ jobs:
           headsha: ${{ forgejo.event.pull_request.head.sha }}
 
       - name: Potentially find comment
+        if: steps.diff.outputs.hasDiffs == 'true'
         uses: ./.github/actions/forgejo-pr-comment
         id: fc
         with:
@@ -58,7 +59,7 @@ jobs:
           searchBody: 'RSI Diff Bot'
 
       - name: Create comment if it doesn't exist
-        if: steps.fc.outputs.searchID == ''
+        if: steps.fc.outputs.searchID == '' && steps.diff.outputs.hasDiffs == 'true'
         uses: ./.github/actions/forgejo-pr-comment
         with:
           pr: ${{ forgejo.event.issue.number || forgejo.event.pull_request.number }}
@@ -67,7 +68,7 @@ jobs:
           body: ${{ steps.diff.outputs.summary-details }}
 
       - name: Update comment if it exists
-        if: steps.fc.outputs.searchID != ''
+        if: steps.fc.outputs.searchID != '' && steps.diff.outputs.hasDiffs == 'true'
         uses: ./.github/actions/forgejo-pr-comment
         with:
           pr: ${{ forgejo.event.issue.number || forgejo.event.pull_request.number }}

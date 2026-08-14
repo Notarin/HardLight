@@ -23,6 +23,7 @@
         - id: Medicine
         - id: Poison
         - id: Narcotic
+        - id: Cryogenic # HardLight
     - type: Sprite
       sprite: _Crescent/Objects/Misc/cybernetics.rsi
       layers:
@@ -57,6 +58,7 @@
         - id: Medicine
         - id: Poison
         - id: Narcotic
+        - id: Cryogenic # HardLight
     - type: Sprite
       sprite: _Crescent/Objects/Misc/cybernetics.rsi
       layers:

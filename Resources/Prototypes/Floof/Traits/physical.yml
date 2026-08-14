@@ -6,6 +6,7 @@
   cost: 4 # Whilst they can still eat everything this is literally only a positive trait.
   speciesBlacklist:
     - IPC
+    - Synth # HardLight
   mutuallyExclusiveTraits:
     - LesserVampirism
   components:
@@ -38,6 +39,7 @@
   cost: 2
   speciesBlacklist:
     - IPC
+    - Synth # HardLight
   mutuallyExclusiveTraits:
     - Vampirism
   components:

@@ -36,7 +36,7 @@ alert-level-yellow = Yellow - RAY DOWN
 alert-level-yellow-announcement = Sector infrastructure has been structurally or atmospherically compromised. Engineering staff are advised to immediately respond and assist where possible. Crews are advised to stay away from the threat and cooperate with sector command.
 alert-level-yellow-instructions = Crews are advised to stay away from the threat and cooperate with sector command.
 
-alert-level-gamma = Gamma - FAST PACE
+alert-level-gamma = Gamma - BROKEN ARROW
 # alert-level-gamma-announcement = Colonial Command has ordered the Gamma security level on the station. Security is to have weapons equipped at all times, and all civilians are to immediately seek their nearest head for transportation to a secure location.
 # alert-level-gamma-instructions = All civilians are to immediately seek their nearest head for transportation to a secure location.
 alert-level-gamma-announcement = Colonial Command has ordered the Gamma security level in the sector. ColSec officers are to be on high alert, and crews are to avoid areas of conflict where possible.
@@ -61,3 +61,7 @@ alert-level-omicron-instructions = Await further orders.
 alert-level-white = White - MIND FLAYER
 alert-level-white-announcement = The station is suffering dangerously high levels of glimmer, there are several active psionic threats, or there is another significant epistemic emergency. Turn off all glimmer probers. Seek psionic insulation. Psychics should report for mindbreaking.
 alert-level-white-instructions = Crewmembers are advised to seek psionic insulation. Psychics should report for mindbreaking or golemization.
+
+alert-level-black = Black - FAST PACE
+alert-level-black-announcement = The station is facing an impeding threat. All personnel shall obey all commands from Security and Command. Disobedience is punishable by death.
+alert-level-black-instructions = Crew arm, full defensive mobilization. Obey command. Class 3 contraband is permitted on the station in cooperation with station authorities.

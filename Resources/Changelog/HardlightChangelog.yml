@@ -5577,3 +5577,188 @@ Entries:
       message: Expedition events should once again spawn naturally.
   id: 624
   time: '2026-08-09T20:24:21-07:00'
+- author: AlphonsedeV
+  changes:
+    - type: Fix
+      message: Fixed translator drawing a power 'debt' while turned off.
+    - type: Fix
+      message: Fixed translator being able to light up its sprite with no power cell.
+    - type: Tweak
+      message: >-
+        Translators now draw less power, a high cap should last around 25 to 30
+        minutes.
+  id: 625
+  time: '2026-08-09T23:11:27-07:00'
+- author: NotLivyathan
+  changes:
+    - type: Add
+      message: >-
+        Antagonists can now add custom summaries from the character info window
+        to explain what they did to complete their objectives.
+    - type: Add
+      message: >-
+        Added a searchbox to the round-end summary for searching for specific
+        players.
+  id: 626
+  time: '2026-08-09T23:11:53-07:00'
+- author: Cheep
+  changes:
+    - type: Tweak
+      message: Made R&D server unwrenchable
+    - type: Tweak
+      message: Made expedition disk printer unwrenchable
+  id: 627
+  time: '2026-08-09T23:16:59-07:00'
+- author: Slatebreaker
+  changes:
+    - type: Add
+      message: Added more ion storm lawsets
+    - type: Tweak
+      message: Updated ion law generation to be more HardLight-specific
+  id: 628
+  time: '2026-08-09T23:17:50-07:00'
+- author: Desilvered
+  changes:
+    - type: Fix
+      message: Fixed whoopie cushions launching people
+  id: 629
+  time: '2026-08-09T23:19:57-07:00'
+- author: oksam
+  changes:
+    - type: Add
+      message: Black Alert
+  id: 630
+  time: '2026-08-09T23:20:19-07:00'
+- author: NotLivyathan
+  changes:
+    - type: Remove
+      message: Synths can no longer select vampirism traits.
+    - type: Tweak
+      message: Height traits no longer come with extreme speed penalties.
+    - type: Tweak
+      message: Synths should once again metabolize nutriment correctly.
+    - type: Fix
+      message: Non-silicon mobs should no longer have silicon-based emotes.
+    - type: Fix
+      message: Fax machine refresh buttons should once again render correctly.
+    - type: Fix
+      message: Synth guidebook now correctly states galactic common, instead of sol.
+    - type: Fix
+      message: Ahelp pin buttons should once again render correctly.
+    - type: Fix
+      message: AI turret control UI buttons should once again render correctly.
+    - type: Fix
+      message: >-
+        Missing backgrounds for various equipment UIs should once again render
+        correctly.
+    - type: Fix
+      message: Antag additional info buttons should once again render correctly.
+    - type: Fix
+      message: >-
+        Big/Very Big characters should no longer deal damage in situations that
+        wouldn't normally do damage.
+    - type: Fix
+      message: Synths should once again be revivable with defibrillators.
+    - type: Fix
+      message: Synths should no longer have two updates every tick.
+    - type: Fix
+      message: Synths should now be able to eat various materials as intended.
+    - type: Fix
+      message: Synths should now show up on med/diagnostic huds.
+  id: 631
+  time: '2026-08-09T23:13:18-07:00'
+- author: Khaomi
+  changes:
+    - type: Add
+      message: Added max job slot count to the job picker ui
+  id: 632
+  time: '2026-08-09T23:59:55-07:00'
+- author: NotLivyathan
+  changes:
+    - type: Add
+      message: >-
+        Added the Paradox Generator, a new science machine capable of generating
+        duplicates of insured items! It can be researched with Bluespace Time
+        Manipulation.
+  id: 633
+  time: '2026-08-10T09:54:55-07:00'
+- author: Khaomi
+  changes:
+    - type: Fix
+      message: Fixed cryochem not metabolizing on Resomi and Cybernetic organs
+  id: 634
+  time: '2026-08-10T09:55:16-07:00'
+- author: NotLivyathan
+  changes:
+    - type: Add
+      message: Added Blood Deficiency, a new negative trait.
+    - type: Remove
+      message: >-
+        Platelet Factories no longer heals: Airloss, Bloodloss, Poison,
+        Radiation, and Cellular.
+    - type: Remove
+      message: Xenos, dinos, and dreadtalons no longer have Platelet Factories.
+    - type: Tweak
+      message: Natural blood regeneration now uses hunger.
+    - type: Tweak
+      message: Avali can once again select Platelet Factories as a trait.
+  id: 635
+  time: '2026-08-10T10:01:48-07:00'
+- author: Slatebreaker
+  changes:
+    - type: Tweak
+      message: >-
+        Document case can now hold more items and be stored in bluespace
+        bookshelves
+    - type: Tweak
+      message: Document case can now be locked, access configured, and access broken
+    - type: Tweak
+      message: >-
+        Bureaucracy cyborg module can now be used by all borgs and comes with a
+        document case
+  id: 636
+  time: '2026-08-10T10:02:44-07:00'
+- author: Fenn
+  changes:
+    - type: Fix
+      message: Fixed glacier for testing
+  id: 637
+  time: '2026-08-10T10:08:24-07:00'
+- author: Jayty
+  changes:
+    - type: Add
+      message: Added Russian Accent trait.
+  id: 638
+  time: '2026-08-10T10:29:22-07:00'
+- author: NotLivyathan
+  changes:
+    - type: Fix
+      message: >-
+        Entities in cryopods should no longer fail to correctly be moved to
+        cryospace for cleanup.
+  id: 639
+  time: '2026-08-10T10:29:39-07:00'
+- author: Drekk
+  changes:
+    - type: Remove
+      message: >-
+        Removed Plasma Cutter from the Blueprint Lithograph (not the blueprint,
+        the literal item)
+  id: 640
+  time: '2026-08-10T10:29:58-07:00'
+- author: Drekk
+  changes:
+    - type: Fix
+      message: Fixed projectiles not working properly after first use.
+  id: 641
+  time: '2026-08-10T10:30:25-07:00'
+- author: Khaomi
+  changes: []
+  id: 642
+  time: '2026-08-13T16:18:57-07:00'
+- author: Avery
+  changes:
+    - type: Tweak
+      message: Changed black alert and gamma alert's code name
+  id: 643
+  time: '2026-08-13T16:19:18-07:00'

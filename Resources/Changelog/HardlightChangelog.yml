@@ -5912,3 +5912,9 @@ Entries:
       message: Fixed autosave crashing in dev environnments.
   id: 657
   time: '2026-08-15T12:33:06-07:00'
+- author: Desilvered
+  changes:
+    - type: Fix
+      message: Made it so that chess pieces no longer randomly vanish.
+  id: 658
+  time: '2026-08-15T12:33:31-07:00'

@@ -25,6 +25,7 @@ public sealed class SaveBanTests : InteractionTest
     {
         var sys = Server.System<StorageSystem>();
         var compFact = Server.ResolveDependency<IComponentFactory>();
+        var api = Server.System<SaveBanApi>();
 
         await SpawnTarget(BluespaceStashProtoId);
         var entId = ToServer(Target.Value);
@@ -40,7 +41,7 @@ public sealed class SaveBanTests : InteractionTest
         // Test Banned Entities
         Assert.Multiple(async () =>
         {
-            foreach (SaveBanStore.SaveBan ban in SaveBanStore.Bans.Where(x => x.BannedFlag is SaveBanStore.SaveBanFlag.SaveBanFlagByEntity))
+            foreach (SaveBanStore.SaveBan ban in api.Bans.Where(x => x.BannedFlag is SaveBanStore.SaveBanFlag.SaveBanFlagByEntity))
             {
                 var banFlag = (SaveBanStore.SaveBanFlag.SaveBanFlagByEntity)ban.BannedFlag;
                 var protoId = banFlag.Prototype;
@@ -83,7 +84,7 @@ public sealed class SaveBanTests : InteractionTest
         // Test Banned Components by adding them to an item and testing, it doesn't actually matter if it's not supposed to be on an item lmao
         Assert.Multiple(async () =>
         {
-            foreach (SaveBanStore.SaveBan ban in SaveBanStore.Bans.Where(x => x.BannedFlag is SaveBanStore.SaveBanFlag.SaveBanFlagByComponent))
+            foreach (SaveBanStore.SaveBan ban in api.Bans.Where(x => x.BannedFlag is SaveBanStore.SaveBanFlag.SaveBanFlagByComponent))
             {
                 var banFlag = (SaveBanStore.SaveBanFlag.SaveBanFlagByComponent)ban.BannedFlag;
                 var compName = banFlag.Name;

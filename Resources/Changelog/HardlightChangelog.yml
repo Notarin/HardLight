@@ -5852,3 +5852,11 @@ Entries:
       message: Added a disclaimer to voice traits about replacing emotes.
   id: 653
   time: '2026-08-15T12:28:42-07:00'
+- author: NotLivyathan
+  changes:
+    - type: Tweak
+      message: Synths once again have intrinsic access to the trinary radio channel.
+    - type: Fix
+      message: Fixed genital markings rendering through clothes for synths.
+  id: 654
+  time: '2026-08-15T12:31:24-07:00'

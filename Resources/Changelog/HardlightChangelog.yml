@@ -5860,3 +5860,11 @@ Entries:
       message: Fixed genital markings rendering through clothes for synths.
   id: 654
   time: '2026-08-15T12:31:24-07:00'
+- author: Drekk
+  changes:
+    - type: Fix
+      message: >-
+        Fixed hardsuits not loading correctly when saved in ships and
+        apartments.
+  id: 655
+  time: '2026-08-15T12:31:57-07:00'

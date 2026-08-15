@@ -5808,3 +5808,21 @@ Entries:
       message: fixed bread slices ignoring gravity
   id: 649
   time: '2026-08-15T12:25:50-07:00'
+- author: NotLivyathan
+  changes:
+    - type: Remove
+      message: Removed Unnatural Regen.
+    - type: Tweak
+      message: Natural Regen's point cost has been reduced from 6 to 5.
+    - type: Tweak
+      message: Platelet Factories' point cost has been reduced from 10 to 8.
+    - type: Tweak
+      message: Natural Regen no longer heals Airloss damage.
+    - type: Tweak
+      message: >-
+        Platelet Factories' description now correctly reflects the trait's
+        effects.
+    - type: Fix
+      message: Fixes Blood Deficiency leaving behind blood puddles when it shouldn't.
+  id: 650
+  time: '2026-08-15T12:27:05-07:00'

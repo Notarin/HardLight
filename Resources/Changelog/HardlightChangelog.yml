@@ -5926,3 +5926,9 @@ Entries:
         paradox generator if previously insured.
   id: 659
   time: '2026-08-15T12:34:01-07:00'
+- author: NotLivyathan
+  changes:
+    - type: Fix
+      message: Fixed cryopod occupants not being moved to cryospace
+  id: 660
+  time: '2026-08-15T13:36:36-07:00'

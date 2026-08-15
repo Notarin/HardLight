@@ -5762,3 +5762,11 @@ Entries:
       message: Changed black alert and gamma alert's code name
   id: 643
   time: '2026-08-13T16:19:18-07:00'
+- author: Desilvered
+  changes:
+    - type: Add
+      message: Ported a curated collection of cosmetic Blueshield clothing.
+    - type: Add
+      message: Added Starbound medical equipment and a Starbound Blueshield hardsuit.
+  id: 644
+  time: '2026-08-15T12:22:33-07:00'

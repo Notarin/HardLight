@@ -1,0 +1,28 @@
+# Internal breathing apparatus used by the InnateInternals component. These live inside the
+# entity that owns them and are never meant to be spawned or handled on their own.
+- type: entity
+  id: HLInnateRebreather
+  name: integrated rebreather
+  description: A sealed intake valve grafted into an airway.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: BreathMask
+
+- type: entity
+  id: HLInnateAirReservoir
+  name: integrated air reservoir
+  description: A slim bladder of compressed air tucked under a layer of latex.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: UseDelay
+    delays:
+      gasTank:
+        length: 1.0
+  - type: GasTank
+    outputPressure: 21.3
+    tankLowPressure: 30.0
+    # ~18 minutes worth. InnateInternalsSystem fills and refills this with whatever gas the
+    # owning entity actually breathes, so it starts out empty here.
+    air:
+      volume: 3
+      temperature: 293.15

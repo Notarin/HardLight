@@ -1,3 +1,4 @@
+using Content.Shared._HL.Body;
 using Content.Shared._Starlight.NullSpace;
 using Content.Shared.Alert;
 using Content.Shared.Atmos.Components;
@@ -252,6 +253,14 @@ public abstract class SharedInternalsSystem : EntitySystem
 
         if (!Resolve(user, ref user.Comp2, ref user.Comp3))
             return null;
+
+        // Hardlight change: innate internals keep their tank inside the entity instead of a slot.
+        if (TryComp<InnateInternalsComponent>(user, out var innate) &&
+            TryComp<GasTankComponent>(innate.GasTankEntity, out var innateGasTank) &&
+            _gasTank.CanConnectToInternals((innate.GasTankEntity.Value, innateGasTank)))
+        {
+            return (innate.GasTankEntity.Value, innateGasTank);
+        }
 
         if (_inventory.TryGetSlotEntity(user, "back", out var backEntity, user.Comp2, user.Comp3) &&
             TryComp<GasTankComponent>(backEntity, out var backGasTank) &&

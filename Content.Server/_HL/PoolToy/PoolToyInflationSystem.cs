@@ -7,6 +7,7 @@ using Content.Server.Popups;
 using Content.Server.Stack;
 using Content.Shared._HL.PoolToy;
 using Content.Shared._Shitmed.Body.Components;
+using Content.Shared._Shitmed.Targeting;
 using Content.Shared.Atmos.Components;
 using Content.Shared.Humanoid;
 using Content.Shared.Damage;
@@ -229,11 +230,15 @@ public sealed class PoolToyInflationSystem : EntitySystem
                 ? ent.Comp.AirlossPerSecond
                 : ent.Comp.AirlossPerSecond * ent.Comp.FallbackAirlossMultiplier;
 
+            // Kept on the torso and unable to sever, since air leaving a body should not take its limbs off
+            // the way an equivalent beating would.
             var delta = _damageable.TryChangeDamage(ent,
                 new DamageSpecifier { DamageDict = { [type] = rate * elapsed } },
                 ignoreResistances: true,
                 interruptsDoAfters: false,
-                damageable);
+                damageable,
+                canSever: false,
+                targetPart: TargetBodyPart.Torso);
 
             // Nothing landed, so the species is outright immune to this type: try the next one.
             if (delta == null ||
@@ -359,7 +364,8 @@ public sealed class PoolToyInflationSystem : EntitySystem
         _damageable.TryChangeDamage(ent.Owner,
             new DamageSpecifier { DamageDict = { [airlossType] = -healed } },
             ignoreResistances: true,
-            interruptsDoAfters: false);
+            interruptsDoAfters: false,
+            targetPart: TargetBodyPart.Torso);
 
         _popup.PopupEntity(Loc.GetString(ent.Comp.RefillPopup, ("used", used)), ent, ent);
 

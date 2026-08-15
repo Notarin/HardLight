@@ -67,8 +67,6 @@ cold-resistant-name = Cold-resistant
 cold-resistant-text = Through natural or artificial means, your body tolerates lower temperatures.
 natural-regen-name = Natural Regeneration
 natural-regen-text = Through unknown means, your body is slightly more capable of naturally healing injuries.
-unnatural-regen-name = Unnatural Regeneration
-unnatural-regen-text = Through illegal means or otherwise, your body is significantly more capable of naturally healing injuries.
 
 hl-trait-egglayer-fertile-name = Egg Layer (very fertile)
 hl-trait-egglayer-fertile-desc = Your body is a machine that turns cum into eggs. (5 cum per egg)

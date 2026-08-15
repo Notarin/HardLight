@@ -77,8 +77,6 @@
   - type: Uncloneable
   - type: HumanoidAppearance
     species: Synth
-    hideLayersOnEquip:
-    - Hair
   - type: Hunger
     baseDecayRate: 0.0085
     starvingSlowdownModifier: 0.75
@@ -152,6 +150,17 @@
       Unsexed: UnisexSynth
   - type: BodyEmotes
     soundsId: ReptilianBodyEmotes
+  - type: IntrinsicRadioReceiver
+  - type: IntrinsicRadioTransmitter
+    channels:
+    - Trinary
+    intrinsicChannels:
+    - Trinary
+  - type: ActiveRadio
+    channels:
+    - Trinary
+    intrinsicChannels:
+    - Trinary
   - type: Bloodstream
     bloodReagent: SynthBlood
     bloodMaxVolume: 300

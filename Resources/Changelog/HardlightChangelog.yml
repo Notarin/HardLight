@@ -5868,3 +5868,41 @@ Entries:
         apartments.
   id: 655
   time: '2026-08-15T12:31:57-07:00'
+- author: NotLivyathan
+  changes:
+    - type: Add
+      message: >-
+        Made the plasma cutter and line gun researchable, in Salvage Equipment
+        and Mass Excavation respectively.
+    - type: Remove
+      message: Removed the line gun from the protolathe's emag inventory.
+    - type: Tweak
+      message: >-
+        Adjusted the size of the plasma cutter and line gun sprites to be a
+        little smaller.
+    - type: Tweak
+      message: Reduced the heat damage per projectile for the line gun from 17 to 15.
+    - type: Tweak
+      message: >-
+        Reduced the structural damage per projectile for the line gun from 40 to
+        30.
+    - type: Tweak
+      message: >-
+        Made the line gun require wielding to fire, meaning it can no longer be
+        used onehanded or dual wielded.
+    - type: Tweak
+      message: Increased the width of the line gun when stored in inventories by 1.
+    - type: Tweak
+      message: >-
+        Changed the plasma cutter and line gun to both be engineering/cargo
+        contraband.
+    - type: Tweak
+      message: >-
+        Made general buffs to the plasma cutter and line gun to make them better
+        at mining.
+    - type: Tweak
+      message: >-
+        Significantly reduced the material cost of the plasma cutter and line
+        gun.
+  id: 656
+  time: '2026-08-15T12:32:39-07:00'

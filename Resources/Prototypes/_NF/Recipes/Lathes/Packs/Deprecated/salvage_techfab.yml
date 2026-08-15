@@ -76,7 +76,7 @@
     - WeaponGrapplingGun
     - SurvivalKnife
     - NFWeaponHoloflareGun
-    - WeaponPlasmaCutter #HL
+    - WeaponPlasmaCutter # HardLight
 
 - type: latheRecipePack
   id: NFSalvageTechfabDeprecated

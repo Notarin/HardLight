@@ -1,0 +1,72 @@
+- type: entity
+  name: Line Gun
+  parent: [BaseGunWieldable, BaseWeaponBattery, Welder]
+  id: WeaponLineGun
+  description: A signficantly larger model of the versatile plasma cutter suitable for use against harder minerals. Able to rip up hull platings beneath tiles.
+  components:
+  - type: Contraband
+    allowedDepartments: [ Engineering, Cargo ]
+  - type: Sprite
+    sprite: _HL/Objects/Weapons/Guns/Shotguns/linegun.rsi
+    layers:
+    - state: icon
+    - state: line-gun-activate-icon
+      visible: false
+      shader: unshaded
+      map: ["enum.ToggleVisuals.Layer"]
+  - type: PointLight
+    enabled: false
+    radius: 1.5
+    color: lightblue
+  - type: Item
+    size: Large
+    sprite: _HL/Objects/Weapons/Guns/Shotguns/linegun.rsi
+    shape:
+    - 0,0,3,1
+  - type: ToggleableLightVisuals
+    spriteLayer: line-gun-activate-icon
+    inhandVisuals:
+      left:
+      - state: line-glow-inhand-left
+        shader: unshaded
+      right:
+      - state: line-glow-inhand-right
+        shader: unshaded
+  - type: ItemToggle
+    onUse: false
+    autoToggleOnWield: false
+  - type: Wieldable
+    unwieldOnUse: false
+    wieldedInhandPrefix: null
+  - type: GunRequiresWield
+  - type: Gun
+    fireRate: 1
+    soundGunshot:
+      path:  /Audio/_HL/Weapons/Guns/Shotguns/line_gun.ogg
+  - type: Battery
+    maxCharge: 300
+    startingCharge: 300
+  - type: BatterySelfRecharger
+    autoRecharge: true
+    autoRechargeRate: 50
+  - type: ProjectileBatteryAmmoProvider
+    proto: LineGunShot
+    fireCost: 100
+  - type: SolutionContainerManager
+    solutions:
+      Welder:
+        reagents:
+        - ReagentId: WeldingFuel
+          Quantity: 500
+        maxVol: 500
+  - type: SolutionRegeneration
+    solution: Welder
+    generated:
+      reagents:
+      - ReagentId: WeldingFuel
+        Quantity: 0.1
+  - type: Tool # Lets it rip up tiles
+    qualities:
+      - Axing
+      - Welding
+  - type: ToolTileCompatible

@@ -22,6 +22,7 @@
   - ClothingShoesBootsJump
   - MechEquipmentDrill # Goobstation
   - DebrisBag
+  - WeaponPlasmaCutter # HardLight
 
 - type: technology
   id: SpaceScanning
@@ -221,19 +222,18 @@
   cost: 23500
 
   recipeUnlocks:
-    - WelderExperimental
-    - PowerDrill
-    - JawsOfLife
-    - UtilityBeltChiefEngineer
-    - BorgModuleAdvancedTool
-    - Fulton # Frontier
-    - FultonBeacon # Frontier
-    - NFBlueprintPowerDrill # Frontier
-    - NFBlueprintJawsOfLife # Frontier
-    - NFBlueprintWelderExperimental # Frontier
-    - OmniHandLeft # HardLight
-    - OmniHandRight # HardLight
-    - WeaponPlasmaCutter #HL
+  - WelderExperimental
+  - PowerDrill
+  - JawsOfLife
+  - UtilityBeltChiefEngineer
+  - BorgModuleAdvancedTool
+  - Fulton # Frontier
+  - FultonBeacon # Frontier
+  - NFBlueprintPowerDrill # Frontier
+  - NFBlueprintJawsOfLife # Frontier
+  - NFBlueprintWelderExperimental # Frontier
+  - OmniHandLeft # HardLight
+  - OmniHandRight # HardLight
 
 - type: technology
   id: MassExcavation
@@ -258,6 +258,7 @@
   - NFBlueprintAdvancedMineralScannerEmpty # Frontier
   - BorgModuleAdvancedMining # Frontier
   - MechEquipmentDrillDiamond
+  - WeaponLineGun # HardLight
 
 - type: technology
   id: Ripley2

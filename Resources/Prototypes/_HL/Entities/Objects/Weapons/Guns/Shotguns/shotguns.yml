@@ -63,7 +63,7 @@
     # Pretty much everyone.
     allowedDepartments: [ Civilian, Security, Command, Frontier, CentralCommand ]  #IF we had a merc department we can expand on it
   #- type: ChamberMagazineAmmoProvider
-  #  autoEject: true  
+  #  autoEject: true
 
 - type: entity
   name: Forged Rambler Shotgun
@@ -84,10 +84,10 @@
     size: Large
     shape:
     - 0,0,5,2
-    sprite: _HL/Objects/Weapons/Guns/Shotguns/forgedrambler_inhand.rsi 
+    sprite: _HL/Objects/Weapons/Guns/Shotguns/forgedrambler_inhand.rsi
   - type: Clothing
     sprite: _HL/Objects/Weapons/Guns/Shotguns/forgedrambler.rsi
-    quickEquip: false 
+    quickEquip: false
     slots:
     - Back
     - suitStorage
@@ -95,7 +95,7 @@
   - type: Gun
     fireRate: 2
     selectedMode: SemiAuto
-    availableModes: 
+    availableModes:
     - SemiAuto
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/shotgun.ogg
@@ -115,71 +115,3 @@
     sprite: _HL/Objects/Weapons/Guns/Shotguns/forgedrambler.rsi
     steps: 6
     zeroVisible: true
-
-# Line Gun
-- type: entity
-  name: Line Gun
-  parent: [BaseWeaponBattery, Welder, BaseC3Contraband]
-  id: WeaponLineGun
-  description: When Donk first designed the Plasma Cutter, it was intended for heating up food. When they realized it'd be a kick-ass hand-held semi-shotgun, they made this.
-  components:
-  - type: Sprite
-    sprite: _HL/Objects/Weapons/Guns/Shotguns/linegun.rsi
-    scale: 1.1, 1.1
-    layers:
-    - state: icon
-    - state: line-gun-activate-icon
-      visible: false
-      shader: unshaded
-      map: ["enum.ToggleVisuals.Layer"]
-  - type: PointLight
-    enabled: false
-    radius: 1.5
-    color: lightblue
-  - type: Item
-    size: Large
-    sprite: _HL/Objects/Weapons/Guns/Shotguns/linegun.rsi
-    shape:
-    - 0,0,2,1
-  - type: ToggleableLightVisuals
-    spriteLayer: line-gun-activate-icon
-    inhandVisuals:
-      left:
-      - state: line-glow-inhand-left
-        shader: unshaded
-      right:
-      - state: line-glow-inhand-right
-        shader: unshaded
-  - type: Gun
-    fireRate: 1
-    soundGunshot:
-      path:  /Audio/_HL/Weapons/Guns/Shotguns/line_gun.ogg
-  - type: Battery
-    maxCharge: 300
-    startingCharge: 300
-  - type: BatterySelfRecharger
-    autoRecharge: true
-    autoRechargeRate: 20
-  - type: ProjectileBatteryAmmoProvider
-    proto: LineGunShot
-    fireCost: 100
-  - type: Multishot
-    spreadMultiplier: 1.0
-  - type: SolutionContainerManager
-    solutions:
-      Welder:
-        reagents:
-        - ReagentId: WeldingFuel
-          Quantity: 500
-        maxVol: 500
-  - type: SolutionRegeneration
-    solution: Welder
-    generated:
-      reagents:
-      - ReagentId: WeldingFuel
-        Quantity: 0.1
-  - type: Tool #Lets it rip up tiles
-    qualities:
-      - Axing
-      - Welding
-  - type: ToolTileCompatible

@@ -5832,3 +5832,9 @@ Entries:
       message: Avali should now automatically exit stasis when going crit.
   id: 651
   time: '2026-08-15T12:27:32-07:00'
+- author: Khaomi
+  changes:
+    - type: Tweak
+      message: Tweaked station level alert sound to be station-wide not sector-wide
+  id: 652
+  time: '2026-08-15T12:28:05-07:00'

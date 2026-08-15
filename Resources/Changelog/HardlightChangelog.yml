@@ -5770,3 +5770,11 @@ Entries:
       message: Added Starbound medical equipment and a Starbound Blueshield hardsuit.
   id: 644
   time: '2026-08-15T12:22:33-07:00'
+- author: Khaomi
+  changes:
+    - type: Add
+      message: >-
+        Added support for saving engraveable item such as rings, inside
+        apartment
+  id: 645
+  time: '2026-08-15T12:23:06-07:00'

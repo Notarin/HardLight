@@ -5826,3 +5826,9 @@ Entries:
       message: Fixes Blood Deficiency leaving behind blood puddles when it shouldn't.
   id: 650
   time: '2026-08-15T12:27:05-07:00'
+- author: NotLivyathan
+  changes:
+    - type: Tweak
+      message: Avali should now automatically exit stasis when going crit.
+  id: 651
+  time: '2026-08-15T12:27:32-07:00'

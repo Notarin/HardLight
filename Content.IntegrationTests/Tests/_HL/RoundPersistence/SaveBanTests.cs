@@ -1,8 +1,7 @@
+using System.Collections.Generic;
 using System.Linq;
-using Castle.Components.DictionaryAdapter.Xml;
 using Content.IntegrationTests.Tests.Interaction;
 using Content.Server._HL.RoundPersistence.SaveBans;
-using Content.Server.Storage.EntitySystems;
 using Content.Shared._HL.Shipyard;
 using Content.Shared.Item;
 using Content.Shared.Prototypes;
@@ -23,7 +22,6 @@ public sealed class SaveBanTests : InteractionTest
     [Test]
     public async Task TestInsertBannedItemToStash()
     {
-        var sys = Server.System<StorageSystem>();
         var compFact = Server.ResolveDependency<IComponentFactory>();
         var api = Server.System<SaveBanApi>();
 
@@ -31,79 +29,83 @@ public sealed class SaveBanTests : InteractionTest
         var entId = ToServer(Target.Value);
         var storage = SEntMan.GetComponent<StorageComponent>(entId);
 
-        // Remove the Use delay
+        // Drop UseDelayComponent, causes issues in tests (delay + transactional unit = no good)
         await Server.WaitPost(() => SEntMan.RemoveComponent<UseDelayComponent>(STarget!.Value));
+
+        // State-of-the-art race condition prevention algorithm
         await RunTicks(5);
 
-        Assert.That(storage.Container.Count, Is.Zero, "Spawned Bluespace Stash wasn't empty!");
-        Assert.That(SEntMan.HasComponent<HLPersistOnShipSaveComponent>(entId), "Bluespace Stash doesn't have Save Component???");
-
-        // Test Banned Entities
-        Assert.Multiple(async () =>
+        using (Assert.EnterMultipleScope())
         {
-            foreach (SaveBanStore.SaveBan ban in api.Bans.Where(x => x.BannedFlag is SaveBanStore.SaveBanFlag.SaveBanFlagByEntity))
+            Assert.That(storage.Container.Count, Is.Zero, "Spawned Bluespace Stash wasn't empty!");
+            Assert.That(SEntMan.HasComponent<HLPersistOnShipSaveComponent>(entId), "Bluespace Stash doesn't have Save Component???");
+        }
+
+        using (Assert.EnterMultipleScope())
+        {
+            var validItemsToTest = new List<string>();
+            await Server.WaitPost(() =>
             {
-                var banFlag = (SaveBanStore.SaveBanFlag.SaveBanFlagByEntity)ban.BannedFlag;
-                var protoId = banFlag.Prototype;
+                validItemsToTest = api.Bans
+                    .Select(b => b.BannedFlag)
+                    .OfType<SaveBanStore.SaveBanFlag.SaveBanFlagByEntity>()
+                    .Select(flag => flag.Prototype)
+                    .Select(id => ProtoMan.TryIndex<EntityPrototype>(id, out var proto) ? proto : null)
+                    // We must filter for valid test items to prevent failures caused by
+                    // attempting to pick up items that are anchored or aren't hold-able
+                    .Where(proto => proto != null && IsValidTestItem(proto))
+                    .Select(proto => proto!.ID)
+                    .ToList();
+            });
 
-                //Ignore non-items for this test.
-                var isItem = true;
-                await Server.WaitPost(() =>
-                {
-                    var protos = ProtoMan.EnumeratePrototypes<EntityPrototype>().Where(p => p.ID == protoId && p.HasComponent<ItemComponent>());
-                    if (protos.Count() < 1)
-                    {
-                        isItem = false;
-                        return;
-                    }
-                    var proto = protos.First();
-                    // Some items don't start life as one, so ignore em
-                    if (proto.TryGetComponent<PhysicsComponent>(out var phys, compFact) && phys.BodyType == Robust.Shared.Physics.BodyType.Static)
-                    {
-                        isItem = false;
-                        return;
-                    }
-                    if (proto.TryGetComponent<TransformComponent>(out var trans, compFact) && trans.Anchored)
-                    {
-                        isItem = false;
-                        return;
-                    }
-                });
-                if (!isItem)
-                {
-                    continue;
-                }
-
+            foreach (var protoId in validItemsToTest)
+            {
                 await InteractUsing(protoId);
-                Assert.That(storage.StoredItems.Count, Is.Zero, $"Bluespace stash got banned item added {protoId} to it!");
+                Assert.That(storage.StoredItems, Is.Empty, $"Bluespace stash accepted banned item: {protoId}");
+
                 storage.StoredItems.Clear();
                 await DeleteHeldEntity();
             }
-        });
 
-        // Test Banned Components by adding them to an item and testing, it doesn't actually matter if it's not supposed to be on an item lmao
-        Assert.Multiple(async () =>
-        {
-            foreach (SaveBanStore.SaveBan ban in api.Bans.Where(x => x.BannedFlag is SaveBanStore.SaveBanFlag.SaveBanFlagByComponent))
+            var bannedComponentNames = api.Bans
+                .Select(b => b.BannedFlag)
+                .OfType<SaveBanStore.SaveBanFlag.SaveBanFlagByComponent>()
+                .Select(flag => flag.Name)
+                .ToList();
+
+            foreach (var compName in bannedComponentNames)
             {
-                var banFlag = (SaveBanStore.SaveBanFlag.SaveBanFlagByComponent)ban.BannedFlag;
-                var compName = banFlag.Name;
                 var testItem = await PlaceInHands(ComponentTestItem);
                 var testItemS = ToServer(testItem);
+                var isCompAdded = false;
 
-                var comp = Factory.GetComponent(Factory.AllRegisteredTypes.First(c => Factory.GetComponentName(c) == compName));
                 await Server.WaitPost(() =>
                 {
+                    var compType = compFact.GetRegistration(compName).Type;
+                    var comp = compFact.GetComponent(compType);
+
+                    // Slap the banned component onto a guaranteed valid item (Cola)
+                    // Control group item to ensure the component is what matters
                     SEntMan.AddComponent(testItemS, comp);
+                    isCompAdded = SEntMan.HasComponent(testItemS, compType);
                 });
 
-                Assert.That(SEntMan.HasComponent(testItemS, comp.GetComponentType()), $"Test Item could not take component {compName}");
-                await Interact();
+                Assert.That(isCompAdded, $"Test Item could not take component {compName}");
 
-                Assert.That(storage.StoredItems.Count, Is.Zero, $"Bluespace stash got banned item with component {testItem} added to it!");
+                await Interact();
+                Assert.That(storage.StoredItems, Is.Empty, $"Bluespace stash accepted item with banned component: {compName}");
+
                 storage.StoredItems.Clear();
                 await DeleteHeldEntity();
             }
-        });
+        }
+        return;
+
+        // Ensures the item is physically capable of being picked up.
+        // Failsafe against anchored entities.
+        bool IsValidTestItem(EntityPrototype proto) =>
+            proto.HasComponent<ItemComponent>() &&
+            !(proto.TryGetComponent<PhysicsComponent>(out var phys, compFact) && phys.BodyType == Robust.Shared.Physics.BodyType.Static) &&
+            !(proto.TryGetComponent<TransformComponent>(out var trans, compFact) && trans.Anchored);
     }
 }

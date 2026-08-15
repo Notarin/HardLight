@@ -5802,3 +5802,9 @@ Entries:
         instruments. Sentient artifacts cannot activate nodes.
   id: 648
   time: '2026-08-15T12:25:18-07:00'
+- author: ItsBear
+  changes:
+    - type: Fix
+      message: fixed bread slices ignoring gravity
+  id: 649
+  time: '2026-08-15T12:25:50-07:00'

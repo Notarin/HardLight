@@ -5,10 +5,30 @@
   replaceComponents: true
   cost: 1
   category: SpeechTraits
+  mutuallyExclusiveTraits:
+   - HLBorgVoice
+   - HLVoiceAvali
+   - HLVoiceSyndieborg
+   - HLVoiceXenoborg
+   - HLVoiceVulpkanin
+   - HLVoiceLizard
+   - HLVoiceSlime
+   - HLVoiceFox
+   - HLVoiceDog
+   - HLVoiceMoth
+   - HLVoiceCat
+   - HLVoiceResomi
+   - HLVoiceWawa
   components:
   - type: Speech
     speechSounds: Pai
     speechVerb: Robotic
+    allowedEmotes: ['Beep', 'Ping', 'Buzz', 'Buzz-Two', 'Chime', 'Honk']
+  - type: Vocal
+    sounds:
+      Male: UnisexSilicon
+      Female: UnisexSilicon
+      Unsexed: UnisexSilicon
 
 - type: trait
   id: HLBorgVoice
@@ -17,10 +37,31 @@
   replaceComponents: true
   cost: 1
   category: SpeechTraits
+  mutuallyExclusiveTraits:
+   - HLRoboticVoice
+   - HLVoiceAvali
+   - HLVoiceSyndieborg
+   - HLVoiceXenoborg
+   - HLVoiceVulpkanin
+   - HLVoiceLizard
+   - HLVoiceSlime
+   - HLVoiceFox
+   - HLVoiceDog
+   - HLVoiceMoth
+   - HLVoiceCat
+   - HLVoiceResomi
+   - HLVoiceWawa
   components:
   - type: Speech
     speechSounds: Borg
     speechVerb: Robotic
+    allowedEmotes: ['Beep', 'Ping', 'Buzz', 'Buzz-Two', 'Chime', 'Honk']
+  - type: Vocal
+    sounds:
+      Male: UnisexSilicon
+      Female: UnisexSilicon
+      Unsexed: UnisexSilicon
+
 
 - type: trait
   id: HLVoiceAvali
@@ -29,10 +70,30 @@
   replaceComponents: true
   cost: 1
   category: SpeechTraits
+  mutuallyExclusiveTraits:
+   - HLRoboticVoice
+   - HLBorgVoice
+   - HLVoiceSyndieborg
+   - HLVoiceXenoborg
+   - HLVoiceVulpkanin
+   - HLVoiceLizard
+   - HLVoiceSlime
+   - HLVoiceFox
+   - HLVoiceDog
+   - HLVoiceMoth
+   - HLVoiceCat
+   - HLVoiceResomi
+   - HLVoiceWawa
   components:
   - type: Speech
     speechSounds: MaleAvali
     speechVerb: Parrot
+    allowedEmotes: ['Chirp', 'Hiss', 'Purr', 'Growl', 'Trill', 'Scree', 'Call', 'Squawk'] # copied from the species
+  - type: Vocal
+    sounds:
+      Male: MaleAvali
+      Female: FemaleAvali
+      Unsexed: MaleAvali
 
 - type: trait
   id: HLVoiceSyndieborg
@@ -41,10 +102,31 @@
   replaceComponents: true
   cost: 1
   category: SpeechTraits
+  mutuallyExclusiveTraits:
+   - HLRoboticVoice
+   - HLBorgVoice
+   - HLVoiceAvali
+   - HLVoiceXenoborg
+   - HLVoiceVulpkanin
+   - HLVoiceLizard
+   - HLVoiceSlime
+   - HLVoiceFox
+   - HLVoiceDog
+   - HLVoiceMoth
+   - HLVoiceCat
+   - HLVoiceResomi
+   - HLVoiceWawa
   components:
   - type: Speech
     speechSounds: SyndieBorg
     speechVerb: Robotic
+    allowedEmotes: ['Beep', 'Ping', 'Buzz', 'Buzz-Two', 'Chime', 'Honk']
+  - type: Vocal
+    sounds:
+      Male: UnisexSiliconSyndicate
+      Female: UnisexSiliconSyndicate
+      Unsexed: UnisexSiliconSyndicate
+
 
 - type: trait
   id: HLVoiceXenoborg
@@ -53,12 +135,33 @@
   replaceComponents: true
   cost: 1
   category: SpeechTraits
+  mutuallyExclusiveTraits:
+   - HLRoboticVoice
+   - HLBorgVoice
+   - HLVoiceAvali
+   - HLVoiceSyndieborg
+   - HLVoiceVulpkanin
+   - HLVoiceLizard
+   - HLVoiceSlime
+   - HLVoiceFox
+   - HLVoiceDog
+   - HLVoiceMoth
+   - HLVoiceCat
+   - HLVoiceResomi
+   - HLVoiceWawa
   components:
   - type: Speech
     speechSounds: Xenoborg
     speechVerb: Robotic
+    allowedEmotes: ['Beep', 'Ping', 'Buzz', 'Buzz-Two', 'Chime', 'Honk']
   - type: TypingIndicator
     proto: xenoborg
+  - type: Vocal
+    sounds:
+      Male: UnisexSiliconSyndicate
+      Female: UnisexSiliconSyndicate
+      Unsexed: UnisexSiliconSyndicate
+    
 
 - type: trait
   id: HLVoiceVulpkanin
@@ -67,10 +170,30 @@
   replaceComponents: true
   cost: 1
   category: SpeechTraits
+  mutuallyExclusiveTraits:
+   - HLRoboticVoice
+   - HLBorgVoice
+   - HLVoiceAvali
+   - HLVoiceSyndieborg
+   - HLVoiceXenoborg
+   - HLVoiceLizard
+   - HLVoiceSlime
+   - HLVoiceFox
+   - HLVoiceDog
+   - HLVoiceMoth
+   - HLVoiceCat
+   - HLVoiceResomi
+   - HLVoiceWawa
   components:
   - type: Speech
     speechSounds: Vulpkanin
     speechVerb: Vulpkanin
+    allowedEmotes: [ 'Bark', 'Snarl', 'Whine', 'Pout', 'Howl', 'Growl', 'Yip', 'Awoo', 'Yap', 'Gekker', 'Purr' ] # copied from the species
+  - type: Vocal
+    sounds:
+      Male: MaleVulpkanin
+      Female: FemaleVulpkanin
+      Unsexed: MaleVulpkanin
 
 - type: trait
   id: HLVoiceLizard
@@ -79,12 +202,32 @@
   replaceComponents: true
   cost: 1
   category: SpeechTraits
+  mutuallyExclusiveTraits:
+   - HLRoboticVoice
+   - HLBorgVoice
+   - HLVoiceAvali
+   - HLVoiceSyndieborg
+   - HLVoiceXenoborg
+   - HLVoiceVulpkanin
+   - HLVoiceSlime
+   - HLVoiceFox
+   - HLVoiceDog
+   - HLVoiceMoth
+   - HLVoiceCat
+   - HLVoiceResomi
+   - HLVoiceWawa
   components:
   - type: Speech
     speechSounds: Lizard
     speechVerb: Reptilian
+    allowedEmotes: [ 'Hiss', 'Purr', 'RMCReptileRattle'] # copied from the species
   - type: TypingIndicator
     proto: lizard
+  - type: Vocal
+    sounds:
+      Male: MaleReptilian
+      Female: FemaleReptilian
+      Unsexed: MaleReptilian
 
 - type: trait
   id: HLVoiceSlime
@@ -93,12 +236,32 @@
   replaceComponents: true
   cost: 1
   category: SpeechTraits
+  mutuallyExclusiveTraits:
+   - HLRoboticVoice
+   - HLBorgVoice
+   - HLVoiceAvali
+   - HLVoiceSyndieborg
+   - HLVoiceXenoborg
+   - HLVoiceVulpkanin
+   - HLVoiceLizard
+   - HLVoiceFox
+   - HLVoiceDog
+   - HLVoiceMoth
+   - HLVoiceCat
+   - HLVoiceResomi
+   - HLVoiceWawa
   components:
   - type: Speech
     speechSounds: Slime
     speechVerb: Slime
+    allowedEmotes: ['Squish', 'Bubble', 'Pop'] # copied from the species
   - type: TypingIndicator
     proto: slime
+  - type: Vocal
+    sounds:
+      Male: MaleSlime
+      Female: FemaleSlime
+      Unsexed: MaleSlime
 
 - type: trait
   id: HLVoiceFox
@@ -107,10 +270,30 @@
   replaceComponents: true
   cost: 1
   category: SpeechTraits
+  mutuallyExclusiveTraits:
+   - HLRoboticVoice
+   - HLBorgVoice
+   - HLVoiceAvali
+   - HLVoiceSyndieborg
+   - HLVoiceXenoborg
+   - HLVoiceVulpkanin
+   - HLVoiceLizard
+   - HLVoiceSlime
+   - HLVoiceDog
+   - HLVoiceMoth
+   - HLVoiceCat
+   - HLVoiceResomi
+   - HLVoiceWawa
   components:
   - type: Speech
     speechSounds: Fox
     speechVerb: Canine
+    allowedEmotes: ['Growl', 'Squeak', 'Yip', 'Whine', 'Pout', 'Yap', 'Howl', 'Purr', 'Gekker'] # taken from the kitsune list
+  - type: Vocal
+    sounds:
+      Male: UnisexFox
+      Female: UnisexFox
+      Unsexed: UnisexFox
 
 - type: trait
   id: HLVoiceDog
@@ -119,10 +302,31 @@
   replaceComponents: true
   cost: 1
   category: SpeechTraits
+  mutuallyExclusiveTraits:
+   - HLRoboticVoice
+   - HLBorgVoice
+   - HLVoiceAvali
+   - HLVoiceSyndieborg
+   - HLVoiceXenoborg
+   - HLVoiceVulpkanin
+   - HLVoiceLizard
+   - HLVoiceSlime
+   - HLVoiceFox
+   - HLVoiceMoth
+   - HLVoiceCat
+   - HLVoiceResomi
+   - HLVoiceWawa
   components:
   - type: Speech
     speechSounds: Dog
     speechVerb: Canine
+    allowedEmotes: [ 'Bark', 'Snarl', 'Whine', 'Pout', 'Howl', 'Growl', 'Yip', 'Awoo', 'Yap', 'Gekker', 'Purr' ] # copied from vulp
+  - type: Vocal
+    sounds:
+      Male: MaleVulpkanin
+      Female: FemaleVulpkanin
+      Unsexed: MaleVulpkanin
+
 
 - type: trait
   id: HLVoiceMoth
@@ -131,12 +335,33 @@
   replaceComponents: true
   cost: 1
   category: SpeechTraits
+  mutuallyExclusiveTraits:
+   - HLRoboticVoice
+   - HLBorgVoice
+   - HLVoiceAvali
+   - HLVoiceSyndieborg
+   - HLVoiceXenoborg
+   - HLVoiceVulpkanin
+   - HLVoiceLizard
+   - HLVoiceSlime
+   - HLVoiceFox
+   - HLVoiceDog
+   - HLVoiceCat
+   - HLVoiceResomi
+   - HLVoiceWawa
   components:
   - type: Speech
     speechVerb: Moth
     speechSounds: Moth
+    allowedEmotes: ['Chitter', 'Squeak'] # copied from the species
   - type: TypingIndicator
     proto: moth
+  - type: Vocal
+    sounds:
+      Male: UnisexMoth
+      Female: UnisexMoth
+      Unsexed: UnisexMoth
+
 
 - type: trait
   id: HLVoiceCat
@@ -145,12 +370,33 @@
   replaceComponents: true
   cost: 1
   category: SpeechTraits
+  mutuallyExclusiveTraits:
+   - HLRoboticVoice
+   - HLBorgVoice
+   - HLVoiceAvali
+   - HLVoiceSyndieborg
+   - HLVoiceXenoborg
+   - HLVoiceVulpkanin
+   - HLVoiceLizard
+   - HLVoiceSlime
+   - HLVoiceFox
+   - HLVoiceDog
+   - HLVoiceMoth
+   - HLVoiceResomi
+   - HLVoiceWawa
   components:
   - type: Speech
     speechSounds: Cat
     speechVerb: Felinid
+    allowedEmotes: ['Hiss','Meow','Mew','Growl','Purr','Trill'] # copied from the species
   - type: TypingIndicator
     proto: felinid
+  - type: Vocal
+    wilhelm: "/Audio/Nyanotrasen/Voice/Felinid/cat_wilhelm.ogg"
+    sounds:
+      Male: MaleFelinid
+      Female: FemaleFelinid
+      Unsexed: MaleFelinid
 
 - type: trait
   id: HLVoiceResomi
@@ -159,10 +405,30 @@
   replaceComponents: true
   cost: 1
   category: SpeechTraits
+  mutuallyExclusiveTraits:
+   - HLRoboticVoice
+   - HLBorgVoice
+   - HLVoiceAvali
+   - HLVoiceSyndieborg
+   - HLVoiceXenoborg
+   - HLVoiceVulpkanin
+   - HLVoiceLizard
+   - HLVoiceSlime
+   - HLVoiceFox
+   - HLVoiceDog
+   - HLVoiceMoth
+   - HLVoiceCat
+   - HLVoiceWawa
   components:
   - type: Speech
     speechVerb: Parrot
     speechSounds: UnisexResomi
+    allowedEmotes: ['Chirp', 'Hiss', 'Purr', 'Growl', 'Trill', 'Wurble', 'Scree', 'Call', 'Squawk'] # copied from the species
+  - type: Vocal
+    sounds:
+      Male: UnisexResomi
+      Unsexed: UnisexResomi
+      Female: UnisexResomi
 
 - type: trait
   id: ScandinavianAccent
@@ -180,6 +446,20 @@
   replaceComponents: true
   cost: 1
   category: SpeechTraits
+  mutuallyExclusiveTraits:
+   - HLRoboticVoice
+   - HLBorgVoice
+   - HLVoiceAvali
+   - HLVoiceSyndieborg
+   - HLVoiceXenoborg
+   - HLVoiceVulpkanin
+   - HLVoiceLizard
+   - HLVoiceSlime
+   - HLVoiceFox
+   - HLVoiceDog
+   - HLVoiceMoth
+   - HLVoiceCat
+   - HLVoiceResomi
   components:
   - type: Speech
     speechVerb: Wawa

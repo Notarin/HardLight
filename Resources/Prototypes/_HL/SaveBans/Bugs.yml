@@ -1,0 +1,6 @@
+- type: saveBan
+  id: MagicMirror
+  # This should be figured out before merging. If this was merged without being resolved, beat someone with hammers.
+  reason: "Causes bugs when saved. Unknown nature ATT."
+  components:
+  - MagicMirror

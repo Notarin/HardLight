@@ -79,4 +79,13 @@ public sealed class EngraveableSystem : EntitySystem
         engraveVerb.Impact = LogImpact.Low;
         args.Verbs.Add(engraveVerb);
     }
+
+    // Hardlight
+    public void SetEngravedMessage(EntityUid ent, string text)
+    {
+        if (!TryComp<EngraveableComponent>(ent, out var engraveableComponent))
+            return;
+        engraveableComponent.EngravedMessage = text;
+    }
+    // End Hardlight
 }

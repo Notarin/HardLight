@@ -76,21 +76,7 @@ public sealed class PoolToyInflationSystem : EntitySystem
             if (IsIncapacitated(uid))
                 continue;
 
-            if (ResolveAirlossType((uid, comp)) is { } airlossType)
-            {
-                var rate = airlossType == comp.AirlossDamageType
-                    ? comp.AirlossPerSecond
-                    : comp.AirlossPerSecond * comp.FallbackAirlossMultiplier;
-
-                var amount = rate * elapsed;
-                comp.AirLost += amount;
-
-                _damageable.TryChangeDamage(uid,
-                    new DamageSpecifier { DamageDict = { [airlossType] = amount } },
-                    ignoreResistances: true,
-                    interruptsDoAfters: false);
-            }
-
+            LoseAir((uid, comp), elapsed);
             UpdateScale((uid, comp));
 
             if (_timing.CurTime < comp.NextWarning)
@@ -228,24 +214,62 @@ public sealed class PoolToyInflationSystem : EntitySystem
     }
 
     /// <summary>
-    /// Which damage type escaping air can actually be dealt as. Synthetic and shadekin bodies have no airloss
-    /// in their damage containers, so damage of that type would be dropped and they would never deflate.
+    /// Deals the escaping air as the first damage type the body actually takes. Synthetic bodies have no
+    /// airloss in their damage container at all, and shadekin zero out any airloss dealt to them, so airloss
+    /// alone would leave those species leaking without ever going down.
     /// </summary>
-    private ProtoId<DamageTypePrototype>? ResolveAirlossType(Entity<PoolToyInflationComponent> ent)
+    private void LoseAir(Entity<PoolToyInflationComponent> ent, float elapsed)
     {
         if (!TryComp<DamageableComponent>(ent, out var damageable))
-            return null;
+            return;
+
+        foreach (var type in AirlossTypes(ent, damageable))
+        {
+            var rate = type == ent.Comp.AirlossDamageType
+                ? ent.Comp.AirlossPerSecond
+                : ent.Comp.AirlossPerSecond * ent.Comp.FallbackAirlossMultiplier;
+
+            var delta = _damageable.TryChangeDamage(ent,
+                new DamageSpecifier { DamageDict = { [type] = rate * elapsed } },
+                ignoreResistances: true,
+                interruptsDoAfters: false,
+                damageable);
+
+            // Nothing landed, so the species is outright immune to this type: try the next one.
+            if (delta == null ||
+                !delta.DamageDict.TryGetValue(type, out var applied) ||
+                applied <= FixedPoint2.Zero)
+            {
+                continue;
+            }
+
+            ent.Comp.AirLost += applied;
+            ent.Comp.AirlossType = type;
+            return;
+        }
+    }
+
+    /// <summary>
+    /// The damage types worth trying for escaping air, best first, or just the one already known to work.
+    /// </summary>
+    private IEnumerable<ProtoId<DamageTypePrototype>> AirlossTypes(
+        Entity<PoolToyInflationComponent> ent,
+        DamageableComponent damageable)
+    {
+        if (ent.Comp.AirlossType is { } known)
+        {
+            yield return known;
+            yield break;
+        }
 
         if (damageable.Damage.DamageDict.ContainsKey(ent.Comp.AirlossDamageType))
-            return ent.Comp.AirlossDamageType;
+            yield return ent.Comp.AirlossDamageType;
 
         foreach (var fallback in ent.Comp.AirlossFallbackDamageTypes)
         {
             if (damageable.Damage.DamageDict.ContainsKey(fallback))
-                return fallback;
+                yield return fallback;
         }
-
-        return null;
     }
 
     /// <summary>
@@ -305,7 +329,7 @@ public sealed class PoolToyInflationSystem : EntitySystem
         if (!TryComp<GasTankComponent>(used, out var tank) || tank.Air.TotalMoles < ent.Comp.MinRefillMoles)
             return;
 
-        if (ent.Comp.AirLost <= FixedPoint2.Zero || ResolveAirlossType(ent) is not { } airlossType)
+        if (ent.Comp.AirLost <= FixedPoint2.Zero || ent.Comp.AirlossType is not { } airlossType)
             return;
 
         args.Handled = true;

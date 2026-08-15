@@ -47,6 +47,12 @@ public sealed partial class PoolToyInflationComponent : Component
     public float FallbackAirlossMultiplier = 0.5f;
 
     /// <summary>
+    /// The type escaping air actually landed as on this body, once one has been found to work.
+    /// </summary>
+    [DataField]
+    public ProtoId<DamageTypePrototype>? AirlossType;
+
+    /// <summary>
     /// Damage dealt by escaping air so far, so refilling only undoes that and not unrelated injuries.
     /// </summary>
     [DataField]

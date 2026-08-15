@@ -5918,3 +5918,11 @@ Entries:
       message: Made it so that chess pieces no longer randomly vanish.
   id: 658
   time: '2026-08-15T12:33:31-07:00'
+- author: NotLivyathan
+  changes:
+    - type: Fix
+      message: >-
+        Mechanically save banned items will no longer remain claimable from a
+        paradox generator if previously insured.
+  id: 659
+  time: '2026-08-15T12:34:01-07:00'

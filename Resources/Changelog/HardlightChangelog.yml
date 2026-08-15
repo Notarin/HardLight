@@ -5790,3 +5790,15 @@ Entries:
       message: 'Added the Drone trait to the Lewd category. '
   id: 647
   time: '2026-08-15T12:24:26-07:00'
+- author: NotLivyathan
+  changes:
+    - type: Add
+      message: >-
+        New UI for analysis console, new UI for node scanner. Artifact node
+        activation is now different.
+    - type: Remove
+      message: >-
+        Artifacts cannot create massive destruction events, become guns or music
+        instruments. Sentient artifacts cannot activate nodes.
+  id: 648
+  time: '2026-08-15T12:25:18-07:00'

@@ -5932,3 +5932,9 @@ Entries:
       message: Fixed cryopod occupants not being moved to cryospace
   id: 660
   time: '2026-08-15T13:36:36-07:00'
+- author: Khaomi
+  changes:
+    - type: Tweak
+      message: Make apartment saves the name and description of an entity
+  id: 661
+  time: '2026-08-16T09:48:18-07:00'

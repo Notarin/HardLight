@@ -2196,6 +2196,11 @@ namespace Content.Server.Shuttles.Save
                 var d = SerializeEngraveableComponent(engraveable);
                 if (d != null) entityData.Components.Add(d);
             }
+            if (_entityManager.TryGetComponent<MetaDataComponent>(uid, out var metadata))
+            {
+                var d = SerializeMetaDataComponent(metadata);
+                if (d != null) entityData.Components.Add(d);
+            }
         }
 
         private void RestoreRoomComponents(EntityUid uid, EntityData entityData)
@@ -2222,6 +2227,8 @@ namespace Content.Server.Shuttles.Save
                     RestoreAtmosPipeLayersComponent(uid, componentData);
                 else if (componentData.Type == "EngraveableComponent" && componentData.Properties.Any())
                     RestoreEngraveableComponent(uid, componentData);
+                else if (componentData.Type == "MetaDataComponent" && componentData.Properties.Any())
+                    RestoreMetaDataComponent(uid, componentData);
                 // StorageComponent locations handled in RestoreStorageLocations post-pass
             }
         }
@@ -2601,6 +2608,33 @@ namespace Content.Server.Shuttles.Save
             var engravedMessage = rawEngravedMessage.ToString();
             if (!string.IsNullOrEmpty(engravedMessage))
                 _engraveableSystem.SetEngravedMessage(uid, engravedMessage);
+        }
+
+        private ComponentData? SerializeMetaDataComponent(MetaDataComponent comp)
+        {
+            if (string.IsNullOrEmpty(comp.EntityName) && string.IsNullOrEmpty(comp.EntityDescription))
+                return null;
+            var props = new Dictionary<string, object>();
+            if (!string.IsNullOrEmpty(comp.EntityName) && comp.EntityPrototype?.Name != comp.EntityName)
+                props["EntityName"] = comp.EntityName;
+            if (!string.IsNullOrEmpty(comp.EntityDescription) && comp.EntityPrototype?.Description != comp.EntityDescription)
+                props["EntityDescription"] = comp.EntityDescription;
+            if (props.Count == 0)
+                return null;
+            return new ComponentData
+            {
+                Type = "MetaDataComponent",
+                Properties = props
+            };
+        }
+
+        private void RestoreMetaDataComponent(EntityUid uid, ComponentData componentData)
+        {
+            var comp = EnsureComp<MetaDataComponent>(uid);
+            if (componentData.Properties.TryGetValue("EntityName", out var nameObj))
+                _metaData.SetEntityName(uid, nameObj?.ToString() ?? comp.EntityPrototype?.Name ?? string.Empty);
+            if (componentData.Properties.TryGetValue("EntityDescription", out var descObj))
+                _metaData.SetEntityDescription(uid, descObj?.ToString() ?? comp.EntityPrototype?.Description ?? string.Empty);
         }
 
         private ComponentData? SerializeStorageLocationsComponent(EntityUid entityUid, StorageComponent storage)

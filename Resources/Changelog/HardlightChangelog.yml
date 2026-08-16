@@ -5938,3 +5938,11 @@ Entries:
       message: Make apartment saves the name and description of an entity
   id: 661
   time: '2026-08-16T09:48:18-07:00'
+- author: Fenn
+  changes:
+    - type: Add
+      message: Added Security tier equipment to uplinks
+    - type: Fix
+      message: Fixed multiple maps
+  id: 662
+  time: '2026-08-16T11:42:14-07:00'

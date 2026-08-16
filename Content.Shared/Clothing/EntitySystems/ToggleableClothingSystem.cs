@@ -524,6 +524,61 @@ public sealed class ToggleableClothingSystem : EntitySystem
         }
     }
 
+    // HL Start
+    /// <summary>
+    /// Attempts to restore the attached entity for an entity with the <Togglele cref="ToggleableClothingComponent"/> Component, such as restoring the Helmet on a Hardsuit.
+    /// Covers if the helmet is entirely missing, or if it's in the container but not attached.
+    /// Also re-creates the verb so the icon isn't blank.
+    /// </summary>
+    public void RestoreAttachedEntity(EntityUid uid, ToggleableClothingComponent comp)
+    {
+        if (comp.ClothingUid.HasValue && comp.ClothingUid.Value != EntityUid.Invalid && !TerminatingOrDeleted(comp.ClothingUid.Value))
+        {
+            return; // We already have clothing attached
+        }
+
+        if (comp.ClothingPrototype == null)
+        {
+            return; // No clothing prototype set, so don't do anything.
+        }
+
+        var contEnt = comp.Container!.ContainedEntity;
+        if (contEnt.HasValue && !TerminatingOrDeleted(contEnt))
+        {
+            // If we have the entity in our container already, but it's not linked for some reason
+            TryComp(contEnt, out MetaDataComponent? containerMetadata);
+            if (containerMetadata?.EntityPrototype?.ID == comp.ClothingPrototype?.Id) // If the item in our container matches what should be attached, then attach it
+            {
+                comp.ClothingUid = contEnt;
+                var attachedClothing = EnsureComp<AttachedClothingComponent>(comp.ClothingUid.Value);
+                attachedClothing.AttachedUid = uid;
+                Dirty(comp.ClothingUid.Value, attachedClothing);
+                Dirty(uid, comp);
+            }
+        }
+        else
+        {
+            // Container is empty, OR we're in the middle of deleting the item from the container...
+            if (TerminatingOrDeleted(contEnt))
+            {
+                _containerSystem.CleanContainer(comp.Container!);
+            }
+            // The container is now empty, so we need to spawn in the item and link it
+            var xform = Transform(uid);
+            comp.ClothingUid = Spawn(comp.ClothingPrototype, xform.Coordinates);
+            var attachedClothing = EnsureComp<AttachedClothingComponent>(comp.ClothingUid.Value);
+            attachedClothing.AttachedUid = uid;
+            Dirty(comp.ClothingUid.Value, attachedClothing);
+            _containerSystem.Insert(comp.ClothingUid.Value, comp.Container!, containerXform: xform);
+            Dirty(uid, comp);
+        }
+
+        // Re-setup the action so that the icon is referencing the right entity
+        if (_actionContainer.EnsureAction(uid, ref comp.ActionEntity, out var action, comp.Action))
+            _actionsSystem.SetEntityIcon(comp.ActionEntity.Value, comp.ClothingUid, action);
+    }
+    // HL END
+
     /// <summary>
     ///     On map init, either spawn the appropriate entity into the suit slot (legacy mode),
     ///     or setup marking toggle functionality (marking mode). Also sets up the toggle action.

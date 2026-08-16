@@ -72,6 +72,7 @@ using Content.Server.Paint;
 using static Content.Shared.Paper.PaperComponent;
 using Content.Shared.Atmos.Components;
 using Content.Shared.Atmos.EntitySystems;
+using Content.Server._CD.Engraving;
 
 namespace Content.Server.Shuttles.Save
 {
@@ -104,6 +105,7 @@ namespace Content.Server.Shuttles.Save
         [Dependency] private readonly ToggleableClothingSystem _toggleableClothingSystem = default!;
         [Dependency] private readonly PaintSystem _paintSystem = default!;
         [Dependency] private readonly PaperSystem _paperSystem = default!;
+        [Dependency] private readonly EngraveableSystem _engraveableSystem = default!;
         // Note: For EntityDeserializer we use IoCManager.Instance directly to avoid extra injected fields.
 
         private ISawmill _sawmill = default!;
@@ -2189,6 +2191,11 @@ namespace Content.Server.Shuttles.Save
                 var d = SerializeAtmosPipeLayersComponent(layer);
                 if (d != null) entityData.Components.Add(d);
             }
+            if (_entityManager.TryGetComponent<EngraveableComponent>(uid, out var engraveable))
+            {
+                var d = SerializeEngraveableComponent(engraveable);
+                if (d != null) entityData.Components.Add(d);
+            }
             if (_entityManager.TryGetComponent<MetaDataComponent>(uid, out var metadata))
             {
                 var d = SerializeMetaDataComponent(metadata);
@@ -2218,6 +2225,8 @@ namespace Content.Server.Shuttles.Save
                     RestoreChameleonClothingComponent(uid, componentData);
                 else if (componentData.Type == "AtmosPipeLayersComponent" && componentData.Properties.Any())
                     RestoreAtmosPipeLayersComponent(uid, componentData);
+                else if (componentData.Type == "EngraveableComponent" && componentData.Properties.Any())
+                    RestoreEngraveableComponent(uid, componentData);
                 else if (componentData.Type == "MetaDataComponent" && componentData.Properties.Any())
                     RestoreMetaDataComponent(uid, componentData);
                 // StorageComponent locations handled in RestoreStorageLocations post-pass
@@ -2554,7 +2563,7 @@ namespace Content.Server.Shuttles.Save
         {
             if (!componentData.Properties.TryGetValue("Default", out var protoObj))
                 return;
-            var protoId = protoObj?.ToString();
+            var protoId = ((Dictionary<object, object>?)protoObj)?["id"].ToString();
             if (!string.IsNullOrEmpty(protoId))
                 _chameleonSystem.SetSelectedPrototype(uid, protoId, forceUpdate: true);
         }
@@ -2579,6 +2588,26 @@ namespace Content.Server.Shuttles.Save
             var comp = EnsureComp<AtmosPipeLayersComponent>(uid);
             Entity<AtmosPipeLayersComponent> ent = (uid, comp);
             _pipeLayersSystem.SetPipeLayer(ent, layer);
+        }
+
+        private ComponentData? SerializeEngraveableComponent(EngraveableComponent comp)
+        {
+            if (string.IsNullOrEmpty(comp.EngravedMessage))
+                return null;
+            return new ComponentData
+            {
+                Type = "EngraveableComponent",
+                Properties = new Dictionary<string, object> { ["EngravedMessage"] = comp.EngravedMessage }
+            };
+        }
+
+        private void RestoreEngraveableComponent(EntityUid uid, ComponentData componentData)
+        {
+            if (!componentData.Properties.TryGetValue("EngravedMessage", out var rawEngravedMessage))
+                return;
+            var engravedMessage = rawEngravedMessage.ToString();
+            if (!string.IsNullOrEmpty(engravedMessage))
+                _engraveableSystem.SetEngravedMessage(uid, engravedMessage);
         }
 
         private ComponentData? SerializeMetaDataComponent(MetaDataComponent comp)
@@ -3483,6 +3512,13 @@ namespace Content.Server.Shuttles.Save
                 {
                     RestoreEntityComponents(newEntity, entityData.Components);
                 }
+
+                // HL START: Re-Attach or re-create toggleable clothing components
+                if (_entityManager.TryGetComponent<ToggleableClothingComponent>(newEntity, out var toggleComp))
+                {
+                    _toggleableClothingSystem.RestoreAttachedEntity(newEntity, toggleComp);
+                }
+                // HL END
 
                 // Restore custom entity name
                 if (!string.IsNullOrEmpty(entityData.EntityName))

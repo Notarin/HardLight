@@ -110,6 +110,8 @@
     - id: PlushieNova
     - id: PlushiePetal
     - id: PlushieRosemane
+    - id: PlushieSkrag
+
 - type: entity
   id: CrateFunPlushie
   parent: CrateGenericSteel

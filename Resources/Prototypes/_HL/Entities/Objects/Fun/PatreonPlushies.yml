@@ -248,7 +248,7 @@
   parent: BasePlushie
   id: PlushiePetal
   name: Krapari Plushie
-  description:
+  description: The local jail bird.
   components:
   - type: Sprite
     sprite: _HL/Objects/Fun/patreon_plushies.rsi
@@ -275,7 +275,7 @@
   parent: BasePlushie
   id: PlushieRosemane
   name: Rosemane Plushie
-  description:
+  description: A plushie of Rose Mane back during her Captain days with Nanotrasen.
   components:
   - type: Sprite
     sprite: _HL/Objects/Fun/patreon_plushies.rsi
@@ -297,3 +297,30 @@
     wideAnimationRotation: 180
     soundHit:
       path: /Audio/_RMC14/Voice/Avali/avali_scream.ogg
+
+- type: entity
+  parent: BasePlushie
+  id: PlushieSkrag
+  name: Skrag Plushie
+  description: The very pettable hyena, now in plush form!
+  components:
+  - type: Sprite
+    sprite: _HL/Objects/Fun/patreon_plushies.rsi
+    state: SkragPlush
+    scale: 0.8, 0.8
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Floof/Voice/Vulpkanin/gekker.ogg
+  - type: EmitSoundOnCollide
+    sound:
+      path: /Audio/Floof/Voice/Vulpkanin/gekker.ogg
+  - type: EmitSoundOnUse
+    sound:
+      path: /Audio/Floof/Voice/Vulpkanin/gekker.ogg
+  - type: EmitSoundOnActivate
+    sound:
+      path: /Audio/Floof/Voice/Vulpkanin/gekker.ogg
+  - type: MeleeWeapon
+    wideAnimationRotation: 180
+    soundHit:
+      path: /Audio/Floof/Voice/Vulpkanin/gekker.ogg

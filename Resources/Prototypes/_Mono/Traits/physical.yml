@@ -372,10 +372,9 @@
   name: trait-platelet-factories-name
   description: trait-platelet-factories-desc
   category: Physical
-  cost: 10
+  cost: 8
   mutuallyExclusiveTraits:
   - Hemophilia
-  - UnnaturalRegen
   - NaturalRegen
   - ShadekinRegeneration
   - ExtremeShadekinRegeneration

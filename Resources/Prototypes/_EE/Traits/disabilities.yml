@@ -3,7 +3,7 @@
   name: trait-name-BloodDeficiency # HardLight
   description: trait-description-BloodDeficiency # HardLight
   category: Physical
-  cost: 4 # HardLight: points>cost
+  cost: -4 # HardLight: points>cost
   mutuallyExclusiveTraits:
   - PlateletFactories
   speciesBlacklist: # HardLight

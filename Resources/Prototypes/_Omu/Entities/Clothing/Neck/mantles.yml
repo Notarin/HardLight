@@ -1,0 +1,30 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: entity
+  parent: ClothingNeckBase # HardLight
+  id: ClothingNeckMantleBlueshield
+  name: blueshield officer mantle
+  description: A well-balanced, protective mantle, designed for optimal bodyguarding efficiency.
+  # HardLight: Cosmetic only.
+  components:
+  - type: Sprite
+    sprite: _Goobstation/Clothing/Neck/Mantle/bsomantle.rsi
+  - type: Clothing
+    sprite: _Goobstation/Clothing/Neck/Mantle/bsomantle.rsi\
+  - type: Tag
+    tags:
+    - WhitelistChameleon
+
+- type: entity
+  parent: ClothingNeckMantleBlueshield # HardLight
+  id: ClothingNeckMantleTwoBlueshield
+  name: blueshield officer black mantle
+  description: A mostly black mantle with blue lining along the neck, in case the other option wasn't convincing enough.
+  components:
+  - type: Sprite
+    sprite: _Omu/Clothing/Neck/Mantle/bsomantleblack.rsi
+  - type: Clothing
+    sprite: _Omu/Clothing/Neck/Mantle/bsomantleblack.rsi
+  - type: Tag
+    tags:
+    - WhitelistChameleon

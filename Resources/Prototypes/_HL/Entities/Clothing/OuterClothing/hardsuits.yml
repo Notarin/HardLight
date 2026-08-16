@@ -231,7 +231,7 @@
 
 #Forged Hardsuit
 - type: entity
-  parent: ClothingOuterHardsuitBase 
+  parent: ClothingOuterHardsuitBase
   id: ClothingForgedHardsuit
   name: Forged Hardsuit
   description: A forged hardsuit with a built-in helmet. It's horribly slow and lacking mostly in thermal protection, but adorned with patchwork armor plating.
@@ -737,4 +737,63 @@
     highPressureMultiplier: 0.01
     lowPressureMultiplier: 10
 
-        
+# Starbound Bluespace Hardsuit
+- type: entity
+  parent: [ClothingOuterHardsuitBase, BaseC3SyndicateContraband, ContrabandClothing]
+  id: ClothingOuterHardsuitStarboundBlueshield
+  name: Starbound Blueshield hardsuit
+  description: The Directors improvements amongst a base hardsuit - the inside lined with cooling durathread and the helmet retrofitted with a reinforced holoscreen to both protect the wearer and to convey information within their surrounding to them.
+  components:
+  - type: Sprite
+    sprite: _HL/Starbound/Clothing/OuterClothing/Hardsuits/blueshield.rsi
+  - type: Item
+    size: Huge
+  - type: Clothing
+    sprite: _HL/Starbound/Clothing/OuterClothing/Hardsuits/blueshield.rsi
+  - type: PressureProtection
+    highPressureMultiplier: 0.05
+    lowPressureMultiplier: 1000
+  - type: ExplosionResistance
+    damageCoefficient: 0.6
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.6
+        Slash: 0.6
+        Piercing: 0.6
+        Heat: 0.6
+        Radiation: 0.6
+        Caustic: 0.6
+  - type: ClothingSpeedModifier
+    walkModifier: 0.9
+    sprintModifier: 0.9
+  - type: HeldSpeedModifier
+  - type: ToggleableClothing
+    clothingPrototype: ClothingHeadHelmetHardsuitStarboundBlueshield
+  - type: Tag
+    tags:
+    - WhitelistChameleon
+    - Hardsuit
+
+# Starbound Bluespace Hardsuit Helmet
+- type: entity
+  parent: ClothingHeadHardsuitBase
+  id: ClothingHeadHelmetHardsuitStarboundBlueshield
+  name: Starbound Blueshield hardsuit helmet
+  description: A reinforced hardsuit helmet fitted with a holoscreen that protects its wearer and displays surrounding personnel information.
+  components:
+  - type: Sprite
+    sprite: _HL/Starbound/Clothing/Head/Hardsuits/blueshield.rsi
+  - type: Clothing
+    sprite: _HL/Starbound/Clothing/Head/Hardsuits/blueshield.rsi
+    equippedPrefix: off
+  - type: PressureProtection
+    highPressureMultiplier: 0.08
+    lowPressureMultiplier: 1000
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.9
+        Slash: 0.9
+        Piercing: 0.9
+        Heat: 0.9

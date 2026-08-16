@@ -65,6 +65,8 @@
   - PKAUpgradeFireRate
   # - WeaponTetherGun # Frontier
   - WeaponGauntletGorilla
+  - WeaponPlasmaCutter # HardLight
+  - WeaponLineGun # HardLight
 
 - type: latheRecipePack
   id: FauxTiles

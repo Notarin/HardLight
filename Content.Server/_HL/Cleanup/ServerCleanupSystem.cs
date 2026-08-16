@@ -8,6 +8,7 @@ using Content.Shared.Mind;
 using Content.Shared.Mind.Components;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
+using Content.Shared.Tabletop.Components;
 using Robust.Server.GameObjects;
 using Robust.Server.Player;
 using Robust.Shared.Configuration;
@@ -244,6 +245,9 @@ public sealed class ServerCleanupSystem : EntitySystem
                 continue;
 
             if (HasComp<MapComponent>(uid) || HasComp<MapGridComponent>(uid))
+                continue;
+
+            if (HasComp<TabletopDraggableComponent>(uid))
                 continue;
 
             if (xform.GridUid != null && EntityManager.EntityExists(xform.GridUid.Value))

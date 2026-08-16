@@ -17,6 +17,7 @@
   id: AvaliTailBase
   bodyPart: Tail
   markingCategory: Tail
+  waggingId: AvaliTailBaseAnimated # HardLight
   followSkinColor: true
   forcedColoring: true
   speciesRestriction: [ Avali, ProtoAvali ]

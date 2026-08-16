@@ -98,8 +98,8 @@
   - type: MobThresholds
     thresholds:
       0: Alive
-      100: Critical
-      200: Dead
+      200: Critical
+      250: Dead
   - type: CumProducer
     maxVol: 15000
     reVol: 3750

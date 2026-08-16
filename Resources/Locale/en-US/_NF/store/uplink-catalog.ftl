@@ -116,6 +116,21 @@ uplink-security-medkit-desc = A kit containing advanced medical supplies suitabl
 uplink-security-inspector-name = Inspector
 uplink-security-inspector-desc = Standard issue revolver. Cheaply mass produced and found in all corners of the known universe. Uses .45 pistol.
 
+uplink-security-Caliver-name = Caliver
+uplink-security-Caliver-desc = The caliver is the primary rifle of the volkite family, and effective at most ranges and situations.
+
+uplink-security-Charger-name = Charger
+uplink-security-Charger-desc = The charger is a lightweight weapon with a high rate of fire, essentially filling the role of an SMG in the volkite family.
+
+uplink-security-Serpenta-name = Serpenta
+uplink-security-Serpenta-desc = The Serpenta is the most compact and concealable of the volkite weapons, and is often used as a sidearm by those who carry larger volkite arms.
+
+uplink-security-Culverin-name = Culverin
+uplink-security-Culverin-desc = The culverin is the largest man portable example of volkite weaponry, and can lay down a staggering torrent of fire due to its linked back-mounted powerpack.
+
+uplink-security-volkitePowerPack-name = Volkite Power Pack
+uplink-security-volkitePowerPack-desc = A power pack designed to be linked to volkite weaponry, providing additional energy for high-powered shots.
+
 uplink-security-mateba-name = Mateba
 uplink-security-mateba-desc = The Mateba Autorevolver's unique barrel alignment and recoil driven cylinder and hammer allow for unparalleled fire rate and accuracy.
 

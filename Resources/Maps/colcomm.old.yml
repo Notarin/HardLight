@@ -45125,7 +45125,7 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -2.5,-16.5
       parent: 1668
-- proto: PoweredlightBlue
+- proto: Ash
   entities:
   - uid: 1249
     components:

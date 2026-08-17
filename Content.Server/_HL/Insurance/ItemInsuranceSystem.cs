@@ -450,21 +450,26 @@ public sealed class ItemInsuranceSystem : EntitySystem
 
     private bool CanInsureItem(EntityUid item, [NotNullWhen(false)] out string? reason)
     {
-        reason = null;
+        reason = item switch
+        {
+            // Already insured
+            _ when HasComp<InsuredItemComponent>(item)
+                => "paradox-generator-popup-already-insured",
 
-        if (HasComp<NotInsurableComponent>(item))
-            reason = "paradox-generator-popup-not-insurable";
-        else if (HasTotalSaveBan(item))
-            reason = "paradox-generator-popup-not-insurable";
-        else if (HasComp<InsuredItemComponent>(item))
-            reason = "paradox-generator-popup-already-insured";
-        else if (HasComp<FoodComponent>(item) ||
-                 HasComp<DrinkComponent>(item) ||
-                 HasComp<PillComponent>(item) ||
-                 HasComp<SmokableComponent>(item))
-            reason = "paradox-generator-popup-not-insurable";
-        else if (HasComp<ActorComponent>(item) || HasComp<MindContainerComponent>(item))
-            reason = "paradox-generator-popup-not-insurable";
+            // Uninsurable by condition
+            _ when HasTotalSaveBan(item) ||
+                   HasComp<NotInsurableComponent>(item) ||
+                   HasComp<FoodComponent>(item) ||
+                   HasComp<DrinkComponent>(item) ||
+                   HasComp<PillComponent>(item) ||
+                   HasComp<SmokableComponent>(item) ||
+                   HasComp<ActorComponent>(item) ||
+                   HasComp<MindContainerComponent>(item)
+                => "paradox-generator-popup-not-insurable",
+
+            // Default: it is insurable
+            _ => null,
+        };
 
         return reason == null;
     }

@@ -11,6 +11,14 @@
       "name": "ramen"
     },
     {
+      "name": "trash-inhand-right",
+      "directions": 4
+    },
+    {
+      "name": "trash-inhand-left",
+      "directions": 4
+    },
+    {
       "name": "boritos"
     },
     {

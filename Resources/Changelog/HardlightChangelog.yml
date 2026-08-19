@@ -5952,3 +5952,9 @@ Entries:
       message: Fixed the AirlockBlockTest failing, by disabling the test :3
   id: 663
   time: '2026-08-19T13:47:42-07:00'
+- author: Drekk
+  changes:
+    - type: Fix
+      message: Fixed new artifacts not matching for bounties and certain containers.
+  id: 664
+  time: '2026-08-19T13:48:03-07:00'

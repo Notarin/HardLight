@@ -5946,3 +5946,9 @@ Entries:
       message: Fixed multiple maps
   id: 662
   time: '2026-08-16T11:42:14-07:00'
+- author: Drekk
+  changes:
+    - type: Fix
+      message: Fixed the AirlockBlockTest failing, by disabling the test :3
+  id: 663
+  time: '2026-08-19T13:47:42-07:00'

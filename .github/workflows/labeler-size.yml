@@ -4,19 +4,34 @@ concurrency:
   group: labels
   cancel-in-progress: false
 
-on: pull_request_target
+on:
+- pull_request_target
 
 
 jobs:
   size-label:
     runs-on: ubuntu-latest
     steps:
-      - name: size-label
-        uses: "https://github.com/pascalgn/size-label-action@v0.5.5"
-        env:
-          GITHUB_TOKEN: ${{ secrets.BOT_TOKEN || secrets.FORGEJO_TOKEN }}
+      - name: Fetch Actions
+        # Needed because we aren't checking out the full repo, so just grab the bits we care about
+        shell: bash
+        run: |
+          mkdir actions && cd actions
+          git init
+          git remote add origin "${{ forgejo.server_url }}/${{ forgejo.repository }}.git"
+          git config core.sparseCheckout true
+          echo ".github/*" >> .git/info/sparse-checkout
+          git fetch --depth=1 --filter=blob:none origin master
+          git checkout master
+          cd ..
+          mv actions/.github .github
+
+      - name: Run Size Labeler
+        uses: ./.github/actions/labeler-size
         with:
-          # Custom size configuration
+          pr_no: ${{ forgejo.event.issue.number || forgejo.event.pull_request.number }}
+          token: ${{ secrets.BOT_TOKEN || secrets.FORGEJO_TOKEN }}
+          repo: ${{ forgejo.event.pull_request.base.repo.full_name || forgejo.repository }}
           sizes: >
             {
               "0": "XS",

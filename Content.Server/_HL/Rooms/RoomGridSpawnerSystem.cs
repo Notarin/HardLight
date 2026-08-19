@@ -25,6 +25,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using Content.Server._HL.RoundPersistence.SaveBans;
+using Content.Shared._HL.RoundPersistence.SaveBans;
 using Content.Shared._HL.Shipyard;
 using Robust.Server.GameObjects;
 
@@ -44,6 +45,7 @@ public sealed class RoomGridSpawnerSystem : EntitySystem
     [Dependency] private readonly AppearanceSystem _appearance = default!;
     [Dependency] private readonly DecalSystem _decal = default!;
     [Dependency] private readonly SaveBanApi _saveBanApi = default!;
+    [Dependency] private readonly IComponentFactory _componentFactory = default!;
 
     private readonly Dictionary<NetUserId, PendingRoomLoad> _pendingLoads = new();
     private readonly Dictionary<NetUserId, ActiveRoomSession> _activeSessions = new();
@@ -287,7 +289,7 @@ public sealed class RoomGridSpawnerSystem : EntitySystem
 
         var excluded = new HashSet<EntityUid> { session.ConsoleUid, session.MarkerUid };
         StampSprayPaintedInBounds(session.GridUid, session.Bounds);
-        DeleteSaveBannedItems(session.GridUid, session.Bounds);
+        EnforceSaveBans(session.GridUid, session.Bounds);
         var shipData = _shipSerialization.SerializeShipArea(session.GridUid, userId, $"Room_{session.CharacterKey}", session.Bounds, excluded, includeVendors: true);
         NormalizeRoomDataToAnchor(shipData, session.AnchorTile, session.AnchorPosition, session.AnchorRotation);
         var yaml = _shipSerialization.SerializeShipGridDataToYaml(shipData);
@@ -301,38 +303,67 @@ public sealed class RoomGridSpawnerSystem : EntitySystem
     }
 
     /// <summary>
-    /// Deletes save banned items from the grid within the specified bounds.
+    /// Evaluates and enforces save bans on the grid within the specified bounds.
     /// </summary>
-    private void DeleteSaveBannedItems(EntityUid gridUid, Box2 bounds)
+    private void EnforceSaveBans(EntityUid gridUid, Box2 bounds)
     {
-        var excludeFromCheckingBans = new HashSet<EntityUid>();
+        var exclusions = GetExcludedEntities(gridUid).ToHashSet();
 
-        // Collect every entity that should never be checked.
-        var childEnumerator = Transform(gridUid).ChildEnumerator;
-        while (childEnumerator.MoveNext(out var child))
+        var entities = new HashSet<EntityUid>();
+        _lookup.GetLocalEntitiesIntersecting(gridUid, bounds, entities);
+
+        var violations = entities
+            .Except(exclusions)
+            .Select(e => (Entity: e, Result: _saveBanApi.CheckForRestrictions(e) as SaveBanApi.SaveBanResult.IsSaveRestricted))
+            .Where(v => v.Result is not null); // IF YOU REMOVE THIS, ENSURE YOU REMOVE LATER NULL-SUPPRESSIONS!
+
+        foreach (var (entity, restriction) in violations)
         {
-            if (!HasComp<HLPersistOnShipSaveComponent>(child))
+            // Check Deleted here because a TotalBan on a parent in a previous iteration
+            // will implicitly delete its children.
+            if (Deleted(entity))
                 continue;
 
-            excludeFromCheckingBans.Add(child);
+            var isSaveRestricted = restriction!; // We can safely null-suppress here due to the `Where` clause.
 
-            var descendants = Transform(child).ChildEnumerator;
-            while (descendants.MoveNext(out var descendant))
+            switch (isSaveRestricted.Ban)
             {
-                excludeFromCheckingBans.Add(descendant);
+                case { Strictness: SaveBanStore.SaveRestrictionStrictness.TotalBan }:
+                    Del(entity);
+                    break;
+
+                // In this case, we can currently assume it is a stripbanned component. This is **NOT** a stable guarantee!
+                // TODO: Update this when the TypeEnforcedValidSavebanFlagStrictness TODO is resolved. (TypeEnforcedValidSavebanFlagStrictness)
+                case
+                    {
+                        Strictness: SaveBanStore.SaveRestrictionStrictness.StripBan,
+                        BannedFlag: SaveBanStore.SaveBanFlag.SaveBanFlagByComponent compFlag,
+                    }
+                when _componentFactory.TryGetRegistration(compFlag.Name, out var reg):
+                    RemComp(entity, reg.Type);
+                    break;
             }
         }
 
-        // Delete everything save banned within bounds
-        var entities = new HashSet<EntityUid>();
-        _lookup.GetLocalEntitiesIntersecting(gridUid, bounds, entities, LookupFlags.All);
-        foreach (var entity in from entity in entities
-                               where !excludeFromCheckingBans.Contains(entity)
-                               let isBanned = _saveBanApi.CheckForRestrictions(entity) is SaveBanApi.SaveBanResult.IsSaveRestricted
-                               where isBanned
-                               select entity)
+        return;
+
+        // Function to handle enumerator loops to keep the main method body more declarative.
+        IEnumerable<EntityUid> GetExcludedEntities(EntityUid root)
         {
-            Del(entity);
+            var childEnumerator = Transform(root).ChildEnumerator;
+            while (childEnumerator.MoveNext(out var child))
+            {
+                if (!HasComp<HLPersistOnShipSaveComponent>(child))
+                    continue;
+
+                yield return child;
+
+                var descendants = Transform(child).ChildEnumerator;
+                while (descendants.MoveNext(out var descendant))
+                {
+                    yield return descendant;
+                }
+            }
         }
     }
 

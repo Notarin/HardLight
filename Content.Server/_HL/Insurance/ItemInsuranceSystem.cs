@@ -10,6 +10,7 @@ using Content.Server.Popups;
 using Content.Server.Power.EntitySystems;
 using Content.Shared._HL.Insurance;
 using Content.Shared._HL.Insurance.Components;
+using Content.Shared._HL.RoundPersistence.SaveBans;
 using Content.Shared._NF.Bank.Components;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Containers.ItemSlots;

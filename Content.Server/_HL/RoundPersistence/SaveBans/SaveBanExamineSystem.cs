@@ -1,4 +1,5 @@
 using System.Linq;
+using Content.Shared._HL.RoundPersistence.SaveBans;
 using Content.Shared.Examine;
 using Content.Shared.Item;
 using Content.Shared.Verbs;
@@ -21,16 +22,27 @@ public sealed class SaveBanExamineSystem: EntitySystem
         SubscribeLocalEvent<ItemComponent, GetVerbsEvent<ExamineVerb>>(OnDetailedExamine);
     }
 
-    private void OnDetailedExamine(EntityUid uid, ItemComponent component, GetVerbsEvent<ExamineVerb> args)
+private void OnDetailedExamine(EntityUid uid, ItemComponent component, GetVerbsEvent<ExamineVerb> args)
     {
         var restrictions = _saveBanApi.CheckForRestrictions(uid);
         if (restrictions == null)
             return;
+
         var texture = restrictions switch
         {
-            SaveBanApi.SaveBanResult.ContainsSaveRestricted => "/Textures/_HL/Interface/VerbIcons/containsBanned.png",
-            SaveBanApi.SaveBanResult.IsSaveRestricted => "/Textures/_HL/Interface/VerbIcons/banned.png",
-            _ => throw new ArgumentOutOfRangeException(nameof(restrictions)),
+            SaveBanApi.SaveBanResult.ContainsSaveRestricted containsSaveRestricted => SaveBanApi
+                .FlattenRestrictions(containsSaveRestricted)
+                .Any(r => r.Ban.Strictness is SaveBanStore.SaveRestrictionStrictness.TotalBan)
+                ? "/Textures/_HL/Interface/VerbIcons/containsBanned.png"
+                : "/Textures/_HL/Interface/VerbIcons/containsRestricted.png",
+
+            SaveBanApi.SaveBanResult.IsSaveRestricted { Ban.Strictness: SaveBanStore.SaveRestrictionStrictness.TotalBan } =>
+                "/Textures/_HL/Interface/VerbIcons/banned.png",
+
+            SaveBanApi.SaveBanResult.IsSaveRestricted { Ban.Strictness: SaveBanStore.SaveRestrictionStrictness.StripBan } =>
+                "/Textures/_HL/Interface/VerbIcons/restricted.png",
+
+            _ => throw new ArgumentOutOfRangeException(nameof(uid)),
         };
 
         var bodyText = restrictions switch
@@ -41,10 +53,17 @@ public sealed class SaveBanExamineSystem: EntitySystem
                     ("count", SaveBanApi.FlattenRestrictions(contains).Count())) +
                 "\n\n" +
                 string.Join('\n', SaveBanApi.FlattenRestrictions(contains).Select(RestrictionText)),
-            SaveBanApi.SaveBanResult.IsSaveRestricted restricted =>
+
+            SaveBanApi.SaveBanResult.IsSaveRestricted { Ban.Strictness: SaveBanStore.SaveRestrictionStrictness.TotalBan } restricted =>
                 Loc.GetString(
                     "saveban-hover-body-banned",
                     ("reason", restricted.Ban.Reason)),
+
+            SaveBanApi.SaveBanResult.IsSaveRestricted { Ban.Strictness: SaveBanStore.SaveRestrictionStrictness.StripBan } restricted =>
+                Loc.GetString(
+                    "saveban-hover-body-restricted",
+                    ("reason", restricted.Ban.Reason)),
+
             _ => throw new ArgumentOutOfRangeException(nameof(restrictions)),
         };
 
@@ -58,15 +77,27 @@ public sealed class SaveBanExamineSystem: EntitySystem
             texture
         );
     }
-
     private string RestrictionText(SaveBanApi.SaveBanResult.IsSaveRestricted restriction)
     {
         var name = Name(restriction.EntityUid);
 
-        return Loc.GetString(
-            "saveban-hover-item-listing-restricted",
-            ("variant", "banned"),
-            ("name", name),
-            ("reason", restriction.Ban.Reason));
+        return restriction.Ban.Strictness switch
+        {
+            SaveBanStore.SaveRestrictionStrictness.TotalBan =>
+                Loc.GetString(
+                    "saveban-hover-item-listing-restricted",
+                    ("variant", "banned"),
+                    ("name", name),
+                    ("reason", restriction.Ban.Reason)),
+
+            SaveBanStore.SaveRestrictionStrictness.StripBan =>
+                Loc.GetString(
+                    "saveban-hover-item-listing-restricted",
+                    ("variant", "restricted"),
+                    ("name", name),
+                    ("reason", restriction.Ban.Reason)),
+
+            _ => throw new ArgumentOutOfRangeException(),
+        };
     }
 }

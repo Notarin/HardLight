@@ -1,6 +1,7 @@
 using System.Linq;
 using Content.IntegrationTests.Tests.Interaction;
 using Content.Server._HL.RoundPersistence.SaveBans;
+using Content.Shared._HL.RoundPersistence.SaveBans;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Map;
 using static Content.Server._HL.RoundPersistence.SaveBans.SaveBanApi.SaveBanResult;

@@ -34,6 +34,13 @@ public sealed partial class SaveBanPrototype : IPrototype
     public SaveBanContext Context = (SaveBanContext)byte.MaxValue;
 
     /// <summary>
+    /// <see cref="SaveBanStore.SaveRestrictionStrictness"/>
+    /// </summary>
+    [DataField]
+    public SaveBanStore.SaveRestrictionStrictness Strictness = new SaveBanStore.SaveRestrictionStrictness.TotalBan();
+
+
+    /// <summary>
     /// The prototypes to ban. It is preferable to use components instead of prototypes. A ban should be as specific as possible.
     /// </summary>
     [DataField]

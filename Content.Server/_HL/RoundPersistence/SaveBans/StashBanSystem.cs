@@ -1,4 +1,6 @@
+using System.Linq;
 using Content.Server.Popups;
+using Content.Shared._HL.RoundPersistence.SaveBans;
 using Content.Shared._HL.Shipyard;
 using Robust.Shared.Containers;
 
@@ -22,8 +24,20 @@ public sealed class StashBanSystem : EntitySystem
 
     private void OnInsertAttempt(EntityUid uid, HLPersistOnShipSaveComponent component, ContainerIsInsertingAttemptEvent args)
     {
-        if (_saveBanApi.CheckForRestrictions(args.EntityUid) != null)
-            Reject(args);
+        var banned = _saveBanApi.CheckForRestrictions(args.EntityUid);
+        switch (banned)
+        {
+            case SaveBanApi.SaveBanResult.IsSaveRestricted isSaveRestricted:
+                if (isSaveRestricted.Ban.Strictness is SaveBanStore.SaveRestrictionStrictness.TotalBan)
+                    Reject(args);
+                break;
+            case SaveBanApi.SaveBanResult.ContainsSaveRestricted containsSaveRestricted:
+                if (SaveBanApi.FlattenRestrictions(containsSaveRestricted)
+                    .Any(r => r.Ban.Strictness is SaveBanStore.SaveRestrictionStrictness.TotalBan))
+                    Reject(args);
+                break;
+        }
+
         return;
 
         void Reject(ContainerIsInsertingAttemptEvent containerIsInsertingAttemptEvent)

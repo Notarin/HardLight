@@ -143,6 +143,8 @@ public abstract partial class SharedPlayingCardsSystem
 
         var user = args.User;
 
+        args.Verbs.Add(PlayingCardStackComponent.Verbs.DrawCard, () => TryDrawToActiveHand(targetDeck, user));
+
         // Cut deck.
         if (targetDeck.Comp.NumCards > 1)
         {

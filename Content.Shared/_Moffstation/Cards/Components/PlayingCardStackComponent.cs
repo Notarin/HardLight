@@ -46,6 +46,7 @@ public abstract partial class PlayingCardStackComponent : Component, ISealedInhe
         public static readonly VerbInfo CardPutDown = VerbInfo.Build("playing-card-stack-card-put-down", icon: "drop");
         public static readonly VerbInfo DeckPutDown = VerbInfo.Build("playing-card-stack-deck-put-down", icon: "drop");
         public static readonly VerbInfo HandPutDown = VerbInfo.Build("playing-card-stack-hand-put-down", icon: "drop");
+        public static readonly VerbInfo DrawCard = VerbInfo.Build("playing-card-stack-draw-card", icon: "insert");
 
         public static readonly VerbInfo Flip = VerbInfo.Build("playing-card-flip-all", icon: "flip", sounds: "cardFan");
         public static readonly VerbInfo FlipUp = VerbInfo.Build("playing-card-flip-all-up", icon: "flip", sounds: "cardFan");

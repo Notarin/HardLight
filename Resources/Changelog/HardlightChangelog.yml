@@ -5958,3 +5958,16 @@ Entries:
       message: Fixed new artifacts not matching for bounties and certain containers.
   id: 664
   time: '2026-08-19T13:48:03-07:00'
+- author: NotLivyathan
+  changes:
+    - type: Fix
+      message: >-
+        Fixed blood recovery failing and resulting in rapid starvation and
+        dehydration.
+    - type: Fix
+      message: >-
+        Fixed a bugged interaction between platelets and bleeding that caused
+        more hunger to be used than intended, resulting in rapid starvation and
+        dehydration.
+  id: 665
+  time: '2026-08-19T14:06:16-07:00'

@@ -31,6 +31,7 @@ public sealed class ThermalVisionSystem : SharedThermalVisionSystem
     [ViewVariables]
     private EntityUid? _effect = null;
     protected override bool IsPredict() => !_timing.IsFirstTimePredicted;
+
     public override void Initialize()
     {
         base.Initialize();

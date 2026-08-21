@@ -5971,3 +5971,9 @@ Entries:
         dehydration.
   id: 665
   time: '2026-08-19T14:06:16-07:00'
+- author: MrSalty
+  changes:
+    - type: Add
+      message: Added character portrait!
+  id: 666
+  time: '2026-08-21T00:19:09-07:00'

@@ -1159,6 +1159,11 @@ namespace Content.Server.Database.Migrations.Postgres
                         .HasColumnType("text")
                         .HasColumnName("char_name");
 
+                    b.Property<string>("CharacterPortraitUrl")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("character_portrait_url");
+
                     b.Property<string>("Company")
                         .IsRequired()
                         .HasColumnType("text")

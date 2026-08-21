@@ -5946,3 +5946,34 @@ Entries:
       message: Fixed multiple maps
   id: 662
   time: '2026-08-16T11:42:14-07:00'
+- author: Drekk
+  changes:
+    - type: Fix
+      message: Fixed the AirlockBlockTest failing, by disabling the test :3
+  id: 663
+  time: '2026-08-19T13:47:42-07:00'
+- author: Drekk
+  changes:
+    - type: Fix
+      message: Fixed new artifacts not matching for bounties and certain containers.
+  id: 664
+  time: '2026-08-19T13:48:03-07:00'
+- author: NotLivyathan
+  changes:
+    - type: Fix
+      message: >-
+        Fixed blood recovery failing and resulting in rapid starvation and
+        dehydration.
+    - type: Fix
+      message: >-
+        Fixed a bugged interaction between platelets and bleeding that caused
+        more hunger to be used than intended, resulting in rapid starvation and
+        dehydration.
+  id: 665
+  time: '2026-08-19T14:06:16-07:00'
+- author: MrSalty
+  changes:
+    - type: Add
+      message: Added character portrait!
+  id: 666
+  time: '2026-08-21T00:19:09-07:00'

@@ -19,6 +19,8 @@
         - DoorBumpOpener
         - AnomalyHost
         - Avali
+    - type: Wagging # Hardlight
+      action: ActionToggleAvaliWagging # Hardlight
     - type: HumanoidAppearance
       species: Avali
     - type: Hunger # on 2x more

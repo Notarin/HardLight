@@ -60,6 +60,10 @@ humanoid-profile-editor-naming-rules-warning = Warning: Offensive or LRP IC name
 humanoid-profile-editor-markings-tab = Markings
 humanoid-profile-editor-flavortext-tab = Description
 
+humanoid-profile-editor-character-portrait-label = Character portrait url:
+humanoid-profile-editor-character-portrait-detail = Url must be of a png, jpg or webp. Image must be smaller than 2 MB.
+humanoid-profile-editor-flavor-text-label = Character portrait url:
+
 # Company
 humanoid-profile-editor-company-tab = Company
 humanoid-profile-editor-company-label = Company:

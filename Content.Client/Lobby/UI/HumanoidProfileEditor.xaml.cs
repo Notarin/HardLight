@@ -57,6 +57,7 @@ namespace Content.Client.Lobby.UI
 
         private FlavorText.FlavorText? _flavorText;
         private TextEdit? _flavorTextEdit;
+        private LineEdit? _characterPortraitTextEdit;
 
         // One at a time.
         private LoadoutWindow? _loadoutWindow;
@@ -559,7 +560,7 @@ namespace Content.Client.Lobby.UI
 
             #endregion Markings
 
-            RefreshFlavorText();
+            RefreshDescriptionTab();
 
             #region Dummy
 
@@ -593,7 +594,7 @@ namespace Content.Client.Lobby.UI
         /// <summary>
         /// Refreshes the flavor text editor status.
         /// </summary>
-        public void RefreshFlavorText()
+        public void RefreshDescriptionTab()
         {
             if (_cfgManager.GetCVar(CCVars.FlavorText))
             {
@@ -601,11 +602,51 @@ namespace Content.Client.Lobby.UI
                     return;
 
                 _flavorText = new FlavorText.FlavorText();
-                TabContainer.AddChild(_flavorText);
-                TabContainer.SetTabTitle(TabContainer.ChildCount - 1, Loc.GetString("humanoid-profile-editor-flavortext-tab"));
                 _flavorTextEdit = _flavorText.CFlavorTextInput;
-
                 _flavorText.OnFlavorTextChanged += OnFlavorTextChange;
+                _flavorText.HorizontalExpand = true;
+                _flavorText.VerticalExpand = true;
+
+                // HL
+                _characterPortraitTextEdit = new LineEdit();
+                _characterPortraitTextEdit.Margin = new Thickness(5, 10);
+                _characterPortraitTextEdit.OnTextChanged += args =>
+                {
+                    if (Profile is null)
+                        return;
+
+                    Profile = Profile.WithcharacterPortraitUrl(args.Text);
+                    SetDirty();
+                };
+
+                var innerBox = new BoxContainer() { Orientation = LayoutOrientation.Vertical, HorizontalExpand = true};
+
+                var textBox = new BoxContainer() { Orientation = LayoutOrientation.Horizontal, VerticalExpand = true};
+                textBox.AddChild(new Label(){ Text = Loc.GetString("humanoid-profile-editor-character-portrait-label"), Margin = new Thickness(10, 0)});
+                textBox.AddChild(new TextureButton()
+                {
+                    Name="CharacterPortraitInfoButton",
+                    VerticalAlignment=VAlignment.Center,
+                    HorizontalAlignment = HAlignment.Center,
+                    ToolTip= Loc.GetString("humanoid-profile-editor-character-portrait-detail"),
+                    Scale= new Vector2(0.3f, 0.3f),
+                    TexturePath = "/Textures/Interface/VerbIcons/information.svg.192dpi.png"
+                });
+
+                innerBox.AddChild(textBox);
+                innerBox.AddChild(_characterPortraitTextEdit);
+
+                var flavorBox = new BoxContainer() { Orientation = LayoutOrientation.Vertical, VerticalExpand = true, HorizontalExpand = true};
+                flavorBox.AddChild(new Label(){ Text = Loc.GetString("humanoid-profile-editor-flavor-text-label"), Margin = new Thickness(10, 0)});
+                flavorBox.AddChild(_flavorText);
+
+                var box = new BoxContainer();
+                box.Orientation = LayoutOrientation.Vertical;
+                box.AddChild(innerBox);
+                box.AddChild(flavorBox);
+
+                TabContainer.AddChild(box);
+                TabContainer.SetTabTitle(TabContainer.ChildCount - 1, Loc.GetString("humanoid-profile-editor-flavortext-tab"));
             }
             else
             {
@@ -618,6 +659,10 @@ namespace Content.Client.Lobby.UI
                 _flavorTextEdit?.Dispose();
                 _flavorTextEdit = null;
                 _flavorText = null;
+
+                // HL
+                _characterPortraitTextEdit?.Dispose();
+                _characterPortraitTextEdit = null;
             }
         }
 
@@ -1142,7 +1187,7 @@ namespace Content.Client.Lobby.UI
 
                     profile = profile.WithoutTraitPreference(traitId, _prototypeManager);
                     anyRemoved = true;
-                    break; // restart — TraitPreferences snapshot is stale
+                    break; // restart - TraitPreferences snapshot is stale
                 }
             } while (anyRemoved);
 
@@ -1382,6 +1427,7 @@ namespace Content.Client.Lobby.UI
             UpdateSpeciesLoadout(); // Far Horizons
             UpdateCustomSpeciesEdit();
             UpdateFlavorTextEdit();
+            UpdateCharacterPortraitTextEdit();
             UpdateSexControls();
             UpdateGenderControls();
             UpdateSkinColor();
@@ -1402,7 +1448,7 @@ namespace Content.Client.Lobby.UI
             RefreshLoadouts();
             RefreshSpecies();
             RefreshTraits();
-            RefreshFlavorText();
+            RefreshDescriptionTab();
             ReloadPreview();
 
             if (Profile != null)
@@ -2006,6 +2052,14 @@ namespace Content.Client.Lobby.UI
             if (_flavorTextEdit != null)
             {
                 _flavorTextEdit.TextRope = new Rope.Leaf(Profile?.FlavorText ?? "");
+            }
+        }
+
+        private void UpdateCharacterPortraitTextEdit()
+        {
+            if (_characterPortraitTextEdit != null)
+            {
+                _characterPortraitTextEdit.Text = Profile?.CharacterPortraitUrl ?? "";
             }
         }
 

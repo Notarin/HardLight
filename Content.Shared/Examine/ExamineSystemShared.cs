@@ -50,6 +50,9 @@ namespace Content.Shared.Examine
         /// </summary>
         public abstract void SendExamineTooltip(EntityUid player, EntityUid target, FormattedMessage message, bool getVerbs, bool centerAtCursor);
 
+        public abstract void SendImageTooltip(EntityUid player, EntityUid target, ImageFetchResult imageFetchResult, bool getVerbs, bool centerAtCursor);
+
+
         public bool IsInDetailsRange(EntityUid examiner, EntityUid entity)
         {
             if (IsClientSide(entity))

@@ -79,6 +79,12 @@ namespace Content.Shared.Preferences
         public string FlavorText { get; set; } = string.Empty;
 
         /// <summary>
+        /// Character portrait url that can appear for the character if <see cref="CCVars.FlavorText"/> is enabled.
+        /// </summary>
+        [DataField]
+        public string CharacterPortraitUrl { get; set; } = string.Empty;
+
+        /// <summary>
         /// Associated <see cref="SpeciesPrototype"/> for this profile.
         /// </summary>
         [DataField]
@@ -158,6 +164,7 @@ namespace Content.Shared.Preferences
         public HumanoidCharacterProfile(
             string name,
             string flavortext,
+            string characterPortraitUrl,
             string species,
             string customSpecies,
             int age,
@@ -176,6 +183,7 @@ namespace Content.Shared.Preferences
         {
             Name = name;
             FlavorText = flavortext;
+            CharacterPortraitUrl = characterPortraitUrl;
             Species = species;
             CustomSpecies = customSpecies;
             Age = age;
@@ -200,7 +208,7 @@ namespace Content.Shared.Preferences
             HashSet<ProtoId<AntagPrototype>> antagPreferences,
             HashSet<ProtoId<TraitPrototype>> traitPreferences,
             Dictionary<string, RoleLoadout> loadouts)
-            : this(other.Name, other.FlavorText, other.Species, other.CustomSpecies, other.Age, other.Sex, other.Gender, other.BankBalance, other.Appearance, other.SpawnPriority,
+            : this(other.Name, other.FlavorText, other.CharacterPortraitUrl, other.Species, other.CustomSpecies, other.Age, other.Sex, other.Gender, other.BankBalance, other.Appearance, other.SpawnPriority,
                 jobPriorities, other.PreferenceUnavailable, antagPreferences, traitPreferences, loadouts, other.Company)
         {
         }
@@ -209,6 +217,7 @@ namespace Content.Shared.Preferences
         public HumanoidCharacterProfile(HumanoidCharacterProfile other)
             : this(other.Name,
                 other.FlavorText,
+                other.CharacterPortraitUrl,
                 other.Species,
                 other.CustomSpecies,
                 other.Age,
@@ -339,6 +348,11 @@ namespace Content.Shared.Preferences
         public HumanoidCharacterProfile WithFlavorText(string flavorText)
         {
             return new(this) { FlavorText = flavorText };
+        }
+
+        public HumanoidCharacterProfile WithcharacterPortraitUrl(string characterPortraitUrl)
+        {
+            return new(this) { CharacterPortraitUrl = characterPortraitUrl };
         }
 
         public HumanoidCharacterProfile WithAge(int age)
@@ -533,6 +547,7 @@ namespace Content.Shared.Preferences
             if (!_antagPreferences.SequenceEqual(other._antagPreferences)) return false;
             if (!_traitPreferences.SequenceEqual(other._traitPreferences)) return false;
             if (FlavorText != other.FlavorText) return false;
+            if (CharacterPortraitUrl != other.CharacterPortraitUrl) return false;
             if (!Appearance.MemberwiseEquals(other.Appearance)) return false;
             if (!SpeciesLoadoutEquals(SpeciesLoadout, other.SpeciesLoadout)) return false; // Far Horizons
 
@@ -628,6 +643,17 @@ namespace Content.Shared.Preferences
                 flavortext = FormattedMessage.RemoveMarkupOrThrow(FlavorText);
             }
 
+            Regex absoluteUrlRegex = new(@"^https?:\/\/[^\s\/$.?#].[^\s]*$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            string characterPortraitUrl;
+            if (absoluteUrlRegex.IsMatch(CharacterPortraitUrl))
+            {
+                characterPortraitUrl = CharacterPortraitUrl;
+            }
+            else
+            {
+                characterPortraitUrl = "";
+            }
+
             // Frontier
             //make sure theres no funny bank stuff going on
             var bankBalance = BankBalance;
@@ -685,6 +711,7 @@ namespace Content.Shared.Preferences
 
             Name = name;
             FlavorText = flavortext;
+            CharacterPortraitUrl = characterPortraitUrl;
             Age = age;
             Sex = sex;
             Gender = gender;
@@ -795,6 +822,7 @@ namespace Content.Shared.Preferences
             hashCode.Add(_loadouts);
             hashCode.Add(Name);
             hashCode.Add(FlavorText);
+            hashCode.Add(CharacterPortraitUrl);
             hashCode.Add(CustomSpecies);
             hashCode.Add(Species);
             hashCode.Add(Age);

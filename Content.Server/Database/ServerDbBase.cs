@@ -333,6 +333,7 @@ namespace Content.Server.Database
             return new HumanoidCharacterProfile(
                 profile.CharacterName,
                 profile.FlavorText,
+                profile.CharacterPortraitUrl,
                 profile.Species,
                 profile.CustomSpecies,
                 profile.Age,
@@ -377,6 +378,7 @@ namespace Content.Server.Database
 
             profile.CharacterName = humanoid.Name;
             profile.FlavorText = humanoid.FlavorText;
+            profile.CharacterPortraitUrl = humanoid.CharacterPortraitUrl;
             profile.Species = humanoid.Species;
             profile.CustomSpecies = humanoid.CustomSpecies;
             profile.Age = humanoid.Age;

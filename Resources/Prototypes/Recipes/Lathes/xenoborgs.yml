@@ -52,7 +52,7 @@
 - type: latheRecipe
   parent: BaseXenoborgRecipe
   id: XenoQuadRecipe
-  result: Xenoquad
+  result: XenoquadPrinted
   materials:
     Steel: 10000
     Glass: 2000

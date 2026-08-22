@@ -1134,7 +1134,7 @@
   - type: ContainerFill
     containers:
       borg_brain:
-      - MMIFilled
+      - PositronicBrain
       borg_module:
       - XenoborgModuleBasic
       - BorgModuleKill
@@ -1181,3 +1181,29 @@
     noMovementLayers:
       movement:
         state: XenoQuad
+
+
+# xenoborg empty
+- type: entity
+  parent: Xenoquad
+  id: XenoquadPrinted
+  suffix: no brain
+  components:
+  - type: ContainerFill
+    containers:
+      borg_brain:
+      - MMI
+      borg_module:
+      - XenoborgModuleBasic
+      - BorgModuleKill
+      - BorgModuleConstruction
+      - BorgModuleRCD
+      - BorgModuleTool
+      - BorgModuleAdvancedSurgery
+      - BorgModuleOperative
+      - XenoborgModuleFireExtinguisher
+  - type: ItemSlots
+    slots:
+      cell_slot:
+        name: power-cell-slot-component-slot-name-default
+        startingItem: PowerCellHighPrinted

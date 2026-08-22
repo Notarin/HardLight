@@ -285,7 +285,7 @@
   - type: ContainerFill
     containers:
       borg_brain:
-      - PositronicBrain
+      - MMI
       borg_module:
       - XenoborgModuleBasic
       - BorgModuleAdvancedTool
@@ -308,7 +308,7 @@
   - type: ContainerFill
     containers:
       borg_brain:
-      - PositronicBrain
+      - MMI
       borg_module:
       - XenoborgModuleBasic
       - XenoborgModuleTool
@@ -328,7 +328,7 @@
   - type: ContainerFill
     containers:
       borg_brain:
-      - PositronicBrain
+      - MMI
       borg_module:
       - XenoborgModuleBasic
       - XenoborgModuleTool
@@ -348,7 +348,7 @@
   - type: ContainerFill
     containers:
       borg_brain:
-      - PositronicBrain
+      - MMI
       borg_module:
       - XenoborgModuleBasic
       - XenoborgModuleTool

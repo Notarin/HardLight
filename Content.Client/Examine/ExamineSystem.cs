@@ -1,4 +1,3 @@
-using System.IO;
 using System.Linq;
 using System.Numerics;
 using System.Threading;
@@ -53,7 +52,6 @@ namespace Content.Client.Examine
             SubscribeLocalEvent<GetVerbsEvent<ExamineVerb>>(AddExamineVerb);
 
             SubscribeNetworkEvent<ExamineSystemMessages.ExamineInfoResponseMessage>(OnExamineInfoResponse);
-            SubscribeNetworkEvent<ExamineSystemMessages.ImageInfoResponseMessage>(OnImageInfoResponse);
 
             SubscribeLocalEvent<ItemComponent, DroppedEvent>(OnExaminedItemDropped);
 
@@ -171,41 +169,6 @@ namespace Content.Client.Examine
             UpdateTooltipInfo(player, target, message, getVerbs: getVerbs);
         }
 
-        public override void SendImageTooltip(EntityUid player, EntityUid target, ImageFetchResult imageFetchResult, bool getVerbs, bool centerAtCursor)
-        {
-            OpenTooltip(player, target, centerAtCursor);
-
-            if (imageFetchResult.Status == ImageFetchStatus.Success)
-            {
-                UpdateImageTooltipInfo(player, target, imageFetchResult, getVerbs: getVerbs);
-            }
-            else
-            {
-                var markup = new FormattedMessage();
-                markup.AddMarkupPermissive("Image loading");
-                UpdateTooltipInfo(player, target, markup, getVerbs: getVerbs);
-            }
-        }
-
-        private void OnImageInfoResponse(ExamineSystemMessages.ImageInfoResponseMessage ev)
-        {
-            var player = _playerManager.LocalEntity;
-            if (player == null)
-                return;
-
-            // Prevent updating a new tooltip.
-            if (ev.Id != 0 && ev.Id != _idCounter)
-                return;
-
-            // Tooltips coming in from the server generally prioritize
-            // opening at the old tooltip rather than the cursor/another entity,
-            // since there's probably one open already if it's coming in from the server.
-            var entity = GetEntity(ev.EntityUid);
-
-            OpenTooltip(player.Value, entity, ev.CenterAtCursor, ev.OpenAtOldTooltip, ev.KnowTarget);
-            UpdateImageTooltipInfo(player.Value, entity, ev.ImageResult, ev.Verbs, getVerbs: false);
-        }
-
         /// <summary>
         ///     Opens the tooltip window and sets spriteview/name/etc, but does
         ///     not fill it with information. This is done when the server sends examine info/verbs,
@@ -320,87 +283,6 @@ namespace Content.Client.Examine
                 richLabel.SetMessage(message);
                 vBox.AddChild(richLabel);
                 break;
-            }
-
-            var totalVerbs = _verbSystem.GetLocalVerbs(target, player, typeof(ExamineVerb));
-
-            // We still need client-exclusive verbs even when the server sends its data in so if that's the case
-            // we remove any non-client-exclusive verbs.
-            if (!getVerbs)
-            {
-                _verbList.AddRange(totalVerbs);
-
-                foreach (var verb in _verbList)
-                {
-                    if (!verb.ClientExclusive)
-                    {
-                        totalVerbs.Remove(verb);
-                    }
-                }
-
-                _verbList.Clear();
-            }
-
-            if (verbs != null)
-            {
-                totalVerbs.UnionWith(verbs);
-            }
-
-            AddVerbsToTooltip(totalVerbs);
-        }
-
-        /// <summary>
-        ///     Fills the examine tooltip with a message and buttons if applicable.
-        /// </summary>
-        public async void UpdateImageTooltipInfo(EntityUid player, EntityUid target, ImageFetchResult imageFetchResult, List<Verb>? verbs=null, bool getVerbs = true)
-        {
-            var vBox = _examineTooltipOpen?.GetChild(0).GetChild(0);
-            if (vBox == null)
-            {
-                return;
-            }
-
-            // Image was successfully loaded and data is in bytes
-            if (imageFetchResult.Status == ImageFetchStatus.Success)
-            {
-                Texture? image = null;
-
-                try
-                {
-                    using var stream = new MemoryStream(imageFetchResult.Data);
-                    image = Texture.LoadFromPNGStream(stream, "character-portrait");
-                }
-                catch (Exception ex)
-                {
-                    Logger.Warning($"Failed to load portrait image for {target}: {ex.Message}");
-                }
-
-                var textureRect = new TextureRect();
-                textureRect.Texture = image;
-
-                textureRect.Margin = new Thickness(5, 5);
-                textureRect.MaxWidth = 450;
-                textureRect.MaxHeight = 450;
-                textureRect.Stretch = TextureRect.StretchMode.KeepAspect;
-                textureRect.HorizontalAlignment = Control.HAlignment.Left;
-
-                textureRect.SetSize = new Vector2(450, 450);
-                vBox.AddChild(textureRect);
-            }
-            else // Error showing
-            {
-                var richLabel = new RichTextLabel() { Margin = new Thickness(4, 4, 0, 4)};
-
-                if (imageFetchResult.Error != null)
-                {
-                    richLabel.SetMessage(imageFetchResult.Error);
-                }
-                else
-                {
-                    richLabel.SetMessage("Unknown image loading problem");
-                }
-
-                vBox.AddChild(richLabel);
             }
 
             var totalVerbs = _verbSystem.GetLocalVerbs(target, player, typeof(ExamineVerb));

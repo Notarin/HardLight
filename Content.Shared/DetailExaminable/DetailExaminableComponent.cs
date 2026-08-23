@@ -7,7 +7,4 @@ public sealed partial class DetailExaminableComponent : Component
 {
     [DataField(required: true), AutoNetworkedField]
     public string Content = string.Empty;
-
-    [DataField, AutoNetworkedField]
-    public string CharacterPortraitUrl = string.Empty;
 }

@@ -173,6 +173,7 @@
           Blunt: 0.10
           Slash: 2
           Piercing: 3
+  - type: PoolToyInflation
   - type: EmitSoundOnCritDeath
     critSound:
       path: /Audio/Items/smoke_grenade_smoke.ogg

@@ -40,15 +40,8 @@ public static class SaveBanStore
         /// When an item with this strictness is saved, during the check, it's associated handler will be executed on the item.
         /// This will usually mean wiping or reverting some data stored on said item.
         /// </summary>
-        public abstract record PartialBan : SaveRestrictionStrictness
-        {
-            /// <summary>
-            /// This handler will be invoked when the item associated it saved.
-            /// Frequently used to strip data not intended to be saved.
-            /// </summary>
-            /// <param name="entityUid">The uid of the entity this handler was invoked for.</param>
-            public abstract void Handle(EntityUid entityUid);
-        }
+        /// <param name="Handle">A function that takes an entity manager, and the entity uid, and performs an arbitrary action.</param>
+        public abstract record PartialBan(Action<EntityManager, EntityUid> Handle) : SaveRestrictionStrictness;
     }
 
     /// <summary>

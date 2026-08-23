@@ -228,12 +228,16 @@
     - !type:AutomatedMaterialStorage
       input: AutomationSlotMaterials
       output: null
+    - !type:AutomatedPorts
+      sinks:
+      - LathePrint
   - type: TechnologyDatabase
   - type: MaterialStorageMagnetPickup # Frontier
     range: 0.30 # Frontier
   - type: DeviceLinkSink
     ports:
       - FillbotAnyItem
+  - type: LatheAutomation # Goobstation
 
 # a lathe that can be sped up with space lube / slowed down with glue
 - type: entity

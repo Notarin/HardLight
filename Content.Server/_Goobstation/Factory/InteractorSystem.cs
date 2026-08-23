@@ -1,5 +1,6 @@
 using Content.Shared._Goobstation.Factory;
 using Content.Server.Construction.Components;
+using Content.Goobstation.Shared.Factory;
 
 namespace Content.Server._Goobstation.Factory;
 
@@ -18,45 +19,42 @@ public sealed class InteractorSystem : SharedInteractorSystem
 
     private void OnStarted(Entity<InteractorComponent> ent, ref MachineStartedEvent args)
     {
-        // nothing there or another doafter is already running
-        var count = ent.Comp.TargetEntities.Count;
-        if (count == 0 || HasDoAfter(ent))
+        // Try to find a single valid target in front of the interactor.
+        if (HasDoAfter(ent))
         {
             Machine.Failed(ent.Owner);
             return;
         }
 
-        // Mono
-        for (var i = count - 1; i >= 0; i--)
+        var targetUid = FindTarget(ent);
+        if (targetUid == null)
         {
-            var netEnt = ent.Comp.TargetEntities[i].Item1;
-            var target = GetEntity(netEnt);
-            _constructionQuery.TryComp(target, out var construction);
-            var originalCount = construction?.InteractionQueue?.Count ?? 0;
-            if (!InteractWith(ent, target))
-            {
-                // have to remove it since user's filter was bad due to unhandled interaction
-                // RemoveTarget(ent, target); // Mono
-                Machine.Failed(ent.Owner);
-                continue; // Mono
-            }
+            Machine.Failed(ent.Owner);
+            return;
+        }
 
-            // construction supercode queues it instead of starting a doafter now, assume that queuing means it has started
-            var newCount = construction?.InteractionQueue?.Count ?? 0;
-            if (newCount > originalCount
-                || HasDoAfter(ent))
-            {
-                Machine.Started(ent.Owner);
-                UpdateAppearance(ent, InteractorState.Active);
-            }
-            else
-            {
-                // no doafter, complete it immediately
-                TryRemoveTarget(ent, target);
-                Machine.Completed(ent.Owner);
-                UpdateAppearance(ent);
-            }
-            break; // Mono
+        var target = targetUid.Value;
+        _constructionQuery.TryComp(target, out var construction);
+        var originalCount = construction?.InteractionQueue?.Count ?? 0;
+
+        if (!InteractWith(ent, target))
+        {
+            Machine.Failed(ent.Owner);
+            return;
+        }
+
+        // construction supercode queues it instead of starting a doafter now, assume that queuing means it has started
+        var newCount = construction?.InteractionQueue?.Count ?? 0;
+        if (newCount > originalCount || HasDoAfter(ent))
+        {
+            Machine.Started(ent.Owner);
+            UpdateAppearance(ent, InteractorState.Active);
+        }
+        else
+        {
+            // no doafter, complete it immediately
+            Machine.Completed(ent.Owner);
+            UpdateAppearance(ent);
         }
     }
 }

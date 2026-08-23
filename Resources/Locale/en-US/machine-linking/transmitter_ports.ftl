@@ -72,3 +72,13 @@ signal-port-description-power-discharging = This port is invoked with HIGH when 
 
 signal-port-name-fillitems = Fillbot Items
 signal-port-description-fillitems = Items picked up by the Fillbot.
+
+# Added missing transmitter port localizations
+signal-port-name-m_emp = M_EMP Generator
+signal-port-description-m_emp = This port is invoked when the M_EMP generator discharges.
+
+signal-port-name-operating-table = Operating Table
+signal-port-description-operating-table = This port is invoked when the operating table's state changes.
+
+signal-port-name-triggered-signaller = Triggered Signaller
+signal-port-description-triggered-signaller = This port is invoked when the triggered signaller emits a signal.

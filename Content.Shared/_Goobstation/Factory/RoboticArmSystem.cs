@@ -17,6 +17,7 @@ using Robust.Shared.Timing;
 using Robust.Shared.Configuration;
 using Robust.Shared.Player;
 using Robust.Shared;
+using Content.Goobstation.Shared.Factory.Filters;
 
 namespace Content.Shared._Goobstation.Factory;
 

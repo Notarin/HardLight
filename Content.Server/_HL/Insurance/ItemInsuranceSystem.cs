@@ -25,6 +25,7 @@ using Robust.Shared.EntitySerialization;
 using Robust.Shared.EntitySerialization.Systems;
 using Robust.Shared.Network;
 using Robust.Shared.Player;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 using Robust.Shared.Serialization.Markdown.Mapping;
 using Robust.Shared.Serialization.Markdown.Sequence;
@@ -38,12 +39,14 @@ namespace Content.Server._HL.Insurance;
 public sealed class ItemInsuranceSystem : EntitySystem
 {
     [Dependency] private readonly BankSystem _bank = default!;
+    [Dependency] private readonly IComponentFactory _componentFactory = default!;
     [Dependency] private readonly ItemSlotsSystem _itemSlots = default!;
     [Dependency] private readonly MapLoaderSystem _mapLoader = default!;
     [Dependency] private readonly SharedMindSystem _mind = default!;
     [Dependency] private readonly PopupSystem _popup = default!;
     [Dependency] private readonly PricingSystem _pricing = default!;
     [Dependency] private readonly IPlayerManager _player = default!;
+    [Dependency] private readonly IPrototypeManager _prototype = default!;
     [Dependency] private readonly IResourceManager _resource = default!;
     [Dependency] private readonly SaveBanApi _saveBanApi = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
@@ -256,6 +259,13 @@ public sealed class ItemInsuranceSystem : EntitySystem
             return;
         }
 
+        if (PolicyNoLongerInsurable(policy))
+        {
+            Popup(actor, "paradox-generator-claim-tooltip-not-insurable");
+            SendUiState(ent.Owner, ent.Comp, actor);
+            return;
+        }
+
         PruneStaleLiveCopies(policy);
         if (LiveCurrentCopyExists(policy))
         {
@@ -459,16 +469,69 @@ public sealed class ItemInsuranceSystem : EntitySystem
         return reason == null;
     }
 
+    private bool PolicyNoLongerInsurable(ItemInsurancePolicyRecord policy)
+    {
+        if (string.IsNullOrEmpty(policy.Prototype))
+            return false;
+
+        if (IsTotalSaveBannedPrototype(policy.Prototype))
+            return true;
+
+        return _prototype.TryIndex<EntityPrototype>(policy.Prototype, out var prototype) &&
+               PrototypeHasAnyInsuranceBannedComponent(prototype);
+    }
+
+    private bool IsTotalSaveBannedPrototype(string prototypeId)
+    {
+        EntityPrototype? prototype = null;
+        foreach (var ban in _saveBanApi.Bans)
+        {
+            switch (ban.BannedFlag)
+            {
+                case SaveBanStore.SaveBanFlag.SaveBanFlagByEntity entityFlag:
+                    if (entityFlag.Prototype == prototypeId)
+                        return true;
+                    break;
+
+                case SaveBanStore.SaveBanFlag.SaveBanFlagByComponent componentFlag:
+                    if (prototype == null && !_prototype.TryIndex<EntityPrototype>(prototypeId, out prototype))
+                        break;
+
+                    if (prototype.Components.ContainsKey(componentFlag.Name))
+                        return true;
+                    break;
+            }
+        }
+
+        return false;
+    }
+
+    private bool PrototypeHasAnyInsuranceBannedComponent(EntityPrototype prototype)
+    {
+        return PrototypeHasComponent<NotInsurableComponent>(prototype) ||
+               PrototypeHasComponent<FoodComponent>(prototype) ||
+               PrototypeHasComponent<DrinkComponent>(prototype) ||
+               PrototypeHasComponent<PillComponent>(prototype) ||
+               PrototypeHasComponent<SmokableComponent>(prototype) ||
+               PrototypeHasComponent<ActorComponent>(prototype) ||
+               PrototypeHasComponent<MindContainerComponent>(prototype);
+    }
+
+    private bool PrototypeHasComponent<T>(EntityPrototype prototype) where T : Component
+    {
+        return prototype.Components.ContainsKey(_componentFactory.GetComponentName(typeof(T)));
+    }
+
     private bool HasTotalSaveBan(EntityUid item)
     {
         var restriction = _saveBanApi.CheckForRestrictions(item);
         return restriction switch
         {
-            SaveBanApi.SaveBanResult.IsSaveRestricted restricted =>
-                restricted.Ban.Strictness is SaveBanStore.SaveRestrictionStrictness.TotalBan,
+            SaveBanApi.SaveBanResult.IsSaveRestricted =>
+                true,
             SaveBanApi.SaveBanResult.ContainsSaveRestricted contains =>
                 SaveBanApi.FlattenRestrictions(contains)
-                    .Any(restricted => restricted.Ban.Strictness is SaveBanStore.SaveRestrictionStrictness.TotalBan),
+                    .Any(_ => true),
             _ => false,
         };
     }
@@ -858,13 +921,18 @@ public sealed class ItemInsuranceSystem : EntitySystem
         var listings = new List<InsuranceListingState>();
         foreach (var policy in ListPolicies(characterKey))
         {
+            var cannotClaimReason = PolicyNoLongerInsurable(policy)
+                ? "paradox-generator-claim-tooltip-not-insurable"
+                : null;
+
             listings.Add(new InsuranceListingState(
                 policy.PolicyId.ToString(),
                 policy.Name,
                 policy.Value,
                 CalculateClaimCost(generator, policy.Value, balance),
                 policy.Generation,
-                LiveCurrentCopyExists(policy)));
+                cannotClaimReason == null && LiveCurrentCopyExists(policy),
+                cannotClaimReason));
         }
 
         var state = new ParadoxGeneratorBoundUserInterfaceState(

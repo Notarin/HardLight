@@ -1,0 +1,31 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: entity
+  parent: ClothingUniformBase # HardLight
+  id: ClothingUniformBlackBlueShieldOfficerTurtleneck
+  name: black blueshield officer turtleneck
+  description: A black turtleneck worn by Blueshield Officers, CC tag removed because it was too itchy.
+  # HardLight: Cosmetic only.
+  components:
+  - type: Sprite
+    sprite: _Omu/Clothing/Uniforms/Jumpsuit/blackblueshieldturtleneck.rsi
+  - type: Clothing
+    sprite: _Omu/Clothing/Uniforms/Jumpsuit/blackblueshieldturtleneck.rsi
+  - type: Tag
+    tags:
+    - WhitelistChameleon
+
+- type: entity
+  parent: ClothingUniformBase # HardLight
+  id: ClothingUniformBlueShieldOfficerTurtleneck
+  name: blueshield officer turtleneck
+  description: A turtleneck worn by Blueshield Officers, CC tag removed because it was too itchy.
+  # HardLight: Cosmetic only.
+  components:
+  - type: Sprite
+    sprite: _Omu/Clothing/Uniforms/Jumpsuit/blueshieldturtleneck.rsi
+  - type: Clothing
+    sprite: _Omu/Clothing/Uniforms/Jumpsuit/blueshieldturtleneck.rsi
+  - type: Tag
+    tags:
+    - WhitelistChameleon

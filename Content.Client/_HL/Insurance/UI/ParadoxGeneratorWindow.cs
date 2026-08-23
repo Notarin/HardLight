@@ -189,7 +189,7 @@ public sealed class ParadoxGeneratorWindow : FancyWindow
         foreach (var listing in listings)
         {
             var canAfford = state.Balance >= listing.ClaimCost;
-            var canClaim = !listing.LiveCurrentCopyExists && canAfford;
+            var canClaim = string.IsNullOrEmpty(listing.CannotClaimReason) && !listing.LiveCurrentCopyExists && canAfford;
 
             var row = new BoxContainer
             {
@@ -227,7 +227,9 @@ public sealed class ParadoxGeneratorWindow : FancyWindow
                 Text = Loc.GetString("paradox-generator-claim-button"),
                 Disabled = !canClaim,
                 ToolTip = !canClaim
-                    ? listing.LiveCurrentCopyExists
+                    ? !string.IsNullOrEmpty(listing.CannotClaimReason)
+                        ? Loc.GetString(listing.CannotClaimReason)
+                        : listing.LiveCurrentCopyExists
                         ? Loc.GetString("paradox-generator-claim-tooltip-live-copy")
                         : Loc.GetString("paradox-generator-claim-tooltip-insufficient-funds")
                     : null,

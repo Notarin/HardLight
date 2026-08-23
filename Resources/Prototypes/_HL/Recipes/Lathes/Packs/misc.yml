@@ -2,8 +2,3 @@
   id: NullEnforcerStatic
   recipes:
     - NullEnforcerCableStack
-
-- type: latheRecipePack
-  id: WeaponLineGun
-  recipes:
-    - WeaponLineGunRecipe

@@ -178,7 +178,7 @@ public sealed class BloodstreamSystem : EntitySystem
                 // Multiplying by 2 is arbitrary but works for this case, it just prevents the time from running out
                 _drunkSystem.TryApplyDrunkenness(
                     uid,
-                    (float) bloodstream.UpdateInterval.TotalSeconds * 2,
+                    (float)bloodstream.UpdateInterval.TotalSeconds * 2,
                     applySlur: false);
                 _stutteringSystem.DoStutter(uid, bloodstream.UpdateInterval * 2, refresh: false);
 
@@ -525,7 +525,7 @@ public sealed class BloodstreamSystem : EntitySystem
             _alertsSystem.ClearAlert(uid, component.BleedingAlert);
         else
         {
-            var severity = (short) Math.Clamp(Math.Round(component.BleedAmount, MidpointRounding.ToZero), 0, 10);
+            var severity = (short)Math.Clamp(Math.Round(component.BleedAmount, MidpointRounding.ToZero), 0, 10);
             _alertsSystem.ShowAlert(uid, component.BleedingAlert, severity);
         }
 
@@ -671,13 +671,13 @@ public sealed class BloodstreamSystem : EntitySystem
     /// <summary>
     /// EE: Remove blood from an entity, without spilling it.
     /// </summary>
-    private void RemoveBlood(EntityUid uid, FixedPoint2 amount, BloodstreamComponent? component = null)
+    private bool RemoveBlood(EntityUid uid, FixedPoint2 amount, BloodstreamComponent? component = null)
     {
         if (!Resolve(uid, ref component, logMissing: false)
             || !_solutionContainerSystem.ResolveSolution(uid, component.BloodSolutionName, ref component.BloodSolution, out var bloodSolution))
-            return;
+            return false;
 
-        bloodSolution.RemoveReagent(component.BloodReagent, amount);
+        return bloodSolution.RemoveReagent(component.BloodReagent, amount, ignoreReagentData: true) > 0; // HardLight-edit
     }
 
     /// <summary>
@@ -691,6 +691,9 @@ public sealed class BloodstreamSystem : EntitySystem
         if (ev.Cancelled || (ev.Amount > 0 && bloodSolution.Volume >= bloodSolution.MaxVolume))
             return false;
 
+        if (ev.Amount > 0) // HardLight
+            ev.Amount = FixedPoint2.Min(ev.Amount, bloodSolution.MaxVolume - bloodSolution.Volume);
+
         var usedHunger = ev.Amount * ent.Comp.BloodRegenerationHunger;
         var usedThirst = ev.Amount * ent.Comp.BloodRegenerationThirst;
 
@@ -698,16 +701,24 @@ public sealed class BloodstreamSystem : EntitySystem
         var hungerComp = CompOrNull<HungerComponent>(ent);
         var thirstComp = CompOrNull<ThirstComponent>(ent);
         if (usedHunger > 0 && hungerComp is not null && (_hunger.GetHunger(hungerComp) < usedHunger || hungerComp.CurrentThreshold <= HungerThreshold.Starving) // HardLight: hungerComp.CurrentHunger>_hunger.GetHunger(hungerComp)
-            ||  usedThirst > 0 && thirstComp is not null && (thirstComp.CurrentThirst < usedThirst || thirstComp.CurrentThirstThreshold <= ThirstThreshold.Parched))
+            || usedThirst > 0 && thirstComp is not null && (thirstComp.CurrentThirst < usedThirst || thirstComp.CurrentThirstThreshold <= ThirstThreshold.Parched))
             return false;
 
         // Then actually expend hunger and thirst (if necessary) and regenerate blood.
         if (usedHunger > 0 && hungerComp is not null)
-            _hunger.ModifyHunger(ent, (float) -usedHunger, hungerComp);
+            _hunger.ModifyHunger(ent, (float)-usedHunger, hungerComp);
 
         if (usedThirst > 0 && thirstComp is not null)
-            _thirst.ModifyThirst(ent, thirstComp, (float) -usedThirst);
+            _thirst.ModifyThirst(ent, thirstComp, (float)-usedThirst);
 
-        return TryModifyBloodLevel(ent, ev.Amount, ent.Comp);
+        // HardLight-edit start
+        if (ev.Amount > 0)
+            return TryModifyBloodLevel(ent, ev.Amount, ent.Comp);
+
+        if (ev.Amount < 0)
+            return RemoveBlood(ent, -ev.Amount, ent.Comp);
+        // HardLight-edit end
+
+        return false;
     }
 }

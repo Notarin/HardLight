@@ -299,6 +299,9 @@ public sealed class ItemToggleSystem : EntitySystem
     /// </summary>
     private void TurnOffOnUnwielded(Entity<ItemToggleComponent> ent, ref ItemUnwieldedEvent args)
     {
+        if (!ent.Comp.AutoToggleOnWield) // HardLight
+            return;
+
         TryDeactivate((ent, ent.Comp), args.User);
     }
 
@@ -307,6 +310,9 @@ public sealed class ItemToggleSystem : EntitySystem
     /// </summary>
     private void TurnOnOnWielded(Entity<ItemToggleComponent> ent, ref ItemWieldedEvent args)
     {
+        if (!ent.Comp.AutoToggleOnWield) // HardLight
+            return;
+
         TryActivate((ent, ent.Comp), args.User);
     }
 

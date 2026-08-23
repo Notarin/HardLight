@@ -131,7 +131,7 @@
   name: natural-regen-name
   description: natural-regen-text
   category: Physical
-  cost: 6
+  cost: 5
   speciesBlacklist:
   - IPC
   - Synth
@@ -141,7 +141,6 @@
   mutuallyExclusiveTraits:
   - PlateletFactories
   - Hemophilia
-  - UnnaturalRegen
   components:
   - type: PassiveDamage
     allowedStates:
@@ -151,35 +150,6 @@
       groups:
         Brute: -0.3
         Burn: -0.3
-        Airloss: -1
-
-- type: trait
-  id: UnnaturalRegen
-  name: unnatural-regen-name
-  description: unnatural-regen-text
-  category: Physical
-  cost: 8
-  speciesBlacklist:
-  - IPC
-  - Synth
-  blacklist:
-    components:
-    - BorgChassis
-  mutuallyExclusiveTraits:
-  - PlateletFactories
-  - NaturalRegen
-  - Hemophilia
-  components:
-  - type: PassiveDamage
-    allowedStates:
-    - Alive
-    - Critical
-    damageCap: 500
-    damage:
-      groups:
-        Brute: -0.4
-        Burn: -0.4
-        Airloss: -1
 
 - type: trait
   id: PoolToy
@@ -203,6 +173,7 @@
           Blunt: 0.10
           Slash: 2
           Piercing: 3
+  - type: PoolToyInflation
   - type: EmitSoundOnCritDeath
     critSound:
       path: /Audio/Items/smoke_grenade_smoke.ogg

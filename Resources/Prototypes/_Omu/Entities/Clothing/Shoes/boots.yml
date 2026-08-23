@@ -1,0 +1,25 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: entity
+  parent: ClothingShoesBase # HardLight
+  id: ClothingShoesBootsBlueshieldJackAdvanced
+  name: blueshield advanced jackboots
+  description: There are only two sounds around those shoes. the sound of them approaching your location, and the sound of them crushing your skull.
+  # HardLight: Cosmetic only.
+  components:
+  - type: Sprite
+    sprite: _Omu/Clothing/Shoes/Boots/bso_advanced_jackboots.rsi
+  - type: Clothing
+    sprite: _Omu/Clothing/Shoes/Boots/bso_advanced_jackboots.rsi
+
+- type: entity
+  parent: ClothingShoesBase # HardLight
+  id: ClothingShoesBootsWinterSnowjackBso
+  name: blueshield's snowjacks
+  description: For when you need to save a head from a changeling on a research station in Antarctica.
+  # HardLight: Cosmetic only.
+  components:
+  - type: Sprite
+    sprite: _Goobstation/Clothing/Shoes/Boots/bso_snowjacks.rsi
+  - type: Clothing
+    sprite: _Goobstation/Clothing/Shoes/Boots/bso_snowjacks.rsi

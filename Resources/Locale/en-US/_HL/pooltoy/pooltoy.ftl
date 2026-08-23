@@ -1,0 +1,17 @@
+pooltoy-breached = Your skin splits open and air starts hissing out of you!
+pooltoy-breached-others = { CAPITALIZE(THE($target)) } springs a leak, hissing air!
+pooltoy-deflating = Air keeps whistling out of the tear in your skin - you need a patch!
+pooltoy-deflating-others = { CAPITALIZE(THE($target)) } sags further as air whistles out of the tear.
+pooltoy-flat = The last of your air escapes, leaving you limp and flat.
+pooltoy-flat-others = { CAPITALIZE(THE($target)) } goes limp and flat, completely airless.
+pooltoy-sealed = The patch holds, and the air stops escaping.
+pooltoy-sealed-others = { CAPITALIZE(THE($user)) } patches the tear in { THE($target) }, and the hissing stops.
+pooltoy-sealing-others = { CAPITALIZE(THE($user)) } presses { THE($used) } over the tear in { THE($target) }.
+pooltoy-healed-others = { CAPITALIZE(THE($user)) } patches { THE($target) } up with { THE($used) }.
+pooltoy-refilled = { CAPITALIZE(THE($used)) } hisses, and you swell back up with fresh air.
+pooltoy-refilled-others = { CAPITALIZE(THE($target)) } swells back up as { THE($used) } hisses into { OBJECT($target) }.
+pooltoy-refill-breached = The air would just whistle straight back out of the tear - patch it first.
+pooltoy-refill-empty = { CAPITALIZE(THE($used)) } has nothing left to give.
+pooltoy-refill-full = { CAPITALIZE(THE($target)) } is already full of air.
+pooltoy-refilling-others = { CAPITALIZE(THE($user)) } holds { THE($used) } against { THE($target) } and starts pumping air in.
+pooltoy-refilled-user = You empty some of { THE($used) } into { THE($target) }, and { SUBJECT($target) } swells back up.

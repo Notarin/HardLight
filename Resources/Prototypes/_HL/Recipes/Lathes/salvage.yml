@@ -1,0 +1,26 @@
+# Plasma Cutter
+
+- type: latheRecipe
+  id: WeaponPlasmaCutter
+  result: WeaponPlasmaCutter
+  completetime: 5
+  materials:
+    Steel: 1200
+    Plasteel: 500
+    Glass: 300
+    Gold: 300
+    Plasma: 600
+
+# Line Gun
+
+- type: latheRecipe
+  id: WeaponLineGun
+  result: WeaponLineGun
+  completetime: 7
+  materials:
+    Steel: 2500
+    Plasteel: 1200
+    Glass: 800
+    Gold: 800
+    Plasma: 1200
+    Diamond: 100

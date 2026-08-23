@@ -65,3 +65,4 @@
             Passenger: [ -1, -1 ]
             # Anomaly (1)
             Anomaly: [ 5, 5 ]
+            Mercenary: [ 5, 40 ]

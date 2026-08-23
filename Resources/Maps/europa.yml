@@ -6682,7 +6682,7 @@ entities:
     - type: Transform
       pos: -1.5,60.5
       parent: 1
-- proto: AirlockMailGlassLocked
+- proto: AirlockExternalGlass
   entities:
   - uid: 59
     components:
@@ -6925,7 +6925,7 @@ entities:
       rot: 3.141592653589793 rad
       pos: -35.5,12.5
       parent: 1
-- proto: AirlockMantisLocked
+- proto: AirlockScienceLocked
   entities:
   - uid: 512
     components:
@@ -37878,7 +37878,7 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -30.5,27.5
       parent: 1
-- proto: ComputerShuttleSalvage
+- proto: ComputerBroken
   entities:
   - uid: 331
     components:
@@ -38506,7 +38506,7 @@ entities:
     - type: Transform
       pos: 34.57258,42.509853
       parent: 1
-- proto: CryogenicSleepUnitSpawnerPrisoner
+- proto: SpawnPointPrisoner
   entities:
   - uid: 15319
     components:
@@ -38649,7 +38649,7 @@ entities:
     - type: Transform
       pos: -23.5,16.5
       parent: 1
-- proto: DefaultStationBeaconCameraServerRoom
+- proto: Ash
   entities:
   - uid: 16523
     components:
@@ -38705,7 +38705,7 @@ entities:
     - type: Transform
       pos: 20.5,54.5
       parent: 1
-- proto: DefaultStationBeaconConferenceRoom
+- proto: Ash
   entities:
   - uid: 16529
     components:
@@ -38796,14 +38796,14 @@ entities:
     - type: Transform
       pos: -19.5,41.5
       parent: 1
-- proto: DefaultStationBeaconMailroom
+- proto: Ash
   entities:
   - uid: 5178
     components:
     - type: Transform
       pos: -19.5,27.5
       parent: 1
-- proto: DefaultStationBeaconMantis
+- proto: DefaultStationBeacon
   entities:
   - uid: 16547
     components:
@@ -38824,7 +38824,7 @@ entities:
     - type: Transform
       pos: 14.5,42.5
       parent: 1
-- proto: DefaultStationBeaconMetempsychosis
+- proto: DefaultStationBeacon
   entities:
   - uid: 16528
     components:
@@ -38838,7 +38838,7 @@ entities:
     - type: Transform
       pos: 28.5,45.5
       parent: 1
-- proto: DefaultStationBeaconPark
+- proto: Ash
   entities:
   - uid: 16551
     components:
@@ -38991,7 +38991,7 @@ entities:
     - type: Transform
       pos: 0.5,-4.5
       parent: 1
-- proto: DefaultStationBeaconVirology
+- proto: Ash
   entities:
   - uid: 16571
     components:
@@ -62285,7 +62285,7 @@ entities:
     - type: Transform
       pos: -27.647861,-25.51389
       parent: 1
-- proto: GeigerCounterWallMount
+- proto: Ash
   entities:
   - uid: 15718
     components:
@@ -65703,7 +65703,7 @@ entities:
     - type: Transform
       pos: 38.5,11.5
       parent: 1
-- proto: HoloprojectorEngineering
+- proto: HolofanProjector
   entities:
   - uid: 15647
     components:
@@ -66710,7 +66710,7 @@ entities:
     - type: Transform
       pos: -25.5,12.5
       parent: 1
-- proto: LockerForensicMantisFilled
+- proto: LockerScientist
   entities:
   - uid: 14885
     components:
@@ -67675,7 +67675,7 @@ entities:
     - type: Transform
       pos: 20.297037,49.6766
       parent: 1
-- proto: MetempsychoticMachine
+- proto: UnfinishedMachineFrame
   entities:
   - uid: 7243
     components:
@@ -68029,7 +68029,7 @@ entities:
     - type: Transform
       pos: -0.26194334,6.572407
       parent: 1
-- proto: OracleSpawner
+- proto: Oracle
   entities:
   - uid: 15293
     components:
@@ -71966,7 +71966,7 @@ entities:
     - type: Transform
       pos: 36.5,10.5
       parent: 1
-- proto: RandomBoards
+- proto: Ash
   entities:
   - uid: 15493
     components:
@@ -78195,7 +78195,7 @@ entities:
     - type: Transform
       pos: 22.5,58.5
       parent: 1
-- proto: SophicScribeSpawner
+- proto: SophicScribe
   entities:
   - uid: 5254
     components:
@@ -78203,7 +78203,7 @@ entities:
       rot: 3.141592653589793 rad
       pos: 5.5,15.5
       parent: 1
-- proto: SpareIdCabinetFilled
+- proto: Ash
   entities:
   - uid: 636
     components:
@@ -78295,7 +78295,7 @@ entities:
     - type: Transform
       pos: 28.5,43.5
       parent: 1
-- proto: SpawnMobSecDogLaika
+- proto: Ash
   entities:
   - uid: 4756
     components:
@@ -78552,7 +78552,7 @@ entities:
     - type: Transform
       pos: -24.5,42.5
       parent: 1
-- proto: SpawnPointLocationMidRoundAntag
+- proto: Ash
   entities:
   - uid: 15290
     components:
@@ -78656,7 +78656,7 @@ entities:
     - type: Transform
       pos: -17.5,26.5
       parent: 1
-- proto: SpawnPointMedicalBorg
+- proto: Ash
   entities:
   - uid: 3343
     components:
@@ -82209,7 +82209,7 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 3.5,35.5
       parent: 1
-- proto: VendingMachineCourierDrobe
+- proto: Ash
   entities:
   - uid: 1657
     components:

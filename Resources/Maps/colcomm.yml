@@ -14797,7 +14797,7 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -6.5,-32.5
       parent: 1
-- proto: AlwaysPoweredlightBlue
+- proto: AlwaysPoweredLightLED
   entities:
   - uid: 977
     components:
@@ -164028,7 +164028,7 @@ entities:
     - type: Transform
       pos: -11.929082,-29.43325
       parent: 1
-- proto: WeaponVolkiteCaliver
+- proto: CSWeaponVolkiteCaliver
   entities:
   - uid: 24240
     components:
@@ -164050,7 +164050,7 @@ entities:
     - type: Transform
       pos: 5.4536743,28.463518
       parent: 1
-- proto: WeaponVolkiteCharger
+- proto: CSWeaponVolkiteCharger
   entities:
   - uid: 24244
     components:
@@ -164067,7 +164067,7 @@ entities:
     - type: Transform
       pos: 4.6411743,26.385393
       parent: 1
-- proto: WeaponVolkitePistol
+- proto: CSWeaponVolkitePistol
   entities:
   - uid: 24247
     components:

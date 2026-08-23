@@ -2,6 +2,7 @@ using System.Linq;
 using System.Numerics;
 using Content.Client.Administration.Managers;
 using Content.Client.Examine;
+using Content.Client.Hands.Systems;
 using Content.Client.Strip;
 using Content.Client.Stylesheets;
 using Content.Client.UserInterface.Controls;
@@ -45,6 +46,7 @@ namespace Content.Client.Inventory
         [Dependency] private readonly IConfigurationManager _cvar = default!;
 
         private readonly ExamineSystem _examine;
+        private readonly HandsSystem _hands;
         private readonly InventorySystem _inv;
         private readonly SharedCuffableSystem _cuffable;
         private readonly StrippableSystem _strippable;
@@ -75,7 +77,7 @@ namespace Content.Client.Inventory
         private StrippingMenu? _strippingMenu;
 
         [ViewVariables]
-        private readonly EntityUid _virtualHiddenEntity;
+        private readonly Dictionary<string, EntityUid> _virtualHiddenEntities = new (); // Moffstation - Make this into a dict so that we can hold multiple virtual entities
 
         /// <summary>
         /// The current amount of added hand buttons.
@@ -92,12 +94,13 @@ namespace Content.Client.Inventory
         public StrippableBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
         {
             _examine = EntMan.System<ExamineSystem>();
+            _hands = EntMan.System<HandsSystem>();
             _inv = EntMan.System<InventorySystem>();
             _cuffable = EntMan.System<SharedCuffableSystem>();
             _strippable = EntMan.System<StrippableSystem>();
             _contraband = EntMan.System<ContrabandSystem>();
 
-            _virtualHiddenEntity = EntMan.SpawnEntity(HiddenPocketEntityId, MapCoordinates.Nullspace);
+            // _virtualHiddenEntity = EntMan.SpawnEntity(HiddenPocketEntityId, MapCoordinates.Nullspace); // Moffstation - Obscuring virtual entities are unique per item now
 
             _isAdminView = _cvar.GetCVar(CCVars.AdminStripMenuOverlayDefault);
         }
@@ -119,7 +122,14 @@ namespace Content.Client.Inventory
             if (_strippingMenu != null)
                 _strippingMenu.OnDirty -= UpdateMenu;
 
-            EntMan.DeleteEntity(_virtualHiddenEntity);
+            // Moffstation - Begin - Clean up spawned virtual entities
+            // EntMan.DeleteEntity(_virtualHiddenEntity);
+            foreach (var virtualEnt in _virtualHiddenEntities.Values)
+            {
+                EntMan.DeleteEntity(virtualEnt);
+            }
+            _virtualHiddenEntities.Clear();
+            // Moffstation - End
             base.Dispose(disposing);
         }
 
@@ -150,28 +160,28 @@ namespace Content.Client.Inventory
             {
                 // good ol hands shit code. there is a GuiHands comparer that does the same thing... but these are hands
                 // and not gui hands... which are different...
-                foreach (var hand in handsComp.Hands.Values)
+                foreach (var (id, hand) in handsComp.Hands)
                 {
                     if (hand.Location != HandLocation.Right)
                         continue;
 
-                    AddHandButton(hand);
+                    AddHandButton((Owner, handsComp), id, hand);
                 }
 
-                foreach (var hand in handsComp.Hands.Values)
+                foreach (var (id, hand) in handsComp.Hands)
                 {
                     if (hand.Location != HandLocation.Middle)
                         continue;
 
-                    AddHandButton(hand);
+                    AddHandButton((Owner, handsComp), id, hand);
                 }
 
-                foreach (var hand in handsComp.Hands.Values)
+                foreach (var (id, hand) in handsComp.Hands)
                 {
                     if (hand.Location != HandLocation.Left)
                         continue;
 
-                    AddHandButton(hand);
+                    AddHandButton((Owner, handsComp), id, hand);
                 }
             }
 
@@ -226,21 +236,35 @@ namespace Content.Client.Inventory
             _strippingMenu.SetSize = new Vector2(horizontalMenuSize, verticalMenuSize);
         }
 
-        private void AddHandButton(Hand hand)
+        private void AddHandButton(Entity<HandsComponent> ent, string handId, Hand hand)
         {
-            var button = new HandButton(hand.Name, hand.Location);
+            var button = new HandButton(handId, hand.Location);
 
             button.Pressed += SlotPressed;
 
-            if (EntMan.TryGetComponent<VirtualItemComponent>(hand.HeldEntity, out var virt))
+            var heldEntity = hand.HeldEntity;
+            if (EntMan.TryGetComponent<VirtualItemComponent>(heldEntity, out var virt))
             {
                 button.Blocked = true;
                 if (EntMan.TryGetComponent<CuffableComponent>(Owner, out var cuff) && _cuffable.GetAllCuffs(cuff).Contains(virt.BlockingEntity))
                     button.BlockedRect.MouseFilter = MouseFilterMode.Ignore;
             }
+            // Moffstation - Begin - Obscuring virtual entities per item
+            else if (heldEntity != null && _strippable.GetHidingEntityOrNull(heldEntity.Value, slotDefinition: null, _player.LocalEntity) is { } replacement)
+            {
+                // If the entity is hidden, obscure it with a virtual entity.
+                // this does not work for modified clients because they are still sent the real entity
+                heldEntity = replacement;
+                if (_virtualHiddenEntities.TryGetValue(handId, out var previousReplacement))
+                {
+                    EntMan.DeleteEntity(previousReplacement);
+                }
+                _virtualHiddenEntities[handId] = replacement;
+            }
+            // Moffstation - End
 
             // Goobstation: use virtual entity if hidden
-            UpdateEntityIcon(button, EntMan.HasComponent<StripMenuHiddenComponent>(hand.HeldEntity) ? _virtualHiddenEntity : hand.HeldEntity);
+            UpdateEntityIcon(button, heldEntity);
             // End Goobstation
             _strippingMenu!.HandsContainer.AddChild(button);
 
@@ -283,13 +307,16 @@ namespace Content.Client.Inventory
 
             // If this is a full pocket, obscure the real entity
             // this does not work for modified clients because they are still sent the real entity
-            if (entity != null && _strippable.IsStripHidden(slotDef, _player.LocalEntity))
-                entity = _virtualHiddenEntity;
-
-            // Goobstation/EE: hide strip menu items
-            if (entity != null && EntMan.HasComponent<StripMenuHiddenComponent>(entity))
-                entity = _virtualHiddenEntity;
-            // End Goobstation/EE
+            if (entity != null && _strippable.GetHidingEntityOrNull(entity.Value, slotDef, _player.LocalEntity) is { } replacement)
+            {
+                entity = replacement;
+                if (_virtualHiddenEntities.TryGetValue(slotId, out var previousReplacement))
+                {
+                    EntMan.DeleteEntity(previousReplacement);
+                }
+                _virtualHiddenEntities[slotId] = replacement;
+            }
+            // Moffstation - End
 
             var button = new SlotButton(new SlotData(slotDef, container));
             button.Pressed += SlotPressed;

@@ -40,7 +40,52 @@
             "cwd": "${workspaceFolder}/Content.YAMLLinter",
             "console": "internalConsole",
             "stopAtEntry": false
+        },
+        // HL Start
+        {
+            "name": "Integration Tests",
+            "type": "coreclr",
+            "request": "launch",
+            "program": "dotnet",
+            "args": [
+                "test",
+                "--configuration",
+                "DebugOpt",
+                "Content.IntegrationTests/Content.IntegrationTests.csproj",
+                "--logger",
+                "\"console;verbosity=normal\"",
+                "--",
+                "NUnit.ConsoleOut=0",
+                "NUnit.MapWarningTo=Failed"
+            ],
+            "env": {
+                "DOTNET_gcServer": "1"
+            },
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "stopAtEntry": false
+        },
+        {
+            "name": "Game Tests",
+            "type": "coreclr",
+            "request": "launch",
+            "program": "dotnet",
+            "args": [
+                "test",
+                "--configuration",
+                "DebugOpt",
+                "Content.Tests/Content.Tests.csproj",
+                "--",
+                "NUnit.ConsoleOut=0"
+            ],
+            "env": {
+                "DOTNET_gcServer": "1"
+            },
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "stopAtEntry": false
         }
+        // HL End
     ],
     "compounds": [
         {
@@ -53,7 +98,7 @@
         },
         // Frontier begin
         {
-   
+
             "name": "Server/Client (Release)",
             "configurations": [
                 "Server",

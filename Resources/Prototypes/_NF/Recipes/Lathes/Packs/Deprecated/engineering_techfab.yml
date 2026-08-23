@@ -54,7 +54,7 @@
     - HolofanProjector
     - FireExtinguisher
     - GasDepositLocator
-    - WeaponPlasmaCutter #HL
+    - WeaponPlasmaCutter # HardLight
   ## Parts
     - MicroManipulatorStockPart
     - MatterBinStockPart

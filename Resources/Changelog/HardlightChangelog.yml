@@ -5752,3 +5752,234 @@ Entries:
       message: Fixed projectiles not working properly after first use.
   id: 641
   time: '2026-08-10T10:30:25-07:00'
+- author: Khaomi
+  changes: []
+  id: 642
+  time: '2026-08-13T16:18:57-07:00'
+- author: Avery
+  changes:
+    - type: Tweak
+      message: Changed black alert and gamma alert's code name
+  id: 643
+  time: '2026-08-13T16:19:18-07:00'
+- author: Desilvered
+  changes:
+    - type: Add
+      message: Ported a curated collection of cosmetic Blueshield clothing.
+    - type: Add
+      message: Added Starbound medical equipment and a Starbound Blueshield hardsuit.
+  id: 644
+  time: '2026-08-15T12:22:33-07:00'
+- author: Khaomi
+  changes:
+    - type: Add
+      message: >-
+        Added support for saving engraveable item such as rings, inside
+        apartment
+  id: 645
+  time: '2026-08-15T12:23:06-07:00'
+- author: Khaomi
+  changes:
+    - type: Fix
+      message: Fixed chameleon gear not loading in properly when loading an apartment
+  id: 646
+  time: '2026-08-15T12:23:29-07:00'
+- author: Jayty
+  changes:
+    - type: Add
+      message: 'Added the Drone trait to the Lewd category. '
+  id: 647
+  time: '2026-08-15T12:24:26-07:00'
+- author: NotLivyathan
+  changes:
+    - type: Add
+      message: >-
+        New UI for analysis console, new UI for node scanner. Artifact node
+        activation is now different.
+    - type: Remove
+      message: >-
+        Artifacts cannot create massive destruction events, become guns or music
+        instruments. Sentient artifacts cannot activate nodes.
+  id: 648
+  time: '2026-08-15T12:25:18-07:00'
+- author: ItsBear
+  changes:
+    - type: Fix
+      message: fixed bread slices ignoring gravity
+  id: 649
+  time: '2026-08-15T12:25:50-07:00'
+- author: NotLivyathan
+  changes:
+    - type: Remove
+      message: Removed Unnatural Regen.
+    - type: Tweak
+      message: Natural Regen's point cost has been reduced from 6 to 5.
+    - type: Tweak
+      message: Platelet Factories' point cost has been reduced from 10 to 8.
+    - type: Tweak
+      message: Natural Regen no longer heals Airloss damage.
+    - type: Tweak
+      message: >-
+        Platelet Factories' description now correctly reflects the trait's
+        effects.
+    - type: Fix
+      message: Fixes Blood Deficiency leaving behind blood puddles when it shouldn't.
+  id: 650
+  time: '2026-08-15T12:27:05-07:00'
+- author: NotLivyathan
+  changes:
+    - type: Tweak
+      message: Avali should now automatically exit stasis when going crit.
+  id: 651
+  time: '2026-08-15T12:27:32-07:00'
+- author: Khaomi
+  changes:
+    - type: Tweak
+      message: Tweaked station level alert sound to be station-wide not sector-wide
+  id: 652
+  time: '2026-08-15T12:28:05-07:00'
+- author: AlphonsedeV
+  changes:
+    - type: Fix
+      message: >-
+        emotes from the target voice trait now appear in the emote wheel and
+        play properly.
+    - type: Tweak
+      message: >-
+        Voice traits are now mutually exclusive. They already were, you just
+        didn't know about it and it wasn't enforced.
+    - type: Add
+      message: Added a disclaimer to voice traits about replacing emotes.
+  id: 653
+  time: '2026-08-15T12:28:42-07:00'
+- author: NotLivyathan
+  changes:
+    - type: Tweak
+      message: Synths once again have intrinsic access to the trinary radio channel.
+    - type: Fix
+      message: Fixed genital markings rendering through clothes for synths.
+  id: 654
+  time: '2026-08-15T12:31:24-07:00'
+- author: Drekk
+  changes:
+    - type: Fix
+      message: >-
+        Fixed hardsuits not loading correctly when saved in ships and
+        apartments.
+  id: 655
+  time: '2026-08-15T12:31:57-07:00'
+- author: NotLivyathan
+  changes:
+    - type: Add
+      message: >-
+        Made the plasma cutter and line gun researchable, in Salvage Equipment
+        and Mass Excavation respectively.
+    - type: Remove
+      message: Removed the line gun from the protolathe's emag inventory.
+    - type: Tweak
+      message: >-
+        Adjusted the size of the plasma cutter and line gun sprites to be a
+        little smaller.
+    - type: Tweak
+      message: Reduced the heat damage per projectile for the line gun from 17 to 15.
+    - type: Tweak
+      message: >-
+        Reduced the structural damage per projectile for the line gun from 40 to
+        30.
+    - type: Tweak
+      message: >-
+        Made the line gun require wielding to fire, meaning it can no longer be
+        used onehanded or dual wielded.
+    - type: Tweak
+      message: Increased the width of the line gun when stored in inventories by 1.
+    - type: Tweak
+      message: >-
+        Changed the plasma cutter and line gun to both be engineering/cargo
+        contraband.
+    - type: Tweak
+      message: >-
+        Made general buffs to the plasma cutter and line gun to make them better
+        at mining.
+    - type: Tweak
+      message: >-
+        Significantly reduced the material cost of the plasma cutter and line
+        gun.
+  id: 656
+  time: '2026-08-15T12:32:39-07:00'
+- author: Jayty
+  changes:
+    - type: Fix
+      message: Fixed autosave crashing in dev environnments.
+  id: 657
+  time: '2026-08-15T12:33:06-07:00'
+- author: Desilvered
+  changes:
+    - type: Fix
+      message: Made it so that chess pieces no longer randomly vanish.
+  id: 658
+  time: '2026-08-15T12:33:31-07:00'
+- author: NotLivyathan
+  changes:
+    - type: Fix
+      message: >-
+        Mechanically save banned items will no longer remain claimable from a
+        paradox generator if previously insured.
+  id: 659
+  time: '2026-08-15T12:34:01-07:00'
+- author: NotLivyathan
+  changes:
+    - type: Fix
+      message: Fixed cryopod occupants not being moved to cryospace
+  id: 660
+  time: '2026-08-15T13:36:36-07:00'
+- author: Khaomi
+  changes:
+    - type: Tweak
+      message: Make apartment saves the name and description of an entity
+  id: 661
+  time: '2026-08-16T09:48:18-07:00'
+- author: Fenn
+  changes:
+    - type: Add
+      message: Added Security tier equipment to uplinks
+    - type: Fix
+      message: Fixed multiple maps
+  id: 662
+  time: '2026-08-16T11:42:14-07:00'
+- author: Drekk
+  changes:
+    - type: Fix
+      message: Fixed the AirlockBlockTest failing, by disabling the test :3
+  id: 663
+  time: '2026-08-19T13:47:42-07:00'
+- author: Drekk
+  changes:
+    - type: Fix
+      message: Fixed new artifacts not matching for bounties and certain containers.
+  id: 664
+  time: '2026-08-19T13:48:03-07:00'
+- author: NotLivyathan
+  changes:
+    - type: Fix
+      message: >-
+        Fixed blood recovery failing and resulting in rapid starvation and
+        dehydration.
+    - type: Fix
+      message: >-
+        Fixed a bugged interaction between platelets and bleeding that caused
+        more hunger to be used than intended, resulting in rapid starvation and
+        dehydration.
+  id: 665
+  time: '2026-08-19T14:06:16-07:00'
+- author: MrSalty
+  changes:
+    - type: Add
+      message: Added character portrait!
+  id: 666
+  time: '2026-08-21T00:19:09-07:00'
+- author: Slatebreaker
+  changes:
+    - type: Tweak
+      message: Tweaked the Security Quadbord's Third Law to make more sense.
+  id: 667
+  time: '2026-08-23T08:12:07-07:00'

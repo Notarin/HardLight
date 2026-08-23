@@ -1,5 +1,6 @@
 using Content.Shared.Containers.ItemSlots;
 using Robust.Shared.GameStates;
+using Content.Goobstation.Shared.Factory.Filters;
 
 namespace Content.Shared._Goobstation.Factory.Filters;
 

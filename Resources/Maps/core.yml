@@ -145245,7 +145245,7 @@ entities:
           showEnts: False
           occludes: True
           ent: null
-- proto: LockerClownFilled
+- proto: LockerClown
   entities:
   - uid: 18543
     components:
@@ -204310,7 +204310,7 @@ entities:
     - type: Transform
       pos: 4.471013,33.75602
       parent: 2
-- proto: WeaponShotgunVortex
+- proto: CSWeaponShotgunEnforcer
   entities:
   - uid: 26604
     components:
@@ -204351,7 +204351,7 @@ entities:
     - type: Transform
       pos: -60.5,-39.5
       parent: 2
-- proto: WeaponVolkiteCaliver
+- proto: CSWeaponVolkiteCaliver
   entities:
   - uid: 26611
     components:
@@ -204363,7 +204363,7 @@ entities:
     - type: Transform
       pos: 4.671711,33.480812
       parent: 2
-- proto: WeaponVolkiteCharger
+- proto: CSWeaponVolkiteCharger
   entities:
   - uid: 26613
     components:
@@ -204375,14 +204375,14 @@ entities:
     - type: Transform
       pos: 2.765461,33.308937
       parent: 2
-- proto: WeaponVolkiteCulverin
+- proto: CSWeaponVolkiteCulverin
   entities:
   - uid: 26615
     components:
     - type: Transform
       pos: 3.531086,33.480812
       parent: 2
-- proto: WeaponVolkitePistol
+- proto: CSWeaponVolkitePistol
   entities:
   - uid: 26616
     components:

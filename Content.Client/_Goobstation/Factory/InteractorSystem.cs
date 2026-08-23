@@ -4,6 +4,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 using Content.Shared._Goobstation.Factory;
+using Content.Goobstation.Shared.Factory;
 
 namespace Content.Client._Goobstation.Factory;
 

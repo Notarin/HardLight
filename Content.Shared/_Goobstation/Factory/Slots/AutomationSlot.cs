@@ -4,6 +4,7 @@ using Content.Shared.DeviceLinking;
 using Content.Shared.Whitelist;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.Manager.Attributes;
+using Content.Goobstation.Shared.Factory.Filters;
 
 namespace Content.Shared._Goobstation.Factory.Slots;
 

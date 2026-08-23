@@ -1,4 +1,5 @@
 using System.Linq;
+using Robust.Shared.Prototypes;
 
 namespace Content.Server._HL.RoundPersistence.SaveBans;
 
@@ -9,6 +10,30 @@ namespace Content.Server._HL.RoundPersistence.SaveBans;
 public sealed class SaveBanApi : EntitySystem
 {
     [Dependency] private readonly IComponentFactory _componentFactory = default!;
+    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+
+    /// <summary>
+    /// The actual save-banned list itself.
+    /// </summary>
+    public IReadOnlyList<SaveBanStore.SaveBan> Bans = null!;
+
+    public override void Initialize()
+    {
+        base.Initialize();
+        Bans = _prototypeManager.EnumeratePrototypes<SaveBanPrototype>()
+            .SelectMany(ban =>
+                ban.Prototypes.Select(prototype =>
+                        SaveBanStore.SaveBan.Entity(prototype,
+                            ban.Reason,
+                            new SaveBanStore.SaveRestrictionStrictness.TotalBan()))
+                    .Concat(
+                        ban.Components.Select(component =>
+                            SaveBanStore.SaveBan.Component(component,
+                                ban.Reason,
+                                new SaveBanStore.SaveRestrictionStrictness.TotalBan()))
+                    ))
+            .ToList();
+    }
 
     /// <summary>
     /// This is the type that is returned when querying an items ban status.
@@ -20,11 +45,13 @@ public sealed class SaveBanApi : EntitySystem
         /// This response variant indicates the item itself has a ban or restriction.
         /// </summary>
         public sealed record IsSaveRestricted(EntityUid EntityUid, SaveBanStore.SaveBan Ban) : SaveBanResult(EntityUid);
+
         /// <summary>
         /// This response variant indicates that while this item does *not* have an outstanding ban or restriction,
         /// it contains items that do.
         /// </summary>
-        public sealed record ContainsSaveRestricted(EntityUid EntityUid, IReadOnlyList<SaveBanResult> Restrictions) : SaveBanResult(EntityUid);
+        public sealed record ContainsSaveRestricted(EntityUid EntityUid, IReadOnlyList<SaveBanResult> Restrictions)
+            : SaveBanResult(EntityUid);
     }
 
     /// <summary>
@@ -37,7 +64,7 @@ public sealed class SaveBanApi : EntitySystem
         if (entityPrototype is null)
             return null;
 
-        var ban = SaveBanStore.Bans.FirstOrDefault(ban =>
+        var ban = Bans.FirstOrDefault(ban =>
         {
             return ban.BannedFlag switch
             {

@@ -4,7 +4,6 @@ using Content.Server._HL.RoundPersistence.SaveBans;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Map;
 using static Content.Server._HL.RoundPersistence.SaveBans.SaveBanApi.SaveBanResult;
-using static Content.Server._HL.RoundPersistence.SaveBans.SaveBanStore.SaveBanFlag;
 
 namespace Content.IntegrationTests.Tests.RoundPersistence.SaveBans;
 
@@ -14,11 +13,13 @@ public sealed class SaveBanApiTest : InteractionTest
 {
 
     [Test]
-    public void EverySaveBanComponentNameIsRegistered()
+    public async Task EverySaveBanComponentNameIsRegistered()
     {
-        foreach (var ban in SaveBanStore.Bans.Where(x => x.BannedFlag is SaveBanFlagByComponent))
+        var api = Server.System<SaveBanApi>();
+
+        foreach (var ban in api.Bans.Where(x => x.BannedFlag is SaveBanStore.SaveBanFlag.SaveBanFlagByComponent))
         {
-            var component = ((SaveBanFlagByComponent)ban.BannedFlag).Name;
+            var component = ((SaveBanStore.SaveBanFlag.SaveBanFlagByComponent)ban.BannedFlag).Name;
 
             Assert.That(Factory.AllRegisteredTypes.Any(t => Factory.GetComponentName(t) == component),
                 $"Component '{component}' is not registered!");
@@ -35,7 +36,7 @@ public sealed class SaveBanApiTest : InteractionTest
         using (Assert.EnterMultipleScope())
         {
             Assert.That(api.CheckForRestrictions(uid), Is.TypeOf<IsSaveRestricted>());
-            Assert.That(((IsSaveRestricted)api.CheckForRestrictions(uid)!).Ban.BannedFlag, Is.TypeOf<SaveBanFlagByEntity>());
+            Assert.That(((IsSaveRestricted)api.CheckForRestrictions(uid)!).Ban.BannedFlag, Is.TypeOf<SaveBanStore.SaveBanFlag.SaveBanFlagByEntity>());
         }
         return;
 

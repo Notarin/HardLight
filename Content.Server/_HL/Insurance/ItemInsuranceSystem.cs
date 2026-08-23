@@ -484,11 +484,8 @@ public sealed class ItemInsuranceSystem : EntitySystem
     private bool IsTotalSaveBannedPrototype(string prototypeId)
     {
         EntityPrototype? prototype = null;
-        foreach (var ban in SaveBanStore.Bans)
+        foreach (var ban in _saveBanApi.Bans)
         {
-            if (ban.Strictness is not SaveBanStore.SaveRestrictionStrictness.TotalBan)
-                continue;
-
             switch (ban.BannedFlag)
             {
                 case SaveBanStore.SaveBanFlag.SaveBanFlagByEntity entityFlag:
@@ -530,11 +527,11 @@ public sealed class ItemInsuranceSystem : EntitySystem
         var restriction = _saveBanApi.CheckForRestrictions(item);
         return restriction switch
         {
-            SaveBanApi.SaveBanResult.IsSaveRestricted restricted =>
-                restricted.Ban.Strictness is SaveBanStore.SaveRestrictionStrictness.TotalBan,
+            SaveBanApi.SaveBanResult.IsSaveRestricted =>
+                true,
             SaveBanApi.SaveBanResult.ContainsSaveRestricted contains =>
                 SaveBanApi.FlattenRestrictions(contains)
-                    .Any(restricted => restricted.Ban.Strictness is SaveBanStore.SaveRestrictionStrictness.TotalBan),
+                    .Any(_ => true),
             _ => false,
         };
     }

@@ -943,6 +943,7 @@
     growthDelay: 30
   - type: ExaminableHunger
   - type: Butcherable
+    butcherDelay: 3
     spawned:
     - id: FoodMeat
       amount: 5
@@ -1499,6 +1500,7 @@
         Piercing: 3
   - type: Butcherable
     butcheringType: Spike
+    butcherDelay: 2
     spawned:
     - id: FoodMeat
       amount: 3
@@ -1754,6 +1756,7 @@
         horns_kobold_ears: Inherit
   - type: Butcherable
     butcheringType: Spike
+    butcherDelay: 2
     spawned:
     - id: FoodMeat
       amount: 2
@@ -3857,6 +3860,7 @@
       Dead:
         Base: dead
   - type: Butcherable
+    butcherDelay: 2
     spawned:
     - id: FoodMeatBacon
       amount: 6

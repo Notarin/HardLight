@@ -1,0 +1,30 @@
+- type: saveBan
+  id: ColsecEquipment
+  reason: "Balance breaking. Equipment is too powerful to be kept long term. Intended to only be used in-round by colsec."
+  prototypes:
+  - CSWeaponVolkiteCulverin
+  - CSWeaponVolkiteCaliver
+  - CSWeaponVolkiteCharger
+  - CSWeaponVolkitePistol
+  - volkitePowerPack
+  - CSWeaponPistolMk32
+  - CSWeaponShotgunEnforcer
+  - CSNFWeaponRifleAssaultLecter
+  - CSNFWeaponRifleAssaultVulcan
+  - CSNFWeaponEnergyRifleCarbine
+  - CSNFWeaponEnergyRifleSniperCannon
+  - CSNFWeaponSubMachineGunWt550
+  - CSNFWeaponEnergySubMachineGunDeltaV
+  - CSNFWeaponRevolverInspector
+  - CSClothingOuterHardsuitNfsdBronze
+  - CSClothingOuterHardsuitNfsdSilver
+  - CSClothingOuterHardsuitNfsdGold
+  - CSClothingOuterHardsuitNfsdSheriff
+  - CSClothingOuterHardsuitNfsdBrigmedic
+  - CSClothingOuterHardsuitNfsdExperimental
+  - CSClothingOuterHardsuitNfsdCombat
+  - CSClothingOuterHardsuitNfsdCommand
+  - CSWeaponEnergyRevolver
+  - CSWeaponPistolMk58
+  - CSNFWeaponSubMachineGunDrozd
+  components:

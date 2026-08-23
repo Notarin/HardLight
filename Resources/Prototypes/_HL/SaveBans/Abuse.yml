@@ -1,0 +1,19 @@
+- type: saveBan
+  id: CommunicationsConsole
+  reason: "Communications Console is abusable if personally owned, and can be used to spam and annoy."
+  components:
+  - CommunicationsConsole
+  prototypes:
+  - CommsComputerCircuitboard
+
+- type: saveBan
+  id: Currency
+  reason: "Exploitable. Don't know how, but I'm sure this will be answered during review... I hope."
+  components:
+  - Currency
+
+- type: saveBan
+  id: EntityTableContainerFill
+  reason: "Initializer component. Intended to only ever be deserialized once."
+  components:
+  - EntityTableContainerFill

@@ -1,0 +1,53 @@
+- type: saveBan
+  id: unobtainable
+  reason: "Not intended to be removed from location. Expected to remain a static member of the gameplay loop."
+  prototypes:
+  - ComputerDNAScanner
+  - ComputerExpeditionDiskPrinter
+  - ComputerFundingAllocation
+  - ComputerPsionicsRecords
+  - ComputerRoboticsControl
+  - ComputerShuttleRecords
+  - DnaScannerConsoleComputerCircuitboard
+  - IDComputerCircuitboard
+  - StationAiUploadComputer
+  - MachineParadoxGenerator
+  - ParadoxGeneratorMachineCircuitboard
+  - VendingMachineAmmoPOI
+  - VendingMachineAstroVendPOI
+  - VendingMachineBoozePOI
+  - VendingMachineBountyVendPOI
+  - VendingMachineCigsPOI
+  - VendingMachineEngivendPOI
+  - VendingMachineExpeditionaryFlatpackVend
+  - VendingMachineFlatpackVend
+  - VendingMachineFuelVend
+  - VendingMachineGamesPOI
+  - LessLethalVendingMachinePOI
+  - VendingMachineMediDrobePOI
+  - VendingMachineMercVend
+  - VendingMachinePickNPackPOI
+  - VendingMachinePottedPlantVendPOI
+  - VendingMachineSalvagePOI
+  - VendingMachineTankDispenserEVAPOI
+  - VendingMachineVendomatPOI
+  - VendingMachineYouToolPOI
+  components:
+  - ContrabandPalletConsole
+  - CriminalRecordsConsole
+  - DoorRemote
+  - EmergencyShuttleConsole
+  - GeneralStationRecordConsole
+  - GeneticAnalyzer
+  - IdCardConsole
+  - MarketConsole
+  - NFCargoOrderConsole
+  - ShipyardConsole
+
+- type: saveBan
+  id: unobtainableDebug
+  reason: "Debug item, not intended to ever even exist. How are you seeing this?"
+  prototypes:
+  - DEBUGVendingMachineAmmoBoxes
+  - DEBUGVendingMachineMagazines
+  - DEBUGVendingMachineRangedWeapons

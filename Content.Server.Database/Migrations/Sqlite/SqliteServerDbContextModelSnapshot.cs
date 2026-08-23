@@ -1085,11 +1085,6 @@ namespace Content.Server.Database.Migrations.Sqlite
                         .HasColumnType("TEXT")
                         .HasColumnName("char_name");
 
-                    b.Property<string>("CharacterPortraitUrl")
-                        .IsRequired()
-                        .HasColumnType("TEXT")
-                        .HasColumnName("character_portrait_url");
-
                     b.Property<string>("Company")
                         .IsRequired()
                         .HasColumnType("TEXT")

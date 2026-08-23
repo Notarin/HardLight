@@ -70,7 +70,7 @@ public sealed class LobbyUIController : UIController, IOnStateEntered<LobbyState
 
         _configurationManager.OnValueChanged(CCVars.FlavorText, args =>
         {
-            _profileEditor?.RefreshDescriptionTab();
+            _profileEditor?.RefreshFlavorText();
         });
 
         _configurationManager.OnValueChanged(CCVars.GameRoleTimers, _ => RefreshProfileEditor());

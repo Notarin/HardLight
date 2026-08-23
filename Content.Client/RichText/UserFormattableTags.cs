@@ -21,5 +21,6 @@ public static class UserFormattableTags
         typeof(HeadingTag),
         typeof(ItalicTag),
         typeof(MonoTag),
+        typeof(FormTag)
     ];
 }

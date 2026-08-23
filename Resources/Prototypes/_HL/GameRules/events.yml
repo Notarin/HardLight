@@ -132,7 +132,7 @@
     - id: ZombieOutbreak
     - id: LoneOpsSpawn
     # - id: WizardSpawn
-    # - id: LoneOpsSpawn
+    - id: LoneOpsSpawn
     # - id: UnknownShuttleManOWar
     # - id: UnknownShuttleInstigator
 

@@ -10383,6 +10383,7 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 7.5,-2.5
       parent: 2
+    - type: WorldLoader
 - proto: ComputerSurveillanceWirelessCameraMonitor
   entities:
   - uid: 1690

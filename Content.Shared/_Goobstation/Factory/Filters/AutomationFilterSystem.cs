@@ -17,6 +17,8 @@ using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Popups;
 using Content.Shared.Stacks;
+using Content.Shared._Goobstation.Factory.Filters;
+using Content.Shared._Goobstation.Factory;
 using Robust.Shared.Prototypes;
 
 namespace Content.Goobstation.Shared.Factory.Filters;

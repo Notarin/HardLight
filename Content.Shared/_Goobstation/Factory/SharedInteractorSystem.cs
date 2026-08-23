@@ -5,7 +5,8 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-using Content.Goobstation.Common.DoAfter;
+using Content.Shared.DoAfter;
+using Content.Shared._Goobstation.DoAfter;
 using Content.Goobstation.Shared.Factory.Filters;
 using Content.Shared.DeviceLinking;
 using Content.Shared.DeviceLinking.Events;
@@ -18,6 +19,7 @@ using Content.Shared.Throwing;
 using Robust.Shared.Containers;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
+using Content.Shared._Goobstation.Factory;
 
 namespace Content.Goobstation.Shared.Factory;
 
@@ -138,7 +140,7 @@ public abstract class SharedInteractorSystem : EntitySystem
 
     private void UpdateToolAppearance(EntityUid uid)
     {
-        var state = _hands.ActiveHandIsEmpty(uid) == false
+        var state = _hands.TryGetActiveItem(uid, out _) // active hand has an item
             ? InteractorState.Inactive
             : InteractorState.Empty;
         UpdateAppearance(uid, state);

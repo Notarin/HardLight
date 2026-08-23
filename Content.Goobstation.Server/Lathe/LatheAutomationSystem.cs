@@ -1,4 +1,4 @@
-using Content.Goobstation.Shared.Factory;
+using Content.Shared._Goobstation.Factory;
 using Content.Server.Lathe;
 using Content.Shared.DeviceLinking.Events;
 using Content.Shared.Lathe;
@@ -34,7 +34,7 @@ public sealed class LatheAutomationSystem : EntitySystem
         if (ent.Comp.LastRecipe is not {} recipe)
             return;
 
-        _lathe.TryAddToQueue(ent.Owner, recipe);
+        _lathe.TryAddToQueue(ent.Owner, recipe, 1);
         _lathe.TryStartProducing(ent.Owner); // Won't do anything otherwise
     }
 }

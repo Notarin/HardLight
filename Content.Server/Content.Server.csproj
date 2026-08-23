@@ -29,6 +29,9 @@
   <ItemGroup>
     <Folder Include="_HL\Medical\" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Content.Goobstation.Server\**\*.cs" />
+  </ItemGroup>
   <!-- Explicitly include .CM14 server sources; dot-prefixed folders may be excluded by default globs -->
   <ItemGroup>
     <Compile Include=".CM14\**\*.cs" />

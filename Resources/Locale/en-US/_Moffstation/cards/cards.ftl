@@ -44,6 +44,7 @@ playing-card-stack-examine = There are {$count} cards in this stack.
 playing-card-stack-card-put-down-verb-text = Place
 playing-card-stack-deck-put-down-verb-text = Deal
 playing-card-stack-hand-put-down-verb-text = Pick and add
+playing-card-stack-draw-card-verb-text = Draw card
 
 playing-card-flip-all-verb-text = Flip all
 playing-card-flip-all-popup = Cards flipped.

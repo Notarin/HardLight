@@ -11,3 +11,32 @@
       state: eyes_thermal
     useDelay: 1
     event: !type:ToggleThermalVisionEvent
+
+- type: entity
+  id: ActionToggleNightVisionGoggles
+  name: Toggle Night Vision
+  description: Enable or disable the goggles' night vision.
+  components:
+  - type: InstantAction
+    itemIconStyle: BigAction
+    priority: -20
+    icon:
+      sprite: _White/Clothing/Eyes/Goggles/nightvision.rsi
+      state: icon
+    useDelay: 1
+    event: !type:ToggleActionEvent
+
+- type: entity
+  id: ActionPulseThermalVisionGoggles
+  name: Pulse Thermal Vision
+  description: Briefly pulse the goggles' thermal vision.
+  components:
+  - type: InstantAction
+    itemIconStyle: BigAction
+    priority: -20
+    icon:
+      sprite: _White/Clothing/Eyes/Goggles/thermal.rsi
+      state: icon
+    useDelay: 3
+    sound: /Audio/_RMC14/Binoculars/nightvision.ogg
+    event: !type:PulseThermalVisionGogglesEvent

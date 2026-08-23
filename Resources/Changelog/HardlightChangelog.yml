@@ -5977,3 +5977,9 @@ Entries:
       message: Added character portrait!
   id: 666
   time: '2026-08-21T00:19:09-07:00'
+- author: Slatebreaker
+  changes:
+    - type: Tweak
+      message: Tweaked the Security Quadbord's Third Law to make more sense.
+  id: 667
+  time: '2026-08-23T08:12:07-07:00'

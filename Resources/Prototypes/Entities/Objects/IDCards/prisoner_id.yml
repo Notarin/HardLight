@@ -9,3 +9,4 @@
     - state: orange
     - state: idprisoner
   - type: GenpopIdCard
+  - type: ExpireIdCard

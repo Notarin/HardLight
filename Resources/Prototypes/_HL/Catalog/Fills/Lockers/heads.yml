@@ -296,6 +296,7 @@
     - id: RDIDCard
     - id: StationAiFixerCircuitboard
     - id: ClothingNeckGovernorCollar
+    - id: PaperWrittenHLBorgLaws
 
 # Hardsuit table, used for suit storage as well
 - type: entityTable

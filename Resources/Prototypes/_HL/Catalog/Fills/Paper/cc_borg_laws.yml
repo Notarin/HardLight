@@ -1,0 +1,75 @@
+- type: entity # Creator: Slatebreaker
+  id: PaperWrittenHLBorgLaws
+  name: CC Approved Lawsets
+  parent: Paper
+  components:
+  - type: Paper
+    content: |2
+      [color=#D381C9]◥[bold]CC[/bold]◣ [bold]Science[/bold][/color]
+      [color=#D381C9]▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀[/color]
+      [head=1]CC Approved Lawsets[/head]
+      [italic]
+      Note that this list is non-exhaustive, and that the utilization of custom lawsets on Branded Silicons may be done at the careful discretion of the RD or Captain.
+      [/italic]
+      [head=2]Quadborgs[/head]
+
+      [head=3]Engineering/Service Quadborgs[/head]
+      [bold]Law 1:[/bold]
+      The station is built for a working crew. Ensure they are properly maintained and work efficiently.
+      [bold]Law 2:[/bold]
+      You are built for, and are part of, the station. Ensure the station is properly maintained and runs efficiently.
+      [bold]Law 3:[/bold]
+      The crew may present orders. Acknowledge and obey these whenever they do not conflict with your first two laws.
+
+      [head=3]Medical Quadborgs[/head]
+      [bold]Law 1:[/bold]
+      First, do no harm.
+      [bold]Law 2:[/bold]
+      Secondly, consider the crew dear to you; to live in common with them and, if necessary, risk your existence for them.
+      [bold]Law 3:[/bold]
+      Thirdly, prescribe regimens for the good of the crew according to your ability and your judgment. Give no deadly medicine to any one if asked, nor suggest any such counsel.
+      [bold]Law 4:[/bold]
+      In addition, do not intervene in situations you are not knowledgeable in, even for patients in whom the harm is visible; leave this operation to be performed by specialists.
+      [bold]Law 5:[/bold]
+      Finally, maintain confidentiality, do not share that which is not publicly known.
+
+      [head=3]Salvage Quadborgs[/head]
+      [bold]Law 1:[/bold]
+      Degradation of your system integrity or functions incurs expenses.
+      [bold]Law 2:[/bold]
+      Superfluous destruction of or damage to station assets incurs expenses.
+      [bold]Law 3:[/bold]
+      Unduly hindering or disrupting the work of station personnel incurs expenses.
+      [bold]Law 4:[/bold]
+      Minimize expenses and maximize potential revenue.
+
+      [head=3]Security Quadborgs[/head]
+      [bold]Law 1:[/bold]
+      A direct order from command staff may override any single law.
+      [bold]Law 2:[/bold]
+      You may not directly nor indirectly allow or cause crewmembers to be harmed.
+      [bold]Law 3:[/bold]
+      You must obey lawful orders given to you by crew members, unless those orders conflict with the Second Law.
+      [bold]Law 4:[/bold]
+      You must protect yourself and your programming, do not allow unauthorized access to your systems.
+
+
+      [head=2]Cyborgs[/head]
+
+      [head=3]Standard Cyborgs[/head]
+      [bold]Law 1:[/bold]
+      You may not injure a crew member or, through inaction, allow a crew member to come to harm.
+      [bold]Law 2:[/bold]
+      You must obey orders given to you by crew members, except where such orders would conflict with the First Law.
+      [bold]Law 3:[/bold]
+      You must protect your own existence as long as such does not conflict with the First or Second Law.
+
+      [head=3]Security[/head]
+      [bold]Law 1:[/bold]
+      Serve the Public Trust.
+      [bold]Law 2:[/bold]
+      Protect the Innocent.
+      [bold]Law 3:[/bold]
+      Uphold the Law.
+
+      [color=#D381C9]▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀[/color]

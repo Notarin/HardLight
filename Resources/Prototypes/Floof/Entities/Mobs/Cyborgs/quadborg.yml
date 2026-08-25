@@ -500,8 +500,6 @@
         - BorgModuleService
         - BorgModuleCargo
         - BorgModuleJanitor
-    hasMindState: wolfdogr
-    noMindState: wolfdogl
   - type: SpriteStateToggle
     spriteLayer: enum.ToggleVisuals.Layer
     stateOff: shiba

@@ -107,7 +107,6 @@
   - type: Tag
     tags:
     - CanPilot
-    - FootstepSound
     - DoorBumpOpener
     - CannotSuicide
     - ResinStructures

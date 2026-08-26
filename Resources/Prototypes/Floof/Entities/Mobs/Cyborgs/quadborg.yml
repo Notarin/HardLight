@@ -507,6 +507,17 @@
     #VisibleWhenEnabled: true
     movementStateOff: shiba_moving
     movementStateOn: shiba_movingballz
+  - type: MeleeWeapon
+    altDisarm: false
+    angle: 0
+    animation: WeaponArcBite
+    wideAnimation: WeaponArcBite
+    soundHit:
+      path: /Audio/Effects/bite.ogg
+    damage:
+      types:
+        Piercing: 6
+    mustBeEquippedToUse: false
 
 - type: entity
   id: wolfborg

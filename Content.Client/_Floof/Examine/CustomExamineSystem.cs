@@ -22,7 +22,7 @@ public sealed class CustomExamineSystem : SharedCustomExamineSystem
     {
         base.Initialize();
         SubscribeLocalEvent<GetVerbsEvent<Verb>>(OnGetVerbs);
-        SubscribeLocalEvent<ActivateInWorldEvent>(OnActivateInWorld, after: [typeof(StrippableSystem)]);
+        // HardLight: removed OnActivateInWorld, we don't want the custom examine window to open when you click on yourself
         SubscribeLocalEvent<CustomExamineComponent, AfterAutoHandleStateEvent>(OnStateUpdate);
     }
 
@@ -42,17 +42,7 @@ public sealed class CustomExamineSystem : SharedCustomExamineSystem
         });
     }
 
-    private void OnActivateInWorld(ActivateInWorldEvent ev)
-    {
-        // This one works only if user == target, because otherwise it would conflict with stripping ui
-        if (ev.User != ev.Target || _player.LocalEntity != ev.User || ev.Handled)
-            return;
-
-        if (!_timing.IsFirstTimePredicted)
-            return;
-
-        OpenUi(ev.Target);
-    }
+    // HardLight: removed OnActivateInWorld, we don't want the custom examine window to open when you click on yourself
 
     private void OnStateUpdate(Entity<CustomExamineComponent> ent, ref AfterAutoHandleStateEvent args)
     {

@@ -1,0 +1,47 @@
+{
+    "version": 1,
+    "license": "CC-BY-SA-3.0",
+    "copyright": "based off the coyote keyhole sweater, edited by @P3nnant on discord",
+    "size": {
+        "x": 32,
+        "y": 32
+    },
+    "states": [
+        {
+            "name": "keyholefabricarmwarmers",
+            "directions": 4
+        },
+        {
+            "name": "keyholefabriccropandpants",
+            "directions": 4
+        },
+        {
+            "name": "keyholefabricsocks",
+            "directions": 4
+        },
+        {
+            "name": "keyholefabricstirrupsocks",
+            "directions": 4
+        },
+        {
+            "name": "keyholelesssweater",
+            "directions": 4
+        },
+        {
+            "name": "keyholeonsie",
+            "directions": 4
+        },
+        {
+            "name": "keyholesweaterheart",
+            "directions": 4
+        },
+        {
+            "name": "keyholesweatershortsleeve",
+            "directions": 4
+        },
+        {
+            "name": "keyholethong",
+            "directions": 4
+        }
+    ]
+}

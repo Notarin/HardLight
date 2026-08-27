@@ -368,6 +368,15 @@
     CoolCoyoteClothesHunterBra: 9000
     CoolCoyoteClothesIrisTribal: 9000
     CoolCoyoteClothesKeyholeSweater: 9000
+    KeyholeArmWarmers: 9000 #HL start
+    KeyholeSocks: 9000
+    KeyholeStirrupSocks: 9000
+    KeyholeCropAndPants: 9000
+    KeyholelessSweater: 9000
+    KeyholeOnesie: 9000
+    KeyholeSweaterHeart: 9000
+    KeyholeSweaterShortSleeve: 9000
+    KeyholeSweaterThong: 9000 #HL end
     CoolCoyoteClothesKimonoBlue: 9000
     CoolCoyoteClothesKimonoEarth: 9000
     CoolCoyoteClothesKimonoGreen: 9000
@@ -451,6 +460,8 @@
     CoolCoyoteClothesTacticoolHawaiianBlue: 9000
     CoolCoyoteClothesTacticoolHawaiianOrange: 9000
     CoolCoyoteClothesTacticoolHawaiianPurple: 9000
+    ClothingUniformFiresuitAtmosCroptop: 9000 #HL
+    ClothingUniformFiresuitCroptop: 9000 #HL
     CoolCoyoteClothesTexas: 9000
     CoolCoyoteClothesToga: 9000
     CoolCoyoteClothesToga2: 9000

@@ -1,0 +1,179 @@
+﻿- type: entity
+  parent: CoolCoyoteClothes
+  id: KeyholeArmWarmers
+  name: keyhole fabric arm warmers
+  description: A cute pair of arm warmers made out of the same fabric as the beloved keyhole sweater.
+  components:
+  - type: Sprite
+    overrideDir: South
+    enableOverrideDir: true
+    sprite: _HL/Clothing/Misc/keyhole_fabric.rsi
+    layers:
+    - state: keyholefabricarmwarmers
+  - type: Clothing
+    sprite: _HL/Clothing/Misc/keyhole_fabric.rsi
+    clothingVisuals:
+      gloves:
+      - state: keyholefabricarmwarmers
+    slots:
+    - gloves
+
+- type: entity
+  parent: CoolCoyoteClothes
+  id: KeyholeSocks
+  name: keyhole fabric socks
+  description: A cute pair of socks made out of the same fabric as the beloved keyhole sweater.
+  components:
+  - type: Sprite
+    overrideDir: South
+    enableOverrideDir: true
+    sprite: _HL/Clothing/Misc/keyhole_fabric.rsi
+    layers:
+    - state: keyholefabricsocks
+  - type: Clothing
+    sprite: _HL/Clothing/Misc/keyhole_fabric.rsi
+    clothingVisuals:
+      shoes:
+      - state: keyholefabricsocks
+    slots:
+    - FEET
+  - type: ProtectedFromStepTriggers
+  - type: FootstepModifier
+    footstepSoundCollection:
+      collection: BarestepHard
+      params:
+        volume: -6 # bit quieter than barefeet
+
+- type: entity
+  parent: CoolCoyoteClothes
+  id: KeyholeStirrupSocks
+  name: keyhole fabric stirrup socks
+  description: A cute pair of stirrup socks made out of the same fabric as the beloved keyhole sweater. Rather pointless as socks, but they look nice!
+  components:
+  - type: Sprite
+    overrideDir: South
+    enableOverrideDir: true
+    sprite: _HL/Clothing/Misc/keyhole_fabric.rsi
+    layers:
+    - state: keyholefabricstirrupsocks
+  - type: Clothing
+    sprite: _HL/Clothing/Misc/keyhole_fabric.rsi
+    clothingVisuals:
+      shoes:
+      - state: keyholefabricstirrupsocks
+    slots:
+    - FEET
+  - type: ProtectedFromStepTriggers
+  - type: FootstepModifier
+    footstepSoundCollection:
+      collection: BarestepHard
+      params:
+        volume: -6 # bit quieter than barefeet
+
+- type: entity
+  parent: CoolCoyoteClothes
+  id: KeyholeCropAndPants
+  name: keyhole crop and pants
+  description: A cute crop top and pants made out of the same fabric as the beloved keyhole sweater.
+  components:
+  - type: Sprite
+    overrideDir: South
+    enableOverrideDir: true
+    sprite: _HL/Clothing/Misc/keyhole_fabric.rsi
+    layers:
+    - state: keyholefabriccropandpants
+  - type: Clothing
+    sprite: _HL/Clothing/Misc/keyhole_fabric.rsi
+    clothingVisuals:
+      jumpsuit:
+      - state: keyholefabriccropandpants
+
+- type: entity
+  parent: CoolCoyoteClothes
+  id: KeyholelessSweater
+  name: keyholeless sweater
+  description: A cute lilac sweater for when you don't want to give your friends a view. What's even the point?
+  components:
+  - type: Sprite
+    overrideDir: South
+    enableOverrideDir: true
+    sprite: _HL/Clothing/Misc/keyhole_fabric.rsi
+    layers:
+    - state: keyholelesssweater
+  - type: Clothing
+    sprite: _HL/Clothing/Misc/keyhole_fabric.rsi
+    clothingVisuals:
+      jumpsuit:
+      - state: keyholelesssweater
+
+- type: entity
+  parent: CoolCoyoteClothes
+  id: KeyholeOnesie
+  name: keyhole onesie
+  description: A cute lilac onesie for when you want to give your friends a view.
+  components:
+  - type: Sprite
+    overrideDir: South
+    enableOverrideDir: true
+    sprite: _HL/Clothing/Misc/keyhole_fabric.rsi
+    layers:
+    - state: keyholeonsie
+  - type: Clothing
+    sprite: _HL/Clothing/Misc/keyhole_fabric.rsi
+    clothingVisuals:
+      jumpsuit:
+      - state: keyholeonsie
+
+- type: entity
+  parent: CoolCoyoteClothes
+  id: KeyholeSweaterHeart
+  name: heart keyhole sweater
+  description: A cute lilac sweater for when you want to give your friends a view. This one's keyhole is shaped like a heart. How cute!
+  components:
+  - type: Sprite
+    overrideDir: South
+    enableOverrideDir: true
+    sprite: _HL/Clothing/Misc/keyhole_fabric.rsi
+    layers:
+    - state: keyholesweaterheart
+  - type: Clothing
+    sprite: _HL/Clothing/Misc/keyhole_fabric.rsi
+    clothingVisuals:
+      jumpsuit:
+      - state: keyholesweaterheart
+
+- type: entity
+  parent: CoolCoyoteClothes
+  id: KeyholeSweaterShortSleeve
+  name: short sleeve keyhole sweater
+  description: A cute lilac sweater for when you want to give your friends a view. This one's had it's sleeves shortened, probably to show off some toned biceps.
+  components:
+  - type: Sprite
+    overrideDir: South
+    enableOverrideDir: true
+    sprite: _HL/Clothing/Misc/keyhole_fabric.rsi
+    layers:
+    - state: keyholesweatershortsleeve
+  - type: Clothing
+    sprite: _HL/Clothing/Misc/keyhole_fabric.rsi
+    clothingVisuals:
+      jumpsuit:
+      - state: keyholesweatershortsleeve
+
+- type: entity
+  parent: CoolCoyoteClothes
+  id: KeyholeSweaterThong
+  name: keyhole thong
+  description: A cute lilac thong for when you want to give your friends a view.
+  components:
+  - type: Sprite
+    overrideDir: South
+    enableOverrideDir: true
+    sprite: _HL/Clothing/Misc/keyhole_fabric.rsi
+    layers:
+    - state: keyholethong
+  - type: Clothing
+    sprite: _HL/Clothing/Misc/keyhole_fabric.rsi
+    clothingVisuals:
+      jumpsuit:
+      - state: keyholethong

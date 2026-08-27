@@ -1409,7 +1409,7 @@
   parent: CoolCoyoteClothes
   id: CoolCoyoteClothesKeyholeSweater
   name: keyhole sweater
-  description: |
+  description: A cute lilac sweater for when you want to give your friends a view. #HL
   components:
   - type: Sprite
     overrideDir: South

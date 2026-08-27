@@ -30,7 +30,8 @@
   group: NaturalSauce
   desc: reagent-desc-piss
   physicalDesc: reagent-physical-desc-acrid
-  flavor: beer
+  # Hardlight: beer<piss
+  flavor: piss
   color: "#E9DD20"
   viscosity: 0.35
   recognizable: true

@@ -6047,3 +6047,9 @@ Entries:
         Pour 5u onto an artifact to restore 1 durability for all active nodes.
   id: 675
   time: '2026-09-07T07:08:51-07:00'
+- author: Khaomi
+  changes:
+    - type: Add
+      message: Added more accurate flavor text for piss, beer and ice cold beer.
+  id: 676
+  time: '2026-09-07T07:20:20-07:00'

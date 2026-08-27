@@ -32,3 +32,8 @@
   id: breast-milk
   flavorType: complex
   description: flavor-complex-breast-milk
+
+- type: flavor
+  id: piss
+  flavorType: complex
+  description: flavor-complex-piss

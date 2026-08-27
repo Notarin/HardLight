@@ -195,7 +195,8 @@ flavor-complex-rocksandstones = like rocks and stones
 
 ## Basic drinks
 flavor-complex-water = like water
-flavor-complex-beer = like piss
+# HardLight: "piss"<"figurative piss
+flavor-complex-beer = like figurative piss
 flavor-complex-cognac = like dry spicy alcohol
 flavor-complex-mead = like fermented honey
 flavor-complex-vermouth = like herbal grape rinds
@@ -252,7 +253,8 @@ flavor-complex-singulo = like a bottomless hole
 flavor-complex-syndie-bomb = like bitter whiskey
 flavor-complex-tequila-sunrise = like a mexican morning
 flavor-complex-irish-coffee = like an alcoholic wakeup call
-flavor-complex-iced-beer = like ice cold piss
+# Hardlight: "ice cold piss"<"ice cold figurative piss"
+flavor-complex-iced-beer = like ice cold figurative piss
 flavor-complex-gargle-blaster = like somebody smashed your head with a lemon-covered brick of gold
 flavor-complex-bloody-mary = like a bad hangover
 flavor-complex-beepsky = like oil and whiskey

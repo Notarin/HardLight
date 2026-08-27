@@ -13,6 +13,7 @@ using Content.Shared.Popups;
 using Content.Shared.FloofStation.Traits.Events;
 using Content.Shared.FloofStation.Traits.Events.Components;
 using Robust.Shared.Timing;
+using Robust.Shared.Player; // HardLight: Cum/Piss/Milk-on verbs
 
 namespace Content.Server.FloofStation.Traits;
 
@@ -46,6 +47,49 @@ public sealed class LewdTraitSystem : SharedLewdTraitSystem // HL: Move LewdTrai
     }
 
     #region event handling
+
+    /// <remarks>
+    /// HardLight: Cum/Piss/Milk-on verbs
+    /// </remarks>
+    private void SpillOnGround(EntityUid owner, EntityUid user, EntityUid target, Entity<Content.Shared.Chemistry.Components.SolutionComponent> solutionEntity, Content.Shared.FixedPoint.FixedPoint2 amount, string prefix, bool skipDryOther = true)
+    {
+        if (amount == 0)
+        {
+            if (owner == user || skipDryOther)
+            {
+                _popupSystem.PopupEntity(Loc.GetString($"{prefix}-verb-dry"), owner, user);
+            }
+            else
+            {
+                _popupSystem.PopupEntity(
+                    Loc.GetString($"{prefix}-verb-dry-other",
+                        ("person", Identity.Entity(owner, EntityManager))),
+                    owner,
+                    user,
+                    PopupType.Medium);
+                _popupSystem.PopupEntity(Loc.GetString($"{prefix}-verb-dry"), owner, owner);
+            }
+            return;
+        }
+
+        var spilledSolution = _solutionContainer.SplitSolution(solutionEntity, amount);
+        _puddle.TrySpillAt(target, spilledSolution, out _, sound: false);
+        _audio.PlayPvs(new SoundPathSpecifier("/Audio/Effects/Fluids/splat.ogg"), target);
+
+        var targetIdentity = Identity.Entity(target, EntityManager);
+        var userIdentity = Identity.Entity(user, EntityManager);
+
+        _popupSystem.PopupEntity(Loc.GetString($"{prefix}-on-verb-success", ("amount", amount), ("target", targetIdentity)), owner, user, PopupType.Medium);
+        
+        if (user != target)
+        {
+            _popupSystem.PopupEntity(Loc.GetString($"{prefix}-on-verb-success-other", ("amount", amount), ("target", userIdentity)), target, target, PopupType.Medium);
+        }
+
+        var bystanderFilter = Filter.PvsExcept(user).RemoveWhereAttachedEntity(e => e == target);
+        _popupSystem.PopupEntity(Loc.GetString($"{prefix}-on-verb-success-bystander", ("amount", amount), ("target", targetIdentity), ("user", userIdentity)), owner, bystanderFilter, true, PopupType.Medium);
+    }
+
     private void OnComponentInitCum(Entity<CumProducerComponent> entity, ref ComponentStartup args)
     {
         if (!_solutionContainer.EnsureSolution(entity.Owner,
@@ -99,7 +143,8 @@ public sealed class LewdTraitSystem : SharedLewdTraitSystem // HL: Move LewdTrai
             return;
 
         // Try refillable solution first (containers like beakers)
-        if (_solutionContainer.TryGetRefillableSolution(args.Args.Used.Value, out var targetSoln, out var targetSolution))
+        // Hardlight: Add SpillOnGround check
+        if (!args.SpillOnGround && _solutionContainer.TryGetRefillableSolution(args.Args.Used.Value, out var targetSoln, out var targetSolution))
         {
             args.Handled = true;
             var quantity = solution.Volume;
@@ -120,7 +165,8 @@ public sealed class LewdTraitSystem : SharedLewdTraitSystem // HL: Move LewdTrai
         }
 
         // Try injectable solution (entities like players with stomachs)
-        if (_solutionContainer.TryGetInjectableSolution(args.Args.Used.Value, out var injectSoln, out var injectSolution))
+        // Hardlight: Add SpillOnGround check
+        if (!args.SpillOnGround && _solutionContainer.TryGetInjectableSolution(args.Args.Used.Value, out var injectSoln, out var injectSolution))
         {
             args.Handled = true;
             var quantity = solution.Volume;
@@ -154,6 +200,9 @@ public sealed class LewdTraitSystem : SharedLewdTraitSystem // HL: Move LewdTrai
             // HardLight end
             return;
         }
+
+        args.Handled = true; // HardLight: Cum/Piss/Milk-on verbs
+        SpillOnGround(entity.Owner, args.Args.User, args.Args.Used!.Value, entity.Comp.Solution.Value, solution.Volume, "cum", true); // Hardlight: spill on the ground
     }
 
     private void OnDoAfterMilk(Entity<MilkProducerComponent> entity, ref MilkingDoAfterEvent args)
@@ -164,70 +213,74 @@ public sealed class LewdTraitSystem : SharedLewdTraitSystem // HL: Move LewdTrai
         if (!_solutionContainer.ResolveSolution(entity.Owner, entity.Comp.SolutionName, ref entity.Comp.Solution, out var solution))
             return;
 
-        if (!_solutionContainer.TryGetRefillableSolution(args.Args.Used.Value, out var targetSoln, out var targetSolution))
-            return;
-
-        args.Handled = true;
+        // HardLight Start: Cum/Piss/Milk-on verbs
+        var user = args.Args.User;
+        var target = args.Args.Used!.Value;
+        var source = entity.Owner;
         var quantity = solution.Volume;
         if (quantity == 0)
         {
-            // Hardlight Start
-            if (entity.Owner == args.Args.User)
-            {
-                _popupSystem.PopupEntity(Loc.GetString("milk-verb-dry"), entity.Owner, args.Args.User);
-            }
-
+            if (source == user)
+                _popupSystem.PopupEntity(Loc.GetString("milk-verb-dry"), source, user);
             else
             {
+                var sourceIdentity = Identity.Entity(source, EntityManager);
                 _popupSystem.PopupEntity(
-                    Loc.GetString("milk-verb-dry-other",
-                        ("person", Identity.Entity(entity.Owner, EntityManager))),
-                    entity.Owner,
-                    args.Args.User,
+                    Loc.GetString("milk-verb-dry-other", ("person", sourceIdentity)),
+                    source,
+                    user,
                     PopupType.Medium);
-                _popupSystem.PopupEntity(Loc.GetString("milk-verb-dry"), entity.Owner, entity.Owner);
-
+                
+                _popupSystem.PopupEntity(Loc.GetString("milk-verb-dry"), source, source);
             }
-            // Hardlight End
             return;
         }
 
-        if (quantity > targetSolution.AvailableVolume)
-            quantity = targetSolution.AvailableVolume;
+        args.Handled = true;
 
-        var split = _solutionContainer.SplitSolution(entity.Comp.Solution.Value, quantity);
-        _solutionContainer.TryAddSolution(targetSoln.Value, split);
-        // Hardlight Start
-        if (entity.Owner == args.Args.User)
+        // Cache
+        var targetIdentity = Identity.Entity(target, EntityManager);
+        var userIdentity = Identity.Entity(user, EntityManager);
+
+        // Try filling container
+        if (!args.SpillOnGround && _solutionContainer.TryGetRefillableSolution(target, out var targetSoln, out var targetSolution))
         {
-            _popupSystem.PopupEntity(
-                Loc.GetString("milk-verb-success",
-                    ("amount", quantity),
-                    ("target", Identity.Entity(args.Args.Used.Value, EntityManager))),
-                entity.Owner,
-                args.Args.User,
-                PopupType.Medium);
+            if (quantity > targetSolution.AvailableVolume)
+                quantity = targetSolution.AvailableVolume;
+
+            var split = _solutionContainer.SplitSolution(entity.Comp.Solution.Value, quantity);
+            _solutionContainer.TryAddSolution(targetSoln.Value, split);
+            
+            if (source == user)
+            {
+                _popupSystem.PopupEntity(
+                    Loc.GetString("milk-verb-success", ("amount", quantity), ("target", targetIdentity)),
+                    source,
+                    user,
+                    PopupType.Medium);
+            }
+            else
+            {
+                var sourceIdentity = Identity.Entity(source, EntityManager);
+                _popupSystem.PopupEntity(
+                    Loc.GetString("milk-verb-success-other", ("amount", quantity), ("target", targetIdentity), ("person", sourceIdentity)),
+                    source,
+                    user,
+                    PopupType.Medium);
+                    
+                _popupSystem.PopupEntity(
+                    Loc.GetString("milk-verb-success-other-self", ("amount", quantity), ("target", targetIdentity), ("person", userIdentity)),
+                    source,
+                    source,
+                    PopupType.Medium);
+            }
+            
+            return; // We can early return here to prevent redundant code.
         }
-        else
-        {
-            _popupSystem.PopupEntity(
-                Loc.GetString("milk-verb-success-other",
-                    ("amount", quantity),
-                    ("target", Identity.Entity(args.Args.Used.Value, EntityManager)),
-                    ("person", Identity.Entity(entity.Owner, EntityManager))),
-                entity.Owner,
-                args.Args.User,
-                PopupType.Medium);
-            _popupSystem.PopupEntity(
-                Loc.GetString("milk-verb-success-other-self",
-                    ("amount", quantity),
-                    ("target", Identity.Entity(args.Args.Used.Value, EntityManager)),
-                    ("person", Identity.Entity(args.Args.User, EntityManager))),
-                entity.Owner,
-                entity.Owner,
-                PopupType.Medium);
-        }
-        // Hardlight End
+
+        args.Handled = true;
+        SpillOnGround(entity.Owner, args.Args.User, args.Args.Used!.Value, entity.Comp.Solution.Value, quantity, "milk", false); // Hardlight: spill on the ground
+        // HardLight End
     }
     // Hardlight Start
     private void OnDoAfterDrinkMilk(Entity<MilkProducerComponent> entity, ref DrinkMilkDoAfterEvent args)
@@ -375,16 +428,19 @@ public sealed class LewdTraitSystem : SharedLewdTraitSystem // HL: Move LewdTrai
             _popupSystem.PopupEntity(Loc.GetString("piss-verb-success", ("amount", quantity), ("target", Identity.Entity(args.Args.Used.Value, EntityManager))), entity.Owner, args.Args.User, PopupType.Medium);
             return;
         }
+
+        args.Handled = true; // HardLight: Cum/Piss/Milk-on verbs
+        SpillOnGround(entity.Owner, args.Args.User, args.Args.Used!.Value, entity.Comp.Solution.Value, solution.Volume, "piss", true); // Hardlight: spill on the ground
     }
     #endregion
 
     #region utilities
-    protected override void AttemptCum(Entity<CumProducerComponent> lewd, EntityUid userUid, EntityUid containerUid)
+    /// <remarks>
+    /// HardLight: Cum/Piss/Milk-on verbs
+    /// </remarks>
+    private void StartLewdDoAfter(EntityUid userUid, EntityUid lewdOwner, EntityUid containerUid, SimpleDoAfterEvent doAfter, float time = 5f)
     {
-        if (!HasComp<CumProducerComponent>(userUid))
-            return;
-
-        var doargs = new DoAfterArgs(EntityManager, userUid, 5, new CummingDoAfterEvent(), lewd, lewd, used: containerUid)
+        var doargs = new DoAfterArgs(EntityManager, userUid, time, doAfter, eventTarget: lewdOwner, target: containerUid, used: containerUid)
         {
             BreakOnMove = true,
             BreakOnDamage = true,
@@ -394,19 +450,23 @@ public sealed class LewdTraitSystem : SharedLewdTraitSystem // HL: Move LewdTrai
         _doAfterSystem.TryStartDoAfter(doargs);
     }
 
-    protected override void AttemptMilk(Entity<MilkProducerComponent> lewd, EntityUid userUid, EntityUid containerUid)
+    /// <remarks>
+    /// HardLight: Cum/Piss/Milk-on verbs
+    /// </remarks>
+    protected override void AttemptCum(Entity<CumProducerComponent> lewd, EntityUid userUid, EntityUid containerUid, bool spillOnGround)
+    {
+        if (HasComp<CumProducerComponent>(userUid))
+            StartLewdDoAfter(userUid, lewd.Owner, containerUid,
+                new CummingDoAfterEvent { SpillOnGround = spillOnGround });
+    }
+
+    // HardLight: add spillOnGround
+    protected override void AttemptMilk(Entity<MilkProducerComponent> lewd, EntityUid userUid, EntityUid containerUid, bool spillOnGround)
     {
         if (!Resolve(lewd, ref lewd.Comp!))
             return;
 
-        var doargs = new DoAfterArgs(EntityManager, userUid, 5, new MilkingDoAfterEvent(), lewd, lewd, used: containerUid)
-        {
-            BreakOnMove = true,
-            BreakOnDamage = true,
-            MovementThreshold = 1.0f,
-        };
-
-        _doAfterSystem.TryStartDoAfter(doargs);
+        StartLewdDoAfter(userUid, lewd.Owner, containerUid, new MilkingDoAfterEvent { SpillOnGround = spillOnGround });
     }
 
     protected override void AttemptDrinkMilk(Entity<MilkProducerComponent> lewd, EntityUid userUid)
@@ -414,11 +474,8 @@ public sealed class LewdTraitSystem : SharedLewdTraitSystem // HL: Move LewdTrai
         if (!Resolve(lewd, ref lewd.Comp!))
             return;
 
-        var drinkSpeed = 2f;
-        if (HasComp<VoraciousComponent>(userUid))
-        {
-            drinkSpeed = 0.5f;
-        }
+        var drinkSpeed = HasComp<VoraciousComponent>(userUid) ? 0.5f : 2f;
+
         var doargs = new DoAfterArgs(EntityManager, userUid, drinkSpeed, new DrinkMilkDoAfterEvent(), lewd, lewd)
         {
             BreakOnMove = true,
@@ -445,19 +502,12 @@ public sealed class LewdTraitSystem : SharedLewdTraitSystem // HL: Move LewdTrai
     //    _doAfterSystem.TryStartDoAfter(doargs);
     //}
 
-    protected override void AttemptPiss(Entity<PissProducerComponent> lewd, EntityUid userUid, EntityUid containerUid)
+    protected override void AttemptPiss(Entity<PissProducerComponent> lewd, EntityUid userUid, EntityUid containerUid, bool spillOnGround)
     {
         if (!HasComp<PissProducerComponent>(userUid))
             return;
 
-        var doargs = new DoAfterArgs(EntityManager, userUid, 5, new PissingDoAfterEvent(), lewd, lewd, used: containerUid)
-        {
-            BreakOnMove = true,
-            BreakOnDamage = true,
-            MovementThreshold = 1.0f,
-        };
-
-        _doAfterSystem.TryStartDoAfter(doargs);
+        StartLewdDoAfter(userUid, lewd.Owner, containerUid, new PissingDoAfterEvent { SpillOnGround = spillOnGround }); // HardLight: Cum/Piss/Milk-on verbs
     }
 
     public override void Update(float frameTime)

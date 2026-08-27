@@ -6,6 +6,7 @@ namespace Content.Shared.FloofStation.Traits.Events;
 [Serializable, NetSerializable]
 public sealed partial class MilkingDoAfterEvent : SimpleDoAfterEvent
 {
+    [DataField] public bool SpillOnGround; // HardLight: Cum/Piss/Milk-on verbs
 }
 // Hardlight Start
 [Serializable, NetSerializable]

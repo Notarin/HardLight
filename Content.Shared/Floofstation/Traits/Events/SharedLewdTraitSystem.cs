@@ -22,6 +22,9 @@ public abstract class SharedLewdTraitSystem : EntitySystem
 
         //Verbs
         SubscribeLocalEvent<CumProducerComponent, GetVerbsEvent<InnateVerb>>(AddCumVerb);
+        SubscribeLocalEvent<CumProducerComponent, GetVerbsEvent<AlternativeVerb>>(AddCumOnVerb); // HardLight: Cum/Piss/Milk-on verbs
+        SubscribeLocalEvent<PissProducerComponent, GetVerbsEvent<AlternativeVerb>>(AddPissOnVerb); // HardLight: Cum/Piss/Milk-on verbs
+
         SubscribeLocalEvent<RefillableSolutionComponent, GetVerbsEvent<AlternativeVerb>>(AddRefillableInsideVerbs);
         SubscribeLocalEvent<InjectableSolutionComponent, GetVerbsEvent<AlternativeVerb>>(AddInjectableInsideVerbs);
         SubscribeLocalEvent<MilkProducerComponent, GetVerbsEvent<AlternativeVerb>>(AddMilkVerbs); // Hardlight added AlternativeVerb and additional Verb
@@ -31,8 +34,7 @@ public abstract class SharedLewdTraitSystem : EntitySystem
     {
         if (args.Using == null ||
              !args.CanInteract ||
-             args.User != args.Target ||
-             !HasComp<RefillableSolutionComponent>(args.Using.Value)) //see if removing this part lets you milk on the ground.
+             args.User != args.Target) // Hardlight: Removed solution check, we will handle it in the DoAfter itself
             return;
 
         _solutionContainer.EnsureSolution(entity.Owner, entity.Comp.SolutionName, out _);
@@ -50,10 +52,57 @@ public abstract class SharedLewdTraitSystem : EntitySystem
         args.Verbs.Add(verbCum);
     }
 
+    /// <remarks>
+    /// HardLight: Cum/Piss/Milk-on verbs
+    /// </remarks>
+    private void AddActionOnVerb<TComp>(
+        Entity<TComp> ent,
+        ref GetVerbsEvent<AlternativeVerb> args,
+        string solutionName,
+        string textLoc,
+        Action<Entity<TComp>, EntityUid, EntityUid, bool> attemptAction) where TComp : Component
+    {
+        if (!args.CanInteract || args.User != ent.Owner)
+            return;
+
+        _solutionContainer.EnsureSolution(args.User, solutionName, out _);
+
+        GetVerbsEvent<AlternativeVerb> @event = args; // Copied to make usage in lambda happy.
+        AlternativeVerb verbOn = new()
+        {
+            Act = () => attemptAction(ent, @event.User, @event.Target, true),
+            Text = Loc.GetString(textLoc),
+            Category = VerbCategory.LewdInteractionCategory,
+            Priority = -50
+        };
+        args.Verbs.Add(verbOn);
+    }
+
+    /// <remarks>
+    /// HardLight: Cum/Piss/Milk-on verbs
+    /// </remarks>
+    private void AddCumOnVerb(Entity<CumProducerComponent> ent, ref GetVerbsEvent<AlternativeVerb> args) =>
+        AddActionOnVerb(ent, ref args, ent.Comp.SolutionName, "cum-verb-on-text", AttemptCum);
+
+    /// <remarks>
+    /// HardLight: Cum/Piss/Milk-on verbs
+    /// </remarks>
+    private void AddPissOnVerb(Entity<PissProducerComponent> ent, ref GetVerbsEvent<AlternativeVerb> args) =>
+        AddActionOnVerb(ent, ref args, ent.Comp.SolutionName, "piss-verb-on-text", AttemptPiss);
+
+    /// <remarks>
+    /// HardLight: Cum/Piss/Milk-on verbs
+    /// </remarks>
+    private void AddMilkOnVerb(Entity<MilkProducerComponent> ent, ref GetVerbsEvent<AlternativeVerb> args) =>
+        AddActionOnVerb(ent, ref args, ent.Comp.SolutionName, "milk-verb-on-text", AttemptMilk);
+    // End Hardlight
+
     // Combined handler for RefillableSolutionComponent verbs (cum and piss)
     public void AddRefillableInsideVerbs(EntityUid uid, RefillableSolutionComponent component, GetVerbsEvent<AlternativeVerb> args)
     {
-        if (!args.CanInteract)
+        var usedEntity = args.Using; // HardLight: Cum/Piss/Milk-on verbs
+        var hasRefillableComponent = usedEntity != null && HasComp<RefillableSolutionComponent>(usedEntity.Value); // HardLight: Cum/Piss/Milk-on verbs
+        if (!args.CanInteract || !hasRefillableComponent) // HardLight: Cum/Piss/Milk-on verbs
             return;
 
         var user = args.User;
@@ -133,6 +182,7 @@ public abstract class SharedLewdTraitSystem : EntitySystem
 
     public void AddMilkVerbs(Entity<MilkProducerComponent> entity, ref GetVerbsEvent<AlternativeVerb> args)
     {
+        AddMilkOnVerb(entity, ref args); // HardLight: Cum/Piss/Milk-on verbs
         AddMilkVerb(entity, ref args);
         AddDrinkMilkVerb(entity, ref args);
     }
@@ -140,16 +190,18 @@ public abstract class SharedLewdTraitSystem : EntitySystem
 
     public void AddMilkVerb(Entity<MilkProducerComponent> entity, ref GetVerbsEvent<AlternativeVerb> args) // Hardlight Changed to AlternativeVerb
     {
-        if (args.Using == null ||
-             !args.CanInteract ||
-             // Hardlight removed self-cast only
-             !HasComp<RefillableSolutionComponent>(args.Using.Value)) //see if removing this part lets you milk on the ground.
-            return;
+        // HardLight Start: Cum/Piss/Milk-on verbs
+        var usingEntity = args.Using;
+        var canInteract = args.CanInteract;
+        var hasRefillableComponent = usingEntity != null && HasComp<RefillableSolutionComponent>(usingEntity.Value);
 
+        if (usingEntity == null || !canInteract || !hasRefillableComponent) // Hardlight: reverted solution check
+            return;
         _solutionContainer.EnsureSolution(entity.Owner, entity.Comp.SolutionName, out _);
 
         var user = args.User;
-        var used = args.Using.Value;
+        var used = args.Using!.Value; // hasRefillableComponent makes suppressing nullability safe.
+        // HardLight End
 
         AlternativeVerb verbMilk = new() // Hardlight Changed to AlternativeVerb
         {
@@ -209,9 +261,9 @@ public abstract class SharedLewdTraitSystem : EntitySystem
     //}
 
     // Stubs for the rest of the actual code, is handled on the Server LewdTraitSystem and we don't need the client running it too.
-    protected virtual void AttemptCum(Entity<CumProducerComponent> lewd, EntityUid userUid, EntityUid containerUid) { }
-    protected virtual void AttemptMilk(Entity<MilkProducerComponent> lewd, EntityUid userUid, EntityUid containerUid) { }
+    protected virtual void AttemptCum(Entity<CumProducerComponent> lewd, EntityUid userUid, EntityUid containerUid, bool spillOnGround = false) { } // HardLight: Cum/Piss/Milk-on verbs
+    protected virtual void AttemptMilk(Entity<MilkProducerComponent> lewd, EntityUid userUid, EntityUid containerUid, bool spillOnGround = false) { } // HardLight: Cum/Piss/Milk-on verbs
     protected virtual void AttemptDrinkMilk(Entity<MilkProducerComponent> lewd, EntityUid userUid) { }
-    protected virtual void AttemptPiss(Entity<PissProducerComponent> lewd, EntityUid userUid, EntityUid containerUid) { }
+    protected virtual void AttemptPiss(Entity<PissProducerComponent> lewd, EntityUid userUid, EntityUid containerUid, bool spillOnGround = false) { } // HardLight: Cum/Piss/Milk-on verbs
 
 }

@@ -12,3 +12,10 @@ drink-milk-verb-success-other-self = {$person} drinks {$amount}u of milk from yo
 milk-verb-get-text = Milk
 drink-milk-verb-get-text = Drink Milk
 
+# Hardlight: Add milk on localizations
+milk-verb-on-text = Milk on
+milk-on-verb-success = You milked onto {THE($target)} with {$amount}u of milk.
+milk-on-verb-success-other = You have been milked onto by {THE($target)} with {$amount}u of milk.
+milk-on-verb-success-bystander = {THE($user)} milked onto {THE($target)} with {$amount}u of milk.
+# End Hardlight
+

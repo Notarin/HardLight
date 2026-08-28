@@ -124,15 +124,14 @@
     - id: XenoQueenSpawn
     - id: FatkidSpawn
     - id: KingRatMigration
-    - id: NinjaSpawn
-    - id: ParadoxCloneSpawn
+    # - id: NinjaSpawn
+    # - id: ParadoxCloneSpawn
     # - id: RevenantSpawn
     - id: SleeperAgents
     # - id: SleeperRevolutionaries
     - id: ZombieOutbreak
-    - id: LoneOpsSpawn
     # - id: WizardSpawn
-    - id: LoneOpsSpawn
+    # - id: LoneOpsSpawn
     # - id: UnknownShuttleManOWar
     # - id: UnknownShuttleInstigator
 

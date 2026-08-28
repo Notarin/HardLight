@@ -7,6 +7,10 @@
     sprite: Floof/Objects/Consumable/Food/icecream.rsi
     layers:
     - state: bowl
+  - type: Food
+    trash:
+    - IceCreamBowl
+    utensil: Spoon
   - type: SolutionContainerManager
     solutions:
       food:

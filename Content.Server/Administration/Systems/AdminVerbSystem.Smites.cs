@@ -519,6 +519,23 @@ public sealed partial class AdminVerbSystem
         };
         args.Verbs.Add(mouse);
 
+        // Hardlight: SCURRET SMITE!!!
+        var scurretName = Loc.GetString("admin-smite-become-scurret-name").ToLowerInvariant();
+        Verb scurret = new()
+        {
+            Text = scurretName,
+            Category = VerbCategory.Smite,
+            Icon = new SpriteSpecifier.Rsi(new ("/Textures/Mobs/Animals/scurret/scurret.rsi"), "scurret"),
+            Act = () =>
+            {
+                _polymorphSystem.PolymorphEntity(args.Target, "AdminScurretSmite");
+            },
+            Impact = LogImpact.Extreme,
+            Message = string.Join(": ", scurretName, Loc.GetString("admin-smite-become-scurret-description"))
+        };
+        args.Verbs.Add(scurret);
+        // End Hardlight
+
         if (TryComp<ActorComponent>(args.Target, out var actorComponent))
         {
             var ghostKickName = Loc.GetString("admin-smite-ghostkick-name").ToLowerInvariant();

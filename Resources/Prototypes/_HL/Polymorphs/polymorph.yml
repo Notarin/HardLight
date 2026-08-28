@@ -9,3 +9,11 @@
     revertOnDeath: true
     revertOnCrit: true
     duration: 20
+
+- type: polymorph
+  id: AdminScurretSmite
+  configuration:
+    entity: MobScurret
+    forced: true
+    inventory: Drop
+    allowRepeatedMorphs: true

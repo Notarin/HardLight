@@ -244,7 +244,7 @@ Entries:
     - type: Add
       message: >-
         Exosuit mining drills now have a 60-degree wide-swing, making them
-        faster miners than handheld versions. 
+        faster miners than handheld versions.
     - type: Fix
       message: The diamond exosuit drill can now properly break supercompacted rock.
     - type: Add
@@ -416,7 +416,7 @@ Entries:
     - type: Add
       message: >-
         added basic segmented entities and a couple rainlizards for testing
-        purposes 
+        purposes
   id: 40
   time: 2026-01-14T00:31:10.000Z
 - author: Warcrazed
@@ -1109,7 +1109,7 @@ Entries:
     - type: Tweak
       message: >-
         Checks payout every second now, instead of every tick. Reduces thousands
-        of checks a second, to like, 80 tops. 
+        of checks a second, to like, 80 tops.
   id: 114
   time: 2026-02-10T07:39:29.000Z
 - author: warcrazed11
@@ -2483,7 +2483,7 @@ Entries:
     - type: Add
       message: >-
         Added Positronic jumps so borgs aren't stuck in one body and neither is
-        the AI 
+        the AI
   id: 274
   time: 2026-04-13T01:11:08.000Z
 - author: R3v3l4t1on
@@ -6067,3 +6067,9 @@ Entries:
         prototypes for custom aghosts.
   id: 678
   time: '2026-09-07T12:28:34-07:00'
+- author: Khaomi
+  changes:
+    - type: Add
+      message: Added a "All" channel checkbox to toggle all channel filters on / off
+  id: 680
+  time: '2026-09-09T20:42:14-07:00'

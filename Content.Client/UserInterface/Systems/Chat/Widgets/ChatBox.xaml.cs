@@ -49,6 +49,7 @@ public partial class ChatBox : UIWidget
         ChatInput.FilterButton.Popup.OnChannelFilter += OnChannelFilter;
         ChatInput.FilterButton.Popup.OnNewHighlights += OnNewHighlights;
         ChatInput.FilterButton.Popup.OnRadioFilterChanged += OnRadioFilterChanged;
+        ChatInput.FilterButton.Popup.OnFilterBulkUpdated += OnFilterBulkUpdated; // HardLight: Added "Toggle All" button to channel filter popup
 
         _controller = UserInterfaceManager.GetUIController<ChatUIController>();
         _controller.MessageAdded += OnMessageAdded;
@@ -127,6 +128,8 @@ public partial class ChatBox : UIWidget
     public void Repopulate()
     {
         Contents.Clear();
+        _lastLine = null; // HardLight: Added "Toggle All" button to channel filter popup
+        _lastLineRepeatCount = 0; // HardLight: Added "Toggle All" button to channel filter popup
 
         foreach (var message in _controller.History)
         {
@@ -137,6 +140,8 @@ public partial class ChatBox : UIWidget
     private void OnChannelFilter(ChatChannel channel, bool active)
     {
         Contents.Clear();
+        _lastLine = null; // HardLight: Added "Toggle All" button to channel filter popup
+        _lastLineRepeatCount = 0; // HardLight: Added "Toggle All" button to channel filter popup
 
         foreach (var message in _controller.History)
         {
@@ -153,11 +158,24 @@ public partial class ChatBox : UIWidget
     private void OnRadioFilterChanged()
     {
         Contents.Clear();
+        _lastLine = null; // HardLight: Added "Toggle All" button to channel filter popup
+        _lastLineRepeatCount = 0; // HardLight: Added "Toggle All" button to channel filter popup
         foreach (var message in _controller.History)
         {
             OnMessageAdded(message.Item2);
         }
     }
+
+    /// <summary>
+    /// Event handler for OnFilterBulkUpdated from ChannelFilterPopup.
+    /// Explicitly required method for event handler to be made.
+    /// Exists for a performance reason: Consolidated chat redraws to a single chat repopulation when multiple channels are toggled at once. Hit as many birds with one stone as you can.
+    /// Become him, the predator of birds. All that aviates shall fear your name.
+    /// </summary>
+    /// <remarks>
+    /// HardLight: Added "Toggle All" button to channel filter popup
+    /// </remarks>
+    private void OnFilterBulkUpdated() => Repopulate();
 
     private void OnNewHighlights(string highlighs)
     {
@@ -274,6 +292,7 @@ public partial class ChatBox : UIWidget
         ChatInput.Input.OnKeyBindDown -= OnInputKeyBindDown;
         ChatInput.Input.OnTextChanged -= OnTextChanged;
         ChatInput.ChannelSelector.OnChannelSelect -= OnChannelSelect;
+        ChatInput.FilterButton.Popup.OnFilterBulkUpdated -= OnFilterBulkUpdated; // HardLight: Added "Toggle All" button to channel filter popup
         _cfg.UnsubValueChanged(CCVars.CoalesceIdenticalMessages, UpdateCoalescence); // WD EDIT
     }
 }

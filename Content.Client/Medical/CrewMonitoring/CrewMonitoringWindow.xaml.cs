@@ -101,6 +101,7 @@ public sealed partial class CrewMonitoringWindow : FancyWindow
         var orderedSensors = uniqueSensors.OrderBy(n => n.Name).OrderBy(j => j.Job);
         var assignedSensors = new HashSet<SuitSensorStatus>();
         var departments = uniqueSensors.SelectMany(d => d.JobDepartments).Distinct().OrderBy(n => n);
+        departments = departments.OrderBy((department) => department == "Frontier"); // Hardlight: Any department BEFORE frontier
 
         // Create department labels and populate lists
         foreach (var department in departments)

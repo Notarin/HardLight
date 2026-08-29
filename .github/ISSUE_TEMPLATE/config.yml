@@ -2,4 +2,4 @@ contact_links:
   - name: Report a Security Vulnerability
     url: https://discord.com/channels/1380477227912925194/1424543511927197747
     about: Please report security vulnerabilities privately so we can fix them before they are publicly disclosed.
-blank_issues_enabled: false
+blank_issues_enabled: true

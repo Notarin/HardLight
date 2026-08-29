@@ -62,6 +62,18 @@ Examples:
 * Keep your PR as small and concise as possible. If you need to implement/port things for your main feature to work, PR these implementations/ports individually first
 
 
+# Git Standards
+* Update your PR via rebase instead of merge commits to keep the history clean.
+* You should try to write commit messages that actually explain what you changed and why. Don't just say "fix stuff" or "wip".
+* You *may* make commits that don't have proper messages, but it will have to be fixed by you or a maintainer before it's merged.
+* Keep commits focused on one thing. If you've got a massive commit that's hard to review, we might ask you to split it up.
+* For big features, break them into logical steps ("add new ahelp system", "move submitted ahelps to new system", "move entity log to use new ahelp system").
+* It is a good idea to turn on "allow edits from maintainers" for your PRs. We can help clean up your git history.
+* If you don't let us edit your PR and it needs git cleanup, you'll need to fix it yourself or give us the permission to help.
+* If your git history is a complete mess that we can't reasonably fix, you'll need to clean it up yourself before we can merge it.
+* The nicer your git history looks, the faster we can review and merge your PR.
+
+
 # Testing Guidelines
 * When building and starting the game, no new errors or warnings shall appear in either the server or client console
 * Every aspect of your change should be tested

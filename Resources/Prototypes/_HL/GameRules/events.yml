@@ -86,7 +86,7 @@
     - id: CarpVents
     - id: MedicalBountyTargetsSpawn
     - id: TickVents
-    - id: AiVents
+    # - id: AiVents
     # - id: Cultvents
     # - id: Syndivents
     # - id: Punkvents

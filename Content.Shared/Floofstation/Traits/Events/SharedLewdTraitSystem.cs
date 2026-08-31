@@ -46,7 +46,7 @@ public abstract class SharedLewdTraitSystem : EntitySystem
             Act = () => AttemptCum(entity, user, used),
             Text = Loc.GetString($"cum-verb-get-text"),
             Category = VerbCategory.LewdInteractionCategory, // Hardlight: add verb category
-            Priority = 1
+            Priority = -50 // HardLight: 1<-50; Should never happen as an alt+click verb unless absolutely no other alt-click verbs are available.
         };
         args.Verbs.Add(verbCum);
     }

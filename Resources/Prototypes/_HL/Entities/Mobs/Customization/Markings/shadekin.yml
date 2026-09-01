@@ -247,3 +247,37 @@
     state: stingers_primary
   - sprite: Mobs/Customization/Arachnid/appendages.rsi
     state: stingers_secondary
+
+# Big variant dual colored tail
+- type: marking
+  id: TailShadekinBigTwoColored
+  bodyPart: Tail
+  markingCategory: Tail
+  speciesRestriction: [Shadekin, ProtoKin]
+  sprites:
+    - sprite: _HL/Mobs/Customization/Shadekin/shadekintails64x32.rsi
+      state: shadekin_dual_color_primary
+    - sprite: _HL/Mobs/Customization/Shadekin/shadekintails64x32.rsi
+      state: shadekin_dual_color_secondary
+
+# Normal ear dual color variant
+- type: marking
+  id: EarsShadekinDualColor
+  bodyPart: HeadTop
+  markingCategory: HeadTop
+  speciesRestriction: [Shadekin, ProtoKin]
+  sprites:
+    - sprite: _HL/Mobs/Customization/Shadekin/shadekinears.rsi
+      state: dual_color_primary
+    - sprite: _HL/Mobs/Customization/Shadekin/shadekinears.rsi
+      state: dual_color_secondary
+
+# Short hair
+- type: marking
+  id: ShadekinHairShort
+  bodyPart: Hair
+  markingCategory: Hair
+  speciesRestriction: [Shadekin, ProtoKin]
+  sprites:
+    - sprite: _HL/Mobs/Customization/Shadekin/shadekinhair.rsi
+      state: shadekin_short

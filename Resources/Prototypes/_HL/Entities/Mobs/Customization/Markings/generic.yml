@@ -21,3 +21,11 @@
   sprites:
     - sprite: _HL/Mobs/Customization/Generic/bonemask.rsi
       state: SocketsBonemask-marking-head
+
+- type: marking
+  id: Neckfur
+  bodyPart: Tail
+  markingCategory: Overlay
+  sprites:
+    - sprite: _HL/Mobs/Customization/Generic/neckfur.rsi
+      state: Neckfur

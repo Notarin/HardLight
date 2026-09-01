@@ -77,3 +77,9 @@ marking-ShadekinArachnidAppendagesZigZag = Appendages (ZigZag)
 marking-ShadekinArachnidAppendagesStingers-stingers_primary = Appendage
 marking-ShadekinArachnidAppendagesStingers-stingers_secondary = Stripes
 marking-ShadekinArachnidAppendagesStingers = Appendages (Stringer)
+
+marking-EarsShadekinDualColor = DualColor
+
+marking-TailShadekinBigTwoColored = Big, Two-Toned
+
+marking-ShadekinHairShort = Shadekin Short hair

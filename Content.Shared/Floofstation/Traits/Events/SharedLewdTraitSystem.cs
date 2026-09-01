@@ -16,7 +16,6 @@ namespace Content.Shared.FloofStation.Traits.Events;
 public abstract class SharedLewdTraitSystem : EntitySystem
 {
     [Dependency] private readonly SharedSolutionContainerSystem _solutionContainer = default!;
-
     public override void Initialize()
     {
         base.Initialize();

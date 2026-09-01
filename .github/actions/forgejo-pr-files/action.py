@@ -87,9 +87,9 @@ removedFormatted = ''
 renamedFormatted = ''
 
 if output_format == 'space-delimited':
-    for f in out_all:
-        if f['filename'].find(' ') != -1: # At least one file has a space
-            sys.exit('One of your files includes a space. Consider using a different output format or removing spaces from your filenames.')
+    file_with_space = list(filter(lambda f: f['filename'].find(' ') != -1, out_all))
+    if len(file_with_space) > 0:
+        sys.exit('One of your files includes a space. Consider using a different output format or removing spaces from your filenames.\n' + '\n'.join(f['filename'] for f in file_with_space))
     allFormatted = ' '.join(f['filename'] for f in out_all)
     addedFormatted = ' '.join(f['filename'] for f in out_added)
     modifiedFormatted = ' '.join(f['filename'] for f in out_modified)

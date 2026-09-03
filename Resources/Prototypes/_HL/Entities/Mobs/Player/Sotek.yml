@@ -84,7 +84,7 @@
   id: MobDragonThalmyr
   suffix: ""
   name: Thalmyr
-  description: Space dragon
+  description: A friendly space dragon free from the control and corruption of the carps, greenchipped by CC.
   components:
   - type: Sprite
     sprite: _HL/Mobs/Characters/thalmyr.rsi
@@ -107,7 +107,6 @@
   - type: Tag
     tags:
     - CanPilot
-    - FootstepSound
     - DoorBumpOpener
     - CannotSuicide
     - ResinStructures

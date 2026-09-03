@@ -447,6 +447,8 @@
 - type: entity
   id: Shibaborg
   parent: [wolfborg]
+  name: Hiro
+  description: A shiba inu that looks surprisingly real. Good boy.
   components:
   - type: Sprite
     sprite: _HL/Mobs/Player/borgs/quads.rsi
@@ -462,6 +464,10 @@
       shader: unshaded
       map: ["light"]
       visible: false
+  - type: ContainerFill
+    containers:
+      borg_module:
+        - BorgModuleStorage
   - type: SpriteMovement
     movementLayers:
       movement:
@@ -479,6 +485,21 @@
       sprite: _HL/Mobs/Player/borgs/quads.rsi
       state: shiba
     name: cyborg
+  - type: BorgChassis
+    maxModules: 10
+    moduleWhitelist:
+      tags:
+        - BorgModuleGeneric
+        - XenoborgModuleGeneric
+        - BorgModuleSecurity
+        - BorgModuleSyndicate
+        - BorgModuleSyndicateAssault
+        - BorgModuleMedical
+        - BorgModuleEngineering
+        - BorgModuleScience
+        - BorgModuleService
+        - BorgModuleCargo
+        - BorgModuleJanitor
   - type: SpriteStateToggle
     spriteLayer: enum.ToggleVisuals.Layer
     stateOff: shiba
@@ -486,6 +507,17 @@
     #VisibleWhenEnabled: true
     movementStateOff: shiba_moving
     movementStateOn: shiba_movingballz
+  - type: MeleeWeapon
+    altDisarm: false
+    angle: 0
+    animation: WeaponArcBite
+    wideAnimation: WeaponArcBite
+    soundHit:
+      path: /Audio/Effects/bite.ogg
+    damage:
+      types:
+        Piercing: 6
+    mustBeEquippedToUse: false
 
 - type: entity
   id: wolfborg

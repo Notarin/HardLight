@@ -329,9 +329,6 @@ public sealed class RoomGridSpawnerSystem : EntitySystem
         foreach (var entity in from entity in entities
                                where !excludeFromCheckingBans.Contains(entity)
                                let isBanned = _saveBanApi.CheckForRestrictions(entity) is SaveBanApi.SaveBanResult.IsSaveRestricted
-                               {
-                                   Ban.Strictness: SaveBanStore.SaveRestrictionStrictness.TotalBan,
-                               }
                                where isBanned
                                select entity)
         {

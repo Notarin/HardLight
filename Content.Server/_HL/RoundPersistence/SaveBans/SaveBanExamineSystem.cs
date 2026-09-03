@@ -28,14 +28,9 @@ public sealed class SaveBanExamineSystem: EntitySystem
             return;
         var texture = restrictions switch
         {
-            SaveBanApi.SaveBanResult.ContainsSaveRestricted containsSaveRestricted => SaveBanApi
-                .FlattenRestrictions(containsSaveRestricted)
-                .Any(r => r.Ban.Strictness is SaveBanStore.SaveRestrictionStrictness.TotalBan)
-                ? "/Textures/_HL/Interface/VerbIcons/containsBanned.png"
-                : "/Textures/_HL/Interface/VerbIcons/containsRestricted.png",
-            SaveBanApi.SaveBanResult.IsSaveRestricted =>
-                "/Textures/_HL/Interface/VerbIcons/banned.png",
-            _ => throw new ArgumentOutOfRangeException(nameof(uid)),
+            SaveBanApi.SaveBanResult.ContainsSaveRestricted => "/Textures/_HL/Interface/VerbIcons/containsBanned.png",
+            SaveBanApi.SaveBanResult.IsSaveRestricted => "/Textures/_HL/Interface/VerbIcons/banned.png",
+            _ => throw new ArgumentOutOfRangeException(nameof(restrictions)),
         };
 
         var bodyText = restrictions switch
@@ -68,23 +63,10 @@ public sealed class SaveBanExamineSystem: EntitySystem
     {
         var name = Name(restriction.EntityUid);
 
-        return restriction.Ban.Strictness switch
-        {
-            SaveBanStore.SaveRestrictionStrictness.TotalBan =>
-                Loc.GetString(
-                    "saveban-hover-item-listing-restricted",
-                    ("variant", "banned"),
-                    ("name", name),
-                    ("reason", restriction.Ban.Reason)),
-
-            SaveBanStore.SaveRestrictionStrictness.PartialBan =>
-                Loc.GetString(
-                    "saveban-hover-item-listing-restricted",
-                    ("variant", "restricted"),
-                    ("name", name),
-                    ("reason", restriction.Ban.Reason)),
-
-            _ => throw new ArgumentOutOfRangeException(),
-        };
+        return Loc.GetString(
+            "saveban-hover-item-listing-restricted",
+            ("variant", "banned"),
+            ("name", name),
+            ("reason", restriction.Ban.Reason));
     }
 }

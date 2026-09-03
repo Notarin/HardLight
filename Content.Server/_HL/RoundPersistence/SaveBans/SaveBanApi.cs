@@ -25,13 +25,11 @@ public sealed class SaveBanApi : EntitySystem
             .SelectMany(ban =>
                 ban.Prototypes.Select(prototype =>
                         SaveBanStore.SaveBan.Entity(prototype,
-                            ban.Reason,
-                            new SaveBanStore.SaveRestrictionStrictness.TotalBan()))
+                            ban.Reason))
                     .Concat(
                         ban.Components.Select(component =>
                             SaveBanStore.SaveBan.Component(component,
-                                ban.Reason,
-                                new SaveBanStore.SaveRestrictionStrictness.TotalBan()))
+                                ban.Reason))
                     ))
             .ToList();
     }

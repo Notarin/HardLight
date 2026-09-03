@@ -44,7 +44,8 @@ public abstract class SharedLewdTraitSystem : EntitySystem
         {
             Act = () => AttemptCum(entity, user, used),
             Text = Loc.GetString($"cum-verb-get-text"),
-            Priority = 1
+            Category = VerbCategory.LewdInteractionCategory, // Hardlight: add verb category
+            Priority = -50 // HardLight: 1<-50; Should never happen as an alt+click verb unless absolutely no other alt-click verbs are available.
         };
         args.Verbs.Add(verbCum);
     }
@@ -67,6 +68,7 @@ public abstract class SharedLewdTraitSystem : EntitySystem
             {
                 Act = () => AttemptCum((args.User, cumProducer), user, target),
                 Text = Loc.GetString("cum-verb-inside-text"),
+                Category = VerbCategory.LewdInteractionCategory, // Hardlight: add verb category
                 Priority = -50 // HardLight: 2<-50; Should never happen as an alt+click verb unless absolutely no other alt-click verbs are available.
             };
             args.Verbs.Add(verbCumInside);
@@ -81,6 +83,7 @@ public abstract class SharedLewdTraitSystem : EntitySystem
             {
                 Act = () => AttemptPiss((args.User, pissProducer), user, target),
                 Text = Loc.GetString("piss-verb-inside-text"),
+                Category = VerbCategory.LewdInteractionCategory, // Hardlight: add lewd verb category
                 Priority = -50 // HardLight: 2<-50; Should never happen as an alt+click verb unless absolutely no other alt-click verbs are available.
             };
             args.Verbs.Add(verbPissInside);
@@ -105,6 +108,7 @@ public abstract class SharedLewdTraitSystem : EntitySystem
             {
                 Act = () => AttemptCum((args.User, cumProducer), user, target),
                 Text = Loc.GetString("cum-verb-inside-text"),
+                Category = VerbCategory.LewdInteractionCategory, // Hardlight: add lewd verb category
                 Priority = -50 // HardLight: 2<-50; Should never happen as an alt+click verb unless absolutely no other alt-click verbs are available.
             };
             args.Verbs.Add(verbCumInside);
@@ -119,6 +123,7 @@ public abstract class SharedLewdTraitSystem : EntitySystem
             {
                 Act = () => AttemptPiss((args.User, pissProducer), user, target),
                 Text = Loc.GetString("piss-verb-inside-text"),
+                Category = VerbCategory.LewdInteractionCategory, // Hardlight: add lewd verb category
                 Priority = -50 // HardLight: 2<-50; Should never happen as an alt+click verb unless absolutely no other alt-click verbs are available.
             };
             args.Verbs.Add(verbPissInside);
@@ -150,7 +155,8 @@ public abstract class SharedLewdTraitSystem : EntitySystem
         {
             Act = () => AttemptMilk(entity, user, used),
             Text = Loc.GetString($"milk-verb-get-text"),
-            Priority = 1
+            Category = VerbCategory.LewdInteractionCategory, // Hardlight: add lewd verb category
+            Priority = -50 // HardLight: 1<-50; Should never happen as an alt+click verb unless absolutely no other alt-click verbs are available.
         };
         args.Verbs.Add(verbMilk);
     }
@@ -169,7 +175,8 @@ public abstract class SharedLewdTraitSystem : EntitySystem
         {
             Act = () => AttemptDrinkMilk(entity, user),
             Text = Loc.GetString($"drink-milk-verb-get-text"),
-            Priority = 1
+            Category = VerbCategory.LewdInteractionCategory, // Hardlight: add lewd verb category
+            Priority = -50 // HardLight: 1<-50; Should never happen as an alt+click verb unless absolutely no other alt-click verbs are available.
         };
         args.Verbs.Add(verbDrinkMilk);
     }
@@ -195,7 +202,8 @@ public abstract class SharedLewdTraitSystem : EntitySystem
     //    {
     //        Act = () => AttemptSquirt(entity, user, used),
     //        Text = Loc.GetString($"squirt-verb-get-text"),
-    //        Priority = 1
+    //        Category = LewdInteractionCategory, // Hardlight: add verb category
+    //        Priority = -50 // HardLight: 1<-50; Should never happen as an alt+click verb unless absolutely no other alt-click verbs are available.
     //    };
     //    args.Verbs.Add(verbSquirt);
     //}

@@ -1,4 +1,5 @@
 verb-categories-undies = Modify Markings
+verb-categories-lewd = Lewd Interact
 
 # integrated from floof's modifyundies into HardLight's ModifyMarkings system.
 modify-undies-verb-text = {$isVisible ->

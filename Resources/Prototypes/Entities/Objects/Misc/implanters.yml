@@ -128,7 +128,7 @@
 
 - type: entity
   id: BaseImplantOnlyImplanterSyndi
-  parent: [BaseImplantOnlyImplanter, BaseC3SyndicateContraband] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  parent: [BaseImplantOnlyImplanter, HLBaseC3Contraband] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
   name: syndicate implanter
   description: A compact disposable syringe exclusively designed for the injection of subdermal implants. Make sure to scrub it with soap or a rag to remove residual DNA after use!
   abstract: true
@@ -300,7 +300,7 @@
 - type: entity
   id: MindShieldImplanter
   name: mindshield implanter
-  parent: [ BaseC2ContrabandUnredeemable, BaseImplantOnlyImplanter ] # Frontier: add BaseC2ContrabandUnredeemable
+  parent: [ HLBaseC3Contraband, BaseImplantOnlyImplanter ] # Frontier: add BaseC2ContrabandUnredeemable
   suffix: mindshield
   components:
     - type: Implanter

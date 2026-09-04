@@ -1,6 +1,6 @@
 - type: entity
   name: viper
-  parent: [WeaponPistolViper] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  parent: [HLBaseC3Contraband, WeaponPistolViper] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
   id: SWeaponPistolViper
   components:
   - type: GunDamageModifier
@@ -8,7 +8,7 @@
     
 - type: entity
   name: Python
-  parent: [WeaponRevolverPythonAP] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  parent: [HLBaseC3Contraband, WeaponRevolverPythonAP] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
   id: SWeaponRevolverPythonAP
   components:
   - type: GunDamageModifier
@@ -16,7 +16,7 @@
     
 - type: entity
   name: Cobra
-  parent: [WeaponPistolCobra] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  parent: [HLBaseC3Contraband, WeaponPistolCobra] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
   id: SWeaponPistolCobra
   components:
   - type: GunDamageModifier
@@ -24,7 +24,7 @@
 
 - type: entity
   name: Mosin
-  parent: [WeaponSniperMosin] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  parent: [HLBaseC3Contraband, WeaponSniperMosin] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
   id: SWeaponSniperMosin
   components:
   - type: GunDamageModifier
@@ -32,7 +32,7 @@
 
 - type: entity
   name: Hristov
-  parent: [WeaponSniperHristov] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  parent: [HLBaseC3Contraband, WeaponSniperHristov] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
   id: SWeaponSniperHristov
   components:
   - type: GunDamageModifier
@@ -40,7 +40,7 @@
 
 - type: entity
   name: C20r
-  parent: [WeaponSubMachineGunC20r] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  parent: [HLBaseC3Contraband, WeaponSubMachineGunC20r] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
   id: SWeaponSubMachineGunC20r
   components:
   - type: GunDamageModifier
@@ -48,7 +48,7 @@
 
 - type: entity
   name: Bulldog
-  parent: [WeaponShotgunBulldog] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  parent: [HLBaseC3Contraband, WeaponShotgunBulldog] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
   id: SWeaponShotgunBulldog
   components:
   - type: GunDamageModifier
@@ -56,7 +56,7 @@
 
 - type: entity
   name: L6 Saw
-  parent: [WeaponLightMachineGunL6] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  parent: [HLBaseC3Contraband, WeaponLightMachineGunL6] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
   id: SWeaponLightMachineGunL6
   components:
   - type: GunDamageModifier
@@ -64,7 +64,7 @@
     
 - type: entity
   name: L6 Saw
-  parent: [WeaponLightMachineGunL6C] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  parent: [HLBaseC3Contraband, WeaponLightMachineGunL6C] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
   id: SWeaponLightMachineGunL6C
   components:
   - type: GunDamageModifier
@@ -72,7 +72,7 @@
 
 - type: entity
   name: Atreides
-  parent: [WeaponSubMachineGunAtreides] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  parent: [HLBaseC3Contraband, WeaponSubMachineGunAtreides] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
   id: SWeaponSubMachineGunAtreides
   components:
   - type: GunDamageModifier
@@ -80,7 +80,7 @@
 
 - type: entity
   name: China lake
-  parent: [WeaponLauncherChinaLake] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  parent: [HLBaseC3Contraband, WeaponLauncherChinaLake] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
   id: SWeaponLauncherChinaLake
   components:
   - type: GunDamageModifier
@@ -88,7 +88,7 @@
     
 - type: entity
   name: M90 GL
-  parent: [WeaponRifleM90GrenadeLauncher] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  parent: [HLBaseC3Contraband, WeaponRifleM90GrenadeLauncher] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
   id: SWeaponRifleM90GrenadeLauncher
   components:
   - type: GunDamageModifier
@@ -96,7 +96,7 @@
 
 - type: entity
   name: Echis
-  parent: [NFWeaponPistolEchis] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  parent: [HLBaseC3Contraband, NFWeaponPistolEchis] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
   id: SWeaponPistolEchis
   components:
   - type: GunDamageModifier
@@ -104,7 +104,7 @@
     
 - type: entity
   name: Flamethrower
-  parent: [WeaponFlamethrowerFG] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  parent: [HLBaseC3Contraband, WeaponFlamethrowerFG] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
   id: SWeaponFlamethrowerFG
   components:
   - type: GunDamageModifier
@@ -112,7 +112,7 @@
     
 - type: entity
   name: Energy Sword
-  parent: [EnergySword] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  parent: [HLBaseC3Contraband, EnergySword] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
   id: SEnergySword
   components:
   - type: MeleeDamageModifier
@@ -131,7 +131,7 @@
     
 - type: entity
   name: Energy Dagger
-  parent: [EnergyDagger] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  parent: [HLBaseC3Contraband, EnergyDagger] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
   id: SEnergyDagger
   components:
   - type: MeleeDamageModifier
@@ -150,7 +150,7 @@
     
 - type: entity
   name: Gloves of the north star
-  parent: [ClothingHandsGlovesNorthStar] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  parent: [HLBaseC3Contraband, ClothingHandsGlovesNorthStar] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
   id: SClothingHandsGlovesNorthStar
   components:
   - type: MeleeWeapon
@@ -166,7 +166,7 @@
     
 - type: entity
   name: Knuckle dusters
-  parent: [ClothingHandsKnuckleDustersSyndicate] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  parent: [HLBaseC3Contraband, ClothingHandsKnuckleDustersSyndicate] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
   id: SClothingHandsKnuckleDustersSyndicate
   components:
   - type: MeleeWeapon
@@ -183,7 +183,7 @@
 - type: entity
   name: explosive grenade
   description: Grenade that creates a small but devastating explosion.
-  parent: [ExGrenade] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  parent: [HLBaseC3Contraband, ExGrenade] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
   id: SExGrenade
   components:
   - type: Explosive
@@ -196,7 +196,7 @@
 - type: entity
   name: syndicate minibomb
   description: A syndicate-manufactured explosive used to stow destruction and cause chaos.
-  parent: [SyndieMiniBomb] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  parent: [HLBaseC3Contraband, SyndieMiniBomb] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
   id: SSyndieMiniBomb
   components:
   - type: Explosive
@@ -208,7 +208,7 @@
 - type: entity
   name: composition C-4
   description: Used to put holes in specific areas without too much extra hole. A saboteur's favorite.
-  parent: [C4] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  parent: [HLBaseC3Contraband, C4] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
   id: SC4
   components:
   - type: Explosive # Powerful explosion in a very small radius. Doesn't break underplating.
@@ -219,7 +219,7 @@
     canCreateVacuum: false
 
 - type: entity
-  parent: [PenExplodingBox] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  parent: [HLBaseC3Contraband, PenExplodingBox] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
   id: SPenExplodingBox
   name: exploding pen box
   description: A small box containing an exploding pen. Packaging disintegrates when opened, leaving no evidence behind.
@@ -245,7 +245,7 @@
     canCreateVacuum: false
     
 - type: entity
-  parent: [ClusterGrenade] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  parent: [HLBaseC3Contraband, ClusterGrenade] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
   id: SClusterGrenade
   name: clustergrenade
   description: Why use one grenade when you can use three at once!
@@ -255,7 +255,7 @@
     distance: 4
     
 - type: entity
-  parent: [GrenadeShrapnel] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  parent: [HLBaseC3Contraband, GrenadeShrapnel] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
   id: SGrenadeShrapnel
   name: shrapnel grenade
   description: Releases a deadly spray of shrapnel that causes severe bleeding.
@@ -265,7 +265,7 @@
     capacity: 45
     
 - type: entity
-  parent: [GrenadeIncendiary] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
+  parent: [HLBaseC3Contraband, GrenadeIncendiary] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband
   id: SGrenadeIncendiary
   name: incendiary grenade
   description: Guaranteed to light up the mood.
@@ -275,7 +275,7 @@
     capacity: 45
     
 - type: entity
-  parent: [ClothingOuterHardsuitSyndie] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband, added ContrabandClothing as parent
+  parent: [HLBaseC3Contraband, ClothingOuterHardsuitSyndie] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband, added ContrabandClothing as parent
   id: SClothingOuterHardsuitSyndie
   name: blood-red hardsuit
   description: A heavily armored hardsuit designed for work in special operations. Property of Gorlex Marauders.
@@ -291,7 +291,7 @@
         Caustic: 0.4
 
 - type: entity
-  parent: [ClothingOuterHardsuitSyndieElite] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband, added ContrabandClothing as parent
+  parent: [HLBaseC3Contraband, ClothingOuterHardsuitSyndieElite] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband, added ContrabandClothing as parent
   id: SClothingOuterHardsuitSyndieElite
   components:
   - type: Armor
@@ -305,7 +305,7 @@
         Caustic: 0.4
 
 - type: entity
-  parent: [ClothingOuterHardsuitSyndieCommander] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband, added ContrabandClothing as parent
+  parent: [HLBaseC3Contraband, ClothingOuterHardsuitSyndieCommander] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband, added ContrabandClothing as parent
   id: SClothingOuterHardsuitSyndieCommander
   components:
   - type: Armor
@@ -319,7 +319,7 @@
         Caustic: 0.3
 
 - type: entity
-  parent: [ClothingOuterHardsuitJuggernaut] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband, added ContrabandClothing as parent
+  parent: [HLBaseC3Contraband, ClothingOuterHardsuitJuggernaut] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContraband, added ContrabandClothing as parent
   id: SClothingOuterHardsuitJuggernaut
   components:
   - type: Armor
@@ -335,7 +335,7 @@
 
 - type: entity
   name: volkite culverin
-  parent: WeaponVolkiteCulverin
+  parent: [HLBaseC3Contraband, WeaponVolkiteCulverin]
   id: CSWeaponVolkiteCulverin
   description: The culverin is the largest man portable example of volkite weaponry, and can lay down a staggering torrent of fire due to its linked back-mounted powerpack.
   components:
@@ -343,84 +343,84 @@
     multiplier: 1.3
 
 - type: entity
-  parent: WeaponPistolMk32
+  parent: [HLBaseC3Contraband, WeaponPistolMk32]
   id: CSWeaponPistolMk32
   components:
   - type: GunDamageModifier
     multiplier: 1.3
 
 - type: entity
-  parent: WeaponPistolMk58
+  parent: [HLBaseC3Contraband, WeaponPistolMk58]
   id: CSWeaponPistolMk58
   components:
   - type: GunDamageModifier
     multiplier: 1.3
   
 - type: entity
-  parent: WeaponShotgunEnforcer
+  parent: [HLBaseC3Contraband, WeaponShotgunEnforcer]
   id: CSWeaponShotgunEnforcer
   components:
   - type: GunDamageModifier
     multiplier: 1.3
     
 - type: entity
-  parent: WeaponEnergyRevolver
+  parent: [HLBaseC3Contraband, WeaponEnergyRevolver]
   id: CSWeaponEnergyRevolver
   components:
   - type: GunDamageModifier
     multiplier: 1.3
 
 - type: entity
-  parent: NFWeaponRifleAssaultLecter
+  parent: [HLBaseC3Contraband, NFWeaponRifleAssaultLecter]
   id: CSNFWeaponRifleAssaultLecter
   components:
   - type: GunDamageModifier
     multiplier: 1.3
 
 - type: entity
-  parent: NFWeaponRifleAssaultVulcan
+  parent: [HLBaseC3Contraband, NFWeaponRifleAssaultVulcan]
   id: CSNFWeaponRifleAssaultVulcan
   components:
   - type: GunDamageModifier
     multiplier: 1.3
 
 - type: entity
-  parent: NFWeaponEnergyRifleCarbine
+  parent: [HLBaseC3Contraband, NFWeaponEnergyRifleCarbine]
   id: CSNFWeaponEnergyRifleCarbine
   components:
   - type: GunDamageModifier
     multiplier: 1.3    
     
 - type: entity
-  parent: NFWeaponEnergyRifleSniperCannon
+  parent: [HLBaseC3Contraband, NFWeaponEnergyRifleSniperCannon]
   id: CSNFWeaponEnergyRifleSniperCannon
   components:
   - type: GunDamageModifier
     multiplier: 1.3 
     
 - type: entity
-  parent: NFWeaponSubMachineGunWt550
+  parent: [HLBaseC3Contraband, NFWeaponSubMachineGunWt550]
   id: CSNFWeaponSubMachineGunWt550
   components:
   - type: GunDamageModifier
     multiplier: 1.3 
     
 - type: entity
-  parent: NFWeaponSubMachineGunDrozd
+  parent: [HLBaseC3Contraband, NFWeaponSubMachineGunDrozd]
   id: CSNFWeaponSubMachineGunDrozd
   components:
   - type: GunDamageModifier
     multiplier: 1.3 
     
 - type: entity
-  parent: NFWeaponEnergySubMachineGunDeltaV
+  parent: [HLBaseC3Contraband, NFWeaponEnergySubMachineGunDeltaV]
   id: CSNFWeaponEnergySubMachineGunDeltaV
   components:
   - type: GunDamageModifier
     multiplier: 1.3 
     
 - type: entity
-  parent: NFWeaponRevolverInspector
+  parent: [HLBaseC3Contraband, NFWeaponRevolverInspector]
   id: CSNFWeaponRevolverInspector
   components:
   - type: GunDamageModifier
@@ -428,7 +428,7 @@
 
 - type: entity
   name: volkite caliver
-  parent: WeaponVolkiteCaliver
+  parent: [HLBaseC3Contraband, WeaponVolkiteCaliver]
   id: CSWeaponVolkiteCaliver
   description: The caliver is the primary rifle of the volkite family, and effective at most ranges and situations.
   components:
@@ -437,7 +437,7 @@
 
 - type: entity
   name: volkite charger
-  parent: WeaponVolkiteCharger
+  parent: [HLBaseC3Contraband, WeaponVolkiteCharger]
   id: CSWeaponVolkiteCharger
   description: The charger is a lightweight weapon with a high rate of fire, essentially filling the role of an SMG in the volkite family.
   components:
@@ -446,7 +446,7 @@
     
 - type: entity
   name: volkite Serpenta
-  parent: WeaponVolkitePistol
+  parent: [HLBaseC3Contraband, WeaponVolkitePistol]
   id: CSWeaponVolkitePistol
   description: The Serpenta is the most compact and concealable of the volkite weapons, and is often used as a sidearm by those who carry larger volkite arms.
   components:
@@ -454,7 +454,7 @@
     multiplier: 1.3
     
 - type: entity
-  parent: ClothingOuterHardsuitNfsdBronze
+  parent: [HLBaseC3Contraband, ClothingOuterHardsuitNfsdBronze]
   id: CSClothingOuterHardsuitNfsdBronze
   name: ColSec M73 tacsuit
   description: The standard-issue ColSec tacsuit for patrol duty. This bronze variant has private rank markings.
@@ -482,7 +482,7 @@
   description: The standard-issue ColSec tacsuit for patrol duty. This gold variant has senior rank markings.
         
 - type: entity
-  parent: ClothingOuterHardsuitNfsdSheriff
+  parent: [HLBaseC3Contraband, ClothingOuterHardsuitNfsdSheriff]
   id: CSClothingOuterHardsuitNfsdSheriff
   name: ColSec M92 tacsuit
   description: A heavy tacsuit, capable of taking a lot of physical damage.
@@ -498,7 +498,7 @@
         Caustic: 0.75
         
 - type: entity
-  parent: ClothingOuterHardsuitNfsdBrigmedic
+  parent: [HLBaseC3Contraband, ClothingOuterHardsuitNfsdBrigmedic]
   id: CSClothingOuterHardsuitNfsdBrigmedic
   name: ColSec M73-M tacsuit
   description: A variant of the M73 tacsuit for combat medical and NBC use. Provides greater caustic and radiation protection.
@@ -514,7 +514,7 @@
         Caustic: 0.5
         
 - type: entity
-  parent: ClothingOuterHardsuitNfsdExperimental # Jugger Suit
+  parent: [HLBaseC3Contraband, ClothingOuterHardsuitNfsdExperimental] # Jugger Suit
   id: CSClothingOuterHardsuitNfsdExperimental
   name: ColSec M92-X tacsuit
   description: A experimental modification of the M92 tacsuit for spec-ops units of ColSec. Externally the same, internally its higher-quality alloys and fabric.
@@ -530,7 +530,7 @@
         Caustic: 0.15
 
 - type: entity
-  parent: ClothingOuterHardsuitNfsdCombat
+  parent: [HLBaseC3Contraband, ClothingOuterHardsuitNfsdCombat]
   id: CSClothingOuterHardsuitNfsdCombat
   name: ColSec M93 tacsuit
   description: A heavily armored ColSec suit. Space proof, with thick armor plating at the expense of mobility.
@@ -546,7 +546,7 @@
         Caustic: 0.35
 
 - type: entity
-  parent: ClothingOuterHardsuitNfsdCommand
+  parent: [HLBaseC3Contraband, ClothingOuterHardsuitNfsdCommand]
   id: CSClothingOuterHardsuitNfsdCommand
   name: ColSec M93-C tacsuit
   description: A variant of the M93 tacsuit with slightly better plating. It isn't much extra.

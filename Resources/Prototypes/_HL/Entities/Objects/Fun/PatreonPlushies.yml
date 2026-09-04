@@ -324,3 +324,30 @@
     wideAnimationRotation: 180
     soundHit:
       path: /Audio/Floof/Voice/Vulpkanin/gekker.ogg
+
+- type: entity
+  parent: BasePlushie
+  id: PlushieENFORCER
+  name: ENFORCER Plushie
+  description: Everyone's favourite CCQ, in plushie form! Probably won't steal your brain in your sleep.
+  components:
+  - type: Sprite
+    sprite: _HL/Objects/Fun/patreon_plushies.rsi
+    state: ENFORCERPlush
+    scale: 1, 1
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_EE/Voice/IPC/whirr1.ogg
+  - type: EmitSoundOnCollide
+    sound:
+      path: /Audio/_EE/Voice/IPC/whirr1.ogg
+  - type: EmitSoundOnUse
+    sound:
+      path: /Audio/_EE/Voice/IPC/whirr1.ogg
+  - type: EmitSoundOnActivate
+    sound:
+      path: /Audio/_EE/Voice/IPC/whirr1.ogg
+  - type: MeleeWeapon
+    wideAnimationRotation: 180
+    soundHit:
+      path: /Audio/_EE/Voice/IPC/whirr1.ogg

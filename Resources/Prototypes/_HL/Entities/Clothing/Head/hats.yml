@@ -1,5 +1,5 @@
 - type: entity
-  parent: [ ClothingHeadBase, BaseColcommContraband ]
+  parent: [HLColCommBaseHead, ClothingHeadBase, BaseColcommContraband]
   id: ClothingHeadHatColcomcap
   name: directorate cap
   description: An extravagant, fancy Colonial Directorate cap.
@@ -13,7 +13,6 @@
   - type: Tag
     tags:
     - ClothMade
-    - WhitelistChameleon
     - HamsterWearable
 
 - type: entity

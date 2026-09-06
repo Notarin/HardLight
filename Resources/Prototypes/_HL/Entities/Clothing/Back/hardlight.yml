@@ -85,7 +85,7 @@
     sprite: _HL/Clothing/Back/ColNavInf/cnimachinegunner.rsi
 
 - type: entity
-  parent: [ ClothingMaskGas, BaseColcommContraband ]
+  parent: [HLColCommBaseMask, ClothingMaskGas, BaseColcommContraband]
   id: ClothingMaskGasCNI
   name: Colonial Navy gas mask
   description: A military-grade gas mask used by the Colonial Navy.
@@ -94,9 +94,6 @@
     sprite: _HL/Clothing/Mask/cni.rsi
   - type: Clothing
     sprite: _HL/Clothing/Mask/cni.rsi
-  - type: Tag
-    tags:
-    - WhitelistChameleon
   - type: HideLayerClothing
     slots:
     - Hair

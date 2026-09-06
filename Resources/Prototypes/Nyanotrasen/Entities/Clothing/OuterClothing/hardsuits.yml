@@ -1,5 +1,5 @@
 - type: entity
-  parent: ClothingOuterHardsuitERTLeader
+  parent: [HLColCommBaseOuter, ClothingOuterHardsuitERTLeader]
   id: ClothingOuterHardsuitERTCentcomm
   name: ColComm hardsuit
   components:

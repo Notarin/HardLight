@@ -1141,7 +1141,7 @@
 #Misc Outfits
 #Colonial Command
 - type: entity
-  parent: ClothingHandsBase
+  parent: [HLColCommBaseHands, ClothingHandsBase]
   id: ClothingHandsCCWarmers
   name: CC arm-warmers
   description: A pair of rather nice arm-warmers, styled for Colonial Command roles.
@@ -1158,7 +1158,7 @@
     price: 80 # Frontier
 
 - type: entity
-  parent: [ ClothingShoesBase, ClothingShoesMilitaryBase ]
+  parent: [HLColCommBaseShoes, ClothingShoesBase, ClothingShoesMilitaryBase]
   id: ClothingUnderSocksCC
   name: CC thigh-high socks
   description: A pair of thigh-high socks, styled for Colonial Command roles.
@@ -1173,7 +1173,7 @@
     price: 80 # Frontier
 
 - type: entity
-  parent: ClothingUniformBaseThongs
+  parent: [HLColCommBaseUniform, ClothingUniformBaseThongs]
   id: ClothingUniformCCThong
   name: CC thong
   description: Styled for a Colonial Command, but is this even considered a piece of clothing?

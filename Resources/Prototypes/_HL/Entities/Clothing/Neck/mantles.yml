@@ -115,7 +115,7 @@
 
 # Directorate Mantle
 - type: entity
-  parent: ClothingNeckBase
+  parent: [HLColCommBaseNeck, ClothingNeckBase]
   id: ClothingNeckMantleDirectorate
   name: directorate's mantle
   description: Worn by the acting and previous directors of the Colonial Command.
@@ -127,7 +127,7 @@
 
 # ColComm Manica
 - type: entity
-  parent: ClothingNeckBase
+  parent: [HLColCommBaseNeck, ClothingNeckBase]
   id: ClothingNeckMantleColComm
   name: Colcomm's manica
   description: A segmented arm covering for any colonial command personel. Almost exactly like the chief engineers, As you've earned the right to wear this!

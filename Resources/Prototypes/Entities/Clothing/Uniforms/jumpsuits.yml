@@ -116,7 +116,7 @@
       sprite: Clothing/Uniforms/Jumpsuit/chaplain.rsi
 
 - type: entity
-  parent: [ ClothingUniformBase, BaseColcommContraband ]
+  parent: [HLColCommBaseUniform, ClothingUniformBase, BaseColcommContraband]
   id: ClothingUniformJumpsuitCentcomAgent
   name: ColComm agent's jumpsuit
   description: A suit worn by ColComm's legal team. Smells of burnt coffee.
@@ -127,7 +127,7 @@
     sprite: Clothing/Uniforms/Jumpsuit/centcom_agent.rsi
 
 - type: entity
-  parent: [ ClothingUniformBase, BaseColcommContraband ]
+  parent: [HLColCommBaseUniform, ClothingUniformBase, BaseColcommContraband]
   id: ClothingUniformJumpsuitCentcomOfficial
   name: ColComm official's jumpsuit
   description: It's a jumpsuit worn by ColComm's officials.
@@ -138,7 +138,7 @@
     sprite: Clothing/Uniforms/Jumpsuit/centcom_official.rsi
 
 - type: entity
-  parent: [ ClothingUniformBase, BaseColcommContraband ]
+  parent: [HLColCommBaseUniform, ClothingUniformBase, BaseColcommContraband]
   id: ClothingUniformJumpsuitCentcomOfficer
   name: ColComm officer's jumpsuit
   description: It's a jumpsuit worn by ColComm Officers.
@@ -792,7 +792,7 @@
     sprite: Clothing/Uniforms/Jumpsuit/capformal.rsi
 
 - type: entity
-  parent: [ClothingUniformBase, BaseC2ContrabandUnredeemable] # Frontier: added BaseC2ContrabandUnredeemable
+  parent: [HLColCommBaseUniform, ClothingUniformBase, BaseC2ContrabandUnredeemable] # Frontier: added BaseC2ContrabandUnredeemable
   id: ClothingUniformJumpsuitCentcomFormal
   name: Colonial Command formal suit
   description: A suit for special occasions.

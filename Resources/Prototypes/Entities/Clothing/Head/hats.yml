@@ -251,7 +251,7 @@
   - type: IngestionBlocker
 
 - type: entity
-  parent: [ ClothingHeadBase, BaseColcommContraband ]
+  parent: [HLColCommBaseHead, ClothingHeadBase, BaseColcommContraband]
   id: ClothingHeadHatCentcom
   name: ColComm brand hat
   description: "It's good to be the emperor."
@@ -987,7 +987,7 @@
   - type: BlockMovement
 
 - type: entity
-  parent: [ ClothingHeadBase, BaseColcommContraband ]
+  parent: [HLColCommBaseHead, ClothingHeadBase, BaseColcommContraband]
   id: ClothingHeadHatCentcomcap
   name: ColComm cap
   description: An extravagant, fancy Colonial Commander cap.
@@ -1001,7 +1001,6 @@
   - type: Tag
     tags:
     - ClothMade
-    - WhitelistChameleon
     - HamsterWearable
 
 - type: entity

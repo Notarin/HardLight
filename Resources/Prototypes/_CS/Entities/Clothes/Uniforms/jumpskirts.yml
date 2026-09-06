@@ -175,7 +175,7 @@
     sprite: _CS/Clothes/Uniforms/Jumpskirt/coroner.rsi
 
 - type: entity
-  parent: ClothingUniformSkirtBase
+  parent: [HLColCommBaseUniform, ClothingUniformSkirtBase]
   id: ClothingUniformJumpskirtCentcomOfficial
   name: CentComm officer's suitskirt
   description: It's a suitskirt worn by CentComm's highest-tier Commanders.
@@ -186,7 +186,7 @@
       sprite: _CS/Clothes/Uniforms/Jumpskirt/centcom_official.rsi
 
 - type: entity
-  parent: ClothingUniformSkirtBase
+  parent: [HLColCommBaseUniform, ClothingUniformSkirtBase]
   id: ClothingUniformJumpskirtCentcomOfficer
   name: CentComm turtleneck skirt
   description: A skirt version of the CentComm turtleneck, rarer and more sought after than the original.

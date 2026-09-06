@@ -6099,3 +6099,9 @@ Entries:
       message: Added a donor species for Vanilla1040
   id: 684
   time: '2026-09-12T12:35:06-07:00'
+- author: oksam
+  changes:
+    - type: Remove
+      message: Removed CC gear from chameleon clothes.
+  id: 686
+  time: '2026-09-13T04:31:02-07:00'

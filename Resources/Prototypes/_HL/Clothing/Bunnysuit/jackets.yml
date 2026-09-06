@@ -131,7 +131,7 @@
     sprite: _HL/Clothing/Bunnysuit/Jackets/magician.rsi
 
 - type: entity
-  parent: BunnyJacketBase
+  parent: [ HLColCommBaseOuter, BunnyJacketBase ]
   id: BunnyJacketColComm
   name: colonial command bunnysuit jacket
   components:

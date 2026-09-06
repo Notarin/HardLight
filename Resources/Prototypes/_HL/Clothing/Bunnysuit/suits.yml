@@ -170,7 +170,7 @@
     sprite: _HL/Clothing/Bunnysuit/Suits/janitor.rsi
 
 - type: entity
-  parent: BunnysuitBase
+  parent: [HLColCommBaseUniform, BunnysuitBase]
   id: BunnysuitColComm
   name: colonial command bunnysuit
   components:

@@ -10,7 +10,7 @@
     sprite: _Starlight/Clothing/Uniforms/Jumpskirt/pencil_tan.rsi
 
 - type: entity
-  parent: ClothingUniformSkirtBase
+  parent: [HLColCommBaseUniform, ClothingUniformSkirtBase]
   id: ClothingUniformJumpskirtPencilCentcomOfficial
   name: ColComm "pencil" style skirt 
   description: A strict green "pencil" skirt exudes authority and poise. The fitted blazer and straight skirt form an elegant silhouette, suitable for various occasions, from business meetings to a captain's dismissal.
@@ -21,7 +21,7 @@
     sprite: _Starlight/Clothing/Uniforms/Jumpskirt/pencil_centcom_official.rsi
   
 - type: entity
-  parent: ClothingUniformSkirtBase
+  parent: [HLColCommBaseUniform, ClothingUniformSkirtBase]
   id: ClothingUniformJumpskirtPencilSpecialOperationsOfficer
   name: CC Special Operations "pencil" skirt 
   description: A formal black Special Operations officer's "pencil" skirt embodies authority and sophistication. The tailored blazer and straight skirt create a refined silhouette, suitable for various occasions, from strategic meetings to... well, less conventional operations.

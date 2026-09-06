@@ -1,0 +1,6 @@
+- type: entity
+  abstract: true
+  id: HLColCommBase
+  components:
+  - type: Tag
+    tags: [] # ignore "WhitelistChameleon" tag, we don't want players impersonating CC staff. CC staff is *always* administration.

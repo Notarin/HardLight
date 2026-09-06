@@ -158,7 +158,7 @@
         state: equipped-NECK-quadborg
 
 - type: entity
-  parent: ClothingNeckCollarBase
+  parent: [HLColCommBaseNeck, ClothingNeckCollarBase]
   id: ClothingNeckCollarCC
   name: ColCom collar
   description: All bark with a whole lotta bite.

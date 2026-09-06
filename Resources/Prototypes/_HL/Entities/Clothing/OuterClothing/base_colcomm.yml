@@ -1,0 +1,5 @@
+# Currently empty but kept as groundwork for future slot-specific overrides.
+- type: entity
+  abstract: true
+  parent: HLColCommBase
+  id: HLColCommBaseOuter

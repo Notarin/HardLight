@@ -1,5 +1,5 @@
 - type: entity
-  parent: ClothingUniformBase
+  parent: [HLColCommBaseUniform, ClothingUniformBase]
   id: ClothingUniformJumpskirtCentcomDirector
   name: CC Director's jumpskirt
   description: A sharp and professional jumpskirt worn by a high-ranking member of Colonial Command.

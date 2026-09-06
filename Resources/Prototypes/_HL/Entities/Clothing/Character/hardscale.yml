@@ -10,8 +10,9 @@
     grid:
     - 0,0,7,6
 
+
 - type: entity
-  parent: ClothingMaskGasDeathSquad
+  parent: [HLColCommBaseMask, ClothingMaskGasDeathSquad]
   id: ClothingMaskGasHardscale
   name: DS gas mask
   description: A unique gas mask for Hardscale, what the hell happened to it? 
@@ -53,7 +54,7 @@
     - DoorBumpOpener
 
 - type: entity
-  parent: ClothingUniformJumpsuitDeathSquad
+  parent: [HLColCommBaseUniform, ClothingUniformJumpsuitDeathSquad]
   id: ClothingUniformJumpsuitHardscale
   name: death squad uniform
   description: Advanced armored jumpsuit used by Hardscale
@@ -64,7 +65,7 @@
     sprite: Clothing/Uniforms/Jumpsuit/hardscale.rsi
     
 - type: entity
-  parent: [ ClothingOuterHardsuitDeathsquad ]
+  parent: [HLColCommBaseOuter, ClothingOuterHardsuitDeathsquad]
   id: ClothingOuterHardsuitHardscale
   name: hardscales hardsuit
   description: An advanced hardsuit favored by Hardscale, looks like it's been through hell.
@@ -77,7 +78,7 @@
     clothingPrototype: ClothingHeadHelmetHardsuitHardscale
 
 - type: entity
-  parent: [ClothingNeckMantleHOS] # Frontier: BaseCommandContraband<BaseC2ContrabandUnredeemable
+  parent: [HLColCommBaseNeck, ClothingNeckMantleHOS] # Frontier: BaseCommandContraband<BaseC2ContrabandUnredeemable
   id: ClothingNeckMantleHardscale
   name: Hardscales mantle
   description: Not much left of this thing.
@@ -88,7 +89,7 @@
     sprite: Clothing/Neck/mantles/hardscale.rsi
     
 - type: entity
-  parent: [ ClothingHeadHelmetHardsuitDeathsquad ]
+  parent: [HLColCommBaseHead, ClothingHeadHelmetHardsuitDeathsquad]
   id: ClothingHeadHelmetHardsuitHardscale
   name: hardscales hardsuit helmet
   description: A robust helmet for special operations.

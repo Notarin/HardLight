@@ -1,6 +1,6 @@
 
 - type: entity
-  parent: ClothingUniformBase
+  parent: [HLColCommBaseUniform, ClothingUniformBase]
   id: ClothingUniformJumpsuitCentcomDirector
   name: CC Director's jumpsuit
   description: A sharp and professional jumpsuit worn by a high-ranking member of Colonial Command.

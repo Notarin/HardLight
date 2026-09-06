@@ -109,7 +109,7 @@
       sprite: Clothing/Neck/Scarfs/syndiered.rsi
 
 - type: entity
-  parent: [ ClothingScarfBase, BaseColcommContraband ]
+  parent: [HLColCommBaseNeck, ClothingScarfBase, BaseColcommContraband]
   id: ClothingNeckScarfStripedCentcom
   name: striped ColComm scarf
   description: A stylish striped Colcomm colored scarf. The perfect winter accessory for those with a keen fashion sense, and those who need to do paperwork in the cold.

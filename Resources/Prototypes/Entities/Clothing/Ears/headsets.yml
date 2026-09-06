@@ -102,7 +102,7 @@
   # HardLight end
 
 - type: entity
-  parent: [ClothingHeadset, BaseColcommContraband] # Hardlight Change from centcom to colcomm contra
+  parent: [HLColCommBaseEars, ClothingHeadset, BaseColcommContraband] # Hardlight Change from centcom to colcomm contra
   id: ClothingHeadsetCentCom
   name: ColComm headset # HardLight
   description: A headset used by the upper echelons of the Trans-Solar Federation.

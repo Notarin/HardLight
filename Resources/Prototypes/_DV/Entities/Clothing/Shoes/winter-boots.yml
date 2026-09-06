@@ -29,7 +29,7 @@
     sprite: _DV/Clothing/Shoes/Boots/winterbootsce.rsi
 
 - type: entity
-  parent: ClothingShoesBaseWinterBoots
+  parent: [HLColCommBaseShoes, ClothingShoesBaseWinterBoots]
   id: ClothingShoesBootsWinterColCom
   name: centcom winter boots
   components:

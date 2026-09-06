@@ -701,7 +701,7 @@
 - type: entity
   id: TowelColorCentcom
   name: centcom towel
-  parent: BaseTowel
+  parent: [HLColCommBaseMultiple, BaseTowel]
   components:
   - type: Sprite
     layers:

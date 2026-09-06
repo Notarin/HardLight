@@ -209,7 +209,7 @@
 # [ CYN's Engineering ColComm Hardsuit ]
 - type: entity
   id: ClothingOuterHardsuitERTCentcommEngi
-  parent: ClothingOuterHardsuitERTCentcomm
+  parent: [HLColCommBaseOuter, ClothingOuterHardsuitERTCentcomm]
   name: ColComm engineering hardsuit
   description: A colonial command hardsuit situated for engineering duties. Boasting a robust internally-lined weave to protect the wearer from a veriety of threats common in the field while being easier to stow. At the cost of some speed and low combat effectiveness.
   suffix: CYN182, Admin

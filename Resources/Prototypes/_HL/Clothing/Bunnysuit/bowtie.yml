@@ -350,7 +350,7 @@
     sprite: _HL/Clothing/Bunnysuit/Bowties/law_red.rsi
 
 - type: entity
-  parent: BowtieBase
+  parent: [HLColCommBaseNeck, BowtieBase]
   id: BowtieColComm
   name: colonial command bowtie
   components:

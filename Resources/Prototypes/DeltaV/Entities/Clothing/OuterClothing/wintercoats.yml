@@ -1,5 +1,5 @@
 - type: entity
-  parent: ClothingOuterWinterCoat
+  parent: [HLColCommBaseOuter, ClothingOuterWinterCoat]
   id: ClothingOuterWinterCCWarden
   name: Colonial Command's armored winter coat
   description: A tough, utilitarian coat designed for the wardens of Colonial Command. Reinforced kevlar plating and high quality fur allow the user to look stylish while staying protected.

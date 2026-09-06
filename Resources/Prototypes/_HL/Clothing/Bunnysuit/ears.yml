@@ -10,7 +10,7 @@
     - Bunnysuit
 
 - type: entity
-  parent: BunnyEarsBase
+  parent: [HLColCommBaseHead, BunnyEarsBase]
   id: BunnyEarsColComm
   name: colonial command bunny ears
   components:

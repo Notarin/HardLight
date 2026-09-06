@@ -66,11 +66,10 @@
 # head
 - type: entity
   id: ColComBeret
-  parent: ClothingHeadHatNfsdBeretGreen
+  parent: [HLColCommBaseHead, ClothingHeadHatNfsdBeretGreen]
   name: ColCom Beret
   description: A green beret for use by ColComm officers.
   suffix: Jax, Admin
-   #components:
 
 # neck
 # - type: entity

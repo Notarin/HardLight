@@ -96,7 +96,7 @@
   - type: IngestionBlocker
 
 - type: entity
-  parent: [ ClothingMaskGasAtmos, BaseColcommContraband ]
+  parent: [HLColCommBaseMask, ClothingMaskGasAtmos, BaseColcommContraband]
   id: ClothingMaskGasCentcom
   name: ColComm gas mask
   description: Oooh, gold and green. Fancy! This should help as you sit in your office.

@@ -32,7 +32,7 @@
     sprite: _Starlight/Clothing/Uniforms/Jumpsuit/kim.rsi
 
 - type: entity
-  parent: ClothingUniformBase
+  parent: [HLColCommBaseUniform, ClothingUniformBase]
   id: ClothingUniformJumpsuitCentcomOfficerBlack
   name: CC Special Operations uniform
   description: Special Operations Officer uniform... If you have time to read this, it's too late...

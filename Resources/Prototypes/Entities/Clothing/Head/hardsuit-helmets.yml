@@ -915,7 +915,7 @@
 
 #Deathsquad Hardsuit
 - type: entity
-  parent: [ BaseColcommContraband, ClothingHeadHardsuitBase ]
+  parent: [HLColCommBaseHead, BaseColcommContraband, ClothingHeadHardsuitBase]
   id: ClothingHeadHelmetHardsuitDeathsquad
   name: deathsquad hardsuit helmet
   description: A robust helmet for special operations.

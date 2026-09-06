@@ -1,5 +1,5 @@
 - type: entity
-  parent: ClothingNeckBase
+  parent: [HLColCommBaseNeck, ClothingNeckBase]
   id: ClothingNeckCloakCentcom
   name: Colonial Commander's cloak
   description: A pompous and elite green cloak with a nice gold trim, tailored specifically to the Colonial Commander. It's so heavy, the gold trim might be real.

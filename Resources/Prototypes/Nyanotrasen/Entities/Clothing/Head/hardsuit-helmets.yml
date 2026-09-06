@@ -1,5 +1,5 @@
 - type: entity
-  parent: ClothingHeadHelmetHardsuitERTLeader
+  parent: [HLColCommBaseHead, ClothingHeadHelmetHardsuitERTLeader]
   id: ClothingHeadHelmetHardsuitERTCentcomm
   name: ColComm hardsuit helmet
   components:

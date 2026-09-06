@@ -5991,3 +5991,11 @@ Entries:
         character
   id: 668
   time: '2026-09-06T11:14:24-07:00'
+- author: Khaomi
+  changes:
+    - type: Tweak
+      message: >-
+        Changed the crew monitoring window to sort by non-frontier member first,
+        then frontier member
+  id: 669
+  time: '2026-09-06T11:16:24-07:00'

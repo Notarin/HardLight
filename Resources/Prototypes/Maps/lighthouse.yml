@@ -81,7 +81,7 @@
         #civilian
           Passenger: [ -1, -1 ]
           # Silicon
-          #StationAi: [ 1, 1 ]
+          StationAi: [ 1, 1 ]
         # Justice added by FloofStation
           # MISSING JOB PROTOTYPE
           #ChiefJustice: [ 1, 1 ] #FloofStation

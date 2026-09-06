@@ -2303,6 +2303,9 @@
   - type: Icon
     sprite: Objects/Consumable/Drinks/ginvodkaglass.rsi
     state: icon
+  - type: Tag # Hardlight: Add tag to fix vodka bounty
+    tags:
+      - VodkaBounty
 
 - type: entity
   parent: DrinkGlass

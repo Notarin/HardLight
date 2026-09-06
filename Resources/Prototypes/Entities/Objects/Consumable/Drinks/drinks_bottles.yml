@@ -492,6 +492,10 @@
   - type: Sprite
     sprite: Objects/Consumable/Drinks/vodkabottle.rsi
   - type: Sealable
+  - type: Tag # Hardlight: Add tag to fix vodka bottle bounty
+    tags:
+      - VodkaBounty
+      - DrinkBottle
 
 - type: entity
   parent: [DrinkBottleVisualsAll, DrinkBottleGlassBaseFull]

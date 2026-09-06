@@ -336,6 +336,9 @@
   - type: GuideHelp
     guides:
     - Cloning
+    - type: Tag # Hardlight: Add tag to fix biomass bounty
+      tags:
+        - BiomassBounty
 
 - type: entity
   parent: MaterialBiomass

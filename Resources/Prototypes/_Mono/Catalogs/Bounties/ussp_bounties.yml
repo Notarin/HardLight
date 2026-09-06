@@ -61,22 +61,10 @@
   idPrefix: USSP
   entries:
   - name: ussp-bounty-name-vodka
-    amount: 1
+    amount: 2 # Hardlight: 1 -> 2 so that bounty can pass test case verifying that you cant buy 1 crate to complete the bounty.
     whitelist:
       tags:
       - VodkaBounty
-
-- type: cargoBounty
-  id: USSPBountyCivilianMech
-  reward: 50000
-  description: ussp-bounty-desc-civilian-mech
-  idPrefix: USSP
-  entries:
-  - name: ussp-bounty-name-civilian-mech
-    amount: 1
-    whitelist:
-      tags:
-      - CivilianMechBounty
 
 - type: cargoBounty
   id: USSPBountyPotato
@@ -101,18 +89,6 @@
     whitelist:
       tags:
       - BiomassBounty
-
-- type: cargoBounty
-  id: USSPBountyMilitaryMech
-  reward: 100000
-  description: ussp-bounty-desc-military-mech
-  idPrefix: NC
-  entries:
-  - name: ussp-bounty-name-military-mech
-    amount: 1
-    whitelist:
-      tags:
-      - MilitaryMechBounty
 
 - type: cargoBounty
   id: USSPBountyLaserGun

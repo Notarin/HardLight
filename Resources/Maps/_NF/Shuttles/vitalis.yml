@@ -2168,7 +2168,7 @@ entities:
     - type: Transform
       pos: -0.5,1.5
       parent: 1
-- proto: CryoPod
+- proto: Ash
   entities:
   - uid: 241
     components:

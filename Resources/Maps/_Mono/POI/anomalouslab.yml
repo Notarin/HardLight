@@ -21,8 +21,7 @@ tilemap:
   18: FloorLaundry
   3: FloorShuttleGrey
   9: FloorSteel
-  0: FloorSteelAlt
-  16: FloorSteelCheckerDark
+  16: FloorSteelCheckerDark # HL Removed FloorSteelAlt
   27: FloorSteelDamaged
   8: FloorSteelDirty
   21: FloorSteelLime
@@ -7982,7 +7981,7 @@ entities:
     - type: Transform
       pos: 11.5,24.5
       parent: 1
-- proto: Cartridge9x19mmPlasteelAP
+- proto: Ash # HL
   entities:
   - uid: 1140
     components:
@@ -8973,7 +8972,7 @@ entities:
           component: Armor
         title: null
     - type: InsideEntityStorage
-- proto: ClothingOuterHardsuitUNSAArmoredEva
+- proto: Ash # HL
   entities:
   - uid: 1301
     components:
@@ -9340,7 +9339,7 @@ entities:
     - type: Transform
       pos: -0.64668834,31.657887
       parent: 1
-- proto: CrystalMonolithic
+- proto: Ash # HL
   entities:
   - uid: 911
     components:
@@ -9516,7 +9515,7 @@ entities:
     - type: Transform
       pos: 12.5,37.5
       parent: 1
-- proto: DecalSpawnerBurns
+- proto: Ash # HL
   entities:
   - uid: 914
     components:
@@ -11245,7 +11244,7 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -1.7211926,24.26489
       parent: 1
-- proto: FloorTileItemSteelDarkMonoCommercial
+- proto: Ash # HL
   entities:
   - uid: 1350
     components:
@@ -11253,7 +11252,7 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -3.3394628,9.615294
       parent: 1
-- proto: FloorTileItemSteelMonoCommercial
+- proto: Ash # HL
   entities:
   - uid: 1348
     components:
@@ -11326,7 +11325,7 @@ entities:
       - Frezon
       - BZ
       - Healium
-      - Nitrium
+      #- Nitrium # HL
     - type: AtmosPipeColor
       color: '#99000FFF'
 - proto: GasMixerFlipped
@@ -15981,7 +15980,7 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 12.5,17.5
       parent: 1
-- proto: MobSpawnMonolithicHellLocust
+- proto: Ash # HL
   entities:
   - uid: 912
     components:
@@ -16298,7 +16297,7 @@ entities:
     - type: Transform
       pos: -4.5,14.5
       parent: 1
-- proto: PlasturaniumWindowRadProof
+- proto: Ash # HL
   entities:
   - uid: 441
     components:
@@ -17568,7 +17567,7 @@ entities:
     - type: Transform
       pos: -5.5175,16.680151
       parent: 1
-- proto: ResearchDisk35000
+- proto: Ash # HL
   entities:
   - uid: 2572
     components:
@@ -18283,7 +18282,7 @@ entities:
       rot: 3.141592653589793 rad
       pos: -22.5,31.5
       parent: 1
-- proto: SpawnLootTechDisksT1
+- proto: Ash # HL
   entities:
   - uid: 2700
     components:
@@ -18295,7 +18294,7 @@ entities:
     - type: Transform
       pos: -10.5,26.5
       parent: 1
-- proto: SpawnLootTechDisksT2Mech
+- proto: Ash
   entities:
   - uid: 2702
     components:
@@ -18318,7 +18317,7 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 10.5,13.5
       parent: 1
-- proto: SpawnVehicleWheelchair
+- proto: Ash
   entities:
   - uid: 2709
     components:

@@ -116,7 +116,7 @@
   - type: SolutionContainerManager
     solutions:
       buffer: # Goobstation - solution shitcode doesnt like max volume 0 and i dont want to rewrite AddSolution
-        maxVol: 1000000
+        maxVol: 10000 #HL 1000000 > 10000
   - type: DumpableSolution
     solution: buffer
     unlimited: true # Starlight plumbing normally turns this off but maybe not for us lmao

@@ -5999,3 +5999,9 @@ Entries:
         then frontier member
   id: 669
   time: '2026-09-06T11:16:24-07:00'
+- author: Slatebreaker
+  changes:
+    - type: Add
+      message: Added CC Approved Lawsets paper to RD's locker
+  id: 670
+  time: '2026-09-06T16:07:58-07:00'

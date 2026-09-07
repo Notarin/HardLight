@@ -336,9 +336,12 @@
   - type: GuideHelp
     guides:
     - Cloning
-    - type: Tag # Hardlight: Add tag to fix biomass bounty
-      tags:
-        - BiomassBounty
+  - type: Tag # Hardlight: Add tag to fix biomass bounty
+    tags:
+      - BiomassBounty
+      - DroneUsable
+      - RawMaterial
+      - NoPaint
 
 - type: entity
   parent: MaterialBiomass

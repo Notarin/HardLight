@@ -8314,20 +8314,20 @@ entities:
             threshold: 0.01
             enabled: True
           ignore: False
-        Nitrium:
-          lowerWarnAround:
-            threshold: 0
-            enabled: False
-          upperWarnAround:
-            threshold: 0
-            enabled: False
-          lowerBound:
-            threshold: 0
-            enabled: False
-          upperBound:
-            threshold: 0.0001
-            enabled: True
-          ignore: False
+        #Nitrium:
+        #  lowerWarnAround:
+        #    threshold: 0
+        #    enabled: False
+        #  upperWarnAround:
+        #    threshold: 0
+        #    enabled: False
+        #  lowerBound:
+        #    threshold: 0
+        #    enabled: False
+        #  upperBound:
+        #    threshold: 0.0001
+        #    enabled: True
+        #  ignore: False
         Pluoxium:
           lowerWarnAround:
             threshold: 0

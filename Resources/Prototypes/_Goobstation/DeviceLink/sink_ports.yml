@@ -91,13 +91,6 @@
   name: signal-port-name-alt-interact
   description: signal-port-description-alt-interact
 
-# Autodoc
-
-- type: sinkPort
-  id: AutomationSlotAutodocHand
-  name: signal-port-name-automation-slot-autodoc-hand
-  description: signal-port-description-automation-slot-autodoc-hand
-
 # Gas Canister
 
 - type: sinkPort

@@ -34,7 +34,7 @@
     - BaseStationSiliconLawFrontierStation
     - BaseStationRenameWarpPoints
     # - BaseStationMail
-    # - BaseStationCargoMarket # bugged
+    - BaseStationCargoMarket
     - BaseStationCryoTeleportation
   categories: [ HideSpawnMenu ]
   components:

@@ -52,9 +52,22 @@
   - type: MobMover
   - type: InputMover
   - type: MovementSpeedModifier
-    baseWalkSpeed: 3
-    baseSprintSpeed: 5
-    baseWeightlessModifier: 1.5
+    baseWalkSpeed: 4 # HardLight: 3->4
+    baseSprintSpeed: 6 # HardLight: 5->6
+    baseWeightlessModifier: 2 # HardLight: 1.5>2
+  - type: UserInterface # HardLight: Dragons get radar UI
+    interfaces:
+      enum.RadarConsoleUiKey.Key:
+        type: RadarConsoleBoundUserInterface
+  - type: IntrinsicUI # HardLight: Dragons get radar UI
+    uis:
+      enum.RadarConsoleUiKey.Key:
+        toggleAction: ActionObserverShowRadar
+  - type: RadarConsole # HardLight: Dragons get radar UI
+    maxRange: 384
+    followEntity: true
+    maxIffRange: 0
+    hideCoords: false
   - type: Sprite
     sprite: Mobs/Aliens/Carps/dragon.rsi
     noRot: true

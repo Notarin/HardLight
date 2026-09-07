@@ -3679,7 +3679,7 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -3.5,17.5
       parent: 1
-- proto: BlastDoorXenoOpen
+- proto: Ash
   entities:
   - uid: 212
     components:
@@ -9788,7 +9788,7 @@ entities:
     - type: Transform
       pos: 13.5,-7.5
       parent: 1
-- proto: ClosetMaintenanceFilledRandomMono
+- proto: Ash
   entities:
   - uid: 1425
     components:
@@ -11548,7 +11548,7 @@ entities:
       parent: 1
     - type: Fixtures
       fixtures: {}
-- proto: FoodSnackNutribrickMRE
+- proto: Ash
   entities:
   - uid: 1650
     components:
@@ -23708,7 +23708,7 @@ entities:
     - type: Transform
       pos: -0.5,4.5
       parent: 1
-- proto: WeaponTurretHeavySilicon
+- proto: Ash
   entities:
   - uid: 2688
     components:
@@ -23856,7 +23856,7 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -15.5,5.5
       parent: 1
-- proto: WindowTimedSeal
+- proto: Ash
   entities:
   - uid: 227
     components:

@@ -6969,7 +6969,7 @@ entities:
     - type: Transform
       pos: 2.5,-11.5
       parent: 1
-- proto: CryoPod
+- proto: Ash
   entities:
   - uid: 302
     components:

@@ -32,6 +32,8 @@
   - VendingMachineTankDispenserEVAPOI
   - VendingMachineVendomatPOI
   - VendingMachineYouToolPOI
+  - CryoPod
+  - CloningPod
   components:
   - ContrabandPalletConsole
   - CriminalRecordsConsole

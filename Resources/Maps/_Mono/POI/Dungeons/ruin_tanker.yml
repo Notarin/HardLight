@@ -5236,7 +5236,7 @@ entities:
       powerLoad: 5
     - type: Battery
       startingCharge: 0
-- proto: CrystalMonolithic
+- proto: Ash
   entities:
   - uid: 1449
     components:
@@ -5491,7 +5491,7 @@ entities:
     - type: Transform
       pos: -5.5,11.5
       parent: 1
-- proto: MobSpawnMonolithicHellLocust
+- proto: Ash
   entities:
   - uid: 1344
     components:

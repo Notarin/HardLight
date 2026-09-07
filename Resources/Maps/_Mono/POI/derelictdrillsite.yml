@@ -14265,7 +14265,7 @@ entities:
       rot: 3.141592653589793 rad
       pos: 10.5,26.5
       parent: 1
-- proto: LaserDrillFlatpack
+- proto: Ash
   entities:
   - uid: 2053
     components:
@@ -15840,7 +15840,7 @@ entities:
     - type: Transform
       pos: 1.5,13.5
       parent: 1
-- proto: SalvageTankSpawnerHighCapacity
+- proto: Ash
   entities:
   - uid: 2299
     components:
@@ -16213,7 +16213,7 @@ entities:
     - type: Transform
       pos: 19.5,14.5
       parent: 1
-- proto: StationLaserDrill
+- proto: Ash
   entities:
   - uid: 2350
     components:
@@ -32122,7 +32122,7 @@ entities:
     - type: Transform
       pos: 65.5,60.5
       parent: 1
-- proto: WallRockSandBananiumCrabNF
+- proto: Ash
   entities:
   - uid: 5444
     components:
@@ -32134,7 +32134,7 @@ entities:
     - type: Transform
       pos: 33.5,-4.5
       parent: 1
-- proto: WallRockSandBananiumGolem
+- proto: Ash
   entities:
   - uid: 5446
     components:
@@ -33189,14 +33189,14 @@ entities:
     - type: Transform
       pos: 74.5,20.5
       parent: 1
-- proto: WallRockSandGoldCrabNF
+- proto: Ash
   entities:
   - uid: 5655
     components:
     - type: Transform
       pos: 30.5,0.5
       parent: 1
-- proto: WallRockSandGoldGolem
+- proto: Ash
   entities:
   - uid: 5656
     components:
@@ -33208,7 +33208,7 @@ entities:
     - type: Transform
       pos: -15.5,25.5
       parent: 1
-- proto: WallRockSandIronGolem
+- proto: Ash
   entities:
   - uid: 5658
     components:
@@ -33662,7 +33662,7 @@ entities:
     - type: Transform
       pos: -18.5,34.5
       parent: 1
-- proto: WallRockSandPlasmaCrabNF
+- proto: Ash
   entities:
   - uid: 5748
     components:
@@ -34066,14 +34066,14 @@ entities:
     - type: Transform
       pos: 38.5,-6.5
       parent: 1
-- proto: WallRockSandQuartzCrabNF
+- proto: Ash
   entities:
   - uid: 5828
     components:
     - type: Transform
       pos: 65.5,11.5
       parent: 1
-- proto: WallRockSandQuartzGolem
+- proto: Ash
   entities:
   - uid: 5829
     components:
@@ -34522,14 +34522,14 @@ entities:
     - type: Transform
       pos: -29.5,27.5
       parent: 1
-- proto: WallRockSandSaltCrabNF
+- proto: Ash
   entities:
   - uid: 5918
     components:
     - type: Transform
       pos: 23.5,-5.5
       parent: 1
-- proto: WallRockSandSaltGolem
+- proto: Ash
   entities:
   - uid: 5919
     components:
@@ -34653,14 +34653,14 @@ entities:
     - type: Transform
       pos: -15.5,34.5
       parent: 1
-- proto: WallRockSandSilverCrabNF
+- proto: Ash
   entities:
   - uid: 5943
     components:
     - type: Transform
       pos: 3.5,28.5
       parent: 1
-- proto: WallRockSandSilverGolem
+- proto: Ash
   entities:
   - uid: 5944
     components:
@@ -35731,14 +35731,14 @@ entities:
     - type: Transform
       pos: -23.5,21.5
       parent: 1
-- proto: WallRockSandUraniumCrabNF
+- proto: Ash
   entities:
   - uid: 6157
     components:
     - type: Transform
       pos: 61.5,16.5
       parent: 1
-- proto: WallRockSandUraniumGolem
+- proto: Ash
   entities:
   - uid: 6158
     components:
@@ -35750,7 +35750,7 @@ entities:
     - type: Transform
       pos: 17.5,37.5
       parent: 1
-- proto: WallSolidChitin
+- proto: Ash
   entities:
   - uid: 6160
     components:
@@ -35840,7 +35840,7 @@ entities:
     - type: Transform
       pos: 13.049524,26.735025
       parent: 1
-- proto: WeaponRiflePrometheus
+- proto: Ash
   entities:
   - uid: 6175
     components:

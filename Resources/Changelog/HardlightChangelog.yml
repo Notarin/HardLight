@@ -6037,8 +6037,14 @@ Entries:
       message: Tweaked dragon role to add the RadarConsoleBoundUserInterface
     - type: Tweak
       message: Lowered Chemmaster max volume to 10000
+    - type: Add
+      message: Added Cryopods and cloning pods to the saveban list
     - type: Remove
       message: Removed standard contraband values from most things
+    - type: Remove
+      message: Removed unsaveable prototypes from shipyard
+    - type: Fix
+      message: Fixed some missing prototypes
   id: 674
   time: '2026-09-07T04:16:22-07:00'
 - author: Trylobyte

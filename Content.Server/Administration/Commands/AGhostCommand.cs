@@ -10,6 +10,7 @@ using Robust.Server.Player;
 using Robust.Shared.Console;
 using Robust.Shared.Player;
 using Content.Server._NF.CryoSleep; // Frontier
+using Robust.Shared.Prototypes;
 
 namespace Content.Server.Administration.Commands;
 
@@ -18,6 +19,7 @@ public sealed class AGhostCommand : LocalizedCommands
 {
     [Dependency] private readonly IEntityManager _entities = default!;
     [Dependency] private readonly ISharedPlayerManager _playerManager = default!;
+    [Dependency] private readonly IPrototypeManager _prototypeManager = default!; // HardLight: Customizable Aghosts
 
     public override string Command => "aghost";
     public override string Help => "aghost";
@@ -99,7 +101,8 @@ public sealed class AGhostCommand : LocalizedCommands
         var coordinates = player!.AttachedEntity != null
             ? _entities.GetComponent<TransformComponent>(player.AttachedEntity.Value).Coordinates
             : gameTicker.GetObserverSpawnPoint();
-        var ghost = _entities.SpawnEntity(GameTicker.AdminObserverPrototypeName, coordinates);
+        _prototypeManager.TryIndex(new EntProtoId(_playerManager.GetPlayerData(player.UserId).UserName + "Aghost"), out EntityPrototype? customPrototype);
+        var ghost = _entities.SpawnEntity(customPrototype ?? GameTicker.AdminObserverPrototypeName, coordinates);
         transformSystem.AttachToGridOrMap(ghost, _entities.GetComponent<TransformComponent>(ghost));
 
         if (canReturn)

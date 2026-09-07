@@ -1,0 +1,13 @@
+- type: entity
+  id: ultraHUD
+  abstract: true
+  components:
+    - type: ShowCriminalRecordIcons
+    - type: ShowJobIcons
+    - type: ShowMindShieldIcons
+    - type: ShowSyndicateIcons
+    - type: ShowHealthBars
+    - type: ShowHealthIcons
+    - type: ShowHungerIcons
+    - type: ShowThirstIcons
+    - type: ElectrocutionHUDVisuals

@@ -1,0 +1,45 @@
+- type: entity
+  id: NotarinAghostAppearance
+  abstract: true
+  components:
+  - type: Sprite
+    drawdepth: Mobs
+    sprite: Mobs/Pets/bingus.rsi
+    layers:
+      - map: ["enum.DamageStateVisualLayers.Base"]
+        state: bingus
+  - type: EmitSoundOnUse
+    sound:
+      path: /Audio/Animals/cat_meow.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Animals/cat_meow.ogg
+  - type: EmitSoundOnActivate
+    sound:
+      path: /Audio/Animals/cat_meow.ogg
+  - type: EmitSoundOnTrigger
+    sound:
+      path: /Audio/Animals/cat_meow.ogg
+  - type: EmitSoundOnCollide
+    sound:
+      path: /Audio/Animals/cat_meow.ogg
+
+- type: entity
+  parent: [AdminObserver, ultraHUD, NotarinAghostAppearance]
+  id: NotarinAghost
+  name: "Notarin"
+  description: "A silly lil guy."
+  components:
+  - type: ContentEye
+    maxZoom: 12, 12
+  - type: Clothing
+    quickEquip: false
+    sprite: _HL/Objects/Fun/HLtoys.rsi
+    equippedPrefix: lizard
+    slots:
+      - HEAD
+
+# Dev builds
+- type: entity
+  parent: [NotarinAghost]
+  id: localhost@NotarinAghost

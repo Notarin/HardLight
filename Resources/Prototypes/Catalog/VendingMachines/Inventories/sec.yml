@@ -35,6 +35,7 @@
     SecurityStimpack: 4 # _CD
     TrackingImplanter: 5
     TapeRecorderFilled: 2
+    BoxPrisonerID: 3 # HL
     # Nullspace
     ClothingEyesGlassesNullSpace: 2
     BluespaceFlasherFlatpack: 4

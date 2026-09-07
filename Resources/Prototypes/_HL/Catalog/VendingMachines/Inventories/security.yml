@@ -1,0 +1,14 @@
+- type: entity
+  name: prisoner ID box
+  parent: BoxCardboard
+  id: BoxPrisonerID
+  description: A box of prisoner ID cards. Handle with care.
+  components:
+  - type: StorageFill
+    contents:
+    - id: PrisonerIDCard
+      amount: 4
+  - type: Sprite
+    layers:
+    - state: box_security
+    - state: pda

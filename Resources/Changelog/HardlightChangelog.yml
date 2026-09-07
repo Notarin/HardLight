@@ -6027,3 +6027,15 @@ Entries:
       message: Fixed Vodka and Biomass Cargo Bounties!
   id: 673
   time: '2026-09-07T04:03:39-07:00'
+- author: Fenn
+  changes:
+    - type: Add
+      message: 'Added market functionality to stations. '
+    - type: Remove
+      message: 'Temporarily disabled midround antags that use character profiles. '
+    - type: Tweak
+      message: Tweaked dragon role to add the RadarConsoleBoundUserInterface
+    - type: Tweak
+      message: Lowered Chemmaster max volume to 10000
+  id: 674
+  time: '2026-09-07T04:16:22-07:00'

@@ -134,3 +134,52 @@
   - type: ActionGun
     action: ActionDragonsBreath
     gunProto: DragonsBreathGun
+
+- type: entity
+  parent: [ MobDragonDungeon ]
+  id: MobDragonVanilla1040
+  name: Pink The FatTailed
+  suffix: "" # Overridding suffix from parent: MobDragonDungeon
+  description: An aggresivly pink looking friendly space dragon, look's cuddleable.
+  components:
+  - type: Sprite
+    sprite: _HL/Mobs/Characters/vanilla1040.rsi
+    noRot: true
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: alive
+    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+      state: alive-unshaded
+      shader: unshaded
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      200: Critical
+      250: Dead
+  - type: Tag
+    tags:
+    - CanPilot
+    - DoorBumpOpener # From parent: BaseMobDragon
+    - CannotSuicide # From parent: BaseMobDragon
+    - ResinStructures
+  - type: Vore
+  - type: TrapAvoider
+  - type: NpcFactionMember
+    factions:
+    - PetsNT
+  - type: Access
+  - type: ComplexInteraction
+  - type: Inventory
+    templateId: friendxeno
+  - type: IdExaminable
+  - type: InventorySlots
+  - type: Stripping
+  - type: Strippable
+  - type: UserInterface
+    interfaces:
+      enum.StrippingUiKey.Key:
+        type: StrippableBoundUserInterface
+  - type: Puller
+  - type: ActionGun #Doesnt work without the whole thing
+    action: ActionDragonsBreath
+    gunProto: DragonsBreathGun

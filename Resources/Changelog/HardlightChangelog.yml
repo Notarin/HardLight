@@ -6093,3 +6093,9 @@ Entries:
       message: added a few variants of the keyhole sweater
   id: 683
   time: '2026-09-12T10:23:46-07:00'
+- author: Vanilla1040
+  changes:
+    - type: Add
+      message: Added a donor species for Vanilla1040
+  id: 684
+  time: '2026-09-12T12:35:06-07:00'

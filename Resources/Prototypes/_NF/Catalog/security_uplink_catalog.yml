@@ -905,7 +905,7 @@
       whitelist:
         tags:
           - SecurityUplink
-          
+
 - type: listing
   id: UplinkvolkitePowerPack
   name: uplink-security-volkitePowerPack-name
@@ -921,7 +921,7 @@
       whitelist:
         tags:
           - SecurityUplink
-          
+
 - type: listing
   id: UplinkSerpentia
   name: uplink-security-Serpenta-name
@@ -937,7 +937,7 @@
       whitelist:
         tags:
           - SecurityUplink
-          
+
 - type: listing
   id: UplinkvolkiteCharger
   name: uplink-security-Charger-name
@@ -953,7 +953,7 @@
       whitelist:
         tags:
           - SecurityUplink
-          
+
 - type: listing
   id: UplinkCaliver
   name: uplink-security-Caliver-name
@@ -969,7 +969,7 @@
       whitelist:
         tags:
           - SecurityUplink
-          
+
 - type: listing
   id: UplinkCulverin
   name: uplink-security-Culverin-name
@@ -1297,38 +1297,39 @@
           - SecurityUplink
 
 # Hardlight ammo addition end
+# Hardlight remove money from SecurityUplink start
+#- type: listing
+#  id: UplinkSecurityCash1000
+#  name: uplink-security-cash1000-name
+#  description: uplink-security-cash1000-desc
+#  productEntity: SpaceCash1000
+#  icon: { sprite: Objects/Economy/cash.rsi, state: cash_1000 }
+#  cost:
+#    FrontierUplinkCoin: 1
+#  categories:
+#    - UplinkSecurityUtility
+#  conditions:
+#    - !type:StoreWhitelistCondition
+#      whitelist:
+#        tags:
+#          - SecurityUplink
 
-- type: listing
-  id: UplinkSecurityCash1000
-  name: uplink-security-cash1000-name
-  description: uplink-security-cash1000-desc
-  productEntity: SpaceCash1000
-  icon: { sprite: Objects/Economy/cash.rsi, state: cash_1000 }
-  cost:
-    FrontierUplinkCoin: 1
-  categories:
-    - UplinkSecurityUtility
-  conditions:
-    - !type:StoreWhitelistCondition
-      whitelist:
-        tags:
-          - SecurityUplink
-
-- type: listing
-  id: UplinkSecurityCash100000
-  name: uplink-security-cash45000-name
-  description: uplink-security-cash1000-desc
-  productEntity: SpaceCash100000
-  icon: { sprite: Objects/Economy/cash.rsi, state: cash_25000 }
-  cost:
-    FrontierUplinkCoin: 10
-  categories:
-    - UplinkSecurityUtility
-  conditions:
-    - !type:StoreWhitelistCondition
-      whitelist:
-        tags:
-          - SecurityUplink
+#- type: listing
+#  id: UplinkSecurityCash100000
+#  name: uplink-security-cash45000-name
+#  description: uplink-security-cash1000-desc
+#  productEntity: SpaceCash100000
+#  icon: { sprite: Objects/Economy/cash.rsi, state: cash_25000 }
+#  cost:
+#    FrontierUplinkCoin: 10
+#  categories:
+#    - UplinkSecurityUtility
+#  conditions:
+#    - !type:StoreWhitelistCondition
+#      whitelist:
+#        tags:
+#          - SecurityUplink
+# Hardlight remove money from SecurityUplink end
 
 - type: listing
   id: UplinkSecurityEmpGrenadeBox

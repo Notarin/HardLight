@@ -65,21 +65,22 @@
       tags:
       - SecurityUplink
 
-- type: listing
-  id: UplinkSecurityCash45000 # HL starts : Changes the cash from 75k to using 45k
-  name: uplink-security-cash45000-name
-  description: uplink-security-cash45000-desc
-  productEntity: SpaceCashExpeditionT5 # HL ends
-  icon: { sprite: Objects/Economy/cash.rsi, state: cash_100000 } # HardLight: removed _NF; upstream rebase
-  cost:
-    FrontierUplinkCoin: 10
-  categories:
-    - UplinkSecurityUtility
-  conditions:
-    - !type:StoreWhitelistCondition
-      whitelist:
-        tags:
-          - SecurityUplink
+# HL removed money from FUC uplink
+#- type: listing
+#  id: UplinkSecurityCash45000 # HL starts : Changes the cash from 75k to using 45k
+#  name: uplink-security-cash45000-name
+#  description: uplink-security-cash45000-desc
+#  productEntity: SpaceCashExpeditionT5 # HL ends
+#  icon: { sprite: Objects/Economy/cash.rsi, state: cash_100000 } # HardLight: removed _NF; upstream rebase
+#  cost:
+#    FrontierUplinkCoin: 10
+#  categories:
+#    - UplinkSecurityUtility
+#  conditions:
+#    - !type:StoreWhitelistCondition
+#      whitelist:
+#        tags:
+#          - SecurityUplink
 
 - type: listing
   id: UplinkSecurityMagazineSubsonic

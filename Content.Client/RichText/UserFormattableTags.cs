@@ -21,6 +21,13 @@ public static class UserFormattableTags
         typeof(HeadingTag),
         typeof(ItalicTag),
         typeof(MonoTag),
-        typeof(FormTag)
+        typeof(FormTag),
+
     ];
+
+    public static readonly Dictionary<Type, string> FillableTagNames = new()
+    {
+        [typeof(FormTag)] = "form",
+
+    };
 }

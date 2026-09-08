@@ -32,7 +32,7 @@ public sealed partial class PaperComponent : Component
     [DataField("sound")]
     public SoundSpecifier? Sound { get; private set; } = new SoundCollectionSpecifier("PaperScribbles", AudioParams.Default.WithVariation(0.1f));
 
-    // Frontier: 
+    // Frontier:
     /// <summary>
     /// Sound played after writing to the paper.
     /// </summary>
@@ -67,6 +67,17 @@ public sealed partial class PaperComponent : Component
         {
             Text = text;
         }
+    }
+
+    [Serializable, NetSerializable]
+    public sealed class PaperTagReplaceMessage(string tag, int index, Dictionary<string, object?>? args)
+        : BoundUserInterfaceMessage //Hardlight
+    {
+        public readonly string Tag = tag;
+
+        public readonly int Index = index;
+
+        public readonly Dictionary<string, object?> Args = args ?? [];
     }
 
     [Serializable, NetSerializable]

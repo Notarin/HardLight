@@ -16,6 +16,7 @@ using Content.Shared.Timing; // Frontier
 using Content.Shared.Access.Systems; // Frontier
 using Content.Shared.Verbs; // Frontier
 using Content.Shared.Ghost; // Frontier
+using System.Text.RegularExpressions; // Hardlight
 
 namespace Content.Shared.Paper;
 
@@ -58,6 +59,8 @@ public sealed class PaperSystem : EntitySystem
         SubscribeLocalEvent<RandomPaperContentComponent, MapInitEvent>(OnRandomPaperContentMapInit);
 
         SubscribeLocalEvent<ActivateOnPaperOpenedComponent, PaperWriteEvent>(OnPaperWrite);
+
+        SubscribeLocalEvent<PaperComponent, PaperTagReplaceMessage>(OnTagReplace); // Hardlight
 
         _paperQuery = GetEntityQuery<PaperComponent>();
     }
@@ -475,6 +478,55 @@ public sealed class PaperSystem : EntitySystem
     {
         _uiSystem.SetUiState(entity.Owner, PaperUiKey.Key, new PaperBoundUserInterfaceState(entity.Comp.Content, entity.Comp.StampedBy, entity.Comp.Mode));
     }
+
+    #region Hardlight
+
+    /// <summary>
+    /// Main handler for the tag replace message. Reroutes toward the tag's actual handler.
+    /// </summary>
+    /// <exception cref="NotImplementedException">Thrown when the implementation was forgotten for a tag.</exception>
+    private void OnTagReplace(Entity<PaperComponent> ent, ref PaperTagReplaceMessage message)
+    {
+        var tag = message.Tag;
+        var index = message.Index;
+        var args = message.Args;
+
+        ((Action)(tag switch
+        {
+            "form" => () => ReplaceNthTag(ent, tag, index, (string)args["replacement"]!),
+
+
+            _ => () => throw new NotImplementedException($"The tag [{tag}] has no replacement method."),
+        }))();
+    }
+
+    /// <summary>
+    /// Replace the Nth fillable markup tag with replacement, index being N. This saves the paper's content.
+    /// </summary>
+    /// <param name="ent">The entity which's text is getting replaced.</param>
+    /// <param name="tag">The tag's name as passed in PaperTagReplaceMessage</param>
+    /// <param name="index">The index of the tag to replace as passed in PaperTagReplaceMessage</param>
+    /// <param name="replacement">A replacement string</param>
+    private void ReplaceNthTag(Entity<PaperComponent> ent, string tag, int index, string replacement)
+    {
+        SetContent(ent, ReplaceNthTag(ent.Comp.Content, tag, index, replacement));
+    }
+
+
+    private string ReplaceNthTag(string text, string tag, int index, string replacement)
+    {
+        var currentIndex = 0;
+
+        // Making the regex to match the indexing exactly.
+        var replacer = new Regex($"""\[\s*{Regex.Escape(tag)}(?:\s*=\s*(?:[A-Za-z0-9#]+|"[^"]*"))?(?:\s+\w+\s*(?:=\s*(?:[A-Za-z0-9#]+|"[^"]*"))?)*\s*\]""");
+
+        return replacer.Replace(text,
+                match => currentIndex++ == index
+                    ? replacement
+                    : match.Value);
+    }
+
+    #endregion
 }
 
 /// <summary>

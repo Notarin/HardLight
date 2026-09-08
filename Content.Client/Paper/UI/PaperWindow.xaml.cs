@@ -9,9 +9,7 @@ using Robust.Client.UserInterface.CustomControls;
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.XAML;
 using Robust.Shared.Utility;
-using Robust.Client.UserInterface.RichText;
 using Content.Client.UserInterface.RichText;
-using Robust.Client.UserInterface;
 using Robust.Shared.Input;
 
 namespace Content.Client.Paper.UI
@@ -41,14 +39,15 @@ namespace Content.Client.Paper.UI
         // we're able to resize this UI or not. Default to everything enabled:
         private DragMode _allowedResizeModes = ~DragMode.None;
 
-        private void OnFormClicked(int index, int maxLen)
-        {
-            OpenFormDialog(index, maxLen);
-        }
-
         public event Action<string>? OnSaved;
         public event Action? Typing; // DeltaV
         public event Action? SubmitPressed; // DeltaV
+
+        /// <summary>
+        /// Used for interactive tags.
+        /// </summary>
+        /// <seealso cref="PaperSystem.OnTagReplace"/><seealso cref="PaperBoundUserInterface"/>
+        public event Action<string, int, Dictionary<string, Object?>?>? SendTag; // Hardlight
 
         private int _MaxInputLength = -1;
         public int MaxInputLength
@@ -69,7 +68,7 @@ namespace Content.Client.Paper.UI
             IoCManager.InjectDependencies(this);
             RobustXamlLoader.Load(this);
 
-            FormTag.OnFormClicked += OnFormClicked;
+            FillableTag.OnTagClicked += OnTagClicked; //Hardlight
 
             // We can't configure the RichTextLabel contents from xaml, so do it here:
             BlankPaperIndicator.SetMessage(Loc.GetString("paper-ui-blank-page-message"), null, DefaultTextColor);
@@ -219,7 +218,6 @@ namespace Content.Client.Paper.UI
             if (WrittenTextLabel.TryGetStyleProperty<Font>("font", out var font))
             {
                 float fontLineHeight = font.GetLineHeight(1.0f);
-                FormTag.FontLineHeight = fontLineHeight;
 
                 // This positions the texture so the font baseline is on the bottom:
                 _paperContentTex.ExpandMarginTop = font.GetDescent(UIScale);
@@ -250,16 +248,15 @@ namespace Content.Client.Paper.UI
         /// </summary>
         public void Populate(PaperComponent.PaperBoundUserInterfaceState state)
         {
-            _currentRawText = state.Text;
             bool isEditing = state.Mode == PaperComponent.PaperAction.Write;
             bool wasEditing = InputContainer.Visible;
             InputContainer.Visible = isEditing;
             EditButtons.Visible = isEditing;
 
-            FormTag.Enabled = !isEditing && state.StampedBy.Count == 0;
+            FillableTag.Enabled = !isEditing && state.StampedBy.Count == 0; // Hardlight
 
             var msg = new FormattedMessage();
-            var textWithIndices = InjectFormIndices(state.Text);
+            var textWithIndices = FillableTag.IndexedText(state.Text); // Hardlight
             msg.AddMarkupPermissive(textWithIndices);
 
             // For premade documents, we want to be able to edit them rather than
@@ -338,12 +335,10 @@ namespace Content.Client.Paper.UI
             return mode & _allowedResizeModes;
         }
 
-        private string _currentRawText = "";
-
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
-            FormTag.OnFormClicked -= OnFormClicked;
+            FillableTag.OnTagClicked -= OnTagClicked; // Hardlight
         }
 
         private void RunOnSaved()
@@ -373,6 +368,26 @@ namespace Content.Client.Paper.UI
             }
         }
 
+
+        #region Hardlight
+
+        /// <summary>
+        /// Fires when a <see cref="FillableTag"/> is clicked. Will reroute toward the correct function.
+        /// </summary>
+        /// <param name="tag">A FillableTag's Name</param>
+        /// <param name="index">A FillableTag's Index in the text</param>
+        /// <param name="args">Args the FillableTag wants to pass to its click action</param>
+        public void OnTagClicked(string tag, int index, Dictionary<string, object>? args)
+        {
+            ((Action)(tag switch
+            {
+                "form" => () => OpenFormDialog(index, (int)args!["maxLen"]),
+
+
+                _ => throw new NotImplementedException($"Tag {tag} has no implemented click function in PaperWindow.xaml.cs")
+            }))();
+        }
+
         public void OpenFormDialog(int formIndex, int maxLen)
         {
             var window = new DefaultWindow
@@ -395,7 +410,7 @@ namespace Content.Client.Paper.UI
             var hbox = new BoxContainer
             {
                 Orientation = BoxContainer.LayoutOrientation.Horizontal,
-                HorizontalAlignment = Control.HAlignment.Right
+                HorizontalAlignment = HAlignment.Right
             };
 
             var ok = new Button { Text = Loc.GetString("paper-form-dialog-ok") };
@@ -408,10 +423,7 @@ namespace Content.Client.Paper.UI
                     resultText = resultText.Substring(0, maxLen);
 
                 if (!string.IsNullOrEmpty(resultText))
-                {
-                    var newText = ReplaceNthFormTag(_currentRawText, formIndex, resultText);
-                    OnSaved?.Invoke(newText);
-                }
+                    SendTag!.Invoke("form", formIndex, new Dictionary<string, object?> { ["replacement"] = resultText });
                 window.Close();
             }
 
@@ -429,75 +441,6 @@ namespace Content.Client.Paper.UI
             edit.GrabKeyboardFocus();
         }
 
-        private static string ReplaceNthFormTag(string text, int index, string replacement)
-        {
-            const string formTag = "[form";
-            var currentIndex = 0;
-            var pos = 0;
-
-            while (pos < text.Length)
-            {
-                var tagStart = text.IndexOf(formTag, pos);
-                if (tagStart == -1) break;
-
-                var tagEnd = text.IndexOf(']', tagStart);
-                if (tagEnd == -1) break;
-
-                if (currentIndex == index)
-                {
-                    return text.Substring(0, tagStart) + replacement + text.Substring(tagEnd + 1);
-                }
-
-                currentIndex++;
-                pos = tagEnd + 1;
-            }
-
-            return text;
-        }
-
-        private static string InjectFormIndices(string text)
-        {
-            const string formTag = "[form";
-            var currentIndex = 0;
-            var pos = 0;
-            var sb = new System.Text.StringBuilder();
-
-            while (pos < text.Length)
-            {
-                var tagStart = text.IndexOf(formTag, pos);
-                if (tagStart == -1)
-                {
-                    sb.Append(text.Substring(pos));
-                    break;
-                }
-
-                sb.Append(text.Substring(pos, tagStart - pos));
-
-                var tagEnd = text.IndexOf(']', tagStart);
-                if (tagEnd == -1)
-                {
-                    sb.Append(text.Substring(tagStart));
-                    break;
-                }
-
-                var tagContent = text.Substring(tagStart, tagEnd - tagStart);
-                if (tagContent.Contains(" i="))
-                {
-                    // Already has index? Should not happen but let's be safe.
-                    sb.Append(tagContent);
-                }
-                else
-                {
-                    sb.Append(tagContent);
-                    sb.Append($" i={currentIndex}");
-                }
-                sb.Append(']');
-
-                currentIndex++;
-                pos = tagEnd + 1;
-            }
-
-            return sb.ToString();
-        }
+        #endregion
     }
 }

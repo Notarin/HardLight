@@ -71,6 +71,9 @@
   - type: Tag
     tags:
     - SecurityUplink
+  - type: AccessReader #HL start
+    access: [ [ "Security" ] ]
+  - type: ActivatableUIRequiresAccess #HL end
 
 - type: entity
   parent: BaseSecurityUplinkRadio

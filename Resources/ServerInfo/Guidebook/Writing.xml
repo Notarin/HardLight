@@ -19,4 +19,14 @@ Color supports either hexadecimal or most HTML color names. For example:
 - [color=#ff0000]\[color=#ff0000\]\[\/color\][/color]
 - [color=red]\[color=red\]\[\/color\][/color]
 
+<!--Harlight-->
+### Interactive forms
+Certain sigils allow you to make the paper fillable easily without a pen :
+
+- [color=tan]\[form\][/color] can be used to make an arbitrary fillable field. You can specify a length limit with the format 
+[color=tan]\[form=n\][/color] where n is the maximum number of characters allowed. By default it will be 25.\n
+It will look like this : [color=CornflowerBlue]________[/color] when interactible.
+
+<!--Harlight end-->
+
 </Document>

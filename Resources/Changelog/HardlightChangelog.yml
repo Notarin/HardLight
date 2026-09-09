@@ -6073,3 +6073,11 @@ Entries:
       message: Added a "All" channel checkbox to toggle all channel filters on / off
   id: 680
   time: '2026-09-09T20:42:14-07:00'
+- author: ArtyTheBoog
+  changes:
+    - type: Remove
+      message: >-
+        Removed cargo request consoles that were just outside the front desk of
+        cargo on Convex, Amber, Box and Fland
+  id: 681
+  time: '2026-09-10T02:20:31-07:00'

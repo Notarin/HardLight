@@ -92796,12 +92796,14 @@ entities:
   - uid: 11439
     components:
     - type: Transform
-      pos: -22.5,-21.5
+      pos: -38.5,-20.5
       parent: 2
+- proto: Ash #Hardlight replace outside Cargo Request Computer with Ash
+  entities:
   - uid: 11440
     components:
     - type: Transform
-      pos: -38.5,-20.5
+      pos: -22.5,-21.5
       parent: 2
 - proto: ComputerCargoOrdersEngineering
   entities:

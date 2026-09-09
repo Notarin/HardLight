@@ -122272,14 +122272,15 @@ entities:
   - uid: 16289
     components:
     - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: 131.5,101.5
+      rot: -1.5707963267948966 rad
+      pos: 158.5,104.5
       parent: 2
+- proto: Ash #Hardlight replace outside Cargo Request Computer with Ash
+  entities:
   - uid: 16290
     components:
     - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: 158.5,104.5
+      pos: 131.5,101.5
       parent: 2
 - proto: ComputerCargoOrdersEngineering
   entities:

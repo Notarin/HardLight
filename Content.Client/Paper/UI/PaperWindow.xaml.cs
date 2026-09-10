@@ -442,5 +442,66 @@ namespace Content.Client.Paper.UI
         }
 
         #endregion
+
+        #region RMC14
+        private Popup? _activeCheckPopup;
+        private Button? _activeCheckButton;
+
+        /// <summary>
+        /// Opens a modal dialog allowing the user to select a check state.
+        /// </summary>
+        /// <param name="checkIndex">Zero-based index of which [check] tag to replace</param>
+        public void OpenCheckDialog(int checkIndex)
+        {
+            // Close any existing check popup
+            if (_activeCheckPopup != null)
+            {
+                if (_activeCheckButton != null)
+                    _activeCheckButton.ModulateSelfOverride = null;
+                _activeCheckPopup.Close();
+            }
+
+            // Find and highlight the check button
+            var checkButton = FindCheckButton(checkIndex);
+            if (checkButton != null)
+                checkButton.ModulateSelfOverride = Color.LightBlue;
+            _activeCheckButton = checkButton;
+
+            var popup = new Popup();
+            _activeCheckPopup = popup;
+            var vbox = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical, Margin = new Thickness(10) };
+            var hbox = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Horizontal };
+
+            var blankBtn = new Button { Text = "☐ Blank", MinWidth = 80 };
+            var checkBtn = new Button { Text = "✔ Check", MinWidth = 80 };
+            var crossBtn = new Button { Text = "✖ Cross", MinWidth = 80 };
+
+            blankBtn.OnPressed += _ => {
+                var newText = ReplaceNthCheckTag(_currentRawText, checkIndex, "☐");
+                OnSaved?.Invoke(newText);
+                CloseCheckDialog();
+            };
+
+            checkBtn.OnPressed += _ => {
+                var newText = ReplaceNthCheckTag(_currentRawText, checkIndex, "✔");
+                OnSaved?.Invoke(newText);
+                CloseCheckDialog();
+            };
+
+            crossBtn.OnPressed += _ => {
+                var newText = ReplaceNthCheckTag(_currentRawText, checkIndex, "✖");
+                OnSaved?.Invoke(newText);
+                CloseCheckDialog();
+            };
+
+            hbox.AddChild(blankBtn);
+            hbox.AddChild(checkBtn);
+            hbox.AddChild(crossBtn);
+            vbox.AddChild(hbox);
+            popup.AddChild(vbox);
+            AddChild(popup);
+            popup.Open();
+        }
+        #endregion
     }
 }

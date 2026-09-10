@@ -28,6 +28,7 @@ public static class UserFormattableTags
     public static readonly Dictionary<Type, string> FillableTagNames = new()
     {
         [typeof(FormTag)] = "form",
+        [typeof(CheckTag)] = "check",
 
     };
 }

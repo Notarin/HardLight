@@ -25,4 +25,8 @@ paper-check-tag-blank = Blank
 paper-check-tag-ok = Check
 paper-check-tag-cross = Cross
 
+paper-tag-sign-default = SIGN
+paper-tag-sign-name = NAME
+paper-tag-sign-job = JOB
+
 paper-tamper-proof-modified-message = This page was written using tamper-proof ink.

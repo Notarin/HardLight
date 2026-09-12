@@ -1,8 +1,5 @@
 name: Map file schema validator
 on:
-  push:
-    branches: [ master, staging, stable ]
-  merge_group:
   pull_request:
 
 jobs:

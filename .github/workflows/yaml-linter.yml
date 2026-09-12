@@ -1,8 +1,5 @@
 name: YAML Linter
 on:
-  push:
-    branches: [ master, staging, stable ]
-  merge_group:
   pull_request:
 
 jobs:

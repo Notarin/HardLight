@@ -2,8 +2,10 @@ name: Build & Test Debug
 
 on:
   pull_request:
-    types: [ opened, reopened, synchronize ]
-    branches: [ master, staging, stable ]
+    paths:
+      - 'Content.*/**' # C#.
+      - 'Resources/**' # YAML, RSI, etc.
+      - 'RobustToolbox/**' # Engine updates.
 
 concurrency:
   group: integration-tests-${{ forgejo.event.pull_request.number }}

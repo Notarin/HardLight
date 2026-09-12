@@ -1,10 +1,10 @@
 name: YAML Linter
 on:
-  push:
-    branches: [ master, staging, stable ]
-  merge_group:
   pull_request:
-    types: [ opened, reopened, synchronize, ready_for_review ]
+    paths:
+      - 'Content.*/**' # C#.
+      - 'Resources/**' # YAML, RSI, etc.
+      - 'RobustToolbox/**' # Engine updates.
 
 jobs:
   build:

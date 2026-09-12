@@ -1,10 +1,10 @@
 name: Map file schema validator
 on:
-  push:
-    branches: [ master, staging, stable ]
-  merge_group:
   pull_request:
-    types: [ opened, reopened, synchronize, ready_for_review ]
+    paths:
+      - 'Content.*/**' # C#. Can affect map loading, core game logic.
+      - 'Resources/**' # Includes map files. Other resources like prototypes can affect map loading.
+      - 'RobustToolbox/**' # Engine updates.
 
 jobs:
   yaml-schema-validation:

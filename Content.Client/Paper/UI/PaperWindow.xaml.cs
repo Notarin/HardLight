@@ -11,6 +11,8 @@ using Robust.Client.UserInterface.XAML;
 using Robust.Shared.Utility;
 using Content.Client.UserInterface.RichText;
 using Robust.Shared.Input;
+using Robust.Client.UserInterface;
+using System.Linq;
 
 namespace Content.Client.Paper.UI
 {
@@ -374,11 +376,17 @@ namespace Content.Client.Paper.UI
         /// <summary>
         /// Fires when a <see cref="FillableTag"/> is clicked. Will reroute toward the correct function.
         /// </summary>
+        /// <param name="clicked">The Control that has been clicked. Used to discriminate between papers.</param>
         /// <param name="tag">A FillableTag's Name</param>
         /// <param name="index">A FillableTag's Index in the text</param>
         /// <param name="args">Args the FillableTag wants to pass to its click action</param>
-        public void OnTagClicked(string tag, int index, Dictionary<string, object>? args)
+        public void OnTagClicked(Control clicked, string tag, int index, Dictionary<string, object>? args)
         {
+            if (clicked
+            .GetSelfAndLogicalAncestors()
+            .FirstOrDefault(x => x == this) is null)
+                return;
+
             ((Action)(tag switch
             {
                 "form" => () => OpenFormDialog(index, (int)args!["maxLen"]),

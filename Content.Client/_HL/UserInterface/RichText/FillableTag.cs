@@ -38,10 +38,10 @@ public abstract class FillableTag : IMarkupTagHandler
     /// <summary>
     /// Bounced back to the owning control since we can't
     /// access the controls if we don't.
-    /// Invoked with the name of the tag, it's index, and a dictionary for named arguments.
+    /// Invoked with the tag's control, its name, its index, and a dictionary for named arguments.
     /// </summary>
     /// <seealso cref="PaperWindow"/>
-    public static event Action<string, int, Dictionary<string, object>?>? OnTagClicked;
+    public static event Action<Control, string, int, Dictionary<string, object>?>? OnTagClicked;
 
     // Not 100% but I don't really want to handle the last edge case, and it has inconsistent behaviour when parsed anyway.
     private static readonly Regex Replacer = new($"""\[\s*(({string.Join('|', FillTagNames.Values.Select(Regex.Escape))})(?:\s*=\s*(?:[A-Za-z0-9#]+|"[^"]*"))?(?:\s+\w+\s*(?:=\s*(?:[A-Za-z0-9#]+|"[^"]*"))?)*)\s*\]""");
@@ -137,7 +137,7 @@ public abstract class FillableTag : IMarkupTagHandler
             if (args.Function != EngineKeyFunctions.UIClick)
                 return;
 
-            OnTagClicked?.Invoke(Name, (int)index, GetArguments(node));
+            OnTagClicked?.Invoke(label, Name, (int)index, GetArguments(node));
         };
 
         control = label;

@@ -1,6 +1,9 @@
 name: RGA schema validator
 on:
   pull_request:
+    paths: # The only two dirs with RGA (attribtutions.yml) attributed assets.
+      - 'Resources/Audio/**'
+      - 'Resources/Textures/**'
 
 jobs:
   yaml-schema-validation:

@@ -1,6 +1,10 @@
 name: Map file schema validator
 on:
   pull_request:
+    paths:
+      - 'Content.*/**' # C#. Can affect map loading, core game logic.
+      - 'Resources/**' # Includes map files. Other resources like prototypes can affect map loading.
+      - 'RobustToolbox/**' # Engine updates.
 
 jobs:
   yaml-schema-validation:

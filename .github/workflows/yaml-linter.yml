@@ -1,6 +1,10 @@
 name: YAML Linter
 on:
   pull_request:
+    paths:
+      - 'Content.*/**' # C#.
+      - 'Resources/**' # YAML, RSI, etc.
+      - 'RobustToolbox/**' # Engine updates.
 
 jobs:
   build:

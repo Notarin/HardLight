@@ -1,9 +1,7 @@
 name: Build & Test Debug
 
 on:
-  pull_request:
-    types: [ opened, reopened, synchronize ]
-    branches: [ master, staging, stable ]
+- pull_request
 
 concurrency:
   group: integration-tests-${{ forgejo.event.pull_request.number }}

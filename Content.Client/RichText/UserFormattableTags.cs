@@ -24,6 +24,7 @@ public static class UserFormattableTags
         typeof(FormTag),
         typeof(CheckTag),
         typeof(SignTag),
+        typeof(TimeTag),
 
     ];
 
@@ -32,6 +33,7 @@ public static class UserFormattableTags
         [typeof(FormTag)] = "form",
         [typeof(CheckTag)] = "check",
         [typeof(SignTag)] = "sign",
+        [typeof(TimeTag)] = "time",
 
     };
 }

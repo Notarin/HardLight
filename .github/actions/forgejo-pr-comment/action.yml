@@ -71,7 +71,7 @@ runs:
 
         FOUNDBODY=$(echo "$COMMENTS" | jq '.[0].body')
         FOUNDAUTHOR=$(echo "$COMMENTS" | jq '.[0].user.username')
-        FOUNDID=$($(echo "$COMMENTS" | jq '.[0].id'))
+        FOUNDID=$(echo "$COMMENTS" | jq '.[0].id')
 
         echo "body=$FOUNDBODY" >> $FORGEJO_OUTPUT
         echo "author=$FOUNDAUTHOR" >> $FORGEJO_OUTPUT

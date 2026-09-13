@@ -233,17 +233,17 @@
     drawdepth: Mobs
     layers:
     # Helmet
-    - sprite: Clothing/Head/Hardsuits/spatiohelm.rsi
+    - sprite: _Mono/Clothing/Head/Hardsuits/spatiohelm.rsi
       state: equipped-head
-    - sprite: Clothing/Head/Hardsuits/spatiohelm.rsi
+    - sprite: _Mono/Clothing/Head/Hardsuits/spatiohelm.rsi
       state: equipped-head-unshaded
       shader: unshaded
-    - sprite: Clothing/Head/Hardsuits/spatiohelm.rsi
+    - sprite: _Mono/Clothing/Head/Hardsuits/spatiohelm.rsi
       state: equipped-head-light
       shader: unshaded
       color: "#47f8ff"
     # Suit
-    - sprite: Clothing/OuterClothing/Hardsuits/spatio.rsi
+    - sprite: _Mono/Clothing/OuterClothing/Hardsuits/spatio.rsi
       state: equipped-OUTERCLOTHING
     # Weapons
     - sprite: Objects/Weapons/Melee/crusher_glaive-inhands.rsi
@@ -283,17 +283,17 @@
     drawdepth: Mobs
     layers:
     # Helmet
-    - sprite: Clothing/Head/Hardsuits/spatiohelm.rsi
+    - sprite: _Mono/Clothing/Head/Hardsuits/spatiohelm.rsi
       state: equipped-head
-    - sprite: Clothing/Head/Hardsuits/spatiohelm.rsi
+    - sprite: _Mono/Clothing/Head/Hardsuits/spatiohelm.rsi
       state: equipped-head-unshaded
       shader: unshaded
-    - sprite: Clothing/Head/Hardsuits/spatiohelm.rsi
+    - sprite: _Mono/Clothing/Head/Hardsuits/spatiohelm.rsi
       state: equipped-head-light
       shader: unshaded
       color: "#47f8ff"
     # Suit
-    - sprite: Clothing/OuterClothing/Hardsuits/spatio.rsi
+    - sprite: _Mono/Clothing/OuterClothing/Hardsuits/spatio.rsi
       state: equipped-OUTERCLOTHING
     # Weapons
     - sprite: _NF/Objects/Weapons/Guns/Basic/kinetic_accelerator_sawn.rsi
@@ -340,14 +340,14 @@
     drawdepth: Mobs
     layers:
     # Helmet
-    - sprite: Clothing/Head/Hardsuits/salvage.rsi
+    - sprite: _Mono/Clothing/Head/Hardsuits/salvage.rsi
       state: on-equipped-HELMET
-    - sprite: Clothing/Head/Hardsuits/spatiohelm.rsi
+    - sprite: _Mono/Clothing/Head/Hardsuits/spatiohelm.rsi
       state: equipped-head-light
       shader: unshaded
       color: "#47f8ff"
     # Suit
-    - sprite: Clothing/OuterClothing/Hardsuits/salvage.rsi
+    - sprite: _Mono/Clothing/OuterClothing/Hardsuits/salvage.rsi
       state: equipped-OUTERCLOTHING
     # Weapons
     - sprite: Objects/Tools/handdrill.rsi
@@ -398,7 +398,7 @@
     # Helmet
     - sprite: Clothing/Head/Hardsuits/luxury.rsi
       state: off-equipped-HELMET
-    - sprite: Clothing/Head/Hardsuits/spatiohelm.rsi
+    - sprite: _Mono/Clothing/Head/Hardsuits/spatiohelm.rsi
       state: equipped-head-light
       shader: unshaded
       color: "#47f8ff"
@@ -540,7 +540,7 @@
     # Helmet
     - sprite: _NF/Clothing/Head/Hardsuits/maxim_prototype.rsi
       state: off-equipped-HELMET
-    - sprite: Clothing/Head/Hardsuits/spatiohelm.rsi
+    - sprite: _Mono/Clothing/Head/Hardsuits/spatiohelm.rsi
       state: equipped-head-light
       shader: unshaded
       color: "#47f8ff"

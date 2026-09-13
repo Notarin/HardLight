@@ -6113,3 +6113,11 @@ Entries:
       message: Removed CC gear from chameleon clothes.
   id: 686
   time: '2026-09-13T04:31:02-07:00'
+- author: AlphonsedeV
+  changes:
+    - type: Add
+      message: >-
+        Added A new type of condition that can check for a 'taint' data inside
+        reagents for effects triggered by reagents.
+  id: 685
+  time: '2026-09-12T22:52:45-07:00'

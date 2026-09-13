@@ -4,7 +4,7 @@
   description: trait-uncloneable-desc
   # HardLight start
   category: Physical
-  cost: -4
+  cost: -1
   speciesBlacklist:
   - IPC
   - Synth
@@ -22,7 +22,7 @@
   description: trait-unborgable-desc
   # HardLight start
   category: Physical
-  cost: -4
+  cost: 0
   speciesBlacklist:
   - IPC
   - Synth

@@ -32,7 +32,7 @@ public sealed partial class NoShoesNoFrictionComponent : Component
     /// </summary>
     [AutoNetworkedField]
     [DataField, ViewVariables]
-    public float MobAcceleration = 2.0f;
+    public float MobAcceleration = 4.0f;
 
     /// <summary>
     /// Blacklist shoes to ignore, eg. Skates

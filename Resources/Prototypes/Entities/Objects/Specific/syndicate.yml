@@ -7,14 +7,18 @@
   description: It seems to be pulsing with suspiciously enticing energies.
   components:
   - type: Sprite
-    sprite: Objects/Specific/Syndicate/telecrystal.rsi
-    state: telecrystal
-  - type: Item
-    sprite: Objects/Specific/Syndicate/telecrystal.rsi
-    size: Tiny
+    sprite: _HL/Objects/Specific/Syndicate/telecrystal.rsi
+    layers:
+      - state: telecrystal_3
+        map: ["base"]
   - type: Stack
-    count: 20
     stackType: Telecrystal
+    baseLayer: base
+    layerStates:
+      - telecrystal
+      - telecrystal_2
+      - telecrystal_3
+    count: 20
   - type: StaticPrice
     price: 0
   - type: StackPrice
@@ -22,12 +26,18 @@
   - type: Currency
     price:
       Telecrystal: 1
+  - type: Item
+    size: Tiny
 
 - type: entity
   parent: Telecrystal
   id: Telecrystal1
   suffix: 1 TC
   components:
+  - type: Sprite
+    layers:
+    - state: telecrystal
+      map: ["base"]
   - type: Stack
     count: 1
 
@@ -36,6 +46,10 @@
   id: Telecrystal5
   suffix: 5 TC
   components:
+  - type: Sprite
+    layers:
+    - state: telecrystal_2
+      map: ["base"]
   - type: Stack
     count: 5
 
@@ -44,6 +58,10 @@
   id: Telecrystal10
   suffix: 10 TC
   components:
+  - type: Sprite
+    layers:
+    - state: telecrystal_3
+      map: ["base"]
   - type: Stack
     count: 10
 

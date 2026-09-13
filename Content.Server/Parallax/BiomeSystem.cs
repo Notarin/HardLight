@@ -23,6 +23,7 @@ using Robust.Shared;
 using Robust.Shared.Collections;
 using Robust.Shared.Configuration;
 using Robust.Shared.Console;
+using Content.Shared.Damage;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Physics;
@@ -95,7 +96,17 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
         Subs.CVar(_configManager, CVars.NetMaxUpdateRange, SetLoadRange, true);
         InitializeCommands();
         SubscribeLocalEvent<PrototypesReloadedEventArgs>(ProtoReload);
+        // HardLight Start: Performance, have a component instead of calling IsDefault on chunk unload.
+        SubscribeLocalEvent<BiomeUntouchedComponent, DamageChangedEvent>(OnEntityModified);
+        SubscribeLocalEvent<BiomeUntouchedComponent, AnchorStateChangedEvent>(OnEntityModified);
+        SubscribeLocalEvent<BiomeUntouchedComponent, ComponentAdd>(OnEntityModified);
+        // HardLight End
     }
+
+    /// <remarks>
+    /// HardLight: Performance, have a component instead of calling IsDefault on chunk unload.
+    /// </remarks>
+    private void OnEntityModified<T>(EntityUid uid, BiomeUntouchedComponent component, ref T args) => RemComp<BiomeUntouchedComponent>(uid);
 
     private void ProtoReload(PrototypesReloadedEventArgs obj)
     {
@@ -825,6 +836,7 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
                 // TODO: Fix non-anchored ents spawning.
                 // Just track loaded chunks for now.
                 var ent = Spawn(entPrototype, _mapSystem.GridTileToLocal(gridUid, grid, indices));
+                AddComp<BiomeUntouchedComponent>(ent); // HardLight: Performance, have a component instead of calling IsDefault on chunk unload.
 
                 // At least for now unless we do lookups or smth, only work with anchoring.
                 if (_xformQuery.TryGetComponent(ent, out var xform) && !xform.Anchored)
@@ -925,6 +937,7 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
         // This is because if we want to save the map (e.g. persistent server) it makes the file much smaller
         // and also if the map is enormous will make stuff like physics broadphase much faster
         var xformQuery = GetEntityQuery<TransformComponent>();
+        var untouchedQuery = GetEntityQuery<BiomeUntouchedComponent>(); // HardLight: Performance, have a component instead of calling IsDefault on chunk unload.
 
         foreach (var (ent, tile) in component.LoadedEntities[chunk])
         {
@@ -943,7 +956,7 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
                 continue;
             }
 
-            if (!EntityManager.IsDefault(ent))
+            if (!untouchedQuery.HasComponent(ent)) // HardLight: Performance, have a component instead of calling IsDefault on chunk unload.
             {
                 modified.Add(tile);
                 continue;

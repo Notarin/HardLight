@@ -34,7 +34,7 @@
   id: HardsuitsSpecialized
   name: research-technology-hardsuits-specialized
   icon:
-    sprite: Clothing/OuterClothing/Hardsuits/engineering.rsi
+    sprite: _Mono/Clothing/OuterClothing/Hardsuits/engineering.rsi
     state: icon
   discipline: Industrial
   tier: 1
@@ -74,7 +74,7 @@
   id: HardsuitsAdvanced
   name: research-technology-hardsuits-advanced
   icon:
-    sprite: Clothing/OuterClothing/Hardsuits/engineering-white.rsi
+    sprite: _Mono/Clothing/OuterClothing/Hardsuits/engineering-white.rsi
     state: icon
   discipline: Industrial
   tier: 2

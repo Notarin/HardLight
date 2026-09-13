@@ -13,7 +13,7 @@
       Glass: 25
   - type: SpaceGarbage
   - type: Sprite
-    sprite: Objects/Specific/Chemistry/bottle.rsi
+    sprite: _DV/Objects/Specific/Chemistry/bottle.rsi
     layers:
     - state: bottle-1
     - state: bottle-1-1
@@ -109,7 +109,7 @@
       Glass: 25
   - type: SpaceGarbage
   - type: Sprite
-    sprite: Objects/Specific/Chemistry/bottle.rsi
+    sprite: _DV/Objects/Specific/Chemistry/bottle.rsi
     layers:
     - state: bottle-1
     - state: bottle-1-1

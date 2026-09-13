@@ -12,7 +12,7 @@
 - type: latheRecipe
   id: SheetPlasteel
   icon:
-    sprite: Objects/Materials/Sheets/metal.rsi
+    sprite: _Mono/Objects/Materials/Sheets/metal.rsi
     state: plasteel
   result: SheetPlasteel1
   applyMaterialDiscount: false

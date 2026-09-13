@@ -789,7 +789,7 @@
   - type: Sprite
     layers:
       - state: green
-      - sprite: Objects/Materials/Sheets/metal.rsi
+      - sprite: _Mono/Objects/Materials/Sheets/metal.rsi
         state: plasteel_3
       - sprite: _NF/Markers/general.rsi
         state: questionmark
@@ -856,7 +856,7 @@
   - type: Sprite
     layers:
       - state: green
-      - sprite: Objects/Materials/Sheets/metal.rsi
+      - sprite: _Mono/Objects/Materials/Sheets/metal.rsi
         state: plasteel
       - sprite: _NF/Markers/general.rsi
         state: questionmark

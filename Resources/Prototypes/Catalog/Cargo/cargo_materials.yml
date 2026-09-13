@@ -13,7 +13,7 @@
   id: MaterialSteel
   # abstract: true # Frontier
   icon:
-    sprite: Objects/Materials/Sheets/metal.rsi
+    sprite: _Mono/Objects/Materials/Sheets/metal.rsi
     state: steel_3
   product: CrateMaterialSteel
   cost: 3000 # Frontier: 1500<3000
@@ -35,7 +35,7 @@
   id: Material
 #  # abstract: true # Frontier
   icon:
-    sprite: Objects/Materials/Sheets/metal.rsi
+    sprite: _Mono/Objects/Materials/Sheets/metal.rsi
     state: brass_3
   product: CrateMaterialBrass
   cost: 5000 # Frontier: 3000<5000
@@ -46,7 +46,7 @@
   id: MaterialPlasteel
   # abstract: true # Frontier
   icon:
-    sprite: Objects/Materials/Sheets/metal.rsi
+    sprite: _Mono/Objects/Materials/Sheets/metal.rsi
     state: plasteel_3
   product: CrateMaterialPlasteel
   cost: 2600

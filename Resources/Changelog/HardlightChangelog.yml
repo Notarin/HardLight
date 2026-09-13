@@ -6121,3 +6121,9 @@ Entries:
         reagents for effects triggered by reagents.
   id: 685
   time: '2026-09-12T22:52:45-07:00'
+- author: Slatebreaker
+  changes:
+    - type: Tweak
+      message: Removed trait points given by niche/roleplay related traits
+  id: 687
+  time: '2026-09-13T04:40:12-07:00'

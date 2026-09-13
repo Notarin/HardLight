@@ -283,6 +283,7 @@
     walkModifier: 1.5 # HL
     sprintModifier: 1.5 # HL
   - type: Skates
+    acceleration: 1 # HL: Billions must break ankles; Increased acceleration to make skates cause damage on collision again.
   - type: FootstepModifier
     footstepSoundCollection:
       collection: FootstepSkates

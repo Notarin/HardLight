@@ -408,6 +408,7 @@
   suffix: 1
   components:
   - type: GenpopLocker
+    IdCardProto: PrisonerIDCard1
   - type: EntityStorageVisuals
     stateBaseClosed: genpop
     stateDoorOpen: genpop_open
@@ -455,6 +456,8 @@
   components:
   - type: EntityStorageVisuals
     stateDoorClosed: genpop_door_2
+  - type: GenpopLocker
+    IdCardProto: PrisonerIDCard2
 
 - type: entity
   id: LockerPrisoner3
@@ -463,6 +466,8 @@
   components:
   - type: EntityStorageVisuals
     stateDoorClosed: genpop_door_3
+  - type: GenpopLocker
+    IdCardProto: PrisonerIDCard3
 
 - type: entity
   id: LockerPrisoner4
@@ -471,6 +476,8 @@
   components:
   - type: EntityStorageVisuals
     stateDoorClosed: genpop_door_4
+  - type: GenpopLocker
+    IdCardProto: PrisonerIDCard4
 
 - type: entity
   id: LockerPrisoner5
@@ -479,6 +486,8 @@
   components:
   - type: EntityStorageVisuals
     stateDoorClosed: genpop_door_5
+  - type: GenpopLocker
+    IdCardProto: PrisonerIDCard5
 
 - type: entity
   id: LockerPrisoner6
@@ -487,6 +496,8 @@
   components:
   - type: EntityStorageVisuals
     stateDoorClosed: genpop_door_6
+  - type: GenpopLocker
+    IdCardProto: PrisonerIDCard6
 
 - type: entity
   id: LockerPrisoner7
@@ -495,6 +506,8 @@
   components:
   - type: EntityStorageVisuals
     stateDoorClosed: genpop_door_7
+  - type: GenpopLocker
+    IdCardProto: PrisonerIDCard7
 
 - type: entity
   id: LockerPrisoner8
@@ -503,6 +516,8 @@
   components:
   - type: EntityStorageVisuals
     stateDoorClosed: genpop_door_8
+  - type: GenpopLocker
+    IdCardProto: PrisonerIDCard8
 
 # Detective
 - type: entity

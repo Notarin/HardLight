@@ -7,6 +7,95 @@
     sprite: Objects/Misc/id_cards.rsi
     layers:
     - state: orange
-    - state: idprisoner
   - type: GenpopIdCard
   - type: ExpireIdCard
+  - type: PresetIdCard
+    job: Prisoner
+
+- type: entity
+  id: PrisonerIDCard1
+  parent: PrisonerIDCard
+  name: prisoner ID card
+  suffix: 1
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/id_cards.rsi
+    layers:
+    - state: prisoner_001
+
+- type: entity
+  id: PrisonerIDCard2
+  parent: PrisonerIDCard
+  name: prisoner ID card
+  suffix: 2
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/id_cards.rsi
+    layers:
+    - state: prisoner_002
+
+- type: entity
+  id: PrisonerIDCard3
+  parent: PrisonerIDCard
+  name: prisoner ID card
+  suffix: 3
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/id_cards.rsi
+    layers:
+    - state: prisoner_003
+
+- type: entity
+  id: PrisonerIDCard4
+  parent: PrisonerIDCard
+  name: prisoner ID card
+  suffix: 4
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/id_cards.rsi
+    layers:
+    - state: prisoner_004
+
+- type: entity
+  id: PrisonerIDCard5
+  parent: PrisonerIDCard
+  name: prisoner ID card
+  suffix: 5
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/id_cards.rsi
+    layers:
+    - state: prisoner_005
+
+- type: entity
+  id: PrisonerIDCard6
+  parent: PrisonerIDCard
+  name: prisoner ID card
+  suffix: 6
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/id_cards.rsi
+    layers:
+    - state: prisoner_006
+
+- type: entity
+  id: PrisonerIDCard7
+  parent: PrisonerIDCard
+  name: prisoner ID card
+  suffix: 7
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/id_cards.rsi
+    layers:
+    - state: prisoner_007
+
+- type: entity
+  id: PrisonerIDCard8
+  parent: PrisonerIDCard
+  name: prisoner ID card
+  suffix: 8
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/id_cards.rsi
+    layers:
+    - state: prisoner_008

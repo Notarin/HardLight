@@ -1,6 +1,7 @@
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
+using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 
 namespace Content.Shared.Security.Components;
 
@@ -21,8 +22,8 @@ public sealed partial class GenpopLockerComponent : Component
     /// <summary>
     /// The Prototype spawned.
     /// </summary>
-    [DataField]
-    public EntProtoId<GenpopIdCardComponent> IdCardProto = "PrisonerIDCard";
+    [DataField("IdCardProto", required: true, customTypeSerializer:typeof(PrototypeIdSerializer<EntityPrototype>))]
+    public string IdCardProto = "PrisonerIDCard";
 }
 
 [Serializable, NetSerializable]

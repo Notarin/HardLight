@@ -789,7 +789,7 @@
   - type: Sprite
     layers:
       - state: green
-      - sprite: Objects/Materials/Sheets/metal.rsi
+      - sprite: _Mono/Objects/Materials/Sheets/metal.rsi
         state: plasteel_3
       - sprite: _NF/Markers/general.rsi
         state: questionmark
@@ -828,7 +828,7 @@
   - type: Sprite
     layers:
       - state: green
-      - sprite: Objects/Materials/ingots.rsi
+      - sprite: _Mono/Objects/Materials/ingots.rsi
         state: gold_3
       - sprite: _NF/Markers/general.rsi
         state: questionmark
@@ -856,7 +856,7 @@
   - type: Sprite
     layers:
       - state: green
-      - sprite: Objects/Materials/Sheets/metal.rsi
+      - sprite: _Mono/Objects/Materials/Sheets/metal.rsi
         state: plasteel
       - sprite: _NF/Markers/general.rsi
         state: questionmark
@@ -895,7 +895,7 @@
   - type: Sprite
     layers:
       - state: green
-      - sprite: Objects/Materials/ingots.rsi
+      - sprite: _Mono/Objects/Materials/ingots.rsi
         state: gold
       - sprite: _NF/Markers/general.rsi
         state: questionmark
@@ -927,7 +927,7 @@
     layers:
       - state: green
         scale: 0.7, 0.7
-      - sprite: Objects/Materials/ore.rsi
+      - sprite: _Mono/Objects/Materials/ore.rsi
         state: plasma
       - sprite: _NF/Markers/general.rsi
         state: questionmark
@@ -957,7 +957,7 @@
     layers:
       - state: green
         scale: 0.7, 0.7
-      - sprite: Objects/Materials/ore.rsi
+      - sprite: _Mono/Objects/Materials/ore.rsi
         state: plasma
       - sprite: _NF/Markers/general.rsi
         state: questionmark

@@ -147,7 +147,7 @@
         name: construction-graph-tag-ore
         store: altar_component
         icon:
-          sprite: Objects/Materials/ore.rsi
+          sprite: _Mono/Objects/Materials/ore.rsi
           state: iron
       - component: ExtinguishOnInteract # Not exclusive to candles I believe, but it's something that narrows down the list
         name: construction-graph-component-extinguish-on-interact

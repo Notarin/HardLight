@@ -499,9 +499,9 @@
   description: Lightweight medical hardsuit helmet that doesn't restrict your head movements.
   components:
   - type: Sprite
-    sprite: Clothing/Head/Hardsuits/medical.rsi
+    sprite: _Mono/Clothing/Head/Hardsuits/medical.rsi
   - type: Clothing
-    sprite: Clothing/Head/Hardsuits/medical.rsi
+    sprite: _Mono/Clothing/Head/Hardsuits/medical.rsi
   - type: PointLight
     color: "#adf1ff"
   - type: PressureProtection

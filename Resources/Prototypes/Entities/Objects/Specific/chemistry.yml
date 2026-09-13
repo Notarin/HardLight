@@ -276,7 +276,7 @@
   id: Dropper
   components:
   - type: Sprite
-    sprite: Objects/Specific/Chemistry/dropper.rsi
+    sprite: _DV/Objects/Specific/Chemistry/dropper.rsi
     layers:
       - state: dropper
       - state: dropper1
@@ -306,7 +306,7 @@
   - type: Spillable
     solution: injector
   - type: Item
-    sprite: Objects/Specific/Chemistry/dropper.rsi
+    sprite: _DV/Objects/Specific/Chemistry/dropper.rsi
     size: Tiny
   - type: Appearance
   - type: SolutionContainerVisuals
@@ -330,7 +330,7 @@
   id: BorgDropper
   components:
   - type: Sprite
-    sprite: Objects/Specific/Chemistry/dropper.rsi
+    sprite: _DV/Objects/Specific/Chemistry/dropper.rsi
     layers:
       - state: borgdropper
       - state: dropper1
@@ -341,7 +341,7 @@
       injector:
         maxVol: 10
   - type: Item
-    sprite: Objects/Specific/Chemistry/dropper.rsi
+    sprite: _DV/Objects/Specific/Chemistry/dropper.rsi
 
 - type: entity
   name: syringe

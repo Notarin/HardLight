@@ -828,7 +828,7 @@
   - type: Sprite
     layers:
       - state: green
-      - sprite: Objects/Materials/ingots.rsi
+      - sprite: _Mono/Objects/Materials/ingots.rsi
         state: gold_3
       - sprite: _NF/Markers/general.rsi
         state: questionmark
@@ -895,7 +895,7 @@
   - type: Sprite
     layers:
       - state: green
-      - sprite: Objects/Materials/ingots.rsi
+      - sprite: _Mono/Objects/Materials/ingots.rsi
         state: gold
       - sprite: _NF/Markers/general.rsi
         state: questionmark

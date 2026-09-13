@@ -16,7 +16,7 @@
   stackEntity: IngotGold1
   name: materials-gold
   unit: materials-unit-bar
-  icon: { sprite: Objects/Materials/ingots.rsi, state: gold }
+  icon: { sprite: _Mono/Objects/Materials/ingots.rsi, state: gold }
   color: "#FFD700"
   price: 0.75 # $75 for 1 unit
   properties: # FH edit
@@ -32,7 +32,7 @@
   stackEntity: IngotSilver1
   name: materials-silver
   unit: materials-unit-bar
-  icon: { sprite: Objects/Materials/ingots.rsi, state: silver }
+  icon: { sprite: _Mono/Objects/Materials/ingots.rsi, state: silver }
   color: "#C0C0C0"
   price: 0.60 # $60 for 1 unit
   properties: # FH edit

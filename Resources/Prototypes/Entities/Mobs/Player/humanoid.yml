@@ -32,7 +32,7 @@
   suffix: ERTRole, Death Squad
   components:
     - type: Sprite
-      sprite: Clothing/OuterClothing/Hardsuits/deathsquad.rsi
+      sprite: _Mono/Clothing/OuterClothing/Hardsuits/deathsquad.rsi
       state: icon
     - type: RandomMetadata
       nameSegments:

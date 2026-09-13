@@ -7,14 +7,14 @@
     tags:
     - GlassBeaker
   - type: Sprite
-    sprite: Objects/Specific/Chemistry/beaker.rsi
+    sprite: _DV/Objects/Specific/Chemistry/beaker.rsi
     layers:
       - state: beaker
       - state: beaker1
         map: ["enum.SolutionContainerLayers.Fill"]
         visible: false
   - type: Item
-    sprite: Objects/Specific/Chemistry/beaker.rsi
+    sprite: _DV/Objects/Specific/Chemistry/beaker.rsi
   - type: MeleeWeapon
     soundNoDamage:
       path: "/Audio/Effects/Fluids/splat.ogg"
@@ -105,14 +105,14 @@
     tags:
     - GlassBeaker
   - type: Sprite
-    sprite: Objects/Specific/Chemistry/beaker.rsi
+    sprite: _DV/Objects/Specific/Chemistry/beaker.rsi
     layers:
       - state: beaker
       - state: beaker1
         map: ["enum.SolutionContainerLayers.Fill"]
         visible: false
   - type: Item
-    sprite: Objects/Specific/Chemistry/beaker.rsi
+    sprite: _DV/Objects/Specific/Chemistry/beaker.rsi
   - type: MeleeWeapon
     soundNoDamage:
       path: "/Audio/Effects/Fluids/splat.ogg"
@@ -201,7 +201,7 @@
   - type: Spillable
     solution: beaker
   - type: Sprite
-    sprite: Objects/Specific/Chemistry/beaker_large.rsi
+    sprite: _DV/Objects/Specific/Chemistry/beaker_large.rsi
     layers:
       - state: beakerlarge
       - state: beakerlarge1
@@ -209,7 +209,7 @@
         visible: false
   - type: Item
     size: Normal
-    sprite: Objects/Specific/Chemistry/beaker_large.rsi
+    sprite: _DV/Objects/Specific/Chemistry/beaker_large.rsi
   - type: SolutionContainerManager
     solutions:
       beaker:
@@ -256,7 +256,7 @@
   - type: Spillable
     solution: beaker
   - type: Sprite
-    sprite: Objects/Specific/Chemistry/beaker_bluespace.rsi
+    sprite: _DV/Objects/Specific/Chemistry/beaker_bluespace.rsi
     layers:
       - state: beakerbluespace
   - type: SolutionContainerVisuals

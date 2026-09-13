@@ -31,7 +31,7 @@
   description: A special hardsuit helmet designed for working in low-pressure, high thermal environments.
   components:
   - type: Sprite
-    sprite: Clothing/Head/Hardsuits/atmospherics.rsi
+    sprite: _Mono/Clothing/Head/Hardsuits/atmospherics.rsi
     layers:
     - state: icon
     - state: icon-unshaded
@@ -57,6 +57,12 @@
       head-vulpkanin:
       - state: equipped-head-light-vulpkanin
         shader: unshaded
+      head-avali:
+      - state: equipped-head-light-avali
+        shader: unshaded
+      head-synth:
+      - state: equipped-head-light-synth
+        shader: unshaded
   - type: Clothing
     clothingVisuals:
       head:
@@ -79,6 +85,14 @@
       - state: equipped-head-feroxi
       - state: equipped-head-unshaded-feroxi
         shader: unshaded
+      head-avali:
+      - state: equipped-head-avali
+      - state: equipped-head-unshaded-avali
+        shader: unshaded
+      head-synth:
+      - state: equipped-head-synth
+      - state: equipped-head-unshaded-synth
+        shader: unshaded
   - type: PointLight
     color: "#adffe6"
   - type: PressureProtection
@@ -98,7 +112,7 @@
   description: An engineering hardsuit helmet designed for working in low-pressure, high radioactive environments.
   components:
   - type: Sprite
-    sprite: Clothing/Head/Hardsuits/engineering.rsi
+    sprite: _Mono/Clothing/Head/Hardsuits/engineering.rsi
     layers:
     - state: icon
     - state: icon-unshaded
@@ -127,6 +141,12 @@
       head-feroxi:
       - state: equipped-head-light-feroxi
         shader: unshaded
+      head-avali:
+      - state: equipped-head-light-avali
+        shader: unshaded
+      head-synth:
+      - state: equipped-head-light-synth
+        shader: unshaded
   - type: Clothing
     clothingVisuals:
       head:
@@ -148,6 +168,14 @@
       head-feroxi:
       - state: equipped-head-feroxi
       - state: equipped-head-unshaded-feroxi
+        shader: unshaded
+      head-avali:
+      - state: equipped-head-avali
+      - state: equipped-head-unshaded-avali
+        shader: unshaded
+      head-synth:
+      - state: equipped-head-synth
+      - state: equipped-head-unshaded-synth
         shader: unshaded
   - type: PointLight
     color: "#ffdbad"
@@ -393,7 +421,7 @@
   description: Special hardsuit helmet, made for the chief engineer of the station.
   components:
   - type: Sprite
-    sprite: Clothing/Head/Hardsuits/engineering-white.rsi
+    sprite: _Mono/Clothing/Head/Hardsuits/engineering-white.rsi
     layers:
     - state: icon
     - state: icon-unshaded
@@ -419,6 +447,12 @@
       head-vulpkanin:
       - state: equipped-head-light-vulpkanin
         shader: unshaded
+      head-avali:
+      - state: equipped-head-light-avali
+        shader: unshaded
+      head-synth:
+      - state: equipped-head-light-synth
+        shader: unshaded
   - type: Clothing
     clothingVisuals:
       head:
@@ -440,6 +474,14 @@
       head-feroxi:
       - state: equipped-head-feroxi
       - state: equipped-head-unshaded-feroxi
+        shader: unshaded
+      head-avali:
+      - state: equipped-head-avali
+      - state: equipped-head-unshaded-avali
+        shader: unshaded
+      head-synth:
+      - state: equipped-head-synth
+      - state: equipped-head-unshaded-synth
         shader: unshaded
   - type: PointLight
     color: "#daffad"

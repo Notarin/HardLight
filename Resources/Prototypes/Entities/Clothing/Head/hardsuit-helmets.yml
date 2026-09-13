@@ -516,9 +516,9 @@
   description: Lightweight hardsuit helmet that doesn't restrict your head movements.
   components:
   - type: Sprite
-    sprite: Clothing/Head/Hardsuits/rd.rsi
+    sprite: _Mono/Clothing/Head/Hardsuits/rd.rsi
   - type: Clothing
-    sprite: Clothing/Head/Hardsuits/rd.rsi
+    sprite: _Mono/Clothing/Head/Hardsuits/rd.rsi
   - type: PointLight
     color: "#d6adff"
   - type: PressureProtection

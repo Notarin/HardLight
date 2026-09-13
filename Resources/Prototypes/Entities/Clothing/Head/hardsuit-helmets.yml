@@ -191,7 +191,7 @@
   description: A sturdy helmet designed for complex industrial operations in space.
   components:
   - type: Sprite
-    sprite: Clothing/Head/Hardsuits/spatiohelm.rsi
+    sprite: _Mono/Clothing/Head/Hardsuits/spatiohelm.rsi
     layers:
     - state: icon
     - state: icon-unshaded
@@ -214,6 +214,13 @@
       head-reptilian:
       - state: equipped-head-light-reptilian
         shader: unshaded
+      head-vulpkanin:
+      - state: equipped-head-light-vulpkanin
+        shader: unshaded
+      head-avali:
+      - state: equipped-head-light-avali
+        shader: unshaded
+      head-synth:
   - type: Clothing
     clothingVisuals:
       head:
@@ -228,6 +235,15 @@
       - state: equipped-head-reptilian
       - state: equipped-head-unshaded-reptilian
         shader: unshaded
+      head-vulpkanin:
+      - state: equipped-head-vulpkanin
+      - state: equipped-head-unshaded-vulpkanin
+        shader: unshaded
+      head-avali:
+      - state: equipped-head-avali
+      - state: equipped-head-unshaded-avali
+        shader: unshaded
+      head-synth:
   - type: PointLight
     radius: 6
   - type: PressureProtection
@@ -242,9 +258,9 @@
   description: A special helmet designed for work in a hazardous, low pressure environment. Has reinforced plating for wildlife encounters and dual floodlights.
   components:
   - type: Sprite
-    sprite: Clothing/Head/Hardsuits/salvage.rsi
+    sprite: _Mono/Clothing/Head/Hardsuits/salvage.rsi
   - type: Clothing
-    sprite: Clothing/Head/Hardsuits/salvage.rsi
+    sprite: _Mono/Clothing/Head/Hardsuits/salvage.rsi
   - type: PressureProtection
     highPressureMultiplier: 0.525
     lowPressureMultiplier: 1000

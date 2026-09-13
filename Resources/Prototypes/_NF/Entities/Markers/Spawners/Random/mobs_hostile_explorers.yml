@@ -41,9 +41,9 @@
     - state: ai
     - sprite: _NF/Mobs/Species/Templates/human.rsi
       state: human
-    - sprite: Clothing/OuterClothing/Hardsuits/spatio.rsi
+    - sprite: _Mono/Clothing/OuterClothing/Hardsuits/spatio.rsi
       state: equipped-OUTERCLOTHING
-    - sprite: Clothing/Head/Hardsuits/spatiohelm.rsi
+    - sprite: _Mono/Clothing/Head/Hardsuits/spatiohelm.rsi
       state: equipped-head
     - sprite: Objects/Weapons/Melee/pickaxe.rsi
       state: wielded-inhand-right
@@ -70,9 +70,9 @@
     - state: ai
     - sprite: _NF/Mobs/Species/Templates/human.rsi
       state: human
-    - sprite: Clothing/OuterClothing/Hardsuits/salvage.rsi
+    - sprite: _Mono/Clothing/OuterClothing/Hardsuits/salvage.rsi
       state: equipped-OUTERCLOTHING
-    - sprite: Clothing/Head/Hardsuits/salvage.rsi
+    - sprite: _Mono/Clothing/Head/Hardsuits/salvage.rsi
       state: off-equipped-HELMET
     - sprite: Objects/Weapons/Melee/pickaxe.rsi
       state: wielded-inhand-right

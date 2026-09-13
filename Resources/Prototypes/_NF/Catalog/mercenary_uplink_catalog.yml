@@ -4,7 +4,7 @@
   name:  uplink-mercenary-mininghardsuit-name
   description: uplink-mercenary-mininghardsuit-desc
   productEntity: ClothingOuterHardsuitSalvage
-  icon: { sprite: Clothing/OuterClothing/Hardsuits/salvage.rsi, state: icon }
+  icon: { sprite: _Mono/Clothing/OuterClothing/Hardsuits/salvage.rsi, state: icon }
   cost:
     MercCoin: 5
   categories:

@@ -57,7 +57,7 @@
     - type: Sprite
       layers:
         - state: red
-        - sprite: Objects/Materials/Sheets/other.rsi
+        - sprite: _Mono/Objects/Materials/Sheets/other.rsi
           state: plasma_2
     - type: EntityTableSpawner
       table: !type:NestedSelector

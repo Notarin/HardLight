@@ -1,7 +1,7 @@
 - type: latheRecipe
   id: SheetPlasma
   icon:
-    sprite: Objects/Materials/Sheets/other.rsi
+    sprite: _Mono/Objects/Materials/Sheets/other.rsi
     state: plasma
   result: SheetPlasma1
   applyMaterialDiscount: false

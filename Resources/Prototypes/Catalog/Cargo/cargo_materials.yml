@@ -2,7 +2,7 @@
   id: MaterialGlass
   # abstract: true # Frontier
   icon:
-    sprite: Objects/Materials/Sheets/glass.rsi
+    sprite: _Mono/Objects/Materials/Sheets/glass.rsi
     state: glass_3
   product: CrateMaterialGlass
   cost: 5000 # Frontier: 1500<5000
@@ -24,7 +24,7 @@
   id: MaterialPlastic
   # abstract: true # Frontier
   icon:
-    sprite: Objects/Materials/Sheets/other.rsi
+    sprite: _Mono/Objects/Materials/Sheets/other.rsi
     state: plastic_3
   product: CrateMaterialPlastic
   cost: 5000 # Frontier: 2000<5000
@@ -68,7 +68,7 @@
   id: MaterialPlasma
   # abstract: true # Frontier
   icon:
-    sprite: Objects/Materials/Sheets/other.rsi
+    sprite: _Mono/Objects/Materials/Sheets/other.rsi
     state: plasma_3
   product: CrateMaterialPlasma
   cost: 20000
@@ -89,7 +89,7 @@
 - type: cargoProduct
   id: PaperMaterial
   icon:
-    sprite: Objects/Materials/Sheets/other.rsi
+    sprite: _Mono/Objects/Materials/Sheets/other.rsi
     state: paper_3
   product: CrateMaterialPaper
   cost: 1000

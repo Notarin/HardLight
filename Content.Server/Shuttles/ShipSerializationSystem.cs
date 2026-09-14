@@ -36,6 +36,8 @@ using static Content.Shared.Decals.DecalGridComponent;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics;
 using Robust.Shared.Configuration;
+using Content.Server._DV.Body.Systems; // HardLight edit - feather colors
+using Content.Shared._DV.Body.Components; // HardLight edit - feather colors
 using Content.Shared._NF.CCVar;
 using Robust.Shared.Player;
 using Robust.Server.Player;
@@ -2147,6 +2149,11 @@ namespace Content.Server.Shuttles.Save
                 var d = SerializeSprayPaintedComponent(sprayPainted);
                 if (d != null) entityData.Components.Add(d);
             }
+            if (_entityManager.TryGetComponent<FeatherComponent>(uid, out var feather)) // HardLight edit - feather colors
+            {
+                var d = SerializeFeatherComponent(feather);
+                if (d != null) entityData.Components.Add(d);
+            }
             if (_entityManager.TryGetComponent<MaterialStorageComponent>(uid, out var materialStorage))
             {
                 var d = SerializeMaterialStorageComponent(materialStorage);
@@ -2210,6 +2217,8 @@ namespace Content.Server.Shuttles.Save
             {
                 if (componentData.Type == "SprayPaintedComponent" && componentData.Properties.Any())
                     RestoreSprayPaintedComponent(uid, componentData);
+                else if (componentData.Type == "FeatherComponent" && componentData.Properties.Any()) // HardLight edit - feather colors
+                    RestoreFeatherComponent(uid, componentData);
                 else if (componentData.Type == "MaterialStorageComponent" && componentData.Properties.Any())
                     RestoreMaterialStorageComponent(uid, componentData);
                 else if (componentData.Type == "StackComponent" && componentData.Properties.Any())
@@ -2258,6 +2267,35 @@ namespace Content.Server.Shuttles.Save
             // ComponentStartup already fired when the entity was spawned; re-apply appearance manually.
             _appearance.SetData(entityUid, PaintableVisuals.Prototype, proto);
         }
+
+        // HardLight edit start - persist feathers like paint
+        private ComponentData? SerializeFeatherComponent(FeatherComponent comp)
+        {
+            if (comp.FeatherColor == null && comp.BloodColor == null)
+                return null;
+            var props = new Dictionary<string, object>();
+            if (comp.FeatherColor is { } featherColor)
+                props["FeatherColor"] = featherColor.ToHex();
+            if (comp.BloodColor is { } bloodColor)
+                props["BloodColor"] = bloodColor.ToHex();
+            return new ComponentData
+            {
+                Type = "FeatherComponent",
+                Properties = props,
+            };
+        }
+
+        private void RestoreFeatherComponent(EntityUid entityUid, ComponentData componentData)
+        {
+            var comp = EnsureComp<FeatherComponent>(entityUid);
+            if (componentData.Properties.TryGetValue("FeatherColor", out var featherObj) && featherObj is string featherHex && !string.IsNullOrEmpty(featherHex))
+                comp.FeatherColor = Color.FromHex(featherHex);
+            if (componentData.Properties.TryGetValue("BloodColor", out var bloodObj) && bloodObj is string bloodHex && !string.IsNullOrEmpty(bloodHex))
+                comp.BloodColor = Color.FromHex(bloodHex);
+            Dirty(entityUid, comp);
+            EntityManager.EntitySysManager.GetEntitySystem<PreenableSystem>().ApplyFeatherColors((entityUid, comp));
+        }
+        // HardLight edit end
 
         private ComponentData? SerializeMaterialStorageComponent(MaterialStorageComponent comp)
         {

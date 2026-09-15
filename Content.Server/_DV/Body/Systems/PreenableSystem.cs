@@ -41,7 +41,8 @@ public sealed class PreenableSystem : EntitySystem
 
         SubscribeLocalEvent<PreenableComponent, GetVerbsEvent<Verb>>(AddVerb);
         SubscribeLocalEvent<PreenableComponent, PreeningEvent>(OnPreened);
-        SubscribeLocalEvent<PreenableComponent, DamageChangedEvent>(OnDamaged);
+        // Hardlight edit - remove dropping of bloodied feathers
+        // SubscribeLocalEvent<PreenableComponent, DamageChangedEvent>(OnDamaged);
         SubscribeLocalEvent<PreenableComponent, DamageModifyEvent>(OnDamageModify);
         SubscribeLocalEvent<PreenableComponent, ComponentInit>(OnCompInit);
 
@@ -111,51 +112,53 @@ public sealed class PreenableSystem : EntitySystem
         _hands.TryPickupAnyHand(args.User, feather);
     }
 
-    private void OnDamaged(Entity<PreenableComponent> ent, ref DamageChangedEvent args)
-    {
-        if (args.DamageDelta == null || ent.Comp.ValidDamageTypes == null || !args.DamageIncreased)
-            return;
-
-        if (ent.Comp.CurrentFeathers <= 0)
-            return;
-
-        var totalApplicableDamage = FixedPoint2.Zero;
-
-        foreach (var (type, value) in args.DamageDelta.DamageDict)
-        {
-            if (!ent.Comp.ValidDamageTypes.Contains(type))
-                continue;
-
-            totalApplicableDamage += value;
-        }
-
-        if (totalApplicableDamage <= ent.Comp.ShedDamageThreshold)
-            return;
-
-        // HardLight edit
-        var triggerChance = Math.Clamp(totalApplicableDamage.Float() * ent.Comp.ShedScalingChance, 0f, 1f);
-
-        if (!_random.Prob(triggerChance))
-            return;
-
-        var feather = SpawnFeather(ent, true);
-
-        // apply a random impulse so it's flying off the body. similar code to GibbingSystem
-        var scatterVector = _random.NextAngle().ToVec() * (_random.NextFloat(10, 40));
-        _physics.ApplyLinearImpulse(feather, scatterVector);
-        _physics.ApplyAngularImpulse(feather, _random.NextFloat(-30, 30));
-
-        // update name/desc for increased validness
-        var meta = MetaData(feather);
-        _metaData.SetEntityName(feather, Loc.GetString(ent.Comp.FeatherBloodiedNameString, ("item", Name(feather))), meta);
-        _metaData.SetEntityDescription(feather, Loc.GetString(ent.Comp.FeatherBloodiedDescString), meta);
-
-        // yeeeowch!
-        _popup.PopupEntity(Loc.GetString(ent.Comp.DroppedFeatherString), ent, ent, PopupType.MediumCaution);
-        _chat.TryEmoteWithoutChat(ent, ent.Comp.ScreamEmote);
-
-        _statusEffects.TryAddStatusEffect(ent, "Adrenaline", TimeSpan.FromSeconds(3), true);
-    }
+    // Hardlight edit start - remove dropping of bloodied feathers
+    // private void OnDamaged(Entity<PreenableComponent> ent, ref DamageChangedEvent args)
+    // {
+    //     if (args.DamageDelta == null || ent.Comp.ValidDamageTypes == null || !args.DamageIncreased)
+    //         return;
+    //
+    //     if (ent.Comp.CurrentFeathers <= 0)
+    //         return;
+    //
+    //     var totalApplicableDamage = FixedPoint2.Zero;
+    //
+    //     foreach (var (type, value) in args.DamageDelta.DamageDict)
+    //     {
+    //         if (!ent.Comp.ValidDamageTypes.Contains(type))
+    //             continue;
+    //
+    //         totalApplicableDamage += value;
+    //     }
+    //
+    //     if (totalApplicableDamage <= ent.Comp.ShedDamageThreshold)
+    //         return;
+    //
+    //     // HardLight edit
+    //     var triggerChance = Math.Clamp(totalApplicableDamage.Float() * ent.Comp.ShedScalingChance, 0f, 1f);
+    //
+    //     if (!_random.Prob(triggerChance))
+    //         return;
+    //
+    //     var feather = SpawnFeather(ent, true);
+    //
+    //     // apply a random impulse so it's flying off the body. similar code to GibbingSystem
+    //     var scatterVector = _random.NextAngle().ToVec() * (_random.NextFloat(10, 40));
+    //     _physics.ApplyLinearImpulse(feather, scatterVector);
+    //     _physics.ApplyAngularImpulse(feather, _random.NextFloat(-30, 30));
+    //
+    //     // update name/desc for increased validness
+    //     var meta = MetaData(feather);
+    //     _metaData.SetEntityName(feather, Loc.GetString(ent.Comp.FeatherBloodiedNameString, ("item", Name(feather))), meta);
+    //     _metaData.SetEntityDescription(feather, Loc.GetString(ent.Comp.FeatherBloodiedDescString), meta);
+    //
+    //     // yeeeowch!
+    //     _popup.PopupEntity(Loc.GetString(ent.Comp.DroppedFeatherString), ent, ent, PopupType.MediumCaution);
+    //     _chat.TryEmoteWithoutChat(ent, ent.Comp.ScreamEmote);
+    //
+    //     _statusEffects.TryAddStatusEffect(ent, "Adrenaline", TimeSpan.FromSeconds(3), true);
+    // }
+    // Hardlight edit end
 
     private void OnDamageModify(Entity<PreenableComponent> ent, ref DamageModifyEvent args)
     {

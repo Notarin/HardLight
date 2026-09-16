@@ -274,9 +274,22 @@ namespace Content.Shared.FixedPoint
             // TODO implement "lossless" serializer.
             // I.e., dont use floats.
             if (value == "MaxValue")
+            {
                 Value = int.MaxValue;
-            else
-                this = New(Parse.Double(value));
+                return;
+            }
+
+            this = value switch
+            {
+                _ when Parse.TryDouble(value, out var res) => res,
+
+                // HL: If we failed, try checking the last char and dropping, sometimes garbage has been making it through for SOME REASON
+                // We're trying the usual method first because I don't want a performance hit for every valid string
+                _ when value.Length > 0 && !char.IsAsciiDigit(value[^1])
+                                        && Parse.TryDouble(value.AsSpan()[..^1], out var res) => res,
+
+                _ => Parse.Double(value) // We can't actually raise an exception here so let the parser do it for us
+            };
         }
 
         public override readonly string ToString() => $"{ShiftDown().ToString(CultureInfo.InvariantCulture)}";

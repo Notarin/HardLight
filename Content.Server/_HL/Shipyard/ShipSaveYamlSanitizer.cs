@@ -16,7 +16,7 @@ public static class ShipSaveYamlSanitizer
     /// can skip a redundant sanitizer pass for already-clean saves. Bump the version suffix
     /// when the sanitizer rules change in a way that should re-scrub previously-saved ships.
     /// </summary>
-    public const string SanitizedMarkerComment = "# hl-sanitized: 4";
+    public const string SanitizedMarkerComment = "# hl-sanitized: 5";
 
     // Components stripped from all entities during ship-save export.
     // Add new always-remove component types here.
@@ -99,6 +99,7 @@ public static class ShipSaveYamlSanitizer
         // with unresolved MetaDataComponent errors. Exclude them from ship exports.
         "AnomalyCoreFlesh",
         "AnomalyCoreFleshInert",
+        "EnergyDomeNullspace"
     };
 
     // Entity-level exclusion by component signature.

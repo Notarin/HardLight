@@ -304,6 +304,18 @@ public sealed class RadioSystem : EntitySystem
         var iconId = "JobIconNoId";
         var jobName = "";
 
+        if (TryComp<BorgChassisComponent>(messageSource, out _) || HasComp<BorgBrainComponent>(messageSource)) // HardLight
+        {
+            iconId = "JobIconBorg";
+            jobName = Loc.GetString("job-name-borg");
+        }
+
+        if (HasComp<StationAiHeldComponent>(messageSource))
+        {
+            iconId = "JobIconStationAi";
+            jobName = Loc.GetString("job-name-station-ai");
+        }
+
         if (_accessReader.FindAccessItemsInventory(messageSource, out var items))
         {
             foreach (var item in items)
@@ -326,18 +338,6 @@ public sealed class RadioSystem : EntitySystem
                     break;
                 }
             }
-        }
-
-        if (TryComp<BorgChassisComponent>(messageSource, out _) || HasComp<BorgBrainComponent>(messageSource)) // HardLight
-        {
-            iconId = "JobIconBorg";
-            jobName = Loc.GetString("job-name-borg");
-        }
-
-        if (HasComp<StationAiHeldComponent>(messageSource))
-        {
-            iconId = "JobIconStationAi";
-            jobName = Loc.GetString("job-name-station-ai");
         }
 
         jobName ??= "";

@@ -76,7 +76,6 @@ public sealed class SaveBanApi : EntitySystem
             return null;
 
         var entityPrototype = Prototype(entityUid)?.ID;
-
         if (entityPrototype is null)
             return null;
 
@@ -97,22 +96,19 @@ public sealed class SaveBanApi : EntitySystem
         if (ban is not null)
             return new SaveBanResult.IsSaveRestricted(entityUid, ban);
 
-        var restrictions = new List<SaveBanResult>();
-
-        var childEnumerator = Transform(entityUid).ChildEnumerator;
-        while (childEnumerator.MoveNext(out var child))
-        {
-            var result = CheckForRestrictions(child);
-
-            if (result is not null)
-                restrictions.Add(result);
-        }
+        var restrictions = GetChildren(entityUid)
+            .Select(CheckForRestrictions)
+            .OfType<SaveBanResult>()
+            .ToList();
 
         return restrictions.Count > 0
-            ? new SaveBanResult.ContainsSaveRestricted(
-                entityUid,
-                restrictions)
+            ? new SaveBanResult.ContainsSaveRestricted(entityUid, restrictions)
             : null;
+
+        IEnumerable<EntityUid> GetChildren(EntityUid parent)
+        {
+            while (Transform(parent).ChildEnumerator.MoveNext(out var child)) yield return child;
+        }
     }
 
     /// <summary>

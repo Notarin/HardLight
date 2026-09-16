@@ -115,12 +115,16 @@
   - ClothingOuterHardsuitNfsdExperimental
   - DeathRattleImplanterColcomm
   - RadioImplanterColcomm
+  - WeaponSubMachineGunEsar550
+  - EncryptionKeySyndie
+  - EncryptionKeyCommand
   components:
   - DnaSequenceInjector
   - IdCard
   - Store
   - Emag
   - Pda
+  - Intellicard
 
 - type: saveBan
   id: InfiniteAntagEquipment

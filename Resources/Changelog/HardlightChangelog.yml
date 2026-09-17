@@ -6133,3 +6133,9 @@ Entries:
       message: Added the ability to cum / piss on stuff
   id: 688
   time: '2026-09-15T20:45:38-07:00'
+- author: thedingus99
+  changes:
+    - type: Remove
+      message: Removes Silicons from vent critter spawns
+  id: 689
+  time: '2026-09-16T17:18:55-07:00'

@@ -5,7 +5,7 @@
   playTimeTracker: JobCentralCommandDirectorate
   setPreference: false
   startingGear: CentcomGear
-  icon: "JobIconColComm"
+  icon: "JobIconCCDirector"
   supervisors: job-supervisors-hos
   canBeAntag: false
   accessGroups:

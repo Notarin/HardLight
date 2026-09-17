@@ -1,7 +1,7 @@
 {
     "version": 1,
     "license": "CC-BY-SA-3.0",
-    "copyright": "Created by Sera for Hardlight, HarborMaster by Livyathan",
+    "copyright": "Created by Sera for Hardlight, HarborMaster by Livyathan, CC sprites by CaptainComedy modified from Starlight",
     "size": {
         "x": 8,
         "y": 8
@@ -16,11 +16,47 @@
         {
             "name": "CartelLieutenant"
         },
-		{
+        {
+            "name": "CBURNColcomm"
+        },
+        {
+            "name": "CCDirector"
+        },
+        {
+            "name": "CCGreenshield"
+        },
+        {
+            "name": "CCIntern"
+        },
+        {
+            "name": "CCJudge"
+        },
+        {
+            "name": "CCOfficial"
+        },
+        {
+            "name": "CCQuad"
+        },
+        {
+            "name": "CCSpecialOperations"
+        },
+        {
             "name": "EngineeringBorg"
         },
         {
+            "name": "ERT"
+        },
+        {
+            "name": "ERTLead"
+        },
+        {
+            "name": "CCMedic"
+        },
+        {
             "name": "HarborMaster"
+        },
+        {
+            "name": "Hardscale"
         },
         {
             "name": "interdyne-doctor-icon"

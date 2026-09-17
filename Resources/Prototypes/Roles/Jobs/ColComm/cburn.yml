@@ -5,7 +5,7 @@
   playTimeTracker: JobCBURN
   setPreference: false
   startingGear: CBURNGear
-  icon: "JobIconColComm"
+  icon: "JobIconCBURN" #HL
   supervisors: job-supervisors-centcom
   canBeAntag: false
   accessGroups:

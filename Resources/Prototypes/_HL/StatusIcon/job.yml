@@ -67,7 +67,115 @@
   parent: JobIcon
   id: JobIconNaval
   icon:
-    sprite: /Textures/Interface/Misc/job_icons.rsi # placeholder
-    state: ColComm # placeholder
+    sprite: /Textures/_HL/Interface/Misc/job_icons.rsi
+    state: CCSpecialOperations
   jobName: job-name-naval
+  allowSelection: false
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconCCDirector
+  icon:
+    sprite: /Textures/_HL/Interface/Misc/job_icons.rsi
+    state: CCDirector
+  jobName: job-name-cc-director
+  allowSelection: false
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconCCGreenshield
+  icon:
+    sprite: /Textures/_HL/Interface/Misc/job_icons.rsi
+    state: CCGreenshield
+  jobName: job-name-cc-greenshield
+  allowSelection: false
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconCCIntern
+  icon:
+    sprite: /Textures/_HL/Interface/Misc/job_icons.rsi
+    state: CCIntern
+  jobName: job-name-cc-intern
+  allowSelection: false
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconCCJudge
+  icon:
+    sprite: /Textures/_HL/Interface/Misc/job_icons.rsi
+    state: CCJudge
+  jobName: job-name-cc-judge
+  allowSelection: false
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconCCOfficial
+  icon:
+    sprite: /Textures/_HL/Interface/Misc/job_icons.rsi
+    state: CCOfficial
+  jobName: job-name-cc-official
+  allowSelection: false
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconCCQuad
+  icon:
+    sprite: /Textures/_HL/Interface/Misc/job_icons.rsi
+    state: CCQuad
+  jobName: job-name-cc-quad
+  allowSelection: false
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconCCSpecialOperations
+  icon:
+    sprite: /Textures/_HL/Interface/Misc/job_icons.rsi
+    state: CCSpecialOperations
+  jobName: job-name-cc-special-operations
+  allowSelection: false
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconERT
+  icon:
+    sprite: /Textures/_HL/Interface/Misc/job_icons.rsi
+    state: ERT
+  jobName: job-name-ert
+  allowSelection: false
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconERTLead
+  icon:
+    sprite: /Textures/_HL/Interface/Misc/job_icons.rsi
+    state: ERTLead
+  jobName: job-name-ert-lead
+  allowSelection: false
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconCCMedic
+  icon:
+    sprite: /Textures/_HL/Interface/Misc/job_icons.rsi
+    state: CCMedic
+  jobName: job-name-cc-medic
+  allowSelection: false
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconCBURN
+  icon:
+    sprite: /Textures/_HL/Interface/Misc/job_icons.rsi
+    state: CBURNColcomm
+  jobName: job-name-cburn-colcomm
+  allowSelection: false
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconHardscale
+  icon:
+    sprite: /Textures/_HL/Interface/Misc/job_icons.rsi
+    state: Hardscale
+  jobName: job-name-hardscale
   allowSelection: false

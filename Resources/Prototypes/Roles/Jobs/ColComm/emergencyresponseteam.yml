@@ -6,7 +6,7 @@
   playTimeTracker: JobERTLeader
   setPreference: false
   startingGear: ERTLeaderGearEVA
-  icon: "JobIconColComm"
+  icon: "JobIconERTLead" #HL
   supervisors: job-supervisors-centcom
   canBeAntag: false
   accessGroups:
@@ -98,7 +98,7 @@
   playTimeTracker: JobERTChaplain
   setPreference: false
   startingGear: ERTChaplainGear
-  icon: "JobIconColComm"
+  icon: "JobIconERT" #HL
   supervisors: job-supervisors-centcom
   canBeAntag: false
   accessGroups:
@@ -183,7 +183,7 @@
   playTimeTracker: JobERTEngineer
   setPreference: false
   startingGear: ERTEngineerGearEVA
-  icon: "JobIconColComm"
+  icon: "JobIconERT" #HL
   supervisors: job-supervisors-centcom
   canBeAntag: false
   accessGroups:
@@ -259,7 +259,7 @@
   playTimeTracker: JobERTSecurity
   setPreference: false
   startingGear: ERTEngineerGearEVA
-  icon: "JobIconColComm"
+  icon: "JobIconERT" #HL
   supervisors: job-supervisors-centcom
   canBeAntag: false
   accessGroups:
@@ -353,7 +353,7 @@
   playTimeTracker: JobERTMedical
   setPreference: false
   startingGear: ERTMedicalGearEVA
-  icon: "JobIconColComm"
+  icon: "JobIconCCMedic" #HL
   supervisors: job-supervisors-centcom
   canBeAntag: false
   accessGroups:
@@ -421,7 +421,7 @@
   playTimeTracker: JobERTJanitor
   setPreference: false
   startingGear: ERTJanitorGearEVA
-  icon: "JobIconColComm"
+  icon: "JobIconERT" #HL
   supervisors: job-supervisors-centcom
   canBeAntag: false
   accessGroups:

@@ -192,7 +192,7 @@
   stackEntity: Coal1
   name: materials-coal
   unit: materials-unit-piece
-  icon: { sprite: Objects/Materials/ore.rsi, state: coal }
+  icon: { sprite: _Mono/Objects/Materials/ore.rsi, state: coal }
   color: "#404040"
   price: 0.1 # $10 for 1 unit
   properties: # FH edit

@@ -104,7 +104,7 @@ public sealed partial class AdminVerbSystem
         {
             Text = nukeOpName,
             Category = VerbCategory.Antag,
-            Icon = new SpriteSpecifier.Rsi(new("/Textures/Clothing/Head/Hardsuits/syndicate.rsi"), "icon"),
+            Icon = new SpriteSpecifier.Rsi(new("/Textures/_Mono/Clothing/Head/Hardsuits/syndicate.rsi"), "icon"),
             Act = () =>
             {
                 _antag.ForceMakeAntag<NukeopsRuleComponent>(targetPlayer, DefaultNukeOpRule);

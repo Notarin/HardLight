@@ -48,7 +48,7 @@
   name: thief-backpack-category-syndie-name
   description: thief-backpack-category-syndie-description
   sprite:
-    sprite: Objects/Specific/Syndicate/telecrystal.rsi
+    sprite: _HL/Objects/Specific/Syndicate/telecrystal.rsi
     state: telecrystal
   content:
   - RadioJammer

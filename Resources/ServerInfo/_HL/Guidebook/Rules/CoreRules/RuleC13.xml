@@ -1,0 +1,58 @@
+﻿<Document>
+[color=#ffff00][head=3]Section 13: Ship saving[/head][/color]
+
+[color=#a4885c]13.1[/color] Ships are to be no larger than 80x50 tiles.
+
+[color=#a4885c]13.2[/color] Do not abuse the ship save mechanic to avoid in-character consequences.
+
+[color=#a4885c]13.3[/color] [color=#00fffb]Do not exploit the stash to duplicate items. This especially goes for contraband.[/color]
+
+[color=#a4885c]13.4[/color] [color=#00fffb]Do not use inventories to circumvent stash restrictions.[/color]
+
+[color=#a4885c]13.5[/color] Ship saving backups are only to be used in the event of ship destruction or loss due to a server crash or other unforseen issue. Loading backups otherwise is only to be done with admin permission.
+
+[color=#a4885c]13.6[/color] [color=#00fffb]Do not under any circumstances modify a ship save file without admin permission (like with the engine update).[/color]
+
+[color=#a4885c]13.7[/color] [color=#00fffb]Do not go afk for extended periods on your ship (like logging off to sleep). The ship saving is provided to allow people to save progress without the need to do this. UNATTENDED SHIPS WILL BE REMOVED.[/color]
+
+[color=#a4885c]13.8[/color] [color=#00fffb]DO NOT ADD MORE THAN ONE BLUESPACE STASH PER SHIP.[/color]
+
+[color=#ffff00][head=3]Shipbuilding Guidelines[/head][/color]
+
+Examples of these guidelines can be found on the official Hardlight wiki (https://docs.hardlight.space/ship-building-guidelines)
+
+[color=#a4885c]13.9[/color] [color=#00fffb]The larger the ship, the more docking ports it must have. It is your responsibility to find a way to minimize your docking impact as best as possible, as to avoid one ship taking up the entirety of 3 docks. For those seeking to build larger ships, you are strongly encouraged to build a public throughway to aid in ease of docking.[/color]
+
+[color=#a4885c]13.10[/color] [color=#00fffb]Atmos tanks are limited to no larger than 40 tiles. Be it a 10x4 tank or some other configuration, the maximum tile count is a hard 40 per tank.
+Only one tank per gas type per ship.
+All atmospheric tanks must be hard-walled or glassed in. They may not be run by directional fans.
+No sub-framing to contain more gas than the space should normally hold.[/color]
+
+[color=#a4885c]13.11[/color] [color=#00fffb]Emitter shields are not to be used as ship shields - that is what actual ship shields are for. The only time emitter shields should be on a ship is to contain a tesla power source.[/color]
+
+[color=#a4885c]13.12[/color] [color=#00fffb]Ships are not to be enclosed with Directional Fans. Those are allowed for external access points or specialty rooms only, such as:
+
+Docking points
+
+Thruster access points
+
+Salvage bays
+
+Any other point that has intended external access
+
+Cold rooms
+
+Artifact chambers
+
+This means putting them under doors/blastdoors/airlocks/docking points is fine if they are for external access or the other mentioned use cases. All walls should be clear of Directional Fans - enclosing your ship in them will be considered Power Gaming and will be removed and noted.[/color]
+
+[color=#a4885c]13.13[/color] [color=#00fffb]Your ship cannot be a square or rectangle in shape. Its IFF signature must be unique and at least somewhat geometrically broken up in some fashion. No flying space bricks or tubes. Break up your ship's shape to at least some degree to make it uniquely identifiable at a glance.[/color]
+
+[color=#a4885c]13.14[/color] [color=#00fffb]All armored hulls are to be no thicker than 3 layers deep. Noses of ships have a small amount of leeway here for aesthetic purposes.[/color]
+
+[color=#a4885c]13.15[/color] [color=#00fffb]All thrusters must be exposed to space, guarded only by grilles.
+Chuted thrusters may be set back no deeper than 5 tiles into a chute, with no more than 3 full tiles of grilles in front of them. An additional Half-Grille may be added if it makes sense for aesthetic purposes.
+Angled chutes are fine so long as they abide by the depth rule, and are guarded by a hard limit of no more than 3 grilles.
+Thrusters cannot be stacked in chutes. Each chute should contain a single thruster only - small, medium, or large.
+Nacelles can be made, so long as the thrusters can still be shot at and are only covered by grilles.[/color]
+</Document>

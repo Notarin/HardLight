@@ -6139,3 +6139,29 @@ Entries:
       message: Removes Silicons from vent critter spawns
   id: 689
   time: '2026-09-16T17:18:55-07:00'
+- author: Vanilla1040
+  changes:
+    - type: Tweak
+      message: >-
+        Updated sprites for chem items: Pill canister, Pills, Jugs, Droppers,
+        Bottles, Beakers, and the mixer.
+    - type: Tweak
+      message: >-
+        Updated sprites for hardsuits: Atmos, engineering, CE, CMO, RD,
+        spationaut, mining/salv, syndicate, blood-red, blood-red medic,
+        syndicate elite, syndicate commander, captain, wizard, and deathsquad.
+    - type: Tweak
+      message: >-
+        Updated sprites for ores: bananium, coal, diamond, gold, iron, plasma,
+        salt, silver, spacequartz, and uranium.
+    - type: Tweak
+      message: >-
+        Updated sprites for ingots: adamantine, copper, gold, hydrogen, iron,
+        plutonium, and silver.
+    - type: Tweak
+      message: >-
+        Updated sprites for materials: brass, plasteel, plastitanium, steel,
+        titanium, glass and its variants, bluespace crystal, and telespace
+        crystal.
+  id: 690
+  time: '2026-09-16T19:33:14-07:00'

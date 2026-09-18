@@ -79342,6 +79342,11 @@ entities:
     - type: Transform
       pos: -1.5,21.5
       parent: 2
+    - type: DeviceLinkSource
+      linkedPorts:
+        7836:
+        - - OrderSender
+          - OrderReceiver
 - proto: ComputerCargoOrdersMedical
   entities:
   - uid: 9756
@@ -79350,6 +79355,11 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 47.5,-10.5
       parent: 2
+    - type: DeviceLinkSource
+      linkedPorts:
+        7836:
+        - - OrderSender
+          - OrderReceiver
 - proto: ComputerCargoOrdersScience
   entities:
   - uid: 9757
@@ -79358,6 +79368,11 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -45.5,-9.5
       parent: 2
+    - type: DeviceLinkSource
+      linkedPorts:
+        7836:
+        - - OrderSender
+          - OrderReceiver
 - proto: ComputerCargoOrdersSecurity
   entities:
   - uid: 9758
@@ -79366,6 +79381,11 @@ entities:
       rot: 3.141592653589793 rad
       pos: -28.5,-6.5
       parent: 2
+    - type: DeviceLinkSource
+      linkedPorts:
+        7836:
+        - - OrderSender
+          - OrderReceiver
 - proto: ComputerCargoOrdersService
   entities:
   - uid: 9759
@@ -79374,6 +79394,11 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 3.5,-30.5
       parent: 2
+    - type: DeviceLinkSource
+      linkedPorts:
+        7836:
+        - - OrderSender
+          - OrderReceiver
 - proto: ComputerComms
   entities:
   - uid: 9760

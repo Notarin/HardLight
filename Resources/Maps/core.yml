@@ -85720,6 +85720,11 @@ entities:
     - type: ApcPowerReceiver
       powerLoad: 5
     - type: Battery
+    - type: DeviceLinkSource
+      linkedPorts:
+        8257:
+        - - OrderSender
+          - OrderReceiver
   - uid: 11013
     components:
     - type: Transform
@@ -85729,6 +85734,11 @@ entities:
     - type: ApcPowerReceiver
       powerLoad: 5
     - type: Battery
+    - type: DeviceLinkSource
+      linkedPorts:
+        8257:
+        - - OrderSender
+          - OrderReceiver
 - proto: ComputerCargoOrdersMedical
   entities:
   - uid: 11014
@@ -85739,6 +85749,11 @@ entities:
     - type: ApcPowerReceiver
       powerLoad: 5
     - type: Battery
+    - type: DeviceLinkSource
+      linkedPorts:
+        8257:
+        - - OrderSender
+          - OrderReceiver
 - proto: ComputerCargoOrdersScience
   entities:
   - uid: 11015
@@ -85749,6 +85764,11 @@ entities:
     - type: ApcPowerReceiver
       powerLoad: 5
     - type: Battery
+    - type: DeviceLinkSource
+      linkedPorts:
+        8257:
+        - - OrderSender
+          - OrderReceiver
 - proto: ComputerCargoOrdersSecurity
   entities:
   - uid: 11016
@@ -85760,6 +85780,11 @@ entities:
     - type: ApcPowerReceiver
       powerLoad: 5
     - type: Battery
+    - type: DeviceLinkSource
+      linkedPorts:
+        8257:
+        - - OrderSender
+          - OrderReceiver
 - proto: ComputerCargoOrdersService
   entities:
   - uid: 11017
@@ -85770,6 +85795,11 @@ entities:
     - type: ApcPowerReceiver
       powerLoad: 5
     - type: Battery
+    - type: DeviceLinkSource
+      linkedPorts:
+        8257:
+        - - OrderSender
+          - OrderReceiver
 - proto: ComputerComms
   entities:
   - uid: 11019
@@ -177451,6 +177481,11 @@ entities:
     - type: Transform
       pos: 25.5,19.5
       parent: 2
+    - type: DeviceLinkSource
+      linkedPorts:
+        8257:
+        - - OrderSender
+          - OrderReceiver
 - proto: StationEfficiencyCircuitBoard
   entities:
   - uid: 22155

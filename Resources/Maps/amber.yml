@@ -84641,18 +84641,33 @@ entities:
     - type: Transform
       pos: -18.5,-55.5
       parent: 2
+    - type: DeviceLinkSource
+      linkedPorts:
+        7953:
+        - - OrderSender
+          - OrderReceiver
   - uid: 9499
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
       pos: 5.5,19.5
       parent: 2
+    - type: DeviceLinkSource
+      linkedPorts:
+        7953:
+        - - OrderSender
+          - OrderReceiver
   - uid: 9500
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
       pos: 3.5,16.5
       parent: 2
+    - type: DeviceLinkSource
+      linkedPorts:
+        7953:
+        - - OrderSender
+          - OrderReceiver
 - proto: ComputerCargoOrdersEngineering
   entities:
   - uid: 9501
@@ -84661,6 +84676,11 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -11.5,-14.5
       parent: 2
+    - type: DeviceLinkSource
+      linkedPorts:
+        7953:
+        - - OrderSender
+          - OrderReceiver
 - proto: ComputerCargoOrdersMedical
   entities:
   - uid: 9502
@@ -84668,6 +84688,11 @@ entities:
     - type: Transform
       pos: -29.5,-24.5
       parent: 2
+    - type: DeviceLinkSource
+      linkedPorts:
+        7953:
+        - - OrderSender
+          - OrderReceiver
 - proto: ComputerCargoOrdersScience
   entities:
   - uid: 9503
@@ -84676,6 +84701,11 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 18.5,-26.5
       parent: 2
+    - type: DeviceLinkSource
+      linkedPorts:
+        7953:
+        - - OrderSender
+          - OrderReceiver
 - proto: ComputerCargoOrdersSecurity
   entities:
   - uid: 9504
@@ -84684,6 +84714,11 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -27.5,12.5
       parent: 2
+    - type: DeviceLinkSource
+      linkedPorts:
+        7953:
+        - - OrderSender
+          - OrderReceiver
 - proto: ComputerCargoOrdersService
   entities:
   - uid: 9505
@@ -84692,6 +84727,11 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 0.5,-41.5
       parent: 2
+    - type: DeviceLinkSource
+      linkedPorts:
+        7953:
+        - - OrderSender
+          - OrderReceiver
 - proto: ComputerComms
   entities:
   - uid: 9506
@@ -164910,6 +164950,11 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 3.5,19.5
       parent: 2
+    - type: DeviceLinkSource
+      linkedPorts:
+        7953:
+        - - OrderSender
+          - OrderReceiver
 - proto: Ash #Hardlight replace outside Cargo Request Computer with Ash
   entities:
   - uid: 19742

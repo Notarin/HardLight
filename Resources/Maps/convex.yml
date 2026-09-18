@@ -122257,24 +122257,44 @@ entities:
       rot: 3.141592653589793 rad
       pos: 38.5,48.5
       parent: 2
+    - type: DeviceLinkSource
+      linkedPorts:
+        13123:
+        - - OrderSender
+          - OrderReceiver
   - uid: 16287
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
       pos: 142.5,105.5
       parent: 2
+    - type: DeviceLinkSource
+      linkedPorts:
+        13123:
+        - - OrderSender
+          - OrderReceiver
   - uid: 16288
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
       pos: 140.5,105.5
       parent: 2
+    - type: DeviceLinkSource
+      linkedPorts:
+        13123:
+        - - OrderSender
+          - OrderReceiver
   - uid: 16289
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
       pos: 158.5,104.5
       parent: 2
+    - type: DeviceLinkSource
+      linkedPorts:
+        13123:
+        - - OrderSender
+          - OrderReceiver
 - proto: Ash #Hardlight replace outside Cargo Request Computer with Ash
   entities:
   - uid: 16290
@@ -122294,6 +122314,11 @@ entities:
     - type: Transform
       pos: 100.5,125.5
       parent: 2
+    - type: DeviceLinkSource
+      linkedPorts:
+        13123:
+        - - OrderSender
+          - OrderReceiver
 - proto: ComputerCargoOrdersMedical
   entities:
   - uid: 16293
@@ -122301,6 +122326,11 @@ entities:
     - type: Transform
       pos: 87.5,92.5
       parent: 2
+    - type: DeviceLinkSource
+      linkedPorts:
+        13123:
+        - - OrderSender
+          - OrderReceiver
   - uid: 16294
     components:
     - type: Transform
@@ -122314,12 +122344,22 @@ entities:
     - type: Transform
       pos: 34.5,105.5
       parent: 2
+    - type: DeviceLinkSource
+      linkedPorts:
+        13123:
+        - - OrderSender
+          - OrderReceiver
   - uid: 16296
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
       pos: 53.5,82.5
       parent: 2
+    - type: DeviceLinkSource
+      linkedPorts:
+        13123:
+        - - OrderSender
+          - OrderReceiver
 - proto: ComputerCargoOrdersSecurity
   entities:
   - uid: 16297
@@ -122328,6 +122368,11 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 142.5,52.5
       parent: 2
+    - type: DeviceLinkSource
+      linkedPorts:
+        13123:
+        - - OrderSender
+          - OrderReceiver
 - proto: ComputerCargoOrdersService
   entities:
   - uid: 16298
@@ -122335,12 +122380,22 @@ entities:
     - type: Transform
       pos: 58.5,59.5
       parent: 2
+    - type: DeviceLinkSource
+      linkedPorts:
+        13123:
+        - - OrderSender
+          - OrderReceiver
   - uid: 16299
     components:
     - type: Transform
       rot: 3.141592653589793 rad
       pos: 111.5,96.5
       parent: 2
+    - type: DeviceLinkSource
+      linkedPorts:
+        13123:
+        - - OrderSender
+          - OrderReceiver
 - proto: ComputerComms
   entities:
   - uid: 16300
@@ -122349,12 +122404,22 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 32.5,58.5
       parent: 2
+    - type: DeviceLinkSource
+      linkedPorts:
+        13123:
+        - - OrderSender
+          - OrderReceiver
   - uid: 16301
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
       pos: 32.5,74.5
       parent: 2
+    - type: DeviceLinkSource
+      linkedPorts:
+        13123:
+        - - OrderSender
+          - OrderReceiver
 - proto: ComputerContrabandPalletConsole
   entities:
   - uid: 15415

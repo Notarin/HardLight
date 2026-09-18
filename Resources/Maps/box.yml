@@ -92788,6 +92788,11 @@ entities:
       rot: 3.141592653589793 rad
       pos: -24.5,-23.5
       parent: 2
+    - type: DeviceLinkSource
+      linkedPorts:
+        9540:
+        - - OrderSender
+          - OrderReceiver
   - uid: 11438
     components:
     - type: Transform
@@ -92813,6 +92818,11 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -5.5,-65.5
       parent: 2
+    - type: DeviceLinkSource
+      linkedPorts:
+        9540:
+        - - OrderSender
+          - OrderReceiver
   - uid: 11442
     components:
     - type: Transform
@@ -92832,6 +92842,11 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 35.5,-41.5
       parent: 2
+    - type: DeviceLinkSource
+      linkedPorts:
+        9540:
+        - - OrderSender
+          - OrderReceiver
 - proto: ComputerCargoOrdersScience
   entities:
   - uid: 11445
@@ -92840,6 +92855,11 @@ entities:
       rot: 3.141592653589793 rad
       pos: 69.5,-37.5
       parent: 2
+    - type: DeviceLinkSource
+      linkedPorts:
+        9540:
+        - - OrderSender
+          - OrderReceiver
   - uid: 11446
     components:
     - type: Transform
@@ -92854,6 +92874,11 @@ entities:
       rot: 3.141592653589793 rad
       pos: 15.5,30.5
       parent: 2
+    - type: DeviceLinkSource
+      linkedPorts:
+        9540:
+        - - OrderSender
+          - OrderReceiver
   - uid: 11448
     components:
     - type: Transform
@@ -92868,6 +92893,11 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 31.5,-10.5
       parent: 2
+    - type: DeviceLinkSource
+      linkedPorts:
+        9540:
+        - - OrderSender
+          - OrderReceiver
   - uid: 11450
     components:
     - type: Transform

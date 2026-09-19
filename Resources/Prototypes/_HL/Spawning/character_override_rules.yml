@@ -196,6 +196,7 @@
         types:
            Heat: 120
   - type: BloodSolutionModifier
+    bloodReagent: AbyssalBlood
     solution:
       reagents:
       - ReagentId: AbyssalBlood
@@ -212,6 +213,7 @@
   - type: Temperature
     heatDamageThreshold: 300
   - type: BloodSolutionModifier
+    bloodReagent: HotCocoa
     solution:
       reagents:
       - ReagentId: HotCocoa
@@ -242,6 +244,7 @@
   - type: BreathingImmunity
   - type: PressureImmunity
   - type: BloodSolutionModifier
+    bloodReagent: Phlogiston
     solution:
       reagents:
       - ReagentId: Phlogiston

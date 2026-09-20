@@ -9,10 +9,10 @@ using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.XAML;
 using Robust.Shared.ContentPack;
 using Robust.Shared.Utility;
-using static Content.Client.Changelog.ChangelogManager;
+using static Content.Client._HL.Changelog.ChangelogManager;
 using static Robust.Client.UserInterface.Controls.BoxContainer;
 
-namespace Content.Client.Changelog;
+namespace Content.Client._HL.Changelog;
 
 [GenerateTypedNameReferences]
 public sealed partial class ChangelogTab : Control

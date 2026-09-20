@@ -1,4 +1,4 @@
-using Content.Client.Changelog;
+using Content.Client._HL.Changelog;
 using JetBrains.Annotations;
 using Robust.Client.State;
 using Robust.Client.UserInterface.Controllers;

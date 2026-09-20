@@ -1,7 +1,7 @@
 ﻿using Content.Client.Stylesheets;
 using Robust.Client.UserInterface.Controls;
 
-namespace Content.Client.Changelog
+namespace Content.Client._HL.Changelog
 {
     public sealed class ChangelogButton : Button
     {

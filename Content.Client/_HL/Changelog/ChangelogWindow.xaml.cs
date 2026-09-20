@@ -10,7 +10,7 @@ using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.XAML;
 using Robust.Shared.Console;
 
-namespace Content.Client.Changelog
+namespace Content.Client._HL.Changelog
 {
     [GenerateTypedNameReferences]
     public sealed partial class ChangelogWindow : FancyWindow

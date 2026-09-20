@@ -1,4 +1,4 @@
-using Content.Client.Changelog;
+using Content.Client._HL.Changelog;
 using Content.Client.Credits;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;

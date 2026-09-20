@@ -1,5 +1,5 @@
 using System.Numerics;
-using Content.Client.Changelog;
+using Content.Client._HL.Changelog;
 using Content.Client.Hands;
 using Content.Client.UserInterface.Controls;
 using Content.Client.UserInterface.Screens;

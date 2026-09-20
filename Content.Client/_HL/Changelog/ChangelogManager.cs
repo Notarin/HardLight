@@ -9,7 +9,7 @@ using Robust.Shared.Serialization.Markdown;
 using Robust.Shared.Serialization.Markdown.Mapping;
 using Robust.Shared.Utility;
 
-namespace Content.Client.Changelog
+namespace Content.Client._HL.Changelog
 {
     public sealed partial class ChangelogManager : IPostInjectInit
     {

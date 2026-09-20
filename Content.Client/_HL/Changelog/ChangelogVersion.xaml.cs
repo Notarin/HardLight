@@ -18,6 +18,14 @@ public sealed partial class ChangelogVersion : Control
         RobustXamlLoader.Load(this);
         VersionLabel.Text = version.ToString();
 
+        if (!string.IsNullOrWhiteSpace(entry.Summary))
+        {
+            Summary.Visible = true;
+            
+            SummaryTitle.Text = "Summary:";
+            SummaryLabel.Text = entry.Summary;
+        }
+
         var sections = new (ChangelogLineType Type, List<ChangelogChange>? Changes)[]
         {
             (ChangelogLineType.Add, entry.Add),

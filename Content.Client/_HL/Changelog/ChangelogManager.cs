@@ -298,6 +298,13 @@ public sealed partial class ChangelogManager : IPostInjectInit
     public sealed partial class ChangelogEntry
     {
         /// <summary>
+        /// A general description of the release.
+        /// Optional, not likely to show up on every release, but will show up on topical releases.
+        /// </summary>
+        [DataField]
+        public string? Summary { get; private set; }
+
+        /// <summary>
         /// <see cref="ChangelogLineType.Add" /> variant of <see cref="ChangelogEntry" />
         /// Contains a list of changelog entries, all additions.
         /// </summary>

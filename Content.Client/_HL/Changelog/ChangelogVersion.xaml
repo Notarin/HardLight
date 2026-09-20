@@ -1,6 +1,10 @@
 <Control xmlns="https://spacestation14.io">
     <BoxContainer Orientation="Vertical">
         <Label Name="VersionLabel" StyleClasses="LabelHeading" Margin="4 8 0 0" />
+        <BoxContainer Orientation="Vertical" Name="Summary" Margin="8 4 10 2" Visible="False" >
+            <Label Name="SummaryTitle" StyleClasses="LabelHeading" FontColorOverride="yellow" />
+            <Label Name="SummaryLabel" FontColorOverride="#ffffee" Margin="16 8 0 0" />
+        </BoxContainer>
         <BoxContainer Orientation="Vertical" Name="SectionsContainer" Margin="4 4 10 2" />
     </BoxContainer>
 </Control>

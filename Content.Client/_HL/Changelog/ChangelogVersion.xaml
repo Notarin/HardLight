@@ -1,0 +1,6 @@
+<Control xmlns="https://spacestation14.io">
+    <BoxContainer Orientation="Vertical">
+        <Label Name="VersionLabel" StyleClasses="LabelHeading" Margin="4 8 0 0" />
+        <BoxContainer Orientation="Vertical" Name="SectionsContainer" Margin="4 4 10 2" />
+    </BoxContainer>
+</Control>

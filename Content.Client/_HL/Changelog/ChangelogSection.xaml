@@ -1,0 +1,9 @@
+<Control xmlns="https://spacestation14.io">
+    <BoxContainer Orientation="Vertical">
+        <BoxContainer Orientation="Horizontal" Margin="0 4 0 4">
+            <TextureRect Name="Icon" TextureScale="0.5 0.5" VerticalAlignment="Center" Margin="0 0 6 0" />
+            <Label Name="SectionTitle" StyleClasses="LabelHeading" />
+        </BoxContainer>
+        <BoxContainer Orientation="Vertical" Name="EntriesContainer" Margin="14 0 0 0" />
+    </BoxContainer>
+</Control>

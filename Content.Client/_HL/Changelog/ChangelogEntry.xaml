@@ -1,0 +1,7 @@
+<Control xmlns="https://spacestation14.io">
+    <WrapContainer Margin="4 0" SeparationOverride="0">
+        <RichTextLabel Name="EntryLabel"  MinWidth="0" VerticalExpand="True"  />
+        <Button Name="AuthorButton" />
+        <Button Name="CommitButton" Visible="False" />
+    </WrapContainer>
+</Control>

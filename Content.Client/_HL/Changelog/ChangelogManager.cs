@@ -21,6 +21,7 @@ namespace Content.Client._HL.Changelog
         private const string SawmillName = "changelog";
         public const string MainChangelogName = "HardlightChangelog";
 
+        /// <inheritdoc cref="ISawmill" />
         private ISawmill _sawmill = default!;
 
         public bool NewChangelogEntries { get; private set; }
@@ -196,6 +197,11 @@ namespace Content.Client._HL.Changelog
 
             [DataField("changes")]
             public List<ChangelogChange> Changes { get; private set; } = default!;
+
+            [DataField] public List<ChangelogChange>? Add { get; private set; }
+            [DataField] public List<ChangelogChange>? Fix { get; private set; }
+            [DataField] public List<ChangelogChange>? Tweak { get; private set; }
+            [DataField] public List<ChangelogChange>? Remove { get; private set; }
         }
 
         [DataDefinition]
@@ -206,6 +212,9 @@ namespace Content.Client._HL.Changelog
 
             [DataField("message")]
             public string Message { get; private set; } = "";
+
+            [DataField] public string Author { get; private set; } = string.Empty;
+            [DataField] public string? Hash { get; private set; }
         }
 
         public enum ChangelogLineType

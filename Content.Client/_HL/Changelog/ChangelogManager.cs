@@ -9,220 +9,392 @@ using Robust.Shared.Serialization.Markdown;
 using Robust.Shared.Serialization.Markdown.Mapping;
 using Robust.Shared.Utility;
 
-namespace Content.Client._HL.Changelog
+namespace Content.Client._HL.Changelog;
+
+/// <summary>
+/// Is changelog manager, manages changelog!
+/// Finds yml fields in the changelog dir and basically reflected them into in-game changelogs.
+/// Does more, like tracking what's read vs. unread, when there are new entries, etc.
+/// </summary>
+public sealed partial class ChangelogManager : IPostInjectInit
 {
-    public sealed partial class ChangelogManager : IPostInjectInit
+    [Dependency] private readonly ILogManager _logManager = null!;
+    [Dependency] private readonly IResourceManager _resource = null!;
+    [Dependency] private readonly ISerializationManager _serialization = null!;
+    [Dependency] private readonly IConfigurationManager _configManager = null!;
+
+    private const string SawmillName = "changelog";
+    private const string MainChangelogName = "HardlightChangelog";
+
+    /// <inheritdoc cref="ISawmill" />
+    private ISawmill _sawmill = null!;
+    private List<Changelog> _cachedChangelogs = [];
+
+    public bool NewChangelogEntries { get; private set; }
+    public event Action? NewChangelogEntriesChanged;
+
+    public async void Initialize()
     {
-        [Dependency] private readonly ILogManager _logManager = default!;
-        [Dependency] private readonly IResourceManager _resource = default!;
-        [Dependency] private readonly ISerializationManager _serialization = default!;
-        [Dependency] private readonly IConfigurationManager _configManager = default!;
-
-        private const string SawmillName = "changelog";
-        public const string MainChangelogName = "HardlightChangelog";
-
-        /// <inheritdoc cref="ISawmill" />
-        private ISawmill _sawmill = default!;
-
-        public bool NewChangelogEntries { get; private set; }
-        public int LastReadId { get; private set; }
-        public int MaxId { get; private set; }
-
-        public event Action? NewChangelogEntriesChanged;
-
-        /// <summary>
-        ///     Ran when the user opens ("read") the changelog,
-        ///     stores the new ID to disk and clears <see cref="NewChangelogEntries"/>.
-        /// </summary>
-        /// <remarks>
-        ///     <see cref="LastReadId"/> is NOT cleared
-        ///     since that's used in the changelog menu to show the "since you last read" bar.
-        /// </remarks>
-        public void SaveNewReadId()
+        try
         {
-            NewChangelogEntries = false;
-            NewChangelogEntriesChanged?.Invoke();
-
-            using var sw = _resource.UserData.OpenWriteText(new ($"/changelog_last_seen_{_configManager.GetCVar(CCVars.ServerId)}"));
-
-            sw.Write(MaxId.ToString());
-        }
-
-        public async void Initialize()
-        {
-            // Open changelog purely to compare to the last viewed date.
-            var changelogs = await LoadChangelog();
+            var changelogs = await LoadGameChangelogs();
             UpdateChangelogs(changelogs);
         }
-
-        private void UpdateChangelogs(List<Changelog> changelogs)
+        catch (Exception e)
         {
-            if (changelogs.Count == 0)
-            {
-                return;
-            }
+            _sawmill.Error("Failed to load changelog: {e}", e);
+        }
+    }
 
-            var mainChangelogs = changelogs.Where(c => c.Name == MainChangelogName).ToArray();
-            if (mainChangelogs.Length == 0)
-            {
-                _sawmill.Error($"No changelog file found in Resources/Changelog with name {MainChangelogName}");
-                return;
-            }
+    public void SaveNewReadId()
+    {
+        NewChangelogEntries = false;
+        NewChangelogEntriesChanged?.Invoke();
 
-            var changelog = changelogs[0];
-            if (mainChangelogs.Length > 1)
-            {
-                _sawmill.Error($"More than one file found in Resource/Changelog with name {MainChangelogName}");
-            }
+        var directory = new ResPath("/Changelog");
+        foreach (var file in _resource.ContentFindFiles(directory))
+        {
+            if (file.Extension != "yml" || file.Directory != directory) continue;
+            
+            var path = new ResPath($"/changelog_last_seen_{_configManager.GetCVar(CCVars.ServerId)}_{file.Filename}");
+            using var readStream = _resource.ContentFileRead(file);
+            using var writeStream = _resource.UserData.OpenWrite(path);
+            readStream.CopyTo(writeStream);
+        }
+    }
 
-            if (changelog.Entries.Count == 0)
-            {
-                return;
-            }
+    private void UpdateChangelogs(List<Changelog> changelogs)
+    {
+        _cachedChangelogs = changelogs;
 
-            MaxId = changelog.Entries.Max(c => c.Id);
+        if (changelogs.Count == 0) return;
 
-            var path = new ResPath($"/changelog_last_seen_{_configManager.GetCVar(CCVars.ServerId)}");
-            if (_resource.UserData.TryReadAllText(path, out var lastReadIdText))
-            {
-                LastReadId = int.Parse(lastReadIdText);
-            }
-
-            NewChangelogEntries = LastReadId < MaxId;
-
-            NewChangelogEntriesChanged?.Invoke();
+        var mainChangelogs = changelogs.Where(c => c.Name == MainChangelogName).ToArray();
+        if (mainChangelogs.Length == 0)
+        {
+            _sawmill.Error($"No changelog file found in Resources/Changelog with name {MainChangelogName}");
+            return;
         }
 
-        public Task<List<Changelog>> LoadChangelog()
+        var oldPath = new ResPath($"/changelog_last_seen_{_configManager.GetCVar(CCVars.ServerId)}.txt");
+        var lastReadVersions = new Dictionary<string, Version>();
+        bool isOldFormat = false;
+
+        if (_resource.UserData.TryReadAllText(oldPath, out var text))
         {
-            return Task.Run(() =>
+            foreach (var line in text.Split('\n', StringSplitOptions.RemoveEmptyEntries))
             {
-                var changelogs = new List<Changelog>();
-                var directory = new ResPath("/Changelog");
-                foreach (var file in _resource.ContentFindFiles(new ResPath("/Changelog/")))
+                var parts = line.Split(':');
+                if (parts.Length != 2 || !Version.TryParse(parts[1], out var version)) continue;
+                lastReadVersions[parts[0]] = version;
+                isOldFormat = true;
+            }
+        }
+
+        bool hasUnread = false;
+
+        foreach (var file in _resource.ContentFindFiles(new ResPath("/Changelog/")))
+        {
+            if (file.Extension != "yml") continue;
+            
+            var changelog = changelogs.FirstOrDefault(c => c.Name == file.FilenameWithoutExtension);
+            if (changelog == null) continue;
+
+            changelog.UnreadEntries.Clear();
+
+            var oldChangelog = LoadOldSingleChangelog(file);
+
+            if (oldChangelog != null)
+            {
+                foreach (var (version, entry) in changelog.Entries)
                 {
-                    if (file.Directory != directory || file.Extension != "yml")
-                        continue;
-
-                    var yamlData = _resource.ContentFileReadYaml(file);
-
-                    if (yamlData.Documents.Count == 0)
-                        continue;
-
-                    var node = yamlData.Documents[0].RootNode.ToDataNodeCast<MappingDataNode>();
-                    var changelog = _serialization.Read<Changelog>(node, notNullableOverride: true);
-                    if (string.IsNullOrWhiteSpace(changelog.Name))
-                        changelog.Name = file.FilenameWithoutExtension;
-
-                    changelogs.Add(changelog);
+                    if (oldChangelog.Entries.TryGetValue(version, out var oldEntry) &&
+                        GetEntryHash(entry) == GetEntryHash(oldEntry)) continue;
+                    changelog.UnreadEntries.Add(version);
                 }
+            }
+            else if (isOldFormat)
+            {
+                lastReadVersions.TryGetValue(changelog.Name, out var lastRead);
+                lastRead ??= new Version(0, 0);
 
-                changelogs.Sort((a, b) => a.Order.CompareTo(b.Order));
-                changelogs = changelogs.OrderBy(x => x.Name != MainChangelogName).ToList(); // HL: Allow setting the first tab
-                return changelogs;
-            });
+                foreach (var (version, _) in changelog.Entries)
+                {
+                    if (version > lastRead)
+                    {
+                        changelog.UnreadEntries.Add(version);
+                    }
+                }
+            }
+            else 
+            {
+                foreach (var version in changelog.Entries.Keys)
+                {
+                    changelog.UnreadEntries.Add(version);
+                }
+            }
+
+            if (changelog.HasUnreadEntries)
+            {
+                hasUnread = true;
+            }
         }
 
-        public void PostInject()
+        NewChangelogEntries = hasUnread;
+        NewChangelogEntriesChanged?.Invoke();
+    }
+
+    private Changelog? LoadOldSingleChangelog(ResPath file)
+    {
+        var path = new ResPath($"/changelog_last_seen_{_configManager.GetCVar(CCVars.ServerId)}_{file.Filename}");
+        if (!_resource.UserData.Exists(path)) return null;
+
+        using var reader = _resource.UserData.OpenText(path);
+        var yamlData = new YamlDotNet.RepresentationModel.YamlStream();
+        yamlData.Load(reader);
+
+        if (yamlData.Documents.Count == 0) return null;
+
+        var rootNode = yamlData.Documents[0].RootNode.ToDataNodeCast<MappingDataNode>();
+
+        var changelog = new Changelog
         {
-            _sawmill = _logManager.GetSawmill(SawmillName);
+            Name = file.FilenameWithoutExtension,
+            Entries = new Dictionary<Version, ChangelogEntry>()
+        };
+
+        foreach (var pair in rootNode)
+        {
+            var versionStr = pair.Key;
+
+            if (versionStr.StartsWith("v", StringComparison.OrdinalIgnoreCase))
+                versionStr = versionStr[1..];
+
+            if (!Version.TryParse(versionStr, out var version)) continue;
+            var entry = _serialization.Read<ChangelogEntry>(pair.Value, notNullableOverride: true);
+            changelog.Entries[version] = entry;
         }
+
+        return changelog;
+    }
+
+    private static int GetEntryHash(ChangelogEntry entry)
+    {
+        var hash = new HashCode();
+        var changeLists = new[] { entry.Add, entry.Fix, entry.Tweak, entry.Remove };
+        
+        foreach (var changeList in changeLists)
+        {
+            if (changeList == null) continue;
+            foreach (var c in changeList)
+            {
+                hash.Add(c.Message);
+                hash.Add(c.Author);
+            }
+        }
+
+        return hash.ToHashCode();
+    }
+    public HashSet<Version> GetUnreadEntries(string changelogName)
+    {
+        var cached = _cachedChangelogs.FirstOrDefault(c => c.Name == changelogName);
+        return cached?.UnreadEntries ?? [];
+    }
+
+    public Task<List<Changelog>> LoadGameChangelogs()
+    {
+        return Task.Run(() =>
+        {
+            var directory = new ResPath("/Changelog");
+            var changelogs = (from file in _resource.ContentFindFiles(new ResPath("/Changelog/"))
+                where file.Directory == directory
+                select LoadSingleChangelog(file)).Where(c => c != null).Select(c => c!).ToList();
+
+            changelogs = [.. changelogs.OrderBy(x => x.Name != MainChangelogName)];
+            return changelogs;
+        });
+    }
+
+    private Changelog? LoadSingleChangelog(ResPath file)
+    {
+        if (file.Extension != "yml") return null;
+
+        var yamlData = _resource.ContentFileReadYaml(file);
+        if (yamlData.Documents.Count == 0) return null;
+
+        var rootNode = yamlData.Documents[0].RootNode.ToDataNodeCast<MappingDataNode>();
+
+        var changelog = new Changelog
+        {
+            Name = file.FilenameWithoutExtension,
+            Entries = new Dictionary<Version, ChangelogEntry>()
+        };
+
+        foreach (var pair in rootNode)
+        {
+            var versionStr = pair.Key;
+
+            if (versionStr.StartsWith("v", StringComparison.OrdinalIgnoreCase))
+                versionStr = versionStr[1..];
+
+            if (!Version.TryParse(versionStr, out var version)) continue;
+            var entry = _serialization.Read<ChangelogEntry>(pair.Value, notNullableOverride: true);
+            changelog.Entries[version] = entry;
+        }
+
+        return changelog;
+    }
+    public void PostInject()
+    {
+        _sawmill = _logManager.GetSawmill(SawmillName);
+    }
+
+    public string GetClientVersion()
+    {
+        var fork = _configManager.GetCVar(CVars.BuildForkId);
+        var version = _configManager.GetCVar(CVars.BuildVersion);
+        if (version.Length > 7) version = version[..7];
+        if (string.IsNullOrEmpty(version) || string.IsNullOrEmpty(fork)) return Loc.GetString("changelog-version-unknown");
+        return Loc.GetString("changelog-version-tag", ("fork", fork), ("version", version));
+    }
+
+    /// <summary>
+    /// Represents an entire loaded changelog file (like HardlightChangelog.yml).
+    /// Holds all the versions and keeps track of which ones the user hasn't seen yet.
+    /// </summary>
+    public sealed class Changelog
+    {
+        /// <summary>
+        /// The name of the changelog file.
+        /// This is generally automatically parsed out from the filename.
+        /// </summary>
+        public string Name = string.Empty;
+        /// <summary>
+        /// The changes in the changelog, divvied up by semver release.
+        /// </summary>
+        internal Dictionary<Version, ChangelogEntry> Entries = new();
 
         /// <summary>
-        ///     Tries to return a human-readable version number from the build.json file
+        /// A collection of versions representing changelog entries that have not yet been read by the user.
         /// </summary>
-        public string GetClientVersion()
-        {
-            var fork = _configManager.GetCVar(CVars.BuildForkId);
-            var version = _configManager.GetCVar(CVars.BuildVersion);
+        /// <remarks>
+        /// The algorithm to find these entries is intentionally particularly aggressive.
+        /// It will flag any version with the slightest change/difference as an entirely new change.
+        /// TODO: Implement splitting versions by what's new and whats now so only new/modified entries bubble to the top without pulling up old changes.
+        /// </remarks>
+        public HashSet<Version> UnreadEntries = [];
+        /// <summary>
+        /// Stupid simple helper to check if there are any unread entries.
+        /// Just here because I found it convenient, despite it only getting 2 uses.
+        /// </summary>
+        public bool HasUnreadEntries => UnreadEntries.Count > 0;
+    }
 
-            // This trimming might become annoying if down the line some codebases want to switch to a real
-            // version format like "104.11.3" while others are still using the git hashes
-            if (version.Length > 7)
-                version = version[..7];
+    /// <summary>
+    /// Abstract for classes that Represent a category all the changes included in a single version release.
+    /// These are broken down into categories (like additions, fixes, tweaks) so we can group them nicely in the UI.
+    /// </summary>
+    [DataDefinition]
+    public sealed partial class ChangelogEntry
+    {
+        /// <summary>
+        /// <see cref="ChangelogLineType.Add" /> variant of <see cref="ChangelogEntry" />
+        /// Contains a list of changelog entries, all additions.
+        /// </summary>
+        [DataField]
+        public List<ChangelogChange>? Add { get; private set; }
 
-            if (string.IsNullOrEmpty(version) || string.IsNullOrEmpty(fork))
-                return Loc.GetString("changelog-version-unknown");
+        /// <summary>
+        /// <see cref="ChangelogLineType.Fix" /> variant of <see cref="ChangelogEntry" />
+        /// Contains a list of changelog entries, all fixes.
+        /// </summary>
+        [DataField]
+        public List<ChangelogChange>? Fix { get; private set; }
 
-            return Loc.GetString("changelog-version-tag",
-                ("fork", fork),
-                ("version", version));
-        }
+        /// <summary>
+        /// <see cref="ChangelogLineType.Tweak" /> variant of <see cref="ChangelogEntry" />
+        /// Contains a list of changelog entries, all changes to existing features.
+        /// </summary>
+        [DataField]
+        public List<ChangelogChange>? Tweak { get; private set; }
 
-        [DataDefinition]
-        public sealed partial class Changelog
-        {
-            /// <summary>
-            ///     The name to use for this changelog.
-            ///     If left unspecified, the name of the file is used instead.
-            ///     Used during localization to find the user-displayed name of this changelog.
-            /// </summary>
-            [DataField("Name")]
-            public string Name = string.Empty;
+        /// <summary>
+        /// <see cref="ChangelogLineType.Remove" /> variant of <see cref="ChangelogEntry" />
+        /// Contains a list of changelog entries, all removals.
+        /// </summary>
+        [DataField]
+        public List<ChangelogChange>? Remove { get; private set; }
+    }
 
-            /// <summary>
-            ///     The individual entries in this changelog.
-            ///     These are not kept around in memory in the changelog manager.
-            /// </summary>
-            [DataField("Entries")]
-            public List<ChangelogEntry> Entries = new();
+    /// <summary>
+    /// A single line item in the changelog, written by someone who (hopefully) fixed a bug or added a feature.
+    /// It can optionally include a commit hash so nerds can click through to see the actual code changes on GitHub/GitLab.
+    /// </summary>
+    [DataDefinition]
+    public sealed partial class ChangelogChange
+    {
+        /// <summary>
+        /// The author of the change. It is preferable this be addressed to the username in the code forge, as that is
+        /// what this is used for, to link to said code-forge profile from the changelog.
+        /// </summary>
+        [DataField]
+        public string Author { get; private set; } = string.Empty;
 
-            /// <summary>
-            ///     Whether or not this changelog will be displayed as a tab to non-admins.
-            ///     These are still loaded by all clients, but not shown if they aren't an admin,
-            ///     as they do not contain sensitive data and are publicly visible on GitHub.
-            /// </summary>
-            [DataField("AdminOnly")]
-            public bool AdminOnly;
+        /// <summary>
+        /// A short brief description of the change.
+        /// It is important that these are always player-oriented, as that is who the changelog is for.
+        /// Code refactors, internal changes, private changes, etc. do NOT get a changelog entry.
+        /// </summary>
+        [DataField]
+        public string Message { get; private set; } = string.Empty;
 
-            /// <summary>
-            ///     Used when ordering the changelog tabs for the user to see.
-            ///     Larger numbers are displayed later, smaller numbers are displayed earlier.
-            /// </summary>
-            [DataField("Order")]
-            public int Order;
-        }
+        /// <summary>
+        /// The commit hash of either when the feature was introduced or merged.
+        /// For small features, this typically points to the commit where the feature was introduced.
+        /// For larger features, this points to the merge commit where the feature was merged.
+        /// Technically optional. Is nullable. There are situations where it isn't practical to have a commit hash.
+        /// </summary>
+        [DataField]
+        public string? Hash { get; private set; }
+    }
 
-        [DataDefinition]
-        public sealed partial class ChangelogEntry
-        {
-            [DataField("id")]
-            public int Id { get; private set; }
-
-            [DataField("author")]
-            public string Author { get; private set; } = "";
-
-            [DataField]
-            public DateTime Time { get; private set; }
-
-            [DataField("changes")]
-            public List<ChangelogChange> Changes { get; private set; } = default!;
-
-            [DataField] public List<ChangelogChange>? Add { get; private set; }
-            [DataField] public List<ChangelogChange>? Fix { get; private set; }
-            [DataField] public List<ChangelogChange>? Tweak { get; private set; }
-            [DataField] public List<ChangelogChange>? Remove { get; private set; }
-        }
-
-        [DataDefinition]
-        public sealed partial class ChangelogChange
-        {
-            [DataField("type")]
-            public ChangelogLineType Type { get; private set; }
-
-            [DataField("message")]
-            public string Message { get; private set; } = "";
-
-            [DataField] public string Author { get; private set; } = string.Empty;
-            [DataField] public string? Hash { get; private set; }
-        }
-
-        public enum ChangelogLineType
-        {
-            Add,
-            Remove,
-            Fix,
-            Tweak,
-        }
+    /// <summary>
+    /// This enum is a strict collection of all the different types of changelog entries.
+    /// Elsewhere, this is matched to select style and the icon for the changelog UI.
+    /// </summary>
+    public enum ChangelogLineType
+    {
+        /// <summary>
+        /// Represents the inverse of <see cref="Remove" />.
+        /// Is the introduction or an extension of a feature.
+        /// Does not cover in-place changes to values or reconfigurations of existing features.
+        /// </summary>
+        /// <example>
+        /// Added a system to detect players through walls via echolocation.
+        /// </example>
+        Add,
+        /// <summary>
+        /// Represents the inverse of <see cref="Add" />.
+        /// Is the removal of a feature.
+        /// </summary>
+        /// <example>
+        /// Removed the ability to detect players through walls via echolocation.
+        /// </example>
+        Remove,
+        /// <summary>
+        /// Represents a change that addresses and resolves an existing bug or regression.
+        /// </summary>
+        /// <example>
+        /// Fixed a bug where activating echolocation goggles caused the previous player to use them to go blind.
+        /// </example>
+        Fix,
+        /// <summary>
+        /// Represents a change that changes an existing feature or reconfigures it.
+        /// Most often editing a prototype.
+        /// </summary>
+        /// <example>
+        /// Extended/Buffed the range of echolocation goggles.
+        /// </example>
+        Tweak,
     }
 }

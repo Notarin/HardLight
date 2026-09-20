@@ -7,8 +7,9 @@ using static Content.Client._HL.Changelog.ChangelogManager;
 namespace Content.Client._HL.Changelog;
 
 /// <summary>
-/// This is the UI element for a single changelog entry.
-/// These are usually nested by the many under a changelog section, Feat, Tweak, Fix, Remove.
+/// This is the UI control for a single changelog line item.
+/// It renders the actual message, and the author and commit buttons so you can click them to open the respective URLs.
+/// You'll see these stacked inside a <see cref="ChangelogSection"/>.
 /// </summary>
 [GenerateTypedNameReferences]
 public sealed partial class ChangelogEntry : Control

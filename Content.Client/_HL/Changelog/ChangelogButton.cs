@@ -1,4 +1,4 @@
-﻿using Content.Client.Stylesheets;
+using Content.Client.Stylesheets;
 using Robust.Client.UserInterface.Controls;
 
 namespace Content.Client._HL.Changelog;
@@ -6,10 +6,11 @@ namespace Content.Client._HL.Changelog;
 /// <summary>
 /// Primarily the main-menu changelog button.
 /// However, has some seldom uses elsewhere.
+/// It listens to the <see cref="ChangelogManager"/> so it can magically turn red and show "New!" when there are unread changes.
 /// </summary>
 public sealed class ChangelogButton : Button
 {
-    [Dependency] private readonly ChangelogManager _changelogManager = default!;
+    [Dependency] private readonly ChangelogManager _changelogManager = null!;
 
     public ChangelogButton()
     {
@@ -20,6 +21,9 @@ public sealed class ChangelogButton : Button
         Text = " ";
     }
 
+    /// <summary>
+    /// Called when the button is added to the UI.
+    /// </summary>
     protected override void EnteredTree()
     {
         base.EnteredTree();
@@ -28,6 +32,9 @@ public sealed class ChangelogButton : Button
         UpdateStuff();
     }
 
+    /// <summary>
+    /// Called when the button is removed from the UI.
+    /// </summary>
     protected override void ExitedTree()
     {
         base.ExitedTree();
@@ -35,6 +42,9 @@ public sealed class ChangelogButton : Button
         _changelogManager.NewChangelogEntriesChanged -= UpdateStuff;
     }
 
+    /// <summary>
+    /// Turns the button red and changes the text to have "New Entries" if there are unread changelogs.
+    /// </summary>
     private void UpdateStuff()
     {
         if (_changelogManager.NewChangelogEntries)

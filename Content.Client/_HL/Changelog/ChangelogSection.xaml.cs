@@ -8,6 +8,10 @@ using static Content.Client._HL.Changelog.ChangelogManager;
 
 namespace Content.Client._HL.Changelog;
 
+/// <summary>
+/// A UI control representing a specific category of changes (like "Bug Fixes" or "Tweaks").
+/// Sets up the correct colored icon and title based on the category type, then spawns the individual entries underneath it.
+/// </summary>
 [GenerateTypedNameReferences]
 public sealed partial class ChangelogSection : Control
 {

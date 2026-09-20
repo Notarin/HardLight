@@ -1,6 +1,6 @@
 ﻿<Control xmlns="https://spacestation14.io"
          xmlns:pllax="clr-namespace:Content.Client.Parallax"
-         xmlns:clog="clr-namespace:Content.Client._HL.Changelog">
+         xmlns:changelog="clr-namespace:Content.Client._HL.Changelog">
     <pllax:ParallaxControl
         ParallaxPrototype="FrontierStation"
         SpeedX="5"
@@ -46,7 +46,7 @@
                 Text="{Loc 'main-menu-quit-button'}"
                 TextAlign="Center"
                 StyleIdentifier="mainMenu"/>
-        <clog:ChangelogButton
+        <changelog:ChangelogButton
             Name="ChangelogButton"
             Access="Public"/>
     </BoxContainer>

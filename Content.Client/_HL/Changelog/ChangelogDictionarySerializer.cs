@@ -9,12 +9,15 @@ using Robust.Shared.Serialization.TypeSerializers.Interfaces;
 namespace Content.Client._HL.Changelog;
 
 /// <summary>
-/// Custom serializer specifically made for changelogs addressed by semver.
-/// See <see cref="Dictionary{Version, ChangelogEntry}"/>, and <see cref="Version"/>
+/// This serializer is specifically for parsing the newer format of our changelog YAML files, where the
+/// root keys are actually the semantic version numbers (e.g. `v0.1.0:`), instead of an array.
+/// Normally the serializer absolutely shits bricks if the dictionary key isn't a simple primitive, 
+/// But I wanted a human-readable YAML file while still strictly typing it against C#'s <see cref="Version"/>, so I defined this serializer.
 /// </summary>
 [TypeSerializer]
 public sealed class ChangelogDictionarySerializer : ITypeSerializer<Dictionary<Version, ChangelogEntry>, MappingDataNode>
 {
+    /// <inheritdoc/>
     public ValidationNode Validate(ISerializationManager serializationManager, MappingDataNode node,
         IDependencyCollection dependencies, ISerializationContext? context = null)
     {
@@ -40,6 +43,7 @@ public sealed class ChangelogDictionarySerializer : ITypeSerializer<Dictionary<V
         return new ValidatedMappingNode(mapping);
     }
 
+    /// <inheritdoc/>
     public Dictionary<Version, ChangelogEntry> Read(
         ISerializationManager serializationManager,
         MappingDataNode node,
@@ -63,6 +67,7 @@ public sealed class ChangelogDictionarySerializer : ITypeSerializer<Dictionary<V
         return dict;
     }
 
+    /// <inheritdoc/>
     public DataNode Write(
         ISerializationManager serializationManager,
         Dictionary<Version, ChangelogEntry> value, 

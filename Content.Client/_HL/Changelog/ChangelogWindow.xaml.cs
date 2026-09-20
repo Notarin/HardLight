@@ -1,5 +1,4 @@
 using System.Linq;
-using Content.Client.Administration.Managers;
 using Content.Client.Stylesheets;
 using Content.Client.UserInterface.Controls;
 using Content.Client.UserInterface.Systems.EscapeMenu;
@@ -10,56 +9,51 @@ using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.XAML;
 using Robust.Shared.Console;
 
-namespace Content.Client._HL.Changelog
+namespace Content.Client._HL.Changelog;
+
+/// <summary>
+/// The main window for the changelog that pops up when you hit the button.
+/// It contains a tabbed view, so we can have separate changelogs for the main game and potentially other changes like admin changes, map changes, etc.
+/// </summary>
+[GenerateTypedNameReferences]
+public sealed partial class ChangelogWindow : FancyWindow
 {
-    [GenerateTypedNameReferences]
-    public sealed partial class ChangelogWindow : FancyWindow
+    [Dependency] private readonly ChangelogManager _changelog = null!;
+    [Dependency] private readonly ILogManager _logManager = null!;
+
+    private readonly ISawmill _logger;
+
+    public ChangelogWindow()
     {
-        [Dependency] private readonly ChangelogManager _changelog = default!;
-        [Dependency] private readonly IClientAdminManager _adminManager = default!;
+        RobustXamlLoader.Load(this);
+        IoCManager.InjectDependencies(this);
+        WindowTitle.AddStyleClass(StyleClass.LabelHeading);
+        _logger = _logManager.GetSawmill("changelog");
+    }
 
-        public ChangelogWindow()
+    protected override void Opened()
+    {
+        base.Opened();
+
+        _changelog.SaveNewReadId();
+        PopulateChangelog();
+    }
+
+    private async void PopulateChangelog()
+    {
+        try
         {
-            RobustXamlLoader.Load(this);
-            WindowTitle.AddStyleClass(StyleClass.LabelHeading);
-        }
-
-        protected override void Opened()
-        {
-            base.Opened();
-
-            _changelog.SaveNewReadId();
-            PopulateChangelog();
-        }
-
-        protected override void EnteredTree()
-        {
-            base.EnteredTree();
-            _adminManager.AdminStatusUpdated += OnAdminStatusUpdated;
-        }
-
-        protected override void ExitedTree()
-        {
-            base.ExitedTree();
-            _adminManager.AdminStatusUpdated -= OnAdminStatusUpdated;
-        }
-
-        private void OnAdminStatusUpdated()
-        {
-            TabsUpdated();
-        }
-
-        private async void PopulateChangelog()
-        {
-            // Changelog is not kept in memory so load it again.
-            var changelogs = await _changelog.LoadChangelog();
+            // Changelog is not kept in memory, so load it again.
+            var changelogs = await _changelog.LoadGameChangelogs();
 
             Tabs.DisposeAllChildren();
 
             var i = 0;
             foreach (var changelog in changelogs)
             {
-                var tab = new ChangelogTab { AdminOnly = changelog.AdminOnly };
+                changelog.UnreadEntries = _changelog.GetUnreadEntries(changelog.Name);
+
+                var tab = new ChangelogTab();
                 tab.PopulateChangelog(changelog);
 
                 Tabs.AddChild(tab);
@@ -70,56 +64,58 @@ namespace Content.Client._HL.Changelog
 
             TabsUpdated();
         }
-
-        private void TabsUpdated()
+        catch (Exception e)
         {
-            var tabs = Tabs.Children.OfType<ChangelogTab>().ToArray();
-            var isAdmin = _adminManager.IsAdmin(true);
-
-            var visibleTabs = 0;
-            int? firstVisible = null;
-            for (var i = 0; i < tabs.Length; i++)
-            {
-                var tab = tabs[i];
-
-                if (!tab.AdminOnly || isAdmin)
-                {
-                    Tabs.SetTabVisible(i, true);
-                    visibleTabs++;
-                    firstVisible ??= i;
-                }
-                else
-                {
-                    Tabs.SetTabVisible(i, false);
-                }
-            }
-
-            Tabs.TabsVisible = visibleTabs > 1;
-
-            // Current tab became invisible, select the first one that is visible
-            if (!Tabs.GetTabVisible(Tabs.CurrentTab) && firstVisible != null)
-            {
-                Tabs.CurrentTab = firstVisible.Value;
-            }
-
-            // We are only displaying one tab, hide its header
-            if (!Tabs.TabsVisible && firstVisible != null)
-            {
-                Tabs.SetTabVisible(firstVisible.Value, false);
-            }
+            _logger.Error("Failed to load changelog: {e}", e);
         }
     }
 
-    [UsedImplicitly, AnyCommand]
-    public sealed class ChangelogCommand : IConsoleCommand
+    /// <summary>
+    /// Updates the visibility and behavior of tabs within the changelog window.
+    /// Calculates which tabs should be visible and ensures the correct tab is selected.
+    /// Note: If only one tab is visible, it hides the header.
+    /// </summary>
+    private void TabsUpdated()
     {
-        public string Command => "changelog";
-        public string Description => "Opens the changelog";
-        public string Help => "Usage: changelog";
+        var tabs = Tabs.Children.OfType<ChangelogTab>().ToArray();
 
-        public void Execute(IConsoleShell shell, string argStr, string[] args)
+        var visibleTabs = 0;
+        int? firstVisible = null;
+        for (var i = 0; i < tabs.Length; i++)
         {
-            IoCManager.Resolve<IUserInterfaceManager>().GetUIController<ChangelogUIController>().OpenWindow();
+            Tabs.SetTabVisible(i, true);
+            visibleTabs++;
+            firstVisible ??= i;
         }
+
+        Tabs.TabsVisible = visibleTabs > 1;
+
+        // Current tab became invisible, select the first one that is visible
+        if (!Tabs.GetTabVisible(Tabs.CurrentTab) && firstVisible != null)
+        {
+            Tabs.CurrentTab = firstVisible.Value;
+        }
+
+        // We are only displaying one tab, hide its header
+        if (!Tabs.TabsVisible && firstVisible != null)
+        {
+            Tabs.SetTabVisible(firstVisible.Value, false);
+        }
+    }
+}
+
+/// <summary>
+/// A handy little console command to force-open the changelog window if you ever need to.
+/// </summary>
+[UsedImplicitly, AnyCommand]
+public sealed class ChangelogCommand : IConsoleCommand
+{
+    public string Command => "changelog";
+    public string Description => "Opens the changelog";
+    public string Help => "Usage: changelog";
+
+    public void Execute(IConsoleShell shell, string argStr, string[] args)
+    {
+        IoCManager.Resolve<IUserInterfaceManager>().GetUIController<ChangelogUIController>().OpenWindow();
     }
 }

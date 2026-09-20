@@ -6,6 +6,10 @@ using static Content.Client._HL.Changelog.ChangelogManager;
 
 namespace Content.Client._HL.Changelog;
 
+/// <summary>
+/// A UI control representing a single release version in the changelog (e.g., v0.1.0).
+/// It holds the big version header text and acts as a container for the individual category sections (Add, Fix, etc.).
+/// </summary>
 [GenerateTypedNameReferences]
 public sealed partial class ChangelogVersion : Control
 {

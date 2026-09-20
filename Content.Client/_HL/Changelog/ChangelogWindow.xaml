@@ -1,5 +1,5 @@
-﻿<ui:ChangelogWindow xmlns="https://spacestation14.io"
-                    xmlns:ui="clr-namespace:Content.Client._HL.Changelog"
+﻿<changelog:ChangelogWindow xmlns="https://spacestation14.io"
+                    xmlns:changelog="clr-namespace:Content.Client._HL.Changelog"
                     Title="{Loc 'changelog-window-title'}"
                     MinSize="500 400"
                     SetSize="500 400"
@@ -10,4 +10,4 @@
         <PanelContainer StyleClasses="LowDivider" />
         <Label Name="VersionLabel" Access="Public" HorizontalAlignment="Right" StyleClasses="LabelSubText" Margin="4 0" />
     </BoxContainer>
-</ui:ChangelogWindow>
+</changelog:ChangelogWindow>

@@ -51,3 +51,10 @@
   - DEBUGVendingMachineAmmoBoxes
   - DEBUGVendingMachineMagazines
   - DEBUGVendingMachineRangedWeapons
+
+- type: saveBan
+  id: removedSeedProductionGas # Gases that have been intentionally removed from seeds producible gas list.
+  reason: "This ability to produce a gas this seed produces has been removed from the game. This is no longer a valid seed."
+  seedGasses:
+    - Tritium
+    - Frezon

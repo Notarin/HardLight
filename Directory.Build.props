@@ -1,4 +1,40 @@
 <Project>
+  <!--Main Package Manifest Info.-->
+  <PropertyGroup>
+    <!--Project Information-->
+    <Title>HardLight</Title>
+    <Description>A multiplayer game about paranoia and chaos on a space station. Remake of the cult-classic Space Station 13. HardLight Fork.</Description>
+    <Version>0.0.0</Version>
+    <PackageLicenseExpression>AGPL-3.0-only</PackageLicenseExpression>
+    <PackageLicenseUrl>https://code.hardlight.space/HardLight/HardLight/src/branch/master/LICENSE-AGPLv3.txt</PackageLicenseUrl>
+    <Company>HardLight</Company>
+    <Copyright>Copyright © 2026 HardLight</Copyright>
+    <PackageTags>ss14;space-station-14;roleplay;erp;nsfw;18+;adults-only;hardlight</PackageTags>
+
+    <!--Repo Info-->
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://code.hardlight.space/HardLight/HardLight</RepositoryUrl>
+    <PackageProjectUrl>https://hardlight.space/</PackageProjectUrl>
+
+    <!--Changelog-->
+    <!-- Define the path relative to Directory.Build.props -->
+    <ChangelogPath>$(MSBuildThisFileDirectory)Resources/Changelog/HardlightChangelog.yml</ChangelogPath>
+    <!-- Read the file into the tag, but only if the file actually exists -->
+    <PackageReleaseNotes Condition="Exists('$(ChangelogPath)')">$([System.IO.File]::ReadAllText('$(ChangelogPath)'))</PackageReleaseNotes>
+
+    <!--Meta Files-->
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>icon-256x256.png</PackageIcon>
+
+    <!--Compiler Options-->
+  </PropertyGroup>
+
+  <!--Required Includes For Above Manifest-->
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+    <None Include="Resources/Textures/_HL/Logo/icon/icon-256x256.png" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
   <PropertyGroup>
     <_ProjectDir>$([MSBuild]::EnsureTrailingSlash('$(MSBuildProjectDirectory)'))</_ProjectDir>
     <_RobustToolboxDir>$([MSBuild]::EnsureTrailingSlash('$(MSBuildThisFileDirectory)RobustToolbox'))</_RobustToolboxDir>

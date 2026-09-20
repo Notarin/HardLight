@@ -9,6 +9,7 @@ using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Configuration;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
+using Timer = Robust.Shared.Timing.Timer;
 
 namespace Content.Client.Chat.UI
 {

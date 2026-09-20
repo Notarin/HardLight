@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using Robust.Shared.Timing;
 using Content.Shared.Atmos;
+using Timer = Robust.Shared.Timing.Timer;
 
 namespace Content.Server.Botany.Systems;
 

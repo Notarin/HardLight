@@ -10,6 +10,7 @@ using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems; // HardLight
 using Content.Shared._Starlight.Actions.Stasis;
 using Robust.Shared.Player;
+using Timer = Robust.Shared.Timing.Timer;
 
 namespace Content.Server._Starlight.Actions.Stasis;
 

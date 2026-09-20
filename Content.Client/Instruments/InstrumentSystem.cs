@@ -10,6 +10,7 @@ using Robust.Shared.Configuration;
 using Robust.Shared.GameStates;
 using Robust.Shared.Network;
 using Robust.Shared.Timing;
+using Timer = Robust.Shared.Timing.Timer;
 
 namespace Content.Client.Instruments;
 

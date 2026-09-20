@@ -28,6 +28,7 @@ using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 using System.Linq;
 using Content.Server._Starlight.Language; // Starlight
+using Timer = Robust.Shared.Timing.Timer;
 
 namespace Content.Server.Traits;
 

@@ -18,6 +18,7 @@ using Robust.Shared.IoC;
 using Robust.Shared.Network;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
+using Timer = Robust.Shared.Timing.Timer;
 
 namespace Content.Client.Administration.UI.Bwoink
 {

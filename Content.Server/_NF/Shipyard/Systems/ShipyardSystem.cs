@@ -49,6 +49,7 @@ using Content.Shared.Storage;
 using Content.Shared._HL.Insurance.Components;
 using YamlDotNet.Core; // HardLight
 using YamlDotNet.RepresentationModel; // HardLight
+using Timer = Robust.Shared.Timing.Timer;
 
 namespace Content.Server._NF.Shipyard.Systems;
 

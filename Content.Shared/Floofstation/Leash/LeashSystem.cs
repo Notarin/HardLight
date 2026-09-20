@@ -21,6 +21,7 @@ using Robust.Shared.Physics.Dynamics.Joints;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Player;
 using Robust.Shared.Timing;
+using Timer = Robust.Shared.Timing.Timer;
 
 
 namespace Content.Shared.Floofstation.Leash;

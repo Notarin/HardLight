@@ -27,6 +27,7 @@ using Robust.Shared.Random;
 using Robust.Shared.Timing;
 using Content.Server._NF.Station.Systems;
 using Robust.Shared.EntitySerialization.Systems;
+using Timer = Robust.Shared.Timing.Timer;
 
 namespace Content.Server._NF.Smuggling;
 

@@ -4,6 +4,7 @@ using Content.Shared.Mind.Components;
 using Content.Shared.Actions.Events;
 using Robust.Server.GameObjects;
 using Robust.Shared.Timing;
+using Timer = Robust.Shared.Timing.Timer;
 
 namespace Content.Server.Abilities.Psionics
 {

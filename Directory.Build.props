@@ -27,6 +27,15 @@
     <PackageIcon>icon-256x256.png</PackageIcon>
 
     <!--Compiler Options-->
+    <!--<LangVersion>latest</LangVersion> No point in putting this here, the csproj's define this.-->
+    <!-- Enable modern C# features for the game, but exclude ancient utility tools -->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <ErrorReport>none</ErrorReport>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+  <!--Has to be in its own group guarded by a condition due to this being incompatible with pre-net8.0 versions.-->
+  <PropertyGroup Condition="'$(MSBuildProjectName)' != 'BuildChecker'">
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <!--Required Includes For Above Manifest-->

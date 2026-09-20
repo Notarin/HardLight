@@ -8,6 +8,7 @@ using Content.Shared.Weapons.Ranged.Events;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Maths;
 using Robust.Shared.Timing;
+using Timer = Robust.Shared.Timing.Timer;
 
 namespace Content.Shared.Weapons.Hitscan.Systems;
 

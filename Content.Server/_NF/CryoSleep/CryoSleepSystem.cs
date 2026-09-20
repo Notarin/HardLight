@@ -33,6 +33,7 @@ using Robust.Shared.Map;
 using Robust.Shared.Network;
 using Robust.Shared.Timing;
 using Content.Shared.Bed.Cryostorage; // HardLight
+using Timer = Robust.Shared.Timing.Timer;
 
 namespace Content.Server._NF.CryoSleep;
 

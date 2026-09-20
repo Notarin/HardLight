@@ -3,6 +3,7 @@ using Content.Shared.PDA.Ringer;
 using JetBrains.Annotations;
 using Robust.Client.UserInterface;
 using Robust.Shared.Timing;
+using Timer = Robust.Shared.Timing.Timer;
 
 namespace Content.Client.PDA.Ringer
 {

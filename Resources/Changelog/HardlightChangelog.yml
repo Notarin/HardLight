@@ -1,0 +1,28 @@
+0.0.0:
+  add:
+    - message: Made much example.
+      author: Notarin
+      hash: fd06677d2198b5271e6067d89f109b9b588482bf
+    - message: Made more the much example!
+      author: Notarin
+  fix:
+    - message: Fixed all the example.
+      author: Notarin
+      hash: fd06677d2198b5271e6067d89f109b9b588482bf
+    - message: Fixed more than infinite example.
+      author: Notarin
+      hash: fd06677d2198b5271e6067d89f109b9b588482bf
+  tweak:
+    - message: Tweaked the RNG change to tweak out.
+      author: Notarin
+    - message: Tweaked the tweak of tweaking out.
+      author: Notarin
+      hash: fd06677d2198b5271e6067d89f109b9b588482bf
+  remove:
+    - message: Removed nothing.
+      author: Notarin
+    - message: Removed Something.
+      author: Notarin
+  summary: |-
+    This is an example changelog that will be nuked before v0.1.0
+    Purely exists so the changelog isnt empty.

@@ -1,28 +1,3180 @@
-0.0.0:
+0.1.0:
   add:
-    - message: Made much example.
-      author: Notarin
-      hash: fd06677d2198b5271e6067d89f109b9b588482bf
-    - message: Made more the much example!
-      author: Notarin
+  - message: added ERP?
+    author: Fenn
+  - message: Changelog test
+    author: xemeraldwingx-dot
+  - message: Added a second tail point for moths and chitinids.
+    author: NotLivyathan
+  - message: Added Xenoborgs and basic ai ship logic
+    author: fenndragon
+  - message: Added hostile Xenoborg drones to space
+    author: fenndragon
+  - message: >-
+      added like 14 more varieties of spray paint to the paint crate, two of which
+      are a lucky find
+    author: stickycheZ101
+  - message: added a mad max reference somewhere in the game
+    author: stickycheZ101
+  - message: Added missing marking localization
+    author: Durk
+  - message: Added XenoQuadborg
+    author: fenndragon
+  - message: Ability for Vulps and Shadekins to have psionics
+    author: amareyeen
+  - message: Medical quadborgs now have built-in medical HUDs and chemical analysis goggles.
+    author: NotLivyathan
+  - message: Engineer quadborgs now have built-in diagnostic HUDs.
+    author: NotLivyathan
+  - message: >-
+      Security quadborgs now have built-in security glasses complete with flash
+      protection.
+    author: NotLivyathan
+  - message: Added Vore
+    author: Fenndragon
+  - message: Added kink list
+    author: Fenndragon
+  - message: added the TraversalDistorter component to artifact analyzer
+    author: TrylobyteWasTaken
+  - message: added the Window tag to shuttle windows
+    author: TrylobyteWasTaken
+  - message: Rename TSFMC items to ColSec
+    author: warcrazed11
+  - message: Sensors to tracking implants
+    author: warcrazed11
+  - message: New markings for Thaven! Arm, leg, and dorsal fins.
+    author: carccborg
+  - message: Three new tails for Thaven
+    author: carccborg
+  - message: Added Angler bulb and Fairy fin markings for Thaven.
+    author: carccborg
+  - message: truly funky sprites for the base thaven
+    author: carccborg
+  - message: truly funky sprites for many thaven markings
+    author: carccborg
+  - message: Added Knife rigging to merc loadouts.
+    author: warcrazed11
+  - message: Added medipen cases printable at medfabs and purchasable on uplinks.
+    author: warcrazed11
+  - message: >-
+      Exosuit mining drills now have a 60-degree wide-swing, making them faster
+      miners than handheld versions.
+    author: TrylobyteWasTaken
+  - message: >-
+      Diamond drills now ignore resistances. Melee a Clarke with an exosuit diamond
+      drill at your own risk.
+    author: TrylobyteWasTaken
+  - message: Adds new high tier traits as well as some bug fixes.
+    author: fenndragon
+  - message: Added the ability to craft big ammo boxes for 3x the price of normal ammo boxes.
+    author: warcrazed11
+  - message: Gave security roles roundstart FUCs
+    author: warcrazed11
+  - message: Mechs should now have flashlights so they can see.
+    author: TrylobyteWasTaken
+  - message: Medical Quadborgs are now able to dispense candies for patients.
+    author: NotLivyathan
+  - message: >-
+      Encryption keys are now able to be used on Quadborgs to give them new radio
+      channels.
+    author: NotLivyathan
+  - message: Quadborgs are finally allowed to cum.
+    author: NotLivyathan
+  - message: >-
+      New Cyborg Storage Modules are now able to be made at a Protolathe once
+      Bluespace Storage has been researched, allowing Cyborgs to carry bags courtesy of Nookie.
+    author: NotLivyathan
+  - message: >-
+      Security Quadborgs are now able to be printed at SEC techfabs, albeit without
+      custom sprites or names, so they will appear as normal Cyborg parts.
+    author: NotLivyathan
+  - message: Synths now have three new markings; wings, an antenna, and neck panels.
+    author: NotLivyathan
+  - message: added basic segmented entities and a couple rainlizards for testing purposes
+    author: fenndragon
+  - message: Ported time transfer window.
+    author: Warcrazed
+  - message: Added admin spawn chronolegionnares.
+    author: Warcrazed
+  - message: Added Civilian Chameleon Clothes.
+    author: Warcrazed
+  - message: Vox now have animated tail wagging similar to Reptilians.
+    author: NotLivyathan
+  - message: Vox are now able to eat trash and drink welding fuel.
+    author: NotLivyathan
+  - message: >-
+      Vox now have additional emote sounds; including coo, hiss, cough, sigh, gasp,
+      and more.
+    author: NotLivyathan
+  - message: Added Genetics
+    author: Warcrazed
+  - message: added Rainlizards
+    author: fenndragon
+  - message: added Rainlizard events
+    author: fenndragon
+  - message: Avali, Resomi, and Vow will now turn into fried chicken when ashed.
+    author: NotLivyathan
+  - message: Eaglerock now has a genetics room in medical for geneticists to make mutations
+    author: Generic_Eagle
+  - message: Eaglerock now has a Butlertron for the station chef
+    author: Generic_Eagle
+  - message: Added Cargo markets to stations.
+    author: Warcrazed
+  - message: Added visual cue to radar at the 5K mark
+    author: fenndragon
+  - message: Added custom species
+    author: TrylobyteWasTaken
+  - message: Added a green qipao.
+    author: warcrazed11
+  - message: Adds the coyote clothes to the loudout options.
+    author: warcrazed11
+  - message: >-
+      New chemical, Alphoranthine.  Weak cellular healing, but cures the 'death' gene
+      in plants.
+    author: TrylobyteWasTaken
+  - message: New chemical, Havokanthine.  Causes extremely rapid mutations in anything.
+    author: TrylobyteWasTaken
+  - message: Ported Silica Station
+    author: rtasva
+  - message: Egg laying trait
+    author: Tichi
+  - message: Adds the Admin tag and tags admin items.
+    author: warcrazed11
+  - message: Added basic tag lock system for clothing.
+    author: warcrazed11
+  - message: Added back the vore system, this time ported from Coyote and floof-station
+    author: fenndragon
+  - message: Adds multiple optimizations
+    author: fenndragon
+  - message: cyan lizard shunt
+    author: fenndragon
+  - message: Ported numerous benches and sofas made by Conflee
+    author: rtasva
+  - message: Ported desktop PC consoles made by Citrea
+    author: rtasva
+  - message: Synths now feature built-in Binary comms that cannot be removed.
+    author: NotLivyathan
+  - message: >-
+      Cyborgs now feature built-in frequencies relative to their chassis and accept
+      encryption keys for additional frequencies.
+    author: NotLivyathan
+  - message: "Reptilians now have two additional snout markings: Eastern Dragon & Eastern Dragon (Usiki)"
+    author: NotLivyathan
+  - message: >-
+      Jump Boots are now able to be crafted at a protolathe after the appropriate
+      research has been done.
+    author: NotLivyathan
+  - message: Added a bunch of optimization
+    author: fenndragon
+  - message: Added various cleanup systems
+    author: fenndragon
+  - message: Added Seed and plant stacking
+    author: fenndragon
+  - message: Added THE PIRATES CODE
+    author: fenndragon
+  - message: Added Civimed vendors and some new furniture to Silica
+    author: rtasva
+  - message: ported too many clothes to list here
+    author: rtasva
+  - message: Added even more optimizations
+    author: fenndragon
+  - message: added more dragons
+    author: fenndragon
+  - message: added fish evolution
+    author: fenndragon
+  - message: added new carp forms
+    author: fenndragon
+  - message: Added MNK vendors & Passion drobes to every station
+    author: rtasva
+  - message: Added a new area to Eaglerock with a reporter!
+    author: Generic_Eagle
+  - message: Added the ability to opt out of paradox clone targetting.
+    author: warcrazed11
+  - message: >-
+      Inert Nanites and active Nanites are now able to be created through
+      electrolysis.
+    author: NotLivyathan
+  - message: Reagents within a cryostasis beaker now react through electrolysis.
+    author: NotLivyathan
+  - message: Added AAC tablet!
+    author: warcrazed11
+  - message: Added Unborgable and Uncloneable traits from DeltaV.
+    author: NotLivyathan
+  - message: Added Expedition printer and disks
+    author: fenndragon
+  - message: added exped disk printer to every map
+    author: rtasva
+  - message: Added Early launch back!
+    author: warcrazed11
+  - message: >-
+      Added a ton of player companies, canon companies, a couple antag companies, and
+      made USSP public
+    author: Suraru
+  - message: >-
+      Night vision and thermal vision cybernetic eyes have been added to the
+      Syndicate uplink, and can also be researched.
+    author: NotLivyathan
+  - message: >-
+      Resomi and Shadekin now have night vision. *Shadekin night vision automatically
+      activates in low-light conditions.
+    author: NotLivyathan
+  - message: >-
+      Space Dragons, Rat Kings, and Xenos now have toggleable thermal vision, and
+      Space Dragons now have working night vision, as well.
+    author: NotLivyathan
+  - message: Added the Harbor Master.
+    author: warcrazed11
+  - message: Gives the freelancers their own comms.
+    author: warcrazed11
+  - message: Resomi now have the ability to leap short distances like Vulpkanin can.
+    author: NotLivyathan
+  - message: more pillows
+    author: Sully669
+  - message: stamina damage for pillow fights
+    author: Sully669
+  - message: Added early expedition leaving
+    author: fenndragon
+  - message: Added Grid Expedition cooldown
+    author: fenndragon
+  - message: Added proper expedition cleanup
+    author: fenndragon
+  - message: Lots of Shadekin markings!
+    author: rtasva
+  - message: Shadekin eyes can now be colored slightly!
+    author: rtasva
+  - message: Shadekin Screams!
+    author: rtasva
+  - message: Bluespace Cryobeakers.  Like cryobeakers, but bluespace.  Per request.
+    author: TrylobyteWasTaken
+  - message: New markings inspired by Xenomorphs are now available for Reptilians.
+    author: NotLivyathan
+  - message: >-
+      Synths now have access to two new tails inspired by Xenomorphs, as well as a
+      set of lights for them.
+    author: NotLivyathan
+  - message: Ported Martial Arts from Goobstation.
+    author: NotLivyathan
+  - message: Dominos Robotics Encryption Key
+    author: JenreyDominos
+  - message: Dominos Robotics Glass Airlock
+    author: JenreyDominos
+  - message: Dominos Robotics Standard Airlock
+    author: JenreyDominos
+  - message: Factions to the pallet menu
+    author: JenreyDominos
+  - message: Dominos Robotics to the Factions tab of the pallet menu
+    author: JenreyDominos
+  - message: Biting and checking out as interaction options
+    author: re-silvered
+  - message: Added a new Xenoborg AI ship
+    author: fenndragon
+  - message: Added the basis of new ship guns
+    author: fenndragon
+  - message: Added pool toy trait!
+    author: warcrazed11
+  - message: Added EMPs to the Aultman Industries Stalker and Deterrence
+    author: Generic_eagle
+  - message: Pink Hoodies
+    author: Suraru
+  - message: >-
+      Added document cases to printing in autolathes, and the ability for them to
+      store disks.
+    author: warcrazed11
+  - message: Added the volkite calvalier, Pistol, Charger, and Culverin
+    author: warcrazed11
+  - message: Ported numerous clothes/armor from RMC
+    author: rtasva
+  - message: Added a new UNMC vending machine to the exped spawn pool
+    author: rtasva
+  - message: Added CC Directorate
+    author: Suraru
+  - message: Added CC SOF Intelligence "LAMBA" operatives.
+    author: Suraru
+  - message: Added AME controllers to flatpack vending machine
+    author: Suraru
+  - message: Added Dart gun, printable in the med techfab!
+    author: warcrazed11
+  - message: Added per character apartment system
+    author: fenndragon
+  - message: Client-sided wall-based ambient occlusion for soft shadows around walls.
+    author: NotLivyathan
+  - message: >-
+      Grids that would reasonably have roofs now have roofs that block weather
+      effects and gas overlays.
+    author: NotLivyathan
+  - message: Adds the pissing trait. It... lets you piss...
+    author: warcrazed11
+  - message: Added brainwashing/hypnotism/mind-control via the neuralyzer
+    author: Notarin
+  - message: Added the Bumble Bee to the Security shipyard
+    author: Generic-Eagle
+  - message: Moths and Mothroaches are now able to flap their wings.
+    author: NotLivyathan
+  - message: more pillows!
+    author: Sully669
+  - message: Synths now have unique insides.
+    author: NotLivyathan
+  - message: Scurrets can now equip bags of holding.
+    author: TrylobyteWasTaken
+  - message: Alt+click now takes beakers from ChemMasters instead of initiating a vault.
+    author: NotLivyathan
+  - message: Alt+click now signs papers when executed while holding a pen.
+    author: NotLivyathan
+  - message: NanoChat!
+    author: TrylobyteWasTaken
+  - message: >-
+      Secure closets and previously lockable lockers/crates can now be locked to an
+      ID for extra security.
+    author: NotLivyathan
+  - message: Added Felionoids
+    author: Suraru
+  - message: >-
+      More aggressive cleanup that will delete gridless entities not near a player.
+      Space trash begon!
+    author: Suraru
+  - message: Ghosts now get get deleted after 2m if a player isn't connected to it
+    author: Suraru
+  - message: Adds the explosive and cryostasis darts.
+    author: warcrazed11
+  - message: Added resomi changes per bounty request
+    author: fenndragon
+  - message: Added a Livyathan plushie!
+    author: NotLivyathan
+  - message: Added Security and Command companies and applied them to said jobs.
+    author: Generic_Eagle
+  - message: Quadborgs are now able to wear collars!
+    author: NotLivyathan
+  - message: >-
+      Wooden Kegs, Barrels, and Bluespace Barrels can now be upgraded with Automation
+      Upgrade Kits to connect to fluid pumps and plumbing networks.
+    author: TrylobyteWasTaken
+  - message: >-
+      Electrolysis Units and Centrifuges can now be automated with both plumbing and
+      automatic activation, making these machines significantly less tedious to use.
+    author: TrylobyteWasTaken
+  - message: >-
+      Storage Port, a connector port with no gas elements so you can anchor and store
+      gas canisters for ship saving without losing gas to the connector port.  The
+      sprite is screwed up and I couldn't be bothered to spend even more time to fix it. 
+      You can also build them on top of each other, so don't do that.  I tried to fix
+      it but it broke construction somehow.
+    author: TrylobyteWasTaken
+  - message: Adds a new song to the jukebox!
+    author: warcrazed11
+  - message: Station AI now has access to the Freelancer, Traffic, and ColSec radio channels.
+    author: VoidedDevNull
+  - message: Added the radio system from goob.
+    author: warcrazed11
+  - message: ADF-TALON comms key (spawn only)
+    author: ratkingnyxu-lgtm
+  - message: Added distinguishable YES ERP and NO ERP poster.
+    author: Sully669
+  - message: more disks!
+    author: rtasva
+  - message: lewd category for AAC tablet
+    author: Sully669
+  - message: term loose to hazard category in AAC tablet
+    author: Sully669
+  - message: Added a placeholder system for Patreon supporter custom entities.
+    author: NotLivyathan
+  - message: Added Interdyne defibrillator
+    author: Sully669
+  - message: Colonial Engineer Job Title
+    author: Nikode16
+  - message: CYN's own Colonial Command Outfit
+    author: Nikode16
+  - message: ColComm's own Manica
+    author: Nikode16
+  - message: New Disposable Light, Mime, and Bible Implanters
+    author: Nikode16
+  - message: Antique ColSec HoloBarrier and SecLight Items
+    author: Nikode16
+  - message: ColComm Engineering Hardsuit
+    author: Nikode16
+  - message: Liquid Nitrogen Filled Black Jetpack
+    author: Nikode16
+  - message: Eidolon Mercenary Airlock _(These weren't added by accident by Valor)_
+    author: Nikode16
+  - message: Contraband detectors can now be constructed.
+    author: NotLivyathan
+  - message: Added radio station room to Amber
+    author: VoidedDevNull
+  - message: Added radio station room to Hardlight Core
+    author: VoidedDevNull
+  - message: Added radio receiver flatpack to the entity spawn menu
+    author: VoidedDevNull
+  - message: A fuckton of Engineering Paperwork and a new folder for it.
+    author: Nikode16
+  - message: New folder is buyable from Engivends and You-Tools.
+    author: Nikode16
+  - message: Fland overhauled in numerous departments and given numerous QoL fixes
+    author: VoidedDevNull
+  - message: Added monolith changes to blips and shuttle combat
+    author: fenndragon
+  - message: more interdyne equipment
+    author: Sully669
+  - message: >-
+      Governor Override Collars (which allow IC editing of Quadborg laws) have been
+      added as part of the Research Director's kit.
+    author: NotLivyathan
+  - message: >-
+      Flowers that can be Chameleoned for a perfect, ever-long lasting head accessory
+      that will never wilt.
+    author: Nikode16
+  - message: Added the C.C.S Herzyn to Sec and ColSec Shipyards
+    author: Nikode16
+  - message: Added a new maints hallway to Eaglerock, among other changes.
+    author: Generic-Eagle
+  - message: The Small Nuclear Reactor, Small Turbine, and TEG can now be bought at Cargo.
+    author: TrylobyteWasTaken
+  - message: Edison Power Plant devices.
+    author: TrylobyteWasTaken
+  - message: AME Fuel Jar generator
+    author: TrylobyteWasTaken
+  - message: Bluespace SMES
+    author: TrylobyteWasTaken
+  - message: Power Transmission Sales Port
+    author: TrylobyteWasTaken
+  - message: Fancy new SMES interface.
+    author: TrylobyteWasTaken
+  - message: Other stuff I forget about, it's 4 AM, sue me.
+    author: TrylobyteWasTaken
+  - message: Added Andromeda Engineering & Development company.
+    author: Notarin
+  - message: Added Edison equipment to Eaglerock
+    author: Generic_Eagle
+  - message: >-
+      Part 1 of the Mega-Update to the MercVend. Giving it a large majority of new
+      utility, armors, weapons, etc. To its catalog for reasonable-ish prices.
+    author: Nikode16
+  - message: >-
+      Magazines that were otherwise nearly unobtainable or rare as hell to the list
+      of printable mags at their respective lathes.
+    author: Nikode16
+  - message: The plant analyzer UI window can now scroll up and down
+    author: leonon42
+  - message: >-
+      Plant analyzers can now show the maximum quantity of a reagent they can produce
+      per fruit when using advanced scanning mode
+    author: leonon42
+  - message: A handful of new markings are now available for Synths—made by GravastarDragon!
+    author: NotLivyathan
+  - message: Added FarHorizon's Protogens & Protogen Subspecies! (Check PR for details)
+    author: Killer Tamashi
+  - message: Added Subspecies Selection System
+    author: Killer Tamashi
+  - message: Added Species Loadout System
+    author: Killer Tamashi
+  - message: Added Automatic Roundstart Implant Injection
+    author: Killer Tamashi
+  - message: Added more brass ammo calibers
+    author: Iisazel
+  - message: You can now make Sap from juicing Tower-Cap Logs
+    author: TrylobyteWasTaken
+  - message: Syrup has had its nutritional value restored.
+    author: TrylobyteWasTaken
+  - message: Geneticist room/spawn on box
+    author: VoidedDevNull
+  - message: >-
+      Galio plushies have been delivered via Nanotrasen mail services, which for some
+      reason is a thing ColComm supports.
+    author: NotLivyathan
+  - message: Chat text can now be highlighted for ease of readability.
+    author: NotLivyathan
+  - message: PMC Energy Shotgun to the Merc Vend
+    author: Nikode16
+  - message: >-
+      Puck lights, new lighting option! (Takes bulbs, need to remove tile to change
+      bulb/unanchor and move)
+    author: VoidedDevNull
+  - message: Ported steel bordered catwalks from Monolith
+    author: VoidedDevNull
+  - message: Added Interdyne equipment
+    author: Sully669
+  - message: >-
+      Added a system that automatically fixes ship files that would otherwise cause
+      load fails due to hard-deleted prototypes.
+    author: NotLivyathan
+  - message: Added 4 gauge and 12 gauge brass ammunition
+    author: Iisazel
+  - message: Added upgraded melee weapon attack animations.
+    author: NotLivyathan
+  - message: Added building animations to techfabs.
+    author: NotLivyathan
+  - message: Added SimpleRadial menu support.
+    author: NotLivyathan
+  - message: Added AI interaction support for reading papers and envelopes.
+    author: NotLivyathan
+  - message: Added Xenoborg door control module support.
+    author: NotLivyathan
+  - message: Added alt-click interaction for closing resealable containers.
+    author: NotLivyathan
+  - message: Added RCD integration test coverage.
+    author: NotLivyathan
+  - message: Dread Talons now appear as available ghost roles.
+    author: NotLivyathan
+  - message: Many, MANY fashion items from Coyote Sector.
+    author: Illumos
+  - message: New ColComm! (Not yet implemented into round logic)
+    author: rtasva
+  - message: New CC PSA posters
+    author: rtasva
+  - message: New barsign
+    author: rtasva
+  - message: rules 2.5 and 11.5
+    author: rtasva
+  - message: Bogan Accent
+    author: re-silvered
+  - message: Added the ESAR-550, a replacement for the HoS's energy shotgun and WT
+    author: Generic_Eagle
+  - message: Wizards now use their magic to enchant blades! Go rob them!
+    author: Iisazel
+  - message: >-
+      Added Wizden's switchable borg types to both cyborgs (not quadborgs yet). No
+      longer are borgs bound to the whims of organics to do the job they want!
+    author: R3v3l4t1on
+  - message: >-
+      Borg subtypes (Originally from Cosmatic Drift)! No more 1 million default
+      engiborgs (though it is still the best chassis and anyone who disagrees can bite me).
+      Quadborgs will get this in a later PR.
+    author: R3v3l4t1on
+  - message: Bubberstation's tallborgs.
+    author: R3v3l4t1on
+  - message: Aphrodesiac Bite Trait~!
+    author: Illumos
+  - message: New Epsilon alert sound
+    author: rtasva
+  - message: Condiment dispenser restock box to Cargo.
+    author: Illumos
+  - message: Condiments now restore some small hunger.
+    author: Illumos
+  - message: >-
+      New Trico Pill and Pill Bottle that's 10, 20u pills and not those icky 5, 10u
+      pills.
+    author: Nikode16
+  - message: Microwaves can now be used as bludgeoning weapons
+    author: ishkab
+  - message: Restored cool sexy thieving gloves
+    author: Magniras
+  - message: Flesh expeditions now have improved loot! Time to break some assimilation sacks!
+    author: Iisazel
+  - message: >-
+      Freezer Pouch so now you can live out your space warlord organ trading
+      simulator fantasy.
+    author: Nikode16
+  - message: UHP Gunnery server is now researchable.
+    author: Illumos
+  - message: More aphro descriptions
+    author: IngvarJackal
+  - message: Added more patron borgs
+    author: fenndragon
+  - message: Added other tweaks and fixes
+    author: fenndragon
+  - message: More aphrodesiac bites
+    author: IngvarJackal
+  - message: Two recipes for Tiramisu.
+    author: Jerulean
+  - message: Added new craftable bone items and some interesting drops from dinosaurs
+    author: Iisazel
+  - message: "\"Teach a Lesson\" traitor objective!"
+    author: rtasva
+  - message: Pettable trait!
+    author: Illumos
+  - message: Adds the ability for ties to restrain humanoids
+    author: SeaborneProto
+  - message: Added beam prisms to combine and redirect lasers
+    author: fenndragon
+  - message: Added Positronic jumps so borgs aren't stuck in one body and neither is the AI
+    author: fenndragon
+  - message: Mediborgs now start with a defibrilator module.
+    author: R3v3l4t1on
+  - message: >-
+      Mercenaries can now unlock all normal quadborgs and cyborgs, making it easier
+      for them to configure their synthetic companion between expeds.
+    author: R3v3l4t1on
+  - message: Cyborgs can now unlock themselves.
+    author: R3v3l4t1on
+  - message: >-
+      Jet injectors are now available to medical staff and may be crafted at a
+      medical techfab.
+    author: NotLivyathan
+  - message: >-
+      Parrots are now better at remembering things said around them, but only
+      slightly.
+    author: NotLivyathan
+  - message: Stamina damage now has a visual effect both before and during stam crit.
+    author: NotLivyathan
+  - message: >-
+      Certain items may now be caught when thrown should the receiving entity's skill
+      be sufficient.
+    author: NotLivyathan
+  - message: Tennis balls now exist conceptually and may be found where other toys could be.
+    author: NotLivyathan
+  - message: >-
+      Cameras will now react to the AI-eye and change states to show they are being
+      used.
+    author: NotLivyathan
+  - message: Added status-effect relay events.
+    author: NotLivyathan
+  - message: Miniguns now have in-hand visuals.
+    author: NotLivyathan
+  - message: New modules and tools are now available to Cyborgs.
+    author: NotLivyathan
+  - message: >-
+      Janitors now have access to wirebrushes, allowing for the derusting of metal
+      walls.
+    author: NotLivyathan
+  - message: Sloths now have a dedicated accent that makes them... talk... real... slow...
+    author: NotLivyathan
+  - message: More crafting recipes!
+    author: VoidedDevNull
+  - message: More spray painter functions!
+    author: VoidedDevNull
+  - message: Added an ore hand to the (advanced) mining module
+    author: R3v3l4t1on
+  - message: Added a station map and handicomms to the frontier module
+    author: R3v3l4t1on
+  - message: >-
+      Added a slot for fuel canisters, AME jars and reactor fuel rods to the
+      engineering borg's construction module
+    author: R3v3l4t1on
+  - message: More marrkings for shadekin
+    author: IngvarJackal
+  - message: Added name and description to the syndicate uplink for chameleon gloves.
+    author: Magniras
+  - message: >-
+      Moths get their own displacements cause I am tired of the linter bricking on
+      them sometimes.
+    author: R3v3l4t1on
+  - message: >-
+      Added Starlight power & gas transfer while docked. Gas transfer is disabled by
+      default; HV power transfer is enabled.
+    author: Illumos
+  - message: Interdyne Jet Injector
+    author: MallowSune
+  - message: Twenty more funky RCD plating shapes. Go nuts.
+    author: Illumos
+  - message: Normal shuttle windows to the RCD
+    author: Illumos
+  - message: New wallets & Arcadiawear!
+    author: Illumos
+  - message: Tactical Pack of Holding
+    author: Illumos
+  - message: THIRTY SEVEN new wing markings!
+    author: Illumos
+  - message: Added hotfixes to previous issues
+    author: fenndragon
+  - message: Futuristic gasmasks now actually work as voice masks.
+    author: Illumos
+  - message: >-
+      Plastitanium sheets can now be crafted at an engineering techfab for diamonds,
+      bananium, and plasteel.  Costs are experimental and subject to change.
+    author: TrylobyteWasTaken
+  - message: You can now build plastitanium walls and windows.
+    author: TrylobyteWasTaken
+  - message: Added Nonconsent Toggle
+    author: fenndragon
+  - message: Added more patreon sprites
+    author: fenndragon
+  - message: Added the last of the Shadekin countermeasures
+    author: fenndragon
+  - message: Added recipe to build Beam prisms
+    author: fenndragon
+  - message: Added War Emergency Power to shuttle consoles
+    author: IngvarJackal
+  - message: Synthetic trait now gives you access to Trinary.
+    author: Illumos
+  - message: Added fun!
+    author: R3v3l4t1on
+  - message: more vinyls
+    author: Sully669
+  - message: Vampirism trait!
+    author: re-silvered
+  - message: Light sensitivity traits (Mild / Standard / Extreme)
+    author: IngvarJackal
+  - message: Shadekin-exclusive dark regeneration traits
+    author: IngvarJackal
+  - message: Added mono upstream features for shields and AI
+    author: fenndragon
+  - message: Added snack vending machines back to the expedition spawn pool!
+    author: DDoubleDee
+  - message: New Starlight Tiles Ported
+    author: VoidedDevNull
+  - message: >-
+      Xenoborg byte drone ships now patrol deep space, only attack ships that get
+      within ~1.2 km, and chase ships that shoot them or get within 500 m. Aggro fades
+      after 30 s of no contact.
+    author: Kronyxxx
+  - message: >-
+      Added four new borg chassis options. one in sec, service, engineering, and
+      salvage.
+    author: GravastarDragon
+  - message: BSO hardsuit
+    author: Illumos
+  - message: BSO overcoat
+    author: Illumos
+  - message: BSO magboots
+    author: Illumos
+  - message: Added about 45 new foods and 40 new drinks.
+    author: Jerulean
+  - message: Icon smoothing can now be toggled in user graphics settings.
+    author: NotLivyathan
+  - message: Harbor Masters now have new icons better representing their department.
+    author: NotLivyathan
+  - message: Mantis loadouts can now actually be customized.
+    author: NotLivyathan
+  - message: Handheld fax machines can now be spawned by admins.
+    author: NotLivyathan
+  - message: >-
+      Service Cyborgs now have access to fax machines as part of the bureaucracy
+      module.
+    author: NotLivyathan
+  - message: Service Cyborgs can now fabricate blank sheets of paper.
+    author: NotLivyathan
+  - message: Added new world generation system
+    author: fenndragon
+  - message: Added the noble suit to the clothesmate
+    author: Illumos
+  - message: Added the bloodstained aristocrat suit to clothesmate
+    author: Illumos
+  - message: Return anaconda to the exped T2 loot table
+    author: IngvarJackal
+  - message: Added even more vampirism.
+    author: re-silvered
+  - message: Computer consoles now dynamically blend edges when placed side-by-side.
+    author: NotLivyathan
+  - message: Added an amputee trait. one for both arms
+    author: Aureuix
+  - message: Added new Gaiters! (Look at WinterDrobe).
+    author: Shades
+  - message: Bunnysuits!
+    author: Mysterious Bunnyfactor
+  - message: Some hardsuits are now taser-immune.
+    author: Illumos
+  - message: More lewd clothings~
+    author: Illumos
+  - message: Added new vents to scheduler
+    author: fenndragon
+  - message: Added nightmares
+    author: fenndragon
+  - message: Added back broken psionics
+    author: fenndragon
+  - message: >-
+      Skilled individiuals now have the possibility to catch specific items thrown at
+      them.
+    author: NotLivyathan
+  - message: All members of Command can now issue command bounties.
+    author: NotLivyathan
+  - message: "`RoomSaveable` tag — add to any prototype to preserve it when unanchored in a room save"
+    author: IngvarJackal
+  - message: STC can once again be selected as a round-start job.
+    author: NotLivyathan
+  - message: The HM can now access traffic control consoles.
+    author: NotLivyathan
+  - message: Marriage Axe from Starlight
+    author: Illumos
+  - message: "Added Non-Con Aggressor and Non-Con Victim consent toggles. The Non-Con HUD marker is now color- and shape-coded based on the target's role(s): red/horns-up for aggressor, blue/horns-down for victim, purple/both for either. Existing Non-Con users who don't pick a role keep the original red marker."
+    author: Kronyxxx
+  - message: >-
+      Added a "Use colorblind-friendly Non-Con marker colors" toggle in the Consent
+      menu. When enabled, the Non-Con role markers use a colorblind-safe
+      amber/teal-green/lavender palette instead of red/blue/purple. Affects only the local viewer.
+    author: Kronyxxx
+  - message: Adds a new lethal security turret that targets contraband carriers
+    author: fenndragon
+  - message: Added the first Livewire checkpoint to Core station
+    author: fenndragon
+  - message: >-
+      Added a new system to allow reagents to spoil, currently only being utilized by
+      Nanites.
+    author: NotLivyathan
+  - message: >-
+      Synths now bleed a mix of SynthBlood and Nanites, the latter of which
+      immediately spoils into InertNanites when bled.
+    author: NotLivyathan
+  - message: >-
+      Wallmount station maps, mass scanners, and advanced radars now correctly glow
+      in the dark.
+    author: NotLivyathan
+  - message: >-
+      Wallmount station maps, mass scanners, and advanced radars now correctly
+      reflect state when unpowered.
+    author: NotLivyathan
+  - message: Hand labelers now lets you save/load labels
+    author: Illumos
+  - message: Health analyzers now show metabolizing chemicals.
+    author: Illumos
+  - message: Added aphrodisiac visual effect.
+    author: Fasuh
+  - message: Added option in settings to disable aphrodisiac visual effects.
+    author: Fasuh
+  - message: Added pregnancy markings!
+    author: SeaborneProto
+  - message: SecurityVends now offer pizza boxes for 1 FUC.
+    author: NotLivyathan
+  - message: Added stripper poles.
+    author: NotLivyathan
+  - message: Flat Bonemask marking
+    author: Illumos
+  - message: Beak Bonemask marking
+    author: Illumos
+  - message: Advanced tape with 60 minutes of recording
+    author: IngvarJackal
+  - message: Removed colour limits across all species.
+    author: Illumos
+  - message: Select species now have the ability to speak in their native tongue.
+    author: NotLivyathan
+  - message: added the nullspace detector, that detects nullspace users within a short radius
+    author: stickycheZ101
+  - message: added the handheld bluespace flash, that stuns any nearby nullspace users
+    author: stickycheZ101
+  - message: >-
+      added the nullspace deterrence kit to the cargo market, that contains basic
+      nullspace detection and deterrence gear
+    author: stickycheZ101
+  - message: Ported the Jabber from Coyote.
+    author: Illumos
+  - message: Synthetic trait now gives you EAL
+    author: Illumos
+  - message: Tweaked the credits on security sprites making the color changing PR findable.
+    author: SquishyEmmaaaa
+  - message: Added RMC guns and armor
+    author: fenndragon
+  - message: Added Bezoars to high tier Xenos
+    author: fenndragon
+  - message: Added damage modifier system
+    author: fenndragon
+  - message: Three new katanas! Buy 'em at a MercVend.
+    author: Illumos
+  - message: Wakizashi from Delta-V.
+    author: Illumos
+  - message: Melee category to MercVend.
+    author: Illumos
+  - message: Katana sheaths to MercVend.
+    author: Illumos
+  - message: New Colonial Officer's Sabre
+    author: SquishyEmmaaaa
+  - message: New Ornate Sheath, with sprites!
+    author: SquishyEmmaaaa
+  - message: Add suitstorage shortcut
+    author: IngvarJackal
+  - message: Plumbing.
+    author: Illumos
+  - message: Added unified faction comms
+    author: fenndragon
+  - message: >-
+      Added Landgrab planet-claiming/outpost systems, including PDA UI, save/loadable
+      player plots, coordinate-disk engraving, plot overlays, persistent planet
+      spawning, dungeon registry markers, and contract event support. (stated to be
+      WIP/unfinished)
+    author: fenndragon
+  - message: >-
+      Added major shuttle/nav UI upgrades, including azimuth scales/rings, compass
+      overlay, radar mode controls, map biome overlays, landgrab plot/disk markers,
+      dungeon markers, and improved nav/radar layout wrapping.
+    author: fenndragon
+  - message: >-
+      Added Fancy Research Console UI rework with new tech tree visuals, info panels,
+      rounded style boxes, connection rendering, entity-based tech icons, and research
+      availability state tracking.
+    author: fenndragon
+  - message: >-
+      Added new SCP/visual overlay systems such as bloom, grain, retro monitor, and
+      vignette effects, plus CRT shader viewport support.
+    author: fenndragon
+  - message: >-
+      Added new gameplay systems/components including grid claiming, grid raider
+      protections, chain-radiation, scuttle device, shuttle boosting pilot modifiers, item
+      miners, EMP resistance, armor piercing, drifting cargo prices, hitscan
+      gatherables, contract/saving contraband support, and multiple persistent-planet helpers.
+    author: fenndragon
+  - message: >-
+      Added new regression/integration coverage with Pow3r power solver stability
+      tests and vending inventory inheritance resolver tests.
+    author: fenndragon
+  - message: Added Korpus Novy Mir company!
+    author: SeaborneProto
+  - message: Document paper can fill printers
+    author: Sully669
+  - message: Painkillers!
+    author: Illumos
+  - message: Added zoom feature to research UI
+    author: fenndragon
+  - message: Added faction comms to everyone
+    author: fenndragon
+  - message: Over fifteen new vinyl tracks!
+    author: Illumos
+  - message: New links for Sec SOP/Space law
+    author: oksam
+  - message: Added secret-secret accent text!
+    author: fenndragon
+  - message: Technical backing for engraving tools.
+    author: Illumos
+  - message: added 2 new accurate security variants of clothing.
+    author: Vonte
+  - message: Pacifists can now throw things without hurting people.
+    author: Illumos
+  - message: Added breast milk reagent!
+    author: SeaborneProto
+  - message: CC has maps, beacons, bluespace flashers, borg rechargers, & cameras now!
+    author: rtasva
+  - message: Bathrooms, Sauna, Brig, Briefing room, and more to CC!
+    author: rtasva
+  - message: >-
+      Resomi now have new noises for coughing, yawning, sighing and gasping. No more
+      weird hooman noises!
+    author: bendonji
+  - message: AI Shunt Receiver
+    author: Typheus
+  - message: >-
+      Added some differentiation to PDA ringers so you you can tell who exactly next
+      to you is receiving all those nanochats~
+    author: re-silvered
+  - message: FTL-less shuttle console, for use by mappers.
+    author: Illumos
+  - message: Cybersun Corporate Jumpsuit
+    author: CaptainComedii
+  - message: Cybersun R&D Cloak
+    author: CaptainComedii
+  - message: >-
+      Late-round "Quiet before storm" event that brings an eerie lull followed by a
+      department-themed crisis.
+    author: IngvarJackal
+  - message: Added a Scandinavian Accent
+    author: BackeTako
+  - message: Slow ooc admin command
+    author: okdamsam
+  - message: >-
+      Added a new reagent that cures addictine, but cannot exist outside someone's
+      bloodstream.
+    author: re-silvered
+  - message: Chemicals that spoil have a new dropdown in their guidebook entry!
+    author: re-silvered
+  - message: >-
+      NullSpace Fixes, Stability Returns, Brighteye are now back with their previous
+      abilities and balanced correctly.
+    author: Shades
+  - message: Added back PhaseNoms, The Dark, ShadeGen.
+    author: Shades
+  - message: Added the spark of hatred to AI
+    author: Hammeredmantis
+  - message: Added alot more ship storage options
+    author: Iisazel
+  - message: Added folding bags with rollers
+    author: fenndragon
+  - message: Added Tradeband language
+    author: ScolarVisari
+  - message: >-
+      Figurines (And sex toys) now save when left on the floor! Please dont explode
+      the server with this power
+    author: Iisazel
+  - message: Added the addressed telepathy psionic power.
+    author: Notarin
+  - message: "Added: Audible Ping for when you receive chat highlights! (You can toggle it on/off in Accessibility settings or adjust the volume in Audio settings.)"
+    author: re-silvered
+  - message: >-
+      Added an undock all button, no longer will you have to iterate through all of
+      your docks manually
+    author: re-silvered
+  - message: (Elkridge Depot) Pisoner wardrobe wall locker to perma
+    author: Petalpool
+  - message: (Elkridge Depot) Bowl for prisoners in perma
+    author: Petalpool
+  - message: >-
+      Added arachnophobia mode! No longer will you have to see the spiders if you
+      don't want to.
+    author: re-silvered
+  - message: >-
+      Added the ability to give custom names to NSFW markings, among a few other
+      customisable options!
+    author: re-silvered
+  - message: Add 4 voice pitch traits
+    author: IngvarJackal
+  - message: >-
+      Phase-Barrier Cable, a new way to block shadekins able to be crafted in
+      protolathe or buy it from sec kit.
+    author: Shades
+  - message: Vinyls can now be stored in bluespace bookshelves.
+    author: 2DSiggy
+  - message: Added leap to speed legs
+    author: fenndragon
+  - message: Missing localizations
+    author: Khaomi
+  - message: Freelance Borg
+    author: Typheus
+  - message: Freelance Borg Role
+    author: Typheus
+  - message: Added robotic versions of nearly every emote in game for Protogens to use.
+    author: re-silvered
+  - message: Diona, Vox and Vulpkanins now have unique sneeze sounds.
+    author: re-silvered
+  - message: Added spectral locators to the backpack items loadout options
+    author: re-silvered
+  - message: Added contribution guidelines to github
+    author: Sully669
+  - message: Papers and playing cards now slide under the airlocks
+    author: Iisazel
+  - message: Untouchable Trait
+    author: N9inB0x
+  - message: New maints area
+    author: Mspaintwizard
+  - message: Stomachs can now be replaced via surgery
+    author: DrekkCuga
+  - message: Added Neuroshock Gloves to the Mercenary Vending Machine.
+    author: Antelino
+  - message: Added captain's and hydroponics magboots.
+    author: 3xecutie
+  - message: All cyborgs can now wear governor collars and medals
+    author: Slatebreaker
+  - message: Basalt tile decals
+    author: Lucca Boets
+  - message: Add Ratvar's rows cards
+    author: Lucca Boets
+  - message: ratvar's rows card box
+    author: Lucca Boets
+  - message: ratvar's rows booster packs
+    author: Lucca Boets
+  - message: New laugh, cry and speech for shadekin.
+    author: Antelino
+  - message: Added an unobtainable (and fake) lit holo-cigar.
+    author: Livyathan
+  - message: Added Shiro
+    author: Fenn
+  - message: Added Queenie
+    author: Fenn
+  - message: >-
+      Antagonists can now add custom summaries from the character info window to
+      explain what they did to complete their objectives.
+    author: NotLivyathan
+  - message: Added a searchbox to the round-end summary for searching for specific players.
+    author: NotLivyathan
+  - message: Added more ion storm lawsets
+    author: Slatebreaker
+  - message: Black Alert
+    author: oksam
+  - message: Added max job slot count to the job picker ui
+    author: Khaomi
+  - message: >-
+      Added the Paradox Generator, a new science machine capable of generating
+      duplicates of insured items! It can be researched with Bluespace Time Manipulation.
+    author: NotLivyathan
+  - message: Added Blood Deficiency, a new negative trait.
+    author: NotLivyathan
+  - message: Added Russian Accent trait.
+    author: Jayty
+  - message: Ported a curated collection of cosmetic Blueshield clothing.
+    author: Desilvered
+  - message: Added Starbound medical equipment and a Starbound Blueshield hardsuit.
+    author: Desilvered
+  - message: Added support for saving engraveable item such as rings, inside apartment
+    author: Khaomi
+  - message: Added the Drone trait to the Lewd category.
+    author: Jayty
+  - message: >-
+      New UI for analysis console, new UI for node scanner. Artifact node activation
+      is now different.
+    author: NotLivyathan
+  - message: Added a disclaimer to voice traits about replacing emotes.
+    author: AlphonsedeV
+  - message: >-
+      Made the plasma cutter and line gun researchable, in Salvage Equipment and Mass
+      Excavation respectively.
+    author: NotLivyathan
+  - message: Added Security tier equipment to uplinks
+    author: Fenn
+  - message: Added character portrait!
+    author: MrSalty
+  - message: Added CC Approved Lawsets paper to RD's locker
+    author: Slatebreaker
+  - message: Evac Pill now has scrubbers.
+    author: Trylobyte
+  - message: Added market functionality to stations.
+    author: Fenn
+  - message: >-
+      Artifact Glue, made by mixing artifexium and space glue, has been added. Pour
+      5u onto an artifact to restore 1 durability for all active nodes.
+    author: Trylobyte
+  - message: Added more accurate flavor text for piss, beer and ice cold beer.
+    author: Khaomi
+  - message: Added Prisoner ID Box to SecTech
+    author: Antelino
+  - message: >-
+      Added custom aghost prototyping. Staff may now define their own prototypes for
+      custom aghosts.
+    author: Notarin
+  - message: Added a "All" channel checkbox to toggle all channel filters on / off
+    author: Khaomi
+  - message: Added a guidebook entry for the [form] tag.
+    author: AlphonsedeV
+  - message: added a few variants of the keyhole sweater
+    author: P3nnant
+  - message: Added a donor species for Vanilla1040
+    author: Vanilla1040
   fix:
-    - message: Fixed all the example.
-      author: Notarin
-      hash: fd06677d2198b5271e6067d89f109b9b588482bf
-    - message: Fixed more than infinite example.
-      author: Notarin
-      hash: fd06677d2198b5271e6067d89f109b9b588482bf
+  - message: erect tentacle cocks no longer suffer from ED
+    author: coolbloxxie
+  - message: High-Flow atmos devices now work properly.
+    author: TrylobyteWasTaken
+  - message: Various map and shuttle fixes
+    author: Durk
+  - message: Fixed crass knuckles construction graph
+    author: Durk
+  - message: Fixed Forktail sniper
+    author: Durk
+  - message: Fixed the flamethrower case
+    author: Durk
+  - message: Fixed unmarked cigarette packs
+    author: Durk
+  - message: Fixed various Item prices
+    author: Durk
+  - message: Fixed Xeno evolve action throwing an error
+    author: Durk
+  - message: Fixed fortune cookie dataset
+    author: Durk
+  - message: Restored Maxim Hardsuit to Expedition loot tables
+    author: Serah64
+  - message: fixed round logic issues
+    author: Fenndragon
+  - message: Paramedic hoverbikes move again
+    author: TrylobyteWasTaken
+  - message: Fixed a bunch of guidebook entry organization.
+    author: Mariiibo
+  - message: Falling asleep no longer makes you fall out of a chair or bed
+    author: carccborg
+  - message: Fixed the rest of the guidebook errors.
+    author: Mariiibo
+  - message: Avali Genital Markings Render!
+    author: pankakakas
+  - message: fixed thaven neck, eye, ear, mask, and head offsets to be pixel perfect
+    author: carccborg
+  - message: Item offsets now work properly on Thaven in the customization screen.
+    author: carccborg
+  - message: Fire spreading when entities are colliding now works properly.
+    author: carccborg
+  - message: upgraded backpacks grid should be fixed now
+    author: Wuffindy
+  - message: Power Forks can now go into industrial mechs and small mechs e.g. VIM and HAMTR.
+    author: TrylobyteWasTaken
+  - message: The diamond exosuit drill can now properly break supercompacted rock.
+    author: TrylobyteWasTaken
+  - message: The ResistanceBypass melee component now actually works.
+    author: TrylobyteWasTaken
+  - message: The Ripley Mk.II and Clarke now move at regular speeds when under gravity.
+    author: TrylobyteWasTaken
+  - message: >-
+      Mechs can now wide-swing melee weapons as the raycast no longer collides with
+      the mech itself.
+    author: TrylobyteWasTaken
+  - message: >-
+      Fixed Scientists, Security Officers, and Station Engineers spawning with two
+      PDAs.
+    author: NotLivyathan
+  - message: >-
+      (Elkridge) Station Captains now have their correct job slot, and will now spawn
+      properly.
+    author: Makeshiftt
+  - message: (Elkridge) Misc. decal issues.
+    author: Makeshiftt
+  - message: Synths now correctly take barotrauma damage from unprotected exposure to space.
+    author: NotLivyathan
+  - message: Fixed Deaddrop system to properly work
+    author: Warcrazed
+  - message: Fixed Cargo market system.
+    author: Warcrazed
+  - message: Geneticist can now roll on Eaglerock
+    author: Generic_Eagle
+  - message: Eaglerock Become Station fixed for billionth time
+    author: Generic_Eagle
+  - message: Fixed vox breathing.
+    author: warcrazed11
+  - message: Fixed Dead Drop Reporting.
+    author: warcrazed11
+  - message: Leash fixes
+    author: Tichi
+  - message: Fixed Atmos calculation and spacing.
+    author: fenndragon
+  - message: Fixed lingering maps and grids
+    author: fenndragon
+  - message: Fixed warden locker & sec dock airlocks on Silica not being correct prototypes
+    author: rtasva
+  - message: More improvements on Eaglerock
+    author: Generic_Eagle
+  - message: Fixed produce stacks not functioning properly in relation to machines.
+    author: fenndragon
+  - message: Fixed audio lingering from energy melee weapons when no longer activated.
+    author: NotLivyathan
+  - message: You can cook food again.
+    author: TrylobyteWasTaken
+  - message: >-
+      Plant Analyzer UI now works properly when scanning an item without the window
+      already open.
+    author: TrylobyteWasTaken
+  - message: Fixed multiple bugs with shadekin.
+    author: warcrazed11
+  - message: Fixed steel stairs being unbuildable
+    author: Suraru
+  - message: Fixed poster node mismatch
+    author: Suraru
+  - message: Fixed automatic spacer role allocation
+    author: Suraru
+  - message: Fixed turrets ignoring shielded entities
+    author: warcrazed11
+  - message: ID Card Computer UI should no longer have a seizure on interaction.
+    author: NotLivyathan
+  - message: Female Vulpkanin displacements now correctly appear when in the lobby.
+    author: NotLivyathan
+  - message: Toggleable glow markings now once again work.
+    author: NotLivyathan
+  - message: Toggleable glow markings no longer reset height sliders when selected.
+    author: NotLivyathan
+  - message: Fixed Substation spawning
+    author: fenndragon
+  - message: Fixed Expedition runner
+    author: fenndragon
+  - message: Fixed Green zone on Radar
+    author: fenndragon
+  - message: Fixed Atmos PVS distance
+    author: fenndragon
+  - message: Fixed depot spawn locations.
+    author: fenndragon
+  - message: Shadekin markings can now be colored!
+    author: rtasva
+  - message: gives HM shoes..... and a gun.
+    author: warcrazed11
+  - message: Fixed freelancer headsets not having freelance radio.
+    author: warcrazed11
+  - message: >-
+      Entities with MindContainers (sentient machines, plushies, pAI, etc) should no
+      longer interfere with ship saving.
+    author: NotLivyathan
+  - message: >-
+      ChemMasters should no longer mix solutions contained within their buffer when
+      saved on a ship.
+    author: NotLivyathan
+  - message: Fixed server side errors causing lag in two places
+    author: fenndragon
+  - message: Fixed xenoborg targeting
+    author: fenndragon
+  - message: Robotic arm running every tick to what I assume was a coding error
+    author: Suraru
+  - message: Inflatable floors are no longer ripped up by spacing.
+    author: TrylobyteWasTaken
+  - message: False walls will no longer revert states when welded during save/load.
+    author: NotLivyathan
+  - message: >-
+      Airlocks, gas canisters, lockers, and crates no longer lose custom paintjobs on
+      save/load.
+    author: NotLivyathan
+  - message: Custom lights no longer revert to default lights on save/load.
+    author: NotLivyathan
+  - message: Food-O-Mat works now.
+    author: TrylobyteWasTaken
+  - message: >-
+      Crew Monitors/Manifests should now correctly display active crew/Freelancers
+      who persist through round changes.
+    author: NotLivyathan
+  - message: >-
+      Dynamic slot allocation for the Freelancer job should now actually work
+      dynamically.
+    author: NotLivyathan
+  - message: >-
+      Job data is now correctly displayed and should no longer give Unknowns outside
+      of the Crew Monitor.
+    author: NotLivyathan
+  - message: Harbor Masters now correctly spawn with a pre-installed mindshield.
+    author: NotLivyathan
+  - message: >-
+      Alt+click will no longer attempt to open the transfer UI when executed on a
+      beaker.
+    author: NotLivyathan
+  - message: >-
+      Consents will no longer be violated upon alt+click and will once again execute
+      normal actions before lewd ones.
+    author: NotLivyathan
+  - message: >-
+      Entities with PryingComponent that aren't exclusively for prying will no longer
+      attempt to pry outside of alt+click.
+    author: NotLivyathan
+  - message: Grids getting deleted also deleting players
+    author: Suraru
+  - message: Pick-n-Pack machines now contain the correct ammunition types.
+    author: TrylobyteWasTaken
+  - message: fixed the bounds for the apartment system
+    author: fenndragon
+  - message: >-
+      Gave shadekin and avali the markings they should have had for ages. Go nuts.
+      Add nuts to your shadekin. What the fuck ever.
+    author: Aureuix
+  - message: More PDAs should have NanoChat installed on them now.
+    author: TrylobyteWasTaken
+  - message: >-
+      Composting a stack of produce in a hydroponics tray now only uses one item of
+      produce at a time.
+    author: TrylobyteWasTaken
+  - message: Protogen can now be psionic.
+    author: TrylobyteWasTaken
+  - message: Entities successfully sent to cryospace no longer do something until deletion.
+    author: NotLivyathan
+  - message: Fixed contra levels on syndicate cosmetics.
+    author: warcrazed11
+  - message: Gatfruit to Ritland infinite money exploit
+    author: IrkallaEpsilon
+  - message: Gatfruit to infinite FUCs to infinite money exploit
+    author: IrkallaEpsilon
+  - message: Fixed a bunch of broken tests and the lag we've been experiencing
+    author: fenndragon
+  - message: fixed contraband level on Interdyne hypospray to be C2
+    author: Sully669
+  - message: >-
+      Handheld Artifact Container now has AA instead of Sci & Cargo Access akin to
+      the Big Version
+    author: Nikode16
+  - message: job role supervisors
+    author: Sully669
+  - message: Fixes Station Captain spawn on Fland
+    author: VoidedDevNull
+  - message: Fixed radars.
+    author: fenndragon
+  - message: >-
+      Demags should no longer cause Cyborg panels to become permanently stuck open
+      and now correctly remove emagged laws.
+    author: NotLivyathan
+  - message: Plant analyzers no longer brick after failing a DoAfter check.
+    author: TrylobyteWasTaken
+  - message: Air Alarms now save their device lists.
+    author: TrylobyteWasTaken
+  - message: >-
+      Plumbing devices should now load properly when a ship is loaded.  The code is
+      ugly but it works.
+    author: TrylobyteWasTaken
+  - message: 5.56 mm mags now are again at their regular 30 round capacity.
+    author: IrkallaEpsilon
+  - message: 5.7x28mm toploader mag capacity reduced to 26 as initially intended.
+    author: IrkallaEpsilon
+  - message: Weapons fired while moving will now obey physics.
+    author: TrylobyteWasTaken
+  - message: >-
+      Mining Pulser projectile speed has been increased so you can't shoot yourself
+      with them.
+    author: TrylobyteWasTaken
+  - message: Fixed interactions showing target/origin as their uid
+    author: Sully669
+  - message: fixed broken access for genetics and journalism
+    author: Sully669
+  - message: PMC C-20r to make a return as a C2 King of end-game SMGs.
+    author: Nikode16
+  - message: Forktail to finally be admeme again. Rejoice admins.
+    author: Nikode16
+  - message: >-
+      Fixes the MagiVend so it never spawns on Expeds anymore. As the man above
+      intended.
+    author: Nikode16
+  - message: "Fixes the SRD by adding the - type: InitRepairSnapshot component to ships"
+    author: Generic_Eagle
+  - message: Mantis now spawns with the proper loadout!
+    author: LoboFrontale
+  - message: Feroxi and Rodentia can be psykers
+    author: IrkallaEpsilon
+  - message: Fixes station captain spawn on
+    author: VoidedDevNull
+  - message: Tajara can be psychic now.
+    author: IrkallaEpsilon
+  - message: >-
+      Space docks should no longer have the potential to vibrate into nullspace and
+      crash the server.
+    author: NotLivyathan
+  - message: .45 Magnum magazines properly reflect their ammo fill
+    author: VoidedDevNull
+  - message: High pressure vents are now buildable.
+    author: TrylobyteWasTaken
+  - message: The PTK can now break rocks again.
+    author: TrylobyteWasTaken
+  - message: removed contraband level from interdyne uniforms
+    author: Sully669
+  - message: Ship shields should now function as expected when toggled.
+    author: NotLivyathan
+  - message: Ship shields should no longer save indefinitely and bloat ship files.
+    author: NotLivyathan
+  - message: >-
+      Dungeon generation should result in much less lag and stuttering while the
+      atlases are active.
+    author: NotLivyathan
+  - message: Ships should no longer create lingering maps when loaded.
+    author: NotLivyathan
+  - message: >-
+      Ending an expedition early should no longer have the potential to delete
+      characters and ships.
+    author: NotLivyathan
+  - message: >-
+      Ending an expedition early should now correctly sync the FTL audio instead of
+      starting earlier than it should.
+    author: NotLivyathan
+  - message: >-
+      Expedition maps should no longer delete on early departure until all ships that
+      were on the map have left it.
+    author: NotLivyathan
+  - message: >-
+      Certain prototypes that would normally cause ship load fails should no longer
+      cause said fails.
+    author: NotLivyathan
+  - message: Dynamic allocation of Freelancer slots should work as intended now.
+    author: NotLivyathan
+  - message: >-
+      The crew manifest should correctly update throughout the round as players join
+      and leave.
+    author: NotLivyathan
+  - message: Fixed projectile deceleration behavior.
+    author: NotLivyathan
+  - message: Fixed air grenade retrigger behavior and improved grenade resilience.
+    author: NotLivyathan
+  - message: Fixed spellbook charge handling and rejuvenation charge reset behavior.
+    author: NotLivyathan
+  - message: Added exception tolerance handling in SharedDoAfterSystem.
+    author: NotLivyathan
+  - message: >-
+      Making Cream of Coconut works now, and does not leave you with Cream and
+      Coconut Water.
+    author: SquishyEmmaaaa
+  - message: Dungeon map generation should now function as intended.
+    author: NotLivyathan
+  - message: Affected substations should no longer start in dysfunctional states.
+    author: NotLivyathan
+  - message: >-
+      Fixed a BUNCH of invalid entity references which should mean the integration
+      tests are actually usable again.
+    author: R3v3l4t1on
+  - message: Fixed a bug where succumbing to your fate deleted your character
+    author: Sully669
+  - message: Fixed a bug that failed to populate the character fields in lobby
+    author: Sully669
+  - message: Shadekin now have correct amount of starting genes
+    author: Iisazel
+  - message: Aphrodesiac bite now has a cooldown.
+    author: Illumos
+  - message: Plating and Lattice can now be traversed at normal speed again.
+    author: TrylobyteWasTaken
+  - message: Avalis can now use cryopods correctly
+    author: Iisazel
+  - message: Round-end logic should no longer cause the server to hang and ultimately crash.
+    author: NotLivyathan
+  - message: >-
+      Ending an expedition early from the shuttle console once again announces that
+      the expedition is ending.
+    author: NotLivyathan
+  - message: Peregrine mags being general use batteries
+    author: re-silvered
+  - message: >-
+      Items inside Freezer Pouches no longer rot if the pouch is stored inside
+      another container.
+    author: SquishyEmmaaaa
+  - message: >-
+      Freezers and Medical Pods can now be carried and stored in mechs without
+      rotting.
+    author: SquishyEmmaaaa
+  - message: Ghosts should now correctly state time since death.
+    author: NotLivyathan
+  - message: Tabletop computers are now craftable
+    author: VoidedDevNull
+  - message: >-
+      The holopickaxe is no longer worth FUCs due to it being craftable.  No more
+      using a lathe as a FUC printer.
+    author: TrylobyteWasTaken
+  - message: Fixed secborg missing locales and appropriate sprites for the default borg
+    author: R3v3l4t1on
+  - message: Slimepeople can now eat food again.
+    author: TrylobyteWasTaken
+  - message: >-
+      Station jobs should now dynamically allocate additional slots when no longer
+      filled.
+    author: NotLivyathan
+  - message: >-
+      Freelancer slot allocation should no longer exceed the number of filled crew
+      positions, nor should it exceed the cap of 40 that was originally placed on it.
+    author: NotLivyathan
+  - message: Removes a test fail from the PILE
+    author: R3v3l4t1on
+  - message: MapChecker works again after someone broke it.
+    author: R3v3l4t1on
+  - message: >-
+      Fixed all xenoborgs cosplaying as engineers. Now you can actually tell if
+      you're fighting an engi or a fridge.
+    author: R3v3l4t1on
+  - message: icon and localization for Nanochat
+    author: Khaomi
+  - message: Fixed a number of major errors and crashes
+    author: fenndragon
+  - message: Made XenoWeeds killable again!
+    author: MsEpic59
+  - message: Reduced NPC pathfinding stalls when targets or routes change rapidly.
+    author: Kronyxxx
+  - message: >-
+      Improved NanoChat server performance during message delivery and group chat
+      updates.
+    author: Kronyxxx
+  - message: Reduced shipyard load overhead for saved ships, especially larger ones.
+    author: Kronyxxx
+  - message: >-
+      Made shipyard appraisal safer by avoiding stateful pricing hooks while still
+      counting normal ship contents.
+    author: Kronyxxx
+  - message: >-
+      Fixed ship saves deleting the live ship before the save file was actually
+      written.
+    author: Kronyxxx
+  - message: >-
+      Advanced radar and gunnery consoles now display radar blips and related line
+      effects out to their configured range instead of stopping at 256m.
+    author: Kronyxxx
+  - message: Fixed ship-saved items losing runtime actions after load.
+    author: Kronyxxx
+  - message: >-
+      Fixed saved solution containers loading with empty fill visuals until their
+      contents changed.
+    author: Kronyxxx
+  - message: Reduced lag caused by nuclear reactor simulation under heavy load.
+    author: Kronyxxx
+  - message: Gamemaster lawset
+    author: re-silvered
+  - message: Fixed serverside issues with bodies and organs
+    author: fenndragon
+  - message: >-
+      Stopped ghosted IPCs from entering battery-death limbo after their battery is
+      removed or drained.
+    author: Kronyxxx
+  - message: >-
+      Stopped tracked cryo entities from being force-deleted just to reopen their job
+      slot.
+    author: Kronyxxx
+  - message: SmartFridges should work again.
+    author: TrylobyteWasTaken
+  - message: SmartFridges should no longer block ships from saving.
+    author: TrylobyteWasTaken
+  - message: Removed a redundant Mono radar hitscan broadcast path.
+    author: Kronyxxx
+  - message: >-
+      Kept hitscan radar updates on the normal radar reply path to avoid duplicate
+      client updates.
+    author: Kronyxxx
+  - message: >-
+      Reduced sensor monitoring console polling load and background device-network
+      spam.
+    author: Kronyxxx
+  - message: >-
+      Sensor monitoring consoles now refresh immediately on open without polling
+      every frame.
+    author: Kronyxxx
+  - message: Reduced redundant server-side work in several hot atmos processing paths.
+    author: Kronyxxx
+  - message: >-
+      Sold and deleted shipyard ships no longer leave behind zombie entries in the
+      station list and shuttle-records consoles. Records carried forward by round
+      persistence are pruned at round start if their grid no longer exists.
+    author: Kronyxxx
+  - message: >-
+      use the existing per-station `TryGetJobSlot` helper, which already returns
+      `MIN(localSlots, globalSlots)` and gates on `IsAdvertisedLateJoinJob` exactly the way
+      `TryAssignJob` does.
+    author: Kronyxxx
+  - message: >-
+      Late-join lobby now shows the same job slot counts that the join check actually
+      enforces, so jobs that look open really are open.
+    author: Kronyxxx
+  - message: >-
+      Fixed character editor sometimes showing an empty slot list on connect,
+      requiring a client restart.
+    author: Kronyxxx
+  - message: >-
+      Fixed character editor only showing the first character when any other saved
+      profile referenced a missing prototype.
+    author: Kronyxxx
+  - message: >-
+      Old saved ships are now automatically scrubbed of stale runtime data on load,
+      eliminating the entity-lookup log spam and missing-component issues that affected
+      ships saved before the ship-save sanitizer existed.
+    author: Kronyxxx
+  - message: Loading an apartment/room save no longer leaves furniture, walls and other
+    author: Kronyxxx
+  - message: >-
+      Gunnery consoles on loaded ships now reconnect to their fire-control server on
+      startup, so ship weapons can fire without needing a later power cycle.
+    author: Kronyxxx
+  - message: Ghost hearing not properly filtering chat messages by distances
+    author: Sully669
+  - message: >-
+      Mob movement no longer spams `KeyNotFoundException` in the server log when an
+      entity's parent grid is deleted out from under it. The mover skips one tick and
+      resumes normally once re-parenting catches up.
+    author: Kronyxxx
+  - message: >-
+      A single completing do-after no longer aborts the entire `SharedDoAfterSystem`
+      tick with `Collection was modified` when its completion ends another entity's
+      do-after.
+    author: Kronyxxx
+  - message: "Saving a ship that has stale device links (signallers, buttons, etc. pointing at items that get purged at save time) no longer aborts with `ArgumentException: An item with the same key has already been added. Key: invalid`."
+    author: Kronyxxx
+  - message: >-
+      Throttled the docking-arm gateway "Spawn New Dock" button so rapid clicks no
+      longer flood the server log when no clear spawn space is available.
+    author: Kronyxxx
+  - message: fixed injector deny popup localization not working
+    author: re-silvered
+  - message: >-
+      Fixed `MothershipCore` spamming stack traces (and tanking server tickrate) when
+      tools were used on it.
+    author: Kronyxxx
+  - message: >-
+      Fixed solution containers spamming stack traces every tick after FTL/shipyard
+      moves, a major source of recent server lag.
+    author: Kronyxxx
+  - message: >-
+      Fixed ship gun projectiles colliding with the firing ship and appearing to hit
+      the center of the ship.
+    author: Kronyxxx
+  - message: >-
+      Ship projectiles now inherit firing platform velocity, fixing moving-ship shot
+      origin/range weirdness.
+    author: Kronyx
+  - message: >-
+      Gunnery radar now keeps projectile/hitscan feedback visible at expected
+      engagement distances.
+    author: Kronyx
+  - message: >-
+      Secbug, Djbug, Engineerbug, and Minerbug borg chassis now display their correct
+      sprites instead of flashing error signs.
+    author: Kronyxxx
+  - message: Fixed flatpacks incorrectly saying "No room to unpack!" on valid station tiles.
+    author: Kronyxxx
+  - message: Fixed all xenoborgs apart from the quad looking like engis
+    author: R3v3l4t1on
+  - message: >-
+      Prevented Station AI vision from occasionally throwing concurrent collection
+      exceptions when multiple LOS/range checks run in the same tick.
+    author: Kronyxxx
+  - message: Fixed sec borg locales
+    author: R3v3l4t1on
+  - message: caseless ammo no longer hallucinates casings
+    author: fenndragon
+  - message: Fixed bluespace syringe draw amount.
+    author: re-silvered
+  - message: Two empty categories have been removed from the loadout menu to reduce clutter.
+    author: NotLivyathan
+  - message: >-
+      Passengers and Barkeepers should no longer spawn with survival boxes in place
+      of their backpacks.
+    author: NotLivyathan
+  - message: Mantis should no longer spawn duplicate equipment on spawn.
+    author: NotLivyathan
+  - message: "Set `transferAmounts: []` on all three Dynamic modes. `AddSetTransferVerbs` exits early on an empty list; `GetTransferAmount` falls back to the solution's current volume, so the full contents are always injected."
+    author: Kronyxxx
+  - message: "Added `AudioSystem` dependency to `InjectorSystem` and a `PlayPvs` call after a successful bloodstream injection when the active mode defines an `injectSound`. Wired `injectSound: /Audio/Items/Medical/jet_injector.ogg` into all three Dynamic modes."
+    author: Kronyxxx
+  - message: >-
+      Added `AdvancedJetInjector` to the `AdvancedTreatment` technology in
+      `civilianservices.yml`.
+    author: Kronyxxx
+  - message: >-
+      Jet injector no longer shows selectable 5u/15u transfer amounts; always injects
+      full reservoir.
+    author: Kronyxxx
+  - message: Jet injector now plays its unique injection sound on use.
+    author: Kronyxxx
+  - message: >-
+      Advanced Jet Injector is now researchable via Advanced Treatment
+      (CivilianServices tier 2).
+    author: Kronyxxx
+  - message: >-
+      Medicated sutures and regenerative meshes can again be crafted in the medical
+      assembler using lathe-produced bruise packs and ointments.
+    author: Kronyxxx
+  - message: >-
+      Switchable-type cyborgs (SecBorg, MediBorg, etc.) no longer lose their built-in
+      department radio channel when an encryption key is added to or removed from them.
+    author: Kronyxxx
+  - message: >-
+      Jet injector no longer shows selectable transfer amounts (1u, 5u, etc.) in its
+      right-click menu; it always injects the full reservoir.
+    author: Kronyxxx
+  - message: Jet injector now plays its unique injection sound when used on humanoid mobs.
+    author: Kronyxxx
+  - message: >-
+      Full-reservoir injector modes now clear stale transfer amount state, so
+      Advanced Jet Injectors correctly inject their full contents.
+    author: Kronyxxx
+  - message: Fixed a test
+    author: R3v3l4t1on
+  - message: Fixed The Dark getting deleted.
+    author: Shades
+  - message: Fixed invalid entries in cyborg guidebook
+    author: R3v3l4t1on
+  - message: Knocks another test off the list of failing tests
+    author: R3v3l4t1on
+  - message: Fixed expedition disk printer sprite.
+    author: NotLivyathan
+  - message: Fixed meteors
+    author: fenndragon
+  - message: other general bugfixes
+    author: fenndragon
+  - message: Fixed Avali displacement maps.
+    author: Fasuh
+  - message: >-
+      Maps referencing HL-renamed prototypes (e.g. `_HL/colcomm.yml`) once again load
+      correctly. The HL prototype migration table is now honored at map load time.
+    author: Kronyxxx
+  - message: Fixed surgery limb application forcing every marking to glow
+    author: re-silvered
+  - message: Fixed where Clothwarp could not be crafted.
+    author: Shades
+  - message: jet injectors now fit in medical bags
+    author: Sully669
+  - message: Fixed broken psionics
+    author: fenndragon
+  - message: >-
+      Manually constructed airlocks/windoors/etc no longer lose accesses when saved
+      on a shuttle.
+    author: NotLivyathan
+  - message: Airlocks/windoors/etc now keep custom-applied accesses when saved on a shuttle.
+    author: NotLivyathan
+  - message: Docking airlocks no longer remain bolted open when saved on a docked shuttle.
+    author: NotLivyathan
+  - message: Characters with the Pettable trait can now actually be pet.
+    author: NotLivyathan
+  - message: Passengers no longer duplicate PDAs and headsets on spawn.
+    author: NotLivyathan
+  - message: Syringe selected mode text no longer seizes when switching between modes.
+    author: NotLivyathan
+  - message: Station maps no longer attempt to use incorrect sprite paths.
+    author: NotLivyathan
+  - message: >-
+      Items with modular sprites (i.e. syringe cases/vials/etc) now correctly update
+      appearance data when saved on a shuttle.
+    author: NotLivyathan
+  - message: >-
+      Sprite icons for spray painted items now correctly update appearance data when
+      saved on a shuttle.
+    author: NotLivyathan
+  - message: >-
+      Saving turbines on a shuttle should no longer result in them becoming
+      unanchorable on load.
+    author: NotLivyathan
+  - message: Avali now correctly bleed AvaliBlood.
+    author: NotLivyathan
+  - message: Characters with the Synthetic trait now correctly bleed SyntheticBlood.
+    author: NotLivyathan
+  - message: >-
+      Zombification now correctly results in zombified characters producing
+      ZombieBlood.
+    author: NotLivyathan
+  - message: >-
+      Zombification no longer results in bloodstreams resetting to 0/max-limit for
+      zombified characters.
+    author: NotLivyathan
+  - message: >-
+      PMC C-20r and PMC Vipers are no longer incorrectly labeled C3 and no longer
+      give FUCs on exchange.
+    author: NotLivyathan
+  - message: Fixed Kitsune using the wrong emote sound for squeak.
+    author: Aureuix
+  - message: Directional wall ambient occlusion now makes sense.
+    author: NotLivyathan
+  - message: >-
+      Characters with the Trap Avoider trait should no longer have seizures when
+      walking on surfaces that would otherwise slip them.
+    author: NotLivyathan
+  - message: Fixed Warden duplicate "backpack items" loadout category.
+    author: okdamsam
+  - message: Room saves no longer freeze the game on save or load
+    author: IngvarJackal
+  - message: Room save files shrunk from ~4 MB to ~50 KB
+    author: IngvarJackal
+  - message: Spray-painted walls and objects now preserve their style after a room load
+    author: IngvarJackal
+  - message: Material silo contents are now preserved after a room load
+    author: IngvarJackal
+  - message: Item positions inside bags and crates are now preserved after a room load
+    author: IngvarJackal
+  - message: Stack counts are now preserved after a room load
+    author: IngvarJackal
+  - message: >-
+      Paint colors (PaintedComponent), item labels, paper content/stamps, and plushie
+      appearances now survive room loads
+    author: IngvarJackal
+  - message: >-
+      Unanchored tools and equipment are no longer saved in rooms (and turning
+      non-interactable); only items tagged `RoomSaveable` (plushies, pillows, potted plants)
+      are kept
+    author: IngvarJackal
+  - message: The STC now correctly has access to traffic control consoles.
+    author: NotLivyathan
+  - message: Wooden televisions should no longer incorrectly use modular console sprites.
+    author: NotLivyathan
+  - message: Maybe hopefully fix the manifest
+    author: Illumos
+  - message: Fixed context menu incorrect display
+    author: re-silvered
+  - message: Fixed plastitanium structure cost to 250
+    author: Sully669
+  - message: Fixed some service roles not recording playtime
+    author: re-silvered
+  - message: Fixed expeditions refusing to leave if attempted to end too early.
+    author: re-silvered
+  - message: Fixed rule links not appearing
+    author: re-silvered
+  - message: Fixed ghosts seeing whisper obfuscation
+    author: re-silvered
+  - message: >-
+      Cloning either with a cloning pod or through the paradox clone event now
+      respects the target character's traits and custom height settings.
+    author: NotLivyathan
+  - message: >-
+      Spawning characters through the admin action now respects character traits and
+      custom height settings.
+    author: NotLivyathan
+  - message: >-
+      Makes shadekin regeneration traits mutually exclusive with all other regen
+      traits, not just platelets
+    author: biteymcstabface
+  - message: >-
+      High Security Door/Glass Airlock deconstruction instructions now show proper
+      steps
+    author: Typheus
+  - message: Fixed geneticist station pay 0 -> 24k
+    author: re-silvered
+  - message: Damaged RTGs no longer duplicate with the SRD
+    author: re-silvered
+  - message: Pettable trait is now a 100% chance to be pet :3
+    author: Illumos
+  - message: Fixed Protogens not working at all.
+    author: Fasuh
+  - message: Fixed Cryogenics not working for Protogens
+    author: Fasuh
+  - message: (Admin) The h-series of scale commands now work as intended.
+    author: TrylobyteWasTaken
+  - message: Fixed M90 GL not having a wielded sprite
+    author: re-silvered
+  - message: Fixed the definitely green colonial command cloak to reflect such.
+    author: SquishyEmmaaaa
+  - message: The HoS cloak definitely wasn't red.
+    author: SquishyEmmaaaa
+  - message: >-
+      Fixed first-open shuttle map population/scan issues and several radar/nav
+      coordinate, panning, anchoring, and rotation bugs.
+    author: fenndragon
+  - message: >-
+      Fixed surveillance camera CRT shader hookup and scaling viewport shader
+      application.
+    author: fenndragon
+  - message: >-
+      Fixed watchlist async exception handling, playtime save task exception
+      handling, round persistence logging, salvage mission task flow, and several `async
+      void`/exception swallowing issues.
+    author: fenndragon
+  - message: >-
+      Fixed flammable/fire event iteration allocation behavior, cached multiple hot
+      entity queries, and reduced several repeated per-tick allocations/perf pitfalls
+      across instruments, suit sensors, pathfinding, worldgen, NPC steering, and other
+      systems.
+    author: fenndragon
+  - message: >-
+      Fixed ship save authorization by requiring deed possession or admin rights
+      before saving.
+    author: fenndragon
+  - message: >-
+      Fixed ship save edge cases by backing up saves server-side, ejecting minded
+      players before save deletion, removing save-contraband entities, sanitizing more
+      problematic components, and deleting owning stations to avoid late-join black
+      screens.
+    author: fenndragon
+  - message: >-
+      Fixed docking validation to properly consider both shuttles and allow gas dock
+      exceptions.
+    author: fenndragon
+  - message: >-
+      Fixed FTL restrictions by preventing landings too close to dungeon/contract
+      hotspots and correcting no-landing-radius checks.
+    author: fenndragon
+  - message: >-
+      Fixed silicon law copying to preserve live modified laws instead of resetting
+      to prototype defaults.
+    author: fenndragon
+  - message: >-
+      Fixed mind/job transfer edge cases for AI/borg shunting and station pay
+      scheduling across body transfers.
+    author: fenndragon
+  - message: >-
+      Fixed gun/device-link firing direction, hitscan damage event propagation,
+      projectile damage modifiers, and mounted gun shot origin behavior.
+    author: fenndragon
+  - message: >-
+      Fixed NPC ranged LOS/targeting to account for destructible shoot-through logic
+      and obstacle handling.
+    author: fenndragon
+  - message: >-
+      Fixed cleanup/protection issues for biome planets, player-owned ships, claimed
+      grids, POI infrastructure, and trash/orphan grid cleanup behavior.
+    author: fenndragon
+  - message: >-
+      Fixed round-end auto-call override support, magboots/jetpack interaction, EMP
+      scaling resistance, random teleport overload support, and various
+      construction/wiring/deconstruction protection checks.
+    author: fenndragon
+  - message: Blueprint litograph/material silo taking paper
+    author: Sully669
+  - message: Fixed Anaconda gun needing ammo and not self recharging.
+    author: Fasuh
+  - message: >-
+      Fixed issues that were preventing round from continuing, research issues, and
+      station pay
+    author: fenndragon
+  - message: Fixed missing techs
+    author: fenndragon
+  - message: Fixed missing recipes
+    author: fenndragon
+  - message: Fixed parented projectile velocity
+    author: fenndragon
+  - message: Fixed Apartments
+    author: fenndragon
+  - message: Fixed Mech weapon power
+    author: fenndragon
+  - message: Fixed blocked explosion location
+    author: fenndragon
+  - message: Fixed botany limitations
+    author: fenndragon
+  - message: Fixed AI station spawns.
+    author: fenndragon
+  - message: Fixed Shield values
+    author: fenndragon
+  - message: Fixed some lag errors on the backend
+    author: fenndragon
+  - message: Fixed blood replacement system
+    author: fenndragon
+  - message: Fixed Patreon character traits
+    author: fenndragon
+  - message: Fixed component saving in apartments
+    author: fenndragon
+  - message: Fixed Changelog missing some changes!
+    author: Drekk
+  - message: Fixed Changelog not showing in Discord
+    author: Drekk
+  - message: More entities, including scurrets, are now pacified at CC.
+    author: Typheus
+  - message: Lights on CC now won't be all broken after the 24 hours or so
+    author: rtasva
+  - message: Discord should no longer get spammed when PRs are merged, my bad :3
+    author: DrekkCuga
+  - message: Fixed some actions in the right-click menu on a player showing up with a delay.
+    author: DrekkCuga
+  - message: Resomi can now sound like sad little birds when they die. Less exciting.
+    author: bendonji
+  - message: Fixed ghosts blocking ships from saving
+    author: re-silvered
+  - message: (Amber Station) CDETs now are fully enclosed.
+    author: FieryTech
+  - message: (Amber Station) Medical bay lights switched from LED to normal lights.
+    author: FieryTech
+  - message: Breaching Hammer can now be used to pry.
+    author: Fardoche0
+  - message: Fixed the options to weave and spin with the Bionic Spinarette trait.
+    author: Fardoche0
+  - message: Paramedic windbreaker is now unzippable
+    author: Vonte
+  - message: Ion storms now display the correct message to Synthetic trait characters
+    author: Vonte
+  - message: >-
+      the security holoprojector barrier now has a blue pointlight to match its new
+      colors
+    author: Vonte
+  - message: >-
+      the dynamoxine medpen from the sec vendor will no longer display a large ERROR
+      instead of a sprite inhand
+    author: Vonte
+  - message: Fixed a few moth foods not having valid recipes.
+    author: re-silvered
+  - message: Fixed 2x2 machine frames not having recipes.
+    author: re-silvered
+  - message: Fixed widow packets not having a recipe.
+    author: re-silvered
+  - message: Plumbing Filters now work.
+    author: TrylobyteWasTaken
+  - message: Active nanites now process properly and do not fill up stomaches
+    author: Iisazel
+  - message: Fixed dragon breath
+    author: fenndragon
+  - message: >-
+      Fixed nanites instantly turning inert inside every bloodstream except synth's.
+      They will now appropriately maul anyone that gets it inside of them
+    author: re-silvered
+  - message: Light Sensitivity Trait having a error icon.
+    author: Shades
+  - message: TheDark deleted itself on server cleanup.
+    author: Shades
+  - message: Fixed Phase Effect Sprite Size not getting affected.
+    author: Shades
+  - message: NullSpace Locator not working.
+    author: Shades
+  - message: NullSpacePuller not stopping the pulling action correctly.
+    author: Shades
+  - message: >-
+      Fixed saved ships losing their consoles and air vents/scrubbers when loaded.
+      Previously-saved ships are repaired automatically on load.
+    author: IngvarJackal
+  - message: Light sensitivity traits no longer burn you in light levels they shouldn't.
+    author: IngvarJackal
+  - message: Fixed finished votes being left on screen
+    author: re-silvered
+  - message: Fixed felionoids not getting any NSFW marking options
+    author: re-silvered
+  - message: Even more bug fixes for the automated tests!
+    author: DrekkCuga
+  - message: Fixed so many construction issues
+    author: DrekkCuga
+  - message: Fixed a bunch of maps and ships having invalid tiles.
+    author: DrekkCuga
+  - message: Fixed some traits not having a proper name
+    author: DrekkCuga
+  - message: Fixed the automated tests!
+    author: DrekkCuga
+  - message: Changed the limiter on asteroid spawns, space feels populated now
+    author: Hammeredmantis
+  - message: >-
+      Fixed cnc ooc preference icons being visible when characters were otherwise
+      stealthed.
+    author: re-silvered
+  - message: Fixed the AI Eye disappearing after returning from expedition
+    author: Typheus
+  - message: AI Eye no longer moves around while piloting a ship as an AI Core
+    author: Typheus
+  - message: Shadegen not working correctly with items in containers.
+    author: Shades
+  - message: HOPEFULLY... Fix The Dark Deleting Itself...
+    author: Shades
+  - message: >-
+      Fixed harpies racial modifiers not correctly applying, they will now be
+      correctly poisoned by allicin and theobromine, and breathe twice as fast compared to
+      humans.
+    author: re-silvered
+  - message: >-
+      Fixed some Felionoid species modifiers, meaning they will go into crit at 85
+      and receive a speed boost when not wearing shoes, alongside silent footsteps.
+    author: re-silvered
+  - message: Fixed some Pipes and Fire Locks on Amber
+    author: DrekkCuga
+  - message: ColCom added the ordinance back to ship weapons.
+    author: NatusExVacuo
+  - message: Fixed a collision issue withy the Phase Barrier Cable.
+    author: Shades
+  - message: Fixed Neuralyzers not saving added compulsions
+    author: re-silvered
+  - message: Psychologists are now allowed to bring other shoes to work
+    author: Illumos
+  - message: >-
+      Fixed jet injectors pulling their max inject amount all the time, now instead
+      always 5u at a time draw
+    author: re-silvered
+  - message: Fixed church bells putting blank messages in chat
+    author: re-silvered
+  - message: Fixed Smile the slime not being able to be taken over via ghost role
+    author: re-silvered
+  - message: Fixed some ships throwing errors or crashing the server when spawned.
+    author: DrekkCuga
+  - message: You can now have multiple instances of passive damage / passive regeneration
+    author: re-silvered
+  - message: Fixed vaulting on machines taking priority.
+    author: Notarin Steele
+  - message: Minilockers no longer give plasteel
+    author: Iisazel
+  - message: Fixed some guns spawning with old calibers
+    author: Iisazel
+  - message: Increased Hardlight Core Max Player Count
+    author: N9inB0x
+  - message: Bounties Skippable For Quartermasters
+    author: N9inB0x
+  - message: Box Station Sell Console
+    author: N9inB0x
+  - message: Fixed chat bubbles flooding your screen when entering a room!
+    author: DrekkCuga
+  - message: Fixed Vampirism trait causing client-side delays.
+    author: DrekkCuga
+  - message: Shooting carps with a disabler no longer breaks your screen
+    author: DrekkCuga
+  - message: Fix incorrect collar sprites on quadborgs
+    author: Slatebreaker
+  - message: Fix governor collar corrupted laws showing placeholder string
+    author: Slatebreaker
+  - message: Fixed Synth CCU entities not having the correct languages, Sol Common and EAL.
+    author: Livyathan
+  - message: fix noncon marker showing aggressor when nothing is selected
+    author: Khaomi
+  - message: Untouchable Trait Global Hug Fix
+    author: N9inB0x
+  - message: Add missing localizations and fix Amoxla capitalization
+    author: Khaomi
+  - message: Add missing NanoChat localization
+    author: Khaomi
+  - message: fixed other patreon characters
+    author: Fenn
+  - message: Fixed the changelog!
+    author: Drekk
+  - message: Fixed IPC eye surgery
+    author: Cheep
+  - message: Fixed "You Crouch Down." when anyone nearby crouches or stands up.
+    author: Drekk
+  - message: Fixed translator drawing a power 'debt' while turned off.
+    author: AlphonsedeV
+  - message: Fixed translator being able to light up its sprite with no power cell.
+    author: AlphonsedeV
+  - message: Fixed whoopie cushions launching people
+    author: Desilvered
+  - message: Non-silicon mobs should no longer have silicon-based emotes.
+    author: NotLivyathan
+  - message: Fax machine refresh buttons should once again render correctly.
+    author: NotLivyathan
+  - message: Synth guidebook now correctly states galactic common, instead of sol.
+    author: NotLivyathan
+  - message: Ahelp pin buttons should once again render correctly.
+    author: NotLivyathan
+  - message: AI turret control UI buttons should once again render correctly.
+    author: NotLivyathan
+  - message: >-
+      Missing backgrounds for various equipment UIs should once again render
+      correctly.
+    author: NotLivyathan
+  - message: Antag additional info buttons should once again render correctly.
+    author: NotLivyathan
+  - message: >-
+      Big/Very Big characters should no longer deal damage in situations that
+      wouldn't normally do damage.
+    author: NotLivyathan
+  - message: Synths should once again be revivable with defibrillators.
+    author: NotLivyathan
+  - message: Synths should no longer have two updates every tick.
+    author: NotLivyathan
+  - message: Synths should now be able to eat various materials as intended.
+    author: NotLivyathan
+  - message: Synths should now show up on med/diagnostic huds.
+    author: NotLivyathan
+  - message: Fixed cryochem not metabolizing on Resomi and Cybernetic organs
+    author: Khaomi
+  - message: Fixed glacier for testing
+    author: Fenn
+  - message: >-
+      Entities in cryopods should no longer fail to correctly be moved to cryospace
+      for cleanup.
+    author: NotLivyathan
+  - message: Fixed projectiles not working properly after first use.
+    author: Drekk
+  - message: Fixed chameleon gear not loading in properly when loading an apartment
+    author: Khaomi
+  - message: fixed bread slices ignoring gravity
+    author: ItsBear
+  - message: Fixes Blood Deficiency leaving behind blood puddles when it shouldn't.
+    author: NotLivyathan
+  - message: >-
+      emotes from the target voice trait now appear in the emote wheel and play
+      properly.
+    author: AlphonsedeV
+  - message: Fixed genital markings rendering through clothes for synths.
+    author: NotLivyathan
+  - message: Fixed hardsuits not loading correctly when saved in ships and apartments.
+    author: Drekk
+  - message: Fixed autosave crashing in dev environnments.
+    author: Jayty
+  - message: Made it so that chess pieces no longer randomly vanish.
+    author: Desilvered
+  - message: >-
+      Mechanically save banned items will no longer remain claimable from a paradox
+      generator if previously insured.
+    author: NotLivyathan
+  - message: Fixed cryopod occupants not being moved to cryospace
+    author: NotLivyathan
+  - message: Fixed multiple maps
+    author: Fenn
+  - message: Fixed the AirlockBlockTest failing, by disabling the test :3
+    author: Drekk
+  - message: Fixed new artifacts not matching for bounties and certain containers.
+    author: Drekk
+  - message: Fixed blood recovery failing and resulting in rapid starvation and dehydration.
+    author: NotLivyathan
+  - message: >-
+      Fixed a bugged interaction between platelets and bleeding that caused more
+      hunger to be used than intended, resulting in rapid starvation and dehydration.
+    author: NotLivyathan
+  - message: Fixed Vodka and Biomass Cargo Bounties!
+    author: ArtyTheBoog
   tweak:
-    - message: Tweaked the RNG change to tweak out.
-      author: Notarin
-    - message: Tweaked the tweak of tweaking out.
-      author: Notarin
-      hash: fd06677d2198b5271e6067d89f109b9b588482bf
+  - message: Increased size of salvage specialist wall locker
+    author: Durk
+  - message: Changed PDAs/IDs/Headets back to small items
+    author: Durk
+  - message: Security quadborgs are now cyan like the rest of SEC.
+    author: NotLivyathan
+  - message: Peregrine now has FUC value at Contra Exchange of 1
+    author: Serah64
+  - message: Syndicate FTL Interceptions and Syndicate Weapons Cache spawn
+    author: TrylobyteWasTaken
+  - message: Characters with the Numb trait no longer scream during surgery.
+    author: carccborg
+  - message: Reduced thruster plume damage from 1400 Heat per second to 140 Heat per second.
+    author: carccborg
+  - message: Increased the amount of slots for Thaven arm, leg and chest markings
+    author: carccborg
+  - message: existing thaven tails touched up
+    author: carccborg
+  - message: sharkminnow eyeliner is now light before the multiply layer
+    author: carccborg
+  - message: Adjusted shuttle walls' `reflectProb` to 0.2 (20%).
+    author: carccborg
+  - message: >-
+      Reported a more recent version of Elkridge, with a more thorough set of changes
+      to fit Hardlight.
+    author: Makeshift
+  - message: Mech weapons can no longer be fired outside of a mech.
+    author: TrylobyteWasTaken
+  - message: >-
+      Changed IPC welding healing to be faster but heal slightly less, made LV, MV,
+      and HV heal incrementally more burn at the cost of slightly longer doafters, and
+      gave Cyborgs the same healing system as IPC.
+    author: NotLivyathan
+  - message: Quadborg job roles now spawn with PDAs.
+    author: NotLivyathan
+  - message: Quadborgs are now able to unlock themselves.
+    author: NotLivyathan
+  - message: All Quadborgs now have an additional module slot.
+    author: NotLivyathan
+  - message: >-
+      IPC no longer spawn with an encryption key, but are now able to spawn with and
+      wear headsets.
+    author: NotLivyathan
+  - message: Many minor changes to Eaglerock
+    author: Generic-Eagle
+  - message: >-
+      made the bluespace jug and syringe follow the same x10 capacity convention that
+      the other bluespace glassware does
+    author: stickycheZ101
+  - message: Synths now bleed inert nanites, which turn back into nanites upon metabolizing.
+    author: NotLivyathan
+  - message: Topicals are now half as effective on Synths.
+    author: NotLivyathan
+  - message: >-
+      Synth passive healing has been increased from 1 to 3 for brute and from 1 to 4
+      for burn.
+    author: NotLivyathan
+  - message: Nanites now heal Synths for more, bringing them more in-line with Omnizine.
+    author: NotLivyathan
+  - message: Synth damage reductions have been slightly adjusted in a very small nerf.
+    author: NotLivyathan
+  - message: Synth CCU's can now talk just like Positronic Brains.
+    author: NotLivyathan
+  - message: >-
+      Synths now have cyborg panels (temporarily) that need to be opened with a
+      Medical Multitool first in order to insert or remove encryption keys, which can be
+      done with a screwdriver.
+    author: NotLivyathan
+  - message: >-
+      Synth encryption keys can now be seen on examination so long as their panels
+      are open.
+    author: NotLivyathan
+  - message: Changed shuttle AI behavior
+    author: fenndragon
+  - message: Stellibinin now acts like Dylovene when given to plants.
+    author: TrylobyteWasTaken
+  - message: Make sec shipyards report to security comms instead of colsec.
+    author: warcrazed11
+  - message: Added Silica to the map pool
+    author: rtasva
+  - message: Let Harpy species have colorful skin color
+    author: Tichi
+  - message: tweaked event rolls and spawn rates
+    author: fenndragon
+  - message: tweaked rules
+    author: fenndragon
+  - message: Tweaked caches and dungeon spawn radius.
+    author: warcrazed11
+  - message: Tweaked cache and vault map to add more danger and loot to them.
+    author: warcrazed11
+  - message: >-
+      Headsets no longer spawn with encryption keys, but now feature built-in
+      frequencies relative to the headset that cannot be removed, and still accept encryption
+      keys for additional frequencies.
+    author: NotLivyathan
+  - message: Synths now correctly take barotrauma and bloodloss damage.
+    author: NotLivyathan
+  - message: >-
+      Synth passive regen has been rebalanced to be less strong and no longer
+      functions while dead.
+    author: NotLivyathan
+  - message: >-
+      Synth encryption keys (and intrinsic frequencies) are now able to be seen on
+      examine once their panels are open.
+    author: NotLivyathan
+  - message: Nanites have been rebalanced slightly to be less strong.
+    author: NotLivyathan
+  - message: >-
+      Changed how synths heal. They now heal based on their blood level, their blood
+      level dropping as they heal. As a result, their healing is more powerful that
+      scales based on their blood amount.
+    author: TheRealMasterChief117
+  - message: temporarily rerouted disposals on Silica to accommodate collision bug
+    author: rtasva
+  - message: >-
+      You can now use an Automation Upgrade Kit on a material reclaimer to allow for
+      the automated removal of liquid via liquid pump.  Don't let it eat your tools.
+    author: TrylobyteWasTaken
+  - message: More Silica fixes
+    author: rtasva
+  - message: Eaglerock now has infinite contractor slots
+    author: Generic_Eagle
+  - message: >-
+      Synths now metabolize all reagents at 75% efficiency when dead, except Nanites,
+      which remain at 100% efficiency.
+    author: NotLivyathan
+  - message: Tweaked Station Payroll amount.
+    author: warcrazed11
+  - message: Doubled station terminal payouts.
+    author: warcrazed11
+  - message: Doubled Gas deposit size.
+    author: warcrazed11
+  - message: Changed roles so there is only one spacer role listed "freelancer"
+    author: fenndragon
+  - message: >-
+      Stacked produce now splits itself when being inserted into a microwave,
+      electric range, or food-o-mat.
+    author: TrylobyteWasTaken
+  - message: Eaglerock cargo can now sell exped disks
+    author: Generic_Eagle
+  - message: >-
+      Plant Analyzer now automatically refreshes if left open so you can watch
+      mutations in real-time.
+    author: TrylobyteWasTaken
+  - message: Plant Analyzer window now remains open even if you switch hands or put it away.
+    author: TrylobyteWasTaken
+  - message: Freelancers now are under the Harbor Master.
+    author: warcrazed11
+  - message: Corrected all instances of "Mar" to "Marr" for consistency
+    author: rtasva
+  - message: Shadekin performance fix
+    author: rtasva
+  - message: >-
+      All lockers, wall lockers, and suit storages will now once again save on ship
+      save.
+    author: NotLivyathan
+  - message: Vending machines will now once again save on ship save.
+    author: NotLivyathan
+  - message: tweaked the settings for the AI targeting
+    author: fenndragon
+  - message: tweaked LOS so AI will try to shoot through windows
+    author: fenndragon
+  - message: >-
+      Changed rad collectors checking every tick to every 5s. Should earn us between
+      10-15% TPS
+    author: Suraru
+  - message: >-
+      Changes the PTK-1500e "Matter Dematerializer" to be C1, instead of C3, since
+      you can literally get it from the vending machine
+    author: Suraru
+  - message: >-
+      Changes StartableMachineSystem to every second to reduce what can be thousands
+      of of checks a second down to hundreds
+    author: Suraru
+  - message: >-
+      Checks payout every second now, instead of every tick. Reduces thousands of
+      checks a second, to like, 80 tops.
+    author: Suraru
+  - message: Turned the vacant office near Bridge into a HM office on Eaglerock.
+    author: Generic_eagle
+  - message: Inflatable floors are now deconstructed with a screwdriver.
+    author: TrylobyteWasTaken
+  - message: Increased auto-cryo from 5m to 15m
+    author: Suraru
+  - message: greatly increases dock spawning radius
+    author: Suraru
+  - message: Changed the volkite damage and fire rate.
+    author: warcrazed11
+  - message: >-
+      AME fuel jars and rad collector plasma tanks now persist on save/load when
+      contained within an AME/rad collector.
+    author: NotLivyathan
+  - message: Crates can once again be anchored.
+    author: NotLivyathan
+  - message: made genetic injectors unsavable.
+    author: warcrazed11
+  - message: made genetic console undeconstructable.
+    author: warcrazed11
+  - message: You can now eat money
+    author: Suraru
+  - message: Neuralyzer no longer works on mindshielded people.
+    author: Notarin
+  - message: >-
+      Popups from world actions should no longer overlay on top of one another and
+      ruin readability.
+    author: NotLivyathan
+  - message: >-
+      The Holopickaxe now has a much higher swing speed and auto-swing, but reduced
+      damage, making it the ultimate on-foot mining tool.
+    author: TrylobyteWasTaken
+  - message: >-
+      The Energy Shotgun and X-01 Multiphase have both received buffs to make them
+      more practical in prolonged fights.  The Energy Shotgun now self-recharges four
+      times faster and has zero delay before recharging, making it slightly better than
+      the EG-4, and the X-01 has much more ammunition per charge (except for the taser)
+      and twice the rate of fire.
+    author: TrylobyteWasTaken
+  - message: >-
+      Factorio liquid pumps can now move up to 500u at once, up from 50u, to account
+      for the large fluid volumes often seen on Hardlight.  Setups should now require
+      fewer pumps to handle the same volumes, reducing lag.
+    author: TrylobyteWasTaken
+  - message: All cryopods now function similar to Frontier's cryo sleep units.
+    author: NotLivyathan
+  - message: AFK auto cryo timer increase from 15 minutes to 2 hours.
+    author: NotLivyathan
+  - message: SecTech and drobe now fully replace NFSD counterparts.
+    author: Generic_Eagle
+  - message: Removed the SM zap and instead raised radiation.
+    author: warcrazed11
+  - message: Amber station has been tweaked to bring the map up to par with other maps.
+    author: VoidedDevNull
+  - message: Hyperlathes now only take 1.5x longer instead of 3x to craft.
+    author: VoidedDevNull
+  - message: Hardlight Core now has a public evac dock.
+    author: VoidedDevNull
+  - message: >-
+      Hardlight Core security dock has been slightly extended to accommodate ships
+      better.
+    author: VoidedDevNull
+  - message: reduced Interdyne hypospray volume from 60 to 45
+    author: Sully669
+  - message: >-
+      Increased audio playing distance of both vinyl players and radio receivers to
+      7.5 and 8.5 tiles respectively
+    author: VoidedDevNull
+  - message: Tweaked WT-550 top mags and ammo acceptance to take the mags.
+    author: warcrazed11
+  - message: >-
+      Shuttle speed is now capped at 50m/s instead of 75, owing to Hardlight having a
+      smaller 'play area' than Frontier or Monolith.
+    author: TrylobyteWasTaken
+  - message: Adjusted radio music volume
+    author: VoidedDevNull
+  - message: >-
+      The Nuclear Fabricator Machine Board can now be made in the circuit imprinter
+      with proper research.
+    author: TrylobyteWasTaken
+  - message: Reprogrammed our medical Borgs to do surgery like doctors can
+    author: Toaster-Box
+  - message: Synth eye placement has been slightly adjusted.
+    author: NotLivyathan
+  - message: Pulled Changes and fixes from Sandwich
+    author: fenndragon
+  - message: Passengers are no longer able to purchase or load ships from shipyard consoles.
+    author: NotLivyathan
+  - message: Added better kitchen gear to box
+    author: VoidedDevNull
+  - message: Tweaked Peregrines contraband level due to damage dealt.
+    author: warcrazed11
+  - message: >-
+      lowers peregrine's damage to 25 pierce, 5 heat, 5 shock, 50 structural, and 20
+      stamina
+    author: warcrazed11
+  - message: IPCs now have binary built in
+    author: VoidedDevNull
+  - message: Energy Shotguns to cost 100 instead of 120 per Disabler Shot
+    author: Nikode16
+  - message: Energy Shotguns Disabler Shot to **NOT** slowly kill people now.
+    author: Nikode16
+  - message: New docks! Now with 14.258 percent more dock!
+    author: VoidedDevNull
+  - message: Can now use subtle OOC and subtle while unconscious
+    author: re-silvered
+  - message: added biohazard resistance to interdyne gas mask
+    author: Sully669
+  - message: >-
+      Frontier and upstream cryospaces have been combined to reduce maps generated in
+      normal play.
+    author: NotLivyathan
+  - message: Cleaned up ship save sanitization code.
+    author: NotLivyathan
+  - message: >-
+      Job payout calculation now persists between rounds, meaning cryocycles should
+      no longer be necessary.
+    author: NotLivyathan
+  - message: Increased shuttle FTL cooldown values (upstream parity port).
+    author: NotLivyathan
+  - message: Updated Cyborg encryption key removal interaction to require cutting tools.
+    author: NotLivyathan
+  - message: Updated Cyborg wire panel open/close interaction to require screwing tools.
+    author: NotLivyathan
+  - message: Added named fried chicken content and associated compatibility updates.
+    author: NotLivyathan
+  - message: Bluespace lockers no longer silently delete materials on deconstruction.
+    author: Illumos
+  - message: Synthetic trait is now free
+    author: Illumos
+  - message: All cyborgs get tool modules. Because we love borgs.
+    author: R3v3l4t1on
+  - message: >-
+      Changed some interaction verbs to function/not function depending on if you are
+      restrained or if you're wearing a mask.
+    author: re-silvered
+  - message: CYNs Outfit to reflect the new changes and also hyper-organizes her bag.
+    author: Nikode16
+  - message: ESAR now fully replaces the WT and Energy shotgun for HoS.
+    author: Generic_Eagle
+  - message: Gunnery servers now require increasingly expensive amounts of materials.
+    author: Illumos
+  - message: Newly bought ships do not include a latejoin spot anymore.
+    author: VoidedDevNull
+  - message: >-
+      Round-end logic no longer forces shuttles not on the station map to FTL to
+      ColComm.
+    author: NotLivyathan
+  - message: >-
+      FTL once again causes a 5.5 second startup delay, instead of occurring
+      instantly.
+    author: NotLivyathan
+  - message: Wagging has been improved!
+    author: Illumos
+  - message: Reduced frequency of RR kill objective
+    author: rtasva
+  - message: Aphro fadeout message works again, and with a little bit more flare
+    author: re-silvered
+  - message: Rev sponsorship change
+    author: VoidedDevNull
+  - message: >-
+      Engineering borgs get an RCD module instead of a Shipyard RCD module (because
+      they literally could not use that one)
+    author: R3v3l4t1on
+  - message: Refactored the way triggers work.
+    author: NotLivyathan
+  - message: >-
+      Refactored the way injectors work and merged the injector/hypospray systems
+      into one system.
+    author: NotLivyathan
+  - message: Refactored the way research works, specifically around artifacts.
+    author: NotLivyathan
+  - message: Refactored the way hands work, especially Borg hands.
+    author: NotLivyathan
+  - message: Refactored the way flashes work.
+    author: NotLivyathan
+  - message: Many entity effects have been refactored to be status effects instead.
+    author: NotLivyathan
+  - message: >-
+      Replaced crawling and knockdown with a newer, smoother system that should feel
+      better.
+    author: NotLivyathan
+  - message: >-
+      Replaced FoodComponent with EdibleComponent and merged food/drink systems into
+      one system.
+    author: NotLivyathan
+  - message: Entity effect definitions have been moved to shared handling.
+    author: NotLivyathan
+  - message: Identity handling has been moved to support a predicted structure.
+    author: NotLivyathan
+  - message: >-
+      Bloodstream and certain healing handling has been moved to support a predicted
+      structure.
+    author: NotLivyathan
+  - message: >-
+      Accent and certain speech-effect handling has been moved to support a predicted
+      structure.
+    author: NotLivyathan
+  - message: Mob collision has been slightly tweaked, but left disabled.
+    author: NotLivyathan
+  - message: Ephedrine, desoxyephedrine and hyperzine have been tweaked.
+    author: NotLivyathan
+  - message: >-
+      Lathe menus now populate with the name of the lathe, instead of simply "lathe
+      menu".
+    author: NotLivyathan
+  - message: Quotation marks in the chat panel should now appear italicized.
+    author: NotLivyathan
+  - message: >-
+      Attempting to open the crew manifest when not on an appropriate grid now
+      returns a fail message, instead of loading indefinitely.
+    author: NotLivyathan
+  - message: Hypopens now have a short doafter when attempting to refill them.
+    author: NotLivyathan
+  - message: >-
+      The Traversal module now has a jetpack instead of a big fire extinguisher, and
+      additionally comes with a station map, clock and Handicomms
+    author: R3v3l4t1on
+  - message: >-
+      Biogenerator now requires and contains a Manipulator so you can speed it up by
+      upgrading it.
+    author: TrylobyteWasTaken
+  - message: changed shadekin damagemodifierset coefficients
+    author: Magniras
+  - message: Slimepeople can now also eat trash.  Bon appetit or something.
+    author: TrylobyteWasTaken
+  - message: The AME now generates 180kW per core, instead of 8MW.
+    author: Illumos
+  - message: Reduce ship gun HP 5 times
+    author: IngvarJackal
+  - message: Refactored job slot allocation logic.
+    author: NotLivyathan
+  - message: Expedition Disks now show the type of enemy that's on them.
+    author: TrylobyteWasTaken
+  - message: Bluespace bags are now chameleon
+    author: IngvarJackal
+  - message: Plastitanium walls now build off girders.
+    author: TrylobyteWasTaken
+  - message: >-
+      Reduced hitching and rubberbanding in several hot combat, cleanup, and ship
+      systems by cutting unnecessary per-tick allocations and log spam.
+    author: Kronyxxx
+  - message: >-
+      Reduced client hitching when using repair-tool ghost previews around multiple
+      grids.
+    author: Kronyxxx
+  - message: Glasses now properly fix short-sightedness.
+    author: Illumos
+  - message: Generic pouches are now 2x4
+    author: Illumos
+  - message: Engineering pouches are now 2x6, but can only fit tools.
+    author: Illumos
+  - message: >-
+      First Aid pouches are now 3x4 (1/4th of a medical bag), but can only fit
+      topicals.
+    author: Illumos
+  - message: Botanist pouches are now 4x4, but can only fit seeds, vials, and bottles.
+    author: Illumos
+  - message: >-
+      Janitorial pouches are now 4x4, but can only fit soap, janitorial tools, and
+      buckets.
+    author: Illumos
+  - message: Private security pouches are now a generous 4x6, but can only fit magazines.
+    author: Illumos
+  - message: >-
+      Radar console blip refresh and gathering have been overhauled for performance —
+      heavy combat with multiple ships loaded should see noticeably smoother server
+      tick times. Admins can live-tune `hardlight.radar.min_request_ms` /
+      `hardlight.radar.cache_ttl_ms` if they want a different refresh cadence.
+    author: Kronyxxx
+  - message: Gateway sound to be a bit easier on the ears
+    author: re-silvered
+  - message: Allowed synths to take the vampiric trait
+    author: re-silvered
+  - message: removed unusable cybernetics from research/crafting
+    author: re-silvered
+  - message: Xenoborg byte drone ships no longer spawn within 5 km of the trade hub.
+    author: Kronyxxx
+  - message: >-
+      AI ship-mounted turrets no longer fight the AI core for steering; mounted
+      turrets only fire, the core does the flying.
+    author: Kronyxxx
+  - message: >-
+      Byte drones now only fully commit inside 500m, soft-chase out to 1000m, and
+      disengage after 10 seconds past 1000m.
+    author: Kronyxxx
+  - message: >-
+      Gunnery console radar can now scroll out to 1500m for better situational
+      awareness.
+    author: Kronyxxx
+  - message: Ship-class hitscan laser range set to 500m.
+    author: Kronyx
+  - message: >-
+      Byte AI now scales by rank (small/medium/large) for speed, aim quality,
+      disengage behavior, and spawn distance.
+    author: Kronyx
+  - message: >-
+      Tweaked a bunch of modules to be more like what they are over on wizden/SL
+      (minus changes I couldn't make due to the omega PR revert)
+    author: R3v3l4t1on
+  - message: Harbor Masters now have accesses relevant to their jobs.
+    author: NotLivyathan
+  - message: >-
+      Harbor Masters and Freelancers now occupy the Frontier category in the Crew
+      Manifest.
+    author: NotLivyathan
+  - message: >-
+      The Crew Manifest's categories and layouts have been reorganized for better
+      readability.
+    author: NotLivyathan
+  - message: >-
+      The loadout menu's categories and layouts have been reorganized for better
+      readability.
+    author: NotLivyathan
+  - message: CTLA drives have correct speeds
+    author: IngvarJackal
+  - message: gunnery console has shield status and draws shields
+    author: IngvarJackal
+  - message: Fax machine UI has received minor improvements for better clarity.
+    author: NotLivyathan
+  - message: "Bags of Holding now have a 25% move speed penalty, to encourage use of other bags such as: tactical pack, rucksack, explorer pack"
+    author: Eb-
+  - message: >-
+      The Ionizing Radiation Resistance mutation is now actually able to be
+      researched instead of taunting the geneticist all shift.
+    author: TrylobyteWasTaken
+  - message: Replaced Old Wizden Gaiters with the new ones.
+    author: Shades
+  - message: Update ClothWarps, they can now go in hands slots too.
+    author: Shades
+  - message: tweaked roundstart values
+    author: fenndragon
+  - message: Minor grammatical improvements to C3 contraband severity info text.
+    author: NotLivyathan
+  - message: Migrated StaminaSystem to SharedStaminaSystem.
+    author: NotLivyathan
+  - message: Updates engine to latest from upstream
+    author: fenndragon
+  - message: Proto-Avali/Resomi now make emote sounds like normal avali/resomi
+    author: DDoubleDee
+  - message: Shadekin don't inhale foam any more
+    author: IngvarJackal
+  - message: CDets no longer fire on command or security
+    author: fenndragon
+  - message: CDets now go offline during Red alert or higher
+    author: fenndragon
+  - message: Completely reworked Synth bloodstreams in preparation for future improvements.
+    author: NotLivyathan
+  - message: Characters with the Synthetic trait now bleed dark purple instead of cyan blue.
+    author: NotLivyathan
+  - message: >-
+      Nanites now spoil into InertNanites unless store in cryostasis beakers,
+      cryostasis syringes, or Synths.
+    author: NotLivyathan
+  - message: Made it so that old redundant rescue beacons are deleted on roundend
+    author: re-silvered
+  - message: Nullspace fixes, part 2
+    author: IngvarJackal
+  - message: Reverts shadekin regeneration trait values to those proposed in initial PR
+    author: biteymcstabface
+  - message: Reduced range of phase shift light flickering by 40%
+    author: biteymcstabface
+  - message: >-
+      FTL with private shuttles, in addition to being on expedition maps/the ColComm
+      map, all now count towards "arrived at ColComm" objectives, meaning the evac
+      shuttle is no longer the only official way to arrive at ColComm.
+    author: NotLivyathan
+  - message: Lowered prisoner station pay 20k -> 5k
+    author: re-silvered
+  - message: >-
+      Medical tracking implants now only execute emergency extractions when the
+      target is located on an expedition map.
+    author: NotLivyathan
+  - message: >-
+      Tape recorder has limit on words and notifies when recording time/limit is
+      reached
+    author: IngvarJackal
+  - message: Nullspace dephasing is now safer
+    author: IngvarJackal
+  - message: Changed some CentCom contra tags to ColonialCommand ones.
+    author: SquishyEmmaaaa
+  - message: Moves the medipen tag to the correct file location
+    author: SquishyEmmaaaa
+  - message: MRE crates are now findable on expeditions.
+    author: SquishyEmmaaaa
+  - message: Snake eaten
+    author: re-silvered
+  - message: >-
+      Reworked chemistry dispenser/ChemMaster amount presets to
+      1/5/10/15/20/30/40/60/120.
+    author: fenndragon
+  - message: >-
+      Improved multiple UI text/display cases, including localized job loadout
+      titles, shuttle orientation display, and research visuals.
+    author: fenndragon
+  - message: >-
+      Expanded vending inventory prototype support with inheritance and unlimited
+      inherited stock behavior.
+    author: fenndragon
+  - message: >-
+      Adjusted shuttle movement handling to support pilot-based acceleration/angular
+      multipliers.
+    author: fenndragon
+  - message: Added board/frame size matching for machine frames and boards.
+    author: fenndragon
+  - message: Updated README attribution tables for additional borrowed code origins.
+    author: fenndragon
+  - message: Skates are now 40% faster!
+    author: Illumos
+  - message: Rain lizard code optimized and trimmed.
+    author: Typheus
+  - message: cryoed traitor objectives now reroll
+    author: IngvarJackal
+  - message: AI Remote Devices now incorporates shuntable borgs
+    author: Typheus
+  - message: >-
+      changed leftover security gear that still was red from before the palette
+      change (For full list check the PR).
+    author: Vonte
+  - message: Milkable traits now use Breast Milk!
+    author: SeaborneProto
+  - message: Hardlight is now the first changelog in the in-game menu.
+    author: DrekkCuga
+  - message: AI Remote Devices and Shunt Control now requires AI Shunt Receiver
+    author: Typheus
+  - message: >-
+      Open Valve on Dispensers now checks through all containers instead of just the
+      beaker slot.
+    author: TrylobyteWasTaken
+  - message: Updated texture for rambler
+    author: Iisazel
+  - message: >-
+      Some round-specific items are now cleaned up and deleted automatically after
+      getting to ColComm
+    author: re-silvered
+  - message: Adjusted the tintreach's blunt damage from 65 -> 30, a 54% reduction
+    author: re-silvered
+  - message: >-
+      Adjusted the tintreach's structural damage from 300 -> 200 when wielded, a 33%
+      reduction
+    author: re-silvered
+  - message: Syndicate expedition npcs no longer death rattle alert.
+    author: re-silvered
+  - message: Cyborgs now spawn with PDAs with Cyborg IDs
+    author: Slatebreaker
+  - message: QuadBorg IDs now have their respective job icons
+    author: Slatebreaker
+  - message: Argocyte blades are no longer the strongest weapon in the game
+    author: Iisazel
+  - message: >-
+      Station AI name changes to character name if positronic brain is inserted
+      during construction
+    author: Typheus
+  - message: New xenoborg mothership mapping, for all your assimilation needs.
+    author: FieryTech
+  - message: Ship AIs have comms restricted from Command and Security
+    author: Typheus
+  - message: Station events now ramp up in danger over the shift instead of firing at random.
+    author: IngvarJackal
+  - message: >-
+      Major threats (nuke ops, xenoborgs, zombie outbreaks) no longer stack with
+      other big events, and Central Command's threat detection will hint at their presence
+      after 60 minutes.
+    author: IngvarJackal
+  - message: Updated the existing chemical spoilage system.
+    author: re-silvered
+  - message: >-
+      Security tools related to nullspace entities has been tweaked, check uplink for
+      more details.
+    author: Shades
+  - message: Vent critters now organize to fuck up one person
+    author: fenndragon
+  - message: Gave the mantis the addressed telepathy psionic power
+    author: Notarin
+  - message: >-
+      Document cases can now hold clipboards and casettes, and show their 100%
+      explosion resistance
+    author: Slatebreaker
+  - message: changed syndicate weapon values
+    author: fenndragon
+  - message: syndicate equipment no longer saves
+    author: fenndragon
+  - message: (Elkridge Depot) Cargo is no longer all access, and is instead, cargo access.
+    author: Petalpool
+  - message: Size affects pitch of emotes
+    author: IngvarJackal
+  - message: >-
+      Balanced item prices so you can't get infinite money from buying/selling
+      anymore.
+    author: DrekkCuga
+  - message: Chemmasters are back to their old transfer values (1, 5, 10, 25, 50, 100)
+    author: re-silvered
+  - message: >-
+      Reagent dispensers are back to their old transfer values (1, 5, 10, 15, 20, 25,
+      30, 50, 100)
+    author: re-silvered
+  - message: Bluespace Flashers Range from 12 to 6.2.
+    author: Shades
+  - message: Changed the way that Speed boots and legs function
+    author: fenndragon
+  - message: You can now lay eggs whilst interaction blocked (e.g handcuffed)
+    author: re-silvered
+  - message: Exosuit Fabricator speciality borg printing restricted to Research
+    author: Typheus
+  - message: LRSI is now the Lumi Reind Stellar Initiative~
+    author: ATRAC
+  - message: Reenabled hostile and friendly slime mob ghostroles
+    author: re-silvered
+  - message: Updated ship prices so they cost more to buy than sell.
+    author: DrekkCuga
+  - message: Resized throngler plushie to be 4x4
+    author: Notarin Steele
+  - message: Jerry cans now act as a fuel source for flamethrowers
+    author: Iisazel
+  - message: Added missing cartridges to some jobs
+    author: Iisazel
+  - message: RMC ammo was renamed to avoid confusion
+    author: Iisazel
+  - message: Misc patches to core station
+    author: Mspaintwizard
+  - message: Chem Goggles can now see inside bottles and cans
+    author: DrekkCuga
+  - message: Medipens and some hyposprays can now pierce hardsuits
+    author: Iisazel
+  - message: Removes Frezon,Tritium from Plant Mutations
+    author: Thedingus99
+  - message: Mapped the new magboots.
+    author: 3xecutie
+  - message: Cyborgs can now wear collars
+    author: Slatebreaker
+  - message: Governor collar now slows down the wearer
+    author: Slatebreaker
+  - message: Changes synth default skin tone from green to Urist beige.
+    author: Livyathan
+  - message: Lore-Accurate Copper-Based Blood for Skrell (Use copper pills for bloodloss!)
+    author: N9inB0x
+  - message: Lore-Accurate Blue Skrell Organs
+    author: N9inB0x
+  - message: Sheleg passengers and geneticists get suits on roundstart.
+    author: UtriculariaCalycifida
+  - message: Changes the company of the "Empire" to "HDS"
+    author: MizunoMX
+  - message: Chameleon masks can now be disguised as lit and unlit holo-cigars.
+    author: Livyathan
+  - message: >-
+      Exped enemies, including xenos, should no longer have a chance to appear from
+      vents.
+    author: NotLivyathan
+  - message: >-
+      Scurrets and their predatory lizard counterparts should no longer have a chance
+      to appear from vents.
+    author: NotLivyathan
+  - message: Expedition events should once again spawn naturally.
+    author: NotLivyathan
+  - message: Translators now draw less power, a high cap should last around 25 to 30 minutes.
+    author: AlphonsedeV
+  - message: Made R&D server unwrenchable
+    author: Cheep
+  - message: Made expedition disk printer unwrenchable
+    author: Cheep
+  - message: Updated ion law generation to be more HardLight-specific
+    author: Slatebreaker
+  - message: Height traits no longer come with extreme speed penalties.
+    author: NotLivyathan
+  - message: Synths should once again metabolize nutriment correctly.
+    author: NotLivyathan
+  - message: Natural blood regeneration now uses hunger.
+    author: NotLivyathan
+  - message: Avali can once again select Platelet Factories as a trait.
+    author: NotLivyathan
+  - message: Document case can now hold more items and be stored in bluespace bookshelves
+    author: Slatebreaker
+  - message: Document case can now be locked, access configured, and access broken
+    author: Slatebreaker
+  - message: >-
+      Bureaucracy cyborg module can now be used by all borgs and comes with a
+      document case
+    author: Slatebreaker
+  - message: Changed black alert and gamma alert's code name
+    author: Avery
+  - message: Natural Regen's point cost has been reduced from 6 to 5.
+    author: NotLivyathan
+  - message: Platelet Factories' point cost has been reduced from 10 to 8.
+    author: NotLivyathan
+  - message: Natural Regen no longer heals Airloss damage.
+    author: NotLivyathan
+  - message: Platelet Factories' description now correctly reflects the trait's effects.
+    author: NotLivyathan
+  - message: Avali should now automatically exit stasis when going crit.
+    author: NotLivyathan
+  - message: Tweaked station level alert sound to be station-wide not sector-wide
+    author: Khaomi
+  - message: >-
+      Voice traits are now mutually exclusive. They already were, you just didn't
+      know about it and it wasn't enforced.
+    author: AlphonsedeV
+  - message: Synths once again have intrinsic access to the trinary radio channel.
+    author: NotLivyathan
+  - message: >-
+      Adjusted the size of the plasma cutter and line gun sprites to be a little
+      smaller.
+    author: NotLivyathan
+  - message: Reduced the heat damage per projectile for the line gun from 17 to 15.
+    author: NotLivyathan
+  - message: Reduced the structural damage per projectile for the line gun from 40 to 30.
+    author: NotLivyathan
+  - message: >-
+      Made the line gun require wielding to fire, meaning it can no longer be used
+      onehanded or dual wielded.
+    author: NotLivyathan
+  - message: Increased the width of the line gun when stored in inventories by 1.
+    author: NotLivyathan
+  - message: Changed the plasma cutter and line gun to both be engineering/cargo contraband.
+    author: NotLivyathan
+  - message: >-
+      Made general buffs to the plasma cutter and line gun to make them better at
+      mining.
+    author: NotLivyathan
+  - message: Significantly reduced the material cost of the plasma cutter and line gun.
+    author: NotLivyathan
+  - message: Make apartment saves the name and description of an entity
+    author: Khaomi
+  - message: Tweaked the Security Quadbord's Third Law to make more sense.
+    author: Slatebreaker
+  - message: >-
+      Changed the crew monitoring window to sort by non-frontier member first, then
+      frontier member
+    author: Khaomi
+  - message: ice cream returns bowl
+    author: ItsBear
+  - message: ice cream can be eaten with spoon
+    author: ItsBear
+  - message: Tweaked dragon role to add the RadarConsoleBoundUserInterface
+    author: Fenn
+  - message: Lowered Chemmaster max volume to 10000
+    author: Fenn
   remove:
-    - message: Removed nothing.
-      author: Notarin
-    - message: Removed Something.
-      author: Notarin
-  summary: |-
-    This is an example changelog that will be nuked before v0.1.0
-    Purely exists so the changelog isnt empty.
+  - message: Removed duplicate emotes
+    author: Durk
+  - message: Removed the ability to cuff quadborgs
+    author: Durk
+  - message: Removed several starting comms channels from quadborgs.
+    author: NotLivyathan
+  - message: The Cyborg Detective Module no longer comes with a free Detective PDA.
+    author: NotLivyathan
+  - message: Removes chameleon belt!
+    author: warcrazed11
+  - message: Removed name limitations
+    author: fenndragon
+  - message: "Blacklisted Synths, IPC, and Cyborgs from several traits that didn't make sense for them to have access to, including: Inoculated, Unnatural/Natural Regeneration, Synthetic, Unrevivable (IPC), and Horny (Synths)."
+    author: NotLivyathan
+  - message: Cyborgs can no longer benefit from Unnatural Regeneration.
+    author: NotLivyathan
+  - message: Synths and IPC can no longer be cloned.
+    author: NotLivyathan
+  - message: removed the contractor and pilot roles from station selection.
+    author: fenndragon
+  - message: Tiger Cooperative can no longer be selected as a starting company.
+    author: NotLivyathan
+  - message: Removes the SS14 decal from all wizden maps since they were broken
+    author: Suraru
+  - message: Removed Monolith's Protogens
+    author: Killer Tamashi
+  - message: Removed the restriction preventing protected grids from being repaired.
+    author: NotLivyathan
+  - message: >-
+      Removed a bunch of modules from being craftable as these are now available to
+      cyborgs on roundstart.
+    author: R3v3l4t1on
+  - message: Removed boring smelly thieving gloves
+    author: Magniras
+  - message: >-
+      Removed Matter-Energy conversion from the tech tree as the only item it
+      unlocked is no longer needed to be researched (both borgs that can use it start with it)
+      and the module was already being unlocked in a different research.
+    author: R3v3l4t1on
+  - message: Advanced tools no longer unlocks the RCD module for the same reason as above
+    author: R3v3l4t1on
+  - message: Removed height trait hand restrictions.
+    author: NotLivyathan
+  - message: >-
+      Vestine-based chems may no longer be randomly mutated from plants, and instead
+      require vestine to mutate.
+    author: NotLivyathan
+  - message: Thruster module.
+    author: R3v3l4t1on
+  - message: Handicomms from the appraisal/(advanced) mining modules
+    author: R3v3l4t1on
+  - message: Removed duplicated files meaning the content should be quicker to download.
+    author: R3v3l4t1on
+  - message: Removed a few PRS alongside the Omega PR
+    author: fenndragon
+  - message: Synths and IPCs no longer get Binary access (instead Trinary).
+    author: Illumos
+  - message: The RD no longer gets Binary access (instead Trinary).
+    author: Illumos
+  - message: Removed the salvage expedition computer from every single map.
+    author: R3v3l4t1on
+  - message: Harbor Masters no longer have All Access.
+    author: NotLivyathan
+  - message: Removed pirate rules since we lack pirates
+    author: re-silvered
+  - message: "Removed whitelist for: BabyDragon, EmotionalSupportPet, CatCappy and others FN Pets."
+    author: Shades
+  - message: Blindness mutation is now disabled.
+    author: Illumos
+  - message: DNR mutation is now disabled.
+    author: Illumos
+  - message: Removed nullphase/shadekin changes
+    author: fenndragon
+  - message: temporarily removed the Anomaly job role
+    author: fenndragon
+  - message: Removed ambuzol syringes from FUC vendor
+    author: Magniras
+  - message: >-
+      Freelancers can no longer be targeted for Syndicate Agent/Sleeper Agent
+      objectives.
+    author: NotLivyathan
+  - message: Freelancers can no longer be targeted for antagonist roles.
+    author: NotLivyathan
+  - message: Livyathan was ejected. Livyathan was not The Imposter.
+    author: NotLivyathan
+  - message: MRE crates are no longer purchasable from cargo.
+    author: SquishyEmmaaaa
+  - message: >-
+      Removed old ChemMaster/ReagentDispenser transfer button amounts of 25/50/100
+      and replaced them with a new set.
+    author: fenndragon
+  - message: >-
+      Removed `RotateWithEntity` from shared shuttle/nav state flow and related
+      client/server usage.
+    author: fenndragon
+  - message: >-
+      Removed the standalone artifact crusher locale string in favor of shared
+      activation text.
+    author: fenndragon
+  - message: Deleted stale backup/new duplicate shipyard grid save source files.
+    author: fenndragon
+  - message: Removed hostile Mono ship spawns temporarily
+    author: fenndragon
+  - message: Reduced the bluespace stash max size capacity from Ginormous to Huge
+    author: fenndragon
+  - message: temporarily reverting syndicate weapon values
+    author: fenndragon
+  - message: temporarily reverting the stash item size change for bags
+    author: fenndragon
+  - message: temporarily reverting the stash banned items
+    author: fenndragon
+  - message: minor cleanup of broken assets from previous PR
+    author: fenndragon
+  - message: Size dependent emote pitch
+    author: IngvarJackal
+  - message: The ability for Brighteyes to be Revolutionary.
+    author: Shades
+  - message: >-
+      Removes Felionoids being able to drag without their hands as it's not mentioned
+      as something they should be receiving in the guidebook.
+    author: re-silvered
+  - message: Removed Lone Digger by Caravan Palace from Jukebox for copyright reason
+    author: Khaomi
+  - message: Temporarily disabled genetics
+    author: Fenn
+  - message: Temporarily disabled Revs
+    author: Fenn
+  - message: Synths can no longer select vampirism traits.
+    author: NotLivyathan
+  - message: "Platelet Factories no longer heals: Airloss, Bloodloss, Poison, Radiation, and Cellular."
+    author: NotLivyathan
+  - message: Xenos, dinos, and dreadtalons no longer have Platelet Factories.
+    author: NotLivyathan
+  - message: >-
+      Removed Plasma Cutter from the Blueprint Lithograph (not the blueprint, the
+      literal item)
+    author: Drekk
+  - message: >-
+      Artifacts cannot create massive destruction events, become guns or music
+      instruments. Sentient artifacts cannot activate nodes.
+    author: NotLivyathan
+  - message: Removed Unnatural Regen.
+    author: NotLivyathan
+  - message: Removed the line gun from the protolathe's emag inventory.
+    author: NotLivyathan
+  - message: Removed the ability to open custom examine menu when clicking your character
+    author: Khaomi
+  - message: Removed Military Mech and Civillian Mech Bounties!
+    author: ArtyTheBoog
+  - message: Temporarily disabled midround antags that use character profiles.
+    author: Fenn
+  - message: >-
+      Removed cargo request consoles that were just outside the front desk of cargo
+      on Convex, Amber, Box and Fland
+    author: ArtyTheBoog
+  - message: Removed CC gear from chameleon clothes.
+    author: oksam
+  Summary: |
+    The very first semantic version of Hardlight!
+    The server is switching to semantic versioning, think 1.0.0.
+    The old changelog is not compatible.
+    So the old changelog is being bundled into one large release, this release.

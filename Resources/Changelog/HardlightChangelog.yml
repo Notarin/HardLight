@@ -3178,3 +3178,15 @@
     The server is switching to semantic versioning, think 1.0.0.
     The old changelog is not compatible.
     So the old changelog is being bundled into one large release, this release.
+0.2.0:
+  add:
+  - message: Added brand new versioning and changelog setup.
+    author: Notarin Steele
+    hash: 19634fce9498ea3b19eeb7c35cea53f6c398b8c2
+  tweak:
+  - message: Updated in-game changelog to display new changelog format.
+    author: Notarin Steele
+    hash: 19634fce9498ea3b19eeb7c35cea53f6c398b8c2
+  Summary: |
+    This is officially the very first release with our new versioning system!
+    o7!

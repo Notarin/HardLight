@@ -35,4 +35,19 @@
   <Import Project="..\RobustToolbox\Imports\Lidgren.props" />
   <Import Project="..\RobustToolbox\MSBuild\Robust.Properties.targets" />
   <Import Project="..\RobustToolbox\MSBuild\Robust.CompNetworkGenerator.targets" />
+
+  <!--Build Info MetaClass Generator-->
+  <Target Name="GenerateBuildMetadata" BeforeTargets="BeforeCompile">
+    <PropertyGroup>
+      <BuildInfoFile>$(IntermediateOutputPath)HardLightBuildInfo.g.cs</BuildInfoFile>
+    </PropertyGroup>
+    <WriteLinesToFile
+        File="$(BuildInfoFile)"
+        Lines="namespace Content.Shared.Entry%3B internal static class HardLightBuildInfo { public const string Title = &quot;$(Title)&quot;%3B public const string Version = &quot;$(Version)&quot;%3B }"
+        Overwrite="true"
+        WriteOnlyWhenDifferent="true" />
+    <ItemGroup>
+      <Compile Include="$(BuildInfoFile)" />
+    </ItemGroup>
+  </Target>
 </Project>

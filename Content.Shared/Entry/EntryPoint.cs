@@ -47,12 +47,14 @@ namespace Content.Shared.Entry
             InitTileDefinitions();
             IoCManager.Resolve<MarkingManager>().Initialize();
 
-#if DEBUG
             var configMan = IoCManager.Resolve<IConfigurationManager>();
+            #if DEBUG
             configMan.OverrideDefault(CVars.NetFakeLagMin, 0.075f);
             configMan.OverrideDefault(CVars.NetFakeLoss, 0.005f);
             configMan.OverrideDefault(CVars.NetFakeDuplicates, 0.005f);
-#endif
+            #endif
+            configMan.OverrideDefault(CVars.BuildForkId, HardLightBuildInfo.Title);
+            configMan.OverrideDefault(CVars.BuildVersion, HardLightBuildInfo.Version);
         }
 
         private void InitTileDefinitions()

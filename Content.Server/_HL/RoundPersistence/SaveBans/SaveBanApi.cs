@@ -1,6 +1,10 @@
 using System.Linq;
+using Content.Server.Botany.Components;
 using Content.Shared._HL.RoundPersistence.SaveBans;
+using Content.Shared.Atmos;
 using Robust.Shared.Prototypes;
+using static Content.Shared._HL.RoundPersistence.SaveBans.SaveBanStore.SaveBanFlag;
+using static Content.Shared._HL.RoundPersistence.SaveBans.SaveBanStore.SaveBanFlag.SaveBanSeedFlag;
 
 namespace Content.Server._HL.RoundPersistence.SaveBans;
 
@@ -21,19 +25,28 @@ public sealed class SaveBanApi : EntitySystem
     public override void Initialize()
     {
         base.Initialize();
-        Bans = _prototypeManager.EnumeratePrototypes<SaveBanPrototype>()
-            .SelectMany(ban =>
-                ban.Prototypes.Select(prototype =>
-                        SaveBanStore.SaveBan.Entity(prototype,
-                            ban.Reason,
-                            ban.Strictness))
-                    .Concat(
-                        ban.Components.Select(component =>
-                            SaveBanStore.SaveBan.Component(component,
-                                ban.Reason,
-                                ban.Strictness))
-                    ))
-            .ToList();
+    
+        Bans =
+        [
+            .. _prototypeManager.EnumeratePrototypes<SaveBanPrototype>()
+                .SelectMany(ban => new[]
+                {
+                    ban.Prototypes.Select(p =>
+                        SaveBanStore.SaveBan.Entity(p, ban.Reason, ban.Strictness)),
+
+                    ban.Components.Select(c =>
+                        SaveBanStore.SaveBan.Component(c, ban.Reason, ban.Strictness)),
+
+                    ban.SeedGasses.Select(g =>
+                        new SaveBanStore.SaveBan(
+                            new SaveBanSeedFlagByGasProduction(Enum.Parse<Gas>(g)), ban.Reason, ban.Strictness)),
+
+                    ban.SeedReagents.Select(r =>
+                        new SaveBanStore.SaveBan(
+                            new SaveBanSeedFlagByReagent(r), ban.Reason, ban.Strictness))
+
+                }.SelectMany(x => x))
+        ];
     }
 
     /// <summary>
@@ -65,16 +78,18 @@ public sealed class SaveBanApi : EntitySystem
         if (entityPrototype is null)
             return null;
 
-        var ban = Bans.FirstOrDefault(ban =>
+        var ban = Bans.FirstOrDefault(ban => ban.BannedFlag switch
         {
-            return ban.BannedFlag switch
-            {
-                SaveBanStore.SaveBanFlag.SaveBanFlagByEntity entityFlag =>
-                    entityFlag.Prototype == entityPrototype,
-                SaveBanStore.SaveBanFlag.SaveBanFlagByComponent componentFlag =>
-                    HasComp(entityUid, _componentFactory.GetRegistration(componentFlag.Name).Type),
-                _ => throw new ArgumentOutOfRangeException(ban.BannedFlag.ToString()),
-            };
+            SaveBanFlagByEntity entityFlag => entityFlag.Prototype == entityPrototype,
+            SaveBanFlagByComponent componentFlag => HasComp(entityUid,
+                _componentFactory.GetRegistration(componentFlag.Name).Type),
+            SaveBanSeedFlagByGasProduction gasFlag => CompOrNull<SeedComponent>(entityUid) is
+                                                          { Seed.ExudeGasses: { } gases } 
+                                                      && gases.ContainsKey(gasFlag.ProducedGas),
+            SaveBanSeedFlagByReagent reagentFlag => CompOrNull<SeedComponent>(entityUid) is
+                                                        { Seed.Chemicals: { } reagents } 
+                                                    && reagents.ContainsKey(reagentFlag.ReagentName),
+            _ => throw new ArgumentOutOfRangeException(ban.BannedFlag.ToString()),
         });
 
         if (ban is not null)

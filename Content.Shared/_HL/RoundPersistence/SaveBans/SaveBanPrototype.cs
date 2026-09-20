@@ -51,4 +51,23 @@ public sealed partial class SaveBanPrototype : IPrototype
     /// </summary>
     [DataField]
     public IReadOnlyList<string> Components = [];
+
+    /// <summary>
+    /// The gasses to ban from seeds being able to produce.
+    /// </summary>
+    /// <remarks>
+    /// Doesn't remove the gas production from the seed, just prevents it from being saved.
+    /// </remarks>
+    [DataField]
+    public IReadOnlyList<string> SeedGasses = [];
+
+    /// <summary>
+    /// The reagents to ban from seeds being able to produce.
+    /// </summary>
+    /// <remarks>
+    /// Doesn't remove the reagent production from the seed, just prevents it from being saved.
+    /// </remarks>
+    [DataField]
+    public IReadOnlyList<string> SeedReagents = [];
+
 }

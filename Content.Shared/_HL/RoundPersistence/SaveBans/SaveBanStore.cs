@@ -1,3 +1,5 @@
+using Content.Shared.Atmos;
+
 namespace Content.Shared._HL.RoundPersistence.SaveBans;
 
 /// <summary>
@@ -20,6 +22,27 @@ public static partial class SaveBanStore
         /// </summary>
         /// <param name="Name">The prototype name for the component</param>
         public sealed record SaveBanFlagByComponent(string Name) : SaveBanFlag;
+
+        /// <summary>
+        /// A subset of flags targeting seeds specifically.
+        /// </summary>
+        /// <remarks>
+        /// Does not restrict or ban the flagged offender from the seed itself!
+        /// Instead, it bans the seed from being saved.
+        /// </remarks>
+        public abstract record SaveBanSeedFlag : SaveBanFlag
+        {
+            /// <summary>
+            /// This flag type refers to reagents in seeds which are save-restricted.
+            /// </summary>
+            /// <param name="ReagentName">The name of the reagent to ban from savable seeds.</param>
+            public sealed record SaveBanSeedFlagByReagent(string ReagentName) : SaveBanSeedFlag;
+            /// <summary>
+            /// This flag type refers to gasses in seeds which are save-restricted.
+            /// </summary>
+            /// <param name="ProducedGas">The gas to ban from savable seeds.</param>
+            public sealed record SaveBanSeedFlagByGasProduction(Gas ProducedGas) : SaveBanSeedFlag;
+        }
     }
 
     /// <summary>
@@ -48,9 +71,9 @@ public static partial class SaveBanStore
     /// This is the type for the actual representation of items that are officially restricted from saving in some form or another.
     /// Also contains some factory methods to make adding new banned items simplified.
     /// </summary>
-    /// <param name="BannedFlag"><see cref="Content.Server._HL.RoundPersistence.SaveBans.SaveBanStore.SaveBanFlag"/></param>
+    /// <param name="BannedFlag"><see cref="SaveBanFlag"/></param>
     /// <param name="Reason">A serialized formal explanation of why we cannot allow players to save this item.</param>
-    /// <param name="Strictness"><see cref="Content.Server._HL.RoundPersistence.SaveBans.SaveBanStore.SaveRestrictionStrictness"/></param>
+    /// <param name="Strictness"><see cref="SaveRestrictionStrictness"/></param>
     public sealed record SaveBan(
         SaveBanFlag BannedFlag,
         string Reason,

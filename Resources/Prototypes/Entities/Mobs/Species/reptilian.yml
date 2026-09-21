@@ -46,7 +46,7 @@
   - type: Speech
     speechSounds: Lizard
     speechVerb: Reptilian
-    allowedEmotes: ['Thump', 'Hiss', 'Purr', 'RMCReptileRattle'] # Hardlight: add Hiss, RMC14: add Reptile Purr and Rattle
+    allowedEmotes: ['Thump', 'Hiss', 'Purr', 'RMCReptileRattle', 'KoboldYip', 'KoboldYap'] # Hardlight: add Hiss, RMC14: add Reptile Purr and Rattle, HardLight: add Kobold Yip and Yap
   - type: TypingIndicator
     proto: lizard
   - type: Vocal

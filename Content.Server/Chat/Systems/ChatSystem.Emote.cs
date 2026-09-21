@@ -82,6 +82,16 @@ public partial class ChatSystem
         if (!forceEmote && !AllowedToUseEmote(source, emote))
             return;
 
+        // HardLight start: kobold yap easter egg - a yip sometimes comes out as a yap instead,
+        // swapping both the chat message and the emote sound so the two stay in sync.
+        if (emote.ID == KoboldYipEmote.Id
+            && _random.Prob(KoboldYapProbability)
+            && _prototypeManager.TryIndex(KoboldYapEmote, out var yapProto))
+        {
+            emote = yapProto;
+        }
+        // HardLight end
+
         // check if proto has valid message for chat
         if (emote.ChatMessages.Count != 0)
         {
@@ -162,6 +172,12 @@ public partial class ChatSystem
     }
 
     private const float EmoteVariationMultiplier = 0.5f; // HardLight: halve every emote's random pitch spread
+
+    // HardLight: kobold yap easter egg
+    private static readonly ProtoId<EmotePrototype> KoboldYipEmote = "KoboldYip";
+    private static readonly ProtoId<EmotePrototype> KoboldYapEmote = "KoboldYap";
+    private const float KoboldYapProbability = 0.2f;
+
     /// <summary>
     /// Checks if a valid emote was typed, to play sounds and etc and invokes an event.
     /// </summary>

@@ -1,4 +1,46 @@
 - type: emote
+  id: KoboldYap
+  name: chat-emote-name-kobold-yap
+  category: Vocal
+  available: false
+  icon: Interface/Actions/scream.png
+  whitelist:
+    components:
+    - Vocal
+  blacklist:
+    components:
+    - BorgChassis
+  chatMessages: ["chat-emote-msg-kobold-yap"]
+  chatTriggers:
+  - yap
+  - yaps
+  - yapped
+  - yapping
+
+- type: emote
+  id: KoboldYip
+  name: chat-emote-name-kobold-yip
+  category: Vocal
+  available: false
+  icon: Interface/Actions/scream.png
+  whitelist:
+    components:
+    - Vocal
+  blacklist:
+    components:
+    - BorgChassis
+  chatMessages: ["chat-emote-msg-kobold-yip"]
+  chatTriggers:
+  - yip
+  - yip.
+  - yip?
+  - yip!
+  - yips
+  - yips.
+  - yips?
+  - yips!
+
+- type: emote
   id: Yip
   name: chat-emote-name-yip
   category: Vocal

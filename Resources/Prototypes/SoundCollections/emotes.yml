@@ -4,6 +4,20 @@
     - /Audio/Voice/Human/manlaugh1.ogg
     - /Audio/Voice/Human/manlaugh2.ogg
 
+# HardLight: Kobold yip sounds
+- type: soundCollection
+  id: KoboldYips
+  files:
+    - /Audio/_HL/Voice/Reptilian/yip_low.ogg
+    - /Audio/_HL/Voice/Reptilian/yip_high.ogg
+
+# HardLight: Kobold yap sounds
+- type: soundCollection
+  id: KoboldYaps
+  files:
+    - /Audio/_HL/Voice/Reptilian/yap1.ogg
+    - /Audio/_HL/Voice/Reptilian/yap2.ogg
+
 # - type: soundCollection # Hardlight: Switched to SL sounds
 #   id: ResomiLaugh
 #   files:

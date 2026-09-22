@@ -112,6 +112,7 @@
     - id: PlushieRosemane
     - id: PlushieSkrag
     - id: PlushieCinder
+    - id: PlushieKusa
 
 - type: entity
   id: CrateFunPlushie

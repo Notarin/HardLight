@@ -455,3 +455,29 @@
   - type: MeleeWeapon
     soundHit:
       path: /Audio/_Starlight/Voice/Resomi/resomi_chirp3.ogg
+
+- type: entity
+  parent: BasePlushie
+  id: PlushieMsepic
+  name: Deep Blue Avali plushie
+  description: An avali plush that has a red feather embedded into its chest.. The black feathers are somewhat rubbery to the touch, and a whirring can be heard from within, odd.
+  components:
+  - type: Sprite
+    sprite: _HL/Objects/Fun/patreon_plushies.rsi
+    state: MsepicPlush
+    scale: 0.8, 0.8
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_Starlight/Voice/Resomi/resomi_scree_1.ogg
+  - type: EmitSoundOnCollide
+    sound:
+      path: /Audio/_RMC14/Voice/Avali/avali_scream.ogg
+  - type: EmitSoundOnUse
+    sound:
+      path: /Audio/_Starlight/Voice/Felionoid/cat_purr1.ogg
+  - type: EmitSoundOnActivate
+    sound:
+      path: /Audio/_Starlight/Voice/Felionoid/cat_trill2.ogg
+  - type: MeleeWeapon
+    soundHit:
+      path: /Audio/_Starlight/Voice/Resomi/resomi_scree_1.ogg

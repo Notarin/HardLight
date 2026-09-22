@@ -524,3 +524,28 @@
   - type: MeleeWeapon
     soundHit:
       path: /Audio/Voice/Reptilian/reptilian_tailthump.ogg
+
+- type: entity
+  parent: BasePlushie
+  id: PlushieLydia
+  name: Suspicious Protogen Plushie
+  description: A suspicious pink looking protogen plushie commonly seen roaming the station almost everywhere, perfect for cuddling when you feel upset at something.
+  components:
+  - type: Sprite
+    sprite: _HL/Objects/Fun/patreon_plushies.rsi
+    state: LydiaPlush
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_HL/Voice/mggaow.ogg
+  - type: EmitSoundOnCollide
+    sound:
+      path: /Audio/_HL/Voice/mggaow.ogg
+  - type: EmitSoundOnUse
+    sound:
+      path: /Audio/_HL/Voice/dwoop.ogg
+  - type: EmitSoundOnActivate
+    sound:
+      path: /Audio/_HL/Voice/dwoop.ogg
+  - type: MeleeWeapon
+    soundHit:
+      path: /Audio/_HL/Voice/mggaow.ogg

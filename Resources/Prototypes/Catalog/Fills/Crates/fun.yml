@@ -115,6 +115,7 @@
     - id: PlushieRlJSA
     - id: PlushieKazzi
     - id: PlushieKusa
+    - id: PlushieLydia
 
 - type: entity
   id: CrateFunPlushie

@@ -481,3 +481,23 @@
   - type: MeleeWeapon
     soundHit:
       path: /Audio/_Starlight/Voice/Resomi/resomi_scree_1.ogg
+
+- type: entity
+  parent: BasePlushie
+  id: PlushieRlJSA
+  name: Raku Iridas Plushie
+  description: A plushie of Raku Iridas, you can bully him all you'd like, or dunk him reactor coolant. Although he probably wouldn't like that.
+  components:
+  - type: Sprite
+    sprite: _HL/Objects/Fun/patreon_plushies.rsi
+    state: Rl-JSAPlush
+    scale: 0.8, 0.8
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_RMC14/Voice/Avali/avali_scream.ogg
+  - type: EmitSoundOnCollide
+    sound:
+      path: /Audio/Effects/gib2.ogg
+  - type: MeleeWeapon
+    soundHit:
+      path: /Audio/Items/Mining/pickaxe.ogg

@@ -18,6 +18,9 @@
   # - Justice # Isn't this called Lawyer?
   - Lawyer
   - Maintenance
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant ]
   accessGroups: # Frontier
   - GeneralAccess # Frontier
 

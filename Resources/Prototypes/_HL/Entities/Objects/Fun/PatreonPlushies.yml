@@ -430,3 +430,28 @@
     soundHit:
       path: /Audio/Items/Toys/hew.ogg
 
+- type: entity
+  parent: BasePlushie
+  id: PlushieXiv3n
+  name: Cheep, Servicewing Pack Plushie
+  description: Why is this cute bird trying to offer you drugs?
+  components:
+  - type: Sprite
+    sprite: _HL/Objects/Fun/patreon_plushies.rsi
+    state: Xiv3nPlush
+    scale: 0.8, 0.8
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_Starlight/Voice/Avali/avali_laugh.ogg
+  - type: EmitSoundOnCollide
+    sound:
+      path: /Audio/_Starlight/Voice/Avali/avali_cry.ogg
+  - type: EmitSoundOnUse
+    sound:
+      path: /Audio/Items/Toys/weh.ogg
+  - type: EmitSoundOnActivate
+    sound:
+      path: /Audio/_Starlight/Voice/Felionoid/cat_trill2.ogg
+  - type: MeleeWeapon
+    soundHit:
+      path: /Audio/_Starlight/Voice/Resomi/resomi_chirp3.ogg

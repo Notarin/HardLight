@@ -404,3 +404,29 @@
     soundHit:
       path: /Audio/Items/Toys/rattle.ogg
 
+- type: entity
+  parent: BasePlushie
+  id: PlushieKazzi
+  name: Eeka Tin Plushie
+  description: Friend-shaped friend and cutest of cutebolds!
+  components:
+  - type: Sprite
+    sprite: _HL/Objects/Fun/patreon_plushies.rsi
+    state: KazziPlush
+    scale: 0.8, 0.8
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Items/Toys/hew.ogg
+  - type: EmitSoundOnCollide
+    sound:
+      path: /Audio/Items/Toys/weh.ogg
+  - type: EmitSoundOnUse
+    sound:
+      path: /Audio/Items/Toys/weh.ogg
+  - type: EmitSoundOnActivate
+    sound:
+      path: /Audio/Items/Toys/hew.ogg
+  - type: MeleeWeapon
+    soundHit:
+      path: /Audio/Items/Toys/hew.ogg
+

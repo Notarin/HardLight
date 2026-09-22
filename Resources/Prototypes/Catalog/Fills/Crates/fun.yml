@@ -111,6 +111,7 @@
     - id: PlushiePetal
     - id: PlushieRosemane
     - id: PlushieSkrag
+    - id: PlushieCinder
 
 - type: entity
   id: CrateFunPlushie

@@ -351,3 +351,29 @@
     wideAnimationRotation: 180
     soundHit:
       path: /Audio/_EE/Voice/IPC/whirr1.ogg
+
+- type: entity
+  parent: BasePlushie
+  id: PlushieCinder
+  name: Does-The-Paperwork Plushie
+  description: A plushie of Does-The-Paperwork, works as an insufficient pen storage device. Only stores a maximum of one pen, just like the real deal!
+  components:
+  - type: Sprite
+    sprite: _HL/Objects/Fun/patreon_plushies.rsi
+    state: CinderPlush
+    scale: 0.8, 0.8
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Voice/Reptilian/reptilian_scream.ogg
+  - type: EmitSoundOnCollide
+    sound:
+      path: /Audio/Items/Toys/weh.ogg
+  - type: EmitSoundOnUse
+    sound:
+      path: /Audio/Items/pen_click.ogg
+  - type: EmitSoundOnActivate
+    sound:
+      path: /Audio/Animals/lizard_happy.ogg
+  - type: MeleeWeapon
+    soundHit:
+      path: /Audio/Voice/Reptilian/reptilian_tailthump.ogg

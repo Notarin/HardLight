@@ -20,6 +20,12 @@ public sealed partial class RehydratableComponent : Component
     public ProtoId<ReagentPrototype> CatalystPrototype = "Water";
 
     /// <summary>
+    /// HardLight: Additional reagents that also count as the catalyst.
+    /// </summary>
+    [DataField]
+    public List<ProtoId<ReagentPrototype>> Catalysts = new();
+
+    /// <summary>
     /// The minimum amount of catalyst that must be present to be hydrated.
     /// </summary>
     [DataField]

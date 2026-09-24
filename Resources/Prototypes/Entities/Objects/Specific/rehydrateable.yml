@@ -181,13 +181,14 @@
   components:
   - type: Reactive
     reactions:
-    - reagents: [Blood]
+    - reagents: &bloods [Blood, InsectBlood, CopperBlood, AmmoniaBlood, BloodBlack, SynthBlood, DinoBlood, GoblinBlood, AvaliBlood, DarkBlood] # HardLight: all blood types
       methods: [Touch, Ingestion, Injection]
       effects:
       - !type:AddToSolutionReaction
         solution: cube
   - type: Rehydratable
     catalyst: Blood # blood is fuel
+    catalysts: *bloods # HardLight
     possibleSpawns:
     - MobAbomination
 

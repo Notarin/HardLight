@@ -27,6 +27,8 @@ public sealed class RehydratableSystem : EntitySystem
     private void OnSolutionChange(Entity<RehydratableComponent> ent, ref SolutionContainerChangedEvent args)
     {
         var quantity = _solutions.GetTotalPrototypeQuantity(ent, ent.Comp.CatalystPrototype);
+        foreach (var catalyst in ent.Comp.Catalysts) // HardLight
+            quantity += _solutions.GetTotalPrototypeQuantity(ent, catalyst);
         _adminLogger.Add(LogType.Action, LogImpact.Medium, $"{ToPrettyString(ent.Owner)} was hydrated, now contains a solution of: {SharedSolutionContainerSystem.ToPrettyString(args.Solution)}.");
         if (quantity != FixedPoint2.Zero && quantity >= ent.Comp.CatalystMinimum)
         {

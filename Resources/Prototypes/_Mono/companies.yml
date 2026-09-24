@@ -76,6 +76,15 @@
   name: Waffle Corp
   color: "#EADDCA" # brown
 
+- type: company
+  id: DirizherCartel
+  form: Antagonist
+  name: Dirizher Cartel
+  color: "#7C00EE" # purple
+  disabled: true # locked
+  logins:
+  - BlueNexa
+
 # ====TSF / Protag. Companies====
 - type: company
   id: Suburbia

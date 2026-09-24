@@ -1,7 +1,7 @@
 - type: entity
   parent: Clothing
   id: ArachneSpiderBlades
-  name: Arachne's Spider Blades
+  name: Kaitlin Fell's Spider Blades
   suffix: Arachne
   description: A set of retractable spider-leg-like blades that extend from a mechanism on the user's back. They look deadly sharp.
   components:
@@ -13,6 +13,8 @@
     quickEquip: true
     slots:
     - back
+  - type: Tag
+    tags: [] # ignore "WhitelistChameleon" tag
   - type: Reflect
     reflectProb: 0.6
     reflects:

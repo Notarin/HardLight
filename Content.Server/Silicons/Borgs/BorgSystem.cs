@@ -328,6 +328,11 @@ public sealed partial class BorgSystem : SharedBorgSystem
         if (_powerCell.HasDrawCharge(uid))
         {
             Toggle.TryActivate(uid);
+            _powerCell.QueueUpdate(uid); // Hardlight
+            // Stepping on ToggleCellDraw's toes here
+            // I'd rather refactor ToggleCellDraw Component to take an optional
+            // 'Shouldactivate' datafield but the use case is very limited for
+            // now so I won't unnecessarily stray from parity
             _powerCell.SetDrawEnabled(uid, _mobState.IsAlive(uid));
         }
         _appearance.SetData(uid, BorgVisuals.HasPlayer, true);
@@ -340,6 +345,11 @@ public sealed partial class BorgSystem : SharedBorgSystem
     {
         Popup.PopupEntity(Loc.GetString("borg-mind-removed", ("name", Identity.Name(uid, EntityManager))), uid);
         Toggle.TryDeactivate(uid);
+        _powerCell.QueueUpdate(uid); // Hardlight
+        // Stepping on ToggleCellDraw's toes here
+        // I'd rather refactor ToggleCellDraw Component to take an optional
+        // 'Shouldactivate' datafield but the use case is very limited for
+        // now so I won't unnecessarily stray from parity
         _powerCell.SetDrawEnabled(uid, false);
         _appearance.SetData(uid, BorgVisuals.HasPlayer, false);
     }

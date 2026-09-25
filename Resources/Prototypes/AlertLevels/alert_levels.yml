@@ -94,4 +94,4 @@
       color: "#555555"
       emergencyLightColor: Black
       forceEnableEmergencyLights: true
-      shuttleTime: 0
+      shuttleTime: 600

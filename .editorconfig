@@ -258,4 +258,4 @@ ij_yaml_indent_sequence_value = false
 
 # Enforce stricter rules for code in _HL folders
 [**/_HL/**/*.cs]
-# Nothing here yet!
+dotnet_diagnostic.CS0105.severity = error # The using directive for 'namespace' appeared previously in this namespace.

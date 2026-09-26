@@ -4,7 +4,7 @@ using Robust.Shared.GameStates;
 namespace Content.Shared._HL.Rescue.Rescue;
 
 /// <summary>
-/// Receives <see cref="FultonedComponent"/>.
+/// Receives <see cref="Content.Shared.Salvage.Fulton.FultonedComponent"/>.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class RescueBeaconComponent : Component

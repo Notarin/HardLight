@@ -18,22 +18,12 @@
   <!-- Forces WarningLevel 0 and specific NoWarn codes at the targets level so RobustToolbox projects cannot override them. -->
   <PropertyGroup Condition="'$(IsRobustToolbox)' == 'True'">
     <WarningLevel>0</WarningLevel>
-    <NoWarn>$(NoWarn);0618;0414;CS0618;CS0414;0184;CS0184;0114;CS0114;NU1510</NoWarn>
+    <NoWarn>$(NoWarn);NU1510</NoWarn>
     <RunAnalyzers>false</RunAnalyzers>
   </PropertyGroup>
 
   <!-- Suppresses warnings from generated code. Frequently eludes .editorconfig. -->
   <PropertyGroup>
-    <NoWarn>$(NoWarn);0419;CS0419;1591;CS1591;1574;CS1574;0114;CS0114</NoWarn>
-  </PropertyGroup>
-
-  <!-- Suppresses MSBuild project-level warnings (like empty projects). Evaluates before .editorconfig is processed. -->
-  <PropertyGroup>
-    <NoWarn>$(NoWarn);2008;CS2008</NoWarn>
-  </PropertyGroup>
-
-  <!-- Suppresses NuGet and SDK warnings which operate outside the scope of .editorconfig. -->
-  <PropertyGroup>
-    <NoWarn>$(NoWarn);NETSDK1206;NU1903</NoWarn>
+    <NoWarn>$(NoWarn);CS0419;CS1591;CS0114</NoWarn>
   </PropertyGroup>
 </Project>

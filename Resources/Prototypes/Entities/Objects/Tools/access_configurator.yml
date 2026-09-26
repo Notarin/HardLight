@@ -143,6 +143,8 @@
     - InterdyneHead # Hardlight
     - Directorate # Hardlight
     - Naval # Hardlight
+    - Cartel # Hardlight
+    - CartelLieutenant # Hardlight
     privilegedIdSlot:
       name: id-card-console-privileged-id
       ejectSound: /Audio/Machines/id_swipe.ogg

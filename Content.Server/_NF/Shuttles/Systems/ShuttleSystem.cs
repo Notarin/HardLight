@@ -34,8 +34,8 @@ public sealed partial class ShuttleSystem
             return false;
         }
 
-        if (!EntityManager.HasComponent<ShuttleDeedComponent>(transform.GridUid) ||
-            EntityManager.HasComponent<StationDampeningComponent>(_station.GetOwningStation(transform.GridUid)))
+        if (!HasComp<ShuttleDeedComponent>(transform.GridUid) ||
+            HasComp<StationDampeningComponent>(_station.GetOwningStation(transform.GridUid)))
         {
             return false;
         }
@@ -67,10 +67,10 @@ public sealed partial class ShuttleSystem
     private void OnSetInertiaDampening(EntityUid uid, ShuttleConsoleComponent component, SetInertiaDampeningRequest args)
     {
         // Ensure that the entity requested is a valid shuttle (stations should not be togglable)
-        if (!EntityManager.TryGetComponent(uid, out TransformComponent? transform) ||
+        if (!TryComp(uid, out TransformComponent? transform) ||
             !transform.GridUid.HasValue ||
-            !EntityManager.TryGetComponent(transform.GridUid, out PhysicsComponent? physicsComponent) ||
-            !EntityManager.TryGetComponent(transform.GridUid, out ShuttleComponent? shuttleComponent))
+            !TryComp(transform.GridUid, out PhysicsComponent? physicsComponent) ||
+            !TryComp(transform.GridUid, out ShuttleComponent? shuttleComponent))
         {
             return;
         }
@@ -81,17 +81,17 @@ public sealed partial class ShuttleSystem
 
     public InertiaDampeningMode NfGetInertiaDampeningMode(EntityUid entity)
     {
-        if (!EntityManager.TryGetComponent<TransformComponent>(entity, out var xform))
+        if (!TryComp<TransformComponent>(entity, out var xform))
             return InertiaDampeningMode.Dampen;
 
         // Not a shuttle, shouldn't be togglable
-        if (!EntityManager.HasComponent<ShuttleDeedComponent>(xform.GridUid) ||
-            EntityManager.HasComponent<StationDampeningComponent>(_station.GetOwningStation(xform.GridUid)))
+        if (!HasComp<ShuttleDeedComponent>(xform.GridUid) ||
+            HasComp<StationDampeningComponent>(_station.GetOwningStation(xform.GridUid)))
             return InertiaDampeningMode.Station;
 
         // Prefer reading the ShuttleComponent's DampingModifier since we persist
         // the desired dampening there. Fall back to PhysicsComponent if missing.
-        if (EntityManager.TryGetComponent(xform.GridUid, out ShuttleComponent? shuttleComp))
+        if (TryComp(xform.GridUid, out ShuttleComponent? shuttleComp))
         {
             var modifier = shuttleComp.DampingModifier;
             if (modifier >= AnchorDampingStrength)
@@ -102,7 +102,7 @@ public sealed partial class ShuttleSystem
                 return InertiaDampeningMode.Dampen;
         }
 
-        if (!EntityManager.TryGetComponent(xform.GridUid, out PhysicsComponent? physicsComponent))
+        if (!TryComp(xform.GridUid, out PhysicsComponent? physicsComponent))
             return InertiaDampeningMode.Dampen;
 
         if (physicsComponent.LinearDamping >= AnchorDampingStrength)
@@ -116,10 +116,10 @@ public sealed partial class ShuttleSystem
     public void NfSetPowered(EntityUid uid, ShuttleConsoleComponent component, bool powered)
     {
         // Ensure that the entity requested is a valid shuttle (stations should not be togglable)
-        if (!EntityManager.TryGetComponent(uid, out TransformComponent? transform) ||
+        if (!TryComp(uid, out TransformComponent? transform) ||
             !transform.GridUid.HasValue ||
-            !EntityManager.TryGetComponent(transform.GridUid, out PhysicsComponent? physicsComponent) ||
-            !EntityManager.TryGetComponent(transform.GridUid, out ShuttleComponent? shuttleComponent))
+            !TryComp(transform.GridUid, out PhysicsComponent? physicsComponent) ||
+            !TryComp(transform.GridUid, out ShuttleComponent? shuttleComponent))
         {
             return;
         }
@@ -155,7 +155,7 @@ public sealed partial class ShuttleSystem
         var gridUid = transform.GridUid.Value;
 
         // Set the service flags on the IFFComponent.
-        if (!EntityManager.TryGetComponent<IFFComponent>(gridUid, out var iffComponent))
+        if (!TryComp<IFFComponent>(gridUid, out var iffComponent))
             return ServiceFlags.None;
 
         return iffComponent.ServiceFlags;
@@ -174,7 +174,7 @@ public sealed partial class ShuttleSystem
         var gridUid = transform.GridUid.Value;
 
         // Set the service flags on the IFFComponent.
-        if (!EntityManager.TryGetComponent<IFFComponent>(gridUid, out var iffComponent))
+        if (!TryComp<IFFComponent>(gridUid, out var iffComponent))
             return;
 
         iffComponent.ServiceFlags = args.ServiceFlags;

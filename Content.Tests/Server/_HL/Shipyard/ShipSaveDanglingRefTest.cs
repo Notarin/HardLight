@@ -93,12 +93,12 @@ public sealed class ShipSaveDanglingRefTest
     }
 
     [Test]
-    [TestCase("Actions",                TestName = "ActionsStripped")]
-    [TestCase("Projectile",             TestName = "ProjectileStripped")]
-    [TestCase("ItemToggleActiveSound",  TestName = "ItemToggleActiveSoundStripped")]
-    [TestCase("Blocking",               TestName = "BlockingStripped")]
-    [TestCase("Turnstile",              TestName = "TurnstileStripped")]
-    [TestCase("SubdermalImplant",       TestName = "SubdermalImplantStripped")]
+    [TestCase("Actions", TestName = "ActionsStripped")]
+    [TestCase("Projectile", TestName = "ProjectileStripped")]
+    [TestCase("ItemToggleActiveSound", TestName = "ItemToggleActiveSoundStripped")]
+    [TestCase("Blocking", TestName = "BlockingStripped")]
+    [TestCase("Turnstile", TestName = "TurnstileStripped")]
+    [TestCase("SubdermalImplant", TestName = "SubdermalImplantStripped")]
     public void RuntimeOnlyComponentRemovedFromShipSave(string componentType)
     {
         // Two entities: one carrying the runtime-only component (which should be stripped or

@@ -1,4 +1,4 @@
-﻿using Content.Shared.FixedPoint;
+using Content.Shared.FixedPoint;
 using Content.Shared.Weapons.Ranged.Systems;
 using Robust.Shared.GameStates;
 

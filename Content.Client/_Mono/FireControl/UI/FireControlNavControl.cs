@@ -49,7 +49,7 @@ public sealed class FireControlNavControl : BaseShuttleControl
 
     #region Mono
 
-    private static readonly float RadarRequestInterval = (float) RadarBlipsSystem.RequestThrottle.TotalSeconds;
+    private static readonly float RadarRequestInterval = (float)RadarBlipsSystem.RequestThrottle.TotalSeconds;
     private float _requestAccumulator = 0f;
     #endregion
 
@@ -607,7 +607,7 @@ public sealed class FireControlNavControl : BaseShuttleControl
             case RadarBlipShape.Arrow:
                 DrawArrow(handle, position, size, color);
                 break;
-            // Ring shapes are handled by DrawShieldRing for constant thickness
+                // Ring shapes are handled by DrawShieldRing for constant thickness
         }
     }
 
@@ -663,13 +663,13 @@ public sealed class FireControlNavControl : BaseShuttleControl
     {
         const float SafeZoneRadius = 5000f;
         var safeZoneColor = Color.LimeGreen.WithAlpha(0.8f);
-        
+
         // Calculate the center position
         var centerPos = ScalePosition(Vector2.Zero);
-        
+
         // Scale the radius according to the minimap scale
         var scaledRadius = SafeZoneRadius * MinimapScale;
-        
+
         // Draw the ring
         handle.DrawCircle(centerPos, scaledRadius, safeZoneColor, filled: false);
     }

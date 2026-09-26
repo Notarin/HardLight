@@ -14,9 +14,9 @@ namespace Content.Server.NodeContainer.Nodes
         public static IEnumerable<Node> GetNodesInTile(EntityQuery<NodeContainerComponent> nodeQuery, MapGridComponent grid, Vector2i coords)
         {
             var mapSystem = EntitySystem.Get<SharedMapSystem>();
-            #pragma warning disable CS0618
+#pragma warning disable CS0618
             foreach (var entityUid in mapSystem.GetAnchoredEntities(grid.Owner, grid, coords))
-            #pragma warning restore CS0618
+#pragma warning restore CS0618
             {
                 if (!nodeQuery.TryGetComponent(entityUid, out var container))
                     continue;
@@ -55,13 +55,13 @@ namespace Content.Server.NodeContainer.Nodes
             var mapSystem = EntitySystem.Get<SharedMapSystem>();
             if (includeSameTile)
             {
-                #pragma warning disable CS0618
+#pragma warning disable CS0618
                 foreach (var uid in mapSystem.GetAnchoredEntities(grid.Owner, grid, coords))
                     yield return (Direction.Invalid, uid);
-                #pragma warning restore CS0618
+#pragma warning restore CS0618
             }
 
-            #pragma warning disable CS0618
+#pragma warning disable CS0618
             foreach (var uid in mapSystem.GetAnchoredEntities(grid.Owner, grid, coords + (0, 1)))
                 yield return (Direction.North, uid);
 
@@ -73,7 +73,7 @@ namespace Content.Server.NodeContainer.Nodes
 
             foreach (var uid in mapSystem.GetAnchoredEntities(grid.Owner, grid, coords + (-1, 0)))
                 yield return (Direction.West, uid);
-            #pragma warning restore CS0618
+#pragma warning restore CS0618
         }
     }
 }

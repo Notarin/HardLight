@@ -43,8 +43,8 @@ public sealed partial class ShipyardConsoleMenu : FancyWindow
         Classes.OnItemSelected += OnClassItemSelected;
         Engines.OnItemSelected += OnEngineItemSelected;
         SellShipButton.OnPressed += (args) => { OnSellShip?.Invoke(args); };
-    SaveShipButton.OnPressed += (args) => { OnSaveShip?.Invoke(args); };
-    ReloadShipsButton.OnPressed += (args) => { OnReloadShips?.Invoke(args); };
+        SaveShipButton.OnPressed += (args) => { OnSaveShip?.Invoke(args); };
+        ReloadShipsButton.OnPressed += (args) => { OnReloadShips?.Invoke(args); };
     }
 
 

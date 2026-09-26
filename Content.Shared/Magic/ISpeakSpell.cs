@@ -1,4 +1,4 @@
-﻿namespace Content.Shared.Magic;
+namespace Content.Shared.Magic;
 
 public interface ISpeakSpell // The speak n spell interface
 {

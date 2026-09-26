@@ -1,4 +1,4 @@
-﻿using Content.Shared._NF.CrateMachine;
+using Content.Shared._NF.CrateMachine;
 using Content.Shared._NF.CrateMachine.Components;
 using Robust.Client.Animations;
 using Robust.Client.GameObjects;

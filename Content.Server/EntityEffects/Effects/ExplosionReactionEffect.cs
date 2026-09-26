@@ -66,7 +66,7 @@ public sealed partial class ExplosionReactionEffect : EntityEffect
 
         if (args is EntityEffectReagentArgs reagentArgs)
         {
-            intensity = MathF.Min((float) reagentArgs.Quantity * IntensityPerUnit, MaxTotalIntensity);
+            intensity = MathF.Min((float)reagentArgs.Quantity * IntensityPerUnit, MaxTotalIntensity);
         }
 
         args.EntityManager.System<ExplosionSystem>()
@@ -76,6 +76,6 @@ public sealed partial class ExplosionReactionEffect : EntityEffect
             intensity,
             IntensitySlope,
             MaxIntensity,
-			TileBreakScale);
+            TileBreakScale);
     }
 }

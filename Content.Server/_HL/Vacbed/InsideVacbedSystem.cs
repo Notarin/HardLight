@@ -21,7 +21,7 @@ public sealed partial class VacbedSystem
     {
         base.OnEntGotRemovedFromContainer(uid, component, args);
 
-        if(!component.IsMuzzled)
+        if (!component.IsMuzzled)
             RemComp<MumbleAccentComponent>(uid);
     }
 }

@@ -44,7 +44,7 @@ public sealed class NinjaSuitSystem : SharedNinjaSuitSystem
         // raise event to let ninja components get starting battery
         _ninja.GetNinjaBattery(user.Owner, out var uid, out var _);
 
-        if (uid is not {} battery_uid)
+        if (uid is not { } battery_uid)
             return;
 
         var ev = new NinjaBatteryChangedEvent(battery_uid, ent.Owner);
@@ -96,7 +96,7 @@ public sealed class NinjaSuitSystem : SharedNinjaSuitSystem
         // if a cell is able to automatically recharge, boost the score drastically depending on the recharge rate,
         // this is to ensure a ninja can still upgrade to a micro reactor cell even if they already have a medium or high.
         if (TryComp<BatterySelfRechargerComponent>(uid, out var selfcomp) && selfcomp.AutoRecharge)
-            return battcomp.MaxCharge + (selfcomp.AutoRechargeRate*AutoRechargeValue);
+            return battcomp.MaxCharge + (selfcomp.AutoRechargeRate * AutoRechargeValue);
         return battcomp.MaxCharge;
     }
 

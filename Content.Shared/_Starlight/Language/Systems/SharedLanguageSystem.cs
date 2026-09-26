@@ -79,7 +79,7 @@ public abstract partial class SharedLanguageSystem : EntitySystem
             comp.Understands = ent.Comp.Understands.ToList();
         }
         if (TryComp<LanguageSpeakerComponent>(clone, out var speaker))
-            UpdateEntityLanguages((clone,speaker));
+            UpdateEntityLanguages((clone, speaker));
     }
 
     /// <summary>

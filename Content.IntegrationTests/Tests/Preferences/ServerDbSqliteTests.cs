@@ -56,7 +56,7 @@ namespace Content.IntegrationTests.Tests.Preferences
                     Color.Azure,
                     false, //starlight
                     Color.Beige,
-                    new ())
+                    new())
             }.WithBankBalance(27000); // Frontier - accessor issue
         }
 

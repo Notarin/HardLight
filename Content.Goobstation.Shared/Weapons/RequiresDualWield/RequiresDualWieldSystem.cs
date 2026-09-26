@@ -55,7 +55,7 @@ public sealed class RequiresDualWieldSystem : EntitySystem
 
             if (HasComp<MultishotComponent>(held))
             {
-                if (CheckGun(held,component.Whitelist))
+                if (CheckGun(held, component.Whitelist))
                     continue;
             }
 

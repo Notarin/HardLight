@@ -1,4 +1,4 @@
-﻿using Robust.Shared.Configuration;
+using Robust.Shared.Configuration;
 
 namespace Content.Shared.CCVar;
 
@@ -64,7 +64,7 @@ public sealed partial class CCVars
     /// </summary>
     public static readonly CVarDef<string> ServerBanDefaultSeverity =
         CVarDef.Create("admin.server_ban_default_severity", "High", CVar.ARCHIVE | CVar.SERVER | CVar.REPLICATED);
-    
+
     /// <summary>  
     ///     Default severity for imprisonment # KS14
     /// </summary>

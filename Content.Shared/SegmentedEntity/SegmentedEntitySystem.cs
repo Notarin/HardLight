@@ -183,7 +183,7 @@ public sealed partial class LamiaSystem : EntitySystem
     private EntityUid AddSegment(EntityUid segmentuid, EntityUid parentuid, SegmentedEntityComponent segmentedComponent, int segmentNumber)
     {
         float taperConstant = segmentedComponent.NumberOfSegments - segmentedComponent.TaperOffset;
-        EntityUid segment = EntityManager.SpawnEntity(segmentNumber == 1
+        EntityUid segment = Spawn(segmentNumber == 1
             ? segmentedComponent.InitialSegmentId
             : segmentedComponent.SegmentId, Transform(segmentuid).Coordinates);
 

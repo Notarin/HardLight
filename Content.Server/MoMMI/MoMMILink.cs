@@ -127,35 +127,43 @@ namespace Content.Server.MoMMI
 
         private sealed class MoMMIMessageBase
         {
-            [JsonInclude] [JsonPropertyName("password")]
+            [JsonInclude]
+            [JsonPropertyName("password")]
             public string Password = null!;
 
-            [JsonInclude] [JsonPropertyName("type")]
+            [JsonInclude]
+            [JsonPropertyName("type")]
             public string Type = null!;
 
-            [JsonInclude] [JsonPropertyName("contents")]
+            [JsonInclude]
+            [JsonPropertyName("contents")]
             public object Contents = null!;
         }
 
         private sealed class MoMMIMessageOOC
         {
-            [JsonInclude] [JsonPropertyName("sender")]
+            [JsonInclude]
+            [JsonPropertyName("sender")]
             public string Sender = null!;
 
-            [JsonInclude] [JsonPropertyName("contents")]
+            [JsonInclude]
+            [JsonPropertyName("contents")]
             public string Contents = null!;
         }
 
         private sealed class OOCPostMessage
         {
 #pragma warning disable CS0649
-            [JsonInclude] [JsonPropertyName("password")]
+            [JsonInclude]
+            [JsonPropertyName("password")]
             public string Password = null!;
 
-            [JsonInclude] [JsonPropertyName("sender")]
+            [JsonInclude]
+            [JsonPropertyName("sender")]
             public string Sender = null!;
 
-            [JsonInclude] [JsonPropertyName("contents")]
+            [JsonInclude]
+            [JsonPropertyName("contents")]
             public string Contents = null!;
 #pragma warning restore CS0649
         }

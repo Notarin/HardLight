@@ -185,7 +185,7 @@ public sealed class DzlolCommand : LocalizedCommands
 
         // --- Melee weapon component (was mutated and sometimes added) ---
         if (proto?.Components.TryGetValue("MeleeWeapon", out var meleeEntry) == true)
-            ((EntityManager) _entities).AddComponent(uid, meleeEntry, overwrite: true);
+            ((EntityManager)_entities).AddComponent(uid, meleeEntry, overwrite: true);
         else
             _entities.RemoveComponent<MeleeWeaponComponent>(uid);
 
@@ -234,6 +234,6 @@ public sealed class DzlolCommand : LocalizedCommands
     private void RestorePrototypeComponent(EntityUid uid, EntityPrototype? proto, string componentName)
     {
         if (proto?.Components.TryGetValue(componentName, out var entry) == true)
-            ((EntityManager) _entities).AddComponent(uid, entry, overwrite: true);
+            ((EntityManager)_entities).AddComponent(uid, entry, overwrite: true);
     }
 }

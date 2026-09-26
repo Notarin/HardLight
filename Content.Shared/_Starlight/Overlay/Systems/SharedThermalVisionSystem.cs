@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Content.Shared.Actions;
 using Content.Shared.Clothing.Components;
 using Content.Shared.Clothing.EntitySystems;
@@ -40,12 +40,12 @@ public abstract class SharedThermalVisionSystem : EntitySystem
 
     private void OnToggleThermalVision(Entity<ThermalVisionComponent> ent, ref ToggleThermalVisionEvent args)
     {
-        if(args.Handled || IsPredict()) return;
+        if (args.Handled || IsPredict()) return;
         args.Handled = true;
 
         ent.Comp.Active = !ent.Comp.Active;
 
-        if(ent.Comp.Active)
+        if (ent.Comp.Active)
             ToggleOn(ent);
         else
             ToggleOff(ent);

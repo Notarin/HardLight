@@ -21,7 +21,7 @@ public sealed partial class SaveBanPrototype : IPrototype
     /// <summary>
     /// A currently unused context for a ban. Will be a bit composable filter for which contexts the ban applies.
     /// </summary>
-    public enum SaveBanContext: byte
+    public enum SaveBanContext : byte
     {
         ShipSave = 1 << 0,
         ApartmentSave = 1 << 1,

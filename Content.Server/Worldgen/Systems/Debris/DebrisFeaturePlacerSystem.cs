@@ -192,7 +192,7 @@ public sealed class DebrisFeaturePlacerSystem : BaseWorldSystem
                 spawned++;
                 continue;
             }
-             // Check if we've reached the maximum debris count
+            // Check if we've reached the maximum debris count
             if (component.MaxDebrisCount.HasValue && spawned >= component.MaxDebrisCount.Value)
                 break;
 
@@ -265,7 +265,7 @@ public sealed class DebrisFeaturePlacerSystem : BaseWorldSystem
     /// </summary>
     private List<Vector2> GeneratePointsInChunk(EntityUid chunk, float density, Vector2 coords, EntityUid map)
     {
-        var offs = (int) ((WorldGen.ChunkSize - WorldGen.ChunkSize / 8.0f) / 2.0f);
+        var offs = (int)((WorldGen.ChunkSize - WorldGen.ChunkSize / 8.0f) / 2.0f);
         var topLeft = new Vector2(-offs, -offs);
         var lowerRight = new Vector2(offs, offs);
         var enumerator = _sampler.SampleRectangle(topLeft, lowerRight, density);

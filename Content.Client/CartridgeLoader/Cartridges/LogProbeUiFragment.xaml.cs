@@ -1,4 +1,4 @@
-﻿using System.Linq; // DeltaV
+using System.Linq; // DeltaV
 using Content.Client._DeltaV.CartridgeLoader.Cartridges; // DeltaV
 using Content.Shared.CartridgeLoader.Cartridges;
 using Content.Shared._DeltaV.CartridgeLoader.Cartridges; // DeltaV
@@ -135,7 +135,7 @@ public sealed partial class LogProbeUiFragment : BoxContainer
         //Reverse the list so the oldest entries appear at the bottom
         logs.Reverse();
 
-        var count =  1;
+        var count = 1;
         foreach (var log in logs)
         {
             AddAccessLog(log, count);

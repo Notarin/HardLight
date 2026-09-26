@@ -1,4 +1,4 @@
-﻿using Content.Shared.Roles;
+using Content.Shared.Roles;
 using Content.Shared.Store; // Frontier: turn-in features
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;

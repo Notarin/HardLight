@@ -40,7 +40,7 @@ public sealed partial class NuclearReactorWindow : FancyWindow
     private int _gridWidth = 0;
     private int _gridHeight = 0;
 
-    private byte _displayMode = 1<<0;
+    private byte _displayMode = 1 << 0;
 
     private enum DisplayModes : byte
     {
@@ -247,7 +247,7 @@ public sealed partial class NuclearReactorWindow : FancyWindow
                 }
 
                 var icon = exists ? _data[vect].IconName : "base";
-                _reactorRect[vect].TexturePath = "/Textures/_FarHorizons/Structures/Power/Generation/FissionGenerator/reactor_part_inserted/" +  icon + ".png";
+                _reactorRect[vect].TexturePath = "/Textures/_FarHorizons/Structures/Power/Generation/FissionGenerator/reactor_part_inserted/" + icon + ".png";
 
                 _reactorButton[vect].ToolTip = exists && _data[vect].SpentFuel > 0
                     ? "Fuel Level: " + (int)Math.Round(GetFuelLevel(_data[vect]) * 100) + "%"
@@ -259,9 +259,9 @@ public sealed partial class NuclearReactorWindow : FancyWindow
         UpdateItemAction();
 
         // Handle repeat buttons
-        foreach ( var kvp in _repeatQueue)
+        foreach (var kvp in _repeatQueue)
         {
-            if(kvp.Value > 0)
+            if (kvp.Value > 0)
             {
                 _repeatQueue[kvp.Key] -= args.DeltaSeconds;
                 continue;
@@ -287,7 +287,7 @@ public sealed partial class NuclearReactorWindow : FancyWindow
 
     private static Color GetColor(double pointA, double pointB, double value)
     {
-        var mid = pointA+((pointB-pointA) / 2);
+        var mid = pointA + ((pointB - pointA) / 2);
         Color result;
 
         if (value < pointA && pointA > 0)
@@ -345,8 +345,8 @@ public sealed partial class NuclearReactorWindow : FancyWindow
 
     private void UpdateTargetInfo()
     {
-        var vect = new Vector2i(_targetY,  _targetX);
-        if(!_data.TryGetValue(vect, out var value))
+        var vect = new Vector2i(_targetY, _targetX);
+        if (!_data.TryGetValue(vect, out var value))
         {
             TargetName.Text = "empty";
             TargetTemperatureGrid.Visible = TargetNRadiationGrid.Visible = TargetRadiationGrid.Visible = TargetSpentGrid.Visible = false;
@@ -370,7 +370,7 @@ public sealed partial class NuclearReactorWindow : FancyWindow
 
     private void UpdateItemAction()
     {
-        if(ItemName.Text == "empty" == (TargetName.Text == "empty"))
+        if (ItemName.Text == "empty" == (TargetName.Text == "empty"))
         {
             ItemAction.Disabled = true;
             return;
@@ -392,7 +392,7 @@ public sealed partial class NuclearReactorWindow : FancyWindow
         _targetX = Math.Clamp(x, 0, _gridWidth - 1);
         _targetY = Math.Clamp(y, 0, _gridHeight - 1);
 
-        TargetPos.Text = _targetX.ToString() +"," + _targetY.ToString();
+        TargetPos.Text = _targetX.ToString() + "," + _targetY.ToString();
 
         XIncrement.Disabled = _targetX >= _gridWidth - 1;
         XDecrement.Disabled = _targetX <= 0;

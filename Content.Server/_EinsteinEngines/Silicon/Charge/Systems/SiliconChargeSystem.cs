@@ -138,7 +138,7 @@ public sealed class SiliconChargeSystem : EntitySystem
             _powerCell.TryUseCharge(silicon, frameTime * drainRate);
 
             // Figure out the current state of the Silicon.
-            var chargePercent = (short) MathF.Round(batteryComp.CurrentCharge / batteryComp.MaxCharge * 10f);
+            var chargePercent = (short)MathF.Round(batteryComp.CurrentCharge / batteryComp.MaxCharge * 10f);
 
             UpdateChargeState(silicon, chargePercent, siliconComp);
         }
@@ -187,7 +187,7 @@ public sealed class SiliconChargeSystem : EntitySystem
 
             siliconComp.OverheatAccumulator -= 5;
 
-            if (!EntityManager.TryGetComponent<FlammableComponent>(silicon, out var flamComp)
+            if (!TryComp<FlammableComponent>(silicon, out var flamComp)
                 || flamComp is { OnFire: true }
                 || !(temperComp.CurrentTemperature > temperComp.HeatDamageThreshold))
                 return hotTempMulti;

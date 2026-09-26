@@ -1,4 +1,4 @@
-﻿namespace Content.Server._CD.Engraving;
+namespace Content.Server._CD.Engraving;
 
 /// <summary>
 ///     Allows an items' description to be modified with an engraving

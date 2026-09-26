@@ -54,19 +54,19 @@ public sealed class CrewManifestSystem : EntitySystem
         SubscribeLocalEvent<CrewManifestViewerComponent, CrewManifestOpenUiMessage>(OpenEuiFromBui);
     }
 
-/*     private void OnRoundRestart(RoundRestartCleanupEvent ev)
-    {
-        foreach (var (_, euis) in _openEuis)
+    /*     private void OnRoundRestart(RoundRestartCleanupEvent ev)
         {
-            foreach (var (_, eui) in euis)
+            foreach (var (_, euis) in _openEuis)
             {
-                eui.Close();
+                foreach (var (_, eui) in euis)
+                {
+                    eui.Close();
+                }
             }
-        }
 
-        _openEuis.Clear();
-        _cachedEntries.Clear();
-    } */
+            _openEuis.Clear();
+            _cachedEntries.Clear();
+        } */
 
     private void OnRequestCrewManifest(RequestCrewManifestMessage message, EntitySessionEventArgs args)
     {

@@ -72,11 +72,11 @@ public abstract class SharedWeatherSystem : EntitySystem
 
         if (remaining < WeatherComponent.ShutdownTime)
         {
-            alpha = (float) (remaining / WeatherComponent.ShutdownTime);
+            alpha = (float)(remaining / WeatherComponent.ShutdownTime);
         }
         else if (elapsed < WeatherComponent.StartupTime)
         {
-            alpha = (float) (elapsed / WeatherComponent.StartupTime);
+            alpha = (float)(elapsed / WeatherComponent.StartupTime);
         }
         else
         {

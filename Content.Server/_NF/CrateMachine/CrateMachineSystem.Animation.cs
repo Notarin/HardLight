@@ -1,4 +1,4 @@
-﻿using Content.Server.Power.Components;
+using Content.Server.Power.Components;
 using Content.Shared._NF.CrateMachine;
 using AppearanceSystem = Robust.Server.GameObjects.AppearanceSystem;
 using CrateMachineComponent = Content.Shared._NF.CrateMachine.Components.CrateMachineComponent;

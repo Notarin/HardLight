@@ -206,7 +206,7 @@ public sealed class MechGrabberSystem : EntitySystem
         if (TryComp<ContainerManagerComponent>(args.Args.Target, out var containerManager))
         {
             EntityCoordinates? coords = null;
-            if (TryComp(equipmentComponent.EquipmentOwner, out TransformComponent? xform)) 
+            if (TryComp(equipmentComponent.EquipmentOwner, out TransformComponent? xform))
                 coords = xform.Coordinates;
 
             List<EntityUid> toRemove = new();

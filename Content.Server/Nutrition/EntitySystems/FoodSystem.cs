@@ -262,7 +262,7 @@ public sealed class FoodSystem : EntitySystem
         var isStacked = stackCount > 1;
         var sourceSolution = isStacked ? new Solution(solution) : solution;
         var transferAmount = entity.Comp.TransferAmount != null
-            ? FixedPoint2.Min((FixedPoint2) entity.Comp.TransferAmount, sourceSolution.Volume)
+            ? FixedPoint2.Min((FixedPoint2)entity.Comp.TransferAmount, sourceSolution.Volume)
             : sourceSolution.Volume;
 
         var split = isStacked
@@ -609,6 +609,6 @@ public sealed class FoodSystem : EntitySystem
         if (comp.TransferAmount == null)
             return 1;
 
-        return Math.Max(1, (int) Math.Ceiling((solution.Volume / (FixedPoint2) comp.TransferAmount).Float()));
+        return Math.Max(1, (int)Math.Ceiling((solution.Volume / (FixedPoint2)comp.TransferAmount).Float()));
     }
 }

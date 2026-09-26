@@ -70,9 +70,9 @@ public sealed class ChangelogDictionarySerializer : ITypeSerializer<Dictionary<V
     /// <inheritdoc/>
     public DataNode Write(
         ISerializationManager serializationManager,
-        Dictionary<Version, ChangelogEntry> value, 
+        Dictionary<Version, ChangelogEntry> value,
         IDependencyCollection dependencies,
-        bool alwaysWrite = false, 
+        bool alwaysWrite = false,
         ISerializationContext? context = null)
     {
         var mapping = new MappingDataNode();

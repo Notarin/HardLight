@@ -77,7 +77,7 @@ public sealed class ExclusiveSlotsSystem : EntitySystem
     {
         // Re-resolve linked slot after startup to ensure AutomationSlot is available.
         UpdateSlot(ent.Comp);
-        var machineStr = ent.Comp.LinkedMachine is {} m ? ToPrettyString(m) : "<null>";
+        var machineStr = ent.Comp.LinkedMachine is { } m ? ToPrettyString(m) : "<null>";
         var portStr = ent.Comp.LinkedPort ?? "<null>";
         var slotResolved = ent.Comp.LinkedSlot is not null;
         Log.Info($"[ExclusiveSlots] Output startup for {ToPrettyString(ent.Owner)} linkedMachine={machineStr} linkedPort={portStr} slotResolved={slotResolved}");
@@ -89,7 +89,7 @@ public sealed class ExclusiveSlotsSystem : EntitySystem
         UpdateSlot(ent.Comp);
     }
 
-    
+
 
     private void OnOutputLinkAttempt(Entity<ExclusiveOutputSlotComponent> ent, ref LinkAttemptEvent args)
     {
@@ -100,7 +100,7 @@ public sealed class ExclusiveSlotsSystem : EntitySystem
     private void OnOutputNewLink(Entity<ExclusiveOutputSlotComponent> ent, ref NewLinkEvent args)
     {
         NewLink(ent, args.Source, args.SourcePort, args.Sink, args.SinkPort);
-        var machineStr = ent.Comp.LinkedMachine is {} m ? ToPrettyString(m) : "<null>";
+        var machineStr = ent.Comp.LinkedMachine is { } m ? ToPrettyString(m) : "<null>";
         var portStr = ent.Comp.LinkedPort ?? "<null>";
         var slotResolved = ent.Comp.LinkedSlot is not null;
         Log.Info($"[ExclusiveSlots] Output NewLink for {ToPrettyString(ent.Owner)} linkedMachine={machineStr} linkedPort={portStr} slotResolved={slotResolved}");
@@ -109,7 +109,7 @@ public sealed class ExclusiveSlotsSystem : EntitySystem
     private void OnOutputMapInit(Entity<ExclusiveOutputSlotComponent> ent, ref MapInitEvent args)
     {
         UpdateSlot(ent.Comp);
-        var machineStr = ent.Comp.LinkedMachine is {} m ? ToPrettyString(m) : "<null>";
+        var machineStr = ent.Comp.LinkedMachine is { } m ? ToPrettyString(m) : "<null>";
         var portStr = ent.Comp.LinkedPort ?? "<null>";
         var slotResolved = ent.Comp.LinkedSlot is not null;
         Log.Info($"[ExclusiveSlots] Output mapinit for {ToPrettyString(ent.Owner)} linkedMachine={machineStr} linkedPort={portStr} slotResolved={slotResolved}");
@@ -129,7 +129,7 @@ public sealed class ExclusiveSlotsSystem : EntitySystem
     }
 
     private void NewLink<T>(Entity<T> ent, EntityUid other, string otherPort, EntityUid uid, string port)
-        where T: IExclusiveSlotComponent
+        where T : IExclusiveSlotComponent
     {
         if (other != ent.Owner || otherPort != ent.Comp.PortId)
             return;
@@ -141,7 +141,7 @@ public sealed class ExclusiveSlotsSystem : EntitySystem
     }
 
     private void OnPortDisconnected<T>(Entity<T> ent, ref PortDisconnectedEvent args)
-        where T: IExclusiveSlotComponent
+        where T : IExclusiveSlotComponent
     {
         // this event is shit and doesnt have source/sink entity and port just 1 string
         // so if you made InputPort and OutputPort the same string it would silently break
@@ -156,7 +156,7 @@ public sealed class ExclusiveSlotsSystem : EntitySystem
     }
 
     private void OnHandleState<T>(Entity<T> ent, ref AfterAutoHandleStateEvent args)
-        where T: IExclusiveSlotComponent
+        where T : IExclusiveSlotComponent
     {
         // incase client didnt predict linked port changing, update them
         UpdateSlot(ent.Comp);
@@ -164,7 +164,7 @@ public sealed class ExclusiveSlotsSystem : EntitySystem
 
     public void UpdateSlot(IExclusiveSlotComponent comp)
     {
-        if (comp.LinkedMachine is {} machine && comp.LinkedPort is {} port)
+        if (comp.LinkedMachine is { } machine && comp.LinkedPort is { } port)
             // When resolving the linked slot on the *other* machine, the input/output
             // polarity is inverted relative to this component. Match NewLink's logic.
             comp.LinkedSlot = _automation.GetSlot(machine, port, input: !comp.IsInput);
@@ -178,7 +178,7 @@ public sealed class ExclusiveSlotsSystem : EntitySystem
     /// </summary>
     public bool GetInput(EntityUid uid, out EntityUid machine, out AutomationSlot slot)
     {
-        if (_inputQuery.TryComp(uid, out var comp) && comp.LinkedMachine is {} m && comp.LinkedSlot is {} s)
+        if (_inputQuery.TryComp(uid, out var comp) && comp.LinkedMachine is { } m && comp.LinkedSlot is { } s)
         {
             machine = m;
             slot = s;
@@ -202,7 +202,7 @@ public sealed class ExclusiveSlotsSystem : EntitySystem
     /// </summary>
     public bool GetOutput(EntityUid uid, out EntityUid machine, out AutomationSlot slot)
     {
-        if (_outputQuery.TryComp(uid, out var comp) && comp.LinkedMachine is {} m && comp.LinkedSlot is {} s)
+        if (_outputQuery.TryComp(uid, out var comp) && comp.LinkedMachine is { } m && comp.LinkedSlot is { } s)
         {
             machine = m;
             slot = s;

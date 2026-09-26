@@ -219,7 +219,7 @@ public sealed class LandgrabPlotService : EntitySystem
 
         // Just delete the grid entirely — the player wanted out, and abandoned grids
         // would otherwise litter the planet. Anything inside is forfeit.
-        EntityManager.DeleteEntity(gridUid);
+        Del(gridUid);
         _sawmill.Info($"Abandoned plot owned by {ckey}.");
         return true;
     }

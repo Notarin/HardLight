@@ -66,7 +66,7 @@ internal sealed class FreeProberRule : StationEventSystem<FreeProberRuleComponen
 
                 for (var i = 0; i < SpawnDirections; i++)
                 {
-                    var direction = (DirectionFlag) (1 << i);
+                    var direction = (DirectionFlag)(1 << i);
                     var offsetIndices = tileIndices.Offset(direction.AsDir());
 
                     // This doesn't check against the prober's mask/layer, because it hasn't spawned yet...

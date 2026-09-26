@@ -73,7 +73,7 @@ public sealed class SharedMultishotSystem : EntitySystem
         var shootCoords = GetCoordinates(msg.Coordinates);
         var target = GetEntity(msg.Target);
 
-        foreach(var gun in gunsEnumerator)
+        foreach (var gun in gunsEnumerator)
         {
             var (gunEnt, gunComp, _) = gun;
 

@@ -406,7 +406,7 @@ public sealed partial class DockingSystem
                         dockedAABB.Right,
                         dockedAABB.Top,
                         dockedAABB.Bottom,
-                        (int) Math.Round(targetAngle.Reduced().Theta * DockingAngleKeyPrecision));
+                        (int)Math.Round(targetAngle.Reduced().Theta * DockingAngleKeyPrecision));
 
                     if (!seenPlacements.Add(placementKey))
                         continue;

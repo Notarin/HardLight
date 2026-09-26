@@ -116,7 +116,7 @@ public sealed class BatteryDrinkerSystem : EntitySystem
         amountToDrink = MathF.Min(amountToDrink, drinkerBatteryComponent!.MaxCharge - drinkerBatteryComponent.CurrentCharge);
 
         if (sourceComp != null && sourceComp.MaxAmount > 0)
-            amountToDrink = MathF.Min(amountToDrink, (float) sourceComp.MaxAmount);
+            amountToDrink = MathF.Min(amountToDrink, (float)sourceComp.MaxAmount);
 
         if (amountToDrink <= 0)
         {
@@ -132,7 +132,8 @@ public sealed class BatteryDrinkerSystem : EntitySystem
             _battery.SetCharge(source, 0);
         }
 
-        if (sourceComp != null && sourceComp.DrinkSound != null){
+        if (sourceComp != null && sourceComp.DrinkSound != null)
+        {
             _popup.PopupEntity(Loc.GetString("ipc-recharge-tip"), drinker, drinker, PopupType.SmallCaution);
             _audio.PlayPvs(sourceComp.DrinkSound, source);
             Spawn("EffectSparks", Transform(source).Coordinates);

@@ -185,38 +185,38 @@ public sealed partial class ShipSteeringSystem : EntitySystem
         switch (comp.Mode)
         {
             case ShipSteeringMode.GoToRange:
-            {
-                if (!comp.NoFinish
-                    && distance >= lowRange && distance <= highRange
-                    && relVel.Length() < maxArrivedVel
-                    && MathF.Abs(angVel) < maxArrivedAngVel)
                 {
-                    var good = true;
-                    if (comp.AlwaysFaceTarget)
+                    if (!comp.NoFinish
+                        && distance >= lowRange && distance <= highRange
+                        && relVel.Length() < maxArrivedVel
+                        && MathF.Abs(angVel) < maxArrivedAngVel)
                     {
-                        var wishRotateBy = ShortestAngleDistance(shipNorthAngle + new Angle(Math.PI) - targetAngleOffset, toTargetVec.ToWorldAngle());
-                        good = MathF.Abs((float)wishRotateBy.Theta) < comp.RotationTolerance;
+                        var good = true;
+                        if (comp.AlwaysFaceTarget)
+                        {
+                            var wishRotateBy = ShortestAngleDistance(shipNorthAngle + new Angle(Math.PI) - targetAngleOffset, toTargetVec.ToWorldAngle());
+                            good = MathF.Abs((float)wishRotateBy.Theta) < comp.RotationTolerance;
+                        }
+                        if (good)
+                        {
+                            comp.Status = ShipSteeringStatus.InRange;
+                            return mapTarget; // will be ignored
+                        }
                     }
-                    if (good)
-                    {
-                        comp.Status = ShipSteeringStatus.InRange;
-                        return mapTarget; // will be ignored
-                    }
+
+                    if (distance < lowRange || distance > highRange)
+                        return mapTarget.Offset(NormalizedOrZero(-toTargetVec) * midRange);
+
+                    return shipPos;
                 }
-
-                if (distance < lowRange || distance > highRange)
-                    return mapTarget.Offset(NormalizedOrZero(-toTargetVec) * midRange);
-
-                return shipPos;
-            }
             case ShipSteeringMode.OrbitCW:
             case ShipSteeringMode.Orbit:
-            {
-                // take our position, project onto our target radius, rotate by desired orbit offset
-                var invert = comp.Mode == ShipSteeringMode.OrbitCW;
-                var rotateAngle = new Angle(comp.OrbitOffset * (invert ? -1 : 1));
-                return mapTarget.Offset(NormalizedOrZero(rotateAngle.RotateVec(-toTargetVec)) * midRange);
-            }
+                {
+                    // take our position, project onto our target radius, rotate by desired orbit offset
+                    var invert = comp.Mode == ShipSteeringMode.OrbitCW;
+                    var rotateAngle = new Angle(comp.OrbitOffset * (invert ? -1 : 1));
+                    return mapTarget.Offset(NormalizedOrZero(rotateAngle.RotateVec(-toTargetVec)) * midRange);
+                }
         }
 
         return mapTarget;
@@ -278,7 +278,7 @@ public sealed partial class ShipSteeringSystem : EntitySystem
         // s = v^2 / 2a
         var brakePath = linVelLenSq / (2f * brakeAccel);
         // path we will pass if we keep braking until we reach our desired max velocity
-        var innerBrakePath = maxArrivedVel*maxArrivedVel / (2f * brakeAccel);
+        var innerBrakePath = maxArrivedVel * maxArrivedVel / (2f * brakeAccel);
 
         // negative if we're already slow enough
         var leftoverBrakePath = brakeAccel == 0f ? 0f : brakePath - innerBrakePath;

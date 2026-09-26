@@ -1,4 +1,4 @@
-﻿using Content.Shared.Access;
+using Content.Shared.Access;
 using Content.Shared.Damage;
 using Robust.Shared.Audio;
 using Robust.Shared.GameStates;

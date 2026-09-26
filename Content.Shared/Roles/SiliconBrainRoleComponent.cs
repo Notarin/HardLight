@@ -1,4 +1,4 @@
-﻿namespace Content.Shared.Roles;
+namespace Content.Shared.Roles;
 
 /// <summary>
 ///     Used on Silicon's minds to get the appropriate mind role

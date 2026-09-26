@@ -1,4 +1,4 @@
-﻿using Content.Shared.Tag;
+using Content.Shared.Tag;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 
 namespace Content.Shared.Mind.Components;

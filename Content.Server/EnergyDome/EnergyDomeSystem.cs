@@ -189,7 +189,8 @@ public sealed partial class EnergyDomeSystem : EntitySystem
         }
 
         //it seems to me it would not work well to hang both a powercell and an internal battery with wire charging on the object....
-        if (TryComp<BatteryComponent>(generatorUid, out var battery)) {
+        if (TryComp<BatteryComponent>(generatorUid, out var battery))
+        {
             _battery.UseCharge(generatorUid, energyLeak);
 
             if (battery.CurrentCharge == 0)
@@ -216,7 +217,7 @@ public sealed partial class EnergyDomeSystem : EntitySystem
 
     public bool AttemptToggle(Entity<EnergyDomeGeneratorComponent> generator, bool status)
     {
-    if (TryComp<UseDelayComponent>(generator, out var useDelay) && _useDelay.IsDelayed(new Entity<UseDelayComponent?>(generator, useDelay)))
+        if (TryComp<UseDelayComponent>(generator, out var useDelay) && _useDelay.IsDelayed(new Entity<UseDelayComponent?>(generator, useDelay)))
         {
             _audio.PlayPvs(generator.Comp.TurnOffSound, generator);
             _popup.PopupEntity(
@@ -300,7 +301,8 @@ public sealed partial class EnergyDomeSystem : EntitySystem
         }
 
         _powerCell.SetPowerCellDrawEnabled(generator, true);
-        if (TryComp<BatterySelfRechargerComponent>(generator, out var recharger)) {
+        if (TryComp<BatterySelfRechargerComponent>(generator, out var recharger))
+        {
             recharger.AutoRecharge = true;
         }
 

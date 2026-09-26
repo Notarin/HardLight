@@ -111,7 +111,7 @@ public abstract partial class SharedVacbedSystem : EntitySystem
         if (!args.CanAccess || !args.CanInteract || args.User == vacbedComponent.BodyContainer.ContainedEntity)
             return;
 
-        if(vacbedComponent.BodyContainer.ContainedEntity != null)
+        if (vacbedComponent.BodyContainer.ContainedEntity != null)
         {
             args.Verbs.Add(new AlternativeVerb
             {

@@ -1,4 +1,4 @@
-﻿using Content.Shared.Coordinates;
+using Content.Shared.Coordinates;
 using Content.Shared.DoAfter;
 using Content.Shared.Popups;
 using Robust.Shared.Network;

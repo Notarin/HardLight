@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using Content.Shared.Chemistry.Reagent;
 using NUnit.Framework;

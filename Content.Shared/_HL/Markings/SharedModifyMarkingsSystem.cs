@@ -165,4 +165,5 @@ public abstract class SharedModifyMarkingsSystem : EntitySystem
 
             args.Verbs.Add(verb);
         }
-    }}
+    }
+}

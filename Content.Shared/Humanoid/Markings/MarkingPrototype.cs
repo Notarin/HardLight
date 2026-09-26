@@ -3,7 +3,7 @@ using Robust.Shared.Utility;
 
 namespace Content.Shared.Humanoid.Markings
 {
-    [Prototype("marking")]
+    [Prototype]
     public sealed partial class MarkingPrototype : IPrototype
     {
         [IdDataField]
@@ -77,8 +77,8 @@ namespace Content.Shared.Humanoid.Markings
         public Dictionary<string, string>? ColorLinks { get; private set; }
 
         // impstation edit - allow markings to support shaders
-		[DataField("shader")]
-		public string? Shader { get; private set; } = null;
+        [DataField("shader")]
+        public string? Shader { get; private set; } = null;
         // end impstation edit
         public Marking AsMarking()
         {

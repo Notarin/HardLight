@@ -1,4 +1,4 @@
-﻿using System.Numerics;
+using System.Numerics;
 using Content.Shared.Emag.Systems;
 using Content.Shared.Medical.Cryogenics;
 using Content.Shared.Verbs;
@@ -7,7 +7,7 @@ using DrawDepth = Content.Shared.DrawDepth.DrawDepth;
 
 namespace Content.Client.Medical.Cryogenics;
 
-public sealed class CryoPodSystem: SharedCryoPodSystem
+public sealed class CryoPodSystem : SharedCryoPodSystem
 {
     [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
     [Dependency] private readonly SpriteSystem _sprite = default!;
@@ -65,7 +65,7 @@ public sealed class CryoPodSystem: SharedCryoPodSystem
         {
             _sprite.LayerSetRsiState((uid, args.Sprite), CryoPodVisualLayers.Base, "pod-open");
             _sprite.LayerSetVisible((uid, args.Sprite), CryoPodVisualLayers.Cover, false);
-            args.Sprite.DrawDepth = (int) DrawDepth.Objects;
+            args.Sprite.DrawDepth = (int)DrawDepth.Objects;
         }
         else
         {

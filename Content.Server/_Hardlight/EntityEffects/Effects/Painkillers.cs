@@ -16,14 +16,14 @@ public sealed partial class Painkillers : EntityEffect
         {
             case StatusEffectMetabolismType.Set:
             case StatusEffectMetabolismType.Add:
-            {
-                return Loc.GetString("reagent-effect-guidebook-painkillers");
-            }
+                {
+                    return Loc.GetString("reagent-effect-guidebook-painkillers");
+                }
 
             case StatusEffectMetabolismType.Remove:
-            {
-                return Loc.GetString("reagent-effect-guidebook-painkillers-remove");
-            }
+                {
+                    return Loc.GetString("reagent-effect-guidebook-painkillers-remove");
+                }
         }
 
         return "This should never happen!";
@@ -36,27 +36,27 @@ public sealed partial class Painkillers : EntityEffect
         {
             case StatusEffectMetabolismType.Set:
             case StatusEffectMetabolismType.Add:
-            {
-                if (!manager.HasComponent<PainNumbnessComponent>(args.TargetEntity))
                 {
-                    manager.AddComponent<PainNumbnessComponent>(args.TargetEntity);
-                }
+                    if (!manager.HasComponent<PainNumbnessComponent>(args.TargetEntity))
+                    {
+                        manager.AddComponent<PainNumbnessComponent>(args.TargetEntity);
+                    }
 
-                break;
-            }
+                    break;
+                }
 
             case StatusEffectMetabolismType.Remove:
-            {
-                if (manager.TryGetComponent<PainNumbnessComponent>(args.TargetEntity, out var numbness))
                 {
-                    if (!numbness.Permanent)
+                    if (manager.TryGetComponent<PainNumbnessComponent>(args.TargetEntity, out var numbness))
                     {
-                        manager.RemoveComponent<PainNumbnessComponent>(args.TargetEntity);
+                        if (!numbness.Permanent)
+                        {
+                            manager.RemoveComponent<PainNumbnessComponent>(args.TargetEntity);
+                        }
                     }
-                }
 
-                break;
-            }
+                    break;
+                }
         }
     }
 }

@@ -67,7 +67,7 @@ public sealed class LungSystem : EntitySystem
     {
         foreach (var gasId in Enum.GetValues<Gas>())
         {
-            var i = (int) gasId;
+            var i = (int)gasId;
             var moles = gas[i];
             if (moles <= 0)
                 continue;

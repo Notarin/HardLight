@@ -88,14 +88,14 @@ public sealed class TurfSystem : EntitySystem
             rot -= gridRot;
             pos = (-gridRot).RotateVec(pos - gridPos);
 
-            var xform = new Transform(pos, (float) rot.Theta);
+            var xform = new Transform(pos, (float)rot.Theta);
 
             foreach (var fixture in fixtures.Fixtures.Values)
             {
                 if (!fixture.Hard)
                     continue;
 
-                if ((fixture.CollisionLayer & (int) mask) == 0)
+                if ((fixture.CollisionLayer & (int)mask) == 0)
                     continue;
 
                 for (var i = 0; i < fixture.Shape.ChildCount; i++)

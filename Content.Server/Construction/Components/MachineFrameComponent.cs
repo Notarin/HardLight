@@ -1,4 +1,4 @@
-﻿using Content.Shared.Construction.Components;
+using Content.Shared.Construction.Components;
 using Content.Shared.Construction.Prototypes; // Frontier: upgradeable machine parts
 using Content.Shared.Stacks;
 using Content.Shared.Tag;

@@ -26,66 +26,66 @@ namespace Content.IntegrationTests.Tests.StationRecords;
 [TestFixture]
 public sealed class GeneralStationRecordConsoleTest
 {
-        [TestPrototypes]
-        private const string Prototypes =
-                "- type: vessel\n"
-                + "  id: TestRecordsShipVessel\n"
-                + "  parent: BaseVessel\n"
-                + "  name: Test Records Vessel\n"
-                + "  description: Test records vessel.\n"
-                + "  price: 1000\n"
-                + "  category: Small\n"
-                + "  group: Shipyard\n"
-                + "  shuttlePath: /Maps/Test/empty.yml\n"
-                + "  class:\n"
-                + "  - Civilian\n"
-                + "  engine:\n"
-                + "  - Uranium\n"
-                + "\n"
-                + "- type: vessel\n"
-                + "  id: TestRecordsCargoVessel\n"
-                + "  parent: BaseVessel\n"
-                + "  name: Test Records Cargo Vessel\n"
-                + "  description: Test records cargo vessel.\n"
-                + "  price: 1000\n"
-                + "  category: Small\n"
-                + "  group: Shipyard\n"
-                + "  shuttlePath: /Maps/Test/empty.yml\n"
-                + "  class:\n"
-                + "  - Cargo\n"
-                + "  engine:\n"
-                + "  - Uranium\n"
-                + "\n"
-                + "- type: gameMap\n"
-                + "  id: TestRecordsShipStation\n"
-                + "  minPlayers: 0\n"
-                + "  mapName: TestRecordsShipStation\n"
-                + "  mapPath: /Maps/Test/empty.yml\n"
-                + "  stations:\n"
-                + "    Station:\n"
-                + "      mapNameTemplate: TestRecordsShipStation\n"
-                + "      stationProto: StandardFrontierVessel\n"
-                + "      components:\n"
-                + "        - type: ExtraShuttleInformation\n"
-                + "          vessel: TestRecordsShipVessel\n"
-                + "          advertisement: Original advertisement\n"
-                + "        - type: StationJobs\n"
-                + "          availableJobs:\n"
-                + "            Mercenary: [0, 2]\n"
-                + "\n"
-                + "- type: gameMap\n"
-                + "  id: TestRecordsCargoShipStation\n"
-                + "  minPlayers: 0\n"
-                + "  mapName: TestRecordsCargoShipStation\n"
-                + "  mapPath: /Maps/Test/empty.yml\n"
-                + "  stations:\n"
-                + "    Station:\n"
-                + "      mapNameTemplate: TestRecordsCargoShipStation\n"
-                + "      stationProto: StandardFrontierVessel\n"
-                + "      components:\n"
-                + "        - type: ExtraShuttleInformation\n"
-                + "          vessel: TestRecordsCargoVessel\n"
-                + "          advertisement: Cargo ship advertisement\n";
+    [TestPrototypes]
+    private const string Prototypes =
+            "- type: vessel\n"
+            + "  id: TestRecordsShipVessel\n"
+            + "  parent: BaseVessel\n"
+            + "  name: Test Records Vessel\n"
+            + "  description: Test records vessel.\n"
+            + "  price: 1000\n"
+            + "  category: Small\n"
+            + "  group: Shipyard\n"
+            + "  shuttlePath: /Maps/Test/empty.yml\n"
+            + "  class:\n"
+            + "  - Civilian\n"
+            + "  engine:\n"
+            + "  - Uranium\n"
+            + "\n"
+            + "- type: vessel\n"
+            + "  id: TestRecordsCargoVessel\n"
+            + "  parent: BaseVessel\n"
+            + "  name: Test Records Cargo Vessel\n"
+            + "  description: Test records cargo vessel.\n"
+            + "  price: 1000\n"
+            + "  category: Small\n"
+            + "  group: Shipyard\n"
+            + "  shuttlePath: /Maps/Test/empty.yml\n"
+            + "  class:\n"
+            + "  - Cargo\n"
+            + "  engine:\n"
+            + "  - Uranium\n"
+            + "\n"
+            + "- type: gameMap\n"
+            + "  id: TestRecordsShipStation\n"
+            + "  minPlayers: 0\n"
+            + "  mapName: TestRecordsShipStation\n"
+            + "  mapPath: /Maps/Test/empty.yml\n"
+            + "  stations:\n"
+            + "    Station:\n"
+            + "      mapNameTemplate: TestRecordsShipStation\n"
+            + "      stationProto: StandardFrontierVessel\n"
+            + "      components:\n"
+            + "        - type: ExtraShuttleInformation\n"
+            + "          vessel: TestRecordsShipVessel\n"
+            + "          advertisement: Original advertisement\n"
+            + "        - type: StationJobs\n"
+            + "          availableJobs:\n"
+            + "            Mercenary: [0, 2]\n"
+            + "\n"
+            + "- type: gameMap\n"
+            + "  id: TestRecordsCargoShipStation\n"
+            + "  minPlayers: 0\n"
+            + "  mapName: TestRecordsCargoShipStation\n"
+            + "  mapPath: /Maps/Test/empty.yml\n"
+            + "  stations:\n"
+            + "    Station:\n"
+            + "      mapNameTemplate: TestRecordsCargoShipStation\n"
+            + "      stationProto: StandardFrontierVessel\n"
+            + "      components:\n"
+            + "        - type: ExtraShuttleInformation\n"
+            + "          vessel: TestRecordsCargoVessel\n"
+            + "          advertisement: Cargo ship advertisement\n";
 
     [Test]
     public async Task ShipAdvertisementRequiresMatchingShuttleDeedTest()
@@ -138,7 +138,7 @@ public sealed class GeneralStationRecordConsoleTest
 
         await server.WaitPost(() =>
         {
-            var consoleEnt = (Entity<GeneralStationRecordConsoleComponent>) (console, entityManager.GetComponent<GeneralStationRecordConsoleComponent>(console));
+            var consoleEnt = (Entity<GeneralStationRecordConsoleComponent>)(console, entityManager.GetComponent<GeneralStationRecordConsoleComponent>(console));
             var msg = new SetStationAdvertisementMsg("Unauthorized advertisement")
             {
                 Actor = unauthorizedCard,
@@ -155,7 +155,7 @@ public sealed class GeneralStationRecordConsoleTest
 
         await server.WaitPost(() =>
         {
-            var consoleEnt = (Entity<GeneralStationRecordConsoleComponent>) (console, entityManager.GetComponent<GeneralStationRecordConsoleComponent>(console));
+            var consoleEnt = (Entity<GeneralStationRecordConsoleComponent>)(console, entityManager.GetComponent<GeneralStationRecordConsoleComponent>(console));
             var msg = new SetStationAdvertisementMsg("Authorized advertisement")
             {
                 Actor = authorizedCard,
@@ -220,7 +220,7 @@ public sealed class GeneralStationRecordConsoleTest
 
         await server.WaitPost(() =>
         {
-            var consoleEnt = (Entity<GeneralStationRecordConsoleComponent>) (console, entityManager.GetComponent<GeneralStationRecordConsoleComponent>(console));
+            var consoleEnt = (Entity<GeneralStationRecordConsoleComponent>)(console, entityManager.GetComponent<GeneralStationRecordConsoleComponent>(console));
             var msg = new SetStationAdvertisementMsg("Updated cargo ship advertisement")
             {
                 Actor = authorizedCard,
@@ -291,7 +291,7 @@ public sealed class GeneralStationRecordConsoleTest
 
         await server.WaitPost(() =>
         {
-            var consoleEnt = (Entity<GeneralStationRecordConsoleComponent>) (console, entityManager.GetComponent<GeneralStationRecordConsoleComponent>(console));
+            var consoleEnt = (Entity<GeneralStationRecordConsoleComponent>)(console, entityManager.GetComponent<GeneralStationRecordConsoleComponent>(console));
             var msg = new SetStationAdvertisementMsg("Secondary grid advertisement")
             {
                 Actor = authorizedCard,
@@ -362,7 +362,7 @@ public sealed class GeneralStationRecordConsoleTest
 
         await server.WaitPost(() =>
         {
-            var consoleEnt = (Entity<GeneralStationRecordConsoleComponent>) (console, entityManager.GetComponent<GeneralStationRecordConsoleComponent>(console));
+            var consoleEnt = (Entity<GeneralStationRecordConsoleComponent>)(console, entityManager.GetComponent<GeneralStationRecordConsoleComponent>(console));
             var msg = new AdjustStationJobMsg(StationJobsSystem.ShipFreelancerInterviewJobId, 1)
             {
                 Actor = unauthorizedCard,
@@ -381,7 +381,7 @@ public sealed class GeneralStationRecordConsoleTest
 
         await server.WaitPost(() =>
         {
-            var consoleEnt = (Entity<GeneralStationRecordConsoleComponent>) (console, entityManager.GetComponent<GeneralStationRecordConsoleComponent>(console));
+            var consoleEnt = (Entity<GeneralStationRecordConsoleComponent>)(console, entityManager.GetComponent<GeneralStationRecordConsoleComponent>(console));
             var msg = new AdjustStationJobMsg(StationJobsSystem.ShipFreelancerInterviewJobId, 1)
             {
                 Actor = authorizedCard,
@@ -533,10 +533,10 @@ public sealed class GeneralStationRecordConsoleTest
         Assert.That(method, Is.Not.Null);
 
         object?[] args = { station, null, null };
-        var success = (bool) method!.Invoke(system, args)!;
+        var success = (bool)method!.Invoke(system, args)!;
         Assert.That(success, Is.True);
 
-        return (Dictionary<uint, string>) args[2]!;
+        return (Dictionary<uint, string>)args[2]!;
     }
 
     private static bool CanEditShipRecords(GeneralStationRecordConsoleSystem system, EntityUid actor, EntityUid target)
@@ -546,7 +546,7 @@ public sealed class GeneralStationRecordConsoleTest
             BindingFlags.Instance | BindingFlags.NonPublic);
 
         Assert.That(method, Is.Not.Null);
-        return (bool) method!.Invoke(system, new object[] { actor, target })!;
+        return (bool)method!.Invoke(system, new object[] { actor, target })!;
     }
 
     private static void ForceGridUid(TransformComponent transform, EntityUid gridUid)

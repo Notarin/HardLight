@@ -281,7 +281,7 @@ public sealed partial class GunSystem : SharedGunSystem
 
                             var hit = result.HitEntity;
 
-                                FireEffects(fromEffect, result.Distance, dir.Normalized().ToAngle(), hitscan, hit, user, gunUid);
+                            FireEffects(fromEffect, result.Distance, dir.Normalized().ToAngle(), hitscan, hit, user, gunUid);
 
                             // HardLight: an enemy shield scatters a ship-weapon beam instead of
                             // blocking it, and drains the shield emitter; the beam then continues from the crossing point.

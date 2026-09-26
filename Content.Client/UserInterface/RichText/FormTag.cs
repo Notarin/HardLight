@@ -23,13 +23,13 @@ public sealed class FormTag : IMarkupTagHandler
         var underscores = 25;
         if (node.Value.TryGetLong(out var val))
         {
-            underscores = (int) val;
+            underscores = (int)val;
         }
 
         var index = 0;
         if (node.Attributes.TryGetValue("i", out var indexVal) && indexVal.TryGetLong(out var i))
         {
-            index = (int) i;
+            index = (int)i;
         }
 
         var text = new string('_', underscores);

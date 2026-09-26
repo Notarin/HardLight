@@ -45,7 +45,7 @@ public sealed partial class ParacusiaComponent : Component
 
     [ViewVariables(VVAccess.ReadWrite)]
     [AutoNetworkedField]
-    public TimeSpan IncidentsDelayedUntil = new(0, 0 ,0);
+    public TimeSpan IncidentsDelayedUntil = new(0, 0, 0);
 
     public EntityUid? Stream;
 }

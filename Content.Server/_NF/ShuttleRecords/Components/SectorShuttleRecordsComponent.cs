@@ -1,4 +1,4 @@
-﻿using Content.Shared._NF.ShuttleRecords;
+using Content.Shared._NF.ShuttleRecords;
 
 namespace Content.Server._NF.ShuttleRecords.Components;
 

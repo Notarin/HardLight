@@ -1,4 +1,4 @@
-﻿namespace Content.Server._NF.CrateMachine;
+namespace Content.Server._NF.CrateMachine;
 
 /// <summary>
 /// Raised whenever a crate machine state changes.

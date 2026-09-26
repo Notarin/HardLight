@@ -175,6 +175,6 @@ public abstract class SharedRottingSystem : EntitySystem
         if (!Resolve(uid, ref comp, ref perishable))
             return 0;
 
-        return (int) (comp.TotalRotTime.TotalSeconds / perishable.RotAfter.TotalSeconds);
+        return (int)(comp.TotalRotTime.TotalSeconds / perishable.RotAfter.TotalSeconds);
     }
 }

@@ -177,7 +177,7 @@ public sealed class TurbineSystem : SharedTurbineSystem
 
         supplier.MaxSupply = comp.LastGen;
 
-        if(!GetPipes(uid, comp, out var inlet, out var outlet))
+        if (!GetPipes(uid, comp, out var inlet, out var outlet))
             return;
 
         if (comp.CurrentBlade == null || comp.CurrentStator == null)
@@ -212,7 +212,7 @@ public sealed class TurbineSystem : SharedTurbineSystem
             AirContents.Clear();
         }
 
-        if(Exists(comp.AlarmAudioOvertemp))
+        if (Exists(comp.AlarmAudioOvertemp))
             _ambientSoundSystem.SetAmbience(comp.AlarmAudioOvertemp.Value, !comp.Ruined && AirContents.Temperature >= comp.MaxTemp);
 
         // Update stator load based on device network
@@ -285,7 +285,7 @@ public sealed class TurbineSystem : SharedTurbineSystem
                 comp.RPM = NextRPM;
             }
 
-            if(Exists(comp.AlarmAudioUnderspeed))
+            if (Exists(comp.AlarmAudioUnderspeed))
                 _ambientSoundSystem.SetAmbience(comp.AlarmAudioUnderspeed.Value, !comp.Ruined && comp.Stalling && !comp.Undertemp && comp.FlowRate > 0);
 
             if (comp.RPM > 10)
@@ -316,7 +316,7 @@ public sealed class TurbineSystem : SharedTurbineSystem
         }
 
         // Explode
-        if (!comp.Ruined && (comp.BladeHealth <= 0|| comp.RPM>comp.BestRPM*4))
+        if (!comp.Ruined && (comp.BladeHealth <= 0 || comp.RPM > comp.BestRPM * 4))
         {
             TearApart(uid, comp);
         }
@@ -362,7 +362,7 @@ public sealed class TurbineSystem : SharedTurbineSystem
     private void ShootShrapnel(EntityUid uid)
     {
         var ShrapnelCount = _random.Next(5, 20);
-        for (var i=0;i< ShrapnelCount; i++)
+        for (var i = 0; i < ShrapnelCount; i++)
         {
             _gun.ShootProjectile(Spawn("TurbineBladeShrapnel", _transformSystem.GetMapCoordinates(uid)), _random.NextAngle().ToVec().Normalized(), _random.NextVector2(2, 6), uid, uid);
         }
@@ -406,11 +406,11 @@ public sealed class TurbineSystem : SharedTurbineSystem
 
     private void OnTurbineFlowRateChanged(EntityUid uid, TurbineComponent turbine, TurbineChangeFlowRateMessage args)
     {
-        if(TrySetFlowRate())
+        if (TrySetFlowRate())
         {
             // Data is sent to a log queue to avoid spamming the admin log when adjusting values rapidly
             var key = new KeyValuePair<EntityUid, EntityUid>(args.Actor, uid);
-            if(!_logQueue.TryGetValue(key, out var value))
+            if (!_logQueue.TryGetValue(key, out var value))
                 _logQueue.Add(key, new LogData
                 {
                     CreationTime = _gameTiming.RealTime,
@@ -543,7 +543,7 @@ public sealed class TurbineSystem : SharedTurbineSystem
 
     private void OnUnanchorAttempt(EntityUid uid, TurbineComponent comp, ref UnanchorAttemptEvent args)
     {
-        if (comp.RPM>1)
+        if (comp.RPM > 1)
         {
             _popupSystem.PopupEntity(Loc.GetString("turbine-unanchor-warning"), args.User, args.User, PopupType.LargeCaution);
             args.Cancel();
@@ -598,7 +598,7 @@ public sealed class TurbineSystem : SharedTurbineSystem
         var threshold = 50;
         var ratio = damage / threshold;
 
-        if(ratio < 1)
+        if (ratio < 1)
         {
             comp.BladeHealth -= _random.Next(1, (int)(3f * ratio) + 1);
             UpdateHealthIndicators(uid, comp);

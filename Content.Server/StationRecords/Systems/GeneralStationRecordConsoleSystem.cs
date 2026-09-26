@@ -123,7 +123,7 @@ public sealed class GeneralStationRecordConsoleSystem : EntitySystem
 
     public void ClearTransientStateOnGrid(EntityUid gridUid)
     {
-        var query = EntityManager.EntityQueryEnumerator<GeneralStationRecordConsoleComponent, TransformComponent>();
+        var query = EntityQueryEnumerator<GeneralStationRecordConsoleComponent, TransformComponent>();
         while (query.MoveNext(out _, out var console, out var xform))
         {
             if (xform.GridUid != gridUid)

@@ -1,4 +1,4 @@
-﻿using Robust.Shared.Serialization;
+using Robust.Shared.Serialization;
 
 namespace Content.Shared.CartridgeLoader.Cartridges;
 
@@ -17,5 +17,5 @@ public sealed class GlimmerMonitorUiState : BoundUserInterfaceState
 public sealed class GlimmerMonitorSyncMessageEvent : CartridgeMessageEvent
 {
     public GlimmerMonitorSyncMessageEvent()
-    {}
+    { }
 }

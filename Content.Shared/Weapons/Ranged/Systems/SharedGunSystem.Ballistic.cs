@@ -354,7 +354,7 @@ public abstract partial class SharedGunSystem
                 args.Ammo.Add((entity, EnsureShootable(entity)));
             }
 
-            NextShot: ;
+        NextShot:;
         }
 
         UpdateBallisticAppearance(uid, component);

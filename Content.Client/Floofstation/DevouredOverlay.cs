@@ -57,7 +57,7 @@ public sealed class DevouredOverlay : Overlay
         var worldHandle = args.WorldHandle;
         var viewport = args.WorldAABB;
         var viewWidth = args.ViewportBounds.Width;
-        var time = (float) _timing.RealTime.TotalSeconds;
+        var time = (float)_timing.RealTime.TotalSeconds;
         const float digestionPreview = 1f;
 
         var outerRadius = (1.0f - digestionPreview * 0.6f) * viewWidth;

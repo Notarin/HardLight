@@ -31,7 +31,7 @@ public sealed class LatheAutomationSystem : EntitySystem
         if (args.Port != ent.Comp.PrintPort)
             return;
 
-        if (ent.Comp.LastRecipe is not {} recipe)
+        if (ent.Comp.LastRecipe is not { } recipe)
             return;
 
         _lathe.TryAddToQueue(ent.Owner, recipe, 1);

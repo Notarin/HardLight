@@ -63,7 +63,7 @@ public sealed class PlumbingConnectorAppearanceSystem : EntitySystem
         // Insert at layer 0 so connectors render UNDER the plumbing machine sprite
         foreach (var layerKey in ConnectionLayers)
         {
-            var direction = (PipeDirection) layerKey;
+            var direction = (PipeDirection)layerKey;
             var baseOffset = GetDirectionOffset(direction, component.Offset);
 
             // Each insertion at 0 pushes previous layers up, so we use index 0 for all operations
@@ -268,7 +268,7 @@ public sealed class PlumbingConnectorAppearanceSystem : EntitySystem
         if (encoded == 0)
             return AtmosPipeLayer.Primary;
 
-        return (AtmosPipeLayer) Math.Clamp(encoded - 1, 0, (int) AtmosPipeLayer.Tertiary); // HL TODO: update for 5 layers later
+        return (AtmosPipeLayer)Math.Clamp(encoded - 1, 0, (int)AtmosPipeLayer.Tertiary); // HL TODO: update for 5 layers later
     }
 
     private static Vector2 GetConnectedLayerOffset(PipeDirection worldDirection, Angle localRotation, AtmosPipeLayer layer, float offset)

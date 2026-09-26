@@ -45,7 +45,7 @@ public partial class SharedMartialArtsSystem
         if (martialArtsKnowledge.MartialArtsForm != MartialArtsForms.CorporateJudo)
             return;
 
-        if(!TryComp<MeleeWeaponComponent>(args.Wearer, out var meleeWeaponComponent))
+        if (!TryComp<MeleeWeaponComponent>(args.Wearer, out var meleeWeaponComponent))
             return;
 
         meleeWeaponComponent.Damage = martialArtsKnowledge.OriginalFistDamage;

@@ -29,7 +29,7 @@ public sealed partial class AutomatedBeakerSlot : AutomationSlot
 
     public override Entity<SolutionComponent>? GetSolution()
     {
-        if (_slots.GetItemOrNull(Owner, SlotName) is not {} beaker)
+        if (_slots.GetItemOrNull(Owner, SlotName) is not { } beaker)
             return null;
 
         _solution.TryGetFitsInDispenser(beaker, out var solution, out _);

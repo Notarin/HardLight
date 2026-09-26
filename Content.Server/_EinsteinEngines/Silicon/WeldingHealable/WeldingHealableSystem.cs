@@ -34,7 +34,7 @@ public sealed class WeldingHealableSystem : SharedWeldingHealableSystem
             || !HasDamage(damageable, component)
             || !TryComp<WelderComponent>(args.Used, out var welder)
             || !TryComp<SolutionContainerManagerComponent>(args.Used, out var solutionContainer)
-            || !_solutionContainer.TryGetSolution(((EntityUid) args.Used, solutionContainer), welder.FuelSolutionName, out var solution))
+            || !_solutionContainer.TryGetSolution(((EntityUid)args.Used, solutionContainer), welder.FuelSolutionName, out var solution))
             return;
 
         _damageableSystem.TryChangeDamage(uid, component.Damage, true, false, origin: args.User);
@@ -63,8 +63,8 @@ public sealed class WeldingHealableSystem : SharedWeldingHealableSystem
     private async void Repair(EntityUid uid, WeldingHealableComponent healableComponent, InteractUsingEvent args)
     {
         if (args.Handled
-            || !EntityManager.TryGetComponent(args.Used, out WeldingHealingComponent? component)
-            || !EntityManager.TryGetComponent(args.Target, out DamageableComponent? damageable)
+            || !TryComp(args.Used, out WeldingHealingComponent? component)
+            || !TryComp(args.Target, out DamageableComponent? damageable)
             || damageable.DamageContainerID is null
             || !component.DamageContainers.Contains(damageable.DamageContainerID)
             || !HasDamage(damageable, component)
@@ -88,7 +88,7 @@ public sealed class WeldingHealableSystem : SharedWeldingHealableSystem
             });
     }
 
- private bool HasDamage(DamageableComponent component, WeldingHealingComponent healable)
+    private bool HasDamage(DamageableComponent component, WeldingHealingComponent healable)
     {
         if (healable.Damage.DamageDict is null)
             return false;

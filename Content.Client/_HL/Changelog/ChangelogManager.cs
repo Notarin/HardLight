@@ -55,7 +55,7 @@ public sealed partial class ChangelogManager : IPostInjectInit
         foreach (var file in _resource.ContentFindFiles(directory))
         {
             if (file.Extension != "yml" || file.Directory != directory) continue;
-            
+
             var path = new ResPath($"/changelog_last_seen_{_configManager.GetCVar(CCVars.ServerId)}_{file.Filename}");
             using var readStream = _resource.ContentFileRead(file);
             using var writeStream = _resource.UserData.OpenWrite(path);
@@ -96,7 +96,7 @@ public sealed partial class ChangelogManager : IPostInjectInit
         foreach (var file in _resource.ContentFindFiles(new ResPath("/Changelog/")))
         {
             if (file.Extension != "yml") continue;
-            
+
             var changelog = changelogs.FirstOrDefault(c => c.Name == file.FilenameWithoutExtension);
             if (changelog == null) continue;
 
@@ -126,7 +126,7 @@ public sealed partial class ChangelogManager : IPostInjectInit
                     }
                 }
             }
-            else 
+            else
             {
                 foreach (var version in changelog.Entries.Keys)
                 {
@@ -182,7 +182,7 @@ public sealed partial class ChangelogManager : IPostInjectInit
     {
         var hash = new HashCode();
         var changeLists = new[] { entry.Add, entry.Fix, entry.Tweak, entry.Remove };
-        
+
         foreach (var changeList in changeLists)
         {
             if (changeList == null) continue;
@@ -207,8 +207,8 @@ public sealed partial class ChangelogManager : IPostInjectInit
         {
             var directory = new ResPath("/Changelog");
             var changelogs = (from file in _resource.ContentFindFiles(new ResPath("/Changelog/"))
-                where file.Directory == directory
-                select LoadSingleChangelog(file)).Where(c => c != null).Select(c => c!).ToList();
+                              where file.Directory == directory
+                              select LoadSingleChangelog(file)).Where(c => c != null).Select(c => c!).ToList();
 
             changelogs = [.. changelogs.OrderBy(x => x.Name != MainChangelogName)];
             return changelogs;

@@ -114,62 +114,62 @@ public sealed class PlantAnalyzerSystem : EntitySystem
 
         if (TryComp<SeedComponent>(target, out var seedComp))
         {
-                if (seedComp.Seed != null)
+            if (seedComp.Seed != null)
+            {
+                var state = ObtainingGeneDataSeed(seedComp.Seed, target, false, ent.Comp.Settings.AdvancedScan);
+                var uiState = new PlantAnalyzerUserInterfaceState()
                 {
-                        var state = ObtainingGeneDataSeed(seedComp.Seed, target, false, ent.Comp.Settings.AdvancedScan);
-                        var uiState = new PlantAnalyzerUserInterfaceState()
-                        {
-                            TargetEntity = state.TargetEntity,
-                            IsTray = state.IsTray,
-                            IsSwab = state.IsSwab,
-                            SeedName = state.SeedName,
-                            SeedChem = state.SeedChem,
-                            HarvestType = state.HarvestType,
-                            ExudeGases = state.ExudeGases,
-                            ExudeGasRates = state.ExudeGasRates,
-                            ConsumeGases = state.ConsumeGases,
-                            ConsumeGasRates = state.ConsumeGasRates,
-                            Endurance = state.Endurance,
-                            SeedYield = state.SeedYield,
-                            Lifespan = state.Lifespan,
-                            Maturation = state.Maturation,
-                            Production = state.Production,
-                            GrowthStages = state.GrowthStages,
-                            SeedPotency = state.SeedPotency,
-                            Speciation = state.Speciation,
-                            AdvancedInfo = state.AdvancedInfo
-                        };
-                        _uiSystem.SetUiState(ent.Owner, PlantAnalyzerUiKey.Key, uiState);
-                        Timer.Spawn(TimeSpan.Zero, () => _uiSystem.ServerSendUiMessage(ent.Owner, PlantAnalyzerUiKey.Key, state, actor));
-                }
+                    TargetEntity = state.TargetEntity,
+                    IsTray = state.IsTray,
+                    IsSwab = state.IsSwab,
+                    SeedName = state.SeedName,
+                    SeedChem = state.SeedChem,
+                    HarvestType = state.HarvestType,
+                    ExudeGases = state.ExudeGases,
+                    ExudeGasRates = state.ExudeGasRates,
+                    ConsumeGases = state.ConsumeGases,
+                    ConsumeGasRates = state.ConsumeGasRates,
+                    Endurance = state.Endurance,
+                    SeedYield = state.SeedYield,
+                    Lifespan = state.Lifespan,
+                    Maturation = state.Maturation,
+                    Production = state.Production,
+                    GrowthStages = state.GrowthStages,
+                    SeedPotency = state.SeedPotency,
+                    Speciation = state.Speciation,
+                    AdvancedInfo = state.AdvancedInfo
+                };
+                _uiSystem.SetUiState(ent.Owner, PlantAnalyzerUiKey.Key, uiState);
+                Timer.Spawn(TimeSpan.Zero, () => _uiSystem.ServerSendUiMessage(ent.Owner, PlantAnalyzerUiKey.Key, state, actor));
+            }
             else if (seedComp.SeedId != null && _prototypeManager.TryIndex(seedComp.SeedId, out SeedPrototype? protoSeed))
+            {
+                var state = ObtainingGeneDataSeed(protoSeed, target, false, ent.Comp.Settings.AdvancedScan);
+                var uiState2 = new PlantAnalyzerUserInterfaceState()
                 {
-                    var state = ObtainingGeneDataSeed(protoSeed, target, false, ent.Comp.Settings.AdvancedScan);
-                    var uiState2 = new PlantAnalyzerUserInterfaceState()
-                    {
-                        TargetEntity = state.TargetEntity,
-                        IsTray = state.IsTray,
-                        IsSwab = state.IsSwab,
-                        SeedName = state.SeedName,
-                        SeedChem = state.SeedChem,
-                        HarvestType = state.HarvestType,
-                        ExudeGases = state.ExudeGases,
-                        ExudeGasRates = state.ExudeGasRates,
-                        ConsumeGases = state.ConsumeGases,
-                        ConsumeGasRates = state.ConsumeGasRates,
-                        Endurance = state.Endurance,
-                        SeedYield = state.SeedYield,
-                        Lifespan = state.Lifespan,
-                        Maturation = state.Maturation,
-                        Production = state.Production,
-                        GrowthStages = state.GrowthStages,
-                        SeedPotency = state.SeedPotency,
-                        Speciation = state.Speciation,
-                        AdvancedInfo = state.AdvancedInfo
-                    };
-                    _uiSystem.SetUiState(ent.Owner, PlantAnalyzerUiKey.Key, uiState2);
-                    Timer.Spawn(TimeSpan.Zero, () => _uiSystem.ServerSendUiMessage(ent.Owner, PlantAnalyzerUiKey.Key, state, actor));
-                }
+                    TargetEntity = state.TargetEntity,
+                    IsTray = state.IsTray,
+                    IsSwab = state.IsSwab,
+                    SeedName = state.SeedName,
+                    SeedChem = state.SeedChem,
+                    HarvestType = state.HarvestType,
+                    ExudeGases = state.ExudeGases,
+                    ExudeGasRates = state.ExudeGasRates,
+                    ConsumeGases = state.ConsumeGases,
+                    ConsumeGasRates = state.ConsumeGasRates,
+                    Endurance = state.Endurance,
+                    SeedYield = state.SeedYield,
+                    Lifespan = state.Lifespan,
+                    Maturation = state.Maturation,
+                    Production = state.Production,
+                    GrowthStages = state.GrowthStages,
+                    SeedPotency = state.SeedPotency,
+                    Speciation = state.Speciation,
+                    AdvancedInfo = state.AdvancedInfo
+                };
+                _uiSystem.SetUiState(ent.Owner, PlantAnalyzerUiKey.Key, uiState2);
+                Timer.Spawn(TimeSpan.Zero, () => _uiSystem.ServerSendUiMessage(ent.Owner, PlantAnalyzerUiKey.Key, state, actor));
+            }
         }
         else if (TryComp<PlantHolderComponent>(target, out var plantComp))
         {
@@ -317,10 +317,10 @@ public sealed class PlantAnalyzerSystem : EntitySystem
                     SeedName = state.SeedName,
                     SeedChem = state.SeedChem,
                     HarvestType = state.HarvestType,
-                        ExudeGases = state.ExudeGases,
-                        ExudeGasRates = state.ExudeGasRates,
-                        ConsumeGases = state.ConsumeGases,
-                        ConsumeGasRates = state.ConsumeGasRates,
+                    ExudeGases = state.ExudeGases,
+                    ExudeGasRates = state.ExudeGasRates,
+                    ConsumeGases = state.ConsumeGases,
+                    ConsumeGasRates = state.ConsumeGasRates,
                     Endurance = state.Endurance,
                     SeedYield = state.SeedYield,
                     Lifespan = state.Lifespan,
@@ -348,10 +348,10 @@ public sealed class PlantAnalyzerSystem : EntitySystem
                     SeedName = state.SeedName,
                     SeedChem = state.SeedChem,
                     HarvestType = state.HarvestType,
-                        ExudeGases = state.ExudeGases,
-                        ExudeGasRates = state.ExudeGasRates,
-                        ConsumeGases = state.ConsumeGases,
-                        ConsumeGasRates = state.ConsumeGasRates,
+                    ExudeGases = state.ExudeGases,
+                    ExudeGasRates = state.ExudeGasRates,
+                    ConsumeGases = state.ConsumeGases,
+                    ConsumeGasRates = state.ConsumeGasRates,
                     Endurance = state.Endurance,
                     SeedYield = state.SeedYield,
                     Lifespan = state.Lifespan,
@@ -437,7 +437,7 @@ public sealed class PlantAnalyzerSystem : EntitySystem
                 WeedTolerance = seedData.WeedTolerance,
                 Mutations = GetMutationFlags(seedData)
             };
-            for(int i=0;i<ret.SeedChem.Length;i++)
+            for (int i = 0; i < ret.SeedChem.Length; i++)
             {
                 ret.SeedChem[i] += seedData.Chemicals[ret.SeedChem[i]].Max;
             }

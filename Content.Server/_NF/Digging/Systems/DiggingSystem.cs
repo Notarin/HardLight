@@ -66,7 +66,7 @@ public sealed class DiggingSystem : EntitySystem
         EntityCoordinates clickLocation)
     {
         ToolComponent? tool = null;
-        if (component.ToolComponentNeeded && !TryComp(shovel, out  tool))
+        if (component.ToolComponentNeeded && !TryComp(shovel, out tool))
             return false;
 
         var mapUid = _transform.GetGrid(clickLocation);

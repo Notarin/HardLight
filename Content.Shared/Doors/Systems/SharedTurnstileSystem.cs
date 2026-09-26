@@ -134,7 +134,7 @@ public abstract partial class SharedTurnstileSystem : EntitySystem
     private void SanitizeCollideExceptions(Entity<TurnstileComponent> ent)
     {
         ent.Comp.CollideExceptions.RemoveWhere(uid =>
-            !EntityManager.EntityExists(uid)
+            !Exists(uid)
             || EntityManager.IsQueuedForDeletion(uid)
             || TerminatingOrDeleted(uid)
             || !HasComp<MetaDataComponent>(uid));

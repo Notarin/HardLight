@@ -93,7 +93,7 @@ public sealed class HumanoidAppearanceSystem : SharedHumanoidAppearanceSystem
 
     private void OnConsentChanged()
     {
-        var humanoidQuery = EntityManager.AllEntityQueryEnumerator<HumanoidAppearanceComponent, SpriteComponent>();
+        var humanoidQuery = AllEntityQuery<HumanoidAppearanceComponent, SpriteComponent>();
         while (humanoidQuery.MoveNext(out var owner, out var humanoid, out var sprite))
         {
             UpdateSprite(owner, humanoid, sprite);
@@ -355,7 +355,7 @@ public sealed class HumanoidAppearanceSystem : SharedHumanoidAppearanceSystem
             if (_markingManager.TryGetMarking(marking, out var prototype))
             {
                 // Markings are added to ClientOldMarkings because otherwise it causes issues when toggling the feature on/off.
-                humanoid.ClientOldMarkings.Markings.Add(MarkingCategories.UndergarmentTop, new List<Marking>{ marking });
+                humanoid.ClientOldMarkings.Markings.Add(MarkingCategories.UndergarmentTop, new List<Marking> { marking });
                 ApplyMarking(uid, prototype, null, false, true, humanoid, sprite, layerIndices); //starlight, glowing, // HardLight: added layerIndices
             }
         }
@@ -366,7 +366,7 @@ public sealed class HumanoidAppearanceSystem : SharedHumanoidAppearanceSystem
             var marking = new Marking(humanoid.UndergarmentBottom, new List<Color> { new Color() }, false); //starlight, glowing
             if (_markingManager.TryGetMarking(marking, out var prototype))
             {
-                humanoid.ClientOldMarkings.Markings.Add(MarkingCategories.UndergarmentBottom, new List<Marking>{ marking });
+                humanoid.ClientOldMarkings.Markings.Add(MarkingCategories.UndergarmentBottom, new List<Marking> { marking });
                 ApplyMarking(uid, prototype, null, false, true, humanoid, sprite, layerIndices); //starlight, glowing, // HardLight: added layerIndices
             }
         }
@@ -466,7 +466,7 @@ public sealed class HumanoidAppearanceSystem : SharedHumanoidAppearanceSystem
             var layerId = $"{markingPrototype.ID}-{rsi.RsiState}";
             // FLOOF CHANGE END
 
-            if (!_sprite.LayerMapTryGet((uid, sprite), layerId, out _ , false))
+            if (!_sprite.LayerMapTryGet((uid, sprite), layerId, out _, false))
             {
                 // for layers that are supposed to be behind everything,
                 // adding 1 to the layer index makes it not be behind
@@ -507,21 +507,21 @@ public sealed class HumanoidAppearanceSystem : SharedHumanoidAppearanceSystem
             // }
 
             // Starlight start, # HardLight: Not really sure why it broke, but it had to be rewritten to work again, so here we are.
-                if (isGlowing)
+            if (isGlowing)
+            {
+                sprite.LayerSetShader(layerId, SpriteSystem.UnshadedId.Id);
+            }
+            else if (!string.IsNullOrWhiteSpace(markingPrototype.Shader))
+            {
+                sprite.LayerSetShader(layerId, markingPrototype.Shader);
+            }
+            else
+            {
+                if (_sprite.LayerMapTryGet((uid, sprite), layerId, out var shaderLayerIndex, false))
                 {
-                    sprite.LayerSetShader(layerId, SpriteSystem.UnshadedId.Id);
+                    sprite.LayerSetShader(shaderLayerIndex, null, null);
                 }
-                else if (!string.IsNullOrWhiteSpace(markingPrototype.Shader))
-                {
-                    sprite.LayerSetShader(layerId, markingPrototype.Shader);
-                }
-                else
-                {
-                    if (_sprite.LayerMapTryGet((uid, sprite), layerId, out var shaderLayerIndex, false))
-                    {
-                        sprite.LayerSetShader(shaderLayerIndex, null, null);
-                    }
-                }
+            }
             // Starlight end
         }
     }

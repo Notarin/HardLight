@@ -1,4 +1,4 @@
-﻿using System.Collections.Immutable;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Threading.Tasks;
 using Content.Server.Administration.Managers;
@@ -79,8 +79,8 @@ public sealed class BanListEui : BaseEui
 
             if (_admins.HasAdminFlag(Player, AdminFlags.Pii))
             {
-                ips = [..ban.Addresses.Select(a => (a.address.ToString(), a.cidrMask))];
-                hwids = [..ban.HWIds.Select(h => h.ToString())];
+                ips = [.. ban.Addresses.Select(a => (a.address.ToString(), a.cidrMask))];
+                hwids = [.. ban.HWIds.Select(h => h.ToString())];
             }
 
             list.Add(new SharedBan(

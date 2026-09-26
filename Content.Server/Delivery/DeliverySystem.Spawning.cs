@@ -76,7 +76,7 @@ public sealed partial class DeliverySystem
         }
 
         if (recordCount == 0) // records.Records.Keys.Count<recordCount
-        // HardLight end
+                              // HardLight end
             return;
 
         // We take the amount of mail calculated based on player amount or the minimum, whichever is higher.

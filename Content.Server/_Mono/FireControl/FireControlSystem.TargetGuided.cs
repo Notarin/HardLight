@@ -167,7 +167,7 @@ public sealed partial class FireControlSystem
         _scratchConsolesToRemove.Clear();
         foreach (var consoleUid in _consoleMousePositions.Keys)
         {
-            if (!_scratchActiveConsoles.Contains(consoleUid) || !EntityManager.EntityExists(consoleUid))
+            if (!_scratchActiveConsoles.Contains(consoleUid) || !Exists(consoleUid))
                 _scratchConsolesToRemove.Add(consoleUid);
         }
 

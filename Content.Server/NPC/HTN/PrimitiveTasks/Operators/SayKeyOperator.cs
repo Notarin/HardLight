@@ -1,4 +1,4 @@
-﻿using Content.Server.Chat.Systems;
+using Content.Server.Chat.Systems;
 using Content.Shared.Chat; // For InGameICChatType
 
 namespace Content.Server.NPC.HTN.PrimitiveTasks.Operators;

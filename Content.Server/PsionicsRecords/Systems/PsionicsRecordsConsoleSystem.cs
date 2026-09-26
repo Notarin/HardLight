@@ -70,7 +70,7 @@ public sealed class PsionicsRecordsConsoleSystem : SharedPsionicsRecordsConsoleS
 
     public void ClearTransientStateOnGrid(EntityUid gridUid)
     {
-        var query = EntityManager.EntityQueryEnumerator<PsionicsRecordsConsoleComponent, TransformComponent>();
+        var query = EntityQueryEnumerator<PsionicsRecordsConsoleComponent, TransformComponent>();
         while (query.MoveNext(out _, out var console, out var xform))
         {
             if (xform.GridUid != gridUid)

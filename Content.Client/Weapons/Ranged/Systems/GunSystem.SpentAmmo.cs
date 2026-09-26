@@ -21,7 +21,7 @@ public sealed partial class GunSystem
             return;
         }
 
-        var spent = (bool) varSpent;
+        var spent = (bool)varSpent;
         string state;
 
         if (spent)

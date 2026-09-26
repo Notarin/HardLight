@@ -276,7 +276,7 @@ namespace Content.Server.Connection
                 }
 
                 var minOverallMinutes = _cfg.GetCVar(CCVars.PanicBunkerMinOverallMinutes);
-                var overallTime = ( await _db.GetPlayTimes(e.UserId)).Find(p => p.Tracker == PlayTimeTrackingShared.TrackerOverall);
+                var overallTime = (await _db.GetPlayTimes(e.UserId)).Find(p => p.Tracker == PlayTimeTrackingShared.TrackerOverall);
                 var haveMinOverallTime = overallTime != null && overallTime.TimeSpent.TotalMinutes > minOverallMinutes;
 
                 // Use the custom reason if it exists & they don't have the minimum time
@@ -325,18 +325,18 @@ namespace Content.Server.Connection
             }
 
             if (_cfg.GetCVar(FSCCVars.DiscordAuthEnabled) && _cfg.GetCVar(CCVars.WhitelistEnabled))
-             {
-                 if (await _discordAuthManager.IsVerified(userId) == false)
-                     return null;
+            {
+                if (await _discordAuthManager.IsVerified(userId) == false)
+                    return null;
 
-                 if (adminData is not null)
-                     return null;
+                if (adminData is not null)
+                    return null;
 
-                 if (await _discordAuthManager.IsWhitelisted(userId) || await _db.GetWhitelistStatusAsync(userId))
-                     return null;
+                if (await _discordAuthManager.IsWhitelisted(userId) || await _db.GetWhitelistStatusAsync(userId))
+                    return null;
 
-                 return (ConnectionDenyReason.Whitelist, Loc.GetString("not-whitelisted"), null);
-             }
+                return (ConnectionDenyReason.Whitelist, Loc.GetString("not-whitelisted"), null);
+            }
 
             // Checks for whitelist IF it's enabled AND the user isn't an admin. Admins are always allowed.
             if (_cfg.GetCVar(CCVars.WhitelistEnabled) && !wasInGame && adminData is null) // Frontier: allow users who joined before panic bunker was enforced to reconnect

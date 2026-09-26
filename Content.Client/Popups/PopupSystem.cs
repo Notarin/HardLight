@@ -325,11 +325,11 @@ namespace Content.Client.Popups
                 PopupMessage(ev.Message, ev.Type, transform.Coordinates, entity, false);
         }
 
-/*         private void OnRoundRestart(RoundRestartCleanupEvent ev)
-        {
-            _aliveCursorLabels.Clear();
-            _aliveWorldLabels.Clear();
-        } */
+        /*         private void OnRoundRestart(RoundRestartCleanupEvent ev)
+                {
+                    _aliveCursorLabels.Clear();
+                    _aliveWorldLabels.Clear();
+                } */
 
         #endregion
 

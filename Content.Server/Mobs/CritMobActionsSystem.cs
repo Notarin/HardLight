@@ -1,4 +1,4 @@
-﻿using Content.Server.Administration;
+using Content.Server.Administration;
 using Content.Server.Chat.Systems;
 using Content.Server.Ghost;
 using Content.Server.Mind;

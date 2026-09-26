@@ -42,7 +42,7 @@ namespace Content.Server.Atmos.EntitySystems
                 return;
             }
 
-            if(tile.ExcitedGroup != null)
+            if (tile.ExcitedGroup != null)
                 ExcitedGroupResetCooldowns(tile.ExcitedGroup);
 
             if ((tile.Hotspot.Temperature < Atmospherics.FireMinimumTemperatureToExist) || (tile.Hotspot.Volume <= 1f)
@@ -92,14 +92,14 @@ namespace Content.Server.Atmos.EntitySystems
                         if (otherTile == null)
                             continue;
 
-                        if(!otherTile.Hotspot.Valid)
-                            HotspotExpose(gridAtmosphere, otherTile, radiatedTemperature, Atmospherics.CellVolume/4);
+                        if (!otherTile.Hotspot.Valid)
+                            HotspotExpose(gridAtmosphere, otherTile, radiatedTemperature, Atmospherics.CellVolume / 4);
                     }
                 }
             }
             else
             {
-                tile.Hotspot.State = (byte) (tile.Hotspot.Volume > Atmospherics.CellVolume * 0.4f ? 2 : 1);
+                tile.Hotspot.State = (byte)(tile.Hotspot.Volume > Atmospherics.CellVolume * 0.4f ? 2 : 1);
             }
 
             if (tile.Hotspot.Temperature > tile.MaxFireTemperatureSustained)
@@ -112,7 +112,7 @@ namespace Content.Server.Atmos.EntitySystems
                 // A few details on the audio parameters for fire.
                 // The greater the fire state, the lesser the pitch variation.
                 // The greater the fire state, the greater the volume.
-                _audio.PlayPvs(HotspotSound, coordinates, AudioParams.Default.WithVariation(0.15f/tile.Hotspot.State).WithVolume(-5f + 5f * tile.Hotspot.State));
+                _audio.PlayPvs(HotspotSound, coordinates, AudioParams.Default.WithVariation(0.15f / tile.Hotspot.State).WithVolume(-5f + 5f * tile.Hotspot.State));
             }
 
             if (_hotspotSoundCooldown > HotspotSoundCooldownCycles)
@@ -174,7 +174,7 @@ namespace Content.Server.Atmos.EntitySystems
         {
             if (tile.Air == null || !tile.Hotspot.Valid) return;
 
-            tile.Hotspot.Bypassing = tile.Hotspot.SkippedFirstProcess && tile.Hotspot.Volume > tile.Air.Volume*0.95f;
+            tile.Hotspot.Bypassing = tile.Hotspot.SkippedFirstProcess && tile.Hotspot.Volume > tile.Air.Volume * 0.95f;
 
             if (tile.Hotspot.Bypassing)
             {

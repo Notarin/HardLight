@@ -59,7 +59,7 @@ public sealed partial class SupermatterSystem : EntitySystem
     {
         base.Update(frameTime);
 
-        foreach (var sm in EntityManager.EntityQuery<SupermatterComponent>())
+        foreach (var sm in EntityQuery<SupermatterComponent>())
         {
             if (!sm.Activated)
                 return;
@@ -126,17 +126,17 @@ public sealed partial class SupermatterSystem : EntitySystem
 
         if (!HasComp<ProjectileComponent>(target))
         {
-            EntityManager.SpawnEntity(sm.CollisionResultPrototype, Transform(target).Coordinates);
+            Spawn(sm.CollisionResultPrototype, Transform(target).Coordinates);
             _audio.PlayPvs(sm.DustSound, uid);
             sm.Power += args.OtherBody.Mass;
         }
 
-        EntityManager.QueueDeleteEntity(target);
+        QueueDel(target);
 
         if (TryComp<SupermatterFoodComponent>(target, out var food))
             sm.Power += food.Energy;
         else if (TryComp<ProjectileComponent>(target, out var projectile))
-            sm.Power += (float) projectile.Damage.GetTotal();
+            sm.Power += (float)projectile.Damage.GetTotal();
         else
             sm.Power++;
 
@@ -155,9 +155,9 @@ public sealed partial class SupermatterSystem : EntitySystem
 
         sm.MatterPower += 200;
 
-        EntityManager.SpawnEntity(sm.CollisionResultPrototype, Transform(target).Coordinates);
+        Spawn(sm.CollisionResultPrototype, Transform(target).Coordinates);
         _audio.PlayPvs(sm.DustSound, uid);
-        EntityManager.QueueDeleteEntity(target);
+        QueueDel(target);
     }
 
     private void OnItemInteract(EntityUid uid, SupermatterComponent sm, ref InteractUsingEvent args)

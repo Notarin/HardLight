@@ -1,4 +1,4 @@
-﻿using Content.Server.Botany.Systems;
+using Content.Server.Botany.Systems;
 using Content.Shared.EntityEffects;
 
 namespace Content.Server.EntityEffects.Effects.PlantMetabolism;

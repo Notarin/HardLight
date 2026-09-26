@@ -14,7 +14,7 @@ public sealed partial class NanoChatCardComponent : Component
     [DataField, AutoNetworkedField]
     public uint? Number;
 
-   /// <summary>
+    /// <summary>
     ///     Whether a PDA has this card's UI closed.
     ///     Used for notifications.
     /// </summary>

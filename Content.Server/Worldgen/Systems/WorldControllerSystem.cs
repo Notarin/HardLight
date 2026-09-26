@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using Content.Server.Worldgen.Components;
 using Content.Shared.Ghost;
 using Content.Shared.Mind.Components;
@@ -254,7 +254,7 @@ public sealed class WorldControllerSystem : EntitySystem
     {
         if (TryComp<WorldControllerComponent>(chunk, out var existingController))
         {
-            EntityManager.RemoveComponent(chunk, existingController);
+            RemComp(chunk, existingController);
         }
 
         if (!TryComp<WorldChunkComponent>(chunk, out var chunkComponent))

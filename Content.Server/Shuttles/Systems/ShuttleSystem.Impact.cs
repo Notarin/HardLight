@@ -178,13 +178,13 @@ public sealed partial class ShuttleSystem
             for (var y = -radius; y <= radius; y++)
             {
                 // Skip tiles too far from impact center (creating a rough circle)
-                if (x*x + y*y > radius*radius)
+                if (x * x + y * y > radius * radius)
                     continue;
 
                 Vector2i tile = new Vector2i(centerTile.X + x, centerTile.Y + y);
 
                 // Calculate distance-based energy falloff
-                float distanceFactor = 1.0f - (float)Math.Sqrt(x*x + y*y) / (radius + 1);
+                float distanceFactor = 1.0f - (float)Math.Sqrt(x * x + y * y) / (radius + 1);
                 float tileEnergy = energy * distanceFactor;
 
                 // Process entities on this tile

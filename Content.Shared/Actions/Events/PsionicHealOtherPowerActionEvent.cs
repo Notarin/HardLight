@@ -3,6 +3,7 @@ using Content.Shared.Damage;
 using Content.Shared.Popups;
 
 namespace Content.Shared.Actions.Events;
+
 public sealed partial class PsionicHealOtherPowerActionEvent : EntityTargetActionEvent
 {
     [DataField]

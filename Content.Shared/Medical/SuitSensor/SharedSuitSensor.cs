@@ -28,7 +28,7 @@ public sealed class SuitSensorStatus
     public bool IsAlive;
     public int? TotalDamage;
     public int? TotalDamageThreshold;
-    public float? DamagePercentage => TotalDamageThreshold == null || TotalDamage == null ? null : TotalDamage / (float) TotalDamageThreshold;
+    public float? DamagePercentage => TotalDamageThreshold == null || TotalDamage == null ? null : TotalDamage / (float)TotalDamageThreshold;
     public NetCoordinates? Coordinates;
     public string LocationName; // Frontier
 }

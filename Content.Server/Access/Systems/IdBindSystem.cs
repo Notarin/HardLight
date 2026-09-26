@@ -31,9 +31,9 @@ public sealed class IdBindSystem : EntitySystem
 
         if (!ent.Comp.BindPDAOwner)
         {
-			//Remove after running once
-			RemCompDeferred<IdBindComponent>(ent);
-			return;
+            //Remove after running once
+            RemCompDeferred<IdBindComponent>(ent);
+            return;
         }
 
         //Get PDA from main slot and set us as owner

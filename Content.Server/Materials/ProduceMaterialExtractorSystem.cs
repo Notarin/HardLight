@@ -70,7 +70,7 @@ public sealed class ProduceMaterialExtractorSystem : EntitySystem
         var matAmount = solution.Value.Comp.Solution.Contents
             .Where(r => ent.Comp.ExtractionReagents.Contains(r.Reagent.Prototype))
             .Sum(r => r.Quantity.Float()) * stackCount;
-        _materialStorage.TryChangeMaterialAmount(ent, ent.Comp.ExtractedMaterial, (int) matAmount);
+        _materialStorage.TryChangeMaterialAmount(ent, ent.Comp.ExtractedMaterial, (int)matAmount);
 
         if (stackCount > 1 && stack != null)
             _stackSystem.SetCount(used, stack.Count - stackCount, stack);

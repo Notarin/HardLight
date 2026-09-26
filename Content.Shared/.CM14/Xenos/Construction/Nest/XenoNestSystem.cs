@@ -1,4 +1,4 @@
-﻿using System.Numerics;
+using System.Numerics;
 using Content.Shared.Coordinates;
 using Content.Shared.DoAfter;
 using Content.Shared.IdentityManagement;
@@ -46,7 +46,7 @@ public sealed class XenoNestSystem : EntitySystem
         SubscribeLocalEvent<XenoNestedComponent, PreventCollideEvent>(OnNestedPreventCollide);
         SubscribeLocalEvent<XenoNestedComponent, PullAttemptEvent>(OnNestedPullAttempt);
         SubscribeLocalEvent<XenoNestedComponent, UpdateCanMoveEvent>(OnNestedCancel);
-    SubscribeLocalEvent<XenoNestedComponent, InteractionAttemptEvent>(OnNestedCancel);
+        SubscribeLocalEvent<XenoNestedComponent, InteractionAttemptEvent>(OnNestedCancel);
         SubscribeLocalEvent<XenoNestedComponent, UseAttemptEvent>(OnNestedCancel);
         SubscribeLocalEvent<XenoNestedComponent, ThrowAttemptEvent>(OnNestedCancel);
         SubscribeLocalEvent<XenoNestedComponent, PickupAttemptEvent>(OnNestedCancel);
@@ -226,7 +226,7 @@ public sealed class XenoNestSystem : EntitySystem
         if (!nestCoords.TryDelta(EntityManager, _transform, victimCoords, out var delta))
             return null;
 
-        return (new Angle(delta) + - MathHelper.PiOver2).GetCardinalDir();
+        return (new Angle(delta) + -MathHelper.PiOver2).GetCardinalDir();
     }
 
     private bool CanNestPopup(EntityUid user, EntityUid victim, EntityUid surface, Direction direction)

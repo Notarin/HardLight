@@ -63,9 +63,9 @@ public sealed class VendingInteractionTest : InteractionTest
     sprite: error.rsi
 ";
 
-  private static readonly ProtoId<DamageTypePrototype> BluntId = "Blunt";
+    private static readonly ProtoId<DamageTypePrototype> BluntId = "Blunt";
 
-  [Test]
+    [Test]
     public async Task InteractUITest()
     {
         await SpawnTarget(VendingMachineProtoId);

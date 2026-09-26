@@ -55,7 +55,7 @@ public abstract class SharedRoleSystem : EntitySystem
             return;
         }
 
-        if (!_prototypes.TryIndex(value, out _requirementOverride ))
+        if (!_prototypes.TryIndex(value, out _requirementOverride))
             Log.Error($"Unknown JobRequirementOverridePrototype: {value}");
     }
 
@@ -156,7 +156,7 @@ public abstract class SharedRoleSystem : EntitySystem
         EnsureComp<MindRoleComponent>(mindRoleId);
         var mindRoleComp = Comp<MindRoleComponent>(mindRoleId);
 
-        mindRoleComp.Mind = (mindId,mind);
+        mindRoleComp.Mind = (mindId, mind);
         if (jobPrototype is not null)
         {
             mindRoleComp.JobPrototype = jobPrototype;
@@ -199,13 +199,13 @@ public abstract class SharedRoleSystem : EntitySystem
     /// </returns>>
     private bool MindRolesUpdate(Entity<MindComponent?> ent)
     {
-        if(!Resolve(ent.Owner, ref ent.Comp))
+        if (!Resolve(ent.Owner, ref ent.Comp))
             return false;
 
         //get the most important/latest mind role
         var (roleType, subtype) = GetRoleTypeByTime(ent.Comp);
 
-        if (ent.Comp.RoleType == roleType &&  ent.Comp.Subtype == subtype)
+        if (ent.Comp.RoleType == roleType && ent.Comp.Subtype == subtype)
             return false;
 
         SetRoleType(ent.Owner, roleType, subtype);
@@ -393,9 +393,9 @@ public abstract class SharedRoleSystem : EntitySystem
 
             mind.Comp = mindComp;
         }
-// HardLight: Apparently single-handedly caused the unknown job bug.
-// I'm commenting it out instead of just deleting it for future historians.
-//            return false;
+        // HardLight: Apparently single-handedly caused the unknown job bug.
+        // I'm commenting it out instead of just deleting it for future historians.
+        //            return false;
 
         foreach (var roleEnt in mind.Comp.MindRoles)
         {
@@ -488,7 +488,7 @@ public abstract class SharedRoleSystem : EntitySystem
         foreach (var uid in mind.MindRoles)
         {
             if (HasComp<T>(uid) && TryComp<MindRoleComponent>(uid, out var comp))
-                result = (uid,comp);
+                result = (uid, comp);
         }
         return result;
     }
@@ -585,10 +585,10 @@ public abstract class SharedRoleSystem : EntitySystem
         return CheckAntagonistStatus(mindId.Value).ExclusiveAntag;
     }
 
-   private (bool Antag, bool ExclusiveAntag) CheckAntagonistStatus(Entity<MindComponent?> mind)
-   {
-       if (!Resolve(mind.Owner, ref mind.Comp))
-           return (false, false);
+    private (bool Antag, bool ExclusiveAntag) CheckAntagonistStatus(Entity<MindComponent?> mind)
+    {
+        if (!Resolve(mind.Owner, ref mind.Comp))
+            return (false, false);
 
         var antagonist = false;
         var exclusiveAntag = false;

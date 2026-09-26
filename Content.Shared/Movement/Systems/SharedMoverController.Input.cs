@@ -1,4 +1,4 @@
-﻿using System.Numerics;
+using System.Numerics;
 using Content.Shared.Alert;
 using Content.Shared.CCVar;
 using Content.Shared.Follower.Components;
@@ -153,7 +153,7 @@ namespace Content.Shared.Movement.Systems
 
         public bool DiagonalMovementEnabled { get; private set; }
 
-        protected virtual void HandleShuttleInput(EntityUid uid, ShuttleButtons button, ushort subTick, bool state) {}
+        protected virtual void HandleShuttleInput(EntityUid uid, ShuttleButtons button, ushort subTick, bool state) { }
 
         public void RotateCamera(EntityUid uid, Angle angle)
         {
@@ -417,7 +417,7 @@ namespace Content.Shared.Movement.Systems
             {
                 walk = mover.CurTickWalkMovement;
                 sprint = mover.CurTickSprintMovement;
-                remainingFraction = (ushort.MaxValue - mover.LastInputSubTick) / (float) ushort.MaxValue;
+                remainingFraction = (ushort.MaxValue - mover.LastInputSubTick) / (float)ushort.MaxValue;
             }
 
             var curDir = DirVecForButtons(mover.HeldMoveButtons) * remainingFraction;
@@ -463,7 +463,7 @@ namespace Content.Shared.Movement.Systems
 
             if (subTick >= entity.Comp.LastInputSubTick)
             {
-                var fraction = (subTick - entity.Comp.LastInputSubTick) / (float) ushort.MaxValue;
+                var fraction = (subTick - entity.Comp.LastInputSubTick) / (float)ushort.MaxValue;
 
                 ref var lastMoveAmount = ref entity.Comp.Sprinting ? ref entity.Comp.CurTickSprintMovement : ref entity.Comp.CurTickWalkMovement;
 

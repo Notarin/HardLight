@@ -49,13 +49,13 @@ public sealed class AdminTestArenaSystem : EntitySystem
         _metaDataSystem.SetEntityName(mapUid, $"ATAM-{admin.Name}");
 
         var mapDespawn = EnsureComp<TimedDespawnComponent>(mapUid);
-        mapDespawn.Lifetime = (float) ArenaDespawnDelay.TotalSeconds;
+        mapDespawn.Lifetime = (float)ArenaDespawnDelay.TotalSeconds;
 
         ArenaGrid[admin.UserId] = grid.Value.Owner;
         _metaDataSystem.SetEntityName(grid.Value.Owner, $"ATAG-{admin.Name}");
 
         var gridDespawn = EnsureComp<TimedDespawnComponent>(grid.Value.Owner);
-        gridDespawn.Lifetime = (float) ArenaDespawnDelay.TotalSeconds;
+        gridDespawn.Lifetime = (float)ArenaDespawnDelay.TotalSeconds;
 
         return (mapUid, grid.Value.Owner);
     }

@@ -15,6 +15,7 @@ using JetBrains.Annotations;
 using Robust.Shared.EntitySerialization.Systems;
 
 namespace Content.Server.GridPreloader;
+
 public sealed class GridPreloaderSystem : SharedGridPreloaderSystem
 {
     [Dependency] private readonly IConfigurationManager _cfg = default!;
@@ -39,14 +40,14 @@ public sealed class GridPreloaderSystem : SharedGridPreloaderSystem
         Subs.CVar(_cfg, CCVars.PreloadGrids, value => PreloadingEnabled = value, true);
     }
 
-/*     private void OnRoundRestart(RoundRestartCleanupEvent ev)
-    {
-        var ent = GetPreloaderEntity();
-        if (ent == null)
-            return;
+    /*     private void OnRoundRestart(RoundRestartCleanupEvent ev)
+        {
+            var ent = GetPreloaderEntity();
+            if (ent == null)
+                return;
 
-        Del(ent.Value.Owner);
-    } */
+            Del(ent.Value.Owner);
+        } */
 
     private void OnPostGameMapLoad(PostGameMapLoad ev)
     {

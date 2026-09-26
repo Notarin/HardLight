@@ -1,4 +1,4 @@
-﻿using System.Numerics;
+using System.Numerics;
 using Content.Shared.CM14.Xenos;
 using Content.Shared.CM14.Xenos.Melee;
 using Robust.Client.Animations;
@@ -29,22 +29,22 @@ public sealed class XenoMeleeSystem : SharedXenoMeleeSystem
         base.Initialize();
 
 #if DEBUG
-   /*     _console.RegisterCommand("toggleshowtailattack", (shell, _, _) =>
-        {
-            _showTailAttack = !_showTailAttack;
+        /*     _console.RegisterCommand("toggleshowtailattack", (shell, _, _) =>
+             {
+                 _showTailAttack = !_showTailAttack;
 
-            if (_showTailAttack)
-            {
-                var overlay = new TailStabOverlay();
-                _overlays.AddOverlay(overlay);
-                shell.WriteLine("Enabled showing tail attack hitboxes");
-            }
-            else
-            {
-                _overlays.RemoveOverlay<TailStabOverlay>();
-                shell.WriteLine("Disabled showing tail attack hitboxes");
-            }
-        });  */
+                 if (_showTailAttack)
+                 {
+                     var overlay = new TailStabOverlay();
+                     _overlays.AddOverlay(overlay);
+                     shell.WriteLine("Enabled showing tail attack hitboxes");
+                 }
+                 else
+                 {
+                     _overlays.RemoveOverlay<TailStabOverlay>();
+                     shell.WriteLine("Disabled showing tail attack hitboxes");
+                 }
+             });  */
 #endif
     }
 

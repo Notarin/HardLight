@@ -43,7 +43,7 @@ public sealed partial class ExplosionPrototype : IPrototype
     ///     explosion intensity to a tile break chance via linear interpolation.
     /// </summary>
     [DataField("tileBreakIntensity")]
-    private float[] _tileBreakIntensity = {0f, 15f };
+    private float[] _tileBreakIntensity = { 0f, 15f };
 
     /// <summary>
     ///     When a tile is broken by an explosion, the intensity is reduced by this amount and is used to try and

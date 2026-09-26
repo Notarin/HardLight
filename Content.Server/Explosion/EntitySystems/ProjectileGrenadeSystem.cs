@@ -1,4 +1,4 @@
-﻿using Content.Server.Explosion.Components;
+using Content.Server.Explosion.Components;
 using Content.Server.Weapons.Ranged.Systems;
 using Robust.Server.GameObjects;
 using Robust.Shared.Containers;

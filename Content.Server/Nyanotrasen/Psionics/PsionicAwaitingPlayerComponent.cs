@@ -5,5 +5,5 @@ namespace Content.Server.Psionics
     /// </summary>
     [RegisterComponent]
     public sealed partial class PsionicAwaitingPlayerComponent : Component
-    {}
+    { }
 }

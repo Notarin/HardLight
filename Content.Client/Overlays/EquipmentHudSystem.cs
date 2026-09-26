@@ -33,8 +33,8 @@ public abstract class EquipmentHudSystem<T> : EntitySystem where T : IComponent
 
         SubscribeLocalEvent<T, RefreshEquipmentHudEvent<T>>(OnRefreshComponentHud);
         SubscribeLocalEvent<T, InventoryRelayedEvent<RefreshEquipmentHudEvent<T>>>(OnRefreshEquipmentHud);
-/*
-        SubscribeLocalEvent<RoundRestartCleanupEvent>(OnRoundRestart); */
+        /*
+                SubscribeLocalEvent<RoundRestartCleanupEvent>(OnRoundRestart); */
     }
 
     private void Update(RefreshEquipmentHudEvent<T> ev)
@@ -87,10 +87,10 @@ public abstract class EquipmentHudSystem<T> : EntitySystem where T : IComponent
         RefreshOverlay();
     }
 
-/*     private void OnRoundRestart(RoundRestartCleanupEvent args)
-    {
-        Deactivate();
-    } */
+    /*     private void OnRoundRestart(RoundRestartCleanupEvent args)
+        {
+            Deactivate();
+        } */
 
     protected virtual void OnRefreshEquipmentHud(Entity<T> ent, ref InventoryRelayedEvent<RefreshEquipmentHudEvent<T>> args)
     {

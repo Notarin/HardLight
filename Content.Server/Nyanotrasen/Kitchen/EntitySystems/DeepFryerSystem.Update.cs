@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using Content.Server.Nyanotrasen.Kitchen.Components;
 using Content.Shared.Chemistry.Reagent;
 using Content.Shared.EntityEffects;
@@ -14,7 +14,7 @@ public sealed partial class DeepFryerSystem
     {
         base.Update(frameTime);
 
-        var deepFryers = EntityManager.EntityQueryEnumerator<DeepFryerComponent>();
+        var deepFryers = EntityQueryEnumerator<DeepFryerComponent>();
         while (deepFryers.MoveNext(out var uid, out var component))
         {
             if (_gameTimingSystem.CurTime < component.NextFryTime ||

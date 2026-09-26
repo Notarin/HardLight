@@ -72,7 +72,7 @@ public sealed partial class AnomalyPowerSystem
         _random.Shuffle(coords);
         for (var i = 0; i < allEnts.Count; i++)
         {
-           // _adminLogger.Add(LogType.Teleport, $"{ToPrettyString(allEnts[i])} has been shuffled to {coords[i]} by the {ToPrettyString(uid)} at {xform.Coordinates}");
+            // _adminLogger.Add(LogType.Teleport, $"{ToPrettyString(allEnts[i])} has been shuffled to {coords[i]} by the {ToPrettyString(uid)} at {xform.Coordinates}");
             _xform.SetWorldPosition(allEnts[i], coords[i]);
         }
     }

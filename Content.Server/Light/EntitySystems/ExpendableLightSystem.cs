@@ -209,7 +209,7 @@ namespace Content.Server.Light.EntitySystems
 
             component.CurrentState = ExpendableLightState.BrandNew;
             component.StateExpiryTime = (float)component.GlowDuration.TotalSeconds;
-            EntityManager.EnsureComponent<PointLightComponent>(uid);
+            EnsureComp<PointLightComponent>(uid);
         }
 
         private void OnExpLightUse(Entity<ExpendableLightComponent> ent, ref UseInHandEvent args)
@@ -234,7 +234,7 @@ namespace Content.Server.Light.EntitySystems
             ActivationVerb verb = new()
             {
                 Text = Loc.GetString("expendable-light-start-verb"),
-                Icon = new SpriteSpecifier.Texture(new ("/Textures/Interface/VerbIcons/light.svg.192dpi.png")),
+                Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/light.svg.192dpi.png")),
                 Act = () => TryActivate(ent)
             };
             args.Verbs.Add(verb);

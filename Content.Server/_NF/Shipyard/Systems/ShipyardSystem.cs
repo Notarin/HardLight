@@ -295,9 +295,9 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
         //_sawmill.Info($"Shuttle {shuttlePath} was purchased at {ToPrettyString(consoleUid)} for {price:f2}");
 
         // Ensure required components for docking and identification
-        EntityManager.EnsureComponent<Robust.Shared.Physics.Components.PhysicsComponent>(grid);
-        EntityManager.EnsureComponent<ShuttleComponent>(grid);
-        var iff = EntityManager.EnsureComponent<IFFComponent>(grid);
+        EnsureComp<Robust.Shared.Physics.Components.PhysicsComponent>(grid);
+        EnsureComp<ShuttleComponent>(grid);
+        var iff = EnsureComp<IFFComponent>(grid);
         // Add new grid to the same station as the console's grid (for IFF / ownership), if any
         if (TryComp<StationMemberComponent>(consoleXform.GridUid, out var stationMember))
         {
@@ -1500,7 +1500,7 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
             CleanGrid(shuttleUid, consoleUid);
         }
 
-        bill = (int) AppraiseGridForShipyardSale(shuttleUid);
+        bill = (int)AppraiseGridForShipyardSale(shuttleUid);
         QueueDel(shuttleUid);
         //_sawmill.Info($"Sold shuttle {shuttleUid} for {bill}");
 
@@ -1671,7 +1671,7 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
         }
 
         var shipyardMap = ShipyardMap.Value;
-        var gridQuery = EntityManager.AllEntityQueryEnumerator<MapGridComponent, TransformComponent>();
+        var gridQuery = AllEntityQuery<MapGridComponent, TransformComponent>();
         while (gridQuery.MoveNext(out _, out _, out var xform))
         {
             if (xform.MapID == shipyardMap)

@@ -92,10 +92,10 @@ public sealed partial class AnomalyPowerSystem : EntitySystem
 
     public void DoGlimmerEffects(EntityUid uid, PsionicComponent component, AnomalyPowerActionEvent args, bool overcharged = false)
     {
-        var minGlimmer = (int) Math.Round(MathF.MinMagnitude(args.Settings.MinGlimmer, args.Settings.MaxGlimmer)
+        var minGlimmer = (int)Math.Round(MathF.MinMagnitude(args.Settings.MinGlimmer, args.Settings.MaxGlimmer)
             * (overcharged ? args.Settings.SupercriticalGlimmerMultiplier : 1)
             * component.CurrentAmplification - component.CurrentDampening);
-        var maxGlimmer = (int) Math.Round(MathF.MaxMagnitude(args.Settings.MinGlimmer, args.Settings.MaxGlimmer)
+        var maxGlimmer = (int)Math.Round(MathF.MaxMagnitude(args.Settings.MinGlimmer, args.Settings.MaxGlimmer)
             * (overcharged ? args.Settings.SupercriticalGlimmerMultiplier : 1)
             * component.CurrentAmplification - component.CurrentDampening);
 

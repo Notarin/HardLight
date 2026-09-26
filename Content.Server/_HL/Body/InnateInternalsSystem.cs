@@ -82,7 +82,7 @@ public sealed class InnateInternalsSystem : EntitySystem
             if (_timing.CurTime < comp.NextRegen)
                 continue;
 
-            var elapsed = (float) comp.RegenInterval.TotalSeconds;
+            var elapsed = (float)comp.RegenInterval.TotalSeconds;
             comp.NextRegen = _timing.CurTime + comp.RegenInterval;
 
             // The frame only tops the reservoir back up while it isn't being breathed from.

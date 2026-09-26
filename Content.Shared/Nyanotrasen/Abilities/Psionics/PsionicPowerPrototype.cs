@@ -5,7 +5,7 @@ namespace Content.Shared.Abilities.Psionics
     /// <summary>
     ///     Prototype for defining psionic powers and their properties.
     /// </summary>
-    [Prototype("psionicPower")]
+    [Prototype]
     public sealed partial class PsionicPowerPrototype : IPrototype
     {
         [IdDataField]

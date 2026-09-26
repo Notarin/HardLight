@@ -1,4 +1,4 @@
-﻿using Content.Server._NF.Market.Systems;
+using Content.Server._NF.Market.Systems;
 using Content.Shared._NF.Market;
 using Content.Shared.Whitelist;
 using Robust.Shared.Audio;

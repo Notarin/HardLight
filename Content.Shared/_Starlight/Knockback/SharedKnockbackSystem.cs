@@ -141,7 +141,7 @@ public abstract partial class SharedKnockbackSystem : EntitySystem
 
     private bool CheckForNoSlips(EntityUid uid)
     {
-        if (EntityManager.TryGetComponent(uid, out NoSlipComponent? flashImmunityComponent))
+        if (TryComp(uid, out NoSlipComponent? flashImmunityComponent))
         {
             return true;
         }
@@ -152,7 +152,7 @@ public abstract partial class SharedKnockbackSystem : EntitySystem
             var slots = _inventory.GetSlotEnumerator((uid, inventoryComp), SlotFlags.WITHOUT_POCKET);
             while (slots.MoveNext(out var slot))
             {
-                if (slot.ContainedEntity != null && EntityManager.TryGetComponent(slot.ContainedEntity, out NoSlipComponent? wornNoSlipComponent))
+                if (slot.ContainedEntity != null && TryComp(slot.ContainedEntity, out NoSlipComponent? wornNoSlipComponent))
                 {
                     return true;
                 }

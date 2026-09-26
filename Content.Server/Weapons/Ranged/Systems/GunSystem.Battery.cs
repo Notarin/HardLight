@@ -55,8 +55,8 @@ public sealed partial class GunSystem
 
     private void UpdateShots(EntityUid uid, BatteryAmmoProviderComponent component, float charge, float maxCharge)
     {
-        var shots = (int) (charge / component.FireCost);
-        var maxShots = (int) (maxCharge / component.FireCost);
+        var shots = (int)(charge / component.FireCost);
+        var maxShots = (int)(maxCharge / component.FireCost);
 
         if (component.Shots != shots || component.Capacity != maxShots)
         {
@@ -100,7 +100,7 @@ public sealed partial class GunSystem
             if (ProtoManager.Index<EntityPrototype>(battery.Prototype).Components
                 .TryGetValue(_factory.GetComponentName(typeof(ProjectileComponent)), out var projectile))
             {
-                var p = (ProjectileComponent) projectile.Component;
+                var p = (ProjectileComponent)projectile.Component;
 
                 if (!p.Damage.Empty)
                 {

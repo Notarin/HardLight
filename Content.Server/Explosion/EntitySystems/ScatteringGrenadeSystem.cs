@@ -1,4 +1,4 @@
-﻿using Content.Shared.Explosion.Components;
+using Content.Shared.Explosion.Components;
 using Content.Shared.Throwing;
 using Robust.Server.GameObjects;
 using Robust.Shared.Containers;

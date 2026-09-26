@@ -20,7 +20,7 @@ public sealed partial class ShowHealthBarsComponent : Component
     public List<ProtoId<DamageContainerPrototype>> DamageContainers = new()
     {
         "Biological",
-		"Synth"
+        "Synth"
     };
 
     [DataField]

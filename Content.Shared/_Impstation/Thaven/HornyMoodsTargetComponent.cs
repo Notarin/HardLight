@@ -1,4 +1,4 @@
-﻿// hardlight!!!
+// hardlight!!!
 
 namespace Content.Shared._Impstation.Thaven.Components;
 

@@ -52,7 +52,7 @@ public sealed class AbyssalOverlay : Overlay
         if (!statusSys.TryGetTime(playerEntity.Value, DrugOverlaySystem.AbyssalKey, out var time, status))
             return;
 
-        var timeLeft = (float) (time.Value.Item2 - time.Value.Item1).TotalSeconds;
+        var timeLeft = (float)(time.Value.Item2 - time.Value.Item1).TotalSeconds;
 
         TimeTicker += args.DeltaSeconds;
 
@@ -62,7 +62,7 @@ public sealed class AbyssalOverlay : Overlay
         }
         else
         {
-            Intoxication -= Intoxication/(timeLeft - TimeTicker) * args.DeltaSeconds;
+            Intoxication -= Intoxication / (timeLeft - TimeTicker) * args.DeltaSeconds;
         }
     }
 

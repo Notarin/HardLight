@@ -94,7 +94,7 @@ public sealed class TileAnomalySystem : SharedTileAnomalySystem
 
         foreach (var tileref in tiles)
         {
-            var tile = (ContentTileDefinition) _tiledef[entry.Floor];
+            var tile = (ContentTileDefinition)_tiledef[entry.Floor];
             _tile.ReplaceTile(tileref, tile);
         }
     }

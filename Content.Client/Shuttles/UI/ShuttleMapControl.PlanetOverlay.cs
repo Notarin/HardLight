@@ -209,7 +209,7 @@ public sealed partial class ShuttleMapControl
     private void DrawLandgrabPlotMarkers(DrawingHandleScreen handle, EntityUid viewedMapUid, Matrix3x2 matty)
     {
         var otherColor = new Color(0.30f, 0.85f, 0.95f, 0.85f);
-        var ownColor   = new Color(1.0f,  1.0f,  1.0f,  1.0f);
+        var ownColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
 
         var localCKey = _playerManager.LocalSession?.Name ?? string.Empty;
 

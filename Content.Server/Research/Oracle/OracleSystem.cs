@@ -50,7 +50,7 @@ public sealed class OracleSystem : EntitySystem
             if (_timing.CurTime >= comp.NextDemandTime)
             {
                 // Might be null if this is the first tick. In that case this will simply initialize it.
-                var last = (EntityPrototype?) comp.DesiredPrototype;
+                var last = (EntityPrototype?)comp.DesiredPrototype;
                 if (NextItem((uid, comp)))
                     comp.LastDesiredPrototype = last;
             }
@@ -166,7 +166,7 @@ public sealed class OracleSystem : EntitySystem
         {
             // Spawn each reward next to oracle and throw towards the target
             var rewardProto = _protoMan.Index(rewardRandom).Pick(_random);
-            var reward = EntityManager.SpawnNextToOrDrop(rewardProto, oracle);
+            var reward = SpawnNextToOrDrop(rewardProto, oracle);
             _throwing.TryThrow(reward, throwTarget, recoil: false);
         }
 
@@ -238,8 +238,8 @@ public sealed class OracleSystem : EntitySystem
             .Where(x => x != null && Transform(x.Value).GridUid == Transform(oracle).GridUid)
             .Select(x =>
             {
-                    TryComp(x!.Value, out TechnologyDatabaseComponent? comp);
-                    return new Entity<TechnologyDatabaseComponent?>(x.Value, comp);
+                TryComp(x!.Value, out TechnologyDatabaseComponent? comp);
+                return new Entity<TechnologyDatabaseComponent?>(x.Value, comp);
             })
             .Where(x => x.Comp != null)
             .OrderByDescending(x =>

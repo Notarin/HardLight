@@ -22,7 +22,8 @@ public sealed class ListPsionicsCommand : IConsoleCommand
     {
         SharedActionsSystem actions = default!;
         var entMan = IoCManager.Resolve<IEntityManager>();
-        foreach (var (actor, mob, psionic, meta) in entMan.EntityQuery<ActorComponent, MobStateComponent, PsionicComponent, MetaDataComponent>()){
+        foreach (var (actor, mob, psionic, meta) in entMan.EntityQuery<ActorComponent, MobStateComponent, PsionicComponent, MetaDataComponent>())
+        {
             // filter out xenos, etc, with innate telepathy
             foreach (var (actionId, actionEntity) in psionic.Actions)
             {
@@ -64,7 +65,7 @@ public sealed class AddPsionicPowerCommand : IConsoleCommand
             return;
         }
 
-    if (!protoMan.TryIndex<Content.Shared.Abilities.Psionics.PsionicPowerPrototype>(args[1], out var powerProto))
+        if (!protoMan.TryIndex<Content.Shared.Abilities.Psionics.PsionicPowerPrototype>(args[1], out var powerProto))
         {
             shell.WriteError(Loc.GetString("addpsionicpower-args-two-error"));
             return;
@@ -126,7 +127,7 @@ public sealed class RemovePsionicPowerCommand : IConsoleCommand
             return;
         }
 
-    if (!protoMan.TryIndex<Content.Shared.Abilities.Psionics.PsionicPowerPrototype>(args[1], out var powerProto))
+        if (!protoMan.TryIndex<Content.Shared.Abilities.Psionics.PsionicPowerPrototype>(args[1], out var powerProto))
         {
             shell.WriteError(Loc.GetString("removepsionicpower-args-two-error"));
             return;

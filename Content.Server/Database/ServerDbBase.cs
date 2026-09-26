@@ -200,7 +200,7 @@ namespace Content.Server.Database
         {
             await using var db = await GetDb();
 
-            var profile = ConvertProfiles((HumanoidCharacterProfile) defaultProfile, 0);
+            var profile = ConvertProfiles((HumanoidCharacterProfile)defaultProfile, 0);
             var prefs = new Preference
             {
                 UserId = userId.UserId,
@@ -214,7 +214,7 @@ namespace Content.Server.Database
 
             await db.DbContext.SaveChangesAsync();
 
-            return new PlayerPreferences(new[] {new KeyValuePair<int, ICharacterProfile>(0, defaultProfile)}, 0, Color.FromHex(prefs.AdminOOCColor));
+            return new PlayerPreferences(new[] { new KeyValuePair<int, ICharacterProfile>(0, defaultProfile) }, 0, Color.FromHex(prefs.AdminOOCColor));
         }
 
         public async Task DeleteSlotAndSetSelectedIndex(NetUserId userId, int deleteSlot, int newSlot)
@@ -248,7 +248,7 @@ namespace Content.Server.Database
 
         private static HumanoidCharacterProfile ConvertProfiles(Profile profile, IPrototypeManager prototypeManager)
         {
-            var jobs = profile.Jobs.ToDictionary(j => new ProtoId<JobPrototype>(j.JobName), j => (JobPriority) j.Priority);
+            var jobs = profile.Jobs.ToDictionary(j => new ProtoId<JobPrototype>(j.JobName), j => (JobPriority)j.Priority);
             var antags = profile.Antags.Select(a => new ProtoId<AntagPrototype>(a.AntagName));
             var traits = profile.Traits.Select(t => new ProtoId<TraitPrototype>(t.TraitName));
 
@@ -256,7 +256,7 @@ namespace Content.Server.Database
             if (Enum.TryParse<Sex>(profile.Sex, true, out var sexVal))
                 sex = sexVal;
 
-            var spawnPriority = (SpawnPriorityPreference) profile.SpawnPriority;
+            var spawnPriority = (SpawnPriorityPreference)profile.SpawnPriority;
 
             var gender = sex == Sex.Male ? Gender.Male : Gender.Female;
             if (Enum.TryParse<Gender>(profile.Gender, true, out var genderVal))
@@ -356,7 +356,7 @@ namespace Content.Server.Database
                 ),
                 spawnPriority,
                 jobs,
-                (PreferenceUnavailableMode) profile.PreferenceUnavailable,
+                (PreferenceUnavailableMode)profile.PreferenceUnavailable,
                 antags.ToHashSet(),
                 traits.ToHashSet(),
                 loadouts,
@@ -367,7 +367,7 @@ namespace Content.Server.Database
         private static Profile ConvertProfiles(HumanoidCharacterProfile humanoid, int slot, Profile? profile = null)
         {
             profile ??= new Profile();
-            var appearance = (HumanoidCharacterAppearance) humanoid.CharacterAppearance;
+            var appearance = (HumanoidCharacterAppearance)humanoid.CharacterAppearance;
             List<string> markingStrings = new();
             foreach (var marking in appearance.Markings)
             {
@@ -394,29 +394,29 @@ namespace Content.Server.Database
             profile.SkinColor = appearance.SkinColor.ToHex();
             profile.Height = appearance.Height;
             profile.Width = appearance.Width;
-            profile.SpawnPriority = (int) humanoid.SpawnPriority;
+            profile.SpawnPriority = (int)humanoid.SpawnPriority;
             profile.Markings = markings;
             profile.Slot = slot;
-            profile.PreferenceUnavailable = (DbPreferenceUnavailableMode) humanoid.PreferenceUnavailable;
+            profile.PreferenceUnavailable = (DbPreferenceUnavailableMode)humanoid.PreferenceUnavailable;
             profile.Company = humanoid.Company;
 
             profile.Jobs.Clear();
             profile.Jobs.AddRange(
                 humanoid.JobPriorities
                     .Where(j => j.Value != JobPriority.Never)
-                    .Select(j => new Job {JobName = j.Key, Priority = (DbJobPriority) j.Value})
+                    .Select(j => new Job { JobName = j.Key, Priority = (DbJobPriority)j.Value })
             );
 
             profile.Antags.Clear();
             profile.Antags.AddRange(
                 humanoid.AntagPreferences
-                    .Select(a => new Antag {AntagName = a})
+                    .Select(a => new Antag { AntagName = a })
             );
 
             profile.Traits.Clear();
             profile.Traits.AddRange(
                 humanoid.TraitPreferences
-                        .Select(t => new Trait {TraitName = t})
+                        .Select(t => new Trait { TraitName = t })
             );
 
             profile.Loadouts.Clear();
@@ -1577,10 +1577,10 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
         protected async Task<List<AdminWatchlistRecord>> GetActiveWatchlistsImpl(DbGuard db, Guid player)
         {
             var entities = await (from watchlist in db.DbContext.AdminWatchlists
-                          where watchlist.PlayerUserId == player &&
-                                !watchlist.Deleted &&
-                                (watchlist.ExpirationTime == null || DateTime.UtcNow < watchlist.ExpirationTime)
-                          select watchlist)
+                                  where watchlist.PlayerUserId == player &&
+                                        !watchlist.Deleted &&
+                                        (watchlist.ExpirationTime == null || DateTime.UtcNow < watchlist.ExpirationTime)
+                                  select watchlist)
                 .Include(note => note.Round)
                 .ThenInclude(r => r!.Server)
                 .Include(note => note.CreatedBy)
@@ -1605,9 +1605,9 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
         protected async Task<List<AdminMessageRecord>> GetMessagesImpl(DbGuard db, Guid player)
         {
             var entities = await (from message in db.DbContext.AdminMessages
-                        where message.PlayerUserId == player && !message.Deleted &&
-                              (message.ExpirationTime == null || DateTime.UtcNow < message.ExpirationTime)
-                        select message).Include(note => note.Round)
+                                  where message.PlayerUserId == player && !message.Deleted &&
+                                        (message.ExpirationTime == null || DateTime.UtcNow < message.ExpirationTime)
+                                  select message).Include(note => note.Round)
                     .ThenInclude(r => r!.Server)
                     .Include(note => note.CreatedBy)
                     .Include(note => note.LastEditedBy)
@@ -1652,8 +1652,8 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
             return new BanNoteRecord(
                 ban.Id,
                 ban.Type,
-                [..ban.Rounds!.Select(br => MakeRoundRecord(br.Round!))],
-                [..playerRecords],
+                [.. ban.Rounds!.Select(br => MakeRoundRecord(br.Round!))],
+                [.. playerRecords],
                 ban.PlaytimeAtNote,
                 ban.Reason,
                 ban.Severity,
@@ -1669,7 +1669,7 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
                         ban.Unban.UnbanningAdmin.Value,
                         await dbContext.Player.SingleOrDefaultAsync(p => p.UserId == ban.Unban.UnbanningAdmin.Value)),
                 NormalizeDatabaseTime(ban.Unban?.UnbanTime),
-                [..ban.Roles!.Select(br => new BanRoleDef(br.RoleType, br.RoleId))]);
+                [.. ban.Roles!.Select(br => new BanRoleDef(br.RoleType, br.RoleId))]);
         }
 
         // These two are here because they get converted into notes later
@@ -1781,7 +1781,7 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
         {
             await using var db = await GetDb();
 
-           // HL - Its paints me to do this.
+            // HL - Its paints me to do this.
             var dbPlayer = await db.DbContext.Player
                 .SingleOrDefaultAsync(p => p.UserId == player);
 
@@ -1946,7 +1946,8 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
 
             if (currentConsentSettings is null)
             {
-                currentConsentSettings = new ConsentSettings() {
+                currentConsentSettings = new ConsentSettings()
+                {
                     UserId = userId,
                     ConsentToggles = new(),
                     ConsentFreetext = consentSettings.Freetext,
@@ -1984,7 +1985,7 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
                 if (currentConsentToggles.ContainsKey(toggle.Key))
                     continue;
 
-                currentConsentSettings.ConsentToggles.Add(new ()
+                currentConsentSettings.ConsentToggles.Add(new()
                 {
                     ToggleProtoId = toggle.Key,
                     ToggleProtoState = toggle.Value,
@@ -2033,7 +2034,8 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
                     ReadAt = DateTime.UtcNow,
                 };
             }
-            else {
+            else
+            {
                 readRecipe.ReadAt = DateTime.UtcNow;
             }
 
@@ -2097,7 +2099,7 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON 
                 results.Add(await selector(item));
             }
 
-            return [..results];
+            return [.. results];
         }
     }
 }

@@ -29,7 +29,7 @@ public sealed partial class PlumbingPillPressWindow : DefaultWindow
     private bool _mixingEnabled;
     private bool _eastLastEdited = true;
     private const string PillsRsiPath = "/Textures/Objects/Specific/Chemistry/pills.rsi";
-    private const int PillTypeCount = (int) SharedChemMaster.PillTypes;
+    private const int PillTypeCount = (int)SharedChemMaster.PillTypes;
 
     public Button[] PillTypeButtons { get; } = new Button[PillTypeCount];
 
@@ -45,12 +45,12 @@ public sealed partial class PlumbingPillPressWindow : DefaultWindow
             OnToggle?.Invoke(_enabled);
         };
 
-        OutputModeSelector.AddItem(Loc.GetString("plumbing-pill-press-mode-pill"), (int) PillPressOutputMode.Pill);
+        OutputModeSelector.AddItem(Loc.GetString("plumbing-pill-press-mode-pill"), (int)PillPressOutputMode.Pill);
         // OutputModeSelector.AddItem(Loc.GetString("plumbing-pill-press-mode-patch"), (int) PillPressOutputMode.Patch); // HL: no patches
         OutputModeSelector.OnItemSelected += args =>
         {
             OutputModeSelector.SelectId(args.Id);
-            OnSetOutputMode?.Invoke((PillPressOutputMode) args.Id);
+            OnSetOutputMode?.Invoke((PillPressOutputMode)args.Id);
         };
 
 
@@ -188,7 +188,7 @@ public sealed partial class PlumbingPillPressWindow : DefaultWindow
         if (!LabelInput.HasKeyboardFocus())
             LabelInput.Text = state.Label;
 
-        OutputModeSelector.SelectId((int) state.OutputMode);
+        OutputModeSelector.SelectId((int)state.OutputMode);
 
         PillTypeContainer.Visible = state.OutputMode == PillPressOutputMode.Pill;
 
@@ -202,8 +202,8 @@ public sealed partial class PlumbingPillPressWindow : DefaultWindow
         // Update ratio inputs and don't overwrite while user is typing
         if (!EastRatioInput.HasKeyboardFocus() && !WestRatioInput.HasKeyboardFocus())
         {
-            EastRatioInput.Text = ((int) state.InletRatioEast).ToString();
-            WestRatioInput.Text = ((int) state.InletRatioWest).ToString();
+            EastRatioInput.Text = ((int)state.InletRatioEast).ToString();
+            WestRatioInput.Text = ((int)state.InletRatioWest).ToString();
         }
     }
 }

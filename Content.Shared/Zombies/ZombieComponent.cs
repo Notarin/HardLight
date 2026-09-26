@@ -34,7 +34,7 @@ public sealed partial class ZombieComponent : Component
     /// </summary>
     public DamageSpecifier ResistanceEffectiveness = new()
     {
-        DamageDict = new ()
+        DamageDict = new()
         {
             {"Slash", 0.5},
             {"Piercing", 0.3},
@@ -79,7 +79,7 @@ public sealed partial class ZombieComponent : Component
     /// The CustomBaseLayers of the humanoid to restore in case of cloning
     /// </summary>
     [DataField("beforeZombifiedCustomBaseLayers")]
-    public Dictionary<HumanoidVisualLayers, CustomBaseLayerInfo> BeforeZombifiedCustomBaseLayers = new ();
+    public Dictionary<HumanoidVisualLayers, CustomBaseLayerInfo> BeforeZombifiedCustomBaseLayers = new();
 
     /// <summary>
     /// The skin color of the humanoid to restore in case of cloning
@@ -96,7 +96,7 @@ public sealed partial class ZombieComponent : Component
     [DataField("emoteId")]
     public ProtoId<EmoteSoundsPrototype>? EmoteSoundsId = "Zombie";
 
-    [DataField("nextTick", customTypeSerializer:typeof(TimeOffsetSerializer))]
+    [DataField("nextTick", customTypeSerializer: typeof(TimeOffsetSerializer))]
     public TimeSpan NextTick;
 
     [DataField("zombieStatusIcon")]
@@ -108,7 +108,7 @@ public sealed partial class ZombieComponent : Component
     [DataField("passiveHealing")]
     public DamageSpecifier PassiveHealing = new()
     {
-        DamageDict = new ()
+        DamageDict = new()
         {
             { "Blunt", -1.2 },
             { "Slash", -0.6 },

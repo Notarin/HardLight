@@ -114,7 +114,7 @@ public abstract class SharedGrapplingGunSystem : EntitySystem
 
     private void OnGunActivate(EntityUid uid, GrapplingGunComponent component, ActivateInWorldEvent args)
     {
-        if (!Timing.IsFirstTimePredicted || args.Handled || !args.Complex || component.Projectile is not {} projectile)
+        if (!Timing.IsFirstTimePredicted || args.Handled || !args.Complex || component.Projectile is not { } projectile)
             return;
 
         _audio.PlayPredicted(component.CycleSound, uid, args.User);
@@ -125,7 +125,7 @@ public abstract class SharedGrapplingGunSystem : EntitySystem
 
         component.Projectile = null;
         SetReeling(uid, component, false, args.User);
-        _gun.ChangeBasicEntityAmmoCount(uid,  1);
+        _gun.ChangeBasicEntityAmmoCount(uid, 1);
 
         args.Handled = true;
     }

@@ -51,7 +51,7 @@ namespace Content.Server.Cargo.Systems
                 return;
 
             _audio.PlayPvs(ApproveSound, uid);
-            UpdateBankAccount((stationUid.Value, bank), (int) price, component.Account);
+            UpdateBankAccount((stationUid.Value, bank), (int)price, component.Account);
             QueueDel(args.Used);
             args.Handled = true;
         }
@@ -82,7 +82,7 @@ namespace Content.Server.Cargo.Systems
                     continue;
                 bank.NextIncomeTime += bank.IncomeDelay;
 
-                var balanceToAdd = (int) Math.Round(bank.IncreasePerSecond * bank.IncomeDelay.TotalSeconds);
+                var balanceToAdd = (int)Math.Round(bank.IncreasePerSecond * bank.IncomeDelay.TotalSeconds);
                 UpdateBankAccount((uid, bank), balanceToAdd, bank.RevenueDistribution);
             }
         }
@@ -488,7 +488,7 @@ namespace Content.Server.Cargo.Systems
             _transformSystem.Unanchor(item, Transform(item));
 
             // Create a sheet of paper to write the order details on
-            var printed = EntityManager.SpawnEntity(paperProto, spawn);
+            var printed = Spawn(paperProto, spawn);
             if (TryComp<PaperComponent>(printed, out var paper))
             {
                 // fill in the order data

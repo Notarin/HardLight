@@ -36,7 +36,7 @@ public sealed partial class GibActionSystem : EntitySystem
 
         foreach (var allowedState in comp.AllowedStates)
         {
-            if(allowedState == mobState.CurrentState)
+            if (allowedState == mobState.CurrentState)
             {
                 // The mob should never have more than 1 state so I don't see this being an issue
                 _actionsSystem.AddAction(uid, ref comp.ActionEntity, comp.ActionPrototype);
@@ -57,15 +57,15 @@ public sealed partial class GibActionSystem : EntitySystem
         comp.ActionEntity = null;
         Dirty(uid, comp);
     }
-    
+
     private void OnGibAction(EntityUid uid, GibActionComponent comp, GibActionEvent args)
     {
         // When they use the action, gib them.
         _popupSystem.PopupClient(Loc.GetString(comp.PopupText, ("name", uid)), uid, uid);
         _bodySystem.GibBody(uid, true);
     }
-       
 
 
-    public sealed partial class GibActionEvent : InstantActionEvent { } 
+
+    public sealed partial class GibActionEvent : InstantActionEvent { }
 }

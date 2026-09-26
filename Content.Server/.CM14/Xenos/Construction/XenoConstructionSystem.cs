@@ -1,4 +1,4 @@
-﻿using Content.Server.Spreader;
+using Content.Server.Spreader;
 using Content.Shared.Atmos;
 using Content.Shared.CM14.Xenos;
 using Content.Shared.CM14.Xenos.Construction;

@@ -52,7 +52,7 @@ public sealed class LifeDrainerSystem : EntitySystem
                 TryDrain(ent, target);
             },
             Text = Loc.GetString("verb-life-drain"),
-            Icon = new SpriteSpecifier.Texture(new ("/Textures/Nyanotrasen/Icons/verbiconfangs.png")),
+            Icon = new SpriteSpecifier.Texture(new("/Textures/Nyanotrasen/Icons/verbiconfangs.png")),
             Priority = 2
         });
     }
@@ -61,18 +61,18 @@ public sealed class LifeDrainerSystem : EntitySystem
     {
         var (uid, comp) = ent;
         CancelDrain(comp);
-        if (args.Handled || args.Args.Target is not {} target)
+        if (args.Handled || args.Args.Target is not { } target)
             return;
 
         // attack whoever interrupted the draining
         if (args.Cancelled)
         {
             // someone pulled the psionic away
-            if (TryComp<PullableComponent>(target, out var pullable) && pullable.Puller is {} puller)
+            if (TryComp<PullableComponent>(target, out var pullable) && pullable.Puller is { } puller)
                 _faction.AggroEntity(uid, puller);
 
             // someone pulled me away
-            if (TryComp(ent, out pullable) && pullable.Puller is {} selfPuller)
+            if (TryComp(ent, out pullable) && pullable.Puller is { } selfPuller)
                 _faction.AggroEntity(uid, selfPuller);
 
             // someone carried the psionic away
@@ -117,7 +117,7 @@ public sealed class LifeDrainerSystem : EntitySystem
         _popup.PopupEntity(Loc.GetString("life-drain-second-start", ("drainer", uid)), target, target, PopupType.LargeCaution);
         _popup.PopupEntity(Loc.GetString("life-drain-third-start", ("drainer", uid), ("target", target)), target, Filter.PvsExcept(target), true, PopupType.LargeCaution);
 
-        if (_audio.PlayPvs(comp.DrainSound, target) is {} stream)
+        if (_audio.PlayPvs(comp.DrainSound, target) is { } stream)
             comp.DrainStream = stream.Item1;
 
         var ev = new LifeDrainDoAfterEvent();

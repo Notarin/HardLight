@@ -1,4 +1,4 @@
-﻿using Robust.Shared.Serialization;
+using Robust.Shared.Serialization;
 using Robust.Shared.Prototypes;
 using Content.Shared.Stacks;
 

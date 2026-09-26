@@ -55,7 +55,7 @@ public sealed partial class StencilOverlay : Overlay
         var mapUid = _mapManager.GetMapEntityId(args.MapId);
         var invMatrix = args.Viewport.GetWorldToLocalMatrix();
 
-       var res = _resources.GetForViewport(args.Viewport, static _ => new CachedResources());
+        var res = _resources.GetForViewport(args.Viewport, static _ => new CachedResources());
 
         if (res.Blep?.Texture.Size != args.Viewport.Size)
         {

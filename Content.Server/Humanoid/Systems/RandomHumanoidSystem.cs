@@ -23,7 +23,7 @@ public sealed class RandomHumanoidSystem : EntitySystem
     public override void Initialize()
     {
         SubscribeLocalEvent<RandomHumanoidSpawnerComponent, MapInitEvent>(OnMapInit,
-            after: new []{ typeof(RandomMetadataSystem) });
+            after: new[] { typeof(RandomMetadataSystem) });
     }
 
     private void OnMapInit(EntityUid uid, RandomHumanoidSpawnerComponent component, MapInitEvent args)
@@ -51,8 +51,8 @@ public sealed class RandomHumanoidSystem : EntitySystem
             foreach (var entry in prototype.Components.Values)
             {
                 var comp = (Component)_serialization.CreateCopy(entry.Component, notNullableOverride: true);
-                EntityManager.RemoveComponent(humanoid, comp.GetType());
-                EntityManager.AddComponent(humanoid, comp);
+                RemComp(humanoid, comp.GetType());
+                AddComp(humanoid, comp);
             }
         }
 

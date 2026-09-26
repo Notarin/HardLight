@@ -10,6 +10,7 @@ using Robust.Shared.Network;
 
 
 namespace Content.Shared._Shitmed.BodyEffects;
+
 public partial class OrganEffectSystem : EntitySystem
 {
     [Dependency] private readonly ISerializationManager _serManager = default!;
@@ -80,9 +81,9 @@ public partial class OrganEffectSystem : EntitySystem
             if (HasComp(body, compType))
                 continue;
 
-            var newComp = (Component) _serManager.CreateCopy(comp.Component, notNullableOverride: true);
+            var newComp = (Component)_serManager.CreateCopy(comp.Component, notNullableOverride: true);
             newComp.Owner = body;
-            EntityManager.AddComponent(body, newComp, true);
+            AddComp(body, newComp, true);
             effectComp.Active[key] = comp;
             if (newComp.NetSyncEnabled)
             {

@@ -52,7 +52,7 @@ public sealed partial class MarkingSet
     public Dictionary<MarkingCategories, MarkingPoints> Points = new();
 
     public MarkingSet()
-    {}
+    { }
 
     /// <summary>
     ///     Construct a MarkingSet using a list of markings, and a points
@@ -851,7 +851,7 @@ public sealed class MarkingsEnumerator : IEnumerator<Marking>
     }
 
     public void Dispose()
-    {}
+    { }
 
     object IEnumerator.Current
     {

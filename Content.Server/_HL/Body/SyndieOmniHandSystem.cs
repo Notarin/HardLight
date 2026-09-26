@@ -67,7 +67,7 @@ namespace Content.Shared.Cybernetics
             if (!comp.Equipment.TryGetValue(proto.Id, out var item))
             {
                 item = Spawn(proto, Transform(uid).Coordinates);
-                if (!_hands.TryForcePickupAnyHand(uid, (EntityUid) item))
+                if (!_hands.TryForcePickupAnyHand(uid, (EntityUid)item))
                 {
                     _popup.PopupEntity(Loc.GetString("changeling-fail-hands"), uid, uid);
                     QueueDel(item);

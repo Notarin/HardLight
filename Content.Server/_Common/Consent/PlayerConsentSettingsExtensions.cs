@@ -22,7 +22,8 @@ public static class PlayerConsentSettinsExtensions
         {
             ConsentFreetext = playerConsentSettings.Freetext,
             ConsentToggles = playerConsentSettings.Toggles
-                .Select(x => new ConsentToggle {
+                .Select(x => new ConsentToggle
+                {
                     ToggleProtoId = x.Key,
                     ToggleProtoState = x.Value,
                 })

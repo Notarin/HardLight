@@ -294,7 +294,7 @@ public sealed class LeashSystem : EntitySystem
             || session?.AttachedEntity is not { } player
             || !player.IsValid()
             || !TryComp<HandsComponent>(player, out var hands)
-            || hands.ActiveHandEntity is not {} leash
+            || hands.ActiveHandEntity is not { } leash
             || !TryComp<LeashComponent>(leash, out var leashComp)
             || leashComp.NextPull > _timing.CurTime)
             return false;
@@ -338,7 +338,7 @@ public sealed class LeashSystem : EntitySystem
         if (ent.Comp.Kind.HasFlag(LeashAnchorComponent.AnchorKind.Clothing)
             && TryComp<ClothingComponent>(ent, out var clothing)
             && clothing.InSlot != null
-            && _container.TryGetContainingContainer((ent.Owner, (TransformComponent?) null, (MetaDataComponent?) null), out var container))
+            && _container.TryGetContainingContainer((ent.Owner, (TransformComponent?)null, (MetaDataComponent?)null), out var container))
         {
             leashTarget = container.Owner;
             return true;
@@ -496,7 +496,7 @@ public sealed class LeashSystem : EntitySystem
         if (leash.Comp.LeashSprite is { } sprite)
         {
             _container.EnsureContainer<ContainerSlot>(leashTarget, LeashedComponent.VisualsContainerName);
-            if (EntityManager.TrySpawnInContainer(null, leashTarget, LeashedComponent.VisualsContainerName, out var visualEntity))
+            if (TrySpawnInContainer(null, leashTarget, LeashedComponent.VisualsContainerName, out var visualEntity))
             {
                 var visualComp = EnsureComp<LeashedVisualsComponent>(visualEntity.Value);
                 visualComp.Sprite = sprite;

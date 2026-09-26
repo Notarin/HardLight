@@ -25,7 +25,7 @@ public sealed class Ruler : Control
         for (int i = 0; i <= TotalNotches; i++)
         {
             var x = i * stepWidth;
-            var height = (i % BigNotchInterval    == 0 ? BigNotchHeight :
+            var height = (i % BigNotchInterval == 0 ? BigNotchHeight :
                           i % MediumNotchInterval == 0 ? MediumNotchHeight :
                                                          SmallNotchHeight) * PixelHeight;
             var start = new Vector2(x, PixelHeight);

@@ -41,8 +41,8 @@ public sealed class PointOfInterestSystem : EntitySystem
 
     private void OnRoundRestart(RoundRestartCleanupEvent ev)
     {
-       _stationCoords.Clear();
-    } 
+        _stationCoords.Clear();
+    }
 
     private void AddStationCoordsToSet(Vector2 coords)
     {

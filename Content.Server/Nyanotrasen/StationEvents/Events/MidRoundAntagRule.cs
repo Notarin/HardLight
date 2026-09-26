@@ -14,8 +14,8 @@ internal sealed class MidRoundAntagRule : StationEventSystem<MidRoundAntagRuleCo
     {
         base.Started(uid, component, gameRule, args);
 
-        var spawnLocations = EntityManager.EntityQuery<MidRoundAntagSpawnLocationComponent, TransformComponent>().ToList();
-        var backupSpawnLocations = EntityManager.EntityQuery<VentCritterSpawnLocationComponent, TransformComponent>().ToList();
+        var spawnLocations = EntityQuery<MidRoundAntagSpawnLocationComponent, TransformComponent>().ToList();
+        var backupSpawnLocations = EntityQuery<VentCritterSpawnLocationComponent, TransformComponent>().ToList();
 
         TransformComponent? spawn = new();
 
@@ -23,7 +23,8 @@ internal sealed class MidRoundAntagRule : StationEventSystem<MidRoundAntagRuleCo
         {
             var spawnLoc = _robustRandom.Pick(spawnLocations);
             spawn = spawnLoc.Item2;
-        } else if (backupSpawnLocations.Count > 0)
+        }
+        else if (backupSpawnLocations.Count > 0)
         {
             var spawnLoc = _robustRandom.Pick(backupSpawnLocations);
             spawn = spawnLoc.Item2;

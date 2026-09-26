@@ -30,7 +30,7 @@ public sealed class PlumbingFilterSystem : EntitySystem
         if (!args.IsInDetailsRange)
             return;
 
-        if (ent.Comp.Filter is not {} filter)
+        if (ent.Comp.Filter is not { } filter)
         {
             args.PushMarkup(Loc.GetString("plumbing-filter-unset"));
             return;
@@ -43,11 +43,11 @@ public sealed class PlumbingFilterSystem : EntitySystem
     private void OnChange(Entity<PlumbingFilterComponent> ent, ref PlumbingFilterChangeMessage args)
     {
         if (args.Filter == ent.Comp.Filter
-            || (args.Filter is {} filter
+            || (args.Filter is { } filter
             && !_proto.HasIndex(filter)))
             return;
 
-        var msg = args.Filter is {} filter2 // chud language
+        var msg = args.Filter is { } filter2 // chud language
             ? Loc.GetString("plumbing-filter-changed", ("reagent", _proto.Index(filter2).LocalizedName))
             : Loc.GetString("plumbing-filter-removed");
         _popup.PopupClient(msg, ent, args.Actor);

@@ -5,7 +5,7 @@ using Robust.Shared.Serialization;
 
 namespace Content.Shared._Goobstation.MartialArts;
 
-[Prototype("combo")]
+[Prototype]
 [Serializable, NetSerializable, DataDefinition]
 public sealed partial class ComboPrototype : IPrototype
 {
@@ -60,11 +60,11 @@ public sealed partial class ComboPrototype : IPrototype
 
 }
 
-[Prototype("comboList")]
+[Prototype]
 public sealed partial class ComboListPrototype : IPrototype
 {
     [IdDataField] public string ID { get; private set; } = default!;
 
-    [DataField( required: true)]
+    [DataField(required: true)]
     public List<ProtoId<ComboPrototype>> Combos = new();
 }

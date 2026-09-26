@@ -56,7 +56,7 @@ public sealed partial class EmojiPickerPopup : DefaultWindow
         if (availableWidth <= 0)
             return;
 
-        var columns = Math.Max(1, (int) (availableWidth / buttonSize));
+        var columns = Math.Max(1, (int)(availableWidth / buttonSize));
         if (EmojiGrid.Columns != columns)
         {
             EmojiGrid.Columns = columns;

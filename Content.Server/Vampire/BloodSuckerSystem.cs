@@ -160,7 +160,7 @@ namespace Content.Server.Vampiric
                 }
 
                 if (_inventorySystem.TryGetSlotEntity(bloodsucker, "mask", out var maskUid) &&
-                    EntityManager.TryGetComponent<IngestionBlockerComponent>(maskUid, out var blocker) &&
+                    TryComp<IngestionBlockerComponent>(maskUid, out var blocker) &&
                     blocker.Enabled)
                 {
                     _popups.PopupEntity(Loc.GetString("bloodsucker-fail-mask", ("mask", maskUid)), victim, bloodsucker, Shared.Popups.PopupType.Medium);

@@ -228,14 +228,14 @@ public sealed class HoloCigarSystem : EntitySystem
                 RemComp<MultishotComponent>(gun);
                 break;
             case true:
-            {
-                multiShotComp.MissChance = cigarAffectedGunComponent.OriginalMissChance;
-                multiShotComp.SpreadMultiplier = cigarAffectedGunComponent.OriginalSpreadModifier;
-                multiShotComp.SpreadAddition = cigarAffectedGunComponent.OriginalSpreadAddition;
-                multiShotComp.HandDamageAmount = cigarAffectedGunComponent.OriginalHandDamageAmount;
-                multiShotComp.StaminaDamage = cigarAffectedGunComponent.OriginalStaminaDamage;
-                break;
-            }
+                {
+                    multiShotComp.MissChance = cigarAffectedGunComponent.OriginalMissChance;
+                    multiShotComp.SpreadMultiplier = cigarAffectedGunComponent.OriginalSpreadModifier;
+                    multiShotComp.SpreadAddition = cigarAffectedGunComponent.OriginalSpreadAddition;
+                    multiShotComp.HandDamageAmount = cigarAffectedGunComponent.OriginalHandDamageAmount;
+                    multiShotComp.StaminaDamage = cigarAffectedGunComponent.OriginalStaminaDamage;
+                    break;
+                }
         }
 
         RemComp<HoloCigarAffectedGunComponent>(gun);

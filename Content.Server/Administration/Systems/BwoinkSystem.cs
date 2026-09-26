@@ -244,7 +244,7 @@ namespace Content.Server.Administration.Systems
 
             LoadSharedAdminMacros();
 
-        	_rateLimit.Register(
+            _rateLimit.Register(
                 RateLimitKey,
                 new RateLimitRegistration(CCVars.AhelpRateLimitPeriod,
                     CCVars.AhelpRateLimitCount,
@@ -2008,8 +2008,8 @@ namespace Content.Server.Administration.Systems
             var onlinePlayers = connectedSessions.Length;
             var averagePingMs = onlinePlayers == 0
                 ? 0
-                : (int) Math.Round(connectedSessions.Average(session => (double) session.Ping));
-            var maxPingMs = onlinePlayers == 0 ? 0 : connectedSessions.Max(session => (int) session.Ping);
+                : (int)Math.Round(connectedSessions.Average(session => (double)session.Ping));
+            var maxPingMs = onlinePlayers == 0 ? 0 : connectedSessions.Max(session => (int)session.Ping);
             var highPingPlayers = connectedSessions.Count(session => session.Ping >= 200);
 
             var roleSlots = BuildRoleSlotStatistics();

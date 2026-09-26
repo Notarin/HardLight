@@ -1,4 +1,4 @@
-﻿namespace Content.Shared.Magic.Events;
+namespace Content.Shared.Magic.Events;
 
 [ByRefEvent]
 public readonly struct SpeakSpellEvent(EntityUid performer, string speech)

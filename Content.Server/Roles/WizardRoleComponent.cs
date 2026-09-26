@@ -1,4 +1,4 @@
-﻿namespace Content.Server.Roles;
+namespace Content.Server.Roles;
 
 /// <summary>
 ///     Mind role to tag entities that they're a Wizard

@@ -117,7 +117,7 @@ namespace Content.Server.Abilities.Psionics
             _damageableSystem.TryChangeDamage(uid, damage, true, true);
         }
     }
-    public sealed class DispelledEvent : HandledEntityEventArgs {}
+    public sealed class DispelledEvent : HandledEntityEventArgs { }
 }
 
 

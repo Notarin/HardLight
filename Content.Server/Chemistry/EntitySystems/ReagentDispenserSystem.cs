@@ -58,7 +58,7 @@ namespace Content.Server.Chemistry.EntitySystems
             SubscribeLocalEvent<ReagentDispenserComponent, ReagentDispenserDispenseReagentMessage>(OnDispenseReagentMessage);
             SubscribeLocalEvent<ReagentDispenserComponent, ReagentDispenserClearContainerSolutionMessage>(OnClearContainerSolutionMessage);
 
-            SubscribeLocalEvent<ReagentDispenserComponent, MapInitEvent>(OnMapInit, before: new []{typeof(ItemSlotsSystem)});
+            SubscribeLocalEvent<ReagentDispenserComponent, MapInitEvent>(OnMapInit, before: new[] { typeof(ItemSlotsSystem) });
             SubscribeLocalEvent<ReagentDispenserComponent, ComponentInit>(OnDispenserInit); // FIX: Added ComponentInit subscription
 
             SubscribeLocalEvent<ReagentDispenserComponent, ReagentDispenserToggleValveMessage>(OnToggleValveMessage);
@@ -325,8 +325,8 @@ namespace Content.Server.Chemistry.EntitySystems
                 };
 
                 // Trigger RefreshParts to create the slots
-				var ev = new RefreshPartsEvent { PartRatings = partRatings };
-				RaiseLocalEvent(uid, ev);
+                var ev = new RefreshPartsEvent { PartRatings = partRatings };
+                RaiseLocalEvent(uid, ev);
 
                 Logger.Info($"Created {component.StorageSlots.Count} storage slots for dispenser {uid}");
             }
@@ -351,7 +351,7 @@ namespace Content.Server.Chemistry.EntitySystems
 
                 component.StorageSlotIds.Add(storageSlotId);
                 component.StorageSlots.Add(storageComponent);
-                component.StorageSlots[i].Name = "Storage Slot " + (i+1);
+                component.StorageSlots[i].Name = "Storage Slot " + (i + 1);
                 _itemSlotsSystem.AddItemSlot(uid, component.StorageSlotIds[i], component.StorageSlots[i]);
             }
             // Too many?

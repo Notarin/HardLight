@@ -275,7 +275,7 @@ public sealed partial class BanManager : IBanManager, IPostInjectInit
         ImmutableArray<int> roundIds;
         if (banInfo.RoundIds.Count > 0)
         {
-            roundIds = [..banInfo.RoundIds];
+            roundIds = [.. banInfo.RoundIds];
         }
         else if (_systems.TryGetEntitySystem<GameTicker>(out var ticker) && ticker.RoundId != 0)
         {
@@ -289,9 +289,9 @@ public sealed partial class BanManager : IBanManager, IPostInjectInit
         return (new BanDef(
             null,
             type,
-            [..banInfo.Users.Select(u => u.UserId)],
-            [..banInfo.AddressRanges],
-            [..banInfo.HWIds],
+            [.. banInfo.Users.Select(u => u.UserId)],
+            [.. banInfo.AddressRanges],
+            [.. banInfo.HWIds],
             DateTimeOffset.Now,
             expires,
             roundIds,

@@ -1,4 +1,4 @@
-﻿using Content.Shared.Sprite;
+using Content.Shared.Sprite;
 
 namespace Content.Client.CM14.IconSmoothing;
 

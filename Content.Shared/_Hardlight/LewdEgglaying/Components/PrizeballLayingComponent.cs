@@ -108,7 +108,7 @@ public sealed partial class PrizeballLayingComponent : Component
     }
     public bool doFlavor()
     {
-        if(pballsFlavorAccum >= FlavorFreq)
+        if (pballsFlavorAccum >= FlavorFreq)
         {
             pballsFlavorAccum -= FlavorFreq;
             return true;

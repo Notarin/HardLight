@@ -1,4 +1,4 @@
-﻿using Content.Shared.Administration.Logs;
+using Content.Shared.Administration.Logs;
 using Content.Shared.Database;
 using Content.Shared.DoAfter;
 using Content.Shared.Interaction;
@@ -54,7 +54,7 @@ public sealed partial class BypassLockSystem : EntitySystem
                 used,
                 user,
                 target,
-                (float) target.Comp.BypassDelay.TotalSeconds,
+                (float)target.Comp.BypassDelay.TotalSeconds,
                 target.Comp.BypassingTool,
                 new ForceOpenLockDoAfterEvent()))
         {

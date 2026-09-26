@@ -6,7 +6,7 @@ namespace Content.Shared._Goobstation.MartialArts.Events;
 public sealed partial class CqcSlamPerformedEvent : EntityEventArgs;
 
 [Serializable, NetSerializable, DataDefinition]
-public sealed partial class  CqcKickPerformedEvent : EntityEventArgs;
+public sealed partial class CqcKickPerformedEvent : EntityEventArgs;
 
 [Serializable, NetSerializable, DataDefinition]
 public sealed partial class CqcRestrainPerformedEvent : EntityEventArgs;

@@ -68,7 +68,7 @@ public sealed class HealthAnalyzerSystem : EntitySystem
             if (component.NextUpdate > _timing.CurTime)
                 continue;
 
-            if (component.ScannedEntity is not {} patient)
+            if (component.ScannedEntity is not { } patient)
                 continue;
 
             if (Deleted(patient))
@@ -287,7 +287,7 @@ public sealed class HealthAnalyzerSystem : EntitySystem
             metabolizingReagents = new List<(string, FixedPoint2)>();
             foreach (var (reagent, quantity) in chemicalsSolution.Contents)
             {
-               metabolizingReagents.Add((reagent.Prototype, quantity));
+                metabolizingReagents.Add((reagent.Prototype, quantity));
             }
         }
         // Starlight end
@@ -303,7 +303,7 @@ public sealed class HealthAnalyzerSystem : EntitySystem
             bleeding,
             unrevivable,
             uncloneable, // DeltaV: Uncloneable
-            // Shitmed Change
+                         // Shitmed Change
             body,
             part != null ? GetNetEntity(part) : null,
             metabolizingReagents // Starlight

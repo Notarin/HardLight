@@ -132,7 +132,7 @@ public sealed partial class NPCCombatSystem
 
             var worldPos = _transform.GetWorldPosition(xform);
             var targetPos = _transform.GetWorldPosition(targetXform);
-            
+
             // Frontier -- Ranged NPC miss chance
             if (_random.Prob(comp.MissChance))
             {
@@ -246,7 +246,8 @@ public sealed partial class NPCCombatSystem
         var threshold = shotsThreshold;
         // For consistency with NPC steering.
         return _interaction.InRangeUnobstructed(source, target, distance + 0.1f, obstructedMask,
-            predicate: (EntityUid uid) => {
+            predicate: (EntityUid uid) =>
+            {
                 if (_physicsQuery.TryGetComponent(uid, out var physics)
                     && (physics.CollisionLayer & (int)bulletMask) == 0
                 ) // this will collide with the bullet

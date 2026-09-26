@@ -270,11 +270,11 @@ public sealed partial class SalvageSystem
             // Auto-FTL out any shuttles
             else if (remaining < TimeSpan.FromSeconds(_shuttle.DefaultStartupTime) + TimeSpan.FromSeconds(0.5))
             {
-                var ftlTime = (float) remaining.TotalSeconds;
+                var ftlTime = (float)remaining.TotalSeconds;
 
                 if (remaining < TimeSpan.FromSeconds(_shuttle.DefaultStartupTime))
                 {
-                    ftlTime = MathF.Max(0, (float) remaining.TotalSeconds - 0.5f);
+                    ftlTime = MathF.Max(0, (float)remaining.TotalSeconds - 0.5f);
                 }
 
                 ftlTime = MathF.Min(ftlTime, _shuttle.DefaultStartupTime);
@@ -474,7 +474,7 @@ public sealed partial class SalvageSystem
         var defaultMapId = _gameTicker.DefaultMap;
         if (_mapSystem.TryGetMap(defaultMapId, out var defaultMapUid) && defaultMapUid != null && defaultMapUid != EntityUid.Invalid)
         {
-            targetMapUid = (EntityUid) defaultMapUid;
+            targetMapUid = (EntityUid)defaultMapUid;
             targetSource = "DefaultMap";
             return true;
         }
@@ -507,7 +507,7 @@ public sealed partial class SalvageSystem
     private List<Vector2> GetExistingGridPositions(MapId mapId) // HardLight
     {
         var positions = new List<Vector2>();
-        var gridQuery = EntityManager.AllEntityQueryEnumerator<MapGridComponent, TransformComponent>();
+        var gridQuery = AllEntityQuery<MapGridComponent, TransformComponent>();
 
         while (gridQuery.MoveNext(out var _, out var _, out var xform))
         {

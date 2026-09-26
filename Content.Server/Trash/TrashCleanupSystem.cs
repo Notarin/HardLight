@@ -129,7 +129,7 @@ public sealed class TrashCleanupSystem : EntitySystem
             {
                 var gridName = MetaData(gridUid).EntityName;
                 _sawmill.Debug("Deleting grid: {GridName} ({GridUid})", gridName, gridUid);
-                EntityManager.DeleteEntity(gridUid);
+                Del(gridUid);
             }
         }
         else

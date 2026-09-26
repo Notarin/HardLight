@@ -57,7 +57,7 @@ public sealed partial class SupermatterSystem
         sm.DynamicHeatResistance = 1f;
 
         // More moles of gases are harder to heat than fewer, so let's scale heat damage around them
-        sm.MoleHeatPenaltyThreshold = (float) Math.Max(moles * sm.MoleHeatPenalty, 0.25);
+        sm.MoleHeatPenaltyThreshold = (float)Math.Max(moles * sm.MoleHeatPenalty, 0.25);
 
         // Ramps up or down in increments of 0.02 up to the proportion of CO2
         // Given infinite time, powerloss_dynamic_scaling = co2comp
@@ -122,7 +122,7 @@ public sealed partial class SupermatterSystem
 
         _atmosphere.Merge(mix, absorbedGas);
 
-        var powerReduction = (float) Math.Pow(sm.Power / 500, 3);
+        var powerReduction = (float)Math.Pow(sm.Power / 500, 3);
 
         // After this point power is lowered
         // This wraps around to the begining of the function
@@ -240,15 +240,15 @@ public sealed partial class SupermatterSystem
 
             switch (sm.PreferredDelamType)
             {
-                case DelamType.Cascade: loc = "supermatter-delam-cascade";   break;
-                case DelamType.Singulo: loc = "supermatter-delam-overmass";  break;
-                case DelamType.Tesla:   loc = "supermatter-delam-tesla";     break;
-                default:                loc = "supermatter-delam-explosion"; break;
+                case DelamType.Cascade: loc = "supermatter-delam-cascade"; break;
+                case DelamType.Singulo: loc = "supermatter-delam-overmass"; break;
+                case DelamType.Tesla: loc = "supermatter-delam-tesla"; break;
+                default: loc = "supermatter-delam-explosion"; break;
             }
 
             var station = _station.GetOwningStation(uid);
             if (station != null)
-                _alert.SetLevel((EntityUid) station, sm.AlertCodeDeltaId, true, true, true, false);
+                _alert.SetLevel((EntityUid)station, sm.AlertCodeDeltaId, true, true, true, false);
 
             sb.AppendLine(Loc.GetString(loc));
             sb.AppendLine(Loc.GetString("supermatter-seconds-before-delam", ("seconds", sm.DelamTimer)));
@@ -302,7 +302,7 @@ public sealed partial class SupermatterSystem
     public float GetIntegrity(SupermatterComponent sm)
     {
         var integrity = sm.Damage / sm.DamageDelaminationPoint;
-        integrity = (float) Math.Round(100 - integrity * 100, 2);
+        integrity = (float)Math.Round(100 - integrity * 100, 2);
         integrity = integrity < 0 ? 0 : integrity;
         return integrity;
     }

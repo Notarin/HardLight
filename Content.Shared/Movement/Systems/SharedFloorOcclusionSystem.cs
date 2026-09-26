@@ -29,7 +29,7 @@ public abstract class SharedFloorOcclusionSystem : EntitySystem
         //{
         //    return;
         //}
-        
+
         //occlusion.Colliding.Add(entity.Owner);
         //Dirty(other, occlusion);
         //SetEnabled((other, occlusion));

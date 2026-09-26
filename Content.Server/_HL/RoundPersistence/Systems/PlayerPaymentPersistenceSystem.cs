@@ -231,9 +231,9 @@ public sealed class PlayerPaymentPersistenceSystem : EntitySystem
             return "Unknown";
 
         var station = _station.GetOwningStation(session.AttachedEntity.Value);
-        if (station != null && EntityManager.EntityExists(station.Value) && !TerminatingOrDeleted(station.Value))
+        if (station != null && Exists(station.Value) && !TerminatingOrDeleted(station.Value))
         {
-            if (EntityManager.TryGetComponent<MetaDataComponent>(station.Value, out var stationMeta))
+            if (TryComp<MetaDataComponent>(station.Value, out var stationMeta))
             {
                 return stationMeta.EntityName;
             }

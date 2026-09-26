@@ -5,5 +5,5 @@ namespace Content.Shared.Abilities.Psionics
     /// Tracking comp so we can subscribe to alt verbs
     /// </summary>
     public sealed partial class HeadCagedComponent : Component
-    {}
+    { }
 }

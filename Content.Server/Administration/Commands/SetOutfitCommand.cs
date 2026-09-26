@@ -105,7 +105,7 @@ namespace Content.Server.Administration.Commands
                 foreach (var slot in slots)
                 {
                     invSystem.TryUnequip(target, slot.Name, true, true, false, inventoryComponent);
-                    var gearStr = ((IEquipmentLoadout) startingGear).GetGear(slot.Name);
+                    var gearStr = ((IEquipmentLoadout)startingGear).GetGear(slot.Name);
                     if (gearStr == string.Empty)
                     {
                         continue;
@@ -171,7 +171,7 @@ namespace Content.Server.Administration.Commands
                 var encryption = new InternalEncryptionKeySpawner();
                 encryption.TryInsertEncryptionKey(target, startingGear, entityManager);
             }
-            
+
             return true;
         }
     }

@@ -233,7 +233,7 @@ namespace Content.Server.Hands.Systems
             if (!coordinates.IsValid(EntityManager))
                 return false;
 
-           // Goobstation start: Added throwing for grabbed mobs, mnoved direction.
+            // Goobstation start: Added throwing for grabbed mobs, mnoved direction.
             var direction = _transformSystem.ToMapCoordinates(coordinates).Position - _transformSystem.GetWorldPosition(player);
 
             if (TryComp<VirtualItemComponent>(throwEnt, out var virt))
@@ -250,9 +250,9 @@ namespace Content.Server.Hands.Systems
                 return false;
             hands.NextThrowTime = _timing.CurTime + hands.ThrowCooldown;
 
-            if (EntityManager.TryGetComponent(throwEnt, out StackComponent? stack) && stack.Count > 1 && stack.ThrowIndividually)
+            if (TryComp(throwEnt, out StackComponent? stack) && stack.Count > 1 && stack.ThrowIndividually)
             {
-                var splitStack = _stackSystem.Split(throwEnt, 1, EntityManager.GetComponent<TransformComponent>(player).Coordinates, stack);
+                var splitStack = _stackSystem.Split(throwEnt, 1, Comp<TransformComponent>(player).Coordinates, stack);
 
                 if (splitStack is not { Valid: true })
                     return false;

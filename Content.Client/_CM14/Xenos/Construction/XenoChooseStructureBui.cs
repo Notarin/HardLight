@@ -1,4 +1,4 @@
-﻿using Content.Shared.CM14.Xenos;
+using Content.Shared.CM14.Xenos;
 using Content.Shared.CM14.Xenos.Construction;
 using Content.Client._Shitmed.Xenonids.UI; // XenoChoiceControl
 using JetBrains.Annotations;

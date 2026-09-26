@@ -46,7 +46,7 @@ public sealed partial class AnomalyPowerSystem
         foreach (var ent in lookup)
         {
             if (physQuery.TryGetComponent(ent, out var phys)
-                && (phys.CollisionMask & (int) CollisionGroup.GhostImpassable) != 0)
+                && (phys.CollisionMask & (int)CollisionGroup.GhostImpassable) != 0)
                 continue;
 
             var foo = _xform.GetWorldPosition(ent, xformQuery) - worldPos;
@@ -68,7 +68,7 @@ public sealed partial class AnomalyPowerSystem
         foreach (var ent in lookup)
         {
             if (physQuery.TryGetComponent(ent, out var phys)
-                && (phys.CollisionMask & (int) CollisionGroup.GhostImpassable) != 0)
+                && (phys.CollisionMask & (int)CollisionGroup.GhostImpassable) != 0)
                 continue;
 
             var foo = _xform.GetWorldPosition(ent, xformQuery) - worldPos;

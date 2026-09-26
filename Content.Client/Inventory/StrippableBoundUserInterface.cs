@@ -77,7 +77,7 @@ namespace Content.Client.Inventory
         private StrippingMenu? _strippingMenu;
 
         [ViewVariables]
-        private readonly Dictionary<string, EntityUid> _virtualHiddenEntities = new (); // Moffstation - Make this into a dict so that we can hold multiple virtual entities
+        private readonly Dictionary<string, EntityUid> _virtualHiddenEntities = new(); // Moffstation - Make this into a dict so that we can hold multiple virtual entities
 
         /// <summary>
         /// The current amount of added hand buttons.

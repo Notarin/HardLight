@@ -1,4 +1,4 @@
-﻿using Content.Client._NF.Market.UI;
+using Content.Client._NF.Market.UI;
 using Content.Shared._NF.Market.BUI;
 using Content.Shared._NF.Market.Events;
 using JetBrains.Annotations;

@@ -17,7 +17,7 @@ public sealed partial class TaintData : ReagentData
     private TaintType _taint;
 
     [DataField(required: true)]
-    public TaintType Taint 
+    public TaintType Taint
     {
         get => _taint;
         set

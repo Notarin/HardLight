@@ -12,7 +12,7 @@ namespace Content.Server.Species.Systems;
 
 public sealed partial class NymphSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _protoManager= default!;
+    [Dependency] private readonly IPrototypeManager _protoManager = default!;
     [Dependency] private readonly MindSystem _mindSystem = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly ZombieSystem _zombie = default!;
@@ -37,7 +37,7 @@ public sealed partial class NymphSystem : EntitySystem
 
         // Get the organs' position & spawn a nymph there
         var coords = Transform(uid).Coordinates;
-        var nymph = EntityManager.SpawnAtPosition(entityProto.ID, coords);
+        var nymph = SpawnAtPosition(entityProto.ID, coords);
 
         if (HasComp<ZombieComponent>(args.OldBody)) // Zombify the new nymph if old one is a zombie
             _zombie.ZombifyEntity(nymph);

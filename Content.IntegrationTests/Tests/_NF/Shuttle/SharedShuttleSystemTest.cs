@@ -1,4 +1,4 @@
-﻿using Content.IntegrationTests.Pair;
+using Content.IntegrationTests.Pair;
 using Content.Shared.Shuttles.Components;
 using Content.Shared.Shuttles.Systems;
 using Robust.Shared.GameObjects;

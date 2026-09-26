@@ -25,6 +25,6 @@ public sealed class AutoImplanterSystem : EntitySystem
         QueueDel(args.Entity);
     }
 
-    private void OnInit(Entity<AutoImplanterComponent> ent, ref ComponentInit args) => 
+    private void OnInit(Entity<AutoImplanterComponent> ent, ref ComponentInit args) =>
         ent.Comp.Container = _container.EnsureContainer<Container>(ent, AutoImplanterComponent.ContainerId);
 }

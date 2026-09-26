@@ -37,14 +37,14 @@ public sealed class BlockGameArcadeSystem : EntitySystem
 
         for (int rewards = 0; rewards < points / 1000; rewards++)
         {
-            EntityManager.SpawnEntity(_random.Pick(arcade.PossibleRewards), xform.Coordinates);
+            Spawn(_random.Pick(arcade.PossibleRewards), xform.Coordinates);
         }
     }
     // Coyote end
 
     public override void Update(float frameTime)
     {
-        var query = EntityManager.EntityQueryEnumerator<BlockGameArcadeComponent>();
+        var query = EntityQueryEnumerator<BlockGameArcadeComponent>();
         while (query.MoveNext(out var _, out var blockGame))
         {
             blockGame.Game?.GameTick(frameTime);

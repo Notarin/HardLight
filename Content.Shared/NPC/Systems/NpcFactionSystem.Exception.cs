@@ -76,7 +76,7 @@ public sealed partial class NpcFactionSystem
     /// </summary>
     public void IgnoreEntity(Entity<FactionExceptionComponent?> ent, Entity<FactionExceptionTrackerComponent?> target)
     {
-        if (!target.Owner.IsValid() || !EntityManager.EntityExists(target.Owner)) // HardLight
+        if (!target.Owner.IsValid() || !Exists(target.Owner)) // HardLight
             return;
 
         ent.Comp ??= EnsureComp<FactionExceptionComponent>(ent);
@@ -102,7 +102,7 @@ public sealed partial class NpcFactionSystem
     /// </summary>
     public void AggroEntity(Entity<FactionExceptionComponent?> ent, Entity<FactionExceptionTrackerComponent?> target)
     {
-        if (!target.Owner.IsValid() || !EntityManager.EntityExists(target.Owner)) // HardLight
+        if (!target.Owner.IsValid() || !Exists(target.Owner)) // HardLight
             return;
 
         ent.Comp ??= EnsureComp<FactionExceptionComponent>(ent);

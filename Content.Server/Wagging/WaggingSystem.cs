@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using Content.Server.Actions;
 using Content.Server.Humanoid;
 using Content.Shared._CS.Humanoid;

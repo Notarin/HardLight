@@ -1,4 +1,4 @@
-﻿namespace Content.Server.Explosion.Components;
+namespace Content.Server.Explosion.Components;
 
 /// <summary>
 /// Triggers when the entity is overlapped for the specified duration.

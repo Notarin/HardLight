@@ -51,7 +51,7 @@ namespace Content.Server.Psionics.Glimmer
 
 
             var delta = curTime - LastUpdateTime;
-            var maxGlimmerLost = (int) Math.Round(delta.TotalSeconds * _glimmerLostPerSecond);
+            var maxGlimmerLost = (int)Math.Round(delta.TotalSeconds * _glimmerLostPerSecond);
 
             // It used to be 75% to lose one glimmer per ten seconds, but now it's 50% per six seconds.
             // The probability is exactly the same over the same span of time. (0.25 ^ 3 == 0.5 ^ 6)

@@ -560,7 +560,7 @@ public sealed partial class NanoChatUiFragment : BoxContainer
         MessagesScroll.InvalidateMeasure();
         InvalidateArrange();
 
-        
+
         var newCount = chatMessages.Count;
         var prevCount = activeChat.HasValue ? _lastMessageCounts.GetValueOrDefault(activeChat.Value, -1) : -1;
         if (activeChat != _lastScrolledChat || newCount > prevCount)
@@ -579,7 +579,7 @@ public sealed partial class NanoChatUiFragment : BoxContainer
         if (_pendingScrollToBottom)
         {
             _pendingScrollToBottom = false;
-          
+
             if (MessageList.DesiredSize.Y > MessagesScroll.Size.Y)
                 MessagesScroll.SetScrollValue(new Vector2(0, float.MaxValue));
             else

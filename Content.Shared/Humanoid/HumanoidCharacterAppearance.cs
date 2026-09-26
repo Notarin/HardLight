@@ -174,7 +174,7 @@ public sealed partial class HumanoidCharacterAppearance : ICharacterAppearance, 
             Color.Black,
             false, //starlight
             skinColor,
-            new (),
+            new(),
             1.0f,
             1.0f
         );
@@ -254,7 +254,7 @@ public sealed partial class HumanoidCharacterAppearance : ICharacterAppearance, 
 
         var newHeight = random.NextFloat(0.8f, 1.2f); // Random height between 80% and 120% of normal
         var newWidth = random.NextFloat(0.8f, 1.2f); // Random width between 80% and 120% of normal
-        return new HumanoidCharacterAppearance(newHairStyle, newHairColor, false, newFacialHairStyle, newHairColor, false, newEyeColor, false, newSkinColor, new (), newHeight, newWidth); //starlight, glowing
+        return new HumanoidCharacterAppearance(newHairStyle, newHairColor, false, newFacialHairStyle, newHairColor, false, newEyeColor, false, newSkinColor, new(), newHeight, newWidth); //starlight, glowing
 
         float RandomizeColor(float channel)
         {

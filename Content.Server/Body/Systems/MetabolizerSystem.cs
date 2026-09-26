@@ -197,11 +197,11 @@ namespace Content.Server.Body.Systems
                     if (!proto.Metabolisms.TryGetValue(group.Id, out var entry))
                         continue;
 
-                    var rate = entry.MetabolismRate * (float) group.MetabolismRateModifier;
+                    var rate = entry.MetabolismRate * (float)group.MetabolismRateModifier;
                     if (rate <= FixedPoint2.Zero)
                         continue;
 
-                    var rateFloat = (float) rate;
+                    var rateFloat = (float)rate;
                     if (!float.IsFinite(rateFloat) || rateFloat <= 0f)
                         continue;
 
@@ -214,7 +214,7 @@ namespace Content.Server.Body.Systems
                         continue;
                     // End Frontier
 
-                    float scale = (float) mostToRemove / rateFloat;
+                    float scale = (float)mostToRemove / rateFloat;
                     if (!float.IsFinite(scale) || scale <= 0f)
                         continue;
 

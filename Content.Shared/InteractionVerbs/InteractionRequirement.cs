@@ -9,7 +9,7 @@ namespace Content.Shared.InteractionVerbs;
 ///     If a verb does not meet the requirement, it will be hidden or disabled in the verb menu.
 /// </summary>
 [ImplicitDataDefinitionForInheritors, Serializable, NetSerializable]
-[UsedImplicitly(ImplicitUseTargetFlags.WithInheritors )]
+[UsedImplicitly(ImplicitUseTargetFlags.WithInheritors)]
 public abstract partial class InteractionRequirement
 {
     public abstract bool IsMet(InteractionArgs args, InteractionVerbPrototype proto, InteractionAction.VerbDependencies deps);

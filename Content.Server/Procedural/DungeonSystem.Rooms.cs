@@ -155,7 +155,7 @@ public sealed partial class DungeonSystem
 
         // HardLight: CachedRoomTile.LocalIndices are room-local, so tile transform must use
         // room-local center. Using atlas offset here shifts floors/walls away from room entities.
-        var roomCenter = (Vector2) roomDimensions / 2f * grid.TileSize; // HardLight
+        var roomCenter = (Vector2)roomDimensions / 2f * grid.TileSize; // HardLight
         var tileOffset = -roomCenter + grid.TileSizeHalfVector;
         _tiles.Clear();
 

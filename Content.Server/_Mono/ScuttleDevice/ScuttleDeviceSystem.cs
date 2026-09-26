@@ -180,7 +180,7 @@ public sealed class ScuttleDeviceSystem : EntitySystem
 
         if (ent.Comp.RemainingTime <= ent.Comp.AlertSoundTime && !ent.Comp.PlayedAlertSound)
         {
-            _sound.PlayGlobalOnStation(ent, _audio.ResolveSound(ent.Comp.AlertSound), new AudioParams{Volume = -5f});
+            _sound.PlayGlobalOnStation(ent, _audio.ResolveSound(ent.Comp.AlertSound), new AudioParams { Volume = -5f });
             _sound.StopStationEventMusic(ent, StationEventMusicType.Nuke);
             ent.Comp.PlayedAlertSound = true;
         }
@@ -205,7 +205,7 @@ public sealed class ScuttleDeviceSystem : EntitySystem
         var name = grid == null ? "Space" : _shuttles.GetIFFLabel(grid.Value) ?? "Space";
 
         var announcement = Loc.GetString("scuttle-device-announcement-armed",
-            ("time", (int) ent.Comp.RemainingTime.TotalSeconds),
+            ("time", (int)ent.Comp.RemainingTime.TotalSeconds),
             ("location", name));
         var sender = Loc.GetString(ent.Comp.AnnounceSender);
         _chatSystem.DispatchFilteredAnnouncement(Filter.Local().AddInRange(_transform.GetMapCoordinates(ent, nukeXform), ent.Comp.AnnounceRadius),

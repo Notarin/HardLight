@@ -125,7 +125,7 @@ namespace Content.Shared.StatusEffect
             if (HasComp<T>(uid))
                 return true;
 
-            EntityManager.AddComponent<T>(uid);
+            AddComp<T>(uid);
             status.ActiveEffects[key].RelevantComponent = _componentFactory.GetComponentName<T>();
             return true;
 
@@ -140,10 +140,10 @@ namespace Content.Shared.StatusEffect
             if (TryAddStatusEffect(uid, key, time, refresh, status))
             {
                 // If they already have the comp, we just won't bother updating anything.
-                if (!EntityManager.HasComponent(uid, _componentFactory.GetRegistration(component).Type))
+                if (!HasComp(uid, _componentFactory.GetRegistration(component).Type))
                 {
-                    var newComponent = (Component) _componentFactory.GetComponent(component);
-                    EntityManager.AddComponent(uid, newComponent);
+                    var newComponent = (Component)_componentFactory.GetComponent(component);
+                    AddComp(uid, newComponent);
                     status.ActiveEffects[key].RelevantComponent = component;
                 }
                 return true;
@@ -281,7 +281,7 @@ namespace Content.Shared.StatusEffect
                 && _componentFactory.TryGetRegistration(state.RelevantComponent, out var registration))
             {
                 var type = registration.Type;
-                EntityManager.RemoveComponent(uid, type);
+                RemComp(uid, type);
             }
 
             if (proto.Alert != null)
@@ -480,7 +480,7 @@ namespace Content.Shared.StatusEffect
     ///     Raised on an entity before a status effect is added to determine if adding it should be cancelled.
     /// </summary>
     [ByRefEvent]
-    public record struct BeforeStatusEffectAddedEvent(string Key, bool Cancelled=false);
+    public record struct BeforeStatusEffectAddedEvent(string Key, bool Cancelled = false);
 
     public readonly struct StatusEffectAddedEvent
     {

@@ -20,15 +20,15 @@ public sealed partial class RestoreBloodReagent : EntityEffect
         if (args.EntityManager.TryGetComponent<BloodstreamComponent>(args.TargetEntity, out var bloodstream))
         {
             // Only restore if there's an original blood type stored and it's different from current
-            if (bloodstream.OriginalBloodReagent != null && 
+            if (bloodstream.OriginalBloodReagent != null &&
                 bloodstream.BloodReagent != bloodstream.OriginalBloodReagent)
             {
                 var sys = args.EntityManager.System<BloodstreamSystem>();
                 sys.ChangeBloodReagent(args.TargetEntity, bloodstream.OriginalBloodReagent.Value, bloodstream);
-                
+
                 // Use system method to clear the original blood reagent
                 sys.ClearOriginalBloodReagent(args.TargetEntity, bloodstream);
-                
+
                 // Remove any blood modification tracker since we're actively purifying
                 if (args.EntityManager.TryGetComponent<BloodModificationTrackerComponent>(args.TargetEntity, out var tracker))
                 {

@@ -1,4 +1,4 @@
-﻿using Content.Shared.Administration;
+using Content.Shared.Administration;
 using Content.Shared.CCVar;
 using Robust.Shared.Configuration;
 using Robust.Shared.Console;
@@ -158,7 +158,7 @@ public sealed class PanicBunkerMinAccountAgeCommand : LocalizedCommands
         }
 
         _cfg.SetCVar(CCVars.PanicBunkerMinAccountAge, minutes);
-    shell.WriteLine(LocalizationManager.GetString("panicbunker-command-min-account-age-set", ("minutes", minutes)));
+        shell.WriteLine(LocalizationManager.GetString("panicbunker-command-min-account-age-set", ("minutes", minutes)));
     }
 }
 

@@ -22,7 +22,7 @@ public sealed partial class OfferItemComponent : Component
 
     [DataField, AutoNetworkedField]
     public EntityUid? Target;
-    
+
     [DataField]
     public ProtoId<AlertPrototype> OfferAlert = "Offer";
 

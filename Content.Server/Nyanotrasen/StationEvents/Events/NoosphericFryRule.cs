@@ -69,7 +69,8 @@ internal sealed class NoosphericFryRule : StationEventSystem<NoosphericFryRuleCo
                 Spawn("Ash", Transform(pair.wearer).Coordinates);
                 _popupSystem.PopupEntity(Loc.GetString("psionic-burns-up", ("item", pair.hat)), pair.wearer, Filter.Pvs(pair.hat), true, Shared.Popups.PopupType.MediumCaution);
                 _audioSystem.PlayPvs("/Audio/Effects/lightburn.ogg", pair.hat);
-            } else
+            }
+            else
             {
                 _popupSystem.PopupEntity(Loc.GetString("psionic-burn-resist", ("item", pair.hat)), pair.wearer, Filter.Pvs(pair.hat), true, Shared.Popups.PopupType.SmallCaution);
                 _audioSystem.PlayPvs("/Audio/Effects/lightburn.ogg", pair.hat);
@@ -87,7 +88,8 @@ internal sealed class NoosphericFryRule : StationEventSystem<NoosphericFryRuleCo
                     flammableComponent.FireStacks += 1;
                     _flammableSystem.Ignite(pair.wearer, pair.wearer, flammableComponent);
                 }
-            } else if (_glimmerSystem.Glimmer > 750)
+            }
+            else if (_glimmerSystem.Glimmer > 750)
             {
                 damage *= 3;
                 if (TryComp<FlammableComponent>(pair.wearer, out var flammableComponent))

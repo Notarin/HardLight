@@ -89,7 +89,7 @@ public sealed class IdCardConsoleSystem : SharedIdCardConsoleSystem
         List<ProtoId<AccessLevelPrototype>>? possibleAccess = null;
         if (component.PrivilegedIdSlot.Item is { Valid: true } item)
         {
-            privilegedIdName = EntityManager.GetComponent<MetaDataComponent>(item).EntityName;
+            privilegedIdName = Comp<MetaDataComponent>(item).EntityName;
             possibleAccess = _accessReader.FindAccessTags(item).ToList();
         }
 
@@ -113,8 +113,8 @@ public sealed class IdCardConsoleSystem : SharedIdCardConsoleSystem
         }
         else
         {
-            var targetIdComponent = EntityManager.GetComponent<IdCardComponent>(targetId);
-            var targetAccessComponent = EntityManager.GetComponent<AccessComponent>(targetId);
+            var targetIdComponent = Comp<IdCardComponent>(targetId);
+            var targetAccessComponent = Comp<AccessComponent>(targetId);
 
             var jobProto = targetIdComponent.JobPrototype ?? new ProtoId<JobPrototype>(string.Empty); // Frontier: AccessLevelPrototype<JobPrototype
             if (TryComp<StationRecordKeyStorageComponent>(targetId, out var keyStorage)
@@ -126,7 +126,7 @@ public sealed class IdCardConsoleSystem : SharedIdCardConsoleSystem
 
             string?[]? shuttleNameParts = null;
             var hasShuttle = false;
-            if (EntityManager.TryGetComponent<ShuttleDeedComponent>(targetId, out var comp))
+            if (TryComp<ShuttleDeedComponent>(targetId, out var comp))
             {
                 shuttleNameParts = new[] { comp.ShuttleName, comp.ShuttleNameSuffix };
                 hasShuttle = true;
@@ -218,8 +218,8 @@ public sealed class IdCardConsoleSystem : SharedIdCardConsoleSystem
 
         /*TODO: ECS SharedIdCardConsoleComponent and then log on card ejection, together with the save.
         This current implementation is pretty shit as it logs 27 entries (27 lines) if someone decides to give themselves AA*/
-/*         _adminLogger.Add(LogType.Action, LogImpact.Medium,
-            $"{ToPrettyString(player):player} has modified {ToPrettyString(targetId):entity} with the following accesses: [{string.Join(", ", addedTags.Union(removedTags))}] [{string.Join(", ", newAccessList)}]"); */
+        /*         _adminLogger.Add(LogType.Action, LogImpact.Medium,
+                    $"{ToPrettyString(player):player} has modified {ToPrettyString(targetId):entity} with the following accesses: [{string.Join(", ", addedTags.Union(removedTags))}] [{string.Join(", ", newAccessList)}]"); */
     }
 
     /// <summary>
@@ -238,7 +238,7 @@ public sealed class IdCardConsoleSystem : SharedIdCardConsoleSystem
         if (component.TargetIdSlot.Item is not { Valid: true } targetId || !PrivilegedIdIsAuthorized(uid, component))
             return;
 
-        if (!EntityManager.TryGetComponent<ShuttleDeedComponent>(targetId, out var shuttleDeed))
+        if (!TryComp<ShuttleDeedComponent>(targetId, out var shuttleDeed))
             return;
         else
         {

@@ -39,7 +39,7 @@ public sealed class MedicalBountyTargetsRule : StationEventSystem<MedicalBountyT
             return;
 
         var variation = RobustRandom.NextFloat(-component.Variance, component.Variance);
-        var spawnCount = Math.Max(1, (int) MathF.Round(medicalWorkers * (1f + variation)));
+        var spawnCount = Math.Max(1, (int)MathF.Round(medicalWorkers * (1f + variation)));
 
         for (var i = 0; i < spawnCount; i++)
         {

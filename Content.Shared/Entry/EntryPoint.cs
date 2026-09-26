@@ -48,11 +48,11 @@ namespace Content.Shared.Entry
             IoCManager.Resolve<MarkingManager>().Initialize();
 
             var configMan = IoCManager.Resolve<IConfigurationManager>();
-            #if DEBUG
+#if DEBUG
             configMan.OverrideDefault(CVars.NetFakeLagMin, 0.075f);
             configMan.OverrideDefault(CVars.NetFakeLoss, 0.005f);
             configMan.OverrideDefault(CVars.NetFakeDuplicates, 0.005f);
-            #endif
+#endif
             configMan.OverrideDefault(CVars.BuildForkId, HardLightBuildInfo.Title);
             configMan.OverrideDefault(CVars.BuildVersion, HardLightBuildInfo.Version);
         }
@@ -114,7 +114,7 @@ namespace Content.Shared.Entry
             {
                 foreach (var node in sequence.Sequence)
                 {
-                    var path = new ResPath(((ValueDataNode) node).Value);
+                    var path = new ResPath(((ValueDataNode)node).Value);
 
                     if (string.IsNullOrEmpty(path.Extension))
                     {
@@ -143,7 +143,7 @@ namespace Content.Shared.Entry
                 if (documents == null)
                     continue;
 
-                sequence.Add((SequenceDataNode) documents.Root);
+                sequence.Add((SequenceDataNode)documents.Root);
             }
             return true;
         }

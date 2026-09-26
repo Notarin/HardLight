@@ -67,7 +67,7 @@ namespace Content.Server.Abilities.Oni
         private bool IsBowOrCrossbow(EntityUid entity)
         {
             // Check for prototype inheritance
-            if (!EntityManager.TryGetComponent(entity, out MetaDataComponent? meta))
+            if (!TryComp(entity, out MetaDataComponent? meta))
                 return false;
             var proto = meta.EntityPrototype;
             if (proto == null)

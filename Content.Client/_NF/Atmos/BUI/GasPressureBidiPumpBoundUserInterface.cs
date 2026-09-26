@@ -1,4 +1,4 @@
-﻿using Content.Client._NF.Atmos.UI;
+using Content.Client._NF.Atmos.UI;
 using Content.Shared._NF.Atmos.Piping.Binary.Messages;
 using Content.Shared.Atmos.Components;
 using Content.Shared.Atmos;

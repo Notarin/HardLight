@@ -35,7 +35,7 @@ namespace Content.Client.Singularity
             ZIndex = 101; // Should be drawn after the placement overlay so admins placing items near the singularity can tell where they're going.
         }
 
-    private static readonly ProtoId<ShaderPrototype> SingularityShaderId = "Singularity";
+        private static readonly ProtoId<ShaderPrototype> SingularityShaderId = "Singularity";
 
         private readonly Vector2[] _positions = new Vector2[MaxCount];
         private readonly float[] _intensities = new float[MaxCount];

@@ -57,7 +57,7 @@ namespace Content.Shared.Construction.Prototypes
 
         public string[]? PathId(string startNode, string finishNode)
         {
-            if (Path(startNode, finishNode) is not {} path)
+            if (Path(startNode, finishNode) is not { } path)
                 return null;
 
             var nodes = new string[path.Length];
@@ -137,7 +137,7 @@ namespace Content.Shared.Construction.Prototypes
                 {
                     if (validEdges != null && validEdges.Any() && !validEdges.Contains(edge)) continue; //Hardlight: Tosses out edge if it has tag requirements not present in the entity
                     var edgeNode = _nodes[edge.Target];
-                    if(cameFrom.ContainsKey(edgeNode)) continue;
+                    if (cameFrom.ContainsKey(edgeNode)) continue;
                     frontier.Enqueue(edgeNode);
                     cameFrom[edgeNode] = current;
                 }

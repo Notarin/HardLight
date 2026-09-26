@@ -94,7 +94,7 @@ public sealed class StunSystem : SharedStunSystem
 
         var breaths = new Vector2(0, breathing * 2) / jitters;
 
-        var length =  1 / frequency;
+        var length = 1 / frequency;
         var frames = length / jitters;
 
         var keyFrames = new List<AnimationTrackProperty.KeyFrame> { new(sprite.Offset, 0f) };
@@ -130,13 +130,13 @@ public sealed class StunSystem : SharedStunSystem
             else if (i < jitters * 3 / 4)
             {
                 keyFrames.Add(
-                    new AnimationTrackProperty.KeyFrame(startOffset + breaths * ( jitters - i * 1.5f ) + offset, frames));
+                    new AnimationTrackProperty.KeyFrame(startOffset + breaths * (jitters - i * 1.5f) + offset, frames));
             }
             // Return to our starting position for breathing, jitter reaches its final position
             else
             {
                 keyFrames.Add(
-                    new AnimationTrackProperty.KeyFrame(startOffset + breaths * ( i - jitters ) + offset, frames));
+                    new AnimationTrackProperty.KeyFrame(startOffset + breaths * (i - jitters) + offset, frames));
             }
         }
 

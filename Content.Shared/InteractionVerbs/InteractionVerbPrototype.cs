@@ -30,7 +30,7 @@ public sealed partial class InteractionVerbPrototype : IPrototype, IInheritingPr
     // Locale getters
     public string Name => Loc.TryGetString($"interaction-{ID}-name", out var loc) ? loc : ID;
 
-    public string? Description => Loc.TryGetString($"interaction-{ID}-description" , out var loc) ? loc : null;
+    public string? Description => Loc.TryGetString($"interaction-{ID}-description", out var loc) ? loc : null;
 
     /// <summary>
     ///     Sprite of the icon that the user sees on the verb button.

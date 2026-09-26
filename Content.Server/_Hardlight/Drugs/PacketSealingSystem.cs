@@ -24,7 +24,7 @@ public sealed class PacketSealingSystem : EntitySystem
     public override void Initialize()
     {
         base.Initialize();
-        
+
         SubscribeLocalEvent<PacketSealingComponent, PacketSealDoAfterEvent>(OnSealDoAfter);
     }
 
@@ -98,7 +98,7 @@ public sealed class PacketSealingSystem : EntitySystem
     private bool TryPlaceInSameLocation(EntityUid oldPacket, EntityUid newPacket, EntityUid user)
     {
         var oldCoordinates = Transform(oldPacket).Coordinates;
-        
+
         // Check if it's in user's hands  
         if (_hands.IsHolding(user, oldPacket, out var handName))
         {
@@ -112,7 +112,7 @@ public sealed class PacketSealingSystem : EntitySystem
         if (_container.TryGetContainingContainer(oldPacket, out var container))
         {
             // For storage containers, try to maintain the exact grid position
-            if (container.ID == StorageComponent.ContainerId && 
+            if (container.ID == StorageComponent.ContainerId &&
                 TryComp<StorageComponent>(container.Owner, out var storage))
             {
                 // Get the storage location of the old packet
@@ -138,7 +138,7 @@ public sealed class PacketSealingSystem : EntitySystem
                 // Fallback: insert normally if we can't preserve exact location
                 return _container.Insert(newPacket, container);
             }
-            
+
             // For non-storage containers (like hand containers), just insert normally
             _container.Remove(oldPacket, container);
             return _container.Insert(newPacket, container);
@@ -155,7 +155,7 @@ public sealed class PacketSealingSystem : EntitySystem
         return reagentId switch
         {
             "Bake" => "WrappedBakePackage",
-            "Rust" => "WrappedRustPackage", 
+            "Rust" => "WrappedRustPackage",
             "Grit" => "WrappedGritPackage",
             "Breakout" => "WrappedBreakoutPackage",
             "Widow" => "WrappedWidowPackage",

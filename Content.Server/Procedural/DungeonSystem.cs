@@ -46,8 +46,8 @@ public sealed partial class DungeonSystem : SharedDungeonSystem
 
     private const double DungeonJobTime = 0.005;
 
-    public const int CollisionMask = (int) CollisionGroup.Impassable;
-    public const int CollisionLayer = (int) CollisionGroup.Impassable;
+    public const int CollisionMask = (int)CollisionGroup.Impassable;
+    public const int CollisionLayer = (int)CollisionGroup.Impassable;
 
     private readonly JobQueue _dungeonJobQueue = new(DungeonJobTime);
     private readonly Dictionary<DungeonJob.DungeonJob, CancellationTokenSource> _dungeonJobs = new();
@@ -129,7 +129,7 @@ public sealed partial class DungeonSystem : SharedDungeonSystem
 
         foreach (var proto in rooms.Modified.Values)
         {
-            var roomProto = (DungeonRoomPrototype) proto;
+            var roomProto = (DungeonRoomPrototype)proto;
             GetOrCreateRoomTemplateData(roomProto);
         }
     }

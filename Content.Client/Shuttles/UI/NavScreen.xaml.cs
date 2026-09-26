@@ -171,7 +171,7 @@ public sealed partial class NavScreen : BoxContainer
 
     private static int GetQuarterTurns(Angle angle)
     {
-        var quarterTurns = (int) MathF.Round((float) (angle.Reduced().Theta / Math.PI * 2f));
+        var quarterTurns = (int)MathF.Round((float)(angle.Reduced().Theta / Math.PI * 2f));
         return (quarterTurns % 4 + 4) % 4;
     }
 

@@ -226,7 +226,7 @@ public sealed partial class GunSystem : SharedGunSystem
         if (_inputSystem.CmdStates.GetState(useKey) != BoundKeyState.Down && !gun.BurstActivated)
         {
             if (_activeShootRequests.Remove(gunUid)) // HardLight: gun.ShotCounter != 0<_activeShootRequests.Remove(gunUid)
-                EntityManager.RaisePredictiveEvent(new RequestStopShootEvent { Gun = GetNetEntity(gunUid) });
+                RaisePredictiveEvent(new RequestStopShootEvent { Gun = GetNetEntity(gunUid) });
             return;
         }
 
@@ -238,7 +238,7 @@ public sealed partial class GunSystem : SharedGunSystem
         if (mousePos.MapId == MapId.Nullspace)
         {
             if (_activeShootRequests.Remove(gunUid)) // HardLight: gun.ShotCounter != 0<_activeShootRequests.Remove(gunUid)
-                EntityManager.RaisePredictiveEvent(new RequestStopShootEvent { Gun = GetNetEntity(gunUid) });
+                RaisePredictiveEvent(new RequestStopShootEvent { Gun = GetNetEntity(gunUid) });
 
             return;
         }
@@ -259,7 +259,7 @@ public sealed partial class GunSystem : SharedGunSystem
 
         _activeShootRequests.Add(gunUid); // HardLight
 
-        EntityManager.RaisePredictiveEvent(new RequestShootEvent()
+        RaisePredictiveEvent(new RequestShootEvent()
         {
             Target = target,
             Coordinates = GetNetCoordinates(coordinates),
@@ -276,7 +276,7 @@ public sealed partial class GunSystem : SharedGunSystem
 
         foreach (var gun in _activeShootRequests)
         {
-            EntityManager.RaisePredictiveEvent(new RequestStopShootEvent { Gun = GetNetEntity(gun) });
+            RaisePredictiveEvent(new RequestStopShootEvent { Gun = GetNetEntity(gun) });
         }
 
         _activeShootRequests.Clear();
@@ -434,7 +434,7 @@ public sealed partial class GunSystem : SharedGunSystem
         _animPlayer.Play(ent, anim, "muzzle-flash");
         if (!TryComp(gunUid, out PointLightComponent? light))
         {
-            light = (PointLightComponent) _factory.GetComponent(typeof(PointLightComponent));
+            light = (PointLightComponent)_factory.GetComponent(typeof(PointLightComponent));
             light.NetSyncEnabled = false;
             AddComp(gunUid, light);
         }

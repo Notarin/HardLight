@@ -1,4 +1,4 @@
-﻿using Content.Server.VentHorde.Systems;
+using Content.Server.VentHorde.Systems;
 using Robust.Shared.Audio;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
@@ -17,7 +17,7 @@ public sealed partial class VentHordeSpawnerComponent : Component
     /// The mobs to spawn from the vent.
     /// </summary>
     [DataField(required: true)]
-    public List<EntProtoId> Entities = new ();
+    public List<EntProtoId> Entities = new();
 
     /// <summary>
     /// Maximum speed at which the entities will be thrown out of the vent.
@@ -46,7 +46,7 @@ public sealed partial class VentHordeSpawnerComponent : Component
     /// <summary>
     /// The time at which the entities will spawn.
     /// </summary>
-    [DataField(customTypeSerializer:typeof(TimeOffsetSerializer))]
+    [DataField(customTypeSerializer: typeof(TimeOffsetSerializer))]
     [AutoPausedField]
     public TimeSpan? SpawnTime;
 

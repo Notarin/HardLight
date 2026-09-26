@@ -44,7 +44,8 @@ internal sealed class NoosphericZapRule : StationEventSystem<NoosphericZapRuleCo
                 {
                     potentialPsionicComponent.Rerolled = false;
                     _popupSystem.PopupEntity(Loc.GetString("noospheric-zap-seize-potential-regained"), psion, psion, Shared.Popups.PopupType.LargeCaution);
-                } else
+                }
+                else
                 {
                     _psionicsSystem.RollPsionics(psion, potentialPsionicComponent, multiplier: 0.25f);
                     _popupSystem.PopupEntity(Loc.GetString("noospheric-zap-seize"), psion, psion, Shared.Popups.PopupType.LargeCaution);

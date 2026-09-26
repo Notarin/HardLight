@@ -63,7 +63,7 @@ public sealed class PsionicAbilitiesSystem : EntitySystem
 
     private void OnPsionicShutdown(EntityUid uid, PsionicComponent component, ComponentShutdown args)
     {
-        if (!EntityManager.EntityExists(uid)
+        if (!Exists(uid)
             || HasComp<MindbrokenComponent>(uid))
             return;
 
@@ -128,7 +128,7 @@ public sealed class PsionicAbilitiesSystem : EntitySystem
         if (psionic.AvailablePowers.Count <= 0)
             return;
         var proto = _random.Pick(psionic.AvailablePowers);
-    if (!_prototypeManager.TryIndex<Content.Shared.Abilities.Psionics.PsionicPowerPrototype>(proto, out var newPower))
+        if (!_prototypeManager.TryIndex<Content.Shared.Abilities.Psionics.PsionicPowerPrototype>(proto, out var newPower))
             return;
 
         // Remove from available pool so we don't attempt to grant it again.
@@ -155,10 +155,10 @@ public sealed class PsionicAbilitiesSystem : EntitySystem
             {
                 var reg = _componentFactory.GetRegistration(compName);
                 var type = reg.Type;
-                if (!EntityManager.HasComponent(uid, type))
+                if (!HasComp(uid, type))
                 {
                     if (_componentFactory.GetComponent(type) is Component comp)
-                        EntityManager.AddComponent(uid, comp);
+                        AddComp(uid, comp);
                 }
             }
             catch
@@ -346,8 +346,8 @@ public sealed class PsionicAbilitiesSystem : EntitySystem
             {
                 var reg = _componentFactory.GetRegistration(compName);
                 var type = reg.Type;
-                if (EntityManager.HasComponent(uid, type))
-                    EntityManager.RemoveComponentDeferred(uid, type);
+                if (HasComp(uid, type))
+                    RemCompDeferred(uid, type);
             }
             catch
             {

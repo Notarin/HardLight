@@ -54,7 +54,7 @@ public sealed class ReagentSpoilageSystem : EntitySystem
         }
 
         Entity<SolutionComponent>? solutionEntity = null;
-        if (!_solution.ResolveSolution((ent.Owner, (SolutionContainerManagerComponent?) manager), args.SolutionId, ref solutionEntity, out var solution))
+        if (!_solution.ResolveSolution((ent.Owner, (SolutionContainerManagerComponent?)manager), args.SolutionId, ref solutionEntity, out var solution))
             return;
 
         _processing.Add(ent.Owner);
@@ -102,7 +102,7 @@ public sealed class ReagentSpoilageSystem : EntitySystem
     private void TryProcessPendingSpoilage(SpoilageKey key)
     {
         if (_processing.Contains(key.Owner) ||
-            !EntityManager.EntityExists(key.Owner) ||
+            !Exists(key.Owner) ||
             !TryComp<SolutionComponent>(key.Solution, out var solutionComp))
         {
             _pendingSpoilage.Remove(key);

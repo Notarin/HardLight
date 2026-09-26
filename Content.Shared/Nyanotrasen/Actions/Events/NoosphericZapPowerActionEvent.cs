@@ -1,2 +1,3 @@
 namespace Content.Shared.Actions.Events;
-public sealed partial class NoosphericZapPowerActionEvent : EntityTargetActionEvent {}
+
+public sealed partial class NoosphericZapPowerActionEvent : EntityTargetActionEvent { }

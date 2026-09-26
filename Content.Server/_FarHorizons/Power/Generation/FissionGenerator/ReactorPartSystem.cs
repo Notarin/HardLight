@@ -414,7 +414,7 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
         reactorPart.ThermalCrossSection = 20f;
         reactorPart.IsControlRod = false;
 
-        if(reactorPart.HasRodType(ReactorPartComponent.RodTypes.GasChannel))
+        if (reactorPart.HasRodType(ReactorPartComponent.RodTypes.GasChannel))
             reactorPart.GasThermalCrossSection = 0.1f;
     }
 

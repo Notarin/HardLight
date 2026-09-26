@@ -82,10 +82,10 @@ namespace Content.Server.Psionics
 
         private void OnInvisInit(EntityUid uid, PsionicallyInvisibleComponent component, ComponentInit args)
         {
-            var visibility = EntityManager.EnsureComponent<VisibilityComponent>(uid);
+            var visibility = EnsureComp<VisibilityComponent>(uid);
 
-            _visibilitySystem.AddLayer((uid, visibility), (int) VisibilityFlags.PsionicInvisibility, false);
-            _visibilitySystem.RemoveLayer((uid, visibility), (int) VisibilityFlags.Normal, false);
+            _visibilitySystem.AddLayer((uid, visibility), (int)VisibilityFlags.PsionicInvisibility, false);
+            _visibilitySystem.RemoveLayer((uid, visibility), (int)VisibilityFlags.Normal, false);
             _visibilitySystem.RefreshVisibility(uid);
 
             SetCanSeePsionicInvisiblity(uid, true);
@@ -96,8 +96,8 @@ namespace Content.Server.Psionics
         {
             if (TryComp<VisibilityComponent>(uid, out var visibility))
             {
-                _visibilitySystem.RemoveLayer((uid, visibility), (int) VisibilityFlags.PsionicInvisibility, false);
-                _visibilitySystem.AddLayer((uid, visibility), (int) VisibilityFlags.Normal, false);
+                _visibilitySystem.RemoveLayer((uid, visibility), (int)VisibilityFlags.PsionicInvisibility, false);
+                _visibilitySystem.AddLayer((uid, visibility), (int)VisibilityFlags.Normal, false);
                 _visibilitySystem.RefreshVisibility(uid);
             }
             if (HasComp<PotentialPsionicComponent>(uid) && !HasComp<PsionicInsulationComponent>(uid))
@@ -125,13 +125,14 @@ namespace Content.Server.Psionics
         {
             if (set == true)
             {
-                if (EntityManager.TryGetComponent(uid, out EyeComponent? eye))
+                if (TryComp(uid, out EyeComponent? eye))
                 {
-                    _eye.SetVisibilityMask(uid, eye.VisibilityMask | (int) VisibilityFlags.PsionicInvisibility, eye);
+                    _eye.SetVisibilityMask(uid, eye.VisibilityMask | (int)VisibilityFlags.PsionicInvisibility, eye);
                 }
-            } else
+            }
+            else
             {
-                if (EntityManager.TryGetComponent(uid, out EyeComponent? eye))
+                if (TryComp(uid, out EyeComponent? eye))
                 {
                     //_eye.SetVisibilityMask(uid, eye.VisibilityMask & (int) VisibilityFlags.PsionicInvisibility, eye);
                 }

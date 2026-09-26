@@ -1,4 +1,4 @@
-﻿using Content.Server.Carrying;
+using Content.Server.Carrying;
 using Content.Server.Popups;
 using Content.Shared.Bed.Sleep;
 using Content.Shared.IdentityManagement;

@@ -41,57 +41,57 @@ internal sealed class ChatManager : IChatManager
                 _consoleHost.ExecuteCommand(text);
                 break;
 
-        case ChatSelectChannel.LOOC:
-            _consoleHost.ExecuteCommand($"looc \"{CommandParsing.Escape(str)}\"");
-            break;
+            case ChatSelectChannel.LOOC:
+                _consoleHost.ExecuteCommand($"looc \"{CommandParsing.Escape(str)}\"");
+                break;
 
-        case ChatSelectChannel.OOC:
-            _consoleHost.ExecuteCommand($"ooc \"{CommandParsing.Escape(str)}\"");
-            break;
+            case ChatSelectChannel.OOC:
+                _consoleHost.ExecuteCommand($"ooc \"{CommandParsing.Escape(str)}\"");
+                break;
 
-        case ChatSelectChannel.Admin:
-            _consoleHost.ExecuteCommand($"asay \"{CommandParsing.Escape(str)}\"");
-            break;
+            case ChatSelectChannel.Admin:
+                _consoleHost.ExecuteCommand($"asay \"{CommandParsing.Escape(str)}\"");
+                break;
 
-        case ChatSelectChannel.Emotes:
-            _consoleHost.ExecuteCommand($"me \"{CommandParsing.Escape(str)}\"");
-            break;
+            case ChatSelectChannel.Emotes:
+                _consoleHost.ExecuteCommand($"me \"{CommandParsing.Escape(str)}\"");
+                break;
 
-        case ChatSelectChannel.Subtle:
-            _consoleHost.ExecuteCommand($"subtle \"{CommandParsing.Escape(str)}\"");
-            break;
+            case ChatSelectChannel.Subtle:
+                _consoleHost.ExecuteCommand($"subtle \"{CommandParsing.Escape(str)}\"");
+                break;
 
-                case ChatSelectChannel.SubtleOOC: // Den
-                    _consoleHost.ExecuteCommand($"subtleooc \"{CommandParsing.Escape(str)}\"");
-                    break;
+            case ChatSelectChannel.SubtleOOC: // Den
+                _consoleHost.ExecuteCommand($"subtleooc \"{CommandParsing.Escape(str)}\"");
+                break;
 
-                case ChatSelectChannel.Dead:
-                    if (_systems.GetEntitySystemOrNull<GhostSystem>() is {IsGhost: true})
-                        goto case ChatSelectChannel.Local;
+            case ChatSelectChannel.Dead:
+                if (_systems.GetEntitySystemOrNull<GhostSystem>() is { IsGhost: true })
+                    goto case ChatSelectChannel.Local;
 
-            if (_adminMgr.HasFlag(AdminFlags.Admin))
-                _consoleHost.ExecuteCommand($"dsay \"{CommandParsing.Escape(str)}\"");
-            else
-                _sawmill.Warning("Tried to speak on deadchat without being ghost or admin.");
-            break;
+                if (_adminMgr.HasFlag(AdminFlags.Admin))
+                    _consoleHost.ExecuteCommand($"dsay \"{CommandParsing.Escape(str)}\"");
+                else
+                    _sawmill.Warning("Tried to speak on deadchat without being ghost or admin.");
+                break;
 
             // TODO sepearate radio and say into separate commands.
-        case ChatSelectChannel.Radio:
-        case ChatSelectChannel.Local:
-            _consoleHost.ExecuteCommand($"say \"{CommandParsing.Escape(str)}\"");
-            break;
+            case ChatSelectChannel.Radio:
+            case ChatSelectChannel.Local:
+                _consoleHost.ExecuteCommand($"say \"{CommandParsing.Escape(str)}\"");
+                break;
 
-        case ChatSelectChannel.Whisper:
-            _consoleHost.ExecuteCommand($"whisper \"{CommandParsing.Escape(str)}\"");
-            break;
+            case ChatSelectChannel.Whisper:
+                _consoleHost.ExecuteCommand($"whisper \"{CommandParsing.Escape(str)}\"");
+                break;
 
-        //Nyano - Summary: sends the command for telepath communication.
-        case ChatSelectChannel.Telepathic:
-           _consoleHost.ExecuteCommand($"tsay \"{CommandParsing.Escape(str)}\"");
-            break;
+            //Nyano - Summary: sends the command for telepath communication.
+            case ChatSelectChannel.Telepathic:
+                _consoleHost.ExecuteCommand($"tsay \"{CommandParsing.Escape(str)}\"");
+                break;
 
-        default:
-            throw new ArgumentOutOfRangeException(nameof(channel), channel, null);
+            default:
+                throw new ArgumentOutOfRangeException(nameof(channel), channel, null);
         }
     }
     //Nyano - Summary: fires off the update permissions script.

@@ -1,4 +1,4 @@
-﻿using Content.Shared._Moffstation.Cards.Components;
+using Content.Shared._Moffstation.Cards.Components;
 using Content.Shared._Moffstation.Cards.Systems;
 using Robust.Client.GameObjects;
 

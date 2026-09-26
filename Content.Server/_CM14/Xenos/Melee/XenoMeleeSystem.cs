@@ -1,4 +1,4 @@
-﻿using Content.Shared.CM14.Xenos.Melee;
+using Content.Shared.CM14.Xenos.Melee;
 
 namespace Content.Server.CM14.Xenos.Melee;
 

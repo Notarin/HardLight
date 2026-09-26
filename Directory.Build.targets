@@ -1,0 +1,29 @@
+<Project>
+  <!-- Determines if the current project is inside the RobustToolbox submodule to selectively apply overrides. -->
+  <PropertyGroup>
+    <_RobustToolboxTargetDir>$([MSBuild]::EnsureTrailingSlash('$(MSBuildThisFileDirectory)RobustToolbox'))</_RobustToolboxTargetDir>
+    <_ProjectDirTargets>$([MSBuild]::EnsureTrailingSlash('$(MSBuildProjectDirectory)'))</_ProjectDirTargets>
+    <IsRobustToolbox>$([System.String]::Copy('$(_ProjectDirTargets)').StartsWith('$(_RobustToolboxTargetDir)'))</IsRobustToolbox>
+  </PropertyGroup>
+
+  <!-- Drops EditorConfigFiles for RobustToolbox to prevent its strict .editorconfig from enforcing warnings. -->
+  <Target Name="RemoveEditorConfig" BeforeTargets="CoreCompile" Condition="'$(IsRobustToolbox)' == 'True'">
+    <ItemGroup>
+      <EditorConfigFiles Remove="@(EditorConfigFiles)" />
+      <AnalyzerConfig Remove="@(AnalyzerConfig)" />
+      <GlobalAnalyzerConfigFiles Remove="@(GlobalAnalyzerConfigFiles)" />
+    </ItemGroup>
+  </Target>
+
+  <!-- Forces WarningLevel 0 and specific NoWarn codes at the targets level so RobustToolbox projects cannot override them. -->
+  <PropertyGroup Condition="'$(IsRobustToolbox)' == 'True'">
+    <WarningLevel>0</WarningLevel>
+    <NoWarn>$(NoWarn);0618;0414;CS0618;CS0414;0184;CS0184;0114;CS0114;NU1510</NoWarn>
+    <RunAnalyzers>false</RunAnalyzers>
+  </PropertyGroup>
+
+  <!-- Globally suppresses XML doc warnings (CS0419, CS1591) across all projects to silence the serialization generators. -->
+  <PropertyGroup>
+    <NoWarn>$(NoWarn);0419;1591;1574;CS0419;CS1591;CS1574</NoWarn>
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,9 @@
+- files: ["dwoop.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Taken from skyrat when it was added back in 2020"
+  source: "https://github.com/Bubberstation/Bubberstation/commit/b0f532368d935842323528a1dea46c4dba225515"
+
+- files: ["mggaow.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Taken from a youtube video and edited down by bubberstation in 2024"
+  source: "https://github.com/Bubberstation/Bubberstation/commit/b2fc0121a26137706626a9fe69c4a78cbffb2d44"

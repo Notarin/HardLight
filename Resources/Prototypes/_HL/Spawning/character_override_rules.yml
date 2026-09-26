@@ -127,7 +127,7 @@
   logins:
   - xiv3n
   entity: PlayerBorgQuadxiv3n
-  
+
 - type: spawnCharacterOverrideRule
   id: spiderspawn
   match: Spoder
@@ -136,7 +136,7 @@
   logins:
   - Taffel
   entity: Spoder
-  
+
 - type: spawnCharacterOverrideRule
   id: Shibaspawn
   match: Hiro
@@ -145,7 +145,7 @@
   logins:
   - Antelino
   entity: Shibaborg
-  
+
 - type: spawnCharacterOverrideRule
   id: Queeniespawn
   match: Queenie
@@ -154,7 +154,7 @@
   logins:
   - Atali
   entity: Queenie
-  
+
 - type: spawnCharacterOverrideRule
   id: LittleHelperspawn
   match: Little Helper
@@ -196,6 +196,7 @@
         types:
            Heat: 120
   - type: BloodSolutionModifier
+    bloodReagent: AbyssalBlood
     solution:
       reagents:
       - ReagentId: AbyssalBlood
@@ -212,6 +213,7 @@
   - type: Temperature
     heatDamageThreshold: 300
   - type: BloodSolutionModifier
+    bloodReagent: HotCocoa
     solution:
       reagents:
       - ReagentId: HotCocoa
@@ -242,7 +244,106 @@
   - type: BreathingImmunity
   - type: PressureImmunity
   - type: BloodSolutionModifier
+    bloodReagent: Phlogiston
     solution:
       reagents:
       - ReagentId: Phlogiston
         Quantity: 650
+
+- type: spawnCharacterOverrideRule
+  id: Faery
+  match: Miya Starsong
+  checkProfileName: true
+  checkEntityName: true
+  components:
+  - type: PointLight
+  - type: MovementSpeedModifier
+    weightlessModifier: 3
+    weightlessFrictionNoInput: 2
+    baseWalkSpeed : 2
+    baseSprintSpeed : 4
+  - type: SizeAttribute
+    short: true
+  - type: ShortWhitelist
+    scale: 0.3
+    cosmeticOnly: false
+  - type: GunUserThrowback
+    strength: 30
+    collisionStunTime: 2
+    impulseMultiplier: 5
+    damageMultiplier: 2
+  - type: BloodSolutionModifier
+    bloodReagent: Sugar
+    solution:
+      reagents:
+      - ReagentId: Sugar
+        Quantity: 650
+  - type: NFMoonBoots
+  - type: Psionic
+  - type: InnatePsionicPowers
+    powersToAdd:
+    - RevivifyPower
+  - type: Item
+  - type: LanguageKnowledge
+    speaks:
+    - GalacticCommon
+    - SolCommon
+    - Machine
+    - Canilunzt
+    - Sign
+    - Bubblish
+    - Chittin
+    - Draconic
+    - Marish
+    - Moffic
+    - Nekomimetic
+    - Sylvan
+    - Terrum
+    - VoxPidgin
+    - Scratch
+    - Thaveyan
+    - Tradeband
+    - Ancestor
+    - Mouse
+    - Cat
+    - Dog
+    - Fox
+    - Chicken
+    - Duck
+    - Pig
+    - Bat
+    - Carptongue
+    - Mothroach
+    - ScurretSign
+    - Xeno
+    understands:
+    - GalacticCommon
+    - SolCommon
+    - Machine
+    - Canilunzt
+    - Sign
+    - Bubblish
+    - Chittin
+    - Draconic
+    - Marish
+    - Moffic
+    - Nekomimetic
+    - Sylvan
+    - Terrum
+    - VoxPidgin
+    - Scratch
+    - Thaveyan
+    - Tradeband
+    - Ancestor
+    - Mouse
+    - Cat
+    - Dog
+    - Fox
+    - Chicken
+    - Duck
+    - Pig
+    - Bat
+    - Carptongue
+    - Mothroach
+    - ScurretSign
+    - Xeno

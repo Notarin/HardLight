@@ -320,6 +320,9 @@
     - id: PlushieMaintsNaked
       prob: 0.009
       orGroup: Plushies
+    - id: PlushieXiv3n
+      prob: 0.009
+      orGroup: Plushies
     #useful
     - id: AmeJar
       prob: 0.01

@@ -22,8 +22,18 @@
     <RunAnalyzers>false</RunAnalyzers>
   </PropertyGroup>
 
-  <!-- Globally suppresses XML doc warnings (CS0419, CS1591) across all projects to silence the serialization generators. -->
+  <!-- Suppresses warnings from generated code. Frequently eludes .editorconfig. -->
   <PropertyGroup>
-    <NoWarn>$(NoWarn);0419;1591;1574;CS0419;CS1591;CS1574</NoWarn>
+    <NoWarn>$(NoWarn);0419;CS0419;1591;CS1591;1574;CS1574;0114;CS0114</NoWarn>
+  </PropertyGroup>
+
+  <!-- Suppresses MSBuild project-level warnings (like empty projects). Evaluates before .editorconfig is processed. -->
+  <PropertyGroup>
+    <NoWarn>$(NoWarn);2008;CS2008</NoWarn>
+  </PropertyGroup>
+
+  <!-- Suppresses NuGet and SDK warnings which operate outside the scope of .editorconfig. -->
+  <PropertyGroup>
+    <NoWarn>$(NoWarn);NETSDK1206;NU1903</NoWarn>
   </PropertyGroup>
 </Project>

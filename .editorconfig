@@ -66,6 +66,8 @@ dotnet_diagnostic.CS0672.severity = suggestion
 dotnet_diagnostic.CS0809.severity = suggestion
 dotnet_diagnostic.CS1570.severity = suggestion
 dotnet_diagnostic.CS1571.severity = suggestion
+dotnet_diagnostic.CS1572.severity = suggestion
+dotnet_diagnostic.CS1573.severity = suggestion
 dotnet_diagnostic.CS1574.severity = suggestion
 dotnet_diagnostic.CS1584.severity = suggestion
 dotnet_diagnostic.CS1587.severity = suggestion
@@ -251,3 +253,9 @@ indent_size = 2
 
 [{*.yaml,*.yml}]
 ij_yaml_indent_sequence_value = false
+
+#### HardLight Code ####
+
+# Enforce stricter rules for code in _HL folders
+[**/_HL/**/*.cs]
+# Nothing here yet!

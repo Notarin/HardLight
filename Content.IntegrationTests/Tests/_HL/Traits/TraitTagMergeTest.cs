@@ -1,9 +1,7 @@
-using System.Linq;
 using Content.Server.Traits;
 using Content.Shared.Tag;
 using Content.Shared.Traits;
 using Content.Shared.Whitelist;
-using Robust.Shared.GameObjects;
 using Robust.Shared.Prototypes;
 
 namespace Content.IntegrationTests.Tests.Traits;
@@ -55,6 +53,7 @@ public sealed class TraitTagMergeTest
             var whitelistSystem = server.System<EntityWhitelistSystem>();
             var prototypeManager = server.Resolve<IPrototypeManager>();
 
+#pragma warning disable RA0033
             var proto = prototypeManager.Index<TraitPrototype>("TestBionicSpinarette");
             Assert.That(tagSystem.HasTag(entity, "TestCanPilot"), Is.True);
             Assert.That(tagSystem.HasTag(entity, "TestSpiderCraft"), Is.False);
@@ -67,6 +66,7 @@ public sealed class TraitTagMergeTest
                 Assert.That(tagSystem.HasTag(entity, "TestSpiderCraft"), Is.True);
                 Assert.That(whitelistSystem.IsValid(new EntityWhitelist { Tags = new() { "TestSpiderCraft" } }, entity), Is.True);
             });
+#pragma warning restore RA0033
         });
 
         await pair.CleanReturnAsync();

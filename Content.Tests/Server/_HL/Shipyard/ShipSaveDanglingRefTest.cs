@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server._HL.Shipyard;
 using NUnit.Framework;
 using Robust.Shared.Serialization.Markdown.Mapping;

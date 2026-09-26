@@ -1,6 +1,4 @@
-using System;
 using Content.Server.Shuttles.Components;
-using Content.Tests;
 using NUnit.Framework;
 
 namespace Content.Tests.Server._HL.Shuttle;

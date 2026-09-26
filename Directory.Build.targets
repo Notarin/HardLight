@@ -26,4 +26,9 @@
   <PropertyGroup>
     <NoWarn>$(NoWarn);CS0419;CS1591;CS0114</NoWarn>
   </PropertyGroup>
+
+  <!-- Disables security vulnerability warnings. Unfortunately we don't really control our supply chain. -->
+  <PropertyGroup>
+    <NoWarn>$(NoWarn);NU1903</NoWarn>
+  </PropertyGroup>
 </Project>

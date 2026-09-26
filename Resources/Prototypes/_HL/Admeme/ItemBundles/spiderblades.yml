@@ -1,0 +1,45 @@
+- type: entity
+  parent: Clothing
+  id: ArachneSpiderBlades
+  name: Kaitlin Fell's Spider Blades
+  suffix: BlueNexa
+  description: A set of retractable spider-leg-like blades that extend from a mechanism on the user's back. They look deadly sharp.
+  components:
+  - type: Sprite
+    sprite: _HL/Clothing/Back/spiderblades.rsi
+    state: icon
+  - type: Clothing
+    sprite: _HL/Clothing/Back/spiderblades.rsi
+    quickEquip: true
+    slots:
+    - back
+  - type: Tag
+    tags: [] # ignore "WhitelistChameleon" tag
+  - type: Reflect
+    reflectProb: 0.6
+    reflects:
+    - Energy
+    - NonEnergy
+    spread: 15
+    soundOnReflect:
+      path: /Audio/Weapons/block_metal1.ogg
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.6
+        Slash: 0.6
+        Piercing: 0.7
+  - type: MeleeWeapon
+    autoAttack: true
+    mustBeEquippedToUse: true
+    wideAnimationRotation: 90
+    attackRate: 3.0
+    animation: WeaponArcClaw
+    usableWhileEquipped: true
+    damage:
+      types:
+        Slash: 20
+        Piercing: 5
+    soundHit:
+      path: /Audio/Weapons/bladeslice.ogg
+

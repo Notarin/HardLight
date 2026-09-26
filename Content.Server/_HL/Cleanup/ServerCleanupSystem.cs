@@ -33,12 +33,9 @@ public sealed class ServerCleanupSystem : EntitySystem
     [Dependency] private readonly IPlayerManager _playerManager = default!;
     [Dependency] private readonly IGameTiming _gameTiming = default!;
     [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IEntityManager _entityManager = default!;
     [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
     [Dependency] private readonly MindSystem _mindSystem = default!;
     [Dependency] private readonly GameTicker _gameTicker = default!;
-    [Dependency] private readonly MobStateSystem _mobStateSystem = default!;
 
     private ISawmill _sawmill = default!;
     private TimeSpan _nextGhostCleanup = TimeSpan.Zero;

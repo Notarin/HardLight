@@ -282,6 +282,7 @@ dotnet_diagnostic.CS1572.severity = error # XML comment has a param tag for 'par
 dotnet_diagnostic.CS1573.severity = warning # Parameter 'parameter' has no matching param tag in the XML comment for 'parameter' (but other parameters do).
 dotnet_diagnostic.CS1574.severity = error # XML comment has syntactically incorrect cref attribute 'name'.
 dotnet_diagnostic.CS1584.severity = error # XML comment has syntactically incorrect cref attribute 'member'.
+dotnet_diagnostic.CS1587.severity = error # XML comment is not placed on a valid language element.
 dotnet_diagnostic.CS1591.severity = warning # Missing XML comment for publicly visible type or member 'Type_or_Member'.
 dotnet_diagnostic.CS1658.severity = error # XML comment has a badly formed attribute.
 dotnet_diagnostic.CS1711.severity = error # XML comment has a typeparam tag, but there is no type parameter by that name.

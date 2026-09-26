@@ -151,13 +151,19 @@ dotnet_naming_style.t_pascal_case.capitalization = pascal_case
 dotnet_naming_style.t_pascal_case.required_prefix = T
 
 # 2. Symbols
+dotnet_naming_style.namespace_case.capitalization = pascal_case
+dotnet_naming_style.namespace_case.required_prefix = 
+
+dotnet_naming_symbols.namespaces.applicable_kinds = namespace
+dotnet_naming_symbols.namespaces.applicable_accessibilities = *
+
 dotnet_naming_symbols.interfaces.applicable_kinds = interface
 dotnet_naming_symbols.interfaces.applicable_accessibilities = *
 
 dotnet_naming_symbols.type_parameters.applicable_kinds = type_parameter
 dotnet_naming_symbols.type_parameters.applicable_accessibilities = *
 
-dotnet_naming_symbols.types.applicable_kinds = namespace, class, struct, enum, delegate
+dotnet_naming_symbols.types.applicable_kinds = class, struct, enum, delegate
 dotnet_naming_symbols.types.applicable_accessibilities = *
 
 dotnet_naming_symbols.methods_properties_events.applicable_kinds = method, property, event
@@ -186,43 +192,43 @@ dotnet_naming_symbols.private_static_readonly.applicable_accessibilities = priva
 # 3. Rules
 dotnet_naming_rule.interfaces_rule.symbols = interfaces
 dotnet_naming_rule.interfaces_rule.style = i_pascal_case
-dotnet_naming_rule.interfaces_rule.severity = warning
+dotnet_naming_rule.interfaces_rule.severity = suggestion
 
 dotnet_naming_rule.type_parameters_rule.symbols = type_parameters
 dotnet_naming_rule.type_parameters_rule.style = t_pascal_case
-dotnet_naming_rule.type_parameters_rule.severity = warning
+dotnet_naming_rule.type_parameters_rule.severity = suggestion
 
 dotnet_naming_rule.types_rule.symbols = types
 dotnet_naming_rule.types_rule.style = pascal_case
-dotnet_naming_rule.types_rule.severity = warning
+dotnet_naming_rule.types_rule.severity = suggestion
 
 dotnet_naming_rule.methods_properties_events_rule.symbols = methods_properties_events
 dotnet_naming_rule.methods_properties_events_rule.style = pascal_case
-dotnet_naming_rule.methods_properties_events_rule.severity = warning
+dotnet_naming_rule.methods_properties_events_rule.severity = suggestion
 
 dotnet_naming_rule.local_functions_rule.symbols = local_functions
 dotnet_naming_rule.local_functions_rule.style = pascal_case
-dotnet_naming_rule.local_functions_rule.severity = warning
+dotnet_naming_rule.local_functions_rule.severity = suggestion
 
 dotnet_naming_rule.locals_and_parameters_rule.symbols = locals_and_parameters
 dotnet_naming_rule.locals_and_parameters_rule.style = camel_case
-dotnet_naming_rule.locals_and_parameters_rule.severity = warning
+dotnet_naming_rule.locals_and_parameters_rule.severity = suggestion
 
 dotnet_naming_rule.public_fields_rule.symbols = public_fields
 dotnet_naming_rule.public_fields_rule.style = pascal_case
-dotnet_naming_rule.public_fields_rule.severity = warning
+dotnet_naming_rule.public_fields_rule.severity = suggestion
 
 dotnet_naming_rule.private_fields_rule.symbols = private_fields
 dotnet_naming_rule.private_fields_rule.style = underscore_camel_case
-dotnet_naming_rule.private_fields_rule.severity = warning
+dotnet_naming_rule.private_fields_rule.severity = suggestion
 
 dotnet_naming_rule.private_constants_rule.symbols = private_constants
 dotnet_naming_rule.private_constants_rule.style = pascal_case
-dotnet_naming_rule.private_constants_rule.severity = warning
+dotnet_naming_rule.private_constants_rule.severity = suggestion
 
 dotnet_naming_rule.private_static_readonly_rule.symbols = private_static_readonly
 dotnet_naming_rule.private_static_readonly_rule.style = pascal_case
-dotnet_naming_rule.private_static_readonly_rule.severity = warning
+dotnet_naming_rule.private_static_readonly_rule.severity = suggestion
 
 #### ReSharper Properties ####
 
@@ -304,3 +310,14 @@ dotnet_diagnostic.RA0038.severity = error # Prototypes should not be [Serializab
 dotnet_diagnostic.RA0039.severity = error # Do not instantiate prototypes directly.
 dotnet_diagnostic.RA0042.severity = error # Redundant Prototype Type specification.
 dotnet_diagnostic.RA0045.severity = warning # Use the proxy method.
+
+dotnet_naming_rule.interfaces_rule.severity = warning
+dotnet_naming_rule.type_parameters_rule.severity = warning
+dotnet_naming_rule.types_rule.severity = warning
+dotnet_naming_rule.methods_properties_events_rule.severity = warning
+dotnet_naming_rule.local_functions_rule.severity = warning
+dotnet_naming_rule.locals_and_parameters_rule.severity = warning
+dotnet_naming_rule.public_fields_rule.severity = warning
+dotnet_naming_rule.private_fields_rule.severity = warning
+dotnet_naming_rule.private_constants_rule.severity = warning
+dotnet_naming_rule.private_static_readonly_rule.severity = warning

@@ -84,18 +84,18 @@ dotnet_diagnostic.CS8892.severity = suggestion # Method will not be used as an e
 dotnet_diagnostic.CS9107.severity = suggestion # Parameter is captured into the state of the enclosing type and its value is also passed to the base constructor.
 
 # Analyzer Warnings (RA)
-dotnet_diagnostic.RA0003.severity = suggestion
-dotnet_diagnostic.RA0022.severity = suggestion
-dotnet_diagnostic.RA0026.severity = suggestion
-dotnet_diagnostic.RA0028.severity = suggestion
-dotnet_diagnostic.RA0030.severity = suggestion
-dotnet_diagnostic.RA0032.severity = suggestion
-dotnet_diagnostic.RA0033.severity = suggestion
-dotnet_diagnostic.RA0037.severity = suggestion
-dotnet_diagnostic.RA0038.severity = suggestion
-dotnet_diagnostic.RA0039.severity = suggestion
-dotnet_diagnostic.RA0042.severity = suggestion
-dotnet_diagnostic.RA0045.severity = suggestion
+dotnet_diagnostic.RA0003.severity = suggestion # Class must be explicitly marked as [Virtual], abstract, static or sealed.
+dotnet_diagnostic.RA0022.severity = suggestion # AutoGenerateComponentPause has no fields.
+dotnet_diagnostic.RA0026.severity = suggestion # Use of uncached static Regex function.
+dotnet_diagnostic.RA0028.severity = suggestion # No base call in overriden function.
+dotnet_diagnostic.RA0030.severity = suggestion # Consider using the non-generic variant of this method.
+dotnet_diagnostic.RA0032.severity = suggestion # Duplicate dependency field.
+dotnet_diagnostic.RA0033.severity = suggestion # Parameter forbids literal values.
+dotnet_diagnostic.RA0037.severity = suggestion # Prototypes should not be [NetSerializable].
+dotnet_diagnostic.RA0038.severity = suggestion # Prototypes should not be [Serializable].
+dotnet_diagnostic.RA0039.severity = suggestion # Do not instantiate prototypes directly.
+dotnet_diagnostic.RA0042.severity = suggestion # Redundant Prototype Type specification.
+dotnet_diagnostic.RA0045.severity = suggestion # Use the proxy method.
 
 #### C# Formatting Rules ####
 

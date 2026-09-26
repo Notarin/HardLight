@@ -355,6 +355,7 @@ public sealed class ServerCleanupSystem : EntitySystem
 
     /// <summary>
     /// When a grid is about to be deleted (from orphaned grid cleanup, shipyard save/delete, or any other source), this handler checks for players on/inside the grid
+    /// </summary>
 
     private void OnGridTerminating(EntityUid gridUid, MapGridComponent grid, ref EntityTerminatingEvent args)
     {

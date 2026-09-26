@@ -276,6 +276,7 @@ dotnet_diagnostic.CS0642.severity = warning # Possible mistaken empty statement.
 dotnet_diagnostic.CS0649.severity = warning # Field 'field' is never assigned to, and will always have its default value 'value'.
 dotnet_diagnostic.CS0672.severity = warning # Member 'member1' overrides obsolete member 'member2'. Add the Obsolete attribute to 'member1'.
 dotnet_diagnostic.CS0809.severity = warning # Obsolete member 'member' overrides non-obsolete member 'member'.
+dotnet_diagnostic.CS1570.severity = error # XML comment has badly formed XML.
 dotnet_diagnostic.CS1571.severity = error # XML comment on 'construct' has a duplicate param tag for 'parameter'.
 dotnet_diagnostic.CS1572.severity = error # XML comment has a param tag for 'parameter', but there is no parameter by that name.
 dotnet_diagnostic.CS1573.severity = warning # Parameter 'parameter' has no matching param tag in the XML comment for 'parameter' (but other parameters do).

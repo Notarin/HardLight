@@ -404,7 +404,7 @@ public sealed class RoundPersistenceSystem : EntitySystem
     private void RestoreConsoleExpeditionData(EntityUid consoleUid, SalvageExpeditionConsoleComponent consoleComp)
     {
         // Get the grid this console is on to identify the shuttle
-        if (!TryComp<TransformComponent>(consoleUid, out var xform) || xform.GridUid == null)
+        if (!TryComp(consoleUid, out TransformComponent? xform) || xform.GridUid == null)
         {
             // Log.Warning($"Console {ToPrettyString(consoleUid)} has no grid - cannot restore expedition data");
             return;

@@ -4,7 +4,6 @@ using Content.Shared.Polymorph;
 namespace Content.Shared._HL.Spawning.Prototypes;
 
 [Prototype("spawnCharacterOverrideRule")]
-[Serializable]
 public sealed partial class CharacterOverrideRulePrototype : IPrototype
 {
     [IdDataField]

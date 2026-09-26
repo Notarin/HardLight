@@ -233,7 +233,7 @@ public sealed class PlayerPaymentPersistenceSystem : EntitySystem
         var station = _station.GetOwningStation(session.AttachedEntity.Value);
         if (station != null && Exists(station.Value) && !TerminatingOrDeleted(station.Value))
         {
-            if (TryComp<MetaDataComponent>(station.Value, out var stationMeta))
+            if (TryComp(station.Value, out MetaDataComponent? stationMeta))
             {
                 return stationMeta.EntityName;
             }

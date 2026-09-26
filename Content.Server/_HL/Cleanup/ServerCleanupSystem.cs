@@ -314,7 +314,7 @@ public sealed class ServerCleanupSystem : EntitySystem
             if (current.GridUid != null && Exists(current.GridUid.Value))
                 return true;
 
-            if (!TryComp<TransformComponent>(current.ParentUid, out var parentXform))
+            if (!TryComp(current.ParentUid, out TransformComponent? parentXform))
                 break;
 
             current = parentXform;
@@ -428,7 +428,7 @@ public sealed class ServerCleanupSystem : EntitySystem
             || TerminatingOrDeleted(playerUid))
             return false;
 
-        if (!TryComp<TransformComponent>(playerUid, out var playerXform))
+        if (!TryComp(playerUid, out TransformComponent? playerXform))
             return false;
 
         var playerWorldPos = _transformSystem.GetWorldPosition(playerXform);

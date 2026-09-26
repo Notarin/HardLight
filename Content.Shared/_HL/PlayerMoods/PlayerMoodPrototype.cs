@@ -13,7 +13,6 @@ namespace Content.Shared._HL.PlayerMoods;
 /// and belongs entirely to the _HL player mood system.
 /// </summary>
 [Prototype("mood")]
-[Serializable, NetSerializable]
 public sealed partial class PlayerMoodPrototype : IPrototype
 {
     [IdDataField]

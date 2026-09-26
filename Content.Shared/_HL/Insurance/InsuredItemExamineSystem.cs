@@ -1,5 +1,4 @@
 using Content.Shared._HL.Insurance.Components;
-using Content.Shared.Examine;
 using Content.Shared.Verbs;
 using Robust.Shared.Utility;
 

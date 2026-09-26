@@ -2,7 +2,6 @@ using Content.Shared._HL.Silicons.Synths.Surgery;
 using Content.Shared._Shitmed.Medical.Surgery;
 using Content.Shared._Shitmed.Medical.Surgery.Steps;
 using Content.Server.Power.Components;
-using Content.Shared.Power.Components;
 using Content.Shared.PowerCell;
 using Content.Shared.Body.Systems;
 using Content.Shared.Hands.EntitySystems;

@@ -1,12 +1,9 @@
-using System.Linq;
 using System.Numerics;
 using Content.Client.UserInterface.Controls;
 using Content.Shared._HL.Insurance;
 using Content.Shared._NF.Bank;
 using Robust.Client.Graphics;
-using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
-using Robust.Shared.Maths;
 
 namespace Content.Client._HL.Insurance.UI;
 

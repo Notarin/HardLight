@@ -2,7 +2,6 @@ using Content.Shared.Storage;
 using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
-using Content.Shared.Animals.Systems;
 
 namespace Content.Shared.Animals.Components; // Moved this to Shared so the client can use it for verb drawing.
 

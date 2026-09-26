@@ -5,8 +5,6 @@ using Content.Shared.Climbing.Systems;
 using Content.Shared.DoAfter;
 using Content.Shared.DragDrop;
 using Content.Shared.Verbs;
-using Robust.Shared.GameObjects;
-using Content.Shared.Chemistry.Components;
 
 
 namespace Content.Server._HL.Vacbed;

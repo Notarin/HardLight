@@ -1,6 +1,5 @@
 using Content.Shared.Movement.Components;
 using Content.Shared.Silicons.Laws.Components;
-using Robust.Shared.GameObjects;
 using Robust.Shared.Utility;
 
 namespace Content.Shared.HL.Silicons;

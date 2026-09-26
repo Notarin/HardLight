@@ -29,6 +29,7 @@
     <!--Compiler Options-->
     <!--<LangVersion>latest</LangVersion> No point in putting this here, the csproj's define this.-->
     <!-- Enable modern C# features for the game, but exclude ancient utility tools -->
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <ErrorReport>none</ErrorReport>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>

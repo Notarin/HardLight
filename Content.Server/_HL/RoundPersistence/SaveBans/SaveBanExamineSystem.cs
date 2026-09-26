@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared._HL.RoundPersistence.SaveBans;
 using Content.Shared.Examine;
 using Content.Shared.Item;

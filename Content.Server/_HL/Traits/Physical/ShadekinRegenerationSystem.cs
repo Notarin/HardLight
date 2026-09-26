@@ -1,5 +1,4 @@
 using Content.Shared._HL.Traits.Physical;
-using Content.Shared._Starlight;
 using Content.Shared._Starlight.Shadekin;
 using Content.Shared.Damage;
 using Content.Shared.FixedPoint;

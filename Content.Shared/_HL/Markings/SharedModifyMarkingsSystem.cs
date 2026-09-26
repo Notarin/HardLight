@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared._Common.Consent;
 using Content.Shared.DoAfter;
 using Content.Shared.Humanoid;

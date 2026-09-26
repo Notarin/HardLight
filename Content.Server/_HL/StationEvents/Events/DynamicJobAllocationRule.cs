@@ -1,4 +1,3 @@
-using System;
 using Content.Server._HL.ColComm; // HardLight
 using Content.Server._NF.Roles.Systems;
 using Content.Server.GameTicking;

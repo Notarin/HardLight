@@ -3,7 +3,6 @@ using Content.Server.Traits;
 using Content.Shared.GameTicking;
 using Content.Shared._HL.Spawning.Prototypes;
 using Content.Shared.Polymorph;
-using Robust.Shared.GameObjects;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 

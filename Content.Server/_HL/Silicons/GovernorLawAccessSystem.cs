@@ -6,7 +6,6 @@ using Content.Shared.Verbs;
 using Content.Shared.Silicons.Laws.Components;
 using Content.Shared.Wires;
 using Robust.Server.Player;
-using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
 namespace Content.Server.HL.Silicons;

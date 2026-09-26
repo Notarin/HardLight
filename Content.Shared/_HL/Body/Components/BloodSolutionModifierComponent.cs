@@ -1,7 +1,5 @@
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.Reagent;
-using Robust.Shared.Prototypes;
-using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 
 namespace Content.Shared._HL.Body.Components;

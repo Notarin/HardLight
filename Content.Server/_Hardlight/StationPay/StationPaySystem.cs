@@ -1,5 +1,4 @@
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using Content.Server._NF.Bank;
 using Content.Server.Chat.Managers;
 using Content.Server.GameTicking;

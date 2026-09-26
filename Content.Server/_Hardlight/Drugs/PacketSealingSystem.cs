@@ -1,7 +1,5 @@
 using Content.Shared._Hardlight.Drugs;
-using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.EntitySystems;
-using Content.Shared.Chemistry.Reagent;
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Storage;
 using Content.Shared.Storage.EntitySystems;

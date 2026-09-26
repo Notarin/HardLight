@@ -43,7 +43,7 @@ csharp_using_directive_placement = outside_namespace:silent
 # Temporarily downgraded to suggestions to un-fuck the warnings list.
 # Remove these lines (or change to 'warning') as they are fixed.
 
-dotnet_diagnostic.ide0055.severity = warning
+dotnet_diagnostic.IDE0005.severity = suggestion # Unnecessary using directive.
 
 # C# Compiler Warnings (CS)
 dotnet_diagnostic.CS0067.severity = suggestion # An event was declared but never used in the class in which it was declared.
@@ -78,6 +78,7 @@ dotnet_diagnostic.CS1723.severity = suggestion # XML comment has cref attribute 
 dotnet_diagnostic.CS1734.severity = suggestion # XML comment has a paramref tag, but there is no parameter by that name.
 dotnet_diagnostic.CS2008.severity = suggestion # No source files specified. (Occurs when a project has no .cs files to compile)
 dotnet_diagnostic.CS4014.severity = suggestion # Because this call is not awaited, execution of the current method continues before the call is completed.
+dotnet_diagnostic.CS8019.severity = suggestion # Unnecessary using directive.
 dotnet_diagnostic.CS8073.severity = suggestion # The result of the expression is always 'value' since a value of type 'type' is never equal to 'null'.
 dotnet_diagnostic.CS8524.severity = suggestion # The switch expression does not handle some values of its input type (it is not exhaustive) involving an unnamed enum value.
 dotnet_diagnostic.CS8892.severity = suggestion # Method will not be used as an entry point because a synchronous entry point 'method' was found.
@@ -285,6 +286,8 @@ dotnet_diagnostic.CS1723.severity = error # XML comment has cref attribute 'attr
 dotnet_diagnostic.CS1734.severity = error # XML comment has a paramref tag, but there is no parameter by that name.
 dotnet_diagnostic.CS2008.severity = error # No source files specified. (Occurs when a project has no .cs files to compile)
 dotnet_diagnostic.CS4014.severity = warning # Because this call is not awaited, execution of the current method continues before the call is completed.
+dotnet_diagnostic.IDE0005.severity = warning # Unnecessary using directive.
+dotnet_diagnostic.CS8019.severity = warning # Unnecessary using directive.
 dotnet_diagnostic.CS8073.severity = warning # The result of the expression is always 'value' since a value of type 'type' is never equal to 'null'.
 dotnet_diagnostic.CS8524.severity = warning # The switch expression does not handle some values of its input type (it is not exhaustive) involving an unnamed enum value.
 dotnet_diagnostic.CS8892.severity = error # Method will not be used as an entry point because a synchronous entry point 'method' was found.

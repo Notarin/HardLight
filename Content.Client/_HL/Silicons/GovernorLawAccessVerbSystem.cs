@@ -4,7 +4,6 @@ using Content.Shared.Inventory;
 using Content.Shared.Silicons.Laws.Components;
 using Content.Shared.Verbs;
 using Content.Shared.Wires;
-using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
 namespace Content.Client.HL.Silicons;

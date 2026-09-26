@@ -83,11 +83,6 @@ dotnet_diagnostic.CS8524.severity = suggestion # The switch expression does not 
 dotnet_diagnostic.CS8892.severity = suggestion # Method will not be used as an entry point because a synchronous entry point 'method' was found.
 dotnet_diagnostic.CS9107.severity = suggestion # Parameter is captured into the state of the enclosing type and its value is also passed to the base constructor.
 
-# NuGet & SDK Warnings (NU, NETSDK)
-dotnet_diagnostic.NETSDK1206.severity = suggestion
-dotnet_diagnostic.NU1510.severity = suggestion
-dotnet_diagnostic.NU1903.severity = suggestion
-
 # Analyzer Warnings (RA)
 dotnet_diagnostic.RA0003.severity = suggestion
 dotnet_diagnostic.RA0022.severity = suggestion

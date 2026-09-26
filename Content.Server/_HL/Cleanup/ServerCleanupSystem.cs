@@ -32,8 +32,9 @@ public sealed class ServerCleanupSystem : EntitySystem
 {
     [Dependency] private readonly IPlayerManager _playerManager = default!;
     [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
+
     [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
+    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
     [Dependency] private readonly MindSystem _mindSystem = default!;
     [Dependency] private readonly GameTicker _gameTicker = default!;
 
@@ -469,7 +470,7 @@ public sealed class ServerCleanupSystem : EntitySystem
             }
         }
 
-        var mapUid = _mapManager.GetMapEntityId(mapId);
+        var mapUid = _mapSystem.GetMap(mapId);
         if (IsSafeRelocationTarget(mapUid))
         {
             if (TrySetCoordinatesSafely(playerUid, new EntityCoordinates(mapUid, playerWorldPos)))
@@ -479,7 +480,7 @@ public sealed class ServerCleanupSystem : EntitySystem
             }
         }
 
-        var defaultMapUid = _mapManager.GetMapEntityId(_gameTicker.DefaultMap);
+        var defaultMapUid = _mapSystem.GetMap(_gameTicker.DefaultMap);
         if (IsSafeRelocationTarget(defaultMapUid))
         {
             if (TrySetCoordinatesSafely(playerUid, new EntityCoordinates(defaultMapUid, Vector2.Zero)))

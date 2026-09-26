@@ -24,7 +24,7 @@ public abstract partial class SharedVacbedSystem
     //should be private but has to be public so i can override it in server system
     public virtual void InsideVacbedInit(EntityUid uid, InsideVacbedComponent insideVacbedComponent, ComponentInit args)
     {
-        _blindableSystem.UpdateIsBlind(insideVacbedComponent.Owner);
+        _blindableSystem.UpdateIsBlind(uid);
     }
 
     private void OnVacbedTrySee(EntityUid uid, InsideVacbedComponent insideVacbedComponent, CanSeeAttemptEvent args)
@@ -41,7 +41,7 @@ public abstract partial class SharedVacbedSystem
         }
 
         RemComp<InsideVacbedComponent>(uid);
-        _blindableSystem.UpdateIsBlind(component.Owner);
+        _blindableSystem.UpdateIsBlind(uid);
     }
 
 }

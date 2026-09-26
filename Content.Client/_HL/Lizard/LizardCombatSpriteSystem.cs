@@ -27,7 +27,7 @@ public sealed class LizardCombatSpriteSystem : EntitySystem
             return;
 
         // Get the base layer (should be the first layer with DamageStateVisualLayers.Base)
-        if (!sprite.LayerMapTryGet("enum.DamageStateVisualLayers.Base", out var layerIndex))
+        if (!_sprite.LayerMapTryGet((uid, sprite), "enum.DamageStateVisualLayers.Base", out var layerIndex, false))
             return;
 
         var newState = combat.IsInCombatMode ? component.OpenState : component.ClosedState;

@@ -270,6 +270,7 @@ dotnet_diagnostic.CS0219.severity = warning # The variable 'variable' is assigne
 dotnet_diagnostic.CS0414.severity = warning # The private field 'field' is assigned but its value is never used.
 dotnet_diagnostic.CS0419.severity = error # Ambiguous reference in cref attribute: 'Method Name1'. Assuming 'Method Name2', but could have also matched other overloads including 'Method Name3'.
 dotnet_diagnostic.CS0612.severity = warning # The class designer marked a member with the Obsolete attribute. This means that the member might not be supported in a future version of the class.
+dotnet_diagnostic.CS0618.severity = warning # A class member was marked with the Obsolete attribute, such that a warning will be issued when the class member is referenced. For more information, see Assembly level attributes.
 dotnet_diagnostic.CS0628.severity = error # new protected member declared in sealed class
 dotnet_diagnostic.CS0642.severity = warning # Possible mistaken empty statement.
 dotnet_diagnostic.CS0649.severity = warning # Field 'field' is never assigned to, and will always have its default value 'value'.

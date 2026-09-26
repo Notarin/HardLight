@@ -11,10 +11,10 @@ public sealed partial class VacbedSystem
     {
         base.InsideVacbedInit(uid, insideVacbedComponent, args);
 
-        if (HasComp<MumbleAccentComponent>(insideVacbedComponent.Owner))
+        if (HasComp<MumbleAccentComponent>(uid))
             insideVacbedComponent.IsMuzzled = true;
 
-        EnsureComp<MumbleAccentComponent>(insideVacbedComponent.Owner);
+        EnsureComp<MumbleAccentComponent>(uid);
     }
 
     public override void OnEntGotRemovedFromContainer(EntityUid uid, InsideVacbedComponent component, EntGotRemovedFromContainerMessage args)

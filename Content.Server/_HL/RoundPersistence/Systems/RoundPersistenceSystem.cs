@@ -58,7 +58,7 @@ namespace Content.Server.HL.RoundPersistence.Systems;
 public sealed class RoundPersistenceSystem : EntitySystem
 {
     [Dependency] private IGameTiming _timing = default!;
-    [Dependency] private IMapManager _mapManager = default!;
+
     [Dependency] private GameTicker _gameTicker = default!;
     [Dependency] private StationSystem _station = default!;
     [Dependency] private StationRecordsSystem _stationRecords = default!;
@@ -74,6 +74,8 @@ public sealed class RoundPersistenceSystem : EntitySystem
     [Dependency] private JobSystem _jobs = default!;
     [Dependency] private RoleSystem _roles = default!;
     [Dependency] private Content.Shared.Objectives.Systems.SharedObjectivesSystem _objectives = default!;
+    [Dependency] private readonly Robust.Shared.GameObjects.SharedMapSystem _mapSystem = default!;
+    [Dependency] private readonly Robust.Shared.GameObjects.SharedTransformSystem _transformSystem = default!;
 
     private ISawmill _sawmill = default!;
 
@@ -460,7 +462,7 @@ public sealed class RoundPersistenceSystem : EntitySystem
         if (_persistentEntity == null || !Exists(_persistentEntity.Value))
         {
             // Create a persistent entity on a dedicated map that won't be cleaned up
-            var mapId = _mapManager.CreateMap();
+            _mapSystem.CreateMap(out var mapId);
             _persistentEntity = EntityManager.SpawnEntity(null, new MapCoordinates(Vector2.Zero, mapId));
             EnsureComp<RoundPersistenceComponent>(_persistentEntity.Value);
 
@@ -659,7 +661,7 @@ public sealed class RoundPersistenceSystem : EntitySystem
         }
 
         var transform = Transform(shuttleUid);
-        var position = transform.WorldPosition;
+        var position = _transformSystem.GetWorldPosition(transform);
 
         persistence.ShipData[netEntity] = new PersistedShipData
         {

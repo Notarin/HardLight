@@ -130,7 +130,7 @@ namespace Content.Server.Doors.Systems
 
             if (!HasComp<GridAtmosphereComponent>(xform.ParentUid)
                 || xform.MapUid == null
-                || !HasComp<MapAtmosphereComponent>(xform.MapUid.Value)
+                || TryComp<MapAtmosphereComponent>(xform.MapUid.Value, out var mapAtmos) && !mapAtmos.Space
                 || !TryComp<MapGridComponent>(xform.ParentUid, out var grid))
                 return (false, false);
 

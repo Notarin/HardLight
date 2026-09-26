@@ -11,13 +11,16 @@
   startingGear: LawyerGear
   icon: "JobIconLawyer"
   supervisors: job-supervisors-centcom
-  # canBeAntag: false
+  canBeAntag: false
   access:
   - Service
   - Security
   # - Justice # Isn't this called Lawyer?
   - Lawyer
   - Maintenance
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant ]
   accessGroups: # Frontier
   - GeneralAccess # Frontier
 

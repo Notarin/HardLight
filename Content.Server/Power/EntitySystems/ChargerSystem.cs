@@ -84,14 +84,11 @@ internal sealed class ChargerSystem : EntitySystem
     {
         bool charge = true;
 
-        if (HasComp<EmpDisabledComponent>(uid))
+        if (HasComp<EmpDisabledComponent>(uid) ||
+            !TryComp<BatteryComponent>(target,
+                out var battery) ||
+            Math.Abs(battery.MaxCharge - battery.CurrentCharge) < 0.01)
             charge = false;
-        else
-            if (!TryComp<BatteryComponent>(target, out var battery))
-                charge = false;
-            else
-                if (Math.Abs(battery.MaxCharge - battery.CurrentCharge) < 0.01)
-                    charge = false;
 
         // wrap functionality in an if statement instead of returning...
         if (charge)

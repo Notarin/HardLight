@@ -1,0 +1,47 @@
+name: "Push Changelog to Discord"
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+env:
+  FORGEJO_TOKEN: ${{ secrets.BOT_TOKEN }}
+  CHANGELOG_DIR: ${{ vars.CHANGELOG_DIR }}
+
+jobs:
+  changelog-discord:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Nushell
+        run: |
+          apt update && apt install -y wget gpg git
+          wget -qO- https://apt.fury.io/nushell/gpg.key | gpg --dearmor -o /etc/apt/keyrings/fury-nushell.gpg
+          echo "deb [signed-by=/etc/apt/keyrings/fury-nushell.gpg] https://apt.fury.io/nushell/ /" | tee /etc/apt/sources.list.d/fury-nushell.list
+          apt update && apt install -y nushell
+
+      - name: Checkout Branch
+        uses: actions/checkout@v7
+        with:
+          token: ${{ secrets.BOT_TOKEN || secrets.FORGEJO_TOKEN }}
+          sparse-checkout: |
+            ${{ vars.CHANGELOG_DIR }}
+          sparse-checkout-cone-mode: false
+
+      - name: Generate Changelog for Discord
+        shell: nu {0}
+        working-directory: ${{ forgejo.workspace }}
+        run: |
+          let changelog = (open ${{ vars.CHANGELOG_DIR }})
+          let version = git describe --tags --abbrev=0 | complete | $in.stdout | str trim | str substring 1..
+
+          $changelog | select $version | transpose version commit
+          | first | flatten | reject Summary? | reject version
+          | transpose type commit | each { |type| $type.commit
+          | insert cat $type.type | insert version $version} | flatten
+          | group-by cat
+          | transpose cat change
+          | each {{ title: $in.cat, version: $in.change.0.version, description: ($in.change | each {$"($in.message) - ($in.author)"}| str join "\n" | awk '{if (length(b) + length($0) + 1 > 1500) { print b; b = $0 } else { b = (b == "" ? $0 : b "\n" $0) }} END { print b }' ORS="\n\n" | split row "\n\n") }}
+          | flatten
+          | each {{ username: "Changelog Bot", embeds: [{ title: ($in.title | str capitalize), description: $in.description, author: {name: $"($in.version)"} }] }}
+          | each { http post --content-type application/json ${{ secrets.CHANGELOG_DISCORD_WEBHOOK }} $in }

@@ -1,0 +1,59 @@
+name: "Generate and and Share Changelog"
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'New Release Version'
+        required: true
+        type: string
+        default: 'v0.0.0'
+
+env:
+  FORGEJO_TOKEN: ${{ secrets.BOT_TOKEN }}
+  CHANGELOG_DIR: ${{ vars.CHANGELOG_DIR }}
+
+jobs:
+  changelog:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Nushell
+        run: |
+          apt update && apt install -y wget gpg git
+          wget -qO- https://apt.fury.io/nushell/gpg.key | gpg --dearmor -o /etc/apt/keyrings/fury-nushell.gpg
+          echo "deb [signed-by=/etc/apt/keyrings/fury-nushell.gpg] https://apt.fury.io/nushell/ /" | tee /etc/apt/sources.list.d/fury-nushell.list
+          apt update && apt install -y nushell
+
+      - name: Checkout Branch
+        uses: actions/checkout@v7
+        with:
+          token: ${{ secrets.BOT_TOKEN || secrets.FORGEJO_TOKEN }}
+          fetch-depth: 0
+
+      - name: Setup Git Config
+        run: |
+          git config --global user.name "${{ vars.CHANGELOG_USER }}"
+          git config --global user.email "${{ vars.CHANGELOG_EMAIL }}"
+        shell: bash
+
+      - name: Generate Changelog Commit
+        shell: nu {0}
+        working-directory: ${{ forgejo.workspace }}
+        env:
+         NEW_VERSION: ${{ inputs.version }}
+        run: |
+          use ${{ forgejo.workspace }}/Scripts/nu/GenerateChangelog.nu
+          $env.CLEANED_VERSION = $env.NEW_VERSION | str substring 1..
+          GenerateChangelog --version $env.CLEANED_VERSION ${{ vars.CHANGELOG_DIR }}
+          open Directory.Build.props | str replace -r '(<Version>)[^<]*(</Version>)' $"${1}($env.CLEANED_VERSION)${2}" | save -f Directory.Build.props
+
+      - name: Push Changelog
+        shell: nu {0}
+        working-directory: ${{ forgejo.workspace }}
+        run: |
+          git add Directory.Build.props
+          git add ${{ vars.CHANGELOG_DIR }}
+          git commit -m "${{ vars.CHANGELOG_MESSAGE }} - ${{ inputs.version }}"
+          git tag ${{ inputs.version }}
+          git push origin
+          git push origin ${{ inputs.version }}

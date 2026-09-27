@@ -8,18 +8,52 @@ def get-commits [
     $raw_log | split row "<COMMIT>" | where {|c| ($c | str trim) != "" }
 }
 
-# Parses raw commit strings and extracts multiline changelog trailers.
+# Splits a raw trailer block into individual trailer strings, preserving multiline values.
 #
-# Iterates through lines line-by-line. If a line is a trailer header, it starts a new record.
-# If it's an indented continuation line, it appends it to the previous record's message with a newline.
+# Folds over lines, identifying new trailers by their header and appending indented continuation lines.
+def split-trailers []: string -> list<string> {
+    $in | lines | reduce --fold [] {|line, acc|
+        if ($line =~ '^[a-zA-Z0-9_-]+:') {
+            $acc | append $line
+        } else if not ($acc | is-empty) {
+            let last_idx = (($acc | length) - 1)
+            let new_val = $"($acc | get $last_idx)\n($line | str trim)"
+            $acc | update $last_idx $new_val
+        } else {
+            $acc
+        }
+    }
+}
+
+# Parses individual trailer strings into structured records.
+#
+# Extracts the trailer name and message using regex, returning a standardized list of records.
+def parse-trailers []: list<string> -> list<record<name: string, message: string>> {
+    $in | each {|trailer|
+        # Sure hope you don't need to edit this regex bc I made that shit so badly.
+        let parsed = ($trailer | parse --regex '^(?P<name>[a-zA-Z0-9_-]+): (?P<message>.*)$')
+        if not ($parsed | is-empty) {
+            { name: $parsed.0.name, message: ($parsed.0.message | str trim) }
+        } else {
+            null
+        }
+    } | compact
+}
+
+# Filters a list of parsed trailers to only include valid changelog trailers.
+#
+# Matches the trailer name against Change-Add, Change-Remove, Change-Tweak, and Change-Fix.
+def filter-changelog-trailers []: list<record<name: string, message: string>> -> list<record<name: string, message: string>> {
+    $in | where name =~ '(?i)^Change-(Add|Remove|Tweak|Fix)$'
+}
+
+# Parses raw commit strings and extracts multiline changelog trailers.
 def parse-commits [
     commits: list<string> # The list of raw commit strings output by get-commits
 ]: nothing -> list<any> {
-    mut changes = []
-
-    for commit in $commits {
+    $commits | each {|commit|
         let parts = ($commit | split row "<SEP>")
-        if ($parts | length) < 3 { continue }
+        if ($parts | length) < 3 { return null }
 
         let hash = ($parts.0 | str trim)
         let author = ($parts.1 | str trim)
@@ -27,47 +61,22 @@ def parse-commits [
         # Not trimming left, because we want to preserve git trailers multiline indentation.
         let trailers = ($parts.2 | str trim --right)
 
-        if $trailers == "" { continue }
+        if $trailers == "" { return null }
 
-        # I'm too lazy to allocate this in line, so fucking it, empty strings. I couldn't care less.
-        mut current_change = {
-            category: ""
-            message: ""
-            author: ""
-            hash: ""
-        }
-
-        for line in ($trailers | lines) {
-            # Sure hope you don't need to edit this regex bc I made that shit so badly.
-            let match = ($line | parse --regex '^(?i)Change-(?P<type>Add|Remove|Tweak|Fix):\s*(?P<message>.*)$')
-
-            if not ($match | is-empty) {
-                if $current_change.category != "" {
-                    $changes = ($changes | append $current_change)
-                }
-
-                let cat = ($match.0.type | str lowercase)
-                $current_change = {
-                    category: $cat
-                    message: ($match.0.message | str trim)
-                    author: $author
-                    hash: $hash
-                }
-            } else if $current_change.category != "" {
-                let clean_line = ($line | str trim)
-                if $clean_line != "" {
-                    let new_msg = ($current_change.message + "\n" + $clean_line)
-                    $current_change = ($current_change | update message $new_msg)
-                }
+        $trailers
+        | split-trailers
+        | parse-trailers
+        | filter-changelog-trailers
+        | each {|t|
+            let cat = ($t.name | split row "-" | last | str lowercase)
+            {
+                category: $cat
+                message: $t.message
+                author: $author
+                hash: $hash
             }
         }
-
-        if $current_change.category != "" {
-            $changes = ($changes | append $current_change)
-        }
-    }
-
-    $changes
+    } | compact | flatten
 }
 
 # Builds the structured changelog entry grouped by category from parsed changes.
@@ -149,3 +158,4 @@ export def main [
         return $result
     }
 }
+

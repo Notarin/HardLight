@@ -16,6 +16,9 @@ public sealed partial class NFCargoSystem
     [Dependency] private LabelSystem _label = default!;
     private readonly List<EntityUid> _destinations = new();
 
+    //Hardlight added a static counter to make the next crate print consistently in ABCD format
+    private static int _crateDestinationIndex = 0;
+
     private void InitializeTradeCrates()
     {
         SubscribeLocalEvent<TradeCrateComponent, PriceCalculationEvent>(OnTradeCrateGetPriceEvent);
@@ -50,13 +53,11 @@ public sealed partial class NFCargoSystem
         // If there are no available destinations, tough luck.
         if (_destinations.Count > 0)
         {
-            var randomIndex = _random.Next(_destinations.Count);
-            // Better have more than one destination.
-            if (_station.GetOwningStation(ent) == _destinations[randomIndex])
-            {
-                randomIndex = (randomIndex + 1 + _random.Next(_destinations.Count - 1)) % _destinations.Count;
-            }
-            var destination = _destinations[randomIndex];
+            //Hardlight Removed Randomness from crates
+            var crateCurrentDestination = _crateDestinationIndex % _destinations.Count;
+            _crateDestinationIndex++;
+            var destination = _destinations[crateCurrentDestination];
+            //End Hardlight
             ent.Comp.DestinationStation = destination;
             if (TryComp<TradeCrateDestinationComponent>(destination, out var destComp))
                 _appearance.SetData(ent, TradeCrateVisuals.DestinationIcon, destComp.DestinationProto.Id);

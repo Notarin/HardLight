@@ -4,8 +4,8 @@
   root: torso
   slots:
     torso:
-      part: TorsoAnimal
+      part: TorsoBorg # Hardlight
       connections:
       - hands
     hands: #Unfortunately, must be called hands or else this doesn't work
-      part: HandsAnimal
+      part: HandsBorg # Hardlight

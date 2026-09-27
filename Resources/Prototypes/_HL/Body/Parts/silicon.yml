@@ -1,0 +1,14 @@
+﻿- type: entity
+  id: HandsBorg
+  name: cyborg hand
+  parent: PartSilicon
+  categories: [ HideSpawnMenu ] # Should never exist on its own
+  components:
+  - type: Sprite
+    state: borg_r_arm
+  - type: Icon
+    state: borg_r_arm
+  - type: BodyPart
+    partType: Hand
+    #symmetry: Left
+    slotId: hands # Shitmed

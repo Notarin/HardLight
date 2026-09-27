@@ -461,7 +461,7 @@ public sealed class ServerCleanupSystem : EntitySystem
             }
         }
 
-        var mapUid = _mapSystem.GetMap(mapId);
+        var mapUid = _mapSystem.GetMapOrInvalid(mapId);
         if (IsSafeRelocationTarget(mapUid))
         {
             if (TrySetCoordinatesSafely(playerUid, new EntityCoordinates(mapUid, playerWorldPos)))
@@ -471,7 +471,7 @@ public sealed class ServerCleanupSystem : EntitySystem
             }
         }
 
-        var defaultMapUid = _mapSystem.GetMap(_gameTicker.DefaultMap);
+        var defaultMapUid = _mapSystem.GetMapOrInvalid(_gameTicker.DefaultMap);
         if (IsSafeRelocationTarget(defaultMapUid))
         {
             if (TrySetCoordinatesSafely(playerUid, new EntityCoordinates(defaultMapUid, Vector2.Zero)))

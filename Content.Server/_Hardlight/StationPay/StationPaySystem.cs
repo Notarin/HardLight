@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Linq;
+using System.Diagnostics.CodeAnalysis;
 using Content.Server._NF.Bank;
 using Content.Server.Chat.Managers;
 using Content.Server.GameTicking;
@@ -118,7 +117,7 @@ public sealed class StationPaySystem : EntitySystem
     {
         jobPrototype = null;
         if (TryComp<JobTrackingComponent>(uid, out var jtc)
-            && jtc.Job is {} job
+            && jtc.Job is { } job
             && _jobPayoutRates.ContainsKey(job))
         {
             jobPrototype = job;

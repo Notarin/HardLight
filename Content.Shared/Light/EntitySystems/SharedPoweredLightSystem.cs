@@ -245,7 +245,7 @@ public abstract class SharedPoweredLightSystem : EntitySystem
 
         // check bulb state
         var bulbUid = GetBulb(uid, light);
-        if (bulbUid == null || !EntityManager.TryGetComponent(bulbUid.Value, out LightBulbComponent? lightBulb))
+        if (bulbUid == null || !TryComp(bulbUid.Value, out LightBulbComponent? lightBulb))
             return false;
         if (lightBulb.State == LightBulbState.Broken)
             return false;

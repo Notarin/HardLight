@@ -28,13 +28,13 @@ namespace Content.Server.Verbs
         {
             var player = eventArgs.SenderSession;
 
-            if (!EntityManager.EntityExists(GetEntity(args.EntityUid)))
+            if (!Exists(GetEntity(args.EntityUid)))
             {
                 Log.Warning($"{nameof(HandleVerbRequest)} called on a non-existent entity with id {args.EntityUid} by player {player}.");
                 return;
             }
 
-            if (player.AttachedEntity is not {} attached)
+            if (player.AttachedEntity is not { } attached)
             {
                 Log.Warning($"{nameof(HandleVerbRequest)} called by player {player} with no attached entity.");
                 return;

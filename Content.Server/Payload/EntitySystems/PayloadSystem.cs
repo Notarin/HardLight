@@ -101,9 +101,9 @@ public sealed class PayloadSystem : EntitySystem
             if (_componentFactory.GetComponent(registration.Type) is not Component component)
                 continue;
 
-            var temp = (object) component;
+            var temp = (object)component;
             _serializationManager.CopyTo(data.Component, ref temp);
-            EntityManager.AddComponent(uid, (Component) temp!);
+            AddComp(uid, (Component)temp!);
 
             trigger.GrantedComponents.Add(registration.Type);
         }
@@ -118,7 +118,7 @@ public sealed class PayloadSystem : EntitySystem
 
         foreach (var type in trigger.GrantedComponents)
         {
-            EntityManager.RemoveComponent(uid, type);
+            RemComp(uid, type);
         }
 
         trigger.GrantedComponents.Clear();

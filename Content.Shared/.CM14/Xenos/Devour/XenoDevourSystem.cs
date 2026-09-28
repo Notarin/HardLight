@@ -1,4 +1,4 @@
-﻿using Content.Shared.CM14.Marines;
+using Content.Shared.CM14.Marines;
 using Robust.Shared.Audio.Systems;
 using Content.Shared.DoAfter;
 using Content.Shared.DragDrop;

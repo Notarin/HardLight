@@ -56,6 +56,6 @@ namespace Content.Shared.Soul
     public sealed class GolemInstallRequestMessage : BoundUserInterfaceMessage
     {
         public GolemInstallRequestMessage()
-        {}
+        { }
     }
 }

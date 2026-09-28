@@ -1,4 +1,4 @@
-﻿using Content.Shared.Storage.Components;
+using Content.Shared.Storage.Components;
 using Content.Shared.Tag;
 using Content.Shared.Tools;
 using Robust.Shared.Containers;

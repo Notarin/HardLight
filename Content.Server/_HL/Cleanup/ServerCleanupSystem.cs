@@ -1,20 +1,10 @@
-using System.Linq;
 using System.Numerics;
 using Content.Server.GameTicking;
-using Content.Server.Ghost.Components;
 using Content.Server.Mind;
 using Content.Shared.Ghost;
-using Content.Shared.Mind;
 using Content.Shared.Mind.Components;
-using Content.Shared.Mobs.Components;
-using Content.Shared.Mobs.Systems;
 using Content.Shared.Tabletop.Components;
-using Robust.Server.GameObjects;
 using Robust.Server.Player;
-using Robust.Shared.Configuration;
-using Robust.Shared.GameObjects;
-using Robust.Shared.IoC;
-using Robust.Shared.Log;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Physics.Components;
@@ -32,13 +22,11 @@ public sealed class ServerCleanupSystem : EntitySystem
 {
     [Dependency] private readonly IPlayerManager _playerManager = default!;
     [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IEntityManager _entityManager = default!;
+
     [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
+    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
     [Dependency] private readonly MindSystem _mindSystem = default!;
     [Dependency] private readonly GameTicker _gameTicker = default!;
-    [Dependency] private readonly MobStateSystem _mobStateSystem = default!;
 
     private ISawmill _sawmill = default!;
     private TimeSpan _nextGhostCleanup = TimeSpan.Zero;
@@ -125,7 +113,7 @@ public sealed class ServerCleanupSystem : EntitySystem
 
         while (query.MoveNext(out var uid, out var mindContainer, out var xform))
         {
-            if (EntityManager.IsQueuedForDeletion(uid) || !EntityManager.EntityExists(uid))
+            if (EntityManager.IsQueuedForDeletion(uid) || !Exists(uid))
                 continue;
 
             if (!HasComp<GhostComponent>(uid))
@@ -159,7 +147,7 @@ public sealed class ServerCleanupSystem : EntitySystem
 
         foreach (var (uid, _) in entitiesToClean)
         {
-            if (!EntityManager.EntityExists(uid))
+            if (!Exists(uid))
                 continue;
 
             if (_mindSystem.TryGetMind(uid, out var mindId, out var mind) && mind.UserId != null)
@@ -229,7 +217,7 @@ public sealed class ServerCleanupSystem : EntitySystem
 
         while (query.MoveNext(out var uid, out _, out var xform))
         {
-            if (!EntityManager.EntityExists(uid) || EntityManager.IsQueuedForDeletion(uid))
+            if (!Exists(uid) || EntityManager.IsQueuedForDeletion(uid))
                 continue;
 
             if (xform.MapID == MapId.Nullspace)
@@ -250,7 +238,7 @@ public sealed class ServerCleanupSystem : EntitySystem
             if (HasComp<TabletopDraggableComponent>(uid))
                 continue;
 
-            if (xform.GridUid != null && EntityManager.EntityExists(xform.GridUid.Value))
+            if (xform.GridUid != null && Exists(xform.GridUid.Value))
                 continue;
 
             if (IsAncestorOnGrid(xform))
@@ -288,7 +276,7 @@ public sealed class ServerCleanupSystem : EntitySystem
 
         foreach (var uid in entitiesToDelete)
         {
-            if (!EntityManager.EntityExists(uid))
+            if (!Exists(uid))
                 continue;
 
             _sawmill.Debug($"Deleting floating entity {ToPrettyString(uid)} (not on grid, no players within {FloatingEntitySafeRadius} tiles)");
@@ -313,10 +301,10 @@ public sealed class ServerCleanupSystem : EntitySystem
 
         while (current.ParentUid.IsValid() && depth < 20) // safety cap
         {
-            if (current.GridUid != null && EntityManager.EntityExists(current.GridUid.Value))
+            if (current.GridUid != null && Exists(current.GridUid.Value))
                 return true;
 
-            if (!TryComp<TransformComponent>(current.ParentUid, out var parentXform))
+            if (!TryComp(current.ParentUid, out TransformComponent? parentXform))
                 break;
 
             current = parentXform;
@@ -357,6 +345,7 @@ public sealed class ServerCleanupSystem : EntitySystem
 
     /// <summary>
     /// When a grid is about to be deleted (from orphaned grid cleanup, shipyard save/delete, or any other source), this handler checks for players on/inside the grid
+    /// </summary>
 
     private void OnGridTerminating(EntityUid gridUid, MapGridComponent grid, ref EntityTerminatingEvent args)
     {
@@ -382,7 +371,7 @@ public sealed class ServerCleanupSystem : EntitySystem
             if (!visited.Add(current))
                 continue;
 
-            if (!EntityManager.EntityExists(current))
+            if (!Exists(current))
                 continue;
 
             if (actorQuery.HasComponent(current) || mindQuery.HasComponent(current))
@@ -405,7 +394,7 @@ public sealed class ServerCleanupSystem : EntitySystem
 
         foreach (var playerUid in playersToRescue)
         {
-            if (!EntityManager.EntityExists(playerUid))
+            if (!Exists(playerUid))
                 continue;
 
             if (RescuePlayerFromDeletingGrid(playerUid, gridUid))
@@ -424,12 +413,12 @@ public sealed class ServerCleanupSystem : EntitySystem
     /// </summary>
     private bool RescuePlayerFromDeletingGrid(EntityUid playerUid, EntityUid deletingGridUid)
     {
-        if (!EntityManager.EntityExists(playerUid)
+        if (!Exists(playerUid)
             || EntityManager.IsQueuedForDeletion(playerUid)
             || TerminatingOrDeleted(playerUid))
             return false;
 
-        if (!TryComp<TransformComponent>(playerUid, out var playerXform))
+        if (!TryComp(playerUid, out TransformComponent? playerXform))
             return false;
 
         var playerWorldPos = _transformSystem.GetWorldPosition(playerXform);
@@ -472,7 +461,7 @@ public sealed class ServerCleanupSystem : EntitySystem
             }
         }
 
-        var mapUid = _mapManager.GetMapEntityId(mapId);
+        var mapUid = _mapSystem.GetMapOrInvalid(mapId);
         if (IsSafeRelocationTarget(mapUid))
         {
             if (TrySetCoordinatesSafely(playerUid, new EntityCoordinates(mapUid, playerWorldPos)))
@@ -482,7 +471,7 @@ public sealed class ServerCleanupSystem : EntitySystem
             }
         }
 
-        var defaultMapUid = _mapManager.GetMapEntityId(_gameTicker.DefaultMap);
+        var defaultMapUid = _mapSystem.GetMapOrInvalid(_gameTicker.DefaultMap);
         if (IsSafeRelocationTarget(defaultMapUid))
         {
             if (TrySetCoordinatesSafely(playerUid, new EntityCoordinates(defaultMapUid, Vector2.Zero)))
@@ -499,14 +488,14 @@ public sealed class ServerCleanupSystem : EntitySystem
     private bool IsSafeRelocationTarget(EntityUid uid)
     {
         return uid.IsValid()
-               && EntityManager.EntityExists(uid)
+               && Exists(uid)
                && !EntityManager.IsQueuedForDeletion(uid)
                && !TerminatingOrDeleted(uid);
     }
 
     private bool TrySetCoordinatesSafely(EntityUid entityUid, EntityCoordinates coordinates)
     {
-        if (!EntityManager.EntityExists(entityUid)
+        if (!Exists(entityUid)
             || EntityManager.IsQueuedForDeletion(entityUid)
             || TerminatingOrDeleted(entityUid)
             || TerminatingOrDeleted(coordinates.EntityId) // HL: Make sure the station isn't being deleted too

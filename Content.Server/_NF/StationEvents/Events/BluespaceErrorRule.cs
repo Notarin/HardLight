@@ -209,7 +209,7 @@ public sealed class BluespaceErrorRule : StationEventSystem<BluespaceErrorRuleCo
 
         foreach (var componentGridUid in component.GridsUid)
         {
-            if (!EntityManager.TryGetComponent<TransformComponent>(componentGridUid, out var gridTransform))
+            if (!TryComp<TransformComponent>(componentGridUid, out var gridTransform))
             {
                 Log.Error("bluespace error objective was missing transform component");
                 return;

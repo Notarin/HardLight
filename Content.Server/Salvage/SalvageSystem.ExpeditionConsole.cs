@@ -231,10 +231,10 @@ public sealed partial class SalvageSystem
         Log.Info($"Early expedition finish initiated on console {ToPrettyString(entity)}, FTL in {departTime} seconds");
 
         // Schedule the actual expedition completion after 20 seconds
-            RobustTimer.Spawn(TimeSpan.FromSeconds(departTime), () =>
-            {
+        RobustTimer.Spawn(TimeSpan.FromSeconds(departTime), () =>
+        {
             // Verify the expedition still exists
-                if (!Exists(expeditionMapUid.Value) || !TryComp(expeditionMapUid.Value, out SalvageExpeditionComponent? expComp))
+            if (!Exists(expeditionMapUid.Value) || !TryComp(expeditionMapUid.Value, out SalvageExpeditionComponent? expComp))
             {
                 Log.Warning($"Expedition {expeditionMapUid} no longer exists when trying to finish early");
                 return;

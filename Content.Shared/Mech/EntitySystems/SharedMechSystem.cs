@@ -102,7 +102,7 @@ public abstract class SharedMechSystem : EntitySystem
         // Raise server event to open radar UI
         if (_net.IsServer)
         {
-            RaiseLocalEvent(uid, new MechOpenRadarEvent(EntityManager.GetNetEntity(pilot.Value)));
+            RaiseLocalEvent(uid, new MechOpenRadarEvent(GetNetEntity(pilot.Value)));
         }
     }
 

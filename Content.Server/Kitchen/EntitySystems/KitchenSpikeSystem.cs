@@ -173,7 +173,8 @@ namespace Content.Server.Kitchen.EntitySystems
             // THE WHAT?
             // TODO: Need to be able to leave them on the spike to do DoT, see ss13.
             var gibs = _bodySystem.GibBody(victimUid);
-            foreach (var gib in gibs) {
+            foreach (var gib in gibs)
+            {
                 QueueDel(gib);
             }
 
@@ -187,7 +188,7 @@ namespace Content.Server.Kitchen.EntitySystems
                 return false;
 
             // Is using knife
-            if (!Resolve(used, ref sharp, false) )
+            if (!Resolve(used, ref sharp, false))
             {
                 return false;
             }
@@ -240,7 +241,7 @@ namespace Content.Server.Kitchen.EntitySystems
                 _popupSystem.PopupEntity(Loc.GetString("comp-kitchen-spike-deny-butcher", ("victim", Identity.Entity(victimUid, EntityManager)), ("this", uid)), victimUid, userUid);
                 return false;
             }
-            
+
             switch (butcherable.Type)
             {
                 case ButcheringType.Spike:

@@ -1,4 +1,4 @@
-﻿using Content.Shared._Moffstation.Cards.Systems;
+using Content.Shared._Moffstation.Cards.Systems;
 
 namespace Content.Server._Moffstation.Cards;
 

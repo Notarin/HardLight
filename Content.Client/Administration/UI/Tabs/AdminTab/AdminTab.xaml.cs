@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System;
 using System.IO;
 using System.Linq;
@@ -55,14 +55,14 @@ namespace Content.Client.Administration.UI.Tabs.AdminTab
             try
             {
                 RobustXamlLoader.Load(this);
-                SubTabs.SetTabTitle((int) SubTabIndex.Quick, Loc.GetString("admin-tools-tab-quick"));
-                SubTabs.SetTabTitle((int) SubTabIndex.Votes, Loc.GetString("admin-tools-tab-votes"));
-                SubTabs.SetTabTitle((int) SubTabIndex.Ships, Loc.GetString("admin-tools-tab-ships"));
-                SubTabs.SetTabTitle((int) SubTabIndex.AHelp, Loc.GetString("admin-tools-tab-ahelp"));
-                SubTabs.SetTabTitle((int) SubTabIndex.Macros, Loc.GetString("admin-tools-tab-macros"));
-                SubTabs.SetTabTitle((int) SubTabIndex.Players, Loc.GetString("admin-menu-players-tab"));
-                SubTabs.SetTabTitle((int) SubTabIndex.Objects, Loc.GetString("admin-menu-objects-tab"));
-                SubTabs.SetTabTitle((int) SubTabIndex.Statistics, Loc.GetString("admin-tools-tab-statistics"));
+                SubTabs.SetTabTitle((int)SubTabIndex.Quick, Loc.GetString("admin-tools-tab-quick"));
+                SubTabs.SetTabTitle((int)SubTabIndex.Votes, Loc.GetString("admin-tools-tab-votes"));
+                SubTabs.SetTabTitle((int)SubTabIndex.Ships, Loc.GetString("admin-tools-tab-ships"));
+                SubTabs.SetTabTitle((int)SubTabIndex.AHelp, Loc.GetString("admin-tools-tab-ahelp"));
+                SubTabs.SetTabTitle((int)SubTabIndex.Macros, Loc.GetString("admin-tools-tab-macros"));
+                SubTabs.SetTabTitle((int)SubTabIndex.Players, Loc.GetString("admin-menu-players-tab"));
+                SubTabs.SetTabTitle((int)SubTabIndex.Objects, Loc.GetString("admin-menu-objects-tab"));
+                SubTabs.SetTabTitle((int)SubTabIndex.Statistics, Loc.GetString("admin-tools-tab-statistics"));
                 SubTabs.OnTabChanged += OnSubTabChanged;
                 LoadSavedCommands();
                 RefreshSavedCommandsList();
@@ -159,10 +159,10 @@ namespace Content.Client.Administration.UI.Tabs.AdminTab
 
         private void OnSubTabChanged(int tabIndex)
         {
-            if ((SubTabIndex) tabIndex == SubTabIndex.Objects)
+            if ((SubTabIndex)tabIndex == SubTabIndex.Objects)
                 ObjectsTabControl.RefreshObjectList();
 
-            if ((SubTabIndex) tabIndex == SubTabIndex.Statistics)
+            if ((SubTabIndex)tabIndex == SubTabIndex.Statistics)
                 RefreshStatistics();
         }
 
@@ -226,7 +226,7 @@ namespace Content.Client.Administration.UI.Tabs.AdminTab
 
         private static string FormatDuration(TimeSpan duration)
         {
-            var totalHours = (int) duration.TotalHours;
+            var totalHours = (int)duration.TotalHours;
             return $"{totalHours:00}:{duration.Minutes:00}:{duration.Seconds:00}";
         }
 
@@ -238,7 +238,7 @@ namespace Content.Client.Administration.UI.Tabs.AdminTab
             foreach (var role in _allRoleSlots)
             {
                 // Filter by search text
-                if (!string.IsNullOrEmpty(searchText) && 
+                if (!string.IsNullOrEmpty(searchText) &&
                     !role.RoleName.ToLowerInvariant().Contains(searchText))
                     continue;
 

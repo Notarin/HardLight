@@ -50,7 +50,7 @@ public sealed partial class PullOperator : HTNOperator
         // Always try to pull (will succeed if not already pulling, or re-establish if lost)
         blackboard.SetValue(LastPullAttemptKey, _timing.CurTime);
         _pulling.TryStartPull(owner, target);
-        
+
         return HTNOperatorStatus.Finished;
     }
 }

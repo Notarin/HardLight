@@ -249,11 +249,11 @@ public sealed class PlumbingConnectorAppearanceSystem : EntitySystem
 
         var coveredByFloor = HasFloorCover(xform.GridUid!.Value, grid, tile);
 
-        _appearance.SetData(uid, PlumbingVisuals.NodeDirections, (int) nodeDirections, appearance);
-        _appearance.SetData(uid, PlumbingVisuals.ConnectedDirections, (int) connectedDirections, appearance);
+        _appearance.SetData(uid, PlumbingVisuals.NodeDirections, (int)nodeDirections, appearance);
+        _appearance.SetData(uid, PlumbingVisuals.ConnectedDirections, (int)connectedDirections, appearance);
         _appearance.SetData(uid, PlumbingVisuals.ConnectedLayerByDirection, connectedLayers, appearance);
-        _appearance.SetData(uid, PlumbingVisuals.InletDirections, (int) sideARoleMask, appearance);
-        _appearance.SetData(uid, PlumbingVisuals.OutletDirections, (int) sideBRoleMask, appearance);
+        _appearance.SetData(uid, PlumbingVisuals.InletDirections, (int)sideARoleMask, appearance);
+        _appearance.SetData(uid, PlumbingVisuals.OutletDirections, (int)sideBRoleMask, appearance);
         _appearance.SetData(uid, PlumbingVisuals.MixingInletDirections, 0, appearance);
         _appearance.SetData(uid, PlumbingVisuals.ManifoldMode, true, appearance);
         _appearance.SetData(uid, PlumbingVisuals.ManifoldConnectedSlotsByDirection, connectedSlotsPacked, appearance);
@@ -325,14 +325,14 @@ public sealed class PlumbingConnectorAppearanceSystem : EntitySystem
         if (shift < 0)
             return packedData;
 
-        var value = ((int) layer + 1) & 0xF;
+        var value = ((int)layer + 1) & 0xF;
         var clearMask = ~(0xF << shift);
         return (packedData & clearMask) | (value << shift);
     }
 
     private static int SetManifoldSlotConnected(int packedData, PipeDirection direction, int slotIndex)
     {
-        if ((uint) slotIndex > 3)
+        if ((uint)slotIndex > 3)
             return packedData;
 
         var shift = direction switch

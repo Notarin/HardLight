@@ -2,6 +2,7 @@ using Content.Server.Flash.Components;
 using Content.Shared.Damage;
 
 namespace Content.Server.Flash;
+
 public sealed class DamagedByFlashingSystem : EntitySystem
 {
     [Dependency] private readonly DamageableSystem _damageable = default!;

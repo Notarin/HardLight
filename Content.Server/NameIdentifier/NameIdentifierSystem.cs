@@ -1,4 +1,4 @@
-﻿using Content.Shared.GameTicking;
+using Content.Shared.GameTicking;
 using Content.Shared.NameIdentifier;
 using Content.Shared.NameModifier.EntitySystems;
 using Robust.Shared.Collections;
@@ -49,7 +49,7 @@ public sealed class NameIdentifierSystem : EntitySystem
             ids[randomIndex] = ent.Comp.Identifier;
             ids.Add(random);
         }
-            _nameModifier.RefreshNameModifiers(ent.Owner);
+        _nameModifier.RefreshNameModifiers(ent.Owner);
     }
 
     /// <summary>

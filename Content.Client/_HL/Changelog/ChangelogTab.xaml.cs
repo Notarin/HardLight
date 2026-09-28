@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Numerics;
 using Content.Client.Resources;
 using Content.Client.Stylesheets;
@@ -36,7 +35,7 @@ public sealed partial class ChangelogTab : Control
                 var isRead = !changelog.UnreadEntries.Contains(kvp.Key);
                 return (Version: kvp.Key, Entry: kvp.Value, IsRead: isRead);
             })
-            .OrderBy(x => x.IsRead) 
+            .OrderBy(x => x.IsRead)
             .ThenByDescending(x => x.Version);
 
         var first = true;

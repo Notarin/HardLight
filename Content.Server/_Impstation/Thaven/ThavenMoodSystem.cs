@@ -108,7 +108,7 @@ public sealed partial class ThavenMoodsSystem : SharedThavenMoodSystem
             return false;
 
         _sharedMoods.Add(mood);
-        var enumerator = EntityManager.EntityQueryEnumerator<ThavenMoodsBoundComponent>();
+        var enumerator = EntityQueryEnumerator<ThavenMoodsBoundComponent>();
         while (enumerator.MoveNext(out var ent, out var comp))
         {
             if (!comp.FollowsSharedMoods)

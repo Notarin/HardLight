@@ -7,6 +7,7 @@ using Content.Shared._Crescent.ShipShields;
 
 
 namespace Content.Server._Crescent.ShipShields;
+
 public partial class ShipShieldsSystem
 {
     [Dependency] private readonly IConsoleHost _conHost = default!;

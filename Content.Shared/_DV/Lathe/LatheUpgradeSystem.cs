@@ -21,9 +21,9 @@ public sealed class LatheUpgradeSystem : EntitySystem
         if (!TryComp<LatheComponent>(ent, out var lathe))
             return;
 
-        if (ent.Comp.MaterialUseMultiplier is {} matMul)
+        if (ent.Comp.MaterialUseMultiplier is { } matMul)
             lathe.MaterialUseMultiplier = matMul;
-        if (ent.Comp.TimeMultiplier is {} timeMul)
+        if (ent.Comp.TimeMultiplier is { } timeMul)
             lathe.TimeMultiplier = timeMul;
 
         Dirty(ent, lathe);

@@ -1,4 +1,4 @@
-﻿using Content.Shared.Stacks;
+using Content.Shared.Stacks;
 
 namespace Content.Shared._NF.LoggingExtensions;
 

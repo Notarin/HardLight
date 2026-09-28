@@ -1,10 +1,6 @@
-using Content.Client.Medical.Cryogenics;
 using Content.Shared._HL.Vacbed;
-using Content.Shared.Medical.Cryogenics;
 using Content.Shared.Verbs;
 using Robust.Client.GameObjects;
-using System.Numerics;
-using DrawDepth = Content.Shared.DrawDepth.DrawDepth;
 
 namespace Content.Client._HL.Vacbed;
 

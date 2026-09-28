@@ -1,4 +1,4 @@
-﻿using Content.Shared.Actions;
+using Content.Shared.Actions;
 using Content.Shared.CM14.Xenos;
 using Content.Shared.Mind;
 using Robust.Shared.Network;

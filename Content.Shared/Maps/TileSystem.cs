@@ -165,7 +165,7 @@ public sealed class TileSystem : EntitySystem
         return PryTile(tileRef);
     }
 
-	public bool PryTile(TileRef tileRef)
+    public bool PryTile(TileRef tileRef)
     {
         return PryTile(tileRef, false);
     }
@@ -192,7 +192,7 @@ public sealed class TileSystem : EntitySystem
         if (tile.IsEmpty)
             return false;
 
-        var tileDef = (ContentTileDefinition) _tileDefinitionManager[tile.TypeId];
+        var tileDef = (ContentTileDefinition)_tileDefinitionManager[tile.TypeId];
 
         if (!tileDef.CanShovel)
             return false;
@@ -215,7 +215,7 @@ public sealed class TileSystem : EntitySystem
             return false;
 
         var key = tileref.GridIndices;
-        var currentTileDef = (ContentTileDefinition) _tileDefinitionManager[tileref.Tile.TypeId];
+        var currentTileDef = (ContentTileDefinition)_tileDefinitionManager[tileref.Tile.TypeId];
 
         // If the tile we're placing has a baseTurf that matches the tile we're replacing, we don't need to create a history
         // unless the tile already has a history.

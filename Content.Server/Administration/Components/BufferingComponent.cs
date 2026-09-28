@@ -1,4 +1,4 @@
-﻿using Content.Server.Administration.Systems;
+using Content.Server.Administration.Systems;
 
 namespace Content.Server.Administration.Components;
 

@@ -1,4 +1,4 @@
-﻿namespace Content.Server.Atmos
+namespace Content.Server.Atmos
 {
     public struct Hotspot
     {

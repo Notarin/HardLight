@@ -96,7 +96,7 @@ public sealed class TranslatorSystem : EntitySystem
 
     private void OnPowerCellSlotEmpty(Entity<HandheldTranslatorComponent> translator, ref PowerCellSlotEmptyEvent args)
     {
-//        _itemToggle.TrySetActive(translator.Owner, false); //Hardlight: Deferred to the ToggleCellDraw
+        //        _itemToggle.TrySetActive(translator.Owner, false); //Hardlight: Deferred to the ToggleCellDraw
     }
 
     private void OnPowerCellChanged(Entity<HandheldTranslatorComponent> translator, ref PowerCellChangedEvent args)
@@ -111,7 +111,7 @@ public sealed class TranslatorSystem : EntitySystem
         translator.Comp.Enabled = isEnabled;
         Dirty(translator);
 
-//        _powerCell.SetDrawEnabled(translator.Owner, isEnabled); //Hardlight: Deferred to the ToggleCellDraw
+        //        _powerCell.SetDrawEnabled(translator.Owner, isEnabled); //Hardlight: Deferred to the ToggleCellDraw
         _appearance.SetData(translator, ToggleableLightVisuals.Enabled, translator.Comp.Enabled);
 
         if (_containers.TryGetContainingContainer(translator.Owner, out var holderCont)
@@ -122,7 +122,7 @@ public sealed class TranslatorSystem : EntitySystem
             _language.UpdateEntityLanguages(holderCont.Owner);
 
             // Update the current language of the entity if necessary
-            if (isEnabled && translator.Comp.SetLanguageOnInteract && firstNewLanguage is {})
+            if (isEnabled && translator.Comp.SetLanguageOnInteract && firstNewLanguage is { })
                 _language.SetLanguage((holderCont.Owner, languageComp), firstNewLanguage);
         }
 

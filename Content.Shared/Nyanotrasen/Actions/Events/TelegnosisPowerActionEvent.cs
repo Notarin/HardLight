@@ -1,2 +1,3 @@
 namespace Content.Shared.Actions.Events;
-public sealed partial class TelegnosisPowerActionEvent : InstantActionEvent {}
+
+public sealed partial class TelegnosisPowerActionEvent : InstantActionEvent { }

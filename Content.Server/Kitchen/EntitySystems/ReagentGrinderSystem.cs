@@ -70,7 +70,7 @@ namespace Content.Server.Kitchen.EntitySystems
 
         private void OnToggleAutoModeMessage(Entity<ReagentGrinderComponent> entity, ref ReagentGrinderToggleAutoModeMessage message)
         {
-            entity.Comp.AutoMode = (GrinderAutoMode) (((byte) entity.Comp.AutoMode + 1) % Enum.GetValues(typeof(GrinderAutoMode)).Length);
+            entity.Comp.AutoMode = (GrinderAutoMode)(((byte)entity.Comp.AutoMode + 1) % Enum.GetValues(typeof(GrinderAutoMode)).Length);
 
             UpdateUiState(entity);
         }
@@ -113,7 +113,7 @@ namespace Content.Server.Kitchen.EntitySystems
 
                         // Maximum number of items we can process in the stack without going over AvailableVolume
                         // We add a small tolerance, because floats are inaccurate.
-                        var fitsCount = (int) (stack.Count * FixedPoint2.Min(containerSolution.AvailableVolume / totalVolume + 0.01, 1));
+                        var fitsCount = (int)(stack.Count * FixedPoint2.Min(containerSolution.AvailableVolume / totalVolume + 0.01, 1));
                         if (fitsCount <= 0)
                             continue;
 
@@ -218,7 +218,7 @@ namespace Content.Server.Kitchen.EntitySystems
             var ratingStorage = args.PartRatings[entity.Comp.MachinePartStorageMax];
 
             entity.Comp.WorkTimeMultiplier = MathF.Pow(entity.Comp.PartRatingWorkTimerMulitplier, ratingWorkTime - 1);
-            entity.Comp.StorageMaxEntities = entity.Comp.BaseStorageMaxEntities + (int) (entity.Comp.StoragePerPartRating * (ratingStorage - 1));
+            entity.Comp.StorageMaxEntities = entity.Comp.BaseStorageMaxEntities + (int)(entity.Comp.StoragePerPartRating * (ratingStorage - 1));
         }
 
         private void OnUpgradeExamine(Entity<ReagentGrinderComponent> entity, ref UpgradeExamineEvent args)

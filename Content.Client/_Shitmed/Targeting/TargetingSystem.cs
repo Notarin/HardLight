@@ -6,6 +6,7 @@ using Robust.Shared.Input.Binding;
 using Robust.Shared.Player;
 
 namespace Content.Client._Shitmed.Targeting;
+
 public sealed class TargetingSystem : SharedTargetingSystem
 {
     [Dependency] private readonly IPlayerManager _playerManager = default!;

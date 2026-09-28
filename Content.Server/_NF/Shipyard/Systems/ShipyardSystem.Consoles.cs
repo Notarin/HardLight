@@ -370,7 +370,7 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
                     name: deedShuttle.ShuttleName ?? "",
                     suffix: deedShuttle.ShuttleNameSuffix ?? "",
                     ownerName: shuttleOwner,
-                    entityUid: EntityManager.GetNetEntity(shuttleUid),
+                    entityUid: GetNetEntity(shuttleUid),
                     purchasedWithVoucher: voucherUsed,
                     purchasePrice: (uint)vessel.Price
                 )
@@ -758,7 +758,7 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
                     name: deedShuttle.ShuttleName ?? "",
                     suffix: deedShuttle.ShuttleNameSuffix ?? "",
                     ownerName: shuttleOwner,
-                    entityUid: EntityManager.GetNetEntity(shuttleUid),
+                    entityUid: GetNetEntity(shuttleUid),
                     purchasedWithVoucher: loadedFromSave,
                     purchasePrice: (uint)(vesselProto?.Price ?? 0)
                 )

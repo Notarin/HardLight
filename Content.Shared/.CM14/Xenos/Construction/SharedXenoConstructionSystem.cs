@@ -1,4 +1,4 @@
-﻿using Content.Shared.Coordinates.Helpers;
+using Content.Shared.Coordinates.Helpers;
 using Content.Shared.Popups;
 using Content.Shared.Actions;
 using Content.Shared.Actions.Events;
@@ -40,7 +40,7 @@ public abstract class SharedXenoConstructionSystem : EntitySystem
         _weedsQuery = GetEntityQuery<XenoWeedsComponent>();
         // Choose structure UI open/selection (shared side wiring)
         SubscribeLocalEvent<XenoComponent, XenoChooseStructureActionEvent>(OnXenoChooseStructureAction);
-    SubscribeLocalEvent<XenoComponent, XenoChooseStructureBuiMessage>(OnXenoChooseStructureBui);
+        SubscribeLocalEvent<XenoComponent, XenoChooseStructureBuiMessage>(OnXenoChooseStructureBui);
         // Secrete/build resin structure
         SubscribeLocalEvent<XenoComponent, XenoSecreteStructureEvent>(OnXenoSecreteStructureAction);
         SubscribeLocalEvent<XenoComponent, XenoSecreteStructureDoAfterEvent>(OnXenoSecreteStructureDoAfter);
@@ -115,7 +115,7 @@ public abstract class SharedXenoConstructionSystem : EntitySystem
         if (_net.IsClient)
             return;
 
-    Log.Info($"[XenoBuild] (server) Secrete action received for {ToPrettyString(xeno)} with choice={(xeno.Comp.BuildChoice?.ToString() ?? "<null>")} at target={args.Target}");
+        Log.Info($"[XenoBuild] (server) Secrete action received for {ToPrettyString(xeno)} with choice={(xeno.Comp.BuildChoice?.ToString() ?? "<null>")} at target={args.Target}");
 
         // Ensure a choice has been made and target is valid
         if (xeno.Comp.BuildChoice == null)
@@ -215,11 +215,11 @@ public abstract class SharedXenoConstructionSystem : EntitySystem
 
     private bool TileSolidAndNotBlocked(EntityCoordinates target)
     {
-     // Allow building on normal floor tiles (non-space) that are not blocked by impassable collisions.
-     // Requiring Sturdy would incorrectly limit building to walls/solid tiles and break building on weeds floors.
-     return target.GetTileRef(EntityManager, _map) is { } tile &&
-         !tile.IsSpace() &&
-         !_turf.IsTileBlocked(tile, CollisionGroup.Impassable);
+        // Allow building on normal floor tiles (non-space) that are not blocked by impassable collisions.
+        // Requiring Sturdy would incorrectly limit building to walls/solid tiles and break building on weeds floors.
+        return target.GetTileRef(EntityManager, _map) is { } tile &&
+            !tile.IsSpace() &&
+            !_turf.IsTileBlocked(tile, CollisionGroup.Impassable);
     }
 
     private bool IsOnWeeds(Entity<MapGridComponent> grid, EntityCoordinates coordinates)

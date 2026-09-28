@@ -5,24 +5,18 @@ using Content.Shared.SprayPainter.Components;
 using Content.Shared.SprayPainter.Prototypes;
 using Content.Shared.Interaction;
 using Content.Server.Mind;
-using Content.Shared.Mind;
 using Content.Shared.Mind.Components;
 using Content.Shared.Shuttles.Save;
 using Content.Shared.Timing;
 using Content.Shared.Decals;
 using Content.Server.Decals;
-using static Content.Shared.Decals.DecalGridComponent;
 using Robust.Server.Player;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
-using Robust.Shared.Maths;
 using Robust.Shared.Network;
 using Robust.Shared.Enums;
 using Robust.Shared.Player;
 using Content.Shared.Verbs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
 using Content.Server._HL.RoundPersistence.SaveBans;
 using Content.Shared._HL.RoundPersistence.SaveBans;
@@ -206,7 +200,7 @@ public sealed class RoomGridSpawnerSystem : EntitySystem
         if (msg.CharacterKey != pending.CharacterKey)
             return;
 
-        if (!EntityManager.TryGetEntity(msg.ConsoleNetEntity, out var consoleUid) || Deleted(consoleUid))
+        if (!TryGetEntity(msg.ConsoleNetEntity, out var consoleUid) || Deleted(consoleUid))
             return;
 
         var consoleEntity = consoleUid.Value;
@@ -335,10 +329,10 @@ public sealed class RoomGridSpawnerSystem : EntitySystem
                 // In this case, we can currently assume it is a stripbanned component. This is **NOT** a stable guarantee!
                 // TODO: Update this when the TypeEnforcedValidSavebanFlagStrictness TODO is resolved. (TypeEnforcedValidSavebanFlagStrictness)
                 case
-                    {
-                        Strictness: SaveBanStore.SaveRestrictionStrictness.StripBan,
-                        BannedFlag: SaveBanStore.SaveBanFlag.SaveBanFlagByComponent compFlag,
-                    }
+                {
+                    Strictness: SaveBanStore.SaveRestrictionStrictness.StripBan,
+                    BannedFlag: SaveBanStore.SaveBanFlag.SaveBanFlagByComponent compFlag,
+                }
                 when _componentFactory.TryGetRegistration(compFlag.Name, out var reg):
                     RemComp(entity, reg.Type);
                     break;
@@ -440,7 +434,7 @@ public sealed class RoomGridSpawnerSystem : EntitySystem
 
     private EntityUid ClearArea(EntityUid gridUid, MapGridComponent grid, Box2 bounds, EntityUid consoleUid, EntityUid markerUid, bool includeContained)
     {
-        var respawnConsole = consoleUid != EntityUid.Invalid && EntityManager.EntityExists(consoleUid);
+        var respawnConsole = consoleUid != EntityUid.Invalid && Exists(consoleUid);
         EntityCoordinates? consoleCoords = null;
         Angle consoleRotation = Angle.Zero;
 

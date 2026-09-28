@@ -12,6 +12,7 @@ public sealed class BrainwashedSystem : SharedBrainwashedSystem
     [Dependency] private readonly EuiManager _euiManager = default!;
     public override void Initialize()
     {
+        base.Initialize();
         SubscribeLocalEvent<BrainwashedComponent, BrainwashedEvent>(OnBrainwashed);
         SubscribeLocalEvent<BrainwashedComponent, OpenCompulsionsMenuAction>(OpenCompulsionsMenu);
     }

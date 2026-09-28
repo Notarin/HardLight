@@ -67,7 +67,7 @@ public sealed partial class PickNearbyWeldableOperator : HTNOperator
             var canWeldSiliconMob = _tagSystem.HasTag(tagComponent, tagSiliconMobPrototype) && (emagged || damage.DamagePerGroup["Brute"].Value > 0);
             var canWeldStructure = _tagSystem.HasTag(tagComponent, tagWeldFixableStructurePrototype) && damage.TotalDamage.Value > 0;
 
-            if(!canWeldSiliconMob && !canWeldStructure)
+            if (!canWeldSiliconMob && !canWeldStructure)
                 continue;
 
             var pathRange = SharedInteractionSystem.InteractionRange;

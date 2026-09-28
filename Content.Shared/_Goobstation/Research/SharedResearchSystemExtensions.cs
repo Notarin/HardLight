@@ -20,11 +20,11 @@ public static class SharedResearchSystemExtensions
         if (allTech.Count == 0)
             return 0;
 
-        var percentage = (float) component.UnlockedTechnologies
+        var percentage = (float)component.UnlockedTechnologies
             .Select(prototypeManager.Index<TechnologyPrototype>)
             .Where(x => system.CanContributeToDisciplineProgress(x, techDiscipline.ID))
-            .Count() / (float) allTech.Count * 100f;
+            .Count() / (float)allTech.Count * 100f;
 
-        return (int) Math.Clamp(percentage, 0, 100);
+        return (int)Math.Clamp(percentage, 0, 100);
     }
 }

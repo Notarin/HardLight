@@ -31,10 +31,10 @@ public sealed partial class DungeonJob
 
             if (reservedTiles.Contains(node))
                 continue;
-            
+
             if (dunGen.TileMask is not null)
             {
-                if (!dunGen.TileMask.Contains(((ContentTileDefinition) _tileDefManager[tileRef.Value.Tile.TypeId]).ID))
+                if (!dunGen.TileMask.Contains(((ContentTileDefinition)_tileDefManager[tileRef.Value.Tile.TypeId]).ID))
                     continue;
             }
 

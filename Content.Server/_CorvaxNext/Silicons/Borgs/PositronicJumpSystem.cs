@@ -469,7 +469,7 @@ public sealed class PositronicJumpSystem : EntitySystem
         }
 
         var previous = mind.OwnedEntity.Value;
-        var proxy = EntityManager.SpawnEntity(null, Transform(mech).Coordinates);
+        var proxy = Spawn(null, Transform(mech).Coordinates);
         var remotePilot = EnsureComp<RemoteMechPilotComponent>(proxy);
         remotePilot.Mech = mech;
 

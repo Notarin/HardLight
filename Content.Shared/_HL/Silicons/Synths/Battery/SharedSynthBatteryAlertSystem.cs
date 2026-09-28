@@ -48,12 +48,12 @@ public sealed partial class SharedSynthBatteryAlertSystem : EntitySystem
         if (maxCharge <= 0)
             return 0;
 
-        var chargePercent = (short) MathF.Round(currentCharge / maxCharge * 10f);
+        var chargePercent = (short)MathF.Round(currentCharge / maxCharge * 10f);
 
         if (chargePercent == 0 && currentCharge > 0f)
             chargePercent = 1;
 
-        return (short) Math.Clamp((int) chargePercent, 0, 10);
+        return (short)Math.Clamp((int)chargePercent, 0, 10);
     }
 
     private void OnShutdown(Entity<SynthBatteryComponent> ent, ref SynthBatteryShutdownEvent args)

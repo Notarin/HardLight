@@ -1,9 +1,4 @@
 using System.Numerics;
-using Content.Shared.Physics;
-using Content.Shared.Mobs;
-using Content.Shared.Standing;
-using Robust.Shared.Maths;
-using Robust.Shared.Physics;
 using Robust.Shared.Physics.Collision.Shapes;
 
 namespace Content.Shared._DV.Abilities;

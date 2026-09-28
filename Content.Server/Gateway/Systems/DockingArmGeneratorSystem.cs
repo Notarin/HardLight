@@ -200,9 +200,9 @@ public sealed class DockingArmGeneratorSystem : EntitySystem
         // Load the docking arm grid
         SpawnDockingArmGrid(ent, args.MapUid, gridPath);
     }    /// <summary>
-    /// Attempts to find a clear spawn location near the gateway.
-    /// Checks multiple positions in a spiral pattern until a clear spot is found.
-    /// </summary>
+         /// Attempts to find a clear spawn location near the gateway.
+         /// Checks multiple positions in a spiral pattern until a clear spot is found.
+         /// </summary>
     private bool TryFindClearSpawnLocation(MapId mapId, Vector2 preferredPosition, float gridRadius, out Vector2 clearPosition, int maxAttempts = 12)
     {
         clearPosition = preferredPosition;

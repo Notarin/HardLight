@@ -212,8 +212,8 @@ namespace Content.Server.Abilities.Psionics
 
             if (end)
             {
-                var performerMindPowerComp = EntityManager.GetComponent<MindSwappedComponent>(performer);
-                var targetMindPowerComp = EntityManager.GetComponent<MindSwappedComponent>(target);
+                var performerMindPowerComp = Comp<MindSwappedComponent>(performer);
+                var targetMindPowerComp = Comp<MindSwappedComponent>(target);
                 _actions.RemoveAction(performer, performerMindPowerComp.MindSwapReturnActionEntity);
                 _actions.RemoveAction(target, targetMindPowerComp.MindSwapReturnActionEntity);
 

@@ -70,7 +70,7 @@ public sealed class TurbineSystem : SharedTurbineSystem
 
     private void PlayAnimation(EntityUid uid, TurbineComponent comp)
     {
-        if (!TryComp<SpriteComponent>(uid, out var sprite) || !_sprite.TryGetLayer((uid,sprite), TurbineVisualLayers.TurbineSpeed, out var layer, false))
+        if (!TryComp<SpriteComponent>(uid, out var sprite) || !_sprite.TryGetLayer((uid, sprite), TurbineVisualLayers.TurbineSpeed, out var layer, false))
             return;
 
         var state = "speedanim";

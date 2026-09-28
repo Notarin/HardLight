@@ -1,4 +1,4 @@
-﻿using Content.Server.Explosion.EntitySystems;
+using Content.Server.Explosion.EntitySystems;
 using Content.Server.Power.Components;
 using Content.Shared.Examine;
 using Robust.Shared.Utility;
@@ -46,7 +46,7 @@ namespace Content.Server.PowerSink
             if (!args.IsInDetailsRange || !TryComp<PowerConsumerComponent>(uid, out var consumer))
                 return;
 
-            var drainAmount = (int) consumer.NetworkLoad.ReceivingPower / 1000;
+            var drainAmount = (int)consumer.NetworkLoad.ReceivingPower / 1000;
             args.PushMarkup(
                 Loc.GetString(
                     "powersink-examine-drain-amount",
@@ -111,7 +111,7 @@ namespace Content.Server.PowerSink
             foreach (var (entity, component) in toRemove)
             {
                 _explosionSystem.QueueExplosion(entity, "PowerSink", 2000f, 4f, 20f, canCreateVacuum: true);
-                EntityManager.RemoveComponent(entity, component);
+                RemComp(entity, component);
             }
         }
 

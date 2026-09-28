@@ -433,7 +433,7 @@ public sealed partial class ChatSystem : SharedChatSystem
             return;
         }
 
-        if (!EntityManager.TryGetComponent<StationDataComponent>(station, out var stationDataComp)) return;
+        if (!TryComp<StationDataComponent>(station, out var stationDataComp)) return;
 
         var filter = _stationSystem.GetInStation(stationDataComp);
 
@@ -611,12 +611,12 @@ public sealed partial class ChatSystem : SharedChatSystem
                 // Scenario 1: the listener can clearly understand the message
                 result = perceivedMessage;
                 wrappedMessage = hasXenoglossy // HardLight: Added hasXenoglossy
-                    // HardLight start
+                                               // HardLight start
                     ? wrappedOriginalMessage
                     : canUnderstandLanguage
                         ? wrappedClearMessage
                         : wrappedLanguageObfuscatedMessage;
-                    // HardLight end
+                // HardLight end
             }
             else if (_examineSystem.InRangeUnOccluded(source, listener, WhisperMuffledRange))
             {

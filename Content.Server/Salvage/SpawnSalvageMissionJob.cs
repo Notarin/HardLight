@@ -196,12 +196,12 @@ public sealed class SpawnSalvageMissionJob : Job<bool>
         MetaDataComponent? metadata = null;
         var grid = _entManager.EnsureComponent<MapGridComponent>(mapUid);
         var random = new Random(_missionParams.Seed);
-    // HARDLIGHT: Make expedition destination globally FTL-accessible without requiring disks or beacons.
-    // Previously this required a coordinates disk and was beacon-limited which prevented ad-hoc rescue / support.
-    var destComp = _entManager.AddComponent<FTLDestinationComponent>(mapUid);
-    destComp.BeaconsOnly = false; // Allow direct FTL targeting anywhere on the expedition map.
-    destComp.RequireCoordinateDisk = CoordinatesDisk.HasValue; // Disk missions require a coordinates disk.
-    destComp.Enabled = true; // Keep enabled for entire expedition so multiple ships can jump in.
+        // HARDLIGHT: Make expedition destination globally FTL-accessible without requiring disks or beacons.
+        // Previously this required a coordinates disk and was beacon-limited which prevented ad-hoc rescue / support.
+        var destComp = _entManager.AddComponent<FTLDestinationComponent>(mapUid);
+        destComp.BeaconsOnly = false; // Allow direct FTL targeting anywhere on the expedition map.
+        destComp.RequireCoordinateDisk = CoordinatesDisk.HasValue; // Disk missions require a coordinates disk.
+        destComp.Enabled = true; // Keep enabled for entire expedition so multiple ships can jump in.
         _metaData.SetEntityName(
             mapUid,
             _entManager.System<SharedSalvageSystem>().GetFTLName(_prototypeManager.Index(PlanetNamesId), _missionParams.Seed));

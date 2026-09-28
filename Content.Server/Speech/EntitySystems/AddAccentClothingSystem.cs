@@ -17,7 +17,7 @@ public sealed class AddAccentClothingSystem : EntitySystem
     }
 
 
-//  TODO: Turn this into a relay event.
+    //  TODO: Turn this into a relay event.
     private void OnGotEquipped(EntityUid uid, AddAccentClothingComponent component, ref ClothingGotEquippedEvent args)
     {
         // does the user already has this accent?
@@ -26,7 +26,7 @@ public sealed class AddAccentClothingSystem : EntitySystem
             return;
 
         // add accent to the user
-        var accentComponent = (Component) _componentFactory.GetComponent(componentType);
+        var accentComponent = (Component)_componentFactory.GetComponent(componentType);
         AddComp(args.Wearer, accentComponent);
 
         // snowflake case for replacement accent
@@ -45,9 +45,9 @@ public sealed class AddAccentClothingSystem : EntitySystem
 
         // try to remove accent
         var componentType = _componentFactory.GetRegistration(component.Accent).Type;
-        if (EntityManager.HasComponent(args.Wearer, componentType))
+        if (HasComp(args.Wearer, componentType))
         {
-            EntityManager.RemoveComponent(args.Wearer, componentType);
+            RemComp(args.Wearer, componentType);
         }
 
         component.IsActive = false;

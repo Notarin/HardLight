@@ -1,4 +1,4 @@
-﻿#nullable enable
+#nullable enable
 using System.Linq;
 using Content.Server.Ghost.Roles;
 using Content.Server.Ghost.Roles.Components;
@@ -302,7 +302,7 @@ public sealed partial class MindTests
 
             var jobRole = "";
 
-            roleSystem.MindAddJobRole(mindId, jobPrototype:jobRole);
+            roleSystem.MindAddJobRole(mindId, jobPrototype: jobRole);
 
             Assert.Multiple(() =>
             {

@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server.Botany.Components;
 using Content.Shared._HL.RoundPersistence.SaveBans;
 using Content.Shared.Atmos;
@@ -25,7 +24,7 @@ public sealed class SaveBanApi : EntitySystem
     public override void Initialize()
     {
         base.Initialize();
-    
+
         Bans =
         [
             .. _prototypeManager.EnumeratePrototypes<SaveBanPrototype>()
@@ -84,10 +83,10 @@ public sealed class SaveBanApi : EntitySystem
             SaveBanFlagByComponent componentFlag => HasComp(entityUid,
                 _componentFactory.GetRegistration(componentFlag.Name).Type),
             SaveBanSeedFlagByGasProduction gasFlag => CompOrNull<SeedComponent>(entityUid) is
-                                                          { Seed.ExudeGasses: { } gases } 
+            { Seed.ExudeGasses: { } gases }
                                                       && gases.ContainsKey(gasFlag.ProducedGas),
             SaveBanSeedFlagByReagent reagentFlag => CompOrNull<SeedComponent>(entityUid) is
-                                                        { Seed.Chemicals: { } reagents } 
+            { Seed.Chemicals: { } reagents }
                                                     && reagents.ContainsKey(reagentFlag.ReagentName),
             _ => throw new ArgumentOutOfRangeException(ban.BannedFlag.ToString()),
         });

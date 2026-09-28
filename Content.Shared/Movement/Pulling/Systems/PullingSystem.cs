@@ -127,7 +127,7 @@ public sealed class PullingSystem : EntitySystem
             && TryComp<PullableComponent>(ent.Comp.Pulling, out var comp)
             && ent.Comp.Pulling != null)
         {
-            if(_netManager.IsServer)
+            if (_netManager.IsServer)
                 StopPulling(ent.Comp.Pulling.Value, comp);
         }
     }
@@ -253,8 +253,8 @@ public sealed class PullingSystem : EntitySystem
 
         foreach (var item in ent.Comp.GrabVirtualItems)
         {
-            if(TryComp<VirtualItemComponent>(ent, out var virtualItemComponent))
-                _virtualSystem.DeleteVirtualItem((item,virtualItemComponent), ent);
+            if (TryComp<VirtualItemComponent>(ent, out var virtualItemComponent))
+                _virtualSystem.DeleteVirtualItem((item, virtualItemComponent), ent);
         }
         ent.Comp.GrabVirtualItems.Clear();
     }
@@ -986,8 +986,8 @@ public sealed class PullingSystem : EntitySystem
 
             var item = puller.Comp.GrabVirtualItems[i];
             puller.Comp.GrabVirtualItems.Remove(item);
-            if(TryComp<VirtualItemComponent>(item, out var virtualItemComponent))
-                _virtualSystem.DeleteVirtualItem((item,virtualItemComponent), puller);
+            if (TryComp<VirtualItemComponent>(item, out var virtualItemComponent))
+                _virtualSystem.DeleteVirtualItem((item, virtualItemComponent), puller);
         }
 
         return true;

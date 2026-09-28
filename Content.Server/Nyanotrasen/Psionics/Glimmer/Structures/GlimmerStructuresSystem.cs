@@ -46,7 +46,7 @@ namespace Content.Server.Psionics.Glimmer
             // component.
 
             if (TryComp<AnomalyComponent>(uid, out var anomaly))
-                _glimmerSystem.Glimmer += (int) (5f * anomaly.Severity);
+                _glimmerSystem.Glimmer += (int)(5f * anomaly.Severity);
         }
 
         private void OnAnomalySupercritical(EntityUid uid, GlimmerSourceComponent component, ref AnomalySupercriticalEvent args)

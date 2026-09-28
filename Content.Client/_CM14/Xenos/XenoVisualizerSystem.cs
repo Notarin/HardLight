@@ -1,4 +1,4 @@
-﻿using Content.Shared.CM14.Xenos;
+using Content.Shared.CM14.Xenos;
 using Content.Shared.CM14.Xenos.Rest;
 using Content.Shared.Mobs;
 using Content.Shared.Damage;

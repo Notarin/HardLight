@@ -1,5 +1,4 @@
 using Content.Shared.Containers.ItemSlots;
-using Robust.Shared.Serialization.Manager.Attributes;
 
 namespace Content.Shared._HL.Insurance.Components;
 

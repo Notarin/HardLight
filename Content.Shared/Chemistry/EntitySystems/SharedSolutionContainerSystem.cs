@@ -283,8 +283,8 @@ public abstract partial class SharedSolutionContainerSystem : EntitySystem
     public FixedPoint2 GetTotalPrototypeQuantity(EntityUid owner, string reagentId)
     {
         var reagentQuantity = FixedPoint2.New(0);
-        if (EntityManager.EntityExists(owner)
-            && EntityManager.TryGetComponent(owner, out SolutionContainerManagerComponent? managerComponent))
+        if (Exists(owner)
+            && TryComp(owner, out SolutionContainerManagerComponent? managerComponent))
         {
             foreach (var (_, soln) in EnumerateSolutions((owner, managerComponent)))
             {
@@ -337,7 +337,7 @@ public abstract partial class SharedSolutionContainerSystem : EntitySystem
         var (uid, comp, appearanceComponent) = soln;
         var solution = comp.Solution;
 
-        if (!EntityManager.EntityExists(uid) || !Resolve(uid, ref appearanceComponent, false))
+        if (!Exists(uid) || !Resolve(uid, ref appearanceComponent, false))
             return;
 
         AppearanceSystem.SetData(uid, SolutionContainerVisuals.FillFraction, solution.FillFraction, appearanceComponent);
@@ -1030,7 +1030,7 @@ public abstract partial class SharedSolutionContainerSystem : EntitySystem
 
         foreach (var name in entity.Comp.Containers)
         {
-            if (!TryGetSolution((entity.Owner, (SolutionContainerManagerComponent?) entity.Comp), name, out Entity<SolutionComponent>? soln))
+            if (!TryGetSolution((entity.Owner, (SolutionContainerManagerComponent?)entity.Comp), name, out Entity<SolutionComponent>? soln))
                 continue;
 
             if (!TryComp<ContainedSolutionComponent>(soln.Value, out var contained))
@@ -1104,7 +1104,7 @@ public abstract partial class SharedSolutionContainerSystem : EntitySystem
     public bool EnsureSolution(
         Entity<MetaDataComponent?> entity,
         string name,
-        [NotNullWhen(true)]out Solution? solution,
+        [NotNullWhen(true)] out Solution? solution,
         FixedPoint2 maxVol = default)
     {
         return EnsureSolution(entity, name, maxVol, null, out _, out solution);
@@ -1114,7 +1114,7 @@ public abstract partial class SharedSolutionContainerSystem : EntitySystem
         Entity<MetaDataComponent?> entity,
         string name,
         out bool existed,
-        [NotNullWhen(true)]out Solution? solution,
+        [NotNullWhen(true)] out Solution? solution,
         FixedPoint2 maxVol = default)
     {
         return EnsureSolution(entity, name, maxVol, null, out existed, out solution);
@@ -1312,13 +1312,13 @@ public abstract partial class SharedSolutionContainerSystem : EntitySystem
         }
         else
         {
-            dissolvedSol.RemoveReagent(reagent,amtChange);
+            dissolvedSol.RemoveReagent(reagent, amtChange);
         }
         UpdateChemicals(dissolvedSolution);
     }
 
     public FixedPoint2 GetReagentQuantityFromConcentration(Entity<SolutionComponent> dissolvedSolution,
-        FixedPoint2 volume,float concentration)
+        FixedPoint2 volume, float concentration)
     {
         var dissolvedSol = dissolvedSolution.Comp.Solution;
         if (volume == 0

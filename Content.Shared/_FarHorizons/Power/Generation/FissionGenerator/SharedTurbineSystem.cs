@@ -54,7 +54,7 @@ public abstract class SharedTurbineSystem : EntitySystem
 
         using (args.PushGroup(nameof(TurbineComponent)))
         {
-            if(comp.CurrentStator == null)
+            if (comp.CurrentStator == null)
                 args.PushMarkup(Loc.GetString("gas-turbine-examine-stator-null"));
 
             if (comp.CurrentBlade == null)
@@ -149,7 +149,7 @@ public abstract class SharedTurbineSystem : EntitySystem
         if (args.Handled)
             return;
 
-        if(_toolSystem.HasQuality(args.Used, comp.RepairTool))
+        if (_toolSystem.HasQuality(args.Used, comp.RepairTool))
         {
             if (comp.CurrentBlade == null)
             {

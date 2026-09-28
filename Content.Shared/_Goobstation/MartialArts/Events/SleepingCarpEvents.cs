@@ -11,7 +11,7 @@ public sealed partial class SleepingCarpKneeHaulPerformedEvent : EntityEventArgs
 [Serializable, NetSerializable, DataDefinition]
 public sealed partial class SleepingCarpCrashingWavesPerformedEvent : EntityEventArgs;
 
-[Serializable,NetSerializable]
+[Serializable, NetSerializable]
 public sealed class SleepingCarpSaying(LocId saying) : EntityEventArgs
 {
     public LocId Saying = saying;

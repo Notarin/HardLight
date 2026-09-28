@@ -47,7 +47,7 @@ public sealed class TranslatorImplantSystem : EntitySystem
         ent.Comp.Enabled = ent.Comp.SpokenRequirementSatisfied = ent.Comp.UnderstoodRequirementSatisfied = false;
         Dirty(ent);
 
-        if (TryComp<SubdermalImplantComponent>(ent, out var subdermal) && subdermal.ImplantedEntity is { Valid: true} implantee)
+        if (TryComp<SubdermalImplantComponent>(ent, out var subdermal) && subdermal.ImplantedEntity is { Valid: true } implantee)
             _language.UpdateEntityLanguages(implantee);
     }
 

@@ -173,7 +173,7 @@ public sealed class ZombieRuleSystem : GameRuleSystem<ZombieRuleComponent>
             zombieCount++;
         }
 
-        return zombieCount / (float) (players.Count + zombieCount);
+        return zombieCount / (float)(players.Count + zombieCount);
     }
 
     /// <summary>

@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server.Popups;
 using Content.Shared._HL.RoundPersistence.SaveBans;
 using Content.Shared._HL.Shipyard;

@@ -3,7 +3,6 @@ using Content.Shared._HL.Silicons.Synths;
 using Content.Shared._HL.Silicons.Synths.Battery;
 using Content.Server.Power.EntitySystems;
 using Content.Shared.Damage;
-using Content.Shared.Damage.Systems;
 using Content.Shared.FixedPoint;
 using Robust.Shared.Prototypes;
 

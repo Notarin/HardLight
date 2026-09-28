@@ -27,7 +27,10 @@ jobs:
         uses: ./.github/actions/setup-ss14
 
       - name: Build Project
-        run: dotnet build --configuration DebugOpt --no-restore /p:WarningsAsErrors=nullable /m
+        run: dotnet build --configuration DebugOpt --no-restore /p:TreatWarningsAsErrors=true /m
+
+      - name: Check Formatting
+        run: dotnet format --verify-no-changes --severity warn --exclude RobustToolbox
 
       - name: Run Content.Tests
         run: dotnet test --no-build --configuration DebugOpt Content.Tests/Content.Tests.csproj -- NUnit.ConsoleOut=0

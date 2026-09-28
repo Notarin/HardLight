@@ -38,7 +38,7 @@ public sealed partial class SmartFridgeComponent : Component
     [ViewVariables]
     public bool Ejecting => EjectEnd != null;
 
-    [DataField(customTypeSerializer:typeof(TimeOffsetSerializer)), AutoPausedField]
+    [DataField(customTypeSerializer: typeof(TimeOffsetSerializer)), AutoPausedField]
     public TimeSpan? EjectEnd;
 
     /// <summary>

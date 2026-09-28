@@ -29,14 +29,14 @@ public sealed class KudzuSystem : EntitySystem
     {
         // Every time we take any damage, we reduce growth depending on all damage over the growth impact
         //   So the kudzu gets slower growing the more it is hurt.
-        var growthDamage = (int) (args.Damageable.TotalDamage / component.GrowthHealth);
+        var growthDamage = (int)(args.Damageable.TotalDamage / component.GrowthHealth);
         if (growthDamage > 0)
         {
             if (!EnsureComp<GrowingKudzuComponent>(uid, out _))
                 component.GrowthLevel = 3;
 
             component.GrowthLevel = Math.Max(1, component.GrowthLevel - growthDamage);
-            if (EntityManager.TryGetComponent<AppearanceComponent>(uid, out var appearance))
+            if (TryComp<AppearanceComponent>(uid, out var appearance))
             {
                 _appearance.SetData(uid, KudzuVisuals.GrowthLevel, component.GrowthLevel, appearance);
             }
@@ -79,7 +79,7 @@ public sealed class KudzuSystem : EntitySystem
 
     private void SetupKudzu(EntityUid uid, KudzuComponent component, ComponentStartup args)
     {
-        if (!EntityManager.TryGetComponent<AppearanceComponent>(uid, out var appearance))
+        if (!TryComp<AppearanceComponent>(uid, out var appearance))
         {
             return;
         }

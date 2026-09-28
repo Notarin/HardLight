@@ -102,7 +102,7 @@ public abstract partial class SharedMartialArtsSystem : EntitySystem
         if (args.Handled)
             return;
 
-        if(!_proto.TryIndex<MartialArtPrototype>(ent.Comp.MartialArtsForm.ToString(), out var martialArtsPrototype))
+        if (!_proto.TryIndex<MartialArtPrototype>(ent.Comp.MartialArtsForm.ToString(), out var martialArtsPrototype))
             return;
 
         if (!martialArtsPrototype.RandomDamageModifier)
@@ -116,7 +116,7 @@ public abstract partial class SharedMartialArtsSystem : EntitySystem
 
     private void OnShutdown(Entity<MartialArtsKnowledgeComponent> ent, ref ComponentShutdown args)
     {
-        if(TryComp<CanPerformComboComponent>(ent, out var comboComponent))
+        if (TryComp<CanPerformComboComponent>(ent, out var comboComponent))
             comboComponent.AllowedCombos.Clear();
     }
 
@@ -284,7 +284,7 @@ public abstract partial class SharedMartialArtsSystem : EntitySystem
         TargetBodyPart? targetBodyPart = null)
     {
         damage = new DamageSpecifier();
-        if(!TryComp<TargetingComponent>(ent, out var targetingComponent))
+        if (!TryComp<TargetingComponent>(ent, out var targetingComponent))
             return;
         damage.DamageDict.Add(damageType, damageAmount);
         _damageable.TryChangeDamage(target, damage, origin: ent, targetPart: targetBodyPart ?? targetingComponent.Target);

@@ -49,8 +49,8 @@ public abstract partial class SharedConsentSystem : EntitySystem
         var user = args.User;
         bool updatedSinceLastRead = ConsentTextUpdatedSinceLastRead(ent, user);
         ResPath iconPath = updatedSinceLastRead
-            ? new ("/Textures/_Common/Interface/VerbIcons/consent_examine_with_red_dot.svg.192dpi.png")
-            : new ("/Textures/Interface/VerbIcons/settings.svg.192dpi.png");
+            ? new("/Textures/_Common/Interface/VerbIcons/consent_examine_with_red_dot.svg.192dpi.png")
+            : new("/Textures/Interface/VerbIcons/settings.svg.192dpi.png");
 
         args.Verbs.Add(new()
         {

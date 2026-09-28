@@ -1,4 +1,4 @@
-﻿using Content.Shared._Moffstation.Cards.Components;
+using Content.Shared._Moffstation.Cards.Components;
 using Robust.Shared.Serialization;
 
 namespace Content.Shared._Moffstation.Cards.Events;

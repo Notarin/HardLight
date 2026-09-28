@@ -16,7 +16,7 @@ public sealed class StandingStateSystem : EntitySystem
 
     private void FallOver(EntityUid uid, StandingStateComponent component, DropHandItemsEvent args)
     {
-        var direction = EntityManager.TryGetComponent(uid, out PhysicsComponent? comp) ? comp.LinearVelocity / 50 : Vector2.Zero;
+        var direction = TryComp(uid, out PhysicsComponent? comp) ? comp.LinearVelocity / 50 : Vector2.Zero;
         var dropAngle = _random.NextFloat(0.8f, 1.2f);
 
         var fellEvent = new FellDownEvent(uid);
@@ -29,7 +29,7 @@ public sealed class StandingStateSystem : EntitySystem
         if (!TryComp(uid, out HandsComponent? handsComp))
             return;
 
-        var worldRotation = EntityManager.GetComponent<TransformComponent>(uid).WorldRotation.ToVec();
+        var worldRotation = Comp<TransformComponent>(uid).WorldRotation.ToVec();
         foreach (var hand in handsComp.Hands.Values)
         {
             if (hand.HeldEntity is not EntityUid held)
@@ -53,14 +53,14 @@ public sealed class StandingStateSystem : EntitySystem
 
 }
 
-    /// <summary>
-    /// Raised after an entity falls down.
-    /// </summary>
-    public sealed class FellDownEvent : EntityEventArgs
+/// <summary>
+/// Raised after an entity falls down.
+/// </summary>
+public sealed class FellDownEvent : EntityEventArgs
+{
+    public EntityUid Uid { get; }
+    public FellDownEvent(EntityUid uid)
     {
-        public EntityUid Uid { get; }
-        public FellDownEvent(EntityUid uid)
-        {
-            Uid = uid;
-        }
+        Uid = uid;
     }
+}

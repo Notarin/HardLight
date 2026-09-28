@@ -17,10 +17,10 @@ namespace Content.Tests.Shared
     public sealed class DamageTest : ContentUnitTest
     {
 
-      private static readonly ProtoId<DamageGroupPrototype> BruteGroupId = "Brute";
-      private static readonly ProtoId<DamageTypePrototype> RadiationId = "Radiation";
-      private static readonly ProtoId<DamageTypePrototype> SlashId = "Slash";
-      private static readonly ProtoId<DamageTypePrototype> PiercingId = "Piercing";
+        private static readonly ProtoId<DamageGroupPrototype> BruteGroupId = "Brute";
+        private static readonly ProtoId<DamageTypePrototype> RadiationId = "Radiation";
+        private static readonly ProtoId<DamageTypePrototype> SlashId = "Slash";
+        private static readonly ProtoId<DamageTypePrototype> PiercingId = "Piercing";
 
         private static Dictionary<string, float> _resistanceCoefficientDict = new()
         {

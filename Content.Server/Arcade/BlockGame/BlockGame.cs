@@ -52,7 +52,7 @@ public sealed partial class BlockGame
         _arcade = _entityManager.System<BlockGameArcadeSystem>();
 
         _owner = owner;
-        _allBlockGamePieces = (BlockGamePieceType[]) Enum.GetValues(typeof(BlockGamePieceType));
+        _allBlockGamePieces = (BlockGamePieceType[])Enum.GetValues(typeof(BlockGamePieceType));
         _internalNextPiece = GetRandomBlockGamePiece(_random);
         InitializeNewBlock();
     }

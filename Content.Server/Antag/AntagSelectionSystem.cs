@@ -280,7 +280,7 @@ public sealed partial class AntagSelectionSystem : GameRuleSystem<AntagSelection
         bool midround = false)
     {
         var playerPool = GetPlayerPool(ent, pool, def);
-        var existingAntagCount = ent.Comp.PreSelectedSessions.TryGetValue(def, out var existingAntags) ?  existingAntags.Count : 0;
+        var existingAntagCount = ent.Comp.PreSelectedSessions.TryGetValue(def, out var existingAntags) ? existingAntags.Count : 0;
         var totalPlayerCount = GetTotalPlayerCount(pool);
         var targetCount = GetTargetAntagCount(ent, totalPlayerCount, def);
         var count = targetCount - existingAntagCount;

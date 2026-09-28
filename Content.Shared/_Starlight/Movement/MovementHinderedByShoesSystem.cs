@@ -21,7 +21,7 @@ public sealed class MovementHinderedByShoesSystem : EntitySystem
         // shoes check
         if (!_inventory.TryGetSlotEntity(uid, "shoes", out var _))
             return;
-     
+
         float hinderModifier = 0f;
 
         foreach (var legEntity in body.LegEntities)

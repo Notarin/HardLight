@@ -15,7 +15,7 @@ namespace Content.Server._EE.DeleteOnMapInit
         {
             ///var ev = new AmputateAttemptEvent(uid);
             ///RaiseLocalEvent(uid, ref ev);
-            EntityManager.QueueDeleteEntity(uid);
+            QueueDel(uid);
         }
     }
 }

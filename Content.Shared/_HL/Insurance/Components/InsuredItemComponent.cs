@@ -1,4 +1,3 @@
-using Robust.Shared.Serialization.Manager.Attributes;
 using Robust.Shared.GameStates;
 
 namespace Content.Shared._HL.Insurance.Components;

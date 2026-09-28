@@ -1,7 +1,5 @@
 using Content.Shared.GameTicking;
 using Content.Shared._NF.Shipyard.Components;
-using System;
-using System.Collections.Generic;
 
 namespace Content.Server._NF.Shipyard.Systems;
 

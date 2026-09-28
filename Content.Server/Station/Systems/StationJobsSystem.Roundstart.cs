@@ -269,11 +269,11 @@ public sealed partial class StationJobsSystem
                         }
                     } while (priorCount != stationShares[station]);
                 }
-                done: ;
+            done:;
             }
         }
 
-        endFunc:
+    endFunc:
         return assigned;
     }
 

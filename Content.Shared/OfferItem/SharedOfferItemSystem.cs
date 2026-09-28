@@ -84,7 +84,7 @@ public abstract partial class SharedOfferItemSystem : EntitySystem
 
     private bool IsValidNetworkReference(EntityUid uid)
     {
-        return EntityManager.EntityExists(uid) && TryComp<MetaDataComponent>(uid, out _);
+        return Exists(uid) && TryComp<MetaDataComponent>(uid, out _);
     }
 
     private void OnReferencedEntityShutdown(EntityUid uid, MetaDataComponent component, ComponentShutdown args)

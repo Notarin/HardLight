@@ -1,4 +1,3 @@
-using System;
 using Content.Server._HL.ColComm; // HardLight
 using Content.Server._NF.Roles.Systems;
 using Content.Server.GameTicking;
@@ -119,13 +118,11 @@ public sealed class DynamicJobAllocationRule : StationEventSystem<DynamicJobAllo
             return;
 
         // HardLight start
-        /// <summary>
-        /// Count non-Mercenary crew and filled Mercenary slots across the whole server.
-        /// This is mind-based rather than attached-entity based so admins who aghost
-        /// still count as occupying their role until their mind actually leaves the body.
-        /// Using ColComm's configured job list as the filter ensures ship/vessel jobs
-        /// such as Contractor and Pilot do not inflate the Mercenary cap.
-        /// </summary>
+        // Count non-Mercenary crew and filled Mercenary slots across the whole server.
+        // This is mind-based rather than attached-entity based so admins who aghost
+        // still count as occupying their role until their mind actually leaves the body.
+        // Using ColComm's configured job list as the filter ensures ship/vessel jobs
+        // such as Contractor and Pilot do not inflate the Mercenary cap.
         var totalNonMercenary = 0;
         var totalFilledMercenary = 0;
 

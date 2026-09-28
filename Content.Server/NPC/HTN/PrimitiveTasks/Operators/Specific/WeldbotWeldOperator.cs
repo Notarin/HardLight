@@ -65,7 +65,7 @@ public sealed partial class WeldbotWeldOperator : HTNOperator
         var tagSiliconMobPrototype = _prototypeManager.Index<TagPrototype>(SiliconTag);
         var tagWeldFixableStructurePrototype = _prototypeManager.Index<TagPrototype>(WeldotFixableStructureTag);
 
-        if(!_entMan.TryGetComponent<TagComponent>(target, out var tagComponent))
+        if (!_entMan.TryGetComponent<TagComponent>(target, out var tagComponent))
             return HTNOperatorStatus.Failed;
 
         var weldableIsSilicon = _tagSystem.HasTag(tagComponent, tagSiliconMobPrototype);
@@ -77,19 +77,19 @@ public sealed partial class WeldbotWeldOperator : HTNOperator
             || !_interaction.InRangeUnobstructed(owner, target))
             return HTNOperatorStatus.Failed;
 
-        var canWeldSilicon = damage.DamagePerGroup["Brute"].Value > 0  || _entMan.HasComponent<EmaggedComponent>(owner);
+        var canWeldSilicon = damage.DamagePerGroup["Brute"].Value > 0 || _entMan.HasComponent<EmaggedComponent>(owner);
         var canWeldStructure = damage.TotalDamage.Value > 0;
 
         if ((!canWeldSilicon && weldableIsSilicon) || (!canWeldStructure && weldableIsStructure))
             return HTNOperatorStatus.Failed;
 
-            if (botComp.IsEmagged)
-            {
-                if (!_prototypeManager.TryIndex(BurnGroupId, out var prototype) || weldableIsStructure)
-                    return HTNOperatorStatus.Failed;
+        if (botComp.IsEmagged)
+        {
+            if (!_prototypeManager.TryIndex(BurnGroupId, out var prototype) || weldableIsStructure)
+                return HTNOperatorStatus.Failed;
 
-                _damageableSystem.TryChangeDamage(target, new DamageSpecifier(prototype, EmaggedBurnDamage), true, false, damage);
-            }
+            _damageableSystem.TryChangeDamage(target, new DamageSpecifier(prototype, EmaggedBurnDamage), true, false, damage);
+        }
         else
         {
             if (weldableIsSilicon)
@@ -112,8 +112,8 @@ public sealed partial class WeldbotWeldOperator : HTNOperator
 
         _audio.PlayPvs(botComp.WeldSound, target);
 
-        if((weldableIsSilicon && damage.DamagePerGroup["Brute"].Value == 0)
-            || (weldableIsStructure && damage.TotalDamage.Value == 0)); //only say "all done if we're actually done!"
+        if ((weldableIsSilicon && damage.DamagePerGroup["Brute"].Value == 0)
+            || (weldableIsStructure && damage.TotalDamage.Value == 0)) ; //only say "all done if we're actually done!"
 
         return HTNOperatorStatus.Finished;
     }

@@ -21,7 +21,7 @@ public sealed partial class ChangelogVersion : Control
         if (!string.IsNullOrWhiteSpace(entry.Summary))
         {
             Summary.Visible = true;
-            
+
             SummaryTitle.Text = "Summary:";
             SummaryLabel.Text = entry.Summary;
         }

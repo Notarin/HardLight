@@ -26,17 +26,17 @@ namespace Content.Shared.Actions;
 public abstract class SharedActionsSystem : EntitySystem
 {
     [Dependency] protected readonly IGameTiming GameTiming = default!;
-    [Dependency] private   readonly IMapManager _map = default!;
-    [Dependency] private   readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private   readonly ActionBlockerSystem _actionBlockerSystem = default!;
-    [Dependency] private   readonly ActionContainerSystem _actionContainer = default!;
-    [Dependency] private   readonly EntityWhitelistSystem _whitelistSystem = default!;
-    [Dependency] private   readonly RotateToFaceSystem _rotateToFaceSystem = default!;
-    [Dependency] private   readonly SharedAudioSystem _audio = default!;
-    [Dependency] private   readonly SharedInteractionSystem _interactionSystem = default!;
-    [Dependency] private   readonly SharedTransformSystem _transformSystem = default!;
-    [Dependency] private   readonly INetManager _net = default!;
-    [Dependency] private   readonly SharedMapSystem _mapSystem = default!;
+    [Dependency] private readonly IMapManager _map = default!;
+    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
+    [Dependency] private readonly ActionBlockerSystem _actionBlockerSystem = default!;
+    [Dependency] private readonly ActionContainerSystem _actionContainer = default!;
+    [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
+    [Dependency] private readonly RotateToFaceSystem _rotateToFaceSystem = default!;
+    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency] private readonly SharedInteractionSystem _interactionSystem = default!;
+    [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
+    [Dependency] private readonly INetManager _net = default!;
+    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
 
     private readonly List<EntityUid> _anchored = new();
 
@@ -483,33 +483,33 @@ public abstract class SharedActionsSystem : EntitySystem
 
                 break;
             case EntityWorldTargetActionComponent entityWorldAction:
-            {
-                var actionEntity = GetEntity(ev.EntityTarget);
-                var actionCoords = GetCoordinates(ev.EntityCoordinatesTarget);
-
-                if (actionEntity is null && actionCoords is null)
                 {
-                    Log.Error($"Attempted to perform an entity-world-targeted action without an entity or world coordinates! Action: {name}");
-                    return;
+                    var actionEntity = GetEntity(ev.EntityTarget);
+                    var actionCoords = GetCoordinates(ev.EntityCoordinatesTarget);
+
+                    if (actionEntity is null && actionCoords is null)
+                    {
+                        Log.Error($"Attempted to perform an entity-world-targeted action without an entity or world coordinates! Action: {name}");
+                        return;
+                    }
+
+                    var entWorldAction = new Entity<EntityWorldTargetActionComponent>(actionEnt, entityWorldAction);
+
+                    if (!ValidateEntityWorldTarget(user, actionEntity, actionCoords, entWorldAction))
+                        return;
+
+                    _adminLogger.Add(LogType.Action,
+                        $"{ToPrettyString(user):user} is performing the {name:action} action (provided by {ToPrettyString(action.Container ?? user):provider}) targeted at {ToPrettyString(actionEntity):target} {actionCoords:target}.");
+
+                    if (entityWorldAction.Event != null)
+                    {
+                        entityWorldAction.Event.Entity = actionEntity;
+                        entityWorldAction.Event.Coords = actionCoords;
+                        Dirty(actionEnt, entityWorldAction);
+                        performEvent = entityWorldAction.Event;
+                    }
+                    break;
                 }
-
-                var entWorldAction = new Entity<EntityWorldTargetActionComponent>(actionEnt, entityWorldAction);
-
-                if (!ValidateEntityWorldTarget(user, actionEntity, actionCoords, entWorldAction))
-                    return;
-
-                _adminLogger.Add(LogType.Action,
-                    $"{ToPrettyString(user):user} is performing the {name:action} action (provided by {ToPrettyString(action.Container ?? user):provider}) targeted at {ToPrettyString(actionEntity):target} {actionCoords:target}.");
-
-                if (entityWorldAction.Event != null)
-                {
-                    entityWorldAction.Event.Entity = actionEntity;
-                    entityWorldAction.Event.Coords = actionCoords;
-                    Dirty(actionEnt, entityWorldAction);
-                    performEvent = entityWorldAction.Event;
-                }
-                break;
-            }
             case InstantActionComponent instantAction:
                 if (action.CheckCanInteract && !_actionBlockerSystem.CanInteract(user, null))
                     return;
@@ -534,7 +534,7 @@ public abstract class SharedActionsSystem : EntitySystem
         if (isXenoSecrete && performEvent is Content.Shared.CM14.Xenos.Construction.Events.XenoSecreteStructureEvent seEv && !seEv.Handled)
         {
             Log.Info("[XenoBuild][srv?] Fallback: re-raising XenoSecreteStructureEvent on performer due to unhandled result.");
-            RaiseLocalEvent(user, (object) seEv, broadcast: true);
+            RaiseLocalEvent(user, (object)seEv, broadcast: true);
         }
 
     }
@@ -701,7 +701,7 @@ public abstract class SharedActionsSystem : EntitySystem
                 Log.Info($"[XenoAction][dbg] Raising XenoSecreteStructureEvent on target={ToPrettyString(target)} hasXeno={hasXeno} raiseOnUser={action.RaiseOnUser} raiseOnAction={action.RaiseOnAction}");
             }
 
-            RaiseLocalEvent(target, (object) actionEvent, broadcast: true);
+            RaiseLocalEvent(target, (object)actionEvent, broadcast: true);
             handled = actionEvent.Handled;
         }
 
@@ -731,7 +731,7 @@ public abstract class SharedActionsSystem : EntitySystem
         }
 
         action.Cooldown = null;
-        if (action is { UseDelay: not null})
+        if (action is { UseDelay: not null })
         {
             dirty = true;
             action.Cooldown = (curTime, curTime + action.UseDelay.Value);

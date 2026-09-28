@@ -51,7 +51,7 @@ public sealed class TableSlamSystem : EntitySystem
 
     private void OnDisarmAttemptEvent(Entity<PostTabledComponent> ent, ref DisarmAttemptEvent args)
     {
-        if(!_random.Prob(ent.Comp.ParalyzeChance))
+        if (!_random.Prob(ent.Comp.ParalyzeChance))
             return;
 
         _stunSystem.TryParalyze(ent, TimeSpan.FromSeconds(3), false);
@@ -65,7 +65,7 @@ public sealed class TableSlamSystem : EntitySystem
         while (tabledQuery.MoveNext(out var uid, out var comp))
         {
             if (_gameTiming.CurTime >= comp.PostTabledShovableTime)
-             RemComp<PostTabledComponent>(uid);
+                RemComp<PostTabledComponent>(uid);
         }
     }
 
@@ -75,7 +75,7 @@ public sealed class TableSlamSystem : EntitySystem
             || ent.Comp.Pulling == null)
             return;
 
-        if(!TryComp<PullableComponent>(ent.Comp.Pulling, out var pullableComponent))
+        if (!TryComp<PullableComponent>(ent.Comp.Pulling, out var pullableComponent))
             return;
 
         if (args.Direction != null)
@@ -90,26 +90,26 @@ public sealed class TableSlamSystem : EntitySystem
         var massContest = _contestsSystem.MassContest(ent, ent.Comp.Pulling.Value);
         var attemptChance = Math.Clamp(1 * massContest, 0, 1);
         var attemptRoundedToNearestQuarter = Math.Round(attemptChance * 4, MidpointRounding.ToEven) / 4;
-        if(_random.Prob((float) attemptRoundedToNearestQuarter)) // base chance to table slam someone is 1 if your mass ratio is less than 1 then your going to have a harder time slamming somebody.
+        if (_random.Prob((float)attemptRoundedToNearestQuarter)) // base chance to table slam someone is 1 if your mass ratio is less than 1 then your going to have a harder time slamming somebody.
             TryTableSlam((ent.Comp.Pulling.Value, pullableComponent), ent, target);
     }
 
     public void TryTableSlam(Entity<PullableComponent> ent, Entity<PullerComponent> pullerEnt, EntityUid tableUid)
     {
-        if(!_transformSystem.InRange(ent.Owner.ToCoordinates(), tableUid.ToCoordinates(), 2f ))
+        if (!_transformSystem.InRange(ent.Owner.ToCoordinates(), tableUid.ToCoordinates(), 2f))
             return;
 
         _standing.Down(ent);
 
         _pullingSystem.TryStopPull(ent, ent.Comp, pullerEnt, ignoreGrab: true);
-        _throwingSystem.TryThrow(ent, tableUid.ToCoordinates() , ent.Comp.BasedTabledForceSpeed, animated: false, doSpin: false);
+        _throwingSystem.TryThrow(ent, tableUid.ToCoordinates(), ent.Comp.BasedTabledForceSpeed, animated: false, doSpin: false);
         pullerEnt.Comp.NextStageChange = _gameTiming.CurTime.Add(TimeSpan.FromSeconds(3)); // prevent table slamming spam
         ent.Comp.BeingTabled = true;
     }
 
     private void OnStartCollide(Entity<PullableComponent> ent, ref StartCollideEvent args)
     {
-        if(!ent.Comp.BeingTabled)
+        if (!ent.Comp.BeingTabled)
             return;
 
         if (!HasComp<BonkableComponent>(args.OtherEntity))

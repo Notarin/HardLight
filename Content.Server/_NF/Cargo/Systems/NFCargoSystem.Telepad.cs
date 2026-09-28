@@ -72,7 +72,7 @@ public sealed partial class NFCargoSystem
             var consoleUidList = _scratchTelepadConsoles;
             consoleUidList.Clear();
             foreach (var item in sinkComponent.LinkedSources)
-                consoleUidList.Add(EntityManager.GetNetEntity(item));
+                consoleUidList.Add(GetNetEntity(item));
 
             var xform = Transform(uid);
             if (FulfillNextOrder(consoleUidList, orderDatabase, xform.Coordinates, comp.PrinterOutput))

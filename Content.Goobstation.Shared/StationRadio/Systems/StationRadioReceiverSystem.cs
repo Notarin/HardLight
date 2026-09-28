@@ -57,7 +57,7 @@ public sealed class StationRadioReceiverSystem : EntitySystem
             comp.SoundEntity = audio.Value.Entity;
             _audio.SetGain(comp.SoundEntity, gain);
         }
-        else if(audio != null && !_power.IsPowered(uid))
+        else if (audio != null && !_power.IsPowered(uid))
         {
             comp.SoundEntity = audio.Value.Entity;
             _audio.SetGain(comp.SoundEntity, 0);

@@ -1,4 +1,3 @@
-using Content.Shared.Administration.Logs;
 using Content.Shared.Body.Components;
 using Content.Shared.DoAfter;
 using Content.Shared.DragDrop;
@@ -111,7 +110,7 @@ public abstract partial class SharedVacbedSystem : EntitySystem
         if (!args.CanAccess || !args.CanInteract || args.User == vacbedComponent.BodyContainer.ContainedEntity)
             return;
 
-        if(vacbedComponent.BodyContainer.ContainedEntity != null)
+        if (vacbedComponent.BodyContainer.ContainedEntity != null)
         {
             args.Verbs.Add(new AlternativeVerb
             {

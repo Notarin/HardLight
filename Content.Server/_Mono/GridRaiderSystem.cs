@@ -41,7 +41,7 @@ public sealed class GridRaiderSystem : EntitySystem
     {
         foreach (var entity in component.ProtectedEntities.ToList())
         {
-            if (EntityManager.EntityExists(entity))
+            if (Exists(entity))
                 RemoveProtection(entity);
         }
 

@@ -8,7 +8,7 @@ namespace Content.Shared.Salvage.Expeditions.Modifiers;
 /// Affects the biome to be used for salvage.
 /// </summary>
 [Prototype]
-public sealed partial class SalvageBiomeModPrototype  : IPrototype, ISalvageMod
+public sealed partial class SalvageBiomeModPrototype : IPrototype, ISalvageMod
 {
     [IdDataField] public string ID { get; private set; } = default!;
 
@@ -26,6 +26,6 @@ public sealed partial class SalvageBiomeModPrototype  : IPrototype, ISalvageMod
     [DataField("weather")]
     public bool Weather = true;
 
-    [DataField("biome", required: true, customTypeSerializer:typeof(PrototypeIdSerializer<BiomeTemplatePrototype>))]
+    [DataField("biome", required: true, customTypeSerializer: typeof(PrototypeIdSerializer<BiomeTemplatePrototype>))]
     public string? BiomePrototype;
 }

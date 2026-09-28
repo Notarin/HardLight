@@ -515,7 +515,7 @@ namespace Content.Client.IconSmoothing
             var sourceFamily = GetWallSmoothingFamily(sourceSprite);
             var targetFamily = GetWallSmoothingFamily(targetSprite);
 
-            if (targetSprite.DrawDepth == (int) Content.Shared.DrawDepth.DrawDepth.BlastDoors &&
+            if (targetSprite.DrawDepth == (int)Content.Shared.DrawDepth.DrawDepth.BlastDoors &&
                 sourceFamily != targetFamily)
                 return false;
 

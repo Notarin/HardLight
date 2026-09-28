@@ -110,8 +110,8 @@ namespace Content.MapRenderer.Painters
                 var top = bounds.Top;
                 var bottom = bounds.Bottom;
 
-                var w = (int) Math.Ceiling(right - left) * tileXSize;
-                var h = (int) Math.Ceiling(top - bottom) * tileYSize;
+                var w = (int)Math.Ceiling(right - left) * tileXSize;
+                var h = (int)Math.Ceiling(top - bottom) * tileYSize;
 
                 var gridCanvas = new Image<Rgba32>(w, h);
 

@@ -1,4 +1,4 @@
-﻿using Content.Shared.Starlight.ItemSwitch;
+using Content.Shared.Starlight.ItemSwitch;
 using Content.Shared.Interaction.Events;
 using Content.Shared.Interaction;
 using Content.Shared.Item;

@@ -5,7 +5,7 @@ namespace Content.Shared._Funkystation.Genetics.Prototypes;
 /// <summary>
 ///     Defines a genetic mutation that can be discovered, activated, or suppressed via genetics machinery.
 /// </summary>
-[Prototype("geneticMutation")]
+[Prototype]
 public sealed partial class GeneticMutationPrototype : IPrototype
 {
     [IdDataField]

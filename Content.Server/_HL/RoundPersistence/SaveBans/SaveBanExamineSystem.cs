@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared._HL.RoundPersistence.SaveBans;
 using Content.Shared.Examine;
 using Content.Shared.Item;
@@ -10,7 +9,7 @@ namespace Content.Server._HL.RoundPersistence.SaveBans;
 /// <summary>
 /// This is the system for showing an icon on examine of an item that is restricted from saving in some fashion.
 /// </summary>
-public sealed class SaveBanExamineSystem: EntitySystem
+public sealed class SaveBanExamineSystem : EntitySystem
 {
     [Dependency] private readonly ExamineSystemShared _examine = default!;
     [Dependency] private readonly SaveBanApi _saveBanApi = default!;
@@ -22,7 +21,7 @@ public sealed class SaveBanExamineSystem: EntitySystem
         SubscribeLocalEvent<ItemComponent, GetVerbsEvent<ExamineVerb>>(OnDetailedExamine);
     }
 
-private void OnDetailedExamine(EntityUid uid, ItemComponent component, GetVerbsEvent<ExamineVerb> args)
+    private void OnDetailedExamine(EntityUid uid, ItemComponent component, GetVerbsEvent<ExamineVerb> args)
     {
         var restrictions = _saveBanApi.CheckForRestrictions(uid);
         if (restrictions == null)

@@ -1,4 +1,4 @@
-﻿namespace Content.Shared.Actions.Events;
+namespace Content.Shared.Actions.Events;
 
 [ByRefEvent]
 public record struct GetActionDataEvent(BaseActionComponent? Action);

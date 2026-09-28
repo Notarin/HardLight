@@ -140,7 +140,7 @@ public sealed partial class AdminNotesLine : BoxContainer
     private string FormatRoleBanMessage()
     {
         var rolesText = Note.BannedRoles is { Length: > 0 }
-            ? string.Join(", ", (IEnumerable<BanRoleDef>) Note.BannedRoles)
+            ? string.Join(", ", (IEnumerable<BanRoleDef>)Note.BannedRoles)
             : "unknown";
 
         var banMessage = new StringBuilder($"{Loc.GetString("admin-notes-banned-from")} {rolesText} ");

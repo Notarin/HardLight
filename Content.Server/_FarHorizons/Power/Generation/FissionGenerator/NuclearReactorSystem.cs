@@ -131,7 +131,7 @@ public sealed class NuclearReactorSystem : SharedNuclearReactorSystem
 
         comp.ComponentGrid = new ReactorPartComponent[gridWidth, gridHeight];
         comp.FluxGrid = new List<ReactorNeutron>[gridWidth, gridHeight];
-          comp.FluxGridScratch = new List<ReactorNeutron>[gridWidth, gridHeight];
+        comp.FluxGridScratch = new List<ReactorNeutron>[gridWidth, gridHeight];
         comp.TemperatureGrid = new double[gridWidth, gridHeight];
         comp.NeutronGrid = new int[gridWidth, gridHeight];
 
@@ -251,7 +251,7 @@ public sealed class NuclearReactorSystem : SharedNuclearReactorSystem
         if (comp.Melted)
             return;
 
-        if(!GetPipes(uid, comp, out var inlet, out var outlet))
+        if (!GetPipes(uid, comp, out var inlet, out var outlet))
             return;
 
         var gridWidth = comp.ReactorGridWidth;
@@ -647,11 +647,11 @@ public sealed class NuclearReactorSystem : SharedNuclearReactorSystem
     {
         var comp = ent.Comp;
 
-        if(Exists(comp.AlarmAudioHighThermal))
+        if (Exists(comp.AlarmAudioHighThermal))
             _ambientSoundSystem.SetAmbience(comp.AlarmAudioHighThermal.Value, !comp.Melted && comp.ThermalPower > comp.MaximumThermalPower);
-        if(Exists(comp.AlarmAudioHighTemp))
+        if (Exists(comp.AlarmAudioHighTemp))
             _ambientSoundSystem.SetAmbience(comp.AlarmAudioHighTemp.Value, !comp.Melted && comp.Temperature > comp.ReactorOverheatTemp);
-        if(Exists(comp.AlarmAudioHighRads))
+        if (Exists(comp.AlarmAudioHighRads))
             _ambientSoundSystem.SetAmbience(comp.AlarmAudioHighRads.Value, !comp.Melted && comp.RadiationLevel > comp.MaximumRadiation * 0.5);
     }
 
@@ -741,7 +741,7 @@ public sealed class NuclearReactorSystem : SharedNuclearReactorSystem
         if (!_uiSystem.IsUiOpen(uid, NuclearReactorUiKey.Key))
             return;
 
-        if(reactor.Melted)
+        if (reactor.Melted)
         {
             _uiSystem.CloseUi(uid, NuclearReactorUiKey.Key);
             return;
@@ -759,8 +759,8 @@ public sealed class NuclearReactorSystem : SharedNuclearReactorSystem
                 var reactorPart = reactor.ComponentGrid[x, y];
                 if (reactorPart == null)
                 {
-                    if(reactor.NeutronGrid[x, y] > 0)
-                        dict.Add(new(x,y), new ReactorSlotBUIData { NeutronCount = reactor.NeutronGrid[x, y] });
+                    if (reactor.NeutronGrid[x, y] > 0)
+                        dict.Add(new(x, y), new ReactorSlotBUIData { NeutronCount = reactor.NeutronGrid[x, y] });
                     continue;
                 }
 
@@ -842,10 +842,11 @@ public sealed class NuclearReactorSystem : SharedNuclearReactorSystem
 
     private void OnControlRodMessage(Entity<NuclearReactorComponent> ent, ref ReactorControlRodModifyMessage args)
     {
-        if(AdjustControlRods(ent.Comp, args.Change))
+        if (AdjustControlRods(ent.Comp, args.Change))
             // Data is sent to a log queue to avoid spamming the admin log when adjusting values rapidly
-            if(!_logQueue.TryGetValue(new(args.Actor, ent.Owner), out var value))
-                _logQueue.Add(new(args.Actor, ent.Owner), new LogData {
+            if (!_logQueue.TryGetValue(new(args.Actor, ent.Owner), out var value))
+                _logQueue.Add(new(args.Actor, ent.Owner), new LogData
+                {
                     CreationTime = _gameTiming.RealTime,
                     SetControlRodInsertion = ent.Comp.ControlRodInsertion
                 });

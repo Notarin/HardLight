@@ -42,7 +42,7 @@ public sealed class PrizeballLayingSystem : SharedPrizeballLayingSystem //  We'v
         _actions.RemoveAction(user, pballLaying.Action);
     }
 
-   protected override void AttemptLayInside(Entity<PrizeballLayingComponent> user, EntityUid target)
+    protected override void AttemptLayInside(Entity<PrizeballLayingComponent> user, EntityUid target)
     {
         var doargs = new DoAfterArgs(EntityManager, user.Owner, user.Comp.PballLayDelay, new PrizeballLayingInsideDoAfterEvent(), user.Owner, target)
         {
@@ -97,21 +97,21 @@ public sealed class PrizeballLayingSystem : SharedPrizeballLayingSystem //  We'v
 
         AddPballs(user, pballLaying, amount);
 
-        if(pballLaying.hasPballs() && !hasPballsBefore)
+        if (pballLaying.hasPballs() && !hasPballsBefore)
         {
             _popup.PopupEntity(Loc.GetString("action-popup-lay-pball-firstpball"), user, user);
             _actions.AddAction(user, ref pballLaying.Action, pballLaying.ActionPrototype);
         }
-        else if(pballLaying.isHeavyOfPballs() && !isHeavyBefore)
+        else if (pballLaying.isHeavyOfPballs() && !isHeavyBefore)
         {
             _movementSpeedModifier.RefreshMovementSpeedModifiers(user);
             _popup.PopupEntity(Loc.GetString("action-popup-lay-pball-heavypballs"), user, user);
         }
-        else if(pballLaying.isFullOfPballs() && !isFullBefore)
+        else if (pballLaying.isFullOfPballs() && !isFullBefore)
         {
             _popup.PopupEntity(Loc.GetString("action-popup-lay-pball-fullpballs"), user, user);
         }
-        else if(pballLaying.doFlavor())
+        else if (pballLaying.doFlavor())
         {
             _popup.PopupEntity(Loc.GetString(_random.Pick(pballLaying.FlavorMessages)), user, user);
         }
@@ -121,7 +121,7 @@ public sealed class PrizeballLayingSystem : SharedPrizeballLayingSystem //  We'v
     {
         if (args.Cancelled || args.Handled || args.Target == null)
             return;
-            
+
         args.Handled = true;
 
         if (myPballs.Deleted || !myPballs.hasPballs())
@@ -136,7 +136,7 @@ public sealed class PrizeballLayingSystem : SharedPrizeballLayingSystem //  We'v
         if (!TryComp<PrizeballLayingComponent>(target, out var theirPballs))
         {
             theirPballs = (PrizeballLayingComponent)Factory.GetComponent(Factory.GetComponentName<PrizeballLayingComponent>());
-            EntityManager.AddComponent(target, theirPballs);
+            AddComp(target, theirPballs);
             theirPballs.makeTempFrom(myPballs);
             _actions.AddAction(target, ref theirPballs.Action, theirPballs.ActionPrototype);
         }
@@ -148,7 +148,7 @@ public sealed class PrizeballLayingSystem : SharedPrizeballLayingSystem //  We'v
         _movementSpeedModifier.RefreshMovementSpeedModifiers(user);
         _movementSpeedModifier.RefreshMovementSpeedModifiers(target);
 
-        if(myPballs.hasPballs())
+        if (myPballs.hasPballs())
         {
             _popup.PopupEntity(Loc.GetString("action-popup-lay-pball-inside-give-more", ("entity", Identity.Entity(target, EntityManager))), user, user);
             _popup.PopupEntity(Loc.GetString("action-popup-lay-pball-inside-receive-more", ("entity", Identity.Entity(user, EntityManager))), target, target);
@@ -159,7 +159,7 @@ public sealed class PrizeballLayingSystem : SharedPrizeballLayingSystem //  We'v
             _popup.PopupEntity(Loc.GetString("action-popup-lay-pball-inside-give-done", ("entity", Identity.Entity(target, EntityManager))), user, user);
             _popup.PopupEntity(Loc.GetString("action-popup-lay-pball-inside-receive-done", ("entity", Identity.Entity(user, EntityManager))), target, target);
 
-            if(myPballs.Temporary)
+            if (myPballs.Temporary)
                 RemComp<PrizeballLayingComponent>(user);
             else
                 _actions.RemoveAction(user, myPballs.Action);
@@ -170,7 +170,7 @@ public sealed class PrizeballLayingSystem : SharedPrizeballLayingSystem //  We'v
     {
         if (args.Cancelled || args.Handled)
             return;
-            
+
         args.Handled = true;
 
         if (pballLaying.Deleted || !pballLaying.hasPballs())
@@ -189,7 +189,7 @@ public sealed class PrizeballLayingSystem : SharedPrizeballLayingSystem //  We'v
         AddPballs(user, pballLaying, -1.0f);
         _movementSpeedModifier.RefreshMovementSpeedModifiers(user);
 
-        if(pballLaying.hasPballs())
+        if (pballLaying.hasPballs())
         {
             _popup.PopupEntity(Loc.GetString("action-popup-lay-pball-user-more"), user, user);
             args.Repeat = true;
@@ -198,8 +198,8 @@ public sealed class PrizeballLayingSystem : SharedPrizeballLayingSystem //  We'v
         {
             _popup.PopupEntity(Loc.GetString("action-popup-lay-pball-user-done"), user, user);
 
-            if(pballLaying.Temporary)
-                EntityManager.RemoveComponent<PrizeballLayingComponent>(user);
+            if (pballLaying.Temporary)
+                RemComp<PrizeballLayingComponent>(user);
             else
                 _actions.RemoveAction(user, pballLaying.Action);
         }

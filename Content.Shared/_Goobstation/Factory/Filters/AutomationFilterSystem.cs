@@ -254,9 +254,9 @@ public sealed class AutomationFilterSystem : EntitySystem
 
         args.Handled = true;
 
-        var gate = (int) ent.Comp.Gate;
+        var gate = (int)ent.Comp.Gate;
         gate = ++gate % GateCount;
-        ent.Comp.Gate = (LogicGate) gate;
+        ent.Comp.Gate = (LogicGate)gate;
         Dirty(ent);
 
         var msg = Loc.GetString("logic-gate-cycle", ("gate", ent.Comp.Gate.ToString().ToUpper()));
@@ -406,7 +406,7 @@ public sealed class AutomationFilterSystem : EntitySystem
     public bool IsAllowed(EntityUid? filter, EntityUid item, out bool couldAllow)
     {
         couldAllow = false;
-        if (filter is not {} uid)
+        if (filter is not { } uid)
             return true;
 
         var ev = new AutomationFilterEvent(item);
@@ -436,7 +436,7 @@ public sealed class AutomationFilterSystem : EntitySystem
     /// </summary>
     public int GetSplitSize(EntityUid? filter)
     {
-        if (filter is not {} uid)
+        if (filter is not { } uid)
             return 0;
 
         var ev = new AutomationFilterSplitEvent();

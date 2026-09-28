@@ -1,4 +1,4 @@
-﻿using Robust.Shared.Prototypes;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Audio;
 
 namespace Content.Shared.Silicons.Laws.Components;
@@ -22,8 +22,10 @@ public sealed partial class SiliconLawProviderComponent : Component
     [DataField, ViewVariables(VVAccess.ReadWrite), Access(Self = AccessPermissions.ReadWriteExecute, Friend = AccessPermissions.ReadWriteExecute, Other = AccessPermissions.ReadWriteExecute)]
     public SiliconLawset? Lawset
     {
-        [Access(Self = AccessPermissions.ReadWriteExecute, Friend = AccessPermissions.ReadWriteExecute, Other = AccessPermissions.ReadWriteExecute)] get;
-        [Access(Self = AccessPermissions.ReadWriteExecute, Friend = AccessPermissions.ReadWriteExecute, Other = AccessPermissions.ReadWriteExecute)] set;
+        [Access(Self = AccessPermissions.ReadWriteExecute, Friend = AccessPermissions.ReadWriteExecute, Other = AccessPermissions.ReadWriteExecute)]
+        get;
+        [Access(Self = AccessPermissions.ReadWriteExecute, Friend = AccessPermissions.ReadWriteExecute, Other = AccessPermissions.ReadWriteExecute)]
+        set;
     }
 
     /// <summary>

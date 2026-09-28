@@ -7,5 +7,5 @@ namespace Content.Shared.Abilities.Psionics
     /// </summary>
     [RegisterComponent, NetworkedComponent]
     public sealed partial class PsionicsDisabledComponent : Component
-    {}
+    { }
 }

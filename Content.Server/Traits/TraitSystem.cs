@@ -1,4 +1,4 @@
-﻿using Content.Server.Administration.Logs;
+using Content.Server.Administration.Logs;
 using Content.Server.Administration.Systems;
 using Content.Server.Chat.Managers;
 using Content.Server.GameTicking;
@@ -179,7 +179,7 @@ public sealed class TraitSystem : EntitySystem
         var components = traitPrototype.Components;
         var tagEntry = components.FirstOrDefault(kv => kv.Value.Component is TagComponent);
         if (tagEntry.Value is { } tagEntryValue && tagEntryValue.Component is TagComponent tagEntryComp &&
-            EntityManager.TryGetComponent<TagComponent>(uid, out var existingTags))
+            TryComp<TagComponent>(uid, out var existingTags))
         {
             _tagSystem.AddTags(uid, tagEntryComp.Tags);
             components = new ComponentRegistry(components.Where(kv => kv.Key != tagEntry.Key).ToDictionary(kv => kv.Key, kv => kv.Value));
@@ -217,7 +217,7 @@ public sealed class TraitSystem : EntitySystem
         if (addTraitGear && traitPrototype.TraitGear != null && TryComp(uid, out HandsComponent? handsComponent)) // HardLight: Added addTraitGear
         {
             var coords = Transform(uid).Coordinates;
-            var inhandEntity = EntityManager.SpawnEntity(traitPrototype.TraitGear, coords);
+            var inhandEntity = Spawn(traitPrototype.TraitGear, coords);
             _sharedHandsSystem.TryPickup(uid,
                 inhandEntity,
                 checkActionBlocker: false,

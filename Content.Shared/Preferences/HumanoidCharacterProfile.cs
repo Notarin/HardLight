@@ -36,7 +36,7 @@ namespace Content.Shared.Preferences
 
         public const int DefaultBalance = 30000;
 
-    // Note: Legacy fields removed during merge; current fields are defined below with [DataField].
+        // Note: Legacy fields removed during merge; current fields are defined below with [DataField].
 
         /// <summary>
         /// Job preferences for initial spawn.

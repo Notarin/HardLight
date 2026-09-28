@@ -3,7 +3,6 @@ using Content.Server.HL.RoundPersistence.Systems;
 using Content.Server._HL.RoundPersistence.Components;
 using Content.Shared.Administration;
 using Robust.Shared.Console;
-using Robust.Shared.IoC;
 
 namespace Content.Server.HL.RoundPersistence.Commands;
 

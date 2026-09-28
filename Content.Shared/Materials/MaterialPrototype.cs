@@ -64,10 +64,10 @@ namespace Content.Shared.Materials
         /// </summary>
         [DataField("properties")]
         public MaterialProperties Properties { get; private set; } = new MaterialProperties
-      {
-        Hardness = 1,
-        Density = 1.0f,
-      };
+        {
+            Hardness = 1,
+            Density = 1.0f,
+        };
 
     }
 }

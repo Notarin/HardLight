@@ -78,7 +78,7 @@ namespace Content.Server.Construction
                     if (!containerSlot.ContainedEntity.HasValue)
                         continue;
 
-                    if (EntityManager.TryGetComponent(containerSlot.ContainedEntity.Value, out StorageComponent? storage))
+                    if (TryComp(containerSlot.ContainedEntity.Value, out StorageComponent? storage))
                     {
                         foreach (var storedEntity in storage.Container.ContainedEntities)
                         {
@@ -280,7 +280,7 @@ namespace Content.Server.Construction
             }
 
             var newEntityProto = graph.Nodes[edge.Target].Entity.GetId(null, user, new(EntityManager));
-            var newEntity = EntityManager.SpawnAttachedTo(newEntityProto, coords, rotation: angle);
+            var newEntity = SpawnAttachedTo(newEntityProto, coords, rotation: angle);
 
             if (!TryComp(newEntity, out ConstructionComponent? construction))
             {
@@ -327,7 +327,7 @@ namespace Content.Server.Construction
 
         private async void HandleStartItemConstruction(TryStartItemConstructionMessage ev, EntitySessionEventArgs args)
         {
-            if (args.SenderSession.AttachedEntity is {Valid: true} user)
+            if (args.SenderSession.AttachedEntity is { Valid: true } user)
                 await TryStartItemConstruction(ev.PrototypeName, user);
         }
 
@@ -420,7 +420,7 @@ namespace Content.Server.Construction
         private async void HandleStartStructureConstruction(TryStartStructureConstructionMessage ev, EntitySessionEventArgs args)
         {
             // <Goobstation> - use public API
-            if (args.SenderSession.AttachedEntity is {} user)
+            if (args.SenderSession.AttachedEntity is { } user)
                 await TryStartStructureConstruction(user,
                     ev.PrototypeName,
                     GetCoordinates(ev.Location),
@@ -429,7 +429,7 @@ namespace Content.Server.Construction
                     args.SenderSession);
         }
 
-/// <summary>
+        /// <summary>
         /// Goobstation - Taken out of HandleStartStructureConstruction
         /// Changed to return false and only send the ack event to the user.
         /// </summary>
@@ -471,7 +471,7 @@ namespace Content.Server.Construction
             var targetNode = constructionGraph.Nodes[constructionPrototype.TargetNode];
             var pathFind = constructionGraph.Path(startNode.Name, targetNode.Name);
 
-            if (senderSession is {} session) // Goobstation - ignore check for constructor
+            if (senderSession is { } session) // Goobstation - ignore check for constructor
             {
                 if (_beingBuilt.TryGetValue(session, out var set))
                 {
@@ -483,7 +483,7 @@ namespace Content.Server.Construction
                 }
                 else
                 {
-                    var newSet = new HashSet<int> {ack};
+                    var newSet = new HashSet<int> { ack };
                     _beingBuilt[session] = newSet;
                 }
             }
@@ -499,13 +499,13 @@ namespace Content.Server.Construction
 
             void Cleanup()
             {
-                if (senderSession is {} session) // Goobstation - not added for constructor
+                if (senderSession is { } session) // Goobstation - not added for constructor
                     _beingBuilt[session].Remove(ack);
             }
 
             HandsComponent? hands = null; // Goobstation
             if (!_actionBlocker.CanInteract(user, null)
-                || (senderSession != null && EntityManager.TryGetComponent(user, out hands) && hands.ActiveHandEntity == null)) // Goobstation - dont check hands for constructor
+                || (senderSession != null && TryComp(user, out hands) && hands.ActiveHandEntity == null)) // Goobstation - dont check hands for constructor
             {
                 Cleanup();
                 return false;
@@ -525,7 +525,7 @@ namespace Content.Server.Construction
 
             var edge = startNode.GetEdge(pathFind[0].Name);
 
-            if(edge == null)
+            if (edge == null)
                 throw new InvalidDataException($"Can't find edge from starting node to the next node in pathfinding! Recipe: {prototypeName}");
 
             if (senderSession != null) // Goobstation - don't check this for constructor machine
@@ -569,7 +569,7 @@ namespace Content.Server.Construction
                     edge,
                     targetNode,
                     location,
-                    constructionPrototype.CanRotate ? angle : Angle.Zero) is not {Valid: true} structure)
+                    constructionPrototype.CanRotate ? angle : Angle.Zero) is not { Valid: true } structure)
             {
                 Cleanup();
                 return false;

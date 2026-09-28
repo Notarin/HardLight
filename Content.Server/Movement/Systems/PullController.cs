@@ -245,7 +245,7 @@ public sealed class PullController : VirtualController
                 continue;
             }
 
-            if (pullable.Puller is not {Valid: true} puller)
+            if (pullable.Puller is not { Valid: true } puller)
                 continue;
 
             if (!_xformQuery.TryGetComponent(puller, out var pullerXform))

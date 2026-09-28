@@ -2,7 +2,7 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Shared._Funkystation.Genetics.Prototypes;
 
-[Prototype("mutationUnlockTrigger")]
+[Prototype]
 public sealed partial class MutationUnlockTriggerPrototype : IPrototype
 {
     [IdDataField] public string ID { get; private set; } = default!;

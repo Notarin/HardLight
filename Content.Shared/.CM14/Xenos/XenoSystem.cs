@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Content.Shared.Actions;
 using Content.Shared.Access.Components;
@@ -238,7 +238,7 @@ public sealed class XenoSystem : EntitySystem
         }
         else
         {
-           //Log.Warning($"[Xeno] Evolution event received but no EvolvesTo entries for {ToPrettyString(ent)}");
+            //Log.Warning($"[Xeno] Evolution event received but no EvolvesTo entries for {ToPrettyString(ent)}");
         }
     }
 

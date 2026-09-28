@@ -72,13 +72,13 @@ public sealed class StationRecordsSystem : SharedStationRecordsSystem
         // given entity is a card and the card itself is the key the record will be mistakenly renamed to the card's name
         // if we don't return early.
         // We also do not include the PDA itself being renamed, as that triggers the same event (e.g. for chameleon PDAs).
-        if (HasComp<IdCardComponent>(ev.Uid) ||  HasComp<PdaComponent>(ev.Uid))
+        if (HasComp<IdCardComponent>(ev.Uid) || HasComp<PdaComponent>(ev.Uid))
             return;
 
         if (_idCard.TryFindIdCard(ev.Uid, out var idCard))
         {
             if (TryComp(idCard, out StationRecordKeyStorageComponent? keyStorage)
-                && keyStorage.Key is {} key)
+                && keyStorage.Key is { } key)
             {
                 if (TryGetRecord<GeneralStationRecord>(key, out var generalRecord))
                 {
@@ -199,7 +199,7 @@ public sealed class StationRecordsSystem : SharedStationRecordsSystem
 
         // when adding a record that already exists use the old one
         // this happens when respawning as the same character
-        if (GetRecordByName(station, name, records) is {} id)
+        if (GetRecordByName(station, name, records) is { } id)
         {
             // HardLight start
             // Reuse and refresh existing record fields when respawning as the same character.
@@ -257,11 +257,11 @@ public sealed class StationRecordsSystem : SharedStationRecordsSystem
     /// </summary>
     public void SetIdKey(EntityUid? uid, StationRecordKey key)
     {
-        if (uid is not {} idUid)
+        if (uid is not { } idUid)
             return;
 
         var keyStorageEntity = idUid;
-        if (TryComp<PdaComponent>(idUid, out var pda) && pda.ContainedId is {} id)
+        if (TryComp<PdaComponent>(idUid, out var pda) && pda.ContainedId is { } id)
         {
             keyStorageEntity = id;
         }
@@ -416,7 +416,7 @@ public sealed class StationRecordsSystem : SharedStationRecordsSystem
     public string RecordName(StationRecordKey key)
     {
         if (!TryGetRecord<GeneralStationRecord>(key, out var record))
-           return string.Empty;
+            return string.Empty;
 
         return record.Name;
     }

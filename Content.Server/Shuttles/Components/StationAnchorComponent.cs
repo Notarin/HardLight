@@ -1,4 +1,4 @@
-﻿using Content.Server.Shuttles.Systems;
+using Content.Server.Shuttles.Systems;
 using Content.Shared.DeviceLinking; // Frontier
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype; // Frontier
 

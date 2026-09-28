@@ -49,7 +49,7 @@ public sealed partial class MarkingPicker : Control
 
     public string IgnoreCategories
     {
-        get => string.Join(',',  _ignoreCategories);
+        get => string.Join(',', _ignoreCategories);
         set
         {
             _ignoreCategories.Clear();
@@ -588,7 +588,7 @@ public sealed partial class MarkingPicker : Control
                 // this is a problem if we, say, want to *not* show a certain slider
                 // cus then it'll modify the wrong color, unless the color happened to
                 // be in index 0.
-                if(!skipdraw)
+                if (!skipdraw)
                     CMarkingColors.AddChild(colorContainer);
 
                 ColorSelectorSliders colorSelector = new ColorSelectorSliders();
@@ -651,7 +651,7 @@ public sealed partial class MarkingPicker : Control
     private void ColorChanged(int colorIndex)
     {
         if (_selectedMarking is null) return;
-        var markingPrototype = (MarkingPrototype) _selectedMarking.Metadata!;
+        var markingPrototype = (MarkingPrototype)_selectedMarking.Metadata!;
         int markingIndex = _currentMarkings.FindIndexOf(_selectedMarkingCategory, markingPrototype.ID);
 
         if (markingIndex < 0) return;
@@ -747,7 +747,7 @@ public sealed partial class MarkingPicker : Control
     {
         if (_selectedMarking is null) return;
 
-        var marking = (MarkingPrototype) _selectedMarking.Metadata!;
+        var marking = (MarkingPrototype)_selectedMarking.Metadata!;
 
         _currentMarkings.Remove(_selectedMarkingCategory, marking.ID);
 

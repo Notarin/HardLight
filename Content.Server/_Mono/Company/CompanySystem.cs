@@ -16,17 +16,17 @@ public sealed class CompanySystem : EntitySystem
 
     // Dictionary to store original company preferences for players
     private readonly Dictionary<string, string> _playerOriginalCompanies = new();
-// Hardlight start
+    // Hardlight start
     private readonly HashSet<string> _commandJobs = new()
     {
         "StationCaptain",
         "HeadOfPersonnel",
         "StationTrafficController",
         "ResearchDirector",
-        "ChiefMedicalOfficer", 
-        "ChiefEngineer",   
+        "ChiefMedicalOfficer",
+        "ChiefEngineer",
         "Quartermaster"
-       
+
     };
     private readonly HashSet<string> _colsecJobs = new()
     {
@@ -39,7 +39,7 @@ public sealed class CompanySystem : EntitySystem
         "SecurityCadet",
         "SeniorOfficer"
     };
-// Hardlight end
+    // Hardlight end
     private readonly HashSet<string> _rogueJobs = new()
     {
         "PirateCaptain",
@@ -95,7 +95,7 @@ public sealed class CompanySystem : EntitySystem
             // Assign Station Command company
             companyComp.CompanyName = "StationCommand";
         }
-         // Check if player's job is a ColSec job, 
+        // Check if player's job is a ColSec job, 
         else if (args.JobId != null && _colsecJobs.Contains(args.JobId))
         {
             // Assign ColSec company

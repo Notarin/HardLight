@@ -1,4 +1,4 @@
-﻿using Content.Server.Construction.Components;
+using Content.Server.Construction.Components;
 using Content.Shared.Construction.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 

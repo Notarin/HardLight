@@ -38,7 +38,7 @@ namespace Content.Server.Storage.EntitySystems
 
             foreach (var entry in ungrouped)
             {
-                if (entry.PrototypeId is not {} prototypeId || !_proto.TryIndex<EntityPrototype>(prototypeId, out var prototype))
+                if (entry.PrototypeId is not { } prototypeId || !_proto.TryIndex<EntityPrototype>(prototypeId, out var prototype))
                     continue;
 
                 if (!args.AllowSideEffects)
@@ -52,14 +52,14 @@ namespace Content.Server.Storage.EntitySystems
                 // Calculate the average price of the possible spawned items
                 args.Price += _pricing.GetPrice(protUid, allowSideEffects: args.AllowSideEffects) * entry.SpawnProbability * entry.GetAmount(getAverage: true);
 
-                EntityManager.DeleteEntity(protUid);
+                Del(protUid);
             }
 
             foreach (var group in orGroups)
             {
                 foreach (var entry in group.Entries)
                 {
-                    if (entry.PrototypeId is not {} prototypeId || !_proto.TryIndex<EntityPrototype>(prototypeId, out var prototype))
+                    if (entry.PrototypeId is not { } prototypeId || !_proto.TryIndex<EntityPrototype>(prototypeId, out var prototype))
                         continue;
 
                     if (!args.AllowSideEffects)
@@ -77,7 +77,7 @@ namespace Content.Server.Storage.EntitySystems
                                   (entry.SpawnProbability / group.CumulativeProbability) *
                                   entry.GetAmount(getAverage: true);
 
-                    EntityManager.DeleteEntity(protUid);
+                    Del(protUid);
                 }
             }
 

@@ -68,7 +68,7 @@ public sealed class HealingSystem : EntitySystem
         if (!TryComp(args.Used, out HealingComponent? healing))
         {
             // Far Horizons, handle fake components from conditional healing
-            if(args.Used is null || _conditionalHealing.SelectBestMatch(args.Used.Value, entity) is not ConditionalHealingData healingData)
+            if (args.Used is null || _conditionalHealing.SelectBestMatch(args.Used.Value, entity) is not ConditionalHealingData healingData)
                 return;
             healing = ConditionalHealingSystem.MakeComponent(healingData);
         }
@@ -78,7 +78,7 @@ public sealed class HealingSystem : EntitySystem
             !healing.DamageContainers.Contains(entity.Comp.DamageContainerID))
         {
             // Far Horizons, handle fake components from conditional healing
-            if(args.Used is null || _conditionalHealing.SelectBestMatch(args.Used.Value, entity) is not ConditionalHealingData fallbackData)
+            if (args.Used is null || _conditionalHealing.SelectBestMatch(args.Used.Value, entity) is not ConditionalHealingData fallbackData)
                 return;
             healing = ConditionalHealingSystem.MakeComponent(fallbackData);
         }
@@ -132,12 +132,12 @@ public sealed class HealingSystem : EntitySystem
         if (entity.Owner != args.User)
         {
             _adminLogger.Add(LogType.Healed,
-                $"{EntityManager.ToPrettyString(args.User):user} healed {EntityManager.ToPrettyString(entity.Owner):target} for {total:damage} damage");
+                $"{ToPrettyString(args.User):user} healed {ToPrettyString(entity.Owner):target} for {total:damage} damage");
         }
         else
         {
             _adminLogger.Add(LogType.Healed,
-                $"{EntityManager.ToPrettyString(args.User):user} healed themselves for {total:damage} damage");
+                $"{ToPrettyString(args.User):user} healed themselves for {total:damage} damage");
         }
 
         _audio.PlayPvs(healing.HealingEndSound, entity.Owner);
@@ -274,7 +274,7 @@ public sealed class HealingSystem : EntitySystem
         if (!_mobThresholdSystem.TryGetThresholdForState(uid, MobState.Critical, out var amount, mobThreshold))
             return 1;
 
-        var percentDamage = (float) (damageable.TotalDamage / amount);
+        var percentDamage = (float)(damageable.TotalDamage / amount);
         //basically make it scale from 1 to the multiplier.
         var modifier = percentDamage * (component.SelfHealPenaltyMultiplier - 1) + 1;
         return Math.Max(modifier, 1);

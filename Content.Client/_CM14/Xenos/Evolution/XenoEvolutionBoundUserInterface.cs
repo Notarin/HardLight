@@ -1,4 +1,4 @@
-﻿using Content.Shared.CM14.Xenos;
+using Content.Shared.CM14.Xenos;
 using Content.Shared.CM14.Xenos.Evolution;
 using JetBrains.Annotations;
 using Robust.Client.GameObjects;

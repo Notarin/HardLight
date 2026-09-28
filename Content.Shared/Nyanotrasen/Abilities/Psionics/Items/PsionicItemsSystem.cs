@@ -55,13 +55,13 @@ namespace Content.Shared.Abilities.Psionics
                 return;
             // does the user already has this power?
             var componentType = _componentFactory.GetRegistration(component.Power).Type;
-            if (EntityManager.HasComponent(args.Equipee, componentType)) return;
+            if (HasComp(args.Equipee, componentType)) return;
 
 
-            var newComponent = (Component) _componentFactory.GetComponent(componentType);
+            var newComponent = (Component)_componentFactory.GetComponent(componentType);
             newComponent.Owner = args.Equipee;
 
-            EntityManager.AddComponent(args.Equipee, newComponent);
+            AddComp(args.Equipee, newComponent);
 
             component.IsActive = true;
         }
@@ -73,9 +73,9 @@ namespace Content.Shared.Abilities.Psionics
 
             component.IsActive = false;
             var componentType = _componentFactory.GetRegistration(component.Power).Type;
-            if (EntityManager.HasComponent(args.Equipee, componentType))
+            if (HasComp(args.Equipee, componentType))
             {
-                EntityManager.RemoveComponent(args.Equipee, componentType);
+                RemComp(args.Equipee, componentType);
             }
         }
     }

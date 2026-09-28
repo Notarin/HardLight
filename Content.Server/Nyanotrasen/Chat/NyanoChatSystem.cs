@@ -115,9 +115,9 @@ namespace Content.Server.Nyanotrasen.Chat
             if (_random.Prob(0.1f))
                 _glimmerSystem.Glimmer++;
 
-            if (_random.Prob(Math.Min(0.33f + ((float) _glimmerSystem.Glimmer / 1500), 1)))
+            if (_random.Prob(Math.Min(0.33f + ((float)_glimmerSystem.Glimmer / 1500), 1)))
             {
-                float obfuscation = (0.25f + (float) _glimmerSystem.Glimmer / 2000);
+                float obfuscation = (0.25f + (float)_glimmerSystem.Glimmer / 2000);
                 var obfuscated = ObfuscateMessageReadability(message, obfuscation);
                 _chatManager.ChatMessageToMany(ChatChannel.Telepathic, obfuscated, messageWrap, source, hideChat, false, GetDreamers(clients), Color.PaleVioletRed);
             }

@@ -1,4 +1,4 @@
-﻿using Content.Server.Worldgen.Components.Debris;
+using Content.Server.Worldgen.Components.Debris;
 using Content.Shared.Maps;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
@@ -30,7 +30,7 @@ public sealed class SimpleFloorPlanPopulatorSystem : BaseWorldSystem
         var enumerator = _map.GetAllTilesEnumerator(uid, grid);
         while (enumerator.MoveNext(out var tile))
         {
-            if (tile is {} tileRef)
+            if (tile is { } tileRef)
                 tiles.Add(tileRef);
         }
 

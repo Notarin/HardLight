@@ -1,4 +1,4 @@
-﻿using Robust.Shared.GameStates;
+using Robust.Shared.GameStates;
 
 namespace Content.Shared.Traits.Assorted;
 
@@ -13,8 +13,8 @@ public sealed partial class PermanentBlindnessComponent : Component
     /// </summary>
     [DataField, AutoNetworkedField]
     public int Blindness = 0;
-    
-    [DataField, AutoNetworkedField] 
+
+    [DataField, AutoNetworkedField]
     public bool GlassesFixable = false; // starlight
 }
 

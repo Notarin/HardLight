@@ -1,5 +1,4 @@
 using Content.Shared._HL.Traits.Physical;
-using Content.Shared._Starlight;
 using Content.Shared._Starlight.Shadekin;
 using Content.Shared.Damage;
 using Content.Shared.FixedPoint;
@@ -47,7 +46,7 @@ public sealed class ShadekinRegenerationSystem : EntitySystem
                 if (!damageable.Damage.DamageDict.TryGetValue(healType, out var existing) || existing <= 0)
                     continue;
 
-                healSpec.DamageDict[healType] = FixedPoint2.New(-Math.Min((float) existing, amountPerTick));
+                healSpec.DamageDict[healType] = FixedPoint2.New(-Math.Min((float)existing, amountPerTick));
             }
 
             if (healSpec.DamageDict.Count == 0)

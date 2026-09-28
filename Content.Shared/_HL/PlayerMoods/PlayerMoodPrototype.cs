@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared.Dataset;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
@@ -13,7 +12,6 @@ namespace Content.Shared._HL.PlayerMoods;
 /// and belongs entirely to the _HL player mood system.
 /// </summary>
 [Prototype("mood")]
-[Serializable, NetSerializable]
 public sealed partial class PlayerMoodPrototype : IPrototype
 {
     [IdDataField]

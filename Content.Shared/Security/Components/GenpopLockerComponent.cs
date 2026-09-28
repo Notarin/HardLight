@@ -22,7 +22,7 @@ public sealed partial class GenpopLockerComponent : Component
     /// <summary>
     /// The Prototype spawned.
     /// </summary>
-    [DataField("IdCardProto", required: true, customTypeSerializer:typeof(PrototypeIdSerializer<EntityPrototype>))]
+    [DataField("IdCardProto", required: true, customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
     public string IdCardProto = "PrisonerIDCard";
 }
 

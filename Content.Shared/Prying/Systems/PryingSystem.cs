@@ -74,7 +74,7 @@ public sealed class PryingSystem : EntitySystem
         }
 
         if (tool == null)
-        // HardLight end
+            // HardLight end
             return;
 
         args.Verbs.Add(new AlternativeVerb()

@@ -1,4 +1,4 @@
-﻿using Content.Shared.Examine;
+using Content.Shared.Examine;
 using Content.Shared.CM14.Xenos;
 
 namespace Content.Shared._RMC14.Xenonids.Egg.EggRetriever;

@@ -37,7 +37,7 @@ public sealed partial class SalvageSystem
     private readonly JobQueue _salvageQueue = new();
     private readonly List<(SpawnSalvageMissionJob Job, CancellationTokenSource CancelToken)> _salvageJobs = new();
     private const double SalvageJobTime = 0.002;
-    private readonly List<(ProtoId<SalvageDifficultyPrototype> id, int value)> _missionDifficulties = [("NFEasy", 0),("NFModerate", 1), ("NFHazardous", 2),("NFExtreme", 3), ("NFNightmare", 4)]; // Frontier: mission difficulties with order
+    private readonly List<(ProtoId<SalvageDifficultyPrototype> id, int value)> _missionDifficulties = [("NFEasy", 0), ("NFModerate", 1), ("NFHazardous", 2), ("NFExtreme", 3), ("NFNightmare", 4)]; // Frontier: mission difficulties with order
 
     // HardLight start
     private static readonly Dictionary<string, string> RewardPrototypeByDifficulty = new()
@@ -65,7 +65,7 @@ public sealed partial class SalvageSystem
         SubscribeLocalEvent<SalvageExpeditionDataComponent, ExpeditionSpawnCompleteEvent>(OnExpeditionSpawnComplete); // Frontier: more gracefully handle expedition generation failures
         SubscribeLocalEvent<SalvageExpeditionConsoleComponent, ExpeditionSpawnCompleteEvent>(OnExpeditionSpawnCompleteConsole); // HARDLIGHT: Handle event on consoles for round persistence
         SubscribeLocalEvent<SalvageExpeditionConsoleComponent, FinishSalvageMessage>(OnSalvageFinishMessage); // Frontier: For early finish
-    SubscribeLocalEvent<SalvageExpeditionConsoleComponent, RefreshSalvageConsoleMessage>(OnSalvageRefreshMessage); // HARDLIGHT: manual refresh
+        SubscribeLocalEvent<SalvageExpeditionConsoleComponent, RefreshSalvageConsoleMessage>(OnSalvageRefreshMessage); // HARDLIGHT: manual refresh
 
         SubscribeLocalEvent<SalvageExpeditionComponent, MapInitEvent>(OnExpeditionMapInit);
         SubscribeLocalEvent<SalvageExpeditionComponent, ComponentShutdown>(OnExpeditionShutdown);
@@ -131,7 +131,7 @@ public sealed partial class SalvageSystem
         component.SelectedSong = _audio.ResolveSound(component.Sound);
 
         var despawn = EnsureComp<TimedDespawnComponent>(uid);
-        despawn.Lifetime = (float) TimeSpan.FromMinutes(30).TotalSeconds;
+        despawn.Lifetime = (float)TimeSpan.FromMinutes(30).TotalSeconds;
     }
 
     private void OnExpeditionShutdown(EntityUid uid, SalvageExpeditionComponent component, ComponentShutdown args)
@@ -279,7 +279,7 @@ public sealed partial class SalvageSystem
 
         try
         {
-            EntityManager.SpawnEntity(rewardProto, rewardCoords);
+            Spawn(rewardProto, rewardCoords);
             Log.Info($"Spawned expedition reward {rewardProto} at {source} for difficulty {diffId}.");
         }
         catch (Exception ex)

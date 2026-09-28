@@ -280,7 +280,7 @@ public sealed partial class ShadekinSystem : EntitySystem
     private void CheckThresholds(EntityUid uid, ShadekinComponent component, float lightExposure)
     {
         component.CurrentState = GetLightExposureLevel(component.Thresholds, lightExposure);
-        UpdateAlert(uid, component, (short) component.CurrentState);
+        UpdateAlert(uid, component, (short)component.CurrentState);
         Dirty(uid, component);
     }
 

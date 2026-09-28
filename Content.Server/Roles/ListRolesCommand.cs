@@ -1,4 +1,4 @@
-﻿using Content.Server.Administration;
+using Content.Server.Administration;
 using Content.Shared.Administration;
 using Content.Shared.Roles;
 using Robust.Shared.Console;
@@ -24,7 +24,7 @@ namespace Content.Server.Roles
             }
 
             var prototypeManager = IoCManager.Resolve<IPrototypeManager>();
-            foreach(var job in prototypeManager.EnumeratePrototypes<JobPrototype>())
+            foreach (var job in prototypeManager.EnumeratePrototypes<JobPrototype>())
             {
                 shell.WriteLine(job.ID);
             }

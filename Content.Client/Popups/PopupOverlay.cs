@@ -108,8 +108,8 @@ public sealed class PopupOverlay : Overlay
 
             // HardLight start: Calculate stacked position for world popups; prevents overlap when multiple popups spawn at the same position.
             var stackEntity = popup.InitialPos.EntityId;
-            var stackX = (int) MathF.Round(mapPos.X * 10f);
-            var stackY = (int) MathF.Round(mapPos.Y * 10f);
+            var stackX = (int)MathF.Round(mapPos.X * 10f);
+            var stackY = (int)MathF.Round(mapPos.Y * 10f);
             var stackKey = (mapPos.MapId, stackEntity, stackX, stackY);
 
             var stackLevel = 0;

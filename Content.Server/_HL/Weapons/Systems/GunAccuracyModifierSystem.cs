@@ -1,6 +1,5 @@
 using Content.Shared._HL.Weapons.Components;
 using Content.Shared.Weapons.Ranged.Events;
-using Robust.Shared.Maths;
 
 namespace Content.Server._HL.Weapons.Systems;
 

@@ -5,7 +5,7 @@ namespace Content.Shared._Mono.Company;
 /// <summary>
 /// Prototype for a company that can be assigned to players.
 /// </summary>
-[Prototype("company")]
+[Prototype]
 public sealed partial class CompanyPrototype : IPrototype
 {
     /// <inheritdoc/>
@@ -33,7 +33,7 @@ public sealed partial class CompanyPrototype : IPrototype
     /// </summary>
     [DataField("color")]
     public Color Color { get; private set; } = Color.Yellow;
-    
+
     /// <summary>
     /// Whether this company should be disabled from selection in the UI.
     /// Companies with this set to true will still be assigned automatically through the job system,

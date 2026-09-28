@@ -69,9 +69,9 @@ public sealed class RevivifyPowerSystem : EntitySystem
             _audioSystem.PlayPvs(args.SoundUse, uid, args.AudioParams);
 
         // Sanitize the Glimmer inputs because otherwise the game will crash if someone makes MaxGlimmer lower than MinGlimmer.
-        var minGlimmer = (int) Math.Round(MathF.MinMagnitude(args.MinGlimmer, args.MaxGlimmer)
+        var minGlimmer = (int)Math.Round(MathF.MinMagnitude(args.MinGlimmer, args.MaxGlimmer)
             * args.ModifiedAmplification - args.ModifiedDampening);
-        var maxGlimmer = (int) Math.Round(MathF.MaxMagnitude(args.MinGlimmer, args.MaxGlimmer)
+        var maxGlimmer = (int)Math.Round(MathF.MaxMagnitude(args.MinGlimmer, args.MaxGlimmer)
             * args.ModifiedAmplification - args.ModifiedDampening);
 
         _psionics.LogPowerUsed(uid, args.PowerName, minGlimmer, maxGlimmer);

@@ -68,7 +68,7 @@ public sealed class NuclearReactorBoundUserInterface : BoundUserInterface
 
     private void OnActionButtonPressed(Vector2d vector)
     {
-        if (_window is null ) return;
+        if (_window is null) return;
 
         SendPredictedMessage(new ReactorItemActionMessage(vector));
     }

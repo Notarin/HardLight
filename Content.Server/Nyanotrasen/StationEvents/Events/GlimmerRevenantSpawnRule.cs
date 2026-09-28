@@ -28,6 +28,6 @@ internal sealed class GlimmerRevenantRule : StationEventSystem<GlimmerRevenantRu
         var coords = Transform(_random.Pick(glimmerSources)).Coordinates;
 
         Sawmill.Info($"Spawning revenant at {coords}");
-        EntityManager.SpawnEntity(component.RevenantPrototype, coords);
+        Spawn(component.RevenantPrototype, coords);
     }
 }

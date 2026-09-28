@@ -233,14 +233,14 @@ public sealed partial class PolymorphSystem : EntitySystem
         var polymorphedComp = _compFact.GetComponent<PolymorphedEntityComponent>();
         polymorphedComp.Parent = uid;
         polymorphedComp.Configuration = configuration;
-		// //#region Starlight
+        // //#region Starlight
         // if (HasComp<UncryoableComponent>(uid))
         // {
-            // polymorphedComp.HadUncryoable = true;
+        // polymorphedComp.HadUncryoable = true;
         // }
         // else
         // {
-            // EnsureComp<UncryoableComponent>(uid);
+        // EnsureComp<UncryoableComponent>(uid);
         // }
         // //#endregion Starlight
         AddComp(child, polymorphedComp);
@@ -378,7 +378,7 @@ public sealed partial class PolymorphSystem : EntitySystem
         // //#region Starlight
         // if (!component.HadUncryoable)
         // {
-            // RemComp<UncryoableComponent>(parent);
+        // RemComp<UncryoableComponent>(parent);
         // }
         // //#endregion Starlight
 

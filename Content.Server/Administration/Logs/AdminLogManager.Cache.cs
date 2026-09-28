@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using System.Diagnostics.CodeAnalysis;
 using Content.Server.Database;
 using Content.Shared.Administration.Logs;

@@ -172,16 +172,16 @@ public partial class SeedData
                 HarvestRepeat = state.HarvestValue;
                 break;
             case PlantMutationCategory.ContainedSubstances:
-            {
-                var inherent = Chemicals.Where(pair => pair.Value.Inherent)
-                    .ToDictionary(pair => pair.Key, pair => pair.Value);
-                Chemicals = new Dictionary<string, SeedChemQuantity>(inherent);
-                foreach (var (chemical, quantity) in state.Chemicals)
                 {
-                    Chemicals[chemical] = quantity;
+                    var inherent = Chemicals.Where(pair => pair.Value.Inherent)
+                        .ToDictionary(pair => pair.Key, pair => pair.Value);
+                    Chemicals = new Dictionary<string, SeedChemQuantity>(inherent);
+                    foreach (var (chemical, quantity) in state.Chemicals)
+                    {
+                        Chemicals[chemical] = quantity;
+                    }
+                    break;
                 }
-                break;
-            }
             case PlantMutationCategory.ConsumedGas:
                 ConsumeGasses = new Dictionary<Gas, float>(state.Gasses);
                 break;
@@ -209,29 +209,29 @@ public partial class SeedData
                 HighPressureTolerance = state.SecondaryFloatValue;
                 break;
             case PlantMutationCategory.Subtypes:
-            {
-                Name = state.Name;
-                Noun = state.Noun;
-                PacketName = state.PacketName;
-                DisplayName = state.DisplayName;
-                PacketPrototype = state.PacketPrototype;
-                Mysterious = state.Mysterious;
-                ProductPrototypes = new List<string>(state.ProductPrototypes);
-                MutationPrototypes = new List<string>(state.MutationPrototypes);
-                GrowthStages = state.IntValue;
-                PlantRsi = state.PlantRsi;
-                PlantIconState = state.PlantIconState;
-                SplatPrototype = state.SplatPrototype;
-
-                var nonInherent = Chemicals.Where(pair => !pair.Value.Inherent)
-                    .ToDictionary(pair => pair.Key, pair => pair.Value);
-                Chemicals = new Dictionary<string, SeedChemQuantity>(state.Chemicals);
-                foreach (var (chemical, quantity) in nonInherent)
                 {
-                    Chemicals[chemical] = quantity;
+                    Name = state.Name;
+                    Noun = state.Noun;
+                    PacketName = state.PacketName;
+                    DisplayName = state.DisplayName;
+                    PacketPrototype = state.PacketPrototype;
+                    Mysterious = state.Mysterious;
+                    ProductPrototypes = new List<string>(state.ProductPrototypes);
+                    MutationPrototypes = new List<string>(state.MutationPrototypes);
+                    GrowthStages = state.IntValue;
+                    PlantRsi = state.PlantRsi;
+                    PlantIconState = state.PlantIconState;
+                    SplatPrototype = state.SplatPrototype;
+
+                    var nonInherent = Chemicals.Where(pair => !pair.Value.Inherent)
+                        .ToDictionary(pair => pair.Key, pair => pair.Value);
+                    Chemicals = new Dictionary<string, SeedChemQuantity>(state.Chemicals);
+                    foreach (var (chemical, quantity) in nonInherent)
+                    {
+                        Chemicals[chemical] = quantity;
+                    }
+                    break;
                 }
-                break;
-            }
             case PlantMutationCategory.Mutations:
                 Seedless = state.BoolValue;
                 Ligneous = state.SecondaryBoolValue;

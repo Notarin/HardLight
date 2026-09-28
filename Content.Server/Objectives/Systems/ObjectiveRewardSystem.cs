@@ -173,7 +173,7 @@ public sealed class ObjectiveRewardSystem : EntitySystem
     private bool TryGetPayoutTarget(MindComponent mind, [NotNullWhen(true)] out EntityUid? target)
     {
         // Prefer the currently owned entity (most reliable for an active player and has the BankAccountComponent).
-        if (mind.OwnedEntity is { } owned && EntityManager.EntityExists(owned) && HasComp<BankAccountComponent>(owned))
+        if (mind.OwnedEntity is { } owned && Exists(owned) && HasComp<BankAccountComponent>(owned))
         {
             target = owned;
             return true;
@@ -181,7 +181,7 @@ public sealed class ObjectiveRewardSystem : EntitySystem
 
         // Fallback: the original owned entity if it still exists and has a bank account.
         var original = GetEntity(mind.OriginalOwnedEntity);
-        if (original is { } orig && EntityManager.EntityExists(orig) && HasComp<BankAccountComponent>(orig))
+        if (original is { } orig && Exists(orig) && HasComp<BankAccountComponent>(orig))
         {
             target = orig;
             return true;

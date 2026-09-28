@@ -430,7 +430,7 @@ public sealed class NanoChatCartridgeSystem : EntitySystem
             case NanoChatUiMessageType.DeadminUser:
                 HandleDeadminUser(card, msg);
                 break;
-            // Funky Station End - Group Chat Functionality
+                // Funky Station End - Group Chat Functionality
         }
 
         UpdateUI(ent, GetEntity(args.LoaderUid));
@@ -788,7 +788,7 @@ public sealed class NanoChatCartridgeSystem : EntitySystem
         foreach (var recipient in foundRecipients)
         {
             if (recipient.Comp.PdaUid is not { } recipientPda)
-            continue;
+                continue;
             var receiveAttemptEv = new RadioReceiveAttemptEvent(channel, radioSource, recipientPda);
             RaiseLocalEvent(ref receiveAttemptEv);
             if (receiveAttemptEv.Cancelled)
@@ -1119,7 +1119,7 @@ public sealed class NanoChatCartridgeSystem : EntitySystem
         }
 
         // Generate a unique group number (surely unique I actually have no idea how to generate good unique numbers.)
-        var groupNumber = (uint) (HashCode.Combine(card.Comp.Number.Value, _timing.CurTime.Ticks) & 0x7FFFFFFF);
+        var groupNumber = (uint)(HashCode.Combine(card.Comp.Number.Value, _timing.CurTime.Ticks) & 0x7FFFFFFF);
 
         // This fucking sucks (fire emoji)
         while (_nanoChat.GetRecipient((card, card.Comp), groupNumber) != null)

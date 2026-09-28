@@ -55,111 +55,111 @@ namespace Content.Server.GameTicking
             switch (args.NewStatus)
             {
                 case SessionStatus.Connected:
-                {
-                    CancelPendingMindWipe(session.UserId);
-                    CancelPendingJobSlotRelease(session.UserId); // HardLight
-
-                    AddPlayerToDb(args.Session.UserId.UserId);
-
-                    // Always make sure the client has player data.
-                    if (session.Data.ContentDataUncast == null)
                     {
-                        var data = new ContentPlayerData(session.UserId, args.Session.Name);
-                        data.Mind = mindId;
-                        data.Whitelisted = await _db.GetWhitelistStatusAsync(session.UserId); // Nyanotrasen - Whitelist
-                        session.Data.ContentDataUncast = data;
-                    }
+                        CancelPendingMindWipe(session.UserId);
+                        CancelPendingJobSlotRelease(session.UserId); // HardLight
 
-                    // Make the player actually join the game.
-                    // timer time must be > tick length
-                    global::Robust.Shared.Timing.Timer.Spawn(0, () => _playerManager.JoinGame(args.Session));
+                        AddPlayerToDb(args.Session.UserId.UserId);
 
-                    var record = await _db.GetPlayerRecordByUserId(args.Session.UserId);
-                    var firstConnection = record != null &&
-                                          Math.Abs((record.FirstSeenTime - record.LastSeenTime).TotalMinutes) < 1;
+                        // Always make sure the client has player data.
+                        if (session.Data.ContentDataUncast == null)
+                        {
+                            var data = new ContentPlayerData(session.UserId, args.Session.Name);
+                            data.Mind = mindId;
+                            data.Whitelisted = await _db.GetWhitelistStatusAsync(session.UserId); // Nyanotrasen - Whitelist
+                            session.Data.ContentDataUncast = data;
+                        }
 
-                    _chatManager.SendAdminAnnouncement(firstConnection
-                        ? Loc.GetString("player-first-join-message", ("name", args.Session.Name))
-                        : Loc.GetString("player-join-message", ("name", args.Session.Name)));
+                        // Make the player actually join the game.
+                        // timer time must be > tick length
+                        global::Robust.Shared.Timing.Timer.Spawn(0, () => _playerManager.JoinGame(args.Session));
 
-                    RaiseNetworkEvent(GetConnectionStatusMsg(), session.Channel);
+                        var record = await _db.GetPlayerRecordByUserId(args.Session.UserId);
+                        var firstConnection = record != null &&
+                                              Math.Abs((record.FirstSeenTime - record.LastSeenTime).TotalMinutes) < 1;
 
-                    if (firstConnection && _cfg.GetCVar(CCVars.AdminNewPlayerJoinSound))
-                        _audio.PlayGlobal(new SoundPathSpecifier("/Audio/Effects/newplayerping.ogg"),
-                            Filter.Empty().AddPlayers(_adminManager.ActiveAdmins), false,
-                            audioParams: new AudioParams { Volume = -5f });
+                        _chatManager.SendAdminAnnouncement(firstConnection
+                            ? Loc.GetString("player-first-join-message", ("name", args.Session.Name))
+                            : Loc.GetString("player-join-message", ("name", args.Session.Name)));
 
-                    if (LobbyEnabled && _roundStartCountdownHasNotStartedYetDueToNoPlayers)
-                    {
-                        _roundStartCountdownHasNotStartedYetDueToNoPlayers = false;
-                        _roundStartTime = _gameTiming.CurTime + LobbyDuration;
-                    }
+                        RaiseNetworkEvent(GetConnectionStatusMsg(), session.Channel);
 
-                    break;
-                }
+                        if (firstConnection && _cfg.GetCVar(CCVars.AdminNewPlayerJoinSound))
+                            _audio.PlayGlobal(new SoundPathSpecifier("/Audio/Effects/newplayerping.ogg"),
+                                Filter.Empty().AddPlayers(_adminManager.ActiveAdmins), false,
+                                audioParams: new AudioParams { Volume = -5f });
 
-                case SessionStatus.InGame:
-                {
-                    CancelPendingMindWipe(session.UserId);
-                    CancelPendingJobSlotRelease(session.UserId); // HardLight
-
-                    _userDb.ClientConnected(session);
-
-                    if (mind == null)
-                    {
-                        if (LobbyEnabled)
-                            PlayerJoinLobby(session);
-                        else
-                            SpawnWaitDb();
+                        if (LobbyEnabled && _roundStartCountdownHasNotStartedYetDueToNoPlayers)
+                        {
+                            _roundStartCountdownHasNotStartedYetDueToNoPlayers = false;
+                            _roundStartTime = _gameTiming.CurTime + LobbyDuration;
+                        }
 
                         break;
                     }
 
-                    if (mind.CurrentEntity == null || !Exists(mind.CurrentEntity.Value) || Deleted(mind.CurrentEntity))
+                case SessionStatus.InGame:
                     {
-                        DebugTools.Assert(mind.CurrentEntity == null, "a mind's current entity was deleted without updating the mind");
+                        CancelPendingMindWipe(session.UserId);
+                        CancelPendingJobSlotRelease(session.UserId); // HardLight
 
-                        // This player is joining the game with an existing mind, but the mind has no entity.
-                        // Their entity was probably deleted sometime while they were disconnected, or they were an observer.
-                        // Instead of allowing them to spawn in, we will dump and their existing mind in an observer ghost.
-                        SpawnObserverWaitDb();
-                    }
-                    else
-                    {
-                        if (_playerManager.SetAttachedEntity(session, mind.CurrentEntity))
+                        _userDb.ClientConnected(session);
+
+                        if (mind == null)
                         {
-                            PlayerJoinGame(session);
+                            if (LobbyEnabled)
+                                PlayerJoinLobby(session);
+                            else
+                                SpawnWaitDb();
+
+                            break;
+                        }
+
+                        if (mind.CurrentEntity == null || !Exists(mind.CurrentEntity.Value) || Deleted(mind.CurrentEntity))
+                        {
+                            DebugTools.Assert(mind.CurrentEntity == null, "a mind's current entity was deleted without updating the mind");
+
+                            // This player is joining the game with an existing mind, but the mind has no entity.
+                            // Their entity was probably deleted sometime while they were disconnected, or they were an observer.
+                            // Instead of allowing them to spawn in, we will dump and their existing mind in an observer ghost.
+                            SpawnObserverWaitDb();
                         }
                         else
                         {
-                            Log.Error(
-                                $"Failed to attach player {session} with mind {ToPrettyString(mindId)} to its current entity {ToPrettyString(mind.CurrentEntity)}");
-                            SpawnObserverWaitDb();
+                            if (_playerManager.SetAttachedEntity(session, mind.CurrentEntity))
+                            {
+                                PlayerJoinGame(session);
+                            }
+                            else
+                            {
+                                Log.Error(
+                                    $"Failed to attach player {session} with mind {ToPrettyString(mindId)} to its current entity {ToPrettyString(mind.CurrentEntity)}");
+                                SpawnObserverWaitDb();
+                            }
                         }
-                    }
 
-                    break;
-                }
+                        break;
+                    }
 
                 case SessionStatus.Disconnected:
-                {
-                    _chatManager.SendAdminAnnouncement(Loc.GetString("player-leave-message", ("name", args.Session.Name)));
-                    if (mindId != null)
                     {
-                        _pvsOverride.RemoveSessionOverride(mindId.Value, session);
+                        _chatManager.SendAdminAnnouncement(Loc.GetString("player-leave-message", ("name", args.Session.Name)));
+                        if (mindId != null)
+                        {
+                            _pvsOverride.RemoveSessionOverride(mindId.Value, session);
+                        }
+
+                        if (mindId != null)
+                            ScheduleMindWipe(session.UserId, mindId.Value);
+
+                        // HardLight: Schedule a short-window release of the player's tracked job slot so the
+                        // lobby does not show it occupied for the full 30-minute mind-wipe delay.
+                        if (mind?.CurrentEntity is { } body)
+                            ScheduleJobSlotRelease(session.UserId, body);
+
+                        _userDb.ClientDisconnected(session);
+                        break;
                     }
-
-                    if (mindId != null)
-                        ScheduleMindWipe(session.UserId, mindId.Value);
-
-                    // HardLight: Schedule a short-window release of the player's tracked job slot so the
-                    // lobby does not show it occupied for the full 30-minute mind-wipe delay.
-                    if (mind?.CurrentEntity is { } body)
-                        ScheduleJobSlotRelease(session.UserId, body);
-
-                    _userDb.ClientDisconnected(session);
-                    break;
-                }
             }
             //When the status of a player changes, update the server info text
             UpdateInfoText();
@@ -253,7 +253,7 @@ namespace Content.Server.GameTicking
                 return;
 
             // No need to schedule if the body has no tracked job, or it's already inactive.
-            if (!EntityManager.TryGetComponent<JobTrackingComponent>(body, out var jobTracking) || !jobTracking.Active)
+            if (!TryComp<JobTrackingComponent>(body, out var jobTracking) || !jobTracking.Active)
                 return;
 
             var cts = new System.Threading.CancellationTokenSource();
@@ -274,8 +274,8 @@ namespace Content.Server.GameTicking
 
                 // Re-resolve the body and component in case the mind moved (cryo, gib, ghost) while disconnected;
                 // those paths already invoke OpenJob themselves, so this would be a no-op.
-                if (EntityManager.EntityExists(body)
-                    && EntityManager.TryGetComponent<JobTrackingComponent>(body, out var currentTracking)
+                if (Exists(body)
+                    && TryComp<JobTrackingComponent>(body, out var currentTracking)
                     && currentTracking.Active)
                 {
                     EntityManager.System<JobTrackingSystem>().OpenJob((body, currentTracking), userId);
@@ -298,7 +298,7 @@ namespace Content.Server.GameTicking
 
         public HumanoidCharacterProfile GetPlayerProfile(ICommonSession p)
         {
-            return (HumanoidCharacterProfile) _prefsManager.GetPreferences(p.UserId).SelectedCharacter;
+            return (HumanoidCharacterProfile)_prefsManager.GetPreferences(p.UserId).SelectedCharacter;
         }
 
         public void PlayerJoinGame(ICommonSession session, bool silent = false)

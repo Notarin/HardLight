@@ -70,7 +70,7 @@ public sealed class PoolToyInflationSystem : EntitySystem
             if (!comp.Breached || _timing.CurTime < comp.NextDeflate)
                 continue;
 
-            var elapsed = (float) comp.DeflateInterval.TotalSeconds;
+            var elapsed = (float)comp.DeflateInterval.TotalSeconds;
             comp.NextDeflate = _timing.CurTime + comp.DeflateInterval;
 
             // Nothing left to lose once they are flat.
@@ -354,7 +354,7 @@ public sealed class PoolToyInflationSystem : EntitySystem
 
         // Only as much air as the body has room for, so a full tank tops them right up while leaving the rest
         // of the tank for later.
-        var wanted = (float) (ent.Comp.AirLost / ent.Comp.AirlossHealedPerMole);
+        var wanted = (float)(ent.Comp.AirLost / ent.Comp.AirlossHealedPerMole);
         var moles = Math.Min(wanted, tank.Air.TotalMoles);
         _gasTank.RemoveAir((used, tank), moles);
 
@@ -452,7 +452,7 @@ public sealed class PoolToyInflationSystem : EntitySystem
                 _thresholds.TryGetIncapThreshold(ent, out var threshold) &&
                 threshold > FixedPoint2.Zero)
             {
-                progress = Math.Clamp((float) (damageable.TotalDamage / threshold.Value), 0f, 1f);
+                progress = Math.Clamp((float)(damageable.TotalDamage / threshold.Value), 0f, 1f);
             }
 
             factor = Vector2.Lerp(ent.Comp.InflatedScale, ent.Comp.DeflatedScale, progress);

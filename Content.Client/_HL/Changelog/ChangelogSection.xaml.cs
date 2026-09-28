@@ -30,7 +30,7 @@ public sealed partial class ChangelogSection : Control
 
         Icon.Texture = cache.GetTexture(new ResPath($"/Textures/Interface/Changelog/{file}"));
         Icon.ModulateSelfOverride = Color.FromHex(color);
-        
+
         SectionTitle.Text = title;
         SectionTitle.FontColorOverride = Color.FromHex(color);
 

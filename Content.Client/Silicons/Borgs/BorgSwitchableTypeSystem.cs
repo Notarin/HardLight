@@ -1,4 +1,4 @@
-﻿using Content.Shared._CD.Silicons.Borgs;
+using Content.Shared._CD.Silicons.Borgs;
 using Content.Shared.Movement.Components;
 using Content.Shared.Silicons.Borgs;
 using Content.Shared.Silicons.Borgs.Components;

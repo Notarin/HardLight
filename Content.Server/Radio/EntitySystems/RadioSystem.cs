@@ -372,7 +372,7 @@ public sealed class RadioSystem : EntitySystem
         string verb,
         string defaultNameString,
         string obfuscatedNameString)
-        // HardLight end
+    // HardLight end
     {
         var languageColor = channel.Color;
 

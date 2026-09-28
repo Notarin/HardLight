@@ -60,7 +60,7 @@ public sealed partial class AnomalySynchronizerSystem : EntitySystem
                 continue;
             sync.NextCheckTime += sync.CheckFrequency;
 
-            if (!EntityManager.EntityExists(anomalyUid)
+            if (!Exists(anomalyUid)
                 || EntityManager.IsQueuedForDeletion(anomalyUid)
                 || TerminatingOrDeleted(anomalyUid)
                 || !TryComp<TransformComponent>(anomalyUid, out var anomalyXform))
@@ -154,7 +154,7 @@ public sealed partial class AnomalySynchronizerSystem : EntitySystem
         if (ent.Comp.ConnectedAnomaly == anomaly)
             return;
 
-        if (!EntityManager.EntityExists(anomaly)
+        if (!Exists(anomaly)
             || EntityManager.IsQueuedForDeletion(anomaly)
             || TerminatingOrDeleted(anomaly)
             || !HasComp<TransformComponent>(ent)

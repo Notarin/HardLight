@@ -439,7 +439,7 @@ public sealed class StationJobsTest
                         if (!station.StationComponentOverrides.TryGetComponent(name, out var comp))
                             continue;
 
-                        foreach (var (job, array) in ((StationJobsComponent) comp).SetupAvailableJobs)
+                        foreach (var (job, array) in ((StationJobsComponent)comp).SetupAvailableJobs)
                         {
                             Assert.That(array.Length, Is.EqualTo(2));
                             Assert.That(array[0] is -1 or >= 0);
@@ -966,7 +966,7 @@ public sealed class StationJobsTest
             BindingFlags.Instance | BindingFlags.NonPublic);
 
         Assert.That(method, Is.Not.Null);
-        return (TickerJobsAvailableEvent) method!.Invoke(system, Array.Empty<object>())!;
+        return (TickerJobsAvailableEvent)method!.Invoke(system, Array.Empty<object>())!;
     }
 
     private static HashSet<EntityUid> InvokeGetStationsWithCrewRecordsConsole(StationJobsSystem system)
@@ -976,7 +976,7 @@ public sealed class StationJobsTest
             BindingFlags.Instance | BindingFlags.NonPublic);
 
         Assert.That(method, Is.Not.Null);
-        return (HashSet<EntityUid>) method!.Invoke(system, Array.Empty<object>())!;
+        return (HashSet<EntityUid>)method!.Invoke(system, Array.Empty<object>())!;
     }
 
     private static bool InvokeShouldReopenTrackedJob(JobTrackingSystem system, EntityUid station, string jobId)
@@ -986,7 +986,7 @@ public sealed class StationJobsTest
             BindingFlags.Instance | BindingFlags.NonPublic);
 
         Assert.That(method, Is.Not.Null);
-        return (bool) method!.Invoke(system, new object[] { station, (ProtoId<JobPrototype>) jobId })!;
+        return (bool)method!.Invoke(system, new object[] { station, (ProtoId<JobPrototype>)jobId })!;
     }
 
     private static void SeedColcommRegistry(ColcommJobRegistryComponent registry, int mercenarySlots = 2)

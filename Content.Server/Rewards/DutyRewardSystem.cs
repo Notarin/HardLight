@@ -70,10 +70,10 @@ public sealed class DutyRewardSystem : EntitySystem
         Subs.CVar(_cfg, NFCCVars.RewardsSecurityKillAntagAmount, _ => UpdateCvars(), true);
         Subs.CVar(_cfg, NFCCVars.RewardsSecurityCustodyPerAntagAmount, _ => UpdateCvars(), true);
 
-    // Medical: track defibs for attribution fallback.
-    SubscribeLocalEvent<MobStateComponent, TargetDefibrillatedEvent>(OnTargetDefibrillated);
+        // Medical: track defibs for attribution fallback.
+        SubscribeLocalEvent<MobStateComponent, TargetDefibrillatedEvent>(OnTargetDefibrillated);
         // Medical: pay when crit -> alive.
-    SubscribeLocalEvent<MobStateChangedEvent>(OnMobStateChanged);
+        SubscribeLocalEvent<MobStateChangedEvent>(OnMobStateChanged);
 
         // Security: kill payouts.
         SubscribeLocalEvent<KillReportedEvent>(OnKillReported);
@@ -338,7 +338,7 @@ public sealed class DutyRewardSystem : EntitySystem
                    && _emergencyShuttle.IsTargetEscaping(originalEntity.Value);
         }
 
-     return originalEntityInCustody || (mind.Comp.OwnedEntity is { } owned && TryComp<CuffableComponent>(owned, out var cuffed) && cuffed.CuffedHandCount > 0
-         && _emergencyShuttle.IsTargetEscaping(owned));
+        return originalEntityInCustody || (mind.Comp.OwnedEntity is { } owned && TryComp<CuffableComponent>(owned, out var cuffed) && cuffed.CuffedHandCount > 0
+            && _emergencyShuttle.IsTargetEscaping(owned));
     }
 }

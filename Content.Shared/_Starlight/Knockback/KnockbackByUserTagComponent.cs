@@ -4,6 +4,7 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
 namespace Content.Shared.Starlight.Knockback;
+
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class KnockbackByUserTagComponent : Component
 {

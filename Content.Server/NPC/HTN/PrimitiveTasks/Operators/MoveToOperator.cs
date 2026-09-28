@@ -114,7 +114,7 @@ public sealed partial class MoveToOperator : HTNOperator, IHtnConditionalShutdow
         var doDirectMove = !_entManager.TryGetComponent<MapGridComponent>(xform.GridUid, out var ownerGrid) ||
                       !_entManager.TryGetComponent<MapGridComponent>(_transform.GetGrid(targetCoordinates), out var targetGrid) ||
                       ownerGrid != targetGrid;
-                  // End Wizden#38846
+        // End Wizden#38846
 
         var range = blackboard.GetValueOrDefault<float>(RangeKey, _entManager);
 

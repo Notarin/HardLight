@@ -106,7 +106,7 @@ public sealed partial class BotanySystem
             .Append(seed.Production.ToString(CultureInfo.InvariantCulture))
             .Append(';');
         builder.Append("stages=").Append(seed.GrowthStages).Append(';');
-        builder.Append("harvest=").Append((int) seed.HarvestRepeat).Append(';');
+        builder.Append("harvest=").Append((int)seed.HarvestRepeat).Append(';');
         builder.Append("seedless=").Append(seed.Seedless ? '1' : '0').Append(';');
         builder.Append("viable=").Append(seed.Viable ? '1' : '0').Append(';');
         builder.Append("ligneous=").Append(seed.Ligneous ? '1' : '0').Append(';');

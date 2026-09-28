@@ -75,7 +75,8 @@ public sealed class PaintRemoverSystem : SharedPaintSystem
 
         var verb = new UtilityVerb()
         {
-            Act = () => {
+            Act = () =>
+            {
 
                 _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, component.CleanDelay, new PaintRemoverDoAfterEvent(), uid, args.Target, uid)
                 {

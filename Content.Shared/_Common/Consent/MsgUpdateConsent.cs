@@ -31,7 +31,7 @@ public sealed class MsgUpdateConsent : NetMessage
     {
         var stream = new MemoryStream();
         serializer.SerializeDirect(stream, Consent);
-        buffer.WriteVariableInt32((int) stream.Length);
+        buffer.WriteVariableInt32((int)stream.Length);
         buffer.Write(stream.AsSpan());
     }
 }

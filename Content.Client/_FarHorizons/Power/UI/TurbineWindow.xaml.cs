@@ -200,9 +200,9 @@ public sealed partial class TurbineWindow : FancyWindow
     {
         UpdateIndicators(msg);
 
-        if(!_suppressFlowUpdate)
+        if (!_suppressFlowUpdate)
             TurbineFlowRateLabel.Text = Math.Round(msg.FlowRate).ToString();
-        if(!_suppressStatorUpdate)
+        if (!_suppressStatorUpdate)
             TurbineStatorLoadLabel.Text = Math.Round(msg.StatorLoad).ToString();
 
         var locktarget = _isMonitor ? _monitor : _turbine;
@@ -221,7 +221,7 @@ public sealed partial class TurbineWindow : FancyWindow
         _speedLevel = ContentHelpers.RoundToNearestLevels(msg.RPM, msg.BestRPM * 1.2, _speedMeter.Length);
 
         var bladeExists = msg.Blade != null;
-        if(bladeExists)
+        if (bladeExists)
         {
             BladeEntityView.SetEntity(msg.Blade!.Value);
             BladeInfoName.Text = Identity.Name(_entityManager.GetEntity(msg.Blade!.Value), _entityManager);
@@ -265,7 +265,7 @@ public sealed partial class TurbineWindow : FancyWindow
 
         foreach (var kvp in _repeatQueue)
         {
-            if(kvp.Value > 0)
+            if (kvp.Value > 0)
             {
                 _repeatQueue[kvp.Key] -= args.DeltaSeconds;
                 continue;

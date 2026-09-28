@@ -45,7 +45,7 @@ public sealed class GrabThrownSystem : EntitySystem
         if (!HasComp<DamageableComponent>(ent))
             RemComp<GrabThrownComponent>(ent);
 
-        if(!TryComp<PhysicsComponent>(ent, out var physicsComponent))
+        if (!TryComp<PhysicsComponent>(ent, out var physicsComponent))
             return;
 
         ent.Comp.IgnoreEntity.Add(args.OtherEntity);
@@ -59,7 +59,7 @@ public sealed class GrabThrownSystem : EntitySystem
         var modNumber = Math.Floor(kineticEnergy / 100);
         kineticEnergyDamage *= Math.Floor(modNumber / 3);
         _damageable.TryChangeDamage(args.OtherEntity, kineticEnergyDamage);
-        _stamina.TakeStaminaDamage(ent, (float) Math.Floor(modNumber / 2));
+        _stamina.TakeStaminaDamage(ent, (float)Math.Floor(modNumber / 2));
 
         _layingDown.TryLieDown(args.OtherEntity, behavior: DropHeldItemsBehavior.AlwaysDrop);
 

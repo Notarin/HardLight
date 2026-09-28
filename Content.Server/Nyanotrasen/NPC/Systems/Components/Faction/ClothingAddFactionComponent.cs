@@ -16,7 +16,7 @@ namespace Content.Server.NPC.Components
         /// Faction added
         /// </summary>
         [ViewVariables(VVAccess.ReadWrite),
-         DataField("faction", required: true, customTypeSerializer:typeof(PrototypeIdSerializer<NpcFactionPrototype>))]
+         DataField("faction", required: true, customTypeSerializer: typeof(PrototypeIdSerializer<NpcFactionPrototype>))]
         public string Faction = "";
     }
 }

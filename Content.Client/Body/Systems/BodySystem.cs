@@ -1,4 +1,4 @@
-﻿using Content.Shared.Body.Systems;
+using Content.Shared.Body.Systems;
 // Shitmed Change Start
 using Content.Shared._Shitmed.Body.Part;
 using Content.Shared.Humanoid;
@@ -30,7 +30,7 @@ public sealed class BodySystem : SharedBodySystem
 
             var layerId = $"{markingPrototype.ID}-{rsi.RsiState}";
 
-            if (!_sprite.LayerMapTryGet((uid, sprite), layerId, out _ , false))
+            if (!_sprite.LayerMapTryGet((uid, sprite), layerId, out _, false))
             {
                 var layer = _sprite.AddLayer((uid, sprite), markingSprite, j + 1);
                 _sprite.LayerMapSet((uid, sprite), layerId, layer);

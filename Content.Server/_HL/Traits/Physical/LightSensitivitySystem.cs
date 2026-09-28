@@ -1,7 +1,5 @@
-using Content.Server._Starlight;
 using Content.Server._Starlight.Shadekin;
 using Content.Shared._HL.Traits.Physical;
-using Content.Shared._Starlight;
 using Content.Shared._Starlight.Shadekin;
 using Content.Shared.Alert;
 using Content.Shared.Damage;
@@ -109,11 +107,11 @@ public sealed class LightSensitivitySystem : EntitySystem
             // YAML thresholds, so thresholds (burnThreshold, slowdownThreshold) and the alert behave
             // identically for non-shadekins as they do for shadekins.
             var raw = _shadekin.GetLightExposure(uid);
-            comp.CurrentLightExposure = (int) ShadekinSystem.GetLightExposureLevel(Thresholds, raw);
+            comp.CurrentLightExposure = (int)ShadekinSystem.GetLightExposureLevel(Thresholds, raw);
 
             ApplyBurnDamage(uid, comp);
             _speed.RefreshMovementSpeedModifiers(uid);
-            _alerts.ShowAlert(uid, LightExposureAlert, (short) comp.CurrentLightExposure);
+            _alerts.ShowAlert(uid, LightExposureAlert, (short)comp.CurrentLightExposure);
         }
     }
 
@@ -122,7 +120,7 @@ public sealed class LightSensitivitySystem : EntitySystem
         if (comp.CurrentLightExposure < comp.BurnThreshold)
             return;
 
-        var multiplier = (int) comp.CurrentLightExposure - comp.BurnThreshold + 1;
+        var multiplier = (int)comp.CurrentLightExposure - comp.BurnThreshold + 1;
         var damage = new DamageSpecifier();
         damage.DamageDict.Add("Heat", multiplier);
         _damageable.TryChangeDamage(uid, damage, true, false);

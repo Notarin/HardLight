@@ -253,7 +253,7 @@ public sealed class DeviceListSystem : SharedDeviceListSystem
 
         foreach (var device in oldDevices)
         {
-            if (EntityManager.EntityExists(device))
+            if (Exists(device))
                 continue;
 
             component.Devices.Remove(device);

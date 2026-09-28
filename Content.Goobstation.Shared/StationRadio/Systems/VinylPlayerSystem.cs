@@ -32,7 +32,7 @@ public sealed class VinylPlayerSystem : EntitySystem
         if (comp.SoundEntity != null && !args.Powered)
             comp.SoundEntity = _audio.Stop(comp.SoundEntity);
 
-        if(!CheckForRadioRig(uid))
+        if (!CheckForRadioRig(uid))
             return;
 
         var query = EntityQueryEnumerator<StationRadioReceiverComponent>();
@@ -44,7 +44,7 @@ public sealed class VinylPlayerSystem : EntitySystem
 
     private void OnDestruction(EntityUid uid, VinylPlayerComponent comp, DestructionEventArgs args)
     {
-        if(!CheckForRadioRig(uid))
+        if (!CheckForRadioRig(uid))
             return;
 
         var query = EntityQueryEnumerator<StationRadioReceiverComponent>();
@@ -63,23 +63,23 @@ public sealed class VinylPlayerSystem : EntitySystem
         if (audio != null)
             comp.SoundEntity = audio.Value.Entity;
 
-        if(!CheckForRadioRig(uid))
+        if (!CheckForRadioRig(uid))
             return;
 
         var query = EntityQueryEnumerator<StationRadioReceiverComponent>();
         while (query.MoveNext(out var receiver, out var receiverComponent))
         {
-            if(!receiverComponent.SoundEntity.HasValue)
+            if (!receiverComponent.SoundEntity.HasValue)
                 RaiseLocalEvent(receiver, new StationRadioMediaPlayedEvent(vinylcomp.Song));
         }
     }
 
     private void OnVinylRemove(EntityUid uid, VinylPlayerComponent comp, EntRemovedFromContainerMessage args)
     {
-        if(comp.SoundEntity != null)
+        if (comp.SoundEntity != null)
             comp.SoundEntity = _audio.Stop(comp.SoundEntity);
 
-        if(!CheckForRadioRig(uid))
+        if (!CheckForRadioRig(uid))
             return;
 
         var query = EntityQueryEnumerator<StationRadioReceiverComponent>();

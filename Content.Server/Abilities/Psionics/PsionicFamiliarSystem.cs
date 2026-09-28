@@ -89,9 +89,9 @@ public sealed partial class PsionicFamiliarSystem : EntitySystem
             || args.MinGlimmer == 0 && args.MaxGlimmer == 0)
             return;
 
-        var minGlimmer = (int) Math.Round(MathF.MinMagnitude(args.MinGlimmer, args.MaxGlimmer)
+        var minGlimmer = (int)Math.Round(MathF.MinMagnitude(args.MinGlimmer, args.MaxGlimmer)
             * component.CurrentAmplification - component.CurrentDampening);
-        var maxGlimmer = (int) Math.Round(MathF.MaxMagnitude(args.MinGlimmer, args.MaxGlimmer)
+        var maxGlimmer = (int)Math.Round(MathF.MaxMagnitude(args.MinGlimmer, args.MaxGlimmer)
             * component.CurrentAmplification - component.CurrentDampening);
 
         _psionics.LogPowerUsed(uid, args.PowerName, minGlimmer, maxGlimmer);

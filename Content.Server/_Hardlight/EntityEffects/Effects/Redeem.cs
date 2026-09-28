@@ -15,7 +15,7 @@ namespace Content.Server.EntityEffects.Effects
             var entman = args.EntityManager;
             if (entman.TryGetComponent(args.TargetEntity, out PrizeballLayingComponent? egglaying))
             {
-                float amt = (args is EntityEffectReagentArgs reagentArgs) ? (float) reagentArgs.Quantity : 1.0f;
+                float amt = (args is EntityEffectReagentArgs reagentArgs) ? (float)reagentArgs.Quantity : 1.0f;
                 entman.System<PrizeballLayingSystem>().Redeem(args.TargetEntity, amt, egglaying);
             }
         }

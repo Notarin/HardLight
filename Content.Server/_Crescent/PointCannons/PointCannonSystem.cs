@@ -248,7 +248,7 @@ public class PointCannonSystem : EntitySystem
             TogglePvsOverride(uid.Comp.CurrentGroup, [session], false);
     }
 
-    private void OnCannonDetach<T>(Entity<PointCannonComponent> uid,ref T args)
+    private void OnCannonDetach<T>(Entity<PointCannonComponent> uid, ref T args)
     {
         UnlinkCannon(uid);
     }
@@ -264,7 +264,7 @@ public class PointCannonSystem : EntitySystem
         if (gridUid == null)
             return;
 
-        var query = EntityManager.AllEntityQueryEnumerator<TransformComponent, TargetingConsoleComponent>();
+        var query = AllEntityQuery<TransformComponent, TargetingConsoleComponent>();
         while (query.MoveNext(out var consoleUid, out var form, out var console))
         {
             if (form.GridUid == gridUid)
@@ -287,7 +287,7 @@ public class PointCannonSystem : EntitySystem
 
     public void LinkCannon(EntityUid cannonUid, EntityUid consoleUid, TargetingConsoleComponent console, string group)
     {
-        if(!TryComp<PointCannonComponent>(cannonUid, out var cannonComponent))
+        if (!TryComp<PointCannonComponent>(cannonUid, out var cannonComponent))
             return;
         if (!console.CannonGroups.ContainsKey(group))
             console.CannonGroups[group] = [];
@@ -348,7 +348,7 @@ public class PointCannonSystem : EntitySystem
         foreach (string group in console.CannonGroups.Keys.ToList())
         {
             console.CannonGroups[group].Remove(cannonUid);
-            if (console.CannonGroups[group].Count == 0  && group != "all")
+            if (console.CannonGroups[group].Count == 0 && group != "all")
             {
                 console.CannonGroups.Remove(group);
                 if (console.CurrentGroupName == group)
@@ -473,8 +473,8 @@ public class PointCannonSystem : EntitySystem
             return new();
 
         List<(Angle, Angle)> ranges = new();
-        HashSet<EntityUid> entities = _lookup.GetEntitiesInRange(uid, (float) range, LookupFlags.Static);
-        foreach(var childUid in entities)
+        HashSet<EntityUid> entities = _lookup.GetEntitiesInRange(uid, (float)range, LookupFlags.Static);
+        foreach (var childUid in entities)
         {
             //checking if obstacle is not too far/close to the cannon
             TransformComponent otherForm = Transform(childUid);
@@ -484,7 +484,7 @@ public class PointCannonSystem : EntitySystem
             Vector2 dir = otherForm.LocalPosition - form.LocalPosition;
 
             //checking that obstacle is anchored and solid
-            if (!otherForm.Anchored || !TryComp<PhysicsComponent>(childUid, out var body) ||  !body.Hard || (body.CollisionLayer & (int)CollisionGroup.BulletImpassable) == 0)
+            if (!otherForm.Anchored || !TryComp<PhysicsComponent>(childUid, out var body) || !body.Hard || (body.CollisionLayer & (int)CollisionGroup.BulletImpassable) == 0)
                 continue;
 
             //calculating circular sector that obstacle occupies relative to the cannon

@@ -5,5 +5,5 @@ namespace Content.Server.Vampiric
     /// </summary>
     [RegisterComponent]
     public sealed partial class BloodSuckedComponent : Component
-    {}
+    { }
 }

@@ -104,7 +104,7 @@ public sealed class FloorTileSystem : EntitySystem
         var canAccessCenter = false;
         if (dir.LengthSquared() > 0.01)
         {
-            var ray = new CollisionRay(map.Position, dir.Normalized(), (int) CollisionGroup.Impassable);
+            var ray = new CollisionRay(map.Position, dir.Normalized(), (int)CollisionGroup.Impassable);
             var results = _physics.IntersectRay(locationMap.MapId, ray, dir.Length(), returnOnFirstHit: true);
             canAccessCenter = !results.Any();
         }
@@ -118,7 +118,7 @@ public sealed class FloorTileSystem : EntitySystem
                 if (physicQuery.TryGetComponent(ent, out var phys) &&
                     phys.BodyType == BodyType.Static &&
                     phys.Hard &&
-                    (phys.CollisionLayer & (int) CollisionGroup.Impassable) != 0)
+                    (phys.CollisionLayer & (int)CollisionGroup.Impassable) != 0)
                 {
                     return;
                 }
@@ -128,7 +128,7 @@ public sealed class FloorTileSystem : EntitySystem
 
         foreach (var currentTile in component.OutputTiles)
         {
-            var currentTileDefinition = (ContentTileDefinition) _tileDefinitionManager[currentTile];
+            var currentTileDefinition = (ContentTileDefinition)_tileDefinitionManager[currentTile];
 
             if (mapGrid != null)
             {
@@ -142,7 +142,7 @@ public sealed class FloorTileSystem : EntitySystem
                     return;
                 }
 
-                var baseTurf = (ContentTileDefinition) _tileDefinitionManager[tile.Tile.TypeId];
+                var baseTurf = (ContentTileDefinition)_tileDefinitionManager[tile.Tile.TypeId];
 
                 if (CanPlaceOn(currentTileDefinition, baseTurf.ID))
                 {
@@ -196,7 +196,7 @@ public sealed class FloorTileSystem : EntitySystem
     {
         _adminLogger.Add(LogType.Tile, LogImpact.Low, $"{ToPrettyString(user):actor} placed tile {_tileDefinitionManager[tileId].Name} at {ToPrettyString(gridUid)} {location}");
 
-        var tileDef = (ContentTileDefinition) _tileDefinitionManager[tileId];
+        var tileDef = (ContentTileDefinition)_tileDefinitionManager[tileId];
         var random = new System.Random((int)_timing.CurTick.Value);
         var variant = _tile.PickVariant(tileDef, random);
 

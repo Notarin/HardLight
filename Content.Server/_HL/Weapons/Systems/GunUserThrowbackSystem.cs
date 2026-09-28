@@ -1,9 +1,7 @@
-using System;
 using Content.Server._HL.Weapons.Components;
 using Content.Server.Stunnable;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Throwing;
-using Robust.Shared.GameObjects;
 using Robust.Shared.Physics.Events;
 
 namespace Content.Server._HL.Weapons.Systems;

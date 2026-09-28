@@ -162,7 +162,7 @@ public sealed class EnergyGunSystem : EntitySystem
                     case "yellow":
                         UpdateAppearance(uid, EnergyGunFireModeState.Yellow);
                         break;
-                    // End Frontier
+                        // End Frontier
                 }
             }
         }

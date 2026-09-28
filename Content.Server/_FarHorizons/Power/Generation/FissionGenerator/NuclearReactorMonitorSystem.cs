@@ -51,8 +51,8 @@ public sealed partial class NuclearReactorMonitorSystem : EntitySystem
     {
         if (!_entityManager.TryGetComponent<DeviceLinkSinkComponent>(uid, out var sink))
             return;
-        
-        foreach(var source in sink.LinkedSources)
+
+        foreach (var source in sink.LinkedSources)
         {
             if (!HasComp<NuclearReactorComponent>(source))
                 continue;
@@ -142,13 +142,14 @@ public sealed partial class NuclearReactorMonitorSystem : EntitySystem
         if (!TryGetReactorComp(comp, out var reactor))
             return;
 
-        if(SharedNuclearReactorSystem.AdjustControlRods(reactor, args.Change))
+        if (SharedNuclearReactorSystem.AdjustControlRods(reactor, args.Change))
         {
             // Data is sent to a log queue to avoid spamming the admin log when adjusting values rapidly
             var key = new KeyValuePair<EntityUid, EntityUid>(args.Actor, uid);
-            if(!_logQueue.TryGetValue(key, out var value))
-                _logQueue.Add(key, new LogData {
-                    CreationTime = _gameTiming.RealTime, 
+            if (!_logQueue.TryGetValue(key, out var value))
+                _logQueue.Add(key, new LogData
+                {
+                    CreationTime = _gameTiming.RealTime,
                     Reactor = comp.reactor!.Value,
                     SetControlRodInsertion = reactor.ControlRodInsertion
                 });

@@ -70,7 +70,7 @@ public sealed class PickObjectiveTargetSystem : EntitySystem
             return;
 
         // Starlight: couldn't find a target :(
-        if (_mind.PickFromPool(ent.Comp.Pool, ent.Comp.Filters, args.MindId) is not {} picked)
+        if (_mind.PickFromPool(ent.Comp.Pool, ent.Comp.Filters, args.MindId) is not { } picked)
         {
             args.Cancelled = true;
             return;

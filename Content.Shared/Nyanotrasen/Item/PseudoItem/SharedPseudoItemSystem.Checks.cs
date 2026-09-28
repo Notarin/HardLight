@@ -1,4 +1,4 @@
-﻿using Content.Shared.Item;
+using Content.Shared.Item;
 using Content.Shared.Storage;
 
 namespace Content.Shared.Nyanotrasen.Item.PseudoItem;

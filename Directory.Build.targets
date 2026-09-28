@@ -1,0 +1,34 @@
+<Project>
+  <!-- Determines if the current project is inside the RobustToolbox submodule to selectively apply overrides. -->
+  <PropertyGroup>
+    <_RobustToolboxTargetDir>$([MSBuild]::EnsureTrailingSlash('$(MSBuildThisFileDirectory)RobustToolbox'))</_RobustToolboxTargetDir>
+    <_ProjectDirTargets>$([MSBuild]::EnsureTrailingSlash('$(MSBuildProjectDirectory)'))</_ProjectDirTargets>
+    <IsRobustToolbox>$([System.String]::Copy('$(_ProjectDirTargets)').StartsWith('$(_RobustToolboxTargetDir)'))</IsRobustToolbox>
+  </PropertyGroup>
+
+  <!-- Drops EditorConfigFiles for RobustToolbox to prevent its strict .editorconfig from enforcing warnings. -->
+  <Target Name="RemoveEditorConfig" BeforeTargets="CoreCompile" Condition="'$(IsRobustToolbox)' == 'True'">
+    <ItemGroup>
+      <EditorConfigFiles Remove="@(EditorConfigFiles)" />
+      <AnalyzerConfig Remove="@(AnalyzerConfig)" />
+      <GlobalAnalyzerConfigFiles Remove="@(GlobalAnalyzerConfigFiles)" />
+    </ItemGroup>
+  </Target>
+
+  <!-- Forces WarningLevel 0 and specific NoWarn codes at the targets level so RobustToolbox projects cannot override them. -->
+  <PropertyGroup Condition="'$(IsRobustToolbox)' == 'True'">
+    <WarningLevel>0</WarningLevel>
+    <NoWarn>$(NoWarn);NU1510</NoWarn>
+    <RunAnalyzers>false</RunAnalyzers>
+  </PropertyGroup>
+
+  <!-- Suppresses warnings from generated code. Frequently eludes .editorconfig. -->
+  <PropertyGroup>
+    <NoWarn>$(NoWarn);CS0419;CS1591;CS0114</NoWarn>
+  </PropertyGroup>
+
+  <!-- Disables security vulnerability warnings. Unfortunately we don't really control our supply chain. -->
+  <PropertyGroup>
+    <NoWarn>$(NoWarn);NU1903</NoWarn>
+  </PropertyGroup>
+</Project>

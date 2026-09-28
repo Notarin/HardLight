@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using System.Numerics;
 using System.Runtime.CompilerServices;
 using Content.Server.Shuttles.Components;
@@ -213,7 +213,7 @@ public sealed class MoverController : SharedMoverController
         }
         else
         {
-            remainingFraction = (ushort.MaxValue - component.LastInputSubTick) / (float) ushort.MaxValue;
+            remainingFraction = (ushort.MaxValue - component.LastInputSubTick) / (float)ushort.MaxValue;
         }
 
         ApplyTick(component, remainingFraction);
@@ -251,7 +251,7 @@ public sealed class MoverController : SharedMoverController
 
         if (subTick >= pilot.LastInputSubTick)
         {
-            var fraction = (subTick - pilot.LastInputSubTick) / (float) ushort.MaxValue;
+            var fraction = (subTick - pilot.LastInputSubTick) / (float)ushort.MaxValue;
 
             ApplyTick(pilot, fraction);
             pilot.LastInputSubTick = subTick;
@@ -388,7 +388,7 @@ public sealed class MoverController : SharedMoverController
         // Play looping WEP audio on the grid.
         shuttle.WepAudioStream = _audio.Stop(shuttle.WepAudioStream);
         var stream = _audio.PlayPvs(new SoundPathSpecifier("/Audio/_HL/Effects/wep_buzz.ogg")
-            { Params = AudioParams.Default.WithLoop(true).WithVolume(-3f) }, gridUid);
+        { Params = AudioParams.Default.WithLoop(true).WithVolume(-3f) }, gridUid);
         shuttle.WepAudioStream = stream?.Entity;
         _audio.SetGridAudio(stream);
 

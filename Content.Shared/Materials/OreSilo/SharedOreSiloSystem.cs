@@ -228,7 +228,7 @@ public abstract class SharedOreSiloSystem : EntitySystem
 
         var clientGrid = _transform.GetGrid(client);
         var siloGrid = _transform.GetGrid(silo.Owner);
-        
+
         // Both must have a valid grid and be on the same grid
         if (clientGrid == null || siloGrid == null || clientGrid != siloGrid)
             return false;

@@ -139,7 +139,7 @@ public sealed class RCDConstructionGhostSystem : EntitySystem
             MobUid = heldEntity.Value,
             PlacementOption = desiredMode, // Starlight Edit: PlacementMode -> desiredMode
             EntityType = prototype, // Starlight Edit: prototype.Prototype -> prototype
-            Range = (int) Math.Ceiling(SharedInteractionSystem.InteractionRange),
+            Range = (int)Math.Ceiling(SharedInteractionSystem.InteractionRange),
             IsTile = (cachedProto.Mode == RcdMode.ConstructTile), // Starlight Edit: prototype.Mode -> cachedProto.Mode
             UseEditorContext = false,
         };

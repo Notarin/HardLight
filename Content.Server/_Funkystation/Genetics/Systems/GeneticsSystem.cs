@@ -256,7 +256,7 @@ public sealed partial class GeneticsSystem : EntitySystem
         revealed[0] = true;
         revealed[length - 1] = true;
 
-        var revealCount = _random.Next((int) (length * MinSequenceRevealFraction), (int) (length * MaxSequenceRevealFraction) + 1);
+        var revealCount = _random.Next((int)(length * MinSequenceRevealFraction), (int)(length * MaxSequenceRevealFraction) + 1);
         var added = 2;
 
         while (added < revealCount)
@@ -338,7 +338,7 @@ public sealed partial class GeneticsSystem : EntitySystem
 
         component.Mutations.Remove(entry);
 
-       //Dirty(uid, component);
+        //Dirty(uid, component);
         return true;
     }
 

@@ -23,8 +23,8 @@ public sealed partial class LayingDownComponent : Component
     public bool IsCrawlingUnder = false;
 
     [DataField, AutoNetworkedField]
-    public int NormalDrawDepth = (int) DrawDepth.DrawDepth.Mobs,
-               CrawlingUnderDrawDepth = (int) DrawDepth.DrawDepth.SmallMobs;
+    public int NormalDrawDepth = (int)DrawDepth.DrawDepth.Mobs,
+               CrawlingUnderDrawDepth = (int)DrawDepth.DrawDepth.SmallMobs;
 }
 
 [Serializable, NetSerializable]

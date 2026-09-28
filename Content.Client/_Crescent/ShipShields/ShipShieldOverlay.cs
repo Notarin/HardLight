@@ -30,7 +30,7 @@ public sealed class ShipShieldOverlay : Overlay
         _resourceCache = resourceCache;
         _entManager = entityManager;
         _fixture = _entManager.EntitySysManager.GetEntitySystem<FixtureSystem>();
-    _physics = _entManager.EntitySysManager.GetEntitySystem<SharedPhysicsSystem>();
+        _physics = _entManager.EntitySysManager.GetEntitySystem<SharedPhysicsSystem>();
 
         _unshadedShader = prototypeManager.Index(UnshadedShaderId).Instance();
 
@@ -61,12 +61,12 @@ public sealed class ShipShieldOverlay : Overlay
             switch (fixture.Shape)
             {
                 case ChainShape chain:
-                {
-                    var texture = _resourceCache.GetTexture("/Textures/_Crescent/ShipShields/shieldtex.png");
-                    DrawShield(handle, uid, chain, xform, texture, visuals.ShieldColor, _verts);
-                    _verts.Clear(); // Clear for next shield - Mono
-                    break;
-                }
+                    {
+                        var texture = _resourceCache.GetTexture("/Textures/_Crescent/ShipShields/shieldtex.png");
+                        DrawShield(handle, uid, chain, xform, texture, visuals.ShieldColor, _verts);
+                        _verts.Clear(); // Clear for next shield - Mono
+                        break;
+                    }
                 case PolygonShape poly:
                     DrawShieldFallback(handle, uid, poly, visuals.ShieldColor.WithAlpha(0.85f));
                     break;

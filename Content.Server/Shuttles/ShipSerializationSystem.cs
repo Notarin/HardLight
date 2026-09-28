@@ -1666,10 +1666,10 @@ namespace Content.Server.Shuttles.Save
             }
 
             // Place tiles maintaining connectivity
-                foreach (var (coords, tile) in tilesToPlace)
-                {
-                    _map.SetTile(newGridEntity, newGrid, coords, tile);
-                }
+            foreach (var (coords, tile) in tilesToPlace)
+            {
+                _map.SetTile(newGridEntity, newGrid, coords, tile);
+            }
             // Placed tiles
 
             // Apply fixgridatmos-style atmosphere to all loaded ships
@@ -1695,7 +1695,7 @@ namespace Content.Server.Shuttles.Save
                         foreach (var (decalId, decal) in chunk.Decals)
                         {
                             // Convert the decal coordinates to EntityCoordinates on the new grid
-                                var decalCoords = new EntityCoordinates(newGridEntity, decal.Coordinates);
+                            var decalCoords = new EntityCoordinates(newGridEntity, decal.Coordinates);
 
                             // Use the DecalSystem to properly add the decal
                             if (_decalSystem.TryAddDecal(decal.Id, decalCoords, out _, decal.Color, decal.Angle, decal.ZIndex, decal.Cleanable))
@@ -3002,17 +3002,17 @@ namespace Content.Server.Shuttles.Save
                     value = intValue;
                     return true;
                 case long longValue when longValue is >= int.MinValue and <= int.MaxValue:
-                    value = (int) longValue;
+                    value = (int)longValue;
                     return true;
                 case double doubleValue when double.IsFinite(doubleValue)
                                               && doubleValue >= int.MinValue
                                               && doubleValue <= int.MaxValue:
-                    value = (int) Math.Round(doubleValue);
+                    value = (int)Math.Round(doubleValue);
                     return true;
                 case float floatValue when float.IsFinite(floatValue)
                                             && floatValue >= int.MinValue
                                             && floatValue <= int.MaxValue:
-                    value = (int) MathF.Round(floatValue);
+                    value = (int)MathF.Round(floatValue);
                     return true;
                 default:
                     return int.TryParse(rawValue.ToString(), NumberStyles.Integer, CultureInfo.InvariantCulture, out value);
@@ -3420,7 +3420,7 @@ namespace Content.Server.Shuttles.Save
                 var documents = DataNodeParser.ParseYamlStream(textReader).ToArray();
 
                 if (documents.Length == 1 && documents[0].Root is MappingDataNode mapping)
-                    return (DecalGridChunkCollection?) _serializationManager.Read(typeof(DecalGridChunkCollection), mapping, null, false, true);
+                    return (DecalGridChunkCollection?)_serializationManager.Read(typeof(DecalGridChunkCollection), mapping, null, false, true);
 
                 _sawmill.Warning($"Failed to deserialize decal data: expected one YAML document, got {documents.Length}");
                 return null;

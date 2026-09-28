@@ -5,8 +5,6 @@ using Content.Shared.Climbing.Systems;
 using Content.Shared.DoAfter;
 using Content.Shared.DragDrop;
 using Content.Shared.Verbs;
-using Robust.Shared.GameObjects;
-using Content.Shared.Chemistry.Components;
 
 
 namespace Content.Server._HL.Vacbed;
@@ -65,7 +63,7 @@ public sealed partial class VacbedSystem : SharedVacbedSystem
         _climbSystem.ForciblySetClimbing(contained, uid);
 
         //I AM A GOD IN HUMAN CLOTHING AND I MADE THIS WORK
-        if (_solutionContainerSystem.TryGetDrainableSolution(vacbedComponent.Owner, out var soln, out var solution) /*&& solution.Volume != 0*/)
+        if (_solutionContainerSystem.TryGetDrainableSolution(uid, out var soln, out var solution) /*&& solution.Volume != 0*/)
         {
             //for the love of fuck execute
             var puddleSolution = _solutionContainerSystem.SplitSolution(soln.Value, solution.Volume);

@@ -142,7 +142,7 @@ public sealed class PlumbingPillPressSystem : EntitySystem
             return;
 
         var eastFraction = ent.Comp.InletRatioEast / totalRatio;
-        var eastTarget = FixedPoint2.New((int) MathF.Round(eastFraction * (float) dosage));
+        var eastTarget = FixedPoint2.New((int)MathF.Round(eastFraction * (float)dosage));
         var westTarget = dosage - eastTarget; // Remainder goes to west to avoid rounding loss
 
         if (!_solutionSystem.TryGetSolution(ent.Owner, ent.Comp.StagingEastSolutionName, out var stagingEastEnt, out var stagingEast))

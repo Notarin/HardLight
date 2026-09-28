@@ -51,7 +51,7 @@ public sealed class AphrodisiacOverlay : Overlay
             return;
 
         var curTime = _timing.CurTime;
-        var power = (float) (time.Value.Item2 - curTime).TotalSeconds;
+        var power = (float)(time.Value.Item2 - curTime).TotalSeconds;
 
         CurrentAphrodisiacPower += 1f * (power * 0.5f - CurrentAphrodisiacPower) * args.DeltaSeconds / (power + 1);
     }

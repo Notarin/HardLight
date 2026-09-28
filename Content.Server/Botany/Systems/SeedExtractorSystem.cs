@@ -47,7 +47,7 @@ public sealed class SeedExtractorSystem : EntitySystem
         if (TryComp<StackComponent>(args.Used, out var stack))
             stackCount = stack.Count;
 
-        var amountPerProduce = (int) _random.NextFloat(seedExtractor.BaseMinSeeds, seedExtractor.BaseMaxSeeds + 1) * seedExtractor.SeedAmountMultiplier;
+        var amountPerProduce = (int)_random.NextFloat(seedExtractor.BaseMinSeeds, seedExtractor.BaseMaxSeeds + 1) * seedExtractor.SeedAmountMultiplier;
         var amount = amountPerProduce * stackCount;
         var coords = Transform(uid).Coordinates;
 
@@ -58,7 +58,7 @@ public sealed class SeedExtractorSystem : EntitySystem
         for (var i = 0; i < amount; i++)
         {
             var seedPacket = _botanySystem.SpawnSeedPacket(packetSeed, coords, args.User);
-            
+
             // Add ownership component to track who extracted this seed
             // Store the player's NetUserId from their ActorComponent so ownership persists across body changes
             if (TryComp<ActorComponent>(args.User, out var actor))

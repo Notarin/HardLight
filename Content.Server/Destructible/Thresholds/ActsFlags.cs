@@ -1,4 +1,4 @@
-﻿namespace Content.Server.Destructible.Thresholds
+namespace Content.Server.Destructible.Thresholds
 {
     public sealed class ActsFlags { }
 }

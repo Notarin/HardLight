@@ -79,13 +79,13 @@ public sealed class RoboticArmSystem : EntitySystem
             if (!_power.IsPowered(uid))
                 continue;
 
-            if (comp.NextMove is {} nextMove && now < nextMove)
+            if (comp.NextMove is { } nextMove && now < nextMove)
                 continue;
 
             var ent = (uid, comp);
             StopMoving(ent);
 
-            if (comp.HeldItem is {} item)
+            if (comp.HeldItem is { } item)
             {
                 if (!TryDrop(ent, item))
                     continue;
@@ -127,10 +127,10 @@ public sealed class RoboticArmSystem : EntitySystem
 
         using (args.PushGroup(nameof(RoboticArmComponent)))
         {
-            args.PushMarkup(_filter.GetSlot(ent) is {} filter
+            args.PushMarkup(_filter.GetSlot(ent) is { } filter
                 ? Loc.GetString("robotic-arm-examine-filter", ("filter", filter))
                 : Loc.GetString("robotic-arm-examine-no-filter"));
-            args.PushMarkup(ent.Comp.HeldItem is {} item
+            args.PushMarkup(ent.Comp.HeldItem is { } item
                 ? Loc.GetString("robotic-arm-examine-item", ("item", item))
                 : Loc.GetString("robotic-arm-examine-no-item"));
         }
@@ -185,7 +185,7 @@ public sealed class RoboticArmSystem : EntitySystem
         _wake.SetEnabled(args.OtherEntity, wake); // don't break conveyors for skipped items
     }
 
-    private void OnItemModified<T>(Entity<RoboticArmComponent> ent, ref T args) where T: ContainerModifiedMessage
+    private void OnItemModified<T>(Entity<RoboticArmComponent> ent, ref T args) where T : ContainerModifiedMessage
     {
         if (args.Container.ID != ent.Comp.ItemSlotId)
             return;
@@ -279,11 +279,11 @@ public sealed class RoboticArmSystem : EntitySystem
             return false;
 
         var filter = _filter.GetSlot(ent);
-        if (slot.GetItem(filter) is not {} item)
+        if (slot.GetItem(filter) is not { } item)
             return false;
 
         // client can't predict splitting because it spawns entities
-        if (_filter.TrySplit(filter, item) is not {} stack)
+        if (_filter.TrySplit(filter, item) is not { } stack)
             return false;
 
         return _slots.TryInsert(ent, ent.Comp.ItemSlot, stack, user: null);
@@ -310,7 +310,7 @@ public sealed class RoboticArmSystem : EntitySystem
     private bool IsOutputBlocked(EntityUid uid)
     {
         var coords = OutputPosition(uid);
-        return coords.GetTileRef(EntityManager, _map) is {} turf &&
+        return coords.GetTileRef(EntityManager, _map) is { } turf &&
             _turf.IsTileBlocked(turf, CollisionGroup.MachineMask);
     }
 

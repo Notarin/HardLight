@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared._Common.Consent;
 using Content.Shared.DoAfter;
 using Content.Shared.Humanoid;
@@ -165,4 +164,5 @@ public abstract class SharedModifyMarkingsSystem : EntitySystem
 
             args.Verbs.Add(verb);
         }
-    }}
+    }
+}

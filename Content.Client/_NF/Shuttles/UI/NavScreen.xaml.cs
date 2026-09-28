@@ -72,7 +72,7 @@ namespace Content.Client.Shuttles.UI
         // Frontier - Maximum IFF Distance
         private void OnRangeFilterChanged(int value)
         {
-            NavRadar.MaximumIFFDistance = (float) value;
+            NavRadar.MaximumIFFDistance = (float)value;
         }
 
         private void ToggleServiceFlags(ServiceFlags flags, bool updateButtonsOnly = false)

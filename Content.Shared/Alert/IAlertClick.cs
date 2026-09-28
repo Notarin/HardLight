@@ -1,4 +1,4 @@
-﻿namespace Content.Shared.Alert
+namespace Content.Shared.Alert
 {
     /// <summary>
     /// Defines what should happen when an alert is clicked.

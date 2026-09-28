@@ -31,17 +31,17 @@ public partial class SharedMartialArtsSystem
 
     #region Generic Methods
 
-        private void OnMapInitEvent(Entity<GrantCqcComponent> ent, ref MapInitEvent args)
-        {
-            if (!HasComp<MobStateComponent>(ent))
-                return;
+    private void OnMapInitEvent(Entity<GrantCqcComponent> ent, ref MapInitEvent args)
+    {
+        if (!HasComp<MobStateComponent>(ent))
+            return;
 
-            if (!TryGrantMartialArt(ent, ent.Comp))
-                return;
+        if (!TryGrantMartialArt(ent, ent.Comp))
+            return;
 
-            if (TryComp<MartialArtsKnowledgeComponent>(ent, out var knowledge))
-                knowledge.Blocked = true;
-        }
+        if (TryComp<MartialArtsKnowledgeComponent>(ent, out var knowledge))
+            knowledge.Blocked = true;
+    }
 
     private void OnGrantCQCUse(Entity<GrantCqcComponent> ent, ref UseInHandEvent args)
     {
@@ -76,7 +76,7 @@ public partial class SharedMartialArtsSystem
         if (knowledgeComponent.MartialArtsForm != MartialArtsForms.CloseQuartersCombat)
             return;
 
-        if(knowledgeComponent.Blocked)
+        if (knowledgeComponent.Blocked)
             return;
 
         switch (args.Type)
@@ -165,11 +165,11 @@ public partial class SharedMartialArtsSystem
         _stamina.TakeStaminaDamage(target, proto.StaminaDamage, source: ent);
         if (!_hands.TryGetActiveItem(target, out var activeItem))
             return;
-        if(!_hands.TryDrop(target, activeItem.Value))
+        if (!_hands.TryDrop(target, activeItem.Value))
             return;
         if (!_hands.TryGetEmptyHand(target, out var emptyHand))
             return;
-        if(!_hands.TryPickupAnyHand(ent, activeItem.Value))
+        if (!_hands.TryPickupAnyHand(ent, activeItem.Value))
             return;
         _hands.SetActiveHand(ent, emptyHand);
         ComboPopup(ent, target, proto.Name);

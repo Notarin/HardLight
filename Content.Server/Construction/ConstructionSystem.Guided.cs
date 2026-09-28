@@ -31,7 +31,7 @@ namespace Content.Server.Construction
             if (!PrototypeManager.TryIndex(msg.ConstructionId, out ConstructionPrototype? prototype))
                 return;
 
-            if(GetGuide(prototype) is {} guide)
+            if (GetGuide(prototype) is { } guide)
                 RaiseNetworkEvent(new ResponseConstructionGuide(msg.ConstructionId, guide), args.SenderSession.Channel);
         }
 
@@ -50,7 +50,7 @@ namespace Content.Server.Construction
             if (component.DeconstructionNode == null)
                 return;
 
-            if (GetCurrentNode(uid, component) is not {} currentNode)
+            if (GetCurrentNode(uid, component) is not { } currentNode)
                 return;
 
             //Hardlight: Retrieving entity tags to approve/deny deconstruction path edges
@@ -65,8 +65,8 @@ namespace Content.Server.Construction
                 validEdges = ListOnlyEdgesWithValidTags(entityTags, graph);
             }
 
-            if (graph.Path(currentNode.Name, component.DeconstructionNode, validEdges) is not {} path || path.Length == 0)
-            //End Hardlight
+            if (graph.Path(currentNode.Name, component.DeconstructionNode, validEdges) is not { } path || path.Length == 0)
+                //End Hardlight
                 return;
 
             Verb verb = new();
@@ -74,7 +74,7 @@ namespace Content.Server.Construction
             //TODO VERBS add more construction verbs? Until then, removing construction category
             verb.Text = Loc.GetString("deconstructible-verb-begin-deconstruct");
             verb.Icon = new SpriteSpecifier.Texture(
-                new ("/Textures/Interface/hammer_scaled.svg.192dpi.png"));
+                new("/Textures/Interface/hammer_scaled.svg.192dpi.png"));
 
             verb.Act = () =>
             {
@@ -126,7 +126,7 @@ namespace Content.Server.Construction
         {
             using (args.PushGroup(nameof(ConstructionComponent)))
             {
-                if (GetTargetNode(uid, component) is {} target)
+                if (GetTargetNode(uid, component) is { } target)
                 {
                     if (target.Name == component.DeconstructionNode)
                     {
@@ -140,7 +140,7 @@ namespace Content.Server.Construction
                     }
                 }
 
-                if (component.EdgeIndex == null && GetTargetEdge(uid, component) is {} targetEdge)
+                if (component.EdgeIndex == null && GetTargetEdge(uid, component) is { } targetEdge)
                 {
                     var preventStepExamine = false;
 
@@ -154,7 +154,7 @@ namespace Content.Server.Construction
                     return;
                 }
 
-                if (GetCurrentEdge(uid, component) is {} edge)
+                if (GetCurrentEdge(uid, component) is { } edge)
                 {
                     var preventStepExamine = false;
 
@@ -194,12 +194,12 @@ namespace Content.Server.Construction
                 return null;
 
             // If either the start node or the target node are missing, do nothing.
-            if (GetNodeFromGraph(graph, construction.StartNode) is not {} startNode
-                || GetNodeFromGraph(graph, construction.TargetNode) is not {} targetNode)
+            if (GetNodeFromGraph(graph, construction.StartNode) is not { } startNode
+                || GetNodeFromGraph(graph, construction.TargetNode) is not { } targetNode)
                 return null;
 
             // If there's no path from start to target, do nothing.
-            if (graph.Path(construction.StartNode, construction.TargetNode) is not {} path
+            if (graph.Path(construction.StartNode, construction.TargetNode) is not { } path
                 || path.Length == 0)
                 return null;
 
@@ -221,7 +221,7 @@ namespace Content.Server.Construction
             // Iterate until the penultimate node.
             var node = startNode;
             var index = 0;
-            while(node != targetNode)
+            while (node != targetNode)
             {
                 // Can't find path, therefore can't generate guide...
                 if (!node.TryGetEdge(path[index].Name, out var edge))
@@ -242,7 +242,7 @@ namespace Content.Server.Construction
                     // Now actually list the construction conditions.
                     foreach (var condition in construction.Conditions)
                     {
-                        if (condition.GenerateGuideEntry() is not {} conditionEntry)
+                        if (condition.GenerateGuideEntry() is not { } conditionEntry)
                             continue;
 
                         conditionEntry.Padding += 4;
@@ -253,7 +253,7 @@ namespace Content.Server.Construction
                     node = path[index++];
 
                     // Add a bit of padding if there will be more steps after this.
-                    if(node != targetNode)
+                    if (node != targetNode)
                         entries.Add(new ConstructionGuideEntry());
 
                     continue;

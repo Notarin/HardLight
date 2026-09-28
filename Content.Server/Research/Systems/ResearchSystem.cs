@@ -102,13 +102,13 @@ namespace Content.Server.Research.Systems
         {
             var allServers = EntityQueryEnumerator<ResearchServerComponent>();
             var list = new List<string>();
-            if (!EntityManager.TryGetComponent(gridUid, out TransformComponent? gridXform) || gridXform.GridUid == null)
+            if (!TryComp(gridUid, out TransformComponent? gridXform) || gridXform.GridUid == null)
                 return list.ToArray();
 
             var targetGrid = gridXform.GridUid.Value;
             while (allServers.MoveNext(out var uid, out var comp))
             {
-                if (EntityManager.TryGetComponent(uid, out TransformComponent? serverXform) && serverXform.GridUid == targetGrid)
+                if (TryComp(uid, out TransformComponent? serverXform) && serverXform.GridUid == targetGrid)
                     list.Add(comp.ServerName);
             }
             return list.ToArray();
@@ -118,13 +118,13 @@ namespace Content.Server.Research.Systems
         {
             var allServers = EntityQueryEnumerator<ResearchServerComponent>();
             var list = new List<int>();
-            if (!EntityManager.TryGetComponent(gridUid, out TransformComponent? gridXform) || gridXform.GridUid == null)
+            if (!TryComp(gridUid, out TransformComponent? gridXform) || gridXform.GridUid == null)
                 return list.ToArray();
 
             var targetGrid = gridXform.GridUid.Value;
             while (allServers.MoveNext(out var uid, out var comp))
             {
-                if (EntityManager.TryGetComponent(uid, out TransformComponent? serverXform) && serverXform.GridUid == targetGrid)
+                if (TryComp(uid, out TransformComponent? serverXform) && serverXform.GridUid == targetGrid)
                     list.Add(comp.Id);
             }
             return list.ToArray();
@@ -139,7 +139,7 @@ namespace Content.Server.Research.Systems
                     continue;
                 server.NextUpdateTime = _timing.CurTime + server.ResearchConsoleUpdateTime;
 
-                UpdateServer(uid, (int) server.ResearchConsoleUpdateTime.TotalSeconds, server);
+                UpdateServer(uid, (int)server.ResearchConsoleUpdateTime.TotalSeconds, server);
             }
         }
     }

@@ -1,4 +1,4 @@
-﻿using Content.Shared.Bed.Sleep;
+using Content.Shared.Bed.Sleep;
 using Content.Shared.CCVar;
 using Robust.Shared.Configuration;
 using Robust.Shared.Player;
@@ -37,7 +37,7 @@ public sealed class SSDIndicatorSystem : EntitySystem
             component.FallAsleepTime = TimeSpan.Zero;
             if (component.ForcedSleepAdded) // Remove component only if it has been added by this system
             {
-                EntityManager.RemoveComponent<ForcedSleepingComponent>(uid);
+                RemComp<ForcedSleepingComponent>(uid);
                 component.ForcedSleepAdded = false;
             }
         }
@@ -79,7 +79,7 @@ public sealed class SSDIndicatorSystem : EntitySystem
         while (query.MoveNext(out var uid, out var ssd))
         {
             // Forces the entity to sleep when the time has come
-            if(ssd.IsSSD &&
+            if (ssd.IsSSD &&
                 ssd.FallAsleepTime <= _timing.CurTime &&
                 !TerminatingOrDeleted(uid) &&
                 !HasComp<ForcedSleepingComponent>(uid)) // Don't add the component if the entity has it from another sources

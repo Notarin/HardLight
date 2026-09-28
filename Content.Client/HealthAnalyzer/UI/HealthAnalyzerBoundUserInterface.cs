@@ -1,4 +1,4 @@
-﻿using Content.Shared.MedicalScanner;
+using Content.Shared.MedicalScanner;
 using Content.Shared._Shitmed.Targeting; // Shitmed Change
 using JetBrains.Annotations;
 using Robust.Client.UserInterface;

@@ -112,11 +112,11 @@ public sealed class CloningPodSystem : EntitySystem
     private void HandleMindAdded(EntityUid uid, BeingClonedComponent clonedComponent, MindAddedMessage message)
     {
         if (clonedComponent.Parent == EntityUid.Invalid ||
-            !EntityManager.EntityExists(clonedComponent.Parent) ||
+            !Exists(clonedComponent.Parent) ||
             !TryComp<CloningPodComponent>(clonedComponent.Parent, out var cloningPodComponent) ||
             uid != cloningPodComponent.BodyContainer.ContainedEntity)
         {
-            EntityManager.RemoveComponent<BeingClonedComponent>(uid);
+            RemComp<BeingClonedComponent>(uid);
             return;
         }
         UpdateStatus(clonedComponent.Parent, CloningPodStatus.Cloning, cloningPodComponent);
@@ -229,7 +229,7 @@ public sealed class CloningPodSystem : EntitySystem
             return false;
         }
 
-        var cloneMindReturn = EntityManager.AddComponent<BeingClonedComponent>(mob.Value);
+        var cloneMindReturn = AddComp<BeingClonedComponent>(mob.Value);
         cloneMindReturn.Mind = mind;
         cloneMindReturn.Parent = uid;
         _containerSystem.Insert(mob.Value, clonePod.BodyContainer);
@@ -297,7 +297,7 @@ public sealed class CloningPodSystem : EntitySystem
         if (clonePod.BodyContainer.ContainedEntity is not { Valid: true } entity || clonePod.CloningProgress < clonePod.CloningTime)
             return;
 
-        EntityManager.RemoveComponent<BeingClonedComponent>(entity);
+        RemComp<BeingClonedComponent>(entity);
         _containerSystem.Remove(entity, clonePod.BodyContainer);
         clonePod.CloningProgress = 0f;
         clonePod.UsedBiomass = 0;

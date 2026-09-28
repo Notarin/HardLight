@@ -70,7 +70,7 @@ public abstract class SharedInteractorSystem : EntitySystem
         if (!args.IsInDetailsRange)
             return;
 
-        args.PushMarkup(_filter.GetSlot(ent) is {} filter
+        args.PushMarkup(_filter.GetSlot(ent) is { } filter
             ? Loc.GetString("robotic-arm-examine-filter", ("filter", filter))
             : Loc.GetString("robotic-arm-examine-no-filter"));
     }
@@ -79,7 +79,7 @@ public abstract class SharedInteractorSystem : EntitySystem
         => !_thrownQuery.HasComp(target) // thrown items move too fast to be "clicked" on...
             && _filter.IsAllowed(_filter.GetSlot(ent), target); // ignore non-filtered entities
 
-    private void OnItemModified<T>(Entity<InteractorComponent> ent, ref T args) where T: ContainerModifiedMessage
+    private void OnItemModified<T>(Entity<InteractorComponent> ent, ref T args) where T : ContainerModifiedMessage
     {
         if (args.Container.ID != ent.Comp.ToolContainerId)
             return;
@@ -173,7 +173,7 @@ public abstract class SharedInteractorSystem : EntitySystem
     /// </summary>
     public EntityUid? FindTarget(Entity<InteractorComponent> ent)
     {
-        if (Transform(ent).GridUid is not {} gridUid || !_gridQuery.TryComp(gridUid, out var grid))
+        if (Transform(ent).GridUid is not { } gridUid || !_gridQuery.TryComp(gridUid, out var grid))
             return null;
 
         var coords = TargetsPosition(ent);

@@ -79,7 +79,7 @@ public sealed class CriminalRecordsConsoleSystem : SharedCriminalRecordsConsoleS
 
     public void ClearTransientStateOnGrid(EntityUid gridUid)
     {
-        var query = EntityManager.EntityQueryEnumerator<CriminalRecordsConsoleComponent, TransformComponent>();
+        var query = EntityQueryEnumerator<CriminalRecordsConsoleComponent, TransformComponent>();
         while (query.MoveNext(out _, out var console, out var xform))
         {
             if (xform.GridUid != gridUid)

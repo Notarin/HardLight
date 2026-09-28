@@ -10,7 +10,7 @@ namespace Content.Shared.Chemistry.Prototypes;
 /// <summary>
 /// Defines behavior presets for injector-based tools.
 /// </summary>
-[Prototype("injectorMode")]
+[Prototype]
 public sealed partial class InjectorModePrototype : IPrototype, IInheritingPrototype
 {
     [IdDataField]

@@ -1,21 +1,11 @@
 using Content.Server._HL.RoundPersistence.Components;
 using Content.Server._NF.RoundNotifications.Events;
-using Content.Server.GameTicking.Events;
-using Content.Server.Mind;
 using Content.Server.Station.Systems;
 using Content.Shared.GameTicking;
-using Content.Shared.Mind;
-using Content.Shared.Mind.Components;
-using Content.Shared.Mobs.Components;
-using Content.Shared.Players;
 using Content.Shared.Roles;
 using Robust.Shared.Enums;
 using Robust.Server.Player;
-using Robust.Shared.GameObjects;
-using Robust.Shared.IoC;
-using Robust.Shared.Log;
 using Robust.Shared.Player;
-using Robust.Shared.Timing;
 
 namespace Content.Server.HL.RoundPersistence.Systems;
 
@@ -231,9 +221,9 @@ public sealed class PlayerPaymentPersistenceSystem : EntitySystem
             return "Unknown";
 
         var station = _station.GetOwningStation(session.AttachedEntity.Value);
-        if (station != null && EntityManager.EntityExists(station.Value) && !TerminatingOrDeleted(station.Value))
+        if (station != null && Exists(station.Value) && !TerminatingOrDeleted(station.Value))
         {
-            if (EntityManager.TryGetComponent<MetaDataComponent>(station.Value, out var stationMeta))
+            if (TryComp(station.Value, out MetaDataComponent? stationMeta))
             {
                 return stationMeta.EntityName;
             }

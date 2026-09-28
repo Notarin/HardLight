@@ -136,7 +136,7 @@ namespace Content.Server.Atmos.EntitySystems
 
             var otherEnt = args.OtherEntity;
 
-            if (!EntityManager.TryGetComponent(otherEnt, out FlammableComponent? flammable))
+            if (!TryComp(otherEnt, out FlammableComponent? flammable))
                 return;
 
             //Only ignite when the colliding fixture is projectile or ignition.
@@ -163,7 +163,7 @@ namespace Content.Server.Atmos.EntitySystems
                 return;
 
             _fixture.TryCreateFixture(uid, component.FlammableCollisionShape, component.FlammableFixtureID, hard: false,
-                collisionMask: (int) CollisionGroup.FullTileLayer, body: body);
+                collisionMask: (int)CollisionGroup.FullTileLayer, body: body);
         }
 
         private void OnInteractUsing(EntityUid uid, FlammableComponent flammable, InteractUsingEvent args)
@@ -242,8 +242,8 @@ namespace Content.Server.Atmos.EntitySystems
                 mass2 = otherPhys.Mass;
             }
 
-	    // Funky segment cherry-picked from funky-station commit af29cf8ea631c3d9a39c6602ec3d667312c630e7 by Drywink, MIT licensed
-	    // Begin Funky
+            // Funky segment cherry-picked from funky-station commit af29cf8ea631c3d9a39c6602ec3d667312c630e7 by Drywink, MIT licensed
+            // Begin Funky
             var totalMass = mass1 + mass2;
             var totalHeat = (flammable.FireStacks * mass1) + (otherFlammable.FireStacks * mass2);
 
@@ -251,7 +251,7 @@ namespace Content.Server.Atmos.EntitySystems
 
             SetFireStacks(uid, desiredFireStacks, flammable, ignite: true);
             SetFireStacks(otherUid, desiredFireStacks, otherFlammable, ignite: true);
-	    // End Funky
+            // End Funky
         }
 
         private void OnIsHot(EntityUid uid, FlammableComponent flammable, IsHotEvent args)
@@ -387,7 +387,7 @@ namespace Content.Server.Atmos.EntitySystems
             if (args.DamageDelta.DamageDict.TryGetValue("Heat", out FixedPoint2 value))
             {
                 // Make sure the value is greater than the threshold
-                if(value <= component.Threshold)
+                if (value <= component.Threshold)
                     return;
 
                 // Ignite that sucker

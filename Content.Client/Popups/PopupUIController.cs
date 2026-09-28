@@ -164,8 +164,8 @@ public sealed class PopupUIController : UIController, IOnStateEntered<GameplaySt
                     continue;
 
                 // HardLight start: Calculate stacked position for cursor popups; prevents overlap when multiple popups spawn at the same position.
-                var stackX = (int) MathF.Round(popup.InitialPos.Position.X);
-                var stackY = (int) MathF.Round(popup.InitialPos.Position.Y);
+                var stackX = (int)MathF.Round(popup.InitialPos.Position.X);
+                var stackY = (int)MathF.Round(popup.InitialPos.Position.Y);
                 var stackKey = (stackX, stackY);
 
                 var stackLevel = 0;

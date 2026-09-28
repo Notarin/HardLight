@@ -388,10 +388,10 @@ public abstract class SharedInteractionVerbsSystem : EntitySystem
         {
             var locPrefix = $"interaction-{proto.ID}-{prefix.ToString().ToLower()}";
 
-            var userIdentity = user.Valid && EntityManager.EntityExists(user)
+            var userIdentity = user.Valid && Exists(user)
                 ? Identity.Entity(user, EntityManager)
                 : EntityUid.Invalid;
-            var targetIdentity = target.Valid && EntityManager.EntityExists(target)
+            var targetIdentity = target.Valid && Exists(target)
                 ? Identity.Entity(target, EntityManager)
                 : EntityUid.Invalid;
 

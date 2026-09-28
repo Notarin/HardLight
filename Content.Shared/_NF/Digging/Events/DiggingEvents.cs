@@ -10,7 +10,7 @@ public sealed partial class EarthDiggingDoAfterEvent : DoAfterEvent
 {
     public NetCoordinates Coordinates { get; set; }
 
-    private EarthDiggingDoAfterEvent(){}
+    private EarthDiggingDoAfterEvent() { }
 
     public EarthDiggingDoAfterEvent(NetCoordinates coordinates)
     {

@@ -83,7 +83,7 @@ public sealed partial class PickNearbyFillableItemOperator : HTNOperator
             // trash only
             if (disposalUnit != null &&
                     !_tagSystem.HasTag(target, TrashProto)
-                    ||_entManager.HasComponent<BodyPartComponent>(target)) // Robot is unable to insert bodyparts into Disposals for some reason
+                    || _entManager.HasComponent<BodyPartComponent>(target)) // Robot is unable to insert bodyparts into Disposals for some reason
                 continue;
 
             const float pathRange = SharedInteractionSystem.InteractionRange - 1;

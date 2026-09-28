@@ -4,6 +4,7 @@ using Content.Shared.Containers;
 using Robust.Shared.Containers;
 
 namespace Content.Server._EinsteinEngines.Silicon.IPC;
+
 public sealed partial class InternalEncryptionKeySpawner : EntitySystem
 {
     [Dependency] private readonly SharedContainerSystem _container = default!;

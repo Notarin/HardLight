@@ -64,18 +64,18 @@ namespace Content.Server.Power.EntitySystems
             var cablesB = GetDockCableNodes(dockB).ToList();
 
             foreach (var cableA in cablesA)
-            foreach (var cableB in cablesB)
-            {
-                if (EntityManager.GetComponent<TransformComponent>(cableA.Owner).Anchored &&
-                    EntityManager.GetComponent<TransformComponent>(cableB.Owner).Anchored &&
-                    CanConnect(cableA, cableB))
+                foreach (var cableB in cablesB)
                 {
-                    cableA.AddAlwaysReachable(cableB);
-                    cableB.AddAlwaysReachable(cableA);
-                    EntityManager.System<NodeGroupSystem>().QueueReflood(cableA);
-                    EntityManager.System<NodeGroupSystem>().QueueReflood(cableB);
+                    if (Comp<TransformComponent>(cableA.Owner).Anchored &&
+                        Comp<TransformComponent>(cableB.Owner).Anchored &&
+                        CanConnect(cableA, cableB))
+                    {
+                        cableA.AddAlwaysReachable(cableB);
+                        cableB.AddAlwaysReachable(cableA);
+                        EntityManager.System<NodeGroupSystem>().QueueReflood(cableA);
+                        EntityManager.System<NodeGroupSystem>().QueueReflood(cableB);
+                    }
                 }
-            }
         }
 
         private void OnUndocked(UndockEvent ev)
@@ -87,19 +87,19 @@ namespace Content.Server.Power.EntitySystems
             var cablesB = GetDockCableNodes(dockB).ToList();
 
             foreach (var cableA in cablesA)
-            foreach (var cableB in cablesB)
-            {
-                cableA.RemoveAlwaysReachable(cableB);
-                cableB.RemoveAlwaysReachable(cableA);
-                EntityManager.System<NodeGroupSystem>().QueueReflood(cableA);
-                EntityManager.System<NodeGroupSystem>().QueueReflood(cableB);
-            }
+                foreach (var cableB in cablesB)
+                {
+                    cableA.RemoveAlwaysReachable(cableB);
+                    cableB.RemoveAlwaysReachable(cableA);
+                    EntityManager.System<NodeGroupSystem>().QueueReflood(cableA);
+                    EntityManager.System<NodeGroupSystem>().QueueReflood(cableB);
+                }
         }
 
         #endregion
 
         #region Cable Query
-        
+
         public IEnumerable<CableNode> GetDockCableNodes(EntityUid dock)
         {
             if (!TryComp<TransformComponent>(dock, out var xform) || xform.GridUid == null)
@@ -261,7 +261,7 @@ namespace Content.Server.Power.EntitySystems
 
         public IEnumerable<(EntityUid, EntityUid)> GetAllDockedPairs()
         {
-            foreach (var dockEntity in EntityManager.EntityQuery<DockingComponent>())
+            foreach (var dockEntity in EntityQuery<DockingComponent>())
             {
                 var dockA = dockEntity.Owner;
                 if (dockEntity.DockedWith is not { } dockB)
@@ -280,12 +280,12 @@ namespace Content.Server.Power.EntitySystems
                 var cablesB = GetDockCableNodes(dockB).ToList();
                 int count = 0;
                 foreach (var cableA in cablesA)
-                foreach (var cableB in cablesB)
-                {
-                    var reachable = cableA.GetAlwaysReachable();
-                    if (CanConnect(cableA, cableB) && reachable != null && reachable.Contains(cableB))
-                        count++;
-                }
+                    foreach (var cableB in cablesB)
+                    {
+                        var reachable = cableA.GetAlwaysReachable();
+                        if (CanConnect(cableA, cableB) && reachable != null && reachable.Contains(cableB))
+                            count++;
+                    }
                 lines.Add($"Dock {dockA} <-> {dockB}: {count} connections");
             }
             return string.Join('\n', lines);
@@ -293,7 +293,7 @@ namespace Content.Server.Power.EntitySystems
 
         public string GetCableDebugInfo(EntityUid entity)
         {
-            if (!EntityManager.TryGetComponent<NodeContainerComponent>(entity, out var nodeContainer))
+            if (!TryComp<NodeContainerComponent>(entity, out var nodeContainer))
                 return "No NodeContainerComponent.";
             foreach (var node in nodeContainer.Nodes.Values)
             {
@@ -311,7 +311,7 @@ namespace Content.Server.Power.EntitySystems
 
         public string GetTileDebugInfo(EntityUid gridId, Vector2i tile)
         {
-            if (!EntityManager.TryGetComponent<MapGridComponent>(gridId, out var grid))
+            if (!TryComp<MapGridComponent>(gridId, out var grid))
                 return $"Grid {gridId} not found.";
             var ents = _mapSystem.GetAnchoredEntities(gridId, grid, tile).ToList();
             if (ents.Count == 0)
@@ -324,8 +324,8 @@ namespace Content.Server.Power.EntitySystems
 
         public string TestCableConnection(EntityUid cableAUid, EntityUid cableBUid)
         {
-            if (!EntityManager.TryGetComponent<NodeContainerComponent>(cableAUid, out var nodeA) ||
-                !EntityManager.TryGetComponent<NodeContainerComponent>(cableBUid, out var nodeB))
+            if (!TryComp<NodeContainerComponent>(cableAUid, out var nodeA) ||
+                !TryComp<NodeContainerComponent>(cableBUid, out var nodeB))
                 return "One or both entities are not cables.";
             CableNode? cableA = nodeA.Nodes.Values.OfType<CableNode>().FirstOrDefault();
             CableNode? cableB = nodeB.Nodes.Values.OfType<CableNode>().FirstOrDefault();
@@ -349,28 +349,28 @@ namespace Content.Server.Power.EntitySystems
                 var anchoredB = new HashSet<EntityUid>(cablesB.Select(p => p.Owner));
 
                 foreach (var cableA in cablesA)
-                foreach (var cableB in cablesB)
-                {
-                    if (!anchoredA.Contains(cableA.Owner) || !anchoredB.Contains(cableB.Owner) ||
-                        !EntityManager.GetComponent<TransformComponent>(cableA.Owner).Anchored ||
-                        !EntityManager.GetComponent<TransformComponent>(cableB.Owner).Anchored) continue;
-                    var reachableA = cableA.GetAlwaysReachable();
-                    var reachableB = cableB.GetAlwaysReachable();
-                    if (reachableA != null && reachableA.Contains(cableB))
-                        cableA.RemoveAlwaysReachable(cableB);
-                    if (reachableB != null && reachableB.Contains(cableA))
-                        cableB.RemoveAlwaysReachable(cableA);
-                }
-                foreach (var cableA in cablesA)
-                foreach (var cableB in cablesB)
-                    if (anchoredA.Contains(cableA.Owner) && anchoredB.Contains(cableB.Owner) &&
-                        EntityManager.GetComponent<TransformComponent>(cableA.Owner).Anchored &&
-                        EntityManager.GetComponent<TransformComponent>(cableB.Owner).Anchored &&
-                        CanConnect(cableA, cableB))
+                    foreach (var cableB in cablesB)
                     {
-                        cableA.AddAlwaysReachable(cableB);
-                        cableB.AddAlwaysReachable(cableA);
+                        if (!anchoredA.Contains(cableA.Owner) || !anchoredB.Contains(cableB.Owner) ||
+                            !Comp<TransformComponent>(cableA.Owner).Anchored ||
+                            !Comp<TransformComponent>(cableB.Owner).Anchored) continue;
+                        var reachableA = cableA.GetAlwaysReachable();
+                        var reachableB = cableB.GetAlwaysReachable();
+                        if (reachableA != null && reachableA.Contains(cableB))
+                            cableA.RemoveAlwaysReachable(cableB);
+                        if (reachableB != null && reachableB.Contains(cableA))
+                            cableB.RemoveAlwaysReachable(cableA);
                     }
+                foreach (var cableA in cablesA)
+                    foreach (var cableB in cablesB)
+                        if (anchoredA.Contains(cableA.Owner) && anchoredB.Contains(cableB.Owner) &&
+                            Comp<TransformComponent>(cableA.Owner).Anchored &&
+                            Comp<TransformComponent>(cableB.Owner).Anchored &&
+                            CanConnect(cableA, cableB))
+                        {
+                            cableA.AddAlwaysReachable(cableB);
+                            cableB.AddAlwaysReachable(cableA);
+                        }
             }
         }
 

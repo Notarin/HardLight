@@ -91,7 +91,7 @@ public sealed class AlignRPDAtmosPipeLayers : PlacementMode
         // Draw guide circles for each pipe layer if we are not in line/grid placing mode
         // Disabled the RPD mode
         // if (rcd.CurrentMode == RpdMode.Free && pManager.PlacementType == PlacementTypes.None )
-        if (pManager.PlacementType == PlacementTypes.None )
+        if (pManager.PlacementType == PlacementTypes.None)
         {
             var gridRotation = _transformSystem.GetWorldRotation(gridUid.Value);
             var worldPosition = _mapSystem.LocalToWorld(gridUid.Value, grid, MouseCoords.Position);
@@ -168,7 +168,7 @@ public sealed class AlignRPDAtmosPipeLayers : PlacementMode
         //         break;
         //
         //     case RpdMode.Free:
-                // Only in Free mode do we use mouse direction
+        // Only in Free mode do we use mouse direction
         if (mouseCoordsDiff.Length() > MouseDeadzoneRadius)
         {
             var gridRotation = _transformSystem.GetWorldRotation(gridId.Value);
@@ -179,7 +179,7 @@ public sealed class AlignRPDAtmosPipeLayers : PlacementMode
                 ? AtmosPipeLayer.Secondary
                 : AtmosPipeLayer.Tertiary;
         }
-                // break;
+        // break;
         // }
 
         // Update layer if changed
@@ -200,7 +200,7 @@ public sealed class AlignRPDAtmosPipeLayers : PlacementMode
     {
         if (_currentEyeRotation != eyeRotation.Theta)
         {
-            _currentEyeRotation = (float) eyeRotation.Theta;
+            _currentEyeRotation = (float)eyeRotation.Theta;
             _entityNetwork.SendSystemNetworkMessage(new RPDEyeRotationEvent(_entityManager.GetNetEntity(heldEntity), _currentEyeRotation));
         }
     }

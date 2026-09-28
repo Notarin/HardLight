@@ -1,4 +1,4 @@
-﻿namespace Content.Server.Explosion.Components;
+namespace Content.Server.Explosion.Components;
 
 /// <summary>
 /// This is used for entities that want the more generic 'trigger' behavior after a step trigger occurs.

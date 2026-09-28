@@ -1,4 +1,4 @@
-﻿using Content.Shared.Examine;
+using Content.Shared.Examine;
 using Content.Shared.Eye.Blinding.Components;
 using Content.Shared.Eye.Blinding.Systems;
 using Content.Shared.IdentityManagement;
@@ -42,7 +42,7 @@ public sealed class PermanentBlindnessSystem : EntitySystem
 
     private void OnMapInit(Entity<PermanentBlindnessComponent> blindness, ref MapInitEvent args)
     {
-        if(!TryComp<BlindableComponent>(blindness.Owner, out var blindable))
+        if (!TryComp<BlindableComponent>(blindness.Owner, out var blindable))
             return;
 
         blindable.GlassesFixable = blindness.Comp.GlassesFixable; // starlight
@@ -51,7 +51,7 @@ public sealed class PermanentBlindnessSystem : EntitySystem
             _blinding.SetMinDamage((blindness.Owner, blindable), blindness.Comp.Blindness);
         else
         {
-            var maxMagnitudeInt = (int) BlurryVisionComponent.MaxMagnitude;
+            var maxMagnitudeInt = (int)BlurryVisionComponent.MaxMagnitude;
             _blinding.SetMinDamage((blindness.Owner, blindable), maxMagnitudeInt);
         }
     }

@@ -45,11 +45,11 @@ namespace Content.Server.Roboisseur.Roboisseur
             int rewardToDispense = r.Next(100, 350) + 5000 * tier;
 
             _material.SpawnMultipleFromMaterial(rewardToDispense, "Credit", Transform(uid).Coordinates);
-            if(tier > 1)
+            if (tier > 1)
             {
                 while (tier != 0)
                 {
-                    EntityManager.SpawnEntity(_random.Pick(component.RobossuierRewards), Transform(uid).Coordinates);
+                    Spawn(_random.Pick(component.RobossuierRewards), Transform(uid).Coordinates);
                     tier--;
                 }
             }
@@ -89,7 +89,7 @@ namespace Content.Server.Roboisseur.Roboisseur
             }
 
             component.Impatient = false;
-            EntityManager.QueueDeleteEntity(args.Used);
+            QueueDel(args.Used);
 
             int tier = CheckTier(component.DesiredPrototype.ID, component);
 

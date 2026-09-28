@@ -91,7 +91,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
 
     private void OnPowerMonitoringConsoleMessage(EntityUid uid, PowerMonitoringConsoleComponent component, PowerMonitoringConsoleMessage args)
     {
-        var focus = EntityManager.GetEntity(args.FocusDevice);
+        var focus = GetEntity(args.FocusDevice);
         var group = args.FocusGroup;
 
         // Update this if the focus device has changed
@@ -183,10 +183,10 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
         var flag = GetFlag(relative);
 
         if (args.Anchored)
-            chunk.PowerCableData[(int) component.CableType] |= flag;
+            chunk.PowerCableData[(int)component.CableType] |= flag;
 
         else
-            chunk.PowerCableData[(int) component.CableType] &= ~flag;
+            chunk.PowerCableData[(int)component.CableType] &= ~flag;
 
         var query = AllEntityQuery<PowerMonitoringCableNetworksComponent, TransformComponent>();
         while (query.MoveNext(out var ent, out var entCableNetworks, out var entXform))
@@ -218,17 +218,17 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
 
             if (!args.Anchored)
             {
-                entConsole.PowerMonitoringDeviceMetaData.Remove(EntityManager.GetNetEntity(uid));
+                entConsole.PowerMonitoringDeviceMetaData.Remove(GetNetEntity(uid));
                 Dirty(ent, entConsole);
 
                 continue;
             }
 
             var name = MetaData(uid).EntityName;
-            var coords = EntityManager.GetNetCoordinates(xform.Coordinates);
+            var coords = GetNetCoordinates(xform.Coordinates);
 
             var metaData = new PowerMonitoringDeviceMetaData(name, coords, component.Group, component.SpritePath, component.SpriteState);
-            entConsole.PowerMonitoringDeviceMetaData.TryAdd(EntityManager.GetNetEntity(uid), metaData);
+            entConsole.PowerMonitoringDeviceMetaData.TryAdd(GetNetEntity(uid), metaData);
 
             Dirty(ent, entConsole);
         }
@@ -374,7 +374,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
                 continue;
 
             // Generate a new console entry with which to populate the UI
-            var entry = new PowerMonitoringConsoleEntry(EntityManager.GetNetEntity(ent), device.Group, powerStats.PowerValue, powerStats.BatteryLevel);
+            var entry = new PowerMonitoringConsoleEntry(GetNetEntity(ent), device.Group, powerStats.PowerValue, powerStats.BatteryLevel);
             allEntries.Add(entry);
         }
 
@@ -565,7 +565,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
                     continue;
                 }
 
-                indexedSources.Add(ent, new PowerMonitoringConsoleEntry(EntityManager.GetNetEntity(ent), entDevice.Group, powerSupplier.CurrentSupply, GetBatteryLevel(ent)));
+                indexedSources.Add(ent, new PowerMonitoringConsoleEntry(GetNetEntity(ent), entDevice.Group, powerSupplier.CurrentSupply, GetBatteryLevel(ent)));
             }
         }
 
@@ -601,7 +601,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
                     continue;
                 }
 
-                indexedSources.Add(ent, new PowerMonitoringConsoleEntry(EntityManager.GetNetEntity(ent), entDevice.Group, entBattery.CurrentSupply, GetBatteryLevel(ent)));
+                indexedSources.Add(ent, new PowerMonitoringConsoleEntry(GetNetEntity(ent), entDevice.Group, entBattery.CurrentSupply, GetBatteryLevel(ent)));
             }
         }
 
@@ -668,7 +668,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
         var indexedLoads = new Dictionary<EntityUid, PowerMonitoringConsoleEntry>();
         var currentDemand = 0f;
 
-        #pragma warning disable CS0618
+#pragma warning disable CS0618
         foreach (var powerConsumer in netQ.Consumers)
         {
             var ent = powerConsumer.Owner;
@@ -692,12 +692,12 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
                     continue;
                 }
 
-                indexedLoads.Add(ent, new PowerMonitoringConsoleEntry(EntityManager.GetNetEntity(ent), entDevice.Group, powerConsumer.ReceivedPower, GetBatteryLevel(ent)));
+                indexedLoads.Add(ent, new PowerMonitoringConsoleEntry(GetNetEntity(ent), entDevice.Group, powerConsumer.ReceivedPower, GetBatteryLevel(ent)));
             }
         }
-        #pragma warning restore CS0618
+#pragma warning restore CS0618
 
-        #pragma warning disable CS0618
+#pragma warning disable CS0618
         foreach (var batteryCharger in netQ.Chargers)
         {
             var ent = batteryCharger.Owner;
@@ -724,10 +724,10 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
                     continue;
                 }
 
-                indexedLoads.Add(ent, new PowerMonitoringConsoleEntry(EntityManager.GetNetEntity(ent), entDevice.Group, battery.CurrentReceiving, GetBatteryLevel(ent)));
+                indexedLoads.Add(ent, new PowerMonitoringConsoleEntry(GetNetEntity(ent), entDevice.Group, battery.CurrentReceiving, GetBatteryLevel(ent)));
             }
         }
-        #pragma warning restore CS0618
+#pragma warning restore CS0618
 
         loads = indexedLoads.Values.ToList();
 
@@ -867,7 +867,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
         if (!TryComp<TransformComponent>(child, out var xform))
             return;
 
-        var netEntity = EntityManager.GetNetEntity(child);
+        var netEntity = GetNetEntity(child);
 
         var query = AllEntityQuery<PowerMonitoringConsoleComponent, TransformComponent>();
         while (query.MoveNext(out var ent, out var entConsole, out var entXform))
@@ -878,7 +878,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
             if (!entConsole.PowerMonitoringDeviceMetaData.TryGetValue(netEntity, out var metaData))
                 continue;
 
-            metaData.CollectionMaster = EntityManager.GetNetEntity(master);
+            metaData.CollectionMaster = GetNetEntity(master);
             entConsole.PowerMonitoringDeviceMetaData[netEntity] = metaData;
 
             Dirty(ent, entConsole);
@@ -890,7 +890,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
         if (!TryComp<TransformComponent>(master, out var xform))
             return;
 
-        var netEntity = EntityManager.GetNetEntity(master);
+        var netEntity = GetNetEntity(master);
 
         var query = AllEntityQuery<PowerMonitoringConsoleComponent, TransformComponent>();
         while (query.MoveNext(out var ent, out var entConsole, out var entXform))
@@ -948,7 +948,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
             var relative = SharedMapSystem.GetChunkRelative(tile.GridIndices, ChunkSize);
             var flag = GetFlag(relative);
 
-            chunk.PowerCableData[(int) cable.CableType] |= flag;
+            chunk.PowerCableData[(int)cable.CableType] |= flag;
         }
 
         return allChunks;
@@ -975,7 +975,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
             var flag = GetFlag(relative);
 
             if (TryComp<CableComponent>(ent, out var cable))
-                chunk.PowerCableData[(int) cable.CableType] |= flag;
+                chunk.PowerCableData[(int)cable.CableType] |= flag;
         }
 
         Dirty(uid, component);
@@ -1001,9 +1001,9 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
             if (grid != entXform.GridUid)
                 continue;
 
-            var netEntity = EntityManager.GetNetEntity(ent);
+            var netEntity = GetNetEntity(ent);
             var name = MetaData(ent).EntityName;
-            var netCoords = EntityManager.GetNetCoordinates(entXform.Coordinates);
+            var netCoords = GetNetCoordinates(entXform.Coordinates);
 
             var metaData = new PowerMonitoringDeviceMetaData(name, netCoords, entDevice.Group, entDevice.SpritePath, entDevice.SpriteState);
 
@@ -1011,7 +1011,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
             {
                 if (!entDevice.IsCollectionMaster)
                 {
-                    metaData.CollectionMaster = EntityManager.GetNetEntity(entDevice.CollectionMaster);
+                    metaData.CollectionMaster = GetNetEntity(entDevice.CollectionMaster);
                 }
 
                 else if (entDevice.ChildDevices.Count > 0)

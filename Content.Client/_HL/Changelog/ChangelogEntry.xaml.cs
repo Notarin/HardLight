@@ -22,12 +22,12 @@ public sealed partial class ChangelogEntry : Control
         IoCManager.InjectDependencies(this);
 
         var msg = new FormattedMessage();
-        
+
         // Bullet
         msg.PushColor(Color.FromHex("#aaaaaa"));
         msg.AddText("• ");
         msg.Pop();
-        
+
         // Message
         msg.AddText(change.Message);
         EntryLabel.SetMessage(msg);

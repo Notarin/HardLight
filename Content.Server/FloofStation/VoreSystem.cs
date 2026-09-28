@@ -164,7 +164,7 @@ public sealed class VoreSystem : EntitySystem
             {
                 Text = Loc.GetString("vore-devour"),
                 Category = VoreVerbCategory.VoreGeneral,
-            Act = () => TryVore(user, target)
+                Act = () => TryVore(user, target)
             });
         }
 

@@ -178,7 +178,7 @@ public sealed partial class ShuttleRecordsSystem : SharedShuttleRecordsSystem
             return false;
         }
 
-        if (!EntityManager.EntityExists(service) || Terminating(service))
+        if (!Exists(service) || Terminating(service))
         {
             component = null;
             return false;

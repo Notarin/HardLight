@@ -49,7 +49,7 @@ public sealed partial class SynthBatteryPowerSystem : EntitySystem
             if (mobState.CurrentState == MobState.Dead)
                 continue;
 
-            UpdatePower((uid, synthBattery, mobState), (float) UpdateRate.TotalSeconds);
+            UpdatePower((uid, synthBattery, mobState), (float)UpdateRate.TotalSeconds);
         }
     }
 

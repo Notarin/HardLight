@@ -23,7 +23,8 @@ public sealed partial class Ignite : EntityEffect
         if (args is EntityEffectReagentArgs reagentArgs)
         {
             flamSys.Ignite(reagentArgs.TargetEntity, reagentArgs.OrganEntity ?? reagentArgs.TargetEntity);
-        } else
+        }
+        else
         {
             flamSys.Ignite(args.TargetEntity, args.TargetEntity);
         }

@@ -20,7 +20,7 @@ public sealed class RequireProjectileTargetSystem : EntitySystem
     private void PreventCollide(Entity<RequireProjectileTargetComponent> ent, ref PreventCollideEvent args)
     {
         if (args.Cancelled)
-          return;
+            return;
 
         if (!ent.Comp.Active)
             return;
@@ -28,7 +28,7 @@ public sealed class RequireProjectileTargetSystem : EntitySystem
         var other = args.OtherEntity;
         if (TryComp(other, out ProjectileComponent? projectile) &&
             (CompOrNull<TargetedProjectileComponent>(other) is not { } targeted
-             || EntityManager.GetEntity(targeted.Target) != ent.Owner))
+             || GetEntity(targeted.Target) != ent.Owner))
         {
             // Prevents shooting out of while inside of crates
             var shooter = projectile.Shooter;
@@ -41,7 +41,7 @@ public sealed class RequireProjectileTargetSystem : EntitySystem
                 return;
 
             if (!_container.IsEntityOrParentInContainer(shooter.Value))
-               args.Cancelled = true;
+                args.Cancelled = true;
         }
     }
 

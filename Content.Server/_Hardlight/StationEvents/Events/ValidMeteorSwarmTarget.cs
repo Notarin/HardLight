@@ -1,4 +1,4 @@
-﻿using Content.Server.StationEvents.Events;
+using Content.Server.StationEvents.Events;
 
 namespace Content.Server._Hardlight.StationEvents.Events;
 

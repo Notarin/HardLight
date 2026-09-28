@@ -200,7 +200,7 @@ public sealed class SuitSensorSystem : EntitySystem
         }
 
         if (component.UpdateRate > TimeSpan.Zero)
-            component.NextUpdate = _gameTiming.CurTime + TimeSpan.FromSeconds(_random.NextFloat((float) component.UpdateRate.TotalSeconds));
+            component.NextUpdate = _gameTiming.CurTime + TimeSpan.FromSeconds(_random.NextFloat((float)component.UpdateRate.TotalSeconds));
     }
 
     private void OnEquipped(EntityUid uid, SuitSensorComponent component, ref ClothingGotEquippedEvent args)
@@ -315,7 +315,7 @@ public sealed class SuitSensorSystem : EntitySystem
         {
             Text = GetModeName(mode),
             Disabled = component.Mode == mode,
-            Priority = -(int) mode, // sort them in descending order
+            Priority = -(int)mode, // sort them in descending order
             Category = VerbCategory.SetSensor,
             Act = () => TrySetSensor((uid, component), mode, userUid)
         };
@@ -391,7 +391,7 @@ public sealed class SuitSensorSystem : EntitySystem
     /// <summary>
     ///     Set all suit sensors on the equipment someone is wearing to the specified mode.
     /// </summary>
-    public void SetAllSensors(EntityUid target, SuitSensorMode mode, SlotFlags slots = SlotFlags.All )
+    public void SetAllSensors(EntityUid target, SuitSensorMode mode, SlotFlags slots = SlotFlags.All)
     {
         // iterate over all inventory slots
         var slotEnumerator = _inventory.GetSlotEnumerator(target, slots);
@@ -437,7 +437,7 @@ public sealed class SuitSensorSystem : EntitySystem
 
         // get health mob state
         var isAlive = false;
-        if (EntityManager.TryGetComponent(sensor.User.Value, out MobStateComponent? mobState))
+        if (TryComp(sensor.User.Value, out MobStateComponent? mobState))
             isAlive = !_mobStateSystem.IsDead(sensor.User.Value, mobState);
 
         // Coyote: Don't show SSD people on suit sensors.

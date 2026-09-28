@@ -1,11 +1,6 @@
-using Content.Server.Body.Systems;
-using Content.Server.Explosion.EntitySystems;
 using Content.Server.Popups;
 using Content.Shared.Actions;
-using Content.Shared.Coordinates;
-using Content.Shared.Gibbing.Systems;
 using Content.Shared.Hands.EntitySystems;
-using Content.Shared.Inventory;
 using Robust.Server.Audio;
 using Robust.Shared.Audio;
 using Robust.Shared.Prototypes;
@@ -67,7 +62,7 @@ namespace Content.Shared.Cybernetics
             if (!comp.Equipment.TryGetValue(proto.Id, out var item))
             {
                 item = Spawn(proto, Transform(uid).Coordinates);
-                if (!_hands.TryForcePickupAnyHand(uid, (EntityUid) item))
+                if (!_hands.TryForcePickupAnyHand(uid, (EntityUid)item))
                 {
                     _popup.PopupEntity(Loc.GetString("changeling-fail-hands"), uid, uid);
                     QueueDel(item);

@@ -19,7 +19,7 @@ public sealed partial class ChangeBloodReagent : EntityEffect
         {
             var sys = args.EntityManager.System<BloodstreamSystem>();
             sys.ChangeBloodReagent(args.TargetEntity, bloodReagent, bloodstream);
-            
+
             // Add or increment blood modification tracker
             var tracker = args.EntityManager.EnsureComponent<BloodModificationTrackerComponent>(args.TargetEntity);
             tracker.ActiveEffects++;

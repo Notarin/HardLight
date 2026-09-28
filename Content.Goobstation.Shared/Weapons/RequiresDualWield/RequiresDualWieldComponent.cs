@@ -15,7 +15,7 @@ public sealed partial class RequiresDualWieldComponent : Component
     public TimeSpan PopupCooldown = TimeSpan.FromSeconds(1);
 
     [DataField]
-    public LocId? WieldRequiresExamineMessage  = "gun-requires-dual-wield-component-examine";
+    public LocId? WieldRequiresExamineMessage = "gun-requires-dual-wield-component-examine";
 
     [DataField]
     public EntityWhitelist? Whitelist;

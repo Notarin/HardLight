@@ -67,7 +67,7 @@ public sealed class TurbineBoundUserInterface : BoundUserInterface
             return;
 
         if (!_entityManager.TryGetComponent<TurbineComponent>(Owner, out var comp))
-            if(!TryGetTurbineComp(Owner, out comp))
+            if (!TryGetTurbineComp(Owner, out comp))
                 return;
 
         foreach (var replayMsg in _pred!.MessagesToReplay())

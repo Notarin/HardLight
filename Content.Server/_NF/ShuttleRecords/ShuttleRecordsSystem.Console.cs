@@ -65,7 +65,7 @@ public sealed partial class ShuttleRecordsSystem
             }
         }
 
-        if (EntityManager.TryGetComponent(targetIdEntity, out ShuttleDeedComponent? shuttleDeed))
+        if (TryComp(targetIdEntity, out ShuttleDeedComponent? shuttleDeed))
             targetIdVesselName = shuttleDeed.ShuttleName + " " + shuttleDeed.ShuttleNameSuffix;
 
         var newState = new ShuttleRecordsConsoleInterfaceState(
@@ -114,7 +114,7 @@ public sealed partial class ShuttleRecordsSystem
                 }
             }
 
-            if (EntityManager.TryGetComponent(targetIdEntity, out ShuttleDeedComponent? shuttleDeed))
+            if (TryComp(targetIdEntity, out ShuttleDeedComponent? shuttleDeed))
                 targetIdVesselName = shuttleDeed.ShuttleName + " " + shuttleDeed.ShuttleNameSuffix;
 
             var newState = new ShuttleRecordsConsoleInterfaceState(
@@ -133,11 +133,11 @@ public sealed partial class ShuttleRecordsSystem
         }
     }
 
-        private List<DockedGridEntry> GetDockedGridsForConsole(EntityUid consoleUid)
-        {
-            var list = new List<DockedGridEntry>();
-            if (!TryComp(consoleUid, out TransformComponent? xform) || xform.GridUid is not { } consoleGrid)
-                return list;
+    private List<DockedGridEntry> GetDockedGridsForConsole(EntityUid consoleUid)
+    {
+        var list = new List<DockedGridEntry>();
+        if (!TryComp(consoleUid, out TransformComponent? xform) || xform.GridUid is not { } consoleGrid)
+            return list;
 
         var xformQuery = GetEntityQuery<TransformComponent>();
         var dockQuery = GetEntityQuery<Content.Server.Shuttles.Components.DockingComponent>();
@@ -157,7 +157,7 @@ public sealed partial class ShuttleRecordsSystem
             var otherGrid = otherDockXform.GridUid.Value;
             if (otherGrid == consoleGrid || !seen.Add(otherGrid))
                 continue;
-            list.Add(new DockedGridEntry(EntityManager.GetNetEntity(otherGrid), Name(otherGrid)));
+            list.Add(new DockedGridEntry(GetNetEntity(otherGrid), Name(otherGrid)));
         }
         return list;
     }
@@ -206,7 +206,7 @@ public sealed partial class ShuttleRecordsSystem
         // Assign deed to ID
         EnsureComp<ShuttleDeedComponent>(targetId, out var deed);
         var name = Name(gridXform.GridUid.Value);
-        deed.ShuttleUid = EntityManager.GetNetEntity(gridXform.GridUid.Value);
+        deed.ShuttleUid = GetNetEntity(gridXform.GridUid.Value);
         deed.ShuttleName = name;
         deed.ShuttleOwner = Name(actor);
         deed.ShuttleNameSuffix = null;
@@ -215,7 +215,7 @@ public sealed partial class ShuttleRecordsSystem
 
         // Also ensure grid has deed component mirroring
         EnsureComp<ShuttleDeedComponent>(gridXform.GridUid.Value, out var gridDeed);
-        gridDeed.ShuttleUid = EntityManager.GetNetEntity(gridXform.GridUid.Value);
+        gridDeed.ShuttleUid = GetNetEntity(gridXform.GridUid.Value);
         gridDeed.ShuttleName = name;
         gridDeed.ShuttleOwner = Name(actor);
         gridDeed.ShuttleNameSuffix = null;

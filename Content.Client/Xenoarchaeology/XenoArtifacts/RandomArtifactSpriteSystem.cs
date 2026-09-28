@@ -1,4 +1,4 @@
-﻿using Content.Shared.Xenoarchaeology.XenoArtifacts;
+using Content.Shared.Xenoarchaeology.XenoArtifacts;
 using Robust.Client.GameObjects;
 
 namespace Content.Client.Xenoarchaeology.XenoArtifacts;

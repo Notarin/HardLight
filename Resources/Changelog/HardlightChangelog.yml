@@ -3190,3 +3190,138 @@
   Summary: |
     This is officially the very first release with our new versioning system!
     o7!
+0.2.1:
+  tweak:
+  - message: Savebanned Command and Syndicate comms encryption keys.
+    author: Notarin Steele
+    hash: d2d5894712e6fcc081abdb9a000e118f84ee70f9
+  - message: Savebanned Intellicards.
+    author: Notarin Steele
+    hash: d2d5894712e6fcc081abdb9a000e118f84ee70f9
+  - message: Savebanned the ESAR-550.
+    author: Notarin Steele
+    hash: d2d5894712e6fcc081abdb9a000e118f84ee70f9
+  - message: "Department Cargo Request Consoles are now linked to a telepad by default on: Amber, Box, Bagel, Convex, Core, Elkridge and Fland."
+    author: ArtyTheBoog
+    hash: 66b77da86a4515102bc444b7408af7f9032df09d
+  - message: >-
+      Cyborgs rendered chat icon now prefer to use their ID card's title and icon,
+      falling back to the default "Cyborg" if they don't have one.
+    author: Slatebreaker
+    hash: 4f85f8bb380043a38491decadf2417516e5f7d5c
+  - message: >-
+      Made foods from nutrient paste dispenser lowercase, consistent with all other
+      food.
+    author: drunk_experiter
+    hash: c7b57186f3633958fe01f78642ef335268e24a84
+  - message: "Updated sprites for chem items: Pill canister, Pills, Jugs, Droppers, Bottles, Beakers, and the mixer."
+    author: Vanilla1040
+    hash: 7c7e89c30af2fcd58667d573e0df2cf004195127
+  - message: "Updated sprites for hardsuits: Atmos, engineering, CE, CMO, RD, spationaut, mining/salv, syndicate, blood-red, blood-red medic, syndicate elite, syndicate commander, captain, wizard, and deathsquad."
+    author: Vanilla1040
+    hash: 7c7e89c30af2fcd58667d573e0df2cf004195127
+  - message: "Updated sprites for ores: bananium, coal, diamond, gold, iron, plasma, salt, silver, spacequartz, and uranium."
+    author: Vanilla1040
+    hash: 7c7e89c30af2fcd58667d573e0df2cf004195127
+  - message: "Updated sprites for ingots: adamantine, copper, gold, hydrogen, iron, plutonium, and silver."
+    author: Vanilla1040
+    hash: 7c7e89c30af2fcd58667d573e0df2cf004195127
+  - message: "Updated sprites for materials: brass, plasteel, plastitanium, steel, titanium, glass and its variants, bluespace crystal, and telespace crystal."
+    author: Vanilla1040
+    hash: 7c7e89c30af2fcd58667d573e0df2cf004195127
+  - message: Made lawyer unable to roll antag.
+    author: Antelino
+    hash: 754f5bd96ca80eba1c2e792f0ee990cfe6b7dbcd
+  - message: Changed the lawyer to spawn mindshielded.
+    author: Antelino
+    hash: abe097c32acca82bea9a4961e68bda442ea587f3
+  - message: Made Suspicious Protogen plushie available from plushie crate.
+    author: Vanilla1040
+    hash: 59a71aa78b58318feed3032c9319696cdd596577
+  - message: Made Raku Iridas plushie available from plushie crate.
+    author: Nia Aranea
+    hash: c43c9c2d4347ec65a59add0671882f69dbcd3cb5
+  - message: Made Deep Blue Avali plushie available from scientist locker.
+    author: Nia Aranea
+    hash: 830d9a1f26e2c8235478f41516417d3ca4c51d5e
+  - message: Made Eeka Tin plushie available from plushie crate.
+    author: Nia Aranea
+    hash: f88061078ae72b073b950f8d7d413de89622c008
+  - message: Made Kusa plushie available from plushie crate.
+    author: Nia Aranea
+    hash: dd6c768a438deeaf107d87801d02c199797e5a2d
+  fix:
+  - message: Improved performance by a small margin.
+    author: Notarin Steele
+    hash: bf1cfb35e73f0f6e39d52061e545adf1e0ea438a
+  - message: Fixed missing eighth variant prisoner icon missing.
+    author: Slatebreaker
+    hash: f6afc9d26152dcae1372752c90a5b8dcb051ec27
+  - message: Made those with a prisoner ID show the right prisoner icon.
+    author: Slatebreaker
+    hash: f6afc9d26152dcae1372752c90a5b8dcb051ec27
+  - message: Fixed borgs drawing a power debt while shunted out.
+    author: Alphonse de V
+    hash: a19ecbe0a731cb7835e7a1d318f23a220b50a892
+  - message: Fixed patreon characters replenishing the wrong bloodtype.
+    author: Cheep
+    hash: bcc6251db07622b79773910158172eadf3c772f1
+  add:
+  - message: Added numbered prisoner IDs.
+    author: Slatebreaker
+    hash: f6afc9d26152dcae1372752c90a5b8dcb051ec27
+  - message: Added a new shadekin short hair marking.
+    author: Aphast
+    hash: ce70eeded06bc44deb3768f1650ffab4a26b4515
+  - message: Added a new big two-toned tail marking.
+    author: Aphast
+    hash: ce70eeded06bc44deb3768f1650ffab4a26b4515
+  - message: Added a new two toned default ears marking.
+    author: Aphast
+    hash: ce70eeded06bc44deb3768f1650ffab4a26b4515
+  - message: Added a new generic neckfluff/mane marking.
+    author: Aphast
+    hash: ce70eeded06bc44deb3768f1650ffab4a26b4515
+  - message: Added a new alternate version of a previous fae fox marking.
+    author: Aphast
+    hash: ce70eeded06bc44deb3768f1650ffab4a26b4515
+  - message: Added the ability to saveban seeds by the reagents or gasses they produce.
+    author: Notarin Steele
+    hash: e71363a56fd88f2c7a6618f0bd9f94568bbfff17
+  - message: Added CaptainComedy's new CC job icons.
+    author: Slatebreaker
+    hash: 0018375a5fa6e18b3a84cdc7c84deb334fae546c
+  - message: Add patron character Faery
+    author: Cheep
+    hash: f998155cde1b72a8c00a7b2264b35dc49c24b5ca
+  - message: Add Suspicious Protogen plushie as a patreon reward.
+    author: Vanilla1040
+    hash: 59a71aa78b58318feed3032c9319696cdd596577
+  - message: Add Does-The-Paperwork CCO variant plushie as a patreon reward.
+    author: Nia Aranea
+    hash: 85350532194c26dc5fa3b47ae9ffcff81a9e5207
+  - message: Add Raku Iridas plushie as a patreon reward.
+    author: Nia Aranea
+    hash: c43c9c2d4347ec65a59add0671882f69dbcd3cb5
+  - message: Add Deep Blue Avali plushie as a patreon reward.
+    author: Nia Aranea
+    hash: 830d9a1f26e2c8235478f41516417d3ca4c51d5e
+  - message: Add Cheep, Servicewing Pack plushie as a patreon reward.
+    author: Nia Aranea
+    hash: 3e59e33e32a96b00e0bbcbbb1809e98ece303541
+  - message: Add Eeka Tin plushie as a patreon reward.
+    author: Nia Aranea
+    hash: f88061078ae72b073b950f8d7d413de89622c008
+  - message: Add Kusa plushie as a patreon reward.
+    author: Nia Aranea
+    hash: dd6c768a438deeaf107d87801d02c199797e5a2d
+  - message: Add Does-The-Paperwork plushie as a patreon reward.
+    author: Nia Aranea
+    hash: 851864b76351106cb5e5d0bae28277ccad7e88a6
+  remove:
+  - message: Removed the rogue silicons vent horde event.
+    author: chadosmen1
+    hash: c2500987b07ba19c3a4580eeda9d56084e9fdab4
+  - message: Arachne's Spider Blades are no longer available in the chameleon menu
+    author: Notarin Steele
+    hash: 4494cd05b233273eb552e3ad74cbed6c90161300

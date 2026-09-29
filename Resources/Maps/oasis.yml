@@ -4,8 +4,8 @@ meta:
   engineVersion: 274.0.0
   forkId: ""
   forkVersion: ""
-  time: 09/26/2026 23:42:29
-  entityCount: 32552
+  time: 09/29/2026 00:48:27
+  entityCount: 32551
 maps:
 - 1
 grids:
@@ -2656,6 +2656,13 @@ entities:
             3442: 46,-19
             3443: 44,-19
             3444: 43,-19
+        - node:
+            color: '#FF9821FF'
+            id: BrickTileWhiteLineS
+          decals:
+            5183: 62,-30
+            5184: 63,-30
+            5185: 64,-30
         - node:
             color: '#FFA500FF'
             id: BrickTileWhiteLineS
@@ -9049,10 +9056,10 @@ entities:
           immutable: True
           moles: {}
         - volume: 2500
-          temperature: 293.14975
+          temperature: 293.14917
           moles:
-            Oxygen: 20.078888
-            Nitrogen: 75.53487
+            Oxygen: 16.99477
+            Nitrogen: 63.932716
         - volume: 2500
           temperature: 293.15
           moles: {}
@@ -21772,6 +21779,26 @@ entities:
         version: 2
         nodes:
         - node:
+            color: '#FF9821FF'
+            id: BrickTileWhiteCornerNe
+          decals:
+            60: 3,-1
+        - node:
+            color: '#FF9821FF'
+            id: BrickTileWhiteCornerNw
+          decals:
+            61: 1,-1
+        - node:
+            color: '#FF9821FF'
+            id: BrickTileWhiteCornerSe
+          decals:
+            58: 3,-2
+        - node:
+            color: '#FF9821FF'
+            id: BrickTileWhiteCornerSw
+          decals:
+            59: 1,-2
+        - node:
             color: '#00BFBCFF'
             id: BrickTileWhiteLineE
           decals:
@@ -21787,17 +21814,20 @@ entities:
             13: 2,7
             26: 3,3
         - node:
-            color: '#FFA500FF'
+            color: '#FF9821FF'
             id: BrickTileWhiteLineN
           decals:
-            30: 1,-1
-            31: 2,-1
-            32: 3,-1
+            62: 2,-1
         - node:
             color: '#00BFBCFF'
             id: BrickTileWhiteLineS
           decals:
             15: 2,5
+        - node:
+            color: '#FF9821FF'
+            id: BrickTileWhiteLineS
+          decals:
+            63: 2,-2
         - node:
             color: '#00BFBCFF'
             id: BrickTileWhiteLineW
@@ -21816,6 +21846,8 @@ entities:
             id: DirtHeavy
           decals:
             36: 2,5
+            64: 1,-1
+            68: 3,-2
         - node:
             color: '#FFFFFFFF'
             id: DirtHeavyMonotile
@@ -21826,7 +21858,7 @@ entities:
             color: '#FFFFFFFF'
             id: DirtHeavyMonotile
           decals:
-            37: 2,-1
+            65: 3,-1
         - node:
             color: '#FFFFFFFF'
             id: DirtLight
@@ -21838,6 +21870,7 @@ entities:
             id: DirtLight
           decals:
             33: 0,0
+            66: 1,-2
         - node:
             color: '#FFFFFFFF'
             id: DirtMedium
@@ -21849,6 +21882,8 @@ entities:
             id: DirtMedium
           decals:
             34: 4,0
+            67: 2,-2
+            69: 2,-1
         - node:
             color: '#00BFBCFF'
             id: FullTileOverlayGreyscale
@@ -25216,7 +25251,7 @@ entities:
       pos: 38.5,-9.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -261521.69
+      secondsUntilStateChange: -276592.3
       state: Opening
     - type: DeviceLinkSource
       lastSignals:
@@ -26700,7 +26735,7 @@ entities:
       pos: 5.5,0.5
       parent: 32239
     - type: Door
-      secondsUntilStateChange: -19968.617
+      secondsUntilStateChange: -35039.242
       state: Opening
     - type: DeviceLinkSource
       lastSignals:
@@ -26976,7 +27011,7 @@ entities:
       pos: 31.5,-1.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -147857.33
+      secondsUntilStateChange: -162927.97
       state: Opening
     - type: DeviceLinkSource
       lastSignals:
@@ -27251,7 +27286,7 @@ entities:
       pos: -5.5,69.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -39194.137
+      secondsUntilStateChange: -54264.758
       state: Opening
     - type: DeviceLinkSource
       lastSignals:
@@ -27353,7 +27388,7 @@ entities:
       pos: -22.5,26.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -283573.8
+      secondsUntilStateChange: -298644.44
       state: Opening
     - type: DeviceLinkSource
       lastSignals:
@@ -27760,12 +27795,18 @@ entities:
       rot: 3.141592653589793 rad
       pos: -19.5,-1.5
       parent: 2
+    - type: AccessReader
+      access:
+      - - Service
   - uid: 531
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
       pos: -20.5,-18.5
       parent: 2
+    - type: AccessReader
+      access:
+      - - Service
     - type: Fixtures
       fixtures:
         fix1:
@@ -27806,6 +27847,9 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -4.5,-20.5
       parent: 2
+    - type: AccessReader
+      access:
+      - - Service
     - type: DoorBolt
       boltsDown: True
   - uid: 533
@@ -27814,6 +27858,9 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -8.5,-20.5
       parent: 2
+    - type: AccessReader
+      access:
+      - - Service
     - type: DoorBolt
       boltsDown: True
   - uid: 534
@@ -27821,6 +27868,9 @@ entities:
     - type: Transform
       pos: -12.5,-20.5
       parent: 2
+    - type: AccessReader
+      access:
+      - - Service
     - type: DoorBolt
       boltsDown: True
   - uid: 535
@@ -27829,6 +27879,9 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -20.5,-12.5
       parent: 2
+    - type: AccessReader
+      access:
+      - - Service
     - type: DoorBolt
       boltsDown: True
   - uid: 536
@@ -27837,6 +27890,9 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -20.5,-8.5
       parent: 2
+    - type: AccessReader
+      access:
+      - - Service
     - type: DoorBolt
       boltsDown: True
   - uid: 537
@@ -27845,6 +27901,9 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -21.5,-5.5
       parent: 2
+    - type: AccessReader
+      access:
+      - - Service
   - uid: 538
     components:
     - type: Transform
@@ -82331,6 +82390,41 @@ entities:
     - type: Transform
       pos: -17.5,-21.5
       parent: 2
+  - uid: 16970
+    components:
+    - type: Transform
+      pos: 31.5,45.5
+      parent: 2
+  - uid: 18983
+    components:
+    - type: Transform
+      pos: 33.5,45.5
+      parent: 2
+  - uid: 18984
+    components:
+    - type: Transform
+      pos: 32.5,45.5
+      parent: 2
+  - uid: 21486
+    components:
+    - type: Transform
+      pos: 31.5,45.5
+      parent: 2
+  - uid: 21487
+    components:
+    - type: Transform
+      pos: 31.5,46.5
+      parent: 2
+  - uid: 21491
+    components:
+    - type: Transform
+      pos: 29.5,46.5
+      parent: 2
+  - uid: 24398
+    components:
+    - type: Transform
+      pos: 30.5,46.5
+      parent: 2
   - uid: 28985
     components:
     - type: Transform
@@ -125383,7 +125477,7 @@ entities:
       pos: -13.5,-1.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -373726.38
+      secondsUntilStateChange: -388797
     - type: DeviceNetwork
       deviceLists:
       - 11229
@@ -174031,13 +174125,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 3.5,7.5
       parent: 32239
-- proto: GyroscopeUnanchored
-  entities:
-  - uid: 16868
-    components:
-    - type: Transform
-      pos: 28.5,46.5
-      parent: 2
 - proto: Handcuffs
   entities:
   - uid: 31046
@@ -174122,13 +174209,6 @@ entities:
       parent: 2
 - proto: HarmonicaInstrument
   entities:
-  - uid: 16875
-    components:
-    - type: Transform
-      parent: 16874
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
   - uid: 29984
     components:
     - type: Transform
@@ -174296,7 +174376,7 @@ entities:
       parent: 2
 - proto: HLLockerCaptainFilledNoLaser
   entities:
-  - uid: 17179
+  - uid: 16874
     components:
     - type: Transform
       pos: 35.5,15.5
@@ -174331,14 +174411,14 @@ entities:
           ent: null
 - proto: HLLockerChiefEngineerFilled
   entities:
-  - uid: 17180
+  - uid: 16875
     components:
     - type: Transform
-      pos: 5.7307477,40.5
+      pos: 5.679267,40.5206
       parent: 2
 - proto: HLLockerChiefMedicalOfficerFilled
   entities:
-  - uid: 17181
+  - uid: 17179
     components:
     - type: Transform
       pos: -26.5,-36.5
@@ -174490,14 +174570,14 @@ entities:
           ent: null
 - proto: HLLockerHeadOfPersonnelFilled
   entities:
-  - uid: 17204
+  - uid: 17180
     components:
     - type: Transform
       pos: 42.5,-8.5
       parent: 2
 - proto: HLLockerHeadOfSecurityFilled
   entities:
-  - uid: 17205
+  - uid: 17181
     components:
     - type: Transform
       pos: 36.5,-41.5
@@ -174581,43 +174661,43 @@ entities:
       parent: 2
 - proto: HLLockerParamedicFilled
   entities:
-  - uid: 17214
-    components:
-    - type: Transform
-      pos: -12.5,-29.5
-      parent: 2
-  - uid: 17215
+  - uid: 17204
     components:
     - type: Transform
       pos: -10.5,-29.5
       parent: 2
+  - uid: 17205
+    components:
+    - type: Transform
+      pos: -12.5,-29.5
+      parent: 2
 - proto: HLLockerQuarterMasterFilled
   entities:
-  - uid: 17216
+  - uid: 17214
     components:
     - type: Transform
       pos: -50.5,10.5
       parent: 2
 - proto: HLLockerResearchDirectorFilled
   entities:
-  - uid: 17217
+  - uid: 17215
     components:
     - type: Transform
       pos: 17.5,-31.5
       parent: 2
 - proto: HLLockerSalvageSpecialistFilled
   entities:
-  - uid: 17218
+  - uid: 17216
     components:
     - type: Transform
       pos: -52.5,-17.5
       parent: 2
-  - uid: 17219
+  - uid: 17217
     components:
     - type: Transform
       pos: -52.5,-18.5
       parent: 2
-  - uid: 17220
+  - uid: 17218
     components:
     - type: Transform
       pos: -53.5,-16.5
@@ -174651,43 +174731,35 @@ entities:
           ent: null
 - proto: HLLockerSecurityFilled
   entities:
-  - uid: 17226
-    components:
-    - type: Transform
-      pos: 32.5,-30.5
-      parent: 2
-  - uid: 17227
-    components:
-    - type: Transform
-      pos: 33.5,-30.5
-      parent: 2
-  - uid: 17228
-    components:
-    - type: Transform
-      pos: 34.5,-30.5
-      parent: 2
-  - uid: 17229
+  - uid: 17219
     components:
     - type: Transform
       pos: 35.5,-30.5
       parent: 2
-  - uid: 17230
+  - uid: 17220
     components:
     - type: Transform
-      pos: 36.5,-30.5
+      pos: 34.5,-30.5
       parent: 2
-    - type: EntityStorage
-      air:
-        volume: 200
-        immutable: False
-        temperature: 293.147
-        moles:
-          Oxygen: 1.7459903
-          Nitrogen: 6.568249
-  - uid: 17231
+  - uid: 17226
+    components:
+    - type: Transform
+      pos: 33.5,-30.5
+      parent: 2
+  - uid: 17227
+    components:
+    - type: Transform
+      pos: 32.5,-30.5
+      parent: 2
+  - uid: 17228
     components:
     - type: Transform
       pos: 31.5,-30.5
+      parent: 2
+  - uid: 17229
+    components:
+    - type: Transform
+      pos: 36.5,-30.5
       parent: 2
   - uid: 32384
     components:
@@ -174696,31 +174768,11 @@ entities:
       parent: 32239
 - proto: HLLockerWardenFilled
   entities:
-  - uid: 17232
+  - uid: 17230
     components:
     - type: Transform
       pos: 53.5,-14.5
       parent: 2
-    - type: EntityStorage
-      air:
-        volume: 200
-        immutable: False
-        temperature: 293.14673
-        moles:
-          Oxygen: 1.7459903
-          Nitrogen: 6.568249
-    - type: ContainerContainer
-      containers:
-        entity_storage: !type:Container
-          showEnts: False
-          occludes: True
-          ents:
-          - 17233
-          - 17234
-        paper_label: !type:ContainerSlot
-          showEnts: False
-          occludes: True
-          ent: null
 - proto: HLLockerWeldingSuppliesFilled
   entities:
   - uid: 17235
@@ -175060,6 +175112,13 @@ entities:
       parent: 2
 - proto: HolopadCargoAts
   entities:
+  - uid: 21490
+    components:
+    - type: Transform
+      pos: 40.5,4.5
+      parent: 2
+    - type: Label
+      currentLabel: holopad Harbor-master's office
   - uid: 32382
     components:
     - type: Transform
@@ -175116,6 +175175,13 @@ entities:
     - type: Transform
       pos: 23.5,6.5
       parent: 2
+  - uid: 31432
+    components:
+    - type: Transform
+      pos: 1.5,3.5
+      parent: 24813
+    - type: Label
+      currentLabel: holopad Prison Guard Office
 - proto: HolopadCommandCaptain
   entities:
   - uid: 16916
@@ -175181,6 +175247,15 @@ entities:
     - type: Transform
       pos: -53.5,6.5
       parent: 2
+- proto: HolopadCommandRd
+  entities:
+  - uid: 21488
+    components:
+    - type: Transform
+      pos: 38.5,4.5
+      parent: 2
+    - type: Label
+      currentLabel: holopad-Harbor Master's office
 - proto: HolopadCommandVault
   entities:
   - uid: 16925
@@ -175342,11 +175417,6 @@ entities:
       currentLabel: Perma Island
     - type: NameModifier
       baseName: long-range holopad
-  - uid: 31432
-    components:
-    - type: Transform
-      pos: 1.5,3.5
-      parent: 24813
 - proto: HolopadMedicalBreakroom
   entities:
   - uid: 16947
@@ -175512,13 +175582,6 @@ entities:
       parent: 2
 - proto: HolopadSecurityLawyer
   entities:
-  - uid: 16970
-    components:
-    - type: Transform
-      pos: 41.5,5.5
-      parent: 2
-    - type: Label
-      currentLabel: holopad-Harbor-Master-Office
   - uid: 32486
     components:
     - type: Transform
@@ -175662,7 +175725,7 @@ entities:
       pos: 36.5,-35.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -410558.16
+      secondsUntilStateChange: -425628.78
       state: Opening
   - uid: 16992
     components:
@@ -175737,7 +175800,7 @@ entities:
       pos: -21.5,-37.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -50053.066
+      secondsUntilStateChange: -65123.688
       state: Closing
   - uid: 17007
     components:
@@ -177542,14 +177605,11 @@ entities:
           ent: null
 - proto: LockerStationRepresentativeFilled
   entities:
-  - uid: 32542
+  - uid: 21489
     components:
     - type: Transform
       pos: 41.5,3.5
       parent: 2
-    - type: AccessReader
-      access:
-      - - Command
 - proto: LogicGateAnd
   entities:
   - uid: 17236
@@ -179725,6 +179785,23 @@ entities:
     - type: Physics
       canCollide: False
     - type: InsideEntityStorage
+- proto: NFWardrobePrisonFilled
+  entities:
+  - uid: 16868
+    components:
+    - type: Transform
+      pos: 52.5,-21.5
+      parent: 2
+  - uid: 17231
+    components:
+    - type: Transform
+      pos: 44.5,-21.5
+      parent: 2
+  - uid: 17234
+    components:
+    - type: Transform
+      pos: 48.5,-21.5
+      parent: 2
 - proto: NitrogenCanister
   entities:
   - uid: 17452
@@ -183610,6 +183687,13 @@ entities:
     components:
     - type: Transform
       pos: 2.5,-63.5
+      parent: 2
+- proto: PosterLegitSafetyMothBoH
+  entities:
+  - uid: 24399
+    components:
+    - type: Transform
+      pos: 2.5,-38.5
       parent: 2
 - proto: PosterLegitSafetyMothEpi
   entities:
@@ -187739,6 +187823,13 @@ entities:
           - On
         - - PowerCharging
           - Off
+- proto: PowerTransmissionPoint
+  entities:
+  - uid: 17232
+    components:
+    - type: Transform
+      pos: 29.5,46.5
+      parent: 2
 - proto: PresentRandomCash
   entities:
   - uid: 18416
@@ -188142,20 +188233,6 @@ entities:
       parent: 2
 - proto: RadioHandheldSecurity
   entities:
-  - uid: 17233
-    components:
-    - type: Transform
-      parent: 17232
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
-  - uid: 17234
-    components:
-    - type: Transform
-      parent: 17232
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
   - uid: 18468
     components:
     - type: Transform
@@ -191457,15 +191534,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -28.639782,4.573042
       parent: 2
-- proto: RecorderInstrument
-  entities:
-  - uid: 18984
-    components:
-    - type: Transform
-      parent: 18983
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
 - proto: Recycler
   entities:
   - uid: 18985
@@ -196258,6 +196326,16 @@ entities:
     - type: Transform
       pos: 25.680008,4.4264297
       parent: 24813
+- proto: Shower
+  entities:
+  - uid: 17233
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: 36.5,22.5
+      parent: 2
+    - type: Fixtures
+      fixtures: {}
 - proto: ShuttersNormal
   entities:
   - uid: 19718
@@ -203321,7 +203399,7 @@ entities:
       pos: 21.5,-9.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -149083.44
+      secondsUntilStateChange: -164154.08
       state: Opening
 - proto: SophicScribe
   entities:
@@ -211531,42 +211609,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -0.5,-1.5
       parent: 32239
-- proto: ThrusterUnanchored
-  entities:
-  - uid: 21486
-    components:
-    - type: Transform
-      rot: 3.141592653589793 rad
-      pos: 31.5,50.5
-      parent: 2
-  - uid: 21487
-    components:
-    - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: 31.5,49.5
-      parent: 2
-  - uid: 21488
-    components:
-    - type: Transform
-      pos: 31.5,48.5
-      parent: 2
-  - uid: 21489
-    components:
-    - type: Transform
-      rot: 3.141592653589793 rad
-      pos: 31.5,47.5
-      parent: 2
-  - uid: 21490
-    components:
-    - type: Transform
-      pos: 28.5,45.5
-      parent: 2
-  - uid: 21491
-    components:
-    - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: 28.5,47.5
-      parent: 2
 - proto: ToiletDirtyWater
   entities:
   - uid: 21492
@@ -232494,80 +232536,6 @@ entities:
     - type: Transform
       pos: 5.5,-68.5
       parent: 2
-- proto: WardrobePrisonFilled
-  entities:
-  - uid: 16874
-    components:
-    - type: Transform
-      pos: 48.5,-21.5
-      parent: 2
-    - type: EntityStorage
-      air:
-        volume: 200
-        immutable: False
-        temperature: 293.14673
-        moles:
-          Oxygen: 1.7459903
-          Nitrogen: 6.568249
-    - type: ContainerContainer
-      containers:
-        entity_storage: !type:Container
-          showEnts: False
-          occludes: True
-          ents:
-          - 16875
-        paper_label: !type:ContainerSlot
-          showEnts: False
-          occludes: True
-          ent: null
-  - uid: 18983
-    components:
-    - type: Transform
-      pos: 52.5,-21.5
-      parent: 2
-    - type: EntityStorage
-      air:
-        volume: 200
-        immutable: False
-        temperature: 293.14673
-        moles:
-          Oxygen: 1.7459903
-          Nitrogen: 6.568249
-    - type: ContainerContainer
-      containers:
-        entity_storage: !type:Container
-          showEnts: False
-          occludes: True
-          ents:
-          - 18984
-        paper_label: !type:ContainerSlot
-          showEnts: False
-          occludes: True
-          ent: null
-  - uid: 24398
-    components:
-    - type: Transform
-      pos: 44.5,-21.5
-      parent: 2
-    - type: EntityStorage
-      air:
-        volume: 200
-        immutable: False
-        temperature: 293.14673
-        moles:
-          Oxygen: 1.7459903
-          Nitrogen: 6.568249
-    - type: ContainerContainer
-      containers:
-        entity_storage: !type:Container
-          showEnts: False
-          occludes: True
-          ents:
-          - 24399
-        paper_label: !type:ContainerSlot
-          showEnts: False
-          occludes: True
-          ent: null
 - proto: WardrobeWhiteFilled
   entities:
   - uid: 24400
@@ -235514,13 +235482,6 @@ entities:
     - type: Physics
       canCollide: False
     - type: InsideEntityStorage
-  - uid: 24399
-    components:
-    - type: Transform
-      parent: 24398
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
   - uid: 24783
     components:
     - type: Transform
@@ -235584,7 +235545,7 @@ entities:
       pos: 24.5,2.5
       parent: 24813
     - type: Door
-      secondsUntilStateChange: -755762.9
+      secondsUntilStateChange: -770833.56
       state: Opening
 - proto: WoodenBench
   entities:

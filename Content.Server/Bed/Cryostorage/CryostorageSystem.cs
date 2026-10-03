@@ -171,6 +171,7 @@ public sealed class CryostorageSystem : SharedCryostorageSystem
         var cryostorageEnt = ent.Comp.Cryostorage;
 
         EntityUid? stationUid = _station.GetOwningStation(ent); // HardLight-edit
+        var isPlayer = TryComp<ActorComponent>(ent, out var actor) && actor != null && actor.PlayerSession != null;
         var name = Name(ent.Owner);
 
         // HardLight-edit start
@@ -240,15 +241,20 @@ public sealed class CryostorageSystem : SharedCryostorageSystem
             _stationRecords.RemoveRecord(key); // HardLight: Removed stationRecords
         }
 
-        _chatSystem.DispatchStationAnnouncement(stationUidValue, // HardLight: station.Value<stationUidValue
-            Loc.GetString(
-                "earlyleave-cryo-announcement",
-                ("character", name),
-                ("entity", ent.Owner), // gender things for supporting downstreams with other languages
-                ("job", CultureInfo.CurrentCulture.TextInfo.ToTitleCase(jobName))
-            ), Loc.GetString("earlyleave-cryo-sender"),
-            playDefaultSound: false
-        );
+        // HL START: Only popup if it's actually a player
+        if (isPlayer)
+        {
+            _chatSystem.DispatchGlobalAnnouncement(
+                Loc.GetString(
+                    "earlyleave-cryo-announcement",
+                    ("character", name),
+                    ("entity", ent.Owner), // gender things for supporting downstreams with other languages
+                    ("job", CultureInfo.CurrentCulture.TextInfo.ToTitleCase(jobName))
+                ), Loc.GetString("earlyleave-cryo-sender"),
+                playSound: false
+            );
+        }
+        // HL END
     }
 
     private void HandleCryostorageReconnection(Entity<CryostorageContainedComponent> entity)

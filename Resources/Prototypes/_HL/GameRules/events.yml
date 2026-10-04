@@ -19,6 +19,7 @@
     - id: AnomalySpawn
     - id: BluespaceArtifact
     - id: BluespaceLocker
+    - id: WhispSpawn # Scary, and not really "calm", but not an antag, so I think it fits.
     - id: BreakerFlip
     # - id: BureaucraticError
     # - id: ClericalError
@@ -205,6 +206,18 @@
     earliestStart: 1
     duration: 1
   - type: BluespaceLockerRule
+
+- type: entity
+  parent: BaseGameRule
+  id: WhispSpawn
+  components:
+  - type: StationEvent
+    weight: 1
+    duration: 5
+    earliestStart: 25
+    minimumPlayers: 60
+    reoccurrenceDelay: 60
+  - type: WhispSpawnRule
 
 - type: entity
   id: BreakerFlip

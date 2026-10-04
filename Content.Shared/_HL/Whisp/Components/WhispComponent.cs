@@ -20,6 +20,13 @@ public sealed partial class WhispComponent : Component
     public EntityUid? Target;
 
     /// <summary>
+    /// Initial distance between the whisp and the target when spawned.
+    /// Used by the client to calculate overlay progression from 0 to 1.
+    /// </summary>
+    [DataField, AutoNetworkedField]
+    public float InitialDistance = 20f;
+
+    /// <summary>
     /// Current distance in meters between the whisp and the target.
     /// Decreases every tick until reaching ReachDistance.
     /// </summary>

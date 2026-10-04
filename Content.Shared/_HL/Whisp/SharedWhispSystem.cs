@@ -115,7 +115,8 @@ public sealed class SharedWhispSystem : EntitySystem
         var whisp = Spawn(WhispPrototypeId, spawnCoords);
         var whispComp = EnsureComp<WhispComponent>(whisp);
         whispComp.Target = target;
-        whispComp.CurrentDistance = MathF.Max(0f, distance);
+        whispComp.InitialDistance = MathF.Max(0.01f, distance);
+        whispComp.CurrentDistance = whispComp.InitialDistance;
         whispComp.ClosingSpeed = MathF.Max(0.01f, speed);
         whispComp.LastDirection = direction;
         // Since we're instantiating this ourselves, we've dirtied the state, so now that we're done, call dirty.

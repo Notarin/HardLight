@@ -20,6 +20,7 @@ public sealed class WhispOverlaySystem : EntitySystem
     [Dependency] private readonly IAudioManager _audio = default!;
 
     private WhispStaticOverlay _overlay = default!;
+    private WhispTextOverlay _textOverlay = default!;
     private AudioStream? _staticStream;
     private IAudioSource? _audioSource;
 
@@ -28,9 +29,10 @@ public sealed class WhispOverlaySystem : EntitySystem
     {
         base.Initialize();
 
-        _overlay = new WhispStaticOverlay();
-
         SubscribeLocalEvent<LocalPlayerDetachedEvent>(OnPlayerDetached);
+
+        _overlay = new WhispStaticOverlay();
+        _textOverlay = new WhispTextOverlay();
     }
 
     /// <inheritdoc/>
@@ -137,6 +139,9 @@ public sealed class WhispOverlaySystem : EntitySystem
     {
         if (!_overlayMan.HasOverlay<WhispStaticOverlay>())
             _overlayMan.AddOverlay(_overlay);
+
+        if (!_overlayMan.HasOverlay<WhispTextOverlay>())
+            _overlayMan.AddOverlay(_textOverlay);
     }
 
     /// <summary>
@@ -147,12 +152,15 @@ public sealed class WhispOverlaySystem : EntitySystem
     /// </remarks>
     private void RemoveOverlay()
     {
-        if (!_overlayMan.HasOverlay<WhispStaticOverlay>())
-            return;
+        if (_overlayMan.HasOverlay<WhispStaticOverlay>())
+        {
+            // Scrubadubdub
+            _overlay.Strength = 0f;
+            _overlayMan.RemoveOverlay(_overlay);
+        }
 
-        // Scrubadubdub
-        _overlay.Strength = 0f;
-        _overlayMan.RemoveOverlay(_overlay);
+        if (_overlayMan.HasOverlay<WhispTextOverlay>())
+            _overlayMan.RemoveOverlay(_textOverlay);
     }
 
     /// <summary>

@@ -2,6 +2,8 @@ using System.Numerics;
 using Content.Shared._HL.Whisp.Components;
 using Content.Shared._HL.Whisp.Events;
 using Content.Shared.Examine;
+using Content.Shared.Standing;
+using Content.Shared.Stunnable;
 using Robust.Shared.GameStates;
 using Robust.Shared.Map;
 using Robust.Shared.Network;
@@ -24,6 +26,8 @@ public sealed class SharedWhispSystem : EntitySystem
     [Dependency] private readonly INetManager _net = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private readonly SharedStunSystem _stun = default!;
+    [Dependency] private readonly SharedLayingDownSystem _layingDown = default!;
     [Dependency] private readonly SharedPvsOverrideSystem _pvs = default!;
 
     private static readonly EntProtoId WhispPrototypeId = "MobWhisp";
@@ -287,8 +291,14 @@ public sealed class SharedWhispSystem : EntitySystem
             !(whispComp.CurrentDistance <= whispComp.ReachDistance + 0.05f) ||
             !isServer)
             return;
-        // The whisp has arrived. Fire off event and throw the whisp in the woodchipper.
-        var reachedEv = new WhispReachedTargetEvent(uid, target);
+
+        // Force player character prone on the ground
+        _layingDown.TryLieDown(target, behavior: DropHeldItemsBehavior.DropIfStanding);
+        _stun.TryKnockdown(target, TimeSpan.FromSeconds(10), true);
+
+        // The whisp has arrived. Fire off event to client and locally, then throw the whisp in the woodchipper.
+        var reachedEv = new WhispReachedTargetEvent(GetNetEntity(uid), GetNetEntity(target));
+        RaiseNetworkEvent(reachedEv, target);
         RaiseLocalEvent(target, reachedEv); // Fire the event on the target.
         QueueDel(uid);
 

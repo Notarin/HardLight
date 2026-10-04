@@ -1,0 +1,65 @@
+uniform sampler2D SCREEN_TEXTURE;
+uniform highp float progress;
+
+highp float hash11(highp float p) {
+    p = fract(p * 0.1031);
+    p *= p + 33.33;
+    p *= p + p;
+    return fract(p);
+}
+
+void fragment() {
+    highp vec2 uv = clamp(FRAGCOORD.xy * SCREEN_PIXEL_SIZE.xy, 0.0, 1.0);
+    highp vec4 curCol = zTextureSpec(SCREEN_TEXTURE, uv);
+
+    // Default: for every pixel we don't modify, spit the exact original pixel out
+    highp vec3 outRgb = curCol.rgb;
+
+    if (progress <= 0.0) {
+        COLOR = vec4(outRgb, 1.0);
+        return;
+    }
+
+    // Determine 1-pixel wide column
+    highp float colId = floor(uv.x / max(SCREEN_PIXEL_SIZE.x, 0.0005));
+    highp float colRand = hash11(colId * 17.13 + 3.71);
+    highp float colRand2 = hash11(colId * 31.41 + 11.23);
+
+    // Stagger column onset across time
+    highp float startThreshold = 0.05 + colRand * 0.35;
+    if (progress > startThreshold) {
+        // Direction: 85% drip down, 15% drip up
+        highp float dir = (colRand > 0.85) ? -1.0 : 1.0;
+
+        // Sample 1 pixel upstream
+        highp vec2 upstreamUv = clamp(uv - vec2(0.0, dir * SCREEN_PIXEL_SIZE.y), 0.0, 1.0);
+        highp vec4 upstreamCol = zTextureSpec(SCREEN_TEXTURE, upstreamUv);
+
+        highp float curLum = dot(curCol.rgb, vec3(0.299, 0.587, 0.114));
+        highp float upLum = dot(upstreamCol.rgb, vec3(0.299, 0.587, 0.114));
+
+        // Threshold for bright pixels to melt into darker pixels (subtle: luminance > 0.22)
+        if (upLum > 0.22 && upLum > curLum) {
+            outRgb = upstreamCol.rgb;
+
+            // Subtle chromatic shift on active melting edges
+            if (colRand2 > 0.65) {
+                highp float r = zTextureSpec(SCREEN_TEXTURE, clamp(upstreamUv - vec2(SCREEN_PIXEL_SIZE.x, 0.0), 0.0, 1.0)).r;
+                highp float b = zTextureSpec(SCREEN_TEXTURE, clamp(upstreamUv + vec2(SCREEN_PIXEL_SIZE.x, 0.0), 0.0, 1.0)).b;
+                outRgb.r = mix(outRgb.r, r, 0.3);
+                outRgb.b = mix(outRgb.b, b, 0.3);
+            }
+        }
+    }
+
+    // Occasional subtle horizontal scanline jitter
+    highp float lineId = floor(uv.y / max(SCREEN_PIXEL_SIZE.y * 3.0, 0.003));
+    highp float lineRand = hash11(lineId * 53.19 + floor(TIME * 5.0));
+    if (lineRand > 0.985 && progress > 0.25) {
+        highp float jitterX = (hash11(lineId * 91.33) - 0.5) * SCREEN_PIXEL_SIZE.x * 2.0;
+        outRgb = zTextureSpec(SCREEN_TEXTURE, clamp(uv + vec2(jitterX, 0.0), 0.0, 1.0)).rgb;
+    }
+
+    // Output complete frame with full opacity
+    COLOR = vec4(outRgb, 1.0);
+}

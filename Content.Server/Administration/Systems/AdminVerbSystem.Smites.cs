@@ -57,6 +57,7 @@ using Robust.Shared.Audio; // Frontier
 using Content.Server.NF.Speech.Components; // Frontier
 using Content.Shared.Damage.Prototypes; // Frontier
 using Content.Shared.Bed.Sleep; // Frontier
+using Content.Shared._HL.Whisp;
 
 namespace Content.Server.Administration.Systems;
 
@@ -89,6 +90,7 @@ public sealed partial class AdminVerbSystem
     [Dependency] private readonly SharedAudioSystem _audio = default!; // Frontier
     [Dependency] private readonly DamageableSystem _damageable = default!; // Frontier
     [Dependency] private readonly SleepingSystem _sleep = default!; // Frontier
+    [Dependency] private readonly SharedWhispSystem _whisp = default!;
 
     private static readonly ProtoId<DamageTypePrototype> BluntDamage = new("Blunt");
 
@@ -535,6 +537,20 @@ public sealed partial class AdminVerbSystem
             Message = string.Join(": ", scurretName, Loc.GetString("admin-smite-become-scurret-description"))
         };
         args.Verbs.Add(scurret);
+        // End Hardlight
+
+        // Hardlight: Whisp Smite
+        var whispName = Loc.GetString("admin-smite-whisp-name").ToLowerInvariant();
+        Verb whisp = new()
+        {
+            Text = whispName,
+            Category = VerbCategory.Smite,
+            Icon = new SpriteSpecifier.Rsi(new ResPath("/Textures/_HL/Mobs/whisp.rsi"), "whisp"),
+            Act = () => _whisp.SpawnWhisp(args.Target, distance: 20f, speed: 0.5f),
+            Impact = LogImpact.Extreme,
+            Message = string.Join(": ", whispName, Loc.GetString("admin-smite-whisp-description")),
+        };
+        args.Verbs.Add(whisp);
         // End Hardlight
 
         if (TryComp<ActorComponent>(args.Target, out var actorComponent))

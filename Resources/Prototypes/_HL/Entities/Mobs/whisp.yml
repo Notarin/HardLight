@@ -1,0 +1,18 @@
+# This is a secret! Congrats on finding it if you did before it was public!
+# That being said, PLEASE do not disclose this to anyone! It is a secret!
+# The fun is the mystery.
+- type: entity
+  id: MobWhisp
+  name: ????????????????????
+  description: ????????????????????
+  save: false
+  components:
+  - type: Whisp
+  - type: Sprite
+    visible: false
+    noRot: true
+    drawdepth: Overlays
+    sprite: _HL/Mobs/whisp.rsi
+    layers:
+    - state: censor
+      shader: unshaded

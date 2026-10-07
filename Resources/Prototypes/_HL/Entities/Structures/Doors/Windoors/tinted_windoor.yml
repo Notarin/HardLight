@@ -1,0 +1,12 @@
+- type: entity
+  parent: Windoor
+  name: Tinted Windoor
+  id: WindoorTinted
+  components:
+  - type: Sprite
+    sprite: Structures/Doors/Windoors/windoor.rsi
+  - type: Occluder
+    boundingBox: "-0.5,-0.5,0.5,-0.3"
+  - type: Construction
+    graph: windoorTinted
+    node: WindoorTinted

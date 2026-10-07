@@ -123,3 +123,15 @@
   placementMode: SnapgridCenter
   canRotate: true
   canBuildInImpassable: true
+
+- type: construction
+  id: WindoorTinted
+  graph: windoorTinted
+  startNode: start
+  targetNode: WindoorTinted
+  category: construction-category-structures
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: false
+  conditions:
+    - !type:TileNotBlocked

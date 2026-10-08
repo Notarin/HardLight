@@ -1146,6 +1146,8 @@
       Male: ProtoResomiMSounds
       Female: ProtoResomiFSounds
       Unsexed: ProtoResomiMSounds
+  - type: Preenable # HardLight: Delta-V feather preening
+    featherPrototype: AvaliFeather
   - type: HumanoidAppearance
     species: ProtoResomi
     hideLayersOnEquip:
@@ -2341,6 +2343,8 @@
         - AnomalyHost
         - Avali
         - Protogen
+    - type: Preenable # HardLight: Delta-V feather preening
+      featherPrototype: AvaliFeather
     - type: HumanoidAppearance
       species: ProtoAvali
       hideLayersOnEquip:

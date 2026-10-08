@@ -23,6 +23,8 @@
       action: ActionToggleAvaliWagging # Hardlight
     - type: HumanoidAppearance
       species: Avali
+    - type: Preenable # HardLight: Delta-V feather preening
+      featherPrototype: AvaliFeather
     - type: Hunger # on 2x more
       thresholds:
         Overfed: 250

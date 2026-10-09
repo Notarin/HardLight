@@ -6,6 +6,7 @@ using Content.Server.Silicons.Borgs;
 using Content.Server.Silicons.Laws;
 using Content.Server.SurveillanceCamera;
 using Content.Shared._CorvaxNext.Silicons.Borgs;
+using Content.Shared._CorvaxNext.Silicons.Borgs.Components;
 using Content.Shared._HL.Silicons.Components;
 using Content.Shared._NF.Roles.Components; // VRS: move JobTrackingComponent across shunt (HL #1354)
 using Content.Shared.Actions;
@@ -44,7 +45,7 @@ public sealed class PositronicJumpSystem : EntitySystem
     {
         base.Initialize();
 
-        SubscribeLocalEvent<BorgBrainComponent, GetVerbsEvent<AlternativeVerb>>(OnBrainGetVerbs);
+        //SubscribeLocalEvent<BorgBrainComponent, GetVerbsEvent<AlternativeVerb>>(OnBrainGetVerbs); HL: Disable shunting into borg brains, we have receivers for that.
         SubscribeLocalEvent<StationAiTurretComponent, GetVerbsEvent<AlternativeVerb>>(OnTurretGetVerbs);
         SubscribeLocalEvent<BorgChassisComponent, GetVerbsEvent<AlternativeVerb>>(OnBorgChassisGetVerbs);
         SubscribeLocalEvent<SpaceArtilleryComponent, GetVerbsEvent<AlternativeVerb>>(OnSpaceArtilleryGetVerbs);
@@ -124,6 +125,11 @@ public sealed class PositronicJumpSystem : EntitySystem
 
         //Hardlight: If the user is an AI, then make sure target isn't invalid borg
         if (HasComp<StationAiHeldComponent>(args.User) && !AITargetingValidBorg(args.User, uid))
+            return;
+        if (HasComp<StationAiOverlayComponent>(uid)) // If it's an AI core, don't allow. Xenoborg AI Cores are a chassis too.
+            return;
+        // Don't allow shunting into a chassis that already has a brain, but allow the shunt receiver board.
+        if (component.BrainContainer.ContainedEntity.HasValue && !HasComp<AIShuntReceiverComponent>(component.BrainContainer.ContainedEntity.Value) && !HasComp<AiRemoteBrainComponent>(component.BrainContainer.ContainedEntity.Value))
             return;
         //Hardlight End
         var user = args.User;

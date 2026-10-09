@@ -9,7 +9,7 @@
   - !type:RoleTimeRequirement
     role: JobBorg
     time: 18000  # 5 hrs
-  # canBeAntag: false
+  canBeAntag: false
   weight: 10 # HardLight
   icon: JobIconStationAi
   supervisors: job-supervisors-ai
@@ -27,7 +27,7 @@
   requirements:
     - !type:OverallPlaytimeRequirement
       time: 43200 # 12 hrs # Frontier: 10<12 hrs
-  # canBeAntag: false
+  canBeAntag: false
   # accessGroups:
   # - AllAccess
   # access:

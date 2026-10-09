@@ -83,7 +83,7 @@ public sealed partial class AntagSelectionSystem : GameRuleSystem<AntagSelection
         if (!Exists(rule) || !TryComp<AntagSelectionComponent>(rule, out var select))
             return;
 
-        MakeAntag((rule, select), args.Player, def, ignoreSpawner: true);
+        TryMakeAntag((rule, select), args.Player, def, ignoreSpawner: true); // HL: Swap to TryMakeAntag to include extra checks
         args.TookRole = true;
         _ghostRole.UnregisterGhostRole((ent, Comp<GhostRoleComponent>(ent)));
     }
@@ -320,9 +320,14 @@ public sealed partial class AntagSelectionSystem : GameRuleSystem<AntagSelection
             }
 
             if (session == null)
-                MakeAntag(ent, null, def); // This is for spawner antags
+                TryMakeAntag(ent, null, def); // This is for spawner antags, HL: Swap to TryMakeAntag to include extra checks
             else
             {
+                // HL START: Double-check the player can actually be an antag before pre-assigning.
+                var mind = session.GetMind();
+                if (mind.HasValue && _jobs.MindTryGetJob(mind.Value, out var job) && job.CanBeAntag == false)
+                    continue;
+                // HL END
                 if (!ent.Comp.PreSelectedSessions.TryGetValue(def, out var set))
                     ent.Comp.PreSelectedSessions.Add(def, set = new HashSet<ICommonSession>());
                 set.Add(session); // Selection done!
@@ -369,6 +374,15 @@ public sealed partial class AntagSelectionSystem : GameRuleSystem<AntagSelection
 
         if (!IsSessionValid(ent, session, def) || !IsEntityValid(session?.AttachedEntity, def))
             return false;
+
+        // HL START: Double-check the player can actually be an antag
+        if (session != null)
+        {
+            var mind = session.GetMind();
+            if (mind.HasValue && _jobs.MindTryGetJob(mind.Value, out var job) && job.CanBeAntag == false)
+                return false;
+        }
+        // HL END
 
         if (onlyPreSelect && session != null)
         {

@@ -33,9 +33,6 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <ErrorReport>none</ErrorReport>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-  </PropertyGroup>
-  <!--Has to be in its own group guarded by a condition due to this being incompatible with pre-net8.0 versions.-->
-  <PropertyGroup Condition="'$(MSBuildProjectName)' != 'BuildChecker'">
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 

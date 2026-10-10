@@ -6,6 +6,7 @@
   - SiliconDefinitionFTS
   - SiliconDefinitionBranded
   - SiliconDefinitionXenoborgs
+  - SiliconEscalationPolicy
   - SiliconLawChanges
 
 - type: guideEntry
@@ -51,3 +52,8 @@
   id: SiliconLawChanges
   name: guide-entry-hl-law-changes
   text: "/ServerInfo/_HL/Guidebook/SiliconLawChanges.xml"
+
+- type: guideEntry
+  id: SiliconEscalationPolicy
+  name: guide-entry-hl-silicon-escalation-policy
+  text: "/ServerInfo/_HL/Guidebook/SiliconEscalationPolicy.xml"

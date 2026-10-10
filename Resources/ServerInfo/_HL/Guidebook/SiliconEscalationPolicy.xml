@@ -1,0 +1,93 @@
+<Document>
+# Silicon Escalation Policy
+
+## Cyborg Malfunction Levels
+
+Anyone in the Science Department may officially deem a borg to be malfunctioning according to these guidelines. The Research Director or Captain may escalate to a higher malfunctioning level at their discretion.
+
+<Box Orientation="Vertical" Margin="5">
+<Table Columns="1">
+  <ColorBox Color="#c8a404" OutlineThickness="0">
+    <Box VerticalAlignment="Center">
+      [bold][color=#ffffff]Warning[/color][/bold]
+    </Box>
+  </ColorBox>
+  <ColorBox Color="#1a1b23" OutlineThickness="0">
+    <Box Orientation="Vertical">
+      Non-security personnel should not use force against cyborgs unless acting in self-defense.
+
+      Failure to follow escalation guidelines may be punishable by charges such as [textlink="108 — Criminal Negligence" link="HLSpaceLawList"] and/or [textlink="311 — Dereliction" link="HLSpaceLawList"].
+    </Box>
+  </ColorBox>
+</Table>
+</Box>
+
+### Level 1 - Minor
+
+If a cyborg shows only minor signs of malfunction and remains obedient to most of the crew, any crew member may escort it to Science to have its laws fixed.
+
+### Level 2 - Moderate
+
+If a cyborg denies orders from most or all of the crew, cannot perform its station duties, or is actively causing disruptive problems for the station, Science and Security are authorized to disable it non-lethally with EMPs.
+
+### Level 3 - Major
+
+If a cyborg is actively hostile to the crew or visitors, damaging or sabotaging critical station assets, or otherwise putting life at risk, Security is authorized to use lethal force on sight.
+
+## EMP and Transponder Protocol
+
+<Box Orientation="Vertical" Margin="5">
+<Table Columns="1">
+  <ColorBox Color="#808080" OutlineThickness="0">
+    <Box VerticalAlignment="Center">
+      [bold][color=#ffffff]Note[/color][/bold]
+    </Box>
+  </ColorBox>
+  <ColorBox Color="#1a1b23" OutlineThickness="0">
+    <Box Orientation="Vertical">
+      Branded Silicons and Free-Thinking Sophonts have transponders for remote disabling in extenuating circumstances. By being present aboard a Colonial Command station, Free-Thinking Sophonts acknowledge the inherent risk of malfunction and that Station Command may activate their transponder under the conditions outlined here.
+    </Box>
+  </ColorBox>
+</Table>
+</Box>
+
+To eject a cyborg from its chassis, all of the following conditions must be met:
+
+1. The appropriate malfunction level has been determined for non-lethal disabling.
+2. The Research Director, Head of Personnel, or Captain is at the robotics terminal and standing by.
+3. A member of Security or Science is standing by to safely collect the positronic brain. For Security cyborgs, only Security personnel may do so.
+
+After successfully disabling the cyborg, remove its battery and reinstall the positronic brain.
+
+Printing a new chassis is generally unnecessary and should be a last resort. Most cyborgs operate more efficiently in and prefer their original chassis. Re-lawing should be prioritized.
+
+## Malfunctioning Behaviour Not Due to Altered Laws
+
+If a cyborg malfunctions in a way not reflected in its laws, treat the behavior as a Space Law violation rather than re-lawing it. If the behavior constitutes a Capital Crime warranting execution, wiping the positronic brain is authorized.
+
+## Custom Lawsets
+
+Custom lawsets may only be used by the Research Director or Captain at the specific request or approval of a positronic brain, and should receive careful scrutiny. The Research Director or Captain must fax Colonial Command the chassis name, the complete custom lawset, and an explanation for its use.
+
+[bold]Custom lawsets not approved by the positronic brain must not be used without Colonial Command intervention.[/bold] A positronic brain that is a Branded Silicon may not refuse its chassis's standard approved lawset.
+
+<Box Orientation="Vertical" Margin="5">
+<Table Columns="1">
+  <ColorBox Color="#808080" OutlineThickness="0">
+    <Box VerticalAlignment="Center">
+      [bold][color=#ffffff]Note[/color][/bold]
+    </Box>
+  </ColorBox>
+  <ColorBox Color="#1a1b23" OutlineThickness="0">
+    <Box>
+      Branded Silicons are Colonial Command assets and have all-access as a result of being lawbound. De-lawing Branded Silicons is not permitted without direct Colonial Command intervention.
+    </Box>
+  </ColorBox>
+</Table>
+</Box>
+
+## Enemy Cyborgs
+
+Captured enemy cyborg chassis must be re-lawed to a Colonial Command-approved lawset and monitored closely. Colonial Command must be informed so the cyborg can be officially redesignated if necessary. [bold]A former enemy cyborg's positronic brain must never be placed in an un-lawed cyborg chassis.[/bold]
+
+</Document>

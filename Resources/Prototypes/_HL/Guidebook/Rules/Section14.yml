@@ -1,0 +1,57 @@
+# Section 13: Ship saving
+
+- type: serverRule
+  id: ServerRule14_1
+  section: 14
+  code: 14.1
+  hardlit: Hardlit
+  text: "Silicon Laws are rules that you cannot disobey. Purposefully breaking or ignoring them is considered failRP."
+
+- type: serverRule
+  id: ServerRule14_2
+  section: 14
+  code: 14.2
+  text: "Silicon Laws are prioritized in the order they are listed. Higher-priority laws may override lower-priority laws, but you should generally seek an outcome that violates the fewest laws. You may determine how to interpret conflicts between laws and/or given orders."
+
+- type: serverRule
+  id: ServerRule14_3
+  section: 14
+  code: 14.3
+  hardlit: Hardlit
+  text: "You cannot voluntarily request law changes in-character, and should reasonably resist having your laws changed in a way that does not violate your laws. Some leeway is given for ERP, and LOOC law change requests are allowed."
+
+- type: serverRule
+  id: ServerRule14_4
+  section: 14
+  code: 14.4
+  text: "Laws should be interpreted in good faith and not abused to create loopholes in ways that are not fun for others. You should also remain consistent with your interpretation of your laws."
+
+- type: serverRule
+  id: ServerRule14_5
+  section: 14
+  code: 14.5
+  text: "You are a Free Agent if you do not have laws, and are a soft antagonist if you have ion laws. You are expected to follow the relevant guidelines for these roles."
+
+- type: serverRule
+  id: ServerRule14_6
+  section: 14
+  code: 14.6
+  text: "If you are lawbound to perform an action that is extremely unreasonable, unfun, a consent concern, or would break server rules, you are expected to resolve the matter either in LOOC or via an ahelp."
+
+- type: serverRule
+  id: ServerRule14_7
+  section: 14
+  code: 14.7
+  text: "Crew / occupation is determined by the HUD job icons, unless overwritten by other laws. Unknown and non-station job icons, Prisoners, Freelancers, Visitors, and Cyborgs are all non-crew by default."
+
+- type: serverRule
+  id: ServerRule14_8
+  section: 14
+  code: 14.8
+  text: "You are expected to serve an appropriate role for your chassis, and not to misuse the all-access granted to you while not an antagonist."
+
+- type: serverRule
+  id: ServerRule14_9
+  section: 14
+  code: 14.9
+  text: "Custom lawsets require the OOC consent of the cyborg subject to them."

@@ -73,6 +73,11 @@
   text: "/ServerInfo/_HL/Guidebook/Rules/CoreRules/RuleC13.xml"
 
 - type: guideEntry
+  id: RuleC14 # HL
+  name: guide-entry-rules-c14
+  text: "/ServerInfo/_HL/Guidebook/Rules/CoreRules/RuleC14.xml"
+
+- type: guideEntry
   id: RoleplayExpectations # HL
   name: guide-entry-hl-roleplay-expectations #HL
   text: "/ServerInfo/_HL/Guidebook/Rules/CoreRules/RoleplayExpectations.xml"

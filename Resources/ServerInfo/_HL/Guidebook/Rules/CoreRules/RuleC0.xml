@@ -28,6 +28,7 @@
   - [textlink="Section 11. Antagonist Rules" link="RuleC11"]
   - [textlink="Section 12. Escalation Guidelines" link="RuleC12"]
   - [textlink="Section 13. Ship saving" link="RuleC13"]
+    - [textlink="Section 14. Silicon Rules" link="RuleC14"]
 
 [head=3]Definitions[/head]
 
@@ -100,4 +101,7 @@ Examples of these guidelines can be found in [textlink="Shipbuilding Guidelines"
 
 <GuideServerRuleGroupEmbed Section="13" />
 
+[color=#ffff00][head=3]Section 14: Silicon Rules[/head][/color]
+
+<GuideServerRuleGroupEmbed Section="14" />
 </Document>

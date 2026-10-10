@@ -12,6 +12,7 @@ guide-entry-hl-silicons = Silicons
 guide-entry-hl-free-thinking-sophonts = Free-Thinking Sophonts
 guide-entry-hl-branded-silicons = Branded Silicons
 guide-entry-hl-law-changes = Law Changes
+guide-entry-hl-silicon-escalation-policy = Malfunctioning Silicons
 
 ## Station Alerts
 guide-entry-hl-station-alert-levels = Station Alert Levels

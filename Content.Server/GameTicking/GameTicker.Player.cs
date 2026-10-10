@@ -321,11 +321,6 @@ namespace Content.Server.GameTicking
             RaiseNetworkEvent(new TickerJoinGameEvent(), session.Channel);
         }
 
-        public void ReturnPlayerToLobby(ICommonSession session)
-        {
-            PlayerJoinLobby(session);
-        }
-
         // HardLight start
         public void ReturnPlayersToLobby()
         {

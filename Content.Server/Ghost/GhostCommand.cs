@@ -2,19 +2,17 @@ using Content.Server.Popups;
 using Content.Shared.Administration;
 using Content.Shared.GameTicking;
 using Content.Server.GameTicking;
-using Content.Server.Mind;
 using Content.Server._NF.Roles.Systems; // HardLight
 using Content.Shared._NF.Roles.Components; // HardLight
-using Robust.Server.Player;
 using Robust.Shared.Console;
+using Content.Shared.Mind;
 
 namespace Content.Server.Ghost
 {
     [AnyCommand]
     public sealed class GhostCommand : IConsoleCommand
     {
-        [Dependency] private readonly IEntityManager _entities = default!;
-        [Dependency] private readonly IPlayerManager _playerManager = default!;
+        [Dependency] private IEntityManager _entities = default!;
 
         public string Command => "ghost";
         public string Description => Loc.GetString("ghost-command-description");
@@ -53,17 +51,23 @@ namespace Content.Server.Ghost
                 return;
             }
 
-            var minds = _entities.System<MindSystem>();
-            if (_entities.TryGetComponent<JobTrackingComponent>(controlled, out var tracking)) // HardLight
+            var minds = _entities.System<SharedMindSystem>();
+
+            // HL START: Open up job slot after /ghosting. If you re-enable entering the body this might need revisiting
+            if (_entities.TryGetComponent<JobTrackingComponent>(controlled, out var tracking))
                 _entities.System<JobTrackingSystem>().OpenJob((controlled, tracking), player.UserId);
+            // HL END
 
-            if (minds.TryGetMind(player, out var mindId, out var mind))
-                minds.WipeMind(mindId, mind);
-            else
-                _playerManager.SetAttachedEntity(player, null);
+            if (!minds.TryGetMind(player, out var mindId, out var mind))
+            {
+                mindId = minds.CreateMind(player.UserId);
+                mind = _entities.GetComponent<MindComponent>(mindId);
+            }
 
-            _entities.DeleteEntity(controlled);
-            gameTicker.ReturnPlayerToLobby(player);
+            if (!_entities.System<GhostSystem>().OnGhostAttempt(mindId, false, true, mind: mind)) // HL: Disable re-taking body after /ghosting
+            {
+                shell.WriteLine(Loc.GetString("ghost-command-denied"));
+            }
         }
     }
 }

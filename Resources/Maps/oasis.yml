@@ -4,8 +4,8 @@ meta:
   engineVersion: 274.0.0
   forkId: HardLight
   forkVersion: 0.2.1
-  time: 10/10/2026 03:58:57
-  entityCount: 32563
+  time: 10/10/2026 09:16:57
+  entityCount: 32569
 maps:
 - 1
 grids:
@@ -22098,6 +22098,38 @@ entities:
           Quantity: 1
     - type: ContainedSolution
       containerName: food
+  - uid: 32565
+    components:
+    - type: MetaData
+      name: solution - food
+    - type: Transform
+      parent: 32564
+    - type: Solution
+      solution:
+        maxVol: 1
+        name: food
+        reagents:
+        - data: []
+          ReagentId: Fiber
+          Quantity: 1
+    - type: ContainedSolution
+      containerName: food
+  - uid: 32567
+    components:
+    - type: MetaData
+      name: solution - food
+    - type: Transform
+      parent: 32566
+    - type: Solution
+      solution:
+        maxVol: 1
+        name: food
+        reagents:
+        - data: []
+          ReagentId: Fiber
+          Quantity: 1
+    - type: ContainedSolution
+      containerName: food
 - proto: AcousticGuitarInstrument
   entities:
   - uid: 3
@@ -25251,7 +25283,7 @@ entities:
       pos: 38.5,-9.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -281523.47
+      secondsUntilStateChange: -282828.66
       state: Opening
     - type: DeviceLinkSource
       lastSignals:
@@ -26735,7 +26767,7 @@ entities:
       pos: 5.5,0.5
       parent: 32239
     - type: Door
-      secondsUntilStateChange: -39970.348
+      secondsUntilStateChange: -41275.535
       state: Opening
     - type: DeviceLinkSource
       lastSignals:
@@ -27011,7 +27043,7 @@ entities:
       pos: 31.5,-1.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -167859.05
+      secondsUntilStateChange: -169164.23
       state: Opening
     - type: DeviceLinkSource
       lastSignals:
@@ -27286,7 +27318,7 @@ entities:
       pos: -5.5,69.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -59195.863
+      secondsUntilStateChange: -60501.05
       state: Opening
     - type: DeviceLinkSource
       lastSignals:
@@ -27400,7 +27432,7 @@ entities:
       pos: -22.5,26.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -303575.6
+      secondsUntilStateChange: -304880.78
       state: Opening
     - type: DeviceLinkSource
       lastSignals:
@@ -125447,7 +125479,7 @@ entities:
       pos: -13.5,-1.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -393728.16
+      secondsUntilStateChange: -395033.34
     - type: DeviceNetwork
       deviceLists:
       - 11229
@@ -175668,7 +175700,7 @@ entities:
       pos: 36.5,-35.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -430559.94
+      secondsUntilStateChange: -431865.12
       state: Opening
   - uid: 16992
     components:
@@ -175743,7 +175775,7 @@ entities:
       pos: -21.5,-37.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -70054.79
+      secondsUntilStateChange: -71359.98
       state: Closing
   - uid: 17007
     components:
@@ -177256,6 +177288,30 @@ entities:
         544:
         - - Pressed
           - Open
+- proto: LockableButtonSecurity
+  entities:
+  - uid: 32568
+    components:
+    - type: Transform
+      rot: 1.5707963267948966 rad
+      pos: -0.5,1.5
+      parent: 32239
+    - type: DeviceLinkSource
+      linkedPorts:
+        32286:
+        - - Pressed
+          - DoorBolt
+  - uid: 32569
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: 5.5,1.5
+      parent: 32239
+    - type: DeviceLinkSource
+      linkedPorts:
+        32287:
+        - - Pressed
+          - DoorBolt
 - proto: LockableButtonService
   entities:
   - uid: 17166
@@ -181501,6 +181557,12 @@ entities:
 
 
         [color=Gold]Yellow[/color] = Office lockdown! Bolts your doors and lowers the shutters on your office.
+
+
+        [head=2]Note on Perma Exile:[/head]
+
+
+        Non Security members docking at Perma Exile without permission from either Head of Security or Warden is to be treated as 309
     - type: SolutionContainerManager
       solutions: null
       containers:
@@ -181596,6 +181658,48 @@ entities:
       containers:
         solution@food: !type:ContainerSlot
           ent: 32504
+  - uid: 32564
+    components:
+    - type: MetaData
+      name: paper (Important note about Perma Exile)
+    - type: Transform
+      pos: 55.744556,-9.336868
+      parent: 2
+    - type: Paper
+      content: Non Security members docking at Perma Exile without permission from either Head of Security or Warden is to be treated as 309
+    - type: SolutionContainerManager
+      solutions: null
+      containers:
+      - food
+    - type: ContainerContainer
+      containers:
+        solution@food: !type:ContainerSlot
+          ent: 32565
+    - type: Label
+      currentLabel: Important note about Perma Exile
+    - type: NameModifier
+      baseName: paper
+  - uid: 32566
+    components:
+    - type: MetaData
+      name: paper (Important note about Perma Exile)
+    - type: Transform
+      pos: 41.30632,-40.226334
+      parent: 2
+    - type: Paper
+      content: Non Security members docking at Perma Exile without permission from either Head of Security or Warden is to be treated as 309
+    - type: SolutionContainerManager
+      solutions: null
+      containers:
+      - food
+    - type: ContainerContainer
+      containers:
+        solution@food: !type:ContainerSlot
+          ent: 32567
+    - type: Label
+      currentLabel: Important note about Perma Exile
+    - type: NameModifier
+      baseName: paper
 - proto: PaperBin10
   entities:
   - uid: 17572
@@ -203314,7 +203418,7 @@ entities:
       pos: 21.5,-9.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -169085.16
+      secondsUntilStateChange: -170390.34
       state: Opening
 - proto: SophicScribe
   entities:
@@ -235584,7 +235688,7 @@ entities:
       pos: 24.5,2.5
       parent: 24813
     - type: Door
-      secondsUntilStateChange: -775764.6
+      secondsUntilStateChange: -777069.8
       state: Opening
 - proto: WoodenBench
   entities:

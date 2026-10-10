@@ -33,6 +33,9 @@ public abstract class BaseQueryUpdateXATSystem<T> : BaseXATSystem<T> where T : C
 
             var artifact = _xenoArtifactQuery.Get(GetEntity(node.Attached.Value));
 
+            if (TerminatingOrDeleted(artifact)) // HL: Handle Deleted artifacts
+                continue;
+
             if (!CanTrigger(artifact, (uid, node)))
                 continue;
 

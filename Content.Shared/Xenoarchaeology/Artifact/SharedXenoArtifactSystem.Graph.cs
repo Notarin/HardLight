@@ -364,6 +364,9 @@ public abstract partial class SharedXenoArtifactSystem
     /// </remarks>
     public HashSet<Entity<XenoArtifactNodeComponent>> GetDirectPredecessorNodes(Entity<XenoArtifactComponent?> ent, EntityUid node)
     {
+        if (TerminatingOrDeleted(ent.Owner) || TerminatingOrDeleted(node)) // HL: Handle deleted artifacts or nodes
+            return new();
+
         if (!Resolve(ent, ref ent.Comp))
             return new();
 

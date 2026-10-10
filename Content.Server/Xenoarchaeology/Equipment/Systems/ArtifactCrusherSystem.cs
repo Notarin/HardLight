@@ -129,7 +129,8 @@ public sealed class ArtifactCrusherSystem : SharedArtifactCrusherSystem
                 var contents = new ValueList<EntityUid>(storage.Contents.ContainedEntities);
                 foreach (var contained in contents)
                 {
-                    _damageable.TryChangeDamage(contained, crusher.CrushingDamage);
+                    if (!TerminatingOrDeleted(contained)) // HL: Check if the entity has been deleted first
+                        _damageable.TryChangeDamage(contained, crusher.CrushingDamage);
                 }
                 crusher.NextSecond += TimeSpan.FromSeconds(1);
                 Dirty(uid, crusher);

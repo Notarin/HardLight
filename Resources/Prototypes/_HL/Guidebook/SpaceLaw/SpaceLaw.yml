@@ -1136,6 +1136,36 @@
     - For the killing of a sentient being — regardless of species — see [bolditalic]301 — Murder[/bolditalic].
     - If the creature was a crew member's registered pet, consider layering [bolditalic]103 — Minor Vandalism[/bolditalic] or [bolditalic]203 — Major Vandalism[/bolditalic] for destruction of personal property.
 
+- type: spaceLaw
+  id: SpaceLaw222
+  code: 222
+  name: Unwilling Administering of Chemicals
+  severity: Misdemeanor
+  elements:
+    - Injected or orally administered chemicals
+    - To an unwilling victim
+    - With intent to cause adverse effects
+  greater:
+    - SpaceLaw322
+  punishment:
+    - 10 min brig, 15-25k fine
+  description: |2
+    [bold]Elements in Detail[/bold]
+
+    - 1. [bold]Injected or orally administered chemicals[/bold] — The chemical was administered through a standard means, such as a syringe, jet injector, or hypospray, orally, or via food or drink.
+    - 2. [bold]To an unwilling victim[/bold] — The victim took the chemicals unwillingly or unknowingly, such as having their food or drink spiked, being forced to take an injection, or receiving them while unconscious.
+    - 3. [bold]With intent to cause adverse effects[/bold] — The chemical was inherently illegal or harmful (e.g. razorium, narcotics, heartbreaker toxin), or was deliberately used to cause adverse effects outside standard medical practice (e.g. unconsciousness, poisoning, drugging, or overdose).
+
+    [bold]Standard of Proof[/bold] — [italic]Probable Cause required for charge[/italic]
+
+    PC may be established by medical evidence of chemicals in the victim, chemicals found on the suspect consistent with injection, the victim's DNA on the applicator, direct observation or footage, or victim and witness testimony establishing intent.
+
+    [bold]Officer Notes[/bold]
+
+    - This charge does not apply to authorized medical treatment. For medical accidents, see [bolditalic]213 — Mutilation[/bolditalic] and [bolditalic]320 — Gross Medical Malpractice[/bolditalic].
+    - If physical force was used to administer the chemicals, also charge [bolditalic]101 — Assault[/bolditalic] or [bolditalic]201 — Aggravated Assault[/bolditalic] as applicable.
+    - If the victim died, also charge [bolditalic]301 — Murder[/bolditalic] or [bolditalic]308 — Manslaughter[/bolditalic] as applicable.
+
 
 # 3XX - Felonies
 - type: spaceLaw
@@ -1655,6 +1685,34 @@
     - Coordinate with the CMO before charging — medical standards are specialized and the CMO's assessment of whether conduct was grossly negligent is authoritative.
     - Demotion is mandatory upon conviction — the individual loses medical access and duties.
     - Wrongful Borgification — converting a person to a Borg without consent or lawful authorization — falls under this charge. If the Borgification was intentional and irreversible, escalate to [bolditalic]401 — Capital Murder[/bolditalic].
+
+- type: spaceLaw
+  id: SpaceLaw322
+  code: 322
+  name: Chemical Warfare
+  severity: Felony
+  elements:
+    - Possessed or utilized chemicals in a weaponized fashion
+    - With intent to cause adverse effects, or negligent use leading to harm
+    - Such as chemical grenades, syringe guns, chemical backpacks, splash beakers, or chemical foams
+  punishment:
+    - 15 min brig, 30-50k fine
+  description: |2
+    [bold]Elements in Detail[/bold]
+
+    - 1. [bold]Possessed or utilized chemicals in a weaponized fashion[/bold] — Used a non-standard means specifically designed to forcibly administer chemicals. This does not include injectors or oral administration via food, drink, or tablet.
+    - 2. [bold]With intent to cause adverse effects, or negligent use leading to harm[/bold] — Chemical weapons used responsibly for their lawful purpose (e.g. Security use of tear gas grenades or janitorial use of cleanades or spray backpacks) do not qualify.
+
+    [bold]Standard of Proof[/bold] — [italic]Probable Cause required for charge[/italic]
+
+    PC may be established by medical evidence of chemicals in a victim, chemicals found on the suspect consistent with weaponized use, the victim's DNA on an applicator, direct observation or footage, or victim and witness testimony establishing intent or harm.
+
+    [bold]Officer Notes[/bold]
+
+    - Unlike [bolditalic]222 — Unwilling Administering of Chemicals[/bolditalic], an unwilling victim or intent to cause harm is not required in every case; negligent weaponized use that causes harm may qualify.
+    - [bolditalic]306 — Possession, Illegal Inherently Dangerous Equipment[/bolditalic] may also apply in some circumstances.
+    - If physical force was used to administer the chemicals, also charge [bolditalic]101 — Assault[/bolditalic] or [bolditalic]201 — Aggravated Assault[/bolditalic] as applicable.
+    - If the victim died, also charge [bolditalic]301 — Murder[/bolditalic] or [bolditalic]308 — Manslaughter[/bolditalic] as applicable.
 
 
 # 4XX - Capital Crimes

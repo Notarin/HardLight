@@ -1,15 +1,21 @@
-using Content.Server.Chat.Managers;
+using Content.Server._Starlight.Objectives.Components;
+using Content.Server.Antag;
+using Content.Server.EventScheduler;
 using Content.Server.GameTicking;
 using Content.Server.GameTicking.Rules.Components;
 using Content.Server.Mind;
 using Content.Server.Objectives.Components;
 using Content.Shared.GameTicking.Components;
 using Content.Shared.Ghost;
+using Content.Shared.HL.CCVar;
 using Content.Shared.Mind;
 using Content.Shared.Mind.Components;
 using Content.Shared.Objectives.Components;
 using Robust.Server.Player;
+using Robust.Shared.Configuration;
+using Robust.Shared.Network;
 using Robust.Shared.Player;
+using Robust.Shared.Timing;
 
 namespace Content.Server.Objectives.Systems;
 
@@ -19,12 +25,15 @@ namespace Content.Server.Objectives.Systems;
 /// </summary>
 public sealed class ObjectiveTargetRefreshSystem : EntitySystem
 {
-    [Dependency] private readonly GameTicker _gameTicker = default!;
-    [Dependency] private readonly IChatManager _chatManager = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly SharedMindSystem _mind = default!;
-    [Dependency] private readonly ObjectivesSystem _objectives = default!;
-    [Dependency] private readonly TargetObjectiveSystem _target = default!;
+    [Dependency] private GameTicker _gameTicker = default!;
+    [Dependency] private IPlayerManager _playerManager = default!;
+    [Dependency] private SharedMindSystem _mind = default!;
+    [Dependency] private ObjectivesSystem _objectives = default!;
+    [Dependency] private TargetObjectiveSystem _target = default!;
+    [Dependency] private EventSchedulerSystem _eventScheduler = default!; // HL
+    [Dependency] private IGameTiming _timing = default!; // HL
+    [Dependency] private AntagSelectionSystem _antag = default!; // HL
+    [Dependency] private IConfigurationManager _cfg = default!; // HL
 
     public override void Initialize()
     {
@@ -34,27 +43,49 @@ public sealed class ObjectiveTargetRefreshSystem : EntitySystem
         // Run after MindSystem so the mind's OwnedEntity is already cleared (victory state settled)
         // before we decide whether a kill/maroon objective should be rerolled.
         SubscribeLocalEvent<EntityTerminatingEvent>(OnEntityTerminating, after: new[] { typeof(MindSystem) });
+        SubscribeLocalEvent<MindComponent, ObjectiveTargetTimeoutEvent>(OnObjectiveTargetTimeout); // HL: Target Re-Roll timeout
+    }
+
+    // HL FUNCTION
+    // After the delay from the timer, check if the player has re-connected, or if the mind has re-connected to a non-ghost entity.
+    private void OnObjectiveTargetTimeout(EntityUid uid, MindComponent comp, ObjectiveTargetTimeoutEvent args)
+    {
+        if (comp.UserId.HasValue && !_playerManager.ValidSessionId(comp.UserId.Value))
+        {
+            HandleTargetLeft(uid);
+            return;
+        }
+
+        if (comp.OwnedEntity != null && comp.OwnedEntity.HasValue && !HasComp<GhostComponent>(comp.OwnedEntity)) // If we're attached to something that isn't a ghost
+            return;
+        HandleTargetLeft(uid); // We don't need to handle if the mind changes bodies because that'll auto-update.
+    }
+
+    // HL FUNCTION
+    // Looks up any minds attached to a users session and schedules them for re-rolling
+    private void ScheduleMindDetatch(NetUserId user)
+    {
+        // Minds can exist after the player disconnects, so find the unlinked mind
+        var query = EntityQueryEnumerator<MindComponent>();
+        while (query.MoveNext(out var mindUid, out var mind))
+        {
+            if (mind.OriginalOwnerUserId == user)
+            {
+                var ev = new ObjectiveTargetTimeoutEvent();
+                _eventScheduler.ScheduleEvent(mindUid, ref ev, _timing.CurTime + TimeSpan.FromMinutes(_cfg.GetCVar(HLCCVars.AntagTargetDisconnectRerollTimeout)));
+            }
+        }
     }
 
     /// <summary>
     /// Fires when a player session leaves any entity (ghosting, cryo, body swap).
-    /// By this point the mind's OwnedEntity is already updated to the ghost or new body,
-    /// so we can tell whether the player truly left the round.
+    /// We only care if the player is not attached to an entity, or to a ghost.
     /// </summary>
     private void OnPlayerDetached(PlayerDetachedEvent ev)
     {
-        // Ignore session leaving a ghost — only care about leaving a real character body.
-        if (HasComp<GhostComponent>(ev.Entity))
-            return;
-
-        if (!_mind.TryGetMind(ev.Entity, out var mindId, out var mind))
-            return;
-
-        // Only reroll if the mind is now bodyless or stuck in a ghost (not a fresh clone / new body).
-        if (mind.OwnedEntity != null && !HasComp<GhostComponent>(mind.OwnedEntity.Value))
-            return;
-
-        HandleTargetLeft(mindId);
+        // HL: Swap this to using the scheduler system to avoid quick disconnect and reconnects, don't run for aghosts.
+        if (ev.Player.AttachedEntity == null || TryComp<GhostComponent>(ev.Player.AttachedEntity, out var c) && c.CanGhostInteract == false)
+            ScheduleMindDetatch(ev.Player.Channel.UserId);
     }
 
     /// <summary>
@@ -67,10 +98,6 @@ public sealed class ObjectiveTargetRefreshSystem : EntitySystem
 
         // Only care about entities that can hold a mind.
         if (!HasComp<MindContainerComponent>(uid))
-            return;
-
-        // Ghost deletion is already handled (or already triggered) via OnPlayerDetached.
-        if (HasComp<GhostComponent>(uid))
             return;
 
         if (!_mind.TryGetMind(uid, out var mindId, out var mind))
@@ -107,7 +134,7 @@ public sealed class ObjectiveTargetRefreshSystem : EntitySystem
                 {
                     var objUid = traitorMind.Objectives[i];
 
-                    if (!TryComp<KillPersonConditionComponent>(objUid, out _))
+                    if (!TryComp<KillPersonConditionComponent>(objUid, out _) && !TryComp<TeachALessonConditionComponent>(objUid, out _)) // HL: Add Teach a lesson to re-rolls
                         continue;
 
                     if (!_target.GetTarget(objUid, out var currentTarget))
@@ -172,6 +199,8 @@ public sealed class ObjectiveTargetRefreshSystem : EntitySystem
         if (!_playerManager.TryGetSessionById(traitorMind.UserId.Value, out var session))
             return;
 
-        _chatManager.DispatchServerMessage(session, message);
+        _antag.SendBriefing(session, message, null, null); // HL: Use the SendBriefing command so the colors don't get messed up
     }
+
+    public record struct ObjectiveTargetTimeoutEvent() { } // HL: Event raised when a mind splits from the body, check after a timer to see if we should re-roll
 }

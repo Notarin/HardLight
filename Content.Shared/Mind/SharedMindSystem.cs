@@ -687,6 +687,7 @@ public abstract partial class SharedMindSystem : EntitySystem
         _pickingMinds.Clear();
         pool.FindMinds(_pickingMinds, exclude, EntityManager, this);
         FilterMinds(_pickingMinds, filters, exclude);
+        _pickingMinds.RemoveWhere(x => x.Comp.UserId.HasValue && !_playerManager.ValidSessionId(x.Comp.UserId.Value)); // HL: Filter out disconnected users so they don't get picked for targets
 
         if (_pickingMinds.Count == 0)
             return null;

@@ -191,4 +191,8 @@ public sealed class HLCCVars
     public static readonly CVarDef<int> ATMTransactionAlertThreshold =
         CVarDef.Create("hardlight.atm.transaction_alert_threshold", 1000000, CVar.SERVERONLY,
         desc: "The threshold amount for ATM transactions that triggers an extreme admin alert.");
+
+    public static readonly CVarDef<int> AntagTargetDisconnectRerollTimeout =
+        CVarDef.Create("hardlight.antag.reroll.disconnecttime", 5, CVar.SERVERONLY,
+            desc: "How many minutes should a player be ghosted or disconnected before re-rolling any antag objectives targeting them");
 }

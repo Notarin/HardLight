@@ -4,3 +4,10 @@
   reason: "Causes bugs when saved. Unknown nature ATT."
   components:
   - MagicMirror
+
+- type: saveBan
+  id: XenoArtifact
+  reason: "Artifacts don't re-load correctly, loose all their nodes and just generally break"
+  components:
+  - XenoArtifact
+  - XenoArtifactNode

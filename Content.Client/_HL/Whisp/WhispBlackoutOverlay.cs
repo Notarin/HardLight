@@ -143,7 +143,7 @@ public sealed class WhispBlackoutOverlay : Overlay
             _flop = true;
 
             screenHandle.SetTransform(Matrix3x2.Identity);
-            screenHandle.DrawTextureRect(_targetA.Texture, (UIBox2) args.ViewportBounds);
+            screenHandle.DrawTextureRect(_targetA.Texture, (UIBox2)args.ViewportBounds);
             return;
         }
 

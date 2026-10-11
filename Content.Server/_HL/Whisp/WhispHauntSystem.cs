@@ -167,7 +167,7 @@ public sealed class WhispHauntSystem : EntitySystem
 
         if (step.Message != null)
         {
-            var text = Loc.TryGetString(step.Message.Value, out var loc) ? loc : (string) step.Message.Value;
+            var text = Loc.TryGetString(step.Message.Value, out var loc) ? loc : (string)step.Message.Value;
 
             // Deliver popup strictly to this player's session only - never broadcast to PVS
             _popup.PopupEntity(text, uid, actor.PlayerSession, step.PopupType);

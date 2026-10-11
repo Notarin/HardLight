@@ -21,4 +21,8 @@ paper-ui-save-button = Save ({$keybind})
 paper-form-dialog-ok = Ok
 paper-form-dialog-cancel = Cancel
 
+paper-check-tag-blank = Blank
+paper-check-tag-ok = Check
+paper-check-tag-cross = Cross
+
 paper-tamper-proof-modified-message = This page was written using tamper-proof ink.

@@ -315,6 +315,7 @@ public sealed class PaperSystem : EntitySystem
     {
         if (CanStamp(stampInfo, entity.Comp)) // Frontier: !entity.Comp.StampedBy.Contains(stampInfo) < CanStamp(stampInfo, entity.Comp)
         {
+            entity.Comp.Content = FreezeChecks(entity.Comp.Content); // Hardlight
             entity.Comp.StampedBy.Add(stampInfo);
             Dirty(entity);
             if (entity.Comp.StampState == null && TryComp<AppearanceComponent>(entity, out var appearance))
@@ -494,6 +495,7 @@ public sealed class PaperSystem : EntitySystem
         ((Action)(tag switch
         {
             "form" => () => ReplaceNthTag(ent, tag, index, (string)args["replacement"]!),
+            "check" => () => ReplaceNthTag(ent, tag, index, (string)args["replacement"]!),
 
 
             _ => () => throw new NotImplementedException($"The tag [{tag}] has no replacement method."),
@@ -524,6 +526,26 @@ public sealed class PaperSystem : EntitySystem
                 match => currentIndex++ == index
                     ? replacement
                     : match.Value);
+    }
+
+    private static readonly Regex CheckReplacer = new("""\[\s*check(?:\s*=\s*(?:[A-Za-z0-9#]+|"([^"]*)"))?(?:\s+\w+\s*(?:=\s*(?:[A-Za-z0-9#]+|"[^"]*"))?)*\s*\]""");
+
+    /// <summary>
+    /// Freezes the check tags in a text by replacing them with their text.
+    /// </summary>
+    /// <param name="text"></param>
+    /// <returns></returns>
+    private static string FreezeChecks(string text)
+    {
+        return CheckReplacer.Replace(text, match =>
+        {
+            return match.Groups[1].Value switch
+            {
+                "ok" => "✓",
+                "cross" => "✗ ",
+                _ => "   "
+            };
+        });
     }
 
     #endregion

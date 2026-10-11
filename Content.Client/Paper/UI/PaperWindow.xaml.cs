@@ -382,6 +382,7 @@ namespace Content.Client.Paper.UI
             ((Action)(tag switch
             {
                 "form" => () => OpenFormDialog(index, (int)args!["maxLen"]),
+                "check" => () => OpenCheckDialog(index),
 
 
                 _ => throw new NotImplementedException($"Tag {tag} has no implemented click function in PaperWindow.xaml.cs")
@@ -441,6 +442,54 @@ namespace Content.Client.Paper.UI
             edit.GrabKeyboardFocus();
         }
 
+        #endregion
+
+        #region RMC14
+        private Popup? _activeCheckPopup;
+
+        /// <summary>
+        /// Opens a modal dialog allowing the user to select a check state.
+        /// </summary>
+        /// <param name="checkIndex">Zero-based index of which [check] tag to replace</param>
+        public void OpenCheckDialog(int checkIndex) //Generally RMC14, arranged by Hardlight
+        {
+            void CloseCheckDialog()
+            {
+                _activeCheckPopup?.Close();
+                _activeCheckPopup = null;
+            }
+
+            // Close any existing check popup
+            _activeCheckPopup?.Close();
+
+            var popup = new Popup();
+            _activeCheckPopup = popup;
+            var vbox = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical, Margin = new Thickness(10) };
+            var hbox = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Horizontal };
+
+            var buttontexts = new Dictionary<string, string>
+            {
+                [$"☐ {Loc.GetString("paper-check-tag-blank")}"] = @"[check]",
+                [$"✔ {Loc.GetString("paper-check-tag-ok")}"] = """[check="ok"]""",
+                [$"✖ {Loc.GetString("paper-check-tag-cross")}"] = """[check="cross"]""",
+            };
+
+            foreach (var text in buttontexts.Keys)
+            {
+                var button = new Button { Text = text, MinWidth = 80 };
+                button.OnPressed += _ =>
+                {
+                    SendTag!.Invoke("check", checkIndex, new Dictionary<string, object?> { ["replacement"] = buttontexts[text] });
+                    CloseCheckDialog();
+                };
+                hbox.AddChild(button);
+            }
+
+            vbox.AddChild(hbox);
+            popup.AddChild(vbox);
+            AddChild(popup);
+            popup.Open();
+        }
         #endregion
     }
 }

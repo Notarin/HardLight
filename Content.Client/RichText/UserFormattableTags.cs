@@ -22,12 +22,14 @@ public static class UserFormattableTags
         typeof(ItalicTag),
         typeof(MonoTag),
         typeof(FormTag),
+        typeof(CheckTag),
 
     ];
 
     public static readonly Dictionary<Type, string> FillableTagNames = new()
     {
         [typeof(FormTag)] = "form",
+        [typeof(CheckTag)] = "check",
 
     };
 }

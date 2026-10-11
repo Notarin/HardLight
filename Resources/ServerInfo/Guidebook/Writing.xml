@@ -23,13 +23,17 @@ Color supports either hexadecimal or most HTML color names. For example:
 ### Interactive forms
 Certain sigils allow you to make the paper fillable easily without a pen :
 
-- [color=tan]\[form\][/color] can be used to make an arbitrary fillable field. You can specify a length limit with the format 
+- [color=tan]\[form\][/color] can be used to make an arbitrary fillable field. You can specify a length limit with the format
 [color=tan]\[form=n\][/color] where n is the maximum number of characters allowed. By default it will be 25.\n
 It will look like this : [color=CornflowerBlue]________[/color] when interactible.
-- [color=tan]\[check\][/color] can be used to make a checkmark form. It can be replaced with ✓, ✗, ☐ at will. When a 
+- [color=tan]\[check\][/color] can be used to make a checkmark form. It can be replaced with ✓, ✗, ☐ at will. When a
 paper is stamped or signed, the sigil will get frozen into text (the ☐ into spaces) and register [color=tan]\[\/color\][/color] sigils. \n
 [color=#F13B3F] Avoid using this within [color=tan]\[bold\][/color] or [color=tan]\[italic\][/color][/color]\n
 It will look like this : [color=CornflowerBlue]✓, ✗, ☐[/color] when interactible.
+- [color=tan]\[sign\][/color] can be used to make a form to input one's name and job quickly. You can specify if you want only
+a name or job by writing [color=tan]\[sign="name"\][/color] or [color=tan]\[sign="job"\][/color] respectively. The job will take whatever ID card or PDA has. \n
+It will look like one of those : [color=CornflowerBlue]\[SIGN\], \[NAME\], \[JOB\][/color] when interactible.
+
 <!--Harlight end-->
 
 </Document>

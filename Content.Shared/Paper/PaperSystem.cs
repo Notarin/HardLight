@@ -17,6 +17,9 @@ using Content.Shared.Access.Systems; // Frontier
 using Content.Shared.Verbs; // Frontier
 using Content.Shared.Ghost; // Frontier
 using System.Text.RegularExpressions; // Hardlight
+using Content.Shared.IdentityManagement.Components; // Hardlight
+using Content.Shared.Access.Components; // Hardlight
+using Content.Shared.PDA; // Hardlight
 
 namespace Content.Shared.Paper;
 
@@ -33,6 +36,7 @@ public sealed class PaperSystem : EntitySystem
     [Dependency] private readonly MetaDataSystem _metaSystem = default!;
     [Dependency] private readonly SharedAudioSystem _audio = default!;
     [Dependency] private readonly UseDelaySystem _useDelay = default!; // Frontier
+    [Dependency] private readonly AccessReaderSystem _accessReader = default!; // Hardlight
 
     private const int ReapplyLimit = 10; // Frontier: limits on reapplied stamps
     private const int StampLimit = 100; // Frontier: limits on total stamps on a page (should be able to get a signature from everybody on the server on a page)
@@ -491,15 +495,47 @@ public sealed class PaperSystem : EntitySystem
         var tag = message.Tag;
         var index = message.Index;
         var args = message.Args;
+        var actor = message.Actor;
 
         ((Action)(tag switch
         {
-            "form" => () => ReplaceNthTag(ent, tag, index, (string)args["replacement"]!),
+            "form" => () => ReplaceNthTag(ent, tag, index, (string)args.GetValueOrDefault("replacement")!),
             "check" => () => ReplaceNthTag(ent, tag, index, (string)args["replacement"]!),
+            "sign" => () => OnSignReplace(ent, actor, index, (string)args["type"]!),
 
 
             _ => () => throw new NotImplementedException($"The tag [{tag}] has no replacement method."),
         }))();
+    }
+
+    // Credit to yagwog on RMC14 for where to find the name
+    private void OnSignReplace(Entity<PaperComponent> ent, EntityUid player, int index, string type)
+    {
+        // Name is stored in the identity
+        var name = MetaData((TryComp<IdentityComponent>(player, out var identity) &&
+            identity.IdentityEntitySlot.ContainedEntity is { } idEntity)
+            ? idEntity
+            : player)
+            .EntityName;
+
+        // Stole the idea for this from SecHud
+        var role = _accessReader.FindAccessItemsInventory(player, out var items)
+        ? items.Select(item => TryComp<IdCardComponent>(item, out var idcard)
+                                ? idcard.LocalizedJobTitle
+                                : (TryComp<PdaComponent>(item, out var pda)
+                                   && TryComp<IdCardComponent>(pda.ContainedId, out var idpda)
+                                     ? idpda.LocalizedJobTitle
+                                     : null)
+                        ).FirstOrDefault(x => x is not null) ?? "unknown"
+        : "unknown"; //feeding the LINQ demon
+
+        ReplaceNthTag(ent, "sign", index, type switch
+        {
+            "name" => name,
+            "job" => role,
+            _ => $"{name}, {role}"
+        });
+
     }
 
     /// <summary>

@@ -239,7 +239,7 @@ public sealed partial class MeleeWeaponSystem
         var query = EntityQueryEnumerator<TrackUserComponent, TransformComponent>();
         while (query.MoveNext(out var uid, out var arcComponent, out var xform))
         {
-            if (arcComponent.User == null)
+            if (arcComponent.User == null || TerminatingOrDeleted(arcComponent.User)) // HL: Check for deleted holders, ore crabs could be deleted while their spear was out and it'd be sad.
                 continue;
 
             var targetPos = TransformSystem.GetWorldPosition(arcComponent.User.Value);

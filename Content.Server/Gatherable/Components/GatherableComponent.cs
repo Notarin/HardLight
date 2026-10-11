@@ -36,4 +36,6 @@ public sealed partial class GatherableComponent : Component
     /// </summary>
     [DataField]
     public float GatherOffset = 0.3f;
+
+    public List<EntityUid> AlreadyHit = new(); // HL: Track entities that have already hit this, used for line gun to stop duping.
 }

@@ -38,6 +38,20 @@ public sealed partial class GatherableSystem
         //}
         // End Frontier: gathering changes
 
+        // HL START
+        // Track weapons that have already hit this tile, as a single pellet is enough to destroy
+        // We track the gun itself so that we don't sneak in any more hits between now and destruction.
+        if (TryComp<ProjectileComponent>(gathering, out var proj) && proj.Weapon.HasValue)
+        {
+            if (gatherable.AlreadyHit.Contains(proj.Weapon.Value))
+            {
+                gathering.Comp.Amount--; // Decrease the Amount so that the projectile can still hit blocks behind correctly.
+                return;
+            }
+            gatherable.AlreadyHit.Add(proj.Weapon.Value);
+        }
+        // HL END
+
         Gather(args.OtherEntity, gathering, gatherable);
         gathering.Comp.Amount--;
 

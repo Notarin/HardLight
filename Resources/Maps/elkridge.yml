@@ -66977,11 +66977,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 26.5,-14.5
       parent: 2
-    - type: DeviceLinkSource
-      linkedPorts:
-        6265:
-        - - OrderSender
-          - OrderReceiver
 - proto: ComputerComms
   entities:
   - uid: 7725

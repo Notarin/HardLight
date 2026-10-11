@@ -1,6 +1,8 @@
 using System.Numerics;
+using Content.Client.Administration.Managers;
 using Content.Client.Resources;
 using Content.Shared._HL.Whisp.Components;
+using Content.Shared.Administration;
 using Robust.Client.Graphics;
 using Robust.Client.Player;
 using Robust.Client.ResourceManagement;
@@ -23,6 +25,7 @@ public sealed class WhispTextOverlay : Overlay
     [Dependency] private readonly IEntityManager _entMan = default!;
     [Dependency] private readonly IPlayerManager _player = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private readonly IClientAdminManager _adminManager = default!;
     private readonly SharedTransformSystem _transform;
 
     /// <inheritdoc/>
@@ -137,10 +140,14 @@ public sealed class WhispTextOverlay : Overlay
     /// <inheritdoc/>
     /// <summary>
     /// <br/>
-    /// Only draws the overlay if the player is looking through their own eyes.
+    /// Only draws the overlay if the player is looking through their own eyes,
+    /// or if the user is an admin with the Fun flag.
     /// </summary>
     protected override bool BeforeDraw(in OverlayDrawArgs args)
     {
+        if (_adminManager.HasFlag(AdminFlags.Fun))
+            return true;
+
         // Only draw if viewing through the local player's own eyes
         if (!_entMan.TryGetComponent(_player.LocalEntity, out EyeComponent? eyeComp))
             return false;
@@ -154,17 +161,20 @@ public sealed class WhispTextOverlay : Overlay
     /// </summary>
     protected override void Draw(in OverlayDrawArgs args)
     {
-        // Ensure valid viewport and player
-        if (args.ViewportControl == null || _player.LocalEntity is not { Valid: true } localPlayer)
+        // Ensure valid viewport
+        if (args.ViewportControl == null)
             return;
+
+        var localPlayer = _player.LocalEntity;
+        var isAdmin = _adminManager.HasFlag(AdminFlags.Fun);
 
         var handle = args.ScreenHandle;
         var whispsQuery = _entMan.EntityQueryEnumerator<WhispComponent, TransformComponent>();
 
         while (whispsQuery.MoveNext(out _, out var whispComp, out var whispXform))
         {
-            // Only the one stalking the player
-            if (whispComp.Target != localPlayer)
+            var isTarget = localPlayer != null && whispComp.Target == localPlayer;
+            if (!isTarget && !isAdmin)
                 continue;
 
             // We're taking advantage of the existing client-side prediction to get the text just as snappy as the whisp.

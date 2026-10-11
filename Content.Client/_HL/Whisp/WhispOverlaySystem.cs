@@ -1,5 +1,7 @@
+using Content.Client.Administration.Managers;
 using Content.Shared._HL.Whisp.Components;
 using Content.Shared._HL.Whisp.Events;
+using Content.Shared.Administration;
 using Robust.Client.Audio;
 using Robust.Client.GameObjects;
 using Robust.Client.Graphics;
@@ -24,6 +26,7 @@ public sealed class WhispOverlaySystem : EntitySystem
     [Dependency] private readonly IAudioManager _audio = default!;
     [Dependency] private readonly AudioSystem _audioSystem = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private readonly IClientAdminManager _adminManager = default!;
 
     private WhispStaticOverlay _overlay = default!;
     private WhispTextOverlay _textOverlay = default!;
@@ -91,7 +94,9 @@ public sealed class WhispOverlaySystem : EntitySystem
     /// <param name="args">See <see cref="LocalPlayerDetachedEvent"/>.</param>
     private void OnPlayerDetached(LocalPlayerDetachedEvent args)
     {
-        HideAllWhisps();
+        if (!_adminManager.HasFlag(AdminFlags.Fun))
+            HideAllWhisps();
+
         ClearEffects();
         EndAudioMute();
         _screechSource?.StopPlaying();
@@ -225,26 +230,36 @@ public sealed class WhispOverlaySystem : EntitySystem
             return;
         }
 
+        var isAdmin = _adminManager.HasFlag(AdminFlags.Fun);
+
         // If the client has no entity/body (e.g., in the lobby), we shouldn't have any effects.
         if (_player.LocalEntity is not { Valid: true } localPlayer)
         {
-            HideAllWhisps();
+            if (!isAdmin)
+                HideAllWhisps();
+
             ClearEffects();
             return;
         }
 
         var maxStrength = 0f;
         var isTargetedByWhisp = false;
+        var hasVisibleWhisp = false;
 
         var query = EntityQueryEnumerator<WhispComponent, SpriteComponent>();
         while (query.MoveNext(out var uid, out var whispComp, out var sprite))
         {
             var isTarget = whispComp.Target == localPlayer;
-            if (sprite.Visible != isTarget)
-                _sprite.SetVisible((uid, sprite), isTarget);
+            var canSee = isTarget || isAdmin;
+            if (sprite.Visible != canSee)
+                _sprite.SetVisible((uid, sprite), canSee);
+
+            if (canSee)
+                hasVisibleWhisp = true;
 
             if (!isTarget)
                 continue;
+
             isTargetedByWhisp = true;
 
             // Clamped to 0.01f to prevent division by zero in the next step. (sounds familiar)
@@ -259,14 +274,21 @@ public sealed class WhispOverlaySystem : EntitySystem
                 maxStrength = progress;
         }
 
+        // Text overlay is displayed to the targeted player and admins with the Fun flag.
+        if (hasVisibleWhisp)
+            EnsureTextOverlay();
+        else
+            RemoveTextOverlay();
+
+        // Static overlay and procedural audio are strictly for the targeted player.
         if (!isTargetedByWhisp)
         {
-            ClearEffects();
+            RemoveStaticOverlay();
+            StopAudio();
             return;
         }
 
-        // We know there are whisp(s) after us here.
-        EnsureOverlay();
+        EnsureStaticOverlay();
         _overlay.Strength = maxStrength;
 
         EnsureAudio();
@@ -282,37 +304,45 @@ public sealed class WhispOverlaySystem : EntitySystem
     /// </summary>
     private void ClearEffects()
     {
-        RemoveOverlay();
+        RemoveStaticOverlay();
+        RemoveTextOverlay();
         StopAudio();
     }
 
     /// <summary>
-    /// Safely adds the overlay to the overlay manager if it isn't already active.
+    /// Safely adds the static overlay to the overlay manager if it isn't already active.
     /// </summary>
-    private void EnsureOverlay()
+    private void EnsureStaticOverlay()
     {
         if (!_overlayMan.HasOverlay<WhispStaticOverlay>())
             _overlayMan.AddOverlay(_overlay);
+    }
 
+    /// <summary>
+    /// Safely removes the static overlay and resets its strength to zero.
+    /// </summary>
+    private void RemoveStaticOverlay()
+    {
+        if (!_overlayMan.HasOverlay<WhispStaticOverlay>())
+            return;
+        _overlay.Strength = 0f;
+        _overlayMan.RemoveOverlay(_overlay);
+    }
+
+    /// <summary>
+    /// Safely adds the text overlay to the overlay manager if it isn't already active.
+    /// </summary>
+    private void EnsureTextOverlay()
+    {
         if (!_overlayMan.HasOverlay<WhispTextOverlay>())
             _overlayMan.AddOverlay(_textOverlay);
     }
 
     /// <summary>
-    /// Safely removes the overlay and resets its strength to zero.
+    /// Safely removes the text overlay from the overlay manager.
     /// </summary>
-    /// <remarks>
-    /// Prroooobably don't need to clean up, but it can't hurt.
-    /// </remarks>
-    private void RemoveOverlay()
+    private void RemoveTextOverlay()
     {
-        if (_overlayMan.HasOverlay<WhispStaticOverlay>())
-        {
-            // Scrubadubdub
-            _overlay.Strength = 0f;
-            _overlayMan.RemoveOverlay(_overlay);
-        }
-
         if (_overlayMan.HasOverlay<WhispTextOverlay>())
             _overlayMan.RemoveOverlay(_textOverlay);
     }

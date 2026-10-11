@@ -1,6 +1,8 @@
 using System.Numerics;
 using Content.Shared._HL.Whisp.Components;
 using Content.Shared._HL.Whisp.Events;
+using Content.Shared.Administration;
+using Content.Shared.Administration.Managers;
 using Content.Shared.Examine;
 using Content.Shared.Standing;
 using Content.Shared.Stunnable;
@@ -23,6 +25,7 @@ namespace Content.Shared._HL.Whisp;
 /// </summary>
 public sealed class SharedWhispSystem : EntitySystem
 {
+    [Dependency] private readonly ISharedAdminManager _adminManager = default!;
     [Dependency] private readonly INetManager _net = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
@@ -64,13 +67,12 @@ public sealed class SharedWhispSystem : EntitySystem
         }
     }
 
-    /// <remarks>
-    /// I really don't think this is necessary.
-    /// I am like fairly convinced that you can't examine it regardless.
-    /// </remarks>
-    private static void OnExamineAttempt(EntityUid uid, WhispComponent comp, ExamineAttemptEvent args)
+    /// <summary>
+    /// Restricts examining whisps to only their target or administrators with the Fun flag.
+    /// </summary>
+    private void OnExamineAttempt(EntityUid uid, WhispComponent comp, ExamineAttemptEvent args)
     {
-        if (args.Examiner != comp.Target)
+        if (args.Examiner != comp.Target && !_adminManager.HasAdminFlag(args.Examiner, AdminFlags.Fun))
             args.Cancel();
     }
 

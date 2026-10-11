@@ -20,6 +20,7 @@ using System.Text.RegularExpressions; // Hardlight
 using Content.Shared.IdentityManagement.Components; // Hardlight
 using Content.Shared.Access.Components; // Hardlight
 using Content.Shared.PDA; // Hardlight
+using Content.Shared.GameTicking; // Hardlight
 
 namespace Content.Shared.Paper;
 
@@ -37,6 +38,7 @@ public sealed class PaperSystem : EntitySystem
     [Dependency] private readonly SharedAudioSystem _audio = default!;
     [Dependency] private readonly UseDelaySystem _useDelay = default!; // Frontier
     [Dependency] private readonly AccessReaderSystem _accessReader = default!; // Hardlight
+    [Dependency] private readonly SharedGameTicker _gameTicker = default!; // Hardlight
 
     private const int ReapplyLimit = 10; // Frontier: limits on reapplied stamps
     private const int StampLimit = 100; // Frontier: limits on total stamps on a page (should be able to get a signature from everybody on the server on a page)
@@ -502,6 +504,7 @@ public sealed class PaperSystem : EntitySystem
             "form" => () => ReplaceNthTag(ent, tag, index, (string)args.GetValueOrDefault("replacement")!),
             "check" => () => ReplaceNthTag(ent, tag, index, (string)args["replacement"]!),
             "sign" => () => OnSignReplace(ent, actor, index, (string)args["type"]!),
+            "time" => () => ReplaceTimeTag(ent, (string)args.GetValueOrDefault("type")!, index, (string)args.GetValueOrDefault("format")!),
 
 
             _ => () => throw new NotImplementedException($"The tag [{tag}] has no replacement method."),
@@ -536,6 +539,18 @@ public sealed class PaperSystem : EntitySystem
             _ => $"{name}, {role}"
         });
 
+    }
+
+    private void ReplaceTimeTag(Entity<PaperComponent> ent, string type, int index, string format)
+    {
+        var time = _gameTicker.RoundDuration();
+        var round = _gameTicker.RoundId;
+
+        ReplaceNthTag(ent, "time", index,
+            (type == "shift")
+            ? $"{((format == "#") ? "#" : "")}{round}"
+            : time.ToString(format is "" or "#" ? @"hh\:mm\:ss" : format)
+        );
     }
 
     /// <summary>

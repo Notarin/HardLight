@@ -384,6 +384,7 @@ namespace Content.Client.Paper.UI
                 "form" => () => OpenFormDialog(index, (int)args!["maxLen"]),
                 "check" => () => OpenCheckDialog(index),
                 "sign" => () => SendTag!.Invoke("sign", index, args!),
+                "time" => () => SendTag!.Invoke(tag, index, args!),
 
 
                 _ => throw new NotImplementedException($"Tag {tag} has no implemented click function in PaperWindow.xaml.cs")

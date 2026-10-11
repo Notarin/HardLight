@@ -33,6 +33,15 @@ It will look like this : [color=CornflowerBlue]✓, ✗, ☐[/color] when intera
 - [color=tan]\[sign\][/color] can be used to make a form to input one's name and job quickly. You can specify if you want only
 a name or job by writing [color=tan]\[sign="name"\][/color] or [color=tan]\[sign="job"\][/color] respectively. The job will take whatever ID card or PDA has. \n
 It will look like one of those : [color=CornflowerBlue]\[SIGN\], \[NAME\], \[JOB\][/color] when interactible.
+- [color=tan]\[time\][/color] can be used to quickly fill in the current time or shift number. You can use
+[color=tan]\[time="shift"\][/color] for the shift number and the normal tag for the time. \n
+It will look like this : [color=CornflowerBlue]#______[/color] for the shift and [color=CornflowerBlue]__:__:__[/color]
+for the time when interactible, regardless of the format. \n
+[color=#fbcc6a]Digging into the complexities :[/color] [color=#dbc3a3]\[time="shift" format="#"\][/color] will add a # in front of
+the shift number when filled. For the time tag adding [color=#dbc3a3]format[/color] will let you choose the time format.
+Valid format are hh:mm:ss (01:02:03), hh:mm (01:02), hhtmm:ss (01h02:03), hhtmm (01h02), hh (01), mm (02), ss (03), mm:ss (02:03).
+So [color=#dbc3a3]\[time format="hh:mm"\][/color] will only put the hours and minutes. \n
+
 
 <!--Harlight end-->
 

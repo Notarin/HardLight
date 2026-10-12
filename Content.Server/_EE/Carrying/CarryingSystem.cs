@@ -45,6 +45,7 @@ namespace Content.Server.Carrying
         public const float BaseDistanceCoeff = 0.5f; // Frontier: default throwing speed reduction
         public const float MaxDistanceCoeff = 1.0f; // Frontier: default throwing speed reduction
         public const float DefaultMaxThrowDistance = 4.0f; // Frontier: maximum throwing distance
+        private readonly HashSet<(EntityUid Carrier, EntityUid Carried)> _queuedDrops = new(); // HL: Queue drops to avoid dropping mid-state change
 
         public override void Initialize()
         {
@@ -111,15 +112,15 @@ namespace Content.Server.Carrying
         private void OnParentChanged(EntityUid uid, CarryingComponent component, ref EntParentChangedMessage args)
         {
             var xform = Transform(uid);
-            if (xform.MapUid != args.OldMapId || xform.ParentUid == xform.GridUid)
+            if (xform.MapUid != args.OldMapId || xform.ParentUid == xform.GridUid || xform.ParentUid == xform.MapUid)
                 return;
 
-            DropCarried(uid, component.Carried);
+            _queuedDrops.Add((uid, component.Carried));
         }
 
         private void OnMobStateChanged(EntityUid uid, CarryingComponent component, MobStateChangedEvent args)
         {
-            DropCarried(uid, component.Carried);
+            _queuedDrops.Add((uid, component.Carried));
         }
 
         private void OnCarrierTerminating(EntityUid uid, CarryingComponent component, ref EntityTerminatingEvent args)
@@ -254,7 +255,7 @@ namespace Content.Server.Carrying
         private void Carry(EntityUid carrier, EntityUid carried)
         {
             if (TryComp<PullableComponent>(carried, out var pullable))
-                _pullingSystem.TryStopPull(carried, pullable);
+                _pullingSystem.StopAllPulls(carried);
 
             _transform.AttachToGridOrMap(carrier);
             _transform.AttachToGridOrMap(carried);
@@ -368,6 +369,12 @@ namespace Content.Server.Carrying
             }
             // End Frontier: query for transform
             query.Dispose();
+
+            foreach (var (carrier, carried) in _queuedDrops)
+            {
+                DropCarried(carrier, carried);
+            }
+            _queuedDrops.Clear();
         }
     }
 }

@@ -2,3 +2,13 @@
   id: Aphrodisiac
   kind: source
   path: "/Textures/_HL/Shaders/aphrodisiac.swsl"
+
+- type: shader
+  id: WhispStatic
+  kind: source
+  path: "/Textures/_HL/Shaders/whisp_static.swsl"
+
+- type: shader
+  id: WhispGpuDeath
+  kind: source
+  path: "/Textures/_HL/Shaders/whisp_gpu_death.swsl"

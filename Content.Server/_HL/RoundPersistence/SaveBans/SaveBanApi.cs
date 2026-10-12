@@ -72,6 +72,9 @@ public sealed class SaveBanApi : EntitySystem
     /// </summary>
     public SaveBanResult? CheckForRestrictions(EntityUid entityUid)
     {
+        if (TerminatingOrDeleted(entityUid)) // Catch things like artifact nodes that get insta-deleted when the artifact is serialized
+            return null;
+
         var entityPrototype = Prototype(entityUid)?.ID;
 
         if (entityPrototype is null)

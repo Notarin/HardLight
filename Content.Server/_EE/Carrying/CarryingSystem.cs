@@ -255,7 +255,7 @@ namespace Content.Server.Carrying
         private void Carry(EntityUid carrier, EntityUid carried)
         {
             if (TryComp<PullableComponent>(carried, out var pullable))
-                _pullingSystem.TryStopPull(carried, pullable);
+                _pullingSystem.StopAllPulls(carried);
 
             _transform.AttachToGridOrMap(carrier);
             _transform.AttachToGridOrMap(carried);

@@ -45,7 +45,7 @@ jobs:
           use ${{ forgejo.workspace }}/Scripts/nu/GenerateChangelog.nu
           $env.CLEANED_VERSION = $env.NEW_VERSION | str substring 1..
           GenerateChangelog --version $env.CLEANED_VERSION ${{ vars.CHANGELOG_DIR }}
-          open Directory.Build.props | str replace -r '(<Version>)[^<]*(</Version>)' $"${1}($env.CLEANED_VERSION)${2}" | save -f Directory.Build.props
+          open Directory.Build.props | str replace -r '(<VersionPrefix>)[^<]*(</VersionPrefix>)' $"${1}($env.CLEANED_VERSION)${2}" | save -f Directory.Build.props
 
       - name: Push Changelog
         shell: nu {0}

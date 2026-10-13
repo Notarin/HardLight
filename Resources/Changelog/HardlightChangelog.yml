@@ -355,7 +355,7 @@
   - message: >-
       Storage Port, a connector port with no gas elements so you can anchor and store
       gas canisters for ship saving without losing gas to the connector port.  The
-      sprite is screwed up and I couldn't be bothered to spend even more time to fix it. 
+      sprite is screwed up and I couldn't be bothered to spend even more time to fix it.
       You can also build them on top of each other, so don't do that.  I tried to fix
       it but it broke construction somehow.
     author: TrylobyteWasTaken
@@ -3325,3 +3325,95 @@
   - message: Arachne's Spider Blades are no longer available in the chameleon menu
     author: Notarin Steele
     hash: 4494cd05b233273eb552e3ad74cbed6c90161300
+0.2.2:
+  fix:
+  - message: Fixed carrying someone who's being dragged sometimes crashing the server.
+    author: Drekk
+    hash: b99d5d5199afe59271c103aa4830d56f20e2ed04
+  - message: Fixed Firelock alarms not triggering!
+    author: Drekk
+    hash: ed061c873d50a8f00315a726ca440529d2ebf9dd
+  - message: Fixed cryo popups sometimes showing items!
+    author: Drekk
+    hash: 61d62c81c6fbd69810d9b625d186a4677b6162fd
+  - message: Fixed borg being able to take toxin damages in rare cases.
+    author: Alphonse de V
+    hash: fa622d920bbb244f18ea8bd446860a43a6a88f7b
+  - message: Fixed Line Gun duplicating ores and ore crabs!
+    author: Drekk
+    hash: 9953cd47628c421740e52462cd6d00a2c4ad4f60
+  - message: Fixed /ghost deleting players bodies.
+    author: Drekk
+    hash: a16594a0157736b15c96e13e7f4d800dca6a3424
+  - message: Fixed artifacts sometimes crashing the server.
+    author: Drekk
+    hash: bf3e7995ed493278b815554e070c2dbd754a2470
+  - message: Fixed antag targets not re-rolling when cryoing/disconnecting.
+    author: Drekk
+    hash: ccd4f745e3cb9260a7bc27f2aef26be544c44162
+  - message: Fixed antags getting assigned disconnected players as a target.
+    author: Drekk
+    hash: ccd4f745e3cb9260a7bc27f2aef26be544c44162
+  - message: Fixed dev builds failing locally in VS Code!
+    author: Drekk
+    hash: 5da3f80e0cc52e187ee50ebba1033babae333452
+  - message: Fixed Bluespace Flashers breaking saved ships
+    author: Drekk
+    hash: 657ebab55b5b7845f96036e10e5b7c9d5f1495bb
+  - message: Fixed ChemMasters sometimes saving with broken chem amounts
+    author: Drekk
+    hash: 657ebab55b5b7845f96036e10e5b7c9d5f1495bb
+  - message: Fixed interactive tags registering clicks for all open papers.
+    author: AlphonsedeV
+    hash: de324375565a43f2e6bd958d04cf30c75662ee43
+  add:
+  - message: Oasis Station
+    author: Cinder_all_over
+    hash: 2b210f15af4deb703daf1fcdc29fae47b9aa676f
+  - message: Cryo popups now show cross-station!
+    author: Drekk
+    hash: 61d62c81c6fbd69810d9b625d186a4677b6162fd
+  - message: Added a [time] paper sigil for shift time and number. Check the guidebook!
+    author: AlphonsedeV
+    hash: f66de4bd48f32e5964fdf22b70b957552dd9d180
+  - message: Added a [sign] tag for filling job, name or both, check the guidebook!
+    author: AlphonsedeV
+    hash: a4df178f3310c93230c9242b871eea95fed28c6a
+  - message: Added a [check] tag for paperwork.
+    author: AlphonsedeV
+    hash: 795ef9f0f6ca4ac151cfddc01a1d740ca606e033
+  - message: Adding cartel access to universal access configurator
+    author: BlueNexa
+    hash: d6a283e87338655d77af6ff2c8257e172c379962
+  - message: Added an option to preen feathers of birds!
+    author: Chiluku
+    hash: 5f7c1fa0d1e1c1a48179abfbecfcb91b848a0370
+  tweak:
+  - message: Cargo Crate Printer now prints crates ABCD ABCD instead of at random
+    author: ArtyTheBoog
+    hash: e39ebe82ef105dafe5c0e916a80e6f6038ee19b6
+  - message: Disabled Cyborgs and Station AI rolling antag.
+    author: Drekk
+    hash: 420a9c27d04bd24ded7970a174cc6c2ff408ec03
+  remove:
+  - message: Removed artifacts from being able to be saved in ships or apartments.
+    author: Drekk
+    hash: 02fc7e3ac13a7c45516f00a7d5e09e1add07301f
+  - message: Removed being able to re-enter your body after using /ghost.
+    author: Drekk
+    hash: a16594a0157736b15c96e13e7f4d800dca6a3424
+  - message: Removed the bluespace portal artifact node, as it was RRing players at random.
+    author: Drekk
+    hash: bf3e7995ed493278b815554e070c2dbd754a2470
+  - message: Removed Cyborgs shunting into AI Cores.
+    author: Drekk
+    hash: d78bda5575aa451e57cad65955cb44e40d821741
+  - message: Removed Cyborgs shunting into MMIs.
+    author: Drekk
+    hash: d78bda5575aa451e57cad65955cb44e40d821741
+  - message: Removed Cyborgs shunting into Synth and Vox Brains.
+    author: Drekk
+    hash: d78bda5575aa451e57cad65955cb44e40d821741
+  - message: Removed Cyborgs shunting into chassis that already contain a Positronic Brain.
+    author: Drekk
+    hash: d78bda5575aa451e57cad65955cb44e40d821741

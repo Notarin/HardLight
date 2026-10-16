@@ -66,7 +66,7 @@ public sealed class IdentitySystem : SharedIdentitySystem
             }
             catch (Exception ex)
             {
-                Logger.Error($"Failed to update identity info for {ToPrettyString(ent)}: {ex}");
+                Log.Error($"Failed to update identity info for {ToPrettyString(ent)}: {ex}");
             }
         }
     }

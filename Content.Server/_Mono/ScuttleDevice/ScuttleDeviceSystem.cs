@@ -174,7 +174,7 @@ public sealed class ScuttleDeviceSystem : EntitySystem
 
         if (ent.Comp.DoMusic && ent.Comp.RemainingTime <= ent.Comp.NukeSongLength + ent.Comp.AlertSoundTime + NukeSongBuffer && !ent.Comp.PlayedNukeSong && !ResolvedSoundSpecifier.IsNullOrEmpty(ent.Comp.SelectedNukeSong))
         {
-            _sound.DispatchStationEventMusic(ent, ent.Comp.SelectedNukeSong, StationEventMusicType.Nuke);
+            _sound.DispatchStationEventMusic(ent, ent.Comp.SelectedNukeSong!, StationEventMusicType.Nuke);
             ent.Comp.PlayedNukeSong = true;
         }
 

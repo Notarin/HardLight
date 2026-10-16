@@ -81,7 +81,7 @@ public sealed class GeneticAnalyzerSystem : SharedGeneticAnalyzerSystem
             _paperSystem.SetContent((printed, paper), sb.ToString().TrimEnd());
         }
 
-        _audioSystem.PlayPvs("/Audio/Machines/short_print_and_rip.ogg", uid,
+        _audioSystem.PlayPvs(new SoundPathSpecifier("/Audio/Machines/short_print_and_rip.ogg"), uid,
             AudioParams.Default.WithVariation(0.25f).WithVolume(3f).WithRolloffFactor(2.8f).WithMaxDistance(4.5f));
     }
 

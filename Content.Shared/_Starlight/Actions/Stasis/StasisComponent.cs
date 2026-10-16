@@ -1,3 +1,4 @@
+using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
@@ -129,7 +130,7 @@ public sealed partial class StasisComponent : Component
     /// <summary>
     /// The sound to play when entering stasis.
     /// </summary>
-    [DataField][AutoNetworkedField] public string StasisEnterSound = "/Audio/_Starlight/Misc/alien_teleport.ogg";
+    [DataField][AutoNetworkedField] public SoundSpecifier StasisEnterSound = new SoundPathSpecifier("/Audio/_Starlight/Misc/alien_teleport.ogg");
 
     /// <summary>
     /// The prototype ID of the stasis effect to spawn when exiting stasis.
@@ -144,7 +145,7 @@ public sealed partial class StasisComponent : Component
     /// <summary>
     /// The sound to play when exiting stasis.
     /// </summary>
-    [DataField][AutoNetworkedField] public string StasisExitSound = "/Audio/_Starlight/Misc/alien_teleport.ogg";
+    [DataField][AutoNetworkedField] public SoundSpecifier StasisExitSound = new SoundPathSpecifier("/Audio/_Starlight/Misc/alien_teleport.ogg");
 
     /// <summary>
     /// The prototype ID of the stasis effect to spawn when stasis is currently in use.

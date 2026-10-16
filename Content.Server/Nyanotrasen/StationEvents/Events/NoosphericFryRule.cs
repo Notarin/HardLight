@@ -1,3 +1,4 @@
+using Robust.Shared.Audio;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Physics.Components;
@@ -68,12 +69,12 @@ internal sealed class NoosphericFryRule : StationEventSystem<NoosphericFryRuleCo
                 QueueDel(pair.hat);
                 Spawn("Ash", Transform(pair.wearer).Coordinates);
                 _popupSystem.PopupEntity(Loc.GetString("psionic-burns-up", ("item", pair.hat)), pair.wearer, Filter.Pvs(pair.hat), true, Shared.Popups.PopupType.MediumCaution);
-                _audioSystem.PlayPvs("/Audio/Effects/lightburn.ogg", pair.hat);
+                _audioSystem.PlayPvs(new SoundPathSpecifier("/Audio/Effects/lightburn.ogg"), pair.hat);
             }
             else
             {
                 _popupSystem.PopupEntity(Loc.GetString("psionic-burn-resist", ("item", pair.hat)), pair.wearer, Filter.Pvs(pair.hat), true, Shared.Popups.PopupType.SmallCaution);
-                _audioSystem.PlayPvs("/Audio/Effects/lightburn.ogg", pair.hat);
+                _audioSystem.PlayPvs(new SoundPathSpecifier("/Audio/Effects/lightburn.ogg"), pair.hat);
             }
 
             DamageSpecifier damage = new();

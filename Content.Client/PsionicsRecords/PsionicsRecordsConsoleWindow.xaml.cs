@@ -183,7 +183,7 @@ public sealed partial class PsionicsRecordsConsoleWindow : FancyWindow
         StatusOptionButton.SelectId((int)psionicsRecord.Status);
         if (psionicsRecord.Reason is { } reason)
         {
-            var message = FormattedMessage.FromMarkup(Loc.GetString("psionics-records-console-wanted-reason"));
+            var message = FormattedMessage.FromMarkupOrThrow(Loc.GetString("psionics-records-console-wanted-reason"));
             message.AddText($": {reason}");
             PsionicsList.SetMessage(message);
             PsionicsList.Visible = true;

@@ -301,6 +301,9 @@ desktop.ini
 # Images generated using the MapRenderer
 Resources/MapImages
 
+# gravestones for testpairs
+gravestone*.txt
+
 ## Docfx stuff
 /Content.Docfx/api/
 /Content.Docfx/*site

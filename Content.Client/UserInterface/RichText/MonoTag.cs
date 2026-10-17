@@ -1,4 +1,4 @@
-using System.Linq;
+using Content.Client.Resources;
 using Robust.Client.ResourceManagement;
 using Robust.Client.UserInterface.RichText;
 using Robust.Shared.IoC;
@@ -13,16 +13,17 @@ namespace Content.Client.UserInterface.RichText;
 public sealed class MonoTag : IMarkupTagHandler
 {
     public static readonly ProtoId<FontPrototype> MonoFont = "Monospace";
+    private const string MonoFontPath = "/EngineFonts/NotoSans/NotoSansMono-Regular.ttf";
 
     [Dependency] private readonly IResourceCache _resourceCache = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
 
     public string Name => "mono";
 
     /// <inheritdoc/>
     public void PushDrawContext(MarkupNode node, MarkupDrawingContext context)
     {
-        var font = FontTag.CreateFont(context.Font, node, _resourceCache, _prototypeManager, MonoFont);
+        var size = FontTag.GetSizeForFontTag(context.Font, node);
+        var font = _resourceCache.GetFont(MonoFontPath, size);
         context.Font.Push(font);
     }
 

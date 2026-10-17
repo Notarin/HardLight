@@ -295,8 +295,8 @@ public class PointCannonSystem : EntitySystem
         if (console.CannonGroups[group].Contains(cannonUid))
         {
             // SPCR 2024 - For fixing the old ships before we added this functionality
-            if (cannonComponent.LinkedConsoleId is null)
-                cannonComponent.LinkedConsoleId = consoleUid;
+            if (!cannonComponent.LinkedConsoleIds.Contains(consoleUid))
+                cannonComponent.LinkedConsoleIds.Add(consoleUid);
             return;
         }
 
@@ -305,7 +305,6 @@ public class PointCannonSystem : EntitySystem
             console.CannonGroups["all"].Add(cannonUid);
 
         console.RegenerateCannons = true;
-        cannonComponent.LinkedConsoleId = consoleUid;
         cannonComponent.LinkedConsoleIds.Add(consoleUid);
 
 

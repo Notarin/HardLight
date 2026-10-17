@@ -70,11 +70,8 @@ public sealed class TargetOutlineSystem : EntitySystem
 
     private Vector2 LookupVector => new(LookupSize, LookupSize);
 
-    [ValidatePrototypeId<ShaderPrototype>]
-    private const string ShaderTargetValid = "SelectionOutlineInrange";
-
-    [ValidatePrototypeId<ShaderPrototype>]
-    private const string ShaderTargetInvalid = "SelectionOutline";
+    private static readonly ProtoId<ShaderPrototype> ShaderTargetValid = "SelectionOutlineInrange";
+    private static readonly ProtoId<ShaderPrototype> ShaderTargetInvalid = "SelectionOutline";
 
     private ShaderInstance? _shaderTargetValid;
     private ShaderInstance? _shaderTargetInvalid;

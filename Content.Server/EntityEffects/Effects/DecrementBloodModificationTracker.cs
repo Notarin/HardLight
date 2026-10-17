@@ -1,4 +1,4 @@
-using Content.Server.Body.Systems;
+using Content.Server.Body.Components;
 using Content.Shared.EntityEffects;
 using Robust.Shared.Prototypes;
 
@@ -15,7 +15,6 @@ public sealed partial class DecrementBloodModificationTracker : EntityEffect
 
     public override void Effect(EntityEffectBaseArgs args)
     {
-        var sys = args.EntityManager.System<BloodstreamSystem>();
-        sys.DecrementBloodModificationTracker(args.TargetEntity);
+        args.EntityManager.RemoveComponentDeferred<BloodModificationTrackerComponent>(args.TargetEntity);
     }
 }

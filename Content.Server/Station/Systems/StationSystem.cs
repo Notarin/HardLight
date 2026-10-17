@@ -195,7 +195,7 @@ public sealed class StationSystem : EntitySystem
                 }
 
                 // Abort the round and return to lobby
-                var gameTicker = EntitySystem.Get<GameTicker>();
+                var gameTicker = EntityManager.System<GameTicker>();
                 gameTicker.RestartRound();
                 return;
             }

@@ -43,7 +43,7 @@ namespace Content.Shared.Cybernetics
             }
 
             var origin = _transform.GetMapCoordinates(user);
-            var target = args.Target.ToMap(EntityManager, _transform);
+            var target = _transform.ToMapCoordinates(args.Target);
 
             // Check if target is within maximum teleport distance
             var distance = (target.Position - origin.Position).Length();

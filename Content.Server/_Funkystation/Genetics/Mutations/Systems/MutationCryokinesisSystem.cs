@@ -53,15 +53,15 @@ public sealed class MutationCryokinesisSystem : EntitySystem
         var fromCoords = xform.Coordinates;
         var toCoords = args.Target;
 
-        var fromMap = fromCoords.ToMap(EntityManager, _transform);
+        var fromMap = _transform.ToMapCoordinates(fromCoords);
         var spawnCoords = _mapManager.TryFindGridAt(fromMap, out var gridUid, out _)
-            ? fromCoords.WithEntityId(gridUid, EntityManager)
+            ? _transform.WithEntityId(fromCoords, gridUid)
             : new EntityCoordinates(_mapSystem.GetMapOrInvalid(fromMap.MapId), fromMap.Position);
 
         var fireball = Spawn(args.Prototype, spawnCoords);
 
-        var direction = toCoords.ToMapPos(EntityManager, _transform) -
-                        spawnCoords.ToMapPos(EntityManager, _transform);
+        var direction = _transform.ToMapCoordinates(toCoords).Position -
+                        _transform.ToMapCoordinates(spawnCoords).Position;
 
         var userVelocity = _physics.GetMapLinearVelocity(uid);
 

@@ -3701,7 +3701,7 @@ namespace Content.Server.Shuttles.Save
 
                 // Check if position is occupied (basic check)
                 var lookup = _entityManager.System<EntityLookupSystem>();
-                var mapCoords = coords.ToMap(_entityManager, _transform);
+                var mapCoords = _transform.ToMapCoordinates(coords);
                 var entitiesAtPos = lookup.GetEntitiesIntersecting(mapCoords.MapId, new Box2(testPos - Vector2.One * 0.1f, testPos + Vector2.One * 0.1f));
                 if (!entitiesAtPos.Any())
                 {

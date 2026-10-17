@@ -171,10 +171,10 @@ public abstract class SharedXenoConstructionSystem : EntitySystem
 
     private bool CanBuildOnTilePopup(Entity<XenoComponent> xeno, EntityCoordinates target)
     {
-        if (target.GetGridUid(EntityManager) is not { } gridId ||
+        if (_transform.GetGrid(target) is not { } gridId ||
             !TryComp(gridId, out MapGridComponent? grid))
         {
-            Log.Info($"[XenoBuild][dbg] No grid at target {target}; gridId={(target.GetGridUid(EntityManager)?.ToString() ?? "<null>")}");
+            Log.Info($"[XenoBuild][dbg] No grid at target {target}; gridId={(_transform.GetGrid(target)?.ToString() ?? "<null>")}");
             _popup.PopupClient("You can't build there!", target, xeno);
             return false;
         }
@@ -204,7 +204,7 @@ public abstract class SharedXenoConstructionSystem : EntitySystem
     {
         var origin = _transform.GetMoverCoordinates(xeno);
         target = target.SnapToGrid(EntityManager, _map);
-        if (!origin.InRange(EntityManager, _transform, target, range))
+        if (!_transform.InRange(origin, target, range))
         {
             _popup.PopupClient(Loc.GetString("cm-xeno-cant-reach-there"), target, xeno);
             return false;

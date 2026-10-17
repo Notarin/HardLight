@@ -87,7 +87,7 @@ public sealed class TeleportSystem : EntitySystem
             _pullingSystem.TryStopPull(uid, pull, ignoreGrab: true); // HardLight: pullable<pull
 
         var xform = Transform(uid);
-        var entityCoords = xform.Coordinates.ToMap(EntityManager, _xform);
+        var entityCoords = _xform.GetMapCoordinates(uid, xform);
 
         var targetCoords = new MapCoordinates();
         // Try to find a valid position to teleport to, teleport to whatever works if we can't

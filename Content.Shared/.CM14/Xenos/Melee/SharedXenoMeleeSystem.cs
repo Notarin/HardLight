@@ -62,7 +62,7 @@ public abstract class SharedXenoMeleeSystem : EntitySystem
         if (userCoords.MapId == MapId.Nullspace)
             return;
 
-        var targetCoords = args.Target.ToMap(EntityManager, _transform);
+        var targetCoords = _transform.ToMapCoordinates(args.Target);
         if (userCoords.MapId != targetCoords.MapId)
             return;
 

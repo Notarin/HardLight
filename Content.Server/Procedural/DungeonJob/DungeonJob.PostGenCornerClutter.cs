@@ -12,7 +12,7 @@ public sealed partial class DungeonJob
     /// <summary>
     /// <see cref="CornerClutterDunGen"/>
     /// </summary>
-    private async Task PostGen(CornerClutterDunGen gen, DungeonData data, Dungeon dungeon, HashSet<Vector2i> reservedTiles, Random random)
+    private async Task PostGen(CornerClutterDunGen gen, DungeonData data, Dungeon dungeon, HashSet<Vector2i> reservedTiles, IRobustRandom random)
     {
         if (!data.SpawnGroups.TryGetValue(DungeonDataKey.CornerClutter, out var corner))
         {
@@ -46,7 +46,7 @@ public sealed partial class DungeonJob
                 {
                     var coords = _maps.GridTileToLocal(_gridUid, _grid, tile);
                     var protos = EntitySpawnCollection.GetSpawns(_prototype.Index(corner).Entries, random);
-                    _entManager.SpawnEntities(coords, protos);
+                    SpawnEntities(coords, protos);
                 }
 
                 break;

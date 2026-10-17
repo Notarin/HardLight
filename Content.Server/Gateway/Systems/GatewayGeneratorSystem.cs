@@ -101,7 +101,8 @@ public sealed class GatewayGeneratorSystem : EntitySystem
         const int MaxOffset = 256;
         var tiles = new List<(Vector2i Index, Tile Tile)>();
         var seed = _random.Next();
-        var random = new Random(seed);
+        var random = new RobustRandom();
+        random.SetSeed(seed);
         var mapId = _mapManager.CreateMap();
         var mapUid = _mapManager.GetMapEntityId(mapId);
 
@@ -177,7 +178,8 @@ public sealed class GatewayGeneratorSystem : EntitySystem
         // Do dungeon
         var seed = ent.Comp.Seed;
         var origin = ent.Comp.Origin;
-        var random = new Random(seed);
+        var random = new RobustRandom();
+        random.SetSeed(seed);
         var dungeonDistance = random.Next(3, 6);
         var dungeonRotation = _dungeon.GetDungeonRotation(seed);
         var dungeonPosition = (origin + dungeonRotation.RotateVec(new Vector2i(0, dungeonDistance))).Floored();

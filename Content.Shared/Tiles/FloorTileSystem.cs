@@ -197,7 +197,8 @@ public sealed class FloorTileSystem : EntitySystem
         _adminLogger.Add(LogType.Tile, LogImpact.Low, $"{ToPrettyString(user):actor} placed tile {_tileDefinitionManager[tileId].Name} at {ToPrettyString(gridUid)} {location}");
 
         var tileDef = (ContentTileDefinition)_tileDefinitionManager[tileId];
-        var random = new System.Random((int)_timing.CurTick.Value);
+        var random = new RobustRandom();
+        random.SetSeed((int)_timing.CurTick.Value);
         var variant = _tile.PickVariant(tileDef, random);
 
         var tileRef = _map.GetTileRef(gridUid, mapGrid, location.Offset(new Vector2(offset, offset)));

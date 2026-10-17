@@ -17,7 +17,7 @@ public sealed partial class DungeonJob
     private async Task PostGen(
         OreDunGen gen,
         Dungeon dungeon,
-        Random random)
+        IRobustRandom random)
     {
         // Doesn't use dungeon data because layers and we don't need top-down support at the moment.
 

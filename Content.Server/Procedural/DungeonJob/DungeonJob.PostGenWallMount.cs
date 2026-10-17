@@ -11,7 +11,7 @@ public sealed partial class DungeonJob
     /// <summary>
     /// <see cref="WallMountDunGen"/>
     /// </summary>
-    private async Task PostGen(WallMountDunGen gen, DungeonData data, Dungeon dungeon, HashSet<Vector2i> reservedTiles, Random random)
+    private async Task PostGen(WallMountDunGen gen, DungeonData data, Dungeon dungeon, HashSet<Vector2i> reservedTiles, IRobustRandom random)
     {
         if (!data.Tiles.TryGetValue(DungeonDataKey.FallbackTile, out var tileProto))
         {
@@ -44,7 +44,7 @@ public sealed partial class DungeonJob
             var gridPos = _maps.GridTileToLocal(_gridUid, _grid, neighbor);
             var protoNames = EntitySpawnCollection.GetSpawns(_prototype.Index(spawnProto).Entries, random);
 
-            _entManager.SpawnEntities(gridPos, protoNames);
+            SpawnEntities(gridPos, protoNames);
             count += protoNames.Count;
 
             if (count > 20)

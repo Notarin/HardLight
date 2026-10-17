@@ -40,7 +40,8 @@ public abstract partial class SharedSalvageSystem
 
     public ISalvageMagnetOffering GetSalvageOffering(int seed)
     {
-        var rand = new System.Random(seed);
+        var rand = new RobustRandom();
+        rand.SetSeed(seed);
 
         var type = SharedRandomExtensions.Pick(_offeringWeights, rand);
         switch (type)

@@ -153,8 +153,8 @@ public abstract partial class SharedPlayingCardsSystem
     /// Shuffles all cards in the given stack entity, handling audio, dirtying visuals, etc.
     private void Shuffle<T>(Entity<T> entity, EntityUid user) where T : PlayingCardStackComponent
     {
-        var rand = new System.Random(
-            SharedRandomExtensions.HashCodeCombine((int)_gameTiming.CurTick.Value, entity.Owner.Id));
+        IRobustRandom rand = new RobustRandom();
+        rand.SetSeed(SharedRandomExtensions.HashCodeCombine((int)_gameTiming.CurTick.Value, entity.Owner.Id));
         switch (entity.Comp)
         {
             case PlayingCardDeckComponent deck:

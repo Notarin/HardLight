@@ -152,7 +152,10 @@ public sealed class SubdermalImplantSystem : SharedSubdermalImplantSystem
         }
 
         if (targetGrid == null)
-            targetGrid = _random.GetRandom().PickAndTake(_targetGrids);
+        {
+            targetGrid = _random.Pick(_targetGrids);
+            _targetGrids.Remove(targetGrid.Value);
+        }
 
         EntityCoordinates? targetCoords = null;
 
@@ -200,7 +203,8 @@ public sealed class SubdermalImplantSystem : SharedSubdermalImplantSystem
             if (valid || _targetGrids.Count == 0) // if we don't do the check here then PickAndTake will blow up on an empty set.
                 break;
 
-            targetGrid = _random.GetRandom().PickAndTake(_targetGrids);
+            targetGrid = _random.Pick(_targetGrids);
+            _targetGrids.Remove(targetGrid.Value);
         } while (true);
 
         return targetCoords;

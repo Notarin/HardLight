@@ -195,7 +195,8 @@ public sealed class SpawnSalvageMissionJob : Job<bool>
         mapUid = _map.CreateMap(out var mapId, runMapInit: false); // Frontier: remove var
         MetaDataComponent? metadata = null;
         var grid = _entManager.EnsureComponent<MapGridComponent>(mapUid);
-        var random = new Random(_missionParams.Seed);
+        var random = new RobustRandom();
+        random.SetSeed(_missionParams.Seed);
         // HARDLIGHT: Make expedition destination globally FTL-accessible without requiring disks or beacons.
         // Previously this required a coordinates disk and was beacon-limited which prevented ad-hoc rescue / support.
         var destComp = _entManager.AddComponent<FTLDestinationComponent>(mapUid);
@@ -485,7 +486,7 @@ public sealed class SpawnSalvageMissionJob : Job<bool>
         return true;
     }
 
-    private async Task SpawnRandomEntry(Entity<MapGridComponent> grid, IBudgetEntry entry, Dungeon dungeon, Random random)
+    private async Task SpawnRandomEntry(Entity<MapGridComponent> grid, IBudgetEntry entry, Dungeon dungeon, IRobustRandom random)
     {
         await SuspendIfOutOfTime();
 
@@ -552,7 +553,7 @@ public sealed class SpawnSalvageMissionJob : Job<bool>
         SalvageMission mission,
         Dungeon dungeon,
         MapGridComponent grid,
-        Random random)
+        IRobustRandom random)
     {
         await SuspendIfOutOfTime();
 
@@ -594,7 +595,7 @@ public sealed class SpawnSalvageMissionJob : Job<bool>
         SalvageMission mission,
         Dungeon dungeon,
         MapGridComponent grid,
-        Random random)
+        IRobustRandom random)
     {
         await SuspendIfOutOfTime();
 

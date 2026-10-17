@@ -214,11 +214,10 @@ public sealed class DockingArmGeneratorSystem : EntitySystem
         }
 
         // Try positions in a spiral pattern around the preferred location
-        var random = new Random(_random.Next());
         for (int attempt = 1; attempt < maxAttempts; attempt++)
         {
             var distance = 30 + (attempt * 15); // Increase distance with each attempt
-            var angle = random.NextAngle();
+            var angle = _random.NextAngle();
             var testPosition = preferredPosition + angle.ToVec() * distance;
 
             if (IsSpawnLocationClear(mapId, testPosition, gridRadius))
@@ -270,9 +269,8 @@ public sealed class DockingArmGeneratorSystem : EntitySystem
         {
             targetMapId = sourceXform.MapID;
             // Calculate initial preferred position near the gateway
-            var random = new Random(_random.Next());
-            var spawnDistance = random.Next(120, 150);
-            spawnAngle = random.NextAngle();
+            var spawnDistance = _random.Next(120, 150);
+            spawnAngle = _random.NextAngle();
             preferredPosition = sourceXform.WorldPosition + spawnAngle.ToVec() * spawnDistance;
 
             Log.Info($"Initial spawn position {preferredPosition} on map {targetMapId}, distance {spawnDistance} from gateway");

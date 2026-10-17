@@ -22,27 +22,6 @@ namespace Content.Shared.Random.Helpers
             return Loc.GetString(prototype.Values[index]);
         }
 
-        public static string Pick(this IWeightedRandomPrototype prototype, System.Random random)
-        {
-            var picks = prototype.Weights;
-            var sum = picks.Values.Sum();
-            var accumulated = 0f;
-
-            var rand = random.NextFloat() * sum;
-
-            foreach (var (key, weight) in picks)
-            {
-                accumulated += weight;
-
-                if (accumulated >= rand)
-                {
-                    return key;
-                }
-            }
-
-            // Shouldn't happen
-            throw new InvalidOperationException($"Invalid weighted pick for {prototype.ID}!");
-        }
 
         public static string Pick(this IWeightedRandomPrototype prototype, IRobustRandom? random = null)
         {
@@ -108,7 +87,7 @@ namespace Content.Shared.Random.Helpers
             return true;
         }
 
-        public static T Pick<T>(Dictionary<T, float> weights, System.Random random)
+        public static T Pick<T>(Dictionary<T, float> weights, IRobustRandom random)
             where T : notnull
         {
             var sum = weights.Values.Sum();

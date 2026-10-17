@@ -115,14 +115,14 @@ public sealed partial class DungeonJob : Job<List<Dungeon>>
         List<IDunGenLayer> layers,
         HashSet<Vector2i> reservedTiles,
         int seed,
-        Random random)
+        IRobustRandom random)
     {
         var dungeons = new List<Dungeon>();
         var count = random.Next(config.MinCount, config.MaxCount + 1);
 
         for (var i = 0; i < count; i++)
         {
-            position += random.NextPolarVector2(config.MinOffset, config.MaxOffset).Floored();
+            position += random.NextVector2(config.MinOffset, config.MaxOffset).Floored();
 
             foreach (var layer in layers)
             {
@@ -149,8 +149,9 @@ public sealed partial class DungeonJob : Job<List<Dungeon>>
     {
         _sawmill.Info($"Generating dungeon {_genID} with seed {_seed} on {_entManager.ToPrettyString(_gridUid)}"); // Frontier: _gen<_genID
         _grid.CanSplit = false;
-        var random = new Random(_seed);
-        var position = (_position + random.NextPolarVector2(_gen.MinOffset, _gen.MaxOffset)).Floored();
+        var random = new RobustRandom() as IRobustRandom;
+        random.SetSeed(_seed);
+        var position = (_position + random.NextVector2(_gen.MinOffset, _gen.MaxOffset)).Floored();
 
         // Tiles we can no longer generate on due to being reserved elsewhere.
         var reservedTiles = new HashSet<Vector2i>();
@@ -189,7 +190,7 @@ public sealed partial class DungeonJob : Job<List<Dungeon>>
         IDunGenLayer layer,
         HashSet<Vector2i> reservedTiles,
         int seed,
-        Random random)
+        IRobustRandom random)
     {
         _sawmill.Debug($"Doing postgen {layer.GetType()} for {_gen} with seed {_seed}");
 
@@ -270,7 +271,7 @@ public sealed partial class DungeonJob : Job<List<Dungeon>>
                 break;
             case PrototypeDunGen prototypo:
                 var groupConfig = _prototype.Index(prototypo.Proto);
-                position = (position + random.NextPolarVector2(groupConfig.MinOffset, groupConfig.MaxOffset)).Floored();
+                position = (position + random.NextVector2(groupConfig.MinOffset, groupConfig.MaxOffset)).Floored();
 
                 var dataCopy = groupConfig.Data.Clone();
                 dataCopy.Apply(data);
@@ -322,5 +323,13 @@ public sealed partial class DungeonJob : Job<List<Dungeon>>
             return;
 
         await SuspendIfOutOfTime();
+    }
+
+    private void SpawnEntities(EntityCoordinates coords, List<string> protoNames)
+    {
+        for (var i = 0; i < protoNames.Count; i++)
+        {
+            _entManager.SpawnAttachedTo(protoNames[i], coords);
+        }
     }
 }

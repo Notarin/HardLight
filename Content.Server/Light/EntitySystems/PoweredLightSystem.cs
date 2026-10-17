@@ -41,8 +41,11 @@ public sealed class PoweredLightSystem : SharedPoweredLightSystem
         light.LastGhostBlink = time;
 
         ToggleBlinkingLight(uid, light, true);
-        uid.SpawnTimer(light.GhostBlinkingTime, () =>
+        Robust.Shared.Timing.Timer.Spawn(light.GhostBlinkingTime, () =>
         {
+            if (TerminatingOrDeleted(uid))
+                return;
+
             ToggleBlinkingLight(uid, light, false);
         });
 
@@ -64,7 +67,7 @@ public sealed class PoweredLightSystem : SharedPoweredLightSystem
     // Schedules a light update for a later time to ensure bulbs are properly inserted before checking for them.
     private void ScheduleLateRefresh(EntityUid uid)
     {
-        uid.SpawnTimer(TimeSpan.FromSeconds(0.05), () =>
+        Robust.Shared.Timing.Timer.Spawn(TimeSpan.FromSeconds(0.05), () =>
         {
             if (TerminatingOrDeleted(uid))
                 return;

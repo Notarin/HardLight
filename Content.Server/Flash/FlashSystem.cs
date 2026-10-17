@@ -101,8 +101,11 @@ namespace Content.Server.Flash
                 _popup.PopupEntity(Loc.GetString("flash-component-becomes-empty"), user);
             }
 
-            uid.SpawnTimer(400, () =>
+            Robust.Shared.Timing.Timer.Spawn(400, () =>
             {
+                if (Deleted(uid))
+                    return;
+
                 _appearance.SetData(uid, FlashVisuals.Flashing, false);
                 comp.Flashing = false;
             });

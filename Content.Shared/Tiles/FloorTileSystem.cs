@@ -111,9 +111,9 @@ public sealed class FloorTileSystem : EntitySystem
 
         // if user can access tile center then they can place floor
         // otherwise check it isn't blocked by a wall
-        if (!canAccessCenter)
+        if (!canAccessCenter && location.TryGetTileRef(out var tileRef, EntityManager, _mapManager))
         {
-            foreach (var ent in location.GetEntitiesInTile(lookupSystem: _lookup))
+            foreach (var ent in _lookup.GetLocalEntitiesIntersecting(tileRef.Value, flags: LookupFlags.Static))
             {
                 if (physicQuery.TryGetComponent(ent, out var phys) &&
                     phys.BodyType == BodyType.Static &&

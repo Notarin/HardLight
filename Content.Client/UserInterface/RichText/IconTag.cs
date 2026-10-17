@@ -13,7 +13,7 @@ using Robust.Shared.Utility;
 
 namespace Content.Client.UserInterface.RichText;
 
-public sealed class IconTag : IMarkupTag
+public sealed class IconTag : IMarkupTagHandler
 {
     private static readonly Thickness IconMargin = new(0, 0, 4, 0); // HardLight
 
@@ -24,7 +24,7 @@ public sealed class IconTag : IMarkupTag
 
     public string Name => "icon";
 
-    public bool TryGetControl(MarkupNode node, [NotNullWhen(true)] out Control? control)
+    public bool TryCreateControl(MarkupNode node, [NotNullWhen(true)] out Control? control)
     {
         if (!node.Attributes.TryGetValue("src", out var id) || id.StringValue == null)
         {

@@ -10,7 +10,7 @@ using Content.Client.UserInterface.ControlExtensions;
 namespace Content.Client.Guidebook.RichText;
 
 [UsedImplicitly]
-public sealed class TextLinkTag : IMarkupTag
+public sealed class TextLinkTag : IMarkupTagHandler
 {
     public static Color LinkColor => Color.CornflowerBlue;
 
@@ -19,7 +19,7 @@ public sealed class TextLinkTag : IMarkupTag
     public Control? Control;
 
     /// <inheritdoc/>
-    public bool TryGetControl(MarkupNode node, [NotNullWhen(true)] out Control? control)
+    public bool TryCreateControl(MarkupNode node, [NotNullWhen(true)] out Control? control)
     {
         if (!node.Value.TryGetString(out var text)
             || !node.Attributes.TryGetValue("link", out var linkParameter)

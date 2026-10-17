@@ -32,7 +32,6 @@ public sealed class RCDConstructionGhostSystem : EntitySystem
 
     // Starlight Start: RPD
     private bool _useMirrorPrototype = false;
-    public event EventHandler? FlipConstructionPrototype;
 
     public override void Initialize()
     {

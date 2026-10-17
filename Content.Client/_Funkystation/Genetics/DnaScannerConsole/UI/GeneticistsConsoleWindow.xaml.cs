@@ -46,7 +46,6 @@ public sealed partial class GeneticistsConsoleWindow : FancyWindow
     public event Action? OnScrambleDnaPressed;
     public event Action<string>? OnToggleResearchPressed;
     public event Action? OnJokerUsed;
-    public event Action<string, bool>? OnMutationSelectionChanged;
 
     public GeneticistsConsoleWindow()
     {

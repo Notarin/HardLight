@@ -57,7 +57,6 @@ public sealed partial class AdminLogManager
                 EntityUid id => id,
                 EntityStringRepresentation rep => rep.Uid,
                 ICommonSession { AttachedEntity: { Valid: true } } session => session.AttachedEntity,
-                IComponent component => component.Owner,
                 _ => null
             };
 

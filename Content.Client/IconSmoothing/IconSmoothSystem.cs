@@ -560,7 +560,7 @@ namespace Content.Client.IconSmoothing
         {
             var (cornerNE, cornerNW, cornerSW, cornerSE) = gridEntity == null
                 ? (CornerFill.None, CornerFill.None, CornerFill.None, CornerFill.None)
-                : CalculateCornerFill(gridEntity.Value, smooth, xform, smoothQuery);
+                : CalculateCornerFill(gridEntity.Value, smooth, (spriteEnt.Owner, xform), smoothQuery);
 
             // TODO figure out a better way to set multiple sprite layers.
             // This will currently re-calculate the sprite bounding box 4 times.
@@ -590,12 +590,12 @@ namespace Content.Client.IconSmoothing
             CalculateEdge(spriteEnt, directions, sprite);
         }
 
-        private (CornerFill ne, CornerFill nw, CornerFill sw, CornerFill se) CalculateCornerFill(Entity<MapGridComponent> gridEntity, IconSmoothComponent smooth, TransformComponent xform, EntityQuery<IconSmoothComponent> smoothQuery)
+        private (CornerFill ne, CornerFill nw, CornerFill sw, CornerFill se) CalculateCornerFill(Entity<MapGridComponent> gridEntity, IconSmoothComponent smooth, Entity<TransformComponent> xform, EntityQuery<IconSmoothComponent> smoothQuery)
         {
             var gridUid = gridEntity.Owner;
             var grid = gridEntity.Comp;
 
-            var pos = _mapSystem.TileIndicesFor(gridUid, grid, xform.Coordinates);
+            var pos = _mapSystem.TileIndicesFor(gridUid, grid, xform.Comp.Coordinates);
             var n = MatchingEntity(xform.Owner, smooth, _mapSystem.GetAnchoredEntitiesEnumerator(gridUid, grid, pos.Offset(Direction.North)), smoothQuery, new(0, 1)); // Frontier: Added vector, // HardLight: Added xform.Owner
             var ne = MatchingEntity(xform.Owner, smooth, _mapSystem.GetAnchoredEntitiesEnumerator(gridUid, grid, pos.Offset(Direction.NorthEast)), smoothQuery, new(1, 1)); // Frontier: Added vector, // HardLight: Added xform.Owner
             var e = MatchingEntity(xform.Owner, smooth, _mapSystem.GetAnchoredEntitiesEnumerator(gridUid, grid, pos.Offset(Direction.East)), smoothQuery, new(1, 0)); // Frontier: Added vector, // HardLight: Added xform.Owner
@@ -657,7 +657,7 @@ namespace Content.Client.IconSmoothing
             }
 
             // Local is fine as we already know it's parented to the grid (due to the way anchoring works).
-            switch (xform.LocalRotation.GetCardinalDir())
+            switch (xform.Comp.LocalRotation.GetCardinalDir())
             {
                 case Direction.North:
                     return (cornerSW, cornerSE, cornerNE, cornerNW);

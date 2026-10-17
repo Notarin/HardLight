@@ -24,7 +24,6 @@ public partial class SharedPseudoItemSystem
         // The fake component is never actually added to the entity
         item ??= new ItemComponent
         {
-            Owner = itemEnt,
             Shape = itemEnt.Comp.Shape,
             Size = itemEnt.Comp.Size,
             StoredOffset = itemEnt.Comp.StoredOffset

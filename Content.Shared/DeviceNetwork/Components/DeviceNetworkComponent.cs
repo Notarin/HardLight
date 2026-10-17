@@ -24,6 +24,9 @@ namespace Content.Shared.DeviceNetwork.Components
 
         public int DeviceNetId => (int)NetIdEnum;
 
+        [ViewVariables]
+        public EntityUid DeviceUid = EntityUid.Invalid;
+
         /// <summary>
         ///     The frequency that this device is listening on.
         /// </summary>

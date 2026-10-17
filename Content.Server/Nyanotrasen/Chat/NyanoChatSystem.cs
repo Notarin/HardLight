@@ -122,9 +122,10 @@ namespace Content.Server.Nyanotrasen.Chat
                 _chatManager.ChatMessageToMany(ChatChannel.Telepathic, obfuscated, messageWrap, source, hideChat, false, GetDreamers(clients), Color.PaleVioletRed);
             }
 
-            foreach (var repeater in EntityQuery<TelepathicRepeaterComponent>())
+            var repeaterQuery = EntityQueryEnumerator<TelepathicRepeaterComponent>();
+            while (repeaterQuery.MoveNext(out var repeaterUid, out _))
             {
-                _chatSystem.TrySendInGameICMessage(repeater.Owner, message, InGameICChatType.Speak, false);
+                _chatSystem.TrySendInGameICMessage(repeaterUid, message, InGameICChatType.Speak, false);
             }
         }
 

@@ -128,7 +128,7 @@ namespace Content.Server.Power.EntitySystems
 
         private void PowerConsumerInit(EntityUid uid, PowerConsumerComponent component, ComponentInit args)
         {
-            _powerNetConnector.BaseNetConnectorInit(component);
+            _powerNetConnector.BaseNetConnectorInit(uid, component);
             AllocLoad(component.NetworkLoad);
         }
 
@@ -149,7 +149,7 @@ namespace Content.Server.Power.EntitySystems
 
         private void PowerSupplierInit(EntityUid uid, PowerSupplierComponent component, ComponentInit args)
         {
-            _powerNetConnector.BaseNetConnectorInit(component);
+            _powerNetConnector.BaseNetConnectorInit(uid, component);
             AllocSupply(component.NetworkSupply);
         }
 
@@ -480,7 +480,7 @@ namespace Content.Server.Power.EntitySystems
 
             foreach (var apc in net.Apcs)
             {
-                var netBattery = batteryQuery.GetComponent(apc.Owner);
+                var netBattery = batteryQuery.GetComponent(apc.NetConnectorOwner);
                 netNode.BatterySupplies.Add(netBattery.NetworkBattery.Id);
                 netBattery.NetworkBattery.LinkedNetworkDischarging = netNode.Id;
             }
@@ -501,14 +501,14 @@ namespace Content.Server.Power.EntitySystems
 
             foreach (var charger in net.Chargers)
             {
-                var battery = batteryQuery.GetComponent(charger.Owner);
+                var battery = batteryQuery.GetComponent(charger.NetConnectorOwner);
                 netNode.BatteryLoads.Add(battery.NetworkBattery.Id);
                 battery.NetworkBattery.LinkedNetworkCharging = netNode.Id;
             }
 
             foreach (var discharger in net.Dischargers)
             {
-                var battery = batteryQuery.GetComponent(discharger.Owner);
+                var battery = batteryQuery.GetComponent(discharger.NetConnectorOwner);
                 netNode.BatterySupplies.Add(battery.NetworkBattery.Id);
                 battery.NetworkBattery.LinkedNetworkDischarging = netNode.Id;
             }

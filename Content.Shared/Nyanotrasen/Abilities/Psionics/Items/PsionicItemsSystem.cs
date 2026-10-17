@@ -59,8 +59,6 @@ namespace Content.Shared.Abilities.Psionics
 
 
             var newComponent = (Component)_componentFactory.GetComponent(componentType);
-            newComponent.Owner = args.Equipee;
-
             AddComp(args.Equipee, newComponent);
 
             component.IsActive = true;

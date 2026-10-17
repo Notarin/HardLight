@@ -3773,7 +3773,7 @@ namespace Content.Server.Shuttles.Save
             }
         }
 
-        private void ReconstructEntitiesLegacyMode(GridData gridData, MapGridComponent newGrid, Dictionary<string, EntityUid> entityIdMapping, bool clearDefaults = false)
+        private void ReconstructEntitiesLegacyMode(GridData gridData, Entity<MapGridComponent> newGrid, Dictionary<string, EntityUid> entityIdMapping, bool clearDefaults = false)
         {
             _sawmill.Info("Using legacy reconstruction mode for backward compatibility");
 

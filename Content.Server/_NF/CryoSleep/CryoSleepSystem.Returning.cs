@@ -114,7 +114,7 @@ public sealed partial class CryoSleepSystem
         if (_mind.TryGetMind(id, out _, out var mindComp)
             && TryComp<GhostComponent>(mindComp.CurrentEntity, out var ghost))
         {
-            _ghost.SetCanReturnFromCryo(ghost, false);
+            _ghost.SetCanReturnFromCryo((mindComp.CurrentEntity.Value, ghost), false);
         }
 
         if (body != null

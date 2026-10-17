@@ -63,10 +63,11 @@ public sealed class FlashImmunitySystem : EntitySystem
 
     private EntityUid GetPossibleWearer(EntityUid uid)
     {
-        if (TryComp<ClothingComponent>(uid, out var clothingComponent))
+        if (HasComp<ClothingComponent>(uid))
         {
             //we want to get the wearer of the clothing, not the clothing itself
-            return IoCManager.Resolve<IEntityManager>().GetComponentOrNull<TransformComponent>(clothingComponent.Owner)?.ParentUid ?? uid;
+            var parent = Transform(uid).ParentUid;
+            return parent.IsValid() ? parent : uid;
         }
 
         return uid;

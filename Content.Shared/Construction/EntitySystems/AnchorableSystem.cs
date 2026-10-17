@@ -327,10 +327,7 @@ public sealed partial class AnchorableSystem : EntitySystem
         return true;
     }
 
-    public bool TileFree(MapGridComponent grid, Vector2i gridIndices, int collisionLayer = 0, int collisionMask = 0)
-    {
-        return TileFree((grid.Owner, grid), gridIndices, collisionLayer, collisionMask);
-    }
+
 
     /// <summary>
     /// Returns true if any unstackables are also on the corresponding tile.

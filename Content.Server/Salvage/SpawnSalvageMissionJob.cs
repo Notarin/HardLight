@@ -360,10 +360,10 @@ public sealed class SpawnSalvageMissionJob : Job<bool>
         switch (_missionParams.MissionType)
         {
             case SalvageMissionType.Destruction:
-                await SetupStructure(mission, dungeon, grid, random);
+                await SetupStructure(mission, dungeon, (mapUid, grid), random);
                 break;
             case SalvageMissionType.Elimination:
-                await SetupElimination(mission, dungeon, grid, random);
+                await SetupElimination(mission, dungeon, (mapUid, grid), random);
                 break;
             default:
                 _sawmill.Warning($"No setup function for salvage mission type {_missionParams.MissionType}!");
@@ -552,7 +552,7 @@ public sealed class SpawnSalvageMissionJob : Job<bool>
     private async Task SetupStructure(
         SalvageMission mission,
         Dungeon dungeon,
-        MapGridComponent grid,
+        Entity<MapGridComponent> grid,
         IRobustRandom random)
     {
         await SuspendIfOutOfTime();
@@ -594,7 +594,7 @@ public sealed class SpawnSalvageMissionJob : Job<bool>
     private async Task SetupElimination(
         SalvageMission mission,
         Dungeon dungeon,
-        MapGridComponent grid,
+        Entity<MapGridComponent> grid,
         IRobustRandom random)
     {
         await SuspendIfOutOfTime();

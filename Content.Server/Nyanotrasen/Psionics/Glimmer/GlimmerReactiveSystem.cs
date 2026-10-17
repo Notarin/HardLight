@@ -310,7 +310,7 @@ namespace Content.Server.Psionics.Glimmer
             {
                 var tileIndices = _mapSystem.TileIndicesFor(gridUid.Value, grid, coordinates);
 
-                if (_anchorableSystem.TileFree(grid, tileIndices, physics.CollisionLayer, physics.CollisionMask) &&
+                if (_anchorableSystem.TileFree((gridUid.Value, grid), tileIndices, physics.CollisionLayer, physics.CollisionMask) &&
                     _transformSystem.AnchorEntity(uid, xform))
                 {
                     return;

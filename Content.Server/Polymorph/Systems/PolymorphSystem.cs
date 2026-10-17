@@ -225,7 +225,6 @@ public sealed partial class PolymorphSystem : EntitySystem
                 continue;
 
             var copy = _serialization.CreateCopy(comp, notNullableOverride: true);
-            copy.Owner = child;
             AddComp(child, copy, true);
         }
         // Startlight end

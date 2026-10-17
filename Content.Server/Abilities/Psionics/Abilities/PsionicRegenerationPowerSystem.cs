@@ -58,7 +58,7 @@ namespace Content.Server.Abilities.Psionics
                 true,
                 PopupType.Medium);
 
-            _audioSystem.PlayPvs(component.SoundUse, component.Owner, AudioParams.Default.WithVolume(8f).WithMaxDistance(1.5f).WithRolloffFactor(3.5f));
+            _audioSystem.PlayPvs(component.SoundUse, uid, AudioParams.Default.WithVolume(8f).WithMaxDistance(1.5f).WithRolloffFactor(3.5f));
             _psionics.LogPowerUsed(uid, "psionic regeneration");
             args.Handled = true;
         }

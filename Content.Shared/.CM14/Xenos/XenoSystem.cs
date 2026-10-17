@@ -205,7 +205,7 @@ public sealed class XenoSystem : EntitySystem
         Log.Debug($"[Xeno] Evolution handler start for {ToPrettyString(ent)} evolvesTo={ent.Comp.EvolvesTo.Count} hasActor={TryComp(ent, out ActorComponent? _)}");
         if (TryComp(ent, out ActorComponent? actor))
         {
-            if (_ui.TryOpenUi(ent.Owner, XenoEvolutionUIKey.Key, actor.Owner))
+            if (_ui.TryOpenUi(ent.Owner, XenoEvolutionUIKey.Key, ent.Owner))
             {
                 //Log.Debug($"[Xeno] Opened evolution UI for {ToPrettyString(ent)} actor={ToPrettyString(actor.Owner)}");
                 return;

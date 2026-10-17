@@ -216,7 +216,7 @@ public sealed class MindSystem : SharedMindSystem
             component = EnsureComp<MindContainerComponent>(entity.Value);
             var ghostComponent = Comp<GhostComponent>(entity.Value);
             _ghosts.SetCanReturnToBody((entity.Value, ghostComponent), false);
-            _ghosts.SetCanReturnFromCryo(ghostComponent, mind.UserId != null ? _cryo.HasCryosleepingBody(mind.UserId.Value) : false); // Frontier
+            _ghosts.SetCanReturnFromCryo((entity.Value, ghostComponent), mind.UserId != null ? _cryo.HasCryosleepingBody(mind.UserId.Value) : false); // Frontier
         }
 
         var oldEntity = mind.OwnedEntity;

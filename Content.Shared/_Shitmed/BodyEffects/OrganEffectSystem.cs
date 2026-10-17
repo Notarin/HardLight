@@ -82,7 +82,6 @@ public partial class OrganEffectSystem : EntitySystem
                 continue;
 
             var newComp = (Component)_serManager.CreateCopy(comp.Component, notNullableOverride: true);
-            newComp.Owner = body;
             AddComp(body, newComp, true);
             effectComp.Active[key] = comp;
             if (newComp.NetSyncEnabled)

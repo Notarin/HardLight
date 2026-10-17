@@ -75,7 +75,7 @@ public abstract class SharedXenoConstructionSystem : EntitySystem
         _ui.CloseUi(xeno.Owner, XenoChooseStructureUI.Key, actor.PlayerSession);
 
         // Prefer TryOpenUi with the actor entity (matches evolution flow and validates open state)
-        var opened = _ui.TryOpenUi(xeno.Owner, XenoChooseStructureUI.Key, actor.Owner);
+        var opened = _ui.TryOpenUi(xeno.Owner, XenoChooseStructureUI.Key, xeno.Owner);
         if (!opened)
         {
             // Fallback to the session-based overload used elsewhere in the codebase.

@@ -70,7 +70,7 @@ namespace Content.Server.Roboisseur.Roboisseur
             if (CheckTier(component.DesiredPrototype.ID, component) > 1)
                 message = Loc.GetString(_random.Pick(component.DemandMessagesTier2), ("item", component.DesiredPrototype.Name));
 
-            _chat.TrySendInGameICMessage(component.Owner, message, InGameICChatType.Speak, true);
+            _chat.TrySendInGameICMessage(uid, message, InGameICChatType.Speak, true);
         }
 
         private void OnInteractUsing(EntityUid uid, RoboisseurComponent component, InteractUsingEvent args)

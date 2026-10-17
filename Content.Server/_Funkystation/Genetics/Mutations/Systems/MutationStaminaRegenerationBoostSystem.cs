@@ -11,11 +11,12 @@ public sealed class MutationStaminaRegenerationBoostSystem : EntitySystem
     {
         base.Update(frameTime);
 
-        foreach (var (boost, stamina) in EntityQuery<MutationStaminaRegenerationBoostComponent, StaminaComponent>())
+        var query = EntityQueryEnumerator<MutationStaminaRegenerationBoostComponent, StaminaComponent>();
+        while (query.MoveNext(out var uid, out var boost, out var stamina))
         {
             if (stamina.ActiveDrains.Count == 0)
             {
-                _staminaSystem.TakeStaminaDamage(boost.Owner, -boost.RegenBonus * frameTime, stamina, visual: false);
+                _staminaSystem.TakeStaminaDamage(uid, -boost.RegenBonus * frameTime, stamina, visual: false);
             }
         }
     }

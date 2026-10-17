@@ -147,8 +147,8 @@ namespace Content.Server.Shuttles.Systems
 
             var msg = new UndockEvent
             {
-                DockA = dockA,
-                DockB = dockB,
+                DockA = (dockAUid, dockA),
+                DockB = (dockBUid.Value, dockB),
                 GridAUid = gridAUid!.Value,
                 GridBUid = gridBUid!.Value,
             };

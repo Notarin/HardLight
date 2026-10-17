@@ -31,7 +31,7 @@ public sealed partial class DungeonJob
             {
                 var tile = availableTiles.RemoveSwap(random.Next(availableTiles.Count));
 
-                if (!_anchorable.TileFree(_grid,
+                if (!_anchorable.TileFree(_gridEntity,
                         tile,
                         (int)CollisionGroup.MachineLayer,
                         (int)CollisionGroup.MachineLayer))

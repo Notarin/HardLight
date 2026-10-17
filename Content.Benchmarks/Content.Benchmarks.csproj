@@ -9,6 +9,8 @@
     <OutputType>Exe</OutputType>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>12</LangVersion>
+    <!-- This is to opt-out of entrypoint generation, which causes issues. -->
+    <IsTestingPlatformApplication>false</IsTestingPlatformApplication>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="BenchmarkDotNet" />

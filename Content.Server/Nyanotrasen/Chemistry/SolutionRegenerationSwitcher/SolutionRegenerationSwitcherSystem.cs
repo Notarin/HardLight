@@ -3,14 +3,14 @@ using Content.Server.Chemistry.Components;
 using Content.Server.Popups;
 using Content.Shared.Chemistry.Reagent;
 using Content.Shared.Verbs;
-using Content.Server.Chemistry.Containers.EntitySystems;
+using Content.Shared.Chemistry.EntitySystems;
 
 namespace Content.Server.Chemistry.EntitySystems
 {
     public sealed class SolutionRegenerationSwitcherSystem : EntitySystem
     {
         [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly SolutionContainerSystem _solutionSystem = default!;
+        [Dependency] private readonly SharedSolutionContainerSystem _solutionSystem = default!;
         [Dependency] private readonly PopupSystem _popups = default!;
 
         private ISawmill _sawmill = default!;

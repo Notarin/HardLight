@@ -80,13 +80,6 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
                         //         configuring the cancellation time. We need this side effect, so dear reader
                         //         if you ever make it so InternalCancel can throw an exception before that
                         //         happens, update this to set cancel time itself in a finally block.
-                        //
-                        //         If the doafter is one using async, this CAN result in that task leaking forever.
-                        //         So we check that here, too.
-                        if (comp.AwaitedDoAfters.Remove(doAfter.Index, out var tcs))
-                        {
-                            tcs.TrySetCanceled();
-                        }
                     }
                 }
 #else
@@ -160,9 +153,6 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
     private bool TryAttemptEvent(DoAfter doAfter)
     {
         var args = doAfter.Args;
-
-        if (args.ExtraCheck?.Invoke() == false)
-            return false;
 
         if (doAfter.AttemptEvent == null)
         {

@@ -43,11 +43,21 @@ namespace Content.Server.Construction
         // --- YOU HAVE BEEN WARNED! AAAH! ---
 
         private readonly Dictionary<ICommonSession, HashSet<int>> _beingBuilt = new();
+        private readonly Dictionary<DoAfterId, TaskCompletionSource<DoAfterStatus>> _awaitedDoAfters = new();
 
         private void InitializeInitial()
         {
             SubscribeNetworkEvent<TryStartStructureConstructionMessage>(HandleStartStructureConstruction);
             SubscribeNetworkEvent<TryStartItemConstructionMessage>(HandleStartItemConstruction);
+            SubscribeLocalEvent<ConstructDoAfterEvent>(OnConstructDoAfter);
+        }
+
+        private void OnConstructDoAfter(ConstructDoAfterEvent ev)
+        {
+            if (_awaitedDoAfters.Remove(ev.DoAfter.Id, out var tcs))
+            {
+                tcs.SetResult(ev.Cancelled ? DoAfterStatus.Cancelled : DoAfterStatus.Finished);
+            }
         }
 
         // LEGACY CODE. See warning at the top of the file!
@@ -262,8 +272,9 @@ namespace Content.Server.Construction
                 return null;
             }
 
-            var doAfterArgs = new DoAfterArgs(EntityManager, user, doAfterTime, new AwaitedDoAfterEvent(), null)
+            var doAfterArgs = new DoAfterArgs(EntityManager, user, doAfterTime, new ConstructDoAfterEvent(), null)
             {
+                Broadcast = true,
                 BreakOnDamage = true,
                 BreakOnMove = true,
                 NeedHand = false,
@@ -272,11 +283,21 @@ namespace Content.Server.Construction
                 BlockDuplicate = false,
             };
 
-            if (doAfterTime > 0
-                && await _doAfterSystem.WaitDoAfter(doAfterArgs) == DoAfterStatus.Cancelled)
+            if (doAfterTime > 0)
             {
-                FailCleanup();
-                return null;
+                if (!_doAfterSystem.TryStartDoAfter(doAfterArgs, out var doAfterId))
+                {
+                    FailCleanup();
+                    return null;
+                }
+
+                var tcs = new TaskCompletionSource<DoAfterStatus>();
+                _awaitedDoAfters.Add(doAfterId.Value, tcs);
+                if (await tcs.Task == DoAfterStatus.Cancelled)
+                {
+                    FailCleanup();
+                    return null;
+                }
             }
 
             var newEntityProto = graph.Nodes[edge.Target].Entity.GetId(null, user, new(EntityManager));

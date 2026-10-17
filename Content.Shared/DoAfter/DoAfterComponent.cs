@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization;
 
@@ -19,9 +18,6 @@ public sealed partial class DoAfterComponent : Component
     /// </summary>
     [DataField]
     public bool RaiseEndedEvent;
-
-    // Used by obsolete async do afters
-    public readonly Dictionary<ushort, TaskCompletionSource<DoAfterStatus>> AwaitedDoAfters = new();
 }
 
 [Serializable, NetSerializable]

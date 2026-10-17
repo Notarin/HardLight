@@ -3605,7 +3605,7 @@ namespace Content.Server.Shuttles.Save
                     return false;
                 }
 
-                if (!containerManager.TryGetContainer(containerSlot, out var container))
+                if (!_containerSystem.TryGetContainer(containerEntity, containerSlot, out var container, containerManager))
                 {
                     _sawmill.Warning($"Container slot '{containerSlot}' not found on entity {containerEntity}");
                     return false;

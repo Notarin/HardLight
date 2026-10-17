@@ -40,6 +40,7 @@ public sealed partial class AnomalyPowerSystem : EntitySystem
     [Dependency] private readonly SolutionContainerSystem _solutionContainer = default!;
     [Dependency] private readonly PuddleSystem _puddle = default!;
     [Dependency] private readonly FlammableSystem _flammable = default!;
+    [Dependency] private readonly SharedMapSystem _map = default!;
 
     public override void Initialize()
     {

@@ -273,7 +273,7 @@ public sealed class PlanetSpawnerSystem : EntitySystem
         }
 
         // Check what the biome generator would place here when the chunk loads.
-        if (biome != null && _biome.TryGetEntity(tile, biome, grid, out _))
+        if (biome != null && _biome.TryGetEntity(tile, biome, (gridUid, grid), out _))
             return true;
 
         return false;

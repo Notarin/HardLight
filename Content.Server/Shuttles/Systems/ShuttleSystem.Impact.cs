@@ -217,7 +217,7 @@ public sealed partial class ShuttleSystem
                 // Spawn sparks with probability based on energy
                 if (tileEnergy > SparkEnergy && distanceFactor > 0.7f)
                 {
-                    var coords = grid.GridTileToLocal(tile);
+                    var coords = _mapSystem.GridTileToLocal(uid, grid, tile);
                     Spawn("EffectSparks", coords);
                 }
             }

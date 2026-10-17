@@ -1,10 +1,7 @@
-using Content.Shared.Actions;
 using Content.Shared.Bed.Sleep;
-using Content.Shared.Magic.Events;
 using Content.Shared.Damage;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Nyanotrasen.Abilities.Psionics;
-using Content.Shared.Bed.Sleep;
 using Content.Shared.Actions.Events;
 
 namespace Content.Shared.Abilities.Psionics

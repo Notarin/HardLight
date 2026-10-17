@@ -1,23 +1,18 @@
-using System.Linq;
 using System.Numerics;
-using System.Collections.Generic; // HardLight
+// HardLight
 using Content.Client.Animations;
 using Content.Client.Gameplay;
 using Content.Client.Items;
-using Content.Client.Projectiles;
 using Content.Client.Weapons.Ranged.Components;
 using Content.Shared.Camera;
 using Content.Shared.CombatMode;
 using Content.Shared.Damage;
 using Content.Shared.Hands.Components;
-using Content.Shared._Mono.FireControl;
 using Content.Shared._RMC14.Weapons.Ranged.Prediction;
 using Content.Shared.Mech.Components;
 using Content.Shared.Projectiles;
-using Content.Shared.Weapons.Hitscan.Components;
 using Content.Shared.Weapons.Ranged;
 using Content.Shared.Weapons.Ranged.Components;
-using Content.Shared.Weapons.Ranged.Events;
 using Content.Shared.Weapons.Ranged.Events;
 using Content.Shared.Weapons.Ranged.Systems;
 using Robust.Client.Animations;
@@ -32,7 +27,6 @@ using Robust.Shared.Input;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Physics.Components;
-using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 using SharedGunSystem = Content.Shared.Weapons.Ranged.Systems.SharedGunSystem;

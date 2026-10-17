@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Numerics;
 using Content.Shared.CCVar;
 using Content.Shared.Coordinates.Helpers;
@@ -12,7 +11,6 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
-using Content.Shared.Tiles; // Frontier
 
 namespace Content.Shared.Maps;
 

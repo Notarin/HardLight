@@ -30,11 +30,11 @@ namespace Content.Shared.Spawning
             SharedPhysicsSystem? collision = null)
         {
             var boxOrDefault = box.GetValueOrDefault(Box2.UnitCentered).Translated(coordinates.Position);
-            collision ??= entityManager.System<SharedPhysicsSystem>();
+            var lookup = entityManager.System<EntityLookupSystem>();
 
-            foreach (var body in collision.GetCollidingEntities(coordinates.MapId, in boxOrDefault))
+            foreach (var ent in lookup.GetEntitiesIntersecting(coordinates.MapId, boxOrDefault, LookupFlags.Dynamic | LookupFlags.Static | LookupFlags.Approximate))
             {
-                if (!body.Hard)
+                if (!entityManager.TryGetComponent(ent, out Robust.Shared.Physics.Components.PhysicsComponent? body) || !body.Hard)
                 {
                     continue;
                 }

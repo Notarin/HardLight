@@ -76,7 +76,10 @@ public sealed class AdminUIController : UIController,
     public void OnSystemUnloaded(AdminSystem system)
     {
         if (_window != null)
-            _window.Dispose();
+        {
+            _window.Close();
+            OnWindowDisposed();
+        }
 
         _admin.AdminStatusUpdated -= AdminStatusUpdated;
 
@@ -85,11 +88,8 @@ public sealed class AdminUIController : UIController,
 
     private void EnsureWindow()
     {
-        if (_window is { Disposed: false })
+        if (_window != null)
             return;
-
-        if (_window?.Disposed ?? false)
-            OnWindowDisposed();
 
         _window = UIManager.CreateWindow<AdminMenuWindow>();
         LayoutContainer.SetAnchorPreset(_window, LayoutContainer.LayoutPreset.Center);
@@ -101,7 +101,6 @@ public sealed class AdminUIController : UIController,
         _window.ObjectsTabControl.OnEntryKeyBindDown += ObjectsTabEntryKeyBindDown;
         _window.OnOpen += OnWindowOpen;
         _window.OnClose += OnWindowClosed;
-        _window.OnDisposed += OnWindowDisposed;
     }
 
     public void UnloadButton()
@@ -146,7 +145,6 @@ public sealed class AdminUIController : UIController,
         _window.ObjectsTabControl.OnEntryKeyBindDown -= ObjectsTabEntryKeyBindDown;
         _window.OnOpen -= OnWindowOpen;
         _window.OnClose -= OnWindowClosed;
-        _window.OnDisposed -= OnWindowDisposed;
         _window = null;
     }
 

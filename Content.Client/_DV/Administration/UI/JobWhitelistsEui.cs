@@ -36,6 +36,5 @@ public sealed class JobWhitelistsEui : BaseEui
         base.Closed();
 
         Window.Close();
-        Window.Dispose();
     }
 }

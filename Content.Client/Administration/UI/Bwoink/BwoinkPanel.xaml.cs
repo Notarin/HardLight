@@ -1114,9 +1114,9 @@ namespace Content.Client.Administration.UI.Bwoink
             window.OpenCentered();
         }
 
-        protected override void Dispose(bool disposing)
+        protected override void ExitedTree()
         {
-            base.Dispose(disposing);
+            base.ExitedTree();
 
             InputTextChanged = null;
         }

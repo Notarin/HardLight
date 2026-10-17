@@ -88,7 +88,7 @@ public sealed class GeneticistsConsoleBoundUserInterface : BoundUserInterface
 
         if (_mainWindow != null)
         {
-            _mainWindow.Dispose();
+            _mainWindow.Close();
             _mainWindow = null;
         }
     }

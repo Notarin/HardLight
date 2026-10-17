@@ -144,11 +144,10 @@ public sealed class VoteAuditWindow : DefaultWindow
         RequestList();
     }
 
-    protected override void Dispose(bool disposing)
+    protected override void ExitedTree()
     {
-        base.Dispose(disposing);
-        if (disposing)
-            _voteManager.VoteAuditResponseReceived -= OnResponseReceived;
+        base.ExitedTree();
+        _voteManager.VoteAuditResponseReceived -= OnResponseReceived;
     }
 
     // ── Networking ────────────────────────────────────────────────────────

@@ -81,7 +81,7 @@ public sealed class TargetingConsoleBoundUserInterface : BoundUserInterface
         if (disposing)
         {
             _updTimerTok.Cancel();
-            _window?.Dispose();
+            _window?.Close();
         }
     }
 

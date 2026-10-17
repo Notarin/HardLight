@@ -241,7 +241,14 @@ public sealed class DockingArmGeneratorSystem : EntitySystem
         var box = new Box2(position - new Vector2(radius, radius), position + new Vector2(radius, radius));
 
         // Check if any grids intersect this area
-        if (_mapManager.FindGridsIntersecting(mapId, box).Any())
+        var blocked = false;
+        _mapManager.FindGridsIntersecting(mapId, box, (_, _) =>
+        {
+            blocked = true;
+            return false;
+        });
+
+        if (blocked)
         {
             Log.Debug($"Spawn location at {position} blocked by intersecting grid(s)");
             return false;

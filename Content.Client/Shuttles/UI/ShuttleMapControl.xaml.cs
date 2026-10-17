@@ -26,11 +26,11 @@ public sealed partial class ShuttleMapControl : BaseShuttleControl
 {
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly IInputManager _inputs = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
     [Dependency] private readonly IEntityManager _entManager = default!; // Frontier
     [Dependency] private readonly Robust.Client.Player.IPlayerManager _playerManager = default!;
     private readonly ShuttleSystem _shuttles;
     private readonly SharedTransformSystem _xformSystem;
+    private readonly SharedMapSystem _mapSystem;
 
     protected override bool Draggable => true;
 
@@ -85,6 +85,7 @@ public sealed partial class ShuttleMapControl : BaseShuttleControl
         RobustXamlLoader.Load(this);
         _shuttles = EntManager.System<ShuttleSystem>();
         _xformSystem = EntManager.System<SharedTransformSystem>();
+        _mapSystem = EntManager.System<SharedMapSystem>();
         var cache = IoCManager.Resolve<IResourceCache>();
 
         _physicsQuery = EntManager.GetEntityQuery<PhysicsComponent>();
@@ -119,7 +120,7 @@ public sealed partial class ShuttleMapControl : BaseShuttleControl
         {
             if (args.Function == EngineKeyFunctions.UIClick)
             {
-                var mapUid = _mapManager.GetMapEntityId(ViewingMap);
+                var mapUid = _mapSystem.GetMapOrInvalid(ViewingMap);
 
                 var beaconsOnly = EntManager.TryGetComponent(mapUid, out FTLDestinationComponent? destComp) &&
                                   destComp.BeaconsOnly;
@@ -266,7 +267,7 @@ public sealed partial class ShuttleMapControl : BaseShuttleControl
 
         DrawParallax(handle);
 
-        var viewedMapUid = _mapManager.GetMapEntityId(ViewingMap);
+        var viewedMapUid = _mapSystem.GetMapOrInvalid(ViewingMap);
         var matty = Matrix3Helpers.CreateInverseTransform(Offset, Angle.Zero);
         var realTime = _timing.RealTime;
         var viewBox = new Box2(Offset - WorldRangeVector, Offset + WorldRangeVector);

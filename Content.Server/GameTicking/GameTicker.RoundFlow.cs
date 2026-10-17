@@ -112,7 +112,7 @@ namespace Content.Server.GameTicking
         private void LoadMaps()
         {
             // Prevent loading maps if the default map already exists.
-            if (_mapManager.MapExists(DefaultMap))
+            if (_map.MapExists(DefaultMap))
                 return;
 
             AddGamePresetRules();
@@ -628,7 +628,7 @@ namespace Content.Server.GameTicking
             // --- End Corrected Colcomm logic ---
 
             // Aggressively delete the default map after a 30 second delay
-            var defaultMapEntityUid = _mapManager.GetMapEntityId(DefaultMap);
+            var defaultMapEntityUid = _map.GetMapOrInvalid(DefaultMap);
             if (DefaultMap != null)
             {
                 Timer.Spawn(TimeSpan.FromSeconds(30), () =>

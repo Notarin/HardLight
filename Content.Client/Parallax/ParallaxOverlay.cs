@@ -17,9 +17,9 @@ public sealed class ParallaxOverlay : Overlay
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
     [Dependency] private readonly IConfigurationManager _configurationManager = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
     [Dependency] private readonly IParallaxManager _manager = default!;
     private readonly ParallaxSystem _parallax;
+    private readonly SharedMapSystem _map;
 
     public override OverlaySpace Space => OverlaySpace.WorldSpaceBelowWorld;
 
@@ -28,11 +28,12 @@ public sealed class ParallaxOverlay : Overlay
         ZIndex = ParallaxSystem.ParallaxZIndex;
         IoCManager.InjectDependencies(this);
         _parallax = _entManager.System<ParallaxSystem>();
+        _map = _entManager.System<SharedMapSystem>();
     }
 
     protected override bool BeforeDraw(in OverlayDrawArgs args)
     {
-        if (args.MapId == MapId.Nullspace || _entManager.HasComponent<BiomeComponent>(_mapManager.GetMapEntityId(args.MapId)))
+        if (args.MapId == MapId.Nullspace || _entManager.HasComponent<BiomeComponent>(_map.GetMapOrInvalid(args.MapId)))
             return false;
 
         return true;

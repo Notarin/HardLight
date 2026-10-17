@@ -637,7 +637,7 @@ public sealed partial class ShuttleSystem
         var cooldown = entity.Comp2.FTLCooldownOverride ?? baseCooldown * speedFactor;
         comp.StateTime = StartEndTime.FromCurTime(_gameTiming, cooldown);
         _console.RefreshShuttleConsoles(uid);
-        _mapManager.SetMapPaused(mapId, false);
+        _mapSystem.SetPaused(mapId, false);
         Smimsh(uid, xform: xform);
 
         var ftlEvent = new FTLCompletedEvent(uid, _mapSystem.GetMap(mapId));

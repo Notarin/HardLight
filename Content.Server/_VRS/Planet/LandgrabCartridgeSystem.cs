@@ -26,7 +26,7 @@ public sealed class LandgrabCartridgeSystem : EntitySystem
     [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly SharedHandsSystem _hands = default!;
     [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
+    [Dependency] private readonly MapSystem _mapSystem = default!;
     [Dependency] private readonly PopupSystem _popup = default!;
 
     public override void Initialize()
@@ -182,7 +182,7 @@ public sealed class LandgrabCartridgeSystem : EntitySystem
             return;
         }
 
-        var mapUid = _mapManager.GetMapEntityId(mapId);
+        var mapUid = _mapSystem.GetMapOrInvalid(mapId);
         var mapNet = GetNetEntity(mapUid);
 
         // Stamp upstream component so the disk lights up shuttle consoles' dest list.

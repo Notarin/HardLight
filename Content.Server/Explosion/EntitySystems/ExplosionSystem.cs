@@ -343,7 +343,7 @@ public sealed partial class ExplosionSystem : SharedExplosionSystem
         var (area, iterationIntensity, spaceData, gridData, spaceMatrix) = results.Value;
 
         // Frontier - Block explosions on safe zone
-        var location = EntityCoordinates.FromMap(_mapManager.GetMapEntityId(pos.MapId), pos, _transformSystem, EntityManager);
+        var location = EntityCoordinates.FromMap(_mapSystem.GetMapOrInvalid(pos.MapId), pos, _transformSystem, EntityManager);
         var gridId = location.GetGridUid(EntityManager);
         if (!HasComp<MapGridComponent>(gridId))
         {

@@ -26,7 +26,6 @@ public sealed class GatewayGeneratorSystem : EntitySystem
 {
     [Dependency] private readonly IConfigurationManager _cfgManager = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
     [Dependency] private readonly IPrototypeManager _protoManager = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
     [Dependency] private readonly ITileDefinitionManager _tileDefManager = default!;
@@ -103,8 +102,7 @@ public sealed class GatewayGeneratorSystem : EntitySystem
         var seed = _random.Next();
         var random = new RobustRandom();
         random.SetSeed(seed);
-        var mapId = _mapManager.CreateMap();
-        var mapUid = _mapManager.GetMapEntityId(mapId);
+        var mapUid = _maps.CreateMap(out var mapId);
 
         var gatewayName = _salvage.GetFTLName(_protoManager.Index(PlanetNamesId), seed);
         _metadata.SetEntityName(mapUid, gatewayName);

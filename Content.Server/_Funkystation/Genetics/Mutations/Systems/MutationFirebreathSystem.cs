@@ -18,6 +18,7 @@ public sealed class MutationFirebreathSystem : EntitySystem
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly IMapManager _mapManager = default!;
+    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
     [Dependency] private readonly SharedPhysicsSystem _physics = default!;
     [Dependency] private readonly SharedAudioSystem _audio = default!;
 
@@ -55,7 +56,7 @@ public sealed class MutationFirebreathSystem : EntitySystem
         var fromMap = fromCoords.ToMap(EntityManager, _transform);
         var spawnCoords = _mapManager.TryFindGridAt(fromMap, out var gridUid, out _)
             ? fromCoords.WithEntityId(gridUid, EntityManager)
-            : new EntityCoordinates(_mapManager.GetMapEntityId(fromMap.MapId), fromMap.Position);
+            : new EntityCoordinates(_mapSystem.GetMapOrInvalid(fromMap.MapId), fromMap.Position);
 
         var fireball = Spawn(args.Prototype, spawnCoords);
 

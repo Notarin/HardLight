@@ -428,8 +428,14 @@ public sealed partial class SalvageSystem
             var box2Rot = new Box2Rotated(box2, angle, finalCoords.Position);
 
             // This doesn't stop it from spawning on top of random things in space
-            // Might be better like this, ghosts could stop it before
-            if (_mapManager.FindGridsIntersecting(finalCoords.MapId, box2Rot).Any())
+            var found = false;
+            _mapManager.FindGridsIntersecting(finalCoords.MapId, box2Rot, (_, _) =>
+            {
+                found = true;
+                return false;
+            });
+
+            if (found)
             {
                 // Bump it further and further just in case.
                 fraction += 0.1f;

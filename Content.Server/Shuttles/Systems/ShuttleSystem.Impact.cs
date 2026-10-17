@@ -51,7 +51,7 @@ public sealed partial class ShuttleSystem
         var otherXform = Transform(args.OtherEntity);
 
         // Choose the first collision point for velocity calculations
-        var wp = args.PointCount > 0 ? args.WorldPoints[0] : ourXform.WorldPosition;
+        var wp = args.PointCount > 0 ? args.WorldPoints[0] : _transform.GetWorldPosition(ourXform);
         var ourPoint = Vector2.Transform(wp, _transform.GetInvWorldMatrix(ourXform));
         var otherPoint = Vector2.Transform(wp, _transform.GetInvWorldMatrix(otherXform));
 

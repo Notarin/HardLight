@@ -278,7 +278,7 @@ public sealed class DockingArmGeneratorSystem : EntitySystem
             // Calculate initial preferred position near the gateway
             var spawnDistance = _random.Next(120, 150);
             spawnAngle = _random.NextAngle();
-            preferredPosition = sourceXform.WorldPosition + spawnAngle.ToVec() * spawnDistance;
+            preferredPosition = _transform.GetWorldPosition(sourceXform) + spawnAngle.ToVec() * spawnDistance;
 
             Log.Info($"Initial spawn position {preferredPosition} on map {targetMapId}, distance {spawnDistance} from gateway");
         }
@@ -324,7 +324,7 @@ public sealed class DockingArmGeneratorSystem : EntitySystem
             // Add 90 degrees (π/2) to make it face tangentially, forming a ring pattern
             if (TryComp(dockingArmGrid.Value, out TransformComponent? dockXform))
             {
-                var rotationToGateway = (sourceXform.WorldPosition - spawnPosition).ToAngle();
+                var rotationToGateway = (_transform.GetWorldPosition(sourceXform) - spawnPosition).ToAngle();
                 var tangentialRotation = rotationToGateway + Angle.FromDegrees(90);
                 // Subtract an additional 90 degrees to account for the dock's default orientation
                 var finalRotation = tangentialRotation - Angle.FromDegrees(-90);

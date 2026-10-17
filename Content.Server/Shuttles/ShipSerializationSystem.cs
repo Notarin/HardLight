@@ -1218,7 +1218,7 @@ namespace Content.Server.Shuttles.Save
 
             // Move grid to the specified offset position
             var gridXform = Transform(newGrid);
-            gridXform.WorldPosition = offset;
+            _transform.SetWorldPosition((newGrid, gridXform), offset);
             // Apply original saved rotation (if any) before spawning entities/tiles so local positions remain valid.
             var savedRot = Angle.Zero;
             if (shipGridData.Metadata != null && Math.Abs(shipGridData.Metadata.OriginalGridRotation) > 0.0001f)

@@ -16,7 +16,7 @@ namespace Content.Client.Nyanotrasen.Chat
             SubscribeLocalEvent<PsionicComponent, ComponentRemove>(OnRemove);
         }
 
-        public PsionicComponent? Player => CompOrNull<PsionicComponent>(_playerManager.LocalPlayer?.ControlledEntity);
+        public PsionicComponent? Player => CompOrNull<PsionicComponent>(_playerManager.LocalSession?.AttachedEntity);
         public bool IsPsionic => Player != null;
 
         private void OnInit(EntityUid uid, PsionicComponent component, ComponentInit args)

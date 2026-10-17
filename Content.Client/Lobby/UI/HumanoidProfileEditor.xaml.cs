@@ -499,7 +499,7 @@ namespace Content.Client.Lobby.UI
             // Clear any existing items
             CompanyButton.Clear();
 
-            var username = _playerManager.LocalPlayer?.Session?.Name; //Lua modified - company login support
+            var username = _playerManager.LocalSession?.Name; //Lua modified - company login support
 
             // Add all companies from prototypes - use consistent sorting with UpdateCompanyControls
             var companies = _prototypeManager.EnumeratePrototypes<CompanyPrototype>()
@@ -685,7 +685,7 @@ namespace Content.Client.Lobby.UI
             var allSelectors = new Dictionary<ProtoId<TraitPrototype>, TraitPreferenceSelector>();
 
             // HardLight: get login name once for login-restricted trait filtering (same pattern as company logins)
-            var localUsername = _playerManager.LocalPlayer?.Session?.Name;
+            var localUsername = _playerManager.LocalSession?.Name;
 
             foreach (var trait in traits)
             {
@@ -2459,7 +2459,7 @@ namespace Content.Client.Lobby.UI
             if (Profile is null)
                 return;
 
-            var username = _playerManager.LocalPlayer?.Session?.Name; //Lua modified - company login support
+            var username = _playerManager.LocalSession?.Name; //Lua modified - company login support
 
             var companies = _prototypeManager.EnumeratePrototypes<CompanyPrototype>()
                 //.Where(c => !c.Disabled) // Filter out disabled companies

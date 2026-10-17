@@ -66,7 +66,7 @@ public sealed class AmmoBar : Control
                         }),
                         (_label = new Label
                         {
-                            StyleClasses = { StyleNano.StyleClassItemStatus },
+                            StyleClasses = { StyleClass.ItemStatus },
                             Align = Label.AlignMode.Center
                         })
                     }

@@ -58,7 +58,7 @@ namespace Content.Client.Actions.UI
                 var chargesLabel = new RichTextLabel
                 {
                     MaxWidth = TooltipTextMaxWidth,
-                    StyleClasses = { StyleNano.StyleClassTooltipActionCharges }
+                    StyleClasses = { StyleClass.TooltipDesc }
                 };
                 chargesLabel.SetMessage(charges);
                 vbox.AddChild(chargesLabel);

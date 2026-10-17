@@ -406,9 +406,9 @@ namespace Content.Client.Administration.UI.Tabs.AdminTab
             disableButton.Pressed = !enabled;
 
             if (enabled)
-                enableButton.AddStyleClass(StyleNano.StyleClassButtonColorGreen);
+                enableButton.AddStyleClass(StyleClass.Positive);
             else
-                enableButton.RemoveStyleClass(StyleNano.StyleClassButtonColorGreen);
+                enableButton.RemoveStyleClass(StyleClass.Positive);
 
             disableButton.ModulateSelfOverride = enabled ? null : Color.Red;
         }

@@ -11,7 +11,7 @@ namespace Content.Client.Lobby.UI.Roles;
 public sealed partial class TraitPreferenceSelector : Control
 {
     public int Cost;
-    public bool Visible
+    public new bool Visible
     {
         get => Container.Visible;
         set => Container.Visible = value;

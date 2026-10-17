@@ -297,7 +297,7 @@ namespace Content.Server.VendingMachines
         /// <param name="uid"></param>
         /// <param name="sender">Entity trying to use the vending machine</param>
         /// <param name="vendComponent"></param>
-        public bool IsAuthorized(EntityUid uid, EntityUid sender, VendingMachineComponent? vendComponent = null)
+        public new bool IsAuthorized(EntityUid uid, EntityUid sender, VendingMachineComponent? vendComponent = null)
         {
             if (!Resolve(uid, ref vendComponent))
                 return false;

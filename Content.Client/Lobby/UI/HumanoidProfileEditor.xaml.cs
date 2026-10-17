@@ -1942,7 +1942,7 @@ namespace Content.Client.Lobby.UI
             SetDirty();
         }
 
-        private void SetHeight(float newHeight)
+        private new void SetHeight(float newHeight)
         {
             Profile = Profile?.WithCharacterAppearance(Profile.Appearance.WithHeight(newHeight));
             SetDirty();
@@ -1955,7 +1955,7 @@ namespace Content.Client.Lobby.UI
             UpdateHeightControls();
         }
 
-        private void SetWidth(float newWidth)
+        private new void SetWidth(float newWidth)
         {
             Profile = Profile?.WithCharacterAppearance(Profile.Appearance.WithWidth(newWidth));
             SetDirty();

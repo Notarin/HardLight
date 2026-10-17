@@ -48,7 +48,7 @@ dotnet_diagnostic.IDE0005.severity = suggestion # Unnecessary using directive.
 # C# Compiler Warnings (CS)
 dotnet_diagnostic.CS0067.severity = warning # An event was declared but never used in the class in which it was declared.
 dotnet_diagnostic.CS0105.severity = error # The using directive for 'namespace' appeared previously in this namespace.
-dotnet_diagnostic.CS0108.severity = suggestion # A member was declared with the same name as a member in a base class. However, the new modifier was not used.
+dotnet_diagnostic.CS0108.severity = error # A member was declared with the same name as a member in a base class. However, the new modifier was not used.
 dotnet_diagnostic.CS0114.severity = suggestion # A declaration in a class conflicts with a declaration in a base class such that the base class member will be hidden.
 dotnet_diagnostic.CS0162.severity = suggestion # Unreachable code detected.
 dotnet_diagnostic.CS0168.severity = suggestion # The variable 'var' is declared but never used.
@@ -260,7 +260,6 @@ ij_yaml_indent_sequence_value = false
 
 # Enforce stricter rules for code in _HL folders
 [**/_HL/**/*.cs]
-dotnet_diagnostic.CS0108.severity = error # A member was declared with the same name as a member in a base class. However, the new modifier was not used.
 dotnet_diagnostic.CS0114.severity = error # A declaration in a class conflicts with a declaration in a base class such that the base class member will be hidden.
 dotnet_diagnostic.CS0162.severity = warning # Unreachable code detected.
 dotnet_diagnostic.CS0168.severity = warning # The variable 'var' is declared but never used.

@@ -1,3 +1,4 @@
+using Robust.Shared.Audio;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Physics.Components;
@@ -38,6 +39,7 @@ internal sealed class NoosphericFryRule : StationEventSystem<NoosphericFryRuleCo
     [Dependency] private readonly AnchorableSystem _anchorableSystem = default!;
     [Dependency] private readonly PowerReceiverSystem _powerReceiverSystem = default!;
     [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
+    [Dependency] private readonly SharedMapSystem _map = default!;
 
     protected override void Started(EntityUid uid, NoosphericFryRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
     {
@@ -68,12 +70,12 @@ internal sealed class NoosphericFryRule : StationEventSystem<NoosphericFryRuleCo
                 QueueDel(pair.hat);
                 Spawn("Ash", Transform(pair.wearer).Coordinates);
                 _popupSystem.PopupEntity(Loc.GetString("psionic-burns-up", ("item", pair.hat)), pair.wearer, Filter.Pvs(pair.hat), true, Shared.Popups.PopupType.MediumCaution);
-                _audioSystem.PlayPvs("/Audio/Effects/lightburn.ogg", pair.hat);
+                _audioSystem.PlayPvs(new SoundPathSpecifier("/Audio/Effects/lightburn.ogg"), pair.hat);
             }
             else
             {
                 _popupSystem.PopupEntity(Loc.GetString("psionic-burn-resist", ("item", pair.hat)), pair.wearer, Filter.Pvs(pair.hat), true, Shared.Popups.PopupType.SmallCaution);
-                _audioSystem.PlayPvs("/Audio/Effects/lightburn.ogg", pair.hat);
+                _audioSystem.PlayPvs(new SoundPathSpecifier("/Audio/Effects/lightburn.ogg"), pair.hat);
             }
 
             DamageSpecifier damage = new();
@@ -117,9 +119,10 @@ internal sealed class NoosphericFryRule : StationEventSystem<NoosphericFryRuleCo
                 if (!TryComp<MapGridComponent>(gridUid, out var grid))
                     continue;
 
-                var tileIndices = grid.TileIndicesFor(coordinates);
+                var gridEnt = (gridUid.Value, grid);
+                var tileIndices = _map.TileIndicesFor(gridEnt, coordinates);
 
-                if (_anchorableSystem.TileFree(grid, tileIndices, physics.CollisionLayer, physics.CollisionMask))
+                if (_anchorableSystem.TileFree(gridEnt, tileIndices, physics.CollisionLayer, physics.CollisionMask))
                     _transformSystem.AnchorEntity(reactive, xform);
             }
 

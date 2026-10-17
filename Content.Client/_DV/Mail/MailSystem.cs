@@ -43,11 +43,11 @@ public sealed class MailJobVisualizerSystem : VisualizerSystem<MailComponent>
         if (!_prototypeManager.TryIndex<JobIconPrototype>(job, out var icon))
         {
             var fallback = _prototypeManager.Index<JobIconPrototype>(UnknownIcon).Icon;
-            args.Sprite.LayerSetTexture(MailVisualLayers.JobStamp, _spriteSystem.Frame0(fallback));
+            _spriteSystem.LayerSetTexture((uid, args.Sprite), MailVisualLayers.JobStamp, _spriteSystem.Frame0(fallback));
             return;
         }
 
-        args.Sprite.LayerSetTexture(MailVisualLayers.JobStamp, _spriteSystem.Frame0(icon.Icon));
+        _spriteSystem.LayerSetTexture((uid, args.Sprite), MailVisualLayers.JobStamp, _spriteSystem.Frame0(icon.Icon));
     }
 }
 

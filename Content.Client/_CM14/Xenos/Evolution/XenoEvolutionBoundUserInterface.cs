@@ -58,6 +58,6 @@ public sealed class XenoEvolutionBoundUserInterface : BoundUserInterface
         base.Dispose(disposing);
 
         if (disposing)
-            _window?.Dispose();
+            _window?.Close();
     }
 }

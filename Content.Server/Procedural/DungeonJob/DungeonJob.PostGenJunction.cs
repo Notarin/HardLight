@@ -4,6 +4,7 @@ using Content.Shared.Procedural;
 using Content.Shared.Procedural.PostGeneration;
 using Content.Shared.Storage;
 using Robust.Shared.Map.Components;
+using Robust.Shared.Random;
 
 namespace Content.Server.Procedural.DungeonJob;
 
@@ -12,7 +13,7 @@ public sealed partial class DungeonJob
     /// <summary>
     /// <see cref="JunctionDunGen"/>
     /// </summary>
-    private async Task PostGen(JunctionDunGen gen, DungeonData data, Dungeon dungeon, HashSet<Vector2i> reservedTiles, Random random)
+    private async Task PostGen(JunctionDunGen gen, DungeonData data, Dungeon dungeon, HashSet<Vector2i> reservedTiles, IRobustRandom random)
     {
         if (!data.Tiles.TryGetValue(DungeonDataKey.FallbackTile, out var tileProto) ||
             !data.SpawnGroups.TryGetValue(DungeonDataKey.Junction, out var junctionProto))
@@ -27,7 +28,7 @@ public sealed partial class DungeonJob
         // N-wide junctions
         foreach (var tile in dungeon.CorridorTiles)
         {
-            if (!_anchorable.TileFree(_grid, tile, DungeonSystem.CollisionLayer, DungeonSystem.CollisionMask))
+            if (!_anchorable.TileFree(_gridEntity, tile, DungeonSystem.CollisionLayer, DungeonSystem.CollisionMask))
                 continue;
 
             // Check each direction:
@@ -64,7 +65,7 @@ public sealed partial class DungeonJob
                     }
 
                     // If we're not at the end tile then check it + perpendicular are free.
-                    if (!_anchorable.TileFree(_grid, neighbor, DungeonSystem.CollisionLayer, DungeonSystem.CollisionMask))
+                    if (!_anchorable.TileFree(_gridEntity, neighbor, DungeonSystem.CollisionLayer, DungeonSystem.CollisionMask))
                     {
                         isValid = false;
                         break;
@@ -73,13 +74,13 @@ public sealed partial class DungeonJob
                     var perp1 = tile + neighborVec * j + ((Direction)((i * 2 + 2) % 8)).ToIntVec();
                     var perp2 = tile + neighborVec * j + ((Direction)((i * 2 + 6) % 8)).ToIntVec();
 
-                    if (!_anchorable.TileFree(_grid, perp1, DungeonSystem.CollisionLayer, DungeonSystem.CollisionMask))
+                    if (!_anchorable.TileFree(_gridEntity, perp1, DungeonSystem.CollisionLayer, DungeonSystem.CollisionMask))
                     {
                         isValid = false;
                         break;
                     }
 
-                    if (!_anchorable.TileFree(_grid, perp2, DungeonSystem.CollisionLayer, DungeonSystem.CollisionMask))
+                    if (!_anchorable.TileFree(_gridEntity, perp2, DungeonSystem.CollisionLayer, DungeonSystem.CollisionMask))
                     {
                         isValid = false;
                         break;
@@ -101,7 +102,7 @@ public sealed partial class DungeonJob
                         var cornerVec = cornerDir.ToIntVec();
                         var cornerNeighbor = tile + neighborVec * j + cornerVec;
 
-                        if (_anchorable.TileFree(_grid, cornerNeighbor, DungeonSystem.CollisionLayer, DungeonSystem.CollisionMask))
+                        if (_anchorable.TileFree(_gridEntity, cornerNeighbor, DungeonSystem.CollisionLayer, DungeonSystem.CollisionMask))
                         {
                             freeCount++;
                         }
@@ -123,7 +124,7 @@ public sealed partial class DungeonJob
                         _maps.SetTile(_gridUid, _grid, weh, _tile.GetVariantTile((ContentTileDefinition)tileDef, random));
 
                         var coords = _maps.GridTileToLocal(_gridUid, _grid, weh);
-                        _entManager.SpawnEntities(coords, EntitySpawnCollection.GetSpawns(entranceGroup.Entries, random));
+                        SpawnEntities(coords, EntitySpawnCollection.GetSpawns(entranceGroup.Entries, random));
                     }
 
                     break;

@@ -26,7 +26,6 @@ public sealed class GatewayGeneratorSystem : EntitySystem
 {
     [Dependency] private readonly IConfigurationManager _cfgManager = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
     [Dependency] private readonly IPrototypeManager _protoManager = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
     [Dependency] private readonly ITileDefinitionManager _tileDefManager = default!;
@@ -101,9 +100,9 @@ public sealed class GatewayGeneratorSystem : EntitySystem
         const int MaxOffset = 256;
         var tiles = new List<(Vector2i Index, Tile Tile)>();
         var seed = _random.Next();
-        var random = new Random(seed);
-        var mapId = _mapManager.CreateMap();
-        var mapUid = _mapManager.GetMapEntityId(mapId);
+        var random = new RobustRandom();
+        random.SetSeed(seed);
+        var mapUid = _maps.CreateMap(out var mapId);
 
         var gatewayName = _salvage.GetFTLName(_protoManager.Index(PlanetNamesId), seed);
         _metadata.SetEntityName(mapUid, gatewayName);
@@ -177,7 +176,8 @@ public sealed class GatewayGeneratorSystem : EntitySystem
         // Do dungeon
         var seed = ent.Comp.Seed;
         var origin = ent.Comp.Origin;
-        var random = new Random(seed);
+        var random = new RobustRandom();
+        random.SetSeed(seed);
         var dungeonDistance = random.Next(3, 6);
         var dungeonRotation = _dungeon.GetDungeonRotation(seed);
         var dungeonPosition = (origin + dungeonRotation.RotateVec(new Vector2i(0, dungeonDistance))).Floored();

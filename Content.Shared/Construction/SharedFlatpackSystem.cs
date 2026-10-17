@@ -85,7 +85,7 @@ public abstract class SharedFlatpackSystem : EntitySystem
         // the flatpack itself or on item-mask debris. Mirrors upstream Wizden behaviour.
         var (layer, mask) = GetPrototypeHardCollision(comp.Entity);
 
-        if (!_anchorable.TileFree(gridComp, buildPos, layer, mask))
+        if (!_anchorable.TileFree((grid, gridComp), buildPos, layer, mask))
         {
             _popup.PopupPredicted(Loc.GetString("flatpack-unpack-no-room"), uid, args.User);
             return;

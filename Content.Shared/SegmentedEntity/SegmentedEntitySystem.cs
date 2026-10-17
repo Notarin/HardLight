@@ -27,7 +27,7 @@ public sealed partial class LamiaSystem : EntitySystem
     [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
 
-    private Queue<(SegmentedEntitySegmentComponent segment, EntityUid lamia)> _segments = new();
+    private Queue<(EntityUid uid, SegmentedEntitySegmentComponent segment, EntityUid lamia)> _segments = new();
 
     private ProtoId<TagPrototype> _lamiaHardsuitTag = "AllowLamiaHardsuit";
 
@@ -58,10 +58,9 @@ public sealed partial class LamiaSystem : EntitySystem
     {
         //I HATE THIS, SO MUCH. I AM FORCED TO DEAL WITH THIS MONSTROSITY. PLEASE. SEND HELP.
         base.Update(frameTime);
-        foreach (var segment in _segments)
+        foreach (var (segmentUid, segment, _) in _segments)
         {
-            var segmentUid = segment.segment.Owner;
-            var attachedUid = segment.segment.AttachedToUid;
+            var attachedUid = segment.AttachedToUid;
             if (!Exists(segmentUid) || !Exists(attachedUid)
             || MetaData(segmentUid).EntityLifeStage > EntityLifeStage.MapInitialized
             || MetaData(attachedUid).EntityLifeStage > EntityLifeStage.MapInitialized
@@ -74,23 +73,23 @@ public sealed partial class LamiaSystem : EntitySystem
 
             // This is currently HERE and not somewhere more sane like OnInit because HumanoidAppearanceComponent is for whatever
             // ungodly reason not initialized when ComponentStartup is called. Kill me.
-            var humanoidFactor = TryComp<HumanoidAppearanceComponent>(segment.segment.Lamia, out var humanoid) ? (humanoid.Height + humanoid.Width) / 2 : 1;
+            var humanoidFactor = TryComp<HumanoidAppearanceComponent>(segment.Lamia, out var humanoid) ? (humanoid.Height + humanoid.Width) / 2 : 1;
 
-            var ev = new SegmentSpawnedEvent(segment.segment.Lamia);
+            var ev = new SegmentSpawnedEvent(segment.Lamia);
             RaiseLocalEvent(segmentUid, ev, false);
 
-            if (segment.segment.SegmentNumber == 1)
+            if (segment.SegmentNumber == 1)
             {
                 _transform.SetCoordinates(segmentUid, Transform(attachedUid).Coordinates);
-                var revoluteJoint = _jointSystem.CreateWeldJoint(attachedUid, segmentUid, id: "Segment" + segment.segment.SegmentNumber + segment.segment.Lamia);
+                var revoluteJoint = _jointSystem.CreateWeldJoint(attachedUid, segmentUid, id: "Segment" + segment.SegmentNumber + segment.Lamia);
                 revoluteJoint.CollideConnected = false;
             }
-            if (segment.segment.SegmentNumber <= segment.segment.MaxSegments)
-                _transform.SetCoordinates(segmentUid, Transform(attachedUid).Coordinates.Offset(new Vector2(0, segment.segment.OffsetSwitching * humanoidFactor)));
+            if (segment.SegmentNumber <= segment.MaxSegments)
+                _transform.SetCoordinates(segmentUid, Transform(attachedUid).Coordinates.Offset(new Vector2(0, segment.OffsetSwitching * humanoidFactor)));
             else
-                _transform.SetCoordinates(segmentUid, Transform(attachedUid).Coordinates.Offset(new Vector2(0, segment.segment.OffsetSwitching * humanoidFactor)));
+                _transform.SetCoordinates(segmentUid, Transform(attachedUid).Coordinates.Offset(new Vector2(0, segment.OffsetSwitching * humanoidFactor)));
 
-            var joint = _jointSystem.CreateDistanceJoint(attachedUid, segmentUid, id: ("Segment" + segment.segment.SegmentNumber + segment.segment.Lamia));
+            var joint = _jointSystem.CreateDistanceJoint(attachedUid, segmentUid, id: ("Segment" + segment.SegmentNumber + segment.Lamia));
             joint.CollideConnected = false;
             joint.Stiffness = 0.2f;
         }
@@ -232,7 +231,7 @@ public sealed partial class LamiaSystem : EntitySystem
         }
 
         EnsureComp<PortalExemptComponent>(segment); //Not temporary, segments must never be allowed to go through portals for physics limitation reasons
-        _segments.Enqueue((segmentComponent, parentuid));
+        _segments.Enqueue((segment, segmentComponent, parentuid));
         segmentedComponent.Segments.Add(GetNetEntity(segment));
         return segment;
     }

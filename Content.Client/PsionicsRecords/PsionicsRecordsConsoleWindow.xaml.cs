@@ -29,8 +29,7 @@ public sealed partial class PsionicsRecordsConsoleWindow : FancyWindow
 
     public readonly EntityUid Console;
 
-    [ValidatePrototypeId<DatasetPrototype>]
-    private const string ReasonPlaceholders = "PsionicsRecordsRecordsPlaceholders";
+    private static readonly ProtoId<DatasetPrototype> ReasonPlaceholders = "PsionicsRecordsRecordsPlaceholders";
 
     public Action<uint?>? OnKeySelected;
     public Action<StationRecordFilterType, string>? OnFiltersChanged;
@@ -184,7 +183,7 @@ public sealed partial class PsionicsRecordsConsoleWindow : FancyWindow
         StatusOptionButton.SelectId((int)psionicsRecord.Status);
         if (psionicsRecord.Reason is { } reason)
         {
-            var message = FormattedMessage.FromMarkup(Loc.GetString("psionics-records-console-wanted-reason"));
+            var message = FormattedMessage.FromMarkupOrThrow(Loc.GetString("psionics-records-console-wanted-reason"));
             message.AddText($": {reason}");
             PsionicsList.SetMessage(message);
             PsionicsList.Visible = true;

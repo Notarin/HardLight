@@ -340,7 +340,7 @@ public sealed class ClientClothingSystem : ClothingSystem
             {
                 var speciesLayer = $"{layerData.State}-{inventory.SpeciesId}";
                 if (layer.RSI.TryGetState(speciesLayer, out _))
-                    layer.State = speciesLayer;
+                    _sprite.LayerSetRsiState(layer, speciesLayer);
             }
             // End Frontier: species-specific layering
 
@@ -354,7 +354,7 @@ public sealed class ClientClothingSystem : ClothingSystem
                     continue;
                 // End Frontier: revise race check
 
-                if (_displacement.TryAddDisplacement(displacementData, sprite, index, key, out var displacementKey))
+                if (_displacement.TryAddDisplacement(displacementData, (equipee, sprite), index, key, out var displacementKey))
                 {
                     revealedLayers.Add(displacementKey);
                     index++;

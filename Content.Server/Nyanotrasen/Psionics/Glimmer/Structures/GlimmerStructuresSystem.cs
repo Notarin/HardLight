@@ -57,9 +57,10 @@ namespace Content.Server.Psionics.Glimmer
         public override void Update(float frameTime)
         {
             base.Update(frameTime);
-            foreach (var source in EntityQuery<GlimmerSourceComponent>())
+            var query = EntityQueryEnumerator<GlimmerSourceComponent>();
+            while (query.MoveNext(out var uid, out var source))
             {
-                if (!_powerReceiverSystem.IsPowered(source.Owner))
+                if (!_powerReceiverSystem.IsPowered(uid))
                     continue;
 
                 if (!source.Active)

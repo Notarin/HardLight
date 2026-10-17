@@ -32,6 +32,7 @@ namespace Content.Server.Power.NodeGroups
                          comp.NodeId == node.Name) &&
                         (NodeGroupID)comp.Voltage == node.NodeGroupID)
                     {
+                        comp.NetConnectorOwner = node.Owner;
                         SetNetConnectorNet(comp);
                     }
                 }

@@ -15,6 +15,7 @@ namespace Content.Server.Power.Components
         public TNetType? Net { set; }
         public Voltage Voltage { get; }
         public string? NodeId { get; }
+        public EntityUid NetConnectorOwner { get; set; }
     }
 
     public abstract partial class BaseNetConnectorComponent<TNetType> : Component, IBaseNetConnectorComponent<TNetType>
@@ -32,6 +33,9 @@ namespace Content.Server.Power.Components
         private TNetType? _net;
 
         [ViewVariables] public bool NeedsNet => _net != null;
+
+        [ViewVariables]
+        public EntityUid NetConnectorOwner { get; set; } = EntityUid.Invalid;
 
         [DataField("node")] public string? NodeId { get; set; }
 
@@ -58,7 +62,7 @@ namespace Content.Server.Power.Components
 
         private bool TryFindNet([NotNullWhen(true)] out TNetType? foundNet)
         {
-            if (_entMan.TryGetComponent(Owner, out NodeContainerComponent? container))
+            if (_entMan.TryGetComponent(NetConnectorOwner, out NodeContainerComponent? container))
             {
                 var compatibleNet = container.Nodes.Values
                     .Where(node => (NodeId == null || NodeId == node.Name) && node.NodeGroupID == (NodeGroupID)Voltage)

@@ -29,9 +29,9 @@ public sealed class VehicleSystem : SharedVehicleSystem
             return;
         }
 
-        if (!spriteComp.LayerMapTryGet(VehicleVisualLayers.AutoAnimate, out var layer))
+        if (!_sprite.LayerMapTryGet((uid, spriteComp), VehicleVisualLayers.AutoAnimate, out var layer, false))
             layer = 0;
-        spriteComp.LayerSetAutoAnimated(layer, animated);
+        _sprite.LayerSetAutoAnimated((uid, spriteComp), layer, animated);
     }
 
     public override void FrameUpdate(float frameTime)

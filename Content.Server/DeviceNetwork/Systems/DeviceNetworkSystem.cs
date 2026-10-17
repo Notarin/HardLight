@@ -41,12 +41,18 @@ namespace Content.Server.DeviceNetwork.Systems
 
         public override void Initialize()
         {
+            SubscribeLocalEvent<DeviceNetworkComponent, ComponentInit>(OnComponentInit);
             SubscribeLocalEvent<DeviceNetworkComponent, MapInitEvent>(OnMapInit);
             SubscribeLocalEvent<DeviceNetworkComponent, ComponentShutdown>(OnNetworkShutdown);
             SubscribeLocalEvent<DeviceNetworkComponent, ExaminedEvent>(OnExamine);
 
             _activeQueue = _queueA;
             _nextQueue = _queueB;
+        }
+
+        private void OnComponentInit(EntityUid uid, DeviceNetworkComponent component, ComponentInit args)
+        {
+            component.DeviceUid = uid;
         }
 
         public override void Update(float frameTime)
@@ -159,6 +165,7 @@ namespace Content.Server.DeviceNetwork.Systems
             if (!Resolve(uid, ref device, false))
                 return false;
 
+            device.DeviceUid = uid;
             return GetNetwork(device.DeviceNetId).Add(device);
         }
 
@@ -346,14 +353,14 @@ namespace Content.Server.DeviceNetwork.Systems
 
             foreach (var connection in connections)
             {
-                if (connection.Owner == packet.Sender)
+                if (connection.DeviceUid == packet.Sender)
                     continue;
 
                 BeforePacketSentEvent beforeEv = new(packet.Sender, xform, senderPos, connection.NetIdEnum.ToString());
-                RaiseLocalEvent(connection.Owner, beforeEv, false);
+                RaiseLocalEvent(connection.DeviceUid, beforeEv, false);
 
                 if (!beforeEv.Cancelled)
-                    RaiseLocalEvent(connection.Owner, packet, false);
+                    RaiseLocalEvent(connection.DeviceUid, packet, false);
                 else
                     beforeEv.Uncancel();
             }

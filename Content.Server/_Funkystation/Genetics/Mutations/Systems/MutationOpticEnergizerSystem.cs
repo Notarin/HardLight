@@ -16,6 +16,7 @@ public sealed class MutationOpticEnergizerSystem : EntitySystem
     [Dependency] private readonly SharedGunSystem _gun = default!;
     [Dependency] private readonly IPrototypeManager _proto = default!;
     [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency] private readonly SharedTransformSystem _transform = default!;
 
     public override void Initialize()
     {
@@ -46,7 +47,7 @@ public sealed class MutationOpticEnergizerSystem : EntitySystem
         if (!TryComp<TransformComponent>(uid, out var xform))
             return;
 
-        var from = xform.MapPosition;
+        var from = _transform.GetMapCoordinates(uid, xform);
         var to = args.Target.Position;
 
         var direction = (to - from.Position);

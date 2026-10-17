@@ -93,10 +93,10 @@ public sealed class StealConditionSystem : EntitySystem
     }
     private void OnGetProgress(Entity<StealConditionComponent> condition, ref ObjectiveGetProgressEvent args)
     {
-        args.Progress = GetProgress(args.Mind, condition);
+        args.Progress = GetProgress(args.MindId, args.Mind, condition);
     }
 
-    private float GetProgress(MindComponent mind, StealConditionComponent condition)
+    private float GetProgress(EntityUid mindId, MindComponent mind, StealConditionComponent condition)
     {
         if (!_containerQuery.TryGetComponent(mind.OwnedEntity, out var currentManager))
             return 0;
@@ -112,7 +112,7 @@ public sealed class StealConditionSystem : EntitySystem
             var areasQuery = AllEntityQuery<StealAreaComponent, TransformComponent>();
             while (areasQuery.MoveNext(out var uid, out var area, out var xform))
             {
-                if (!area.Owners.Contains(mind.Owner))
+                if (!area.Owners.Contains(mindId))
                     continue;
 
                 _nearestEnts.Clear();

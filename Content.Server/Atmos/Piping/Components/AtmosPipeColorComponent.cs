@@ -6,15 +6,8 @@ namespace Content.Server.Atmos.Piping.Components;
 [RegisterComponent]
 public sealed partial class AtmosPipeColorComponent : Component
 {
-    [DataField]
+    [DataField, ViewVariables(VVAccess.ReadWrite)]
     public Color Color { get; set; } = Color.White;
-
-    [ViewVariables(VVAccess.ReadWrite), UsedImplicitly]
-    public Color ColorVV
-    {
-        get => Color;
-        set => IoCManager.Resolve<IEntityManager>().System<AtmosPipeColorSystem>().SetColor(Owner, this, value);
-    }
 }
 
 [ByRefEvent]

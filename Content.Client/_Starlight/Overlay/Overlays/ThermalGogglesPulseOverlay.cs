@@ -23,6 +23,7 @@ public sealed class ThermalGogglesPulseOverlay : Robust.Client.Graphics.Overlay
     private readonly StealthSystem _stealth;
     private readonly ContainerSystem _container;
     private readonly SharedPointLightSystem _light;
+    private readonly SpriteSystem _sprite;
     private readonly List<ThermalVisionRenderEntry> _entries = [];
     private EntityUid? _lightEntity;
 
@@ -37,6 +38,7 @@ public sealed class ThermalGogglesPulseOverlay : Robust.Client.Graphics.Overlay
         _transform = _entity.System<TransformSystem>();
         _stealth = _entity.System<StealthSystem>();
         _light = _entity.System<SharedPointLightSystem>();
+        _sprite = _entity.System<SpriteSystem>();
         ZIndex = -1;
     }
 
@@ -103,10 +105,10 @@ public sealed class ThermalGogglesPulseOverlay : Robust.Client.Graphics.Overlay
             return;
 
         var originalColor = sprite.Color;
-        sprite.Color = color.WithAlpha(alpha);
-        sprite.Render(handle, eyeRotation, _transform.GetWorldRotation(xform),
-            position: _transform.GetWorldPosition(xform));
-        sprite.Color = originalColor;
+        _sprite.SetColor((uid, sprite), color.WithAlpha(alpha));
+        _sprite.RenderSprite((uid, sprite), handle, eyeRotation, _transform.GetWorldRotation(xform),
+            _transform.GetWorldPosition(xform));
+        _sprite.SetColor((uid, sprite), originalColor);
     }
 
     private bool CanSee(EntityUid uid, SpriteComponent sprite)

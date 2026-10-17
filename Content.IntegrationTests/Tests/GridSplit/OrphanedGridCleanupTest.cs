@@ -189,7 +189,7 @@ public sealed class OrphanedGridCleanupTest
         await server.WaitAssertion(() =>
         {
             // Create a test map with an empty grid (0 tiles)
-            var mapId = mapManager.CreateMap();
+            mapSystem.CreateMap(out var mapId);
             var gridEnt = mapManager.CreateGridEntity(mapId);
 
             // The grid has 0 tiles and no name set, it's a prime candidate for cleanup

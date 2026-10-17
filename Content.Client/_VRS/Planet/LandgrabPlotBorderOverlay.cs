@@ -24,9 +24,9 @@ public sealed class LandgrabPlotBorderOverlay : Overlay
 
     [Dependency] private readonly IEntityManager _entities = default!;
     [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
 
     private readonly SharedTransformSystem _xform;
+    private readonly SharedMapSystem _mapSystem;
 
     /// <summary>Bright white used for the local player's own plot.</summary>
     private static readonly Color OwnPlotColor = new Color(1.0f, 1.0f, 1.0f, 0.85f);
@@ -44,12 +44,13 @@ public sealed class LandgrabPlotBorderOverlay : Overlay
     {
         IoCManager.InjectDependencies(this);
         _xform = _entities.System<SharedTransformSystem>();
+        _mapSystem = _entities.System<SharedMapSystem>();
     }
 
     protected override bool BeforeDraw(in OverlayDrawArgs args)
     {
         // Only draw when on a planet map (has the registry component on the map entity).
-        var mapUid = _mapManager.GetMapEntityId(args.MapId);
+        var mapUid = _mapSystem.GetMapOrInvalid(args.MapId);
         return _entities.TryGetComponent(mapUid, out PlanetPlotRegistryComponent? _);
     }
 

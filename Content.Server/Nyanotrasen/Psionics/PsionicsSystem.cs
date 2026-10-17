@@ -74,7 +74,7 @@ namespace Content.Server.Psionics
             {
                 if (HasComp<PsionicComponent>(entity))
                 {
-                    _audioSystem.PlayPvs("/Audio/Effects/lightburn.ogg", entity);
+                    _audioSystem.PlayPvs(new SoundPathSpecifier("/Audio/Effects/lightburn.ogg"), entity);
                     args.ModifiersList.Add(component.Modifiers);
                     if (_random.Prob(component.DisableChance))
                         _statusEffects.TryAddStatusEffect(entity, "PsionicsDisabled", TimeSpan.FromSeconds(10), true, "PsionicsDisabled");

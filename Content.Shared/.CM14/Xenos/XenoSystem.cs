@@ -57,7 +57,6 @@ public sealed class XenoSystem : EntitySystem
                 {
                     instant.Event ??= new Content.Shared.CM14.Xenos.Construction.Events.XenoChooseStructureActionEvent();
                     instant.RaiseOnUser = true;
-                    instant.RaiseOnAction = false;
                     instant.CheckCanInteract = false;
                     instant.CheckConsciousness = true;
                     Dirty(chooseAction, instant);
@@ -70,7 +69,6 @@ public sealed class XenoSystem : EntitySystem
                 {
                     wta.Event ??= new Content.Shared.CM14.Xenos.Construction.Events.XenoSecreteStructureEvent();
                     wta.RaiseOnUser = true;
-                    wta.RaiseOnAction = false;
                     wta.CheckCanInteract = false;
                     wta.CheckConsciousness = true;
                     // Critical: disable access/LOS gating and align target range with the xeno's build range.
@@ -139,7 +137,6 @@ public sealed class XenoSystem : EntitySystem
             if (evolveAction != null && TryComp<InstantActionComponent>(evolveAction.Value, out var evolveInstant))
             {
                 evolveInstant.RaiseOnUser = true;
-                evolveInstant.RaiseOnAction = false;
                 Dirty(evolveAction.Value, evolveInstant);
             }
 
@@ -205,7 +202,7 @@ public sealed class XenoSystem : EntitySystem
         Log.Debug($"[Xeno] Evolution handler start for {ToPrettyString(ent)} evolvesTo={ent.Comp.EvolvesTo.Count} hasActor={TryComp(ent, out ActorComponent? _)}");
         if (TryComp(ent, out ActorComponent? actor))
         {
-            if (_ui.TryOpenUi(ent.Owner, XenoEvolutionUIKey.Key, actor.Owner))
+            if (_ui.TryOpenUi(ent.Owner, XenoEvolutionUIKey.Key, ent.Owner))
             {
                 //Log.Debug($"[Xeno] Opened evolution UI for {ToPrettyString(ent)} actor={ToPrettyString(actor.Owner)}");
                 return;

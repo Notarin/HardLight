@@ -79,7 +79,7 @@ public sealed class ClientSpriteMovementSystem : SharedSpriteMovementSystem
             desiredState = effectiveEnabled ? toggle.StateOn : toggle.StateOff;
 
         if (!string.IsNullOrEmpty(desiredState))
-            sprite.LayerSetState(layerIndex, desiredState!);
+            _sprite.LayerSetRsiState((ent, sprite), layerIndex, desiredState!);
     }
 
     private int ResolveLayerIndex(EntityUid uid, SpriteComponent sprite, string layerKey)

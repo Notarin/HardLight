@@ -71,10 +71,10 @@ namespace Content.Server.Chemistry.EntitySystems
             // Log the buffer contents for debugging
             if (_solutionContainerSystem.TryGetSolution(ent.Owner, SharedChemMaster.BufferSolutionName, out _, out var bufferSolution))
             {
-                Logger.Info($"ChemMaster {ent.Owner} loaded with buffer: {bufferSolution.Volume}u, {bufferSolution.Contents.Count} reagent types");
+                Log.Info($"ChemMaster {ent.Owner} loaded with buffer: {bufferSolution.Volume}u, {bufferSolution.Contents.Count} reagent types");
                 foreach (var reagent in bufferSolution.Contents)
                 {
-                    Logger.Info($"  - {reagent.Reagent.Prototype}: {reagent.Quantity}u");
+                    Log.Info($"  - {reagent.Reagent.Prototype}: {reagent.Quantity}u");
                 }
             }
         }

@@ -69,17 +69,13 @@ namespace Content.Shared.Nyanotrasen.Abilities.Psionics
                 return;
 
             // Update all psionic actions based on eligibility
+            var eligible = IsEligibleForPsionics(uid);
             foreach (var action in component.Actions.Values)
             {
                 if (action == null)
                     continue;
 
-                _actions.TryGetActionData(action.Value, out var actionData);
-
-                if (actionData == null)
-                    continue;
-
-                _actions.SetEnabled(actionData.Owner, IsEligibleForPsionics(uid));
+                _actions.SetEnabled(action.Value, eligible);
             }
         }
 

@@ -40,7 +40,7 @@ public sealed class ConsentUiController : UIController, IOnStateChanged<Gameplay
     {
         if (_window != null)
         {
-            _window.Dispose();
+            _window.Close();
             _window = null;
         }
     }

@@ -24,7 +24,7 @@ public sealed partial class DungeonJob
     /// <summary>
     /// <see cref="ExternalWindowDunGen"/>
     /// </summary>
-    private async Task PostGen(ExternalWindowDunGen gen, DungeonData data, Dungeon dungeon, HashSet<Vector2i> reservedTiles, Random random)
+    private async Task PostGen(ExternalWindowDunGen gen, DungeonData data, Dungeon dungeon, HashSet<Vector2i> reservedTiles, IRobustRandom random)
     {
         if (!data.Tiles.TryGetValue(DungeonDataKey.FallbackTile, out var tileProto) ||
             !data.SpawnGroups.TryGetValue(DungeonDataKey.Window, out var windowGroup))
@@ -56,7 +56,7 @@ public sealed partial class DungeonJob
                 break;
 
             // Room tile / already used.
-            if (!_anchorable.TileFree(_grid, tile, DungeonSystem.CollisionLayer, DungeonSystem.CollisionMask) ||
+            if (!_anchorable.TileFree(_gridEntity, tile, DungeonSystem.CollisionLayer, DungeonSystem.CollisionMask) ||
                 takenTiles.Contains(tile))
             {
                 continue;
@@ -76,7 +76,7 @@ public sealed partial class DungeonJob
 
                     if (!allExterior.Contains(neighbor) ||
                         takenTiles.Contains(neighbor) ||
-                        !_anchorable.TileFree(_grid, neighbor, DungeonSystem.CollisionLayer, DungeonSystem.CollisionMask))
+                        !_anchorable.TileFree(_gridEntity, neighbor, DungeonSystem.CollisionLayer, DungeonSystem.CollisionMask))
                     {
                         isValid = false;
                         break;
@@ -91,7 +91,7 @@ public sealed partial class DungeonJob
 
                         if (allExterior.Contains(perpTile) ||
                             takenTiles.Contains(neighbor) ||
-                            !_anchorable.TileFree(_grid, perpTile, DungeonSystem.CollisionLayer, DungeonSystem.CollisionMask))
+                            !_anchorable.TileFree(_gridEntity, perpTile, DungeonSystem.CollisionLayer, DungeonSystem.CollisionMask))
                         {
                             isValid = false;
                             break;
@@ -128,7 +128,7 @@ public sealed partial class DungeonJob
             var gridPos = _maps.GridTileToLocal(_gridUid, _grid, tile.Item1);
 
             index += spawnEntry.Entries.Count;
-            _entManager.SpawnEntities(gridPos, EntitySpawnCollection.GetSpawns(spawnEntry.Entries, random));
+            SpawnEntities(gridPos, EntitySpawnCollection.GetSpawns(spawnEntry.Entries, random));
             await SuspendDungeon();
 
             if (!ValidateResume())

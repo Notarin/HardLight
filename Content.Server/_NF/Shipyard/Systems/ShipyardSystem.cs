@@ -1613,7 +1613,7 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
             if (entry.PrototypeId is not { } prototypeId || !_prototypeManager.TryIndex<EntityPrototype>(prototypeId, out var prototype))
                 continue;
 
-            price += _pricing.GetEstimatedPrice(prototype) * entry.SpawnProbability * entry.GetAmount(Random.Shared, getAverage: true);
+            price += _pricing.GetEstimatedPrice(prototype) * entry.SpawnProbability * entry.GetAmount(getAverage: true);
         }
 
         foreach (var group in orGroups)
@@ -1625,7 +1625,7 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
 
                 price += _pricing.GetEstimatedPrice(prototype)
                          * (entry.SpawnProbability / group.CumulativeProbability)
-                         * entry.GetAmount(Random.Shared, getAverage: true);
+                         * entry.GetAmount(getAverage: true);
             }
         }
 

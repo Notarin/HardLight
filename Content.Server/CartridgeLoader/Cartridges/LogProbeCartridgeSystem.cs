@@ -9,6 +9,7 @@ using Content.Shared.Labels.EntitySystems;
 using Content.Shared.Paper;
 using Content.Shared._DeltaV.NanoChat; // DeltaV
 using Content.Shared.Popups;
+using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Timing;
 using System.Text;
@@ -64,7 +65,7 @@ public sealed partial class LogProbeCartridgeSystem : EntitySystem // DeltaV - M
             return;
 
         //Play scanning sound with slightly randomized pitch
-        _audio.PlayEntity(ent.Comp.SoundScan, args.InteractEvent.User, target, AudioHelpers.WithVariation(0.25f, _random));
+        _audio.PlayEntity(ent.Comp.SoundScan, args.InteractEvent.User, target, AudioParams.Default.WithVariation(0.25f));
         _popup.PopupCursor(Loc.GetString("log-probe-scan", ("device", target)), args.InteractEvent.User);
 
         ent.Comp.EntityName = Name(target);

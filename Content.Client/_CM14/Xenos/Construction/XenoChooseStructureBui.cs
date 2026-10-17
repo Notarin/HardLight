@@ -74,7 +74,7 @@ public sealed class XenoChooseStructureBui : BoundUserInterface
         base.Dispose(disposing);
         if (disposing)
         {
-            _window?.Dispose();
+            _window?.Close();
             _window = null;
         }
     }

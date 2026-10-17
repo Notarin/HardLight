@@ -57,6 +57,42 @@ public sealed class MapTextSystem : SharedMapTextSystem
         CacheText(ent.Comp);
     }
 
+    private const string DefaultFontPath = "/Fonts/NotoSans/NotoSans-Regular.ttf";
+
+    private static bool TryGetFontPath(string fontId, out string path)
+    {
+        path = fontId switch
+        {
+            "Default" => DefaultFontPath,
+            "DefaultItalic" => "/Fonts/NotoSans/NotoSans-Italic.ttf",
+            "DefaultBold" => "/Fonts/NotoSans/NotoSans-Bold.ttf",
+            "DefaultBoldItalic" => "/Fonts/NotoSans/NotoSans-BoldItalic.ttf",
+            "NotoSansDisplay" => "/Fonts/NotoSansDisplay/NotoSansDisplay-Regular.ttf",
+            "NotoSansDisplayItalic" => "/Fonts/NotoSansDisplay/NotoSansDisplay-Italic.ttf",
+            "NotoSansDisplayBold" => "/Fonts/NotoSansDisplay/NotoSansDisplay-Bold.ttf",
+            "NotoSansDisplayBoldItalic" => "/Fonts/NotoSansDisplay/NotoSansDisplay-BoldItalic.ttf",
+            "BoxRound" => "/Fonts/Boxfont-round/Boxfont Round.ttf",
+            "AnimalSilence" => "/Fonts/Animal Silence.otf",
+            "Monospace" => "/EngineFonts/NotoSans/NotoSansMono-Regular.ttf",
+            "Emoji" => "/Fonts/NotoEmoji.ttf",
+            "OnlyYou" => "/Fonts/Only_You.otf",
+            "Chinese" => "/Fonts/NotoSans/NotoSansSC-Regular.ttf",
+            "Sriracha" => "/Fonts/Sriracha/Sriracha.ttf",
+            "GrenzeGotisch" => "/Fonts/Grenze_Gotisch/GrenzeGotisch.ttf",
+            "RubikDirt" => "/Fonts/Rubik_Dirt/RubikDirt.ttf",
+            "Lymphatic" => "/Fonts/_Starlight/Lymphatic.ttf",
+            "RubikBubbles" => "/Fonts/_Starlight/RubikBubbles.ttf",
+            "Copperplate" => "/Fonts/_Starlight/Copperplate.otf",
+            "Mangat" => "/Fonts/_Starlight/Mangat.ttf",
+            "Scratch" => "/Fonts/_Starlight/Scratch.ttf",
+            "Octatrax" => "/Fonts/_Starlight/Octatrax.ttf",
+            "Draconic" => "/Fonts/_Starlight/Draconic-modern.otf",
+            _ => string.Empty,
+        };
+
+        return !string.IsNullOrEmpty(path);
+    }
+
     private void CacheText(MapTextComponent component)
     {
         component.CachedFont = null;
@@ -65,17 +101,18 @@ public sealed class MapTextSystem : SharedMapTextSystem
             ? Loc.GetString(component.LocText)
             : component.Text;
 
-        if (!_prototypeManager.TryIndex<FontPrototype>(component.FontId, out var fontPrototype))
+        if (!_prototypeManager.HasIndex<FontPrototype>(component.FontId) ||
+            !TryGetFontPath(component.FontId, out var fontPath) ||
+            !_resourceCache.TryGetResource<FontResource>(fontPath, out var fontResource))
         {
             component.CachedText = Loc.GetString("map-text-font-error");
             component.Color = Color.Red;
 
-            if (_prototypeManager.TryIndex<FontPrototype>(SharedMapTextComponent.DefaultFont, out var @default))
-                component.CachedFont = new VectorFont(_resourceCache.GetResource<FontResource>(@default.Path), 14);
+            if (_resourceCache.TryGetResource<FontResource>(DefaultFontPath, out var defaultFont))
+                component.CachedFont = new VectorFont(defaultFont, 14);
             return;
         }
 
-        var fontResource = _resourceCache.GetResource<FontResource>(fontPrototype.Path);
         component.CachedFont = new VectorFont(fontResource, component.FontSize);
     }
 }

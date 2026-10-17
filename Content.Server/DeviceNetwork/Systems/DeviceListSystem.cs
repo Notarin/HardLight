@@ -117,7 +117,7 @@ public sealed class DeviceListSystem : SharedDeviceListSystem
 
         foreach (var recipient in args.Recipients)
         {
-            if (component.Devices.Contains(recipient.Owner) == component.IsAllowList)
+            if (component.Devices.Contains(recipient.DeviceUid) == component.IsAllowList)
                 filteredRecipients.Add(recipient);
         }
 

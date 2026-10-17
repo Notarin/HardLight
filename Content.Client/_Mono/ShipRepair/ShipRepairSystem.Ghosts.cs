@@ -206,11 +206,7 @@ public sealed partial class ShipRepairSystem : SharedShipRepairSystem
             AddComp(ghost, sprite);
             var ent = (ghost, sprite);
 
-            // evil hacks to not trip debug asserts
-            var old = specSprite.Owner;
-            specSprite.Owner = ghost;
-            _sprite.CopySprite((ghost, specSprite), ent);
-            specSprite.Owner = old;
+            _sprite.CopySprite((EntityUid.Invalid, specSprite), ent);
 
             if (proto.TryGetComponent<IconSmoothComponent>(out var specSmooth, Factory))
             {

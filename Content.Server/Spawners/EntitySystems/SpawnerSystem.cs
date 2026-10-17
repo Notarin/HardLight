@@ -19,7 +19,13 @@ public sealed class SpawnerSystem : EntitySystem
     {
         component.TokenSource?.Cancel();
         component.TokenSource = new CancellationTokenSource();
-        uid.SpawnRepeatingTimer(TimeSpan.FromSeconds(component.IntervalSeconds), () => OnTimerFired(uid, component), component.TokenSource.Token);
+        Robust.Shared.Timing.Timer.SpawnRepeating(TimeSpan.FromSeconds(component.IntervalSeconds), () =>
+        {
+            if (TerminatingOrDeleted(uid))
+                return;
+
+            OnTimerFired(uid, component);
+        }, component.TokenSource.Token);
     }
 
     private void OnTimerFired(EntityUid uid, TimedSpawnerComponent component)

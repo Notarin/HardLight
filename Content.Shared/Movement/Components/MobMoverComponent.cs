@@ -48,7 +48,6 @@ namespace Content.Shared.Movement.Components
             {
                 if (MathHelper.CloseToPercent(GrabRange, value)) return;
                 GrabRange = value;
-                Dirty();
             }
         }
 
@@ -60,7 +59,6 @@ namespace Content.Shared.Movement.Components
             {
                 if (MathHelper.CloseToPercent(PushStrength, value)) return;
                 PushStrength = value;
-                Dirty();
             }
         }
     }

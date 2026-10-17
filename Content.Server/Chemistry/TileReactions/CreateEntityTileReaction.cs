@@ -45,10 +45,11 @@ public sealed partial class CreateEntityTileReaction : ITileReaction
         {
             if (Whitelist != null)
             {
+                var lookup = entityManager.System<EntityLookupSystem>();
+                var whitelistSystem = entityManager.System<EntityWhitelistSystem>();
                 int acc = 0;
-                foreach (var ent in tile.GetEntitiesInTile())
+                foreach (var ent in lookup.GetLocalEntitiesIntersecting(tile, flags: LookupFlags.Static))
                 {
-                    var whitelistSystem = entityManager.System<EntityWhitelistSystem>();
                     if (whitelistSystem.IsWhitelistPass(Whitelist, ent))
                         acc += 1;
 

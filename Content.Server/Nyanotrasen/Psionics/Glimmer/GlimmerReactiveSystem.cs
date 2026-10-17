@@ -119,7 +119,7 @@ namespace Content.Server.Psionics.Glimmer
         private void OnMapInit(EntityUid uid, SharedGlimmerReactiveComponent component, MapInitEvent args)
         {
             if (component.RequiresApcPower && !HasComp<ApcPowerReceiverComponent>(uid))
-                Logger.Warning($"{ToPrettyString(uid)} had RequiresApcPower set to true but no ApcPowerReceiverComponent was found on init.");
+                Log.Warning($"{ToPrettyString(uid)} had RequiresApcPower set to true but no ApcPowerReceiverComponent was found on init.");
 
             UpdateEntityState(uid, component, LastGlimmerTier, (int)LastGlimmerTier);
         }
@@ -310,7 +310,7 @@ namespace Content.Server.Psionics.Glimmer
             {
                 var tileIndices = _mapSystem.TileIndicesFor(gridUid.Value, grid, coordinates);
 
-                if (_anchorableSystem.TileFree(grid, tileIndices, physics.CollisionLayer, physics.CollisionMask) &&
+                if (_anchorableSystem.TileFree((gridUid.Value, grid), tileIndices, physics.CollisionLayer, physics.CollisionMask) &&
                     _transformSystem.AnchorEntity(uid, xform))
                 {
                     return;

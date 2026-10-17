@@ -9,6 +9,7 @@ using Content.Server.Popups;
 using Robust.Shared.Player;
 using Robust.Shared.Random;
 using Content.Shared.Actions.Events;
+using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 
 namespace Content.Server.Abilities.Psionics
@@ -60,7 +61,7 @@ namespace Content.Server.Abilities.Psionics
             QueueDel(uid);
             Spawn("Ash", Transform(uid).Coordinates);
             _popupSystem.PopupCoordinates(Loc.GetString("psionic-burns-up", ("item", uid)), Transform(uid).Coordinates, Filter.Pvs(uid), true, Shared.Popups.PopupType.MediumCaution);
-            _audioSystem.PlayEntity("/Audio/Effects/lightburn.ogg", Filter.Pvs(uid), uid, true);
+            _audioSystem.PlayEntity(new SoundPathSpecifier("/Audio/Effects/lightburn.ogg"), Filter.Pvs(uid), uid, true);
             args.Handled = true;
         }
 
@@ -107,7 +108,7 @@ namespace Content.Server.Abilities.Psionics
                 return;
 
             _popupSystem.PopupCoordinates(Loc.GetString("psionic-burn-resist", ("item", uid)), Transform(uid).Coordinates, Filter.Pvs(uid), true, Shared.Popups.PopupType.SmallCaution);
-            _audioSystem.PlayEntity("/Audio/Effects/lightburn.ogg", Filter.Pvs(uid), uid, true);
+            _audioSystem.PlayEntity(new SoundPathSpecifier("/Audio/Effects/lightburn.ogg"), Filter.Pvs(uid), uid, true);
 
             if (damage == null)
             {

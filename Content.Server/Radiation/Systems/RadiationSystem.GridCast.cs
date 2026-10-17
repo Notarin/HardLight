@@ -223,7 +223,7 @@ public partial class RadiationSystem
         // inverse world matrices.
 
         // Validate transform components are still valid before accessing their properties
-        if (TerminatingOrDeleted(sourceTrs.Owner) || TerminatingOrDeleted(destTrs.Owner))
+        if (TerminatingOrDeleted(ray.SourceUid) || TerminatingOrDeleted(ray.DestinationUid))
             return ray;
 
         Vector2 srcLocal = sourceTrs.ParentUid == grid.Owner

@@ -62,7 +62,7 @@ public sealed partial class PathfindingSystem
             if (change.OldTile.IsEmpty == change.NewTile.IsEmpty)
                 continue;
 
-            DirtyChunk(ev.Entity, grid.GridTileToLocal(change.GridIndices));
+            DirtyChunk(ev.Entity, _maps.GridTileToLocal(ev.Entity, grid, change.GridIndices));
         }
     }
 
@@ -316,7 +316,7 @@ public sealed partial class PathfindingSystem
             {
                 DirtyChunk(
                     ev.EntityUid,
-                    mapGrid.GridTileToLocal(new Vector2i((int)x, (int)y)));
+                    _maps.GridTileToLocal(ev.EntityUid, mapGrid, new Vector2i((int)x, (int)y)));
             }
         }
     }

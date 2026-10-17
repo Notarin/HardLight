@@ -588,7 +588,7 @@ namespace Content.Server.Ghost
             }
 
             SetCanReturnToBody((ghost, ghostComponent), canReturn);
-            SetCanReturnFromCryo(ghostComponent, mind.Comp.UserId != null ? _cryo.HasCryosleepingBody(mind.Comp.UserId.Value) : false); // Frontier
+            SetCanReturnFromCryo((ghost, ghostComponent), mind.Comp.UserId != null ? _cryo.HasCryosleepingBody(mind.Comp.UserId.Value) : false); // Frontier
 
             if (canReturn)
                 _minds.Visit(mind.Owner, ghost, mind.Comp);

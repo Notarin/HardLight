@@ -14,10 +14,12 @@ public abstract class BaseEntityHighlightOverlay : BaseVisionOverlay
     [Dependency] private readonly IEntityManager _entityManager = default!;
     private readonly ContainerSystem _containerSystem;
     private readonly TransformSystem _transform = default!;
+    private readonly SpriteSystem _spriteSystem = default!;
     public BaseEntityHighlightOverlay(ShaderPrototype shader) : base(shader)
     {
         _containerSystem = _entityManager.System<ContainerSystem>();
         _transform = _entityManager.System<TransformSystem>();
+        _spriteSystem = _entityManager.System<SpriteSystem>();
     }
 
     protected override void Draw(in OverlayDrawArgs args)
@@ -35,7 +37,7 @@ public abstract class BaseEntityHighlightOverlay : BaseVisionOverlay
             if (xform.MapID != args.MapId || _containerSystem.IsEntityInContainer(uid, meta)) continue;
             var (position, rotation) = _transform.GetWorldPositionRotation(xform);
 
-            sprite.Render(worldHandle, eyeRotation, rotation, null, position);
+            _spriteSystem.RenderSprite((uid, sprite), worldHandle, eyeRotation, rotation, position);
         }
 
         worldHandle.UseShader(null);

@@ -261,9 +261,9 @@ namespace Content.Server.Power.EntitySystems
 
         public IEnumerable<(EntityUid, EntityUid)> GetAllDockedPairs()
         {
-            foreach (var dockEntity in EntityQuery<DockingComponent>())
+            var query = EntityQueryEnumerator<DockingComponent>();
+            while (query.MoveNext(out var dockA, out var dockEntity))
             {
-                var dockA = dockEntity.Owner;
                 if (dockEntity.DockedWith is not { } dockB)
                     continue;
                 if (dockA.CompareTo(dockB) < 0)

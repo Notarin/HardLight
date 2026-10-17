@@ -165,7 +165,7 @@ namespace Content.Client.Ghost
 
         private void OnGhostPlayerAttach(EntityUid uid, GhostComponent component, LocalPlayerAttachedEvent localPlayerAttachedEvent)
         {
-            if (uid != _playerManager.LocalPlayer?.ControlledEntity)
+            if (uid != _playerManager.LocalSession?.AttachedEntity)
                 return;
             component.TimeOfDeath = _gameTiming.CurTime;
             GhostVisibility = true;

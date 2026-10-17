@@ -17,7 +17,7 @@ public sealed partial class DungeonJob
     private async Task PostGen(
         OreDunGen gen,
         Dungeon dungeon,
-        Random random)
+        IRobustRandom random)
     {
         // Doesn't use dungeon data because layers and we don't need top-down support at the moment.
 
@@ -79,7 +79,7 @@ public sealed partial class DungeonJob
             else
             {
                 // If entity mask null - we ignore the tiles that have anything on them.
-                if (!_anchorable.TileFree(_grid, tile, DungeonSystem.CollisionLayer, DungeonSystem.CollisionMask))
+                if (!_anchorable.TileFree(_gridEntity, tile, DungeonSystem.CollisionLayer, DungeonSystem.CollisionMask))
                     continue;
 
                 var anchored = _maps.GetAnchoredEntitiesEnumerator(_gridUid, _grid, tile); // HardLight

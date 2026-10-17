@@ -143,18 +143,15 @@ namespace Content.Client.Administration.UI.Tabs.AdminTab
             }
         }
 
-        protected override void Dispose(bool disposing)
+        protected override void ExitedTree()
         {
-            base.Dispose(disposing);
+            base.ExitedTree();
 
-            if (disposing)
-            {
-                SubTabs.OnTabChanged -= OnSubTabChanged;
-                _bwoinkSystem.AhelpAdminConfigUpdated -= UpdateAhelpConfig;
-                _bwoinkSystem.SharedAdminMacrosUpdated -= UpdateSharedAdminMacros;
-                _bwoinkSystem.AdminStatisticsReceived -= UpdateStatistics;
-                RolesSearchBox.OnTextChanged -= _ => ApplyRolesFilter();
-            }
+            SubTabs.OnTabChanged -= OnSubTabChanged;
+            _bwoinkSystem.AhelpAdminConfigUpdated -= UpdateAhelpConfig;
+            _bwoinkSystem.SharedAdminMacrosUpdated -= UpdateSharedAdminMacros;
+            _bwoinkSystem.AdminStatisticsReceived -= UpdateStatistics;
+            RolesSearchBox.OnTextChanged -= _ => ApplyRolesFilter();
         }
 
         private void OnSubTabChanged(int tabIndex)
@@ -409,9 +406,9 @@ namespace Content.Client.Administration.UI.Tabs.AdminTab
             disableButton.Pressed = !enabled;
 
             if (enabled)
-                enableButton.AddStyleClass(StyleNano.StyleClassButtonColorGreen);
+                enableButton.AddStyleClass(StyleClass.Positive);
             else
-                enableButton.RemoveStyleClass(StyleNano.StyleClassButtonColorGreen);
+                enableButton.RemoveStyleClass(StyleClass.Positive);
 
             disableButton.ModulateSelfOverride = enabled ? null : Color.Red;
         }
@@ -541,7 +538,7 @@ namespace Content.Client.Administration.UI.Tabs.AdminTab
 
         private void OpenVoteAudit()
         {
-            if (_voteAuditWindow == null || _voteAuditWindow.Disposed || !_voteAuditWindow.IsOpen)
+            if (_voteAuditWindow == null || !_voteAuditWindow.IsOpen)
             {
                 _voteAuditWindow = new Content.Client.Administration.UI.Voting.VoteAuditWindow();
                 _voteAuditWindow.OpenCentered();
@@ -667,7 +664,7 @@ namespace Content.Client.Administration.UI.Tabs.AdminTab
 
         private void OpenSharedMacroWindow()
         {
-            if (_sharedMacroWindow == null || _sharedMacroWindow.Disposed || !_sharedMacroWindow.IsOpen)
+            if (_sharedMacroWindow == null || !_sharedMacroWindow.IsOpen)
             {
                 _sharedMacroWindow = new SharedMacroWindow();
                 _sharedMacroWindow.OnClose += () => _sharedMacroWindow = null;

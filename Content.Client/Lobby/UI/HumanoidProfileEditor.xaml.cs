@@ -101,8 +101,7 @@ namespace Content.Client.Lobby.UI
 
         private bool _isDirty;
 
-        [ValidatePrototypeId<GuideEntryPrototype>]
-        private const string DefaultSpeciesGuidebook = "Species";
+        private static readonly ProtoId<GuideEntryPrototype> DefaultSpeciesGuidebook = "Species";
 
         public event Action<List<ProtoId<GuideEntryPrototype>>>? OnOpenGuidebook;
 
@@ -283,7 +282,7 @@ namespace Content.Client.Lobby.UI
                     return;
                 Profile = Profile.WithCharacterAppearance(
                     Profile.Appearance.WithHairGlowing(newColor.marking.IsGlowing));
-                Logger.Info(newColor.marking.IsGlowing.ToString());
+                _sawmill.Info(newColor.marking.IsGlowing.ToString());
                 UpdateCMarkingsHair();
                 ReloadPreview();
             };
@@ -500,7 +499,7 @@ namespace Content.Client.Lobby.UI
             // Clear any existing items
             CompanyButton.Clear();
 
-            var username = _playerManager.LocalPlayer?.Session?.Name; //Lua modified - company login support
+            var username = _playerManager.LocalSession?.Name; //Lua modified - company login support
 
             // Add all companies from prototypes - use consistent sorting with UpdateCompanyControls
             var companies = _prototypeManager.EnumeratePrototypes<CompanyPrototype>()
@@ -522,7 +521,7 @@ namespace Content.Client.Lobby.UI
             for (var i = 0; i < companies.Count; i++)
             {
                 CompanyButton.AddItem(companies[i].Name, i);
-                Logger.Debug($"Added company to dropdown: {i} - {companies[i].ID} - {companies[i].Name}");
+                _sawmill.Debug($"Added company to dropdown: {i} - {companies[i].ID} - {companies[i].Name}");
             }
 
             CompanyButton.OnItemSelected += args =>
@@ -539,7 +538,7 @@ namespace Content.Client.Lobby.UI
                     Profile = Profile?.WithCompany(companyId);
 
                     // Debug logging to verify selection
-                    Logger.Debug($"Company changed from {oldCompany} to {companyId}");
+                    _sawmill.Debug($"Company changed from {oldCompany} to {companyId}");
 
                     // Explicitly call SetDirty to update save button state
                     SetDirty();
@@ -614,8 +613,7 @@ namespace Content.Client.Lobby.UI
 
                 TabContainer.RemoveChild(_flavorText);
                 _flavorText.OnFlavorTextChanged -= OnFlavorTextChange;
-                _flavorText.Dispose();
-                _flavorTextEdit?.Dispose();
+                _flavorTextEdit?.Orphan();
                 _flavorTextEdit = null;
                 _flavorText = null;
             }
@@ -687,7 +685,7 @@ namespace Content.Client.Lobby.UI
             var allSelectors = new Dictionary<ProtoId<TraitPrototype>, TraitPreferenceSelector>();
 
             // HardLight: get login name once for login-restricted trait filtering (same pattern as company logins)
-            var localUsername = _playerManager.LocalPlayer?.Session?.Name;
+            var localUsername = _playerManager.LocalSession?.Name;
 
             foreach (var trait in traits)
             {
@@ -1332,7 +1330,7 @@ namespace Content.Client.Lobby.UI
         /// </summary>
         public void RefreshLoadouts()
         {
-            _loadoutWindow?.Dispose();
+            _loadoutWindow?.Close();
         }
 
         /// <summary>
@@ -1640,7 +1638,7 @@ namespace Content.Client.Lobby.UI
 
         private void OpenLoadout(JobPrototype? jobProto, RoleLoadout roleLoadout, RoleLoadoutPrototype roleLoadoutProto)
         {
-            _loadoutWindow?.Dispose();
+            _loadoutWindow?.Close();
             _loadoutWindow = null;
             var collection = IoCManager.Instance;
 
@@ -1827,16 +1825,6 @@ namespace Content.Client.Lobby.UI
             ReloadProfilePreview();
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            base.Dispose(disposing);
-            if (!disposing)
-                return;
-
-            _loadoutWindow?.Dispose();
-            _loadoutWindow = null;
-        }
-
         protected override void EnteredTree()
         {
             base.EnteredTree();
@@ -1848,6 +1836,8 @@ namespace Content.Client.Lobby.UI
             base.ExitedTree();
             _entManager.DeleteEntity(PreviewDummy);
             PreviewDummy = EntityUid.Invalid;
+            _loadoutWindow?.Close();
+            _loadoutWindow = null;
         }
 
         private void SetAge(int newAge)
@@ -2469,7 +2459,7 @@ namespace Content.Client.Lobby.UI
             if (Profile is null)
                 return;
 
-            var username = _playerManager.LocalPlayer?.Session?.Name; //Lua modified - company login support
+            var username = _playerManager.LocalSession?.Name; //Lua modified - company login support
 
             var companies = _prototypeManager.EnumeratePrototypes<CompanyPrototype>()
                 //.Where(c => !c.Disabled) // Filter out disabled companies
@@ -2486,7 +2476,7 @@ namespace Content.Client.Lobby.UI
                 companies.Insert(0, none);
             }
 
-            Logger.Debug($"Updating company controls. Current profile company: {Profile.Company}");
+            _sawmill.Debug($"Updating company controls. Current profile company: {Profile.Company}");
 
             // Find the company in the list and select it
             bool found = false;
@@ -2495,7 +2485,7 @@ namespace Content.Client.Lobby.UI
                 if (companies[i].ID != Profile.Company)
                     continue; // Short circuit.
 
-                Logger.Debug($"Found company at index {i}: {companies[i].ID} - {companies[i].Name}");
+                _sawmill.Debug($"Found company at index {i}: {companies[i].ID} - {companies[i].Name}");
                 CompanyButton.SelectId(i);
 
                 found = true;
@@ -2505,7 +2495,7 @@ namespace Content.Client.Lobby.UI
             // If company wasn't found, default to "None" (index 0)
             if (!found)
             {
-                Logger.Debug($"Company {Profile.Company} not found in list, defaulting to None");
+                _sawmill.Debug($"Company {Profile.Company} not found in list, defaulting to None");
                 CompanyButton.SelectId(0);
 
                 // Also reset the profile's company to None if the current one is disabled

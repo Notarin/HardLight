@@ -316,7 +316,7 @@ namespace Content.Server.Chemistry.EntitySystems
             // If slots are empty (loaded from save with cleared slots), trigger RefreshParts
             if (component.StorageSlots.Count == 0)
             {
-                Logger.Info($"Dispenser {uid} has no slots (loaded from save), creating them via RefreshParts");
+                Log.Info($"Dispenser {uid} has no slots (loaded from save), creating them via RefreshParts");
 
                 // Create default part ratings - base parts (rating 1.0)
                 var partRatings = new Dictionary<string, float>
@@ -328,7 +328,7 @@ namespace Content.Server.Chemistry.EntitySystems
                 var ev = new RefreshPartsEvent { PartRatings = partRatings };
                 RaiseLocalEvent(uid, ev);
 
-                Logger.Info($"Created {component.StorageSlots.Count} storage slots for dispenser {uid}");
+                Log.Info($"Created {component.StorageSlots.Count} storage slots for dispenser {uid}");
             }
         }
 

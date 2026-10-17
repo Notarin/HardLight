@@ -337,9 +337,9 @@ namespace Content.Client.Paper.UI
             return mode & _allowedResizeModes;
         }
 
-        protected override void Dispose(bool disposing)
+        protected override void ExitedTree()
         {
-            base.Dispose(disposing);
+            base.ExitedTree();
             FillableTag.OnTagClicked -= OnTagClicked; // Hardlight
         }
 

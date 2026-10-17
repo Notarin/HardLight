@@ -1,6 +1,7 @@
 using System.Globalization;
 using System.Linq;
 using Content.Client.Stylesheets;
+using Content.Client.Stylesheets.Palette;
 using Content.Shared.Atmos;
 using Content.Shared.Atmos.Components;
 using Content.Shared.Atmos.Monitor;
@@ -107,7 +108,7 @@ public sealed partial class AtmosAlarmGaslockEntryContainer : BoxContainer
             new VectorFont(_cache.GetResource<FontResource>("/Fonts/NotoSansDisplay/NotoSansDisplay-Regular.ttf"), 11);
 
         AlarmStateLabel.Text = Loc.GetString("atmos-alerts-window-normal-state");
-        AlarmStateLabel.FontColorOverride = StyleNano.GoodGreenFore;
+        AlarmStateLabel.FontColorOverride = Palettes.Status.Good;
 
         // Update alarm name
         AlarmNameLabel.Text = Loc.GetString("atmos-alerts-window-alarm-label",
@@ -167,7 +168,7 @@ public sealed partial class AtmosAlarmGaslockEntryContainer : BoxContainer
             {
                 Text = Loc.GetString("atmos-alerts-window-other-gases-value-nil"),
                 FontOverride = normalFont,
-                FontColorOverride = StyleNano.DisabledFore,
+                FontColorOverride = Palettes.Neutral.Base,
                 HorizontalAlignment = HAlignment.Center,
                 VerticalAlignment = VAlignment.Center,
                 HorizontalExpand = true,
@@ -193,7 +194,7 @@ public sealed partial class AtmosAlarmGaslockEntryContainer : BoxContainer
                         ("shorthand", gasShorthand),
                         ("value", gasPercent)),
                     FontOverride = normalFont,
-                    FontColorOverride = StyleNano.GoodGreenFore,
+                    FontColorOverride = Palettes.Status.Good,
                     HorizontalAlignment = HAlignment.Center,
                     VerticalAlignment = VAlignment.Center,
                     HorizontalExpand = true,
@@ -208,13 +209,13 @@ public sealed partial class AtmosAlarmGaslockEntryContainer : BoxContainer
 
     public void SetAsFocus()
     {
-        FocusButton.AddStyleClass(StyleNano.StyleClassButtonColorGreen);
+        FocusButton.AddStyleClass(StyleClass.Positive);
         ArrowTexture.TexturePath = "/Textures/Interface/Nano/inverted_triangle.svg.png";
     }
 
     public void RemoveAsFocus()
     {
-        FocusButton.RemoveStyleClass(StyleNano.StyleClassButtonColorGreen);
+        FocusButton.RemoveStyleClass(StyleClass.Positive);
         ArrowTexture.TexturePath = "/Textures/Interface/Nano/triangle_right.png";
         FocusContainer.Visible = false;
     }

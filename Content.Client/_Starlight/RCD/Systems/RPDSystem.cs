@@ -11,6 +11,8 @@ namespace Content.Client._Starlight.RCD.Systems;
 
 public sealed class RPDSystem : EntitySystem
 {
+    [Dependency] private readonly RCDSystem _rcd = default!;
+
     public override void Initialize()
     {
         base.Initialize();
@@ -20,7 +22,7 @@ public sealed class RPDSystem : EntitySystem
 
     private Control OnItemStatus(Entity<RCDComponent> entity)
     {
-        return new RPDModeStatusControl(entity);
+        return new RPDModeStatusControl(entity, _rcd);
     }
 
     private sealed class RPDModeStatusControl : Control
@@ -34,11 +36,11 @@ public sealed class RPDSystem : EntitySystem
         private readonly bool _isRpd;
         private readonly RCDSystem _rcdSystem;
 
-        public RPDModeStatusControl(Entity<RCDComponent> entity)
+        public RPDModeStatusControl(Entity<RCDComponent> entity, RCDSystem rcdSystem)
         {
             _uid = entity.Owner;
             _isRpd = entity.Comp.IsRPD;
-            _rcdSystem = EntitySystem.Get<RCDSystem>();
+            _rcdSystem = rcdSystem;
             AddChild(_label);
         }
 

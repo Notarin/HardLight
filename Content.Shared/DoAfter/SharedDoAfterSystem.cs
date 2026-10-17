@@ -96,9 +96,6 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
             RaiseLocalEvent(doAfter.Args.User, ref ended);
         }
         // </Goobstation>
-
-        if (component.AwaitedDoAfters.Remove(doAfter.Index, out var tcs))
-            tcs.SetResult(doAfter.Cancelled ? DoAfterStatus.Cancelled : DoAfterStatus.Finished);
     }
 
     private void OnDoAfterGetState(EntityUid uid, DoAfterComponent comp, ref ComponentGetState args)
@@ -143,31 +140,6 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
 
     #region Creation
     /// <summary>
-    ///     Tasks that are delayed until the specified time has passed
-    ///     These can be potentially cancelled by the user moving or when other things happen.
-    /// </summary>
-    // TODO remove this, as well as AwaitedDoAfterEvent and DoAfterComponent.AwaitedDoAfters
-    [Obsolete("Use the synchronous version instead.")]
-    public async Task<DoAfterStatus> WaitDoAfter(DoAfterArgs doAfter, DoAfterComponent? component = null)
-    {
-        if (!Resolve(doAfter.User, ref component))
-            return DoAfterStatus.Cancelled;
-
-        if (!TryStartDoAfter(doAfter, out var id, component))
-            return DoAfterStatus.Cancelled;
-
-        if (doAfter.Delay <= TimeSpan.Zero)
-        {
-            Log.Warning("Awaited instant DoAfters are not supported fully supported");
-            return DoAfterStatus.Finished;
-        }
-
-        var tcs = new TaskCompletionSource<DoAfterStatus>();
-        component.AwaitedDoAfters.Add(id.Value.Index, tcs);
-        return await tcs.Task;
-    }
-
-    /// <summary>
     ///     Attempts to start a new DoAfter. Note that even if this function returns true, an interaction may have
     ///     occured, as starting a duplicate DoAfter may cancel currently running DoAfters.
     /// </summary>
@@ -187,7 +159,7 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
     /// <returns></returns>
     public bool TryStartDoAfter(DoAfterArgs args, [NotNullWhen(true)] out DoAfterId? id, DoAfterComponent? comp = null)
     {
-        DebugTools.Assert(args.Broadcast || Exists(args.EventTarget) || args.Event.GetType() == typeof(AwaitedDoAfterEvent));
+        DebugTools.Assert(args.Broadcast || Exists(args.EventTarget));
         DebugTools.Assert(args.Event.GetType().HasCustomAttribute<NetSerializableAttribute>()
             || args.Event.GetType().Namespace is { } ns && ns.StartsWith("Content.IntegrationTests"), // classes defined in tests cannot be marked as serializable.
             $"Do after event is not serializable. Event: {args.Event.GetType()}");

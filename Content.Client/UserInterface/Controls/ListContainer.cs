@@ -106,10 +106,12 @@ public class ListContainer : Control
         }
 
         // Ensure buttons are re-generated.
+#pragma warning disable CS0618 // Upstream ListContainerTest requires button.Dispose
         foreach (var button in _buttons.Values)
         {
             button.Dispose();
         }
+#pragma warning restore CS0618
         _buttons.Clear();
 
         _data = data.ToList();
@@ -299,11 +301,13 @@ public class ListContainer : Control
                 }
             }
 
+#pragma warning disable CS0618 // This is from upstream -.-
             foreach (var (data, button) in toRemove)
             {
                 _buttons.Remove(data);
                 button.Dispose();
             }
+#pragma warning restore CS0618
 
             _vScrollBar.SetPositionLast();
         }

@@ -1218,7 +1218,7 @@ namespace Content.Server.Shuttles.Save
 
             // Move grid to the specified offset position
             var gridXform = Transform(newGrid);
-            gridXform.WorldPosition = offset;
+            _transform.SetWorldPosition((newGrid, gridXform), offset);
             // Apply original saved rotation (if any) before spawning entities/tiles so local positions remain valid.
             var savedRot = Angle.Zero;
             if (shipGridData.Metadata != null && Math.Abs(shipGridData.Metadata.OriginalGridRotation) > 0.0001f)
@@ -3605,7 +3605,7 @@ namespace Content.Server.Shuttles.Save
                     return false;
                 }
 
-                if (!containerManager.TryGetContainer(containerSlot, out var container))
+                if (!_containerSystem.TryGetContainer(containerEntity, containerSlot, out var container, containerManager))
                 {
                     _sawmill.Warning($"Container slot '{containerSlot}' not found on entity {containerEntity}");
                     return false;
@@ -3701,7 +3701,7 @@ namespace Content.Server.Shuttles.Save
 
                 // Check if position is occupied (basic check)
                 var lookup = _entityManager.System<EntityLookupSystem>();
-                var mapCoords = coords.ToMap(_entityManager, _transform);
+                var mapCoords = _transform.ToMapCoordinates(coords);
                 var entitiesAtPos = lookup.GetEntitiesIntersecting(mapCoords.MapId, new Box2(testPos - Vector2.One * 0.1f, testPos + Vector2.One * 0.1f));
                 if (!entitiesAtPos.Any())
                 {
@@ -3773,7 +3773,7 @@ namespace Content.Server.Shuttles.Save
             }
         }
 
-        private void ReconstructEntitiesLegacyMode(GridData gridData, MapGridComponent newGrid, Dictionary<string, EntityUid> entityIdMapping, bool clearDefaults = false)
+        private void ReconstructEntitiesLegacyMode(GridData gridData, Entity<MapGridComponent> newGrid, Dictionary<string, EntityUid> entityIdMapping, bool clearDefaults = false)
         {
             _sawmill.Info("Using legacy reconstruction mode for backward compatibility");
 

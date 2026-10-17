@@ -249,7 +249,7 @@ namespace Content.Server.Power.EntitySystems
 
             receiver.Comp.Provider = provider;
             provider.Value.Comp.LinkedReceivers.Add(receiver);
-            RaiseLocalEvent(uid, new ProviderConnectedEvent(provider), broadcast: false);
+            RaiseLocalEvent(uid, new ProviderConnectedEvent(provider.Value), broadcast: false);
             RaiseLocalEvent(provider.Value, new ReceiverConnectedEvent((uid, receiver)), broadcast: false);
         }
 
@@ -314,9 +314,9 @@ namespace Content.Server.Power.EntitySystems
             /// <summary>
             /// The <see cref="ExtensionCableProviderComponent"/> that connected.
             /// </summary>
-            public ExtensionCableProviderComponent Provider;
+            public Entity<ExtensionCableProviderComponent> Provider;
 
-            public ProviderConnectedEvent(ExtensionCableProviderComponent provider)
+            public ProviderConnectedEvent(Entity<ExtensionCableProviderComponent> provider)
             {
                 Provider = provider;
             }
@@ -329,9 +329,9 @@ namespace Content.Server.Power.EntitySystems
             /// <summary>
             /// The <see cref="ExtensionCableProviderComponent"/> that disconnected.
             /// </summary>
-            public ExtensionCableProviderComponent? Provider;
+            public Entity<ExtensionCableProviderComponent>? Provider;
 
-            public ProviderDisconnectedEvent(ExtensionCableProviderComponent? provider)
+            public ProviderDisconnectedEvent(Entity<ExtensionCableProviderComponent>? provider)
             {
                 Provider = provider;
             }

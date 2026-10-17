@@ -118,10 +118,12 @@ namespace Content.Shared.Ghost
             // HardLight end
         }
 
-        public void SetCanReturnFromCryo(GhostComponent component, bool value)
+        public void SetCanReturnFromCryo(Entity<GhostComponent?> entity, bool value)
         {
-            SetCanReturnFromCryo(component.Owner, value, component); // HardLight
+            SetCanReturnFromCryo(entity.Owner, value, entity.Comp);
         }
+
+
         // Frontier: uncryo status (mirroring CanReturnToBody)
     }
 

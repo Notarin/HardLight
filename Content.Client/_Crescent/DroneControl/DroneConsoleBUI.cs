@@ -13,11 +13,13 @@ public sealed class DroneConsoleBoundUserInterface : BoundUserInterface
     [Dependency] private readonly IMapManager _mapManager = default!;
     [Dependency] private readonly IEntityManager _entMan = default!;
     private TransformSystem _xform;
+    private SharedMapSystem _mapSystem;
     private DroneConsoleWindow? _window;
 
     public DroneConsoleBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
     {
         _xform = _entMan.System<TransformSystem>();
+        _mapSystem = _entMan.System<SharedMapSystem>();
     }
 
     protected override void Open()
@@ -76,7 +78,7 @@ public sealed class DroneConsoleBoundUserInterface : BoundUserInterface
             return false; // Stop at first grid found
         }, true, false);
 
-        var target = _entMan.GetNetCoordinates(new EntityCoordinates(_mapManager.GetMapEntityId(mapId), worldPos));
+        var target = _entMan.GetNetCoordinates(new EntityCoordinates(_mapSystem.GetMapOrInvalid(mapId), worldPos));
         if (foundGrid != null)
             SendMessage(new DroneConsoleTargetMessage(selected, target));
         else

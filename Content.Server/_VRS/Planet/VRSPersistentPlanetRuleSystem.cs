@@ -27,7 +27,6 @@ namespace Content.Server._VRS.Planet;
 public sealed class VRSPersistentPlanetRuleSystem : GameRuleSystem<VRSPersistentPlanetRuleComponent>
 {
     [Dependency] private readonly BiomeSystem _biome = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
     [Dependency] private readonly MapSystem _map = default!;
     [Dependency] private readonly MetaDataSystem _meta = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
@@ -58,8 +57,7 @@ public sealed class VRSPersistentPlanetRuleSystem : GameRuleSystem<VRSPersistent
 
         // Fresh map for the planet. Biome chunks are generated lazily as
         // players approach, so the map starts effectively empty.
-        _map.CreateMap(out var mapId);
-        var mapUid = _mapManager.GetMapEntityId(mapId);
+        var mapUid = _map.CreateMap(out var mapId);
 
         // Ensure the map has a grid component so PVS chunks can be properly created.
         EnsureComp<MapGridComponent>(mapUid);

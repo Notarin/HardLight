@@ -282,7 +282,7 @@ public abstract class SharedMagicSystem : EntitySystem
         var fromMap = _transform.ToMapCoordinates(fromCoords);
         var spawnCoords = _mapManager.TryFindGridAt(fromMap, out var gridUid, out _)
             ? _transform.WithEntityId(fromCoords, gridUid)
-            : new(_mapManager.GetMapEntityId(fromMap.MapId), fromMap.Position);
+            : new(_mapSystem.GetMapOrInvalid(fromMap.MapId), fromMap.Position);
 
         var ent = Spawn(ev.Prototype, spawnCoords);
         var direction = _transform.ToMapCoordinates(toCoords).Position -

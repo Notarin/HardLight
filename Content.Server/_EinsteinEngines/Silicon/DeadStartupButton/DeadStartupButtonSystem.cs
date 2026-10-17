@@ -4,14 +4,13 @@ using Content.Server.Popups;
 using Content.Server.PowerCell;
 using Content.Server._EinsteinEngines.Silicon.Charge;
 using Content.Shared._EinsteinEngines.Silicon.DeadStartupButton;
-using Content.Shared.Audio;
 using Content.Shared.Damage;
 using Content.Shared.Electrocution;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
+using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
-using Robust.Shared.Random;
 
 namespace Content.Server._EinsteinEngines.Silicon.DeadStartupButton;
 
@@ -21,7 +20,6 @@ public sealed class DeadStartupButtonSystem : SharedDeadStartupButtonSystem
     [Dependency] private readonly MobStateSystem _mobState = default!;
     [Dependency] private readonly MobThresholdSystem _mobThreshold = default!;
     [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly IRobustRandom _robustRandom = default!;
     [Dependency] private readonly LightningSystem _lightning = default!;
     [Dependency] private readonly SiliconChargeSystem _siliconChargeSystem = default!;
     [Dependency] private readonly PowerCellSystem _powerCell = default!;
@@ -50,7 +48,7 @@ public sealed class DeadStartupButtonSystem : SharedDeadStartupButtonSystem
             _mobState.ChangeMobState(uid, MobState.Alive, mobStateComponent);
         else
         {
-            _audio.PlayPvs(comp.BuzzSound, uid, AudioHelpers.WithVariation(0.05f, _robustRandom));
+            _audio.PlayPvs(comp.BuzzSound, uid, AudioParams.Default.WithVariation(0.05f));
             _popup.PopupEntity(Loc.GetString("dead-startup-system-reboot-failed", ("target", MetaData(uid).EntityName)), uid);
             Spawn("EffectSparks", Transform(uid).Coordinates);
         }

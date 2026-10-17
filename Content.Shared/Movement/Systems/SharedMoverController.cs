@@ -58,6 +58,7 @@ public abstract partial class SharedMoverController : VirtualController
     protected EntityQuery<PhysicsComponent> PhysicsQuery;
     protected EntityQuery<RelayInputMoverComponent> RelayQuery;
     protected EntityQuery<PullableComponent> PullableQuery;
+    private readonly HashSet<Entity<PhysicsComponent>> _aroundColliders = new();
     protected EntityQuery<TransformComponent> XformQuery;
     protected EntityQuery<CanMoveInAirComponent> CanMoveInAirQuery;
     protected EntityQuery<NoRotateOnMoveComponent> NoRotateQuery;
@@ -486,17 +487,20 @@ public abstract partial class SharedMoverController : VirtualController
     {
         var enlargedAABB = _lookup.GetWorldAABB(physicsUid, transform).Enlarged(mover.GrabRangeVV);
 
-        foreach (var otherCollider in broadPhaseSystem.GetCollidingEntities(transform.MapID, enlargedAABB))
+        _aroundColliders.Clear();
+        _lookup.GetEntitiesIntersecting(transform.MapID, enlargedAABB, _aroundColliders, LookupFlags.Static);
+
+        foreach (var other in _aroundColliders)
         {
-            if (otherCollider == collider)
+            if (other.Owner == physicsUid)
                 continue; // Don't try to push off of yourself!
 
             // Only allow pushing off of anchored things that have collision.
-            if (otherCollider.BodyType != BodyType.Static ||
-                !otherCollider.CanCollide ||
-                ((collider.CollisionMask & otherCollider.CollisionLayer) == 0 &&
-                (otherCollider.CollisionMask & collider.CollisionLayer) == 0) ||
-                (TryComp(otherCollider.Owner, out PullableComponent? pullable) && pullable.BeingPulled))
+            if (other.Comp.BodyType != BodyType.Static ||
+                !other.Comp.CanCollide ||
+                ((collider.CollisionMask & other.Comp.CollisionLayer) == 0 &&
+                (other.Comp.CollisionMask & collider.CollisionLayer) == 0) ||
+                (PullableQuery.TryGetComponent(other.Owner, out var pullable) && pullable.BeingPulled))
             {
                 continue;
             }
@@ -610,12 +614,12 @@ public abstract partial class SharedMoverController : VirtualController
             return sound != null;
         }
 
-        var position = grid.LocalToTile(xform.Coordinates);
+        var position = _mapSystem.LocalToTile(xform.GridUid.Value, grid, xform.Coordinates);
         var soundEv = new GetFootstepSoundEvent(uid);
 
         // If the coordinates have a FootstepModifier component
         // i.e. component that emit sound on footsteps emit that sound
-        var anchored = grid.GetAnchoredEntitiesEnumerator(position);
+        var anchored = _mapSystem.GetAnchoredEntitiesEnumerator(xform.GridUid.Value, grid, position);
 
         while (anchored.MoveNext(out var maybeFootstep))
         {
@@ -638,7 +642,7 @@ public abstract partial class SharedMoverController : VirtualController
         // Walking on a tile.
         // Tile def might have been passed in already from previous methods, so use that
         // if we have it
-        if (tileDef == null && grid.TryGetTileRef(position, out var tileRef))
+        if (tileDef == null && _mapSystem.TryGetTileRef(xform.GridUid.Value, grid, position, out var tileRef))
         {
             tileDef = (ContentTileDefinition)_tileDefinitionManager[tileRef.Tile.TypeId];
         }

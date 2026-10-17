@@ -1,7 +1,7 @@
 using System.Linq;
 using Content.Server.Popups;
-using Content.Shared.Spider;
 using Content.Shared.Maps;
+using Content.Shared.Spider;
 using Robust.Server.GameObjects;
 using Robust.Shared.Map;
 
@@ -10,6 +10,7 @@ namespace Content.Server.Spider;
 public sealed class SpiderSystem : SharedSpiderSystem
 {
     [Dependency] private readonly PopupSystem _popup = default!;
+    [Dependency] private readonly EntityLookupSystem _lookup = default!;
 
     public override void Initialize()
     {
@@ -66,7 +67,10 @@ public sealed class SpiderSystem : SharedSpiderSystem
 
     private bool IsTileBlockedByWeb(EntityCoordinates coords)
     {
-        foreach (var entity in coords.GetEntitiesInTile())
+        if (!coords.TryGetTileRef(out var turf, EntityManager))
+            return false;
+
+        foreach (var entity in _lookup.GetLocalEntitiesIntersecting(turf.Value, flags: LookupFlags.Static))
         {
             if (HasComp<SpiderWebObjectComponent>(entity))
                 return true;

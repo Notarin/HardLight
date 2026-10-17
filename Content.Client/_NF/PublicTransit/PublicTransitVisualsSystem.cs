@@ -14,12 +14,12 @@ public sealed class PublicTransitSystem : VisualizerSystem<PublicTransitVisualsC
     protected override void OnAppearanceChange(EntityUid uid, PublicTransitVisualsComponent comp, ref AppearanceChangeEvent args)
     {
         if (args.Sprite == null
-            || !_appearance.TryGetData(uid, PublicTransitVisuals.Livery, out Color color)
-            || !args.Sprite.LayerMapTryGet(PublicTransitVisualLayers.Livery, out int layer))
+            || !_appearance.TryGetData(uid, PublicTransitVisuals.Livery, out Color color, args.Component))
         {
             return;
         }
 
-        args.Sprite.LayerSetColor(layer, color);
+        if (SpriteSystem.LayerMapTryGet((uid, args.Sprite), PublicTransitVisualLayers.Livery, out var layer, false))
+            SpriteSystem.LayerSetColor((uid, args.Sprite), layer, color);
     }
 }

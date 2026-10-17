@@ -1,3 +1,4 @@
+using Robust.Shared.Map;
 using Robust.Shared.Serialization;
 
 namespace Content.Shared.DoAfter;
@@ -62,11 +63,25 @@ public abstract partial class SimpleDoAfterEvent : DoAfterEvent
     public override DoAfterEvent Clone() => this;
 }
 
-// Placeholder for obsolete async do afters
 [Serializable, NetSerializable]
-[Obsolete("Dont use async DoAfters")]
-public sealed partial class AwaitedDoAfterEvent : SimpleDoAfterEvent
+public sealed partial class ConstructDoAfterEvent : SimpleDoAfterEvent;
+
+[Serializable, NetSerializable]
+public sealed partial class SpawnAfterInteractDoAfterEvent : DoAfterEvent
 {
+    [DataField]
+    public NetCoordinates ClickLocation;
+
+    private SpawnAfterInteractDoAfterEvent()
+    {
+    }
+
+    public SpawnAfterInteractDoAfterEvent(NetCoordinates clickLocation)
+    {
+        ClickLocation = clickLocation;
+    }
+
+    public override DoAfterEvent Clone() => this;
 }
 
 /// <summary>

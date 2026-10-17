@@ -120,7 +120,7 @@ public abstract partial class SharedXenoArtifactSystem
     }
 
     /// <summary>
-    /// Adds edge between artifact nodes - <see cref="from"/> and <see cref="to"/>
+    /// Adds edge between artifact nodes - from and to
     /// </summary>
     /// <param name="ent">Artifact entity that contains 'from' and 'to' node entities.</param>
     /// <param name="from">Node from which we need to draw edge. </param>
@@ -143,7 +143,7 @@ public abstract partial class SharedXenoArtifactSystem
     }
 
     /// <summary>
-    /// Adds edge between artifact nodes by indices inside node container - <see cref="fromIdx"/> and <see cref="toIdx"/>
+    /// Adds edge between artifact nodes by indices inside node container - fromIdx and toIdx
     /// </summary>
     /// <param name="ent">Artifact entity that contains 'from' and 'to' node entities.</param>
     /// <param name="fromIdx">Node index inside artifact node container, from which we need to draw edge. </param>

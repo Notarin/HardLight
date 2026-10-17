@@ -321,14 +321,11 @@ public abstract partial class SharedStunSystem : EntitySystem
     }
 
     /// <summary>
-    /// A convenience overload of <see cref="UpdateStunModifiers(EntityUid, float, float, StaminaComponent?)"/> that sets both
+    /// A convenience overload of <see cref="UpdateStunModifiers(Entity{StaminaComponent?}, float, float)"/> that sets both
     /// walk and run speed modifiers to the same value.
     /// </summary>
     /// <param name="ent">Entity whose movement speed should be updated.</param>
     /// <param name="speedModifier">New walk and run speed modifier. Default is 1f (normal speed).</param>
-    /// <param name="component">
-    /// Optional <see cref="StaminaComponent"/> of the entity.
-    /// </param>
     public void UpdateStunModifiers(Entity<StaminaComponent?> ent, float speedModifier = 1f)
     {
         UpdateStunModifiers(ent, speedModifier, speedModifier);

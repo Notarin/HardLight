@@ -4,7 +4,7 @@ namespace Content.Shared.Mind.Filters;
 
 /// <summary>
 /// A mind pool that can find minds to use for objectives etc.
-/// Further filtered by <see cref="IMindFilter"/>.
+/// Further filtered by IMindFilter.
 /// </summary>
 [ImplicitDataDefinitionForInheritors]
 public partial interface IMindPool

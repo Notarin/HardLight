@@ -70,7 +70,7 @@ public sealed partial class CCVars : CVars
     public static readonly CVarDef<bool> PresetAutoVoteEnabled =
         CVarDef.Create("vote.preset_autovote_enabled", true, CVar.SERVERONLY);
 
-    /// DELTA-V CCVARS
+    // DELTA-V CCVARS
     /*
      * Glimmer
      */
@@ -96,13 +96,13 @@ public sealed partial class CCVars : CVars
         CVarDef.Create("psionics.rolls_enabled", true, CVar.SERVERONLY);
 
     /// <summary>
-    ///     Whether height & width sliders adjust a character's Fixture Component
+    ///     Whether height &amp; width sliders adjust a character's Fixture Component
     /// </summary>
     public static readonly CVarDef<bool> HeightAdjustModifiesHitbox =
         CVarDef.Create("heightadjust.modifies_hitbox", true, CVar.SERVERONLY);
 
     /// <summary>
-    ///     Whether height & width sliders adjust a player's max view distance
+    ///     Whether height &amp; width sliders adjust a player's max view distance
     /// </summary>
     public static readonly CVarDef<bool> HeightAdjustModifiesZoom =
         CVarDef.Create("heightadjust.modifies_zoom", true, CVar.SERVERONLY);

@@ -23,7 +23,7 @@ namespace Content.Server.Forensics
         public List<string> Fibers = new();
 
         /// <summary>
-        /// DNA that the forensic scanner found from the <see cref="DNAComponent"/> on an entity.
+        /// DNA that the forensic scanner found from the DNAComponent on an entity.
         /// </summary>
         [ViewVariables(VVAccess.ReadOnly), DataField("dnas")]
         public List<string> TouchDNAs = new();

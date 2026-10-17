@@ -579,7 +579,7 @@ public abstract partial class SharedDoorSystem : EntitySystem
     }
 
     /// <summary>
-    /// Crushes everyone colliding with us by more than <see cref="IntersectPercentage"/>%.
+    /// Crushes everyone colliding with us by more than IntersectPercentage%.
     /// </summary>
     public void Crush(EntityUid uid, DoorComponent? door = null, PhysicsComponent? physics = null)
     {
@@ -609,7 +609,7 @@ public abstract partial class SharedDoorSystem : EntitySystem
     }
 
     /// <summary>
-    ///     Get all entities that collide with this door by more than <see cref="IntersectPercentage"/> percent.\
+    ///     Get all entities that collide with this door by more than IntersectPercentage percent.\
     /// </summary>
     public IEnumerable<EntityUid> GetColliding(EntityUid uid, PhysicsComponent? physics = null)
     {

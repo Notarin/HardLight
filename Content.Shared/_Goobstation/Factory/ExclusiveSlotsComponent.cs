@@ -13,7 +13,7 @@ public partial interface IExclusiveSlotComponent : IComponent
     string PortId { get; }
 
     /// <summary>
-    /// Machine linked to <see cref="Port"/>.
+    /// Machine linked to Port.
     /// </summary>
     EntityUid? LinkedMachine { get; set; }
 

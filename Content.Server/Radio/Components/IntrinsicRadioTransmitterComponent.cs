@@ -18,7 +18,7 @@ public sealed partial class IntrinsicRadioTransmitterComponent : Component
 
     /// <summary>
     ///     The channels that this radio will always be able to talk to.
-    /// </summay>
+    /// </summary>
     [DataField("intrinsicChannels", customTypeSerializer: typeof(PrototypeIdHashSetSerializer<RadioChannelPrototype>))]
     public HashSet<string> IntrinsicChannels = new();
 

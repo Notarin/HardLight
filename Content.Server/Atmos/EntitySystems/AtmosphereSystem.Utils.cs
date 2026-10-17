@@ -120,7 +120,7 @@ public partial class AtmosphereSystem
     /// <summary>
     ///     Checks if atmos input devices are allowed to run on the given map entity.
     /// </summary>
-    /// <param name="mapGrid">The map in question.</param>
+    /// <param name="mapUid">The map in question.</param>
     public bool AtmosInputCanRunOnMap(EntityUid? mapUid)
     {
         // Frontier: check running gas extraction

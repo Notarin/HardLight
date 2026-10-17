@@ -149,7 +149,7 @@ public abstract class SharedInteractorSystem : EntitySystem
         _appearance.SetData(uid, InteractorVisuals.State, state);
 
     /// <summary>
-    /// Set <see cref="InteractorComponent.AltInteract"> and dirty it.
+    /// Set <see cref="InteractorComponent.AltInteract"/> and dirty it.
     /// </summary>
     public void SetAltInteract(Entity<InteractorComponent> ent, bool alt)
     {

@@ -4,9 +4,7 @@ using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.XAML;
 
-/// <summary>
-/// ADAPTED FROM SECWATCH - DELTAV
-/// </summary>
+// ADAPTED FROM SECWATCH - DELTAV
 
 namespace Content.Client.CartridgeLoader.Cartridges;
 

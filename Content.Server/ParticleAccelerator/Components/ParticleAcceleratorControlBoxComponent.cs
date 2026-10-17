@@ -15,7 +15,7 @@ public sealed partial class ParticleAcceleratorControlBoxComponent : Component
 {
     /// <summary>
     /// Whether the PA is currently set to fire at the console.
-    /// Requires <see cref="Assembled"/> to be true.
+    /// Requires Assembled to be true.
     /// </summary>
     [ViewVariables]
     public bool Enabled = false;

@@ -12,14 +12,14 @@ public sealed partial class SingularityGeneratorComponent : Component
 {
     /// <summary>
     /// The amount of power this generator has accumulated.
-    /// If you want to set this use <see  cref="SingularityGeneratorSystem.SetPower"/>
+    /// If you want to set this use SingularityGeneratorSystem.SetPower
     /// </summary>
     [DataField]
     public float Power = 0;
 
     /// <summary>
     /// The power threshold at which this generator will spawn a singularity.
-    /// If you want to set this use <see  cref="SingularityGeneratorSystem.SetThreshold"/>
+    /// If you want to set this use SingularityGeneratorSystem.SetThreshold
     /// </summary>
     [DataField]
     public float Threshold = 16;

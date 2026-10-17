@@ -48,7 +48,8 @@ namespace Content.Client.Paper.UI
         /// <summary>
         /// Used for interactive tags.
         /// </summary>
-        /// <seealso cref="PaperSystem.OnTagReplace"/><seealso cref="PaperBoundUserInterface"/>
+        /// PaperSystem.OnTagReplace
+        /// <seealso cref="PaperBoundUserInterface"/>
         public event Action<string, int, Dictionary<string, Object?>?>? SendTag; // Hardlight
 
         private int _MaxInputLength = -1;

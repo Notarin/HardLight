@@ -7,7 +7,7 @@ namespace Content.Shared.Players;
 
 /// <summary>
 ///     Content side for all data that tracks a player session.
-///     Use <see cref="PlaIPlayerDatarver.Player.IPlayerData)"/> to retrieve this from an <see cref="PlayerData"/>.
+///     Use <see cref="PlayerDataExt.ContentData(Robust.Shared.Player.ICommonSession)"/> to retrieve this.
 ///     <remarks>Not currently used on the client.</remarks>
 /// </summary>
 public sealed class ContentPlayerData

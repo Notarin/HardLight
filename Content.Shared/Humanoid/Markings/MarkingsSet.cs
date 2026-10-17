@@ -273,7 +273,6 @@ public sealed partial class MarkingSet
     /// </summary>
     /// <param name="skinColor">Skin color for marking coloring.</param>
     /// <param name="eyeColor">Eye color for marking coloring.</param>
-    /// <param name="hairColor">Hair color for marking coloring.</param>
     /// <param name="markingManager">Marking manager.</param>
     public void EnsureDefault(Color? skinColor = null, Color? eyeColor = null, MarkingManager? markingManager = null)
     {

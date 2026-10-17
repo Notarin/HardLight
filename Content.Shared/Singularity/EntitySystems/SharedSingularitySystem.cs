@@ -207,7 +207,7 @@ public abstract class SharedSingularitySystem : EntitySystem
     /// <summary>
     /// Derives the proper distortion shader falloff for a singularity from its state.
     /// </summary>
-    /// <param name="singulo">A singularity.</param>
+    /// <param name="level">The singularity level.</param>
     /// <returns>The distortion shader falloff the singularity should have given its state.</returns>
     public float GetFalloff(float level)
     {
@@ -227,7 +227,7 @@ public abstract class SharedSingularitySystem : EntitySystem
     /// <summary>
     /// Derives the proper distortion shader intensity for a singularity from its state.
     /// </summary>
-    /// <param name="singulo">A singularity.</param>
+    /// <param name="level">The singularity level.</param>
     /// <returns>The distortion shader intensity the singularity should have given its state.</returns>
     public float GetIntensity(float level)
     {

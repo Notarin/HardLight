@@ -106,7 +106,7 @@ public readonly record struct StoreAddedEvent;
 public readonly record struct StoreRemovedEvent;
 
 /// <summary>
-///     Broadcast when an Entity with the <see cref="StoreRefundComponent"/> is deleted
+///     Broadcast when an Entity with the StoreRefundComponent is deleted
 /// </summary>
 [ByRefEvent]
 public readonly struct RefundEntityDeletedEvent

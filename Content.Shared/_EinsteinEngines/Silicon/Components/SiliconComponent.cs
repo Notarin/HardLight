@@ -24,7 +24,7 @@ public sealed partial class SiliconComponent : Component
     /// </summary>
     /// <remarks>
     ///     Time between drains can be specified in
-    ///     <see cref="SimpleStationCcvars.SiliconNpc"/>
+    ///     SimpleStationCcvars.SiliconNpc
     /// </remarks>
     public TimeSpan LastDrainTime = TimeSpan.Zero;
 

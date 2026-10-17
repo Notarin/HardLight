@@ -356,7 +356,6 @@ public abstract class SharedTapeRecorderSystem : EntitySystem
     /// <summary>
     /// Choose a random recorded entry on the cassette and replace some of the text with hashes
     /// </summary>
-    /// <param name="component"></param>
     protected void CorruptRandomEntry(TapeCassetteComponent tape)
     {
         if (tape.RecordedData.Count == 0)

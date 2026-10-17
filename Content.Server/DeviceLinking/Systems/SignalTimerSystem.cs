@@ -166,7 +166,7 @@ public sealed class SignalTimerSystem : EntitySystem
 
     // Frontier: Repeat changed message
     /// <summary>
-    ///     Called by <see cref="SignalTimerRepeatChangedMessage"/>.
+    ///     Called by SignalTimerRepeatChangedMessage.
     /// </summary>
     private void OnRepeatChangedMessage(EntityUid uid, SignalTimerComponent component, SignalTimerRepeatToggled args)
     {

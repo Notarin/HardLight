@@ -177,7 +177,7 @@ namespace Content.IntegrationTests.Tests
         /// <remarks>
         ///     Should ensure that entities do not perform randomization prior to initialization and should prevents
         ///     bugs like the one discussed in github.com/space-wizards/RobustToolbox/issues/3870. This test is somewhat
-        ///     similar to <see cref="LoadSaveTicksSaveBagel"/> and <see cref="SaveLoadSave"/>, but neither of these
+        ///     similar to <see cref="LoadSaveTicksSaveBagel"/> and SaveLoadSave, but neither of these
         ///     caught the mentioned bug.
         /// </remarks>
         [Test]

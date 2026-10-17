@@ -64,7 +64,6 @@ public sealed partial class BankSystem : SharedBankSystem
     /// <summary>
     /// Attempts to add money to a sector bank account.
     /// </summary>
-    /// <param name="mobUid">The UID that the bank account is connected to, typically the player controlled mob</param>
     /// <param name="amount">The amount of spesos to remove from the bank account</param>
     /// <param name="reason">The purpose of this withdrawal</param>
     /// <returns>true if the transaction was successful, false if it was not</returns>
@@ -99,7 +98,6 @@ public sealed partial class BankSystem : SharedBankSystem
     /// <summary>
     /// Retrieves a character's balance via its in-game entity, if it has one.
     /// </summary>
-    /// <param name="ent">The UID that the bank account is connected to, typically the player controlled mob</param>
     /// <param name="balance">When successful, contains the account balance in spesos. Otherwise, set to 0.</param>
     /// <returns>true if the account was successfully queried.</returns>
     [PublicAPI]

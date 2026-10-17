@@ -13,7 +13,7 @@ namespace Content.Shared.Soul
     }
 
     /// <summary>
-    /// Represents an <see cref="GolemComponent"/> state that can be sent to the client
+    /// Represents an GolemComponent state that can be sent to the client
     /// </summary>
     [Serializable, NetSerializable]
     public sealed class GolemBoundUserInterfaceState : BoundUserInterfaceState

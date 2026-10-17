@@ -5,9 +5,9 @@ using Content.Shared.Psionics;
 using Content.Shared.StationRecords;
 using Content.Server.GameTicking;
 
-/// <summary>
-/// EVERYTHING HERE IS A MODIFIED VERSION OF CRIMINAL RECORDS
-/// </summary>
+// <summary>
+// EVERYTHING HERE IS A MODIFIED VERSION OF CRIMINAL RECORDS
+// </summary>
 
 namespace Content.Server.PsionicsRecords.Systems;
 

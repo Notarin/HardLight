@@ -28,7 +28,7 @@ public sealed partial class ConfirmableActionComponent : Component
 
     /// <summary>
     /// If not null, this is when the action will unprime at.
-    /// This is <c>NextConfirm> plus <c>PrimeTime</c>
+    /// This is NextConfirm plus PrimeTime
     /// </summary>
     [DataField(customTypeSerializer: typeof(TimeOffsetSerializer))]
     [AutoNetworkedField, AutoPausedField]

@@ -4,7 +4,7 @@ namespace Content.Server._EinsteinEngines.Power.Components;
 public sealed partial class BatteryDrinkerComponent : Component
 {
     /// <summary>
-    ///     Is this drinker allowed to drink batteries not tagged as <see cref="BatteryDrinkSource"/>?
+    ///     Is this drinker allowed to drink batteries not tagged as BatteryDrinkSource?
     /// </summary>
     [DataField]
     public bool DrinkAll;

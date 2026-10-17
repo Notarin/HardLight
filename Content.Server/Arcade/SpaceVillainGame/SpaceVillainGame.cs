@@ -205,7 +205,7 @@ public sealed partial class SpaceVillainGame
     }
 
     /// <summary>
-    /// Checks the Game conditions and Updates the Ui & Plays a sound accordingly.
+    /// Checks the Game conditions and Updates the Ui &amp; Plays a sound accordingly.
     /// </summary>
     /// <returns>A bool indicating if the game should continue.</returns>
     private bool CheckGameConditions(EntityUid uid, SpaceVillainArcadeComponent arcade)

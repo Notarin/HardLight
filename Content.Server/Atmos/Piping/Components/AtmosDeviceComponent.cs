@@ -63,7 +63,7 @@ public readonly struct AtmosDeviceUpdateEvent(float dt, Entity<GridAtmosphereCom
         : (grid.Value, grid.Value, grid.Value);
 
     /// <summary>
-    /// The map that the device & grid is on.
+    /// The map that the device &amp; grid is on.
     /// </summary>
     public readonly Entity<MapAtmosphereComponent?>? Map = map;
 }

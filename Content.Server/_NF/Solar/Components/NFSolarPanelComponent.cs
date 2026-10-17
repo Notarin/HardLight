@@ -33,7 +33,7 @@ public sealed partial class NFSolarPanelComponent : Component
 
     /// <summary>
     /// Current coverage of this panel (from 0 to 1).
-    /// This is updated by <see cref='PowerSolarSystem'/>.
+    /// This is updated by PowerSolarSystem.
     /// DO NOT WRITE WITHOUT CALLING UpdateSupply()!
     /// </summary>
     [ViewVariables]

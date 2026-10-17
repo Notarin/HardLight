@@ -92,7 +92,7 @@ namespace Content.Shared.Construction.Components
 
     /// <summary>
     ///     Raised when an entity with an anchorable component is anchored. Note that you may instead want the more
-    ///     general <see cref="AnchorStateChangedEvent"/>. This event has the benefit of having user & tool information,
+    ///     general <see cref="AnchorStateChangedEvent"/>. This event has the benefit of having user &amp; tool information,
     ///     as a result of interactions mediated by the <see cref="AnchorableSystem"/>.
     /// </summary>
     public sealed class UserAnchoredEvent : BaseAnchoredEvent
@@ -111,7 +111,7 @@ namespace Content.Shared.Construction.Components
     /// <summary>
     ///     Raised when an entity with an anchorable component is unanchored. Note that you will probably also need to
     ///     subscribe to the more general <see cref="AnchorStateChangedEvent"/>, which gets raised BEFORE this one. This
-    ///     event has the benefit of having user & tool information, whereas the more general event may be due to
+    ///     event has the benefit of having user &amp; tool information, whereas the more general event may be due to
     ///     explosions or grid-destruction or other interactions not mediated by the <see cref="AnchorableSystem"/>.
     /// </summary>
     public sealed class UserUnanchoredEvent : BaseAnchoredEvent

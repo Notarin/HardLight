@@ -76,7 +76,7 @@ public sealed class ForceMapTest
 
             // Try clearing the force-selected map
             consoleHost.ExecuteCommand("forcemap \"\"");
-            Assert.That(configManager.GetCVar(CCVars.GameMap), Is.EqualTo(""), /// HL
+            Assert.That(configManager.GetCVar(CCVars.GameMap), Is.EqualTo(""), // HL
                 $"Running 'forcemap \"\"' did not clear the forced map!");
 
         });

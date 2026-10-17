@@ -296,7 +296,7 @@ public enum DuplicateConditions : byte
     None = 0,
 
     /// <summary>
-    ///     Requires that <see cref="Used"/> refers to the same entity in order to be considered a duplicate.
+    ///     Requires that Used refers to the same entity in order to be considered a duplicate.
     /// </summary>
     /// <remarks>
     ///     E.g., if all checks are enabled for stripping, then stripping different articles of clothing on the same
@@ -306,7 +306,7 @@ public enum DuplicateConditions : byte
     SameTool = 1 << 1,
 
     /// <summary>
-    ///     Requires that <see cref="Target"/> refers to the same entity in order to be considered a duplicate.
+    ///     Requires that Target refers to the same entity in order to be considered a duplicate.
     /// </summary>
     /// <remarks>
     ///     E.g., if all checks are enabled for mining, then using the same pickaxe to mine different rocks will be
@@ -316,7 +316,7 @@ public enum DuplicateConditions : byte
     SameTarget = 1 << 2,
 
     /// <summary>
-    ///     Requires that the <see cref="Event"/> types match in order to be considered a duplicate.
+    ///     Requires that the Event types match in order to be considered a duplicate.
     /// </summary>
     /// <remarks>
     ///     If your DoAfter should block other unrelated DoAfters involving the same set of entities, you may want

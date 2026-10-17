@@ -353,24 +353,11 @@ namespace Content.Shared.Damage
         }
 
         /// <summary>
-
-
-
-        ///     Changes all damage types supported by a <see cref="DamageableComponent"/> by the specified value.
-
-
+        /// Changes all damage types supported by a <see cref="DamageableComponent"/> by the specified value.
         /// </summary>
-
-
-        /// <remakrs>
-
-
-        ///     Will not lower damage to a negative value.
-
-
-        /// </remakrs>
-
-
+        /// <remarks>
+        /// Will not lower damage to a negative value.
+        /// </remarks>
         public void ChangeAllDamage(EntityUid uid, DamageableComponent component, FixedPoint2 addedValue)
         {
             foreach (var type in component.Damage.DamageDict.Keys)

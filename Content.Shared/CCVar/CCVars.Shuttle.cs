@@ -108,7 +108,7 @@ public sealed partial class CCVars
         CVarDef.Create("shuttle.arrivals_ftl_cooldown", 10f, CVar.SERVERONLY);
 
     /// <summary>
-    ///     The maximum <see cref="PhysicsComponent.Mass"/> a grid can have before it becomes unable to FTL.
+    ///     The maximum PhysicsComponent.Mass a grid can have before it becomes unable to FTL.
     ///     Any value equal to or less than zero will disable this check.
     /// </summary>
     public static readonly CVarDef<float> FTLMassLimit =
@@ -152,7 +152,7 @@ public sealed partial class CCVars
 
     /// <summary>
     ///     The minimum time for the emergency shuttle to arrive at Colcomm.
-    ///     Actual minimum travel time cannot be less than <see cref="ShuttleSystem.DefaultArrivalTime"/>
+    ///     Actual minimum travel time cannot be less than ShuttleSystem.DefaultArrivalTime
     /// </summary>
     public static readonly CVarDef<float> EmergencyShuttleMinTransitTime =
         CVarDef.Create("shuttle.emergency_transit_time_min", 60f, CVar.SERVERONLY); // Frontier: 60f<300f

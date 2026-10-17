@@ -75,7 +75,7 @@ namespace Content.Server.Power.Components
 
         // Mono
         /// <summary>
-        ///     If we have a <see cref="ThermalSignatureComponent">, heat signature generated per watt currently supplied.
+        ///     If we have a ThermalSignatureComponent, heat signature generated per watt currently supplied.
         /// </summary>
         [DataField]
         public float HeatSignatureRatio = 4f;

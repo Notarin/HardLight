@@ -24,7 +24,7 @@ namespace Content.Client.Chemistry.UI
         /// <summary>
         /// Called each time a dispenser UI instance is opened. Generates the dispenser window and fills it with
         /// relevant info. Sets the actions for static buttons.
-        /// <para>Buttons which can change like reagent dispense buttons have their actions set in <see cref="UpdateReagentsList"/>.</para>
+        /// <para>Buttons which can change like reagent dispense buttons have their actions set in UpdateReagentsList.</para>
         /// </summary>
         protected override void Open()
         {
@@ -49,7 +49,7 @@ namespace Content.Client.Chemistry.UI
         /// Update the UI each time new state data is sent from the server.
         /// </summary>
         /// <param name="state">
-        /// Data of the <see cref="ReagentDispenserComponent"/> that this UI represents.
+        /// Data of the ReagentDispenserComponent that this UI represents.
         /// Sent from the server.
         /// </param>
         protected override void UpdateState(BoundUserInterfaceState state)

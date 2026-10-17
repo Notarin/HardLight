@@ -94,7 +94,7 @@ namespace Content.Shared.Chemistry.Reaction
         /// <summary>
         ///     Checks if a solution can undergo a specified reaction.
         /// </summary>
-        /// <param name="solution">The solution to check.</param>
+        /// <param name="soln">The solution to check.</param>
         /// <param name="reaction">The reaction to check.</param>
         /// <param name="lowestUnitReactions">How many times this reaction can occur.</param>
         /// <returns></returns>

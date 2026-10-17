@@ -89,7 +89,7 @@ public partial record struct InteractionData
 {
     /// <summary>
     /// The message to display when starting the doafter.
-    /// If UseOnSelfDelay is <= 0, this will not appear.
+    /// If UseOnSelfDelay is &lt;= 0, this will not appear.
     /// </summary>
     [DataField]
     public TimeSpan Delay;
@@ -115,7 +115,7 @@ public partial record struct InteractionMessageSet
 {
     /// <summary>
     /// The message to display when starting the doafter.
-    /// If UseOnSelfDelay is <= 0, this will not appear.
+    /// If UseOnSelfDelay is &lt;= 0, this will not appear.
     /// </summary>
     [DataField]
     public LocId? Start;

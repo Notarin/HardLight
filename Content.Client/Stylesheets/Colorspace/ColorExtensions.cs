@@ -21,7 +21,7 @@ public static class ColorExtensions
     }
 
     /// <summary>
-    ///     Nudges the lightness (in OKLAB space) of <see cref="c" /> by <see cref="lightnessShift"/> / 100 units
+    ///     Nudges the lightness (in OKLAB space) of c by lightnessShift / 100 units
     /// </summary>
     public static Color NudgeLightness(this Color c, float lightnessShift)
     {
@@ -32,7 +32,7 @@ public static class ColorExtensions
     }
 
     /// <summary>
-    ///     Nudges the chroma (in OKLCH space) of <see cref="c"/> by <see cref="chromaShift"/> / 100 units
+    ///     Nudges the chroma (in OKLCH space) of c by chromaShift / 100 units
     /// </summary>
     /// <remarks>
     ///     Referenced from https://github.com/jonathantneal/convert-colors/blob/master/src/lab-lch.js

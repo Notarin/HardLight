@@ -713,7 +713,7 @@ public sealed partial class StationJobsSystem : EntitySystem
         return TryGetJobSlot(station, jobPrototypeId, out var job, stationJobs) && job == null;
     }
 
-    /// <inheritdoc cref="TryGetJobSlot(Robust.Shared.GameObjects.EntityUid,string,out System.Nullable{uint},Content.Server.Station.Components.StationJobsComponent?)"/>
+    /// <inheritdoc cref="TryGetJobSlot(Robust.Shared.GameObjects.EntityUid,string,out System.Nullable{int},Content.Server.Station.Components.StationJobsComponent?)"/>
     /// <param name="station">Station to get slot info from.</param>
     /// <param name="job">Job to get slot info for.</param>
     /// <param name="slots">The number of slots remaining. Null if infinite.</param>

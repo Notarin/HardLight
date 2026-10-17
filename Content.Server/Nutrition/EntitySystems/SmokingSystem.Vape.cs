@@ -15,9 +15,9 @@ using Content.Shared.Nutrition;
 using System.Threading;
 using Content.Shared.Atmos;
 
-/// <summary>
-/// System for vapes
-/// </summary>
+// <summary>
+// System for vapes
+// </summary>
 namespace Content.Server.Nutrition.EntitySystems
 {
     public sealed partial class SmokingSystem

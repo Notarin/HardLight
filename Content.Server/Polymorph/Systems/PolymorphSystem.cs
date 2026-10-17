@@ -314,8 +314,6 @@ public sealed partial class PolymorphSystem : EntitySystem
     /// <summary>
     /// Reverts a polymorphed entity back into its original form
     /// </summary>
-    /// <param name="uid">The entityuid of the entity being reverted</param>
-    /// <param name="component"></param>
     public EntityUid? Revert(Entity<PolymorphedEntityComponent?> ent)
     {
         var (uid, component) = ent;

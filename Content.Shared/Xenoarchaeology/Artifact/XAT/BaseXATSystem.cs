@@ -45,7 +45,7 @@ public abstract class BaseXATSystem<T> : EntitySystem where T : Component
     /// Checks if node can be triggered.
     /// </summary>
     /// <param name="artifact">Artifact entity.</param>
-    /// <param name="node">Node from <see cref="artifact"/>.</param>
+    /// <param name="node">Node from artifact.</param>
     protected bool CanTrigger(Entity<XenoArtifactComponent> artifact, Entity<XenoArtifactNodeComponent> node)
     {
         if (Timing.CurTime < artifact.Comp.NextUnlockTime)

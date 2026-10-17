@@ -103,12 +103,12 @@ public abstract class SharedObjectivesSystem : EntitySystem
     }
 
     /// <summary>
-    /// Get the title, description, icon and progress of an objective using <see cref="ObjectiveGetInfoEvent"/>.
+    /// Get the title, description, icon and progress of an objective using ObjectiveGetInfoEvent.
     /// If any of them are null it is logged and null is returned.
     /// </summary>
-    /// <param name="uid"/>ID of the condition entity</param>
-    /// <param name="mindId"/>ID of the player's mind entity</param>
-    /// <param name="mind"/>Mind component of the player's mind</param>
+    /// <param name="uid">ID of the condition entity</param>
+    /// <param name="mindId">ID of the player's mind entity</param>
+    /// <param name="mind">Mind component of the player's mind</param>
     public ObjectiveInfo? GetInfo(EntityUid uid, EntityUid mindId, MindComponent? mind = null)
     {
         if (!Resolve(mindId, ref mind))

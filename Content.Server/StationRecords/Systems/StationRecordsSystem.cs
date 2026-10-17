@@ -122,7 +122,7 @@ public sealed class StationRecordsSystem : SharedStationRecordsSystem
         TryComp<FingerprintComponent>(player, out var fingerprintComponent);
         TryComp<DnaComponent>(player, out var dnaComponent);
 
-        /// Frontier start: Generate sector-wide station record
+        // Frontier start: Generate sector-wide station record
         if (TryComp<SpecialSectorStationRecordComponent>(player, out var specialRecord) && specialRecord.RecordGeneration == RecordGenerationType.NoRecord)
             return;
 
@@ -150,7 +150,7 @@ public sealed class StationRecordsSystem : SharedStationRecordsSystem
         {
             SetEntityKey(player, key);
         }
-        /// Frontier end
+        // Frontier end
     }
 
 

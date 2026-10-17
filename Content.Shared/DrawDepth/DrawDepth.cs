@@ -39,13 +39,13 @@ namespace Content.Shared.DrawDepth
         FloorObjects = DrawDepthTag.Default - 11,
 
         /// <summary>
-        //     Discrete drawdepth to avoid z-fighting with other FloorObjects but also above floor entities.
+        ///     Discrete drawdepth to avoid z-fighting with other FloorObjects but also above floor entities.
         /// </summary>
         Puddles = DrawDepthTag.Default - 10,
 
         // There's a gap for subfloor entities to retain relative draw depth when revealed by a t-ray scanner.
         /// <summary>
-        //     Objects that are on the floor, but should render above puddles. This includes kudzu, holopads, telepads and levers.
+        ///     Objects that are on the floor, but should render above puddles. This includes kudzu, holopads, telepads and levers.
         /// </summary>
         HighFloorObjects = DrawDepthTag.Default - 5,
 
@@ -78,12 +78,12 @@ namespace Content.Shared.DrawDepth
         SmallObjects = DrawDepthTag.Default + 1,
 
         /// <summary>
-        ///     Posters, APCs, air alarms, etc. This also includes most lights & lamps.
+        ///     Posters, APCs, air alarms, etc. This also includes most lights &amp; lamps.
         /// </summary>
         WallMountedItems = DrawDepthTag.Default + 2,
 
         /// <summary>
-        ///     Generic items. Things that should be above crates & tables, but underneath mobs.
+        ///     Generic items. Things that should be above crates &amp; tables, but underneath mobs.
         /// </summary>
         Items = DrawDepthTag.Default + 3,
 
@@ -117,7 +117,7 @@ namespace Content.Shared.DrawDepth
 
         /// <summary>
         ///    Use this selectively if it absolutely needs to be drawn above (almost) everything else. Examples include
-        ///    the pointing arrow, the drag & drop ghost-entity, and some debug tools.
+        ///    the pointing arrow, the drag &amp; drop ghost-entity, and some debug tools.
         /// </summary>
         Overlays = DrawDepthTag.Default + 12,
     }

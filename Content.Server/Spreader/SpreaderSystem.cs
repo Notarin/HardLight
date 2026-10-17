@@ -30,7 +30,7 @@ public sealed class SpreaderSystem : EntitySystem
     private Dictionary<string, int> _prototypeUpdates = default!;
 
     /// <summary>
-    /// Remaining number of updates per grid & prototype.
+    /// Remaining number of updates per grid &amp; prototype.
     /// </summary>
     // TODO PERFORMANCE Assign each prototype to an index and convert dictionary to array
     private readonly Dictionary<EntityUid, Dictionary<string, int>> _gridUpdates = [];

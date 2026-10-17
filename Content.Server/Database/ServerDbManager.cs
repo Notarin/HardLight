@@ -68,7 +68,7 @@ namespace Content.Server.Database
         /// <summary>
         ///     Looks up an user's most recent received un-pardoned ban.
         ///     This will NOT return a pardoned ban.
-        ///     One of <see cref="address"/> or <see cref="userId"/> need to not be null.
+        ///     One of address or userId need to not be null.
         /// </summary>
         /// <param name="address">The ip address of the user.</param>
         /// <param name="userId">The id of the user.</param>
@@ -84,7 +84,7 @@ namespace Content.Server.Database
 
         /// <summary>
         ///     Looks up an user's ban history.
-        ///     One of <see cref="address"/> or <see cref="userId"/> need to not be null.
+        ///     One of address or userId need to not be null.
         /// </summary>
         /// <param name="address">The ip address of the user.</param>
         /// <param name="userId">The id of the user.</param>

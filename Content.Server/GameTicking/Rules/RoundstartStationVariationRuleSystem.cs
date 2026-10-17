@@ -66,6 +66,6 @@ public sealed class RoundstartStationVariationRuleSystem : GameRuleSystem<Rounds
 ///     Raised directed on game rule entities which are added and marked as <see cref="StationVariationPassRuleComponent"/>
 ///     when a new station is initialized that should be varied.
 /// </summary>
-/// <param name="Station">The new station that was added, and its config & grids.</param>
+/// <param name="Station">The new station that was added, and its config &amp; grids.</param>
 [ByRefEvent]
 public readonly record struct StationVariationPassEvent(Entity<StationDataComponent> Station);

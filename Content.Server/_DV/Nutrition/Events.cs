@@ -12,12 +12,12 @@ public sealed class FoodSlicedEvent : EntityEventArgs
 {
     /// <summary>
     /// Who did the slicing?
-    /// <summary>
+    /// </summary>
     public EntityUid User;
 
     /// <summary>
     /// What has been sliced?
-    /// <summary>
+    /// </summary>
     /// <remarks>
     /// This could soon be deleted if there was not enough food left to
     /// continue slicing.
@@ -26,7 +26,7 @@ public sealed class FoodSlicedEvent : EntityEventArgs
 
     /// <summary>
     /// What is the slice?
-    /// <summary>
+    /// </summary>
     public EntityUid Slice;
 
     public FoodSlicedEvent(EntityUid user, EntityUid food, EntityUid slice)

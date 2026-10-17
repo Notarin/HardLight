@@ -49,7 +49,7 @@ public sealed partial class MaterialProperties()
     public float ActivePlasma { get; set; } = 0;
 
     /// <summary>
-    /// Creates a new <see cref="MaterialProperties"> with information from an existing one.
+    /// Creates a new <see cref="MaterialProperties"/> with information from an existing one.
     /// </summary>
     /// <param name="source"></param>
     public MaterialProperties(MaterialProperties source) : this()

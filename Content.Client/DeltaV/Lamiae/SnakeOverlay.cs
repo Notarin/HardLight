@@ -163,7 +163,7 @@ public sealed class SnakeOverlay : Overlay
             //and counterclockwise
             var offsetVecCCW = new Vector2(0 - connectorVec.Y, connectorVec.X);
 
-            /// tri 1: line across first segment and corner of second
+            // tri 1: line across first segment and corner of second
             if (lastPtCW == null)
             {
                 verts.Add(new DrawVertexUV2D(origin + offsetVecCW * radius, Vector2.Zero));

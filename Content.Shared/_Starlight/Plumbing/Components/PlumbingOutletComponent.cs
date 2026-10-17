@@ -5,7 +5,7 @@ namespace Content.Shared._Starlight.Plumbing.Components;
 
 /// <summary>
 ///     Marks an entity as a reagent source on the plumbing network.
-///     <see cref="PlumbingPullSystem"/> discovers entities with this component
+///     PlumbingPullSystem discovers entities with this component
 ///     when other machines request reagents from the network.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]

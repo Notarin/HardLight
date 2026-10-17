@@ -13,9 +13,7 @@ using System.Diagnostics.CodeAnalysis;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Psionics.Components;
 
-/// <summary>
-/// EVERYTHING HERE IS A MODIFIED VERSION OF CRIMINAL RECORDS
-/// </summary>
+// EVERYTHING HERE IS A MODIFIED VERSION OF CRIMINAL RECORDS
 
 namespace Content.Server.PsionicsRecords.Systems;
 

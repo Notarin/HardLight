@@ -86,7 +86,7 @@ public sealed partial class ContestsSystem : EntitySystem
 
     /// <summary>
     ///     Outputs the ratio of mass between a performer and a target, accepts either EntityUids or PhysicsComponents in any combination
-    ///     If you have physics components already in your function, use <see cref="MassContest(PhysicsComponent, float)" /> instead
+    ///     If you have physics components already in your function, use <see cref="MassContest(PhysicsComponent, PhysicsComponent, bool, float)" /> instead
     /// </summary>
     /// <remarks>
     ///     bypassClamp is a deprecated input intended for supporting legacy Nyanotrasen systems. Do not use it if you don't know what you're doing.
@@ -262,15 +262,15 @@ public sealed partial class ContestsSystem : EntitySystem
 
     #region Mind Contests
 
-    /// <summary>
-    ///     Returns the ratio of casting stats between a performer and the presumed average latent psionic.
-    ///     Uniquely among Contests, not being Psionic is not a failure condition, and is instead a variable.
-    ///     If you do not have a PsionicComponent, your combined casting stats are assumed to be 0.1f
-    /// </summary>
-    /// <remarks>
-    ///     This can produce some truly astounding modifiers, so be ready to meet god if you bypass the clamp.
-    ///     By bypassing this function's clamp you hereby agree to forfeit your soul to VMSolidus should unintended bugs occur.
-    /// </remarks>
+    // <summary>
+    //     Returns the ratio of casting stats between a performer and the presumed average latent psionic.
+    //     Uniquely among Contests, not being Psionic is not a failure condition, and is instead a variable.
+    //     If you do not have a PsionicComponent, your combined casting stats are assumed to be 0.1f
+    // </summary>
+    // <remarks>
+    //     This can produce some truly astounding modifiers, so be ready to meet god if you bypass the clamp.
+    //     By bypassing this function's clamp you hereby agree to forfeit your soul to VMSolidus should unintended bugs occur.
+    // </remarks>
     //public float MindContest(EntityUid performer, bool bypassClamp = false, float rangeFactor = 1f, float otherPsion = AveragePsionicPotential)
     //{
     //    if (!_cfg.GetCVar(CCVars.DoContestsSystem)
@@ -291,14 +291,14 @@ public sealed partial class ContestsSystem : EntitySystem
     //            1 + _cfg.GetCVar(CCVars.MassContestsMaxPercentage) * rangeFactor));
     //}
 
-    /// <summary>
-    ///     Returns the ratio of casting stats between a performer and a target.
-    ///     Like with single-Uid MindContests, if an entity does not possess a PsionicComponent, its casting stats are assumed to be 0.1f.
-    /// </summary>
-    /// <remarks>
-    ///     This can produce some truly astounding modifiers, so be ready to meet god if you bypass the clamp.
-    ///     By bypassing this function's clamp you hereby agree to forfeit your soul to VMSolidus should unintended bugs occur.
-    /// </remarks>
+    // <summary>
+    //     Returns the ratio of casting stats between a performer and a target.
+    //     Like with single-Uid MindContests, if an entity does not possess a PsionicComponent, its casting stats are assumed to be 0.1f.
+    // </summary>
+    // <remarks>
+    //     This can produce some truly astounding modifiers, so be ready to meet god if you bypass the clamp.
+    //     By bypassing this function's clamp you hereby agree to forfeit your soul to VMSolidus should unintended bugs occur.
+    // </remarks>
     //public float MindContest(EntityUid performer, EntityUid target, bool bypassClamp = false, float rangeFactor = 1f)
     //{
     //    if (!_cfg.GetCVar(CCVars.DoContestsSystem)
@@ -327,12 +327,12 @@ public sealed partial class ContestsSystem : EntitySystem
 
     #region Mood Contests
 
-    /// <summary>
-    ///     Outputs the ratio of an Entity's mood level and its Neutral Mood threshold.
-    /// </summary>
-    /// <remarks>
-    ///     bypassClamp is a deprecated input intended for supporting legacy Nyanotrasen systems. Do not use it if you don't know what you're doing.
-    /// </remarks>
+    // <summary>
+    //     Outputs the ratio of an Entity's mood level and its Neutral Mood threshold.
+    // </summary>
+    // <remarks>
+    //     bypassClamp is a deprecated input intended for supporting legacy Nyanotrasen systems. Do not use it if you don't know what you're doing.
+    // </remarks>
     //public float MoodContest(EntityUid performer, bool bypassClamp = false, float rangeFactor = 1f)
     //{
     //    if (!_cfg.GetCVar(CCVars.DoContestsSystem)
@@ -347,12 +347,12 @@ public sealed partial class ContestsSystem : EntitySystem
     //            1 + _cfg.GetCVar(CCVars.MassContestsMaxPercentage) * rangeFactor));
     //}
 
-    /// <summary>
-    ///     Outputs the ratio of mood level between two Entities.
-    /// </summary>
-    /// <remarks>
-    ///     bypassClamp is a deprecated input intended for supporting legacy Nyanotrasen systems. Do not use it if you don't know what you're doing.
-    /// </remarks>
+    // <summary>
+    //     Outputs the ratio of mood level between two Entities.
+    // </summary>
+    // <remarks>
+    //     bypassClamp is a deprecated input intended for supporting legacy Nyanotrasen systems. Do not use it if you don't know what you're doing.
+    // </remarks>
     //public float MoodContest(EntityUid performer, EntityUid target, bool bypassClamp = false, float rangeFactor = 1f)
     //{
     //    if (!_cfg.GetCVar(CCVars.DoContestsSystem)

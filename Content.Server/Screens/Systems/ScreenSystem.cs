@@ -26,7 +26,7 @@ public sealed class ScreenSystem : EntitySystem
 
     /// <summary>
     ///     Calls either a normal screen text update or shuttle timer update based on the presence of
-    ///     <see cref="ShuttleTimerMasks.ShuttleMap"/> in <see cref="args.Data"/>
+    ///     <see cref="ShuttleTimerMasks.ShuttleMap"/> in args.Data
     /// </summary>
     private void OnPacketReceived(EntityUid uid, ScreenComponent component, DeviceNetworkPacketEvent args)
     {

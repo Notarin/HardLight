@@ -156,7 +156,7 @@ public sealed partial class ReactorPartComponent : Component
     #endregion
 
     /// <summary>
-    /// Creates a new <see cref="ReactorPartComponent"> with information from an existing one.
+    /// Creates a new <see cref="ReactorPartComponent"/> with information from an existing one.
     /// </summary>
     /// <param name="source"></param>
     public ReactorPartComponent(ReactorPartComponent source)

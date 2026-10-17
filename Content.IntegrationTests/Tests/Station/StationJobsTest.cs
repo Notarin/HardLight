@@ -460,7 +460,7 @@ public sealed class StationJobsTest
     [Test]
     public async Task ShipCrewHiringEligibilityTest()
     {
-        await using var pair = await PoolManager.GetServerClient(new PoolSettings() { Connected = true }); /// HL: Me need a connected client for this
+        await using var pair = await PoolManager.GetServerClient(new PoolSettings() { Connected = true }); // HL: Me need a connected client for this
         var server = pair.Server;
 
         var prototypeManager = server.ResolveDependency<IPrototypeManager>();

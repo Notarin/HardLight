@@ -7,9 +7,9 @@ using Robust.Client.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 
-/// <summary>
-/// EVERYTHING HERE IS A MODIFIED VERSION OF CRIMINAL RECORDS
-/// </summary>
+// <summary>
+// EVERYTHING HERE IS A MODIFIED VERSION OF CRIMINAL RECORDS
+// </summary>
 
 namespace Content.Client.PsionicsRecords;
 

@@ -98,7 +98,7 @@ public sealed class StoreDiscountSystem : EntitySystem
     /// </remarks>
     /// <param name="totalAvailableDiscounts">
     /// Total amount of different listing items to be discounted. Depending on <see cref="DiscountCategoryPrototype.MaxItems"/>
-    /// there might be less discounts then <see cref="totalAvailableDiscounts"/>, but never more.
+    /// there might be less discounts then totalAvailableDiscounts, but never more.
     /// </param>
     /// <param name="categoriesWithCumulativeWeightMap">
     /// Map of discount category cumulative weights by respective protoId of discount category.

@@ -43,7 +43,7 @@ public sealed partial class RadioMicrophoneComponent : Component
 
     // Nuclear-14
     /// <summary>
-    // The radio frequency on which the message will be transmitted
+    /// The radio frequency on which the message will be transmitted
     /// </summary>
     [DataField]
     public int Frequency = 1459; // Common channel frequency

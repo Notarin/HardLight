@@ -17,7 +17,7 @@ namespace Content.Client.TextScreen;
 /// the update method only updates the timers, so the timercomp is added/removed by appearance changes/timing out.
 
 /// Because the sprite component stores layers in a dict with no nesting, individual layers
-/// have to be mapped to unique ids e.g. {"textMapKey01" : <first row, second char layerstate>}
+/// have to be mapped to unique ids e.g. {"textMapKey01" : &lt;first row, second char layerstate&gt;}
 /// in either the visuals or timer component.
 
 
@@ -81,7 +81,7 @@ public sealed class TextScreenSystem : VisualizerSystem<TextScreenVisualsCompone
     }
 
     /// <summary>
-    ///     Instantiates <see cref="SpriteComponent.Layers"/> with {<see cref="TimerMapKey"/> + int : <see cref="DefaultState"/>} pairs.
+    ///     Instantiates SpriteComponent.Layers with {<see cref="TimerMapKey"/> + int : <see cref="DefaultState"/>} pairs.
     /// </summary>
     private void OnTimerInit(EntityUid uid, TextScreenTimerComponent timer, ComponentInit args)
     {
@@ -241,7 +241,7 @@ public sealed class TextScreenSystem : VisualizerSystem<TextScreenVisualsCompone
     }
 
     /// <summary>
-    ///     Populates timer.LayerStatesToDraw & the sprite component's layer dict with calculated offsets.
+    ///     Populates timer.LayerStatesToDraw &amp; the sprite component's layer dict with calculated offsets.
     /// </summary>
     private void BuildTimerLayers(EntityUid uid, TextScreenTimerComponent timer, TextScreenVisualsComponent screen)
     {

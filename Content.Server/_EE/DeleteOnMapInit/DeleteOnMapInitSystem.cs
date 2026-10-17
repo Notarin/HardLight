@@ -13,8 +13,8 @@ namespace Content.Server._EE.DeleteOnMapInit
 
         private void OnMapInit(EntityUid uid, DeleteOnMapInitComponent comp, MapInitEvent args)
         {
-            ///var ev = new AmputateAttemptEvent(uid);
-            ///RaiseLocalEvent(uid, ref ev);
+            //var ev = new AmputateAttemptEvent(uid);
+            //RaiseLocalEvent(uid, ref ev);
             QueueDel(uid);
         }
     }

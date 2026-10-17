@@ -31,7 +31,7 @@ using Robust.Client.State;
 namespace Content.IntegrationTests.Tests.Interaction;
 
 /// <summary>
-/// This is a base class designed to make it easier to test various interactions like construction & DoAfters.
+/// This is a base class designed to make it easier to test various interactions like construction &amp; DoAfters.
 ///
 /// For construction tests, the interactions are intentionally hard-coded and not pulled automatically from the
 /// construction graph, even though this may be a pain to maintain. This is because otherwise these tests could not

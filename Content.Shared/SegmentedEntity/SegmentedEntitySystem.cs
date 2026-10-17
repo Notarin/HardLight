@@ -263,12 +263,12 @@ public sealed partial class LamiaSystem : EntitySystem
 
 
     //Commented out all storage entry/removal events. These changes are handled in the parenting event instead.
-    /// <summary>
-    /// Checks if the segmented entity has been inserted into a container and deletes their segments if true. This prevents further issues with segment logic.
-    /// <see cref="OnInsertedIntoContainer"/> failed to execute, so its code was copied to this event handler instead.
-    /// </summary>
-    /// <param name="ent"></param>
-    /// <param name="args"></param>
+    // <summary>
+    // Checks if the segmented entity has been inserted into a container and deletes their segments if true. This prevents further issues with segment logic.
+    // <see cref="OnInsertedIntoContainer"/> failed to execute, so its code was copied to this event handler instead.
+    // </summary>
+    // <param name="ent"></param>
+    // <param name="args"></param>
     //private void OnGotInsertedIntoContainer(Entity<SegmentedEntityComponent> ent, ref EntGotInsertedIntoContainerMessage args)
     //{
     //    ent.Deconstruct(out var entityUid, out var component);

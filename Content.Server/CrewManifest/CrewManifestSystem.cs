@@ -117,7 +117,6 @@ public sealed class CrewManifestSystem : EntitySystem
     /// <summary>
     ///     Gets the crew manifest for a given station, along with the name of the station.
     /// </summary>
-    /// <param name="station">Entity uid of the station.</param>
     /// <returns>The name and crew manifest entries (unordered) of the station.</returns>
     public CrewManifestEntries GetCrewManifest() // coyote: remove args, remove name
     {

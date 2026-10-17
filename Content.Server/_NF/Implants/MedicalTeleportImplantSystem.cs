@@ -24,10 +24,10 @@ namespace Content.Server._NF.Implants;
 
 /// <summary>
 /// Handles delayed teleportation for entities implanted with <see cref="MedicalTeleportImplantComponent"/>.
-// HardLight start
+/// <!-- HardLight start -->
 /// When the implanted owner dies on a salvage expedition map, a fulton-like extraction is scheduled.
 /// If the owner is revived before the timer elapses, the extraction is canceled.
-// HardLight end
+/// <!-- HardLight end -->
 /// </summary>
 public sealed class MedicalTeleportImplantSystem : EntitySystem
 {

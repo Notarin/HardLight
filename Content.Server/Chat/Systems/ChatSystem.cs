@@ -383,7 +383,7 @@ public sealed partial class ChatSystem : SharedChatSystem
     /// <param name="message">The contents of the message</param>
     /// <param name="source">The entity making the announcement (used to determine the station)</param>
     /// <param name="sender">The sender (Communications Console in Communications Console Announcement)</param>
-    /// <param name="playDefaultSound">Play the announcement sound</param>
+    /// <param name="playSound">Play the announcement sound</param>
     /// <param name="announcementSound">Sound to play</param>
     /// <param name="colorOverride">Optional color for the announcement message</param>
     public void DispatchFilteredAnnouncement(

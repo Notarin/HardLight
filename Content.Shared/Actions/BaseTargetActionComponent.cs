@@ -36,7 +36,7 @@ public abstract partial class BaseTargetActionComponent : BaseActionComponent
     [DataField("interactOnMiss")] public bool InteractOnMiss = false;
 
     /// <summary>
-    ///     If true, and if <see cref="ShowHandItemOverlay"/> is enabled, then this action's icon will be drawn by that
+    ///     If true, and if ShowHandItemOverlay is enabled, then this action's icon will be drawn by that
     ///     over lay in place of the currently held item "held item".
     /// </summary>
     [DataField("targetingIndicator")] public bool TargetingIndicator = true;

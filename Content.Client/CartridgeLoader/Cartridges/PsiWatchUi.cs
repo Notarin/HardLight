@@ -3,9 +3,7 @@ using Content.Shared.CartridgeLoader;
 using Content.Shared.CartridgeLoader.Cartridges;
 using Robust.Client.UserInterface;
 
-/// <summary>
-/// ADAPTED FROM SECWATCH - DELTAV
-/// </summary>
+// ADAPTED FROM SECWATCH - DELTAV
 
 namespace Content.Client.CartridgeLoader.Cartridges;
 

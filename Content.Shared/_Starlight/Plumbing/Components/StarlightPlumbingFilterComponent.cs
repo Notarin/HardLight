@@ -7,7 +7,7 @@ namespace Content.Shared._Starlight.Plumbing.Components;
 /// <summary>
 ///     A plumbing filter that separates reagents into two outputs.
 ///     Pulls reagents from the inlet into a buffer, then restricts which reagents
-///     can be pulled from each outlet via <see cref="PlumbingPullAttemptEvent"/>.
+///     can be pulled from each outlet via PlumbingPullAttemptEvent.
 ///     Filter outlet only provides reagents in the filter list.
 ///     Passthrough outlet only provides reagents NOT in the filter list.
 /// </summary>

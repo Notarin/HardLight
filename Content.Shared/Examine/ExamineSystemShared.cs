@@ -194,8 +194,8 @@ namespace Content.Shared.Examine
             }
 
             var ray = new Ray(origin.Position, dir.Normalized());
-            var rayResults = _occluder
-                .IntersectRayWithPredicate(origin.MapId, ray, length, state, predicate, false);
+            var rayResults = new List<RayCastResults>();
+            _occluder.IntersectRay(rayResults, origin.MapId, ray, length, (state, predicate), static (e, s) => s.predicate(e.Owner, s.state));
 
             if (rayResults.Count == 0) return true;
 

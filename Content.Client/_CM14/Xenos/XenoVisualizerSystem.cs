@@ -19,8 +19,8 @@ public sealed class XenoVisualizerSystem : VisualizerSystem<XenoComponent>
             return;
 
         // Prefer the XenoVisualLayers.Base mapping, but fall back to DamageStateVisualLayers.Base
-        if (!sprite.LayerMapTryGet(XenoVisualLayers.Base, out var layer) &&
-            !sprite.LayerMapTryGet(DamageStateVisualLayers.Base, out layer))
+        if (!SpriteSystem.LayerMapTryGet((uid, sprite), XenoVisualLayers.Base, out var layer, false) &&
+            !SpriteSystem.LayerMapTryGet((uid, sprite), DamageStateVisualLayers.Base, out layer, false))
             return;
 
         var state = CompOrNull<MobStateComponent>(uid)?.CurrentState;
@@ -31,13 +31,13 @@ public sealed class XenoVisualizerSystem : VisualizerSystem<XenoComponent>
                 ClearDrawDepth((uid, component, sprite));
 
                 if (rsi.TryGetState("crit", out _))
-                    sprite.LayerSetState(layer, "crit");
+                    SpriteSystem.LayerSetRsiState((uid, sprite), layer, "crit");
                 break;
             case MobState.Dead:
                 SetDrawDepth((uid, component, sprite));
 
                 if (rsi.TryGetState("dead", out _))
-                    sprite.LayerSetState(layer, "dead");
+                    SpriteSystem.LayerSetRsiState((uid, sprite), layer, "dead");
                 break;
             default:
                 ClearDrawDepth((uid, component, sprite));
@@ -46,32 +46,32 @@ public sealed class XenoVisualizerSystem : VisualizerSystem<XenoComponent>
                     resting is XenoRestState.Resting)
                 {
                     if (rsi.TryGetState("sleeping", out _))
-                        sprite.LayerSetState(layer, "sleeping");
+                        SpriteSystem.LayerSetRsiState((uid, sprite), layer, "sleeping");
                     break;
                 }
 
                 if (rsi.TryGetState("alive", out _))
-                    sprite.LayerSetState(layer, "alive");
+                    SpriteSystem.LayerSetRsiState((uid, sprite), layer, "alive");
                 break;
         }
     }
 
     private void SetDrawDepth(Entity<XenoComponent, SpriteComponent> ent)
     {
-        var (_, xeno, sprite) = ent;
+        var (uid, xeno, sprite) = ent;
         if (sprite.DrawDepth > (int)DrawDepth.DeadMobs)
         {
             xeno.OriginalDrawDepth = sprite.DrawDepth;
-            sprite.DrawDepth = (int)DrawDepth.DeadMobs;
+            SpriteSystem.SetDrawDepth((uid, sprite), (int)DrawDepth.DeadMobs);
         }
     }
 
     private void ClearDrawDepth(Entity<XenoComponent, SpriteComponent> ent)
     {
-        var (_, xeno, sprite) = ent;
+        var (uid, xeno, sprite) = ent;
         if (xeno.OriginalDrawDepth != null)
         {
-            sprite.DrawDepth = xeno.OriginalDrawDepth.Value;
+            SpriteSystem.SetDrawDepth((uid, sprite), xeno.OriginalDrawDepth.Value);
             xeno.OriginalDrawDepth = null;
         }
     }

@@ -263,7 +263,7 @@ namespace Content.Client.Hands.Systems
             if (component.RevealedLayers.TryGetValue(location, out var revealedLayers))
             {
                 foreach (var key in revealedLayers)
-                    sprite.RemoveLayer(key);
+                    _sprite.RemoveLayer((uid, sprite), key);
 
                 revealedLayers.Clear();
             }
@@ -391,7 +391,7 @@ namespace Content.Client.Hands.Systems
                     _ => handComp.HandDisplacement
                 };
 
-                if (displacement is not null && _displacement.TryAddDisplacement(displacement, sprite, index, key, out var displacementKey))
+                if (displacement is not null && _displacement.TryAddDisplacement(displacement, (uid, sprite), index, key, out var displacementKey))
                     revealedLayers.Add(displacementKey);
             }
 

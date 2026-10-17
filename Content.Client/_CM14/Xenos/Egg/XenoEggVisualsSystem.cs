@@ -44,6 +44,6 @@ public sealed class XenoEggVisualsSystem : EntitySystem
             _ => ent.Comp.ItemState
         };
 
-        sprite.LayerSetState(XenoEggLayers.Base, state);
+        _spriteSystem.LayerSetRsiState((ent, sprite), XenoEggLayers.Base, state);
     }
 }

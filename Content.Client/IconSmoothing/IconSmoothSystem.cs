@@ -381,7 +381,7 @@ namespace Content.Client.IconSmoothing
         {
             if (gridEntity == null)
             {
-                sprite.Comp.LayerSetState(0, $"{smooth.StateBase}0");
+                _sprite.LayerSetRsiState((sprite.Owner, sprite.Comp), 0, $"{smooth.StateBase}0");
                 return;
             }
 
@@ -413,7 +413,7 @@ namespace Content.Client.IconSmoothing
                     value = 4;
             }
 
-            sprite.Comp.LayerSetState(0, $"{smooth.StateBase}{value}");
+            _sprite.LayerSetRsiState((sprite.Owner, sprite.Comp), 0, $"{smooth.StateBase}{value}");
         }
 
         // Check if a particular window/wall allows smoothing on a given edge

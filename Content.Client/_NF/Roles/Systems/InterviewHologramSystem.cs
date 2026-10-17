@@ -14,6 +14,7 @@ public sealed class InterviewHologramSystem : SharedInterviewHologramSystem
 {
     [Dependency] private IPrototypeManager _prototype = default!;
     [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private readonly SpriteSystem _sprite = default!;
 
     private readonly Dictionary<EntityUid, HologramVisualState> _visualStates = new();
 
@@ -66,9 +67,9 @@ public sealed class InterviewHologramSystem : SharedInterviewHologramSystem
         }
 
         var layerCount = sprite.AllLayers.Count();
-        if (visualState.LayerCount != layerCount || NeedsLayerShaderRefresh(sprite))
+        if (visualState.LayerCount != layerCount || NeedsLayerShaderRefresh(uid, sprite))
         {
-            ApplyHologramVisuals(sprite, hologramComp);
+            ApplyHologramVisuals(uid, sprite, hologramComp);
             visualState.LayerCount = layerCount;
         }
 
@@ -76,11 +77,11 @@ public sealed class InterviewHologramSystem : SharedInterviewHologramSystem
         return visualState;
     }
 
-    private static bool NeedsLayerShaderRefresh(SpriteComponent sprite)
+    private bool NeedsLayerShaderRefresh(EntityUid uid, SpriteComponent sprite)
     {
         for (var i = 0; i < sprite.AllLayers.Count(); i++)
         {
-            if (!sprite.TryGetLayer(i, out var layer)
+            if (!_sprite.TryGetLayer((uid, sprite), i, out var layer, false)
                 || layer.ShaderPrototype == "DisplacedStencilDraw"
                 || layer.ShaderPrototype == "unshaded")
             {
@@ -93,15 +94,15 @@ public sealed class InterviewHologramSystem : SharedInterviewHologramSystem
         return false;
     }
 
-    private static void ApplyHologramVisuals(SpriteComponent sprite, InterviewHologramComponent hologramComp)
+    private void ApplyHologramVisuals(EntityUid uid, SpriteComponent sprite, InterviewHologramComponent hologramComp)
     {
-        sprite.Color = Color.White;
-        sprite.Offset = hologramComp.Offset;
-        sprite.DrawDepth = (int)DrawDepth.Mobs;
+        _sprite.SetColor((uid, sprite), Color.White);
+        _sprite.SetOffset((uid, sprite), hologramComp.Offset);
+        _sprite.SetDrawDepth((uid, sprite), (int)DrawDepth.Mobs);
 
         for (var i = 0; i < sprite.AllLayers.Count(); i++)
         {
-            if (sprite.TryGetLayer(i, out var layer) && layer.ShaderPrototype != "DisplacedStencilDraw")
+            if (_sprite.TryGetLayer((uid, sprite), i, out var layer, false) && layer.ShaderPrototype != "DisplacedStencilDraw")
                 sprite.LayerSetShader(i, "unshaded");
         }
     }

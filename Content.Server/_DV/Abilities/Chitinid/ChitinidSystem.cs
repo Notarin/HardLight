@@ -1,7 +1,6 @@
 using Content.Server.Nutrition.Components;
 using Content.Shared.Actions;
 using Content.Shared.Actions.Events;
-using Content.Shared.Audio;
 using Content.Shared.Damage;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Inventory;
@@ -91,7 +90,7 @@ public sealed partial class ChitinidSystem : EntitySystem
         }
 
         _popup.PopupEntity(Loc.GetString("chitzite-cough", ("name", Identity.Entity(ent, EntityManager))), ent);
-        _audio.PlayPvs(new SoundPathSpecifier("/Audio/Animals/cat_hiss.ogg"), ent, AudioHelpers.WithVariation(0.15f));
+        _audio.PlayPvs(new SoundPathSpecifier("/Audio/Animals/cat_hiss.ogg"), ent, AudioParams.Default.WithVariation(0.15f));
 
         var chitzite = EnsureComp<CoughingUpChitziteComponent>(ent);
         chitzite.NextCough = _timing.CurTime + chitzite.CoughUpTime;

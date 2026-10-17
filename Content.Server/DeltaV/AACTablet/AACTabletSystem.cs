@@ -13,7 +13,7 @@ public sealed class AACTabletSystem : EntitySystem
     [Dependency] private readonly ChatSystem _chat = default!;
     [Dependency] private readonly ILocalizationManager _loc = default!;
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] protected readonly IGameTiming Timing = default!;
+    [Dependency] private readonly IGameTiming Timing = default!;
 
     public override void Initialize()
     {
